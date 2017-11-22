@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="CMiX.Counter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:CMiX="clr-namespace:CMiX"
+             mc:Ignorable="d" 
+             d:DesignHeight="91.691" d:DesignWidth="699.466">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Brushes/GenericBrushes.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseButtonStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseLabelStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <CMiX:IndexToCountConverter x:Key="IndexToCount"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <DockPanel LastChildFill="True">
+            <Button x:Name="AddValue" Grid.Column="1" Margin="1" DockPanel.Dock="Right" Content="+" Click="Button_Add" Style="{DynamicResource BaseButtonStyle}" Width="{Binding ActualHeight, ElementName=AddValue, Mode=OneWay}"/>
+            <Button x:Name="SubValue" Grid.Column="0" Margin="1" DockPanel.Dock="Right" Content="-" Click="Button_Sub" Style="{DynamicResource BaseButtonStyle}" Width="{Binding ActualHeight, ElementName=AddValue, Mode=OneWay}"/>
+            <Label x:Name="CounterValue" Margin="1" DataObject.Pasting="TextBoxPasting" Content="{Binding Count, Mode=TwoWay, Converter={StaticResource IndexToCount}, RelativeSource={RelativeSource AncestorType={x:Type CMiX:Counter}}}" Style="{DynamicResource BaseLabelStyle}" FontSize="20" PreviewTextInput="CounterValue_PreviewTextInput" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="1"/>
+        </DockPanel>
+    </Grid>
+</UserControl>

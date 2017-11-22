@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="CMiX.FFTControls"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:CMiX="clr-namespace:CMiX"
+             x:Name="FFTCtrl"
+             mc:Ignorable="d" 
+             d:DesignHeight="75.892" d:DesignWidth="151.783">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Brushes/GenericBrushes.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseSliderStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseComboBoxStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseComboBoxItemStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseComboBoxItemPanelStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <CMiX:CustomSlider Tag="Influence" Margin="1" Value="{Binding FFTInfluence, RelativeSource={RelativeSource AncestorType={x:Type CMiX:FFTControls}}}"/>
+        <ComboBox x:Name="combobox" Grid.ColumnSpan="4" Grid.Row="1" Margin="0" Template="{DynamicResource BaseComboBoxStyle}" ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}" ItemsSource="{Binding FFTNames, ElementName=FFTCtrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding SelectedFFT, ElementName=FFTCtrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+    </Grid>
+</UserControl>

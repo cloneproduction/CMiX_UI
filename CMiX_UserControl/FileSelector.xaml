@@ -1,0 +1,48 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:CMiX="clr-namespace:CMiX" 
+    x:Class="CMiX.FileSelector"
+    x:Name="F_Selector"
+    mc:Ignorable="d" d:DesignHeight="74.488" d:DesignWidth="100.482">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Brushes/GenericBrushes.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseButtonStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseTextBoxStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseListBoxControlStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseListBoxItemStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <CMiX:PathToFilenameConverter x:Key="PathToFileName"/>
+            <CMiX:AltBackgroundConverter x:Key="AltBackground"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <CMiX:CMiXListBox  x:Name="FileNameList" Grid.Row="1"
+            HorizontalContentAlignment="Stretch"
+            SelectionChanged="FileNameList_SelectionChanged"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            AllowDrop="True"
+            PreviewDrop="FileListBox_Drop"
+            PreviewMouseDown="FileNameList_PreviewMouseDown"
+            PreviewMouseMove="FileListBox_PreviewMouseMove"
+            Template="{DynamicResource BaseListBoxControlStyle}"
+            ItemsSource="{Binding SelectedItems, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:FileSelector}}}"
+            SelectionMode="{Binding ModeSelection,Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:FileSelector}}}">
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+                <StackPanel  Orientation="Horizontal">
+                    <Button x:Name="DeleteFileName" Content="X" Click="DeleteFileName_Click" Style="{DynamicResource BaseButtonStyle}" Width="{Binding ActualHeight, ElementName=DeleteFileName}"/>
+                    <TextBlock Text="{Binding FileName, Mode=TwoWay, Converter={StaticResource PathToFileName}, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+        <ListBox.ItemContainerStyle>
+            <Style TargetType="ListBoxItem" BasedOn="{StaticResource BaseListBoxItemStyle}">
+                <Setter Property="IsSelected" Value="{Binding FileIsSelected, Mode=TwoWay}"/>
+            </Style>
+        </ListBox.ItemContainerStyle>
+    </CMiX:CMiXListBox>
+</UserControl>

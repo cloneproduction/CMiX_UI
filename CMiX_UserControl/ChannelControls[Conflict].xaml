@@ -1,0 +1,411 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CMiX"
+             xmlns:System="clr-namespace:System;assembly=mscorlib" 
+             xmlns:CMiX="clr-namespace:CMiX" 
+             x:Class="CMiX.ChannelControls"
+             xmlns:colorPicker="clr-namespace:ColorPicker;assembly=ColorPicker"
+             mc:Ignorable="d"
+             x:Name="Ch_Parameters" FontFamily="Segoe UI Semibold" d:DesignWidth="1227.239" d:DesignHeight="755.471" >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Brushes/GenericBrushes.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseRadioButtonStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseScrollViewerStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseButtonStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseComboBoxStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseComboBoxItemStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseComboBoxItemPanelStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseToggleButtonStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseTextBoxStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseTabControlStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseTabItemStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseLabelStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseSliderStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseGroupBoxStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseListBoxControlStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseListBoxItemStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseMenuStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseMenuItemStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseContextMenuStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <CMiX:PathToFilenameConverter x:Key="PathToFileName"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="2" DockPanel.Dock="Right">
+            <Grid Grid.Row="0" Margin="4" Background="{DynamicResource BaseHighDarkerColor}">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Foreground="{DynamicResource BaseHighLightColor}" Grid.Row="0"  Content="COLOR" HorizontalContentAlignment="Center"/>
+                <TabControl Grid.Row="1"  Style="{DynamicResource BaseTabControlStyle}" Margin="1">
+                    <TabItem Header="FG" Style="{DynamicResource BaseTabItemStyle}"  MaxHeight="20">
+                        <colorPicker:ColorPicker x:Name="ChannelColorPicker" SelectedColor="{Binding ChannelColor, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </TabItem>
+                    <TabItem Header="BG" Style="{DynamicResource BaseTabItemStyle}"  MaxHeight="20">
+                        <colorPicker:ColorPicker x:Name="ChannelBgColorPicker" SelectedColor="{Binding ChannelBgColor, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+            <Grid Grid.Row="1" Margin="4" Background="{DynamicResource BaseHighDarkerColor}">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Foreground="{DynamicResource BaseHighLightColor}" Grid.Row="0"  Content="MOD" HorizontalContentAlignment="Center"/>
+                <Grid Grid.Row="1" Height="90">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <DockPanel Grid.Row="0">
+                        <Label x:Name="HueRangeLabel"  Padding="1" Grid.Column="0" Content="H" Style="{DynamicResource BaseLabelStyle}" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                        <CMiX:CustomSlider x:Name="HueRangeSlider" Grid.Column="1" Value="{Binding HueRange, RelativeSource={RelativeSource AncestorType={x:Type local:ChannelControls}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="1">
+                        <Label x:Name="SatRangeLabel" Grid.Column="0" Padding="1" Content="S" Style="{DynamicResource BaseLabelStyle}" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                        <CMiX:CustomSlider x:Name="SatRangeSlider" Grid.Column="1" Value="{Binding SatRange, RelativeSource={RelativeSource AncestorType={x:Type local:ChannelControls}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="2">
+                        <Label x:Name="ValRangeLabel" Grid.Column="0"  Padding="1" Content="V" Style="{DynamicResource BaseLabelStyle}" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                        <CMiX:CustomSlider x:Name="ValRangeSlider" Grid.Column="1" Value="{Binding ValRange, RelativeSource={RelativeSource AncestorType={x:Type local:ChannelControls}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </DockPanel>
+
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="2" Margin="4" Background="{DynamicResource BaseHighDarkerColor}">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Foreground="{DynamicResource BaseHighLightColor}" Grid.Row="0"  Content="FFT" HorizontalContentAlignment="Center"/>
+                <CMiX:FFTControls Grid.Row="1" Height="60"
+                                SelectedFFT="{Binding SelectedFFTNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                FFTNames="{Binding FFTNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                FFTInfluence="{Binding FFTAmount, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            />
+            </Grid>
+        </StackPanel>
+        <DockPanel Grid.ColumnSpan="2">
+
+            <DockPanel x:Name="ChFX" Margin="4" Height="60" VerticalAlignment="Top" Grid.Row="0" DockPanel.Dock="Top">
+                <Border Background="{DynamicResource BaseHighDarkerColor}">
+                    <Label Foreground="{DynamicResource BaseHighLightColor}" Grid.Row="0"  Content="FX" VerticalAlignment="Center"/>
+                </Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <DockPanel Grid.Row="0">
+                            <Label x:Name="LabelCon" Padding="1" Content="CON" Style="{DynamicResource BaseLabelStyle}" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                            <CMiX:CustomSlider x:Name="ChannelContrast" Grid.Column="1" Grid.Row="0" Value="{Binding ChContrast, RelativeSource={RelativeSource AncestorType={x:Type local:ChannelControls}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DockPanel>
+                        <DockPanel Grid.Row="1">
+                            <Label x:Name="LabelBri" Padding="1" Content="BRI" Style="{DynamicResource BaseLabelStyle}" Margin="0" Grid.Column="0" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                            <CMiX:CustomSlider x:Name="ChannelBrightness" Grid.Column="1" Grid.Row="0" Value="{Binding ChBrightness, RelativeSource={RelativeSource AncestorType={x:Type local:ChannelControls}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DockPanel>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+
+                        </Grid.RowDefinitions>
+                        <DockPanel Grid.Row="0">
+                            <Label x:Name="LabelSat" Padding="1" Content="SAT" Style="{DynamicResource BaseLabelStyle}" Margin="0" Grid.Column="0" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                            <CMiX:CustomSlider x:Name="ChannelSaturation" Grid.Column="1" Grid.Row="0" Value="{Binding ChSaturation, RelativeSource={RelativeSource AncestorType={x:Type local:ChannelControls}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DockPanel>
+                        <DockPanel Grid.Row="1" Grid.Column="1">
+                            <Label x:Name="LabelInvert" Padding="1" Content="INV" Style="{DynamicResource BaseLabelStyle}" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                            <CMiX:CustomSlider x:Name="ChannelInvert" Grid.Column="1" Grid.Row="0" Value="{Binding ChInvert, RelativeSource={RelativeSource AncestorType={x:Type local:ChannelControls}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DockPanel>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <DockPanel Grid.Row="0" >
+                            <Label x:Name="TransformTexture" Padding="1" Content="tTEX" Style="{DynamicResource BaseLabelStyle}" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+
+                            <ComboBox x:Name="TextureTransform" Template="{DynamicResource BaseComboBoxStyle}" ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}" ItemsSource="{Binding DataContext.TexTransform, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding SelectedTexTransform, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" />
+
+                        </DockPanel>
+                        <DockPanel Grid.Row="1" >
+                            <Label x:Name="LabelFeedBack" Padding="1" Content="FBK" Style="{DynamicResource BaseLabelStyle}" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                            <CMiX:CustomSlider x:Name="ChannelFeedBack" Grid.Column="1" Grid.Row="0" Value="{Binding ChFeedBack, RelativeSource={RelativeSource AncestorType={x:Type local:ChannelControls}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DockPanel>
+                    </Grid>
+                </Grid>
+            </DockPanel>
+            <ScrollViewer Grid.Row="1"  ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="4" Style="{DynamicResource BaseScrollViewer}">
+                <Grid Margin="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <DockPanel x:Name="C" Margin="4" LastChildFill="True">
+                        <DockPanel DockPanel.Dock="top">
+                            <Border Background="{DynamicResource BaseHighDarkerColor}" BorderBrush="{DynamicResource BaseDarkColor}">
+                                <Label Foreground="{DynamicResource BaseHighLightColor}" Grid.Row="0"  Content="CONTENT" VerticalAlignment="Center"/>
+                            </Border>
+
+                        </DockPanel>
+                        <CMiX:FileSelector x:Name="GeometryFileSelector" DockPanel.Dock="Bottom"  ModeSelection="Single" Margin="2" Height="150" Grid.Column="0" FileNamesItems="{Binding GeometryNamesItems, ElementName=Ch_Parameters, Mode=TwoWay}" DefaultFolder="{Binding GeometryDefaultFolder, ElementName=Ch_Parameters, Mode=TwoWay}"/>
+                        <Grid DockPanel.Dock="Bottom" Height="30">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <CMiX:Counter x:Name="SpriteCountNames" Grid.Column="0" Count="{Binding SelectedSptSpreadCount, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <ToggleButton x:Name="Sprite3D" Content="3D" Grid.Column="1" Style="{DynamicResource BaseToggleButtonStyle}" IsChecked="{Binding Sprite2D3D, RelativeSource={RelativeSource AncestorType={x:Type local:ChannelControls}}}"/>
+                            <ToggleButton x:Name="AspectRatio" Grid.Column="2"  Height="30" Content="AR" Style="{DynamicResource BaseToggleButtonStyle}" IsChecked="{Binding TextureAspectRatio, RelativeSource={RelativeSource AncestorType={x:Type local:ChannelControls}}}" />
+
+                        </Grid>
+                        <Grid DockPanel.Dock="Bottom" Margin="2" Grid.Column="1" Height="90">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <DockPanel>
+                                <Label x:Name="SpriteTranslateLabel" Padding="1" Content="Tr" Style="{DynamicResource BaseLabelStyle}" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                <ComboBox x:Name="SpriteTranslateList" DockPanel.Dock="Left" Width="100" Template="{DynamicResource BaseComboBoxStyle}" ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}" ItemsSource="{Binding DataContext.SptTranslateNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding SelectedSptTranslate, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch"/>
+                                <CMiX:CustomSlider x:Name="SpriteTranslate"/>
+                            </DockPanel>
+                            <DockPanel Grid.Row="1">
+                                <Label x:Name="SpriteScaleLabel" Padding="1" Content="Sc" Style="{DynamicResource BaseLabelStyle}" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                <ComboBox x:Name="SpriteScaleList" Width="100" Template="{DynamicResource BaseComboBoxStyle}" ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}" ItemsSource="{Binding DataContext.SptScaleNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding SelectedSptScale, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <CMiX:CustomSlider x:Name="SpriteScale" Value="{Binding SptScale, RelativeSource={RelativeSource AncestorType={x:Type local:ChannelControls}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DockPanel>
+                            <DockPanel Grid.Row="2">
+                                <Label x:Name="SpriteRotationLabel" Padding="1" Content="Ro" Style="{DynamicResource BaseLabelStyle}" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                <ComboBox x:Name="SpriteRotateList" Width="100" Template="{DynamicResource BaseComboBoxStyle}" ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}"  ItemsSource="{Binding DataContext.SptRotationNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding SelectedSptRotation, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <CMiX:CustomSlider x:Name="SpriteRotation"  Value="{Binding SptRotation, RelativeSource={RelativeSource AncestorType={x:Type local:ChannelControls}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DockPanel>
+                        </Grid>
+                        <!--<DockPanel DockPanel.Dock="Bottom" Height="30">
+                            <Label x:Name="LabelSpeed" DockPanel.Dock="Left" Padding="1" Content="SPD" Style="{DynamicResource BaseLabelStyle}" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                            <CMiX:CustomSlider x:Name="VideoSpeed" Value="{Binding VidSpeed, RelativeSource={RelativeSource AncestorType={x:Type local:ChannelControls}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DockPanel>-->
+                        <CMiX:FileSelector x:Name="SpriteFileSelector" DockPanel.Dock="Top" Margin="2" ModeSelection="Extended"  Grid.Column="0" FileNamesItems="{Binding SpriteNamesItems, ElementName=Ch_Parameters, Mode=TwoWay}" DefaultFolder="{Binding SpriteDefaultFolder, ElementName=Ch_Parameters, Mode=TwoWay}"/>
+
+                        <!--<TabControl Grid.Row="1" Height="300" Style="{DynamicResource BaseTabControlStyle}" Margin="1">
+                        <TabItem Header="IMAGE" Style="{DynamicResource BaseTabItemStyle}"  MaxHeight="20">
+
+                        </TabItem>
+                        <TabItem Header="TEXT" Style="{DynamicResource BaseTabItemStyle}"  MaxHeight="20">
+                            <Grid Grid.Row="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0" Margin="1, 1, 0, 1" Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="121*"/>
+                                        <ColumnDefinition Width="197*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="0" CornerRadius="4, 0, 0, 4" Grid.ColumnSpan="2" Margin="0,0,-0.6,0.6">
+                                        <Border.Style>
+                                            <Style TargetType="{x:Type Border}">
+                                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                                <Setter Property="BorderThickness" Value="2"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsChecked, ElementName=ActiveText}" Value="true">
+                                                        <Setter Property="BorderBrush" Value="{DynamicResource ActiveColor}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <Grid Margin="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid Grid.Column="0" Margin="1" Grid.ColumnSpan="2">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="0.2*"/>
+                                                    <RowDefinition/>
+                                                </Grid.RowDefinitions>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Button x:Name="OpenTextFiles" Content="Open" Style="{DynamicResource BaseButtonStyle}" FontSize="5.333" Click="OpenTextFiles_Click"/>
+                                                    <Button x:Name="TextNext" Content="NXT" Grid.Column="1" Style="{DynamicResource BaseButtonStyle}" Click="TxtNext_Click"/>
+                                                    <Button x:Name="TextReset" Content="RES" Grid.Column="2" Style="{DynamicResource BaseButtonStyle}" Click="TxtReset_Click"/>
+                                                    <ToggleButton x:Name="TextBackward" Content="BCK" Grid.Column="3" Style="{DynamicResource BaseToggleButtonStyle}" IsChecked="{Binding TxtBackward, RelativeSource={RelativeSource AncestorType={x:Type local:ChannelControls}}}"/>
+                                                    <ToggleButton x:Name="TextManual" Content="MNL" Grid.Column="4" Style="{DynamicResource BaseToggleButtonStyle}" IsChecked="{Binding TxtManual, RelativeSource={RelativeSource AncestorType={x:Type local:ChannelControls}}}"/>
+                                                </Grid>
+                                                <TextBox x:Name="TextBoxSelector" Grid.Row="1" Style="{DynamicResource BaseTextBoxStyle}" AllowDrop="True" PreviewDragEnter="FileShowTextBox_PreviewDragEnter" PreviewDragOver="FileShowTextBox_PreviewDragEnter" PreviewDrop="FileShowTextBox_PreviewDrop" AcceptsReturn="True" FontSize="12" Text="{Binding DataContext.TxtContent, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </Grid>
+                                            <Grid Grid.Column="1">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition/>
+                                                </Grid.ColumnDefinitions>
+
+                                            </Grid>
+                                            <Grid Margin="1" Grid.Column="2">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition/>
+                                                </Grid.ColumnDefinitions>
+                                                <ComboBox x:Name="FontNameList" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Template="{DynamicResource BaseComboBoxStyle}" ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}" ItemsSource="{Binding DataContext.TxtFontnameNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding SelectedTxtFontnameNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" />
+                                                <ComboBox x:Name="CharTransformComboBox" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Template="{DynamicResource BaseComboBoxStyle}" ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}" ItemsSource="{Binding DataContext.TxtCharTransformNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding SelectedTxtCharTransformNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>-->
+                    </DockPanel>
+
+                    <StackPanel Margin="4" Grid.Column="2">
+                        <DockPanel>
+                            <ToggleButton x:Name="MaskOn" DockPanel.Dock="Left" Margin="1" Height="20" Grid.Row="0"  Style="{StaticResource BaseToggleButtonStyle}" IsChecked="{Binding MskOn, RelativeSource={RelativeSource AncestorType={x:Type local:ChannelControls}}}" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Width="{Binding ActualHeight, ElementName=MaskOn, Mode=OneWay}"/>
+                            <ToggleButton x:Name="Mask3D" DockPanel.Dock="Right" Content="3D" Style="{StaticResource BaseToggleButtonStyle}" IsChecked="{Binding Msk2D3D, RelativeSource={RelativeSource AncestorType={x:Type local:ChannelControls}}}" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                            <Label DockPanel.Dock="Left"  Foreground="{DynamicResource BaseHighLightColor}" Grid.Row="0"  Content="MASK" VerticalAlignment="Center"/>
+                        </DockPanel>
+                        <CMiX:FileSelector Grid.Row="0" x:Name="MaskGeoSelector" Margin="2" Height="150" ModeSelection="Single" FileNamesItems="{Binding MaskGeomNamesItems, ElementName=Ch_Parameters, Mode=TwoWay}" DefaultFolder="{Binding MaskDefaultFolder, ElementName=Ch_Parameters, Mode=TwoWay}"/>
+                        <CMiX:Counter x:Name="MaskSpreadCount" Height="30" Count="{Binding SelectedMskSpreadCount, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Grid Margin="2" Height="90">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <DockPanel Grid.Row="0">
+                                <Label x:Name="MaskTranslateLabel" Padding="1" Grid.Row="0" Content="Tr" Style="{DynamicResource BaseLabelStyle}" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                <ComboBox DockPanel.Dock="Left" Width="100"  Template="{DynamicResource BaseComboBoxStyle}" ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}" ItemsSource="{Binding MskTranslateNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding SelectedMskTranslate, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <CMiX:CustomSlider x:Name="MaskTranslate" Grid.Column="1" Grid.Row="0" Value="{Binding MskTranslate, RelativeSource={RelativeSource AncestorType={x:Type local:ChannelControls}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DockPanel>
+                            <DockPanel Grid.Row="1">
+                                <Label x:Name="MaskScaleLabel" Padding="1" Grid.Row="1" Content="Sc" Style="{DynamicResource BaseLabelStyle}" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                <ComboBox  DockPanel.Dock="Left" Width="100" Template="{DynamicResource BaseComboBoxStyle}" ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}" ItemsSource="{Binding MskScaleNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding SelectedMskScale, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <CMiX:CustomSlider x:Name="MaskScale" Grid.Column="1" Grid.Row="1" Value="{Binding MskScale, RelativeSource={RelativeSource AncestorType={x:Type local:ChannelControls}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                            </DockPanel>
+                            <DockPanel Grid.Row="2">
+                                <Label x:Name="MaskRotationLabel" Padding="1" Grid.Row="2" Content="Ro"  Style="{DynamicResource BaseLabelStyle}" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                <ComboBox DockPanel.Dock="Left" Width="100" Template="{DynamicResource BaseComboBoxStyle}" ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}" ItemsSource="{Binding MskRotationNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding SelectedMskRotation, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <CMiX:CustomSlider x:Name="MaskRotation" Grid.Column="1" Grid.Row="2" Value="{Binding MskRotation, RelativeSource={RelativeSource AncestorType={x:Type local:ChannelControls}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DockPanel>
+                        </Grid>
+                        <CMiX:FileSelector Grid.Row="0" x:Name="MaskFileSelector" Margin="2" Height="150" ModeSelection="Extended" FileNamesItems="{Binding MaskNamesItems, ElementName=Ch_Parameters, Mode=TwoWay}" DefaultFolder="{Binding MaskDefaultFolder, ElementName=Ch_Parameters, Mode=TwoWay}"/>
+                        <ToggleButton x:Name="MaskAspectRatio" Height="30" Margin="2" Content="AR" Style="{DynamicResource BaseToggleButtonStyle}" IsChecked="{Binding MskAspectRatio, RelativeSource={RelativeSource AncestorType={x:Type local:ChannelControls}}}" />
+                    </StackPanel>
+                </Grid>
+            </ScrollViewer>
+        </DockPanel>
+    </Grid>
+
+
+    <!--<ScrollViewer Margin="4" Grid.Column="1" Style="{DynamicResource FavsScrollViewer}">
+            <StackPanel Margin="4" >
+                <Grid Margin="4" Background="{DynamicResource BaseHighDarkerColor}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Foreground="{DynamicResource BaseHighLightColor}" Grid.Row="0"  Content="COLOR" HorizontalContentAlignment="Center"/>
+                    <TabControl Grid.Row="1"  Height="300" Style="{DynamicResource BaseTabControlStyle}" Margin="1">
+                        <TabItem Header="FG" Style="{DynamicResource BaseTabItemStyle}"  MaxHeight="20">
+                            <colorPicker:ColorPicker x:Name="ChannelColorPicker" SelectedColor="{Binding ChannelColor, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </TabItem>
+                        <TabItem Header="BG" Style="{DynamicResource BaseTabItemStyle}"  MaxHeight="20">
+                            <colorPicker:ColorPicker x:Name="ChannelBgColorPicker" SelectedColor="{Binding ChannelBgColor, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+                <Grid Margin="4" Background="{DynamicResource BaseHighDarkerColor}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Foreground="{DynamicResource BaseHighLightColor}" Grid.Row="0"  Content="MOD" HorizontalContentAlignment="Center"/>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.15*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <CMiX:CustomSlider x:Name="HueRangeSlider" Grid.Column="1" Value="{Binding HueRange, RelativeSource={RelativeSource AncestorType={x:Type local:ChannelControls}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Label x:Name="HueRangeLabel" Margin="1" Grid.Column="0" Content="H" Style="{DynamicResource BaseLabelStyle}"  FontSize="10"/>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.15*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <CMiX:CustomSlider x:Name="SatRangeSlider" Grid.Column="1" Value="{Binding SatRange, RelativeSource={RelativeSource AncestorType={x:Type local:ChannelControls}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Label x:Name="SatRangeLabel" Grid.Column="0" Content="S" Style="{DynamicResource BaseLabelStyle}" FontSize="10"/>
+                        </Grid>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.15*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <CMiX:CustomSlider x:Name="ValRangeSlider" Grid.Column="1" Value="{Binding ValRange, RelativeSource={RelativeSource AncestorType={x:Type local:ChannelControls}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Label x:Name="ValRangeLabel" Grid.Column="0" Content="V" Style="{DynamicResource BaseLabelStyle}" FontSize="10"/>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid Margin="4" Background="{DynamicResource BaseHighDarkerColor}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Foreground="{DynamicResource BaseHighLightColor}" Grid.Row="0"  Content="FFT" HorizontalContentAlignment="Center"/>
+                    <CMiX:FFTControls Grid.Row="1"
+                                SelectedFFT="{Binding SelectedFFTNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                FFTNames="{Binding FFTNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                FFTInfluence="{Binding FFTAmount, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            />
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>-->
+
+</UserControl>

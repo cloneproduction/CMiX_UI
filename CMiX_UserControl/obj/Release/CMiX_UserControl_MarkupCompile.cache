@@ -1,0 +1,20 @@
+﻿CMiX_UserControl
+
+
+winexe
+C#
+.cs
+C:\Users\Clone\Google Drive\PROJECT\_C-MiX\C-MiX_3.0\Controller\C-MiX_USERCONTROL\CMiX_UserControl\obj\Release\
+CMiX
+none
+false
+TRACE
+
+312100365851
+
+22692309689
+181958578561
+Counter.xaml;FileTree.xaml;RessourceDictionnaries\Styles\BaseSliderStyle.xaml;BeatControls.xaml;ChannelControls.xaml;FFTControls.xaml;FileSelector.xaml;RessourceDictionnaries\Styles\BaseContextMenuStyle.xaml;RessourceDictionnaries\Styles\BaseMenuItemStyle.xaml;RessourceDictionnaries\Styles\BaseListBoxItemStyle.xaml;RessourceDictionnaries\Styles\BaseListBoxControlStyle.xaml;RessourceDictionnaries\Styles\BaseGroupBoxStyle.xaml;C-MiX_UI.xaml;RessourceDictionnaries\Styles\BaseLabelStyle.xaml;RessourceDictionnaries\Styles\BaseTabItemStyle.xaml;RessourceDictionnaries\Styles\BaseTextBoxStyle.xaml;RessourceDictionnaries\Styles\BaseMenuStyle.xaml;RessourceDictionnaries\Styles\BaseToggleButtonStyle.xaml;RessourceDictionnaries\Styles\BaseComboBoxItemPanelStyle.xaml;RessourceDictionnaries\Styles\BaseComboBoxItemStyle.xaml;RessourceDictionnaries\Styles\BaseComboBoxStyle.xaml;RessourceDictionnaries\Styles\BaseButtonStyle.xaml;RessourceDictionnaries\Brushes\GenericBrushes.xaml;RessourceDictionnaries\Styles\BaseRadioButtonStyle.xaml;MainWindow.xaml;RessourceDictionnaries\Styles\BaseTabControlStyle.xaml;CMiX Controls\CustomSlider.xaml;RessourceDictionnaries\Styles\BaseTreeViewStyle.xaml;RessourceDictionnaries\Styles\BaseScrollViewerStyle.xaml;Unused\ShiftSlider.xaml;MasterBeatControl.xaml;
+
+True
+
