@@ -1,23 +1,9 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿                         <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:CMiX">
 
-    <SolidColorBrush x:Key="RadioButton.Static.Background" Color="#FF323232"/>
-    <SolidColorBrush x:Key="RadioButton.Static.Border" Color="#FF707070"/>
-    <SolidColorBrush x:Key="RadioButton.MouseOver.Background" Color="#FF646464"/>
-    <SolidColorBrush x:Key="RadioButton.MouseOver.Border" Color="#FF96969A"/>
-    <SolidColorBrush x:Key="RadioButton.MouseOver.Glyph" Color="White"/>
-    <SolidColorBrush x:Key="RadioButton.Disabled.Background" Color="#FFE6E6E6"/>
-    <SolidColorBrush x:Key="RadioButton.Disabled.Border" Color="#FFBCBCBC"/>
-    <SolidColorBrush x:Key="RadioButton.Disabled.Glyph" Color="#FF707070"/>
-    <SolidColorBrush x:Key="RadioButton.Pressed.Background" Color="#FFD9ECFF"/>
-    <SolidColorBrush x:Key="RadioButton.Pressed.Border" Color="#FF3C77DD"/>
-    <SolidColorBrush x:Key="RadioButton.Pressed.Glyph" Color="#FF212121"/>
-    <SolidColorBrush x:Key="RadioButton.Static.Glyph" Color="#FF212121"/>
-    <SolidColorBrush x:Key="RadioButton.Checked.Background" Color="#FF960096"/>
-    <SolidColorBrush x:Key="RadioButton.Static.Text" Color="#FF969696"/>
  
-    <Style x:Key="FocusVisual">
+    <!--<Style x:Key="FocusVisual">
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate>
@@ -25,7 +11,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>-->
 
     <Style x:Key="OptionMarkFocusVisual">
         <Setter Property="Control.Template">
@@ -39,7 +25,7 @@
 
 
     <Style x:Key="BaseRadioButtonStyle"  TargetType="{x:Type RadioButton}">
-        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+        <!--<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>-->
         <Setter Property="Background" Value="{DynamicResource BaseColor}"/>
         <Setter Property="BorderBrush" Value="Red"/>
         <Setter Property="Foreground" Value="{DynamicResource BaseText}"/>
@@ -62,20 +48,20 @@
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
                             <!--<Setter Property="Background" TargetName="radioButtonBorder" Value="{DynamicResource OverColor}"/>-->
-                            <Setter Property="Foreground" Value="{DynamicResource OverText}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource BaseText}"/>
                         </Trigger>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <!--<Setter Property="Background" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Disabled.Background}"/>-->
+                        <!--<Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Disabled.Background}"/>
                             <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Disabled.Border}"/>
                             <Setter Property="Background" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Disabled.Glyph}"/>
-                        </Trigger>
+                        </Trigger>-->
                         <!--<Trigger Property="IsPressed" Value="true">
                             <Setter Property="Background" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Pressed.Background}"/>
                             <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Pressed.Border}"/>
                             <Setter Property="Background" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Pressed.Glyph}"/>
                         </Trigger>-->
                         <Trigger Property="IsChecked" Value="true">
-                            <!--<Setter Property="Background" TargetName="radioButtonBorder" Value="Transparent"/>-->
+                            <Setter Property="Background" TargetName="radioButtonBorder" Value="{DynamicResource BaseHighDarkerColor}"/>
                             <!--<Setter Property="Padding" Value="2"/>
                             <Setter Property="BorderThickness" TargetName="radioButtonBorder" Value="2, 0, 0, 0"/>
                             <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{DynamicResource ActiveColor}"/>

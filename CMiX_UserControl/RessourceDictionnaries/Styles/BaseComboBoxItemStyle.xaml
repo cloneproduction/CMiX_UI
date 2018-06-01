@@ -41,8 +41,7 @@
                                 <Condition Property="IsMouseOver" Value="True"/>
                                 <Condition Property="IsKeyboardFocused" Value="False"/>
                             </MultiTrigger.Conditions>
-                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource OverColor}"/>
-                            <Setter Property="BorderBrush" TargetName="Bd" Value="{DynamicResource OverColor}"/>
+                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource BaseColor}"/>
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -51,15 +50,13 @@
                                 <Condition Property="IsKeyboardFocused" Value="True"/>
                             </MultiTrigger.Conditions>
                             <Setter Property="Background" TargetName="Bd" Value="{DynamicResource ActiveColor}"/>
-                            <Setter Property="BorderBrush" TargetName="Bd" Value="{DynamicResource ActiveColor}"/>
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsSelected" Value="True"/>
                                 <Condition Property="IsMouseOver" Value="True"/>
                             </MultiTrigger.Conditions>
-                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource ActiveColor}"/>
-                            <Setter Property="BorderBrush" TargetName="Bd" Value="{DynamicResource ActiveColor}"/>
+                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource BaseHighLightColor}"/>
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -67,8 +64,7 @@
                                 <Condition Property="IsMouseOver" Value="False"/>
                                 <Condition Property="IsKeyboardFocused" Value="False"/>
                             </MultiTrigger.Conditions>
-                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource ActiveColor}"/>
-                            <Setter Property="BorderBrush" TargetName="Bd" Value="{DynamicResource ActiveColor}"/>
+                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource BaseLightColor}"/>
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>

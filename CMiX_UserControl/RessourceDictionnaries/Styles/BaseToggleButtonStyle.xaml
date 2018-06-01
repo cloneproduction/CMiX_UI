@@ -9,7 +9,7 @@
                     <Setter Property="Control.Template">
                         <Setter.Value>
                             <ControlTemplate>
-                                <Rectangle Margin="0" SnapsToDevicePixels="True" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                                <Rectangle Margin="0" SnapsToDevicePixels="True" Stroke="White" StrokeThickness="1"/>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
@@ -47,7 +47,7 @@
                                 <Condition Property="IsChecked" Value="false"/>
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter Property="Background" Value="{DynamicResource GreyLevel3}"/>
+                                <Setter Property="Background" Value="{DynamicResource BaseDarkColor}"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
                         
@@ -57,7 +57,7 @@
                                 <Condition Property="IsMouseOver" Value="true"/>
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter Property="Background" Value="{DynamicResource GreyLevel2}"/>
+                                <Setter Property="Background" Value="{DynamicResource BaseColor}"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
                         <MultiTrigger>

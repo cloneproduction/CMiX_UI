@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:CMiX="clr-namespace:CMiX"
              mc:Ignorable="d" 
-             d:DesignHeight="283.544" d:DesignWidth="1950.794">
+             d:DesignHeight="165.044" d:DesignWidth="1194.794">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -17,15 +17,18 @@
             <CMiX:PeriodToBPMConverter x:Key="PeriodToBPM"/>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Border Margin="4" Padding="4" Background="{DynamicResource BaseHighDarkerColor}">
-        <DockPanel Margin="4" LastChildFill="True" Grid.Column="0">
-            <Button x:Name="Main_ResyncBPM" Grid.Column="5" DockPanel.Dock="Right" Content="Rc" Style="{DynamicResource BaseButtonStyle}" Click="Main_ResyncBPM_Click" Width="{Binding ActualHeight, ElementName=Main_DivideBPM, Mode=OneWay}"/>
-            <Button x:Name="Main_ResetBPM" Grid.Column="4" DockPanel.Dock="Right" Content="Rt" Style="{DynamicResource BaseButtonStyle}"  Width="{Binding ActualHeight, ElementName=Main_DivideBPM, Mode=OneWay}"/>
-            <Button x:Name="Main_PauseBPM" Grid.Column="11" DockPanel.Dock="Right"  Content="P" Style="{DynamicResource BaseButtonStyle}" Width="{Binding ActualHeight, ElementName=Main_DivideBPM, Mode=OneWay}"/>
-            <Button x:Name="Main_MultiplyBPM" Grid.Column="3" DockPanel.Dock="Right" Content="+" Grid.Row="3" Style="{DynamicResource BaseButtonStyle}" Click="Main_MultiplyBPM_Click" Width="{Binding ActualHeight, ElementName=Main_DivideBPM, Mode=OneWay}"/>
-            <Button x:Name="Main_DivideBPM" Grid.Column="2" DockPanel.Dock="Right" Content="-" Style="{DynamicResource BaseButtonStyle}" Click="Main_DivideBPM_Click" Width="{Binding ActualHeight, ElementName=Main_DivideBPM, Mode=OneWay}"/>
-            <Label x:Name="Main_BPM" Grid.Column="1" DockPanel.Dock="Right" Style="{DynamicResource BaseLabelStyle}" Content="{Binding MasterPeriod, Converter={StaticResource PeriodToBPM}, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:MasterBeatControl}}, UpdateSourceTrigger=PropertyChanged}" Width="{Binding ActualHeight, ElementName=Main_DivideBPM, Mode=OneWay}"/>
-            <Button x:Name="Main_TapBPM"  Content="TAP" Margin="0" Grid.Row="1" Style="{DynamicResource BaseButtonStyle}" Click="Main_TapBPM_Click"/>
-        </DockPanel>
+    <Border Background="{DynamicResource BaseHighDarkerColor}">
+        <StackPanel>
+            <DockPanel Grid.Row="0" Margin="0, 0, 0, 1" Height="50" LastChildFill="True">
+                <Button x:Name="Main_MultiplyBPM" Grid.Column="1" DockPanel.Dock="Right" Content="+" Grid.Row="3" Style="{DynamicResource BaseButtonStyle}" Click="Main_MultiplyBPM_Click" Width="{Binding ActualHeight, ElementName=Main_DivideBPM, Mode=OneWay}"/>
+                <Button x:Name="Main_DivideBPM" Grid.Column="2" DockPanel.Dock="Right" Content="-" Style="{DynamicResource BaseButtonStyle}" Click="Main_DivideBPM_Click" Width="{Binding ActualHeight, ElementName=Main_DivideBPM, Mode=OneWay}"/>
+                <Button x:Name="Main_ResetBPM" Grid.Column="1" DockPanel.Dock="Left" Content="Rt" Style="{DynamicResource BaseButtonStyle}"  Width="{Binding ActualHeight, ElementName=Main_DivideBPM, Mode=OneWay}"/>
+                <Label x:Name="Main_BPM" Grid.Column="0" DockPanel.Dock="Right" Style="{DynamicResource BaseLabelStyle}" Content="{Binding MasterPeriod, Converter={StaticResource PeriodToBPM}, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:MasterBeatControl}}, UpdateSourceTrigger=PropertyChanged}" />
+            </DockPanel>
+            <DockPanel LastChildFill="True" Height="50" Grid.Row="1" Margin="0, 1, 0, 0">
+                <Button x:Name="Main_ResyncBPM" Grid.Column="0" DockPanel.Dock="Right" Content="Rc" Style="{DynamicResource BaseButtonStyle}" Click="Main_ResyncBPM_Click" Width="{Binding ActualHeight, ElementName=Main_ResyncBPM, Mode=OneWay}"/>
+                <Button x:Name="Main_TapBPM" Grid.Row="2" Content="TAP" Margin="0" Style="{DynamicResource BaseButtonStyle}" Click="Main_TapBPM_Click"/>
+            </DockPanel>
+        </StackPanel>
     </Border>
 </UserControl>

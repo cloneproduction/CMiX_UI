@@ -12,7 +12,7 @@ namespace CMiX
     {
         private UDPListener _listener;
 
-        public delegate void MessageReceivedEventHandler(string message);
+        public delegate void MessageReceivedEventHandler(OscBundle packet);
         public event MessageReceivedEventHandler MessageReceived;
 
         private Singleton()
@@ -20,8 +20,8 @@ namespace CMiX
             // The cabllback function
             HandleOscPacket callback = delegate (OscPacket packet)
             {
-                var messageReceived = (OscMessage)packet;
-                MessageReceived?.Invoke("Received a message!");
+                var messageReceived = (OscBundle)packet;
+                MessageReceived?.Invoke(messageReceived);
             };
 
             _listener = new UDPListener(1234, callback);

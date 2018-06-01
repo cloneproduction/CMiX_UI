@@ -84,13 +84,31 @@ namespace CMiX
             OnSliderValueChanged(e);
         }
 
-
-        //public bool isFrozen = false;
-
-        /*private static Thumb GetThumb(Slider slider)
+        private void CMiXSlider_KeyDown(object sender, KeyEventArgs e)
         {
-            var track = slider.Template.FindName("PART_Track", slider) as Track;
-            return track == null ? null : track.Thumb;
-        }*/
+            if (e.Key == Key.Add)
+            {
+                if((Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)
+                {
+                    Value += CMiXSlider.LargeChange;
+                }
+                else if ((Keyboard.Modifiers & ModifierKeys.None) == ModifierKeys.None)
+                {
+                    Value += CMiXSlider.SmallChange;
+                }
+
+            }
+            if (e.Key == Key.Subtract)
+            {
+                if((Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)
+                {
+                    Value -= CMiXSlider.LargeChange;
+                }
+                else if ((Keyboard.Modifiers & ModifierKeys.None) == ModifierKeys.None)
+                {
+                    Value -= CMiXSlider.SmallChange;
+                }
+            }
+        }
     }
 }

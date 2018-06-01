@@ -65,8 +65,9 @@
     <Reference Include="ColorMine, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\C-MiX_NODE\packages\ColorMine.1.1.3.0\lib\ColorMine.dll</HintPath>
     </Reference>
-    <Reference Include="ColorPicker">
-      <HintPath>..\..\..\..\ColorPicker\ColorPicker\bin\Release\ColorPicker.dll</HintPath>
+    <Reference Include="ColorPicker, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\CLN-CLONEPRODUCTION\CLN-UI_DEVELOPMENT\ColorPicker\ColorPicker\bin\Release\ColorPicker.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -98,8 +99,34 @@
       <DependentUpon>BeatControls.xaml</DependentUpon>
     </Compile>
     <Compile Include="BeatSystem.cs" />
+    <Compile Include="ChannelData.cs" />
+    <Compile Include="CMiX Controls\CMiXComboBox.cs" />
+    <Compile Include="CMiX Controls\LayerRadioButton.cs" />
+    <Compile Include="CMiX Controls\RangeSlider.cs" />
+    <Compile Include="CMiX Controls\ScaleSelector.xaml.cs">
+      <DependentUpon>ScaleSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CMiX Controls\RotationSelector.xaml.cs">
+      <DependentUpon>RotationSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CMiX Controls\TranslateSelector.xaml.cs">
+      <DependentUpon>TranslateSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CMiX Controls\CMiXRangeSlider.xaml.cs">
+      <DependentUpon>CMiXRangeSlider.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ChannelEnable.xaml.cs">
+      <DependentUpon>ChannelEnable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DragAndDropListbox.cs" />
     <Compile Include="OSCListener.cs" />
     <Compile Include="CMiX Controls\CMiXListBox.cs" />
+    <Compile Include="ChannelLayer.xaml.cs">
+      <DependentUpon>ChannelLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LayerButton.xaml.cs">
+      <DependentUpon>LayerButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils.cs" />
     <Compile Include="Messenger.cs" />
     <Compile Include="CMiXData.cs" />
@@ -122,6 +149,26 @@
     <Compile Include="MasterBeatControl.xaml.cs">
       <DependentUpon>MasterBeatControl.xaml</DependentUpon>
     </Compile>
+    <Page Include="CMiX Controls\ScaleSelector.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CMiX Controls\RotationSelector.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CMiX Controls\TranslateSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CMiX Controls\CMiXRangeSlider.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ChannelEnable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Counter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -129,6 +176,18 @@
     <Page Include="FileTree.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RessourceDictionnaries\ContentControlTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RessourceDictionnaries\LayerControlTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RessourceDictionnaries\Styles\BaseRadioButtonStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="RessourceDictionnaries\Styles\BaseSliderStyle.xaml">
       <SubType>Designer</SubType>
@@ -214,7 +273,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RessourceDictionnaries\Styles\BaseRadioButtonStyle.xaml">
+    <Page Include="RessourceDictionnaries\Styles\BaseRangeSlider.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RessourceDictionnaries\Styles\LayerRadioButtonStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -257,11 +320,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="RessourceDictionnaries\Styles\BaseFocusVisual.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Unused\ShiftSlider.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MasterBeatControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ChannelLayer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LayerButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

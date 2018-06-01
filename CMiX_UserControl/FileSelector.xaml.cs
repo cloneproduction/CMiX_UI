@@ -15,10 +15,19 @@ namespace CMiX
         public FileSelector()
         {
             InitializeComponent();
-            this.DataContext = this;
         }
 
         #region Properties
+        public static readonly DependencyProperty MouseDownProperty =
+        DependencyProperty.Register("MouseDown", typeof(bool), typeof(FileSelector));
+        [Bindable(true)]
+        public bool MouseDown
+        {
+            get { return (bool)this.GetValue(MouseDownProperty); }
+            set { this.SetValue(MouseDownProperty, value); }
+        }
+
+
         public static readonly DependencyProperty ModeSelectionProperty =
         DependencyProperty.Register("ModeSelection", typeof(string), typeof(FileSelector));
         [Bindable(true)]
@@ -35,6 +44,15 @@ namespace CMiX
         {
             get { return (List<string>)this.GetValue(FileMaskProperty); }
             set { this.SetValue(FileMaskProperty, value); }
+        }
+
+        public static readonly DependencyProperty TitleProperty =
+        DependencyProperty.Register("Title", typeof(string), typeof(FileSelector));
+        [Bindable(true)]
+        public string Title
+        {
+            get { return (string)this.GetValue(TitleProperty); }
+            set { this.SetValue(TitleProperty, value); }
         }
 
         public static readonly DependencyProperty SelectedItemsProperty =
@@ -68,29 +86,7 @@ namespace CMiX
             return (hGesture | vGesture);
         }
 
-        private void FileListBox_PreviewMouseMove(object sender, MouseEventArgs e)
-        {
-            if (_isMouseDown == true && IsDragGesture(e.GetPosition(e.Source as FrameworkElement)))
-            {
-                if (_dragged == null)
-                    return;
-                if (e.LeftButton == MouseButtonState.Released)
-                {
-                    _dragged = null;
-                    return;
-                }
-                List<ListBoxFileName> _draggedList = new List<ListBoxFileName>();
-                for (var i = 0; i < FileNameList.SelectedItems.Count; i++)
-                {
-                    _draggedList.Add(FileNameList.SelectedItems[i] as ListBoxFileName);
-                }
-
-                var dragData = new DataObject(typeof(List<ListBoxFileName>), _draggedList);
-                var dragSource = this;
-                dragData.SetData("DragSource", dragSource);
-                DragDrop.DoDragDrop(_dragged, dragData, DragDropEffects.All);
-            }
-        }
+        bool _ClickOnItem = false;
 
         private void FileNameList_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -115,8 +111,53 @@ namespace CMiX
                 return;
             }
             _dragStartPoint = e.GetPosition(e.Source as FrameworkElement);
+
             _isMouseDown = true;
+
+
         }
+
+        private void FileListBox_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            if (_isMouseDown == true && IsDragGesture(e.GetPosition(e.Source as FrameworkElement)))
+            {
+
+                if (_dragged == null)
+                    return;
+                if (e.LeftButton == MouseButtonState.Released)
+                {
+                    _dragged = null;
+                    return;
+                }
+
+                List<ListBoxFileName> _draggedList = new List<ListBoxFileName>();
+                if (_dragged.IsSelected == true)
+                {
+                    
+                    for (var i = 0; i < FileNameList.SelectedItems.Count; i++)
+                    {
+                        _draggedList.Add(FileNameList.SelectedItems[i] as ListBoxFileName);
+                    }
+
+                    var dragData = new DataObject(typeof(List<ListBoxFileName>), _draggedList);
+                    var dragSource = this;
+                    dragData.SetData("DragSource", dragSource);
+                    DragDrop.DoDragDrop(_dragged, dragData, DragDropEffects.All);
+                }
+                else
+                {
+                    ListBoxFileName lb = _dragged.Content as ListBoxFileName;
+                    _draggedList.Add(lb);
+                    var dragData = new DataObject(typeof(List<ListBoxFileName>), _draggedList);
+                    var dragSource = this;
+                    dragData.SetData("DragSource", dragSource);
+                    DragDrop.DoDragDrop(_dragged, dragData, DragDropEffects.All);
+                }
+
+            }
+        }
+
+
 
         private void FileListBox_Drop(object sender, DragEventArgs e)
         {
@@ -137,17 +178,6 @@ namespace CMiX
                     }
                 }
             }
-
-
-            /*var fromtree = e.Data.GetData("test") as TreeViewItem;
-            if(fromtree != null)
-            {
-                ListBoxFileName pouet = new ListBoxFileName();
-                pouet.FileIsSelected = false;
-                pouet.FileName = fromtree.Tag.ToString();
-                smartListBox.Items.Add(pouet);
-            }*/
-
 
             DependencyObject child = e.OriginalSource as DependencyObject;
             
@@ -177,15 +207,90 @@ namespace CMiX
         }
 
         public event EventHandler FileSelectorChanged;
-        protected virtual void OnFileSelectorChanged(EventArgs e)
+        protected virtual void OnFileSelectorChanged(RoutedEventArgs e)
         {
             var handler = FileSelectorChanged;
             if (handler != null)
                 handler(this, e);
         }
+        public static readonly RoutedEvent TapEvent = EventManager.RegisterRoutedEvent("Tap", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(FileSelector));
+
+        // Provide CLR accessors for the event
+        public event RoutedEventHandler Tap
+        {
+            add { AddHandler(TapEvent, value); }
+            remove { RemoveHandler(TapEvent, value); }
+        }
+
+        // This method raises the Tap event
+        void RaiseTapEvent()
+        {
+            RoutedEventArgs newEventArgs = new RoutedEventArgs(FileSelector.TapEvent);
+            RaiseEvent(newEventArgs);
+        }
+
+
         private void FileNameList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-                OnFileSelectorChanged(e);
+            OnFileSelectorChanged(e);
+            RaiseTapEvent();
+        }
+
+        /*private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.MouseDown = true;
+        }
+
+        private void TextBlock_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            this.MouseDown = false;
+        }
+
+        private void Border_MouseLeave(object sender, MouseEventArgs e)
+        {
+            this.MouseDown = false;
+        }*/
+
+        private void FileNameList_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Delete)
+            {
+                
+                /*for(int i = SelectedItems.Count - 1; i >= 0; i--)
+                {
+                    if(SelectedItems[i].FileIsSelected == true)
+                    {
+                        SelectedItems.Remove(SelectedItems[i]);
+                    }
+                }*/
+            }
+        }
+
+        private void ClearSelected_Click(object sender, RoutedEventArgs e)
+        {
+            for (int i = this.SelectedItems.Count - 1; i >= 0; i--)
+            {
+                if (SelectedItems[i].FileIsSelected == true)
+                {
+                    SelectedItems.RemoveAt(i);
+                }
+            }
+        }
+
+        private void ClearUnselected_Click(object sender, RoutedEventArgs e)
+        {
+            for(int i = this.SelectedItems.Count - 1; i >= 0; i--)
+            {
+                if (SelectedItems[i].FileIsSelected == false)
+                {
+                    SelectedItems.RemoveAt(i);
+                }
+            }
+        }
+
+        private void ClearAll_Click(object sender, RoutedEventArgs e)
+        {
+            this.SelectedItems.Clear();
         }
     }
 

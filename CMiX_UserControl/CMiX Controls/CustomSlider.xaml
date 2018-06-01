@@ -13,6 +13,15 @@
                 <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseSliderStyle.xaml"/>
                 <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseButtonStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="CMiXSliderFocusVisualStyle">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Margin="0" SnapsToDevicePixels="True" Stroke="White" StrokeThickness="1"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
             <Style x:Key="SliderButton" TargetType="{x:Type Button}">
                 <Setter Property="FocusVisualStyle">
                     <Setter.Value>
@@ -20,13 +29,14 @@
                             <Setter Property="Control.Template">
                                 <Setter.Value>
                                     <ControlTemplate>
-                                        <Rectangle Margin="2" SnapsToDevicePixels="True" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                                        <Rectangle Margin="0" SnapsToDevicePixels="True" Stroke="White" StrokeThickness="1"/>
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
                         </Style>
                     </Setter.Value>
                 </Setter>
+                <Setter Property="Focusable" Value="True"/>
                 <Setter Property="Background" Value="#FFDDDDDD"/>
                 <Setter Property="BorderBrush" Value="#FF707070"/>
                 <Setter Property="Foreground" Value="{DynamicResource BaseText}"/>
@@ -68,12 +78,13 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid Margin="1">
+
+    <Grid Margin="1" FocusVisualStyle="{StaticResource CMiXSliderFocusVisualStyle}" Focusable="True" Keyboard.KeyDown="CMiXSlider_KeyDown">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
-        <Slider x:Name="CMiXSlider" Grid.Column="0" Style="{StaticResource BaseSliderStyle}" Background="Transparent" SmallChange="0.01"
+        <Slider x:Name="CMiXSlider" Grid.Column="0" Style="{StaticResource BaseSliderStyle}" SmallChange="0.01" LargeChange="0.1" Focusable="False"
                 ValueChanged="CMiXSlider_ValueChanged"
                 Orientation="{Binding Orientation, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:CustomSlider}}}" 
                 Value="{Binding Value, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:CustomSlider}}}"
@@ -81,15 +92,14 @@
         </Slider>
 
         <Label Background="Transparent" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right" Margin="0, 0, 20, 0" IsHitTestVisible="False" Foreground="{DynamicResource BaseText}" VerticalAlignment="Stretch" Content="{Binding Value, Mode=TwoWay, ElementName=CMiXSlider}" ContentStringFormat="{}{0:N2}"/>
-        <Label Background="Transparent" Grid.Column="0" HorizontalAlignment="Left" Margin="20, 0, 0, 0" IsHitTestVisible="False" Foreground="{DynamicResource BaseText}" VerticalAlignment="Stretch" Content="{Binding Caption, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:CustomSlider}}}"/>
+        <Label Background="Transparent" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="20, 0, 0, 0" IsHitTestVisible="False" Foreground="{DynamicResource BaseText}" VerticalAlignment="Stretch" Content="{Binding Caption, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:CustomSlider}}}"/>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button x:Name="AddToSlider" Grid.Row="0" HorizontalAlignment="Stretch"  Content="+" Style="{DynamicResource SliderButton}" Click="AddToSlider_Click" Width="{Binding ActualHeight, ElementName=AddToSlider, Mode=OneWay}"/>
-            <Button x:Name="SubToSlider" Grid.Row="1" HorizontalAlignment="Stretch" Content="-"  Style="{DynamicResource SliderButton}" Click="SubToSlider_Click" Width="{Binding ActualHeight, ElementName=AddToSlider, Mode=OneWay}"/>
+            <Button x:Name="AddToSlider" Grid.Row="0" Focusable="False" HorizontalAlignment="Stretch"  Content="+" Style="{DynamicResource SliderButton}" Click="AddToSlider_Click" Width="{Binding ActualHeight, ElementName=AddToSlider, Mode=OneWay}"/>
+            <Button x:Name="SubToSlider" Grid.Row="1" Focusable="False" HorizontalAlignment="Stretch" Content="-"  Style="{DynamicResource SliderButton}" Click="SubToSlider_Click" Width="{Binding ActualHeight, ElementName=AddToSlider, Mode=OneWay}"/>
         </Grid>
-
     </Grid>
 </UserControl>

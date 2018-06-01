@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using SharpOSC;
 using System.Collections.ObjectModel;
@@ -43,7 +42,81 @@ namespace CMiX
         #endregion
 
         #region Functions
-        public void SendAll(CMiXData datacontext)
+
+        public void SendOSC(string Name, string Value)
+        {
+            this.Sender.Send(new OscMessage("/" + Name, Value));                   
+        }
+
+        public void SendOSCList(string Name, List<string> Value)
+        {
+            this.Sender.Send(new OscMessage("/" + Name, Value.ToArray()));
+        }
+
+
+        public List<OscMessage> ObjectToOscList(object obj, string objectname)
+        {
+            Type type = obj.GetType();
+            PropertyInfo[] properties = type.GetProperties();
+
+            List<OscMessage> messagelist = new List<OscMessage>();
+            foreach (PropertyInfo property in properties)
+            {
+                if (property.PropertyType == typeof(string))
+                {
+                    string ob = (string)property.GetValue(obj, null);
+                    OscMessage message = new OscMessage("/" + objectname + "/" + property.Name, ob);
+                    messagelist.Add(message);
+                }
+                else if (property.PropertyType == typeof(double))
+                {
+                    double ob = (double)property.GetValue(obj, null);
+                    OscMessage message = new OscMessage("/" + objectname + "/" + property.Name, ob.ToString());
+                    messagelist.Add(message);
+                }
+                else if (property.PropertyType == typeof(bool))
+                {
+                    bool ob = (bool)property.GetValue(obj, null);
+                    OscMessage message = new OscMessage("/" + objectname + "/" + property.Name, ob.ToString());
+                    messagelist.Add(message);
+                }
+                else if (property.PropertyType == typeof(Color))
+                {
+                    Color ob = (Color)property.GetValue(obj, null);
+                    string hex = "#" + Utils.ColorToHexString(ob);
+                    OscMessage message = new OscMessage("/" + objectname + "/" + property.Name, hex);
+                    messagelist.Add(message);
+                }
+                else if (property.PropertyType == typeof(ObservableCollection<ListBoxFileName>))
+                {
+                    List<string> FileNameList = new List<string>();
+                    ObservableCollection<ListBoxFileName> ob = (ObservableCollection<ListBoxFileName>)property.GetValue(obj, null);
+                    foreach (ListBoxFileName filename in ob)
+                    {
+                        if (filename.FileIsSelected == true)
+                        {
+                            FileNameList.Add(filename.FileName);
+                        }
+                    }
+                    OscMessage message = new OscMessage("/" + objectname + "/" + property.Name, FileNameList.ToArray());
+                    messagelist.Add(message);
+                }
+                else if (property.PropertyType == typeof(ObservableCollection<string>))
+                {
+                    List<string> StringList = new List<string>();
+                    ObservableCollection<string> ob = (ObservableCollection<string>)property.GetValue(obj, null);
+                    foreach (string st in ob)
+                    {
+                        StringList.Add(st);
+                    }
+                    OscMessage message = new OscMessage("/" + objectname + "/" + property.Name, StringList.ToArray());
+                    messagelist.Add(message);
+                }
+            }
+            return messagelist;
+        }
+
+        public void SendAll(object datacontext, string ucName)
         {
             Type type = datacontext.GetType();
             PropertyInfo[] properties = type.GetProperties();
@@ -51,63 +124,64 @@ namespace CMiX
             List<OscMessage> messagelist = new List<OscMessage>();
             foreach (PropertyInfo property in properties)
             {
-                if (property.PropertyType == typeof(ObservableCollection<string>))
+                if(property.PropertyType == typeof(string))
                 {
-                    ObservableCollection<string> ob = (ObservableCollection<string>)property.GetValue(datacontext, null);
-                    OscMessage message = new OscMessage("/" + property.Name, ob.ToArray());
+                    string ob = (string)property.GetValue(datacontext, null);
+                    OscMessage message = new OscMessage("/" + ucName + "/" + property.Name, ob);
                     messagelist.Add(message);
                 }
-                else if (property.PropertyType == typeof(ObservableCollection<bool>))
+                else if (property.PropertyType == typeof(double))
                 {
-                    ObservableCollection<bool> ob = (ObservableCollection<bool>)property.GetValue(datacontext, null);
-                    List<string> list = ob.Select(e => e.ToString()).ToList();
-                    OscMessage message = new OscMessage("/" + property.Name, list.ToArray());
+                    double ob = (double)property.GetValue(datacontext, null);
+                    OscMessage message = new OscMessage("/" + ucName + "/" + property.Name, ob.ToString());
                     messagelist.Add(message);
                 }
-                else if (property.PropertyType == typeof(ObservableCollection<double>))
+                else if (property.PropertyType == typeof(bool))
                 {
-                    ObservableCollection<double> ob = (ObservableCollection<double>)property.GetValue(datacontext, null);
-                    List<string> list = ob.Select(e => e.ToString("0.00")).ToList();
-                    OscMessage message = new OscMessage("/" + property.Name, list.ToArray());
+                    bool ob = (bool)property.GetValue(datacontext, null);
+                    OscMessage message = new OscMessage("/" + ucName + "/" + property.Name, ob.ToString());
                     messagelist.Add(message);
                 }
-                else if (property.PropertyType == typeof(ObservableCollection<Color>))
+                else if (property.PropertyType == typeof(Color))
                 {
-                    ObservableCollection<Color> ob = (ObservableCollection<Color>)property.GetValue(datacontext, null);
-                    List<string> list = new List<string>();
-                    foreach (Color col in ob)
+                    Color ob = (Color)property.GetValue(datacontext, null);
+                    string hex = "#" + Utils.ColorToHexString(ob);
+                    OscMessage message = new OscMessage("/" + ucName + "/" + property.Name, hex);
+                    messagelist.Add(message);
+                }
+                else if (property.PropertyType == typeof(ObservableCollection<ListBoxFileName>))
+                {
+                    List<string> FileNameList = new List<string>();
+                    ObservableCollection<ListBoxFileName> ob = (ObservableCollection<ListBoxFileName>)property.GetValue(datacontext, null);
+                    foreach(ListBoxFileName filename in ob)
                     {
-                        var drawingcolor = System.Drawing.Color.FromArgb(col.A, col.R, col.G, col.B);
-                        string hex = "#" + Utils.ColorToHexString(col);
-                        list.Add(hex);
-                    }
-                    OscMessage message = new OscMessage("/" + property.Name, list.ToArray());
-                    messagelist.Add(message);
-                }
-                else if (property.PropertyType == typeof(ObservableCollection<ObservableCollection<ListBoxFileName>>))
-                {
-                    ObservableCollection<ObservableCollection<ListBoxFileName>> ob = (ObservableCollection<ObservableCollection<ListBoxFileName>>)property.GetValue(datacontext, null);
-                    List<string> count = new List<string>();
-                    List<string> list = new List<string>();
-                    foreach (ObservableCollection<ListBoxFileName> fn in ob)
-                    {
-                        int i = 0;
-                        foreach (ListBoxFileName lb in fn)
+                        if (filename.FileIsSelected == true)
                         {
-                            if (lb.FileIsSelected == true)
-                            {
-                                i += 1;
-                                list.Add(lb.FileName);
-                            }
+                            FileNameList.Add(filename.FileName);
                         }
-                        count.Add(i.ToString());
                     }
-                    OscMessage message = new OscMessage("/" + property.Name, list.ToArray());
-                    OscMessage messagecount = new OscMessage("/" + property.Name + "Count", count.ToArray());
+                    OscMessage message = new OscMessage("/" + ucName + "/" + property.Name, FileNameList.ToArray());
                     messagelist.Add(message);
-                    messagelist.Add(messagecount);
                 }
+                else if (property.PropertyType == typeof(ObservableCollection<string>))
+                {
+                    List<string> StringList = new List<string>();
+                    ObservableCollection<string> ob = (ObservableCollection<string>)property.GetValue(datacontext, null);
+                    foreach (string st in ob)
+                    {
+                        StringList.Add(st);
+                    }
+                    OscMessage message = new OscMessage("/" + ucName + "/" + property.Name, StringList.ToArray());
+                    messagelist.Add(message);
+                }
+
             }
+            OscBundle bundle = new OscBundle(0, messagelist.ToArray());
+            Sender.Send(bundle);
+        }
+
+        public void SendBundle(List<OscMessage> messagelist)
+        {
             OscBundle bundle = new OscBundle(0, messagelist.ToArray());
             Sender.Send(bundle);
         }

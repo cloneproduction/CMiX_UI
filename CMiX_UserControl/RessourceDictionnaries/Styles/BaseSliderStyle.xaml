@@ -51,16 +51,16 @@
     </ControlTemplate>
     <SolidColorBrush x:Key="SliderThumb.Track.Border" Color="#FFD6D6D6"/>
     <SolidColorBrush x:Key="SliderThumb.Track.Background" Color="#FFE7EAEA"/>
-    
+
     <Style x:Key="RepeatButtonDecrease" TargetType="{x:Type RepeatButton}">
         <Setter Property="OverridesDefaultStyle" Value="true"/>
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Focusable" Value="false"/>
+        <Setter Property="Focusable" Value="False"/>
         <Setter Property="IsTabStop" Value="false"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
-                    <Rectangle Fill="{DynamicResource BaseDarkColor}" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}"/>
+                    <Rectangle Fill="{DynamicResource BaseColor}" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -73,7 +73,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
-                    <Rectangle Fill="{DynamicResource BaseColor}" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}"/>
+                    <Rectangle Fill="{DynamicResource BaseLightColor}" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -87,7 +87,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
-                    <Rectangle Fill="{DynamicResource BaseDarkerColor}" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}"/>
+                    <Rectangle Fill="{DynamicResource BaseDarkColor}" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -100,7 +100,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
-                    <Rectangle Fill="{DynamicResource BaseHighDarkerColor}" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}"/>
+                    <Rectangle Fill="{DynamicResource BaseColor}" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -108,14 +108,14 @@
 
     <ControlTemplate x:Key="SliderThumbHorizontalDefault" TargetType="{x:Type Thumb}">
         <Grid HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Stretch">
-           <Rectangle x:Name="grip" Width="5" Fill="Transparent" Stretch="Fill" SnapsToDevicePixels="True"  UseLayoutRounding="True" VerticalAlignment="Stretch"/>
+           <Rectangle x:Name="grip" Width="3" Fill="{DynamicResource BaseLightColor}" Stretch="Fill" SnapsToDevicePixels="True"  UseLayoutRounding="True" VerticalAlignment="Stretch"/>
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="Fill" TargetName="grip" Value="{DynamicResource OverColor}"/>
+                <Setter Property="Fill" TargetName="grip" Value="{DynamicResource BaseHighLightColor}"/>
             </Trigger>
             <Trigger Property="IsDragging" Value="true">
-                <Setter Property="Fill" TargetName="grip" Value="{DynamicResource ActiveColor}"/>
+                <Setter Property="Fill" TargetName="grip" Value="{DynamicResource BaseHighLightColor}"/>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -200,14 +200,14 @@
     
     <ControlTemplate x:Key="SliderThumbVerticalDefault" TargetType="{x:Type Thumb}">
         <Grid HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Center">
-            <Path x:Name="grip" Data="M0.5,0.5 L18.5,0.5 18.5,11.5 0.5,11.5z" Fill="{DynamicResource BaseColor}" Stretch="Fill"/>
+            <Path x:Name="grip" Data="M0.5,0.5 L18.5,0.5 18.5,11.5 0.5,11.5z" Fill="{DynamicResource BaseLightColor}" Stretch="Fill"/>
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="Fill" TargetName="grip" Value="{DynamicResource OverColor}"/>
+                <Setter Property="Fill" TargetName="grip" Value="{DynamicResource BaseLightColor}"/>
             </Trigger>
             <Trigger Property="IsDragging" Value="true">
-                <Setter Property="Fill" TargetName="grip" Value="{DynamicResource ActiveColor}"/>
+                <Setter Property="Fill" TargetName="grip" Value="{DynamicResource BaseLightColor}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="false">
                 <Setter Property="Fill" TargetName="grip" Value="{StaticResource SliderThumb.Disabled.Background}"/>
@@ -258,6 +258,7 @@
     </ControlTemplate>
     
     <Style x:Key="BaseSliderStyle" TargetType="{x:Type Slider}">
+        <Setter Property="Focusable" Value="False"/>
         <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="Transparent"/>

@@ -4,32 +4,23 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:CMiX="clr-namespace:CMiX"
              x:Class="CMiX.BeatControls"
-             mc:Ignorable="d" d:DesignWidth="320" d:DesignHeight="45" FontFamily="Segoe UI Semibold" >
+             mc:Ignorable="d" d:DesignWidth="596" d:DesignHeight="87">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Brushes/GenericBrushes.xaml"/>
                 <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseButtonStyle.xaml"/>
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseToggleButtonStyle.xaml"/>
                 <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseLabelStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <CMiX:PeriodToBPMConverter x:Key="PeriodToBPM"/>
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <DockPanel LastChildFill="True">
+    <StackPanel Orientation="Horizontal" Background="{StaticResource BaseDarkColor}">
+        <Button x:Name="ResetBPM" IsTabStop="False" Content="Rt" DockPanel.Dock="Right" IsDefault="True" Style="{DynamicResource BaseButtonStyle}" Click="ResetBPM_Click" Padding="1" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+        <Button x:Name="DivideBPM" Click="BeatDivide_Click" IsDefault="True" Content="-" Padding="1" DockPanel.Dock="Right" Style="{DynamicResource BaseButtonStyle}"   Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+        <Button x:Name="MultiplyBPM" Click="BeatMultiply_Click" IsDefault="True" Content="+" Padding="1" DockPanel.Dock="Right" Style="{DynamicResource BaseButtonStyle}"  Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
         <Label x:Name="DisplayBPM" Grid.Column="2" Padding="1" DockPanel.Dock="Right" Content="{Binding ControlPeriod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource PeriodToBPM}, RelativeSource={RelativeSource AncestorType={x:Type CMiX:BeatControls}}}"   VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Style="{DynamicResource BaseLabelStyle}" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
-        <Button x:Name="MultiplyBPM" Click="BeatMultiply_Click" Content="+" Padding="1" DockPanel.Dock="Right" Grid.Column="1" Style="{DynamicResource BaseButtonStyle}"  Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
-        <Button x:Name="DivideBPM" Click="BeatDivide_Click" Content="-" Padding="1" DockPanel.Dock="Right" Grid.Column="0" Style="{DynamicResource BaseButtonStyle}"   Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Button x:Name="ResetBPM" Content="Rt" Grid.Column="1" Grid.Row="1" Style="{DynamicResource BaseButtonStyle}" Click="ResetBPM_Click" Padding="1" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
-            <ToggleButton x:Name="PauseBPM" Content="P" Style="{DynamicResource BaseToggleButtonStyle}" IsChecked="{Binding BeatPause, RelativeSource={RelativeSource AncestorType={x:Type CMiX:BeatControls}}}"/>
-        </Grid>
-        <CMiX:CustomSlider x:Name="ChanceToHitBPM" Caption="" Orientation="Horizontal" Margin="4, 0, 4, 0" Value="{Binding ChanceToHit, RelativeSource={RelativeSource AncestorType={x:Type CMiX:BeatControls}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-    </DockPanel>
+    </StackPanel>
 </UserControl>
 

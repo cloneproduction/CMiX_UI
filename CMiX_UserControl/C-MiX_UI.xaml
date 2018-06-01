@@ -6,14 +6,17 @@
             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
             xmlns:CMiX="clr-namespace:CMiX"
             x:Name="cmix" 
-            mc:Ignorable="d" d:DesignWidth="1600" d:DesignHeight="900" FontFamily="Segoe UI Semibold"
+    Loaded="cmix_Loaded"
+            mc:Ignorable="d" d:DesignWidth="1584.666" d:DesignHeight="972" FontSize="11" FontFamily="Roboto Medium"
             >
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Brushes/GenericBrushes.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseFocusVisual.xaml"/>
                 <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseTreeViewStyle.xaml"/>
                 <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseRadioButtonStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/LayerRadioButtonStyle.xaml"/>
                 <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseButtonStyle.xaml"/>
                 <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseComboBoxStyle.xaml"/>
                 <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseComboBoxItemStyle.xaml"/>
@@ -31,18 +34,22 @@
                 <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseMenuItemStyle.xaml"/>
                 <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseContextMenuStyle.xaml"/>
                 <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseScrollViewerStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseRangeSlider.xaml"/>
+
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/LayerControlTemplate.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/ContentControlTemplate.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <CMiX:PeriodToBPMConverter x:Key="PeriodToBPM"/>
+            <CMiX:ColorToStringConverter x:Key="ColorToString"/>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
         </ResourceDictionary>
     </UserControl.Resources>
-    <DockPanel x:Name="CMiX_UserControl"  Background="#FF141414" LastChildFill="True">
-        <Grid DockPanel.Dock="Top">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Menu x:Name="MainMenu" Grid.Row="0" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Style="{DynamicResource BaseMenuStyle}" Height="30">
-                <MenuItem x:Name="FileMenu" VerticalContentAlignment="center" Padding="20, 0, 20, 0" Style="{DynamicResource BaseMenuItemStyle}" Header="File" HorizontalContentAlignment="Stretch" Height="{Binding ActualHeight, ElementName=MainMenu, Mode=OneWay}" >
+    
+    <DockPanel x:Name="CMiX_UserControl"  Background="#FF141414" LastChildFill="True" KeyDown="LayerButton_KeyDown">
+        <Grid Margin="0, 0, 0, 2" DockPanel.Dock="Top">
+            <Label x:Name="ProjectName" Foreground="{DynamicResource BaseText}" Background="{DynamicResource BaseColor}" HorizontalContentAlignment="Right" Content="{Binding DataContext.CompoName[0], ElementName=cmix, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Menu x:Name="MainMenu" Focusable="False" Grid.Row="0" VerticalContentAlignment="Center" HorizontalAlignment="Left" Style="{DynamicResource BaseMenuStyle}" Height="25">
+                <MenuItem x:Name="FileMenu" Focusable="False" VerticalContentAlignment="center" Padding="20, 0, 20, 0" Style="{DynamicResource BaseMenuItemStyle}" Header="File" HorizontalContentAlignment="Stretch" Height="{Binding ActualHeight, ElementName=MainMenu, Mode=OneWay}" >
                     <MenuItem Header="New" Click="New_Click" Template="{DynamicResource BaseSubMenuItem}" />
                     <MenuItem Header="Open" Click="Open_Click" Template="{DynamicResource BaseSubMenuItem}"/>
                     <MenuItem Header="Save" Click="Save_Click" Template="{DynamicResource BaseSubMenuItem}"/>
@@ -50,636 +57,94 @@
                     <MenuItem Header="Quit" Click="Quit_Click" Template="{DynamicResource BaseSubMenuItem}"/>
                 </MenuItem>
             </Menu>
-            <Label x:Name="ProjectName" Grid.Column="1" Foreground="{DynamicResource BaseText}" Background="{DynamicResource BaseColor}" HorizontalContentAlignment="Right" Content="{Binding DataContext.CompoName[0], ElementName=cmix, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
-        <Grid Grid.Row="2" DockPanel.Dock="Bottom">
+        <Border Grid.Row="2" DockPanel.Dock="Bottom" Height="25" Margin="0, 2, 0, 0" Background="{StaticResource BaseDarkerColor}"/>
+        <Grid Grid.Row="1" KeyboardNavigation.TabNavigation="Cycle">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <CMiX:MasterBeatControl x:Name="MasterBeatControl" MasterPeriod="{Binding DataContext.MasterPeriod[0], Mode=TwoWay, ElementName=cmix, UpdateSourceTrigger=PropertyChanged}"/>
-
-            <Border Grid.Column="1" Padding="4" Margin="4" Background="{DynamicResource BaseHighDarkerColor}">
-                <Grid Margin="4">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Grid Margin="0, 0, 4, 0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <ComboBox x:Name="CameraRotation" Tag="CamRotation" SelectionChanged="ComboBoxSelectionChanged" Grid.Row="0" Template="{DynamicResource BaseComboBoxStyle}" ItemContainerStyle="{DynamicResource BaseListBoxItemStyle}" 
+            <Border Grid.Column="0" Margin="4" Focusable="True" Background="{StaticResource BaseHighDarkerColor}" FocusVisualStyle="{DynamicResource FocusVisualStyle}">
+                <DockPanel LastChildFill="False" KeyboardNavigation.TabNavigation="None">
+                    
+                    <CMiX:MasterBeatControl x:Name="MasterBeatControl" Focusable="True" FocusVisualStyle="{StaticResource FocusVisualStyle}" DockPanel.Dock="Bottom" MasterPeriod="{Binding DataContext.MasterPeriod[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Margin="0, 4, 0, 4" Height="20" FontSize="10" HorizontalContentAlignment="Center" Content="Beat" DockPanel.Dock="Bottom" Background="{StaticResource BaseDarkColor}" Foreground="{StaticResource BaseText}"/>
+                
+                    <DockPanel x:Name="CameraControl" DockPanel.Dock="Bottom" Focusable="True" FocusVisualStyle="{StaticResource FocusVisualStyle}" Margin="0, 4, 0, 4">
+                        <Label Margin="0, 0, 0, 4" DockPanel.Dock="Top" Foreground="{StaticResource BaseText}" Background="{StaticResource BaseDarkColor}" Height="20" FontSize="10" Content="Camera" HorizontalContentAlignment="Center"/>
+                        <DockPanel LastChildFill="True" DockPanel.Dock="Top">
+                            <CMiX:BeatControls x:Name="BeatControlsCam" DockPanel.Dock="Right"  Margin="1" Height="25" BeatControlChanged="BeatControlsCam_BeatControlChanged"
+                                               MasterPeriod="{Binding DataContext.MasterPeriod[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                Multiplier="{Binding DataContext.CamBeatMultiplier[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                           />
+                            <CMiX:CustomSlider x:Name="CamChanceToHit" Height="25" Tag="CamChanceToHit" SliderValueChanged="SliderValueChanged" Value="{Binding DataContext.CamChanceToHit[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DockPanel>
+                        <Grid DockPanel.Dock="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <CMiX:CMiXComboBox x:Name="CameraRotation" FocusVisualStyle="{DynamicResource FocusVisualStyle}" Margin="1" Grid.Column="0" Height="25" Tag="CamRotation" SelectionChanged="ComboBoxSelectionChanged" Template="{DynamicResource BaseComboBoxStyle}" ItemContainerStyle="{DynamicResource BaseListBoxItemStyle}" 
                                 ItemsSource="{Binding CamRotation, ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                 SelectedItem="{Binding DataContext.CamRotation[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 />
-                        <ComboBox x:Name="CameraLookAt" Tag="CamLookAt" SelectionChanged="ComboBoxSelectionChanged" Grid.Row="0" Grid.Column="1" Template="{DynamicResource BaseComboBoxStyle}" ItemContainerStyle="{DynamicResource BaseListBoxItemStyle}" 
+                            <CMiX:CMiXComboBox x:Name="CameraLookAt" FocusVisualStyle="{DynamicResource FocusVisualStyle}" Margin="1" Grid.Column="1" Height="25" Tag="CamLookAt" SelectionChanged="ComboBoxSelectionChanged" Template="{DynamicResource BaseComboBoxStyle}" ItemContainerStyle="{DynamicResource BaseListBoxItemStyle}" 
                                 ItemsSource="{Binding CamLookAt, ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                 SelectedItem="{Binding DataContext.CamLookAt[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 />
-                        <ComboBox x:Name="CameraView" Tag="CamView" SelectionChanged="ComboBoxSelectionChanged" Grid.Row="0" Grid.Column="2" Template="{DynamicResource BaseComboBoxStyle}" ItemContainerStyle="{DynamicResource BaseListBoxItemStyle}" 
+                            <CMiX:CMiXComboBox x:Name="CameraView" FocusVisualStyle="{DynamicResource FocusVisualStyle}" Margin="1" Grid.Column="2" Height="25" Tag="CamView" SelectionChanged="ComboBoxSelectionChanged" Template="{DynamicResource BaseComboBoxStyle}" ItemContainerStyle="{DynamicResource BaseListBoxItemStyle}" 
                                 ItemsSource="{Binding CamView, ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 SelectedItem="{Binding DataContext.CamView[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 />
-                        <CMiX:BeatControls x:Name="BeatControlsCam" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" BeatControlChanged="BeatControlsCam_BeatControlChanged"
-                                           Period="{Binding DataContext.MasterPeriod[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                           Multiplier="{Binding DataContext.CamBeatMultiplier[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                           />
-                    </Grid>
-                    <Grid Margin="4, 0, 1, 0" Grid.Column="2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
+
+                        </Grid>
+                        <CMiX:CMiXRangeSlider x:Name="CameraFOV" Margin="1" DockPanel.Dock="Top" Height="25" Tag="CamFOV" RangeSliderValueChanged="RangeSliderValueChanged"/>
+                        <CMiX:CMiXRangeSlider x:Name="CameraZoom" Margin="1" DockPanel.Dock="Top" Height="25" Tag="CamZoom" RangeSliderValueChanged="RangeSliderValueChanged"/>
+                    </DockPanel>
+                </DockPanel>
+            </Border>
+            
+            <Grid x:Name="ContentControl" KeyboardNavigation.TabNavigation="None" FocusVisualStyle="{DynamicResource FocusVisualStyle}" Focusable="True" Margin="0, 4, 0, 4" Grid.Column="1" Grid.ColumnSpan="3">
+                <!--<CMiX:ChannelControls x:Name="Layer0" Tag="0" 
+                                        DataContext="{Binding DataContext.ChData[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
+                                        MasterPeriod="{Binding ControlPeriod, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ElementName=BeatControlsChannel0}"/>-->
+
+            </Grid>
+
+            <Border Grid.Column="4" Margin="4" Focusable="True" FocusVisualStyle="{DynamicResource FocusVisualStyle}" Background="{StaticResource BaseDarkerColor}">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+                        <Button x:Name="AddLayer" Height="25" Width="25" Content="+" Click="AddLayer_Click" DockPanel.Dock="left" Style="{StaticResource BaseButtonStyle}"/>
+                        <Button x:Name="RemoveLayer" Height="25" Width="25" Content="-" Click="RemoveLayer_Click" DockPanel.Dock="left" Style="{StaticResource BaseButtonStyle}"/>
+                    </StackPanel>
+
+
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" DockPanel.Dock="Bottom"  Margin="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="0.2*"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <CMiX:CustomSlider x:Name="CameraZoom" Tag="CamZoom" SliderValueChanged="SliderValueChanged" Grid.Column="1" 
-                                               Value="{Binding DataContext.CamZoom[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <StackPanel Grid.Column="0" x:Name="LayerEnableStack"
+                                       PreviewMouseLeftButtonDown ="sp_PreviewMouseLeftButtonDown"
+                                       PreviewMouseLeftButtonUp="sp_PreviewMouseLeftButtonUp"
+                                        PreviewMouseMove="sp_PreviewMouseMove"
+                                        DragEnter="sp_DragEnter"
+                                        Drop="sp_Drop"
+                                        >
+                                <!--<CMiX:ChannelEnable x:Name="LayerEnable0" Tag="0" DataContext="{Binding DataContext.ChData[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"/>-->
+                            </StackPanel>
+                            <StackPanel x:Name="LayerControlStack" AllowDrop="True" Grid.Column="1">
+                                <CMiX:ChannelLayer x:Name="LayerControl0" DataContext="{Binding DataContext.ChData[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"/>
+                        </StackPanel>
                         </Grid>
-                        <Grid Grid.Row="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <CMiX:CustomSlider x:Name="CameraFOV" Tag="CamFOV" SliderValueChanged="SliderValueChanged" Grid.Row="1" Grid.Column="1" 
-                                               Value="{Binding DataContext.CamFOV[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        </Grid>
-                    </Grid>
-                </Grid>
+                    </ScrollViewer>
+                </DockPanel>
             </Border>
-        </Grid>
-        <Border Margin="4" Padding="4" Background="{DynamicResource BaseHighDarkerColor}" DockPanel.Dock="Bottom">
-            <Grid Margin="4" Height="30">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <CMiX:BeatControls x:Name="BeatControlsPostFX" BeatControlChanged="BeatControlsPostFX_BeatControlChanged"  Grid.Column="0"
-                                   Period="{Binding DataContext.MasterPeriod[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                   Multiplier="{Binding DataContext.PostFXBeatMultiplier[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                   />
-                <CMiX:CustomSlider x:Name="Sa" Tag="Saturation" Caption="Saturation" SliderValueChanged="SliderValueChanged" Grid.Column="3" Orientation="Horizontal" Value="{Binding DataContext.Saturation[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"/>
-                <CMiX:CustomSlider x:Name="Br" Tag="Brightness" Caption="Brightness" SliderValueChanged="SliderValueChanged" Grid.Column="1" Orientation="Horizontal" Value="{Binding DataContext.Brightness[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"/>
-                <CMiX:CustomSlider x:Name="Co" Tag="Contrast" Caption="Contrast" SliderValueChanged="SliderValueChanged" Grid.Column="2" Orientation="Horizontal" Value="{Binding DataContext.Contrast[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"/>
-            </Grid>
-        </Border>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.25*"/>
-                <ColumnDefinition/>
-                <ColumnDefinition  Width="0.25*"/>
-            </Grid.ColumnDefinitions>
-            <Border Padding="4" Margin="4" Background="{DynamicResource BaseHighDarkerColor}">
-                <Grid>
-                    <CMiX:CustomTree x:Name="FileBin" Margin="4" Grid.Row="2"/>
-                </Grid>
-            </Border>
-            <Border Grid.Column="2" Padding="4" Margin="4" Background="{DynamicResource BaseHighDarkerColor}">
-                <ScrollViewer>
-                    <StackPanel x:Name="ChannelsControls">
-                        <Border Margin="2" Background="Transparent" Grid.Row ="0" Height="90">
-                            <Border.Style>
-                                <Style TargetType="{x:Type Border}">
-                                    <Setter Property="BorderBrush" Value="Transparent"/>
-                                    <Setter Property="BorderThickness" Value="2"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsChecked, ElementName=Ch1}" Value="true">
-                                            <Setter Property="BorderBrush">
-                                                <Setter.Value>
-                                                    <SolidColorBrush Color="{Binding DataContext.ChannelColor[0], ElementName=cmix, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Border.Style>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.25*"/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <RadioButton x:Name="Ch1" Tag="Layer0" Content="1" Margin="1" GroupName="SelectLayer" Style="{DynamicResource BaseRadioButtonStyle}" AllowDrop="True" DragOver="ChannelTab_DragOver" Checked="Channel_Checked" Unchecked="Channel_Unchecked" >
-                                    <RadioButton.Background>
-                                        <SolidColorBrush Color="{Binding DataContext.ChannelColor[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                    </RadioButton.Background>
-                                </RadioButton>
-                                <Grid x:Name="grid1" Grid.Column="1">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <CMiX:CustomSlider x:Name="Ch0_Alpha" Caption="Alpha" Tag="ChannelAlpha" SliderValueChanged="SliderValueChanged" 
-                                                       Value="{Binding DataContext.ChannelAlpha[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                    <ComboBox x:Name="Ch0_BlendMode" SelectionChanged="ComboBoxSelectionChanged" Tag="ChannelBlendMode" Grid.Column="1" Grid.Row="1" Template="{DynamicResource BaseComboBoxStyle}" ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}" 
-                                              ItemsSource="{Binding ChannelsBlendMode, ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                              SelectedItem="{Binding DataContext.ChannelBlendMode[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                    <CMiX:BeatControls x:Name="BeatControlsChannel0" Tag="0" Grid.Row="2"
-                                                       Period="{Binding DataContext.MasterPeriod[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                       Multiplier="{Binding DataContext.ChannelBeatMultiplier[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                       BeatControlChanged="BeatControlsChanged"
-                                                       />
-                                </Grid>
-                            </Grid>
-                        </Border>
-                        <Border Background="Transparent" Margin="2" Grid.Row ="1"  Height="90">
-                            <Border.Style>
-                                <Style TargetType="{x:Type Border}">
-                                    <Setter Property="BorderBrush" Value="Transparent"/>
-                                    <Setter Property="BorderThickness" Value="2"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsChecked, ElementName=Ch2}" Value="true">
-                                            <Setter Property="BorderBrush">
-                                                <Setter.Value>
-                                                    <SolidColorBrush Color="{Binding DataContext.ChannelColor[1], ElementName=cmix, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Border.Style>
-                            <Grid Grid.Row="1">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.25*"/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <RadioButton x:Name="Ch2" Tag="Layer1" Content="2" GroupName="SelectLayer" Margin="1" Style="{DynamicResource BaseRadioButtonStyle}" AllowDrop="True" DragOver="ChannelTab_DragOver" Checked="Channel_Checked" Unchecked="Channel_Unchecked" >
-                                    <RadioButton.Background>
-                                        <SolidColorBrush Color="{Binding DataContext.ChannelColor[1], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                    </RadioButton.Background>
-                                </RadioButton>
-                                <Grid x:Name="grid2" Grid.Column="1">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <CMiX:CustomSlider x:Name="Ch1_Alpha" Caption="Alpha" Tag="ChannelAlpha" SliderValueChanged="SliderValueChanged"
-                                                       Value="{Binding DataContext.ChannelAlpha[1], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                    <ComboBox x:Name="Ch1_BlendMode" SelectionChanged="ComboBoxSelectionChanged" Tag="ChannelBlendMode" Grid.Column="1" Grid.Row="1" Template="{DynamicResource BaseComboBoxStyle}" ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}" 
-                                              ItemsSource="{Binding ChannelsBlendMode, ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                              SelectedItem="{Binding DataContext.ChannelBlendMode[1], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                    <CMiX:BeatControls x:Name="BeatControlsChannel1" Grid.Row="2" Tag="1"
-                                                Period="{Binding DataContext.MasterPeriod[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                Multiplier="{Binding DataContext.ChannelBeatMultiplier[1], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                BeatControlChanged="BeatControlsChanged"
-                                                />
-                                </Grid>
-                            </Grid>
-                        </Border>
-                        <Border Background="Transparent" Margin="2" Grid.Row ="2" Height="90">
-                            <Border.Style>
-                                <Style TargetType="{x:Type Border}">
-                                    <Setter Property="BorderBrush" Value="Transparent"/>
-                                    <Setter Property="BorderThickness" Value="2"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsChecked, ElementName=Ch3}" Value="true">
-                                            <Setter Property="BorderBrush">
-                                                <Setter.Value>
-                                                    <SolidColorBrush Color="{Binding DataContext.ChannelColor[2], ElementName=cmix, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Border.Style>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.25*"/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <RadioButton x:Name="Ch3" Tag="Layer2" Content="3" GroupName="SelectLayer" Margin="1" Style="{DynamicResource BaseRadioButtonStyle}" AllowDrop="True" DragOver="ChannelTab_DragOver" Checked="Channel_Checked" Unchecked="Channel_Unchecked" >
-                                    <RadioButton.Background>
-                                        <SolidColorBrush Color="{Binding DataContext.ChannelColor[2], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                    </RadioButton.Background>
-                                </RadioButton>
-                                <Grid x:Name="grid3" Grid.Column="2">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <CMiX:CustomSlider x:Name="Ch2_Alpha" Caption="Alpha" Tag="ChannelAlpha" SliderValueChanged="SliderValueChanged"
-                                                       Value="{Binding DataContext.ChannelAlpha[2], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                    <ComboBox x:Name="Ch2_BlendMode" SelectionChanged="ComboBoxSelectionChanged" Tag="ChannelBlendMode" Grid.Column="1" Grid.Row="1" d:LayoutOverrides="Height" Template="{DynamicResource BaseComboBoxStyle}" ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}" 
-                                              ItemsSource="{Binding ChannelsBlendMode, ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                              SelectedItem="{Binding DataContext.ChannelBlendMode[2], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                    <CMiX:BeatControls x:Name="BeatControlsChannel2" Grid.Row="2" Tag="2"
-                                                Period="{Binding DataContext.MasterPeriod[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                Multiplier="{Binding DataContext.ChannelBeatMultiplier[2], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                BeatControlChanged="BeatControlsChanged"
-                                                />
-                                </Grid>
-                            </Grid>
-                        </Border>
-                        
-                        <Border Background="Transparent" Margin="2" Grid.Row ="3" Height="90">
-                            <Border.Style>
-                                <Style TargetType="{x:Type Border}">
-                                    <Setter Property="BorderBrush" Value="Transparent"/>
-                                    <Setter Property="BorderThickness" Value="2"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsChecked, ElementName=Ch4}" Value="true">
-                                            <Setter Property="BorderBrush">
-                                                <Setter.Value>
-                                                    <SolidColorBrush Color="{Binding DataContext.ChannelColor[3], ElementName=cmix, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Border.Style>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.25*"/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <RadioButton x:Name="Ch4" Tag="Layer3" Content="4" GroupName="SelectLayer" Margin="1" Style="{DynamicResource BaseRadioButtonStyle}" AllowDrop="True" DragOver="ChannelTab_DragOver" Checked="Channel_Checked" Unchecked="Channel_Unchecked" >
-                                    <RadioButton.Background>
-                                        <SolidColorBrush Color="{Binding DataContext.ChannelColor[3], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                    </RadioButton.Background>
-                                </RadioButton>
-                                <Grid x:Name="grid4" Grid.Column="2">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <CMiX:CustomSlider x:Name="Ch3_Alpha" Caption="Alpha" Tag="ChannelAlpha" SliderValueChanged="SliderValueChanged"
-                                                       Value="{Binding DataContext.ChannelAlpha[3], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                    <ComboBox x:Name="Ch3_BlendMode" SelectionChanged="ComboBoxSelectionChanged" Tag="ChannelBlendMode" Grid.Column="2" Grid.Row="1" d:LayoutOverrides="Height" Template="{DynamicResource BaseComboBoxStyle}" ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}" 
-                                              ItemsSource="{Binding ChannelsBlendMode, ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                              SelectedItem="{Binding DataContext.ChannelBlendMode[3], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                    <CMiX:BeatControls x:Name="BeatControlsChannel3" Grid.Row="3" Tag="3"
-                                                Period="{Binding DataContext.MasterPeriod[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                Multiplier="{Binding DataContext.ChannelBeatMultiplier[3], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                BeatControlChanged="BeatControlsChanged"
-                                                />
-                                </Grid>
-                            </Grid>
-                        </Border>
-                        <Border Background="Transparent" Grid.Row ="4" Margin="2"  Height="90">
-                            <Border.Style>
-                                <Style TargetType="{x:Type Border}">
-                                    <Setter Property="BorderBrush" Value="Transparent"/>
-                                    <Setter Property="BorderThickness" Value="2"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsChecked, ElementName=Ch5}" Value="true">
-                                            <Setter Property="BorderBrush">
-                                                <Setter.Value>
-                                                    <SolidColorBrush Color="{Binding DataContext.ChannelColor[4], ElementName=cmix, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Border.Style>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.25*"/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <RadioButton x:Name="Ch5" Tag="Layer4" Content="5" GroupName="SelectLayer" Margin="1" Style="{DynamicResource BaseRadioButtonStyle}" AllowDrop="True" DragOver="ChannelTab_DragOver" Checked="Channel_Checked" Unchecked="Channel_Unchecked">
-                                    <RadioButton.Background>
-                                        <SolidColorBrush Color="{Binding DataContext.ChannelColor[4], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                    </RadioButton.Background>
-                                </RadioButton>
-                                <Grid x:Name="grid5" Grid.Column="2">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <CMiX:CustomSlider x:Name="Ch4_Alpha" Caption="Alpha" Tag="ChannelAlpha" SliderValueChanged="SliderValueChanged"
-                                                       Value="{Binding DataContext.ChannelAlpha[4], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                    <ComboBox x:Name="Ch4_BlendMode" SelectionChanged="ComboBoxSelectionChanged" Tag="ChannelBlendMode"  Grid.Column="1" Grid.Row="1" d:LayoutOverrides="Height" Template="{DynamicResource BaseComboBoxStyle}" ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}" 
-                                              ItemsSource="{Binding ChannelsBlendMode, ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                              SelectedItem="{Binding DataContext.ChannelBlendMode[4], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                    <CMiX:BeatControls x:Name="BeatControlsChannel4" Grid.Row="2" Tag="4"
-                                                Period="{Binding DataContext.MasterPeriod[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                Multiplier="{Binding DataContext.ChannelBeatMultiplier[4], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                BeatControlChanged="BeatControlsChanged"
-                                                />
-                                </Grid>
-                            </Grid>
-                        </Border>
-                        <Border Background="Transparent" Grid.Row ="5" Margin="2" Height="90">
-                            <Border.Style>
-                                <Style TargetType="{x:Type Border}">
-                                    <Setter Property="BorderBrush" Value="Transparent"/>
-                                    <Setter Property="BorderThickness" Value="2"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsChecked, ElementName=Ch6}" Value="true">
-                                            <Setter Property="BorderBrush">
-                                                <Setter.Value>
-                                                    <SolidColorBrush Color="{Binding DataContext.ChannelColor[5], ElementName=cmix, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Border.Style>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.25*"/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <RadioButton x:Name="Ch6" Tag="Layer5" Content="6" GroupName="SelectLayer" Margin="1" Style="{DynamicResource BaseRadioButtonStyle}" AllowDrop="True" DragOver="ChannelTab_DragOver" Checked="Channel_Checked" Unchecked="Channel_Unchecked">
-                                    <RadioButton.Background>
-                                        <SolidColorBrush Color="{Binding DataContext.ChannelColor[5], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                    </RadioButton.Background>
-                                </RadioButton>
-                                <Grid x:Name="grid6" DockPanel.Dock="Right" Grid.Column="2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="173*"/>
-                                        <ColumnDefinition Width="30*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <CMiX:CustomSlider x:Name="Ch5_Alpha" Caption="Alpha" Tag="ChannelAlpha" SliderValueChanged="SliderValueChanged"
-                                                       Value="{Binding DataContext.ChannelAlpha[5], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2" Margin="0,0,-0.333,28.333" Grid.RowSpan="2"/>
-                                    <ComboBox x:Name="Ch5_BlendMode" SelectionChanged="ComboBoxSelectionChanged" Tag="ChannelBlendMode" Grid.Row="1" Template="{DynamicResource BaseComboBoxStyle}" ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}" 
-                                              ItemsSource="{Binding ChannelsBlendMode, ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                              SelectedItem="{Binding DataContext.ChannelBlendMode[5], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2" Margin="0,0.333,-0.333,0.333"/>
-                                    <CMiX:BeatControls x:Name="BeatControlsChannel5" Grid.Row="1" Tag="5"
-                                                Period="{Binding DataContext.MasterPeriod[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                Multiplier="{Binding DataContext.ChannelBeatMultiplier[5], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                BeatControlChanged="BeatControlsChanged" Grid.ColumnSpan="2" Margin="0,28.333,-0.333,0" Grid.RowSpan="2"
-                                                />
-                                </Grid>
-                            </Grid>
-                        </Border>
-                    </StackPanel>
-                </ScrollViewer>
-            </Border>
-
-            <Grid x:Name="ContentControl" Grid.Column="1">
-                <CMiX:ChannelControls x:Name="Layer0" Tag="0" Visibility="Visible"
-                    EnabledOSC="{Binding EnabledOSC, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelBrightness="{Binding DataContext.ChannelBrightness[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelContrast="{Binding DataContext.ChannelContrast[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSaturation="{Binding DataContext.ChannelSaturation[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelInvert="{Binding DataContext.ChannelInvert[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelFeedBack="{Binding DataContext.ChannelFeedBack[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelTexTransform="{Binding DataContext.ChannelTexTransform[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                      
-                    ChannelHueRange="{Binding DataContext.ChannelHueRange[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSatRange="{Binding DataContext.ChannelSatRange[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelValRange="{Binding DataContext.ChannelValRange[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                               
-                    ChannelSpriteCount="{Binding DataContext.ChannelSpriteCount[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteTranslateName="{Binding DataContext.ChannelSpriteTranslateName[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteScaleName="{Binding DataContext.ChannelSpriteScaleName[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteRotateName="{Binding DataContext.ChannelSpriteRotateName[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteTranslate="{Binding DataContext.ChannelSpriteTranslate[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteScale="{Binding DataContext.ChannelSpriteScale[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteRotate="{Binding DataContext.ChannelSpriteRotate[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteAspectRatio="{Binding DataContext.ChannelSpriteAspectRatio[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSprite3D="{Binding DataContext.ChannelSprite3D[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-
-                    ChannelSelectedSpriteTex="{Binding DataContext.ChannelSelectedSpriteTex[0],Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSelectedSpriteGeom="{Binding DataContext.ChannelSelectedSpriteGeom[0],Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                             
-                    ChannelMaskOn="{Binding DataContext.ChannelMaskOn[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskCount="{Binding DataContext.ChannelMaskCount[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskTranslateName="{Binding DataContext.ChannelMaskTranslateName[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskScaleName="{Binding DataContext.ChannelMaskScaleName[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskRotateName="{Binding DataContext.ChannelMaskRotateName[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskTranslate="{Binding DataContext.ChannelMaskTranslate[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskScale="{Binding DataContext.ChannelMaskScale[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskRotate="{Binding DataContext.ChannelMaskRotate[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskAspectRatio="{Binding DataContext.ChannelMaskAspectRatio[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMask3D="{Binding DataContext.ChannelMask3D[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                      
-                    ChannelSelectedMaskTex="{Binding DataContext.ChannelSelectedMaskTex[0],Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSelectedMaskGeom="{Binding DataContext.ChannelSelectedMaskGeom[0],Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelColor="{Binding DataContext.ChannelColor[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    />
-
-                <CMiX:ChannelControls x:Name="Layer1" Tag="1" Visibility="Hidden"
-                    EnabledOSC="{Binding EnabledOSC, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelBrightness="{Binding DataContext.ChannelBrightness[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelContrast="{Binding DataContext.ChannelContrast[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSaturation="{Binding DataContext.ChannelSaturation[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelInvert="{Binding DataContext.ChannelInvert[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelFeedBack="{Binding DataContext.ChannelFeedBack[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelTexTransform="{Binding DataContext.ChannelTexTransform[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                      
-                    ChannelHueRange="{Binding DataContext.ChannelHueRange[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSatRange="{Binding DataContext.ChannelSatRange[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelValRange="{Binding DataContext.ChannelValRange[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                               
-                    ChannelSpriteCount="{Binding DataContext.ChannelSpriteCount[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteTranslateName="{Binding DataContext.ChannelSpriteTranslateName[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteScaleName="{Binding DataContext.ChannelSpriteScaleName[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteRotateName="{Binding DataContext.ChannelSpriteRotateName[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteTranslate="{Binding DataContext.ChannelSpriteTranslate[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteScale="{Binding DataContext.ChannelSpriteScale[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteRotate="{Binding DataContext.ChannelSpriteRotate[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteAspectRatio="{Binding DataContext.ChannelSpriteAspectRatio[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSprite3D="{Binding DataContext.ChannelSprite3D[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-
-                    ChannelSelectedSpriteTex="{Binding DataContext.ChannelSelectedSpriteTex[1],Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSelectedSpriteGeom="{Binding DataContext.ChannelSelectedSpriteGeom[1],Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                             
-                    ChannelMaskOn="{Binding DataContext.ChannelMaskOn[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskCount="{Binding DataContext.ChannelMaskCount[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskTranslateName="{Binding DataContext.ChannelMaskTranslateName[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskScaleName="{Binding DataContext.ChannelMaskScaleName[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskRotateName="{Binding DataContext.ChannelMaskRotateName[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskTranslate="{Binding DataContext.ChannelMaskTranslate[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskScale="{Binding DataContext.ChannelMaskScale[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskRotate="{Binding DataContext.ChannelMaskRotate[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskAspectRatio="{Binding DataContext.ChannelMaskAspectRatio[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMask3D="{Binding DataContext.ChannelMask3D[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                      
-                    ChannelSelectedMaskTex="{Binding DataContext.ChannelSelectedMaskTex[1],Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSelectedMaskGeom="{Binding DataContext.ChannelSelectedMaskGeom[1],Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelColor="{Binding DataContext.ChannelColor[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    />
-
-                <CMiX:ChannelControls x:Name="Layer2" Tag="2" Visibility="Hidden" 
-                    EnabledOSC="{Binding EnabledOSC, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"                  
-                    ChannelBrightness="{Binding DataContext.ChannelBrightness[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelContrast="{Binding DataContext.ChannelContrast[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSaturation="{Binding DataContext.ChannelSaturation[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelInvert="{Binding DataContext.ChannelInvert[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelFeedBack="{Binding DataContext.ChannelFeedBack[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelTexTransform="{Binding DataContext.ChannelTexTransform[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                      
-                    ChannelHueRange="{Binding DataContext.ChannelHueRange[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSatRange="{Binding DataContext.ChannelSatRange[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelValRange="{Binding DataContext.ChannelValRange[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                               
-                    ChannelSpriteCount="{Binding DataContext.ChannelSpriteCount[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteTranslateName="{Binding DataContext.ChannelSpriteTranslateName[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteScaleName="{Binding DataContext.ChannelSpriteScaleName[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteRotateName="{Binding DataContext.ChannelSpriteRotateName[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteTranslate="{Binding DataContext.ChannelSpriteTranslate[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteScale="{Binding DataContext.ChannelSpriteScale[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteRotate="{Binding DataContext.ChannelSpriteRotate[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteAspectRatio="{Binding DataContext.ChannelSpriteAspectRatio[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSprite3D="{Binding DataContext.ChannelSprite3D[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-
-                    ChannelSelectedSpriteTex="{Binding DataContext.ChannelSelectedSpriteTex[2],Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSelectedSpriteGeom="{Binding DataContext.ChannelSelectedSpriteGeom[2],Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                             
-                    ChannelMaskOn="{Binding DataContext.ChannelMaskOn[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskCount="{Binding DataContext.ChannelMaskCount[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskTranslateName="{Binding DataContext.ChannelMaskTranslateName[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskScaleName="{Binding DataContext.ChannelMaskScaleName[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskRotateName="{Binding DataContext.ChannelMaskRotateName[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskTranslate="{Binding DataContext.ChannelMaskTranslate[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskScale="{Binding DataContext.ChannelMaskScale[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskRotate="{Binding DataContext.ChannelMaskRotate[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskAspectRatio="{Binding DataContext.ChannelMaskAspectRatio[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMask3D="{Binding DataContext.ChannelMask3D[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                      
-                    ChannelSelectedMaskTex="{Binding DataContext.ChannelSelectedMaskTex[2],Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSelectedMaskGeom="{Binding DataContext.ChannelSelectedMaskGeom[2],Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelColor="{Binding DataContext.ChannelColor[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    />
-
-                <CMiX:ChannelControls x:Name="Layer3" Tag="3" Visibility="Hidden" 
-                    EnabledOSC="{Binding EnabledOSC, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelBrightness="{Binding DataContext.ChannelBrightness[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelContrast="{Binding DataContext.ChannelContrast[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSaturation="{Binding DataContext.ChannelSaturation[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelInvert="{Binding DataContext.ChannelInvert[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelFeedBack="{Binding DataContext.ChannelFeedBack[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelTexTransform="{Binding DataContext.ChannelTexTransform[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                      
-                    ChannelHueRange="{Binding DataContext.ChannelHueRange[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSatRange="{Binding DataContext.ChannelSatRange[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelValRange="{Binding DataContext.ChannelValRange[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                               
-                    ChannelSpriteCount="{Binding DataContext.ChannelSpriteCount[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteTranslateName="{Binding DataContext.ChannelSpriteTranslateName[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteScaleName="{Binding DataContext.ChannelSpriteScaleName[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteRotateName="{Binding DataContext.ChannelSpriteRotateName[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteTranslate="{Binding DataContext.ChannelSpriteTranslate[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteScale="{Binding DataContext.ChannelSpriteScale[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteRotate="{Binding DataContext.ChannelSpriteRotate[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteAspectRatio="{Binding DataContext.ChannelSpriteAspectRatio[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSprite3D="{Binding DataContext.ChannelSprite3D[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-
-                    ChannelSelectedSpriteTex="{Binding DataContext.ChannelSelectedSpriteTex[3],Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSelectedSpriteGeom="{Binding DataContext.ChannelSelectedSpriteGeom[3],Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                             
-                    ChannelMaskOn="{Binding DataContext.ChannelMaskOn[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskCount="{Binding DataContext.ChannelMaskCount[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskTranslateName="{Binding DataContext.ChannelMaskTranslateName[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskScaleName="{Binding DataContext.ChannelMaskScaleName[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskRotateName="{Binding DataContext.ChannelMaskRotateName[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskTranslate="{Binding DataContext.ChannelMaskTranslate[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskScale="{Binding DataContext.ChannelMaskScale[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskRotate="{Binding DataContext.ChannelMaskRotate[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskAspectRatio="{Binding DataContext.ChannelMaskAspectRatio[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMask3D="{Binding DataContext.ChannelMask3D[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                      
-                    ChannelSelectedMaskTex="{Binding DataContext.ChannelSelectedMaskTex[3],Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSelectedMaskGeom="{Binding DataContext.ChannelSelectedMaskGeom[3],Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelColor="{Binding DataContext.ChannelColor[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                      />
-
-                <CMiX:ChannelControls x:Name="Layer4" Tag="4" Visibility="Hidden" 
-                    EnabledOSC="{Binding EnabledOSC, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelBrightness="{Binding DataContext.ChannelBrightness[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelContrast="{Binding DataContext.ChannelContrast[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSaturation="{Binding DataContext.ChannelSaturation[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelInvert="{Binding DataContext.ChannelInvert[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelFeedBack="{Binding DataContext.ChannelFeedBack[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelTexTransform="{Binding DataContext.ChannelTexTransform[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                      
-                    ChannelHueRange="{Binding DataContext.ChannelHueRange[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSatRange="{Binding DataContext.ChannelSatRange[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelValRange="{Binding DataContext.ChannelValRange[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                               
-                    ChannelSpriteCount="{Binding DataContext.ChannelSpriteCount[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteTranslateName="{Binding DataContext.ChannelSpriteTranslateName[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteScaleName="{Binding DataContext.ChannelSpriteScaleName[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteRotateName="{Binding DataContext.ChannelSpriteRotateName[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteTranslate="{Binding DataContext.ChannelSpriteTranslate[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteScale="{Binding DataContext.ChannelSpriteScale[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteRotate="{Binding DataContext.ChannelSpriteRotate[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteAspectRatio="{Binding DataContext.ChannelSpriteAspectRatio[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSprite3D="{Binding DataContext.ChannelSprite3D[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-
-                    ChannelSelectedSpriteTex="{Binding DataContext.ChannelSelectedSpriteTex[4],Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSelectedSpriteGeom="{Binding DataContext.ChannelSelectedSpriteGeom[4],Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                             
-                    ChannelMaskOn="{Binding DataContext.ChannelMaskOn[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskCount="{Binding DataContext.ChannelMaskCount[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskTranslateName="{Binding DataContext.ChannelMaskTranslateName[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskScaleName="{Binding DataContext.ChannelMaskScaleName[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskRotateName="{Binding DataContext.ChannelMaskRotateName[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskTranslate="{Binding DataContext.ChannelMaskTranslate[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskScale="{Binding DataContext.ChannelMaskScale[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskRotate="{Binding DataContext.ChannelMaskRotate[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskAspectRatio="{Binding DataContext.ChannelMaskAspectRatio[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMask3D="{Binding DataContext.ChannelMask3D[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                      
-                    ChannelSelectedMaskTex="{Binding DataContext.ChannelSelectedMaskTex[4],Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSelectedMaskGeom="{Binding DataContext.ChannelSelectedMaskGeom[4],Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelColor="{Binding DataContext.ChannelColor[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                      />
-
-                <CMiX:ChannelControls x:Name="Layer5" Tag="5" Visibility="Hidden"
-                    EnabledOSC="{Binding EnabledOSC, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelBrightness="{Binding DataContext.ChannelBrightness[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelContrast="{Binding DataContext.ChannelContrast[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSaturation="{Binding DataContext.ChannelSaturation[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelInvert="{Binding DataContext.ChannelInvert[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelFeedBack="{Binding DataContext.ChannelFeedBack[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelTexTransform="{Binding DataContext.ChannelTexTransform[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                      
-                    ChannelHueRange="{Binding DataContext.ChannelHueRange[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSatRange="{Binding DataContext.ChannelSatRange[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelValRange="{Binding DataContext.ChannelValRange[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                               
-                    ChannelSpriteCount="{Binding DataContext.ChannelSpriteCount[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteTranslateName="{Binding DataContext.ChannelSpriteTranslateName[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteScaleName="{Binding DataContext.ChannelSpriteScaleName[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteRotateName="{Binding DataContext.ChannelSpriteRotateName[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteTranslate="{Binding DataContext.ChannelSpriteTranslate[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteScale="{Binding DataContext.ChannelSpriteScale[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteRotate="{Binding DataContext.ChannelSpriteRotate[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSpriteAspectRatio="{Binding DataContext.ChannelSpriteAspectRatio[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSprite3D="{Binding DataContext.ChannelSprite3D[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-
-                    ChannelSelectedSpriteTex="{Binding DataContext.ChannelSelectedSpriteTex[5],Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSelectedSpriteGeom="{Binding DataContext.ChannelSelectedSpriteGeom[5],Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                             
-                    ChannelMaskOn="{Binding DataContext.ChannelMaskOn[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskCount="{Binding DataContext.ChannelMaskCount[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskTranslateName="{Binding DataContext.ChannelMaskTranslateName[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskScaleName="{Binding DataContext.ChannelMaskScaleName[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskRotateName="{Binding DataContext.ChannelMaskRotateName[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskTranslate="{Binding DataContext.ChannelMaskTranslate[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskScale="{Binding DataContext.ChannelMaskScale[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskRotate="{Binding DataContext.ChannelMaskRotate[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMaskAspectRatio="{Binding DataContext.ChannelMaskAspectRatio[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelMask3D="{Binding DataContext.ChannelMask3D[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                      
-                    ChannelSelectedMaskTex="{Binding DataContext.ChannelSelectedMaskTex[5],Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelSelectedMaskGeom="{Binding DataContext.ChannelSelectedMaskGeom[5],Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                    ChannelColor="{Binding DataContext.ChannelColor[5], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                      />
-            </Grid>
         </Grid>
     </DockPanel>
 </UserControl>

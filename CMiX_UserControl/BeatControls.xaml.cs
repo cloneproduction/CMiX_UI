@@ -17,14 +17,6 @@ namespace CMiX
         }
 
         #region Properties
-        public static readonly DependencyProperty ChanceToHitProperty =
-        DependencyProperty.Register("ChanceToHit", typeof(double), typeof(BeatControls), new PropertyMetadata(0.0));
-        [Bindable(true)]
-        public double ChanceToHit
-        {
-            get { return (double)this.GetValue(ChanceToHitProperty); }
-            set { this.SetValue(ChanceToHitProperty, value); }
-        }
 
         public static readonly DependencyProperty MultiplierProperty =
         DependencyProperty.Register("Multiplier", typeof(double), typeof(BeatControls), new PropertyMetadata(1.0, new PropertyChangedCallback(PropertyChanged)));
@@ -35,13 +27,13 @@ namespace CMiX
             set { this.SetValue(MultiplierProperty, value); }
         }
 
-        public static readonly DependencyProperty PeriodProperty =
-        DependencyProperty.Register("Period", typeof(double), typeof(BeatControls), new PropertyMetadata(0.0, new PropertyChangedCallback(PropertyChanged)));
+        public static readonly DependencyProperty MasterPeriodProperty =
+        DependencyProperty.Register("MasterPeriod", typeof(double), typeof(BeatControls), new PropertyMetadata(0.0, new PropertyChangedCallback(PropertyChanged)));
         [Bindable(true)]
-        public double Period
+        public double MasterPeriod
         {
-            get { return (double)this.GetValue(PeriodProperty); }
-            set { this.SetValue(PeriodProperty , value) ; }
+            get { return (double)this.GetValue(MasterPeriodProperty); }
+            set { this.SetValue(MasterPeriodProperty , value) ; }
         }
 
         public static readonly DependencyProperty ControlPeriodProperty =
@@ -60,7 +52,7 @@ namespace CMiX
             var beatcontrol = d as BeatControls;
             if(beatcontrol != null)
             {
-                beatcontrol.ControlPeriod = beatcontrol.Period * beatcontrol.Multiplier;
+                beatcontrol.ControlPeriod = beatcontrol.MasterPeriod * beatcontrol.Multiplier;
             }
         }
 
@@ -86,7 +78,8 @@ namespace CMiX
 
         private void ResetBPM_Click(object sender, RoutedEventArgs e)
         {
-
+            Multiplier = 1.0;
+            OnBeatControlChanged(e);
         }
         #endregion
     }

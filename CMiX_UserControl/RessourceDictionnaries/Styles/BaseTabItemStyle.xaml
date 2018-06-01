@@ -28,7 +28,6 @@
                         <Border x:Name="mainBorder"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" Background="{TemplateBinding Background}">
                             <Border x:Name="innerBorder" BorderBrush="Transparent"   VerticalAlignment="Stretch" FlowDirection="LeftToRight" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
                         </Border>
-                        
                         <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" ContentStringFormat="{TemplateBinding HeaderStringFormat}" ContentSource="Header" Focusable="False" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" Margin="0" HorizontalAlignment="Center"/>
                     </Grid>
                     <ControlTemplate.Triggers>

@@ -3,6 +3,7 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Windows.Data;
+using System.Windows.Markup;
 using System.Windows.Media;
 
 namespace CMiX
@@ -33,7 +34,7 @@ namespace CMiX
             if (value != null)
             {
                 //if (string.IsNullOrWhiteSpace(path) == false)
-                result = Path.GetFileName(value.ToString());
+                result = Path.GetFileNameWithoutExtension(value.ToString());
             }
             return result;
         }
@@ -165,6 +166,40 @@ namespace CMiX
         }
     }
 
+    public class ColorToStringConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            string color = (string)value;
+            Color Output = Utils.HexStringToColor(color);
+            return Output;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            Color color = (Color)value;
+            string Output = Utils.ColorToHexString(color);
+            return Output;
+        }
+    }
+
+    public class BoolToStringConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            string s = (String)value;
+            bool Output = bool.Parse(s);
+            return Output;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            bool b = (bool)value;
+            string Output = b.ToString();
+            return Output;
+        }
+    }
+
     public class ColorToBrushConverter : IValueConverter
     {
         SolidColorBrush _red = new SolidColorBrush(), 
@@ -202,6 +237,25 @@ namespace CMiX
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
+        }
+    }
+
+    public class BoolInverterConverter : MarkupExtension, IValueConverter
+    {
+        public override object ProvideValue(IServiceProvider serviceProvider)
+        {
+            return this;
+        }
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is bool)
+                return !(bool)value;
+            return value;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return Convert(value, targetType, parameter, culture);
         }
     }
 }

@@ -9,7 +9,7 @@
             </Grid.ColumnDefinitions>
 
             <Popup x:Name="PART_Popup" AllowsTransparency="True" Grid.ColumnSpan="2" IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Margin="1" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" Placement="Bottom">
-                <Border x:Name="DropDownBorder" BorderBrush="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}" BorderThickness="1" Background="{DynamicResource BaseColor}">
+                <Border x:Name="DropDownBorder" BorderBrush="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}" Background="{DynamicResource BaseColor}">
                     <ScrollViewer x:Name="DropDownScrollViewer">
                         <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
                             <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
@@ -24,14 +24,27 @@
             <ToggleButton x:Name="toggleButton" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.ColumnSpan="2" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" >
                 <ToggleButton.Style>
                     <Style TargetType="{x:Type ToggleButton}">
+                        <Setter Property="FocusVisualStyle">
+                            <Setter.Value>
+                                <Style>
+                                    <Setter Property="Control.Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <Rectangle Margin="0" SnapsToDevicePixels="True" Stroke="White" StrokeThickness="1" />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Setter.Value>
+                        </Setter>
                         <Setter Property="OverridesDefaultStyle" Value="True"/>
                         <Setter Property="IsTabStop" Value="False"/>
-                        <Setter Property="Focusable" Value="False"/>
+                        <Setter Property="Focusable" Value="True"/>
                         <Setter Property="ClickMode" Value="Press"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type ToggleButton}">
-                                    <Border x:Name="templateRoot" Background="{DynamicResource BaseColor}" Margin="1" BorderBrush="Transparent" BorderThickness="0" SnapsToDevicePixels="True">
+                                    <Border x:Name="templateRoot" Background="{DynamicResource BaseColor}" Margin="0" SnapsToDevicePixels="True">
                                         <Border x:Name="splitBorder" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Right" Margin="0" SnapsToDevicePixels="True" Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}">
                                             <Path x:Name="Arrow" Data="F1M0,0L2.667,2.66665 5.3334,0 5.3334,-1.78168 2.6667,0.88501 0,-1.78168 0,0z" Fill="{DynamicResource BaseText}" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center"/>
                                         </Border>
@@ -57,25 +70,8 @@
                                                 <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
                                                 <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ComboBox}}}" Value="false"/>
                                             </MultiDataTrigger.Conditions>
-                                            <Setter Property="Background" TargetName="templateRoot" Value="{DynamicResource OverColor}"/>
-                                            <Setter Property="BorderBrush" TargetName="templateRoot" Value="{DynamicResource OverColor}"/>
-                                        </MultiDataTrigger>
-                                        <MultiDataTrigger>
-                                            <MultiDataTrigger.Conditions>
-                                                <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
-                                                <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ComboBox}}}" Value="true"/>
-                                            </MultiDataTrigger.Conditions>
-                                            <Setter Property="Background" TargetName="templateRoot" Value="White"/>
-                                            <Setter Property="BorderBrush" TargetName="templateRoot" Value="#FF7EB4EA"/>
-                                            <Setter Property="Background" TargetName="splitBorder">
-                                                <Setter.Value>
-                                                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                                                        <GradientStop Color="#FFEBF4FC" Offset="0"/>
-                                                        <GradientStop Color="#FFDCECFC" Offset="1"/>
-                                                    </LinearGradientBrush>
-                                                </Setter.Value>
-                                            </Setter>
-                                            <Setter Property="BorderBrush" TargetName="splitBorder" Value="#FF7EB4EA"/>
+                                            <Setter Property="Background" TargetName="templateRoot" Value="{DynamicResource BaseLightColor}"/>
+                                            <Setter Property="BorderBrush" TargetName="templateRoot" Value="{DynamicResource BaseLightColor}"/>
                                         </MultiDataTrigger>
                                         <Trigger Property="IsPressed" Value="True">
                                             <Setter Property="Fill" TargetName="Arrow" Value="White"/>
