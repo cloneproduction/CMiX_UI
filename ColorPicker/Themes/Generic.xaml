@@ -3,42 +3,52 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:ColorPicker">
 
-    <SolidColorBrush x:Key="BaseDarkerColor" Color="#FF1E1E1E"/>
-    <SolidColorBrush x:Key="BaseDarkColor" Color="#FF323232"/>
-    <SolidColorBrush x:Key="BaseColor" Color="#FF505050"/>
-    <SolidColorBrush x:Key="BaseLightColor" Color="#FF646464"/>
-    <SolidColorBrush x:Key="BaseHighLightColor" Color="#FF787878"/>
-    <SolidColorBrush x:Key="OverColor" Color="#FF5A5A5A"/>
-    <SolidColorBrush x:Key="ActiveColor" Color="#FF7D00FF"/>
-    <SolidColorBrush x:Key="BaseText" Color="#FFC8C8C8"/>
-    <SolidColorBrush x:Key="OverText" Color="Gainsboro"/>
-    <SolidColorBrush x:Key="ActiveText" Color="White"/>
-    <SolidColorBrush x:Key="ElementGroupBg" Color="#FF323232"/>
-    
-    <local:HueToColorConverter x:Key="HueToColorConverter"/>
-    <local:ValueAngleConverter x:Key="ValueAngleConverter"/>
-    <local:DoubleToIntegerStringConverter x:Key="DoubleToIntegerStringConverter"/>
-    <local:ColorHexConverter x:Key="ColorToHexConverter"/>
-    
+    <SolidColorBrush x:Key="BaseDarkerColor" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="BaseDarkColor" Color="#FF323232" />
+    <SolidColorBrush x:Key="BaseColor" Color="#FF505050" />
+    <SolidColorBrush x:Key="BaseLightColor" Color="#FF646464" />
+    <SolidColorBrush x:Key="BaseHighLightColor" Color="#FF787878" />
+    <SolidColorBrush x:Key="OverColor" Color="#FF5A5A5A" />
+    <SolidColorBrush x:Key="ActiveColor" Color="#FF7D00FF" />
+    <SolidColorBrush x:Key="BaseText" Color="#FFC8C8C8" />
+    <SolidColorBrush x:Key="OverText" Color="Gainsboro" />
+    <SolidColorBrush x:Key="ActiveText" Color="White" />
+    <SolidColorBrush x:Key="ElementGroupBg" Color="#FF323232" />
+
+    <local:HueToColorConverter x:Key="HueToColorConverter" />
+    <local:ValueAngleConverter x:Key="ValueAngleConverter" />
+    <local:DoubleToIntegerStringConverter x:Key="DoubleToIntegerStringConverter" />
+    <local:ColorHexConverter x:Key="ColorToHexConverter" />
+
     <Style x:Key="ColorPickerTextBox" TargetType="{x:Type TextBox}">
-        <Setter Property="Margin" Value="2,0,0,0"/>
-        <Setter Property="Padding" Value="2"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="BorderBrush" Value="Black"/>
-        <Setter Property="Background" Value="{StaticResource BaseDarkerColor}"/>
-        <Setter Property="Foreground" Value="{StaticResource BaseText}"/>
+        <Setter Property="Margin" Value="2,0,0,0" />
+        <Setter Property="Padding" Value="2" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="Background" Value="{StaticResource BaseDarkerColor}" />
+        <Setter Property="Foreground" Value="{StaticResource BaseText}" />
     </Style>
-    
+
     <Style x:Key="HsvControlThumbStyle" TargetType="{x:Type Thumb}">
-        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Stylus.IsPressAndHoldEnabled" Value="True" />
-        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <Grid Height="20" Width="20" Canvas.Left="140" Canvas.Top="15">
-                        <Ellipse Stroke="White" StrokeThickness="1" Margin="0"/>
-                        <Ellipse Stroke="Black" StrokeThickness="2" Margin="2"/>
+                    <Grid
+                        Canvas.Left="140"
+                        Canvas.Top="15"
+                        Width="20"
+                        Height="20">
+                        <Ellipse
+                            Margin="0"
+                            Stroke="White"
+                            StrokeThickness="1" />
+                        <Ellipse
+                            Margin="2"
+                            Stroke="Black"
+                            StrokeThickness="2" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -47,8 +57,8 @@
 
     <Style TargetType="{x:Type local:HsvControl}">
         <Setter Property="IsTabStop" Value="False" />
-        <Setter Property="SnapsToDevicePixels" Value="True"/>
-        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Focusable" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:HsvControl}">
@@ -56,27 +66,31 @@
                         <Rectangle>
                             <Rectangle.Fill>
                                 <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
-                                    <GradientStop Offset="0" Color="#FFFFFFFF"/>
-                                    <GradientStop Offset="1" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Hue, Converter={StaticResource HueToColorConverter}}"/>
+                                    <GradientStop Offset="0" Color="#FFFFFFFF" />
+                                    <GradientStop Offset="1" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Hue, Converter={StaticResource HueToColorConverter}}" />
                                 </LinearGradientBrush>
                             </Rectangle.Fill>
                         </Rectangle>
                         <Rectangle>
                             <Rectangle.Fill>
                                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                    <GradientStop Offset="0" Color="#00000000"/>
-                                    <GradientStop Offset="1" Color="#FF000000"/>
+                                    <GradientStop Offset="0" Color="#00000000" />
+                                    <GradientStop Offset="1" Color="#FF000000" />
                                 </LinearGradientBrush>
                             </Rectangle.Fill>
                         </Rectangle>
                         <Grid>
-                            <Border BorderBrush="#A0808080" BorderThickness="1,1,0,0"/>
-                            <Border BorderBrush="#A0F0F0F0" BorderThickness="0,0,1,1"/>
+                            <Border BorderBrush="#A0808080" BorderThickness="1,1,0,0" />
+                            <Border BorderBrush="#A0F0F0F0" BorderThickness="0,0,1,1" />
                         </Grid>
                         <Canvas ClipToBounds="true">
-                            <Thumb Canvas.Left="-5" Canvas.Top="-5" x:Name="PART_Thumb" Style="{StaticResource HsvControlThumbStyle}">
+                            <Thumb
+                                x:Name="PART_Thumb"
+                                Canvas.Left="-5"
+                                Canvas.Top="-5"
+                                Style="{StaticResource HsvControlThumbStyle}">
                                 <Thumb.RenderTransform>
-                                    <TranslateTransform X="0" Y="0"/>
+                                    <TranslateTransform X="0" Y="0" />
                                 </Thumb.RenderTransform>
                             </Thumb>
                         </Canvas>
@@ -102,19 +116,33 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <Grid Width="15" Height="auto" Background="Transparent">
+                    <Grid
+                        Width="15"
+                        Height="auto"
+                        Background="Transparent">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="0.2*"/>
-                            <RowDefinition Height="0.2*"/>
-                            <RowDefinition Height="0.2*"/>
+                            <RowDefinition Height="0.2*" />
+                            <RowDefinition Height="0.2*" />
+                            <RowDefinition Height="0.2*" />
                         </Grid.RowDefinitions>
                         <Viewbox Grid.Row="0" Stretch="Uniform">
                             <Grid>
-                                <Polygon Stretch="Uniform" Fill="{StaticResource BaseLightColor}" Points="0,0.0 15,0 7.5,10" Stroke="Gray" StrokeThickness="1" VerticalAlignment="Top"/>
+                                <Polygon
+                                    VerticalAlignment="Top"
+                                    Fill="{StaticResource BaseLightColor}"
+                                    Points="0,0.0 15,0 7.5,10"
+                                    Stretch="Uniform"
+                                    Stroke="Gray"
+                                    StrokeThickness="1" />
                             </Grid>
                         </Viewbox>
                         <Viewbox Grid.Row="2">
-                            <Polygon Fill="{StaticResource BaseLightColor}" Points="0,11 7.5,0 15,11" Stroke="Gray" StrokeThickness="1" VerticalAlignment="Bottom"/>
+                            <Polygon
+                                VerticalAlignment="Bottom"
+                                Fill="{StaticResource BaseLightColor}"
+                                Points="0,11 7.5,0 15,11"
+                                Stroke="Gray"
+                                StrokeThickness="1" />
                         </Viewbox>
                     </Grid>
                 </ControlTemplate>
@@ -123,18 +151,31 @@
     </Style>
 
     <Style x:Key="SpectrumSliderThumbStyle" TargetType="{x:Type Thumb}">
-        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <Grid Background="Transparent" Width="16" Height="9">
+                    <Grid
+                        Width="16"
+                        Height="9"
+                        Background="Transparent">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="4"/>
-                            <ColumnDefinition Width="6"/>
+                            <ColumnDefinition Width="4" />
+                            <ColumnDefinition Width="6" />
                         </Grid.ColumnDefinitions>
-                        <Polygon Grid.Column="0" Stroke="White" StrokeThickness="1" Fill="Black" Points="0.5,0  5.5,4.5  0.5,9"/>
-                        <Polygon Grid.Column="2" Stroke="White" StrokeThickness="1" Fill="Black" Points="5.5,0  0.5,4.5  5.5,9"/>
+                        <Polygon
+                            Grid.Column="0"
+                            Fill="Black"
+                            Points="0.5,0  5.5,4.5  0.5,9"
+                            Stroke="White"
+                            StrokeThickness="1" />
+                        <Polygon
+                            Grid.Column="2"
+                            Fill="Black"
+                            Points="5.5,0  0.5,4.5  5.5,9"
+                            Stroke="White"
+                            StrokeThickness="1" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -143,24 +184,24 @@
 
     <Style TargetType="{x:Type local:SpectrumSlider}">
         <Setter Property="IsTabStop" Value="false" />
-        <Setter Property="Orientation" Value="Horizontal"/>
-        <Setter Property="Maximum" Value="360"/>
+        <Setter Property="Orientation" Value="Horizontal" />
+        <Setter Property="Maximum" Value="360" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:SpectrumSlider}">
                     <Grid>
-                        <Grid >
-                            <Border Margin="0" Background="{TemplateBinding Background}"/>
+                        <Grid>
+                            <Border Margin="0" Background="{TemplateBinding Background}" />
                         </Grid>
-                        <Track Margin="-7.5,0,-7.5,0" x:Name="PART_Track">
+                        <Track x:Name="PART_Track" Margin="-7.5,0,-7.5,0">
                             <Track.DecreaseRepeatButton>
-                                <RepeatButton Style="{StaticResource ColorPickerRepeatButtonStyle}" Command="{x:Static Slider.DecreaseLarge}" />
+                                <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource ColorPickerRepeatButtonStyle}" />
                             </Track.DecreaseRepeatButton>
                             <Track.IncreaseRepeatButton>
-                                <RepeatButton Style="{StaticResource ColorPickerRepeatButtonStyle}" Command="{x:Static Slider.IncreaseLarge}" />
+                                <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource ColorPickerRepeatButtonStyle}" />
                             </Track.IncreaseRepeatButton>
                             <Track.Thumb>
-                                <Thumb x:Name="Thumb" Style="{StaticResource ColorSliderThumbStyle}"/>
+                                <Thumb x:Name="Thumb" Style="{StaticResource ColorSliderThumbStyle}" />
                             </Track.Thumb>
                         </Track>
                     </Grid>
@@ -170,29 +211,29 @@
     </Style>
 
     <Style TargetType="{x:Type local:ColorSlider}">
-        <Setter Property="Maximum" Value="255"/>
-        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="Maximum" Value="255" />
+        <Setter Property="Focusable" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ColorSlider}">
                     <Border>
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                <GradientStop Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=LeftColor}" Offset="0"/>
-                                <GradientStop Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=RightColor}" Offset="1"/>
+                                <GradientStop Offset="0" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=LeftColor}" />
+                                <GradientStop Offset="1" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=RightColor}" />
                             </LinearGradientBrush>
                         </Border.Background>
-                        <Track Margin="-7.5,0,-7.5,0" x:Name="PART_Track">
+                        <Track x:Name="PART_Track" Margin="-7.5,0,-7.5,0">
                             <Track.DecreaseRepeatButton>
-                                <RepeatButton Style="{StaticResource ColorPickerRepeatButtonStyle}" Command="{x:Static Slider.DecreaseLarge}" />
+                                <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource ColorPickerRepeatButtonStyle}" />
                             </Track.DecreaseRepeatButton>
                             <Track.IncreaseRepeatButton>
-                                <RepeatButton Style="{StaticResource ColorPickerRepeatButtonStyle}" Command="{x:Static Slider.IncreaseLarge}" />
+                                <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource ColorPickerRepeatButtonStyle}" />
                             </Track.IncreaseRepeatButton>
                             <Track.Thumb>
                                 <Thumb x:Name="Part_Thumb" Style="{StaticResource ColorSliderThumbStyle}">
                                     <Thumb.RenderTransform>
-                                        <TranslateTransform Y="0"/>
+                                        <TranslateTransform Y="0" />
                                     </Thumb.RenderTransform>
                                 </Thumb>
                             </Track.Thumb>
@@ -204,27 +245,30 @@
     </Style>
 
     <Style TargetType="{x:Type local:HSVSlider}">
-        <Setter Property="Maximum" Value="255"/>
-        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="Maximum" Value="255" />
+        <Setter Property="Focusable" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:HSVSlider}">
                     <Border>
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                <GradientStop Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=LeftColor}" Offset="0"/>
-                                <GradientStop Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=RightColor}" Offset="1"/>
+                                <GradientStop Offset="0" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=LeftColor}" />
+                                <GradientStop Offset="1" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=RightColor}" />
                             </LinearGradientBrush>
                         </Border.Background>
-                        <Track Grid.Row="1" Margin="-7.5,0,-7.5,0" x:Name="PART_Track" >
+                        <Track
+                            x:Name="PART_Track"
+                            Grid.Row="1"
+                            Margin="-7.5,0,-7.5,0">
                             <Track.DecreaseRepeatButton>
-                                <RepeatButton Style="{StaticResource ColorPickerRepeatButtonStyle}" Command="{x:Static Slider.DecreaseLarge}" />
+                                <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource ColorPickerRepeatButtonStyle}" />
                             </Track.DecreaseRepeatButton>
                             <Track.IncreaseRepeatButton>
-                                <RepeatButton Style="{StaticResource ColorPickerRepeatButtonStyle}" Command="{x:Static Slider.IncreaseLarge}" />
+                                <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource ColorPickerRepeatButtonStyle}" />
                             </Track.IncreaseRepeatButton>
                             <Track.Thumb>
-                                <Thumb x:Name="Part_Thumb" Style="{StaticResource ColorSliderThumbStyle}"/>
+                                <Thumb x:Name="Part_Thumb" Style="{StaticResource ColorSliderThumbStyle}" />
                             </Track.Thumb>
                         </Track>
                     </Border>
@@ -234,26 +278,46 @@
     </Style>
 
     <Style TargetType="{x:Type local:HueWheel}">
-        <Setter Property="Focusable" Value="False"/>
-        <Setter Property="Maximum" Value="360"/>
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Maximum" Value="360" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate x:Name="Part_Slider" TargetType="{x:Type local:HueWheel}">
-                    <Grid x:Name="PART_FirstCanvas" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Image x:Name="HueImage" Stretch="Fill" Source="/ColorPicker;component/Assets/HueCircle.png" Height="300" Width="300" RenderTransformOrigin="0.5,0.5"/>
+                    <Grid
+                        x:Name="PART_FirstCanvas"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="Transparent">
+                        <Image
+                            x:Name="HueImage"
+                            Width="300"
+                            Height="300"
+                            RenderTransformOrigin="0.5,0.5"
+                            Source="/ColorPicker;component/Assets/HueCircle.png"
+                            Stretch="Fill" />
                         <Canvas x:Name="PART_SecondCanvas">
-                            <Grid Height="20" Width="20" Canvas.Left="140" Canvas.Top="15">
-                                <Ellipse Stroke="White" StrokeThickness="1" Margin="0"/>
-                                <Ellipse Stroke="Black" StrokeThickness="2" Margin="2"/>
+                            <Grid
+                                Canvas.Left="140"
+                                Canvas.Top="15"
+                                Width="20"
+                                Height="20">
+                                <Ellipse
+                                    Margin="0"
+                                    Stroke="White"
+                                    StrokeThickness="1" />
+                                <Ellipse
+                                    Margin="2"
+                                    Stroke="Black"
+                                    StrokeThickness="2" />
                             </Grid>
 
                             <Canvas.RenderTransform>
                                 <RotateTransform CenterX="150" CenterY="150">
                                     <RotateTransform.Angle>
                                         <MultiBinding Converter="{StaticResource ValueAngleConverter}">
-                                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Value"/>
-                                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Minimum"/>
-                                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Maximum"/>
+                                            <Binding Path="Value" RelativeSource="{RelativeSource TemplatedParent}" />
+                                            <Binding Path="Minimum" RelativeSource="{RelativeSource TemplatedParent}" />
+                                            <Binding Path="Maximum" RelativeSource="{RelativeSource TemplatedParent}" />
                                         </MultiBinding>
                                     </RotateTransform.Angle>
                                 </RotateTransform>
@@ -265,19 +329,19 @@
         </Setter>
     </Style>
 
-    <SolidColorBrush x:Key="Expander.MouseOver.Circle.Stroke" Color="#FF5593FF"/>
-    <SolidColorBrush x:Key="Expander.MouseOver.Circle.Fill" Color="#FFF3F9FF"/>
-    <SolidColorBrush x:Key="Expander.MouseOver.Arrow.Stroke" Color="#FF000000"/>
-    <SolidColorBrush x:Key="Expander.Pressed.Circle.Stroke" Color="#FF3C77DD"/>
-    <SolidColorBrush x:Key="Expander.Pressed.Circle.Fill" Color="#FFD9ECFF"/>
-    <SolidColorBrush x:Key="Expander.Pressed.Arrow.Stroke" Color="#FF000000"/>
-    <SolidColorBrush x:Key="Expander.Disabled.Circle.Stroke" Color="#FFBCBCBC"/>
-    <SolidColorBrush x:Key="Expander.Disabled.Circle.Fill" Color="#FFE6E6E6"/>
-    <SolidColorBrush x:Key="Expander.Disabled.Arrow.Stroke" Color="#FF707070"/>
-    <SolidColorBrush x:Key="Expander.Static.Circle.Fill" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="Expander.Static.Circle.Stroke" Color="#FF333333"/>
-    <SolidColorBrush x:Key="Expander.Static.Arrow.Stroke" Color="#FF333333"/>
-    
+    <SolidColorBrush x:Key="Expander.MouseOver.Circle.Stroke" Color="#FF5593FF" />
+    <SolidColorBrush x:Key="Expander.MouseOver.Circle.Fill" Color="#FFF3F9FF" />
+    <SolidColorBrush x:Key="Expander.MouseOver.Arrow.Stroke" Color="#FF000000" />
+    <SolidColorBrush x:Key="Expander.Pressed.Circle.Stroke" Color="#FF3C77DD" />
+    <SolidColorBrush x:Key="Expander.Pressed.Circle.Fill" Color="#FFD9ECFF" />
+    <SolidColorBrush x:Key="Expander.Pressed.Arrow.Stroke" Color="#FF000000" />
+    <SolidColorBrush x:Key="Expander.Disabled.Circle.Stroke" Color="#FFBCBCBC" />
+    <SolidColorBrush x:Key="Expander.Disabled.Circle.Fill" Color="#FFE6E6E6" />
+    <SolidColorBrush x:Key="Expander.Disabled.Arrow.Stroke" Color="#FF707070" />
+    <SolidColorBrush x:Key="Expander.Static.Circle.Fill" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Expander.Static.Circle.Stroke" Color="#FF333333" />
+    <SolidColorBrush x:Key="Expander.Static.Arrow.Stroke" Color="#FF333333" />
+
     <Style x:Key="ExpanderRightHeaderStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Template">
             <Setter.Value>
@@ -285,51 +349,71 @@
                     <Border Padding="{TemplateBinding Padding}">
                         <Grid Background="Transparent" SnapsToDevicePixels="False">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="19"/>
-                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="19" />
+                                <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <Grid>
                                 <Grid.LayoutTransform>
                                     <TransformGroup>
                                         <TransformGroup.Children>
                                             <TransformCollection>
-                                                <RotateTransform Angle="-90"/>
+                                                <RotateTransform Angle="-90" />
                                             </TransformCollection>
                                         </TransformGroup.Children>
                                     </TransformGroup>
                                 </Grid.LayoutTransform>
-                                <Ellipse x:Name="circle" Fill="{StaticResource Expander.Static.Circle.Fill}" HorizontalAlignment="Center" Height="19" Stroke="{StaticResource Expander.Static.Circle.Stroke}" VerticalAlignment="Center" Width="19"/>
-                                <Path x:Name="arrow" Data="M 1,1.5 L 4.5,5 L 8,1.5" HorizontalAlignment="Center" SnapsToDevicePixels="false" Stroke="{StaticResource Expander.Static.Arrow.Stroke}" StrokeThickness="2" VerticalAlignment="Center"/>
+                                <Ellipse
+                                    x:Name="circle"
+                                    Width="19"
+                                    Height="19"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Fill="{StaticResource Expander.Static.Circle.Fill}"
+                                    Stroke="{StaticResource Expander.Static.Circle.Stroke}" />
+                                <Path
+                                    x:Name="arrow"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Data="M 1,1.5 L 4.5,5 L 8,1.5"
+                                    SnapsToDevicePixels="false"
+                                    Stroke="{StaticResource Expander.Static.Arrow.Stroke}"
+                                    StrokeThickness="2" />
                             </Grid>
-                            <ContentPresenter HorizontalAlignment="Center" Margin="0,4,0,0" Grid.Row="1" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Top"/>
+                            <ContentPresenter
+                                Grid.Row="1"
+                                Margin="0,4,0,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="True" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="true">
-                            <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
+                            <Setter TargetName="arrow" Property="Data" Value="M 1,4.5  L 4.5,1  L 8,4.5" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.MouseOver.Circle.Stroke}"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.MouseOver.Circle.Fill}"/>
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.MouseOver.Arrow.Stroke}"/>
+                            <Setter TargetName="circle" Property="Stroke" Value="{StaticResource Expander.MouseOver.Circle.Stroke}" />
+                            <Setter TargetName="circle" Property="Fill" Value="{StaticResource Expander.MouseOver.Circle.Fill}" />
+                            <Setter TargetName="arrow" Property="Stroke" Value="{StaticResource Expander.MouseOver.Arrow.Stroke}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.Pressed.Circle.Stroke}"/>
-                            <Setter Property="StrokeThickness" TargetName="circle" Value="1.5"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.Pressed.Circle.Fill}"/>
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Pressed.Arrow.Stroke}"/>
+                            <Setter TargetName="circle" Property="Stroke" Value="{StaticResource Expander.Pressed.Circle.Stroke}" />
+                            <Setter TargetName="circle" Property="StrokeThickness" Value="1.5" />
+                            <Setter TargetName="circle" Property="Fill" Value="{StaticResource Expander.Pressed.Circle.Fill}" />
+                            <Setter TargetName="arrow" Property="Stroke" Value="{StaticResource Expander.Pressed.Arrow.Stroke}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.Disabled.Circle.Stroke}"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.Disabled.Circle.Fill}"/>
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Disabled.Arrow.Stroke}"/>
+                            <Setter TargetName="circle" Property="Stroke" Value="{StaticResource Expander.Disabled.Circle.Stroke}" />
+                            <Setter TargetName="circle" Property="Fill" Value="{StaticResource Expander.Disabled.Circle.Fill}" />
+                            <Setter TargetName="arrow" Property="Stroke" Value="{StaticResource Expander.Disabled.Arrow.Stroke}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style x:Key="ExpanderUpHeaderStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Template">
             <Setter.Value>
@@ -337,44 +421,64 @@
                     <Border Padding="{TemplateBinding Padding}">
                         <Grid Background="Transparent" SnapsToDevicePixels="False">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="19"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="19" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Grid>
                                 <Grid.LayoutTransform>
                                     <TransformGroup>
                                         <TransformGroup.Children>
                                             <TransformCollection>
-                                                <RotateTransform Angle="180"/>
+                                                <RotateTransform Angle="180" />
                                             </TransformCollection>
                                         </TransformGroup.Children>
                                     </TransformGroup>
                                 </Grid.LayoutTransform>
-                                <Ellipse x:Name="circle" Fill="{StaticResource Expander.Static.Circle.Fill}" HorizontalAlignment="Center" Height="19" Stroke="{StaticResource Expander.Static.Circle.Stroke}" VerticalAlignment="Center" Width="19"/>
-                                <Path x:Name="arrow" Data="M 1,1.5 L 4.5,5 L 8,1.5" HorizontalAlignment="Center" SnapsToDevicePixels="false" Stroke="{StaticResource Expander.Static.Arrow.Stroke}" StrokeThickness="2" VerticalAlignment="Center"/>
+                                <Ellipse
+                                    x:Name="circle"
+                                    Width="19"
+                                    Height="19"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Fill="{StaticResource Expander.Static.Circle.Fill}"
+                                    Stroke="{StaticResource Expander.Static.Circle.Stroke}" />
+                                <Path
+                                    x:Name="arrow"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Data="M 1,1.5 L 4.5,5 L 8,1.5"
+                                    SnapsToDevicePixels="false"
+                                    Stroke="{StaticResource Expander.Static.Arrow.Stroke}"
+                                    StrokeThickness="2" />
                             </Grid>
-                            <ContentPresenter Grid.Column="1" HorizontalAlignment="Left" Margin="4,0,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center"/>
+                            <ContentPresenter
+                                Grid.Column="1"
+                                Margin="4,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="True" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="true">
-                            <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
+                            <Setter TargetName="arrow" Property="Data" Value="M 1,4.5  L 4.5,1  L 8,4.5" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.MouseOver.Circle.Stroke}"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.MouseOver.Circle.Fill}"/>
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.MouseOver.Arrow.Stroke}"/>
+                            <Setter TargetName="circle" Property="Stroke" Value="{StaticResource Expander.MouseOver.Circle.Stroke}" />
+                            <Setter TargetName="circle" Property="Fill" Value="{StaticResource Expander.MouseOver.Circle.Fill}" />
+                            <Setter TargetName="arrow" Property="Stroke" Value="{StaticResource Expander.MouseOver.Arrow.Stroke}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.Pressed.Circle.Stroke}"/>
-                            <Setter Property="StrokeThickness" TargetName="circle" Value="1.5"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.Pressed.Circle.Fill}"/>
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Pressed.Arrow.Stroke}"/>
+                            <Setter TargetName="circle" Property="Stroke" Value="{StaticResource Expander.Pressed.Circle.Stroke}" />
+                            <Setter TargetName="circle" Property="StrokeThickness" Value="1.5" />
+                            <Setter TargetName="circle" Property="Fill" Value="{StaticResource Expander.Pressed.Circle.Fill}" />
+                            <Setter TargetName="arrow" Property="Stroke" Value="{StaticResource Expander.Pressed.Arrow.Stroke}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.Disabled.Circle.Stroke}"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.Disabled.Circle.Fill}"/>
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Disabled.Arrow.Stroke}"/>
+                            <Setter TargetName="circle" Property="Stroke" Value="{StaticResource Expander.Disabled.Circle.Stroke}" />
+                            <Setter TargetName="circle" Property="Fill" Value="{StaticResource Expander.Disabled.Circle.Fill}" />
+                            <Setter TargetName="arrow" Property="Stroke" Value="{StaticResource Expander.Disabled.Arrow.Stroke}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -388,44 +492,64 @@
                     <Border Padding="{TemplateBinding Padding}">
                         <Grid Background="Transparent" SnapsToDevicePixels="False">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="19"/>
-                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="19" />
+                                <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <Grid>
                                 <Grid.LayoutTransform>
                                     <TransformGroup>
                                         <TransformGroup.Children>
                                             <TransformCollection>
-                                                <RotateTransform Angle="90"/>
+                                                <RotateTransform Angle="90" />
                                             </TransformCollection>
                                         </TransformGroup.Children>
                                     </TransformGroup>
                                 </Grid.LayoutTransform>
-                                <Ellipse x:Name="circle" Fill="{StaticResource Expander.Static.Circle.Fill}" HorizontalAlignment="Center" Height="19" Stroke="{StaticResource Expander.Static.Circle.Stroke}" VerticalAlignment="Center" Width="19"/>
-                                <Path x:Name="arrow" Data="M 1,1.5 L 4.5,5 L 8,1.5" HorizontalAlignment="Center" SnapsToDevicePixels="false" Stroke="{StaticResource Expander.Static.Arrow.Stroke}" StrokeThickness="2" VerticalAlignment="Center"/>
+                                <Ellipse
+                                    x:Name="circle"
+                                    Width="19"
+                                    Height="19"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Fill="{StaticResource Expander.Static.Circle.Fill}"
+                                    Stroke="{StaticResource Expander.Static.Circle.Stroke}" />
+                                <Path
+                                    x:Name="arrow"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Data="M 1,1.5 L 4.5,5 L 8,1.5"
+                                    SnapsToDevicePixels="false"
+                                    Stroke="{StaticResource Expander.Static.Arrow.Stroke}"
+                                    StrokeThickness="2" />
                             </Grid>
-                            <ContentPresenter HorizontalAlignment="Center" Margin="0,4,0,0" Grid.Row="1" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Top"/>
+                            <ContentPresenter
+                                Grid.Row="1"
+                                Margin="0,4,0,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="True" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="true">
-                            <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
+                            <Setter TargetName="arrow" Property="Data" Value="M 1,4.5  L 4.5,1  L 8,4.5" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.MouseOver.Circle.Stroke}"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.MouseOver.Circle.Fill}"/>
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.MouseOver.Arrow.Stroke}"/>
+                            <Setter TargetName="circle" Property="Stroke" Value="{StaticResource Expander.MouseOver.Circle.Stroke}" />
+                            <Setter TargetName="circle" Property="Fill" Value="{StaticResource Expander.MouseOver.Circle.Fill}" />
+                            <Setter TargetName="arrow" Property="Stroke" Value="{StaticResource Expander.MouseOver.Arrow.Stroke}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.Pressed.Circle.Stroke}"/>
-                            <Setter Property="StrokeThickness" TargetName="circle" Value="1.5"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.Pressed.Circle.Fill}"/>
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Pressed.Arrow.Stroke}"/>
+                            <Setter TargetName="circle" Property="Stroke" Value="{StaticResource Expander.Pressed.Circle.Stroke}" />
+                            <Setter TargetName="circle" Property="StrokeThickness" Value="1.5" />
+                            <Setter TargetName="circle" Property="Fill" Value="{StaticResource Expander.Pressed.Circle.Fill}" />
+                            <Setter TargetName="arrow" Property="Stroke" Value="{StaticResource Expander.Pressed.Arrow.Stroke}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.Disabled.Circle.Stroke}"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.Disabled.Circle.Fill}"/>
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Disabled.Arrow.Stroke}"/>
+                            <Setter TargetName="circle" Property="Stroke" Value="{StaticResource Expander.Disabled.Circle.Stroke}" />
+                            <Setter TargetName="circle" Property="Fill" Value="{StaticResource Expander.Disabled.Circle.Fill}" />
+                            <Setter TargetName="arrow" Property="Stroke" Value="{StaticResource Expander.Disabled.Arrow.Stroke}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -437,7 +561,12 @@
             <Setter.Value>
                 <ControlTemplate>
                     <Border>
-                        <Rectangle Margin="0" SnapsToDevicePixels="true" Stroke="Black" StrokeThickness="1" StrokeDashArray="1 2"/>
+                        <Rectangle
+                            Margin="0"
+                            SnapsToDevicePixels="true"
+                            Stroke="Black"
+                            StrokeDashArray="1 2"
+                            StrokeThickness="1" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -447,28 +576,41 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
-                    <Border Padding="{TemplateBinding Padding}" Margin="4">
+                    <Border Margin="4" Padding="{TemplateBinding Padding}">
                         <Grid Background="Transparent" SnapsToDevicePixels="False">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="19"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="19" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Path x:Name="arrow" Data="M 1,1.5 L 4.5,5 L 8,1.5" HorizontalAlignment="Center" SnapsToDevicePixels="false"  Stroke="{StaticResource BaseColor}" StrokeThickness="2" VerticalAlignment="Center"/>
-                            <ContentPresenter Grid.Column="1" HorizontalAlignment="Left" Margin="4,0,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center"/>
+                            <Path
+                                x:Name="arrow"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Data="M 1,1.5 L 4.5,5 L 8,1.5"
+                                SnapsToDevicePixels="false"
+                                Stroke="{StaticResource BaseColor}"
+                                StrokeThickness="2" />
+                            <ContentPresenter
+                                Grid.Column="1"
+                                Margin="4,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="True" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="true">
-                            <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
+                            <Setter TargetName="arrow" Property="Data" Value="M 1,4.5  L 4.5,1  L 8,4.5" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource BaseColor}"/>
+                            <Setter TargetName="arrow" Property="Stroke" Value="{StaticResource BaseColor}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Pressed.Arrow.Stroke}"/>
+                            <Setter TargetName="arrow" Property="Stroke" Value="{StaticResource Expander.Pressed.Arrow.Stroke}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Disabled.Arrow.Stroke}"/>
+                            <Setter TargetName="arrow" Property="Stroke" Value="{StaticResource Expander.Disabled.Arrow.Stroke}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -476,42 +618,74 @@
         </Setter>
     </Style>
     <Style x:Key="ExpanderStyle" TargetType="{x:Type Expander}">
-        <Setter Property="Foreground" Value="{StaticResource BaseText}"/>
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-        <Setter Property="BorderBrush" Value="Transparent"/>
-        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Foreground" Value="{StaticResource BaseText}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Expander}">
-                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="3" SnapsToDevicePixels="true">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="3"
+                        SnapsToDevicePixels="true">
                         <DockPanel>
-                            <ToggleButton x:Name="HeaderSite" ContentTemplate="{TemplateBinding HeaderTemplate}" ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" Content="{TemplateBinding Header}" DockPanel.Dock="Top" Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" FocusVisualStyle="{StaticResource ExpanderHeaderFocusVisual}" FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Margin="1" MinWidth="0" MinHeight="0" Padding="{TemplateBinding Padding}" Style="{StaticResource ExpanderDownHeaderStyle}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                            <ContentPresenter x:Name="ExpandSite" DockPanel.Dock="Bottom" Focusable="false" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Visibility="Collapsed" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            <ToggleButton
+                                x:Name="HeaderSite"
+                                MinWidth="0"
+                                MinHeight="0"
+                                Margin="1"
+                                Padding="{TemplateBinding Padding}"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding Header}"
+                                ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                DockPanel.Dock="Top"
+                                FocusVisualStyle="{StaticResource ExpanderHeaderFocusVisual}"
+                                FontFamily="{TemplateBinding FontFamily}"
+                                FontSize="{TemplateBinding FontSize}"
+                                FontStretch="{TemplateBinding FontStretch}"
+                                FontStyle="{TemplateBinding FontStyle}"
+                                FontWeight="{TemplateBinding FontWeight}"
+                                Foreground="{TemplateBinding Foreground}"
+                                IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                Style="{StaticResource ExpanderDownHeaderStyle}" />
+                            <ContentPresenter
+                                x:Name="ExpandSite"
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                DockPanel.Dock="Bottom"
+                                Focusable="false"
+                                Visibility="Collapsed" />
                         </DockPanel>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsExpanded" Value="true">
-                            <Setter Property="Visibility" TargetName="ExpandSite" Value="Visible"/>
+                            <Setter TargetName="ExpandSite" Property="Visibility" Value="Visible" />
                         </Trigger>
                         <Trigger Property="ExpandDirection" Value="Right">
-                            <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Right"/>
-                            <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Left"/>
-                            <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderRightHeaderStyle}"/>
+                            <Setter TargetName="ExpandSite" Property="DockPanel.Dock" Value="Right" />
+                            <Setter TargetName="HeaderSite" Property="DockPanel.Dock" Value="Left" />
+                            <Setter TargetName="HeaderSite" Property="Style" Value="{StaticResource ExpanderRightHeaderStyle}" />
                         </Trigger>
                         <Trigger Property="ExpandDirection" Value="Up">
-                            <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Top"/>
-                            <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Bottom"/>
-                            <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderUpHeaderStyle}"/>
+                            <Setter TargetName="ExpandSite" Property="DockPanel.Dock" Value="Top" />
+                            <Setter TargetName="HeaderSite" Property="DockPanel.Dock" Value="Bottom" />
+                            <Setter TargetName="HeaderSite" Property="Style" Value="{StaticResource ExpanderUpHeaderStyle}" />
                         </Trigger>
                         <Trigger Property="ExpandDirection" Value="Left">
-                            <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Left"/>
-                            <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Right"/>
-                            <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderLeftHeaderStyle}"/>
+                            <Setter TargetName="ExpandSite" Property="DockPanel.Dock" Value="Left" />
+                            <Setter TargetName="HeaderSite" Property="DockPanel.Dock" Value="Right" />
+                            <Setter TargetName="HeaderSite" Property="Style" Value="{StaticResource ExpanderLeftHeaderStyle}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -519,171 +693,294 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type local:ColorPicker}" x:Key="{x:Type local:ColorPicker}">
-        <Setter Property="Focusable" Value="False"/>
+    <Style x:Key="{x:Type local:ColorPicker}" TargetType="{x:Type local:ColorPicker}">
+        <Setter Property="Focusable" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ColorPicker}">
-                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
                         <StackPanel>
-                            <Grid Grid.Row="0" Margin="4" Visibility="Collapsed">
+                            <Grid
+                                Grid.Row="0"
+                                Margin="4"
+                                Visibility="Collapsed">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.70*"/>
-                                    <ColumnDefinition Width="0.30*"/>
+                                    <ColumnDefinition Width="0.70*" />
+                                    <ColumnDefinition Width="0.30*" />
                                 </Grid.ColumnDefinitions>
-                                <Rectangle x:Name="CurrentColor" Grid.Column="0" Margin="5,0,0,0" Stroke="{StaticResource BaseLightColor}" StrokeThickness="1">
+                                <Rectangle
+                                    x:Name="CurrentColor"
+                                    Grid.Column="0"
+                                    Margin="5,0,0,0"
+                                    Stroke="{StaticResource BaseLightColor}"
+                                    StrokeThickness="1">
                                     <Rectangle.Fill>
-                                        <SolidColorBrush Color="{Binding SelectedColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ColorPicker}}}"/>
+                                        <SolidColorBrush Color="{Binding SelectedColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ColorPicker}}}" />
                                     </Rectangle.Fill>
                                 </Rectangle>
-                                <local:ColorHex x:Name="PART_ColorHex" Grid.Column="1" VerticalContentAlignment="Center" Style="{StaticResource ColorPickerTextBox}" Validation.ErrorTemplate="{x:Null}" Text="{Binding SelectedColor, Converter={StaticResource ColorToHexConverter},  RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ColorPicker}}}"/>
+                                <local:ColorHex
+                                    x:Name="PART_ColorHex"
+                                    Grid.Column="1"
+                                    VerticalContentAlignment="Center"
+                                    Style="{StaticResource ColorPickerTextBox}"
+                                    Text="{Binding SelectedColor, Converter={StaticResource ColorToHexConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ColorPicker}}}"
+                                    Validation.ErrorTemplate="{x:Null}" />
                             </Grid>
                             <Border BorderThickness="2">
                                 <Border.BorderBrush>
-                                    <SolidColorBrush Color="{Binding SelectedColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ColorPicker}}}"/>
+                                    <SolidColorBrush Color="{Binding SelectedColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ColorPicker}}}" />
                                 </Border.BorderBrush>
                                 <Viewbox>
                                     <Grid Margin="4">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
 
-                                        <local:HueWheel x:Name="PART_HueWheel" Grid.RowSpan="4" Grid.ColumnSpan="4" Padding="4"/>
-                                        <local:HsvControl x:Name="PART_HsvControl" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+                                        <local:HueWheel
+                                            x:Name="PART_HueWheel"
+                                            Grid.RowSpan="4"
+                                            Grid.ColumnSpan="4"
+                                            Padding="4" />
+                                        <local:HsvControl
+                                            x:Name="PART_HsvControl"
+                                            Grid.Row="1"
+                                            Grid.RowSpan="2"
+                                            Grid.Column="1"
+                                            Grid.ColumnSpan="2" />
                                     </Grid>
                                 </Viewbox>
 
                             </Border>
-                            <Expander Header="COLOR CONTROLS" Style="{StaticResource ExpanderStyle}" IsExpanded="False" Visibility="Collapsed">
+                            <Expander
+                                Header="COLOR CONTROLS"
+                                IsExpanded="False"
+                                Style="{StaticResource ExpanderStyle}"
+                                Visibility="Collapsed">
                                 <Grid Margin="4">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
                                     </Grid.RowDefinitions>
-                                    <Grid Grid.Row="1" Margin="0, 1, 0, 1">
+                                    <Grid Grid.Row="1" Margin="0,1,0,1">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.1*"/>
-                                            <ColumnDefinition Width="0.8*"/>
-                                            <ColumnDefinition Width="0.15*"/>
+                                            <ColumnDefinition Width="0.1*" />
+                                            <ColumnDefinition Width="0.8*" />
+                                            <ColumnDefinition Width="0.15*" />
                                         </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="{DynamicResource BaseText}" >
-                                            <Viewbox StretchDirection="DownOnly" Stretch="Uniform">
-                                                <TextBlock x:Name="RedTextBox" Text="R" HorizontalAlignment="Center" />
+                                        <Label
+                                            Grid.Column="0"
+                                            HorizontalContentAlignment="Center"
+                                            VerticalContentAlignment="Center"
+                                            Foreground="{DynamicResource BaseText}">
+                                            <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
+                                                <TextBlock
+                                                    x:Name="RedTextBox"
+                                                    HorizontalAlignment="Center"
+                                                    Text="R" />
                                             </Viewbox>
                                         </Label>
-                                        <local:ColorSlider x:Name="PART_RedColorSlider" Grid.Column="1"/>
+                                        <local:ColorSlider x:Name="PART_RedColorSlider" Grid.Column="1" />
                                         <Border Grid.Column="2" Background="{StaticResource BaseColor}">
-                                            <local:ColorText x:Name="PART_RedTextBox" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource ColorPickerTextBox}" Text="{Binding Path=Value, ElementName=PART_RedColorSlider, Mode=TwoWay, Converter={StaticResource DoubleToIntegerStringConverter}}"/>
+                                            <local:ColorText
+                                                x:Name="PART_RedTextBox"
+                                                HorizontalContentAlignment="Center"
+                                                VerticalContentAlignment="Center"
+                                                Style="{StaticResource ColorPickerTextBox}"
+                                                Text="{Binding Path=Value, ElementName=PART_RedColorSlider, Mode=TwoWay, Converter={StaticResource DoubleToIntegerStringConverter}}" />
                                         </Border>
                                     </Grid>
-                                    <Grid Grid.Row="2" Margin="0, 1, 0, 1">
+                                    <Grid Grid.Row="2" Margin="0,1,0,1">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.1*"/>
-                                            <ColumnDefinition Width="0.8*"/>
-                                            <ColumnDefinition Width="0.15*"/>
+                                            <ColumnDefinition Width="0.1*" />
+                                            <ColumnDefinition Width="0.8*" />
+                                            <ColumnDefinition Width="0.15*" />
                                         </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="{DynamicResource BaseText}">
-                                            <Viewbox StretchDirection="DownOnly" Stretch="Uniform">
-                                                <TextBlock x:Name="GreenTextBox" Text="G" HorizontalAlignment="Center"/>
+                                        <Label
+                                            Grid.Column="0"
+                                            HorizontalContentAlignment="Center"
+                                            VerticalContentAlignment="Center"
+                                            Foreground="{DynamicResource BaseText}">
+                                            <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
+                                                <TextBlock
+                                                    x:Name="GreenTextBox"
+                                                    HorizontalAlignment="Center"
+                                                    Text="G" />
                                             </Viewbox>
                                         </Label>
-                                        <local:ColorSlider x:Name="PART_GreenColorSlider" Grid.Column="1"/>
+                                        <local:ColorSlider x:Name="PART_GreenColorSlider" Grid.Column="1" />
                                         <Border Grid.Column="2" Background="{StaticResource BaseColor}">
-                                            <local:ColorText x:Name="PART_GreenTextBox" Grid.Column="2"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource ColorPickerTextBox}" Text="{Binding Path=Value, ElementName=PART_GreenColorSlider, Mode=TwoWay, Converter={StaticResource DoubleToIntegerStringConverter}}"/>
+                                            <local:ColorText
+                                                x:Name="PART_GreenTextBox"
+                                                Grid.Column="2"
+                                                HorizontalContentAlignment="Center"
+                                                VerticalContentAlignment="Center"
+                                                Style="{StaticResource ColorPickerTextBox}"
+                                                Text="{Binding Path=Value, ElementName=PART_GreenColorSlider, Mode=TwoWay, Converter={StaticResource DoubleToIntegerStringConverter}}" />
                                         </Border>
                                     </Grid>
-                                    <Grid Grid.Row="3" Margin="0, 1, 0, 2">
+                                    <Grid Grid.Row="3" Margin="0,1,0,2">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.1*"/>
-                                            <ColumnDefinition Width="0.8*"/>
-                                            <ColumnDefinition Width="0.15*"/>
+                                            <ColumnDefinition Width="0.1*" />
+                                            <ColumnDefinition Width="0.8*" />
+                                            <ColumnDefinition Width="0.15*" />
                                         </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  Foreground="{DynamicResource BaseText}">
-                                            <Viewbox StretchDirection="DownOnly" Stretch="Uniform" >
-                                                <TextBlock x:Name="BlueTextBox" Text="B" HorizontalAlignment="Center"/>
+                                        <Label
+                                            Grid.Column="0"
+                                            HorizontalContentAlignment="Center"
+                                            VerticalContentAlignment="Center"
+                                            Foreground="{DynamicResource BaseText}">
+                                            <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
+                                                <TextBlock
+                                                    x:Name="BlueTextBox"
+                                                    HorizontalAlignment="Center"
+                                                    Text="B" />
                                             </Viewbox>
                                         </Label>
-                                        <local:ColorSlider x:Name="PART_BlueColorSlider" Grid.Column="1"/>
+                                        <local:ColorSlider x:Name="PART_BlueColorSlider" Grid.Column="1" />
                                         <Border Grid.Column="2" Background="{StaticResource BaseColor}">
-                                            <local:ColorText x:Name="PART_BlueTextBox" Grid.Column="2"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource ColorPickerTextBox}" Text="{Binding Path=Value, ElementName=PART_BlueColorSlider, Mode=TwoWay, Converter={StaticResource DoubleToIntegerStringConverter}}"/>
+                                            <local:ColorText
+                                                x:Name="PART_BlueTextBox"
+                                                Grid.Column="2"
+                                                HorizontalContentAlignment="Center"
+                                                VerticalContentAlignment="Center"
+                                                Style="{StaticResource ColorPickerTextBox}"
+                                                Text="{Binding Path=Value, ElementName=PART_BlueColorSlider, Mode=TwoWay, Converter={StaticResource DoubleToIntegerStringConverter}}" />
                                         </Border>
                                     </Grid>
-                                    <Grid Grid.Row="4" Margin="0, 2, 0, 1">
+                                    <Grid Grid.Row="4" Margin="0,2,0,1">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.1*"/>
-                                            <ColumnDefinition Width="0.8*"/>
-                                            <ColumnDefinition Width="0.15*"/>
+                                            <ColumnDefinition Width="0.1*" />
+                                            <ColumnDefinition Width="0.8*" />
+                                            <ColumnDefinition Width="0.15*" />
                                         </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="{DynamicResource BaseText}">
-                                            <Viewbox  Stretch="Uniform" StretchDirection="DownOnly">
-                                                <TextBlock x:Name="HueTextBox" Text="H" HorizontalAlignment="Center"/>
+                                        <Label
+                                            Grid.Column="0"
+                                            HorizontalContentAlignment="Center"
+                                            VerticalContentAlignment="Center"
+                                            Foreground="{DynamicResource BaseText}">
+                                            <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
+                                                <TextBlock
+                                                    x:Name="HueTextBox"
+                                                    HorizontalAlignment="Center"
+                                                    Text="H" />
                                             </Viewbox>
                                         </Label>
-                                        <local:SpectrumSlider x:Name="PART_HueSlider" Grid.Column="1"/>
+                                        <local:SpectrumSlider x:Name="PART_HueSlider" Grid.Column="1" />
                                         <Border Grid.Column="2" Background="{StaticResource BaseColor}">
-                                            <local:ColorText x:Name="PART_HueTextBox" Grid.Column="2"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource ColorPickerTextBox}" Text="{Binding Path=Value, ElementName=PART_HueSlider, Mode=TwoWay, Converter={StaticResource DoubleToIntegerStringConverter}}"/>
+                                            <local:ColorText
+                                                x:Name="PART_HueTextBox"
+                                                Grid.Column="2"
+                                                HorizontalContentAlignment="Center"
+                                                VerticalContentAlignment="Center"
+                                                Style="{StaticResource ColorPickerTextBox}"
+                                                Text="{Binding Path=Value, ElementName=PART_HueSlider, Mode=TwoWay, Converter={StaticResource DoubleToIntegerStringConverter}}" />
                                         </Border>
                                     </Grid>
-                                    <Grid Grid.Row="5" Margin="0, 1, 0, 1">
+                                    <Grid Grid.Row="5" Margin="0,1,0,1">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.1*"/>
-                                            <ColumnDefinition Width="0.8*"/>
-                                            <ColumnDefinition Width="0.15*"/>
+                                            <ColumnDefinition Width="0.1*" />
+                                            <ColumnDefinition Width="0.8*" />
+                                            <ColumnDefinition Width="0.15*" />
                                         </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="{DynamicResource BaseText}">
-                                            <Viewbox StretchDirection="DownOnly" Stretch="Uniform">
-                                                <TextBlock x:Name="SatTextBox" Text="S" HorizontalAlignment="Center"/>
+                                        <Label
+                                            Grid.Column="0"
+                                            HorizontalContentAlignment="Center"
+                                            VerticalContentAlignment="Center"
+                                            Foreground="{DynamicResource BaseText}">
+                                            <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
+                                                <TextBlock
+                                                    x:Name="SatTextBox"
+                                                    HorizontalAlignment="Center"
+                                                    Text="S" />
                                             </Viewbox>
                                         </Label>
-                                        <local:HSVSlider x:Name="PART_SatSlider" Grid.Column="1"/>
+                                        <local:HSVSlider x:Name="PART_SatSlider" Grid.Column="1" />
                                         <Border Grid.Column="2" Background="{StaticResource BaseColor}">
-                                            <local:ColorText x:Name="PART_SatTextBox" Grid.Column="2"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource ColorPickerTextBox}" Text="{Binding Path=Value, ElementName=PART_SatSlider, Mode=TwoWay, Converter={StaticResource DoubleToIntegerStringConverter}}"/>
+                                            <local:ColorText
+                                                x:Name="PART_SatTextBox"
+                                                Grid.Column="2"
+                                                HorizontalContentAlignment="Center"
+                                                VerticalContentAlignment="Center"
+                                                Style="{StaticResource ColorPickerTextBox}"
+                                                Text="{Binding Path=Value, ElementName=PART_SatSlider, Mode=TwoWay, Converter={StaticResource DoubleToIntegerStringConverter}}" />
                                         </Border>
                                     </Grid>
-                                    <Grid Grid.Row="6" Margin="0, 1, 0, 1">
+                                    <Grid Grid.Row="6" Margin="0,1,0,1">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.1*"/>
-                                            <ColumnDefinition Width="0.8*"/>
-                                            <ColumnDefinition Width="0.15*"/>
+                                            <ColumnDefinition Width="0.1*" />
+                                            <ColumnDefinition Width="0.8*" />
+                                            <ColumnDefinition Width="0.15*" />
                                         </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="{DynamicResource BaseText}">
-                                            <Viewbox StretchDirection="DownOnly" Stretch="Uniform">
-                                                <TextBlock x:Name="ValTextBox" Text="V" HorizontalAlignment="Center"/>
+                                        <Label
+                                            Grid.Column="0"
+                                            HorizontalContentAlignment="Center"
+                                            VerticalContentAlignment="Center"
+                                            Foreground="{DynamicResource BaseText}">
+                                            <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
+                                                <TextBlock
+                                                    x:Name="ValTextBox"
+                                                    HorizontalAlignment="Center"
+                                                    Text="V" />
                                             </Viewbox>
                                         </Label>
-                                        <local:HSVSlider x:Name="PART_ValSlider" Grid.Column="1"/>
+                                        <local:HSVSlider x:Name="PART_ValSlider" Grid.Column="1" />
                                         <Border Grid.Column="2" Background="{StaticResource BaseColor}">
-                                            <local:ColorText x:Name="PART_ValTextBox" Grid.Column="2"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource ColorPickerTextBox}" Text="{Binding Path=Value, ElementName=PART_ValSlider, Mode=TwoWay, Converter={StaticResource DoubleToIntegerStringConverter}}"/>
+                                            <local:ColorText
+                                                x:Name="PART_ValTextBox"
+                                                Grid.Column="2"
+                                                HorizontalContentAlignment="Center"
+                                                VerticalContentAlignment="Center"
+                                                Style="{StaticResource ColorPickerTextBox}"
+                                                Text="{Binding Path=Value, ElementName=PART_ValSlider, Mode=TwoWay, Converter={StaticResource DoubleToIntegerStringConverter}}" />
                                         </Border>
                                     </Grid>
-                                    <Grid Grid.Row="7" Margin="0, 4, 0, 4" Visibility="Visible">
+                                    <Grid
+                                        Grid.Row="7"
+                                        Margin="0,4,0,4"
+                                        Visibility="Visible">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.1*"/>
-                                            <ColumnDefinition Width="0.8*"/>
-                                            <ColumnDefinition Width="0.15*"/>
+                                            <ColumnDefinition Width="0.1*" />
+                                            <ColumnDefinition Width="0.8*" />
+                                            <ColumnDefinition Width="0.15*" />
                                         </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" HorizontalContentAlignment="Center"  Foreground="{DynamicResource BaseText}" VerticalContentAlignment="Center">
-                                            <Viewbox StretchDirection="DownOnly" Stretch="Uniform">
-                                                <TextBlock x:Name="AlphaTextBox" Text="A" HorizontalAlignment="Center"/>
+                                        <Label
+                                            Grid.Column="0"
+                                            HorizontalContentAlignment="Center"
+                                            VerticalContentAlignment="Center"
+                                            Foreground="{DynamicResource BaseText}">
+                                            <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
+                                                <TextBlock
+                                                    x:Name="AlphaTextBox"
+                                                    HorizontalAlignment="Center"
+                                                    Text="A" />
                                             </Viewbox>
                                         </Label>
-                                        <local:ColorSlider x:Name="PART_AlphaColorSlider" Grid.Column="1"/>
-                                        <local:ColorText x:Name="PART_AlphaTextBox" Grid.Column="2"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource ColorPickerTextBox}" Text="{Binding Path=Value, ElementName=PART_AlphaColorSlider, Mode=TwoWay, Converter={StaticResource DoubleToIntegerStringConverter}}"/>
+                                        <local:ColorSlider x:Name="PART_AlphaColorSlider" Grid.Column="1" />
+                                        <local:ColorText
+                                            x:Name="PART_AlphaTextBox"
+                                            Grid.Column="2"
+                                            HorizontalContentAlignment="Center"
+                                            VerticalContentAlignment="Center"
+                                            Style="{StaticResource ColorPickerTextBox}"
+                                            Text="{Binding Path=Value, ElementName=PART_AlphaColorSlider, Mode=TwoWay, Converter={StaticResource DoubleToIntegerStringConverter}}" />
                                     </Grid>
                                 </Grid>
                             </Expander>

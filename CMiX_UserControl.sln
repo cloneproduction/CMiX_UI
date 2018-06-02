@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMiX", "CMiX_UserControl\CMiX.csproj", "{53DC5124-81FA-4A26-88B4-26D755A6267F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorPickerDemo", "ColorPicker\ColorPickerDemo.csproj", "{89B6207C-9C60-4C00-8F0E-36854692B65B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorPicker", "ColorPicker\ColorPicker.csproj", "{89B6207C-9C60-4C00-8F0E-36854692B65B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
