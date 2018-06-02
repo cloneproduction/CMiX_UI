@@ -1,32 +1,36 @@
-﻿<UserControl x:Class="CMiX.ChannelEnable"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:CMiX="clr-namespace:CMiX"
-             mc:Ignorable="d" 
-             d:DesignHeight="292.848" d:DesignWidth="88.609" x:Name="LayerEnable">
+﻿<UserControl
+    x:Class="CMiX.ChannelEnable"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:CMiX="clr-namespace:CMiX"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="LayerEnable"
+    d:DesignHeight="292.848"
+    d:DesignWidth="88.609"
+    mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Brushes/GenericBrushes.xaml"/>
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/LayerRadioButtonStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Brushes/GenericBrushes.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/LayerRadioButtonStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <CMiX:PathToFilenameConverter x:Key="PathToFileName"/>
-            <CMiX:ColorToStringConverter x:Key="ColorToString"/>
+            <CMiX:PathToFilenameConverter x:Key="PathToFileName" />
+            <CMiX:ColorToStringConverter x:Key="ColorToString" />
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Height="94">
-        <RadioButton x:Name="CheckLayer" 
-                         Content="" 
-                         Margin="0, 0, 2, 0" 
-                         GroupName="SelectLayer" 
-                         Style="{StaticResource LayerRadioButtonStyle}" 
-                         AllowDrop="True" 
-                     DragOver="DragOver"
-                         IsChecked="{Binding DataContext.EnabledLayer, Mode=TwoWay, ElementName=LayerEnable, UpdateSourceTrigger=PropertyChanged}">
+        <RadioButton
+            x:Name="CheckLayer"
+            Margin="0,0,2,0"
+            AllowDrop="True"
+            Content=""
+            DragOver="DragOver"
+            GroupName="SelectLayer"
+            IsChecked="{Binding DataContext.EnabledLayer, Mode=TwoWay, ElementName=LayerEnable, UpdateSourceTrigger=PropertyChanged}"
+            Style="{StaticResource LayerRadioButtonStyle}">
             <RadioButton.Background>
-                <SolidColorBrush Color="{Binding DataContext.Color, Converter={StaticResource ColorToString}, ElementName=LayerEnable, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <SolidColorBrush Color="{Binding DataContext.Color, Converter={StaticResource ColorToString}, ElementName=LayerEnable, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
             </RadioButton.Background>
         </RadioButton>
     </Grid>
