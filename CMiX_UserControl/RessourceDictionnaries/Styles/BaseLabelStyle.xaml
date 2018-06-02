@@ -1,17 +1,25 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style x:Key="BaseLabelStyle" TargetType="{x:Type Label}">
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Padding" Value="0"/>
-        <Setter Property="HorizontalContentAlignment" Value="Left"/>
-        <Setter Property="VerticalContentAlignment" Value="Top"/>
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalContentAlignment" Value="Top" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Label}">
-                    <Border Margin="1"  Background="{DynamicResource BaseDarkColor}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True" TextElement.Foreground="{DynamicResource BaseText}">
-                        <Viewbox StretchDirection="DownOnly" Stretch="Uniform">
-                            <TextBlock x:Name="textBlock" Text="{TemplateBinding Content}" HorizontalAlignment="Center" Foreground="{DynamicResource BaseText}"/>
+                    <Border
+                        Margin="1"
+                        Padding="{TemplateBinding Padding}"
+                        Background="{DynamicResource BaseDarkColor}"
+                        SnapsToDevicePixels="True"
+                        TextElement.Foreground="{DynamicResource BaseText}">
+                        <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
+                            <TextBlock
+                                x:Name="textBlock"
+                                HorizontalAlignment="Center"
+                                Foreground="{DynamicResource BaseText}"
+                                Text="{TemplateBinding Content}" />
                         </Viewbox>
                     </Border>
                 </ControlTemplate>

@@ -1,35 +1,59 @@
-﻿<UserControl x:Class="CMiX.CMiXRangeSlider"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:CMiX="clr-namespace:CMiX"
-             mc:Ignorable="d" 
-             x:Name="RangeSlider"
-             d:DesignHeight="60.667" d:DesignWidth="812.667">
+﻿<UserControl
+    x:Class="CMiX.CMiXRangeSlider"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:CMiX="clr-namespace:CMiX"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="RangeSlider"
+    d:DesignHeight="60.667"
+    d:DesignWidth="812.667"
+    mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Brushes/GenericBrushes.xaml"/>
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseLabelStyle.xaml"/>
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseRangeSlider.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Brushes/GenericBrushes.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseLabelStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseRangeSlider.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <CMiX:RangeValueToStringConverter x:Key="RangeValueToString"/>
-            <CMiX:IntToNormalizedDoubleConverter x:Key="IntToNormalizedDoubleConverter"/>
+            <CMiX:RangeValueToStringConverter x:Key="RangeValueToString" />
+            <CMiX:IntToNormalizedDoubleConverter x:Key="IntToNormalizedDoubleConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <CMiX:RangeSlider x:Name="RangeSliderUserControl" RangeSelectionChanged="RangeSliderUserControl_RangeSelectionChanged"
-                          RangeStartSelected="{Binding RangeMin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:CMiXRangeSlider}}, Converter={StaticResource IntToNormalizedDoubleConverter}}"
-                          RangeStopSelected="{Binding RangeMax, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:CMiXRangeSlider}}, Converter={StaticResource IntToNormalizedDoubleConverter}}"
-                          RangeStart="0" RangeStop="100" MinRange="1" Style="{StaticResource BaseRangeSlider}">
-            
-        </CMiX:RangeSlider>
+        <CMiX:RangeSlider
+            x:Name="RangeSliderUserControl"
+            MinRange="1"
+            RangeSelectionChanged="RangeSliderUserControl_RangeSelectionChanged"
+            RangeStart="0"
+            RangeStartSelected="{Binding RangeMin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:CMiXRangeSlider}}, Converter={StaticResource IntToNormalizedDoubleConverter}}"
+            RangeStop="100"
+            RangeStopSelected="{Binding RangeMax, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:CMiXRangeSlider}}, Converter={StaticResource IntToNormalizedDoubleConverter}}"
+            Style="{StaticResource BaseRangeSlider}" />
         <DockPanel>
-            <Label x:Name="RangeStopValue" DockPanel.Dock="Right" Background="Transparent" VerticalContentAlignment="Center" HorizontalAlignment="Right" Margin="0, 0, 20, 0" IsHitTestVisible="False" Foreground="{DynamicResource BaseText}" VerticalAlignment="Stretch" 
-                   Content="{Binding RangeStopSelected, Mode=OneWay, ElementName=RangeSliderUserControl, Converter={StaticResource RangeValueToString}}"/>
-            <Label x:Name="RangeStartValue" DockPanel.Dock="Left" Background="Transparent" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="20, 0, 0, 0" IsHitTestVisible="False" Foreground="{DynamicResource BaseText}" VerticalAlignment="Stretch" 
-                   Content="{Binding RangeStartSelected, Mode=OneWay, ElementName=RangeSliderUserControl, Converter={StaticResource RangeValueToString}}" ContentStringFormat="{}{0:N2}"/>
+            <Label
+                x:Name="RangeStopValue"
+                Margin="0,0,20,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Stretch"
+                VerticalContentAlignment="Center"
+                Background="Transparent"
+                Content="{Binding RangeStopSelected, Mode=OneWay, ElementName=RangeSliderUserControl, Converter={StaticResource RangeValueToString}}"
+                DockPanel.Dock="Right"
+                Foreground="{DynamicResource BaseText}"
+                IsHitTestVisible="False" />
+            <Label
+                x:Name="RangeStartValue"
+                Margin="20,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Stretch"
+                VerticalContentAlignment="Center"
+                Background="Transparent"
+                Content="{Binding RangeStartSelected, Mode=OneWay, ElementName=RangeSliderUserControl, Converter={StaticResource RangeValueToString}}"
+                ContentStringFormat="{}{0:N2}"
+                DockPanel.Dock="Left"
+                Foreground="{DynamicResource BaseText}"
+                IsHitTestVisible="False" />
         </DockPanel>
     </Grid>
 </UserControl>

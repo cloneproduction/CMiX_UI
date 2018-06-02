@@ -1,82 +1,131 @@
 ﻿<UserControl
+    x:Class="CMiX.FileSelector"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:CMiX="clr-namespace:CMiX" 
-    x:Class="CMiX.FileSelector"
+    xmlns:CMiX="clr-namespace:CMiX"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="F_Selector"
-    mc:Ignorable="d" d:DesignHeight="139.655" d:DesignWidth="110.315">
+    d:DesignHeight="139.655"
+    d:DesignWidth="110.315"
+    mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Brushes/GenericBrushes.xaml"/>
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseListBoxControlStyle.xaml"/>
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseListBoxItemStyle.xaml"/>
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseButtonStyle.xaml"/>
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseMenuStyle.xaml"/>
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseMenuItemStyle.xaml"/>
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseLabelStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Brushes/GenericBrushes.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseListBoxControlStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseListBoxItemStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseButtonStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseMenuStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseMenuItemStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseLabelStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <CMiX:PathToFilenameConverter x:Key="PathToFileName"/>
-            <CMiX:AltBackgroundConverter x:Key="AltBackground"/>
+            <CMiX:PathToFilenameConverter x:Key="PathToFileName" />
+            <CMiX:AltBackgroundConverter x:Key="AltBackground" />
         </ResourceDictionary>
     </UserControl.Resources>
     <DockPanel LastChildFill="True">
         <DockPanel DockPanel.Dock="Top">
-            <Menu x:Name="FileSelectorMenu"   FlowDirection="RightToLeft" DockPanel.Dock="Right" Grid.Column="1" Focusable="False" Grid.Row="0" HorizontalAlignment="Left" Style="{DynamicResource BaseMenuStyle}" Height="25">
-                <MenuItem x:Name="FileMenu" Header="" Width="25" Padding="6" Focusable="False" Style="{StaticResource BaseMenuItemStyle}" FontSize="11" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="{Binding ActualHeight, ElementName=FileSelectorMenu, Mode=OneWay}" >
-                    <MenuItem Header="Clear Selected" FontSize="11" Click="ClearSelected_Click" Template="{StaticResource BaseSubMenuItem}" />
-                    <MenuItem Header="Clear Unselected" FontSize="11" Click="ClearUnselected_Click" Template="{DynamicResource BaseSubMenuItem}"/>
-                    <Separator HorizontalAlignment="Stretch" Background="{DynamicResource BaseColor}"></Separator>
-                    <MenuItem Header="Clear All" FontSize="11" Click="ClearAll_Click" Template="{StaticResource BaseSubMenuItem}"/>
+            <Menu
+                x:Name="FileSelectorMenu"
+                Grid.Row="0"
+                Grid.Column="1"
+                Height="25"
+                HorizontalAlignment="Left"
+                DockPanel.Dock="Right"
+                FlowDirection="RightToLeft"
+                Focusable="False"
+                Style="{DynamicResource BaseMenuStyle}">
+                <MenuItem
+                    x:Name="FileMenu"
+                    Width="25"
+                    Height="{Binding ActualHeight, ElementName=FileSelectorMenu, Mode=OneWay}"
+                    Padding="6"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Focusable="False"
+                    FontSize="11"
+                    Header=""
+                    Style="{StaticResource BaseMenuItemStyle}">
+                    <MenuItem
+                        Click="ClearSelected_Click"
+                        FontSize="11"
+                        Header="Clear Selected"
+                        Template="{StaticResource BaseSubMenuItem}" />
+                    <MenuItem
+                        Click="ClearUnselected_Click"
+                        FontSize="11"
+                        Header="Clear Unselected"
+                        Template="{DynamicResource BaseSubMenuItem}" />
+                    <Separator HorizontalAlignment="Stretch" Background="{DynamicResource BaseColor}" />
+                    <MenuItem
+                        Click="ClearAll_Click"
+                        FontSize="11"
+                        Header="Clear All"
+                        Template="{StaticResource BaseSubMenuItem}" />
                 </MenuItem>
             </Menu>
-            <Label DockPanel.Dock="Left" Grid.Column="0" Content="{Binding Title, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:FileSelector}}}" Style="{StaticResource BaseLabelStyle}"/>
+            <Label
+                Grid.Column="0"
+                Content="{Binding Title, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:FileSelector}}}"
+                DockPanel.Dock="Left"
+                Style="{StaticResource BaseLabelStyle}" />
         </DockPanel>
-        <CMiX:CMiXListBox  x:Name="FileNameList"
-            SelectionChanged="FileNameList_SelectionChanged"
-            VerticalContentAlignment="Center"
+        <CMiX:CMiXListBox
+            x:Name="FileNameList"
             HorizontalContentAlignment="Stretch"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            VerticalContentAlignment="Center"
             AllowDrop="True"
+            ItemsSource="{Binding SelectedItems, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:FileSelector}}}"
             PreviewDrop="FileListBox_Drop"
+            PreviewKeyDown="FileNameList_PreviewKeyDown"
             PreviewMouseDown="FileNameList_PreviewMouseDown"
             PreviewMouseMove="FileListBox_PreviewMouseMove"
-            PreviewKeyDown="FileNameList_PreviewKeyDown"
-            Template="{DynamicResource BaseListBoxControlStyle}"
-            ItemsSource="{Binding SelectedItems, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:FileSelector}}}"
-            SelectionMode="{Binding ModeSelection,Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:FileSelector}}}">
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            SelectionChanged="FileNameList_SelectionChanged"
+            SelectionMode="{Binding ModeSelection, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:FileSelector}}}"
+            Template="{DynamicResource BaseListBoxControlStyle}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border x:Name="ItemBorder" Background="Transparent" HorizontalAlignment="Stretch" >
-                        <StackPanel  Orientation="Horizontal" HorizontalAlignment="Stretch" >
-                            <Button x:Name="DeleteFileName" Content="X" Click="DeleteFileName_Click" Style="{StaticResource BaseButtonStyle}" 
-                            Padding="4" BorderBrush="Transparent"
-                            Background="Transparent" 
-                            Foreground="{StaticResource BaseText}" 
-                            Width="{Binding ActualHeight, ElementName=DeleteFileName}"/>
-                            <TextBlock Padding="4"   HorizontalAlignment="Stretch" Text="{Binding FileName, Mode=TwoWay, Converter={StaticResource PathToFileName}, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Border
+                        x:Name="ItemBorder"
+                        HorizontalAlignment="Stretch"
+                        Background="Transparent">
+                        <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+                            <Button
+                                x:Name="DeleteFileName"
+                                Width="{Binding ActualHeight, ElementName=DeleteFileName}"
+                                Padding="4"
+                                Background="Transparent"
+                                BorderBrush="Transparent"
+                                Click="DeleteFileName_Click"
+                                Content="X"
+                                Foreground="{StaticResource BaseText}"
+                                Style="{StaticResource BaseButtonStyle}" />
+                            <TextBlock
+                                Padding="4"
+                                HorizontalAlignment="Stretch"
+                                Text="{Binding FileName, Mode=TwoWay, Converter={StaticResource PathToFileName}, UpdateSourceTrigger=PropertyChanged}" />
 
                         </StackPanel>
                     </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>
             <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem" BasedOn="{StaticResource BaseListBoxItemStyle}">
-                    <Setter Property="IsSelected" Value="{Binding FileIsSelected, Mode=TwoWay}"/>
-                    <Setter Property="VerticalContentAlignment" Value="Bottom"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                <Style BasedOn="{StaticResource BaseListBoxItemStyle}" TargetType="ListBoxItem">
+                    <Setter Property="IsSelected" Value="{Binding FileIsSelected, Mode=TwoWay}" />
+                    <Setter Property="VerticalContentAlignment" Value="Bottom" />
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="BorderBrush" Value="{StaticResource BaseColor}"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource BaseColor}" />
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
-                                <Condition Property="IsMouseOver" Value="True"/>
-                                <Condition Property="IsSelected" Value="True"/>
+                                <Condition Property="IsMouseOver" Value="True" />
+                                <Condition Property="IsSelected" Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter Property="BorderBrush" Value="{StaticResource BaseHighLightColor}"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource BaseHighLightColor}" />
                         </MultiTrigger>
                     </Style.Triggers>
                 </Style>

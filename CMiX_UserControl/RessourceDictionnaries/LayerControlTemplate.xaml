@@ -1,7 +1,8 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:CMiX="clr-namespace:CMiX">
-    <DataTemplate x:Key="ChannelLayerTemplate" >
-        <CMiX:ChannelLayer DataContext="{Binding}" ></CMiX:ChannelLayer>
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:CMiX="clr-namespace:CMiX">
+    <DataTemplate x:Key="ChannelLayerTemplate">
+        <CMiX:ChannelLayer DataContext="{Binding}" />
     </DataTemplate>
 </ResourceDictionary>
