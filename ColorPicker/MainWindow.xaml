@@ -1,0 +1,11 @@
+﻿<Window x:Class="ColorPickerDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:ColorPicker"
+        Title="MainWindow" Height="512" Width="473">
+
+    <Grid Background="black">
+        <local:ColorPicker Margin="0,0,103,-467"/>
+    </Grid>
+</Window>
