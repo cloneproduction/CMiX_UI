@@ -11,9 +11,9 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Brushes/GenericBrushes.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseRadioButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseLabelStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseRadioButtonStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseLabelStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <CMiX:PathToFilenameConverter x:Key="PathToFileName" />
             <CMiX:ColorToStringConverter x:Key="ColorToString" />

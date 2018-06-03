@@ -12,9 +12,9 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Brushes/GenericBrushes.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseLabelStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseRangeSlider.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseLabelStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseRangeSlider.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <CMiX:RangeValueToStringConverter x:Key="RangeValueToString" />
             <CMiX:IntToNormalizedDoubleConverter x:Key="IntToNormalizedDoubleConverter" />

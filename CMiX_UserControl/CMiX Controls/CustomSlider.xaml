@@ -9,9 +9,9 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Brushes/GenericBrushes.xaml"/>
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseSliderStyle.xaml"/>
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseButtonStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseSliderStyle.xaml"/>
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseButtonStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <Style x:Key="CMiXSliderFocusVisualStyle">
                 <Setter Property="Control.Template">

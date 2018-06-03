@@ -16,28 +16,28 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseFocusVisual.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Brushes/GenericBrushes.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseRadioButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/LayerRadioButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseScrollViewerStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseComboBoxStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseComboBoxItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseComboBoxItemPanelStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseToggleButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseTextBoxStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseTabControlStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseTabItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseLabelStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseSliderStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseGroupBoxStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseListBoxControlStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseListBoxItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseMenuStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseMenuItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseContextMenuStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseScrollViewerStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseFocusVisual.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseRadioButtonStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/LayerRadioButtonStyle.xaml" />
+                <!--<ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseScrollViewerStyle.xaml" />-->
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseButtonStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxItemStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxItemPanelStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseToggleButtonStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTextBoxStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabControlStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabItemStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseLabelStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseSliderStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseGroupBoxStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxControlStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxItemStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuItemStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseContextMenuStyle.xaml" />
+                <!--<ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseScrollViewerStyle.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
             <CMiX:PathToFilenameConverter x:Key="PathToFileName" />
             <CMiX:ColorToStringConverter x:Key="ColorToString" />
@@ -85,9 +85,7 @@
                         x:Name="SpriteCount"
                         Width="150"
                         Margin="2"
-                        HorizontalAlignment="Right"
-                        Count="{Binding DataContext.SpriteCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}"
-                        CounterChanged="CounterChanged" />
+                        HorizontalAlignment="Right" />
                 </Grid>
                 <DockPanel Background="{StaticResource BaseDarkerColor}" LastChildFill="True">
                     <Border
@@ -268,24 +266,7 @@
                                             <ColumnDefinition Width="0.5*" />
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
-                                        <ToggleButton
-                                            x:Name="SpriteRotationStyle"
-                                            Content="{Binding Rotation[0], ElementName=SpriteRotation, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                            IsHitTestVisible="{Binding ElementName=SpritePopupRotation, Path=IsOpen, Converter={StaticResource BoolInverter}}"
-                                            Style="{StaticResource BaseToggleButtonStyle}" />
-                                        <Popup
-                                            x:Name="SpritePopupRotation"
-                                            Width="432"
-                                            AllowsTransparency="True"
-                                            IsOpen="{Binding IsChecked, ElementName=SpriteRotationStyle}"
-                                            Placement="Center"
-                                            PlacementTarget="{Binding ElementName=Ch_Parameters}"
-                                            StaysOpen="False">
-                                            <CMiX:RotationSelector
-                                                x:Name="SpriteRotation"
-                                                Rotation="{Binding DataContext.SpriteRotation, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                                SelectionChanged="RotationSelector_SelectionChanged" />
-                                        </Popup>
+                                        <CMiX:RotationSelector x:Name="SpriteRotation"/>
                                         <CMiX:CustomSlider
                                             x:Name="SpriteRotate"
                                             Grid.Column="2"
@@ -503,9 +484,7 @@
                             x:Name="MaskCount"
                             Width="150"
                             Margin="2"
-                            HorizontalAlignment="Right"
-                            Count="{Binding DataContext.MaskCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}"
-                            CounterChanged="CounterChanged" />
+                            HorizontalAlignment="Right" />
                     </Grid>
                     <Border
                         Height="25"
@@ -660,24 +639,7 @@
                                 <ColumnDefinition Width="0.5*" />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <ToggleButton
-                                x:Name="MaskRotationStyle"
-                                Content="{Binding Rotation[0], ElementName=MaskRotation, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                IsHitTestVisible="{Binding ElementName=MaskPopupRotation, Path=IsOpen, Converter={StaticResource BoolInverter}}"
-                                Style="{StaticResource BaseToggleButtonStyle}" />
-                            <Popup
-                                x:Name="MaskPopupRotation"
-                                Width="432"
-                                AllowsTransparency="True"
-                                IsOpen="{Binding IsChecked, ElementName=MaskRotationStyle}"
-                                Placement="Center"
-                                PlacementTarget="{Binding ElementName=Ch_Parameters}"
-                                StaysOpen="False">
-                                <CMiX:RotationSelector
-                                    x:Name="MaskRotation"
-                                    Rotation="{Binding DataContext.MaskRotation, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                    SelectionChanged="RotationSelector_SelectionChanged" />
-                            </Popup>
+                            <CMiX:RotationSelector x:Name="MaskRotation"/>
                             <CMiX:CustomSlider
                                 x:Name="MaskRotate"
                                 Grid.Column="2"

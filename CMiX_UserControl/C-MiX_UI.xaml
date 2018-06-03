@@ -15,32 +15,32 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Brushes/GenericBrushes.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseFocusVisual.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseTreeViewStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseRadioButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/LayerRadioButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseComboBoxStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseComboBoxItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseComboBoxItemPanelStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseToggleButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseTextBoxStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseTabControlStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseTabItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseLabelStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseSliderStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseGroupBoxStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseListBoxControlStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseListBoxItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseMenuStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseMenuItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseContextMenuStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseScrollViewerStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseRangeSlider.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseFocusVisual.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTreeViewStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseRadioButtonStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/LayerRadioButtonStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseButtonStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxItemStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxItemPanelStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseToggleButtonStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTextBoxStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabControlStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabItemStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseLabelStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseSliderStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseGroupBoxStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxControlStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxItemStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuItemStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseContextMenuStyle.xaml" />
+                <!--<ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseScrollViewerStyle.xaml" />-->
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseRangeSlider.xaml" />
 
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/LayerControlTemplate.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/ContentControlTemplate.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/LayerControlTemplate.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/ContentControlTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <CMiX:PeriodToBPMConverter x:Key="PeriodToBPM" />
             <CMiX:ColorToStringConverter x:Key="ColorToString" />
@@ -239,9 +239,9 @@
                 FocusVisualStyle="{DynamicResource FocusVisualStyle}"
                 Focusable="True"
                 KeyboardNavigation.TabNavigation="None">
-                <!--<CMiX:ChannelControls x:Name="Layer0" Tag="0"
+                <CMiX:ChannelControls x:Name="Layer0" Tag="0"
                                         DataContext="{Binding DataContext.ChData[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                        MasterPeriod="{Binding ControlPeriod, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ElementName=BeatControlsChannel0}"/>-->
+                                        MasterPeriod="{Binding ControlPeriod, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ElementName=BeatControlsChannel0}"/>
 
             </Grid>
 

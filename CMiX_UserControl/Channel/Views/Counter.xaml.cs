@@ -8,38 +8,35 @@ namespace CMiX
 {
     public partial class Counter : UserControl
     {
+        CounterViewModel counterviewmodel = new CounterViewModel();
+        Messenger message = new Messenger();
+
         public Counter()
         {
             InitializeComponent();
-        }
-
-        public static readonly DependencyProperty CountProperty =
-        DependencyProperty.Register("Count", typeof(int), typeof(Counter), new PropertyMetadata(0));
-        [Bindable(true)]
-        public int Count
-        {
-            get { return (int)this.GetValue(CountProperty); }
-            set { this.SetValue(CountProperty, value); }
+            this.DataContext = counterviewmodel;
         }
        
         private void Button_Add(object sender, RoutedEventArgs e)
         {
-
-
-            if (Count <= 10)
+            if (counterviewmodel.Count <= 10)
             {
-                Count += 1;
+                counterviewmodel.Count += 1;
             }
-            OnCounterChanged(e);
+            string name = Utils.FindParent<ChannelControls>(this).Name;
+            message.SendOSC(name + "/" + this.Name, counterviewmodel.Count.ToString());
+            //OnCounterChanged(e);
         }
 
         private void Button_Sub(object sender, RoutedEventArgs e)
         {
-            if (Count >= 1)
+            if (counterviewmodel.Count >= 1)
             {
-                Count -= 1;
+                counterviewmodel.Count -= 1;
             }
-            OnCounterChanged(e);
+            string name = Utils.FindParent<ChannelControls>(this).Name;
+            message.SendOSC(name + "/" + this.Name, counterviewmodel.Count.ToString());
+            //OnCounterChanged(e);
         }
 
 
@@ -82,7 +79,7 @@ namespace CMiX
 
         private void CounterValue_TextChanged(object sender, TextChangedEventArgs e)
         {
-            OnCounterChanged(e);
+            //OnCounterChanged(e);
         }
     }
 }

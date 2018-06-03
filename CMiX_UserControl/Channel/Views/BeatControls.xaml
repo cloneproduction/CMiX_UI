@@ -11,9 +11,9 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Brushes/GenericBrushes.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseLabelStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseButtonStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseLabelStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <CMiX:PeriodToBPMConverter x:Key="PeriodToBPM" />
         </ResourceDictionary>

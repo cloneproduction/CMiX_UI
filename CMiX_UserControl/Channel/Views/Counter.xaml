@@ -13,9 +13,9 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Brushes/GenericBrushes.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/BaseLabelStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseButtonStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseLabelStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <CMiX:IndexToCountConverter x:Key="IndexToCount" />
         </ResourceDictionary>
@@ -47,7 +47,7 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Background="{StaticResource BaseDarkColor}"
-                Content="{Binding Count, Mode=TwoWay, Converter={StaticResource IndexToCount}, RelativeSource={RelativeSource AncestorType={x:Type CMiX:Counter}}}"
+                Content="{Binding Count, Mode=TwoWay, Converter={StaticResource IndexToCount}}"
                 DataObject.Pasting="TextBoxPasting"
                 Foreground="{StaticResource BaseText}"
                 PreviewTextInput="CounterValue_PreviewTextInput" />

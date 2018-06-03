@@ -53,7 +53,7 @@ namespace CMiX
             }
         }
 
-        bool _EnabledLayer = false;
+        bool _EnabledLayer = true;
         public bool EnabledLayer
         {
             get { return _EnabledLayer; }

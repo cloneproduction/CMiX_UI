@@ -15,6 +15,7 @@ namespace CMiX
     {
         Messenger message = new Messenger();
         ChannelData cd = new ChannelData();
+
         public ChannelControls()
         {
             InitializeComponent();
@@ -173,7 +174,7 @@ namespace CMiX
             }
         }
 
-        private void CounterChanged(object sender, System.EventArgs e)
+        /*private void CounterChanged(object sender, System.EventArgs e)
         {
             if (EnabledOSC == true)
             {
@@ -181,7 +182,7 @@ namespace CMiX
                 cd = this.DataContext as ChannelData;
                 message.SendOSC(cd.Name + "/" + counter.Name, counter.Count.ToString());
             }
-        }
+        }*/
 
         private void ChannelColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
@@ -272,7 +273,7 @@ namespace CMiX
             }
 
         }
-        private void RotationSelector_SelectionChanged(object sender, EventArgs e)
+        /*private void RotationSelector_SelectionChanged(object sender, EventArgs e)
         {
             if (EnabledOSC == true)
             {
@@ -285,7 +286,7 @@ namespace CMiX
                 cd = this.DataContext as ChannelData;
                 message.SendOSCList(cd.Name + "/" + rs.Name, list);
             }
-        }
+        }*/
 
         private void Ch_Parameters_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
@@ -295,8 +296,8 @@ namespace CMiX
                 SpritePopupTranslate.IsOpen = false;
                 MaskPopupScale.IsOpen = false;
                 SpritePopupScale.IsOpen = false;
-                MaskPopupRotation.IsOpen = false;
-                SpritePopupRotation.IsOpen = false;
+                //MaskPopupRotation.IsOpen = false;
+                //SpritePopupRotation.IsOpen = false;
             }
         }
     }

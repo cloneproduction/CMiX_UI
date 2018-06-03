@@ -93,33 +93,36 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BeatControls.xaml.cs">
+    <Compile Include="Channel\ViewModels\CounterViewModel.cs" />
+    <Compile Include="Channel\ViewModels\RotationSelectorViewModel.cs" />
+    <Compile Include="Channel\ViewModels\ScaleSelectorViewModel.cs" />
+    <Compile Include="Channel\Views\BeatControls.xaml.cs">
       <DependentUpon>BeatControls.xaml</DependentUpon>
     </Compile>
     <Compile Include="BeatSystem.cs" />
-    <Compile Include="ChannelData.cs" />
+    <Compile Include="Channel\ViewModels\ChannelViewModel.cs" />
     <Compile Include="CMiX Controls\CMiXComboBox.cs" />
     <Compile Include="CMiX Controls\LayerRadioButton.cs" />
     <Compile Include="CMiX Controls\RangeSlider.cs" />
-    <Compile Include="CMiX Controls\ScaleSelector.xaml.cs">
+    <Compile Include="Channel\Views\ScaleSelector.xaml.cs">
       <DependentUpon>ScaleSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CMiX Controls\RotationSelector.xaml.cs">
+    <Compile Include="Channel\Views\RotationSelector.xaml.cs">
       <DependentUpon>RotationSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CMiX Controls\TranslateSelector.xaml.cs">
+    <Compile Include="Channel\Views\TranslateSelector.xaml.cs">
       <DependentUpon>TranslateSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="CMiX Controls\CMiXRangeSlider.xaml.cs">
       <DependentUpon>CMiXRangeSlider.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ChannelEnable.xaml.cs">
+    <Compile Include="Channel\Views\ChannelEnable.xaml.cs">
       <DependentUpon>ChannelEnable.xaml</DependentUpon>
     </Compile>
     <Compile Include="DragAndDropListbox.cs" />
     <Compile Include="OSCListener.cs" />
     <Compile Include="CMiX Controls\CMiXListBox.cs" />
-    <Compile Include="ChannelLayer.xaml.cs">
+    <Compile Include="Channel\Views\ChannelLayer.xaml.cs">
       <DependentUpon>ChannelLayer.xaml</DependentUpon>
     </Compile>
     <Compile Include="LayerButton.xaml.cs">
@@ -128,10 +131,10 @@
     <Compile Include="Utils.cs" />
     <Compile Include="Messenger.cs" />
     <Compile Include="CMiXData.cs" />
-    <Compile Include="Counter.xaml.cs">
+    <Compile Include="Channel\Views\Counter.xaml.cs">
       <DependentUpon>Counter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FFTControls.xaml.cs">
+    <Compile Include="Unused\FFTControls.xaml.cs">
       <DependentUpon>FFTControls.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converter.cs" />
@@ -147,15 +150,15 @@
     <Compile Include="MasterBeatControl.xaml.cs">
       <DependentUpon>MasterBeatControl.xaml</DependentUpon>
     </Compile>
-    <Page Include="CMiX Controls\ScaleSelector.xaml">
+    <Page Include="Channel\Views\ScaleSelector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="CMiX Controls\RotationSelector.xaml">
+    <Page Include="Channel\Views\RotationSelector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="CMiX Controls\TranslateSelector.xaml">
+    <Page Include="Channel\Views\TranslateSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -163,67 +166,67 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ChannelEnable.xaml">
+    <Page Include="Channel\Views\ChannelEnable.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Counter.xaml">
+    <Page Include="Channel\Views\Counter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FileTree.xaml">
+    <Page Include="Unused\FileTree.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RessourceDictionnaries\ContentControlTemplate.xaml">
+    <Page Include="Resources\ContentControlTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RessourceDictionnaries\LayerControlTemplate.xaml">
+    <Page Include="Resources\LayerControlTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RessourceDictionnaries\Styles\BaseRadioButtonStyle.xaml">
+    <Page Include="Resources\Styles\BaseRadioButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="RessourceDictionnaries\Styles\BaseSliderStyle.xaml">
+    <Page Include="Resources\Styles\BaseSliderStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="BeatControls.xaml">
+    <Page Include="Channel\Views\BeatControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ChannelControls.xaml">
+    <Page Include="Channel\Views\ChannelControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FFTControls.xaml">
+    <Page Include="Unused\FFTControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FileSelector.xaml">
+    <Page Include="Channel\Views\FileSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RessourceDictionnaries\Styles\BaseContextMenuStyle.xaml">
+    <Page Include="Resources\Styles\BaseContextMenuStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="RessourceDictionnaries\Styles\BaseMenuItemStyle.xaml">
+    <Page Include="Resources\Styles\BaseMenuItemStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RessourceDictionnaries\Styles\BaseListBoxItemStyle.xaml">
+    <Page Include="Resources\Styles\BaseListBoxItemStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RessourceDictionnaries\Styles\BaseListBoxControlStyle.xaml">
+    <Page Include="Resources\Styles\BaseListBoxControlStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RessourceDictionnaries\Styles\BaseGroupBoxStyle.xaml">
+    <Page Include="Resources\Styles\BaseGroupBoxStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -231,51 +234,51 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RessourceDictionnaries\Styles\BaseLabelStyle.xaml">
+    <Page Include="Resources\Styles\BaseLabelStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RessourceDictionnaries\Styles\BaseTabItemStyle.xaml">
+    <Page Include="Resources\Styles\BaseTabItemStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RessourceDictionnaries\Styles\BaseTextBoxStyle.xaml">
+    <Page Include="Resources\Styles\BaseTextBoxStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RessourceDictionnaries\Styles\BaseMenuStyle.xaml">
+    <Page Include="Resources\Styles\BaseMenuStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="RessourceDictionnaries\Styles\BaseToggleButtonStyle.xaml">
+    <Page Include="Resources\Styles\BaseToggleButtonStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RessourceDictionnaries\Styles\BaseComboBoxItemPanelStyle.xaml">
+    <Page Include="Resources\Styles\BaseComboBoxItemPanelStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RessourceDictionnaries\Styles\BaseComboBoxItemStyle.xaml">
+    <Page Include="Resources\Styles\BaseComboBoxItemStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RessourceDictionnaries\Styles\BaseComboBoxStyle.xaml">
+    <Page Include="Resources\Styles\BaseComboBoxStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RessourceDictionnaries\Styles\BaseButtonStyle.xaml">
+    <Page Include="Resources\Styles\BaseButtonStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RessourceDictionnaries\Brushes\GenericBrushes.xaml">
+    <Page Include="Resources\Brushes\GenericBrushes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RessourceDictionnaries\Styles\BaseRangeSlider.xaml">
+    <Page Include="Resources\Styles\BaseRangeSlider.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RessourceDictionnaries\Styles\LayerRadioButtonStyle.xaml">
+    <Page Include="Resources\Styles\LayerRadioButtonStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -289,20 +292,20 @@
     <Compile Include="C-MiX_UI.xaml.cs">
       <DependentUpon>C-MiX_UI.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ChannelControls.xaml.cs">
+    <Compile Include="Channel\Views\ChannelControls.xaml.cs">
       <DependentUpon>ChannelControls.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FileSelector.xaml.cs">
+    <Compile Include="Channel\Views\FileSelector.xaml.cs">
       <DependentUpon>FileSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FileTree.xaml.cs">
+    <Compile Include="Unused\FileTree.xaml.cs">
       <DependentUpon>FileTree.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="RessourceDictionnaries\Styles\BaseTabControlStyle.xaml">
+    <Page Include="Resources\Styles\BaseTabControlStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -310,15 +313,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RessourceDictionnaries\Styles\BaseTreeViewStyle.xaml">
+    <Page Include="Resources\Styles\BaseTreeViewStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RessourceDictionnaries\Styles\BaseScrollViewerStyle.xaml">
+    <Page Include="Resources\Styles\BaseScrollViewerStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RessourceDictionnaries\Styles\BaseFocusVisual.xaml">
+    <Page Include="Resources\Styles\BaseFocusVisual.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -330,7 +333,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ChannelLayer.xaml">
+    <Page Include="Channel\Views\ChannelLayer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -384,6 +387,7 @@
       <Name>ColorPicker</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
