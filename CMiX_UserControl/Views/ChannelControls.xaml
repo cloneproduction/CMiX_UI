@@ -85,7 +85,8 @@
                         x:Name="SpriteCount"
                         Width="150"
                         Margin="2"
-                        HorizontalAlignment="Right" />
+                        HorizontalAlignment="Right"
+                        DataContext="{Binding Path=SpriteCounterViewModel}"/>
                 </Grid>
                 <DockPanel Background="{StaticResource BaseDarkerColor}" LastChildFill="True">
                     <Border
@@ -484,7 +485,8 @@
                             x:Name="MaskCount"
                             Width="150"
                             Margin="2"
-                            HorizontalAlignment="Right" />
+                            HorizontalAlignment="Right" 
+                            DataContext="{Binding Path=MaskCounterViewModel}"/>
                     </Grid>
                     <Border
                         Height="25"

@@ -93,45 +93,53 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Channel\ViewModels\CounterViewModel.cs" />
-    <Compile Include="Channel\ViewModels\RotationSelectorViewModel.cs" />
-    <Compile Include="Channel\ViewModels\ScaleSelectorViewModel.cs" />
-    <Compile Include="Channel\Views\BeatControls.xaml.cs">
+    <Compile Include="ViewModels\Camera.cs" />
+    <Compile Include="ViewModels\Coloration.cs" />
+    <Compile Include="ViewModels\Content.cs" />
+    <Compile Include="CounterViewModel.cs" />
+    <Compile Include="ViewModels\Geometry.cs" />
+    <Compile Include="ViewModels\Layer.cs" />
+    <Compile Include="ViewModels\MainBeat.cs" />
+    <Compile Include="ViewModels\Mask.cs" />
+    <Compile Include="ViewModels\PostFX.cs" />
+    <Compile Include="ViewModels\Composition.cs" />
+    <Compile Include="ViewModels\Texture.cs" />
+    <Compile Include="Views\BeatControls.xaml.cs">
       <DependentUpon>BeatControls.xaml</DependentUpon>
     </Compile>
     <Compile Include="BeatSystem.cs" />
-    <Compile Include="Channel\ViewModels\ChannelViewModel.cs" />
+    <Compile Include="ChannelData.cs" />
     <Compile Include="CMiX Controls\CMiXComboBox.cs" />
     <Compile Include="CMiX Controls\LayerRadioButton.cs" />
     <Compile Include="CMiX Controls\RangeSlider.cs" />
-    <Compile Include="Channel\Views\ScaleSelector.xaml.cs">
+    <Compile Include="Views\ScaleSelector.xaml.cs">
       <DependentUpon>ScaleSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Channel\Views\RotationSelector.xaml.cs">
+    <Compile Include="Views\RotationSelector.xaml.cs">
       <DependentUpon>RotationSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Channel\Views\TranslateSelector.xaml.cs">
+    <Compile Include="Views\TranslateSelector.xaml.cs">
       <DependentUpon>TranslateSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="CMiX Controls\CMiXRangeSlider.xaml.cs">
       <DependentUpon>CMiXRangeSlider.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Channel\Views\ChannelEnable.xaml.cs">
+    <Compile Include="Views\ChannelEnable.xaml.cs">
       <DependentUpon>ChannelEnable.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DragAndDropListbox.cs" />
-    <Compile Include="OSCListener.cs" />
+    <Compile Include="Unused\DragAndDropListbox.cs" />
+    <Compile Include="Services\OSCListener.cs" />
     <Compile Include="CMiX Controls\CMiXListBox.cs" />
-    <Compile Include="Channel\Views\ChannelLayer.xaml.cs">
+    <Compile Include="Views\ChannelLayer.xaml.cs">
       <DependentUpon>ChannelLayer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LayerButton.xaml.cs">
+    <Compile Include="Views\LayerButton.xaml.cs">
       <DependentUpon>LayerButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
-    <Compile Include="Messenger.cs" />
+    <Compile Include="Services\Messenger.cs" />
     <Compile Include="CMiXData.cs" />
-    <Compile Include="Channel\Views\Counter.xaml.cs">
+    <Compile Include="Views\Counter.xaml.cs">
       <DependentUpon>Counter.xaml</DependentUpon>
     </Compile>
     <Compile Include="Unused\FFTControls.xaml.cs">
@@ -147,18 +155,18 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Compile Include="MasterBeatControl.xaml.cs">
+    <Compile Include="Views\MasterBeatControl.xaml.cs">
       <DependentUpon>MasterBeatControl.xaml</DependentUpon>
     </Compile>
-    <Page Include="Channel\Views\ScaleSelector.xaml">
+    <Page Include="Views\ScaleSelector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Channel\Views\RotationSelector.xaml">
+    <Page Include="Views\RotationSelector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Channel\Views\TranslateSelector.xaml">
+    <Page Include="Views\TranslateSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -166,11 +174,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Channel\Views\ChannelEnable.xaml">
+    <Page Include="Views\ChannelEnable.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Channel\Views\Counter.xaml">
+    <Page Include="Views\Counter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -178,11 +186,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\ContentControlTemplate.xaml">
+    <Page Include="Unused\ContentControlTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\LayerControlTemplate.xaml">
+    <Page Include="Unused\LayerControlTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -194,11 +202,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Channel\Views\BeatControls.xaml">
+    <Page Include="Views\BeatControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Channel\Views\ChannelControls.xaml">
+    <Page Include="Views\ChannelControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -206,7 +214,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Channel\Views\FileSelector.xaml">
+    <Page Include="Views\FileSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -292,10 +300,10 @@
     <Compile Include="C-MiX_UI.xaml.cs">
       <DependentUpon>C-MiX_UI.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Channel\Views\ChannelControls.xaml.cs">
+    <Compile Include="Views\ChannelControls.xaml.cs">
       <DependentUpon>ChannelControls.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Channel\Views\FileSelector.xaml.cs">
+    <Compile Include="Views\FileSelector.xaml.cs">
       <DependentUpon>FileSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Unused\FileTree.xaml.cs">
@@ -329,15 +337,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MasterBeatControl.xaml">
+    <Page Include="Views\MasterBeatControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Channel\Views\ChannelLayer.xaml">
+    <Page Include="Views\ChannelLayer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LayerButton.xaml">
+    <Page Include="Views\LayerButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CMiX
 {
-    public class RotationSelectorViewModel : INotifyPropertyChanged
+    public class MainBeat : INotifyPropertyChanged
     {
         protected void OnPropertyChanged(PropertyChangedEventArgs e)
         {
@@ -20,31 +20,43 @@ namespace CMiX
         {
             OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
         }
-        [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
 
-        List<bool> _RotationAxis = new List<bool> { true, true, true };
-        public List<bool> RotationAxis
+        double _Period = 1.0;
+        public double Period
         {
-            get { return _RotationAxis; }
+            get { return _Period; }
             set
             {
-                if (_RotationAxis != value)
+                if (_Period != value)
                 {
-                    _RotationAxis = value; OnPropertyChanged("RotationAxis");
+                    _Period = value; OnPropertyChanged("Period");
                 }
             }
         }
 
-        string _Rotation = "STD_CTR";
-        public string Rotation
+        int _BeatMultiplier = 1;
+        public int BeatMultiplier
         {
-            get { return _Rotation; }
+            get { return _BeatMultiplier; }
             set
             {
-                if (_Rotation != value)
+                if (_BeatMultiplier != value)
                 {
-                    _Rotation = value; OnPropertyChanged("Rotation");
+                    _BeatMultiplier = value; OnPropertyChanged("BeatMultiplier");
+                }
+            }
+        }
+
+        int _ResetTime = 0;
+        public int ResetTime
+        {
+            get { return _ResetTime; }
+            set
+            {
+                if (_ResetTime != value)
+                {
+                    _ResetTime = value; OnPropertyChanged("ResetTime");
                 }
             }
         }

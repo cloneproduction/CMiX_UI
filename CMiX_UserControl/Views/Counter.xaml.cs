@@ -9,7 +9,7 @@ namespace CMiX
     public partial class Counter : UserControl
     {
         CounterViewModel counterviewmodel = new CounterViewModel();
-        Messenger message = new Messenger();
+
 
         public Counter()
         {
@@ -25,7 +25,6 @@ namespace CMiX
             }
             string name = Utils.FindParent<ChannelControls>(this).Name;
             message.SendOSC(name + "/" + this.Name, counterviewmodel.Count.ToString());
-            //OnCounterChanged(e);
         }
 
         private void Button_Sub(object sender, RoutedEventArgs e)
@@ -36,9 +35,9 @@ namespace CMiX
             }
             string name = Utils.FindParent<ChannelControls>(this).Name;
             message.SendOSC(name + "/" + this.Name, counterviewmodel.Count.ToString());
-            //OnCounterChanged(e);
         }
 
+        Messenger message = new Messenger();
 
         private static bool IsTextAllowed(string text)
         {

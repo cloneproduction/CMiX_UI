@@ -38,9 +38,6 @@
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseContextMenuStyle.xaml" />
                 <!--<ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseScrollViewerStyle.xaml" />-->
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseRangeSlider.xaml" />
-
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/LayerControlTemplate.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/ContentControlTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <CMiX:PeriodToBPMConverter x:Key="PeriodToBPM" />
             <CMiX:ColorToStringConverter x:Key="ColorToString" />

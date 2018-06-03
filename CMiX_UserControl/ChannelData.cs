@@ -38,8 +38,12 @@ namespace CMiX
             return this.MemberwiseClone();
         }
 
-        #region Properties
 
+        public CounterViewModel SpriteCounterViewModel { get; }
+        public CounterViewModel MaskCounterViewModel { get; }
+
+
+        #region Properties
         string _Name = "Layer0";
         public string Name
         {

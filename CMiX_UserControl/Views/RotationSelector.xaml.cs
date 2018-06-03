@@ -8,13 +8,13 @@ namespace CMiX
 {
     public partial class RotationSelector : UserControl, INotifyPropertyChanged
     {
-        RotationSelectorViewModel rotationselectorviewmodel = new RotationSelectorViewModel();
+
         Messenger message = new Messenger();
 
         public RotationSelector()
         {
             InitializeComponent();
-            this.DataContext = rotationselectorviewmodel;
+            //this.DataContext = rotationselectorviewmodel;
         }
 
         protected void OnPropertyChanged(PropertyChangedEventArgs e)
@@ -43,7 +43,7 @@ namespace CMiX
             RadioButton rb = sender as RadioButton;
             if(rb.IsChecked == true)
             {
-                rotationselectorviewmodel.Rotation = rb.Name;
+                //rotationselectorviewmodel.Rotation = rb.Name;
                 string name = Utils.FindParent<ChannelControls>(this).Name;
                 message.SendOSC(name + "/" + this.Name, rb.Name);
             }
