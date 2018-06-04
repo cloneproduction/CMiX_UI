@@ -108,6 +108,7 @@
     <Compile Include="ViewModels\GeometryRotationMode.cs" />
     <Compile Include="ViewModels\GeometryScaleMode.cs" />
     <Compile Include="ViewModels\GeometryTranslateMode.cs" />
+    <Compile Include="ViewModels\HSVPoint.cs" />
     <Compile Include="ViewModels\Layer.cs" />
     <Compile Include="ViewModels\MainBeat.cs" />
     <Compile Include="ViewModels\Mask.cs" />
