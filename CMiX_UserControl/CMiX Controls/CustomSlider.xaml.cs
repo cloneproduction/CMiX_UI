@@ -22,24 +22,24 @@ namespace CMiX
         DependencyProperty.Register("Value", typeof(double), typeof(CustomSlider), new PropertyMetadata(0.0));
         public double Value
         {
-            get { return (double)this.GetValue(ValueProperty); }
-            set { this.SetValue(ValueProperty, value); }
+            get { return (double)GetValue(ValueProperty); }
+            set { SetValue(ValueProperty, value); }
         }
 
         public static readonly DependencyProperty OrientationProperty =
         DependencyProperty.Register("Orientation", typeof(string), typeof(CustomSlider), new PropertyMetadata("Horizontal"));
         public string Orientation
         {
-            get { return (string)this.GetValue(OrientationProperty); }
-            set { this.SetValue(OrientationProperty, value); }
+            get { return (string)GetValue(OrientationProperty); }
+            set { SetValue(OrientationProperty, value); }
         }
 
         public static readonly DependencyProperty CaptionProperty =
         DependencyProperty.Register("Caption", typeof(string), typeof(CustomSlider), new PropertyMetadata(""));
         public string Caption
         {
-            get { return (string)this.GetValue(CaptionProperty); }
-            set { this.SetValue(CaptionProperty, value); }
+            get { return (string)GetValue(CaptionProperty); }
+            set { SetValue(CaptionProperty, value); }
         }
         #endregion
 

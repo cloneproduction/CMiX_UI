@@ -1,54 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMiX.ViewModels
 {
     public class Mask : ViewModel
     {
-        bool _Enable = true;
+        public Mask()
+            : this(
+                  enable: true,
+                  beatModifier: new BeatModifier(),
+                  geometry: new Geometry(),
+                  texture: new Texture(),
+                  postFX: new PostFX())
+        { }
+
+        public Mask(bool enable, BeatModifier beatModifier, Geometry geometry, Texture texture, PostFX postFX)
+        {
+            Enable = enable;
+            BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
+            Geometry = geometry ?? throw new ArgumentNullException(nameof(geometry));
+            Texture = texture ?? throw new ArgumentNullException(nameof(texture));
+            PostFX = postFX ?? throw new ArgumentNullException(nameof(postFX));
+        }
+
+        private bool _enable;
         public bool Enable
         {
-            get => _Enable;
-            set => this.SetAndNotify(ref _Enable, value);
+            get => _enable;
+            set => SetAndNotify(ref _enable, value);
         }
 
-        int _BeatMultiplier = 1;
-        public int BeatMultiplier
-        {
-            get => _BeatMultiplier;
-            set => this.SetAndNotify(ref _BeatMultiplier, value);
-        }
+        public BeatModifier BeatModifier { get; }
 
-        double _BeatChanceToHit = 1.0;
-        public double BeatChanceToHit
-        {
-            get => _BeatChanceToHit;
-            set => this.SetAndNotify(ref _BeatChanceToHit, value);
-        }
+        public Geometry Geometry { get; }
 
-        Geometry _Geometry = new Geometry();
-        public Geometry Geometry
-        {
-            get => _Geometry;
-            set => this.SetAndNotify(ref _Geometry, value);
-        }
+        public Texture Texture { get; }
 
-        Texture _Texture = new Texture();
-        public Texture Texture
-        {
-            get => _Texture;
-            set => this.SetAndNotify(ref _Texture, value);
-        }
-
-        PostFX _PostFX = new PostFX();
-        public PostFX PostFX
-        {
-            get => _PostFX;
-            set => this.SetAndNotify(ref _PostFX, value);
-        }
+        public PostFX PostFX { get; }
     }
 }

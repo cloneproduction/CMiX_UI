@@ -98,19 +98,19 @@ namespace CMiX
 
         public object Clone()
         {
-            return this.MemberwiseClone();
+            return MemberwiseClone();
         }
 
         private string FileNameValue;
         public string FileName
         {
-            get { return this.FileNameValue; }
+            get { return FileNameValue; }
 
             set
             {
-                if (value != this.FileNameValue)
+                if (value != FileNameValue)
                 {
-                    this.FileNameValue = value;
+                    FileNameValue = value;
                     NotifyPropertyChanged("FileName");
                 }
             }
@@ -119,13 +119,13 @@ namespace CMiX
         private bool FileIsSelectedValue;
         public bool FileIsSelected
         {
-            get { return this.FileIsSelectedValue; }
+            get { return FileIsSelectedValue; }
 
             set
             {
-                if (value != this.FileIsSelectedValue)
+                if (value != FileIsSelectedValue)
                 {
-                    this.FileIsSelectedValue = value;
+                    FileIsSelectedValue = value;
                     NotifyPropertyChanged("FileIsSelected");
                 }
             }

@@ -23,8 +23,8 @@ namespace CMiX
         [Bindable(true)]
         public double Multiplier
         {
-            get { return (double)this.GetValue(MultiplierProperty); }
-            set { this.SetValue(MultiplierProperty, value); }
+            get { return (double)GetValue(MultiplierProperty); }
+            set { SetValue(MultiplierProperty, value); }
         }
 
         public static readonly DependencyProperty MasterPeriodProperty =
@@ -32,8 +32,8 @@ namespace CMiX
         [Bindable(true)]
         public double MasterPeriod
         {
-            get { return (double)this.GetValue(MasterPeriodProperty); }
-            set { this.SetValue(MasterPeriodProperty , value) ; }
+            get { return (double)GetValue(MasterPeriodProperty); }
+            set { SetValue(MasterPeriodProperty , value) ; }
         }
 
         public static readonly DependencyProperty ControlPeriodProperty =
@@ -41,8 +41,8 @@ namespace CMiX
         [Bindable(true)]
         public double ControlPeriod
         {
-            get { return (double)this.GetValue(ControlPeriodProperty); }
-            set { this.SetValue(ControlPeriodProperty, value); }
+            get { return (double)GetValue(ControlPeriodProperty); }
+            set { SetValue(ControlPeriodProperty, value); }
         }
         #endregion
 

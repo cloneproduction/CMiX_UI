@@ -1,40 +1,56 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMiX.ViewModels
 {
     public class PostFX : ViewModel
     {
-        double _FeedBack = 0.0;
-        public double FeedBack
+        public PostFX()
+            : this(feedback: 0.0, blur: 0.0, transforms: default, view: default)
+        { }
+
+        public PostFX(double feedback, double blur, PostFXTransforms transforms, PostFXView view)
         {
-            get => _FeedBack;
-            set => this.SetAndNotify(ref _FeedBack, value);
+            AssertNotNegative(() => feedback);
+            AssertNotNegative(() => blur);
+
+            Feedback = feedback;
+            Blur = blur;
+            Transforms = transforms;
+            View = view;
         }
 
-        double _Blur = 0.0;
+        private double _feedback;
+        public double Feedback
+        {
+            get => _feedback;
+            set
+            {
+                SetAndNotify(ref _feedback, CoerceNotNegative(value));
+            }
+        }
+
+        private double _blur;
         public double Blur
         {
-            get => _Blur;
-            set => this.SetAndNotify(ref _Blur, value);
+            get => _blur;
+            set
+            {
+                SetAndNotify(ref _blur, CoerceNotNegative(value));
+            }
         }
 
-        PostFXTransforms _Transforms;
+        private PostFXTransforms _transforms;
         public PostFXTransforms Transforms
         {
-            get => _Transforms;
-            set => this.SetAndNotify(ref _Transforms, value);
+            get => _transforms;
+            set => SetAndNotify(ref _transforms, value);
         }
 
-        PostFXView _View;
+        private PostFXView _view;
         public PostFXView View
         {
-            get => _View;
-            set => this.SetAndNotify(ref _View, value);
+            get => _view;
+            set => SetAndNotify(ref _view, value);
         }
     }
 }

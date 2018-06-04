@@ -1,54 +1,64 @@
-﻿namespace CMiX.ViewModels
+﻿using System;
+
+namespace CMiX.ViewModels
 {
     public class Camera : ViewModel
     {
-        CameraRotation _Rotation;
+        public Camera()
+            : this(
+                  rotation: default,
+                  lookAt: default,
+                  view: default,
+                  beatModifier: new BeatModifier(),
+                  fov: 1.0,
+                  zoom: 1.0)
+        { }
+
+        public Camera(CameraRotation rotation, CameraLookAt lookAt, CameraView view, BeatModifier beatModifier, double fov, double zoom)
+        {
+            Rotation = rotation;
+            LookAt = lookAt;
+            View = view;
+            BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
+            FOV = fov;
+            Zoom = zoom;
+        }
+
+        private CameraRotation _rotation;
         public CameraRotation Rotation
         {
-            get => _Rotation;
-            set => this.SetAndNotify(ref _Rotation, value);
+            get => _rotation;
+            set => SetAndNotify(ref _rotation, value);
         }
 
-        CameraLookAt _LookAt;
+        private CameraLookAt _lookAt;
         public CameraLookAt LookAt
         {
-            get => _LookAt;
-            set => this.SetAndNotify(ref _LookAt, value);
+            get => _lookAt;
+            set => SetAndNotify(ref _lookAt, value);
         }
 
-        CameraView _View;
+        private CameraView _view;
         public CameraView View
         {
-            get => _View;
-            set => this.SetAndNotify(ref _View, value);
+            get => _view;
+            set => SetAndNotify(ref _view, value);
         }
 
-        int _BeatMultiplier = 1;
-        public int BeatMultiplier
+        public BeatModifier BeatModifier { get; }
+
+        private double _FOV;
+        public double FOV
         {
-            get => _BeatMultiplier;
-            set => this.SetAndNotify(ref _BeatMultiplier, value);
+            get => _FOV;
+            set => SetAndNotify(ref _FOV, value);
         }
 
-        double _BeatChanceToHit = 1.0;
-        public double BeatChanceToHit
+        private double _zoom;
+        public double Zoom
         {
-            get => _BeatChanceToHit;
-            set => this.SetAndNotify(ref _BeatChanceToHit, value);
-        }
-
-        double _CameraFOV = 1.0;
-        public double CameraFOV
-        {
-            get => _CameraFOV;
-            set => this.SetAndNotify(ref _CameraFOV, value);
-        }
-
-        double _CameraZoom = 1.0;
-        public double CameraZoom
-        {
-            get => _CameraZoom;
-            set => this.SetAndNotify(ref _CameraZoom, value);
+            get => _zoom;
+            set => SetAndNotify(ref _zoom, value);
         }
     }
 }

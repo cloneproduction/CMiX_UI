@@ -27,6 +27,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -37,6 +38,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>CMiX.App</StartupObject>
@@ -93,6 +95,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ViewModels\BeatModifier.cs" />
     <Compile Include="ViewModels\BlendMode.cs" />
     <Compile Include="ViewModels\Camera.cs" />
     <Compile Include="ViewModels\CameraLookAt.cs" />
@@ -106,13 +109,15 @@
     <Compile Include="ViewModels\GeometryRotationMode.cs" />
     <Compile Include="ViewModels\GeometryScaleMode.cs" />
     <Compile Include="ViewModels\GeometryTranslateMode.cs" />
+    <Compile Include="ViewModels\HSVPoint.cs" />
     <Compile Include="ViewModels\Layer.cs" />
     <Compile Include="ViewModels\MainBeat.cs" />
     <Compile Include="ViewModels\Mask.cs" />
     <Compile Include="ViewModels\PostFX.cs" />
     <Compile Include="ViewModels\Composition.cs" />
-    <Compile Include="ViewModels\PostFXTranforms.cs" />
+    <Compile Include="ViewModels\PostFXTransforms.cs" />
     <Compile Include="ViewModels\PostFXView.cs" />
+    <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\ShortCodeAttribute.cs" />
     <Compile Include="ViewModels\Texture.cs" />
     <Compile Include="ViewModels\TextureInvertMode.cs" />
@@ -171,6 +176,10 @@
     <Compile Include="Views\MasterBeatControl.xaml.cs">
       <DependentUpon>MasterBeatControl.xaml</DependentUpon>
     </Compile>
+    <Page Include="Resources\Fonts\Roboto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ScaleSelector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -381,6 +390,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Resources\Fonts\Roboto-Medium.ttf" />
+    <Resource Include="Resources\Fonts\Roboto-Regular.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

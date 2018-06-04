@@ -8,13 +8,14 @@
     x:Name="cmix"
     d:DesignHeight="972"
     d:DesignWidth="1584.666"
-    FontFamily="Roboto Medium"
+    FontFamily="{DynamicResource RobotoMedium}"
     FontSize="11"
     Loaded="cmix_Loaded"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Fonts/Roboto.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseFocusVisual.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTreeViewStyle.xaml" />
@@ -236,9 +237,11 @@
                 FocusVisualStyle="{DynamicResource FocusVisualStyle}"
                 Focusable="True"
                 KeyboardNavigation.TabNavigation="None">
-                <CMiX:ChannelControls x:Name="Layer0" Tag="0"
-                                        DataContext="{Binding DataContext.ChData[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                        MasterPeriod="{Binding ControlPeriod, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ElementName=BeatControlsChannel0}"/>
+                <CMiX:ChannelControls
+                    x:Name="Layer0"
+                    DataContext="{Binding DataContext.ChData[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
+                    MasterPeriod="{Binding ControlPeriod, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ElementName=BeatControlsChannel0}"
+                    Tag="0" />
 
             </Grid>
 

@@ -14,7 +14,7 @@ namespace CMiX
         public Counter()
         {
             InitializeComponent();
-            this.DataContext = counterviewmodel;
+            DataContext = counterviewmodel;
         }
        
         private void Button_Add(object sender, RoutedEventArgs e)
@@ -24,7 +24,7 @@ namespace CMiX
                 counterviewmodel.Count += 1;
             }
             string name = Utils.FindParent<ChannelControls>(this).Name;
-            message.SendOSC(name + "/" + this.Name, counterviewmodel.Count.ToString());
+            message.SendOSC(name + "/" + Name, counterviewmodel.Count.ToString());
         }
 
         private void Button_Sub(object sender, RoutedEventArgs e)
@@ -34,7 +34,7 @@ namespace CMiX
                 counterviewmodel.Count -= 1;
             }
             string name = Utils.FindParent<ChannelControls>(this).Name;
-            message.SendOSC(name + "/" + this.Name, counterviewmodel.Count.ToString());
+            message.SendOSC(name + "/" + Name, counterviewmodel.Count.ToString());
         }
 
         Messenger message = new Messenger();

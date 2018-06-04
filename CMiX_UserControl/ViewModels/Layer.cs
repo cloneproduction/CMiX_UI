@@ -1,68 +1,63 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CMiX.ViewModels
+﻿namespace CMiX.ViewModels
 {
     public class Layer : ViewModel
     {
-        string _Name = "";
+        public Layer()
+            : this(
+                  name: string.Empty,
+                  fade: 0.0,
+                  blendMode: default,
+                  beatModifier: new BeatModifier(),
+                  content: new Content(),
+                  mask: new Mask(),
+                  coloration: new Coloration())
+        { }
+
+        public Layer(
+            string name,
+            double fade,
+            BlendMode blendMode,
+            BeatModifier beatModifier,
+            Content content,
+            Mask mask,
+            Coloration coloration)
+        {
+            Name = name;
+            Fade = fade;
+            BlendMode = blendMode;
+            BeatModifier = beatModifier ?? throw new System.ArgumentNullException(nameof(beatModifier));
+            Content = content ?? throw new System.ArgumentNullException(nameof(content));
+            Mask = mask ?? throw new System.ArgumentNullException(nameof(mask));
+            Coloration = coloration ?? throw new System.ArgumentNullException(nameof(coloration));
+        }
+
+        private string _name;
         public string Name
         {
-            get => _Name;
-            set => this.SetAndNotify(ref _Name, value);
+            get => _name;
+            set => SetAndNotify(ref _name, value);
         }
 
-        double _Fade = 0.0;
+        private double _fade;
         public double Fade
         {
-            get => _Fade;
-            set => this.SetAndNotify(ref _Fade, value);
+            get => _fade;
+            set => SetAndNotify(ref _fade, value);
         }
 
-        BlendMode _BlendMode;
+        private BlendMode _blendMode;
         public BlendMode BlendMode
         {
-            get => _BlendMode;
-            set => this.SetAndNotify(ref _BlendMode, value);
+            get => _blendMode;
+            set => SetAndNotify(ref _blendMode, value);
         }
 
-        int _BeatMultiplier = 1;
-        public int BeatMultiplier
-        {
-            get => _BeatMultiplier;
-            set => this.SetAndNotify(ref _BeatMultiplier, value);
-        }
+        public BeatModifier BeatModifier { get; }
 
-        double _BeatChanceToHit = 1.0;
-        public double BeatChanceToHit
-        {
-            get => _BeatChanceToHit;
-            set => this.SetAndNotify(ref _BeatChanceToHit, value);
-        }
+        public Content Content { get; }
 
-        Content _Content = new Content();
-        public Content Content
-        {
-            get => _Content;
-            set => this.SetAndNotify(ref _Content, value);
-        }
+        public Mask Mask { get; }
 
-        Mask _Mask = new Mask();
-        public Mask Mask
-        {
-            get => _Mask;
-            set => this.SetAndNotify(ref _Mask, value);
-        }
-
-        Coloration _Coloration = new Coloration();
-        public Coloration Coloration
-        {
-            get => _Coloration;
-            set => this.SetAndNotify(ref _Coloration, value);
-        }
+        public Coloration Coloration { get; }
     }
 }

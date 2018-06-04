@@ -17,8 +17,8 @@ namespace CMiX
         [Bindable(true)]
         public string FFTNames
         {
-            get { return (string)this.GetValue(FFTNamesProperty); }
-            set { this.SetValue(FFTNamesProperty, value); }
+            get { return (string)GetValue(FFTNamesProperty); }
+            set { SetValue(FFTNamesProperty, value); }
         }
 
         public static readonly DependencyProperty SelectedFFTProperty =
@@ -26,8 +26,8 @@ namespace CMiX
         [Bindable(true)]
         public string SelectedFFT
         {
-            get { return (string)this.GetValue(SelectedFFTProperty); }
-            set { this.SetValue(SelectedFFTProperty, value); }
+            get { return (string)GetValue(SelectedFFTProperty); }
+            set { SetValue(SelectedFFTProperty, value); }
         }
 
         public static readonly DependencyProperty FFTInfluenceProperty =
@@ -35,8 +35,8 @@ namespace CMiX
         [Bindable(true)]
         public double FFTInfluence
         {
-            get { return (double)this.GetValue(FFTInfluenceProperty); }
-            set { this.SetValue(FFTInfluenceProperty, value); }
+            get { return (double)GetValue(FFTInfluenceProperty); }
+            set { SetValue(FFTInfluenceProperty, value); }
         }
     }
 }

@@ -42,16 +42,16 @@ namespace CMiX
         DependencyProperty.Register("RangeMin", typeof(double), typeof(CMiXRangeSlider), new PropertyMetadata(0.0));
         public double RangeMin
         {
-            get { return (double)this.GetValue(RangeMinProperty); }
-            set { this.SetValue(RangeMinProperty, value); }
+            get { return (double)GetValue(RangeMinProperty); }
+            set { SetValue(RangeMinProperty, value); }
         }
 
         public static readonly DependencyProperty RangeMaxProperty =
         DependencyProperty.Register("RangeMax", typeof(double), typeof(CMiXRangeSlider), new PropertyMetadata(1.0));
         public double RangeMax
         {
-            get { return (double)this.GetValue(RangeMaxProperty); }
-            set { this.SetValue(RangeMaxProperty, value); }
+            get { return (double)GetValue(RangeMaxProperty); }
+            set { SetValue(RangeMaxProperty, value); }
         }
         #endregion
 

@@ -1,69 +1,46 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace CMiX.ViewModels
 {
     public class Coloration : ViewModel
     {
-        Color _ObjectColor;
+        public Coloration()
+            : this(
+                  objectColor: default,
+                  backgroundColor: default,
+                  hue: new HSVPoint(),
+                  saturation: new HSVPoint(),
+                  lightness: new HSVPoint())
+        { }
+
+        public Coloration(Color objectColor, Color backgroundColor, HSVPoint hue, HSVPoint saturation, HSVPoint lightness)
+        {
+            ObjectColor = objectColor;
+            BackgroundColor = backgroundColor;
+            Hue = hue ?? throw new ArgumentNullException(nameof(hue));
+            Saturation = saturation ?? throw new ArgumentNullException(nameof(saturation));
+            Lightness = lightness ?? throw new ArgumentNullException(nameof(lightness));
+        }
+
+        private Color _objectColor;
         public Color ObjectColor
         {
-            get => _ObjectColor;
-            set => this.SetAndNotify(ref _ObjectColor, value);
+            get => _objectColor;
+            set => SetAndNotify(ref _objectColor, value);
         }
 
-        Color _BackgroundColor;
+        private Color _backgroundColor;
         public Color BackgroundColor
         {
-            get => _BackgroundColor;
-            set => this.SetAndNotify(ref _BackgroundColor, value);
+            get => _backgroundColor;
+            set => SetAndNotify(ref _backgroundColor, value);
         }
 
-        double _HueColor = 0.0;
-        public double HueColor
-        {
-            get => _HueColor;
-            set => this.SetAndNotify(ref _HueColor, value);
-        }
+        public HSVPoint Hue { get; }
 
-        ColorationModifier _HueModifier;
-        public ColorationModifier HueModifier
-        {
-            get => _HueModifier;
-            set => this.SetAndNotify(ref _HueModifier, value);
-        }
+        public HSVPoint Saturation { get; }
 
-        double _Saturation = 0.0;
-        public double Saturation
-        {
-            get => _Saturation;
-            set => this.SetAndNotify(ref _Saturation, value);
-        }
-
-        ColorationModifier _SaturationModifier;
-        public ColorationModifier SaturationModifier
-        {
-            get => _SaturationModifier;
-            set => this.SetAndNotify(ref _SaturationModifier, value);
-        }
-
-        double _Lightness = 0.0;
-        public double Lightness
-        {
-            get => _Lightness;
-            set => this.SetAndNotify(ref _Lightness, value);
-        }
-
-        ColorationModifier _LightnessModifier;
-        public ColorationModifier LightnessModifier
-        {
-            get => _LightnessModifier;
-            set => this.SetAndNotify(ref _LightnessModifier, value);
-        }
+        public HSVPoint Lightness { get; }
     }
 }

@@ -100,7 +100,7 @@ namespace CMiX
 
                 if(data != null)
                 {
-                    DragDropEffects de = DragDrop.DoDragDrop(this.CMiXTreeView, data, DragDropEffects.All);
+                    DragDropEffects de = DragDrop.DoDragDrop(CMiXTreeView, data, DragDropEffects.All);
                 }
 
             }

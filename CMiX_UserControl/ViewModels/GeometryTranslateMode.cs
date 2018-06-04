@@ -4,7 +4,7 @@
     {
         #region STEADY
 
-        [ShortCode("STD_CTR", "Steady_Center")]
+        [ShortCode("STD_CTR", "Steady Center")]
         STD_CTR,
 
         [ShortCode("STD_LT", "Steady Left")]
