@@ -1,47 +1,40 @@
-﻿namespace CMiX.ViewModels
+﻿using System;
+
+namespace CMiX.ViewModels
 {
     public class Content : ViewModel
     {
-        bool _Enable = true;
+        public Content()
+            : this(
+                  enable: true,
+                  beatModifier: new BeatModifier(),
+                  geometry: new Geometry(),
+                  texture: new Texture(),
+                  postFX: new PostFX())
+        { }
+
+        public Content(bool enable, BeatModifier beatModifier, Geometry geometry, Texture texture, PostFX postFX)
+        {
+            Enable = enable;
+            BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
+            Geometry = geometry ?? throw new ArgumentNullException(nameof(geometry));
+            Texture = texture ?? throw new ArgumentNullException(nameof(texture));
+            PostFX = postFX ?? throw new ArgumentNullException(nameof(postFX));
+        }
+
+        bool _Enable;
         public bool Enable
         {
             get => _Enable;
             set => SetAndNotify(ref _Enable, value);
         }
 
-        int _BeatMultiplier = 1;
-        public int BeatMultiplier
-        {
-            get => _BeatMultiplier;
-            set => SetAndNotify(ref _BeatMultiplier, value);
-        }
+        public BeatModifier BeatModifier { get; }
 
-        double _BeatChanceToHit = 1.0;
-        public double BeatChanceToHit
-        {
-            get => _BeatChanceToHit;
-            set => SetAndNotify(ref _BeatChanceToHit, value);
-        }
+        public Geometry Geometry { get; }
 
-        Geometry _Geometry = new Geometry();
-        public Geometry Geometry
-        {
-            get => _Geometry;
-            set => SetAndNotify(ref _Geometry, value);
-        }
+        public Texture Texture { get; }
 
-        Texture _Texture = new Texture();
-        public Texture Texture
-        {
-            get => _Texture;
-            set => SetAndNotify(ref _Texture, value);
-        }
-
-        PostFX _PostFX = new PostFX();
-        public PostFX PostFX
-        {
-            get => _PostFX;
-            set => SetAndNotify(ref _PostFX, value);
-        }
+        public PostFX PostFX { get; }
     }
 }

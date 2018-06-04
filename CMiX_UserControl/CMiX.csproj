@@ -95,6 +95,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ViewModels\BeatModifier.cs" />
     <Compile Include="ViewModels\BlendMode.cs" />
     <Compile Include="ViewModels\Camera.cs" />
     <Compile Include="ViewModels\CameraLookAt.cs" />
