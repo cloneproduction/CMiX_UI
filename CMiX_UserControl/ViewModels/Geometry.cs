@@ -1,77 +1,118 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace CMiX.ViewModels
 {
     public class Geometry : ViewModel
     {
-        int _GeometryCount = 1;
+        public Geometry()
+            : this(
+                  geometryCount: 1,
+                  geometryPaths: Enumerable.Empty<string>(),
+                  translateMode: default,
+                  translateAmount: 0.0,
+                  scaleMode: default,
+                  scaleAmount: 0.0,
+                  rotationMode: default,
+                  rotationAmount: 0.0,
+                  is3D: false,
+                  keepAspectRatio: false)
+        { }
+
+        public Geometry(
+            int geometryCount,
+            IEnumerable<string> geometryPaths,
+            GeometryTranslateMode translateMode,
+            double translateAmount,
+            GeometryScaleMode scaleMode,
+            double scaleAmount,
+            GeometryRotationMode rotationMode,
+            double rotationAmount,
+            bool is3D,
+            bool keepAspectRatio)
+        {
+            if (geometryPaths == null)
+            {
+                throw new ArgumentNullException(nameof(geometryPaths));
+            }
+
+            GeometryCount = geometryCount;
+            GeometryPaths = new ObservableCollection<string>(geometryPaths);
+            TranslateMode = translateMode;
+            TranslateAmount = translateAmount;
+            ScaleMode = scaleMode;
+            ScaleAmount = scaleAmount;
+            RotationMode = rotationMode;
+            RotationAmount = rotationAmount;
+            Is3D = is3D;
+            KeepAspectRatio = keepAspectRatio;
+        }
+
+        private int _geometryCount;
         public int GeometryCount
         {
-            get => _GeometryCount;
-            set => SetAndNotify(ref _GeometryCount, value);
+            get => _geometryCount;
+            set => SetAndNotify(ref _geometryCount, value);
         }
+        
+        public ObservableCollection<string> GeometryPaths { get; }
 
-        List<string> _GeometryPath = new List<string>();
-        public List<string> GeometryPath
-        {
-            get => _GeometryPath;
-            set => SetAndNotify(ref _GeometryPath, value);
-        }
-
-        GeometryTranslateMode _TranslateMode;
+        private GeometryTranslateMode _translateMode;
         public GeometryTranslateMode TranslateMode
         {
-            get => _TranslateMode;
-            set => SetAndNotify(ref _TranslateMode, value);
+            get => _translateMode;
+            set => SetAndNotify(ref _translateMode, value);
         }
 
-        double _GeometryTranslateAmount = 0.0;
-        public double GeometryTranslateAmount
+        private double _translateAmount;
+        public double TranslateAmount
         {
-            get => _GeometryTranslateAmount;
-            set => SetAndNotify(ref _GeometryTranslateAmount, value);
+            get => _translateAmount;
+            set => SetAndNotify(ref _translateAmount, value);
         }
 
-        GeometryScaleMode _ScaleMode;
+        private GeometryScaleMode _scaleMode;
         public GeometryScaleMode ScaleMode
         {
-            get => _ScaleMode;
-            set => SetAndNotify(ref _ScaleMode, value);
+            get => _scaleMode;
+            set => SetAndNotify(ref _scaleMode, value);
         }
 
-        double _GeometryScaleAmount = 0.0;
-        public double GeometryScaleAmount
+        private double _scaleAmount;
+        public double ScaleAmount
         {
-            get => _GeometryTranslateAmount;
-            set => SetAndNotify(ref _GeometryTranslateAmount, value);
+            get => _scaleAmount;
+            set => SetAndNotify(ref _scaleAmount, value);
         }
 
-        GeometryRotationMode _RotationMode;
+        private GeometryRotationMode _RotationMode;
         public GeometryRotationMode RotationMode
         {
             get => _RotationMode;
             set => SetAndNotify(ref _RotationMode, value);
         }
 
-        double _GeometryRotationAmount = 0.0;
-        public double GeometryRotationAmount
+        private double _rotationAmount;
+        public double RotationAmount
         {
-            get => _GeometryRotationAmount;
-            set => SetAndNotify(ref _GeometryRotationAmount, value);
+            get => _rotationAmount;
+            set => SetAndNotify(ref _rotationAmount, value);
         }
 
-        bool _Is3D = false;
+        private bool _is3D;
         public bool Is3D
         {
-            get => _Is3D;
-            set => SetAndNotify(ref _Is3D, value);
+            get => _is3D;
+            set => SetAndNotify(ref _is3D, value);
         }
 
-        bool _KeepAspectRatio = false;
+        private bool _keepAspectRatio;
         public bool KeepAspectRatio
         {
-            get => _KeepAspectRatio;
-            set => SetAndNotify(ref _KeepAspectRatio, value);
+            get => _keepAspectRatio;
+            set => SetAndNotify(ref _keepAspectRatio, value);
         }
     }
 }
