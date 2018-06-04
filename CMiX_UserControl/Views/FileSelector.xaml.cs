@@ -23,8 +23,8 @@ namespace CMiX
         [Bindable(true)]
         public bool MouseDown
         {
-            get { return (bool)this.GetValue(MouseDownProperty); }
-            set { this.SetValue(MouseDownProperty, value); }
+            get { return (bool)GetValue(MouseDownProperty); }
+            set { SetValue(MouseDownProperty, value); }
         }
 
 
@@ -33,8 +33,8 @@ namespace CMiX
         [Bindable(true)]
         public string ModeSelection
         {
-            get { return (string)this.GetValue(ModeSelectionProperty); }
-            set { this.SetValue(ModeSelectionProperty, value); }
+            get { return (string)GetValue(ModeSelectionProperty); }
+            set { SetValue(ModeSelectionProperty, value); }
         }
 
         public static readonly DependencyProperty FileMaskProperty =
@@ -42,8 +42,8 @@ namespace CMiX
         [Bindable(true)]
         public List<string> FileMask
         {
-            get { return (List<string>)this.GetValue(FileMaskProperty); }
-            set { this.SetValue(FileMaskProperty, value); }
+            get { return (List<string>)GetValue(FileMaskProperty); }
+            set { SetValue(FileMaskProperty, value); }
         }
 
         public static readonly DependencyProperty TitleProperty =
@@ -51,8 +51,8 @@ namespace CMiX
         [Bindable(true)]
         public string Title
         {
-            get { return (string)this.GetValue(TitleProperty); }
-            set { this.SetValue(TitleProperty, value); }
+            get { return (string)GetValue(TitleProperty); }
+            set { SetValue(TitleProperty, value); }
         }
 
         public static readonly DependencyProperty SelectedItemsProperty =
@@ -60,8 +60,8 @@ namespace CMiX
         [Bindable(true)]
         public ObservableCollection<ListBoxFileName> SelectedItems
         {
-            get { return (ObservableCollection<ListBoxFileName>)this.GetValue(SelectedItemsProperty); }
-            set { this.SetValue(SelectedItemsProperty, value); }
+            get { return (ObservableCollection<ListBoxFileName>)GetValue(SelectedItemsProperty); }
+            set { SetValue(SelectedItemsProperty, value); }
         }
         #endregion
         
@@ -70,7 +70,7 @@ namespace CMiX
         {
             Button btn = (Button)sender;
             int index = FileNameList.Items.IndexOf(btn.DataContext);
-            this.SelectedItems.RemoveAt(index);
+            SelectedItems.RemoveAt(index);
         }
 
         private ListBoxItem _dragged;
@@ -173,7 +173,7 @@ namespace CMiX
                             ListBoxFileName filename = new ListBoxFileName();
                             filename.FileName = droppedFilePaths[i];
                             filename.FileIsSelected = false;
-                            this.SelectedItems.Add(filename);
+                            SelectedItems.Add(filename);
                         }
                     }
                 }
@@ -200,7 +200,7 @@ namespace CMiX
                     {
                             ListBoxFileName CopiedFileName = Files.Clone() as ListBoxFileName;
                             CopiedFileName.FileIsSelected = false;
-                            this.SelectedItems.Add(CopiedFileName);
+                        SelectedItems.Add(CopiedFileName);
                     }
                 }
             }
@@ -268,7 +268,7 @@ namespace CMiX
 
         private void ClearSelected_Click(object sender, RoutedEventArgs e)
         {
-            for (int i = this.SelectedItems.Count - 1; i >= 0; i--)
+            for (int i = SelectedItems.Count - 1; i >= 0; i--)
             {
                 if (SelectedItems[i].FileIsSelected == true)
                 {
@@ -279,7 +279,7 @@ namespace CMiX
 
         private void ClearUnselected_Click(object sender, RoutedEventArgs e)
         {
-            for(int i = this.SelectedItems.Count - 1; i >= 0; i--)
+            for(int i = SelectedItems.Count - 1; i >= 0; i--)
             {
                 if (SelectedItems[i].FileIsSelected == false)
                 {
@@ -290,7 +290,7 @@ namespace CMiX
 
         private void ClearAll_Click(object sender, RoutedEventArgs e)
         {
-            this.SelectedItems.Clear();
+            SelectedItems.Clear();
         }
     }
 

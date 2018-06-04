@@ -31,7 +31,7 @@ namespace CMiX
         public CMiX_UI()
         {
             InitializeComponent();
-            this.DataContext = cmixdata;
+            DataContext = cmixdata;
 
             Singleton.Instance.MessageReceived += Instance_MessageReceived;
         }
@@ -50,8 +50,8 @@ namespace CMiX
         [Bindable(true)]
         public bool EnabledOSC
         {
-            get { return (bool)this.GetValue(EnabledOSCProperty); }
-            set { this.SetValue(EnabledOSCProperty, value); }
+            get { return (bool)GetValue(EnabledOSCProperty); }
+            set { SetValue(EnabledOSCProperty, value); }
         }
 
         private List<string> _ChannelsBlendMode = new List<string>(new[] { "Normal", "Add", "Substract", "Lighten", "Darken", "Multiply" });
@@ -122,7 +122,7 @@ namespace CMiX
 
         private void ChannelSliderValueChanged(object sender, System.EventArgs e)
         {
-            if (this.EnabledOSC == true)
+            if (EnabledOSC == true)
             {
                 CustomSlider slider = sender as CustomSlider;
                 message.SendOSC(slider.Tag.ToString(), slider.Value.ToString());
@@ -131,10 +131,10 @@ namespace CMiX
 
         private void ComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (this.EnabledOSC == true)
+            if (EnabledOSC == true)
             {
                 var control = sender as ComboBox;
-                cmixdata = (CMiXData)this.DataContext;
+                cmixdata = (CMiXData)DataContext;
                 var OSCSender = new SharpOSC.UDPSender(IP, Port);
 
                 List<string> slidervalue = new List<string>();
@@ -149,7 +149,7 @@ namespace CMiX
 
         private void ChannelComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (this.EnabledOSC == true)
+            if (EnabledOSC == true)
             {
                 ComboBox combobox = sender as ComboBox;
                 message.SendOSC(combobox.Tag.ToString(), combobox.SelectedItem.ToString());
@@ -161,7 +161,7 @@ namespace CMiX
             if (EnabledOSC == true)
             {
                 var control = sender as ComboBox;
-                cmixdata = (CMiXData)this.DataContext;
+                cmixdata = (CMiXData)DataContext;
                 var OSCSender = new SharpOSC.UDPSender(IP, Port);
                 var list = cmixdata.GetType().GetProperty(control.Tag.ToString()).GetValue(cmixdata, null);
                 OSCSender.Send(new SharpOSC.OscMessage("/" + control.Tag.ToString(), list.ToString()));
@@ -183,7 +183,7 @@ namespace CMiX
             if (cmix != null)
             {
                 var control = sender as BeatControls;
-                cmixdata = (CMiXData)this.DataContext;
+                cmixdata = (CMiXData)DataContext;
                 var OSCSender = new SharpOSC.UDPSender(IP, Port);
                 OSCSender.Send(new SharpOSC.OscMessage("/" + control.Name, cmixdata.PostFXBeatMultiplier[0].ToString()));
             }
@@ -194,7 +194,7 @@ namespace CMiX
             if (cmix != null)
             {
                 var control = sender as BeatControls;
-                cmixdata = (CMiXData)this.DataContext;
+                cmixdata = (CMiXData)DataContext;
                 var OSCSender = new SharpOSC.UDPSender(IP, Port);
                 OSCSender.Send(new SharpOSC.OscMessage("/" + control.Name, cmixdata.CamBeatMultiplier[0].ToString()));
             }
@@ -203,14 +203,14 @@ namespace CMiX
         #region main menu event
         private void New_Click(object sender, RoutedEventArgs e)
         {
-            this.EnabledOSC = false;
-            this.DataContext = new CMiXData();
-            this.EnabledOSC = true;
+            EnabledOSC = false;
+            DataContext = new CMiXData();
+            EnabledOSC = true;
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            CMiXData cmixdata = (CMiXData)this.DataContext;
+            CMiXData cmixdata = (CMiXData)DataContext;
 
             if (File.Exists(cmixdata.FilePath[0]) == true)
             {
@@ -260,7 +260,7 @@ namespace CMiX
             if (saveFileDialog.ShowDialog() == true)
             {
                 string filename = saveFileDialog.FileName;
-                CMiXData cmixdata = (CMiXData)this.DataContext;
+                CMiXData cmixdata = (CMiXData)DataContext;
 
                 cmixdata.CompoName[0] = Path.GetFileNameWithoutExtension(filename);
                 cmixdata.FilePath[0] = Path.GetFullPath(filename);
@@ -288,12 +288,12 @@ namespace CMiX
                 if (Path.GetExtension(file) == ".json")
                 {
                     CMiXData data = JsonConvert.DeserializeObject<CMiXData>(File.ReadAllText(openFileDialog.FileName));
-                    this.EnabledOSC = false;
+                    EnabledOSC = false;
 
-                    this.DataContext = data;
+                    DataContext = data;
                     //message.SendAll(data);
 
-                    this.EnabledOSC = true;
+                    EnabledOSC = true;
                 }
             }
         }
@@ -318,14 +318,14 @@ namespace CMiX
 
         private void sp_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.Source == this.LayerEnableStack)
+            if (e.Source == LayerEnableStack)
             {
                 
             }
             else
             {
                 _isDown = true;
-                _startPoint = e.GetPosition(this.LayerEnableStack);
+                _startPoint = e.GetPosition(LayerEnableStack);
             }
         }
 
@@ -343,8 +343,8 @@ namespace CMiX
         {
             if (_isDown)
             {
-                if ((_isDragging == false) && ((Math.Abs(e.GetPosition(this.LayerEnableStack).X - _startPoint.X) > SystemParameters.MinimumHorizontalDragDistance) ||
-                    (Math.Abs(e.GetPosition(this.LayerEnableStack).Y - _startPoint.Y) > SystemParameters.MinimumVerticalDragDistance)))
+                if ((_isDragging == false) && ((Math.Abs(e.GetPosition(LayerEnableStack).X - _startPoint.X) > SystemParameters.MinimumHorizontalDragDistance) ||
+                    (Math.Abs(e.GetPosition(LayerEnableStack).Y - _startPoint.Y) > SystemParameters.MinimumVerticalDragDistance)))
                 {
                     _isDragging = true;
                     _realDragSource = e.Source as UIElement;
@@ -369,12 +369,12 @@ namespace CMiX
         {
             if (e.Data.GetDataPresent("UIElement"))
             {
-                CMiXData cmixdata = this.DataContext as CMiXData;
+                CMiXData cmixdata = DataContext as CMiXData;
 
                 UIElement droptarget = e.Source as UIElement;
                 int droptargetIndex = -1;
                 int i = 0;
-                foreach (UIElement element in this.LayerEnableStack.Children)
+                foreach (UIElement element in LayerEnableStack.Children)
                 {
                     if (element.Equals(droptarget))
                     {
@@ -385,10 +385,10 @@ namespace CMiX
                 }
                 if (droptargetIndex != -1)
                 {
-                    this.LayerEnableStack.Children.Remove(_realDragSource);
-                    this.LayerEnableStack.Children.Insert(droptargetIndex, _realDragSource);
-                    this.LayerControlStack.Children.RemoveAt(_realDragIndex);
-                    this.LayerControlStack.Children.Insert(droptargetIndex, _realDragSource2);
+                    LayerEnableStack.Children.Remove(_realDragSource);
+                    LayerEnableStack.Children.Insert(droptargetIndex, _realDragSource);
+                    LayerControlStack.Children.RemoveAt(_realDragIndex);
+                    LayerControlStack.Children.Insert(droptargetIndex, _realDragSource2);
                 }
 
                 _isDown = false;
@@ -429,7 +429,7 @@ namespace CMiX
 
         private void RangeSliderValueChanged(object sender, EventArgs e)
         {
-            if (this.EnabledOSC == true)
+            if (EnabledOSC == true)
             {
                 CMiXRangeSlider slider = sender as CMiXRangeSlider;
                 List<string> list = new List<string>();
@@ -441,7 +441,7 @@ namespace CMiX
 
         private void AddLayer_Click(object sender, RoutedEventArgs e)
         {
-            CMiXData cd = this.DataContext as CMiXData;
+            CMiXData cd = DataContext as CMiXData;
             //string name = (layercount).ToString();
 
             string layername = (LayerEnableStack.Children.Count).ToString();

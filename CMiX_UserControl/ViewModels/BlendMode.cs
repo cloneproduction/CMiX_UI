@@ -8,7 +8,7 @@
         [ShortCode("Add", "Add")]
         Add,
 
-        [ShortCode("Substract", "Substract")]
-        Substract,
+        [ShortCode("Subtract", "Subtract")]
+        Subtract,
     };
 }

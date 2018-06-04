@@ -39,8 +39,8 @@ namespace CMiX
         [Bindable(true)]
         public bool EnabledOSC
         {
-            get { return (bool)this.GetValue(EnabledOSCProperty); }
-            set { this.SetValue(EnabledOSCProperty, value); }
+            get { return (bool)GetValue(EnabledOSCProperty); }
+            set { SetValue(EnabledOSCProperty, value); }
         }
 
         public static readonly DependencyProperty MasterPeriodProperty =
@@ -48,8 +48,8 @@ namespace CMiX
         [Bindable(true)]
         public double MasterPeriod
         {
-            get { return (double)this.GetValue(MasterPeriodProperty); }
-            set { this.SetValue(MasterPeriodProperty, value); }
+            get { return (double)GetValue(MasterPeriodProperty); }
+            set { SetValue(MasterPeriodProperty, value); }
         }
 
         public static readonly DependencyProperty LayerNameProperty =
@@ -57,8 +57,8 @@ namespace CMiX
         [Bindable(true)]
         public string LayerName
         {
-            get { return (string)this.GetValue(LayerNameProperty); }
-            set { this.SetValue(LayerNameProperty, value); }
+            get { return (string)GetValue(LayerNameProperty); }
+            set { SetValue(LayerNameProperty, value); }
 
         }
         private void SliderValueChanged(object sender, EventArgs e)

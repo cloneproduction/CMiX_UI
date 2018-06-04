@@ -111,7 +111,7 @@
     <Compile Include="ViewModels\Mask.cs" />
     <Compile Include="ViewModels\PostFX.cs" />
     <Compile Include="ViewModels\Composition.cs" />
-    <Compile Include="ViewModels\PostFXTranforms.cs" />
+    <Compile Include="ViewModels\PostFXTransforms.cs" />
     <Compile Include="ViewModels\PostFXView.cs" />
     <Compile Include="ViewModels\ShortCodeAttribute.cs" />
     <Compile Include="ViewModels\Texture.cs" />

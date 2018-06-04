@@ -18,7 +18,7 @@ namespace CMiX
 
         public DragAndDropListBox()
         {
-            this.PreviewMouseMove += ListBox_PreviewMouseMove;
+            PreviewMouseMove += ListBox_PreviewMouseMove;
 
             var style = new Style(typeof(ListBoxItem));
 
@@ -26,7 +26,7 @@ namespace CMiX
             style.Setters.Add(new EventSetter(ListBoxItem.PreviewMouseLeftButtonDownEvent, new MouseButtonEventHandler(ListBoxItem_PreviewMouseLeftButtonDown)));
             style.Setters.Add(new EventSetter(ListBoxItem.DropEvent, new DragEventHandler(ListBoxItem_Drop)));
 
-            this.ItemContainerStyle = style;
+            ItemContainerStyle = style;
         }
 
         private void ListBox_PreviewMouseMove(object sender, MouseEventArgs e)
@@ -58,8 +58,8 @@ namespace CMiX
                 var source = e.Data.GetData(typeof(T)) as T;
                 var target = ((ListBoxItem)(sender)).DataContext as T;
 
-                int sourceIndex = this.Items.IndexOf(source);
-                int targetIndex = this.Items.IndexOf(target);
+                int sourceIndex = Items.IndexOf(source);
+                int targetIndex = Items.IndexOf(target);
 
                 Move(source, sourceIndex, targetIndex);
             }
@@ -69,7 +69,7 @@ namespace CMiX
         {
             if (sourceIndex < targetIndex)
             {
-                var items = this.DataContext as IList<T>;
+                var items = DataContext as IList<T>;
                 if (items != null)
                 {
                     items.Insert(targetIndex + 1, source);
@@ -78,7 +78,7 @@ namespace CMiX
             }
             else
             {
-                var items = this.DataContext as IList<T>;
+                var items = DataContext as IList<T>;
                 if (items != null)
                 {
                     int removeIndex = sourceIndex + 1;

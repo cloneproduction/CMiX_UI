@@ -11,15 +11,11 @@ namespace CMiX.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-    }
 
-    public static class ViewModelExtensions
-    {
-        public static void SetAndNotify<TObj, TRet>(this TObj self, ref TRet backingField, TRet newValue, [CallerMemberName] string propertyName = null)
-            where TObj : ViewModel
+        public void SetAndNotify<TRet>(ref TRet backingField, TRet newValue, [CallerMemberName] string propertyName = null)
         {
             backingField = newValue;
-            self.NotifyPropertyChanged(propertyName);
+            NotifyPropertyChanged(propertyName);
         }
     }
 }

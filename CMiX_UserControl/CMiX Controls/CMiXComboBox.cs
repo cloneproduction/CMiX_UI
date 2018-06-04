@@ -20,25 +20,25 @@ namespace CMiX
         {
             if(e.Key == Key.Space)
             {
-                if (this.IsDropDownOpen == false)
+                if (IsDropDownOpen == false)
                 {
-                    this.IsDropDownOpen = true;
+                    IsDropDownOpen = true;
                 }
-                else if (this.IsDropDownOpen == true)
+                else if (IsDropDownOpen == true)
                 {
-                    this.IsDropDownOpen = false;
+                    IsDropDownOpen = false;
                 }
                 e.Handled = true;
             }
-            if (e.Key == Key.W && this.IsDropDownOpen == true)
+            if (e.Key == Key.W && IsDropDownOpen == true)
             {
-                this.SelectedIndex -= 1;
+                SelectedIndex -= 1;
                 e.Handled = true;
             }
 
-            if (e.Key == Key.S && this.IsDropDownOpen == true)
+            if (e.Key == Key.S && IsDropDownOpen == true)
             {
-                this.SelectedIndex += 1;
+                SelectedIndex += 1;
                 e.Handled = true;
             }
 
@@ -50,13 +50,13 @@ namespace CMiX
         protected override void OnPreviewKeyDown(KeyEventArgs e)
         {
 
-            if (this.IsFocused)
+            if (IsFocused)
             {
-                this.IsSelected = true;
+                IsSelected = true;
             }
-            if(e.Key == Key.F && this.IsFocused == true)
+            if(e.Key == Key.F && IsFocused == true)
             {
-                this.IsSelected = true;
+                IsSelected = true;
             }
 
             base.OnPreviewKeyDown(e);

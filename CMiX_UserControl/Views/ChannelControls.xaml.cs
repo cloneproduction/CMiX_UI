@@ -30,8 +30,8 @@ namespace CMiX
         [Bindable(true)]
         public bool EnabledOSC
         {
-            get { return (bool)this.GetValue(EnabledOSCProperty); }
-            set { this.SetValue(EnabledOSCProperty, value); }
+            get { return (bool)GetValue(EnabledOSCProperty); }
+            set { SetValue(EnabledOSCProperty, value); }
         }
 
         public static readonly DependencyProperty MasterPeriodProperty =
@@ -39,8 +39,8 @@ namespace CMiX
         [Bindable(true)]
         public double MasterPeriod
         {
-            get { return (double)this.GetValue(MasterPeriodProperty); }
-            set { this.SetValue(MasterPeriodProperty, value); }
+            get { return (double)GetValue(MasterPeriodProperty); }
+            set { SetValue(MasterPeriodProperty, value); }
         }
 
         private List<string> _GeometryFileMask = new List<string>(new[] { ".fbx", ".obj" });
@@ -134,7 +134,7 @@ namespace CMiX
                 ComboBox combobox = sender as ComboBox;
                 if (combobox.SelectedItem != null)
                 {
-                    cd = this.DataContext as ChannelData;
+                    cd = DataContext as ChannelData;
                     message.SendOSC(cd.Name + "/" + combobox.Name, combobox.SelectedItem.ToString());
                 }
 
@@ -146,7 +146,7 @@ namespace CMiX
             if (EnabledOSC == true)
             {
                 CustomSlider slider = sender as CustomSlider;
-                cd = this.DataContext as ChannelData;
+                cd = DataContext as ChannelData;
                 if (cd != null && slider != null)
                 {
                     message.SendOSC(cd.Name + "/" + slider.Name, slider.Value.ToString());
@@ -159,7 +159,7 @@ namespace CMiX
             if (EnabledOSC == true)
             {
                 ToggleButton togglebutton = sender as ToggleButton;
-                cd = this.DataContext as ChannelData;
+                cd = DataContext as ChannelData;
                 message.SendOSC(cd.Name + "/" + togglebutton.Name, togglebutton.IsChecked.ToString());
             }
         }
@@ -169,7 +169,7 @@ namespace CMiX
             if (EnabledOSC == true)
             {
                 ToggleButton togglebutton = sender as ToggleButton;
-                cd = this.DataContext as ChannelData;
+                cd = DataContext as ChannelData;
                 message.SendOSC(cd.Name + "/" + togglebutton.Name, togglebutton.IsChecked.ToString());
             }
         }
@@ -193,7 +193,7 @@ namespace CMiX
                 {
                     Color col = colorpicker.SelectedColor;
                     string hex = Utils.ColorToHexString(col);
-                    cd = this.DataContext as ChannelData;
+                    cd = DataContext as ChannelData;
                     message.SendOSC(cd.Name + "/" + colorpicker.Name, hex);
                 }
             }
@@ -212,7 +212,7 @@ namespace CMiX
                         selectedfilename.Add(item.FileName);
                     }
                 }
-                cd = this.DataContext as ChannelData;
+                cd = DataContext as ChannelData;
                 message.SendOSCList(cd.Name + "/" + fileselector.Name, selectedfilename);
             }
         }
@@ -222,7 +222,7 @@ namespace CMiX
             if (EnabledOSC == true)
             {
                 BeatControls beatcontrols = sender as BeatControls;
-                cd = this.DataContext as ChannelData;
+                cd = DataContext as ChannelData;
                 message.SendOSC(cd.Name + "/" + beatcontrols.Name, beatcontrols.Multiplier.ToString());
             }
         }
@@ -243,7 +243,7 @@ namespace CMiX
                             selectedfilename.Add(item.FileName);
                         }
                     }
-                    cd = this.DataContext as ChannelData;
+                    cd = DataContext as ChannelData;
                     message.SendOSCList(cd.Name + "/" + fileselector.Name, selectedfilename);
                 }
 
@@ -257,7 +257,7 @@ namespace CMiX
                 TranslateSelector ts = sender as TranslateSelector;
                 if (ts.SelectedName != null)
                 {
-                    cd = this.DataContext as ChannelData;
+                    cd = DataContext as ChannelData;
                     message.SendOSC(cd.Name + "/" + ts.Name, ts.SelectedName);
                 }
             }
@@ -268,7 +268,7 @@ namespace CMiX
             if (EnabledOSC == true)
             {
                 ScaleSelector ss = sender as ScaleSelector;
-                cd = this.DataContext as ChannelData;
+                cd = DataContext as ChannelData;
                 message.SendOSC(cd.Name + "/" + ss.Name, ss.SelectedName);
             }
 

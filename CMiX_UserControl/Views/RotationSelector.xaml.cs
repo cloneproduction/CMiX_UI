@@ -34,8 +34,8 @@ namespace CMiX
         public event EventHandler SelectionChanged;
         private void OnSelectionChanged()
         {
-            if (this.SelectionChanged != null)
-                this.SelectionChanged(this, new EventArgs());
+            if (SelectionChanged != null)
+                SelectionChanged(this, new EventArgs());
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
@@ -45,7 +45,7 @@ namespace CMiX
             {
                 //rotationselectorviewmodel.Rotation = rb.Name;
                 string name = Utils.FindParent<ChannelControls>(this).Name;
-                message.SendOSC(name + "/" + this.Name, rb.Name);
+                message.SendOSC(name + "/" + Name, rb.Name);
             }
         }
 

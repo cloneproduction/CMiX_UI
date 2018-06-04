@@ -45,12 +45,12 @@ namespace CMiX
 
         public void SendOSC(string Name, string Value)
         {
-            this.Sender.Send(new OscMessage("/" + Name, Value));                   
+            Sender.Send(new OscMessage("/" + Name, Value));                   
         }
 
         public void SendOSCList(string Name, List<string> Value)
         {
-            this.Sender.Send(new OscMessage("/" + Name, Value.ToArray()));
+            Sender.Send(new OscMessage("/" + Name, Value.ToArray()));
         }
 
 
@@ -202,7 +202,7 @@ namespace CMiX
                     {
                         propdata.Add(st);
                     }
-                    this.Sender.Send(new OscMessage("/" + "Channel" + uielement.Name, propdata.ToArray()));
+                    Sender.Send(new OscMessage("/" + "Channel" + uielement.Name, propdata.ToArray()));
                 }
 
                 else if (type == typeof(ObservableCollection<bool>))
@@ -211,7 +211,7 @@ namespace CMiX
                     {
                         propdata.Add(st.ToString());
                     }
-                    this.Sender.Send(new OscMessage("/" + "Channel" + uielement.Name, propdata.ToArray()));
+                    Sender.Send(new OscMessage("/" + "Channel" + uielement.Name, propdata.ToArray()));
                 }
 
                 else if (type == typeof(ObservableCollection<double>))
@@ -220,7 +220,7 @@ namespace CMiX
                     {
                         propdata.Add(st.ToString());
                     }
-                    this.Sender.Send(new OscMessage("/" + "Channel" + uielement.Name, propdata.ToArray()));
+                    Sender.Send(new OscMessage("/" + "Channel" + uielement.Name, propdata.ToArray()));
                 }
 
                 else if (type == typeof(ObservableCollection<Color>))
@@ -231,7 +231,7 @@ namespace CMiX
                         string hex = "#" + Utils.ColorToHexString(col);
                         propdata.Add(hex);
                     }
-                    this.Sender.Send(new OscMessage("/" + "Channel" + uielement.Name, propdata.ToArray()));
+                    Sender.Send(new OscMessage("/" + "Channel" + uielement.Name, propdata.ToArray()));
                 }
 
                 else if (type == typeof(ObservableCollection<ObservableCollection<ListBoxFileName>>))
@@ -257,7 +257,7 @@ namespace CMiX
                       new OscMessage("/" + "Channel" + uielement.Name + "Count", count.ToArray())
                     };
                     OscBundle bundle = new OscBundle(1, messagelist.ToArray());
-                    this.Sender.Send(bundle);
+                    Sender.Send(bundle);
                 } 
             }
         }

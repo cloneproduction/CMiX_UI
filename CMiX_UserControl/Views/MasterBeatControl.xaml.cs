@@ -20,8 +20,8 @@ namespace CMiX
         [Bindable(true)]
         public double MasterPeriod
         {
-            get { return (double)this.GetValue(MasterPeriodProperty); }
-            set { this.SetValue(MasterPeriodProperty, value); }
+            get { return (double)GetValue(MasterPeriodProperty); }
+            set { SetValue(MasterPeriodProperty, value); }
         }
         #endregion
 
@@ -54,7 +54,7 @@ namespace CMiX
 
         private void Main_TapBPM_Click(object sender, RoutedEventArgs e)
         {
-            this.MasterPeriod = beatsystem.GetMasterPeriod();
+            MasterPeriod = beatsystem.GetMasterPeriod();
 
             message = new SharpOSC.OscMessage("/" + "MasterPeriod", MasterPeriod.ToString());
             var pouet = new SharpOSC.UDPSender("127.0.0.1", 55555);

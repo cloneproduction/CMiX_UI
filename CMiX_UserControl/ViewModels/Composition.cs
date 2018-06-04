@@ -27,21 +27,21 @@ namespace CMiX
         public string Name
         {
             get => _Name;
-            set => this.SetAndNotify(ref _Name, value);
+            set => SetAndNotify(ref _Name, value);
         }
 
         MainBeat _MainBeat;
         public MainBeat MainBeat
         {
             get => _MainBeat;
-            set => this.SetAndNotify(ref _MainBeat, value);
+            set => SetAndNotify(ref _MainBeat, value);
         }
 
         Camera _Camera;
         public Camera Camera
         {
             get => _Camera;
-            set => this.SetAndNotify(ref _Camera, value);
+            set => SetAndNotify(ref _Camera, value);
         }
 
         public ObservableCollection<Layer> Layers { get; }

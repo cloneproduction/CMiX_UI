@@ -28,16 +28,16 @@ namespace CMiX
         private void OnSelectionChanged()
         {
             //Null check makes sure the main page is attached to the event
-            if (this.SelectionChanged != null)
-                this.SelectionChanged(this, new EventArgs());
+            if (SelectionChanged != null)
+                SelectionChanged(this, new EventArgs());
         }
 
         public static readonly DependencyProperty SelectedNameProperty =
         DependencyProperty.Register("SelectedName", typeof(string), typeof(TranslateSelector), new UIPropertyMetadata("STD_CTR"));
         public string SelectedName
         {
-            get { return (string)this.GetValue(SelectedNameProperty); }
-            set { this.SetValue(SelectedNameProperty, value); }
+            get { return (string)GetValue(SelectedNameProperty); }
+            set { SetValue(SelectedNameProperty, value); }
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)

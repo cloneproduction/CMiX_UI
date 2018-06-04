@@ -35,7 +35,7 @@ namespace CMiX
 
         public object Clone()
         {
-            return this.MemberwiseClone();
+            return MemberwiseClone();
         }
 
 

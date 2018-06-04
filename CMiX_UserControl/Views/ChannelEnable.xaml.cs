@@ -34,7 +34,7 @@ namespace CMiX
         {
             if (!e.Data.GetDataPresent("UIElement"))
             {
-                this.CheckLayer.IsChecked = true;
+                CheckLayer.IsChecked = true;
             }
 
         }
@@ -50,7 +50,7 @@ namespace CMiX
 
         private void Ch_Control_Loaded(object sender, RoutedEventArgs e)
         {
-            this.CheckLayer.IsChecked = true;
+            CheckLayer.IsChecked = true;
             //EnabledOSC = true;
         }
     }
