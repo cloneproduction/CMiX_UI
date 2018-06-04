@@ -9,13 +9,14 @@
     x:Name="Ch_Parameters"
     d:DesignHeight="852.222"
     d:DesignWidth="1109.739"
-    FontFamily="Roboto Regular"
+    FontFamily="{DynamicResource RobotoRegular}"
     FontSize="11"
     KeyDown="Ch_Parameters_KeyDown"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Fonts/Roboto.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseFocusVisual.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseRadioButtonStyle.xaml" />
@@ -86,7 +87,7 @@
                         Width="150"
                         Margin="2"
                         HorizontalAlignment="Right"
-                        DataContext="{Binding Path=SpriteCounterViewModel}"/>
+                        DataContext="{Binding Path=SpriteCounterViewModel}" />
                 </Grid>
                 <DockPanel Background="{StaticResource BaseDarkerColor}" LastChildFill="True">
                     <Border
@@ -267,7 +268,7 @@
                                             <ColumnDefinition Width="0.5*" />
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
-                                        <CMiX:RotationSelector x:Name="SpriteRotation"/>
+                                        <CMiX:RotationSelector x:Name="SpriteRotation" />
                                         <CMiX:CustomSlider
                                             x:Name="SpriteRotate"
                                             Grid.Column="2"
@@ -485,8 +486,8 @@
                             x:Name="MaskCount"
                             Width="150"
                             Margin="2"
-                            HorizontalAlignment="Right" 
-                            DataContext="{Binding Path=MaskCounterViewModel}"/>
+                            HorizontalAlignment="Right"
+                            DataContext="{Binding Path=MaskCounterViewModel}" />
                     </Grid>
                     <Border
                         Height="25"
@@ -641,7 +642,7 @@
                                 <ColumnDefinition Width="0.5*" />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <CMiX:RotationSelector x:Name="MaskRotation"/>
+                            <CMiX:RotationSelector x:Name="MaskRotation" />
                             <CMiX:CustomSlider
                                 x:Name="MaskRotate"
                                 Grid.Column="2"

@@ -8,13 +8,14 @@
     x:Name="cmix"
     d:DesignHeight="972"
     d:DesignWidth="1584.666"
-    FontFamily="Roboto Medium"
+    FontFamily="{DynamicResource RobotoMedium}"
     FontSize="11"
     Loaded="cmix_Loaded"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Fonts/Roboto.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseFocusVisual.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTreeViewStyle.xaml" />

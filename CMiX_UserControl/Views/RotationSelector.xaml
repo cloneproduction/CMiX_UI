@@ -27,15 +27,15 @@
             x:Name="OpenRotationPanel"
             Content="{Binding Rotation}"
             IsHitTestVisible="{Binding ElementName=PopupRotation, Path=IsOpen, Converter={StaticResource BoolInverter}}"
-            Style="{StaticResource BaseToggleButtonStyle}"/>
+            Style="{StaticResource BaseToggleButtonStyle}" />
         <Popup
             x:Name="PopupRotation"
             Width="432"
             AllowsTransparency="True"
             IsOpen="{Binding IsChecked, ElementName=OpenRotationPanel}"
+            KeyDown="PopupRotation_KeyDown"
             Placement="Center"
-            StaysOpen="False"
-            KeyDown="PopupRotation_KeyDown">
+            StaysOpen="False">
             <Border
                 Margin="32"
                 Padding="8"
