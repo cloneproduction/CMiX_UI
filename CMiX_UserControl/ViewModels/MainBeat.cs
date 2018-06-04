@@ -1,26 +1,35 @@
-﻿namespace CMiX.ViewModels
+﻿using System.Windows.Input;
+
+namespace CMiX.ViewModels
 {
     public class MainBeat : ViewModel
     {
-        double _Period = 0.0;
+        public MainBeat()
+            : this(period: 0.0, multiplier: 1)
+        { }
+
+        public MainBeat(double period, int multiplier)
+        {
+            Period = period;
+            Multiplier = multiplier;
+
+            ResetCommand = new RelayCommand(p => Multiplier = 1);
+        }
+
+        private double _period = 0.0;
         public double Period
         {
-            get => _Period;
-            set => SetAndNotify(ref _Period, value);
+            get => _period;
+            set => SetAndNotify(ref _period, value);
         }
 
-        int _BeatMultiplier = 1;
-        public int BeatMultiplier
+        private int _multiplier = 1;
+        public int Multiplier
         {
-            get => _BeatMultiplier;
-            set => SetAndNotify(ref _BeatMultiplier, value);
+            get => _multiplier;
+            set => SetAndNotify(ref _multiplier, value);
         }
 
-        bool _ResetTime = false;
-        public bool ResetTime
-        {
-            get => _ResetTime;
-            set => SetAndNotify(ref _ResetTime, value);
-        }
+        public ICommand ResetCommand { get; }
     }
 }
