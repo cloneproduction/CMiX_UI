@@ -22,11 +22,11 @@ namespace CMiX.ViewModels
             PostFX = postFX ?? throw new ArgumentNullException(nameof(postFX));
         }
 
-        bool _Enable;
+        private bool _enable;
         public bool Enable
         {
-            get => _Enable;
-            set => SetAndNotify(ref _Enable, value);
+            get => _enable;
+            set => SetAndNotify(ref _enable, value);
         }
 
         public BeatModifier BeatModifier { get; }

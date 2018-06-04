@@ -16,14 +16,14 @@ namespace CMiX.ViewModels
             ResetCommand = new RelayCommand(p => Multiplier = 1);
         }
 
-        private double _period = 0.0;
+        private double _period;
         public double Period
         {
             get => _period;
             set => SetAndNotify(ref _period, value);
         }
 
-        private int _multiplier = 1;
+        private int _multiplier;
         public int Multiplier
         {
             get => _multiplier;

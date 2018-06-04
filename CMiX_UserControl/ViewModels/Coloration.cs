@@ -1,4 +1,5 @@
-﻿using System.Windows.Media;
+﻿using System;
+using System.Windows.Media;
 
 namespace CMiX.ViewModels
 {
@@ -17,23 +18,23 @@ namespace CMiX.ViewModels
         {
             ObjectColor = objectColor;
             BackgroundColor = backgroundColor;
-            Hue = hue;
-            Saturation = saturation;
-            Lightness = lightness;
+            Hue = hue ?? throw new ArgumentNullException(nameof(hue));
+            Saturation = saturation ?? throw new ArgumentNullException(nameof(saturation));
+            Lightness = lightness ?? throw new ArgumentNullException(nameof(lightness));
         }
 
-        Color _ObjectColor;
+        private Color _objectColor;
         public Color ObjectColor
         {
-            get => _ObjectColor;
-            set => SetAndNotify(ref _ObjectColor, value);
+            get => _objectColor;
+            set => SetAndNotify(ref _objectColor, value);
         }
 
-        Color _BackgroundColor;
+        private Color _backgroundColor;
         public Color BackgroundColor
         {
-            get => _BackgroundColor;
-            set => SetAndNotify(ref _BackgroundColor, value);
+            get => _backgroundColor;
+            set => SetAndNotify(ref _backgroundColor, value);
         }
 
         public HSVPoint Hue { get; }

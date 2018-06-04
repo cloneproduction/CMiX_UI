@@ -236,9 +236,11 @@
                 FocusVisualStyle="{DynamicResource FocusVisualStyle}"
                 Focusable="True"
                 KeyboardNavigation.TabNavigation="None">
-                <CMiX:ChannelControls x:Name="Layer0" Tag="0"
-                                        DataContext="{Binding DataContext.ChData[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
-                                        MasterPeriod="{Binding ControlPeriod, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ElementName=BeatControlsChannel0}"/>
+                <CMiX:ChannelControls
+                    x:Name="Layer0"
+                    DataContext="{Binding DataContext.ChData[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
+                    MasterPeriod="{Binding ControlPeriod, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ElementName=BeatControlsChannel0}"
+                    Tag="0" />
 
             </Grid>
 

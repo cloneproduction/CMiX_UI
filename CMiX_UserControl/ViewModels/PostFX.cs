@@ -10,15 +10,8 @@ namespace CMiX.ViewModels
 
         public PostFX(double feedback, double blur, PostFXTransforms transforms, PostFXView view)
         {
-            if (feedback < 0)
-            {
-                throw new ArgumentException("Feedback must not be negative.");
-            }
-
-            if (blur < 0)
-            {
-                throw new ArgumentException("Blur must not be negative.");
-            }
+            AssertNotNegative(() => feedback);
+            AssertNotNegative(() => blur);
 
             Feedback = feedback;
             Blur = blur;
@@ -32,12 +25,7 @@ namespace CMiX.ViewModels
             get => _feedback;
             set
             {
-                if (value < 0)
-                {
-                    value = 0;
-                }
-
-                SetAndNotify(ref _feedback, value);
+                SetAndNotify(ref _feedback, CoerceNotNegative(value));
             }
         }
 
@@ -47,12 +35,7 @@ namespace CMiX.ViewModels
             get => _blur;
             set
             {
-                if (value < 0)
-                {
-                    value = 0;
-                }
-
-                SetAndNotify(ref _blur, value);
+                SetAndNotify(ref _blur, CoerceNotNegative(value));
             }
         }
 

@@ -12,14 +12,14 @@
             ChanceToHit = chanceToHit;
         }
 
-        int _multiplier;
+        private int _multiplier;
         public int Multiplier
         {
             get => _multiplier;
             set => SetAndNotify(ref _multiplier, value);
         }
 
-        double _chanceToHit;
+        private double _chanceToHit;
         public double ChanceToHit
         {
             get => _chanceToHit;

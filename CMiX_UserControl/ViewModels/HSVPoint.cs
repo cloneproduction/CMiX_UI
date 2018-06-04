@@ -10,10 +10,7 @@ namespace CMiX.ViewModels
 
         public HSVPoint(double color, ColorationModifier modifier)
         {
-            if (color < 0)
-            {
-                throw new ArgumentException("Color must not be negative.");
-            }
+            AssertNotNegative(() => color);
 
             Color = color;
             Modifier = modifier;
@@ -25,12 +22,7 @@ namespace CMiX.ViewModels
             get => _color;
             set
             {
-                if (value < 0)
-                {
-                    value = 0;
-                }
-
-                SetAndNotify(ref _color, value);
+                SetAndNotify(ref _color, CoerceNotNegative(value));
             }
         }
 
