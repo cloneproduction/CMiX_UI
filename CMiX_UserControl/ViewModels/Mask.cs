@@ -22,7 +22,7 @@ namespace CMiX.ViewModels
             PostFX = postFX ?? throw new ArgumentNullException(nameof(postFX));
         }
 
-        bool _enable;
+        private bool _enable;
         public bool Enable
         {
             get => _enable;

@@ -1,33 +1,73 @@
-﻿namespace CMiX.ViewModels
+﻿using System;
+
+namespace CMiX.ViewModels
 {
     public class PostFX : ViewModel
     {
-        double _FeedBack = 0.0;
-        public double FeedBack
+        public PostFX()
+            : this(feedback: 0.0, blur: 0.0, transforms: default, view: default)
+        { }
+
+        public PostFX(double feedback, double blur, PostFXTransforms transforms, PostFXView view)
         {
-            get => _FeedBack;
-            set => SetAndNotify(ref _FeedBack, value);
+            if (feedback < 0)
+            {
+                throw new ArgumentException("Feedback must not be negative.");
+            }
+
+            if (blur < 0)
+            {
+                throw new ArgumentException("Blur must not be negative.");
+            }
+
+            Feedback = feedback;
+            Blur = blur;
+            Transforms = transforms;
+            View = view;
         }
 
-        double _Blur = 0.0;
+        private double _feedback;
+        public double Feedback
+        {
+            get => _feedback;
+            set
+            {
+                if (value < 0)
+                {
+                    value = 0;
+                }
+
+                SetAndNotify(ref _feedback, value);
+            }
+        }
+
+        private double _blur;
         public double Blur
         {
-            get => _Blur;
-            set => SetAndNotify(ref _Blur, value);
+            get => _blur;
+            set
+            {
+                if (value < 0)
+                {
+                    value = 0;
+                }
+
+                SetAndNotify(ref _blur, value);
+            }
         }
 
-        PostFXTransforms _Transforms;
+        private PostFXTransforms _transforms;
         public PostFXTransforms Transforms
         {
-            get => _Transforms;
-            set => SetAndNotify(ref _Transforms, value);
+            get => _transforms;
+            set => SetAndNotify(ref _transforms, value);
         }
 
-        PostFXView _View;
+        private PostFXView _view;
         public PostFXView View
         {
-            get => _View;
-            set => SetAndNotify(ref _View, value);
+            get => _view;
+            set => SetAndNotify(ref _view, value);
         }
     }
 }
