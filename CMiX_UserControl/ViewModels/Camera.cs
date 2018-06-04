@@ -2,6 +2,28 @@
 {
     public class Camera : ViewModel
     {
+        public Camera()
+            : this(
+                  rotation: default,
+                  lookAt: default,
+                  view: default,
+                  beatMultiplier: 1,
+                  beatChanceToHit: 1.0,
+                  cameraFOV: 1.0,
+                  cameraZoom: 1.0)
+        { }
+
+        public Camera(CameraRotation rotation, CameraLookAt lookAt, CameraView view, int beatMultiplier, double beatChanceToHit, double cameraFOV, double cameraZoom)
+        {
+            Rotation = rotation;
+            LookAt = lookAt;
+            View = view;
+            BeatMultiplier = beatMultiplier;
+            BeatChanceToHit = beatChanceToHit;
+            CameraFOV = cameraFOV;
+            CameraZoom = cameraZoom;
+        }
+
         CameraRotation _Rotation;
         public CameraRotation Rotation
         {
