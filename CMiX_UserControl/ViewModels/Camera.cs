@@ -6,9 +6,9 @@ namespace CMiX.ViewModels
     {
         public Camera()
             : this(
-                  rotation: default,
-                  lookAt: default,
-                  view: default,
+                  rotation: default(CameraRotation),
+                  lookAt: default(CameraLookAt),
+                  view: default(CameraView),
                   beatModifier: new BeatModifier(),
                   fov: 1.0,
                   zoom: 1.0)

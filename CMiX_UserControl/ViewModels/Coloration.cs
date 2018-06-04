@@ -7,8 +7,8 @@ namespace CMiX.ViewModels
     {
         public Coloration()
             : this(
-                  objectColor: default,
-                  backgroundColor: default,
+                  objectColor: Colors.White,
+                  backgroundColor: Colors.Black,
                   hue: new HSVPoint(),
                   saturation: new HSVPoint(),
                   lightness: new HSVPoint())

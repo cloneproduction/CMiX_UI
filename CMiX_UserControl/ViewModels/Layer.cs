@@ -6,7 +6,7 @@
             : this(
                   name: string.Empty,
                   fade: 0.0,
-                  blendMode: default,
+                  blendMode: default(BlendMode),
                   beatModifier: new BeatModifier(),
                   content: new Content(),
                   mask: new Mask(),
