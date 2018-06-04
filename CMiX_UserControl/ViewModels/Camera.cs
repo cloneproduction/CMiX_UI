@@ -1,123 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CMiX
+﻿namespace CMiX.ViewModels
 {
-    public class Camera : INotifyPropertyChanged
+    public class Camera : ViewModel
     {
-        protected void OnPropertyChanged(PropertyChangedEventArgs e)
+        CameraRotation _Rotation;
+        public CameraRotation Rotation
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-                handler(this, e);
+            get => _Rotation;
+            set => this.SetAndNotify(ref _Rotation, value);
         }
 
-        protected void OnPropertyChanged(string propertyName)
+        CameraLookAt _LookAt;
+        public CameraLookAt LookAt
         {
-            OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        enum CameraRotation { STD_CTR, STD_UP, STD_DN, STD_LT, STD_RT, STD_MID, SLD_RDM, SLD_DNUP, SLD_DN, SLD_UP, SLD_LT, SLD_RT, SLD_LTRT, FLA_RDM, FLA_DNUP, FLA_DN, FLA_UP, FLA_LT, FLA_RT, FLA_LTRT };
-
-        Enum _Rotation;
-        public Enum Rotation
-        {
-            get { return _Rotation; }
-            set
-            {
-                if (_Rotation != value)
-                {
-                    _Rotation = value; OnPropertyChanged("Rotation");
-                }
-            }
+            get => _LookAt;
+            set => this.SetAndNotify(ref _LookAt, value);
         }
 
-        enum CameraLookAt { STD_CTR, Oblique125, FlashRandom, SpinRandom, SpinRight, SpinLeft };
-
-        Enum _LookAt;
-        public Enum LookAt
+        CameraView _View;
+        public CameraView View
         {
-            get { return _LookAt; }
-            set
-            {
-                if (_LookAt != value)
-                {
-                    _LookAt = value; OnPropertyChanged("LookAt");
-                }
-            }
-        }
-
-        enum CameraView { STD_CTR, FLA_RDM, SLD_RDM };
-
-        Enum _View;
-        public Enum View
-        {
-            get { return _View; }
-            set
-            {
-                if (_View != value)
-                {
-                    _View = value; OnPropertyChanged("View");
-                }
-            }
+            get => _View;
+            set => this.SetAndNotify(ref _View, value);
         }
 
 
         int _BeatMultiplier = 1;
         public int BeatMultiplier
         {
-            get { return _BeatMultiplier; }
-            set
-            {
-                if (_BeatMultiplier != value)
-                {
-                    _BeatMultiplier = value; OnPropertyChanged("BeatMultiplier");
-                }
-            }
+            get => _BeatMultiplier;
+            set => this.SetAndNotify(ref _BeatMultiplier, value);
         }
 
         double _BeatChanceToHit = 1.0;
         public double BeatChanceToHit
         {
-            get { return _BeatChanceToHit; }
-            set
-            {
-                if (_BeatChanceToHit != value)
-                {
-                    _BeatChanceToHit = value; OnPropertyChanged("BeatChanceToHit");
-                }
-            }
+            get => _BeatChanceToHit;
+            set => this.SetAndNotify(ref _BeatChanceToHit, value);
         }
 
         double _CameraFOV = 1.0;
         public double CameraFOV
         {
-            get { return _CameraFOV; }
-            set
-            {
-                if (_CameraFOV != value)
-                {
-                    _CameraFOV = value; OnPropertyChanged("CameraFOV");
-                }
-            }
+            get => _CameraFOV;
+            set => this.SetAndNotify(ref _CameraFOV, value);
         }
 
         double _CameraZoom = 1.0;
         public double CameraZoom
         {
-            get { return _CameraZoom; }
-            set
-            {
-                if (_CameraZoom != value)
-                {
-                    _CameraZoom = value; OnPropertyChanged("CameraZoom");
-                }
-            }
+            get => _CameraZoom;
+            set => this.SetAndNotify(ref _CameraZoom, value);
         }
     }
 }

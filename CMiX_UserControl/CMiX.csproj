@@ -94,6 +94,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewModels\Camera.cs" />
+    <Compile Include="ViewModels\CameraLookAt.cs" />
+    <Compile Include="ViewModels\CameraRotation.cs" />
+    <Compile Include="ViewModels\CameraView.cs" />
     <Compile Include="ViewModels\Coloration.cs" />
     <Compile Include="ViewModels\Content.cs" />
     <Compile Include="CounterViewModel.cs" />
@@ -103,7 +106,9 @@
     <Compile Include="ViewModels\Mask.cs" />
     <Compile Include="ViewModels\PostFX.cs" />
     <Compile Include="ViewModels\Composition.cs" />
+    <Compile Include="ViewModels\ShortCodeAttribute.cs" />
     <Compile Include="ViewModels\Texture.cs" />
+    <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="Views\BeatControls.xaml.cs">
       <DependentUpon>BeatControls.xaml</DependentUpon>
     </Compile>
