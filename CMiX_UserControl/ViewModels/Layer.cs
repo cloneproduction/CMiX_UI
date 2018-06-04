@@ -5,125 +5,64 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CMiX
+namespace CMiX.ViewModels
 {
-    public class Layer : INotifyPropertyChanged
+    public class Layer : ViewModel
     {
-        protected void OnPropertyChanged(PropertyChangedEventArgs e)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-                handler(this, e);
-        }
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        string _Name;
+        string _Name = "";
         public string Name
         {
-            get { return _Name; }
-            set
-            {
-                if (_Name != value)
-                {
-                    _Name = value; OnPropertyChanged("Name");
-                }
-            }
+            get => _Name;
+            set => this.SetAndNotify(ref _Name, value);
         }
 
         double _Fade = 0.0;
         public double Fade
         {
-            get { return _Fade; }
-            set
-            {
-                if (_Fade != value)
-                {
-                    _Fade = value; OnPropertyChanged("Fade");
-                }
-            }
+            get => _Fade;
+            set => this.SetAndNotify(ref _Fade, value);
         }
 
-        Enum _BlendMode;
-        public Enum BlendMode
+        BlendMode _BlendMode;
+        public BlendMode BlendMode
         {
-            get { return _BlendMode; }
-            set
-            {
-                if (_BlendMode != value)
-                {
-                    _BlendMode = value; OnPropertyChanged("BlendMode");
-                }
-            }
+            get => _BlendMode;
+            set => this.SetAndNotify(ref _BlendMode, value);
         }
 
         int _BeatMultiplier = 1;
         public int BeatMultiplier
         {
-            get { return _BeatMultiplier; }
-            set
-            {
-                if (_BeatMultiplier != value)
-                {
-                    _BeatMultiplier = value; OnPropertyChanged("BeatMultiplier");
-                }
-            }
+            get => _BeatMultiplier;
+            set => this.SetAndNotify(ref _BeatMultiplier, value);
         }
 
         double _BeatChanceToHit = 1.0;
         public double BeatChanceToHit
         {
-            get { return _BeatChanceToHit; }
-            set
-            {
-                if (_BeatChanceToHit != value)
-                {
-                    _BeatChanceToHit = value; OnPropertyChanged("BeatChanceToHit");
-                }
-            }
+            get => _BeatChanceToHit;
+            set => this.SetAndNotify(ref _BeatChanceToHit, value);
         }
 
         Content _Content = new Content();
         public Content Content
         {
-            get { return _Content; }
-            set
-            {
-                if (_Content != value)
-                {
-                    _Content = value; OnPropertyChanged("Content");
-                }
-            }
+            get => _Content;
+            set => this.SetAndNotify(ref _Content, value);
         }
 
         Mask _Mask = new Mask();
-        public Mask ContenMaskt
+        public Mask Mask
         {
-            get { return _Mask; }
-            set
-            {
-                if (_Mask != value)
-                {
-                    _Mask = value; OnPropertyChanged("Mask");
-                }
-            }
+            get => _Mask;
+            set => this.SetAndNotify(ref _Mask, value);
         }
 
         Coloration _Coloration = new Coloration();
         public Coloration Coloration
         {
-            get { return _Coloration; }
-            set
-            {
-                if (_Coloration != value)
-                {
-                    _Coloration = value; OnPropertyChanged("Coloration");
-                }
-            }
+            get => _Coloration;
+            set => this.SetAndNotify(ref _Coloration, value);
         }
     }
 }

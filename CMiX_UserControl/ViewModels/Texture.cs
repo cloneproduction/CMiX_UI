@@ -5,114 +5,57 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CMiX
+namespace CMiX.ViewModels
 {
-    public class Texture : INotifyPropertyChanged
+    public class Texture : ViewModel
     {
-        protected void OnPropertyChanged(PropertyChangedEventArgs e)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-                handler(this, e);
-        }
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
-
         List<string> _SelectedTexturePath = new List<string>();
         public List<string> SelectedTexturePath
         {
-            get { return _SelectedTexturePath; }
-            set
-            {
-                if (_SelectedTexturePath != value)
-                {
-                    _SelectedTexturePath = value; OnPropertyChanged("SelectedTexturePath");
-                }
-            }
+            get => _SelectedTexturePath;
+            set => this.SetAndNotify(ref _SelectedTexturePath, value);
         }
 
         double _TextureBrightness = 0.0;
         public double TextureBrightness
         {
-            get { return _TextureBrightness; }
-            set
-            {
-                if (_TextureBrightness != value)
-                {
-                    _TextureBrightness = value; OnPropertyChanged("TextureBrightness");
-                }
-            }
+            get => _TextureBrightness;
+            set => this.SetAndNotify(ref _TextureBrightness, value);
         }
 
         double _TextureContrast = 0.0;
         public double TextureContrast
         {
-            get { return _TextureContrast; }
-            set
-            {
-                if (_TextureContrast != value)
-                {
-                    _TextureContrast = value; OnPropertyChanged("TextureContrast");
-                }
-            }
+            get => _TextureContrast;
+            set => this.SetAndNotify(ref _TextureContrast, value);
         }
 
         double _TextureSaturation = 0.0;
         public double TextureSaturation
         {
-            get { return _TextureSaturation; }
-            set
-            {
-                if (_TextureSaturation != value)
-                {
-                    _TextureSaturation = value; OnPropertyChanged("TextureSaturation");
-                }
-            }
+            get => _TextureSaturation;
+            set => this.SetAndNotify(ref _TextureSaturation, value);
         }
 
         double _TextureKeying = 0.0;
         public double TextureKeying
         {
-            get { return _TextureKeying; }
-            set
-            {
-                if (_TextureKeying != value)
-                {
-                    _TextureKeying = value; OnPropertyChanged("TextureKeying");
-                }
-            }
+            get => _TextureKeying;
+            set => this.SetAndNotify(ref _TextureKeying, value);
         }
 
         double _TextureInvert = 0.0;
         public double TextureInvert
         {
-            get { return _TextureInvert; }
-            set
-            {
-                if (_TextureInvert != value)
-                {
-                    _TextureInvert = value; OnPropertyChanged("TextureInvert");
-                }
-            }
+            get => _TextureInvert;
+            set => this.SetAndNotify(ref _TextureInvert, value);
         }
 
-        enum TextureInvertMode { INV_RGB, INV_VAL };
-
-        Enum _SelectedInvertMode;
-        public Enum SelectedInvertMode
+        TextureInvertMode _InvertMode;
+        public TextureInvertMode InvertMode
         {
-            get { return _SelectedInvertMode; }
-            set
-            {
-                if (_SelectedInvertMode != value)
-                {
-                    _SelectedInvertMode = value; OnPropertyChanged("SelectedInvertMode");
-                }
-            }
+            get => _InvertMode;
+            set => this.SetAndNotify(ref _InvertMode, value);
         }
     }
 }

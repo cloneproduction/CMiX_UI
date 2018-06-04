@@ -5,60 +5,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CMiX
+namespace CMiX.ViewModels
 {
-    public class MainBeat : INotifyPropertyChanged
+    public class MainBeat : ViewModel
     {
-        protected void OnPropertyChanged(PropertyChangedEventArgs e)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-                handler(this, e);
-        }
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        double _Period = 1.0;
+        double _Period = 0.0;
         public double Period
         {
-            get { return _Period; }
-            set
-            {
-                if (_Period != value)
-                {
-                    _Period = value; OnPropertyChanged("Period");
-                }
-            }
+            get => _Period;
+            set => this.SetAndNotify(ref _Period, value);
         }
 
         int _BeatMultiplier = 1;
         public int BeatMultiplier
         {
-            get { return _BeatMultiplier; }
-            set
-            {
-                if (_BeatMultiplier != value)
-                {
-                    _BeatMultiplier = value; OnPropertyChanged("BeatMultiplier");
-                }
-            }
+            get => _BeatMultiplier;
+            set => this.SetAndNotify(ref _BeatMultiplier, value);
         }
 
-        int _ResetTime = 0;
-        public int ResetTime
+        bool _ResetTime = false;
+        public bool ResetTime
         {
-            get { return _ResetTime; }
-            set
-            {
-                if (_ResetTime != value)
-                {
-                    _ResetTime = value; OnPropertyChanged("ResetTime");
-                }
-            }
+            get => _ResetTime;
+            set => this.SetAndNotify(ref _ResetTime, value);
         }
     }
 }

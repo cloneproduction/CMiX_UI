@@ -5,154 +5,79 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CMiX
+namespace CMiX.ViewModels
 {
-    public class Geometry : INotifyPropertyChanged
+    public class Geometry : ViewModel
     {
-        protected void OnPropertyChanged(PropertyChangedEventArgs e)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-                handler(this, e);
-        }
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
-
-
         int _GeometryCount = 1;
         public int GeometryCount
         {
-            get { return _GeometryCount; }
-            set
-            {
-                if (_GeometryCount != value)
-                {
-                    _GeometryCount = value; OnPropertyChanged("GeometryCount");
-                }
-            }
+            get => _GeometryCount;
+            set => this.SetAndNotify(ref _GeometryCount, value);
         }
 
-
-        List<string> _SelectedGeometryPath = new List<string>();
-        public List<string> SelectedGeometryPath
+        List<string> _GeometryPath = new List<string>();
+        public List<string> GeometryPath
         {
-            get { return _SelectedGeometryPath; }
-            set
-            {
-                if (_SelectedGeometryPath != value)
-                {
-                    _SelectedGeometryPath = value; OnPropertyChanged("SelectedGeometryPath");
-                }
-            }
+            get => _GeometryPath;
+            set => this.SetAndNotify(ref _GeometryPath, value);
         }
 
-        Enum _GeometryTranslateMode;
-        public Enum GeometryTranslateMode
+        GeometryTranslateMode _TranslateMode;
+        public GeometryTranslateMode TranslateMode
         {
-            get { return _GeometryTranslateMode; }
-            set
-            {
-                if (_GeometryTranslateMode != value)
-                {
-                    _GeometryTranslateMode = value; OnPropertyChanged("GeometryTranslateMode");
-                }
-            }
+            get => _TranslateMode;
+            set => this.SetAndNotify(ref _TranslateMode, value);
         }
 
-        double _GeometryTranslateAmount;
+        double _GeometryTranslateAmount = 0.0;
         public double GeometryTranslateAmount
         {
-            get { return _GeometryTranslateAmount; }
-            set
-            {
-                if (_GeometryTranslateAmount != value)
-                {
-                    _GeometryTranslateAmount = value; OnPropertyChanged("GeometryTranslateAmount");
-                }
-            }
+            get => _GeometryTranslateAmount;
+            set => this.SetAndNotify(ref _GeometryTranslateAmount, value);
         }
 
 
-        Enum _GeometryScaleMode;
-        public Enum GeometryScaleMode
+        GeometryScaleMode _ScaleMode;
+        public GeometryScaleMode ScaleMode
         {
-            get { return _GeometryScaleMode; }
-            set
-            {
-                if (_GeometryScaleMode != value)
-                {
-                    _GeometryScaleMode = value; OnPropertyChanged("GeometryScaleMode");
-                }
-            }
+            get => _ScaleMode;
+            set => this.SetAndNotify(ref _ScaleMode, value);
         }
 
-        double _GeometryScaleAmount;
+        double _GeometryScaleAmount = 0.0;
         public double GeometryScaleAmount
         {
-            get { return _GeometryScaleAmount; }
-            set
-            {
-                if (_GeometryScaleAmount != value)
-                {
-                    _GeometryScaleAmount = value; OnPropertyChanged("GeometryScaleAmount");
-                }
-            }
+            get => _GeometryTranslateAmount;
+            set => this.SetAndNotify(ref _GeometryTranslateAmount, value);
         }
 
-        Enum _GeometryRotationMode;
-        public Enum GeometryRotationMode
+        GeometryRotationMode _RotationMode;
+        public GeometryRotationMode RotationMode
         {
-            get { return _GeometryRotationMode; }
-            set
-            {
-                if (_GeometryRotationMode != value)
-                {
-                    _GeometryRotationMode = value; OnPropertyChanged("GeometryRotationMode");
-                }
-            }
+            get => _RotationMode;
+            set => this.SetAndNotify(ref _RotationMode, value);
         }
 
-        double _GeometryRotationAmount;
+        double _GeometryRotationAmount = 0.0;
         public double GeometryRotationAmount
         {
-            get { return _GeometryRotationAmount; }
-            set
-            {
-                if (_GeometryRotationAmount != value)
-                {
-                    _GeometryRotationAmount = value; OnPropertyChanged("GeometryRotationAmount");
-                }
-            }
+            get => _GeometryRotationAmount;
+            set => this.SetAndNotify(ref _GeometryRotationAmount, value);
         }
 
-        bool _Is3D;
+        bool _Is3D = false;
         public bool Is3D
         {
-            get { return _Is3D; }
-            set
-            {
-                if (_Is3D != value)
-                {
-                    _Is3D = value; OnPropertyChanged("Is3D");
-                }
-            }
+            get => _Is3D;
+            set => this.SetAndNotify(ref _Is3D, value);
         }
 
-        bool _KeepAspectRatio;
+        bool _KeepAspectRatio = false;
         public bool KeepAspectRatio
         {
-            get { return _KeepAspectRatio; }
-            set
-            {
-                if (_KeepAspectRatio != value)
-                {
-                    _KeepAspectRatio = value; OnPropertyChanged("KeepAspectRatio");
-                }
-            }
+            get => _KeepAspectRatio;
+            set => this.SetAndNotify(ref _KeepAspectRatio, value);
         }
     }
 }

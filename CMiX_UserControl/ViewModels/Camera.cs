@@ -23,7 +23,6 @@
             set => this.SetAndNotify(ref _View, value);
         }
 
-
         int _BeatMultiplier = 1;
         public int BeatMultiplier
         {

@@ -93,21 +93,29 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ViewModels\BlendMode.cs" />
     <Compile Include="ViewModels\Camera.cs" />
     <Compile Include="ViewModels\CameraLookAt.cs" />
     <Compile Include="ViewModels\CameraRotation.cs" />
     <Compile Include="ViewModels\CameraView.cs" />
     <Compile Include="ViewModels\Coloration.cs" />
+    <Compile Include="ViewModels\ColorationModifier.cs" />
     <Compile Include="ViewModels\Content.cs" />
     <Compile Include="CounterViewModel.cs" />
     <Compile Include="ViewModels\Geometry.cs" />
+    <Compile Include="ViewModels\GeometryRotationMode.cs" />
+    <Compile Include="ViewModels\GeometryScaleMode.cs" />
+    <Compile Include="ViewModels\GeometryTranslateMode.cs" />
     <Compile Include="ViewModels\Layer.cs" />
     <Compile Include="ViewModels\MainBeat.cs" />
     <Compile Include="ViewModels\Mask.cs" />
     <Compile Include="ViewModels\PostFX.cs" />
     <Compile Include="ViewModels\Composition.cs" />
+    <Compile Include="ViewModels\PostFXTranforms.cs" />
+    <Compile Include="ViewModels\PostFXView.cs" />
     <Compile Include="ViewModels\ShortCodeAttribute.cs" />
     <Compile Include="ViewModels\Texture.cs" />
+    <Compile Include="ViewModels\TextureInvertMode.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="Views\BeatControls.xaml.cs">
       <DependentUpon>BeatControls.xaml</DependentUpon>

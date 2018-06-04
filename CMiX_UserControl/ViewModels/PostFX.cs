@@ -5,77 +5,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CMiX
+namespace CMiX.ViewModels
 {
-    public class PostFX : INotifyPropertyChanged
+    public class PostFX : ViewModel
     {
-        protected void OnPropertyChanged(PropertyChangedEventArgs e)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-                handler(this, e);
-        }
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
-
         double _FeedBack = 0.0;
         public double FeedBack
         {
-            get { return _FeedBack; }
-            set
-            {
-                if (_FeedBack != value)
-                {
-                    _FeedBack = value; OnPropertyChanged("FeedBack");
-                }
-            }
+            get => _FeedBack;
+            set => this.SetAndNotify(ref _FeedBack, value);
         }
 
         double _Blur = 0.0;
         public double Blur
         {
-            get { return _Blur; }
-            set
-            {
-                if (_Blur != value)
-                {
-                    _Blur = value; OnPropertyChanged("Blur");
-                }
-            }
+            get => _Blur;
+            set => this.SetAndNotify(ref _Blur, value);
         }
 
-        enum Transform { NONE, MIR_CTR, MIR_LT, MIR_TOP, MIR_RT, MIR_BOT, CLA_LT, CLA_TOP, CLA_RT, CLA_BOT };
-
-        Enum _SelectedTransform;
-        public Enum SelectedInvertMode
+        PostFXTransforms _Transforms;
+        public PostFXTransforms Transforms
         {
-            get { return _SelectedTransform; }
-            set
-            {
-                if (_SelectedTransform != value)
-                {
-                    _SelectedTransform = value; OnPropertyChanged("SelectedTransform");
-                }
-            }
+            get => _Transforms;
+            set => this.SetAndNotify(ref _Transforms, value);
         }
 
-        enum View { NONE, MIR_CTR, MIR_LT, MIR_TOP, MIR_RT, MIR_BOT, CLA_LT, CLA_TOP, CLA_RT, CLA_BOT };
-
-        Enum _SelectedView;
-        public Enum SelectedView
+        PostFXView _View;
+        public PostFXView View
         {
-            get { return _SelectedView; }
-            set
-            {
-                if (_SelectedView != value)
-                {
-                    _SelectedView = value; OnPropertyChanged("SelectedView");
-                }
-            }
+            get => _View;
+            set => this.SetAndNotify(ref _View, value);
         }
     }
 }

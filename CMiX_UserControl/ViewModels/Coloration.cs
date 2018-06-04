@@ -6,129 +6,64 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
-namespace CMiX
+namespace CMiX.ViewModels
 {
-    public class Coloration : INotifyPropertyChanged
+    public class Coloration : ViewModel
     {
-        protected void OnPropertyChanged(PropertyChangedEventArgs e)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-                handler(this, e);
-        }
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
-
         Color _ObjectColor;
         public Color ObjectColor
         {
-            get { return _ObjectColor; }
-            set
-            {
-                if (_ObjectColor != value)
-                {
-                    _ObjectColor = value; OnPropertyChanged("ObjectColor");
-                }
-            }
+            get => _ObjectColor;
+            set => this.SetAndNotify(ref _ObjectColor, value);
         }
 
         Color _BackgroundColor;
         public Color BackgroundColor
         {
-            get { return _BackgroundColor; }
-            set
-            {
-                if (_BackgroundColor != value)
-                {
-                    _BackgroundColor = value; OnPropertyChanged("BackgroundColor");
-                }
-            }
+            get => _BackgroundColor;
+            set => this.SetAndNotify(ref _BackgroundColor, value);
         }
 
-        enum ColorModifier { STD_CTR, SLD_RDM, FLA_RDM, SLD_LIN };
-
-        double _Hue = 0.0;
-        public double Hue
+        double _HueColor = 0.0;
+        public double HueColor
         {
-            get { return _Hue; }
-            set
-            {
-                if (_Hue != value)
-                {
-                    _Hue = value; OnPropertyChanged("Hue");
-                }
-            }
+            get => _HueColor;
+            set => this.SetAndNotify(ref _HueColor, value);
         }
 
-        Enum _SelectedHueModifier;
-        public Enum SelectedHueModifier
+        ColorationModifier _HueModifier;
+        public ColorationModifier HueModifier
         {
-            get { return _SelectedHueModifier; }
-            set
-            {
-                if (_SelectedHueModifier != value)
-                {
-                    _SelectedHueModifier = value; OnPropertyChanged("SelectedHueModifier");
-                }
-            }
+            get => _HueModifier;
+            set => this.SetAndNotify(ref _HueModifier, value);
         }
 
         double _Saturation = 0.0;
         public double Saturation
         {
-            get { return _Saturation; }
-            set
-            {
-                if (_Saturation != value)
-                {
-                    _Saturation = value; OnPropertyChanged("Saturation");
-                }
-            }
+            get => _Saturation;
+            set => this.SetAndNotify(ref _Saturation, value);
         }
 
-        Enum _SelectedSaturationModifier;
-        public Enum SelectedSaturationModifier
+        ColorationModifier _SaturationModifier;
+        public ColorationModifier SaturationModifier
         {
-            get { return _SelectedSaturationModifier; }
-            set
-            {
-                if (_SelectedSaturationModifier != value)
-                {
-                    _SelectedSaturationModifier = value; OnPropertyChanged("SelectedSaturationModifier");
-                }
-            }
+            get => _SaturationModifier;
+            set => this.SetAndNotify(ref _SaturationModifier, value);
         }
 
         double _Lightness = 0.0;
         public double Lightness
         {
-            get { return _Lightness; }
-            set
-            {
-                if (_Lightness != value)
-                {
-                    _Lightness = value; OnPropertyChanged("Lightness");
-                }
-            }
+            get => _Lightness;
+            set => this.SetAndNotify(ref _Lightness, value);
         }
 
-        Enum _SelectedLightnessModifier;
-        public Enum SelectedLightnessModifier
+        ColorationModifier _LightnessModifier;
+        public ColorationModifier LightnessModifier
         {
-            get { return _SelectedLightnessModifier; }
-            set
-            {
-                if (_SelectedLightnessModifier != value)
-                {
-                    _SelectedLightnessModifier = value; OnPropertyChanged("SelectedLightnessModifier");
-                }
-            }
+            get => _LightnessModifier;
+            set => this.SetAndNotify(ref _LightnessModifier, value);
         }
-
-
     }
 }
