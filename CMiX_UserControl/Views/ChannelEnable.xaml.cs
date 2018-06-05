@@ -30,7 +30,7 @@ namespace CMiX
 
         }
 
-        private void DragOver(object sender, DragEventArgs e)
+        private void DragOverButton(object sender, DragEventArgs e)
         {
             if (!e.Data.GetDataPresent("UIElement"))
             {

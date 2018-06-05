@@ -1,0 +1,212 @@
+﻿<UserControl x:Class="CMiX.Views.Geometry"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:CMiX="clr-namespace:CMiX"
+             xmlns:Views="clr-namespace:CMiX.Views"           
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Fonts/Roboto.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseFocusVisual.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseRadioButtonStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/LayerRadioButtonStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseButtonStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxItemStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxItemPanelStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseToggleButtonStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTextBoxStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabControlStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabItemStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseLabelStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseSliderStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseGroupBoxStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxControlStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxItemStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuItemStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseContextMenuStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <CMiX:PathToFilenameConverter x:Key="PathToFileName" />
+            <CMiX:ColorToStringConverter x:Key="ColorToString" />
+            <CMiX:BoolInverterConverter x:Key="BoolInverter" />
+            <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <StackPanel>
+        <TabControl DockPanel.Dock="Bottom" Style="{StaticResource BaseTabControlStyle}">
+            <TabItem
+                            Height="20"
+                            Header="Geometry"
+                            Style="{StaticResource BaseTabItemStyle}">
+                <DockPanel>
+                    <StackPanel Margin="0,0,0,4" DockPanel.Dock="Bottom">
+                        <Grid Height="25" Margin="0,1,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.5*" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <ToggleButton
+                                            x:Name="SpriteTranslateStyle"
+                                            Content="{Binding SelectedName, ElementName=SpriteSelectedTranslate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                            IsHitTestVisible="{Binding ElementName=SpritePopupTranslate, Path=IsOpen, Converter={StaticResource BoolInverter}}"
+                                            Style="{StaticResource BaseToggleButtonStyle}" />
+                            <Popup
+                                            x:Name="SpritePopupTranslate"
+                                            Width="432"
+                                            AllowsTransparency="True"
+                                            IsOpen="{Binding IsChecked, ElementName=SpriteTranslateStyle}"
+                                            Placement="Right"
+                                            PlacementTarget="{Binding ElementName=SpriteTranslateStyle}"
+                                            StaysOpen="False">
+                                <CMiX:TranslateSelector
+                                                x:Name="SpriteSelectedTranslate"
+                                                SelectedName="{Binding DataContext.SpriteSelectedTranslate, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            </Popup>
+                            <CMiX:CustomSlider
+                                            x:Name="SpriteTranslate"
+                                            Grid.Column="2"
+                                            Caption="Translate"
+                                            Tag="SprTra"
+                                            Value="{Binding TranslateAmount, Mode=TwoWay}" />
+                        </Grid>
+                        <Grid Height="25" Margin="0,1,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.5*" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <ToggleButton
+                                            x:Name="SpriteScaleStyle"
+                                            Content="{Binding SelectedName, ElementName=SpriteSelectedScale, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                            IsHitTestVisible="{Binding ElementName=SpritePopupScale, Path=IsOpen, Converter={StaticResource BoolInverter}}"
+                                            Style="{StaticResource BaseToggleButtonStyle}" />
+                            <Popup
+                                            x:Name="SpritePopupScale"
+                                            Width="432"
+                                            AllowsTransparency="True"
+                                            IsOpen="{Binding IsChecked, ElementName=SpriteScaleStyle}"
+                                            Placement="Center"
+                                            PlacementTarget="{Binding ElementName=Ch_Parameters}"
+                                            StaysOpen="False">
+                                <CMiX:ScaleSelector
+                                                x:Name="SpriteSelectedScale"
+                                                SelectedName="{Binding DataContext.SpriteSelectedScale, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            </Popup>
+                            <CMiX:CustomSlider
+                                            x:Name="SpriteScale"
+                                            Grid.Column="2"
+                                            Caption="Scale"
+                                            Value="{Binding ScaleAmount, Mode=TwoWay}" />
+                        </Grid>
+                        <Grid Height="25" Margin="0,1,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.5*" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <CMiX:RotationSelector x:Name="SpriteRotation" />
+                            <CMiX:CustomSlider
+                                            x:Name="SpriteRotate"
+                                            Grid.Column="2"
+                                            Caption="Rotate"
+                                            Value="{Binding RotationAmount, Mode=TwoWay}" />
+                        </Grid>
+                    </StackPanel>
+                    <Border
+                                    Height="100"
+                                    Background="{StaticResource BaseDarkColor}"
+                                    DockPanel.Dock="Bottom">
+                        <CMiX:FileSelector
+                                        x:Name="SpriteSelectedGeom"
+                                        Title="Models"
+                                        FileMask="{Binding GeometryFileMask, Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type Views:LayerControls}}}"
+                                        SelectedItems="{Binding DataContext.SpriteSelectedGeom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=Ch_Parameters}"/>
+                    </Border>
+                </DockPanel>
+            </TabItem>
+            <!--<TabItem Header="GSFX" Style="{StaticResource BaseTabItemStyle}">
+                <DockPanel>
+                    <StackPanel Margin="0,0,0,4" DockPanel.Dock="Bottom">
+                        <Grid Height="25" Margin="0,1,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.5*" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+
+                            <CMiX:CustomSlider
+                                            x:Name="GSFXTranslate"
+                                            Grid.Column="2"
+                                            Caption="Translate"
+                                            SliderValueChanged="SliderValueChanged"
+                                            Value="{Binding DataContext.GSFXTranslate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
+                        </Grid>
+                        <Grid Height="25" Margin="0,1,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.5*" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <CMiX:CustomSlider
+                                            x:Name="GSFXScale"
+                                            Grid.Column="2"
+                                            Caption="Scale"
+                                            SliderValueChanged="SliderValueChanged"
+                                            Value="{Binding DataContext.GSFXScale, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
+                        </Grid>
+                        <Grid Height="25" Margin="0,1,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.5*" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <CMiX:CustomSlider
+                                            x:Name="GSFXRotate"
+                                            Grid.Column="2"
+                                            Caption="Rotate"
+                                            SliderValueChanged="SliderValueChanged"
+                                            Value="{Binding DataContext.GSFXRotate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
+                        </Grid>
+                    </StackPanel>
+                    <Border
+                                    Height="100"
+                                    Background="{StaticResource BaseDarkColor}"
+                                    DockPanel.Dock="Top">
+                        <CMiX:FileSelector
+                                        x:Name="GSFXSelectedTex"
+                                        MinHeight="100"
+                                        FileMask="{Binding TextureFileMask, Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type CMiX:ChannelControls}}}"
+                                        FileSelectorChanged="FileSelectorChanged"
+                                        ModeSelection=""
+                                        SelectedItems="{Binding DataContext.SelectedGSFXTex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=Ch_Parameters}" />
+                    </Border>
+                </DockPanel>
+            </TabItem>-->
+        </TabControl>
+        <Grid
+                        Height="25"
+                        Margin="0,4,0,4"
+                        DockPanel.Dock="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <ToggleButton
+                            x:Name="SpriteAspectRatio"
+                            Grid.Column="0"
+                            Content="AR"
+                            DockPanel.Dock="Bottom"
+                            IsChecked="{Binding DataContext.SpriteAspectRatio, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}"
+                            Style="{DynamicResource BaseToggleButtonStyle}"/>
+            <ToggleButton
+                            x:Name="Sprite3D"
+                            Grid.Column="1"
+                            Content="3D"
+                            DockPanel.Dock="Right"
+                            IsChecked="{Binding DataContext.Sprite3D, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}"
+                            Style="{DynamicResource BaseToggleButtonStyle}"/>
+        </Grid>
+    </StackPanel>
+</UserControl>

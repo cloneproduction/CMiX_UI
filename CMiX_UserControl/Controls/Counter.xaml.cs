@@ -23,8 +23,8 @@ namespace CMiX
             {
                 counterviewmodel.Count += 1;
             }
-            string name = Utils.FindParent<ChannelControls>(this).Name;
-            message.SendOSC(name + "/" + Name, counterviewmodel.Count.ToString());
+            //string name = Utils.FindParent<ChannelControls>(this).Name;
+            //message.SendOSC(name + "/" + Name, counterviewmodel.Count.ToString());
         }
 
         private void Button_Sub(object sender, RoutedEventArgs e)
@@ -33,8 +33,8 @@ namespace CMiX
             {
                 counterviewmodel.Count -= 1;
             }
-            string name = Utils.FindParent<ChannelControls>(this).Name;
-            message.SendOSC(name + "/" + Name, counterviewmodel.Count.ToString());
+            //string name = Utils.FindParent<ChannelControls>(this).Name;
+            //message.SendOSC(name + "/" + Name, counterviewmodel.Count.ToString());
         }
 
         Messenger message = new Messenger();

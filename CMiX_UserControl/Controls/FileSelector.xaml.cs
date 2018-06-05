@@ -18,14 +18,14 @@ namespace CMiX
         }
 
         #region Properties
-        public static readonly DependencyProperty MouseDownProperty =
+        /*public static readonly DependencyProperty MouseDownProperty =
         DependencyProperty.Register("MouseDown", typeof(bool), typeof(FileSelector));
         [Bindable(true)]
         public bool MouseDown
         {
             get { return (bool)GetValue(MouseDownProperty); }
             set { SetValue(MouseDownProperty, value); }
-        }
+        }*/
 
 
         public static readonly DependencyProperty ModeSelectionProperty =
@@ -86,7 +86,7 @@ namespace CMiX
             return (hGesture | vGesture);
         }
 
-        bool _ClickOnItem = false;
+        //bool _ClickOnItem = false;
 
         private void FileNameList_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -189,8 +189,8 @@ namespace CMiX
                 string dragFileSelectorSourceName = dragSource.Name.ToString();
                 string dragFileSelectorTargetName = Utils.FindParent<FileSelector>(child).Name.ToString();
 
-                string dragChannelControlsSourceName =  Utils.FindParent<ChannelControls>(dragSource).Name.ToString();
-                string dragChannelControlsTargetName = Utils.FindParent<ChannelControls>(child).Name.ToString();
+                string dragChannelControlsSourceName =  Utils.FindParent<Views.LayerControls>(dragSource).Name.ToString();
+                string dragChannelControlsTargetName = Utils.FindParent<Views.LayerControls>(child).Name.ToString();
 
                 List<ListBoxFileName> FileNames = dataObj.GetData(typeof(List<ListBoxFileName>)) as List<ListBoxFileName>;
 

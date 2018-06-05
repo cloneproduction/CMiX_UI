@@ -9,14 +9,14 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using System.Threading.Tasks;
 
-namespace CMiX
+namespace CMiX.Views
 {
-    public partial class ChannelControls : UserControl
+    public partial class LayerControls : UserControl
     {
         Messenger message = new Messenger();
         ChannelData cd = new ChannelData();
 
-        public ChannelControls()
+        public LayerControls()
         {
             InitializeComponent();
             Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(() => { EnabledOSC = true; }));
@@ -26,7 +26,7 @@ namespace CMiX
 
 
         public static readonly DependencyProperty EnabledOSCProperty =
-        DependencyProperty.Register("EnabledOSC", typeof(bool), typeof(ChannelControls), new PropertyMetadata(false));
+        DependencyProperty.Register("EnabledOSC", typeof(bool), typeof(LayerControls), new PropertyMetadata(false));
         [Bindable(true)]
         public bool EnabledOSC
         {
@@ -35,7 +35,7 @@ namespace CMiX
         }
 
         public static readonly DependencyProperty MasterPeriodProperty =
-        DependencyProperty.Register("MasterPeriod", typeof(double), typeof(ChannelControls), new PropertyMetadata(0.0));
+        DependencyProperty.Register("MasterPeriod", typeof(double), typeof(LayerControls), new PropertyMetadata(0.0));
         [Bindable(true)]
         public double MasterPeriod
         {
@@ -110,7 +110,7 @@ namespace CMiX
 
         #region Registered Event
         public static readonly RoutedEvent ChannelChangedEvent =
-        EventManager.RegisterRoutedEvent("ChannelChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ChannelControls));
+        EventManager.RegisterRoutedEvent("ChannelChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(LayerControls));
 
         public event RoutedEventHandler ChannelChanged
         {
@@ -120,7 +120,7 @@ namespace CMiX
 
         void ChannelControlChanged()
         {
-            RoutedEventArgs newEventArgs = new RoutedEventArgs(ChannelControls.ChannelChangedEvent);
+            RoutedEventArgs newEventArgs = new RoutedEventArgs(LayerControls.ChannelChangedEvent);
             RaiseEvent(newEventArgs);
         }
         #endregion
@@ -230,7 +230,7 @@ namespace CMiX
 
         private void Tap(object sender, RoutedEventArgs e)
         {
-            if (EnabledOSC == true)
+            /*if (EnabledOSC == true)
             {
                 FileSelector fileselector = sender as FileSelector;
                 if (fileselector.MouseDown == true)
@@ -247,7 +247,7 @@ namespace CMiX
                     message.SendOSCList(cd.Name + "/" + fileselector.Name, selectedfilename);
                 }
 
-            }
+            }*/
         }
 
         private void TranslateSelector_SelectionChanged(object sender, EventArgs e)
@@ -290,15 +290,7 @@ namespace CMiX
 
         private void Ch_Parameters_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (e.Key == Key.Escape)
-            {
-                MaskPopupTranslate.IsOpen = false;
-                SpritePopupTranslate.IsOpen = false;
-                MaskPopupScale.IsOpen = false;
-                SpritePopupScale.IsOpen = false;
-                //MaskPopupRotation.IsOpen = false;
-                //SpritePopupRotation.IsOpen = false;
-            }
+
         }
     }
 }

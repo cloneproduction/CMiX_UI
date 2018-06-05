@@ -10,5 +10,5 @@
     Height="800"
     Background="#FF323232"
     mc:Ignorable="d">
-    <CMiX:CMiX_UI />
+    <CMiX:Composition />
 </Window>

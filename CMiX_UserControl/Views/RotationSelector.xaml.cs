@@ -44,7 +44,7 @@ namespace CMiX
             if(rb.IsChecked == true)
             {
                 //rotationselectorviewmodel.Rotation = rb.Name;
-                string name = Utils.FindParent<ChannelControls>(this).Name;
+                string name = Utils.FindParent<Views.LayerControls>(this).Name;
                 message.SendOSC(name + "/" + Name, rb.Name);
             }
         }

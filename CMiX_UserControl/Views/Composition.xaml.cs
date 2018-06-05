@@ -16,37 +16,37 @@ using System.Threading.Tasks;
 
 namespace CMiX
 {
-    public partial class CMiX_UI : UserControl
+    public partial class Composition : UserControl
     {
         BeatSystem beatsystem = new BeatSystem();
-        CMiXData cmixdata = new CMiXData();
+        //CMiXData cmixdata = new CMiXData();
         Messenger message = new Messenger();
 
-        string IP = "127.0.0.1";
-        int Port = 55555;
+        //string IP = "127.0.0.1";
+        //int Port = 55555;
 
 
         private IList<RadioButton> _items = new ObservableCollection<RadioButton>();
 
-        public CMiX_UI()
+        public Composition()
         {
             InitializeComponent();
-            DataContext = cmixdata;
+            DataContext = new ViewModels.Composition();
 
-            Singleton.Instance.MessageReceived += Instance_MessageReceived;
+            //Singleton.Instance.MessageReceived += Instance_MessageReceived;
         }
 
         private void Instance_MessageReceived(OscBundle packet)
         {
-            for (int i = 0; i < packet.Messages.Count; i++)
+            /*for (int i = 0; i < packet.Messages.Count; i++)
             {
                 cmixdata.ChannelAlpha[i] = Convert.ToDouble(packet.Messages[i].Arguments[0]);
-            }
+            }*/
         }
 
         #region Properties
         public static readonly DependencyProperty EnabledOSCProperty =
-        DependencyProperty.Register("EnabledOSC", typeof(bool), typeof(CMiX_UI), new PropertyMetadata(false));
+        DependencyProperty.Register("EnabledOSC", typeof(bool), typeof(Composition), new PropertyMetadata(false));
         [Bindable(true)]
         public bool EnabledOSC
         {
@@ -106,7 +106,7 @@ namespace CMiX
         {
             if (EnabledOSC == true)
             {
-                var control = sender as FrameworkElement;
+                /*var control = sender as FrameworkElement;
                 cmixdata = (CMiXData)cmix.DataContext;
                 var OSCSender = new SharpOSC.UDPSender(IP, Port);
 
@@ -116,7 +116,7 @@ namespace CMiX
                 {
                     slidervalue.Add(st.ToString("0.00"));
                 }
-                OSCSender.Send(new SharpOSC.OscMessage("/" + control.Tag.ToString(), slidervalue.ToArray()));
+                OSCSender.Send(new SharpOSC.OscMessage("/" + control.Tag.ToString(), slidervalue.ToArray()));*/
             }
         }
 
@@ -133,7 +133,7 @@ namespace CMiX
         {
             if (EnabledOSC == true)
             {
-                var control = sender as ComboBox;
+                /*var control = sender as ComboBox;
                 cmixdata = (CMiXData)DataContext;
                 var OSCSender = new SharpOSC.UDPSender(IP, Port);
 
@@ -143,7 +143,7 @@ namespace CMiX
                 {
                     slidervalue.Add(st.ToString());
                 }
-                OSCSender.Send(new SharpOSC.OscMessage("/" + control.Tag.ToString(), slidervalue.ToArray()));
+                OSCSender.Send(new SharpOSC.OscMessage("/" + control.Tag.ToString(), slidervalue.ToArray()));*/
             }
         }
 
@@ -160,11 +160,11 @@ namespace CMiX
         {
             if (EnabledOSC == true)
             {
-                var control = sender as ComboBox;
+                /*var control = sender as ComboBox;
                 cmixdata = (CMiXData)DataContext;
                 var OSCSender = new SharpOSC.UDPSender(IP, Port);
                 var list = cmixdata.GetType().GetProperty(control.Tag.ToString()).GetValue(cmixdata, null);
-                OSCSender.Send(new SharpOSC.OscMessage("/" + control.Tag.ToString(), list.ToString()));
+                OSCSender.Send(new SharpOSC.OscMessage("/" + control.Tag.ToString(), list.ToString()));*/
             }
             Thread.Sleep(10);
         }
@@ -182,10 +182,10 @@ namespace CMiX
         {
             if (cmix != null)
             {
-                var control = sender as BeatControls;
+                /*var control = sender as BeatControls;
                 cmixdata = (CMiXData)DataContext;
                 var OSCSender = new SharpOSC.UDPSender(IP, Port);
-                OSCSender.Send(new SharpOSC.OscMessage("/" + control.Name, cmixdata.PostFXBeatMultiplier[0].ToString()));
+                OSCSender.Send(new SharpOSC.OscMessage("/" + control.Name, cmixdata.PostFXBeatMultiplier[0].ToString()));*/
             }
         }
 
@@ -193,10 +193,10 @@ namespace CMiX
         {
             if (cmix != null)
             {
-                var control = sender as BeatControls;
+                /*var control = sender as BeatControls;
                 cmixdata = (CMiXData)DataContext;
                 var OSCSender = new SharpOSC.UDPSender(IP, Port);
-                OSCSender.Send(new SharpOSC.OscMessage("/" + control.Name, cmixdata.CamBeatMultiplier[0].ToString()));
+                OSCSender.Send(new SharpOSC.OscMessage("/" + control.Name, cmixdata.CamBeatMultiplier[0].ToString()));*/
             }
         }
 
@@ -210,7 +210,7 @@ namespace CMiX
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            CMiXData cmixdata = (CMiXData)DataContext;
+            /*CMiXData cmixdata = (CMiXData)DataContext;
 
             if (File.Exists(cmixdata.FilePath[0]) == true)
             {
@@ -248,12 +248,12 @@ namespace CMiX
                     }
                 }
 
-            }
+            }*/
         }
 
         private void SaveAs_Click(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            /*SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.AddExtension = true;
             saveFileDialog.DefaultExt = "json";
 
@@ -274,12 +274,12 @@ namespace CMiX
                 {
                     serializer.Serialize(writer, cmixdata);
                 }
-            }
+            }*/
         }
 
         private void Open_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
+            /*OpenFileDialog openFileDialog = new OpenFileDialog();
 
             if (openFileDialog.ShowDialog() == true)
             {
@@ -295,7 +295,7 @@ namespace CMiX
 
                     EnabledOSC = true;
                 }
-            }
+            }*/
         }
 
         private void Quit_Click(object sender, RoutedEventArgs e)
@@ -318,7 +318,7 @@ namespace CMiX
 
         private void sp_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.Source == LayerEnableStack)
+            /*if (e.Source == LayerEnableStack)
             {
                 
             }
@@ -326,22 +326,22 @@ namespace CMiX
             {
                 _isDown = true;
                 _startPoint = e.GetPosition(LayerEnableStack);
-            }
+            }*/
         }
 
         private void sp_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            _isDown = false;
+            /*_isDown = false;
             _isDragging = false;
             if (_realDragSource != null)
             {
                 _realDragSource.ReleaseMouseCapture();
-            }
+            }*/
         }
 
         private void sp_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            if (_isDown)
+            /*if (_isDown)
             {
                 if ((_isDragging == false) && ((Math.Abs(e.GetPosition(LayerEnableStack).X - _startPoint.X) > SystemParameters.MinimumHorizontalDragDistance) ||
                     (Math.Abs(e.GetPosition(LayerEnableStack).Y - _startPoint.Y) > SystemParameters.MinimumVerticalDragDistance)))
@@ -354,20 +354,20 @@ namespace CMiX
                     _realDragSource.CaptureMouse();
                     DragDrop.DoDragDrop(_dummyDragSource, new DataObject("UIElement", e.Source, true), DragDropEffects.Move);
                 }
-            }
+            }*/
         }
 
         private void sp_DragEnter(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent("UIElement"))
+            /*if (e.Data.GetDataPresent("UIElement"))
             {
                 e.Effects = DragDropEffects.Move;
-            }
+            }*/
         }
 
         private void sp_Drop(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent("UIElement"))
+            /*if (e.Data.GetDataPresent("UIElement"))
             {
                 CMiXData cmixdata = DataContext as CMiXData;
 
@@ -401,53 +401,53 @@ namespace CMiX
                     ChannelEnableName.Add(ce.Tag.ToString());
                 }
                 message.SendOSCList("LayerIndex", ChannelEnableName);
-            }
+            }*/
         }
 
 
         private void FocusUp(FrameworkElement obj)
         {
-            TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Next);
+            /*TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Next);
             UIElement keyboardFocus = Keyboard.FocusedElement as UIElement;
 
             if (keyboardFocus != null)
             {
                 keyboardFocus.MoveFocus(tRequest);
-            }
+            }*/
         }
 
         private void FocusPrevious(FrameworkElement obj)
         {
-            TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Previous);
+            /*TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Previous);
             UIElement keyboardFocus = Keyboard.FocusedElement as UIElement;
 
             if (keyboardFocus != null)
             {
                 keyboardFocus.MoveFocus(tRequest);
-            }
+            }*/
         }
 
         private void RangeSliderValueChanged(object sender, EventArgs e)
         {
-            if (EnabledOSC == true)
+            /*if (EnabledOSC == true)
             {
                 CMiXRangeSlider slider = sender as CMiXRangeSlider;
                 List<string> list = new List<string>();
                 list.Add(slider.RangeMin.ToString());
                 list.Add(slider.RangeMax.ToString());
                 message.SendOSCList(slider.Name, list);
-            }
+            }*/
         }
 
         private void AddLayer_Click(object sender, RoutedEventArgs e)
         {
-            CMiXData cd = DataContext as CMiXData;
+            /*CMiXData cd = DataContext as CMiXData;
             //string name = (layercount).ToString();
 
             string layername = (LayerEnableStack.Children.Count).ToString();
             ChannelData chdata = new ChannelData ();
             ChannelLayer cl = new ChannelLayer { DataContext = chdata, Name = "ChannelLayer" + layername, Tag = layername };
-            ChannelControls cc = new ChannelControls { DataContext = chdata, Name = "ChannelControl" + layername, Tag = layername };
+            Views.LayerControls cc = new Views.LayerControls { DataContext = chdata, Name = "ChannelControl" + layername, Tag = layername };
             ChannelEnable ce = new ChannelEnable { DataContext = chdata, Name = "ChannelEnable" + layername, Tag = layername };
 
             //cd.ChData.Add(chdata);
@@ -475,21 +475,21 @@ namespace CMiX
             OscMessage layerindex = new OscMessage("/LayerIndex", ChannelEnableName.ToArray());
             messagelist.Add(layerindex);
 
-            message.SendBundle(messagelist);
+            message.SendBundle(messagelist);*/
         }
 
-        private void RemoveLayer_Click(object sender, RoutedEventArgs e)
+        /*private void RemoveLayer_Click(object sender, RoutedEventArgs e)
         {
             int removedindex = 0;
-            //CMiXData cd = this.DataContext as CMiXData;
+            CMiXData cd = this.DataContext as CMiXData;
 
-            //int layerenablecount = LayerEnableStack.Children.Count;
+            int layerenablecount = LayerEnableStack.Children.Count;
 
             for(int i = LayerEnableStack.Children.Count - 1; i >= 0; i--)
             {
                 removedindex = i;
                 ChannelEnable layerenable = LayerEnableStack.Children[i] as ChannelEnable;
-                ChannelControls channelcontrols = ContentControl.Children[i] as ChannelControls;
+                Views.LayerControls channelcontrols = ContentControl.Children[i] as Views.LayerControls;
                 ChannelLayer channellayer = LayerControlStack.Children[i] as ChannelLayer;
 
 
@@ -508,7 +508,7 @@ namespace CMiX
                     }
                     for (int j = ContentControl.Children.Count - 1; j >= 0; j--)
                     {
-                        ChannelControls channelcontrol = ContentControl.Children[j] as ChannelControls;
+                        Views.LayerControls channelcontrol = ContentControl.Children[j] as Views.LayerControls;
 
                         if (channelcontrol.Tag.ToString() == name)
                         {
@@ -518,7 +518,7 @@ namespace CMiX
 
                     LayerEnableStack.Children.Remove(layerenable);
 
-                    /*int tag = Convert.ToInt32(layerenable.Tag);
+                    int tag = Convert.ToInt32(layerenable.Tag);
                     if (tag > removedindex)
                     {
                         tag -= 1;
@@ -530,14 +530,11 @@ namespace CMiX
 
                         channellayer.Tag = tag.ToString();
                         channellayer.Name = "ChannelLayer" + tag.ToString();
-                    }*/
-
-
+                    }
                     break;
                 }
-
-
             }
+
             List<OscMessage> messagelist = new List<OscMessage>();
             if (LayerEnableStack.Children.Count > 0)
             {
@@ -561,6 +558,7 @@ namespace CMiX
                 }
                 ChannelEnableName.Add(ch.Tag.ToString());
             }
+
             OscMessage layerindex = new OscMessage("/LayerIndex", ChannelEnableName.ToArray());
             messagelist.Add(layerindex);
 
@@ -588,11 +586,9 @@ namespace CMiX
                     //ContentControl.Children.RemoveAt(i);
                     //LayerControlStack.Children.RemoveAt(i);
                     //LayerEnableStack.Children.RemoveAt(i);
-
-
                 }
-            }*/
-        }
+            }
+        }*/
 
         private void cmix_Loaded(object sender, RoutedEventArgs e)
         {
@@ -601,9 +597,9 @@ namespace CMiX
 
         private void LayerButton_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.C && ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control))
+            /*if (e.Key == Key.C && ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control))
             {
-                /*CMiXData cmixdata = this.DataContext as CMiXData;
+                CMiXData cmixdata = this.DataContext as CMiXData;
                 foreach (ChannelData channeldata in cmixdata.ChData)
                 {
                     if (channeldata.EnabledLayer == true)
@@ -613,8 +609,8 @@ namespace CMiX
                         Clipboard.SetDataObject(dataObject);
                         break;
                     }
-                }*/
-            }
+                }
+            }*/
 
             if (e.Key == Key.V && ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control))
             {
@@ -636,31 +632,28 @@ namespace CMiX
                         //Task.Delay(100);
                         //cc.EnabledOSC = true;
                     }
-                }
+                }*/
 
 
-                    for (int i = 0; i < cmixdata.ChData.Count; i++)
+                /*for (int i = 0; i < cmixdata.ChData.Count; i++)
+                {
+                    if (cmixdata.ChData[i].EnabledLayer == true)
                     {
-                        if (cmixdata.ChData[i].EnabledLayer == true)
+                        string name = cmixdata.ChData[i].Name;
+
+                        object data = Clipboard.GetData("ChData");
+                        if (data != null)
                         {
-
-
-                            string name = cmixdata.ChData[i].Name;
-
-                            object data = Clipboard.GetData("ChData");
-                            if (data != null)
-                            {
-                                ChannelData channeldata = data as ChannelData;
-                                cmixdata.ChData[i] = (ChannelData)channeldata.Clone();
-                                cmixdata.ChData[i].Name = name;
-                            }
-                            message.SendAll(cmixdata.ChData[i], cmixdata.ChData[i].Name);
-                            MessageBox.Show(cmixdata.ChData[i].Name);
-                            break;
-                            Task.Delay(100);
+                            ChannelData channeldata = data as ChannelData;
+                            cmixdata.ChData[i] = (ChannelData)channeldata.Clone();
+                            cmixdata.ChData[i].Name = name;
                         }
-
-                    }*/
+                        message.SendAll(cmixdata.ChData[i], cmixdata.ChData[i].Name);
+                        MessageBox.Show(cmixdata.ChData[i].Name);
+                        break;
+                        Task.Delay(100);
+                    }
+                }*/
             }
 
             /*foreach (ChannelControls cc in Utils.FindVisualChildren<ChannelControls>(cmix))
@@ -678,7 +671,7 @@ namespace CMiX
                     Task.Delay(100);
                     cc.EnabledOSC = true;
                 }
-            }
+            }*/
         }
 
             /*if (e.Key == Key.W)
@@ -690,9 +683,9 @@ namespace CMiX
                 {
                     keyboardFocus.MoveFocus(tRequest);
                 }
-            }
+            }*/
 
-            if (e.Key == Key.S)
+            /*if (e.Key == Key.S)
             {
                 TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Down);
                 UIElement keyboardFocus = Keyboard.FocusedElement as UIElement;
@@ -701,9 +694,9 @@ namespace CMiX
                 {
                     keyboardFocus.MoveFocus(tRequest);
                 }
-            }
+            }*/
 
-            if (e.Key == Key.A)
+            /*if (e.Key == Key.A)
             {
                 TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Left);
                 UIElement keyboardFocus = Keyboard.FocusedElement as UIElement;
@@ -712,9 +705,9 @@ namespace CMiX
                 {
                     keyboardFocus.MoveFocus(tRequest);
                 }
-            }
+            }*/
 
-            if (e.Key == Key.D)
+            /*if (e.Key == Key.D)
             {
                 TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Right);
                 UIElement keyboardFocus = Keyboard.FocusedElement as UIElement;
@@ -723,11 +716,11 @@ namespace CMiX
                 {
                     keyboardFocus.MoveFocus(tRequest);
                 }
-            }
+            }*/
 
-            if (e.Key == Key.Add && ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control))
+            /*if (e.Key == Key.Add && ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control))
             {
-                /*var uielement = sender as UIElement;
+                var uielement = sender as UIElement;
                 int count = LayerButtonStack.Children.Count;
 
                 for(int i = 0; i < count; i++)
@@ -758,10 +751,11 @@ namespace CMiX
                     var OSCSender = new SharpOSC.UDPSender(IP, Port);
                     OSCSender.Send(new SharpOSC.OscMessage("/" + "LayerIndex", LayerIndex.ToArray()));
                 }
-            }
-            if (e.Key == Key.Subtract && ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control))
+            }*/
+
+            /*if (e.Key == Key.Subtract && ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control))
             {
-                /*var uielement = sender as UIElement;
+                var uielement = sender as UIElement;
                 int count = LayerButtonStack.Children.Count;
 
                 for (int i = count - 1; i >= 0; i--)
@@ -792,56 +786,60 @@ namespace CMiX
                     var OSCSender = new SharpOSC.UDPSender(IP, Port);
                     OSCSender.Send(new SharpOSC.OscMessage("/" + "LayerIndex", LayerIndex.ToArray()));
                 }
-            }
+            }*/
 
-            if(e.Key == Key.B && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            /*if(e.Key == Key.B && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
             {
                 MasterBeatControl.Focus();
-            }
+            }*/
 
-            if(e.Key == Key.NumPad0 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            /*if(e.Key == Key.NumPad0 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
             {
                 CameraControl.Focus();
-            }
+            }*/
 
-            #region Select and active layer using numpad + control
-            if(e.Key == Key.NumPad1 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            /*if(e.Key == Key.NumPad1 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
             {
                 RadioButton rb = LayerButtonStack.Children[0] as RadioButton;
                 rb.Focus();
                 rb.IsChecked = true;
-            }
-            if (e.Key == Key.NumPad2 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            }*/
+
+            /*if (e.Key == Key.NumPad2 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
             {
-                /*RadioButton rb = LayerButtonStack.Children[1] as RadioButton;
+                RadioButton rb = LayerButtonStack.Children[1] as RadioButton;
                 rb.Focus();
                 rb.IsChecked = true;
-            }
-            if (e.Key == Key.NumPad3 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            }*/
+            
+            /*if (e.Key == Key.NumPad3 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
             {
-                /*RadioButton rb = LayerButtonStack.Children[2] as RadioButton;
+                RadioButton rb = LayerButtonStack.Children[2] as RadioButton;
                 rb.Focus();
                 rb.IsChecked = true;
-            }
-            if (e.Key == Key.NumPad4 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            }*/
+            
+            /*if (e.Key == Key.NumPad4 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
             {
                 /*RadioButton rb = LayerButtonStack.Children[3] as RadioButton;
                 rb.Focus();
                 rb.IsChecked = true;
-            }
-            if (e.Key == Key.NumPad5 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            }*/
+
+            /*if (e.Key == Key.NumPad5 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
             {
-                /*RadioButton rb = LayerButtonStack.Children[4] as RadioButton;
+                RadioButton rb = LayerButtonStack.Children[4] as RadioButton;
                 rb.Focus();
                 rb.IsChecked = true;
-            }
-            if (e.Key == Key.NumPad6 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            }*/
+
+            /*if (e.Key == Key.NumPad6 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
             {
                 /*RadioButton rb = LayerButtonStack.Children[5] as RadioButton;
                 rb.Focus();
                 rb.IsChecked = true;
             }*/
 
-        }
+        
     }
 }

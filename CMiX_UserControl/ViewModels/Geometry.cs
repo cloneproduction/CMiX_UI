@@ -9,6 +9,7 @@ namespace CMiX.ViewModels
     {
         public Geometry()
             : this(
+                  message : new Messenger(),
                   geometryCount: 1,
                   geometryPaths: Enumerable.Empty<string>(),
                   translateMode: default,
@@ -22,6 +23,7 @@ namespace CMiX.ViewModels
         { }
 
         public Geometry(
+            Messenger message,
             int geometryCount,
             IEnumerable<string> geometryPaths,
             GeometryTranslateMode translateMode,
@@ -37,7 +39,7 @@ namespace CMiX.ViewModels
             {
                 throw new ArgumentNullException(nameof(geometryPaths));
             }
-
+            Message = message;
             GeometryCount = geometryCount;
             GeometryPaths = new ObservableCollection<string>(geometryPaths);
             TranslateMode = translateMode;
@@ -48,6 +50,13 @@ namespace CMiX.ViewModels
             RotationAmount = rotationAmount;
             Is3D = is3D;
             KeepAspectRatio = keepAspectRatio;
+        }
+
+        private Messenger _message;
+        public Messenger Message
+        {
+            get => _message;
+            set => SetAndNotify(ref _message, value);
         }
 
         private int _geometryCount;
@@ -70,7 +79,11 @@ namespace CMiX.ViewModels
         public double TranslateAmount
         {
             get => _translateAmount;
-            set => SetAndNotify(ref _translateAmount, value);
+            set
+            {
+                Message.SendOSC("Geometry/TranslateAmount", TranslateAmount.ToString());
+                SetAndNotify(ref _translateAmount, value);
+            }
         }
 
         private GeometryScaleMode _scaleMode;
@@ -84,7 +97,11 @@ namespace CMiX.ViewModels
         public double ScaleAmount
         {
             get => _scaleAmount;
-            set => SetAndNotify(ref _scaleAmount, value);
+            set
+            {
+                Message.SendOSC("Geometry/ScaleAmount", ScaleAmount.ToString());
+                SetAndNotify(ref _scaleAmount, value);
+            }
         }
 
         private GeometryRotationMode _RotationMode;
@@ -98,7 +115,11 @@ namespace CMiX.ViewModels
         public double RotationAmount
         {
             get => _rotationAmount;
-            set => SetAndNotify(ref _rotationAmount, value);
+            set
+            {
+                Message.SendOSC("Geometry/RotationAmount", RotationAmount.ToString());
+                SetAndNotify(ref _rotationAmount, value);
+            }
         }
 
         private bool _is3D;

@@ -28,7 +28,7 @@ namespace CMiX
         public LayerButton()
         {
             InitializeComponent();
-            string groupname = "pouet";
+
             RadioButton rb = new RadioButton();
             RadioButton rb1 = new RadioButton();
 

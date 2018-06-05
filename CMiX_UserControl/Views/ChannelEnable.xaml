@@ -12,8 +12,8 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Brushes/GenericBrushes.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/RessourceDictionnaries/Styles/LayerRadioButtonStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/LayerRadioButtonStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <CMiX:PathToFilenameConverter x:Key="PathToFileName" />
             <CMiX:ColorToStringConverter x:Key="ColorToString" />
@@ -25,7 +25,7 @@
             Margin="0,0,2,0"
             AllowDrop="True"
             Content=""
-            DragOver="DragOver"
+            DragOver="DragOverButton"
             GroupName="SelectLayer"
             IsChecked="{Binding DataContext.EnabledLayer, Mode=TwoWay, ElementName=LayerEnable, UpdateSourceTrigger=PropertyChanged}"
             Style="{StaticResource LayerRadioButtonStyle}">

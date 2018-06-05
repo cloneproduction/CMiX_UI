@@ -21,7 +21,7 @@ namespace CMiX.ViewModels
 
             Name = name;
             Camera = camera ?? throw new System.ArgumentNullException(nameof(camera));
-            MainBeat = mainBeat ?? throw new System.ArgumentNullException(nameof(mainBeat));
+            MasterBeat = mainBeat ?? throw new System.ArgumentNullException(nameof(mainBeat));
             Layers = new ObservableCollection<Layer>(layers);
         }
 
@@ -32,7 +32,7 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _name, value);
         }
 
-        public MainBeat MainBeat { get; }
+        public MainBeat MasterBeat { get; }
 
         public Camera Camera { get; }
 

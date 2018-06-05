@@ -65,9 +65,7 @@ namespace CMiX.ViewModels
             get => _FOV;
             set
             {
-                UDPSender Sender = new UDPSender("127.0.0.1", 55555);
-                Sender.Send(new OscMessage("/FOV", FOV.ToString()));
-
+                Message.SendOSC("FOV", FOV.ToString());
                 SetAndNotify(ref _FOV, value);
             }
         }
@@ -78,9 +76,7 @@ namespace CMiX.ViewModels
             get => _zoom;
             set
             {
-                UDPSender Sender = new UDPSender("127.0.0.1", 55555);
-                Sender.Send(new OscMessage("/Zoom", Zoom.ToString()));
-
+                Message.SendOSC("Zoom", Zoom.ToString());
                 SetAndNotify(ref _zoom, value);
             }
         }

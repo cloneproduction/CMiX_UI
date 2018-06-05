@@ -91,7 +91,7 @@
                     Margin="0,1,0,0"
                     BeatControlChanged="BeatControlsChanged"
                     ControlPeriod="{Binding DataContext.LayerPeriod, Mode=TwoWay, ElementName=Ch_Control, UpdateSourceTrigger=PropertyChanged}"
-                    MasterPeriod="{Binding DataContext.MasterPeriod[0], Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:CMiX_UI}}}"
+                    MasterPeriod="{Binding DataContext.MasterPeriod[0], Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:Composition}}}"
                     Multiplier="{Binding DataContext.ChannelMultiplier, ElementName=Ch_Control, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Tag="0" />
             </Grid>

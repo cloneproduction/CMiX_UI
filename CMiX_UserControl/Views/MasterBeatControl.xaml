@@ -5,8 +5,8 @@
     xmlns:CMiX="clr-namespace:CMiX"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="165.044"
-    d:DesignWidth="1194.794"
+    d:DesignHeight="273.044"
+    d:DesignWidth="718.794"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -21,6 +21,15 @@
     </UserControl.Resources>
     <Border Background="{DynamicResource BaseHighDarkerColor}">
         <StackPanel>
+            <Label
+                        Height="25"
+                        Margin="0,4,0,4"
+                        HorizontalContentAlignment="Center"
+                        Background="{StaticResource BaseDarkColor}"
+                        Content="Beat"
+                        DockPanel.Dock="Bottom"
+                        FontSize="12"
+                        Foreground="{StaticResource BaseText}" />
             <DockPanel
                 Grid.Row="0"
                 Height="50"

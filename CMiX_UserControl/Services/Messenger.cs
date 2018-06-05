@@ -11,6 +11,12 @@ namespace CMiX
 {
     public class Messenger
     {
+
+        public Messenger()
+        {
+            Sender = new UDPSender(Address, Port);
+        }
+
         #region Properties
         private bool _EnabledSend = false;
         public bool EnabledSend
@@ -33,7 +39,7 @@ namespace CMiX
             set { _Address = value; }
         }
 
-        private UDPSender _Sender = new UDPSender("127.0.0.1", 55555);
+        private UDPSender _Sender;
         public UDPSender Sender
         {
             get { return _Sender; }

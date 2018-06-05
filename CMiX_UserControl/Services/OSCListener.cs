@@ -27,7 +27,7 @@ namespace CMiX
             _listener = new UDPListener(1234, callback);
         }
 
-        public static Singleton Instance { get { return Nested.instance; } }
+        //public static Singleton Instance { get { return Nested.instance; } }
 
         private class Nested
         {

@@ -47,14 +47,14 @@
                         FocusVisualStyle="{StaticResource FocusVisualStyle}"
                         Focusable="True">
         <Label
-                            Height="20"
-                            Margin="0,0,0,4"
-                            HorizontalContentAlignment="Center"
-                            Background="{StaticResource BaseDarkColor}"
-                            Content="Camera"
-                            DockPanel.Dock="Top"
-                            FontSize="10"
-                            Foreground="{StaticResource BaseText}" />
+            Height="25"
+            Margin="0,0,0,4"
+            HorizontalContentAlignment="Center"
+            Background="{StaticResource BaseDarkColor}"
+            Content="Camera"
+            DockPanel.Dock="Top"
+            FontSize="12"
+            Foreground="{StaticResource BaseText}" />
         <DockPanel DockPanel.Dock="Top" LastChildFill="True">
             <CMiX:BeatControls
                                 x:Name="BeatControlsCam"
@@ -110,7 +110,6 @@
                                 SelectedItem="{Binding DataContext.CamView[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Tag="CamView"
                                 Template="{DynamicResource BaseComboBoxStyle}" />
-
         </Grid>
         <CMiX:CustomSlider
                             x:Name="CameraFOV"
