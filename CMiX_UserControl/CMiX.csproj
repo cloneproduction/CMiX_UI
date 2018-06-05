@@ -131,6 +131,9 @@
     <Compile Include="CMiX Controls\CMiXComboBox.cs" />
     <Compile Include="CMiX Controls\LayerRadioButton.cs" />
     <Compile Include="CMiX Controls\RangeSlider.cs" />
+    <Compile Include="Views\Camera.xaml.cs">
+      <DependentUpon>Camera.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ScaleSelector.xaml.cs">
       <DependentUpon>ScaleSelector.xaml</DependentUpon>
     </Compile>
@@ -178,6 +181,10 @@
       <DependentUpon>MasterBeatControl.xaml</DependentUpon>
     </Compile>
     <Page Include="Resources\Fonts\Roboto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Camera.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

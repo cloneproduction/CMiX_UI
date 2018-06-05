@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace CMiX
 {
-    class Messenger
+    public class Messenger
     {
         #region Properties
         private bool _EnabledSend = false;
