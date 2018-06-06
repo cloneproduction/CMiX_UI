@@ -100,7 +100,7 @@
                 Margin="4"
                 Background="{StaticResource BaseHighDarkerColor}"
                 Focusable="True">
-                <DockPanel KeyboardNavigation.TabNavigation="None" LastChildFill="False">
+                <DockPanel LastChildFill="False">
                     <CMiX:MasterBeatControl
                         x:Name="MasterBeatControl"
                         DataContext="{Binding Path=MasterBeat}"
@@ -164,7 +164,7 @@
                                 x:Name="LayerControlStack"
                                 Grid.Column="1"
                                 AllowDrop="True">
-                                <CMiX:ChannelLayer x:Name="LayerControl0"/>
+                                <CMiX:ChannelLayer x:Name="LayerControl0" DataContext="{Binding CurrentLayer}"/>
                             </StackPanel>
                         </Grid>
                     </ScrollViewer>

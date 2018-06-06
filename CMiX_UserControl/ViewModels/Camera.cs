@@ -1,14 +1,13 @@
-﻿using SharpOSC;
+﻿using CMiX.Services;
 using System;
-using System.Windows;
 
 namespace CMiX.ViewModels
 {
     public class Camera : ViewModel
     {
-        public Camera()
+        public Camera(IMessenger messenger)
             : this(
-                  message: new Messenger(),
+                  messenger: messenger,
                   rotation: default(CameraRotation),
                   lookAt: default(CameraLookAt),
                   view: default(CameraView),
@@ -18,9 +17,9 @@ namespace CMiX.ViewModels
         {
         }
 
-        public Camera(Messenger message, CameraRotation rotation, CameraLookAt lookAt, CameraView view, BeatModifier beatModifier, double fov, double zoom)
+        public Camera(IMessenger messenger, CameraRotation rotation, CameraLookAt lookAt, CameraView view, BeatModifier beatModifier, double fov, double zoom)
         {
-            Message = message;
+            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             Rotation = rotation;
             LookAt = lookAt;
             View = view;
@@ -28,6 +27,8 @@ namespace CMiX.ViewModels
             FOV = fov;
             Zoom = zoom;
         }
+
+        public IMessenger Messenger { get; }
 
         private Messenger _message;
         public Messenger Message
@@ -65,8 +66,8 @@ namespace CMiX.ViewModels
             get => _FOV;
             set
             {
-                Message.SendOSC("FOV", FOV.ToString());
                 SetAndNotify(ref _FOV, value);
+                Messenger.SendMessage("/CameraFOV", FOV);
             }
         }
 
@@ -76,8 +77,8 @@ namespace CMiX.ViewModels
             get => _zoom;
             set
             {
-                Message.SendOSC("Zoom", Zoom.ToString());
                 SetAndNotify(ref _zoom, value);
+                Messenger.SendMessage("/CameraZoom", Zoom);
             }
         }
     }

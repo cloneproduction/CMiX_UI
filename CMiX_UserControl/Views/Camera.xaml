@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:CMiX="clr-namespace:CMiX"
+    xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="CameraControl"
@@ -14,27 +15,10 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Fonts/Roboto.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseFocusVisual.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTreeViewStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseRadioButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/LayerRadioButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseButtonStyle.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxStyle.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxItemStyle.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxItemPanelStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseToggleButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTextBoxStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabControlStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabItemStyle.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseLabelStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseSliderStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseGroupBoxStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxControlStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseContextMenuStyle.xaml" />
-                <!--<ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseScrollViewerStyle.xaml" />-->
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseRangeSlider.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <CMiX:PeriodToBPMConverter x:Key="PeriodToBPM" />
@@ -45,7 +29,6 @@
     <DockPanel
         Margin="0,4,0,166"
         DockPanel.Dock="Bottom"
-        FocusVisualStyle="{StaticResource FocusVisualStyle}"
         Focusable="True">
         <Label
             Height="25"
@@ -57,18 +40,12 @@
             FontSize="12"
             Foreground="{StaticResource BaseText}" />
         <DockPanel DockPanel.Dock="Top" LastChildFill="True">
-            <CMiX:BeatControls
+            <Views:BeatModifier
                 x:Name="BeatControlsCam"
+                DataContext="{Binding BeatModifier}"
                 Height="25"
                 Margin="1"
-                DockPanel.Dock="Right"
-                MasterPeriod="{Binding DataContext.MasterPeriod[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                Multiplier="{Binding DataContext.CamBeatMultiplier[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <CMiX:CustomSlider
-                x:Name="CamChanceToHit"
-                Height="25"
-                Tag="CamChanceToHit"
-                Value="{Binding DataContext.CamChanceToHit[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                DockPanel.Dock="Right"/>
         </DockPanel>
         <Grid DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>
@@ -81,34 +58,31 @@
                 Grid.Column="0"
                 Height="25"
                 Margin="1"
-                FocusVisualStyle="{DynamicResource FocusVisualStyle}"
-                ItemContainerStyle="{DynamicResource BaseListBoxItemStyle}"
+                ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}"
+                Template="{DynamicResource BaseComboBoxStyle}" 
                 ItemsSource="{Binding CamRotation, ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 SelectedItem="{Binding DataContext.CamRotation[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                Tag="CamRotation"
-                Template="{DynamicResource BaseComboBoxStyle}" />
+                Tag="CamRotation"/>
             <CMiX:CMiXComboBox
                 x:Name="CameraLookAt"
                 Grid.Column="1"
                 Height="25"
                 Margin="1"
-                FocusVisualStyle="{DynamicResource FocusVisualStyle}"
-                ItemContainerStyle="{DynamicResource BaseListBoxItemStyle}"
+                ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}"
+                Template="{DynamicResource BaseComboBoxStyle}" 
                 ItemsSource="{Binding CamLookAt, ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 SelectedItem="{Binding DataContext.CamLookAt[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                Tag="CamLookAt"
-                Template="{DynamicResource BaseComboBoxStyle}" />
+                Tag="CamLookAt"/>
             <CMiX:CMiXComboBox
                 x:Name="CameraView"
                 Grid.Column="2"
                 Height="25"
                 Margin="1"
-                FocusVisualStyle="{DynamicResource FocusVisualStyle}"
-                ItemContainerStyle="{DynamicResource BaseListBoxItemStyle}"
+                ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}"
+                Template="{DynamicResource BaseComboBoxStyle}" 
                 ItemsSource="{Binding CamView, ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 SelectedItem="{Binding DataContext.CamView[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                Tag="CamView"
-                Template="{DynamicResource BaseComboBoxStyle}" />
+                Tag="CamView"/>
         </Grid>
         <CMiX:CustomSlider
             x:Name="CameraFOV"

@@ -2,17 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using System.Threading;
-using Microsoft.Win32;
 using SharpOSC;
-using System.Windows.Data;
 using System.Windows.Input;
-using System.Threading.Tasks;
 
 namespace CMiX
 {

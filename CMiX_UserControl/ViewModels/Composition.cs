@@ -11,7 +11,7 @@ namespace CMiX.ViewModels
         public Composition()
             : this(
                   name: string.Empty,
-                  camera: new Camera(),
+                  camera: new Camera(new OSCMessenger(new SharpOSC.UDPSender("127.0.0.1", 55555))),
                   mainBeat: new MasterBeat(new OSCMessenger(new SharpOSC.UDPSender("127.0.0.1", 55555))),
                   layers: Enumerable.Empty<Layer>())
         { }
