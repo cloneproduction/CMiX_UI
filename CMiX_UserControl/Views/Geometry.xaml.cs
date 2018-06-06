@@ -8,7 +8,6 @@ namespace CMiX.Views
         public Geometry()
         {
             InitializeComponent();
-            DataContext = new ViewModels.Geometry(); 
         }
     }
 }

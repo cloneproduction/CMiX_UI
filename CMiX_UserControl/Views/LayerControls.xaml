@@ -70,123 +70,33 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <DockPanel>
-                <Grid Height="40" DockPanel.Dock="Top">
-                    <Label
-                        Height="25"
-                        VerticalAlignment="Center"
-                        VerticalContentAlignment="Center"
-                        Background="{StaticResource BaseDarkerColor}"
-                        Content="CONTENT"
-                        FontSize="12"
-                        Foreground="{StaticResource BaseText}" />
-                    <CMiX:Counter
-                        x:Name="SpriteCount"
-                        Width="150"
-                        Margin="2"
-                        HorizontalAlignment="Right"
-                        DataContext="{Binding Path=SpriteCounterViewModel}" />
-                </Grid>
-                <DockPanel Background="{StaticResource BaseDarkerColor}" LastChildFill="True">
-                    <Border
-                        Height="25"
-                        Margin="0,4,0,4"
-                        Background="Transparent"
-                        BorderBrush="{StaticResource BaseDarkColor}"
-                        DockPanel.Dock="Top">
-                        <DockPanel LastChildFill="True">
-                            <CMiX:BeatControls
-                                x:Name="SpriteMultiplier"
-                                BeatControlChanged="BeatControlChanged"
-                                DockPanel.Dock="Right"
-                                MasterPeriod="{Binding DataContext.LayerPeriod, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, ElementName=Ch_Parameters}"
-                                Multiplier="{Binding DataContext.SpriteMultiplier, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
-                            <CMiX:CustomSlider
-                                x:Name="SpriteChanceToHit"
-                                SliderValueChanged="SliderValueChanged"
-                                Value="{Binding DataContext.SpriteChanceToHit, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
-                        </DockPanel>
-                    </Border>
-                    <Views:PostFX x:Name="ContentPostFX" DockPanel.Dock="Bottom"/>
-                    <Views:Geometry x:Name="ContentGeometry" DockPanel.Dock="Bottom"/>
-                    <Views:Texture x:Name="ContentTexture" DockPanel.Dock="Top"/>
-                </DockPanel>
-            </DockPanel>
-
+            <Border
+                Grid.Column="0"
+                Margin="2,0,2,0"
+                Padding="4"
+                Background="{StaticResource BaseDarkerColor}">
+                <Views:Content 
+                x:Name="LayerContent"
+                DataContext="{Binding Content}"/>
+            </Border>
             <Border
                 Grid.Column="1"
                 Margin="2,0,2,0"
                 Padding="4"
                 Background="{StaticResource BaseDarkerColor}">
-                <DockPanel Background="{StaticResource BaseDarkerColor}" LastChildFill="True">
-                    <Grid Height="40" DockPanel.Dock="Top">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto" />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Label
-                                Grid.Column="1"
-                                Height="25"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                VerticalContentAlignment="Center"
-                                Background="{StaticResource BaseDarkerColor}"
-                                Content="MASK"
-                                DockPanel.Dock="Left"
-                                Foreground="{StaticResource BaseText}" />
-                            <ToggleButton
-                                x:Name="MaskOn"
-                                Grid.Row="0"
-                                Width="{Binding ActualHeight, ElementName=MaskOn, Mode=OneWay}"
-                                Margin="4"
-                                HorizontalAlignment="Left"
-                                HorizontalContentAlignment="Center"
-
-                                IsChecked="{Binding DataContext.MaskOn, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                Style="{StaticResource BaseToggleButtonStyle}"
-/>
-                        </Grid>
-                        <CMiX:Counter
-                            x:Name="MaskCount"
-                            Width="150"
-                            Margin="2"
-                            HorizontalAlignment="Right"
-                            DataContext="{Binding Path=MaskCounterViewModel}" />
-                    </Grid>
-                    <Border
-                        Height="25"
-                        Margin="0,4,0,4"
-                        Background="Transparent"
-                        BorderBrush="{StaticResource BaseDarkColor}"
-                        DockPanel.Dock="Top">
-                        <DockPanel LastChildFill="True">
-                            <CMiX:BeatControls
-                                x:Name="MaskMultiplier"
-                                BeatControlChanged="BeatControlChanged"
-                                DockPanel.Dock="Right"
-                                MasterPeriod="{Binding DataContext.LayerPeriod, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}"
-                                Multiplier="{Binding DataContext.MaskMultiplier, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
-                            <CMiX:CustomSlider
-                                x:Name="MaskChanceToHit"
-                                SliderValueChanged="SliderValueChanged"
-                                Value="{Binding DataContext.MaskChanceToHit, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
-                        </DockPanel>
-                    </Border>
-                    <Views:PostFX x:Name="MaskPostFX" DockPanel.Dock="Bottom"/>
-
-                    <Views:Geometry x:Name="MaskGeometry" DockPanel.Dock="Bottom"/>
-                    <Views:Texture x:Name="MaskTexture" DockPanel.Dock="Top"/>
-                </DockPanel>
+                <Views:Mask 
+                    x:Name="LayerMask"
+                    DataContext="{Binding Mask}"/>
             </Border>
             <Border
                 Grid.Column="2"
                 Margin="2,0,0,0"
                 Padding="4"
                 Background="{StaticResource BaseDarkerColor}">
-                <Views:Coloration x:Name="LayerColoration"/>
+                <Views:Coloration 
+                    x:Name="LayerColoration"
+                    DataContext="{Binding Coloration}"/>
             </Border>
-
         </Grid>
     </Border>
 </UserControl>

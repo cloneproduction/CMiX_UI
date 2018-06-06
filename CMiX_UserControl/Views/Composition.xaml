@@ -125,8 +125,11 @@
                         DockPanel.Dock="Bottom"
                         FocusVisualStyle="{StaticResource FocusVisualStyle}"
                         Focusable="True"
-                        MasterPeriod="{Binding DataContext.MasterPeriod[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <CMiX:Camera x:Name="CameraUserControl" DockPanel.Dock="Top"/>
+                        MasterPeriod="{Binding MainBeat}" />
+                    <CMiX:Camera 
+                        x:Name="CameraUserControl"
+                        DataContext="{Binding Camera}"
+                        DockPanel.Dock="Top"/>
                 </DockPanel>
             </Border>
             <Grid
@@ -139,7 +142,7 @@
                 KeyboardNavigation.TabNavigation="None">
                 <Views:LayerControls
                     x:Name="Layer0"
-                    DataContext="{Binding DataContext.ChData[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}"
+                    DataContext="{Binding Layers[0]}"
                     Tag="0" />
             </Grid>
             <Border

@@ -97,6 +97,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewModels\BeatModifier.cs" />
+    <Compile Include="Views\BeatModifier.xaml.cs">
+      <DependentUpon>BeatModifier.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\BlendMode.cs" />
     <Compile Include="ViewModels\Camera.cs" />
     <Compile Include="ViewModels\CameraLookAt.cs" />
@@ -136,6 +139,12 @@
     </Compile>
     <Compile Include="Views\Coloration.xaml.cs">
       <DependentUpon>Coloration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Content.xaml.cs">
+      <DependentUpon>Content.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Mask.xaml.cs">
+      <DependentUpon>Mask.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PostFX.xaml.cs">
       <DependentUpon>PostFX.xaml</DependentUpon>
@@ -193,11 +202,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\BeatModifier.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Camera.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Coloration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Content.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Mask.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

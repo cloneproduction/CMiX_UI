@@ -13,11 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CMiX
+namespace CMiX.Views
 {
-    public partial class Camera : UserControl
+    /// <summary>
+    /// Interaction logic for Mask.xaml
+    /// </summary>
+    public partial class Mask : UserControl
     {
-        public Camera()
+        public Mask()
         {
             InitializeComponent();
         }

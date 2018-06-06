@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="CMiX.Views.BeatModifier"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:CMiX="clr-namespace:CMiX"
+             mc:Ignorable="d" 
+             d:DesignHeight="33.493" d:DesignWidth="487.081">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Fonts/Roboto.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseButtonStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseLabelStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseSliderStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <DockPanel LastChildFill="True">
+            <CMiX:BeatControls
+                x:Name="MaskMultiplier"
+                DockPanel.Dock="Right"
+                MasterPeriod="{Binding DataContext.LayerPeriod, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}"
+                Multiplier="{Binding DataContext.MaskMultiplier, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
+            <CMiX:CustomSlider
+                x:Name="MaskChanceToHit"
+                Value="{Binding DataContext.MaskChanceToHit, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
+        </DockPanel>
+    </Grid>
+</UserControl>

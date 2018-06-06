@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="CMiX.Views.Mask"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:CMiX="clr-namespace:CMiX"
+             xmlns:Views="clr-namespace:CMiX.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="812" d:DesignWidth="321">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Fonts/Roboto.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseFocusVisual.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseRadioButtonStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/LayerRadioButtonStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseButtonStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxItemStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxItemPanelStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseToggleButtonStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTextBoxStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabControlStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabItemStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseLabelStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseSliderStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseGroupBoxStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxControlStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxItemStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuItemStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseContextMenuStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <DockPanel Background="{StaticResource BaseDarkerColor}" LastChildFill="True">
+        <Grid Height="40" DockPanel.Dock="Top">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Column="1"
+                    Height="25"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Background="{StaticResource BaseDarkerColor}"
+                    Content="MASK"
+                    DockPanel.Dock="Left"
+                    Foreground="{StaticResource BaseText}" />
+                <ToggleButton
+                    x:Name="MaskOn"
+                    Grid.Row="0"
+                    Width="{Binding ActualHeight, ElementName=MaskOn, Mode=OneWay}"
+                    Margin="4"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Center"
+                    IsChecked="{Binding DataContext.MaskOn, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Style="{StaticResource BaseToggleButtonStyle}"
+/>
+            </Grid>
+            <CMiX:Counter
+                x:Name="MaskCount"
+                Width="150"
+                Margin="2"
+                HorizontalAlignment="Right"
+                DataContext="{Binding Path=MaskCounterViewModel}"/>
+        </Grid>
+        <Views:BeatModifier
+            x:Name="MaskBeatModifier"
+            DataContext="{Binding BeatModifier}"
+            DockPanel.Dock="Top"/>
+        <Views:PostFX 
+            x:Name="MaskPostFX" 
+            DataContext="{Binding PostFX}"
+            DockPanel.Dock="Bottom"/>
+        <Views:Geometry 
+            x:Name="MaskGeometry"
+            DataContext="{Binding Geometry}"
+            DockPanel.Dock="Bottom"/>
+        <Views:Texture 
+            x:Name="MaskTexture"
+            DataContext="{Binding Texture}"
+            DockPanel.Dock="Top"/>
+    </DockPanel>
+</UserControl>

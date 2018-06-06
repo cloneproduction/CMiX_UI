@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="CMiX.Views.Content"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:CMiX="clr-namespace:CMiX"
+             xmlns:Views="clr-namespace:CMiX.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="924" d:DesignWidth="354">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Fonts/Roboto.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseFocusVisual.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseRadioButtonStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/LayerRadioButtonStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseButtonStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxItemStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxItemPanelStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseToggleButtonStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTextBoxStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabControlStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabItemStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseLabelStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseSliderStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseGroupBoxStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxControlStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxItemStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuItemStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseContextMenuStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <CMiX:PathToFilenameConverter x:Key="PathToFileName" />
+            <CMiX:ColorToStringConverter x:Key="ColorToString" />
+            <CMiX:BoolInverterConverter x:Key="BoolInverter" />
+            <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <DockPanel>
+        <Grid Height="40" DockPanel.Dock="Top">
+            <Label
+                Height="25"
+                VerticalAlignment="Center"
+                VerticalContentAlignment="Center"
+                Background="{StaticResource BaseDarkerColor}"
+                Content="CONTENT"
+                FontSize="12"
+                Foreground="{StaticResource BaseText}"/>
+            <CMiX:Counter
+                x:Name="SpriteCount"
+                Width="150"
+                Margin="2"
+                HorizontalAlignment="Right"
+                DataContext="{Binding Path=SpriteCounterViewModel}"/>
+        </Grid>
+        <DockPanel LastChildFill="True">
+            <Views:BeatModifier
+                x:Name="ContentBeatModifier"
+                DataContext="{Binding BeatModifier}"
+                DockPanel.Dock="Top"/>
+            <Views:PostFX 
+                x:Name="ContentPostFX"
+                DataContext="{Binding PostFX}"
+                DockPanel.Dock="Bottom"/>
+            <Views:Geometry 
+                x:Name="ContentGeometry"
+                DataContext="{Binding Geometry}"
+                DockPanel.Dock="Bottom"/>
+            <Views:Texture 
+                x:Name="ContentTexture"
+                DataContext="{Binding Texture}"
+                DockPanel.Dock="Top"/>
+        </DockPanel>
+    </DockPanel>
+</UserControl>

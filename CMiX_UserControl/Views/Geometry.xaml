@@ -41,9 +41,9 @@
     <StackPanel>
         <TabControl DockPanel.Dock="Bottom" Style="{StaticResource BaseTabControlStyle}">
             <TabItem
-                            Height="20"
-                            Header="Geometry"
-                            Style="{StaticResource BaseTabItemStyle}">
+                Height="20"
+                Header="Geometry"
+                Style="{StaticResource BaseTabItemStyle}">
                 <DockPanel>
                     <StackPanel Margin="0,0,0,4" DockPanel.Dock="Bottom">
                         <Grid Height="25" Margin="0,1,0,0">
@@ -52,28 +52,28 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <ToggleButton
-                                            x:Name="SpriteTranslateStyle"
-                                            Content="{Binding SelectedName, ElementName=SpriteSelectedTranslate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                            IsHitTestVisible="{Binding ElementName=SpritePopupTranslate, Path=IsOpen, Converter={StaticResource BoolInverter}}"
-                                            Style="{StaticResource BaseToggleButtonStyle}" />
+                                x:Name="SpriteTranslateStyle"
+                                Content="{Binding SelectedName, ElementName=SpriteSelectedTranslate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                IsHitTestVisible="{Binding ElementName=SpritePopupTranslate, Path=IsOpen, Converter={StaticResource BoolInverter}}"
+                                Style="{StaticResource BaseToggleButtonStyle}" />
                             <Popup
-                                            x:Name="SpritePopupTranslate"
-                                            Width="432"
-                                            AllowsTransparency="True"
-                                            IsOpen="{Binding IsChecked, ElementName=SpriteTranslateStyle}"
-                                            Placement="Right"
-                                            PlacementTarget="{Binding ElementName=SpriteTranslateStyle}"
-                                            StaysOpen="False">
+                                x:Name="SpritePopupTranslate"
+                                Width="432"
+                                AllowsTransparency="True"
+                                IsOpen="{Binding IsChecked, ElementName=SpriteTranslateStyle}"
+                                Placement="Right"
+                                PlacementTarget="{Binding ElementName=SpriteTranslateStyle}"
+                                StaysOpen="False">
                                 <CMiX:TranslateSelector
-                                                x:Name="SpriteSelectedTranslate"
-                                                SelectedName="{Binding DataContext.SpriteSelectedTranslate, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                    x:Name="SpriteSelectedTranslate"
+                                    SelectedName="{Binding DataContext.SpriteSelectedTranslate, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             </Popup>
                             <CMiX:CustomSlider
-                                            x:Name="SpriteTranslate"
-                                            Grid.Column="2"
-                                            Caption="Translate"
-                                            Tag="SprTra"
-                                            Value="{Binding TranslateAmount, Mode=TwoWay}" />
+                                x:Name="SpriteTranslate"
+                                Grid.Column="2"
+                                Caption="Translate"
+                                Tag="SprTra"
+                                Value="{Binding TranslateAmount, Mode=TwoWay}"/>
                         </Grid>
                         <Grid Height="25" Margin="0,1,0,0">
                             <Grid.ColumnDefinitions>
@@ -81,27 +81,27 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <ToggleButton
-                                            x:Name="SpriteScaleStyle"
-                                            Content="{Binding SelectedName, ElementName=SpriteSelectedScale, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                            IsHitTestVisible="{Binding ElementName=SpritePopupScale, Path=IsOpen, Converter={StaticResource BoolInverter}}"
-                                            Style="{StaticResource BaseToggleButtonStyle}" />
+                                x:Name="SpriteScaleStyle"
+                                Content="{Binding SelectedName, ElementName=SpriteSelectedScale, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                IsHitTestVisible="{Binding ElementName=SpritePopupScale, Path=IsOpen, Converter={StaticResource BoolInverter}}"
+                                Style="{StaticResource BaseToggleButtonStyle}" />
                             <Popup
-                                            x:Name="SpritePopupScale"
-                                            Width="432"
-                                            AllowsTransparency="True"
-                                            IsOpen="{Binding IsChecked, ElementName=SpriteScaleStyle}"
-                                            Placement="Center"
-                                            PlacementTarget="{Binding ElementName=Ch_Parameters}"
-                                            StaysOpen="False">
+                                x:Name="SpritePopupScale"
+                                Width="432"
+                                AllowsTransparency="True"
+                                IsOpen="{Binding IsChecked, ElementName=SpriteScaleStyle}"
+                                Placement="Center"
+                                PlacementTarget="{Binding ElementName=Ch_Parameters}"
+                                StaysOpen="False">
                                 <CMiX:ScaleSelector
-                                                x:Name="SpriteSelectedScale"
-                                                SelectedName="{Binding DataContext.SpriteSelectedScale, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                    x:Name="SpriteSelectedScale"
+                                    SelectedName="{Binding DataContext.SpriteSelectedScale, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             </Popup>
                             <CMiX:CustomSlider
-                                            x:Name="SpriteScale"
-                                            Grid.Column="2"
-                                            Caption="Scale"
-                                            Value="{Binding ScaleAmount, Mode=TwoWay}" />
+                                x:Name="SpriteScale"
+                                Grid.Column="2"
+                                Caption="Scale"
+                                Value="{Binding ScaleAmount, Mode=TwoWay}" />
                         </Grid>
                         <Grid Height="25" Margin="0,1,0,0">
                             <Grid.ColumnDefinitions>
@@ -110,21 +110,21 @@
                             </Grid.ColumnDefinitions>
                             <CMiX:RotationSelector x:Name="SpriteRotation" />
                             <CMiX:CustomSlider
-                                            x:Name="SpriteRotate"
-                                            Grid.Column="2"
-                                            Caption="Rotate"
-                                            Value="{Binding RotationAmount, Mode=TwoWay}" />
+                                x:Name="SpriteRotate"
+                                Grid.Column="2"
+                                Caption="Rotate"
+                                Value="{Binding RotationAmount, Mode=TwoWay}" />
                         </Grid>
                     </StackPanel>
                     <Border
-                                    Height="100"
-                                    Background="{StaticResource BaseDarkColor}"
-                                    DockPanel.Dock="Bottom">
+                        Height="100"
+                        Background="{StaticResource BaseDarkColor}"
+                        DockPanel.Dock="Bottom">
                         <CMiX:FileSelector
-                                        x:Name="SpriteSelectedGeom"
-                                        Title="Models"
-                                        FileMask="{Binding GeometryFileMask, Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type Views:LayerControls}}}"
-                                        SelectedItems="{Binding DataContext.SpriteSelectedGeom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=Ch_Parameters}"/>
+                            x:Name="SpriteSelectedGeom"
+                            Title="Models"
+                            FileMask="{Binding GeometryFileMask, Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type Views:LayerControls}}}"
+                            SelectedItems="{Binding DataContext.SpriteSelectedGeom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=Ch_Parameters}"/>
                     </Border>
                 </DockPanel>
             </TabItem>

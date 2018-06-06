@@ -13,11 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CMiX
+namespace CMiX.Views
 {
-    public partial class Camera : UserControl
+    /// <summary>
+    /// Interaction logic for Content.xaml
+    /// </summary>
+    public partial class Content : UserControl
     {
-        public Camera()
+        public Content()
         {
             InitializeComponent();
         }
