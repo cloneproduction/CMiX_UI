@@ -91,9 +91,9 @@
             DockPanel.Dock="Bottom" />
         <Grid Grid.Row="1" KeyboardNavigation.TabNavigation="Cycle">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.2*"/>
-                <ColumnDefinition Width="0.6*"/>
-                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="0.2*" />
+                <ColumnDefinition Width="0.6*" />
+                <ColumnDefinition Width="0.2*" />
             </Grid.ColumnDefinitions>
             <Border
                 Grid.Column="0"
@@ -103,13 +103,13 @@
                 <DockPanel KeyboardNavigation.TabNavigation="None" LastChildFill="False">
                     <CMiX:MasterBeatControl
                         x:Name="MasterBeatControl"
+                        DataContext="{Binding Path=MasterBeat}"
                         DockPanel.Dock="Bottom"
-                        Focusable="True"
-                        MasterPeriod="{Binding MainBeat}" />
-                    <CMiX:Camera 
+                        Focusable="True" />
+                    <CMiX:Camera
                         x:Name="CameraUserControl"
                         DataContext="{Binding Camera}"
-                        DockPanel.Dock="Top"/>
+                        DockPanel.Dock="Top" />
                 </DockPanel>
             </Border>
             <Grid
@@ -119,7 +119,8 @@
                 <Views:LayerControls
                     x:Name="Layer0"
                     DataContext="{Binding CurrentLayer}"
-                    Tag="0" Loaded="Layer0_Loaded" />
+                    Loaded="Layer0_Loaded"
+                    Tag="0" />
             </Grid>
             <Border
                 Grid.Column="4"
@@ -158,8 +159,7 @@
                                 Drop="sp_Drop"
                                 PreviewMouseLeftButtonDown="sp_PreviewMouseLeftButtonDown"
                                 PreviewMouseLeftButtonUp="sp_PreviewMouseLeftButtonUp"
-                                PreviewMouseMove="sp_PreviewMouseMove">
-                            </StackPanel>
+                                PreviewMouseMove="sp_PreviewMouseMove" />
                             <StackPanel
                                 x:Name="LayerControlStack"
                                 Grid.Column="1"
