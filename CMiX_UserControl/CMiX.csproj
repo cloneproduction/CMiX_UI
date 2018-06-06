@@ -131,7 +131,6 @@
     <Compile Include="Controls\BeatControls.xaml.cs">
       <DependentUpon>BeatControls.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BeatSystem.cs" />
     <Compile Include="Unused\ChannelData.cs" />
     <Compile Include="Controls\CMiXComboBox.cs" />
     <Compile Include="Controls\LayerRadioButton.cs" />
