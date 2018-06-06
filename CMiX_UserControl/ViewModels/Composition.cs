@@ -9,16 +9,16 @@ namespace CMiX.ViewModels
     public class Composition : ViewModel
     {
         public Composition()
-            : this(string.Empty, new Camera(), new MainBeat(), Enumerable.Empty<Layer>())
+            : this(string.Empty, new Camera(), new MainBeat(), Enumerable.Empty<Layer>(), new Layer())
         { }
 
-        public Composition(string name, Camera camera, MainBeat mainBeat, IEnumerable<Layer> layers)
+        public Composition(string name, Camera camera, MainBeat mainBeat, IEnumerable<Layer> layers, Layer currentlayer)
         {
             if (layers == null)
             {
                 throw new ArgumentNullException(nameof(layers));
             }
-
+            CurrentLayer = currentlayer ?? throw new System.ArgumentNullException(nameof(currentlayer));
             Name = name;
             Camera = camera ?? throw new System.ArgumentNullException(nameof(camera));
             MasterBeat = mainBeat ?? throw new System.ArgumentNullException(nameof(mainBeat));
@@ -37,5 +37,7 @@ namespace CMiX.ViewModels
         public Camera Camera { get; }
 
         public ObservableCollection<Layer> Layers { get; }
+
+        public Layer CurrentLayer { get; }
     }
 }

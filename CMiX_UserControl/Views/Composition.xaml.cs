@@ -674,172 +674,177 @@ namespace CMiX
             }*/
         }
 
-            /*if (e.Key == Key.W)
+        private void Layer0_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        /*if (e.Key == Key.W)
+        {
+            TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Up);
+            UIElement keyboardFocus = Keyboard.FocusedElement as UIElement;
+
+            if (keyboardFocus != null)
             {
-                TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Up);
-                UIElement keyboardFocus = Keyboard.FocusedElement as UIElement;
+                keyboardFocus.MoveFocus(tRequest);
+            }
+        }*/
 
-                if (keyboardFocus != null)
-                {
-                    keyboardFocus.MoveFocus(tRequest);
-                }
-            }*/
+        /*if (e.Key == Key.S)
+        {
+            TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Down);
+            UIElement keyboardFocus = Keyboard.FocusedElement as UIElement;
 
-            /*if (e.Key == Key.S)
+            if (keyboardFocus != null)
             {
-                TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Down);
-                UIElement keyboardFocus = Keyboard.FocusedElement as UIElement;
+                keyboardFocus.MoveFocus(tRequest);
+            }
+        }*/
 
-                if (keyboardFocus != null)
-                {
-                    keyboardFocus.MoveFocus(tRequest);
-                }
-            }*/
+        /*if (e.Key == Key.A)
+        {
+            TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Left);
+            UIElement keyboardFocus = Keyboard.FocusedElement as UIElement;
 
-            /*if (e.Key == Key.A)
+            if (keyboardFocus != null)
             {
-                TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Left);
-                UIElement keyboardFocus = Keyboard.FocusedElement as UIElement;
+                keyboardFocus.MoveFocus(tRequest);
+            }
+        }*/
 
-                if (keyboardFocus != null)
-                {
-                    keyboardFocus.MoveFocus(tRequest);
-                }
-            }*/
+        /*if (e.Key == Key.D)
+        {
+            TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Right);
+            UIElement keyboardFocus = Keyboard.FocusedElement as UIElement;
 
-            /*if (e.Key == Key.D)
+            if (keyboardFocus != null)
             {
-                TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Right);
-                UIElement keyboardFocus = Keyboard.FocusedElement as UIElement;
+                keyboardFocus.MoveFocus(tRequest);
+            }
+        }*/
 
-                if (keyboardFocus != null)
-                {
-                    keyboardFocus.MoveFocus(tRequest);
-                }
-            }*/
+        /*if (e.Key == Key.Add && ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control))
+        {
+            var uielement = sender as UIElement;
+            int count = LayerButtonStack.Children.Count;
 
-            /*if (e.Key == Key.Add && ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control))
+            for(int i = 0; i < count; i++)
             {
-                var uielement = sender as UIElement;
-                int count = LayerButtonStack.Children.Count;
-
-                for(int i = 0; i < count; i++)
+                RadioButton rb = (RadioButton)LayerButtonStack.Children[i];
+                Border br = (Border)LayerControlStack.Children[i];
+                if(rb.IsChecked == true && rb.IsFocused == true)
                 {
-                    RadioButton rb = (RadioButton)LayerButtonStack.Children[i];
-                    Border br = (Border)LayerControlStack.Children[i];
-                    if(rb.IsChecked == true && rb.IsFocused == true)
+                    if (i > 0)
                     {
-                        if (i > 0)
-                        {
-                            LayerButtonStack.Children.Remove(rb);
-                            LayerButtonStack.Children.Insert(i - 1, rb);
-                            LayerControlStack.Children.Remove(br);
-                            LayerControlStack.Children.Insert(i - 1, br);
-                        }
+                        LayerButtonStack.Children.Remove(rb);
+                        LayerButtonStack.Children.Insert(i - 1, rb);
+                        LayerControlStack.Children.Remove(br);
+                        LayerControlStack.Children.Insert(i - 1, br);
                     }
                 }
+            }
 
-                List<string> LayerIndex = new List<string>();
-                foreach (RadioButton rb in LayerButtonStack.Children)
-                {
-                    LayerIndex.Add(rb.Tag.ToString());
-                }
-
-                if (cmix != null)
-                {
-                    cmixdata = (CMiXData)this.DataContext;
-                    var OSCSender = new SharpOSC.UDPSender(IP, Port);
-                    OSCSender.Send(new SharpOSC.OscMessage("/" + "LayerIndex", LayerIndex.ToArray()));
-                }
-            }*/
-
-            /*if (e.Key == Key.Subtract && ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control))
+            List<string> LayerIndex = new List<string>();
+            foreach (RadioButton rb in LayerButtonStack.Children)
             {
-                var uielement = sender as UIElement;
-                int count = LayerButtonStack.Children.Count;
+                LayerIndex.Add(rb.Tag.ToString());
+            }
 
-                for (int i = count - 1; i >= 0; i--)
+            if (cmix != null)
+            {
+                cmixdata = (CMiXData)this.DataContext;
+                var OSCSender = new SharpOSC.UDPSender(IP, Port);
+                OSCSender.Send(new SharpOSC.OscMessage("/" + "LayerIndex", LayerIndex.ToArray()));
+            }
+        }*/
+
+        /*if (e.Key == Key.Subtract && ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control))
+        {
+            var uielement = sender as UIElement;
+            int count = LayerButtonStack.Children.Count;
+
+            for (int i = count - 1; i >= 0; i--)
+            {
+                RadioButton rb = (RadioButton)LayerButtonStack.Children[i];
+                Border br = (Border)LayerControlStack.Children[i];
+                if (rb.IsChecked == true && rb.IsFocused == true)
                 {
-                    RadioButton rb = (RadioButton)LayerButtonStack.Children[i];
-                    Border br = (Border)LayerControlStack.Children[i];
-                    if (rb.IsChecked == true && rb.IsFocused == true)
+                    if (i < count - 1)
                     {
-                        if (i < count - 1)
-                        {
-                            LayerButtonStack.Children.Remove(rb);
-                            LayerButtonStack.Children.Insert(i + 1, rb);
-                            LayerControlStack.Children.Remove(br);
-                            LayerControlStack.Children.Insert(i + 1, br);
-                        }
+                        LayerButtonStack.Children.Remove(rb);
+                        LayerButtonStack.Children.Insert(i + 1, rb);
+                        LayerControlStack.Children.Remove(br);
+                        LayerControlStack.Children.Insert(i + 1, br);
                     }
                 }
+            }
 
-                List<string> LayerIndex = new List<string>();
-                foreach (RadioButton rb in LayerButtonStack.Children)
-                {
-                    LayerIndex.Add(rb.Tag.ToString());
-                }
-
-                if (cmix != null)
-                {
-                    cmixdata = (CMiXData)this.DataContext;
-                    var OSCSender = new SharpOSC.UDPSender(IP, Port);
-                    OSCSender.Send(new SharpOSC.OscMessage("/" + "LayerIndex", LayerIndex.ToArray()));
-                }
-            }*/
-
-            /*if(e.Key == Key.B && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            List<string> LayerIndex = new List<string>();
+            foreach (RadioButton rb in LayerButtonStack.Children)
             {
-                MasterBeatControl.Focus();
-            }*/
+                LayerIndex.Add(rb.Tag.ToString());
+            }
 
-            /*if(e.Key == Key.NumPad0 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            if (cmix != null)
             {
-                CameraControl.Focus();
-            }*/
+                cmixdata = (CMiXData)this.DataContext;
+                var OSCSender = new SharpOSC.UDPSender(IP, Port);
+                OSCSender.Send(new SharpOSC.OscMessage("/" + "LayerIndex", LayerIndex.ToArray()));
+            }
+        }*/
 
-            /*if(e.Key == Key.NumPad1 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
-            {
-                RadioButton rb = LayerButtonStack.Children[0] as RadioButton;
-                rb.Focus();
-                rb.IsChecked = true;
-            }*/
+        /*if(e.Key == Key.B && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+        {
+            MasterBeatControl.Focus();
+        }*/
 
-            /*if (e.Key == Key.NumPad2 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
-            {
-                RadioButton rb = LayerButtonStack.Children[1] as RadioButton;
-                rb.Focus();
-                rb.IsChecked = true;
-            }*/
-            
-            /*if (e.Key == Key.NumPad3 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
-            {
-                RadioButton rb = LayerButtonStack.Children[2] as RadioButton;
-                rb.Focus();
-                rb.IsChecked = true;
-            }*/
-            
-            /*if (e.Key == Key.NumPad4 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
-            {
-                /*RadioButton rb = LayerButtonStack.Children[3] as RadioButton;
-                rb.Focus();
-                rb.IsChecked = true;
-            }*/
+        /*if(e.Key == Key.NumPad0 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+        {
+            CameraControl.Focus();
+        }*/
 
-            /*if (e.Key == Key.NumPad5 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
-            {
-                RadioButton rb = LayerButtonStack.Children[4] as RadioButton;
-                rb.Focus();
-                rb.IsChecked = true;
-            }*/
+        /*if(e.Key == Key.NumPad1 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+        {
+            RadioButton rb = LayerButtonStack.Children[0] as RadioButton;
+            rb.Focus();
+            rb.IsChecked = true;
+        }*/
 
-            /*if (e.Key == Key.NumPad6 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
-            {
-                /*RadioButton rb = LayerButtonStack.Children[5] as RadioButton;
-                rb.Focus();
-                rb.IsChecked = true;
-            }*/
+        /*if (e.Key == Key.NumPad2 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+        {
+            RadioButton rb = LayerButtonStack.Children[1] as RadioButton;
+            rb.Focus();
+            rb.IsChecked = true;
+        }*/
 
-        
+        /*if (e.Key == Key.NumPad3 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+        {
+            RadioButton rb = LayerButtonStack.Children[2] as RadioButton;
+            rb.Focus();
+            rb.IsChecked = true;
+        }*/
+
+        /*if (e.Key == Key.NumPad4 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+        {
+            /*RadioButton rb = LayerButtonStack.Children[3] as RadioButton;
+            rb.Focus();
+            rb.IsChecked = true;
+        }*/
+
+        /*if (e.Key == Key.NumPad5 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+        {
+            RadioButton rb = LayerButtonStack.Children[4] as RadioButton;
+            rb.Focus();
+            rb.IsChecked = true;
+        }*/
+
+        /*if (e.Key == Key.NumPad6 && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+        {
+            /*RadioButton rb = LayerButtonStack.Children[5] as RadioButton;
+            rb.Focus();
+            rb.IsChecked = true;
+        }*/
+
+
     }
 }

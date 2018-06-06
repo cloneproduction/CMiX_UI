@@ -23,10 +23,10 @@
                 x:Name="MaskMultiplier"
                 DockPanel.Dock="Right"
                 MasterPeriod="{Binding DataContext.LayerPeriod, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}"
-                Multiplier="{Binding DataContext.MaskMultiplier, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
+                Multiplier="{Binding Multiplier, Mode=TwoWay}" />
             <CMiX:CustomSlider
                 x:Name="MaskChanceToHit"
-                Value="{Binding DataContext.MaskChanceToHit, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
+                Value="{Binding ChanceToHit, Mode=TwoWay}" />
         </DockPanel>
     </Grid>
 </UserControl>

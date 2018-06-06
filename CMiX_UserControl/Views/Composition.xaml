@@ -18,35 +18,19 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Fonts/Roboto.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseFocusVisual.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTreeViewStyle.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseButtonStyle.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseRadioButtonStyle.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/LayerRadioButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxItemPanelStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseToggleButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTextBoxStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabControlStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseLabelStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseSliderStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseGroupBoxStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxControlStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxItemStyle.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuStyle.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuItemStyle.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseContextMenuStyle.xaml" />
                 <!--<ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseScrollViewerStyle.xaml" />-->
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseRangeSlider.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <CMiX:PeriodToBPMConverter x:Key="PeriodToBPM" />
             <CMiX:ColorToStringConverter x:Key="ColorToString" />
             <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
         </ResourceDictionary>
     </UserControl.Resources>
-
     <DockPanel
         x:Name="CMiX_UserControl"
         Background="#FF141414"
@@ -107,23 +91,19 @@
             DockPanel.Dock="Bottom" />
         <Grid Grid.Row="1" KeyboardNavigation.TabNavigation="Cycle">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="0.6*"/>
+                <ColumnDefinition Width="0.2*"/>
             </Grid.ColumnDefinitions>
             <Border
                 Grid.Column="0"
                 Margin="4"
                 Background="{StaticResource BaseHighDarkerColor}"
-                FocusVisualStyle="{DynamicResource FocusVisualStyle}"
                 Focusable="True">
                 <DockPanel KeyboardNavigation.TabNavigation="None" LastChildFill="False">
                     <CMiX:MasterBeatControl
                         x:Name="MasterBeatControl"
                         DockPanel.Dock="Bottom"
-                        FocusVisualStyle="{StaticResource FocusVisualStyle}"
                         Focusable="True"
                         MasterPeriod="{Binding MainBeat}" />
                     <CMiX:Camera 
@@ -135,29 +115,22 @@
             <Grid
                 x:Name="ContentControl"
                 Grid.Column="1"
-                Grid.ColumnSpan="3"
-                Margin="0,4,0,4"
-                FocusVisualStyle="{DynamicResource FocusVisualStyle}"
-                Focusable="True"
-                KeyboardNavigation.TabNavigation="None">
+                Margin="0,4,0,4">
                 <Views:LayerControls
                     x:Name="Layer0"
-                    DataContext="{Binding Layers[0]}"
-                    Tag="0" />
+                    DataContext="{Binding CurrentLayer}"
+                    Tag="0" Loaded="Layer0_Loaded" />
             </Grid>
             <Border
                 Grid.Column="4"
                 Margin="4"
-                Background="{StaticResource BaseDarkerColor}"
-                FocusVisualStyle="{DynamicResource FocusVisualStyle}"
-                Focusable="True">
+                Background="{StaticResource BaseDarkerColor}">
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
                         <Button
                             x:Name="AddLayer"
                             Width="25"
                             Height="25"
-
                             Content="+"
                             DockPanel.Dock="left"
                             Style="{StaticResource BaseButtonStyle}" />
@@ -165,13 +138,10 @@
                             x:Name="RemoveLayer"
                             Width="25"
                             Height="25"
-
                             Content="-"
                             DockPanel.Dock="left"
                             Style="{StaticResource BaseButtonStyle}" />
                     </StackPanel>
-
-
                     <ScrollViewer
                         Margin="2"
                         DockPanel.Dock="Bottom"
@@ -189,7 +159,6 @@
                                 PreviewMouseLeftButtonDown="sp_PreviewMouseLeftButtonDown"
                                 PreviewMouseLeftButtonUp="sp_PreviewMouseLeftButtonUp"
                                 PreviewMouseMove="sp_PreviewMouseMove">
-
                             </StackPanel>
                             <StackPanel
                                 x:Name="LayerControlStack"
