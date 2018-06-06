@@ -5,40 +5,18 @@
     xmlns:CMiX="clr-namespace:CMiX"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="300"
-    d:DesignWidth="300"
+    d:DesignHeight="120"
+    d:DesignWidth="292"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Fonts/Roboto.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseFocusVisual.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTreeViewStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseRadioButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/LayerRadioButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseButtonStyle.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxStyle.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxItemStyle.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxItemPanelStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseToggleButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTextBoxStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabControlStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseLabelStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseSliderStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseGroupBoxStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxControlStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseContextMenuStyle.xaml" />
-                <!--<ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseScrollViewerStyle.xaml" />-->
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseRangeSlider.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <CMiX:PeriodToBPMConverter x:Key="PeriodToBPM" />
-            <CMiX:ColorToStringConverter x:Key="ColorToString" />
-            <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel>
@@ -46,7 +24,7 @@
             <StackPanel x:Name="TexFXControl" Margin="0,2,0,4">
                 <Label
                     Height="25"
-                    Margin="0,4,0,0"
+                    Margin="0,0,0,2"
                     HorizontalContentAlignment="Center"
                     Background="{StaticResource BaseDarkColor}"
                     Content="PostFX"
@@ -56,17 +34,17 @@
                 <CMiX:CustomSlider
                     x:Name="SpriteFeedBack"
                     Height="25"
-                    Margin="0,1,0,0"
+                    Margin="0,1,0,1"
                     Caption="Feedback"
                     Tag="TexFeedBack"
-                    Value="{Binding DataContext.SpriteFeedBack, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
+                    Value="{Binding Feedback, Mode=TwoWay}" />
                 <CMiX:CustomSlider
                     x:Name="SpriteBlur"
                     Height="25"
-                    Margin="0,1,0,0"
+                    Margin="0,1,0,1"
                     Caption="Blur"
                     Tag="Blur"
-                    Value="{Binding DataContext.SpriteBlur, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
+                    Value="{Binding Blur, Mode=TwoWay}" />
                 <Grid DockPanel.Dock="Bottom">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -76,24 +54,24 @@
                         x:Name="SpriteTransform"
                         Grid.Column="0"
                         Height="25"
-                        Margin="0,1,1,0"
+                        Margin="0,1,1,1"
                         HorizontalContentAlignment="Left"
-                        FocusVisualStyle="{StaticResource FocusVisualStyle}"
                         ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}"
+                        Template="{DynamicResource BaseComboBoxStyle}" 
                         ItemsSource="{Binding TexTransformNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         SelectedItem="{Binding DataContext.SpriteTransform, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Template="{DynamicResource BaseComboBoxStyle}" />
+                        />
                     <CMiX:CMiXComboBox
                         x:Name="SpriteView"
                         Grid.Column="1"
                         Height="25"
-                        Margin="1,1,0,0"
+                        Margin="1,1,0,1"
                         HorizontalContentAlignment="Left"
-                        FocusVisualStyle="{StaticResource FocusVisualStyle}"
                         ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}"
+                        Template="{DynamicResource BaseComboBoxStyle}"
                         ItemsSource="{Binding ViewNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         SelectedItem="{Binding DataContext.SpriteViewTransform, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Template="{DynamicResource BaseComboBoxStyle}" />
+                        />
                 </Grid>
             </StackPanel>
         </Border>

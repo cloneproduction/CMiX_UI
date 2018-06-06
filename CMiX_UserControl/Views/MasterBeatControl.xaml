@@ -20,7 +20,7 @@
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseToggleButtonStyle.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseLabelStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <CMiX:PeriodToBPMConverter x:Key="PeriodToBPM" />
+            <CMiX:PeriodToBPMConverter x:Key="PeriodToBPM"/>
         </ResourceDictionary>
     </UserControl.Resources>
     <Border Background="{DynamicResource BaseHighDarkerColor}">

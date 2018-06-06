@@ -11,16 +11,16 @@ namespace CMiX.ViewModels
                   backgroundColor: Colors.Black,
                   hue: new HSVPoint(),
                   saturation: new HSVPoint(),
-                  lightness: new HSVPoint())
+                  value: new HSVPoint())
         { }
 
-        public Coloration(Color objectColor, Color backgroundColor, HSVPoint hue, HSVPoint saturation, HSVPoint lightness)
+        public Coloration(Color objectColor, Color backgroundColor, HSVPoint hue, HSVPoint saturation, HSVPoint value)
         {
             ObjectColor = objectColor;
             BackgroundColor = backgroundColor;
             Hue = hue ?? throw new ArgumentNullException(nameof(hue));
             Saturation = saturation ?? throw new ArgumentNullException(nameof(saturation));
-            Lightness = lightness ?? throw new ArgumentNullException(nameof(lightness));
+            Value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
         private Color _objectColor;
@@ -41,6 +41,6 @@ namespace CMiX.ViewModels
 
         public HSVPoint Saturation { get; }
 
-        public HSVPoint Lightness { get; }
+        public HSVPoint Value { get; }
     }
 }

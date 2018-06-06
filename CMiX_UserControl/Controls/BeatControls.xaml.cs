@@ -56,30 +56,30 @@ namespace CMiX
             }
         }
 
-        public event EventHandler BeatControlChanged;
+        /*public event EventHandler BeatControlChanged;
         protected virtual void OnBeatControlChanged(RoutedEventArgs e)
         {
             var handler = BeatControlChanged;
             if (handler != null)
                 handler(this, e);
-        }
+        }*/
 
         private void BeatMultiply_Click(object sender, RoutedEventArgs e)
         {
             Multiplier /= 2.0;
-            OnBeatControlChanged(e);
+            //OnBeatControlChanged(e);
         }
 
         private void BeatDivide_Click(object sender, RoutedEventArgs e)
         {
             Multiplier *= 2.0;
-            OnBeatControlChanged(e);
+            //OnBeatControlChanged(e);
         }
 
         private void ResetBPM_Click(object sender, RoutedEventArgs e)
         {
             Multiplier = 1.0;
-            OnBeatControlChanged(e);
+            //OnBeatControlChanged(e);
         }
         #endregion
     }

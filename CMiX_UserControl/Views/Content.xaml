@@ -13,65 +13,50 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Fonts/Roboto.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseFocusVisual.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseRadioButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/LayerRadioButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxItemPanelStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseToggleButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTextBoxStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabControlStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabItemStyle.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseLabelStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseSliderStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseGroupBoxStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxControlStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseContextMenuStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <CMiX:PathToFilenameConverter x:Key="PathToFileName" />
-            <CMiX:ColorToStringConverter x:Key="ColorToString" />
-            <CMiX:BoolInverterConverter x:Key="BoolInverter" />
-            <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
         </ResourceDictionary>
     </UserControl.Resources>
     <DockPanel>
-        <Grid Height="40" DockPanel.Dock="Top">
+        <Grid  
+            DockPanel.Dock="Top"
+            Margin="0, 0, 0, 2">
             <Label
                 Height="25"
                 VerticalAlignment="Center"
                 VerticalContentAlignment="Center"
                 Background="{StaticResource BaseDarkerColor}"
                 Content="CONTENT"
-                FontSize="12"
                 Foreground="{StaticResource BaseText}" />
             <CMiX:Counter
                 x:Name="SpriteCount"
+                Height="25"
                 Width="150"
-                Margin="2"
+                Margin="0"
                 HorizontalAlignment="Right"
                 Count="{Binding Count}" />
         </Grid>
         <DockPanel LastChildFill="True">
             <Views:BeatModifier
                 x:Name="ContentBeatModifier"
+                Height="25"
+                Margin="0, 2, 0, 2"
                 DataContext="{Binding BeatModifier}"
                 DockPanel.Dock="Top" />
             <Views:PostFX
                 x:Name="ContentPostFX"
+                Margin="0, 2, 0, 2"
                 DataContext="{Binding PostFX}"
                 DockPanel.Dock="Bottom" />
             <Views:Geometry
                 x:Name="ContentGeometry"
+                Margin="0, 2, 0, 2"
                 DataContext="{Binding Geometry}"
                 DockPanel.Dock="Bottom" />
             <Views:Texture
                 x:Name="ContentTexture"
+                Margin="0, 2, 0, 2"
                 DataContext="{Binding Texture}"
                 DockPanel.Dock="Top" />
         </DockPanel>

@@ -164,7 +164,7 @@
                                 x:Name="LayerControlStack"
                                 Grid.Column="1"
                                 AllowDrop="True">
-                                <CMiX:ChannelLayer x:Name="LayerControl0" DataContext="{Binding DataContext.ChData[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=cmix}" />
+                                <CMiX:ChannelLayer x:Name="LayerControl0"/>
                             </StackPanel>
                         </Grid>
                     </ScrollViewer>

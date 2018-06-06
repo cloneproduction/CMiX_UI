@@ -14,7 +14,6 @@
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Fonts/Roboto.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseLabelStyle.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseSliderStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -24,7 +23,7 @@
             <CMiX:BeatControls
                 x:Name="MaskMultiplier"
                 DockPanel.Dock="Right"
-                MasterPeriod="{Binding DataContext.LayerPeriod, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}"
+                MasterPeriod="{Binding Period, Mode=OneWay}"
                 Multiplier="{Binding Multiplier, Mode=TwoWay}" />
             <CMiX:CustomSlider x:Name="MaskChanceToHit" Value="{Binding ChanceToHit, Mode=TwoWay}" />
         </DockPanel>

@@ -83,7 +83,7 @@
                             x:Name="Color"
                             Margin="4"
                             Background="{StaticResource BaseDarkerColor}"
-                            SelectedColor="{Binding DataContext.Color, Converter={StaticResource ColorToString}, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            SelectedColor="{Binding ObjectColor, Mode=TwoWay}" />
                     </TabItem>
                     <TabItem Header="Background" Style="{StaticResource BaseTabItemStyle}">
                         <colorpicker:ColorPicker
@@ -99,7 +99,7 @@
                 Margin="0,4,0,4"
                 HorizontalContentAlignment="Center"
                 Background="{StaticResource BaseDarkColor}"
-                Content="MOD"
+                Content="Modifiers"
                 Foreground="{DynamicResource BaseText}" />
             <StackPanel Grid.Row="1">
                 <Grid
@@ -117,7 +117,7 @@
                         Height="25"
                         Caption="Hue"
                         Tag="Hue"
-                        Value="{Binding DataContext.HueRange, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
+                        Value="{Binding Hue.Color, Mode=TwoWay}" />
                     <ComboBox
                         x:Name="HueName"
                         Grid.Column="0"
@@ -143,7 +143,7 @@
                         Height="25"
                         Caption="Sat"
                         Tag="Sat"
-                        Value="{Binding DataContext.SatRange, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
+                        Value="{Binding Saturation.Color, Mode=TwoWay}" />
                     <ComboBox
                         x:Name="SatName"
                         Grid.Column="0"
@@ -169,7 +169,7 @@
                         Height="25"
                         Caption="Val"
                         Tag="Val"
-                        Value="{Binding DataContext.ValRange, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
+                        Value="{Binding Value.Color, Mode=TwoWay}" />
                     <ComboBox
                         x:Name="ValName"
                         Grid.Column="0"

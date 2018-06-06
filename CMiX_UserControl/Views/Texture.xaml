@@ -76,7 +76,7 @@
                     Margin="0,1,0,0"
                     Caption="Invert"
                     Tag="MaskInvert"
-                    Value="{Binding DataContext.MaskInvert, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
+                    Value="{Binding Invert, Mode=TwoWay}" />
             </Grid>
             <CMiX:CustomSlider
                 x:Name="MaskKeying"
@@ -87,7 +87,7 @@
                 Caption="Keying"
                 DockPanel.Dock="Bottom"
                 Tag="Saturation"
-                Value="{Binding DataContext.MaskKeying, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
+                Value="{Binding Keying, Mode=TwoWay}" />
             <CMiX:CustomSlider
                 x:Name="MaskSaturation"
                 Height="25"
@@ -95,7 +95,7 @@
                 Caption="Saturation"
                 DockPanel.Dock="Bottom"
                 Tag="MaskSaturation"
-                Value="{Binding DataContext.MaskSaturation, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
+                Value="{Binding Saturation, Mode=TwoWay}" />
             <CMiX:CustomSlider
                 x:Name="MaskContrast"
                 Height="25"
@@ -103,7 +103,7 @@
                 Caption="Contrast"
                 DockPanel.Dock="Bottom"
                 Tag="MaskContrast"
-                Value="{Binding DataContext.MaskContrast, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
+                Value="{Binding Contrast, Mode=TwoWay}" />
             <CMiX:CustomSlider
                 x:Name="MaskBrightness"
                 Height="25"
@@ -111,7 +111,7 @@
                 Caption="Brightness"
                 DockPanel.Dock="Bottom"
                 Tag="MaskBrightness"
-                Value="{Binding DataContext.MaskBrightness, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
+                Value="{Binding Brightness, Mode=TwoWay}" />
         </DockPanel>
         <CMiX:FileSelector
             x:Name="MaskSelectedTex"

@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:CMiX="clr-namespace:CMiX"
+    xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="Ch_Control"
@@ -15,25 +16,10 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/LayerRadioButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseButtonStyle.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxStyle.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxItemStyle.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxItemPanelStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseToggleButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTextBoxStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabControlStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseLabelStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseSliderStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseGroupBoxStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxControlStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseContextMenuStyle.xaml" />
-
             </ResourceDictionary.MergedDictionaries>
-            <CMiX:PathToFilenameConverter x:Key="PathToFileName" />
             <CMiX:ColorToStringConverter x:Key="ColorToString" />
         </ResourceDictionary>
     </UserControl.Resources>
@@ -69,31 +55,25 @@
                 </Grid.RowDefinitions>
                 <CMiX:CustomSlider
                     x:Name="Alpha"
-                    Margin="0,0,0,1"
+                    Margin="0, 1, 0, 1"
                     Caption="Alpha"
-                    SliderValueChanged="SliderValueChanged"
                     Tag="LayerAlpha"
-                    Value="{Binding DataContext.Alpha, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Control}" />
+                    Value="{Binding Alpha, Mode=TwoWay}" />
                 <ComboBox
                     x:Name="BlendMode"
                     Grid.Row="1"
                     Grid.Column="1"
-                    Margin="1"
+                    Margin="0, 1, 0, 1"
                     ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}"
+                    Template="{DynamicResource BaseComboBoxStyle}" 
                     ItemsSource="{Binding ChannelsBlendMode, ElementName=Ch_Control, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding DataContext.BlendMode, ElementName=Ch_Control, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectionChanged="ComboBoxSelectionChanged"
                     Tag="ChannelBlendMode"
-                    Template="{DynamicResource BaseComboBoxStyle}" />
-                <CMiX:BeatControls
-                    x:Name="BeatControls"
+                    />
+                <Views:BeatModifier
+                    DataContext="{Binding BeatModifier}"
                     Grid.Row="2"
-                    Margin="0,1,0,0"
-                    BeatControlChanged="BeatControlsChanged"
-                    ControlPeriod="{Binding DataContext.LayerPeriod, Mode=TwoWay, ElementName=Ch_Control, UpdateSourceTrigger=PropertyChanged}"
-                    MasterPeriod="{Binding DataContext.MasterPeriod[0], Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:Composition}}}"
-                    Multiplier="{Binding DataContext.ChannelMultiplier, ElementName=Ch_Control, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Tag="0" />
+                    Margin="0, 1, 0, 1"/>
             </Grid>
         </Grid>
     </Border>

@@ -122,7 +122,7 @@
                             x:Name="SpriteSelectedGeom"
                             Title="Models"
                             FileMask="{Binding GeometryFileMask, Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type Views:LayerControls}}}"
-                            SelectedItems="{Binding DataContext.SpriteSelectedGeom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=Ch_Parameters}" />
+/>
                     </Border>
                 </DockPanel>
             </TabItem>
@@ -196,14 +196,14 @@
                 Grid.Column="0"
                 Content="AR"
                 DockPanel.Dock="Bottom"
-                IsChecked="{Binding DataContext.SpriteAspectRatio, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}"
+                IsChecked="{Binding KeepAspectRatio, Mode=TwoWay}"
                 Style="{DynamicResource BaseToggleButtonStyle}" />
             <ToggleButton
                 x:Name="Sprite3D"
                 Grid.Column="1"
                 Content="3D"
                 DockPanel.Dock="Right"
-                IsChecked="{Binding DataContext.Sprite3D, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}"
+                IsChecked="{Binding Is3D, Mode=TwoWay}"
                 Style="{DynamicResource BaseToggleButtonStyle}" />
         </Grid>
     </StackPanel>

@@ -97,10 +97,7 @@
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-
-
     <Grid
-        Margin="1"
         FocusVisualStyle="{StaticResource CMiXSliderFocusVisualStyle}"
         Focusable="True"
         Keyboard.KeyDown="CMiXSlider_KeyDown">
@@ -123,7 +120,6 @@
             Style="{StaticResource BaseSliderStyle}"
             ValueChanged="CMiXSlider_ValueChanged"
             Value="{Binding Value, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:CustomSlider}}}" />
-
         <Label
             Grid.Column="0"
             Margin="0,0,20,0"
