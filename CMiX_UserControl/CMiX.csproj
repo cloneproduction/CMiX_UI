@@ -96,6 +96,8 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\IMessenger.cs" />
+    <Compile Include="Services\OSCMessenger.cs" />
     <Compile Include="ViewModels\BeatModifier.cs" />
     <Compile Include="Views\BeatModifier.xaml.cs">
       <DependentUpon>BeatModifier.xaml</DependentUpon>
@@ -129,7 +131,6 @@
     <Compile Include="Controls\BeatControls.xaml.cs">
       <DependentUpon>BeatControls.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BeatSystem.cs" />
     <Compile Include="Unused\ChannelData.cs" />
     <Compile Include="Controls\CMiXComboBox.cs" />
     <Compile Include="Controls\LayerRadioButton.cs" />

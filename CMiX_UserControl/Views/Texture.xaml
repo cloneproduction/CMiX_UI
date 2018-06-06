@@ -1,12 +1,14 @@
-﻿<UserControl x:Class="CMiX.Views.Texture"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:CMiX="clr-namespace:CMiX"
-             xmlns:Views="clr-namespace:CMiX.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="422.667" d:DesignWidth="347.333">
+﻿<UserControl
+    x:Class="CMiX.Views.Texture"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:CMiX="clr-namespace:CMiX"
+    xmlns:Views="clr-namespace:CMiX.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="422.667"
+    d:DesignWidth="347.333"
+    mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -43,84 +45,84 @@
     </UserControl.Resources>
     <DockPanel LastChildFill="True">
         <DockPanel
-                    x:Name="MaskColorControl"
-                    Margin="0,4,0,4"
-                    DockPanel.Dock="Bottom">
-                <Grid
+            x:Name="MaskColorControl"
+            Margin="0,4,0,4"
+            DockPanel.Dock="Bottom">
+            <Grid
+                Height="25"
+                Margin="0,1,0,0"
+                DockPanel.Dock="Bottom">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <CMiX:CMiXComboBox
+                    x:Name="MaskSelectedInvert"
+                    Grid.Column="0"
+                    Margin="1"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch"
+                    DockPanel.Dock="Left"
+                    FocusVisualStyle="{StaticResource FocusVisualStyle}"
+                    ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}"
+                    ItemsSource="{Binding InvertNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding DataContext.MaskSelectedInvert, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}"
+                    Template="{DynamicResource BaseComboBoxStyle}" />
+                <CMiX:CustomSlider
+                    x:Name="MaskInvert"
+                    Grid.Row="0"
+                    Grid.Column="1"
                     Height="25"
                     Margin="0,1,0,0"
-                    DockPanel.Dock="Bottom">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.5*" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <CMiX:CMiXComboBox
-                                        x:Name="MaskSelectedInvert"
-                                        Grid.Column="0"
-                                        Margin="1"
-                                        HorizontalContentAlignment="Stretch"
-                                        VerticalContentAlignment="Stretch"
-                                        DockPanel.Dock="Left"
-                                        FocusVisualStyle="{StaticResource FocusVisualStyle}"
-                                        ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}"
-                                        ItemsSource="{Binding InvertNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        SelectedItem="{Binding DataContext.MaskSelectedInvert, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}"
-                                        Template="{DynamicResource BaseComboBoxStyle}" />
-                    <CMiX:CustomSlider
-                                        x:Name="MaskInvert"
-                                        Grid.Row="0"
-                                        Grid.Column="1"
-                                        Height="25"
-                                        Margin="0,1,0,0"
-                                        Caption="Invert"
-                                        Tag="MaskInvert"
-                                        Value="{Binding DataContext.MaskInvert, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
-                </Grid>
-                <CMiX:CustomSlider
-                                    x:Name="MaskKeying"
-                                    Grid.Row="0"
-                                    Grid.Column="1"
-                                    Height="25"
-                                    Margin="0,1,0,0"
-                                    Caption="Keying"
-                                    DockPanel.Dock="Bottom"
-                                    Tag="Saturation"
-                                    Value="{Binding DataContext.MaskKeying, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
-                <CMiX:CustomSlider
-                                    x:Name="MaskSaturation"
-                                    Height="25"
-                                    Margin="0,1,0,0"
-                                    Caption="Saturation"
-                                    DockPanel.Dock="Bottom"
-                                    Tag="MaskSaturation"
-                                    Value="{Binding DataContext.MaskSaturation, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
-                <CMiX:CustomSlider
-                                    x:Name="MaskContrast"
-                                    Height="25"
-                                    Margin="0,1,0,0"
-                                    Caption="Contrast"
-                                    DockPanel.Dock="Bottom"
-                                    Tag="MaskContrast"
-                                    Value="{Binding DataContext.MaskContrast, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
-                <CMiX:CustomSlider
-                                    x:Name="MaskBrightness"
-                                    Height="25"
-                                    Margin="0,1,0,0"
-                                    Caption="Brightness"
-                                    DockPanel.Dock="Bottom"
-                                    Tag="MaskBrightness"
-                                    Value="{Binding DataContext.MaskBrightness, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
-            </DockPanel>
+                    Caption="Invert"
+                    Tag="MaskInvert"
+                    Value="{Binding DataContext.MaskInvert, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
+            </Grid>
+            <CMiX:CustomSlider
+                x:Name="MaskKeying"
+                Grid.Row="0"
+                Grid.Column="1"
+                Height="25"
+                Margin="0,1,0,0"
+                Caption="Keying"
+                DockPanel.Dock="Bottom"
+                Tag="Saturation"
+                Value="{Binding DataContext.MaskKeying, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
+            <CMiX:CustomSlider
+                x:Name="MaskSaturation"
+                Height="25"
+                Margin="0,1,0,0"
+                Caption="Saturation"
+                DockPanel.Dock="Bottom"
+                Tag="MaskSaturation"
+                Value="{Binding DataContext.MaskSaturation, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
+            <CMiX:CustomSlider
+                x:Name="MaskContrast"
+                Height="25"
+                Margin="0,1,0,0"
+                Caption="Contrast"
+                DockPanel.Dock="Bottom"
+                Tag="MaskContrast"
+                Value="{Binding DataContext.MaskContrast, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
+            <CMiX:CustomSlider
+                x:Name="MaskBrightness"
+                Height="25"
+                Margin="0,1,0,0"
+                Caption="Brightness"
+                DockPanel.Dock="Bottom"
+                Tag="MaskBrightness"
+                Value="{Binding DataContext.MaskBrightness, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
+        </DockPanel>
         <CMiX:FileSelector
             x:Name="MaskSelectedTex"
-            DockPanel.Dock="Top"
             Title="Textures"
             MinHeight="100"
             VerticalAlignment="Stretch"
+            DockPanel.Dock="Top"
             FileMask="{Binding TextureFileMask, Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type Views:LayerControls}}}"
             ModeSelection="Extended"
             ScrollViewer.VerticalScrollBarVisibility="Visible"
             SelectedItems="{Binding DataContext.MaskSelectedTex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type Views:LayerControls}}}"
-            Tag="Mask"/>
+            Tag="Mask" />
     </DockPanel>
 </UserControl>

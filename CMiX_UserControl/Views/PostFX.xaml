@@ -1,11 +1,13 @@
-﻿<UserControl x:Class="CMiX.Views.PostFX"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:CMiX="clr-namespace:CMiX"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+﻿<UserControl
+    x:Class="CMiX.Views.PostFX"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:CMiX="clr-namespace:CMiX"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -43,55 +45,55 @@
         <Border DockPanel.Dock="Bottom">
             <StackPanel x:Name="TexFXControl" Margin="0,2,0,4">
                 <Label
-                        Height="25"
-                        Margin="0,4,0,0"
-                        HorizontalContentAlignment="Center"
-                        Background="{StaticResource BaseDarkColor}"
-                        Content="PostFX"
-                        DockPanel.Dock="Bottom"
-                        FontSize="12"
-                        Foreground="{StaticResource BaseText}" />
+                    Height="25"
+                    Margin="0,4,0,0"
+                    HorizontalContentAlignment="Center"
+                    Background="{StaticResource BaseDarkColor}"
+                    Content="PostFX"
+                    DockPanel.Dock="Bottom"
+                    FontSize="12"
+                    Foreground="{StaticResource BaseText}" />
                 <CMiX:CustomSlider
-                                x:Name="SpriteFeedBack"
-                                Height="25"
-                                Margin="0,1,0,0"
-                                Caption="Feedback"
-                                Tag="TexFeedBack"
-                                Value="{Binding DataContext.SpriteFeedBack, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
+                    x:Name="SpriteFeedBack"
+                    Height="25"
+                    Margin="0,1,0,0"
+                    Caption="Feedback"
+                    Tag="TexFeedBack"
+                    Value="{Binding DataContext.SpriteFeedBack, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
                 <CMiX:CustomSlider
-                                x:Name="SpriteBlur"
-                                Height="25"
-                                Margin="0,1,0,0"
-                                Caption="Blur"
-                                Tag="Blur"
-                                Value="{Binding DataContext.SpriteBlur, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
+                    x:Name="SpriteBlur"
+                    Height="25"
+                    Margin="0,1,0,0"
+                    Caption="Blur"
+                    Tag="Blur"
+                    Value="{Binding DataContext.SpriteBlur, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
                 <Grid DockPanel.Dock="Bottom">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <CMiX:CMiXComboBox
-                                    x:Name="SpriteTransform"
-                                    Grid.Column="0"
-                                    Height="25"
-                                    Margin="0,1,1,0"
-                                    HorizontalContentAlignment="Left"
-                                    FocusVisualStyle="{StaticResource FocusVisualStyle}"
-                                    ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}"
-                                    ItemsSource="{Binding TexTransformNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    SelectedItem="{Binding DataContext.SpriteTransform, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Template="{DynamicResource BaseComboBoxStyle}" />
+                        x:Name="SpriteTransform"
+                        Grid.Column="0"
+                        Height="25"
+                        Margin="0,1,1,0"
+                        HorizontalContentAlignment="Left"
+                        FocusVisualStyle="{StaticResource FocusVisualStyle}"
+                        ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}"
+                        ItemsSource="{Binding TexTransformNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding DataContext.SpriteTransform, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Template="{DynamicResource BaseComboBoxStyle}" />
                     <CMiX:CMiXComboBox
-                                    x:Name="SpriteView"
-                                    Grid.Column="1"
-                                    Height="25"
-                                    Margin="1,1,0,0"
-                                    HorizontalContentAlignment="Left"
-                                    FocusVisualStyle="{StaticResource FocusVisualStyle}"
-                                    ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}"
-                                    ItemsSource="{Binding ViewNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    SelectedItem="{Binding DataContext.SpriteViewTransform, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Template="{DynamicResource BaseComboBoxStyle}" />
+                        x:Name="SpriteView"
+                        Grid.Column="1"
+                        Height="25"
+                        Margin="1,1,0,0"
+                        HorizontalContentAlignment="Left"
+                        FocusVisualStyle="{StaticResource FocusVisualStyle}"
+                        ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}"
+                        ItemsSource="{Binding ViewNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding DataContext.SpriteViewTransform, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Template="{DynamicResource BaseComboBoxStyle}" />
                 </Grid>
             </StackPanel>
         </Border>

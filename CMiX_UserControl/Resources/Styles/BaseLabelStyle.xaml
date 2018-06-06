@@ -15,11 +15,7 @@
                         SnapsToDevicePixels="True"
                         TextElement.Foreground="{DynamicResource BaseText}">
                         <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
-                            <TextBlock
-                                x:Name="textBlock"
-                                HorizontalAlignment="Center"
-                                Foreground="{DynamicResource BaseText}"
-                                Text="{TemplateBinding Content}" />
+                            <ContentPresenter HorizontalAlignment="Center" />
                         </Viewbox>
                     </Border>
                 </ControlTemplate>

@@ -1,13 +1,14 @@
-﻿<UserControl x:Class="CMiX.Camera"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:CMiX="clr-namespace:CMiX"
-
-             mc:Ignorable="d" 
-             x:Name="CameraControl"
-             d:DesignHeight="300" d:DesignWidth="300">
+﻿<UserControl
+    x:Class="CMiX.Camera"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:CMiX="clr-namespace:CMiX"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="CameraControl"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -42,10 +43,10 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <DockPanel
-                        Margin="0,4,0,166"
-                        DockPanel.Dock="Bottom"
-                        FocusVisualStyle="{StaticResource FocusVisualStyle}"
-                        Focusable="True">
+        Margin="0,4,0,166"
+        DockPanel.Dock="Bottom"
+        FocusVisualStyle="{StaticResource FocusVisualStyle}"
+        Focusable="True">
         <Label
             Height="25"
             Margin="0,0,0,4"
@@ -57,19 +58,17 @@
             Foreground="{StaticResource BaseText}" />
         <DockPanel DockPanel.Dock="Top" LastChildFill="True">
             <CMiX:BeatControls
-                                x:Name="BeatControlsCam"
-                                Height="25"
-                                Margin="1"
-
-                                DockPanel.Dock="Right"
-                                MasterPeriod="{Binding DataContext.MasterPeriod[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Multiplier="{Binding DataContext.CamBeatMultiplier[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                x:Name="BeatControlsCam"
+                Height="25"
+                Margin="1"
+                DockPanel.Dock="Right"
+                MasterPeriod="{Binding DataContext.MasterPeriod[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Multiplier="{Binding DataContext.CamBeatMultiplier[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <CMiX:CustomSlider
-                                x:Name="CamChanceToHit"
-                                Height="25"
-
-                                Tag="CamChanceToHit"
-                                Value="{Binding DataContext.CamChanceToHit[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                x:Name="CamChanceToHit"
+                Height="25"
+                Tag="CamChanceToHit"
+                Value="{Binding DataContext.CamChanceToHit[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </DockPanel>
         <Grid DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>
@@ -78,52 +77,52 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <CMiX:CMiXComboBox
-                                x:Name="CameraRotation"
-                                Grid.Column="0"
-                                Height="25"
-                                Margin="1"
-                                FocusVisualStyle="{DynamicResource FocusVisualStyle}"
-                                ItemContainerStyle="{DynamicResource BaseListBoxItemStyle}"
-                                ItemsSource="{Binding CamRotation, ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                SelectedItem="{Binding DataContext.CamRotation[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Tag="CamRotation"
-                                Template="{DynamicResource BaseComboBoxStyle}" />
+                x:Name="CameraRotation"
+                Grid.Column="0"
+                Height="25"
+                Margin="1"
+                FocusVisualStyle="{DynamicResource FocusVisualStyle}"
+                ItemContainerStyle="{DynamicResource BaseListBoxItemStyle}"
+                ItemsSource="{Binding CamRotation, ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding DataContext.CamRotation[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Tag="CamRotation"
+                Template="{DynamicResource BaseComboBoxStyle}" />
             <CMiX:CMiXComboBox
-                                x:Name="CameraLookAt"
-                                Grid.Column="1"
-                                Height="25"
-                                Margin="1"
-                                FocusVisualStyle="{DynamicResource FocusVisualStyle}"
-                                ItemContainerStyle="{DynamicResource BaseListBoxItemStyle}"
-                                ItemsSource="{Binding CamLookAt, ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                SelectedItem="{Binding DataContext.CamLookAt[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Tag="CamLookAt"
-                                Template="{DynamicResource BaseComboBoxStyle}" />
+                x:Name="CameraLookAt"
+                Grid.Column="1"
+                Height="25"
+                Margin="1"
+                FocusVisualStyle="{DynamicResource FocusVisualStyle}"
+                ItemContainerStyle="{DynamicResource BaseListBoxItemStyle}"
+                ItemsSource="{Binding CamLookAt, ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding DataContext.CamLookAt[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Tag="CamLookAt"
+                Template="{DynamicResource BaseComboBoxStyle}" />
             <CMiX:CMiXComboBox
-                                x:Name="CameraView"
-                                Grid.Column="2"
-                                Height="25"
-                                Margin="1"
-                                FocusVisualStyle="{DynamicResource FocusVisualStyle}"
-                                ItemContainerStyle="{DynamicResource BaseListBoxItemStyle}"
-                                ItemsSource="{Binding CamView, ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                SelectedItem="{Binding DataContext.CamView[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Tag="CamView"
-                                Template="{DynamicResource BaseComboBoxStyle}" />
+                x:Name="CameraView"
+                Grid.Column="2"
+                Height="25"
+                Margin="1"
+                FocusVisualStyle="{DynamicResource FocusVisualStyle}"
+                ItemContainerStyle="{DynamicResource BaseListBoxItemStyle}"
+                ItemsSource="{Binding CamView, ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding DataContext.CamView[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Tag="CamView"
+                Template="{DynamicResource BaseComboBoxStyle}" />
         </Grid>
         <CMiX:CustomSlider
-                            x:Name="CameraFOV"
-                            Height="25"
-                            Margin="1"
-                            DockPanel.Dock="Top"
-                            Tag="CamFOV"
-                            Value="{Binding FOV, Mode=TwoWay}"/>
+            x:Name="CameraFOV"
+            Height="25"
+            Margin="1"
+            DockPanel.Dock="Top"
+            Tag="CamFOV"
+            Value="{Binding FOV, Mode=TwoWay}" />
         <CMiX:CustomSlider
-                            x:Name="CameraZoom"
-                            Height="25"
-                            Margin="1"
-                            DockPanel.Dock="Top"
-                            Tag="CamZoom" 
-                            Value="{Binding Zoom, Mode=TwoWay}"/>
+            x:Name="CameraZoom"
+            Height="25"
+            Margin="1"
+            DockPanel.Dock="Top"
+            Tag="CamZoom"
+            Value="{Binding Zoom, Mode=TwoWay}" />
     </DockPanel>
 </UserControl>

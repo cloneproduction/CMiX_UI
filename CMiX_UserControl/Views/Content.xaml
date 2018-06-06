@@ -1,12 +1,14 @@
-﻿<UserControl x:Class="CMiX.Views.Content"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:CMiX="clr-namespace:CMiX"
-             xmlns:Views="clr-namespace:CMiX.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="924" d:DesignWidth="354">
+﻿<UserControl
+    x:Class="CMiX.Views.Content"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:CMiX="clr-namespace:CMiX"
+    xmlns:Views="clr-namespace:CMiX.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="924"
+    d:DesignWidth="354"
+    mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -47,31 +49,31 @@
                 Background="{StaticResource BaseDarkerColor}"
                 Content="CONTENT"
                 FontSize="12"
-                Foreground="{StaticResource BaseText}"/>
+                Foreground="{StaticResource BaseText}" />
             <CMiX:Counter
                 x:Name="SpriteCount"
                 Width="150"
                 Margin="2"
                 HorizontalAlignment="Right"
-                Count="{Binding Count}"/>
+                Count="{Binding Count}" />
         </Grid>
         <DockPanel LastChildFill="True">
             <Views:BeatModifier
                 x:Name="ContentBeatModifier"
                 DataContext="{Binding BeatModifier}"
-                DockPanel.Dock="Top"/>
-            <Views:PostFX 
+                DockPanel.Dock="Top" />
+            <Views:PostFX
                 x:Name="ContentPostFX"
                 DataContext="{Binding PostFX}"
-                DockPanel.Dock="Bottom"/>
-            <Views:Geometry 
+                DockPanel.Dock="Bottom" />
+            <Views:Geometry
                 x:Name="ContentGeometry"
                 DataContext="{Binding Geometry}"
-                DockPanel.Dock="Bottom"/>
-            <Views:Texture 
+                DockPanel.Dock="Bottom" />
+            <Views:Texture
                 x:Name="ContentTexture"
                 DataContext="{Binding Texture}"
-                DockPanel.Dock="Top"/>
+                DockPanel.Dock="Top" />
         </DockPanel>
     </DockPanel>
 </UserControl>

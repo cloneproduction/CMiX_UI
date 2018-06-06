@@ -9,7 +9,7 @@ namespace CMiX.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
+        public void Notify([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -17,7 +17,7 @@ namespace CMiX.ViewModels
         public void SetAndNotify<TRet>(ref TRet backingField, TRet newValue, [CallerMemberName] string propertyName = null)
         {
             backingField = newValue;
-            NotifyPropertyChanged(propertyName);
+            Notify(propertyName);
         }
 
         public static void AssertNotNegative(double value, string parameterName)
