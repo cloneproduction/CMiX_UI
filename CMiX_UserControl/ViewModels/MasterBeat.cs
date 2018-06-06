@@ -35,7 +35,28 @@ namespace CMiX.ViewModels
         public double Period
         {
             get => _period;
-            set => SetAndNotify(ref _period, value);
+            set
+            {
+                SetAndNotify(ref _period, value);
+                Notify(nameof(BPM));
+            }
+        }
+
+        public double BPM
+        {
+            get
+            {
+                var bpm = 50000 / Period;
+
+                if (double.IsInfinity(bpm) || double.IsNaN(bpm))
+                {
+                    return 0;
+                }
+                else
+                {
+                    return bpm;
+                }
+            }
         }
 
         private int _multiplier;
@@ -101,6 +122,7 @@ namespace CMiX.ViewModels
             {
                 tapTime.Clear();
             }
+
             tapTime.Add(ms);
 
             if (tapTime.Count > 1)

@@ -69,7 +69,7 @@
                     Grid.Column="0"
                     DockPanel.Dock="Right"
                     Style="{DynamicResource BaseLabelStyle}">
-                    <TextBlock Foreground="{DynamicResource BaseText}" Text="{Binding Path=Period, Mode=OneWay, StringFormat=F0}" />
+                    <TextBlock Foreground="{DynamicResource BaseText}" Text="{Binding Path=BPM, Mode=OneWay, StringFormat=F0}" />
                 </Label>
             </DockPanel>
             <DockPanel

@@ -45,6 +45,7 @@ namespace CMiX
         }
     }
 
+    [Obsolete("Prefer using a BPM property in the viewmodel")]
     public class PeriodToBPMConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
