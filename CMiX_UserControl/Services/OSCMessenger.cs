@@ -17,7 +17,7 @@ namespace CMiX.Services
             messages = new List<OscMessage>();
         }
 
-        private OscMessage CreateOscMessage(string address, params object[] args) => new OscMessage(address, args.Select(a => a?.ToString()));
+        private OscMessage CreateOscMessage(string address, params object[] args) => new OscMessage(address, args.Select(a => a?.ToString()).ToArray());
 
         public void QueueMessage(string address, params object[] args)
         {
