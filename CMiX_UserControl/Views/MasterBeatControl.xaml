@@ -22,14 +22,14 @@
     <Border Background="{DynamicResource BaseHighDarkerColor}">
         <StackPanel>
             <Label
-                        Height="25"
-                        Margin="0,4,0,4"
-                        HorizontalContentAlignment="Center"
-                        Background="{StaticResource BaseDarkColor}"
-                        Content="Beat"
-                        DockPanel.Dock="Bottom"
-                        FontSize="12"
-                        Foreground="{StaticResource BaseText}" />
+                Height="25"
+                Margin="0,4,0,4"
+                HorizontalContentAlignment="Center"
+                Background="{StaticResource BaseDarkColor}"
+                Content="Beat"
+                DockPanel.Dock="Bottom"
+                FontSize="12"
+                Foreground="{StaticResource BaseText}" />
             <DockPanel
                 Grid.Row="0"
                 Height="50"

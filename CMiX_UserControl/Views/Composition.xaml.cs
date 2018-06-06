@@ -18,7 +18,7 @@ namespace CMiX
 {
     public partial class Composition : UserControl
     {
-        BeatSystem beatsystem = new BeatSystem();
+        //BeatSystem beatsystem = new BeatSystem();
         //CMiXData cmixdata = new CMiXData();
         Messenger message = new Messenger();
 
