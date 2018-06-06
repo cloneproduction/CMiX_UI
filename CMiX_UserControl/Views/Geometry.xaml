@@ -6,8 +6,8 @@
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="300"
-    d:DesignWidth="300"
+    d:DesignHeight="247.111"
+    d:DesignWidth="307.556"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -43,7 +43,8 @@
     <StackPanel>
         <TabControl DockPanel.Dock="Bottom" Style="{StaticResource BaseTabControlStyle}">
             <TabItem
-                Height="20"
+                Height="25"
+                Margin="0, 0, 0, 2"
                 Header="Geometry"
                 Style="{StaticResource BaseTabItemStyle}">
                 <DockPanel>
@@ -71,6 +72,7 @@
                             <CMiX:CustomSlider
                                 x:Name="SpriteTranslate"
                                 Grid.Column="2"
+                                Margin="1"
                                 Caption="Translate"
                                 Tag="SprTra"
                                 Value="{Binding TranslateAmount, Mode=TwoWay}" />
@@ -98,6 +100,7 @@
                             <CMiX:CustomSlider
                                 x:Name="SpriteScale"
                                 Grid.Column="2"
+                                Margin="1"
                                 Caption="Scale"
                                 Value="{Binding ScaleAmount, Mode=TwoWay}" />
                         </Grid>
@@ -109,6 +112,7 @@
                             <CMiX:RotationSelector x:Name="SpriteRotation" />
                             <CMiX:CustomSlider
                                 x:Name="SpriteRotate"
+                                Margin="1"
                                 Grid.Column="2"
                                 Caption="Rotate"
                                 Value="{Binding RotationAmount, Mode=TwoWay}" />
@@ -119,10 +123,10 @@
                         Background="{StaticResource BaseDarkColor}"
                         DockPanel.Dock="Bottom">
                         <CMiX:FileSelector
+                            Margin="1"
                             x:Name="SpriteSelectedGeom"
                             Title="Models"
-                            FileMask="{Binding GeometryFileMask, Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type Views:LayerControls}}}"
-/>
+                            FileMask="{Binding GeometryFileMask, Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type Views:LayerControls}}}"/>
                     </Border>
                 </DockPanel>
             </TabItem>

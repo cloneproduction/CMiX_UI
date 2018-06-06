@@ -33,7 +33,6 @@
                 x:Name="SpriteCount"
                 Height="25"
                 Width="150"
-                Margin="0"
                 HorizontalAlignment="Right"
                 Count="{Binding Count}" />
         </Grid>

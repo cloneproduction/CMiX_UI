@@ -11,7 +11,7 @@ namespace CMiX.ViewModels
                   saturation: 0.0,
                   keying: 0.0,
                   invert: 0.0,
-                  invertMode: default)
+                  invertMode: default(TextureInvertMode))
         { }
 
         public Texture(

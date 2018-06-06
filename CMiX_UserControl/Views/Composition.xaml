@@ -147,26 +147,12 @@
                         Margin="2"
                         DockPanel.Dock="Bottom"
                         VerticalScrollBarVisibility="Auto">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.2*" />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <StackPanel
-                                x:Name="LayerEnableStack"
-                                Grid.Column="0"
-                                DragEnter="sp_DragEnter"
-                                Drop="sp_Drop"
-                                PreviewMouseLeftButtonDown="sp_PreviewMouseLeftButtonDown"
-                                PreviewMouseLeftButtonUp="sp_PreviewMouseLeftButtonUp"
-                                PreviewMouseMove="sp_PreviewMouseMove" />
-                            <StackPanel
+                        <StackPanel
                                 x:Name="LayerControlStack"
                                 Grid.Column="1"
                                 AllowDrop="True">
-                                <CMiX:ChannelLayer x:Name="LayerControl0" DataContext="{Binding CurrentLayer}"/>
-                            </StackPanel>
-                        </Grid>
+                            <CMiX:ChannelLayer x:Name="LayerControl0" DataContext="{Binding CurrentLayer}"/>
+                        </StackPanel>
                     </ScrollViewer>
                 </DockPanel>
             </Border>

@@ -45,8 +45,23 @@
         </Border.Style>
         <Grid>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.2*"/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
+            <Grid>
+                <RadioButton
+                    x:Name="LayerEnabled"
+                    Margin="0,0,2,0"
+                    AllowDrop="True"
+                    Content=""
+                    GroupName="SelectLayer"
+                    IsChecked="{Binding Enabled}"
+                    Style="{StaticResource LayerRadioButtonStyle}">
+                    <RadioButton.Background>
+                        <SolidColorBrush Color="{Binding DataContext.Color, Converter={StaticResource ColorToString}, ElementName=LayerEnable, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </RadioButton.Background>
+                </RadioButton>
+            </Grid>
             <Grid x:Name="grid1" Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition />

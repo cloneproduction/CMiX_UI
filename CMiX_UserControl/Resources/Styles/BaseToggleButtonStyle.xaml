@@ -36,7 +36,7 @@
                         Margin="1"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{DynamicResource GreyLevel3}"
-                        BorderThickness="1"
+                        BorderThickness="0"
                         SnapsToDevicePixels="True">
                         <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
                             <TextBlock

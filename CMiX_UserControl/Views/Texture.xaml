@@ -73,7 +73,7 @@
                     Grid.Row="0"
                     Grid.Column="1"
                     Height="25"
-                    Margin="0,1,0,0"
+                    Margin="1"
                     Caption="Invert"
                     Tag="MaskInvert"
                     Value="{Binding Invert, Mode=TwoWay}" />
@@ -83,7 +83,7 @@
                 Grid.Row="0"
                 Grid.Column="1"
                 Height="25"
-                Margin="0,1,0,0"
+                Margin="1"
                 Caption="Keying"
                 DockPanel.Dock="Bottom"
                 Tag="Saturation"
@@ -91,7 +91,7 @@
             <CMiX:CustomSlider
                 x:Name="MaskSaturation"
                 Height="25"
-                Margin="0,1,0,0"
+                Margin="1"
                 Caption="Saturation"
                 DockPanel.Dock="Bottom"
                 Tag="MaskSaturation"
@@ -99,7 +99,7 @@
             <CMiX:CustomSlider
                 x:Name="MaskContrast"
                 Height="25"
-                Margin="0,1,0,0"
+                Margin="1"
                 Caption="Contrast"
                 DockPanel.Dock="Bottom"
                 Tag="MaskContrast"
@@ -107,7 +107,7 @@
             <CMiX:CustomSlider
                 x:Name="MaskBrightness"
                 Height="25"
-                Margin="0,1,0,0"
+                Margin="1"
                 Caption="Brightness"
                 DockPanel.Dock="Bottom"
                 Tag="MaskBrightness"

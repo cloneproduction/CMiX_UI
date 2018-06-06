@@ -37,6 +37,8 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _backgroundColor, value);
         }
 
+        public BeatModifier BeatModifier { get; }
+
         public HSVPoint Hue { get; }
 
         public HSVPoint Saturation { get; }

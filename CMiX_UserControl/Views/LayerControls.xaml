@@ -7,8 +7,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="Ch_Parameters"
-    d:DesignHeight="912.222"
-    d:DesignWidth="1335.739"
+    d:DesignHeight="902.222"
+    d:DesignWidth="1403.739"
     FontFamily="{DynamicResource RobotoRegular}"
     FontSize="11"
     mc:Ignorable="d">
@@ -59,14 +59,14 @@
                 Margin="2"
                 Padding="4"
                 Background="{StaticResource BaseDarkerColor}">
-                <Views:Mask x:Name="LayerMask" DataContext="{Binding Mask}" />
+                <Views:Coloration x:Name="LayerColoration" DataContext="{Binding Coloration}" />
             </Border>
             <Border
                 Grid.Column="2"
                 Margin="2"
                 Padding="4"
                 Background="{StaticResource BaseDarkerColor}">
-                <Views:Coloration x:Name="LayerColoration" DataContext="{Binding Coloration}" />
+                <Views:Mask x:Name="LayerMask" DataContext="{Binding Mask}" />
             </Border>
         </Grid>
     </Border>

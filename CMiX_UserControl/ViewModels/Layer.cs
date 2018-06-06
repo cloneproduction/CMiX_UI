@@ -38,6 +38,13 @@
             set => SetAndNotify(ref _name, value);
         }
 
+        private double _enabled;
+        public double Enabled
+        {
+            get => _enabled;
+            set => SetAndNotify(ref _enabled, value);
+        }
+
         private double _fade;
         public double Fade
         {
