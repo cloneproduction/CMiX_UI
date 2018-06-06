@@ -5,8 +5,11 @@
     xmlns:CMiX="clr-namespace:CMiX"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="273.044"
-    d:DesignWidth="718.794"
+    xmlns:viewModels="clr-namespace:CMiX.ViewModels"
+    d:DataContext="{d:DesignInstance Type={x:Type viewModels:MasterBeat},
+                                     IsDesignTimeCreatable=False}"
+    d:DesignHeight="200"
+    d:DesignWidth="700"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -40,7 +43,7 @@
                     Grid.Row="3"
                     Grid.Column="1"
                     Width="{Binding ActualHeight, ElementName=Main_DivideBPM, Mode=OneWay}"
-                    Click="Main_MultiplyBPM_Click"
+                    Command="{Binding Path=MultiplyCommand}"
                     Content="+"
                     DockPanel.Dock="Right"
                     Style="{DynamicResource BaseButtonStyle}" />
@@ -48,7 +51,7 @@
                     x:Name="Main_DivideBPM"
                     Grid.Column="2"
                     Width="{Binding ActualHeight, ElementName=Main_DivideBPM, Mode=OneWay}"
-                    Click="Main_DivideBPM_Click"
+                    Command="{Binding Path=DivideCommand}"
                     Content="-"
                     DockPanel.Dock="Right"
                     Style="{DynamicResource BaseButtonStyle}" />
@@ -56,13 +59,14 @@
                     x:Name="Main_ResetBPM"
                     Grid.Column="1"
                     Width="{Binding ActualHeight, ElementName=Main_DivideBPM, Mode=OneWay}"
+                    Command="{Binding Path=ResetCommand}"
                     Content="Rt"
                     DockPanel.Dock="Left"
                     Style="{DynamicResource BaseButtonStyle}" />
                 <Label
                     x:Name="Main_BPM"
                     Grid.Column="0"
-                    Content="{Binding MasterPeriod, Converter={StaticResource PeriodToBPM}, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:MasterBeatControl}}, UpdateSourceTrigger=PropertyChanged}"
+                    Content="{Binding Path=Period}"
                     DockPanel.Dock="Right"
                     Style="{DynamicResource BaseLabelStyle}" />
             </DockPanel>
@@ -75,7 +79,7 @@
                     x:Name="Main_ResyncBPM"
                     Grid.Column="0"
                     Width="{Binding ActualHeight, ElementName=Main_ResyncBPM, Mode=OneWay}"
-                    Click="Main_ResyncBPM_Click"
+                    Command="{Binding Path=ResyncCommand}"
                     Content="Rc"
                     DockPanel.Dock="Right"
                     Style="{DynamicResource BaseButtonStyle}" />
@@ -83,7 +87,7 @@
                     x:Name="Main_TapBPM"
                     Grid.Row="2"
                     Margin="0"
-                    Click="Main_TapBPM_Click"
+                    Command="{Binding Path=TapCommand}"
                     Content="TAP"
                     Style="{DynamicResource BaseButtonStyle}" />
             </DockPanel>

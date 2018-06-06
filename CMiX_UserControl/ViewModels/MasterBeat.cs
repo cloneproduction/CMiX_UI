@@ -6,16 +6,16 @@ using System.Windows.Input;
 
 namespace CMiX.ViewModels
 {
-    public class MainBeat : ViewModel
+    public class MasterBeat : ViewModel
     {
-        public MainBeat(IMessenger messenger)
+        public MasterBeat(IMessenger messenger)
             : this(
                   messenger: messenger,
                   period: 0.0,
                   multiplier: 1)
         { }
 
-        public MainBeat(IMessenger messenger, double period, int multiplier)
+        public MasterBeat(IMessenger messenger, double period, int multiplier)
         {
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             Period = period;
