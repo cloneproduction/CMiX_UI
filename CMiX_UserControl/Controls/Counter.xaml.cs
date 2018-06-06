@@ -16,25 +16,30 @@ namespace CMiX
             InitializeComponent();
             DataContext = counterviewmodel;
         }
-       
+
+        public static readonly DependencyProperty CountProperty =
+        DependencyProperty.Register("Count", typeof(int), typeof(Counter));
+        [Bindable(true)]
+        public int Count
+        {
+            get { return (int)GetValue(CountProperty); }
+            set { SetValue(CountProperty, value); }
+        }
+
         private void Button_Add(object sender, RoutedEventArgs e)
         {
-            if (counterviewmodel.Count <= 10)
+            if (Count <= 10)
             {
-                counterviewmodel.Count += 1;
+                Count += 1;
             }
-            //string name = Utils.FindParent<ChannelControls>(this).Name;
-            //message.SendOSC(name + "/" + Name, counterviewmodel.Count.ToString());
         }
 
         private void Button_Sub(object sender, RoutedEventArgs e)
         {
-            if (counterviewmodel.Count >= 1)
+            if (Count >= 1)
             {
-                counterviewmodel.Count -= 1;
+                Count -= 1;
             }
-            //string name = Utils.FindParent<ChannelControls>(this).Name;
-            //message.SendOSC(name + "/" + Name, counterviewmodel.Count.ToString());
         }
 
         Messenger message = new Messenger();

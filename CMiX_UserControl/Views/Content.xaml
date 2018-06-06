@@ -53,7 +53,7 @@
                 Width="150"
                 Margin="2"
                 HorizontalAlignment="Right"
-                DataContext="{Binding Path=SpriteCounterViewModel}"/>
+                Count="{Binding Count}"/>
         </Grid>
         <DockPanel LastChildFill="True">
             <Views:BeatModifier
