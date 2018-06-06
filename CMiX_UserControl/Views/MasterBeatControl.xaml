@@ -10,6 +10,7 @@
                                      IsDesignTimeCreatable=False}"
     d:DesignHeight="200"
     d:DesignWidth="700"
+    TextBlock.Foreground="{DynamicResource BaseText}"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -66,9 +67,10 @@
                 <Label
                     x:Name="Main_BPM"
                     Grid.Column="0"
-                    Content="{Binding Path=Period}"
                     DockPanel.Dock="Right"
-                    Style="{DynamicResource BaseLabelStyle}" />
+                    Style="{DynamicResource BaseLabelStyle}">
+                    <TextBlock Foreground="{DynamicResource BaseText}" Text="{Binding Path=Period, Mode=OneWay, StringFormat=F0}" />
+                </Label>
             </DockPanel>
             <DockPanel
                 Grid.Row="1"

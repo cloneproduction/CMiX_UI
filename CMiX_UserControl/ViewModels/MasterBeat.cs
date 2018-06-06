@@ -32,7 +32,6 @@ namespace CMiX.ViewModels
         }
 
         private double _period;
-
         public double Period
         {
             get => _period;
