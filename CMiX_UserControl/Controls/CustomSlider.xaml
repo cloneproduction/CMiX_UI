@@ -8,99 +8,7 @@
     d:DesignHeight="42.8"
     d:DesignWidth="341.589"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseSliderStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseButtonStyle.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-            <Style x:Key="CMiXSliderFocusVisualStyle">
-                <Setter Property="Control.Template">
-                    <Setter.Value>
-                        <ControlTemplate>
-                            <Rectangle
-                                Margin="0"
-                                SnapsToDevicePixels="True"
-                                Stroke="White"
-                                StrokeThickness="1" />
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            <Style x:Key="SliderButton" TargetType="{x:Type Button}">
-                <Setter Property="FocusVisualStyle">
-                    <Setter.Value>
-                        <Style>
-                            <Setter Property="Control.Template">
-                                <Setter.Value>
-                                    <ControlTemplate>
-                                        <Rectangle
-                                            Margin="0"
-                                            SnapsToDevicePixels="True"
-                                            Stroke="White"
-                                            StrokeThickness="1" />
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </Setter.Value>
-                </Setter>
-                <Setter Property="Focusable" Value="True" />
-                <Setter Property="Background" Value="#FFDDDDDD" />
-                <Setter Property="BorderBrush" Value="#FF707070" />
-                <Setter Property="Foreground" Value="{DynamicResource BaseText}" />
-                <Setter Property="BorderThickness" Value="1" />
-                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                <Setter Property="VerticalContentAlignment" Value="Center" />
-                <Setter Property="Padding" Value="1" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border
-                                x:Name="border"
-                                Margin="1"
-                                Background="{DynamicResource BaseDarkColor}"
-                                BorderBrush="Transparent"
-                                BorderThickness="0"
-                                SnapsToDevicePixels="True">
-                                <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
-                                    <TextBlock
-                                        x:Name="textBlock"
-                                        HorizontalAlignment="Center"
-                                        Foreground="{DynamicResource BaseLightColor}"
-                                        Text="{TemplateBinding Content}" />
-                                </Viewbox>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsDefaulted" Value="True">
-                                    <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
-                                </Trigger>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="border" Property="Background" Value="{DynamicResource OverColor}" />
-                                    <Setter TargetName="border" Property="BorderBrush" Value="#FF3C7FB1" />
-                                    <Setter Property="Foreground" Value="{DynamicResource OverText}" />
-                                </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="border" Property="Background" Value="{DynamicResource ActiveColor}" />
-                                    <Setter TargetName="border" Property="BorderBrush" Value="#FF2C628B" />
-                                    <Setter Property="Foreground" Value="{DynamicResource ActiveText}" />
-                                </Trigger>
-                                <Trigger Property="ToggleButton.IsChecked" Value="True">
-                                    <Setter TargetName="border" Property="Background" Value="#FFBCDDEE" />
-                                    <Setter TargetName="border" Property="BorderBrush" Value="#FF245A83" />
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-        </ResourceDictionary>
-    </UserControl.Resources>
-    <Grid
-        FocusVisualStyle="{StaticResource CMiXSliderFocusVisualStyle}"
-        Focusable="True"
-        Keyboard.KeyDown="CMiXSlider_KeyDown">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="auto" />
@@ -108,16 +16,12 @@
         <Slider
             x:Name="CMiXSlider"
             Grid.Column="0"
-            HorizontalContentAlignment="Stretch"
-            VerticalContentAlignment="Stretch"
-            Focusable="False"
             IsMoveToPointEnabled="True"
             LargeChange="0.1"
             Maximum="1.0"
             Minimum="0.0"
-            Orientation="{Binding Orientation, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:CustomSlider}}}"
             SmallChange="0.01"
-            Style="{StaticResource BaseSliderStyle}"
+            Style="{StaticResource SliderBase}"
             ValueChanged="CMiXSlider_ValueChanged"
             Value="{Binding Value, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:CustomSlider}}}" />
         <Label
@@ -129,7 +33,7 @@
             Background="Transparent"
             Content="{Binding Value, Mode=TwoWay, ElementName=CMiXSlider}"
             ContentStringFormat="{}{0:N2}"
-            Foreground="{DynamicResource BaseText}"
+            Foreground="{DynamicResource TextBase}"
             IsHitTestVisible="False" />
         <Label
             Grid.Column="0"
@@ -139,7 +43,7 @@
             VerticalContentAlignment="Center"
             Background="Transparent"
             Content="{Binding Caption, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:CustomSlider}}}"
-            Foreground="{DynamicResource BaseText}"
+            Foreground="{DynamicResource TextBase}"
             IsHitTestVisible="False" />
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
@@ -149,21 +53,21 @@
             <Button
                 x:Name="AddToSlider"
                 Grid.Row="0"
+                Margin="1, 0, 0, 1"
                 Width="{Binding ActualHeight, ElementName=AddToSlider, Mode=OneWay}"
-                HorizontalAlignment="Stretch"
                 Click="AddToSlider_Click"
                 Content="+"
                 Focusable="False"
-                Style="{DynamicResource SliderButton}" />
+                Style="{DynamicResource ButtonBase}" />
             <Button
                 x:Name="SubToSlider"
                 Grid.Row="1"
+                Margin="1, 1, 0, 0"
                 Width="{Binding ActualHeight, ElementName=AddToSlider, Mode=OneWay}"
-                HorizontalAlignment="Stretch"
                 Click="SubToSlider_Click"
                 Content="-"
                 Focusable="False"
-                Style="{DynamicResource SliderButton}" />
+                Style="{DynamicResource ButtonBase}" />
         </Grid>
     </Grid>
 </UserControl>

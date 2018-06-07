@@ -2,28 +2,21 @@
     x:Class="CMiX.TranslateSelector"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:CMiX="clr-namespace:CMiX"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:CMiX="clr-namespace:CMiX"
     d:DesignHeight="485.334"
     d:DesignWidth="502"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseRadioButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseLabelStyle.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-            <CMiX:PathToFilenameConverter x:Key="PathToFileName" />
-            <CMiX:ColorToStringConverter x:Key="ColorToString" />
             <CMiX:RadioButtonCheckedConverter x:Key="CheckedConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
     <Border
         Margin="32"
         Padding="8"
-        Background="{StaticResource BaseDarkerColor}">
+        Background="{StaticResource DarkerColor}">
         <Border.Effect>
             <DropShadowEffect
                 BlurRadius="32"
@@ -34,7 +27,7 @@
         <StackPanel>
             <TextBlock
                 Margin="8,0,8,8"
-                Foreground="{StaticResource BaseText}"
+                Foreground="{StaticResource TextBase}"
                 Text="TRANSLATE STYLE" />
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -47,7 +40,7 @@
                         Height="25"
                         Margin="0,0,0,4"
                         Content="STEADY"
-                        Style="{StaticResource BaseLabelStyle}" />
+                        Style="{StaticResource LabelBase}" />
                     <RadioButton
                         x:Name="STD_CTR"
                         Grid.Row="1"
@@ -58,7 +51,7 @@
                         Content="STD_CTR"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='STD_CTR'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
 
                     <RadioButton
                         x:Name="STD_TOP_LT"
@@ -70,7 +63,7 @@
                         Content="STD_TOP_LT"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='STD_TOP_LT'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
                     <RadioButton
                         x:Name="STD_LT"
                         Grid.Row="1"
@@ -81,7 +74,7 @@
                         Content="STD_LT"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='STD_LT'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
                     <RadioButton
                         x:Name="STD_RT"
                         Grid.Row="1"
@@ -92,7 +85,7 @@
                         Content="STD_RT"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='STD_RT'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
                     <RadioButton
                         x:Name="STD_TOP"
                         Grid.Row="0"
@@ -103,7 +96,7 @@
                         Content="STD_TOP"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='STD_TOP'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
                     <RadioButton
                         x:Name="STD_TOP_RT"
                         Grid.Row="0"
@@ -114,7 +107,7 @@
                         Content="STD_TOP_RT"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='STD_TOP_RT'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
                     <RadioButton
                         x:Name="STD_BOT"
                         Grid.Row="2"
@@ -125,7 +118,7 @@
                         Content="STD_BOT"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='STD_BOT'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
                     <RadioButton
                         x:Name="STD_BOT_RT"
                         Grid.Row="2"
@@ -136,7 +129,7 @@
                         Content="STD_BOT_RT"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='STD_BOT_RT'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
                     <RadioButton
                         x:Name="STD_BOT_LT"
                         Grid.Row="2"
@@ -147,7 +140,7 @@
                         Content="STD_BOT_LT"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='STD_BOT_LT'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Margin="2,0,2,0">
@@ -155,7 +148,7 @@
                         Height="25"
                         Margin="0,0,0,4"
                         Content="FLASH"
-                        Style="{StaticResource BaseLabelStyle}" />
+                        Style="{StaticResource LabelBase}" />
                     <RadioButton
                         x:Name="FLA_RDM_XYZ"
                         Grid.Row="0"
@@ -166,7 +159,7 @@
                         Content="FLA_RDM_XYZ"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='FLA_RDM_XYZ'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
                     <RadioButton
                         x:Name="FLA_RDM_X"
                         Grid.Row="0"
@@ -177,7 +170,7 @@
                         Content="FLA_RDM_X"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='FLA_RDM_X'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
                     <RadioButton
                         x:Name="FLA_RDM_Y"
                         Grid.Row="0"
@@ -188,7 +181,7 @@
                         Content="FLA_RDM_Y"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='FLA_RDM_Y'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
                     <RadioButton
                         x:Name="FLA_RDM_Z"
                         Grid.Row="0"
@@ -199,7 +192,7 @@
                         Content="FLA_RDM_Z"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='FLA_RDM_Z'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
 
                     <RadioButton
                         x:Name="FLA_RDM_SLDXYZ"
@@ -211,7 +204,7 @@
                         Content="FLA_RDM_SLDXYZ"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='FLA_RDM_SLDXYZ'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
                     <RadioButton
                         x:Name="FLA_RDM_SLDX"
                         Grid.Row="1"
@@ -222,7 +215,7 @@
                         Content="FLA_RDM_SLDX"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='FLA_RDM_SLDX'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
                     <RadioButton
                         x:Name="FLA_RDM_SLDY"
                         Grid.Row="1"
@@ -233,7 +226,7 @@
                         Content="FLA_RDM_SLDY"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='FLA_RDM_SLDY'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
                     <RadioButton
                         x:Name="FLA_RDM_SLDZ"
                         Grid.Row="1"
@@ -244,15 +237,14 @@
                         Content="FLA_RDM_SLDZ"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='FLA_RDM_SLDZ'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
-
+                        Style="{StaticResource RadioButtonBase}" />
                 </StackPanel>
                 <StackPanel Grid.Column="2" Margin="2,0,2,0">
                     <Label
                         Height="25"
                         Margin="0,0,0,4"
                         Content="SLIDE"
-                        Style="{StaticResource BaseLabelStyle}" />
+                        Style="{StaticResource LabelBase}" />
                     <RadioButton
                         x:Name="SLD_RDM_XYZ"
                         Grid.Row="0"
@@ -263,7 +255,7 @@
                         Content="SLD_RDM_XYZ"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='SLD_RDM_XYZ'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
                     <RadioButton
                         x:Name="SLD_RDM_X"
                         Grid.Row="0"
@@ -274,7 +266,7 @@
                         Content="SLD_RDM_X"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='SLD_RDM_X'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
                     <RadioButton
                         x:Name="SLD_RDM_Y"
                         Grid.Row="0"
@@ -285,7 +277,7 @@
                         Content="SLD_RDM_Y"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='SLD_RDM_Y'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
                     <RadioButton
                         x:Name="SLD_RDM_Z"
                         Grid.Row="0"
@@ -296,7 +288,7 @@
                         Content="SLD_RDM_Z"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='SLD_RDM_Z'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
                     <RadioButton
                         x:Name="SLD_LT"
                         Grid.Row="1"
@@ -307,7 +299,7 @@
                         Content="SLD_LT"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='SLD_LT'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
                     <RadioButton
                         x:Name="SLD_LTRT"
                         Grid.Row="1"
@@ -318,7 +310,7 @@
                         Content="SLD_LTRT"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='SLD_LTRT'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
                     <RadioButton
                         x:Name="SLD_RT"
                         Grid.Row="1"
@@ -329,7 +321,7 @@
                         Content="SLD_RT"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='SLD_RT'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
                     <RadioButton
                         x:Name="SLD_DN"
                         Grid.Row="2"
@@ -340,7 +332,7 @@
                         Content="SLD_DN"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='SLD_DN'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
                     <RadioButton
                         x:Name="SLD_DNUP"
                         Grid.Row="2"
@@ -351,7 +343,7 @@
                         Content="SLD_DNUP"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='SLD_DNUP'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
                     <RadioButton
                         x:Name="SLD_UP"
                         Grid.Row="2"
@@ -362,7 +354,7 @@
                         Content="SLD_UP"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='SLD_UP'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
                     <RadioButton
                         x:Name="SLD_BA"
                         Grid.Row="3"
@@ -373,7 +365,7 @@
                         Content="SLD_BA"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='SLD_BA'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
                     <RadioButton
                         x:Name="SLD_BAFO"
                         Grid.Row="3"
@@ -384,7 +376,7 @@
                         Content="SLD_BAFO"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='SLD_BAFO'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
                     <RadioButton
                         x:Name="SLD_FO"
                         Grid.Row="3"
@@ -395,7 +387,7 @@
                         Content="SLD_FO"
                         GroupName="Translate"
                         IsChecked="{Binding SelectedName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=CMiX:TranslateSelector}, Converter={StaticResource CheckedConverter}, ConverterParameter='SLD_FO'}"
-                        Style="{StaticResource BaseRadioButtonStyle}" />
+                        Style="{StaticResource RadioButtonBase}" />
 
                 </StackPanel>
             </Grid>

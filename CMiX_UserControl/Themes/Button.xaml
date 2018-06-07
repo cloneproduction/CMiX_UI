@@ -1,9 +1,7 @@
-﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:CMiX">
-
-    <Style x:Key="BaseButtonStyle" TargetType="{x:Type Button}">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:CMiX.Themes">
+    <Style x:Key="ButtonBase" TargetType="{x:Type Button}">
         <Setter Property="FocusVisualStyle">
             <Setter.Value>
                 <Style>
@@ -21,8 +19,8 @@
                 </Style>
             </Setter.Value>
         </Setter>
-        <Setter Property="Background" Value="{DynamicResource BaseDarkColor}" />
-        <Setter Property="Foreground" Value="{DynamicResource BaseText}" />
+        <Setter Property="Background" Value="{DynamicResource DarkColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextBase}" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Template">
@@ -30,36 +28,24 @@
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border
                         x:Name="border"
-                        Margin="1"
-                        Background="{DynamicResource BaseColor}"
-                        BorderBrush="Transparent"
-                        BorderThickness="0"
+                        Margin="0"
+                        Background="{DynamicResource Color}"
                         SnapsToDevicePixels="True">
                         <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
                             <TextBlock
                                 x:Name="textBlock"
                                 HorizontalAlignment="Center"
-                                Foreground="{DynamicResource BaseText}"
+                                Foreground="{DynamicResource TextBase}"
                                 Text="{TemplateBinding Content}" />
                         </Viewbox>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsDefaulted" Value="True">
-                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
-                        </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource BaseLightColor}" />
-                            <Setter Property="Foreground" Value="{DynamicResource BaseText}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource LightColor}" />
+                            <Setter Property="Foreground" Value="{DynamicResource TextBase}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource BaseHighLightColor}" />
-                        </Trigger>
-                        <Trigger Property="ToggleButton.IsChecked" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#FFBCDDEE" />
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="border" Property="Background" Value="#FFF4F4F4" />
-                            <Setter TargetName="textBlock" Property="TextElement.Foreground" Value="#FF838383" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource HighLightColor}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

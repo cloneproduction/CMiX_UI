@@ -9,53 +9,42 @@
     d:DesignHeight="924"
     d:DesignWidth="354"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Fonts/Roboto.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseLabelStyle.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
-    <DockPanel>
+
+    <DockPanel LastChildFill="True">
         <Grid Margin="0,0,0,2" DockPanel.Dock="Top">
-            <Label
-                Height="25"
-                VerticalAlignment="Center"
-                VerticalContentAlignment="Center"
-                Background="{StaticResource BaseDarkerColor}"
-                Content="CONTENT"
-                Foreground="{StaticResource BaseText}" />
-            <CMiX:Counter
-                x:Name="SpriteCount"
-                Width="150"
-                Height="25"
-                HorizontalAlignment="Right"
-                Count="{Binding Count}" />
+            <Border                 
+                BorderThickness="0, 0, 0, 2"
+                BorderBrush="{StaticResource DarkColor}">
+                <Label
+                    Height="25"
+                    HorizontalAlignment="Stretch"
+                    Style="{StaticResource LabelBase}"
+                    Content="CONTENT"
+                    Foreground="{StaticResource TextBase}" />
+            </Border>
+
+
         </Grid>
-        <DockPanel LastChildFill="True">
-            <Views:BeatModifier
+        <Views:BeatModifier
+            Margin="0, 2, 0, 2"
+            DockPanel.Dock="Top"
                 x:Name="ContentBeatModifier"
-                Height="25"
-                Margin="0,2,0,2"
-                DataContext="{Binding BeatModifier}"
-                DockPanel.Dock="Top" />
-            <Views:PostFX
+                DataContext="{Binding BeatModifier}"/>
+        <Views:PostFX
                 x:Name="ContentPostFX"
-                Margin="0,2,0,2"
+                Margin="0,2,0,0"
                 DataContext="{Binding PostFX}"
                 DockPanel.Dock="Bottom" />
-            <Views:Geometry
+        <Views:Geometry
                 x:Name="ContentGeometry"
                 Margin="0,2,0,2"
                 DataContext="{Binding Geometry}"
                 DockPanel.Dock="Bottom" />
-            <Views:Texture
+        <Views:Texture
                 x:Name="ContentTexture"
                 Margin="0,2,0,2"
                 DataContext="{Binding Texture}"
                 DockPanel.Dock="Top" />
-        </DockPanel>
     </DockPanel>
+
 </UserControl>

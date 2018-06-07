@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:CMiX">
 
-    <Style x:Key="BaseToggleButtonStyle" TargetType="{x:Type ToggleButton}">
+    <Style x:Key="ToggleButtonBase" TargetType="{x:Type ToggleButton}">
         <Setter Property="FocusVisualStyle">
             <Setter.Value>
                 <Style>

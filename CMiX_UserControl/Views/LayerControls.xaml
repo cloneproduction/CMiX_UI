@@ -14,16 +14,15 @@
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Fonts/Roboto.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-            <CMiX:ColorToStringConverter x:Key="ColorToString" />
             <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
-            <CMiX:ColorToBrushConverter x:Key="ColorToBrush" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <Border Background="Transparent" Visibility="{Binding DataContext.EnabledLayer, Converter={StaticResource BoolToVisibility}, Mode=OneWay, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged}">
+    <Border
+        BorderBrush="{StaticResource DarkerColor}"
+        CornerRadius="2"
+        BorderThickness="1"
+        Background="{StaticResource HighDarkerColor}"
+        Padding="8">
         <Border.Style>
             <Style TargetType="{x:Type Border}">
                 <Setter Property="BorderBrush" Value="Transparent" />
@@ -49,23 +48,17 @@
             </Grid.ColumnDefinitions>
             <Border
                 Grid.Column="0"
-                Margin="2"
-                Padding="4"
-                Background="{StaticResource BaseDarkerColor}">
+                Margin="0, 0, 4, 0">
                 <Views:Content x:Name="LayerContent" DataContext="{Binding Content}" />
             </Border>
             <Border
                 Grid.Column="1"
-                Margin="2"
-                Padding="4"
-                Background="{StaticResource BaseDarkerColor}">
+                Margin="4, 0, 4, 0">
                 <Views:Coloration x:Name="LayerColoration" DataContext="{Binding Coloration}" />
             </Border>
             <Border
                 Grid.Column="2"
-                Margin="2"
-                Padding="4"
-                Background="{StaticResource BaseDarkerColor}">
+                Margin="4, 0, 0, 0">
                 <Views:Mask x:Name="LayerMask" DataContext="{Binding Mask}" />
             </Border>
         </Grid>

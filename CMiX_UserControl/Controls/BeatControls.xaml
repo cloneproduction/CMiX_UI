@@ -2,9 +2,10 @@
     x:Class="CMiX.BeatControls"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:CMiX="clr-namespace:CMiX"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:CMiX="clr-namespace:CMiX"
+    
     xmlns:viewModels="clr-namespace:CMiX.ViewModels"
     d:DataContext="{d:DesignInstance Type={x:Type viewModels:BeatModifier},
                                      IsDesignTimeCreatable=False}"
@@ -13,54 +14,47 @@
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseLabelStyle.xaml" />
-            </ResourceDictionary.MergedDictionaries>
             <CMiX:PeriodToBPMConverter x:Key="PeriodToBPM" />
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <StackPanel Background="{StaticResource BaseDarkColor}" Orientation="Horizontal">
+    <StackPanel Orientation="Horizontal">
         <Button
             x:Name="ResetBPM"
             Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
-            Padding="1"
+            Margin="0, 0, 1, 0"
             Command="{Binding Path=ResetCommand}"
             Content="Rt"
             DockPanel.Dock="Right"
             IsDefault="True"
             IsTabStop="False"
-            Style="{DynamicResource BaseButtonStyle}" />
+            Style="{StaticResource ButtonBase}" />
         <Button
             x:Name="DivideBPM"
             Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
-            Padding="1"
+            Margin="1, 0, 1, 0"
             Command="{Binding Path=DivideCommand}"
             Content="-"
             DockPanel.Dock="Right"
             IsDefault="True"
-            Style="{DynamicResource BaseButtonStyle}" />
+            Style="{StaticResource ButtonBase}" />
         <Button
             x:Name="MultiplyBPM"
             Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
-            Padding="1"
+            Margin="1, 0, 1, 0"
             Command="{Binding Path=MultiplyCommand}"
             Content="+"
             DockPanel.Dock="Right"
             IsDefault="True"
-            Style="{DynamicResource BaseButtonStyle}" />
+            Style="{StaticResource ButtonBase}" />
         <Label
             x:Name="DisplayBPM"
             Grid.Column="2"
+            Margin="1, 0, 0, 0"
             Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
-            Padding="1"
-            HorizontalContentAlignment="Center"
-            VerticalContentAlignment="Center"
             DockPanel.Dock="Right"
-            Style="{DynamicResource BaseLabelStyle}">
-            <TextBlock Foreground="{DynamicResource BaseText}" Text="{Binding Path=BPM, Mode=OneWay, StringFormat=F0}" />
+            Style="{StaticResource LabelBase}">
+            <TextBlock Foreground="{StaticResource TextBase}" Text="{Binding Path=BPM, Mode=OneWay, StringFormat=F0}" />
         </Label>
     </StackPanel>
 </UserControl>

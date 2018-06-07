@@ -173,7 +173,7 @@ namespace CMiX
                             ListBoxFileName filename = new ListBoxFileName();
                             filename.FileName = droppedFilePaths[i];
                             filename.FileIsSelected = false;
-                            SelectedItems.Add(filename);
+                            //SelectedItems.Add(filename);
                         }
                     }
                 }

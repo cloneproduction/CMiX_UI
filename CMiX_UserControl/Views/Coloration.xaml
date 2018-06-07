@@ -13,30 +13,8 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Fonts/Roboto.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseFocusVisual.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTreeViewStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseRadioButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/LayerRadioButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxItemPanelStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseToggleButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTextBoxStyle.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabControlStyle.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseLabelStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseSliderStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseGroupBoxStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxControlStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseContextMenuStyle.xaml" />
-                <!--<ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseScrollViewerStyle.xaml" />-->
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseRangeSlider.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <CMiX:PeriodToBPMConverter x:Key="PeriodToBPM" />
             <CMiX:ColorToStringConverter x:Key="ColorToString" />
@@ -44,68 +22,85 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel>
-        <Label
-            Height="25"
-            VerticalAlignment="Center"
-            VerticalContentAlignment="Center"
-            Background="{StaticResource BaseDarkerColor}"
-            Content="COLOR"
-            DockPanel.Dock="Top"
-            Foreground="{StaticResource BaseText}" />
+        <Border                 
+            BorderThickness="0, 0, 0, 2"
+            Margin="0, 0, 0, 2"
+            BorderBrush="{StaticResource DarkColor}">
+            <Label
+                Height="25"
+                VerticalAlignment="Center"
+                VerticalContentAlignment="Center"
+                Style="{StaticResource LabelBase}"
+                Content="COLORATION"
+                DockPanel.Dock="Top"/>
+        </Border>
+
         <Views:BeatModifier
             x:Name="ColorationBeatModifier"
-            Height="25"
-            Margin="0,2,0,2"
+            Margin="0, 2, 0, 2"
             DataContext="{Binding BeatModifier}"
             DockPanel.Dock="Top" />
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <TabControl
+        <Border             
+            DockPanel.Dock="Bottom"
+            Background="{StaticResource DarkerColor}"
+            Margin="0, 2, 0, 2"
+            Padding="4"
+            CornerRadius="2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TabControl
                 Margin="0,2,0,2"
-                Background="{StaticResource BaseDarkColor}"
+                Background="{StaticResource DarkColor}"
                 DockPanel.Dock="Top"
                 Focusable="False"
                 Style="{StaticResource BaseTabControlStyle}">
-                <TabItem
+                    <TabItem
                     Height="25"
                     Header="Foreground"
                     IsSelected="True"
                     Style="{StaticResource BaseTabItemStyle}">
-                    <colorpicker:ColorPicker
+                        <colorpicker:ColorPicker
                         x:Name="Color"
                         Margin="4"
-                        Background="{StaticResource BaseDarkerColor}"
+                        Background="{StaticResource DarkerColor}"
                         SelectedColor="{Binding ObjectColor, Mode=TwoWay}" />
-                </TabItem>
-                <TabItem Header="Background" Style="{StaticResource BaseTabItemStyle}">
-                    <colorpicker:ColorPicker
+                    </TabItem>
+                    <TabItem Header="Background" Style="{StaticResource BaseTabItemStyle}">
+                        <colorpicker:ColorPicker
                         x:Name="BgColor"
                         Margin="4"
-                        Background="{StaticResource BaseDarkerColor}"
+                        Background="{StaticResource DarkerColor}"
                         SelectedColor="{Binding DataContext.BgColor, Converter={StaticResource ColorToString}, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                </TabItem>
-            </TabControl>
-        </Grid>
-        <Label
-            Grid.Row="0"
-            Margin="0,2,0,2"
-            HorizontalContentAlignment="Center"
-            Background="{StaticResource BaseDarkColor}"
-            Content="Modifiers"
-            Foreground="{DynamicResource BaseText}" />
-        <StackPanel Grid.Row="1">
-            <Grid
-                Grid.Row="2"
-                Height="25"
-                DockPanel.Dock="Top">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <CMiX:CustomSlider
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </Border>
+        <Border             
+            DockPanel.Dock="Bottom"
+            Background="{StaticResource DarkerColor}"
+            Margin="0, 2, 0, 0"
+            Padding="4"
+            CornerRadius="2">
+            <StackPanel Grid.Row="1">
+                <Label
+                        Grid.Row="0"
+                        Margin="0,2,0,2"
+                        HorizontalContentAlignment="Center"
+                        Background="{StaticResource DarkColor}"
+                        Content="Modifiers"
+                        Foreground="{DynamicResource TextBase}" />
+                <Grid
+                        Grid.Row="2"
+                        Height="25"
+                        DockPanel.Dock="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.5*" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <CMiX:CustomSlider
                     x:Name="HueRange"
                     Grid.Column="1"
                     Height="25"
@@ -113,25 +108,23 @@
                     Caption="Hue"
                     Tag="Hue"
                     Value="{Binding Hue.Color, Mode=TwoWay}" />
-                <ComboBox
+                    <ComboBox
                     x:Name="HueName"
                     Grid.Column="0"
                     Margin="1"
-                    FocusVisualStyle="{StaticResource FocusVisualStyle}"
-                    ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}"
                     ItemsSource="{Binding ColorNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding DataContext.HueName, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    Template="{DynamicResource BaseComboBoxStyle}" />
-            </Grid>
-            <Grid
-                Grid.Row="2"
-                Height="25"
-                DockPanel.Dock="Top">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <CMiX:CustomSlider
+                    Style="{StaticResource ComboBoxBase}" />
+                </Grid>
+                <Grid
+                        Grid.Row="2"
+                        Height="25"
+                        DockPanel.Dock="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.5*" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <CMiX:CustomSlider
                     x:Name="SatRange"
                     Grid.Column="1"
                     Height="25"
@@ -139,25 +132,23 @@
                     Caption="Sat"
                     Tag="Sat"
                     Value="{Binding Saturation.Color, Mode=TwoWay}" />
-                <ComboBox
+                    <ComboBox
                     x:Name="SatName"
                     Grid.Column="0"
                     Margin="1"
-                    FocusVisualStyle="{StaticResource FocusVisualStyle}"
-                    ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}"
                     ItemsSource="{Binding ColorNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding DataContext.SatName, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    Template="{DynamicResource BaseComboBoxStyle}" />
-            </Grid>
-            <Grid
-                Grid.Row="2"
-                Height="25"
-                DockPanel.Dock="Top">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <CMiX:CustomSlider
+                    Style="{StaticResource ComboBoxBase}" />
+                </Grid>
+                <Grid
+                        Grid.Row="2"
+                        Height="25"
+                        DockPanel.Dock="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.5*" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <CMiX:CustomSlider
                     x:Name="ValRange"
                     Grid.Column="1"
                     Height="25"
@@ -165,15 +156,15 @@
                     Caption="Val"
                     Tag="Val"
                     Value="{Binding Value.Color, Mode=TwoWay}" />
-                <ComboBox
+                    <ComboBox
                     x:Name="ValName"
                     Grid.Column="0"
                     Margin="1"
-                    ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}"
                     ItemsSource="{Binding ColorNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding DataContext.ValName, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    Template="{DynamicResource BaseComboBoxStyle}" />
-            </Grid>
-        </StackPanel>
+                    Style="{StaticResource ComboBoxBase}" />
+                </Grid>
+            </StackPanel>
+        </Border>
     </StackPanel>
 </UserControl>

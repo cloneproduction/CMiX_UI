@@ -12,13 +12,10 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxControlStyle.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseButtonStyle.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuStyle.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseLabelStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <CMiX:PathToFilenameConverter x:Key="PathToFileName" />
             <CMiX:AltBackgroundConverter x:Key="AltBackground" />
@@ -45,7 +42,7 @@
                     VerticalContentAlignment="Center"
                     Focusable="False"
                     FontSize="11"
-                    Header=""
+                    Header="..."
                     Style="{StaticResource BaseMenuItemStyle}">
                     <MenuItem
                         Click="ClearSelected_Click"
@@ -57,7 +54,7 @@
                         FontSize="11"
                         Header="Clear Unselected"
                         Template="{DynamicResource BaseSubMenuItem}" />
-                    <Separator HorizontalAlignment="Stretch" Background="{DynamicResource BaseColor}" />
+                    <Separator HorizontalAlignment="Stretch" Background="{StaticResource Color}" />
                     <MenuItem
                         Click="ClearAll_Click"
                         FontSize="11"
@@ -69,7 +66,7 @@
                 Grid.Column="0"
                 Content="{Binding Title, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:FileSelector}}}"
                 DockPanel.Dock="Left"
-                Style="{StaticResource BaseLabelStyle}" />
+                Style="{StaticResource LabelBase}" />
         </DockPanel>
         <CMiX:CMiXListBox
             x:Name="FileNameList"
@@ -100,8 +97,8 @@
                                 BorderBrush="Transparent"
                                 Click="DeleteFileName_Click"
                                 Content="X"
-                                Foreground="{StaticResource BaseText}"
-                                Style="{StaticResource BaseButtonStyle}" />
+                                Foreground="{StaticResource TextBase}"
+                                Style="{StaticResource ButtonBase}" />
                             <TextBlock
                                 Padding="4"
                                 HorizontalAlignment="Stretch"
@@ -118,14 +115,14 @@
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="BorderBrush" Value="{StaticResource BaseColor}" />
+                            <Setter Property="BorderBrush" Value="{StaticResource Color}" />
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsMouseOver" Value="True" />
                                 <Condition Property="IsSelected" Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter Property="BorderBrush" Value="{StaticResource BaseHighLightColor}" />
+                            <Setter Property="BorderBrush" Value="{StaticResource HighLightColor}" />
                         </MultiTrigger>
                     </Style.Triggers>
                 </Style>

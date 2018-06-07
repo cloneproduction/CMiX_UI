@@ -7,8 +7,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="cmix"
-    d:DesignHeight="972"
-    d:DesignWidth="1584.666"
+    d:DesignHeight="1015.667"
+    d:DesignWidth="1850.667"
     FontFamily="{DynamicResource RobotoMedium}"
     FontSize="11"
     Loaded="cmix_Loaded"
@@ -16,11 +16,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Fonts/Roboto.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseRadioButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/LayerRadioButtonStyle.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuStyle.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuItemStyle.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseContextMenuStyle.xaml" />
@@ -39,6 +35,7 @@
         <Grid Margin="0,0,0,2" DockPanel.Dock="Top">
             <Label
                 x:Name="ProjectName"
+                Style="{StaticResource LabelBase}"
                 HorizontalContentAlignment="Right"
                 Background="{DynamicResource BaseColor}"
                 Content="{Binding DataContext.CompoName[0], ElementName=cmix, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
@@ -96,10 +93,12 @@
                 <ColumnDefinition Width="0.2*" />
             </Grid.ColumnDefinitions>
             <Border
-                Grid.Column="0"
-                Margin="4"
-                Background="{StaticResource BaseHighDarkerColor}"
-                Focusable="True">
+                BorderBrush="{StaticResource DarkerColor}"
+                CornerRadius="0, 2, 2, 0"
+                BorderThickness="0, 1, 1, 1"
+                Background="{StaticResource HighDarkerColor}"
+                Padding="8"
+                Margin="0, 4, 4, 4">
                 <DockPanel LastChildFill="False">
                     <CMiX:MasterBeatControl
                         x:Name="MasterBeatControl"
@@ -115,7 +114,7 @@
             <Grid
                 x:Name="ContentControl"
                 Grid.Column="1"
-                Margin="0,4,0,4">
+                Margin="4">
                 <Views:LayerControls
                     x:Name="Layer0"
                     DataContext="{Binding CurrentLayer}"
@@ -124,7 +123,7 @@
             </Grid>
             <Border
                 Grid.Column="4"
-                Margin="4"
+                Margin="4, 4, 0, 4"
                 Background="{StaticResource BaseDarkerColor}">
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
@@ -134,14 +133,14 @@
                             Height="25"
                             Content="+"
                             DockPanel.Dock="left"
-                            Style="{StaticResource BaseButtonStyle}" />
+                            Style="{StaticResource ButtonBase}" />
                         <Button
                             x:Name="RemoveLayer"
                             Width="25"
                             Height="25"
                             Content="-"
                             DockPanel.Dock="left"
-                            Style="{StaticResource BaseButtonStyle}" />
+                            Style="{StaticResource ButtonBase}" />
                     </StackPanel>
                     <ScrollViewer
                         Margin="2"

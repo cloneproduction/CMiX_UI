@@ -2,97 +2,108 @@
     x:Class="CMiX.MasterBeatControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:CMiX="clr-namespace:CMiX"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:CMiX="clr-namespace:CMiX"
     xmlns:viewModels="clr-namespace:CMiX.ViewModels"
     d:DataContext="{d:DesignInstance Type={x:Type viewModels:MasterBeat},
                                      IsDesignTimeCreatable=False}"
-    d:DesignHeight="200"
-    d:DesignWidth="700"
-    TextBlock.Foreground="{DynamicResource BaseText}"
+    d:DesignHeight="144.444"
+    d:DesignWidth="714"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseToggleButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseLabelStyle.xaml" />
-            </ResourceDictionary.MergedDictionaries>
             <CMiX:PeriodToBPMConverter x:Key="PeriodToBPM"/>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Border Background="{DynamicResource BaseHighDarkerColor}">
+    <Border>
         <StackPanel>
-            <Label
+            <Border                 
+                BorderThickness="0, 0, 0, 2"
+                BorderBrush="{StaticResource DarkColor}"
+                Margin="0, 0, 0, 2">
+                <Label
                 Height="25"
-                Margin="0,4,0,4"
-                HorizontalContentAlignment="Center"
-                Background="{StaticResource BaseDarkColor}"
-                Content="Beat"
+                Margin="1,0,1,4"
+                Style="{StaticResource LabelBase}"
+                Content="BEAT"
                 DockPanel.Dock="Bottom"
-                FontSize="12"
-                Foreground="{StaticResource BaseText}" />
-            <DockPanel
+                FontSize="12"/>
+            </Border>
+            <Border             
+                DockPanel.Dock="Bottom"
+                Background="{StaticResource DarkerColor}"
+                Margin="0, 2, 0, 2"
+                Padding="4"
+                CornerRadius="2">
+                <StackPanel>
+                    <DockPanel
                 Grid.Row="0"
                 Height="50"
                 Margin="0,0,0,1"
                 LastChildFill="True">
-                <Button
+                        <Button
                     x:Name="Main_MultiplyBPM"
                     Grid.Row="3"
                     Grid.Column="1"
+                    Margin="1"
                     Width="{Binding ActualHeight, ElementName=Main_DivideBPM, Mode=OneWay}"
                     Command="{Binding Path=MultiplyCommand}"
                     Content="+"
                     DockPanel.Dock="Right"
-                    Style="{DynamicResource BaseButtonStyle}" />
-                <Button
+                    Style="{DynamicResource ButtonBase}" />
+                        <Button
                     x:Name="Main_DivideBPM"
+                    Margin="1"
                     Grid.Column="2"
                     Width="{Binding ActualHeight, ElementName=Main_DivideBPM, Mode=OneWay}"
                     Command="{Binding Path=DivideCommand}"
                     Content="-"
                     DockPanel.Dock="Right"
-                    Style="{DynamicResource BaseButtonStyle}" />
-                <Button
+                    Style="{DynamicResource ButtonBase}" />
+                        <Button
                     x:Name="Main_ResetBPM"
                     Grid.Column="1"
+                    Margin="1"
                     Width="{Binding ActualHeight, ElementName=Main_DivideBPM, Mode=OneWay}"
                     Command="{Binding Path=ResetCommand}"
                     Content="Rt"
                     DockPanel.Dock="Left"
-                    Style="{DynamicResource BaseButtonStyle}" />
-                <Label
+                    Style="{DynamicResource ButtonBase}" />
+                        <Label
                     x:Name="Main_BPM"
+                    Margin="1"
                     Grid.Column="0"
                     DockPanel.Dock="Right"
-                    Style="{DynamicResource BaseLabelStyle}">
-                    <TextBlock Foreground="{DynamicResource BaseText}" Text="{Binding Path=BPM, Mode=OneWay, StringFormat=F0}" />
-                </Label>
-            </DockPanel>
-            <DockPanel
+                    Background="{StaticResource DarkColor}"
+                    Style="{DynamicResource LabelBase}">
+                            <TextBlock Foreground="{DynamicResource TextBase}" Text="{Binding Path=BPM, Mode=OneWay, StringFormat=F0}" />
+                        </Label>
+                    </DockPanel>
+                    <DockPanel
                 Grid.Row="1"
                 Height="50"
                 Margin="0,1,0,0"
                 LastChildFill="True">
-                <Button
+                        <Button
                     x:Name="Main_ResyncBPM"
                     Grid.Column="0"
+                    Margin="1"
                     Width="{Binding ActualHeight, ElementName=Main_ResyncBPM, Mode=OneWay}"
                     Command="{Binding Path=ResyncCommand}"
                     Content="Rc"
                     DockPanel.Dock="Right"
-                    Style="{DynamicResource BaseButtonStyle}" />
-                <Button
+                    Style="{DynamicResource ButtonBase}" />
+                        <Button
                     x:Name="Main_TapBPM"
                     Grid.Row="2"
-                    Margin="0"
+                    Margin="1"
                     Command="{Binding Path=TapCommand}"
                     Content="TAP"
-                    Style="{DynamicResource BaseButtonStyle}" />
-            </DockPanel>
+                    Style="{DynamicResource ButtonBase}" />
+                    </DockPanel>
+                </StackPanel>
+            </Border>
         </StackPanel>
     </Border>
 </UserControl>

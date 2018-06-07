@@ -6,48 +6,17 @@
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="422.667"
-    d:DesignWidth="347.333"
+    d:DesignHeight="472.667"
+    d:DesignWidth="374.333"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Fonts/Roboto.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseFocusVisual.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseRadioButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/LayerRadioButtonStyle.xaml" />
-                <!--<ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseScrollViewerStyle.xaml" />-->
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxItemPanelStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseToggleButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTextBoxStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabControlStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseLabelStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseSliderStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseGroupBoxStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxControlStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseContextMenuStyle.xaml" />
-                <!--<ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseScrollViewerStyle.xaml" />-->
-            </ResourceDictionary.MergedDictionaries>
-
-            <CMiX:PathToFilenameConverter x:Key="PathToFileName" />
-            <CMiX:ColorToStringConverter x:Key="ColorToString" />
-            <CMiX:BoolInverterConverter x:Key="BoolInverter" />
-            <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
-        </ResourceDictionary>
-    </UserControl.Resources>
-    <DockPanel LastChildFill="True">
+    <Border             
+            DockPanel.Dock="Bottom"
+            Background="{StaticResource DarkerColor}"
+            Padding="4"
+            CornerRadius="2">
         <DockPanel
-            x:Name="MaskColorControl"
-            Margin="0,4,0,4"
-            DockPanel.Dock="Bottom">
+                x:Name="MaskColorControl"
+                DockPanel.Dock="Bottom">
             <Grid
                 Height="25"
                 Margin="0,1,0,0"
@@ -63,11 +32,9 @@
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Stretch"
                     DockPanel.Dock="Left"
-                    FocusVisualStyle="{StaticResource FocusVisualStyle}"
-                    ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}"
                     ItemsSource="{Binding InvertNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding DataContext.MaskSelectedInvert, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}"
-                    Template="{DynamicResource BaseComboBoxStyle}" />
+                    Style="{DynamicResource ComboBoxBase}" />
                 <CMiX:CustomSlider
                     x:Name="MaskInvert"
                     Grid.Row="0"
@@ -112,17 +79,16 @@
                 DockPanel.Dock="Bottom"
                 Tag="MaskBrightness"
                 Value="{Binding Brightness, Mode=TwoWay}" />
+            <CMiX:FileSelector
+                    x:Name="MaskSelectedTex"
+                    Title="Textures"
+                    MinHeight="100"
+                    VerticalAlignment="Stretch"
+                    DockPanel.Dock="Top"
+                    FileMask="{Binding TextureFileMask, Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type Views:LayerControls}}}"
+                    ModeSelection="Extended"
+                    ScrollViewer.VerticalScrollBarVisibility="Visible"
+                    SelectedItems="{Binding DataContext.MaskSelectedTex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type Views:LayerControls}}}"/>
         </DockPanel>
-        <CMiX:FileSelector
-            x:Name="MaskSelectedTex"
-            Title="Textures"
-            MinHeight="100"
-            VerticalAlignment="Stretch"
-            DockPanel.Dock="Top"
-            FileMask="{Binding TextureFileMask, Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type Views:LayerControls}}}"
-            ModeSelection="Extended"
-            ScrollViewer.VerticalScrollBarVisibility="Visible"
-            SelectedItems="{Binding DataContext.MaskSelectedTex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type Views:LayerControls}}}"
-            Tag="Mask" />
-    </DockPanel>
+    </Border>
 </UserControl>

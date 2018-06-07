@@ -2,29 +2,23 @@
     x:Class="CMiX.Views.BeatModifier"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:CMiX="clr-namespace:CMiX"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:CMiX="clr-namespace:CMiX"
     xmlns:viewModels="clr-namespace:CMiX.ViewModels"
     d:DataContext="{d:DesignInstance Type={x:Type viewModels:BeatModifier},
                                      IsDesignTimeCreatable=False}"
     d:DesignHeight="33.493"
     d:DesignWidth="487.081"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Fonts/Roboto.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseSliderStyle.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
-    <Grid>
-        <DockPanel LastChildFill="True">
-            <CMiX:BeatControls x:Name="MaskMultiplier" DockPanel.Dock="Right" />
-            <CMiX:CustomSlider x:Name="MaskChanceToHit" Value="{Binding ChanceToHit, Mode=TwoWay}" />
+    <Border             
+        DockPanel.Dock="Bottom"
+        Background="{StaticResource DarkerColor}"
+        Padding="4"
+        CornerRadius="2">
+        <DockPanel LastChildFill="True" Height="25">
+            <CMiX:BeatControls x:Name="MaskMultiplier" Margin="1, 0, 0, 0" DockPanel.Dock="Right" />
+            <CMiX:CustomSlider x:Name="MaskChanceToHit" Margin="0, 0, 1, 0" Value="{Binding ChanceToHit, Mode=TwoWay}" />
         </DockPanel>
-    </Grid>
+    </Border>
 </UserControl>

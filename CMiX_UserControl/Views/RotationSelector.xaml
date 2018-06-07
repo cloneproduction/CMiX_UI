@@ -2,23 +2,15 @@
     x:Class="CMiX.RotationSelector"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:CMiX="clr-namespace:CMiX"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:CMiX="clr-namespace:CMiX"
     x:Name="RotationPanel"
     d:DesignHeight="89.667"
     d:DesignWidth="301"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseRadioButtonStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseLabelStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseToggleButtonStyle.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-            <CMiX:PathToFilenameConverter x:Key="PathToFileName" />
-            <CMiX:BoolToStringConverter x:Key="BoolToString" />
             <CMiX:BoolInverterConverter x:Key="BoolInverter" />
         </ResourceDictionary>
     </UserControl.Resources>
@@ -27,7 +19,7 @@
             x:Name="OpenRotationPanel"
             Content="{Binding Rotation}"
             IsHitTestVisible="{Binding ElementName=PopupRotation, Path=IsOpen, Converter={StaticResource BoolInverter}}"
-            Style="{StaticResource BaseToggleButtonStyle}" />
+            Style="{StaticResource ToggleButtonBase}" />
         <Popup
             x:Name="PopupRotation"
             Width="432"
@@ -39,7 +31,7 @@
             <Border
                 Margin="32"
                 Padding="8"
-                Background="{StaticResource BaseDarkerColor}">
+                Background="{StaticResource DarkerColor}">
                 <Border.Effect>
                     <DropShadowEffect
                         BlurRadius="32"
@@ -56,7 +48,7 @@
                             Margin="0"
                             VerticalAlignment="Center"
                             DockPanel.Dock="left"
-                            Foreground="{StaticResource BaseText}"
+                            Foreground="{StaticResource TextBase}"
                             Text="ROTATION" />
                         <ToggleButton
                             Width="25"
@@ -65,7 +57,7 @@
                             Content="Z"
                             DockPanel.Dock="Right"
                             IsChecked="{Binding Rotation[2], Mode=OneWay}"
-                            Style="{StaticResource BaseToggleButtonStyle}"
+                            Style="{StaticResource ToggleButtonBase}"
                             Tag="3" />
                         <ToggleButton
                             Width="25"
@@ -74,7 +66,7 @@
                             Content="Y"
                             DockPanel.Dock="Right"
                             IsChecked="{Binding Rotation[1], Mode=OneWay}"
-                            Style="{StaticResource BaseToggleButtonStyle}"
+                            Style="{StaticResource ToggleButtonBase}"
                             Tag="2" />
                         <ToggleButton
                             Width="25"
@@ -83,7 +75,7 @@
                             Content="X"
                             DockPanel.Dock="Right"
                             IsChecked="{Binding Rotation[0], Mode=OneWay}"
-                            Style="{StaticResource BaseToggleButtonStyle}"
+                            Style="{StaticResource ToggleButtonBase}"
                             Tag="1" />
                     </DockPanel>
                     <Grid>
@@ -97,7 +89,7 @@
                                 Height="15"
                                 Margin="0,0,0,4"
                                 Content="STEADY"
-                                Style="{StaticResource BaseLabelStyle}" />
+                                Style="{StaticResource LabelBase}" />
                             <RadioButton
                                 x:Name="STD_CTR"
                                 Grid.Row="0"
@@ -107,7 +99,7 @@
                                 Checked="RadioButton_Checked"
                                 Content="STD_CTR"
                                 GroupName="Translate"
-                                Style="{StaticResource BaseRadioButtonStyle}" />
+                                Style="{StaticResource RadioButtonBase}" />
                             <RadioButton
                                 x:Name="STD_45"
                                 Grid.Row="0"
@@ -117,7 +109,7 @@
                                 Checked="RadioButton_Checked"
                                 Content="STD_+45"
                                 GroupName="Translate"
-                                Style="{StaticResource BaseRadioButtonStyle}" />
+                                Style="{StaticResource RadioButtonBase}" />
                             <RadioButton
                                 x:Name="STD_90"
                                 Grid.Row="0"
@@ -127,7 +119,7 @@
                                 Checked="RadioButton_Checked"
                                 Content="STD_+90"
                                 GroupName="Translate"
-                                Style="{StaticResource BaseRadioButtonStyle}" />
+                                Style="{StaticResource RadioButtonBase}" />
                             <RadioButton
                                 x:Name="STD_135"
                                 Grid.Row="1"
@@ -137,7 +129,7 @@
                                 Checked="RadioButton_Checked"
                                 Content="STD_135"
                                 GroupName="Translate"
-                                Style="{StaticResource BaseRadioButtonStyle}" />
+                                Style="{StaticResource RadioButtonBase}" />
                             <RadioButton
                                 x:Name="STD_180"
                                 Grid.Row="1"
@@ -147,7 +139,7 @@
                                 Checked="RadioButton_Checked"
                                 Content="STD_180"
                                 GroupName="Translate"
-                                Style="{StaticResource BaseRadioButtonStyle}" />
+                                Style="{StaticResource RadioButtonBase}" />
                             <RadioButton
                                 x:Name="STD_225"
                                 Grid.Row="1"
@@ -157,7 +149,7 @@
                                 Checked="RadioButton_Checked"
                                 Content="STD_225"
                                 GroupName="Translate"
-                                Style="{StaticResource BaseRadioButtonStyle}" />
+                                Style="{StaticResource RadioButtonBase}" />
                             <RadioButton
                                 x:Name="STD_270"
                                 Grid.Row="1"
@@ -167,7 +159,7 @@
                                 Checked="RadioButton_Checked"
                                 Content="STD_270"
                                 GroupName="Translate"
-                                Style="{StaticResource BaseRadioButtonStyle}" />
+                                Style="{StaticResource RadioButtonBase}" />
                             <RadioButton
                                 x:Name="STD_315"
                                 Grid.Row="1"
@@ -177,14 +169,14 @@
                                 Checked="RadioButton_Checked"
                                 Content="STD_315"
                                 GroupName="Translate"
-                                Style="{StaticResource BaseRadioButtonStyle}" />
+                                Style="{StaticResource RadioButtonBase}" />
                         </StackPanel>
                         <StackPanel Grid.Column="1">
                             <Label
                                 Height="15"
                                 Margin="0,0,0,4"
                                 Content="FLASH"
-                                Style="{StaticResource BaseLabelStyle}" />
+                                Style="{StaticResource LabelBase}" />
                             <RadioButton
                                 x:Name="FLA_RDM"
                                 Grid.Row="2"
@@ -194,7 +186,7 @@
                                 Checked="RadioButton_Checked"
                                 Content="FLA_RDM"
                                 GroupName="Translate"
-                                Style="{StaticResource BaseRadioButtonStyle}" />
+                                Style="{StaticResource RadioButtonBase}" />
                             <RadioButton
                                 x:Name="FLA_RDM_45"
                                 Grid.Row="2"
@@ -204,7 +196,7 @@
                                 Checked="RadioButton_Checked"
                                 Content="FLA_RDM_45"
                                 GroupName="Translate"
-                                Style="{StaticResource BaseRadioButtonStyle}" />
+                                Style="{StaticResource RadioButtonBase}" />
                             <RadioButton
                                 x:Name="FLA_RDM_90"
                                 Grid.Row="2"
@@ -214,7 +206,7 @@
                                 Checked="RadioButton_Checked"
                                 Content="FLA_RDM_90"
                                 GroupName="Translate"
-                                Style="{StaticResource BaseRadioButtonStyle}" />
+                                Style="{StaticResource RadioButtonBase}" />
                             <RadioButton
                                 x:Name="FLA_CLK_45"
                                 Grid.Row="2"
@@ -224,7 +216,7 @@
                                 Checked="RadioButton_Checked"
                                 Content="FLA_CLK_45"
                                 GroupName="Translate"
-                                Style="{StaticResource BaseRadioButtonStyle}" />
+                                Style="{StaticResource RadioButtonBase}" />
                             <RadioButton
                                 x:Name="FLA_CLK_90"
                                 Grid.Row="2"
@@ -234,7 +226,7 @@
                                 Checked="RadioButton_Checked"
                                 Content="FLA_CLK_90"
                                 GroupName="Translate"
-                                Style="{StaticResource BaseRadioButtonStyle}" />
+                                Style="{StaticResource RadioButtonBase}" />
                             <RadioButton
                                 x:Name="FLA_CCK_45"
                                 Grid.Row="2"
@@ -244,7 +236,7 @@
                                 Checked="RadioButton_Checked"
                                 Content="FLA_CCK_45"
                                 GroupName="Translate"
-                                Style="{StaticResource BaseRadioButtonStyle}" />
+                                Style="{StaticResource RadioButtonBase}" />
                             <RadioButton
                                 x:Name="FLA_CCK_90"
                                 Grid.Row="2"
@@ -254,7 +246,7 @@
                                 Checked="RadioButton_Checked"
                                 Content="FLA_CCK_90"
                                 GroupName="Translate"
-                                Style="{StaticResource BaseRadioButtonStyle}" />
+                                Style="{StaticResource RadioButtonBase}" />
                             <RadioButton
                                 x:Name="FLA_180"
                                 Grid.Row="2"
@@ -264,14 +256,14 @@
                                 Checked="RadioButton_Checked"
                                 Content="FLA_180"
                                 GroupName="Translate"
-                                Style="{StaticResource BaseRadioButtonStyle}" />
+                                Style="{StaticResource RadioButtonBase}" />
                         </StackPanel>
                         <StackPanel Grid.Column="2">
                             <Label
                                 Height="15"
                                 Margin="0,0,0,4"
                                 Content="SLIDE"
-                                Style="{StaticResource BaseLabelStyle}" />
+                                Style="{StaticResource LabelBase}" />
                             <RadioButton
                                 x:Name="SLD_RDM"
                                 Grid.Row="0"
@@ -281,7 +273,7 @@
                                 Checked="RadioButton_Checked"
                                 Content="SLD_RDM"
                                 GroupName="Translate"
-                                Style="{StaticResource BaseRadioButtonStyle}" />
+                                Style="{StaticResource RadioButtonBase}" />
                             <RadioButton
                                 x:Name="SLD_CLK_LIN"
                                 Grid.Row="0"
@@ -291,7 +283,7 @@
                                 Checked="RadioButton_Checked"
                                 Content="SLD_CLK_LIN"
                                 GroupName="Translate"
-                                Style="{StaticResource BaseRadioButtonStyle}" />
+                                Style="{StaticResource RadioButtonBase}" />
                             <RadioButton
                                 x:Name="SLD_CCK_LIN"
                                 Grid.Row="0"
@@ -301,7 +293,7 @@
                                 Checked="RadioButton_Checked"
                                 Content="SLD_CCK_LIN"
                                 GroupName="Translate"
-                                Style="{StaticResource BaseRadioButtonStyle}" />
+                                Style="{StaticResource RadioButtonBase}" />
                         </StackPanel>
                     </Grid>
                 </DockPanel>
