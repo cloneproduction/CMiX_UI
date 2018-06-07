@@ -4,10 +4,10 @@ namespace CMiX.ViewModels
 {
     public class Content : ViewModel
     {
-        public Content()
+        public Content(Beat masterBeat)
             : this(
                   enable: true,
-                  beatModifier: new BeatModifier(),
+                  beatModifier: new BeatModifier(masterBeat),
                   geometry: new Geometry(),
                   texture: new Texture(),
                   postFX: new PostFX())

@@ -1,17 +1,19 @@
-﻿namespace CMiX.ViewModels
+﻿using System;
+
+namespace CMiX.ViewModels
 {
     public class Layer : ViewModel
     {
-        public Layer()
-            : this(
-                  name: string.Empty,
-                  fade: 0.0,
-                  blendMode: default(BlendMode),
-                  beatModifier: new BeatModifier(),
-                  content: new Content(),
-                  mask: new Mask(),
-                  coloration: new Coloration())
-        { }
+        public Layer(MasterBeat masterBeat)
+        {
+            Name = string.Empty;
+            Fade = 0.0;
+            BlendMode = default;
+            BeatModifier = new BeatModifier(masterBeat);
+            Content = new Content(BeatModifier);
+            Mask = new Mask(BeatModifier);
+            Coloration = new Coloration(BeatModifier);
+        }
 
         public Layer(
             string name,
@@ -25,10 +27,10 @@
             Name = name;
             Fade = fade;
             BlendMode = blendMode;
-            BeatModifier = beatModifier ?? throw new System.ArgumentNullException(nameof(beatModifier));
-            Content = content ?? throw new System.ArgumentNullException(nameof(content));
-            Mask = mask ?? throw new System.ArgumentNullException(nameof(mask));
-            Coloration = coloration ?? throw new System.ArgumentNullException(nameof(coloration));
+            BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
+            Content = content ?? throw new ArgumentNullException(nameof(content));
+            Mask = mask ?? throw new ArgumentNullException(nameof(mask));
+            Coloration = coloration ?? throw new ArgumentNullException(nameof(coloration));
         }
 
         private string _name;

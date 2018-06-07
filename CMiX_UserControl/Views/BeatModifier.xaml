@@ -5,6 +5,9 @@
     xmlns:CMiX="clr-namespace:CMiX"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:CMiX.ViewModels"
+    d:DataContext="{d:DesignInstance Type={x:Type viewModels:BeatModifier},
+                                     IsDesignTimeCreatable=False}"
     d:DesignHeight="33.493"
     d:DesignWidth="487.081"
     mc:Ignorable="d">
@@ -20,11 +23,7 @@
     </UserControl.Resources>
     <Grid>
         <DockPanel LastChildFill="True">
-            <CMiX:BeatControls
-                x:Name="MaskMultiplier"
-                DockPanel.Dock="Right"
-                MasterPeriod="{Binding Period, Mode=OneWay}"
-                Multiplier="{Binding Multiplier, Mode=TwoWay}" />
+            <CMiX:BeatControls x:Name="MaskMultiplier" DockPanel.Dock="Right" />
             <CMiX:CustomSlider x:Name="MaskChanceToHit" Value="{Binding ChanceToHit, Mode=TwoWay}" />
         </DockPanel>
     </Grid>

@@ -44,7 +44,7 @@
         <TabControl DockPanel.Dock="Bottom" Style="{StaticResource BaseTabControlStyle}">
             <TabItem
                 Height="25"
-                Margin="0, 0, 0, 2"
+                Margin="0,0,0,2"
                 Header="Geometry"
                 Style="{StaticResource BaseTabItemStyle}">
                 <DockPanel>
@@ -112,8 +112,8 @@
                             <CMiX:RotationSelector x:Name="SpriteRotation" />
                             <CMiX:CustomSlider
                                 x:Name="SpriteRotate"
-                                Margin="1"
                                 Grid.Column="2"
+                                Margin="1"
                                 Caption="Rotate"
                                 Value="{Binding RotationAmount, Mode=TwoWay}" />
                         </Grid>
@@ -123,10 +123,10 @@
                         Background="{StaticResource BaseDarkColor}"
                         DockPanel.Dock="Bottom">
                         <CMiX:FileSelector
-                            Margin="1"
                             x:Name="SpriteSelectedGeom"
                             Title="Models"
-                            FileMask="{Binding GeometryFileMask, Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type Views:LayerControls}}}"/>
+                            Margin="1"
+                            FileMask="{Binding GeometryFileMask, Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type Views:LayerControls}}}" />
                     </Border>
                 </DockPanel>
             </TabItem>

@@ -5,13 +5,13 @@ namespace CMiX.ViewModels
 {
     public class Camera : ViewModel
     {
-        public Camera(IMessenger messenger)
+        public Camera(IMessenger messenger, MasterBeat masterBeat)
             : this(
                   messenger: messenger,
                   rotation: default(CameraRotation),
                   lookAt: default(CameraLookAt),
                   view: default(CameraView),
-                  beatModifier: new BeatModifier(),
+                  beatModifier: new BeatModifier(masterBeat),
                   fov: 0.5,
                   zoom: 1.0)
         {

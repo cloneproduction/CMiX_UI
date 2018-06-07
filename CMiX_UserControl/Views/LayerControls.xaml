@@ -20,7 +20,7 @@
             </ResourceDictionary.MergedDictionaries>
             <CMiX:ColorToStringConverter x:Key="ColorToString" />
             <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
-            <CMiX:ColorToBrushConverter x:Key="ColorToBrush"/>
+            <CMiX:ColorToBrushConverter x:Key="ColorToBrush" />
         </ResourceDictionary>
     </UserControl.Resources>
     <Border Background="Transparent" Visibility="{Binding DataContext.EnabledLayer, Converter={StaticResource BoolToVisibility}, Mode=OneWay, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged}">
@@ -33,7 +33,7 @@
                     <DataTrigger Binding="{Binding IsEnabled, ElementName=Ch_Parameters}" Value="true">
                         <Setter Property="BorderBrush">
                             <Setter.Value>
-                                <SolidColorBrush Color="{Binding Coloration.ObjectColor, Mode=TwoWay}"/>
+                                <SolidColorBrush Color="{Binding Coloration.ObjectColor, Mode=TwoWay}" />
                             </Setter.Value>
                         </Setter>
                         <Setter Property="Visibility" Value="Visible" />

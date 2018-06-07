@@ -4,10 +4,10 @@ namespace CMiX.ViewModels
 {
     public class Mask : ViewModel
     {
-        public Mask()
+        public Mask(Beat masterBeat)
             : this(
                   enable: true,
-                  beatModifier: new BeatModifier(),
+                  beatModifier: new BeatModifier(masterBeat),
                   geometry: new Geometry(),
                   texture: new Texture(),
                   postFX: new PostFX())

@@ -19,9 +19,8 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <DockPanel Background="{StaticResource BaseDarkerColor}" LastChildFill="True">
-        <Grid  DockPanel.Dock="Top">
-            <Grid
-                Margin="0, 0, 0, 2">
+        <Grid DockPanel.Dock="Top">
+            <Grid Margin="0,0,0,2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition />
@@ -48,30 +47,30 @@
             </Grid>
             <CMiX:Counter
                 x:Name="MaskCount"
-                Height="25"
                 Width="150"
+                Height="25"
                 HorizontalAlignment="Right"
                 DataContext="{Binding Count}" />
         </Grid>
         <Views:BeatModifier
             x:Name="MaskBeatModifier"
-            Margin="0, 2, 0, 2"
             Height="25"
+            Margin="0,2,0,2"
             DataContext="{Binding BeatModifier}"
             DockPanel.Dock="Top" />
         <Views:PostFX
             x:Name="MaskPostFX"
-            Margin="0, 2, 0, 2"            
+            Margin="0,2,0,2"
             DataContext="{Binding PostFX}"
             DockPanel.Dock="Bottom" />
         <Views:Geometry
             x:Name="MaskGeometry"
-            Margin="0, 2, 0, 2"            
+            Margin="0,2,0,2"
             DataContext="{Binding Geometry}"
             DockPanel.Dock="Bottom" />
         <Views:Texture
             x:Name="MaskTexture"
-            Margin="0, 2, 0, 2"
+            Margin="0,2,0,2"
             DataContext="{Binding Texture}"
             DockPanel.Dock="Top" />
     </DockPanel>

@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace CMiX.ViewModels
 {
-    public class MasterBeat : ViewModel
+    public class MasterBeat : Beat
     {
         public MasterBeat(IMessenger messenger)
             : this(
@@ -21,10 +21,7 @@ namespace CMiX.ViewModels
             Period = period;
             Multiplier = multiplier;
 
-            ResetCommand = new RelayCommand(p => Reset());
             ResyncCommand = new RelayCommand(p => Resync());
-            MultiplyCommand = new RelayCommand(p => Multiply());
-            DivideCommand = new RelayCommand(p => Divide());
             TapCommand = new RelayCommand(p => Tap());
 
             tapPeriods = new List<double>();
@@ -32,75 +29,41 @@ namespace CMiX.ViewModels
         }
 
         private double _period;
-        public double Period
+        public override double Period
         {
             get => _period;
             set
             {
                 SetAndNotify(ref _period, value);
+                OnPeriodChanged(Period);
                 Notify(nameof(BPM));
             }
         }
 
-        public double BPM
-        {
-            get
-            {
-                var bpm = 50000 / Period;
-
-                if (double.IsInfinity(bpm) || double.IsNaN(bpm))
-                {
-                    return 0;
-                }
-                else
-                {
-                    return bpm;
-                }
-            }
-        }
-
-        private int _multiplier;
-        public int Multiplier
-        {
-            get => _multiplier;
-            set => SetAndNotify(ref _multiplier, value);
-        }
-
-        public ICommand ResetCommand { get; }
-
         public ICommand ResyncCommand { get; }
-
-        public ICommand MultiplyCommand { get; }
-
-        public ICommand DivideCommand { get; }
 
         public ICommand TapCommand { get; }
 
-        public IMessenger Messenger { get; }
+        private IMessenger Messenger { get; }
 
         private readonly List<double> tapPeriods;
         private readonly List<double> tapTime;
 
         private string Address => "/MasterPeriod";
 
-        private void Reset()
-        {
-            Multiplier = 1;
-        }
-
         private void Resync()
         {
             Messenger.SendMessage(Address, CurrentTime);
         }
 
-        private void Multiply()
+        protected override void Multiply()
         {
             Period /= 2.0;
 
             Messenger.SendMessage(Address, Period);
         }
 
-        private void Divide()
+        protected override void Divide()
         {
             Period *= 2.0;
 
