@@ -21,6 +21,7 @@ namespace CMiX
         public static readonly DependencyProperty MultiplierProperty =
         DependencyProperty.Register("Multiplier", typeof(double), typeof(BeatControls), new PropertyMetadata(1.0, new PropertyChangedCallback(PropertyChanged)));
         [Bindable(true)]
+        [Obsolete("Use viewmodel")]
         public double Multiplier
         {
             get { return (double)GetValue(MultiplierProperty); }
@@ -30,6 +31,7 @@ namespace CMiX
         public static readonly DependencyProperty MasterPeriodProperty =
         DependencyProperty.Register("MasterPeriod", typeof(double), typeof(BeatControls), new PropertyMetadata(0.0, new PropertyChangedCallback(PropertyChanged)));
         [Bindable(true)]
+        [Obsolete("Use viewmodel")]
         public double MasterPeriod
         {
             get { return (double)GetValue(MasterPeriodProperty); }
@@ -39,6 +41,7 @@ namespace CMiX
         public static readonly DependencyProperty ControlPeriodProperty =
         DependencyProperty.Register("ControlPeriod", typeof(double), typeof(BeatControls), new PropertyMetadata(0.0));
         [Bindable(true)]
+        [Obsolete("Use viewmodel")]
         public double ControlPeriod
         {
             get { return (double)GetValue(ControlPeriodProperty); }
@@ -55,14 +58,7 @@ namespace CMiX
                 beatcontrol.ControlPeriod = beatcontrol.MasterPeriod * beatcontrol.Multiplier;
             }
         }
-
-        /*public event EventHandler BeatControlChanged;
-        protected virtual void OnBeatControlChanged(RoutedEventArgs e)
-        {
-            var handler = BeatControlChanged;
-            if (handler != null)
-                handler(this, e);
-        }*/
+        /*
 
         private void BeatMultiply_Click(object sender, RoutedEventArgs e)
         {
@@ -81,6 +77,7 @@ namespace CMiX
             Multiplier = 1.0;
             //OnBeatControlChanged(e);
         }
+        */
         #endregion
     }
 }

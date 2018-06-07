@@ -9,25 +9,31 @@ namespace CMiX.ViewModels
     public class Composition : ViewModel
     {
         public Composition()
-            : this(
-                  name: string.Empty,
-                  camera: new Camera(new OSCMessenger(new SharpOSC.UDPSender("127.0.0.1", 55555))),
-                  mainBeat: new MasterBeat(new OSCMessenger(new SharpOSC.UDPSender("127.0.0.1", 55555))),
-                  layers: Enumerable.Empty<Layer>())
-        { }
+        {
+            Name = string.Empty;
 
-        public Composition(string name, Camera camera, MasterBeat mainBeat, IEnumerable<Layer> layers)
+            var messenger = new OSCMessenger(new SharpOSC.UDPSender("127.0.0.1", 55555));
+
+            MasterBeat = new MasterBeat(messenger);
+            Camera = new Camera(messenger, MasterBeat);
+            Layers = new ObservableCollection<Layer>(Enumerable.Empty<Layer>());
+
+            // TODO temporary
+            CurrentLayer = new Layer(MasterBeat);
+        }
+
+        public Composition(string name, Camera camera, MasterBeat masterBeat, IEnumerable<Layer> layers)
         {
             if (layers == null)
             {
                 throw new ArgumentNullException(nameof(layers));
             }
 
-            CurrentLayer = new Layer(); // TODO temporary
+            CurrentLayer = new Layer(masterBeat); // TODO temporary
 
             Name = name;
-            Camera = camera ?? throw new System.ArgumentNullException(nameof(camera));
-            MasterBeat = mainBeat ?? throw new System.ArgumentNullException(nameof(mainBeat));
+            Camera = camera ?? throw new ArgumentNullException(nameof(camera));
+            MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
             Layers = new ObservableCollection<Layer>(layers);
         }
 

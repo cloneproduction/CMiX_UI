@@ -1,30 +1,48 @@
-﻿namespace CMiX.ViewModels
+﻿using System;
+
+namespace CMiX.ViewModels
 {
-    public class BeatModifier : ViewModel
+    public class BeatModifier : Beat
     {
-        public BeatModifier()
-            : this(period: 0.0, multiplier: 1, chanceToHit: 1.0)
+        public BeatModifier(Beat masterBeat)
+            : this(
+                  masterBeat: masterBeat,
+                  multiplier: 1.0,
+                  chanceToHit: 1.0)
         { }
 
-        public BeatModifier(double period, int multiplier, double chanceToHit)
+        public BeatModifier(Beat masterBeat, double multiplier, double chanceToHit)
         {
-            Period = period;
+            MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
             Multiplier = multiplier;
             ChanceToHit = chanceToHit;
+
+            masterBeat.PeriodChanged += (s, newValue) =>
+            {
+                OnPeriodChanged(Period);
+                Notify(nameof(Period));
+                Notify(nameof(BPM));
+            };
         }
 
-        private double _period;
-        public double Period
+        private Beat MasterBeat { get; }
+
+        public override double Period
         {
-            get => _period;
-            set => SetAndNotify(ref _period, value);
+            get => MasterBeat.Period * Multiplier;
+            set => throw new InvalidOperationException("Property is readonly. When binding, use Mode=OneWay.");
         }
 
-        private int _multiplier;
-        public int Multiplier
+        public override double Multiplier
         {
-            get => _multiplier;
-            set => SetAndNotify(ref _multiplier, value);
+            get => base.Multiplier;
+            set
+            {
+                base.Multiplier = value;
+                OnPeriodChanged(Period);
+                Notify(nameof(Period));
+                Notify(nameof(BPM));
+            }
         }
 
         private double _chanceToHit;
@@ -32,6 +50,16 @@
         {
             get => _chanceToHit;
             set => SetAndNotify(ref _chanceToHit, value);
+        }
+
+        protected override void Multiply()
+        {
+            Multiplier /= 2;
+        }
+
+        protected override void Divide()
+        {
+            Multiplier *= 2;
         }
     }
 }

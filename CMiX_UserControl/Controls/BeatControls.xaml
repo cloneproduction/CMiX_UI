@@ -5,6 +5,9 @@
     xmlns:CMiX="clr-namespace:CMiX"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:CMiX.ViewModels"
+    d:DataContext="{d:DesignInstance Type={x:Type viewModels:BeatModifier},
+                                     IsDesignTimeCreatable=False}"
     d:DesignHeight="87"
     d:DesignWidth="596"
     mc:Ignorable="d">
@@ -24,7 +27,7 @@
             x:Name="ResetBPM"
             Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
             Padding="1"
-            Click="ResetBPM_Click"
+            Command="{Binding Path=ResetCommand}"
             Content="Rt"
             DockPanel.Dock="Right"
             IsDefault="True"
@@ -34,7 +37,7 @@
             x:Name="DivideBPM"
             Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
             Padding="1"
-            Click="BeatDivide_Click"
+            Command="{Binding Path=DivideCommand}"
             Content="-"
             DockPanel.Dock="Right"
             IsDefault="True"
@@ -43,7 +46,7 @@
             x:Name="MultiplyBPM"
             Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
             Padding="1"
-            Click="BeatMultiply_Click"
+            Command="{Binding Path=MultiplyCommand}"
             Content="+"
             DockPanel.Dock="Right"
             IsDefault="True"
@@ -55,9 +58,10 @@
             Padding="1"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
-            Content="{Binding ControlPeriod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource PeriodToBPM}, RelativeSource={RelativeSource AncestorType={x:Type CMiX:BeatControls}}}"
             DockPanel.Dock="Right"
-            Style="{DynamicResource BaseLabelStyle}" />
+            Style="{DynamicResource BaseLabelStyle}">
+            <TextBlock Foreground="{DynamicResource BaseText}" Text="{Binding Path=BPM, Mode=OneWay, StringFormat=F0}" />
+        </Label>
     </StackPanel>
 </UserControl>
 

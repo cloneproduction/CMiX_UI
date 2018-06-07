@@ -98,6 +98,7 @@
   <ItemGroup>
     <Compile Include="Services\IMessenger.cs" />
     <Compile Include="Services\OSCMessenger.cs" />
+    <Compile Include="ViewModels\Beat.cs" />
     <Compile Include="ViewModels\BeatModifier.cs" />
     <Compile Include="Views\BeatModifier.xaml.cs">
       <DependentUpon>BeatModifier.xaml</DependentUpon>
