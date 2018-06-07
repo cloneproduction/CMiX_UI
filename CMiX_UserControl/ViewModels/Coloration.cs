@@ -7,7 +7,7 @@ namespace CMiX.ViewModels
     {
         public Coloration(Beat masterBeat)
             : this(
-                  masterBeat: new BeatModifier(masterBeat),
+                  beatModifier: new BeatModifier(masterBeat),
                   objectColor: Colors.White,
                   backgroundColor: Colors.Black,
                   hue: new HSVPoint(),
@@ -15,9 +15,9 @@ namespace CMiX.ViewModels
                   value: new HSVPoint())
         { }
 
-        public Coloration(Beat masterBeat, Color objectColor, Color backgroundColor, HSVPoint hue, HSVPoint saturation, HSVPoint value)
+        public Coloration(BeatModifier beatModifier, Color objectColor, Color backgroundColor, HSVPoint hue, HSVPoint saturation, HSVPoint value)
         {
-            MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
+            BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
             ObjectColor = objectColor;
             BackgroundColor = backgroundColor;
             Hue = hue ?? throw new ArgumentNullException(nameof(hue));
@@ -26,8 +26,6 @@ namespace CMiX.ViewModels
         }
 
         private Color _objectColor;
-
-        public Beat MasterBeat { get; }
         public Color ObjectColor
         {
             get => _objectColor;

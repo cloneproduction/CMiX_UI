@@ -57,10 +57,9 @@
                         Margin="1"
                         HorizontalContentAlignment="Left"
                         ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}"
-                        Template="{DynamicResource BaseComboBoxStyle}" 
                         ItemsSource="{Binding TexTransformNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         SelectedItem="{Binding DataContext.SpriteTransform, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        />
+                        Template="{DynamicResource BaseComboBoxStyle}" />
                     <CMiX:CMiXComboBox
                         x:Name="SpriteView"
                         Grid.Column="1"
@@ -68,10 +67,9 @@
                         Margin="1"
                         HorizontalContentAlignment="Left"
                         ItemContainerStyle="{DynamicResource BaseComboBoxItemStyle}"
-                        Template="{DynamicResource BaseComboBoxStyle}"
                         ItemsSource="{Binding ViewNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         SelectedItem="{Binding DataContext.SpriteViewTransform, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        />
+                        Template="{DynamicResource BaseComboBoxStyle}" />
                 </Grid>
             </StackPanel>
         </Border>
