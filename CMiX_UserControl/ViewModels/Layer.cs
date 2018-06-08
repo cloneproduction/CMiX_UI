@@ -1,17 +1,18 @@
 ﻿using System;
+using System.Windows;
 
 namespace CMiX.ViewModels
 {
     public class Layer : ViewModel
     {
-        public Layer(MasterBeat masterBeat)
+        public Layer(MasterBeat masterBeat, string name)
         {
-            Name = string.Empty;
+            Name = name;
             Fade = 0.0;
             BlendMode = default;
             BeatModifier = new BeatModifier(masterBeat);
-            Content = new Content(BeatModifier);
-            Mask = new Mask(BeatModifier);
+            Content = new Content(BeatModifier, name);
+            Mask = new Mask(BeatModifier, name);
             Coloration = new Coloration(BeatModifier);
         }
 

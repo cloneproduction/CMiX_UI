@@ -4,18 +4,20 @@ namespace CMiX.ViewModels
 {
     public class Mask : ViewModel
     {
-        public Mask(Beat masterBeat)
+        public Mask(Beat masterBeat, string layerName)
             : this(
                   enable: true,
+                  layerName : layerName,
                   beatModifier: new BeatModifier(masterBeat),
-                  geometry: new Geometry(),
+                  geometry: new Geometry( layerName),
                   texture: new Texture(),
                   postFX: new PostFX())
         { }
 
-        public Mask(bool enable, BeatModifier beatModifier, Geometry geometry, Texture texture, PostFX postFX)
+        public Mask(bool enable, string layerName, BeatModifier beatModifier, Geometry geometry, Texture texture, PostFX postFX)
         {
             Enable = enable;
+            LayerName = layerName;
             BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
             Geometry = geometry ?? throw new ArgumentNullException(nameof(geometry));
             Texture = texture ?? throw new ArgumentNullException(nameof(texture));
@@ -27,6 +29,13 @@ namespace CMiX.ViewModels
         {
             get => _enable;
             set => SetAndNotify(ref _enable, value);
+        }
+
+        private string _layerName;
+        public string LayerName
+        {
+            get => _layerName;
+            set => SetAndNotify(ref _layerName, value);
         }
 
         public BeatModifier BeatModifier { get; }

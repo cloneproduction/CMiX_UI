@@ -8,8 +8,9 @@ namespace CMiX.ViewModels
 {
     public class Geometry : ViewModel
     {
-        public Geometry()
+        public Geometry(string layerName)
             : this(
+                  layerName : layerName,
                   message : new Messenger(),
                   geometryCount: 1,
                   geometryPaths: Enumerable.Empty<string>(),
@@ -24,6 +25,7 @@ namespace CMiX.ViewModels
         { }
 
         public Geometry(
+            string layerName,
             Messenger message,
             int geometryCount,
             IEnumerable<string> geometryPaths,
@@ -40,6 +42,7 @@ namespace CMiX.ViewModels
             {
                 throw new ArgumentNullException(nameof(geometryPaths));
             }
+            LayerName = layerName;
             Message = message;
             GeometryCount = geometryCount;
             GeometryPaths = new ObservableCollection<string>(geometryPaths);
@@ -53,11 +56,20 @@ namespace CMiX.ViewModels
             KeepAspectRatio = keepAspectRatio;
         }
 
+        private string Address => String.Format("{0}/{1}/", LayerName, nameof(Geometry));
+
         private Messenger _message;
         public Messenger Message
         {
             get => _message;
             set => SetAndNotify(ref _message, value);
+        }
+
+        private string _layerName;
+        public string LayerName
+        {
+            get => _layerName;
+            set => SetAndNotify(ref _layerName, value);
         }
 
         private int _geometryCount;
@@ -82,8 +94,8 @@ namespace CMiX.ViewModels
             get => _translateAmount;
             set
             {
-                Message.SendOSC("Geometry/TranslateAmount", TranslateAmount.ToString());
                 SetAndNotify(ref _translateAmount, value);
+                Message.SendOSC(Address + nameof(TranslateAmount), TranslateAmount.ToString());
             }
         }
 
@@ -100,8 +112,8 @@ namespace CMiX.ViewModels
             get => _scaleAmount;
             set
             {
-                Message.SendOSC("Geometry/ScaleAmount", ScaleAmount.ToString());
                 SetAndNotify(ref _scaleAmount, value);
+                Message.SendOSC(Address + nameof(ScaleAmount), ScaleAmount.ToString());
             }
         }
 
@@ -118,8 +130,8 @@ namespace CMiX.ViewModels
             get => _rotationAmount;
             set
             {
-                Message.SendOSC("Geometry/RotationAmount", RotationAmount.ToString());
                 SetAndNotify(ref _rotationAmount, value);
+                Message.SendOSC(Address + nameof(RotationAmount), RotationAmount.ToString());
             }
         }
 
@@ -127,14 +139,22 @@ namespace CMiX.ViewModels
         public bool Is3D
         {
             get => _is3D;
-            set => SetAndNotify(ref _is3D, value);
+            set
+            {
+                SetAndNotify(ref _is3D, value);
+                Message.SendOSC(Address + nameof(Is3D), Is3D.ToString());
+            }
         }
 
         private bool _keepAspectRatio;
         public bool KeepAspectRatio
         {
             get => _keepAspectRatio;
-            set => SetAndNotify(ref _keepAspectRatio, value);
+            set
+            {
+                SetAndNotify(ref _keepAspectRatio, value);
+                Message.SendOSC(Address + nameof(KeepAspectRatio), KeepAspectRatio.ToString());
+            }
         }
     }
 }

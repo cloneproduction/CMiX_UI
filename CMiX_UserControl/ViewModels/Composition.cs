@@ -19,7 +19,7 @@ namespace CMiX.ViewModels
             Layers = new ObservableCollection<Layer>(Enumerable.Empty<Layer>());
 
             // TODO temporary
-            CurrentLayer = new Layer(MasterBeat);
+            CurrentLayer = new Layer(MasterBeat, "Layer0");
         }
 
         public Composition(string name, Camera camera, MasterBeat masterBeat, IEnumerable<Layer> layers)
@@ -29,7 +29,7 @@ namespace CMiX.ViewModels
                 throw new ArgumentNullException(nameof(layers));
             }
 
-            CurrentLayer = new Layer(masterBeat); // TODO temporary
+            CurrentLayer = new Layer(masterBeat, "Layer0"); // TODO temporary
 
             Name = name;
             Camera = camera ?? throw new ArgumentNullException(nameof(camera));
