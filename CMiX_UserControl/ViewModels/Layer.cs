@@ -10,10 +10,10 @@ namespace CMiX.ViewModels
             Name = name;
             Fade = 0.0;
             BlendMode = default;
-            BeatModifier = new BeatModifier(masterBeat);
+            BeatModifier = new BeatModifier(masterBeat, name, "Master");
             Content = new Content(BeatModifier, name);
             Mask = new Mask(BeatModifier, name);
-            Coloration = new Coloration(BeatModifier);
+            Coloration = new Coloration(BeatModifier, name);
         }
 
         public Layer(

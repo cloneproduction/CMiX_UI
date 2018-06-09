@@ -8,9 +8,10 @@ namespace CMiX.ViewModels
 {
     public class Geometry : ViewModel
     {
-        public Geometry(string layerName)
+        public Geometry(string layername, string containername)
             : this(
-                  layerName : layerName,
+                  layerName : layername,
+                  containerName: containername,
                   message : new Messenger(),
                   geometryCount: 1,
                   geometryPaths: Enumerable.Empty<string>(),
@@ -26,6 +27,7 @@ namespace CMiX.ViewModels
 
         public Geometry(
             string layerName,
+            string containerName,
             Messenger message,
             int geometryCount,
             IEnumerable<string> geometryPaths,
@@ -43,6 +45,7 @@ namespace CMiX.ViewModels
                 throw new ArgumentNullException(nameof(geometryPaths));
             }
             LayerName = layerName;
+            ContainerName = containerName;
             Message = message;
             GeometryCount = geometryCount;
             GeometryPaths = new ObservableCollection<string>(geometryPaths);
@@ -56,7 +59,7 @@ namespace CMiX.ViewModels
             KeepAspectRatio = keepAspectRatio;
         }
 
-        private string Address => String.Format("{0}/{1}/", LayerName, nameof(Geometry));
+        private string Address => String.Format("{0}/{1}/{2}/", LayerName, ContainerName, nameof(Geometry));
 
         private Messenger _message;
         public Messenger Message
@@ -70,6 +73,13 @@ namespace CMiX.ViewModels
         {
             get => _layerName;
             set => SetAndNotify(ref _layerName, value);
+        }
+
+        private string _containerName;
+        public string ContainerName
+        {
+            get => _containerName;
+            set => SetAndNotify(ref _containerName, value);
         }
 
         private int _geometryCount;

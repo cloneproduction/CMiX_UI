@@ -11,7 +11,7 @@ namespace CMiX.ViewModels
                   rotation: default(CameraRotation),
                   lookAt: default(CameraLookAt),
                   view: default(CameraView),
-                  beatModifier: new BeatModifier(masterBeat),
+                  beatModifier: new BeatModifier(masterBeat, "Camera", "Beat"),
                   fov: 0.5,
                   zoom: 1.0)
         {

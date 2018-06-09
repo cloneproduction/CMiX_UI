@@ -4,14 +4,14 @@ namespace CMiX.ViewModels
 {
     public class Mask : ViewModel
     {
-        public Mask(Beat masterBeat, string layerName)
+        public Mask(Beat masterbeat, string layername)
             : this(
                   enable: true,
-                  layerName : layerName,
-                  beatModifier: new BeatModifier(masterBeat),
-                  geometry: new Geometry( layerName),
-                  texture: new Texture(),
-                  postFX: new PostFX())
+                  layerName : layername,
+                  beatModifier: new BeatModifier(masterbeat, layername, nameof(Mask)),
+                  geometry: new Geometry(layername, nameof(Mask)),
+                  texture: new Texture(layername, nameof(Mask)),
+                  postFX: new PostFX(layername))
         { }
 
         public Mask(bool enable, string layerName, BeatModifier beatModifier, Geometry geometry, Texture texture, PostFX postFX)
