@@ -12,13 +12,7 @@
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabControlStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabItemStyle.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-            <CMiX:PeriodToBPMConverter x:Key="PeriodToBPM" />
             <CMiX:ColorToStringConverter x:Key="ColorToString" />
-            <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel>
@@ -56,19 +50,19 @@
                 Background="{StaticResource DarkColor}"
                 DockPanel.Dock="Top"
                 Focusable="False"
-                Style="{StaticResource BaseTabControlStyle}">
+                Style="{StaticResource TabControlBase}">
                     <TabItem
                     Height="25"
                     Header="Foreground"
                     IsSelected="True"
-                    Style="{StaticResource BaseTabItemStyle}">
+                    Style="{StaticResource TabItemBase}">
                         <colorpicker:ColorPicker
                         x:Name="Color"
                         Margin="4"
                         Background="{StaticResource DarkerColor}"
                         SelectedColor="{Binding ObjectColor, Mode=TwoWay}" />
                     </TabItem>
-                    <TabItem Header="Background" Style="{StaticResource BaseTabItemStyle}">
+                    <TabItem Header="Background" Style="{StaticResource TabItemBase}">
                         <colorpicker:ColorPicker
                         x:Name="BgColor"
                         Margin="4"
@@ -101,68 +95,68 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <CMiX:CustomSlider
-                    x:Name="HueRange"
-                    Grid.Column="1"
-                    Height="25"
-                    Margin="1"
-                    Caption="Hue"
-                    Tag="Hue"
-                    Value="{Binding Hue.Color, Mode=TwoWay}" />
-                    <ComboBox
-                    x:Name="HueName"
-                    Grid.Column="0"
-                    Margin="1"
-                    ItemsSource="{Binding ColorNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedItem="{Binding DataContext.HueName, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    Style="{StaticResource ComboBoxBase}" />
+                        x:Name="HueRange"
+                        Grid.Column="1"
+                        Height="25"
+                        Margin="1"
+                        Caption="Hue"
+                        Tag="Hue"
+                        Value="{Binding Hue.Color, Mode=TwoWay}" />
+                        <ComboBox
+                            x:Name="HueName"
+                            Grid.Column="0"
+                            Margin="1"
+                            ItemsSource="{Binding ColorNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            SelectedItem="{Binding DataContext.HueName, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            Style="{StaticResource ComboBoxBase}" />
                 </Grid>
                 <Grid
-                        Grid.Row="2"
-                        Height="25"
-                        DockPanel.Dock="Top">
+                    Grid.Row="2"
+                    Height="25"
+                    DockPanel.Dock="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.5*" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <CMiX:CustomSlider
-                    x:Name="SatRange"
-                    Grid.Column="1"
-                    Height="25"
-                    Margin="1"
-                    Caption="Sat"
-                    Tag="Sat"
-                    Value="{Binding Saturation.Color, Mode=TwoWay}" />
+                        x:Name="SatRange"
+                        Grid.Column="1"
+                        Height="25"
+                        Margin="1"
+                        Caption="Sat"
+                        Tag="Sat"
+                        Value="{Binding Saturation.Color, Mode=TwoWay}" />
                     <ComboBox
-                    x:Name="SatName"
-                    Grid.Column="0"
-                    Margin="1"
-                    ItemsSource="{Binding ColorNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedItem="{Binding DataContext.SatName, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    Style="{StaticResource ComboBoxBase}" />
+                        x:Name="SatName"
+                        Grid.Column="0"
+                        Margin="1"
+                        ItemsSource="{Binding ColorNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding DataContext.SatName, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        Style="{StaticResource ComboBoxBase}" />
                 </Grid>
                 <Grid
-                        Grid.Row="2"
-                        Height="25"
-                        DockPanel.Dock="Top">
+                    Grid.Row="2"
+                    Height="25"
+                    DockPanel.Dock="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.5*" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <CMiX:CustomSlider
-                    x:Name="ValRange"
-                    Grid.Column="1"
-                    Height="25"
-                    Margin="1"
-                    Caption="Val"
-                    Tag="Val"
-                    Value="{Binding Value.Color, Mode=TwoWay}" />
+                        x:Name="ValRange"
+                        Grid.Column="1"
+                        Height="25"
+                        Margin="1"
+                        Caption="Val"
+                        Tag="Val"
+                        Value="{Binding Value.Color, Mode=TwoWay}" />
                     <ComboBox
-                    x:Name="ValName"
-                    Grid.Column="0"
-                    Margin="1"
-                    ItemsSource="{Binding ColorNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedItem="{Binding DataContext.ValName, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    Style="{StaticResource ComboBoxBase}" />
+                        x:Name="ValName"
+                        Grid.Column="0"
+                        Margin="1"
+                        ItemsSource="{Binding ColorNames, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding DataContext.ValName, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        Style="{StaticResource ComboBoxBase}" />
                 </Grid>
             </StackPanel>
         </Border>

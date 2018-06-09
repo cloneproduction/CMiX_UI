@@ -21,7 +21,7 @@
                 </Style>
             </Setter.Value>
         </Setter>
-        <Setter Property="Background" Value="{DynamicResource BaseColor}" />
+        <Setter Property="Background" Value="{DynamicResource Color}" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
         <Setter Property="BorderThickness" Value="0" />
@@ -35,26 +35,22 @@
                         x:Name="border"
                         Margin="1"
                         Background="{TemplateBinding Background}"
-                        BorderBrush="{DynamicResource GreyLevel3}"
-                        BorderThickness="0"
                         SnapsToDevicePixels="True">
                         <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
                             <TextBlock
                                 x:Name="textBlock"
                                 HorizontalAlignment="Center"
-                                Foreground="{DynamicResource BaseText}"
+                                Foreground="{DynamicResource TextBase}"
                                 Text="{TemplateBinding Content}" />
                         </Viewbox>
                     </Border>
                     <ControlTemplate.Triggers>
-
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsChecked" Value="true" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter Property="Background" Value="{DynamicResource GreyLevel1}" />
-                                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource GreyLevel2}" />
+                                <Setter Property="Background" Value="{DynamicResource Color}" />
                             </MultiTrigger.Setters>
                         </MultiTrigger>
                         <MultiTrigger>
@@ -62,7 +58,7 @@
                                 <Condition Property="IsChecked" Value="false" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter Property="Background" Value="{DynamicResource BaseDarkColor}" />
+                                <Setter Property="Background" Value="{DynamicResource DarkColor}" />
                             </MultiTrigger.Setters>
                         </MultiTrigger>
 
@@ -72,7 +68,7 @@
                                 <Condition Property="IsMouseOver" Value="true" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter Property="Background" Value="{DynamicResource BaseColor}" />
+                                <Setter Property="Background" Value="{DynamicResource Color}" />
                             </MultiTrigger.Setters>
                         </MultiTrigger>
                         <MultiTrigger>
@@ -81,7 +77,7 @@
                                 <Condition Property="IsMouseOver" Value="true" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter Property="Background" Value="{DynamicResource GreyLevel4}" />
+                                <Setter Property="Background" Value="{DynamicResource LightColor}" />
                             </MultiTrigger.Setters>
                         </MultiTrigger>
 

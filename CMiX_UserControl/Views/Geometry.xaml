@@ -6,25 +6,12 @@
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="247.111"
-    d:DesignWidth="307.556"
+    d:DesignHeight="339.778"
+    d:DesignWidth="317.556"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseComboBoxItemPanelStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabControlStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseTabItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxControlStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxItemStyle.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-            <CMiX:PathToFilenameConverter x:Key="PathToFileName" />
-            <CMiX:ColorToStringConverter x:Key="ColorToString" />
             <CMiX:BoolInverterConverter x:Key="BoolInverter" />
-            <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
         </ResourceDictionary>
     </UserControl.Resources>
     <Border             
@@ -33,12 +20,12 @@
         Padding="4"
         CornerRadius="2">
         <StackPanel>
-            <TabControl DockPanel.Dock="Bottom" Style="{StaticResource BaseTabControlStyle}">
+            <TabControl DockPanel.Dock="Bottom" Style="{StaticResource TabControlBase}">
                 <TabItem
                     Height="25"
                     Margin="0,0,0,4"
                     Header="Geometry"
-                    Style="{StaticResource BaseTabItemStyle}">
+                    Style="{StaticResource TabItemBase}">
                     <DockPanel>
                         <StackPanel Margin="0,2,0,2" DockPanel.Dock="Bottom">
                             <Grid Height="25" Margin="0,1,0,0">
@@ -121,7 +108,7 @@
                         <Border
                             Height="100"
                             Margin="0, 2, 0, 2"
-                            Background="{StaticResource BaseDarkColor}"
+                            Background="{StaticResource DarkColor}"
                             DockPanel.Dock="Bottom">
                             <CMiX:FileSelector
                                 x:Name="SpriteSelectedGeom"
@@ -204,12 +191,12 @@
                     IsChecked="{Binding KeepAspectRatio, Mode=TwoWay}"
                     Style="{DynamicResource ToggleButtonBase}" />
                 <ToggleButton
-                x:Name="Sprite3D"
-                Grid.Column="1"
-                Content="3D"
-                DockPanel.Dock="Right"
-                IsChecked="{Binding Is3D, Mode=TwoWay}"
-                Style="{DynamicResource ToggleButtonBase}" />
+                    x:Name="Sprite3D"
+                    Grid.Column="1"
+                    Content="3D"
+                    DockPanel.Dock="Right"
+                    IsChecked="{Binding Is3D, Mode=TwoWay}"
+                    Style="{DynamicResource ToggleButtonBase}" />
             </Grid>
         </StackPanel>
     </Border>

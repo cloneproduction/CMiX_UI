@@ -12,13 +12,6 @@ namespace CMiX
 {
     public partial class Composition : UserControl
     {
-        //BeatSystem beatsystem = new BeatSystem();
-        //CMiXData cmixdata = new CMiXData();
-        Messenger message = new Messenger();
-
-        //string IP = "127.0.0.1";
-        //int Port = 55555;
-
 
         private IList<RadioButton> _items = new ObservableCollection<RadioButton>();
 
@@ -38,53 +31,6 @@ namespace CMiX
             }*/
         }
 
-        #region Properties
-        public static readonly DependencyProperty EnabledOSCProperty =
-        DependencyProperty.Register("EnabledOSC", typeof(bool), typeof(Composition), new PropertyMetadata(false));
-        [Bindable(true)]
-        public bool EnabledOSC
-        {
-            get { return (bool)GetValue(EnabledOSCProperty); }
-            set { SetValue(EnabledOSCProperty, value); }
-        }
-
-        private List<string> _ChannelsBlendMode = new List<string>(new[] { "Normal", "Add", "Substract", "Lighten", "Darken", "Multiply" });
-        public List<string> ChannelsBlendMode
-        {
-            get { return _ChannelsBlendMode; }
-            set { _ChannelsBlendMode = value; }
-        }
-
-        private List<string> _CamRotation = new List<string>(new[] { "STD_CTR", "STD_UP", "STD_DN", "STD_LT", "STD_RT", "STD_MID", "SLD_RDM", "SLD_DNUP", "SLD_DN", "SLD_UP", "SLD_LT", "SLD_RT", "SLD_LTRT", "FLA_RDM", "FLA_DNUP", "FLA_DN", "FLA_UP", "FLA_LT", "FLA_RT", "FLA_LTRT" });
-        public List<string> CamRotation
-        {
-            get { return _CamRotation; }
-            set { _CamRotation = value; }
-        }
-
-        private List<string> _CamLookAt = new List<string>(new[] { "STD", "RandomFlash", "RandomSlide" });
-        public List<string> CamLookAt
-        {
-            get { return _CamLookAt; }
-            set { _CamLookAt = value; }
-        }
-
-        private List<string> _CamView = new List<string>(new[] { "STD", "Oblique-125", "Oblique125", "FlashRandom", "SpinRandom", "SpinRight", "SpinLeft" });
-        public List<string> CamView
-        {
-            get { return _CamView; }
-            set { _CamView = value; }
-        }
-
-        private List<string> _PresetsFileMask = new List<string>(new[] { ".txt", ".json", ".cmix" });
-        public List<string> PresetsFileMask
-        {
-            get { return _PresetsFileMask; }
-            set { _PresetsFileMask = value; }
-        }
-
-
-        #endregion
 
         #region Events
         private void ChannelTab_DragOver(object sender, DragEventArgs e)
@@ -98,9 +44,9 @@ namespace CMiX
 
         private void SliderValueChanged(object sender, System.EventArgs e)
         {
-            if (EnabledOSC == true)
+            /*if (EnabledOSC == true)
             {
-                /*var control = sender as FrameworkElement;
+                var control = sender as FrameworkElement;
                 cmixdata = (CMiXData)cmix.DataContext;
                 var OSCSender = new SharpOSC.UDPSender(IP, Port);
 
@@ -110,96 +56,55 @@ namespace CMiX
                 {
                     slidervalue.Add(st.ToString("0.00"));
                 }
-                OSCSender.Send(new SharpOSC.OscMessage("/" + control.Tag.ToString(), slidervalue.ToArray()));*/
-            }
+                OSCSender.Send(new SharpOSC.OscMessage("/" + control.Tag.ToString(), slidervalue.ToArray()));
+            }*/
         }
 
         private void ChannelSliderValueChanged(object sender, System.EventArgs e)
         {
-            if (EnabledOSC == true)
+            /*if (EnabledOSC == true)
             {
                 CustomSlider slider = sender as CustomSlider;
                 message.SendOSC(slider.Tag.ToString(), slider.Value.ToString());
-            }
+            }*/
         }
 
         private void ComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (EnabledOSC == true)
-            {
-                /*var control = sender as ComboBox;
-                cmixdata = (CMiXData)DataContext;
-                var OSCSender = new SharpOSC.UDPSender(IP, Port);
 
-                List<string> slidervalue = new List<string>();
-                var list = cmixdata.GetType().GetProperty(control.Tag.ToString()).GetValue(cmixdata, null);
-                foreach (string st in (ObservableCollection<string>)list)
-                {
-                    slidervalue.Add(st.ToString());
-                }
-                OSCSender.Send(new SharpOSC.OscMessage("/" + control.Tag.ToString(), slidervalue.ToArray()));*/
-            }
         }
 
         private void ChannelComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (EnabledOSC == true)
-            {
-                ComboBox combobox = sender as ComboBox;
-                message.SendOSC(combobox.Tag.ToString(), combobox.SelectedItem.ToString());
-            }
+
         }
 
         private void SingleComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (EnabledOSC == true)
-            {
-                /*var control = sender as ComboBox;
-                cmixdata = (CMiXData)DataContext;
-                var OSCSender = new SharpOSC.UDPSender(IP, Port);
-                var list = cmixdata.GetType().GetProperty(control.Tag.ToString()).GetValue(cmixdata, null);
-                OSCSender.Send(new SharpOSC.OscMessage("/" + control.Tag.ToString(), list.ToString()));*/
-            }
-            Thread.Sleep(10);
+
         }
 
         private void BeatControlsChanged(object sender, EventArgs e)
         {
-            if (cmix != null)
-            {
-                BeatControls beatcontrols = sender as BeatControls;
-                message.SendOSC(beatcontrols.Tag.ToString(), beatcontrols.Multiplier.ToString());
-            }
+
         }
 
         private void BeatControlsPostFX_BeatControlChanged(object sender, EventArgs e)
         {
-            if (cmix != null)
-            {
-                /*var control = sender as BeatControls;
-                cmixdata = (CMiXData)DataContext;
-                var OSCSender = new SharpOSC.UDPSender(IP, Port);
-                OSCSender.Send(new SharpOSC.OscMessage("/" + control.Name, cmixdata.PostFXBeatMultiplier[0].ToString()));*/
-            }
+
         }
 
         private void BeatControlsCam_BeatControlChanged(object sender, EventArgs e)
         {
-            if (cmix != null)
-            {
-                /*var control = sender as BeatControls;
-                cmixdata = (CMiXData)DataContext;
-                var OSCSender = new SharpOSC.UDPSender(IP, Port);
-                OSCSender.Send(new SharpOSC.OscMessage("/" + control.Name, cmixdata.CamBeatMultiplier[0].ToString()));*/
-            }
+
         }
 
         #region main menu event
         private void New_Click(object sender, RoutedEventArgs e)
         {
-            EnabledOSC = false;
+            /*EnabledOSC = false;
             DataContext = new CMiXData();
-            EnabledOSC = true;
+            EnabledOSC = true;*/
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
@@ -583,11 +488,6 @@ namespace CMiX
                 }
             }
         }*/
-
-        private void cmix_Loaded(object sender, RoutedEventArgs e)
-        {
-            EnabledOSC = true;
-        }
 
         private void LayerButton_KeyDown(object sender, KeyEventArgs e)
         {

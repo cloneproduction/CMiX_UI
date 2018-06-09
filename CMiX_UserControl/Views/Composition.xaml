@@ -9,24 +9,7 @@
     x:Name="cmix"
     d:DesignHeight="1015.667"
     d:DesignWidth="1850.667"
-    FontFamily="{DynamicResource RobotoMedium}"
-    FontSize="11"
-    Loaded="cmix_Loaded"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseContextMenuStyle.xaml" />
-                <!--<ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseScrollViewerStyle.xaml" />-->
-            </ResourceDictionary.MergedDictionaries>
-            <CMiX:PeriodToBPMConverter x:Key="PeriodToBPM" />
-            <CMiX:ColorToStringConverter x:Key="ColorToString" />
-            <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
-        </ResourceDictionary>
-    </UserControl.Resources>
     <DockPanel
         x:Name="CMiX_UserControl"
         Background="#FF141414"
@@ -37,9 +20,9 @@
                 x:Name="ProjectName"
                 Style="{StaticResource LabelBase}"
                 HorizontalContentAlignment="Right"
-                Background="{DynamicResource BaseColor}"
+                Background="{DynamicResource Color}"
                 Content="{Binding DataContext.CompoName[0], ElementName=cmix, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                Foreground="{DynamicResource BaseText}" />
+                Foreground="{DynamicResource TextBase}" />
             <Menu
                 x:Name="MainMenu"
                 Grid.Row="0"
@@ -47,7 +30,7 @@
                 HorizontalAlignment="Left"
                 VerticalContentAlignment="Center"
                 Focusable="False"
-                Style="{DynamicResource BaseMenuStyle}">
+                Style="{DynamicResource MenuBase}">
                 <MenuItem
                     x:Name="FileMenu"
                     Height="{Binding ActualHeight, ElementName=MainMenu, Mode=OneWay}"
@@ -56,27 +39,27 @@
                     VerticalContentAlignment="center"
                     Focusable="False"
                     Header="File"
-                    Style="{DynamicResource BaseMenuItemStyle}">
+                    Style="{StaticResource MenuItemBase}">
                     <MenuItem
                         Click="New_Click"
                         Header="New"
-                        Template="{DynamicResource BaseSubMenuItem}" />
+                        Template="{DynamicResource SubMenuItemBase}" />
                     <MenuItem
                         Click="Open_Click"
                         Header="Open"
-                        Template="{DynamicResource BaseSubMenuItem}" />
+                        Template="{DynamicResource SubMenuItemBase}" />
                     <MenuItem
                         Click="Save_Click"
                         Header="Save"
-                        Template="{DynamicResource BaseSubMenuItem}" />
+                        Template="{DynamicResource SubMenuItemBase}" />
                     <MenuItem
                         Click="SaveAs_Click"
                         Header="Save As"
-                        Template="{DynamicResource BaseSubMenuItem}" />
+                        Template="{DynamicResource SubMenuItemBase}" />
                     <MenuItem
                         Click="Quit_Click"
                         Header="Quit"
-                        Template="{DynamicResource BaseSubMenuItem}" />
+                        Template="{DynamicResource SubMenuItemBase}" />
                 </MenuItem>
             </Menu>
         </Grid>
@@ -84,7 +67,7 @@
             Grid.Row="2"
             Height="25"
             Margin="0,2,0,0"
-            Background="{StaticResource BaseDarkerColor}"
+            Background="{StaticResource DarkerColor}"
             DockPanel.Dock="Bottom" />
         <Grid Grid.Row="1" KeyboardNavigation.TabNavigation="Cycle">
             <Grid.ColumnDefinitions>
@@ -124,7 +107,7 @@
             <Border
                 Grid.Column="4"
                 Margin="4, 4, 0, 4"
-                Background="{StaticResource BaseDarkerColor}">
+                Background="{StaticResource DarkerColor}">
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
                         <Button

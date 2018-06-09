@@ -11,14 +11,7 @@
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxControlStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseListBoxItemStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseMenuItemStyle.xaml" />
-            </ResourceDictionary.MergedDictionaries>
             <CMiX:PathToFilenameConverter x:Key="PathToFileName" />
-            <CMiX:AltBackgroundConverter x:Key="AltBackground" />
         </ResourceDictionary>
     </UserControl.Resources>
     <DockPanel LastChildFill="True">
@@ -32,7 +25,7 @@
                 DockPanel.Dock="Right"
                 FlowDirection="RightToLeft"
                 Focusable="False"
-                Style="{DynamicResource BaseMenuStyle}">
+                Style="{StaticResource MenuBase}">
                 <MenuItem
                     x:Name="FileMenu"
                     Width="25"
@@ -43,23 +36,23 @@
                     Focusable="False"
                     FontSize="11"
                     Header="..."
-                    Style="{StaticResource BaseMenuItemStyle}">
+                    Style="{StaticResource MenuItemBase}">
                     <MenuItem
                         Click="ClearSelected_Click"
                         FontSize="11"
                         Header="Clear Selected"
-                        Template="{StaticResource BaseSubMenuItem}" />
+                        Template="{StaticResource SubMenuItemBase}" />
                     <MenuItem
                         Click="ClearUnselected_Click"
                         FontSize="11"
                         Header="Clear Unselected"
-                        Template="{DynamicResource BaseSubMenuItem}" />
+                        Template="{DynamicResource SubMenuItemBase}" />
                     <Separator HorizontalAlignment="Stretch" Background="{StaticResource Color}" />
                     <MenuItem
                         Click="ClearAll_Click"
                         FontSize="11"
                         Header="Clear All"
-                        Template="{StaticResource BaseSubMenuItem}" />
+                        Template="{StaticResource SubMenuItemBase}" />
                 </MenuItem>
             </Menu>
             <Label
@@ -81,7 +74,7 @@
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             SelectionChanged="FileNameList_SelectionChanged"
             SelectionMode="{Binding ModeSelection, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:FileSelector}}}"
-            Template="{DynamicResource BaseListBoxControlStyle}">
+            Style="{DynamicResource ListBoxBase}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border
@@ -103,7 +96,6 @@
                                 Padding="4"
                                 HorizontalAlignment="Stretch"
                                 Text="{Binding FileName, Mode=TwoWay, Converter={StaticResource PathToFileName}, UpdateSourceTrigger=PropertyChanged}" />
-
                         </StackPanel>
                     </Border>
                 </DataTemplate>
@@ -126,7 +118,6 @@
                         </MultiTrigger>
                     </Style.Triggers>
                 </Style>
-
             </ListBox.ItemContainerStyle>
         </CMiX:CMiXListBox>
     </DockPanel>

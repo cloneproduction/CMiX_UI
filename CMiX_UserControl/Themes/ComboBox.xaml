@@ -198,21 +198,12 @@
                         </Viewbox>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <!--<Trigger Property="HasDropShadow" SourceName="PART_Popup" Value="True">
-                <Setter Property="Margin" TargetName="shadow" Value="0,0,5,5"/>
-                <Setter Property="Color" TargetName="shadow" Value="#71000000"/>
-            </Trigger>-->
                         <Trigger Property="HasItems" Value="False">
                             <Setter TargetName="DropDownBorder" Property="Height" Value="95" />
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsGrouping" Value="True" />
-                                <!--<Condition>
-                        <Condition.Value>
-                            <System:Boolean>False</System:Boolean>
-                        </Condition.Value>
-                    </Condition>-->
                             </MultiTrigger.Conditions>
                             <Setter Property="ScrollViewer.CanContentScroll" Value="False" />
                         </MultiTrigger>

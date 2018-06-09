@@ -11,9 +11,6 @@ namespace CMiX.Views
 {
     public partial class LayerControls : UserControl
     {
-        Messenger message = new Messenger();
-        ChannelData cd = new ChannelData();
-
         public LayerControls()
         {
             InitializeComponent();
@@ -127,7 +124,7 @@ namespace CMiX.Views
 
         private void ComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (EnabledOSC == true)
+            /*if (EnabledOSC == true)
             {
                 ComboBox combobox = sender as ComboBox;
                 if (combobox.SelectedItem != null)
@@ -135,13 +132,12 @@ namespace CMiX.Views
                     cd = DataContext as ChannelData;
                     message.SendOSC(cd.Name + "/" + combobox.Name, combobox.SelectedItem.ToString());
                 }
-
-            }
+            }*/
         }
 
         private void SliderValueChanged(object sender, System.EventArgs e)
         {
-            if (EnabledOSC == true)
+            /*if (EnabledOSC == true)
             {
                 CustomSlider slider = sender as CustomSlider;
                 cd = DataContext as ChannelData;
@@ -149,27 +145,27 @@ namespace CMiX.Views
                 {
                     message.SendOSC(cd.Name + "/" + slider.Name, slider.Value.ToString());
                 }
-            }
+            }*/
         }
 
         private void ToggleButton_Checked(object sender, RoutedEventArgs e)
         {
-            if (EnabledOSC == true)
+            /*if (EnabledOSC == true)
             {
                 ToggleButton togglebutton = sender as ToggleButton;
                 cd = DataContext as ChannelData;
                 message.SendOSC(cd.Name + "/" + togglebutton.Name, togglebutton.IsChecked.ToString());
-            }
+            }*/
         }
 
         private void ToggleButton_UnChecked(object sender, RoutedEventArgs e)
         {
-            if (EnabledOSC == true)
+            /*if (EnabledOSC == true)
             {
                 ToggleButton togglebutton = sender as ToggleButton;
                 cd = DataContext as ChannelData;
                 message.SendOSC(cd.Name + "/" + togglebutton.Name, togglebutton.IsChecked.ToString());
-            }
+            }*/
         }
 
         /*private void CounterChanged(object sender, System.EventArgs e)
@@ -184,7 +180,7 @@ namespace CMiX.Views
 
         private void ChannelColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
-            if (EnabledOSC == true)
+            /*if (EnabledOSC == true)
             {
                 ColorPicker.ColorPicker colorpicker = sender as ColorPicker.ColorPicker;
                 if(cd != null)
@@ -194,12 +190,12 @@ namespace CMiX.Views
                     cd = DataContext as ChannelData;
                     message.SendOSC(cd.Name + "/" + colorpicker.Name, hex);
                 }
-            }
+            }*/
         }
 
         public void FileSelectorChanged(object sender, System.EventArgs e)
         {
-            if (EnabledOSC == true)
+            /*if (EnabledOSC == true)
             {
                 FileSelector fileselector = sender as FileSelector;
                 List<string> selectedfilename = new List<string>();
@@ -212,17 +208,17 @@ namespace CMiX.Views
                 }
                 cd = DataContext as ChannelData;
                 message.SendOSCList(cd.Name + "/" + fileselector.Name, selectedfilename);
-            }
+            }*/
         }
 
         private void BeatControlChanged(object sender, System.EventArgs e)
         {
-            if (EnabledOSC == true)
+            /*if (EnabledOSC == true)
             {
                 BeatControls beatcontrols = sender as BeatControls;
                 cd = DataContext as ChannelData;
                 message.SendOSC(cd.Name + "/" + beatcontrols.Name, beatcontrols.Multiplier.ToString());
-            }
+            }*/
         }
         #endregion
 
@@ -250,7 +246,7 @@ namespace CMiX.Views
 
         private void TranslateSelector_SelectionChanged(object sender, EventArgs e)
         {
-            if (EnabledOSC == true)
+            /*if (EnabledOSC == true)
             {
                 TranslateSelector ts = sender as TranslateSelector;
                 if (ts.SelectedName != null)
@@ -258,18 +254,17 @@ namespace CMiX.Views
                     cd = DataContext as ChannelData;
                     message.SendOSC(cd.Name + "/" + ts.Name, ts.SelectedName);
                 }
-            }
+            }*/
         }
 
         private void ScaleSelector_SelectionChanged(object sender, EventArgs e)
         {
-            if (EnabledOSC == true)
+            /*if (EnabledOSC == true)
             {
                 ScaleSelector ss = sender as ScaleSelector;
                 cd = DataContext as ChannelData;
                 message.SendOSC(cd.Name + "/" + ss.Name, ss.SelectedName);
-            }
-
+            }*/
         }
         /*private void RotationSelector_SelectionChanged(object sender, EventArgs e)
         {

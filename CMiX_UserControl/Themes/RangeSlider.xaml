@@ -1,9 +1,6 @@
-﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:CMiX">
-
-
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:CMiX">
     <ControlTemplate x:Key="RangeSliderThumb" TargetType="{x:Type Thumb}">
         <Grid
             HorizontalAlignment="Stretch"
@@ -129,5 +126,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-
 </ResourceDictionary>
