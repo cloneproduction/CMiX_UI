@@ -20,7 +20,7 @@
                 x:Name="AddValue"
                 Grid.Column="1"
                 Width="{Binding ActualHeight, ElementName=AddValue, Mode=OneWay}"
-                Margin="1"
+                Margin="1, 0, 0, 0"
                 Click="Button_Add"
                 Content="+"
                 DockPanel.Dock="Right"
@@ -29,22 +29,19 @@
                 x:Name="SubValue"
                 Grid.Column="0"
                 Width="{Binding ActualHeight, ElementName=AddValue, Mode=OneWay}"
-                Margin="1"
+                Margin="1, 0, 1, 0"
                 Click="Button_Sub"
                 Content="-"
                 DockPanel.Dock="Right"
                 Style="{StaticResource ButtonBase}" />
             <Label
                 x:Name="CounterValue"
-                Margin="2"
-                Padding="1"
+                Margin="0, 0, 1, 0"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Background="{StaticResource DarkColor}"
-                Content="{Binding Count, Mode=TwoWay, Converter={StaticResource IndexToCount}}"
-                DataObject.Pasting="TextBoxPasting"
-                Foreground="{StaticResource TextBase}"
-                PreviewTextInput="CounterValue_PreviewTextInput" />
+                Content="{Binding Count, Converter={StaticResource IndexToCount}}"
+                Foreground="{StaticResource TextBase}"/>
         </DockPanel>
     </Grid>
 </UserControl>

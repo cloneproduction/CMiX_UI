@@ -13,7 +13,7 @@ namespace CMiX.ViewModels
                   layerName : layername,
                   containerName: containername,
                   message : new Messenger(),
-                  geometryCount: 1,
+                  count: 0,
                   geometryPaths: Enumerable.Empty<string>(),
                   translateMode: default,
                   translateAmount: 0.0,
@@ -29,7 +29,7 @@ namespace CMiX.ViewModels
             string layerName,
             string containerName,
             Messenger message,
-            int geometryCount,
+            int count,
             IEnumerable<string> geometryPaths,
             GeometryTranslateMode translateMode,
             double translateAmount,
@@ -47,7 +47,7 @@ namespace CMiX.ViewModels
             LayerName = layerName;
             ContainerName = containerName;
             Message = message;
-            GeometryCount = geometryCount;
+            Count = count;
             GeometryPaths = new ObservableCollection<string>(geometryPaths);
             TranslateMode = translateMode;
             TranslateAmount = translateAmount;
@@ -82,11 +82,15 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _containerName, value);
         }
 
-        private int _geometryCount;
-        public int GeometryCount
+        private int _count;
+        public int Count
         {
-            get => _geometryCount;
-            set => SetAndNotify(ref _geometryCount, value);
+            get => _count;
+            set
+            {
+                SetAndNotify(ref _count, value);
+                Message.SendOSC(Address + nameof(Count), Count.ToString());
+            }
         }
         
         public ObservableCollection<string> GeometryPaths { get; }

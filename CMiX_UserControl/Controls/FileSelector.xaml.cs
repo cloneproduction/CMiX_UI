@@ -18,16 +18,6 @@ namespace CMiX
         }
 
         #region Properties
-        /*public static readonly DependencyProperty MouseDownProperty =
-        DependencyProperty.Register("MouseDown", typeof(bool), typeof(FileSelector));
-        [Bindable(true)]
-        public bool MouseDown
-        {
-            get { return (bool)GetValue(MouseDownProperty); }
-            set { SetValue(MouseDownProperty, value); }
-        }*/
-
-
         public static readonly DependencyProperty ModeSelectionProperty =
         DependencyProperty.Register("ModeSelection", typeof(string), typeof(FileSelector));
         [Bindable(true)]

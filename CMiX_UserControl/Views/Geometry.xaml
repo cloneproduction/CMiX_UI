@@ -6,8 +6,8 @@
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="339.778"
-    d:DesignWidth="317.556"
+    d:DesignHeight="307.445"
+    d:DesignWidth="362.445"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -15,30 +15,42 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Border             
-        DockPanel.Dock="Bottom"
         Background="{StaticResource DarkerColor}"
         Padding="4"
         CornerRadius="2">
         <StackPanel>
-            <TabControl DockPanel.Dock="Bottom" Style="{StaticResource TabControlBase}">
-                <TabItem
+            <Grid Height="25" Margin="0,1,0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="GEOMETRY" Foreground="{StaticResource TextBase}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <CMiX:Counter
+                    x:Name="SpriteCount"
+                    Grid.Column="1"
                     Height="25"
-                    Margin="0,0,0,4"
-                    Header="Geometry"
-                    Style="{StaticResource TabItemBase}">
-                    <DockPanel>
-                        <StackPanel Margin="0,2,0,2" DockPanel.Dock="Bottom">
-                            <Grid Height="25" Margin="0,1,0,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.5*" />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <ToggleButton
+                    HorizontalAlignment="Stretch"
+                    Count="{Binding Count, Mode=TwoWay}" />
+            </Grid>
+            <Border BorderThickness="1" BorderBrush="{StaticResource DarkColor}"/>
+            <CMiX:FileSelector
+                    x:Name="SpriteSelectedGeom"
+                    Height="150"
+                    Title="Models"
+                    Margin="0, 4, 0, 2"
+                    FileMask="{Binding GeometryFileMask, Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type Views:LayerControls}}}" />
+
+            <Grid Height="25" Margin="0,1,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <ToggleButton
                                     x:Name="SpriteTranslateStyle"
                                     Content="{Binding SelectedName, ElementName=SpriteSelectedTranslate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                     IsHitTestVisible="{Binding ElementName=SpritePopupTranslate, Path=IsOpen, Converter={StaticResource BoolInverter}}"
                                     Style="{StaticResource ToggleButtonBase}" />
-                                <Popup
+                <Popup
                                     x:Name="SpritePopupTranslate"
                                     Width="432"
                                     AllowsTransparency="True"
@@ -46,27 +58,27 @@
                                     Placement="Right"
                                     PlacementTarget="{Binding ElementName=SpriteTranslateStyle}"
                                     StaysOpen="False">
-                                    <CMiX:TranslateSelector x:Name="SpriteSelectedTranslate" SelectedName="{Binding DataContext.SpriteSelectedTranslate, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-                                </Popup>
-                                <CMiX:CustomSlider
+                    <CMiX:TranslateSelector x:Name="SpriteSelectedTranslate" SelectedName="{Binding DataContext.SpriteSelectedTranslate, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                </Popup>
+                <CMiX:CustomSlider
                                     x:Name="SpriteTranslate"
                                     Grid.Column="2"
                                     Margin="1"
                                     Caption="Translate"
                                     Tag="SprTra"
                                     Value="{Binding TranslateAmount, Mode=TwoWay}" />
-                            </Grid>
-                            <Grid Height="25" Margin="0,1,0,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.5*" />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <ToggleButton
+            </Grid>
+            <Grid Height="25" Margin="0,1,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <ToggleButton
                                     x:Name="SpriteScaleStyle"
                                     Content="{Binding SelectedName, ElementName=SpriteSelectedScale, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                     IsHitTestVisible="{Binding ElementName=SpritePopupScale, Path=IsOpen, Converter={StaticResource BoolInverter}}"
                                     Style="{StaticResource ToggleButtonBase}" />
-                                <Popup
+                <Popup
                                     x:Name="SpritePopupScale"
                                     Width="432"
                                     AllowsTransparency="True"
@@ -74,107 +86,30 @@
                                     Placement="Center"
                                     PlacementTarget="{Binding ElementName=Ch_Parameters}"
                                     StaysOpen="False">
-                                    <CMiX:ScaleSelector 
+                    <CMiX:ScaleSelector 
                                     x:Name="SpriteSelectedScale" 
                                     SelectedName="{Binding DataContext.SpriteSelectedScale, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-                                </Popup>
-                                <CMiX:CustomSlider
+                </Popup>
+                <CMiX:CustomSlider
                                 x:Name="SpriteScale"
                                 Grid.Column="2"
                                 Margin="1"
                                 Caption="Scale"
                                 Value="{Binding ScaleAmount, Mode=TwoWay}" />
-                            </Grid>
-                            <Grid Height="25" Margin="0,1,0,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.5*" />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <CMiX:RotationSelector x:Name="SpriteRotation" />
-                                <CMiX:CustomSlider
+            </Grid>
+            <Grid Height="25" Margin="0,1,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <CMiX:RotationSelector x:Name="SpriteRotation" />
+                <CMiX:CustomSlider
                                     x:Name="SpriteRotate"
                                     Grid.Column="2"
                                     Margin="1"
                                     Caption="Rotate"
                                     Value="{Binding RotationAmount, Mode=TwoWay}" />
-                            </Grid>
-                        </StackPanel>
-                        <CMiX:Counter
-                    x:Name="SpriteCount"
-                    Width="150"
-                    Height="25"
-                    HorizontalAlignment="Right" DockPanel.Dock="Bottom"
-                    Count="{Binding Count}" />
-                        <Border
-                            Height="100"
-                            Margin="0, 2, 0, 2"
-                            Background="{StaticResource DarkColor}"
-                            DockPanel.Dock="Bottom">
-                            <CMiX:FileSelector
-                                x:Name="SpriteSelectedGeom"
-                                Title="Models"
-                                Margin="1"
-                                FileMask="{Binding GeometryFileMask, Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type Views:LayerControls}}}" />
-                        </Border>
-                    </DockPanel>
-                </TabItem>
-                <!--<TabItem Header="GSFX" Style="{StaticResource BaseTabItemStyle}">
-                <DockPanel>
-                    <StackPanel Margin="0,0,0,4" DockPanel.Dock="Bottom">
-                        <Grid Height="25" Margin="0,1,0,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.5*" />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-
-
-                            <CMiX:CustomSlider
-                                            x:Name="GSFXTranslate"
-                                            Grid.Column="2"
-                                            Caption="Translate"
-                                            SliderValueChanged="SliderValueChanged"
-                                            Value="{Binding DataContext.GSFXTranslate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
-                        </Grid>
-                        <Grid Height="25" Margin="0,1,0,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.5*" />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <CMiX:CustomSlider
-                                            x:Name="GSFXScale"
-                                            Grid.Column="2"
-                                            Caption="Scale"
-                                            SliderValueChanged="SliderValueChanged"
-                                            Value="{Binding DataContext.GSFXScale, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
-                        </Grid>
-                        <Grid Height="25" Margin="0,1,0,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.5*" />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <CMiX:CustomSlider
-                                            x:Name="GSFXRotate"
-                                            Grid.Column="2"
-                                            Caption="Rotate"
-                                            SliderValueChanged="SliderValueChanged"
-                                            Value="{Binding DataContext.GSFXRotate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=Ch_Parameters}" />
-                        </Grid>
-                    </StackPanel>
-                    <Border
-                                    Height="100"
-                                    Background="{StaticResource BaseDarkColor}"
-                                    DockPanel.Dock="Top">
-                        <CMiX:FileSelector
-                                        x:Name="GSFXSelectedTex"
-                                        MinHeight="100"
-                                        FileMask="{Binding TextureFileMask, Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type CMiX:ChannelControls}}}"
-                                        FileSelectorChanged="FileSelectorChanged"
-                                        ModeSelection=""
-                                        SelectedItems="{Binding DataContext.SelectedGSFXTex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=Ch_Parameters}" />
-                    </Border>
-                </DockPanel>
-            </TabItem>-->
-            </TabControl>
+            </Grid>
             <Grid
                 Height="25"
                 Margin="0, 2, 0, 0"
