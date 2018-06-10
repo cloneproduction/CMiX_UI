@@ -13,7 +13,7 @@ namespace CMiX.ViewModels
                   layerName : layername,
                   containerName: containername,
                   message : new Messenger(),
-                  count: 0,
+                  count: 1,
                   geometryPaths: Enumerable.Empty<string>(),
                   translateMode: default,
                   translateAmount: 0.0,

@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Text.RegularExpressions;
+﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,11 +9,10 @@ namespace CMiX
         public Counter()
         {
             InitializeComponent();
-            //DataContext = this;
         }
 
         public static readonly DependencyProperty CountProperty =
-        DependencyProperty.Register("Count", typeof(int), typeof(Counter), new PropertyMetadata(0));
+        DependencyProperty.Register("Count", typeof(int), typeof(Counter), new PropertyMetadata(1));
         [Bindable(true)]
         public int Count
         {
@@ -25,14 +22,14 @@ namespace CMiX
 
         private void Button_Add(object sender, RoutedEventArgs e)
         {
-            Count += 1;
+            Count *= 2;
         }
 
         private void Button_Sub(object sender, RoutedEventArgs e)
         {
-            if (Count >= 1)
+            if (Count > 1)
             {
-                Count -= 1;
+                Count /= 2;
             }
         }
     }

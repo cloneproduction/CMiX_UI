@@ -46,7 +46,7 @@ namespace CMiX
         }
 
         public static readonly DependencyProperty SelectedItemsProperty =
-        DependencyProperty.Register("SelectedItems", typeof(ObservableCollection<ListBoxFileName>), typeof(FileSelector), new PropertyMetadata());
+        DependencyProperty.Register("SelectedItems", typeof(ObservableCollection<ListBoxFileName>), typeof(FileSelector), new PropertyMetadata(new ObservableCollection<ListBoxFileName>()));
         [Bindable(true)]
         public ObservableCollection<ListBoxFileName> SelectedItems
         {
@@ -54,7 +54,7 @@ namespace CMiX
             set { SetValue(SelectedItemsProperty, value); }
         }
         #endregion
-        
+
 
         private void DeleteFileName_Click(object sender, RoutedEventArgs e)
         {
@@ -103,15 +103,12 @@ namespace CMiX
             _dragStartPoint = e.GetPosition(e.Source as FrameworkElement);
 
             _isMouseDown = true;
-
-
         }
 
         private void FileListBox_PreviewMouseMove(object sender, MouseEventArgs e)
         {
             if (_isMouseDown == true && IsDragGesture(e.GetPosition(e.Source as FrameworkElement)))
             {
-
                 if (_dragged == null)
                     return;
                 if (e.LeftButton == MouseButtonState.Released)
@@ -123,7 +120,7 @@ namespace CMiX
                 List<ListBoxFileName> _draggedList = new List<ListBoxFileName>();
                 if (_dragged.IsSelected == true)
                 {
-                    
+
                     for (var i = 0; i < FileNameList.SelectedItems.Count; i++)
                     {
                         _draggedList.Add(FileNameList.SelectedItems[i] as ListBoxFileName);
@@ -143,7 +140,6 @@ namespace CMiX
                     dragData.SetData("DragSource", dragSource);
                     DragDrop.DoDragDrop(_dragged, dragData, DragDropEffects.All);
                 }
-
             }
         }
 
@@ -151,26 +147,30 @@ namespace CMiX
 
         private void FileListBox_Drop(object sender, DragEventArgs e)
         {
-           if (e.Data.GetDataPresent(DataFormats.FileDrop, true))
+            if (e.Data.GetDataPresent(DataFormats.FileDrop, true))
             {
                 string[] droppedFilePaths = e.Data.GetData(DataFormats.FileDrop, true) as string[];
-                foreach(string filemask in FileMask)
+
+                for (var i = 0; i < droppedFilePaths.Length; i++)
                 {
-                    for (var i = 0; i < droppedFilePaths.Length; i++)
-                    {
-                        if (Path.GetExtension(droppedFilePaths[i]) == filemask)
-                        {
-                            ListBoxFileName filename = new ListBoxFileName();
-                            filename.FileName = droppedFilePaths[i];
-                            filename.FileIsSelected = false;
-                            //SelectedItems.Add(filename);
-                        }
-                    }
+                    //if (Path.GetExtension(droppedFilePaths[i]) == filemask)
+                    //{
+                    ListBoxFileName filename = new ListBoxFileName();
+                    filename.FileName = droppedFilePaths[i];
+                    filename.FileIsSelected = false;
+                    SelectedItems.Add(filename);
+                    // }
+                }
+
+
+                foreach (string filemask in FileMask)
+                {
+
                 }
             }
 
             DependencyObject child = e.OriginalSource as DependencyObject;
-            
+
             var dataObj = e.Data as DataObject;
             var dragSource = e.Data.GetData("DragSource") as FileSelector;
 
@@ -179,7 +179,7 @@ namespace CMiX
                 string dragFileSelectorSourceName = dragSource.Name.ToString();
                 string dragFileSelectorTargetName = Utils.FindParent<FileSelector>(child).Name.ToString();
 
-                string dragChannelControlsSourceName =  Utils.FindParent<Views.LayerControls>(dragSource).Name.ToString();
+                string dragChannelControlsSourceName = Utils.FindParent<Views.LayerControls>(dragSource).Name.ToString();
                 string dragChannelControlsTargetName = Utils.FindParent<Views.LayerControls>(child).Name.ToString();
 
                 List<ListBoxFileName> FileNames = dataObj.GetData(typeof(List<ListBoxFileName>)) as List<ListBoxFileName>;
@@ -188,8 +188,8 @@ namespace CMiX
                 {
                     foreach (var Files in FileNames)
                     {
-                            ListBoxFileName CopiedFileName = Files.Clone() as ListBoxFileName;
-                            CopiedFileName.FileIsSelected = false;
+                        ListBoxFileName CopiedFileName = Files.Clone() as ListBoxFileName;
+                        CopiedFileName.FileIsSelected = false;
                         SelectedItems.Add(CopiedFileName);
                     }
                 }
@@ -226,36 +226,6 @@ namespace CMiX
             RaiseTapEvent();
         }
 
-        /*private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            this.MouseDown = true;
-        }
-
-        private void TextBlock_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            this.MouseDown = false;
-        }
-
-        private void Border_MouseLeave(object sender, MouseEventArgs e)
-        {
-            this.MouseDown = false;
-        }*/
-
-        private void FileNameList_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if(e.Key == Key.Delete)
-            {
-                
-                /*for(int i = SelectedItems.Count - 1; i >= 0; i--)
-                {
-                    if(SelectedItems[i].FileIsSelected == true)
-                    {
-                        SelectedItems.Remove(SelectedItems[i]);
-                    }
-                }*/
-            }
-        }
-
         private void ClearSelected_Click(object sender, RoutedEventArgs e)
         {
             for (int i = SelectedItems.Count - 1; i >= 0; i--)
@@ -269,7 +239,7 @@ namespace CMiX
 
         private void ClearUnselected_Click(object sender, RoutedEventArgs e)
         {
-            for(int i = SelectedItems.Count - 1; i >= 0; i--)
+            for (int i = SelectedItems.Count - 1; i >= 0; i--)
             {
                 if (SelectedItems[i].FileIsSelected == false)
                 {
@@ -283,168 +253,4 @@ namespace CMiX
             SelectedItems.Clear();
         }
     }
-
-    /*public class ListBoxCustom : ListBox
-    {
-        protected override DependencyObject GetContainerForItemOverride()
-        {
-            return new ListBoxItemCustom();
-        }
-    }
-
-    public class ListBoxItemCustom : ListBoxItem
-    {
-        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
-        {
-            if (IsSelected)
-                e.Handled = true;
-            base.OnMouseLeftButtonDown(e);
-        }
-
-        protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
-        {
-            if (IsSelected)
-                base.OnMouseLeftButtonDown(e);
-
-            if (!IsSelected)
-            {
-                IsSelected = true;
-            }
-        }
-    }
-
-    public class ListBoxFileName : INotifyPropertyChanged, ICloneable
-    {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged(String info)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
-        }
-
-        public object Clone()
-        {
-            return this.MemberwiseClone();
-        }
-
-        private string FileNameValue;
-        public string FileName
-        {
-            get { return this.FileNameValue; }
-
-            set
-            {
-                if (value != this.FileNameValue)
-                {
-                    this.FileNameValue = value;
-                    NotifyPropertyChanged("FileName");
-                }
-            }
-        }
-
-        private bool FileIsSelectedValue;
-        public bool FileIsSelected
-        {
-            get { return this.FileIsSelectedValue; }
-
-            set
-            {
-                if (value != this.FileIsSelectedValue)
-                {
-                    this.FileIsSelectedValue = value;
-                    NotifyPropertyChanged("FileIsSelected");
-                }
-            }
-        }
-    }*/
 }
-
-//Thread t;
-/*public static readonly DependencyProperty DefaultFolderProperty =
-DependencyProperty.Register("DefaultFolder", typeof(string), typeof(FileSelector), new PropertyMetadata("C:"));
-public string DefaultFolder
-{
-    get
-    {
-        if (!this.Dispatcher.CheckAccess())
-        {
-            return (string)this.Dispatcher.Invoke(DispatcherPriority.Background, (DispatcherOperationCallback)delegate { return this.GetValue(DefaultFolderProperty); }, DefaultFolderProperty);
-        }
-        else
-        {
-            return (string)this.GetValue(DefaultFolderProperty);
-        }
-    }
-    set
-    {
-        if (!this.Dispatcher.CheckAccess())
-        {
-            this.Dispatcher.BeginInvoke(DispatcherPriority.Background,(SendOrPostCallback)delegate { this.SetValue(DefaultFolderProperty, value); }, value);
-        }
-        else
-        {
-            this.SetValue(DefaultFolderProperty, value);
-        }
-    }
-}*/
-
-/*private void AddFileDialog()
-{
-    System.Windows.Forms.OpenFileDialog vfb = new System.Windows.Forms.OpenFileDialog();
-    vfb.Multiselect = true;
-    vfb.Title = "Add Files";
-    vfb.InitialDirectory = DefaultFolder;
-    System.Windows.Forms.DialogResult dr = vfb.ShowDialog();
-
-    if (dr == System.Windows.Forms.DialogResult.OK)
-    {
-        this.Dispatcher.Invoke(DispatcherPriority.Send, new Action(delegate
-        {
-            for (var i = 0; i < vfb.FileNames.Length; i++)
-            {
-                ListBoxFileName filename = new ListBoxFileName();
-                filename.FileName = vfb.FileNames[i];
-                filename.FileIsSelected = false;
-                FileNamesItems.Add(filename);
-            }
-        }));
-    }
-}*/
-
-/*private void AddFiles_Click(object sender, RoutedEventArgs e)
-{
-    t = new Thread(new ThreadStart(AddFileDialog));
-    t.SetApartmentState(ApartmentState.STA);
-    t.Start();
-}*/
-
-/*private void ClearFiles_Click(object sender, RoutedEventArgs e)
-{
-    FileNamesItems.Clear();
-}*/
-
-/*private void SelectFolderDialog()
-{
-    WPFFolderBrowserDialog vfb = new WPFFolderBrowserDialog();
-    vfb.InitialDirectory = DefaultFolder;
-    if (vfb.ShowDialog() ?? false)
-    {
-        this.Dispatcher.Invoke(DispatcherPriority.Send, new Action(delegate
-        {
-            DefaultFolder = vfb.FileName;
-        }));
-    }
-}*/
-
-/*private void SelectFolder_Click(object sender, RoutedEventArgs e)
-{
-    t = new Thread(new ThreadStart(SelectFolderDialog));
-    t.SetApartmentState(ApartmentState.STA);
-    t.Start();
-}*/
-
-
-

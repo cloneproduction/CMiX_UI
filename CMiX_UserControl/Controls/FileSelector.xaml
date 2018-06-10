@@ -6,8 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="F_Selector"
-    d:DesignHeight="139.655"
-    d:DesignWidth="110.315"
+    d:DesignHeight="138.655"
+    d:DesignWidth="133.648"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -78,16 +78,13 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border
-                        x:Name="ItemBorder"
                         HorizontalAlignment="Stretch"
                         Background="Transparent">
                         <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
                             <Button
-                                x:Name="DeleteFileName"
                                 Width="{Binding ActualHeight, ElementName=DeleteFileName}"
                                 Padding="4"
                                 Background="Transparent"
-                                BorderBrush="Transparent"
                                 Click="DeleteFileName_Click"
                                 Content="X"
                                 Foreground="{StaticResource TextBase}"

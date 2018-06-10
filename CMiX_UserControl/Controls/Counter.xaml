@@ -4,44 +4,31 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:CMiX="clr-namespace:CMiX"
-    x:Name="ObjectCount"
-    d:DesignHeight="86.409"
-    d:DesignWidth="682.111"
+    d:DesignHeight="26.076"
+    d:DesignWidth="174.778"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <CMiX:IndexToCountConverter x:Key="IndexToCount" />
-        </ResourceDictionary>
-    </UserControl.Resources>
-    <Grid>
-        <DockPanel LastChildFill="True">
-            <Button
-                x:Name="AddValue"
+    <DockPanel>
+        <Button
                 Grid.Column="1"
-                Width="{Binding ActualHeight, ElementName=AddValue, Mode=OneWay}"
-                Margin="1, 0, 0, 0"
+                Width="25"
                 Click="Button_Add"
                 Content="+"
                 DockPanel.Dock="Right"
-                Style="{StaticResource ButtonBase}" />
-            <Button
-                x:Name="SubValue"
+                Style="{StaticResource ButtonBase}"/>
+        <Button
                 Grid.Column="0"
-                Width="{Binding ActualHeight, ElementName=AddValue, Mode=OneWay}"
-                Margin="1, 0, 1, 0"
+                Width="25"
+                Margin="2,0"
                 Click="Button_Sub"
                 Content="-"
                 DockPanel.Dock="Right"
-                Style="{StaticResource ButtonBase}" />
-            <Label
-                x:Name="CounterValue"
-                Margin="0, 0, 1, 0"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center"
-                Background="{StaticResource DarkColor}"
-                Content="{Binding Count, Converter={StaticResource IndexToCount}}"
+                Style="{StaticResource ButtonBase}"/>
+        <Border Background="{StaticResource DarkColor}">
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Text="{Binding Count}"
                 Foreground="{StaticResource TextBase}"/>
-        </DockPanel>
-    </Grid>
+        </Border>
+    </DockPanel>
 </UserControl>
