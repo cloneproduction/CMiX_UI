@@ -37,48 +37,6 @@ namespace CMiX
                 IsSelected = true;
             }
         }
-
-        /*if (IsSelected)
-        {
-            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
-            {
-
-                base.OnMouseLeftButtonDown(e);
-                IsSelected = false;
-            }
-            else
-            {
-                base.OnMouseLeftButtonDown(e);
-            }
-
-        }
-
-
-        else if (!IsSelected)
-        {
-            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
-            {
-
-                IsSelected = true;
-            }
-            else
-            {
-                base.OnMouseLeftButtonDown(e);
-            }
-
-        }*/
-
-        /*else if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control && !IsSelected)
-        {
-            base.OnMouseLeftButtonDown(e);
-            IsSelected = true;
-        }
-        else if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control && IsSelected == true)
-        {
-
-            base.OnMouseLeftButtonDown(e);
-            IsSelected = false;
-        }*/
     }
     
 

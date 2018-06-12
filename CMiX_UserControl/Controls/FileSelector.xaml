@@ -68,7 +68,6 @@
             AllowDrop="True"
             ItemsSource="{Binding SelectedItems, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:FileSelector}}}"
             PreviewDrop="FileListBox_Drop"
-            PreviewKeyDown="FileNameList_PreviewKeyDown"
             PreviewMouseDown="FileNameList_PreviewMouseDown"
             PreviewMouseMove="FileListBox_PreviewMouseMove"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -82,7 +81,8 @@
                         Background="Transparent">
                         <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
                             <Button
-                                Width="{Binding ActualHeight, ElementName=DeleteFileName}"
+                                Width="20"
+                                Height="20"
                                 Padding="4"
                                 Background="Transparent"
                                 Click="DeleteFileName_Click"

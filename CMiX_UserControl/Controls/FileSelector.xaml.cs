@@ -10,14 +10,37 @@ using System.Windows.Media;
 
 namespace CMiX
 {
-    public partial class FileSelector : UserControl
+    public partial class FileSelector : UserControl, INotifyPropertyChanged
     {
         public FileSelector()
         {
             InitializeComponent();
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+
         #region Properties
+
+
+
+        public static readonly DependencyProperty SelectedItemsProperty =
+        DependencyProperty.Register("SelectedItems", typeof(ObservableCollection<ListBoxFileName>), typeof(FileSelector), new PropertyMetadata(new ObservableCollection<ListBoxFileName>()));
+        [Bindable(true)]
+        public ObservableCollection<ListBoxFileName> SelectedItems
+        {
+            get { return (ObservableCollection<ListBoxFileName>)GetValue(SelectedItemsProperty); }
+            set { NotifyPropertyChanged("SelectedItems");  SetValue(SelectedItemsProperty, value); }
+        }
+
+
         public static readonly DependencyProperty ModeSelectionProperty =
         DependencyProperty.Register("ModeSelection", typeof(string), typeof(FileSelector));
         [Bindable(true)]
@@ -45,14 +68,7 @@ namespace CMiX
             set { SetValue(TitleProperty, value); }
         }
 
-        public static readonly DependencyProperty SelectedItemsProperty =
-        DependencyProperty.Register("SelectedItems", typeof(ObservableCollection<ListBoxFileName>), typeof(FileSelector), new PropertyMetadata(new ObservableCollection<ListBoxFileName>()));
-        [Bindable(true)]
-        public ObservableCollection<ListBoxFileName> SelectedItems
-        {
-            get { return (ObservableCollection<ListBoxFileName>)GetValue(SelectedItemsProperty); }
-            set { SetValue(SelectedItemsProperty, value); }
-        }
+
         #endregion
 
 
@@ -160,12 +176,6 @@ namespace CMiX
                     filename.FileIsSelected = false;
                     SelectedItems.Add(filename);
                     // }
-                }
-
-
-                foreach (string filemask in FileMask)
-                {
-
                 }
             }
 

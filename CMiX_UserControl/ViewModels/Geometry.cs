@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using CMiX.Services;
 
 namespace CMiX.ViewModels
 {
@@ -14,7 +15,7 @@ namespace CMiX.ViewModels
                   containerName: containername,
                   message : new Messenger(),
                   count: 1,
-                  geometryPaths: Enumerable.Empty<string>(),
+                  geometryPaths: Enumerable.Empty<ListBoxFileName>(),
                   translateMode: default,
                   translateAmount: 0.0,
                   scaleMode: default,
@@ -23,14 +24,16 @@ namespace CMiX.ViewModels
                   rotationAmount: 0.0,
                   is3D: false,
                   keepAspectRatio: false)
-        { }
+        {
+           
+        }
 
         public Geometry(
             string layerName,
             string containerName,
             Messenger message,
             int count,
-            IEnumerable<string> geometryPaths,
+            IEnumerable<ListBoxFileName> geometryPaths,
             GeometryTranslateMode translateMode,
             double translateAmount,
             GeometryScaleMode scaleMode,
@@ -48,7 +51,7 @@ namespace CMiX.ViewModels
             ContainerName = containerName;
             Message = message;
             Count = count;
-            GeometryPaths = new ObservableCollection<string>(geometryPaths);
+            //GeometryPaths = (ObservableCollection<ListBoxFileName>)geometryPaths;
             TranslateMode = translateMode;
             TranslateAmount = translateAmount;
             ScaleMode = scaleMode;
@@ -92,9 +95,21 @@ namespace CMiX.ViewModels
                 Message.SendOSC(Address + nameof(Count), Count.ToString());
             }
         }
-        
-        public ObservableCollection<string> GeometryPaths { get; }
 
+
+        OSCMessenger messenger = new OSCMessenger(new SharpOSC.UDPSender("127.0.0.1", 55555));
+
+        private ObservableCollection<ListBoxFileName> _geometryPaths = new ObservableCollection<ListBoxFileName>();
+        public ObservableCollection<ListBoxFileName> GeometryPaths
+        {
+            get => _geometryPaths;
+            set
+            {
+                MessageBox.Show("pouet");
+                SetAndNotify(ref _geometryPaths, value);
+            }
+        }
+        //                messenger.SendMessage(Address + nameof(GeometryPaths), GeometryPaths.Where(s => s.FileIsSelected == true).ToArray());
         private GeometryTranslateMode _translateMode;
         public GeometryTranslateMode TranslateMode
         {

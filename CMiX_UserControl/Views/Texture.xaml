@@ -87,8 +87,7 @@
                     DockPanel.Dock="Top"
                     FileMask="{Binding TextureFileMask, Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type Views:LayerControls}}}"
                     ModeSelection="Extended"
-                    ScrollViewer.VerticalScrollBarVisibility="Visible"
-                    SelectedItems="{Binding DataContext.MaskSelectedTex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type Views:LayerControls}}}"/>
+                    ScrollViewer.VerticalScrollBarVisibility="Visible"/>
         </DockPanel>
     </Border>
 </UserControl>
