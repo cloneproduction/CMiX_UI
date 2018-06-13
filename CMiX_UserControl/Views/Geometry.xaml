@@ -36,7 +36,8 @@
                     Height="150"
                     Title="Models"
                     Margin="0, 4, 0, 2"
-                    Items="{Binding GeometryPaths, Mode=TwoWay}"/>
+                    ModeSelection="Extended"
+                    Items="{Binding GeometryPaths}"/>
             <Grid Height="25" Margin="0,1,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.5*" />

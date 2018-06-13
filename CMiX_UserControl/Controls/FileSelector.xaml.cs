@@ -15,7 +15,6 @@ namespace CMiX
         public FileSelector()
         {
             InitializeComponent();
-            DataContext = this;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -30,14 +29,14 @@ namespace CMiX
 
         #region Properties
 
-        public static readonly DependencyProperty ItemsProperty =
-        DependencyProperty.Register("Items", typeof(ObservableCollection<ListBoxFileName>), typeof(FileSelector), new PropertyMetadata(new ObservableCollection<ListBoxFileName>()));
-        [Bindable(true)]
-        public ObservableCollection<ListBoxFileName> Items
-        {
-            get { return (ObservableCollection<ListBoxFileName>)GetValue(ItemsProperty); }
-            set { NotifyPropertyChanged("Items");  SetValue(ItemsProperty, value); }
-        }
+    public static readonly DependencyProperty ItemsProperty =
+    DependencyProperty.Register("Items", typeof(ObservableCollection<ListBoxFileName>), typeof(FileSelector), new PropertyMetadata(new ObservableCollection<ListBoxFileName>()));
+    [Bindable(true)]
+    public ObservableCollection<ListBoxFileName> Items
+    {
+        get { return (ObservableCollection<ListBoxFileName>)GetValue(ItemsProperty); }
+        set { NotifyPropertyChanged("Items");  SetValue(ItemsProperty, value); }
+    }
 
 
         public static readonly DependencyProperty ModeSelectionProperty =

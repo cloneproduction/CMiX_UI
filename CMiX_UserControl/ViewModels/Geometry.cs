@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using CMiX.Services;
 using System.Collections.Specialized;
+using System.ComponentModel;
 
 namespace CMiX.ViewModels
 {
@@ -119,11 +120,47 @@ namespace CMiX.ViewModels
 
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            MessageBox.Show("pouet");
+            if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                foreach (ListBoxFileName item in e.OldItems)
+                {
+                    //Removed items
+                    item.PropertyChanged -= EntityViewModelPropertyChanged;
+                }
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                foreach (ListBoxFileName item in e.NewItems)
+                {
+                    //Added items
+                    item.PropertyChanged += EntityViewModelPropertyChanged;
+                }
+            }
+
+            List<string> filename = new List<string>();
+            foreach (ListBoxFileName lb in GeometryPaths)
+            {
+                if (lb.FileIsSelected == true)
+                {
+                    filename.Add(lb.FileName);
+                }
+            }
+            messenger.SendMessage(Address + nameof(GeometryPaths), filename.ToArray());
         }
 
-
-        //                messenger.SendMessage(Address + nameof(GeometryPaths), GeometryPaths.Where(s => s.FileIsSelected == true).ToArray());
+        public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            List<string> filename = new List<string>();
+            foreach (ListBoxFileName lb in GeometryPaths)
+            {
+                if (lb.FileIsSelected == true)
+                {
+                    filename.Add(lb.FileName);
+                }
+            }
+            messenger.SendMessage(Address + nameof(GeometryPaths), filename.ToArray());
+        }
+            
         private GeometryTranslateMode _translateMode;
         public GeometryTranslateMode TranslateMode
         {

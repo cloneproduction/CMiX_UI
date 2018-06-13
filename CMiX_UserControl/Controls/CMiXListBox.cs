@@ -20,7 +20,7 @@ namespace CMiX
 
     public class CMiXListBoxItem : ListBoxItem
     {
-        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        /*protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             if (IsSelected)
                 e.Handled = true;
@@ -36,7 +36,7 @@ namespace CMiX
             {
                 IsSelected = true;
             }
-        }
+        }*/
     }
     
 
