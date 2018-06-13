@@ -31,13 +31,12 @@
                     HorizontalAlignment="Stretch"
                     Count="{Binding Count, Mode=TwoWay}" />
             </Grid>
-            <Border BorderThickness="1" BorderBrush="{StaticResource DarkColor}"/>
             <CMiX:FileSelector
                 x:Name="GeometrySelector"
                     Height="150"
                     Title="Models"
                     Margin="0, 4, 0, 2"
-                SelectedItems="{Binding GeometryPaths, Mode=TwoWay}"/>
+                    Items="{Binding GeometryPaths, Mode=TwoWay}"/>
             <Grid Height="25" Margin="0,1,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.5*" />

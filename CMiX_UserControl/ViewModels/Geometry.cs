@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using CMiX.Services;
+using System.Collections.Specialized;
 
 namespace CMiX.ViewModels
 {
@@ -11,11 +12,11 @@ namespace CMiX.ViewModels
     {
         public Geometry(string layername, string containername)
             : this(
-                  layerName : layername,
+                  layerName: layername,
                   containerName: containername,
-                  message : new Messenger(),
+                  message: new Messenger(),
                   count: 1,
-                  geometryPaths: Enumerable.Empty<ListBoxFileName>(),
+                  geometryPaths: new ObservableCollection<ListBoxFileName>(),
                   translateMode: default,
                   translateAmount: 0.0,
                   scaleMode: default,
@@ -23,12 +24,17 @@ namespace CMiX.ViewModels
                   rotationMode: default,
                   rotationAmount: 0.0,
                   is3D: false,
+                              
                   keepAspectRatio: false)
         {
-           
+
+            GeometryPaths = new ObservableCollection<ListBoxFileName>();
+            GeometryPaths.CollectionChanged += ContentCollectionChanged;
+
         }
 
         public Geometry(
+
             string layerName,
             string containerName,
             Messenger message,
@@ -43,15 +49,24 @@ namespace CMiX.ViewModels
             bool is3D,
             bool keepAspectRatio)
         {
+
             if (geometryPaths == null)
             {
                 throw new ArgumentNullException(nameof(geometryPaths));
             }
+
+
+
             LayerName = layerName;
             ContainerName = containerName;
             Message = message;
             Count = count;
-            //GeometryPaths = (ObservableCollection<ListBoxFileName>)geometryPaths;
+
+
+            GeometryPaths = new ObservableCollection<ListBoxFileName>() ;
+            GeometryPaths.CollectionChanged += ContentCollectionChanged;
+
+
             TranslateMode = translateMode;
             TranslateAmount = translateAmount;
             ScaleMode = scaleMode;
@@ -99,16 +114,15 @@ namespace CMiX.ViewModels
 
         OSCMessenger messenger = new OSCMessenger(new SharpOSC.UDPSender("127.0.0.1", 55555));
 
-        private ObservableCollection<ListBoxFileName> _geometryPaths = new ObservableCollection<ListBoxFileName>();
-        public ObservableCollection<ListBoxFileName> GeometryPaths
+        public ObservableCollection<ListBoxFileName> GeometryPaths { get; }
+
+
+        public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            get => _geometryPaths;
-            set
-            {
-                MessageBox.Show("pouet");
-                SetAndNotify(ref _geometryPaths, value);
-            }
+            MessageBox.Show("pouet");
         }
+
+
         //                messenger.SendMessage(Address + nameof(GeometryPaths), GeometryPaths.Where(s => s.FileIsSelected == true).ToArray());
         private GeometryTranslateMode _translateMode;
         public GeometryTranslateMode TranslateMode

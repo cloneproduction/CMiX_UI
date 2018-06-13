@@ -15,6 +15,7 @@ namespace CMiX
         public FileSelector()
         {
             InitializeComponent();
+            DataContext = this;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -29,15 +30,13 @@ namespace CMiX
 
         #region Properties
 
-
-
-        public static readonly DependencyProperty SelectedItemsProperty =
-        DependencyProperty.Register("SelectedItems", typeof(ObservableCollection<ListBoxFileName>), typeof(FileSelector), new PropertyMetadata(new ObservableCollection<ListBoxFileName>()));
+        public static readonly DependencyProperty ItemsProperty =
+        DependencyProperty.Register("Items", typeof(ObservableCollection<ListBoxFileName>), typeof(FileSelector), new PropertyMetadata(new ObservableCollection<ListBoxFileName>()));
         [Bindable(true)]
-        public ObservableCollection<ListBoxFileName> SelectedItems
+        public ObservableCollection<ListBoxFileName> Items
         {
-            get { return (ObservableCollection<ListBoxFileName>)GetValue(SelectedItemsProperty); }
-            set { NotifyPropertyChanged("SelectedItems");  SetValue(SelectedItemsProperty, value); }
+            get { return (ObservableCollection<ListBoxFileName>)GetValue(ItemsProperty); }
+            set { NotifyPropertyChanged("Items");  SetValue(ItemsProperty, value); }
         }
 
 
@@ -76,7 +75,7 @@ namespace CMiX
         {
             Button btn = (Button)sender;
             int index = FileNameList.Items.IndexOf(btn.DataContext);
-            SelectedItems.RemoveAt(index);
+            Items.RemoveAt(index);
         }
 
         private ListBoxItem _dragged;
@@ -174,7 +173,7 @@ namespace CMiX
                     ListBoxFileName filename = new ListBoxFileName();
                     filename.FileName = droppedFilePaths[i];
                     filename.FileIsSelected = false;
-                    SelectedItems.Add(filename);
+                    Items.Add(filename);
                     // }
                 }
             }
@@ -200,7 +199,7 @@ namespace CMiX
                     {
                         ListBoxFileName CopiedFileName = Files.Clone() as ListBoxFileName;
                         CopiedFileName.FileIsSelected = false;
-                        SelectedItems.Add(CopiedFileName);
+                        Items.Add(CopiedFileName);
                     }
                 }
             }
@@ -238,29 +237,29 @@ namespace CMiX
 
         private void ClearSelected_Click(object sender, RoutedEventArgs e)
         {
-            for (int i = SelectedItems.Count - 1; i >= 0; i--)
+            for (int i = Items.Count - 1; i >= 0; i--)
             {
-                if (SelectedItems[i].FileIsSelected == true)
+                if (Items[i].FileIsSelected == true)
                 {
-                    SelectedItems.RemoveAt(i);
+                    Items.RemoveAt(i);
                 }
             }
         }
 
         private void ClearUnselected_Click(object sender, RoutedEventArgs e)
         {
-            for (int i = SelectedItems.Count - 1; i >= 0; i--)
+            for (int i = Items.Count - 1; i >= 0; i--)
             {
-                if (SelectedItems[i].FileIsSelected == false)
+                if (Items[i].FileIsSelected == false)
                 {
-                    SelectedItems.RemoveAt(i);
+                    Items.RemoveAt(i);
                 }
             }
         }
 
         private void ClearAll_Click(object sender, RoutedEventArgs e)
         {
-            SelectedItems.Clear();
+            Items.Clear();
         }
     }
 }

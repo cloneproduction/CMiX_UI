@@ -66,13 +66,13 @@
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Center"
             AllowDrop="True"
-            ItemsSource="{Binding SelectedItems, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:FileSelector}}}"
+            ItemsSource="{Binding Items, Mode=TwoWay}"
             PreviewDrop="FileListBox_Drop"
             PreviewMouseDown="FileNameList_PreviewMouseDown"
             PreviewMouseMove="FileListBox_PreviewMouseMove"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             SelectionChanged="FileNameList_SelectionChanged"
-            SelectionMode="{Binding ModeSelection, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:FileSelector}}}"
+            SelectionMode="{Binding ModeSelection, Mode=TwoWay}"
             Style="{DynamicResource ListBoxBase}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
