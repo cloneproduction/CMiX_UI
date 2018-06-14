@@ -35,15 +35,16 @@
                 x:Name="GeometrySelector"
                     Height="150"
                     Title="Models"
-                    Margin="0, 4, 0, 2"
+                    Margin="0, 0, 0, 4"
                     ModeSelection="Extended"
                     Items="{Binding GeometryPaths}"/>
-            <Grid Height="25" Margin="0,1,0,0">
+            <Grid Height="25">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.5*" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <ToggleButton
+                    Margin="0, 0, 1, 0"
                     Content="{Binding SelectedName, ElementName=SpriteSelectedTranslate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     IsHitTestVisible="{Binding ElementName=SpritePopupTranslate, Path=IsOpen, Converter={StaticResource BoolInverter}}"
                     Style="{StaticResource ToggleButtonBase}" />
@@ -57,18 +58,19 @@
                     <CMiX:TranslateSelector x:Name="SpriteSelectedTranslate" SelectedName="{Binding DataContext.SpriteSelectedTranslate, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                 </Popup>
                 <Controls:CustomSlider
-                    Grid.Column="2"
-                    Margin="1"
+                    Grid.Column="1"
+                    Margin="1, 0, 0, 0"
                     Caption="Translate"
                     Tag="SprTra"
                     Value="{Binding TranslateAmount, Mode=TwoWay}" />
             </Grid>
-            <Grid Height="25" Margin="0,1,0,0">
+            <Grid Height="25" Margin="0,2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.5*" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <ToggleButton
+                    Margin="0, 0, 1, 0"
                     Content="{Binding SelectedName, ElementName=SpriteSelectedScale, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     IsHitTestVisible="{Binding ElementName=SpritePopupScale, Path=IsOpen, Converter={StaticResource BoolInverter}}"
                     Style="{StaticResource ToggleButtonBase}" />
@@ -83,32 +85,33 @@
                         SelectedName="{Binding DataContext.SpriteSelectedScale, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                 </Popup>
                 <Controls:CustomSlider
-                    Grid.Column="2"
-                    Margin="1"
+                    Grid.Column="1"
+                    Margin="1, 0, 0, 0"
                     Caption="Scale"
                     Value="{Binding ScaleAmount, Mode=TwoWay}" />
             </Grid>
-            <Grid Height="25" Margin="0,1,0,0">
+            <Grid Height="25">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.5*" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <CMiX:RotationSelector />
+                <CMiX:RotationSelector Margin="0, 0, 1, 0"/>
                 <Controls:CustomSlider
-                    Grid.Column="2"
-                    Margin="1"
+                    Grid.Column="1"
+                    Margin="1, 0, 0, 0"
                     Caption="Rotate"
                     Value="{Binding RotationAmount, Mode=TwoWay}" />
             </Grid>
             <Grid
                 Height="25"
-                Margin="0, 2, 0, 0"
+                Margin="0, 4, 0, 0"
                 DockPanel.Dock="Bottom">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <ToggleButton
+                    Margin="0, 0, 1, 0"
                     Grid.Column="0"
                     Content="AR"
                     DockPanel.Dock="Bottom"
@@ -116,6 +119,7 @@
                     Style="{DynamicResource ToggleButtonBase}" />
                 <ToggleButton
                     Grid.Column="1"
+                    Margin="1, 0, 0, 0"
                     Content="3D"
                     DockPanel.Dock="Right"
                     IsChecked="{Binding Is3D, Mode=TwoWay}"

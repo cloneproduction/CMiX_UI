@@ -38,12 +38,12 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <RadioButton
-                    x:Name="LayerEnabled"
-                    Margin="0,0,2,0"
-                    AllowDrop="True"
-                    GroupName="SelectLayer"
-                    IsChecked="{Binding Enabled}"
-                    Style="{StaticResource RadioButtonBase}">
+                x:Name="LayerEnabled"
+                Margin="0,0,2,0"
+                AllowDrop="True"
+                GroupName="SelectLayer"
+                IsChecked="{Binding Enabled}"
+                Style="{StaticResource RadioButtonBase}">
                 <RadioButton.Background>
                     <SolidColorBrush Color="{Binding DataContext.Color, Converter={StaticResource ColorToString}, ElementName=LayerEnable, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
                 </RadioButton.Background>
@@ -60,10 +60,7 @@
                 <ComboBox
                     Height="25"
                     ItemContainerStyle="{DynamicResource ComboBoxItemBase}"
-                    Style="{DynamicResource ComboBoxBase}" 
-                    ItemsSource="{Binding ChannelsBlendMode, ElementName=Ch_Control, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedItem="{Binding DataContext.BlendMode, ElementName=Ch_Control, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    />
+                    Style="{DynamicResource ComboBoxBase}" />
             </StackPanel>
         </Grid>
     </Border>

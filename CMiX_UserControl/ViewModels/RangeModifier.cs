@@ -1,6 +1,6 @@
 ﻿namespace CMiX.ViewModels
 {
-    public enum ColorationModifier
+    public enum RangeModifier
     {
         [ShortCode("STD_CTR", "Steady Center")]
         STD_CTR,

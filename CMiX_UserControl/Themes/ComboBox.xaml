@@ -117,7 +117,7 @@
                                                         <Setter TargetName="splitBorder" Property="BorderBrush" Value="Transparent" />
                                                     </MultiDataTrigger>
                                                     <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter TargetName="Arrow" Property="Fill" Value="{DynamicResource ActiveText}" />
+                                                        <Setter TargetName="Arrow" Property="Fill" Value="{DynamicResource TextBase}" />
                                                     </Trigger>
                                                     <MultiDataTrigger>
                                                         <MultiDataTrigger.Conditions>

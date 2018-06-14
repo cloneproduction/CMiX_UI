@@ -11,26 +11,29 @@ namespace CMiX.ViewModels
                   beatModifier: new BeatModifier(masterbeat, layerName + "/" + nameof(Coloration), messenger),
                   layerName: layerName,
                   messenger: messenger,
-                  objectColor: Colors.White,
+                  objColor: Colors.White,
+                  bgColor: Colors.Black,
                   backgroundColor: Colors.Black,
-                  hue: new HSVPoint(),
-                  saturation: new HSVPoint(),
-                  value: new HSVPoint())
+                  hue: new RangeControl(messenger, layerName + "/" + nameof(Coloration) + "/" + nameof(Hue)),
+                  saturation: new RangeControl(messenger, layerName + "/" + nameof(Coloration) + "/" + nameof(Saturation)),
+                  value: new RangeControl(messenger, layerName + "/" + nameof(Coloration) + "/" + nameof(Value))
+                  )
         { }
 
         public Coloration(
             BeatModifier beatModifier, 
             string layerName, 
-            Color objectColor, 
-            Color backgroundColor, 
-            HSVPoint hue, 
-            HSVPoint saturation, 
-            HSVPoint value, 
+            Color objColor,
+            Color bgColor,
+            Color backgroundColor,
+            RangeControl hue,
+            RangeControl saturation,
+            RangeControl value, 
             IMessenger messenger)
         {
             LayerName = layerName;
             BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
-            ObjectColor = objectColor;
+            BgColor = bgColor;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             BackgroundColor = backgroundColor;
             Hue = hue ?? throw new ArgumentNullException(nameof(hue));
@@ -47,17 +50,32 @@ namespace CMiX.ViewModels
 
         private IMessenger Messenger { get; }
 
-        private Color _objectColor;
-        public Color ObjectColor
+        private Color _objColor;
+        public Color ObjColor
         {
-            get => _objectColor;
+            get => _objColor;
             set
             {
-                SetAndNotify(ref _objectColor, value);
+                SetAndNotify(ref _objColor, value);
                 //problem with IF, sometimes NULL
                 if(Value != null)
                 {
-                    Messenger.SendMessage(LayerName, ObjectColor.ToString());
+                    Messenger.SendMessage(LayerName + "/" + nameof(Coloration) + "/" + nameof(ObjColor), ObjColor);
+                }
+            }
+        }
+
+        private Color _bgColor;
+        public Color BgColor
+        {
+            get => _bgColor;
+            set
+            {
+                SetAndNotify(ref _bgColor, value);
+                //problem with IF, sometimes NULL
+                if (Value != null)
+                {
+                    Messenger.SendMessage(LayerName + "/" + nameof(Coloration) + "/" + nameof(BgColor), BgColor);
                 }
             }
         }
@@ -71,10 +89,10 @@ namespace CMiX.ViewModels
 
         public BeatModifier BeatModifier { get; }
 
-        public HSVPoint Hue { get; }
+        public RangeControl Hue { get; }
 
-        public HSVPoint Saturation { get; }
+        public RangeControl Saturation { get; }
 
-        public HSVPoint Value { get; }
+        public RangeControl Value { get; }
     }
 }

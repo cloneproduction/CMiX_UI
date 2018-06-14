@@ -30,9 +30,9 @@
 
     <Style x:Key="RadioButtonBase" TargetType="{x:Type RadioButton}">
         <!--<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>-->
-        <Setter Property="Background" Value="{DynamicResource BaseColor}" />
+        <Setter Property="Background" Value="{DynamicResource Color}" />
         <Setter Property="BorderBrush" Value="Red" />
-        <Setter Property="Foreground" Value="{DynamicResource BaseText}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextBase}" />
         <Setter Property="BorderThickness" Value="2" />
         <Setter Property="Template">
             <Setter.Value>
@@ -52,7 +52,7 @@
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
                             <!--<Setter Property="Background" TargetName="radioButtonBorder" Value="{DynamicResource OverColor}"/>-->
-                            <Setter Property="Foreground" Value="{DynamicResource BaseText}" />
+                            <Setter Property="Foreground" Value="{DynamicResource TextBase}" />
                         </Trigger>
                         <!--<Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Background" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Disabled.Background}"/>
@@ -65,7 +65,7 @@
                             <Setter Property="Background" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Pressed.Glyph}"/>
                         </Trigger>-->
                         <Trigger Property="IsChecked" Value="true">
-                            <Setter TargetName="radioButtonBorder" Property="Background" Value="{DynamicResource BaseHighDarkerColor}" />
+                            <Setter TargetName="radioButtonBorder" Property="Background" Value="{DynamicResource HighDarkerColor}" />
                             <!--<Setter Property="Padding" Value="2"/>
                             <Setter Property="BorderThickness" TargetName="radioButtonBorder" Value="2, 0, 0, 0"/>
                             <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{DynamicResource ActiveColor}"/>

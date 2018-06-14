@@ -104,6 +104,8 @@
     <Compile Include="Services\OSCMessenger.cs" />
     <Compile Include="ViewModels\Beat.cs" />
     <Compile Include="ViewModels\BeatModifier.cs" />
+    <Compile Include="ViewModels\RangeControl.cs" />
+    <Compile Include="ViewModels\RangeModifier.cs" />
     <Compile Include="Views\BeatModifier.xaml.cs">
       <DependentUpon>BeatModifier.xaml</DependentUpon>
     </Compile>
@@ -113,14 +115,12 @@
     <Compile Include="ViewModels\CameraRotation.cs" />
     <Compile Include="ViewModels\CameraView.cs" />
     <Compile Include="ViewModels\Coloration.cs" />
-    <Compile Include="ViewModels\ColorationModifier.cs" />
     <Compile Include="ViewModels\Content.cs" />
     <Compile Include="Unused\CounterViewModel.cs" />
     <Compile Include="ViewModels\Geometry.cs" />
     <Compile Include="ViewModels\GeometryRotationMode.cs" />
     <Compile Include="ViewModels\GeometryScaleMode.cs" />
     <Compile Include="ViewModels\GeometryTranslateMode.cs" />
-    <Compile Include="ViewModels\HSVPoint.cs" />
     <Compile Include="ViewModels\Layer.cs" />
     <Compile Include="ViewModels\MasterBeat.cs" />
     <Compile Include="ViewModels\Mask.cs" />
@@ -154,6 +154,9 @@
     </Compile>
     <Compile Include="Views\PostFX.xaml.cs">
       <DependentUpon>PostFX.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RangeControl.xaml.cs">
+      <DependentUpon>RangeControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ScaleSelector.xaml.cs">
       <DependentUpon>ScaleSelector.xaml</DependentUpon>
@@ -281,6 +284,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PostFX.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RangeControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

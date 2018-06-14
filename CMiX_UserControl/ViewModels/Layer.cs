@@ -39,7 +39,6 @@ namespace CMiX.ViewModels
 
         private IMessenger Messenger { get; }
 
-
         private string _layername;
         public string LayerName
         {

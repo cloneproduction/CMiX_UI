@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="CMiX.Views.RangeControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:CMiX.Controls"
+             xmlns:Views="clr-namespace:CMiX.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="49.333" d:DesignWidth="740.667">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <ComboBox
+            Grid.Column="0"
+            Margin="0, 0, 1, 0"
+            Style="{StaticResource ComboBoxBase}"/>
+        <Controls:CustomSlider
+            Grid.Column="1"
+            Margin="1, 0, 0, 0"
+            Caption="{Binding Name, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:RangeControl}}}"
+            Value="{Binding Range, Mode=TwoWay}" />
+    </Grid>
+</UserControl>
