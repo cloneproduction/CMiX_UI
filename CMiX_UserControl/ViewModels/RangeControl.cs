@@ -10,7 +10,7 @@ namespace CMiX.ViewModels
                   range: 0.0,
                   layername: layername,
                   messenger: messenger,
-                  modifier: default
+                  modifier: new RangeModifier()
                   )
         { }
 

@@ -5,8 +5,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Controls="clr-namespace:CMiX.Controls"
              xmlns:Views="clr-namespace:CMiX.Views"
+             xmlns:ViewModels="clr-namespace:CMiX.ViewModels"             
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="49.333" d:DesignWidth="740.667">
+    <UserControl.Resources>
+        <ObjectDataProvider 
+            x:Key="RangeModifier" MethodName="GetValues"
+            ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="ViewModels:RangeModifier"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*" />
@@ -14,8 +25,8 @@
         </Grid.ColumnDefinitions>
         <ComboBox
             Grid.Column="0"
-            Margin="0, 0, 1, 0"
-            Style="{StaticResource ComboBoxBase}"/>
+            ItemsSource="{Binding Source={StaticResource RangeModifier}}"
+            Margin="0, 0, 1, 0"/>
         <Controls:CustomSlider
             Grid.Column="1"
             Margin="1, 0, 0, 0"
