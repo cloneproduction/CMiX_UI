@@ -26,7 +26,8 @@
         <ComboBox
             Grid.Column="0"
             ItemsSource="{Binding Source={StaticResource RangeModifier}}"
-            Margin="0, 0, 1, 0"/>
+            Margin="0, 0, 1, 0"
+            Style="{StaticResource ComboBoxBase}"/>
         <Controls:CustomSlider
             Grid.Column="1"
             Margin="1, 0, 0, 0"

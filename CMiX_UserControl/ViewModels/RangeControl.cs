@@ -10,7 +10,7 @@ namespace CMiX.ViewModels
                   range: 0.0,
                   layername: layername,
                   messenger: messenger,
-                  modifier: new RangeModifier()
+                  modifier: default
                   )
         { }
 
@@ -51,10 +51,7 @@ namespace CMiX.ViewModels
         public RangeModifier Modifier
         {
             get => _modifier;
-            set
-            {
-                SetAndNotify(ref _modifier, value);
-            }
+            set => SetAndNotify(ref _modifier, value);
         }
     }
 }
