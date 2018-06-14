@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace CMiX
+namespace CMiX.Controls
 {
     public partial class FileSelector : UserControl, INotifyPropertyChanged
     {
@@ -28,15 +27,14 @@ namespace CMiX
         }
 
         #region Properties
-
-    public static readonly DependencyProperty ItemsProperty =
-    DependencyProperty.Register("Items", typeof(ObservableCollection<ListBoxFileName>), typeof(FileSelector), new PropertyMetadata(new ObservableCollection<ListBoxFileName>()));
-    [Bindable(true)]
-    public ObservableCollection<ListBoxFileName> Items
-    {
-        get { return (ObservableCollection<ListBoxFileName>)GetValue(ItemsProperty); }
-        set { NotifyPropertyChanged("Items");  SetValue(ItemsProperty, value); }
-    }
+        public static readonly DependencyProperty ItemsProperty =
+        DependencyProperty.Register("Items", typeof(ObservableCollection<ListBoxFileName>), typeof(FileSelector));
+        [Bindable(true)]
+        public ObservableCollection<ListBoxFileName> Items
+        {
+            get { return (ObservableCollection<ListBoxFileName>)GetValue(ItemsProperty); }
+            set { NotifyPropertyChanged("Items");  SetValue(ItemsProperty, value); }
+        }
 
 
         public static readonly DependencyProperty ModeSelectionProperty =
@@ -65,8 +63,6 @@ namespace CMiX
             get { return (string)GetValue(TitleProperty); }
             set { SetValue(TitleProperty, value); }
         }
-
-
         #endregion
 
 

@@ -1,5 +1,5 @@
-﻿using CMiX.Services;
-using System;
+﻿using System;
+using CMiX.Services;
 
 namespace CMiX.ViewModels
 {
@@ -11,7 +11,7 @@ namespace CMiX.ViewModels
                   rotation: default(CameraRotation),
                   lookAt: default(CameraLookAt),
                   view: default(CameraView),
-                  beatModifier: new BeatModifier(masterBeat, "Camera", "Beat"),
+                  beatModifier: new BeatModifier(masterBeat, "Camera", messenger),
                   fov: 0.5,
                   zoom: 1.0)
         {
@@ -29,13 +29,6 @@ namespace CMiX.ViewModels
         }
 
         public IMessenger Messenger { get; }
-
-        private Messenger _message;
-        public Messenger Message
-        {
-            get => _message;
-            set => SetAndNotify(ref _message, value);
-        }
 
         private CameraRotation _rotation;
         public CameraRotation Rotation
@@ -67,7 +60,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _FOV, value);
-                Messenger.SendMessage("/CameraFOV", FOV);
+                Messenger.SendMessage("Camera/FOV", FOV);
             }
         }
 
@@ -78,7 +71,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _zoom, value);
-                Messenger.SendMessage("/CameraZoom", Zoom);
+                Messenger.SendMessage("Camera/Zoom", Zoom);
             }
         }
     }

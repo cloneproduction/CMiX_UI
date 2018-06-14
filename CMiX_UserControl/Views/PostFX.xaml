@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:CMiX="clr-namespace:CMiX"
+    xmlns:Controls="clr-namespace:CMiX.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="120"
@@ -25,15 +26,13 @@
                         DockPanel.Dock="Bottom"
                         FontSize="12"
                         Foreground="{StaticResource TextBase}" />
-                    <CMiX:CustomSlider
-                        x:Name="SpriteFeedBack"
+                    <Controls:CustomSlider
                         Height="25"
                         Margin="0,2,0,1"
                         Caption="Feedback"
                         Tag="TexFeedBack"
                         Value="{Binding Feedback, Mode=TwoWay}"/>
-                    <CMiX:CustomSlider
-                        x:Name="SpriteBlur"
+                    <Controls:CustomSlider
                         Height="25"
                         Margin="0,1,0,1"
                         Caption="Blur"
@@ -46,7 +45,6 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <CMiX:CMiXComboBox
-                            x:Name="SpriteTransform"
                             Grid.Column="0"
                             Height="25"
                             Margin="0, 1, 1, 0"
@@ -56,7 +54,6 @@
                             SelectedItem="{Binding DataContext.SpriteTransform, ElementName=Ch_Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             Style="{StaticResource ComboBoxBase}" />
                         <CMiX:CMiXComboBox
-                            x:Name="SpriteView"
                             Grid.Column="1"
                             Height="25"
                             Margin="1, 1, 0, 0"

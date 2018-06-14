@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using CMiX.Services;
 
 namespace CMiX.ViewModels
 {
     public class Texture : ViewModel
     {
-        public Texture(string layername, string containername)
+        public Texture(string layername, IMessenger messenger)
             : this(
                   layerName: layername,
-                  containerName: containername,
-                  message: new Messenger(),
+                  messenger: messenger,
                   brightness: 0.0,
                   contrast: 0.0,
                   saturation: 0.0,
@@ -20,8 +20,7 @@ namespace CMiX.ViewModels
 
         public Texture(
             string layerName,
-            string containerName,
-            Messenger message,
+            IMessenger messenger,
             double brightness,
             double contrast,
             double saturation,
@@ -36,8 +35,7 @@ namespace CMiX.ViewModels
             AssertNotNegative(() => invert);
 
             LayerName = layerName;
-            ContainerName = containerName;
-            Message = message;
+            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             Brightness = brightness;
             Contrast = contrast;
             Saturation = saturation;
@@ -53,23 +51,11 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _layerName, value);
         }
 
-        private string _containerName;
-        public string ContainerName
-        {
-            get => _containerName;
-            set => SetAndNotify(ref _containerName, value);
-        }
+        public IMessenger Messenger { get; }
 
-        private Messenger _message;
-        public Messenger Message
-        {
-            get => _message;
-            set => SetAndNotify(ref _message, value);
-        }
+        private string Address => String.Format("{0}/{1}/", LayerName, nameof(Texture));
 
-        private string Address => String.Format("{0}/{1}/{2}/", LayerName, ContainerName, nameof(Texture));
-
-        public ObservableCollection<string> SelectedTexturePaths { get; }
+        public ObservableCollection<string> TexturePaths { get; }
 
         private double _brightness;
         public double Brightness
@@ -78,7 +64,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _brightness, CoerceNotNegative(value));
-                Message.SendOSC(Address + nameof(Brightness), Brightness.ToString());
+                Messenger.SendMessage(Address + nameof(Brightness), Brightness.ToString());
             }
         }
 
@@ -89,7 +75,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _contrast, CoerceNotNegative(value));
-                Message.SendOSC(Address + nameof(Contrast), Contrast.ToString());
+                Messenger.SendMessage(Address + nameof(Contrast), Contrast.ToString());
             }
         }
 
@@ -100,7 +86,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _saturation, CoerceNotNegative(value));
-                Message.SendOSC(Address + nameof(Saturation), Saturation.ToString());
+                Messenger.SendMessage(Address + nameof(Saturation), Saturation.ToString());
             }
         }
 
@@ -111,7 +97,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _keying, CoerceNotNegative(value));
-                Message.SendOSC(Address + nameof(Keying), Keying.ToString());
+                Messenger.SendMessage(Address + nameof(Keying), Keying.ToString());
             }
         }
 
@@ -122,7 +108,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _invert, CoerceNotNegative(value));
-                Message.SendOSC(Address + nameof(Invert), Invert.ToString());
+                Messenger.SendMessage(Address + nameof(Invert), Invert.ToString());
             }
         }
 

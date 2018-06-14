@@ -9,7 +9,7 @@ namespace CMiX
     public partial class RotationSelector : UserControl, INotifyPropertyChanged
     {
 
-        Messenger message = new Messenger();
+        //Messenger message = new Messenger();
 
         public RotationSelector()
         {
@@ -45,7 +45,7 @@ namespace CMiX
             {
                 //rotationselectorviewmodel.Rotation = rb.Name;
                 string name = Utils.FindParent<Views.LayerControls>(this).Name;
-                message.SendOSC(name + "/" + Name, rb.Name);
+                //message.SendOSC(name + "/" + Name, rb.Name);
             }
         }
 

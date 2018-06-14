@@ -1,23 +1,25 @@
-﻿using System;
-using System.Windows;
+﻿using CMiX.Services;
+using System;
 
 namespace CMiX.ViewModels
 {
     public class Layer : ViewModel
     {
-        public Layer(MasterBeat masterBeat, string name)
+        public Layer(MasterBeat masterBeat, string layername, IMessenger messenger)
         {
-            Name = name;
+            Messenger = messenger;
+            LayerName = layername;
             Fade = 0.0;
             BlendMode = default;
-            BeatModifier = new BeatModifier(masterBeat, name, "Master");
-            Content = new Content(BeatModifier, name);
-            Mask = new Mask(BeatModifier, name);
-            Coloration = new Coloration(BeatModifier, name);
+            BeatModifier = new BeatModifier(masterBeat, layername, messenger);
+            Content = new Content(BeatModifier, layername, messenger);
+            Mask = new Mask(BeatModifier, layername, messenger);
+            Coloration = new Coloration(BeatModifier, layername, messenger);
         }
 
         public Layer(
-            string name,
+            IMessenger messenger,
+            string layername,
             double fade,
             BlendMode blendMode,
             BeatModifier beatModifier,
@@ -25,7 +27,8 @@ namespace CMiX.ViewModels
             Mask mask,
             Coloration coloration)
         {
-            Name = name;
+            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+            LayerName = layername;
             Fade = fade;
             BlendMode = blendMode;
             BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
@@ -34,11 +37,14 @@ namespace CMiX.ViewModels
             Coloration = coloration ?? throw new ArgumentNullException(nameof(coloration));
         }
 
-        private string _name;
-        public string Name
+        private IMessenger Messenger { get; }
+
+
+        private string _layername;
+        public string LayerName
         {
-            get => _name;
-            set => SetAndNotify(ref _name, value);
+            get => _layername;
+            set => SetAndNotify(ref _layername, value);
         }
 
         private double _enabled;
@@ -52,7 +58,11 @@ namespace CMiX.ViewModels
         public double Fade
         {
             get => _fade;
-            set => SetAndNotify(ref _fade, value);
+            set
+            {
+                SetAndNotify(ref _fade, value);
+                Messenger.SendMessage(LayerName + "/" + nameof(Fade), Fade);
+            }
         }
 
         private BlendMode _blendMode;

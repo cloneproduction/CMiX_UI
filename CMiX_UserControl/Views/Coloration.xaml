@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:CMiX="clr-namespace:CMiX"
     xmlns:Views="clr-namespace:CMiX.Views"
+    xmlns:Controls="clr-namespace:CMiX.Controls"
     xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -28,7 +29,6 @@
                 Content="COLORATION"
                 DockPanel.Dock="Top"/>
         </Border>
-
         <Views:BeatModifier
             x:Name="ColorationBeatModifier"
             Margin="0, 2, 0, 2"
@@ -46,17 +46,17 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <TabControl
-                Margin="0,2,0,2"
-                Background="{StaticResource DarkColor}"
-                DockPanel.Dock="Top"
-                Focusable="False"
-                Style="{StaticResource TabControlBase}">
+                    Margin="0,2,0,2"
+                    Background="{StaticResource DarkColor}"
+                    DockPanel.Dock="Top"
+                    Focusable="False"
+                    Style="{StaticResource TabControlBase}">
                     <TabItem
                     Height="25"
                     Header="Foreground"
                     IsSelected="True"
                     Style="{StaticResource TabItemBase}">
-                        <colorpicker:ColorPicker
+                    <colorpicker:ColorPicker
                         x:Name="Color"
                         Margin="4"
                         Background="{StaticResource DarkerColor}"
@@ -80,21 +80,21 @@
             CornerRadius="2">
             <StackPanel Grid.Row="1">
                 <Label
-                        Grid.Row="0"
-                        Margin="0,2,0,2"
-                        HorizontalContentAlignment="Center"
-                        Background="{StaticResource DarkColor}"
-                        Content="Modifiers"
-                        Foreground="{DynamicResource TextBase}" />
+                    Grid.Row="0"
+                    Margin="0,2,0,2"
+                    HorizontalContentAlignment="Center"
+                    Background="{StaticResource DarkColor}"
+                    Content="Modifiers"
+                    Foreground="{DynamicResource TextBase}" />
                 <Grid
-                        Grid.Row="2"
-                        Height="25"
-                        DockPanel.Dock="Top">
+                    Grid.Row="2"
+                    Height="25"
+                    DockPanel.Dock="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.5*" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <CMiX:CustomSlider
+                    <Controls:CustomSlider
                         x:Name="HueRange"
                         Grid.Column="1"
                         Height="25"
@@ -118,7 +118,7 @@
                         <ColumnDefinition Width="0.5*" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <CMiX:CustomSlider
+                    <Controls:CustomSlider
                         x:Name="SatRange"
                         Grid.Column="1"
                         Height="25"
@@ -142,7 +142,7 @@
                         <ColumnDefinition Width="0.5*" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <CMiX:CustomSlider
+                    <Controls:CustomSlider
                         x:Name="ValRange"
                         Grid.Column="1"
                         Height="25"

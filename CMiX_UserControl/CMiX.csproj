@@ -100,9 +100,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewModels\GeometrySelector.cs" />
-    <Compile Include="Views\GeometrySelector.xaml.cs">
-      <DependentUpon>GeometrySelector.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Services\IMessenger.cs" />
     <Compile Include="Services\OSCMessenger.cs" />
     <Compile Include="ViewModels\Beat.cs" />
@@ -139,7 +136,7 @@
     <Compile Include="Controls\BeatControls.xaml.cs">
       <DependentUpon>BeatControls.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Unused\ChannelData.cs" />
+    <None Include="Unused\ChannelData.cs" />
     <Compile Include="Controls\CMiXComboBox.cs" />
     <Compile Include="Controls\LayerRadioButton.cs" />
     <Compile Include="Controls\RangeSlider.cs" />
@@ -183,8 +180,8 @@
       <DependentUpon>LayerButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
-    <Compile Include="Services\Messenger.cs" />
-    <Compile Include="Unused\CMiXData.cs" />
+    <None Include="Unused\Messenger.cs" />
+    <None Include="Unused\CMiXData.cs" />
     <Compile Include="Controls\Counter.xaml.cs">
       <DependentUpon>Counter.xaml</DependentUpon>
     </Compile>
@@ -207,10 +204,6 @@
     <Compile Include="Views\Texture.xaml.cs">
       <DependentUpon>Texture.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\GeometrySelector.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Resources\Fonts\Roboto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -319,10 +312,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Unused\ContentControlTemplate.xaml">
+    <None Include="Unused\ContentControlTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
+    </None>
     <Page Include="Controls\BeatControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

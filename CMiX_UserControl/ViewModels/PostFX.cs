@@ -1,13 +1,14 @@
 ﻿using System;
+using CMiX.Services;
 
 namespace CMiX.ViewModels
 {
     public class PostFX : ViewModel
     {
-        public PostFX(string layerName)
+        public PostFX(string layerName, IMessenger messenger)
             : this(
                   layerName : layerName,
-                  message: new Messenger(),
+                  messenger: messenger,
                   feedback: 0.0, 
                   blur: 0.0, 
                   transforms: default, 
@@ -16,7 +17,7 @@ namespace CMiX.ViewModels
 
         public PostFX(
             string layerName,
-            Messenger message,
+            IMessenger messenger,
             double feedback, 
             double blur, 
             PostFXTransforms transforms, 
@@ -26,7 +27,7 @@ namespace CMiX.ViewModels
             AssertNotNegative(() => blur);
 
             LayerName = layerName;
-            Message = message;
+            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             Feedback = feedback;
             Blur = blur;
             Transforms = transforms;
@@ -35,12 +36,7 @@ namespace CMiX.ViewModels
 
         private string Address => String.Format("{0}/{1}/", LayerName, nameof(PostFX));
 
-        private Messenger _message;
-        public Messenger Message
-        {
-            get => _message;
-            set => SetAndNotify(ref _message, value);
-        }
+        public IMessenger Messenger { get; }
 
         private string _layerName;
         public string LayerName
@@ -56,7 +52,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _feedback, CoerceNotNegative(value));
-                Message.SendOSC(Address + nameof(Feedback), Feedback.ToString());
+                Messenger.SendMessage(Address + nameof(Feedback), Feedback.ToString());
             }
         }
 
@@ -67,7 +63,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _blur, CoerceNotNegative(value));
-                Message.SendOSC(Address + nameof(Blur), Blur.ToString());
+                Messenger.SendMessage(Address + nameof(Blur), Blur.ToString());
             }
         }
 

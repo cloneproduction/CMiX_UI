@@ -1,23 +1,15 @@
 ﻿<UserControl
-    x:Class="CMiX.BeatControls"
+    x:Class="CMiX.Controls.BeatControls"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:CMiX="clr-namespace:CMiX"
-    
-    xmlns:viewModels="clr-namespace:CMiX.ViewModels"
-    d:DataContext="{d:DesignInstance Type={x:Type viewModels:BeatModifier},
+    xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
+    d:DataContext="{d:DesignInstance Type={x:Type ViewModels:BeatModifier},
                                      IsDesignTimeCreatable=False}"
     d:DesignHeight="87"
     d:DesignWidth="596"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <CMiX:PeriodToBPMConverter x:Key="PeriodToBPM" />
-        </ResourceDictionary>
-    </UserControl.Resources>
-
     <StackPanel Orientation="Horizontal">
         <Button
             x:Name="ResetBPM"

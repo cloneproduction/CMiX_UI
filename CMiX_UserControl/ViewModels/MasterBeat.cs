@@ -53,7 +53,7 @@ namespace CMiX.ViewModels
 
         private void Resync()
         {
-            Messenger.SendMessage(Address + nameof(Resync), CurrentTime + Period);
+            Messenger.SendMessage(Address + "/" + nameof(Resync), CurrentTime + Period);
         }
 
         protected override void Multiply()

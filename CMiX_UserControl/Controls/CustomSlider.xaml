@@ -1,51 +1,15 @@
 ﻿<UserControl
-    x:Class="CMiX.CustomSlider"
+    x:Class="CMiX.Controls.CustomSlider"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:CMiX="clr-namespace:CMiX"
+    xmlns:Controls="clr-namespace:CMiX.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="42.8"
     d:DesignWidth="341.589"
     mc:Ignorable="d">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition Width="auto" />
-        </Grid.ColumnDefinitions>
-        <Slider
-            x:Name="CMiXSlider"
-            Grid.Column="0"
-            IsMoveToPointEnabled="True"
-            LargeChange="0.1"
-            Maximum="1.0"
-            Minimum="0.0"
-            SmallChange="0.01"
-            Style="{StaticResource SliderBase}"
-            ValueChanged="CMiXSlider_ValueChanged"
-            Value="{Binding Value, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:CustomSlider}}}" />
-        <Label
-            Grid.Column="0"
-            Margin="0,0,20,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Stretch"
-            VerticalContentAlignment="Center"
-            Background="Transparent"
-            Content="{Binding Value, Mode=TwoWay, ElementName=CMiXSlider}"
-            ContentStringFormat="{}{0:N2}"
-            Foreground="{DynamicResource TextBase}"
-            IsHitTestVisible="False" />
-        <Label
-            Grid.Column="0"
-            Margin="20,0,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Stretch"
-            VerticalContentAlignment="Center"
-            Background="Transparent"
-            Content="{Binding Caption, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:CustomSlider}}}"
-            Foreground="{DynamicResource TextBase}"
-            IsHitTestVisible="False" />
-        <Grid Grid.Column="1">
+    <DockPanel>
+        <Grid DockPanel.Dock="Right">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
@@ -69,5 +33,39 @@
                 Focusable="False"
                 Style="{DynamicResource ButtonBase}" />
         </Grid>
-    </Grid>
+        <Grid>
+            <Slider
+                x:Name="CMiXSlider"
+                Grid.Column="0"
+                IsMoveToPointEnabled="True"
+                LargeChange="0.1"
+                Maximum="1.0"
+                Minimum="0.0"
+                SmallChange="0.01"
+                Style="{StaticResource SliderBase}"
+                ValueChanged="CMiXSlider_ValueChanged"
+                Value="{Binding Value, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type Controls:CustomSlider}}}" />
+            <Label
+            Grid.Column="0"
+            Margin="0,0,20,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Stretch"
+            VerticalContentAlignment="Center"
+            Background="Transparent"
+            Content="{Binding Value, Mode=TwoWay, ElementName=CMiXSlider}"
+            ContentStringFormat="{}{0:N2}"
+            Foreground="{DynamicResource TextBase}"
+            IsHitTestVisible="False" />
+            <Label
+            Grid.Column="0"
+            Margin="20,0,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Stretch"
+            VerticalContentAlignment="Center"
+            Background="Transparent"
+            Content="{Binding Caption, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type Controls:CustomSlider}}}"
+            Foreground="{DynamicResource TextBase}"
+            IsHitTestVisible="False" />
+        </Grid>
+    </DockPanel>
 </UserControl>

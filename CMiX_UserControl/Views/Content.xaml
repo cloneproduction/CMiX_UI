@@ -2,7 +2,6 @@
     x:Class="CMiX.Views.Content"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:CMiX="clr-namespace:CMiX"
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -22,8 +21,6 @@
                     Content="CONTENT"
                     Foreground="{StaticResource TextBase}" />
             </Border>
-
-
         </Grid>
         <Views:BeatModifier
             Margin="0, 2, 0, 2"
@@ -46,5 +43,4 @@
                 DataContext="{Binding Texture}"
                 DockPanel.Dock="Top" />
     </DockPanel>
-
 </UserControl>

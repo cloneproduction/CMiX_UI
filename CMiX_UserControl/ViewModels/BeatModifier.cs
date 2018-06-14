@@ -1,13 +1,13 @@
-﻿using System;
+﻿using CMiX.Services;
+using System;
 
 namespace CMiX.ViewModels
 {
     public class BeatModifier : Beat
     {
-        public BeatModifier(Beat masterBeat, string layerName, string containerName)
+        public BeatModifier(Beat masterBeat, string layerName, IMessenger messenger)
             : this(
-                  message: new Messenger(),
-                  containerName: containerName,
+                  messenger: messenger,
                   layerName: layerName,
                   masterBeat: masterBeat,
                   multiplier: 1.0,
@@ -15,16 +15,14 @@ namespace CMiX.ViewModels
         { }
 
         public BeatModifier(
+            IMessenger messenger,
             Beat masterBeat, 
             string layerName,
-            string containerName,
             double multiplier, 
-            double chanceToHit, 
-            Messenger message)
+            double chanceToHit)
         {
             LayerName = layerName;
-            ContainerName = containerName;
-            Message = message ?? throw new ArgumentNullException(nameof(Messenger));
+            Messenger = messenger ?? throw new ArgumentNullException(nameof(Messenger));
             MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
             Multiplier = multiplier;
             ChanceToHit = chanceToHit;
@@ -37,28 +35,16 @@ namespace CMiX.ViewModels
             };
         }
 
+        private IMessenger Messenger { get; }
+        //private string Address => "/" + Name + "/";
+        private string Address => LayerName;
+
         private string _layerName;
         public string LayerName
         {
             get => _layerName;
             set => SetAndNotify(ref _layerName, value);
         }
-
-        private string _containerName;
-        public string ContainerName
-        {
-            get => _containerName;
-            set => SetAndNotify(ref _containerName, value);
-        }
-
-        private Messenger _message;
-        public Messenger Message
-        {
-            get => _message;
-            set => SetAndNotify(ref _message, value);
-        }
-
-        private string Address => String.Format("{0}/{1}/", LayerName, ContainerName);
 
         private Beat MasterBeat { get; }
 
@@ -77,7 +63,7 @@ namespace CMiX.ViewModels
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
-                Message.SendOSC(Address + "BeatMultiplier", Multiplier.ToString());
+                Messenger.SendMessage(Address + "/BeatMultiplier", Multiplier.ToString());
             }
         }
 
@@ -88,7 +74,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _chanceToHit, value);
-                Message.SendOSC(Address + "ChanceToHit", ChanceToHit.ToString());
+                Messenger.SendMessage(Address + "/ChanceToHit", ChanceToHit.ToString());
             }
         }
 

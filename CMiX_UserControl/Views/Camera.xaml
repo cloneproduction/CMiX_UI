@@ -4,25 +4,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:CMiX="clr-namespace:CMiX"
     xmlns:Views="clr-namespace:CMiX.Views"
+    xmlns:Controls="clr-namespace:CMiX.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="CameraControl"
     d:DesignHeight="300"
     d:DesignWidth="300"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <CMiX:PeriodToBPMConverter x:Key="PeriodToBPM" />
-            <CMiX:ColorToStringConverter x:Key="ColorToString" />
-            <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
-        </ResourceDictionary>
-    </UserControl.Resources>
-
     <StackPanel>
         <Border                 
-                BorderThickness="0, 0, 0, 2"
-                BorderBrush="{StaticResource DarkColor}"
-                Margin="0, 0, 0, 2">
+            BorderThickness="0, 0, 0, 2"
+            BorderBrush="{StaticResource DarkColor}"
+            Margin="0, 0, 0, 2">
             <Label
                 Height="25"
                 Style="{StaticResource LabelBase}"
@@ -31,7 +24,6 @@
         </Border>
         <DockPanel DockPanel.Dock="Top" LastChildFill="True">
             <Views:BeatModifier
-                x:Name="BeatControlsCam"
                 DataContext="{Binding BeatModifier}"
                 Margin="0, 2, 0, 2"
                 DockPanel.Dock="Right"/>
@@ -49,7 +41,6 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <CMiX:CMiXComboBox
-                    x:Name="CameraRotation"
                     Grid.Column="0"
                     Margin="0, 0, 1, 0"
                     Height="25"
@@ -57,7 +48,6 @@
                     ItemsSource="{Binding CamRotation, ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding DataContext.CamRotation[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <CMiX:CMiXComboBox
-                    x:Name="CameraLookAt"
                     Margin="1, 0, 1, 0"
                     Grid.Column="1"
                     Height="25"
@@ -71,13 +61,12 @@
                     </ComboBox.Items>
                 </CMiX:CMiXComboBox>
                 <CMiX:CMiXComboBox
-                x:Name="CameraView"
-                Margin="1, 0, 0, 0"
-                Grid.Column="2"
-                Height="25"
-                Style="{StaticResource ComboBoxBase}" 
-                ItemsSource="{Binding CamView, ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                SelectedItem="{Binding DataContext.CamView[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    Margin="1, 0, 0, 0"
+                    Grid.Column="2"
+                    Height="25"
+                    Style="{StaticResource ComboBoxBase}" 
+                    ItemsSource="{Binding CamView, ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding DataContext.CamView[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
         </Border>
         <Border             
@@ -87,16 +76,14 @@
             Padding="4"
             CornerRadius="2">
             <StackPanel>
-                <CMiX:CustomSlider
-                    x:Name="CameraFOV"
+                <Controls:CustomSlider
                     Height="25"
                     Margin="0, 0, 0, 1"
                     Caption="FOV"
                     DockPanel.Dock="Top"
                     Tag="CamFOV"
                     Value="{Binding FOV, Mode=TwoWay}" />
-                <CMiX:CustomSlider
-                    x:Name="CameraZoom"
+                <Controls:CustomSlider
                     Height="25"
                     Margin="0, 1, 0, 0"
                     Caption="Zoom"

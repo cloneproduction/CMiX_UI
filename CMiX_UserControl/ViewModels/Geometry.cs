@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows;
-using CMiX.Services;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using CMiX.Services;
+using CMiX.Controls;
 
 namespace CMiX.ViewModels
 {
     public class Geometry : ViewModel
     {
-        public Geometry(string layername, string containername)
+        public Geometry(string layername, IMessenger messenger)
             : this(
                   layerName: layername,
-                  containerName: containername,
-                  message: new Messenger(),
+                  messenger: messenger,
                   count: 1,
                   geometryPaths: new ObservableCollection<ListBoxFileName>(),
                   translateMode: default,
@@ -37,8 +35,7 @@ namespace CMiX.ViewModels
         public Geometry(
 
             string layerName,
-            string containerName,
-            Messenger message,
+            IMessenger messenger,
             int count,
             IEnumerable<ListBoxFileName> geometryPaths,
             GeometryTranslateMode translateMode,
@@ -59,14 +56,11 @@ namespace CMiX.ViewModels
 
 
             LayerName = layerName;
-            ContainerName = containerName;
-            Message = message;
+            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             Count = count;
-
 
             GeometryPaths = new ObservableCollection<ListBoxFileName>() ;
             GeometryPaths.CollectionChanged += ContentCollectionChanged;
-
 
             TranslateMode = translateMode;
             TranslateAmount = translateAmount;
@@ -78,27 +72,15 @@ namespace CMiX.ViewModels
             KeepAspectRatio = keepAspectRatio;
         }
 
-        private string Address => String.Format("{0}/{1}/{2}/", LayerName, ContainerName, nameof(Geometry));
+        private string Address => String.Format("{0}/{1}/", LayerName, nameof(Geometry));
 
-        private Messenger _message;
-        public Messenger Message
-        {
-            get => _message;
-            set => SetAndNotify(ref _message, value);
-        }
+        public IMessenger Messenger { get; }
 
         private string _layerName;
         public string LayerName
         {
             get => _layerName;
             set => SetAndNotify(ref _layerName, value);
-        }
-
-        private string _containerName;
-        public string ContainerName
-        {
-            get => _containerName;
-            set => SetAndNotify(ref _containerName, value);
         }
 
         private int _count;
@@ -108,7 +90,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _count, value);
-                Message.SendOSC(Address + nameof(Count), Count.ToString());
+                Messenger.SendMessage(Address + nameof(Count), Count.ToString());
             }
         }
 
@@ -145,7 +127,7 @@ namespace CMiX.ViewModels
                     filename.Add(lb.FileName);
                 }
             }
-            messenger.SendMessage(Address + nameof(GeometryPaths), filename.ToArray());
+            Messenger.SendMessage(Address + nameof(GeometryPaths), filename.ToArray());
         }
 
         public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -158,7 +140,7 @@ namespace CMiX.ViewModels
                     filename.Add(lb.FileName);
                 }
             }
-            messenger.SendMessage(Address + nameof(GeometryPaths), filename.ToArray());
+            Messenger.SendMessage(Address + nameof(GeometryPaths), filename.ToArray());
         }
             
         private GeometryTranslateMode _translateMode;
@@ -175,7 +157,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _translateAmount, value);
-                Message.SendOSC(Address + nameof(TranslateAmount), TranslateAmount.ToString());
+                Messenger.SendMessage(Address + nameof(TranslateAmount), TranslateAmount.ToString());
             }
         }
 
@@ -193,7 +175,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _scaleAmount, value);
-                Message.SendOSC(Address + nameof(ScaleAmount), ScaleAmount.ToString());
+                Messenger.SendMessage(Address + nameof(ScaleAmount), ScaleAmount.ToString());
             }
         }
 
@@ -211,7 +193,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _rotationAmount, value);
-                Message.SendOSC(Address + nameof(RotationAmount), RotationAmount.ToString());
+                Messenger.SendMessage(Address + nameof(RotationAmount), RotationAmount.ToString());
             }
         }
 
@@ -222,7 +204,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _is3D, value);
-                Message.SendOSC(Address + nameof(Is3D), Is3D.ToString());
+                Messenger.SendMessage(Address + nameof(Is3D), Is3D.ToString());
             }
         }
 
@@ -233,7 +215,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _keepAspectRatio, value);
-                Message.SendOSC(Address + nameof(KeepAspectRatio), KeepAspectRatio.ToString());
+                Messenger.SendMessage(Address + nameof(KeepAspectRatio), KeepAspectRatio.ToString());
             }
         }
     }

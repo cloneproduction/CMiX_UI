@@ -19,7 +19,7 @@ namespace CMiX.ViewModels
             Layers = new ObservableCollection<Layer>(Enumerable.Empty<Layer>());
 
             // TODO temporary
-            CurrentLayer = new Layer(MasterBeat, "Layer0");
+            CurrentLayer = new Layer(MasterBeat, "Layer0", messenger);
         }
 
         public Composition(string name, Camera camera, MasterBeat masterBeat, IEnumerable<Layer> layers)
@@ -29,7 +29,8 @@ namespace CMiX.ViewModels
                 throw new ArgumentNullException(nameof(layers));
             }
 
-            CurrentLayer = new Layer(masterBeat, "Layer0"); // TODO temporary
+            var messenger = new OSCMessenger(new SharpOSC.UDPSender("127.0.0.1", 55555));
+            CurrentLayer = new Layer(masterBeat, "Layer0", messenger); // TODO temporary
 
             Name = name;
             Camera = camera ?? throw new ArgumentNullException(nameof(camera));

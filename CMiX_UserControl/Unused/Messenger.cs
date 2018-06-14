@@ -9,10 +9,10 @@ using System.Windows.Media;
 
 namespace CMiX
 {
-    public class Messenger
+    public class OLDMessenger
     {
 
-        public Messenger()
+        public OLDMessenger()
         {
             Sender = new UDPSender(Address, Port);
         }

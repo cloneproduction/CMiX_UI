@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:CMiX="clr-namespace:CMiX"
+    xmlns:Controls="clr-namespace:CMiX.Controls"
     xmlns:viewModels="clr-namespace:CMiX.ViewModels"
     d:DataContext="{d:DesignInstance Type={x:Type viewModels:BeatModifier},
                                      IsDesignTimeCreatable=False}"
@@ -17,8 +17,8 @@
         Padding="4"
         CornerRadius="2">
         <DockPanel LastChildFill="True" Height="25">
-            <CMiX:BeatControls x:Name="MaskMultiplier" Margin="1, 0, 0, 0" DockPanel.Dock="Right" />
-            <CMiX:CustomSlider x:Name="MaskChanceToHit" Margin="0, 0, 1, 0" Value="{Binding ChanceToHit, Mode=TwoWay}" />
+            <Controls:BeatControls x:Name="MaskMultiplier" Margin="1, 0, 0, 0" DockPanel.Dock="Right" />
+            <Controls:CustomSlider x:Name="MaskChanceToHit" Margin="0, 0, 1, 0" Value="{Binding ChanceToHit, Mode=TwoWay}" />
         </DockPanel>
     </Border>
 </UserControl>

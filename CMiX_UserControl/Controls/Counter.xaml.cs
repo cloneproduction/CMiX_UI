@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace CMiX
+namespace CMiX.Controls
 {
     public partial class Counter : UserControl
     {

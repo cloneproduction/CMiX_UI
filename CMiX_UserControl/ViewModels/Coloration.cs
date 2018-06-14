@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Windows.Media;
+using CMiX.Services;
 
 namespace CMiX.ViewModels
 {
     public class Coloration : ViewModel
     {
-        public Coloration(Beat masterbeat, string layername)
+        public Coloration(Beat masterbeat, string layerName, IMessenger messenger)
             : this(
-                  beatModifier: new BeatModifier(masterbeat, layername, nameof(Coloration)),
-                  message: new Messenger(),
+                  beatModifier: new BeatModifier(masterbeat, layerName + "/" + nameof(Coloration), messenger),
+                  layerName: layerName,
+                  messenger: messenger,
                   objectColor: Colors.White,
                   backgroundColor: Colors.Black,
                   hue: new HSVPoint(),
@@ -16,11 +18,20 @@ namespace CMiX.ViewModels
                   value: new HSVPoint())
         { }
 
-        public Coloration(BeatModifier beatModifier, Messenger message, Color objectColor, Color backgroundColor, HSVPoint hue, HSVPoint saturation, HSVPoint value)
+        public Coloration(
+            BeatModifier beatModifier, 
+            string layerName, 
+            Color objectColor, 
+            Color backgroundColor, 
+            HSVPoint hue, 
+            HSVPoint saturation, 
+            HSVPoint value, 
+            IMessenger messenger)
         {
+            LayerName = layerName;
             BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
             ObjectColor = objectColor;
-            Message = message;
+            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             BackgroundColor = backgroundColor;
             Hue = hue ?? throw new ArgumentNullException(nameof(hue));
             Saturation = saturation ?? throw new ArgumentNullException(nameof(saturation));
@@ -34,12 +45,7 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _layerName, value);
         }
 
-        private Messenger _message;
-        public Messenger Message
-        {
-            get => _message;
-            set => SetAndNotify(ref _message, value);
-        }
+        private IMessenger Messenger { get; }
 
         private Color _objectColor;
         public Color ObjectColor
@@ -51,9 +57,8 @@ namespace CMiX.ViewModels
                 //problem with IF, sometimes NULL
                 if(Value != null)
                 {
-                    Message.SendOSC("pouet", ObjectColor.ToString());
+                    Messenger.SendMessage(LayerName, ObjectColor.ToString());
                 }
-
             }
         }
 
