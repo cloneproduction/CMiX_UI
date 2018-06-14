@@ -13,7 +13,6 @@
         <Border 
             DockPanel.Dock="Top"            
             BorderThickness="0, 0, 0, 2"
-            Margin="0, 0, 0, 2"
             BorderBrush="{StaticResource DarkColor}">
             <Grid>
                 <Label
@@ -34,25 +33,21 @@
                 Style="{StaticResource ToggleButtonBase}" />
             </Grid>
         </Border>
-        <Views:BeatModifier
-            x:Name="MaskBeatModifier"
-            Margin="0,2,0,2"
-            DataContext="{Binding BeatModifier}"
-            DockPanel.Dock="Top" />
+        <Border DockPanel.Dock="Top" Margin="0, 4" Padding="4" Background="{StaticResource DarkerColor}" CornerRadius="2">
+            <Views:BeatModifier Height="25" DataContext="{Binding BeatModifier}"/>
+        </Border>
         <Views:PostFX
             x:Name="MaskPostFX"
-            Margin="0,2,0,0"
             DataContext="{Binding PostFX}"
             DockPanel.Dock="Bottom" />
         <Views:Geometry
             x:Name="MaskGeometry"
-            Margin="0,2,0,2"
             DataContext="{Binding Geometry}"
-            DockPanel.Dock="Bottom" />
+            DockPanel.Dock="Top" />
         <Views:Texture
             x:Name="MaskTexture"
-            Margin="0,2,0,2"
+            Margin="0,4"
             DataContext="{Binding Texture}"
-            DockPanel.Dock="Top" />
+            DockPanel.Dock="Bottom" />
     </DockPanel>
 </UserControl>

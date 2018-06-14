@@ -7,27 +7,27 @@
     xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
     d:DataContext="{d:DesignInstance Type={x:Type ViewModels:BeatModifier},
                                      IsDesignTimeCreatable=False}"
-    d:DesignHeight="87"
-    d:DesignWidth="596"
+    d:DesignHeight="40.5"
+    d:DesignWidth="165"
     mc:Ignorable="d">
-    <StackPanel Orientation="Horizontal">
+    <DockPanel>
         <Button
             x:Name="ResetBPM"
+            DockPanel.Dock="Left"
             Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
             Margin="0, 0, 1, 0"
             Command="{Binding Path=ResetCommand}"
             Content="Rt"
-            DockPanel.Dock="Right"
             IsDefault="True"
             IsTabStop="False"
             Style="{StaticResource ButtonBase}" />
         <Button
             x:Name="DivideBPM"
+            DockPanel.Dock="Left"
             Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
             Margin="1, 0, 1, 0"
             Command="{Binding Path=DivideCommand}"
             Content="-"
-            DockPanel.Dock="Right"
             IsDefault="True"
             Style="{StaticResource ButtonBase}" />
         <Button
@@ -36,18 +36,20 @@
             Margin="1, 0, 1, 0"
             Command="{Binding Path=MultiplyCommand}"
             Content="+"
-            DockPanel.Dock="Right"
+            DockPanel.Dock="Left"
             IsDefault="True"
             Style="{StaticResource ButtonBase}" />
-        <Label
+        <Border
             x:Name="DisplayBPM"
-            Grid.Column="2"
             Margin="1, 0, 0, 0"
-            Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
-            DockPanel.Dock="Right"
-            Style="{StaticResource LabelBase}">
-            <TextBlock Foreground="{StaticResource TextBase}" Text="{Binding Path=BPM, Mode=OneWay, StringFormat=F0}" />
-        </Label>
-    </StackPanel>
+            Width="25"
+            Background="{StaticResource DarkColor}">
+            <TextBlock 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center"
+                Foreground="{StaticResource TextBase}" 
+                Text="{Binding Path=BPM, Mode=OneWay, StringFormat=F0}" />
+        </Border>
+    </DockPanel>
 </UserControl>
 

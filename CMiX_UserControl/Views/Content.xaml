@@ -10,8 +10,7 @@
     mc:Ignorable="d">
 
     <DockPanel LastChildFill="True">
-        <Grid Margin="0,0,0,2" DockPanel.Dock="Top">
-            <Border                 
+        <Border DockPanel.Dock="Top"               
                 BorderThickness="0, 0, 0, 2"
                 BorderBrush="{StaticResource DarkColor}">
                 <Label
@@ -21,26 +20,18 @@
                     Content="CONTENT"
                     Foreground="{StaticResource TextBase}" />
             </Border>
-        </Grid>
-        <Views:BeatModifier
-            Margin="0, 2, 0, 2"
-            DockPanel.Dock="Top"
-                x:Name="ContentBeatModifier"
-                DataContext="{Binding BeatModifier}"/>
+        <Border Margin="0,4" DockPanel.Dock="Top" Padding="4" Background="{StaticResource DarkerColor}" CornerRadius="2">
+            <Views:BeatModifier Height="25" DataContext="{Binding BeatModifier}"/>
+        </Border>
         <Views:PostFX
-                x:Name="ContentPostFX"
-                Margin="0,2,0,0"
                 DataContext="{Binding PostFX}"
                 DockPanel.Dock="Bottom" />
         <Views:Geometry
-                x:Name="ContentGeometry"
-                Margin="0,2,0,2"
                 DataContext="{Binding Geometry}"
-                DockPanel.Dock="Bottom" />
-        <Views:Texture
-                x:Name="ContentTexture"
-                Margin="0,2,0,2"
-                DataContext="{Binding Texture}"
                 DockPanel.Dock="Top" />
+        <Views:Texture
+                Margin="0,4"
+                DataContext="{Binding Texture}"
+                DockPanel.Dock="Bottom" />
     </DockPanel>
 </UserControl>

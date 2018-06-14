@@ -12,11 +12,8 @@
     d:DesignWidth="487.081"
     mc:Ignorable="d">
     <Border             
-        DockPanel.Dock="Bottom"
-        Background="{StaticResource DarkerColor}"
-        Padding="4"
-        CornerRadius="2">
-        <DockPanel LastChildFill="True" Height="25">
+        Background="{StaticResource DarkerColor}">
+        <DockPanel LastChildFill="True">
             <Controls:BeatControls x:Name="MaskMultiplier" Margin="1, 0, 0, 0" DockPanel.Dock="Right" />
             <Controls:CustomSlider x:Name="MaskChanceToHit" Margin="0, 0, 1, 0" Value="{Binding ChanceToHit, Mode=TwoWay}" />
         </DockPanel>

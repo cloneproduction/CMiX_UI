@@ -19,7 +19,6 @@
     <StackPanel>
         <Border                 
             BorderThickness="0, 0, 0, 2"
-            Margin="0, 0, 0, 2"
             BorderBrush="{StaticResource DarkColor}">
             <Label
                 Height="25"
@@ -29,15 +28,12 @@
                 Content="COLORATION"
                 DockPanel.Dock="Top"/>
         </Border>
-        <Views:BeatModifier
-            x:Name="ColorationBeatModifier"
-            Margin="0, 2, 0, 2"
-            DataContext="{Binding BeatModifier}"
-            DockPanel.Dock="Top" />
+        <Border Padding="4" Margin="0, 4" Background="{StaticResource DarkerColor}" CornerRadius="2">
+            <Views:BeatModifier Height="25" DataContext="{Binding BeatModifier}"/>
+        </Border>
         <Border             
             DockPanel.Dock="Bottom"
             Background="{StaticResource DarkerColor}"
-            Margin="0, 2, 0, 2"
             Padding="4"
             CornerRadius="2">
             <Grid>
@@ -75,7 +71,7 @@
         <Border             
             DockPanel.Dock="Bottom"
             Background="{StaticResource DarkerColor}"
-            Margin="0, 2, 0, 0"
+            Margin="0, 4"
             Padding="4"
             CornerRadius="2">
             <StackPanel Grid.Row="1">

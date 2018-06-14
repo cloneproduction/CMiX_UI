@@ -52,12 +52,12 @@
                 <Views:Content x:Name="LayerContent" DataContext="{Binding Content}" />
             </Border>
             <Border
-                Grid.Column="1"
+                Grid.Column="2"
                 Margin="4, 0, 4, 0">
                 <Views:Coloration x:Name="LayerColoration" DataContext="{Binding Coloration}" />
             </Border>
             <Border
-                Grid.Column="2"
+                Grid.Column="1"
                 Margin="4, 0, 0, 0">
                 <Views:Mask x:Name="LayerMask" DataContext="{Binding Mask}" />
             </Border>

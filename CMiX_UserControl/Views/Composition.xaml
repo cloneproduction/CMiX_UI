@@ -105,10 +105,22 @@
                     Tag="0" />
             </Grid>
             <Border
-                Grid.Column="4"
+                Grid.Column="2"
                 Margin="4, 4, 0, 4"
-                Background="{StaticResource DarkerColor}">
+                Padding="8"
+                CornerRadius="2"
+                Background="{StaticResource HighDarkerColor}">
                 <DockPanel>
+                    <Border DockPanel.Dock="Top"               
+                        BorderThickness="0, 0, 0, 2"
+                        BorderBrush="{StaticResource DarkColor}">
+                        <Label
+                            Height="25"
+                            HorizontalAlignment="Stretch"
+                            Style="{StaticResource LabelBase}"
+                            Content="LAYERS"
+                            Foreground="{StaticResource TextBase}" />
+                    </Border>
                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
                         <Button
                             x:Name="AddLayer"
@@ -133,7 +145,10 @@
                                 x:Name="LayerControlStack"
                                 Grid.Column="1"
                                 AllowDrop="True">
-                            <CMiX:ChannelLayer x:Name="LayerControl0" DataContext="{Binding CurrentLayer}"/>
+                            <CMiX:ChannelLayer x:Name="LayerControl0" Margin="0, 2" DataContext="{Binding CurrentLayer}"/>
+                            <CMiX:ChannelLayer x:Name="LayerControl1" Margin="0, 2" />
+                            <CMiX:ChannelLayer x:Name="LayerControl2" Margin="0, 2" />
+                            <CMiX:ChannelLayer x:Name="LayerControl3" Margin="0, 2" />
                         </StackPanel>
                     </ScrollViewer>
                 </DockPanel>

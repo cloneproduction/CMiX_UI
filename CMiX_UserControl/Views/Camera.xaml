@@ -15,19 +15,47 @@
         <Border                 
             BorderThickness="0, 0, 0, 2"
             BorderBrush="{StaticResource DarkColor}"
-            Margin="0, 0, 0, 2">
+            Margin="0, 0, 0, 1">
             <Label
                 Height="25"
                 Style="{StaticResource LabelBase}"
                 Content="CAMERA"
                 DockPanel.Dock="Top"/>
         </Border>
-        <DockPanel DockPanel.Dock="Top" LastChildFill="True">
+        <Border             
+            DockPanel.Dock="Bottom"
+            Background="{StaticResource DarkerColor}"
+            Margin="0, 1, 0, 1"
+            Padding="4"
+            CornerRadius="2">
             <Views:BeatModifier
                 DataContext="{Binding BeatModifier}"
-                Margin="0, 2, 0, 2"
-                DockPanel.Dock="Right"/>
-        </DockPanel>
+                Height="25"/>
+        </Border>
+
+        <Border             
+            DockPanel.Dock="Bottom"
+            Background="{StaticResource DarkerColor}"
+            Margin="0, 1, 0, 0"
+            Padding="4"
+            CornerRadius="2">
+            <StackPanel>
+                <Controls:CustomSlider
+                    Height="25"
+                    Margin="0, 0, 0, 1"
+                    Caption="FOV"
+                    DockPanel.Dock="Top"
+                    Tag="CamFOV"
+                    Value="{Binding FOV, Mode=TwoWay}" />
+                <Controls:CustomSlider
+                    Height="25"
+                    Margin="0, 1, 0, 0"
+                    Caption="Zoom"
+                    DockPanel.Dock="Top"
+                    Tag="CamZoom"
+                    Value="{Binding Zoom, Mode=TwoWay}" />
+            </StackPanel>
+        </Border>
         <Border             
             DockPanel.Dock="Bottom"
             Background="{StaticResource DarkerColor}"
@@ -68,29 +96,6 @@
                     ItemsSource="{Binding CamView, ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding DataContext.CamView[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
-        </Border>
-        <Border             
-            DockPanel.Dock="Bottom"
-            Background="{StaticResource DarkerColor}"
-            Margin="0, 2, 0, 0"
-            Padding="4"
-            CornerRadius="2">
-            <StackPanel>
-                <Controls:CustomSlider
-                    Height="25"
-                    Margin="0, 0, 0, 1"
-                    Caption="FOV"
-                    DockPanel.Dock="Top"
-                    Tag="CamFOV"
-                    Value="{Binding FOV, Mode=TwoWay}" />
-                <Controls:CustomSlider
-                    Height="25"
-                    Margin="0, 1, 0, 0"
-                    Caption="Zoom"
-                    DockPanel.Dock="Top"
-                    Tag="CamZoom"
-                    Value="{Binding Zoom, Mode=TwoWay}" />
-            </StackPanel>
         </Border>
     </StackPanel>
 </UserControl>
