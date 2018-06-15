@@ -1,5 +1,6 @@
 ﻿using CMiX.Services;
 using System;
+using System.Windows;
 
 namespace CMiX.ViewModels
 {
@@ -11,6 +12,7 @@ namespace CMiX.ViewModels
             LayerName = layername;
             Fade = 0.0;
             BlendMode = default;
+            Enabled = false;
             BeatModifier = new BeatModifier(masterBeat, layername, messenger);
             Content = new Content(BeatModifier, layername, messenger);
             Mask = new Mask(BeatModifier, layername, messenger);
@@ -20,6 +22,7 @@ namespace CMiX.ViewModels
         public Layer(
             IMessenger messenger,
             string layername,
+            bool enabled,
             double fade,
             BlendMode blendMode,
             BeatModifier beatModifier,
@@ -29,6 +32,7 @@ namespace CMiX.ViewModels
         {
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             LayerName = layername;
+            Enabled = enabled;
             Fade = fade;
             BlendMode = blendMode;
             BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
@@ -46,8 +50,8 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _layername, value);
         }
 
-        private double _enabled;
-        public double Enabled
+        private bool _enabled;
+        public bool Enabled
         {
             get => _enabled;
             set => SetAndNotify(ref _enabled, value);
@@ -57,11 +61,7 @@ namespace CMiX.ViewModels
         public double Fade
         {
             get => _fade;
-            set
-            {
-                SetAndNotify(ref _fade, value);
-                Messenger.SendMessage(LayerName + "/" + nameof(Fade), Fade);
-            }
+            set => SetAndNotify(ref _fade, value);
         }
 
         private BlendMode _blendMode;

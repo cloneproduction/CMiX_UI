@@ -59,21 +59,18 @@ namespace CMiX.ViewModels
         protected override void Multiply()
         {
             Period /= 2.0;
-
             Messenger.SendMessage(Address, Period);
         }
 
         protected override void Divide()
         {
             Period *= 2.0;
-
             Messenger.SendMessage(Address, Period);
         }
 
         private void Tap()
         {
             Period = GetMasterPeriod();
-
             Messenger.SendMessage(Address, Period);
         }
 

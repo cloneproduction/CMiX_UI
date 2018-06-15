@@ -6,10 +6,14 @@
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:Name="cmix"
     d:DesignHeight="1015.667"
     d:DesignWidth="1850.667"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+        </ResourceDictionary>
+    </UserControl.Resources>
     <DockPanel
         x:Name="CMiX_UserControl"
         Background="#FF141414"
@@ -95,14 +99,20 @@
                 </DockPanel>
             </Border>
             <Grid
-                x:Name="ContentControl"
                 Grid.Column="1"
                 Margin="4">
-                <Views:LayerControls
-                    x:Name="Layer0"
-                    DataContext="{Binding Layers}"
-                    Loaded="Layer0_Loaded"
-                    Tag="0" />
+                <ItemsControl ItemsSource="{Binding Layers}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type Views:LayerControls}">
+                            <Views:LayerControls Visibility="{Binding Enabled, Converter={StaticResource BoolToVisibility}}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Grid></Grid>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
             </Grid>
             <Border
                 Grid.Column="2"
@@ -123,18 +133,17 @@
                     </Border>
                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
                         <Button
-                            x:Name="AddLayer"
+                            Command="{Binding Path=AddLayerCommand}"
                             Width="25"
                             Height="25"
                             Content="+"
-                            DockPanel.Dock="left"
                             Style="{StaticResource ButtonBase}" />
                         <Button
-                            x:Name="RemoveLayer"
+                            Command="{Binding Path=RemoveLayerCommand}"
+                            Margin="2, 0, 0, 0"
                             Width="25"
                             Height="25"
                             Content="-"
-                            DockPanel.Dock="left"
                             Style="{StaticResource ButtonBase}" />
                     </StackPanel>
                     <Grid>
@@ -145,19 +154,12 @@
                             <ItemsControl ItemsSource="{Binding Layers}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate DataType="{x:Type CMiX:ChannelLayer}">
-                                        <CMiX:ChannelLayer></CMiX:ChannelLayer>
+                                        <CMiX:ChannelLayer/>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
-                            <!--<StackPanel
-                                x:Name="LayerControlStack"
-                                Grid.Column="1"
-                                AllowDrop="True">
-                            <CMiX:ChannelLayer x:Name="LayerControl0" Margin="0, 2" DataContext="{Binding Layers}"/>
-                        </StackPanel>-->
                         </ScrollViewer>
                     </Grid>
-
                 </DockPanel>
             </Border>
         </Grid>
