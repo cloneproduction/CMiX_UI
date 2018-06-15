@@ -100,7 +100,7 @@
                 Margin="4">
                 <Views:LayerControls
                     x:Name="Layer0"
-                    DataContext="{Binding CurrentLayer}"
+                    DataContext="{Binding Layers}"
                     Loaded="Layer0_Loaded"
                     Tag="0" />
             </Grid>
@@ -137,20 +137,27 @@
                             DockPanel.Dock="left"
                             Style="{StaticResource ButtonBase}" />
                     </StackPanel>
-                    <ScrollViewer
+                    <Grid>
+                        <ScrollViewer
                         Margin="2"
                         DockPanel.Dock="Bottom"
                         VerticalScrollBarVisibility="Auto">
-                        <StackPanel
+                            <ItemsControl ItemsSource="{Binding Layers}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type CMiX:ChannelLayer}">
+                                        <CMiX:ChannelLayer></CMiX:ChannelLayer>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            <!--<StackPanel
                                 x:Name="LayerControlStack"
                                 Grid.Column="1"
                                 AllowDrop="True">
-                            <CMiX:ChannelLayer x:Name="LayerControl0" Margin="0, 2" DataContext="{Binding CurrentLayer}"/>
-                            <CMiX:ChannelLayer x:Name="LayerControl1" Margin="0, 2" />
-                            <CMiX:ChannelLayer x:Name="LayerControl2" Margin="0, 2" />
-                            <CMiX:ChannelLayer x:Name="LayerControl3" Margin="0, 2" />
-                        </StackPanel>
-                    </ScrollViewer>
+                            <CMiX:ChannelLayer x:Name="LayerControl0" Margin="0, 2" DataContext="{Binding Layers}"/>
+                        </StackPanel>-->
+                        </ScrollViewer>
+                    </Grid>
+
                 </DockPanel>
             </Border>
         </Grid>

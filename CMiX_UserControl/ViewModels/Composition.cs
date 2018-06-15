@@ -16,7 +16,12 @@ namespace CMiX.ViewModels
 
             MasterBeat = new MasterBeat(messenger);
             Camera = new Camera(messenger, MasterBeat);
-            Layers = new ObservableCollection<Layer>(Enumerable.Empty<Layer>());
+
+            Layers = new ObservableCollection<Layer>
+            {
+                new Layer(MasterBeat, "LayerPouet", messenger),
+                new Layer(MasterBeat, "LayerProut", messenger)
+            };
 
             // TODO temporary
             CurrentLayer = new Layer(MasterBeat, "Layer0", messenger);
