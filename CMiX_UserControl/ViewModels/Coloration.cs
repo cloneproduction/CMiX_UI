@@ -11,7 +11,7 @@ namespace CMiX.ViewModels
                   beatModifier: new BeatModifier(masterbeat, layerName + "/" + nameof(Coloration), messenger),
                   layerName: layerName,
                   messenger: messenger,
-                  objColor: Colors.White,
+                  objColor: Colors.BlueViolet,
                   bgColor: Colors.Black,
                   backgroundColor: Colors.Black,
                   hue: new RangeControl(messenger, layerName + "/" + nameof(Coloration) + "/" + nameof(Hue)),

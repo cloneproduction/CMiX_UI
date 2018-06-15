@@ -80,13 +80,14 @@ namespace CMiX.ViewModels
 
         private void RemoveLayer()
         {
-            for(int i = Layers.Count - 1; i > 0; i--)
+            Layers.RemoveAt(Layers.Count - 1);
+            /*for(int i = Layers.Count - 1; i > 0; i--)
             {
                 if(Layers[i].Enabled == true)
                 {
                     Layers.RemoveAt(i);
                 }
-            }
+            }*/
 
             List<string> LayerNames = new List<string>();
             foreach (Layer lyr in this.Layers)

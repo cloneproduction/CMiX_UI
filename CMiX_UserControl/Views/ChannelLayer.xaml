@@ -13,20 +13,22 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <CMiX:ColorToStringConverter x:Key="ColorToString" />
+            <CMiX:ColorToBrushConverter x:Key="ColorToBrush" />
         </ResourceDictionary>
     </UserControl.Resources>
     <Border
         Padding="4"
         CornerRadius="2"
-        Background="{StaticResource DarkerColor}">
+        Background="{StaticResource DarkerColor}"
+        BorderThickness="2">
         <Border.Style>
             <Style TargetType="{x:Type Border}">
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding DataContext.EnabledLayer, ElementName=Ch_Control}" Value="true">
-                        <Setter Property="BorderBrush">
-                            <Setter.Value>
-                                <SolidColorBrush Color="{Binding DataContext.Color, Converter={StaticResource ColorToString}, ElementName=Ch_Control, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                            </Setter.Value>
+                    <DataTrigger Binding="{Binding Enabled}" Value="true">
+                        <Setter Property="BorderBrush" Value="{StaticResource HighLightColor}">
+                            <!--<Setter.Value>
+                                <SolidColorBrush Color="{Binding Coloration.ObjColor}" />
+                            </Setter.Value>-->
                         </Setter>
                     </DataTrigger>
                 </Style.Triggers>
@@ -45,7 +47,7 @@
                 IsChecked="{Binding Enabled, Mode=TwoWay}"
                 Style="{StaticResource RadioButtonBase}">
                 <RadioButton.Background>
-                    <SolidColorBrush Color="{Binding DataContext.Color, Converter={StaticResource ColorToString}, ElementName=LayerEnable, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <SolidColorBrush Color="{Binding Path=Coloration.ObjColor, Converter={StaticResource ColorToBrush}}" />
                 </RadioButton.Background>
             </RadioButton>
             <StackPanel Grid.Column="1">
