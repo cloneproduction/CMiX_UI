@@ -40,6 +40,8 @@ namespace CMiX.ViewModels
             Coloration = coloration ?? throw new ArgumentNullException(nameof(coloration));
         }
 
+        public bool CanAcceptChildren { get; set; }
+
         private IMessenger Messenger { get; }
 
         private string _layername;
@@ -60,7 +62,11 @@ namespace CMiX.ViewModels
         public double Fade
         {
             get => _fade;
-            set => SetAndNotify(ref _fade, value);
+            set
+            {
+                SetAndNotify(ref _fade, value);
+                Messenger.SendMessage("/" + LayerName + "/" + nameof(Fade), Fade);
+            }
         }
 
         private BlendMode _blendMode;

@@ -23,7 +23,7 @@
         CornerRadius="2"
         Background="{StaticResource DarkerColor}"
         BorderThickness="2">
-        <Border.Style>
+        <!--<Border.Style>
             <Style TargetType="{x:Type Border}">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding Enabled}" Value="true">
@@ -35,14 +35,13 @@
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
-        </Border.Style>
+        </Border.Style>-->
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.1*"/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <RadioButton
-                x:Name="LayerEnabled"
                 Margin="0,0,2,0"
                 AllowDrop="True"
                 GroupName="SelectLayer"
@@ -54,15 +53,17 @@
             </RadioButton>
             <StackPanel Grid.Column="1">
                 <Controls:CustomSlider
+                    Focusable="False"
                     Height="25"
                     Caption="Alpha"
-                    Value="{Binding Fade, Mode=TwoWay}" />
+                    Value="{Binding Fade}" />
                 <Views:BeatModifier
+                    Focusable="False"
                     DataContext="{Binding BeatModifier}"
                     Margin="0,2"
                     Height="25"/>
                 <ComboBox
-                    x:Name="Pouet"
+                    Focusable="False"
                     Height="25"
                     Style="{StaticResource ComboBoxBase}"
                     SelectedItem="{Binding BlendMode}"

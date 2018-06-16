@@ -44,9 +44,9 @@
                 </Grid.ColumnDefinitions>
                 <ToggleButton
                     Margin="0, 0, 1, 0"
-                    Content="{Binding SelectedName, ElementName=SpriteSelectedTranslate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    IsHitTestVisible="{Binding ElementName=SpritePopupTranslate, Path=IsOpen, Converter={StaticResource BoolInverter}}"
+                    
                     Style="{StaticResource ToggleButtonBase}" />
+                <!--IsHitTestVisible="{Binding ElementName=SpritePopupTranslate, Path=IsOpen, Converter={StaticResource BoolInverter}}"-->
                 <Popup
                     Width="432"
                     AllowsTransparency="True"
@@ -54,7 +54,7 @@
                     Placement="Right"
                     PlacementTarget="{Binding ElementName=SpriteTranslateStyle}"
                     StaysOpen="False">
-                    <CMiX:TranslateSelector x:Name="SpriteSelectedTranslate" SelectedName="{Binding DataContext.SpriteSelectedTranslate, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                    <CMiX:TranslateSelector x:Name="SpriteSelectedTranslate" SelectedName="" />
                 </Popup>
                 <Controls:CustomSlider
                     Grid.Column="1"
@@ -71,7 +71,6 @@
                 <ToggleButton
                     Margin="0, 0, 1, 0"
                     Content="{Binding SelectedName, ElementName=SpriteSelectedScale, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    IsHitTestVisible="{Binding ElementName=SpritePopupScale, Path=IsOpen, Converter={StaticResource BoolInverter}}"
                     Style="{StaticResource ToggleButtonBase}" />
                 <Popup
                     Width="432"
@@ -80,8 +79,7 @@
                     Placement="Center"
                     PlacementTarget="{Binding ElementName=Ch_Parameters}"
                     StaysOpen="False">
-                    <CMiX:ScaleSelector 
-                        SelectedName="{Binding DataContext.SpriteSelectedScale, ElementName=Ch_Parameters, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                    <CMiX:ScaleSelector />
                 </Popup>
                 <Controls:CustomSlider
                     Grid.Column="1"

@@ -4,10 +4,15 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using GongSolutions.Wpf.DragDrop;
+using System.Windows;
+using System.Collections.Specialized;
+using CMiX.Controls;
+using System.ComponentModel;
 
 namespace CMiX.ViewModels
 {
-    public class Composition : ViewModel
+    public class Composition : ViewModel, IDropTarget
     {
         public Composition()
         {
@@ -27,6 +32,7 @@ namespace CMiX.ViewModels
                 new Layer(MasterBeat, "LayerPouet", messenger),
                 new Layer(MasterBeat, "LayerProut", messenger)
             };
+            Layers.CollectionChanged += ContentCollectionChanged;
         }
 
         public Composition(string name, Camera camera, MasterBeat masterBeat, IEnumerable<Layer> layers)
@@ -43,6 +49,7 @@ namespace CMiX.ViewModels
             Camera = camera ?? throw new ArgumentNullException(nameof(camera));
             MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
             Layers = new ObservableCollection<Layer>(layers);
+            Layers.CollectionChanged += ContentCollectionChanged;
         }
 
         private string _name;
@@ -81,20 +88,70 @@ namespace CMiX.ViewModels
         private void RemoveLayer()
         {
             Layers.RemoveAt(Layers.Count - 1);
-            /*for(int i = Layers.Count - 1; i > 0; i--)
-            {
-                if(Layers[i].Enabled == true)
-                {
-                    Layers.RemoveAt(i);
-                }
-            }*/
-
             List<string> LayerNames = new List<string>();
             foreach (Layer lyr in this.Layers)
             {
                 LayerNames.Add(lyr.LayerName);
             }
             Messenger.SendMessage("/LayerNames", LayerNames.ToArray());
+        }
+
+
+        public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            /*if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                foreach (Layer item in e.OldItems)
+                {
+                    //Removed items
+                    item.PropertyChanged -= EntityViewModelPropertyChanged;
+                }
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                foreach (Layer item in e.NewItems)
+                {
+                    //Added items
+                    item.PropertyChanged += EntityViewModelPropertyChanged;
+                }
+            }*/
+
+            List<string> filename = new List<string>();
+            foreach (Layer layer in Layers)
+            {
+                filename.Add(layer.LayerName);
+            }
+            Messenger.SendMessage("POUETPOUET" + nameof(Layer), filename.ToArray());
+        }
+
+        /*public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            List<string> filename = new List<string>();
+            foreach (Layer layer in Layers)
+            {
+                filename.Add(layer.LayerName);
+            }
+            Messenger.SendMessage("POUETPOUET" + nameof(Layer), filename.ToArray());
+        }*/
+
+
+        public void DragOver(IDropInfo dropInfo)
+        {
+            /*Layer sourceItem = dropInfo.Data as Layer;
+            Layer targetItem = dropInfo.TargetItem as Layer;
+
+            if (sourceItem != null && targetItem != null && targetItem.CanAcceptChildren)
+            {
+                dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
+                dropInfo.Effects = DragDropEffects.Copy;
+            }*/
+        }
+
+        public void Drop(IDropInfo dropInfo)
+        {
+            /*Layer sourceItem = dropInfo.Data as Layer;
+            Layer targetItem = dropInfo.TargetItem as Layer;*/
+            //targetItem.Children.Add(sourceItem);
         }
     }
 }
