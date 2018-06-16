@@ -2,19 +2,21 @@
     x:Class="CMiX.ChannelLayer"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:CMiX="clr-namespace:CMiX"
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:Controls="clr-namespace:CMiX.Controls"
+    xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="88.977"
-    d:DesignWidth="292.162"
+    d:DesignHeight="94.977"
+    d:DesignWidth="293.051"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <ResourceDictionary>
-            <CMiX:ColorToStringConverter x:Key="ColorToString" />
-            <CMiX:ColorToBrushConverter x:Key="ColorToBrush" />
-        </ResourceDictionary>
+        <ObjectDataProvider x:Key="BlendMode" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="ViewModels:BlendMode"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
     </UserControl.Resources>
     <Border
         Padding="4"
@@ -25,10 +27,10 @@
             <Style TargetType="{x:Type Border}">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding Enabled}" Value="true">
-                        <Setter Property="BorderBrush" Value="{StaticResource HighLightColor}">
-                            <!--<Setter.Value>
+                        <Setter Property="BorderBrush">
+                            <Setter.Value>
                                 <SolidColorBrush Color="{Binding Coloration.ObjColor}" />
-                            </Setter.Value>-->
+                            </Setter.Value>
                         </Setter>
                     </DataTrigger>
                 </Style.Triggers>
@@ -47,7 +49,7 @@
                 IsChecked="{Binding Enabled, Mode=TwoWay}"
                 Style="{StaticResource RadioButtonBase}">
                 <RadioButton.Background>
-                    <SolidColorBrush Color="{Binding Path=Coloration.ObjColor, Converter={StaticResource ColorToBrush}}" />
+                    <SolidColorBrush Color="{Binding Coloration.ObjColor}" />
                 </RadioButton.Background>
             </RadioButton>
             <StackPanel Grid.Column="1">
@@ -60,9 +62,13 @@
                     Margin="0,2"
                     Height="25"/>
                 <ComboBox
+                    x:Name="Pouet"
                     Height="25"
-                    ItemContainerStyle="{DynamicResource ComboBoxItemBase}"
-                    Style="{DynamicResource ComboBoxBase}" />
+                    Style="{StaticResource ComboBoxBase}"
+                    SelectedItem="{Binding BlendMode}"
+                    SelectedIndex="0"
+                    ItemsSource="{Binding Source={StaticResource BlendMode}}">
+                </ComboBox>
             </StackPanel>
         </Grid>
     </Border>

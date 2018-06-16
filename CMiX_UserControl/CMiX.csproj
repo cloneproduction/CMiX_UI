@@ -104,8 +104,10 @@
     <Compile Include="Services\OSCMessenger.cs" />
     <Compile Include="ViewModels\Beat.cs" />
     <Compile Include="ViewModels\BeatModifier.cs" />
+    <Compile Include="ViewModels\InvertMode.cs" />
     <Compile Include="ViewModels\RangeControl.cs" />
     <Compile Include="ViewModels\RangeModifier.cs" />
+    <Compile Include="ViewModels\ShortCodeAttribute.cs" />
     <Compile Include="Views\BeatModifier.xaml.cs">
       <DependentUpon>BeatModifier.xaml</DependentUpon>
     </Compile>
@@ -128,7 +130,6 @@
     <Compile Include="ViewModels\PostFXTransforms.cs" />
     <Compile Include="ViewModels\PostFXView.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
-    <Compile Include="ViewModels\ShortCodeAttribute.cs" />
     <Compile Include="ViewModels\Texture.cs" />
     <Compile Include="ViewModels\TextureInvertMode.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />

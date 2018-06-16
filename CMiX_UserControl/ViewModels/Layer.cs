@@ -1,6 +1,5 @@
 ﻿using CMiX.Services;
 using System;
-using System.Windows;
 
 namespace CMiX.ViewModels
 {
@@ -68,7 +67,11 @@ namespace CMiX.ViewModels
         public BlendMode BlendMode
         {
             get => _blendMode;
-            set => SetAndNotify(ref _blendMode, value);
+            set
+            {
+                SetAndNotify(ref _blendMode, value);
+                Messenger.SendMessage("/" + LayerName + "/" + nameof(BlendMode), BlendMode);
+            }
         }
 
         public BeatModifier BeatModifier { get; }

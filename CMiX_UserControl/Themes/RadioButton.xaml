@@ -44,7 +44,6 @@
                             </Viewbox>
                         </Grid>
                     </Border>
-
                     <ControlTemplate.Triggers>
                         <Trigger Property="HasContent" Value="true">
                             <Setter Property="FocusVisualStyle" Value="{StaticResource OptionMarkFocusVisual}" />
@@ -64,13 +63,13 @@
                             <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Pressed.Border}"/>
                             <Setter Property="Background" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Pressed.Glyph}"/>
                         </Trigger>-->
-                        <Trigger Property="IsChecked" Value="true">
+                        <!--<Trigger Property="IsChecked" Value="true">
                             <Setter TargetName="radioButtonBorder" Property="Background" Value="{DynamicResource HighDarkerColor}" />
-                            <!--<Setter Property="Padding" Value="2"/>
+                            <Setter Property="Padding" Value="2"/>
                             <Setter Property="BorderThickness" TargetName="radioButtonBorder" Value="2, 0, 0, 0"/>
                             <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{DynamicResource ActiveColor}"/>
-                            <Setter Property="Foreground" Value="{DynamicResource ActiveText}"/>-->
-                        </Trigger>
+                            <Setter Property="Foreground" Value="{DynamicResource ActiveText}"/>
+                        </Trigger>-->
                         <Trigger Property="IsChecked" Value="{x:Null}">
                             <Setter TargetName="radioButtonBorder" Property="Opacity" Value="0.56" />
                         </Trigger>

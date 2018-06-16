@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:CMiX="clr-namespace:CMiX"
              xmlns:Controls="clr-namespace:CMiX.Controls"
              xmlns:Views="clr-namespace:CMiX.Views"
              xmlns:ViewModels="clr-namespace:CMiX.ViewModels"             
@@ -10,9 +11,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="49.333" d:DesignWidth="740.667">
     <UserControl.Resources>
-        <ObjectDataProvider 
-            x:Key="RangeModifier" MethodName="GetValues"
-            ObjectType="{x:Type System:Enum}">
+        <ObjectDataProvider x:Key="RangeModifier" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="ViewModels:RangeModifier"/>
             </ObjectDataProvider.MethodParameters>
@@ -25,8 +24,10 @@
         </Grid.ColumnDefinitions>
         <ComboBox
             Grid.Column="0"
-            ItemsSource="{Binding Source={StaticResource RangeModifier}}"
             Margin="0, 0, 1, 0"
+            SelectedItem="{Binding Modifier, Mode=TwoWay}"
+            SelectedIndex="0"
+            ItemsSource="{Binding Source={StaticResource RangeModifier}}"
             Style="{StaticResource ComboBoxBase}"/>
         <Controls:CustomSlider
             Grid.Column="1"

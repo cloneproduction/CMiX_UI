@@ -52,7 +52,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _feedback, CoerceNotNegative(value));
-                Messenger.SendMessage(Address + nameof(Feedback), Feedback.ToString());
+                Messenger.SendMessage(Address + nameof(Feedback), Feedback);
             }
         }
 
@@ -63,7 +63,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _blur, CoerceNotNegative(value));
-                Messenger.SendMessage(Address + nameof(Blur), Blur.ToString());
+                Messenger.SendMessage(Address + nameof(Blur), Blur);
             }
         }
 
@@ -71,14 +71,22 @@ namespace CMiX.ViewModels
         public PostFXTransforms Transforms
         {
             get => _transforms;
-            set => SetAndNotify(ref _transforms, value);
+            set
+            {
+                SetAndNotify(ref _transforms, value);
+                Messenger.SendMessage(Address + nameof(Transforms), Transforms);
+            }
         }
 
         private PostFXView _view;
         public PostFXView View
         {
             get => _view;
-            set => SetAndNotify(ref _view, value);
+            set
+            {
+                SetAndNotify(ref _view, value);
+                Messenger.SendMessage(Address + nameof(View), View);
+            }
         }
     }
 }

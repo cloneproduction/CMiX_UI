@@ -10,7 +10,7 @@ namespace CMiX.ViewModels
                   range: 0.0,
                   layername: layername,
                   messenger: messenger,
-                  modifier: default
+                  modifier: RangeModifier.STD_CTR
                   )
         { }
 
@@ -43,7 +43,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _range, CoerceNotNegative(value));
-                Messenger.SendMessage(LayerName, Range);
+                Messenger.SendMessage(LayerName + "/Range", Range);
             }
         }
 
@@ -51,7 +51,11 @@ namespace CMiX.ViewModels
         public RangeModifier Modifier
         {
             get => _modifier;
-            set => SetAndNotify(ref _modifier, value);
+            set
+            {
+                SetAndNotify(ref _modifier, value);
+                Messenger.SendMessage(LayerName + "/Modifier", Modifier);
+            }
         }
     }
 }

@@ -34,21 +34,33 @@ namespace CMiX.ViewModels
         public CameraRotation Rotation
         {
             get => _rotation;
-            set => SetAndNotify(ref _rotation, value);
+            set
+            {
+                SetAndNotify(ref _rotation, value);
+                Messenger.SendMessage("Camera/Rotation", Rotation);
+            }
         }
 
         private CameraLookAt _lookAt;
         public CameraLookAt LookAt
         {
             get => _lookAt;
-            set => SetAndNotify(ref _lookAt, value);
+            set
+            {
+                SetAndNotify(ref _lookAt, value);
+                Messenger.SendMessage("Camera/LookAt", LookAt);
+            }
         }
 
         private CameraView _view;
         public CameraView View
         {
             get => _view;
-            set => SetAndNotify(ref _view, value);
+            set
+            {
+                SetAndNotify(ref _view, value);
+                Messenger.SendMessage("Camera/View", View);
+            }
         }
 
         public BeatModifier BeatModifier { get; }

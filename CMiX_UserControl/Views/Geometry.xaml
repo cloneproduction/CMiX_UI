@@ -32,7 +32,6 @@
                     Count="{Binding Count, Mode=TwoWay}" />
             </Grid>
             <Controls:FileSelector
-                x:Name="GeometrySelector"
                     Height="150"
                     Title="Models"
                     Margin="0, 0, 0, 4"

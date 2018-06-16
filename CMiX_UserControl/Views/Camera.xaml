@@ -4,13 +4,33 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:CMiX="clr-namespace:CMiX"
     xmlns:Views="clr-namespace:CMiX.Views"
+    xmlns:ViewModels="clr-namespace:CMiX.ViewModels"    
     xmlns:Controls="clr-namespace:CMiX.Controls"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="CameraControl"
     d:DesignHeight="300"
     d:DesignWidth="300"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="CameraView" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="ViewModels:CameraView"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="CameraRotation" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="ViewModels:CameraRotation"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="CameraLookAt" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="ViewModels:CameraLookAt"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
+
     <StackPanel>
         <Border                 
             BorderThickness="0, 0, 0, 2"
@@ -73,28 +93,26 @@
                     Margin="0, 0, 1, 0"
                     Height="25"
                     Style="{StaticResource ComboBoxBase}" 
-                    ItemsSource="{Binding CamRotation, ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedItem="{Binding DataContext.CamRotation[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    ItemsSource="{Binding Source={StaticResource CameraRotation}}"
+                    SelectedIndex="0"
+                    SelectedItem="{Binding Rotation}"/>
                 <CMiX:CMiXComboBox
                     Margin="1, 0, 1, 0"
                     Grid.Column="1"
                     Height="25"
                     Style="{StaticResource ComboBoxBase}" 
-                    ItemsSource="{Binding CamLookAt, ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedItem="{Binding DataContext.CamLookAt[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                    <ComboBox.Items>
-                        <ComboBoxItem Tag="L" IsSelected="True">Low</ComboBoxItem>
-                        <ComboBoxItem Tag="H">High</ComboBoxItem>
-                        <ComboBoxItem Tag="M">Medium</ComboBoxItem>
-                    </ComboBox.Items>
+                    ItemsSource="{Binding Source={StaticResource CameraLookAt}}"
+                    SelectedIndex="0"
+                    SelectedItem="{Binding LookAt}">
                 </CMiX:CMiXComboBox>
                 <CMiX:CMiXComboBox
                     Margin="1, 0, 0, 0"
                     Grid.Column="2"
                     Height="25"
                     Style="{StaticResource ComboBoxBase}" 
-                    ItemsSource="{Binding CamView, ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedItem="{Binding DataContext.CamView[0], ElementName=cmix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    ItemsSource="{Binding Source={StaticResource CameraView}}"
+                    SelectedIndex="0"
+                    SelectedItem="{Binding View}"/>
             </Grid>
         </Border>
     </StackPanel>

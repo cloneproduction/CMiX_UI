@@ -168,7 +168,7 @@ namespace CMiX.Controls
                     ListBoxFileName filename = new ListBoxFileName();
                     filename.FileName = droppedFilePaths[i];
                     filename.FileIsSelected = false;
-                    Items.Add(filename);
+                    this.Items.Add(filename);
                     // }
                 }
             }

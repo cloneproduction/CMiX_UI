@@ -33,9 +33,9 @@ namespace CMiX.ViewModels
         {
             LayerName = layerName;
             BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
+            ObjColor = objColor;
             BgColor = bgColor;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
-            BackgroundColor = backgroundColor;
             Hue = hue ?? throw new ArgumentNullException(nameof(hue));
             Saturation = saturation ?? throw new ArgumentNullException(nameof(saturation));
             Value = value ?? throw new ArgumentNullException(nameof(value));
@@ -78,13 +78,6 @@ namespace CMiX.ViewModels
                     Messenger.SendMessage(LayerName + "/" + nameof(Coloration) + "/" + nameof(BgColor), BgColor);
                 }
             }
-        }
-
-        private Color _backgroundColor;
-        public Color BackgroundColor
-        {
-            get => _backgroundColor;
-            set => SetAndNotify(ref _backgroundColor, value);
         }
 
         public BeatModifier BeatModifier { get; }
