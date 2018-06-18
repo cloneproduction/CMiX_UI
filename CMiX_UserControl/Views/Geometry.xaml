@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:CMiX="clr-namespace:CMiX"
     xmlns:Controls="clr-namespace:CMiX.Controls"
+    xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="307.445"
@@ -12,6 +13,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <CMiX:BoolInverterConverter x:Key="BoolInverter" />
+            <CMiX:EnumToStringConverter x:Key="EnumToString" />
         </ResourceDictionary>
     </UserControl.Resources>
     <Border             
@@ -69,17 +71,19 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <ToggleButton
+                    x:Name="GeometryScale"
                     Margin="0, 0, 1, 0"
-                    Content="{Binding SelectedName, ElementName=SpriteSelectedScale, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    Style="{StaticResource ToggleButtonBase}" />
+                    Style="{StaticResource ToggleButtonBase}" 
+                    Content="{Binding GeometryScale.ScaleMode, Converter={StaticResource EnumToString}}"
+                    IsHitTestVisible="{Binding ElementName=GeometryScalePopup, Path=IsOpen, Converter={StaticResource BoolInverter}}"/>
                 <Popup
+                    x:Name="GeometryScalePopup"
                     Width="432"
                     AllowsTransparency="True"
-                    IsOpen="{Binding IsChecked, ElementName=SpriteScaleStyle}"
+                    IsOpen="{Binding IsChecked, ElementName=GeometryScale}"
                     Placement="Center"
-                    PlacementTarget="{Binding ElementName=Ch_Parameters}"
                     StaysOpen="False">
-                    <CMiX:ScaleSelector />
+                    <ViewModels:ScaleSelector DataContext="{Binding GeometryScale}"/>
                 </Popup>
                 <Controls:CustomSlider
                     Grid.Column="1"
@@ -92,7 +96,21 @@
                     <ColumnDefinition Width="0.5*" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <CMiX:RotationSelector Margin="0, 0, 1, 0"/>
+                <ToggleButton
+                    x:Name="GeometryRotation"
+                    Margin="0, 0, 1, 0"
+                    Style="{StaticResource ToggleButtonBase}" 
+                    Content="{Binding GeometryRotation.RotationMode, Converter={StaticResource EnumToString}}"
+                    IsHitTestVisible="{Binding ElementName=GeometryRotationPopup, Path=IsOpen, Converter={StaticResource BoolInverter}}"/>
+                <Popup 
+                    x:Name="GeometryRotationPopup"
+                    Width="432"
+                    AllowsTransparency="True"
+                    IsOpen="{Binding IsChecked, ElementName=GeometryRotation}"
+                    Placement="Center"
+                    StaysOpen="False">
+                    <ViewModels:RotationSelector DataContext="{Binding GeometryRotation}"/>
+                </Popup>
                 <Controls:CustomSlider
                     Grid.Column="1"
                     Margin="1, 0, 0, 0"

@@ -99,6 +99,8 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ViewModels\GeometryRotation.cs" />
+    <Compile Include="ViewModels\GeometryScale.cs" />
     <Compile Include="ViewModels\GeometrySelector.cs" />
     <Compile Include="Services\IMessenger.cs" />
     <Compile Include="Services\OSCMessenger.cs" />

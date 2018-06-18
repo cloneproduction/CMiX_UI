@@ -15,12 +15,13 @@ namespace CMiX.ViewModels
                   layerName: layername,
                   messenger: messenger,
                   count: 1,
+                  geometryscale: new GeometryScale(layername + "/" + nameof(Geometry), messenger),
+                  geometryrotation: new GeometryRotation(layername + "/" + nameof(Geometry), messenger),
                   geometryPaths: new ObservableCollection<ListBoxFileName>(),
                   translateMode: default,
                   translateAmount: 0.0,
                   scaleMode: default,
                   scaleAmount: 0.0,
-                  rotationMode: default,
                   rotationAmount: 0.0,
                   is3D: false,
                               
@@ -36,13 +37,14 @@ namespace CMiX.ViewModels
 
             string layerName,
             IMessenger messenger,
+            GeometryRotation geometryrotation,
+            GeometryScale geometryscale,
             int count,
             IEnumerable<ListBoxFileName> geometryPaths,
             GeometryTranslateMode translateMode,
             double translateAmount,
             GeometryScaleMode scaleMode,
             double scaleAmount,
-            GeometryRotationMode rotationMode,
             double rotationAmount,
             bool is3D,
             bool keepAspectRatio)
@@ -53,21 +55,24 @@ namespace CMiX.ViewModels
                 throw new ArgumentNullException(nameof(geometryPaths));
             }
 
-
-
             LayerName = layerName;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             Count = count;
 
             GeometryPaths = new ObservableCollection<ListBoxFileName>() ;
             GeometryPaths.CollectionChanged += ContentCollectionChanged;
+            GeometryRotation = geometryrotation ?? throw new ArgumentNullException(nameof(geometryrotation));
+            GeometryScale = geometryscale ?? throw new ArgumentNullException(nameof(geometryscale));
+
+            RotationAmount = rotationAmount;
 
             TranslateMode = translateMode;
             TranslateAmount = translateAmount;
-            ScaleMode = scaleMode;
+
             ScaleAmount = scaleAmount;
-            RotationMode = rotationMode;
-            RotationAmount = rotationAmount;
+
+
+
             Is3D = is3D;
             KeepAspectRatio = keepAspectRatio;
         }
@@ -90,12 +95,9 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _count, value);
-                Messenger.SendMessage(Address + nameof(Count), Count.ToString());
+                Messenger.SendMessage(Address + nameof(Count), Count);
             }
         }
-
-
-        OSCMessenger messenger = new OSCMessenger(new SharpOSC.UDPSender("127.0.0.1", 55555));
 
         public ObservableCollection<ListBoxFileName> GeometryPaths { get; }
 
@@ -142,7 +144,11 @@ namespace CMiX.ViewModels
             }
             Messenger.SendMessage(Address + nameof(GeometryPaths), filename.ToArray());
         }
-            
+
+
+        public GeometryRotation GeometryRotation { get; }
+        public GeometryScale GeometryScale { get; }
+
         private GeometryTranslateMode _translateMode;
         public GeometryTranslateMode TranslateMode
         {
@@ -157,15 +163,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _translateAmount, value);
-                Messenger.SendMessage(Address + nameof(TranslateAmount), TranslateAmount.ToString());
+                Messenger.SendMessage(Address + nameof(TranslateAmount), TranslateAmount);
             }
-        }
-
-        private GeometryScaleMode _scaleMode;
-        public GeometryScaleMode ScaleMode
-        {
-            get => _scaleMode;
-            set => SetAndNotify(ref _scaleMode, value);
         }
 
         private double _scaleAmount;
@@ -175,15 +174,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _scaleAmount, value);
-                Messenger.SendMessage(Address + nameof(ScaleAmount), ScaleAmount.ToString());
+                Messenger.SendMessage(Address + nameof(ScaleAmount), ScaleAmount);
             }
-        }
-
-        private GeometryRotationMode _RotationMode;
-        public GeometryRotationMode RotationMode
-        {
-            get => _RotationMode;
-            set => SetAndNotify(ref _RotationMode, value);
         }
 
         private double _rotationAmount;
@@ -193,7 +185,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _rotationAmount, value);
-                Messenger.SendMessage(Address + nameof(RotationAmount), RotationAmount.ToString());
+                Messenger.SendMessage(Address + nameof(RotationAmount), RotationAmount);
             }
         }
 

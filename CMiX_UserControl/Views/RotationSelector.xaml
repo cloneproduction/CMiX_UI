@@ -1,303 +1,229 @@
 ﻿<UserControl
-    x:Class="CMiX.RotationSelector"
+    x:Class="CMiX.ViewModels.RotationSelector"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:CMiX="clr-namespace:CMiX"
+    xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
     x:Name="RotationPanel"
-    d:DesignHeight="89.667"
-    d:DesignWidth="301"
+    d:DesignHeight="400.334"
+    d:DesignWidth="436.111"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
             <CMiX:BoolInverterConverter x:Key="BoolInverter" />
+            <CMiX:EnumToBooleanConverter x:Key="EnumToBoolean"/>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <ToggleButton
-            x:Name="OpenRotationPanel"
-            Content="{Binding Rotation}"
-            IsHitTestVisible="{Binding ElementName=PopupRotation, Path=IsOpen, Converter={StaticResource BoolInverter}}"
-            Style="{StaticResource ToggleButtonBase}" />
-        <Popup
-            x:Name="PopupRotation"
-            Width="432"
-            AllowsTransparency="True"
-            IsOpen="{Binding IsChecked, ElementName=OpenRotationPanel}"
-            KeyDown="PopupRotation_KeyDown"
-            Placement="Center"
-            StaysOpen="False">
-            <Border
-                Margin="32"
-                Padding="8"
-                Background="{StaticResource DarkerColor}">
-                <Border.Effect>
-                    <DropShadowEffect
-                        BlurRadius="32"
-                        Direction="0"
-                        Opacity="1"
-                        ShadowDepth="0" />
-                </Border.Effect>
-                <DockPanel LastChildFill="True">
-                    <DockPanel
-                        Margin="0,0,0,8"
-                        DockPanel.Dock="Top"
-                        LastChildFill="False">
-                        <TextBlock
-                            Margin="0"
-                            VerticalAlignment="Center"
-                            DockPanel.Dock="left"
-                            Foreground="{StaticResource TextBase}"
-                            Text="ROTATION" />
-                        <ToggleButton
-                            Width="25"
-                            Height="25"
-                            Click="ToggleButton_Click"
-                            Content="Z"
-                            DockPanel.Dock="Right"
-                            IsChecked="{Binding Rotation[2], Mode=OneWay}"
-                            Style="{StaticResource ToggleButtonBase}"
-                            Tag="3" />
-                        <ToggleButton
-                            Width="25"
-                            Height="25"
-                            Click="ToggleButton_Click"
-                            Content="Y"
-                            DockPanel.Dock="Right"
-                            IsChecked="{Binding Rotation[1], Mode=OneWay}"
-                            Style="{StaticResource ToggleButtonBase}"
-                            Tag="2" />
-                        <ToggleButton
-                            Width="25"
-                            Height="25"
-                            Click="ToggleButton_Click"
-                            Content="X"
-                            DockPanel.Dock="Right"
-                            IsChecked="{Binding Rotation[0], Mode=OneWay}"
-                            Style="{StaticResource ToggleButtonBase}"
-                            Tag="1" />
-                    </DockPanel>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0">
-                            <Label
-                                Height="15"
-                                Margin="0,0,0,4"
-                                Content="STEADY"
-                                Style="{StaticResource LabelBase}" />
-                            <RadioButton
-                                x:Name="STD_CTR"
-                                Grid.Row="0"
-                                Grid.Column="0"
-                                Height="25"
-                                Margin="1"
-                                Checked="RadioButton_Checked"
-                                Content="STD_CTR"
-                                GroupName="Translate"
-                                Style="{StaticResource RadioButtonBase}" />
-                            <RadioButton
-                                x:Name="STD_45"
-                                Grid.Row="0"
-                                Grid.Column="1"
-                                Height="25"
-                                Margin="1"
-                                Checked="RadioButton_Checked"
-                                Content="STD_+45"
-                                GroupName="Translate"
-                                Style="{StaticResource RadioButtonBase}" />
-                            <RadioButton
-                                x:Name="STD_90"
-                                Grid.Row="0"
-                                Grid.Column="2"
-                                Height="25"
-                                Margin="1"
-                                Checked="RadioButton_Checked"
-                                Content="STD_+90"
-                                GroupName="Translate"
-                                Style="{StaticResource RadioButtonBase}" />
-                            <RadioButton
-                                x:Name="STD_135"
-                                Grid.Row="1"
-                                Grid.Column="0"
-                                Height="25"
-                                Margin="1"
-                                Checked="RadioButton_Checked"
-                                Content="STD_135"
-                                GroupName="Translate"
-                                Style="{StaticResource RadioButtonBase}" />
-                            <RadioButton
-                                x:Name="STD_180"
-                                Grid.Row="1"
-                                Grid.Column="0"
-                                Height="25"
-                                Margin="1"
-                                Checked="RadioButton_Checked"
-                                Content="STD_180"
-                                GroupName="Translate"
-                                Style="{StaticResource RadioButtonBase}" />
-                            <RadioButton
-                                x:Name="STD_225"
-                                Grid.Row="1"
-                                Grid.Column="0"
-                                Height="25"
-                                Margin="1"
-                                Checked="RadioButton_Checked"
-                                Content="STD_225"
-                                GroupName="Translate"
-                                Style="{StaticResource RadioButtonBase}" />
-                            <RadioButton
-                                x:Name="STD_270"
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                Height="25"
-                                Margin="1"
-                                Checked="RadioButton_Checked"
-                                Content="STD_270"
-                                GroupName="Translate"
-                                Style="{StaticResource RadioButtonBase}" />
-                            <RadioButton
-                                x:Name="STD_315"
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                Height="25"
-                                Margin="1"
-                                Checked="RadioButton_Checked"
-                                Content="STD_315"
-                                GroupName="Translate"
-                                Style="{StaticResource RadioButtonBase}" />
-                        </StackPanel>
-                        <StackPanel Grid.Column="1">
-                            <Label
-                                Height="15"
-                                Margin="0,0,0,4"
-                                Content="FLASH"
-                                Style="{StaticResource LabelBase}" />
-                            <RadioButton
-                                x:Name="FLA_RDM"
-                                Grid.Row="2"
-                                Grid.Column="0"
-                                Height="25"
-                                Margin="1"
-                                Checked="RadioButton_Checked"
-                                Content="FLA_RDM"
-                                GroupName="Translate"
-                                Style="{StaticResource RadioButtonBase}" />
-                            <RadioButton
-                                x:Name="FLA_RDM_45"
-                                Grid.Row="2"
-                                Grid.Column="2"
-                                Height="25"
-                                Margin="1"
-                                Checked="RadioButton_Checked"
-                                Content="FLA_RDM_45"
-                                GroupName="Translate"
-                                Style="{StaticResource RadioButtonBase}" />
-                            <RadioButton
-                                x:Name="FLA_RDM_90"
-                                Grid.Row="2"
-                                Grid.Column="2"
-                                Height="25"
-                                Margin="1"
-                                Checked="RadioButton_Checked"
-                                Content="FLA_RDM_90"
-                                GroupName="Translate"
-                                Style="{StaticResource RadioButtonBase}" />
-                            <RadioButton
-                                x:Name="FLA_CLK_45"
-                                Grid.Row="2"
-                                Grid.Column="1"
-                                Height="25"
-                                Margin="1"
-                                Checked="RadioButton_Checked"
-                                Content="FLA_CLK_45"
-                                GroupName="Translate"
-                                Style="{StaticResource RadioButtonBase}" />
-                            <RadioButton
-                                x:Name="FLA_CLK_90"
-                                Grid.Row="2"
-                                Grid.Column="0"
-                                Height="25"
-                                Margin="1"
-                                Checked="RadioButton_Checked"
-                                Content="FLA_CLK_90"
-                                GroupName="Translate"
-                                Style="{StaticResource RadioButtonBase}" />
-                            <RadioButton
-                                x:Name="FLA_CCK_45"
-                                Grid.Row="2"
-                                Grid.Column="2"
-                                Height="25"
-                                Margin="1"
-                                Checked="RadioButton_Checked"
-                                Content="FLA_CCK_45"
-                                GroupName="Translate"
-                                Style="{StaticResource RadioButtonBase}" />
-                            <RadioButton
-                                x:Name="FLA_CCK_90"
-                                Grid.Row="2"
-                                Grid.Column="2"
-                                Height="25"
-                                Margin="1"
-                                Checked="RadioButton_Checked"
-                                Content="FLA_CCK_90"
-                                GroupName="Translate"
-                                Style="{StaticResource RadioButtonBase}" />
-                            <RadioButton
-                                x:Name="FLA_180"
-                                Grid.Row="2"
-                                Grid.Column="2"
-                                Height="25"
-                                Margin="1"
-                                Checked="RadioButton_Checked"
-                                Content="FLA_180"
-                                GroupName="Translate"
-                                Style="{StaticResource RadioButtonBase}" />
-                        </StackPanel>
-                        <StackPanel Grid.Column="2">
-                            <Label
-                                Height="15"
-                                Margin="0,0,0,4"
-                                Content="SLIDE"
-                                Style="{StaticResource LabelBase}" />
-                            <RadioButton
-                                x:Name="SLD_RDM"
-                                Grid.Row="0"
-                                Grid.Column="0"
-                                Height="25"
-                                Margin="1"
-                                Checked="RadioButton_Checked"
-                                Content="SLD_RDM"
-                                GroupName="Translate"
-                                Style="{StaticResource RadioButtonBase}" />
-                            <RadioButton
-                                x:Name="SLD_CLK_LIN"
-                                Grid.Row="0"
-                                Grid.Column="1"
-                                Height="25"
-                                Margin="1"
-                                Checked="RadioButton_Checked"
-                                Content="SLD_CLK_LIN"
-                                GroupName="Translate"
-                                Style="{StaticResource RadioButtonBase}" />
-                            <RadioButton
-                                x:Name="SLD_CCK_LIN"
-                                Grid.Row="0"
-                                Grid.Column="2"
-                                Height="25"
-                                Margin="1"
-                                Checked="RadioButton_Checked"
-                                Content="SLD_CCK_LIN"
-                                GroupName="Translate"
-                                Style="{StaticResource RadioButtonBase}" />
-                        </StackPanel>
-                    </Grid>
-                </DockPanel>
-            </Border>
-        </Popup>
-    </Grid>
+    <Border
+        Margin="32"
+        Padding="8"
+        Background="{StaticResource DarkerColor}">
+        <Border.Effect>
+            <DropShadowEffect
+                BlurRadius="32"
+                Direction="0"
+                Opacity="1"
+                ShadowDepth="0" />
+        </Border.Effect>
+        <DockPanel LastChildFill="True">
+            <DockPanel
+                Margin="0,0,0,8"
+                DockPanel.Dock="Top"
+                LastChildFill="False">
+                <TextBlock
+                    Margin="0"
+                    VerticalAlignment="Center"
+                    DockPanel.Dock="left"
+                    Foreground="{StaticResource TextBase}"
+                    Text="ROTATION" />
+                <ToggleButton
+                    Width="25"
+                    Height="25"
+                    Content="Z"
+                    DockPanel.Dock="Right"
+                    IsChecked="{Binding Rotation[2], Mode=OneWay}"
+                    Style="{StaticResource ToggleButtonBase}"
+                    Tag="3" />
+                <ToggleButton
+                    Width="25"
+                    Height="25"
+                    Content="Y"
+                    DockPanel.Dock="Right"
+                    IsChecked="{Binding Rotation[1], Mode=OneWay}"
+                    Style="{StaticResource ToggleButtonBase}"
+                    Tag="2" />
+                <ToggleButton
+                    Width="25"
+                    Height="25"
+                    Content="X"
+                    DockPanel.Dock="Right"
+                    IsChecked="{Binding Rotation[0], Mode=OneWay}"
+                    Style="{StaticResource ToggleButtonBase}"
+                    Tag="1" />
+            </DockPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <Label
+                        Height="25"
+                        Margin="0,0,0,4"
+                        Content="STEADY"
+                        Style="{StaticResource LabelBase}" />
+                    <RadioButton
+                        Height="25"
+                        Margin="1"
+                        Style="{StaticResource RadioButtonBase}" 
+                        GroupName="Rotation"
+                        Content="STD_CTR"
+                        IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.STD_CTR}}" />
+                    <RadioButton
+                        Height="25"
+                        Margin="1"
+                        Content="STD_45"
+                        GroupName="Rotation"
+                        IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.STD_45}}"
+                        Style="{StaticResource RadioButtonBase}" />
+                    <RadioButton
+                        Height="25"
+                        Margin="1"
+                        Content="STD_90"
+                        GroupName="Rotation"
+                        IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.STD_90}}" 
+                        Style="{StaticResource RadioButtonBase}"/>
+                    <RadioButton
+                        Height="25"
+                        Margin="1"
+                        Content="STD_135"
+                        GroupName="Rotation"
+                        IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.STD_135}}" 
+                        Style="{StaticResource RadioButtonBase}" />
+                    <RadioButton
+                        Height="25"
+                        Margin="1"
+                        Content="STD_180"
+                        GroupName="Rotation"
+                        IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.STD_180}}" 
+                        Style="{StaticResource RadioButtonBase}" />
+                    <RadioButton
+                        Height="25"
+                        Margin="1"
+                        Content="STD_225"
+                        GroupName="Rotation"
+                        IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.STD_225}}" 
+                        Style="{StaticResource RadioButtonBase}" />
+                    <RadioButton
+                        Height="25"
+                        Margin="1"
+                        Content="STD_270"
+                        GroupName="Rotation"
+                        IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.STD_270}}"
+                        Style="{StaticResource RadioButtonBase}" />
+                    <RadioButton
+                        Height="25"
+                        Margin="1"
+                        Content="STD_315"
+                        GroupName="Rotation"
+                        IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.STD_315}}"
+                        Style="{StaticResource RadioButtonBase}" />
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <Label
+                        Height="25"
+                        Margin="0,0,0,4"
+                        Content="FLASH"
+                        Style="{StaticResource LabelBase}" />
+                    <RadioButton
+                        Height="25"
+                        Margin="1"
+                        Content="FLA_RDM"
+                        GroupName="Rotation"
+                        IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.FLA_RDM}}"
+                        Style="{StaticResource RadioButtonBase}" />
+                    <RadioButton
+                        Height="25"
+                        Margin="1"
+                        Content="FLA_RDM_45"
+                        GroupName="Rotation"
+                        IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.FLA_RDM_45}}"
+                        Style="{StaticResource RadioButtonBase}" />
+                    <RadioButton
+                        Height="25"
+                        Margin="1"
+                        Content="FLA_RDM_90"
+                        GroupName="Rotation"
+                        IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.FLA_RDM_90}}"
+                        Style="{StaticResource RadioButtonBase}" />
+                    <RadioButton
+                        Height="25"
+                        Margin="1"
+                        Content="FLA_CLK_45"
+                        GroupName="Rotation"
+                        IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.FLA_CLK_45}}"
+                        Style="{StaticResource RadioButtonBase}" />
+                    <RadioButton
+                        Height="25"
+                        Margin="1"
+                        Content="FLA_CLK_90"
+                        GroupName="Rotation"
+                        IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.FLA_CLK_90}}"
+                        Style="{StaticResource RadioButtonBase}" />
+                    <RadioButton
+                        Height="25"
+                        Margin="1"
+                        Content="FLA_CCK_45"
+                        GroupName="Rotation"
+                        IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.FLA_CCK_45}}"
+                        Style="{StaticResource RadioButtonBase}" />
+                    <RadioButton
+                        Height="25"
+                        Margin="1"
+                        Content="FLA_CCK_90"
+                        GroupName="Rotation"
+                        IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.FLA_CCK_90}}"
+                        Style="{StaticResource RadioButtonBase}" />
+                    <RadioButton
+                        Height="25"
+                        Margin="1"
+                        Content="FLA_180"
+                        GroupName="Rotation"
+                        IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.FLA_180}}"
+                        Style="{StaticResource RadioButtonBase}" />
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                    <Label
+                        Height="25"
+                        Margin="0,0,0,4"
+                        Content="SLIDE"
+                        Style="{StaticResource LabelBase}" />
+                    <RadioButton
+                        Height="25"
+                        Margin="1"
+                        Content="SLD_RDM"
+                        GroupName="Rotation"
+                        IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.SLD_RDM}}"
+                        Style="{StaticResource RadioButtonBase}" />
+                    <RadioButton
+                        Height="25"
+                        Margin="1"
+                        Content="SLD_CLK_LIN"
+                        GroupName="Rotation"
+                        IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.SLD_CLK_LIN}}"
+                        Style="{StaticResource RadioButtonBase}" />
+                    <RadioButton
+                        Height="25"
+                        Margin="1"
+                        Content="SLD_CCK_LIN"
+                        GroupName="Rotation"
+                        IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.SLD_CCK_LIN}}"
+                        Style="{StaticResource RadioButtonBase}" />
+                </StackPanel>
+            </Grid>
+        </DockPanel>
+    </Border>
 </UserControl>

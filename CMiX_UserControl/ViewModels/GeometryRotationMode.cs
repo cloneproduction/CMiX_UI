@@ -25,6 +25,8 @@
         [ShortCode("STD_270", "Steady 270")]
         STD_270,
 
+        [ShortCode("STD_270", "Steady 315")]
+        STD_315,
         #endregion
 
         #region FLASH

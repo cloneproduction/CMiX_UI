@@ -1,13 +1,20 @@
 ﻿<UserControl
-    x:Class="CMiX.ScaleSelector"
+    x:Class="CMiX.ViewModels.ScaleSelector"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:CMiX="clr-namespace:CMiX"
-    d:DesignHeight="349.667"
-    d:DesignWidth="520"
+    xmlns:ViewModels="clr-namespace:CMiX.ViewModels"    
+    d:DesignHeight="304.334"
+    d:DesignWidth="517.333"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <CMiX:BoolInverterConverter x:Key="BoolInverter" />
+            <CMiX:EnumToBooleanConverter x:Key="EnumToBoolean"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Border
         Margin="32"
         Padding="8"
@@ -37,34 +44,18 @@
                         Content="STEADY"
                         Style="{StaticResource LabelBase}" />
                     <RadioButton
-                        x:Name="STD_CTR"
-                        Grid.Row="0"
-                        Grid.Column="0"
                         Height="25"
                         Margin="1"
-                        Checked="RadioButton_Checked"
                         Content="STD_CTR"
-                        GroupName="Translate"
-                        Style="{StaticResource RadioButtonBase}" />
+                        GroupName="Scale"
+                        IsChecked="{Binding ScaleMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryScaleMode.STD_CTR}}"
+                        Style="{StaticResource RadioButtonBase}"/>
                     <RadioButton
-                        x:Name="STD_RDM"
-                        Grid.Row="0"
-                        Grid.Column="0"
                         Height="25"
                         Margin="1"
-                        Checked="RadioButton_Checked"
                         Content="STD_RDM"
-                        GroupName="Translate"
-                        Style="{StaticResource RadioButtonBase}" />
-                    <RadioButton
-                        x:Name="STD_LIN"
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Height="25"
-                        Margin="1"
-                        Checked="RadioButton_Checked"
-                        Content="STD_LIN"
-                        GroupName="Translate"
+                        IsChecked="{Binding ScaleMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryScaleMode.STD_RDM}}"
+                        GroupName="Scale"
                         Style="{StaticResource RadioButtonBase}" />
                 </StackPanel>
                 <StackPanel Grid.Column="1">
@@ -74,34 +65,11 @@
                         Content="FLASH"
                         Style="{StaticResource LabelBase}" />
                     <RadioButton
-                        x:Name="FLA_RDM"
-                        Grid.Row="2"
-                        Grid.Column="0"
                         Height="25"
                         Margin="1"
-                        Checked="RadioButton_Checked"
                         Content="FLA_RDM"
-                        GroupName="Translate"
-                        Style="{StaticResource RadioButtonBase}" />
-                    <RadioButton
-                        x:Name="FLA_GRW"
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        Height="25"
-                        Margin="1"
-                        Checked="RadioButton_Checked"
-                        Content="FLA_GRW"
-                        GroupName="Translate"
-                        Style="{StaticResource RadioButtonBase}" />
-                    <RadioButton
-                        x:Name="FLA_CMP"
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        Height="25"
-                        Margin="1"
-                        Checked="RadioButton_Checked"
-                        Content="FLA_CMP"
-                        GroupName="Translate"
+                        IsChecked="{Binding ScaleMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryScaleMode.FLA_RDM}}"
+                        GroupName="Scale"
                         Style="{StaticResource RadioButtonBase}" />
                 </StackPanel>
                 <StackPanel Grid.Column="2">
@@ -111,44 +79,18 @@
                         Content="SLIDE"
                         Style="{StaticResource LabelBase}" />
                     <RadioButton
-                        x:Name="SLD_RDM_DMP"
-                        Grid.Row="0"
-                        Grid.Column="0"
                         Height="25"
                         Margin="1"
-                        Checked="RadioButton_Checked"
-                        Content="SLD_RDM_DMP"
-                        GroupName="Translate"
+                        Content="SLD_RDM"
+                        IsChecked="{Binding ScaleMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryScaleMode.SLD_RDM}}"
+                        GroupName="Scale"
                         Style="{StaticResource RadioButtonBase}" />
                     <RadioButton
-                        x:Name="SLD_RDM_LIN"
-                        Grid.Row="0"
-                        Grid.Column="0"
                         Height="25"
                         Margin="1"
-                        Checked="RadioButton_Checked"
-                        Content="SLD_RDM_LIN"
-                        GroupName="Translate"
-                        Style="{StaticResource RadioButtonBase}" />
-                    <RadioButton
-                        x:Name="SLD_GRW"
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Height="25"
-                        Margin="1"
-                        Checked="RadioButton_Checked"
                         Content="SLD_GRW"
-                        GroupName="Translate"
-                        Style="{StaticResource RadioButtonBase}" />
-                    <RadioButton
-                        x:Name="SLD_CMP"
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Height="25"
-                        Margin="1"
-                        Checked="RadioButton_Checked"
-                        Content="SLD_CMP"
-                        GroupName="Translate"
+                        GroupName="Scale"
+                        IsChecked="{Binding ScaleMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryScaleMode.SLD_GRW}}"
                         Style="{StaticResource RadioButtonBase}" />
                 </StackPanel>
             </Grid>
