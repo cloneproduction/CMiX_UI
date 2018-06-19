@@ -94,7 +94,7 @@
     <ControlTemplate x:Key="SliderHorizontal" TargetType="{x:Type Slider}">
         <Border
             x:Name="border"
-            Background="{DynamicResource BaseColor}"
+            Background="{DynamicResource Color}"
             BorderBrush="{TemplateBinding BorderBrush}"
             BorderThickness="{TemplateBinding BorderThickness}"
             SnapsToDevicePixels="True">

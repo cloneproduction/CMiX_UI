@@ -106,6 +106,7 @@
     <Compile Include="Services\OSCMessenger.cs" />
     <Compile Include="ViewModels\Beat.cs" />
     <Compile Include="ViewModels\BeatModifier.cs" />
+    <Compile Include="ViewModels\GeometryTranslate.cs" />
     <Compile Include="ViewModels\InvertMode.cs" />
     <Compile Include="ViewModels\RangeControl.cs" />
     <Compile Include="ViewModels\RangeModifier.cs" />

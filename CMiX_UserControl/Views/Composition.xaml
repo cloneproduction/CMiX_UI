@@ -28,7 +28,6 @@
                 Style="{StaticResource LabelBase}"
                 HorizontalContentAlignment="Right"
                 Background="{DynamicResource Color}"
-                Content="{Binding DataContext.CompoName[0], ElementName=cmix, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                 Foreground="{DynamicResource TextBase}" />
             <Menu
                 x:Name="MainMenu"
@@ -151,33 +150,27 @@
                     </StackPanel>
                     <Grid>
                         <ListBox 
+                            Style="{StaticResource ListBoxBase}"
                             HorizontalContentAlignment="Stretch" 
                             BorderThickness="0"
                             ItemsSource="{Binding Layers}" 
                             Background="Transparent"
+                            
                             dd:DragDrop.IsDragSource="True"
                             dd:DragDrop.IsDropTarget="True">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <CMiX:ChannelLayer/>
+                                    <CMiX:ChannelLayer>
+                                        <CMiX:ChannelLayer.ContextMenu>
+                                            <ContextMenu>
+                                                <Button></Button>
+                                            </ContextMenu>
+                                        </CMiX:ChannelLayer.ContextMenu>
+                                    </CMiX:ChannelLayer>
+
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                        <!--<ScrollViewer
-                        Margin="2"
-                        DockPanel.Dock="Bottom"
-                        VerticalScrollBarVisibility="Auto">
-                            <ItemsControl ItemsSource="{Binding Layers}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type CMiX:ChannelLayer}">
-                                        <CMiX:ChannelLayer/>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                                <ItemsPanelTemplate>
-                                    <ListBox ItemsSource="{Binding Layers}"></ListBox>
-                                </ItemsPanelTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>-->
                     </Grid>
                 </DockPanel>
             </Border>

@@ -5,7 +5,7 @@
 
     <SolidColorBrush x:Key="BaseDarkerColor" Color="#FF1E1E1E" />
     <SolidColorBrush x:Key="BaseDarkColor" Color="#FF323232" />
-    <SolidColorBrush x:Key="BaseColor" Color="#FF505050" />
+    <SolidColorBrush x:Key="Color" Color="#FF505050" />
     <SolidColorBrush x:Key="BaseLightColor" Color="#FF646464" />
     <SolidColorBrush x:Key="BaseHighLightColor" Color="#FF787878" />
     <SolidColorBrush x:Key="OverColor" Color="#FF5A5A5A" />
@@ -588,7 +588,7 @@
                                 VerticalAlignment="Center"
                                 Data="M 1,1.5 L 4.5,5 L 8,1.5"
                                 SnapsToDevicePixels="false"
-                                Stroke="{StaticResource BaseColor}"
+                                Stroke="{StaticResource Color}"
                                 StrokeThickness="2" />
                             <ContentPresenter
                                 Grid.Column="1"
@@ -604,7 +604,7 @@
                             <Setter TargetName="arrow" Property="Data" Value="M 1,4.5  L 4.5,1  L 8,4.5" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="arrow" Property="Stroke" Value="{StaticResource BaseColor}" />
+                            <Setter TargetName="arrow" Property="Stroke" Value="{StaticResource Color}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter TargetName="arrow" Property="Stroke" Value="{StaticResource Expander.Pressed.Arrow.Stroke}" />
@@ -711,7 +711,7 @@
                                     <ColumnDefinition Width="0.70*" />
                                     <ColumnDefinition Width="0.30*" />
                                 </Grid.ColumnDefinitions>
-                                <Rectangle
+                                <!--<Rectangle
                                     x:Name="CurrentColor"
                                     Grid.Column="0"
                                     Margin="5,0,0,0"
@@ -720,19 +720,19 @@
                                     <Rectangle.Fill>
                                         <SolidColorBrush Color="{Binding SelectedColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ColorPicker}}}" />
                                     </Rectangle.Fill>
-                                </Rectangle>
-                                <local:ColorHex
+                                </Rectangle>-->
+                                <!--<local:ColorHex
                                     x:Name="PART_ColorHex"
                                     Grid.Column="1"
                                     VerticalContentAlignment="Center"
                                     Style="{StaticResource ColorPickerTextBox}"
                                     Text="{Binding SelectedColor, Converter={StaticResource ColorToHexConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ColorPicker}}}"
-                                    Validation.ErrorTemplate="{x:Null}" />
+                                    Validation.ErrorTemplate="{x:Null}" />-->
                             </Grid>
                             <Border BorderThickness="2">
-                                <Border.BorderBrush>
+                                <!--<Border.BorderBrush>
                                     <SolidColorBrush Color="{Binding SelectedColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ColorPicker}}}" />
-                                </Border.BorderBrush>
+                                </Border.BorderBrush>-->
                                 <Viewbox>
                                     <Grid Margin="4">
                                         <Grid.RowDefinitions>
@@ -798,7 +798,7 @@
                                             </Viewbox>
                                         </Label>
                                         <local:ColorSlider x:Name="PART_RedColorSlider" Grid.Column="1" />
-                                        <Border Grid.Column="2" Background="{StaticResource BaseColor}">
+                                        <Border Grid.Column="2" Background="{StaticResource Color}">
                                             <local:ColorText
                                                 x:Name="PART_RedTextBox"
                                                 HorizontalContentAlignment="Center"
@@ -826,7 +826,7 @@
                                             </Viewbox>
                                         </Label>
                                         <local:ColorSlider x:Name="PART_GreenColorSlider" Grid.Column="1" />
-                                        <Border Grid.Column="2" Background="{StaticResource BaseColor}">
+                                        <Border Grid.Column="2" Background="{StaticResource Color}">
                                             <local:ColorText
                                                 x:Name="PART_GreenTextBox"
                                                 Grid.Column="2"
@@ -855,7 +855,7 @@
                                             </Viewbox>
                                         </Label>
                                         <local:ColorSlider x:Name="PART_BlueColorSlider" Grid.Column="1" />
-                                        <Border Grid.Column="2" Background="{StaticResource BaseColor}">
+                                        <Border Grid.Column="2" Background="{StaticResource Color}">
                                             <local:ColorText
                                                 x:Name="PART_BlueTextBox"
                                                 Grid.Column="2"
@@ -884,7 +884,7 @@
                                             </Viewbox>
                                         </Label>
                                         <local:SpectrumSlider x:Name="PART_HueSlider" Grid.Column="1" />
-                                        <Border Grid.Column="2" Background="{StaticResource BaseColor}">
+                                        <Border Grid.Column="2" Background="{StaticResource Color}">
                                             <local:ColorText
                                                 x:Name="PART_HueTextBox"
                                                 Grid.Column="2"
@@ -913,7 +913,7 @@
                                             </Viewbox>
                                         </Label>
                                         <local:HSVSlider x:Name="PART_SatSlider" Grid.Column="1" />
-                                        <Border Grid.Column="2" Background="{StaticResource BaseColor}">
+                                        <Border Grid.Column="2" Background="{StaticResource Color}">
                                             <local:ColorText
                                                 x:Name="PART_SatTextBox"
                                                 Grid.Column="2"
@@ -942,7 +942,7 @@
                                             </Viewbox>
                                         </Label>
                                         <local:HSVSlider x:Name="PART_ValSlider" Grid.Column="1" />
-                                        <Border Grid.Column="2" Background="{StaticResource BaseColor}">
+                                        <Border Grid.Column="2" Background="{StaticResource Color}">
                                             <local:ColorText
                                                 x:Name="PART_ValTextBox"
                                                 Grid.Column="2"

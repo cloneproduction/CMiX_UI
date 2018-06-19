@@ -84,7 +84,7 @@
                     <Rectangle
                         Width="{TemplateBinding Width}"
                         Height="{TemplateBinding Height}"
-                        Fill="{DynamicResource BaseColor}" />
+                        Fill="{DynamicResource Color}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

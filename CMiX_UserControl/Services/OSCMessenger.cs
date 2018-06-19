@@ -34,6 +34,7 @@ namespace CMiX.Services
         public void SendQueue()
         {
             var bundle = new OscBundle(0, messages.ToArray());
+            Sender.Send(bundle);
             messages.Clear();
         }
     }

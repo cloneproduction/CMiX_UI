@@ -10,11 +10,6 @@
     d:DesignHeight="527.333"
     d:DesignWidth="286.667"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <CMiX:ColorToStringConverter x:Key="ColorToString" />
-        </ResourceDictionary>
-    </UserControl.Resources>
     <StackPanel>
         <Border                 
             BorderThickness="0, 0, 0, 2"
@@ -47,10 +42,10 @@
                     Focusable="False"
                     Style="{StaticResource TabControlBase}">
                     <TabItem
-                    Height="25"
-                    Header="Foreground"
-                    IsSelected="True"
-                    Style="{StaticResource TabItemBase}">
+                        Height="25"
+                        Header="Foreground"
+                        IsSelected="True"
+                        Style="{StaticResource TabItemBase}">
                     <colorpicker:ColorPicker
                         x:Name="Color"
                         Margin="4"
@@ -59,10 +54,10 @@
                     </TabItem>
                     <TabItem Header="Background" Style="{StaticResource TabItemBase}">
                         <colorpicker:ColorPicker
-                        x:Name="BgColor"
-                        Margin="4"
-                        Background="{StaticResource DarkerColor}"
-                        SelectedColor="{Binding BgColor, Mode=TwoWay}" />
+                            x:Name="BgColor"
+                            Margin="4"
+                            Background="{StaticResource DarkerColor}"
+                            SelectedColor="{Binding BgColor, Mode=TwoWay}" />
                     </TabItem>
                 </TabControl>
             </Grid>

@@ -29,7 +29,7 @@
                 Margin="4"
                 HorizontalAlignment="Right"
                 HorizontalContentAlignment="Center"
-                IsChecked="{Binding Enabled}"
+                IsChecked="{Binding Enable}"
                 Style="{StaticResource ToggleButtonBase}" />
             </Grid>
         </Border>

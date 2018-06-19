@@ -9,6 +9,6 @@
     Height="512">
 
     <Grid Background="black">
-        <local:ColorPicker Margin="0,0,103,-467" />
+        <local:ColorPicker />
     </Grid>
 </Window>

@@ -15,6 +15,7 @@ namespace CMiX.ViewModels
                   layerName: layername,
                   messenger: messenger,
                   count: 1,
+                  geometrytranslate: new GeometryTranslate(layername + "/" + nameof(Geometry), messenger),
                   geometryscale: new GeometryScale(layername + "/" + nameof(Geometry), messenger),
                   geometryrotation: new GeometryRotation(layername + "/" + nameof(Geometry), messenger),
                   geometryPaths: new ObservableCollection<ListBoxFileName>(),
@@ -37,6 +38,7 @@ namespace CMiX.ViewModels
 
             string layerName,
             IMessenger messenger,
+            GeometryTranslate geometrytranslate,
             GeometryRotation geometryrotation,
             GeometryScale geometryscale,
             int count,
@@ -61,17 +63,13 @@ namespace CMiX.ViewModels
 
             GeometryPaths = new ObservableCollection<ListBoxFileName>() ;
             GeometryPaths.CollectionChanged += ContentCollectionChanged;
+            GeometryTranslate = geometrytranslate ?? throw new ArgumentNullException(nameof(geometryrotation));
             GeometryRotation = geometryrotation ?? throw new ArgumentNullException(nameof(geometryrotation));
             GeometryScale = geometryscale ?? throw new ArgumentNullException(nameof(geometryscale));
 
-            RotationAmount = rotationAmount;
-
-            TranslateMode = translateMode;
             TranslateAmount = translateAmount;
-
+            RotationAmount = rotationAmount;
             ScaleAmount = scaleAmount;
-
-
 
             Is3D = is3D;
             KeepAspectRatio = keepAspectRatio;
@@ -100,7 +98,6 @@ namespace CMiX.ViewModels
         }
 
         public ObservableCollection<ListBoxFileName> GeometryPaths { get; }
-
 
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -145,16 +142,10 @@ namespace CMiX.ViewModels
             Messenger.SendMessage(Address + nameof(GeometryPaths), filename.ToArray());
         }
 
-
+        public GeometryTranslate GeometryTranslate { get; }
         public GeometryRotation GeometryRotation { get; }
         public GeometryScale GeometryScale { get; }
 
-        private GeometryTranslateMode _translateMode;
-        public GeometryTranslateMode TranslateMode
-        {
-            get => _translateMode;
-            set => SetAndNotify(ref _translateMode, value);
-        }
 
         private double _translateAmount;
         public double TranslateAmount

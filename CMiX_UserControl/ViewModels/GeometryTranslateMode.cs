@@ -10,6 +10,9 @@
         [ShortCode("STD_LT", "Steady Left")]
         STD_LT,
 
+        [ShortCode("STD_TOP", "Steady Bottom")]
+        STD_TOP,
+
         [ShortCode("STD_TOP_LT", "Steady Top Left")]
         STD_TOP_LT,
 
@@ -32,8 +35,8 @@
 
         #region FLASH
 
-        [ShortCode("FLA_RDM", "Flash Random")]
-        FLA_RDM,
+        [ShortCode("FLA_RDM_XYZ", "Flash Random XYZ")]
+        FLA_RDM_XYZ,
 
         [ShortCode("FLA_RDM_X", "Flash Random X")]
         FLA_RDM_X,
@@ -44,12 +47,23 @@
         [ShortCode("FLA_RDM_Z", "Flash Random Z")]
         FLA_RDM_Z,
 
+        [ShortCode("FLA_RDM_SLDXYZ", "Flash Random Slide XYZ")]
+        FLA_RDM_SLDXYZ,
+
+        [ShortCode("FLA_RDM_SLDXYZ", "Flash Random Slide X")]
+        FLA_RDM_SLDX,
+
+        [ShortCode("FLA_RDM_SLDY", "Flash Random Slide Y")]
+        FLA_RDM_SLDY,
+
+        [ShortCode("FLA_RDM_SLDZ", "Flash Random Slide Z")]
+        FLA_RDM_SLDZ,
         #endregion
 
         #region SLIDE
 
-        [ShortCode("SLD_RDM", "Slide Random")]
-        SLD_RDM,
+        [ShortCode("SLD_RDM_XYZ", "Slide Random")]
+        SLD_RDM_XYZ,
 
         [ShortCode("SLD_RDM_X", "Slide Random X")]
         SLD_RDM_X,
@@ -65,6 +79,9 @@
 
         [ShortCode("SLD_RT", "Slide Right")]
         SLD_RT,
+
+        [ShortCode("SLD_LTRT", "Slide LeftRight")]
+        SLD_LTRT,
 
         [ShortCode("SLD_DN", "Slide Down")]
         SLD_DN,

@@ -17,7 +17,7 @@
         BorderThickness="1"
         Background="{StaticResource HighDarkerColor}"
         Padding="8">
-        <Border.Style>
+        <!--<Border.Style>
             <Style TargetType="{x:Type Border}">
                 <Setter Property="BorderBrush" Value="Transparent" />
                 <Setter Property="BorderThickness" Value="0,0,4,0" />
@@ -26,14 +26,14 @@
                     <DataTrigger Binding="{Binding IsEnabled, ElementName=Ch_Parameters}" Value="true">
                         <Setter Property="BorderBrush">
                             <Setter.Value>
-                                <SolidColorBrush Color="{Binding Coloration.ObjectColor, Mode=TwoWay}" />
+                                <SolidColorBrush Color="{Binding Coloration.ObjColor}" />
                             </Setter.Value>
                         </Setter>
                         <Setter Property="Visibility" Value="Visible" />
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
-        </Border.Style>
+        </Border.Style>-->
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />

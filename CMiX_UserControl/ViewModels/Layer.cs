@@ -5,12 +5,14 @@ namespace CMiX.ViewModels
 {
     public class Layer : ViewModel
     {
-        public Layer(MasterBeat masterBeat, string layername, IMessenger messenger)
+        public Layer(MasterBeat masterBeat, string layername, IMessenger messenger, int index)
         {
             Messenger = messenger;
+            Index = index;
             LayerName = layername;
             Fade = 0.0;
             BlendMode = default;
+            Index = 0;
             Enabled = false;
             BeatModifier = new BeatModifier(masterBeat, layername, messenger);
             Content = new Content(BeatModifier, layername, messenger);
@@ -22,6 +24,7 @@ namespace CMiX.ViewModels
             IMessenger messenger,
             string layername,
             bool enabled,
+            int index,
             double fade,
             BlendMode blendMode,
             BeatModifier beatModifier,
@@ -31,6 +34,7 @@ namespace CMiX.ViewModels
         {
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             LayerName = layername;
+            Index = index;
             Enabled = enabled;
             Fade = fade;
             BlendMode = blendMode;
@@ -67,6 +71,13 @@ namespace CMiX.ViewModels
                 SetAndNotify(ref _fade, value);
                 Messenger.SendMessage("/" + LayerName + "/" + nameof(Fade), Fade);
             }
+        }
+
+        private int _index;
+        public int Index
+        {
+            get => _index;
+            set => SetAndNotify(ref _index, value);
         }
 
         private BlendMode _blendMode;

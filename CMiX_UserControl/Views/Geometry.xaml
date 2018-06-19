@@ -45,18 +45,19 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <ToggleButton
+                    x:Name="GeometryTranslate"
                     Margin="0, 0, 1, 0"
-                    
-                    Style="{StaticResource ToggleButtonBase}" />
-                <!--IsHitTestVisible="{Binding ElementName=SpritePopupTranslate, Path=IsOpen, Converter={StaticResource BoolInverter}}"-->
+                    Style="{StaticResource ToggleButtonBase}" 
+                    Content="{Binding GeometryTranslate.TranslateMode, Converter={StaticResource EnumToString}}"
+                    IsHitTestVisible="{Binding ElementName=GeometryTranslatePopup, Path=IsOpen, Converter={StaticResource BoolInverter}}"/>
                 <Popup
+                    x:Name="GeometryTranslatePopup"
                     Width="432"
                     AllowsTransparency="True"
-                    IsOpen="{Binding IsChecked, ElementName=SpriteTranslateStyle}"
-                    Placement="Right"
-                    PlacementTarget="{Binding ElementName=SpriteTranslateStyle}"
+                    IsOpen="{Binding IsChecked, ElementName=GeometryTranslate}"
+                    Placement="Center"
                     StaysOpen="False">
-                    <CMiX:TranslateSelector x:Name="SpriteSelectedTranslate" SelectedName="" />
+                    <ViewModels:TranslateSelector DataContext="{Binding GeometryTranslate}"/>
                 </Popup>
                 <Controls:CustomSlider
                     Grid.Column="1"
