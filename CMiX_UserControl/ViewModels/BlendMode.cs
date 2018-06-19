@@ -6,6 +6,9 @@ namespace CMiX.ViewModels
 
         Normal,
         Add,
-        Subtract
+        Subtract,
+        Lighten,
+        Darken,
+        Multiply,
     }
 }

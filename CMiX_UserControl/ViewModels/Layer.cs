@@ -69,7 +69,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _fade, value);
-                Messenger.SendMessage("/" + LayerName + "/" + nameof(Fade), Fade);
+                Messenger.SendMessage(LayerName + "/" + nameof(Fade), Fade);
             }
         }
 
@@ -87,7 +87,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _blendMode, value);
-                Messenger.SendMessage("/" + LayerName + "/" + nameof(BlendMode), BlendMode);
+                Messenger.SendMessage(LayerName + "/" + nameof(BlendMode), BlendMode);
             }
         }
 

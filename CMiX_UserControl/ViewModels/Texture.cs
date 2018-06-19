@@ -3,6 +3,8 @@ using System.Collections.ObjectModel;
 using CMiX.Services;
 using CMiX.Controls;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
 
 namespace CMiX.ViewModels
 {
@@ -19,7 +21,10 @@ namespace CMiX.ViewModels
                   keying: 0.0,
                   invert: 0.0,
                   invertMode: default(TextureInvertMode))
-        { }
+        {
+            TexturePaths = new ObservableCollection<ListBoxFileName>();
+            TexturePaths.CollectionChanged += ContentCollectionChanged;
+        }
 
         public Texture(
             string layerName,
@@ -40,6 +45,7 @@ namespace CMiX.ViewModels
 
             LayerName = layerName;
             TexturePaths = new ObservableCollection<ListBoxFileName>();
+            TexturePaths.CollectionChanged += ContentCollectionChanged;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             Brightness = brightness;
             Contrast = contrast;
@@ -61,6 +67,49 @@ namespace CMiX.ViewModels
         private string Address => String.Format("{0}/{1}/", LayerName, nameof(Texture));
 
         public ObservableCollection<ListBoxFileName> TexturePaths { get; }
+
+        public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                foreach (ListBoxFileName item in e.OldItems)
+                {
+                    //Removed items
+                    item.PropertyChanged -= EntityViewModelPropertyChanged;
+                }
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                foreach (ListBoxFileName item in e.NewItems)
+                {
+                    //Added items
+                    item.PropertyChanged += EntityViewModelPropertyChanged;
+                }
+            }
+
+            List<string> filename = new List<string>();
+            foreach (ListBoxFileName lb in TexturePaths)
+            {
+                if (lb.FileIsSelected == true)
+                {
+                    filename.Add(lb.FileName);
+                }
+            }
+            Messenger.SendMessage(Address + nameof(TexturePaths), filename.ToArray());
+        }
+
+        public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            List<string> filename = new List<string>();
+            foreach (ListBoxFileName lb in TexturePaths)
+            {
+                if (lb.FileIsSelected == true)
+                {
+                    filename.Add(lb.FileName);
+                }
+            }
+            Messenger.SendMessage(Address + nameof(TexturePaths), filename.ToArray());
+        }
 
         private double _brightness;
         public double Brightness

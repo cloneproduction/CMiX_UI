@@ -5,17 +5,17 @@ namespace CMiX.ViewModels
 {
     public class Mask : ViewModel
     {
-
         public Mask(Beat masterbeat, string layername, IMessenger messenger)
             : this(
-                  enable: true,
+                  enable: false,
                   layerName: layername,
                   messenger: messenger,
                   beatModifier: new BeatModifier(masterbeat, layername + "/" + nameof(Mask), messenger),
                   geometry: new Geometry(layername + "/" + nameof(Mask), messenger),
                   texture: new Texture(layername + "/" + nameof(Mask), messenger),
                   postFX: new PostFX(layername + "/" + nameof(Mask), messenger))
-        { }
+        {
+        }
 
         public Mask(bool enable, IMessenger messenger, string layerName, BeatModifier beatModifier, Geometry geometry, Texture texture, PostFX postFX)
         {
@@ -32,7 +32,11 @@ namespace CMiX.ViewModels
         public bool Enable
         {
             get => _enable;
-            set => SetAndNotify(ref _enable, value);
+            set
+            {
+                SetAndNotify(ref _enable, value);
+                //Messenger.SendMessage("pouetpouet", "pouet");
+            }
         }
 
         private string _layerName;

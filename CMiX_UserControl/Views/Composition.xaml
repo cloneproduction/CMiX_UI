@@ -163,7 +163,9 @@
                                     <CMiX:ChannelLayer>
                                         <CMiX:ChannelLayer.ContextMenu>
                                             <ContextMenu>
-                                                <Button></Button>
+                                                <Button
+                                                    Command="{Binding Path=DeleteLayerCommand}"
+                                                    CommandParameter="{Binding LayerName}"/>
                                             </ContextMenu>
                                         </CMiX:ChannelLayer.ContextMenu>
                                     </CMiX:ChannelLayer>

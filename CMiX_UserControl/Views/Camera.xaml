@@ -103,7 +103,7 @@
                     Style="{StaticResource ComboBoxBase}" 
                     ItemsSource="{Binding Source={StaticResource CameraLookAt}}"
                     SelectedIndex="0"
-                    SelectedItem="{Binding LookAt}">
+                    SelectedItem="{Binding View}">
                 </CMiX:CMiXComboBox>
                 <CMiX:CMiXComboBox
                     Margin="1, 0, 0, 0"
@@ -112,7 +112,7 @@
                     Style="{StaticResource ComboBoxBase}" 
                     ItemsSource="{Binding Source={StaticResource CameraView}}"
                     SelectedIndex="0"
-                    SelectedItem="{Binding View}"/>
+                    SelectedItem="{Binding LookAt}"/>
             </Grid>
         </Border>
     </StackPanel>

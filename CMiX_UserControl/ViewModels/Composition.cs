@@ -25,6 +25,7 @@ namespace CMiX.ViewModels
             Camera = new Camera(messenger, MasterBeat);
             AddLayerCommand = new RelayCommand(p => AddLayer());
             RemoveLayerCommand = new RelayCommand(p => RemoveLayer());
+            //DeleteLayerCommand = new RelayCommand(p => DeleteLayer(p));
 
             LayerNames = new List<string>();
             Layers = new ObservableCollection<Layer>();
@@ -72,6 +73,7 @@ namespace CMiX.ViewModels
 
         public ICommand AddLayerCommand { get; }
         public ICommand RemoveLayerCommand { get; }
+        //public ICommand DeleteLayerCommand { get; }
 
         private int layerID = -1;
 
@@ -92,7 +94,7 @@ namespace CMiX.ViewModels
             }
 
             Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
-            Messenger.QueueMessage("/LayerIndex" + nameof(Layer), layerindex.ToArray());
+            Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
             Messenger.SendQueue();
         }
 
@@ -117,7 +119,7 @@ namespace CMiX.ViewModels
                 }
 
                 Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
-                Messenger.QueueMessage("/LayerIndex" + nameof(Layer), layerindex.ToArray());
+                Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
                 Messenger.SendQueue();
             }
             else if (Layers.Count == 0)
@@ -135,7 +137,7 @@ namespace CMiX.ViewModels
             }
 
             Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
-            Messenger.QueueMessage("/LayerIndex" + nameof(Layer), layerindex.ToArray());
+            Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
             Messenger.SendQueue();
         }
     }

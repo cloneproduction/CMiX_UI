@@ -11,7 +11,7 @@ namespace CMiX.ViewModels
                   rotation: default(CameraRotation),
                   lookAt: default(CameraLookAt),
                   view: default(CameraView),
-                  beatModifier: new BeatModifier(masterBeat, "Camera", messenger),
+                  beatModifier: new BeatModifier(masterBeat, "/Camera", messenger),
                   fov: 0.5,
                   zoom: 1.0)
         {
@@ -37,7 +37,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _rotation, value);
-                Messenger.SendMessage("Camera/Rotation", Rotation);
+                Messenger.SendMessage("/Camera/Rotation", Rotation);
             }
         }
 
@@ -48,7 +48,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _lookAt, value);
-                Messenger.SendMessage("Camera/LookAt", LookAt);
+                Messenger.SendMessage("/Camera/LookAt", LookAt);
             }
         }
 
@@ -59,7 +59,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _view, value);
-                Messenger.SendMessage("Camera/View", View);
+                Messenger.SendMessage("/Camera/View", View);
             }
         }
 
@@ -72,7 +72,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _FOV, value);
-                Messenger.SendMessage("Camera/FOV", FOV);
+                Messenger.SendMessage("/Camera/FOV", FOV);
             }
         }
 
@@ -83,7 +83,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _zoom, value);
-                Messenger.SendMessage("Camera/Zoom", Zoom);
+                Messenger.SendMessage("/Camera/Zoom", Zoom);
             }
         }
     }
