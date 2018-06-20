@@ -2,13 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Input;
-using GongSolutions.Wpf.DragDrop;
-using System.Windows;
 using System.Collections.Specialized;
-using CMiX.Controls;
-using System.ComponentModel;
 
 namespace CMiX.ViewModels
 {

@@ -8,9 +8,9 @@ namespace CMiX.ViewModels
     {
         public Coloration(Beat masterbeat, string layerName, IMessenger messenger)
             : this(
+                  messenger: messenger,
                   beatModifier: new BeatModifier(masterbeat, layerName + "/" + nameof(Coloration), messenger),
                   layerName: layerName,
-                  messenger: messenger,
                   objColor: Colors.BlueViolet,
                   bgColor: Colors.Black,
                   backgroundColor: Colors.Black,
@@ -21,6 +21,7 @@ namespace CMiX.ViewModels
         { }
 
         public Coloration(
+            IMessenger messenger,
             BeatModifier beatModifier, 
             string layerName, 
             Color objColor,
@@ -28,14 +29,13 @@ namespace CMiX.ViewModels
             Color backgroundColor,
             RangeControl hue,
             RangeControl saturation,
-            RangeControl value, 
-            IMessenger messenger)
+            RangeControl value)
         {
+            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             LayerName = layerName;
             BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
             ObjColor = objColor;
             BgColor = bgColor;
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             Hue = hue ?? throw new ArgumentNullException(nameof(hue));
             Saturation = saturation ?? throw new ArgumentNullException(nameof(saturation));
             Value = value ?? throw new ArgumentNullException(nameof(value));
@@ -57,11 +57,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _objColor, value);
-                //problem with IF, sometimes NULL
-                if(Value != null)
-                {
-                    Messenger.SendMessage(LayerName + "/" + nameof(Coloration) + "/" + nameof(ObjColor), ObjColor);
-                }
+                Messenger.SendMessage(LayerName + "/" + nameof(Coloration) + "/" + nameof(ObjColor), ObjColor);
             }
         }
 
@@ -72,11 +68,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _bgColor, value);
-                //problem with IF, sometimes NULL
-                if (Value != null)
-                {
-                    Messenger.SendMessage(LayerName + "/" + nameof(Coloration) + "/" + nameof(BgColor), BgColor);
-                }
+                Messenger.SendMessage(LayerName + "/" + nameof(Coloration) + "/" + nameof(BgColor), BgColor);
             }
         }
 

@@ -19,39 +19,30 @@ namespace CMiX.ViewModels
                   geometryscale: new GeometryScale(layername + "/" + nameof(Geometry), messenger),
                   geometryrotation: new GeometryRotation(layername + "/" + nameof(Geometry), messenger),
                   geometryPaths: new ObservableCollection<ListBoxFileName>(),
-                  translateMode: default,
                   translateAmount: 0.0,
-                  scaleMode: default,
                   scaleAmount: 0.0,
                   rotationAmount: 0.0,
-                  is3D: false,
-                              
+                  is3D: false,    
                   keepAspectRatio: false)
         {
-
             GeometryPaths = new ObservableCollection<ListBoxFileName>();
             GeometryPaths.CollectionChanged += ContentCollectionChanged;
-
         }
 
         public Geometry(
-
             string layerName,
             IMessenger messenger,
-            GeometryTranslate geometrytranslate,
-            GeometryRotation geometryrotation,
-            GeometryScale geometryscale,
             int count,
             IEnumerable<ListBoxFileName> geometryPaths,
-            GeometryTranslateMode translateMode,
+            GeometryTranslate geometrytranslate,
+            GeometryScale geometryscale,
+            GeometryRotation geometryrotation,
             double translateAmount,
-            GeometryScaleMode scaleMode,
             double scaleAmount,
             double rotationAmount,
             bool is3D,
             bool keepAspectRatio)
         {
-
             if (geometryPaths == null)
             {
                 throw new ArgumentNullException(nameof(geometryPaths));
@@ -145,7 +136,6 @@ namespace CMiX.ViewModels
         public GeometryTranslate GeometryTranslate { get; }
         public GeometryRotation GeometryRotation { get; }
         public GeometryScale GeometryScale { get; }
-
 
         private double _translateAmount;
         public double TranslateAmount

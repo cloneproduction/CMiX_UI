@@ -31,7 +31,11 @@ namespace CMiX.ViewModels
         public bool Enable
         {
             get => _enable;
-            set => SetAndNotify(ref _enable, value);
+            set
+            {
+                SetAndNotify(ref _enable, value);
+                //Messenger.SendMessage(LayerName, Enable);
+            }
         }
 
         private string _layerName;
@@ -40,7 +44,9 @@ namespace CMiX.ViewModels
             get => _layerName;
             set => SetAndNotify(ref _layerName, value);
         }
+
         public IMessenger Messenger { get; }
+
         public BeatModifier BeatModifier { get; }
 
         public Geometry Geometry { get; }

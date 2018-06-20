@@ -21,8 +21,8 @@ namespace CMiX.ViewModels
             double multiplier, 
             double chanceToHit)
         {
-            LayerName = layerName;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(Messenger));
+            LayerName = layerName;
             MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
             Multiplier = multiplier;
             ChanceToHit = chanceToHit;
@@ -36,7 +36,7 @@ namespace CMiX.ViewModels
         }
 
         private IMessenger Messenger { get; }
-        //private string Address => "/" + Name + "/";
+
         private string Address => LayerName;
 
         private string _layerName;
