@@ -99,7 +99,7 @@ namespace CMiX.ViewModels
             {
                 int removeindex = Layers.Count - 1;
                 int removeitem = Layers[removeindex].Index;
-
+                string removedlayername = Layers[removeindex].LayerName;
                 this.LayerNames.Remove(Layers[removeindex].LayerName);
                 Layers.RemoveAt(removeindex);
 
@@ -115,6 +115,7 @@ namespace CMiX.ViewModels
 
                 Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
                 Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
+                Messenger.QueueMessage("/LayerRemoved", removedlayername);
                 Messenger.SendQueue();
             }
             else if (Layers.Count == 0)
