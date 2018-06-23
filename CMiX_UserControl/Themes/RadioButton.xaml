@@ -78,4 +78,25 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="RadioButtonLayer" TargetType="{x:Type RadioButton}">
+        <!--<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>-->
+        <Setter Property="Background" Value="{DynamicResource Color}" />
+        <Setter Property="BorderBrush" Value="Red" />
+        <Setter Property="Foreground" Value="{DynamicResource TextBase}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <Border x:Name="radioButtonBorder" Background="{TemplateBinding Background}">
+                        <Grid>
+                            <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
+                                <TextBlock HorizontalAlignment="Center" Text="{TemplateBinding Content}" />
+                            </Viewbox>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

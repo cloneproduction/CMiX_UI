@@ -21,11 +21,10 @@
     <Border
         Padding="4"
         CornerRadius="2"
-        Background="{StaticResource DarkerColor}"
-        BorderThickness="2">
+        Background="{StaticResource DarkerColor}">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.1*"/>
+                <ColumnDefinition Width="0.15*"/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <RadioButton
@@ -33,7 +32,7 @@
                 AllowDrop="True"
                 GroupName="SelectLayer"
                 IsChecked="{Binding Enabled, Mode=TwoWay}"
-                Style="{StaticResource RadioButtonBase}">
+                Style="{StaticResource RadioButtonLayer}">
                 <RadioButton.Background>
                     <SolidColorBrush Color="{Binding Coloration.ObjColor}" />
                 </RadioButton.Background>
@@ -53,7 +52,7 @@
                     Focusable="False"
                     Height="25"
                     Style="{StaticResource ComboBoxBase}"
-                    SelectedItem="{Binding BlendMode}"
+                    SelectedItem="{Binding BlendMode, Mode=TwoWay}"
                     SelectedIndex="0"
                     ItemsSource="{Binding Source={StaticResource BlendMode}}">
                 </ComboBox>

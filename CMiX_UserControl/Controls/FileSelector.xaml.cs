@@ -36,7 +36,6 @@ namespace CMiX.Controls
             set { NotifyPropertyChanged("Items");  SetValue(ItemsProperty, value); }
         }
 
-
         public static readonly DependencyProperty ModeSelectionProperty =
         DependencyProperty.Register("ModeSelection", typeof(string), typeof(FileSelector));
         [Bindable(true)]
@@ -200,35 +199,6 @@ namespace CMiX.Controls
             }
         }
 
-        public event EventHandler FileSelectorChanged;
-        protected virtual void OnFileSelectorChanged(RoutedEventArgs e)
-        {
-            var handler = FileSelectorChanged;
-            if (handler != null)
-                handler(this, e);
-        }
-        public static readonly RoutedEvent TapEvent = EventManager.RegisterRoutedEvent("Tap", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(FileSelector));
-
-        // Provide CLR accessors for the event
-        public event RoutedEventHandler Tap
-        {
-            add { AddHandler(TapEvent, value); }
-            remove { RemoveHandler(TapEvent, value); }
-        }
-
-        // This method raises the Tap event
-        void RaiseTapEvent()
-        {
-            RoutedEventArgs newEventArgs = new RoutedEventArgs(FileSelector.TapEvent);
-            RaiseEvent(newEventArgs);
-        }
-
-
-        private void FileNameList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            OnFileSelectorChanged(e);
-            RaiseTapEvent();
-        }
 
         private void ClearSelected_Click(object sender, RoutedEventArgs e)
         {

@@ -140,7 +140,6 @@
       <DependentUpon>BeatControls.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\CMiXComboBox.cs" />
-    <Compile Include="Controls\LayerRadioButton.cs" />
     <Compile Include="Controls\RangeSlider.cs" />
     <Compile Include="Views\Camera.xaml.cs">
       <DependentUpon>Camera.xaml</DependentUpon>

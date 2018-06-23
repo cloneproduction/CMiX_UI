@@ -11,8 +11,11 @@
         [ShortCode("FLA_RDM", "Flash Random")]
         FLA_RDM,
 
-        [ShortCode("SLD_RDM", "Slide Random")]
-        SLD_RDM,
+        [ShortCode("SLD_RDM_DMP", "Slide Random Damped")]
+        SLD_RDM_DMP,
+
+        [ShortCode("SLD_RDM_LIN", "Slide Random Linear")]
+        SLD_RDM_LIN,
 
         [ShortCode("SLD_GRW", "Slide Grow")]
         SLD_GRW,

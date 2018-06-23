@@ -7,8 +7,8 @@
     xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="307.445"
-    d:DesignWidth="362.445"
+    d:DesignHeight="316.778"
+    d:DesignWidth="330.445"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -37,7 +37,7 @@
                     Height="150"
                     Title="Models"
                     Margin="0, 0, 0, 4"
-                    ModeSelection="Extended"
+                    ModeSelection="Single"
                     Items="{Binding GeometryPaths}"/>
             <Grid Height="25">
                 <Grid.ColumnDefinitions>
@@ -46,12 +46,14 @@
                 </Grid.ColumnDefinitions>
                 <ToggleButton
                     x:Name="GeometryTranslate"
+                    Keyboard.KeyDown="Toggle_KeyDown"
                     Margin="0, 0, 1, 0"
                     Style="{StaticResource ToggleButtonBase}" 
                     Content="{Binding GeometryTranslate.TranslateMode, Converter={StaticResource EnumToString}}"
                     IsHitTestVisible="{Binding ElementName=GeometryTranslatePopup, Path=IsOpen, Converter={StaticResource BoolInverter}}"/>
                 <Popup
                     x:Name="GeometryTranslatePopup"
+                    Keyboard.KeyDown="Popup_KeyDown"
                     Width="432"
                     AllowsTransparency="True"
                     IsOpen="{Binding IsChecked, ElementName=GeometryTranslate}"
@@ -73,12 +75,14 @@
                 </Grid.ColumnDefinitions>
                 <ToggleButton
                     x:Name="GeometryScale"
+                    Keyboard.KeyDown="Toggle_KeyDown"
                     Margin="0, 0, 1, 0"
                     Style="{StaticResource ToggleButtonBase}" 
                     Content="{Binding GeometryScale.ScaleMode, Converter={StaticResource EnumToString}}"
                     IsHitTestVisible="{Binding ElementName=GeometryScalePopup, Path=IsOpen, Converter={StaticResource BoolInverter}}"/>
                 <Popup
                     x:Name="GeometryScalePopup"
+                    Keyboard.KeyDown="Popup_KeyDown"
                     Width="432"
                     AllowsTransparency="True"
                     IsOpen="{Binding IsChecked, ElementName=GeometryScale}"
@@ -99,12 +103,15 @@
                 </Grid.ColumnDefinitions>
                 <ToggleButton
                     x:Name="GeometryRotation"
+                    Keyboard.KeyDown="Toggle_KeyDown"
                     Margin="0, 0, 1, 0"
                     Style="{StaticResource ToggleButtonBase}" 
                     Content="{Binding GeometryRotation.RotationMode, Converter={StaticResource EnumToString}}"
                     IsHitTestVisible="{Binding ElementName=GeometryRotationPopup, Path=IsOpen, Converter={StaticResource BoolInverter}}"/>
                 <Popup 
                     x:Name="GeometryRotationPopup"
+                    Focusable="False"
+                    Keyboard.KeyDown="Popup_KeyDown"
                     Width="432"
                     AllowsTransparency="True"
                     IsOpen="{Binding IsChecked, ElementName=GeometryRotation}"

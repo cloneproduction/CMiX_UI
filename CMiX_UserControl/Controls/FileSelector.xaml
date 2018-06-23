@@ -67,12 +67,12 @@
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Center"
             AllowDrop="True"
+            ScrollViewer.VerticalScrollBarVisibility="Hidden"
             ItemsSource="{Binding Items, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=Controls:FileSelector}}" 
             PreviewDrop="FileListBox_Drop"
             PreviewMouseDown="FileNameList_PreviewMouseDown"
             PreviewMouseMove="FileListBox_PreviewMouseMove"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-            SelectionChanged="FileNameList_SelectionChanged"
             SelectionMode="{Binding ModeSelection, RelativeSource={RelativeSource AncestorType={x:Type Controls:FileSelector}}}"
             Style="{DynamicResource ListBoxBase}">
             <ListBox.ItemTemplate>

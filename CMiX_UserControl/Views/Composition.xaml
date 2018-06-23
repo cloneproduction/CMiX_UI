@@ -149,16 +149,16 @@
                             Style="{StaticResource ButtonBase}" />
                     </StackPanel>
                     <Grid>
-                        <ListBox 
+                        <ListView 
                             Style="{StaticResource ListBoxBase}"
                             HorizontalContentAlignment="Stretch" 
                             BorderThickness="0"
                             ItemsSource="{Binding Layers}" 
+                            SelectionMode="Single"
                             Background="Transparent"
-                            
                             dd:DragDrop.IsDragSource="True"
                             dd:DragDrop.IsDropTarget="True">
-                            <ListBox.ItemTemplate>
+                            <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <CMiX:ChannelLayer>
                                         <CMiX:ChannelLayer.ContextMenu>
@@ -169,10 +169,9 @@
                                             </ContextMenu>
                                         </CMiX:ChannelLayer.ContextMenu>
                                     </CMiX:ChannelLayer>
-
                                 </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
+                            </ListView.ItemTemplate>
+                        </ListView>
                     </Grid>
                 </DockPanel>
             </Border>

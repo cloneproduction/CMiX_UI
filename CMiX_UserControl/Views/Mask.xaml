@@ -23,31 +23,27 @@
                     Content="MASK"
                     DockPanel.Dock="Left"/>
                 <ToggleButton
-                x:Name="MaskOn"
-                Grid.Row="0"
-                Width="{Binding ActualHeight, ElementName=MaskOn, Mode=OneWay}"
-                Margin="4"
-                HorizontalAlignment="Right"
-                HorizontalContentAlignment="Center"
-                IsChecked="{Binding Enable, Mode=TwoWay}"
-                Style="{StaticResource ToggleButtonBase}" />
+                    Grid.Row="0"
+                    Width="20"
+                    Margin="4"
+                    HorizontalAlignment="Right"
+                    HorizontalContentAlignment="Center"
+                    IsChecked="{Binding Enable, Mode=TwoWay}"
+                    Style="{StaticResource ToggleButtonBase}" />
             </Grid>
         </Border>
         <Border DockPanel.Dock="Top" Margin="0, 4" Padding="4" Background="{StaticResource DarkerColor}" CornerRadius="2">
             <Views:BeatModifier Height="25" DataContext="{Binding BeatModifier}"/>
         </Border>
         <Views:PostFX
-            x:Name="MaskPostFX"
             DataContext="{Binding PostFX}"
             DockPanel.Dock="Bottom" />
         <Views:Geometry
-            x:Name="MaskGeometry"
             DataContext="{Binding Geometry}"
-            DockPanel.Dock="Top" />
+            DockPanel.Dock="Bottom" />
         <Views:Texture
-            x:Name="MaskTexture"
             Margin="0,4"
             DataContext="{Binding Texture}"
-            DockPanel.Dock="Bottom" />
+            DockPanel.Dock="Top" />
     </DockPanel>
 </UserControl>
