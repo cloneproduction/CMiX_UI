@@ -7,8 +7,8 @@
     xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
     d:DataContext="{d:DesignInstance Type={x:Type ViewModels:BeatModifier},
                                      IsDesignTimeCreatable=False}"
-    d:DesignHeight="40.5"
-    d:DesignWidth="165"
+    d:DesignHeight="41.167"
+    d:DesignWidth="167"
     mc:Ignorable="d">
     <DockPanel>
         <Button

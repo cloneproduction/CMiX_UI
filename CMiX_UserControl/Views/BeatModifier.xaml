@@ -15,7 +15,7 @@
         Background="{StaticResource DarkerColor}">
         <DockPanel LastChildFill="True">
             <Controls:BeatControls x:Name="MaskMultiplier" Margin="1, 0, 0, 0" DockPanel.Dock="Right" />
-            <Controls:CustomSlider x:Name="MaskChanceToHit" Margin="0, 0, 1, 0" Value="{Binding ChanceToHit, Mode=TwoWay}" />
+            <Controls:CustomSlider x:Name="MaskChanceToHit" Caption="ChanceToHit" Margin="0, 0, 1, 0" Value="{Binding ChanceToHit, Mode=TwoWay}" />
         </DockPanel>
     </Border>
 </UserControl>

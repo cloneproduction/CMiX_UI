@@ -1,6 +1,5 @@
 ﻿<UserControl
     x:Class="CMiX.Controls.CustomSlider"
-
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:CMiX.Controls"
@@ -8,43 +7,37 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="25"
     d:DesignWidth="250"
-    mc:Ignorable="d"
-                    ToolTipService.InitialShowDelay="0"
-    ToolTipService.HasDropShadow="True"
-    
-                ToolTipService.Placement="Right">
-
-
-    <Grid MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave">
+    mc:Ignorable="d">
+    <Grid MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave" Background="Transparent">
         <Popup x:Name="SliderPopup" Placement="Right" Height="25">
             <Border
+                CornerRadius="0, 4, 4, 0"
                 Padding="8, 0, 8, 0"
-                Margin="0"
-                BorderThickness="0, 0, 2, 0"
-                BorderBrush="{StaticResource Color}"
+                Margin="1, 0, 0, 0"
                 Height="25"
-                Background="{StaticResource DarkColor}"
+                Background="{StaticResource Color}"
                 DataContext="{Binding Path=PlacementTarget, RelativeSource={x:Static RelativeSource.Self}}">
                 <TextBlock
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Text="{Binding Caption, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type Controls:CustomSlider}}}"
                 Foreground="{DynamicResource TextBase}"
-                IsHitTestVisible="False" />
+                IsHitTestVisible="False" >
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} - {1:N2}">
+                            <Binding Path="Caption" RelativeSource="{RelativeSource AncestorType={x:Type Controls:CustomSlider}}" />
+                            <Binding Path="Value" RelativeSource="{RelativeSource AncestorType={x:Type Controls:CustomSlider}}" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
             </Border>
         </Popup>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.2*"/>
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <DockPanel Grid.Column="2">
-                <Grid DockPanel.Dock="Right">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Button
+        <DockPanel Grid.Column="2">
+            <Grid DockPanel.Dock="Right">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Button
                     x:Name="AddToSlider"
                     Grid.Row="0"
                     Margin="1, 0, 0, 1"
@@ -53,7 +46,7 @@
                     Content="+"
                     Focusable="False"
                     Style="{DynamicResource ButtonBase}" />
-                    <Button
+                <Button
                     x:Name="SubToSlider"
                     Grid.Row="1"
                     Margin="1, 1, 0, 0"
@@ -62,32 +55,18 @@
                     Content="-"
                     Focusable="False"
                     Style="{DynamicResource ButtonBase}" />
-                </Grid>
-                <Slider
-                x:Name="CMiXSlider"
-                IsMoveToPointEnabled="True"
-                LargeChange="0.1"
-                Maximum="1.0"
-                Minimum="0.0"
-                SmallChange="0.01"
-                Style="{StaticResource SliderBase}"
-                ValueChanged="CMiXSlider_ValueChanged"
-                Value="{Binding Value, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type Controls:CustomSlider}}}">
-                </Slider>
-            </DockPanel>
-
-            <Label
-            Grid.Column="0"
-            HorizontalAlignment="Stretch"
-            HorizontalContentAlignment="Left"
-            VerticalAlignment="Stretch"
-            VerticalContentAlignment="Center"
-            Background="Transparent"
-            Content="{Binding Value, Mode=TwoWay, ElementName=CMiXSlider}"
-            ContentStringFormat="{}{0:N2}"
-            Foreground="{DynamicResource TextBase}"
-            IsHitTestVisible="False" />
-        </Grid>
+            </Grid>
+            <Slider
+                    x:Name="CMiXSlider"
+                    IsMoveToPointEnabled="True"
+                    LargeChange="0.1"
+                    Maximum="1.0"
+                    Minimum="0.0"
+                    SmallChange="0.01"
+                    Style="{StaticResource SliderBase}"
+                    ValueChanged="CMiXSlider_ValueChanged"
+                    Value="{Binding Value, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type Controls:CustomSlider}}}">
+            </Slider>
+        </DockPanel>
     </Grid>
-
 </UserControl>
