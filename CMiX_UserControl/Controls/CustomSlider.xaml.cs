@@ -110,5 +110,15 @@ namespace CMiX.Controls
                 }
             }
         }
+
+        private void Grid_MouseEnter(object sender, MouseEventArgs e)
+        {
+            SliderPopup.IsOpen = true;
+        }
+
+        private void Grid_MouseLeave(object sender, MouseEventArgs e)
+        {
+            SliderPopup.IsOpen = false;
+        }
     }
 }

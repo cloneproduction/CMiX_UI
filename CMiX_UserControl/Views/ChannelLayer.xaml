@@ -54,6 +54,7 @@
                     Style="{StaticResource ComboBoxBase}"
                     SelectedItem="{Binding BlendMode, Mode=TwoWay}"
                     SelectedIndex="0"
+                    ItemContainerStyle="{StaticResource BaseListBoxItemStyle}"
                     ItemsSource="{Binding Source={StaticResource BlendMode}}">
                 </ComboBox>
             </StackPanel>
