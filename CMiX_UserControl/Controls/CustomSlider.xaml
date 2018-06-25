@@ -5,18 +5,17 @@
     xmlns:Controls="clr-namespace:CMiX.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="25"
+
     d:DesignWidth="250"
     mc:Ignorable="d">
-    <Grid MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave" Background="Transparent">
+    <Grid     Height="20" MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave" Background="Transparent">
         <Popup x:Name="SliderPopup" Placement="Right" Height="25">
             <Border
                 CornerRadius="0, 4, 4, 0"
                 Padding="8, 0, 8, 0"
                 Margin="1, 0, 0, 0"
                 Height="25"
-                Background="{StaticResource Color}"
-                DataContext="{Binding Path=PlacementTarget, RelativeSource={x:Static RelativeSource.Self}}">
+                Background="{StaticResource Color}">
                 <TextBlock
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"

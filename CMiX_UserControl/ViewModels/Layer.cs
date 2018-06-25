@@ -1,5 +1,6 @@
 ﻿using CMiX.Services;
 using System;
+using System.Collections.ObjectModel;
 
 namespace CMiX.ViewModels
 {
@@ -18,6 +19,7 @@ namespace CMiX.ViewModels
             Content = new Content(BeatModifier, layername, messenger);
             Mask = new Mask(BeatModifier, layername, messenger);
             Coloration = new Coloration(BeatModifier, layername, messenger);
+            ComboTest = new ObservableCollection<string> { "pouet", "prout", "piaut", "caca" };
         }
 
         public Layer(
@@ -32,6 +34,7 @@ namespace CMiX.ViewModels
             Mask mask,
             Coloration coloration)
         {
+
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             LayerName = layername;
             Index = index;
@@ -42,6 +45,7 @@ namespace CMiX.ViewModels
             Content = content ?? throw new ArgumentNullException(nameof(content));
             Mask = mask ?? throw new ArgumentNullException(nameof(mask));
             Coloration = coloration ?? throw new ArgumentNullException(nameof(coloration));
+            ComboTest = new ObservableCollection<string> { "pouet", "prout", "piaut", "caca" };
         }
 
         public bool CanAcceptChildren { get; set; }
@@ -91,6 +95,8 @@ namespace CMiX.ViewModels
             }
         }
 
+        public ObservableCollection<string> ComboTest { get; }
+
         public BeatModifier BeatModifier { get; }
 
         public Content Content { get; }
@@ -100,3 +106,5 @@ namespace CMiX.ViewModels
         public Coloration Coloration { get; }
     }
 }
+
+

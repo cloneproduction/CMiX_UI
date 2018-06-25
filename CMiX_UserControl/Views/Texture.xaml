@@ -23,6 +23,16 @@
         Background="{StaticResource DarkerColor}"
         Padding="4"
         CornerRadius="2">
+        <Border.Style>
+            <Style>
+                <Setter Property="Border.Background" Value="Green"/>
+                <Style.Triggers>
+                    <Trigger Property="Border.IsMouseOver" Value="True">
+                        <Setter Property="Border.Background" Value="Red" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
         <DockPanel
                 DockPanel.Dock="Bottom">
             <Grid
@@ -36,9 +46,6 @@
                 <CMiX:CMiXComboBox
                     Grid.Column="0"
                     Margin="1"
-                    HorizontalContentAlignment="Stretch"
-                    VerticalContentAlignment="Stretch"
-                    DockPanel.Dock="Left"
                     ItemsSource="{Binding Source={StaticResource InvertMode}}"
                     SelectedItem="{Binding InvertMode}"
                     SelectedIndex="0"
@@ -47,41 +54,29 @@
                 <Controls:CustomSlider
                     Grid.Row="0"
                     Grid.Column="1"
-                    Height="25"
                     Margin="1"
                     Caption="Invert"
-                    Tag="MaskInvert"
                     Value="{Binding Invert, Mode=TwoWay}" />
             </Grid>
             <Controls:CustomSlider
-                Grid.Row="0"
-                Grid.Column="1"
-                Height="25"
                 Margin="1"
                 Caption="Keying"
                 DockPanel.Dock="Bottom"
-                Tag="Saturation"
                 Value="{Binding Keying, Mode=TwoWay}" />
             <Controls:CustomSlider
-                Height="25"
                 Margin="1"
                 Caption="Saturation"
                 DockPanel.Dock="Bottom"
-                Tag="MaskSaturation"
                 Value="{Binding Saturation, Mode=TwoWay}" />
             <Controls:CustomSlider
-                Height="25"
                 Margin="1"
                 Caption="Contrast"
                 DockPanel.Dock="Bottom"
-                Tag="MaskContrast"
                 Value="{Binding Contrast, Mode=TwoWay}" />
             <Controls:CustomSlider
-                Height="25"
                 Margin="1"
                 Caption="Brightness"
                 DockPanel.Dock="Bottom"
-                Tag="MaskBrightness"
                 Value="{Binding Brightness, Mode=TwoWay}" />
             <Controls:FileSelector
                 DockPanel.Dock="Top"

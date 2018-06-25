@@ -6,7 +6,6 @@
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    
     xmlns:dd="urn:gong-wpf-dragdrop"
 
     d:DesignHeight="1015.667"
@@ -151,7 +150,6 @@
                     <Grid>
                         <ListBox 
                             Style="{StaticResource ListBoxBase}"
-
                             HorizontalContentAlignment="Stretch" 
                             BorderThickness="0"
                             ItemsSource="{Binding Layers}" 
@@ -161,15 +159,7 @@
                             dd:DragDrop.IsDropTarget="True">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <CMiX:ChannelLayer>
-                                        <CMiX:ChannelLayer.ContextMenu>
-                                            <ContextMenu>
-                                                <Button
-                                                    Command="{Binding Path=DeleteLayerCommand}"
-                                                    CommandParameter="{Binding LayerName}"/>
-                                            </ContextMenu>
-                                        </CMiX:ChannelLayer.ContextMenu>
-                                    </CMiX:ChannelLayer>
+                                    <CMiX:ChannelLayer/>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>

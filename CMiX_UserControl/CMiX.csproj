@@ -99,6 +99,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Resources\ComboBoxBehaviour.cs" />
     <Compile Include="ViewModels\GeometryRotation.cs" />
     <Compile Include="ViewModels\GeometryScale.cs" />
     <Compile Include="ViewModels\GeometrySelector.cs" />

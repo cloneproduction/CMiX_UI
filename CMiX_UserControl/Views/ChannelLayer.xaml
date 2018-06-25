@@ -5,11 +5,12 @@
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:Controls="clr-namespace:CMiX.Controls"
     xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
+    xmlns:Behaviours="clr-namespace:CMiX.Resources"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="94.977"
-    d:DesignWidth="293.051"
+    d:DesignHeight="77.644"
+    d:DesignWidth="319.051"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ObjectDataProvider x:Key="BlendMode" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
@@ -40,22 +41,22 @@
             <StackPanel Grid.Column="1">
                 <Controls:CustomSlider
                     Focusable="False"
-                    Height="25"
                     Caption="Alpha"
                     Value="{Binding Fade, Mode=TwoWay}" />
                 <Views:BeatModifier
                     Focusable="False"
                     DataContext="{Binding BeatModifier}"
-                    Margin="0,2"
-                    Height="25"/>
+                    Margin="0,2"/>
                 <ComboBox
+                    Behaviours:ComboBoxBehavior.SelectedItem="{Binding Path=SelectedItem, RelativeSource={RelativeSource Self}}"
                     Focusable="False"
                     Height="25"
+                    
                     Style="{StaticResource ComboBoxBase}"
-                    SelectedItem="{Binding BlendMode, Mode=TwoWay}"
+                    ItemsSource="{Binding ComboTest}"
                     SelectedIndex="0"
-                    ItemContainerStyle="{StaticResource BaseListBoxItemStyle}"
-                    ItemsSource="{Binding Source={StaticResource BlendMode}}">
+                    ItemContainerStyle="{StaticResource BaseListBoxItemStyle}">
+                    <!--ItemsSource="{Binding Source={StaticResource BlendMode}}">                     SelectedItem="{Binding BlendMode, Mode=TwoWay}" -->
                 </ComboBox>
             </StackPanel>
         </Grid>
