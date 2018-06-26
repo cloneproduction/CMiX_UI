@@ -310,7 +310,8 @@ namespace CMiX
             try
             {
                 EnumString = Enum.GetName((value.GetType()), value);
-                return EnumString;
+                return value.ToString();
+                //return EnumString;
             }
             catch
             {
@@ -321,7 +322,7 @@ namespace CMiX
         // No need to implement converting back on a one-way binding 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            throw new NotImplementedException();
+            return value.ToString();
         }
     }
 

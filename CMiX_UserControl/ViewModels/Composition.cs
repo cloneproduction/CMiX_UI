@@ -11,38 +11,38 @@ namespace CMiX.ViewModels
     {
         public Composition()
         {
-            Name = string.Empty;
+            //Name = string.Empty;
 
             var messenger = new OSCMessenger(new SharpOSC.UDPSender("127.0.0.1", 55555));
-            Messenger = messenger;
+            //Messenger = messenger;
 
-            MasterBeat = new MasterBeat(messenger);
-            Camera = new Camera(messenger, MasterBeat);
-            AddLayerCommand = new RelayCommand(p => AddLayer());
-            RemoveLayerCommand = new RelayCommand(p => RemoveLayer());
+            //MasterBeat = new MasterBeat(messenger);
+            //Camera = new Camera(messenger, MasterBeat);
+            //AddLayerCommand = new RelayCommand(p => AddLayer());
+            //RemoveLayerCommand = new RelayCommand(p => RemoveLayer());
             //DeleteLayerCommand = new RelayCommand(p => DeleteLayer(p));
 
-            LayerNames = new List<string>();
-            Layers = new ObservableCollection<Layer>();
-            Layers.CollectionChanged += ContentCollectionChanged;
+            //LayerNames = new List<string>();
+            Layers = new ObservableCollection<Layer> { new Layer(MasterBeat, "Layer0", messenger, 0), new Layer(MasterBeat, "Layer1", messenger, 1) };
+            //Layers.CollectionChanged += ContentCollectionChanged;
         }
 
-        public Composition(string name, Camera camera, MasterBeat masterBeat, IEnumerable<Layer> layers)
-        {
-            if (layers == null)
+        //public Composition(string name, Camera camera, MasterBeat masterBeat, IEnumerable<Layer> layers)
+        //{
+            /*if (layers == null)
             {
                 throw new ArgumentNullException(nameof(layers));
-            }
+            }*/
 
-            var messenger = new OSCMessenger(new SharpOSC.UDPSender("127.0.0.1", 55555));
-            Messenger = messenger;
+            //var messenger = new OSCMessenger(new SharpOSC.UDPSender("127.0.0.1", 55555));
+            //Messenger = messenger;
 
-            Name = name;
-            Camera = camera ?? throw new ArgumentNullException(nameof(camera));
-            MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
-            Layers = new ObservableCollection<Layer>(layers);
-            Layers.CollectionChanged += ContentCollectionChanged;
-        }
+            //Name = name;
+            //Camera = camera ?? throw new ArgumentNullException(nameof(camera));
+            //MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
+            //Layers = new ObservableCollection<Layer>(layers);
+            //Layers.CollectionChanged += ContentCollectionChanged;
+        //}
 
         private string _name;
         public string Name

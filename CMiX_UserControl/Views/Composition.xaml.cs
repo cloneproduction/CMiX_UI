@@ -13,12 +13,12 @@ namespace CMiX
     public partial class Composition : UserControl
     {
 
-        private IList<RadioButton> _items = new ObservableCollection<RadioButton>();
+        //private IList<RadioButton> _items = new ObservableCollection<RadioButton>();
 
         public Composition()
         {
             InitializeComponent();
-            DataContext = new ViewModels.Composition();
+            //DataContext = new ViewModels.Composition();
 
             //Singleton.Instance.MessageReceived += Instance_MessageReceived;
         }
@@ -35,11 +35,11 @@ namespace CMiX
         #region Events
         private void ChannelTab_DragOver(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent("UIElement") == false)
+            /*if (e.Data.GetDataPresent("UIElement") == false)
             {
                 RadioButton rb = sender as RadioButton;
                 rb.IsChecked = true;
-            }
+            }*/
         }
 
         private void SliderValueChanged(object sender, System.EventArgs e)

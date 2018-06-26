@@ -4,18 +4,23 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:CMiX="clr-namespace:CMiX"
     xmlns:Views="clr-namespace:CMiX.Views"
+    xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:dd="urn:gong-wpf-dragdrop"
-
+    
     d:DesignHeight="1015.667"
     d:DesignWidth="1850.667"
     mc:Ignorable="d">
+    <UserControl.DataContext>
+        <ViewModels:Composition/>
+    </UserControl.DataContext>
     <UserControl.Resources>
         <ResourceDictionary>
             <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
         </ResourceDictionary>
     </UserControl.Resources>
+
     <DockPanel
         x:Name="CMiX_UserControl"
         Background="#FF141414"
@@ -147,23 +152,18 @@
                             Content="-"
                             Style="{StaticResource ButtonBase}" />
                     </StackPanel>
-                    <Grid>
-                        <ListBox 
-                            Style="{StaticResource ListBoxBase}"
+                    <ListBox 
                             HorizontalContentAlignment="Stretch" 
                             BorderThickness="0"
                             ItemsSource="{Binding Layers}" 
-                            SelectionMode="Single"
-                            Background="Transparent"
                             dd:DragDrop.IsDragSource="True"
                             dd:DragDrop.IsDropTarget="True">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <CMiX:ChannelLayer/>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </Grid>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <CMiX:ChannelLayer/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </DockPanel>
             </Border>
         </Grid>

@@ -1,5 +1,6 @@
 ﻿using CMiX.Services;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace CMiX.ViewModels
@@ -8,21 +9,21 @@ namespace CMiX.ViewModels
     {
         public Layer(MasterBeat masterBeat, string layername, IMessenger messenger, int index)
         {
-            Messenger = messenger;
-            Index = index;
-            LayerName = layername;
-            Fade = 0.0;
-            BlendMode = default;
-            Index = 0;
-            Enabled = false;
-            BeatModifier = new BeatModifier(masterBeat, layername, messenger);
-            Content = new Content(BeatModifier, layername, messenger);
-            Mask = new Mask(BeatModifier, layername, messenger);
-            Coloration = new Coloration(BeatModifier, layername, messenger);
-            ComboTest = new ObservableCollection<string> { "pouet", "prout", "piaut", "caca" };
+            //Messenger = messenger;
+            //Index = index;
+            ///LayerName = layername;
+            //Fade = 0.0;
+            //BlendMode = default;
+            SourceItem = new List<string> { "HELLO", "POUET", "PROUT" };
+            //Index = 0;
+            //Enabled = false;
+            //BeatModifier = new BeatModifier(masterBeat, layername, messenger);
+            //Content = new Content(BeatModifier, layername, messenger);
+            //Mask = new Mask(BeatModifier, layername, messenger);
+            //Coloration = new Coloration(BeatModifier, layername, messenger);
         }
 
-        public Layer(
+        /*public Layer(
             IMessenger messenger,
             string layername,
             bool enabled,
@@ -45,12 +46,25 @@ namespace CMiX.ViewModels
             Content = content ?? throw new ArgumentNullException(nameof(content));
             Mask = mask ?? throw new ArgumentNullException(nameof(mask));
             Coloration = coloration ?? throw new ArgumentNullException(nameof(coloration));
-            ComboTest = new ObservableCollection<string> { "pouet", "prout", "piaut", "caca" };
-        }
+        }*/
 
-        public bool CanAcceptChildren { get; set; }
+        //public bool CanAcceptChildren { get; set; }
 
         private IMessenger Messenger { get; }
+
+        private List<string> _sourceItem;
+        public List<string> SourceItem
+        {
+            get => _sourceItem;
+            set => _sourceItem = value;
+        }
+
+        private string _selectedItem;
+        public string SelectedItem
+        {
+            get => _selectedItem;
+            set => _selectedItem = value;
+        }
 
         private string _layername;
         public string LayerName
@@ -91,7 +105,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _blendMode, value);
-                Messenger.SendMessage(LayerName + "/" + nameof(BlendMode), BlendMode);
+                //Messenger.SendMessage(LayerName + "/" + nameof(BlendMode), BlendMode);
             }
         }
 

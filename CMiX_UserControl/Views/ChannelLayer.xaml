@@ -5,6 +5,7 @@
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:Controls="clr-namespace:CMiX.Controls"
     xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
+    xmlns:CMiX="clr-namespace:CMiX"
     xmlns:Behaviours="clr-namespace:CMiX.Resources"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -13,6 +14,7 @@
     d:DesignWidth="319.051"
     mc:Ignorable="d">
     <UserControl.Resources>
+        <CMiX:EnumToStringConverter x:Key="EnumToString"/>
         <ObjectDataProvider x:Key="BlendMode" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="ViewModels:BlendMode"/>
@@ -47,17 +49,20 @@
                     Focusable="False"
                     DataContext="{Binding BeatModifier}"
                     Margin="0,2"/>
-                <ComboBox
+                <ComboBox 
+                    Height="25"
+                    SelectedItem="{Binding SelectedItem}"
+                    ItemsSource="{Binding SourceItem}">
+                </ComboBox>
+                <!--<ComboBox
                     Behaviours:ComboBoxBehavior.SelectedItem="{Binding Path=SelectedItem, RelativeSource={RelativeSource Self}}"
                     Focusable="False"
                     Height="25"
-                    
                     Style="{StaticResource ComboBoxBase}"
-                    ItemsSource="{Binding ComboTest}"
-                    SelectedIndex="0"
-                    ItemContainerStyle="{StaticResource BaseListBoxItemStyle}">
-                    <!--ItemsSource="{Binding Source={StaticResource BlendMode}}">                     SelectedItem="{Binding BlendMode, Mode=TwoWay}" -->
-                </ComboBox>
+                    SelectedItem="{Binding BlendMode}"
+                    ItemsSource="{Binding Source={StaticResource BlendMode}}/>
+                    ItemsSource="{Binding Source={StaticResource BlendMode}}">                     SelectedItem="{Binding BlendMode, Mode=TwoWay}" 
+                </ComboBox>-->
             </StackPanel>
         </Grid>
     </Border>
