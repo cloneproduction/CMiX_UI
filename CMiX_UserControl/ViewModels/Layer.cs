@@ -1,7 +1,5 @@
 ﻿using CMiX.Services;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace CMiX.ViewModels
 {
@@ -13,7 +11,7 @@ namespace CMiX.ViewModels
             Index = index;
             LayerName = layername;
             Fade = 0.0;
-            BlendMode = CMiX.ViewModels.BlendMode.Normal.ToString() ;
+            BlendMode = ((BlendMode)0).ToString();
             Index = 0;
             Enabled = false;
             BeatModifier = new BeatModifier(masterBeat, layername, messenger);
@@ -46,8 +44,6 @@ namespace CMiX.ViewModels
             Mask = mask ?? throw new ArgumentNullException(nameof(mask));
             Coloration = coloration ?? throw new ArgumentNullException(nameof(coloration));
         }
-
-        //public bool CanAcceptChildren { get; set; }
 
         private IMessenger Messenger { get; }
 
@@ -94,8 +90,6 @@ namespace CMiX.ViewModels
             }
         }
 
-        public ObservableCollection<string> ComboTest { get; }
-
         public BeatModifier BeatModifier { get; }
 
         public Content Content { get; }
@@ -105,5 +99,3 @@ namespace CMiX.ViewModels
         public Coloration Coloration { get; }
     }
 }
-
-
