@@ -1,5 +1,4 @@
-﻿
-namespace CMiX.ViewModels
+﻿namespace CMiX.ViewModels
 {
     public enum BlendMode
     {

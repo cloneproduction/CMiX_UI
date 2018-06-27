@@ -14,13 +14,13 @@ namespace CMiX.ViewModels
             : this(
                   layerName: layername,
                   messenger: messenger,
-                  texturePaths : new ObservableCollection<ListBoxFileName>(),
+                  texturePaths: new ObservableCollection<ListBoxFileName>(),
                   brightness: 0.0,
                   contrast: 0.0,
                   saturation: 0.0,
                   keying: 0.0,
                   invert: 0.0,
-                  invertMode: default(TextureInvertMode))
+                  invertMode: ((TextureInvertMode)0).ToString())
         {
             TexturePaths = new ObservableCollection<ListBoxFileName>();
             TexturePaths.CollectionChanged += ContentCollectionChanged;
@@ -35,7 +35,7 @@ namespace CMiX.ViewModels
             double saturation,
             double keying,
             double invert,
-            TextureInvertMode invertMode)
+            string invertMode)
         {
             AssertNotNegative(() => brightness);
             AssertNotNegative(() => contrast);
@@ -166,8 +166,8 @@ namespace CMiX.ViewModels
             }
         }
 
-        private TextureInvertMode _invertMode;
-        public TextureInvertMode InvertMode
+        private string _invertMode;
+        public string InvertMode
         {
             get => _invertMode;
             set

@@ -9,27 +9,26 @@ namespace CMiX.ViewModels
     {
         public Layer(MasterBeat masterBeat, string layername, IMessenger messenger, int index)
         {
-            //Messenger = messenger;
-            //Index = index;
-            ///LayerName = layername;
-            //Fade = 0.0;
-            //BlendMode = default;
-            SourceItem = new List<string> { "HELLO", "POUET", "PROUT" };
-            //Index = 0;
-            //Enabled = false;
-            //BeatModifier = new BeatModifier(masterBeat, layername, messenger);
-            //Content = new Content(BeatModifier, layername, messenger);
-            //Mask = new Mask(BeatModifier, layername, messenger);
-            //Coloration = new Coloration(BeatModifier, layername, messenger);
+            Messenger = messenger;
+            Index = index;
+            LayerName = layername;
+            Fade = 0.0;
+            BlendMode = CMiX.ViewModels.BlendMode.Normal.ToString() ;
+            Index = 0;
+            Enabled = false;
+            BeatModifier = new BeatModifier(masterBeat, layername, messenger);
+            Content = new Content(BeatModifier, layername, messenger);
+            Mask = new Mask(BeatModifier, layername, messenger);
+            Coloration = new Coloration(BeatModifier, layername, messenger);
         }
 
-        /*public Layer(
+        public Layer(
             IMessenger messenger,
             string layername,
             bool enabled,
             int index,
             double fade,
-            BlendMode blendMode,
+            string blendMode,
             BeatModifier beatModifier,
             Content content,
             Mask mask,
@@ -46,25 +45,11 @@ namespace CMiX.ViewModels
             Content = content ?? throw new ArgumentNullException(nameof(content));
             Mask = mask ?? throw new ArgumentNullException(nameof(mask));
             Coloration = coloration ?? throw new ArgumentNullException(nameof(coloration));
-        }*/
+        }
 
         //public bool CanAcceptChildren { get; set; }
 
         private IMessenger Messenger { get; }
-
-        private List<string> _sourceItem;
-        public List<string> SourceItem
-        {
-            get => _sourceItem;
-            set => _sourceItem = value;
-        }
-
-        private string _selectedItem;
-        public string SelectedItem
-        {
-            get => _selectedItem;
-            set => _selectedItem = value;
-        }
 
         private string _layername;
         public string LayerName
@@ -98,14 +83,14 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _index, value);
         }
 
-        private BlendMode _blendMode;
-        public BlendMode BlendMode
+        private string _blendMode;
+        public string BlendMode
         {
             get => _blendMode;
             set
             {
                 SetAndNotify(ref _blendMode, value);
-                //Messenger.SendMessage(LayerName + "/" + nameof(BlendMode), BlendMode);
+                Messenger.SendMessage(LayerName + "/" + nameof(BlendMode), BlendMode);
             }
         }
 

@@ -8,16 +8,16 @@ namespace CMiX.ViewModels
         public Camera(IMessenger messenger, MasterBeat masterBeat)
             : this(
                   messenger: messenger,
-                  rotation: default(CameraRotation),
-                  lookAt: default(CameraLookAt),
-                  view: default(CameraView),
+                  rotation: ((CameraRotation)0).ToString(),
+                  lookAt: ((CameraLookAt)0).ToString(),
+                  view: ((CameraView)0).ToString(),
                   beatModifier: new BeatModifier(masterBeat, "/Camera", messenger),
                   fov: 0.5,
                   zoom: 1.0)
         {
         }
 
-        public Camera(IMessenger messenger, CameraRotation rotation, CameraLookAt lookAt, CameraView view, BeatModifier beatModifier, double fov, double zoom)
+        public Camera(IMessenger messenger, string rotation, string lookAt, string view, BeatModifier beatModifier, double fov, double zoom)
         {
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             Rotation = rotation;
@@ -30,8 +30,8 @@ namespace CMiX.ViewModels
 
         public IMessenger Messenger { get; }
 
-        private CameraRotation _rotation;
-        public CameraRotation Rotation
+        private string _rotation;
+        public string Rotation
         {
             get => _rotation;
             set
@@ -41,8 +41,8 @@ namespace CMiX.ViewModels
             }
         }
 
-        private CameraLookAt _lookAt;
-        public CameraLookAt LookAt
+        private string _lookAt;
+        public string LookAt
         {
             get => _lookAt;
             set
@@ -52,8 +52,8 @@ namespace CMiX.ViewModels
             }
         }
 
-        private CameraView _view;
-        public CameraView View
+        private string _view;
+        public string View
         {
             get => _view;
             set

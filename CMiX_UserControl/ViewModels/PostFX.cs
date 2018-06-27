@@ -11,17 +11,17 @@ namespace CMiX.ViewModels
                   messenger: messenger,
                   feedback: 0.0, 
                   blur: 0.0, 
-                  transforms: default, 
-                  view: default)
+                  transforms: ((PostFXTransforms)0).ToString(), 
+                  view: ((PostFXView)0).ToString())
         { }
 
         public PostFX(
             string layerName,
             IMessenger messenger,
             double feedback, 
-            double blur, 
-            PostFXTransforms transforms, 
-            PostFXView view)
+            double blur,
+            string transforms,
+            string view)
         {
             AssertNotNegative(() => feedback);
             AssertNotNegative(() => blur);
@@ -67,8 +67,8 @@ namespace CMiX.ViewModels
             }
         }
 
-        private PostFXTransforms _transforms;
-        public PostFXTransforms Transforms
+        private string _transforms;
+        public string Transforms
         {
             get => _transforms;
             set
@@ -78,8 +78,8 @@ namespace CMiX.ViewModels
             }
         }
 
-        private PostFXView _view;
-        public PostFXView View
+        private string _view;
+        public string View
         {
             get => _view;
             set

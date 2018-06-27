@@ -10,7 +10,7 @@ namespace CMiX.ViewModels
                   range: 0.0,
                   layername: layername,
                   messenger: messenger,
-                  modifier: RangeModifier.STD_CTR
+                  modifier: ((RangeModifier)0).ToString()
                   )
         { }
 
@@ -18,7 +18,7 @@ namespace CMiX.ViewModels
             double range,
             IMessenger messenger,
             string layername,
-            RangeModifier modifier)
+            string modifier)
         {
             AssertNotNegative(() => range);
             LayerName = layername;
@@ -47,8 +47,8 @@ namespace CMiX.ViewModels
             }
         }
 
-        private RangeModifier _modifier;
-        public RangeModifier Modifier
+        private string _modifier;
+        public string Modifier
         {
             get => _modifier;
             set

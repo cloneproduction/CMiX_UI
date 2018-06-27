@@ -12,13 +12,9 @@ namespace CMiX
 {
     public partial class Composition : UserControl
     {
-
-        //private IList<RadioButton> _items = new ObservableCollection<RadioButton>();
-
         public Composition()
         {
             InitializeComponent();
-            //DataContext = new ViewModels.Composition();
 
             //Singleton.Instance.MessageReceived += Instance_MessageReceived;
         }
