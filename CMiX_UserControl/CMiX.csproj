@@ -99,6 +99,8 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Resources\CustomAttribute.cs" />
+    <Compile Include="Resources\OSCTypes.cs" />
     <Compile Include="ViewModels\GeometryRotation.cs" />
     <Compile Include="ViewModels\GeometryScale.cs" />
     <Compile Include="ViewModels\GeometrySelector.cs" />

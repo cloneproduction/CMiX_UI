@@ -62,10 +62,13 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _layerName, value);
         }
 
+
         public IMessenger Messenger { get; }
 
-        private string Address => String.Format("{0}/{1}/", LayerName, nameof(Texture));
+        [OSC(OSCType.ADRESS)]
+        public string Address => String.Format("{0}/{1}/", LayerName, nameof(Texture));
 
+        [OSC(OSCType.DATA)]
         public ObservableCollection<ListBoxFileName> TexturePaths { get; }
 
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -111,7 +114,9 @@ namespace CMiX.ViewModels
             Messenger.SendMessage(Address + nameof(TexturePaths), filename.ToArray());
         }
 
+
         private double _brightness;
+        [OSC(OSCType.DATA)]
         public double Brightness
         {
             get => _brightness;
@@ -123,6 +128,7 @@ namespace CMiX.ViewModels
         }
 
         private double _contrast;
+        [OSC(OSCType.DATA)]
         public double Contrast
         {
             get => _contrast;
@@ -134,6 +140,7 @@ namespace CMiX.ViewModels
         }
 
         private double _saturation;
+        [OSC(OSCType.DATA)]
         public double Saturation
         {
             get => _saturation;
@@ -145,6 +152,7 @@ namespace CMiX.ViewModels
         }
 
         private double _keying;
+        [OSC(OSCType.DATA)]
         public double Keying
         {
             get => _keying;
@@ -156,6 +164,7 @@ namespace CMiX.ViewModels
         }
 
         private double _invert;
+        [OSC(OSCType.DATA)]
         public double Invert
         {
             get => _invert;
@@ -167,6 +176,7 @@ namespace CMiX.ViewModels
         }
 
         private string _invertMode;
+        [OSC(OSCType.DATA)]
         public string InvertMode
         {
             get => _invertMode;

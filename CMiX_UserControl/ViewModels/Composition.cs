@@ -9,6 +9,8 @@ using System.Collections;
 using System.Diagnostics;
 using System.Text;
 using System.Linq;
+using CMiX;
+using CMiX.Controls;
 
 namespace CMiX.ViewModels
 {
@@ -95,9 +97,9 @@ namespace CMiX.ViewModels
 
             Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
             Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
-            Messenger.SendQueue();
 
             PrintProperties(this, 10);
+            Messenger.SendQueue();
         }
 
 
@@ -143,22 +145,65 @@ namespace CMiX.ViewModels
             Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
             Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
             Messenger.SendQueue();
-
-
         }
 
         private void PrintProperties(object obj, int indent)
         {
+            string adress = string.Empty;
+            string propdata = string.Empty;
+            string propertyname = string.Empty;
+
             if (obj == null) return;
             string indentString = new string(' ', indent);
             Type objType = obj.GetType();
             var properties = objType.GetProperties().Where(p => !p.GetIndexParameters().Any());
+
             foreach (PropertyInfo property in properties)
             {
                 object propValue = property.GetValue(obj, null);
 
+                object[] attrs = property.GetCustomAttributes(true);
+
+                foreach (object attr in attrs)
+                {
+                    OSCAttribute oscdata = attr as OSCAttribute;
+
+                    if (oscdata != null)
+                    {
+                        /*if (oscdata.Type == OSCType.DATA)
+                        {
+                            propdata = property.GetValue(obj, null).ToString();
+                            propertyname = property.Name;
+                        }*/
+
+                        if (oscdata.Type == OSCType.ADRESS)
+                        {
+                            adress = property.GetValue(obj, null).ToString();
+                        }
+                    }
+                }
+                //Messenger.QueueMessage(adress + propertyname, propdata);
+                Debug.Print(adress + propdata);
+
+                var ele = propValue as IEnumerable;
+                if((ele != null) && (ele is ObservableCollection<ListBoxFileName>))
+                {
+                    propertyname = property.Name;
+                    List<string> filenames = new List<string>();
+                    foreach(ListBoxFileName lbfn in ele)
+                    {
+                        if(lbfn.FileIsSelected == true)
+                        {
+                            filenames.Add(lbfn.FileName);
+                        }
+                    }
+                    filenames.Add("FileNameTest");
+                    filenames.Add("FileNameHello");
+                    Messenger.QueueMessage(adress + propertyname, filenames.ToArray());
+                }
+
                 var elems = propValue as IList;
-                if ((elems != null) && !(elems is string[]))
+                if ((elems != null) && !(elems is string[]) && !(elems is ObservableCollection<string>))
                 {
                     foreach (var item in elems)
                     {
@@ -170,7 +215,7 @@ namespace CMiX.ViewModels
                     // This will not cut-off System.Collections because of the first check
                     if (property.PropertyType.Assembly == objType.Assembly)
                     {
-                        Debug.Print(String.Format("{0}{1}:", indentString, property.Name));
+                        //Debug.Print(String.Format("{0}{1}:", indentString, property.Name));
                         PrintProperties(propValue, indent + 2);
                     }
                     else
@@ -185,7 +230,6 @@ namespace CMiX.ViewModels
                             propValue = str.ToString();
                             str.Clear();
                         }
-                        Debug.Print(String.Format("{0}{1}: {2}", indentString, property.Name, propValue));
                     }
                 }
             }
