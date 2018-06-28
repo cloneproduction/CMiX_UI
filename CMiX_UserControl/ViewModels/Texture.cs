@@ -8,7 +8,7 @@ using System.ComponentModel;
 
 namespace CMiX.ViewModels
 {
-    public class Texture : ViewModel
+    public class Texture : ViewModel, IMessengerData
     {
         public Texture(string layername, IMessenger messenger)
             : this(
@@ -47,6 +47,7 @@ namespace CMiX.ViewModels
             TexturePaths = new ObservableCollection<ListBoxFileName>();
             TexturePaths.CollectionChanged += ContentCollectionChanged;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+            MessageAddress = String.Format("{0}/{1}/", LayerName, nameof(Texture));
             Brightness = brightness;
             Contrast = contrast;
             Saturation = saturation;
@@ -55,6 +56,7 @@ namespace CMiX.ViewModels
             InvertMode = invertMode;
         }
 
+
         private string _layerName;
         public string LayerName
         {
@@ -62,14 +64,89 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _layerName, value);
         }
 
+        public string MessageAddress { get; set; }
+
+        public bool MessageEnabled { get; set; }
 
         public IMessenger Messenger { get; }
 
-        [OSC(OSCType.ADRESS)]
-        public string Address => String.Format("{0}/{1}/", LayerName, nameof(Texture));
 
-        [OSC(OSCType.DATA)]
+        [OSC]
         public ObservableCollection<ListBoxFileName> TexturePaths { get; }
+
+        private double _brightness;
+        [OSC]
+        public double Brightness
+        {
+            get => _brightness;
+            set
+            {
+                SetAndNotify(ref _brightness, CoerceNotNegative(value));
+                Messenger.SendMessage(MessageAddress + nameof(Brightness), Brightness);
+            }
+        }
+
+        private double _contrast;
+        [OSC]
+        public double Contrast
+        {
+            get => _contrast;
+            set
+            {
+                SetAndNotify(ref _contrast, CoerceNotNegative(value));
+                Messenger.SendMessage(MessageAddress + nameof(Contrast), Contrast);
+            }
+        }
+
+        private double _saturation;
+        [OSC]
+        public double Saturation
+        {
+            get => _saturation;
+            set
+            {
+                SetAndNotify(ref _saturation, CoerceNotNegative(value));
+                Messenger.SendMessage(MessageAddress + nameof(Saturation), Saturation);
+            }
+        }
+
+        private double _keying;
+        [OSC]
+        public double Keying
+        {
+            get => _keying;
+            set
+            {
+                SetAndNotify(ref _keying, CoerceNotNegative(value));
+                Messenger.SendMessage(MessageAddress + nameof(Keying), Keying);
+            }
+        }
+
+        private double _invert;
+        [OSC]
+        public double Invert
+        {
+            get => _invert;
+            set
+            {
+                SetAndNotify(ref _invert, CoerceNotNegative(value));
+                Messenger.SendMessage(MessageAddress + nameof(Invert), Invert);
+            }
+        }
+
+        private string _invertMode;
+        [OSC]
+        public string InvertMode
+        {
+            get => _invertMode;
+            set
+            {
+                SetAndNotify(ref _invertMode, value);
+                Messenger.SendMessage(MessageAddress + nameof(InvertMode), InvertMode);
+            }
+        }
+
+
 
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -98,7 +175,7 @@ namespace CMiX.ViewModels
                     filename.Add(lb.FileName);
                 }
             }
-            Messenger.SendMessage(Address + nameof(TexturePaths), filename.ToArray());
+            Messenger.SendMessage(MessageAddress + nameof(TexturePaths), filename.ToArray());
         }
 
         public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -111,80 +188,7 @@ namespace CMiX.ViewModels
                     filename.Add(lb.FileName);
                 }
             }
-            Messenger.SendMessage(Address + nameof(TexturePaths), filename.ToArray());
-        }
-
-
-        private double _brightness;
-        [OSC(OSCType.DATA)]
-        public double Brightness
-        {
-            get => _brightness;
-            set
-            {
-                SetAndNotify(ref _brightness, CoerceNotNegative(value));
-                Messenger.SendMessage(Address + nameof(Brightness), Brightness);
-            }
-        }
-
-        private double _contrast;
-        [OSC(OSCType.DATA)]
-        public double Contrast
-        {
-            get => _contrast;
-            set
-            {
-                SetAndNotify(ref _contrast, CoerceNotNegative(value));
-                Messenger.SendMessage(Address + nameof(Contrast), Contrast);
-            }
-        }
-
-        private double _saturation;
-        [OSC(OSCType.DATA)]
-        public double Saturation
-        {
-            get => _saturation;
-            set
-            {
-                SetAndNotify(ref _saturation, CoerceNotNegative(value));
-                Messenger.SendMessage(Address + nameof(Saturation), Saturation);
-            }
-        }
-
-        private double _keying;
-        [OSC(OSCType.DATA)]
-        public double Keying
-        {
-            get => _keying;
-            set
-            {
-                SetAndNotify(ref _keying, CoerceNotNegative(value));
-                Messenger.SendMessage(Address + nameof(Keying), Keying);
-            }
-        }
-
-        private double _invert;
-        [OSC(OSCType.DATA)]
-        public double Invert
-        {
-            get => _invert;
-            set
-            {
-                SetAndNotify(ref _invert, CoerceNotNegative(value));
-                Messenger.SendMessage(Address + nameof(Invert), Invert);
-            }
-        }
-
-        private string _invertMode;
-        [OSC(OSCType.DATA)]
-        public string InvertMode
-        {
-            get => _invertMode;
-            set
-            {
-                SetAndNotify(ref _invertMode, value);
-                Messenger.SendMessage(Address + nameof(InvertMode), InvertMode);
-            }
+            Messenger.SendMessage(MessageAddress + nameof(TexturePaths), filename.ToArray());
         }
     }
 }

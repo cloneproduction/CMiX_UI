@@ -3,7 +3,7 @@ using CMiX.Services;
 
 namespace CMiX.ViewModels
 {
-    public class Mask : ViewModel
+    public class Mask : ViewModel, IMessengerData
     {
         public Mask(Beat masterbeat, string layername, IMessenger messenger)
             : this(
@@ -28,20 +28,27 @@ namespace CMiX.ViewModels
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             Enable = enable;
             LayerName = layerName;
+            MessageAddress = LayerName + "/" + nameof(Mask);
             BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
             Geometry = geometry ?? throw new ArgumentNullException(nameof(geometry));
             Texture = texture ?? throw new ArgumentNullException(nameof(texture));
             PostFX = postFX ?? throw new ArgumentNullException(nameof(postFX));
         }
 
+        public string MessageAddress { get; set; }
+
+        public bool MessageEnabled { get; set; }
+
+
         private bool _enable;
+        [OSC]
         public bool Enable
         {
             get => _enable;
             set
             {
                 SetAndNotify(ref _enable, value);
-                Messenger.SendMessage(LayerName + "/" + nameof(Mask) + "/" + nameof(Enable), Enable);
+                Messenger.SendMessage(MessageAddress + "/" + nameof(Enable), Enable);
             }
         }
 

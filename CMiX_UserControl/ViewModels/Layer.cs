@@ -3,7 +3,7 @@ using System;
 
 namespace CMiX.ViewModels
 {
-    public class Layer : ViewModel
+    public class Layer : ViewModel, IMessengerData
     {
         public Layer(MasterBeat masterBeat, string layername, IMessenger messenger, int index)
         {
@@ -34,6 +34,7 @@ namespace CMiX.ViewModels
         {
 
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+            MessageAddress = LayerName;
             LayerName = layername;
             Index = index;
             Enabled = enabled;
@@ -46,6 +47,10 @@ namespace CMiX.ViewModels
         }
 
         private IMessenger Messenger { get; }
+
+        public string MessageAddress { get; set; }
+
+        public bool MessageEnabled { get; set; }
 
         private string _layername;
         public string LayerName
@@ -68,7 +73,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _fade, value);
-                Messenger.SendMessage(LayerName + "/" + nameof(Fade), Fade);
+                Messenger.SendMessage(MessageAddress + "/" + nameof(Fade), Fade);
             }
         }
 
@@ -86,7 +91,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _blendMode, value);
-                Messenger.SendMessage(LayerName + "/" + nameof(BlendMode), BlendMode);
+                Messenger.SendMessage(MessageAddress + "/" + nameof(BlendMode), BlendMode);
             }
         }
 

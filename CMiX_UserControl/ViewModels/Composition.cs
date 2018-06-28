@@ -98,7 +98,7 @@ namespace CMiX.ViewModels
             Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
             Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
 
-            PrintProperties(this, 10);
+            PrintProperties(this);
             Messenger.SendQueue();
         }
 
@@ -147,14 +147,19 @@ namespace CMiX.ViewModels
             Messenger.SendQueue();
         }
 
-        private void PrintProperties(object obj, int indent)
+        private void PrintProperties(object obj)
         {
-            string adress = string.Empty;
+            string address = string.Empty;
             string propdata = string.Empty;
             string propertyname = string.Empty;
 
             if (obj == null) return;
-            string indentString = new string(' ', indent);
+
+            if (obj.GetType().GetProperty("MessageAddress") != null)
+            {
+                address = obj.GetType().GetProperty("MessageAddress").GetValue(obj, null).ToString();
+            }
+
             Type objType = obj.GetType();
             var properties = objType.GetProperties().Where(p => !p.GetIndexParameters().Any());
 
@@ -163,51 +168,42 @@ namespace CMiX.ViewModels
                 object propValue = property.GetValue(obj, null);
 
                 object[] attrs = property.GetCustomAttributes(true);
-
                 foreach (object attr in attrs)
                 {
                     OSCAttribute oscdata = attr as OSCAttribute;
-
                     if (oscdata != null)
                     {
-                        /*if (oscdata.Type == OSCType.DATA)
+                        propertyname = property.Name;
+
+                        if (propValue is ObservableCollection<ListBoxFileName>)
+                        {
+                            List<string> filenames = new List<string>();
+                            foreach (ListBoxFileName lbfn in (ObservableCollection<ListBoxFileName>)propValue)
+                            {
+                                if (lbfn.FileIsSelected == true)
+                                {
+                                    filenames.Add(lbfn.FileName);
+                                }
+                            }
+                            filenames.Add("FileNameTest");
+                            filenames.Add("FileNameHello");
+                            Messenger.QueueMessage(address + propertyname, filenames.ToArray());
+                        }
+                        else
                         {
                             propdata = property.GetValue(obj, null).ToString();
-                            propertyname = property.Name;
-                        }*/
-
-                        if (oscdata.Type == OSCType.ADRESS)
-                        {
-                            adress = property.GetValue(obj, null).ToString();
+                            Messenger.QueueMessage(address + propertyname, propdata);
                         }
                     }
                 }
-                //Messenger.QueueMessage(adress + propertyname, propdata);
-                Debug.Print(adress + propdata);
-
-                var ele = propValue as IEnumerable;
-                if((ele != null) && (ele is ObservableCollection<ListBoxFileName>))
-                {
-                    propertyname = property.Name;
-                    List<string> filenames = new List<string>();
-                    foreach(ListBoxFileName lbfn in ele)
-                    {
-                        if(lbfn.FileIsSelected == true)
-                        {
-                            filenames.Add(lbfn.FileName);
-                        }
-                    }
-                    filenames.Add("FileNameTest");
-                    filenames.Add("FileNameHello");
-                    Messenger.QueueMessage(adress + propertyname, filenames.ToArray());
-                }
+                
 
                 var elems = propValue as IList;
-                if ((elems != null) && !(elems is string[]) && !(elems is ObservableCollection<string>))
+                if ((elems != null) && !(elems is string[]))
                 {
                     foreach (var item in elems)
                     {
-                        PrintProperties(item, indent + 3);
+                        PrintProperties(item);
                     }
                 }
                 else
@@ -215,8 +211,7 @@ namespace CMiX.ViewModels
                     // This will not cut-off System.Collections because of the first check
                     if (property.PropertyType.Assembly == objType.Assembly)
                     {
-                        //Debug.Print(String.Format("{0}{1}:", indentString, property.Name));
-                        PrintProperties(propValue, indent + 2);
+                        PrintProperties(propValue);
                     }
                     else
                     {
