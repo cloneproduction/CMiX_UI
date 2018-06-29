@@ -3,12 +3,12 @@ using System;
 
 namespace CMiX.ViewModels
 {
-    public class BeatModifier : Beat
+    public class BeatModifier : Beat, IMessengerData
     {
-        public BeatModifier(Beat masterBeat, string layerName, IMessenger messenger)
+        public BeatModifier( string layername, IMessenger messenger, Beat masterBeat)
             : this(
                   messenger: messenger,
-                  layerName: layerName,
+                  messageaddress: String.Format("{0}/{1}/", layername, nameof(BeatModifier)),
                   masterBeat: masterBeat,
                   multiplier: 1.0,
                   chanceToHit: 1.0)
@@ -16,13 +16,13 @@ namespace CMiX.ViewModels
 
         public BeatModifier(
             IMessenger messenger,
+            string messageaddress,
             Beat masterBeat, 
-            string layerName,
             double multiplier, 
             double chanceToHit)
         {
             Messenger = messenger ?? throw new ArgumentNullException(nameof(Messenger));
-            LayerName = layerName;
+            MessageAddress = messageaddress;
             MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
             Multiplier = multiplier;
             ChanceToHit = chanceToHit;
@@ -37,14 +37,9 @@ namespace CMiX.ViewModels
 
         private IMessenger Messenger { get; }
 
-        private string Address => LayerName;
+        public string MessageAddress { get; set; }
 
-        private string _layerName;
-        public string LayerName
-        {
-            get => _layerName;
-            set => SetAndNotify(ref _layerName, value);
-        }
+        public bool MessageEnabled { get; set; }
 
         private Beat MasterBeat { get; }
 
@@ -63,7 +58,7 @@ namespace CMiX.ViewModels
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
-                Messenger.SendMessage(Address + "/BeatMultiplier", Multiplier.ToString());
+                Messenger.SendMessage(MessageAddress + nameof(Multiplier), Multiplier);
             }
         }
 
@@ -74,7 +69,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _chanceToHit, value);
-                Messenger.SendMessage(Address + "/ChanceToHit", ChanceToHit.ToString());
+                Messenger.SendMessage(MessageAddress + nameof(ChanceToHit), ChanceToHit);
             }
         }
 

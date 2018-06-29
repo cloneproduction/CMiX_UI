@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CMiX.Services;
 
 namespace CMiX.ViewModels
 {
-    public class GeometryRotation :ViewModel
+    public class GeometryRotation :ViewModel, IMessengerData
     {
-        public GeometryRotation(string layername, IMessenger messenger) 
+        public GeometryRotation(string layername, IMessenger messenger)
             : this(
-                  layerName: layername,   
+                  messageaddress: String.Format("{0}/{1}/", layername, nameof(Content)),
                   messenger: messenger,
                   rotationMode: default
                   )
@@ -20,32 +16,30 @@ namespace CMiX.ViewModels
 
         public GeometryRotation
             (
-                string layerName,
+                string messageaddress,
                 IMessenger messenger,
                 GeometryRotationMode rotationMode
             )
         {
-            LayerName = layerName;
+            MessageAddress = messageaddress;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
         }
 
+        public string MessageAddress { get; set; }
+
+        public bool MessageEnabled { get; set; }
+
         public IMessenger Messenger { get; }
 
-        private string _layerName;
-        public string LayerName
-        {
-            get => _layerName;
-            set => SetAndNotify(ref _layerName, value);
-        }
-
         private GeometryRotationMode _RotationMode;
+        [OSC]
         public GeometryRotationMode RotationMode
         {
             get => _RotationMode;
             set
             {
                 SetAndNotify(ref _RotationMode, value);
-                Messenger.SendMessage(LayerName + "/" + nameof(RotationMode), RotationMode);
+                Messenger.SendMessage(MessageAddress + nameof(RotationMode), RotationMode);
             }
         }
     }

@@ -3,58 +3,57 @@ using CMiX.Services;
 
 namespace CMiX.ViewModels
 {
-    public class RangeControl : ViewModel
+    public class RangeControl : ViewModel, IMessengerData
     {
         public RangeControl(IMessenger messenger, string layername)
             : this(
                   range: 0.0,
-                  layername: layername,
                   messenger: messenger,
+                  messageaddress: String.Format("{0}/{1}/", layername, nameof(RangeControl)),
                   modifier: ((RangeModifier)0).ToString()
                   )
         { }
 
         public RangeControl(
             double range,
+            string messageaddress,
             IMessenger messenger,
-            string layername,
             string modifier)
         {
             AssertNotNegative(() => range);
-            LayerName = layername;
+            MessageAddress = messageaddress;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             Range = range;
             Modifier = modifier;
         }
 
+        public string MessageAddress { get; set; }
+
+        public bool MessageEnabled { get; set; }
+
         private IMessenger Messenger { get; }
 
-        private string _layerName;
-        public string LayerName
-        {
-            get => _layerName;
-            set => SetAndNotify(ref _layerName, value);
-        }
-
         private double _range;
+        [OSC]
         public double Range
         {
             get => _range;
             set
             {
                 SetAndNotify(ref _range, CoerceNotNegative(value));
-                Messenger.SendMessage(LayerName + "/Range", Range);
+                Messenger.SendMessage(MessageAddress + nameof(Range), Range);
             }
         }
 
         private string _modifier;
+        [OSC]
         public string Modifier
         {
             get => _modifier;
             set
             {
                 SetAndNotify(ref _modifier, value);
-                Messenger.SendMessage(LayerName + "/Modifier", Modifier);
+                Messenger.SendMessage(MessageAddress + nameof(Modifier), Modifier);
             }
         }
     }

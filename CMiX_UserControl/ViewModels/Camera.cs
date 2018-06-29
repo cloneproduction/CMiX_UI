@@ -11,7 +11,7 @@ namespace CMiX.ViewModels
                   rotation: ((CameraRotation)0).ToString(),
                   lookAt: ((CameraLookAt)0).ToString(),
                   view: ((CameraView)0).ToString(),
-                  beatModifier: new BeatModifier(masterBeat, "/Camera", messenger),
+                  beatModifier: new BeatModifier("/Camera", messenger, masterBeat),
                   fov: 0.5,
                   zoom: 1.0)
         {

@@ -4,26 +4,26 @@ using CMiX.Services;
 
 namespace CMiX.ViewModels
 {
-    public class Coloration : ViewModel
+    public class Coloration : ViewModel, IMessengerData
     {
-        public Coloration(Beat masterbeat, string layerName, IMessenger messenger)
+        public Coloration(Beat masterbeat, string layername, IMessenger messenger)
             : this(
                   messenger: messenger,
-                  beatModifier: new BeatModifier(masterbeat, layerName + "/" + nameof(Coloration), messenger),
-                  layerName: layerName,
+                  messageaddress: String.Format("{0}/{1}/", layername, nameof(Coloration)),
+                  beatModifier: new BeatModifier(layername + "/" + nameof(Coloration), messenger, masterbeat),
                   objColor: Colors.BlueViolet,
                   bgColor: Colors.Black,
                   backgroundColor: Colors.Black,
-                  hue: new RangeControl(messenger, layerName + "/" + nameof(Coloration) + "/" + nameof(Hue)),
-                  saturation: new RangeControl(messenger, layerName + "/" + nameof(Coloration) + "/" + nameof(Saturation)),
-                  value: new RangeControl(messenger, layerName + "/" + nameof(Coloration) + "/" + nameof(Value))
+                  hue: new RangeControl(messenger, String.Format("{0}/{1}/", layername, nameof(Coloration)) + nameof(Hue)),
+                  saturation: new RangeControl(messenger, String.Format("{0}/{1}/", layername, nameof(Coloration)) + nameof(Saturation)),
+                  value: new RangeControl(messenger, String.Format("{0}/{1}/", layername, nameof(Coloration)) + "/" + nameof(Value))
                   )
         { }
 
         public Coloration(
             IMessenger messenger,
+            string messageaddress,
             BeatModifier beatModifier, 
-            string layerName, 
             Color objColor,
             Color bgColor,
             Color backgroundColor,
@@ -32,7 +32,7 @@ namespace CMiX.ViewModels
             RangeControl value)
         {
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
-            LayerName = layerName;
+            MessageAddress = messageaddress;
             BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
             ObjColor = objColor;
             BgColor = bgColor;
@@ -40,35 +40,33 @@ namespace CMiX.ViewModels
             Saturation = saturation ?? throw new ArgumentNullException(nameof(saturation));
             Value = value ?? throw new ArgumentNullException(nameof(value));
         }
-
-        private string _layerName;
-        public string LayerName
-        {
-            get => _layerName;
-            set => SetAndNotify(ref _layerName, value);
-        }
-
         private IMessenger Messenger { get; }
 
+        public string MessageAddress { get; set; }
+
+        public bool MessageEnabled { get; set; }
+
         private Color _objColor;
+        [OSC]
         public Color ObjColor
         {
             get => _objColor;
             set
             {
                 SetAndNotify(ref _objColor, value);
-                Messenger.SendMessage(LayerName + "/" + nameof(Coloration) + "/" + nameof(ObjColor), ObjColor);
+                Messenger.SendMessage(MessageAddress + "/" + nameof(Coloration) + "/" + nameof(ObjColor), ObjColor);
             }
         }
 
         private Color _bgColor;
+        [OSC]
         public Color BgColor
         {
             get => _bgColor;
             set
             {
                 SetAndNotify(ref _bgColor, value);
-                Messenger.SendMessage(LayerName + "/" + nameof(Coloration) + "/" + nameof(BgColor), BgColor);
+                Messenger.SendMessage(MessageAddress + "/" + nameof(Coloration) + "/" + nameof(BgColor), BgColor);
             }
         }
 

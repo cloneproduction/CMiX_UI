@@ -12,8 +12,8 @@ namespace CMiX.ViewModels
     {
         public Texture(string layername, IMessenger messenger)
             : this(
-                  layerName: layername,
                   messenger: messenger,
+                  messageaddress : String.Format("{0}/{1}/", layername, nameof(Texture)),
                   texturePaths: new ObservableCollection<ListBoxFileName>(),
                   brightness: 0.0,
                   contrast: 0.0,
@@ -27,9 +27,9 @@ namespace CMiX.ViewModels
         }
 
         public Texture(
-            string layerName,
             IEnumerable<ListBoxFileName> texturePaths,
             IMessenger messenger,
+            string messageaddress,
             double brightness,
             double contrast,
             double saturation,
@@ -43,11 +43,10 @@ namespace CMiX.ViewModels
             AssertNotNegative(() => keying);
             AssertNotNegative(() => invert);
 
-            LayerName = layerName;
             TexturePaths = new ObservableCollection<ListBoxFileName>();
             TexturePaths.CollectionChanged += ContentCollectionChanged;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
-            MessageAddress = String.Format("{0}/{1}/", LayerName, nameof(Texture));
+            MessageAddress = messageaddress;
             Brightness = brightness;
             Contrast = contrast;
             Saturation = saturation;
@@ -56,20 +55,11 @@ namespace CMiX.ViewModels
             InvertMode = invertMode;
         }
 
-
-        private string _layerName;
-        public string LayerName
-        {
-            get => _layerName;
-            set => SetAndNotify(ref _layerName, value);
-        }
-
         public string MessageAddress { get; set; }
 
         public bool MessageEnabled { get; set; }
 
         public IMessenger Messenger { get; }
-
 
         [OSC]
         public ObservableCollection<ListBoxFileName> TexturePaths { get; }
@@ -145,8 +135,6 @@ namespace CMiX.ViewModels
                 Messenger.SendMessage(MessageAddress + nameof(InvertMode), InvertMode);
             }
         }
-
-
 
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {

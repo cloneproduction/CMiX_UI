@@ -7,5 +7,7 @@
         void QueueMessage(string address, params object[] args);
 
         void SendQueue();
+
+        void QueueObject(object obj);
     }
 }

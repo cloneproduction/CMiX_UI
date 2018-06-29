@@ -8,17 +8,17 @@ using CMiX.Controls;
 
 namespace CMiX.ViewModels
 {
-    public class Geometry : ViewModel
+    public class Geometry : ViewModel, IMessengerData
     {
         public Geometry(string layername, IMessenger messenger)
             : this(
-                  layerName: layername,
                   messenger: messenger,
+                  messageaddress : String.Format("{0}/{1}/", layername, nameof(Geometry)),
                   count: 1,
-                  geometrytranslate: new GeometryTranslate(layername + "/" + nameof(Geometry), messenger),
-                  geometryscale: new GeometryScale(layername + "/" + nameof(Geometry), messenger),
-                  geometryrotation: new GeometryRotation(layername + "/" + nameof(Geometry), messenger),
-                  geometryPaths: new ObservableCollection<ListBoxFileName>(),
+                  geometrytranslate: new GeometryTranslate(String.Format("{0}/{1}/", layername, nameof(Geometry)), messenger),
+                  geometryscale: new GeometryScale(String.Format("{0}/{1}/", layername, nameof(Geometry)), messenger),
+                  geometryrotation: new GeometryRotation(String.Format("{0}/{1}/", layername, nameof(Geometry)), messenger),
+                  geometrypaths: new ObservableCollection<ListBoxFileName>(),
                   translateAmount: 0.0,
                   scaleAmount: 0.0,
                   rotationAmount: 0.0,
@@ -30,10 +30,10 @@ namespace CMiX.ViewModels
         }
 
         public Geometry(
-            string layerName,
             IMessenger messenger,
+            string messageaddress,
             int count,
-            IEnumerable<ListBoxFileName> geometryPaths,
+            IEnumerable<ListBoxFileName> geometrypaths,
             GeometryTranslate geometrytranslate,
             GeometryScale geometryscale,
             GeometryRotation geometryrotation,
@@ -43,17 +43,19 @@ namespace CMiX.ViewModels
             bool is3D,
             bool keepAspectRatio)
         {
-            if (geometryPaths == null)
+            if (geometrypaths == null)
             {
-                throw new ArgumentNullException(nameof(geometryPaths));
+                throw new ArgumentNullException(nameof(geometrypaths));
             }
 
-            LayerName = layerName;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+            MessageAddress = messageaddress;
+
             Count = count;
 
             GeometryPaths = new ObservableCollection<ListBoxFileName>() ;
             GeometryPaths.CollectionChanged += ContentCollectionChanged;
+
             GeometryTranslate = geometrytranslate ?? throw new ArgumentNullException(nameof(geometryrotation));
             GeometryRotation = geometryrotation ?? throw new ArgumentNullException(nameof(geometryrotation));
             GeometryScale = geometryscale ?? throw new ArgumentNullException(nameof(geometryscale));
@@ -66,28 +68,25 @@ namespace CMiX.ViewModels
             KeepAspectRatio = keepAspectRatio;
         }
 
-        private string Address => String.Format("{0}/{1}/", LayerName, nameof(Geometry));
+        public string MessageAddress { get; set; }
+
+        public bool MessageEnabled { get; set; }
 
         public IMessenger Messenger { get; }
 
-        private string _layerName;
-        public string LayerName
-        {
-            get => _layerName;
-            set => SetAndNotify(ref _layerName, value);
-        }
-
         private int _count;
+        [OSC]
         public int Count
         {
             get => _count;
             set
             {
                 SetAndNotify(ref _count, value);
-                Messenger.SendMessage(Address + nameof(Count), Count);
+                Messenger.SendMessage(MessageAddress + nameof(Count), Count);
             }
         }
 
+        [OSC]
         public ObservableCollection<ListBoxFileName> GeometryPaths { get; }
 
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -117,7 +116,7 @@ namespace CMiX.ViewModels
                     filename.Add(lb.FileName);
                 }
             }
-            Messenger.SendMessage(Address + nameof(GeometryPaths), filename.ToArray());
+            Messenger.SendMessage(MessageAddress + nameof(GeometryPaths), filename.ToArray());
         }
 
         public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -130,65 +129,72 @@ namespace CMiX.ViewModels
                     filename.Add(lb.FileName);
                 }
             }
-            Messenger.SendMessage(Address + nameof(GeometryPaths), filename.ToArray());
+            Messenger.SendMessage(MessageAddress + nameof(GeometryPaths), filename.ToArray());
         }
 
         public GeometryTranslate GeometryTranslate { get; }
+
         public GeometryRotation GeometryRotation { get; }
+
         public GeometryScale GeometryScale { get; }
 
         private double _translateAmount;
+        [OSC]
         public double TranslateAmount
         {
             get => _translateAmount;
             set
             {
                 SetAndNotify(ref _translateAmount, value);
-                Messenger.SendMessage(Address + nameof(TranslateAmount), TranslateAmount);
+                Messenger.SendMessage(MessageAddress + nameof(TranslateAmount), TranslateAmount);
             }
         }
 
         private double _scaleAmount;
+        [OSC]
         public double ScaleAmount
         {
             get => _scaleAmount;
             set
             {
                 SetAndNotify(ref _scaleAmount, value);
-                Messenger.SendMessage(Address + nameof(ScaleAmount), ScaleAmount);
+                Messenger.SendMessage(MessageAddress + nameof(ScaleAmount), ScaleAmount);
             }
         }
 
         private double _rotationAmount;
+        [OSC]
         public double RotationAmount
         {
             get => _rotationAmount;
             set
             {
                 SetAndNotify(ref _rotationAmount, value);
-                Messenger.SendMessage(Address + nameof(RotationAmount), RotationAmount);
+                Messenger.SendMessage(MessageAddress + nameof(RotationAmount), RotationAmount);
             }
         }
 
         private bool _is3D;
+        [OSC]
         public bool Is3D
         {
             get => _is3D;
             set
             {
                 SetAndNotify(ref _is3D, value);
-                Messenger.SendMessage(Address + nameof(Is3D), Is3D.ToString());
+                Messenger.SendMessage(MessageAddress + nameof(Is3D), Is3D.ToString());
             }
         }
 
         private bool _keepAspectRatio;
+        [OSC]
         public bool KeepAspectRatio
         {
             get => _keepAspectRatio;
             set
             {
                 SetAndNotify(ref _keepAspectRatio, value);
-                Messenger.SendMessage(Address + nameof(KeepAspectRatio), KeepAspectRatio.ToString());
+                Messenger.SendMessage(MessageAddress + nameof(KeepAspectRatio), KeepAspectRatio.ToString());
             }
         }
     }

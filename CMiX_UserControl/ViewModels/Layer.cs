@@ -10,11 +10,12 @@ namespace CMiX.ViewModels
             Messenger = messenger;
             Index = index;
             LayerName = layername;
+            MessageAddress = layername;
             Fade = 0.0;
             BlendMode = ((BlendMode)0).ToString();
             Index = 0;
             Enabled = false;
-            BeatModifier = new BeatModifier(masterBeat, layername, messenger);
+            BeatModifier = new BeatModifier(layername, messenger, masterBeat);
             Content = new Content(BeatModifier, layername, messenger);
             Mask = new Mask(BeatModifier, layername, messenger);
             Coloration = new Coloration(BeatModifier, layername, messenger);
@@ -22,6 +23,7 @@ namespace CMiX.ViewModels
 
         public Layer(
             IMessenger messenger,
+            string messageaddress,
             string layername,
             bool enabled,
             int index,
@@ -34,7 +36,7 @@ namespace CMiX.ViewModels
         {
 
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
-            MessageAddress = LayerName;
+            MessageAddress = messageaddress;
             LayerName = layername;
             Index = index;
             Enabled = enabled;

@@ -7,17 +7,19 @@ namespace CMiX.ViewModels
     {
         public Mask(Beat masterbeat, string layername, IMessenger messenger)
             : this(
-                  messenger: messenger,
-                  enable: false,
-                  layerName: layername,
-                  beatModifier: new BeatModifier(masterbeat, layername + "/" + nameof(Mask), messenger),
-                  geometry: new Geometry(layername + "/" + nameof(Mask), messenger),
-                  texture: new Texture(layername + "/" + nameof(Mask), messenger),
-                  postFX: new PostFX(layername + "/" + nameof(Mask), messenger))
+                messenger: messenger,
+                messageaddress: String.Format("{0}/{1}/", layername, nameof(Mask)),
+                enable: false,
+                layerName: layername,
+                beatModifier: new BeatModifier(String.Format("{0}/{1}/", layername, nameof(Mask)), messenger, masterbeat),
+                geometry: new Geometry(String.Format("{0}/{1}/", layername, nameof(Mask)), messenger),
+                texture: new Texture(String.Format("{0}/{1}/", layername, nameof(Mask)), messenger),
+                postFX: new PostFX(String.Format("{0}/{1}/", layername, nameof(Mask)), messenger))
         {}
 
         public Mask(
             IMessenger messenger,
+            string messageaddress,
             string layerName,
             bool enable, 
             BeatModifier beatModifier, 
@@ -28,7 +30,7 @@ namespace CMiX.ViewModels
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             Enable = enable;
             LayerName = layerName;
-            MessageAddress = LayerName + "/" + nameof(Mask);
+            MessageAddress = messageaddress;
             BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
             Geometry = geometry ?? throw new ArgumentNullException(nameof(geometry));
             Texture = texture ?? throw new ArgumentNullException(nameof(texture));
@@ -48,7 +50,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _enable, value);
-                Messenger.SendMessage(MessageAddress + "/" + nameof(Enable), Enable);
+                Messenger.SendMessage(MessageAddress + nameof(Enable), Enable);
             }
         }
 
