@@ -7,7 +7,7 @@ namespace CMiX.ViewModels
     {
         public GeometryTranslate(string layername, IMessenger messenger)
             : this(
-                  messageaddress: String.Format("{0}/{1}/", layername, nameof(Content)),
+                  messageaddress: String.Format("{0}/{1}", layername, nameof(TranslateMode)),
                   messenger: messenger,
                   translateMode: default
                   )
@@ -39,7 +39,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _TranslateMode, value);
-                Messenger.SendMessage(MessageAddress + nameof(TranslateMode), TranslateMode);
+                Messenger.SendMessage(MessageAddress, TranslateMode);
             }
         }
     }

@@ -7,7 +7,7 @@ namespace CMiX.ViewModels
     {
         public GeometryScale(string layername, IMessenger messenger)
             : this(
-                  messageaddress: String.Format("{0}/{1}/", layername, nameof(Content)),
+                  messageaddress: String.Format("{0}/{1}", layername, nameof(ScaleMode)),
                   messenger: messenger,
                   scaleMode: default
                   )
@@ -39,7 +39,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _ScaleMode, value);
-                Messenger.SendMessage(MessageAddress + nameof(ScaleMode), ScaleMode);
+                Messenger.SendMessage(MessageAddress, ScaleMode);
             }
         }
     }

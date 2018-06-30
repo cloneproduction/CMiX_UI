@@ -1,7 +1,9 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 
 namespace CMiX.ViewModels
 {
+    [Serializable]
     public abstract class Beat : ViewModel
     {
         public Beat()

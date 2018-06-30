@@ -7,7 +7,7 @@ namespace CMiX.ViewModels
     {
         public GeometryRotation(string layername, IMessenger messenger)
             : this(
-                  messageaddress: String.Format("{0}/{1}/", layername, nameof(Content)),
+                  messageaddress: String.Format("{0}/{1}", layername, nameof(RotationMode)),
                   messenger: messenger,
                   rotationMode: default
                   )
@@ -39,7 +39,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _RotationMode, value);
-                Messenger.SendMessage(MessageAddress + nameof(RotationMode), RotationMode);
+                Messenger.SendMessage(MessageAddress, RotationMode);
             }
         }
     }

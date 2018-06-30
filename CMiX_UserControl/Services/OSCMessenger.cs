@@ -6,9 +6,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
+using System.Xml.Serialization;
 
 namespace CMiX.Services
 {
+    [Serializable]
     public class OSCMessenger : IMessenger
     {
         public UDPSender Sender { get; }

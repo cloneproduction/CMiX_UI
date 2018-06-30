@@ -3,6 +3,7 @@ using CMiX.Services;
 
 namespace CMiX.ViewModels
 {
+    [Serializable]
     public class Mask : ViewModel, IMessengerData
     {
         public Mask(Beat masterbeat, string layername, IMessenger messenger)
@@ -10,17 +11,15 @@ namespace CMiX.ViewModels
                 messenger: messenger,
                 messageaddress: String.Format("{0}/{1}/", layername, nameof(Mask)),
                 enable: false,
-                layerName: layername,
-                beatModifier: new BeatModifier(String.Format("{0}/{1}/", layername, nameof(Mask)), messenger, masterbeat),
-                geometry: new Geometry(String.Format("{0}/{1}/", layername, nameof(Mask)), messenger),
-                texture: new Texture(String.Format("{0}/{1}/", layername, nameof(Mask)), messenger),
-                postFX: new PostFX(String.Format("{0}/{1}/", layername, nameof(Mask)), messenger))
+                beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Mask)), messenger, masterbeat),
+                geometry: new Geometry(String.Format("{0}/{1}", layername, nameof(Mask)), messenger),
+                texture: new Texture(String.Format("{0}/{1}", layername, nameof(Mask)), messenger),
+                postFX: new PostFX(String.Format("{0}/{1}", layername, nameof(Mask)), messenger))
         {}
 
         public Mask(
             IMessenger messenger,
             string messageaddress,
-            string layerName,
             bool enable, 
             BeatModifier beatModifier, 
             Geometry geometry, 
@@ -29,7 +28,6 @@ namespace CMiX.ViewModels
         {
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             Enable = enable;
-            LayerName = layerName;
             MessageAddress = messageaddress;
             BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
             Geometry = geometry ?? throw new ArgumentNullException(nameof(geometry));
@@ -52,13 +50,6 @@ namespace CMiX.ViewModels
                 SetAndNotify(ref _enable, value);
                 Messenger.SendMessage(MessageAddress + nameof(Enable), Enable);
             }
-        }
-
-        private string _layerName;
-        public string LayerName
-        {
-            get => _layerName;
-            set => SetAndNotify(ref _layerName, value);
         }
 
         public IMessenger Messenger { get; }

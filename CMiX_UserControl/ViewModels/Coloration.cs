@@ -4,19 +4,20 @@ using CMiX.Services;
 
 namespace CMiX.ViewModels
 {
+    [Serializable]
     public class Coloration : ViewModel, IMessengerData
     {
         public Coloration(Beat masterbeat, string layername, IMessenger messenger)
             : this(
                   messenger: messenger,
                   messageaddress: String.Format("{0}/{1}/", layername, nameof(Coloration)),
-                  beatModifier: new BeatModifier(layername + "/" + nameof(Coloration), messenger, masterbeat),
+                  beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Coloration)), messenger, masterbeat),
                   objColor: Colors.BlueViolet,
                   bgColor: Colors.Black,
                   backgroundColor: Colors.Black,
-                  hue: new RangeControl(messenger, String.Format("{0}/{1}/", layername, nameof(Coloration)) + nameof(Hue)),
-                  saturation: new RangeControl(messenger, String.Format("{0}/{1}/", layername, nameof(Coloration)) + nameof(Saturation)),
-                  value: new RangeControl(messenger, String.Format("{0}/{1}/", layername, nameof(Coloration)) + "/" + nameof(Value))
+                  hue: new RangeControl(messenger, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Hue)),
+                  saturation: new RangeControl(messenger, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Saturation)),
+                  value: new RangeControl(messenger, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Value))
                   )
         { }
 
@@ -54,7 +55,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _objColor, value);
-                Messenger.SendMessage(MessageAddress + "/" + nameof(Coloration) + "/" + nameof(ObjColor), ObjColor);
+                Messenger.SendMessage(MessageAddress + nameof(ObjColor), ObjColor);
             }
         }
 
@@ -66,7 +67,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _bgColor, value);
-                Messenger.SendMessage(MessageAddress + "/" + nameof(Coloration) + "/" + nameof(BgColor), BgColor);
+                Messenger.SendMessage(MessageAddress + nameof(BgColor), BgColor);
             }
         }
 

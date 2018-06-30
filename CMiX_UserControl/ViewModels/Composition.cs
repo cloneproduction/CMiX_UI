@@ -4,13 +4,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Collections.Specialized;
-using System.Reflection;
-using System.Collections;
 using System.Diagnostics;
-using System.Text;
-using System.Linq;
-using CMiX;
-using CMiX.Controls;
+using System.Windows;
 
 namespace CMiX.ViewModels
 {
@@ -27,7 +22,9 @@ namespace CMiX.ViewModels
             Camera = new Camera(messenger, MasterBeat);
             AddLayerCommand = new RelayCommand(p => AddLayer());
             RemoveLayerCommand = new RelayCommand(p => RemoveLayer());
-            //DeleteLayerCommand = new RelayCommand(p => DeleteLayer(p));
+
+            CopyLayerCommand = new RelayCommand(p => CopyLayer());
+            PasteLayerCommand = new RelayCommand(p => PasteLayer());
 
             LayerNames = new List<string>();
             Layers = new ObservableCollection<Layer> ();
@@ -59,7 +56,7 @@ namespace CMiX.ViewModels
         }
 
         private List<string> _layernames;
-        public List<string> LayerNames 
+        public List<string> LayerNames
         {
             get => _layernames;
             set => SetAndNotify(ref _layernames, value);
@@ -75,7 +72,39 @@ namespace CMiX.ViewModels
 
         public ICommand AddLayerCommand { get; }
         public ICommand RemoveLayerCommand { get; }
-        //public ICommand DeleteLayerCommand { get; }
+        public ICommand CopyLayerCommand { get; }
+        public ICommand PasteLayerCommand { get; }
+
+        private void CopyLayer()
+        {
+            /*foreach (Layer lyr in Layers)
+            {
+                if (lyr.Enabled)
+                {
+                    IDataObject data = new DataObject();
+                    data.SetData("Layer", lyr, false);
+                    Clipboard.SetDataObject(data);
+                    continue;
+                }
+            }
+            Debug.Print("CopyLayer");*/
+        }
+
+        private void PasteLayer()
+        {
+            /*IDataObject data = Clipboard.GetDataObject();
+            if (data.GetDataPresent("Layer"))
+            {
+                Debug.Print("DataPresent");
+                for (int i = 0; i < Layers.Count; i++)
+                {
+                    if (Layers[i].Enabled)
+                    {
+                        Layers[i] = (Layer)data.GetData("Layer") as Layer;
+                    }
+                }
+            }*/
+        }
 
         private int layerID = -1;
 
@@ -98,10 +127,9 @@ namespace CMiX.ViewModels
             Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
             Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
 
-            Messenger.QueueObject(this);
+            //Messenger.QueueObject(this);
             Messenger.SendQueue();
         }
-
 
         private void RemoveLayer()
         {

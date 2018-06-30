@@ -9,7 +9,7 @@ namespace CMiX.ViewModels
             : this(
                   range: 0.0,
                   messenger: messenger,
-                  messageaddress: String.Format("{0}/{1}/", layername, nameof(RangeControl)),
+                  messageaddress: String.Format("{0}/", layername),
                   modifier: ((RangeModifier)0).ToString()
                   )
         { }

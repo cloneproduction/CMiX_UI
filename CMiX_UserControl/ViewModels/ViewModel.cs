@@ -7,7 +7,8 @@ using System.Runtime.CompilerServices;
 
 namespace CMiX.ViewModels
 {
-    public class ViewModel : INotifyPropertyChanged
+    [Serializable]
+    public class ViewModel : INotifyPropertyChanged, ICloneable
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -43,6 +44,11 @@ namespace CMiX.ViewModels
         public static double CoerceNotNegative(double value)
         {
             return value < 0 ? 0 : value;
+        }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
     }
 }

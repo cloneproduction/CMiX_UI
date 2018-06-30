@@ -3,6 +3,7 @@ using System;
 
 namespace CMiX.ViewModels
 {
+    [Serializable]
     public class BeatModifier : Beat, IMessengerData
     {
         public BeatModifier( string layername, IMessenger messenger, Beat masterBeat)

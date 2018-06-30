@@ -11,6 +11,14 @@
     d:DesignHeight="1015.667"
     d:DesignWidth="1850.667"
     mc:Ignorable="d">
+    <UserControl.InputBindings>
+        <KeyBinding Modifiers="Control"
+                Key="V"
+                Command="{Binding PasteLayerCommand}" />
+        <KeyBinding Modifiers="Control"
+                Key="C"
+                Command="{Binding CopyLayerCommand}" />
+    </UserControl.InputBindings>
     <UserControl.DataContext>
         <ViewModels:Composition/>
     </UserControl.DataContext>
@@ -23,7 +31,6 @@
     <DockPanel
         x:Name="CMiX_UserControl"
         Background="#FF141414"
-        KeyDown="LayerButton_KeyDown"
         LastChildFill="True">
         <Grid Margin="0,0,0,2" DockPanel.Dock="Top">
             <Label
@@ -50,7 +57,6 @@
                     Header="File"
                     Style="{StaticResource MenuItemBase}">
                     <MenuItem
-                        Click="New_Click"
                         Header="New"
                         Template="{DynamicResource SubMenuItemBase}" />
                     <MenuItem

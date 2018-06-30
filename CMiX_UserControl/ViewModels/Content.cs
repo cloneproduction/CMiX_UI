@@ -3,6 +3,7 @@ using CMiX.Services;
 
 namespace CMiX.ViewModels
 {
+    [Serializable]
     public class Content : ViewModel, IMessengerData
     {
         public Content(Beat masterbeat, string layername, IMessenger messenger)
@@ -10,10 +11,10 @@ namespace CMiX.ViewModels
                   enable: true,
                   messageaddress: String.Format("{0}/{1}/", layername, nameof(Content)),
                   messenger: messenger,
-                  beatModifier: new BeatModifier(String.Format("{0}/{1}/", layername, nameof(Content)), messenger, masterbeat),
-                  geometry: new Geometry(String.Format("{0}/{1}/", layername, nameof(Content)), messenger),
-                  texture: new Texture(String.Format("{0}/{1}/", layername, nameof(Content)), messenger),
-                  postFX: new PostFX(String.Format("{0}/{1}/", layername, nameof(Content)), messenger))
+                  beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Content)), messenger, masterbeat),
+                  geometry: new Geometry(String.Format("{0}/{1}", layername, nameof(Content)), messenger),
+                  texture: new Texture(String.Format("{0}/{1}", layername, nameof(Content)), messenger),
+                  postFX: new PostFX(String.Format("{0}/{1}", layername, nameof(Content)), messenger))
         { }
 
         public Content(

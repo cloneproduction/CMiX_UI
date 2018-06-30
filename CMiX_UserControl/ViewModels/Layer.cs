@@ -3,6 +3,7 @@ using System;
 
 namespace CMiX.ViewModels
 {
+    [Serializable]
     public class Layer : ViewModel, IMessengerData
     {
         public Layer(MasterBeat masterBeat, string layername, IMessenger messenger, int index)
