@@ -8,8 +8,8 @@
     xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="310.667"
-    d:DesignWidth="366.333"
+    d:DesignHeight="411.334"
+    d:DesignWidth="380"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ObjectDataProvider x:Key="InvertMode" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
@@ -20,66 +20,54 @@
     </UserControl.Resources>
     <Border             
         DockPanel.Dock="Bottom"
-        Background="{StaticResource DarkerColor}"
-        Padding="4"
-        CornerRadius="2">
-        <Border.Style>
-            <Style>
-                <Setter Property="Border.Background" Value="Green"/>
-                <Style.Triggers>
-                    <Trigger Property="Border.IsMouseOver" Value="True">
-                        <Setter Property="Border.Background" Value="Red" />
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-        </Border.Style>
+        Style="{StaticResource BorderContainer}">
         <DockPanel
                 DockPanel.Dock="Bottom">
             <Grid
-                Height="25"
-                Margin="0,1,0,0"
+                Height="20"
+                Margin="0, 2, 0, 0"
                 DockPanel.Dock="Bottom">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*" />
                     <ColumnDefinition />
+                    <ColumnDefinition Width="0.3*" />
                 </Grid.ColumnDefinitions>
                 <CMiX:CMiXComboBox
-                    Grid.Column="0"
-                    Margin="1"
+                    Grid.Column="1"
+                    Margin="1, 0, 0, 0"
                     ItemsSource="{Binding Source={StaticResource InvertMode}}"
                     SelectedItem="{Binding InvertMode}"
                     SelectedIndex="0"
                     ItemContainerStyle="{StaticResource BaseListBoxItemStyle}"
                     Style="{StaticResource ComboBoxBase}" />
                 <Controls:CustomSlider
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Margin="1"
+                    Grid.Column="0"
                     Caption="Invert"
                     Value="{Binding Invert, Mode=TwoWay}" />
             </Grid>
             <Controls:CustomSlider
-                Margin="1"
+                Margin="0, 2, 0, 2"
                 Caption="Keying"
                 DockPanel.Dock="Bottom"
                 Value="{Binding Keying, Mode=TwoWay}" />
             <Controls:CustomSlider
-                Margin="1"
+                Margin="0, 2, 0, 2"
                 Caption="Saturation"
                 DockPanel.Dock="Bottom"
                 Value="{Binding Saturation, Mode=TwoWay}" />
             <Controls:CustomSlider
-                Margin="1"
+                Margin="0, 2, 0, 2"
                 Caption="Contrast"
                 DockPanel.Dock="Bottom"
                 Value="{Binding Contrast, Mode=TwoWay}" />
             <Controls:CustomSlider
-                Margin="1"
+                Margin="0, 2, 0, 2"
                 Caption="Brightness"
                 DockPanel.Dock="Bottom"
                 Value="{Binding Brightness, Mode=TwoWay}" />
             <Controls:FileSelector
                 DockPanel.Dock="Top"
+                MinHeight="150"
+                Height="150"
                 Title="Textures"
                 Margin="0, 4, 0, 2"
                 ModeSelection="Extended"

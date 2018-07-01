@@ -19,17 +19,18 @@
                 Content="CONTENT"
                 Foreground="{StaticResource TextBase}" />
         </Border>
-        <Border Margin="0,4" DockPanel.Dock="Top" Padding="4" Background="{StaticResource DarkerColor}" CornerRadius="2">
-            <Views:BeatModifier Height="25" DataContext="{Binding BeatModifier}"/>
+        <Border Margin="0,8" DockPanel.Dock="Top" Style="{StaticResource BorderContainer}">
+            <Views:BeatModifier Height="20" DataContext="{Binding BeatModifier}"/>
         </Border>
         <Views:PostFX
+                Margin="0, 8, 0, 0"
                 DataContext="{Binding PostFX}"
                 DockPanel.Dock="Bottom" />
         <Views:Geometry
                 DataContext="{Binding Geometry}"
                 DockPanel.Dock="Bottom" />
         <Views:Texture
-                Margin="0,4"
+                Margin="0,0, 0, 8"
                 DataContext="{Binding Texture}"
                 DockPanel.Dock="Top" />
     </DockPanel>

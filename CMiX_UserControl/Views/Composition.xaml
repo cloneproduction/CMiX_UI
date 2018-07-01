@@ -8,8 +8,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:dd="urn:gong-wpf-dragdrop"
-    d:DesignHeight="1015.667"
-    d:DesignWidth="1850.667"
+    d:DesignHeight="900"
+    d:DesignWidth="1600"
     mc:Ignorable="d">
     <UserControl.InputBindings>
         <KeyBinding Modifiers="Control"
@@ -84,49 +84,11 @@
             Margin="0,2,0,0"
             Background="{StaticResource DarkerColor}"
             DockPanel.Dock="Bottom" />
-        <Grid Grid.Row="1" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.2*" />
-                <ColumnDefinition Width="0.6*" />
-                <ColumnDefinition Width="0.2*" />
-            </Grid.ColumnDefinitions>
+        <DockPanel >
+
             <Border
-                BorderBrush="{StaticResource DarkerColor}"
-                CornerRadius="0, 2, 2, 0"
-                BorderThickness="0, 1, 1, 1"
-                Background="{StaticResource HighDarkerColor}"
-                Padding="8"
-                Margin="0, 4, 4, 4">
-                <DockPanel LastChildFill="False">
-                    <CMiX:MasterBeatControl
-                        x:Name="MasterBeatControl"
-                        DataContext="{Binding Path=MasterBeat}"
-                        DockPanel.Dock="Bottom"
-                        Focusable="True" />
-                    <CMiX:Camera
-                        x:Name="CameraUserControl"
-                        DataContext="{Binding Camera}"
-                        DockPanel.Dock="Top" />
-                </DockPanel>
-            </Border>
-            <Grid
-                Grid.Column="1"
-                Margin="4">
-                <ItemsControl ItemsSource="{Binding Layers}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate DataType="{x:Type Views:LayerControls}">
-                            <Views:LayerControls Visibility="{Binding Enabled, Converter={StaticResource BoolToVisibility}}"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <Grid></Grid>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
-            </Grid>
-            <Border
-                Grid.Column="2"
+                DockPanel.Dock="Right"
+                Width="300"
                 Margin="4, 4, 0, 4"
                 Padding="8, 8, 0, 8"
                 CornerRadius="2"
@@ -172,6 +134,45 @@
                     </ListBox>
                 </DockPanel>
             </Border>
-        </Grid>
+            <Grid DockPanel.Dock="Bottom">
+                <Border
+                BorderBrush="{StaticResource DarkerColor}"
+                CornerRadius="0, 2, 2, 0"
+                BorderThickness="0, 1, 1, 1"
+                Background="{StaticResource HighDarkerColor}"
+                Padding="8"
+                Margin="0, 4, 4, 4">
+                    <DockPanel LastChildFill="False">
+                        <CMiX:MasterBeatControl
+                            x:Name="MasterBeatControl"
+                            DataContext="{Binding Path=MasterBeat}"
+                            DockPanel.Dock="Left"
+                            Focusable="True" />
+                        <CMiX:Camera
+                            x:Name="CameraUserControl"
+                            DataContext="{Binding Camera}"
+                            DockPanel.Dock="Left" />
+                    </DockPanel>
+                </Border>
+            </Grid>
+            <ScrollViewer
+                VerticalScrollBarVisibility="Hidden"
+                Grid.Column="1"
+                Margin="4">
+                <ItemsControl ItemsSource="{Binding Layers}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type Views:LayerControls}">
+                            <Views:LayerControls Visibility="{Binding Enabled, Converter={StaticResource BoolToVisibility}}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Grid></Grid>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+
+        </DockPanel>
     </DockPanel>
 </UserControl>

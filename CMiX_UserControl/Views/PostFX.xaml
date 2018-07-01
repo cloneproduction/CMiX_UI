@@ -25,9 +25,7 @@
     </UserControl.Resources>
     <Border             
         DockPanel.Dock="Bottom"
-        Background="{StaticResource DarkerColor}"
-        Padding="4"
-        CornerRadius="2">
+        Style="{StaticResource BorderContainer}">
         <StackPanel>
             <Border DockPanel.Dock="Bottom">
                 <StackPanel x:Name="TexFXControl">

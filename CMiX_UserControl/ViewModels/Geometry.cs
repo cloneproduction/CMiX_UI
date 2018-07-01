@@ -74,6 +74,7 @@ namespace CMiX.ViewModels
 
         public IMessenger Messenger { get; }
 
+
         private int _count;
         [OSC]
         public int Count

@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Linq;
+using System.IO;
+using CMiX;
+using CMiX.ViewModels;
 
 namespace CMiX.Controls
 {
@@ -46,11 +51,11 @@ namespace CMiX.Controls
         }
 
         public static readonly DependencyProperty FileMaskProperty =
-        DependencyProperty.Register("FileMask", typeof(List<string>), typeof(FileSelector));
+        DependencyProperty.Register("FileMask", typeof(Enum), typeof(FileSelector));
         [Bindable(true)]
-        public List<string> FileMask
+        public Enum FileMask
         {
-            get { return (List<string>)GetValue(FileMaskProperty); }
+            get { return (Enum)GetValue(FileMaskProperty); }
             set { SetValue(FileMaskProperty, value); }
         }
 
@@ -84,8 +89,6 @@ namespace CMiX.Controls
             var vGesture = verticalMove > SystemParameters.MinimumVerticalDragDistance;
             return (hGesture | vGesture);
         }
-
-        //bool _ClickOnItem = false;
 
         private void FileNameList_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -152,8 +155,6 @@ namespace CMiX.Controls
             }
         }
 
-
-
         private void FileListBox_Drop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop, true))
@@ -162,34 +163,28 @@ namespace CMiX.Controls
 
                 for (var i = 0; i < droppedFilePaths.Length; i++)
                 {
-                    //if (Path.GetExtension(droppedFilePaths[i]) == filemask)
+                    //foreach(string filemask in FileMask)
                     //{
-                    ListBoxFileName filename = new ListBoxFileName();
-                    filename.FileName = droppedFilePaths[i];
-                    filename.FileIsSelected = false;
-                    this.Items.Add(filename);
-                    // }
+                        //if (Path.GetExtension(droppedFilePaths[i]) == filemask)
+                        //{
+                            ListBoxFileName filename = new ListBoxFileName();
+                            filename.FileName = droppedFilePaths[i];
+                            filename.FileIsSelected = false;
+                            this.Items.Add(filename);
+                        //}
+                    //}
                 }
             }
 
-            DependencyObject child = e.OriginalSource as DependencyObject;
-
-            var dataObj = e.Data as DataObject;
-            var dragSource = e.Data.GetData("DragSource") as FileSelector;
-
-            if (dragSource != null)
+            if (e.Data.GetDataPresent("DragSource", true))
             {
-                string dragFileSelectorSourceName = dragSource.Name.ToString();
-                string dragFileSelectorTargetName = Utils.FindParent<FileSelector>(child).Name.ToString();
-
-                string dragChannelControlsSourceName = Utils.FindParent<Views.LayerControls>(dragSource).Name.ToString();
-                string dragChannelControlsTargetName = Utils.FindParent<Views.LayerControls>(child).Name.ToString();
-
+                var dataObj = e.Data as DataObject;
                 List<ListBoxFileName> FileNames = dataObj.GetData(typeof(List<ListBoxFileName>)) as List<ListBoxFileName>;
 
-                if (dragChannelControlsSourceName != dragChannelControlsTargetName || dragFileSelectorSourceName != dragFileSelectorTargetName)
+                foreach (var Files in FileNames)
                 {
-                    foreach (var Files in FileNames)
+                    bool listContainsItem = Items.Any(item => item.FileName == Files.FileName);
+                    if (!listContainsItem)
                     {
                         ListBoxFileName CopiedFileName = Files.Clone() as ListBoxFileName;
                         CopiedFileName.FileIsSelected = false;
@@ -198,7 +193,6 @@ namespace CMiX.Controls
                 }
             }
         }
-
 
         private void ClearSelected_Click(object sender, RoutedEventArgs e)
         {

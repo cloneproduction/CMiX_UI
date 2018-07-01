@@ -21,9 +21,7 @@
         </ObjectDataProvider>
     </UserControl.Resources>
     <Border
-        Padding="4"
-        CornerRadius="2"
-        Background="{StaticResource DarkerColor}">
+        Style="{StaticResource BorderContainer}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.15*"/>
@@ -34,27 +32,29 @@
                 AllowDrop="True"
                 GroupName="SelectLayer"
                 IsChecked="{Binding Enabled, Mode=TwoWay}"
+                DragOver="RadioButton_DragOver"
                 Style="{StaticResource RadioButtonLayer}">
                 <RadioButton.Background>
                     <SolidColorBrush Color="{Binding Coloration.ObjColor}" />
                 </RadioButton.Background>
             </RadioButton>
-            <StackPanel Grid.Column="1">
-                <Controls:CustomSlider
-                    Focusable="False"
-                    Caption="Alpha"
-                    Value="{Binding Fade, Mode=TwoWay}" />
+            <StackPanel Grid.Column="1" Margin="4, 0, 0, 0">
                 <Views:BeatModifier
                     Focusable="False"
                     DataContext="{Binding BeatModifier}"
-                    Margin="0,2"/>
+                    />
                 <ComboBox 
-                    Height="25"
+                    Height="20"
+                    Margin="0,4"
                     Style="{StaticResource ComboBoxBase}"
                     ItemContainerStyle="{StaticResource BaseListBoxItemStyle}"
                     SelectedItem="{Binding BlendMode}"
                     ItemsSource="{Binding Source={StaticResource BlendMode}}">
                 </ComboBox>
+                <Controls:CustomSlider
+                    Focusable="False"
+                    Caption="Alpha"
+                    Value="{Binding Fade, Mode=TwoWay}" />
             </StackPanel>
         </Grid>
     </Border>

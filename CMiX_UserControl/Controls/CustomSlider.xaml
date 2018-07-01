@@ -6,30 +6,34 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 
-    d:DesignWidth="250"
-    mc:Ignorable="d">
+    d:DesignWidth="484.889"
+    mc:Ignorable="d" d:DesignHeight="34.222">
     <Grid     Height="20" MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave" Background="Transparent">
-        <Popup x:Name="SliderPopup" Placement="Right" Height="25">
-            <Border
-                CornerRadius="0, 4, 4, 0"
-                Padding="8, 0, 8, 0"
-                Margin="1, 0, 0, 0"
-                Height="25"
-                Background="{StaticResource Color}">
-                <TextBlock
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Foreground="{DynamicResource TextBase}"
-                IsHitTestVisible="False" >
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="{}{0} - {1:N2}">
-                            <Binding Path="Caption" RelativeSource="{RelativeSource AncestorType={x:Type Controls:CustomSlider}}" />
-                            <Binding Path="Value" RelativeSource="{RelativeSource AncestorType={x:Type Controls:CustomSlider}}" />
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
-            </Border>
-        </Popup>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <TextBlock 
+            Padding="2, 0, 0, 0"
+            TextTrimming="CharacterEllipsis" 
+            Text="{Binding Path=Caption, RelativeSource={RelativeSource AncestorType={x:Type Controls:CustomSlider}}}" 
+            FontSize="10" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Center" 
+            Foreground="{StaticResource TextBase}"/>
+        <TextBox 
+            Grid.Column="1"
+            Background="{StaticResource HighDarkerColor}" 
+            BorderBrush="{StaticResource DarkColor}" 
+            BorderThickness="1" Padding="4, 0, 0, 0" 
+            Text="{Binding Path=Value, StringFormat=N2, RelativeSource={RelativeSource AncestorType={x:Type Controls:CustomSlider}}}" 
+            FontSize="10" 
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Stretch" 
+            Foreground="{StaticResource TextBase}"/>
         <DockPanel Grid.Column="2">
             <Grid DockPanel.Dock="Right">
                 <Grid.RowDefinitions>

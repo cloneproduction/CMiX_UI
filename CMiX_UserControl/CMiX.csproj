@@ -101,6 +101,7 @@
   <ItemGroup>
     <Compile Include="Services\OSCAttribute.cs" />
     <Compile Include="Services\IMessengerData.cs" />
+    <Compile Include="ViewModels\GeometryFileMask.cs" />
     <Compile Include="ViewModels\GeometryRotation.cs" />
     <Compile Include="ViewModels\GeometryScale.cs" />
     <Compile Include="ViewModels\GeometrySelector.cs" />
@@ -206,6 +207,10 @@
       <DependentUpon>Texture.xaml</DependentUpon>
     </Compile>
     <Page Include="Resources\Fonts\Roboto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\BorderContainer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
