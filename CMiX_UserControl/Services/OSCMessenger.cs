@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 
 namespace CMiX.Services
 {
-    [Serializable]
+
     public class OSCMessenger : IMessenger
     {
         public UDPSender Sender { get; }

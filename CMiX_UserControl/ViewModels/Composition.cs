@@ -1,4 +1,5 @@
 ﻿using CMiX.Services;
+using CMiX.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,6 +7,7 @@ using System.Windows.Input;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Windows;
+using AutoMapper;
 
 namespace CMiX.ViewModels
 {
@@ -47,7 +49,7 @@ namespace CMiX.ViewModels
             Layers = new ObservableCollection<Layer>(layers);
             Layers.CollectionChanged += ContentCollectionChanged;
         }
-
+        private IMessenger Messenger { get; }
         private string _name;
         public string Name
         {
@@ -62,7 +64,7 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _layernames, value);
         }
 
-        private IMessenger Messenger { get; }
+
 
         public MasterBeat MasterBeat { get; }
 
@@ -77,33 +79,46 @@ namespace CMiX.ViewModels
 
         private void CopyLayer()
         {
-            /*foreach (Layer lyr in Layers)
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<Layer, LayerModel>());
+            var mapper = config.CreateMapper();
+
+            foreach (Layer lyr in Layers)
             {
                 if (lyr.Enabled)
                 {
+                    LayerModel lm = mapper.Map<LayerModel>(lyr);
+                       
+
                     IDataObject data = new DataObject();
-                    data.SetData("Layer", lyr, false);
+                    data.SetData("Layer", lm, false);
                     Clipboard.SetDataObject(data);
                     continue;
                 }
             }
-            Debug.Print("CopyLayer");*/
         }
 
         private void PasteLayer()
         {
-            /*IDataObject data = Clipboard.GetDataObject();
+
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<LayerModel, Layer>().ConstructUsing((Func<LayerModel, Layer>)(x => new Layer())));
+            var mapper = config.CreateMapper();
+
+            IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("Layer"))
             {
-                Debug.Print("DataPresent");
                 for (int i = 0; i < Layers.Count; i++)
                 {
                     if (Layers[i].Enabled)
                     {
-                        Layers[i] = (Layer)data.GetData("Layer") as Layer;
+                        LayerModel lm = (LayerModel)data.GetData("Layer");
+
+                        //MessageBox.Show(lm.Fade.ToString());
+                        Layers[i].Fade = lm.Fade;
+                        Layers[i].BlendMode = lm.BlendMode;
+                        //Layers[i] = (Layer)data.GetData("Layer") as Layer;
                     }
                 }
-            }*/
+            }
         }
 
         private int layerID = -1;
