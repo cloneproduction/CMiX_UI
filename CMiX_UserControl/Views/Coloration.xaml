@@ -2,7 +2,6 @@
     x:Class="CMiX.Views.Coloration"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:CMiX="clr-namespace:CMiX"
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -15,21 +14,20 @@
             BorderThickness="0, 0, 0, 2"
             BorderBrush="{StaticResource DarkColor}">
             <Label
-                Height="25"
-                VerticalAlignment="Center"
-                VerticalContentAlignment="Center"
+                Margin="0"
                 Style="{StaticResource LabelBase}"
                 Content="COLORATION"
-                DockPanel.Dock="Top"/>
+                DockPanel.Dock="Bottom"
+                FontWeight="SemiBold"
+                FontSize="12"/>
         </Border>
-        <Border Padding="4" Margin="0, 4" Background="{StaticResource DarkerColor}" CornerRadius="2">
-            <Views:BeatModifier Height="25" DataContext="{Binding BeatModifier}"/>
+        <Border Style="{StaticResource BorderContainer}" Margin="0, 8">
+            <Views:BeatModifier
+                DataContext="{Binding BeatModifier}"/>
         </Border>
         <Border             
             DockPanel.Dock="Bottom"
-            Background="{StaticResource DarkerColor}"
-            Padding="4"
-            CornerRadius="2">
+            Style="{StaticResource BorderContainer}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -64,32 +62,24 @@
         </Border>
         <Border             
             DockPanel.Dock="Bottom"
-            Background="{StaticResource DarkerColor}"
-            Margin="0, 4"
-            Padding="4"
-            CornerRadius="2">
+            Margin="0, 8, 0, 0"
+            Style="{StaticResource BorderContainer}">
             <StackPanel Grid.Row="1">
                 <Label
-                    Margin="0,2,0,2"
-                    Height="25"
-                    VerticalAlignment="Stretch"
-                    HorizontalAlignment="Stretch"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Content="Modifiers"
-                    Foreground="{DynamicResource TextBase}" />
+                    Margin="0, 0, 0, 4"
+                    Style="{StaticResource LabelBase}"
+                    Content="Modifier"
+                    DockPanel.Dock="Bottom"
+                    FontSize="12"/>
                 <Views:RangeControl 
                     x:Name="Hue"
-                    Height="25"
                     DataContext="{Binding Hue}"/>
                 <Views:RangeControl 
                     x:Name="Sat" 
-                    Margin="0, 2"
-                    Height="25"
+                    Margin="0, 1"
                     DataContext="{Binding Saturation}"/>
                 <Views:RangeControl 
                     x:Name="Val" 
-                    Height="25"
                     DataContext="{Binding Value}"/>
             </StackPanel>
         </Border>

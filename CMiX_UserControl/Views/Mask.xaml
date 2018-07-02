@@ -16,12 +16,12 @@
             BorderBrush="{StaticResource DarkColor}">
             <Grid>
                 <Label
-                    Grid.Column="1"
-                    Height="25"
-                    HorizontalAlignment="Stretch"
-                    Style="{StaticResource LabelBase}"
-                    Content="MASK"
-                    DockPanel.Dock="Left"/>
+                Margin="0"
+                Style="{StaticResource LabelBase}"
+                Content="MASK"
+                DockPanel.Dock="Bottom"
+                FontWeight="SemiBold"
+                FontSize="12"/>
                 <ToggleButton
                     Grid.Row="0"
                     Width="20"

@@ -3,13 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:CMiX="clr-namespace:CMiX"
              xmlns:Controls="clr-namespace:CMiX.Controls"
              xmlns:Views="clr-namespace:CMiX.Views"
              xmlns:ViewModels="clr-namespace:CMiX.ViewModels"             
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
-             d:DesignHeight="49.333" d:DesignWidth="740.667">
+             d:DesignHeight="18.666" d:DesignWidth="350.667">
     <UserControl.Resources>
         <ObjectDataProvider x:Key="RangeModifier" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
@@ -19,19 +18,20 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.5*" />
-            <ColumnDefinition />
+            <ColumnDefinition  />
+            <ColumnDefinition Width="0.3*"/>
         </Grid.ColumnDefinitions>
         <ComboBox
-            Grid.Column="0"
-            Margin="0, 0, 1, 0"
+            Grid.Column="1"
+            Margin="1, 0, 0, 0"
             SelectedItem="{Binding Modifier, Mode=TwoWay}"
             SelectedIndex="0"
+            ItemContainerStyle="{StaticResource BaseListBoxItemStyle}"
             ItemsSource="{Binding Source={StaticResource RangeModifier}}"
             Style="{StaticResource ComboBoxBase}"/>
         <Controls:CustomSlider
-            Grid.Column="1"
-            Margin="1, 0, 0, 0"
+            Grid.Column="0"
+            Margin="0, 0, 1, 0"
             Caption="{Binding Name, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:RangeControl}}}"
             Value="{Binding Range, Mode=TwoWay}" />
     </Grid>

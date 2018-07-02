@@ -16,83 +16,56 @@
             <Border                 
                 BorderThickness="0, 0, 0, 2"
                 BorderBrush="{StaticResource DarkColor}"
-                Margin="0, 0, 0, 2">
+                Margin="0, 0, 0, 8">
                 <Label
-                Height="25"
-                Margin="1,0,1,4"
-                Style="{StaticResource LabelBase}"
-                Content="BEAT"
-                DockPanel.Dock="Bottom"
-                FontSize="12"/>
+                    Margin="0"
+                    Style="{StaticResource LabelBase}"
+                    Content="BEAT"
+                    DockPanel.Dock="Bottom"
+                    FontWeight="SemiBold"
+                    FontSize="12"/>
             </Border>
             <Border             
                 DockPanel.Dock="Bottom"
-                Background="{StaticResource DarkerColor}"
-                Margin="0, 2, 0, 2"
-                Padding="4"
-                CornerRadius="2">
+                Style="{StaticResource BorderContainer}">
                 <StackPanel>
                     <DockPanel
-                Grid.Row="0"
-                Height="50"
-                Margin="0,0,0,1"
-                LastChildFill="True">
-                        <Button
-                    x:Name="Main_MultiplyBPM"
-                    Grid.Row="3"
-                    Grid.Column="1"
-                    Margin="1"
-                    Width="{Binding ActualHeight, ElementName=Main_DivideBPM, Mode=OneWay}"
-                    Command="{Binding Path=MultiplyCommand}"
-                    Content="+"
-                    DockPanel.Dock="Right"
-                    Style="{DynamicResource ButtonBase}" />
-                        <Button
-                    x:Name="Main_DivideBPM"
-                    Margin="1"
-                    Grid.Column="2"
-                    Width="{Binding ActualHeight, ElementName=Main_DivideBPM, Mode=OneWay}"
-                    Command="{Binding Path=DivideCommand}"
-                    Content="-"
-                    DockPanel.Dock="Right"
-                    Style="{DynamicResource ButtonBase}" />
-                        <Button
-                    x:Name="Main_ResetBPM"
-                    Grid.Column="1"
-                    Margin="1"
-                    Width="{Binding ActualHeight, ElementName=Main_DivideBPM, Mode=OneWay}"
-                    Command="{Binding Path=ResetCommand}"
-                    Content="Rt"
-                    DockPanel.Dock="Left"
-                    Style="{DynamicResource ButtonBase}" />
-                        <Label
-                    x:Name="Main_BPM"
-                    Margin="1"
-                    Grid.Column="0"
-                    DockPanel.Dock="Right"
-                    Background="{StaticResource DarkColor}"
-                    Style="{DynamicResource LabelBase}">
-                            <TextBlock Foreground="{DynamicResource TextBase}" Text="{Binding Path=BPM, Mode=OneWay, StringFormat=F0}" />
-                        </Label>
-                    </DockPanel>
-                    <DockPanel
-                        Grid.Row="1"
+                        Grid.Row="0"
                         Height="50"
-                        Margin="0,1,0,0"
+                        Margin="0,0,0,1"
                         LastChildFill="True">
                         <Button
-                            x:Name="Main_ResyncBPM"
-                            Grid.Column="0"
-                            Margin="1"
-                            Width="{Binding ActualHeight, ElementName=Main_ResyncBPM, Mode=OneWay}"
+                            Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
                             Command="{Binding Path=ResyncCommand}"
                             Content="Rc"
                             DockPanel.Dock="Right"
                             Style="{DynamicResource ButtonBase}" />
                         <Button
-                            x:Name="Main_TapBPM"
+                            Margin="4, 0"
+                            Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+                            Command="{Binding Path=MultiplyCommand}"
+                            Content="+"
+                            DockPanel.Dock="Right"
+                            Style="{DynamicResource ButtonBase}" />
+                        <Button
+                            Grid.Column="2"
+                            Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+                            Command="{Binding Path=DivideCommand}"
+                            Content="-"
+                            DockPanel.Dock="Right"
+                            Style="{DynamicResource ButtonBase}" />
+                        <Border 
+                            Background="{StaticResource HighDarkerColor}" 
+                            Margin="4, 0" DockPanel.Dock="Right" 
+                            Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}">
+                            <TextBlock 
+                                Foreground="{DynamicResource TextBase}" 
+                                HorizontalAlignment="Center"
+                                Text="{Binding Path=BPM, Mode=OneWay, StringFormat=F0}" 
+                                VerticalAlignment="Center"/>
+                        </Border>
+                        <Button
                             Grid.Row="2"
-                            Margin="1"
                             Command="{Binding Path=TapCommand}"
                             Content="TAP"
                             Style="{DynamicResource ButtonBase}" />

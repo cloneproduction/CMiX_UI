@@ -12,12 +12,13 @@
         <Border DockPanel.Dock="Top"               
                 BorderThickness="0, 0, 0, 2"
                 BorderBrush="{StaticResource DarkColor}">
+
             <Label
-                Height="25"
-                HorizontalAlignment="Stretch"
                 Style="{StaticResource LabelBase}"
                 Content="CONTENT"
-                Foreground="{StaticResource TextBase}" />
+                DockPanel.Dock="Bottom"
+                FontWeight="SemiBold"
+                FontSize="12"/>
         </Border>
         <Border Margin="0,8" DockPanel.Dock="Top" Style="{StaticResource BorderContainer}">
             <Views:BeatModifier Height="20" DataContext="{Binding BeatModifier}"/>

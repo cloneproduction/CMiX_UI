@@ -10,8 +10,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="CameraControl"
-    d:DesignHeight="300"
-    d:DesignWidth="300"
+    d:DesignHeight="103.445"
+    d:DesignWidth="883.112"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ObjectDataProvider x:Key="CameraView" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
@@ -31,83 +31,96 @@
         </ObjectDataProvider>
     </UserControl.Resources>
 
-    <StackPanel>
-        <Border                 
+    <DockPanel>
+        <Border   
+            DockPanel.Dock="Top"
             BorderThickness="0, 0, 0, 2"
             BorderBrush="{StaticResource DarkColor}"
-            Margin="0, 0, 0, 1">
+            Margin="0, 0, 0, 8">
             <Label
-                Height="25"
-                Style="{StaticResource LabelBase}"
-                Content="CAMERA"
-                DockPanel.Dock="Top"/>
+                    Margin="0"
+                    Style="{StaticResource LabelBase}"
+                    Content="CAMERA"
+                    DockPanel.Dock="Bottom"
+                    FontWeight="SemiBold"
+                    FontSize="12"/>
         </Border>
-        <Border             
-            DockPanel.Dock="Bottom"
-            Background="{StaticResource DarkerColor}"
-            Margin="0, 1, 0, 1"
-            Padding="4"
-            CornerRadius="2">
-            <Views:BeatModifier
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Border             
+            Grid.Column="0"
+                Margin="0, 0, 4, 0"
+            Style="{StaticResource BorderContainer}">
+                <StackPanel>
+                    <Views:BeatModifier
                 DataContext="{Binding BeatModifier}"/>
-        </Border>
-
-        <Border             
+                    <Border             
             DockPanel.Dock="Bottom"
             Background="{StaticResource DarkerColor}"
-            Margin="0, 1, 0, 0"
+            Margin="0, 4, 0, 0"
             Padding="4"
             CornerRadius="2">
-            <StackPanel>
-                <Controls:CustomSlider
+                        <Grid DockPanel.Dock="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <CMiX:CMiXComboBox
+                    Grid.Column="0"
+                    Margin="0, 0, 1, 0"
+                    Height="20"
+                    Style="{StaticResource ComboBoxBase}" 
+                    ItemContainerStyle="{StaticResource BaseListBoxItemStyle}"
+                    ItemsSource="{Binding Source={StaticResource CameraRotation}}"
+                    SelectedItem="{Binding Rotation}"/>
+                            <CMiX:CMiXComboBox
+                    Margin="1, 0, 1, 0"
+                    Grid.Column="1"
+                    Height="20"
+                    Style="{StaticResource ComboBoxBase}" 
+                    ItemContainerStyle="{StaticResource BaseListBoxItemStyle}"
+                    ItemsSource="{Binding Source={StaticResource CameraView}}"
+                    SelectedItem="{Binding View}">
+                            </CMiX:CMiXComboBox>
+                            <CMiX:CMiXComboBox
+                    Margin="1, 0, 0, 0"
+                    Grid.Column="2"
+                    Height="20"
+                    Style="{StaticResource ComboBoxBase}" 
+                    ItemContainerStyle="{StaticResource BaseListBoxItemStyle}"
+                    ItemsSource="{Binding Source={StaticResource CameraLookAt}}"
+                    SelectedItem="{Binding LookAt}"/>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+            </Border>
+
+            <Border             
+            Grid.Column="1"
+                Margin="4, 0, 0, 0"
+            Style="{StaticResource BorderContainer}"    >
+                <StackPanel>
+                    <Controls:CustomSlider
                     Margin="0, 0, 0, 1"
                     Caption="FOV"
                     DockPanel.Dock="Top"
                     Tag="CamFOV"
                     Value="{Binding FOV, Mode=TwoWay}" />
-                <Controls:CustomSlider
+                    <Controls:CustomSlider
                     Margin="0, 1, 0, 0"
                     Caption="Zoom"
                     DockPanel.Dock="Top"
                     Tag="CamZoom"
                     Value="{Binding Zoom, Mode=TwoWay}" />
-            </StackPanel>
-        </Border>
-        <Border             
-            DockPanel.Dock="Bottom"
-            Background="{StaticResource DarkerColor}"
-            Margin="0, 2, 0, 2"
-            Padding="4"
-            CornerRadius="2">
-            <Grid DockPanel.Dock="Top">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <CMiX:CMiXComboBox
-                    Grid.Column="0"
-                    Margin="0, 0, 1, 0"
-                    Height="25"
-                    Style="{StaticResource ComboBoxBase}" 
-                    ItemsSource="{Binding Source={StaticResource CameraRotation}}"
-                    SelectedItem="{Binding Rotation}"/>
-                <CMiX:CMiXComboBox
-                    Margin="1, 0, 1, 0"
-                    Grid.Column="1"
-                    Height="25"
-                    Style="{StaticResource ComboBoxBase}" 
-                    ItemsSource="{Binding Source={StaticResource CameraView}}"
-                    SelectedItem="{Binding View}">
-                </CMiX:CMiXComboBox>
-                <CMiX:CMiXComboBox
-                    Margin="1, 0, 0, 0"
-                    Grid.Column="2"
-                    Height="25"
-                    Style="{StaticResource ComboBoxBase}" 
-                    ItemsSource="{Binding Source={StaticResource CameraLookAt}}"
-                    SelectedItem="{Binding LookAt}"/>
-            </Grid>
-        </Border>
-    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+
+    </DockPanel>
 </UserControl>

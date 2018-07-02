@@ -20,8 +20,27 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </UserControl.Resources>
-    <Border
-        Style="{StaticResource BorderContainer}">
+    <Border>
+        <Border.Style>
+            <Style>
+                <Setter Property="Border.BorderThickness" Value="1"/>
+                <Setter Property="Border.Padding" Value="8"/>
+                <Setter Property="Border.Margin" Value="0, 2, 0, 2"/>
+                <Setter Property="Border.CornerRadius" Value="2"/>
+                <Setter Property="Border.Background" Value="{DynamicResource DarkerColor}"/>
+                <Setter Property="Border.BorderBrush" Value="{DynamicResource DarkerColor}"/>
+                <Style.Triggers>
+                    <Trigger Property="Border.IsMouseOver" Value="True">
+                        <Setter Property="Border.BorderBrush" Value="{DynamicResource LightColor}" />
+                    </Trigger>
+                    <DataTrigger Binding="{Binding Enabled, Mode=Oneway}" Value="True">
+                        <Setter Property="Border.BorderBrush" Value="{StaticResource HighLightColor}"/>
+                        <Setter Property="Border.BorderThickness" Value="2"/>
+                        <Setter Property="Border.Padding" Value="7"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.15*"/>

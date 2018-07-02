@@ -29,23 +29,28 @@
         <StackPanel>
             <Border DockPanel.Dock="Bottom">
                 <StackPanel x:Name="TexFXControl">
-                    <Label
-                        Height="25"
-                        Margin="0,0,0,2"
-                        HorizontalContentAlignment="Center"
-                        Background="Transparent"
-                        Content="PostFX"
-                        DockPanel.Dock="Bottom"
-                        FontSize="12"
-                        Foreground="{StaticResource TextBase}" />
+                    <Border
+                        BorderThickness="0, 0, 0, 1"
+                        Margin="0, 0, 0, 2"
+                        BorderBrush="{StaticResource Color}">
+                        <Label
+                            Height="25"
+                            HorizontalContentAlignment="Center"
+                            Background="Transparent"
+                            Content="PostFX"
+                            DockPanel.Dock="Bottom"
+                            FontSize="12"
+                            Foreground="{StaticResource TextBase}" />
+                    </Border>
+
                     <Controls:CustomSlider
-                        Height="25"
+                        Height="20"
                         Margin="0,2,0,1"
                         Caption="Feedback"
                         Tag="TexFeedBack"
                         Value="{Binding Feedback, Mode=TwoWay}"/>
                     <Controls:CustomSlider
-                        Height="25"
+                        Height="20"
                         Margin="0,1,0,1"
                         Caption="Blur"
                         Tag="Blur"
@@ -58,7 +63,7 @@
                         </Grid.ColumnDefinitions>
                         <CMiX:CMiXComboBox
                             Grid.Column="0"
-                            Height="25"
+                            Height="20"
                             Margin="0, 1, 1, 0"
                             HorizontalContentAlignment="Left"
                             ItemContainerStyle="{DynamicResource ComboBoxItemBase}"
@@ -68,7 +73,7 @@
                             Style="{StaticResource ComboBoxBase}" />
                         <CMiX:CMiXComboBox
                             Grid.Column="1"
-                            Height="25"
+                            Height="20"
                             Margin="1, 1, 0, 0"
                             HorizontalContentAlignment="Left"
                             ItemContainerStyle="{DynamicResource ComboBoxItemBase}"

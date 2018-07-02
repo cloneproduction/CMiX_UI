@@ -10,14 +10,14 @@
     <DockPanel>
         <Button
                 Grid.Column="1"
-                Width="25"
+                Width="20"
                 Click="Button_Add"
                 Content="+"
                 DockPanel.Dock="Right"
                 Style="{StaticResource ButtonBase}"/>
         <Button
                 Grid.Column="0"
-                Width="25"
+                Width="20"
                 Margin="2,0"
                 Click="Button_Sub"
                 Content="-"
