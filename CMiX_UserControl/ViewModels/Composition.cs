@@ -77,18 +77,18 @@ namespace CMiX.ViewModels
         public ICommand CopyLayerCommand { get; }
         public ICommand PasteLayerCommand { get; }
 
+        MapperConfiguration config = new MapperConfiguration(cfg => cfg.CreateMap<Layer, LayerModel>().ReverseMap());
+
         private void CopyLayer()
         {
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<Layer, LayerModel>());
             var mapper = config.CreateMapper();
 
             foreach (Layer lyr in Layers)
             {
                 if (lyr.Enabled)
                 {
-                    LayerModel lm = mapper.Map<LayerModel>(lyr);
-                       
-
+                    LayerModel lm = new LayerModel();
+                    lm = mapper.Map<LayerModel>(lyr);
                     IDataObject data = new DataObject();
                     data.SetData("Layer", lm, false);
                     Clipboard.SetDataObject(data);
@@ -99,8 +99,6 @@ namespace CMiX.ViewModels
 
         private void PasteLayer()
         {
-
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<LayerModel, Layer>().ConstructUsing((Func<LayerModel, Layer>)(x => new Layer())));
             var mapper = config.CreateMapper();
 
             IDataObject data = Clipboard.GetDataObject();
@@ -110,12 +108,9 @@ namespace CMiX.ViewModels
                 {
                     if (Layers[i].Enabled)
                     {
-                        LayerModel lm = (LayerModel)data.GetData("Layer");
-
-                        //MessageBox.Show(lm.Fade.ToString());
-                        Layers[i].Fade = lm.Fade;
-                        Layers[i].BlendMode = lm.BlendMode;
-                        //Layers[i] = (Layer)data.GetData("Layer") as Layer;
+                        /*LayerModel lm = new LayerModel();
+                        lm = (LayerModel)data.GetData("Layer") as LayerModel;
+                        Layers[i] = mapper.Map<Layer>(lm);*/
                     }
                 }
             }

@@ -1,9 +1,11 @@
 ﻿using System;
 using CMiX.Services;
+using System.Runtime.Serialization;
 
 namespace CMiX.ViewModels
 {
     [Serializable]
+    [DataContract]
     public class Content : ViewModel, IMessengerData
     {
         public Content(Beat masterbeat, string layername, IMessenger messenger)
