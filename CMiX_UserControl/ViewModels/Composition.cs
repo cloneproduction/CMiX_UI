@@ -19,6 +19,7 @@ namespace CMiX.ViewModels
 
             var messenger = new OSCMessenger(new SharpOSC.UDPSender("127.0.0.1", 55555));
             Messenger = messenger;
+            DataTransfer = new DataTransfer();
 
             MasterBeat = new MasterBeat(messenger);
             Camera = new Camera(messenger, MasterBeat);
@@ -50,6 +51,9 @@ namespace CMiX.ViewModels
             Layers.CollectionChanged += ContentCollectionChanged;
         }
         private IMessenger Messenger { get; }
+
+        private DataTransfer DataTransfer { get; }
+
         private string _name;
         public string Name
         {
@@ -77,20 +81,22 @@ namespace CMiX.ViewModels
         public ICommand CopyLayerCommand { get; }
         public ICommand PasteLayerCommand { get; }
 
-        MapperConfiguration config = new MapperConfiguration(cfg => cfg.CreateMap<Layer, LayerModel>().ReverseMap());
+        //MapperConfiguration config = new MapperConfiguration(cfg => cfg.CreateMap<Layer, LayerModel>().ReverseMap());
 
         private void CopyLayer()
         {
-            var mapper = config.CreateMapper();
+            //var mapper = config.CreateMapper();
 
             foreach (Layer lyr in Layers)
             {
                 if (lyr.Enabled)
                 {
-                    LayerModel lm = new LayerModel();
-                    lm = mapper.Map<LayerModel>(lyr);
+                    LayerDTO layerdto = new LayerDTO();
+                    //lm = mapper.Map<LayerModel>(lyr);
+                    DataTransfer.CopyLayer(lyr, layerdto);
+
                     IDataObject data = new DataObject();
-                    data.SetData("Layer", lm, false);
+                    data.SetData("Layer", layerdto, false);
                     Clipboard.SetDataObject(data);
                     continue;
                 }
@@ -99,7 +105,7 @@ namespace CMiX.ViewModels
 
         private void PasteLayer()
         {
-            var mapper = config.CreateMapper();
+            //var mapper = config.CreateMapper();
 
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("Layer"))
@@ -108,6 +114,9 @@ namespace CMiX.ViewModels
                 {
                     if (Layers[i].Enabled)
                     {
+
+                        var lm = (LayerDTO)data.GetData("Layer") as LayerDTO;
+                        DataTransfer.PasteLayer(lm, Layers[i]);
                         /*LayerModel lm = new LayerModel();
                         lm = (LayerModel)data.GetData("Layer") as LayerModel;
                         Layers[i] = mapper.Map<Layer>(lm);*/

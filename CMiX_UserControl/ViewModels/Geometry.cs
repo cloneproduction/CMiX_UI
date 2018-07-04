@@ -88,7 +88,7 @@ namespace CMiX.ViewModels
         }
 
         [OSC]
-        public ObservableCollection<ListBoxFileName> GeometryPaths { get; }
+        public ObservableCollection<ListBoxFileName> GeometryPaths { get; set; }
 
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {

@@ -6,14 +6,13 @@ using System.Runtime.Serialization;
 namespace CMiX.ViewModels
 {
     [Serializable]
-    [DataContract]
     public class Layer : ViewModel, IMessengerData
     {
         public Layer() { }
 
         public Layer(MasterBeat masterBeat, string layername, IMessenger messenger, int index)
         {
-            layermodel = new LayerModel();
+            //layermodel = new LayerModel();
             Messenger = messenger;
             Index = index;
             LayerName = layername;
@@ -55,8 +54,6 @@ namespace CMiX.ViewModels
             Coloration = coloration ?? throw new ArgumentNullException(nameof(coloration));
         }
 
-        private LayerModel layermodel;
-
         private IMessenger Messenger { get; }
 
         public string MessageAddress { get; set; }
@@ -77,7 +74,6 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _enabled, value);
         }
 
-        [DataMember]
         private double _fade;
         public double Fade
         {

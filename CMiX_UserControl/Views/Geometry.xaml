@@ -52,7 +52,7 @@
                     Title="Models"
                     Margin="0, 0, 0, 4"
                     ModeSelection="Single"
-                    Items="{Binding GeometryPaths}">
+                    Items="{Binding GeometryPaths, Mode=TwoWay}">
                 </Controls:FileSelector>
                 <Grid Height="20">
                     <Grid.ColumnDefinitions>
