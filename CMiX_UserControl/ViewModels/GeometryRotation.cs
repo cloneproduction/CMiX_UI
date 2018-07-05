@@ -9,6 +9,7 @@ namespace CMiX.ViewModels
             : this(
                   messageaddress: String.Format("{0}/{1}", layername, nameof(RotationMode)),
                   messenger: messenger,
+                  messageEnabled : true,
                   rotationMode: default
                   )
         {
@@ -17,11 +18,13 @@ namespace CMiX.ViewModels
         public GeometryRotation
             (
                 string messageaddress,
+                bool messageEnabled,
                 IMessenger messenger,
                 GeometryRotationMode rotationMode
             )
         {
             MessageAddress = messageaddress;
+            MessageEnabled = messageEnabled;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
         }
 

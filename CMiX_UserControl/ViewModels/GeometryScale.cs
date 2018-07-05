@@ -9,6 +9,7 @@ namespace CMiX.ViewModels
             : this(
                   messageaddress: String.Format("{0}/{1}", layername, nameof(ScaleMode)),
                   messenger: messenger,
+                  messageEnabled : true,
                   scaleMode: default
                   )
         {
@@ -17,11 +18,13 @@ namespace CMiX.ViewModels
         public GeometryScale
             (
                 string messageaddress,
+                bool messageEnabled,
                 IMessenger messenger,
                 GeometryScaleMode scaleMode
             )
         {
             MessageAddress = messageaddress;
+            MessageEnabled = messageEnabled;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
         }
 

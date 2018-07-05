@@ -14,6 +14,7 @@ namespace CMiX.ViewModels
             : this(
                   messenger: messenger,
                   messageaddress : String.Format("{0}/{1}/", layername, nameof(Texture)),
+                  messageEnabled : true,
                   texturePaths: new ObservableCollection<ListBoxFileName>(),
                   brightness: 0.0,
                   contrast: 0.0,
@@ -30,6 +31,7 @@ namespace CMiX.ViewModels
             IEnumerable<ListBoxFileName> texturePaths,
             IMessenger messenger,
             string messageaddress,
+            bool messageEnabled,
             double brightness,
             double contrast,
             double saturation,
@@ -37,16 +39,19 @@ namespace CMiX.ViewModels
             double invert,
             string invertMode)
         {
+            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+            MessageAddress = messageaddress;
+            MessageEnabled = messageEnabled;
+
+            TexturePaths = new ObservableCollection<ListBoxFileName>();
+            TexturePaths.CollectionChanged += ContentCollectionChanged;
+
             AssertNotNegative(() => brightness);
             AssertNotNegative(() => contrast);
             AssertNotNegative(() => saturation);
             AssertNotNegative(() => keying);
-            AssertNotNegative(() => invert);
 
-            TexturePaths = new ObservableCollection<ListBoxFileName>();
-            TexturePaths.CollectionChanged += ContentCollectionChanged;
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
-            MessageAddress = messageaddress;
+            AssertNotNegative(() => invert);
             Brightness = brightness;
             Contrast = contrast;
             Saturation = saturation;

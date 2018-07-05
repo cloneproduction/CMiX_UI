@@ -9,5 +9,8 @@ namespace CMiX.Models
     [Serializable]
     public class RangeControlDTO
     {
+        public double Range { get; set; }
+
+        public string Modifier { get; set; }
     }
 }

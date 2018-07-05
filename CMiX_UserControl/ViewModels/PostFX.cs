@@ -9,6 +9,7 @@ namespace CMiX.ViewModels
             : this(
                   messageaddress: String.Format("{0}/{1}/", layername, nameof(PostFX)),
                   messenger: messenger,
+                  messageEnabled : true,
                   feedback: 0.0, 
                   blur: 0.0, 
                   transforms: ((PostFXTransforms)0).ToString(), 
@@ -18,16 +19,20 @@ namespace CMiX.ViewModels
         public PostFX(
             IMessenger messenger,
             string messageaddress,
+            bool messageEnabled,
             double feedback, 
             double blur,
             string transforms,
             string view)
         {
+            MessageAddress = messageaddress;
+            MessageEnabled = messageEnabled;
+
+            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+
             AssertNotNegative(() => feedback);
             AssertNotNegative(() => blur);
 
-            MessageAddress = messageaddress;
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             Feedback = feedback;
             Blur = blur;
             Transforms = transforms;

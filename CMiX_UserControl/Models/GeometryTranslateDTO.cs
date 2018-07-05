@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CMiX.ViewModels;
+using System;
 
 namespace CMiX.Models
 {
     [Serializable]
     public class GeometryTranslateDTO
     {
-
+        public GeometryTranslateMode TranslateModeDTO { get; set; }
     }
 }

@@ -14,6 +14,7 @@ namespace CMiX.ViewModels
             : this(
                   messenger: messenger,
                   messageaddress : String.Format("{0}/{1}/", layername, nameof(Geometry)),
+                  messageEnabled : true,
                   count: 1,
                   geometrytranslate: new GeometryTranslate(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger),
                   geometryscale: new GeometryScale(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger),
@@ -32,6 +33,7 @@ namespace CMiX.ViewModels
         public Geometry(
             IMessenger messenger,
             string messageaddress,
+            bool messageEnabled,
             int count,
             IEnumerable<ListBoxFileName> geometrypaths,
             GeometryTranslate geometrytranslate,
@@ -50,7 +52,7 @@ namespace CMiX.ViewModels
 
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
-
+            MessageEnabled = messageEnabled;
             Count = count;
 
             GeometryPaths = new ObservableCollection<ListBoxFileName>() ;

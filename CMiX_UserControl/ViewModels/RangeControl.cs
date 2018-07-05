@@ -9,6 +9,7 @@ namespace CMiX.ViewModels
             : this(
                   range: 0.0,
                   messenger: messenger,
+                  messageEnabled : true,
                   messageaddress: String.Format("{0}/", layername),
                   modifier: ((RangeModifier)0).ToString()
                   )
@@ -17,11 +18,13 @@ namespace CMiX.ViewModels
         public RangeControl(
             double range,
             string messageaddress,
+            bool messageEnabled,
             IMessenger messenger,
             string modifier)
         {
             AssertNotNegative(() => range);
             MessageAddress = messageaddress;
+            MessageEnabled = messageEnabled;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             Range = range;
             Modifier = modifier;

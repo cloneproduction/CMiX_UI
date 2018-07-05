@@ -5,9 +5,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Collections.Specialized;
-using System.Diagnostics;
 using System.Windows;
-using AutoMapper;
+using System.Diagnostics;
 
 namespace CMiX.ViewModels
 {
@@ -17,12 +16,12 @@ namespace CMiX.ViewModels
         {
             Name = string.Empty;
 
-            var messenger = new OSCMessenger(new SharpOSC.UDPSender("127.0.0.1", 55555));
-            Messenger = messenger;
+
+            Messenger = new OSCMessenger(new SharpOSC.UDPSender("127.0.0.1", 55555));
             DataTransfer = new DataTransfer();
 
-            MasterBeat = new MasterBeat(messenger);
-            Camera = new Camera(messenger, MasterBeat);
+            MasterBeat = new MasterBeat(Messenger);
+            Camera = new Camera(Messenger, MasterBeat);
             AddLayerCommand = new RelayCommand(p => AddLayer());
             RemoveLayerCommand = new RelayCommand(p => RemoveLayer());
 
@@ -41,9 +40,7 @@ namespace CMiX.ViewModels
                 throw new ArgumentNullException(nameof(layers));
             }
 
-            var messenger = new OSCMessenger(new SharpOSC.UDPSender("127.0.0.1", 55555));
-            Messenger = messenger;
-
+            Messenger = new OSCMessenger(new SharpOSC.UDPSender("127.0.0.1", 55555));
             Name = name;
             Camera = camera ?? throw new ArgumentNullException(nameof(camera));
             MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
@@ -68,8 +65,6 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _layernames, value);
         }
 
-
-
         public MasterBeat MasterBeat { get; }
 
         public Camera Camera { get; }
@@ -88,7 +83,6 @@ namespace CMiX.ViewModels
                 if (lyr.Enabled)
                 {
                     LayerDTO layerdto = new LayerDTO();
-
                     DataTransfer.CopyLayer(lyr, layerdto);
 
                     IDataObject data = new DataObject();
@@ -109,12 +103,9 @@ namespace CMiX.ViewModels
                     if (Layers[i].Enabled)
                     {
                         var lm = (LayerDTO)data.GetData("Layer") as LayerDTO;
-                        Layers[i].MessageEnabled = false;
-
                         DataTransfer.PasteLayer(lm, Layers[i]);
-                        Messenger.QueueObject(lm);
-
-                        Layers[i].MessageEnabled = true;
+                        Messenger.QueueObject(Layers[i]);
+                        Messenger.SendQueue();
                     }
                 }
             }
@@ -140,8 +131,6 @@ namespace CMiX.ViewModels
 
             Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
             Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
-
-            //Messenger.QueueObject(this);
             Messenger.SendQueue();
         }
 

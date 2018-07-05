@@ -1,6 +1,5 @@
 ﻿using System;
 using CMiX.Services;
-using System.Runtime.Serialization;
 
 namespace CMiX.ViewModels
 {
@@ -11,6 +10,7 @@ namespace CMiX.ViewModels
             : this(
                   enable: true,
                   messageaddress: String.Format("{0}/{1}/", layername, nameof(Content)),
+                  messageEnabled : true,
                   messenger: messenger,
                   beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Content)), messenger, masterbeat),
                   geometry: new Geometry(String.Format("{0}/{1}", layername, nameof(Content)), messenger),
@@ -21,6 +21,7 @@ namespace CMiX.ViewModels
         public Content(
             bool enable,
             string messageaddress,
+            bool messageEnabled,
             IMessenger messenger, 
             BeatModifier beatModifier, 
             Geometry geometry, 
@@ -29,6 +30,7 @@ namespace CMiX.ViewModels
         {
             Enable = enable;
             MessageAddress = messageaddress;
+            MessageEnabled = messageEnabled;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
             Geometry = geometry ?? throw new ArgumentNullException(nameof(geometry));

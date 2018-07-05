@@ -10,6 +10,7 @@ namespace CMiX.ViewModels
             : this(
                 messenger: messenger,
                 messageaddress: String.Format("{0}/{1}/", layername, nameof(Mask)),
+                messageEnabled : true,
                 enable: false,
                 beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Mask)), messenger, masterbeat),
                 geometry: new Geometry(String.Format("{0}/{1}", layername, nameof(Mask)), messenger),
@@ -20,6 +21,7 @@ namespace CMiX.ViewModels
         public Mask(
             IMessenger messenger,
             string messageaddress,
+            bool messageEnabled,
             bool enable, 
             BeatModifier beatModifier, 
             Geometry geometry, 
@@ -29,6 +31,7 @@ namespace CMiX.ViewModels
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             Enable = enable;
             MessageAddress = messageaddress;
+            MessageEnabled = messageEnabled;
             BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
             Geometry = geometry ?? throw new ArgumentNullException(nameof(geometry));
             Texture = texture ?? throw new ArgumentNullException(nameof(texture));

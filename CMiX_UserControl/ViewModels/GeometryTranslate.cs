@@ -9,6 +9,7 @@ namespace CMiX.ViewModels
             : this(
                   messageaddress: String.Format("{0}/{1}", layername, nameof(TranslateMode)),
                   messenger: messenger,
+                  messageEnabled : true,
                   translateMode: default
                   )
         {
@@ -17,11 +18,13 @@ namespace CMiX.ViewModels
         public GeometryTranslate
             (
                 string messageaddress,
+                bool messageEnabled,
                 IMessenger messenger,
                 GeometryTranslateMode translateMode
             )
         {
             MessageAddress = messageaddress;
+            MessageEnabled = messageEnabled;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
         }
 

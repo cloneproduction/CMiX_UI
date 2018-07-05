@@ -1,7 +1,5 @@
 ﻿using CMiX.Services;
-using CMiX.Models;
 using System;
-using System.Runtime.Serialization;
 
 namespace CMiX.ViewModels
 {
@@ -15,7 +13,7 @@ namespace CMiX.ViewModels
             Messenger = messenger;
             Index = index;
             LayerName = layername;
-            MessageAddress = layername;
+            MessageAddress = String.Format("{0}/", layername);
             MessageEnabled = true;
             Fade = 0.0;
             BlendMode = ((BlendMode)0).ToString();
@@ -84,6 +82,7 @@ namespace CMiX.ViewModels
         }
 
         private double _fade;
+        [OSC]
         public double Fade
         {
             get => _fade;
@@ -91,11 +90,12 @@ namespace CMiX.ViewModels
             {
                 SetAndNotify(ref _fade, value);
                 if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + "/" + nameof(Fade), Fade);
+                    Messenger.SendMessage(MessageAddress + nameof(Fade), Fade);
             }
         }
 
         private string _blendMode;
+        [OSC]
         public string BlendMode
         {
             get => _blendMode;

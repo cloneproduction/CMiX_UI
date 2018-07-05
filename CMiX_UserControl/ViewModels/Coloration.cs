@@ -11,6 +11,7 @@ namespace CMiX.ViewModels
             : this(
                   messenger: messenger,
                   messageaddress: String.Format("{0}/{1}/", layername, nameof(Coloration)),
+                  messageEnabled : true,
                   beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Coloration)), messenger, masterbeat),
                   objColor: Colors.BlueViolet,
                   bgColor: Colors.Black,
@@ -24,6 +25,7 @@ namespace CMiX.ViewModels
         public Coloration(
             IMessenger messenger,
             string messageaddress,
+            bool messageEnabled,
             BeatModifier beatModifier, 
             Color objColor,
             Color bgColor,
@@ -34,6 +36,7 @@ namespace CMiX.ViewModels
         {
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
+            MessageEnabled = messageEnabled;
             BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
             ObjColor = objColor;
             BgColor = bgColor;

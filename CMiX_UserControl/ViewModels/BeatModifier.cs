@@ -1,5 +1,6 @@
 ﻿using CMiX.Services;
 using System;
+using System.Diagnostics;
 
 namespace CMiX.ViewModels
 {
@@ -9,6 +10,7 @@ namespace CMiX.ViewModels
         public BeatModifier( string layername, IMessenger messenger, Beat masterBeat)
             : this(
                   messenger: messenger,
+                  messageEnabled : true,
                   messageaddress: String.Format("{0}/{1}/", layername, nameof(BeatModifier)),
                   masterBeat: masterBeat,
                   multiplier: 1.0,
@@ -17,6 +19,7 @@ namespace CMiX.ViewModels
 
         public BeatModifier(
             IMessenger messenger,
+            bool messageEnabled,
             string messageaddress,
             Beat masterBeat, 
             double multiplier, 
@@ -24,6 +27,7 @@ namespace CMiX.ViewModels
         {
             Messenger = messenger ?? throw new ArgumentNullException(nameof(Messenger));
             MessageAddress = messageaddress;
+            MessageEnabled = messageEnabled;
             MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
             Multiplier = multiplier;
             ChanceToHit = chanceToHit;
@@ -59,7 +63,7 @@ namespace CMiX.ViewModels
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
-                if(MessageEnabled)
+                if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Multiplier), Multiplier);
             }
         }

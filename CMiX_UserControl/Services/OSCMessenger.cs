@@ -4,13 +4,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Xml.Serialization;
 
 namespace CMiX.Services
 {
-
     public class OSCMessenger : IMessenger
     {
         public UDPSender Sender { get; }
@@ -82,8 +81,6 @@ namespace CMiX.Services
                                     filenames.Add(lbfn.FileName);
                                 }
                             }
-                            filenames.Add("FileNameTest");
-                            filenames.Add("FileNameHello");
                             QueueMessage(address + propertyname, filenames.ToArray());
                         }
                         else
