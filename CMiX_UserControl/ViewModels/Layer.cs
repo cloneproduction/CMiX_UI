@@ -12,11 +12,11 @@ namespace CMiX.ViewModels
 
         public Layer(MasterBeat masterBeat, string layername, IMessenger messenger, int index)
         {
-            //layermodel = new LayerModel();
             Messenger = messenger;
             Index = index;
             LayerName = layername;
             MessageAddress = layername;
+            MessageEnabled = true;
             Fade = 0.0;
             BlendMode = ((BlendMode)0).ToString();
             Index = 0;
@@ -30,6 +30,7 @@ namespace CMiX.ViewModels
         public Layer(
             IMessenger messenger,
             string messageaddress,
+            bool messageEnabled,
             string layername,
             bool enabled,
             int index,
@@ -43,6 +44,7 @@ namespace CMiX.ViewModels
 
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
+            MessageEnabled = messageEnabled;
             LayerName = layername;
             Index = index;
             Enabled = enabled;
@@ -74,6 +76,13 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _enabled, value);
         }
 
+        private int _index;
+        public int Index
+        {
+            get => _index;
+            set => SetAndNotify(ref _index, value);
+        }
+
         private double _fade;
         public double Fade
         {
@@ -81,15 +90,9 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _fade, value);
-                Messenger.SendMessage(MessageAddress + "/" + nameof(Fade), Fade);
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + "/" + nameof(Fade), Fade);
             }
-        }
-
-        private int _index;
-        public int Index
-        {
-            get => _index;
-            set => SetAndNotify(ref _index, value);
         }
 
         private string _blendMode;
@@ -99,7 +102,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _blendMode, value);
-                Messenger.SendMessage(MessageAddress + "/" + nameof(BlendMode), BlendMode);
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + "/" + nameof(BlendMode), BlendMode);
             }
         }
 

@@ -41,7 +41,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _range, CoerceNotNegative(value));
-                Messenger.SendMessage(MessageAddress + nameof(Range), Range);
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(Range), Range);
             }
         }
 
@@ -53,7 +54,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _modifier, value);
-                Messenger.SendMessage(MessageAddress + nameof(Modifier), Modifier);
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(Modifier), Modifier);
             }
         }
     }

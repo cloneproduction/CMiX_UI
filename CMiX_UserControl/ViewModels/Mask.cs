@@ -48,7 +48,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _enable, value);
-                Messenger.SendMessage(MessageAddress + nameof(Enable), Enable);
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(Enable), Enable);
             }
         }
 

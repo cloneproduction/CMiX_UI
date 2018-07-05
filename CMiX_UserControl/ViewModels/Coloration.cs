@@ -55,7 +55,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _objColor, value);
-                Messenger.SendMessage(MessageAddress + nameof(ObjColor), ObjColor);
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(ObjColor), ObjColor);
             }
         }
 
@@ -67,7 +68,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _bgColor, value);
-                Messenger.SendMessage(MessageAddress + nameof(BgColor), BgColor);
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(BgColor), BgColor);
             }
         }
 

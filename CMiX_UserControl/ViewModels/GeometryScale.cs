@@ -39,7 +39,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _ScaleMode, value);
-                Messenger.SendMessage(MessageAddress, ScaleMode);
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress, ScaleMode);
             }
         }
     }

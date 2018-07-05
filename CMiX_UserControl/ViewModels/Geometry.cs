@@ -83,7 +83,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _count, value);
-                Messenger.SendMessage(MessageAddress + nameof(Count), Count);
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(Count), Count);
             }
         }
 
@@ -117,7 +118,8 @@ namespace CMiX.ViewModels
                     filename.Add(lb.FileName);
                 }
             }
-            Messenger.SendMessage(MessageAddress + nameof(GeometryPaths), filename.ToArray());
+            if(MessageEnabled)
+                Messenger.SendMessage(MessageAddress + nameof(GeometryPaths), filename.ToArray());
         }
 
         public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -130,7 +132,8 @@ namespace CMiX.ViewModels
                     filename.Add(lb.FileName);
                 }
             }
-            Messenger.SendMessage(MessageAddress + nameof(GeometryPaths), filename.ToArray());
+            if(MessageEnabled)
+                Messenger.SendMessage(MessageAddress + nameof(GeometryPaths), filename.ToArray());
         }
 
         public GeometryTranslate GeometryTranslate { get; }
@@ -147,7 +150,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _translateAmount, value);
-                Messenger.SendMessage(MessageAddress + nameof(TranslateAmount), TranslateAmount);
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(TranslateAmount), TranslateAmount);
             }
         }
 
@@ -159,7 +163,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _scaleAmount, value);
-                Messenger.SendMessage(MessageAddress + nameof(ScaleAmount), ScaleAmount);
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(ScaleAmount), ScaleAmount);
             }
         }
 
@@ -171,7 +176,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _rotationAmount, value);
-                Messenger.SendMessage(MessageAddress + nameof(RotationAmount), RotationAmount);
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(RotationAmount), RotationAmount);
             }
         }
 
@@ -183,7 +189,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _is3D, value);
-                Messenger.SendMessage(MessageAddress + nameof(Is3D), Is3D.ToString());
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(Is3D), Is3D.ToString());
             }
         }
 
@@ -195,7 +202,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _keepAspectRatio, value);
-                Messenger.SendMessage(MessageAddress + nameof(KeepAspectRatio), KeepAspectRatio.ToString());
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(KeepAspectRatio), KeepAspectRatio.ToString());
             }
         }
     }

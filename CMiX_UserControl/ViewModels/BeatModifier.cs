@@ -59,7 +59,8 @@ namespace CMiX.ViewModels
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
-                Messenger.SendMessage(MessageAddress + nameof(Multiplier), Multiplier);
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(Multiplier), Multiplier);
             }
         }
 
@@ -70,7 +71,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _chanceToHit, value);
-                Messenger.SendMessage(MessageAddress + nameof(ChanceToHit), ChanceToHit);
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(ChanceToHit), ChanceToHit);
             }
         }
 

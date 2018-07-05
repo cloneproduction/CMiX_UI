@@ -1,6 +1,7 @@
-﻿
+﻿using System;
 namespace CMiX.Models
 {
+    [Serializable]
     public class ContentDTO
     {
         public ContentDTO()

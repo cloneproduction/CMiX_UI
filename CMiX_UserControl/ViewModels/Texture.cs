@@ -72,7 +72,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _brightness, CoerceNotNegative(value));
-                Messenger.SendMessage(MessageAddress + nameof(Brightness), Brightness);
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(Brightness), Brightness);
             }
         }
 
@@ -84,7 +85,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _contrast, CoerceNotNegative(value));
-                Messenger.SendMessage(MessageAddress + nameof(Contrast), Contrast);
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(Contrast), Contrast);
             }
         }
 
@@ -96,7 +98,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _saturation, CoerceNotNegative(value));
-                Messenger.SendMessage(MessageAddress + nameof(Saturation), Saturation);
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(Saturation), Saturation);
             }
         }
 
@@ -108,7 +111,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _keying, CoerceNotNegative(value));
-                Messenger.SendMessage(MessageAddress + nameof(Keying), Keying);
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(Keying), Keying);
             }
         }
 
@@ -120,7 +124,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _invert, CoerceNotNegative(value));
-                Messenger.SendMessage(MessageAddress + nameof(Invert), Invert);
+                if (MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(Invert), Invert);
             }
         }
 
@@ -132,7 +137,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _invertMode, value);
-                Messenger.SendMessage(MessageAddress + nameof(InvertMode), InvertMode);
+                if (MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(InvertMode), InvertMode);
             }
         }
 
@@ -163,7 +169,8 @@ namespace CMiX.ViewModels
                     filename.Add(lb.FileName);
                 }
             }
-            Messenger.SendMessage(MessageAddress + nameof(TexturePaths), filename.ToArray());
+            if (MessageEnabled)
+                Messenger.SendMessage(MessageAddress + nameof(TexturePaths), filename.ToArray());
         }
 
         public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -176,7 +183,8 @@ namespace CMiX.ViewModels
                     filename.Add(lb.FileName);
                 }
             }
-            Messenger.SendMessage(MessageAddress + nameof(TexturePaths), filename.ToArray());
+            if (MessageEnabled)
+                Messenger.SendMessage(MessageAddress + nameof(TexturePaths), filename.ToArray());
         }
     }
 }

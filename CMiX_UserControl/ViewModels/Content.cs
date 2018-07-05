@@ -5,7 +5,6 @@ using System.Runtime.Serialization;
 namespace CMiX.ViewModels
 {
     [Serializable]
-    [DataContract]
     public class Content : ViewModel, IMessengerData
     {
         public Content(Beat masterbeat, string layername, IMessenger messenger)
@@ -47,10 +46,7 @@ namespace CMiX.ViewModels
         public bool Enable
         {
             get => _enable;
-            set
-            {
-                SetAndNotify(ref _enable, value);
-            }
+            set => SetAndNotify(ref _enable, value);
         }
 
         public BeatModifier BeatModifier { get; }

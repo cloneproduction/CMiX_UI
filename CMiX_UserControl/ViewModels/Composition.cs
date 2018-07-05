@@ -81,18 +81,14 @@ namespace CMiX.ViewModels
         public ICommand CopyLayerCommand { get; }
         public ICommand PasteLayerCommand { get; }
 
-        //MapperConfiguration config = new MapperConfiguration(cfg => cfg.CreateMap<Layer, LayerModel>().ReverseMap());
-
         private void CopyLayer()
         {
-            //var mapper = config.CreateMapper();
-
             foreach (Layer lyr in Layers)
             {
                 if (lyr.Enabled)
                 {
                     LayerDTO layerdto = new LayerDTO();
-                    //lm = mapper.Map<LayerModel>(lyr);
+
                     DataTransfer.CopyLayer(lyr, layerdto);
 
                     IDataObject data = new DataObject();
@@ -105,8 +101,6 @@ namespace CMiX.ViewModels
 
         private void PasteLayer()
         {
-            //var mapper = config.CreateMapper();
-
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("Layer"))
             {
@@ -114,12 +108,13 @@ namespace CMiX.ViewModels
                 {
                     if (Layers[i].Enabled)
                     {
-
                         var lm = (LayerDTO)data.GetData("Layer") as LayerDTO;
+                        Layers[i].MessageEnabled = false;
+
                         DataTransfer.PasteLayer(lm, Layers[i]);
-                        /*LayerModel lm = new LayerModel();
-                        lm = (LayerModel)data.GetData("Layer") as LayerModel;
-                        Layers[i] = mapper.Map<Layer>(lm);*/
+                        Messenger.QueueObject(lm);
+
+                        Layers[i].MessageEnabled = true;
                     }
                 }
             }

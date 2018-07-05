@@ -39,7 +39,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _RotationMode, value);
-                Messenger.SendMessage(MessageAddress, RotationMode);
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress, RotationMode);
             }
         }
     }

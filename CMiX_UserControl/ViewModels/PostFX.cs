@@ -47,7 +47,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _feedback, CoerceNotNegative(value));
-                Messenger.SendMessage(MessageAddress + nameof(Feedback), Feedback);
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(Feedback), Feedback);
             }
         }
 
@@ -59,7 +60,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _blur, CoerceNotNegative(value));
-                Messenger.SendMessage(MessageAddress + nameof(Blur), Blur);
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(Blur), Blur);
             }
         }
 
@@ -71,7 +73,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _transforms, value);
-                Messenger.SendMessage(MessageAddress + nameof(Transforms), Transforms);
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(Transforms), Transforms);
             }
         }
 
@@ -83,7 +86,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _view, value);
-                Messenger.SendMessage(MessageAddress + nameof(View), View);
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(View), View);
             }
         }
     }

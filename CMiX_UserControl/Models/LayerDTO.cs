@@ -14,7 +14,14 @@ namespace CMiX.Models
         public LayerDTO()
         {
             BeatModifierDTO = new BeatModifierDTO();
+            ContentDTO = new ContentDTO();
+            MaskDTO = new MaskDTO();
+            ColorationDTO = new ColorationDTO();
         }
+
+        public string MessageAddress { get; set; }
+
+        public string LayerName { get; set; }
 
         public double Fade { get; set; }
 
@@ -27,53 +34,5 @@ namespace CMiX.Models
         public MaskDTO MaskDTO { get; set; }
 
         public ColorationDTO ColorationDTO { get; set; }
-
-
-
-        #region CONTENT
-
-        public double ContentBeatModifierChanceToHit { get; set; }
-
-        public double ContentBeatModifierMultiplier { get; set; }
-
-        public int ContentGeometryCount { get; set; }
-
-        public List<ListBoxFileName> ContentGeometryGeometryPaths { get; set; }
-
-        public double ContentGeometryTranslateAmount { get; set; }
-
-        public double ContentGeometryScaleAmount { get; set; }
-
-        public double ContentGeometryRotationAmount { get; set; }
-
-        public bool ContentGeometryIs3D { get; set; }
-
-        public bool ContentGeometryKeepAspectRatio { get; set; }
-
-        #endregion
-
-        #region MASK
-
-        public bool MaskEnable { get; set; }
-
-        public double MaskBeatModifierChanceToHit { get; set; }
-
-        public double MaskBeatModifierMultiplier { get; set; }
-
-        public int MaskGeometryCount { get; set; }
-
-        public List<ListBoxFileName> MaskGeometryGeometryPaths { get; set; }
-
-        public double MaskGeometryTranslateAmount { get; set; }
-
-        public double MaskGeometryScaleAmount { get; set; }
-
-        public double MaskGeometryRotationAmount { get; set; }
-
-        public bool MaskGeometryIs3D { get; set; }
-
-        public bool MaskGeometryKeepAspectRatio { get; set; }
-
-        #endregion
     }
 }

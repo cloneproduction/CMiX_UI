@@ -39,7 +39,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _TranslateMode, value);
-                Messenger.SendMessage(MessageAddress, TranslateMode);
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress, TranslateMode);
             }
         }
     }
