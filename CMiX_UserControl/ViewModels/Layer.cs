@@ -103,7 +103,7 @@ namespace CMiX.ViewModels
             {
                 SetAndNotify(ref _blendMode, value);
                 if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + "/" + nameof(BlendMode), BlendMode);
+                    Messenger.SendMessage(MessageAddress + nameof(BlendMode), BlendMode);
             }
         }
 
