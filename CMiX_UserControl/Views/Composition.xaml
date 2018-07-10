@@ -57,19 +57,17 @@
                         Header="New"
                         Template="{DynamicResource SubMenuItemBase}" />
                     <MenuItem
-                        Click="Open_Click"
                         Header="Open"
+                        Command="{Binding Path=LoadCompositionCommand}"
                         Template="{DynamicResource SubMenuItemBase}" />
                     <MenuItem
-                        Click="Save_Click"
                         Header="Save"
                         Template="{DynamicResource SubMenuItemBase}" />
                     <MenuItem
-                        Click="SaveAs_Click"
                         Header="Save As"
+                        Command="{Binding Path=SaveCompositionCommand}"
                         Template="{DynamicResource SubMenuItemBase}" />
                     <MenuItem
-                        Click="Quit_Click"
                         Header="Quit"
                         Template="{DynamicResource SubMenuItemBase}" />
                 </MenuItem>

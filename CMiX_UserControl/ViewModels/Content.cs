@@ -1,5 +1,6 @@
 ﻿using System;
 using CMiX.Services;
+using CMiX.Models;
 
 namespace CMiX.ViewModels
 {
@@ -58,5 +59,29 @@ namespace CMiX.ViewModels
         public Texture Texture { get; }
 
         public PostFX PostFX { get; }
+
+        public void Copy(ContentDTO contentdto)
+        {
+            contentdto.Enable = Enable;
+
+            BeatModifier.Copy(contentdto.BeatModifierDTO);
+            Texture.Copy(contentdto.TextureDTO);
+            Geometry.Copy(contentdto.GeometryDTO);
+            PostFX.Copy(contentdto.PostFXDTO);
+        }
+
+        public void Paste(ContentDTO contentdto)
+        {
+            MessageEnabled = false;
+
+            Enable = contentdto.Enable;
+
+            BeatModifier.Paste(contentdto.BeatModifierDTO);
+            Texture.Paste(contentdto.TextureDTO);
+            Geometry.Paste(contentdto.GeometryDTO);
+            PostFX.Paste(contentdto.PostFXDTO);
+
+            MessageEnabled = true;
+        }
     }
 }

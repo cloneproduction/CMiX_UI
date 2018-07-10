@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using CMiX.Services;
 using CMiX.Controls;
+using CMiX.Models;
 
 namespace CMiX.ViewModels
 {
@@ -207,6 +208,53 @@ namespace CMiX.ViewModels
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(KeepAspectRatio), KeepAspectRatio.ToString());
             }
+        }
+
+        public void Copy(GeometryDTO geometrydto)
+        {
+            geometrydto.Count = Count;
+
+            foreach (ListBoxFileName lbfn in GeometryPaths)
+            {
+                geometrydto.GeometryPaths.Add(lbfn);
+            }
+
+            geometrydto.TranslateAmount = TranslateAmount;
+
+            GeometryTranslate.Copy(geometrydto.GeometryTranslate);
+            GeometryScale.Copy(geometrydto.GeometryScale);
+            GeometryRotation.Copy(geometrydto.GeometryRotation);
+
+            geometrydto.ScaleAmount = ScaleAmount;
+            geometrydto.RotationAmount = RotationAmount;
+            geometrydto.Is3D = Is3D;
+            geometrydto.KeepAspectRatio = KeepAspectRatio;
+        }
+
+        public void Paste(GeometryDTO geometrydto)
+        {
+            MessageEnabled = false;
+
+            Count = geometrydto.Count;
+
+            GeometryPaths.Clear();
+            foreach (ListBoxFileName lbfn in geometrydto.GeometryPaths)
+            {
+                GeometryPaths.Add(lbfn);
+            }
+
+            TranslateAmount = geometrydto.TranslateAmount;
+            ScaleAmount = geometrydto.ScaleAmount;
+            RotationAmount = geometrydto.RotationAmount;
+
+            GeometryTranslate.Paste(geometrydto.GeometryTranslate);
+            GeometryScale.Paste(geometrydto.GeometryScale);
+            GeometryRotation.Paste(geometrydto.GeometryRotation);
+
+            Is3D = geometrydto.Is3D;
+            KeepAspectRatio = geometrydto.KeepAspectRatio;
+
+            MessageEnabled = true;
         }
     }
 }

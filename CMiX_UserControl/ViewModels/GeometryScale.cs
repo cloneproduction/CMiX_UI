@@ -1,5 +1,6 @@
 ﻿using System;
 using CMiX.Services;
+using CMiX.Models;
 
 namespace CMiX.ViewModels
 {
@@ -45,6 +46,16 @@ namespace CMiX.ViewModels
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(ScaleMode), ScaleMode);
             }
+        }
+
+        public void Copy(GeometryScaleDTO geometryscaledto)
+        {
+            geometryscaledto.ScaleModeDTO = ScaleMode;
+        }
+
+        public void Paste(GeometryScaleDTO geometryscaledto)
+        {
+            ScaleMode = geometryscaledto.ScaleModeDTO;
         }
     }
 }

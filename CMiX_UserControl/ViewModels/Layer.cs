@@ -1,4 +1,5 @@
-﻿using CMiX.Services;
+﻿using CMiX.Models;
+using CMiX.Services;
 using System;
 
 namespace CMiX.ViewModels
@@ -114,5 +115,32 @@ namespace CMiX.ViewModels
         public Mask Mask { get; }
 
         public Coloration Coloration { get; }
+
+
+        public void Copy(LayerDTO layerdto)
+        {
+            layerdto.BlendMode = BlendMode;
+            layerdto.Fade = Fade;
+
+            BeatModifier.Copy(layerdto.BeatModifierDTO);
+            Content.Copy(layerdto.ContentDTO);
+            Mask.Copy(layerdto.MaskDTO);
+            Coloration.Copy(layerdto.ColorationDTO);
+        }
+
+        public void Paste(LayerDTO layerdto)
+        {
+            MessageEnabled = false;
+
+            BlendMode = layerdto.BlendMode;
+            Fade = layerdto.Fade;
+
+            BeatModifier.Paste(layerdto.BeatModifierDTO);
+            Content.Paste(layerdto.ContentDTO);
+            Mask.Paste(layerdto.MaskDTO);
+            Coloration.Paste(layerdto.ColorationDTO);
+
+            MessageEnabled = true;
+        }
     }
 }

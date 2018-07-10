@@ -105,6 +105,7 @@
   <ItemGroup>
     <Compile Include="Models\BeatModifierDTO.cs" />
     <Compile Include="Models\ColorationDTO.cs" />
+    <Compile Include="Models\CompositionDTO.cs" />
     <Compile Include="Models\ContentDTO.cs" />
     <Compile Include="Models\GeometryDTO.cs" />
     <Compile Include="Models\GeometryRotationDTO.cs" />
@@ -115,7 +116,6 @@
     <Compile Include="Models\PostFXDTO.cs" />
     <Compile Include="Models\RangeControlDTO.cs" />
     <Compile Include="Models\TextureDTO.cs" />
-    <Compile Include="Services\DataTransfer.cs" />
     <Compile Include="Services\OSCAttribute.cs" />
     <Compile Include="Services\IMessengerData.cs" />
     <Compile Include="ViewModels\GeometryFileMask.cs" />

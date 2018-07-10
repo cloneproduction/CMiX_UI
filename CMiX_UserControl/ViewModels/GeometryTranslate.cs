@@ -1,5 +1,6 @@
 ﻿using System;
 using CMiX.Services;
+using CMiX.Models;
 
 namespace CMiX.ViewModels
 {
@@ -45,6 +46,16 @@ namespace CMiX.ViewModels
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(TranslateMode), TranslateMode);
             }
+        }
+
+        public void Copy(GeometryTranslateDTO geometrytranslatedto)
+        {
+            geometrytranslatedto.TranslateModeDTO = TranslateMode;
+        }
+
+        public void Paste(GeometryTranslateDTO geometrytranslatedto)
+        {
+            TranslateMode = geometrytranslatedto.TranslateModeDTO;
         }
     }
 }

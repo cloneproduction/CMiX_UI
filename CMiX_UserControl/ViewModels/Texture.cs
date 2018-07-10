@@ -5,6 +5,7 @@ using CMiX.Controls;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using CMiX.Models;
 
 namespace CMiX.ViewModels
 {
@@ -190,6 +191,41 @@ namespace CMiX.ViewModels
             }
             if (MessageEnabled)
                 Messenger.SendMessage(MessageAddress + nameof(TexturePaths), filename.ToArray());
+        }
+
+        public void Copy(TextureDTO texturedto)
+        {
+            foreach (ListBoxFileName lbfn in TexturePaths)
+            {
+                texturedto.TexturePaths.Add(lbfn);
+            }
+
+            texturedto.Brightness = Brightness;
+            texturedto.Contrast = Contrast;
+            texturedto.Saturation = Saturation;
+            texturedto.Keying = Keying;
+            texturedto.Invert = Invert;
+            texturedto.InvertMode = InvertMode;
+        }
+
+        public void Paste(TextureDTO texturedto)
+        {
+            MessageEnabled = false;
+
+            TexturePaths.Clear();
+            foreach (ListBoxFileName lbfn in texturedto.TexturePaths)
+            {
+                TexturePaths.Add(lbfn);
+            }
+
+            Brightness = texturedto.Brightness;
+            Contrast = texturedto.Contrast;
+            Saturation = texturedto.Saturation;
+            Keying = texturedto.Keying;
+            Invert = texturedto.Invert;
+            InvertMode = texturedto.InvertMode;
+
+            MessageEnabled = true;
         }
     }
 }

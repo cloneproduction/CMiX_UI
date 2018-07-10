@@ -1,4 +1,5 @@
-﻿using CMiX.Services;
+﻿using CMiX.Models;
+using CMiX.Services;
 using System;
 using System.Diagnostics;
 
@@ -90,6 +91,22 @@ namespace CMiX.ViewModels
         protected override void Divide()
         {
             Multiplier *= 2;
+        }
+
+        public void Copy(BeatModifierDTO beatmodifierdto)
+        {
+            beatmodifierdto.ChanceToHit = ChanceToHit;
+            beatmodifierdto.Multiplier = Multiplier;
+        }
+
+        public void Paste(BeatModifierDTO beatmodifierdto)
+        {
+            MessageEnabled = false;
+
+            ChanceToHit = beatmodifierdto.ChanceToHit;
+            Multiplier = beatmodifierdto.Multiplier;
+
+            MessageEnabled = true;
         }
     }
 }

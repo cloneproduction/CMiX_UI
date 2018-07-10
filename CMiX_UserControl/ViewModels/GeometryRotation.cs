@@ -1,5 +1,6 @@
 ﻿using System;
 using CMiX.Services;
+using CMiX.Models;
 
 namespace CMiX.ViewModels
 {
@@ -45,6 +46,16 @@ namespace CMiX.ViewModels
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(RotationMode), RotationMode);
             }
+        }
+
+        public void Copy(GeometryRotationDTO geometryrotationdto)
+        {
+            geometryrotationdto.RotationModeDTO = RotationMode;
+        }
+
+        public void Paste(GeometryRotationDTO geometryrotationdto)
+        {
+            RotationMode = geometryrotationdto.RotationModeDTO;
         }
     }
 }

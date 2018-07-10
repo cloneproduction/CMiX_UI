@@ -1,5 +1,6 @@
 ﻿using System;
 using CMiX.Services;
+using CMiX.Models;
 
 namespace CMiX.ViewModels
 {
@@ -94,6 +95,26 @@ namespace CMiX.ViewModels
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(View), View);
             }
+        }
+
+        public void Copy(PostFXDTO postFXdto)
+        {
+            postFXdto.Feedback = Feedback;
+            postFXdto.Blur = Blur;
+            postFXdto.Transforms = Transforms;
+            postFXdto.View = View;
+        }
+
+        public void Paste(PostFXDTO postFXdto)
+        {
+            MessageEnabled = false;
+
+            Feedback = postFXdto.Feedback;
+            Blur = postFXdto.Blur;
+            Transforms = postFXdto.Transforms;
+            View = postFXdto.View;
+
+            MessageEnabled = true;
         }
     }
 }

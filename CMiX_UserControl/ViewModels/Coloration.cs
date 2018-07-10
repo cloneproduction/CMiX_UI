@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Media;
 using CMiX.Services;
+using CMiX.Models;
 
 namespace CMiX.ViewModels
 {
@@ -83,5 +84,31 @@ namespace CMiX.ViewModels
         public RangeControl Saturation { get; }
 
         public RangeControl Value { get; }
+
+        public void Copy(ColorationDTO colorationdto)
+        {
+            colorationdto.ObjColor = Utils.ColorToHexString(ObjColor);
+            colorationdto.BgColor = Utils.ColorToHexString(BgColor);
+
+            BeatModifier.Copy(colorationdto.BeatModifierDTO);
+            Hue.Copy(colorationdto.HueDTO);
+            Saturation.Copy(colorationdto.SatDTO);
+            Value.Copy(colorationdto.ValDTO);
+        }
+
+        public void Paste(ColorationDTO colorationdto)
+        {
+            MessageEnabled = false;
+
+            ObjColor = Utils.HexStringToColor(colorationdto.ObjColor);
+            BgColor = Utils.HexStringToColor(colorationdto.BgColor);
+
+            BeatModifier.Paste(colorationdto.BeatModifierDTO);
+            Hue.Paste(colorationdto.HueDTO);
+            Saturation.Paste(colorationdto.SatDTO);
+            Value.Paste(colorationdto.ValDTO);
+
+            MessageEnabled = true;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using CMiX.Services;
+using CMiX.Models;
 
 namespace CMiX.ViewModels
 {
@@ -60,6 +61,22 @@ namespace CMiX.ViewModels
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Modifier), Modifier);
             }
+        }
+
+        public void Copy(RangeControlDTO rangecontroldto)
+        {
+            rangecontroldto.Range = Range;
+            rangecontroldto.Modifier = Modifier;
+        }
+
+        public void Paste(RangeControlDTO rangecontroldto)
+        {
+            MessageEnabled = false;
+
+            Range = rangecontroldto.Range;
+            Modifier = rangecontroldto.Modifier;
+
+            MessageEnabled = true;
         }
     }
 }
