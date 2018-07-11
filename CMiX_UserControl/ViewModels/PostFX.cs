@@ -8,29 +8,27 @@ namespace CMiX.ViewModels
     {
         public PostFX(string layername, IMessenger messenger)
             : this(
-                  messageaddress: String.Format("{0}/{1}/", layername, nameof(PostFX)),
-                  messenger: messenger,
-                  messageEnabled : true,
                   feedback: 0.0, 
                   blur: 0.0, 
                   transforms: ((PostFXTransforms)0).ToString(), 
-                  view: ((PostFXView)0).ToString())
+                  view: ((PostFXView)0).ToString(),
+
+                  messageaddress: String.Format("{0}/{1}/", layername, nameof(PostFX)),
+                  messenger: messenger,
+                  messageEnabled: true)
         { }
 
         public PostFX(
-            IMessenger messenger,
-            string messageaddress,
-            bool messageEnabled,
             double feedback, 
             double blur,
             string transforms,
-            string view)
+            string view,
+
+            IMessenger messenger,
+            string messageaddress,
+            bool messageEnabled
+            )
         {
-            MessageAddress = messageaddress;
-            MessageEnabled = messageEnabled;
-
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
-
             AssertNotNegative(() => feedback);
             AssertNotNegative(() => blur);
 
@@ -38,12 +36,19 @@ namespace CMiX.ViewModels
             Blur = blur;
             Transforms = transforms;
             View = view;
+
+            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+            MessageAddress = messageaddress;
+            MessageEnabled = messageEnabled;
         }
+
+
         public string MessageAddress { get; set; }
 
         public bool MessageEnabled { get; set; }
 
         public IMessenger Messenger { get; }
+
 
         private double _feedback;
         [OSC]

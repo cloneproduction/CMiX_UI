@@ -1,31 +1,48 @@
 ﻿using System;
 using CMiX.Services;
+using CMiX.Models;
 
 namespace CMiX.ViewModels
 {
-    public class Camera : ViewModel
+    public class Camera : ViewModel, IMessengerData
     {
         public Camera(IMessenger messenger, MasterBeat masterBeat)
             : this(
                   messenger: messenger,
+                  messageaddress: "/Camera",
+                  messageEnabled: true,
+
                   rotation: ((CameraRotation)0).ToString(),
                   lookAt: ((CameraLookAt)0).ToString(),
                   view: ((CameraView)0).ToString(),
                   beatModifier: new BeatModifier("/Camera", messenger, masterBeat),
                   fov: 0.5,
-                  zoom: 1.0)
+                  zoom: 1.0
+                  )
         {
         }
 
-        public Camera(IMessenger messenger, string rotation, string lookAt, string view, BeatModifier beatModifier, double fov, double zoom)
+        public Camera(
+            string rotation, 
+            string lookAt, 
+            string view, 
+            BeatModifier beatModifier, 
+            double fov, 
+            double zoom,
+
+            IMessenger messenger,
+            string messageaddress,
+            bool messageEnabled
+            )
         {
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             Rotation = rotation;
             LookAt = lookAt;
             View = view;
             BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
             FOV = fov;
             Zoom = zoom;
+            MessageEnabled = messageEnabled;
+            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
         }
 
         public IMessenger Messenger { get; }
@@ -37,7 +54,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _rotation, value);
-                Messenger.SendMessage("/Camera/Rotation", Rotation);
+                if(MessageEnabled)
+                    Messenger.SendMessage("/Camera/Rotation", Rotation);
             }
         }
 
@@ -48,7 +66,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _lookAt, value);
-                Messenger.SendMessage("/Camera/LookAt", LookAt);
+                if(MessageEnabled)
+                    Messenger.SendMessage("/Camera/LookAt", LookAt);
             }
         }
 
@@ -59,7 +78,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _view, value);
-                Messenger.SendMessage("/Camera/View", View);
+                if(MessageEnabled)
+                    Messenger.SendMessage("/Camera/View", View);
             }
         }
 
@@ -72,7 +92,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _FOV, value);
-                Messenger.SendMessage("/Camera/FOV", FOV);
+                if(MessageEnabled)
+                    Messenger.SendMessage("/Camera/FOV", FOV);
             }
         }
 
@@ -83,8 +104,40 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _zoom, value);
-                Messenger.SendMessage("/Camera/Zoom", Zoom);
+                if(MessageEnabled)
+                    Messenger.SendMessage("/Camera/Zoom", Zoom);
             }
+        }
+
+        public string MessageAddress { get; set; }
+        public bool MessageEnabled { get; set; }
+
+        public void Copy(CameraDTO cameradto)
+        {
+            cameradto.Rotation = Rotation;
+            cameradto.LookAt = LookAt;
+            cameradto.View = View;
+
+            BeatModifier.Copy(cameradto.BeatModifierDTO);
+
+            cameradto.FOV = FOV;
+            cameradto.Zoom = Zoom;
+        }
+
+        public void Paste(CameraDTO cameradto)
+        {
+            MessageEnabled = false;
+
+            Rotation = cameradto.Rotation;
+            LookAt = cameradto.LookAt;
+            View = cameradto.View;
+
+            BeatModifier.Paste(cameradto.BeatModifierDTO);
+
+            FOV = cameradto.FOV;
+            Zoom = cameradto.Zoom;
+
+            MessageEnabled = true;
         }
     }
 }

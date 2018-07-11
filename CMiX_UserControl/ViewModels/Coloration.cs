@@ -12,38 +12,42 @@ namespace CMiX.ViewModels
             : this(
                   messenger: messenger,
                   messageaddress: String.Format("{0}/{1}/", layername, nameof(Coloration)),
-                  messageEnabled : true,
+
                   beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Coloration)), messenger, masterbeat),
                   objColor: Colors.BlueViolet,
                   bgColor: Colors.Black,
                   backgroundColor: Colors.Black,
                   hue: new RangeControl(messenger, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Hue)),
                   saturation: new RangeControl(messenger, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Saturation)),
-                  value: new RangeControl(messenger, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Value))
+                  value: new RangeControl(messenger, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Value)),
+                  messageEnabled: true
                   )
         { }
 
         public Coloration(
             IMessenger messenger,
             string messageaddress,
-            bool messageEnabled,
+
             BeatModifier beatModifier, 
             Color objColor,
             Color bgColor,
             Color backgroundColor,
             RangeControl hue,
             RangeControl saturation,
-            RangeControl value)
+            RangeControl value,
+            bool messageEnabled)
         {
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
-            MessageEnabled = messageEnabled;
+
             BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
             ObjColor = objColor;
             BgColor = bgColor;
             Hue = hue ?? throw new ArgumentNullException(nameof(hue));
             Saturation = saturation ?? throw new ArgumentNullException(nameof(saturation));
             Value = value ?? throw new ArgumentNullException(nameof(value));
+
+            MessageEnabled = messageEnabled;
         }
         private IMessenger Messenger { get; }
 

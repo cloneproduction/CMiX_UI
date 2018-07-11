@@ -11,12 +11,15 @@ using System.IO;
 
 namespace CMiX.ViewModels
 {
-    public class Composition : ViewModel
+    public class Composition : ViewModel, IMessengerData
     {
         public Composition()
         {
             Name = string.Empty;
             Messenger = new OSCMessenger(new SharpOSC.UDPSender("127.0.0.1", 55555));
+            MessageEnabled = true;
+            MessageAddress = String.Empty;
+
             MasterBeat = new MasterBeat(Messenger);
             Camera = new Camera(Messenger, MasterBeat);
             AddLayerCommand = new RelayCommand(p => AddLayer());
@@ -41,13 +44,22 @@ namespace CMiX.ViewModels
             }
 
             Messenger = new OSCMessenger(new SharpOSC.UDPSender("127.0.0.1", 55555));
+            MessageEnabled = true;
+            MessageAddress = String.Empty;
             Name = name;
             Camera = camera ?? throw new ArgumentNullException(nameof(camera));
             MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
             Layers = new ObservableCollection<Layer>(layers);
             Layers.CollectionChanged += ContentCollectionChanged;
         }
+        private int layerID = -1;
+
+
         private IMessenger Messenger { get; }
+
+        public string MessageAddress { get; set; } //NOT USED HERE..
+
+        public bool MessageEnabled { get; set; }
 
         private string _name;
         public string Name
@@ -67,6 +79,7 @@ namespace CMiX.ViewModels
 
         public Camera Camera { get; set; }
 
+        [OSC]
         public ObservableCollection<Layer> Layers { get; }
 
         public ICommand AddLayerCommand { get; }
@@ -77,20 +90,49 @@ namespace CMiX.ViewModels
         public ICommand LoadCompositionCommand { get; }
 
 
-        private void Save()
+        public void Copy(CompositionDTO compositiondto)
         {
-            CompositionDTO compositiondto = new CompositionDTO();
+            compositiondto.Name = Name;
+            compositiondto.LayerNames = LayerNames;
 
             foreach(Layer lyr in Layers)
             {
-                compositiondto.Layers.Add(lyr);
+                LayerDTO layerdto = new LayerDTO();
+                lyr.Copy(layerdto);
+                compositiondto.LayersDTO.Add(layerdto);
             }
 
-            compositiondto.Name = Name;
-            //compositiondto.MasterBeat = MasterBeat;
-            compositiondto.LayerNames = LayerNames;
-            //compositiondto.Camera = Camera;
+            Camera.Copy(compositiondto.CameraDTO);
+        }
 
+
+        public void Paste(CompositionDTO compositiondto)
+        {
+            MessageEnabled = false;
+
+            Name = compositiondto.Name;
+            LayerNames = compositiondto.LayerNames;
+
+            Layers.Clear();
+            layerID = -1;
+            foreach (LayerDTO layerdto in compositiondto.LayersDTO)
+            {
+                layerID += 1;
+                Layer layer = new Layer(MasterBeat, "/Layer" + layerID.ToString(), Messenger, 0);
+                layer.Paste(layerdto);
+                Layers.Add(layer);
+            }
+
+            Camera.Copy(compositiondto.CameraDTO);
+
+            MessageEnabled = true;
+        }
+
+
+        private void Save()
+        {
+            CompositionDTO compositiondto = new CompositionDTO();
+            this.Copy(compositiondto);
 
             string folderPath = string.Empty;
 
@@ -108,7 +150,6 @@ namespace CMiX.ViewModels
 
         private void Load()
         {
-
             using (System.Windows.Forms.OpenFileDialog opendialog = new System.Windows.Forms.OpenFileDialog())
             {
                 opendialog.FileName = "default.json";
@@ -125,19 +166,21 @@ namespace CMiX.ViewModels
                         using (StreamReader r = new StreamReader(opendialog.FileName))
                         {
                             string json = r.ReadToEnd();
-                            CompositionDTO compositiondto = JsonConvert.DeserializeObject<CompositionDTO>(json);
+                            CompositionDTO compositiondto = new CompositionDTO();
+                            compositiondto = JsonConvert.DeserializeObject<CompositionDTO>(json);
+                            this.Paste(compositiondto);
 
-                            
 
-                            Layers.Clear();
-                            foreach(Layer lyr in compositiondto.Layers)
+                            Messenger.QueueObject(this);
+                            Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
+
+                            List<string> layerindex = new List<string>();
+                            foreach (Layer lyr in this.Layers)
                             {
-                                lyr.MessageEnabled = false;
-                                Layers.Add(lyr);
-                                lyr.MessageEnabled = true;
+                                layerindex.Add(lyr.Index.ToString());
                             }
-                            Name = compositiondto.Name;
-                            LayerNames = compositiondto.LayerNames;
+                            Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
+                            Messenger.SendQueue();
                         }
                     }
                 }
@@ -181,7 +224,6 @@ namespace CMiX.ViewModels
             }
         }
 
-        private int layerID = -1;
 
         private void AddLayer()
         {
@@ -235,6 +277,7 @@ namespace CMiX.ViewModels
             }
         }
 
+
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             List<string> layerindex = new List<string>();
@@ -243,9 +286,12 @@ namespace CMiX.ViewModels
                 layerindex.Add(lyr.Index.ToString());
             }
 
-            Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
-            Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
-            Messenger.SendQueue();
+            if (MessageEnabled)
+            {
+                Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
+                Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
+                Messenger.SendQueue();
+            }
         }
     }
 }

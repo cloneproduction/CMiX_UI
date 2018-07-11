@@ -104,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\BeatModifierDTO.cs" />
+    <Compile Include="Models\CameraDTO.cs" />
     <Compile Include="Models\ColorationDTO.cs" />
     <Compile Include="Models\CompositionDTO.cs" />
     <Compile Include="Models\ContentDTO.cs" />

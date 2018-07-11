@@ -9,26 +9,30 @@ namespace CMiX.ViewModels
         public RangeControl(IMessenger messenger, string layername)
             : this(
                   range: 0.0,
+                  modifier: ((RangeModifier)0).ToString(),
+
                   messenger: messenger,
-                  messageEnabled : true,
                   messageaddress: String.Format("{0}/", layername),
-                  modifier: ((RangeModifier)0).ToString()
+                  messageEnabled: true
                   )
         { }
 
         public RangeControl(
             double range,
-            string messageaddress,
-            bool messageEnabled,
+            string modifier,
+
             IMessenger messenger,
-            string modifier)
+            string messageaddress,
+            bool messageEnabled)
         {
             AssertNotNegative(() => range);
-            MessageAddress = messageaddress;
-            MessageEnabled = messageEnabled;
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+
             Range = range;
             Modifier = modifier;
+
+            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+            MessageAddress = messageaddress;
+            MessageEnabled = messageEnabled;
         }
 
         public string MessageAddress { get; set; }

@@ -55,7 +55,11 @@ namespace CMiX.ViewModels
 
         public void Paste(GeometryTranslateDTO geometrytranslatedto)
         {
+            MessageEnabled = false;
+
             TranslateMode = geometrytranslatedto.TranslateModeDTO;
+
+            MessageEnabled = true;
         }
     }
 }

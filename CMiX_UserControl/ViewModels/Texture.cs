@@ -13,16 +13,18 @@ namespace CMiX.ViewModels
     {
         public Texture(string layername, IMessenger messenger)
             : this(
-                  messenger: messenger,
-                  messageaddress : String.Format("{0}/{1}/", layername, nameof(Texture)),
-                  messageEnabled : true,
                   texturePaths: new ObservableCollection<ListBoxFileName>(),
                   brightness: 0.0,
                   contrast: 0.0,
                   saturation: 0.0,
                   keying: 0.0,
                   invert: 0.0,
-                  invertMode: ((TextureInvertMode)0).ToString())
+                  invertMode: ((TextureInvertMode)0).ToString(),
+
+                  messenger: messenger,
+                  messageaddress: String.Format("{0}/{1}/", layername, nameof(Texture)),
+                  messageEnabled: true
+                  )
         {
             TexturePaths = new ObservableCollection<ListBoxFileName>();
             TexturePaths.CollectionChanged += ContentCollectionChanged;
@@ -30,20 +32,17 @@ namespace CMiX.ViewModels
 
         public Texture(
             IEnumerable<ListBoxFileName> texturePaths,
-            IMessenger messenger,
-            string messageaddress,
-            bool messageEnabled,
             double brightness,
             double contrast,
             double saturation,
             double keying,
             double invert,
-            string invertMode)
+            string invertMode,
+            IMessenger messenger,
+            string messageaddress,
+            bool messageEnabled
+            )
         {
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
-            MessageAddress = messageaddress;
-            MessageEnabled = messageEnabled;
-
             TexturePaths = new ObservableCollection<ListBoxFileName>();
             TexturePaths.CollectionChanged += ContentCollectionChanged;
 
@@ -59,6 +58,10 @@ namespace CMiX.ViewModels
             Keying = keying;
             Invert = invert;
             InvertMode = invertMode;
+
+            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+            MessageAddress = messageaddress;
+            MessageEnabled = messageEnabled;
         }
 
         public string MessageAddress { get; set; }

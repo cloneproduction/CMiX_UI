@@ -55,7 +55,11 @@ namespace CMiX.ViewModels
 
         public void Paste(GeometryScaleDTO geometryscaledto)
         {
+            MessageEnabled = false;
+
             ScaleMode = geometryscaledto.ScaleModeDTO;
+
+            MessageEnabled = true;
         }
     }
 }

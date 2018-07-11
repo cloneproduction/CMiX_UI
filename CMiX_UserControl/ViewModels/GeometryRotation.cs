@@ -55,7 +55,11 @@ namespace CMiX.ViewModels
 
         public void Paste(GeometryRotationDTO geometryrotationdto)
         {
+            MessageEnabled = false;
+
             RotationMode = geometryrotationdto.RotationModeDTO;
+
+            MessageEnabled = true;
         }
     }
 }

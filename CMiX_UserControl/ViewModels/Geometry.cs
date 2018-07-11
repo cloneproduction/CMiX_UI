@@ -14,8 +14,8 @@ namespace CMiX.ViewModels
         public Geometry(string layername, IMessenger messenger)
             : this(
                   messenger: messenger,
-                  messageaddress : String.Format("{0}/{1}/", layername, nameof(Geometry)),
-                  messageEnabled : true,
+                  messageaddress: String.Format("{0}/{1}/", layername, nameof(Geometry)),
+
                   count: 1,
                   geometrytranslate: new GeometryTranslate(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger),
                   geometryscale: new GeometryScale(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger),
@@ -25,16 +25,16 @@ namespace CMiX.ViewModels
                   scaleAmount: 0.0,
                   rotationAmount: 0.0,
                   is3D: false,    
-                  keepAspectRatio: false)
+                  keepAspectRatio: false,
+
+                  messageEnabled: true
+                  )
         {
             GeometryPaths = new ObservableCollection<ListBoxFileName>();
             GeometryPaths.CollectionChanged += ContentCollectionChanged;
         }
 
         public Geometry(
-            IMessenger messenger,
-            string messageaddress,
-            bool messageEnabled,
             int count,
             IEnumerable<ListBoxFileName> geometrypaths,
             GeometryTranslate geometrytranslate,
@@ -44,18 +44,19 @@ namespace CMiX.ViewModels
             double scaleAmount,
             double rotationAmount,
             bool is3D,
-            bool keepAspectRatio)
+            bool keepAspectRatio,
+
+            IMessenger messenger,
+            string messageaddress,
+            bool messageEnabled
+            )
         {
             if (geometrypaths == null)
             {
                 throw new ArgumentNullException(nameof(geometrypaths));
             }
 
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
-            MessageAddress = messageaddress;
-            MessageEnabled = messageEnabled;
             Count = count;
-
             GeometryPaths = new ObservableCollection<ListBoxFileName>() ;
             GeometryPaths.CollectionChanged += ContentCollectionChanged;
 
@@ -69,6 +70,10 @@ namespace CMiX.ViewModels
 
             Is3D = is3D;
             KeepAspectRatio = keepAspectRatio;
+
+            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+            MessageAddress = messageaddress;
+            MessageEnabled = messageEnabled;
         }
 
         public string MessageAddress { get; set; }

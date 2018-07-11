@@ -12,10 +12,11 @@ namespace CMiX.ViewModels
         public Layer(MasterBeat masterBeat, string layername, IMessenger messenger, int index)
         {
             Messenger = messenger;
+            MessageAddress = String.Format("{0}/", layername);
+            MessageEnabled = false;
+
             Index = index;
             LayerName = layername;
-            MessageAddress = String.Format("{0}/", layername);
-            MessageEnabled = true;
             Fade = 0.0;
             BlendMode = ((BlendMode)0).ToString();
             Index = 0;
@@ -24,12 +25,14 @@ namespace CMiX.ViewModels
             Content = new Content(BeatModifier, layername, messenger);
             Mask = new Mask(BeatModifier, layername, messenger);
             Coloration = new Coloration(BeatModifier, layername, messenger);
+
+            MessageEnabled = true;
         }
 
         public Layer(
             IMessenger messenger,
             string messageaddress,
-            bool messageEnabled,
+
             string layername,
             bool enabled,
             int index,
@@ -38,12 +41,11 @@ namespace CMiX.ViewModels
             BeatModifier beatModifier,
             Content content,
             Mask mask,
-            Coloration coloration)
-        {
+            Coloration coloration,
 
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
-            MessageAddress = messageaddress;
-            MessageEnabled = messageEnabled;
+            bool messageEnabled
+            )
+        {
             LayerName = layername;
             Index = index;
             Enabled = enabled;
@@ -53,6 +55,10 @@ namespace CMiX.ViewModels
             Content = content ?? throw new ArgumentNullException(nameof(content));
             Mask = mask ?? throw new ArgumentNullException(nameof(mask));
             Coloration = coloration ?? throw new ArgumentNullException(nameof(coloration));
+
+            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+            MessageAddress = messageaddress;
+            MessageEnabled = messageEnabled;
         }
 
         private IMessenger Messenger { get; }

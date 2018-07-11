@@ -10,25 +10,24 @@ namespace CMiX.ViewModels
     {
         public BeatModifier( string layername, IMessenger messenger, Beat masterBeat)
             : this(
-                  messenger: messenger,
-                  messageEnabled : true,
-                  messageaddress: String.Format("{0}/{1}/", layername, nameof(BeatModifier)),
                   masterBeat: masterBeat,
                   multiplier: 1.0,
-                  chanceToHit: 1.0)
+                  chanceToHit: 1.0,
+
+                  messenger: messenger,
+                  messageaddress: String.Format("{0}/{1}/", layername, nameof(BeatModifier)),
+                  messageEnabled: true)
         { }
 
         public BeatModifier(
-            IMessenger messenger,
-            bool messageEnabled,
-            string messageaddress,
             Beat masterBeat, 
             double multiplier, 
-            double chanceToHit)
+            double chanceToHit,
+
+            IMessenger messenger,
+            string messageaddress,
+            bool messageEnabled)
         {
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(Messenger));
-            MessageAddress = messageaddress;
-            MessageEnabled = messageEnabled;
             MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
             Multiplier = multiplier;
             ChanceToHit = chanceToHit;
@@ -39,6 +38,10 @@ namespace CMiX.ViewModels
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
             };
+
+            Messenger = messenger ?? throw new ArgumentNullException(nameof(Messenger));
+            MessageAddress = messageaddress;
+            MessageEnabled = messageEnabled;
         }
 
         private IMessenger Messenger { get; }
