@@ -14,7 +14,7 @@ namespace CMiX.Models
         {
             LayerNames = new List<string>();
             //MasterBeat = new MasterBeat();
-            Layers = new List<Layer>();
+            Layers = new List<LayerDTO>();
 
             //Camera = new Camera();
         }
@@ -27,6 +27,6 @@ namespace CMiX.Models
 
         //public Camera Camera { get; set; }
 
-        public List<Layer> Layers { get; set; }
+        public List<LayerDTO> Layers { get; set; }
     }
 }

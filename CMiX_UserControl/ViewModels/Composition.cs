@@ -83,7 +83,9 @@ namespace CMiX.ViewModels
 
             foreach(Layer lyr in Layers)
             {
-                compositiondto.Layers.Add(lyr);
+                LayerDTO layerdto = new LayerDTO();
+                lyr.Copy(layerdto);
+                compositiondto.Layers.Add(layerdto);
             }
 
             compositiondto.Name = Name;
@@ -127,14 +129,16 @@ namespace CMiX.ViewModels
                             string json = r.ReadToEnd();
                             CompositionDTO compositiondto = JsonConvert.DeserializeObject<CompositionDTO>(json);
 
-                            
 
+                            layerID = -1;
                             Layers.Clear();
-                            foreach(Layer lyr in compositiondto.Layers)
+                            foreach(LayerDTO lyr in compositiondto.Layers)
                             {
-                                lyr.MessageEnabled = false;
-                                Layers.Add(lyr);
-                                lyr.MessageEnabled = true;
+                                layerID += 1;
+                                Layer layer = new Layer(MasterBeat, "/Layer" + layerID.ToString(), Messenger, layerID);
+                                this.LayerNames.Add("/Layer" + layerID.ToString());
+                                layer.Paste(lyr);
+                                Layers.Add(layer);
                             }
                             Name = compositiondto.Name;
                             LayerNames = compositiondto.LayerNames;
