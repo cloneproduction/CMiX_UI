@@ -99,7 +99,11 @@ namespace CMiX.ViewModels
             {
                 LayerDTO layerdto = new LayerDTO();
                 lyr.Copy(layerdto);
+<<<<<<< HEAD
                 compositiondto.LayersDTO.Add(layerdto);
+=======
+                compositiondto.Layers.Add(layerdto);
+>>>>>>> bcb820bfbcdfc939e734c5f5b2d362b663e4d49a
             }
 
             Camera.Copy(compositiondto.CameraDTO);
@@ -171,6 +175,7 @@ namespace CMiX.ViewModels
                             this.Paste(compositiondto);
 
 
+<<<<<<< HEAD
                             Messenger.QueueObject(this);
                             Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
 
@@ -178,6 +183,17 @@ namespace CMiX.ViewModels
                             foreach (Layer lyr in this.Layers)
                             {
                                 layerindex.Add(lyr.Index.ToString());
+=======
+                            layerID = -1;
+                            Layers.Clear();
+                            foreach(LayerDTO lyr in compositiondto.Layers)
+                            {
+                                layerID += 1;
+                                Layer layer = new Layer(MasterBeat, "/Layer" + layerID.ToString(), Messenger, layerID);
+                                this.LayerNames.Add("/Layer" + layerID.ToString());
+                                layer.Paste(lyr);
+                                Layers.Add(layer);
+>>>>>>> bcb820bfbcdfc939e734c5f5b2d362b663e4d49a
                             }
                             Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
                             Messenger.SendQueue();
