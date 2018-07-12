@@ -42,12 +42,20 @@ namespace CMiX.ViewModels
             FOV = fov;
             Zoom = zoom;
             MessageEnabled = messageEnabled;
+            MessageAddress = messageaddress;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
         }
 
         public IMessenger Messenger { get; }
 
+        public string MessageAddress { get; set; }
+
+        public bool MessageEnabled { get; set; }
+
+        public BeatModifier BeatModifier { get; }
+
         private string _rotation;
+        [OSC]
         public string Rotation
         {
             get => _rotation;
@@ -60,6 +68,7 @@ namespace CMiX.ViewModels
         }
 
         private string _lookAt;
+        [OSC]
         public string LookAt
         {
             get => _lookAt;
@@ -72,6 +81,7 @@ namespace CMiX.ViewModels
         }
 
         private string _view;
+        [OSC]
         public string View
         {
             get => _view;
@@ -83,9 +93,8 @@ namespace CMiX.ViewModels
             }
         }
 
-        public BeatModifier BeatModifier { get; }
-
         private double _FOV;
+        [OSC]
         public double FOV
         {
             get => _FOV;
@@ -98,6 +107,7 @@ namespace CMiX.ViewModels
         }
 
         private double _zoom;
+        [OSC]
         public double Zoom
         {
             get => _zoom;
@@ -108,9 +118,6 @@ namespace CMiX.ViewModels
                     Messenger.SendMessage("/Camera/Zoom", Zoom);
             }
         }
-
-        public string MessageAddress { get; set; }
-        public bool MessageEnabled { get; set; }
 
         public void Copy(CameraDTO cameradto)
         {
