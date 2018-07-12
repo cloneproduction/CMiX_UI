@@ -68,6 +68,7 @@ namespace CMiX.ViewModels
         public bool MessageEnabled { get; set; }
 
         private string _layername;
+        [OSC]
         public string LayerName
         {
             get => _layername;
@@ -75,6 +76,7 @@ namespace CMiX.ViewModels
         }
 
         private bool _enabled;
+        [OSC]
         public bool Enabled
         {
             get => _enabled;
@@ -82,6 +84,7 @@ namespace CMiX.ViewModels
         }
 
         private int _index;
+        [OSC]
         public int Index
         {
             get => _index;
@@ -127,6 +130,8 @@ namespace CMiX.ViewModels
         {
             layerdto.BlendMode = BlendMode;
             layerdto.Fade = Fade;
+            layerdto.LayerName = LayerName;
+            layerdto.Index = Index;
 
             BeatModifier.Copy(layerdto.BeatModifierDTO);
             Content.Copy(layerdto.ContentDTO);
@@ -140,6 +145,23 @@ namespace CMiX.ViewModels
 
             BlendMode = layerdto.BlendMode;
             Fade = layerdto.Fade;
+
+            BeatModifier.Paste(layerdto.BeatModifierDTO);
+            Content.Paste(layerdto.ContentDTO);
+            Mask.Paste(layerdto.MaskDTO);
+            Coloration.Paste(layerdto.ColorationDTO);
+
+            MessageEnabled = true;
+        }
+
+        public void Load(LayerDTO layerdto)
+        {
+            MessageEnabled = false;
+
+            BlendMode = layerdto.BlendMode;
+            Fade = layerdto.Fade;
+            LayerName = layerdto.LayerName;
+            Index = layerdto.Index;
 
             BeatModifier.Paste(layerdto.BeatModifierDTO);
             Content.Paste(layerdto.ContentDTO);

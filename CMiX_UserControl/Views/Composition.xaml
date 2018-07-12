@@ -58,7 +58,7 @@
                         Template="{DynamicResource SubMenuItemBase}" />
                     <MenuItem
                         Header="Open"
-                        Command="{Binding Path=LoadCompositionCommand}"
+                        Command="{Binding Path=OpenCompositionCommand}"
                         Template="{DynamicResource SubMenuItemBase}" />
                     <MenuItem
                         Header="Save"

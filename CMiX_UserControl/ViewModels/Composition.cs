@@ -29,7 +29,7 @@ namespace CMiX.ViewModels
             PasteLayerCommand = new RelayCommand(p => PasteLayer());
 
             SaveCompositionCommand = new RelayCommand(p => Save());
-            LoadCompositionCommand = new RelayCommand(p => Load());
+            OpenCompositionCommand = new RelayCommand(p => Open());
 
             LayerNames = new List<string>();
             Layers = new ObservableCollection<Layer> ();
@@ -87,7 +87,7 @@ namespace CMiX.ViewModels
         public ICommand CopyLayerCommand { get; }
         public ICommand PasteLayerCommand { get; }
         public ICommand SaveCompositionCommand { get; }
-        public ICommand LoadCompositionCommand { get; }
+        public ICommand OpenCompositionCommand { get; }
 
 
         public void Copy(CompositionDTO compositiondto)
@@ -128,6 +128,25 @@ namespace CMiX.ViewModels
             MessageEnabled = true;
         }
 
+        public void Load(CompositionDTO compositiondto)
+        {
+            MessageEnabled = false;
+
+            Name = compositiondto.Name;
+            LayerNames = compositiondto.LayerNames;
+
+            Layers.Clear();
+            foreach (LayerDTO layerdto in compositiondto.LayersDTO)
+            {
+                Layer layer = new Layer(MasterBeat, layerdto.LayerName, Messenger, layerdto.Index);
+                layer.Load(layerdto);
+                Layers.Add(layer);
+            }
+
+            Camera.Copy(compositiondto.CameraDTO);
+
+            MessageEnabled = true;
+        }
 
         private void Save()
         {
@@ -148,7 +167,7 @@ namespace CMiX.ViewModels
             }
         }
 
-        private void Load()
+        private void Open()
         {
             using (System.Windows.Forms.OpenFileDialog opendialog = new System.Windows.Forms.OpenFileDialog())
             {
@@ -168,27 +187,12 @@ namespace CMiX.ViewModels
                             string json = r.ReadToEnd();
                             CompositionDTO compositiondto = new CompositionDTO();
                             compositiondto = JsonConvert.DeserializeObject<CompositionDTO>(json);
-                            this.Paste(compositiondto);
-
-
-
+                            this.Load(compositiondto);
 
                             List<string> layerindex = new List<string>();
                             foreach (Layer lyr in this.Layers)
                             {
                                 layerindex.Add(lyr.Index.ToString());
-                            }
-
-                            layerID = -1;
-                            Layers.Clear();
-                            foreach(LayerDTO lyr in compositiondto.LayersDTO)
-                            {
-                                layerID += 1;
-                                Layer layer = new Layer(MasterBeat, "/Layer" + layerID.ToString(), Messenger, layerID);
-                                this.LayerNames.Add("/Layer" + layerID.ToString());
-                                layer.Paste(lyr);
-                                Layers.Add(layer);
-
                             }
 
                             Messenger.QueueObject(this);
@@ -257,6 +261,7 @@ namespace CMiX.ViewModels
 
             Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
             Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
+            Messenger.QueueObject(layer);
             Messenger.SendQueue();
         }
 

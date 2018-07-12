@@ -23,6 +23,10 @@ namespace CMiX.Models
 
         public string LayerName { get; set; }
 
+        public bool Enabled { get; set; }
+
+        public int Index { get; set; }
+
         public double Fade { get; set; }
 
         public string BlendMode { get; set; }
