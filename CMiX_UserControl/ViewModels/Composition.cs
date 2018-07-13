@@ -150,7 +150,6 @@ namespace CMiX.ViewModels
 
         private void Save()
         {
-            //pouetpouet
             CompositionDTO compositiondto = new CompositionDTO();
             this.Copy(compositiondto);
 
