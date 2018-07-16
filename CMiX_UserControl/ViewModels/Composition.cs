@@ -54,7 +54,6 @@ namespace CMiX.ViewModels
         }
         private int layerID = -1;
 
-
         private IMessenger Messenger { get; }
 
         public string MessageAddress { get; set; } //NOT USED HERE..
@@ -123,7 +122,7 @@ namespace CMiX.ViewModels
                 Layers.Add(layer);
             }
 
-            Camera.Copy(compositiondto.CameraDTO);
+            Camera.Paste(compositiondto.CameraDTO);
 
             MessageEnabled = true;
         }
@@ -143,7 +142,7 @@ namespace CMiX.ViewModels
                 Layers.Add(layer);
             }
 
-            Camera.Copy(compositiondto.CameraDTO);
+            Camera.Paste(compositiondto.CameraDTO);
 
             MessageEnabled = true;
         }
