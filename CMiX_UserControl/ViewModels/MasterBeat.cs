@@ -1,12 +1,14 @@
 ﻿using CMiX.Services;
+using CMiX.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using System.Diagnostics;
 
 namespace CMiX.ViewModels
 {
-    public class MasterBeat : Beat
+    public class MasterBeat : Beat, IMessengerData
     {
         public MasterBeat(IMessenger messenger)
             : this(
@@ -19,16 +21,17 @@ namespace CMiX.ViewModels
         {
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             Period = period;
+            MessageEnabled = true;
             Multiplier = multiplier;
-
             ResyncCommand = new RelayCommand(p => Resync());
             TapCommand = new RelayCommand(p => Tap());
-
+            MessageAddress = "/MasterBeat/";
             tapPeriods = new List<double>();
             tapTime = new List<double>();
         }
 
         private double _period;
+        [OSC]
         public override double Period
         {
             get => _period;
@@ -37,41 +40,42 @@ namespace CMiX.ViewModels
                 SetAndNotify(ref _period, value);
                 OnPeriodChanged(Period);
                 Notify(nameof(BPM));
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(Period), Period);
             }
         }
 
         public ICommand ResyncCommand { get; }
-
         public ICommand TapCommand { get; }
 
         private IMessenger Messenger { get; }
 
+        public string MessageAddress { get; set; }
+        public bool MessageEnabled { get; set; }
+
+
         private readonly List<double> tapPeriods;
         private readonly List<double> tapTime;
 
-        private string Address => "/MasterPeriod";
 
         private void Resync()
         {
-            Messenger.SendMessage(Address + "/" + nameof(Resync), CurrentTime + Period);
+            Messenger.SendMessage(MessageAddress + nameof(Resync), CurrentTime + Period);
         }
 
         protected override void Multiply()
         {
             Period /= 2.0;
-            Messenger.SendMessage(Address, Period);
         }
 
         protected override void Divide()
         {
             Period *= 2.0;
-            Messenger.SendMessage(Address, Period);
         }
 
         private void Tap()
         {
             Period = GetMasterPeriod();
-            Messenger.SendMessage(Address, Period);
         }
 
         private double GetMasterPeriod()
@@ -98,5 +102,22 @@ namespace CMiX.ViewModels
         }
 
         private double CurrentTime => (DateTime.Now - DateTime.MinValue).TotalMilliseconds;
+
+
+        public void Copy(MasterBeatDTO masterbeatdto)
+        {
+            masterbeatdto.Period = Period;
+            masterbeatdto.MessageAddress = MessageAddress;
+        }
+
+        public void Paste(MasterBeatDTO masterbeatdto)
+        {
+            MessageEnabled = false;
+
+            MessageAddress = masterbeatdto.MessageAddress;
+            Period = masterbeatdto.Period;
+
+            MessageEnabled = true;
+        }
     }
 }

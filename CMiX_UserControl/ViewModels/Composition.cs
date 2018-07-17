@@ -100,7 +100,7 @@ namespace CMiX.ViewModels
                 lyr.Copy(layerdto);
                 compositiondto.LayersDTO.Add(layerdto);
             }
-
+            MasterBeat.Copy(compositiondto.MasterBeatDTO);
             Camera.Copy(compositiondto.CameraDTO);
         }
 
@@ -122,6 +122,7 @@ namespace CMiX.ViewModels
                 Layers.Add(layer);
             }
 
+            MasterBeat.Paste(compositiondto.MasterBeatDTO);
             Camera.Paste(compositiondto.CameraDTO);
 
             MessageEnabled = true;
@@ -142,6 +143,7 @@ namespace CMiX.ViewModels
                 Layers.Add(layer);
             }
 
+            MasterBeat.Paste(compositiondto.MasterBeatDTO);
             Camera.Paste(compositiondto.CameraDTO);
 
             MessageEnabled = true;

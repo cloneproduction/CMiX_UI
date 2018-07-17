@@ -13,7 +13,7 @@ namespace CMiX.Models
         public CompositionDTO()
         {
             LayerNames = new List<string>();
-            //MasterBeat = new MasterBeat();
+            MasterBeatDTO = new MasterBeatDTO();
             LayersDTO = new List<LayerDTO>();
 
             CameraDTO = new CameraDTO();
@@ -23,7 +23,7 @@ namespace CMiX.Models
 
         public List<string> LayerNames { get; set; }
 
-        //public MasterBeat MasterBeat { get; set; }
+        public MasterBeatDTO MasterBeatDTO { get; set; }
 
         public CameraDTO CameraDTO { get; set; }
 

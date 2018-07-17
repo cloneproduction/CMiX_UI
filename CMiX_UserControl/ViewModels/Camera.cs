@@ -9,12 +9,12 @@ namespace CMiX.ViewModels
         public Camera(IMessenger messenger, MasterBeat masterBeat)
             : this(
                   messenger: messenger,
-                  messageaddress: "/Camera/",
+                  messageaddress: "/Camera",
                   messageEnabled: true,
                   rotation: ((CameraRotation)0).ToString(),
                   lookAt: ((CameraLookAt)0).ToString(),
                   view: ((CameraView)0).ToString(),
-                  beatModifier: new BeatModifier("/Camera/", messenger, masterBeat),
+                  beatModifier: new BeatModifier("/Camera", messenger, masterBeat),
                   fov: 0.2,
                   zoom: 1.0
                   )
@@ -61,7 +61,7 @@ namespace CMiX.ViewModels
             {
                 SetAndNotify(ref _rotation, value);
                 if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(Rotation), Rotation);
+                    Messenger.SendMessage(MessageAddress +"/" + nameof(Rotation), Rotation);
             }
         }
 
@@ -74,7 +74,7 @@ namespace CMiX.ViewModels
             {
                 SetAndNotify(ref _lookAt, value);
                 if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(LookAt), LookAt);
+                    Messenger.SendMessage(MessageAddress + "/" + nameof(LookAt), LookAt);
             }
         }
 
@@ -87,7 +87,7 @@ namespace CMiX.ViewModels
             {
                 SetAndNotify(ref _view, value);
                 if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(View), View);
+                    Messenger.SendMessage(MessageAddress + "/" + nameof(View), View);
             }
         }
 
@@ -100,7 +100,7 @@ namespace CMiX.ViewModels
             {
                 SetAndNotify(ref _FOV, value);
                 if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(FOV), FOV);
+                    Messenger.SendMessage(MessageAddress + "/" + nameof(FOV), FOV);
             }
         }
 
@@ -113,7 +113,7 @@ namespace CMiX.ViewModels
             {
                 SetAndNotify(ref _zoom, value);
                 if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(Zoom), Zoom);
+                    Messenger.SendMessage(MessageAddress + "/" + nameof(Zoom), Zoom);
             }
         }
 

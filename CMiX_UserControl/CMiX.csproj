@@ -114,6 +114,7 @@
     <Compile Include="Models\GeometryTranslateDTO.cs" />
     <Compile Include="Models\LayerDTO.cs" />
     <Compile Include="Models\MaskDTO.cs" />
+    <Compile Include="Models\MasterBeatDTO.cs" />
     <Compile Include="Models\PostFXDTO.cs" />
     <Compile Include="Models\RangeControlDTO.cs" />
     <Compile Include="Models\TextureDTO.cs" />
