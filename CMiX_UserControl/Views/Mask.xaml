@@ -22,14 +22,27 @@
                 DockPanel.Dock="Bottom"
                 FontWeight="SemiBold"
                 FontSize="12"/>
-                <ToggleButton
-                    Grid.Row="0"
-                    Width="20"
-                    Margin="4"
-                    HorizontalAlignment="Right"
-                    HorizontalContentAlignment="Center"
-                    IsChecked="{Binding Enable, Mode=TwoWay}"
-                    Style="{StaticResource ToggleButtonBase}" />
+                <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+                    <ToggleButton
+                        Grid.Row="0"
+                        Width="20"
+                        Margin="4"
+                        HorizontalAlignment="Right"
+                        HorizontalContentAlignment="Center"
+                        IsChecked="{Binding Enable, Mode=TwoWay}"
+                        Style="{StaticResource ToggleButtonBase}" />
+                    <ToggleButton
+                        Grid.Row="0"
+                        Width="20"
+                        Margin="4"
+                        Content="Keep"
+                        HorizontalAlignment="Right"
+                        HorizontalContentAlignment="Center"
+                        IsChecked="{Binding KeepOriginal, Mode=TwoWay}"
+                        Style="{StaticResource ToggleButtonBase}" />
+                </StackPanel>
+                    
+
             </Grid>
         </Border>
         <Border DockPanel.Dock="Top" Margin="0, 8" Style="{StaticResource BorderContainer}">

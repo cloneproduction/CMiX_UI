@@ -17,6 +17,8 @@ namespace CMiX.Models
 
         public bool Enable { get; set; }
 
+        public bool KeepOriginal { get; set; }
+
         public BeatModifierDTO BeatModifierDTO { get; set; }
 
         public GeometryDTO GeometryDTO { get; set; }

@@ -57,6 +57,19 @@ namespace CMiX.ViewModels
             }
         }
 
+        private bool _keeporiginal;
+        [OSC]
+        public bool KeepOriginal
+        {
+            get => _keeporiginal;
+            set
+            {
+                SetAndNotify(ref _keeporiginal, value);
+                if (MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(KeepOriginal), KeepOriginal);
+            }
+        }
+
         public IMessenger Messenger { get; }
 
         public BeatModifier BeatModifier { get; }
@@ -70,6 +83,7 @@ namespace CMiX.ViewModels
         public void Copy(MaskDTO maskdto)
         {
             maskdto.Enable = Enable;
+            maskdto.KeepOriginal = KeepOriginal;
 
             BeatModifier.Copy(maskdto.BeatModifierDTO);
             Texture.Copy(maskdto.TextureDTO);
@@ -82,6 +96,7 @@ namespace CMiX.ViewModels
             MessageEnabled = false;
 
             Enable = maskdto.Enable;
+            KeepOriginal = maskdto.KeepOriginal;
 
             BeatModifier.Paste(maskdto.BeatModifierDTO);
             Texture.Paste(maskdto.TextureDTO);
