@@ -5,12 +5,13 @@
     xmlns:CMiX="clr-namespace:CMiX"
     xmlns:Controls="clr-namespace:CMiX.Controls"
     xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
+    xmlns:Views = "clr-namespace:CMiX.Views"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:coll="clr-namespace:System.Collections;assembly=mscorlib"
-    d:DesignHeight="365.778"
-    d:DesignWidth="343.445"
+    d:DesignHeight="411.111"
+    d:DesignWidth="358.112"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -169,5 +170,6 @@
                         Style="{DynamicResource ToggleButtonBase}" />
             </Grid>
         </Border>
+        <Views:GeometryFX DataContext="{Binding GeometryFX}"/>
     </StackPanel>
 </UserControl>

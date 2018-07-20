@@ -47,13 +47,11 @@
                         Height="20"
                         Margin="0,2,0,1"
                         Caption="Feedback"
-                        Tag="TexFeedBack"
                         Value="{Binding Feedback, Mode=TwoWay}"/>
                     <Controls:CustomSlider
                         Height="20"
                         Margin="0,1,0,1"
                         Caption="Blur"
-                        Tag="Blur"
                         Value="{Binding Blur, Mode=TwoWay}"/>
                     <Grid DockPanel.Dock="Bottom"
                           Margin="0, 2, 0, 0">

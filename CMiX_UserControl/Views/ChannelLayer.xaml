@@ -9,8 +9,8 @@
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="77.644"
-    d:DesignWidth="319.051"
+    d:DesignHeight="109.977"
+    d:DesignWidth="358.051"
     mc:Ignorable="d">
     <UserControl.Resources>
         <CMiX:EnumToStringConverter x:Key="EnumToString"/>
@@ -62,14 +62,24 @@
                     Focusable="False"
                     DataContext="{Binding BeatModifier}"
                     />
-                <ComboBox 
-                    Height="20"
-                    Margin="0,4"
-                    Style="{StaticResource ComboBoxBase}"
-                    ItemContainerStyle="{StaticResource BaseListBoxItemStyle}"
-                    SelectedItem="{Binding BlendMode}"
-                    ItemsSource="{Binding Source={StaticResource BlendMode}}">
-                </ComboBox>
+                <DockPanel>
+                    <RadioButton 
+                        DockPanel.Dock="Right" 
+                        IsChecked="{Binding Out}"
+                        Style="{StaticResource RadioButtonBase}" 
+                        Margin="2, 4, 2, 4" 
+                        Content="OUT" 
+                        GroupName="Output" 
+                        Width="40" />
+                    <ComboBox 
+                        Height="20"
+                        Margin="0,4"
+                        Style="{StaticResource ComboBoxBase}"
+                        ItemContainerStyle="{StaticResource BaseListBoxItemStyle}"
+                        SelectedItem="{Binding BlendMode}"
+                        ItemsSource="{Binding Source={StaticResource BlendMode}}"/>
+                </DockPanel>
+
                 <Controls:CustomSlider
                     Focusable="False"
                     Caption="Alpha"

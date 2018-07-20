@@ -14,6 +14,7 @@ namespace CMiX.Models
             GeometryScale = new GeometryScaleDTO();
             GeometryRotation = new GeometryRotationDTO();
             GeometryPaths = new List<ListBoxFileName>();
+            GeometryFX = new GeometryFXDTO();
         }
 
         public string MessageAddress { get; set; }
@@ -37,5 +38,7 @@ namespace CMiX.Models
         public GeometryScaleDTO GeometryScale { get; set; }
 
         public GeometryRotationDTO GeometryRotation { get; set; }
+
+        public GeometryFXDTO GeometryFX { get; set; }
     }
 }

@@ -104,6 +104,19 @@ namespace CMiX.ViewModels
             }
         }
 
+        private bool _out;
+        [OSC]
+        public bool Out
+        {
+            get => _out;
+            set
+            {
+                SetAndNotify(ref _out, value);
+                if (MessageEnabled && Out)
+                    Messenger.SendMessage(MessageAddress + nameof(Out), Out);
+            }
+        }
+
         private string _blendMode;
         [OSC]
         public string BlendMode
@@ -145,6 +158,7 @@ namespace CMiX.ViewModels
 
             BlendMode = layerdto.BlendMode;
             Fade = layerdto.Fade;
+            Out = layerdto.Out;
 
             BeatModifier.Paste(layerdto.BeatModifierDTO);
             Content.Paste(layerdto.ContentDTO);
@@ -162,6 +176,7 @@ namespace CMiX.ViewModels
             Fade = layerdto.Fade;
             LayerName = layerdto.LayerName;
             Index = layerdto.Index;
+            Out = layerdto.Out;
 
             BeatModifier.Paste(layerdto.BeatModifierDTO);
             Content.Paste(layerdto.ContentDTO);

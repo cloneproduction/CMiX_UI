@@ -21,6 +21,8 @@ namespace CMiX.ViewModels
                   geometryscale: new GeometryScale(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger),
                   geometryrotation: new GeometryRotation(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger),
                   geometrypaths: new ObservableCollection<ListBoxFileName>(),
+                  geometryfx : new GeometryFX(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger),
+
                   translateAmount: 0.0,
                   scaleAmount: 0.0,
                   rotationAmount: 0.0,
@@ -40,6 +42,9 @@ namespace CMiX.ViewModels
             GeometryTranslate geometrytranslate,
             GeometryScale geometryscale,
             GeometryRotation geometryrotation,
+
+            GeometryFX geometryfx,
+
             double translateAmount,
             double scaleAmount,
             double rotationAmount,
@@ -64,6 +69,8 @@ namespace CMiX.ViewModels
             GeometryRotation = geometryrotation ?? throw new ArgumentNullException(nameof(geometryrotation));
             GeometryScale = geometryscale ?? throw new ArgumentNullException(nameof(geometryscale));
 
+            GeometryFX = geometryfx;
+
             TranslateAmount = translateAmount;
             RotationAmount = rotationAmount;
             ScaleAmount = scaleAmount;
@@ -82,6 +89,7 @@ namespace CMiX.ViewModels
 
         public IMessenger Messenger { get; }
 
+        public GeometryFX GeometryFX { get; }
 
         private int _count;
         [OSC]
@@ -230,6 +238,8 @@ namespace CMiX.ViewModels
             GeometryScale.Copy(geometrydto.GeometryScale);
             GeometryRotation.Copy(geometrydto.GeometryRotation);
 
+            GeometryFX.Copy(geometrydto.GeometryFX);
+
             geometrydto.ScaleAmount = ScaleAmount;
             geometrydto.RotationAmount = RotationAmount;
             geometrydto.Is3D = Is3D;
@@ -255,6 +265,8 @@ namespace CMiX.ViewModels
             GeometryTranslate.Paste(geometrydto.GeometryTranslate);
             GeometryScale.Paste(geometrydto.GeometryScale);
             GeometryRotation.Paste(geometrydto.GeometryRotation);
+
+            GeometryFX.Paste(geometrydto.GeometryFX);
 
             Is3D = geometrydto.Is3D;
             KeepAspectRatio = geometrydto.KeepAspectRatio;

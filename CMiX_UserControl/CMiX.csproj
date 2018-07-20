@@ -109,6 +109,7 @@
     <Compile Include="Models\CompositionDTO.cs" />
     <Compile Include="Models\ContentDTO.cs" />
     <Compile Include="Models\GeometryDTO.cs" />
+    <Compile Include="Models\GeometryFXDTO.cs" />
     <Compile Include="Models\GeometryRotationDTO.cs" />
     <Compile Include="Models\GeometryScaleDTO.cs" />
     <Compile Include="Models\GeometryTranslateDTO.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Services\OSCAttribute.cs" />
     <Compile Include="Services\IMessengerData.cs" />
     <Compile Include="ViewModels\GeometryFileMask.cs" />
+    <Compile Include="ViewModels\GeometryFX.cs" />
     <Compile Include="ViewModels\GeometryRotation.cs" />
     <Compile Include="ViewModels\GeometryScale.cs" />
     <Compile Include="ViewModels\GeometrySelector.cs" />
@@ -192,6 +194,9 @@
     </Compile>
     <Compile Include="Controls\CMiXRangeSlider.xaml.cs">
       <DependentUpon>CMiXRangeSlider.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GeometryFX.xaml.cs">
+      <DependentUpon>GeometryFX.xaml</DependentUpon>
     </Compile>
     <Compile Include="_Unused\DragAndDropListbox.cs" />
     <Compile Include="Services\OSCListener.cs" />
@@ -370,6 +375,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Controls\CustomSlider.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GeometryFX.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -43,12 +43,14 @@
                     Height="25"
                     Content="Z"
                     DockPanel.Dock="Right"
+                    IsChecked="{Binding RotationZ}"
                     Style="{StaticResource ToggleButtonBase}"
                     Tag="3" />
                 <ToggleButton
                     Width="25"
                     Height="25"
                     Content="Y"
+                    IsChecked="{Binding RotationY}"
                     DockPanel.Dock="Right"
                     Style="{StaticResource ToggleButtonBase}"
                     Tag="2" />
@@ -56,6 +58,7 @@
                     Width="25"
                     Height="25"
                     Content="X"
+                    IsChecked="{Binding RotationX}"
                     DockPanel.Dock="Right"
                     Style="{StaticResource ToggleButtonBase}"
                     Tag="1" />

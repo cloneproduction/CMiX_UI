@@ -25,6 +25,8 @@ namespace CMiX.Models
 
         public bool Enabled { get; set; }
 
+        public bool Out { get; set; }
+
         public int Index { get; set; }
 
         public double Fade { get; set; }
