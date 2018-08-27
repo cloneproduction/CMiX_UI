@@ -9,7 +9,7 @@
         <Setter Property="BorderBrush" Value="#FFACACAC" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
-        <Setter Property="Background" Value="{DynamicResource DarkerColor}" />
+        <Setter Property="Background" Value="{DynamicResource HighDarkerColor}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TabControl}">
@@ -31,14 +31,13 @@
                             x:Name="HeaderPanel"
                             HorizontalAlignment="Stretch"
                             IsItemsHost="True" />
-
                         <Border
                             x:Name="ContentPanel"
                             Grid.Row="1"
                             Grid.Column="0"
                             Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{DynamicResource DarkColor}"
+                            BorderThickness="0, 2, 0, 0"
                             CornerRadius="0"
                             KeyboardNavigation.DirectionalNavigation="Contained"
                             KeyboardNavigation.TabIndex="2"
@@ -155,7 +154,7 @@
                         </Border>
                         <ContentPresenter
                             x:Name="contentPresenter"
-                            Margin="0"
+                            Margin="5"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Content="{TemplateBinding Header}"
@@ -260,8 +259,9 @@
                                 <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type TabControl}}}" Value="Top" />
                             </MultiDataTrigger.Conditions>
                             <Setter TargetName="innerBorder" Property="Opacity" Value="1" />
-                            <Setter TargetName="innerBorder" Property="Background" Value="{DynamicResource DarkerColor}" />
-                            <Setter Property="Foreground" Value="{DynamicResource LightColor}" />
+                            <Setter TargetName="innerBorder" Property="Background" Value="{DynamicResource HighDarkerColor}" />
+                            <Setter Property="Foreground" Value="{DynamicResource TextBase}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource Red}" />
                         </MultiDataTrigger>
 
                         <MultiDataTrigger>

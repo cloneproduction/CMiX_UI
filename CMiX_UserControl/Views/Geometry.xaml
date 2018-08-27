@@ -10,8 +10,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:coll="clr-namespace:System.Collections;assembly=mscorlib"
-    d:DesignHeight="411.111"
-    d:DesignWidth="358.112"
+    d:DesignHeight="676.111"
+    d:DesignWidth="367.112"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -25,36 +25,16 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <StackPanel>
-        <Border
-            Style="{StaticResource BorderContainer}"
-            Margin="0, 0, 0, 4">
-            <Grid Height="20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="Count" Foreground="{StaticResource TextBase}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <Controls:Counter
-                    Grid.Column="1"
-                    Height="20"
-                    HorizontalAlignment="Stretch"
-                    Count="{Binding Count, Mode=TwoWay}" />
-            </Grid>
-        </Border>
+    <DockPanel>
 
-        <Border                 
+
+        <Border 
+            DockPanel.Dock="Bottom"
             Background="{StaticResource DarkerColor}"
             Style="{StaticResource BorderContainer}"
-            Margin="0, 4, 0, 4">
+            Margin="0, 8, 0, 0">
             <StackPanel>
-                <Controls:FileSelector
-                    Height="150"
-                    Title="Models"
-                    Margin="0, 0, 0, 4"
-                    ModeSelection="Single"
-                    Items="{Binding GeometryPaths, Mode=TwoWay}">
-                </Controls:FileSelector>
+
                 <Grid Height="20">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition  />
@@ -146,7 +126,10 @@
                 </Grid>
             </StackPanel>
         </Border>
-        <Border Margin="0, 4, 0, 0" Style="{StaticResource BorderContainer}">
+        <Border 
+            DockPanel.Dock="Bottom"
+            Margin="0, 8, 0, 0" 
+            Style="{StaticResource BorderContainer}">
             <Grid
                 Height="20"
                 DockPanel.Dock="Bottom">
@@ -170,6 +153,36 @@
                         Style="{DynamicResource ToggleButtonBase}" />
             </Grid>
         </Border>
-        <Views:GeometryFX DataContext="{Binding GeometryFX}"/>
-    </StackPanel>
+        
+        <Views:GeometryFX Margin="0, 8, 0, 0" DockPanel.Dock="Bottom" DataContext="{Binding GeometryFX}"/>
+        <Border
+            DockPanel.Dock="Bottom"
+            Style="{StaticResource BorderContainer}">
+            <Grid Height="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Count" Foreground="{StaticResource TextBase}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Controls:Counter
+                    Grid.Column="1"
+                    Height="20"
+                    HorizontalAlignment="Stretch"
+                    Count="{Binding Count, Mode=TwoWay}" />
+            </Grid>
+        </Border>
+        <Border 
+            DockPanel.Dock="Bottom"
+            Margin="0, 0, 0, 8" 
+            Style="{StaticResource BorderContainer}">
+            <Controls:FileSelector
+                    DockPanel.Dock="Top"
+                    Title="Filenames"
+                    Margin="0, 0, 0, 8"
+                    ModeSelection="Single"
+                    Items="{Binding GeometryPaths, Mode=TwoWay}">
+            </Controls:FileSelector>
+        </Border>
+        
+    </DockPanel>
 </UserControl>

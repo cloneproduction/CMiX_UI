@@ -12,7 +12,6 @@
         <Border DockPanel.Dock="Top"               
                 BorderThickness="0, 0, 0, 2"
                 BorderBrush="{StaticResource DarkColor}">
-
             <Label
                 Style="{StaticResource LabelBase}"
                 Content="CONTENT"
@@ -23,16 +22,25 @@
         <Border Margin="0,8" DockPanel.Dock="Top" Style="{StaticResource BorderContainer}">
             <Views:BeatModifier Height="20" DataContext="{Binding BeatModifier}"/>
         </Border>
-        <Views:PostFX
+        <TabControl DockPanel.Dock="Bottom" Style="{StaticResource TabControlBase}">
+            <TabItem Header="GEOMETRY" Style="{StaticResource TabItemBase}">
+                <Views:Geometry
+                    Margin="0, 8, 0, 0"
+                    DataContext="{Binding Geometry}"
+                    DockPanel.Dock="Bottom" />
+            </TabItem>
+            <TabItem Header="TEXTURE" Style="{StaticResource TabItemBase}">
+                <Views:Texture
+                Margin="0, 8, 0, 8"
+                DataContext="{Binding Texture}"
+                DockPanel.Dock="Bottom" />
+            </TabItem>
+            <TabItem Header="POSTFX" Style="{StaticResource TabItemBase}">
+                <Views:PostFX
                 Margin="0, 8, 0, 0"
                 DataContext="{Binding PostFX}"
                 DockPanel.Dock="Bottom" />
-        <Views:Geometry
-                DataContext="{Binding Geometry}"
-                DockPanel.Dock="Bottom" />
-        <Views:Texture
-                Margin="0,0, 0, 8"
-                DataContext="{Binding Texture}"
-                DockPanel.Dock="Top" />
+            </TabItem>
+        </TabControl>
     </DockPanel>
 </UserControl>

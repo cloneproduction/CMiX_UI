@@ -19,10 +19,8 @@
         </ObjectDataProvider>
     </UserControl.Resources>
     <Border             
-        DockPanel.Dock="Bottom"
         Style="{StaticResource BorderContainer}">
-        <DockPanel
-                DockPanel.Dock="Bottom">
+        <DockPanel>
             <Grid
                 Height="20"
                 Margin="0, 2, 0, 0"
@@ -66,9 +64,7 @@
                 Value="{Binding Brightness, Mode=TwoWay}" />
             <Controls:FileSelector
                 DockPanel.Dock="Top"
-                MinHeight="150"
-                Height="150"
-                Title="Textures"
+                Title="Filenames"
                 Margin="0, 4, 0, 2"
                 ModeSelection="Extended"
                 Items="{Binding TexturePaths}"/>
