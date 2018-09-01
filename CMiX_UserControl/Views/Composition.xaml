@@ -156,8 +156,7 @@
                     </Grid>
                 </Border>
             </Grid>
-            <ScrollViewer
-                VerticalScrollBarVisibility="Hidden"
+            <Border
                 Grid.Column="1"
                 Margin="4">
                 <ItemsControl ItemsSource="{Binding Layers}">
@@ -172,7 +171,7 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
-            </ScrollViewer>
+            </Border>
         </DockPanel>
     </DockPanel>
 </UserControl>

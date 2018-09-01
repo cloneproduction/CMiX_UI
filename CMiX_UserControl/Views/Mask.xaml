@@ -45,22 +45,25 @@
         <Border DockPanel.Dock="Top" Margin="0, 8" Style="{StaticResource BorderContainer}">
             <Views:BeatModifier Height="20" DataContext="{Binding BeatModifier}"/>
         </Border>
-        <TabControl DockPanel.Dock="Bottom" Style="{StaticResource TabControlBase}">
-            <TabItem Header="GEOMETRY" Style="{StaticResource TabItemBase}">
+        <TabControl DockPanel.Dock="Bottom" AllowDrop="True" Style="{StaticResource TabControlBase}">
+            <TabItem Header="GEOMETRY" 
+                     DragOver="TabItem_DragOver"
+                     Style="{StaticResource TabItemBase}">
                 <Views:Geometry
-                    Margin="0, 8, 0, 0"
                     DataContext="{Binding Geometry}"
                     DockPanel.Dock="Bottom" />
             </TabItem>
-            <TabItem Header="TEXTURE" Style="{StaticResource TabItemBase}">
+            <TabItem Header="TEXTURE" 
+                     DragOver="TabItem_DragOver"
+                     Style="{StaticResource TabItemBase}">
                 <Views:Texture
-                    Margin="0, 8, 0, 0"
                     DataContext="{Binding Texture}"
                     DockPanel.Dock="Top" />
             </TabItem>
-            <TabItem Header="POSTFX" Style="{StaticResource TabItemBase}">
+            <TabItem Header="POSTFX" 
+                     DragOver="TabItem_DragOver"
+                     Style="{StaticResource TabItemBase}">
                 <Views:PostFX
-                    Margin="0, 8, 0, 0"
                     DataContext="{Binding PostFX}"
                     DockPanel.Dock="Bottom" />
             </TabItem>

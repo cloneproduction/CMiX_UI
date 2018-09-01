@@ -12,19 +12,6 @@
         <StackPanel>
             <Border DockPanel.Dock="Bottom">
                 <StackPanel x:Name="TexFXControl">
-                    <Border
-                        BorderThickness="0, 0, 0, 1"
-                        Margin="0, 0, 0, 2"
-                        BorderBrush="{StaticResource Color}">
-                        <Label
-                            Height="25"
-                            HorizontalContentAlignment="Center"
-                            Background="Transparent"
-                            Content="Geometry FX"
-                            DockPanel.Dock="Bottom"
-                            FontSize="12"
-                            Foreground="{StaticResource TextBase}" />
-                    </Border>
                     <Controls:CustomSlider
                         Height="20"
                         Margin="0,2,0,1"

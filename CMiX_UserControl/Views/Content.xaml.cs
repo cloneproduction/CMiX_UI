@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace CMiX.Views
 {
@@ -7,6 +8,12 @@ namespace CMiX.Views
         public Content()
         {
             InitializeComponent();
+        }
+
+        private void TabItem_DragOver(object sender, System.Windows.DragEventArgs e)
+        {
+            TabItem tabitem = sender as TabItem;
+            tabitem.IsSelected = true;
         }
     }
 }

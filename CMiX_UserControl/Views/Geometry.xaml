@@ -26,8 +26,34 @@
     </UserControl.Resources>
 
     <DockPanel>
-
-
+        <Views:GeometryFX Margin="0, 8, 0, 0" DockPanel.Dock="Bottom" DataContext="{Binding GeometryFX}"/>
+        <Border 
+            DockPanel.Dock="Bottom"
+            Margin="0, 8, 0, 0" 
+            Style="{StaticResource BorderContainer}">
+            <Grid
+                Height="20"
+                DockPanel.Dock="Bottom">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <ToggleButton
+                        Margin="0, 0, 1, 0"
+                        Grid.Column="0"
+                        Content="AR"
+                        DockPanel.Dock="Bottom"
+                        IsChecked="{Binding KeepAspectRatio, Mode=TwoWay}"
+                        Style="{DynamicResource ToggleButtonBase}" />
+                <ToggleButton
+                        Grid.Column="1"
+                        Margin="1, 0, 0, 0"
+                        Content="3D"
+                        DockPanel.Dock="Right"
+                        IsChecked="{Binding Is3D, Mode=TwoWay}"
+                        Style="{DynamicResource ToggleButtonBase}" />
+            </Grid>
+        </Border>
         <Border 
             DockPanel.Dock="Bottom"
             Background="{StaticResource DarkerColor}"
@@ -126,35 +152,6 @@
                 </Grid>
             </StackPanel>
         </Border>
-        <Border 
-            DockPanel.Dock="Bottom"
-            Margin="0, 8, 0, 0" 
-            Style="{StaticResource BorderContainer}">
-            <Grid
-                Height="20"
-                DockPanel.Dock="Bottom">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <ToggleButton
-                        Margin="0, 0, 1, 0"
-                        Grid.Column="0"
-                        Content="AR"
-                        DockPanel.Dock="Bottom"
-                        IsChecked="{Binding KeepAspectRatio, Mode=TwoWay}"
-                        Style="{DynamicResource ToggleButtonBase}" />
-                <ToggleButton
-                        Grid.Column="1"
-                        Margin="1, 0, 0, 0"
-                        Content="3D"
-                        DockPanel.Dock="Right"
-                        IsChecked="{Binding Is3D, Mode=TwoWay}"
-                        Style="{DynamicResource ToggleButtonBase}" />
-            </Grid>
-        </Border>
-        
-        <Views:GeometryFX Margin="0, 8, 0, 0" DockPanel.Dock="Bottom" DataContext="{Binding GeometryFX}"/>
         <Border
             DockPanel.Dock="Bottom"
             Style="{StaticResource BorderContainer}">
@@ -183,6 +180,5 @@
                     Items="{Binding GeometryPaths, Mode=TwoWay}">
             </Controls:FileSelector>
         </Border>
-        
     </DockPanel>
 </UserControl>
