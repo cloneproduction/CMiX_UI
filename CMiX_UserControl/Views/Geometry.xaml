@@ -24,12 +24,12 @@
             <CMiX:EnumToStringConverter x:Key="EnumToString" />
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <DockPanel>
-        <Views:GeometryFX Margin="0, 8, 0, 0" DockPanel.Dock="Bottom" DataContext="{Binding GeometryFX}"/>
+    <Border Background="{StaticResource DarkerColor}">
+        <DockPanel>
+        <Views:GeometryFX  DockPanel.Dock="Bottom" DataContext="{Binding GeometryFX}"/>
         <Border 
             DockPanel.Dock="Bottom"
-            Margin="0, 8, 0, 0" 
+
             Style="{StaticResource BorderContainer}">
             <Grid
                 Height="20"
@@ -57,8 +57,7 @@
         <Border 
             DockPanel.Dock="Bottom"
             Background="{StaticResource DarkerColor}"
-            Style="{StaticResource BorderContainer}"
-            Margin="0, 8, 0, 0">
+            Style="{StaticResource BorderContainer}">
             <StackPanel>
 
                 <Grid Height="20">
@@ -170,7 +169,6 @@
         </Border>
         <Border 
             DockPanel.Dock="Top"
-            Margin="0, 0, 0, 8" 
             Style="{StaticResource BorderContainer}">
             <DockPanel LastChildFill="False">
                 <Button 
@@ -202,15 +200,14 @@
         </Border>
         <Border 
             DockPanel.Dock="Bottom"
-            Margin="0, 0, 0, 8" 
             Style="{StaticResource BorderContainer}">
             <Controls:FileSelector
                     DockPanel.Dock="Top"
                     Title="Filenames"
-                    Margin="0, 0, 0, 8"
                     ModeSelection="Single"
                     Items="{Binding GeometryPaths, Mode=TwoWay}">
             </Controls:FileSelector>
         </Border>
     </DockPanel>
+    </Border>
 </UserControl>
