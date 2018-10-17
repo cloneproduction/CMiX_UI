@@ -1,6 +1,8 @@
 ﻿using System;
 using CMiX.Services;
 using CMiX.Models;
+using System.Windows;
+using System.Windows.Input;
 
 namespace CMiX.ViewModels
 {
@@ -37,6 +39,10 @@ namespace CMiX.ViewModels
             Geometry = geometry ?? throw new ArgumentNullException(nameof(geometry));
             Texture = texture ?? throw new ArgumentNullException(nameof(texture));
             PostFX = postFX ?? throw new ArgumentNullException(nameof(postFX));
+
+            CopySelfCommand = new RelayCommand(p => CopySelf());
+            PasteSelfCommand = new RelayCommand(p => PasteSelf());
+            ResetSelfCommand = new RelayCommand(p => ResetSelf());
         }
 
         public string MessageAddress { get; set; }
@@ -72,6 +78,11 @@ namespace CMiX.ViewModels
 
         public IMessenger Messenger { get; }
 
+        public ICommand CopySelfCommand { get; }
+        public ICommand PasteSelfCommand { get; }
+        public ICommand ResetSelfCommand { get; }
+
+
         public BeatModifier BeatModifier { get; }
 
         public Geometry Geometry { get; }
@@ -104,6 +115,34 @@ namespace CMiX.ViewModels
             PostFX.Paste(maskdto.PostFXDTO);
 
             MessageEnabled = true;
+        }
+
+        public void CopySelf()
+        {
+            MaskDTO maskdto = new MaskDTO();
+            this.Copy(maskdto);
+            IDataObject data = new DataObject();
+            data.SetData("Mask", maskdto, false);
+            Clipboard.SetDataObject(data);
+        }
+
+        public void PasteSelf()
+        {
+            IDataObject data = Clipboard.GetDataObject();
+            if (data.GetDataPresent("Mask"))
+            {
+                var maskdto = (MaskDTO)data.GetData("Mask") as MaskDTO;
+                this.Paste(maskdto);
+
+                Messenger.QueueObject(this);
+                Messenger.SendQueue();
+            }
+        }
+
+        public void ResetSelf()
+        {
+            MaskDTO maskdto = new MaskDTO();
+            this.Paste(maskdto);
         }
     }
 }

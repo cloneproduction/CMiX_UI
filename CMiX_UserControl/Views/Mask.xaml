@@ -13,14 +13,13 @@
             DockPanel.Dock="Top"            
             BorderThickness="0, 0, 0, 2"
             BorderBrush="{StaticResource DarkColor}">
-            <Grid>
+            <DockPanel>
                 <Label
-                Margin="0"
-                Style="{StaticResource LabelBase}"
-                Content="MASK"
-                DockPanel.Dock="Bottom"
-                FontWeight="SemiBold"
-                FontSize="12"/>
+                    Style="{StaticResource LabelBase}"
+                    Content="MASK"
+                    DockPanel.Dock="Left"
+                    FontWeight="SemiBold"
+                    FontSize="12"/>
                 <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
                     <ToggleButton
                         Grid.Row="0"
@@ -40,7 +39,34 @@
                         IsChecked="{Binding KeepOriginal, Mode=TwoWay}"
                         Style="{StaticResource ToggleButtonBase}" />
                 </StackPanel>
-            </Grid>
+                <DockPanel LastChildFill="False">
+                    <Button 
+                    DockPanel.Dock="Right"
+                    Command="{Binding Path=ResetSelfCommand}"
+                    Height="15" 
+                    Width="15" 
+                    Style="{StaticResource ButtonBase}"
+                    Content="R"
+                    />
+                    <Button 
+                    DockPanel.Dock="Right"
+                    Margin="2, 0"
+                    Command="{Binding Path=CopySelfCommand}"
+                    Height="15" 
+                    Width="15" 
+                    Style="{StaticResource ButtonBase}"
+                    Content="C"
+                    />
+                    <Button 
+                    DockPanel.Dock="Right"
+                    Command="{Binding Path=PasteSelfCommand}"
+                    Height="15" 
+                    Width="15" 
+                    Style="{StaticResource ButtonBase}"
+                    Content="P"
+                    />
+                </DockPanel>
+            </DockPanel>
         </Border>
         <Border DockPanel.Dock="Top" Margin="0, 8" Style="{StaticResource BorderContainer}">
             <Views:BeatModifier Height="20" DataContext="{Binding BeatModifier}"/>
