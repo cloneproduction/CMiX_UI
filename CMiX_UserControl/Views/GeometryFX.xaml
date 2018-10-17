@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Controls="clr-namespace:CMiX.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="41.167" d:DesignWidth="298.107">
     <Border             
         DockPanel.Dock="Bottom"
         Style="{StaticResource BorderContainer}">

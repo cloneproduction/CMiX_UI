@@ -18,18 +18,51 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </UserControl.Resources>
-    <Border             
+    <DockPanel>
+        <Border 
+            DockPanel.Dock="Top"
+            Margin="0, 0, 0, 8" 
+            Style="{StaticResource BorderContainer}">
+            <DockPanel LastChildFill="False">
+                <Button 
+                    DockPanel.Dock="Right"
+                    Command="{Binding Path=ResetSelfCommand}"
+                    Height="15" 
+                    Width="15" 
+                    Style="{StaticResource ButtonBase}"
+                    Content="R"
+                />
+                <Button 
+                    DockPanel.Dock="Right"
+                    Margin="2, 0"
+                    Command="{Binding Path=PasteSelfCommand}"
+                    Height="15" 
+                    Width="15" 
+                    Style="{StaticResource ButtonBase}"
+                    Content="P"
+                />
+                <Button 
+                    DockPanel.Dock="Right"
+                    Command="{Binding Path=CopySelfCommand}"
+                    Height="15" 
+                    Width="15" 
+                    Style="{StaticResource ButtonBase}"
+                    Content="C"
+                />
+            </DockPanel>
+        </Border>
+        <Border             
         Style="{StaticResource BorderContainer}">
-        <DockPanel>
-            <Grid
+            <DockPanel>
+                <Grid
                 Height="20"
                 Margin="0, 2, 0, 0"
                 DockPanel.Dock="Bottom">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="0.3*" />
-                </Grid.ColumnDefinitions>
-                <CMiX:CMiXComboBox
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="0.3*" />
+                    </Grid.ColumnDefinitions>
+                    <CMiX:CMiXComboBox
                     Grid.Column="1"
                     Margin="1, 0, 0, 0"
                     ItemsSource="{Binding Source={StaticResource InvertMode}}"
@@ -37,37 +70,39 @@
                     SelectedIndex="0"
                     ItemContainerStyle="{StaticResource BaseListBoxItemStyle}"
                     Style="{StaticResource ComboBoxBase}" />
-                <Controls:CustomSlider
+                    <Controls:CustomSlider
                     Grid.Column="0"
                     Caption="Invert"
                     Value="{Binding Invert, Mode=TwoWay}" />
-            </Grid>
-            <Controls:CustomSlider
+                </Grid>
+                <Controls:CustomSlider
                 Margin="0, 1, 0, 1"
                 Caption="Keying"
                 DockPanel.Dock="Bottom"
                 Value="{Binding Keying, Mode=TwoWay}" />
-            <Controls:CustomSlider
+                <Controls:CustomSlider
                 Margin="0, 1, 0, 1"
                 Caption="Saturation"
                 DockPanel.Dock="Bottom"
                 Value="{Binding Saturation, Mode=TwoWay}" />
-            <Controls:CustomSlider
+                <Controls:CustomSlider
                 Margin="0, 1, 0, 1"
                 Caption="Contrast"
                 DockPanel.Dock="Bottom"
                 Value="{Binding Contrast, Mode=TwoWay}" />
-            <Controls:CustomSlider
+                <Controls:CustomSlider
                 Margin="0, 1, 0, 1"
                 Caption="Brightness"
                 DockPanel.Dock="Bottom"
                 Value="{Binding Brightness, Mode=TwoWay}" />
-            <Controls:FileSelector
+                <Controls:FileSelector
                 DockPanel.Dock="Top"
                 Title="Filenames"
                 Margin="0, 4, 0, 2"
                 ModeSelection="Extended"
                 Items="{Binding TexturePaths}"/>
-        </DockPanel>
-    </Border>
+            </DockPanel>
+        </Border>
+    </DockPanel>
+
 </UserControl>

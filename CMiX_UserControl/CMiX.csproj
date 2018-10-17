@@ -121,6 +121,7 @@
     <Compile Include="Models\TextureDTO.cs" />
     <Compile Include="Services\OSCAttribute.cs" />
     <Compile Include="Services\IMessengerData.cs" />
+    <Compile Include="ViewModels\CopyPasteReset.cs" />
     <Compile Include="ViewModels\GeometryFileMask.cs" />
     <Compile Include="ViewModels\GeometryFX.cs" />
     <Compile Include="ViewModels\GeometryRotation.cs" />
@@ -173,6 +174,9 @@
     </Compile>
     <Compile Include="Views\Content.xaml.cs">
       <DependentUpon>Content.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CopyPasteReset.xaml.cs">
+      <DependentUpon>CopyPasteReset.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Mask.xaml.cs">
       <DependentUpon>Mask.xaml</DependentUpon>
@@ -303,6 +307,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Content.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CopyPasteReset.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

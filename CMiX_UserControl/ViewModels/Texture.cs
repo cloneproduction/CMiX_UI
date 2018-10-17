@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using CMiX.Models;
+using System.Windows.Input;
+using System.Windows;
 
 namespace CMiX.ViewModels
 {
@@ -62,6 +64,10 @@ namespace CMiX.ViewModels
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
             MessageEnabled = messageEnabled;
+
+            CopySelfCommand = new RelayCommand(p => CopySelf());
+            PasteSelfCommand = new RelayCommand(p => PasteSelf());
+            ResetSelfCommand = new RelayCommand(p => ResetSelf());
         }
 
         public string MessageAddress { get; set; }
@@ -69,6 +75,10 @@ namespace CMiX.ViewModels
         public bool MessageEnabled { get; set; }
 
         public IMessenger Messenger { get; }
+
+        public ICommand CopySelfCommand { get; }
+        public ICommand PasteSelfCommand { get; }
+        public ICommand ResetSelfCommand { get; }
 
         [OSC]
         public ObservableCollection<ListBoxFileName> TexturePaths { get; }
@@ -229,6 +239,34 @@ namespace CMiX.ViewModels
             InvertMode = texturedto.InvertMode;
 
             MessageEnabled = true;
+        }
+
+        public void CopySelf()
+        {
+            TextureDTO texturedto = new TextureDTO();
+            this.Copy(texturedto);
+            IDataObject data = new DataObject();
+            data.SetData("Texture", texturedto, false);
+            Clipboard.SetDataObject(data);
+        }
+
+        public void PasteSelf()
+        {
+            IDataObject data = Clipboard.GetDataObject();
+            if (data.GetDataPresent("Texture"))
+            {
+                var texturedto = (TextureDTO)data.GetData("Texture") as TextureDTO;
+                this.Paste(texturedto);
+
+                Messenger.QueueObject(this);
+                Messenger.SendQueue();
+            }
+        }
+
+        public void ResetSelf()
+        {
+            TextureDTO texturedto = new TextureDTO();
+            this.Paste(texturedto);
         }
     }
 }

@@ -6,6 +6,8 @@ using System.ComponentModel;
 using CMiX.Services;
 using CMiX.Controls;
 using CMiX.Models;
+using System.Windows;
+using System.Windows.Input;
 
 namespace CMiX.ViewModels
 {
@@ -81,6 +83,10 @@ namespace CMiX.ViewModels
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
             MessageEnabled = messageEnabled;
+
+            CopySelfCommand = new RelayCommand(p => CopySelf());
+            PasteSelfCommand = new RelayCommand(p => PasteSelf());
+            ResetSelfCommand = new RelayCommand(p => ResetSelf());
         }
 
         public string MessageAddress { get; set; }
@@ -88,6 +94,10 @@ namespace CMiX.ViewModels
         public bool MessageEnabled { get; set; }
 
         public IMessenger Messenger { get; }
+
+        public ICommand CopySelfCommand { get; }
+        public ICommand PasteSelfCommand { get; }
+        public ICommand ResetSelfCommand { get; }
 
         public GeometryFX GeometryFX { get; }
 
@@ -272,6 +282,34 @@ namespace CMiX.ViewModels
             KeepAspectRatio = geometrydto.KeepAspectRatio;
 
             MessageEnabled = true;
+        }
+
+        public void CopySelf()
+        {
+            GeometryDTO geometrydto = new GeometryDTO();
+            this.Copy(geometrydto);
+            IDataObject data = new DataObject();
+            data.SetData("Geometry", geometrydto, false);
+            Clipboard.SetDataObject(data);
+        }
+
+        public void PasteSelf()
+        {
+            IDataObject data = Clipboard.GetDataObject();
+            if (data.GetDataPresent("Geometry"))
+            {
+                var geometrydto = (GeometryDTO)data.GetData("Geometry") as GeometryDTO;
+                this.Paste(geometrydto);
+
+                Messenger.QueueObject(this);
+                Messenger.SendQueue();
+            }
+        }
+
+        public void ResetSelf()
+        {
+            GeometryDTO geometrydto = new GeometryDTO();
+            this.Paste(geometrydto);
         }
     }
 }

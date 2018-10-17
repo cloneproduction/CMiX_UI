@@ -1,6 +1,8 @@
 ﻿using System;
 using CMiX.Services;
 using CMiX.Models;
+using System.Windows;
+using System.Windows.Input;
 
 namespace CMiX.ViewModels
 {
@@ -37,6 +39,10 @@ namespace CMiX.ViewModels
             Geometry = geometry ?? throw new ArgumentNullException(nameof(geometry));
             Texture = texture ?? throw new ArgumentNullException(nameof(texture));
             PostFX = postFX ?? throw new ArgumentNullException(nameof(postFX));
+
+            CopySelfCommand = new RelayCommand(p => CopySelf());
+            PasteSelfCommand = new RelayCommand(p => PasteSelf());
+            ResetSelfCommand = new RelayCommand(p => ResetSelf());
         }
 
         public IMessenger Messenger { get; }
@@ -44,6 +50,11 @@ namespace CMiX.ViewModels
         public string MessageAddress { get; set; }
 
         public bool MessageEnabled { get; set; }
+
+
+        public ICommand CopySelfCommand { get; }
+        public ICommand PasteSelfCommand { get; }
+        public ICommand ResetSelfCommand { get; }
 
         private bool _enable;
         public bool Enable
@@ -60,6 +71,35 @@ namespace CMiX.ViewModels
 
         public PostFX PostFX { get; }
 
+        public void CopySelf()
+        {
+            ContentDTO contentdto = new ContentDTO();
+            this.Copy(contentdto);
+            IDataObject data = new DataObject();
+            data.SetData("Content", contentdto, false);
+            Clipboard.SetDataObject(data);
+        }
+
+        public void PasteSelf()
+        {
+            IDataObject data = Clipboard.GetDataObject();
+            if (data.GetDataPresent("Content"))
+            {
+                var contentdto = (ContentDTO)data.GetData("Content") as ContentDTO;
+                this.Paste(contentdto);
+
+                Messenger.QueueObject(this);
+                Messenger.SendQueue();
+            }
+        }
+
+        public void ResetSelf()
+        {
+            ContentDTO contentdto = new ContentDTO();
+            this.Paste(contentdto);
+        }
+
+
         public void Copy(ContentDTO contentdto)
         {
             contentdto.Enable = Enable;
@@ -68,6 +108,7 @@ namespace CMiX.ViewModels
             Texture.Copy(contentdto.TextureDTO);
             Geometry.Copy(contentdto.GeometryDTO);
             PostFX.Copy(contentdto.PostFXDTO);
+
         }
 
         public void Paste(ContentDTO contentdto)

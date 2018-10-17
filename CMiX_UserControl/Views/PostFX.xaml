@@ -27,22 +27,40 @@
         DockPanel.Dock="Bottom"
         Style="{StaticResource BorderContainer}">
         <StackPanel>
+            <Border 
+                DockPanel.Dock="Top"
+                Margin="0, 0, 0, 8" 
+                Style="{StaticResource BorderContainer}">
+                <DockPanel LastChildFill="False">
+                <Button 
+                        DockPanel.Dock="Right"
+                        Command="{Binding Path=ResetSelfCommand}"
+                        Height="15" 
+                        Width="15" 
+                        Style="{StaticResource ButtonBase}"
+                        Content="R"
+                    />
+                <Button 
+                        DockPanel.Dock="Right"
+                        Margin="2, 0"
+                        Command="{Binding Path=PasteSelfCommand}"
+                        Height="15" 
+                        Width="15" 
+                        Style="{StaticResource ButtonBase}"
+                        Content="P"
+                    />
+                <Button 
+                        DockPanel.Dock="Right"
+                        Command="{Binding Path=CopySelfCommand}"
+                        Height="15" 
+                        Width="15" 
+                        Style="{StaticResource ButtonBase}"
+                        Content="C"
+                    />
+            </DockPanel>
+            </Border>
             <Border DockPanel.Dock="Bottom">
                 <StackPanel x:Name="TexFXControl">
-                    <Border
-                        BorderThickness="0, 0, 0, 1"
-                        Margin="0, 0, 0, 2"
-                        BorderBrush="{StaticResource Color}">
-                        <Label
-                            Height="25"
-                            HorizontalContentAlignment="Center"
-                            Background="Transparent"
-                            Content="PostFX"
-                            DockPanel.Dock="Bottom"
-                            FontSize="12"
-                            Foreground="{StaticResource TextBase}" />
-                    </Border>
-
                     <Controls:CustomSlider
                         Height="20"
                         Margin="0,2,0,1"

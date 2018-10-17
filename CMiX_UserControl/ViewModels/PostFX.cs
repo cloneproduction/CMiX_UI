@@ -1,6 +1,8 @@
 ﻿using System;
 using CMiX.Services;
 using CMiX.Models;
+using System.Windows;
+using System.Windows.Input;
 
 namespace CMiX.ViewModels
 {
@@ -40,6 +42,10 @@ namespace CMiX.ViewModels
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
             MessageEnabled = messageEnabled;
+
+            CopySelfCommand = new RelayCommand(p => CopySelf());
+            PasteSelfCommand = new RelayCommand(p => PasteSelf());
+            ResetSelfCommand = new RelayCommand(p => ResetSelf());
         }
 
 
@@ -49,6 +55,9 @@ namespace CMiX.ViewModels
 
         public IMessenger Messenger { get; }
 
+        public ICommand CopySelfCommand { get; }
+        public ICommand PasteSelfCommand { get; }
+        public ICommand ResetSelfCommand { get; }
 
         private double _feedback;
         [OSC]
@@ -120,6 +129,34 @@ namespace CMiX.ViewModels
             View = postFXdto.View;
 
             MessageEnabled = true;
+        }
+
+        public void CopySelf()
+        {
+            PostFXDTO postFXdto = new PostFXDTO();
+            this.Copy(postFXdto);
+            IDataObject data = new DataObject();
+            data.SetData("PostFX", postFXdto, false);
+            Clipboard.SetDataObject(data);
+        }
+
+        public void PasteSelf()
+        {
+            IDataObject data = Clipboard.GetDataObject();
+            if (data.GetDataPresent("PostFX"))
+            {
+                var postFXdto = (PostFXDTO)data.GetData("PostFX") as PostFXDTO;
+                this.Paste(postFXdto);
+
+                Messenger.QueueObject(this);
+                Messenger.SendQueue();
+            }
+        }
+
+        public void ResetSelf()
+        {
+            PostFXDTO postFXdto = new PostFXDTO();
+            this.Paste(postFXdto);
         }
     }
 }

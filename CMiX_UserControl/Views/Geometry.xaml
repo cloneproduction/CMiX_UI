@@ -169,6 +169,38 @@
             </Grid>
         </Border>
         <Border 
+            DockPanel.Dock="Top"
+            Margin="0, 0, 0, 8" 
+            Style="{StaticResource BorderContainer}">
+            <DockPanel LastChildFill="False">
+                <Button 
+                    DockPanel.Dock="Right"
+                    Command="{Binding Path=ResetSelfCommand}"
+                    Height="15" 
+                    Width="15" 
+                    Style="{StaticResource ButtonBase}"
+                    Content="R"
+                />
+                <Button 
+                    DockPanel.Dock="Right"
+                    Margin="2, 0"
+                    Command="{Binding Path=PasteSelfCommand}"
+                    Height="15" 
+                    Width="15" 
+                    Style="{StaticResource ButtonBase}"
+                    Content="P"
+                />
+                <Button 
+                    DockPanel.Dock="Right"
+                    Command="{Binding Path=CopySelfCommand}"
+                    Height="15" 
+                    Width="15" 
+                    Style="{StaticResource ButtonBase}"
+                    Content="C"
+                />
+            </DockPanel>
+        </Border>
+        <Border 
             DockPanel.Dock="Bottom"
             Margin="0, 0, 0, 8" 
             Style="{StaticResource BorderContainer}">
