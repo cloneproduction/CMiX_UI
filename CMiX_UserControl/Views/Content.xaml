@@ -48,7 +48,7 @@
                     FontSize="12"/>
             </DockPanel>
         </Border>
-        <Border Padding="0, 0, 0, 0" BorderThickness="0">
+        <Border>
             <DockPanel>
                 <Border Margin="0, 4, 0, 8" DockPanel.Dock="Top" Style="{StaticResource BorderContainer}">
                     <Views:BeatModifier Height="20" DataContext="{Binding BeatModifier}"/>

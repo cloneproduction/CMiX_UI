@@ -13,14 +13,12 @@
     mc:Ignorable="d">
     <Border>
         <StackPanel>
-            <Border                 
-                BorderThickness="0, 0, 0, 2"
-                BorderBrush="{StaticResource DarkColor}"
-                Margin="0, 0, 0, 8">
+            <Border Margin="0, 0, 0, 0">
                 <Label
                     Margin="0"
                     Style="{StaticResource LabelBase}"
                     Content="BEAT"
+                    HorizontalAlignment="Left"
                     DockPanel.Dock="Bottom"
                     FontWeight="SemiBold"
                     FontSize="12"/>

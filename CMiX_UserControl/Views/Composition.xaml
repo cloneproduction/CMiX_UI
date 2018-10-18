@@ -8,8 +8,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:dd="urn:gong-wpf-dragdrop"
-    d:DesignHeight="895"
-    d:DesignWidth="1419"
+    d:DesignHeight="1096.666"
+    d:DesignWidth="1327"
     mc:Ignorable="d">
     <UserControl.InputBindings>
         <KeyBinding Modifiers="Control"
@@ -133,13 +133,11 @@
             </Border>
             <Grid DockPanel.Dock="Bottom">
                 <Border
-                    Height="120"
                     BorderBrush="{StaticResource DarkerColor}"
                     CornerRadius="0, 2, 2, 0"
                     BorderThickness="0, 1, 1, 1"
                     Background="{StaticResource HighDarkerColor}"
-                    Padding="8"
-                    Margin="0, 4, 4, 4">
+                    Padding="8, 0, 8, 8">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>

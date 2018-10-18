@@ -24,7 +24,6 @@
             <Border 
                 Background="{StaticResource DarkColor}"
                 Padding="4"
-                Margin="0, 0, 0, 8"
                 DockPanel.Dock="Top">
                 <DockPanel LastChildFill="False">
                     <TextBlock
@@ -59,7 +58,9 @@
                     />
                 </DockPanel>
             </Border>
-            <Border             
+            <Border 
+                DockPanel.Dock="Bottom"
+                Margin="0, 2, 0, 0"
                 Style="{StaticResource BorderContainer}">
                 <DockPanel>
                     <Grid
@@ -106,7 +107,7 @@
                     <Controls:FileSelector
                         DockPanel.Dock="Top"
                         Title="Filenames"
-                        Margin="0, 0, 0, 2"
+                        Margin="0, 2, 0, 0"
                         ModeSelection="Extended"
                         Items="{Binding TexturePaths}"/>
                 </DockPanel>

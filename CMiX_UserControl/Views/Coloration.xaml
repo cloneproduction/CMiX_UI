@@ -46,40 +46,73 @@
                     FontSize="12"/>
             </DockPanel>
         </Border>
-        <Border Style="{StaticResource BorderContainer}" Margin="0, 4">
+        <Border Style="{StaticResource BorderContainer}" Margin="0, 4, 0, 8">
             <Views:BeatModifier
                 DataContext="{Binding BeatModifier}"/>
         </Border>
         <Border             
             DockPanel.Dock="Bottom">
-            <Grid Margin="0, 4, 0, 0">
+            <Grid Margin="0, 0, 0, 0">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <TabControl
-                    Margin="0,0,0,2"
                     Background="{StaticResource DarkColor}"
                     DockPanel.Dock="Top"
                     Focusable="False"
                     Style="{StaticResource TabControlBase}">
                     <TabItem
                         Height="25"
-                        Header="Foreground"
+                        Width="25"
+                        Header="F"
+                        
                         IsSelected="True"
                         Style="{StaticResource TabItemBase}">
-                    <colorpicker:ColorPicker
-                        x:Name="Color"
-                        Margin="4"
-                        Background="{StaticResource DarkerColor}"
-                        SelectedColor="{Binding ObjColor, Mode=TwoWay}" />
+                        <StackPanel Background="{StaticResource HighDarkerColor}">
+                            <Border 
+                                Padding="4"
+                                Margin="0, 0, 0, 2"
+                                Background="{StaticResource DarkColor}"
+                                DockPanel.Dock="Top">
+                                <DockPanel LastChildFill="False">
+                                    <TextBlock
+                                        Margin="4, 0, 0, 0"
+                                        Text="Foreground"
+                                        Foreground="{StaticResource TextBase}"/>
+                                </DockPanel>
+                            </Border>
+                            <Border Margin="0" Padding="8" Background="{StaticResource HighDarkerColor}" Style="{StaticResource BorderContainer}">
+                            <colorpicker:ColorPicker
+                                x:Name="Color"
+                                Background="{StaticResource HighDarkerColor}"
+                                SelectedColor="{Binding ObjColor, Mode=TwoWay}" />
+                            </Border>
+                        </StackPanel>
                     </TabItem>
-                    <TabItem Header="Background" Style="{StaticResource TabItemBase}">
-                        <colorpicker:ColorPicker
-                            x:Name="BgColor"
-                            Margin="4"
-                            Background="{StaticResource DarkerColor}"
-                            SelectedColor="{Binding BgColor, Mode=TwoWay}" />
+                    <TabItem Header="B" Style="{StaticResource TabItemBase}">
+                        <StackPanel>
+                            <Border 
+                                Background="{StaticResource DarkColor}"
+                                Padding="4"
+                                BorderBrush="{StaticResource HighDarkerColor}"
+                                DockPanel.Dock="Top">
+                                <DockPanel LastChildFill="False">
+                                    <TextBlock
+                                        Margin="4, 0, 0, 0"
+                                        Text="Background"
+                                        Foreground="{StaticResource TextBase}"/>
+                                </DockPanel>
+                            </Border>
+                            <Border Padding="8" Background="{StaticResource HighDarkerColor}">
+                                <colorpicker:ColorPicker
+                                    x:Name="BgColor"
+                                    Background="{StaticResource HighDarkerColor}"
+                                    SelectedColor="{Binding BgColor, Mode=TwoWay}" />
+                            </Border>
+
+                        </StackPanel>
+
                     </TabItem>
                 </TabControl>
             </Grid>

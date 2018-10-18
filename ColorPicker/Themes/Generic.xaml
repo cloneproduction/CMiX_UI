@@ -729,7 +729,7 @@
                                     Text="{Binding SelectedColor, Converter={StaticResource ColorToHexConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ColorPicker}}}"
                                     Validation.ErrorTemplate="{x:Null}" />-->
                             </Grid>
-                            <Border BorderThickness="2">
+                            <Border BorderThickness="0">
                                 <!--<Border.BorderBrush>
                                     <SolidColorBrush Color="{Binding SelectedColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ColorPicker}}}" />
                                 </Border.BorderBrush>-->
@@ -807,7 +807,7 @@
                                                 Text="{Binding Path=Value, ElementName=PART_RedColorSlider, Mode=TwoWay, Converter={StaticResource DoubleToIntegerStringConverter}}" />
                                         </Border>
                                     </Grid>
-                                    <Grid Grid.Row="2" Margin="0,1,0,1">
+                                    <Grid Grid.Row="2" Margin="0">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="0.1*" />
                                             <ColumnDefinition Width="0.8*" />

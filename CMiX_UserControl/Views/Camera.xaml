@@ -31,19 +31,18 @@
         </ObjectDataProvider>
     </UserControl.Resources>
 
-    <DockPanel>
+    <StackPanel>
         <Border   
             DockPanel.Dock="Top"
-            BorderThickness="0, 0, 0, 2"
-            BorderBrush="{StaticResource DarkColor}"
-            Margin="0, 0, 0, 8">
+            Margin="0, 0, 0, 0">
             <Label
-                    Margin="0"
-                    Style="{StaticResource LabelBase}"
-                    Content="CAMERA"
-                    DockPanel.Dock="Bottom"
-                    FontWeight="SemiBold"
-                    FontSize="12"/>
+                Margin="0"
+                Style="{StaticResource LabelBase}"
+                Content="CAMERA"
+                HorizontalAlignment="Left"
+                DockPanel.Dock="Bottom"
+                FontWeight="SemiBold"
+                FontSize="12"/>
         </Border>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -122,5 +121,5 @@
         </Grid>
 
 
-    </DockPanel>
+    </StackPanel>
 </UserControl>
