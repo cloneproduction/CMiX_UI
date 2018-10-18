@@ -9,13 +9,13 @@
     d:DesignWidth="278"
     mc:Ignorable="d">
     <DockPanel LastChildFill="True">
-        <Border DockPanel.Dock="Top"               
-                BorderThickness="0, 0, 0, 2"
-                BorderBrush="{StaticResource DarkColor}"
-                >
+        <Border 
+            DockPanel.Dock="Top" 
+            >
             <DockPanel>
                 <Button 
                     DockPanel.Dock="Right"
+                    Margin="0, 0, 4, 0"
                     Command="{Binding Path=ResetSelfCommand}"
                     Height="15" 
                     Width="15" 
@@ -48,65 +48,60 @@
                     FontSize="12"/>
             </DockPanel>
         </Border>
-        <Border Margin="0,8" DockPanel.Dock="Top" Style="{StaticResource BorderContainer}">
-            <Views:BeatModifier Height="20" DataContext="{Binding BeatModifier}"/>
-        </Border>
-        <TabControl DockPanel.Dock="Bottom" AllowDrop="True" Style="{StaticResource TabControlBase}">
-            <TabItem Width="25"
+        <Border Padding="0, 0, 0, 0" BorderThickness="0">
+            <DockPanel>
+                <Border Margin="0, 4, 0, 8" DockPanel.Dock="Top" Style="{StaticResource BorderContainer}">
+                    <Views:BeatModifier Height="20" DataContext="{Binding BeatModifier}"/>
+                </Border>
+                <TabControl DockPanel.Dock="Bottom" AllowDrop="True" Style="{StaticResource TabControlBase}">
+                    <TabItem Width="25"
                      Height="25"
                      HorizontalAlignment="Left"
                      DragOver="TabItem_DragOver"
                      Style="{StaticResource TabItemBase}">
-                <TabItem.ToolTip>
-                    <TextBlock Text="Geometry"/>
-                </TabItem.ToolTip>
-                <TabItem.Header>
-                    <Image Height="15" Width="auto" Opacity="0.75">
-                        <Image.Source>
-                            <BitmapImage UriSource="/Assets/Cube.png"/>
-                        </Image.Source>
-                    </Image>
-                </TabItem.Header>
-                <Views:Geometry
+                        <TabItem.Header>
+                            <Image Height="15" Width="auto" Opacity="0.75">
+                                <Image.Source>
+                                    <BitmapImage UriSource="/Assets/Cube.png"/>
+                                </Image.Source>
+                            </Image>
+                        </TabItem.Header>
+                        <Views:Geometry
                     DataContext="{Binding Geometry}"
                     DockPanel.Dock="Bottom" />
-            </TabItem>
-            <TabItem  
+                    </TabItem>
+                    <TabItem  
                 HorizontalAlignment="Left"
                 DragOver="TabItem_DragOver"
                 Style="{StaticResource TabItemBase}">
-                <TabItem.ToolTip>
-                    <TextBlock Text="Texture"/>
-                </TabItem.ToolTip>
-                <TabItem.Header>
-                    <Image Height="15" Width="auto" Opacity="0.75">
-                        <Image.Source>
-                            <BitmapImage UriSource="/Assets/Texture.png"/>
-                        </Image.Source>
-                    </Image>
-                </TabItem.Header>
-                <Views:Texture
+                        <TabItem.Header>
+                            <Image Height="15" Width="auto" Opacity="0.75">
+                                <Image.Source>
+                                    <BitmapImage UriSource="/Assets/Texture.png"/>
+                                </Image.Source>
+                            </Image>
+                        </TabItem.Header>
+                        <Views:Texture
                 DataContext="{Binding Texture}"
                 DockPanel.Dock="Bottom" />
-            </TabItem>
-            <TabItem 
+                    </TabItem>
+                    <TabItem 
                 HorizontalAlignment="Left"
                      DragOver="TabItem_DragOver"
                      Style="{StaticResource TabItemBase}">
-                <TabItem.ToolTip>
-                    <TextBlock Text="PostFX"/>
-                </TabItem.ToolTip>
-                <TabItem.Header>
-                    <Image Height="15" Width="auto" Opacity="0.75">
-                        <Image.Source>
-                            <BitmapImage UriSource="/Assets/Effect.png"/>
-                        </Image.Source>
-                    </Image>
-                </TabItem.Header>
-                <Views:PostFX
+                        <TabItem.Header>
+                            <Image Height="15" Width="auto" Opacity="0.75">
+                                <Image.Source>
+                                    <BitmapImage UriSource="/Assets/Effect.png"/>
+                                </Image.Source>
+                            </Image>
+                        </TabItem.Header>
+                        <Views:PostFX
                 DataContext="{Binding PostFX}"
                 DockPanel.Dock="Bottom" />
-            </TabItem>
-        </TabControl>
+                    </TabItem>
+                </TabControl>
+            </DockPanel>
+        </Border>
     </DockPanel>
 </UserControl>

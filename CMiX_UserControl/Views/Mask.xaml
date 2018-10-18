@@ -10,9 +10,7 @@
     mc:Ignorable="d">
     <DockPanel LastChildFill="True">
         <Border 
-            DockPanel.Dock="Top"            
-            BorderThickness="0, 0, 0, 2"
-            BorderBrush="{StaticResource DarkColor}">
+            DockPanel.Dock="Top">
             <DockPanel>
                 <Label
                     Style="{StaticResource LabelBase}"
@@ -42,21 +40,22 @@
                 </StackPanel>
                 <DockPanel LastChildFill="False">
                     <Button 
+                        Margin="0, 0, 4, 0"
                         DockPanel.Dock="Right"
-                        Command="{Binding Path=PasteSelfCommand}"
-                        Height="15" 
-                        Width="15" 
-                        Style="{StaticResource ButtonBase}"
-                        Content="P"
-                    />
-                    <Button 
-                        DockPanel.Dock="Right"
-                        Margin="2, 0"
                         Command="{Binding Path=ResetSelfCommand}"
                         Height="15" 
                         Width="15" 
                         Style="{StaticResource ButtonBase}"
                         Content="R"
+                    />
+                    <Button 
+                        DockPanel.Dock="Right"
+                        Command="{Binding Path=PasteSelfCommand}"
+                        Margin="2, 0"
+                        Height="15" 
+                        Width="15" 
+                        Style="{StaticResource ButtonBase}"
+                        Content="P"
                     />
                     <Button 
                         DockPanel.Dock="Right"
@@ -69,7 +68,7 @@
                 </DockPanel>
             </DockPanel>
         </Border>
-        <Border DockPanel.Dock="Top" Margin="0, 8" Style="{StaticResource BorderContainer}">
+        <Border Margin="0 ,4, 0, 8" DockPanel.Dock="Top" Style="{StaticResource BorderContainer}">
             <Views:BeatModifier Height="20" DataContext="{Binding BeatModifier}"/>
         </Border>
         <TabControl DockPanel.Dock="Bottom" AllowDrop="True" Style="{StaticResource TabControlBase}">
@@ -78,9 +77,6 @@
                      HorizontalAlignment="Left"
                      DragOver="TabItem_DragOver"
                      Style="{StaticResource TabItemBase}">
-                <TabItem.ToolTip>
-                    <TextBlock Text="Geometry"/>
-                </TabItem.ToolTip>
                 <TabItem.Header>
                     <Image Height="15" Width="auto" Opacity="0.75">
                         <Image.Source>
@@ -97,9 +93,6 @@
                      HorizontalAlignment="Left"
                      DragOver="TabItem_DragOver"
                      Style="{StaticResource TabItemBase}">
-                <TabItem.ToolTip>
-                    <TextBlock Text="Texture"/>
-                </TabItem.ToolTip>
                 <TabItem.Header>
                     <Image Height="15" Width="auto" Opacity="0.75">
                         <Image.Source>
@@ -116,9 +109,6 @@
                      HorizontalAlignment="Left"
                      DragOver="TabItem_DragOver"
                      Style="{StaticResource TabItemBase}">
-                <TabItem.ToolTip>
-                    <TextBlock Text="PostFX"/>
-                </TabItem.ToolTip>
                 <TabItem.Header>
                     <Image Height="15" Width="auto" Opacity="0.75">
                         <Image.Source>

@@ -5,20 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Controls="clr-namespace:CMiX.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="41.167" d:DesignWidth="298.107">
-    <Border             
-        DockPanel.Dock="Bottom"
-        Style="{StaticResource BorderContainer}">
-        <StackPanel>
-            <Border DockPanel.Dock="Bottom">
-                <StackPanel x:Name="TexFXControl">
-                    <Controls:CustomSlider
+             d:DesignHeight="24.167" d:DesignWidth="313.107">
+    <StackPanel>
+        <Border DockPanel.Dock="Bottom">
+            <StackPanel x:Name="TexFXControl">
+                <Controls:CustomSlider
                         Height="20"
                         Margin="0,2,0,1"
                         Caption="Explode"
                         Value="{Binding Amount, Mode=TwoWay}"/>
-                </StackPanel>
-            </Border>
-        </StackPanel>
-    </Border>
+            </StackPanel>
+        </Border>
+    </StackPanel>
 </UserControl>

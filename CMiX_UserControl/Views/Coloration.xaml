@@ -10,9 +10,7 @@
     d:DesignWidth="286.667"
     mc:Ignorable="d">
     <StackPanel>
-        <Border                 
-            BorderThickness="0, 0, 0, 2"
-            BorderBrush="{StaticResource DarkColor}">
+        <Border>
             <DockPanel>
                 <Button 
                     DockPanel.Dock="Right"
@@ -48,20 +46,19 @@
                     FontSize="12"/>
             </DockPanel>
         </Border>
-        <Border Style="{StaticResource BorderContainer}" Margin="0, 8">
+        <Border Style="{StaticResource BorderContainer}" Margin="0, 4">
             <Views:BeatModifier
                 DataContext="{Binding BeatModifier}"/>
         </Border>
         <Border             
-            DockPanel.Dock="Bottom"
-            Style="{StaticResource BorderContainer}">
-            <Grid>
+            DockPanel.Dock="Bottom">
+            <Grid Margin="0, 4, 0, 0">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <TabControl
-                    Margin="0,2,0,2"
+                    Margin="0,0,0,2"
                     Background="{StaticResource DarkColor}"
                     DockPanel.Dock="Top"
                     Focusable="False"
@@ -89,7 +86,7 @@
         </Border>
         <Border             
             DockPanel.Dock="Bottom"
-            Margin="0, 8, 0, 0"
+            Margin="0, 2, 0, 0"
             Style="{StaticResource BorderContainer}">
             <StackPanel Grid.Row="1">
                 <Label

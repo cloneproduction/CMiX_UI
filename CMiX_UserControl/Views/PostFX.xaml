@@ -35,7 +35,7 @@
                     <TextBlock
                         Margin="8, 0, 0, 0"
                         Text="PostFX"
-                        Foreground="{StaticResource ActiveTextBase}"/>
+                        Foreground="{StaticResource TextBase}"/>
                 <Button 
                         DockPanel.Dock="Right"
                         Command="{Binding Path=ResetSelfCommand}"

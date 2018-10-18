@@ -29,7 +29,7 @@
                 <DockPanel LastChildFill="False">
                     <TextBlock
                         Text="Texture"
-                        Foreground="{StaticResource ActiveTextBase}"
+                        Foreground="{StaticResource TextBase}"
                         Margin="8, 0, 0, 0">
                     </TextBlock>
                     <Button 
