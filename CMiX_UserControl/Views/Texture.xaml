@@ -18,13 +18,20 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </UserControl.Resources>
-    <Border Background="{StaticResource DarkerColor}">
+    
+    <Border Background="{StaticResource HighDarkerColor}">
         <DockPanel>
             <Border 
-                DockPanel.Dock="Top"
-                Margin="0, 0, 0, 8" 
-                Style="{StaticResource BorderContainer}">
+                Background="{StaticResource DarkColor}"
+                Padding="4"
+                Margin="0, 0, 0, 8"
+                DockPanel.Dock="Top">
                 <DockPanel LastChildFill="False">
+                    <TextBlock
+                        Text="Texture"
+                        Foreground="{StaticResource ActiveTextBase}"
+                        Margin="8, 0, 0, 0">
+                    </TextBlock>
                     <Button 
                         DockPanel.Dock="Right"
                         Command="{Binding Path=ResetSelfCommand}"
@@ -53,17 +60,17 @@
                 </DockPanel>
             </Border>
             <Border             
-            Style="{StaticResource BorderContainer}">
+                Style="{StaticResource BorderContainer}">
                 <DockPanel>
                     <Grid
-                    Height="20"
-                    Margin="0, 2, 0, 0"
-                    DockPanel.Dock="Bottom">
+                        Height="20"
+                        Margin="0, 2, 0, 0"
+                        DockPanel.Dock="Bottom">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition Width="0.3*" />
                         </Grid.ColumnDefinitions>
-                        <CMiX:CMiXComboBox
+                    <CMiX:CMiXComboBox
                         Grid.Column="1"
                         Margin="1, 0, 0, 0"
                         ItemsSource="{Binding Source={StaticResource InvertMode}}"
@@ -77,31 +84,31 @@
                         Value="{Binding Invert, Mode=TwoWay}" />
                     </Grid>
                     <Controls:CustomSlider
-                    Margin="0, 1, 0, 1"
-                    Caption="Keying"
-                    DockPanel.Dock="Bottom"
-                    Value="{Binding Keying, Mode=TwoWay}" />
+                        Margin="0, 1, 0, 1"
+                        Caption="Keying"
+                        DockPanel.Dock="Bottom"
+                        Value="{Binding Keying, Mode=TwoWay}" />
                     <Controls:CustomSlider
-                    Margin="0, 1, 0, 1"
-                    Caption="Saturation"
-                    DockPanel.Dock="Bottom"
-                    Value="{Binding Saturation, Mode=TwoWay}" />
+                        Margin="0, 1, 0, 1"
+                        Caption="Saturation"
+                        DockPanel.Dock="Bottom"
+                        Value="{Binding Saturation, Mode=TwoWay}" />
                     <Controls:CustomSlider
-                    Margin="0, 1, 0, 1"
-                    Caption="Contrast"
-                    DockPanel.Dock="Bottom"
-                    Value="{Binding Contrast, Mode=TwoWay}" />
+                        Margin="0, 1, 0, 1"
+                        Caption="Contrast"
+                        DockPanel.Dock="Bottom"
+                        Value="{Binding Contrast, Mode=TwoWay}" />
                     <Controls:CustomSlider
-                    Margin="0, 1, 0, 1"
-                    Caption="Brightness"
-                    DockPanel.Dock="Bottom"
-                    Value="{Binding Brightness, Mode=TwoWay}" />
+                        Margin="0, 1, 0, 1"
+                        Caption="Brightness"
+                        DockPanel.Dock="Bottom"
+                        Value="{Binding Brightness, Mode=TwoWay}" />
                     <Controls:FileSelector
-                    DockPanel.Dock="Top"
-                    Title="Filenames"
-                    Margin="0, 4, 0, 2"
-                    ModeSelection="Extended"
-                    Items="{Binding TexturePaths}"/>
+                        DockPanel.Dock="Top"
+                        Title="Filenames"
+                        Margin="0, 0, 0, 2"
+                        ModeSelection="Extended"
+                        Items="{Binding TexturePaths}"/>
                 </DockPanel>
             </Border>
         </DockPanel>

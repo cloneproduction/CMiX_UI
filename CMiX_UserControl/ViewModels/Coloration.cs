@@ -2,6 +2,8 @@
 using System.Windows.Media;
 using CMiX.Services;
 using CMiX.Models;
+using System.Windows.Input;
+using System.Windows;
 
 namespace CMiX.ViewModels
 {
@@ -48,8 +50,16 @@ namespace CMiX.ViewModels
             Value = value ?? throw new ArgumentNullException(nameof(value));
 
             MessageEnabled = messageEnabled;
+
+            CopySelfCommand = new RelayCommand(p => CopySelf());
+            PasteSelfCommand = new RelayCommand(p => PasteSelf());
+            ResetSelfCommand = new RelayCommand(p => ResetSelf());
         }
         private IMessenger Messenger { get; }
+
+        public ICommand CopySelfCommand { get; }
+        public ICommand PasteSelfCommand { get; }
+        public ICommand ResetSelfCommand { get; }
 
         public string MessageAddress { get; set; }
 
@@ -113,6 +123,34 @@ namespace CMiX.ViewModels
             Value.Paste(colorationdto.ValDTO);
 
             MessageEnabled = true;
+        }
+
+        public void CopySelf()
+        {
+            ColorationDTO colorationdto = new ColorationDTO();
+            this.Copy(colorationdto);
+            IDataObject data = new DataObject();
+            data.SetData("Coloration", colorationdto, false);
+            Clipboard.SetDataObject(data);
+        }
+
+        public void PasteSelf()
+        {
+            IDataObject data = Clipboard.GetDataObject();
+            if (data.GetDataPresent("Coloration"))
+            {
+                var colorationdto = (ColorationDTO)data.GetData("Coloration") as ColorationDTO;
+                this.Paste(colorationdto);
+
+                Messenger.QueueObject(this);
+                Messenger.SendQueue();
+            }
+        }
+
+        public void ResetSelf()
+        {
+            ColorationDTO colorationdto = new ColorationDTO();
+            this.Paste(colorationdto);
         }
     }
 }

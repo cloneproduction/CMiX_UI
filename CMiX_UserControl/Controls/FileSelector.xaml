@@ -21,7 +21,7 @@
                 x:Name="FileSelectorMenu"
                 Grid.Row="0"
                 Grid.Column="1"
-                Height="25"
+                Height="15"
                 HorizontalAlignment="Left"
                 DockPanel.Dock="Right"
                 FlowDirection="RightToLeft"
@@ -29,8 +29,8 @@
                 Style="{StaticResource MenuBase}">
                 <MenuItem
                     x:Name="FileMenu"
-                    Width="25"
-                    Height="{Binding ActualHeight, ElementName=FileSelectorMenu, Mode=OneWay}"
+                    Width="15"
+                    Height="15"
                     Padding="6"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
@@ -58,6 +58,7 @@
             </Menu>
             <Label
                 Grid.Column="0"
+                HorizontalAlignment="Left"
                 Content="{Binding Title, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type Controls:FileSelector}}}"
                 DockPanel.Dock="Left"
                 Style="{StaticResource LabelBase}" />

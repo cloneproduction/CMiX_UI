@@ -5,8 +5,8 @@
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="425.667"
-    d:DesignWidth="280"
+    d:DesignHeight="583.667"
+    d:DesignWidth="278"
     mc:Ignorable="d">
     <DockPanel LastChildFill="True">
         <Border DockPanel.Dock="Top"               
@@ -23,21 +23,21 @@
                     Content="R"
                     />
                 <Button 
-                    DockPanel.Dock="Right"
                     Margin="2, 0"
-                    Command="{Binding Path=CopySelfCommand}"
-                    Height="15" 
-                    Width="15" 
-                    Style="{StaticResource ButtonBase}"
-                    Content="C"
-                    />
-                <Button 
                     DockPanel.Dock="Right"
                     Command="{Binding Path=PasteSelfCommand}"
                     Height="15" 
                     Width="15" 
                     Style="{StaticResource ButtonBase}"
                     Content="P"
+                    />
+                <Button 
+                    DockPanel.Dock="Right"
+                    Command="{Binding Path=CopySelfCommand}"
+                    Height="15" 
+                    Width="15" 
+                    Style="{StaticResource ButtonBase}"
+                    Content="C"
                     />
                 <Label
                     Style="{StaticResource LabelBase}"
@@ -52,23 +52,57 @@
             <Views:BeatModifier Height="20" DataContext="{Binding BeatModifier}"/>
         </Border>
         <TabControl DockPanel.Dock="Bottom" AllowDrop="True" Style="{StaticResource TabControlBase}">
-            <TabItem Header="GEOMETRY" 
+            <TabItem Width="25"
+                     Height="25"
+                     HorizontalAlignment="Left"
                      DragOver="TabItem_DragOver"
                      Style="{StaticResource TabItemBase}">
+                <TabItem.ToolTip>
+                    <TextBlock Text="Geometry"/>
+                </TabItem.ToolTip>
+                <TabItem.Header>
+                    <Image Height="15" Width="auto" Opacity="0.75">
+                        <Image.Source>
+                            <BitmapImage UriSource="/Assets/Cube.png"/>
+                        </Image.Source>
+                    </Image>
+                </TabItem.Header>
                 <Views:Geometry
                     DataContext="{Binding Geometry}"
                     DockPanel.Dock="Bottom" />
             </TabItem>
-            <TabItem Header="TEXTURE" 
-                     DragOver="TabItem_DragOver"
-                     Style="{StaticResource TabItemBase}">
+            <TabItem  
+                HorizontalAlignment="Left"
+                DragOver="TabItem_DragOver"
+                Style="{StaticResource TabItemBase}">
+                <TabItem.ToolTip>
+                    <TextBlock Text="Texture"/>
+                </TabItem.ToolTip>
+                <TabItem.Header>
+                    <Image Height="15" Width="auto" Opacity="0.75">
+                        <Image.Source>
+                            <BitmapImage UriSource="/Assets/Texture.png"/>
+                        </Image.Source>
+                    </Image>
+                </TabItem.Header>
                 <Views:Texture
                 DataContext="{Binding Texture}"
                 DockPanel.Dock="Bottom" />
             </TabItem>
-            <TabItem Header="POSTFX" 
+            <TabItem 
+                HorizontalAlignment="Left"
                      DragOver="TabItem_DragOver"
                      Style="{StaticResource TabItemBase}">
+                <TabItem.ToolTip>
+                    <TextBlock Text="PostFX"/>
+                </TabItem.ToolTip>
+                <TabItem.Header>
+                    <Image Height="15" Width="auto" Opacity="0.75">
+                        <Image.Source>
+                            <BitmapImage UriSource="/Assets/Effect.png"/>
+                        </Image.Source>
+                    </Image>
+                </TabItem.Header>
                 <Views:PostFX
                 DataContext="{Binding PostFX}"
                 DockPanel.Dock="Bottom" />

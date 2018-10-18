@@ -121,7 +121,6 @@
     <Compile Include="Models\TextureDTO.cs" />
     <Compile Include="Services\OSCAttribute.cs" />
     <Compile Include="Services\IMessengerData.cs" />
-    <Compile Include="ViewModels\CopyPasteReset.cs" />
     <Compile Include="ViewModels\Geometry\GeometryFileMask.cs" />
     <Compile Include="ViewModels\Geometry\GeometryFX.cs" />
     <Compile Include="ViewModels\Geometry\GeometryRotation.cs" />
@@ -174,9 +173,6 @@
     </Compile>
     <Compile Include="Views\Content.xaml.cs">
       <DependentUpon>Content.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CopyPasteReset.xaml.cs">
-      <DependentUpon>CopyPasteReset.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Mask.xaml.cs">
       <DependentUpon>Mask.xaml</DependentUpon>
@@ -307,10 +303,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Content.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\CopyPasteReset.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -462,7 +454,21 @@
       <Name>ColorPicker</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Geometry.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Cube.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Cube.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Texture.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Effect.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

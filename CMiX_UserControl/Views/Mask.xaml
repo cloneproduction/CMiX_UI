@@ -23,47 +23,48 @@
                 <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
                     <ToggleButton
                         Grid.Row="0"
-                        Width="20"
-                        Margin="4"
-                        HorizontalAlignment="Right"
-                        HorizontalContentAlignment="Center"
-                        IsChecked="{Binding Enable, Mode=TwoWay}"
-                        Style="{StaticResource ToggleButtonBase}" />
-                    <ToggleButton
-                        Grid.Row="0"
-                        Width="20"
-                        Margin="4"
+                        Height="15" 
+                        Width="15"
                         Content="Keep"
                         HorizontalAlignment="Right"
                         HorizontalContentAlignment="Center"
                         IsChecked="{Binding KeepOriginal, Mode=TwoWay}"
                         Style="{StaticResource ToggleButtonBase}" />
+                    <ToggleButton
+                        Grid.Row="0"
+                        Height="15" 
+                        Width="15"
+                        Margin="2, 0, 4, 0"
+                        HorizontalAlignment="Right"
+                        HorizontalContentAlignment="Center"
+                        IsChecked="{Binding Enable, Mode=TwoWay}"
+                        Style="{StaticResource ToggleButtonBase}" />
                 </StackPanel>
                 <DockPanel LastChildFill="False">
                     <Button 
-                    DockPanel.Dock="Right"
-                    Command="{Binding Path=ResetSelfCommand}"
-                    Height="15" 
-                    Width="15" 
-                    Style="{StaticResource ButtonBase}"
-                    Content="R"
+                        DockPanel.Dock="Right"
+                        Command="{Binding Path=PasteSelfCommand}"
+                        Height="15" 
+                        Width="15" 
+                        Style="{StaticResource ButtonBase}"
+                        Content="P"
                     />
                     <Button 
-                    DockPanel.Dock="Right"
-                    Margin="2, 0"
-                    Command="{Binding Path=CopySelfCommand}"
-                    Height="15" 
-                    Width="15" 
-                    Style="{StaticResource ButtonBase}"
-                    Content="C"
+                        DockPanel.Dock="Right"
+                        Margin="2, 0"
+                        Command="{Binding Path=ResetSelfCommand}"
+                        Height="15" 
+                        Width="15" 
+                        Style="{StaticResource ButtonBase}"
+                        Content="R"
                     />
                     <Button 
-                    DockPanel.Dock="Right"
-                    Command="{Binding Path=PasteSelfCommand}"
-                    Height="15" 
-                    Width="15" 
-                    Style="{StaticResource ButtonBase}"
-                    Content="P"
+                        DockPanel.Dock="Right"
+                        Command="{Binding Path=CopySelfCommand}"
+                        Height="15" 
+                        Width="15" 
+                        Style="{StaticResource ButtonBase}"
+                        Content="C"
                     />
                 </DockPanel>
             </DockPanel>
@@ -72,23 +73,59 @@
             <Views:BeatModifier Height="20" DataContext="{Binding BeatModifier}"/>
         </Border>
         <TabControl DockPanel.Dock="Bottom" AllowDrop="True" Style="{StaticResource TabControlBase}">
-            <TabItem Header="GEOMETRY" 
+            <TabItem Width="25"
+                     Height="25"
+                     HorizontalAlignment="Left"
                      DragOver="TabItem_DragOver"
                      Style="{StaticResource TabItemBase}">
+                <TabItem.ToolTip>
+                    <TextBlock Text="Geometry"/>
+                </TabItem.ToolTip>
+                <TabItem.Header>
+                    <Image Height="15" Width="auto" Opacity="0.75">
+                        <Image.Source>
+                            <BitmapImage UriSource="/Assets/Cube.png"/>
+                        </Image.Source>
+                    </Image>
+                </TabItem.Header>
                 <Views:Geometry
                     DataContext="{Binding Geometry}"
                     DockPanel.Dock="Bottom" />
             </TabItem>
-            <TabItem Header="TEXTURE" 
+            <TabItem Width="25"
+                     Height="25"
+                     HorizontalAlignment="Left"
                      DragOver="TabItem_DragOver"
                      Style="{StaticResource TabItemBase}">
+                <TabItem.ToolTip>
+                    <TextBlock Text="Texture"/>
+                </TabItem.ToolTip>
+                <TabItem.Header>
+                    <Image Height="15" Width="auto" Opacity="0.75">
+                        <Image.Source>
+                            <BitmapImage UriSource="/Assets/Texture.png"/>
+                        </Image.Source>
+                    </Image>
+                </TabItem.Header>
                 <Views:Texture
                     DataContext="{Binding Texture}"
                     DockPanel.Dock="Top" />
             </TabItem>
-            <TabItem Header="POSTFX" 
+            <TabItem Width="25"
+                     Height="25"
+                     HorizontalAlignment="Left"
                      DragOver="TabItem_DragOver"
                      Style="{StaticResource TabItemBase}">
+                <TabItem.ToolTip>
+                    <TextBlock Text="PostFX"/>
+                </TabItem.ToolTip>
+                <TabItem.Header>
+                    <Image Height="15" Width="auto" Opacity="0.75">
+                        <Image.Source>
+                            <BitmapImage UriSource="/Assets/Effect.png"/>
+                        </Image.Source>
+                    </Image>
+                </TabItem.Header>
                 <Views:PostFX
                     DataContext="{Binding PostFX}"
                     DockPanel.Dock="Bottom" />

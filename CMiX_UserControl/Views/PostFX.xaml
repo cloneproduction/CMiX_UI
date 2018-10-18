@@ -24,14 +24,18 @@
         </ObjectDataProvider>
     </UserControl.Resources>
     <Border             
-        DockPanel.Dock="Bottom"
-        Style="{StaticResource BorderContainer}">
+        DockPanel.Dock="Bottom">
         <StackPanel>
             <Border 
-                DockPanel.Dock="Top"
-                Margin="0, 0, 0, 8" 
-                Style="{StaticResource BorderContainer}">
-                <DockPanel LastChildFill="False">
+                Background="{StaticResource DarkColor}"
+                Padding="4"
+                Margin="0, 0, 0, 8"
+                DockPanel.Dock="Top">
+            <DockPanel LastChildFill="False">
+                    <TextBlock
+                        Margin="8, 0, 0, 0"
+                        Text="PostFX"
+                        Foreground="{StaticResource ActiveTextBase}"/>
                 <Button 
                         DockPanel.Dock="Right"
                         Command="{Binding Path=ResetSelfCommand}"
