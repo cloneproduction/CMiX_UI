@@ -25,6 +25,7 @@ namespace CMiX.ViewModels
             Content = new Content(BeatModifier, layername, messenger);
             Mask = new Mask(BeatModifier, layername, messenger);
             Coloration = new Coloration(BeatModifier, layername, messenger);
+            LayerFX = new LayerFX(BeatModifier, layername, messenger);
 
             MessageEnabled = true;
         }
@@ -42,6 +43,7 @@ namespace CMiX.ViewModels
             Content content,
             Mask mask,
             Coloration coloration,
+            LayerFX layerfx,
 
             bool messageEnabled
             )
@@ -55,7 +57,7 @@ namespace CMiX.ViewModels
             Content = content ?? throw new ArgumentNullException(nameof(content));
             Mask = mask ?? throw new ArgumentNullException(nameof(mask));
             Coloration = coloration ?? throw new ArgumentNullException(nameof(coloration));
-
+            LayerFX = layerfx ?? throw new ArgumentNullException(nameof(layerfx));
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
             MessageEnabled = messageEnabled;
@@ -138,6 +140,7 @@ namespace CMiX.ViewModels
 
         public Coloration Coloration { get; }
 
+        public LayerFX LayerFX{ get; }
 
         public void Copy(LayerDTO layerdto)
         {
@@ -150,6 +153,7 @@ namespace CMiX.ViewModels
             Content.Copy(layerdto.ContentDTO);
             Mask.Copy(layerdto.MaskDTO);
             Coloration.Copy(layerdto.ColorationDTO);
+            LayerFX.Copy(layerdto.LayerFXDTO);
         }
 
         public void Paste(LayerDTO layerdto)
@@ -164,6 +168,7 @@ namespace CMiX.ViewModels
             Content.Paste(layerdto.ContentDTO);
             Mask.Paste(layerdto.MaskDTO);
             Coloration.Paste(layerdto.ColorationDTO);
+            LayerFX.Paste(layerdto.LayerFXDTO);
 
             MessageEnabled = true;
         }
@@ -182,6 +187,7 @@ namespace CMiX.ViewModels
             Content.Paste(layerdto.ContentDTO);
             Mask.Paste(layerdto.MaskDTO);
             Coloration.Paste(layerdto.ColorationDTO);
+            LayerFX.Paste(layerdto.LayerFXDTO);
 
             MessageEnabled = true;
         }

@@ -114,6 +114,7 @@
     <Compile Include="Models\GeometryScaleDTO.cs" />
     <Compile Include="Models\GeometryTranslateDTO.cs" />
     <Compile Include="Models\LayerDTO.cs" />
+    <Compile Include="Models\LayerFXDTO.cs" />
     <Compile Include="Models\MaskDTO.cs" />
     <Compile Include="Models\MasterBeatDTO.cs" />
     <Compile Include="Models\PostFXDTO.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="ViewModels\BeatModifier.cs" />
     <Compile Include="ViewModels\Geometry\GeometryTranslate.cs" />
     <Compile Include="ViewModels\InvertMode.cs" />
+    <Compile Include="ViewModels\LayerFX.cs" />
     <Compile Include="ViewModels\RangeControl.cs" />
     <Compile Include="ViewModels\RangeModifier.cs" />
     <Compile Include="ViewModels\ShortCodeAttribute.cs" />
@@ -157,8 +159,8 @@
     <Compile Include="ViewModels\PostFX\PostFXTransforms.cs" />
     <Compile Include="ViewModels\PostFX\PostFXView.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
-    <Compile Include="ViewModels\Texture.cs" />
-    <Compile Include="ViewModels\TextureInvertMode.cs" />
+    <Compile Include="ViewModels\Texture\Texture.cs" />
+    <Compile Include="ViewModels\Texture\TextureInvertMode.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="Controls\BeatControls.xaml.cs">
       <DependentUpon>BeatControls.xaml</DependentUpon>
@@ -197,6 +199,9 @@
     </Compile>
     <Compile Include="Views\GeometryFX.xaml.cs">
       <DependentUpon>GeometryFX.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LayerFX.xaml.cs">
+      <DependentUpon>LayerFX.xaml</DependentUpon>
     </Compile>
     <Compile Include="_Unused\DragAndDropListbox.cs" />
     <Compile Include="Services\OSCListener.cs" />
@@ -379,6 +384,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\GeometryFX.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LayerFX.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
