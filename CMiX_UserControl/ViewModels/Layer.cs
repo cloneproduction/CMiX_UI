@@ -7,8 +7,6 @@ namespace CMiX.ViewModels
     [Serializable]
     public class Layer : ViewModel, IMessengerData
     {
-        public Layer() { }
-
         public Layer(MasterBeat masterBeat, string layername, IMessenger messenger, int index)
         {
             Messenger = messenger;

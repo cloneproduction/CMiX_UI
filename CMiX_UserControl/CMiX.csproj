@@ -209,9 +209,9 @@
     <Compile Include="Views\ChannelLayer.xaml.cs">
       <DependentUpon>ChannelLayer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LayerButton.xaml.cs">
+    <None Include="Views\LayerButton.xaml.cs">
       <DependentUpon>LayerButton.xaml</DependentUpon>
-    </Compile>
+    </None>
     <Compile Include="Resources\Utils.cs" />
     <Compile Include="Controls\Counter.xaml.cs">
       <DependentUpon>Counter.xaml</DependentUpon>
@@ -403,10 +403,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\LayerButton.xaml">
+    <None Include="Views\LayerButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
+    </None>
     <Page Include="Views\Geometry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

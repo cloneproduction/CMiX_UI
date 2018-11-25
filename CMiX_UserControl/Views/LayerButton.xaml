@@ -6,11 +6,11 @@
              xmlns:CMiX="clr-namespace:CMiX"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <ListBox x:Name="BtnList" ItemsSource="{Binding LayerBtn, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:LayerButton}}}" PreviewMouseMove="ListBox_PreviewMouseMove" AllowDrop="True" Drop="ListBox_Drop" PreviewMouseLeftButtonDown="ListBox_PreviewMouseLeftButtonDown">
+    <!--<ListBox x:Name="BtnList" ItemsSource="{Binding LayerBtn, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:LayerButton}}}" PreviewMouseMove="ListBox_PreviewMouseMove" AllowDrop="True" Drop="ListBox_Drop" PreviewMouseLeftButtonDown="ListBox_PreviewMouseLeftButtonDown">
         <ListBox.ItemTemplate>
             <DataTemplate>
                 <RadioButton GroupName="pouet"></RadioButton>
             </DataTemplate>
         </ListBox.ItemTemplate>
-    </ListBox>
+    </ListBox>-->
 </UserControl>

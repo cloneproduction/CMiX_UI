@@ -74,6 +74,13 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _layernames, value);
         }
 
+        private Layer _selectedlayer;
+        public Layer SelectedLayer
+        {
+            get => _selectedlayer;
+            set => SetAndNotify(ref _selectedlayer, value);
+        }
+
         public MasterBeat MasterBeat { get; set; }
 
         public Camera Camera { get; set; }
@@ -103,7 +110,6 @@ namespace CMiX.ViewModels
             MasterBeat.Copy(compositiondto.MasterBeatDTO);
             Camera.Copy(compositiondto.CameraDTO);
         }
-
 
         public void Paste(CompositionDTO compositiondto)
         {
@@ -268,9 +274,25 @@ namespace CMiX.ViewModels
 
         private void RemoveLayer()
         {
-            if(Layers.Count > 0)
+            for (int i = Layers.Count - 1; i >= 0; i--)
             {
-                int removeindex = Layers.Count - 1;
+                if (Layers[i].Enabled)
+                {
+                    Layers.Remove(Layers[i]);
+                }
+            }
+
+            /*Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
+            Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
+            Messenger.QueueMessage("/LayerRemoved", removedlayername);
+            Messenger.SendQueue();*/
+
+            if (Layers.Count > 0)
+            {
+            }
+            
+                
+                /*int removeindex = Layers.Count - 1;
                 int removeitem = Layers[removeindex].Index;
                 string removedlayername = Layers[removeindex].LayerName;
                 this.LayerNames.Remove(Layers[removeindex].LayerName);
@@ -294,9 +316,8 @@ namespace CMiX.ViewModels
             else if (Layers.Count == 0)
             {
                 layerID = -1;
-            }
+            }*/
         }
-
 
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -315,30 +336,3 @@ namespace CMiX.ViewModels
         }
     }
 }
-
-/*if (e.Action == NotifyCollectionChangedAction.Remove)
-{
-    foreach (Layer item in e.OldItems)
-    {
-        //Removed items
-        item.PropertyChanged -= EntityViewModelPropertyChanged;
-    }
-}
-else if (e.Action == NotifyCollectionChangedAction.Add)
-{
-    foreach (Layer item in e.NewItems)
-    {
-        //Added items
-        item.PropertyChanged += EntityViewModelPropertyChanged;
-    }
-}*/
-
-/*public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-{
-List<string> filename = new List<string>();
-foreach (Layer layer in Layers)
-{
-    filename.Add(layer.LayerName);
-}
-Messenger.SendMessage("POUETPOUET" + nameof(Layer), filename.ToArray());
-}*/

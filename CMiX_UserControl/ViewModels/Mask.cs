@@ -6,7 +6,6 @@ using System.Windows.Input;
 
 namespace CMiX.ViewModels
 {
-    [Serializable]
     public class Mask : ViewModel, IMessengerData
     {
         public Mask(Beat masterbeat, string layername, IMessenger messenger)

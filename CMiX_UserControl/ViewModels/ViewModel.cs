@@ -7,7 +7,6 @@ using System.Runtime.CompilerServices;
 
 namespace CMiX.ViewModels
 {
-    [Serializable]
     public class ViewModel : INotifyPropertyChanged, ICloneable
     {
         public event PropertyChangedEventHandler PropertyChanged;

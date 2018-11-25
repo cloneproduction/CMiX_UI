@@ -20,7 +20,13 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </UserControl.Resources>
+    
     <Border>
+        <Border.ContextMenu>
+            <ContextMenu>
+                <Button Style="{StaticResource ButtonBase}" Content="Delete Layer"/>
+            </ContextMenu>
+        </Border.ContextMenu>
         <Border.Style>
             <Style>
                 <Setter Property="Border.BorderThickness" Value="1"/>
@@ -46,6 +52,7 @@
                 <ColumnDefinition Width="0.15*"/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
+            
             <RadioButton
                 Margin="0,0,2,0"
                 AllowDrop="True"
