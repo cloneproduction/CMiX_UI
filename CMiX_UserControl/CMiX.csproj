@@ -103,6 +103,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\CMiXSliderCentered.xaml.cs">
+      <DependentUpon>CMiXSliderCentered.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\BeatModifierDTO.cs" />
     <Compile Include="Models\CameraDTO.cs" />
     <Compile Include="Models\ColorationDTO.cs" />
@@ -235,6 +238,10 @@
     <Compile Include="Views\Texture.xaml.cs">
       <DependentUpon>Texture.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\CMiXSliderCentered.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\Fonts\Roboto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -278,6 +285,10 @@
     <Page Include="Themes\ScrollViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\SliderCentered.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Slider.xaml">
       <SubType>Designer</SubType>

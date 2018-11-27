@@ -85,8 +85,8 @@
                         ItemContainerStyle="{StaticResource BaseListBoxItemStyle}"
                         SelectedItem="{Binding BlendMode}"
                         ItemsSource="{Binding Source={StaticResource BlendMode}}"/>
-                </DockPanel>
 
+                </DockPanel>
                 <Controls:CustomSlider
                     Focusable="False"
                     Caption="Alpha"

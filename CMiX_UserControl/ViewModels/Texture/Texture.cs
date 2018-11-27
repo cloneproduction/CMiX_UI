@@ -90,7 +90,7 @@ namespace CMiX.ViewModels
             get => _brightness;
             set
             {
-                SetAndNotify(ref _brightness, CoerceNotNegative(value));
+                SetAndNotify(ref _brightness, value);
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Brightness), Brightness);
             }
@@ -103,7 +103,7 @@ namespace CMiX.ViewModels
             get => _contrast;
             set
             {
-                SetAndNotify(ref _contrast, CoerceNotNegative(value));
+                SetAndNotify(ref _contrast, value);
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Contrast), Contrast);
             }
@@ -116,7 +116,7 @@ namespace CMiX.ViewModels
             get => _saturation;
             set
             {
-                SetAndNotify(ref _saturation, CoerceNotNegative(value));
+                SetAndNotify(ref _saturation, value);
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Saturation), Saturation);
             }
