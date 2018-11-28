@@ -53,10 +53,8 @@
                         Command="{Binding Path=CopySelfCommand}"
                         Height="15" 
                         Width="15" 
-                        BorderThickness="0"
-                        Background="{StaticResource Color}">
-                        <Image Opacity="0.75" Source="{StaticResource Copy}"/>
-                    </Button>
+                        Content="C"
+                        Style="{StaticResource ButtonBase}"/>
                 </DockPanel>
             </Border>
             <Border 
