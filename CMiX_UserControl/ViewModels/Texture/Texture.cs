@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Windows;
+using System.Windows.Input;
 using System.Collections.ObjectModel;
-using CMiX.Services;
-using CMiX.Controls;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+
+using CMiX.Services;
+using CMiX.Controls;
 using CMiX.Models;
-using System.Windows.Input;
-using System.Windows;
 
 namespace CMiX.ViewModels
 {
