@@ -475,12 +475,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Geometry.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Cube.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Assets\Cube.png" />
   </ItemGroup>
   <ItemGroup>
@@ -488,6 +482,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Effect.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\HSL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\BC.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Size.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

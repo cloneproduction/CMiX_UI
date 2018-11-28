@@ -11,5 +11,14 @@
     Height="800"
     Background="#FF323232"
     mc:Ignorable="d">
-    <CMiX:Composition />
+    <Grid Background="Black">
+        <TabControl Style="{StaticResource TabControlBase}" Margin="4">
+            <TabItem Header="0" Width="50" Style="{StaticResource TabItemBase}">
+                <CMiX:Composition />
+            </TabItem>
+            <TabItem Header="1" Width="50" Style="{StaticResource TabItemBase}">
+                <CMiX:Composition />
+            </TabItem>
+        </TabControl>
+    </Grid>
 </Window>
