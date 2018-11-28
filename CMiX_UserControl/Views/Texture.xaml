@@ -91,20 +91,20 @@
                                 </TabItem.Header>
                                 <StackPanel Margin="0, 2, 0, 0">
                                     <Controls:CMiXSliderCentered
-                                    Margin="0, 1, 0, 1"
-                                    Caption="Saturation"
-                                    DockPanel.Dock="Bottom"
-                                    Value="{Binding Saturation, Mode=TwoWay}" />
+                                        Margin="0, 1, 0, 1"
+                                        Caption="Hue"
+                                        DockPanel.Dock="Bottom"
+                                        Value="{Binding Hue, Mode=TwoWay}" />
                                     <Controls:CMiXSliderCentered
-                                    Margin="0, 1, 0, 1"
-                                    Caption="Contrast"
-                                    DockPanel.Dock="Bottom"
-                                    Value="{Binding Contrast, Mode=TwoWay}" />
+                                        Margin="0, 1, 0, 1"
+                                        Caption="Saturation"
+                                        DockPanel.Dock="Bottom"
+                                        Value="{Binding Saturation, Mode=TwoWay}" />
                                     <Controls:CMiXSliderCentered
-                                    Margin="0, 1, 0, 1"
-                                    Caption="Luminosity"
-                                    DockPanel.Dock="Bottom"
-                                    Value="{Binding Brightness, Mode=TwoWay}" />
+                                        Margin="0, 1, 0, 1"
+                                        Caption="Luminosity"
+                                        DockPanel.Dock="Bottom"
+                                        Value="{Binding Luminosity, Mode=TwoWay}"/>
                                 </StackPanel>
                             </TabItem>
                             <TabItem Style="{StaticResource TabItemBase}">
@@ -117,13 +117,15 @@
                                 </TabItem.Header>
                                 <StackPanel>
                                     <Controls:CMiXSliderCentered
-                                    Margin="0, 1, 0, 1"
-                                    Caption="Brightness"
-                                    DockPanel.Dock="Bottom"/>
+                                        Margin="0, 1, 0, 1"
+                                        Caption="Brightness"
+                                        DockPanel.Dock="Bottom"
+                                        Value="{Binding Brightness, Mode=TwoWay}"/>
                                     <Controls:CMiXSliderCentered
-                                    Margin="0, 1, 0, 1"
-                                    Caption="Contrast"
-                                    DockPanel.Dock="Bottom"/>
+                                        Margin="0, 1, 0, 1"
+                                        Caption="Contrast"
+                                        DockPanel.Dock="Bottom"
+                                        Value="{Binding Contrast, Mode=TwoWay}"/>
                                     <Grid
                                     Height="20"
                                     Margin="0, 2, 0, 0"

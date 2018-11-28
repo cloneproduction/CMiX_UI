@@ -20,7 +20,11 @@ namespace CMiX.Models
 
         public double Contrast { get; set; }
 
+        public double Hue { get; set; }
+
         public double Saturation { get; set; }
+
+        public double Luminosity { get; set; }
 
         public double Pan { get; set; }
 

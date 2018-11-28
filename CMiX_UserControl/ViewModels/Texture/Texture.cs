@@ -83,6 +83,7 @@ namespace CMiX.ViewModels
         [OSC]
         public ObservableCollection<ListBoxFileName> TexturePaths { get; }
 
+
         private double _brightness;
         [OSC]
         public double Brightness
@@ -106,32 +107,6 @@ namespace CMiX.ViewModels
                 SetAndNotify(ref _contrast, value);
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Contrast), Contrast);
-            }
-        }
-
-        private double _saturation;
-        [OSC]
-        public double Saturation
-        {
-            get => _saturation;
-            set
-            {
-                SetAndNotify(ref _saturation, value);
-                if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(Saturation), Saturation);
-            }
-        }
-
-        private double _keying;
-        [OSC]
-        public double Keying
-        {
-            get => _keying;
-            set
-            {
-                SetAndNotify(ref _keying, CoerceNotNegative(value));
-                if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(Keying), Keying);
             }
         }
 
@@ -160,6 +135,61 @@ namespace CMiX.ViewModels
                     Messenger.SendMessage(MessageAddress + nameof(InvertMode), InvertMode);
             }
         }
+
+
+        private double _hue;
+        [OSC]
+        public double Hue
+        {
+            get => _hue;
+            set
+            {
+                SetAndNotify(ref _hue, value);
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(Hue), Hue);
+            }
+        }
+
+        private double _saturation;
+        [OSC]
+        public double Saturation
+        {
+            get => _saturation;
+            set
+            {
+                SetAndNotify(ref _saturation, value);
+                if (MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(Saturation), Saturation);
+            }
+        }
+
+        private double _luminosity;
+        [OSC]
+        public double Luminosity
+        {
+            get => _luminosity;
+            set
+            {
+                SetAndNotify(ref _luminosity, value);
+                if (MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(Luminosity), Luminosity);
+            }
+        }
+
+
+        private double _keying;
+        [OSC]
+        public double Keying
+        {
+            get => _keying;
+            set
+            {
+                SetAndNotify(ref _keying, CoerceNotNegative(value));
+                if(MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(Keying), Keying);
+            }
+        }
+
 
         private double _pan;
         [OSC]
