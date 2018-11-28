@@ -161,6 +161,59 @@ namespace CMiX.ViewModels
             }
         }
 
+        private double _pan;
+        [OSC]
+        public double Pan
+        {
+            get => _pan;
+            set
+            {
+                SetAndNotify(ref _pan, value);
+                if (MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(Pan), Pan);
+            }
+        }
+
+        private double _tilt;
+        [OSC]
+        public double Tilt
+        {
+            get => _tilt;
+            set
+            {
+                SetAndNotify(ref _tilt, value);
+                if (MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(Tilt), Tilt);
+            }
+        }
+
+        private double _scale;
+        [OSC]
+        public double Scale
+        {
+            get => _scale;
+            set
+            {
+                SetAndNotify(ref _scale, value);
+                if (MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(Scale), Scale);
+            }
+        }
+
+        private double _rotate;
+        [OSC]
+        public double Rotate
+        {
+            get => _rotate;
+            set
+            {
+                SetAndNotify(ref _rotate, value);
+                if (MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(Rotate), Rotate);
+            }
+        }
+
+
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == NotifyCollectionChangedAction.Remove)
@@ -216,6 +269,12 @@ namespace CMiX.ViewModels
             texturedto.Brightness = Brightness;
             texturedto.Contrast = Contrast;
             texturedto.Saturation = Saturation;
+
+            texturedto.Pan = Pan;
+            texturedto.Tilt = Tilt;
+            texturedto.Scale = Scale;
+            texturedto.Rotate = Rotate;
+
             texturedto.Keying = Keying;
             texturedto.Invert = Invert;
             texturedto.InvertMode = InvertMode;
@@ -234,6 +293,12 @@ namespace CMiX.ViewModels
             Brightness = texturedto.Brightness;
             Contrast = texturedto.Contrast;
             Saturation = texturedto.Saturation;
+
+            Pan = texturedto.Pan;
+            Tilt = texturedto.Tilt;
+            Scale = texturedto.Scale;
+            Rotate = texturedto.Rotate;
+
             Keying = texturedto.Keying;
             Invert = texturedto.Invert;
             InvertMode = texturedto.InvertMode;

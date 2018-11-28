@@ -13,6 +13,7 @@
         <ResourceDictionary Source="Tab.xaml"/>
         <ResourceDictionary Source="BorderContainer.xaml"/>
         <ResourceDictionary Source="SliderCentered.xaml"/>
+        <ResourceDictionary Source="Icons.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
     <FontFamily x:Key="DefaultFont">Microsoft Sans Serif</FontFamily>

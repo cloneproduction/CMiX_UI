@@ -22,6 +22,14 @@ namespace CMiX.Models
 
         public double Saturation { get; set; }
 
+        public double Pan { get; set; }
+
+        public double Tilt { get; set; }
+
+        public double Scale { get; set; }
+
+        public double Rotate { get; set; }
+
         public double Keying { get; set; }
 
         public double Invert { get; set; }
