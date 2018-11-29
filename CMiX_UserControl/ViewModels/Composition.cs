@@ -8,6 +8,7 @@ using System.Collections.Specialized;
 using System.Windows;
 using Newtonsoft.Json;
 using System.IO;
+using SharpOSC;
 
 namespace CMiX.ViewModels
 {
@@ -54,7 +55,7 @@ namespace CMiX.ViewModels
         }
         private int layerID = -1;
 
-        private IMessenger Messenger { get; }
+        private IMessenger Messenger { get; } 
 
         public string MessageAddress { get; set; } //NOT USED HERE..
 
@@ -65,6 +66,30 @@ namespace CMiX.ViewModels
         {
             get => _name;
             set => SetAndNotify(ref _name, value);
+        }
+
+        private string _IP = "127.0.0.1";
+        public string IP
+        {
+            get => _IP;
+            set
+            {
+                //MessageBox.Show("POUET");
+                //Messenger = new OSCMessenger( new UDPSender( IP, Convert.ToInt32(Port)));
+                SetAndNotify(ref _IP, value);
+            }
+        }
+
+        private string _port = "55555";
+        public string Port
+        {
+            get => _port;
+            set
+            {
+                //MessageBox.Show("POUET");
+                //Messenger = new OSCMessenger(new UDPSender(IP, Convert.ToInt32(Port)));
+                SetAndNotify(ref _port, value);
+            }
         }
 
         private List<string> _layernames;

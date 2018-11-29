@@ -28,6 +28,5 @@ namespace CMiX.Models
         public CameraDTO CameraDTO { get; set; }
 
         public List<LayerDTO> LayersDTO { get; set; }
-
     }
 }

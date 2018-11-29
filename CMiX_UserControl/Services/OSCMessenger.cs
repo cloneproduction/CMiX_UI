@@ -12,7 +12,7 @@ namespace CMiX.Services
 {
     public class OSCMessenger : IMessenger
     {
-        public UDPSender Sender { get; }
+        public UDPSender Sender { get; set; }
 
         private readonly List<OscMessage> messages;
 

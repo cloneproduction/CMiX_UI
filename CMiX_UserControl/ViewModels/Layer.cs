@@ -61,7 +61,7 @@ namespace CMiX.ViewModels
             MessageEnabled = messageEnabled;
         }
 
-        private IMessenger Messenger { get; }
+        public IMessenger Messenger { get; }
 
         public string MessageAddress { get; set; }
 

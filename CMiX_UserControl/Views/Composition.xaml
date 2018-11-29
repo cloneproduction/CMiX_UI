@@ -144,14 +144,58 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
+
                         <CMiX:MasterBeatControl
                             Margin="0, 0, 4, 0"
                             Grid.Column="0"
                             DataContext="{Binding Path=MasterBeat}"/>
-                        <CMiX:Camera
-                            Margin="4, 0, 0, 0"
-                            Grid.Column="1"
-                            DataContext="{Binding Camera}"/>
+                        <TabControl Grid.Column="1" Style="{StaticResource TabControlBase}">
+                            <TabItem Header="Camera"
+                                Style="{StaticResource TabItemBase}">
+                                <CMiX:Camera
+                                    Margin="4, 0, 0, 0"
+                                    
+                                    DataContext="{Binding Camera}"/>
+                            </TabItem>
+                            <TabItem Header="OSC" Style="{StaticResource TabItemBase}">
+                                <StackPanel>
+                                    <Grid Height="20">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.2*"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="IP" 
+                                                   Foreground="{DynamicResource TextBase}"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"/>
+                                        <TextBox
+                                            Text="{Binding IP, Mode=TwoWay}"
+                                            Grid.Column="1"
+                                            BorderThickness="1"
+                                            BorderBrush="{DynamicResource DarkColor}"
+                                            Background="{DynamicResource HighDarkerColor}"/>
+                                    </Grid>
+                                    <Grid Height="20">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.2*"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock 
+                                            Text="PORT" 
+                                            Foreground="{DynamicResource TextBase}"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"/>
+                                        <TextBox
+                                            Text="{Binding Port, Mode=TwoWay}"
+                                            Grid.Column="1"
+                                            BorderThickness="1"
+                                            BorderBrush="{DynamicResource DarkColor}"
+                                            Background="{DynamicResource HighDarkerColor}"/>
+                                    </Grid>
+
+                                </StackPanel>
+                            </TabItem>
+                        </TabControl>
                     </Grid>
                 </Border>
             </Grid>
