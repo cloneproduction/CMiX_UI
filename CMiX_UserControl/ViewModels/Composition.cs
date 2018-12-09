@@ -54,6 +54,7 @@ namespace CMiX.ViewModels
             Layers.CollectionChanged += ContentCollectionChanged;
         }
         private int layerID = -1;
+        private int layerNameID = -1;
 
         private IMessenger Messenger { get; } 
 
@@ -278,12 +279,14 @@ namespace CMiX.ViewModels
         private void AddLayer()
         {
             layerID += 1;
-            Layer layer = new Layer(MasterBeat, "/Layer" + layerID.ToString(), Messenger, 0);
+            layerNameID += 1;
 
-            this.LayerNames.Add("/Layer" + layerID.ToString());
-
+            Layer layer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messenger, layerNameID);
+            
+            layer.Index = layerID;
             Layers.Add(layer);
-            layer.Index = Layers.IndexOf(layer);
+
+            this.LayerNames.Add("/Layer" + layerNameID.ToString());
 
             List<string> layerindex = new List<string>();
             foreach (Layer lyr in this.Layers)
@@ -299,29 +302,39 @@ namespace CMiX.ViewModels
 
         private void RemoveLayer()
         {
+            int removeindex;
+            string removedlayername = string.Empty;
+            List<string> layerindex = new List<string>();
+
             for (int i = Layers.Count - 1; i >= 0; i--)
             {
                 if (Layers[i].Enabled)
                 {
-                    int removeitem = Layers[i].Index;
-                    string removedlayername = Layers[i].LayerName;
-                    this.LayerNames.Remove(Layers[i].LayerName);
+                    layerID -= 1;
 
-                    List<string> layerindex = new List<string>();
-                    foreach (Layer lyr in this.Layers)
-                    {
-                        layerindex.Add(lyr.Index.ToString());
-                    }
+                    removeindex = Layers[i].Index;
+                    removedlayername = Layers[i].LayerName;
 
+                    LayerNames.Remove(Layers[i].LayerName);
                     Layers.Remove(Layers[i]);
-                    Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
-                    Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
-                    Messenger.QueueMessage("/LayerRemoved", removedlayername);
-                    Messenger.SendQueue();
 
+                    foreach (Layer lyr in Layers)
+                    {
+                        if (lyr.Index > removeindex)
+                        {
+                            lyr.Index -= 1;
+                        }
+                        layerindex.Add(lyr.Index.ToString());
+
+                    }
                     break;
                 }
             }
+
+            Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
+            Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
+            Messenger.QueueMessage("/LayerRemoved", removedlayername);
+            Messenger.SendQueue();
         }
 
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

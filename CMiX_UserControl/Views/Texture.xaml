@@ -85,32 +85,6 @@
                                 <TabItem.Header>
                                     <Image Height="15" Width="auto" Opacity="0.75">
                                         <Image.Source>
-                                            <BitmapImage UriSource="/Assets/HSL.png"/>
-                                        </Image.Source>
-                                    </Image>
-                                </TabItem.Header>
-                                <StackPanel Margin="0, 2, 0, 0">
-                                    <Controls:CMiXSliderCentered
-                                        Margin="0, 1, 0, 1"
-                                        Caption="Hue"
-                                        DockPanel.Dock="Bottom"
-                                        Value="{Binding Hue, Mode=TwoWay}" />
-                                    <Controls:CMiXSliderCentered
-                                        Margin="0, 1, 0, 1"
-                                        Caption="Saturation"
-                                        DockPanel.Dock="Bottom"
-                                        Value="{Binding Saturation, Mode=TwoWay}" />
-                                    <Controls:CMiXSliderCentered
-                                        Margin="0, 1, 0, 1"
-                                        Caption="Luminosity"
-                                        DockPanel.Dock="Bottom"
-                                        Value="{Binding Luminosity, Mode=TwoWay}"/>
-                                </StackPanel>
-                            </TabItem>
-                            <TabItem Style="{StaticResource TabItemBase}">
-                                <TabItem.Header>
-                                    <Image Height="15" Width="auto" Opacity="0.75">
-                                        <Image.Source>
                                             <BitmapImage UriSource="/Assets/BC.png"/>
                                         </Image.Source>
                                     </Image>
@@ -147,9 +121,35 @@
                                     Caption="Invert"
                                     Value="{Binding Invert, Mode=TwoWay}" />
                                     </Grid>
-
                                 </StackPanel>
                             </TabItem>
+                            <TabItem Style="{StaticResource TabItemBase}">
+                                <TabItem.Header>
+                                    <Image Height="15" Width="auto" Opacity="0.75">
+                                        <Image.Source>
+                                            <BitmapImage UriSource="/Assets/HSL.png"/>
+                                        </Image.Source>
+                                    </Image>
+                                </TabItem.Header>
+                                <StackPanel Margin="0, 2, 0, 0">
+                                    <Controls:CMiXSliderCentered
+                                        Margin="0, 1, 0, 1"
+                                        Caption="Hue"
+                                        DockPanel.Dock="Bottom"
+                                        Value="{Binding Hue, Mode=TwoWay}" />
+                                    <Controls:CMiXSliderCentered
+                                        Margin="0, 1, 0, 1"
+                                        Caption="Saturation"
+                                        DockPanel.Dock="Bottom"
+                                        Value="{Binding Saturation, Mode=TwoWay}" />
+                                    <Controls:CMiXSliderCentered
+                                        Margin="0, 1, 0, 1"
+                                        Caption="Luminosity"
+                                        DockPanel.Dock="Bottom"
+                                        Value="{Binding Luminosity, Mode=TwoWay}"/>
+                                </StackPanel>
+                            </TabItem>
+
                             <TabItem Style="{StaticResource TabItemBase}">
                                 <TabItem.Header>
                                     <Image Height="15" Width="auto" Opacity="0.75">
