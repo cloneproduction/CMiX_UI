@@ -6,20 +6,16 @@ using MonitoredUndo;
 using GalaSoft.MvvmLight.Command;
 using System.Windows.Data;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace CMiX.ViewModels
 {
     [Serializable]
-    public class Layer : ViewModel, IMessengerData
+    public class Layer : ViewModel, IMessengerData, ISupportsUndo
     {
-        #region
 
+        #region UNDO/REDO
         private CommandBindingCollection _commandBindings = new CommandBindingCollection();
-
-        private ICommand _windowLoadedCommand;
-        private ICommand _sliderMouseDownCommand;
-        private ICommand _sliderLostMouseCapture;
-
         public CommandBindingCollection RegisterCommandBindings
         {
             get
@@ -28,14 +24,16 @@ namespace CMiX.ViewModels
             }
         }
 
+        private ICommand _windowLoadedCommand;
         public ICommand WindowLoadedCommand
         {
             get
             {
-                return _windowLoadedCommand ?? (_windowLoadedCommand = new RelayCommand(OnWindowLoaded));
+                return _windowLoadedCommand ?? (_windowLoadedCommand = new RelayCommand<EventArgs>(OnWindowLoaded));
             }
         }
 
+        private ICommand _sliderMouseDownCommand;
         public ICommand SliderMouseDownCommand
         {
             get
@@ -44,6 +42,7 @@ namespace CMiX.ViewModels
             }
         }
 
+        private ICommand _sliderLostMouseCapture;
         public ICommand SliderLostMouseCapture
         {
             get
@@ -54,6 +53,9 @@ namespace CMiX.ViewModels
 
         private void OnSliderLostMouseCapture(MouseEventArgs e)
         {
+            //if (!BatchAgeChanges)
+            //return;
+
             UndoService.Current[this].EndChangeSetBatch();
 
             e.Handled = false;
@@ -61,19 +63,26 @@ namespace CMiX.ViewModels
 
         private void OnSliderMouseDown(MouseButtonEventArgs e)
         {
+            //if (!BatchAgeChanges)
+            //return;
+
+            // Start a batch to collect all subsequent undo events (for this root)
+            // into a single changeset.
+            // 
+            // Passing "false" for the last parameter tells the system to keep
+            // each individual change that is made. If desired, pass "true" to
+            // de-dupe these changes and reduce the memory requirements of the
+            // changeset.
             UndoService.Current[this].BeginChangeSetBatch("Age Changed", false);
 
             e.Handled = false;
         }
 
-        private void OnWindowLoaded()
+        private void OnWindowLoaded(EventArgs e)
         {
-            // The undo / redo stack collections are not "Observable", so we 
-            // need to manually refresh the UI when they change.
             var root = UndoService.Current[this];
             root.UndoStackChanged += new EventHandler(OnUndoStackChanged);
             root.RedoStackChanged += new EventHandler(OnRedoStackChanged);
-            //FirstNameTextbox.Focus();
         }
 
         void OnUndoStackChanged(object sender, EventArgs e)
@@ -86,18 +95,8 @@ namespace CMiX.ViewModels
             RefreshUndoStackList();
         }
 
-        #region Internal Methods
 
-
-        private void RefreshUndoStackList()
-        {
-            var cv = CollectionViewSource.GetDefaultView(UndoStack);
-            cv.Refresh();
-
-            cv = CollectionViewSource.GetDefaultView(RedoStack);
-            cv.Refresh();
-        }
-
+        #region Properties
         public IEnumerable<ChangeSet> UndoStack
         {
             get
@@ -113,14 +112,28 @@ namespace CMiX.ViewModels
                 return UndoService.Current[this].RedoStack;
             }
         }
+        #endregion
+
+        #region Internal Methods
+
+        private void RefreshUndoStackList()
+        {
+            var cv = CollectionViewSource.GetDefaultView(UndoStack);
+            cv.Refresh();
+
+            cv = CollectionViewSource.GetDefaultView(RedoStack);
+            cv.Refresh();
+        }
 
         #endregion
 
         private void InitialiseCommandBindings()
         {
+            // create command binding for undo command
             var undoBinding = new CommandBinding(ApplicationCommands.Undo, UndoExecuted, UndoCanExecute);
             var redoBinding = new CommandBinding(ApplicationCommands.Redo, RedoExecuted, RedoCanExecute);
 
+            // register the binding to the class
             CommandManager.RegisterClassCommandBinding(typeof(Layer), undoBinding);
             CommandManager.RegisterClassCommandBinding(typeof(Layer), redoBinding);
 
@@ -143,12 +156,20 @@ namespace CMiX.ViewModels
 
         private void UndoExecuted(object sender, ExecutedRoutedEventArgs e)
         {
+            // Get the document root. In this case, we pass in "this", which 
+            // implements ISupportsUndo. The ISupportsUndo interface is used
+            // by the UndoService to locate the appropriate root node of an 
+            // undoable document.
+            // In this case, we are treating the window as the root of the undoable
+            // document, but in a larger system the root would probably be your
+            // domain model.
             var undoRoot = UndoService.Current[this];
             undoRoot.Undo();
         }
 
         private void UndoCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
+            // Tell the UI whether Undo is available.
             e.CanExecute = UndoService.Current[this].CanUndo;
         }
 
@@ -161,17 +182,14 @@ namespace CMiX.ViewModels
         }
 
         #endregion
-        
 
+        #region CONSTRUCTORS
 
         public Layer(MasterBeat masterBeat, string layername, IMessenger messenger, int index)
         {
-            InitialiseCommandBindings();
-
             Messenger = messenger;
             MessageAddress = String.Format("{0}/", layername);
             MessageEnabled = false;
-
             Index = index;
             LayerName = layername;
             Fade = 0.0;
@@ -183,14 +201,15 @@ namespace CMiX.ViewModels
             Mask = new Mask(BeatModifier, layername, messenger);
             Coloration = new Coloration(BeatModifier, layername, messenger);
             LayerFX = new LayerFX(BeatModifier, layername, messenger);
-
             MessageEnabled = true;
+
+            InitialiseCommandBindings();
+
         }
 
         public Layer(
             IMessenger messenger,
             string messageaddress,
-
             string layername,
             bool enabled,
             int index,
@@ -201,7 +220,6 @@ namespace CMiX.ViewModels
             Mask mask,
             Coloration coloration,
             LayerFX layerfx,
-
             bool messageEnabled
             )
         {
@@ -218,7 +236,11 @@ namespace CMiX.ViewModels
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
             MessageEnabled = messageEnabled;
+
+            InitialiseCommandBindings();
         }
+
+        #endregion
 
         #region PROPERTY
         public IMessenger Messenger { get; }
@@ -258,6 +280,7 @@ namespace CMiX.ViewModels
             get => _fade;
             set
             {
+                DefaultChangeFactory.Current.OnChanging(this, "Fade", _fade, value, "Fade Changed");
                 SetAndNotify(ref _fade, value);
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Fade), Fade);
@@ -271,6 +294,7 @@ namespace CMiX.ViewModels
             get => _out;
             set
             {
+                DefaultChangeFactory.Current.OnChanging(this, "Out", _out, value, "Out Changed");
                 SetAndNotify(ref _out, value);
                 if (MessageEnabled && Out)
                     Messenger.SendMessage(MessageAddress + nameof(Out), Out);
@@ -284,6 +308,7 @@ namespace CMiX.ViewModels
             get => _blendMode;
             set
             {
+                DefaultChangeFactory.Current.OnChanging(this, "BlendMode", _blendMode, value, "BlendMode Changed");
                 SetAndNotify(ref _blendMode, value);
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(BlendMode), BlendMode);
@@ -351,6 +376,11 @@ namespace CMiX.ViewModels
             LayerFX.Paste(layerdto.LayerFXDTO);
 
             MessageEnabled = true;
+        }
+
+        public object GetUndoRoot()
+        {
+            return this;
         }
         #endregion
     }

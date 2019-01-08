@@ -9,6 +9,11 @@
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:command="http://www.galasoft.ch/mvvmlight"
+    CMiX:AttachedProperties.RegisterCommandBindings="{Binding CommandBindings}"
+    
     d:DesignHeight="109.977"
     d:DesignWidth="358.051"
     mc:Ignorable="d">
@@ -20,6 +25,14 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </UserControl.Resources>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <command:EventToCommand 
+                Command="{Binding WindowLoadedCommand}"
+                PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     
     <Border>
         <Border.ContextMenu>
@@ -52,7 +65,6 @@
                 <ColumnDefinition Width="0.15*"/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            
             <RadioButton
                 Margin="0,0,2,0"
                 AllowDrop="True"
@@ -61,14 +73,13 @@
                 DragOver="RadioButton_DragOver"
                 Style="{StaticResource RadioButtonLayer}">
                 <RadioButton.Background>
-                    <SolidColorBrush Color="{Binding Coloration.ObjColor}" />
+                    <SolidColorBrush Color="{Binding Coloration.ObjColor}"/>
                 </RadioButton.Background>
             </RadioButton>
             <StackPanel Grid.Column="1" Margin="4, 0, 0, 0">
                 <Views:BeatModifier
                     Focusable="False"
-                    DataContext="{Binding BeatModifier}"
-                    />
+                    DataContext="{Binding BeatModifier}"/>
                 <DockPanel>
                     <RadioButton 
                         DockPanel.Dock="Right" 
@@ -85,12 +96,12 @@
                         ItemContainerStyle="{StaticResource BaseListBoxItemStyle}"
                         SelectedItem="{Binding BlendMode}"
                         ItemsSource="{Binding Source={StaticResource BlendMode}}"/>
-
                 </DockPanel>
                 <Controls:CustomSlider
                     Focusable="False"
                     Caption="Alpha"
-                    Value="{Binding Fade, Mode=TwoWay}" />
+                    Value="{Binding Fade, Mode=TwoWay}">
+                </Controls:CustomSlider>
             </StackPanel>
         </Grid>
     </Border>

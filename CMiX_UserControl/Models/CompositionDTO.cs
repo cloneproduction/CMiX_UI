@@ -1,10 +1,14 @@
 ﻿
 using CMiX.ViewModels;
+using GalaSoft.MvvmLight.Command;
+using MonitoredUndo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
+using System.Windows.Input;
 
 namespace CMiX.Models
 {
@@ -15,7 +19,6 @@ namespace CMiX.Models
             LayerNames = new List<string>();
             MasterBeatDTO = new MasterBeatDTO();
             LayersDTO = new List<LayerDTO>();
-
             CameraDTO = new CameraDTO();
         }
 

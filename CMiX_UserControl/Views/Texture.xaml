@@ -8,6 +8,11 @@
     xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:command="http://www.galasoft.ch/mvvmlight"
+    CMiX:AttachedProperties.RegisterCommandBindings="{Binding CommandBindings}"
+    
     d:DesignHeight="423.334"
     d:DesignWidth="358"
     mc:Ignorable="d">
@@ -19,6 +24,14 @@
         </ObjectDataProvider>
     </UserControl.Resources>
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <command:EventToCommand 
+                Command="{Binding WindowLoadedCommand}"
+                PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
     <Border Background="{StaticResource HighDarkerColor}">
         <DockPanel>
             <Border 

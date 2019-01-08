@@ -8,9 +8,22 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:dd="urn:gong-wpf-dragdrop"
+    
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:command="http://www.galasoft.ch/mvvmlight"
+    CMiX:AttachedProperties.RegisterCommandBindings="{Binding CommandBindings}"
+    
     d:DesignHeight="1096.666"
     d:DesignWidth="1327"
     mc:Ignorable="d">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <command:EventToCommand 
+                Command="{Binding WindowLoadedCommand}"
+                PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
     <UserControl.InputBindings>
         <KeyBinding Modifiers="Control"
                 Key="V"
@@ -53,23 +66,23 @@
                     Focusable="False"
                     Header="File"
                     Style="{StaticResource MenuItemBase}">
-                    <MenuItem
-                        Header="New"
-                        Template="{DynamicResource SubMenuItemBase}" />
-                    <MenuItem
-                        Header="Open"
-                        Command="{Binding Path=OpenCompositionCommand}"
-                        Template="{DynamicResource SubMenuItemBase}" />
-                    <MenuItem
-                        Header="Save"
-                        Template="{DynamicResource SubMenuItemBase}" />
-                    <MenuItem
-                        Header="Save As"
-                        Command="{Binding Path=SaveCompositionCommand}"
-                        Template="{DynamicResource SubMenuItemBase}" />
-                    <MenuItem
-                        Header="Quit"
-                        Template="{DynamicResource SubMenuItemBase}" />
+                <MenuItem
+                    Header="New"
+                    Template="{DynamicResource SubMenuItemBase}" />
+                <MenuItem
+                    Header="Open"
+                    Command="{Binding Path=OpenCompositionCommand}"
+                    Template="{DynamicResource SubMenuItemBase}" />
+                <MenuItem
+                    Header="Save"
+                    Template="{DynamicResource SubMenuItemBase}" />
+                <MenuItem
+                    Header="Save As"
+                    Command="{Binding Path=SaveCompositionCommand}"
+                    Template="{DynamicResource SubMenuItemBase}" />
+                <MenuItem
+                    Header="Quit"
+                    Template="{DynamicResource SubMenuItemBase}" />
                 </MenuItem>
             </Menu>
         </Grid>
@@ -79,8 +92,7 @@
             Margin="0,2,0,0"
             Background="{StaticResource DarkerColor}"
             DockPanel.Dock="Bottom" />
-        <DockPanel >
-
+        <DockPanel>
             <Border
                 DockPanel.Dock="Right"
                 Width="300"
@@ -144,7 +156,6 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-
                         <CMiX:MasterBeatControl
                             Margin="0, 0, 4, 0"
                             Grid.Column="0"
@@ -154,7 +165,6 @@
                                 Style="{StaticResource TabItemBase}">
                                 <CMiX:Camera
                                     Margin="4, 0, 0, 0"
-                                    
                                     DataContext="{Binding Camera}"/>
                             </TabItem>
                             <TabItem Header="OSC" Style="{StaticResource TabItemBase}">
@@ -192,7 +202,6 @@
                                             BorderBrush="{DynamicResource DarkColor}"
                                             Background="{DynamicResource HighDarkerColor}"/>
                                     </Grid>
-
                                 </StackPanel>
                             </TabItem>
                         </TabControl>
