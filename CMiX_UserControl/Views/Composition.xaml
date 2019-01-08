@@ -13,8 +13,8 @@
     xmlns:command="http://www.galasoft.ch/mvvmlight"
     CMiX:AttachedProperties.RegisterCommandBindings="{Binding CommandBindings}"
     
-    d:DesignHeight="1096.666"
-    d:DesignWidth="1327"
+    d:DesignHeight="880.666"
+    d:DesignWidth="1358.5"
     mc:Ignorable="d">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -23,7 +23,7 @@
                 PassEventArgsToCommand="True" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    
+
     <UserControl.InputBindings>
         <KeyBinding Modifiers="Control"
                 Key="V"
@@ -66,21 +66,21 @@
                     Focusable="False"
                     Header="File"
                     Style="{StaticResource MenuItemBase}">
-                <MenuItem
+                    <MenuItem
                     Header="New"
                     Template="{DynamicResource SubMenuItemBase}" />
-                <MenuItem
+                    <MenuItem
                     Header="Open"
                     Command="{Binding Path=OpenCompositionCommand}"
                     Template="{DynamicResource SubMenuItemBase}" />
-                <MenuItem
+                    <MenuItem
                     Header="Save"
                     Template="{DynamicResource SubMenuItemBase}" />
-                <MenuItem
+                    <MenuItem
                     Header="Save As"
                     Command="{Binding Path=SaveCompositionCommand}"
                     Template="{DynamicResource SubMenuItemBase}" />
-                <MenuItem
+                    <MenuItem
                     Header="Quit"
                     Template="{DynamicResource SubMenuItemBase}" />
                 </MenuItem>
