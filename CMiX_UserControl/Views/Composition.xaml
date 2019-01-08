@@ -84,6 +84,23 @@
                     Header="Quit"
                     Template="{DynamicResource SubMenuItemBase}" />
                 </MenuItem>
+                <MenuItem
+                    Height="{Binding ActualHeight, ElementName=MainMenu, Mode=OneWay}"
+                    Padding="20,0,20,0"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="center"
+                    Focusable="False"
+                    Header="Edit"
+                    Style="{StaticResource MenuItemBase}">
+                    <MenuItem
+                        Header="Undo"
+                        Template="{DynamicResource SubMenuItemBase}"
+                        Command="ApplicationCommands.Undo"/>
+                    <MenuItem
+                        Header="Redo"
+                        Template="{DynamicResource SubMenuItemBase}" 
+                        Command="ApplicationCommands.Redo"/>
+                </MenuItem>
             </Menu>
         </Grid>
         <Border
