@@ -21,11 +21,11 @@
             FontSize="10" 
             HorizontalAlignment="Left" 
             VerticalAlignment="Center" 
-            Foreground="{StaticResource TextBase}"/>
+            Foreground="{DynamicResource TextBase}"/>
         <TextBox 
             Grid.Column="1"
-            Background="{StaticResource HighDarkerColor}" 
-            BorderBrush="{StaticResource DarkColor}" 
+            Background="{DynamicResource HighDarkerColor}" 
+            BorderBrush="{DynamicResource DarkColor}" 
             BorderThickness="1" Padding="4, 0, 0, 0" 
             Text="{Binding Path=Value, StringFormat=N2, RelativeSource={RelativeSource AncestorType={x:Type Controls:CustomSlider}}}" 
             FontSize="10" 
@@ -33,7 +33,7 @@
             VerticalContentAlignment="Center"
             HorizontalAlignment="Stretch" 
             VerticalAlignment="Stretch" 
-            Foreground="{StaticResource TextBase}"/>
+            Foreground="{DynamicResource TextBase}"/>
         <DockPanel Grid.Column="2">
             <Grid DockPanel.Dock="Right">
                 <Grid.RowDefinitions>
@@ -66,7 +66,7 @@
                     Maximum="1.0"
                     Minimum="0.0"
                     SmallChange="0.01"
-                    Style="{StaticResource SliderBase}"
+                    Style="{DynamicResource SliderBase}"
                     ValueChanged="CMiXSlider_ValueChanged"
                     Value="{Binding Value, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type Controls:CustomSlider}}}">
             </Slider>

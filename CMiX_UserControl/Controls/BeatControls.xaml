@@ -7,8 +7,8 @@
     xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
     d:DataContext="{d:DesignInstance Type={x:Type ViewModels:BeatModifier},
                                      IsDesignTimeCreatable=False}"
-    d:DesignHeight="41.167"
-    d:DesignWidth="167"
+    d:DesignHeight="46.5"
+    d:DesignWidth="226.667"
     mc:Ignorable="d">
     <DockPanel>
         <Button
@@ -20,7 +20,7 @@
             Content="Rt"
             IsDefault="True"
             IsTabStop="False"
-            Style="{StaticResource ButtonBase}" />
+            Style="{DynamicResource ButtonBase}" />
         <Button
             x:Name="DivideBPM"
             DockPanel.Dock="Left"
@@ -29,7 +29,7 @@
             Command="{Binding Path=DivideCommand}"
             Content="-"
             IsDefault="True"
-            Style="{StaticResource ButtonBase}" />
+            Style="{DynamicResource ButtonBase}" />
         <Button
             x:Name="MultiplyBPM"
             Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
@@ -38,7 +38,7 @@
             Content="+"
             DockPanel.Dock="Left"
             IsDefault="True"
-            Style="{StaticResource ButtonBase}" />
+            Style="{DynamicResource ButtonBase}" />
         <Border
             x:Name="DisplayBPM"
             Margin="1, 0, 0, 0"

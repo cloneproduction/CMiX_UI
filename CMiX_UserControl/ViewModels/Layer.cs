@@ -2,7 +2,7 @@
 using CMiX.Services;
 using System;
 using MonitoredUndo;
-
+using System.Collections.ObjectModel;
 
 namespace CMiX.ViewModels
 {
@@ -64,6 +64,9 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTY
+        public bool CanAcceptChildren { get; set; }
+        public ObservableCollection<Layer> Children { get; private set; }
+
         public IMessenger Messenger { get; }
 
         public string MessageAddress { get; set; }

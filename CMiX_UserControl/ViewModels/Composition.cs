@@ -11,6 +11,7 @@ using System.IO;
 using MonitoredUndo;
 using System.Windows.Data;
 using GalaSoft.MvvmLight.Command;
+using GongSolutions.Wpf.DragDrop;
 
 namespace CMiX.ViewModels
 {
@@ -343,22 +344,24 @@ namespace CMiX.ViewModels
             Messenger.SendQueue();
         }
 
+
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            List<string> layerindex = new List<string>();
-            foreach (Layer lyr in Layers)
-            {
-                layerindex.Add(lyr.Index.ToString());
-            }
+            DefaultChangeFactory.Current.OnCollectionChanged(this, "Layers", Layers, e);
 
             if (MessageEnabled)
             {
+                List<string> layerindex = new List<string>();
+
+                foreach (Layer lyr in Layers)
+                {
+                    layerindex.Add(lyr.Index.ToString());
+                }
+
                 Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
                 Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
                 Messenger.SendQueue();
             }
-
-            DefaultChangeFactory.Current.OnCollectionChanged(this, "Layers", Layers, e);
         }
     }
 }
