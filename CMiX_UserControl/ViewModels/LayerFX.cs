@@ -1,18 +1,19 @@
 ﻿using CMiX.Models;
 using CMiX.Services;
 using System;
+using MonitoredUndo;
 
 namespace CMiX.ViewModels
 {
     public class LayerFX : ViewModel, IMessengerData
     {
+        #region CONSTRUCTORS
         public LayerFX(Beat masterbeat, string layername, IMessenger messenger)
             : this(
                   feedback: 0.0,
                   blur: 0.0,
                   messenger: messenger,
                   messageaddress: String.Format("{0}/{1}/", layername, nameof(LayerFX)),
-
                   messageEnabled: true
                   )
         { }
@@ -22,17 +23,17 @@ namespace CMiX.ViewModels
             double feedback,
             double blur,
             string messageaddress,
-
             bool messageEnabled)
         {
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
-
             Feedback = feedback;
             Blur = blur;
-
             MessageAddress = messageaddress;
             MessageEnabled = messageEnabled;
         }
+        #endregion
+
+        #region PROPERTIES
         private IMessenger Messenger { get; }
 
         public string MessageAddress { get; set; }
@@ -48,6 +49,7 @@ namespace CMiX.ViewModels
             get => _feedback;
             set
             {
+                DefaultChangeFactory.Current.OnChanging(this, nameof(Feedback), _feedback, value, "FeedBack Changed");
                 SetAndNotify(ref _feedback, CoerceNotNegative(value));
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Feedback), Feedback);
@@ -61,12 +63,15 @@ namespace CMiX.ViewModels
             get => _blur;
             set
             {
+                DefaultChangeFactory.Current.OnChanging(this, nameof(Blur), _blur, value, "Blur Changed");
                 SetAndNotify(ref _blur, CoerceNotNegative(value));
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Blur), Blur);
             }
         }
+        #endregion
 
+        #region COPY/PASTE
         public void Copy(LayerFXDTO layerfxdto)
         {
             layerfxdto.Feedback = Feedback;
@@ -83,5 +88,6 @@ namespace CMiX.ViewModels
 
             MessageEnabled = true;
         }
+        #endregion
     }
 }

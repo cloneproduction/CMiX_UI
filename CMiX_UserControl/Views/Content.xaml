@@ -8,10 +8,10 @@
     d:DesignHeight="583.667"
     d:DesignWidth="278"
     mc:Ignorable="d">
+    
     <DockPanel LastChildFill="True">
         <Border 
-            DockPanel.Dock="Top" 
-            >
+            DockPanel.Dock="Top">
             <DockPanel>
                 <Button 
                     DockPanel.Dock="Right"
@@ -20,8 +20,7 @@
                     Height="15" 
                     Width="15" 
                     Style="{StaticResource ButtonBase}"
-                    Content="R"
-                    />
+                    Content="R"/>
                 <Button 
                     Margin="2, 0"
                     DockPanel.Dock="Right"
@@ -29,16 +28,14 @@
                     Height="15" 
                     Width="15" 
                     Style="{StaticResource ButtonBase}"
-                    Content="P"
-                    />
+                    Content="P"/>
                 <Button 
                     DockPanel.Dock="Right"
                     Command="{Binding Path=CopySelfCommand}"
                     Height="15" 
                     Width="15" 
                     Style="{StaticResource ButtonBase}"
-                    Content="C"
-                    />
+                    Content="C"/>
                 <Label
                     Style="{StaticResource LabelBase}"
                     HorizontalAlignment="Left"
@@ -50,15 +47,23 @@
         </Border>
         <Border>
             <DockPanel>
-                <Border Margin="0, 4, 0, 8" DockPanel.Dock="Top" Style="{StaticResource BorderContainer}">
-                    <Views:BeatModifier Height="20" DataContext="{Binding BeatModifier}"/>
+                <Border 
+                    Margin="0, 4, 0, 8" 
+                    DockPanel.Dock="Top" 
+                    Style="{StaticResource BorderContainer}">
+                    <Views:BeatModifier 
+                        Height="20" 
+                        DataContext="{Binding BeatModifier}"/>
                 </Border>
-                <TabControl DockPanel.Dock="Bottom" AllowDrop="True" Style="{StaticResource TabControlBase}">
+                <TabControl 
+                    DockPanel.Dock="Bottom" 
+                    AllowDrop="True" 
+                    Style="{StaticResource TabControlBase}">
                     <TabItem Width="25"
-                     Height="25"
-                     HorizontalAlignment="Left"
-                     DragOver="TabItem_DragOver"
-                     Style="{StaticResource TabItemBase}">
+                         Height="25"
+                         HorizontalAlignment="Left"
+                         DragOver="TabItem_DragOver"
+                         Style="{StaticResource TabItemBase}">
                         <TabItem.Header>
                             <Image Height="15" Width="auto" Opacity="0.75">
                                 <Image.Source>
@@ -67,13 +72,13 @@
                             </Image>
                         </TabItem.Header>
                         <Views:Geometry
-                    DataContext="{Binding Geometry}"
-                    DockPanel.Dock="Bottom" />
+                            DataContext="{Binding Geometry}"
+                            DockPanel.Dock="Bottom" />
                     </TabItem>
                     <TabItem  
-                HorizontalAlignment="Left"
-                DragOver="TabItem_DragOver"
-                Style="{StaticResource TabItemBase}">
+                        HorizontalAlignment="Left"
+                        DragOver="TabItem_DragOver"
+                        Style="{StaticResource TabItemBase}">
                         <TabItem.Header>
                             <Image Height="15" Width="auto" Opacity="0.75">
                                 <Image.Source>
@@ -82,13 +87,13 @@
                             </Image>
                         </TabItem.Header>
                         <Views:Texture
-                DataContext="{Binding Texture}"
-                DockPanel.Dock="Bottom" />
+                            DataContext="{Binding Texture}"
+                            DockPanel.Dock="Bottom" />
                     </TabItem>
                     <TabItem 
-                HorizontalAlignment="Left"
-                     DragOver="TabItem_DragOver"
-                     Style="{StaticResource TabItemBase}">
+                        HorizontalAlignment="Left"
+                        DragOver="TabItem_DragOver"
+                        Style="{StaticResource TabItemBase}">
                         <TabItem.Header>
                             <Image Height="15" Width="auto" Opacity="0.75">
                                 <Image.Source>
@@ -97,8 +102,8 @@
                             </Image>
                         </TabItem.Header>
                         <Views:PostFX
-                DataContext="{Binding PostFX}"
-                DockPanel.Dock="Bottom" />
+                            DataContext="{Binding PostFX}"
+                            DockPanel.Dock="Bottom" />
                     </TabItem>
                 </TabControl>
             </DockPanel>

@@ -6,6 +6,7 @@ namespace CMiX.ViewModels
 {
     public class Camera : ViewModel, IMessengerData
     {
+        #region CONSTRUCTORS
         public Camera(IMessenger messenger, MasterBeat masterBeat)
             : this(
                   messenger: messenger,
@@ -43,7 +44,9 @@ namespace CMiX.ViewModels
             MessageAddress = messageaddress;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
         }
+        #endregion
 
+        #region PROPERTIES
         public IMessenger Messenger { get; }
 
         public string MessageAddress { get; set; }
@@ -116,7 +119,9 @@ namespace CMiX.ViewModels
                     Messenger.SendMessage(MessageAddress + nameof(Zoom), Zoom);
             }
         }
+        #endregion
 
+        #region COPY/PASTE
         public void Copy(CameraDTO cameradto)
         {
             cameradto.Rotation = Rotation;
@@ -144,5 +149,6 @@ namespace CMiX.ViewModels
 
             MessageEnabled = true;
         }
+        #endregion
     }
 }

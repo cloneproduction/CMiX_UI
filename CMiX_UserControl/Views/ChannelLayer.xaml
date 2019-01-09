@@ -17,6 +17,7 @@
     d:DesignHeight="109.977"
     d:DesignWidth="358.051"
     mc:Ignorable="d">
+    
     <UserControl.Resources>
         <CMiX:EnumToStringConverter x:Key="EnumToString"/>
         <ObjectDataProvider x:Key="BlendMode" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
@@ -78,7 +79,6 @@
             </RadioButton>
             <StackPanel Grid.Column="1" Margin="4, 0, 0, 0">
                 <Views:BeatModifier
-                    Focusable="False"
                     DataContext="{Binding BeatModifier}"/>
                 <DockPanel>
                     <RadioButton 
@@ -98,9 +98,18 @@
                         ItemsSource="{Binding Source={StaticResource BlendMode}}"/>
                 </DockPanel>
                 <Controls:CustomSlider
-                    Focusable="False"
                     Caption="Alpha"
                     Value="{Binding Fade, Mode=TwoWay}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                            <command:EventToCommand Command="{Binding SliderMouseDownCommand}"
+                                        PassEventArgsToCommand="True" />
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="LostMouseCapture">
+                            <command:EventToCommand Command="{Binding SliderLostMouseCapture}"
+                                        PassEventArgsToCommand="True" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Controls:CustomSlider>
             </StackPanel>
         </Grid>

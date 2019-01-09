@@ -5,187 +5,16 @@ using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
-
 using CMiX.Services;
 using CMiX.Controls;
 using CMiX.Models;
-using GalaSoft.MvvmLight.Command;
 using MonitoredUndo;
-using System.Windows.Data;
 
 namespace CMiX.ViewModels
 {
-    public class Texture : ViewModel, IMessengerData, ISupportsUndo
+    public class Texture : ViewModel, IMessengerData
     {
-        #region UNDO/REDO
-        private CommandBindingCollection _commandBindings = new CommandBindingCollection();
-        public CommandBindingCollection RegisterCommandBindings
-        {
-            get
-            {
-                return _commandBindings;
-            }
-        }
-
-        private ICommand _windowLoadedCommand;
-        public ICommand WindowLoadedCommand
-        {
-            get
-            {
-                return _windowLoadedCommand ?? (_windowLoadedCommand = new RelayCommand<EventArgs>(OnWindowLoaded));
-            }
-        }
-
-        private ICommand _sliderMouseDownCommand;
-        public ICommand SliderMouseDownCommand
-        {
-            get
-            {
-                return _sliderMouseDownCommand ?? (_sliderMouseDownCommand = new RelayCommand<MouseButtonEventArgs>(OnSliderMouseDown));
-            }
-        }
-
-        private ICommand _sliderLostMouseCapture;
-        public ICommand SliderLostMouseCapture
-        {
-            get
-            {
-                return _sliderLostMouseCapture ?? (_sliderLostMouseCapture = new RelayCommand<MouseEventArgs>(OnSliderLostMouseCapture));
-            }
-        }
-
-        private void OnSliderLostMouseCapture(MouseEventArgs e)
-        {
-            //if (!BatchAgeChanges)
-            //return;
-
-            UndoService.Current[this].EndChangeSetBatch();
-
-            e.Handled = false;
-        }
-
-        private void OnSliderMouseDown(MouseButtonEventArgs e)
-        {
-            //if (!BatchAgeChanges)
-            //return;
-
-            // Start a batch to collect all subsequent undo events (for this root)
-            // into a single changeset.
-            // 
-            // Passing "false" for the last parameter tells the system to keep
-            // each individual change that is made. If desired, pass "true" to
-            // de-dupe these changes and reduce the memory requirements of the
-            // changeset.
-            UndoService.Current[this].BeginChangeSetBatch("Age Changed", false);
-
-            e.Handled = false;
-        }
-
-        private void OnWindowLoaded(EventArgs e)
-        {
-            var root = UndoService.Current[this];
-            root.UndoStackChanged += new EventHandler(OnUndoStackChanged);
-            root.RedoStackChanged += new EventHandler(OnRedoStackChanged);
-        }
-
-        void OnUndoStackChanged(object sender, EventArgs e)
-        {
-            RefreshUndoStackList();
-        }
-
-        void OnRedoStackChanged(object sender, EventArgs e)
-        {
-            RefreshUndoStackList();
-        }
-
-
-        #region Properties
-        public IEnumerable<ChangeSet> UndoStack
-        {
-            get
-            {
-                return UndoService.Current[this].UndoStack;
-            }
-        }
-
-        public IEnumerable<ChangeSet> RedoStack
-        {
-            get
-            {
-                return UndoService.Current[this].RedoStack;
-            }
-        }
-        #endregion
-
-        #region Internal Methods
-
-        private void RefreshUndoStackList()
-        {
-            var cv = CollectionViewSource.GetDefaultView(UndoStack);
-            cv.Refresh();
-
-            cv = CollectionViewSource.GetDefaultView(RedoStack);
-            cv.Refresh();
-        }
-
-        #endregion
-
-        private void InitialiseCommandBindings()
-        {
-            // create command binding for undo command
-            var undoBinding = new CommandBinding(ApplicationCommands.Undo, UndoExecuted, UndoCanExecute);
-            var redoBinding = new CommandBinding(ApplicationCommands.Redo, RedoExecuted, RedoCanExecute);
-
-            // register the binding to the class
-            CommandManager.RegisterClassCommandBinding(typeof(Layer), undoBinding);
-            CommandManager.RegisterClassCommandBinding(typeof(Layer), redoBinding);
-
-            CommandBindings.Add(undoBinding);
-            CommandBindings.Add(redoBinding);
-        }
-
-        private void RedoExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            // A shorthand version of the above call to Undo, except 
-            // that this calls Redo.
-            UndoService.Current[this].Redo();
-        }
-
-        private void RedoCanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            // Tell the UI whether Redo is available.
-            e.CanExecute = UndoService.Current[this].CanRedo;
-        }
-
-        private void UndoExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            // Get the document root. In this case, we pass in "this", which 
-            // implements ISupportsUndo. The ISupportsUndo interface is used
-            // by the UndoService to locate the appropriate root node of an 
-            // undoable document.
-            // In this case, we are treating the window as the root of the undoable
-            // document, but in a larger system the root would probably be your
-            // domain model.
-            var undoRoot = UndoService.Current[this];
-            undoRoot.Undo();
-        }
-
-        private void UndoCanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            // Tell the UI whether Undo is available.
-            e.CanExecute = UndoService.Current[this].CanUndo;
-        }
-
-        public CommandBindingCollection CommandBindings
-        {
-            get
-            {
-                return _commandBindings;
-            }
-        }
-
-        #endregion
-
+        #region CONSTRUCTORS
         public Texture(string layername, IMessenger messenger)
             : this(
                   texturePaths: new ObservableCollection<ListBoxFileName>(),
@@ -203,8 +32,6 @@ namespace CMiX.ViewModels
         {
             TexturePaths = new ObservableCollection<ListBoxFileName>();
             TexturePaths.CollectionChanged += ContentCollectionChanged;
-
-            InitialiseCommandBindings();
         }
 
         public Texture(
@@ -243,10 +70,10 @@ namespace CMiX.ViewModels
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
-
-            InitialiseCommandBindings();
         }
+        #endregion
 
+        #region PROPERTIES
         public string MessageAddress { get; set; }
 
         public bool MessageEnabled { get; set; }
@@ -268,7 +95,7 @@ namespace CMiX.ViewModels
             get => _brightness;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, "Brightness", _brightness, value, "Brightness Changed");
+                DefaultChangeFactory.Current.OnChanging(this, nameof(Brightness), _brightness, value, "Brightness Changed");
                 SetAndNotify(ref _brightness, value);
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Brightness), Brightness);
@@ -282,7 +109,7 @@ namespace CMiX.ViewModels
             get => _contrast;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, "Contrast", _contrast, value, "Contrast Changed");
+                DefaultChangeFactory.Current.OnChanging(this, nameof(Contrast), _contrast, value, "Contrast Changed");
                 SetAndNotify(ref _contrast, value);
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Contrast), Contrast);
@@ -296,7 +123,7 @@ namespace CMiX.ViewModels
             get => _invert;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, "Invert", _invert, value, "Invert Changed");
+                DefaultChangeFactory.Current.OnChanging(this, nameof(Invert), _invert, value, "Invert Changed");
                 SetAndNotify(ref _invert, CoerceNotNegative(value));
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Invert), Invert);
@@ -310,7 +137,7 @@ namespace CMiX.ViewModels
             get => _invertMode;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, "InvertMode", _invertMode, value, "InvertMode Changed");
+                DefaultChangeFactory.Current.OnChanging(this, nameof(InvertMode), _invertMode, value, "InvertMode Changed");
                 SetAndNotify(ref _invertMode, value);
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(InvertMode), InvertMode);
@@ -325,7 +152,7 @@ namespace CMiX.ViewModels
             get => _hue;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, "Hue", _hue, value, "Hue Changed");
+                DefaultChangeFactory.Current.OnChanging(this, nameof(Hue), _hue, value, "Hue Changed");
                 SetAndNotify(ref _hue, value);
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Hue), Hue);
@@ -339,7 +166,7 @@ namespace CMiX.ViewModels
             get => _saturation;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, "Saturation", _saturation, value, "Saturation Changed");
+                DefaultChangeFactory.Current.OnChanging(this, nameof(Saturation), _saturation, value, "Saturation Changed");
                 SetAndNotify(ref _saturation, value);
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Saturation), Saturation);
@@ -353,7 +180,7 @@ namespace CMiX.ViewModels
             get => _luminosity;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, "Luminosity", _luminosity, value, "Luminosity Changed");
+                DefaultChangeFactory.Current.OnChanging(this, nameof(Luminosity), _luminosity, value, "Luminosity Changed");
                 SetAndNotify(ref _luminosity, value);
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Luminosity), Luminosity);
@@ -368,7 +195,7 @@ namespace CMiX.ViewModels
             get => _keying;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, "Keying", _keying, value, "Keying Changed");
+                DefaultChangeFactory.Current.OnChanging(this, nameof(Keying), _keying, value, "Keying Changed");
                 SetAndNotify(ref _keying, CoerceNotNegative(value));
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Keying), Keying);
@@ -383,7 +210,7 @@ namespace CMiX.ViewModels
             get => _pan;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, "Pan", _pan, value, "Pan Changed");
+                DefaultChangeFactory.Current.OnChanging(this, nameof(Pan), _pan, value, "Pan Changed");
                 SetAndNotify(ref _pan, value);
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Pan), Pan);
@@ -397,7 +224,7 @@ namespace CMiX.ViewModels
             get => _tilt;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, "Tilt", _tilt, value, "Tilt Changed");
+                DefaultChangeFactory.Current.OnChanging(this, nameof(Tilt), _tilt, value, "Tilt Changed");
                 SetAndNotify(ref _tilt, value);
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Tilt), Tilt);
@@ -411,7 +238,7 @@ namespace CMiX.ViewModels
             get => _scale;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, "Scale", _scale, value, "Scale Changed");
+                DefaultChangeFactory.Current.OnChanging(this, nameof(Scale), _scale, value, "Scale Changed");
                 SetAndNotify(ref _scale, value);
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Scale), Scale);
@@ -425,14 +252,15 @@ namespace CMiX.ViewModels
             get => _rotate;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, "Rotate", _rotate, value, "Rotate Changed");
+                DefaultChangeFactory.Current.OnChanging(this, nameof(Rotate), _rotate, value, "Rotate Changed");
                 SetAndNotify(ref _rotate, value);
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Rotate), Rotate);
             }
         }
+        #endregion
 
-
+        #region COLLECTIONCHANGE
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == NotifyCollectionChangedAction.Remove)
@@ -477,7 +305,9 @@ namespace CMiX.ViewModels
             if (MessageEnabled)
                 Messenger.SendMessage(MessageAddress + nameof(TexturePaths), filename.ToArray());
         }
+        #endregion
 
+        #region COPY/PASTE/RESET
         public void Copy(TextureDTO texturedto)
         {
             foreach (ListBoxFileName lbfn in TexturePaths)
@@ -552,10 +382,6 @@ namespace CMiX.ViewModels
             TextureDTO texturedto = new TextureDTO();
             this.Paste(texturedto);
         }
-
-        public object GetUndoRoot()
-        {
-            return this;
-        }
+        #endregion
     }
 }

@@ -46,8 +46,7 @@
                         Height="15" 
                         Width="15" 
                         Style="{StaticResource ButtonBase}"
-                        Content="R"
-                    />
+                        Content="R"/>
                     <Button 
                         DockPanel.Dock="Right"
                         Command="{Binding Path=PasteSelfCommand}"
@@ -55,25 +54,26 @@
                         Height="15" 
                         Width="15" 
                         Style="{StaticResource ButtonBase}"
-                        Content="P"
-                    />
+                        Content="P"/>
                     <Button 
                         DockPanel.Dock="Right"
                         Command="{Binding Path=CopySelfCommand}"
                         Height="15" 
                         Width="15" 
                         Style="{StaticResource ButtonBase}"
-                        Content="C"
-                    />
+                        Content="C"/>
                 </DockPanel>
             </DockPanel>
         </Border>
         <Border Margin="0 ,4, 0, 8" DockPanel.Dock="Top" Style="{StaticResource BorderContainer}">
-            <Views:BeatModifier Height="20" DataContext="{Binding BeatModifier}"/>
+            <Views:BeatModifier 
+                Height="20" 
+                DataContext="{Binding BeatModifier}"/>
         </Border>
         <TabControl DockPanel.Dock="Bottom" AllowDrop="True" Style="{StaticResource TabControlBase}">
-            <TabItem Width="25"
-                     Height="25"
+            <TabItem 
+                Width="25"
+                Height="25"
                      HorizontalAlignment="Left"
                      DragOver="TabItem_DragOver"
                      Style="{StaticResource TabItemBase}">

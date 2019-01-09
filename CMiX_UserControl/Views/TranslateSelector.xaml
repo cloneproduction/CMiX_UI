@@ -14,7 +14,6 @@
             <CMiX:EnumToBooleanConverter x:Key="EnumToBoolean"/>
         </ResourceDictionary>
     </UserControl.Resources>
-    
     <Border
         Margin="32"
         Padding="8"

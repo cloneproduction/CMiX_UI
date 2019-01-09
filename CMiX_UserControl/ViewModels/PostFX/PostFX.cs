@@ -3,11 +3,13 @@ using CMiX.Services;
 using CMiX.Models;
 using System.Windows;
 using System.Windows.Input;
+using MonitoredUndo;
 
 namespace CMiX.ViewModels
 {
     public class PostFX : ViewModel, IMessengerData
     {
+        #region CONSTRUCTORS
         public PostFX(string layername, IMessenger messenger)
             : this(
                   feedback: 0.0, 
@@ -47,8 +49,9 @@ namespace CMiX.ViewModels
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
         }
+        #endregion
 
-
+        #region PROPERTIES
         public string MessageAddress { get; set; }
 
         public bool MessageEnabled { get; set; }
@@ -66,6 +69,7 @@ namespace CMiX.ViewModels
             get => _feedback;
             set
             {
+                DefaultChangeFactory.Current.OnChanging(this, nameof(Feedback), _feedback, value, "FeedBack Changed");
                 SetAndNotify(ref _feedback, CoerceNotNegative(value));
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Feedback), Feedback);
@@ -79,6 +83,7 @@ namespace CMiX.ViewModels
             get => _blur;
             set
             {
+                DefaultChangeFactory.Current.OnChanging(this, nameof(Blur), _blur, value, "Blur Changed");
                 SetAndNotify(ref _blur, CoerceNotNegative(value));
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Blur), Blur);
@@ -92,6 +97,7 @@ namespace CMiX.ViewModels
             get => _transforms;
             set
             {
+                DefaultChangeFactory.Current.OnChanging(this, nameof(Transforms), _transforms, value, "Transforms Changed");
                 SetAndNotify(ref _transforms, value);
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Transforms), Transforms);
@@ -105,12 +111,15 @@ namespace CMiX.ViewModels
             get => _view;
             set
             {
+                DefaultChangeFactory.Current.OnChanging(this, nameof(View), _view, value, "View Changed");
                 SetAndNotify(ref _view, value);
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(View), View);
             }
         }
+        #endregion
 
+        #region COPY/PASTE/RESET
         public void Copy(PostFXDTO postFXdto)
         {
             postFXdto.Feedback = Feedback;
@@ -158,5 +167,6 @@ namespace CMiX.ViewModels
             PostFXDTO postFXdto = new PostFXDTO();
             this.Paste(postFXdto);
         }
+        #endregion
     }
 }

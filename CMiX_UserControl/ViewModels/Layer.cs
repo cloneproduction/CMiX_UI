@@ -1,188 +1,14 @@
 ﻿using CMiX.Models;
 using CMiX.Services;
 using System;
-using System.Windows.Input;
 using MonitoredUndo;
-using GalaSoft.MvvmLight.Command;
-using System.Windows.Data;
-using System.Collections.Generic;
-using System.Windows;
+
 
 namespace CMiX.ViewModels
 {
     [Serializable]
-    public class Layer : ViewModel, IMessengerData, ISupportsUndo
+    public class Layer : ViewModel, IMessengerData
     {
-
-        #region UNDO/REDO
-        private CommandBindingCollection _commandBindings = new CommandBindingCollection();
-        public CommandBindingCollection RegisterCommandBindings
-        {
-            get
-            {
-                return _commandBindings;
-            }
-        }
-
-        private ICommand _windowLoadedCommand;
-        public ICommand WindowLoadedCommand
-        {
-            get
-            {
-                return _windowLoadedCommand ?? (_windowLoadedCommand = new RelayCommand<EventArgs>(OnWindowLoaded));
-            }
-        }
-
-        private ICommand _sliderMouseDownCommand;
-        public ICommand SliderMouseDownCommand
-        {
-            get
-            {
-                return _sliderMouseDownCommand ?? (_sliderMouseDownCommand = new RelayCommand<MouseButtonEventArgs>(OnSliderMouseDown));
-            }
-        }
-
-        private ICommand _sliderLostMouseCapture;
-        public ICommand SliderLostMouseCapture
-        {
-            get
-            {
-                return _sliderLostMouseCapture ?? (_sliderLostMouseCapture = new RelayCommand<MouseEventArgs>(OnSliderLostMouseCapture));
-            }
-        }
-
-        private void OnSliderLostMouseCapture(MouseEventArgs e)
-        {
-            //if (!BatchAgeChanges)
-            //return;
-
-            UndoService.Current[this].EndChangeSetBatch();
-
-            e.Handled = false;
-        }
-
-        private void OnSliderMouseDown(MouseButtonEventArgs e)
-        {
-            //if (!BatchAgeChanges)
-            //return;
-
-            // Start a batch to collect all subsequent undo events (for this root)
-            // into a single changeset.
-            // 
-            // Passing "false" for the last parameter tells the system to keep
-            // each individual change that is made. If desired, pass "true" to
-            // de-dupe these changes and reduce the memory requirements of the
-            // changeset.
-            UndoService.Current[this].BeginChangeSetBatch("Age Changed", false);
-
-            e.Handled = false;
-        }
-
-        private void OnWindowLoaded(EventArgs e)
-        {
-            var root = UndoService.Current[this];
-            root.UndoStackChanged += new EventHandler(OnUndoStackChanged);
-            root.RedoStackChanged += new EventHandler(OnRedoStackChanged);
-        }
-
-        void OnUndoStackChanged(object sender, EventArgs e)
-        {
-            RefreshUndoStackList();
-        }
-
-        void OnRedoStackChanged(object sender, EventArgs e)
-        {
-            RefreshUndoStackList();
-        }
-
-
-        #region Properties
-        public IEnumerable<ChangeSet> UndoStack
-        {
-            get
-            {
-                return UndoService.Current[this].UndoStack;
-            }
-        }
-
-        public IEnumerable<ChangeSet> RedoStack
-        {
-            get
-            {
-                return UndoService.Current[this].RedoStack;
-            }
-        }
-        #endregion
-
-        #region Internal Methods
-
-        private void RefreshUndoStackList()
-        {
-            var cv = CollectionViewSource.GetDefaultView(UndoStack);
-            cv.Refresh();
-
-            cv = CollectionViewSource.GetDefaultView(RedoStack);
-            cv.Refresh();
-        }
-
-        #endregion
-
-        private void InitialiseCommandBindings()
-        {
-            // create command binding for undo command
-            var undoBinding = new CommandBinding(ApplicationCommands.Undo, UndoExecuted, UndoCanExecute);
-            var redoBinding = new CommandBinding(ApplicationCommands.Redo, RedoExecuted, RedoCanExecute);
-
-            // register the binding to the class
-            CommandManager.RegisterClassCommandBinding(typeof(Layer), undoBinding);
-            CommandManager.RegisterClassCommandBinding(typeof(Layer), redoBinding);
-
-            CommandBindings.Add(undoBinding);
-            CommandBindings.Add(redoBinding);
-        }
-
-        private void RedoExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            // A shorthand version of the above call to Undo, except 
-            // that this calls Redo.
-            UndoService.Current[this].Redo();
-        }
-
-        private void RedoCanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            // Tell the UI whether Redo is available.
-            e.CanExecute = UndoService.Current[this].CanRedo;
-        }
-
-        private void UndoExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            // Get the document root. In this case, we pass in "this", which 
-            // implements ISupportsUndo. The ISupportsUndo interface is used
-            // by the UndoService to locate the appropriate root node of an 
-            // undoable document.
-            // In this case, we are treating the window as the root of the undoable
-            // document, but in a larger system the root would probably be your
-            // domain model.
-            var undoRoot = UndoService.Current[this];
-            undoRoot.Undo();
-        }
-
-        private void UndoCanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            // Tell the UI whether Undo is available.
-            e.CanExecute = UndoService.Current[this].CanUndo;
-        }
-
-        public CommandBindingCollection CommandBindings
-        {
-            get
-            {
-                return _commandBindings;
-            }
-        }
-
-        #endregion
-
         #region CONSTRUCTORS
 
         public Layer(MasterBeat masterBeat, string layername, IMessenger messenger, int index)
@@ -202,9 +28,6 @@ namespace CMiX.ViewModels
             Coloration = new Coloration(BeatModifier, layername, messenger);
             LayerFX = new LayerFX(BeatModifier, layername, messenger);
             MessageEnabled = true;
-
-            InitialiseCommandBindings();
-
         }
 
         public Layer(
@@ -236,8 +59,6 @@ namespace CMiX.ViewModels
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
             MessageEnabled = messageEnabled;
-
-            InitialiseCommandBindings();
         }
 
         #endregion
@@ -376,11 +197,6 @@ namespace CMiX.ViewModels
             LayerFX.Paste(layerdto.LayerFXDTO);
 
             MessageEnabled = true;
-        }
-
-        public object GetUndoRoot()
-        {
-            return this;
         }
         #endregion
     }

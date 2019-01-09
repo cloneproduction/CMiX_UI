@@ -3,11 +3,13 @@ using CMiX.Services;
 using CMiX.Models;
 using System.Windows;
 using System.Windows.Input;
+using MonitoredUndo;
 
 namespace CMiX.ViewModels
 {
     public class Mask : ViewModel, IMessengerData
     {
+        #region CONSTRUCTORS
         public Mask(Beat masterbeat, string layername, IMessenger messenger)
             : this(
                 messenger: messenger,
@@ -43,11 +45,12 @@ namespace CMiX.ViewModels
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
         }
+        #endregion
 
+        #region PROPERTIES
         public string MessageAddress { get; set; }
 
         public bool MessageEnabled { get; set; }
-
 
         private bool _enable;
         [OSC]
@@ -56,6 +59,7 @@ namespace CMiX.ViewModels
             get => _enable;
             set
             {
+                DefaultChangeFactory.Current.OnChanging(this, nameof(Enable), _enable, value, "Enabled Changed");
                 SetAndNotify(ref _enable, value);
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Enable), Enable);
@@ -69,6 +73,7 @@ namespace CMiX.ViewModels
             get => _keeporiginal;
             set
             {
+                DefaultChangeFactory.Current.OnChanging(this, nameof(KeepOriginal), _enable, value, "KeepOriginal Changed");
                 SetAndNotify(ref _keeporiginal, value);
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(KeepOriginal), KeepOriginal);
@@ -81,7 +86,6 @@ namespace CMiX.ViewModels
         public ICommand PasteSelfCommand { get; }
         public ICommand ResetSelfCommand { get; }
 
-
         public BeatModifier BeatModifier { get; }
 
         public Geometry Geometry { get; }
@@ -89,7 +93,9 @@ namespace CMiX.ViewModels
         public Texture Texture { get; }
 
         public PostFX PostFX { get; }
+        #endregion
 
+        #region COPY/PASTE
         public void Copy(MaskDTO maskdto)
         {
             maskdto.Enable = Enable;
@@ -143,5 +149,6 @@ namespace CMiX.ViewModels
             MaskDTO maskdto = new MaskDTO();
             this.Paste(maskdto);
         }
+        #endregion
     }
 }

@@ -56,14 +56,12 @@
                 Height="25"
                 HorizontalAlignment="Left"
                 VerticalContentAlignment="Center"
-                Focusable="False"
                 Style="{DynamicResource MenuBase}">
                 <MenuItem
                     Height="{Binding ActualHeight, ElementName=MainMenu, Mode=OneWay}"
                     Padding="20,0,20,0"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="center"
-                    Focusable="False"
                     Header="File"
                     Style="{StaticResource MenuItemBase}">
                     <MenuItem
@@ -89,7 +87,6 @@
                     Padding="20,0,20,0"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="center"
-                    Focusable="False"
                     Header="Edit"
                     Style="{StaticResource MenuItemBase}">
                     <MenuItem

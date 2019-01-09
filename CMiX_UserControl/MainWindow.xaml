@@ -12,6 +12,6 @@
     Background="#FF323232"
     mc:Ignorable="d">
     <Grid Background="Black">
-        <CMiX:Composition />
+        <CMiX:Composition/>
     </Grid>
 </Window>

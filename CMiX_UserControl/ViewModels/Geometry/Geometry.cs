@@ -8,11 +8,13 @@ using CMiX.Controls;
 using CMiX.Models;
 using System.Windows;
 using System.Windows.Input;
+using MonitoredUndo;
 
 namespace CMiX.ViewModels
 {
     public class Geometry : ViewModel, IMessengerData
     {
+        #region CONSTRUCTORS
         public Geometry(string layername, IMessenger messenger)
             : this(
                   messenger: messenger,
@@ -88,7 +90,9 @@ namespace CMiX.ViewModels
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
         }
+        #endregion
 
+        #region PROPERTIES
         public string MessageAddress { get; set; }
 
         public bool MessageEnabled { get; set; }
@@ -101,6 +105,15 @@ namespace CMiX.ViewModels
 
         public GeometryFX GeometryFX { get; }
 
+        public GeometryTranslate GeometryTranslate { get; }
+
+        public GeometryRotation GeometryRotation { get; }
+
+        public GeometryScale GeometryScale { get; }
+
+        [OSC]
+        public ObservableCollection<ListBoxFileName> GeometryPaths { get; set; }
+
         private int _count;
         [OSC]
         public int Count
@@ -108,15 +121,85 @@ namespace CMiX.ViewModels
             get => _count;
             set
             {
+                DefaultChangeFactory.Current.OnChanging(this, nameof(Count), _count, value, "Count Changed");
                 SetAndNotify(ref _count, value);
-                if(MessageEnabled)
+                if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Count), Count);
             }
         }
 
+        private double _translateAmount;
         [OSC]
-        public ObservableCollection<ListBoxFileName> GeometryPaths { get; set; }
+        public double TranslateAmount
+        {
+            get => _translateAmount;
+            set
+            {
+                DefaultChangeFactory.Current.OnChanging(this, nameof(TranslateAmount), _translateAmount, value, "TranslateAmount Changed");
+                SetAndNotify(ref _translateAmount, value);
+                if (MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(TranslateAmount), TranslateAmount);
+            }
+        }
 
+        private double _scaleAmount;
+        [OSC]
+        public double ScaleAmount
+        {
+            get => _scaleAmount;
+            set
+            {
+                DefaultChangeFactory.Current.OnChanging(this, nameof(ScaleAmount), _scaleAmount, value, "ScaleAmount Changed");
+                SetAndNotify(ref _scaleAmount, value);
+                if (MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(ScaleAmount), ScaleAmount);
+            }
+        }
+
+        private double _rotationAmount;
+        [OSC]
+        public double RotationAmount
+        {
+            get => _rotationAmount;
+            set
+            {
+                DefaultChangeFactory.Current.OnChanging(this, nameof(RotationAmount), _rotationAmount, value, "RotationAmount Changed");
+                SetAndNotify(ref _rotationAmount, value);
+                if (MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(RotationAmount), RotationAmount);
+            }
+        }
+
+        private bool _is3D;
+        [OSC]
+        public bool Is3D
+        {
+            get => _is3D;
+            set
+            {
+                DefaultChangeFactory.Current.OnChanging(this, nameof(Is3D), _is3D, value, "Is3D Changed");
+                SetAndNotify(ref _is3D, value);
+                if (MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(Is3D), Is3D.ToString());
+            }
+        }
+
+        private bool _keepAspectRatio;
+        [OSC]
+        public bool KeepAspectRatio
+        {
+            get => _keepAspectRatio;
+            set
+            {
+                DefaultChangeFactory.Current.OnChanging(this, nameof(KeepAspectRatio), _keepAspectRatio, value, "KeepAspectRatio Changed");
+                SetAndNotify(ref _keepAspectRatio, value);
+                if (MessageEnabled)
+                    Messenger.SendMessage(MessageAddress + nameof(KeepAspectRatio), KeepAspectRatio.ToString());
+            }
+        }
+        #endregion
+
+        #region COLLECTIONCHANGED
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == NotifyCollectionChangedAction.Remove)
@@ -161,78 +244,9 @@ namespace CMiX.ViewModels
             if(MessageEnabled)
                 Messenger.SendMessage(MessageAddress + nameof(GeometryPaths), filename.ToArray());
         }
+        #endregion
 
-        public GeometryTranslate GeometryTranslate { get; }
-
-        public GeometryRotation GeometryRotation { get; }
-
-        public GeometryScale GeometryScale { get; }
-
-        private double _translateAmount;
-        [OSC]
-        public double TranslateAmount
-        {
-            get => _translateAmount;
-            set
-            {
-                SetAndNotify(ref _translateAmount, value);
-                if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(TranslateAmount), TranslateAmount);
-            }
-        }
-
-        private double _scaleAmount;
-        [OSC]
-        public double ScaleAmount
-        {
-            get => _scaleAmount;
-            set
-            {
-                SetAndNotify(ref _scaleAmount, value);
-                if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(ScaleAmount), ScaleAmount);
-            }
-        }
-
-        private double _rotationAmount;
-        [OSC]
-        public double RotationAmount
-        {
-            get => _rotationAmount;
-            set
-            {
-                SetAndNotify(ref _rotationAmount, value);
-                if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(RotationAmount), RotationAmount);
-            }
-        }
-
-        private bool _is3D;
-        [OSC]
-        public bool Is3D
-        {
-            get => _is3D;
-            set
-            {
-                SetAndNotify(ref _is3D, value);
-                if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(Is3D), Is3D.ToString());
-            }
-        }
-
-        private bool _keepAspectRatio;
-        [OSC]
-        public bool KeepAspectRatio
-        {
-            get => _keepAspectRatio;
-            set
-            {
-                SetAndNotify(ref _keepAspectRatio, value);
-                if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(KeepAspectRatio), KeepAspectRatio.ToString());
-            }
-        }
-
+        #region COPY/PASTE/RESET
         public void Copy(GeometryDTO geometrydto)
         {
             geometrydto.Count = Count;
@@ -311,5 +325,6 @@ namespace CMiX.ViewModels
             GeometryDTO geometrydto = new GeometryDTO();
             this.Paste(geometrydto);
         }
+        #endregion
     }
 }
