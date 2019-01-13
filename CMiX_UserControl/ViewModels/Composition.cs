@@ -15,7 +15,7 @@ using GongSolutions.Wpf.DragDrop;
 
 namespace CMiX.ViewModels
 {
-    public class Composition : ViewModel, IMessengerData, ISupportsUndo
+    public class Composition : ViewModel, IMessengerData
     {
         #region CONSTRUCTORS
         public Composition()
@@ -82,8 +82,6 @@ namespace CMiX.ViewModels
             get => _IP;
             set
             {
-                //MessageBox.Show("POUET");
-                //Messenger = new OSCMessenger( new UDPSender( IP, Convert.ToInt32(Port)));
                 SetAndNotify(ref _IP, value);
             }
         }
@@ -94,8 +92,6 @@ namespace CMiX.ViewModels
             get => _port;
             set
             {
-                //MessageBox.Show("POUET");
-                //Messenger = new OSCMessenger(new UDPSender(IP, Convert.ToInt32(Port)));
                 SetAndNotify(ref _port, value);
             }
         }
@@ -129,6 +125,27 @@ namespace CMiX.ViewModels
         public ICommand PasteLayerCommand { get; }
         public ICommand SaveCompositionCommand { get; }
         public ICommand OpenCompositionCommand { get; }
+        #endregion
+
+        #region NOTIFYCOLLECTIONCHANGED
+        public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            DefaultChangeFactory.Current.OnCollectionChanged(this, "Layers", Layers, e);
+
+            if (MessageEnabled)
+            {
+                List<string> layerindex = new List<string>();
+
+                foreach (Layer lyr in Layers)
+                {
+                    layerindex.Add(lyr.Index.ToString());
+                }
+
+                Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
+                Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
+                Messenger.SendQueue();
+            }
+        }
         #endregion
 
         public void Copy(CompositionDTO compositiondto)
@@ -247,6 +264,7 @@ namespace CMiX.ViewModels
             }
         }
 
+        #region COPY/PASTE LAYER
         private void CopyLayer()
         {
             foreach (Layer lyr in Layers)
@@ -282,15 +300,17 @@ namespace CMiX.ViewModels
                 }
             }
         }
+        #endregion
 
+        #region ADD/REMOVE LAYERS
         private void AddLayer()
         {
             layerID += 1;
             layerNameID += 1;
 
             Layer layer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messenger, layerNameID);
-            
             layer.Index = layerID;
+
             Layers.Add(layer);
 
             this.LayerNames.Add("/Layer" + layerNameID.ToString());
@@ -343,25 +363,6 @@ namespace CMiX.ViewModels
             Messenger.QueueMessage("/LayerRemoved", removedlayername);
             Messenger.SendQueue();
         }
-
-
-        public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            DefaultChangeFactory.Current.OnCollectionChanged(this, "Layers", Layers, e);
-
-            if (MessageEnabled)
-            {
-                List<string> layerindex = new List<string>();
-
-                foreach (Layer lyr in Layers)
-                {
-                    layerindex.Add(lyr.Index.ToString());
-                }
-
-                Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
-                Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
-                Messenger.SendQueue();
-            }
-        }
+        #endregion
     }
 }

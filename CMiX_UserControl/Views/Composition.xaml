@@ -169,6 +169,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
+                            <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <CMiX:MasterBeatControl
                             Margin="0, 0, 4, 0"
@@ -219,6 +220,14 @@
                                 </StackPanel>
                             </TabItem>
                         </TabControl>
+                        <ListBox 
+                            x:Name="UndoStackListBox"
+                            Grid.Column="2"
+                            Margin="10"
+                            ItemsSource="{Binding UndoStack, Mode=OneWay}"
+                            IsEnabled="True"
+                            HorizontalAlignment="Stretch"
+                        />
                     </Grid>
                 </Border>
             </Grid>

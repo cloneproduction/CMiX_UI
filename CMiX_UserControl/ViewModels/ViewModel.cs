@@ -177,8 +177,8 @@ namespace CMiX.ViewModels
             var redoBinding = new CommandBinding(ApplicationCommands.Redo, RedoExecuted, RedoCanExecute);
 
             // register the binding to the class
-            CommandManager.RegisterClassCommandBinding(typeof(ViewModel), undoBinding);
-            CommandManager.RegisterClassCommandBinding(typeof(ViewModel), redoBinding);
+            CommandManager.RegisterClassCommandBinding(typeof(Composition), undoBinding);
+            CommandManager.RegisterClassCommandBinding(typeof(Composition), redoBinding);
 
             CommandBindings.Add(undoBinding);
             CommandBindings.Add(redoBinding);

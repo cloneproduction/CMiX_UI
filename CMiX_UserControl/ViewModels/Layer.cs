@@ -73,6 +73,7 @@ namespace CMiX.ViewModels
 
         public bool MessageEnabled { get; set; }
 
+
         private string _layername;
         [OSC]
         public string LayerName
