@@ -8,7 +8,6 @@ using CMiX.Controls;
 using CMiX.Models;
 using System.Windows;
 using System.Windows.Input;
-using MonitoredUndo;
 
 namespace CMiX.ViewModels
 {
@@ -121,7 +120,6 @@ namespace CMiX.ViewModels
             get => _count;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, nameof(Count), _count, value, "Count Changed");
                 SetAndNotify(ref _count, value);
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Count), Count);
@@ -135,7 +133,6 @@ namespace CMiX.ViewModels
             get => _translateAmount;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, nameof(TranslateAmount), _translateAmount, value, "TranslateAmount Changed");
                 SetAndNotify(ref _translateAmount, value);
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(TranslateAmount), TranslateAmount);
@@ -149,7 +146,6 @@ namespace CMiX.ViewModels
             get => _scaleAmount;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, nameof(ScaleAmount), _scaleAmount, value, "ScaleAmount Changed");
                 SetAndNotify(ref _scaleAmount, value);
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(ScaleAmount), ScaleAmount);
@@ -163,7 +159,6 @@ namespace CMiX.ViewModels
             get => _rotationAmount;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, nameof(RotationAmount), _rotationAmount, value, "RotationAmount Changed");
                 SetAndNotify(ref _rotationAmount, value);
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(RotationAmount), RotationAmount);
@@ -177,7 +172,6 @@ namespace CMiX.ViewModels
             get => _is3D;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, nameof(Is3D), _is3D, value, "Is3D Changed");
                 SetAndNotify(ref _is3D, value);
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Is3D), Is3D.ToString());
@@ -191,7 +185,6 @@ namespace CMiX.ViewModels
             get => _keepAspectRatio;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, nameof(KeepAspectRatio), _keepAspectRatio, value, "KeepAspectRatio Changed");
                 SetAndNotify(ref _keepAspectRatio, value);
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(KeepAspectRatio), KeepAspectRatio.ToString());

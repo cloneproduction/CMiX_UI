@@ -8,7 +8,6 @@ using System.ComponentModel;
 using CMiX.Services;
 using CMiX.Controls;
 using CMiX.Models;
-using MonitoredUndo;
 
 namespace CMiX.ViewModels
 {
@@ -95,7 +94,6 @@ namespace CMiX.ViewModels
             get => _brightness;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, nameof(Brightness), _brightness, value, "Brightness Changed");
                 SetAndNotify(ref _brightness, value);
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Brightness), Brightness);
@@ -109,7 +107,6 @@ namespace CMiX.ViewModels
             get => _contrast;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, nameof(Contrast), _contrast, value, "Contrast Changed");
                 SetAndNotify(ref _contrast, value);
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Contrast), Contrast);
@@ -123,7 +120,6 @@ namespace CMiX.ViewModels
             get => _invert;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, nameof(Invert), _invert, value, "Invert Changed");
                 SetAndNotify(ref _invert, CoerceNotNegative(value));
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Invert), Invert);
@@ -137,7 +133,6 @@ namespace CMiX.ViewModels
             get => _invertMode;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, nameof(InvertMode), _invertMode, value, "InvertMode Changed");
                 SetAndNotify(ref _invertMode, value);
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(InvertMode), InvertMode);
@@ -152,7 +147,6 @@ namespace CMiX.ViewModels
             get => _hue;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, nameof(Hue), _hue, value, "Hue Changed");
                 SetAndNotify(ref _hue, value);
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Hue), Hue);
@@ -166,7 +160,6 @@ namespace CMiX.ViewModels
             get => _saturation;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, nameof(Saturation), _saturation, value, "Saturation Changed");
                 SetAndNotify(ref _saturation, value);
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Saturation), Saturation);
@@ -180,7 +173,6 @@ namespace CMiX.ViewModels
             get => _luminosity;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, nameof(Luminosity), _luminosity, value, "Luminosity Changed");
                 SetAndNotify(ref _luminosity, value);
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Luminosity), Luminosity);
@@ -195,7 +187,6 @@ namespace CMiX.ViewModels
             get => _keying;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, nameof(Keying), _keying, value, "Keying Changed");
                 SetAndNotify(ref _keying, CoerceNotNegative(value));
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Keying), Keying);
@@ -210,7 +201,6 @@ namespace CMiX.ViewModels
             get => _pan;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, nameof(Pan), _pan, value, "Pan Changed");
                 SetAndNotify(ref _pan, value);
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Pan), Pan);
@@ -224,7 +214,6 @@ namespace CMiX.ViewModels
             get => _tilt;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, nameof(Tilt), _tilt, value, "Tilt Changed");
                 SetAndNotify(ref _tilt, value);
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Tilt), Tilt);
@@ -238,7 +227,6 @@ namespace CMiX.ViewModels
             get => _scale;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, nameof(Scale), _scale, value, "Scale Changed");
                 SetAndNotify(ref _scale, value);
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Scale), Scale);
@@ -252,7 +240,6 @@ namespace CMiX.ViewModels
             get => _rotate;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, nameof(Rotate), _rotate, value, "Rotate Changed");
                 SetAndNotify(ref _rotate, value);
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Rotate), Rotate);

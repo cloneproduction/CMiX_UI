@@ -8,6 +8,7 @@
     d:DesignHeight="812"
     d:DesignWidth="321"
     mc:Ignorable="d">
+    
     <DockPanel LastChildFill="True">
         <Border 
             DockPanel.Dock="Top">
@@ -17,7 +18,8 @@
                     Content="MASK"
                     DockPanel.Dock="Left"
                     FontWeight="SemiBold"
-                    FontSize="12"/>
+                    FontSize="12"
+                    />
                 <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
                     <ToggleButton
                         Grid.Row="0"
@@ -27,7 +29,8 @@
                         HorizontalAlignment="Right"
                         HorizontalContentAlignment="Center"
                         IsChecked="{Binding KeepOriginal, Mode=TwoWay}"
-                        Style="{StaticResource ToggleButtonBase}" />
+                        Style="{StaticResource ToggleButtonBase}" 
+                        />
                     <ToggleButton
                         Grid.Row="0"
                         Height="15" 
@@ -36,7 +39,8 @@
                         HorizontalAlignment="Right"
                         HorizontalContentAlignment="Center"
                         IsChecked="{Binding Enable, Mode=TwoWay}"
-                        Style="{StaticResource ToggleButtonBase}" />
+                        Style="{StaticResource ToggleButtonBase}" 
+                        />
                 </StackPanel>
                 <DockPanel LastChildFill="False">
                     <Button 
@@ -46,7 +50,8 @@
                         Height="15" 
                         Width="15" 
                         Style="{StaticResource ButtonBase}"
-                        Content="R"/>
+                        Content="R"
+                        />
                     <Button 
                         DockPanel.Dock="Right"
                         Command="{Binding Path=PasteSelfCommand}"
@@ -54,29 +59,38 @@
                         Height="15" 
                         Width="15" 
                         Style="{StaticResource ButtonBase}"
-                        Content="P"/>
+                        Content="P"
+                        />
                     <Button 
                         DockPanel.Dock="Right"
                         Command="{Binding Path=CopySelfCommand}"
                         Height="15" 
                         Width="15" 
                         Style="{StaticResource ButtonBase}"
-                        Content="C"/>
+                        Content="C"
+                        />
                 </DockPanel>
             </DockPanel>
         </Border>
-        <Border Margin="0 ,4, 0, 8" DockPanel.Dock="Top" Style="{StaticResource BorderContainer}">
+        <Border 
+            Margin="0 ,4, 0, 8" 
+            DockPanel.Dock="Top" 
+            Style="{StaticResource BorderContainer}">
             <Views:BeatModifier 
                 Height="20" 
-                DataContext="{Binding BeatModifier}"/>
+                DataContext="{Binding BeatModifier}"
+                />
         </Border>
-        <TabControl DockPanel.Dock="Bottom" AllowDrop="True" Style="{StaticResource TabControlBase}">
+        <TabControl 
+            DockPanel.Dock="Bottom" 
+            AllowDrop="True" 
+            Style="{StaticResource TabControlBase}">
             <TabItem 
                 Width="25"
                 Height="25"
-                     HorizontalAlignment="Left"
-                     DragOver="TabItem_DragOver"
-                     Style="{StaticResource TabItemBase}">
+                HorizontalAlignment="Left"
+                DragOver="TabItem_DragOver"
+                Style="{StaticResource TabItemBase}">
                 <TabItem.Header>
                     <Image Height="15" Width="auto" Opacity="0.75">
                         <Image.Source>
@@ -86,7 +100,8 @@
                 </TabItem.Header>
                 <Views:Geometry
                     DataContext="{Binding Geometry}"
-                    DockPanel.Dock="Bottom" />
+                    DockPanel.Dock="Bottom" 
+                    />
             </TabItem>
             <TabItem Width="25"
                      Height="25"
@@ -102,7 +117,8 @@
                 </TabItem.Header>
                 <Views:Texture
                     DataContext="{Binding Texture}"
-                    DockPanel.Dock="Top" />
+                    DockPanel.Dock="Top" 
+                    />
             </TabItem>
             <TabItem Width="25"
                      Height="25"
@@ -118,7 +134,8 @@
                 </TabItem.Header>
                 <Views:PostFX
                     DataContext="{Binding PostFX}"
-                    DockPanel.Dock="Bottom" />
+                    DockPanel.Dock="Bottom" 
+                    />
             </TabItem>
         </TabControl>
     </DockPanel>

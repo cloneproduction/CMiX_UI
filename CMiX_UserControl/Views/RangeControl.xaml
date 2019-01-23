@@ -9,6 +9,7 @@
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="18.666" d:DesignWidth="350.667">
+
     <UserControl.Resources>
         <ObjectDataProvider x:Key="RangeModifier" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
@@ -16,6 +17,7 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </UserControl.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition  />

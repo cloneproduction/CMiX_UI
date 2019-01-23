@@ -4,13 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:CMiX="clr-namespace:CMiX"
     xmlns:viewModels="clr-namespace:CMiX.ViewModels"
-    d:DataContext="{d:DesignInstance Type={x:Type viewModels:MasterBeat},
-                                     IsDesignTimeCreatable=False}"
+    d:DataContext="{d:DesignInstance Type={x:Type viewModels:MasterBeat}, IsDesignTimeCreatable=False}"
     d:DesignHeight="144.444"
     d:DesignWidth="714"
     mc:Ignorable="d">
+    
     <Border>
         <StackPanel>
             <Border Margin="0, 0, 0, 0">
@@ -21,7 +20,8 @@
                     HorizontalAlignment="Left"
                     DockPanel.Dock="Bottom"
                     FontWeight="SemiBold"
-                    FontSize="12"/>
+                    FontSize="12"
+                    />
             </Border>
             <Border             
                 DockPanel.Dock="Bottom"
@@ -37,36 +37,41 @@
                             Command="{Binding Path=ResyncCommand}"
                             Content="Rc"
                             DockPanel.Dock="Right"
-                            Style="{DynamicResource ButtonBase}" />
+                            Style="{StaticResource ButtonBase}" 
+                            />
                         <Button
                             Margin="4, 0"
                             Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
                             Command="{Binding Path=MultiplyCommand}"
                             Content="+"
                             DockPanel.Dock="Right"
-                            Style="{DynamicResource ButtonBase}" />
+                            Style="{StaticResource ButtonBase}" 
+                            />
                         <Button
                             Grid.Column="2"
                             Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
                             Command="{Binding Path=DivideCommand}"
                             Content="-"
                             DockPanel.Dock="Right"
-                            Style="{DynamicResource ButtonBase}" />
+                            Style="{StaticResource ButtonBase}" 
+                            />
                         <Border 
                             Background="{StaticResource HighDarkerColor}" 
                             Margin="4, 0" DockPanel.Dock="Right" 
                             Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}">
                             <TextBlock 
-                                Foreground="{DynamicResource TextBase}" 
+                                Foreground="{StaticResource TextBase}" 
                                 HorizontalAlignment="Center"
                                 Text="{Binding Path=BPM, Mode=OneWay, StringFormat=F0}" 
-                                VerticalAlignment="Center"/>
+                                VerticalAlignment="Center"
+                                />
                         </Border>
                         <Button
                             Grid.Row="2"
                             Command="{Binding Path=TapCommand}"
                             Content="TAP"
-                            Style="{DynamicResource ButtonBase}" />
+                            Style="{StaticResource ButtonBase}" 
+                            />
                     </DockPanel>
                 </StackPanel>
             </Border>

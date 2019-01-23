@@ -1,7 +1,5 @@
 ﻿
 using CMiX.ViewModels;
-using GalaSoft.MvvmLight.Command;
-using MonitoredUndo;
 using System;
 using System.Collections.Generic;
 using System.Linq;

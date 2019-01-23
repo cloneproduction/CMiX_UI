@@ -3,7 +3,6 @@ using CMiX.Services;
 using CMiX.Models;
 using System.Windows;
 using System.Windows.Input;
-using MonitoredUndo;
 
 namespace CMiX.ViewModels
 {
@@ -69,7 +68,6 @@ namespace CMiX.ViewModels
             get => _feedback;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, nameof(Feedback), _feedback, value, "FeedBack Changed");
                 SetAndNotify(ref _feedback, CoerceNotNegative(value));
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Feedback), Feedback);
@@ -83,7 +81,6 @@ namespace CMiX.ViewModels
             get => _blur;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, nameof(Blur), _blur, value, "Blur Changed");
                 SetAndNotify(ref _blur, CoerceNotNegative(value));
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Blur), Blur);
@@ -97,7 +94,6 @@ namespace CMiX.ViewModels
             get => _transforms;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, nameof(Transforms), _transforms, value, "Transforms Changed");
                 SetAndNotify(ref _transforms, value);
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Transforms), Transforms);
@@ -111,7 +107,6 @@ namespace CMiX.ViewModels
             get => _view;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, nameof(View), _view, value, "View Changed");
                 SetAndNotify(ref _view, value);
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(View), View);

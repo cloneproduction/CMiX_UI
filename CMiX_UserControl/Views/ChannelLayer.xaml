@@ -9,11 +9,6 @@
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-
-    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-    xmlns:command="http://www.galasoft.ch/mvvmlight"
-    CMiX:AttachedProperties.RegisterCommandBindings="{Binding CommandBindings}"
-    
     d:DesignHeight="109.977"
     d:DesignWidth="358.051"
     mc:Ignorable="d">
@@ -27,40 +22,15 @@
         </ObjectDataProvider>
     </UserControl.Resources>
 
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <command:EventToCommand 
-                Command="{Binding WindowLoadedCommand}"
-                PassEventArgsToCommand="True"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
-    
-    <Border>
+    <Border
+        DockPanel.Dock="Bottom"
+        Background="{StaticResource DarkerColor}"
+        Style="{StaticResource BorderContainer}">
         <Border.ContextMenu>
             <ContextMenu>
                 <Button Style="{StaticResource ButtonBase}" Content="Delete Layer"/>
             </ContextMenu>
         </Border.ContextMenu>
-        <Border.Style>
-            <Style>
-                <Setter Property="Border.BorderThickness" Value="1"/>
-                <Setter Property="Border.Padding" Value="8"/>
-                <Setter Property="Border.Margin" Value="0, 2, 0, 2"/>
-                <Setter Property="Border.CornerRadius" Value="2"/>
-                <Setter Property="Border.Background" Value="{DynamicResource DarkerColor}"/>
-                <Setter Property="Border.BorderBrush" Value="{DynamicResource DarkerColor}"/>
-                <Style.Triggers>
-                    <Trigger Property="Border.IsMouseOver" Value="True">
-                        <Setter Property="Border.BorderBrush" Value="{DynamicResource LightColor}" />
-                    </Trigger>
-                    <DataTrigger Binding="{Binding Enabled, Mode=Oneway}" Value="True">
-                        <Setter Property="Border.BorderBrush" Value="{StaticResource HighLightColor}"/>
-                        <Setter Property="Border.BorderThickness" Value="2"/>
-                        <Setter Property="Border.Padding" Value="7"/>
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-        </Border.Style>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.15*"/>
@@ -88,29 +58,21 @@
                         Margin="2, 4, 2, 4" 
                         Content="OUT" 
                         GroupName="Output" 
-                        Width="40" />
+                        Width="40" 
+                        />
                     <ComboBox 
                         Height="20"
                         Margin="0,4"
                         Style="{StaticResource ComboBoxBase}"
                         ItemContainerStyle="{StaticResource BaseListBoxItemStyle}"
                         SelectedItem="{Binding BlendMode}"
-                        ItemsSource="{Binding Source={StaticResource BlendMode}}"/>
+                        ItemsSource="{Binding Source={StaticResource BlendMode}}"
+                        />
                 </DockPanel>
                 <Controls:CustomSlider
                     Caption="Alpha"
-                    Value="{Binding Fade, Mode=TwoWay}">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
-                            <command:EventToCommand Command="{Binding SliderMouseDownCommand}"
-                                        PassEventArgsToCommand="True" />
-                        </i:EventTrigger>
-                        <i:EventTrigger EventName="LostMouseCapture">
-                            <command:EventToCommand Command="{Binding SliderLostMouseCapture}"
-                                        PassEventArgsToCommand="True" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </Controls:CustomSlider>
+                    Value="{Binding Fade, Mode=TwoWay}"
+                    />
             </StackPanel>
         </Grid>
     </Border>

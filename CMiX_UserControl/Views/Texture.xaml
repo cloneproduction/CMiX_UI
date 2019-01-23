@@ -8,14 +8,10 @@
     xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    
-    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-    xmlns:command="http://www.galasoft.ch/mvvmlight"
-    CMiX:AttachedProperties.RegisterCommandBindings="{Binding CommandBindings}"
-    
     d:DesignHeight="423.334"
     d:DesignWidth="358"
     mc:Ignorable="d">
+
     <UserControl.Resources>
         <ObjectDataProvider x:Key="InvertMode" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
@@ -24,14 +20,6 @@
         </ObjectDataProvider>
     </UserControl.Resources>
 
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <command:EventToCommand 
-                Command="{Binding WindowLoadedCommand}"
-                PassEventArgsToCommand="True"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
-    
     <Border Background="{StaticResource HighDarkerColor}">
         <DockPanel>
             <Border 
@@ -50,7 +38,8 @@
                         Height="15" 
                         Width="15" 
                         Style="{StaticResource ButtonBase}"
-                        Content="R"/>
+                        Content="R"
+                        />
                     <Button 
                         DockPanel.Dock="Right"
                         Margin="2, 0"
@@ -58,14 +47,16 @@
                         Height="15" 
                         Width="15" 
                         Style="{StaticResource ButtonBase}"
-                        Content="P"/>
+                        Content="P"
+                        />
                     <Button 
                         DockPanel.Dock="Right"
                         Command="{Binding Path=CopySelfCommand}"
                         Height="15" 
                         Width="15" 
                         Content="C"
-                        Style="{StaticResource ButtonBase}"/>
+                        Style="{StaticResource ButtonBase}"
+                        />
                 </DockPanel>
             </Border>
             <Border 
@@ -79,30 +70,21 @@
                         Title="Filenames"
                         Margin="0, 2, 0, 0"
                         ModeSelection="Extended"
-                        Items="{Binding TexturePaths}"/>
+                        Items="{Binding TexturePaths}"
+                        />
                     <Controls:CustomSlider
                         Margin="0, 1, 0, 1"
                         Caption="Keying"
                         DockPanel.Dock="Bottom"
-                        Value="{Binding Keying, Mode=TwoWay}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
-                                <command:EventToCommand Command="{Binding SliderMouseDownCommand}"
-                            PassEventArgsToCommand="True" />
-                            </i:EventTrigger>
-                            <i:EventTrigger EventName="LostMouseCapture">
-                                <command:EventToCommand Command="{Binding SliderLostMouseCapture}"
-                            PassEventArgsToCommand="True" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </Controls:CustomSlider>
+                        Value="{Binding Keying, Mode=TwoWay}"
+                        />
                     <Border 
                         DockPanel.Dock="Bottom"
                         Margin="0, 2, 0, 0"
                         Style="{StaticResource BorderContainer}">
                         <TabControl DockPanel.Dock="Bottom"
-                                    Background="{DynamicResource DarkerColor}"
-                                Style="{StaticResource TabControlBase}">
+                            Background="{StaticResource DarkerColor}"
+                            Style="{StaticResource TabControlBase}">
                             <TabItem Style="{StaticResource TabItemBase}">
                                 <TabItem.Header>
                                     <Image Height="15" Width="auto" Opacity="0.75">
@@ -116,34 +98,14 @@
                                         Margin="0, 1, 0, 1"
                                         Caption="Brightness"
                                         DockPanel.Dock="Bottom"
-                                        Value="{Binding Brightness, Mode=TwoWay}">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
-                                                <command:EventToCommand Command="{Binding SliderMouseDownCommand}"
-                                                    PassEventArgsToCommand="True" />
-                                            </i:EventTrigger>
-                                            <i:EventTrigger EventName="LostMouseCapture">
-                                                <command:EventToCommand Command="{Binding SliderLostMouseCapture}"
-                                                    PassEventArgsToCommand="True" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </Controls:CMiXSliderCentered>
+                                        Value="{Binding Brightness, Mode=TwoWay}"
+                                        />
                                     <Controls:CMiXSliderCentered
                                         Margin="0, 1, 0, 1"
                                         Caption="Contrast"
                                         DockPanel.Dock="Bottom"
-                                        Value="{Binding Contrast, Mode=TwoWay}">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
-                                                <command:EventToCommand Command="{Binding SliderMouseDownCommand}"
-                                                    PassEventArgsToCommand="True" />
-                                            </i:EventTrigger>
-                                            <i:EventTrigger EventName="LostMouseCapture">
-                                                <command:EventToCommand Command="{Binding SliderLostMouseCapture}"
-                                                    PassEventArgsToCommand="True" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </Controls:CMiXSliderCentered>
+                                        Value="{Binding Contrast, Mode=TwoWay}"
+                                        />
                                     <Grid
                                         Height="20"
                                         Margin="0, 2, 0, 0"
@@ -159,22 +121,13 @@
                                             SelectedItem="{Binding InvertMode}"
                                             SelectedIndex="0"
                                             ItemContainerStyle="{StaticResource BaseListBoxItemStyle}"
-                                            Style="{StaticResource ComboBoxBase}" />
+                                            Style="{StaticResource ComboBoxBase}" 
+                                            />
                                         <Controls:CustomSlider
                                             Grid.Column="0"
                                             Caption="Invert"
-                                            Value="{Binding Invert, Mode=TwoWay}">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
-                                                    <command:EventToCommand Command="{Binding SliderMouseDownCommand}"
-                                                    PassEventArgsToCommand="True" />
-                                                </i:EventTrigger>
-                                                <i:EventTrigger EventName="LostMouseCapture">
-                                                    <command:EventToCommand Command="{Binding SliderLostMouseCapture}"
-                                                    PassEventArgsToCommand="True" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </Controls:CustomSlider>
+                                            Value="{Binding Invert, Mode=TwoWay}"
+                                            />
                                     </Grid>
                                 </StackPanel>
                             </TabItem>
@@ -191,53 +144,22 @@
                                         Margin="0, 1, 0, 1"
                                         Caption="Hue"
                                         DockPanel.Dock="Bottom"
-                                        Value="{Binding Hue, Mode=TwoWay}">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
-                                                <command:EventToCommand Command="{Binding SliderMouseDownCommand}"
-                                                    PassEventArgsToCommand="True" />
-                                            </i:EventTrigger>
-                                            <i:EventTrigger EventName="LostMouseCapture">
-                                                <command:EventToCommand Command="{Binding SliderLostMouseCapture}"
-                                                    PassEventArgsToCommand="True" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </Controls:CMiXSliderCentered>
+                                        Value="{Binding Hue, Mode=TwoWay}"
+                                        />
                                     <Controls:CMiXSliderCentered
                                         Margin="0, 1, 0, 1"
                                         Caption="Saturation"
                                         DockPanel.Dock="Bottom"
-                                        Value="{Binding Saturation, Mode=TwoWay}">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
-                                                <command:EventToCommand Command="{Binding SliderMouseDownCommand}"
-                                                    PassEventArgsToCommand="True" />
-                                            </i:EventTrigger>
-                                            <i:EventTrigger EventName="LostMouseCapture">
-                                                <command:EventToCommand Command="{Binding SliderLostMouseCapture}"
-                                                    PassEventArgsToCommand="True" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </Controls:CMiXSliderCentered>
+                                        Value="{Binding Saturation, Mode=TwoWay}"
+                                        />
                                     <Controls:CMiXSliderCentered
                                         Margin="0, 1, 0, 1"
                                         Caption="Luminosity"
                                         DockPanel.Dock="Bottom"
-                                        Value="{Binding Luminosity, Mode=TwoWay}">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
-                                                <command:EventToCommand Command="{Binding SliderMouseDownCommand}"
-                                                    PassEventArgsToCommand="True" />
-                                            </i:EventTrigger>
-                                            <i:EventTrigger EventName="LostMouseCapture">
-                                                <command:EventToCommand Command="{Binding SliderLostMouseCapture}"
-                                                    PassEventArgsToCommand="True" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </Controls:CMiXSliderCentered>
+                                        Value="{Binding Luminosity, Mode=TwoWay}"
+                                        />
                                 </StackPanel>
                             </TabItem>
-
                             <TabItem Style="{StaticResource TabItemBase}">
                                 <TabItem.Header>
                                     <Image Height="15" Width="auto" Opacity="0.75">
@@ -251,66 +173,26 @@
                                         Margin="0, 1, 0, 1"
                                         Caption="Pan"
                                         DockPanel.Dock="Bottom"
-                                        Value="{Binding Pan, Mode=TwoWay}">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
-                                                <command:EventToCommand Command="{Binding SliderMouseDownCommand}"
-                                                    PassEventArgsToCommand="True" />
-                                            </i:EventTrigger>
-                                            <i:EventTrigger EventName="LostMouseCapture">
-                                                <command:EventToCommand Command="{Binding SliderLostMouseCapture}"
-                                                    PassEventArgsToCommand="True" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </Controls:CMiXSliderCentered>
+                                        Value="{Binding Pan, Mode=TwoWay}"
+                                        />
                                     <Controls:CMiXSliderCentered
                                         Margin="0, 1, 0, 1"
                                         Caption="Tilt"
                                         DockPanel.Dock="Bottom"
-                                        Value="{Binding Tilt, Mode=TwoWay}">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
-                                                <command:EventToCommand Command="{Binding SliderMouseDownCommand}"
-                                                    PassEventArgsToCommand="True" />
-                                            </i:EventTrigger>
-                                            <i:EventTrigger EventName="LostMouseCapture">
-                                                <command:EventToCommand Command="{Binding SliderLostMouseCapture}"
-                                                    PassEventArgsToCommand="True" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </Controls:CMiXSliderCentered>
+                                        Value="{Binding Tilt, Mode=TwoWay}"
+                                        />
                                     <Controls:CMiXSliderCentered
                                         Margin="0, 1, 0, 1"
                                         Caption="Scale"
                                         DockPanel.Dock="Bottom"
-                                        Value="{Binding Scale, Mode=TwoWay}">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
-                                                <command:EventToCommand Command="{Binding SliderMouseDownCommand}"
-                                                    PassEventArgsToCommand="True" />
-                                            </i:EventTrigger>
-                                            <i:EventTrigger EventName="LostMouseCapture">
-                                                <command:EventToCommand Command="{Binding SliderLostMouseCapture}"
-                                                    PassEventArgsToCommand="True" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </Controls:CMiXSliderCentered>
+                                        Value="{Binding Scale, Mode=TwoWay}"
+                                        />
                                     <Controls:CMiXSliderCentered
                                         Margin="0, 1, 0, 1"
                                         Caption="Rotate"
                                         DockPanel.Dock="Bottom"
-                                        Value="{Binding Rotate, Mode=TwoWay}">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
-                                                <command:EventToCommand Command="{Binding SliderMouseDownCommand}"
-                                                    PassEventArgsToCommand="True" />
-                                            </i:EventTrigger>
-                                            <i:EventTrigger EventName="LostMouseCapture">
-                                                <command:EventToCommand Command="{Binding SliderLostMouseCapture}"
-                                                    PassEventArgsToCommand="True" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </Controls:CMiXSliderCentered>
+                                        Value="{Binding Rotate, Mode=TwoWay}"
+                                        />
                                     <Grid Margin="0, 4, 0, 0">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition/>
@@ -329,8 +211,16 @@
                                                 <ColumnDefinition Width="0.3*"/>
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock Text="V" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            <ComboBox Style="{StaticResource ComboBoxBase}" Grid.Column="1" Margin="2, 0, 0, 0"/>
+                                            <TextBlock 
+                                                Text="V" 
+                                                HorizontalAlignment="Center" 
+                                                VerticalAlignment="Center"
+                                                />
+                                            <ComboBox 
+                                                Style="{StaticResource ComboBoxBase}" 
+                                                Grid.Column="1" 
+                                                Margin="2, 0, 0, 0"
+                                                />
                                         </Grid>
                                     </Grid>
                                 </StackPanel>

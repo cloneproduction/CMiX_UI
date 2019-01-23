@@ -9,6 +9,7 @@
     d:DesignHeight="527.333"
     d:DesignWidth="286.667"
     mc:Ignorable="d">
+    
     <StackPanel>
         <Border>
             <DockPanel>
@@ -47,8 +48,7 @@
             </DockPanel>
         </Border>
         <Border Style="{StaticResource BorderContainer}" Margin="0, 4, 0, 8">
-            <Views:BeatModifier
-                DataContext="{Binding BeatModifier}"/>
+            <Views:BeatModifier DataContext="{Binding BeatModifier}"/>
         </Border>
         <Border             
             DockPanel.Dock="Bottom">
@@ -66,7 +66,6 @@
                         Height="25"
                         Width="25"
                         Header="F"
-                        
                         IsSelected="True"
                         Style="{StaticResource TabItemBase}">
                         <StackPanel Background="{StaticResource HighDarkerColor}">
@@ -79,14 +78,20 @@
                                     <TextBlock
                                         Margin="4, 0, 0, 0"
                                         Text="Foreground"
-                                        Foreground="{StaticResource TextBase}"/>
+                                        Foreground="{StaticResource TextBase}"
+                                        />
                                 </DockPanel>
                             </Border>
-                            <Border Margin="0" Padding="8" Background="{StaticResource HighDarkerColor}" Style="{StaticResource BorderContainer}">
-                            <colorpicker:ColorPicker
-                                x:Name="Color"
-                                Background="{StaticResource HighDarkerColor}"
-                                SelectedColor="{Binding ObjColor, Mode=TwoWay}" />
+                            <Border 
+                                Margin="0" 
+                                Padding="8" 
+                                Background="{StaticResource HighDarkerColor}" 
+                                Style="{StaticResource BorderContainer}">
+                                <colorpicker:ColorPicker
+                                    x:Name="Color"
+                                    Background="{StaticResource HighDarkerColor}"
+                                    SelectedColor="{Binding ObjColor, Mode=TwoWay}" 
+                                    />
                             </Border>
                         </StackPanel>
                     </TabItem>
@@ -101,18 +106,18 @@
                                     <TextBlock
                                         Margin="4, 0, 0, 0"
                                         Text="Background"
-                                        Foreground="{StaticResource TextBase}"/>
+                                        Foreground="{StaticResource TextBase}"
+                                        />
                                 </DockPanel>
                             </Border>
                             <Border Padding="8" Background="{StaticResource HighDarkerColor}">
                                 <colorpicker:ColorPicker
                                     x:Name="BgColor"
                                     Background="{StaticResource HighDarkerColor}"
-                                    SelectedColor="{Binding BgColor, Mode=TwoWay}" />
+                                    SelectedColor="{Binding BgColor, Mode=TwoWay}" 
+                                    />
                             </Border>
-
                         </StackPanel>
-
                     </TabItem>
                 </TabControl>
             </Grid>
@@ -127,17 +132,21 @@
                     Style="{StaticResource LabelBase}"
                     Content="Modifier"
                     DockPanel.Dock="Bottom"
-                    FontSize="12"/>
+                    FontSize="12"
+                    />
                 <Views:RangeControl 
                     x:Name="Hue"
-                    DataContext="{Binding Hue}"/>
+                    DataContext="{Binding Hue}"
+                    />
                 <Views:RangeControl 
                     x:Name="Sat" 
                     Margin="0, 1"
-                    DataContext="{Binding Saturation}"/>
+                    DataContext="{Binding Saturation}"
+                    />
                 <Views:RangeControl 
                     x:Name="Val" 
-                    DataContext="{Binding Value}"/>
+                    DataContext="{Binding Value}"
+                    />
             </StackPanel>
         </Border>
     </StackPanel>

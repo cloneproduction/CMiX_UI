@@ -3,7 +3,6 @@ using CMiX.Services;
 using CMiX.Models;
 using System.Windows;
 using System.Windows.Input;
-using MonitoredUndo;
 
 namespace CMiX.ViewModels
 {
@@ -59,7 +58,6 @@ namespace CMiX.ViewModels
             get => _enable;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, nameof(Enable), _enable, value, "Enabled Changed");
                 SetAndNotify(ref _enable, value);
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Enable), Enable);
@@ -73,7 +71,6 @@ namespace CMiX.ViewModels
             get => _keeporiginal;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, nameof(KeepOriginal), _enable, value, "KeepOriginal Changed");
                 SetAndNotify(ref _keeporiginal, value);
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(KeepOriginal), KeepOriginal);

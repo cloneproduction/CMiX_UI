@@ -11,6 +11,7 @@
     d:DesignHeight="120"
     d:DesignWidth="292"
     mc:Ignorable="d">
+
     <UserControl.Resources>
         <ObjectDataProvider x:Key="PostFXTransforms" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
@@ -23,6 +24,7 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </UserControl.Resources>
+
     <Border             
         DockPanel.Dock="Bottom">
         <StackPanel>
@@ -31,20 +33,21 @@
                 Padding="4"
                 Margin="0, 0, 0, 8"
                 DockPanel.Dock="Top">
-            <DockPanel LastChildFill="False">
+                <DockPanel LastChildFill="False">
                     <TextBlock
                         Margin="8, 0, 0, 0"
                         Text="PostFX"
-                        Foreground="{StaticResource TextBase}"/>
-                <Button 
+                        Foreground="{StaticResource TextBase}"
+                        />
+                    <Button 
                         DockPanel.Dock="Right"
                         Command="{Binding Path=ResetSelfCommand}"
                         Height="15" 
                         Width="15" 
                         Style="{StaticResource ButtonBase}"
                         Content="R"
-                    />
-                <Button 
+                        />
+                    <Button 
                         DockPanel.Dock="Right"
                         Margin="2, 0"
                         Command="{Binding Path=PasteSelfCommand}"
@@ -52,16 +55,16 @@
                         Width="15" 
                         Style="{StaticResource ButtonBase}"
                         Content="P"
-                    />
-                <Button 
+                        />
+                    <Button 
                         DockPanel.Dock="Right"
                         Command="{Binding Path=CopySelfCommand}"
                         Height="15" 
                         Width="15" 
                         Style="{StaticResource ButtonBase}"
                         Content="C"
-                    />
-            </DockPanel>
+                        />
+                </DockPanel>
             </Border>
             <Border DockPanel.Dock="Bottom">
                 <StackPanel x:Name="TexFXControl">
@@ -69,12 +72,14 @@
                         Height="20"
                         Margin="0,2,0,1"
                         Caption="Feedback"
-                        Value="{Binding Feedback, Mode=TwoWay}"/>
+                        Value="{Binding Feedback, Mode=TwoWay}"
+                        />
                     <Controls:CustomSlider
                         Height="20"
                         Margin="0,1,0,1"
                         Caption="Blur"
-                        Value="{Binding Blur, Mode=TwoWay}"/>
+                        Value="{Binding Blur, Mode=TwoWay}"
+                        />
                     <Grid DockPanel.Dock="Bottom"
                           Margin="0, 2, 0, 0">
                         <Grid.ColumnDefinitions>
@@ -86,21 +91,23 @@
                             Height="20"
                             Margin="0, 1, 1, 0"
                             HorizontalContentAlignment="Left"
-                            ItemContainerStyle="{DynamicResource ComboBoxItemBase}"
+                            ItemContainerStyle="{StaticResource ComboBoxItemBase}"
                             ItemsSource="{Binding Source={StaticResource PostFXTransforms}}"
                             SelectedItem="{Binding Transforms}"
                             SelectedIndex="0"
-                            Style="{StaticResource ComboBoxBase}" />
+                            Style="{StaticResource ComboBoxBase}" 
+                            />
                         <CMiX:CMiXComboBox
                             Grid.Column="1"
                             Height="20"
                             Margin="1, 1, 0, 0"
                             HorizontalContentAlignment="Left"
-                            ItemContainerStyle="{DynamicResource ComboBoxItemBase}"
+                            ItemContainerStyle="{StaticResource ComboBoxItemBase}"
                             ItemsSource="{Binding Source={StaticResource PostFXView}}"
                             SelectedItem="{Binding View}"
                             SelectedIndex="0"
-                            Style="{DynamicResource ComboBoxBase}" />
+                            Style="{StaticResource ComboBoxBase}" 
+                            />
                     </Grid>
                 </StackPanel>
             </Border>

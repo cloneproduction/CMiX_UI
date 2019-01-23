@@ -1,7 +1,6 @@
 ﻿using CMiX.Models;
 using CMiX.Services;
 using System;
-using MonitoredUndo;
 using System.Collections.ObjectModel;
 
 namespace CMiX.ViewModels
@@ -105,7 +104,6 @@ namespace CMiX.ViewModels
             get => _fade;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, "Fade", _fade, value, "Fade Changed");
                 SetAndNotify(ref _fade, value);
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Fade), Fade);
@@ -119,7 +117,6 @@ namespace CMiX.ViewModels
             get => _out;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, "Out", _out, value, "Out Changed");
                 SetAndNotify(ref _out, value);
                 if (MessageEnabled && Out)
                     Messenger.SendMessage(MessageAddress + nameof(Out), Out);
@@ -133,7 +130,6 @@ namespace CMiX.ViewModels
             get => _blendMode;
             set
             {
-                DefaultChangeFactory.Current.OnChanging(this, "BlendMode", _blendMode, value, "BlendMode Changed");
                 SetAndNotify(ref _blendMode, value);
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(BlendMode), BlendMode);

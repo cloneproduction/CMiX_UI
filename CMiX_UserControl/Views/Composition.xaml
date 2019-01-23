@@ -8,21 +8,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:dd="urn:gong-wpf-dragdrop"
-    
-    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-    xmlns:command="http://www.galasoft.ch/mvvmlight"
-    CMiX:AttachedProperties.RegisterCommandBindings="{Binding CommandBindings}"
-    Focusable="False"
     d:DesignHeight="880.666"
     d:DesignWidth="1358.5"
     mc:Ignorable="d">
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <command:EventToCommand 
-                Command="{Binding WindowLoadedCommand}"
-                PassEventArgsToCommand="True" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
 
     <UserControl.InputBindings>
         <KeyBinding Modifiers="Control"
@@ -47,16 +35,17 @@
         LastChildFill="True">
         <Grid Margin="0,0,0,2" DockPanel.Dock="Top">
             <Label
-                Style="{DynamicResource LabelBase}"
+                Style="{StaticResource LabelBase}"
                 HorizontalContentAlignment="Right"
-                Background="{DynamicResource Color}"
-                Foreground="{DynamicResource TextBase}" />
+                Background="{StaticResource Color}"
+                Foreground="{StaticResource TextBase}" 
+                />
             <Menu
                 Grid.Row="0"
                 Height="25"
                 HorizontalAlignment="Left"
                 VerticalContentAlignment="Center"
-                Style="{DynamicResource MenuBase}">
+                Style="{StaticResource MenuBase}">
                 <MenuItem
                     Height="{Binding ActualHeight, ElementName=MainMenu, Mode=OneWay}"
                     Padding="20,0,20,0"
@@ -65,22 +54,27 @@
                     Header="File"
                     Style="{StaticResource MenuItemBase}">
                     <MenuItem
-                    Header="New"
-                    Template="{DynamicResource SubMenuItemBase}" />
+                        Header="New"
+                        Template="{StaticResource SubMenuItemBase}" 
+                        />
                     <MenuItem
-                    Header="Open"
-                    Command="{Binding Path=OpenCompositionCommand}"
-                    Template="{DynamicResource SubMenuItemBase}" />
+                        Header="Open"
+                        Command="{Binding Path=OpenCompositionCommand}"
+                        Template="{StaticResource SubMenuItemBase}" 
+                        />
                     <MenuItem
-                    Header="Save"
-                    Template="{DynamicResource SubMenuItemBase}" />
+                        Header="Save"
+                        Template="{StaticResource SubMenuItemBase}" 
+                        />
                     <MenuItem
-                    Header="Save As"
-                    Command="{Binding Path=SaveCompositionCommand}"
-                    Template="{DynamicResource SubMenuItemBase}" />
+                        Header="Save As"
+                        Command="{Binding Path=SaveCompositionCommand}"
+                        Template="{StaticResource SubMenuItemBase}" 
+                        />
                     <MenuItem
-                    Header="Quit"
-                    Template="{DynamicResource SubMenuItemBase}" />
+                        Header="Quit"
+                        Template="{StaticResource SubMenuItemBase}" 
+                        />
                 </MenuItem>
                 <MenuItem
                     Height="{Binding ActualHeight, ElementName=MainMenu, Mode=OneWay}"
@@ -91,12 +85,14 @@
                     Style="{StaticResource MenuItemBase}">
                     <MenuItem
                         Header="Undo"
-                        Template="{DynamicResource SubMenuItemBase}"
-                        Command="ApplicationCommands.Undo"/>
+                        Template="{StaticResource SubMenuItemBase}"
+                        Command="ApplicationCommands.Undo"
+                        />
                     <MenuItem
                         Header="Redo"
-                        Template="{DynamicResource SubMenuItemBase}" 
-                        Command="ApplicationCommands.Redo"/>
+                        Template="{StaticResource SubMenuItemBase}" 
+                        Command="ApplicationCommands.Redo"
+                        />
                 </MenuItem>
             </Menu>
         </Grid>
@@ -105,7 +101,8 @@
             Height="25"
             Margin="0,2,0,0"
             Background="{StaticResource DarkerColor}"
-            DockPanel.Dock="Bottom" />
+            DockPanel.Dock="Bottom" 
+            />
         <DockPanel>
             <Border
                 DockPanel.Dock="Right"
@@ -124,7 +121,8 @@
                             Content="LAYERS"
                             DockPanel.Dock="Bottom"
                             FontWeight="SemiBold"
-                            FontSize="12"/>
+                            FontSize="12"
+                            />
                     </Border>
                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
                         <Button
@@ -132,19 +130,21 @@
                             Width="25"
                             Height="25"
                             Content="+"
-                            Style="{DynamicResource ButtonBase}" />
+                            Style="{StaticResource ButtonBase}" 
+                            />
                         <Button
                             Command="{Binding Path=RemoveLayerCommand}"
                             Margin="2, 0, 0, 0"
                             Width="25"
                             Height="25"
                             Content="-"
-                            Style="{DynamicResource ButtonBase}" />
+                            Style="{StaticResource ButtonBase}" 
+                            />
                     </StackPanel>
                     <ListBox 
                         Margin="0, 8, 0, 0"
                         HorizontalContentAlignment="Stretch" 
-                        Style="{DynamicResource LayerListBox}"
+                        Style="{StaticResource LayerListBox}"
                         ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
                         ItemsSource="{Binding Layers}" 
                         SelectedItem="{Binding SelectedLayer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -169,18 +169,19 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
-                            <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <CMiX:MasterBeatControl
                             Margin="0, 0, 4, 0"
                             Grid.Column="0"
-                            DataContext="{Binding Path=MasterBeat}"/>
+                            DataContext="{Binding Path=MasterBeat}"
+                            />
                         <TabControl Grid.Column="1" Style="{StaticResource TabControlBase}">
                             <TabItem Header="Camera"
                                 Style="{StaticResource TabItemBase}">
                                 <CMiX:Camera
                                     Margin="4, 0, 0, 0"
-                                    DataContext="{Binding Camera}"/>
+                                    DataContext="{Binding Camera}"
+                                    />
                             </TabItem>
                             <TabItem Header="OSC" Style="{StaticResource TabItemBase}">
                                 <StackPanel>
@@ -190,15 +191,17 @@
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Text="IP" 
-                                                   Foreground="{DynamicResource TextBase}"
+                                                   Foreground="{StaticResource TextBase}"
                                                    HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center"/>
+                                                   VerticalAlignment="Center"
+                                                   />
                                         <TextBox
                                             Text="{Binding IP, Mode=TwoWay}"
                                             Grid.Column="1"
                                             BorderThickness="1"
-                                            BorderBrush="{DynamicResource DarkColor}"
-                                            Background="{DynamicResource HighDarkerColor}"/>
+                                            BorderBrush="{StaticResource DarkColor}"
+                                            Background="{StaticResource HighDarkerColor}"
+                                            />
                                     </Grid>
                                     <Grid Height="20">
                                         <Grid.ColumnDefinitions>
@@ -207,27 +210,21 @@
                                         </Grid.ColumnDefinitions>
                                         <TextBlock 
                                             Text="PORT" 
-                                            Foreground="{DynamicResource TextBase}"
+                                            Foreground="{StaticResource TextBase}"
                                             HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"/>
+                                            VerticalAlignment="Center"
+                                            />
                                         <TextBox
                                             Text="{Binding Port, Mode=TwoWay}"
                                             Grid.Column="1"
                                             BorderThickness="1"
-                                            BorderBrush="{DynamicResource DarkColor}"
-                                            Background="{DynamicResource HighDarkerColor}"/>
+                                            BorderBrush="{StaticResource DarkColor}"
+                                            Background="{StaticResource HighDarkerColor}"
+                                            />
                                     </Grid>
                                 </StackPanel>
                             </TabItem>
                         </TabControl>
-                        <ListBox 
-                            x:Name="UndoStackListBox"
-                            Grid.Column="2"
-                            Margin="10"
-                            ItemsSource="{Binding UndoStack, Mode=OneWay}"
-                            IsEnabled="True"
-                            HorizontalAlignment="Stretch"
-                        />
                     </Grid>
                 </Border>
             </Grid>
@@ -242,7 +239,7 @@
                     </ItemsControl.ItemTemplate>
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <Grid></Grid>
+                            <Grid/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>

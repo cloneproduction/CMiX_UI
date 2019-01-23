@@ -10,12 +10,14 @@
     d:DesignHeight="400.334"
     d:DesignWidth="436.111"
     mc:Ignorable="d">
+
     <UserControl.Resources>
         <ResourceDictionary>
             <CMiX:BoolInverterConverter x:Key="BoolInverter" />
             <CMiX:EnumToBooleanConverter x:Key="EnumToBoolean"/>
         </ResourceDictionary>
     </UserControl.Resources>
+    
     <Border
         Margin="32"
         Padding="8"
@@ -25,7 +27,8 @@
                 BlurRadius="32"
                 Direction="0"
                 Opacity="1"
-                ShadowDepth="0" />
+                ShadowDepth="0" 
+                />
         </Border.Effect>
         <DockPanel LastChildFill="True">
             <DockPanel
@@ -37,7 +40,8 @@
                     VerticalAlignment="Center"
                     DockPanel.Dock="left"
                     Foreground="{StaticResource TextBase}"
-                    Text="ROTATION" />
+                    Text="ROTATION" 
+                    />
                 <ToggleButton
                     Width="25"
                     Height="25"
@@ -45,7 +49,8 @@
                     DockPanel.Dock="Right"
                     IsChecked="{Binding RotationZ}"
                     Style="{StaticResource ToggleButtonBase}"
-                    Tag="3" />
+                    Tag="3" 
+                    />
                 <ToggleButton
                     Width="25"
                     Height="25"
@@ -53,7 +58,8 @@
                     IsChecked="{Binding RotationY}"
                     DockPanel.Dock="Right"
                     Style="{StaticResource ToggleButtonBase}"
-                    Tag="2" />
+                    Tag="2" 
+                    />
                 <ToggleButton
                     Width="25"
                     Height="25"
@@ -61,7 +67,8 @@
                     IsChecked="{Binding RotationX}"
                     DockPanel.Dock="Right"
                     Style="{StaticResource ToggleButtonBase}"
-                    Tag="1" />
+                    Tag="1" 
+                    />
             </DockPanel>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -74,154 +81,176 @@
                         Height="25"
                         Margin="0,0,0,4"
                         Content="STEADY"
-                        Style="{StaticResource LabelBase}" />
+                        Style="{StaticResource LabelBase}" 
+                        />
                     <RadioButton
                         Height="25"
                         Margin="1"
                         Style="{StaticResource RadioButtonBase}" 
                         GroupName="Rotation"
                         Content="STD_CTR"
-                        IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.STD_CTR}}" />
+                        IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.STD_CTR}}" 
+                        />
                     <RadioButton
                         Height="25"
                         Margin="1"
                         Content="STD_45"
                         GroupName="Rotation"
                         IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.STD_45}}"
-                        Style="{StaticResource RadioButtonBase}" />
+                        Style="{StaticResource RadioButtonBase}" 
+                        />
                     <RadioButton
                         Height="25"
                         Margin="1"
                         Content="STD_90"
                         GroupName="Rotation"
                         IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.STD_90}}" 
-                        Style="{StaticResource RadioButtonBase}"/>
+                        Style="{StaticResource RadioButtonBase}"
+                        />
                     <RadioButton
                         Height="25"
                         Margin="1"
                         Content="STD_135"
                         GroupName="Rotation"
                         IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.STD_135}}" 
-                        Style="{StaticResource RadioButtonBase}" />
+                        Style="{StaticResource RadioButtonBase}" 
+                        />
                     <RadioButton
                         Height="25"
                         Margin="1"
                         Content="STD_180"
                         GroupName="Rotation"
                         IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.STD_180}}" 
-                        Style="{StaticResource RadioButtonBase}" />
+                        Style="{StaticResource RadioButtonBase}" 
+                        />
                     <RadioButton
                         Height="25"
                         Margin="1"
                         Content="STD_225"
                         GroupName="Rotation"
                         IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.STD_225}}" 
-                        Style="{StaticResource RadioButtonBase}" />
+                        Style="{StaticResource RadioButtonBase}" 
+                        />
                     <RadioButton
                         Height="25"
                         Margin="1"
                         Content="STD_270"
                         GroupName="Rotation"
                         IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.STD_270}}"
-                        Style="{StaticResource RadioButtonBase}" />
+                        Style="{StaticResource RadioButtonBase}" 
+                        />
                     <RadioButton
                         Height="25"
                         Margin="1"
                         Content="STD_315"
                         GroupName="Rotation"
                         IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.STD_315}}"
-                        Style="{StaticResource RadioButtonBase}" />
+                        Style="{StaticResource RadioButtonBase}" 
+                        />
                 </StackPanel>
                 <StackPanel Grid.Column="1">
                     <Label
                         Height="25"
                         Margin="0,0,0,4"
                         Content="FLASH"
-                        Style="{StaticResource LabelBase}" />
+                        Style="{StaticResource LabelBase}" 
+                        />
                     <RadioButton
                         Height="25"
                         Margin="1"
                         Content="FLA_RDM"
                         GroupName="Rotation"
                         IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.FLA_RDM}}"
-                        Style="{StaticResource RadioButtonBase}" />
+                        Style="{StaticResource RadioButtonBase}" 
+                        />
                     <RadioButton
                         Height="25"
                         Margin="1"
                         Content="FLA_RDM_45"
                         GroupName="Rotation"
                         IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.FLA_RDM_45}}"
-                        Style="{StaticResource RadioButtonBase}" />
+                        Style="{StaticResource RadioButtonBase}" 
+                        />
                     <RadioButton
                         Height="25"
                         Margin="1"
                         Content="FLA_RDM_90"
                         GroupName="Rotation"
                         IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.FLA_RDM_90}}"
-                        Style="{StaticResource RadioButtonBase}" />
+                        Style="{StaticResource RadioButtonBase}" 
+                        />
                     <RadioButton
                         Height="25"
                         Margin="1"
                         Content="FLA_CLK_45"
                         GroupName="Rotation"
                         IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.FLA_CLK_45}}"
-                        Style="{StaticResource RadioButtonBase}" />
+                        Style="{StaticResource RadioButtonBase}" 
+                        />
                     <RadioButton
                         Height="25"
                         Margin="1"
                         Content="FLA_CLK_90"
                         GroupName="Rotation"
                         IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.FLA_CLK_90}}"
-                        Style="{StaticResource RadioButtonBase}" />
+                        Style="{StaticResource RadioButtonBase}" 
+                        />
                     <RadioButton
                         Height="25"
                         Margin="1"
                         Content="FLA_CCK_45"
                         GroupName="Rotation"
                         IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.FLA_CCK_45}}"
-                        Style="{StaticResource RadioButtonBase}" />
+                        Style="{StaticResource RadioButtonBase}" 
+                        />
                     <RadioButton
                         Height="25"
                         Margin="1"
                         Content="FLA_CCK_90"
                         GroupName="Rotation"
                         IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.FLA_CCK_90}}"
-                        Style="{StaticResource RadioButtonBase}" />
+                        Style="{StaticResource RadioButtonBase}" 
+                        />
                     <RadioButton
                         Height="25"
                         Margin="1"
                         Content="FLA_180"
                         GroupName="Rotation"
                         IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.FLA_180}}"
-                        Style="{StaticResource RadioButtonBase}" />
+                        Style="{StaticResource RadioButtonBase}" 
+                        />
                 </StackPanel>
                 <StackPanel Grid.Column="2">
                     <Label
                         Height="25"
                         Margin="0,0,0,4"
                         Content="SLIDE"
-                        Style="{StaticResource LabelBase}" />
+                        Style="{StaticResource LabelBase}" 
+                        />
                     <RadioButton
                         Height="25"
                         Margin="1"
                         Content="SLD_RDM"
                         GroupName="Rotation"
                         IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.SLD_RDM}}"
-                        Style="{StaticResource RadioButtonBase}" />
+                        Style="{StaticResource RadioButtonBase}" 
+                        />
                     <RadioButton
                         Height="25"
                         Margin="1"
                         Content="SLD_CLK_LIN"
                         GroupName="Rotation"
                         IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.SLD_CLK_LIN}}"
-                        Style="{StaticResource RadioButtonBase}" />
+                        Style="{StaticResource RadioButtonBase}" 
+                        />
                     <RadioButton
                         Height="25"
                         Margin="1"
                         Content="SLD_CCK_LIN"
                         GroupName="Rotation"
                         IsChecked="{Binding RotationMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryRotationMode.SLD_CCK_LIN}}"
-                        Style="{StaticResource RadioButtonBase}" />
+                        Style="{StaticResource RadioButtonBase}" 
+                        />
                 </StackPanel>
             </Grid>
         </DockPanel>

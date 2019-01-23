@@ -8,10 +8,6 @@ using System.Collections.Specialized;
 using System.Windows;
 using Newtonsoft.Json;
 using System.IO;
-using MonitoredUndo;
-using System.Windows.Data;
-using GalaSoft.MvvmLight.Command;
-using GongSolutions.Wpf.DragDrop;
 
 namespace CMiX.ViewModels
 {
@@ -130,8 +126,6 @@ namespace CMiX.ViewModels
         #region NOTIFYCOLLECTIONCHANGED
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            DefaultChangeFactory.Current.OnCollectionChanged(this, "Layers", Layers, e);
-
             if (MessageEnabled)
             {
                 List<string> layerindex = new List<string>();
@@ -148,6 +142,7 @@ namespace CMiX.ViewModels
         }
         #endregion
 
+        #region COPY/PASTE/LOAD/SAVE/OPEN COMPOSITIONS
         public void Copy(CompositionDTO compositiondto)
         {
             compositiondto.Name = Name;
@@ -263,6 +258,7 @@ namespace CMiX.ViewModels
                 }
             }
         }
+        #endregion
 
         #region COPY/PASTE LAYER
         private void CopyLayer()
