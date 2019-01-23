@@ -26,6 +26,7 @@ namespace CMiX.ViewModels
                 keying: 0.0,
                 invert: 0.0,
                 invertMode: ((TextureInvertMode)0).ToString(),
+                slider: new Slider(String.Format("{0}/{1}/Brightness", layername, nameof(Texture)), messenger, actionmanager),
                 messenger: messenger,
                 messageaddress: String.Format("{0}/{1}/", layername, nameof(Texture)),
                 messageEnabled: true
@@ -37,6 +38,7 @@ namespace CMiX.ViewModels
 
         public Texture
             (
+                Slider slider,
                 ActionManager actionmanager,
                 IEnumerable<ListBoxFileName> texturePaths,
                 double brightness,
@@ -51,6 +53,7 @@ namespace CMiX.ViewModels
             )
             : base (actionmanager)
         {
+            Slider = slider ?? throw new ArgumentNullException(nameof(slider));
             TexturePaths = new ObservableCollection<ListBoxFileName>();
             TexturePaths.CollectionChanged += ContentCollectionChanged;
             AssertNotNegative(() => brightness);
@@ -87,6 +90,7 @@ namespace CMiX.ViewModels
         [OSC]
         public ObservableCollection<ListBoxFileName> TexturePaths { get; }
 
+        public Slider Slider { get; }
 
         private double _brightness;
         [OSC]

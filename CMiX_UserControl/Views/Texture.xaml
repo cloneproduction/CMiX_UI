@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:CMiX="clr-namespace:CMiX"
     xmlns:Controls="clr-namespace:CMiX.Controls"
+    xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -129,6 +130,7 @@
                                             Value="{Binding Invert, Mode=TwoWay}"
                                             />
                                     </Grid>
+                                    <Views:Slider DataContext="{Binding Slider}" Caption="Brightness"/>
                                 </StackPanel>
                             </TabItem>
                             <TabItem Style="{StaticResource TabItemBase}">

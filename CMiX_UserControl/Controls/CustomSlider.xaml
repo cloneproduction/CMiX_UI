@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  
     d:DesignWidth="484.889"
     mc:Ignorable="d" d:DesignHeight="34.222">
-    <Grid     Height="20" MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave" Background="Transparent">
+    <Grid Height="20" Background="Transparent">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.2*"/>
             <ColumnDefinition Width="30"/>
@@ -18,10 +18,11 @@
             Padding="2, 0, 0, 0"
             TextTrimming="CharacterEllipsis" 
             Text="{Binding Path=Caption, RelativeSource={RelativeSource AncestorType={x:Type Controls:CustomSlider}}}" 
-            FontSize="10" 
-            HorizontalAlignment="Left" 
-            VerticalAlignment="Center" 
-            Foreground="{DynamicResource TextBase}"/>
+            FontSize="10"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Foreground="{DynamicResource TextBase}"
+            />
         <TextBox 
             Grid.Column="1"
             Background="{DynamicResource HighDarkerColor}" 
@@ -33,7 +34,8 @@
             VerticalContentAlignment="Center"
             HorizontalAlignment="Stretch" 
             VerticalAlignment="Stretch" 
-            Foreground="{DynamicResource TextBase}"/>
+            Foreground="{DynamicResource TextBase}"
+            />
         <DockPanel Grid.Column="2">
             <Grid DockPanel.Dock="Right">
                 <Grid.RowDefinitions>
@@ -48,7 +50,8 @@
                     Click="AddToSlider_Click"
                     Content="+"
                     Focusable="False"
-                    Style="{DynamicResource ButtonBase}" />
+                    Style="{DynamicResource ButtonBase}"
+                    />
                 <Button
                     x:Name="SubToSlider"
                     Grid.Row="1"
@@ -57,7 +60,8 @@
                     Click="SubToSlider_Click"
                     Content="-"
                     Focusable="False"
-                    Style="{DynamicResource ButtonBase}" />
+                    Style="{DynamicResource ButtonBase}"
+                    />
             </Grid>
             <Slider
                     x:Name="CMiXSlider"
