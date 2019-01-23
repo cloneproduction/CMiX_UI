@@ -8,52 +8,55 @@ using System.ComponentModel;
 using CMiX.Services;
 using CMiX.Controls;
 using CMiX.Models;
+using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
 {
     public class Texture : ViewModel, IMessengerData
     {
         #region CONSTRUCTORS
-        public Texture(string layername, IMessenger messenger)
-            : this(
-                  texturePaths: new ObservableCollection<ListBoxFileName>(),
-                  brightness: 0.0,
-                  contrast: 0.0,
-                  saturation: 0.0,
-                  keying: 0.0,
-                  invert: 0.0,
-                  invertMode: ((TextureInvertMode)0).ToString(),
-
-                  messenger: messenger,
-                  messageaddress: String.Format("{0}/{1}/", layername, nameof(Texture)),
-                  messageEnabled: true
-                  )
+        public Texture(string layername, IMessenger messenger, ActionManager actionmanager)
+            : this
+            (
+                actionmanager: actionmanager,
+                texturePaths: new ObservableCollection<ListBoxFileName>(),
+                brightness: 0.0,
+                contrast: 0.0,
+                saturation: 0.0,
+                keying: 0.0,
+                invert: 0.0,
+                invertMode: ((TextureInvertMode)0).ToString(),
+                messenger: messenger,
+                messageaddress: String.Format("{0}/{1}/", layername, nameof(Texture)),
+                messageEnabled: true
+            )
         {
             TexturePaths = new ObservableCollection<ListBoxFileName>();
             TexturePaths.CollectionChanged += ContentCollectionChanged;
         }
 
-        public Texture(
-            IEnumerable<ListBoxFileName> texturePaths,
-            double brightness,
-            double contrast,
-            double saturation,
-            double keying,
-            double invert,
-            string invertMode,
-            IMessenger messenger,
-            string messageaddress,
-            bool messageEnabled
+        public Texture
+            (
+                ActionManager actionmanager,
+                IEnumerable<ListBoxFileName> texturePaths,
+                double brightness,
+                double contrast,
+                double saturation,
+                double keying,
+                double invert,
+                string invertMode,
+                IMessenger messenger,
+                string messageaddress,
+                bool messageEnabled
             )
+            : base (actionmanager)
         {
             TexturePaths = new ObservableCollection<ListBoxFileName>();
             TexturePaths.CollectionChanged += ContentCollectionChanged;
-
             AssertNotNegative(() => brightness);
             AssertNotNegative(() => contrast);
             AssertNotNegative(() => saturation);
             AssertNotNegative(() => keying);
-
             AssertNotNegative(() => invert);
             Brightness = brightness;
             Contrast = contrast;
@@ -61,11 +64,9 @@ namespace CMiX.ViewModels
             Keying = keying;
             Invert = invert;
             InvertMode = invertMode;
-
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
             MessageEnabled = messageEnabled;
-
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());

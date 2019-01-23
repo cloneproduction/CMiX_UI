@@ -2,6 +2,7 @@
 using CMiX.Services;
 using System;
 using System.Collections.ObjectModel;
+using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
 {
@@ -10,7 +11,8 @@ namespace CMiX.ViewModels
     {
         #region CONSTRUCTORS
 
-        public Layer(MasterBeat masterBeat, string layername, IMessenger messenger, int index)
+        public Layer(MasterBeat masterBeat, string layername, IMessenger messenger, int index, ActionManager actionmanager)
+            : base (actionmanager)
         {
             Messenger = messenger;
             MessageAddress = String.Format("{0}/", layername);
@@ -21,29 +23,32 @@ namespace CMiX.ViewModels
             BlendMode = ((BlendMode)0).ToString();
             Index = 0;
             Enabled = false;
-            BeatModifier = new BeatModifier(layername, messenger, masterBeat);
-            Content = new Content(BeatModifier, layername, messenger);
-            Mask = new Mask(BeatModifier, layername, messenger);
-            Coloration = new Coloration(BeatModifier, layername, messenger);
-            LayerFX = new LayerFX(BeatModifier, layername, messenger);
+            BeatModifier = new BeatModifier(layername, messenger, masterBeat, actionmanager);
+            Content = new Content(BeatModifier, layername, messenger, actionmanager);
+            Mask = new Mask(BeatModifier, layername, messenger, actionmanager);
+            Coloration = new Coloration(BeatModifier, layername, messenger, actionmanager);
+            LayerFX = new LayerFX(BeatModifier, layername, messenger, actionmanager);
             MessageEnabled = true;
         }
 
-        public Layer(
-            IMessenger messenger,
-            string messageaddress,
-            string layername,
-            bool enabled,
-            int index,
-            double fade,
-            string blendMode,
-            BeatModifier beatModifier,
-            Content content,
-            Mask mask,
-            Coloration coloration,
-            LayerFX layerfx,
-            bool messageEnabled
+        public Layer
+            (
+                IMessenger messenger,
+                string messageaddress,
+                string layername,
+                bool enabled,
+                int index,
+                double fade,
+                string blendMode,
+                BeatModifier beatModifier,
+                Content content,
+                Mask mask,
+                Coloration coloration,
+                LayerFX layerfx,
+                bool messageEnabled,
+                ActionManager actionmanager
             )
+            : base (actionmanager)
         {
             LayerName = layername;
             Index = index;
@@ -104,6 +109,7 @@ namespace CMiX.ViewModels
             get => _fade;
             set
             {
+                SetAndRecord(() => _fade, value);
                 SetAndNotify(ref _fade, value);
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Fade), Fade);
@@ -117,6 +123,7 @@ namespace CMiX.ViewModels
             get => _out;
             set
             {
+                SetAndRecord(() => _out, value);
                 SetAndNotify(ref _out, value);
                 if (MessageEnabled && Out)
                     Messenger.SendMessage(MessageAddress + nameof(Out), Out);

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Windows.Input;
+using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
 {
     [Serializable]
     public abstract class Beat : ViewModel
     {
-        public Beat()
+        public Beat(ActionManager actionmanager) 
+            : base (actionmanager)
         {
             ResetCommand = new RelayCommand(p => Reset());
             MultiplyCommand = new RelayCommand(p => Multiply());
@@ -27,13 +29,9 @@ namespace CMiX.ViewModels
                 var bpm = 50000 / Period;
 
                 if (double.IsInfinity(bpm) || double.IsNaN(bpm))
-                {
                     return 0;
-                }
                 else
-                {
                     return bpm;
-                }
             }
         }
 
@@ -47,13 +45,10 @@ namespace CMiX.ViewModels
         private void Reset() => Multiplier = 1;
 
         protected abstract void Multiply();
-
         protected abstract void Divide();
 
         public ICommand ResetCommand { get; }
-
         public ICommand MultiplyCommand { get; }
-
         public ICommand DivideCommand { get; }
     }
 }

@@ -1,32 +1,37 @@
 ﻿using CMiX.Models;
 using CMiX.Services;
+using GuiLabs.Undo;
 using System;
-using System.Diagnostics;
 
 namespace CMiX.ViewModels
 {
     [Serializable]
     public class BeatModifier : Beat, IMessengerData
     {
-        public BeatModifier( string layername, IMessenger messenger, Beat masterBeat)
-            : this(
-                  masterBeat: masterBeat,
-                  multiplier: 1.0,
-                  chanceToHit: 1.0,
+        public BeatModifier( string layername, IMessenger messenger, Beat masterBeat, ActionManager actionmanager)
+            : this
+            (
+                actionmanager: actionmanager,
+                masterBeat: masterBeat,
+                multiplier: 1.0,
+                chanceToHit: 1.0,
+                messenger: messenger,
+                messageaddress: String.Format("{0}/{1}/", layername, nameof(BeatModifier)),
+                messageEnabled: true
+            )
+        {}
 
-                  messenger: messenger,
-                  messageaddress: String.Format("{0}/{1}/", layername, nameof(BeatModifier)),
-                  messageEnabled: true)
-        { }
-
-        public BeatModifier(
-            Beat masterBeat, 
-            double multiplier, 
-            double chanceToHit,
-
-            IMessenger messenger,
-            string messageaddress,
-            bool messageEnabled)
+        public BeatModifier
+            (
+                ActionManager actionmanager,
+                Beat masterBeat, 
+                double multiplier, 
+                double chanceToHit,
+                IMessenger messenger,
+                string messageaddress,
+                bool messageEnabled
+            )
+            : base (actionmanager)
         {
             MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
             Multiplier = multiplier;
@@ -105,10 +110,8 @@ namespace CMiX.ViewModels
         public void Paste(BeatModifierDTO beatmodifierdto)
         {
             MessageEnabled = false;
-
             ChanceToHit = beatmodifierdto.ChanceToHit;
             Multiplier = beatmodifierdto.Multiplier;
-
             MessageEnabled = true;
         }
     }

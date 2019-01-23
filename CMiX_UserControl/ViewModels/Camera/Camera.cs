@@ -1,38 +1,44 @@
 ﻿using System;
 using CMiX.Services;
 using CMiX.Models;
+using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
 {
     public class Camera : ViewModel, IMessengerData
     {
         #region CONSTRUCTORS
-        public Camera(IMessenger messenger, MasterBeat masterBeat)
-            : this(
-                  messenger: messenger,
-                  messageaddress: "/Camera/",
-                  messageEnabled: true,
-                  rotation: ((CameraRotation)0).ToString(),
-                  lookAt: ((CameraLookAt)0).ToString(),
-                  view: ((CameraView)0).ToString(),
-                  beatModifier: new BeatModifier("/Camera", messenger, masterBeat),
-                  fov: 0.2,
-                  zoom: 1.0
-                  )
+        public Camera(IMessenger messenger, MasterBeat masterBeat, ActionManager actionmanager)
+            : this
+            (
+                actionmanager: actionmanager,
+                messenger: messenger,
+                messageaddress: "/Camera/",
+                messageEnabled: true,
+                rotation: ((CameraRotation)0).ToString(),
+                lookAt: ((CameraLookAt)0).ToString(),
+                view: ((CameraView)0).ToString(),
+                beatModifier: new BeatModifier("/Camera", messenger, masterBeat, actionmanager),
+                fov: 0.2,
+                zoom: 1.0
+            )
         {
         }
 
-        public Camera(
-            string rotation, 
-            string lookAt, 
-            string view, 
-            BeatModifier beatModifier, 
-            double fov, 
-            double zoom,
-            IMessenger messenger,
-            string messageaddress,
-            bool messageEnabled
+        public Camera
+            (
+                ActionManager actionmanager,
+                string rotation,
+                string lookAt,
+                string view,
+                BeatModifier beatModifier,
+                double fov,
+                double zoom,
+                IMessenger messenger,
+                string messageaddress,
+                bool messageEnabled
             )
+            : base(actionmanager)
         {
             Rotation = rotation;
             LookAt = lookAt;

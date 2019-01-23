@@ -13,19 +13,34 @@
     mc:Ignorable="d">
 
     <UserControl.InputBindings>
-        <KeyBinding Modifiers="Control"
-                Key="V"
-                Command="{Binding PasteLayerCommand}" />
-        <KeyBinding Modifiers="Control"
-                Key="C"
-                Command="{Binding CopyLayerCommand}" />
+        <KeyBinding 
+            Modifiers="Control"
+            Key="V"
+            Command="{Binding PasteLayerCommand}" 
+            />
+        <KeyBinding 
+            Modifiers="Control"
+            Key="C"
+            Command="{Binding CopyLayerCommand}" 
+            />
+        <KeyBinding 
+            Modifiers="Control"
+            Key="Y" 
+            Command="{Binding RedoCommand}" 
+            />
+        <KeyBinding 
+            Modifiers="Control"
+            Key="Z" 
+            Command="{Binding UndoCommand}" 
+            />
     </UserControl.InputBindings>
+    
     <UserControl.DataContext>
         <ViewModels:Composition/>
     </UserControl.DataContext>
     <UserControl.Resources>
         <ResourceDictionary>
-            <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+            <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -84,14 +99,14 @@
                     Header="Edit"
                     Style="{StaticResource MenuItemBase}">
                     <MenuItem
-                        Header="Undo"
+                        Header="Undo    Ctrl + Z"
                         Template="{StaticResource SubMenuItemBase}"
-                        Command="ApplicationCommands.Undo"
+                        Command="{Binding UndoCommand}"
                         />
                     <MenuItem
-                        Header="Redo"
+                        Header="Redo    Ctrl + Y"
                         Template="{StaticResource SubMenuItemBase}" 
-                        Command="ApplicationCommands.Redo"
+                        Command="{Binding RedoCommand}"
                         />
                 </MenuItem>
             </Menu>
@@ -176,7 +191,8 @@
                             DataContext="{Binding Path=MasterBeat}"
                             />
                         <TabControl Grid.Column="1" Style="{StaticResource TabControlBase}">
-                            <TabItem Header="Camera"
+                            <TabItem 
+                                Header="Camera"
                                 Style="{StaticResource TabItemBase}">
                                 <CMiX:Camera
                                     Margin="4, 0, 0, 0"
@@ -190,11 +206,12 @@
                                             <ColumnDefinition Width="0.2*"/>
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Text="IP" 
-                                                   Foreground="{StaticResource TextBase}"
-                                                   HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center"
-                                                   />
+                                        <TextBlock 
+                                            Text="IP" 
+                                            Foreground="{StaticResource TextBase}"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            />
                                         <TextBox
                                             Text="{Binding IP, Mode=TwoWay}"
                                             Grid.Column="1"

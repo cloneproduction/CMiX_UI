@@ -3,33 +3,41 @@ using CMiX.Services;
 using CMiX.Models;
 using System.Windows;
 using System.Windows.Input;
+using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
 {
     [Serializable]
     public class Content : ViewModel, IMessengerData
     {
-        public Content(Beat masterbeat, string layername, IMessenger messenger)
-            : this(
-                  enable: true,
-                  messageaddress: String.Format("{0}/{1}/", layername, nameof(Content)),
-                  messageEnabled : true,
-                  messenger: messenger,
-                  beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Content)), messenger, masterbeat),
-                  geometry: new Geometry(String.Format("{0}/{1}", layername, nameof(Content)), messenger),
-                  texture: new Texture(String.Format("{0}/{1}", layername, nameof(Content)), messenger),
-                  postFX: new PostFX(String.Format("{0}/{1}", layername, nameof(Content)), messenger))
+        public Content(Beat masterbeat, string layername, IMessenger messenger, ActionManager actionmanager)
+            : this
+            (
+                actionmanager: actionmanager,
+                enable: true,
+                messageaddress: String.Format("{0}/{1}/", layername, nameof(Content)),
+                messageEnabled : true,
+                messenger: messenger,
+                beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Content)), messenger, masterbeat, actionmanager),
+                geometry: new Geometry(String.Format("{0}/{1}", layername, nameof(Content)), messenger, actionmanager),
+                texture: new Texture(String.Format("{0}/{1}", layername, nameof(Content)), messenger, actionmanager),
+                postFX: new PostFX(String.Format("{0}/{1}", layername, nameof(Content)), messenger, actionmanager)
+            )
         { }
 
-        public Content(
-            bool enable,
-            string messageaddress,
-            bool messageEnabled,
-            IMessenger messenger, 
-            BeatModifier beatModifier, 
-            Geometry geometry, 
-            Texture texture, 
-            PostFX postFX)
+        public Content
+            (
+                ActionManager actionmanager,
+                bool enable,
+                string messageaddress,
+                bool messageEnabled,
+                IMessenger messenger, 
+                BeatModifier beatModifier, 
+                Geometry geometry, 
+                Texture texture, 
+                PostFX postFX
+            )
+            : base(actionmanager)
         {
             Enable = enable;
             MessageAddress = messageaddress;
@@ -39,7 +47,6 @@ namespace CMiX.ViewModels
             Geometry = geometry ?? throw new ArgumentNullException(nameof(geometry));
             Texture = texture ?? throw new ArgumentNullException(nameof(texture));
             PostFX = postFX ?? throw new ArgumentNullException(nameof(postFX));
-
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
@@ -50,7 +57,6 @@ namespace CMiX.ViewModels
         public string MessageAddress { get; set; }
 
         public bool MessageEnabled { get; set; }
-
 
         public ICommand CopySelfCommand { get; }
         public ICommand PasteSelfCommand { get; }
@@ -87,7 +93,6 @@ namespace CMiX.ViewModels
             {
                 var contentdto = (ContentDTO)data.GetData("Content") as ContentDTO;
                 this.Paste(contentdto);
-
                 Messenger.QueueObject(this);
                 Messenger.SendQueue();
             }
@@ -103,25 +108,20 @@ namespace CMiX.ViewModels
         public void Copy(ContentDTO contentdto)
         {
             contentdto.Enable = Enable;
-
             BeatModifier.Copy(contentdto.BeatModifierDTO);
             Texture.Copy(contentdto.TextureDTO);
             Geometry.Copy(contentdto.GeometryDTO);
             PostFX.Copy(contentdto.PostFXDTO);
-
         }
 
         public void Paste(ContentDTO contentdto)
         {
             MessageEnabled = false;
-
             Enable = contentdto.Enable;
-
             BeatModifier.Paste(contentdto.BeatModifierDTO);
             Texture.Paste(contentdto.TextureDTO);
             Geometry.Paste(contentdto.GeometryDTO);
             PostFX.Paste(contentdto.PostFXDTO);
-
             MessageEnabled = true;
         }
     }

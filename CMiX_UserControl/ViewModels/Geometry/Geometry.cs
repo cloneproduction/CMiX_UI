@@ -8,56 +8,56 @@ using CMiX.Controls;
 using CMiX.Models;
 using System.Windows;
 using System.Windows.Input;
+using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
 {
     public class Geometry : ViewModel, IMessengerData
     {
         #region CONSTRUCTORS
-        public Geometry(string layername, IMessenger messenger)
-            : this(
-                  messenger: messenger,
-                  messageaddress: String.Format("{0}/{1}/", layername, nameof(Geometry)),
-
-                  count: 1,
-                  geometrytranslate: new GeometryTranslate(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger),
-                  geometryscale: new GeometryScale(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger),
-                  geometryrotation: new GeometryRotation(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger),
-                  geometrypaths: new ObservableCollection<ListBoxFileName>(),
-                  geometryfx : new GeometryFX(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger),
-
-                  translateAmount: 0.0,
-                  scaleAmount: 0.0,
-                  rotationAmount: 0.0,
-                  is3D: false,    
-                  keepAspectRatio: false,
-
-                  messageEnabled: true
-                  )
+        public Geometry(string layername, IMessenger messenger, ActionManager actionmanager)
+            : this
+            (
+                actionmanager: actionmanager,
+                messenger: messenger,
+                messageaddress: String.Format("{0}/{1}/", layername, nameof(Geometry)),
+                count: 1,
+                geometrytranslate: new GeometryTranslate(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
+                geometryscale: new GeometryScale(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
+                geometryrotation: new GeometryRotation(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
+                geometrypaths: new ObservableCollection<ListBoxFileName>(),
+                geometryfx : new GeometryFX(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
+                translateAmount: 0.0,
+                scaleAmount: 0.0,
+                rotationAmount: 0.0,
+                is3D: false,    
+                keepAspectRatio: false,
+                messageEnabled: true
+            )
         {
             GeometryPaths = new ObservableCollection<ListBoxFileName>();
             GeometryPaths.CollectionChanged += ContentCollectionChanged;
         }
 
-        public Geometry(
-            int count,
-            IEnumerable<ListBoxFileName> geometrypaths,
-            GeometryTranslate geometrytranslate,
-            GeometryScale geometryscale,
-            GeometryRotation geometryrotation,
-
-            GeometryFX geometryfx,
-
-            double translateAmount,
-            double scaleAmount,
-            double rotationAmount,
-            bool is3D,
-            bool keepAspectRatio,
-
-            IMessenger messenger,
-            string messageaddress,
-            bool messageEnabled
+        public Geometry
+            (
+                ActionManager actionmanager,
+                int count,
+                IEnumerable<ListBoxFileName> geometrypaths,
+                GeometryTranslate geometrytranslate,
+                GeometryScale geometryscale,
+                GeometryRotation geometryrotation,
+                GeometryFX geometryfx,
+                double translateAmount,
+                double scaleAmount,
+                double rotationAmount,
+                bool is3D,
+                bool keepAspectRatio,
+                IMessenger messenger,
+                string messageaddress,
+                bool messageEnabled
             )
+            : base (actionmanager)
         {
             if (geometrypaths == null)
             {
@@ -67,24 +67,18 @@ namespace CMiX.ViewModels
             Count = count;
             GeometryPaths = new ObservableCollection<ListBoxFileName>() ;
             GeometryPaths.CollectionChanged += ContentCollectionChanged;
-
             GeometryTranslate = geometrytranslate ?? throw new ArgumentNullException(nameof(geometryrotation));
             GeometryRotation = geometryrotation ?? throw new ArgumentNullException(nameof(geometryrotation));
             GeometryScale = geometryscale ?? throw new ArgumentNullException(nameof(geometryscale));
-
             GeometryFX = geometryfx;
-
             TranslateAmount = translateAmount;
             RotationAmount = rotationAmount;
             ScaleAmount = scaleAmount;
-
             Is3D = is3D;
             KeepAspectRatio = keepAspectRatio;
-
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
             MessageEnabled = messageEnabled;
-
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());

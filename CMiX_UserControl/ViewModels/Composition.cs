@@ -1,13 +1,14 @@
-﻿using CMiX.Services;
-using CMiX.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Collections.Specialized;
 using System.Windows;
-using Newtonsoft.Json;
 using System.IO;
+using CMiX.Services;
+using CMiX.Models;
+using Newtonsoft.Json;
+using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
 {
@@ -15,35 +16,34 @@ namespace CMiX.ViewModels
     {
         #region CONSTRUCTORS
         public Composition()
+            : base (new ActionManager())
         {
             Name = string.Empty;
             Messenger = new OSCMessenger(new SharpOSC.UDPSender("127.0.0.1", 55555));
             MessageEnabled = true;
             MessageAddress = String.Empty;
-
-            MasterBeat = new MasterBeat(Messenger);
-            Camera = new Camera(Messenger, MasterBeat);
+            MasterBeat = new MasterBeat(Messenger, this.ActionManager);
+            Camera = new Camera(Messenger, MasterBeat, this.ActionManager);
             AddLayerCommand = new RelayCommand(p => AddLayer());
             RemoveLayerCommand = new RelayCommand(p => RemoveLayer());
-
             CopyLayerCommand = new RelayCommand(p => CopyLayer());
             PasteLayerCommand = new RelayCommand(p => PasteLayer());
-
             SaveCompositionCommand = new RelayCommand(p => Save());
             OpenCompositionCommand = new RelayCommand(p => Open());
-
+            UndoCommand = new RelayCommand(p => Undo());
+            RedoCommand = new RelayCommand(p => Redo());
             LayerNames = new List<string>();
-            Layers = new ObservableCollection<Layer> ();
+            Layers = new ObservableCollection<Layer>();
             Layers.CollectionChanged += ContentCollectionChanged;
         }
 
-        public Composition(string name, Camera camera, MasterBeat masterBeat, IEnumerable<Layer> layers)
+        public Composition(string name, Camera camera, MasterBeat masterBeat, IEnumerable<Layer> layers, ActionManager actionManager)
+            : base(new ActionManager())
         {
             if (layers == null)
             {
                 throw new ArgumentNullException(nameof(layers));
             }
-
             Messenger = new OSCMessenger(new SharpOSC.UDPSender("127.0.0.1", 55555));
             MessageEnabled = true;
             MessageAddress = String.Empty;
@@ -56,6 +56,7 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
+
         private int layerID = -1;
         private int layerNameID = -1;
 
@@ -76,20 +77,14 @@ namespace CMiX.ViewModels
         public string IP
         {
             get => _IP;
-            set
-            {
-                SetAndNotify(ref _IP, value);
-            }
+            set => SetAndNotify(ref _IP, value);
         }
 
         private string _port = "55555";
         public string Port
         {
             get => _port;
-            set
-            {
-                SetAndNotify(ref _port, value);
-            }
+            set => SetAndNotify(ref _port, value);
         }
 
         private List<string> _layernames;
@@ -121,7 +116,22 @@ namespace CMiX.ViewModels
         public ICommand PasteLayerCommand { get; }
         public ICommand SaveCompositionCommand { get; }
         public ICommand OpenCompositionCommand { get; }
+
+        public ICommand UndoCommand { get; }
+        public ICommand RedoCommand { get; }
         #endregion
+
+        void Undo()
+        {
+            ActionManager.Undo();
+            Console.WriteLine("Undo");
+        }
+
+        void Redo()
+        {
+            ActionManager.Redo();
+            Console.WriteLine("Redo");
+        }
 
         #region NOTIFYCOLLECTIONCHANGED
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -170,7 +180,7 @@ namespace CMiX.ViewModels
             foreach (LayerDTO layerdto in compositiondto.LayersDTO)
             {
                 layerID += 1;
-                Layer layer = new Layer(MasterBeat, "/Layer" + layerID.ToString(), Messenger, 0);
+                Layer layer = new Layer(MasterBeat, "/Layer" + layerID.ToString(), Messenger, 0, this.ActionManager);
                 layer.Paste(layerdto);
                 Layers.Add(layer);
             }
@@ -191,7 +201,7 @@ namespace CMiX.ViewModels
             Layers.Clear();
             foreach (LayerDTO layerdto in compositiondto.LayersDTO)
             {
-                Layer layer = new Layer(MasterBeat, layerdto.LayerName, Messenger, layerdto.Index);
+                Layer layer = new Layer(MasterBeat, layerdto.LayerName, Messenger, layerdto.Index, this.ActionManager);
                 layer.Load(layerdto);
                 Layers.Add(layer);
             }
@@ -304,7 +314,7 @@ namespace CMiX.ViewModels
             layerID += 1;
             layerNameID += 1;
 
-            Layer layer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messenger, layerNameID);
+            Layer layer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messenger, layerNameID, ActionManager);
             layer.Index = layerID;
 
             Layers.Add(layer);

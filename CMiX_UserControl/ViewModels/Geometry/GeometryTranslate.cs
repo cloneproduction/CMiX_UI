@@ -1,28 +1,33 @@
 ﻿using System;
 using CMiX.Services;
 using CMiX.Models;
+using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
 {
     public class GeometryTranslate : ViewModel, IMessengerData
     {
-        public GeometryTranslate(string layername, IMessenger messenger)
-            : this(
-                  messageaddress: layername + "/",
-                  messenger: messenger,
-                  messageEnabled : true,
-                  translateMode: default
-                  )
+        public GeometryTranslate(string layername, IMessenger messenger, ActionManager actionmanager)
+            : this
+            (
+                actionmanager: actionmanager,
+                messageaddress: layername + "/",
+                messenger: messenger,
+                messageEnabled : true,
+                translateMode: default
+            )
         {
         }
 
         public GeometryTranslate
             (
+                ActionManager actionmanager,
                 string messageaddress,
                 bool messageEnabled,
                 IMessenger messenger,
                 GeometryTranslateMode translateMode
             )
+            : base (actionmanager)
         {
             MessageAddress = messageaddress;
             MessageEnabled = messageEnabled;
@@ -56,9 +61,7 @@ namespace CMiX.ViewModels
         public void Paste(GeometryTranslateDTO geometrytranslatedto)
         {
             MessageEnabled = false;
-
             TranslateMode = geometrytranslatedto.TranslateModeDTO;
-
             MessageEnabled = true;
         }
     }

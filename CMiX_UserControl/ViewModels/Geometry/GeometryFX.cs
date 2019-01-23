@@ -1,34 +1,39 @@
 ﻿using CMiX.Models;
 using CMiX.Services;
+using GuiLabs.Undo;
 using System;
 
 namespace CMiX.ViewModels
 {
     public class GeometryFX : ViewModel, IMessengerData
     {
-        public GeometryFX(string layername, IMessenger messenger)
-            : this(
-                  amount: 0.0,
-                  messageaddress: String.Format("{0}/{1}/", layername, nameof(GeometryFX)),
-                  messenger: messenger,
-                  messageEnabled: true)
+        public GeometryFX(string layername, IMessenger messenger, ActionManager actionmanager)
+            : this
+            (
+                actionmanager: actionmanager,
+                amount: 0.0,
+                messageaddress: String.Format("{0}/{1}/", layername, nameof(GeometryFX)),
+                messenger: messenger,
+                messageEnabled: true
+            )
         { }
 
-        public GeometryFX(
-            double amount,
-            IMessenger messenger,
-            string messageaddress,
-            bool messageEnabled
+        public GeometryFX
+            (
+                ActionManager actionmanager,
+                double amount,
+                IMessenger messenger,
+                string messageaddress,
+                bool messageEnabled
             )
+            : base (actionmanager)
         {
             AssertNotNegative(() => amount);
-
             Amount = amount;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
             MessageEnabled = messageEnabled;
         }
-
 
         public string MessageAddress { get; set; }
 
@@ -57,9 +62,7 @@ namespace CMiX.ViewModels
         public void Paste(GeometryFXDTO geometryFXdto)
         {
             MessageEnabled = false;
-
             Amount = geometryFXdto.Amount;
-
             MessageEnabled = true;
         }
     }

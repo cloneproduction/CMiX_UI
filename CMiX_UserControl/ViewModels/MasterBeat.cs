@@ -1,23 +1,31 @@
-﻿using CMiX.Services;
-using CMiX.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
-using System.Diagnostics;
+using CMiX.Services;
+using CMiX.Models;
+using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
 {
     public class MasterBeat : Beat, IMessengerData
     {
-        public MasterBeat(IMessenger messenger)
+        public MasterBeat(IMessenger messenger, ActionManager actionmanager)
             : this(
+                  actionmanager: actionmanager,
                   messenger: messenger,
                   period: 0.0,
                   multiplier: 1)
         { }
 
-        public MasterBeat(IMessenger messenger, double period, int multiplier)
+        public MasterBeat
+            (
+                IMessenger messenger, 
+                double period, 
+                int multiplier, 
+                ActionManager actionmanager
+            ) 
+            : base (actionmanager)
         {
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             Period = period;
@@ -53,7 +61,6 @@ namespace CMiX.ViewModels
         public string MessageAddress { get; set; }
         public bool MessageEnabled { get; set; }
 
-
         private readonly List<double> tapPeriods;
         private readonly List<double> tapTime;
 
@@ -83,9 +90,7 @@ namespace CMiX.ViewModels
             double ms = CurrentTime;
 
             if (tapTime.Count > 1 && ms - tapTime[tapTime.Count - 1] > 5000)
-            {
                 tapTime.Clear();
-            }
 
             tapTime.Add(ms);
 
@@ -113,10 +118,8 @@ namespace CMiX.ViewModels
         public void Paste(MasterBeatDTO masterbeatdto)
         {
             MessageEnabled = false;
-
             MessageAddress = masterbeatdto.MessageAddress;
             Period = masterbeatdto.Period;
-
             MessageEnabled = true;
         }
     }

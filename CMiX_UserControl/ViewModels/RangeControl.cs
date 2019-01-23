@@ -1,35 +1,37 @@
 ﻿using System;
 using CMiX.Services;
 using CMiX.Models;
+using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
 {
     public class RangeControl : ViewModel, IMessengerData
     {
-        public RangeControl(IMessenger messenger, string layername)
+        public RangeControl(IMessenger messenger, string layername, ActionManager actionmanager)
             : this(
-                  range: 0.0,
-                  modifier: ((RangeModifier)0).ToString(),
-
-                  messenger: messenger,
-                  messageaddress: String.Format("{0}/", layername),
-                  messageEnabled: true
+                    actionmanager: actionmanager,
+                    range: 0.0,
+                    modifier: ((RangeModifier)0).ToString(),
+                    messenger: messenger,
+                    messageaddress: String.Format("{0}/", layername),
+                    messageEnabled: true
                   )
         { }
 
-        public RangeControl(
-            double range,
-            string modifier,
-
-            IMessenger messenger,
-            string messageaddress,
-            bool messageEnabled)
+        public RangeControl
+            (
+                ActionManager actionmanager,
+                double range,
+                string modifier,
+                IMessenger messenger,
+                string messageaddress,
+                bool messageEnabled
+            )
+            : base(actionmanager)
         {
             AssertNotNegative(() => range);
-
             Range = range;
             Modifier = modifier;
-
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
             MessageEnabled = messageEnabled;
@@ -76,10 +78,8 @@ namespace CMiX.ViewModels
         public void Paste(RangeControlDTO rangecontroldto)
         {
             MessageEnabled = false;
-
             Range = rangecontroldto.Range;
             Modifier = rangecontroldto.Modifier;
-
             MessageEnabled = true;
         }
     }

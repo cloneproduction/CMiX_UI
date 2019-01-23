@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GuiLabs.Undo;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace CMiX.ViewModels
 {
     public class GeometrySelector : ViewModel
     {
-        public GeometrySelector()
+        public GeometrySelector(ActionManager actionmanager) : base (actionmanager)
         {
 
         }

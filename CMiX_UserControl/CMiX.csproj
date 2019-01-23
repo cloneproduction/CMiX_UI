@@ -131,6 +131,7 @@
     <Compile Include="Models\TextureDTO.cs" />
     <Compile Include="Services\OSCAttribute.cs" />
     <Compile Include="Services\IMessengerData.cs" />
+    <Compile Include="Services\SetAndNotifyPropertyAction.cs" />
     <Compile Include="ViewModels\Geometry\GeometryFileMask.cs" />
     <Compile Include="ViewModels\Geometry\GeometryFX.cs" />
     <Compile Include="ViewModels\Geometry\GeometryRotation.cs" />

@@ -3,33 +3,41 @@ using CMiX.Services;
 using CMiX.Models;
 using System.Windows;
 using System.Windows.Input;
+using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
 {
     public class Mask : ViewModel, IMessengerData
     {
         #region CONSTRUCTORS
-        public Mask(Beat masterbeat, string layername, IMessenger messenger)
-            : this(
+        public Mask(Beat masterbeat, string layername, IMessenger messenger, ActionManager actionmanager)
+            : this
+            (
+                actionmanager : actionmanager,
                 messenger: messenger,
                 messageaddress: String.Format("{0}/{1}/", layername, nameof(Mask)),
                 messageEnabled : true,
                 enable: false,
-                beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Mask)), messenger, masterbeat),
-                geometry: new Geometry(String.Format("{0}/{1}", layername, nameof(Mask)), messenger),
-                texture: new Texture(String.Format("{0}/{1}", layername, nameof(Mask)), messenger),
-                postFX: new PostFX(String.Format("{0}/{1}", layername, nameof(Mask)), messenger))
+                beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Mask)), messenger, masterbeat, actionmanager),
+                geometry: new Geometry(String.Format("{0}/{1}", layername, nameof(Mask)), messenger, actionmanager),
+                texture: new Texture(String.Format("{0}/{1}", layername, nameof(Mask)), messenger, actionmanager),
+                postFX: new PostFX(String.Format("{0}/{1}", layername, nameof(Mask)), messenger, actionmanager)
+            )
         {}
 
-        public Mask(
-            IMessenger messenger,
-            string messageaddress,
-            bool messageEnabled,
-            bool enable, 
-            BeatModifier beatModifier, 
-            Geometry geometry, 
-            Texture texture, 
-            PostFX postFX)
+        public Mask
+            (
+                IMessenger messenger,
+                string messageaddress,
+                bool messageEnabled,
+                bool enable, 
+                BeatModifier beatModifier, 
+                Geometry geometry, 
+                Texture texture, 
+                PostFX postFX,
+                ActionManager actionmanager
+            )
+            : base (actionmanager)
         {
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             Enable = enable;
@@ -39,7 +47,6 @@ namespace CMiX.ViewModels
             Geometry = geometry ?? throw new ArgumentNullException(nameof(geometry));
             Texture = texture ?? throw new ArgumentNullException(nameof(texture));
             PostFX = postFX ?? throw new ArgumentNullException(nameof(postFX));
-
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
@@ -97,7 +104,6 @@ namespace CMiX.ViewModels
         {
             maskdto.Enable = Enable;
             maskdto.KeepOriginal = KeepOriginal;
-
             BeatModifier.Copy(maskdto.BeatModifierDTO);
             Texture.Copy(maskdto.TextureDTO);
             Geometry.Copy(maskdto.GeometryDTO);
@@ -107,15 +113,12 @@ namespace CMiX.ViewModels
         public void Paste(MaskDTO maskdto)
         {
             MessageEnabled = false;
-
             Enable = maskdto.Enable;
             KeepOriginal = maskdto.KeepOriginal;
-
             BeatModifier.Paste(maskdto.BeatModifierDTO);
             Texture.Paste(maskdto.TextureDTO);
             Geometry.Paste(maskdto.GeometryDTO);
             PostFX.Paste(maskdto.PostFXDTO);
-
             MessageEnabled = true;
         }
 
@@ -135,7 +138,6 @@ namespace CMiX.ViewModels
             {
                 var maskdto = (MaskDTO)data.GetData("Mask") as MaskDTO;
                 this.Paste(maskdto);
-
                 Messenger.QueueObject(this);
                 Messenger.SendQueue();
             }

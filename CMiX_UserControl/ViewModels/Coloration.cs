@@ -4,57 +4,60 @@ using CMiX.Services;
 using CMiX.Models;
 using System.Windows.Input;
 using System.Windows;
+using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
 {
     [Serializable]
     public class Coloration : ViewModel, IMessengerData
     {
-        public Coloration(Beat masterbeat, string layername, IMessenger messenger)
-            : this(
-                  messenger: messenger,
-                  messageaddress: String.Format("{0}/{1}/", layername, nameof(Coloration)),
-
-                  beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Coloration)), messenger, masterbeat),
-                  objColor: Colors.BlueViolet,
-                  bgColor: Colors.Black,
-                  backgroundColor: Colors.Black,
-                  hue: new RangeControl(messenger, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Hue)),
-                  saturation: new RangeControl(messenger, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Saturation)),
-                  value: new RangeControl(messenger, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Value)),
-                  messageEnabled: true
-                  )
+        public Coloration(Beat masterbeat, string layername, IMessenger messenger, ActionManager actionmanager)
+            : this
+            (
+                actionmanager: actionmanager,
+                messenger: messenger,
+                messageaddress: String.Format("{0}/{1}/", layername, nameof(Coloration)),
+                objColor: Colors.BlueViolet,
+                bgColor: Colors.Black,
+                backgroundColor: Colors.Black,
+                beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Coloration)), messenger, masterbeat, actionmanager),
+                hue: new RangeControl(messenger, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Hue), actionmanager),
+                saturation: new RangeControl(messenger, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Saturation), actionmanager),
+                value: new RangeControl(messenger, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Value), actionmanager),
+                messageEnabled: true
+            )
         { }
 
-        public Coloration(
-            IMessenger messenger,
-            string messageaddress,
-
-            BeatModifier beatModifier, 
-            Color objColor,
-            Color bgColor,
-            Color backgroundColor,
-            RangeControl hue,
-            RangeControl saturation,
-            RangeControl value,
-            bool messageEnabled)
+        public Coloration
+            (
+                ActionManager actionmanager,
+                IMessenger messenger,
+                string messageaddress,
+                BeatModifier beatModifier, 
+                Color objColor,
+                Color bgColor,
+                Color backgroundColor,
+                RangeControl hue,
+                RangeControl saturation,
+                RangeControl value,
+                bool messageEnabled
+            )
+            : base (actionmanager)
         {
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
-
+            MessageEnabled = messageEnabled;
             BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
             ObjColor = objColor;
             BgColor = bgColor;
             Hue = hue ?? throw new ArgumentNullException(nameof(hue));
             Saturation = saturation ?? throw new ArgumentNullException(nameof(saturation));
             Value = value ?? throw new ArgumentNullException(nameof(value));
-
-            MessageEnabled = messageEnabled;
-
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
         }
+
         private IMessenger Messenger { get; }
 
         public ICommand CopySelfCommand { get; }
@@ -72,7 +75,8 @@ namespace CMiX.ViewModels
             get => _objColor;
             set
             {
-                SetAndNotify(ref _objColor, value);
+                SetAndRecord(() => _objColor, value);
+                //SetAndNotify(ref _objColor, value);
                 if(MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(ObjColor), ObjColor);
             }
@@ -103,7 +107,6 @@ namespace CMiX.ViewModels
         {
             colorationdto.ObjColor = Utils.ColorToHexString(ObjColor);
             colorationdto.BgColor = Utils.ColorToHexString(BgColor);
-
             BeatModifier.Copy(colorationdto.BeatModifierDTO);
             Hue.Copy(colorationdto.HueDTO);
             Saturation.Copy(colorationdto.SatDTO);
@@ -113,15 +116,12 @@ namespace CMiX.ViewModels
         public void Paste(ColorationDTO colorationdto)
         {
             MessageEnabled = false;
-
             ObjColor = Utils.HexStringToColor(colorationdto.ObjColor);
             BgColor = Utils.HexStringToColor(colorationdto.BgColor);
-
             BeatModifier.Paste(colorationdto.BeatModifierDTO);
             Hue.Paste(colorationdto.HueDTO);
             Saturation.Paste(colorationdto.SatDTO);
             Value.Paste(colorationdto.ValDTO);
-
             MessageEnabled = true;
         }
 

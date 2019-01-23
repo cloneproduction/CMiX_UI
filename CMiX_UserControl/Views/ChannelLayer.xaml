@@ -28,7 +28,9 @@
         Style="{StaticResource BorderContainer}">
         <Border.ContextMenu>
             <ContextMenu>
-                <Button Style="{StaticResource ButtonBase}" Content="Delete Layer"/>
+                <Button 
+                    Style="{StaticResource ButtonBase}" 
+                    Content="Delete Layer"/>
             </ContextMenu>
         </Border.ContextMenu>
         <Grid>
@@ -47,7 +49,9 @@
                     <SolidColorBrush Color="{Binding Coloration.ObjColor}"/>
                 </RadioButton.Background>
             </RadioButton>
-            <StackPanel Grid.Column="1" Margin="4, 0, 0, 0">
+            <StackPanel 
+                Grid.Column="1" 
+                Margin="4, 0, 0, 0">
                 <Views:BeatModifier
                     DataContext="{Binding BeatModifier}"/>
                 <DockPanel>

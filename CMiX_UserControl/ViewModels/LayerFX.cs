@@ -1,28 +1,35 @@
 ﻿using CMiX.Models;
 using CMiX.Services;
 using System;
+using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
 {
     public class LayerFX : ViewModel, IMessengerData
     {
         #region CONSTRUCTORS
-        public LayerFX(Beat masterbeat, string layername, IMessenger messenger)
-            : this(
-                  feedback: 0.0,
-                  blur: 0.0,
-                  messenger: messenger,
-                  messageaddress: String.Format("{0}/{1}/", layername, nameof(LayerFX)),
-                  messageEnabled: true
-                  )
+        public LayerFX(Beat masterbeat, string layername, IMessenger messenger, ActionManager actionmanager)
+            : this
+            (
+                actionmanager: actionmanager,
+                feedback: 0.0,
+                blur: 0.0,
+                messenger: messenger,
+                messageaddress: String.Format("{0}/{1}/", layername, nameof(LayerFX)),
+                messageEnabled: true
+            )
         { }
 
-        public LayerFX(
-            IMessenger messenger,
-            double feedback,
-            double blur,
-            string messageaddress,
-            bool messageEnabled)
+        public LayerFX
+            (
+                IMessenger messenger,
+                double feedback,
+                double blur,
+                string messageaddress,
+                bool messageEnabled,
+                ActionManager actionmanager
+            )
+            : base (actionmanager)
         {
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             Feedback = feedback;
