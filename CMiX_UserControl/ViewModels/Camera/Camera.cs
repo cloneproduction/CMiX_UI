@@ -19,8 +19,8 @@ namespace CMiX.ViewModels
                 lookAt: ((CameraLookAt)0).ToString(),
                 view: ((CameraView)0).ToString(),
                 beatModifier: new BeatModifier("/Camera", messenger, masterBeat, actionmanager),
-                fov: 0.2,
-                zoom: 1.0
+                fov: new Slider(String.Format("/{0}/{1}", "Camera", "FOV"), messenger, actionmanager),
+                zoom: new Slider(String.Format("/{0}/{1}", "Camera", "Zoom"), messenger, actionmanager)
             )
         {
         }
@@ -32,8 +32,8 @@ namespace CMiX.ViewModels
                 string lookAt,
                 string view,
                 BeatModifier beatModifier,
-                double fov,
-                double zoom,
+                Slider fov,
+                Slider zoom,
                 IMessenger messenger,
                 string messageaddress,
                 bool messageEnabled
@@ -60,6 +60,10 @@ namespace CMiX.ViewModels
         public bool MessageEnabled { get; set; }
 
         public BeatModifier BeatModifier { get; }
+
+        public Slider FOV { get; }
+
+        public Slider Zoom { get; }
 
         private string _rotation;
         [OSC]
@@ -99,32 +103,6 @@ namespace CMiX.ViewModels
                     Messenger.SendMessage(MessageAddress + nameof(View), View);
             }
         }
-
-        private double _FOV;
-        [OSC]
-        public double FOV
-        {
-            get => _FOV;
-            set
-            {
-                SetAndNotify(ref _FOV, value);
-                if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(FOV), FOV);
-            }
-        }
-
-        private double _zoom;
-        [OSC]
-        public double Zoom
-        {
-            get => _zoom;
-            set
-            {
-                SetAndNotify(ref _zoom, value);
-                if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(Zoom), Zoom);
-            }
-        }
         #endregion
 
         #region COPY/PASTE
@@ -136,8 +114,8 @@ namespace CMiX.ViewModels
 
             BeatModifier.Copy(cameradto.BeatModifierDTO);
 
-            cameradto.FOV = FOV;
-            cameradto.Zoom = Zoom;
+            //cameradto.FOV = FOV;
+            //cameradto.Zoom = Zoom;
         }
 
         public void Paste(CameraDTO cameradto)
@@ -150,8 +128,8 @@ namespace CMiX.ViewModels
 
             BeatModifier.Paste(cameradto.BeatModifierDTO);
 
-            FOV = cameradto.FOV;
-            Zoom = cameradto.Zoom;
+            //FOV = cameradto.FOV;
+            //Zoom = cameradto.Zoom;
 
             MessageEnabled = true;
         }

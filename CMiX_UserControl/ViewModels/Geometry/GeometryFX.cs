@@ -11,7 +11,7 @@ namespace CMiX.ViewModels
             : this
             (
                 actionmanager: actionmanager,
-                amount: 0.0,
+                Explode: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(GeometryFX), "Explode"), messenger, actionmanager),
                 messageaddress: String.Format("{0}/{1}/", layername, nameof(GeometryFX)),
                 messenger: messenger,
                 messageEnabled: true
@@ -21,15 +21,14 @@ namespace CMiX.ViewModels
         public GeometryFX
             (
                 ActionManager actionmanager,
-                double amount,
+                Slider Explode,
                 IMessenger messenger,
                 string messageaddress,
                 bool messageEnabled
             )
             : base (actionmanager)
         {
-            AssertNotNegative(() => amount);
-            Amount = amount;
+
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
             MessageEnabled = messageEnabled;
@@ -41,28 +40,17 @@ namespace CMiX.ViewModels
 
         public IMessenger Messenger { get; }
 
-        private double _Amount;
-        [OSC]
-        public double Amount
-        {
-            get => _Amount;
-            set
-            {
-                SetAndNotify(ref _Amount, CoerceNotNegative(value));
-                if (MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(Amount), Amount);
-            }
-        }
+        public Slider Explode { get; }
 
         public void Copy(GeometryFXDTO geometryFXdto)
         {
-            geometryFXdto.Amount = Amount;
+            //geometryFXdto.Amount = Amount;
         }
 
         public void Paste(GeometryFXDTO geometryFXdto)
         {
             MessageEnabled = false;
-            Amount = geometryFXdto.Amount;
+            //Amount = geometryFXdto.Amount;
             MessageEnabled = true;
         }
     }

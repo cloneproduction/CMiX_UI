@@ -5,6 +5,7 @@
     xmlns:CMiX="clr-namespace:CMiX"
     xmlns:Controls="clr-namespace:CMiX.Controls"
     xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
+    xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -68,17 +69,17 @@
             </Border>
             <Border DockPanel.Dock="Bottom">
                 <StackPanel x:Name="TexFXControl">
-                    <Controls:CustomSlider
+                    <Views:Slider
                         Height="20"
                         Margin="0,2,0,1"
                         Caption="Feedback"
-                        Value="{Binding Feedback, Mode=TwoWay}"
+                        DataContext="{Binding Feedback}"
                         />
-                    <Controls:CustomSlider
+                    <Views:Slider
                         Height="20"
                         Margin="0,1,0,1"
                         Caption="Blur"
-                        Value="{Binding Blur, Mode=TwoWay}"
+                        DataContext="{Binding Blur}"
                         />
                     <Grid DockPanel.Dock="Bottom"
                           Margin="0, 2, 0, 0">

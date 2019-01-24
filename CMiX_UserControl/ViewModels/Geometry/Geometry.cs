@@ -27,9 +27,9 @@ namespace CMiX.ViewModels
                 geometryrotation: new GeometryRotation(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
                 geometrypaths: new ObservableCollection<ListBoxFileName>(),
                 geometryfx : new GeometryFX(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
-                translateAmount: 0.0,
-                scaleAmount: 0.0,
-                rotationAmount: 0.0,
+                translateAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "TranslateAmount"), messenger, actionmanager),
+                scaleAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "ScaleAmount"), messenger, actionmanager),
+                rotationAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "ScaleAmount"), messenger, actionmanager),
                 is3D: false,    
                 keepAspectRatio: false,
                 messageEnabled: true
@@ -48,9 +48,9 @@ namespace CMiX.ViewModels
                 GeometryScale geometryscale,
                 GeometryRotation geometryrotation,
                 GeometryFX geometryfx,
-                double translateAmount,
-                double scaleAmount,
-                double rotationAmount,
+                Slider translateAmount,
+                Slider scaleAmount,
+                Slider rotationAmount,
                 bool is3D,
                 bool keepAspectRatio,
                 IMessenger messenger,
@@ -99,10 +99,13 @@ namespace CMiX.ViewModels
         public GeometryFX GeometryFX { get; }
 
         public GeometryTranslate GeometryTranslate { get; }
+        public Slider TranslateAmount { get; }
 
         public GeometryRotation GeometryRotation { get; }
+        public Slider RotationAmount { get; }
 
         public GeometryScale GeometryScale { get; }
+        public Slider ScaleAmount { get; }
 
         [OSC]
         public ObservableCollection<ListBoxFileName> GeometryPaths { get; set; }
@@ -117,45 +120,6 @@ namespace CMiX.ViewModels
                 SetAndNotify(ref _count, value);
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Count), Count);
-            }
-        }
-
-        private double _translateAmount;
-        [OSC]
-        public double TranslateAmount
-        {
-            get => _translateAmount;
-            set
-            {
-                SetAndNotify(ref _translateAmount, value);
-                if (MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(TranslateAmount), TranslateAmount);
-            }
-        }
-
-        private double _scaleAmount;
-        [OSC]
-        public double ScaleAmount
-        {
-            get => _scaleAmount;
-            set
-            {
-                SetAndNotify(ref _scaleAmount, value);
-                if (MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(ScaleAmount), ScaleAmount);
-            }
-        }
-
-        private double _rotationAmount;
-        [OSC]
-        public double RotationAmount
-        {
-            get => _rotationAmount;
-            set
-            {
-                SetAndNotify(ref _rotationAmount, value);
-                if (MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(RotationAmount), RotationAmount);
             }
         }
 
@@ -243,7 +207,7 @@ namespace CMiX.ViewModels
                 geometrydto.GeometryPaths.Add(lbfn);
             }
 
-            geometrydto.TranslateAmount = TranslateAmount;
+            //geometrydto.TranslateAmount = TranslateAmount;
 
             GeometryTranslate.Copy(geometrydto.GeometryTranslate);
             GeometryScale.Copy(geometrydto.GeometryScale);
@@ -251,8 +215,8 @@ namespace CMiX.ViewModels
 
             GeometryFX.Copy(geometrydto.GeometryFX);
 
-            geometrydto.ScaleAmount = ScaleAmount;
-            geometrydto.RotationAmount = RotationAmount;
+            //geometrydto.ScaleAmount = ScaleAmount;
+            //geometrydto.RotationAmount = RotationAmount;
             geometrydto.Is3D = Is3D;
             geometrydto.KeepAspectRatio = KeepAspectRatio;
         }
@@ -269,9 +233,9 @@ namespace CMiX.ViewModels
                 GeometryPaths.Add(lbfn);
             }
 
-            TranslateAmount = geometrydto.TranslateAmount;
-            ScaleAmount = geometrydto.ScaleAmount;
-            RotationAmount = geometrydto.RotationAmount;
+            //TranslateAmount = geometrydto.TranslateAmount;
+            //ScaleAmount = geometrydto.ScaleAmount;
+            //RotationAmount = geometrydto.RotationAmount;
 
             GeometryTranslate.Paste(geometrydto.GeometryTranslate);
             GeometryScale.Paste(geometrydto.GeometryScale);

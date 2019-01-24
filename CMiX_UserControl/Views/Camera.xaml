@@ -93,19 +93,17 @@
                 Margin="4, 0, 0, 0"
                 Style="{StaticResource BorderContainer}">
                 <StackPanel>
-                    <Controls:CustomSlider
+                    <Views:Slider
                         Margin="0, 0, 0, 1"
                         Caption="FOV"
                         DockPanel.Dock="Top"
-                        Tag="CamFOV"
-                        Value="{Binding FOV, Mode=TwoWay}" 
+                        DataContext="{Binding FOV}" 
                         />
-                    <Controls:CustomSlider
+                    <Views:Slider
                         Margin="0, 1, 0, 0"
                         Caption="Zoom"
                         DockPanel.Dock="Top"
-                        Tag="CamZoom"
-                        Value="{Binding Zoom, Mode=TwoWay}" 
+                        DataContext="{Binding Zoom}" 
                         />
                 </StackPanel>
             </Border>

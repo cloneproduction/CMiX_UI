@@ -73,11 +73,11 @@
                         ModeSelection="Extended"
                         Items="{Binding TexturePaths}"
                         />
-                    <Controls:CustomSlider
+                    <Views:Slider
                         Margin="0, 1, 0, 1"
                         Caption="Keying"
                         DockPanel.Dock="Bottom"
-                        Value="{Binding Keying, Mode=TwoWay}"
+                        DataContext="{Binding Keying}"
                         />
                     <Border 
                         DockPanel.Dock="Bottom"
@@ -95,17 +95,17 @@
                                     </Image>
                                 </TabItem.Header>
                                 <StackPanel>
-                                    <Controls:CMiXSliderCentered
+                                    <Views:Slider
                                         Margin="0, 1, 0, 1"
                                         Caption="Brightness"
                                         DockPanel.Dock="Bottom"
-                                        Value="{Binding Brightness, Mode=TwoWay}"
+                                        DataContext="{Binding Brightness}"
                                         />
-                                    <Controls:CMiXSliderCentered
+                                    <Views:Slider
                                         Margin="0, 1, 0, 1"
                                         Caption="Contrast"
                                         DockPanel.Dock="Bottom"
-                                        Value="{Binding Contrast, Mode=TwoWay}"
+                                        DataContext="{Binding Contrast}"
                                         />
                                     <Grid
                                         Height="20"
@@ -124,13 +124,12 @@
                                             ItemContainerStyle="{StaticResource BaseListBoxItemStyle}"
                                             Style="{StaticResource ComboBoxBase}" 
                                             />
-                                        <Controls:CustomSlider
+                                        <Views:Slider
                                             Grid.Column="0"
                                             Caption="Invert"
-                                            Value="{Binding Invert, Mode=TwoWay}"
+                                            DataContext="{Binding Invert}"
                                             />
                                     </Grid>
-                                    <Views:Slider DataContext="{Binding Slider}" Caption="Brightness"/>
                                 </StackPanel>
                             </TabItem>
                             <TabItem Style="{StaticResource TabItemBase}">
@@ -142,23 +141,23 @@
                                     </Image>
                                 </TabItem.Header>
                                 <StackPanel Margin="0, 2, 0, 0">
-                                    <Controls:CMiXSliderCentered
+                                    <Views:Slider
                                         Margin="0, 1, 0, 1"
                                         Caption="Hue"
                                         DockPanel.Dock="Bottom"
-                                        Value="{Binding Hue, Mode=TwoWay}"
+                                        DataContext="{Binding Hue}"
                                         />
-                                    <Controls:CMiXSliderCentered
+                                    <Views:Slider
                                         Margin="0, 1, 0, 1"
                                         Caption="Saturation"
                                         DockPanel.Dock="Bottom"
-                                        Value="{Binding Saturation, Mode=TwoWay}"
+                                        DataContext="{Binding Saturation}"
                                         />
-                                    <Controls:CMiXSliderCentered
+                                    <Views:Slider
                                         Margin="0, 1, 0, 1"
                                         Caption="Luminosity"
                                         DockPanel.Dock="Bottom"
-                                        Value="{Binding Luminosity, Mode=TwoWay}"
+                                        DataContext="{Binding Luminosity}"
                                         />
                                 </StackPanel>
                             </TabItem>
@@ -171,29 +170,29 @@
                                     </Image>
                                 </TabItem.Header>
                                 <StackPanel>
-                                    <Controls:CMiXSliderCentered
+                                    <Views:Slider
                                         Margin="0, 1, 0, 1"
                                         Caption="Pan"
                                         DockPanel.Dock="Bottom"
-                                        Value="{Binding Pan, Mode=TwoWay}"
+                                        DataContext="{Binding Pan}"
                                         />
-                                    <Controls:CMiXSliderCentered
+                                    <Views:Slider
                                         Margin="0, 1, 0, 1"
                                         Caption="Tilt"
                                         DockPanel.Dock="Bottom"
-                                        Value="{Binding Tilt, Mode=TwoWay}"
+                                        DataContext="{Binding Tilt}"
                                         />
-                                    <Controls:CMiXSliderCentered
+                                    <Views:Slider
                                         Margin="0, 1, 0, 1"
                                         Caption="Scale"
                                         DockPanel.Dock="Bottom"
-                                        Value="{Binding Scale, Mode=TwoWay}"
+                                        DataContext="{Binding Scale}"
                                         />
-                                    <Controls:CMiXSliderCentered
+                                    <Views:Slider
                                         Margin="0, 1, 0, 1"
                                         Caption="Rotate"
                                         DockPanel.Dock="Bottom"
-                                        Value="{Binding Rotate, Mode=TwoWay}"
+                                        DataContext="{Binding Rotate}"
                                         />
                                     <Grid Margin="0, 4, 0, 0">
                                         <Grid.ColumnDefinitions>

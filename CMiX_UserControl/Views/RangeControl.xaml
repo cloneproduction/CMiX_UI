@@ -31,10 +31,10 @@
             ItemContainerStyle="{StaticResource BaseListBoxItemStyle}"
             ItemsSource="{Binding Source={StaticResource RangeModifier}}"
             Style="{StaticResource ComboBoxBase}"/>
-        <Controls:CustomSlider
-            Grid.Column="0"
+        <Views:Slider 
+            Grid.Column="0" 
             Margin="0, 0, 1, 0"
-            Caption="{Binding Name, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:RangeControl}}}"
-            Value="{Binding Range, Mode=TwoWay}" />
+            DataContext="{Binding Range}"
+            Caption="{Binding Caption, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:RangeControl}}}" />
     </Grid>
 </UserControl>

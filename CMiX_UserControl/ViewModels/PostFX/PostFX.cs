@@ -14,8 +14,8 @@ namespace CMiX.ViewModels
             : this
             (
                 actionmanager: actionmanager,
-                feedback: 0.0, 
-                blur: 0.0, 
+                feedback: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(PostFX), "Feedback"), messenger, actionmanager),
+                blur: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(PostFX), "Blur"), messenger, actionmanager),
                 transforms: ((PostFXTransforms)0).ToString(), 
                 view: ((PostFXView)0).ToString(),
                 messageaddress: String.Format("{0}/{1}/", layername, nameof(PostFX)),
@@ -27,8 +27,8 @@ namespace CMiX.ViewModels
         public PostFX
             (
                 ActionManager actionmanager,
-                double feedback, 
-                double blur,
+                Slider feedback,
+                Slider blur,
                 string transforms,
                 string view,
                 IMessenger messenger,
@@ -37,8 +37,6 @@ namespace CMiX.ViewModels
             )
             : base (actionmanager)
         {
-            AssertNotNegative(() => feedback);
-            AssertNotNegative(() => blur);
             Feedback = feedback;
             Blur = blur;
             Transforms = transforms;
@@ -63,31 +61,8 @@ namespace CMiX.ViewModels
         public ICommand PasteSelfCommand { get; }
         public ICommand ResetSelfCommand { get; }
 
-        private double _feedback;
-        [OSC]
-        public double Feedback
-        {
-            get => _feedback;
-            set
-            {
-                SetAndNotify(ref _feedback, CoerceNotNegative(value));
-                if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(Feedback), Feedback);
-            }
-        }
-
-        private double _blur;
-        [OSC]
-        public double Blur
-        {
-            get => _blur;
-            set
-            {
-                SetAndNotify(ref _blur, CoerceNotNegative(value));
-                if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(Blur), Blur);
-            }
-        }
+        public Slider Feedback { get; }
+        public Slider Blur { get; }
 
         private string _transforms;
         [OSC]
@@ -119,8 +94,8 @@ namespace CMiX.ViewModels
         #region COPY/PASTE/RESET
         public void Copy(PostFXDTO postFXdto)
         {
-            postFXdto.Feedback = Feedback;
-            postFXdto.Blur = Blur;
+            //postFXdto.Feedback = Feedback;
+            //postFXdto.Blur = Blur;
             postFXdto.Transforms = Transforms;
             postFXdto.View = View;
         }
@@ -128,8 +103,8 @@ namespace CMiX.ViewModels
         public void Paste(PostFXDTO postFXdto)
         {
             MessageEnabled = false;
-            Feedback = postFXdto.Feedback;
-            Blur = postFXdto.Blur;
+            //Feedback = postFXdto.Feedback;
+            //Blur = postFXdto.Blur;
             Transforms = postFXdto.Transforms;
             View = postFXdto.View;
             MessageEnabled = true;

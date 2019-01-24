@@ -20,10 +20,12 @@ namespace CMiX.ViewModels
                 objColor: Colors.BlueViolet,
                 bgColor: Colors.Black,
                 backgroundColor: Colors.Black,
+
                 beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Coloration)), messenger, masterbeat, actionmanager),
                 hue: new RangeControl(messenger, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Hue), actionmanager),
                 saturation: new RangeControl(messenger, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Saturation), actionmanager),
                 value: new RangeControl(messenger, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Value), actionmanager),
+
                 messageEnabled: true
             )
         { }
@@ -37,9 +39,11 @@ namespace CMiX.ViewModels
                 Color objColor,
                 Color bgColor,
                 Color backgroundColor,
+
                 RangeControl hue,
                 RangeControl saturation,
                 RangeControl value,
+
                 bool messageEnabled
             )
             : base (actionmanager)
@@ -47,12 +51,15 @@ namespace CMiX.ViewModels
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
             MessageEnabled = messageEnabled;
-            BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
+            
             ObjColor = objColor;
             BgColor = bgColor;
+
+            BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
             Hue = hue ?? throw new ArgumentNullException(nameof(hue));
             Saturation = saturation ?? throw new ArgumentNullException(nameof(saturation));
             Value = value ?? throw new ArgumentNullException(nameof(value));
+
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
@@ -108,9 +115,9 @@ namespace CMiX.ViewModels
             colorationdto.ObjColor = Utils.ColorToHexString(ObjColor);
             colorationdto.BgColor = Utils.ColorToHexString(BgColor);
             BeatModifier.Copy(colorationdto.BeatModifierDTO);
-            Hue.Copy(colorationdto.HueDTO);
-            Saturation.Copy(colorationdto.SatDTO);
-            Value.Copy(colorationdto.ValDTO);
+            //Hue.Copy(colorationdto.HueDTO);
+            //Saturation.Copy(colorationdto.SatDTO);
+            //Value.Copy(colorationdto.ValDTO);
         }
 
         public void Paste(ColorationDTO colorationdto)
@@ -119,9 +126,9 @@ namespace CMiX.ViewModels
             ObjColor = Utils.HexStringToColor(colorationdto.ObjColor);
             BgColor = Utils.HexStringToColor(colorationdto.BgColor);
             BeatModifier.Paste(colorationdto.BeatModifierDTO);
-            Hue.Paste(colorationdto.HueDTO);
-            Saturation.Paste(colorationdto.SatDTO);
-            Value.Paste(colorationdto.ValDTO);
+            //Hue.Paste(colorationdto.HueDTO);
+            //Saturation.Paste(colorationdto.SatDTO);
+            //Value.Paste(colorationdto.ValDTO);
             MessageEnabled = true;
         }
 

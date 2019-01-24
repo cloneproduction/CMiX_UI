@@ -10,7 +10,7 @@ namespace CMiX.ViewModels
         public RangeControl(IMessenger messenger, string layername, ActionManager actionmanager)
             : this(
                     actionmanager: actionmanager,
-                    range: 0.0,
+                    range: new Slider(layername, messenger, actionmanager),
                     modifier: ((RangeModifier)0).ToString(),
                     messenger: messenger,
                     messageaddress: String.Format("{0}/", layername),
@@ -21,7 +21,7 @@ namespace CMiX.ViewModels
         public RangeControl
             (
                 ActionManager actionmanager,
-                double range,
+                Slider range,
                 string modifier,
                 IMessenger messenger,
                 string messageaddress,
@@ -29,8 +29,7 @@ namespace CMiX.ViewModels
             )
             : base(actionmanager)
         {
-            AssertNotNegative(() => range);
-            Range = range;
+            Range = range ?? throw new ArgumentNullException(nameof(range));
             Modifier = modifier;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
@@ -43,18 +42,7 @@ namespace CMiX.ViewModels
 
         private IMessenger Messenger { get; }
 
-        private double _range;
-        [OSC]
-        public double Range
-        {
-            get => _range;
-            set
-            {
-                SetAndNotify(ref _range, CoerceNotNegative(value));
-                if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(Range), Range);
-            }
-        }
+        public Slider Range { get; }
 
         private string _modifier;
         [OSC]
@@ -71,14 +59,14 @@ namespace CMiX.ViewModels
 
         public void Copy(RangeControlDTO rangecontroldto)
         {
-            rangecontroldto.Range = Range;
+            //rangecontroldto.Range = Range;
             rangecontroldto.Modifier = Modifier;
         }
 
         public void Paste(RangeControlDTO rangecontroldto)
         {
             MessageEnabled = false;
-            Range = rangecontroldto.Range;
+            //Range = rangecontroldto.Range;
             Modifier = rangecontroldto.Modifier;
             MessageEnabled = true;
         }

@@ -14,20 +14,24 @@ namespace CMiX.ViewModels
         public Layer(MasterBeat masterBeat, string layername, IMessenger messenger, int index, ActionManager actionmanager)
             : base (actionmanager)
         {
+            MessageEnabled = false;
             Messenger = messenger;
             MessageAddress = String.Format("{0}/", layername);
-            MessageEnabled = false;
+            
             Index = index;
             LayerName = layername;
-            Fade = 0.0;
+            
             BlendMode = ((BlendMode)0).ToString();
             Index = 0;
             Enabled = false;
+
+            Fade = new Slider(layername + "/Fade", messenger, actionmanager);
             BeatModifier = new BeatModifier(layername, messenger, masterBeat, actionmanager);
             Content = new Content(BeatModifier, layername, messenger, actionmanager);
             Mask = new Mask(BeatModifier, layername, messenger, actionmanager);
             Coloration = new Coloration(BeatModifier, layername, messenger, actionmanager);
             LayerFX = new LayerFX(BeatModifier, layername, messenger, actionmanager);
+
             MessageEnabled = true;
         }
 
@@ -38,14 +42,16 @@ namespace CMiX.ViewModels
                 string layername,
                 bool enabled,
                 int index,
-                double fade,
                 string blendMode,
+                bool messageEnabled,
+
+                Slider fade,
                 BeatModifier beatModifier,
                 Content content,
                 Mask mask,
                 Coloration coloration,
                 LayerFX layerfx,
-                bool messageEnabled,
+                
                 ActionManager actionmanager
             )
             : base (actionmanager)
@@ -53,8 +59,8 @@ namespace CMiX.ViewModels
             LayerName = layername;
             Index = index;
             Enabled = enabled;
-            Fade = fade;
             BlendMode = blendMode;
+            Fade = fade ?? throw new ArgumentNullException(nameof(fade));
             BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
             Content = content ?? throw new ArgumentNullException(nameof(content));
             Mask = mask ?? throw new ArgumentNullException(nameof(mask));
@@ -69,6 +75,7 @@ namespace CMiX.ViewModels
 
         #region PROPERTY
         public bool CanAcceptChildren { get; set; }
+
         public ObservableCollection<Layer> Children { get; private set; }
 
         public IMessenger Messenger { get; }
@@ -76,7 +83,6 @@ namespace CMiX.ViewModels
         public string MessageAddress { get; set; }
 
         public bool MessageEnabled { get; set; }
-
 
         private string _layername;
         [OSC]
@@ -100,20 +106,6 @@ namespace CMiX.ViewModels
         {
             get => _index;
             set => SetAndNotify(ref _index, value);
-        }
-
-        private double _fade;
-        [OSC]
-        public double Fade
-        {
-            get => _fade;
-            set
-            {
-                SetAndRecord(() => _fade, value);
-                SetAndNotify(ref _fade, value);
-                if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(Fade), Fade);
-            }
         }
 
         private bool _out;
@@ -153,13 +145,15 @@ namespace CMiX.ViewModels
 
         public LayerFX LayerFX{ get; }
 
+        public Slider Fade { get; }
+
         #endregion
 
         #region COPY/PASTE/LOAD
         public void Copy(LayerDTO layerdto)
         {
             layerdto.BlendMode = BlendMode;
-            layerdto.Fade = Fade;
+            //layerdto.Fade = Fade;
             layerdto.LayerName = LayerName;
             layerdto.Index = Index;
 
@@ -175,7 +169,7 @@ namespace CMiX.ViewModels
             MessageEnabled = false;
 
             BlendMode = layerdto.BlendMode;
-            Fade = layerdto.Fade;
+            //Fade = layerdto.Fade;
             Out = layerdto.Out;
 
             BeatModifier.Paste(layerdto.BeatModifierDTO);
@@ -192,7 +186,7 @@ namespace CMiX.ViewModels
             MessageEnabled = false;
 
             BlendMode = layerdto.BlendMode;
-            Fade = layerdto.Fade;
+            //Fade = layerdto.Fade;
             LayerName = layerdto.LayerName;
             Index = layerdto.Index;
             Out = layerdto.Out;

@@ -105,12 +105,11 @@
                             StaysOpen="False">
                             <ViewModels:TranslateSelector DataContext="{Binding GeometryTranslate}"/>
                         </Popup>
-                        <Controls:CustomSlider
+                        <Views:Slider
                             Grid.Column="0"
                             Margin="1, 0, 0, 0"
                             Caption="Translate"
-                            Tag="SprTra"
-                            Value="{Binding TranslateAmount, Mode=TwoWay}"
+                            DataContext="{Binding TranslateAmount}"
                             />
                     </Grid>
                     <Grid Height="20" Margin="0,2">
@@ -139,11 +138,11 @@
                                 DataContext="{Binding GeometryScale}"
                                 />
                         </Popup>
-                        <Controls:CustomSlider
+                        <Views:Slider
                             Grid.Column="0"
                             Margin="1, 0, 0, 0"
                             Caption="Scale"
-                            Value="{Binding ScaleAmount, Mode=TwoWay}"
+                            DataContext="{Binding ScaleAmount}"
                             />
                     </Grid>
                     <Grid Height="20">
@@ -172,11 +171,11 @@
                                 DataContext="{Binding GeometryRotation}"
                                 />
                         </Popup>
-                        <Controls:CustomSlider
+                        <Views:Slider
                             Grid.Column="0"
                             Margin="1, 0, 0, 0"
                             Caption="Rotate"
-                            Value="{Binding RotationAmount, Mode=TwoWay}"
+                            DataContext="{Binding RotationAmount}"
                             />
                     </Grid>
                 </StackPanel>

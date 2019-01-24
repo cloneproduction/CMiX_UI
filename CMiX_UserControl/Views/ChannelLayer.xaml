@@ -73,9 +73,9 @@
                         ItemsSource="{Binding Source={StaticResource BlendMode}}"
                         />
                 </DockPanel>
-                <Controls:CustomSlider
+                <Views:Slider 
+                    DataContext="{Binding Fade}" 
                     Caption="Alpha"
-                    Value="{Binding Fade, Mode=TwoWay}"
                     />
             </StackPanel>
         </Grid>

@@ -8,13 +8,13 @@ namespace CMiX.ViewModels
     [Serializable]
     public class BeatModifier : Beat, IMessengerData
     {
-        public BeatModifier( string layername, IMessenger messenger, Beat masterBeat, ActionManager actionmanager)
+        public BeatModifier(string layername, IMessenger messenger, Beat masterBeat, ActionManager actionmanager)
             : this
             (
                 actionmanager: actionmanager,
                 masterBeat: masterBeat,
                 multiplier: 1.0,
-                chanceToHit: 1.0,
+                chanceToHit: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(BeatModifier), "ChanceToHit"), messenger, actionmanager),
                 messenger: messenger,
                 messageaddress: String.Format("{0}/{1}/", layername, nameof(BeatModifier)),
                 messageEnabled: true
@@ -26,7 +26,7 @@ namespace CMiX.ViewModels
                 ActionManager actionmanager,
                 Beat masterBeat, 
                 double multiplier, 
-                double chanceToHit,
+                Slider chanceToHit,
                 IMessenger messenger,
                 string messageaddress,
                 bool messageEnabled
@@ -57,6 +57,8 @@ namespace CMiX.ViewModels
 
         private Beat MasterBeat { get; }
 
+        public Slider ChanceToHit { get; }
+
         public override double Period
         {
             get => MasterBeat.Period * Multiplier;
@@ -78,19 +80,6 @@ namespace CMiX.ViewModels
             }
         }
 
-        private double _chanceToHit;
-        [OSC]
-        public double ChanceToHit
-        {
-            get => _chanceToHit;
-            set
-            {
-                SetAndNotify(ref _chanceToHit, value);
-                if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(ChanceToHit), ChanceToHit);
-            }
-        }
-
         protected override void Multiply()
         {
             Multiplier /= 2;
@@ -103,14 +92,14 @@ namespace CMiX.ViewModels
 
         public void Copy(BeatModifierDTO beatmodifierdto)
         {
-            beatmodifierdto.ChanceToHit = ChanceToHit;
+            //beatmodifierdto.ChanceToHit = ChanceToHit;
             beatmodifierdto.Multiplier = Multiplier;
         }
 
         public void Paste(BeatModifierDTO beatmodifierdto)
         {
             MessageEnabled = false;
-            ChanceToHit = beatmodifierdto.ChanceToHit;
+            //ChanceToHit = beatmodifierdto.ChanceToHit;
             Multiplier = beatmodifierdto.Multiplier;
             MessageEnabled = true;
         }

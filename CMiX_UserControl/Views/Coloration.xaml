@@ -95,36 +95,11 @@
                             </Border>
                         </StackPanel>
                     </TabItem>
-                    <TabItem Header="B" Style="{StaticResource TabItemBase}">
-                        <StackPanel>
-                            <Border 
-                                Background="{StaticResource DarkColor}"
-                                Padding="4"
-                                BorderBrush="{StaticResource HighDarkerColor}"
-                                DockPanel.Dock="Top">
-                                <DockPanel LastChildFill="False">
-                                    <TextBlock
-                                        Margin="4, 0, 0, 0"
-                                        Text="Background"
-                                        Foreground="{StaticResource TextBase}"
-                                        />
-                                </DockPanel>
-                            </Border>
-                            <Border Padding="8" Background="{StaticResource HighDarkerColor}">
-                                <colorpicker:ColorPicker
-                                    x:Name="BgColor"
-                                    Background="{StaticResource HighDarkerColor}"
-                                    SelectedColor="{Binding BgColor, Mode=TwoWay}" 
-                                    />
-                            </Border>
-                        </StackPanel>
-                    </TabItem>
                 </TabControl>
             </Grid>
         </Border>
         <Border             
             DockPanel.Dock="Bottom"
-            Margin="0, 2, 0, 0"
             Style="{StaticResource BorderContainer}">
             <StackPanel Grid.Row="1">
                 <Label
@@ -135,16 +110,16 @@
                     FontSize="12"
                     />
                 <Views:RangeControl 
-                    x:Name="Hue"
+                    Caption="Hue"
                     DataContext="{Binding Hue}"
                     />
                 <Views:RangeControl 
-                    x:Name="Sat" 
+                    Caption="Saturation"
                     Margin="0, 1"
                     DataContext="{Binding Saturation}"
                     />
                 <Views:RangeControl 
-                    x:Name="Val" 
+                    Caption="Value"
                     DataContext="{Binding Value}"
                     />
             </StackPanel>

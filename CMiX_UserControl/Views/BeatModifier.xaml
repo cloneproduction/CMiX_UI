@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Controls="clr-namespace:CMiX.Controls"
     xmlns:viewModels="clr-namespace:CMiX.ViewModels"
+    xmlns:Views="clr-namespace:CMiX.Views"
     d:DataContext="{d:DesignInstance Type={x:Type viewModels:BeatModifier}, IsDesignTimeCreatable=False}"
     d:DesignHeight="33.493"
     d:DesignWidth="413.081"
@@ -19,11 +20,10 @@
                 Margin="1, 0, 0, 0" 
                 DockPanel.Dock="Right" 
                 />
-            <Controls:CustomSlider 
-                x:Name="MaskChanceToHit" 
+            <Views:Slider
                 Caption="ToHit" 
                 Margin="0, 0, 1, 0" 
-                Value="{Binding ChanceToHit, Mode=TwoWay}" 
+                DataContext="{Binding ChanceToHit}" 
                 />
         </DockPanel>
     </Border>

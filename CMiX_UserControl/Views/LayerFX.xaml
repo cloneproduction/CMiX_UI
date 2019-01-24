@@ -4,21 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Controls="clr-namespace:CMiX.Controls"
+             xmlns:Views="clr-namespace:CMiX.Views"
              mc:Ignorable="d" 
              d:DesignHeight="80.667" d:DesignWidth="202.667">
     
     <StackPanel>
-        <Controls:CustomSlider
+        <Views:Slider
             Height="20"
             Margin="0, 0, 0, 2"
             Caption="Feedback"
-            Value="{Binding Feedback, Mode=TwoWay}"
+            DataContext="{Binding Feedback}"
             />
-        <Controls:CustomSlider
+        <Views:Slider
             Height="20"
             Margin="0"
             Caption="Blur"
-            Value="{Binding Blur, Mode=TwoWay}"
+            DataContext="{Binding Blur}"
             />
     </StackPanel>
 </UserControl>
