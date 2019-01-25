@@ -1,12 +1,4 @@
-﻿
-using CMiX.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Data;
-using System.Windows.Input;
+﻿using System.Collections.Generic;
 
 namespace CMiX.Models
 {
@@ -21,13 +13,9 @@ namespace CMiX.Models
         }
 
         public string Name { get; set; }
-
         public List<string> LayerNames { get; set; }
-
         public MasterBeatDTO MasterBeatDTO { get; set; }
-
         public CameraDTO CameraDTO { get; set; }
-
         public List<LayerDTO> LayersDTO { get; set; }
     }
 }

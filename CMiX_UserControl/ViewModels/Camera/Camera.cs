@@ -54,15 +54,11 @@ namespace CMiX.ViewModels
 
         #region PROPERTIES
         public IMessenger Messenger { get; }
-
         public string MessageAddress { get; set; }
-
         public bool MessageEnabled { get; set; }
 
         public BeatModifier BeatModifier { get; }
-
         public Slider FOV { get; }
-
         public Slider Zoom { get; }
 
         private string _rotation;
@@ -111,11 +107,9 @@ namespace CMiX.ViewModels
             cameradto.Rotation = Rotation;
             cameradto.LookAt = LookAt;
             cameradto.View = View;
-
             BeatModifier.Copy(cameradto.BeatModifierDTO);
-
-            //cameradto.FOV = FOV;
-            //cameradto.Zoom = Zoom;
+            FOV.Copy(cameradto.FOV);
+            Zoom.Copy(cameradto.Zoom);
         }
 
         public void Paste(CameraDTO cameradto)
@@ -125,11 +119,9 @@ namespace CMiX.ViewModels
             Rotation = cameradto.Rotation;
             LookAt = cameradto.LookAt;
             View = cameradto.View;
-
             BeatModifier.Paste(cameradto.BeatModifierDTO);
-
-            //FOV = cameradto.FOV;
-            //Zoom = cameradto.Zoom;
+            FOV.Paste(cameradto.FOV);
+            Zoom.Paste(cameradto.Zoom);
 
             MessageEnabled = true;
         }

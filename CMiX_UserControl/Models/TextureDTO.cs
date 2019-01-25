@@ -10,34 +10,32 @@ namespace CMiX.Models
         public TextureDTO()
         {
             TexturePaths = new List<ListBoxFileName>();
+            Brightness = new SliderDTO();
+            Contrast = new SliderDTO();
+            Invert = new SliderDTO();
+            Hue = new SliderDTO();
+            Saturation = new SliderDTO();
+            Luminosity = new SliderDTO();
+            Keying = new SliderDTO();
+            Pan = new SliderDTO();
+            Tilt = new SliderDTO();
+            Scale = new SliderDTO();
+            Rotate = new SliderDTO();
         }
 
         public string MessageAddress { get; set; }
-
         public List<ListBoxFileName> TexturePaths { get; set; }
-
-        public double Brightness { get; set; }
-
-        public double Contrast { get; set; }
-
-        public double Hue { get; set; }
-
-        public double Saturation { get; set; }
-
-        public double Luminosity { get; set; }
-
-        public double Pan { get; set; }
-
-        public double Tilt { get; set; }
-
-        public double Scale { get; set; }
-
-        public double Rotate { get; set; }
-
-        public double Keying { get; set; }
-
-        public double Invert { get; set; }
-
+        public SliderDTO Brightness { get; set; }
+        public SliderDTO Contrast { get; set; }
+        public SliderDTO Invert { get; set; }
+        public SliderDTO Hue { get; set; }
+        public SliderDTO Saturation { get; set; }
+        public SliderDTO Luminosity { get; set; }
+        public SliderDTO Keying { get; set; }
+        public SliderDTO Pan { get; set; }
+        public SliderDTO Tilt { get; set; }
+        public SliderDTO Scale { get; set; }
+        public SliderDTO Rotate { get; set; }
         public string InvertMode { get; set; }
     }
 }

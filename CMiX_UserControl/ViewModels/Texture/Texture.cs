@@ -89,11 +89,9 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-        public string MessageAddress { get; set; }
-
-        public bool MessageEnabled { get; set; }
-
         public IMessenger Messenger { get; }
+        public string MessageAddress { get; set; }
+        public bool MessageEnabled { get; set; }
 
         public ICommand CopySelfCommand { get; }
         public ICommand PasteSelfCommand { get; }
@@ -105,15 +103,12 @@ namespace CMiX.ViewModels
         public Slider Brightness { get; }
         public Slider Contrast { get; }
         public Slider Invert { get; }
-
         public Slider Hue { get; }
         public Slider Saturation { get; }
         public Slider Luminosity { get; }
         public Slider Keying { get; }
-
         public Slider Pan { get; }
         public Slider Tilt { get; }
-
         public Slider Scale { get; }
         public Slider Rotate { get; }
 
@@ -187,17 +182,15 @@ namespace CMiX.ViewModels
                 texturedto.TexturePaths.Add(lbfn);
             }
 
-            /*texturedto.Brightness = Brightness;
-            texturedto.Contrast = Contrast;
-            texturedto.Saturation = Saturation;
-
-            texturedto.Pan = Pan;
-            texturedto.Tilt = Tilt;
-            texturedto.Scale = Scale;
-            texturedto.Rotate = Rotate;
-
-            texturedto.Keying = Keying;
-            texturedto.Invert = Invert;*/
+            Brightness.Copy(texturedto.Brightness);
+            Contrast.Copy(texturedto.Contrast);
+            Saturation.Copy(texturedto.Saturation);
+            Pan.Copy(texturedto.Pan);
+            Tilt.Copy(texturedto.Tilt);
+            Scale.Copy(texturedto.Scale);
+            Rotate.Copy(texturedto.Rotate);
+            Keying.Copy(texturedto.Keying);
+            Invert.Copy(texturedto.Invert);
             texturedto.InvertMode = InvertMode;
         }
 
@@ -211,17 +204,15 @@ namespace CMiX.ViewModels
                 TexturePaths.Add(lbfn);
             }
 
-            /*Brightness = texturedto.Brightness;
-            Contrast = texturedto.Contrast;
-            Saturation = texturedto.Saturation;
-
-            Pan = texturedto.Pan;
-            Tilt = texturedto.Tilt;
-            Scale = texturedto.Scale;
-            Rotate = texturedto.Rotate;
-
-            Keying = texturedto.Keying;
-            Invert = texturedto.Invert;*/
+            Brightness.Paste(texturedto.Brightness);
+            Contrast.Paste(texturedto.Contrast);
+            Saturation.Paste(texturedto.Saturation);
+            Pan.Paste(texturedto.Pan);
+            Tilt.Paste(texturedto.Tilt);
+            Scale.Paste(texturedto.Scale);
+            Rotate.Paste(texturedto.Rotate);
+            Keying.Paste(texturedto.Keying);
+            Invert.Paste(texturedto.Invert);
             InvertMode = texturedto.InvertMode;
 
             MessageEnabled = true;

@@ -7,15 +7,16 @@ namespace CMiX.ViewModels
 {
     public class RangeControl : ViewModel, IMessengerData
     {
+        #region CONSTRUCTORS
         public RangeControl(IMessenger messenger, string layername, ActionManager actionmanager)
-            : this(
-                    actionmanager: actionmanager,
-                    range: new Slider(layername, messenger, actionmanager),
-                    modifier: ((RangeModifier)0).ToString(),
-                    messenger: messenger,
-                    messageaddress: String.Format("{0}/", layername),
-                    messageEnabled: true
-                  )
+        : this(
+            actionmanager: actionmanager,
+            range: new Slider(layername, messenger, actionmanager),
+            modifier: ((RangeModifier)0).ToString(),
+            messenger: messenger,
+            messageaddress: String.Format("{0}/", layername),
+            messageEnabled: true
+          )
         { }
 
         public RangeControl
@@ -35,11 +36,11 @@ namespace CMiX.ViewModels
             MessageAddress = messageaddress;
             MessageEnabled = messageEnabled;
         }
+        #endregion
 
+        #region PROPERTIES
         public string MessageAddress { get; set; }
-
         public bool MessageEnabled { get; set; }
-
         private IMessenger Messenger { get; }
 
         public Slider Range { get; }
@@ -52,23 +53,26 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _modifier, value);
-                if(MessageEnabled)
+                if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(Modifier), Modifier);
             }
         }
+        #endregion
 
+        #region COPY/PASTE
         public void Copy(RangeControlDTO rangecontroldto)
         {
-            //rangecontroldto.Range = Range;
+            Range.Copy(rangecontroldto.Range);
             rangecontroldto.Modifier = Modifier;
         }
 
         public void Paste(RangeControlDTO rangecontroldto)
         {
             MessageEnabled = false;
-            //Range = rangecontroldto.Range;
+            Range.Paste(rangecontroldto.Range);
             Modifier = rangecontroldto.Modifier;
             MessageEnabled = true;
         }
+        #endregion
     }
 }

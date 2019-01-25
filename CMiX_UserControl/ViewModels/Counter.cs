@@ -1,5 +1,6 @@
 ﻿using System;
 using CMiX.Services;
+using CMiX.Models;
 using GuiLabs.Undo;
 using System.Windows.Input;
 
@@ -17,7 +18,7 @@ namespace CMiX.ViewModels
                     messageEnabled: true,
                     count: 1
                 )
-        { }
+        {}
 
         public Counter
             (
@@ -36,7 +37,6 @@ namespace CMiX.ViewModels
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
         }
-
         #endregion
 
         #region PROPERTIES
@@ -60,6 +60,7 @@ namespace CMiX.ViewModels
         }
         #endregion
 
+        #region ADD/SUB
         private void Add()
         {
             Count *= 2;
@@ -68,9 +69,20 @@ namespace CMiX.ViewModels
         private void Sub()
         {
             if (Count > 1)
-            {
                 Count /= 2;
-            }
         }
+        #endregion
+
+        #region COPY/PASTE
+        public void Copy(CounterDTO counterdto)
+        {
+            counterdto.Count = Count;
+        }
+
+        public void Paste(CounterDTO counterdto)
+        {
+            Count = counterdto.Count;
+        }
+        #endregion
     }
 }

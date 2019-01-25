@@ -94,8 +94,8 @@ namespace CMiX.ViewModels
         #region COPY/PASTE/RESET
         public void Copy(PostFXDTO postFXdto)
         {
-            //postFXdto.Feedback = Feedback;
-            //postFXdto.Blur = Blur;
+            Feedback.Copy(postFXdto.Feedback);
+            Blur.Copy(postFXdto.Blur);
             postFXdto.Transforms = Transforms;
             postFXdto.View = View;
         }
@@ -103,8 +103,8 @@ namespace CMiX.ViewModels
         public void Paste(PostFXDTO postFXdto)
         {
             MessageEnabled = false;
-            //Feedback = postFXdto.Feedback;
-            //Blur = postFXdto.Blur;
+            Feedback.Paste(postFXdto.Feedback);
+            Blur.Paste(postFXdto.Blur);
             Transforms = postFXdto.Transforms;
             View = postFXdto.View;
             MessageEnabled = true;

@@ -21,15 +21,14 @@ namespace CMiX.ViewModels
                 actionmanager: actionmanager,
                 messenger: messenger,
                 messageaddress: String.Format("{0}/{1}/", layername, nameof(Geometry)),
-                count: 1,
-                geometrytranslate: new GeometryTranslate(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
-                geometryscale: new GeometryScale(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
-                geometryrotation: new GeometryRotation(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
+                translate: new GeometryTranslate(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
+                scale: new GeometryScale(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
+                rotation: new GeometryRotation(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
                 geometrypaths: new ObservableCollection<ListBoxFileName>(),
                 geometryfx : new GeometryFX(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
-                translateAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "TranslateAmount"), messenger, actionmanager),
-                scaleAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "ScaleAmount"), messenger, actionmanager),
-                rotationAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "ScaleAmount"), messenger, actionmanager),
+                translateAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Translate"), messenger, actionmanager),
+                scaleAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Scale"), messenger, actionmanager),
+                rotationAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Rotation"), messenger, actionmanager),
                 counter: new Counter(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Count"), messenger, actionmanager),
                 is3D: false,    
                 keepAspectRatio: false,
@@ -43,11 +42,11 @@ namespace CMiX.ViewModels
         public Geometry
             (
                 ActionManager actionmanager,
-                int count,
+                IMessenger messenger,
                 IEnumerable<ListBoxFileName> geometrypaths,
-                GeometryTranslate geometrytranslate,
-                GeometryScale geometryscale,
-                GeometryRotation geometryrotation,
+                GeometryTranslate translate,
+                GeometryScale scale,
+                GeometryRotation rotation,
                 GeometryFX geometryfx,
                 Slider translateAmount,
                 Slider scaleAmount,
@@ -55,7 +54,6 @@ namespace CMiX.ViewModels
                 Counter counter,
                 bool is3D,
                 bool keepAspectRatio,
-                IMessenger messenger,
                 string messageaddress,
                 bool messageEnabled
             )
@@ -65,12 +63,11 @@ namespace CMiX.ViewModels
             {
                 throw new ArgumentNullException(nameof(geometrypaths));
             }
-            Count = count;
             GeometryPaths = new ObservableCollection<ListBoxFileName>() ;
             GeometryPaths.CollectionChanged += ContentCollectionChanged;
-            GeometryTranslate = geometrytranslate ?? throw new ArgumentNullException(nameof(geometryrotation));
-            GeometryRotation = geometryrotation ?? throw new ArgumentNullException(nameof(geometryrotation));
-            GeometryScale = geometryscale ?? throw new ArgumentNullException(nameof(geometryscale));
+            Translate = translate ?? throw new ArgumentNullException(nameof(Translate));
+            Rotation = rotation ?? throw new ArgumentNullException(nameof(Rotation));
+            Scale = scale ?? throw new ArgumentNullException(nameof(Scale));
             GeometryFX = geometryfx;
             TranslateAmount = translateAmount;
             RotationAmount = rotationAmount;
@@ -100,32 +97,19 @@ namespace CMiX.ViewModels
 
         public GeometryFX GeometryFX { get; }
 
-        public GeometryTranslate GeometryTranslate { get; }
+        public GeometryTranslate Translate { get; }
         public Slider TranslateAmount { get; }
 
-        public GeometryRotation GeometryRotation { get; }
+        public GeometryRotation Rotation { get; }
         public Slider RotationAmount { get; }
 
-        public GeometryScale GeometryScale { get; }
+        public GeometryScale Scale { get; }
         public Slider ScaleAmount { get; }
 
         public Counter Counter { get; }
 
         [OSC]
         public ObservableCollection<ListBoxFileName> GeometryPaths { get; set; }
-
-        private int _count;
-        [OSC]
-        public int Count
-        {
-            get => _count;
-            set
-            {
-                SetAndNotify(ref _count, value);
-                if (MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(Count), Count);
-            }
-        }
 
         private bool _is3D;
         [OSC]
@@ -204,32 +188,25 @@ namespace CMiX.ViewModels
         #region COPY/PASTE/RESET
         public void Copy(GeometryDTO geometrydto)
         {
-            geometrydto.Count = Count;
-
             foreach (ListBoxFileName lbfn in GeometryPaths)
             {
                 geometrydto.GeometryPaths.Add(lbfn);
             }
 
-            //geometrydto.TranslateAmount = TranslateAmount;
-
-            GeometryTranslate.Copy(geometrydto.GeometryTranslate);
-            GeometryScale.Copy(geometrydto.GeometryScale);
-            GeometryRotation.Copy(geometrydto.GeometryRotation);
-
-            GeometryFX.Copy(geometrydto.GeometryFX);
-
-            //geometrydto.ScaleAmount = ScaleAmount;
-            //geometrydto.RotationAmount = RotationAmount;
+            Translate.Copy(geometrydto.GeometryTranslate);
+            Scale.Copy(geometrydto.GeometryScale);
+            Rotation.Copy(geometrydto.GeometryRotation);
+            TranslateAmount.Copy(geometrydto.TranslateAmount);
+            ScaleAmount.Copy(geometrydto.ScaleAmount);
+            RotationAmount.Copy(geometrydto.RotationAmount);
             geometrydto.Is3D = Is3D;
             geometrydto.KeepAspectRatio = KeepAspectRatio;
+            GeometryFX.Copy(geometrydto.GeometryFX);
         }
 
         public void Paste(GeometryDTO geometrydto)
         {
             MessageEnabled = false;
-
-            Count = geometrydto.Count;
 
             GeometryPaths.Clear();
             foreach (ListBoxFileName lbfn in geometrydto.GeometryPaths)
@@ -237,16 +214,13 @@ namespace CMiX.ViewModels
                 GeometryPaths.Add(lbfn);
             }
 
-            //TranslateAmount = geometrydto.TranslateAmount;
-            //ScaleAmount = geometrydto.ScaleAmount;
-            //RotationAmount = geometrydto.RotationAmount;
-
-            GeometryTranslate.Paste(geometrydto.GeometryTranslate);
-            GeometryScale.Paste(geometrydto.GeometryScale);
-            GeometryRotation.Paste(geometrydto.GeometryRotation);
-
+            TranslateAmount.Paste(geometrydto.TranslateAmount);
+            ScaleAmount.Paste(geometrydto.ScaleAmount);
+            RotationAmount.Paste(geometrydto.RotationAmount);
+            Translate.Paste(geometrydto.GeometryTranslate);
+            Scale.Paste(geometrydto.GeometryScale);
+            Rotation.Paste(geometrydto.GeometryRotation);
             GeometryFX.Paste(geometrydto.GeometryFX);
-
             Is3D = geometrydto.Is3D;
             KeepAspectRatio = geometrydto.KeepAspectRatio;
 

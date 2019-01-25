@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMiX.Models
 {
@@ -10,9 +6,7 @@ namespace CMiX.Models
     public class LayerFXDTO
     {
         public string MessageAddress { get; set; }
-
         public double Feedback { get; set; }
-
         public double Blur { get; set; }
     }
 }

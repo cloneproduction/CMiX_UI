@@ -10,7 +10,6 @@ namespace CMiX.ViewModels
     public class Layer : ViewModel, IMessengerData
     {
         #region CONSTRUCTORS
-
         public Layer(MasterBeat masterBeat, string layername, IMessenger messenger, int index, ActionManager actionmanager)
             : base (actionmanager)
         {
@@ -39,12 +38,11 @@ namespace CMiX.ViewModels
             (
                 IMessenger messenger,
                 string messageaddress,
+                bool messageEnabled,
                 string layername,
                 bool enabled,
                 int index,
                 string blendMode,
-                bool messageEnabled,
-
                 Slider fade,
                 BeatModifier beatModifier,
                 Content content,
@@ -70,19 +68,15 @@ namespace CMiX.ViewModels
             MessageAddress = messageaddress;
             MessageEnabled = messageEnabled;
         }
-
         #endregion
 
         #region PROPERTY
-        public bool CanAcceptChildren { get; set; }
-
-        public ObservableCollection<Layer> Children { get; private set; }
-
         public IMessenger Messenger { get; }
-
         public string MessageAddress { get; set; }
-
         public bool MessageEnabled { get; set; }
+
+        public bool CanAcceptChildren { get; set; }
+        public ObservableCollection<Layer> Children { get; private set; }
 
         private string _layername;
         [OSC]
@@ -136,27 +130,20 @@ namespace CMiX.ViewModels
         }
 
         public BeatModifier BeatModifier { get; }
-
         public Content Content { get; }
-
         public Mask Mask { get; }
-
         public Coloration Coloration { get; }
-
         public LayerFX LayerFX{ get; }
-
         public Slider Fade { get; }
-
         #endregion
 
         #region COPY/PASTE/LOAD
         public void Copy(LayerDTO layerdto)
         {
             layerdto.BlendMode = BlendMode;
-            //layerdto.Fade = Fade;
             layerdto.LayerName = LayerName;
             layerdto.Index = Index;
-
+            Fade.Copy(layerdto.Fade);
             BeatModifier.Copy(layerdto.BeatModifierDTO);
             Content.Copy(layerdto.ContentDTO);
             Mask.Copy(layerdto.MaskDTO);
@@ -169,9 +156,8 @@ namespace CMiX.ViewModels
             MessageEnabled = false;
 
             BlendMode = layerdto.BlendMode;
-            //Fade = layerdto.Fade;
+            Fade.Paste(layerdto.Fade);
             Out = layerdto.Out;
-
             BeatModifier.Paste(layerdto.BeatModifierDTO);
             Content.Paste(layerdto.ContentDTO);
             Mask.Paste(layerdto.MaskDTO);
@@ -186,11 +172,10 @@ namespace CMiX.ViewModels
             MessageEnabled = false;
 
             BlendMode = layerdto.BlendMode;
-            //Fade = layerdto.Fade;
             LayerName = layerdto.LayerName;
             Index = layerdto.Index;
             Out = layerdto.Out;
-
+            Fade.Paste(layerdto.Fade);
             BeatModifier.Paste(layerdto.BeatModifierDTO);
             Content.Paste(layerdto.ContentDTO);
             Mask.Paste(layerdto.MaskDTO);

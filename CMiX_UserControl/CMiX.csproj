@@ -114,6 +114,7 @@
     <Compile Include="Models\ColorationDTO.cs" />
     <Compile Include="Models\CompositionDTO.cs" />
     <Compile Include="Models\ContentDTO.cs" />
+    <Compile Include="Models\CounterDTO.cs" />
     <Compile Include="Models\GeometryDTO.cs" />
     <Compile Include="Models\GeometryFXDTO.cs" />
     <Compile Include="Models\GeometryRotationDTO.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="Models\MasterBeatDTO.cs" />
     <Compile Include="Models\PostFXDTO.cs" />
     <Compile Include="Models\RangeControlDTO.cs" />
+    <Compile Include="Models\SliderDTO.cs" />
     <Compile Include="Models\TextureDTO.cs" />
     <Compile Include="Services\OSCAttribute.cs" />
     <Compile Include="Services\IMessengerData.cs" />

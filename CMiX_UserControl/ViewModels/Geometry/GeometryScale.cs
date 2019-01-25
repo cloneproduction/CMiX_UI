@@ -7,16 +7,17 @@ namespace CMiX.ViewModels
 {
     public class GeometryScale : ViewModel, IMessengerData
     {
+        #region CONSTRUCTORS
         public GeometryScale(string layername, IMessenger messenger, ActionManager actionmanager)
-            : this
-            (
-                actionmanager: actionmanager,
-                messageaddress: layername + "/",
-                messenger: messenger,
-                messageEnabled : true,
-                scaleMode: default
-            )
-        {}
+        : this
+        (
+            actionmanager: actionmanager,
+            messageaddress: layername + "/",
+            messenger: messenger,
+            messageEnabled: true,
+            scaleMode: default
+        )
+        { }
 
         public GeometryScale
             (
@@ -32,12 +33,12 @@ namespace CMiX.ViewModels
             MessageEnabled = messageEnabled;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
         }
+        #endregion
 
-        public string MessageAddress { get; set; }
-
-        public bool MessageEnabled { get; set; }
-
+        #region PROPERTIES
         public IMessenger Messenger { get; }
+        public string MessageAddress { get; set; }
+        public bool MessageEnabled { get; set; }
 
         private GeometryScaleMode _ScaleMode;
         [OSC]
@@ -47,11 +48,13 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _ScaleMode, value);
-                if(MessageEnabled)
+                if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(ScaleMode), ScaleMode);
             }
         }
+        #endregion
 
+        #region COPY/PASTE
         public void Copy(GeometryScaleDTO geometryscaledto)
         {
             geometryscaledto.ScaleModeDTO = ScaleMode;
@@ -63,5 +66,6 @@ namespace CMiX.ViewModels
             ScaleMode = geometryscaledto.ScaleModeDTO;
             MessageEnabled = true;
         }
+        #endregion
     }
 }

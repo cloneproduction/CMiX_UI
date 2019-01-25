@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Media;
 
 namespace CMiX.Models
 {
@@ -14,17 +13,11 @@ namespace CMiX.Models
             ValDTO = new RangeControlDTO();
         }
         public string MessageAddress { get; set; }
-
         public BeatModifierDTO BeatModifierDTO { get; set; }
-
         public string ObjColor { get; set; }
-
         public string BgColor { get; set; }
-
         public RangeControlDTO HueDTO { get; set; }
-
         public RangeControlDTO SatDTO { get; set; }
-
         public RangeControlDTO ValDTO { get; set; }
     }
 }

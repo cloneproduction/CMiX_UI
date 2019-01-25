@@ -11,23 +11,22 @@ namespace CMiX.ViewModels
     [Serializable]
     public class Coloration : ViewModel, IMessengerData
     {
+        #region CONSTRUCTORS
         public Coloration(Beat masterbeat, string layername, IMessenger messenger, ActionManager actionmanager)
-            : this
-            (
-                actionmanager: actionmanager,
-                messenger: messenger,
-                messageaddress: String.Format("{0}/{1}/", layername, nameof(Coloration)),
-                objColor: Colors.BlueViolet,
-                bgColor: Colors.Black,
-                backgroundColor: Colors.Black,
-
-                beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Coloration)), messenger, masterbeat, actionmanager),
-                hue: new RangeControl(messenger, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Hue), actionmanager),
-                saturation: new RangeControl(messenger, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Saturation), actionmanager),
-                value: new RangeControl(messenger, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Value), actionmanager),
-
-                messageEnabled: true
-            )
+        : this
+        (
+            actionmanager: actionmanager,
+            messenger: messenger,
+            messageaddress: String.Format("{0}/{1}/", layername, nameof(Coloration)),
+            objColor: Colors.BlueViolet,
+            bgColor: Colors.Black,
+            backgroundColor: Colors.Black,
+            beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Coloration)), messenger, masterbeat, actionmanager),
+            hue: new RangeControl(messenger, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Hue), actionmanager),
+            saturation: new RangeControl(messenger, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Saturation), actionmanager),
+            value: new RangeControl(messenger, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Value), actionmanager),
+            messageEnabled: true
+        )
         { }
 
         public Coloration
@@ -35,7 +34,7 @@ namespace CMiX.ViewModels
                 ActionManager actionmanager,
                 IMessenger messenger,
                 string messageaddress,
-                BeatModifier beatModifier, 
+                BeatModifier beatModifier,
                 Color objColor,
                 Color bgColor,
                 Color backgroundColor,
@@ -46,12 +45,12 @@ namespace CMiX.ViewModels
 
                 bool messageEnabled
             )
-            : base (actionmanager)
+            : base(actionmanager)
         {
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
             MessageEnabled = messageEnabled;
-            
+
             ObjColor = objColor;
             BgColor = bgColor;
 
@@ -64,16 +63,21 @@ namespace CMiX.ViewModels
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
         }
+        #endregion
 
+        #region PROPERTIES
         private IMessenger Messenger { get; }
+        public string MessageAddress { get; set; }
+        public bool MessageEnabled { get; set; }
 
         public ICommand CopySelfCommand { get; }
         public ICommand PasteSelfCommand { get; }
         public ICommand ResetSelfCommand { get; }
 
-        public string MessageAddress { get; set; }
-
-        public bool MessageEnabled { get; set; }
+        public BeatModifier BeatModifier { get; }
+        public RangeControl Hue { get; }
+        public RangeControl Saturation { get; }
+        public RangeControl Value { get; }
 
         private Color _objColor;
         [OSC]
@@ -84,7 +88,7 @@ namespace CMiX.ViewModels
             {
                 SetAndRecord(() => _objColor, value);
                 //SetAndNotify(ref _objColor, value);
-                if(MessageEnabled)
+                if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(ObjColor), ObjColor);
             }
         }
@@ -97,27 +101,21 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _bgColor, value);
-                if(MessageEnabled)
+                if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress + nameof(BgColor), BgColor);
             }
         }
+        #endregion
 
-        public BeatModifier BeatModifier { get; }
-
-        public RangeControl Hue { get; }
-
-        public RangeControl Saturation { get; }
-
-        public RangeControl Value { get; }
-
+        #region COPY/PASTE
         public void Copy(ColorationDTO colorationdto)
         {
             colorationdto.ObjColor = Utils.ColorToHexString(ObjColor);
             colorationdto.BgColor = Utils.ColorToHexString(BgColor);
             BeatModifier.Copy(colorationdto.BeatModifierDTO);
-            //Hue.Copy(colorationdto.HueDTO);
-            //Saturation.Copy(colorationdto.SatDTO);
-            //Value.Copy(colorationdto.ValDTO);
+            Hue.Copy(colorationdto.HueDTO);
+            Saturation.Copy(colorationdto.SatDTO);
+            Value.Copy(colorationdto.ValDTO);
         }
 
         public void Paste(ColorationDTO colorationdto)
@@ -126,9 +124,9 @@ namespace CMiX.ViewModels
             ObjColor = Utils.HexStringToColor(colorationdto.ObjColor);
             BgColor = Utils.HexStringToColor(colorationdto.BgColor);
             BeatModifier.Paste(colorationdto.BeatModifierDTO);
-            //Hue.Paste(colorationdto.HueDTO);
-            //Saturation.Paste(colorationdto.SatDTO);
-            //Value.Paste(colorationdto.ValDTO);
+            Hue.Paste(colorationdto.HueDTO);
+            Saturation.Paste(colorationdto.SatDTO);
+            Value.Paste(colorationdto.ValDTO);
             MessageEnabled = true;
         }
 
@@ -159,5 +157,6 @@ namespace CMiX.ViewModels
             ColorationDTO colorationdto = new ColorationDTO();
             this.Paste(colorationdto);
         }
+        #endregion
     }
 }

@@ -1,11 +1,14 @@
-﻿
-using System;
+﻿using System;
 
 namespace CMiX.Models
 {
     [Serializable]
     public class GeometryFXDTO
     {
-        public double Amount { get; set; }
+        public GeometryFXDTO()
+        {
+            Explode = new SliderDTO();
+        }
+        public SliderDTO Explode { get; set; }
     }
 }

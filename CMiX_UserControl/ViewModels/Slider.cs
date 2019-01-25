@@ -1,4 +1,5 @@
 ﻿using CMiX.Services;
+using CMiX.Models;
 using GuiLabs.Undo;
 using System;
 using System.Windows.Input;
@@ -15,10 +16,9 @@ namespace CMiX.ViewModels
                 actionmanager: actionmanager,
                 messenger: messenger,
                 messageaddress: String.Format(layername),
-                messageEnabled: true,
-                enable: false
+                messageEnabled: true
             )
-        { }
+        {}
 
         public Slider
             (
@@ -26,7 +26,6 @@ namespace CMiX.ViewModels
                 IMessenger messenger,
                 string messageaddress,
                 bool messageEnabled,
-                bool enable,
                 ActionManager actionmanager
             )
             : base(actionmanager)
@@ -39,22 +38,6 @@ namespace CMiX.ViewModels
             SubCommand = new RelayCommand(p => Sub());
         }
         #endregion
-
-        private void Sub()
-        {
-            if (Val > 0.0)
-            {
-                Val -= 0.01;
-            }
-        }
-
-        private void Add()
-        {
-            if (Val < 1.0)
-            {
-                Val += 0.01;
-            }
-        }
 
         #region PROPERTIES
         public string MessageAddress { get; set; }
@@ -77,6 +60,32 @@ namespace CMiX.ViewModels
                 if (MessageEnabled)
                     Messenger.SendMessage(MessageAddress, Val);
             }
+        }
+        #endregion
+
+        #region ADD/SUB
+        private void Add()
+        {
+            if (Val < 1.0)
+                Val += 0.01;
+        }
+
+        private void Sub()
+        {
+            if (Val > 0.0)
+                Val -= 0.01;
+        }
+        #endregion
+
+        #region COPY/PASTE
+        public void Copy(SliderDTO sliderdto)
+        {
+            sliderdto.Val = Val;
+        }
+
+        public void Paste(SliderDTO sliderdto)
+        {
+            Val = sliderdto.Val;
         }
         #endregion
     }
