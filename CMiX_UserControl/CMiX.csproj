@@ -131,6 +131,7 @@
     <Compile Include="Services\OSCAttribute.cs" />
     <Compile Include="Services\IMessengerData.cs" />
     <Compile Include="Services\SetAndNotifyPropertyAction.cs" />
+    <Compile Include="ViewModels\OSCControl.cs" />
     <Compile Include="ViewModels\Slider.cs" />
     <Compile Include="ViewModels\Counter.cs" />
     <Compile Include="ViewModels\Geometry\GeometryFileMask.cs" />
@@ -185,6 +186,9 @@
     </Compile>
     <Compile Include="Views\Content.xaml.cs">
       <DependentUpon>Content.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OSCControl.xaml.cs">
+      <DependentUpon>OSCControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SliderCentered.xaml.cs">
       <DependentUpon>SliderCentered.xaml</DependentUpon>
@@ -333,6 +337,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Content.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OSCControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

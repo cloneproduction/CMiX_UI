@@ -188,7 +188,7 @@
                         <CMiX:MasterBeatControl
                             Margin="0, 0, 4, 0"
                             Grid.Column="0"
-                            DataContext="{Binding Path=MasterBeat}"
+                            DataContext="{Binding MasterBeat}"
                             />
                         <TabControl Grid.Column="1" Style="{StaticResource TabControlBase}">
                             <TabItem 
@@ -200,46 +200,7 @@
                                     />
                             </TabItem>
                             <TabItem Header="OSC" Style="{StaticResource TabItemBase}">
-                                <StackPanel>
-                                    <Grid Height="20">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.2*"/>
-                                            <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock 
-                                            Text="IP" 
-                                            Foreground="{StaticResource TextBase}"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            />
-                                        <TextBox
-                                            Text="{Binding IP, Mode=TwoWay}"
-                                            Grid.Column="1"
-                                            BorderThickness="1"
-                                            BorderBrush="{StaticResource DarkColor}"
-                                            Background="{StaticResource HighDarkerColor}"
-                                            />
-                                    </Grid>
-                                    <Grid Height="20">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.2*"/>
-                                            <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock 
-                                            Text="PORT" 
-                                            Foreground="{StaticResource TextBase}"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            />
-                                        <TextBox
-                                            Text="{Binding Port, Mode=TwoWay}"
-                                            Grid.Column="1"
-                                            BorderThickness="1"
-                                            BorderBrush="{StaticResource DarkColor}"
-                                            Background="{StaticResource HighDarkerColor}"
-                                            />
-                                    </Grid>
-                                </StackPanel>
+                                <Views:OSCControl DataContext="{Binding OSCControl}"/>
                             </TabItem>
                         </TabControl>
                     </Grid>
