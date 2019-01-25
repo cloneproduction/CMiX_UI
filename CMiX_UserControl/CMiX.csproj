@@ -109,9 +109,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\CMiXSliderCentered.xaml.cs">
-      <DependentUpon>CMiXSliderCentered.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Models\BeatModifierDTO.cs" />
     <Compile Include="Models\CameraDTO.cs" />
     <Compile Include="Models\ColorationDTO.cs" />
@@ -132,7 +129,8 @@
     <Compile Include="Services\OSCAttribute.cs" />
     <Compile Include="Services\IMessengerData.cs" />
     <Compile Include="Services\SetAndNotifyPropertyAction.cs" />
-    <Compile Include="ViewModels\Controls\Slider.cs" />
+    <Compile Include="ViewModels\Slider.cs" />
+    <Compile Include="ViewModels\Counter.cs" />
     <Compile Include="ViewModels\Geometry\GeometryFileMask.cs" />
     <Compile Include="ViewModels\Geometry\GeometryFX.cs" />
     <Compile Include="ViewModels\Geometry\GeometryRotation.cs" />
@@ -173,10 +171,9 @@
     <Compile Include="ViewModels\Texture\Texture.cs" />
     <Compile Include="ViewModels\Texture\TextureInvertMode.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
-    <Compile Include="Controls\BeatControls.xaml.cs">
+    <Compile Include="Views\BeatControls.xaml.cs">
       <DependentUpon>BeatControls.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CMiXComboBox.cs" />
     <Compile Include="Controls\RangeSlider.cs" />
     <Compile Include="Views\Camera.xaml.cs">
       <DependentUpon>Camera.xaml</DependentUpon>
@@ -186,6 +183,9 @@
     </Compile>
     <Compile Include="Views\Content.xaml.cs">
       <DependentUpon>Content.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SliderCentered.xaml.cs">
+      <DependentUpon>SliderCentered.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Slider.xaml.cs">
       <DependentUpon>Slider.xaml</DependentUpon>
@@ -227,13 +227,10 @@
       <DependentUpon>LayerButton.xaml</DependentUpon>
     </None>
     <Compile Include="Resources\Utils.cs" />
-    <Compile Include="Controls\Counter.xaml.cs">
+    <Compile Include="Views\Counter.xaml.cs">
       <DependentUpon>Counter.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\Converter.cs" />
-    <Compile Include="Controls\CustomSlider.xaml.cs">
-      <DependentUpon>CustomSlider.xaml</DependentUpon>
-    </Compile>
     <Compile Include="_Unused\ShiftSlider.xaml.cs">
       <DependentUpon>ShiftSlider.xaml</DependentUpon>
     </Compile>
@@ -249,10 +246,6 @@
     <Compile Include="Views\Texture.xaml.cs">
       <DependentUpon>Texture.xaml</DependentUpon>
     </Compile>
-    <Page Include="Controls\CMiXSliderCentered.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Resources\Fonts\Roboto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -341,6 +334,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\SliderCentered.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Slider.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -373,11 +370,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Counter.xaml">
+    <Page Include="Views\Counter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\BeatControls.xaml">
+    <Page Include="Views\BeatControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -413,10 +410,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Controls\CustomSlider.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\GeometryFX.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

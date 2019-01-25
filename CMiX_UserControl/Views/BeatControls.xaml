@@ -1,55 +1,48 @@
 ﻿<UserControl
-    x:Class="CMiX.Controls.BeatControls"
+    x:Class="CMiX.Views.BeatControls"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
-    d:DataContext="{d:DesignInstance Type={x:Type ViewModels:BeatModifier},
-                                     IsDesignTimeCreatable=False}"
+    d:DataContext="{d:DesignInstance Type={x:Type ViewModels:BeatModifier}, IsDesignTimeCreatable=False}"
     d:DesignHeight="46.5"
     d:DesignWidth="226.667"
     mc:Ignorable="d">
-    <DockPanel>
+    <StackPanel Orientation="Horizontal">
         <Button
-            x:Name="ResetBPM"
             DockPanel.Dock="Left"
             Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
-            Margin="0, 0, 1, 0"
+            Margin="0, 0, 2, 0"
             Command="{Binding Path=ResetCommand}"
             Content="Rt"
             IsDefault="True"
             IsTabStop="False"
             Style="{DynamicResource ButtonBase}" />
         <Button
-            x:Name="DivideBPM"
             DockPanel.Dock="Left"
             Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
-            Margin="1, 0, 1, 0"
             Command="{Binding Path=DivideCommand}"
             Content="-"
             IsDefault="True"
             Style="{DynamicResource ButtonBase}" />
         <Button
-            x:Name="MultiplyBPM"
             Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
-            Margin="1, 0, 1, 0"
+            Margin="2, 0"
             Command="{Binding Path=MultiplyCommand}"
             Content="+"
             DockPanel.Dock="Left"
             IsDefault="True"
             Style="{DynamicResource ButtonBase}" />
         <Border
-            x:Name="DisplayBPM"
-            Margin="1, 0, 0, 0"
-            Width="25"
+            Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+            HorizontalAlignment="Stretch"
             Background="{StaticResource DarkColor}">
             <TextBlock 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center"
                 Foreground="{StaticResource TextBase}" 
-                Text="{Binding Path=BPM, Mode=OneWay, StringFormat=F0}" />
+                Text="{Binding BPM, Mode=OneWay, StringFormat=F0}" />
         </Border>
-    </DockPanel>
+    </StackPanel>
 </UserControl>
-

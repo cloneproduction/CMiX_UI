@@ -11,7 +11,7 @@ namespace CMiX.ViewModels
             : this
             (
                 actionmanager: actionmanager,
-                Explode: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(GeometryFX), "Explode"), messenger, actionmanager),
+                explode: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(GeometryFX), "Explode"), messenger, actionmanager),
                 messageaddress: String.Format("{0}/{1}/", layername, nameof(GeometryFX)),
                 messenger: messenger,
                 messageEnabled: true
@@ -21,14 +21,14 @@ namespace CMiX.ViewModels
         public GeometryFX
             (
                 ActionManager actionmanager,
-                Slider Explode,
+                Slider explode,
                 IMessenger messenger,
                 string messageaddress,
                 bool messageEnabled
             )
             : base (actionmanager)
         {
-
+            Explode = explode;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
             MessageEnabled = messageEnabled;

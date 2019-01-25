@@ -12,8 +12,8 @@ namespace CMiX.ViewModels
             : this
             (
                 actionmanager: actionmanager,
-                feedback: 0.0,
-                blur: 0.0,
+                feedback: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(LayerFX), "Feedback"), messenger, actionmanager),
+                blur: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(LayerFX), "Blur"), messenger, actionmanager),
                 messenger: messenger,
                 messageaddress: String.Format("{0}/{1}/", layername, nameof(LayerFX)),
                 messageEnabled: true
@@ -23,8 +23,8 @@ namespace CMiX.ViewModels
         public LayerFX
             (
                 IMessenger messenger,
-                double feedback,
-                double blur,
+                Slider feedback,
+                Slider blur,
                 string messageaddress,
                 bool messageEnabled,
                 ActionManager actionmanager
@@ -48,38 +48,16 @@ namespace CMiX.ViewModels
 
         public BeatModifier BeatModifier { get; }
 
-        private double _feedback;
-        [OSC]
-        public double Feedback
-        {
-            get => _feedback;
-            set
-            {
-                SetAndNotify(ref _feedback, CoerceNotNegative(value));
-                if (MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(Feedback), Feedback);
-            }
-        }
+        public Slider Feedback { get; }
 
-        private double _blur;
-        [OSC]
-        public double Blur
-        {
-            get => _blur;
-            set
-            {
-                SetAndNotify(ref _blur, CoerceNotNegative(value));
-                if (MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(Blur), Blur);
-            }
-        }
+        public Slider Blur { get; }
         #endregion
 
         #region COPY/PASTE
         public void Copy(LayerFXDTO layerfxdto)
         {
-            layerfxdto.Feedback = Feedback;
-            layerfxdto.Blur = Blur;
+            //layerfxdto.Feedback = Feedback;
+            //layerfxdto.Blur = Blur;
 
         }
 
@@ -87,8 +65,8 @@ namespace CMiX.ViewModels
         {
             MessageEnabled = false;
 
-            Feedback = layerfxdto.Feedback;
-            Blur = layerfxdto.Blur;
+            //Feedback = layerfxdto.Feedback;
+            //Blur = layerfxdto.Blur;
 
             MessageEnabled = true;
         }

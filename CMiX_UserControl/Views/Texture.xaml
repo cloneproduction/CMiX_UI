@@ -2,7 +2,6 @@
     x:Class="CMiX.Views.Texture"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:CMiX="clr-namespace:CMiX"
     xmlns:Controls="clr-namespace:CMiX.Controls"
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
@@ -95,13 +94,13 @@
                                     </Image>
                                 </TabItem.Header>
                                 <StackPanel>
-                                    <Views:Slider
+                                    <Views:SliderCentered
                                         Margin="0, 1, 0, 1"
                                         Caption="Brightness"
                                         DockPanel.Dock="Bottom"
                                         DataContext="{Binding Brightness}"
                                         />
-                                    <Views:Slider
+                                    <Views:SliderCentered
                                         Margin="0, 1, 0, 1"
                                         Caption="Contrast"
                                         DockPanel.Dock="Bottom"
@@ -115,7 +114,7 @@
                                             <ColumnDefinition />
                                             <ColumnDefinition Width="0.3*" />
                                         </Grid.ColumnDefinitions>
-                                        <CMiX:CMiXComboBox
+                                        <ComboBox
                                             Grid.Column="1"
                                             Margin="1, 0, 0, 0"
                                             ItemsSource="{Binding Source={StaticResource InvertMode}}"
@@ -141,19 +140,19 @@
                                     </Image>
                                 </TabItem.Header>
                                 <StackPanel Margin="0, 2, 0, 0">
-                                    <Views:Slider
+                                    <Views:SliderCentered
                                         Margin="0, 1, 0, 1"
                                         Caption="Hue"
                                         DockPanel.Dock="Bottom"
                                         DataContext="{Binding Hue}"
                                         />
-                                    <Views:Slider
+                                    <Views:SliderCentered
                                         Margin="0, 1, 0, 1"
                                         Caption="Saturation"
                                         DockPanel.Dock="Bottom"
                                         DataContext="{Binding Saturation}"
                                         />
-                                    <Views:Slider
+                                    <Views:SliderCentered
                                         Margin="0, 1, 0, 1"
                                         Caption="Luminosity"
                                         DockPanel.Dock="Bottom"
@@ -170,25 +169,25 @@
                                     </Image>
                                 </TabItem.Header>
                                 <StackPanel>
-                                    <Views:Slider
+                                    <Views:SliderCentered
                                         Margin="0, 1, 0, 1"
                                         Caption="Pan"
                                         DockPanel.Dock="Bottom"
                                         DataContext="{Binding Pan}"
                                         />
-                                    <Views:Slider
+                                    <Views:SliderCentered
                                         Margin="0, 1, 0, 1"
                                         Caption="Tilt"
                                         DockPanel.Dock="Bottom"
                                         DataContext="{Binding Tilt}"
                                         />
-                                    <Views:Slider
+                                    <Views:SliderCentered
                                         Margin="0, 1, 0, 1"
                                         Caption="Scale"
                                         DockPanel.Dock="Bottom"
                                         DataContext="{Binding Scale}"
                                         />
-                                    <Views:Slider
+                                    <Views:SliderCentered
                                         Margin="0, 1, 0, 1"
                                         Caption="Rotate"
                                         DockPanel.Dock="Bottom"

@@ -4,19 +4,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:Controls="clr-namespace:CMiX.Controls"
     xmlns:viewModels="clr-namespace:CMiX.ViewModels"
     xmlns:Views="clr-namespace:CMiX.Views"
     d:DataContext="{d:DesignInstance Type={x:Type viewModels:BeatModifier}, IsDesignTimeCreatable=False}"
-    d:DesignHeight="33.493"
-    d:DesignWidth="413.081"
+    d:DesignHeight="20.493"
+    d:DesignWidth="327.081"
     mc:Ignorable="d">
-    
+
     <Border             
         Background="{StaticResource DarkerColor}">
         <DockPanel LastChildFill="True">
-            <Controls:BeatControls 
-                x:Name="MaskMultiplier" 
+            <Views:BeatControls 
                 Margin="1, 0, 0, 0" 
                 DockPanel.Dock="Right" 
                 />

@@ -31,7 +31,10 @@
                 <Border>
                     <Views:Coloration DataContext="{Binding Coloration}"/>
                 </Border>
-                <Views:LayerFX Margin="0, 4, 0, 0" DataContext="{Binding LayerFX}"/>
+                <Views:LayerFX 
+                    Margin="0, 4, 0, 0" 
+                    DataContext="{Binding LayerFX}"
+                    />
             </StackPanel>
             <Border
                 Grid.Column="1"

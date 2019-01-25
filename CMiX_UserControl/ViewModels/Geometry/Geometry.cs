@@ -30,6 +30,7 @@ namespace CMiX.ViewModels
                 translateAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "TranslateAmount"), messenger, actionmanager),
                 scaleAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "ScaleAmount"), messenger, actionmanager),
                 rotationAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "ScaleAmount"), messenger, actionmanager),
+                counter: new Counter(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Count"), messenger, actionmanager),
                 is3D: false,    
                 keepAspectRatio: false,
                 messageEnabled: true
@@ -51,6 +52,7 @@ namespace CMiX.ViewModels
                 Slider translateAmount,
                 Slider scaleAmount,
                 Slider rotationAmount,
+                Counter counter,
                 bool is3D,
                 bool keepAspectRatio,
                 IMessenger messenger,
@@ -63,7 +65,6 @@ namespace CMiX.ViewModels
             {
                 throw new ArgumentNullException(nameof(geometrypaths));
             }
-
             Count = count;
             GeometryPaths = new ObservableCollection<ListBoxFileName>() ;
             GeometryPaths.CollectionChanged += ContentCollectionChanged;
@@ -74,6 +75,7 @@ namespace CMiX.ViewModels
             TranslateAmount = translateAmount;
             RotationAmount = rotationAmount;
             ScaleAmount = scaleAmount;
+            Counter = counter;
             Is3D = is3D;
             KeepAspectRatio = keepAspectRatio;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
@@ -106,6 +108,8 @@ namespace CMiX.ViewModels
 
         public GeometryScale GeometryScale { get; }
         public Slider ScaleAmount { get; }
+
+        public Counter Counter { get; }
 
         [OSC]
         public ObservableCollection<ListBoxFileName> GeometryPaths { get; set; }

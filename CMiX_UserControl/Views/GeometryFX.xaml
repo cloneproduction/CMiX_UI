@@ -5,20 +5,17 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:Controls="clr-namespace:CMiX.Controls"
+    xmlns:Views="clr-namespace:CMiX.Views"
     mc:Ignorable="d" 
     d:DesignHeight="24.167" 
     d:DesignWidth="313.107">
 
     <StackPanel>
-        <Border DockPanel.Dock="Bottom">
-            <StackPanel x:Name="TexFXControl">
-                <Controls:CustomSlider
-                    Height="20"
-                    Margin="0,2,0,1"
-                    Caption="Explode"
-                    Value="{Binding Amount, Mode=TwoWay}"
-                    />
-            </StackPanel>
-        </Border>
+        <Views:Slider
+            Height="20"
+            Margin="0,2,0,1"
+            Caption="Explode"
+            DataContext="{Binding Explode}"
+            />
     </StackPanel>
 </UserControl>

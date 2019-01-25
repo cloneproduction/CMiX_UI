@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace CMiX.Controls
+namespace CMiX.Views
 {
     public partial class BeatControls : UserControl
     {

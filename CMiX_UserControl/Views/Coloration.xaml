@@ -6,10 +6,10 @@
     xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="527.333"
-    d:DesignWidth="286.667"
+    d:DesignHeight="709.333"
+    d:DesignWidth="302.667"
     mc:Ignorable="d">
-    
+
     <StackPanel>
         <Border>
             <DockPanel>

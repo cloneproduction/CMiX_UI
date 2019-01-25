@@ -196,11 +196,11 @@
                         VerticalAlignment="Center" 
                         HorizontalAlignment="Left"
                         />
-                        <Controls:Counter
+                    <Views:Counter
                         Grid.Column="1"
                         Height="20"
                         HorizontalAlignment="Stretch"
-                        Count="{Binding Count, Mode=TwoWay}"
+                        DataContext="{Binding Counter}"
                         />
                 </Grid>
             </Border>
