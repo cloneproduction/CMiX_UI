@@ -1,8 +1,8 @@
 ﻿using System;
-using CMiX.Services;
-using CMiX.Models;
 using System.Windows;
 using System.Windows.Input;
+using CMiX.Services;
+using CMiX.Models;
 using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
@@ -10,20 +10,21 @@ namespace CMiX.ViewModels
     [Serializable]
     public class Content : ViewModel, IMessengerData
     {
+        #region CONSTRUCTORS
         public Content(Beat masterbeat, string layername, IMessenger messenger, ActionManager actionmanager)
-            : this
-            (
-                actionmanager: actionmanager,
-                enable: true,
-                messageaddress: String.Format("{0}/{1}/", layername, nameof(Content)),
-                messageEnabled : true,
-                messenger: messenger,
-                beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Content)), messenger, masterbeat, actionmanager),
-                geometry: new Geometry(String.Format("{0}/{1}", layername, nameof(Content)), messenger, actionmanager),
-                texture: new Texture(String.Format("{0}/{1}", layername, nameof(Content)), messenger, actionmanager),
-                postFX: new PostFX(String.Format("{0}/{1}", layername, nameof(Content)), messenger, actionmanager)
-            )
-        { }
+        : this
+        (
+            actionmanager: actionmanager,
+            enable: true,
+            messageaddress: String.Format("{0}/{1}/", layername, nameof(Content)),
+            messageEnabled: true,
+            messenger: messenger,
+            beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Content)), messenger, masterbeat, actionmanager),
+            geometry: new Geometry(String.Format("{0}/{1}", layername, nameof(Content)), messenger, actionmanager),
+            texture: new Texture(String.Format("{0}/{1}", layername, nameof(Content)), messenger, actionmanager),
+            postFX: new PostFX(String.Format("{0}/{1}", layername, nameof(Content)), messenger, actionmanager)
+        )
+        {}
 
         public Content
             (
@@ -31,10 +32,10 @@ namespace CMiX.ViewModels
                 bool enable,
                 string messageaddress,
                 bool messageEnabled,
-                IMessenger messenger, 
-                BeatModifier beatModifier, 
-                Geometry geometry, 
-                Texture texture, 
+                IMessenger messenger,
+                BeatModifier beatModifier,
+                Geometry geometry,
+                Texture texture,
                 PostFX postFX
             )
             : base(actionmanager)
@@ -51,11 +52,11 @@ namespace CMiX.ViewModels
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
         }
+        #endregion
 
+        #region PROPERTIES
         public IMessenger Messenger { get; }
-
         public string MessageAddress { get; set; }
-
         public bool MessageEnabled { get; set; }
 
         public ICommand CopySelfCommand { get; }
@@ -70,13 +71,12 @@ namespace CMiX.ViewModels
         }
 
         public BeatModifier BeatModifier { get; }
-
         public Geometry Geometry { get; }
-
         public Texture Texture { get; }
-
         public PostFX PostFX { get; }
+        #endregion
 
+        #region COPY/PASTE
         public void CopySelf()
         {
             ContentDTO contentdto = new ContentDTO();
@@ -124,5 +124,6 @@ namespace CMiX.ViewModels
             PostFX.Paste(contentdto.PostFXDTO);
             MessageEnabled = true;
         }
+        #endregion
     }
 }

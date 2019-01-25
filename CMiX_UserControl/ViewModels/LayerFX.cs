@@ -56,17 +56,16 @@ namespace CMiX.ViewModels
         #region COPY/PASTE
         public void Copy(LayerFXDTO layerfxdto)
         {
-            //layerfxdto.Feedback = Feedback;
-            //layerfxdto.Blur = Blur;
-
+            Feedback.Copy(layerfxdto.Feedback);
+            Blur.Copy(layerfxdto.Blur);
         }
 
         public void Paste(LayerFXDTO layerfxdto)
         {
             MessageEnabled = false;
 
-            //Feedback = layerfxdto.Feedback;
-            //Blur = layerfxdto.Blur;
+            Feedback.Paste(layerfxdto.Feedback);
+            Blur.Paste(layerfxdto.Blur);
 
             MessageEnabled = true;
         }

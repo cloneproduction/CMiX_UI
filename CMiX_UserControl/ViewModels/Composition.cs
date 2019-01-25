@@ -5,9 +5,9 @@ using System.Windows.Input;
 using System.Collections.Specialized;
 using System.Windows;
 using System.IO;
+using Newtonsoft.Json;
 using CMiX.Services;
 using CMiX.Models;
-using Newtonsoft.Json;
 using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
@@ -56,15 +56,27 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-
         private int layerID = -1;
         private int layerNameID = -1;
 
         private IMessenger Messenger { get; } 
-
         public string MessageAddress { get; set; } //NOT USED HERE..
-
         public bool MessageEnabled { get; set; }
+
+        public ICommand AddLayerCommand { get; }
+        public ICommand RemoveLayerCommand { get; }
+        public ICommand CopyLayerCommand { get; }
+        public ICommand PasteLayerCommand { get; }
+        public ICommand SaveCompositionCommand { get; }
+        public ICommand OpenCompositionCommand { get; }
+        public ICommand UndoCommand { get; }
+        public ICommand RedoCommand { get; }
+
+        public MasterBeat MasterBeat { get; set; }
+        public Camera Camera { get; set; }
+
+        [OSC]
+        public ObservableCollection<Layer> Layers { get; }
 
         private string _name;
         public string Name
@@ -100,27 +112,9 @@ namespace CMiX.ViewModels
             get => _selectedlayer;
             set => SetAndNotify(ref _selectedlayer, value);
         }
-
-        public MasterBeat MasterBeat { get; set; }
-
-        public Camera Camera { get; set; }
-
-        [OSC]
-        public ObservableCollection<Layer> Layers { get; }
         #endregion
 
-        #region COMMANDS
-        public ICommand AddLayerCommand { get; }
-        public ICommand RemoveLayerCommand { get; }
-        public ICommand CopyLayerCommand { get; }
-        public ICommand PasteLayerCommand { get; }
-        public ICommand SaveCompositionCommand { get; }
-        public ICommand OpenCompositionCommand { get; }
-
-        public ICommand UndoCommand { get; }
-        public ICommand RedoCommand { get; }
-        #endregion
-
+        #region UNDO/REDO
         void Undo()
         {
             ActionManager.Undo();
@@ -132,6 +126,7 @@ namespace CMiX.ViewModels
             ActionManager.Redo();
             Console.WriteLine("Redo");
         }
+        #endregion
 
         #region NOTIFYCOLLECTIONCHANGED
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
