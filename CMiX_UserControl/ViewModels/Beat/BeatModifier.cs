@@ -8,30 +8,31 @@ namespace CMiX.ViewModels
     [Serializable]
     public class BeatModifier : Beat, IMessengerData
     {
+        #region CONSTRUCTORS
         public BeatModifier(string layername, IMessenger messenger, Beat masterBeat, ActionManager actionmanager)
-            : this
-            (
-                actionmanager: actionmanager,
-                masterBeat: masterBeat,
-                multiplier: 1.0,
-                chanceToHit: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(BeatModifier), "ChanceToHit"), messenger, actionmanager),
-                messenger: messenger,
-                messageaddress: String.Format("{0}/{1}/", layername, nameof(BeatModifier)),
-                messageEnabled: true
-            )
-        {}
+        : this
+        (
+            actionmanager: actionmanager,
+            masterBeat: masterBeat,
+            multiplier: 1.0,
+            chanceToHit: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(BeatModifier), "ChanceToHit"), messenger, actionmanager),
+            messenger: messenger,
+            messageaddress: String.Format("{0}/{1}/", layername, nameof(BeatModifier)),
+            messageEnabled: true
+        )
+        { }
 
         public BeatModifier
             (
                 ActionManager actionmanager,
-                Beat masterBeat, 
-                double multiplier, 
+                Beat masterBeat,
+                double multiplier,
                 Slider chanceToHit,
                 IMessenger messenger,
                 string messageaddress,
                 bool messageEnabled
             )
-            : base (actionmanager)
+            : base(actionmanager)
         {
             MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
             Multiplier = multiplier;
@@ -48,15 +49,14 @@ namespace CMiX.ViewModels
             MessageAddress = messageaddress;
             MessageEnabled = messageEnabled;
         }
+        #endregion
 
+        #region PROPERTIES
         private IMessenger Messenger { get; }
-
         public string MessageAddress { get; set; }
-
         public bool MessageEnabled { get; set; }
 
         private Beat MasterBeat { get; }
-
         public Slider ChanceToHit { get; }
 
         public override double Period
@@ -79,7 +79,9 @@ namespace CMiX.ViewModels
                     Messenger.SendMessage(MessageAddress + nameof(Multiplier), Multiplier);
             }
         }
+        #endregion
 
+        #region MULTIPLY/DIVIDE
         protected override void Multiply()
         {
             Multiplier /= 2;
@@ -89,19 +91,22 @@ namespace CMiX.ViewModels
         {
             Multiplier *= 2;
         }
+        #endregion
 
+        #region COPY/PASTE
         public void Copy(BeatModifierDTO beatmodifierdto)
         {
-            //beatmodifierdto.ChanceToHit = ChanceToHit;
+            ChanceToHit.Copy(beatmodifierdto.ChanceToHit);
             beatmodifierdto.Multiplier = Multiplier;
         }
 
         public void Paste(BeatModifierDTO beatmodifierdto)
         {
             MessageEnabled = false;
-            //ChanceToHit = beatmodifierdto.ChanceToHit;
+            ChanceToHit.Paste(beatmodifierdto.ChanceToHit);
             Multiplier = beatmodifierdto.Multiplier;
             MessageEnabled = true;
         }
+        #endregion
     }
 }

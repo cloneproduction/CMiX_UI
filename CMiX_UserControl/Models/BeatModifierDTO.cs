@@ -9,6 +9,7 @@ namespace CMiX.Models
         {
             ChanceToHit = new SliderDTO();
         }
+
         public SliderDTO ChanceToHit { get; set; }
         public double Multiplier { get; set; }
     }

@@ -15,15 +15,12 @@ namespace CMiX.ViewModels
         {
             MessageEnabled = false;
             Messenger = messenger;
-            MessageAddress = String.Format("{0}/", layername);
-            
+            MessageAddress = String.Format("{0}/", layername); 
             Index = index;
-            LayerName = layername;
-            
+            LayerName = layername;       
             BlendMode = ((BlendMode)0).ToString();
             Index = 0;
             Enabled = false;
-
             Fade = new Slider(layername + "/Fade", messenger, actionmanager);
             BeatModifier = new BeatModifier(layername, messenger, masterBeat, actionmanager);
             Content = new Content(BeatModifier, layername, messenger, actionmanager);
@@ -49,7 +46,6 @@ namespace CMiX.ViewModels
                 Mask mask,
                 Coloration coloration,
                 LayerFX layerfx,
-                
                 ActionManager actionmanager
             )
             : base (actionmanager)
@@ -70,12 +66,12 @@ namespace CMiX.ViewModels
         }
         #endregion
 
-        #region PROPERTY
+        #region PROPERTIES
         public IMessenger Messenger { get; }
         public string MessageAddress { get; set; }
         public bool MessageEnabled { get; set; }
 
-        public bool CanAcceptChildren { get; set; }
+        //public bool CanAcceptChildren { get; set; }
         public ObservableCollection<Layer> Children { get; private set; }
 
         private string _layername;
