@@ -20,7 +20,7 @@ namespace CMiX.ViewModels
         {
             Name = string.Empty;
 
-            OSCControl = new OSCControl(Messenger, ActionManager);
+            OSCControl = new OSCControl(Messenger, ActionManager); /// A LITTLE WEIRD I THINK...
             Messenger = OSCControl.OSCMessenger; /// A LITTLE WEIRD I THINK...
             MessageEnabled = true;
             MessageAddress = String.Empty;
