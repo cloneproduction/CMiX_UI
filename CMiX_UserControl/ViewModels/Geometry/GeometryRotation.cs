@@ -1,54 +1,48 @@
 ﻿using System;
 using CMiX.Services;
 using CMiX.Models;
-using System.Collections.Generic;
 using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
 {
-    public class GeometryRotation :ViewModel, IMessengerData
+    public class GeometryRotation :ViewModel
     {
-        public GeometryRotation(string layername, IMessenger messenger, ActionManager actionmanager)
-            : this
-            (
-                actionmanager: actionmanager,
-                messageaddress: layername + "/",
-                messenger: messenger,
-                messageEnabled: true,
-                rotationMode: default,
-                rotationX: true,
-                rotationY: true,
-                rotationZ: true
-            )
-        {
-        }
+        #region CONSTRUCTORS
+        public GeometryRotation(string layername, OSCMessenger messenger, ActionManager actionmanager)
+        : this
+        (
+            actionmanager: actionmanager,
+            messageaddress: layername + "/",
+            messenger: messenger,
+            rotationMode: default,
+            rotationX: true,
+            rotationY: true,
+            rotationZ: true
+        )
+        { }
 
         public GeometryRotation
             (
                 ActionManager actionmanager,
                 string messageaddress,
+                OSCMessenger messenger,
                 bool rotationX,
                 bool rotationY,
                 bool rotationZ,
-                bool messageEnabled,
-                IMessenger messenger,
                 GeometryRotationMode rotationMode
             )
-            : base (actionmanager)
+            : base(actionmanager, messenger)
         {
             MessageAddress = messageaddress;
-            MessageEnabled = messageEnabled;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             RotationX = rotationX;
             RotationY = rotationY;
             RotationZ = rotationZ;
         }
+        #endregion
 
+        #region PROPERTIES
         public string MessageAddress { get; set; }
-
-        public bool MessageEnabled { get; set; }
-
-        public IMessenger Messenger { get; }
 
         private GeometryRotationMode _RotationMode;
         [OSC]
@@ -58,8 +52,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _RotationMode, value);
-                if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(RotationMode), RotationMode);
+                Messenger.SendMessage(MessageAddress + nameof(RotationMode), RotationMode);
             }
         }
 
@@ -71,8 +64,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _RotationX, value);
-                if (MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(RotationX), RotationX);
+                Messenger.SendMessage(MessageAddress + nameof(RotationX), RotationX);
             }
         }
 
@@ -84,8 +76,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _RotationY, value);
-                if (MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(RotationY), RotationY);
+                Messenger.SendMessage(MessageAddress + nameof(RotationY), RotationY);
             }
         }
 
@@ -97,11 +88,12 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _RotationZ, value);
-                if (MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(RotationZ), RotationZ);
+                Messenger.SendMessage(MessageAddress + nameof(RotationZ), RotationZ);
             }
         }
+        #endregion
 
+        #region COPY/PASTE
         public void Copy(GeometryRotationDTO geometryrotationdto)
         {
             geometryrotationdto.RotationModeDTO = RotationMode;
@@ -112,12 +104,13 @@ namespace CMiX.ViewModels
 
         public void Paste(GeometryRotationDTO geometryrotationdto)
         {
-            MessageEnabled = false;
+            Messenger.SendEnabled = false;
             RotationMode = geometryrotationdto.RotationModeDTO;
             RotationX = geometryrotationdto.RotationX;
             RotationY = geometryrotationdto.RotationY;
             RotationZ = geometryrotationdto.RotationZ;
-            MessageEnabled = true;
+            Messenger.SendEnabled = true;
         }
+        #endregion
     }
 }

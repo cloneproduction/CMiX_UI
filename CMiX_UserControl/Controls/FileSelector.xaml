@@ -64,7 +64,6 @@
         </DockPanel>
         <Border HorizontalAlignment="Stretch">
             <Controls:CMiXListBox
-                Height="{Binding Path=ActualHeight, ElementName=HeightHelperPanel}"
                 x:Name="FileNameList"
                 HorizontalContentAlignment="Stretch"
                 VerticalContentAlignment="Stretch"

@@ -10,7 +10,7 @@ namespace CMiX.ViewModels
 {
     public class GeometrySelector : ViewModel
     {
-        public GeometrySelector(ActionManager actionmanager) : base (actionmanager)
+        public GeometrySelector()// : base (actionmanager)
         {
 
         }

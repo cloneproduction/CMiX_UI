@@ -92,7 +92,7 @@
                             Keyboard.KeyDown="Toggle_KeyDown"
                             Margin="2, 0, 0, 0"
                             Style="{StaticResource ToggleButtonBase}" 
-                            Content="{Binding Translate.TranslateMode, Converter={StaticResource EnumToString}}"
+                            Content="{Binding TranslateMode.TranslateMode, Converter={StaticResource EnumToString}}"
                             IsHitTestVisible="{Binding ElementName=GeometryTranslatePopup, Path=IsOpen, Converter={StaticResource BoolInverter}}"
                             />
                         <Popup
@@ -103,7 +103,7 @@
                             IsOpen="{Binding IsChecked, ElementName=GeometryTranslate}"
                             Placement="Center"
                             StaysOpen="False">
-                            <ViewModels:TranslateSelector DataContext="{Binding GeometryTranslate}"/>
+                            <ViewModels:TranslateSelector DataContext="{Binding TranslateMode}"/>
                         </Popup>
                         <Views:Slider
                             Grid.Column="0"
@@ -123,7 +123,7 @@
                             Keyboard.KeyDown="Toggle_KeyDown"
                             Margin="2, 0, 0, 0"
                             Style="{StaticResource ToggleButtonBase}" 
-                            Content="{Binding Scale.ScaleMode, Converter={StaticResource EnumToString}}"
+                            Content="{Binding ScaleMode.ScaleMode, Converter={StaticResource EnumToString}}"
                             IsHitTestVisible="{Binding ElementName=GeometryScalePopup, Path=IsOpen, Converter={StaticResource BoolInverter}}"
                             />
                         <Popup
@@ -135,7 +135,7 @@
                             Placement="Center"
                             StaysOpen="False">
                             <ViewModels:ScaleSelector 
-                                DataContext="{Binding GeometryScale}"
+                                DataContext="{Binding ScaleMode}"
                                 />
                         </Popup>
                         <Views:Slider
@@ -156,7 +156,7 @@
                             Keyboard.KeyDown="Toggle_KeyDown"
                             Margin="2, 0, 0, 0"
                             Style="{StaticResource ToggleButtonBase}" 
-                            Content="{Binding Rotation.RotationMode, Converter={StaticResource EnumToString}}"
+                            Content="{Binding RotationMode.RotationMode, Converter={StaticResource EnumToString}}"
                             IsHitTestVisible="{Binding ElementName=GeometryRotationPopup, Path=IsOpen, Converter={StaticResource BoolInverter}}"
                             />
                         <Popup 
@@ -168,7 +168,7 @@
                             Placement="Center"
                             StaysOpen="False">
                             <ViewModels:RotationSelector 
-                                DataContext="{Binding GeometryRotation}"
+                                DataContext="{Binding RotationMode}"
                                 />
                         </Popup>
                         <Views:Slider

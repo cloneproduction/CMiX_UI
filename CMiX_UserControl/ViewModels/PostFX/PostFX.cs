@@ -7,43 +7,41 @@ using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
 {
-    public class PostFX : ViewModel, IMessengerData
+    public class PostFX : ViewModel
     {
         #region CONSTRUCTORS
-        public PostFX(string layername, IMessenger messenger, ActionManager actionmanager)
+        public PostFX(string layername, OSCMessenger messenger, ActionManager actionmanager)
             : this
             (
                 actionmanager: actionmanager,
+                messenger: messenger,
                 feedback: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(PostFX), "Feedback"), messenger, actionmanager),
                 blur: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(PostFX), "Blur"), messenger, actionmanager),
                 transforms: ((PostFXTransforms)0).ToString(), 
                 view: ((PostFXView)0).ToString(),
-                messageaddress: String.Format("{0}/{1}/", layername, nameof(PostFX)),
-                messenger: messenger,
-                messageEnabled: true
+                messageaddress: String.Format("{0}/{1}/", layername, nameof(PostFX))
+
             )
         { }
 
         public PostFX
             (
                 ActionManager actionmanager,
+                OSCMessenger messenger,
                 Slider feedback,
                 Slider blur,
                 string transforms,
                 string view,
-                IMessenger messenger,
-                string messageaddress,
-                bool messageEnabled
+                string messageaddress
             )
             : base (actionmanager)
         {
+            MessageAddress = messageaddress;
+            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             Feedback = feedback;
             Blur = blur;
             Transforms = transforms;
             View = view;
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
-            MessageAddress = messageaddress;
-            MessageEnabled = messageEnabled;
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
@@ -52,10 +50,6 @@ namespace CMiX.ViewModels
 
         #region PROPERTIES
         public string MessageAddress { get; set; }
-
-        public bool MessageEnabled { get; set; }
-
-        public IMessenger Messenger { get; }
 
         public ICommand CopySelfCommand { get; }
         public ICommand PasteSelfCommand { get; }
@@ -72,8 +66,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _transforms, value);
-                if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(Transforms), Transforms);
+                Messenger.SendMessage(MessageAddress + nameof(Transforms), Transforms);
             }
         }
 
@@ -85,8 +78,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _view, value);
-                if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(View), View);
+                Messenger.SendMessage(MessageAddress + nameof(View), View);
             }
         }
         #endregion
@@ -102,12 +94,12 @@ namespace CMiX.ViewModels
 
         public void Paste(PostFXDTO postFXdto)
         {
-            MessageEnabled = false;
+            Messenger.SendEnabled = false;
             Feedback.Paste(postFXdto.Feedback);
             Blur.Paste(postFXdto.Blur);
             Transforms = postFXdto.Transforms;
             View = postFXdto.View;
-            MessageEnabled = true;
+            Messenger.SendEnabled = true;
         }
 
         public void CopySelf()

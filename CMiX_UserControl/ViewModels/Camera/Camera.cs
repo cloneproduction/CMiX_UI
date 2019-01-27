@@ -5,16 +5,15 @@ using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
 {
-    public class Camera : ViewModel, IMessengerData
+    public class Camera : ViewModel
     {
         #region CONSTRUCTORS
-        public Camera(IMessenger messenger, MasterBeat masterBeat, ActionManager actionmanager)
+        public Camera(OSCMessenger messenger, MasterBeat masterBeat, ActionManager actionmanager)
             : this
             (
                 actionmanager: actionmanager,
                 messenger: messenger,
                 messageaddress: "/Camera/",
-                messageEnabled: true,
                 rotation: ((CameraRotation)0).ToString(),
                 lookAt: ((CameraLookAt)0).ToString(),
                 view: ((CameraView)0).ToString(),
@@ -34,11 +33,10 @@ namespace CMiX.ViewModels
                 BeatModifier beatModifier,
                 Slider fov,
                 Slider zoom,
-                IMessenger messenger,
-                string messageaddress,
-                bool messageEnabled
+                OSCMessenger messenger,
+                string messageaddress
             )
-            : base(actionmanager)
+            : base(actionmanager, messenger)
         {
             Rotation = rotation;
             LookAt = lookAt;
@@ -46,16 +44,13 @@ namespace CMiX.ViewModels
             BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
             FOV = fov;
             Zoom = zoom;
-            MessageEnabled = messageEnabled;
             MessageAddress = messageaddress;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
         }
         #endregion
 
         #region PROPERTIES
-        public IMessenger Messenger { get; }
         public string MessageAddress { get; set; }
-        public bool MessageEnabled { get; set; }
 
         public BeatModifier BeatModifier { get; }
         public Slider FOV { get; }
@@ -69,8 +64,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _rotation, value);
-                if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(Rotation), Rotation);
+                Messenger.SendMessage(MessageAddress + nameof(Rotation), Rotation);
             }
         }
 
@@ -82,8 +76,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _lookAt, value);
-                if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(LookAt), LookAt);
+                Messenger.SendMessage(MessageAddress + nameof(LookAt), LookAt);
             }
         }
 
@@ -95,8 +88,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _view, value);
-                if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(View), View);
+                Messenger.SendMessage(MessageAddress + nameof(View), View);
             }
         }
         #endregion
@@ -114,7 +106,7 @@ namespace CMiX.ViewModels
 
         public void Paste(CameraDTO cameradto)
         {
-            MessageEnabled = false;
+            Messenger.SendEnabled = false;
 
             Rotation = cameradto.Rotation;
             LookAt = cameradto.LookAt;
@@ -123,7 +115,7 @@ namespace CMiX.ViewModels
             FOV.Paste(cameradto.FOV);
             Zoom.Paste(cameradto.Zoom);
 
-            MessageEnabled = true;
+            Messenger.SendEnabled = true;
         }
         #endregion
     }

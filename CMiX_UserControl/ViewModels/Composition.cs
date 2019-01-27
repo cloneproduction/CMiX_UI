@@ -12,7 +12,7 @@ using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
 {
-    public class Composition : ViewModel, IMessengerData
+    public class Composition : ViewModel
     {
         #region CONSTRUCTORS
         public Composition()
@@ -20,9 +20,8 @@ namespace CMiX.ViewModels
         {
             Name = string.Empty;
 
-            OSCControl = new OSCControl(Messenger, ActionManager); /// A LITTLE WEIRD I THINK...
+            OSCControl = new OSCControl(ActionManager); /// A LITTLE WEIRD I THINK...
             Messenger = OSCControl.OSCMessenger; /// A LITTLE WEIRD I THINK...
-            MessageEnabled = true;
             MessageAddress = String.Empty;
             
             MasterBeat = new MasterBeat(Messenger, this.ActionManager);
@@ -47,9 +46,8 @@ namespace CMiX.ViewModels
             {
                 throw new ArgumentNullException(nameof(layers));
             }
-            OSCControl = new OSCControl(Messenger, ActionManager);
+            OSCControl = new OSCControl(ActionManager);
             Messenger = OSCControl.OSCMessenger;
-            MessageEnabled = true;
             MessageAddress = String.Empty;
             Name = name;
 
@@ -64,9 +62,7 @@ namespace CMiX.ViewModels
         private int layerID = -1;
         private int layerNameID = -1;
 
-        private IMessenger Messenger { get; } 
         public string MessageAddress { get; set; } //NOT USED HERE..
-        public bool MessageEnabled { get; set; }
 
         public ICommand AddLayerCommand { get; }
         public ICommand RemoveLayerCommand { get; }
@@ -89,20 +85,6 @@ namespace CMiX.ViewModels
         {
             get => _name;
             set => SetAndNotify(ref _name, value);
-        }
-
-        private string _IP = "127.0.0.1";
-        public string IP
-        {
-            get => _IP;
-            set => SetAndNotify(ref _IP, value);
-        }
-
-        private string _port = "55555";
-        public string Port
-        {
-            get => _port;
-            set => SetAndNotify(ref _port, value);
         }
 
         private List<string> _layernames;
@@ -137,7 +119,7 @@ namespace CMiX.ViewModels
         #region NOTIFYCOLLECTIONCHANGED
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (MessageEnabled)
+            if (Messenger.SendEnabled)
             {
                 List<string> layerindex = new List<string>();
 
@@ -272,7 +254,8 @@ namespace CMiX.ViewModels
 
         public void Paste(CompositionDTO compositiondto)
         {
-            MessageEnabled = false;
+            //MessageEnabled = false;
+            OSCControl.OSCMessenger.SendEnabled = false;
 
             Name = compositiondto.Name;
             LayerNames = compositiondto.LayerNames;
@@ -290,12 +273,14 @@ namespace CMiX.ViewModels
             MasterBeat.Paste(compositiondto.MasterBeatDTO);
             Camera.Paste(compositiondto.CameraDTO);
 
-            MessageEnabled = true;
+            //MessageEnabled = true;
+            OSCControl.OSCMessenger.SendEnabled = false;
         }
 
         public void Load(CompositionDTO compositiondto)
         {
-            MessageEnabled = false;
+            OSCControl.OSCMessenger.SendEnabled = false;
+            //MessageEnabled = false;
 
             Name = compositiondto.Name;
             LayerNames = compositiondto.LayerNames;
@@ -311,7 +296,8 @@ namespace CMiX.ViewModels
             MasterBeat.Paste(compositiondto.MasterBeatDTO);
             Camera.Paste(compositiondto.CameraDTO);
 
-            MessageEnabled = true;
+            OSCControl.OSCMessenger.SendEnabled = false;
+            //MessageEnabled = true;
         }
 
         private void Save()
@@ -361,7 +347,7 @@ namespace CMiX.ViewModels
                     }
                 }
             }
-            }
+        }
         #endregion
     }
 }

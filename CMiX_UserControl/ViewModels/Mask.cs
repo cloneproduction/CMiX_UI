@@ -7,16 +7,15 @@ using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
 {
-    public class Mask : ViewModel, IMessengerData
+    public class Mask : ViewModel
     {
         #region CONSTRUCTORS
-        public Mask(Beat masterbeat, string layername, IMessenger messenger, ActionManager actionmanager)
+        public Mask(Beat masterbeat, string layername, OSCMessenger messenger, ActionManager actionmanager)
             : this
             (
                 actionmanager : actionmanager,
                 messenger: messenger,
                 messageaddress: String.Format("{0}/{1}/", layername, nameof(Mask)),
-                messageEnabled : true,
                 enable: false,
                 beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Mask)), messenger, masterbeat, actionmanager),
                 geometry: new Geometry(String.Format("{0}/{1}", layername, nameof(Mask)), messenger, actionmanager),
@@ -27,9 +26,8 @@ namespace CMiX.ViewModels
 
         public Mask
             (
-                IMessenger messenger,
+                OSCMessenger messenger,
                 string messageaddress,
-                bool messageEnabled,
                 bool enable, 
                 BeatModifier beatModifier, 
                 Geometry geometry, 
@@ -42,7 +40,6 @@ namespace CMiX.ViewModels
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             Enable = enable;
             MessageAddress = messageaddress;
-            MessageEnabled = messageEnabled;
             BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
             Geometry = geometry ?? throw new ArgumentNullException(nameof(geometry));
             Texture = texture ?? throw new ArgumentNullException(nameof(texture));
@@ -56,8 +53,6 @@ namespace CMiX.ViewModels
         #region PROPERTIES
         public string MessageAddress { get; set; }
 
-        public bool MessageEnabled { get; set; }
-
         private bool _enable;
         [OSC]
         public bool Enable
@@ -66,8 +61,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _enable, value);
-                if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(Enable), Enable);
+                Messenger.SendMessage(MessageAddress + nameof(Enable), Enable);
             }
         }
 
@@ -79,23 +73,16 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _keeporiginal, value);
-                if (MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(KeepOriginal), KeepOriginal);
+                Messenger.SendMessage(MessageAddress + nameof(KeepOriginal), KeepOriginal);
             }
         }
-
-        public IMessenger Messenger { get; }
-
         public ICommand CopySelfCommand { get; }
         public ICommand PasteSelfCommand { get; }
         public ICommand ResetSelfCommand { get; }
 
         public BeatModifier BeatModifier { get; }
-
         public Geometry Geometry { get; }
-
         public Texture Texture { get; }
-
         public PostFX PostFX { get; }
         #endregion
 
@@ -112,14 +99,14 @@ namespace CMiX.ViewModels
 
         public void Paste(MaskDTO maskdto)
         {
-            MessageEnabled = false;
+            Messenger.SendEnabled = false;
             Enable = maskdto.Enable;
             KeepOriginal = maskdto.KeepOriginal;
             BeatModifier.Paste(maskdto.BeatModifierDTO);
             Texture.Paste(maskdto.TextureDTO);
             Geometry.Paste(maskdto.GeometryDTO);
             PostFX.Paste(maskdto.PostFXDTO);
-            MessageEnabled = true;
+            Messenger.SendEnabled = true;
         }
 
         public void CopySelf()

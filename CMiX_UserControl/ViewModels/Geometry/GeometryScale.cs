@@ -5,16 +5,15 @@ using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
 {
-    public class GeometryScale : ViewModel, IMessengerData
+    public class GeometryScale : ViewModel
     {
         #region CONSTRUCTORS
-        public GeometryScale(string layername, IMessenger messenger, ActionManager actionmanager)
+        public GeometryScale(string layername, OSCMessenger messenger, ActionManager actionmanager)
         : this
         (
             actionmanager: actionmanager,
             messageaddress: layername + "/",
             messenger: messenger,
-            messageEnabled: true,
             scaleMode: default
         )
         { }
@@ -23,22 +22,18 @@ namespace CMiX.ViewModels
             (
                 ActionManager actionmanager,
                 string messageaddress,
-                bool messageEnabled,
-                IMessenger messenger,
+                OSCMessenger messenger,
                 GeometryScaleMode scaleMode
             )
-            : base(actionmanager)
+            : base(actionmanager, messenger)
         {
             MessageAddress = messageaddress;
-            MessageEnabled = messageEnabled;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
         }
         #endregion
 
         #region PROPERTIES
-        public IMessenger Messenger { get; }
         public string MessageAddress { get; set; }
-        public bool MessageEnabled { get; set; }
 
         private GeometryScaleMode _ScaleMode;
         [OSC]
@@ -48,8 +43,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _ScaleMode, value);
-                if (MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(ScaleMode), ScaleMode);
+                Messenger.SendMessage(MessageAddress + nameof(ScaleMode), ScaleMode);
             }
         }
         #endregion
@@ -62,9 +56,9 @@ namespace CMiX.ViewModels
 
         public void Paste(GeometryScaleDTO geometryscaledto)
         {
-            MessageEnabled = false;
+            Messenger.SendEnabled = false;
             ScaleMode = geometryscaledto.ScaleModeDTO;
-            MessageEnabled = true;
+            Messenger.SendEnabled = true;
         }
         #endregion
     }

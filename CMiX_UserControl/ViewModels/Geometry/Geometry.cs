@@ -12,18 +12,18 @@ using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
 {
-    public class Geometry : ViewModel, IMessengerData
+    public class Geometry : ViewModel
     {
         #region CONSTRUCTORS
-        public Geometry(string layername, IMessenger messenger, ActionManager actionmanager)
+        public Geometry(string layername, OSCMessenger messenger, ActionManager actionmanager)
             : this
             (
                 actionmanager: actionmanager,
                 messenger: messenger,
                 messageaddress: String.Format("{0}/{1}/", layername, nameof(Geometry)),
-                translate: new GeometryTranslate(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
-                scale: new GeometryScale(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
-                rotation: new GeometryRotation(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
+                translatemode: new GeometryTranslate(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
+                scalemode: new GeometryScale(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
+                rotationmode: new GeometryRotation(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
                 geometrypaths: new ObservableCollection<ListBoxFileName>(),
                 geometryfx : new GeometryFX(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
                 translateAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Translate"), messenger, actionmanager),
@@ -31,8 +31,7 @@ namespace CMiX.ViewModels
                 rotationAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Rotation"), messenger, actionmanager),
                 counter: new Counter(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Count"), messenger, actionmanager),
                 is3D: false,    
-                keepAspectRatio: false,
-                messageEnabled: true
+                keepAspectRatio: false
             )
         {
             GeometryPaths = new ObservableCollection<ListBoxFileName>();
@@ -42,11 +41,11 @@ namespace CMiX.ViewModels
         public Geometry
             (
                 ActionManager actionmanager,
-                IMessenger messenger,
+                OSCMessenger messenger,
                 IEnumerable<ListBoxFileName> geometrypaths,
-                GeometryTranslate translate,
-                GeometryScale scale,
-                GeometryRotation rotation,
+                GeometryTranslate translatemode,
+                GeometryScale scalemode,
+                GeometryRotation rotationmode,
                 GeometryFX geometryfx,
                 Slider translateAmount,
                 Slider scaleAmount,
@@ -54,10 +53,9 @@ namespace CMiX.ViewModels
                 Counter counter,
                 bool is3D,
                 bool keepAspectRatio,
-                string messageaddress,
-                bool messageEnabled
+                string messageaddress
             )
-            : base (actionmanager)
+            : base (actionmanager, messenger)
         {
             if (geometrypaths == null)
             {
@@ -65,9 +63,9 @@ namespace CMiX.ViewModels
             }
             GeometryPaths = new ObservableCollection<ListBoxFileName>() ;
             GeometryPaths.CollectionChanged += ContentCollectionChanged;
-            Translate = translate ?? throw new ArgumentNullException(nameof(Translate));
-            Rotation = rotation ?? throw new ArgumentNullException(nameof(Rotation));
-            Scale = scale ?? throw new ArgumentNullException(nameof(Scale));
+            TranslateMode = translatemode ?? throw new ArgumentNullException(nameof(TranslateMode));
+            RotationMode = rotationmode ?? throw new ArgumentNullException(nameof(RotationMode));
+            ScaleMode = scalemode ?? throw new ArgumentNullException(nameof(ScaleMode));
             GeometryFX = geometryfx;
             TranslateAmount = translateAmount;
             RotationAmount = rotationAmount;
@@ -77,7 +75,6 @@ namespace CMiX.ViewModels
             KeepAspectRatio = keepAspectRatio;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
-            MessageEnabled = messageEnabled;
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
@@ -87,23 +84,19 @@ namespace CMiX.ViewModels
         #region PROPERTIES
         public string MessageAddress { get; set; }
 
-        public bool MessageEnabled { get; set; }
-
-        public IMessenger Messenger { get; }
-
         public ICommand CopySelfCommand { get; }
         public ICommand PasteSelfCommand { get; }
         public ICommand ResetSelfCommand { get; }
 
         public GeometryFX GeometryFX { get; }
 
-        public GeometryTranslate Translate { get; }
+        public GeometryTranslate TranslateMode { get; }
         public Slider TranslateAmount { get; }
 
-        public GeometryRotation Rotation { get; }
+        public GeometryRotation RotationMode { get; }
         public Slider RotationAmount { get; }
 
-        public GeometryScale Scale { get; }
+        public GeometryScale ScaleMode { get; }
         public Slider ScaleAmount { get; }
 
         public Counter Counter { get; }
@@ -119,8 +112,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _is3D, value);
-                if (MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(Is3D), Is3D.ToString());
+                Messenger.SendMessage(MessageAddress + nameof(Is3D), Is3D.ToString());
             }
         }
 
@@ -132,8 +124,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _keepAspectRatio, value);
-                if (MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(KeepAspectRatio), KeepAspectRatio.ToString());
+                Messenger.SendMessage(MessageAddress + nameof(KeepAspectRatio), KeepAspectRatio.ToString());
             }
         }
         #endregion
@@ -166,8 +157,7 @@ namespace CMiX.ViewModels
                     filename.Add(lb.FileName);
                 }
             }
-            if(MessageEnabled)
-                Messenger.SendMessage(MessageAddress + nameof(GeometryPaths), filename.ToArray());
+            Messenger.SendMessage(MessageAddress + nameof(GeometryPaths), filename.ToArray());
         }
 
         public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -180,8 +170,7 @@ namespace CMiX.ViewModels
                     filename.Add(lb.FileName);
                 }
             }
-            if(MessageEnabled)
-                Messenger.SendMessage(MessageAddress + nameof(GeometryPaths), filename.ToArray());
+            Messenger.SendMessage(MessageAddress + nameof(GeometryPaths), filename.ToArray());
         }
         #endregion
 
@@ -193,9 +182,9 @@ namespace CMiX.ViewModels
                 geometrydto.GeometryPaths.Add(lbfn);
             }
 
-            Translate.Copy(geometrydto.GeometryTranslate);
-            Scale.Copy(geometrydto.GeometryScale);
-            Rotation.Copy(geometrydto.GeometryRotation);
+            TranslateMode.Copy(geometrydto.GeometryTranslate);
+            ScaleMode.Copy(geometrydto.GeometryScale);
+            RotationMode.Copy(geometrydto.GeometryRotation);
             TranslateAmount.Copy(geometrydto.TranslateAmount);
             ScaleAmount.Copy(geometrydto.ScaleAmount);
             RotationAmount.Copy(geometrydto.RotationAmount);
@@ -206,7 +195,7 @@ namespace CMiX.ViewModels
 
         public void Paste(GeometryDTO geometrydto)
         {
-            MessageEnabled = false;
+            Messenger.SendEnabled = false;
 
             GeometryPaths.Clear();
             foreach (ListBoxFileName lbfn in geometrydto.GeometryPaths)
@@ -217,14 +206,14 @@ namespace CMiX.ViewModels
             TranslateAmount.Paste(geometrydto.TranslateAmount);
             ScaleAmount.Paste(geometrydto.ScaleAmount);
             RotationAmount.Paste(geometrydto.RotationAmount);
-            Translate.Paste(geometrydto.GeometryTranslate);
-            Scale.Paste(geometrydto.GeometryScale);
-            Rotation.Paste(geometrydto.GeometryRotation);
+            TranslateMode.Paste(geometrydto.GeometryTranslate);
+            ScaleMode.Paste(geometrydto.GeometryScale);
+            RotationMode.Paste(geometrydto.GeometryRotation);
             GeometryFX.Paste(geometrydto.GeometryFX);
             Is3D = geometrydto.Is3D;
             KeepAspectRatio = geometrydto.KeepAspectRatio;
 
-            MessageEnabled = true;
+            Messenger.SendEnabled = true;
         }
 
         public void CopySelf()

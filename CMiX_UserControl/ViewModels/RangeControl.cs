@@ -5,28 +5,26 @@ using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
 {
-    public class RangeControl : ViewModel, IMessengerData
+    public class RangeControl : ViewModel
     {
         #region CONSTRUCTORS
-        public RangeControl(IMessenger messenger, string layername, ActionManager actionmanager)
+        public RangeControl(OSCMessenger messenger, string layername, ActionManager actionmanager)
         : this(
             actionmanager: actionmanager,
+            messenger: messenger,
             range: new Slider(layername, messenger, actionmanager),
             modifier: ((RangeModifier)0).ToString(),
-            messenger: messenger,
-            messageaddress: String.Format("{0}/", layername),
-            messageEnabled: true
+            messageaddress: String.Format("{0}/", layername)
           )
         { }
 
         public RangeControl
             (
                 ActionManager actionmanager,
+                OSCMessenger messenger,
                 Slider range,
                 string modifier,
-                IMessenger messenger,
-                string messageaddress,
-                bool messageEnabled
+                string messageaddress
             )
             : base(actionmanager)
         {
@@ -34,14 +32,11 @@ namespace CMiX.ViewModels
             Modifier = modifier;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
-            MessageEnabled = messageEnabled;
         }
         #endregion
 
         #region PROPERTIES
         public string MessageAddress { get; set; }
-        public bool MessageEnabled { get; set; }
-        private IMessenger Messenger { get; }
 
         public Slider Range { get; }
 
@@ -53,8 +48,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _modifier, value);
-                if (MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(Modifier), Modifier);
+                //Messenger.SendMessage(MessageAddress + nameof(Modifier), Modifier);
             }
         }
         #endregion
@@ -68,10 +62,10 @@ namespace CMiX.ViewModels
 
         public void Paste(RangeControlDTO rangecontroldto)
         {
-            MessageEnabled = false;
+            Messenger.SendEnabled = false;
             Range.Paste(rangecontroldto.Range);
             Modifier = rangecontroldto.Modifier;
-            MessageEnabled = true;
+            Messenger.SendEnabled = true;
         }
         #endregion
     }

@@ -9,10 +9,10 @@ using GuiLabs.Undo;
 namespace CMiX.ViewModels
 {
     [Serializable]
-    public class Coloration : ViewModel, IMessengerData
+    public class Coloration : ViewModel
     {
         #region CONSTRUCTORS
-        public Coloration(Beat masterbeat, string layername, IMessenger messenger, ActionManager actionmanager)
+        public Coloration(Beat masterbeat, string layername, OSCMessenger messenger, ActionManager actionmanager)
         : this
         (
             actionmanager: actionmanager,
@@ -24,41 +24,33 @@ namespace CMiX.ViewModels
             beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Coloration)), messenger, masterbeat, actionmanager),
             hue: new RangeControl(messenger, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Hue), actionmanager),
             saturation: new RangeControl(messenger, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Saturation), actionmanager),
-            value: new RangeControl(messenger, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Value), actionmanager),
-            messageEnabled: true
+            value: new RangeControl(messenger, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Value), actionmanager)
         )
         { }
 
         public Coloration
             (
                 ActionManager actionmanager,
-                IMessenger messenger,
+                OSCMessenger messenger,
                 string messageaddress,
                 BeatModifier beatModifier,
                 Color objColor,
                 Color bgColor,
                 Color backgroundColor,
-
                 RangeControl hue,
                 RangeControl saturation,
-                RangeControl value,
-
-                bool messageEnabled
+                RangeControl value
             )
-            : base(actionmanager)
+            : base(actionmanager, messenger)
         {
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
-            MessageEnabled = messageEnabled;
-
             ObjColor = objColor;
             BgColor = bgColor;
-
             BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
             Hue = hue ?? throw new ArgumentNullException(nameof(hue));
             Saturation = saturation ?? throw new ArgumentNullException(nameof(saturation));
             Value = value ?? throw new ArgumentNullException(nameof(value));
-
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
@@ -66,9 +58,7 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-        private IMessenger Messenger { get; }
         public string MessageAddress { get; set; }
-        public bool MessageEnabled { get; set; }
 
         public ICommand CopySelfCommand { get; }
         public ICommand PasteSelfCommand { get; }
@@ -86,10 +76,9 @@ namespace CMiX.ViewModels
             get => _objColor;
             set
             {
-                SetAndRecord(() => _objColor, value);
-                //SetAndNotify(ref _objColor, value);
-                if (MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(ObjColor), ObjColor);
+                //SetAndRecord(() => _objColor, value);
+                SetAndNotify(ref _objColor, value);
+                Messenger.SendMessage(MessageAddress + nameof(ObjColor), ObjColor);
             }
         }
 
@@ -101,8 +90,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _bgColor, value);
-                if (MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(BgColor), BgColor);
+                Messenger.SendMessage(MessageAddress + nameof(BgColor), BgColor);
             }
         }
         #endregion
@@ -120,14 +108,14 @@ namespace CMiX.ViewModels
 
         public void Paste(ColorationDTO colorationdto)
         {
-            MessageEnabled = false;
+            Messenger.SendEnabled = false;
             ObjColor = Utils.HexStringToColor(colorationdto.ObjColor);
             BgColor = Utils.HexStringToColor(colorationdto.BgColor);
             BeatModifier.Paste(colorationdto.BeatModifierDTO);
             Hue.Paste(colorationdto.HueDTO);
             Saturation.Paste(colorationdto.SatDTO);
             Value.Paste(colorationdto.ValDTO);
-            MessageEnabled = true;
+            Messenger.SendEnabled = true;
         }
 
         public void CopySelf()

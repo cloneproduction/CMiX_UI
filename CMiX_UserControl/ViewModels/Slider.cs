@@ -6,34 +6,31 @@ using System.Windows.Input;
 
 namespace CMiX.ViewModels
 {
-    public class Slider : ViewModel, IMessengerData
+    public class Slider : ViewModel
     {
         #region CONSTRUCTORS
-        public Slider(string layername, IMessenger messenger, ActionManager actionmanager)
+        public Slider(string layername, OSCMessenger messenger, ActionManager actionmanager)
             : this
             (
                 val: 0.0,
                 actionmanager: actionmanager,
                 messenger: messenger,
-                messageaddress: String.Format(layername),
-                messageEnabled: true
+                messageaddress: String.Format(layername)
             )
         {}
 
         public Slider
             (
                 double val,
-                IMessenger messenger,
+                OSCMessenger messenger,
                 string messageaddress,
-                bool messageEnabled,
                 ActionManager actionmanager
             )
-            : base(actionmanager)
+            : base(actionmanager, messenger)
         {
             Val = val;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
-            MessageEnabled = messageEnabled;
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
         }
@@ -41,10 +38,6 @@ namespace CMiX.ViewModels
 
         #region PROPERTIES
         public string MessageAddress { get; set; }
-
-        public bool MessageEnabled { get; set; }
-
-        public IMessenger Messenger { get; }
 
         public ICommand AddCommand { get; }
         public ICommand SubCommand { get; }
@@ -57,8 +50,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _val, value);
-                if (MessageEnabled)
-                    Messenger.SendMessage(MessageAddress, Val);
+                Messenger.SendMessage(MessageAddress, Val);
             }
         }
         #endregion
@@ -85,7 +77,9 @@ namespace CMiX.ViewModels
 
         public void Paste(SliderDTO sliderdto)
         {
+            Messenger.SendEnabled = false;
             Val = sliderdto.Val;
+            Messenger.SendEnabled = true;
         }
         #endregion
     }

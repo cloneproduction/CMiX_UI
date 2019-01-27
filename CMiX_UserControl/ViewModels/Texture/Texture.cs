@@ -12,13 +12,14 @@ using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
 {
-    public class Texture : ViewModel, IMessengerData
+    public class Texture : ViewModel
     {
         #region CONSTRUCTORS
-        public Texture(string layername, IMessenger messenger, ActionManager actionmanager)
+        public Texture(string layername, OSCMessenger messenger, ActionManager actionmanager)
             : this
             (
                 actionmanager: actionmanager,
+                messenger: messenger,
                 texturePaths: new ObservableCollection<ListBoxFileName>(),
                 brightness: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Brightness"), messenger, actionmanager),
                 contrast: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Contrast"), messenger, actionmanager),
@@ -32,9 +33,7 @@ namespace CMiX.ViewModels
                 rotate: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Rotate"), messenger, actionmanager),
                 pan: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Pan"), messenger, actionmanager),
                 tilt: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Tilt"), messenger, actionmanager),
-                messenger: messenger,
-                messageaddress: String.Format("{0}/{1}/", layername, nameof(Texture)),
-                messageEnabled: true
+                messageaddress: String.Format("{0}/{1}/", layername, nameof(Texture))
             )
         {
             TexturePaths = new ObservableCollection<ListBoxFileName>();
@@ -44,6 +43,7 @@ namespace CMiX.ViewModels
         public Texture
             (
                 IEnumerable<ListBoxFileName> texturePaths,
+                OSCMessenger messenger,
                 Slider brightness,
                 Slider contrast,
                 Slider keying,
@@ -56,13 +56,12 @@ namespace CMiX.ViewModels
                 Slider rotate,
                 Slider pan,
                 Slider tilt,
-                IMessenger messenger,
                 string messageaddress,
-                bool messageEnabled,
                 ActionManager actionmanager
             )
             : base (actionmanager)
         {
+            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             TexturePaths = new ObservableCollection<ListBoxFileName>();
             TexturePaths.CollectionChanged += ContentCollectionChanged;
             Brightness = brightness;
@@ -77,11 +76,7 @@ namespace CMiX.ViewModels
             Rotate = rotate;
             Pan = pan;
             Tilt = tilt;
-
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
-            MessageEnabled = messageEnabled;
-
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
@@ -89,9 +84,7 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-        public IMessenger Messenger { get; }
         public string MessageAddress { get; set; }
-        public bool MessageEnabled { get; set; }
 
         public ICommand CopySelfCommand { get; }
         public ICommand PasteSelfCommand { get; }
@@ -112,7 +105,6 @@ namespace CMiX.ViewModels
         public Slider Scale { get; }
         public Slider Rotate { get; }
 
-
         private string _invertMode;
         [OSC]
         public string InvertMode
@@ -121,8 +113,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _invertMode, value);
-                if (MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(InvertMode), InvertMode);
+                Messenger.SendMessage(MessageAddress + nameof(InvertMode), InvertMode);
             }
         }
         #endregion
@@ -155,8 +146,7 @@ namespace CMiX.ViewModels
                     filename.Add(lb.FileName);
                 }
             }
-            if (MessageEnabled)
-                Messenger.SendMessage(MessageAddress + nameof(TexturePaths), filename.ToArray());
+            Messenger.SendMessage(MessageAddress + nameof(TexturePaths), filename.ToArray());
         }
 
         public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -169,8 +159,7 @@ namespace CMiX.ViewModels
                     filename.Add(lb.FileName);
                 }
             }
-            if (MessageEnabled)
-                Messenger.SendMessage(MessageAddress + nameof(TexturePaths), filename.ToArray());
+            Messenger.SendMessage(MessageAddress + nameof(TexturePaths), filename.ToArray());
         }
         #endregion
 
@@ -196,7 +185,7 @@ namespace CMiX.ViewModels
 
         public void Paste(TextureDTO texturedto)
         {
-            MessageEnabled = false;
+            Messenger.SendEnabled = false;
 
             TexturePaths.Clear();
             foreach (ListBoxFileName lbfn in texturedto.TexturePaths)
@@ -215,7 +204,7 @@ namespace CMiX.ViewModels
             Invert.Paste(texturedto.Invert);
             InvertMode = texturedto.InvertMode;
 
-            MessageEnabled = true;
+            Messenger.SendEnabled = true;
         }
 
         public void CopySelf()

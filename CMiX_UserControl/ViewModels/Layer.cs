@@ -7,13 +7,12 @@ using GuiLabs.Undo;
 namespace CMiX.ViewModels
 {
     [Serializable]
-    public class Layer : ViewModel, IMessengerData
+    public class Layer : ViewModel
     {
         #region CONSTRUCTORS
-        public Layer(MasterBeat masterBeat, string layername, IMessenger messenger, int index, ActionManager actionmanager)
-            : base (actionmanager)
+        public Layer(MasterBeat masterBeat, string layername, OSCMessenger messenger, int index, ActionManager actionmanager)
+            : base (actionmanager, messenger)
         {
-            MessageEnabled = false;
             Messenger = messenger;
             MessageAddress = String.Format("{0}/", layername); 
             Index = index;
@@ -27,15 +26,12 @@ namespace CMiX.ViewModels
             Mask = new Mask(BeatModifier, layername, messenger, actionmanager);
             Coloration = new Coloration(BeatModifier, layername, messenger, actionmanager);
             LayerFX = new LayerFX(BeatModifier, layername, messenger, actionmanager);
-
-            MessageEnabled = true;
         }
 
         public Layer
             (
-                IMessenger messenger,
+                OSCMessenger messenger,
                 string messageaddress,
-                bool messageEnabled,
                 string layername,
                 bool enabled,
                 int index,
@@ -48,7 +44,7 @@ namespace CMiX.ViewModels
                 LayerFX layerfx,
                 ActionManager actionmanager
             )
-            : base (actionmanager)
+            : base (actionmanager, messenger)
         {
             LayerName = layername;
             Index = index;
@@ -62,17 +58,14 @@ namespace CMiX.ViewModels
             LayerFX = layerfx ?? throw new ArgumentNullException(nameof(layerfx));
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
-            MessageEnabled = messageEnabled;
         }
         #endregion
 
         #region PROPERTIES
-        public IMessenger Messenger { get; }
         public string MessageAddress { get; set; }
-        public bool MessageEnabled { get; set; }
 
         //public bool CanAcceptChildren { get; set; }
-        public ObservableCollection<Layer> Children { get; private set; }
+        //public ObservableCollection<Layer> Children { get; private set; }
 
         private string _layername;
         [OSC]
@@ -107,7 +100,7 @@ namespace CMiX.ViewModels
             {
                 SetAndRecord(() => _out, value);
                 SetAndNotify(ref _out, value);
-                if (MessageEnabled && Out)
+                if (Out)
                     Messenger.SendMessage(MessageAddress + nameof(Out), Out);
             }
         }
@@ -120,8 +113,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _blendMode, value);
-                if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(BlendMode), BlendMode);
+                Messenger.SendMessage(MessageAddress + nameof(BlendMode), BlendMode);
             }
         }
 
@@ -149,7 +141,7 @@ namespace CMiX.ViewModels
 
         public void Paste(LayerDTO layerdto)
         {
-            MessageEnabled = false;
+            Messenger.SendEnabled = false;
 
             BlendMode = layerdto.BlendMode;
             Fade.Paste(layerdto.Fade);
@@ -160,12 +152,12 @@ namespace CMiX.ViewModels
             Coloration.Paste(layerdto.ColorationDTO);
             LayerFX.Paste(layerdto.LayerFXDTO);
 
-            MessageEnabled = true;
+            Messenger.SendEnabled = true;
         }
 
         public void Load(LayerDTO layerdto)
         {
-            MessageEnabled = false;
+            Messenger.SendEnabled = false;
 
             BlendMode = layerdto.BlendMode;
             LayerName = layerdto.LayerName;
@@ -178,7 +170,7 @@ namespace CMiX.ViewModels
             Coloration.Paste(layerdto.ColorationDTO);
             LayerFX.Paste(layerdto.LayerFXDTO);
 
-            MessageEnabled = true;
+            Messenger.SendEnabled = true;
         }
         #endregion
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using CMiX.Services;
 using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
@@ -7,8 +8,8 @@ namespace CMiX.ViewModels
     [Serializable]
     public abstract class Beat : ViewModel
     {
-        public Beat(ActionManager actionmanager) 
-            : base (actionmanager)
+        public Beat(ActionManager actionmanager, OSCMessenger oscmessenger) 
+            : base (actionmanager, oscmessenger)
         {
             ResetCommand = new RelayCommand(p => Reset());
             MultiplyCommand = new RelayCommand(p => Multiply());

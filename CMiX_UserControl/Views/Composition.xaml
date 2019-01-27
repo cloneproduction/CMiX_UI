@@ -62,7 +62,7 @@
                 VerticalContentAlignment="Center"
                 Style="{StaticResource MenuBase}">
                 <MenuItem
-                    Height="{Binding ActualHeight, ElementName=MainMenu, Mode=OneWay}"
+                    Height="25"
                     Padding="20,0,20,0"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="center"
@@ -92,7 +92,7 @@
                         />
                 </MenuItem>
                 <MenuItem
-                    Height="{Binding ActualHeight, ElementName=MainMenu, Mode=OneWay}"
+                    Height="25"
                     Padding="20,0,20,0"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="center"

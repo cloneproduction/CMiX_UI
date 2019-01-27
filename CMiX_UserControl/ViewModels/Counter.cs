@@ -6,33 +6,30 @@ using System.Windows.Input;
 
 namespace CMiX.ViewModels
 {
-    public class Counter : ViewModel, IMessengerData
+    public class Counter : ViewModel
     {
         #region CONSTRUCTORS
-        public Counter(string layername, IMessenger messenger, ActionManager actionmanager)
+        public Counter(string layername, OSCMessenger messenger, ActionManager actionmanager)
                 : this
                 (
                     actionmanager: actionmanager,
                     messenger: messenger,
                     messageaddress: layername,
-                    messageEnabled: true,
                     count: 1
                 )
         {}
 
         public Counter
             (
-                IMessenger messenger,
+                OSCMessenger messenger,
                 string messageaddress,
-                bool messageEnabled,
                 int count,
                 ActionManager actionmanager
             )
-                : base (actionmanager)
+                : base (actionmanager, messenger)
         {
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
-            MessageEnabled = messageEnabled;
             Count = count;
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
@@ -40,9 +37,7 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-        public IMessenger Messenger { get; }
         public string MessageAddress { get; set; }
-        public bool MessageEnabled { get; set; }
 
         public ICommand AddCommand { get; }
         public ICommand SubCommand { get; }
@@ -54,8 +49,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _count, value);
-                if (MessageEnabled)
-                    Messenger.SendMessage(MessageAddress, Count);
+                Messenger.SendMessage(MessageAddress, Count);
             }
         }
         #endregion

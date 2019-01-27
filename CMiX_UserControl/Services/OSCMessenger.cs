@@ -4,7 +4,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
@@ -12,14 +11,52 @@ namespace CMiX.Services
 {
     public class OSCMessenger : IMessenger
     {
+        public OSCMessenger()
+        {
+            Sender = new UDPSender(Address, Port);
+            messages = new List<OscMessage>();
+        }
+
         public UDPSender Sender { get; set; }
 
         private readonly List<OscMessage> messages;
 
-        public OSCMessenger(UDPSender sender)
+        private bool _sendenabled = false;
+        public bool SendEnabled
         {
-            Sender = sender ?? throw new ArgumentNullException(nameof(sender));
-            messages = new List<OscMessage>();
+            get { return _sendenabled; }
+            set
+            {
+                Console.WriteLine(SendEnabled.ToString());
+                _sendenabled = value;
+            }
+        }
+
+        private string _address = "127.0.0.1";
+        public string Address
+        {
+            get { return _address; }
+            set
+            {
+                _address = value;
+                UpdateUDPSender();
+            }
+        }
+
+        private int _port = 55555;
+        public int Port
+        {
+            get { return _port; }
+            set
+            {
+                _port = value;
+                UpdateUDPSender();
+            }
+        }
+
+        private void UpdateUDPSender()
+        {
+            Sender = new UDPSender(Address, Port);
         }
 
         private OscMessage CreateOscMessage(string address, params object[] args) => new OscMessage(address, args.Select(a => a?.ToString()).ToArray());
@@ -32,15 +69,21 @@ namespace CMiX.Services
 
         public void SendMessage(string address, params object[] args)
         {
-            var message = CreateOscMessage(address, args);
-            Sender.Send(message);
+            if (SendEnabled)
+            {
+                var message = CreateOscMessage(address, args);
+                Sender.Send(message);
+            }
         }
 
         public void SendQueue()
         {
-            var bundle = new OscBundle(0, messages.ToArray());
-            Sender.Send(bundle);
-            messages.Clear();
+            if(SendEnabled)
+            {
+                var bundle = new OscBundle(0, messages.ToArray());
+                Sender.Send(bundle);
+                messages.Clear();
+            }
         }
 
         public void QueueObject(object obj)

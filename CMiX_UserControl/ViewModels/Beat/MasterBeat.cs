@@ -8,28 +8,30 @@ using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
 {
-    public class MasterBeat : Beat, IMessengerData
+    public class MasterBeat : Beat
     {
-        public MasterBeat(IMessenger messenger, ActionManager actionmanager)
-            : this(
-                  actionmanager: actionmanager,
-                  messenger: messenger,
-                  period: 0.0,
-                  multiplier: 1)
+        #region CONSTRUCTORS
+        public MasterBeat(OSCMessenger messenger, ActionManager actionmanager)
+        : this
+        (
+            actionmanager: actionmanager,
+            messenger: messenger,
+            period: 0.0,
+            multiplier: 1
+        )
         { }
 
         public MasterBeat
             (
-                IMessenger messenger, 
-                double period, 
-                int multiplier, 
-                ActionManager actionmanager
-            ) 
-            : base (actionmanager)
+                ActionManager actionmanager,
+                OSCMessenger messenger,
+                double period,
+                int multiplier
+            )
+            : base(actionmanager, messenger)
         {
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             Period = period;
-            MessageEnabled = true;
             Multiplier = multiplier;
             ResyncCommand = new RelayCommand(p => Resync());
             TapCommand = new RelayCommand(p => Tap());
@@ -37,7 +39,9 @@ namespace CMiX.ViewModels
             tapPeriods = new List<double>();
             tapTime = new List<double>();
         }
+        #endregion
 
+        #region PROPERTIES
         private double _period;
         [OSC]
         public override double Period
@@ -48,22 +52,19 @@ namespace CMiX.ViewModels
                 SetAndNotify(ref _period, value);
                 OnPeriodChanged(Period);
                 Notify(nameof(BPM));
-                if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(Period), Period);
+                Messenger.SendMessage(MessageAddress + nameof(Period), Period);
             }
         }
 
         public ICommand ResyncCommand { get; }
         public ICommand TapCommand { get; }
 
-        private IMessenger Messenger { get; }
-
         public string MessageAddress { get; set; }
         public bool MessageEnabled { get; set; }
 
         private readonly List<double> tapPeriods;
         private readonly List<double> tapTime;
-
+        #endregion
 
         private void Resync()
         {
@@ -117,10 +118,10 @@ namespace CMiX.ViewModels
 
         public void Paste(MasterBeatDTO masterbeatdto)
         {
-            MessageEnabled = false;
+            Messenger.SendEnabled = false;
             MessageAddress = masterbeatdto.MessageAddress;
             Period = masterbeatdto.Period;
-            MessageEnabled = true;
+            Messenger.SendEnabled = true;
         }
     }
 }

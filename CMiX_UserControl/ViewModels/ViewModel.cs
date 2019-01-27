@@ -11,9 +11,27 @@ namespace CMiX.ViewModels
     {
         protected ActionManager ActionManager { get; }
 
-        public ViewModel(ActionManager actionManager)
+        public OSCMessenger Messenger { get; set; }
+
+        public ViewModel()
         {
-            ActionManager = actionManager ?? throw new ArgumentNullException(nameof(actionManager));
+
+        }
+
+        public ViewModel(ActionManager actionmanager)
+        {
+            ActionManager = actionmanager ?? throw new ArgumentNullException(nameof(actionmanager));
+        }
+
+        public ViewModel(OSCMessenger oscmessenger)
+        {
+            Messenger = oscmessenger ?? throw new ArgumentNullException(nameof(oscmessenger));
+        }
+
+        public ViewModel(ActionManager actionmanager, OSCMessenger oscmessenger)
+        {
+            ActionManager = actionmanager ?? throw new ArgumentNullException(nameof(actionmanager));
+            Messenger = oscmessenger ?? throw new ArgumentNullException(nameof(oscmessenger));
         }
 
         #region INOTIFYPROPERTYCHANGED

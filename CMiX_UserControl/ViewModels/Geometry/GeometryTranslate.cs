@@ -5,15 +5,14 @@ using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
 {
-    public class GeometryTranslate : ViewModel, IMessengerData
+    public class GeometryTranslate : ViewModel
     {
-        public GeometryTranslate(string layername, IMessenger messenger, ActionManager actionmanager)
+        public GeometryTranslate(string layername, OSCMessenger messenger, ActionManager actionmanager)
             : this
             (
                 actionmanager: actionmanager,
                 messageaddress: layername + "/",
                 messenger: messenger,
-                messageEnabled : true,
                 translateMode: default
             )
         {
@@ -23,22 +22,16 @@ namespace CMiX.ViewModels
             (
                 ActionManager actionmanager,
                 string messageaddress,
-                bool messageEnabled,
-                IMessenger messenger,
+                OSCMessenger messenger,
                 GeometryTranslateMode translateMode
             )
             : base (actionmanager)
         {
             MessageAddress = messageaddress;
-            MessageEnabled = messageEnabled;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
         }
 
         public string MessageAddress { get; set; }
-
-        public bool MessageEnabled { get; set; }
-
-        public IMessenger Messenger { get; }
 
         private GeometryTranslateMode _TranslateMode;
         [OSC]
@@ -48,8 +41,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _TranslateMode, value);
-                if(MessageEnabled)
-                    Messenger.SendMessage(MessageAddress + nameof(TranslateMode), TranslateMode);
+                Messenger.SendMessage(MessageAddress + nameof(TranslateMode), TranslateMode);
             }
         }
 
@@ -60,9 +52,9 @@ namespace CMiX.ViewModels
 
         public void Paste(GeometryTranslateDTO geometrytranslatedto)
         {
-            MessageEnabled = false;
+            Messenger.SendEnabled = false;
             TranslateMode = geometrytranslatedto.TranslateModeDTO;
-            MessageEnabled = true;
+            Messenger.SendEnabled = true;
         }
     }
 }
