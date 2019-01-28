@@ -1,7 +1,6 @@
 ﻿using CMiX.Models;
 using CMiX.Services;
 using System;
-using System.Collections.ObjectModel;
 using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
@@ -17,9 +16,9 @@ namespace CMiX.ViewModels
             MessageAddress = String.Format("{0}/", layername); 
             Index = index;
             LayerName = layername;       
-            BlendMode = ((BlendMode)0).ToString();
             Index = 0;
             Enabled = false;
+            BlendMode = ((BlendMode)0).ToString();
             Fade = new Slider(layername + "/Fade", messenger, actionmanager);
             BeatModifier = new BeatModifier(layername, messenger, masterBeat, actionmanager);
             Content = new Content(BeatModifier, layername, messenger, actionmanager);
@@ -116,13 +115,13 @@ namespace CMiX.ViewModels
                 Messenger.SendMessage(MessageAddress + nameof(BlendMode), BlendMode);
             }
         }
-
+        public Slider Fade { get; }
         public BeatModifier BeatModifier { get; }
         public Content Content { get; }
         public Mask Mask { get; }
         public Coloration Coloration { get; }
         public LayerFX LayerFX{ get; }
-        public Slider Fade { get; }
+        
         #endregion
 
         #region COPY/PASTE/LOAD

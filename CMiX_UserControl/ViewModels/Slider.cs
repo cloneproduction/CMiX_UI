@@ -12,25 +12,26 @@ namespace CMiX.ViewModels
         public Slider(string layername, OSCMessenger messenger, ActionManager actionmanager)
             : this
             (
-                val: 0.0,
-                actionmanager: actionmanager,
+                messageaddress: String.Format("{0}/", layername),
                 messenger: messenger,
-                messageaddress: String.Format(layername)
+                val: 0.0,
+                actionmanager: actionmanager
             )
         {}
 
         public Slider
             (
-                double val,
                 OSCMessenger messenger,
                 string messageaddress,
+                double val,
                 ActionManager actionmanager
             )
             : base(actionmanager, messenger)
         {
+            MessageAddress = messageaddress;
             Val = val;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
-            MessageAddress = messageaddress;
+
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
         }

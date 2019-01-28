@@ -78,7 +78,7 @@ namespace CMiX.Services
 
         public void SendQueue()
         {
-            if(SendEnabled)
+            if (SendEnabled)
             {
                 var bundle = new OscBundle(0, messages.ToArray());
                 Sender.Send(bundle);
