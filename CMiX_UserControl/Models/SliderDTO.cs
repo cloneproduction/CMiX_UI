@@ -5,6 +5,6 @@ namespace CMiX.Models
     [Serializable]
     public class SliderDTO
     {
-        public double Val { get; set; }
+        public double Amount { get; set; }
     }
 }

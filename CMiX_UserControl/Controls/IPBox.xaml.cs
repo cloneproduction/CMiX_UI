@@ -31,7 +31,6 @@ namespace CMiX.Controls
         {
             get
             {
-                //IPAddress = txtboxFirstPart.Text + "." + txtboxSecondPart.Text + "." + txtboxThridPart.Text + "." + txtboxFourthPart.Text;
                 return (string)GetValue(IPAddressProperty);
             }
             set

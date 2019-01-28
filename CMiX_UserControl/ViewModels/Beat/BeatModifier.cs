@@ -35,7 +35,7 @@ namespace CMiX.ViewModels
             MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
             Multiplier = multiplier;
             ChanceToHit = chanceToHit;
-
+            ChanceToHit.Amount = 1.0; // default value for slider
             masterBeat.PeriodChanged += (s, newValue) =>
             {
                 OnPeriodChanged(Period);
@@ -49,9 +49,6 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-        public string MessageAddress { get; set; }
-        public bool MessageEnabled { get; set; }
-
         private Beat MasterBeat { get; }
         public Slider ChanceToHit { get; }
 

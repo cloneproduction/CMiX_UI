@@ -10,34 +10,34 @@ namespace CMiX.ViewModels
         #region CONSTRUCTORS
         public RangeControl(OSCMessenger messenger, string layername, ActionManager actionmanager)
         : this(
-            actionmanager: actionmanager,
+
+            messageaddress: String.Format("{0}/", layername),
             messenger: messenger,
             range: new Slider(layername, messenger, actionmanager),
             modifier: ((RangeModifier)0).ToString(),
-            messageaddress: String.Format("{0}/", layername)
+            actionmanager: actionmanager
           )
         { }
 
         public RangeControl
             (
-                ActionManager actionmanager,
+
+                string messageaddress,
                 OSCMessenger messenger,
                 Slider range,
                 string modifier,
-                string messageaddress
+                ActionManager actionmanager
             )
             : base(actionmanager)
         {
+            MessageAddress = messageaddress;
+            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             Range = range ?? throw new ArgumentNullException(nameof(range));
             Modifier = modifier;
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
-            MessageAddress = messageaddress;
         }
         #endregion
 
         #region PROPERTIES
-        public string MessageAddress { get; set; }
-
         public Slider Range { get; }
 
         private string _modifier;
@@ -48,7 +48,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _modifier, value);
-                //Messenger.SendMessage(MessageAddress + nameof(Modifier), Modifier);
+                Messenger.SendMessage(MessageAddress + nameof(Modifier), Modifier);
             }
         }
         #endregion

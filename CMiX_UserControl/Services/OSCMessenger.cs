@@ -21,7 +21,7 @@ namespace CMiX.Services
 
         private readonly List<OscMessage> messages;
 
-        private bool _sendenabled = false;
+        private bool _sendenabled = true;
         public bool SendEnabled
         {
             get { return _sendenabled; }
@@ -39,7 +39,6 @@ namespace CMiX.Services
             {
                 _address = value;
                 UpdateUDPSender();
-                Console.WriteLine(Address);
             }
         }
 

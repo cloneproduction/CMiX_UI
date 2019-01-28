@@ -14,7 +14,7 @@ namespace CMiX.ViewModels
             (
                 messageaddress: String.Format("{0}/", layername),
                 messenger: messenger,
-                val: 0.0,
+                amount: 0.0,
                 actionmanager: actionmanager
             )
         {}
@@ -23,34 +23,32 @@ namespace CMiX.ViewModels
             (
                 OSCMessenger messenger,
                 string messageaddress,
-                double val,
+                double amount,
                 ActionManager actionmanager
             )
             : base(actionmanager, messenger)
         {
             MessageAddress = messageaddress;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
-            Val = val;
+            Amount = amount;
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
         }
         #endregion
 
         #region PROPERTIES
-        public string MessageAddress { get; set; }
-
         public ICommand AddCommand { get; }
         public ICommand SubCommand { get; }
 
-        private double _val;
+        private double _amount;
         [OSC]
-        public double Val
+        public double Amount
         {
-            get => _val;
+            get => _amount;
             set
             {
-                SetAndNotify(ref _val, value);
-                Messenger.SendMessage(MessageAddress, Val);
+                SetAndNotify(ref _amount, value);
+                Messenger.SendMessage(MessageAddress + nameof(Amount), Amount);
             }
         }
         #endregion
@@ -58,27 +56,27 @@ namespace CMiX.ViewModels
         #region ADD/SUB
         private void Add()
         {
-            if (Val < 1.0)
-                Val += 0.01;
+            if (Amount < 1.0)
+                Amount += 0.01;
         }
 
         private void Sub()
         {
-            if (Val > 0.0)
-                Val -= 0.01;
+            if (Amount > 0.0)
+                Amount -= 0.01;
         }
         #endregion
 
         #region COPY/PASTE
         public void Copy(SliderDTO sliderdto)
         {
-            sliderdto.Val = Val;
+            sliderdto.Amount = Amount;
         }
 
         public void Paste(SliderDTO sliderdto)
         {
             Messenger.SendEnabled = false;
-            Val = sliderdto.Val;
+            Amount = sliderdto.Amount;
             Messenger.SendEnabled = true;
         }
         #endregion

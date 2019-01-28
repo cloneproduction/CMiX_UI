@@ -82,8 +82,6 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-        public string MessageAddress { get; set; }
-
         public ICommand CopySelfCommand { get; }
         public ICommand PasteSelfCommand { get; }
         public ICommand ResetSelfCommand { get; }

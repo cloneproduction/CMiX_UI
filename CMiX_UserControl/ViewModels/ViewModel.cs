@@ -13,6 +13,8 @@ namespace CMiX.ViewModels
 
         public OSCMessenger Messenger { get; set; }
 
+        public string MessageAddress { get; set; }
+
         public ViewModel()
         {
 

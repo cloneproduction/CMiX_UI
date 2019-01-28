@@ -26,7 +26,7 @@
         <ComboBox
             Grid.Column="1"
             Margin="1, 0, 0, 0"
-            SelectedItem="{Binding Modifier, Mode=TwoWay}"
+            SelectedItem="{Binding Modifier}"
             SelectedIndex="0"
             ItemContainerStyle="{StaticResource BaseListBoxItemStyle}"
             ItemsSource="{Binding Source={StaticResource RangeModifier}}"

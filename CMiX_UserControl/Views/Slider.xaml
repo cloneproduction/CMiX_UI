@@ -28,7 +28,7 @@
             Background="{StaticResource HighDarkerColor}" 
             BorderBrush="{StaticResource DarkColor}" 
             BorderThickness="1" Padding="4, 0, 0, 0" 
-            Text="{Binding Val, StringFormat=N2}" 
+            Text="{Binding Amount, StringFormat=N2}" 
             FontSize="10" 
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
@@ -69,7 +69,7 @@
                 Minimum="0.0"
                 SmallChange="0.01"
                 Style="{StaticResource SliderBase}"
-                Value="{Binding Val, Mode=TwoWay}"
+                Value="{Binding Amount, Mode=TwoWay}"
                 />
         </DockPanel>
     </Grid>
