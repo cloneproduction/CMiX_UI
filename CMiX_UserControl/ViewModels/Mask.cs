@@ -13,14 +13,14 @@ namespace CMiX.ViewModels
         public Mask(Beat masterbeat, string layername, OSCMessenger messenger, ActionManager actionmanager)
             : this
             (
-                actionmanager : actionmanager,
                 messenger: messenger,
                 messageaddress: String.Format("{0}/{1}/", layername, nameof(Mask)),
                 enable: false,
                 beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Mask)), messenger, masterbeat, actionmanager),
                 geometry: new Geometry(String.Format("{0}/{1}", layername, nameof(Mask)), messenger, actionmanager),
                 texture: new Texture(String.Format("{0}/{1}", layername, nameof(Mask)), messenger, actionmanager),
-                postFX: new PostFX(String.Format("{0}/{1}", layername, nameof(Mask)), messenger, actionmanager)
+                postFX: new PostFX(String.Format("{0}/{1}", layername, nameof(Mask)), messenger, actionmanager),
+                actionmanager: actionmanager
             )
         {}
 
@@ -76,6 +76,7 @@ namespace CMiX.ViewModels
                 Messenger.SendMessage(MessageAddress + nameof(KeepOriginal), KeepOriginal);
             }
         }
+
         public ICommand CopySelfCommand { get; }
         public ICommand PasteSelfCommand { get; }
         public ICommand ResetSelfCommand { get; }

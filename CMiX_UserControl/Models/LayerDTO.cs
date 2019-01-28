@@ -11,7 +11,7 @@ namespace CMiX.Models
             ContentDTO = new ContentDTO();
             MaskDTO = new MaskDTO();
             ColorationDTO = new ColorationDTO();
-            LayerFXDTO = new LayerFXDTO();
+            PostFXDTO = new PostFXDTO();
             Fade = new SliderDTO();
         }
 
@@ -26,6 +26,6 @@ namespace CMiX.Models
         public ContentDTO ContentDTO { get; set; }
         public MaskDTO MaskDTO { get; set; }
         public ColorationDTO ColorationDTO { get; set; }
-        public LayerFXDTO LayerFXDTO{ get; set; }
+        public PostFXDTO PostFXDTO{ get; set; }
     }
 }

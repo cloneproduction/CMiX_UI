@@ -24,7 +24,7 @@ namespace CMiX.ViewModels
             Content = new Content(BeatModifier, layername, messenger, actionmanager);
             Mask = new Mask(BeatModifier, layername, messenger, actionmanager);
             Coloration = new Coloration(BeatModifier, layername, messenger, actionmanager);
-            LayerFX = new LayerFX(BeatModifier, layername, messenger, actionmanager);
+            PostFX = new PostFX(layername, messenger, actionmanager);
         }
 
         public Layer
@@ -40,7 +40,7 @@ namespace CMiX.ViewModels
                 Content content,
                 Mask mask,
                 Coloration coloration,
-                LayerFX layerfx,
+                PostFX postfx,
                 ActionManager actionmanager
             )
             : base (actionmanager, messenger)
@@ -54,7 +54,7 @@ namespace CMiX.ViewModels
             Content = content ?? throw new ArgumentNullException(nameof(content));
             Mask = mask ?? throw new ArgumentNullException(nameof(mask));
             Coloration = coloration ?? throw new ArgumentNullException(nameof(coloration));
-            LayerFX = layerfx ?? throw new ArgumentNullException(nameof(layerfx));
+            PostFX = postfx ?? throw new ArgumentNullException(nameof(postfx));
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
         }
@@ -120,7 +120,7 @@ namespace CMiX.ViewModels
         public Content Content { get; }
         public Mask Mask { get; }
         public Coloration Coloration { get; }
-        public LayerFX LayerFX{ get; }
+        public PostFX PostFX{ get; }
         
         #endregion
 
@@ -135,7 +135,7 @@ namespace CMiX.ViewModels
             Content.Copy(layerdto.ContentDTO);
             Mask.Copy(layerdto.MaskDTO);
             Coloration.Copy(layerdto.ColorationDTO);
-            LayerFX.Copy(layerdto.LayerFXDTO);
+            PostFX.Copy(layerdto.PostFXDTO);
         }
 
         public void Paste(LayerDTO layerdto)
@@ -149,7 +149,7 @@ namespace CMiX.ViewModels
             Content.Paste(layerdto.ContentDTO);
             Mask.Paste(layerdto.MaskDTO);
             Coloration.Paste(layerdto.ColorationDTO);
-            LayerFX.Paste(layerdto.LayerFXDTO);
+            PostFX.Paste(layerdto.PostFXDTO);
 
             Messenger.SendEnabled = true;
         }
@@ -167,7 +167,7 @@ namespace CMiX.ViewModels
             Content.Paste(layerdto.ContentDTO);
             Mask.Paste(layerdto.MaskDTO);
             Coloration.Paste(layerdto.ColorationDTO);
-            LayerFX.Paste(layerdto.LayerFXDTO);
+            PostFX.Paste(layerdto.PostFXDTO);
 
             Messenger.SendEnabled = true;
         }

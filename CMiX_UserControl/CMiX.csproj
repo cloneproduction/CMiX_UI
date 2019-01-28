@@ -109,6 +109,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\IPBox.xaml.cs">
+      <DependentUpon>IPBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\BeatModifierDTO.cs" />
     <Compile Include="Models\CameraDTO.cs" />
     <Compile Include="Models\ColorationDTO.cs" />
@@ -121,7 +124,6 @@
     <Compile Include="Models\GeometryScaleDTO.cs" />
     <Compile Include="Models\GeometryTranslateDTO.cs" />
     <Compile Include="Models\LayerDTO.cs" />
-    <Compile Include="Models\LayerFXDTO.cs" />
     <Compile Include="Models\MaskDTO.cs" />
     <Compile Include="Models\MasterBeatDTO.cs" />
     <Compile Include="Models\PostFXDTO.cs" />
@@ -144,7 +146,6 @@
     <Compile Include="ViewModels\Beat\BeatModifier.cs" />
     <Compile Include="ViewModels\Geometry\GeometryTranslate.cs" />
     <Compile Include="ViewModels\InvertMode.cs" />
-    <Compile Include="ViewModels\LayerFX.cs" />
     <Compile Include="ViewModels\RangeControl.cs" />
     <Compile Include="ViewModels\RangeModifier.cs" />
     <Compile Include="ViewModels\ShortCodeAttribute.cs" />
@@ -219,9 +220,6 @@
     <Compile Include="Views\GeometryFX.xaml.cs">
       <DependentUpon>GeometryFX.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LayerFX.xaml.cs">
-      <DependentUpon>LayerFX.xaml</DependentUpon>
-    </Compile>
     <Compile Include="_Unused\DragAndDropListbox.cs" />
     <Compile Include="Services\OSCListener.cs" />
     <Compile Include="Controls\CMiXListBox.cs" />
@@ -251,6 +249,10 @@
     <Compile Include="Views\Texture.xaml.cs">
       <DependentUpon>Texture.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\IPBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Fonts\Roboto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -420,10 +422,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\GeometryFX.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\LayerFX.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

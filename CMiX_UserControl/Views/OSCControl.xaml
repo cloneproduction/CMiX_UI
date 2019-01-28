@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:CMiX.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="52.667" d:DesignWidth="295.667">
+             d:DesignHeight="58.667" d:DesignWidth="249.167">
 
     <DockPanel>
         <ToggleButton 
@@ -25,14 +26,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     />
-                <TextBox
-                    Text="{Binding OSCMessenger.Address}"
-                    Grid.Column="1"
-                    BorderThickness="1"
-                    BorderBrush="{StaticResource DarkColor}"
-                    Foreground="{StaticResource TextBase}"
-                    Background="{StaticResource HighDarkerColor}"
-                    />
+                <Controls:IPBox Grid.Column="1" IPAddress="{Binding OSCMessenger.Address, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
             </Grid>
             <Grid Height="20">
                 <Grid.ColumnDefinitions>
@@ -53,6 +47,7 @@
                     Foreground="{StaticResource TextBase}"
                     Background="{StaticResource HighDarkerColor}"
                     />
+
             </Grid>
         </StackPanel>
     </DockPanel>

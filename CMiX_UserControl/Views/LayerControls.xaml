@@ -31,9 +31,9 @@
                 <Border>
                     <Views:Coloration DataContext="{Binding Coloration}"/>
                 </Border>
-                <Views:LayerFX 
+                <Views:PostFX 
                     Margin="0, 4, 0, 0" 
-                    DataContext="{Binding LayerFX}"
+                    DataContext="{Binding PostFX}"
                     />
             </StackPanel>
             <Border

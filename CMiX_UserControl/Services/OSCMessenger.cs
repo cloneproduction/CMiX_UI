@@ -1,11 +1,11 @@
-﻿using CMiX.Controls;
-using SharpOSC;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
+using SharpOSC;
+using CMiX.Controls;
 
 namespace CMiX.Services
 {
@@ -27,7 +27,6 @@ namespace CMiX.Services
             get { return _sendenabled; }
             set
             {
-                Console.WriteLine(SendEnabled.ToString());
                 _sendenabled = value;
             }
         }
@@ -40,6 +39,7 @@ namespace CMiX.Services
             {
                 _address = value;
                 UpdateUDPSender();
+                Console.WriteLine(Address);
             }
         }
 

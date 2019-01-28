@@ -22,7 +22,6 @@ namespace CMiX.Controls
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
         private void NotifyPropertyChanged(String info)
         {
             if (PropertyChanged != null)

@@ -29,9 +29,8 @@ namespace CMiX.ViewModels
             : base(actionmanager, messenger)
         {
             MessageAddress = messageaddress;
-            Val = val;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
-
+            Val = val;
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
         }
