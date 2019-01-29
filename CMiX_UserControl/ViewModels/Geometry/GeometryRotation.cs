@@ -42,8 +42,6 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-        public string MessageAddress { get; set; }
-
         private GeometryRotationMode _RotationMode;
         [OSC]
         public GeometryRotationMode RotationMode

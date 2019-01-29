@@ -33,8 +33,6 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-        public string MessageAddress { get; set; }
-
         private GeometryScaleMode _ScaleMode;
         [OSC]
         public GeometryScaleMode ScaleMode

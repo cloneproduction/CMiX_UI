@@ -37,8 +37,6 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-        public string MessageAddress { get; set; }
-
         public ICommand AddCommand { get; }
         public ICommand SubCommand { get; }
 

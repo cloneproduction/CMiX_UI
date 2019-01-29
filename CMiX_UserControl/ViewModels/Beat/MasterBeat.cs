@@ -59,8 +59,6 @@ namespace CMiX.ViewModels
         public ICommand ResyncCommand { get; }
         public ICommand TapCommand { get; }
 
-        public string MessageAddress { get; set; }
-        public bool MessageEnabled { get; set; }
 
         private readonly List<double> tapPeriods;
         private readonly List<double> tapTime;

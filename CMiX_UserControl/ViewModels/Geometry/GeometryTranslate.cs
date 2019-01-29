@@ -31,8 +31,6 @@ namespace CMiX.ViewModels
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
         }
 
-        public string MessageAddress { get; set; }
-
         private GeometryTranslateMode _TranslateMode;
         [OSC]
         public GeometryTranslateMode TranslateMode

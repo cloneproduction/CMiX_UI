@@ -62,8 +62,6 @@ namespace CMiX.ViewModels
         private int layerID = -1;
         private int layerNameID = -1;
 
-        public string MessageAddress { get; set; } //NOT USED HERE..
-
         public ICommand AddLayerCommand { get; }
         public ICommand RemoveLayerCommand { get; }
         public ICommand CopyLayerCommand { get; }

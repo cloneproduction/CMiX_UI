@@ -21,6 +21,7 @@ namespace CMiX.ViewModels
                 actionmanager: actionmanager,
                 messenger: messenger,
                 messageaddress: String.Format("{0}/{1}/", layername, nameof(Geometry)),
+                fileselector: new FileSelector(messenger, String.Format("{0}/{1}/", layername, nameof(Geometry)), actionmanager),
                 translatemode: new GeometryTranslate(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
                 scalemode: new GeometryScale(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
                 rotationmode: new GeometryRotation(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
@@ -43,6 +44,7 @@ namespace CMiX.ViewModels
                 ActionManager actionmanager,
                 OSCMessenger messenger,
                 IEnumerable<ListBoxFileName> geometrypaths,
+                FileSelector fileselector,
                 GeometryTranslate translatemode,
                 GeometryScale scalemode,
                 GeometryRotation rotationmode,
@@ -61,6 +63,8 @@ namespace CMiX.ViewModels
             {
                 throw new ArgumentNullException(nameof(geometrypaths));
             }
+            FileSelector = fileselector ?? throw new ArgumentNullException(nameof(FileSelector));
+
             GeometryPaths = new ObservableCollection<ListBoxFileName>() ;
             GeometryPaths.CollectionChanged += ContentCollectionChanged;
             TranslateMode = translatemode ?? throw new ArgumentNullException(nameof(TranslateMode));
@@ -85,6 +89,8 @@ namespace CMiX.ViewModels
         public ICommand CopySelfCommand { get; }
         public ICommand PasteSelfCommand { get; }
         public ICommand ResetSelfCommand { get; }
+
+        public FileSelector FileSelector { get; }
 
         public GeometryFX GeometryFX { get; }
 

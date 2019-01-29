@@ -61,8 +61,6 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-        public string MessageAddress { get; set; }
-
         //public bool CanAcceptChildren { get; set; }
         //public ObservableCollection<Layer> Children { get; private set; }
 

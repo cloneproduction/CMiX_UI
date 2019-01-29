@@ -51,8 +51,6 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-        public string MessageAddress { get; set; }
-
         private bool _enable;
         [OSC]
         public bool Enable

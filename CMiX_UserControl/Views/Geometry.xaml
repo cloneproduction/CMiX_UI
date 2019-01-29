@@ -245,12 +245,7 @@
                 DockPanel.Dock="Bottom"
                 Margin="0, 2, 0, 0"
                 Style="{StaticResource BorderContainer}">
-                <Controls:FileSelector
-                    DockPanel.Dock="Top"
-                    Title="Filenames"
-                    ModeSelection="Single"
-                    Items="{Binding GeometryPaths, Mode=TwoWay}"
-                    />
+                <Views:FileSelector DataContext="{Binding FileSelector}"/>
             </Border>
         </DockPanel>
     </Border>

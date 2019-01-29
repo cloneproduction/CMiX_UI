@@ -50,8 +50,6 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-        public string MessageAddress { get; set; }
-
         public BeatModifier BeatModifier { get; }
         public Slider FOV { get; }
         public Slider Zoom { get; }

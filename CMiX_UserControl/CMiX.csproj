@@ -132,6 +132,8 @@
     <Compile Include="Models\TextureDTO.cs" />
     <Compile Include="Services\OSCAttribute.cs" />
     <Compile Include="Services\SetAndNotifyPropertyAction.cs" />
+    <Compile Include="ViewModels\FileNameItem.cs" />
+    <Compile Include="ViewModels\FileSelector.cs" />
     <Compile Include="ViewModels\OSCControl.cs" />
     <Compile Include="ViewModels\Slider.cs" />
     <Compile Include="ViewModels\Counter.cs" />
@@ -186,6 +188,12 @@
     </Compile>
     <Compile Include="Views\Content.xaml.cs">
       <DependentUpon>Content.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FileNameItem.xaml.cs">
+      <DependentUpon>FileNameItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FileSelector.xaml.cs">
+      <DependentUpon>FileSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OSCControl.xaml.cs">
       <DependentUpon>OSCControl.xaml</DependentUpon>
@@ -338,6 +346,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Content.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FileNameItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FileSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
