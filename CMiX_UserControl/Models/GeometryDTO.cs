@@ -1,6 +1,4 @@
 ﻿using System;
-using CMiX.Controls;
-using System.Collections.Generic;
 
 namespace CMiX.Models
 {
@@ -12,7 +10,7 @@ namespace CMiX.Models
             GeometryTranslate = new GeometryTranslateDTO();
             GeometryScale = new GeometryScaleDTO();
             GeometryRotation = new GeometryRotationDTO();
-            GeometryPaths = new List<ListBoxFileName>();
+            FileSelector = new FileSelectorDTO();
             GeometryFX = new GeometryFXDTO();
             TranslateAmount = new SliderDTO();
             ScaleAmount = new SliderDTO();
@@ -20,7 +18,7 @@ namespace CMiX.Models
         }
 
         public string MessageAddress { get; set; }
-        public List<ListBoxFileName> GeometryPaths { get; set; }
+        public FileSelectorDTO FileSelector { get; set; }
         public SliderDTO TranslateAmount { get; set; }
         public SliderDTO ScaleAmount { get; set; }
         public SliderDTO RotationAmount { get; set; }

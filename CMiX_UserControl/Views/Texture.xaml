@@ -64,14 +64,12 @@
                 Margin="0, 2, 0, 0"
                 Style="{StaticResource BorderContainer}">
                 <DockPanel>
-                    <Controls:FileSelector
+                    <Border 
                         DockPanel.Dock="Top"
-                        Height="200"
-                        Title="Filenames"
                         Margin="0, 2, 0, 0"
-                        ModeSelection="Extended"
-                        Items="{Binding TexturePaths}"
-                        />
+                        Style="{StaticResource BorderContainer}">
+                        <Views:FileSelector DataContext="{Binding FileSelector}"/>
+                    </Border>
                     <Views:Slider
                         Margin="0, 1, 0, 1"
                         Caption="Keying"

@@ -23,7 +23,7 @@
                 Padding="4"
                 Background="Transparent"
                 Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ListBox}, Path=DataContext.DeleteItemCommand}"
-                CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                CommandParameter="{Binding}"
                 Content="X"
                 Foreground="{StaticResource TextBase}"
                 Style="{StaticResource ButtonBase}" 

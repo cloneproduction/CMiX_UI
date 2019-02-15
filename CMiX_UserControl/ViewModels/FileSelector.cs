@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CMiX.ViewModels;
-using CMiX.Services;
-using GuiLabs.Undo;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using CMiX.Controls;
 using System.Windows.Input;
-using GongSolutions.Wpf.DragDrop;
 using System.Windows;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using CMiX.Services;
+using CMiX.Models;
+using GuiLabs.Undo;
+using GongSolutions.Wpf.DragDrop;
 
 namespace CMiX.ViewModels
 {
@@ -39,8 +38,9 @@ namespace CMiX.ViewModels
             ClearSelectedCommand = new RelayCommand(p => ClearSelected());
             ClearUnselectedCommand = new RelayCommand(p => ClearUnselected());
             ClearAllCommand = new RelayCommand(p => ClearAll());
-            DeleteItemCommand = new RelayCommand(p => DeleteItem());
+            DeleteItemCommand = new RelayCommand(p => DeleteItem(p));
             FilePaths = new ObservableCollection<FileNameItem>();
+            FilePaths.CollectionChanged += ContentCollectionChanged;
         }
         #endregion
 
@@ -57,22 +57,31 @@ namespace CMiX.ViewModels
         #region METHODS
         private void ClearAll()
         {
-            Console.WriteLine("ClearAll");
+            FilePaths.Clear();
         }
 
         private void ClearUnselected()
         {
-            Console.WriteLine("ClearUnselected");
+            for (int i = FilePaths.Count - 1; i >= 0; i--)
+            {
+                if (!FilePaths[i].FileIsSelected)
+                    FilePaths.Remove(FilePaths[i]);
+            }
         }
 
         private void ClearSelected()
         {
-            Console.WriteLine("ClearSelected");
+            for (int i = FilePaths.Count - 1; i >= 0; i--)
+            {
+                if (FilePaths[i].FileIsSelected)
+                    FilePaths.Remove(FilePaths[i]);
+            }
         }
 
-        private void DeleteItem()
+        private void DeleteItem(object filenameitem)
         {
-            Console.WriteLine("DeleteItem!!!");
+            FileNameItem fni = filenameitem as FileNameItem;
+            FilePaths.Remove(fni);
         }
 
         public void DragOver(IDropInfo dropInfo)
@@ -102,6 +111,65 @@ namespace CMiX.ViewModels
                     FilePaths.Add(lbfn);
                 }
             }
+        }
+        #endregion
+
+        #region COLLECTIONCHANGED
+        public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                foreach (FileNameItem item in e.OldItems)
+                {
+                    //Removed items
+                    item.PropertyChanged -= EntityViewModelPropertyChanged;
+                }
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                foreach (FileNameItem item in e.NewItems)
+                {
+                    //Added items
+                    item.PropertyChanged += EntityViewModelPropertyChanged;
+                }
+            }
+
+            List<string> filename = new List<string>();
+            foreach (FileNameItem lb in FilePaths)
+            {
+                if (lb.FileIsSelected == true)
+                {
+                    filename.Add(lb.FileName);
+                }
+            }
+            Messenger.SendMessage(MessageAddress + nameof(FilePaths), filename.ToArray());
+        }
+
+        public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            List<string> filename = new List<string>();
+            foreach (FileNameItem lb in FilePaths)
+            {
+                if (lb.FileIsSelected == true)
+                {
+                    filename.Add(lb.FileName);
+                }
+            }
+            Messenger.SendMessage(MessageAddress + nameof(FilePaths), filename.ToArray());
+        }
+        #endregion
+
+        #region COPY/PASTE
+        public void Copy(FileSelectorDTO fileselectordto)
+        {
+            fileselectordto.FilePaths = FilePaths.ToList();
+        }
+
+        public void Paste(FileSelectorDTO fileselectordto)
+        {
+            Messenger.SendEnabled = false;
+            FilePaths = new ObservableCollection<FileNameItem>(fileselectordto.FilePaths as List<FileNameItem>);
+            Messenger.SendEnabled = true;
         }
         #endregion
     }

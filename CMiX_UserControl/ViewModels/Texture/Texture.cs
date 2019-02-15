@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
-using System.Collections.ObjectModel;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.ComponentModel;
 using CMiX.Services;
-using CMiX.Controls;
 using CMiX.Models;
 using GuiLabs.Undo;
 
@@ -20,7 +15,7 @@ namespace CMiX.ViewModels
             (
                 actionmanager: actionmanager,
                 messenger: messenger,
-                texturePaths: new ObservableCollection<ListBoxFileName>(),
+                fileselector: new FileSelector(messenger, String.Format("{0}/{1}/", layername, nameof(Texture)), actionmanager),
                 brightness: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Brightness"), messenger, actionmanager),
                 contrast: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Contrast"), messenger, actionmanager),
                 invert: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Invert"), messenger, actionmanager),
@@ -35,15 +30,13 @@ namespace CMiX.ViewModels
                 tilt: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Tilt"), messenger, actionmanager),
                 messageaddress: String.Format("{0}/{1}/", layername, nameof(Texture))
             )
-        {
-            TexturePaths = new ObservableCollection<ListBoxFileName>();
-            TexturePaths.CollectionChanged += ContentCollectionChanged;
-        }
+        { }
 
         public Texture
             (
-                IEnumerable<ListBoxFileName> texturePaths,
+                ActionManager actionmanager,
                 OSCMessenger messenger,
+                FileSelector fileselector,
                 Slider brightness,
                 Slider contrast,
                 Slider keying,
@@ -56,14 +49,12 @@ namespace CMiX.ViewModels
                 Slider rotate,
                 Slider pan,
                 Slider tilt,
-                string messageaddress,
-                ActionManager actionmanager
+                string messageaddress
             )
             : base (actionmanager)
         {
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
-            TexturePaths = new ObservableCollection<ListBoxFileName>();
-            TexturePaths.CollectionChanged += ContentCollectionChanged;
+            FileSelector = fileselector;
             Brightness = brightness;
             Contrast = contrast;
             Hue = hue;
@@ -88,9 +79,7 @@ namespace CMiX.ViewModels
         public ICommand PasteSelfCommand { get; }
         public ICommand ResetSelfCommand { get; }
 
-        [OSC]
-        public ObservableCollection<ListBoxFileName> TexturePaths { get; }
-
+        public FileSelector FileSelector { get;  }
         public Slider Brightness { get; }
         public Slider Contrast { get; }
         public Slider Invert { get; }
@@ -116,59 +105,9 @@ namespace CMiX.ViewModels
         }
         #endregion
 
-        #region COLLECTIONCHANGE
-        public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (e.Action == NotifyCollectionChangedAction.Remove)
-            {
-                foreach (ListBoxFileName item in e.OldItems)
-                {
-                    //Removed items
-                    item.PropertyChanged -= EntityViewModelPropertyChanged;
-                }
-            }
-            else if (e.Action == NotifyCollectionChangedAction.Add)
-            {
-                foreach (ListBoxFileName item in e.NewItems)
-                {
-                    //Added items
-                    item.PropertyChanged += EntityViewModelPropertyChanged;
-                }
-            }
-
-            List<string> filename = new List<string>();
-            foreach (ListBoxFileName lb in TexturePaths)
-            {
-                if (lb.FileIsSelected == true)
-                {
-                    filename.Add(lb.FileName);
-                }
-            }
-            Messenger.SendMessage(MessageAddress + nameof(TexturePaths), filename.ToArray());
-        }
-
-        public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            List<string> filename = new List<string>();
-            foreach (ListBoxFileName lb in TexturePaths)
-            {
-                if (lb.FileIsSelected == true)
-                {
-                    filename.Add(lb.FileName);
-                }
-            }
-            Messenger.SendMessage(MessageAddress + nameof(TexturePaths), filename.ToArray());
-        }
-        #endregion
-
         #region COPY/PASTE/RESET
         public void Copy(TextureDTO texturedto)
         {
-            foreach (ListBoxFileName lbfn in TexturePaths)
-            {
-                texturedto.TexturePaths.Add(lbfn);
-            }
-
             Brightness.Copy(texturedto.Brightness);
             Contrast.Copy(texturedto.Contrast);
             Saturation.Copy(texturedto.Saturation);
@@ -184,12 +123,6 @@ namespace CMiX.ViewModels
         public void Paste(TextureDTO texturedto)
         {
             Messenger.SendEnabled = false;
-
-            TexturePaths.Clear();
-            foreach (ListBoxFileName lbfn in texturedto.TexturePaths)
-            {
-                TexturePaths.Add(lbfn);
-            }
 
             Brightness.Paste(texturedto.Brightness);
             Contrast.Paste(texturedto.Contrast);

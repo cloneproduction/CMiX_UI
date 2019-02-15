@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:Controls="clr-namespace:CMiX.Controls"
              xmlns:CMiX="clr-namespace:CMiX"
              xmlns:Views="clr-namespace:CMiX.Views"
              xmlns:dd="urn:gong-wpf-dragdrop"
@@ -26,7 +25,6 @@
                 Focusable="False"
                 Style="{DynamicResource MenuBase}">
                 <MenuItem
-                    x:Name="FileMenu"
                     Width="15"
                     Height="15"
                     Padding="6"
@@ -46,7 +44,10 @@
                         FontSize="11"
                         Header="Clear Unselected"
                         Template="{DynamicResource SubMenuItemBase}" />
-                    <Separator HorizontalAlignment="Stretch" Background="{StaticResource Color}" />
+                    <Separator 
+                        HorizontalAlignment="Stretch" 
+                        Background="{StaticResource Color}" 
+                        />
                     <MenuItem
                         Command="{Binding ClearAllCommand}"
                         FontSize="11"
@@ -54,28 +55,21 @@
                         Template="{StaticResource SubMenuItemBase}" />
                 </MenuItem>
             </Menu>
-            <Label
-                Grid.Column="0"
-                HorizontalAlignment="Left"
-                Content="{Binding Title, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type Controls:FileSelector}}}"
-                DockPanel.Dock="Left"
-                Style="{StaticResource LabelBase}" />
         </DockPanel>
-        <Border HorizontalAlignment="Stretch">
-            <Controls:CMiXListBox
+        <Border 
+            HorizontalAlignment="Stretch">
+            <ListBox
                 Height="200"
-                x:Name="FileNameList"
                 HorizontalContentAlignment="Stretch"
                 VerticalContentAlignment="Stretch"
-                AllowDrop="True"
                 ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 ItemsSource="{Binding FilePaths}"
-                Background="Transparent"
+                AllowDrop="True"
                 dd:DragDrop.IsDragSource="true"
                 dd:DragDrop.IsDropTarget="True"
                 dd:DragDrop.DropHandler="{Binding}"
-                SelectionMode="{Binding ModeSelection, RelativeSource={RelativeSource AncestorType={x:Type Controls:FileSelector}}}"
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                SelectionMode="{Binding SelectionMode}"
                 Style="{DynamicResource ListBoxBase}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -101,7 +95,7 @@
                         </Style.Triggers>
                     </Style>
                 </ListBox.ItemContainerStyle>
-            </Controls:CMiXListBox>
+            </ListBox>
         </Border>
     </StackPanel>
 </UserControl>

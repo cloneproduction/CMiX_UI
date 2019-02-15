@@ -118,6 +118,7 @@
     <Compile Include="Models\CompositionDTO.cs" />
     <Compile Include="Models\ContentDTO.cs" />
     <Compile Include="Models\CounterDTO.cs" />
+    <Compile Include="Models\FileSelectorDTO.cs" />
     <Compile Include="Models\GeometryDTO.cs" />
     <Compile Include="Models\GeometryFXDTO.cs" />
     <Compile Include="Models\GeometryRotationDTO.cs" />
@@ -230,7 +231,7 @@
     </Compile>
     <Compile Include="_Unused\DragAndDropListbox.cs" />
     <Compile Include="Services\OSCListener.cs" />
-    <Compile Include="Controls\CMiXListBox.cs" />
+    <Compile Include="_Unused\CMiXListBox.cs" />
     <Compile Include="Views\ChannelLayer.xaml.cs">
       <DependentUpon>ChannelLayer.xaml</DependentUpon>
     </Compile>
@@ -409,7 +410,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\FileSelector.xaml">
+    <Page Include="_Unused\FileSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -430,7 +431,7 @@
     <Compile Include="Views\LayerControls.xaml.cs">
       <DependentUpon>LayerControls.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\FileSelector.xaml.cs">
+    <Compile Include="_Unused\FileSelector.xaml.cs">
       <DependentUpon>FileSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">

@@ -34,10 +34,7 @@ namespace CMiX.ViewModels
                 is3D: false,    
                 keepAspectRatio: false
             )
-        {
-            GeometryPaths = new ObservableCollection<ListBoxFileName>();
-            GeometryPaths.CollectionChanged += ContentCollectionChanged;
-        }
+        { }
 
         public Geometry
             (
@@ -63,10 +60,8 @@ namespace CMiX.ViewModels
             {
                 throw new ArgumentNullException(nameof(geometrypaths));
             }
-            FileSelector = fileselector ?? throw new ArgumentNullException(nameof(FileSelector));
 
-            GeometryPaths = new ObservableCollection<ListBoxFileName>() ;
-            GeometryPaths.CollectionChanged += ContentCollectionChanged;
+            FileSelector = fileselector ?? throw new ArgumentNullException(nameof(FileSelector));
             TranslateMode = translatemode ?? throw new ArgumentNullException(nameof(TranslateMode));
             RotationMode = rotationmode ?? throw new ArgumentNullException(nameof(RotationMode));
             ScaleMode = scalemode ?? throw new ArgumentNullException(nameof(ScaleMode));
@@ -91,22 +86,14 @@ namespace CMiX.ViewModels
         public ICommand ResetSelfCommand { get; }
 
         public FileSelector FileSelector { get; }
-
-        public GeometryFX GeometryFX { get; }
-
+        public Counter Counter { get; }
         public GeometryTranslate TranslateMode { get; }
         public Slider TranslateAmount { get; }
-
         public GeometryRotation RotationMode { get; }
         public Slider RotationAmount { get; }
-
         public GeometryScale ScaleMode { get; }
         public Slider ScaleAmount { get; }
-
-        public Counter Counter { get; }
-
-        [OSC]
-        public ObservableCollection<ListBoxFileName> GeometryPaths { get; set; }
+        public GeometryFX GeometryFX { get; }
 
         private bool _is3D;
         [OSC]
@@ -133,59 +120,10 @@ namespace CMiX.ViewModels
         }
         #endregion
 
-        #region COLLECTIONCHANGED
-        public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (e.Action == NotifyCollectionChangedAction.Remove)
-            {
-                foreach (ListBoxFileName item in e.OldItems)
-                {
-                    //Removed items
-                    item.PropertyChanged -= EntityViewModelPropertyChanged;
-                }
-            }
-            else if (e.Action == NotifyCollectionChangedAction.Add)
-            {
-                foreach (ListBoxFileName item in e.NewItems)
-                {
-                    //Added items
-                    item.PropertyChanged += EntityViewModelPropertyChanged;
-                }
-            }
-
-            List<string> filename = new List<string>();
-            foreach (ListBoxFileName lb in GeometryPaths)
-            {
-                if (lb.FileIsSelected == true)
-                {
-                    filename.Add(lb.FileName);
-                }
-            }
-            Messenger.SendMessage(MessageAddress + nameof(GeometryPaths), filename.ToArray());
-        }
-
-        public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            List<string> filename = new List<string>();
-            foreach (ListBoxFileName lb in GeometryPaths)
-            {
-                if (lb.FileIsSelected == true)
-                {
-                    filename.Add(lb.FileName);
-                }
-            }
-            Messenger.SendMessage(MessageAddress + nameof(GeometryPaths), filename.ToArray());
-        }
-        #endregion
-
         #region COPY/PASTE/RESET
         public void Copy(GeometryDTO geometrydto)
         {
-            foreach (ListBoxFileName lbfn in GeometryPaths)
-            {
-                geometrydto.GeometryPaths.Add(lbfn);
-            }
-
+            FileSelector.Copy(geometrydto.FileSelector);
             TranslateMode.Copy(geometrydto.GeometryTranslate);
             ScaleMode.Copy(geometrydto.GeometryScale);
             RotationMode.Copy(geometrydto.GeometryRotation);
@@ -201,12 +139,7 @@ namespace CMiX.ViewModels
         {
             Messenger.SendEnabled = false;
 
-            GeometryPaths.Clear();
-            foreach (ListBoxFileName lbfn in geometrydto.GeometryPaths)
-            {
-                GeometryPaths.Add(lbfn);
-            }
-
+            FileSelector.Paste(geometrydto.FileSelector);
             TranslateAmount.Paste(geometrydto.TranslateAmount);
             ScaleAmount.Paste(geometrydto.ScaleAmount);
             RotationAmount.Paste(geometrydto.RotationAmount);

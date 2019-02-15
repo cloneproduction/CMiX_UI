@@ -8,7 +8,6 @@
     d:DesignHeight="902.222"
     d:DesignWidth="1403.739"
     mc:Ignorable="d">
-    
     <Border
         BorderBrush="{StaticResource DarkerColor}"
         CornerRadius="2"
@@ -22,7 +21,8 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Border
-                Grid.Column="0" Margin="4, 0, 4, 0">
+                Grid.Column="0" 
+                Margin="4, 0, 4, 0">
                 <Views:Content DataContext="{Binding Content}"/>
             </Border>
             <StackPanel 
