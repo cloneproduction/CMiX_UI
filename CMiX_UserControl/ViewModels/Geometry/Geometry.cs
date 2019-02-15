@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using CMiX.Services;
-using CMiX.Controls;
-using CMiX.Models;
 using System.Windows;
 using System.Windows.Input;
+using CMiX.Services;
+using CMiX.Models;
 using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
@@ -25,7 +20,6 @@ namespace CMiX.ViewModels
                 translatemode: new GeometryTranslate(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
                 scalemode: new GeometryScale(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
                 rotationmode: new GeometryRotation(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
-                geometrypaths: new ObservableCollection<ListBoxFileName>(),
                 geometryfx : new GeometryFX(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
                 translateAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Translate"), messenger, actionmanager),
                 scaleAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Scale"), messenger, actionmanager),
@@ -40,7 +34,6 @@ namespace CMiX.ViewModels
             (
                 ActionManager actionmanager,
                 OSCMessenger messenger,
-                IEnumerable<ListBoxFileName> geometrypaths,
                 FileSelector fileselector,
                 GeometryTranslate translatemode,
                 GeometryScale scalemode,
@@ -56,11 +49,6 @@ namespace CMiX.ViewModels
             )
             : base (actionmanager, messenger)
         {
-            if (geometrypaths == null)
-            {
-                throw new ArgumentNullException(nameof(geometrypaths));
-            }
-
             FileSelector = fileselector ?? throw new ArgumentNullException(nameof(FileSelector));
             TranslateMode = translatemode ?? throw new ArgumentNullException(nameof(TranslateMode));
             RotationMode = rotationmode ?? throw new ArgumentNullException(nameof(RotationMode));

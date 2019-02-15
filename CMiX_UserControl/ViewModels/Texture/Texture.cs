@@ -108,6 +108,7 @@ namespace CMiX.ViewModels
         #region COPY/PASTE/RESET
         public void Copy(TextureDTO texturedto)
         {
+            FileSelector.Copy(texturedto.FileSelector);
             Brightness.Copy(texturedto.Brightness);
             Contrast.Copy(texturedto.Contrast);
             Saturation.Copy(texturedto.Saturation);
@@ -124,6 +125,7 @@ namespace CMiX.ViewModels
         {
             Messenger.SendEnabled = false;
 
+            FileSelector.Paste(texturedto.FileSelector);
             Brightness.Paste(texturedto.Brightness);
             Contrast.Paste(texturedto.Contrast);
             Saturation.Paste(texturedto.Saturation);

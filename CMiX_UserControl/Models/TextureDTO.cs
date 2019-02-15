@@ -9,7 +9,7 @@ namespace CMiX.Models
     {
         public TextureDTO()
         {
-            TexturePaths = new List<ListBoxFileName>();
+            FileSelector = new FileSelectorDTO();
             Brightness = new SliderDTO();
             Contrast = new SliderDTO();
             Invert = new SliderDTO();
@@ -24,7 +24,7 @@ namespace CMiX.Models
         }
 
         public string MessageAddress { get; set; }
-        public List<ListBoxFileName> TexturePaths { get; set; }
+        public FileSelectorDTO FileSelector { get; set; }
         public SliderDTO Brightness { get; set; }
         public SliderDTO Contrast { get; set; }
         public SliderDTO Invert { get; set; }
