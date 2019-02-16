@@ -2,12 +2,11 @@
 
 namespace CMiX.ViewModels 
 {
-    [Serializable]
     public class FileNameItem : ViewModel
     {
         public FileNameItem()
         {
-
+            MessageAddress = string.Empty;
         }
 
         private string _filename;

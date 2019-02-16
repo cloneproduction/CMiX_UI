@@ -118,6 +118,7 @@
     <Compile Include="Models\CompositionDTO.cs" />
     <Compile Include="Models\ContentDTO.cs" />
     <Compile Include="Models\CounterDTO.cs" />
+    <Compile Include="Models\FileNameItemDTO.cs" />
     <Compile Include="Models\FileSelectorDTO.cs" />
     <Compile Include="Models\GeometryDTO.cs" />
     <Compile Include="Models\GeometryFXDTO.cs" />

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -83,7 +82,9 @@ namespace CMiX.ViewModels
             FileNameItem fni = filenameitem as FileNameItem;
             FilePaths.Remove(fni);
         }
+        #endregion
 
+        #region DRAG/DROP
         public void DragOver(IDropInfo dropInfo)
         {
             dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
@@ -111,6 +112,40 @@ namespace CMiX.ViewModels
                     FilePaths.Add(lbfn);
                 }
             }
+        }
+        #endregion
+
+        #region COPY/PASTE
+        public void Copy(FileSelectorDTO fileselectordto)
+        {
+            List<FileNameItemDTO> fileNameItemDTOs = new List<FileNameItemDTO>();
+            foreach (var item in FilePaths)
+            {
+                var filenameitemdto = new FileNameItemDTO();
+                filenameitemdto.FileIsSelected = item.FileIsSelected;
+                filenameitemdto.FileName = item.FileName;
+                fileNameItemDTOs.Add(filenameitemdto);
+            }
+            fileselectordto.FilePaths = fileNameItemDTOs;
+        }
+
+        public void Paste(FileSelectorDTO fileselectordto)
+        {
+            Messenger.SendEnabled = false;
+
+            if(fileselectordto.FilePaths != null) // NOT SURE THIS IS USEFULL ...
+            {
+                FilePaths.Clear();
+                foreach (var item in fileselectordto.FilePaths)
+                {
+                    var filenameitem = new FileNameItem();
+                    filenameitem.FileIsSelected = item.FileIsSelected;
+                    filenameitem.FileName = item.FileName;
+                    FilePaths.Add(filenameitem);
+                }
+            }
+
+            Messenger.SendEnabled = true;
         }
         #endregion
 
@@ -156,20 +191,6 @@ namespace CMiX.ViewModels
                 }
             }
             Messenger.SendMessage(MessageAddress + nameof(FilePaths), filename.ToArray());
-        }
-        #endregion
-
-        #region COPY/PASTE
-        public void Copy(FileSelectorDTO fileselectordto)
-        {
-            fileselectordto.FilePaths = FilePaths.ToList();
-        }
-
-        public void Paste(FileSelectorDTO fileselectordto)
-        {
-            Messenger.SendEnabled = false;
-            FilePaths = new ObservableCollection<FileNameItem>(fileselectordto.FilePaths as List<FileNameItem>);
-            Messenger.SendEnabled = true;
         }
         #endregion
     }

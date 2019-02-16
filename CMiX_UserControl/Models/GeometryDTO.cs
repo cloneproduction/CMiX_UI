@@ -7,10 +7,10 @@ namespace CMiX.Models
     {
         public GeometryDTO()
         {
+            FileSelector = new FileSelectorDTO();
             GeometryTranslate = new GeometryTranslateDTO();
             GeometryScale = new GeometryScaleDTO();
             GeometryRotation = new GeometryRotationDTO();
-            FileSelector = new FileSelectorDTO();
             GeometryFX = new GeometryFXDTO();
             TranslateAmount = new SliderDTO();
             ScaleAmount = new SliderDTO();
@@ -22,12 +22,12 @@ namespace CMiX.Models
         public SliderDTO TranslateAmount { get; set; }
         public SliderDTO ScaleAmount { get; set; }
         public SliderDTO RotationAmount { get; set; }
-        public bool Is3D { get; set; }
-        public bool KeepAspectRatio { get; set; }
         public CounterDTO Count { get; set; }
         public GeometryTranslateDTO GeometryTranslate { get; set; }
         public GeometryScaleDTO GeometryScale { get; set; }
         public GeometryRotationDTO GeometryRotation { get; set; }
         public GeometryFXDTO GeometryFX { get; set; }
+        public bool Is3D { get; set; }
+        public bool KeepAspectRatio { get; set; }
     }
 }

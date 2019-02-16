@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using CMiX.ViewModels;
 
 namespace CMiX.Models
 {
@@ -9,9 +8,9 @@ namespace CMiX.Models
     {
         public FileSelectorDTO()
         {
-            FilePaths = new List<FileNameItem>();
+            FilePaths = new List<FileNameItemDTO>();
         }
 
-        public List<FileNameItem> FilePaths { get; set; }
+        public List<FileNameItemDTO> FilePaths { get; set; }
     }
 }
