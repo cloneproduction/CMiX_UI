@@ -99,7 +99,6 @@ namespace CMiX.ViewModels
             dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
 
             var dataObject = dropInfo.Data as IDataObject;
-            // look for drag&drop new files
             if (dataObject != null && dataObject.GetDataPresent(DataFormats.FileDrop))
             {
                 dropInfo.Effects = DragDropEffects.Copy;
@@ -109,7 +108,6 @@ namespace CMiX.ViewModels
         public void Drop(IDropInfo dropInfo)
         {
             var dataObject = dropInfo.Data as DataObject;
-            // look for drag&drop new files
             if (dataObject != null && dataObject.ContainsFileDropList())
             {
                 var filedrop = dataObject.GetFileDropList();

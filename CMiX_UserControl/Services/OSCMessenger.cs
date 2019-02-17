@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using SharpOSC;
-using CMiX.Controls;
 using CMiX.ViewModels;
 
 namespace CMiX.Services
