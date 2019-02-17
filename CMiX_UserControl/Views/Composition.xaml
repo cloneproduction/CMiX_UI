@@ -1,8 +1,9 @@
 ﻿<UserControl
-    x:Class="CMiX.Composition"
+    x:Class="CMiX.Views.Composition"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:CMiX="clr-namespace:CMiX"
+    xmlns:Resources="clr-namespace:CMiX.Resources"
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -40,8 +41,11 @@
     </UserControl.DataContext>
     <UserControl.Resources>
         <ResourceDictionary>
+            <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
             <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
         </ResourceDictionary>
+        
+
     </UserControl.Resources>
 
     <DockPanel
@@ -167,7 +171,17 @@
                         dd:DragDrop.IsDropTarget="True">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <CMiX:ChannelLayer/>
+                                <CMiX:ChannelLayer>
+                                    <CMiX:ChannelLayer.ContextMenu>
+                                        <ContextMenu>
+                                        <MenuItem
+                                            Header ="Delete Layer"
+                                            Command="{Binding Data.DeleteLayerCommand, Source={StaticResource proxy}}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"
+                                            />
+                                        </ContextMenu>
+                                    </CMiX:ChannelLayer.ContextMenu>
+                                </CMiX:ChannelLayer>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>

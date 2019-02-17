@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using SharpOSC;
 
-namespace CMiX
+namespace CMiX.Views
 {
     public partial class Composition : UserControl
     {

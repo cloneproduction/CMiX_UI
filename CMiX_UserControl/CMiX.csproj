@@ -132,6 +132,7 @@
     <Compile Include="Models\RangeControlDTO.cs" />
     <Compile Include="Models\SliderDTO.cs" />
     <Compile Include="Models\TextureDTO.cs" />
+    <Compile Include="Resources\BindingProxy.cs" />
     <Compile Include="Services\OSCAttribute.cs" />
     <Compile Include="Services\SetAndNotifyPropertyAction.cs" />
     <Compile Include="ViewModels\FileNameItem.cs" />

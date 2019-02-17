@@ -4,8 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         Title="CMiX Player"
-        xmlns:local="clr-namespace:CMiXPlayer"
-        xmlns:Controls="clr-namespace:CMiX.Controls;assembly=CMiX_UserControl"
         mc:Ignorable="d"
         Height="350" Width="525">
     <Grid Background="Black">
@@ -38,6 +36,5 @@
 
         </DockPanel>
 
-        <Controls:FileSelector Grid.Row="1"/>
     </Grid>
 </Window>

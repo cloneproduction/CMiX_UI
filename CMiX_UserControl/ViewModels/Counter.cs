@@ -41,6 +41,7 @@ namespace CMiX.ViewModels
         public ICommand SubCommand { get; }
 
         private int _count;
+        [OSC]
         public int Count
         {
             get { return _count; }

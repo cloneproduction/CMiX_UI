@@ -28,6 +28,8 @@ namespace CMiX.ViewModels
             Camera = new Camera(Messenger, MasterBeat, this.ActionManager);
             AddLayerCommand = new RelayCommand(p => AddLayer());
             RemoveLayerCommand = new RelayCommand(p => RemoveLayer());
+            DeleteLayerCommand = new RelayCommand(p => DeleteLayer(p));
+
             CopyLayerCommand = new RelayCommand(p => CopyLayer());
             PasteLayerCommand = new RelayCommand(p => PasteLayer());
             SaveCompositionCommand = new RelayCommand(p => Save());
@@ -38,6 +40,8 @@ namespace CMiX.ViewModels
             Layers = new ObservableCollection<Layer>();
             Layers.CollectionChanged += ContentCollectionChanged;
         }
+
+
 
         public Composition(string name, Camera camera, MasterBeat masterBeat, IEnumerable<Layer> layers, ActionManager actionManager)
             : base(new ActionManager())
@@ -71,6 +75,8 @@ namespace CMiX.ViewModels
         public ICommand UndoCommand { get; }
         public ICommand RedoCommand { get; }
 
+        public ICommand DeleteLayerCommand { get; }
+
         public MasterBeat MasterBeat { get; set; }
         public Camera Camera { get; set; }
         public OSCControl OSCControl { get; set; }
@@ -97,6 +103,14 @@ namespace CMiX.ViewModels
         {
             get => _selectedlayer;
             set => SetAndNotify(ref _selectedlayer, value);
+        }
+        #endregion
+
+        #region METHODS
+        private void DeleteLayer(object layer)
+        {
+            Layer lyr = layer as Layer;
+            Layers.Remove(lyr);
         }
         #endregion
 
@@ -252,7 +266,6 @@ namespace CMiX.ViewModels
 
         public void Paste(CompositionDTO compositiondto)
         {
-            //MessageEnabled = false;
             OSCControl.OSCMessenger.SendEnabled = false;
 
             Name = compositiondto.Name;
@@ -271,14 +284,12 @@ namespace CMiX.ViewModels
             MasterBeat.Paste(compositiondto.MasterBeatDTO);
             Camera.Paste(compositiondto.CameraDTO);
 
-            //MessageEnabled = true;
             OSCControl.OSCMessenger.SendEnabled = false;
         }
 
         public void Load(CompositionDTO compositiondto)
         {
             OSCControl.OSCMessenger.SendEnabled = false;
-            //MessageEnabled = false;
 
             Name = compositiondto.Name;
             LayerNames = compositiondto.LayerNames;
@@ -295,7 +306,6 @@ namespace CMiX.ViewModels
             Camera.Paste(compositiondto.CameraDTO);
 
             OSCControl.OSCMessenger.SendEnabled = false;
-            //MessageEnabled = true;
         }
 
         private void Save()
@@ -322,8 +332,7 @@ namespace CMiX.ViewModels
             {
                 string folderPath = opendialog.FileName;
 
-                // Check if you really have a file name 
-                if (opendialog.FileName.Trim() != string.Empty)
+                if (opendialog.FileName.Trim() != string.Empty) // Check if you really have a file name 
                 {
                     using (StreamReader r = new StreamReader(opendialog.FileName))
                     {
