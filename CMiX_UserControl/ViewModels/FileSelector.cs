@@ -18,6 +18,8 @@ namespace CMiX.ViewModels
         public FileSelector(string layername, OSCMessenger messenger, ActionManager actionmanager)
             : this
             (
+                filemask: new List<string>(),
+                selectionmode: String.Empty,
                 messageaddress: String.Format("{0}/", layername),
                 messenger: messenger,
                 actionmanager: actionmanager
@@ -26,12 +28,16 @@ namespace CMiX.ViewModels
 
         public FileSelector
             (
+                String selectionmode,
+                List<string> filemask,
                 OSCMessenger messenger,
                 string messageaddress,
                 ActionManager actionmanager
             )
             : base(actionmanager, messenger)
         {
+            SelectionMode = selectionmode;
+            FileMask = filemask;
             MessageAddress = messageaddress;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             ClearSelectedCommand = new RelayCommand(p => ClearSelected());
@@ -46,6 +52,9 @@ namespace CMiX.ViewModels
         #region PROPERTIES
         [OSC]
         public ObservableCollection<FileNameItem> FilePaths { get; set; }
+
+        public List<string> FileMask { get; set; }
+        public string SelectionMode { get; set; }
 
         public ICommand ClearSelectedCommand { get; }
         public ICommand ClearUnselectedCommand { get; }
@@ -103,13 +112,19 @@ namespace CMiX.ViewModels
             // look for drag&drop new files
             if (dataObject != null && dataObject.ContainsFileDropList())
             {
-                var pouet = dataObject.GetFileDropList();
-                foreach (string str in pouet)
+                var filedrop = dataObject.GetFileDropList();
+                foreach (string str in filedrop)
                 {
-                    FileNameItem lbfn = new FileNameItem();
-                    lbfn.FileName = str;
-                    lbfn.FileIsSelected = false;
-                    FilePaths.Add(lbfn);
+                    foreach (string fm in FileMask)
+                    {
+                        if (System.IO.Path.GetExtension(str).ToUpperInvariant() == fm)
+                        {
+                            FileNameItem lbfn = new FileNameItem();
+                            lbfn.FileName = str;
+                            lbfn.FileIsSelected = false;
+                            FilePaths.Add(lbfn);
+                        }
+                    }
                 }
             }
         }

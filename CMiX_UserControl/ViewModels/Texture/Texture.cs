@@ -4,6 +4,7 @@ using System.Windows.Input;
 using CMiX.Services;
 using CMiX.Models;
 using GuiLabs.Undo;
+using System.Collections.Generic;
 
 namespace CMiX.ViewModels
 {
@@ -15,7 +16,7 @@ namespace CMiX.ViewModels
             (
                 actionmanager: actionmanager,
                 messenger: messenger,
-                fileselector: new FileSelector(messenger, String.Format("{0}/{1}/", layername, nameof(Texture)), actionmanager),
+                fileselector: new FileSelector("Extended", new List<string> { ".PNG", ".JPG", ".MOV" }, messenger, String.Format("{0}/{1}/", layername, nameof(Texture)), actionmanager),
                 brightness: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Brightness"), messenger, actionmanager),
                 contrast: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Contrast"), messenger, actionmanager),
                 invert: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Invert"), messenger, actionmanager),

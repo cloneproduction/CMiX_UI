@@ -11,7 +11,6 @@ namespace CMiX.Models
         }
 
         public string FileName { get; set; }
-
         public bool FileIsSelected { get; set; }
     }
 }

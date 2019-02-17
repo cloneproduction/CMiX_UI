@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using SharpOSC;
 using CMiX.Controls;
+using CMiX.ViewModels;
 
 namespace CMiX.Services
 {
@@ -113,10 +114,10 @@ namespace CMiX.Services
                     {
                         propertyname = property.Name;
 
-                        if (propValue is ObservableCollection<ListBoxFileName>)
+                        if (propValue is ObservableCollection<FileNameItem>)
                         {
                             List<string> filenames = new List<string>();
-                            foreach (ListBoxFileName lbfn in (ObservableCollection<ListBoxFileName>)propValue)
+                            foreach (FileNameItem lbfn in (ObservableCollection<FileNameItem>)propValue)
                             {
                                 if (lbfn.FileIsSelected == true)
                                 {
