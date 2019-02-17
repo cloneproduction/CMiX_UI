@@ -128,25 +128,6 @@ namespace CMiX.ViewModels
         }
         #endregion
 
-        #region NOTIFYCOLLECTIONCHANGED
-        public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (Messenger.SendEnabled)
-            {
-                List<string> layerindex = new List<string>();
-
-                foreach (Layer lyr in Layers)
-                {
-                    layerindex.Add(lyr.Index.ToString());
-                }
-
-                Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
-                Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
-                Messenger.SendQueue();
-            }
-        }
-        #endregion
-
         #region COPY/PASTE LAYER
         private void CopyLayer()
         {
@@ -353,6 +334,25 @@ namespace CMiX.ViewModels
                         Messenger.SendQueue();
                     }
                 }
+            }
+        }
+        #endregion
+
+        #region NOTIFYCOLLECTIONCHANGED
+        public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (Messenger.SendEnabled)
+            {
+                List<string> layerindex = new List<string>();
+
+                foreach (Layer lyr in Layers)
+                {
+                    layerindex.Add(lyr.Index.ToString());
+                }
+
+                Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
+                Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
+                Messenger.SendQueue();
             }
         }
         #endregion
