@@ -13,13 +13,13 @@
             <CMiX:PathToFilenameConverter x:Key="PathToFileName" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <StackPanel>
+    <DockPanel>
         <DockPanel Height="20" DockPanel.Dock="Top">
             <Menu
                 Grid.Row="0"
                 Grid.Column="1"
                 Height="15"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Right"
                 DockPanel.Dock="Right"
                 FlowDirection="RightToLeft"
                 Focusable="False"
@@ -59,7 +59,8 @@
         <Border 
             HorizontalAlignment="Stretch">
             <ListBox
-                Height="200"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
                 HorizontalContentAlignment="Stretch"
                 VerticalContentAlignment="Stretch"
                 ScrollViewer.VerticalScrollBarVisibility="Hidden"
@@ -97,5 +98,5 @@
                 </ListBox.ItemContainerStyle>
             </ListBox>
         </Border>
-    </StackPanel>
+    </DockPanel>
 </UserControl>

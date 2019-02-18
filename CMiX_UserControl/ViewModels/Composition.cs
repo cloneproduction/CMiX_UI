@@ -26,19 +26,20 @@ namespace CMiX.ViewModels
             
             MasterBeat = new MasterBeat(Messenger, this.ActionManager);
             Camera = new Camera(Messenger, MasterBeat, this.ActionManager);
+
+            LayerNames = new List<string>();
+            Layers = new ObservableCollection<Layer>();
+            Layers.CollectionChanged += ContentCollectionChanged;
+
             AddLayerCommand = new RelayCommand(p => AddLayer());
             RemoveLayerCommand = new RelayCommand(p => RemoveLayer());
             DeleteLayerCommand = new RelayCommand(p => DeleteLayer(p));
-
             CopyLayerCommand = new RelayCommand(p => CopyLayer());
             PasteLayerCommand = new RelayCommand(p => PasteLayer());
             SaveCompositionCommand = new RelayCommand(p => Save());
             OpenCompositionCommand = new RelayCommand(p => Open());
             UndoCommand = new RelayCommand(p => Undo());
             RedoCommand = new RelayCommand(p => Redo());
-            LayerNames = new List<string>();
-            Layers = new ObservableCollection<Layer>();
-            Layers.CollectionChanged += ContentCollectionChanged;
         }
 
 

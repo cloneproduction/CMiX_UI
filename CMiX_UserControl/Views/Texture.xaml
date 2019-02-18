@@ -8,8 +8,8 @@
     xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="423.334"
-    d:DesignWidth="358"
+    d:DesignHeight="636.667"
+    d:DesignWidth="316.667"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -63,19 +63,14 @@
                 DockPanel.Dock="Bottom"
                 Margin="0, 2, 0, 0"
                 Style="{StaticResource BorderContainer}">
-                <DockPanel>
+                <StackPanel>
                     <Border 
                         DockPanel.Dock="Top"
-                        Margin="0, 2, 0, 0"
                         Style="{StaticResource BorderContainer}">
-                        <Views:FileSelector DataContext="{Binding FileSelector}"/>
+                        <Views:FileSelector 
+                            Height="300"
+                            DataContext="{Binding FileSelector}"/>
                     </Border>
-                    <Views:Slider
-                        Margin="0, 1, 0, 1"
-                        Caption="Keying"
-                        DockPanel.Dock="Bottom"
-                        DataContext="{Binding Keying}"
-                        />
                     <Border 
                         DockPanel.Dock="Bottom"
                         Margin="0, 2, 0, 0"
@@ -137,7 +132,7 @@
                                         </Image.Source>
                                     </Image>
                                 </TabItem.Header>
-                                <StackPanel Margin="0, 2, 0, 0">
+                                <StackPanel>
                                     <Views:SliderCentered
                                         Margin="0, 1, 0, 1"
                                         Caption="Hue"
@@ -155,6 +150,12 @@
                                         Caption="Luminosity"
                                         DockPanel.Dock="Bottom"
                                         DataContext="{Binding Luminosity}"
+                                        />
+                                    <Views:Slider
+                                        Margin="0, 1, 0, 1"
+                                        Caption="Keying"
+                                        DockPanel.Dock="Bottom"
+                                        DataContext="{Binding Keying}"
                                         />
                                 </StackPanel>
                             </TabItem>
@@ -225,7 +226,8 @@
                             </TabItem>
                         </TabControl>
                     </Border>
-                </DockPanel>
+
+                </StackPanel>
             </Border>
         </DockPanel>
     </Border>
