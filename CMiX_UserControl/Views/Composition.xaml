@@ -145,32 +145,36 @@
                                 FontSize="12"
                             />
                             </Border>-->
-                            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+                            <StackPanel Margin="4" DockPanel.Dock="Bottom" Orientation="Horizontal">
                                 <Button
-                                Command="{Binding Path=AddLayerCommand}"
-                                Width="25"
-                                Height="25"
-                                Content="+"
-                                Style="{StaticResource ButtonBase}" 
-                            />
+                                    Command="{Binding Path=AddLayerCommand}"
+                                    Width="20"
+                                    Height="20"
+                                    Style="{StaticResource ButtonImageBase}" 
+                                >
+                                    <Button.Content>
+                                        <Image Source="/Assets/NewLayer.png"/>
+                                    </Button.Content>
+                                </Button>
                                 <Button
-                            Command="{Binding Path=RemoveLayerCommand}"
-                            Margin="2, 0, 0, 0"
-                            Width="25"
-                            Height="25"
-                            Content="-"
-                            Style="{StaticResource ButtonBase}" 
-                            />
+                                    Command="{Binding Path=RemoveLayerCommand}"
+                                    Margin="2, 0, 0, 0"
+                                    Width="20"
+                                    Height="20"
+                                    Content="-"
+                                    Style="{StaticResource ButtonBase}" 
+                                    />
                             </StackPanel>
                             <ListBox 
-                            Margin="0, 8, 0, 0"
-                            HorizontalContentAlignment="Stretch" 
-                            Style="{StaticResource LayerListBox}"
-                            ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
-                            ItemsSource="{Binding Layers}" 
-                            SelectedItem="{Binding SelectedLayer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            dd:DragDrop.IsDragSource="True"
-                            dd:DragDrop.IsDropTarget="True">
+                                Margin="0, 8, 0, 0"
+                                HorizontalContentAlignment="Stretch" 
+                                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                Style="{StaticResource LayerListBox}"
+                                ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
+                                ItemsSource="{Binding Layers}" 
+                                SelectedItem="{Binding SelectedLayer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                dd:DragDrop.IsDragSource="True"
+                                dd:DragDrop.IsDropTarget="True">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <CMiX:ChannelLayer>

@@ -11,34 +11,46 @@
     
     <DockPanel LastChildFill="True">
         <Border 
+            Padding="4, 0"
             DockPanel.Dock="Top">
             <DockPanel>
                 <Button 
+                    ToolTip="Reset"
                     DockPanel.Dock="Right"
-                    Margin="0, 0, 4, 0"
                     Command="{Binding Path=ResetSelfCommand}"
                     Height="15" 
                     Width="15" 
-                    Style="{StaticResource ButtonBase}"
-                    Content="R"
-                    />
+                    Style="{StaticResource ButtonImageBase}"
+                    >
+                    <Button.Content>
+                        <Image Source="/Assets/Reset.png"/>
+                    </Button.Content>
+                </Button>
                 <Button 
-                    Margin="2, 0"
                     DockPanel.Dock="Right"
+                    ToolTip="Paste"
+                    Margin="2, 0"
                     Command="{Binding Path=PasteSelfCommand}"
                     Height="15" 
                     Width="15" 
-                    Style="{StaticResource ButtonBase}"
-                    Content="P"
-                    />
+                    Style="{StaticResource ButtonImageBase}"
+                    >
+                    <Button.Content>
+                        <Image Source="/Assets/Paste.png"/>
+                    </Button.Content>
+                </Button>
                 <Button 
+                    ToolTip="Copy"
                     DockPanel.Dock="Right"
                     Command="{Binding Path=CopySelfCommand}"
                     Height="15" 
                     Width="15" 
-                    Style="{StaticResource ButtonBase}"
-                    Content="C"
-                    />
+                    Style="{StaticResource ButtonImageBase}"
+                    >
+                    <Button.Content>
+                        <Image Source="/Assets/Copy.png"/>
+                    </Button.Content>
+                </Button>
                 <Label
                     Style="{StaticResource LabelBase}"
                     HorizontalAlignment="Left"
@@ -70,7 +82,7 @@
                          DragOver="TabItem_DragOver"
                          Style="{StaticResource TabItemBase}">
                         <TabItem.Header>
-                            <Image Height="15" Width="auto" Opacity="0.75">
+                            <Image ToolTip="Geometry" Height="15" Width="auto" Opacity="0.75">
                                 <Image.Source>
                                     <BitmapImage UriSource="/Assets/Cube.png"/>
                                 </Image.Source>
@@ -86,7 +98,7 @@
                         DragOver="TabItem_DragOver"
                         Style="{StaticResource TabItemBase}">
                         <TabItem.Header>
-                            <Image Height="15" Width="auto" Opacity="0.75">
+                            <Image ToolTip="Texture" Height="15" Width="auto" Opacity="0.75">
                                 <Image.Source>
                                     <BitmapImage UriSource="/Assets/Texture.png"/>
                                 </Image.Source>
@@ -102,7 +114,7 @@
                         DragOver="TabItem_DragOver"
                         Style="{StaticResource TabItemBase}">
                         <TabItem.Header>
-                            <Image Height="15" Width="auto" Opacity="0.75">
+                            <Image ToolTip="PostFX" Height="15" Width="auto" Opacity="0.75">
                                 <Image.Source>
                                     <BitmapImage UriSource="/Assets/Effect.png"/>
                                 </Image.Source>

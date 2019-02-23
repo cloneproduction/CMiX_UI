@@ -29,7 +29,7 @@
                     <Border
                         x:Name="border"
                         Margin="0"
-                        Opacity="0.75"
+                        Opacity="0.6"
                         Padding="1"
                         Background="{DynamicResource Color}"
                         SnapsToDevicePixels="True">
@@ -39,7 +39,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Opacity" Value="100"/>
+                            <Setter TargetName="border" Property="Opacity" Value="0.75"/>
                             <Setter Property="Foreground" Value="{DynamicResource TextBase}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">

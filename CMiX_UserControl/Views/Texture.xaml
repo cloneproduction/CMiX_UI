@@ -33,6 +33,7 @@
                         Margin="8, 0, 0, 0">
                     </TextBlock>
                     <Button 
+                        ToolTip="Reset"
                         DockPanel.Dock="Right"
                         Command="{Binding Path=ResetSelfCommand}"
                         Height="15" 
@@ -45,6 +46,7 @@
                     </Button>
                     <Button 
                         DockPanel.Dock="Right"
+                        ToolTip="Paste"
                         Margin="2, 0"
                         Command="{Binding Path=PasteSelfCommand}"
                         Height="15" 
@@ -56,6 +58,7 @@
                         </Button.Content>
                     </Button>
                     <Button 
+                        ToolTip="Copy"
                         DockPanel.Dock="Right"
                         Command="{Binding Path=CopySelfCommand}"
                         Height="15" 
