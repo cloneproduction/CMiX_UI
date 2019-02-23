@@ -39,7 +39,6 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource LightColor}" />
                             <Setter TargetName="border" Property="Opacity" Value="100"/>
                             <Setter Property="Foreground" Value="{DynamicResource TextBase}" />
                         </Trigger>
