@@ -20,9 +20,10 @@
         </ObjectDataProvider>
     </UserControl.Resources>
 
-    <Border Background="{StaticResource HighDarkerColor}">
-        <DockPanel>
+    <Border>
+        <StackPanel>
             <Border 
+                Margin="0, 0, 0, 2"
                 Background="{StaticResource DarkColor}"
                 Padding="4"
                 DockPanel.Dock="Top">
@@ -71,55 +72,49 @@
                     </Button>
                 </DockPanel>
             </Border>
+            <Border Margin="0, 2" Style="{StaticResource BorderContainer}">
+                <Views:FileSelector 
+                        Height="300"
+                        DataContext="{Binding FileSelector}"/>
+            </Border>
+
             <Border 
-                DockPanel.Dock="Bottom"
-                Margin="0, 2, 0, 0"
-                Style="{StaticResource BorderContainer}">
-                <StackPanel>
-                    <Border 
-                        DockPanel.Dock="Top"
-                        Style="{StaticResource BorderContainer}">
-                        <Views:FileSelector 
-                            Height="300"
-                            DataContext="{Binding FileSelector}"/>
-                    </Border>
-                    <Border 
                         DockPanel.Dock="Bottom"
-                        Margin="0, 2, 0, 0"
+                         Margin="0, 2"
                         Style="{StaticResource BorderContainer}">
-                        <TabControl DockPanel.Dock="Bottom"
+                <TabControl DockPanel.Dock="Bottom"
                             Background="{StaticResource DarkerColor}"
                             Style="{StaticResource TabControlBase}">
-                            <TabItem Style="{StaticResource TabItemBase}">
-                                <TabItem.Header>
-                                    <Image Height="15" Width="auto" Opacity="0.75">
-                                        <Image.Source>
-                                            <BitmapImage UriSource="/Assets/BC.png"/>
-                                        </Image.Source>
-                                    </Image>
-                                </TabItem.Header>
-                                <StackPanel>
-                                    <Views:SliderCentered
+                    <TabItem Style="{StaticResource TabItemBase}">
+                        <TabItem.Header>
+                            <Image Height="15" Width="auto" Opacity="0.75">
+                                <Image.Source>
+                                    <BitmapImage UriSource="/Assets/BC.png"/>
+                                </Image.Source>
+                            </Image>
+                        </TabItem.Header>
+                        <StackPanel>
+                            <Views:SliderCentered
                                         Margin="0, 1, 0, 1"
                                         Caption="Brightness"
                                         DockPanel.Dock="Bottom"
                                         DataContext="{Binding Brightness}"
                                         />
-                                    <Views:SliderCentered
+                            <Views:SliderCentered
                                         Margin="0, 1, 0, 1"
                                         Caption="Contrast"
                                         DockPanel.Dock="Bottom"
                                         DataContext="{Binding Contrast}"
                                         />
-                                    <Grid
+                            <Grid
                                         Height="20"
                                         Margin="0, 2, 0, 0"
                                         DockPanel.Dock="Bottom">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition Width="0.3*" />
-                                        </Grid.ColumnDefinitions>
-                                        <ComboBox
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="0.3*" />
+                                </Grid.ColumnDefinitions>
+                                <ComboBox
                                             Grid.Column="1"
                                             Margin="1, 0, 0, 0"
                                             ItemsSource="{Binding Source={StaticResource InvertMode}}"
@@ -128,119 +123,116 @@
                                             ItemContainerStyle="{StaticResource BaseListBoxItemStyle}"
                                             Style="{StaticResource ComboBoxBase}" 
                                             />
-                                        <Views:Slider
+                                <Views:Slider
                                             Grid.Column="0"
                                             Caption="Invert"
                                             DataContext="{Binding Invert}"
                                             />
-                                    </Grid>
-                                </StackPanel>
-                            </TabItem>
-                            <TabItem Style="{StaticResource TabItemBase}">
-                                <TabItem.Header>
-                                    <Image Height="15" Width="auto" Opacity="0.75">
-                                        <Image.Source>
-                                            <BitmapImage UriSource="/Assets/HSL.png"/>
-                                        </Image.Source>
-                                    </Image>
-                                </TabItem.Header>
-                                <StackPanel>
-                                    <Views:SliderCentered
+                            </Grid>
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Style="{StaticResource TabItemBase}">
+                        <TabItem.Header>
+                            <Image Height="15" Width="auto" Opacity="0.75">
+                                <Image.Source>
+                                    <BitmapImage UriSource="/Assets/HSL.png"/>
+                                </Image.Source>
+                            </Image>
+                        </TabItem.Header>
+                        <StackPanel>
+                            <Views:SliderCentered
                                         Margin="0, 1, 0, 1"
                                         Caption="Hue"
                                         DockPanel.Dock="Bottom"
                                         DataContext="{Binding Hue}"
                                         />
-                                    <Views:SliderCentered
+                            <Views:SliderCentered
                                         Margin="0, 1, 0, 1"
                                         Caption="Saturation"
                                         DockPanel.Dock="Bottom"
                                         DataContext="{Binding Saturation}"
                                         />
-                                    <Views:SliderCentered
+                            <Views:SliderCentered
                                         Margin="0, 1, 0, 1"
                                         Caption="Luminosity"
                                         DockPanel.Dock="Bottom"
                                         DataContext="{Binding Luminosity}"
                                         />
-                                    <Views:Slider
+                            <Views:Slider
                                         Margin="0, 1, 0, 1"
                                         Caption="Keying"
                                         DockPanel.Dock="Bottom"
                                         DataContext="{Binding Keying}"
                                         />
-                                </StackPanel>
-                            </TabItem>
-                            <TabItem Style="{StaticResource TabItemBase}">
-                                <TabItem.Header>
-                                    <Image Height="15" Width="auto" Opacity="0.75">
-                                        <Image.Source>
-                                            <BitmapImage UriSource="/Assets/Size.png"/>
-                                        </Image.Source>
-                                    </Image>
-                                </TabItem.Header>
-                                <StackPanel>
-                                    <Views:SliderCentered
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Style="{StaticResource TabItemBase}">
+                        <TabItem.Header>
+                            <Image Height="15" Width="auto" Opacity="0.75">
+                                <Image.Source>
+                                    <BitmapImage UriSource="/Assets/Size.png"/>
+                                </Image.Source>
+                            </Image>
+                        </TabItem.Header>
+                        <StackPanel>
+                            <Views:SliderCentered
                                         Margin="0, 1, 0, 1"
                                         Caption="Pan"
                                         DockPanel.Dock="Bottom"
                                         DataContext="{Binding Pan}"
                                         />
-                                    <Views:SliderCentered
+                            <Views:SliderCentered
                                         Margin="0, 1, 0, 1"
                                         Caption="Tilt"
                                         DockPanel.Dock="Bottom"
                                         DataContext="{Binding Tilt}"
                                         />
-                                    <Views:SliderCentered
+                            <Views:SliderCentered
                                         Margin="0, 1, 0, 1"
                                         Caption="Scale"
                                         DockPanel.Dock="Bottom"
                                         DataContext="{Binding Scale}"
                                         />
-                                    <Views:SliderCentered
+                            <Views:SliderCentered
                                         Margin="0, 1, 0, 1"
                                         Caption="Rotate"
                                         DockPanel.Dock="Bottom"
                                         DataContext="{Binding Rotate}"
                                         />
-                                    <Grid Margin="0, 4, 0, 0">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="0.3*"/>
-                                                <ColumnDefinition/>
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="U" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            <ComboBox Style="{StaticResource ComboBoxBase}" Margin="0, 0, 2, 0" Grid.Column="1"/>
-                                        </Grid>
-                                        <Grid Grid.Column="1">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="0.3*"/>
-                                                <ColumnDefinition/>
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock 
+                            <Grid Margin="0, 4, 0, 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.3*"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="U" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <ComboBox Style="{StaticResource ComboBoxBase}" Margin="0, 0, 2, 0" Grid.Column="1"/>
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.3*"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock 
                                                 Text="V" 
                                                 HorizontalAlignment="Center" 
                                                 VerticalAlignment="Center"
                                                 />
-                                            <ComboBox 
+                                    <ComboBox 
                                                 Style="{StaticResource ComboBoxBase}" 
                                                 Grid.Column="1" 
                                                 Margin="2, 0, 0, 0"
                                                 />
-                                        </Grid>
-                                    </Grid>
-                                </StackPanel>
-                            </TabItem>
-                        </TabControl>
-                    </Border>
-
-                </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </StackPanel>
+                    </TabItem>
+                </TabControl>
             </Border>
-        </DockPanel>
+        </StackPanel>
     </Border>
 </UserControl>

@@ -136,28 +136,32 @@
                             <TextBlock Text="LAYERS" Margin="4, 0, 4, 0"/>
                         </TabItem.Header>
                         <DockPanel>
-                            <StackPanel Margin="4" DockPanel.Dock="Bottom" Orientation="Horizontal">
-                                <Button
-                                    Command="{Binding Path=AddLayerCommand}"
-                                    Width="20"
-                                    Height="20"
-                                    Style="{StaticResource ButtonImageBase}" 
-                                >
-                                    <Button.Content>
-                                        <Image Source="/Assets/NewLayer.png"/>
-                                    </Button.Content>
-                                </Button>
-                                <Button
-                                    Command="{Binding Path=RemoveLayerCommand}"
-                                    Margin="2, 0, 0, 0"
-                                    Width="20"
-                                    Height="20"
-                                    Style="{StaticResource ButtonBase}"                                                                    >
-                                    <Button.Content>
-                                        <Image Source="/Assets/DeleteLayer.png"/>
-                                    </Button.Content>
-                                </Button>
-                            </StackPanel>
+                            <Border DockPanel.Dock="Bottom"  Style="{StaticResource BorderContainer}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Button
+                                        ToolTip="New Layer"
+                                        Command="{Binding Path=AddLayerCommand}"
+                                        Width="15"
+                                        Height="15"
+                                        Style="{StaticResource ButtonImageBase}" >
+                                        <Button.Content>
+                                            <Image Source="/Assets/NewLayer.png"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button
+                                        ToolTip="Delete Layer"
+                                        Command="{Binding Path=RemoveLayerCommand}"
+                                        Margin="2, 0, 0, 0"
+                                        Width="15"
+                                        Height="15"
+                                        Style="{StaticResource ButtonImageBase}">
+                                        <Button.Content>
+                                            <Image Source="/Assets/DeleteLayer.png"/>
+                                        </Button.Content>
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                            
                             <ListBox 
                                 Margin="0, 8, 0, 0"
                                 HorizontalContentAlignment="Stretch" 
@@ -172,14 +176,35 @@
                                     <DataTemplate>
                                         <CMiX:ChannelLayer>
                                             <CMiX:ChannelLayer.ContextMenu>
-                                                <ContextMenu>
+                                                <ContextMenu Style="{StaticResource ContextMenuBase }">
                                                     <MenuItem
-                                                Style="{StaticResource MenuItemBase}"
-                                                Foreground="{StaticResource TextBase}"
-                                                Header ="Delete Layer"
-                                                Command="{Binding Data.DeleteLayerCommand, Source={StaticResource proxy}}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"
-                                                />
+                                                        Padding="8, 4"
+                                                        Style="{StaticResource MenuItemBase}"
+                                                        Foreground="{StaticResource TextBase}"
+                                                        Command="{Binding Data.DeleteLayerCommand, Source={StaticResource proxy}}"
+                                                        CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
+                                                        <MenuItem.Header>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <Image Width="10" Height="10" Source="/CMiX_UserControl;component/Assets/DeleteLayer.png" />
+                                                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                                                <TextBlock Text="Delete Layer"/>
+                                                            </StackPanel>
+                                                        </MenuItem.Header>
+                                                    </MenuItem>
+                                                    <MenuItem
+                                                        Padding="8, 4"
+                                                        Style="{StaticResource MenuItemBase}"
+                                                        Foreground="{StaticResource TextBase}"
+                                                        Command="{Binding Data.DuplicateLayerCommand, Source={StaticResource proxy}}"
+                                                        CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
+                                                        <MenuItem.Header>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <Image Width="10" Height="10" Source="/CMiX_UserControl;component/Assets/Copy.png" />
+                                                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                                                <TextBlock Text="Duplicate Layer"/>
+                                                            </StackPanel>
+                                                        </MenuItem.Header>
+                                                    </MenuItem>
                                                 </ContextMenu>
                                             </CMiX:ChannelLayer.ContextMenu>
                                         </CMiX:ChannelLayer>

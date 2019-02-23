@@ -30,6 +30,7 @@
         Background="{StaticResource HighDarkerColor}">
         <StackPanel>
             <Border 
+                 Margin="0, 0, 0, 2"
                 Background="{StaticResource DarkColor}"
                 Padding="4"
                 BorderBrush="{StaticResource HighDarkerColor}"
@@ -79,19 +80,13 @@
                 </DockPanel>
             </Border>
             <Border 
+                 Margin="0, 2"
                 DockPanel.Dock="Bottom"
                 Background="{StaticResource DarkerColor}"
                 Style="{StaticResource BorderContainer}">
-                <StackPanel>
-                    <Border 
-                        DockPanel.Dock="Bottom"
-                        Margin="0, 2, 0, 0"
-                        Style="{StaticResource BorderContainer}">
-                        <Views:FileSelector 
+                <Views:FileSelector 
                             Height="300"
                             DataContext="{Binding FileSelector}"/>
-                    </Border>
-                </StackPanel>
             </Border>
             <Border
                 Margin="0, 2"
@@ -117,12 +112,14 @@
                         />
                 </Grid>
             </Border>
-            <Grid Height="20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="0.3*"/>
-                </Grid.ColumnDefinitions>
-                <ToggleButton
+            <Border  Margin="0, 2" Style="{StaticResource BorderContainer}">
+                <StackPanel>
+                    <Grid Height="20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="0.3*"/>
+                        </Grid.ColumnDefinitions>
+                        <ToggleButton
                     Grid.Column="1"
                     x:Name="GeometryTranslate"
                     Keyboard.KeyDown="Toggle_KeyDown"
@@ -131,7 +128,7 @@
                     Content="{Binding TranslateMode.TranslateMode, Converter={StaticResource EnumToString}}"
                     IsHitTestVisible="{Binding ElementName=GeometryTranslatePopup, Path=IsOpen, Converter={StaticResource BoolInverter}}"
                     />
-                <Popup
+                        <Popup
                     x:Name="GeometryTranslatePopup"
                     Keyboard.KeyDown="Popup_KeyDown"
                     Width="432"
@@ -139,21 +136,21 @@
                     IsOpen="{Binding IsChecked, ElementName=GeometryTranslate}"
                     Placement="Center"
                     StaysOpen="False">
-                    <ViewModels:TranslateSelector DataContext="{Binding TranslateMode}"/>
-                </Popup>
-                <Views:Slider
+                            <ViewModels:TranslateSelector DataContext="{Binding TranslateMode}"/>
+                        </Popup>
+                        <Views:Slider
                     Grid.Column="0"
                     Margin="1, 0, 0, 0"
                     Caption="Translate"
                     DataContext="{Binding TranslateAmount}"
                     />
-            </Grid>
-            <Grid Height="20" Margin="0,2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition  />
-                    <ColumnDefinition Width="0.3*"/>
-                </Grid.ColumnDefinitions>
-                <ToggleButton
+                    </Grid>
+                    <Grid Height="20" Margin="0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition  />
+                            <ColumnDefinition Width="0.3*"/>
+                        </Grid.ColumnDefinitions>
+                        <ToggleButton
                     Grid.Column="1"
                     x:Name="GeometryScale"
                     Keyboard.KeyDown="Toggle_KeyDown"
@@ -162,7 +159,7 @@
                     Content="{Binding ScaleMode.ScaleMode, Converter={StaticResource EnumToString}}"
                     IsHitTestVisible="{Binding ElementName=GeometryScalePopup, Path=IsOpen, Converter={StaticResource BoolInverter}}"
                     />
-                <Popup
+                        <Popup
                     x:Name="GeometryScalePopup"
                     Keyboard.KeyDown="Popup_KeyDown"
                     Width="432"
@@ -170,23 +167,23 @@
                     IsOpen="{Binding IsChecked, ElementName=GeometryScale}"
                     Placement="Center"
                     StaysOpen="False">
-                    <ViewModels:ScaleSelector 
+                            <ViewModels:ScaleSelector 
                         DataContext="{Binding ScaleMode}"
                         />
-                </Popup>
-                <Views:Slider
+                        </Popup>
+                        <Views:Slider
                     Grid.Column="0"
                     Margin="1, 0, 0, 0"
                     Caption="Scale"
                     DataContext="{Binding ScaleAmount}"
                     />
-            </Grid>
-            <Grid Height="20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition  />
-                    <ColumnDefinition Width="0.3*"/>
-                </Grid.ColumnDefinitions>
-                <ToggleButton
+                    </Grid>
+                    <Grid Height="20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition  />
+                            <ColumnDefinition Width="0.3*"/>
+                        </Grid.ColumnDefinitions>
+                        <ToggleButton
                     Grid.Column="1"
                     x:Name="GeometryRotation"
                     Keyboard.KeyDown="Toggle_KeyDown"
@@ -195,7 +192,7 @@
                     Content="{Binding RotationMode.RotationMode, Converter={StaticResource EnumToString}}"
                     IsHitTestVisible="{Binding ElementName=GeometryRotationPopup, Path=IsOpen, Converter={StaticResource BoolInverter}}"
                     />
-                <Popup 
+                        <Popup 
                     x:Name="GeometryRotationPopup"
                     Keyboard.KeyDown="Popup_KeyDown"
                     Width="432"
@@ -203,18 +200,20 @@
                     IsOpen="{Binding IsChecked, ElementName=GeometryRotation}"
                     Placement="Center"
                     StaysOpen="False">
-                    <ViewModels:RotationSelector 
+                            <ViewModels:RotationSelector 
                         DataContext="{Binding RotationMode}"
                         />
-                </Popup>
-                <Views:Slider
+                        </Popup>
+                        <Views:Slider
                     Grid.Column="0"
                     Margin="1, 0, 0, 0"
                     Caption="Rotate"
                     DataContext="{Binding RotationAmount}"
                     />
-            </Grid>
-            <Border Style="{StaticResource BorderContainer}" DockPanel.Dock="Bottom">
+                    </Grid>
+                </StackPanel>
+            </Border>
+            <Border  Margin="0, 2" Style="{StaticResource BorderContainer}" DockPanel.Dock="Bottom">
                 <DockPanel Height="25">
                     <TextBlock 
                         Text="Aspect Ratio" 

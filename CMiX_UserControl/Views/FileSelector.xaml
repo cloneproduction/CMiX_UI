@@ -56,9 +56,7 @@
                 </MenuItem>
             </Menu>
         </DockPanel>
-        <Border 
-            HorizontalAlignment="Stretch">
-            <ListBox
+        <ListBox
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Stretch"
                 HorizontalContentAlignment="Stretch"
@@ -72,31 +70,30 @@
                 dd:DragDrop.DropHandler="{Binding}"
                 SelectionMode="{Binding SelectionMode}"
                 Style="{DynamicResource ListBoxBase}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Views:FileNameItem/>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-                <ListBox.ItemContainerStyle>
-                    <Style BasedOn="{StaticResource BaseListBoxItemStyle}" TargetType="ListBoxItem">
-                        <Setter Property="IsSelected" Value="{Binding FileIsSelected, Mode=TwoWay}" />
-                        <Setter Property="VerticalContentAlignment" Value="Bottom" />
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="BorderBrush" Value="{StaticResource Color}" />
-                            </Trigger>
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="IsMouseOver" Value="True" />
-                                    <Condition Property="IsSelected" Value="True" />
-                                </MultiTrigger.Conditions>
-                                <Setter Property="BorderBrush" Value="{StaticResource HighLightColor}" />
-                            </MultiTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ListBox.ItemContainerStyle>
-            </ListBox>
-        </Border>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Views:FileNameItem/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemContainerStyle>
+                <Style BasedOn="{StaticResource BaseListBoxItemStyle}" TargetType="ListBoxItem">
+                    <Setter Property="IsSelected" Value="{Binding FileIsSelected, Mode=TwoWay}" />
+                    <Setter Property="VerticalContentAlignment" Value="Bottom" />
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" Value="{StaticResource Color}" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True" />
+                                <Condition Property="IsSelected" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="BorderBrush" Value="{StaticResource HighLightColor}" />
+                        </MultiTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
     </DockPanel>
 </UserControl>

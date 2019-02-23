@@ -17,6 +17,7 @@
         <ResourceDictionary Source="SliderCentered.xaml"/>
         <ResourceDictionary Source="Icons.xaml"/>
         <ResourceDictionary Source="ToolTip.xaml"/>
+        <ResourceDictionary Source="ContextMenu.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
     <FontFamily x:Key="DefaultFont">Microsoft Sans Serif</FontFamily>

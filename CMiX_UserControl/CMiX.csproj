@@ -270,6 +270,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\ContextMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\ToolTip.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

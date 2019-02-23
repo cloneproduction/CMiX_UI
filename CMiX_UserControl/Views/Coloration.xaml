@@ -103,9 +103,9 @@
                             <Border 
                                 Margin="0" 
                                 Padding="8" 
-                                Background="{StaticResource HighDarkerColor}" 
                                 Style="{StaticResource BorderContainer}">
                                 <colorpicker:ColorPicker
+                                    MaxHeight="300"
                                     x:Name="Color"
                                     Background="{StaticResource HighDarkerColor}"
                                     SelectedColor="{Binding ObjColor, Mode=TwoWay}" 
