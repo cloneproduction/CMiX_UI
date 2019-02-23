@@ -5,16 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Controls="clr-namespace:CMiX.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="58.667" d:DesignWidth="249.167">
-
-    <DockPanel>
-        <ToggleButton 
-            DockPanel.Dock="Right" 
-            Height="40" 
-            Width="30"
-            IsChecked="{Binding OSCMessenger.SendEnabled}"
-            Style="{StaticResource ToggleButtonBase}"/>
-        <StackPanel DockPanel.Dock="Left">
+             d:DesignHeight="106.667" d:DesignWidth="219.611">
+    <Border Style="{StaticResource BorderContainer}">
+        <StackPanel HorizontalAlignment="Stretch">
             <Grid Height="20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.2*"/>
@@ -26,7 +19,10 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     />
-                <Controls:IPBox Grid.Column="1" IPAddress="{Binding OSCMessenger.Address, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                <Controls:IPBox 
+                    Margin="1"
+                    Grid.Column="1" 
+                    IPAddress="{Binding OSCMessenger.Address, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
             </Grid>
             <Grid Height="20">
                 <Grid.ColumnDefinitions>
@@ -34,12 +30,13 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TextBlock 
-                    Text="PORT" 
+                    Text="Port" 
                     Foreground="{StaticResource TextBase}"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     />
                 <TextBox
+                    Margin="1"
                     Text="{Binding OSCMessenger.Port}"
                     Grid.Column="1"
                     BorderThickness="1"
@@ -49,6 +46,26 @@
                     />
 
             </Grid>
+            <Grid Height="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock 
+                    Text="Send" 
+                    Foreground="{StaticResource TextBase}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    />
+                <ToggleButton 
+                    Margin="1"
+                    HorizontalAlignment="Left"
+                    Grid.Column="1"
+                    Width="20"
+                    Height="20" 
+                    IsChecked="{Binding OSCMessenger.SendEnabled}"
+                    Style="{StaticResource ToggleButtonBase}"/>
+            </Grid>
         </StackPanel>
-    </DockPanel>
+    </Border>
 </UserControl>

@@ -54,9 +54,13 @@
                         Command="{Binding Path=CopySelfCommand}"
                         Height="15" 
                         Width="15" 
-                        Content="C"
-                        Style="{StaticResource ButtonBase}"
-                        />
+                        Style="{StaticResource ButtonBase}">
+                        <Image Width="auto" Opacity="0.75">
+                                <Image.Source>
+                                    <BitmapImage UriSource="/Assets/Copy.png"/>
+                                </Image.Source>
+                        </Image>
+                    </Button>
                 </DockPanel>
             </Border>
             <Border 

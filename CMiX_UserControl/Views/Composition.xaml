@@ -130,28 +130,30 @@
                 Padding="8"
                 CornerRadius="2"
                 Background="{StaticResource HighDarkerColor}">
-                <DockPanel>
-                    <Border DockPanel.Dock="Top"               
-                        BorderThickness="0, 0, 0, 2"
-                        BorderBrush="{StaticResource DarkColor}">
-                        <Label
-                            Margin="0"
-                            Style="{StaticResource LabelBase}"
-                            Content="LAYERS"
-                            DockPanel.Dock="Bottom"
-                            FontWeight="SemiBold"
-                            FontSize="12"
+                <TabControl Style="{StaticResource TabControlBase}">
+                    <TabItem Header="Layers" Style="{StaticResource TabItemBase}">
+                        <DockPanel>
+                            <!--<Border DockPanel.Dock="Top"               
+                            BorderThickness="0, 0, 0, 2"
+                            BorderBrush="{StaticResource DarkColor}">
+                                <Label
+                                Margin="0"
+                                Style="{StaticResource LabelBase}"
+                                Content="LAYERS"
+                                DockPanel.Dock="Bottom"
+                                FontWeight="SemiBold"
+                                FontSize="12"
                             />
-                    </Border>
-                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-                        <Button
-                            Command="{Binding Path=AddLayerCommand}"
-                            Width="25"
-                            Height="25"
-                            Content="+"
-                            Style="{StaticResource ButtonBase}" 
+                            </Border>-->
+                            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+                                <Button
+                                Command="{Binding Path=AddLayerCommand}"
+                                Width="25"
+                                Height="25"
+                                Content="+"
+                                Style="{StaticResource ButtonBase}" 
                             />
-                        <Button
+                                <Button
                             Command="{Binding Path=RemoveLayerCommand}"
                             Margin="2, 0, 0, 0"
                             Width="25"
@@ -159,35 +161,45 @@
                             Content="-"
                             Style="{StaticResource ButtonBase}" 
                             />
-                    </StackPanel>
-                    <ListBox 
-                        Margin="0, 8, 0, 0"
-                        HorizontalContentAlignment="Stretch" 
-                        Style="{StaticResource LayerListBox}"
-                        ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
-                        ItemsSource="{Binding Layers}" 
-                        SelectedItem="{Binding SelectedLayer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        dd:DragDrop.IsDragSource="True"
-                        dd:DragDrop.IsDropTarget="True">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <CMiX:ChannelLayer>
-                                    <CMiX:ChannelLayer.ContextMenu>
-                                        <ContextMenu>
-                                            <MenuItem
+                            </StackPanel>
+                            <ListBox 
+                            Margin="0, 8, 0, 0"
+                            HorizontalContentAlignment="Stretch" 
+                            Style="{StaticResource LayerListBox}"
+                            ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
+                            ItemsSource="{Binding Layers}" 
+                            SelectedItem="{Binding SelectedLayer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            dd:DragDrop.IsDragSource="True"
+                            dd:DragDrop.IsDropTarget="True">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <CMiX:ChannelLayer>
+                                            <CMiX:ChannelLayer.ContextMenu>
+                                                <ContextMenu>
+                                                    <MenuItem
                                                 Style="{StaticResource MenuItemBase}"
                                                 Foreground="{StaticResource TextBase}"
                                                 Header ="Delete Layer"
                                                 Command="{Binding Data.DeleteLayerCommand, Source={StaticResource proxy}}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"
                                                 />
-                                        </ContextMenu>
-                                    </CMiX:ChannelLayer.ContextMenu>
-                                </CMiX:ChannelLayer>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </DockPanel>
+                                                </ContextMenu>
+                                            </CMiX:ChannelLayer.ContextMenu>
+                                        </CMiX:ChannelLayer>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </DockPanel>
+                    </TabItem>
+                    <TabItem Header="OSC" Style="{StaticResource TabItemBase}">
+                        <Views:OSCControl 
+                            VerticalAlignment="Top"
+                            Margin="0, 8, 0, 0"
+                            DataContext="{Binding OSCControl}"/>
+                    </TabItem>
+
+                </TabControl>
+
             </Border>
             <Grid DockPanel.Dock="Bottom">
                 <Border
@@ -215,9 +227,6 @@
                                     DataContext="{Binding Camera}"
                                     />
                             </TabItem>
-                            <TabItem Header="OSC" Style="{StaticResource TabItemBase}">
-                                <Views:OSCControl DataContext="{Binding OSCControl}"/>
-                            </TabItem>
                         </TabControl>
                     </Grid>
                 </Border>
@@ -225,18 +234,20 @@
             <Border
                 Grid.Column="1"
                 Margin="4">
-                <ItemsControl ItemsSource="{Binding Layers}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate DataType="{x:Type Views:LayerControls}">
-                            <Views:LayerControls Visibility="{Binding Enabled, Converter={StaticResource BoolToVisibility}}"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <Grid/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
+                <Grid>
+                    <ItemsControl ItemsSource="{Binding Layers}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type Views:LayerControls}">
+                                <Views:LayerControls Visibility="{Binding Enabled, Converter={StaticResource BoolToVisibility}}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Grid/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </Grid>
             </Border>
         </DockPanel>
     </DockPanel>

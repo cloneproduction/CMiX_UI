@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="CMiX.Views.Project"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Views="clr-namespace:CMiX.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="706" d:DesignWidth="1042.667">
+    <TabControl Style="{StaticResource TabControlBase}">
+        <TabItem 
+            Header="Composition 1"
+            Style="{StaticResource TabItemBase}">
+            <Views:Composition/>
+        </TabItem>
+        <TabItem 
+            Header="Composition 2"
+            Style="{StaticResource TabItemBase}">
+            <Views:Composition/>
+        </TabItem>
+    </TabControl>
+</UserControl>
