@@ -274,6 +274,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\ButtonImage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\Button.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -535,7 +539,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Copy.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Assets\Paste.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Reset.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

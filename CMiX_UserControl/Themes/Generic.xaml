@@ -3,6 +3,7 @@
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Button.xaml"/>
+        <ResourceDictionary Source="ButtonImage.xaml"/>
         <ResourceDictionary Source="Label.xaml"/>
         <ResourceDictionary Source="Slider.xaml"/>
         <ResourceDictionary Source="ComboBox.xaml"/>
