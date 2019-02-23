@@ -152,9 +152,11 @@
                                     Margin="2, 0, 0, 0"
                                     Width="20"
                                     Height="20"
-                                    Content="-"
-                                    Style="{StaticResource ButtonBase}" 
-                                    />
+                                    Style="{StaticResource ButtonBase}"                                                                    >
+                                    <Button.Content>
+                                        <Image Source="/Assets/DeleteLayer.png"/>
+                                    </Button.Content>
+                                </Button>
                             </StackPanel>
                             <ListBox 
                                 Margin="0, 8, 0, 0"
