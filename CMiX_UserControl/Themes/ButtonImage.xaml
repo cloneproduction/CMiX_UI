@@ -30,7 +30,7 @@
                         x:Name="border"
                         Margin="0"
                         Opacity="0.75"
-                        Padding="2"
+                        Padding="1"
                         Background="{DynamicResource Color}"
                         SnapsToDevicePixels="True">
                         <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
