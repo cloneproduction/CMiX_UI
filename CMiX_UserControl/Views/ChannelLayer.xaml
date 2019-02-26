@@ -48,6 +48,11 @@
                 <Views:BeatModifier
                     DataContext="{Binding BeatModifier}"/>
                 <DockPanel>
+                    <ToggleButton 
+                        Margin="2, 4, 2, 4"
+                        Style="{StaticResource ToggleButtonBase}" 
+                        Width="20"
+                        />
                     <RadioButton 
                         DockPanel.Dock="Right" 
                         IsChecked="{Binding Out}"

@@ -23,6 +23,7 @@
                     />
                 <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
                     <ToggleButton
+                        ToolTip="Keep Original"
                         Grid.Row="0"
                         Height="15" 
                         Width="15"
@@ -33,6 +34,7 @@
                         Style="{StaticResource ToggleButtonBase}" 
                         />
                     <ToggleButton
+                        ToolTip="Enable"
                         Grid.Row="0"
                         Height="15" 
                         Width="15"
@@ -110,7 +112,7 @@
                 DragOver="TabItem_DragOver"
                 Style="{StaticResource TabItemBase}">
                 <TabItem.Header>
-                    <Image Height="15" Width="auto" Opacity="0.75">
+                    <Image ToolTip="Geometry" Height="15" Width="auto" Opacity="0.75">
                         <Image.Source>
                             <BitmapImage UriSource="/Assets/Cube.png"/>
                         </Image.Source>
@@ -127,7 +129,7 @@
                      DragOver="TabItem_DragOver"
                      Style="{StaticResource TabItemBase}">
                 <TabItem.Header>
-                    <Image Height="15" Width="auto" Opacity="0.75">
+                    <Image ToolTip="Texture" Height="15" Width="auto" Opacity="0.75">
                         <Image.Source>
                             <BitmapImage UriSource="/Assets/Texture.png"/>
                         </Image.Source>
@@ -144,7 +146,7 @@
                      DragOver="TabItem_DragOver"
                      Style="{StaticResource TabItemBase}">
                 <TabItem.Header>
-                    <Image Height="15" Width="auto" Opacity="0.75">
+                    <Image ToolTip="PostFX" Height="15" Width="auto" Opacity="0.75">
                         <Image.Source>
                             <BitmapImage UriSource="/Assets/Effect.png"/>
                         </Image.Source>

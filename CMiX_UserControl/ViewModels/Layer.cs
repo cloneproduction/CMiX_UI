@@ -1,6 +1,6 @@
-﻿using CMiX.Models;
+﻿using System;
+using CMiX.Models;
 using CMiX.Services;
-using System;
 using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
@@ -113,6 +113,7 @@ namespace CMiX.ViewModels
                 Messenger.SendMessage(MessageAddress + nameof(BlendMode), BlendMode);
             }
         }
+
         public Slider Fade { get; }
         public BeatModifier BeatModifier { get; }
         public Content Content { get; }

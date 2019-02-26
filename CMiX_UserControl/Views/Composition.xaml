@@ -161,7 +161,7 @@
                                     </Button>
                                 </StackPanel>
                             </Border>
-                            
+
                             <ListBox 
                                 Margin="0, 8, 0, 0"
                                 HorizontalContentAlignment="Stretch" 
@@ -222,10 +222,9 @@
                             Margin="0, 8, 0, 0"
                             DataContext="{Binding OSCControl}"/>
                     </TabItem>
-
                 </TabControl>
-
             </Border>
+            
             <Grid DockPanel.Dock="Bottom">
                 <Border
                     BorderBrush="{StaticResource DarkerColor}"

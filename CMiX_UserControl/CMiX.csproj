@@ -138,6 +138,7 @@
     <Compile Include="ViewModels\FileNameItem.cs" />
     <Compile Include="ViewModels\FileSelector.cs" />
     <Compile Include="ViewModels\OSCControl.cs" />
+    <Compile Include="ViewModels\Project.cs" />
     <Compile Include="ViewModels\Slider.cs" />
     <Compile Include="ViewModels\Counter.cs" />
     <Compile Include="ViewModels\Geometry\GeometryFileMask.cs" />

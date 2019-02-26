@@ -34,6 +34,7 @@ namespace CMiX.ViewModels
             AddLayerCommand = new RelayCommand(p => AddLayer());
             RemoveLayerCommand = new RelayCommand(p => RemoveLayer());
             DeleteLayerCommand = new RelayCommand(p => DeleteLayer(p));
+            DuplicateLayerCommand = new RelayCommand(p => DuplicateLayer(p));
             CopyLayerCommand = new RelayCommand(p => CopyLayer());
             PasteLayerCommand = new RelayCommand(p => PasteLayer());
             SaveCompositionCommand = new RelayCommand(p => Save());
@@ -77,6 +78,7 @@ namespace CMiX.ViewModels
         public ICommand RedoCommand { get; }
 
         public ICommand DeleteLayerCommand { get; }
+        public ICommand DuplicateLayerCommand { get; }
 
         public MasterBeat MasterBeat { get; set; }
         public Camera Camera { get; set; }
@@ -112,6 +114,32 @@ namespace CMiX.ViewModels
         {
             Layer lyr = layer as Layer;
             Layers.Remove(lyr);
+        }
+
+        private void DuplicateLayer(object layer)
+        {
+            LayerDTO layerdto = new LayerDTO();
+
+            Layer lyr = layer as Layer;
+            lyr.Copy(layerdto);
+
+            Layer newlayer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messenger, layerNameID, ActionManager);
+            newlayer.Paste(layerdto);
+
+
+            layerID += 1;
+            layerNameID += 1;
+            //Layer layerin = layer as Layer;
+
+            newlayer.LayerName = layerNameID.ToString();
+            newlayer.Index = layerNameID;
+            newlayer.Enabled = false;
+            //new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messenger, layerNameID, ActionManager);
+            
+
+            int index = Layers.IndexOf(lyr) + 1;
+
+            Layers.Insert(index, newlayer);
         }
         #endregion
 
