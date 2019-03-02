@@ -147,17 +147,16 @@ namespace CMiX.ViewModels
             Layer newlayer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messenger, layerNameID, ActionManager);
             newlayer.Paste(layerdto);
             newlayer.LayerName = "/Layer" + layerNameID.ToString();
-            newlayer.Index = layerNameID;
+            newlayer.Index = layerID;
             newlayer.Enabled = false;
 
             int index = Layers.IndexOf(lyr) + 1;
-
             Layers.Insert(index, newlayer);
 
             List<string> layerindex = new List<string>();
-            foreach (Layer lay in this.Layers)
+            foreach (Layer lay in Layers)
             {
-                layerindex.Add(newlayer.Index.ToString());
+                layerindex.Add(lay.Index.ToString());
             }
 
             Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());

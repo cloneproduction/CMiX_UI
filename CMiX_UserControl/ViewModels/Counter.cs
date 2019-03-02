@@ -14,7 +14,7 @@ namespace CMiX.ViewModels
                 (
                     actionmanager: actionmanager,
                     messenger: messenger,
-                    messageaddress: layername,
+                    messageaddress: String.Format("{0}/", layername),
                     count: 1
                 )
         {}
@@ -26,7 +26,7 @@ namespace CMiX.ViewModels
                 int count,
                 ActionManager actionmanager
             )
-                : base (actionmanager, messenger)
+            : base (actionmanager, messenger)
         {
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
@@ -48,7 +48,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _count, value);
-                Messenger.SendMessage(MessageAddress, Count);
+                Messenger.SendMessage(MessageAddress + nameof(Count), Count);
             }
         }
         #endregion
