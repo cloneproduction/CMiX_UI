@@ -113,33 +113,57 @@ namespace CMiX.ViewModels
         private void DeleteLayer(object layer)
         {
             Layer lyr = layer as Layer;
+            layerID -= 1;
+
+            LayerNames.Remove(lyr.LayerName);
             Layers.Remove(lyr);
+
+            List<string> layerindex = new List<string>();
+            foreach (Layer lay in Layers)
+            {
+                if (lay.Index > lyr.Index)
+                {
+                    lay.Index -= 1;
+                }
+                layerindex.Add(lay.Index.ToString());
+            }
+
+            Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
+            Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
+            Messenger.QueueMessage("/LayerRemoved", lyr.LayerName);
+            Messenger.SendQueue();
         }
 
         private void DuplicateLayer(object layer)
         {
-            LayerDTO layerdto = new LayerDTO();
+            layerID += 1;
+            layerNameID += 1;
+            LayerNames.Add("/Layer" + layerNameID.ToString());
 
             Layer lyr = layer as Layer;
+            LayerDTO layerdto = new LayerDTO();
             lyr.Copy(layerdto);
 
             Layer newlayer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messenger, layerNameID, ActionManager);
             newlayer.Paste(layerdto);
-
-
-            layerID += 1;
-            layerNameID += 1;
-            //Layer layerin = layer as Layer;
-
-            newlayer.LayerName = layerNameID.ToString();
+            newlayer.LayerName = "/Layer" + layerNameID.ToString();
             newlayer.Index = layerNameID;
             newlayer.Enabled = false;
-            //new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messenger, layerNameID, ActionManager);
-            
 
             int index = Layers.IndexOf(lyr) + 1;
 
             Layers.Insert(index, newlayer);
+
+            List<string> layerindex = new List<string>();
+            foreach (Layer lay in this.Layers)
+            {
+                layerindex.Add(newlayer.Index.ToString());
+            }
+
+            Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
+            Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
+            Messenger.QueueObject(newlayer);
+            Messenger.SendQueue();
         }
         #endregion
 
