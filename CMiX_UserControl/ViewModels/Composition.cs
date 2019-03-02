@@ -31,6 +31,12 @@ namespace CMiX.ViewModels
             Layers = new ObservableCollection<Layer>();
             Layers.CollectionChanged += ContentCollectionChanged;
 
+            Messengers = new ObservableCollection<OSCMessenger>();
+            Messengers.CollectionChanged += ContentCollectionChanged;
+
+            Messengers.Add(new OSCMessenger { Port = 22222, Address = "127.0.1.1" });
+            Messengers.Add(new OSCMessenger { Port = 55555, Address = "127.0.1.1" });
+
             AddLayerCommand = new RelayCommand(p => AddLayer());
             RemoveLayerCommand = new RelayCommand(p => RemoveLayer());
             DeleteLayerCommand = new RelayCommand(p => DeleteLayer(p));
@@ -61,6 +67,9 @@ namespace CMiX.ViewModels
             MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
             Layers = new ObservableCollection<Layer>(layers);
             Layers.CollectionChanged += ContentCollectionChanged;
+
+            Messengers = new ObservableCollection<OSCMessenger>();
+            Messengers.CollectionChanged += ContentCollectionChanged;
         }
         #endregion
 
@@ -87,6 +96,8 @@ namespace CMiX.ViewModels
         [OSC]
         public ObservableCollection<Layer> Layers { get; }
 
+        public ObservableCollection<OSCMessenger> Messengers { get; }
+
         private string _name;
         public string Name
         {
@@ -106,63 +117,6 @@ namespace CMiX.ViewModels
         {
             get => _selectedlayer;
             set => SetAndNotify(ref _selectedlayer, value);
-        }
-        #endregion
-
-        #region METHODS
-        private void DeleteLayer(object layer)
-        {
-            Layer lyr = layer as Layer;
-            layerID -= 1;
-
-            LayerNames.Remove(lyr.LayerName);
-            Layers.Remove(lyr);
-
-            List<string> layerindex = new List<string>();
-            foreach (Layer lay in Layers)
-            {
-                if (lay.Index > lyr.Index)
-                {
-                    lay.Index -= 1;
-                }
-                layerindex.Add(lay.Index.ToString());
-            }
-
-            Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
-            Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
-            Messenger.QueueMessage("/LayerRemoved", lyr.LayerName);
-            Messenger.SendQueue();
-        }
-
-        private void DuplicateLayer(object layer)
-        {
-            layerID += 1;
-            layerNameID += 1;
-            LayerNames.Add("/Layer" + layerNameID.ToString());
-
-            Layer lyr = layer as Layer;
-            LayerDTO layerdto = new LayerDTO();
-            lyr.Copy(layerdto);
-
-            Layer newlayer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messenger, layerNameID, ActionManager);
-            newlayer.Paste(layerdto);
-            newlayer.LayerName = "/Layer" + layerNameID.ToString();
-            newlayer.Index = layerID;
-            newlayer.Enabled = false;
-
-            int index = Layers.IndexOf(lyr) + 1;
-            Layers.Insert(index, newlayer);
-
-            List<string> layerindex = new List<string>();
-            foreach (Layer lay in Layers)
-            {
-                layerindex.Add(lay.Index.ToString());
-            }
-
-            Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
-            Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
-            Messenger.QueueObject(newlayer);
-            Messenger.SendQueue();
         }
         #endregion
 
@@ -218,31 +172,7 @@ namespace CMiX.ViewModels
         }
         #endregion
 
-        #region ADD/REMOVE LAYERS
-        private void AddLayer()
-        {
-            layerID += 1;
-            layerNameID += 1;
-
-            Layer layer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messenger, layerNameID, ActionManager);
-            layer.Index = layerID;
-
-            Layers.Add(layer);
-
-            this.LayerNames.Add("/Layer" + layerNameID.ToString());
-
-            List<string> layerindex = new List<string>();
-            foreach (Layer lyr in this.Layers)
-            {
-                layerindex.Add(lyr.Index.ToString());
-            }
-
-            Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
-            Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
-            Messenger.QueueObject(layer);
-            Messenger.SendQueue();
-        }
-
+        #region ADD/REMOVE/DUPLICATE/DELETE LAYERS
         private void RemoveLayer()
         {
             int removeindex;
@@ -279,6 +209,87 @@ namespace CMiX.ViewModels
             Messenger.QueueMessage("/LayerRemoved", removedlayername);
             Messenger.SendQueue();
         }
+
+        private void DeleteLayer(object layer)
+        {
+            Layer lyr = layer as Layer;
+            layerID -= 1;
+
+            LayerNames.Remove(lyr.LayerName);
+            Layers.Remove(lyr);
+
+            List<string> layerindex = new List<string>();
+            foreach (Layer lay in Layers)
+            {
+                if (lay.Index > lyr.Index)
+                {
+                    lay.Index -= 1;
+                }
+                layerindex.Add(lay.Index.ToString());
+            }
+
+            Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
+            Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
+            Messenger.QueueMessage("/LayerRemoved", lyr.LayerName);
+            Messenger.SendQueue();
+        }
+
+        private void DuplicateLayer(object layer)
+        {
+            layerID += 1;
+            layerNameID += 1;
+            LayerNames.Add("/Layer" + layerNameID.ToString());
+
+            Layer lyr = layer as Layer;
+            LayerDTO layerdto = new LayerDTO();
+            lyr.Copy(layerdto);
+
+            Layer newlayer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messenger, layerNameID, ActionManager, Messengers);
+            newlayer.Paste(layerdto);
+            newlayer.LayerName = "/Layer" + layerNameID.ToString();
+            newlayer.Index = layerID;
+            newlayer.Enabled = false;
+
+            int index = Layers.IndexOf(lyr) + 1;
+            Layers.Insert(index, newlayer);
+
+            List<string> layerindex = new List<string>();
+            foreach (Layer lay in Layers)
+            {
+                layerindex.Add(lay.Index.ToString());
+            }
+
+            Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
+            Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
+            Messenger.QueueObject(newlayer);
+            Messenger.SendQueue();
+        }
+
+        private void AddLayer()
+        {
+            layerID += 1;
+            layerNameID += 1;
+
+            Layer layer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messenger, layerNameID, ActionManager, Messengers);
+            layer.Index = layerID;
+
+            Layers.Add(layer);
+
+            this.LayerNames.Add("/Layer" + layerNameID.ToString());
+
+            List<string> layerindex = new List<string>();
+            foreach (Layer lyr in this.Layers)
+            {
+                layerindex.Add(lyr.Index.ToString());
+            }
+
+            Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
+            Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
+            Messenger.QueueObject(layer);
+            Messenger.SendQueue();
+        }
+
+
         #endregion
 
         #region COPY/PASTE/LOAD/SAVE/OPEN COMPOSITIONS
@@ -309,7 +320,7 @@ namespace CMiX.ViewModels
             foreach (LayerDTO layerdto in compositiondto.LayersDTO)
             {
                 layerID += 1;
-                Layer layer = new Layer(MasterBeat, "/Layer" + layerID.ToString(), Messenger, 0, this.ActionManager);
+                Layer layer = new Layer(MasterBeat, "/Layer" + layerID.ToString(), Messenger, 0, this.ActionManager, Messengers);
                 layer.Paste(layerdto);
                 Layers.Add(layer);
             }
@@ -330,7 +341,7 @@ namespace CMiX.ViewModels
             Layers.Clear();
             foreach (LayerDTO layerdto in compositiondto.LayersDTO)
             {
-                Layer layer = new Layer(MasterBeat, layerdto.LayerName, Messenger, layerdto.Index, this.ActionManager);
+                Layer layer = new Layer(MasterBeat, layerdto.LayerName, Messenger, layerdto.Index, this.ActionManager, Messengers);
                 layer.Load(layerdto);
                 Layers.Add(layer);
             }

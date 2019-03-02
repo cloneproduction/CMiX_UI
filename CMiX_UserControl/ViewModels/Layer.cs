@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using CMiX.Models;
 using CMiX.Services;
 using GuiLabs.Undo;
@@ -9,9 +10,10 @@ namespace CMiX.ViewModels
     public class Layer : ViewModel
     {
         #region CONSTRUCTORS
-        public Layer(MasterBeat masterBeat, string layername, OSCMessenger messenger, int index, ActionManager actionmanager)
+        public Layer(MasterBeat masterBeat, string layername, OSCMessenger messenger, int index, ActionManager actionmanager, ObservableCollection<OSCMessenger> messengers)
             : base (actionmanager, messenger)
         {
+            Messengers = messengers;
             Messenger = messenger;
             MessageAddress = String.Format("{0}/", layername); 
             Index = index;
@@ -29,6 +31,7 @@ namespace CMiX.ViewModels
 
         public Layer
             (
+                ObservableCollection<OSCMessenger> messengers,
                 OSCMessenger messenger,
                 string messageaddress,
                 string layername,
@@ -55,6 +58,7 @@ namespace CMiX.ViewModels
             Mask = mask ?? throw new ArgumentNullException(nameof(mask));
             Coloration = coloration ?? throw new ArgumentNullException(nameof(coloration));
             PostFX = postfx ?? throw new ArgumentNullException(nameof(postfx));
+            Messengers = messengers;
             Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
         }
@@ -63,6 +67,14 @@ namespace CMiX.ViewModels
         #region PROPERTIES
         //public bool CanAcceptChildren { get; set; }
         //public ObservableCollection<Layer> Children { get; private set; }
+
+        private ObservableCollection<OSCMessenger> _messengers;
+        public ObservableCollection<OSCMessenger> Messengers
+        {
+            get { return _messengers; }
+            set { _messengers = value; }
+        }
+
 
         private string _layername;
         [OSC]
@@ -111,6 +123,11 @@ namespace CMiX.ViewModels
             {
                 SetAndNotify(ref _blendMode, value);
                 Messenger.SendMessage(MessageAddress + nameof(BlendMode), BlendMode);
+                foreach (var oscmessenger in Messengers)
+                {
+                    oscmessenger.SendMessage(MessageAddress + nameof(BlendMode), BlendMode);
+                    Console.WriteLine(oscmessenger.Address + "    " + oscmessenger.Port);
+                }
             }
         }
 

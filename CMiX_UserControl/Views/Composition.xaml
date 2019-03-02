@@ -217,10 +217,26 @@
                         <TabItem.Header>
                             <TextBlock Text="OSC" Margin="4, 0, 4, 0"/>
                         </TabItem.Header>
-                        <Views:OSCControl 
+                        <ListBox 
+                                Margin="0, 8, 0, 0"
+                                HorizontalContentAlignment="Stretch" 
+                                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                Style="{StaticResource LayerListBox}"
+                                ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
+                                ItemsSource="{Binding Messengers}" 
+                                dd:DragDrop.IsDragSource="True"
+                                dd:DragDrop.IsDropTarget="True">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Views:OSCControl/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+
+                        <!--<Views:OSCControl 
                             VerticalAlignment="Top"
                             Margin="0, 8, 0, 0"
-                            DataContext="{Binding OSCControl}"/>
+                            DataContext="{Binding OSCControl}"/>-->
                     </TabItem>
                 </TabControl>
             </Border>

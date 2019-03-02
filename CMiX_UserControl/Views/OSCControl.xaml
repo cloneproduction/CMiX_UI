@@ -22,7 +22,7 @@
                 <Controls:IPBox 
                     Margin="1"
                     Grid.Column="1" 
-                    IPAddress="{Binding OSCMessenger.Address, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    IPAddress="{Binding Address, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
             </Grid>
             <Grid Height="20">
                 <Grid.ColumnDefinitions>
@@ -37,7 +37,7 @@
                     />
                 <TextBox
                     Margin="1"
-                    Text="{Binding OSCMessenger.Port}"
+                    Text="{Binding Port}"
                     Grid.Column="1"
                     BorderThickness="1"
                     BorderBrush="{StaticResource DarkColor}"
@@ -63,7 +63,7 @@
                     Grid.Column="1"
                     Width="20"
                     Height="20" 
-                    IsChecked="{Binding OSCMessenger.SendEnabled}"
+                    IsChecked="{Binding SendEnabled}"
                     Style="{StaticResource ToggleButtonBase}"/>
             </Grid>
         </StackPanel>

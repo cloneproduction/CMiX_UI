@@ -1,6 +1,9 @@
 ﻿using CMiX.Services;
 using GuiLabs.Undo;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
 namespace CMiX.ViewModels
 {
     public class OSCControl : ViewModel
@@ -32,6 +35,9 @@ namespace CMiX.ViewModels
             get { return _oscmessenger; }
             set => SetAndNotify(ref _oscmessenger, value);
         }
+
+        public ObservableCollection<OSCMessenger> Messengers;
+
         #endregion
     }
 }
