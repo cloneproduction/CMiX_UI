@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace CMiX
+namespace CMiX.Views
 {
     public partial class ChannelLayer : UserControl
     {

@@ -49,9 +49,11 @@ namespace CMiX.ViewModels
             OpenCompositionCommand = new RelayCommand(p => Open());
             UndoCommand = new RelayCommand(p => Undo());
             RedoCommand = new RelayCommand(p => Redo());
+
+            AddOSCCommand = new RelayCommand(p => AddOSC());
+            RemoveSelectedOSCCommand = new RelayCommand(p => RemoveSelectedOSC());
+            DeleteOSCCommand = new RelayCommand(p => DeleteOSC(p));
         }
-
-
 
         public Composition(string name, Camera camera, MasterBeat masterBeat, IEnumerable<Layer> layers, ActionManager actionManager)
             : base(new ActionManager())
@@ -61,19 +63,16 @@ namespace CMiX.ViewModels
                 throw new ArgumentNullException(nameof(layers));
             }
             //OSCControl = new OSCControl(ActionManager);
-            //Messenger = OSCControl.OSCMessenger;
+            Messengers = new ObservableCollection<OSCMessenger>();
             MessageAddress = String.Empty;
             Name = name;
 
             Camera = camera ?? throw new ArgumentNullException(nameof(camera));
             MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
-            //Layers = new ObservableCollection<Layer>(layers);
-            //Layers.CollectionChanged += ContentCollectionChanged;
+            Layers = new ObservableCollection<Layer>(layers);
+            Layers.CollectionChanged += ContentCollectionChanged;
 
-            Messengers = new ObservableCollection<OSCMessenger>();
 
-            //Messengers.Add(new OSCMessenger { Port = 12312, Address = "127.0.1.1", SendEnabled = true });
-            //Messengers.Add(new OSCMessenger { Port = 55555, Address = "127.0.1.1", SendEnabled = true });
         }
         #endregion
 
@@ -92,6 +91,11 @@ namespace CMiX.ViewModels
 
         public ICommand DeleteLayerCommand { get; }
         public ICommand DuplicateLayerCommand { get; }
+
+        public ICommand AddOSCCommand { get; set; }
+        public ICommand RemoveSelectedOSCCommand { get; set; }
+        public ICommand DeleteOSCCommand { get; set; }
+
 
         public MasterBeat MasterBeat { get; set; }
         public Camera Camera { get; set; }
@@ -174,6 +178,25 @@ namespace CMiX.ViewModels
         }
         #endregion
 
+
+        #region ADD/REMOVE/DELETE OSC
+        private void DeleteOSC(object oscmessenger)
+        {
+            OSCMessenger messenger = oscmessenger as OSCMessenger;
+            Messengers.Remove(messenger);
+        }
+
+        private void RemoveSelectedOSC()
+        {
+            Console.WriteLine("Remove OSC");
+        }
+
+        private void AddOSC()
+        {
+            Messengers.Add(new OSCMessenger { Port = 55555, Address = "127.0.0.1", SendEnabled = true });
+        }
+        #endregion
+
         #region ADD/REMOVE/DUPLICATE/DELETE LAYERS
         private void RemoveLayer()
         {
@@ -209,10 +232,6 @@ namespace CMiX.ViewModels
             QueueMessages("/LayerIndex", layerindex.ToArray());
             QueueMessages("/LayerRemoved", removedlayername);
             SendQueues();
-            //Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
-            //Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
-            //Messenger.QueueMessage("/LayerRemoved", removedlayername);
-            //Messenger.SendQueue();
         }
 
         private void DeleteLayer(object layer)
@@ -268,11 +287,6 @@ namespace CMiX.ViewModels
             QueueMessages("/LayerIndex", layerindex.ToArray());
             QueueObjects(newlayer);
             SendQueues();
-
-            /*Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
-            Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
-            Messenger.QueueObject(newlayer);
-            Messenger.SendQueue();*/
         }
 
         private void AddLayer()

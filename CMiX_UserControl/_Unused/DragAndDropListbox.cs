@@ -105,6 +105,6 @@ namespace CMiX
         }
     }
 
-    public class LayerList : DragAndDropListBox<ChannelLayer> { }
+    //public class LayerList : DragAndDropListBox<ChannelLayer> { }
 
 }

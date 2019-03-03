@@ -174,8 +174,8 @@
                                 dd:DragDrop.IsDropTarget="True">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <CMiX:ChannelLayer>
-                                            <CMiX:ChannelLayer.ContextMenu>
+                                        <Views:ChannelLayer>
+                                            <Views:ChannelLayer.ContextMenu>
                                                 <ContextMenu Style="{StaticResource ContextMenuBase }">
                                                     <MenuItem
                                                         Padding="8, 4"
@@ -206,8 +206,8 @@
                                                         </MenuItem.Header>
                                                     </MenuItem>
                                                 </ContextMenu>
-                                            </CMiX:ChannelLayer.ContextMenu>
-                                        </CMiX:ChannelLayer>
+                                            </Views:ChannelLayer.ContextMenu>
+                                        </Views:ChannelLayer>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
@@ -217,7 +217,33 @@
                         <TabItem.Header>
                             <TextBlock Text="OSC" Margin="4, 0, 4, 0"/>
                         </TabItem.Header>
-                        <ListBox 
+                        <DockPanel>
+                            <Border DockPanel.Dock="Bottom"  Style="{StaticResource BorderContainer}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Button
+                                        ToolTip="New Layer"
+                                        Command="{Binding Path=AddOSCCommand}"
+                                        Width="15"
+                                        Height="15"
+                                        Style="{StaticResource ButtonImageBase}" >
+                                        <Button.Content>
+                                            <Image Source="/Assets/NewLayer.png"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button
+                                        ToolTip="Delete Layer"
+                                        Command="{Binding Path=RemoveOSCCommand}"
+                                        Margin="2, 0, 0, 0"
+                                        Width="15"
+                                        Height="15"
+                                        Style="{StaticResource ButtonImageBase}">
+                                        <Button.Content>
+                                            <Image Source="/Assets/DeleteLayer.png"/>
+                                        </Button.Content>
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                            <ListBox 
                                 Margin="0, 8, 0, 0"
                                 HorizontalContentAlignment="Stretch" 
                                 ScrollViewer.HorizontalScrollBarVisibility="Hidden"
@@ -226,17 +252,46 @@
                                 ItemsSource="{Binding Messengers}" 
                                 dd:DragDrop.IsDragSource="True"
                                 dd:DragDrop.IsDropTarget="True">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Views:OSCControl/>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-
-                        <!--<Views:OSCControl 
-                            VerticalAlignment="Top"
-                            Margin="0, 8, 0, 0"
-                            DataContext="{Binding OSCControl}"/>-->
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Views:OSCControl Margin="0,2">
+                                            <Views:OSCControl.ContextMenu>
+                                                <ContextMenu Style="{StaticResource ContextMenuBase }">
+                                                    <MenuItem
+                                                        Padding="8, 4"
+                                                        Style="{StaticResource MenuItemBase}"
+                                                        Foreground="{StaticResource TextBase}"
+                                                        Command="{Binding Data.AddOSCCommand, Source={StaticResource proxy}}"
+                                                        CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
+                                                        <MenuItem.Header>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <Image Width="10" Height="10" Source="/CMiX_UserControl;component/Assets/Copy.png" />
+                                                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                                                <TextBlock Text="Add OSC"/>
+                                                            </StackPanel>
+                                                        </MenuItem.Header>
+                                                    </MenuItem>
+                                                    <MenuItem
+                                                        Padding="8, 4"
+                                                        Style="{StaticResource MenuItemBase}"
+                                                        Foreground="{StaticResource TextBase}"
+                                                        Command="{Binding Data.DeleteOSCCommand, Source={StaticResource proxy}}"
+                                                        CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
+                                                        <MenuItem.Header>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <Image Width="10" Height="10" Source="/CMiX_UserControl;component/Assets/DeleteLayer.png" />
+                                                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                                                <TextBlock Text="Delete OSC"/>
+                                                            </StackPanel>
+                                                        </MenuItem.Header>
+                                                    </MenuItem>
+                                                </ContextMenu>
+                                            </Views:OSCControl.ContextMenu>
+                                        </Views:OSCControl>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </DockPanel>
                     </TabItem>
                 </TabControl>
             </Border>
