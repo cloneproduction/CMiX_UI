@@ -10,29 +10,27 @@ namespace CMiX.ViewModels
     public class Layer : ViewModel
     {
         #region CONSTRUCTORS
-        public Layer(MasterBeat masterBeat, string layername, OSCMessenger messenger, int index, ActionManager actionmanager, ObservableCollection<OSCMessenger> messengers)
-            : base (actionmanager, messenger)
+        public Layer(MasterBeat masterBeat, string layername, ObservableCollection<OSCMessenger> messengers, int index, ActionManager actionmanager)
+            : base (actionmanager, messengers)
         {
             Messengers = messengers;
-            Messenger = messenger;
             MessageAddress = String.Format("{0}/", layername); 
             Index = index;
             LayerName = layername;       
             Index = 0;
             Enabled = false;
             BlendMode = ((BlendMode)0).ToString();
-            Fade = new Slider(layername + "/Fade", messenger, actionmanager);
-            BeatModifier = new BeatModifier(layername, messenger, masterBeat, actionmanager);
-            Content = new Content(BeatModifier, layername, messenger, actionmanager);
-            Mask = new Mask(BeatModifier, layername, messenger, actionmanager);
-            Coloration = new Coloration(BeatModifier, layername, messenger, actionmanager);
-            PostFX = new PostFX(layername, messenger, actionmanager);
+            Fade = new Slider(layername + "/Fade", messengers, actionmanager);
+            BeatModifier = new BeatModifier(layername, messengers, masterBeat, actionmanager);
+            Content = new Content(BeatModifier, layername, messengers, actionmanager);
+            Mask = new Mask(BeatModifier, layername, messengers, actionmanager);
+            Coloration = new Coloration(BeatModifier, layername, messengers, actionmanager);
+            PostFX = new PostFX(layername, messengers, actionmanager);
         }
 
         public Layer
             (
                 ObservableCollection<OSCMessenger> messengers,
-                OSCMessenger messenger,
                 string messageaddress,
                 string layername,
                 bool enabled,
@@ -46,7 +44,7 @@ namespace CMiX.ViewModels
                 PostFX postfx,
                 ActionManager actionmanager
             )
-            : base (actionmanager, messenger)
+            : base (actionmanager, messengers)
         {
             LayerName = layername;
             Index = index;
@@ -59,7 +57,7 @@ namespace CMiX.ViewModels
             Coloration = coloration ?? throw new ArgumentNullException(nameof(coloration));
             PostFX = postfx ?? throw new ArgumentNullException(nameof(postfx));
             Messengers = messengers;
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+            //Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
         }
         #endregion
@@ -68,12 +66,6 @@ namespace CMiX.ViewModels
         //public bool CanAcceptChildren { get; set; }
         //public ObservableCollection<Layer> Children { get; private set; }
 
-        private ObservableCollection<OSCMessenger> _messengers;
-        public ObservableCollection<OSCMessenger> Messengers
-        {
-            get { return _messengers; }
-            set { _messengers = value; }
-        }
 
 
         private string _layername;
@@ -110,7 +102,7 @@ namespace CMiX.ViewModels
                 SetAndRecord(() => _out, value);
                 SetAndNotify(ref _out, value);
                 if (Out)
-                    Messenger.SendMessage(MessageAddress + nameof(Out), Out);
+                    SendMessages(MessageAddress + nameof(Out), Out);
             }
         }
 
@@ -122,12 +114,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _blendMode, value);
-                Messenger.SendMessage(MessageAddress + nameof(BlendMode), BlendMode);
-                foreach (var oscmessenger in Messengers)
-                {
-                    oscmessenger.SendMessage(MessageAddress + nameof(BlendMode), BlendMode);
-                    Console.WriteLine(oscmessenger.Address + "    " + oscmessenger.Port);
-                }
+                SendMessages(MessageAddress + nameof(BlendMode), BlendMode);
             }
         }
 
@@ -156,7 +143,7 @@ namespace CMiX.ViewModels
 
         public void Paste(LayerDTO layerdto)
         {
-            Messenger.SendEnabled = false;
+            DisabledMessages();
 
             BlendMode = layerdto.BlendMode;
             Fade.Paste(layerdto.Fade);
@@ -167,12 +154,12 @@ namespace CMiX.ViewModels
             Coloration.Paste(layerdto.ColorationDTO);
             PostFX.Paste(layerdto.PostFXDTO);
 
-            Messenger.SendEnabled = true;
+            EnabledMessages();
         }
 
         public void Load(LayerDTO layerdto)
         {
-            Messenger.SendEnabled = false;
+            DisabledMessages();
 
             BlendMode = layerdto.BlendMode;
             LayerName = layerdto.LayerName;
@@ -185,7 +172,7 @@ namespace CMiX.ViewModels
             Coloration.Paste(layerdto.ColorationDTO);
             PostFX.Paste(layerdto.PostFXDTO);
 
-            Messenger.SendEnabled = true;
+            EnabledMessages();
         }
         #endregion
     }

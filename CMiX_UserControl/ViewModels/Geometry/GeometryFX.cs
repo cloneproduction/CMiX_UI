@@ -2,18 +2,19 @@
 using CMiX.Services;
 using GuiLabs.Undo;
 using System;
+using System.Collections.ObjectModel;
 
 namespace CMiX.ViewModels
 {
     public class GeometryFX : ViewModel
     {
         #region CONSTRUCTORS
-        public GeometryFX(string layername, OSCMessenger messenger, ActionManager actionmanager)
+        public GeometryFX(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager)
         : this
         (
             actionmanager: actionmanager,
-            messenger: messenger,
-            explode: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(GeometryFX), "Explode"), messenger, actionmanager),
+            messengers: messengers,
+            explode: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(GeometryFX), "Explode"), messengers, actionmanager),
             messageaddress: String.Format("{0}/{1}/", layername, nameof(GeometryFX))
         )
         {}
@@ -21,14 +22,14 @@ namespace CMiX.ViewModels
         public GeometryFX
             (
                 ActionManager actionmanager,
-                OSCMessenger messenger,
+                ObservableCollection<OSCMessenger> messengers,
                 Slider explode,
                 string messageaddress
             )
-            : base(actionmanager, messenger)
+            : base(actionmanager, messengers)
         {
             Explode = explode;
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             MessageAddress = messageaddress;
         }
         #endregion
@@ -45,9 +46,9 @@ namespace CMiX.ViewModels
 
         public void Paste(GeometryFXDTO geometryFXdto)
         {
-            Messenger.SendEnabled = false;
+            DisabledMessages();
             Explode.Paste(geometryFXdto.Explode);
-            Messenger.SendEnabled = true;
+            EnabledMessages();
         }
         #endregion
     }

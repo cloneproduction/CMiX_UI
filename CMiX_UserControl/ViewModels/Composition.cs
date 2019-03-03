@@ -20,22 +20,24 @@ namespace CMiX.ViewModels
         {
             Name = string.Empty;
 
-            OSCControl = new OSCControl(ActionManager); /// A LITTLE WEIRD I THINK...
-            Messenger = OSCControl.OSCMessenger; /// A LITTLE WEIRD I THINK...
+            Messengers = new ObservableCollection<OSCMessenger>();
+
+            Messengers.Add(new OSCMessenger { Port = 12312, Address = "127.0.1.1", SendEnabled = true });
+            Messengers.Add(new OSCMessenger { Port = 55555, Address = "192.168.1.45", SendEnabled = true });
+            Messengers.Add(new OSCMessenger { Port = 2035, Address = "192.168.1.32", SendEnabled = true });
+            Messengers.Add(new OSCMessenger { Port = 333, Address = "192.168.1.52", SendEnabled = true });
+            Messengers.Add(new OSCMessenger { Port = 444, Address = "192.168.1.73", SendEnabled = true });
+            Messengers.Add(new OSCMessenger { Port = 1001, Address = "192.168.1.85", SendEnabled = true });
             MessageAddress = String.Empty;
             
-            MasterBeat = new MasterBeat(Messenger, this.ActionManager);
-            Camera = new Camera(Messenger, MasterBeat, this.ActionManager);
+            MasterBeat = new MasterBeat(Messengers, this.ActionManager);
+            Camera = new Camera(Messengers, MasterBeat, this.ActionManager);
 
             LayerNames = new List<string>();
             Layers = new ObservableCollection<Layer>();
             Layers.CollectionChanged += ContentCollectionChanged;
 
-            Messengers = new ObservableCollection<OSCMessenger>();
-            Messengers.CollectionChanged += ContentCollectionChanged;
 
-            Messengers.Add(new OSCMessenger { Port = 22222, Address = "127.0.1.1" });
-            Messengers.Add(new OSCMessenger { Port = 55555, Address = "127.0.1.1" });
 
             AddLayerCommand = new RelayCommand(p => AddLayer());
             RemoveLayerCommand = new RelayCommand(p => RemoveLayer());
@@ -58,18 +60,20 @@ namespace CMiX.ViewModels
             {
                 throw new ArgumentNullException(nameof(layers));
             }
-            OSCControl = new OSCControl(ActionManager);
-            Messenger = OSCControl.OSCMessenger;
+            //OSCControl = new OSCControl(ActionManager);
+            //Messenger = OSCControl.OSCMessenger;
             MessageAddress = String.Empty;
             Name = name;
 
             Camera = camera ?? throw new ArgumentNullException(nameof(camera));
             MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
-            Layers = new ObservableCollection<Layer>(layers);
-            Layers.CollectionChanged += ContentCollectionChanged;
+            //Layers = new ObservableCollection<Layer>(layers);
+            //Layers.CollectionChanged += ContentCollectionChanged;
 
             Messengers = new ObservableCollection<OSCMessenger>();
-            Messengers.CollectionChanged += ContentCollectionChanged;
+
+            //Messengers.Add(new OSCMessenger { Port = 12312, Address = "127.0.1.1", SendEnabled = true });
+            //Messengers.Add(new OSCMessenger { Port = 55555, Address = "127.0.1.1", SendEnabled = true });
         }
         #endregion
 
@@ -91,12 +95,10 @@ namespace CMiX.ViewModels
 
         public MasterBeat MasterBeat { get; set; }
         public Camera Camera { get; set; }
-        public OSCControl OSCControl { get; set; }
+        //public OSCControl OSCControl { get; set; }
 
         [OSC]
         public ObservableCollection<Layer> Layers { get; }
-
-        public ObservableCollection<OSCMessenger> Messengers { get; }
 
         private string _name;
         public string Name
@@ -164,8 +166,8 @@ namespace CMiX.ViewModels
                         var layerdto = (LayerDTO)data.GetData("Layer") as LayerDTO;
                         Layers[i].Paste(layerdto);
 
-                        Messenger.QueueObject(Layers[i]);
-                        Messenger.SendQueue();
+                        QueueObjects(Layers[i]);
+                        SendQueues();
                     }
                 }
             }
@@ -203,11 +205,14 @@ namespace CMiX.ViewModels
                     break;
                 }
             }
-
-            Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
-            Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
-            Messenger.QueueMessage("/LayerRemoved", removedlayername);
-            Messenger.SendQueue();
+            QueueMessages("/LayerNames", this.LayerNames.ToArray());
+            QueueMessages("/LayerIndex", layerindex.ToArray());
+            QueueMessages("/LayerRemoved", removedlayername);
+            SendQueues();
+            //Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
+            //Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
+            //Messenger.QueueMessage("/LayerRemoved", removedlayername);
+            //Messenger.SendQueue();
         }
 
         private void DeleteLayer(object layer)
@@ -228,10 +233,10 @@ namespace CMiX.ViewModels
                 layerindex.Add(lay.Index.ToString());
             }
 
-            Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
-            Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
-            Messenger.QueueMessage("/LayerRemoved", lyr.LayerName);
-            Messenger.SendQueue();
+            QueueMessages("/LayerNames", this.LayerNames.ToArray());
+            QueueMessages("/LayerIndex", layerindex.ToArray());
+            QueueMessages("/LayerRemoved", lyr.LayerName);
+            SendQueues();
         }
 
         private void DuplicateLayer(object layer)
@@ -244,7 +249,7 @@ namespace CMiX.ViewModels
             LayerDTO layerdto = new LayerDTO();
             lyr.Copy(layerdto);
 
-            Layer newlayer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messenger, layerNameID, ActionManager, Messengers);
+            Layer newlayer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messengers, layerNameID, ActionManager);
             newlayer.Paste(layerdto);
             newlayer.LayerName = "/Layer" + layerNameID.ToString();
             newlayer.Index = layerID;
@@ -259,10 +264,15 @@ namespace CMiX.ViewModels
                 layerindex.Add(lay.Index.ToString());
             }
 
-            Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
+            QueueMessages("/LayerNames", this.LayerNames.ToArray());
+            QueueMessages("/LayerIndex", layerindex.ToArray());
+            QueueObjects(newlayer);
+            SendQueues();
+
+            /*Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
             Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
             Messenger.QueueObject(newlayer);
-            Messenger.SendQueue();
+            Messenger.SendQueue();*/
         }
 
         private void AddLayer()
@@ -270,7 +280,7 @@ namespace CMiX.ViewModels
             layerID += 1;
             layerNameID += 1;
 
-            Layer layer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messenger, layerNameID, ActionManager, Messengers);
+            Layer layer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messengers, layerNameID, ActionManager);
             layer.Index = layerID;
 
             Layers.Add(layer);
@@ -283,10 +293,10 @@ namespace CMiX.ViewModels
                 layerindex.Add(lyr.Index.ToString());
             }
 
-            Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
-            Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
-            Messenger.QueueObject(layer);
-            Messenger.SendQueue();
+            QueueMessages("/LayerNames", this.LayerNames.ToArray());
+            QueueMessages("/LayerIndex", layerindex.ToArray());
+            QueueObjects(layer);
+            SendQueues();
         }
 
 
@@ -310,7 +320,7 @@ namespace CMiX.ViewModels
 
         public void Paste(CompositionDTO compositiondto)
         {
-            OSCControl.OSCMessenger.SendEnabled = false;
+            //OSCControl.OSCMessenger.SendEnabled = false;
 
             Name = compositiondto.Name;
             LayerNames = compositiondto.LayerNames;
@@ -320,7 +330,7 @@ namespace CMiX.ViewModels
             foreach (LayerDTO layerdto in compositiondto.LayersDTO)
             {
                 layerID += 1;
-                Layer layer = new Layer(MasterBeat, "/Layer" + layerID.ToString(), Messenger, 0, this.ActionManager, Messengers);
+                Layer layer = new Layer(MasterBeat, "/Layer" + layerID.ToString(), Messengers, 0, this.ActionManager);
                 layer.Paste(layerdto);
                 Layers.Add(layer);
             }
@@ -328,12 +338,12 @@ namespace CMiX.ViewModels
             MasterBeat.Paste(compositiondto.MasterBeatDTO);
             Camera.Paste(compositiondto.CameraDTO);
 
-            OSCControl.OSCMessenger.SendEnabled = false;
+            //OSCControl.OSCMessenger.SendEnabled = false;
         }
 
         public void Load(CompositionDTO compositiondto)
         {
-            OSCControl.OSCMessenger.SendEnabled = false;
+            //OSCControl.OSCMessenger.SendEnabled = false;
 
             Name = compositiondto.Name;
             LayerNames = compositiondto.LayerNames;
@@ -341,7 +351,7 @@ namespace CMiX.ViewModels
             Layers.Clear();
             foreach (LayerDTO layerdto in compositiondto.LayersDTO)
             {
-                Layer layer = new Layer(MasterBeat, layerdto.LayerName, Messenger, layerdto.Index, this.ActionManager, Messengers);
+                Layer layer = new Layer(MasterBeat, layerdto.LayerName, Messengers, layerdto.Index, this.ActionManager);
                 layer.Load(layerdto);
                 Layers.Add(layer);
             }
@@ -349,7 +359,7 @@ namespace CMiX.ViewModels
             MasterBeat.Paste(compositiondto.MasterBeatDTO);
             Camera.Paste(compositiondto.CameraDTO);
 
-            OSCControl.OSCMessenger.SendEnabled = false;
+            //OSCControl.OSCMessenger.SendEnabled = false;
         }
 
         private void Save()
@@ -391,10 +401,10 @@ namespace CMiX.ViewModels
                             layerindex.Add(lyr.Index.ToString());
                         }
 
-                        Messenger.QueueObject(this);
-                        Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
-                        Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
-                        Messenger.SendQueue();
+                        QueueObjects(this);
+                        QueueMessages("/LayerNames", this.LayerNames.ToArray());
+                        QueueMessages("/LayerIndex", layerindex.ToArray());
+                        SendQueues();
                     }
                 }
             }
@@ -404,19 +414,17 @@ namespace CMiX.ViewModels
         #region NOTIFYCOLLECTIONCHANGED
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (Messenger.SendEnabled)
+
+            List<string> layerindex = new List<string>();
+
+            foreach (Layer lyr in Layers)
             {
-                List<string> layerindex = new List<string>();
-
-                foreach (Layer lyr in Layers)
-                {
-                    layerindex.Add(lyr.Index.ToString());
-                }
-
-                Messenger.QueueMessage("/LayerNames", this.LayerNames.ToArray());
-                Messenger.QueueMessage("/LayerIndex", layerindex.ToArray());
-                Messenger.SendQueue();
+                layerindex.Add(lyr.Index.ToString());
             }
+
+            QueueMessages("/LayerNames", this.LayerNames.ToArray());
+            QueueMessages("/LayerIndex", layerindex.ToArray());
+            SendQueues();
         }
         #endregion
     }

@@ -5,17 +5,18 @@ using System.Windows.Input;
 using CMiX.Services;
 using CMiX.Models;
 using GuiLabs.Undo;
+using System.Collections.ObjectModel;
 
 namespace CMiX.ViewModels
 {
     public class MasterBeat : Beat
     {
         #region CONSTRUCTORS
-        public MasterBeat(OSCMessenger messenger, ActionManager actionmanager)
+        public MasterBeat(ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager)
         : this
         (
             actionmanager: actionmanager,
-            messenger: messenger,
+            messengers: messengers,
             period: 0.0,
             multiplier: 1
         )
@@ -24,13 +25,13 @@ namespace CMiX.ViewModels
         public MasterBeat
             (
                 ActionManager actionmanager,
-                OSCMessenger messenger,
+                ObservableCollection<OSCMessenger> messengers,
                 double period,
                 int multiplier
             )
-            : base(actionmanager, messenger)
+            : base(actionmanager, messengers)
         {
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             Period = period;
             Multiplier = multiplier;
             ResyncCommand = new RelayCommand(p => Resync());
@@ -52,7 +53,7 @@ namespace CMiX.ViewModels
                 SetAndNotify(ref _period, value);
                 OnPeriodChanged(Period);
                 Notify(nameof(BPM));
-                Messenger.SendMessage(MessageAddress + nameof(Period), Period);
+                SendMessages(MessageAddress + nameof(Period), Period);
             }
         }
 
@@ -66,7 +67,7 @@ namespace CMiX.ViewModels
 
         private void Resync()
         {
-            Messenger.SendMessage(MessageAddress + nameof(Resync), CurrentTime + Period);
+            SendMessages(MessageAddress + nameof(Resync), CurrentTime + Period);
         }
 
         protected override void Multiply()
@@ -116,10 +117,10 @@ namespace CMiX.ViewModels
 
         public void Paste(MasterBeatDTO masterbeatdto)
         {
-            Messenger.SendEnabled = false;
+            DisabledMessages();
             MessageAddress = masterbeatdto.MessageAddress;
             Period = masterbeatdto.Period;
-            Messenger.SendEnabled = true;
+            EnabledMessages();
         }
     }
 }

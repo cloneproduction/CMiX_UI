@@ -15,13 +15,13 @@ namespace CMiX.ViewModels
     public class FileSelector : ViewModel, IDropTarget
     {
         #region CONSTRUCTORS
-        public FileSelector(string layername, OSCMessenger messenger, ActionManager actionmanager)
+        public FileSelector(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager)
             : this
             (
                 filemask: new List<string>(),
                 selectionmode: String.Empty,
                 messageaddress: String.Format("{0}/", layername),
-                messenger: messenger,
+                messengers: messengers,
                 actionmanager: actionmanager
             )
         { }
@@ -30,16 +30,16 @@ namespace CMiX.ViewModels
             (
                 String selectionmode,
                 List<string> filemask,
-                OSCMessenger messenger,
+                ObservableCollection<OSCMessenger> messengers,
                 string messageaddress,
                 ActionManager actionmanager
             )
-            : base(actionmanager, messenger)
+            : base(actionmanager, messengers)
         {
             SelectionMode = selectionmode;
             FileMask = filemask;
             MessageAddress = messageaddress;
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             ClearSelectedCommand = new RelayCommand(p => ClearSelected());
             ClearUnselectedCommand = new RelayCommand(p => ClearUnselected());
             ClearAllCommand = new RelayCommand(p => ClearAll());
@@ -144,7 +144,7 @@ namespace CMiX.ViewModels
 
         public void Paste(FileSelectorDTO fileselectordto)
         {
-            Messenger.SendEnabled = false;
+            DisabledMessages();
 
             if(fileselectordto.FilePaths != null) // NOT SURE THIS IS USEFULL ...
             {
@@ -158,7 +158,7 @@ namespace CMiX.ViewModels
                 }
             }
 
-            Messenger.SendEnabled = true;
+            EnabledMessages();
         }
         #endregion
 
@@ -190,7 +190,7 @@ namespace CMiX.ViewModels
                     filename.Add(lb.FileName);
                 }
             }
-            Messenger.SendMessage(MessageAddress + nameof(FilePaths), filename.ToArray());
+            SendMessages(MessageAddress + nameof(FilePaths), filename.ToArray());
         }
 
         public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -203,7 +203,7 @@ namespace CMiX.ViewModels
                     filename.Add(lb.FileName);
                 }
             }
-            Messenger.SendMessage(MessageAddress + nameof(FilePaths), filename.ToArray());
+            SendMessages(MessageAddress + nameof(FilePaths), filename.ToArray());
         }
         #endregion
     }

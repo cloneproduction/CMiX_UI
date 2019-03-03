@@ -2,6 +2,7 @@
 using CMiX.Services;
 using GuiLabs.Undo;
 using System;
+using System.Collections.ObjectModel;
 
 namespace CMiX.ViewModels
 {
@@ -9,14 +10,14 @@ namespace CMiX.ViewModels
     public class BeatModifier : Beat
     {
         #region CONSTRUCTORS
-        public BeatModifier(string layername, OSCMessenger messenger, Beat masterBeat, ActionManager actionmanager)
+        public BeatModifier(string layername, ObservableCollection<OSCMessenger> messengers, Beat masterBeat, ActionManager actionmanager)
         : this
         (
             actionmanager: actionmanager,
             masterBeat: masterBeat,
             multiplier: 1.0,
-            chanceToHit: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(BeatModifier), "ChanceToHit"), messenger, actionmanager),
-            messenger: messenger,
+            chanceToHit: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(BeatModifier), "ChanceToHit"), messengers, actionmanager),
+            messengers: messengers,
             messageaddress: String.Format("{0}/{1}/", layername, nameof(BeatModifier))
         )
         { }
@@ -27,10 +28,10 @@ namespace CMiX.ViewModels
                 Beat masterBeat,
                 double multiplier,
                 Slider chanceToHit,
-                OSCMessenger messenger,
+                ObservableCollection<OSCMessenger> messengers,
                 string messageaddress
             )
-            : base(actionmanager, messenger)
+            : base(actionmanager, messengers)
         {
             MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
             Multiplier = multiplier;
@@ -43,7 +44,7 @@ namespace CMiX.ViewModels
                 Notify(nameof(BPM));
             };
 
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(Messenger));
+            Messengers = messengers ?? throw new ArgumentNullException(nameof(Messengers));
             MessageAddress = messageaddress;
         }
         #endregion
@@ -68,7 +69,7 @@ namespace CMiX.ViewModels
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
-                Messenger.SendMessage(MessageAddress + nameof(Multiplier), Multiplier);
+                SendMessages(MessageAddress + nameof(Multiplier), Multiplier);
             }
         }
         #endregion
@@ -94,10 +95,12 @@ namespace CMiX.ViewModels
 
         public void Paste(BeatModifierDTO beatmodifierdto)
         {
-            Messenger.SendEnabled = false;
+            DisabledMessages();
+
             ChanceToHit.Paste(beatmodifierdto.ChanceToHit);
             Multiplier = beatmodifierdto.Multiplier;
-            Messenger.SendEnabled = true;
+
+            EnabledMessages();
         }
         #endregion
     }

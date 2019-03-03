@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using GuiLabs.Undo;
 using CMiX.Services;
+using System.Collections.ObjectModel;
 
 namespace CMiX.ViewModels
 {
@@ -11,7 +12,7 @@ namespace CMiX.ViewModels
     {
         protected ActionManager ActionManager { get; }
 
-        public OSCMessenger Messenger { get; set; }
+        public ObservableCollection<OSCMessenger> Messengers {get; set;}
 
         public string MessageAddress { get; set; }
 
@@ -25,15 +26,67 @@ namespace CMiX.ViewModels
             ActionManager = actionmanager ?? throw new ArgumentNullException(nameof(actionmanager));
         }
 
-        public ViewModel(OSCMessenger oscmessenger)
+        public ViewModel(ObservableCollection<OSCMessenger> oscmessengers)
         {
-            Messenger = oscmessenger ?? throw new ArgumentNullException(nameof(oscmessenger));
+            Messengers = oscmessengers ?? throw new ArgumentNullException(nameof(oscmessengers));
         }
 
-        public ViewModel(ActionManager actionmanager, OSCMessenger oscmessenger)
+        public ViewModel(ActionManager actionmanager, ObservableCollection<OSCMessenger> oscmessengers)
         {
             ActionManager = actionmanager ?? throw new ArgumentNullException(nameof(actionmanager));
-            Messenger = oscmessenger ?? throw new ArgumentNullException(nameof(oscmessenger));
+            Messengers = oscmessengers ?? throw new ArgumentNullException(nameof(oscmessengers));
+        }
+
+
+        public void SendMessages(string address, params object[] args)
+        {
+            foreach (var Message in Messengers)
+            {
+                if (Message.SendEnabled)
+                {
+                    Message.SendMessage(address, args);
+                }
+            }
+        }
+
+        public void QueueMessages(string address, params object[] args)
+        {
+            foreach (var Message in Messengers)
+            {
+                Message.QueueMessage(address, args);
+            }
+        }
+
+        public void QueueObjects(object obj)
+        {
+            foreach (var Message in Messengers)
+            {
+                Message.QueueObject(obj);
+            }
+        }
+
+        public void SendQueues()
+        {
+            foreach (var Message in Messengers)
+            {
+                Message.SendQueue();
+            }
+        }
+
+        public void DisabledMessages()
+        {
+            foreach (var Message in Messengers)
+            {
+                Message.SendEnabled = false;
+            }
+        }
+
+        public void EnabledMessages()
+        {
+            foreach (var Message in Messengers)
+            {
+                Message.SendEnabled = true;
+            }
         }
 
         #region INOTIFYPROPERTYCHANGED
@@ -89,48 +142,5 @@ namespace CMiX.ViewModels
             return this.MemberwiseClone();
         }
         #endregion
-
-        /*#region INOTIFYPROPERTYCHANGED
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void Notify([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public void SetAndNotify<TRet>(ref TRet backingField, TRet newValue, [CallerMemberName] string propertyName = null)
-        {
-            backingField = newValue;
-            Notify(propertyName);
-        }
-
-        public static void AssertNotNegative(double value, string parameterName)
-        {
-            if (value < 0)
-            {
-                throw new ArgumentException("Value must not be negative.", parameterName);
-            }
-        }
-
-        public static void AssertNotNegative(Expression<Func<double>> parameterExpression)
-        {
-            double value = parameterExpression.Compile().Invoke();
-
-            if (value < 0)
-            {
-                throw new ArgumentException("Value must not be negative.", ((MemberExpression)parameterExpression.Body).Member.Name);
-            }
-        }
-
-        public static double CoerceNotNegative(double value)
-        {
-            return value < 0 ? 0 : value;
-        }
-
-        public object Clone()
-        {
-            return this.MemberwiseClone();
-        }
-        #endregion*/
     }
 }

@@ -4,6 +4,7 @@ using System.Windows.Input;
 using CMiX.Services;
 using CMiX.Models;
 using GuiLabs.Undo;
+using System.Collections.ObjectModel;
 
 namespace CMiX.ViewModels
 {
@@ -11,17 +12,17 @@ namespace CMiX.ViewModels
     public class Content : ViewModel
     {
         #region CONSTRUCTORS
-        public Content(Beat masterbeat, string layername, OSCMessenger messenger, ActionManager actionmanager)
+        public Content(Beat masterbeat, string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager)
         : this
         (
             actionmanager: actionmanager,
             enable: true,
             messageaddress: String.Format("{0}/{1}/", layername, nameof(Content)),
-            messenger: messenger,
-            beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Content)), messenger, masterbeat, actionmanager),
-            geometry: new Geometry(String.Format("{0}/{1}", layername, nameof(Content)), messenger, actionmanager),
-            texture: new Texture(String.Format("{0}/{1}", layername, nameof(Content)), messenger, actionmanager),
-            postFX: new PostFX(String.Format("{0}/{1}", layername, nameof(Content)), messenger, actionmanager)
+            messengers: messengers,
+            beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Content)), messengers, masterbeat, actionmanager),
+            geometry: new Geometry(String.Format("{0}/{1}", layername, nameof(Content)), messengers, actionmanager),
+            texture: new Texture(String.Format("{0}/{1}", layername, nameof(Content)), messengers, actionmanager),
+            postFX: new PostFX(String.Format("{0}/{1}", layername, nameof(Content)), messengers, actionmanager)
         )
         {}
 
@@ -30,17 +31,17 @@ namespace CMiX.ViewModels
                 ActionManager actionmanager,
                 bool enable,
                 string messageaddress,
-                OSCMessenger messenger,
+                ObservableCollection<OSCMessenger> messengers,
                 BeatModifier beatModifier,
                 Geometry geometry,
                 Texture texture,
                 PostFX postFX
             )
-            : base(actionmanager, messenger)
+            : base(actionmanager, messengers)
         {
             Enable = enable;
             MessageAddress = messageaddress;
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
             Geometry = geometry ?? throw new ArgumentNullException(nameof(geometry));
             Texture = texture ?? throw new ArgumentNullException(nameof(texture));
@@ -86,8 +87,8 @@ namespace CMiX.ViewModels
             {
                 var contentdto = (ContentDTO)data.GetData("Content") as ContentDTO;
                 this.Paste(contentdto);
-                Messenger.QueueObject(this);
-                Messenger.SendQueue();
+                QueueObjects(this);
+                SendQueues();
             }
         }
 
@@ -109,13 +110,13 @@ namespace CMiX.ViewModels
 
         public void Paste(ContentDTO contentdto)
         {
-            Messenger.SendEnabled = false;
+            DisabledMessages();
             Enable = contentdto.Enable;
             BeatModifier.Paste(contentdto.BeatModifierDTO);
             Texture.Paste(contentdto.TextureDTO);
             Geometry.Paste(contentdto.GeometryDTO);
             PostFX.Paste(contentdto.PostFXDTO);
-            Messenger.SendEnabled = true;
+            EnabledMessages();
         }
         #endregion
     }

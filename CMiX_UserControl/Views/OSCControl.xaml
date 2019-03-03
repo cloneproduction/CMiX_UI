@@ -22,7 +22,7 @@
                 <Controls:IPBox 
                     Margin="1"
                     Grid.Column="1" 
-                    IPAddress="{Binding Address, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    IPAddress="{Binding Address}"/>
             </Grid>
             <Grid Height="20">
                 <Grid.ColumnDefinitions>

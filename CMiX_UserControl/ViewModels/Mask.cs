@@ -4,29 +4,30 @@ using CMiX.Models;
 using System.Windows;
 using System.Windows.Input;
 using GuiLabs.Undo;
+using System.Collections.ObjectModel;
 
 namespace CMiX.ViewModels
 {
     public class Mask : ViewModel
     {
         #region CONSTRUCTORS
-        public Mask(Beat masterbeat, string layername, OSCMessenger messenger, ActionManager actionmanager)
+        public Mask(Beat masterbeat, string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager)
             : this
             (
-                messenger: messenger,
+                messengers: messengers,
                 messageaddress: String.Format("{0}/{1}/", layername, nameof(Mask)),
                 enable: false,
-                beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Mask)), messenger, masterbeat, actionmanager),
-                geometry: new Geometry(String.Format("{0}/{1}", layername, nameof(Mask)), messenger, actionmanager),
-                texture: new Texture(String.Format("{0}/{1}", layername, nameof(Mask)), messenger, actionmanager),
-                postFX: new PostFX(String.Format("{0}/{1}", layername, nameof(Mask)), messenger, actionmanager),
+                beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Mask)), messengers, masterbeat, actionmanager),
+                geometry: new Geometry(String.Format("{0}/{1}", layername, nameof(Mask)), messengers, actionmanager),
+                texture: new Texture(String.Format("{0}/{1}", layername, nameof(Mask)), messengers, actionmanager),
+                postFX: new PostFX(String.Format("{0}/{1}", layername, nameof(Mask)), messengers, actionmanager),
                 actionmanager: actionmanager
             )
         {}
 
         public Mask
             (
-                OSCMessenger messenger,
+                ObservableCollection<OSCMessenger> messengers,
                 string messageaddress,
                 bool enable, 
                 BeatModifier beatModifier, 
@@ -37,7 +38,7 @@ namespace CMiX.ViewModels
             )
             : base (actionmanager)
         {
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             Enable = enable;
             MessageAddress = messageaddress;
             BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
@@ -59,7 +60,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _enable, value);
-                Messenger.SendMessage(MessageAddress + nameof(Enable), Enable);
+                SendMessages(MessageAddress + nameof(Enable), Enable);
             }
         }
 
@@ -71,7 +72,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _keeporiginal, value);
-                Messenger.SendMessage(MessageAddress + nameof(KeepOriginal), KeepOriginal);
+                SendMessages(MessageAddress + nameof(KeepOriginal), KeepOriginal);
             }
         }
 
@@ -98,14 +99,14 @@ namespace CMiX.ViewModels
 
         public void Paste(MaskDTO maskdto)
         {
-            Messenger.SendEnabled = false;
+            DisabledMessages();
             Enable = maskdto.Enable;
             KeepOriginal = maskdto.KeepOriginal;
             BeatModifier.Paste(maskdto.BeatModifierDTO);
             Texture.Paste(maskdto.TextureDTO);
             Geometry.Paste(maskdto.GeometryDTO);
             PostFX.Paste(maskdto.PostFXDTO);
-            Messenger.SendEnabled = true;
+            EnabledMessages();
         }
 
         public void CopySelf()
@@ -124,8 +125,8 @@ namespace CMiX.ViewModels
             {
                 var maskdto = (MaskDTO)data.GetData("Mask") as MaskDTO;
                 this.Paste(maskdto);
-                Messenger.QueueObject(this);
-                Messenger.SendQueue();
+                QueueObjects(this);
+                SendQueues();
             }
         }
 

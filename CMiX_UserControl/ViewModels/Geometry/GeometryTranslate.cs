@@ -2,17 +2,18 @@
 using CMiX.Services;
 using CMiX.Models;
 using GuiLabs.Undo;
+using System.Collections.ObjectModel;
 
 namespace CMiX.ViewModels
 {
     public class GeometryTranslate : ViewModel
     {
-        public GeometryTranslate(string layername, OSCMessenger messenger, ActionManager actionmanager)
+        public GeometryTranslate(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager)
             : this
             (
                 actionmanager: actionmanager,
                 messageaddress: layername + "/",
-                messenger: messenger,
+                messengers: messengers,
                 translateMode: default
             )
         {
@@ -22,13 +23,13 @@ namespace CMiX.ViewModels
             (
                 ActionManager actionmanager,
                 string messageaddress,
-                OSCMessenger messenger,
+                ObservableCollection<OSCMessenger> messengers,
                 GeometryTranslateMode translateMode
             )
             : base (actionmanager)
         {
             MessageAddress = messageaddress;
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
         }
 
         private GeometryTranslateMode _TranslateMode;
@@ -39,7 +40,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _TranslateMode, value);
-                Messenger.SendMessage(MessageAddress + nameof(TranslateMode), TranslateMode);
+                SendMessages(MessageAddress + nameof(TranslateMode), TranslateMode);
             }
         }
 
@@ -50,9 +51,9 @@ namespace CMiX.ViewModels
 
         public void Paste(GeometryTranslateDTO geometrytranslatedto)
         {
-            Messenger.SendEnabled = false;
+            DisabledMessages();
             TranslateMode = geometrytranslatedto.TranslateModeDTO;
-            Messenger.SendEnabled = true;
+            EnabledMessages();
         }
     }
 }

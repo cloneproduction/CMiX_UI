@@ -5,30 +5,31 @@ using CMiX.Services;
 using CMiX.Models;
 using GuiLabs.Undo;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace CMiX.ViewModels
 {
     public class Texture : ViewModel
     {
         #region CONSTRUCTORS
-        public Texture(string layername, OSCMessenger messenger, ActionManager actionmanager)
+        public Texture(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager)
             : this
             (
                 actionmanager: actionmanager,
-                messenger: messenger,
-                fileselector: new FileSelector("Extended", new List<string> { ".PNG", ".JPG", ".MOV" }, messenger, String.Format("{0}/{1}/", layername, nameof(Texture)), actionmanager),
-                brightness: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Brightness"), messenger, actionmanager),
-                contrast: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Contrast"), messenger, actionmanager),
-                invert: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Invert"), messenger, actionmanager),
+                messengers: messengers,
+                fileselector: new FileSelector("Extended", new List<string> { ".PNG", ".JPG", ".MOV" }, messengers, String.Format("{0}/{1}/", layername, nameof(Texture)), actionmanager),
+                brightness: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Brightness"), messengers, actionmanager),
+                contrast: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Contrast"), messengers, actionmanager),
+                invert: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Invert"), messengers, actionmanager),
                 invertMode: ((TextureInvertMode)0).ToString(),
-                hue: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Hue"), messenger, actionmanager),
-                saturation: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Saturation"), messenger, actionmanager),
-                luminosity: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Luminosity"), messenger, actionmanager),
-                keying: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Keying"), messenger, actionmanager),
-                scale: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Scale"), messenger, actionmanager),
-                rotate: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Rotate"), messenger, actionmanager),
-                pan: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Pan"), messenger, actionmanager),
-                tilt: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Tilt"), messenger, actionmanager),
+                hue: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Hue"), messengers, actionmanager),
+                saturation: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Saturation"), messengers, actionmanager),
+                luminosity: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Luminosity"), messengers, actionmanager),
+                keying: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Keying"), messengers, actionmanager),
+                scale: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Scale"), messengers, actionmanager),
+                rotate: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Rotate"), messengers, actionmanager),
+                pan: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Pan"), messengers, actionmanager),
+                tilt: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Tilt"), messengers, actionmanager),
                 messageaddress: String.Format("{0}/{1}/", layername, nameof(Texture))
             )
         { }
@@ -36,7 +37,7 @@ namespace CMiX.ViewModels
         public Texture
             (
                 ActionManager actionmanager,
-                OSCMessenger messenger,
+                ObservableCollection<OSCMessenger> messengers,
                 FileSelector fileselector,
                 Slider brightness,
                 Slider contrast,
@@ -54,7 +55,7 @@ namespace CMiX.ViewModels
             )
             : base (actionmanager)
         {
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             FileSelector = fileselector;
             Brightness = brightness;
             Contrast = contrast;
@@ -101,7 +102,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _invertMode, value);
-                Messenger.SendMessage(MessageAddress + nameof(InvertMode), InvertMode);
+                SendMessages(MessageAddress + nameof(InvertMode), InvertMode);
             }
         }
         #endregion
@@ -124,7 +125,7 @@ namespace CMiX.ViewModels
 
         public void Paste(TextureDTO texturedto)
         {
-            Messenger.SendEnabled = false;
+            DisabledMessages();
 
             FileSelector.Paste(texturedto.FileSelector);
             Brightness.Paste(texturedto.Brightness);
@@ -138,7 +139,7 @@ namespace CMiX.ViewModels
             Invert.Paste(texturedto.Invert);
             InvertMode = texturedto.InvertMode;
 
-            Messenger.SendEnabled = true;
+            EnabledMessages();
         }
 
         public void CopySelf()
@@ -158,8 +159,8 @@ namespace CMiX.ViewModels
                 var texturedto = (TextureDTO)data.GetData("Texture") as TextureDTO;
                 this.Paste(texturedto);
 
-                Messenger.QueueObject(this);
-                Messenger.SendQueue();
+                QueueObjects(this);
+                SendQueues();
             }
         }
 

@@ -13,18 +13,18 @@ namespace CMiX.ViewModels
         : this
         (
             actionmanager: actionmanager,
-            oscmessenger: new OSCMessenger()
+            messengers: new ObservableCollection<OSCMessenger>()
         )
         { } 
 
         public OSCControl
             (
                 ActionManager actionmanager,
-                OSCMessenger oscmessenger
+                ObservableCollection<OSCMessenger> messengers
             )
-            : base(actionmanager, oscmessenger)
+            : base(actionmanager, messengers)
         {
-            OSCMessenger = oscmessenger ?? throw new ArgumentNullException(nameof(oscmessenger));
+            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
         }
         #endregion
 
@@ -35,8 +35,6 @@ namespace CMiX.ViewModels
             get { return _oscmessenger; }
             set => SetAndNotify(ref _oscmessenger, value);
         }
-
-        public ObservableCollection<OSCMessenger> Messengers;
 
         #endregion
     }

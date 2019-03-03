@@ -2,24 +2,25 @@
 using CMiX.Services;
 using CMiX.Models;
 using GuiLabs.Undo;
+using System.Collections.ObjectModel;
 
 namespace CMiX.ViewModels
 {
     public class Camera : ViewModel
     {
         #region CONSTRUCTORS
-        public Camera(OSCMessenger messenger, MasterBeat masterBeat, ActionManager actionmanager)
+        public Camera(ObservableCollection<OSCMessenger> messengers, MasterBeat masterBeat, ActionManager actionmanager)
             : this
             (
                 actionmanager: actionmanager,
-                messenger: messenger,
+                messengers: messengers,
                 messageaddress: "/Camera/",
                 rotation: ((CameraRotation)0).ToString(),
                 lookAt: ((CameraLookAt)0).ToString(),
                 view: ((CameraView)0).ToString(),
-                beatModifier: new BeatModifier("/Camera", messenger, masterBeat, actionmanager),
-                fov: new Slider(String.Format("/{0}/{1}", "Camera", "FOV"), messenger, actionmanager),
-                zoom: new Slider(String.Format("/{0}/{1}", "Camera", "Zoom"), messenger, actionmanager)
+                beatModifier: new BeatModifier("/Camera", messengers, masterBeat, actionmanager),
+                fov: new Slider(String.Format("/{0}/{1}", "Camera", "FOV"), messengers, actionmanager),
+                zoom: new Slider(String.Format("/{0}/{1}", "Camera", "Zoom"), messengers, actionmanager)
             )
         {
         }
@@ -33,10 +34,10 @@ namespace CMiX.ViewModels
                 BeatModifier beatModifier,
                 Slider fov,
                 Slider zoom,
-                OSCMessenger messenger,
+                ObservableCollection<OSCMessenger> messengers,
                 string messageaddress
             )
-            : base(actionmanager, messenger)
+            : base(actionmanager, messengers)
         {
             Rotation = rotation;
             LookAt = lookAt;
@@ -45,7 +46,7 @@ namespace CMiX.ViewModels
             FOV = fov;
             Zoom = zoom;
             MessageAddress = messageaddress;
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
         }
         #endregion
 
@@ -62,7 +63,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _rotation, value);
-                Messenger.SendMessage(MessageAddress + nameof(Rotation), Rotation);
+                SendMessages(MessageAddress + nameof(Rotation), Rotation);
             }
         }
 
@@ -74,7 +75,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _lookAt, value);
-                Messenger.SendMessage(MessageAddress + nameof(LookAt), LookAt);
+                SendMessages(MessageAddress + nameof(LookAt), LookAt);
             }
         }
 
@@ -86,7 +87,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _view, value);
-                Messenger.SendMessage(MessageAddress + nameof(View), View);
+                SendMessages(MessageAddress + nameof(View), View);
             }
         }
         #endregion
@@ -104,7 +105,7 @@ namespace CMiX.ViewModels
 
         public void Paste(CameraDTO cameradto)
         {
-            Messenger.SendEnabled = false;
+            DisabledMessages();
 
             Rotation = cameradto.Rotation;
             LookAt = cameradto.LookAt;
@@ -113,7 +114,7 @@ namespace CMiX.ViewModels
             FOV.Paste(cameradto.FOV);
             Zoom.Paste(cameradto.Zoom);
 
-            Messenger.SendEnabled = true;
+            EnabledMessages();
         }
         #endregion
     }

@@ -2,18 +2,19 @@
 using CMiX.Services;
 using CMiX.Models;
 using GuiLabs.Undo;
+using System.Collections.ObjectModel;
 
 namespace CMiX.ViewModels
 {
     public class GeometryRotation :ViewModel
     {
         #region CONSTRUCTORS
-        public GeometryRotation(string layername, OSCMessenger messenger, ActionManager actionmanager)
+        public GeometryRotation(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager)
         : this
         (
             actionmanager: actionmanager,
             messageaddress: layername + "/",
-            messenger: messenger,
+            messengers: messengers,
             rotationMode: default,
             rotationX: true,
             rotationY: true,
@@ -25,16 +26,16 @@ namespace CMiX.ViewModels
             (
                 ActionManager actionmanager,
                 string messageaddress,
-                OSCMessenger messenger,
+                ObservableCollection<OSCMessenger> messengers,
                 bool rotationX,
                 bool rotationY,
                 bool rotationZ,
                 GeometryRotationMode rotationMode
             )
-            : base(actionmanager, messenger)
+            : base(actionmanager, messengers)
         {
             MessageAddress = messageaddress;
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             RotationX = rotationX;
             RotationY = rotationY;
             RotationZ = rotationZ;
@@ -50,7 +51,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _RotationMode, value);
-                Messenger.SendMessage(MessageAddress + nameof(RotationMode), RotationMode);
+                SendMessages(MessageAddress + nameof(RotationMode), RotationMode);
             }
         }
 
@@ -62,7 +63,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _RotationX, value);
-                Messenger.SendMessage(MessageAddress + nameof(RotationX), RotationX);
+                SendMessages(MessageAddress + nameof(RotationX), RotationX);
             }
         }
 
@@ -74,7 +75,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _RotationY, value);
-                Messenger.SendMessage(MessageAddress + nameof(RotationY), RotationY);
+                SendMessages(MessageAddress + nameof(RotationY), RotationY);
             }
         }
 
@@ -86,7 +87,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _RotationZ, value);
-                Messenger.SendMessage(MessageAddress + nameof(RotationZ), RotationZ);
+                SendMessages(MessageAddress + nameof(RotationZ), RotationZ);
             }
         }
         #endregion
@@ -102,12 +103,12 @@ namespace CMiX.ViewModels
 
         public void Paste(GeometryRotationDTO geometryrotationdto)
         {
-            Messenger.SendEnabled = false;
+            DisabledMessages();
             RotationMode = geometryrotationdto.RotationModeDTO;
             RotationX = geometryrotationdto.RotationX;
             RotationY = geometryrotationdto.RotationY;
             RotationZ = geometryrotationdto.RotationZ;
-            Messenger.SendEnabled = true;
+            EnabledMessages();
         }
         #endregion
     }

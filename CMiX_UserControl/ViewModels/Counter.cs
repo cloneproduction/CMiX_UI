@@ -3,17 +3,18 @@ using CMiX.Services;
 using CMiX.Models;
 using GuiLabs.Undo;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
 
 namespace CMiX.ViewModels
 {
     public class Counter : ViewModel
     {
         #region CONSTRUCTORS
-        public Counter(string layername, OSCMessenger messenger, ActionManager actionmanager)
+        public Counter(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager)
                 : this
                 (
                     actionmanager: actionmanager,
-                    messenger: messenger,
+                    messengers: messengers,
                     messageaddress: String.Format("{0}/", layername),
                     count: 1
                 )
@@ -21,14 +22,14 @@ namespace CMiX.ViewModels
 
         public Counter
             (
-                OSCMessenger messenger,
+                ObservableCollection<OSCMessenger> messengers,
                 string messageaddress,
                 int count,
                 ActionManager actionmanager
             )
-            : base (actionmanager, messenger)
+            : base (actionmanager, messengers)
         {
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             MessageAddress = messageaddress;
             Count = count;
             AddCommand = new RelayCommand(p => Add());
@@ -48,7 +49,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _count, value);
-                Messenger.SendMessage(MessageAddress + nameof(Count), Count);
+                SendMessages(MessageAddress + nameof(Count), Count);
             }
         }
         #endregion
@@ -74,7 +75,9 @@ namespace CMiX.ViewModels
 
         public void Paste(CounterDTO counterdto)
         {
+            DisabledMessages();
             Count = counterdto.Count;
+            EnabledMessages();
         }
         #endregion
     }

@@ -3,17 +3,18 @@ using CMiX.Models;
 using GuiLabs.Undo;
 using System;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
 
 namespace CMiX.ViewModels
 {
     public class Slider : ViewModel
     {
         #region CONSTRUCTORS
-        public Slider(string layername, OSCMessenger messenger, ActionManager actionmanager)
+        public Slider(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager)
             : this
             (
                 messageaddress: String.Format("{0}/", layername),
-                messenger: messenger,
+                messengers: messengers,
                 amount: 0.0,
                 actionmanager: actionmanager
             )
@@ -21,15 +22,15 @@ namespace CMiX.ViewModels
 
         public Slider
             (
-                OSCMessenger messenger,
+                ObservableCollection<OSCMessenger> messengers,
                 string messageaddress,
                 double amount,
                 ActionManager actionmanager
             )
-            : base(actionmanager, messenger)
+            : base(actionmanager, messengers)
         {
             MessageAddress = messageaddress;
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             Amount = amount;
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
@@ -48,7 +49,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _amount, value);
-                Messenger.SendMessage(MessageAddress + nameof(Amount), Amount);
+                SendMessages(MessageAddress + nameof(Amount), Amount);
             }
         }
         #endregion
@@ -75,9 +76,11 @@ namespace CMiX.ViewModels
 
         public void Paste(SliderDTO sliderdto)
         {
-            Messenger.SendEnabled = false;
+            DisabledMessages();
+
             Amount = sliderdto.Amount;
-            Messenger.SendEnabled = true;
+
+            EnabledMessages();
         }
         #endregion
     }

@@ -4,19 +4,20 @@ using CMiX.Models;
 using System.Windows;
 using System.Windows.Input;
 using GuiLabs.Undo;
+using System.Collections.ObjectModel;
 
 namespace CMiX.ViewModels
 {
     public class PostFX : ViewModel
     {
         #region CONSTRUCTORS
-        public PostFX(string layername, OSCMessenger messenger, ActionManager actionmanager)
+        public PostFX(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager)
             : this
             (
                 actionmanager: actionmanager,
-                messenger: messenger,
-                feedback: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(PostFX), "Feedback"), messenger, actionmanager),
-                blur: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(PostFX), "Blur"), messenger, actionmanager),
+                messengers: messengers,
+                feedback: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(PostFX), "Feedback"), messengers, actionmanager),
+                blur: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(PostFX), "Blur"), messengers, actionmanager),
                 transforms: ((PostFXTransforms)0).ToString(), 
                 view: ((PostFXView)0).ToString(),
                 messageaddress: String.Format("{0}/{1}/", layername, nameof(PostFX))
@@ -27,7 +28,7 @@ namespace CMiX.ViewModels
         public PostFX
             (
                 ActionManager actionmanager,
-                OSCMessenger messenger,
+                ObservableCollection<OSCMessenger> messengers,
                 Slider feedback,
                 Slider blur,
                 string transforms,
@@ -37,7 +38,7 @@ namespace CMiX.ViewModels
             : base (actionmanager)
         {
             MessageAddress = messageaddress;
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             Feedback = feedback;
             Blur = blur;
             Transforms = transforms;
@@ -64,7 +65,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _transforms, value);
-                Messenger.SendMessage(MessageAddress + nameof(Transforms), Transforms);
+                SendMessages(MessageAddress + nameof(Transforms), Transforms);
             }
         }
 
@@ -76,7 +77,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _view, value);
-                Messenger.SendMessage(MessageAddress + nameof(View), View);
+                SendMessages(MessageAddress + nameof(View), View);
             }
         }
         #endregion
@@ -92,12 +93,12 @@ namespace CMiX.ViewModels
 
         public void Paste(PostFXDTO postFXdto)
         {
-            Messenger.SendEnabled = false;
+            DisabledMessages();
             Feedback.Paste(postFXdto.Feedback);
             Blur.Paste(postFXdto.Blur);
             Transforms = postFXdto.Transforms;
             View = postFXdto.View;
-            Messenger.SendEnabled = true;
+            EnabledMessages();
         }
 
         public void CopySelf()
@@ -117,8 +118,8 @@ namespace CMiX.ViewModels
                 var postFXdto = (PostFXDTO)data.GetData("PostFX") as PostFXDTO;
                 this.Paste(postFXdto);
 
-                Messenger.QueueObject(this);
-                Messenger.SendQueue();
+                QueueObjects(this);
+                SendQueues();
             }
         }
 

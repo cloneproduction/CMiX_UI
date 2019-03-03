@@ -2,18 +2,19 @@
 using CMiX.Services;
 using CMiX.Models;
 using GuiLabs.Undo;
+using System.Collections.ObjectModel;
 
 namespace CMiX.ViewModels
 {
     public class GeometryScale : ViewModel
     {
         #region CONSTRUCTORS
-        public GeometryScale(string layername, OSCMessenger messenger, ActionManager actionmanager)
+        public GeometryScale(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager)
         : this
         (
             actionmanager: actionmanager,
             messageaddress: layername + "/",
-            messenger: messenger,
+            messengers: messengers,
             scaleMode: default
         )
         { }
@@ -22,13 +23,13 @@ namespace CMiX.ViewModels
             (
                 ActionManager actionmanager,
                 string messageaddress,
-                OSCMessenger messenger,
+                ObservableCollection<OSCMessenger> messengers,
                 GeometryScaleMode scaleMode
             )
-            : base(actionmanager, messenger)
+            : base(actionmanager, messengers)
         {
             MessageAddress = messageaddress;
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
         }
         #endregion
 
@@ -41,7 +42,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _ScaleMode, value);
-                Messenger.SendMessage(MessageAddress + nameof(ScaleMode), ScaleMode);
+                SendMessages(MessageAddress + nameof(ScaleMode), ScaleMode);
             }
         }
         #endregion
@@ -54,9 +55,9 @@ namespace CMiX.ViewModels
 
         public void Paste(GeometryScaleDTO geometryscaledto)
         {
-            Messenger.SendEnabled = false;
+            DisabledMessages();
             ScaleMode = geometryscaledto.ScaleModeDTO;
-            Messenger.SendEnabled = true;
+            EnabledMessages();
         }
         #endregion
     }

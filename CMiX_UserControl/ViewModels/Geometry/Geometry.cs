@@ -5,27 +5,28 @@ using CMiX.Services;
 using CMiX.Models;
 using GuiLabs.Undo;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace CMiX.ViewModels
 {
     public class Geometry : ViewModel
     {
         #region CONSTRUCTORS
-        public Geometry(string layername, OSCMessenger messenger, ActionManager actionmanager)
+        public Geometry(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager)
             : this
             (
                 actionmanager: actionmanager,
-                messenger: messenger,
+                messengers: messengers,
                 messageaddress: String.Format("{0}/{1}/", layername, nameof(Geometry)),
-                fileselector: new FileSelector("Single", new List<string> { ".FBX", ".OBJ" }, messenger, String.Format("{0}/{1}/", layername, nameof(Geometry)), actionmanager),
-                translatemode: new GeometryTranslate(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
-                scalemode: new GeometryScale(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
-                rotationmode: new GeometryRotation(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
-                geometryfx : new GeometryFX(String.Format("{0}/{1}", layername, nameof(Geometry)), messenger, actionmanager),
-                translateAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Translate"), messenger, actionmanager),
-                scaleAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Scale"), messenger, actionmanager),
-                rotationAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Rotation"), messenger, actionmanager),
-                counter: new Counter(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Counter"), messenger, actionmanager),
+                fileselector: new FileSelector("Single", new List<string> { ".FBX", ".OBJ" }, messengers, String.Format("{0}/{1}/", layername, nameof(Geometry)), actionmanager),
+                translatemode: new GeometryTranslate(String.Format("{0}/{1}", layername, nameof(Geometry)), messengers, actionmanager),
+                scalemode: new GeometryScale(String.Format("{0}/{1}", layername, nameof(Geometry)), messengers, actionmanager),
+                rotationmode: new GeometryRotation(String.Format("{0}/{1}", layername, nameof(Geometry)), messengers, actionmanager),
+                geometryfx : new GeometryFX(String.Format("{0}/{1}", layername, nameof(Geometry)), messengers, actionmanager),
+                translateAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Translate"), messengers, actionmanager),
+                scaleAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Scale"), messengers, actionmanager),
+                rotationAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Rotation"), messengers, actionmanager),
+                counter: new Counter(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Counter"), messengers, actionmanager),
                 is3D: false,    
                 keepAspectRatio: false
             )
@@ -34,7 +35,7 @@ namespace CMiX.ViewModels
         public Geometry
             (
                 ActionManager actionmanager,
-                OSCMessenger messenger,
+                ObservableCollection<OSCMessenger> messengers,
                 FileSelector fileselector,
                 GeometryTranslate translatemode,
                 GeometryScale scalemode,
@@ -48,7 +49,7 @@ namespace CMiX.ViewModels
                 bool keepAspectRatio,
                 string messageaddress
             )
-            : base (actionmanager, messenger)
+            : base (actionmanager, messengers)
         {
             FileSelector = fileselector ?? throw new ArgumentNullException(nameof(FileSelector));
             TranslateMode = translatemode ?? throw new ArgumentNullException(nameof(TranslateMode));
@@ -61,7 +62,7 @@ namespace CMiX.ViewModels
             Counter = counter;
             Is3D = is3D;
             KeepAspectRatio = keepAspectRatio;
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             MessageAddress = messageaddress;
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
@@ -92,7 +93,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _is3D, value);
-                Messenger.SendMessage(MessageAddress + nameof(Is3D), Is3D.ToString());
+                SendMessages(MessageAddress + nameof(Is3D), Is3D.ToString());
             }
         }
 
@@ -104,7 +105,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _keepAspectRatio, value);
-                Messenger.SendMessage(MessageAddress + nameof(KeepAspectRatio), KeepAspectRatio.ToString());
+                SendMessages(MessageAddress + nameof(KeepAspectRatio), KeepAspectRatio.ToString());
             }
         }
         #endregion
@@ -126,7 +127,7 @@ namespace CMiX.ViewModels
 
         public void Paste(GeometryDTO geometrydto)
         {
-            Messenger.SendEnabled = false;
+            DisabledMessages();
 
             FileSelector.Paste(geometrydto.FileSelector);
             TranslateAmount.Paste(geometrydto.TranslateAmount);
@@ -139,7 +140,7 @@ namespace CMiX.ViewModels
             Is3D = geometrydto.Is3D;
             KeepAspectRatio = geometrydto.KeepAspectRatio;
 
-            Messenger.SendEnabled = true;
+            EnabledMessages();
         }
 
         public void CopySelf()
@@ -159,8 +160,8 @@ namespace CMiX.ViewModels
                 var geometrydto = (GeometryDTO)data.GetData("Geometry") as GeometryDTO;
                 this.Paste(geometrydto);
 
-                Messenger.QueueObject(this);
-                Messenger.SendQueue();
+                QueueObjects(this);
+                SendQueues();
             }
         }
 

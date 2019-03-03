@@ -2,18 +2,19 @@
 using CMiX.Services;
 using CMiX.Models;
 using GuiLabs.Undo;
+using System.Collections.ObjectModel;
 
 namespace CMiX.ViewModels
 {
     public class RangeControl : ViewModel
     {
         #region CONSTRUCTORS
-        public RangeControl(OSCMessenger messenger, string layername, ActionManager actionmanager)
+        public RangeControl(ObservableCollection<OSCMessenger> messengers, string layername, ActionManager actionmanager)
         : this(
 
             messageaddress: String.Format("{0}/", layername),
-            messenger: messenger,
-            range: new Slider(layername, messenger, actionmanager),
+            messengers: messengers,
+            range: new Slider(layername, messengers, actionmanager),
             modifier: ((RangeModifier)0).ToString(),
             actionmanager: actionmanager
           )
@@ -23,7 +24,7 @@ namespace CMiX.ViewModels
             (
 
                 string messageaddress,
-                OSCMessenger messenger,
+                ObservableCollection<OSCMessenger> messengers,
                 Slider range,
                 string modifier,
                 ActionManager actionmanager
@@ -31,7 +32,7 @@ namespace CMiX.ViewModels
             : base(actionmanager)
         {
             MessageAddress = messageaddress;
-            Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             Range = range ?? throw new ArgumentNullException(nameof(range));
             Modifier = modifier;
         }
@@ -48,7 +49,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _modifier, value);
-                Messenger.SendMessage(MessageAddress + nameof(Modifier), Modifier);
+                SendMessages(MessageAddress + nameof(Modifier), Modifier);
             }
         }
         #endregion
@@ -62,10 +63,10 @@ namespace CMiX.ViewModels
 
         public void Paste(RangeControlDTO rangecontroldto)
         {
-            Messenger.SendEnabled = false;
+            DisabledMessages();
             Range.Paste(rangecontroldto.Range);
             Modifier = rangecontroldto.Modifier;
-            Messenger.SendEnabled = true;
+            EnabledMessages();
         }
         #endregion
     }
