@@ -21,13 +21,6 @@ namespace CMiX.ViewModels
             Name = string.Empty;
 
             Messengers = new ObservableCollection<OSCMessenger>();
-
-            Messengers.Add(new OSCMessenger { Port = 12312, Address = "127.0.1.1", SendEnabled = true });
-            Messengers.Add(new OSCMessenger { Port = 55555, Address = "192.168.1.45", SendEnabled = true });
-            Messengers.Add(new OSCMessenger { Port = 2035, Address = "192.168.1.32", SendEnabled = true });
-            Messengers.Add(new OSCMessenger { Port = 333, Address = "192.168.1.52", SendEnabled = true });
-            Messengers.Add(new OSCMessenger { Port = 444, Address = "192.168.1.73", SendEnabled = true });
-            Messengers.Add(new OSCMessenger { Port = 1001, Address = "192.168.1.85", SendEnabled = true });
             MessageAddress = String.Empty;
             
             MasterBeat = new MasterBeat(Messengers, this.ActionManager);
@@ -36,8 +29,6 @@ namespace CMiX.ViewModels
             LayerNames = new List<string>();
             Layers = new ObservableCollection<Layer>();
             Layers.CollectionChanged += ContentCollectionChanged;
-
-
 
             AddLayerCommand = new RelayCommand(p => AddLayer());
             RemoveLayerCommand = new RelayCommand(p => RemoveLayer());
@@ -71,10 +62,9 @@ namespace CMiX.ViewModels
             MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
             Layers = new ObservableCollection<Layer>(layers);
             Layers.CollectionChanged += ContentCollectionChanged;
-
-
         }
         #endregion
+
 
         #region PROPERTIES
         private int layerID = -1;
@@ -288,6 +278,7 @@ namespace CMiX.ViewModels
             QueueObjects(newlayer);
             SendQueues();
         }
+
 
         private void AddLayer()
         {

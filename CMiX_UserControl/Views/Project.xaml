@@ -4,18 +4,116 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Views="clr-namespace:CMiX.Views"
-             mc:Ignorable="d" 
+             xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
+             xmlns:Resources="clr-namespace:CMiX.Resources"
+             mc:Ignorable="d"
              d:DesignHeight="706" d:DesignWidth="1042.667">
-    <TabControl Style="{StaticResource TabControlBase}">
-        <TabItem 
-            Header="Composition 1"
-            Style="{StaticResource TabItemBase}">
-            <Views:Composition/>
-        </TabItem>
-        <TabItem 
-            Header="Composition 2"
-            Style="{StaticResource TabItemBase}">
-            <Views:Composition/>
-        </TabItem>
-    </TabControl>
+    
+    <UserControl.DataContext>
+        <ViewModels:Project/>
+    </UserControl.DataContext>
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Resources:BindingProxy x:Key="proxy" Data="{Binding}"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <DockPanel>
+        <Grid Margin="0,0,0,2" DockPanel.Dock="Top">
+            <Label
+                Style="{StaticResource LabelBase}"
+                HorizontalContentAlignment="Right"
+                Background="{StaticResource Color}"
+                Foreground="{StaticResource TextBase}" 
+                />
+            <Menu
+                Grid.Row="0"
+                Height="25"
+                HorizontalAlignment="Left"
+                VerticalContentAlignment="Center"
+                Style="{StaticResource MenuBase}">
+                <MenuItem
+                    Height="25"
+                    Padding="20,0,20,0"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="center"
+                    Header="File"
+                    Style="{StaticResource MenuItemBase}">
+                    <MenuItem
+                        Header="New"
+                        Template="{StaticResource SubMenuItemBase}" 
+                        />
+                    <MenuItem
+                        Header="Open"
+                        Command="{Binding Path=OpenCompositionCommand}"
+                        Template="{StaticResource SubMenuItemBase}" 
+                        />
+                    <MenuItem
+                        Header="Save"
+                        Template="{StaticResource SubMenuItemBase}" 
+                        />
+                    <MenuItem
+                        Header="Save As"
+                        Command="{Binding Path=SaveCompositionCommand}"
+                        Template="{StaticResource SubMenuItemBase}" 
+                        />
+                    <MenuItem
+                        Header="Quit"
+                        Template="{StaticResource SubMenuItemBase}" 
+                        />
+                </MenuItem>
+                <MenuItem
+                    Height="25"
+                    Padding="20,0,20,0"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="center"
+                    Header="Edit"
+                    Style="{StaticResource MenuItemBase}">
+                    <MenuItem
+                        Header="Undo    Ctrl + Z"
+                        Template="{StaticResource SubMenuItemBase}"
+                        Command="{Binding UndoCommand}"
+                        />
+                    <MenuItem
+                        Header="Redo    Ctrl + Y"
+                        Template="{StaticResource SubMenuItemBase}" 
+                        Command="{Binding RedoCommand}"
+                        />
+                </MenuItem>
+            </Menu>
+        </Grid>
+        <TabControl 
+            Style="{StaticResource TabControlDynamic}"
+            ItemsSource="{Binding Compositions}"
+            ItemContainerStyle="{StaticResource TabItemDynamic}">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel Height="25" HorizontalAlignment="Stretch">
+                        <Button 
+                            DockPanel.Dock="Right" 
+                            Content="X"
+                            Command="{Binding Data.DeleteCompositionCommand, Source={StaticResource proxy}}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"
+                            Style="{DynamicResource ButtonTabDynamic}"
+                            Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"                
+                            />
+                        <TextBlock
+                            Text="{Binding Name}"
+                            ToolTip="{Binding Name}"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            DockPanel.Dock="Left"
+                            >
+                        </TextBlock>
+                    </DockPanel>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <Views:Composition/>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+    </DockPanel>
 </UserControl>

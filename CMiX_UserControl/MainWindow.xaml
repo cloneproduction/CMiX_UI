@@ -10,5 +10,5 @@
     Height="800"
     Background="#FF323232"
     mc:Ignorable="d">
-    <Views:Composition Background="Black"/>
+    <Views:Project Background="Black"/>
 </Window>
