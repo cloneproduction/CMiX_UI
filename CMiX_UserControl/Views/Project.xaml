@@ -12,7 +12,12 @@
     <UserControl.DataContext>
         <ViewModels:Project/>
     </UserControl.DataContext>
-    
+    <UserControl.InputBindings>
+        <KeyBinding 
+            Command="{Binding AddTabCommand}"
+            Gesture="CTRL+T" 
+            />
+    </UserControl.InputBindings>
     <UserControl.Resources>
         <ResourceDictionary>
             <Resources:BindingProxy x:Key="proxy" Data="{Binding}"/>
@@ -83,13 +88,20 @@
                 </MenuItem>
             </Menu>
         </Grid>
-        <TabControl 
+        <TabControl  
             Style="{StaticResource TabControlDynamic}"
             ItemsSource="{Binding Compositions}"
             ItemContainerStyle="{StaticResource TabItemDynamic}">
             <TabControl.ItemTemplate>
                 <DataTemplate>
-                    <DockPanel Height="25" HorizontalAlignment="Stretch">
+                    <DockPanel Height="25" HorizontalAlignment="Stretch" x:Name="Docks" Background="Transparent">
+                        <DockPanel.InputBindings>
+                            <MouseBinding 
+                                Command="{Binding Data.DeleteCompositionCommand, Source={StaticResource proxy}}"
+                                CommandParameter="{Binding ElementName=Docks, Path=DataContext}"
+                                MouseAction="MiddleClick"
+                                />
+                        </DockPanel.InputBindings>
                         <Button 
                             DockPanel.Dock="Right" 
                             Content="X"

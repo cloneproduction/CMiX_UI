@@ -16,9 +16,6 @@ namespace CMiX.ViewModels
             DeleteCompositionCommand = new RelayCommand(p => DeleteComposition(p));
 
             Compositions = new ObservableCollection<Composition>();
-            Compositions.Add(new Composition { Name = "This is a super super long name for composition" });
-            Compositions.Add(new Composition { Name = "VFX TEST" });
-            Compositions.Add(new Composition{Name = "PROPS"});
         }
 
         private void AddComposition()

@@ -564,6 +564,9 @@
   <ItemGroup>
     <Resource Include="Assets\DeleteLayer.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\AddTab.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -582,8 +582,11 @@
                                 Style="{DynamicResource ButtonTabDynamic}"
                                 MinWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" 
                                 MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
-                                Content="+" 
-                                Command="{Binding AddTabCommand}"/>
+                                Command="{Binding AddTabCommand}">
+                                <Button.Content>
+                                    <Image Source="/Assets/AddTab.png"/>
+                                </Button.Content>
+                            </Button>
                         </StackPanel>
 
                         <Border x:Name="contentPanel" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.Column="0" KeyboardNavigation.DirectionalNavigation="Contained" Grid.Row="1" KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local">
