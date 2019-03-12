@@ -102,15 +102,19 @@
                                 MouseAction="MiddleClick"
                                 />
                         </DockPanel.InputBindings>
-                        <Button 
+                        <Button
                             DockPanel.Dock="Right" 
-                            Content="X"
                             Command="{Binding Data.DeleteCompositionCommand, Source={StaticResource proxy}}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"
                             Style="{DynamicResource ButtonTabDynamic}"
                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"                
-                            />
+                            >
+                            <Button.Content>
+                                <Image Opacity="0.5" Margin="12" Source="{StaticResource CloseTab}"/>
+                            </Button.Content>
+                        </Button>
                         <TextBlock
+                            Margin="4, 0, 0, 0"
                             Text="{Binding Name}"
                             ToolTip="{Binding Name}"
                             HorizontalAlignment="Left"
