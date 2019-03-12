@@ -4,5 +4,5 @@
     <BitmapImage x:Key="Copy" UriSource="/Assets/Copy.png"/>
     <BitmapImage x:Key="Paste" UriSource="/Assets/Paste.png"/>
     <BitmapImage x:Key="DeleteLayer" UriSource="/Assets/DeleteLayer.png"/>
-    <BitmapImage x:Key="DeleteLayer" UriSource="/Assets/AddTab.png"/>
+    <BitmapImage x:Key="AddTab" UriSource="/Assets/AddTab.png"/>
 </ResourceDictionary>

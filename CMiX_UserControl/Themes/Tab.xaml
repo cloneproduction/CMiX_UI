@@ -584,7 +584,11 @@
                                 MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
                                 Command="{Binding AddTabCommand}">
                                 <Button.Content>
-                                    <Image Source="/Assets/AddTab.png"/>
+                                    <Image  
+                                        Opacity="0.5"
+                                        Width="8" 
+                                        Height="8"
+                                        Stretch="Uniform" Source="{DynamicResource AddTab}"/>
                                 </Button.Content>
                             </Button>
                         </StackPanel>

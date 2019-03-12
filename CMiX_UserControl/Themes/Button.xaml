@@ -69,13 +69,9 @@
                                 x:Name="circle"       
                                 Fill="Transparent"
                                 />
-                            <TextBlock
-                                x:Name="textBlock"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Foreground="{DynamicResource TextBase}"
-                                Text="{TemplateBinding Content}" 
-                                />
+                            <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
+                                <ContentPresenter ContentTemplate="{TemplateBinding Content}"/>
+                            </Viewbox>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
