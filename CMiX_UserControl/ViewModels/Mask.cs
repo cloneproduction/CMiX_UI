@@ -5,22 +5,23 @@ using System.Windows;
 using System.Windows.Input;
 using GuiLabs.Undo;
 using System.Collections.ObjectModel;
+using Memento;
 
 namespace CMiX.ViewModels
 {
     public class Mask : ViewModel
     {
         #region CONSTRUCTORS
-        public Mask(Beat masterbeat, string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager)
+        public Mask(Beat masterbeat, string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager, Mementor mementor)
             : this
             (
                 messengers: messengers,
                 messageaddress: String.Format("{0}/{1}/", layername, nameof(Mask)),
                 enable: false,
-                beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Mask)), messengers, masterbeat, actionmanager),
-                geometry: new Geometry(String.Format("{0}/{1}", layername, nameof(Mask)), messengers, actionmanager),
-                texture: new Texture(String.Format("{0}/{1}", layername, nameof(Mask)), messengers, actionmanager),
-                postFX: new PostFX(String.Format("{0}/{1}", layername, nameof(Mask)), messengers, actionmanager),
+                beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Mask)), messengers, masterbeat, actionmanager, mementor),
+                geometry: new Geometry(String.Format("{0}/{1}", layername, nameof(Mask)), messengers, actionmanager, mementor),
+                texture: new Texture(String.Format("{0}/{1}", layername, nameof(Mask)), messengers, actionmanager, mementor),
+                postFX: new PostFX(String.Format("{0}/{1}", layername, nameof(Mask)), messengers, actionmanager, mementor),
                 actionmanager: actionmanager
             )
         {}

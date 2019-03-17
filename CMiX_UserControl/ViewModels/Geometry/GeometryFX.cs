@@ -3,18 +3,19 @@ using CMiX.Services;
 using GuiLabs.Undo;
 using System;
 using System.Collections.ObjectModel;
+using Memento;
 
 namespace CMiX.ViewModels
 {
     public class GeometryFX : ViewModel
     {
         #region CONSTRUCTORS
-        public GeometryFX(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager)
+        public GeometryFX(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager, Mementor mementor)
         : this
         (
             actionmanager: actionmanager,
             messengers: messengers,
-            explode: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(GeometryFX), "Explode"), messengers, actionmanager),
+            explode: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(GeometryFX), "Explode"), messengers, actionmanager, mementor),
             messageaddress: String.Format("{0}/{1}/", layername, nameof(GeometryFX))
         )
         {}

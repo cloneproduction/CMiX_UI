@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
+using GuiLabs.Undo;
+using Memento;
 
 namespace CMiX.ViewModels
 {
@@ -14,26 +12,27 @@ namespace CMiX.ViewModels
         {
             AddTabCommand = new RelayCommand(p => AddComposition());
             DeleteCompositionCommand = new RelayCommand(p => DeleteComposition(p));
-
+            this.ActionManager = new ActionManager();
+            Mementor = new Mementor();
             Compositions = new ObservableCollection<Composition>();
-            Compositions.Add(new Composition { Name = "This is a super super long name for composition" });
-            Compositions.Add(new Composition { Name = "VFX TEST" });
-            Compositions.Add(new Composition{Name = "PROPS"});
-        }
-
-        private void AddComposition()
-        {
-            Compositions.Add(new Composition { Name = "Comp1" });
-        }
-
-        private void DeleteComposition(object compo)
-        {
-            Compositions.Remove(compo as Composition);
+            Compositions.Add(new Composition(this.ActionManager, Mementor) { Name = "This is a super super long name for composition" });
+            Compositions.Add(new Composition(this.ActionManager, Mementor) { Name = "VFX TEST" });
+            Compositions.Add(new Composition(this.ActionManager, Mementor) { Name = "PROPS"});
         }
 
         public ICommand AddTabCommand { get; }
         public ICommand DeleteCompositionCommand { get; }
 
         public ObservableCollection<Composition> Compositions { get; set; }
+
+        private void AddComposition()
+        {
+            Compositions.Add(new Composition(this.ActionManager, Mementor));
+        }
+
+        private void DeleteComposition(object compo)
+        {
+            Compositions.Remove(compo as Composition);
+        }
     }
 }

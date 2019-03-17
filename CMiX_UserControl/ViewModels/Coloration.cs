@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Windows;
 using GuiLabs.Undo;
 using System.Collections.ObjectModel;
+using Memento;
 
 namespace CMiX.ViewModels
 {
@@ -13,7 +14,7 @@ namespace CMiX.ViewModels
     public class Coloration : ViewModel
     {
         #region CONSTRUCTORS
-        public Coloration(Beat masterbeat, string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager)
+        public Coloration(Beat masterbeat, string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager, Mementor mementor)
         : this
         (
             actionmanager: actionmanager,
@@ -22,10 +23,10 @@ namespace CMiX.ViewModels
             objColor: Colors.BlueViolet,
             bgColor: Colors.Black,
             backgroundColor: Colors.Black,
-            beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Coloration)), messengers, masterbeat, actionmanager),
-            hue: new RangeControl(messengers, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Hue), actionmanager),
-            saturation: new RangeControl(messengers, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Saturation), actionmanager),
-            value: new RangeControl(messengers, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Value), actionmanager)
+            beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Coloration)), messengers, masterbeat, actionmanager, mementor),
+            hue: new RangeControl(messengers, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Hue), actionmanager, mementor),
+            saturation: new RangeControl(messengers, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Saturation), actionmanager, mementor),
+            value: new RangeControl(messengers, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Value), actionmanager, mementor)
         )
         { }
 

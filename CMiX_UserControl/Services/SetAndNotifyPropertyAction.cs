@@ -2,11 +2,14 @@
 using GuiLabs.Undo;
 using CMiX.ViewModels;
 using System.Linq.Expressions;
+using System.Reflection;
+using System.Collections.Generic;
 
 namespace CMiX.Services
 {
     public class SetAndNotifyPropertyAction<TRet> : AbstractAction
     {
+
         private ViewModel ParentObject { get; set; }
         private TRet Value { get; set; }
         private TRet OldValue { get; set; }
@@ -50,9 +53,10 @@ namespace CMiX.Services
 
         public override bool TryToMerge(IAction followingAction)
         {
-            if (followingAction is SetAndNotifyPropertyAction<TRet> next
+            SetAndNotifyPropertyAction<TRet> next = followingAction as SetAndNotifyPropertyAction<TRet>;
+            if (followingAction is SetAndNotifyPropertyAction<TRet>
                 && next.ParentObject == ParentObject
-                && next.BackingFieldExpression == BackingFieldExpression)
+                && next.BackingFieldExpression.ToString() == BackingFieldExpression.ToString()) //UGLY HACK WITH TOSTRING()
             {
                 Value = next.Value;
                 SetBackingField(Value);

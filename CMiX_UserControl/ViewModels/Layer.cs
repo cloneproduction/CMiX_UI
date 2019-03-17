@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using CMiX.Models;
 using CMiX.Services;
 using GuiLabs.Undo;
+using Memento;
 
 namespace CMiX.ViewModels
 {
@@ -10,9 +11,10 @@ namespace CMiX.ViewModels
     public class Layer : ViewModel
     {
         #region CONSTRUCTORS
-        public Layer(MasterBeat masterBeat, string layername, ObservableCollection<OSCMessenger> messengers, int index, ActionManager actionmanager)
+        public Layer(MasterBeat masterBeat, string layername, ObservableCollection<OSCMessenger> messengers, int index, ActionManager actionmanager, Mementor mementor)
             : base (actionmanager, messengers)
         {
+            Mementor = mementor;
             Messengers = messengers;
             MessageAddress = String.Format("{0}/", layername); 
             Index = index;
@@ -20,12 +22,13 @@ namespace CMiX.ViewModels
             Index = 0;
             Enabled = false;
             BlendMode = ((BlendMode)0).ToString();
-            Fade = new Slider(layername + "/Fade", messengers, actionmanager);
-            BeatModifier = new BeatModifier(layername, messengers, masterBeat, actionmanager);
-            Content = new Content(BeatModifier, layername, messengers, actionmanager);
-            Mask = new Mask(BeatModifier, layername, messengers, actionmanager);
-            Coloration = new Coloration(BeatModifier, layername, messengers, actionmanager);
-            PostFX = new PostFX(layername, messengers, actionmanager);
+            Fade = new Slider(layername + "/Fade", messengers, actionmanager, mementor);
+            BeatModifier = new BeatModifier(layername, messengers, masterBeat, actionmanager, mementor);
+            Content = new Content(BeatModifier, layername, messengers, actionmanager, mementor);
+            Mask = new Mask(BeatModifier, layername, messengers, actionmanager, mementor);
+            Coloration = new Coloration(BeatModifier, layername, messengers, actionmanager, mementor);
+            PostFX = new PostFX(layername, messengers, actionmanager, mementor);
+            
         }
 
         public Layer
@@ -42,10 +45,12 @@ namespace CMiX.ViewModels
                 Mask mask,
                 Coloration coloration,
                 PostFX postfx,
-                ActionManager actionmanager
+                ActionManager actionmanager,
+                Mementor mementor
             )
             : base (actionmanager, messengers)
         {
+            Mementor = mementor;
             LayerName = layername;
             Index = index;
             Enabled = enabled;
@@ -57,7 +62,6 @@ namespace CMiX.ViewModels
             Coloration = coloration ?? throw new ArgumentNullException(nameof(coloration));
             PostFX = postfx ?? throw new ArgumentNullException(nameof(postfx));
             Messengers = messengers;
-            //Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
             MessageAddress = messageaddress;
         }
         #endregion
@@ -65,8 +69,6 @@ namespace CMiX.ViewModels
         #region PROPERTIES
         //public bool CanAcceptChildren { get; set; }
         //public ObservableCollection<Layer> Children { get; private set; }
-
-
 
         private string _layername;
         [OSC]
@@ -99,7 +101,8 @@ namespace CMiX.ViewModels
             get => _out;
             set
             {
-                SetAndRecord(() => _out, value);
+                Mementor.PropertyChange(this, "Out");
+                //SetAndRecord(() => _out, value);
                 SetAndNotify(ref _out, value);
                 if (Out)
                     SendMessages(MessageAddress + nameof(Out), Out);
@@ -113,6 +116,7 @@ namespace CMiX.ViewModels
             get => _blendMode;
             set
             {
+                Mementor.PropertyChange(this, "BlendMode");
                 SetAndNotify(ref _blendMode, value);
                 SendMessages(MessageAddress + nameof(BlendMode), BlendMode);
             }

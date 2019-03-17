@@ -5,6 +5,7 @@ using CMiX.Services;
 using CMiX.Models;
 using GuiLabs.Undo;
 using System.Collections.ObjectModel;
+using Memento;
 
 namespace CMiX.ViewModels
 {
@@ -12,17 +13,17 @@ namespace CMiX.ViewModels
     public class Content : ViewModel
     {
         #region CONSTRUCTORS
-        public Content(Beat masterbeat, string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager)
+        public Content(Beat masterbeat, string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager, Mementor mementor)
         : this
         (
             actionmanager: actionmanager,
             enable: true,
             messageaddress: String.Format("{0}/{1}/", layername, nameof(Content)),
             messengers: messengers,
-            beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Content)), messengers, masterbeat, actionmanager),
-            geometry: new Geometry(String.Format("{0}/{1}", layername, nameof(Content)), messengers, actionmanager),
-            texture: new Texture(String.Format("{0}/{1}", layername, nameof(Content)), messengers, actionmanager),
-            postFX: new PostFX(String.Format("{0}/{1}", layername, nameof(Content)), messengers, actionmanager)
+            beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Content)), messengers, masterbeat, actionmanager, mementor),
+            geometry: new Geometry(String.Format("{0}/{1}", layername, nameof(Content)), messengers, actionmanager, mementor),
+            texture: new Texture(String.Format("{0}/{1}", layername, nameof(Content)), messengers, actionmanager, mementor),
+            postFX: new PostFX(String.Format("{0}/{1}", layername, nameof(Content)), messengers, actionmanager, mementor)
         )
         {}
 

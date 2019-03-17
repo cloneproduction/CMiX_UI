@@ -5,12 +5,13 @@ using System.Runtime.CompilerServices;
 using GuiLabs.Undo;
 using CMiX.Services;
 using System.Collections.ObjectModel;
-
+using Memento;
 namespace CMiX.ViewModels
 {
     public class ViewModel : INotifyPropertyChanged, ICloneable
     {
-        protected ActionManager ActionManager { get; }
+        protected ActionManager ActionManager { get; set; }
+        protected Mementor Mementor { get; set; }
 
         public ObservableCollection<OSCMessenger> Messengers {get; set;}
 

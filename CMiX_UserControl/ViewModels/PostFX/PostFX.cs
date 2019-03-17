@@ -5,19 +5,20 @@ using System.Windows;
 using System.Windows.Input;
 using GuiLabs.Undo;
 using System.Collections.ObjectModel;
+using Memento;
 
 namespace CMiX.ViewModels
 {
     public class PostFX : ViewModel
     {
         #region CONSTRUCTORS
-        public PostFX(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager)
+        public PostFX(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager, Mementor mementor)
             : this
             (
                 actionmanager: actionmanager,
                 messengers: messengers,
-                feedback: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(PostFX), "Feedback"), messengers, actionmanager),
-                blur: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(PostFX), "Blur"), messengers, actionmanager),
+                feedback: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(PostFX), "Feedback"), messengers, actionmanager, mementor),
+                blur: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(PostFX), "Blur"), messengers, actionmanager, mementor),
                 transforms: ((PostFXTransforms)0).ToString(), 
                 view: ((PostFXView)0).ToString(),
                 messageaddress: String.Format("{0}/{1}/", layername, nameof(PostFX))

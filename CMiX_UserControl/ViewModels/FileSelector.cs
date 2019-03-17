@@ -9,19 +9,21 @@ using CMiX.Services;
 using CMiX.Models;
 using GuiLabs.Undo;
 using GongSolutions.Wpf.DragDrop;
+using Memento;
 
 namespace CMiX.ViewModels
 {
     public class FileSelector : ViewModel, IDropTarget
     {
         #region CONSTRUCTORS
-        public FileSelector(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager)
+        public FileSelector(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager, Mementor mementor)
             : this
             (
                 filemask: new List<string>(),
                 selectionmode: String.Empty,
                 messageaddress: String.Format("{0}/", layername),
                 messengers: messengers,
+                mementor: mementor,
                 actionmanager: actionmanager
             )
         { }
@@ -32,10 +34,12 @@ namespace CMiX.ViewModels
                 List<string> filemask,
                 ObservableCollection<OSCMessenger> messengers,
                 string messageaddress,
-                ActionManager actionmanager
+                ActionManager actionmanager,
+                Mementor mementor
             )
             : base(actionmanager, messengers)
         {
+            Mementor = mementor;
             SelectionMode = selectionmode;
             FileMask = filemask;
             MessageAddress = messageaddress;
@@ -111,6 +115,8 @@ namespace CMiX.ViewModels
             if (dataObject != null && dataObject.ContainsFileDropList())
             {
                 var filedrop = dataObject.GetFileDropList();
+
+                Mementor.BeginBatch();
                 foreach (string str in filedrop)
                 {
                     foreach (string fm in FileMask)
@@ -121,9 +127,11 @@ namespace CMiX.ViewModels
                             lbfn.FileName = str;
                             lbfn.FileIsSelected = false;
                             FilePaths.Add(lbfn);
+                            Mementor.ElementAdd(FilePaths, lbfn);
                         }
                     }
                 }
+                Mementor.EndBatch();
             }
         }
         #endregion

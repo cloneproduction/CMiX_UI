@@ -3,18 +3,19 @@ using CMiX.Services;
 using CMiX.Models;
 using GuiLabs.Undo;
 using System.Collections.ObjectModel;
+using Memento;
 
 namespace CMiX.ViewModels
 {
     public class RangeControl : ViewModel
     {
         #region CONSTRUCTORS
-        public RangeControl(ObservableCollection<OSCMessenger> messengers, string layername, ActionManager actionmanager)
+        public RangeControl(ObservableCollection<OSCMessenger> messengers, string layername, ActionManager actionmanager, Mementor mementor)
         : this(
 
             messageaddress: String.Format("{0}/", layername),
             messengers: messengers,
-            range: new Slider(layername, messengers, actionmanager),
+            range: new Slider(layername, messengers, actionmanager, mementor),
             modifier: ((RangeModifier)0).ToString(),
             actionmanager: actionmanager
           )

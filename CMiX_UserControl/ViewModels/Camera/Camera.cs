@@ -3,24 +3,26 @@ using CMiX.Services;
 using CMiX.Models;
 using GuiLabs.Undo;
 using System.Collections.ObjectModel;
+using Memento;
 
 namespace CMiX.ViewModels
 {
     public class Camera : ViewModel
     {
         #region CONSTRUCTORS
-        public Camera(ObservableCollection<OSCMessenger> messengers, MasterBeat masterBeat, ActionManager actionmanager)
+        public Camera(ObservableCollection<OSCMessenger> messengers, MasterBeat masterBeat, ActionManager actionmanager, Mementor mementor)
             : this
             (
                 actionmanager: actionmanager,
+                mementor: mementor,
                 messengers: messengers,
                 messageaddress: "/Camera/",
                 rotation: ((CameraRotation)0).ToString(),
                 lookAt: ((CameraLookAt)0).ToString(),
                 view: ((CameraView)0).ToString(),
-                beatModifier: new BeatModifier("/Camera", messengers, masterBeat, actionmanager),
-                fov: new Slider(String.Format("/{0}/{1}", "Camera", "FOV"), messengers, actionmanager),
-                zoom: new Slider(String.Format("/{0}/{1}", "Camera", "Zoom"), messengers, actionmanager)
+                beatModifier: new BeatModifier("/Camera", messengers, masterBeat, actionmanager, mementor),
+                fov: new Slider(String.Format("/{0}/{1}", "Camera", "FOV"), messengers, actionmanager, mementor),
+                zoom: new Slider(String.Format("/{0}/{1}", "Camera", "Zoom"), messengers, actionmanager, mementor)
             )
         {
         }
@@ -28,6 +30,7 @@ namespace CMiX.ViewModels
         public Camera
             (
                 ActionManager actionmanager,
+                Mementor mementor,
                 string rotation,
                 string lookAt,
                 string view,
@@ -39,6 +42,7 @@ namespace CMiX.ViewModels
             )
             : base(actionmanager, messengers)
         {
+            Mementor = mementor;
             Rotation = rotation;
             LookAt = lookAt;
             View = view;
@@ -62,6 +66,7 @@ namespace CMiX.ViewModels
             get => _rotation;
             set
             {
+                Mementor.PropertyChange(this, "Rotation");
                 SetAndNotify(ref _rotation, value);
                 SendMessages(MessageAddress + nameof(Rotation), Rotation);
             }
@@ -74,6 +79,7 @@ namespace CMiX.ViewModels
             get => _lookAt;
             set
             {
+                Mementor.PropertyChange(this, "LookAt");
                 SetAndNotify(ref _lookAt, value);
                 SendMessages(MessageAddress + nameof(LookAt), LookAt);
             }
@@ -86,6 +92,7 @@ namespace CMiX.ViewModels
             get => _view;
             set
             {
+                Mementor.PropertyChange(this, "View");
                 SetAndNotify(ref _view, value);
                 SendMessages(MessageAddress + nameof(View), View);
             }

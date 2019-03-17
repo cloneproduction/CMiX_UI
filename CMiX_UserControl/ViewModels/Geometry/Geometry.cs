@@ -6,27 +6,28 @@ using CMiX.Models;
 using GuiLabs.Undo;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Memento;
 
 namespace CMiX.ViewModels
 {
     public class Geometry : ViewModel
     {
         #region CONSTRUCTORS
-        public Geometry(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager)
+        public Geometry(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager, Mementor mementor)
             : this
             (
                 actionmanager: actionmanager,
                 messengers: messengers,
                 messageaddress: String.Format("{0}/{1}/", layername, nameof(Geometry)),
-                fileselector: new FileSelector("Single", new List<string> { ".FBX", ".OBJ" }, messengers, String.Format("{0}/{1}/", layername, nameof(Geometry)), actionmanager),
+                fileselector: new FileSelector("Single", new List<string> { ".FBX", ".OBJ" }, messengers, String.Format("{0}/{1}/", layername, nameof(Geometry)), actionmanager, mementor),
                 translatemode: new GeometryTranslate(String.Format("{0}/{1}", layername, nameof(Geometry)), messengers, actionmanager),
                 scalemode: new GeometryScale(String.Format("{0}/{1}", layername, nameof(Geometry)), messengers, actionmanager),
                 rotationmode: new GeometryRotation(String.Format("{0}/{1}", layername, nameof(Geometry)), messengers, actionmanager),
-                geometryfx : new GeometryFX(String.Format("{0}/{1}", layername, nameof(Geometry)), messengers, actionmanager),
-                translateAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Translate"), messengers, actionmanager),
-                scaleAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Scale"), messengers, actionmanager),
-                rotationAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Rotation"), messengers, actionmanager),
-                counter: new Counter(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Counter"), messengers, actionmanager),
+                geometryfx : new GeometryFX(String.Format("{0}/{1}", layername, nameof(Geometry)), messengers, actionmanager, mementor),
+                translateAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Translate"), messengers, actionmanager, mementor),
+                scaleAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Scale"), messengers, actionmanager, mementor),
+                rotationAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Rotation"), messengers, actionmanager, mementor),
+                counter: new Counter(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Counter"), messengers, actionmanager, mementor),
                 is3D: false,    
                 keepAspectRatio: false
             )

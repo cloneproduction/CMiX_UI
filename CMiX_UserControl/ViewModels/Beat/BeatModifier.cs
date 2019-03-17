@@ -3,6 +3,7 @@ using CMiX.Services;
 using GuiLabs.Undo;
 using System;
 using System.Collections.ObjectModel;
+using Memento;
 
 namespace CMiX.ViewModels
 {
@@ -10,13 +11,14 @@ namespace CMiX.ViewModels
     public class BeatModifier : Beat
     {
         #region CONSTRUCTORS
-        public BeatModifier(string layername, ObservableCollection<OSCMessenger> messengers, Beat masterBeat, ActionManager actionmanager)
+        public BeatModifier(string layername, ObservableCollection<OSCMessenger> messengers, Beat masterBeat, ActionManager actionmanager, Mementor mementor)
         : this
         (
             actionmanager: actionmanager,
+            mementor: mementor,
             masterBeat: masterBeat,
             multiplier: 1.0,
-            chanceToHit: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(BeatModifier), "ChanceToHit"), messengers, actionmanager),
+            chanceToHit: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(BeatModifier), "ChanceToHit"), messengers, actionmanager, mementor),
             messengers: messengers,
             messageaddress: String.Format("{0}/{1}/", layername, nameof(BeatModifier))
         )
@@ -25,6 +27,7 @@ namespace CMiX.ViewModels
         public BeatModifier
             (
                 ActionManager actionmanager,
+                Mementor mementor,
                 Beat masterBeat,
                 double multiplier,
                 Slider chanceToHit,
@@ -33,6 +36,7 @@ namespace CMiX.ViewModels
             )
             : base(actionmanager, messengers)
         {
+            Mementor = mementor;
             MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
             Multiplier = multiplier;
             ChanceToHit = chanceToHit;
@@ -65,6 +69,7 @@ namespace CMiX.ViewModels
             get => base.Multiplier;
             set
             {
+                Mementor.PropertyChange(this, "Multiplier");
                 base.Multiplier = value;
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));

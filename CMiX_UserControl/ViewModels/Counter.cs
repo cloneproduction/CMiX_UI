@@ -4,16 +4,18 @@ using CMiX.Models;
 using GuiLabs.Undo;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
+using Memento;
 
 namespace CMiX.ViewModels
 {
     public class Counter : ViewModel
     {
         #region CONSTRUCTORS
-        public Counter(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager)
+        public Counter(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager, Mementor mementor)
                 : this
                 (
                     actionmanager: actionmanager,
+                    mementor: mementor,
                     messengers: messengers,
                     messageaddress: String.Format("{0}/", layername),
                     count: 1
@@ -25,10 +27,12 @@ namespace CMiX.ViewModels
                 ObservableCollection<OSCMessenger> messengers,
                 string messageaddress,
                 int count,
-                ActionManager actionmanager
+                ActionManager actionmanager,
+                Mementor mementor
             )
             : base (actionmanager, messengers)
         {
+            Mementor = mementor;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             MessageAddress = messageaddress;
             Count = count;
@@ -48,6 +52,7 @@ namespace CMiX.ViewModels
             get { return _count; }
             set
             {
+                Mementor.PropertyChange(this, "Count");
                 SetAndNotify(ref _count, value);
                 SendMessages(MessageAddress + nameof(Count), Count);
             }

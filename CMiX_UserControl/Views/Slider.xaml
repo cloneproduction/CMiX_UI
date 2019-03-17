@@ -4,11 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Views="clr-namespace:CMiX.Views"
+             xmlns:Behaviors="clr-namespace:CMiX.Behaviors"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="27.833" d:DesignWidth="387.167">
     <Grid 
-        Height="20" 
-        Background="Transparent">
+        Height="20" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.2*"/>
             <ColumnDefinition Width="30"/>
@@ -61,16 +62,24 @@
                     Command="{Binding SubCommand}"
                     />
             </Grid>
-            <Slider
-                x:Name="CMiXSlider"
-                IsMoveToPointEnabled="True"
-                LargeChange="0.1"
-                Maximum="1.0"
-                Minimum="0.0"
-                SmallChange="0.01"
-                Style="{StaticResource SliderBase}"
-                Value="{Binding Amount, Mode=TwoWay}"
+            <Border Background="Transparent">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PreviewMouseDown">
+                        <i:InvokeCommandAction Command="{Binding MouseDownCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Slider
+                    x:Name="CMiXSlider"
+                    IsMoveToPointEnabled="True"
+                    LargeChange="0.1"
+                    Maximum="1.0"
+                    Minimum="0.0"
+                    SmallChange="0.01"
+                    Focusable="False"
+                    Style="{StaticResource SliderBase}"
+                    Value="{Binding Amount, Mode=TwoWay}"   
                 />
+            </Border>
         </DockPanel>
     </Grid>
 </UserControl>
