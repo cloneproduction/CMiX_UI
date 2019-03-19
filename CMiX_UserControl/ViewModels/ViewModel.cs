@@ -2,15 +2,14 @@
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
-using GuiLabs.Undo;
 using CMiX.Services;
 using System.Collections.ObjectModel;
 using Memento;
+
 namespace CMiX.ViewModels
 {
     public class ViewModel : INotifyPropertyChanged, ICloneable
     {
-        protected ActionManager ActionManager { get; set; }
         protected Mementor Mementor { get; set; }
 
         public ObservableCollection<OSCMessenger> Messengers {get; set;}
@@ -22,22 +21,10 @@ namespace CMiX.ViewModels
 
         }
 
-        public ViewModel(ActionManager actionmanager)
-        {
-            ActionManager = actionmanager ?? throw new ArgumentNullException(nameof(actionmanager));
-        }
-
         public ViewModel(ObservableCollection<OSCMessenger> oscmessengers)
         {
             Messengers = oscmessengers ?? throw new ArgumentNullException(nameof(oscmessengers));
         }
-
-        public ViewModel(ActionManager actionmanager, ObservableCollection<OSCMessenger> oscmessengers)
-        {
-            ActionManager = actionmanager ?? throw new ArgumentNullException(nameof(actionmanager));
-            Messengers = oscmessengers ?? throw new ArgumentNullException(nameof(oscmessengers));
-        }
-
 
         public void SendMessages(string address, params object[] args)
         {
@@ -109,11 +96,10 @@ namespace CMiX.ViewModels
             Notify(propertyName);
         }
 
-        public void SetAndRecord<TRet>(Expression<Func<TRet>> backingField, TRet newValue, [CallerMemberName] string propertyName = null)
+        /*public void SetAndRecord<TRet>(Expression<Func<TRet>> backingField, TRet newValue, [CallerMemberName] string propertyName = null)
         {
             var action = new SetAndNotifyPropertyAction<TRet>(this, propertyName, backingField, newValue);
-            ActionManager.RecordAction(action);
-        }
+        }*/
 
         public static void AssertNotNegative(double value, string parameterName)
         {

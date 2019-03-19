@@ -7,7 +7,6 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using CMiX.Services;
 using CMiX.Models;
-using GuiLabs.Undo;
 using GongSolutions.Wpf.DragDrop;
 using Memento;
 
@@ -16,15 +15,14 @@ namespace CMiX.ViewModels
     public class FileSelector : ViewModel, IDropTarget
     {
         #region CONSTRUCTORS
-        public FileSelector(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager, Mementor mementor)
+        public FileSelector(string layername, ObservableCollection<OSCMessenger> messengers, Mementor mementor)
             : this
             (
                 filemask: new List<string>(),
                 selectionmode: String.Empty,
                 messageaddress: String.Format("{0}/", layername),
                 messengers: messengers,
-                mementor: mementor,
-                actionmanager: actionmanager
+                mementor: mementor
             )
         { }
 
@@ -34,10 +32,9 @@ namespace CMiX.ViewModels
                 List<string> filemask,
                 ObservableCollection<OSCMessenger> messengers,
                 string messageaddress,
-                ActionManager actionmanager,
                 Mementor mementor
             )
-            : base(actionmanager, messengers)
+            : base(messengers)
         {
             Mementor = mementor;
             SelectionMode = selectionmode;

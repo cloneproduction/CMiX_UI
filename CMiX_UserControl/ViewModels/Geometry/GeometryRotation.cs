@@ -1,18 +1,18 @@
 ﻿using System;
 using CMiX.Services;
 using CMiX.Models;
-using GuiLabs.Undo;
 using System.Collections.ObjectModel;
+using Memento;
 
 namespace CMiX.ViewModels
 {
     public class GeometryRotation :ViewModel
     {
         #region CONSTRUCTORS
-        public GeometryRotation(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager)
+        public GeometryRotation(string layername, ObservableCollection<OSCMessenger> messengers, Mementor mementor)
         : this
         (
-            actionmanager: actionmanager,
+            mementor: mementor,
             messageaddress: layername + "/",
             messengers: messengers,
             rotationMode: default,
@@ -24,7 +24,7 @@ namespace CMiX.ViewModels
 
         public GeometryRotation
             (
-                ActionManager actionmanager,
+                Mementor mementor,
                 string messageaddress,
                 ObservableCollection<OSCMessenger> messengers,
                 bool rotationX,
@@ -32,7 +32,7 @@ namespace CMiX.ViewModels
                 bool rotationZ,
                 GeometryRotationMode rotationMode
             )
-            : base(actionmanager, messengers)
+            : base(messengers)
         {
             MessageAddress = messageaddress;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
@@ -50,6 +50,7 @@ namespace CMiX.ViewModels
             get => _RotationMode;
             set
             {
+                Mementor.PropertyChange(this, "RotationMode");
                 SetAndNotify(ref _RotationMode, value);
                 SendMessages(MessageAddress + nameof(RotationMode), RotationMode);
             }
@@ -62,6 +63,7 @@ namespace CMiX.ViewModels
             get => _RotationX;
             set
             {
+                Mementor.PropertyChange(this, "RotationX");
                 SetAndNotify(ref _RotationX, value);
                 SendMessages(MessageAddress + nameof(RotationX), RotationX);
             }
@@ -74,6 +76,7 @@ namespace CMiX.ViewModels
             get => _RotationY;
             set
             {
+                Mementor.PropertyChange(this, "RotationY");
                 SetAndNotify(ref _RotationY, value);
                 SendMessages(MessageAddress + nameof(RotationY), RotationY);
             }
@@ -86,6 +89,7 @@ namespace CMiX.ViewModels
             get => _RotationZ;
             set
             {
+                Mementor.PropertyChange(this, "RotationZ");
                 SetAndNotify(ref _RotationZ, value);
                 SendMessages(MessageAddress + nameof(RotationZ), RotationZ);
             }

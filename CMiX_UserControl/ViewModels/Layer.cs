@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using CMiX.Models;
 using CMiX.Services;
-using GuiLabs.Undo;
 using Memento;
 
 namespace CMiX.ViewModels
@@ -11,8 +10,8 @@ namespace CMiX.ViewModels
     public class Layer : ViewModel
     {
         #region CONSTRUCTORS
-        public Layer(MasterBeat masterBeat, string layername, ObservableCollection<OSCMessenger> messengers, int index, ActionManager actionmanager, Mementor mementor)
-            : base (actionmanager, messengers)
+        public Layer(MasterBeat masterBeat, string layername, ObservableCollection<OSCMessenger> messengers, int index, Mementor mementor)
+            : base (messengers)
         {
             Mementor = mementor;
             Messengers = messengers;
@@ -22,17 +21,18 @@ namespace CMiX.ViewModels
             Index = 0;
             Enabled = false;
             BlendMode = ((BlendMode)0).ToString();
-            Fade = new Slider(layername + "/Fade", messengers, actionmanager, mementor);
-            BeatModifier = new BeatModifier(layername, messengers, masterBeat, actionmanager, mementor);
-            Content = new Content(BeatModifier, layername, messengers, actionmanager, mementor);
-            Mask = new Mask(BeatModifier, layername, messengers, actionmanager, mementor);
-            Coloration = new Coloration(BeatModifier, layername, messengers, actionmanager, mementor);
-            PostFX = new PostFX(layername, messengers, actionmanager, mementor);
+            Fade = new Slider(layername + "/Fade", messengers, mementor);
+            BeatModifier = new BeatModifier(layername, messengers, masterBeat, mementor);
+            Content = new Content(BeatModifier, layername, messengers, mementor);
+            Mask = new Mask(BeatModifier, layername, messengers, mementor);
+            Coloration = new Coloration(BeatModifier, layername, messengers, mementor);
+            PostFX = new PostFX(layername, messengers, mementor);
             
         }
 
         public Layer
             (
+                Mementor mementor,
                 ObservableCollection<OSCMessenger> messengers,
                 string messageaddress,
                 string layername,
@@ -44,11 +44,9 @@ namespace CMiX.ViewModels
                 Content content,
                 Mask mask,
                 Coloration coloration,
-                PostFX postfx,
-                ActionManager actionmanager,
-                Mementor mementor
+                PostFX postfx
             )
-            : base (actionmanager, messengers)
+            : base (messengers)
         {
             Mementor = mementor;
             LayerName = layername;
@@ -102,7 +100,6 @@ namespace CMiX.ViewModels
             set
             {
                 Mementor.PropertyChange(this, "Out");
-                //SetAndRecord(() => _out, value);
                 SetAndNotify(ref _out, value);
                 if (Out)
                     SendMessages(MessageAddress + nameof(Out), Out);

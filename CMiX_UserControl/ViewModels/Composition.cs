@@ -8,7 +8,6 @@ using System.IO;
 using Newtonsoft.Json;
 using CMiX.Services;
 using CMiX.Models;
-using GuiLabs.Undo;
 using Memento;
 
 namespace CMiX.ViewModels
@@ -16,18 +15,17 @@ namespace CMiX.ViewModels
     public class Composition : ViewModel
     {
         #region CONSTRUCTORS
-        public Composition(ActionManager actionmanager, Mementor mementor)
-            : base ()
+        public Composition(Mementor mementor)
+            : base(new ObservableCollection<OSCMessenger>())
         {
-            ActionManager = actionmanager;
             Mementor = mementor;
             Name = string.Empty;
 
             Messengers = new ObservableCollection<OSCMessenger>();
             MessageAddress = String.Empty;
             
-            MasterBeat = new MasterBeat(Messengers, this.ActionManager);
-            Camera = new Camera(Messengers, MasterBeat, this.ActionManager, this.Mementor);
+            MasterBeat = new MasterBeat(Messengers, Mementor);
+            Camera = new Camera(Messengers, MasterBeat, Mementor);
 
             LayerNames = new List<string>();
             Layers = new ObservableCollection<Layer>();
@@ -41,23 +39,21 @@ namespace CMiX.ViewModels
             PasteLayerCommand = new RelayCommand(p => PasteLayer());
             SaveCompositionCommand = new RelayCommand(p => Save());
             OpenCompositionCommand = new RelayCommand(p => Open());
-            UndoCommand = new RelayCommand(p => Undo());
-            RedoCommand = new RelayCommand(p => Redo());
+
 
             AddOSCCommand = new RelayCommand(p => AddOSC());
             RemoveSelectedOSCCommand = new RelayCommand(p => RemoveSelectedOSC());
             DeleteOSCCommand = new RelayCommand(p => DeleteOSC(p));
         }
 
-        public Composition(string name, Camera camera, MasterBeat masterBeat, IEnumerable<Layer> layers, ActionManager actionManager, Mementor mementor)
-            : base()
+        public Composition(string name, Camera camera, MasterBeat masterBeat, IEnumerable<Layer> layers, Mementor mementor)
+            : base(new ObservableCollection<OSCMessenger>())
         {
             if (layers == null)
             {
                 throw new ArgumentNullException(nameof(layers));
             }
             Mementor = mementor;
-            ActionManager = actionManager;
             Messengers = new ObservableCollection<OSCMessenger>();
             MessageAddress = String.Empty;
             Name = name;
@@ -78,8 +74,7 @@ namespace CMiX.ViewModels
         public ICommand PasteLayerCommand { get; }
         public ICommand SaveCompositionCommand { get; }
         public ICommand OpenCompositionCommand { get; }
-        public ICommand UndoCommand { get; }
-        public ICommand RedoCommand { get; }
+
 
         public ICommand DeleteLayerCommand { get; }
         public ICommand DuplicateLayerCommand { get; }
@@ -116,19 +111,7 @@ namespace CMiX.ViewModels
         }
         #endregion
 
-        #region UNDO/REDO
-        void Undo()
-        {
-            if (Mementor.CanUndo)
-                Mementor.Undo();
-        }
 
-        void Redo()
-        {
-            if (Mementor.CanRedo)
-                Mementor.Redo();
-        }
-        #endregion
 
         #region COPY/PASTE LAYER
         private void CopyLayer()
@@ -205,6 +188,8 @@ namespace CMiX.ViewModels
                     LayerNames.Remove(Layers[i].LayerName);
                     Layers.Remove(Layers[i]);
 
+                    Mementor.ElementRemove(Layers, Layers[i], removeindex);
+
                     foreach (Layer lyr in Layers)
                     {
                         if (lyr.Index > removeindex)
@@ -228,6 +213,7 @@ namespace CMiX.ViewModels
             Layer lyr = layer as Layer;
             layerID -= 1;
 
+            Mementor.ElementRemove(Layers, lyr);
             LayerNames.Remove(lyr.LayerName);
             Layers.Remove(lyr);
 
@@ -241,6 +227,7 @@ namespace CMiX.ViewModels
                 layerindex.Add(lay.Index.ToString());
             }
 
+            
             QueueMessages("/LayerNames", this.LayerNames.ToArray());
             QueueMessages("/LayerIndex", layerindex.ToArray());
             QueueMessages("/LayerRemoved", lyr.LayerName);
@@ -257,7 +244,7 @@ namespace CMiX.ViewModels
             LayerDTO layerdto = new LayerDTO();
             lyr.Copy(layerdto);
 
-            Layer newlayer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messengers, layerNameID, ActionManager, Mementor);
+            Layer newlayer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messengers, layerNameID, Mementor);
             newlayer.Paste(layerdto);
             newlayer.LayerName = "/Layer" + layerNameID.ToString();
             newlayer.Index = layerID;
@@ -271,7 +258,7 @@ namespace CMiX.ViewModels
             {
                 layerindex.Add(lay.Index.ToString());
             }
-
+            Mementor.ElementAdd(Layers, newlayer);
             QueueMessages("/LayerNames", this.LayerNames.ToArray());
             QueueMessages("/LayerIndex", layerindex.ToArray());
             QueueObjects(newlayer);
@@ -284,7 +271,7 @@ namespace CMiX.ViewModels
             layerID += 1;
             layerNameID += 1;
 
-            Layer layer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messengers, layerNameID, ActionManager, Mementor);
+            Layer layer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messengers, layerNameID, Mementor);
             layer.Index = layerID;
 
             Layers.Add(layer);
@@ -296,7 +283,7 @@ namespace CMiX.ViewModels
             {
                 layerindex.Add(lyr.Index.ToString());
             }
-
+            Mementor.ElementAdd(Layers, layer);
             QueueMessages("/LayerNames", this.LayerNames.ToArray());
             QueueMessages("/LayerIndex", layerindex.ToArray());
             QueueObjects(layer);
@@ -334,7 +321,7 @@ namespace CMiX.ViewModels
             foreach (LayerDTO layerdto in compositiondto.LayersDTO)
             {
                 layerID += 1;
-                Layer layer = new Layer(MasterBeat, "/Layer" + layerID.ToString(), Messengers, 0, this.ActionManager, Mementor);
+                Layer layer = new Layer(MasterBeat, "/Layer" + layerID.ToString(), Messengers, 0, Mementor);
                 layer.Paste(layerdto);
                 Layers.Add(layer);
             }
@@ -355,7 +342,7 @@ namespace CMiX.ViewModels
             Layers.Clear();
             foreach (LayerDTO layerdto in compositiondto.LayersDTO)
             {
-                Layer layer = new Layer(MasterBeat, layerdto.LayerName, Messengers, layerdto.Index, this.ActionManager, Mementor);
+                Layer layer = new Layer(MasterBeat, layerdto.LayerName, Messengers, layerdto.Index, Mementor);
                 layer.Load(layerdto);
                 Layers.Add(layer);
             }

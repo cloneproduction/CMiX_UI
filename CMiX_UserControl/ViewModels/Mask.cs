@@ -3,7 +3,6 @@ using CMiX.Services;
 using CMiX.Models;
 using System.Windows;
 using System.Windows.Input;
-using GuiLabs.Undo;
 using System.Collections.ObjectModel;
 using Memento;
 
@@ -12,33 +11,34 @@ namespace CMiX.ViewModels
     public class Mask : ViewModel
     {
         #region CONSTRUCTORS
-        public Mask(Beat masterbeat, string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager, Mementor mementor)
+        public Mask(Beat masterbeat, string layername, ObservableCollection<OSCMessenger> messengers, Mementor mementor)
             : this
             (
                 messengers: messengers,
+                mementor: mementor,
                 messageaddress: String.Format("{0}/{1}/", layername, nameof(Mask)),
                 enable: false,
-                beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Mask)), messengers, masterbeat, actionmanager, mementor),
-                geometry: new Geometry(String.Format("{0}/{1}", layername, nameof(Mask)), messengers, actionmanager, mementor),
-                texture: new Texture(String.Format("{0}/{1}", layername, nameof(Mask)), messengers, actionmanager, mementor),
-                postFX: new PostFX(String.Format("{0}/{1}", layername, nameof(Mask)), messengers, actionmanager, mementor),
-                actionmanager: actionmanager
+                beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Mask)), messengers, masterbeat, mementor),
+                geometry: new Geometry(String.Format("{0}/{1}", layername, nameof(Mask)), messengers, mementor),
+                texture: new Texture(String.Format("{0}/{1}", layername, nameof(Mask)), messengers, mementor),
+                postFX: new PostFX(String.Format("{0}/{1}", layername, nameof(Mask)), messengers, mementor)
             )
         {}
 
         public Mask
             (
                 ObservableCollection<OSCMessenger> messengers,
+                Mementor mementor,
                 string messageaddress,
                 bool enable, 
                 BeatModifier beatModifier, 
                 Geometry geometry, 
                 Texture texture, 
-                PostFX postFX,
-                ActionManager actionmanager
+                PostFX postFX
             )
-            : base (actionmanager)
+            : base (messengers)
         {
+            Mementor = mementor;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             Enable = enable;
             MessageAddress = messageaddress;
@@ -60,6 +60,7 @@ namespace CMiX.ViewModels
             get => _enable;
             set
             {
+                Mementor.PropertyChange(this, "Enable");
                 SetAndNotify(ref _enable, value);
                 SendMessages(MessageAddress + nameof(Enable), Enable);
             }
@@ -72,6 +73,7 @@ namespace CMiX.ViewModels
             get => _keeporiginal;
             set
             {
+                Mementor.PropertyChange(this, "KeepOriginal");
                 SetAndNotify(ref _keeporiginal, value);
                 SendMessages(MessageAddress + nameof(KeepOriginal), KeepOriginal);
             }

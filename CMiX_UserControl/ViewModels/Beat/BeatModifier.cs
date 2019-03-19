@@ -1,6 +1,5 @@
 ﻿using CMiX.Models;
 using CMiX.Services;
-using GuiLabs.Undo;
 using System;
 using System.Collections.ObjectModel;
 using Memento;
@@ -11,14 +10,13 @@ namespace CMiX.ViewModels
     public class BeatModifier : Beat
     {
         #region CONSTRUCTORS
-        public BeatModifier(string layername, ObservableCollection<OSCMessenger> messengers, Beat masterBeat, ActionManager actionmanager, Mementor mementor)
+        public BeatModifier(string layername, ObservableCollection<OSCMessenger> messengers, Beat masterBeat, Mementor mementor)
         : this
         (
-            actionmanager: actionmanager,
             mementor: mementor,
             masterBeat: masterBeat,
             multiplier: 1.0,
-            chanceToHit: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(BeatModifier), "ChanceToHit"), messengers, actionmanager, mementor),
+            chanceToHit: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(BeatModifier), "ChanceToHit"), messengers, mementor),
             messengers: messengers,
             messageaddress: String.Format("{0}/{1}/", layername, nameof(BeatModifier))
         )
@@ -26,7 +24,6 @@ namespace CMiX.ViewModels
 
         public BeatModifier
             (
-                ActionManager actionmanager,
                 Mementor mementor,
                 Beat masterBeat,
                 double multiplier,
@@ -34,7 +31,7 @@ namespace CMiX.ViewModels
                 ObservableCollection<OSCMessenger> messengers,
                 string messageaddress
             )
-            : base(actionmanager, messengers)
+            : base(messengers)
         {
             Mementor = mementor;
             MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));

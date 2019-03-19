@@ -2,15 +2,13 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CMiX.Services;
-using GuiLabs.Undo;
 
 namespace CMiX.ViewModels
 {
     [Serializable]
     public abstract class Beat : ViewModel
     {
-        public Beat(ActionManager actionmanager, ObservableCollection<OSCMessenger> messengers) 
-            : base (actionmanager, messengers)
+        public Beat(ObservableCollection<OSCMessenger> messengers) 
         {
             ResetCommand = new RelayCommand(p => Reset());
             MultiplyCommand = new RelayCommand(p => Multiply());

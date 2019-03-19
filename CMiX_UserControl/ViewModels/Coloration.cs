@@ -4,7 +4,6 @@ using CMiX.Services;
 using CMiX.Models;
 using System.Windows.Input;
 using System.Windows;
-using GuiLabs.Undo;
 using System.Collections.ObjectModel;
 using Memento;
 
@@ -14,25 +13,25 @@ namespace CMiX.ViewModels
     public class Coloration : ViewModel
     {
         #region CONSTRUCTORS
-        public Coloration(Beat masterbeat, string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager, Mementor mementor)
+        public Coloration(Beat masterbeat, string layername, ObservableCollection<OSCMessenger> messengers, Mementor mementor)
         : this
         (
-            actionmanager: actionmanager,
+            mementor: mementor,
             messengers: messengers,
             messageaddress: String.Format("{0}/{1}/", layername, nameof(Coloration)),
             objColor: Colors.BlueViolet,
             bgColor: Colors.Black,
             backgroundColor: Colors.Black,
-            beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Coloration)), messengers, masterbeat, actionmanager, mementor),
-            hue: new RangeControl(messengers, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Hue), actionmanager, mementor),
-            saturation: new RangeControl(messengers, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Saturation), actionmanager, mementor),
-            value: new RangeControl(messengers, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Value), actionmanager, mementor)
+            beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Coloration)), messengers, masterbeat, mementor),
+            hue: new RangeControl(messengers, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Hue), mementor),
+            saturation: new RangeControl(messengers, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Saturation), mementor),
+            value: new RangeControl(messengers, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Value), mementor)
         )
         { }
 
         public Coloration
             (
-                ActionManager actionmanager,
+                Mementor mementor,
                 ObservableCollection<OSCMessenger> messengers,
                 string messageaddress,
                 BeatModifier beatModifier,
@@ -43,8 +42,9 @@ namespace CMiX.ViewModels
                 RangeControl saturation,
                 RangeControl value
             )
-            : base(actionmanager, messengers)
+            : base(messengers)
         {
+            Mementor = mementor;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             MessageAddress = messageaddress;
             ObjColor = objColor;
@@ -76,6 +76,7 @@ namespace CMiX.ViewModels
             get => _objColor;
             set
             {
+                Mementor.PropertyChange(this, "ObjColor");
                 //SetAndRecord(() => _objColor, value);
                 SetAndNotify(ref _objColor, value);
                 SendMessages(MessageAddress + nameof(ObjColor), ObjColor);
@@ -89,6 +90,7 @@ namespace CMiX.ViewModels
             get => _bgColor;
             set
             {
+                Mementor.PropertyChange(this, "BgColor");
                 SetAndNotify(ref _bgColor, value);
                 SendMessages(MessageAddress + nameof(BgColor), BgColor);
             }

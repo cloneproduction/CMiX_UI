@@ -13,32 +13,6 @@
     d:DesignWidth="1358.5"
     mc:Ignorable="d">
 
-    <UserControl.InputBindings>
-        <KeyBinding 
-            Modifiers="Control"
-            Key="V"
-            Command="{Binding PasteLayerCommand}" 
-            />
-        <KeyBinding 
-            Modifiers="Control"
-            Key="C"
-            Command="{Binding CopyLayerCommand}" 
-            />
-        <KeyBinding 
-            Modifiers="Control"
-            Key="Y" 
-            Command="{Binding RedoCommand}" 
-            />
-        <KeyBinding 
-            Modifiers="Control"
-            Key="Z" 
-            Command="{Binding UndoCommand}" 
-            />
-    </UserControl.InputBindings>
-    
-    <!--<UserControl.DataContext>
-        <ViewModels:Composition/>
-    </UserControl.DataContext>-->
     <UserControl.Resources>
         <ResourceDictionary>
             <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />

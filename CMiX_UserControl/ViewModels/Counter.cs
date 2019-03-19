@@ -1,7 +1,6 @@
 ﻿using System;
 using CMiX.Services;
 using CMiX.Models;
-using GuiLabs.Undo;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using Memento;
@@ -11,10 +10,9 @@ namespace CMiX.ViewModels
     public class Counter : ViewModel
     {
         #region CONSTRUCTORS
-        public Counter(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager, Mementor mementor)
+        public Counter(string layername, ObservableCollection<OSCMessenger> messengers, Mementor mementor)
                 : this
                 (
-                    actionmanager: actionmanager,
                     mementor: mementor,
                     messengers: messengers,
                     messageaddress: String.Format("{0}/", layername),
@@ -27,10 +25,9 @@ namespace CMiX.ViewModels
                 ObservableCollection<OSCMessenger> messengers,
                 string messageaddress,
                 int count,
-                ActionManager actionmanager,
                 Mementor mementor
             )
-            : base (actionmanager, messengers)
+            : base (messengers)
         {
             Mementor = mementor;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));

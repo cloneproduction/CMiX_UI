@@ -1,7 +1,6 @@
 ﻿using System;
 using CMiX.Services;
 using CMiX.Models;
-using GuiLabs.Undo;
 using System.Collections.ObjectModel;
 using Memento;
 
@@ -10,26 +9,24 @@ namespace CMiX.ViewModels
     public class Camera : ViewModel
     {
         #region CONSTRUCTORS
-        public Camera(ObservableCollection<OSCMessenger> messengers, MasterBeat masterBeat, ActionManager actionmanager, Mementor mementor)
+        public Camera(ObservableCollection<OSCMessenger> messengers, MasterBeat masterBeat, Mementor mementor)
             : this
             (
-                actionmanager: actionmanager,
                 mementor: mementor,
                 messengers: messengers,
                 messageaddress: "/Camera/",
                 rotation: ((CameraRotation)0).ToString(),
                 lookAt: ((CameraLookAt)0).ToString(),
                 view: ((CameraView)0).ToString(),
-                beatModifier: new BeatModifier("/Camera", messengers, masterBeat, actionmanager, mementor),
-                fov: new Slider(String.Format("/{0}/{1}", "Camera", "FOV"), messengers, actionmanager, mementor),
-                zoom: new Slider(String.Format("/{0}/{1}", "Camera", "Zoom"), messengers, actionmanager, mementor)
+                beatModifier: new BeatModifier("/Camera", messengers, masterBeat, mementor),
+                fov: new Slider(String.Format("/{0}/{1}", "Camera", "FOV"), messengers, mementor),
+                zoom: new Slider(String.Format("/{0}/{1}", "Camera", "Zoom"), messengers, mementor)
             )
         {
         }
 
         public Camera
             (
-                ActionManager actionmanager,
                 Mementor mementor,
                 string rotation,
                 string lookAt,
@@ -40,7 +37,7 @@ namespace CMiX.ViewModels
                 ObservableCollection<OSCMessenger> messengers,
                 string messageaddress
             )
-            : base(actionmanager, messengers)
+            : base(messengers)
         {
             Mementor = mementor;
             Rotation = rotation;

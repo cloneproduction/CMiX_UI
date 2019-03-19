@@ -1,6 +1,5 @@
 ﻿using CMiX.Services;
 using CMiX.Models;
-using GuiLabs.Undo;
 using System;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
@@ -12,14 +11,13 @@ namespace CMiX.ViewModels
     public class Slider : ViewModel
     {
         #region CONSTRUCTORS
-        public Slider(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager, Mementor mementor)
+        public Slider(string layername, ObservableCollection<OSCMessenger> messengers, Mementor mementor)
             : this
             (
                 messageaddress: String.Format("{0}/", layername),
                 messengers: messengers,
                 amount: 0.0,
-                mementor: mementor,
-                actionmanager: actionmanager
+                mementor: mementor
             )
         {}
 
@@ -28,10 +26,9 @@ namespace CMiX.ViewModels
                 ObservableCollection<OSCMessenger> messengers,
                 string messageaddress,
                 double amount,
-                Mementor mementor,
-                ActionManager actionmanager
+                Mementor mementor
             )
-            : base(actionmanager, messengers)
+            : base(messengers)
         {
             Mementor = mementor;
             MessageAddress = messageaddress;

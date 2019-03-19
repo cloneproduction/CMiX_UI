@@ -1,7 +1,5 @@
 ﻿using CMiX.Services;
-using GuiLabs.Undo;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace CMiX.ViewModels
@@ -9,20 +7,18 @@ namespace CMiX.ViewModels
     public class OSCControl : ViewModel
     {
         #region CONSTRUCTORS
-        public OSCControl(ActionManager actionmanager)
+        public OSCControl()
         : this
         (
-            actionmanager: actionmanager,
             messengers: new ObservableCollection<OSCMessenger>()
         )
         { } 
 
         public OSCControl
             (
-                ActionManager actionmanager,
                 ObservableCollection<OSCMessenger> messengers
             )
-            : base(actionmanager, messengers)
+            : base(messengers)
         {
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
         }

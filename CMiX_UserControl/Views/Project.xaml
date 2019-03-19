@@ -6,16 +6,38 @@
              xmlns:Views="clr-namespace:CMiX.Views"
              xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
              xmlns:Resources="clr-namespace:CMiX.Resources"
+             xmlns:dd="urn:gong-wpf-dragdrop"
              mc:Ignorable="d"
              d:DesignHeight="706" d:DesignWidth="1042.667">
     
     <UserControl.DataContext>
         <ViewModels:Project/>
     </UserControl.DataContext>
+
     <UserControl.InputBindings>
         <KeyBinding 
             Command="{Binding AddTabCommand}"
             Gesture="CTRL+T" 
+            />
+        <KeyBinding 
+            Modifiers="Control"
+            Key="V"
+            Command="{Binding PasteLayerCommand}" 
+            />
+        <KeyBinding 
+            Modifiers="Control"
+            Key="C"
+            Command="{Binding CopyLayerCommand}" 
+            />
+        <KeyBinding 
+            Modifiers="Control"
+            Key="Y" 
+            Command="{Binding RedoCommand}" 
+            />
+        <KeyBinding 
+            Modifiers="Control"
+            Key="Z" 
+            Command="{Binding UndoCommand}" 
             />
     </UserControl.InputBindings>
     <UserControl.Resources>
@@ -89,6 +111,8 @@
             </Menu>
         </Grid>
         <TabControl  
+            dd:DragDrop.IsDragSource="True"
+            dd:DragDrop.IsDropTarget="True"
             Style="{StaticResource TabControlDynamic}"
             ItemsSource="{Binding Compositions}"
             ItemContainerStyle="{StaticResource TabItemDynamic}">

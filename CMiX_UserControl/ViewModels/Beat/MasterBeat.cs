@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 using CMiX.Services;
 using CMiX.Models;
-using GuiLabs.Undo;
+using Memento;
 using System.Collections.ObjectModel;
 
 namespace CMiX.ViewModels
@@ -12,10 +12,10 @@ namespace CMiX.ViewModels
     public class MasterBeat : Beat
     {
         #region CONSTRUCTORS
-        public MasterBeat(ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager)
+        public MasterBeat(ObservableCollection<OSCMessenger> messengers, Mementor mementor)
         : this
         (
-            actionmanager: actionmanager,
+            mementor: mementor,
             messengers: messengers,
             period: 0.0,
             multiplier: 1
@@ -24,12 +24,12 @@ namespace CMiX.ViewModels
 
         public MasterBeat
             (
-                ActionManager actionmanager,
+                Mementor mementor,
                 ObservableCollection<OSCMessenger> messengers,
                 double period,
                 int multiplier
             )
-            : base(actionmanager, messengers)
+            : base(messengers)
         {
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             Period = period;

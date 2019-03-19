@@ -1,17 +1,17 @@
 ﻿using System;
 using CMiX.Services;
 using CMiX.Models;
-using GuiLabs.Undo;
 using System.Collections.ObjectModel;
+using Memento;
 
 namespace CMiX.ViewModels
 {
     public class GeometryTranslate : ViewModel
     {
-        public GeometryTranslate(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager)
+        public GeometryTranslate(string layername, ObservableCollection<OSCMessenger> messengers, Mementor mementor)
             : this
             (
-                actionmanager: actionmanager,
+                mementor: mementor,
                 messageaddress: layername + "/",
                 messengers: messengers,
                 translateMode: default
@@ -21,12 +21,12 @@ namespace CMiX.ViewModels
 
         public GeometryTranslate
             (
-                ActionManager actionmanager,
+                Mementor mementor,
                 string messageaddress,
                 ObservableCollection<OSCMessenger> messengers,
                 GeometryTranslateMode translateMode
             )
-            : base (actionmanager)
+            : base (messengers)
         {
             MessageAddress = messageaddress;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
@@ -39,6 +39,7 @@ namespace CMiX.ViewModels
             get => _TranslateMode;
             set
             {
+                Mementor.PropertyChange(this, "TranslateMode");
                 SetAndNotify(ref _TranslateMode, value);
                 SendMessages(MessageAddress + nameof(TranslateMode), TranslateMode);
             }

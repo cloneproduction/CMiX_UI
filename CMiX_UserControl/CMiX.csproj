@@ -74,9 +74,6 @@
     <Reference Include="GongSolutions.Wpf.DragDrop, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\gong-wpf-dragdrop.1.1.0\lib\net46\GongSolutions.Wpf.DragDrop.dll</HintPath>
     </Reference>
-    <Reference Include="GuiLabs.Undo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\GuiLabs.Undo.1.0.2\lib\netstandard2.0\GuiLabs.Undo.dll</HintPath>
-    </Reference>
     <Reference Include="Memento, Version=1.0.0.0, Culture=neutral, PublicKeyToken=38cdbba176369010, processorArchitecture=MSIL">
       <HintPath>..\packages\Memento.1.2.1\lib\net40\Memento.dll</HintPath>
     </Reference>
@@ -153,7 +150,6 @@
     <Compile Include="ViewModels\Geometry\GeometryFX.cs" />
     <Compile Include="ViewModels\Geometry\GeometryRotation.cs" />
     <Compile Include="ViewModels\Geometry\GeometryScale.cs" />
-    <Compile Include="ViewModels\Geometry\GeometrySelector.cs" />
     <Compile Include="Services\IMessenger.cs" />
     <Compile Include="Services\OSCMessenger.cs" />
     <Compile Include="ViewModels\Beat\Beat.cs" />

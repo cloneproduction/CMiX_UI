@@ -3,7 +3,6 @@ using System.Windows;
 using System.Windows.Input;
 using CMiX.Services;
 using CMiX.Models;
-using GuiLabs.Undo;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Memento;
@@ -13,21 +12,21 @@ namespace CMiX.ViewModels
     public class Geometry : ViewModel
     {
         #region CONSTRUCTORS
-        public Geometry(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager, Mementor mementor)
+        public Geometry(string layername, ObservableCollection<OSCMessenger> messengers,Mementor mementor)
             : this
             (
-                actionmanager: actionmanager,
+                mementor: mementor,
                 messengers: messengers,
                 messageaddress: String.Format("{0}/{1}/", layername, nameof(Geometry)),
-                fileselector: new FileSelector("Single", new List<string> { ".FBX", ".OBJ" }, messengers, String.Format("{0}/{1}/", layername, nameof(Geometry)), actionmanager, mementor),
-                translatemode: new GeometryTranslate(String.Format("{0}/{1}", layername, nameof(Geometry)), messengers, actionmanager),
-                scalemode: new GeometryScale(String.Format("{0}/{1}", layername, nameof(Geometry)), messengers, actionmanager),
-                rotationmode: new GeometryRotation(String.Format("{0}/{1}", layername, nameof(Geometry)), messengers, actionmanager),
-                geometryfx : new GeometryFX(String.Format("{0}/{1}", layername, nameof(Geometry)), messengers, actionmanager, mementor),
-                translateAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Translate"), messengers, actionmanager, mementor),
-                scaleAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Scale"), messengers, actionmanager, mementor),
-                rotationAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Rotation"), messengers, actionmanager, mementor),
-                counter: new Counter(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Counter"), messengers, actionmanager, mementor),
+                fileselector: new FileSelector("Single", new List<string> { ".FBX", ".OBJ" }, messengers, String.Format("{0}/{1}/", layername, nameof(Geometry)), mementor),
+                translatemode: new GeometryTranslate(String.Format("{0}/{1}", layername, nameof(Geometry)), messengers, mementor),
+                scalemode: new GeometryScale(String.Format("{0}/{1}", layername, nameof(Geometry)), messengers, mementor),
+                rotationmode: new GeometryRotation(String.Format("{0}/{1}", layername, nameof(Geometry)), messengers, mementor),
+                geometryfx : new GeometryFX(String.Format("{0}/{1}", layername, nameof(Geometry)), messengers, mementor),
+                translateAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Translate"), messengers, mementor),
+                scaleAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Scale"), messengers, mementor),
+                rotationAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Rotation"), messengers, mementor),
+                counter: new Counter(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Counter"), messengers, mementor),
                 is3D: false,    
                 keepAspectRatio: false
             )
@@ -35,7 +34,7 @@ namespace CMiX.ViewModels
 
         public Geometry
             (
-                ActionManager actionmanager,
+                Mementor mementor,
                 ObservableCollection<OSCMessenger> messengers,
                 FileSelector fileselector,
                 GeometryTranslate translatemode,
@@ -50,7 +49,7 @@ namespace CMiX.ViewModels
                 bool keepAspectRatio,
                 string messageaddress
             )
-            : base (actionmanager, messengers)
+            : base (messengers)
         {
             FileSelector = fileselector ?? throw new ArgumentNullException(nameof(FileSelector));
             TranslateMode = translatemode ?? throw new ArgumentNullException(nameof(TranslateMode));
@@ -93,6 +92,7 @@ namespace CMiX.ViewModels
             get => _is3D;
             set
             {
+                Mementor.PropertyChange(this, "Is3D");
                 SetAndNotify(ref _is3D, value);
                 SendMessages(MessageAddress + nameof(Is3D), Is3D.ToString());
             }
@@ -105,6 +105,7 @@ namespace CMiX.ViewModels
             get => _keepAspectRatio;
             set
             {
+                Mementor.PropertyChange(this, "KeepAspectRatio");
                 SetAndNotify(ref _keepAspectRatio, value);
                 SendMessages(MessageAddress + nameof(KeepAspectRatio), KeepAspectRatio.ToString());
             }

@@ -3,7 +3,6 @@ using CMiX.Services;
 using CMiX.Models;
 using System.Windows;
 using System.Windows.Input;
-using GuiLabs.Undo;
 using System.Collections.ObjectModel;
 using Memento;
 
@@ -12,23 +11,22 @@ namespace CMiX.ViewModels
     public class PostFX : ViewModel
     {
         #region CONSTRUCTORS
-        public PostFX(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager, Mementor mementor)
+        public PostFX(string layername, ObservableCollection<OSCMessenger> messengers,  Mementor mementor)
             : this
             (
-                actionmanager: actionmanager,
+                mementor: mementor,
                 messengers: messengers,
-                feedback: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(PostFX), "Feedback"), messengers, actionmanager, mementor),
-                blur: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(PostFX), "Blur"), messengers, actionmanager, mementor),
+                feedback: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(PostFX), "Feedback"), messengers, mementor),
+                blur: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(PostFX), "Blur"), messengers, mementor),
                 transforms: ((PostFXTransforms)0).ToString(), 
                 view: ((PostFXView)0).ToString(),
                 messageaddress: String.Format("{0}/{1}/", layername, nameof(PostFX))
-
             )
         { }
 
         public PostFX
             (
-                ActionManager actionmanager,
+                Mementor mementor,
                 ObservableCollection<OSCMessenger> messengers,
                 Slider feedback,
                 Slider blur,
@@ -36,7 +34,7 @@ namespace CMiX.ViewModels
                 string view,
                 string messageaddress
             )
-            : base (actionmanager)
+            : base (messengers)
         {
             MessageAddress = messageaddress;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
@@ -65,6 +63,7 @@ namespace CMiX.ViewModels
             get => _transforms;
             set
             {
+                Mementor.PropertyChange(this, "Transforms");
                 SetAndNotify(ref _transforms, value);
                 SendMessages(MessageAddress + nameof(Transforms), Transforms);
             }
@@ -77,6 +76,7 @@ namespace CMiX.ViewModels
             get => _view;
             set
             {
+                Mementor.PropertyChange(this, "View");
                 SetAndNotify(ref _view, value);
                 SendMessages(MessageAddress + nameof(View), View);
             }

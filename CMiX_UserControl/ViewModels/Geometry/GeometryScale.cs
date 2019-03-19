@@ -1,18 +1,18 @@
 ﻿using System;
 using CMiX.Services;
 using CMiX.Models;
-using GuiLabs.Undo;
 using System.Collections.ObjectModel;
+using Memento;
 
 namespace CMiX.ViewModels
 {
     public class GeometryScale : ViewModel
     {
         #region CONSTRUCTORS
-        public GeometryScale(string layername, ObservableCollection<OSCMessenger> messengers, ActionManager actionmanager)
+        public GeometryScale(string layername, ObservableCollection<OSCMessenger> messengers, Mementor mementor)
         : this
         (
-            actionmanager: actionmanager,
+            mementor: mementor,
             messageaddress: layername + "/",
             messengers: messengers,
             scaleMode: default
@@ -21,12 +21,12 @@ namespace CMiX.ViewModels
 
         public GeometryScale
             (
-                ActionManager actionmanager,
+                Mementor mementor,
                 string messageaddress,
                 ObservableCollection<OSCMessenger> messengers,
                 GeometryScaleMode scaleMode
             )
-            : base(actionmanager, messengers)
+            : base(messengers)
         {
             MessageAddress = messageaddress;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
@@ -41,6 +41,7 @@ namespace CMiX.ViewModels
             get => _ScaleMode;
             set
             {
+                Mementor.PropertyChange(this, "ScaleMode");
                 SetAndNotify(ref _ScaleMode, value);
                 SendMessages(MessageAddress + nameof(ScaleMode), ScaleMode);
             }

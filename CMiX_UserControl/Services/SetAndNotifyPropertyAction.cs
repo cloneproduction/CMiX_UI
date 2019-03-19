@@ -1,5 +1,4 @@
 ﻿using System;
-using GuiLabs.Undo;
 using CMiX.ViewModels;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -7,7 +6,7 @@ using System.Collections.Generic;
 
 namespace CMiX.Services
 {
-    public class SetAndNotifyPropertyAction<TRet> : AbstractAction
+    /*public class SetAndNotifyPropertyAction<TRet> : AbstractAction
     {
 
         private ViewModel ParentObject { get; set; }
@@ -67,5 +66,5 @@ namespace CMiX.Services
                 return false;
             }
         }
-    }
+    }*/
 }
