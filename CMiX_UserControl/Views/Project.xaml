@@ -89,7 +89,7 @@
             ItemContainerStyle="{StaticResource TabItemDynamic}">
             <TabControl.ItemTemplate>
                 <DataTemplate>
-                    <DockPanel Height="25" HorizontalAlignment="Stretch" x:Name="Docks" Background="Transparent">
+                    <DockPanel Height="20" HorizontalAlignment="Stretch" x:Name="Docks" Background="Transparent">
                         <DockPanel.ContextMenu>
                             <ContextMenu Style="{StaticResource ContextMenuBase }">
                                 <MenuItem
@@ -102,7 +102,7 @@
                                         <StackPanel Orientation="Horizontal">
                                             <Image Width="10" Height="10" Source="/CMiX_UserControl;component/Assets/DeleteLayer.png" />
                                             <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                            <TextBlock Text="Delete Layer"/>
+                                            <TextBlock Text="Delete Composition"/>
                                         </StackPanel>
                                     </MenuItem.Header>
                                 </MenuItem>
@@ -116,7 +116,7 @@
                                         <StackPanel Orientation="Horizontal">
                                             <Image Width="10" Height="10" Source="/CMiX_UserControl;component/Assets/Copy.png" />
                                             <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                            <TextBlock Text="Duplicate Layer"/>
+                                            <TextBlock Text="Duplicate Composition"/>
                                         </StackPanel>
                                     </MenuItem.Header>
                                 </MenuItem>
@@ -137,7 +137,7 @@
                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"                
                             >
                             <Button.Content>
-                                <Image Opacity="0.5" Margin="12" Source="{StaticResource CloseTab}"/>
+                                <Image Opacity="0.5" Margin="5" Source="{StaticResource CloseTab}"/>
                             </Button.Content>
                         </Button>
                         <TextBlock
