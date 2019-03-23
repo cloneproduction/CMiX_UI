@@ -34,6 +34,7 @@ namespace CMiX.ViewModels
             )
             : base(messengers)
         {
+            Mementor = mementor;
             MessageAddress = messageaddress;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             RotationX = rotationX;

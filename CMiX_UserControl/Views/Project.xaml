@@ -9,43 +9,14 @@
              xmlns:dd="urn:gong-wpf-dragdrop"
              mc:Ignorable="d"
              d:DesignHeight="706" d:DesignWidth="1042.667">
-    
     <UserControl.DataContext>
         <ViewModels:Project/>
     </UserControl.DataContext>
-
-    <UserControl.InputBindings>
-        <KeyBinding 
-            Command="{Binding AddTabCommand}"
-            Gesture="CTRL+T" 
-            />
-        <KeyBinding 
-            Modifiers="Control"
-            Key="V"
-            Command="{Binding PasteLayerCommand}" 
-            />
-        <KeyBinding 
-            Modifiers="Control"
-            Key="C"
-            Command="{Binding CopyLayerCommand}" 
-            />
-        <KeyBinding 
-            Modifiers="Control"
-            Key="Y" 
-            Command="{Binding RedoCommand}" 
-            />
-        <KeyBinding 
-            Modifiers="Control"
-            Key="Z" 
-            Command="{Binding UndoCommand}" 
-            />
-    </UserControl.InputBindings>
     <UserControl.Resources>
         <ResourceDictionary>
             <Resources:BindingProxy x:Key="proxy" Data="{Binding}"/>
         </ResourceDictionary>
     </UserControl.Resources>
-    
     <DockPanel>
         <Grid Margin="0,0,0,2" DockPanel.Dock="Top">
             <Label
@@ -119,6 +90,38 @@
             <TabControl.ItemTemplate>
                 <DataTemplate>
                     <DockPanel Height="25" HorizontalAlignment="Stretch" x:Name="Docks" Background="Transparent">
+                        <DockPanel.ContextMenu>
+                            <ContextMenu Style="{StaticResource ContextMenuBase }">
+                                <MenuItem
+                                    Padding="8, 4"
+                                    Style="{StaticResource MenuItemBase}"
+                                    Foreground="{StaticResource TextBase}"
+                                    Command="{Binding Data.DeleteCompositionCommand, Source={StaticResource proxy}}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
+                                    <MenuItem.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Width="10" Height="10" Source="/CMiX_UserControl;component/Assets/DeleteLayer.png" />
+                                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                            <TextBlock Text="Delete Layer"/>
+                                        </StackPanel>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                                <MenuItem
+                                    Padding="8, 4"
+                                    Style="{StaticResource MenuItemBase}"
+                                    Foreground="{StaticResource TextBase}"
+                                    Command="{Binding Data.DuplicateCompositionCommand, Source={StaticResource proxy}}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
+                                    <MenuItem.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Width="10" Height="10" Source="/CMiX_UserControl;component/Assets/Copy.png" />
+                                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                            <TextBlock Text="Duplicate Layer"/>
+                                        </StackPanel>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                            </ContextMenu>
+                        </DockPanel.ContextMenu>
                         <DockPanel.InputBindings>
                             <MouseBinding 
                                 Command="{Binding Data.DeleteCompositionCommand, Source={StaticResource proxy}}"

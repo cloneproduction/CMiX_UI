@@ -10,12 +10,7 @@ namespace CMiX.ViewModels
 {
     public class ViewModel : INotifyPropertyChanged, ICloneable
     {
-        protected Mementor Mementor { get; set; }
-
-        public ObservableCollection<OSCMessenger> Messengers {get; set;}
-
-        public string MessageAddress { get; set; }
-
+        #region CONSTRUCTORS
         public ViewModel()
         {
 
@@ -25,14 +20,27 @@ namespace CMiX.ViewModels
         {
             Messengers = oscmessengers ?? throw new ArgumentNullException(nameof(oscmessengers));
         }
+        #endregion
 
+        #region PROPERTIES
+        public Mementor Mementor { get; set; }
+
+        public ObservableCollection<OSCMessenger> Messengers { get; set; }
+
+        public string MessageAddress { get; set; }
+        #endregion
+
+        #region MESSENGERS
         public void SendMessages(string address, params object[] args)
         {
-            foreach (var Message in Messengers)
+            if(Messengers != null)
             {
-                if (Message.SendEnabled)
+                foreach (var Message in Messengers)
                 {
-                    Message.SendMessage(address, args);
+                    if (Message.SendEnabled)
+                    {
+                        Message.SendMessage(address, args);
+                    }
                 }
             }
         }
@@ -76,6 +84,7 @@ namespace CMiX.ViewModels
                 Message.SendEnabled = true;
             }
         }
+        #endregion
 
         #region INOTIFYPROPERTYCHANGED
         public event PropertyChangedEventHandler PropertyChanged;

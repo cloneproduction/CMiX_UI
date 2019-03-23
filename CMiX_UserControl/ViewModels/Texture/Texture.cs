@@ -55,6 +55,7 @@ namespace CMiX.ViewModels
             )
             : base (messengers)
         {
+            Mementor = mementor;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             FileSelector = fileselector;
             Brightness = brightness;

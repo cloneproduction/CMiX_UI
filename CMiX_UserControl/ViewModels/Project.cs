@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using CMiX.Models;
 using Memento;
 
 namespace CMiX.ViewModels
@@ -11,45 +12,40 @@ namespace CMiX.ViewModels
         {
             AddTabCommand = new RelayCommand(p => AddComposition());
             DeleteCompositionCommand = new RelayCommand(p => DeleteComposition(p));
-            UndoCommand = new RelayCommand(p => Undo());
-            RedoCommand = new RelayCommand(p => Redo());
+            DuplicateCompositionCommand = new RelayCommand(p => DuplicateComposition(p));
             Compositions = new ObservableCollection<Composition>();
         }
 
+        #region PROPERTIES
         public ICommand AddTabCommand { get; }
         public ICommand DeleteCompositionCommand { get; }
-        public ICommand UndoCommand { get; }
-        public ICommand RedoCommand { get; }
-
+        public ICommand DuplicateCompositionCommand { get; }
+        
         public ObservableCollection<Composition> Compositions { get; set; }
+        #endregion
 
+        #region ADD/DELETE/DUPLICATE COMPOSITION
         private void AddComposition()
         {
             Composition comp = new Composition(Mementor = new Mementor());
             Compositions.Add(comp);
-            Mementor.ElementAdd(Compositions, comp);
-            Console.WriteLine("AddComposition");
         }
 
         private void DeleteComposition(object compo)
         {
-            var comp = compo as Composition;
-            Mementor.ElementRemove(Compositions, comp);
+            Composition comp = compo as Composition;
+            comp.Mementor.Dispose();
             Compositions.Remove(comp);
-            Console.WriteLine("DeleteComposition");
         }
 
-        #region UNDO/REDO
-        void Undo()
+        private void DuplicateComposition(object compo)
         {
-            if (Mementor.CanUndo)
-                Mementor.Undo();
-        }
-
-        void Redo()
-        {
-            if (Mementor.CanRedo)
-                Mementor.Redo();
+            Composition comp = compo as Composition;
+            CompositionDTO compDTO = new CompositionDTO();
+            comp.Copy(compDTO);
+            Composition newcomp = new Composition(new Mementor());
+            newcomp.Paste(compDTO);
+            Compositions.Add(newcomp);
         }
         #endregion
     }

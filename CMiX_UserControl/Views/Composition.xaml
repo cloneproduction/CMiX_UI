@@ -19,7 +19,28 @@
             <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
         </ResourceDictionary>
     </UserControl.Resources>
-
+    <UserControl.InputBindings>
+        <KeyBinding 
+            Modifiers="Control"
+            Key="V"
+            Command="{Binding PasteLayerCommand}" 
+            />
+        <KeyBinding 
+            Modifiers="Control"
+            Key="C"
+            Command="{Binding CopyLayerCommand}" 
+            />
+        <KeyBinding 
+            Modifiers="Control"
+            Key="Y" 
+            Command="{Binding RedoCommand}" 
+            />
+        <KeyBinding 
+            Modifiers="Control"
+            Key="Z" 
+            Command="{Binding UndoCommand}" 
+            />
+    </UserControl.InputBindings>
     <DockPanel
         x:Name="CMiX_UserControl"
         Background="#FF141414"

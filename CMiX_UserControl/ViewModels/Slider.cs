@@ -5,7 +5,6 @@ using System.Windows.Input;
 using System.Collections.ObjectModel;
 using Memento;
 
-
 namespace CMiX.ViewModels
 {
     public class Slider : ViewModel

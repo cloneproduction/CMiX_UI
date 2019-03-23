@@ -8,6 +8,7 @@ namespace CMiX.ViewModels
 {
     public class GeometryTranslate : ViewModel
     {
+        #region CONSTRUCTORS
         public GeometryTranslate(string layername, ObservableCollection<OSCMessenger> messengers, Mementor mementor)
             : this
             (
@@ -28,10 +29,13 @@ namespace CMiX.ViewModels
             )
             : base (messengers)
         {
+            Mementor = mementor;
             MessageAddress = messageaddress;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
         }
+        #endregion
 
+        #region PROPERTIES
         private GeometryTranslateMode _TranslateMode;
         [OSC]
         public GeometryTranslateMode TranslateMode
@@ -44,7 +48,9 @@ namespace CMiX.ViewModels
                 SendMessages(MessageAddress + nameof(TranslateMode), TranslateMode);
             }
         }
+        #endregion
 
+        #region COPY/PASTE
         public void Copy(GeometryTranslateDTO geometrytranslatedto)
         {
             geometrytranslatedto.TranslateModeDTO = TranslateMode;
@@ -56,5 +62,6 @@ namespace CMiX.ViewModels
             TranslateMode = geometrytranslatedto.TranslateModeDTO;
             EnabledMessages();
         }
+        #endregion
     }
 }

@@ -56,6 +56,12 @@ namespace CMiX.ViewModels
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
+            MouseDownCommand = new RelayCommand(p => MouseDown());
+        }
+
+        private void MouseDown()
+        {
+            Mementor.PropertyChange(this, "ObjColor");
         }
         #endregion
 
@@ -63,6 +69,7 @@ namespace CMiX.ViewModels
         public ICommand CopySelfCommand { get; }
         public ICommand PasteSelfCommand { get; }
         public ICommand ResetSelfCommand { get; }
+        public ICommand MouseDownCommand { get; }
 
         public BeatModifier BeatModifier { get; }
         public RangeControl Hue { get; }
@@ -76,8 +83,7 @@ namespace CMiX.ViewModels
             get => _objColor;
             set
             {
-                Mementor.PropertyChange(this, "ObjColor");
-                //SetAndRecord(() => _objColor, value);
+                
                 SetAndNotify(ref _objColor, value);
                 SendMessages(MessageAddress + nameof(ObjColor), ObjColor);
             }
@@ -90,7 +96,6 @@ namespace CMiX.ViewModels
             get => _bgColor;
             set
             {
-                Mementor.PropertyChange(this, "BgColor");
                 SetAndNotify(ref _bgColor, value);
                 SendMessages(MessageAddress + nameof(BgColor), BgColor);
             }
@@ -123,7 +128,7 @@ namespace CMiX.ViewModels
         public void CopySelf()
         {
             ColorationDTO colorationdto = new ColorationDTO();
-            this.Copy(colorationdto);
+            Copy(colorationdto);
             IDataObject data = new DataObject();
             data.SetData("Coloration", colorationdto, false);
             Clipboard.SetDataObject(data);
@@ -135,8 +140,7 @@ namespace CMiX.ViewModels
             if (data.GetDataPresent("Coloration"))
             {
                 var colorationdto = (ColorationDTO)data.GetData("Coloration") as ColorationDTO;
-                this.Paste(colorationdto);
-
+                Paste(colorationdto);
                 QueueObjects(this);
                 SendQueues();
             }
@@ -145,7 +149,7 @@ namespace CMiX.ViewModels
         public void ResetSelf()
         {
             ColorationDTO colorationdto = new ColorationDTO();
-            this.Paste(colorationdto);
+            Paste(colorationdto);
         }
         #endregion
     }

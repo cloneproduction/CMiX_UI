@@ -16,6 +16,7 @@ namespace CMiX.ViewModels
         : this
         (
             enable: true,
+            mementor: mementor,
             messageaddress: String.Format("{0}/{1}/", layername, nameof(Content)),
             messengers: messengers,
             beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Content)), messengers, masterbeat, mementor),
@@ -28,6 +29,7 @@ namespace CMiX.ViewModels
         public Content
             (
                 bool enable,
+                Mementor mementor,
                 string messageaddress,
                 ObservableCollection<OSCMessenger> messengers,
                 BeatModifier beatModifier,
@@ -37,6 +39,7 @@ namespace CMiX.ViewModels
             )
             : base(messengers)
         {
+            Mementor = mementor;
             Enable = enable;
             MessageAddress = messageaddress;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));

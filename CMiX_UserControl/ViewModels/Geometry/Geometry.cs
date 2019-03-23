@@ -12,7 +12,7 @@ namespace CMiX.ViewModels
     public class Geometry : ViewModel
     {
         #region CONSTRUCTORS
-        public Geometry(string layername, ObservableCollection<OSCMessenger> messengers,Mementor mementor)
+        public Geometry(string layername, ObservableCollection<OSCMessenger> messengers, Mementor mementor)
             : this
             (
                 mementor: mementor,
@@ -51,6 +51,7 @@ namespace CMiX.ViewModels
             )
             : base (messengers)
         {
+            Mementor = mementor;
             FileSelector = fileselector ?? throw new ArgumentNullException(nameof(FileSelector));
             TranslateMode = translatemode ?? throw new ArgumentNullException(nameof(TranslateMode));
             RotationMode = rotationmode ?? throw new ArgumentNullException(nameof(RotationMode));

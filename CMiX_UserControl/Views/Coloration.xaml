@@ -6,6 +6,7 @@
     xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     d:DesignHeight="709.333"
     d:DesignWidth="302.667"
     mc:Ignorable="d">
@@ -104,6 +105,11 @@
                                 Margin="0" 
                                 Padding="8" 
                                 Style="{StaticResource BorderContainer}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewMouseDown">
+                                        <i:InvokeCommandAction Command="{Binding MouseDownCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                                 <colorpicker:ColorPicker
                                     MaxHeight="300"
                                     x:Name="Color"

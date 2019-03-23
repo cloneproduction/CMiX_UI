@@ -14,21 +14,21 @@ namespace CMiX.ViewModels
         : this
         (
             mementor: mementor,
+            messengers: messengers,
+            messageaddress: String.Format("{0}/{1}/", layername, nameof(BeatModifier)),
             masterBeat: masterBeat,
             multiplier: 1.0,
-            chanceToHit: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(BeatModifier), "ChanceToHit"), messengers, mementor),
-            messengers: messengers,
-            messageaddress: String.Format("{0}/{1}/", layername, nameof(BeatModifier))
+            chanceToHit: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(BeatModifier), "ChanceToHit"), messengers, mementor)
         )
         { }
 
         public BeatModifier
             (
                 Mementor mementor,
+                ObservableCollection<OSCMessenger> messengers,
                 Beat masterBeat,
                 double multiplier,
                 Slider chanceToHit,
-                ObservableCollection<OSCMessenger> messengers,
                 string messageaddress
             )
             : base(messengers)
@@ -37,7 +37,7 @@ namespace CMiX.ViewModels
             MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
             Multiplier = multiplier;
             ChanceToHit = chanceToHit;
-            ChanceToHit.Amount = 1.0; // default value for slider
+            ChanceToHit.Amount = 1.0;
             masterBeat.PeriodChanged += (s, newValue) =>
             {
                 OnPeriodChanged(Period);
@@ -66,12 +66,12 @@ namespace CMiX.ViewModels
             get => base.Multiplier;
             set
             {
-                Mementor.PropertyChange(this, "Multiplier");
                 base.Multiplier = value;
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
                 SendMessages(MessageAddress + nameof(Multiplier), Multiplier);
+                Mementor.PropertyChange(this, "Multiplier");
             }
         }
         #endregion

@@ -39,8 +39,8 @@ namespace CMiX.ViewModels
             PasteLayerCommand = new RelayCommand(p => PasteLayer());
             SaveCompositionCommand = new RelayCommand(p => Save());
             OpenCompositionCommand = new RelayCommand(p => Open());
-
-
+            UndoCommand = new RelayCommand(p => Undo());
+            RedoCommand = new RelayCommand(p => Redo());
             AddOSCCommand = new RelayCommand(p => AddOSC());
             RemoveSelectedOSCCommand = new RelayCommand(p => RemoveSelectedOSC());
             DeleteOSCCommand = new RelayCommand(p => DeleteOSC(p));
@@ -53,6 +53,7 @@ namespace CMiX.ViewModels
             {
                 throw new ArgumentNullException(nameof(layers));
             }
+
             Mementor = mementor;
             Messengers = new ObservableCollection<OSCMessenger>();
             MessageAddress = String.Empty;
@@ -74,11 +75,10 @@ namespace CMiX.ViewModels
         public ICommand PasteLayerCommand { get; }
         public ICommand SaveCompositionCommand { get; }
         public ICommand OpenCompositionCommand { get; }
-
-
+        public ICommand UndoCommand { get; }
+        public ICommand RedoCommand { get; }
         public ICommand DeleteLayerCommand { get; }
         public ICommand DuplicateLayerCommand { get; }
-
         public ICommand AddOSCCommand { get; set; }
         public ICommand RemoveSelectedOSCCommand { get; set; }
         public ICommand DeleteOSCCommand { get; set; }
@@ -110,8 +110,6 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _selectedlayer, value);
         }
         #endregion
-
-
 
         #region COPY/PASTE LAYER
         private void CopyLayer()
@@ -185,10 +183,9 @@ namespace CMiX.ViewModels
                     removeindex = Layers[i].Index;
                     removedlayername = Layers[i].LayerName;
 
+                    Mementor.ElementRemove(Layers, Layers[i], removeindex);
                     LayerNames.Remove(Layers[i].LayerName);
                     Layers.Remove(Layers[i]);
-
-                    Mementor.ElementRemove(Layers, Layers[i], removeindex);
 
                     foreach (Layer lyr in Layers)
                     {
@@ -202,6 +199,7 @@ namespace CMiX.ViewModels
                     break;
                 }
             }
+
             QueueMessages("/LayerNames", this.LayerNames.ToArray());
             QueueMessages("/LayerIndex", layerindex.ToArray());
             QueueMessages("/LayerRemoved", removedlayername);
@@ -227,7 +225,6 @@ namespace CMiX.ViewModels
                 layerindex.Add(lay.Index.ToString());
             }
 
-            
             QueueMessages("/LayerNames", this.LayerNames.ToArray());
             QueueMessages("/LayerIndex", layerindex.ToArray());
             QueueMessages("/LayerRemoved", lyr.LayerName);
@@ -258,6 +255,7 @@ namespace CMiX.ViewModels
             {
                 layerindex.Add(lay.Index.ToString());
             }
+
             Mementor.ElementAdd(Layers, newlayer);
             QueueMessages("/LayerNames", this.LayerNames.ToArray());
             QueueMessages("/LayerIndex", layerindex.ToArray());
@@ -283,6 +281,7 @@ namespace CMiX.ViewModels
             {
                 layerindex.Add(lyr.Index.ToString());
             }
+
             Mementor.ElementAdd(Layers, layer);
             QueueMessages("/LayerNames", this.LayerNames.ToArray());
             QueueMessages("/LayerIndex", layerindex.ToArray());
@@ -416,6 +415,20 @@ namespace CMiX.ViewModels
             QueueMessages("/LayerNames", this.LayerNames.ToArray());
             QueueMessages("/LayerIndex", layerindex.ToArray());
             SendQueues();
+        }
+        #endregion
+
+        #region UNDO/REDO
+        void Undo()
+        {
+            if (Mementor.CanUndo)
+                Mementor.Undo();
+        }
+
+        void Redo()
+        {
+            if (Mementor.CanRedo)
+                Mementor.Redo();
         }
         #endregion
     }
