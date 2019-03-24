@@ -103,6 +103,15 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _layernames, value);
         }
 
+        private bool enabled;
+
+        public bool Enabled
+        {
+            get { return enabled; }
+            set { enabled = value; }
+        }
+
+
         private Layer _selectedlayer;
         public Layer SelectedLayer
         {

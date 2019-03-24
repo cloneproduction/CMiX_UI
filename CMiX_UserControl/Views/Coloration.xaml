@@ -20,8 +20,7 @@
                     Command="{Binding Path=ResetSelfCommand}"
                     Height="15" 
                     Width="15" 
-                    Style="{StaticResource ButtonImageBase}"
-                    >
+                    Style="{StaticResource ButtonImageBase}">
                     <Button.Content>
                         <Image Source="/Assets/Reset.png"/>
                     </Button.Content>
@@ -33,8 +32,7 @@
                     Command="{Binding Path=PasteSelfCommand}"
                     Height="15" 
                     Width="15" 
-                    Style="{StaticResource ButtonImageBase}"
-                    >
+                    Style="{StaticResource ButtonImageBase}">
                     <Button.Content>
                         <Image Source="/Assets/Paste.png"/>
                     </Button.Content>
@@ -45,8 +43,7 @@
                     Command="{Binding Path=CopySelfCommand}"
                     Height="15" 
                     Width="15" 
-                    Style="{StaticResource ButtonImageBase}"
-                    >
+                    Style="{StaticResource ButtonImageBase}">
                     <Button.Content>
                         <Image Source="/Assets/Copy.png"/>
                     </Button.Content>
@@ -57,7 +54,8 @@
                     Content="COLORATION"
                     DockPanel.Dock="Bottom"
                     FontWeight="SemiBold"
-                    FontSize="12"/>
+                    FontSize="12"
+                    />
             </DockPanel>
         </Border>
         <Border Style="{StaticResource BorderContainer}" Margin="0, 4, 0, 8">
@@ -73,7 +71,6 @@
                 <TabControl
                     Background="{StaticResource DarkColor}"
                     DockPanel.Dock="Top"
-                    Focusable="False"
                     Style="{StaticResource TabControlBase}">
                     <TabItem
                         Height="25"

@@ -45,8 +45,22 @@ namespace CMiX.ViewModels
             ClearUnselectedCommand = new RelayCommand(p => ClearUnselected());
             ClearAllCommand = new RelayCommand(p => ClearAll());
             DeleteItemCommand = new RelayCommand(p => DeleteItem(p));
+            MouseDownCommand = new RelayCommand(p => MouseDown());
+            MouseUpCommand = new RelayCommand(p => MouseUp());
             FilePaths = new ObservableCollection<FileNameItem>();
             FilePaths.CollectionChanged += ContentCollectionChanged;
+        }
+
+        private void MouseDown()
+        {
+            if (!Mementor.IsInBatch) 
+                Mementor.BeginBatch();
+        }
+
+        private void MouseUp()
+        {
+            if (Mementor.IsInBatch) 
+               Mementor.EndBatch();
         }
         #endregion
 
@@ -61,35 +75,54 @@ namespace CMiX.ViewModels
         public ICommand ClearUnselectedCommand { get; }
         public ICommand ClearAllCommand { get; }
         public ICommand DeleteItemCommand { get; }
+        public ICommand MouseDownCommand { get; }
+        public ICommand MouseUpCommand { get; }
+
         #endregion
 
         #region METHODS
+
         private void ClearAll()
         {
+            Mementor.PropertyChange(this, "FilePaths");
             FilePaths.Clear();
         }
 
         private void ClearUnselected()
         {
-            for (int i = FilePaths.Count - 1; i >= 0; i--)
+            Mementor.Batch(() =>
             {
-                if (!FilePaths[i].FileIsSelected)
-                    FilePaths.Remove(FilePaths[i]);
-            }
+                for (int i = FilePaths.Count - 1; i >= 0; i--)
+                {
+                    if (!FilePaths[i].FileIsSelected)
+                    {
+                        Mementor.ElementRemove(FilePaths, FilePaths[i]);
+                        FilePaths.Remove(FilePaths[i]);
+                    }
+
+                }
+            });
         }
 
         private void ClearSelected()
         {
-            for (int i = FilePaths.Count - 1; i >= 0; i--)
+            Mementor.Batch(() =>
             {
-                if (FilePaths[i].FileIsSelected)
-                    FilePaths.Remove(FilePaths[i]);
-            }
+                for (int i = FilePaths.Count - 1; i >= 0; i--)
+                {
+                    if (FilePaths[i].FileIsSelected)
+                    {
+                        Mementor.ElementRemove(FilePaths, FilePaths[i]);
+                        FilePaths.Remove(FilePaths[i]);
+                    }
+                }
+            });
         }
 
         private void DeleteItem(object filenameitem)
         {
             FileNameItem fni = filenameitem as FileNameItem;
+            Mementor.ElementRemove(FilePaths, fni);
             FilePaths.Remove(fni);
         }
         #endregion
@@ -109,26 +142,26 @@ namespace CMiX.ViewModels
         public void Drop(IDropInfo dropInfo)
         {
             var dataObject = dropInfo.Data as DataObject;
+
             if (dataObject != null && dataObject.ContainsFileDropList())
             {
                 var filedrop = dataObject.GetFileDropList();
-
-                Mementor.BeginBatch();
-                foreach (string str in filedrop)
-                {
-                    foreach (string fm in FileMask)
+                Mementor.Batch(() => {
+                    foreach (string str in filedrop)
                     {
-                        if (System.IO.Path.GetExtension(str).ToUpperInvariant() == fm)
+                        foreach (string fm in FileMask)
                         {
-                            FileNameItem lbfn = new FileNameItem();
-                            lbfn.FileName = str;
-                            lbfn.FileIsSelected = false;
-                            FilePaths.Add(lbfn);
-                            Mementor.ElementAdd(FilePaths, lbfn);
+                            if (System.IO.Path.GetExtension(str).ToUpperInvariant() == fm)
+                            {
+                                FileNameItem lbfn = new FileNameItem(Mementor);
+                                lbfn.FileName = str;
+                                lbfn.FileIsSelected = false;
+                                FilePaths.Add(lbfn);
+                                Mementor.ElementAdd(FilePaths, lbfn);
+                            }
                         }
                     }
-                }
-                Mementor.EndBatch();
+                });
             }
         }
         #endregion
@@ -149,21 +182,24 @@ namespace CMiX.ViewModels
 
         public void Paste(FileSelectorDTO fileselectordto)
         {
-            DisabledMessages();
 
             if(fileselectordto.FilePaths != null) // NOT SURE THIS IS USEFULL ...
             {
-                FilePaths.Clear();
-                foreach (var item in fileselectordto.FilePaths)
+                DisabledMessages();
+                Mementor.Batch(() =>
                 {
-                    var filenameitem = new FileNameItem();
-                    filenameitem.FileIsSelected = item.FileIsSelected;
-                    filenameitem.FileName = item.FileName;
-                    FilePaths.Add(filenameitem);
-                }
+                    FilePaths.Clear();
+                    foreach (var item in fileselectordto.FilePaths)
+                    {
+                        var filenameitem = new FileNameItem(Mementor);
+                        filenameitem.FileIsSelected = item.FileIsSelected;
+                        filenameitem.FileName = item.FileName;
+                        Mementor.ElementAdd(FilePaths, filenameitem);
+                        FilePaths.Add(filenameitem);
+                    }
+                });
+                EnabledMessages();
             }
-
-            EnabledMessages();
         }
         #endregion
 
@@ -174,7 +210,6 @@ namespace CMiX.ViewModels
             {
                 foreach (FileNameItem item in e.OldItems)
                 {
-                    //Removed items
                     item.PropertyChanged -= EntityViewModelPropertyChanged;
                 }
             }
@@ -182,7 +217,6 @@ namespace CMiX.ViewModels
             {
                 foreach (FileNameItem item in e.NewItems)
                 {
-                    //Added items
                     item.PropertyChanged += EntityViewModelPropertyChanged;
                 }
             }

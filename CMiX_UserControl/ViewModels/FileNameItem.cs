@@ -1,12 +1,14 @@
 ﻿using System;
+using Memento;
 
 namespace CMiX.ViewModels 
 {
     public class FileNameItem : ViewModel
     {
-        public FileNameItem()
+        public FileNameItem(Mementor mementor)
         {
             MessageAddress = string.Empty;
+            Mementor = mementor;
         }
 
         private string _filename;
@@ -20,7 +22,11 @@ namespace CMiX.ViewModels
         public bool FileIsSelected
         {
             get => _fileisselected;
-            set => SetAndNotify(ref _fileisselected, value);
+            set
+            {
+                Mementor.PropertyChange(this, "FileIsSelected");
+                SetAndNotify(ref _fileisselected, value);
+            }
         }
     }
 }

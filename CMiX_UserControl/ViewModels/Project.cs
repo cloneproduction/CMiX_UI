@@ -10,6 +10,7 @@ namespace CMiX.ViewModels
     {
         public Project() : base(new ObservableCollection<Services.OSCMessenger>())
         {
+            AddCompositionCommand = new RelayCommand(p => AddComposition());
             AddTabCommand = new RelayCommand(p => AddComposition());
             DeleteCompositionCommand = new RelayCommand(p => DeleteComposition(p));
             DuplicateCompositionCommand = new RelayCommand(p => DuplicateComposition(p));
@@ -17,10 +18,11 @@ namespace CMiX.ViewModels
         }
 
         #region PROPERTIES
-        public ICommand AddTabCommand { get; }
+        public ICommand AddCompositionCommand { get; }
         public ICommand DeleteCompositionCommand { get; }
         public ICommand DuplicateCompositionCommand { get; }
-        
+        public ICommand AddTabCommand { get; }
+
         public ObservableCollection<Composition> Compositions { get; set; }
         #endregion
 

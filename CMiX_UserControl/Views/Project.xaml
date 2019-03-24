@@ -12,6 +12,13 @@
     <UserControl.DataContext>
         <ViewModels:Project/>
     </UserControl.DataContext>
+    <UserControl.InputBindings>
+        <KeyBinding 
+            Modifiers="Control"
+            Key="T"
+            Command="{Binding AddCompositionCommand}" 
+            />
+    </UserControl.InputBindings>
     <UserControl.Resources>
         <ResourceDictionary>
             <Resources:BindingProxy x:Key="proxy" Data="{Binding}"/>

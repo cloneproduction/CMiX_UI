@@ -6,6 +6,7 @@
              xmlns:CMiX="clr-namespace:CMiX"
              xmlns:Views="clr-namespace:CMiX.Views"
              xmlns:dd="urn:gong-wpf-dragdrop"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -57,19 +58,19 @@
             </Menu>
         </DockPanel>
         <ListBox
-                VerticalAlignment="Stretch"
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Stretch"
-                VerticalContentAlignment="Stretch"
-                ScrollViewer.VerticalScrollBarVisibility="Auto"
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                ItemsSource="{Binding FilePaths}"
-                AllowDrop="True"
-                dd:DragDrop.IsDragSource="true"
-                dd:DragDrop.IsDropTarget="True"
-                dd:DragDrop.DropHandler="{Binding}"
-                SelectionMode="{Binding SelectionMode}"
-                Style="{DynamicResource ListBoxBase}">
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
+            ScrollViewer.VerticalScrollBarVisibility="Auto"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            ItemsSource="{Binding FilePaths}"
+            AllowDrop="True"
+            dd:DragDrop.IsDragSource="true"
+            dd:DragDrop.IsDropTarget="True"
+            dd:DragDrop.DropHandler="{Binding}"
+            SelectionMode="{Binding SelectionMode}"
+            Style="{DynamicResource ListBoxBase}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Views:FileNameItem/>
@@ -94,6 +95,14 @@
                     </Style.Triggers>
                 </Style>
             </ListBox.ItemContainerStyle>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PreviewMouseDown">
+                    <i:InvokeCommandAction Command="{Binding MouseDownCommand}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="PreviewMouseUp">
+                    <i:InvokeCommandAction Command="{Binding MouseUpCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </ListBox>
     </DockPanel>
 </UserControl>
