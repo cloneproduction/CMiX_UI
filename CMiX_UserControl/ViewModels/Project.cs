@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using CMiX.Models;
 using Memento;
@@ -17,6 +18,13 @@ namespace CMiX.ViewModels
             Compositions = new ObservableCollection<Composition>();
         }
 
+        private int _selectedcomposition;
+        public int SelectedComposition
+        {
+            get { return _selectedcomposition; }
+            set { _selectedcomposition = value; }
+        }
+
         #region PROPERTIES
         public ICommand AddCompositionCommand { get; }
         public ICommand DeleteCompositionCommand { get; }
@@ -29,7 +37,7 @@ namespace CMiX.ViewModels
         #region ADD/DELETE/DUPLICATE COMPOSITION
         private void AddComposition()
         {
-            Composition comp = new Composition(Mementor = new Mementor());
+            Composition comp = new Composition();
             Compositions.Add(comp);
         }
 
@@ -45,7 +53,7 @@ namespace CMiX.ViewModels
             Composition comp = compo as Composition;
             CompositionDTO compDTO = new CompositionDTO();
             comp.Copy(compDTO);
-            Composition newcomp = new Composition(new Mementor());
+            Composition newcomp = new Composition();
             newcomp.Paste(compDTO);
             Compositions.Add(newcomp);
         }

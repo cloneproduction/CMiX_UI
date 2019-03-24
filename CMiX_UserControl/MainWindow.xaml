@@ -10,5 +10,8 @@
     Height="800"
     Background="#FF323232"
     mc:Ignorable="d">
-    <Views:Project Background="Black"/>
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Undo" Executed="UndoCommand_Executed" CanExecute="UndoCommand_CanExecute" />
+    </Window.CommandBindings>
+    <Views:Project x:Name="ProjectView" Background="Black"/>
 </Window>

@@ -7,6 +7,7 @@
              xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
              xmlns:Resources="clr-namespace:CMiX.Resources"
              xmlns:dd="urn:gong-wpf-dragdrop"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d"
              d:DesignHeight="706" d:DesignWidth="1042.667">
     <UserControl.DataContext>
@@ -93,6 +94,7 @@
             dd:DragDrop.IsDropTarget="True"
             Style="{StaticResource TabControlDynamic}"
             ItemsSource="{Binding Compositions}"
+            SelectedIndex="{Binding SelectedComposition}"
             ItemContainerStyle="{StaticResource TabItemDynamic}">
             <TabControl.ItemTemplate>
                 <DataTemplate>

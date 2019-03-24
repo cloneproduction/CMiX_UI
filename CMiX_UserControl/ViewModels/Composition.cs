@@ -15,10 +15,10 @@ namespace CMiX.ViewModels
     public class Composition : ViewModel
     {
         #region CONSTRUCTORS
-        public Composition(Mementor mementor)
+        public Composition()
             : base(new ObservableCollection<OSCMessenger>())
         {
-            Mementor = mementor;
+            Mementor = new Mementor();
             Name = string.Empty;
 
             Messengers = new ObservableCollection<OSCMessenger>();
@@ -39,8 +39,6 @@ namespace CMiX.ViewModels
             PasteLayerCommand = new RelayCommand(p => PasteLayer());
             SaveCompositionCommand = new RelayCommand(p => Save());
             OpenCompositionCommand = new RelayCommand(p => Open());
-            UndoCommand = new RelayCommand(p => Undo());
-            RedoCommand = new RelayCommand(p => Redo());
             AddOSCCommand = new RelayCommand(p => AddOSC());
             RemoveSelectedOSCCommand = new RelayCommand(p => RemoveSelectedOSC());
             DeleteOSCCommand = new RelayCommand(p => DeleteOSC(p));
@@ -75,8 +73,6 @@ namespace CMiX.ViewModels
         public ICommand PasteLayerCommand { get; }
         public ICommand SaveCompositionCommand { get; }
         public ICommand OpenCompositionCommand { get; }
-        public ICommand UndoCommand { get; }
-        public ICommand RedoCommand { get; }
         public ICommand DeleteLayerCommand { get; }
         public ICommand DuplicateLayerCommand { get; }
         public ICommand AddOSCCommand { get; set; }
@@ -104,7 +100,6 @@ namespace CMiX.ViewModels
         }
 
         private bool enabled;
-
         public bool Enabled
         {
             get { return enabled; }
@@ -119,6 +114,7 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _selectedlayer, value);
         }
         #endregion
+
 
         #region COPY/PASTE LAYER
         private void CopyLayer()
@@ -424,20 +420,6 @@ namespace CMiX.ViewModels
             QueueMessages("/LayerNames", this.LayerNames.ToArray());
             QueueMessages("/LayerIndex", layerindex.ToArray());
             SendQueues();
-        }
-        #endregion
-
-        #region UNDO/REDO
-        void Undo()
-        {
-            if (Mementor.CanUndo)
-                Mementor.Undo();
-        }
-
-        void Redo()
-        {
-            if (Mementor.CanRedo)
-                Mementor.Redo();
         }
         #endregion
     }

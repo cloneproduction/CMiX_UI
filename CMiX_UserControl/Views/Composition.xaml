@@ -5,14 +5,18 @@
     xmlns:CMiX="clr-namespace:CMiX"
     xmlns:Resources="clr-namespace:CMiX.Resources"
     xmlns:Views="clr-namespace:CMiX.Views"
-    xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:dd="urn:gong-wpf-dragdrop"
+     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     d:DesignHeight="880.666"
     d:DesignWidth="1358.5"
     mc:Ignorable="d">
-
+    <!--<i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCompositionCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>-->
     <UserControl.Resources>
         <ResourceDictionary>
             <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
@@ -32,16 +36,6 @@
             />
         <KeyBinding 
             Modifiers="Control"
-            Key="Y" 
-            Command="{Binding RedoCommand}" 
-            />
-        <KeyBinding 
-            Modifiers="Control"
-            Key="Z" 
-            Command="{Binding UndoCommand}" 
-            />
-        <KeyBinding 
-            Modifiers="Control"
             Key="N" 
             Command="{Binding AddLayerCommand}" 
             />
@@ -50,7 +44,6 @@
         x:Name="CMiX_UserControl"
         Background="#FF141414"
         LastChildFill="True">
-
         <Border
             Grid.Row="2"
             Height="25"
