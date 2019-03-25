@@ -233,8 +233,9 @@
                 </TabControl>
             </Border>
             
-            <Grid DockPanel.Dock="Bottom">
-                <Border
+
+            <Border
+                    DockPanel.Dock="Bottom"
                     BorderBrush="{StaticResource DarkerColor}"
                     CornerRadius="0, 2, 2, 0"
                     BorderThickness="0, 1, 1, 1"
@@ -262,24 +263,22 @@
                         </TabControl>
                     </Grid>
                 </Border>
-            </Grid>
+
             <Border
                 Grid.Column="1"
                 Margin="4">
-                <Grid>
-                    <ItemsControl ItemsSource="{Binding Layers}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="{x:Type Views:LayerControls}">
-                                <Views:LayerControls Visibility="{Binding Enabled, Converter={StaticResource BoolToVisibility}}"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <Grid/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                    </ItemsControl>
-                </Grid>
+                <ItemsControl ItemsSource="{Binding Layers}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type Views:LayerControls}">
+                            <Views:LayerControls Visibility="{Binding Enabled, Converter={StaticResource BoolToVisibility}}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Grid/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
             </Border>
         </DockPanel>
     </DockPanel>

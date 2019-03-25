@@ -1,6 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:CMiX.Themes">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Brushes.xaml" />
+    </ResourceDictionary.MergedDictionaries>
     
     <Style x:Key="BaseTextBoxStyle" TargetType="{x:Type TextBoxBase}">
         <Setter Property="FocusVisualStyle">
@@ -21,8 +24,8 @@
                 </Style>
             </Setter.Value>
         </Setter>
-        <Setter Property="Foreground" Value="{DynamicResource TextBase}" />
-        <Setter Property="Background" Value="{DynamicResource DarkColor}" />
+        <Setter Property="Foreground" Value="{StaticResource TextBase}" />
+        <Setter Property="Background" Value="{StaticResource DarkColor}" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="Padding" Value="6,2" />
@@ -34,7 +37,7 @@
                     <Border
                         x:Name="border"
                         Margin="1"
-                        Background="{DynamicResource DarkerColor}"
+                        Background="{StaticResource DarkerColor}"
                         BorderBrush="Black"
                         BorderThickness="1"
                         SnapsToDevicePixels="True">
@@ -46,19 +49,19 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="True">
-                            <Setter Property="TextElement.Foreground" Value="{DynamicResource TextBase}" />
+                            <Setter Property="TextElement.Foreground" Value="{StaticResource TextBase}" />
                             <Setter Property="TextElement.FontSize" Value="5" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="border" Property="Opacity" Value="0.56" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource DarkColor}" />
-                            <Setter Property="TextElement.Foreground" Value="{DynamicResource OverText}" />
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource DarkColor}" />
+                            <Setter Property="TextElement.Foreground" Value="{StaticResource OverText}" />
                         </Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="True">
-                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource LightColor}" />
-                            <Setter Property="TextElement.Foreground" Value="{DynamicResource TextBase}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource LightColor}" />
+                            <Setter Property="TextElement.Foreground" Value="{StaticResource TextBase}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

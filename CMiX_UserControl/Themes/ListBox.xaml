@@ -1,13 +1,16 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Brushes.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    
     <Style x:Key="ListBoxBase" TargetType="{x:Type ListBox}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate  TargetType="{x:Type ListBox}">
                     <Border
                         x:Name="Bd"
-                        Background="{DynamicResource HighDarkerColor}"
+                        Background="{StaticResource HighDarkerColor}"
                         SnapsToDevicePixels="True">
                         <ScrollViewer Padding="{TemplateBinding Padding}" Focusable="False">
                             <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
@@ -61,7 +64,7 @@
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         SnapsToDevicePixels="True"
-                        TextBlock.Foreground="{DynamicResource TextBase}">
+                        TextBlock.Foreground="{StaticResource TextBase}">
                         <ContentPresenter
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -76,16 +79,16 @@
                                 <Condition Property="Selector.IsSelectionActive" Value="False" />
                                 <Condition Property="IsSelected" Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="Bd" Property="TextBlock.Foreground" Value="{DynamicResource TextBase}" />
-                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightColor}" />
+                            <Setter TargetName="Bd" Property="TextBlock.Foreground" Value="{StaticResource TextBase}" />
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource LightColor}" />
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="Selector.IsSelectionActive" Value="True" />
                                 <Condition Property="IsSelected" Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="Bd" Property="TextBlock.Foreground" Value="{DynamicResource TextBase}" />
-                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightColor}" />
+                            <Setter TargetName="Bd" Property="TextBlock.Foreground" Value="{StaticResource TextBase}" />
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource LightColor}" />
                         </MultiTrigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="Bd" Property="TextElement.Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
@@ -102,7 +105,7 @@
                 <ControlTemplate  TargetType="{x:Type ListBox}">
                     <Border
                         x:Name="Bd"
-                        Background="{DynamicResource HighDarkerColor}"
+                        Background="{StaticResource HighDarkerColor}"
                         SnapsToDevicePixels="True">
                         <ScrollViewer Padding="{TemplateBinding Padding}" Focusable="False">
                             <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
@@ -152,7 +155,7 @@
                     <Border
                         x:Name="Bd"
                         SnapsToDevicePixels="True"
-                        TextBlock.Foreground="{DynamicResource TextBase}">
+                        TextBlock.Foreground="{StaticResource TextBase}">
                         <ContentPresenter
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -162,22 +165,6 @@
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                     </Border>
                     <ControlTemplate.Triggers>
-                        <MultiTrigger>
-                            <!--<MultiTrigger.Conditions>
-                                <Condition Property="Selector.IsSelectionActive" Value="False" />
-                                <Condition Property="IsSelected" Value="True" />
-                            </MultiTrigger.Conditions>
-                            <Setter TargetName="Bd" Property="TextBlock.Foreground" Value="{DynamicResource TextBase}" />
-                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightColor}" />-->
-                        </MultiTrigger>
-                        <MultiTrigger>
-                            <!--<MultiTrigger.Conditions>
-                                <Condition Property="Selector.IsSelectionActive" Value="True" />
-                                <Condition Property="IsSelected" Value="True" />
-                            </MultiTrigger.Conditions>
-                            <Setter TargetName="Bd" Property="TextBlock.Foreground" Value="{DynamicResource TextBase}" />
-                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightColor}" />-->
-                        </MultiTrigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="Bd" Property="TextElement.Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
                         </Trigger>

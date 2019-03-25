@@ -1,9 +1,12 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:CMiX">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Brushes.xaml" />
+    </ResourceDictionary.MergedDictionaries>
 
-    <!--<Style x:Key="FocusVisual">
+    <Style x:Key="FocusVisual">
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate>
@@ -11,7 +14,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>-->
+    </Style>
 
     <Style x:Key="OptionMarkFocusVisual">
         <Setter Property="Control.Template">
@@ -30,9 +33,9 @@
 
     <Style x:Key="RadioButtonBase" TargetType="{x:Type RadioButton}">
         <!--<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>-->
-        <Setter Property="Background" Value="{DynamicResource Color}" />
+        <Setter Property="Background" Value="{StaticResource Color}" />
         <Setter Property="BorderBrush" Value="Red" />
-        <Setter Property="Foreground" Value="{DynamicResource TextBase}" />
+        <Setter Property="Foreground" Value="{StaticResource TextBase}" />
         <Setter Property="BorderThickness" Value="2" />
         <Setter Property="Template">
             <Setter.Value>
@@ -51,7 +54,7 @@
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
                             <!--<Setter Property="Background" TargetName="radioButtonBorder" Value="{DynamicResource OverColor}"/>-->
-                            <Setter Property="Foreground" Value="{DynamicResource TextBase}" />
+                            <Setter Property="Foreground" Value="{StaticResource TextBase}" />
                         </Trigger>
                         <!--<Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Background" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Disabled.Background}"/>
@@ -64,11 +67,11 @@
                             <Setter Property="Background" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Pressed.Glyph}"/>
                         </Trigger>-->
                         <Trigger Property="IsChecked" Value="true">
-                            <Setter TargetName="radioButtonBorder" Property="Background" Value="{DynamicResource HighDarkerColor}" />
+                            <Setter TargetName="radioButtonBorder" Property="Background" Value="{StaticResource HighDarkerColor}" />
                             <Setter Property="Padding" Value="2"/>
                             <Setter Property="BorderThickness" TargetName="radioButtonBorder" Value="2, 0, 0, 0"/>
-                            <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{DynamicResource ActiveColor}"/>
-                            <Setter Property="Foreground" Value="{DynamicResource TextBase}"/>
+                            <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{StaticResource ActiveColor}"/>
+                            <Setter Property="Foreground" Value="{StaticResource TextBase}"/>
                         </Trigger>
                         <Trigger Property="IsChecked" Value="{x:Null}">
                             <Setter TargetName="radioButtonBorder" Property="Opacity" Value="0.56" />
@@ -81,9 +84,9 @@
 
     <Style x:Key="RadioButtonLayer" TargetType="{x:Type RadioButton}">
         <!--<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>-->
-        <Setter Property="Background" Value="{DynamicResource Color}" />
+        <Setter Property="Background" Value="{StaticResource Color}" />
         <Setter Property="BorderBrush" Value="Red" />
-        <Setter Property="Foreground" Value="{DynamicResource TextBase}" />
+        <Setter Property="Foreground" Value="{StaticResource TextBase}" />
         <Setter Property="BorderThickness" Value="2" />
         <Setter Property="Template">
             <Setter.Value>

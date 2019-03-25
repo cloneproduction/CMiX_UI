@@ -12,9 +12,9 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
+                <!--<ResourceDictionary Source="/CMiX_UserControl;component/Resources/Brushes/GenericBrushes.xaml" />
                 <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseLabelStyle.xaml" />
-                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseRangeSlider.xaml" />
+                <ResourceDictionary Source="/CMiX_UserControl;component/Resources/Styles/BaseRangeSlider.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
             <CMiX:RangeValueToStringConverter x:Key="RangeValueToString" />
             <CMiX:IntToNormalizedDoubleConverter x:Key="IntToNormalizedDoubleConverter" />
@@ -29,7 +29,7 @@
             RangeStartSelected="{Binding RangeMin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:CMiXRangeSlider}}, Converter={StaticResource IntToNormalizedDoubleConverter}}"
             RangeStop="100"
             RangeStopSelected="{Binding RangeMax, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type CMiX:CMiXRangeSlider}}, Converter={StaticResource IntToNormalizedDoubleConverter}}"
-            Style="{StaticResource BaseRangeSlider}" />
+/>
         <DockPanel>
             <Label
                 x:Name="RangeStopValue"
@@ -40,7 +40,6 @@
                 Background="Transparent"
                 Content="{Binding RangeStopSelected, Mode=OneWay, ElementName=RangeSliderUserControl, Converter={StaticResource RangeValueToString}}"
                 DockPanel.Dock="Right"
-                Foreground="{DynamicResource BaseText}"
                 IsHitTestVisible="False" />
             <Label
                 x:Name="RangeStartValue"
@@ -52,7 +51,6 @@
                 Content="{Binding RangeStartSelected, Mode=OneWay, ElementName=RangeSliderUserControl, Converter={StaticResource RangeValueToString}}"
                 ContentStringFormat="{}{0:N2}"
                 DockPanel.Dock="Left"
-                Foreground="{DynamicResource BaseText}"
                 IsHitTestVisible="False" />
         </DockPanel>
     </Grid>

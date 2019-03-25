@@ -15,6 +15,7 @@ namespace CMiX.ViewModels
             AddTabCommand = new RelayCommand(p => AddComposition());
             DeleteCompositionCommand = new RelayCommand(p => DeleteComposition(p));
             DuplicateCompositionCommand = new RelayCommand(p => DuplicateComposition(p));
+
             Compositions = new ObservableCollection<Composition>();
         }
 

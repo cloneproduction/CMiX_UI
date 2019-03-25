@@ -26,12 +26,9 @@
         DockPanel.Dock="Bottom"
         Background="{StaticResource DarkerColor}"
         Style="{StaticResource BorderContainer}">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.15*"/>
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
+        <DockPanel>
             <RadioButton
+                Width="50"
                 Margin="0,0,2,0"
                 AllowDrop="True"
                 GroupName="SelectLayer"
@@ -76,6 +73,6 @@
                     Caption="Alpha"
                     />
             </StackPanel>
-        </Grid>
+        </DockPanel>
     </Border>
 </UserControl>
