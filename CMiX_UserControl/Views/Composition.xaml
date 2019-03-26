@@ -266,8 +266,7 @@
                 </Grid>
             </Border>
             <Border Grid.Column="1" Margin="4">
-                <Views:LayerControls DataContext="{Binding SelectedLayer}" Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}"
-/>
+                <Views:LayerControls DataContext="{Binding SelectedLayer}" Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}"/>
             </Border>
         </DockPanel>
     </DockPanel>
