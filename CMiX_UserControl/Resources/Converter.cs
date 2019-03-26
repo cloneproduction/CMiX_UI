@@ -338,4 +338,36 @@ namespace CMiX
             return value.Equals(true) ? parameter : Binding.DoNothing;
         }
     }
+
+    public class AlwaysVisibleConverter : IValueConverter
+    {
+        #region Implementation of IValueConverter
+
+        public object Convert(object value,
+                              Type targetType, object parameter, CultureInfo culture)
+        {
+            return Visibility.Visible;
+        }
+
+        public object ConvertBack(object value, Type targetType,
+                                  object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+    }
+
+    public sealed class NullToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value == null ? Visibility.Hidden : Visibility.Visible;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

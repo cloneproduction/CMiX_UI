@@ -21,6 +21,8 @@
         <ResourceDictionary>
             <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
             <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+            <CMiX:AlwaysVisibleConverter x:Key="AlwaysVisibleConverter"/>
+            <CMiX:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
     <UserControl.InputBindings>
@@ -232,7 +234,7 @@
                     </TabItem>
                 </TabControl>
             </Border>
-            
+
 
             <Border
                     DockPanel.Dock="Bottom"
@@ -241,44 +243,31 @@
                     BorderThickness="0, 1, 1, 1"
                     Background="{StaticResource HighDarkerColor}"
                     Padding="8, 0, 8, 8">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <CMiX:MasterBeatControl
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <CMiX:MasterBeatControl
                             Margin="0, 0, 4, 0"
                             Grid.Column="0"
                             DataContext="{Binding MasterBeat}"
                             />
-                        <TabControl Grid.Column="1" Style="{StaticResource TabControlBase}">
-                            <TabItem 
+                    <TabControl Grid.Column="1" Style="{StaticResource TabControlBase}">
+                        <TabItem 
                                 Header="Camera"
                                 Style="{StaticResource TabItemBase}">
-                                <CMiX:Camera
+                            <CMiX:Camera
                                     Margin="4, 0, 0, 0"
                                     DataContext="{Binding Camera}"
                                     />
-                            </TabItem>
-                        </TabControl>
-                    </Grid>
-                </Border>
-
-            <Border
-                Grid.Column="1"
-                Margin="4">
-                <ItemsControl ItemsSource="{Binding Layers}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate DataType="{x:Type Views:LayerControls}">
-                            <Views:LayerControls Visibility="{Binding Enabled, Converter={StaticResource BoolToVisibility}}"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <Grid/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </Border>
+            <Border Grid.Column="1" Margin="4">
+                <Views:LayerControls DataContext="{Binding SelectedLayer}" Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}"
+/>
             </Border>
         </DockPanel>
     </DockPanel>

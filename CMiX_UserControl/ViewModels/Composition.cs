@@ -175,6 +175,11 @@ namespace CMiX.ViewModels
         #region ADD/REMOVE/DUPLICATE/DELETE LAYERS
         private void RemoveLayer()
         {
+            if(SelectedLayer == null)
+            {
+                Console.WriteLine("SelectedLayerIsNull");
+            }
+            Console.WriteLine(Layers.Count);
             int removeindex;
             string removedlayername = string.Empty;
             List<string> layerindex = new List<string>();
@@ -216,9 +221,16 @@ namespace CMiX.ViewModels
             Layer lyr = layer as Layer;
             layerID -= 1;
 
+            if (SelectedLayer == null)
+            {
+                Console.WriteLine("SelectedLayerIsNull");
+            }
+            Console.WriteLine(Layers.Count);
+
             Mementor.ElementRemove(Layers, lyr);
             LayerNames.Remove(lyr.LayerName);
             Layers.Remove(lyr);
+            
 
             List<string> layerindex = new List<string>();
             foreach (Layer lay in Layers)
