@@ -24,10 +24,10 @@ namespace CMiX
             Project proj = ProjectView.DataContext as Project;
             if(proj.Compositions.Count > 0)
             {
-                if (proj.Compositions[proj.SelectedComposition].Mementor.CanUndo)
+                /*if (proj.Compositions[proj.SelectedComposition].Mementor.CanUndo)
                 {
                     proj.Compositions[proj.SelectedComposition].Mementor.Undo();
-                }
+                }*/
             }
         }
     }

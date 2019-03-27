@@ -9,10 +9,10 @@
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
-    d:DesignHeight="109.977"
-    d:DesignWidth="358.051"
+    d:DesignHeight="77.977"
+    d:DesignWidth="361.384"
     mc:Ignorable="d">
-    
+
     <UserControl.Resources>
         <CMiX:EnumToStringConverter x:Key="EnumToString"/>
         <ObjectDataProvider x:Key="BlendMode" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
@@ -32,7 +32,7 @@
                 Margin="0,0,2,0"
                 AllowDrop="True"
                 GroupName="SelectLayer"
-                IsChecked="{Binding Enabled, Mode=TwoWay}"
+                IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}},Path=IsSelected}"
                 DragOver="RadioButton_DragOver"
                 Style="{StaticResource RadioButtonLayer}">
                 <RadioButton.Background>

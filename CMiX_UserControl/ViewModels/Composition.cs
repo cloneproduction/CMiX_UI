@@ -280,8 +280,7 @@ namespace CMiX.ViewModels
             SendQueues();
         }
 
-
-        private void AddLayer()
+        public void AddLayer()
         {
             layerID += 1;
             layerNameID += 1;
@@ -290,7 +289,7 @@ namespace CMiX.ViewModels
             layer.Index = layerID;
 
             Layers.Add(layer);
-
+            SelectedLayer = layer;
             this.LayerNames.Add("/Layer" + layerNameID.ToString());
 
             List<string> layerindex = new List<string>();
@@ -305,8 +304,7 @@ namespace CMiX.ViewModels
             QueueObjects(layer);
             SendQueues();
         }
-
-
+ 
         #endregion
 
         #region COPY/PASTE/LOAD/SAVE/OPEN COMPOSITIONS

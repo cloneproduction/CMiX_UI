@@ -36,11 +36,6 @@
             Key="C"
             Command="{Binding CopyLayerCommand}" 
             />
-        <KeyBinding 
-            Modifiers="Control"
-            Key="N" 
-            Command="{Binding AddLayerCommand}" 
-            />
     </UserControl.InputBindings>
     <DockPanel
         x:Name="CMiX_UserControl"
@@ -111,7 +106,6 @@
                                     </Button>
                                 </StackPanel>
                             </Border>
-
                             <ListBox 
                                 Margin="0, 8, 0, 0"
                                 HorizontalContentAlignment="Stretch" 

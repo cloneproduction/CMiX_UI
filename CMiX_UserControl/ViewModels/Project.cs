@@ -15,12 +15,12 @@ namespace CMiX.ViewModels
             AddTabCommand = new RelayCommand(p => AddComposition());
             DeleteCompositionCommand = new RelayCommand(p => DeleteComposition(p));
             DuplicateCompositionCommand = new RelayCommand(p => DuplicateComposition(p));
-
+            AddLayerCommand = new RelayCommand(p => AddLayer());
             Compositions = new ObservableCollection<Composition>();
         }
 
-        private int _selectedcomposition;
-        public int SelectedComposition
+        private Composition _selectedcomposition;
+        public Composition SelectedComposition
         {
             get { return _selectedcomposition; }
             set { _selectedcomposition = value; }
@@ -31,6 +31,7 @@ namespace CMiX.ViewModels
         public ICommand DeleteCompositionCommand { get; }
         public ICommand DuplicateCompositionCommand { get; }
         public ICommand AddTabCommand { get; }
+        public ICommand AddLayerCommand { get; }
 
         public ObservableCollection<Composition> Compositions { get; set; }
         #endregion
@@ -59,5 +60,11 @@ namespace CMiX.ViewModels
             Compositions.Add(newcomp);
         }
         #endregion
+
+
+        private void AddLayer()
+        {
+            SelectedComposition.AddLayer();
+        }
     }
 }

@@ -18,6 +18,11 @@
             Key="T"
             Command="{Binding AddCompositionCommand}" 
             />
+        <KeyBinding 
+            Modifiers="Control"
+            Key="N" 
+            Command="{Binding AddLayerCommand}" 
+            />
     </UserControl.InputBindings>
     <UserControl.Resources>
         <ResourceDictionary>
@@ -93,7 +98,7 @@
             dd:DragDrop.IsDropTarget="True"
             Style="{StaticResource TabControlDynamic}"
             ItemsSource="{Binding Compositions}"
-            SelectedIndex="{Binding SelectedComposition}"
+            SelectedItem="{Binding SelectedComposition}"
             ItemContainerStyle="{StaticResource TabItemDynamic}">
             <TabControl.ItemTemplate>
                 <DataTemplate>
