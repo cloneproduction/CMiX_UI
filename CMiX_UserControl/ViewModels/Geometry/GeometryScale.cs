@@ -28,9 +28,9 @@ namespace CMiX.ViewModels
             )
             : base(messengers)
         {
-            Mementor = mementor;
             MessageAddress = messageaddress;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
+            Mementor = mementor;
         }
         #endregion
 
@@ -42,7 +42,8 @@ namespace CMiX.ViewModels
             get => _ScaleMode;
             set
             {
-                Mementor.PropertyChange(this, "ScaleMode");
+                if(Mementor != null)
+                    Mementor.PropertyChange(this, "ScaleMode");
                 SetAndNotify(ref _ScaleMode, value);
                 SendMessages(MessageAddress + nameof(ScaleMode), ScaleMode);
             }

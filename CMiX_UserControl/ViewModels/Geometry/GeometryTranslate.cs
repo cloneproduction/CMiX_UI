@@ -17,8 +17,7 @@ namespace CMiX.ViewModels
                 messengers: messengers,
                 translateMode: default
             )
-        {
-        }
+        {}
 
         public GeometryTranslate
             (
@@ -29,9 +28,9 @@ namespace CMiX.ViewModels
             )
             : base (messengers)
         {
-            Mementor = mementor;
             MessageAddress = messageaddress;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
+            Mementor = mementor;
         }
         #endregion
 
@@ -43,7 +42,8 @@ namespace CMiX.ViewModels
             get => _TranslateMode;
             set
             {
-                Mementor.PropertyChange(this, "TranslateMode");
+                if(Mementor != null)
+                    Mementor.PropertyChange(this, "TranslateMode");
                 SetAndNotify(ref _TranslateMode, value);
                 SendMessages(MessageAddress + nameof(TranslateMode), TranslateMode);
             }

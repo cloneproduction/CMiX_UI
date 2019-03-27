@@ -55,7 +55,8 @@ namespace CMiX.ViewModels
 
         private void MouseDown()
         {
-            Mementor.PropertyChange(this, "Amount");
+            if(Mementor != null)
+                Mementor.PropertyChange(this, "Amount");     
         }
 
         private double _amount;

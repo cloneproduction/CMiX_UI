@@ -30,11 +30,11 @@ namespace CMiX.ViewModels
             )
             : base(messengers)
         {
-            Mementor = mementor;
             MessageAddress = messageaddress;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             Range = range ?? throw new ArgumentNullException(nameof(range));
             Modifier = modifier;
+            Mementor = mementor;
         }
         #endregion
 
@@ -48,7 +48,8 @@ namespace CMiX.ViewModels
             get => _modifier;
             set
             {
-                Mementor.PropertyChange(this, "Modifier");
+                if(Mementor != null)
+                    Mementor.PropertyChange(this, "Modifier");
                 SetAndNotify(ref _modifier, value);
                 SendMessages(MessageAddress + nameof(Modifier), Modifier);
             }

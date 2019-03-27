@@ -44,7 +44,6 @@ namespace CMiX.ViewModels
             )
             : base(messengers)
         {
-            Mementor = mementor;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             MessageAddress = messageaddress;
             ObjColor = objColor;
@@ -57,6 +56,7 @@ namespace CMiX.ViewModels
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
             MouseDownCommand = new RelayCommand(p => MouseDown());
+            Mementor = mementor;
         }
 
         private void MouseDown()
@@ -83,7 +83,6 @@ namespace CMiX.ViewModels
             get => _objColor;
             set
             {
-                
                 SetAndNotify(ref _objColor, value);
                 SendMessages(MessageAddress + nameof(ObjColor), ObjColor);
             }

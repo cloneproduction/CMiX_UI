@@ -39,7 +39,7 @@ namespace CMiX.ViewModels
             )
             : base(messengers)
         {
-            Mementor = mementor;
+            
             Rotation = rotation;
             LookAt = lookAt;
             View = view;
@@ -48,6 +48,7 @@ namespace CMiX.ViewModels
             Zoom = zoom;
             MessageAddress = messageaddress;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
+            Mementor = mementor;
         }
         #endregion
 
@@ -63,7 +64,8 @@ namespace CMiX.ViewModels
             get => _rotation;
             set
             {
-                Mementor.PropertyChange(this, "Rotation");
+                if(Mementor != null)
+                    Mementor.PropertyChange(this, "Rotation");
                 SetAndNotify(ref _rotation, value);
                 SendMessages(MessageAddress + nameof(Rotation), Rotation);
             }
@@ -76,7 +78,8 @@ namespace CMiX.ViewModels
             get => _lookAt;
             set
             {
-                Mementor.PropertyChange(this, "LookAt");
+                if (Mementor != null)
+                    Mementor.PropertyChange(this, "LookAt");
                 SetAndNotify(ref _lookAt, value);
                 SendMessages(MessageAddress + nameof(LookAt), LookAt);
             }
@@ -89,7 +92,8 @@ namespace CMiX.ViewModels
             get => _view;
             set
             {
-                Mementor.PropertyChange(this, "View");
+                if (Mementor != null)
+                    Mementor.PropertyChange(this, "View");
                 SetAndNotify(ref _view, value);
                 SendMessages(MessageAddress + nameof(View), View);
             }

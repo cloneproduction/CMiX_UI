@@ -21,14 +21,21 @@ namespace CMiX
 
         private void UndoCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            Project proj = ProjectView.DataContext as Project;
-            if(proj.Compositions.Count > 0)
-            {
-                /*if (proj.Compositions[proj.SelectedComposition].Mementor.CanUndo)
-                {
-                    proj.Compositions[proj.SelectedComposition].Mementor.Undo();
-                }*/
-            }
+            var proj = ProjectView.DataContext as Project;
+            if (proj.SelectedComposition.Mementor.CanUndo)
+                proj.SelectedComposition.Mementor.Undo();
+        }
+
+        private void RedoCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void RedoCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var proj = ProjectView.DataContext as Project;
+            if (proj.SelectedComposition.Mementor.CanRedo)
+                proj.SelectedComposition.Mementor.Redo();
         }
     }
 }

@@ -18,15 +18,11 @@ namespace CMiX.ViewModels
         public Composition()
             : base(new ObservableCollection<OSCMessenger>())
         {
-            Mementor = new Mementor();
             Name = string.Empty;
-
             Messengers = new ObservableCollection<OSCMessenger>();
-            MessageAddress = String.Empty;
-            
+            MessageAddress = String.Empty;        
             MasterBeat = new MasterBeat(Messengers, Mementor);
             Camera = new Camera(Messengers, MasterBeat, Mementor);
-
             LayerNames = new List<string>();
             Layers = new ObservableCollection<Layer>();
             Layers.CollectionChanged += ContentCollectionChanged;
@@ -42,6 +38,8 @@ namespace CMiX.ViewModels
             AddOSCCommand = new RelayCommand(p => AddOSC());
             RemoveSelectedOSCCommand = new RelayCommand(p => RemoveSelectedOSC());
             DeleteOSCCommand = new RelayCommand(p => DeleteOSC(p));
+
+            Mementor = new Mementor();
         }
 
         public Composition(string name, Camera camera, MasterBeat masterBeat, IEnumerable<Layer> layers, Mementor mementor)
@@ -52,7 +50,6 @@ namespace CMiX.ViewModels
                 throw new ArgumentNullException(nameof(layers));
             }
 
-            Mementor = mementor;
             Messengers = new ObservableCollection<OSCMessenger>();
             MessageAddress = String.Empty;
             Name = name;
@@ -60,6 +57,8 @@ namespace CMiX.ViewModels
             MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
             Layers = new ObservableCollection<Layer>(layers);
             Layers.CollectionChanged += ContentCollectionChanged;
+
+            Mementor = mementor;
         }
         #endregion
 
@@ -175,39 +174,20 @@ namespace CMiX.ViewModels
         #region ADD/REMOVE/DUPLICATE/DELETE LAYERS
         private void RemoveLayer()
         {
-            if(SelectedLayer == null)
-            {
-                Console.WriteLine("SelectedLayerIsNull");
-            }
-            Console.WriteLine(Layers.Count);
-            int removeindex;
+            layerID -= 1;
             string removedlayername = string.Empty;
             List<string> layerindex = new List<string>();
+            removedlayername = SelectedLayer.LayerName;
+            LayerNames.Remove(SelectedLayer.LayerName);
+            Layers.Remove(SelectedLayer);
 
-            for (int i = Layers.Count - 1; i >= 0; i--)
+            foreach (Layer lyr in Layers)
             {
-                if (Layers[i].Enabled)
+                if (lyr.Index > Layers.IndexOf(SelectedLayer))
                 {
-                    layerID -= 1;
-
-                    removeindex = Layers[i].Index;
-                    removedlayername = Layers[i].LayerName;
-
-                    Mementor.ElementRemove(Layers, Layers[i], removeindex);
-                    LayerNames.Remove(Layers[i].LayerName);
-                    Layers.Remove(Layers[i]);
-
-                    foreach (Layer lyr in Layers)
-                    {
-                        if (lyr.Index > removeindex)
-                        {
-                            lyr.Index -= 1;
-                        }
-                        layerindex.Add(lyr.Index.ToString());
-
-                    }
-                    break;
+                    lyr.Index -= 1;
                 }
+                layerindex.Add(lyr.Index.ToString());
             }
 
             QueueMessages("/LayerNames", this.LayerNames.ToArray());
@@ -220,12 +200,6 @@ namespace CMiX.ViewModels
         {
             Layer lyr = layer as Layer;
             layerID -= 1;
-
-            if (SelectedLayer == null)
-            {
-                Console.WriteLine("SelectedLayerIsNull");
-            }
-            Console.WriteLine(Layers.Count);
 
             Mementor.ElementRemove(Layers, lyr);
             LayerNames.Remove(lyr.LayerName);
@@ -287,18 +261,17 @@ namespace CMiX.ViewModels
 
             Layer layer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messengers, layerNameID, Mementor);
             layer.Index = layerID;
-
+            Mementor.ElementAdd(Layers, layer);
             Layers.Add(layer);
             SelectedLayer = layer;
-            this.LayerNames.Add("/Layer" + layerNameID.ToString());
+            LayerNames.Add("/Layer" + layerNameID.ToString());
 
             List<string> layerindex = new List<string>();
-            foreach (Layer lyr in this.Layers)
+            foreach (Layer lyr in Layers)
             {
                 layerindex.Add(lyr.Index.ToString());
             }
 
-            Mementor.ElementAdd(Layers, layer);
             QueueMessages("/LayerNames", this.LayerNames.ToArray());
             QueueMessages("/LayerIndex", layerindex.ToArray());
             QueueObjects(layer);

@@ -36,7 +36,6 @@ namespace CMiX.ViewModels
             )
             : base(messengers)
         {
-            Mementor = mementor;
             SelectionMode = selectionmode;
             FileMask = filemask;
             MessageAddress = messageaddress;
@@ -49,6 +48,7 @@ namespace CMiX.ViewModels
             MouseUpCommand = new RelayCommand(p => MouseUp());
             FilePaths = new ObservableCollection<FileNameItem>();
             FilePaths.CollectionChanged += ContentCollectionChanged;
+            Mementor = mementor;
         }
 
         private void MouseDown()

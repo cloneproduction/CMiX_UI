@@ -13,7 +13,6 @@ namespace CMiX.ViewModels
         public Layer(MasterBeat masterBeat, string layername, ObservableCollection<OSCMessenger> messengers, int index, Mementor mementor)
             : base (messengers)
         {
-            Mementor = mementor;
             Messengers = messengers;
             MessageAddress = String.Format("{0}/", layername); 
             Index = index;
@@ -27,7 +26,7 @@ namespace CMiX.ViewModels
             Mask = new Mask(BeatModifier, layername, messengers, mementor);
             Coloration = new Coloration(BeatModifier, layername, messengers, mementor);
             PostFX = new PostFX(layername, messengers, mementor);
-            
+            Mementor = mementor;
         }
 
         public Layer
@@ -48,7 +47,6 @@ namespace CMiX.ViewModels
             )
             : base (messengers)
         {
-            Mementor = mementor;
             LayerName = layername;
             Index = index;
             Enabled = enabled;
@@ -61,6 +59,7 @@ namespace CMiX.ViewModels
             PostFX = postfx ?? throw new ArgumentNullException(nameof(postfx));
             Messengers = messengers;
             MessageAddress = messageaddress;
+            Mementor = mementor;
         }
         #endregion
 
@@ -99,7 +98,8 @@ namespace CMiX.ViewModels
             get => _out;
             set
             {
-                Mementor.PropertyChange(this, "Out");
+                if(Mementor != null)
+                    Mementor.PropertyChange(this, "Out");
                 SetAndNotify(ref _out, value);
                 if (Out)
                     SendMessages(MessageAddress + nameof(Out), Out);
@@ -113,7 +113,8 @@ namespace CMiX.ViewModels
             get => _blendMode;
             set
             {
-                Mementor.PropertyChange(this, "BlendMode");
+                if (Mementor != null)
+                    Mementor.PropertyChange(this, "BlendMode");                  
                 SetAndNotify(ref _blendMode, value);
                 SendMessages(MessageAddress + nameof(BlendMode), BlendMode);
             }

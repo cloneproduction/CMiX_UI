@@ -41,6 +41,7 @@ namespace CMiX.ViewModels
         {
             Composition comp = new Composition();
             Compositions.Add(comp);
+            SelectedComposition = comp;
         }
 
         private void DeleteComposition(object compo)

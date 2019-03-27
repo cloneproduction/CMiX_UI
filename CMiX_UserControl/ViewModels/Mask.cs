@@ -37,8 +37,7 @@ namespace CMiX.ViewModels
                 PostFX postFX
             )
             : base (messengers)
-        {
-            Mementor = mementor;
+        {  
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             Enable = enable;
             MessageAddress = messageaddress;
@@ -49,6 +48,7 @@ namespace CMiX.ViewModels
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
+            Mementor = mementor;
         }
         #endregion
 
@@ -60,7 +60,8 @@ namespace CMiX.ViewModels
             get => _enable;
             set
             {
-                Mementor.PropertyChange(this, "Enable");
+                if(Mementor != null)
+                    Mementor.PropertyChange(this, "Enable");
                 SetAndNotify(ref _enable, value);
                 SendMessages(MessageAddress + nameof(Enable), Enable);
             }
@@ -73,7 +74,8 @@ namespace CMiX.ViewModels
             get => _keeporiginal;
             set
             {
-                Mementor.PropertyChange(this, "KeepOriginal");
+                if (Mementor != null)
+                    Mementor.PropertyChange(this, "KeepOriginal");
                 SetAndNotify(ref _keeporiginal, value);
                 SendMessages(MessageAddress + nameof(KeepOriginal), KeepOriginal);
             }

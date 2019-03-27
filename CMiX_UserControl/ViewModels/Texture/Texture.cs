@@ -55,7 +55,6 @@ namespace CMiX.ViewModels
             )
             : base (messengers)
         {
-            Mementor = mementor;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             FileSelector = fileselector;
             Brightness = brightness;
@@ -74,6 +73,7 @@ namespace CMiX.ViewModels
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
+            Mementor = mementor;
         }
         #endregion
 
@@ -102,7 +102,8 @@ namespace CMiX.ViewModels
             get => _invertMode;
             set
             {
-                Mementor.PropertyChange(this, "InvertMode");
+                if(Mementor != null)
+                    Mementor.PropertyChange(this, "InvertMode");
                 SetAndNotify(ref _invertMode, value);
                 SendMessages(MessageAddress + nameof(InvertMode), InvertMode);
             }

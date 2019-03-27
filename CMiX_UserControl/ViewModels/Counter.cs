@@ -29,12 +29,12 @@ namespace CMiX.ViewModels
             )
             : base (messengers)
         {
-            Mementor = mementor;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             MessageAddress = messageaddress;
             Count = count;
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
+            Mementor = mementor;
         }
         #endregion
 
@@ -49,7 +49,8 @@ namespace CMiX.ViewModels
             get { return _count; }
             set
             {
-                Mementor.PropertyChange(this, "Count");
+                if(Mementor != null)
+                    Mementor.PropertyChange(this, "Count");
                 SetAndNotify(ref _count, value);
                 SendMessages(MessageAddress + nameof(Count), Count);
             }

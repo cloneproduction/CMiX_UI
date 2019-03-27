@@ -34,12 +34,12 @@ namespace CMiX.ViewModels
             )
             : base(messengers)
         {
-            Mementor = mementor;
             MessageAddress = messageaddress;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             RotationX = rotationX;
             RotationY = rotationY;
             RotationZ = rotationZ;
+            Mementor = mementor;
         }
         #endregion
 
@@ -51,7 +51,8 @@ namespace CMiX.ViewModels
             get => _RotationMode;
             set
             {
-                Mementor.PropertyChange(this, "RotationMode");
+                if (Mementor != null)
+                    Mementor.PropertyChange(this, "RotationMode");
                 SetAndNotify(ref _RotationMode, value);
                 SendMessages(MessageAddress + nameof(RotationMode), RotationMode);
             }
@@ -64,7 +65,8 @@ namespace CMiX.ViewModels
             get => _RotationX;
             set
             {
-                Mementor.PropertyChange(this, "RotationX");
+                if (Mementor != null)
+                    Mementor.PropertyChange(this, "RotationX");
                 SetAndNotify(ref _RotationX, value);
                 SendMessages(MessageAddress + nameof(RotationX), RotationX);
             }
@@ -77,7 +79,8 @@ namespace CMiX.ViewModels
             get => _RotationY;
             set
             {
-                Mementor.PropertyChange(this, "RotationY");
+                if (Mementor != null)
+                    Mementor.PropertyChange(this, "RotationY");
                 SetAndNotify(ref _RotationY, value);
                 SendMessages(MessageAddress + nameof(RotationY), RotationY);
             }
@@ -90,7 +93,8 @@ namespace CMiX.ViewModels
             get => _RotationZ;
             set
             {
-                Mementor.PropertyChange(this, "RotationZ");
+                if (Mementor != null)
+                    Mementor.PropertyChange(this, "RotationZ");
                 SetAndNotify(ref _RotationZ, value);
                 SendMessages(MessageAddress + nameof(RotationZ), RotationZ);
             }

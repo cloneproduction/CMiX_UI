@@ -39,7 +39,6 @@ namespace CMiX.ViewModels
             )
             : base(messengers)
         {
-            Mementor = mementor;
             Enable = enable;
             MessageAddress = messageaddress;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
@@ -50,6 +49,7 @@ namespace CMiX.ViewModels
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
+            Mementor = mementor;
         }
         #endregion
 

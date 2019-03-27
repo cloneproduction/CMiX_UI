@@ -51,7 +51,6 @@ namespace CMiX.ViewModels
             )
             : base (messengers)
         {
-            Mementor = mementor;
             FileSelector = fileselector ?? throw new ArgumentNullException(nameof(FileSelector));
             TranslateMode = translatemode ?? throw new ArgumentNullException(nameof(TranslateMode));
             RotationMode = rotationmode ?? throw new ArgumentNullException(nameof(RotationMode));
@@ -68,6 +67,7 @@ namespace CMiX.ViewModels
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
+            Mementor = mementor;
         }
         #endregion
 
@@ -93,7 +93,8 @@ namespace CMiX.ViewModels
             get => _is3D;
             set
             {
-                Mementor.PropertyChange(this, "Is3D");
+                if(Mementor != null)
+                    Mementor.PropertyChange(this, "Is3D");
                 SetAndNotify(ref _is3D, value);
                 SendMessages(MessageAddress + nameof(Is3D), Is3D.ToString());
             }
@@ -106,7 +107,8 @@ namespace CMiX.ViewModels
             get => _keepAspectRatio;
             set
             {
-                Mementor.PropertyChange(this, "KeepAspectRatio");
+                if (Mementor != null)
+                    Mementor.PropertyChange(this, "KeepAspectRatio");
                 SetAndNotify(ref _keepAspectRatio, value);
                 SendMessages(MessageAddress + nameof(KeepAspectRatio), KeepAspectRatio.ToString());
             }

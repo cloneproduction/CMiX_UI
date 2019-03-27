@@ -33,7 +33,6 @@ namespace CMiX.ViewModels
             )
             : base(messengers)
         {
-            Mementor = mementor;
             MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
             Multiplier = multiplier;
             ChanceToHit = chanceToHit;
@@ -47,6 +46,7 @@ namespace CMiX.ViewModels
 
             Messengers = messengers ?? throw new ArgumentNullException(nameof(Messengers));
             MessageAddress = messageaddress;
+            Mementor = mementor;
         }
         #endregion
 
@@ -66,12 +66,13 @@ namespace CMiX.ViewModels
             get => base.Multiplier;
             set
             {
+                if (Mementor != null)
+                    Mementor.PropertyChange(this, "Multiplier");                   
                 base.Multiplier = value;
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
                 SendMessages(MessageAddress + nameof(Multiplier), Multiplier);
-                Mementor.PropertyChange(this, "Multiplier");
             }
         }
         #endregion

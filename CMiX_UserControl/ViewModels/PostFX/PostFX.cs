@@ -36,7 +36,6 @@ namespace CMiX.ViewModels
             )
             : base (messengers)
         {
-            Mementor = mementor;
             MessageAddress = messageaddress;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             Feedback = feedback;
@@ -46,6 +45,7 @@ namespace CMiX.ViewModels
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
+            Mementor = mementor;
         }
         #endregion
 
@@ -64,7 +64,8 @@ namespace CMiX.ViewModels
             get => _transforms;
             set
             {
-                Mementor.PropertyChange(this, "Transforms");
+                if(Mementor != null)
+                    Mementor.PropertyChange(this, "Transforms");
                 SetAndNotify(ref _transforms, value);
                 SendMessages(MessageAddress + nameof(Transforms), Transforms);
             }
@@ -77,7 +78,8 @@ namespace CMiX.ViewModels
             get => _view;
             set
             {
-                Mementor.PropertyChange(this, "View");
+                if (Mementor != null)
+                    Mementor.PropertyChange(this, "View");
                 SetAndNotify(ref _view, value);
                 SendMessages(MessageAddress + nameof(View), View);
             }
