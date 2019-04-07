@@ -128,13 +128,19 @@ namespace CMiX.ViewModels
         #endregion
 
         #region DRAG/DROP
+
         public void DragOver(IDropInfo dropInfo)
         {
             dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
-
             var dataObject = dropInfo.Data as IDataObject;
             if (dataObject != null && dataObject.GetDataPresent(DataFormats.FileDrop))
             {
+                dropInfo.Effects = DragDropEffects.Copy;
+            }
+
+            if (dropInfo.Data.GetType() == typeof(FileNameItem))
+            {
+                dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
                 dropInfo.Effects = DragDropEffects.Copy;
             }
         }
@@ -145,6 +151,7 @@ namespace CMiX.ViewModels
 
             if (dataObject != null && dataObject.ContainsFileDropList())
             {
+
                 var filedrop = dataObject.GetFileDropList();
                 Mementor.Batch(() => {
                     foreach (string str in filedrop)
@@ -162,6 +169,7 @@ namespace CMiX.ViewModels
                         }
                     }
                 });
+
             }
         }
         #endregion
