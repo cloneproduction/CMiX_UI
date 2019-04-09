@@ -12,7 +12,7 @@ using Memento;
 
 namespace CMiX.ViewModels
 {
-    public class FileSelector : ViewModel, IDropTarget
+    public class FileSelector : ViewModel, IDropTarget, IDragSource
     {
         #region CONSTRUCTORS
         public FileSelector(string layername, ObservableCollection<OSCMessenger> messengers, Mementor mementor)
@@ -143,6 +143,12 @@ namespace CMiX.ViewModels
                 dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
                 dropInfo.Effects = DragDropEffects.Copy;
             }
+
+            /*if ((dropInfo.Data is PupilViewModel || dropInfo.Data is IEnumerable<PupilViewModel>) && dropInfo.TargetItem is SchoolViewModel)
+            {
+                dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
+                dropInfo.Effects = DragDropEffects.Move;
+            }*/
         }
 
         public void Drop(IDropInfo dropInfo)
@@ -153,7 +159,8 @@ namespace CMiX.ViewModels
             {
 
                 var filedrop = dataObject.GetFileDropList();
-                Mementor.Batch(() => {
+                //Mementor.Batch(() => 
+                //{
                     foreach (string str in filedrop)
                     {
                         foreach (string fm in FileMask)
@@ -168,9 +175,16 @@ namespace CMiX.ViewModels
                             }
                         }
                     }
-                });
-
+                //});
             }
+            /*if (dropInfo.Data.GetType() == typeof(FileNameItem))
+            {
+                FileNameItem filenameitem = dropInfo.Data as FileNameItem;
+                FileNameItem newfilenameitem = filenameitem.Clone() as FileNameItem;
+                FilePaths.Insert(dropInfo.InsertIndex, newfilenameitem);
+            }*/
+
+
         }
         #endregion
 
@@ -252,6 +266,45 @@ namespace CMiX.ViewModels
             }
             SendMessages(MessageAddress + nameof(FilePaths), filename.ToArray());
         }
+
+        public void StartDrag(IDragInfo dragInfo)
+        {
+            FileNameItem filenameitem = (FileNameItem)dragInfo.SourceItem;
+            dragInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
+            dragInfo.Data = filenameitem;
+        }
+
+        public bool CanStartDrag(IDragInfo dragInfo)
+        {
+            if(dragInfo.SourceItem.GetType() == typeof(FileNameItem))
+            {
+                return true;
+            }
+            return false;
+            //throw new NotImplementedException();
+        }
+
+        public void Dropped(IDropInfo dropInfo)
+        {
+            if (dropInfo.Data.GetType() == typeof(FileNameItem))
+            {
+                FileNameItem filenameitem = dropInfo.Data as FileNameItem;
+                FileNameItem newfilenameitem = filenameitem.Clone() as FileNameItem;
+                FilePaths.Remove(filenameitem);
+                FilePaths.Insert(dropInfo.InsertIndex, newfilenameitem);
+            }
+        }
+
+        public void DragCancelled()
+        {
+            //throw new NotImplementedException();
+        }
+
+        public bool TryCatchOccurredException(Exception exception)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }
+ 
