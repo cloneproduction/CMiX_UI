@@ -154,37 +154,72 @@ namespace CMiX.ViewModels
         public void Drop(IDropInfo dropInfo)
         {
             var dataObject = dropInfo.Data as DataObject;
-
             if (dataObject != null && dataObject.ContainsFileDropList())
             {
-
                 var filedrop = dataObject.GetFileDropList();
-                //Mementor.Batch(() => 
-                //{
-                    foreach (string str in filedrop)
+                foreach (string str in filedrop)
+                {
+                    foreach (string fm in FileMask)
                     {
-                        foreach (string fm in FileMask)
+                        if (System.IO.Path.GetExtension(str).ToUpperInvariant() == fm)
                         {
-                            if (System.IO.Path.GetExtension(str).ToUpperInvariant() == fm)
-                            {
-                                FileNameItem lbfn = new FileNameItem(Mementor);
-                                lbfn.FileName = str;
-                                lbfn.FileIsSelected = false;
-                                FilePaths.Add(lbfn);
-                                Mementor.ElementAdd(FilePaths, lbfn);
-                            }
+                            FileNameItem lbfn = new FileNameItem(Mementor) { FileName = str, FileIsSelected = false };
+                            FilePaths.Add(lbfn);
+                            Mementor.ElementAdd(FilePaths, lbfn);
                         }
                     }
-                //});
+                }
             }
-            /*if (dropInfo.Data.GetType() == typeof(FileNameItem))
+
+            if (dropInfo.DragInfo != null)
             {
-                FileNameItem filenameitem = dropInfo.Data as FileNameItem;
-                FileNameItem newfilenameitem = filenameitem.Clone() as FileNameItem;
-                FilePaths.Insert(dropInfo.InsertIndex, newfilenameitem);
-            }*/
+                if (dropInfo.DragInfo.VisualSource != dropInfo.VisualTarget && dropInfo.Data.GetType() == typeof(FileNameItem))
+                {
+                    FileNameItem filenameitem = dropInfo.Data as FileNameItem;
+                    FileNameItem newfilenameitem = filenameitem.Clone() as FileNameItem;
+                    FilePaths.Insert(dropInfo.InsertIndex, newfilenameitem);
+                }
+            }
+        }
 
+        public void StartDrag(IDragInfo dragInfo)
+        {
+            FileNameItem filenameitem = (FileNameItem)dragInfo.SourceItem;
+            dragInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
+            dragInfo.Data = filenameitem;
+        }
 
+        public bool CanStartDrag(IDragInfo dragInfo)
+        {
+            if (dragInfo.SourceItem.GetType() == typeof(FileNameItem))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public void Dropped(IDropInfo dropInfo)
+        {
+            if (dropInfo.DragInfo != null)
+            {
+                if (dropInfo.DragInfo.VisualSource == dropInfo.VisualTarget && dropInfo.Data.GetType() == typeof(FileNameItem))
+                {
+                    FileNameItem filenameitem = dropInfo.Data as FileNameItem;
+                    FileNameItem newfilenameitem = filenameitem.Clone() as FileNameItem;
+                    FilePaths.Insert(dropInfo.InsertIndex, newfilenameitem);
+                    FilePaths.Remove(filenameitem);
+                }
+            }
+        }
+
+        public void DragCancelled()
+        {
+            //throw new NotImplementedException();
+        }
+
+        public bool TryCatchOccurredException(Exception exception)
+        {
+            throw new NotImplementedException();
         }
         #endregion
 
@@ -265,44 +300,6 @@ namespace CMiX.ViewModels
                 }
             }
             SendMessages(MessageAddress + nameof(FilePaths), filename.ToArray());
-        }
-
-        public void StartDrag(IDragInfo dragInfo)
-        {
-            FileNameItem filenameitem = (FileNameItem)dragInfo.SourceItem;
-            dragInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
-            dragInfo.Data = filenameitem;
-        }
-
-        public bool CanStartDrag(IDragInfo dragInfo)
-        {
-            if(dragInfo.SourceItem.GetType() == typeof(FileNameItem))
-            {
-                return true;
-            }
-            return false;
-            //throw new NotImplementedException();
-        }
-
-        public void Dropped(IDropInfo dropInfo)
-        {
-            if (dropInfo.Data.GetType() == typeof(FileNameItem))
-            {
-                FileNameItem filenameitem = dropInfo.Data as FileNameItem;
-                FileNameItem newfilenameitem = filenameitem.Clone() as FileNameItem;
-                FilePaths.Remove(filenameitem);
-                FilePaths.Insert(dropInfo.InsertIndex, newfilenameitem);
-            }
-        }
-
-        public void DragCancelled()
-        {
-            //throw new NotImplementedException();
-        }
-
-        public bool TryCatchOccurredException(Exception exception)
-        {
-            throw new NotImplementedException();
         }
         #endregion
     }
