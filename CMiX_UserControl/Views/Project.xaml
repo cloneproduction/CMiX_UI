@@ -52,20 +52,22 @@
                     Style="{StaticResource MenuItemBase}">
                     <MenuItem
                         Header="New"
+                        Command="{Binding NewProjectCommand}"
                         Template="{StaticResource SubMenuItemBase}" 
                         />
                     <MenuItem
                         Header="Open"
-                        Command="{Binding Path=OpenCompositionCommand}"
+                        Command="{Binding OpenProjectCommand}"
                         Template="{StaticResource SubMenuItemBase}" 
                         />
                     <MenuItem
                         Header="Save"
+                        Command="{Binding SaveProjectCommand}"
                         Template="{StaticResource SubMenuItemBase}" 
                         />
                     <MenuItem
                         Header="Save As"
-                        Command="{Binding Path=SaveCompositionCommand}"
+                        Command="{Binding SaveAsProjectCommand}"
                         Template="{StaticResource SubMenuItemBase}" 
                         />
                     <MenuItem
@@ -89,6 +91,24 @@
                         Header="Redo    Ctrl + Y"
                         Template="{StaticResource SubMenuItemBase}" 
                         Command="{Binding RedoCommand}"
+                        />
+                </MenuItem>
+                <MenuItem
+                    Height="25"
+                    Padding="20,0,20,0"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="center"
+                    Header="Compo"
+                    Style="{StaticResource MenuItemBase}">
+                    <MenuItem
+                        Header="Import"
+                        Command="{Binding ImportCompoCommand}"
+                        Template="{StaticResource SubMenuItemBase}" 
+                        />
+                    <MenuItem
+                        Header="Export"
+                        Command="{Binding ExportCompoCommand}"
+                        Template="{StaticResource SubMenuItemBase}" 
                         />
                 </MenuItem>
             </Menu>

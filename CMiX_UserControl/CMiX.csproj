@@ -65,6 +65,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ceras, Version=4.0.38.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ceras.4.0.38\lib\net45\Ceras.dll</HintPath>
+    </Reference>
     <Reference Include="ColorMine, Version=1.2.0.0, Culture=neutral, PublicKeyToken=7a2c4d30138edc39, processorArchitecture=MSIL">
       <HintPath>..\packages\ColorMine.1.2.0\lib\net45\ColorMine.dll</HintPath>
     </Reference>
@@ -137,6 +140,7 @@
     <Compile Include="Models\MaskDTO.cs" />
     <Compile Include="Models\MasterBeatDTO.cs" />
     <Compile Include="Models\PostFXDTO.cs" />
+    <Compile Include="Models\ProjectDTO.cs" />
     <Compile Include="Models\RangeControlDTO.cs" />
     <Compile Include="Models\SliderDTO.cs" />
     <Compile Include="Models\TextureDTO.cs" />

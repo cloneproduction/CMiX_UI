@@ -281,6 +281,7 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE/LOAD/SAVE/OPEN COMPOSITIONS
+
         public void Copy(CompositionDTO compositiondto)
         {
             compositiondto.Name = Name;
@@ -353,6 +354,7 @@ namespace CMiX.ViewModels
                 File.WriteAllText(folderPath, json);
             }
         }
+
 
         private void Open()
         {
