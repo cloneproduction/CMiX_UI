@@ -16,7 +16,7 @@
         <KeyBinding 
             Modifiers="Control"
             Key="T"
-            Command="{Binding AddCompositionCommand}" 
+            Command="{Binding AddCompoCommand}" 
             />
         <KeyBinding 
             Modifiers="Control"
@@ -101,6 +101,24 @@
                     Header="Compo"
                     Style="{StaticResource MenuItemBase}">
                     <MenuItem
+                        Header="Add"
+                        Command="{Binding AddCompoCommand}"
+                        Template="{StaticResource SubMenuItemBase}" 
+                        />
+                    <MenuItem
+                        Header="Delete"
+                        Command="{Binding DeleteCompoCommand}"
+                        CommandParameter="{Binding ElementName=CompositionTabs, Path=SelectedItem}"
+                        Template="{StaticResource SubMenuItemBase}" 
+                        />
+                    <MenuItem
+                        Header="Duplicate"
+                        Command="{Binding DuplicateCompoCommand}"
+                        CommandParameter="{Binding ElementName=CompositionTabs, Path=SelectedItem}"
+                        Template="{StaticResource SubMenuItemBase}" 
+                        />
+                    <Separator BorderThickness="0.5" Margin="0, 8, 8, 8" BorderBrush="{StaticResource DarkColor}"/>
+                    <MenuItem
                         Header="Import"
                         Command="{Binding ImportCompoCommand}"
                         Template="{StaticResource SubMenuItemBase}" 
@@ -114,11 +132,12 @@
             </Menu>
         </Grid>
         <TabControl  
+            x:Name="CompositionTabs"
             dd:DragDrop.IsDragSource="True"
             dd:DragDrop.IsDropTarget="True"
             Style="{StaticResource TabControlDynamic}"
             ItemsSource="{Binding Compositions}"
-            SelectedItem="{Binding SelectedComposition}"
+            SelectedItem="{Binding SelectedComposition, Mode=TwoWay}"
             ItemContainerStyle="{StaticResource TabItemDynamic}">
             <TabControl.ItemTemplate>
                 <DataTemplate>
@@ -129,7 +148,7 @@
                                     Padding="8, 4"
                                     Style="{StaticResource MenuItemBase}"
                                     Foreground="{StaticResource TextBase}"
-                                    Command="{Binding Data.DeleteCompositionCommand, Source={StaticResource proxy}}"
+                                    Command="{Binding Data.DeleteCompoCommand, Source={StaticResource proxy}}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                                     <MenuItem.Header>
                                         <StackPanel Orientation="Horizontal">
@@ -143,7 +162,7 @@
                                     Padding="8, 4"
                                     Style="{StaticResource MenuItemBase}"
                                     Foreground="{StaticResource TextBase}"
-                                    Command="{Binding Data.DuplicateCompositionCommand, Source={StaticResource proxy}}"
+                                    Command="{Binding Data.DuplicateCompoCommand, Source={StaticResource proxy}}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                                     <MenuItem.Header>
                                         <StackPanel Orientation="Horizontal">
@@ -157,14 +176,14 @@
                         </DockPanel.ContextMenu>
                         <DockPanel.InputBindings>
                             <MouseBinding 
-                                Command="{Binding Data.DeleteCompositionCommand, Source={StaticResource proxy}}"
+                                Command="{Binding Data.DeleteCompoCommand, Source={StaticResource proxy}}"
                                 CommandParameter="{Binding ElementName=Docks, Path=DataContext}"
                                 MouseAction="MiddleClick"
                                 />
                         </DockPanel.InputBindings>
                         <Button
                             DockPanel.Dock="Right" 
-                            Command="{Binding Data.DeleteCompositionCommand, Source={StaticResource proxy}}"
+                            Command="{Binding Data.DeleteCompoCommand, Source={StaticResource proxy}}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"
                             Style="{DynamicResource ButtonTabDynamic}"
                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"                

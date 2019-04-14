@@ -13,6 +13,5 @@ namespace CMiX.Models
             CompositionDTO = new List<CompositionDTO>();
         }
         public List<CompositionDTO> CompositionDTO { get; set; }
-        //public string FolderPath { get; set; }
     }
 }
