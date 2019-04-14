@@ -31,6 +31,14 @@ namespace CMiX.Services
             }
         }
 
+        private string _name;
+        public string Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
+
+
         private string _address = "127.0.0.1";
         public string Address
         {

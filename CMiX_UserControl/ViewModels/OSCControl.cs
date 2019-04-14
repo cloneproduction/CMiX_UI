@@ -1,6 +1,7 @@
 ﻿using CMiX.Services;
 using System;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace CMiX.ViewModels
 {
@@ -12,19 +13,21 @@ namespace CMiX.ViewModels
         (
             messengers: new ObservableCollection<OSCMessenger>()
         )
-        { } 
+        { }
 
         public OSCControl
-            (
-                ObservableCollection<OSCMessenger> messengers
-            )
-            : base(messengers)
+        (
+            ObservableCollection<OSCMessenger> messengers
+        )
+        : base(messengers)
         {
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
         }
         #endregion
 
         #region PROPERTIES
+
+
         private OSCMessenger _oscmessenger;
         public OSCMessenger OSCMessenger
         {

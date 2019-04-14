@@ -287,6 +287,7 @@ namespace CMiX.ViewModels
                 }
             }
             SendMessages(MessageAddress + nameof(FilePaths), filename.ToArray());
+            Console.WriteLine("CollectionChanged");
         }
 
         public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -300,6 +301,7 @@ namespace CMiX.ViewModels
                 }
             }
             SendMessages(MessageAddress + nameof(FilePaths), filename.ToArray());
+            Console.WriteLine("EntityViewModelChanged");
         }
         #endregion
     }

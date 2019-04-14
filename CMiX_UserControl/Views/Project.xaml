@@ -108,13 +108,13 @@
                     <MenuItem
                         Header="Delete"
                         Command="{Binding DeleteCompoCommand}"
-                        CommandParameter="{Binding ElementName=CompositionTabs, Path=SelectedItem}"
+                        CommandParameter="{Binding SelectedComposition}"
                         Template="{StaticResource SubMenuItemBase}" 
                         />
                     <MenuItem
                         Header="Duplicate"
                         Command="{Binding DuplicateCompoCommand}"
-                        CommandParameter="{Binding ElementName=CompositionTabs, Path=SelectedItem}"
+                        CommandParameter="{Binding SelectedComposition}"
                         Template="{StaticResource SubMenuItemBase}" 
                         />
                     <Separator BorderThickness="0.5" Margin="0, 8, 8, 8" BorderBrush="{StaticResource DarkColor}"/>
@@ -132,7 +132,6 @@
             </Menu>
         </Grid>
         <TabControl  
-            x:Name="CompositionTabs"
             dd:DragDrop.IsDragSource="True"
             dd:DragDrop.IsDropTarget="True"
             Style="{StaticResource TabControlDynamic}"

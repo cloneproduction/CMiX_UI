@@ -37,8 +37,8 @@ namespace CMiX.ViewModels
         private Composition _selectedcomposition;
         public Composition SelectedComposition
         {
-            get { return _selectedcomposition; }
-            set { _selectedcomposition = value; }
+            get => _selectedcomposition;
+            set => SetAndNotify(ref _selectedcomposition, value);
         }
 
         public CerasSerializer Serializer { get; set; }

@@ -27,6 +27,8 @@ namespace CMiX.ViewModels
             Layers = new ObservableCollection<Layer>();
             Layers.CollectionChanged += ContentCollectionChanged;
 
+
+            ReloadCompositionCommand = new RelayCommand(p => ReloadComposition(p));
             AddLayerCommand = new RelayCommand(p => AddLayer());
             RemoveLayerCommand = new RelayCommand(p => RemoveLayer());
             DeleteLayerCommand = new RelayCommand(p => DeleteLayer(p));
@@ -66,6 +68,7 @@ namespace CMiX.ViewModels
         private int layerID = -1;
         private int layerNameID = -1;
 
+        public ICommand ReloadCompositionCommand { get; }
         public ICommand AddLayerCommand { get; }
         public ICommand RemoveLayerCommand { get; }
         public ICommand CopyLayerCommand { get; }
@@ -113,6 +116,13 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _selectedlayer, value);
         }
         #endregion
+
+        private void ReloadComposition(object messenger)
+        {
+            OSCMessenger message = messenger as OSCMessenger;
+            message.QueueObject(this);
+            message.SendQueue();
+        }
 
 
         #region COPY/PASTE LAYER

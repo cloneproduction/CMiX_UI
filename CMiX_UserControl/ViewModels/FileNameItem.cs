@@ -15,7 +15,7 @@ namespace CMiX.ViewModels
         public string FileName
         {
             get => _filename;
-            set => SetAndNotify(ref _filename, value);
+            set => SetAndNotify(ref _filename, Utils.GetRelativePath(@"D:\", value));
         }
 
         private bool _fileisselected;
