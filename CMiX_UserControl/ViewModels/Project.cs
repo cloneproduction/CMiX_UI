@@ -7,6 +7,7 @@ using CMiX.Models;
 using Memento;
 using Ceras;
 using Newtonsoft.Json;
+using MvvmDialogs;
 
 namespace CMiX.ViewModels
 {
@@ -14,12 +15,16 @@ namespace CMiX.ViewModels
     {
         public Project() : base(new ObservableCollection<Services.OSCMessenger>())
         {
+            
+
             NewProjectCommand = new RelayCommand(p => NewProject());
             SaveProjectCommand = new RelayCommand(p => SaveProject());
             SaveAsProjectCommand = new RelayCommand(p => SaveAsProject());
+
             OpenProjectCommand = new RelayCommand(p => OpenProject());
 
             ImportCompoCommand = new RelayCommand(p => ImportCompo());
+            ImportCompoFromProjectCommand = new RelayCommand(p => ImportCompoFromProject());
             ExportCompoCommand = new RelayCommand(p => ExportCompo());
 
 
@@ -32,6 +37,33 @@ namespace CMiX.ViewModels
             Compositions = new ObservableCollection<Composition>();
             FolderPath = string.Empty;
             Serializer = new CerasSerializer();
+        }
+
+
+        private readonly IDialogService dialogService;
+
+        public Project(IDialogService dialogService)
+        {
+            this.dialogService = dialogService;
+        }
+
+    
+
+        /*private void ShowDialog()
+        {
+            var dialogViewModel = new AddTextDialogViewModel();
+
+            bool? success = dialogService.ShowDialog(this, dialogViewModel);
+            if (success == true)
+            {
+                Texts.Add(dialogViewModel.Text);
+            }
+        }*/
+
+
+        private void ImportCompoFromProject()
+        {
+            dialogService.ShowMessageBox(this, "pouet");
         }
 
         private Composition _selectedcomposition;
@@ -47,6 +79,7 @@ namespace CMiX.ViewModels
 
         #region PROPERTIES
         public ICommand ImportCompoCommand { get; }
+        public ICommand ImportCompoFromProjectCommand { get; }
         public ICommand ExportCompoCommand { get; }
 
         public ICommand NewProjectCommand { get; }

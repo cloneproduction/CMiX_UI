@@ -124,6 +124,11 @@
                         Template="{StaticResource SubMenuItemBase}" 
                         />
                     <MenuItem
+                        Header="ImportFromProject"
+                        Command="{Binding ImportCompoFromProjectCommand}"
+                        Template="{StaticResource SubMenuItemBase}" 
+                        />
+                    <MenuItem
                         Header="Export"
                         Command="{Binding ExportCompoCommand}"
                         Template="{StaticResource SubMenuItemBase}" 
