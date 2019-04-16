@@ -15,8 +15,6 @@ namespace CMiX.ViewModels
     {
         public Project() : base(new ObservableCollection<Services.OSCMessenger>())
         {
-            
-
             NewProjectCommand = new RelayCommand(p => NewProject());
             SaveProjectCommand = new RelayCommand(p => SaveProject());
             SaveAsProjectCommand = new RelayCommand(p => SaveAsProject());
@@ -39,31 +37,9 @@ namespace CMiX.ViewModels
             Serializer = new CerasSerializer();
         }
 
-
-        private readonly IDialogService dialogService;
-
-        public Project(IDialogService dialogService)
-        {
-            this.dialogService = dialogService;
-        }
-
-    
-
-        /*private void ShowDialog()
-        {
-            var dialogViewModel = new AddTextDialogViewModel();
-
-            bool? success = dialogService.ShowDialog(this, dialogViewModel);
-            if (success == true)
-            {
-                Texts.Add(dialogViewModel.Text);
-            }
-        }*/
-
-
         private void ImportCompoFromProject()
         {
-            dialogService.ShowMessageBox(this, "pouet");
+
         }
 
         private Composition _selectedcomposition;
@@ -95,6 +71,8 @@ namespace CMiX.ViewModels
         public ICommand AddLayerCommand { get; }
 
         public ObservableCollection<Composition> Compositions { get; set; }
+
+        public ImportFromProject ImportFromProject { get; set; }
         #endregion
 
         #region ADD/DELETE/DUPLICATE COMPOSITION
