@@ -70,9 +70,11 @@ namespace CMiX.ViewModels
             Pan = pan;
             Tilt = tilt;
             MessageAddress = messageaddress;
+
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
+
             Mementor = mementor;
         }
         #endregion

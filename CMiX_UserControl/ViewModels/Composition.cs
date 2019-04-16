@@ -9,10 +9,11 @@ using Newtonsoft.Json;
 using CMiX.Services;
 using CMiX.Models;
 using Memento;
+using GongSolutions.Wpf.DragDrop;
 
 namespace CMiX.ViewModels
 {
-    public class Composition : ViewModel
+    public class Composition : ViewModel, IDropTarget
     {
         #region CONSTRUCTORS
         public Composition()
@@ -20,13 +21,11 @@ namespace CMiX.ViewModels
         {
             Name = string.Empty;
             Messengers = new ObservableCollection<OSCMessenger>();
-            MessageAddress = String.Empty;        
-            MasterBeat = new MasterBeat(Messengers, Mementor);
-            Camera = new Camera(Messengers, MasterBeat, Mementor);
+            MessageAddress = String.Empty;
+
             LayerNames = new List<string>();
             Layers = new ObservableCollection<Layer>();
             Layers.CollectionChanged += ContentCollectionChanged;
-
 
             ReloadCompositionCommand = new RelayCommand(p => ReloadComposition(p));
             AddLayerCommand = new RelayCommand(p => AddLayer());
@@ -42,6 +41,8 @@ namespace CMiX.ViewModels
             DeleteOSCCommand = new RelayCommand(p => DeleteOSC(p));
 
             Mementor = new Mementor();
+            MasterBeat = new MasterBeat(Messengers, Mementor);
+            Camera = new Camera(Messengers, MasterBeat, Mementor);
         }
 
         public Composition(string name, Camera camera, MasterBeat masterBeat, IEnumerable<Layer> layers, Mementor mementor)
@@ -113,7 +114,13 @@ namespace CMiX.ViewModels
         public Layer SelectedLayer
         {
             get => _selectedlayer;
-            set => SetAndNotify(ref _selectedlayer, value);
+            set
+            {
+                if (Mementor != null)
+                    Mementor.PropertyChange(this, "SelectedLayer");
+                SetAndNotify(ref _selectedlayer, value);
+            }
+
         }
         #endregion
 
@@ -184,6 +191,8 @@ namespace CMiX.ViewModels
         #region ADD/REMOVE/DUPLICATE/DELETE LAYERS
         private void RemoveLayer()
         {
+            Mementor.BeginBatch();
+
             layerID -= 1;
             string removedlayername = string.Empty;
             List<string> layerindex = new List<string>();
@@ -204,10 +213,14 @@ namespace CMiX.ViewModels
             QueueMessages("/LayerIndex", layerindex.ToArray());
             QueueMessages("/LayerRemoved", removedlayername);
             SendQueues();
+
+            Mementor.EndBatch();
         }
 
         private void DeleteLayer(object layer)
         {
+            Mementor.BeginBatch();
+
             Layer lyr = layer as Layer;
             layerID -= 1;
 
@@ -230,10 +243,14 @@ namespace CMiX.ViewModels
             QueueMessages("/LayerIndex", layerindex.ToArray());
             QueueMessages("/LayerRemoved", lyr.LayerName);
             SendQueues();
+
+            Mementor.EndBatch();
         }
 
         private void DuplicateLayer(object layer)
         {
+            Mementor.BeginBatch();
+
             layerID += 1;
             layerNameID += 1;
             LayerNames.Add("/Layer" + layerNameID.ToString());
@@ -250,6 +267,8 @@ namespace CMiX.ViewModels
 
             int index = Layers.IndexOf(lyr) + 1;
             Layers.Insert(index, newlayer);
+            Mementor.ElementAdd(Layers, newlayer);
+            SelectedLayer = newlayer;
 
             List<string> layerindex = new List<string>();
             foreach (Layer lay in Layers)
@@ -257,23 +276,29 @@ namespace CMiX.ViewModels
                 layerindex.Add(lay.Index.ToString());
             }
 
-            Mementor.ElementAdd(Layers, newlayer);
+            
             QueueMessages("/LayerNames", this.LayerNames.ToArray());
             QueueMessages("/LayerIndex", layerindex.ToArray());
             QueueObjects(newlayer);
             SendQueues();
+
+            Mementor.EndBatch();
         }
 
         public void AddLayer()
         {
+            Mementor.BeginBatch();
+
             layerID += 1;
             layerNameID += 1;
 
             Layer layer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messengers, layerNameID, Mementor);
             layer.Index = layerID;
-            Mementor.ElementAdd(Layers, layer);
+
             Layers.Add(layer);
+            Mementor.ElementAdd(Layers, layer);
             SelectedLayer = layer;
+
             LayerNames.Add("/Layer" + layerNameID.ToString());
 
             List<string> layerindex = new List<string>();
@@ -286,8 +311,9 @@ namespace CMiX.ViewModels
             QueueMessages("/LayerIndex", layerindex.ToArray());
             QueueObjects(layer);
             SendQueues();
+
+            Mementor.EndBatch();
         }
- 
         #endregion
 
         #region COPY/PASTE/LOAD/SAVE/OPEN COMPOSITIONS
@@ -404,7 +430,6 @@ namespace CMiX.ViewModels
         #region NOTIFYCOLLECTIONCHANGED
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-
             List<string> layerindex = new List<string>();
 
             foreach (Layer lyr in Layers)
@@ -417,5 +442,39 @@ namespace CMiX.ViewModels
             SendQueues();
         }
         #endregion
+
+
+        public void DragOver(IDropInfo dropInfo)
+        {
+            dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+            var dataObject = dropInfo.Data as IDataObject;
+            if (dataObject != null && dataObject.GetDataPresent(DataFormats.FileDrop))
+            {
+                dropInfo.Effects = DragDropEffects.Copy;
+            }
+
+            if (dropInfo.Data.GetType() == typeof(Layer))
+            {
+                dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                dropInfo.Effects = DragDropEffects.Copy;
+            }
+        }
+
+        public void Drop(IDropInfo dropInfo)
+        {
+            if (dropInfo.DragInfo != null)
+            {
+                
+                if (dropInfo.DragInfo.VisualSource == dropInfo.VisualTarget && dropInfo.Data.GetType() == typeof(Layer))
+                {
+                    Layer layer = dropInfo.Data as Layer;
+                    Layer newlayer = layer.Clone() as Layer;
+                    Console.WriteLine(dropInfo.InsertIndex.ToString());
+                    Layers.Insert(dropInfo.InsertIndex, newlayer);
+                    Layers.Remove(layer);
+                    
+                }
+            }
+        }
     }
 }

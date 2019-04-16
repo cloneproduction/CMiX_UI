@@ -248,8 +248,9 @@ namespace CMiX.ViewModels
             if(fileselectordto.FilePaths != null) // NOT SURE THIS IS USEFULL ...
             {
                 DisabledMessages();
-                Mementor.Batch(() =>
-                {
+                //Mementor.Batch(() =>
+                //{
+                Console.WriteLine("PasteFileSelector");
                     FilePaths.Clear();
                     foreach (var item in fileselectordto.FilePaths)
                     {
@@ -259,7 +260,7 @@ namespace CMiX.ViewModels
                         Mementor.ElementAdd(FilePaths, filenameitem);
                         FilePaths.Add(filenameitem);
                     }
-                });
+                //});
                 EnabledMessages();
             }
         }
