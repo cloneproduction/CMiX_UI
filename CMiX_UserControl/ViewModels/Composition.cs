@@ -443,20 +443,22 @@ namespace CMiX.ViewModels
         }
         #endregion
 
-
+        #region DRAG DROP
         public void DragOver(IDropInfo dropInfo)
         {
-            dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
             var dataObject = dropInfo.Data as IDataObject;
-            if (dataObject != null && dataObject.GetDataPresent(DataFormats.FileDrop))
-            {
-                dropInfo.Effects = DragDropEffects.Copy;
-            }
-
             if (dropInfo.Data.GetType() == typeof(Layer))
             {
                 dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
                 dropInfo.Effects = DragDropEffects.Copy;
+            }
+
+            if (dataObject != null)
+            {
+                if (dataObject.GetDataPresent(DataFormats.FileDrop) || dropInfo.Data.GetType() == typeof(FileNameItem))
+                {
+                    SelectedLayer = dropInfo.TargetItem as Layer;
+                }
             }
         }
 
@@ -464,17 +466,25 @@ namespace CMiX.ViewModels
         {
             if (dropInfo.DragInfo != null)
             {
-                
-                if (dropInfo.DragInfo.VisualSource == dropInfo.VisualTarget && dropInfo.Data.GetType() == typeof(Layer))
+                int sourceindex = dropInfo.DragInfo.SourceIndex;
+                int insertindex = dropInfo.InsertIndex;
+
+                Mementor.BeginBatch();
+                if (insertindex >= Layers.Count - 1)
                 {
-                    Layer layer = dropInfo.Data as Layer;
-                    Layer newlayer = layer.Clone() as Layer;
-                    Console.WriteLine(dropInfo.InsertIndex.ToString());
-                    Layers.Insert(dropInfo.InsertIndex, newlayer);
-                    Layers.Remove(layer);
-                    
+                    Layers.Move(sourceindex, insertindex - 1);
+                    SelectedLayer = Layers[insertindex - 1];
+                    Mementor.ElementIndexChange(Layers, Layers[insertindex - 1], sourceindex);
                 }
+                else
+                {
+                    Layers.Move(dropInfo.DragInfo.SourceIndex, dropInfo.InsertIndex);
+                    SelectedLayer = Layers[insertindex];
+                    Mementor.ElementIndexChange(Layers, Layers[insertindex], sourceindex);
+                }
+                Mementor.EndBatch();
             }
         }
+        #endregion
     }
 }

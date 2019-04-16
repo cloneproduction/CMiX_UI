@@ -214,7 +214,7 @@ namespace CMiX.ViewModels
 
         public void DragDropOperationFinished(DragDropEffects operationResult, IDragInfo dragInfo)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public void DragCancelled()
