@@ -44,23 +44,9 @@ namespace CMiX.ViewModels
             ClearUnselectedCommand = new RelayCommand(p => ClearUnselected());
             ClearAllCommand = new RelayCommand(p => ClearAll());
             DeleteItemCommand = new RelayCommand(p => DeleteItem(p));
-            MouseDownCommand = new RelayCommand(p => MouseDown());
-            MouseUpCommand = new RelayCommand(p => MouseUp());
             FilePaths = new ObservableCollection<FileNameItem>();
             FilePaths.CollectionChanged += ContentCollectionChanged;
             Mementor = mementor;
-        }
-
-        private void MouseDown()
-        {
-            if (!Mementor.IsInBatch) 
-                Mementor.BeginBatch();
-        }
-
-        private void MouseUp()
-        {
-            if (Mementor.IsInBatch) 
-               Mementor.EndBatch();
         }
         #endregion
 
