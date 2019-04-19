@@ -24,9 +24,12 @@ namespace CMiX.ViewModels
             get => _fileisselected;
             set
             {
-                if(Mementor != null)
-                    Mementor.PropertyChange(this, "FileIsSelected");
                 SetAndNotify(ref _fileisselected, value);
+                if (Mementor != null && FileIsSelected)
+                {
+                    Mementor.PropertyChange(this, "FileIsSelected");
+                    Console.WriteLine("Mementor PropertyChange");
+                }
             }
         }
     }

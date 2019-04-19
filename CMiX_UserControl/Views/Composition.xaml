@@ -119,40 +119,56 @@
                                 dd:DragDrop.DropHandler="{Binding}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <Views:ChannelLayer>
-                                            <Views:ChannelLayer.ContextMenu>
-                                                <ContextMenu Style="{StaticResource ContextMenuBase }">
-                                                    <MenuItem
+                                        <Border>
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="BorderThickness" Value="2" />
+                                                    <Setter Property="Padding" Value="2" />
+                                                    <Setter Property="CornerRadius" Value="6" />
+                                                    <Setter Property="BorderBrush" Value="Black" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
+                                                            <Setter Property="BorderBrush" Value="{StaticResource LightColor}" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                            <Views:ChannelLayer>
+                                                <Views:ChannelLayer.ContextMenu>
+                                                    <ContextMenu Style="{StaticResource ContextMenuBase }">
+                                                        <MenuItem
                                                         Padding="8, 4"
                                                         Style="{StaticResource MenuItemBase}"
                                                         Foreground="{StaticResource TextBase}"
                                                         Command="{Binding Data.DeleteLayerCommand, Source={StaticResource proxy}}"
                                                         CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
-                                                        <MenuItem.Header>
-                                                            <StackPanel Orientation="Horizontal">
-                                                                <Image Width="10" Height="10" Source="/CMiX_UserControl;component/Assets/DeleteLayer.png" />
-                                                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                                                <TextBlock Text="Delete Layer"/>
-                                                            </StackPanel>
-                                                        </MenuItem.Header>
-                                                    </MenuItem>
-                                                    <MenuItem
+                                                            <MenuItem.Header>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <Image Width="10" Height="10" Source="/CMiX_UserControl;component/Assets/DeleteLayer.png" />
+                                                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                                                    <TextBlock Text="Delete Layer"/>
+                                                                </StackPanel>
+                                                            </MenuItem.Header>
+                                                        </MenuItem>
+                                                        <MenuItem
                                                         Padding="8, 4"
                                                         Style="{StaticResource MenuItemBase}"
                                                         Foreground="{StaticResource TextBase}"
                                                         Command="{Binding Data.DuplicateLayerCommand, Source={StaticResource proxy}}"
                                                         CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
-                                                        <MenuItem.Header>
-                                                            <StackPanel Orientation="Horizontal">
-                                                                <Image Width="10" Height="10" Source="/CMiX_UserControl;component/Assets/Copy.png" />
-                                                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                                                <TextBlock Text="Duplicate Layer"/>
-                                                            </StackPanel>
-                                                        </MenuItem.Header>
-                                                    </MenuItem>
-                                                </ContextMenu>
-                                            </Views:ChannelLayer.ContextMenu>
-                                        </Views:ChannelLayer>
+                                                            <MenuItem.Header>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <Image Width="10" Height="10" Source="/CMiX_UserControl;component/Assets/Copy.png" />
+                                                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                                                    <TextBlock Text="Duplicate Layer"/>
+                                                                </StackPanel>
+                                                            </MenuItem.Header>
+                                                        </MenuItem>
+                                                    </ContextMenu>
+                                                </Views:ChannelLayer.ContextMenu>
+                                            </Views:ChannelLayer>
+                                        </Border>
+
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>

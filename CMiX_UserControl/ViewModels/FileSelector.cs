@@ -144,6 +144,10 @@ namespace CMiX.ViewModels
                 dropInfo.Effects = DragDropEffects.Copy;
             }
 
+            if (Mementor.IsInBatch)
+            {
+                Mementor.EndBatch();
+            }
             /*if ((dropInfo.Data is PupilViewModel || dropInfo.Data is IEnumerable<PupilViewModel>) && dropInfo.TargetItem is SchoolViewModel)
             {
                 dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
@@ -154,22 +158,28 @@ namespace CMiX.ViewModels
         public void Drop(IDropInfo dropInfo)
         {
             var dataObject = dropInfo.Data as DataObject;
-            if (dataObject != null && dataObject.ContainsFileDropList())
+            if(dataObject != null)
             {
-                var filedrop = dataObject.GetFileDropList();
-                foreach (string str in filedrop)
+                if (dataObject.ContainsFileDropList())
                 {
-                    foreach (string fm in FileMask)
+                    Mementor.BeginBatch();
+                    var filedrop = dataObject.GetFileDropList();
+                    foreach (string str in filedrop)
                     {
-                        if (System.IO.Path.GetExtension(str).ToUpperInvariant() == fm)
+                        foreach (string fm in FileMask)
                         {
-                            FileNameItem lbfn = new FileNameItem(Mementor) { FileName = str, FileIsSelected = false };
-                            FilePaths.Add(lbfn);
-                            Mementor.ElementAdd(FilePaths, lbfn);
+                            if (System.IO.Path.GetExtension(str).ToUpperInvariant() == fm)
+                            {
+                                FileNameItem lbfn = new FileNameItem(Mementor) { FileName = str, FileIsSelected = false };
+                                FilePaths.Add(lbfn);
+                                Mementor.ElementAdd(FilePaths, lbfn);
+                            }
                         }
                     }
+                    Mementor.EndBatch();
                 }
             }
+
 
             if (dropInfo.DragInfo != null)
             {
@@ -178,6 +188,7 @@ namespace CMiX.ViewModels
                     FileNameItem filenameitem = dropInfo.Data as FileNameItem;
                     FileNameItem newfilenameitem = filenameitem.Clone() as FileNameItem;
                     FilePaths.Insert(dropInfo.InsertIndex, newfilenameitem);
+                    Mementor.ElementAdd(FilePaths, newfilenameitem);
                 }
             }
         }
@@ -293,7 +304,6 @@ namespace CMiX.ViewModels
                 }
             }
             SendMessages(MessageAddress + nameof(FilePaths), filename.ToArray());
-            Console.WriteLine("CollectionChanged");
         }
 
         public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -307,7 +317,6 @@ namespace CMiX.ViewModels
                 }
             }
             SendMessages(MessageAddress + nameof(FilePaths), filename.ToArray());
-            Console.WriteLine("EntityViewModelChanged");
         }
         #endregion
     }
