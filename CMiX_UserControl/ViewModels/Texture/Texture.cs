@@ -17,7 +17,7 @@ namespace CMiX.ViewModels
             (
                 mementor: mementor,
                 messengers: messengers,
-                fileselector: new FileSelector("Extended", new List<string> { ".PNG", ".JPG", ".MOV" }, messengers, String.Format("{0}/{1}/", layername, nameof(Texture)), mementor),
+                fileselector: new FileSelector("Extended", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, messengers, String.Format("{0}/{1}/", layername, nameof(Texture)), mementor),
                 brightness: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Brightness"), messengers, mementor),
                 contrast: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Contrast"), messengers, mementor),
                 invert: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Invert"), messengers, mementor),
