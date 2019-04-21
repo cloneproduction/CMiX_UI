@@ -9,7 +9,7 @@ using CMiX.ViewModels;
 
 namespace CMiX.Services
 {
-    public class OSCMessenger : IMessenger
+    public class OSCMessenger : ViewModel, IMessenger
     {
         public OSCMessenger()
         {
@@ -35,7 +35,7 @@ namespace CMiX.Services
         public string Name
         {
             get { return _name; }
-            set { _name = value; }
+            set => SetAndNotify(ref _name, value);
         }
 
 

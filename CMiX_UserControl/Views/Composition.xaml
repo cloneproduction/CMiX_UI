@@ -125,10 +125,10 @@
                                                     <Setter Property="BorderThickness" Value="2" />
                                                     <Setter Property="Padding" Value="2" />
                                                     <Setter Property="CornerRadius" Value="6" />
-                                                    <Setter Property="BorderBrush" Value="Black" />
+                                                    <Setter Property="BorderBrush" Value="Transparent" />
                                                     <Style.Triggers>
                                                         <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
-                                                            <Setter Property="BorderBrush" Value="{StaticResource LightColor}" />
+                                                            <Setter Property="BorderBrush" Value="{StaticResource HighLightColor}" />
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
@@ -179,6 +179,26 @@
                             <TextBlock Text="OSC" Margin="4, 0, 4, 0"/>
                         </TabItem.Header>
                         <DockPanel>
+                            <DockPanel FlowDirection="LeftToRight" Height="20" DockPanel.Dock="Top">
+                                <ComboBox
+                                    HorizontalAlignment="Left"
+                                    Width="100"
+                                    DockPanel.Dock="Left"
+
+                                    ItemsSource="{Binding Messengers}"
+                                    DisplayMemberPath="Name"
+                                    >
+                                </ComboBox>
+                                <Button 
+                                    Style="{StaticResource ButtonBase}"
+                                    Height="20" 
+                                    DockPanel.Dock="Top"
+                                    Content="Add"
+                                    />
+
+
+                            </DockPanel>
+
                             <Border DockPanel.Dock="Bottom"  Style="{StaticResource BorderContainer}">
                                 <StackPanel Orientation="Horizontal">
                                     <Button
@@ -204,40 +224,29 @@
                                 dd:DragDrop.IsDropTarget="True">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <Views:OSCControl Margin="0,2">
-                                            <Views:OSCControl.ContextMenu>
-                                                <ContextMenu Style="{StaticResource ContextMenuBase }">
-                                                    <MenuItem
-                                                        Padding="8, 4"
-                                                        Style="{StaticResource MenuItemBase}"
-                                                        Foreground="{StaticResource TextBase}"
-                                                        Command="{Binding Data.AddOSCCommand, Source={StaticResource proxy}}"
-                                                        CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
-                                                        <MenuItem.Header>
-                                                            <StackPanel Orientation="Horizontal">
-                                                                <Image Width="10" Height="10" Source="/CMiX_UserControl;component/Assets/Copy.png" />
-                                                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                                                <TextBlock Text="Add OSC"/>
-                                                            </StackPanel>
-                                                        </MenuItem.Header>
-                                                    </MenuItem>
-                                                    <MenuItem
-                                                        Padding="8, 4"
-                                                        Style="{StaticResource MenuItemBase}"
-                                                        Foreground="{StaticResource TextBase}"
-                                                        Command="{Binding Data.DeleteOSCCommand, Source={StaticResource proxy}}"
-                                                        CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
-                                                        <MenuItem.Header>
-                                                            <StackPanel Orientation="Horizontal">
-                                                                <Image Width="10" Height="10" Source="/CMiX_UserControl;component/Assets/DeleteLayer.png" />
-                                                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                                                <TextBlock Text="Delete OSC"/>
-                                                            </StackPanel>
-                                                        </MenuItem.Header>
-                                                    </MenuItem>
-                                                </ContextMenu>
-                                            </Views:OSCControl.ContextMenu>
-                                        </Views:OSCControl>
+                                        <StackPanel>
+                                            <Grid Height="20">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="0.2*"/>
+                                                    <ColumnDefinition/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock 
+                                                    Text="Send" 
+                                                    Foreground="{StaticResource TextBase}"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    />
+                                                <ToggleButton 
+                                                    Margin="1"
+                                                    HorizontalAlignment="Left"
+                                                    Grid.Column="1"
+                                                    Width="20"
+                                                    Height="20" 
+                                                    IsChecked="{Binding SendEnabled}"
+                                                    Style="{StaticResource ToggleButtonBase}"/>
+                                            </Grid>
+                                            <TextBlock Text="{Binding Name}" Foreground="White"/>
+                                        </StackPanel>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
@@ -277,7 +286,9 @@
                 </Grid>
             </Border>
             <Border Grid.Column="1" Margin="4">
-                <Views:LayerControls DataContext="{Binding SelectedLayer}" Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}"/>
+                <ScrollViewer>
+                    <Views:LayerControls DataContext="{Binding SelectedLayer}" Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}"/>
+                </ScrollViewer>
             </Border>
         </DockPanel>
     </DockPanel>

@@ -16,11 +16,11 @@ namespace CMiX.ViewModels
     public class Composition : ViewModel, IDropTarget
     {
         #region CONSTRUCTORS
-        public Composition()
-            : base(new ObservableCollection<OSCMessenger>())
+        public Composition(ObservableCollection<OSCMessenger> oscmessengers)
+
         {
             Name = string.Empty;
-            Messengers = new ObservableCollection<OSCMessenger>();
+            Messengers = oscmessengers;
             MessageAddress = String.Empty;
 
             LayerNames = new List<string>();
@@ -36,6 +36,7 @@ namespace CMiX.ViewModels
             PasteLayerCommand = new RelayCommand(p => PasteLayer());
             SaveCompositionCommand = new RelayCommand(p => Save());
             OpenCompositionCommand = new RelayCommand(p => Open());
+
             AddOSCCommand = new RelayCommand(p => AddOSC());
             RemoveSelectedOSCCommand = new RelayCommand(p => RemoveSelectedOSC());
             DeleteOSCCommand = new RelayCommand(p => DeleteOSC(p));

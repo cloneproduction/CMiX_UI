@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using CMiX.Models;
+using CMiX.Services;
 using Memento;
 using Ceras;
 using Newtonsoft.Json;
@@ -13,18 +14,22 @@ namespace CMiX.ViewModels
 {
     public class Project : ViewModel
     {
-        public Project() : base(new ObservableCollection<Services.OSCMessenger>())
+        public Project() : base(new ObservableCollection<OSCMessenger>())
         {
+            Messengers = new ObservableCollection<OSCMessenger>();
+
             NewProjectCommand = new RelayCommand(p => NewProject());
+            OpenProjectCommand = new RelayCommand(p => OpenProject());
             SaveProjectCommand = new RelayCommand(p => SaveProject());
             SaveAsProjectCommand = new RelayCommand(p => SaveAsProject());
 
-            OpenProjectCommand = new RelayCommand(p => OpenProject());
+            AddOSCCommand = new RelayCommand(p => AddOSC());
+            RemoveSelectedOSCCommand = new RelayCommand(p => RemoveSelectedOSC());
+            DeleteOSCCommand = new RelayCommand(p => DeleteOSC(p));
 
             ImportCompoCommand = new RelayCommand(p => ImportCompo());
             ImportCompoFromProjectCommand = new RelayCommand(p => ImportCompoFromProject());
             ExportCompoCommand = new RelayCommand(p => ExportCompo());
-
 
             AddCompoCommand = new RelayCommand(p => AddComposition());
             AddTabCommand = new RelayCommand(p => AddComposition());
@@ -63,6 +68,10 @@ namespace CMiX.ViewModels
         public ICommand SaveAsProjectCommand { get; }
         public ICommand OpenProjectCommand { get; }
 
+        public ICommand AddOSCCommand { get; set; }
+        public ICommand RemoveSelectedOSCCommand { get; set; }
+        public ICommand DeleteOSCCommand { get; set; }
+
         public ICommand AddCompoCommand { get; }
         public ICommand DeleteCompoCommand { get; }
         public ICommand DuplicateCompoCommand { get; }
@@ -75,10 +84,28 @@ namespace CMiX.ViewModels
         public ImportFromProject ImportFromProject { get; set; }
         #endregion
 
+        #region ADD/REMOVE/DELETE OSC
+        private void DeleteOSC(object oscmessenger)
+        {
+            OSCMessenger messenger = oscmessenger as OSCMessenger;
+            Messengers.Remove(messenger);
+        }
+
+        private void RemoveSelectedOSC()
+        {
+            Console.WriteLine("Remove OSC");
+        }
+
+        private void AddOSC()
+        {
+            Messengers.Add(new OSCMessenger { Port = 55555, Address = "127.0.0.1", SendEnabled = true });
+        }
+        #endregion
+
         #region ADD/DELETE/DUPLICATE COMPOSITION
         private void AddComposition()
         {
-            Composition comp = new Composition();
+            Composition comp = new Composition(this.Messengers);
             Compositions.Add(comp);
             SelectedComposition = comp;
         }
@@ -99,13 +126,14 @@ namespace CMiX.ViewModels
                 Composition comp = compo as Composition;
                 CompositionDTO compDTO = new CompositionDTO();
                 comp.Copy(compDTO);
-                Composition newcomp = new Composition();
+                Composition newcomp = new Composition(this.Messengers);
                 newcomp.Paste(compDTO);
                 Compositions.Add(newcomp);
             }
         }
         #endregion
 
+        #region MENU METHODS
         private void NewProject()
         {
             Compositions.Clear();
@@ -183,7 +211,7 @@ namespace CMiX.ViewModels
                 {
                     byte[] data = File.ReadAllBytes(folderPath);
                     CompositionDTO compositiondto = Serializer.Deserialize<CompositionDTO>(data);
-                    Composition newcomp = new Composition();
+                    Composition newcomp = new Composition(this.Messengers);
                     newcomp.Paste(compositiondto);
                     Compositions.Add(newcomp);
                 }
@@ -207,6 +235,7 @@ namespace CMiX.ViewModels
                 File.WriteAllBytes(folderPath, data);
             }
         }
+        #endregion
 
         #region COPY/PASTE
         public void Copy(ProjectDTO projectdto)
@@ -223,7 +252,7 @@ namespace CMiX.ViewModels
         {
             foreach (var compositiondto in projectdto.CompositionDTO)
             {
-                Composition composition = new Composition();
+                Composition composition = new Composition(this.Messengers);
                 composition.Paste(compositiondto);
                 Compositions.Add(composition);
             }
