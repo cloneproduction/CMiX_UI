@@ -1,6 +1,6 @@
 ﻿namespace CMiX.ViewModels
 {
-    public enum GeometryTranslateMode
+    public enum GeometryTranslateMode 
     {
         #region STEADY
 

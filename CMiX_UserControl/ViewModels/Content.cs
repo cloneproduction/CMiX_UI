@@ -15,14 +15,16 @@ namespace CMiX.ViewModels
         public Content(Beat masterbeat, string layername, ObservableCollection<OSCMessenger> messengers, Mementor mementor)
         : this
         (
-            enable: true,
-            mementor: mementor,
             messageaddress: String.Format("{0}/{1}/", layername, nameof(Content)),
             messengers: messengers,
+
+            enable: true,
             beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Content)), messengers, masterbeat, mementor),
             geometry: new Geometry(String.Format("{0}/{1}", layername, nameof(Content)), messengers, mementor),
             texture: new Texture(String.Format("{0}/{1}", layername, nameof(Content)), messengers, mementor),
-            postFX: new PostFX(String.Format("{0}/{1}", layername, nameof(Content)), messengers, mementor)
+            postFX: new PostFX(String.Format("{0}/{1}", layername, nameof(Content)), messengers, mementor),
+
+            mementor: mementor
         )
         {}
 
@@ -42,6 +44,7 @@ namespace CMiX.ViewModels
             Enable = enable;
             MessageAddress = messageaddress;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
+
             BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
             Geometry = geometry ?? throw new ArgumentNullException(nameof(geometry));
             Texture = texture ?? throw new ArgumentNullException(nameof(texture));
@@ -49,6 +52,7 @@ namespace CMiX.ViewModels
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
+
             Mementor = mementor;
         }
         #endregion

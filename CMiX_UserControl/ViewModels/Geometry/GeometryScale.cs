@@ -12,10 +12,10 @@ namespace CMiX.ViewModels
         public GeometryScale(string layername, ObservableCollection<OSCMessenger> messengers, Mementor mementor)
         : this
         (
-            mementor: mementor,
             messageaddress: layername + "/",
             messengers: messengers,
-            scaleMode: default
+            scaleMode: default,
+            mementor: mementor
         )
         { }
 
@@ -30,6 +30,7 @@ namespace CMiX.ViewModels
         {
             MessageAddress = messageaddress;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
+            ScaleMode = scaleMode;
             Mementor = mementor;
         }
         #endregion

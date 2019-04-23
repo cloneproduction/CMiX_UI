@@ -190,6 +190,7 @@ namespace CMiX.ViewModels
         #endregion
 
         #region ADD/REMOVE/DUPLICATE/DELETE LAYERS
+
         private void RemoveLayer()
         {
             Mementor.BeginBatch();
@@ -307,6 +308,9 @@ namespace CMiX.ViewModels
             {
                 layerindex.Add(lyr.Index.ToString());
             }
+
+            if (layer.GetType().GetProperty("MessageAddress") == null)
+                Console.WriteLine("POUETPOUETNULL");
 
             QueueMessages("/LayerNames", this.LayerNames.ToArray());
             QueueMessages("/LayerIndex", layerindex.ToArray());

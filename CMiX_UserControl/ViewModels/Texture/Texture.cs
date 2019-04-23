@@ -17,6 +17,7 @@ namespace CMiX.ViewModels
             (
                 mementor: mementor,
                 messengers: messengers,
+                messageaddress: String.Format("{0}/{1}/", layername, nameof(Texture)),
                 fileselector: new FileSelector("Extended", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, messengers, String.Format("{0}/{1}/", layername, nameof(Texture)), mementor),
                 brightness: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Brightness"), messengers, mementor),
                 contrast: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Contrast"), messengers, mementor),
@@ -29,8 +30,8 @@ namespace CMiX.ViewModels
                 scale: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Scale"), messengers, mementor),
                 rotate: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Rotate"), messengers, mementor),
                 pan: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Pan"), messengers, mementor),
-                tilt: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Tilt"), messengers, mementor),
-                messageaddress: String.Format("{0}/{1}/", layername, nameof(Texture))
+                tilt: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Tilt"), messengers, mementor)
+                
             )
         { }
 

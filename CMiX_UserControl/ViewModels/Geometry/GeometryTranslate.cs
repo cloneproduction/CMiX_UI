@@ -12,25 +12,33 @@ namespace CMiX.ViewModels
         public GeometryTranslate(string layername, ObservableCollection<OSCMessenger> messengers, Mementor mementor)
             : this
             (
-                mementor: mementor,
                 messageaddress: layername + "/",
                 messengers: messengers,
-                translateMode: default
+
+                translateMode: default,
+
+                mementor: mementor
             )
         {}
 
         public GeometryTranslate
             (
-                Mementor mementor,
+                
                 string messageaddress,
                 ObservableCollection<OSCMessenger> messengers,
-                GeometryTranslateMode translateMode
+
+                GeometryTranslateMode translateMode,
+
+                Mementor mementor
             )
             : base (messengers)
         {
+
             MessageAddress = messageaddress;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
+            TranslateMode = translateMode;
             Mementor = mementor;
+
         }
         #endregion
 

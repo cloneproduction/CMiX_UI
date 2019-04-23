@@ -15,9 +15,9 @@ namespace CMiX.ViewModels
         public Geometry(string layername, ObservableCollection<OSCMessenger> messengers, Mementor mementor)
             : this
             (
-                mementor: mementor,
-                messengers: messengers,
                 messageaddress: String.Format("{0}/{1}/", layername, nameof(Geometry)),
+                messengers: messengers,
+
                 fileselector: new FileSelector("Single", new List<string> { ".FBX", ".OBJ" }, messengers, String.Format("{0}/{1}/", layername, nameof(Geometry)), mementor),
                 translatemode: new GeometryTranslate(String.Format("{0}/{1}", layername, nameof(Geometry)), messengers, mementor),
                 scalemode: new GeometryScale(String.Format("{0}/{1}", layername, nameof(Geometry)), messengers, mementor),
@@ -28,14 +28,18 @@ namespace CMiX.ViewModels
                 rotationAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Rotation"), messengers, mementor),
                 counter: new Counter(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Counter"), messengers, mementor),
                 is3D: false,    
-                keepAspectRatio: false
+                keepAspectRatio: false,
+
+                mementor: mementor
             )
         { }
 
         public Geometry
             (
-                Mementor mementor,
+                
                 ObservableCollection<OSCMessenger> messengers,
+                string messageaddress,
+
                 FileSelector fileselector,
                 GeometryTranslate translatemode,
                 GeometryScale scalemode,
@@ -47,26 +51,30 @@ namespace CMiX.ViewModels
                 Counter counter,
                 bool is3D,
                 bool keepAspectRatio,
-                string messageaddress
+
+                Mementor mementor
             )
             : base (messengers)
         {
+            MessageAddress = messageaddress;
+            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
+
             FileSelector = fileselector ?? throw new ArgumentNullException(nameof(FileSelector));
             TranslateMode = translatemode ?? throw new ArgumentNullException(nameof(TranslateMode));
             RotationMode = rotationmode ?? throw new ArgumentNullException(nameof(RotationMode));
             ScaleMode = scalemode ?? throw new ArgumentNullException(nameof(ScaleMode));
-            GeometryFX = geometryfx;
+            GeometryFX = geometryfx ?? throw new ArgumentNullException(nameof(GeometryFX));
             TranslateAmount = translateAmount;
             RotationAmount = rotationAmount;
             ScaleAmount = scaleAmount;
             Counter = counter;
             Is3D = is3D;
             KeepAspectRatio = keepAspectRatio;
-            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
-            MessageAddress = messageaddress;
+
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
+
             Mementor = mementor;
         }
         #endregion

@@ -15,13 +15,15 @@ namespace CMiX.ViewModels
     public class FileSelector : ViewModel, IDropTarget, IDragSource
     {
         #region CONSTRUCTORS
-        public FileSelector(string layername, ObservableCollection<OSCMessenger> messengers, Mementor mementor)
+        public FileSelector(string layername, List<string> filemask, ObservableCollection<OSCMessenger> messengers, Mementor mementor)
             : this
             (
-                filemask: new List<string>(),
-                selectionmode: String.Empty,
                 messageaddress: String.Format("{0}/", layername),
                 messengers: messengers,
+
+                filemask: filemask,
+                selectionmode: String.Empty,
+
                 mementor: mementor
             )
         { }
@@ -36,16 +38,20 @@ namespace CMiX.ViewModels
             )
             : base(messengers)
         {
-            SelectionMode = selectionmode;
-            FileMask = filemask;
             MessageAddress = messageaddress;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
+
+            SelectionMode = selectionmode;
+            FileMask = filemask;
+
             ClearSelectedCommand = new RelayCommand(p => ClearSelected());
             ClearUnselectedCommand = new RelayCommand(p => ClearUnselected());
             ClearAllCommand = new RelayCommand(p => ClearAll());
             DeleteItemCommand = new RelayCommand(p => DeleteItem(p));
+
             FilePaths = new ObservableCollection<FileNameItem>();
             FilePaths.CollectionChanged += ContentCollectionChanged;
+
             Mementor = mementor;
         }
         #endregion
@@ -245,19 +251,17 @@ namespace CMiX.ViewModels
             if(fileselectordto.FilePaths != null) // NOT SURE THIS IS USEFULL ...
             {
                 DisabledMessages();
-                //Mementor.Batch(() =>
-                //{
-                Console.WriteLine("PasteFileSelector");
-                    FilePaths.Clear();
-                    foreach (var item in fileselectordto.FilePaths)
-                    {
-                        var filenameitem = new FileNameItem(Mementor);
-                        filenameitem.FileIsSelected = item.FileIsSelected;
-                        filenameitem.FileName = item.FileName;
-                        Mementor.ElementAdd(FilePaths, filenameitem);
-                        FilePaths.Add(filenameitem);
-                    }
-                //});
+
+                FilePaths.Clear();
+                foreach (var item in fileselectordto.FilePaths)
+                {
+                    var filenameitem = new FileNameItem(Mementor);
+                    filenameitem.FileIsSelected = item.FileIsSelected;
+                    filenameitem.FileName = item.FileName;
+                    Mementor.ElementAdd(FilePaths, filenameitem);
+                    FilePaths.Add(filenameitem);
+                }
+
                 EnabledMessages();
             }
         }
@@ -290,6 +294,10 @@ namespace CMiX.ViewModels
                 }
             }
             SendMessages(MessageAddress + nameof(FilePaths), filename.ToArray());
+            if(MessageAddress == null)
+            {
+                Console.WriteLine("FileSelector Message Address is NULL");
+            }
         }
 
         public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)

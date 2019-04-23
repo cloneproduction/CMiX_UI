@@ -13,10 +13,10 @@ namespace CMiX.ViewModels
         public Layer(MasterBeat masterBeat, string layername, ObservableCollection<OSCMessenger> messengers, int index, Mementor mementor)
             : base (messengers)
         {
+            LayerName = layername;
+            MessageAddress = String.Format("{0}/", layername);
             Messengers = messengers;
-            MessageAddress = String.Format("{0}/", layername); 
             Index = index;
-            LayerName = layername;       
             Index = 0;
             Enabled = false;
             BlendMode = ((BlendMode)0).ToString();
@@ -64,8 +64,6 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-        //public bool CanAcceptChildren { get; set; }
-        //public ObservableCollection<Layer> Children { get; private set; }
 
         private string _layername;
         [OSC]

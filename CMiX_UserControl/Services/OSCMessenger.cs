@@ -101,7 +101,7 @@ namespace CMiX.Services
 
             if (obj == null) return;
 
-            if (obj.GetType().GetProperty("MessageAddress") != null)
+            if (obj.GetType() == typeof(ViewModel))
             {
                 address = obj.GetType().GetProperty("MessageAddress").GetValue(obj, null).ToString();
             }
