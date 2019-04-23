@@ -74,6 +74,8 @@
                         />
                     <MenuItem
                         Header="Quit"
+                        Command="{Binding QuitCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                         Template="{StaticResource SubMenuItemBase}" 
                         />
                 </MenuItem>

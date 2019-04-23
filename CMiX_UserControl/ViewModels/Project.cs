@@ -22,6 +22,7 @@ namespace CMiX.ViewModels
             OpenProjectCommand = new RelayCommand(p => OpenProject());
             SaveProjectCommand = new RelayCommand(p => SaveProject());
             SaveAsProjectCommand = new RelayCommand(p => SaveAsProject());
+            QuitCommand = new RelayCommand(p => Quit(p));
 
             AddOSCCommand = new RelayCommand(p => AddOSC());
             RemoveSelectedOSCCommand = new RelayCommand(p => RemoveSelectedOSC());
@@ -67,6 +68,7 @@ namespace CMiX.ViewModels
         public ICommand SaveProjectCommand { get; }
         public ICommand SaveAsProjectCommand { get; }
         public ICommand OpenProjectCommand { get; }
+        public ICommand QuitCommand { get; }
 
         public ICommand AddOSCCommand { get; set; }
         public ICommand RemoveSelectedOSCCommand { get; set; }
@@ -193,6 +195,13 @@ namespace CMiX.ViewModels
                 FolderPath = folderPath;
             }
         }
+
+        private void Quit(object p)
+        {
+            var window = p as Window;
+            window.Close();
+        }
+
 
         private void AddLayer()
         {
