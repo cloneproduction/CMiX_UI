@@ -25,10 +25,7 @@ namespace CMiX.Services
         public bool SendEnabled
         {
             get { return _sendenabled; }
-            set
-            {
-                _sendenabled = value;
-            }
+            set => SetAndNotify(ref _sendenabled, value);
         }
 
         private string _name;

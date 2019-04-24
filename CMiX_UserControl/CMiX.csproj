@@ -185,6 +185,9 @@
     <Compile Include="Views\Camera.xaml.cs">
       <DependentUpon>Camera.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ChannelOSCDataTemplate.xaml.cs">
+      <DependentUpon>ChannelOSCDataTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Coloration.xaml.cs">
       <DependentUpon>Coloration.xaml</DependentUpon>
     </Compile>
@@ -365,6 +368,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Camera.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChannelOSCDataTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

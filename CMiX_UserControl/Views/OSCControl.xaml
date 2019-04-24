@@ -11,13 +11,36 @@
         <StackPanel HorizontalAlignment="Stretch">
             <Grid Height="20">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock 
+                    Text="Name" 
+                    Foreground="{StaticResource TextBase}"
+                    HorizontalAlignment="Right"
+                    Margin="0, 0, 8, 0"
+                    VerticalAlignment="Center"
+                    />
+                <TextBox
+                    Margin="1"
+                    Text="{Binding Name}"
+                    Grid.Column="1"
+                    BorderThickness="1"
+                    BorderBrush="{StaticResource DarkColor}"
+                    Foreground="{StaticResource TextBase}"
+                    Background="{StaticResource HighDarkerColor}"
+                    />
+            </Grid>
+            <Grid Height="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.4*"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TextBlock 
                     Text="IP" 
                     Foreground="{StaticResource TextBase}"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    Margin="0, 0, 8, 0"
                     VerticalAlignment="Center"
                     />
                 <Controls:IPBox 
@@ -27,13 +50,14 @@
             </Grid>
             <Grid Height="20">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.4*"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TextBlock 
                     Text="Port" 
+                    Margin="0, 0, 8, 0"
                     Foreground="{StaticResource TextBase}"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     />
                 <TextBox
@@ -47,7 +71,7 @@
                     />
 
             </Grid>
-            <Grid Height="20">
+            <!--<Grid Height="20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.2*"/>
                     <ColumnDefinition/>
@@ -66,8 +90,8 @@
                     Height="20" 
                     IsChecked="{Binding SendEnabled}"
                     Style="{StaticResource ToggleButtonBase}"/>
-            </Grid>
-            <Grid Height="20">
+            </Grid>-->
+            <!--<Grid Height="20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.3*"/>
                     <ColumnDefinition/>
@@ -89,28 +113,7 @@
                                                          Path=DataContext.ReloadCompositionCommand}"
                     CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"
                     Style="{StaticResource ButtonBase}"/>
-            </Grid>
-            <Grid Height="20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.3*"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <TextBlock 
-                    Text="Name" 
-                    Foreground="{StaticResource TextBase}"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    />
-                <TextBox
-                    Margin="1"
-                    Text="{Binding Name}"
-                    Grid.Column="1"
-                    BorderThickness="1"
-                    BorderBrush="{StaticResource DarkColor}"
-                    Foreground="{StaticResource TextBase}"
-                    Background="{StaticResource HighDarkerColor}"
-                    />
-            </Grid>
+            </Grid>-->
         </StackPanel>
     </Border>
 </UserControl>

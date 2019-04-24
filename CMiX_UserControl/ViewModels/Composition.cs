@@ -193,30 +193,33 @@ namespace CMiX.ViewModels
 
         private void RemoveLayer()
         {
-            Mementor.BeginBatch();
-
-            layerID -= 1;
-            string removedlayername = string.Empty;
-            List<string> layerindex = new List<string>();
-            removedlayername = SelectedLayer.LayerName;
-            LayerNames.Remove(SelectedLayer.LayerName);
-            Layers.Remove(SelectedLayer);
-
-            foreach (Layer lyr in Layers)
+            if(SelectedLayer != null)
             {
-                if (lyr.Index > Layers.IndexOf(SelectedLayer))
+                Mementor.BeginBatch();
+
+                layerID -= 1;
+                string removedlayername = string.Empty;
+                List<string> layerindex = new List<string>();
+                removedlayername = SelectedLayer.LayerName;
+                LayerNames.Remove(SelectedLayer.LayerName);
+                Layers.Remove(SelectedLayer);
+
+                foreach (Layer lyr in Layers)
                 {
-                    lyr.Index -= 1;
+                    if (lyr.Index > Layers.IndexOf(SelectedLayer))
+                    {
+                        lyr.Index -= 1;
+                    }
+                    layerindex.Add(lyr.Index.ToString());
                 }
-                layerindex.Add(lyr.Index.ToString());
+
+                QueueMessages("/LayerNames", this.LayerNames.ToArray());
+                QueueMessages("/LayerIndex", layerindex.ToArray());
+                QueueMessages("/LayerRemoved", removedlayername);
+                SendQueues();
+
+                Mementor.EndBatch();
             }
-
-            QueueMessages("/LayerNames", this.LayerNames.ToArray());
-            QueueMessages("/LayerIndex", layerindex.ToArray());
-            QueueMessages("/LayerRemoved", removedlayername);
-            SendQueues();
-
-            Mementor.EndBatch();
         }
 
         private void DeleteLayer(object layer)

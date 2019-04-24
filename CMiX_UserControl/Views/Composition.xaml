@@ -178,42 +178,7 @@
                         <TabItem.Header>
                             <TextBlock Text="OSC" Margin="4, 0, 4, 0"/>
                         </TabItem.Header>
-                        <DockPanel>
-                            <DockPanel FlowDirection="LeftToRight" Height="20" DockPanel.Dock="Top">
-                                <ComboBox
-                                    HorizontalAlignment="Left"
-                                    Width="100"
-                                    DockPanel.Dock="Left"
-
-                                    ItemsSource="{Binding Messengers}"
-                                    DisplayMemberPath="Name"
-                                    >
-                                </ComboBox>
-                                <Button 
-                                    Style="{StaticResource ButtonBase}"
-                                    Height="20" 
-                                    DockPanel.Dock="Top"
-                                    Content="Add"
-                                    />
-
-
-                            </DockPanel>
-
-                            <Border DockPanel.Dock="Bottom"  Style="{StaticResource BorderContainer}">
-                                <StackPanel Orientation="Horizontal">
-                                    <Button
-                                        ToolTip="New Layer"
-                                        Command="{Binding Path=AddOSCCommand}"
-                                        Width="15"
-                                        Height="15"
-                                        Style="{StaticResource ButtonImageBase}" >
-                                        <Button.Content>
-                                            <Image Source="/Assets/NewLayer.png"/>
-                                        </Button.Content>
-                                    </Button>
-                                </StackPanel>
-                            </Border>
-                            <ListBox 
+                        <ListBox 
                                 Margin="0, 8, 0, 0"
                                 HorizontalContentAlignment="Stretch" 
                                 ScrollViewer.HorizontalScrollBarVisibility="Hidden"
@@ -222,35 +187,12 @@
                                 ItemsSource="{Binding Messengers}" 
                                 dd:DragDrop.IsDragSource="True"
                                 dd:DragDrop.IsDropTarget="True">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <Grid Height="20">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="0.2*"/>
-                                                    <ColumnDefinition/>
-                                                </Grid.ColumnDefinitions>
-                                                <TextBlock 
-                                                    Text="Send" 
-                                                    Foreground="{StaticResource TextBase}"
-                                                    HorizontalAlignment="Center"
-                                                    VerticalAlignment="Center"
-                                                    />
-                                                <ToggleButton 
-                                                    Margin="1"
-                                                    HorizontalAlignment="Left"
-                                                    Grid.Column="1"
-                                                    Width="20"
-                                                    Height="20" 
-                                                    IsChecked="{Binding SendEnabled}"
-                                                    Style="{StaticResource ToggleButtonBase}"/>
-                                            </Grid>
-                                            <TextBlock Text="{Binding Name}" Foreground="White"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                        </DockPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Views:ChannelOSCDataTemplate Margin="2"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
                     </TabItem>
                 </TabControl>
             </Border>
