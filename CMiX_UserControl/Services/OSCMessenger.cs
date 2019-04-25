@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using SharpOSC;
 using CMiX.ViewModels;
+using System.Windows.Input;
 
 namespace CMiX.Services
 {
@@ -15,11 +16,14 @@ namespace CMiX.Services
         {
             Sender = new UDPSender(Address, Port);
             messages = new List<OscMessage>();
+            ReloadCommand = new RelayCommand(p => Reload(p));
         }
 
         public UDPSender Sender { get; set; }
 
         private readonly List<OscMessage> messages;
+
+        public ICommand ReloadCommand { get; }
 
         private bool _sendenabled = true;
         public bool SendEnabled
@@ -42,7 +46,7 @@ namespace CMiX.Services
             get { return _address; }
             set
             {
-                _address = value;
+                SetAndNotify(ref _address, value);
                 UpdateUDPSender();
             }
         }
@@ -53,9 +57,15 @@ namespace CMiX.Services
             get { return _port; }
             set
             {
-                _port = value;
+                SetAndNotify(ref _port, value);
                 UpdateUDPSender();
             }
+        }
+
+        public void Reload(object obj)
+        {
+            QueueObject(obj);
+            SendQueue();
         }
 
         private void UpdateUDPSender()
@@ -82,6 +92,7 @@ namespace CMiX.Services
 
         public void SendQueue()
         {
+            Console.WriteLine("SendQueue");
             if (SendEnabled)
             {
                 var bundle = new OscBundle(0, messages.ToArray());
@@ -92,6 +103,7 @@ namespace CMiX.Services
 
         public void QueueObject(object obj)
         {
+            Console.WriteLine("QueueObject");
             string address = string.Empty;
             string propdata = string.Empty;
             string propertyname = string.Empty;

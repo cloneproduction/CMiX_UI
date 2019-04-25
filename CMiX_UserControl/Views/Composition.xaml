@@ -8,15 +8,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:dd="urn:gong-wpf-dragdrop"
-     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     d:DesignHeight="880.666"
     d:DesignWidth="1358.5"
     mc:Ignorable="d">
-    <!--<i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LoadedCompositionCommand}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>-->
+
     <UserControl.Resources>
         <ResourceDictionary>
             <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />

@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:Views="clr-namespace:CMiX.Views"
              xmlns:Controls="clr-namespace:CMiX.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="106.667" d:DesignWidth="219.611">
@@ -71,49 +70,6 @@
                     />
 
             </Grid>
-            <!--<Grid Height="20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.2*"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <TextBlock 
-                    Text="Send" 
-                    Foreground="{StaticResource TextBase}"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    />
-                <ToggleButton 
-                    Margin="1"
-                    HorizontalAlignment="Left"
-                    Grid.Column="1"
-                    Width="20"
-                    Height="20" 
-                    IsChecked="{Binding SendEnabled}"
-                    Style="{StaticResource ToggleButtonBase}"/>
-            </Grid>-->
-            <!--<Grid Height="20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.3*"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <TextBlock 
-                    Text="Reload" 
-                    Foreground="{StaticResource TextBase}"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    />
-                <Button 
-                    Margin="1"
-                    HorizontalAlignment="Left"
-                    Grid.Column="1"
-                    Width="20"
-                    Height="20" 
-                    Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
-                                                         AncestorType={x:Type Views:Composition}},
-                                                         Path=DataContext.ReloadCompositionCommand}"
-                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"
-                    Style="{StaticResource ButtonBase}"/>
-            </Grid>-->
         </StackPanel>
     </Border>
 </UserControl>
