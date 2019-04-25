@@ -151,11 +151,11 @@
                     <Border DockPanel.Dock="Top"  Style="{StaticResource BorderContainer}">
                         <StackPanel Orientation="Horizontal">
                             <Button
-                            ToolTip="New Layer"
-                            Command="{Binding Path=AddOSCCommand}"
-                            Width="15"
-                            Height="15"
-                            Style="{StaticResource ButtonImageBase}" >
+                                ToolTip="New Layer"
+                                Command="{Binding Path=AddOSCCommand}"
+                                Width="15"
+                                Height="15"
+                                Style="{StaticResource ButtonImageBase}" >
                                 <Button.Content>
                                     <Image Source="/Assets/NewLayer.png"/>
                                 </Button.Content>
@@ -163,25 +163,25 @@
                         </StackPanel>
                     </Border>
                     <ListBox 
-                    Margin="0, 8, 0, 0"
-                    HorizontalContentAlignment="Stretch" 
-                    ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                    Style="{StaticResource LayerListBox}"
-                    ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
-                    ItemsSource="{Binding Messengers}" 
-                    dd:DragDrop.IsDragSource="True"
-                    dd:DragDrop.IsDropTarget="True">
+                        Margin="0, 8, 0, 0"
+                        HorizontalContentAlignment="Stretch" 
+                        ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                        Style="{StaticResource LayerListBox}"
+                        ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
+                        ItemsSource="{Binding Messengers}" 
+                        dd:DragDrop.IsDragSource="True"
+                        dd:DragDrop.IsDropTarget="True">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Views:OSCControl Margin="2">
                                     <Views:OSCControl.ContextMenu>
                                         <ContextMenu Style="{StaticResource ContextMenuBase }">
                                             <MenuItem
-                                            Padding="8, 4"
-                                            Style="{StaticResource MenuItemBase}"
-                                            Foreground="{StaticResource TextBase}"
-                                            Command="{Binding Data.AddOSCCommand, Source={StaticResource proxy}}"
-                                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
+                                                Padding="8, 4"
+                                                Style="{StaticResource MenuItemBase}"
+                                                Foreground="{StaticResource TextBase}"
+                                                Command="{Binding Data.AddOSCCommand, Source={StaticResource proxy}}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                                                 <MenuItem.Header>
                                                     <StackPanel Orientation="Horizontal">
                                                         <Image Width="10" Height="10" Source="/CMiX_UserControl;component/Assets/Copy.png" />

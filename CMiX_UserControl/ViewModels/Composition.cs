@@ -185,7 +185,7 @@ namespace CMiX.ViewModels
 
         private void AddOSC()
         {
-            Messengers.Add(new OSCMessenger { Port = 55555, Address = "127.0.0.1", SendEnabled = true });
+            //Messengers.Add(new OSCMessenger { Port = 55555, Address = "127.0.0.1", SendEnabled = true });
         }
         #endregion
 

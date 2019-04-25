@@ -15,8 +15,8 @@
             <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBox 
-            Text="192" 
+        <TextBox  
+            Text="127"
             Name="txtboxFirstPart" 
             LostFocus="TextBox_LostFocus"
             TextChanged="txtbox_TextChanged" 
@@ -42,7 +42,7 @@
             Foreground="{StaticResource TextBase}"
             />
         <TextBox 
-            Text="168" 
+            Text="0" 
             Name="txtboxSecondPart" 
             LostFocus="TextBox_LostFocus"
             Grid.Column="2" 
@@ -94,7 +94,7 @@
             Foreground="{StaticResource TextBase}"
             />
         <TextBox 
-            Text="163" 
+            Text="1" 
             x:Name="txtboxFourthPart" 
             Grid.Column="6" 
             Grid.Row="0" 

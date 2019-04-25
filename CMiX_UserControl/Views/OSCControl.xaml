@@ -45,7 +45,7 @@
                 <Controls:IPBox 
                     Margin="1"
                     Grid.Column="1" 
-                    IPAddress="{Binding Address}"/>
+                    IPAddress="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
             <Grid Height="20">
                 <Grid.ColumnDefinitions>

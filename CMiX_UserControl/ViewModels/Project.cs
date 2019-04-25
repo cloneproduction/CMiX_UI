@@ -100,7 +100,8 @@ namespace CMiX.ViewModels
 
         private void AddOSC()
         {
-            Messengers.Add(new OSCMessenger { Port = 2222, Address = "192.168.0.163", SendEnabled = true });
+            OSCMessenger oscmessenger = new OSCMessenger("127.0.0.1", 1111);
+            Messengers.Add(oscmessenger);
         }
         #endregion
 

@@ -12,9 +12,11 @@ namespace CMiX.Services
 {
     public class OSCMessenger : ViewModel, IMessenger
     {
-        public OSCMessenger()
+        public OSCMessenger(string address, int port)
         {
-            Sender = new UDPSender(Address, Port);
+            Address = address;
+            Port = port;
+            Sender = new UDPSender(address, port);
             messages = new List<OscMessage>();
             ReloadCommand = new RelayCommand(p => Reload(p));
         }
@@ -40,23 +42,25 @@ namespace CMiX.Services
         }
 
 
-        private string _address = "127.0.0.1";
+        private string _address;
         public string Address
         {
             get { return _address; }
             set
             {
+                Console.WriteLine("OSC Address Changed : " + Address);
                 SetAndNotify(ref _address, value);
                 UpdateUDPSender();
             }
         }
 
-        private int _port = 55555;
+        private int _port;
         public int Port
         {
             get { return _port; }
             set
             {
+                Console.WriteLine("PORT Number Changed : " + Port.ToString());
                 SetAndNotify(ref _port, value);
                 UpdateUDPSender();
             }

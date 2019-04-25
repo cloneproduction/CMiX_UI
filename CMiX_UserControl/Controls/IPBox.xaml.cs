@@ -25,7 +25,7 @@ namespace CMiX.Controls
         }
 
         public static readonly DependencyProperty IPAddressProperty =
-        DependencyProperty.Register("IPAddress", typeof(string), typeof(IPBox));
+        DependencyProperty.Register("IPAddress", typeof(string), typeof(IPBox), new PropertyMetadata("0.0.0.0"));
         [Bindable(true)]
         public string IPAddress
         {
@@ -41,6 +41,7 @@ namespace CMiX.Controls
                 txtboxThridPart.Text = splitValues[2];
                 txtboxFourthPart.Text = splitValues[3];
                 NotifyPropertyChanged("IPAddress");
+                Console.WriteLine("IPBox IPAddress Changed");
                 SetValue(IPAddressProperty, value);
             }
         }
