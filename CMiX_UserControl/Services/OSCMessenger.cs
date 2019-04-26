@@ -48,7 +48,6 @@ namespace CMiX.Services
             get { return _address; }
             set
             {
-                Console.WriteLine("OSC Address Changed : " + Address);
                 SetAndNotify(ref _address, value);
                 UpdateUDPSender();
             }
@@ -60,7 +59,6 @@ namespace CMiX.Services
             get { return _port; }
             set
             {
-                Console.WriteLine("PORT Number Changed : " + Port.ToString());
                 SetAndNotify(ref _port, value);
                 UpdateUDPSender();
             }
@@ -96,7 +94,6 @@ namespace CMiX.Services
 
         public void SendQueue()
         {
-            Console.WriteLine("SendQueue");
             if (SendEnabled)
             {
                 var bundle = new OscBundle(0, messages.ToArray());
@@ -107,7 +104,6 @@ namespace CMiX.Services
 
         public void QueueObject(object obj)
         {
-            Console.WriteLine("QueueObject");
             string address = string.Empty;
             string propdata = string.Empty;
             string propertyname = string.Empty;
