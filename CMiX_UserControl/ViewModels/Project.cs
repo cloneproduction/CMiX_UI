@@ -98,10 +98,12 @@ namespace CMiX.ViewModels
             Console.WriteLine("Remove OSC");
         }
 
+        int portnumber = 0;
         private void AddOSC()
         {
-            OSCMessenger oscmessenger = new OSCMessenger("127.0.0.1", 1111);
+            OSCMessenger oscmessenger = new OSCMessenger("127.0.0.1", 1111 + portnumber);
             Messengers.Add(oscmessenger);
+            portnumber++;
         }
         #endregion
 

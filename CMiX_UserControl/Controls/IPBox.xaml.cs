@@ -12,6 +12,7 @@ namespace CMiX.Controls
         public IPBox()
         {
             InitializeComponent();
+            IPAddress = "127.0.0.1";
         }
 
         #region PROPERTIES
@@ -25,7 +26,7 @@ namespace CMiX.Controls
         }
 
         public static readonly DependencyProperty IPAddressProperty =
-        DependencyProperty.Register("IPAddress", typeof(string), typeof(IPBox), new PropertyMetadata("0.0.0.0"));
+        DependencyProperty.Register("IPAddress", typeof(string), typeof(IPBox));
         [Bindable(true)]
         public string IPAddress
         {
