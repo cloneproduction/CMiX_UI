@@ -180,7 +180,7 @@ namespace CMiX.ViewModels
 
         private void RemoveSelectedOSC()
         {
-            Console.WriteLine("Remove OSC");
+            //Console.WriteLine("Remove OSC");
         }
 
         private void AddOSC()

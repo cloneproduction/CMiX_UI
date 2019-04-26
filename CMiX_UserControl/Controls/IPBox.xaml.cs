@@ -42,7 +42,6 @@ namespace CMiX.Controls
                 txtboxThridPart.Text = splitValues[2];
                 txtboxFourthPart.Text = splitValues[3];
                 NotifyPropertyChanged("IPAddress");
-                Console.WriteLine("IPBox IPAddress Changed");
                 SetValue(IPAddressProperty, value);
             }
         }
