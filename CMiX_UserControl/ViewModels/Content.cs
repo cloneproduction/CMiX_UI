@@ -26,7 +26,7 @@ namespace CMiX.ViewModels
 
             mementor: mementor
         )
-        {}
+        { }
 
         public Content
             (
