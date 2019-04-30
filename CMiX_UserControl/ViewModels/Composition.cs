@@ -37,9 +37,7 @@ namespace CMiX.ViewModels
             SaveCompositionCommand = new RelayCommand(p => Save());
             OpenCompositionCommand = new RelayCommand(p => Open());
 
-            AddOSCCommand = new RelayCommand(p => AddOSC());
-            RemoveSelectedOSCCommand = new RelayCommand(p => RemoveSelectedOSC());
-            DeleteOSCCommand = new RelayCommand(p => DeleteOSC(p));
+
 
             Mementor = new Mementor();
             MasterBeat = new MasterBeat(Messengers, Mementor);
@@ -79,9 +77,6 @@ namespace CMiX.ViewModels
         public ICommand OpenCompositionCommand { get; }
         public ICommand DeleteLayerCommand { get; }
         public ICommand DuplicateLayerCommand { get; }
-        public ICommand AddOSCCommand { get; set; }
-        public ICommand RemoveSelectedOSCCommand { get; set; }
-        public ICommand DeleteOSCCommand { get; set; }
 
         public MasterBeat MasterBeat { get; set; }
         public Camera Camera { get; set; }
@@ -171,23 +166,6 @@ namespace CMiX.ViewModels
         }
         #endregion
 
-        #region ADD/REMOVE/DELETE OSC
-        private void DeleteOSC(object oscmessenger)
-        {
-            OSCMessenger messenger = oscmessenger as OSCMessenger;
-            Messengers.Remove(messenger);
-        }
-
-        private void RemoveSelectedOSC()
-        {
-            //Console.WriteLine("Remove OSC");
-        }
-
-        private void AddOSC()
-        {
-            //Messengers.Add(new OSCMessenger { Port = 55555, Address = "127.0.0.1", SendEnabled = true });
-        }
-        #endregion
 
         #region ADD/REMOVE/DUPLICATE/DELETE LAYERS
 
@@ -299,7 +277,6 @@ namespace CMiX.ViewModels
 
             Layer layer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messengers, layerNameID, Mementor);
             layer.Index = layerID;
-
             Layers.Add(layer);
             Mementor.ElementAdd(Layers, layer);
             SelectedLayer = layer;
@@ -311,9 +288,6 @@ namespace CMiX.ViewModels
             {
                 layerindex.Add(lyr.Index.ToString());
             }
-
-            if (layer.GetType().GetProperty("MessageAddress") == null)
-                Console.WriteLine("POUETPOUETNULL");
 
             QueueMessages("/LayerNames", this.LayerNames.ToArray());
             QueueMessages("/LayerIndex", layerindex.ToArray());

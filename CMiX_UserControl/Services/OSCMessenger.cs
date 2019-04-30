@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace CMiX.Services
 {
-    public class OSCMessenger : ViewModel, IMessenger
+    public class OSCMessenger : ViewModel
     {
         public OSCMessenger(string address, int port)
         {
@@ -110,9 +110,15 @@ namespace CMiX.Services
 
             if (obj == null) return;
 
-            if (obj.GetType() == typeof(ViewModel))
+            PropertyInfo propinfo = obj.GetType().GetProperty("MessageAddress");
+
+            // THIS PART IS UGLY !!!
+            if (propinfo != null)
             {
-                address = obj.GetType().GetProperty("MessageAddress").GetValue(obj, null).ToString();
+                if (propinfo.GetValue(obj, null) != null) 
+                {
+                    address = obj.GetType().GetProperty("MessageAddress").GetValue(obj, null).ToString();
+                }
             }
 
             Type objType = obj.GetType();

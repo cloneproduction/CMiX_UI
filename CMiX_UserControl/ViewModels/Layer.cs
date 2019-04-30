@@ -13,9 +13,10 @@ namespace CMiX.ViewModels
         public Layer(MasterBeat masterBeat, string layername, ObservableCollection<OSCMessenger> messengers, int index, Mementor mementor)
             : base (messengers)
         {
-            LayerName = layername;
             MessageAddress = String.Format("{0}/", layername);
+            LayerName = layername;
             Messengers = messengers;
+            
             Index = index;
             Index = 0;
             Enabled = false;
@@ -29,7 +30,7 @@ namespace CMiX.ViewModels
             Mementor = mementor;
         }
 
-        public Layer
+        /*public Layer
             (
                 Mementor mementor,
                 ObservableCollection<OSCMessenger> messengers,
@@ -60,7 +61,7 @@ namespace CMiX.ViewModels
             Messengers = messengers;
             MessageAddress = messageaddress;
             Mementor = mementor;
-        }
+        }*/
         #endregion
 
         #region PROPERTIES

@@ -53,7 +53,7 @@ namespace CMiX.ViewModels
             }
         }
 
-        public void QueueObjects(object obj)
+        public void QueueObjects(ViewModel obj)
         {
             foreach (var Message in Messengers)
             {
