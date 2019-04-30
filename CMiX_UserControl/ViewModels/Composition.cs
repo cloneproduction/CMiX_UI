@@ -36,15 +36,13 @@ namespace CMiX.ViewModels
             PasteLayerCommand = new RelayCommand(p => PasteLayer());
             SaveCompositionCommand = new RelayCommand(p => Save());
             OpenCompositionCommand = new RelayCommand(p => Open());
-
-
-
-            Mementor = new Mementor();
+            
             MasterBeat = new MasterBeat(Messengers, Mementor);
             Camera = new Camera(Messengers, MasterBeat, Mementor);
+            Mementor = new Mementor();
         }
 
-        public Composition(string name, Camera camera, MasterBeat masterBeat, IEnumerable<Layer> layers, Mementor mementor)
+        /*public Composition(string name, Camera camera, MasterBeat masterBeat, IEnumerable<Layer> layers, Mementor mementor)
             : base(new ObservableCollection<OSCMessenger>())
         {
             if (layers == null)
@@ -61,7 +59,7 @@ namespace CMiX.ViewModels
             Layers.CollectionChanged += ContentCollectionChanged;
 
             Mementor = mementor;
-        }
+        }*/
         #endregion
 
         #region PROPERTIES
@@ -317,8 +315,6 @@ namespace CMiX.ViewModels
 
         public void Paste(CompositionDTO compositiondto)
         {
-            //OSCControl.OSCMessenger.SendEnabled = false;
-
             Name = compositiondto.Name;
             LayerNames = compositiondto.LayerNames;
 
@@ -334,14 +330,10 @@ namespace CMiX.ViewModels
 
             MasterBeat.Paste(compositiondto.MasterBeatDTO);
             Camera.Paste(compositiondto.CameraDTO);
-
-            //OSCControl.OSCMessenger.SendEnabled = false;
         }
 
         public void Load(CompositionDTO compositiondto)
         {
-            //OSCControl.OSCMessenger.SendEnabled = false;
-
             Name = compositiondto.Name;
             LayerNames = compositiondto.LayerNames;
 
@@ -355,8 +347,6 @@ namespace CMiX.ViewModels
 
             MasterBeat.Paste(compositiondto.MasterBeatDTO);
             Camera.Paste(compositiondto.CameraDTO);
-
-            //OSCControl.OSCMessenger.SendEnabled = false;
         }
 
         private void Save()
