@@ -125,7 +125,6 @@ namespace CMiX.ViewModels
             message.SendQueue();
         }
 
-
         #region COPY/PASTE LAYER
         private void CopyLayer()
         {
@@ -164,8 +163,73 @@ namespace CMiX.ViewModels
         }
         #endregion
 
-
         #region ADD/REMOVE/DUPLICATE/DELETE LAYERS
+        public void AddLayer()
+        {
+            Mementor.BeginBatch();
+
+            layerID += 1;
+            layerNameID += 1;
+
+            Layer layer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messengers, layerNameID, Mementor);
+            layer.Index = layerID;
+            Layers.Add(layer);
+            Mementor.ElementAdd(Layers, layer);
+            SelectedLayer = layer;
+
+            LayerNames.Add("/Layer" + layerNameID.ToString());
+
+            List<string> layerindex = new List<string>();
+            foreach (Layer lyr in Layers)
+            {
+                layerindex.Add(lyr.Index.ToString());
+            }
+
+            QueueMessages("/LayerNames", this.LayerNames.ToArray());
+            QueueMessages("/LayerIndex", layerindex.ToArray());
+            QueueObjects(layer);
+            SendQueues();
+
+            Mementor.EndBatch();
+        }
+
+        private void DuplicateLayer(object layer)
+        {
+            Mementor.BeginBatch();
+
+            layerID += 1;
+            layerNameID += 1;
+            LayerNames.Add("/Layer" + layerNameID.ToString());
+
+            Layer lyr = layer as Layer;
+            LayerDTO layerdto = new LayerDTO();
+            lyr.Copy(layerdto);
+
+            Layer newlayer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messengers, layerNameID, Mementor);
+            newlayer.Paste(layerdto);
+            newlayer.LayerName = "/Layer" + layerNameID.ToString();
+            newlayer.Index = layerID;
+            newlayer.Enabled = false;
+
+            int index = Layers.IndexOf(lyr) + 1;
+            Layers.Insert(index, newlayer);
+            Mementor.ElementAdd(Layers, newlayer);
+            SelectedLayer = newlayer;
+
+            List<string> layerindex = new List<string>();
+            foreach (Layer lay in Layers)
+            {
+                layerindex.Add(lay.Index.ToString());
+            }
+
+
+            QueueMessages("/LayerNames", this.LayerNames.ToArray());
+            QueueMessages("/LayerIndex", layerindex.ToArray());
+            QueueObjects(newlayer);
+            SendQueues();
+
+            Mementor.EndBatch();
+        }
 
         private void RemoveLayer()
         {
@@ -223,73 +287,6 @@ namespace CMiX.ViewModels
             QueueMessages("/LayerNames", this.LayerNames.ToArray());
             QueueMessages("/LayerIndex", layerindex.ToArray());
             QueueMessages("/LayerRemoved", lyr.LayerName);
-            SendQueues();
-
-            Mementor.EndBatch();
-        }
-
-        private void DuplicateLayer(object layer)
-        {
-            Mementor.BeginBatch();
-
-            layerID += 1;
-            layerNameID += 1;
-            LayerNames.Add("/Layer" + layerNameID.ToString());
-
-            Layer lyr = layer as Layer;
-            LayerDTO layerdto = new LayerDTO();
-            lyr.Copy(layerdto);
-
-            Layer newlayer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messengers, layerNameID, Mementor);
-            newlayer.Paste(layerdto);
-            newlayer.LayerName = "/Layer" + layerNameID.ToString();
-            newlayer.Index = layerID;
-            newlayer.Enabled = false;
-
-            int index = Layers.IndexOf(lyr) + 1;
-            Layers.Insert(index, newlayer);
-            Mementor.ElementAdd(Layers, newlayer);
-            SelectedLayer = newlayer;
-
-            List<string> layerindex = new List<string>();
-            foreach (Layer lay in Layers)
-            {
-                layerindex.Add(lay.Index.ToString());
-            }
-
-            
-            QueueMessages("/LayerNames", this.LayerNames.ToArray());
-            QueueMessages("/LayerIndex", layerindex.ToArray());
-            QueueObjects(newlayer);
-            SendQueues();
-
-            Mementor.EndBatch();
-        }
-
-        public void AddLayer()
-        {
-            Mementor.BeginBatch();
-
-            layerID += 1;
-            layerNameID += 1;
-
-            Layer layer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messengers, layerNameID, Mementor);
-            layer.Index = layerID;
-            Layers.Add(layer);
-            Mementor.ElementAdd(Layers, layer);
-            SelectedLayer = layer;
-
-            LayerNames.Add("/Layer" + layerNameID.ToString());
-
-            List<string> layerindex = new List<string>();
-            foreach (Layer lyr in Layers)
-            {
-                layerindex.Add(lyr.Index.ToString());
-            }
-
-            QueueMessages("/LayerNames", this.LayerNames.ToArray());
-            QueueMessages("/LayerIndex", layerindex.ToArray());
-            QueueObjects(layer);
             SendQueues();
 
             Mementor.EndBatch();

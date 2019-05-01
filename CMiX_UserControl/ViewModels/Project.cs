@@ -5,10 +5,7 @@ using System.Windows;
 using System.Windows.Input;
 using CMiX.Models;
 using CMiX.Services;
-using Memento;
 using Ceras;
-using Newtonsoft.Json;
-using MvvmDialogs;
 
 namespace CMiX.ViewModels
 {
@@ -48,17 +45,6 @@ namespace CMiX.ViewModels
 
         }
 
-        private Composition _selectedcomposition;
-        public Composition SelectedComposition
-        {
-            get => _selectedcomposition;
-            set => SetAndNotify(ref _selectedcomposition, value);
-        }
-
-        public CerasSerializer Serializer { get; set; }
-
-        public string FolderPath { get; set; }
-
         #region PROPERTIES
         public ICommand ImportCompoCommand { get; }
         public ICommand ImportCompoFromProjectCommand { get; }
@@ -84,6 +70,17 @@ namespace CMiX.ViewModels
         public ObservableCollection<Composition> Compositions { get; set; }
 
         public ImportFromProject ImportFromProject { get; set; }
+
+        public CerasSerializer Serializer { get; set; }
+
+        public string FolderPath { get; set; }
+
+        private Composition _selectedcomposition;
+        public Composition SelectedComposition
+        {
+            get => _selectedcomposition;
+            set => SetAndNotify(ref _selectedcomposition, value);
+        }
         #endregion
 
         #region ADD/REMOVE/DELETE OSC

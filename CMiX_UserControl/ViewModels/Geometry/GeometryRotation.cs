@@ -13,14 +13,14 @@ namespace CMiX.ViewModels
         : this
         (
             mementor: mementor,
-            messageaddress: layername + "/RotationMode",
+            messageaddress: layername + "/",
             messengers: messengers,
             rotationMode: default,
             rotationX: true,
             rotationY: true,
             rotationZ: true
         )
-        { Console.WriteLine("LayerMessageAddress" + MessageAddress); }
+        { }
 
         public GeometryRotation
             (
@@ -54,7 +54,7 @@ namespace CMiX.ViewModels
                 if (Mementor != null)
                     Mementor.PropertyChange(this, "RotationMode");
                 SetAndNotify(ref _RotationMode, value);
-                SendMessages(MessageAddress, RotationMode);
+                SendMessages(MessageAddress +"RotationMode", RotationMode);
             }
         }
 
