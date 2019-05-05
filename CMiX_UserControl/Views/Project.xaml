@@ -140,7 +140,7 @@
                 </MenuItem>
             </Menu>
         </Grid>
-        <Expander ExpandDirection="Right" DockPanel.Dock="Left">
+        <Expander  ExpandDirection="Right" DockPanel.Dock="Left" Style="{DynamicResource ExpanderBase}">
             <Border
                 DockPanel.Dock="Right"
                 Margin="0, 4"
