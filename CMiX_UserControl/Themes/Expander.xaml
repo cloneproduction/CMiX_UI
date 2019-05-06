@@ -15,6 +15,24 @@
     <SolidColorBrush x:Key="Expander.Static.Circle.Fill" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="Expander.Static.Circle.Stroke" Color="#FF333333"/>
     <SolidColorBrush x:Key="Expander.Static.Arrow.Stroke" Color="#FF333333"/>
+
+    <Style x:Key="ExpanderHeaderFocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border>
+                        <Rectangle 
+                            Margin="0" 
+                            SnapsToDevicePixels="true" 
+                            Stroke="Black" 
+                            StrokeThickness="1" 
+                            StrokeDashArray="1 2"
+                            />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     
     <Style x:Key="ExpanderRightHeaderStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Template">
@@ -38,10 +56,10 @@
                                 </Grid.LayoutTransform>
                                 <Ellipse 
                                     x:Name="circle" 
-                                    Fill="{StaticResource Expander.Static.Circle.Fill}" 
+                                    Fill="{StaticResource DarkColor}" 
                                     HorizontalAlignment="Center" 
                                     Height="19" 
-                                    Stroke="{StaticResource Expander.Static.Circle.Stroke}" 
+                                    Stroke="{StaticResource DarkColor}" 
                                     VerticalAlignment="Center" 
                                     Width="19"
                                     />
@@ -50,7 +68,7 @@
                                     Data="M 1,1.5 L 4.5,5 L 8,1.5" 
                                     HorizontalAlignment="Center" 
                                     SnapsToDevicePixels="false" 
-                                    Stroke="{StaticResource Expander.Static.Arrow.Stroke}" 
+                                    Stroke="{StaticResource LightColor}" 
                                     StrokeThickness="2" 
                                     VerticalAlignment="Center"
                                     />
@@ -70,26 +88,27 @@
                             <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.MouseOver.Circle.Stroke}"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.MouseOver.Circle.Fill}"/>
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.MouseOver.Arrow.Stroke}"/>
+                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Color}"/>
+                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Color}"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource HighLightColor}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.Pressed.Circle.Stroke}"/>
+                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource HighLightColor}"/>
                             <Setter Property="StrokeThickness" TargetName="circle" Value="1.5"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.Pressed.Circle.Fill}"/>
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Pressed.Arrow.Stroke}"/>
+                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource HighLightColor}"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource HighLightColor}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.Disabled.Circle.Stroke}"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.Disabled.Circle.Fill}"/>
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Disabled.Arrow.Stroke}"/>
+                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource DarkColor}"/>
+                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource DarkColor}"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Color}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
+    
     <Style x:Key="ExpanderUpHeaderStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Template">
             <Setter.Value>
@@ -164,6 +183,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
     <Style x:Key="ExpanderLeftHeaderStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Template">
             <Setter.Value>
@@ -238,23 +258,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="ExpanderHeaderFocusVisual">
-        <Setter Property="Control.Template">
-            <Setter.Value>
-                <ControlTemplate>
-                    <Border>
-                        <Rectangle 
-                            Margin="0" 
-                            SnapsToDevicePixels="true" 
-                            Stroke="Black" 
-                            StrokeThickness="1" 
-                            StrokeDashArray="1 2"
-                            />
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
+
     <Style x:Key="ExpanderDownHeaderStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Template">
             <Setter.Value>
