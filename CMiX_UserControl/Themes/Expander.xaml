@@ -3,18 +3,19 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Brushes.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    <SolidColorBrush x:Key="Expander.MouseOver.Circle.Stroke" Color="#FF5593FF"/>
-    <SolidColorBrush x:Key="Expander.MouseOver.Circle.Fill" Color="#FFF3F9FF"/>
-    <SolidColorBrush x:Key="Expander.MouseOver.Arrow.Stroke" Color="#FF000000"/>
-    <SolidColorBrush x:Key="Expander.Pressed.Circle.Stroke" Color="#FF3C77DD"/>
-    <SolidColorBrush x:Key="Expander.Pressed.Circle.Fill" Color="#FFD9ECFF"/>
-    <SolidColorBrush x:Key="Expander.Pressed.Arrow.Stroke" Color="#FF000000"/>
-    <SolidColorBrush x:Key="Expander.Disabled.Circle.Stroke" Color="#FFBCBCBC"/>
-    <SolidColorBrush x:Key="Expander.Disabled.Circle.Fill" Color="#FFE6E6E6"/>
-    <SolidColorBrush x:Key="Expander.Disabled.Arrow.Stroke" Color="#FF707070"/>
-    <SolidColorBrush x:Key="Expander.Static.Circle.Fill" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="Expander.Static.Circle.Stroke" Color="#FF333333"/>
-    <SolidColorBrush x:Key="Expander.Static.Arrow.Stroke" Color="#FF333333"/>
+    
+    <SolidColorBrush x:Key="Expander.MouseOver.Circle.Stroke" Color="{StaticResource Normal}"/>
+    <SolidColorBrush x:Key="Expander.MouseOver.Circle.Fill" Color="{StaticResource Normal}"/>
+    <SolidColorBrush x:Key="Expander.MouseOver.Arrow.Stroke" Color="{StaticResource HighLight}"/>
+    <SolidColorBrush x:Key="Expander.Pressed.Circle.Stroke" Color="{StaticResource Light}"/>
+    <SolidColorBrush x:Key="Expander.Pressed.Circle.Fill" Color="{StaticResource Light}"/>
+    <SolidColorBrush x:Key="Expander.Pressed.Arrow.Stroke" Color="{StaticResource HighLight}"/>
+    <SolidColorBrush x:Key="Expander.Disabled.Circle.Stroke" Color="{StaticResource Dark}"/>
+    <SolidColorBrush x:Key="Expander.Disabled.Circle.Fill" Color="{StaticResource Dark}"/>
+    <SolidColorBrush x:Key="Expander.Disabled.Arrow.Stroke" Color="{StaticResource Dark}"/>
+    <SolidColorBrush x:Key="Expander.Static.Circle.Fill" Color="{StaticResource HighDarker}"/>
+    <SolidColorBrush x:Key="Expander.Static.Circle.Stroke" Color="{StaticResource HighDarker}"/>
+    <SolidColorBrush x:Key="Expander.Static.Arrow.Stroke" Color="{StaticResource Light}"/>
 
     <Style x:Key="ExpanderHeaderFocusVisual">
         <Setter Property="Control.Template">
@@ -56,10 +57,10 @@
                                 </Grid.LayoutTransform>
                                 <Ellipse 
                                     x:Name="circle" 
-                                    Fill="{StaticResource DarkColor}" 
+                                    Fill="{StaticResource Expander.Static.Circle.Fill}" 
                                     HorizontalAlignment="Center" 
                                     Height="19" 
-                                    Stroke="{StaticResource DarkColor}" 
+                                    Stroke="{StaticResource Expander.Static.Circle.Stroke}" 
                                     VerticalAlignment="Center" 
                                     Width="19"
                                     />
@@ -68,7 +69,7 @@
                                     Data="M 1,1.5 L 4.5,5 L 8,1.5" 
                                     HorizontalAlignment="Center" 
                                     SnapsToDevicePixels="false" 
-                                    Stroke="{StaticResource LightColor}" 
+                                    Stroke="{StaticResource Expander.Static.Arrow.Stroke}" 
                                     StrokeThickness="2" 
                                     VerticalAlignment="Center"
                                     />
@@ -84,24 +85,21 @@
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsChecked" Value="true">
-                            <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
-                        </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Color}"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Color}"/>
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource HighLightColor}"/>
+                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.MouseOver.Circle.Stroke}"/>
+                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.MouseOver.Circle.Fill}"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.MouseOver.Arrow.Stroke}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource HighLightColor}"/>
+                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.Pressed.Circle.Stroke}"/>
                             <Setter Property="StrokeThickness" TargetName="circle" Value="1.5"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource HighLightColor}"/>
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource HighLightColor}"/>
+                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.Pressed.Circle.Fill}"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Pressed.Arrow.Stroke}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource DarkColor}"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource DarkColor}"/>
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Color}"/>
+                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.Disabled.Circle.Stroke}"/>
+                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.Disabled.Circle.Fill}"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Disabled.Arrow.Stroke}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

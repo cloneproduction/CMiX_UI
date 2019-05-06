@@ -32,9 +32,10 @@
             Command="{Binding CopyLayerCommand}" 
             />
     </UserControl.InputBindings>
+     
     <DockPanel
         x:Name="CMiX_UserControl"
-        Background="#FF141414"
+        Background="Transparent"
         LastChildFill="True">
         <Border
             Grid.Row="2"
@@ -76,7 +77,9 @@
                             <TextBlock Text="LAYERS" Margin="4, 0, 4, 0"/>
                         </TabItem.Header>
                         <DockPanel>
-                            <Border DockPanel.Dock="Bottom"  Style="{StaticResource BorderContainer}">
+                            <Border 
+                                DockPanel.Dock="Bottom"  
+                                Style="{StaticResource BorderContainer}">
                                 <StackPanel Orientation="Horizontal">
                                     <Button
                                         ToolTip="New Layer"
@@ -174,14 +177,14 @@
                             <TextBlock Text="OSC" Margin="4, 0, 4, 0"/>
                         </TabItem.Header>
                         <ListBox 
-                                Margin="0, 8, 0, 0"
-                                HorizontalContentAlignment="Stretch" 
-                                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                                Style="{StaticResource LayerListBox}"
-                                ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
-                                ItemsSource="{Binding Messengers}" 
-                                dd:DragDrop.IsDragSource="True"
-                                dd:DragDrop.IsDropTarget="True">
+                            Margin="0, 8, 0, 0"
+                            HorizontalContentAlignment="Stretch" 
+                            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                            Style="{StaticResource LayerListBox}"
+                            ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
+                            ItemsSource="{Binding Messengers}" 
+                            dd:DragDrop.IsDragSource="True"
+                            dd:DragDrop.IsDropTarget="True">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Views:ChannelOSCDataTemplate Margin="2"/>
@@ -194,37 +197,41 @@
 
 
             <Border
-                    DockPanel.Dock="Bottom"
-                    BorderBrush="{StaticResource DarkerColor}"
-                    CornerRadius="0, 2, 2, 0"
-                    BorderThickness="0, 1, 1, 1"
-                    Background="{StaticResource HighDarkerColor}"
-                    Padding="8, 0, 8, 8">
+                Margin="4"
+                DockPanel.Dock="Bottom"
+                CornerRadius="2"
+                Background="{StaticResource HighDarkerColor}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <CMiX:MasterBeatControl
-                            Margin="0, 0, 4, 0"
+                            Margin="4, 4, 0, 4"
                             Grid.Column="0"
                             DataContext="{Binding MasterBeat}"
                             />
-                    <TabControl Grid.Column="1" Style="{StaticResource TabControlBase}">
+                    <TabControl 
+                        Margin="2, 4, 4, 4"
+                        Grid.Column="1" 
+                        Style="{StaticResource TabControlBase}">
                         <TabItem 
-                                Header="Camera"
-                                Style="{StaticResource TabItemBase}">
+                            Header="Camera"
+                            Style="{StaticResource TabItemBase}">
                             <CMiX:Camera
-                                    Margin="4, 0, 0, 0"
-                                    DataContext="{Binding Camera}"
-                                    />
+                                Margin="4, 0, 0, 0"
+                                DataContext="{Binding Camera}"
+                                />
                         </TabItem>
                     </TabControl>
                 </Grid>
             </Border>
             <Border Grid.Column="1" Margin="4">
                 <ScrollViewer>
-                    <Views:LayerControls DataContext="{Binding SelectedLayer}" Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}"/>
+                    <Views:LayerControls 
+                        DataContext="{Binding SelectedLayer}" 
+                        Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}"
+                        />
                 </ScrollViewer>
             </Border>
         </DockPanel>
