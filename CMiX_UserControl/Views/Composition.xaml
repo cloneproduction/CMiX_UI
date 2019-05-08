@@ -86,7 +86,7 @@
                                         Command="{Binding Path=AddLayerCommand}"
                                         Width="15"
                                         Height="15"
-                                        Style="{StaticResource ButtonImageBase}" >
+                                        Style="{StaticResource ButtonImage}" >
                                         <Button.Content>
                                             <Image Source="/Assets/NewLayer.png"/>
                                         </Button.Content>
@@ -95,9 +95,9 @@
                                         ToolTip="Delete Layer"
                                         Command="{Binding Path=RemoveLayerCommand}"
                                         Margin="2, 0, 0, 0"
-                                        Width="15"
+                                        Width="15" 
                                         Height="15"
-                                        Style="{StaticResource ButtonImageBase}">
+                                        Style="{StaticResource ButtonImage}">
                                         <Button.Content>
                                             <Image Source="/Assets/DeleteLayer.png"/>
                                         </Button.Content>

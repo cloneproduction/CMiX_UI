@@ -20,7 +20,7 @@
                     Command="{Binding Path=ResetSelfCommand}"
                     Height="15" 
                     Width="15" 
-                    Style="{StaticResource ButtonImageBase}"
+                    Style="{StaticResource ButtonImage}"
                     >
                     <Button.Content>
                         <Image Source="/Assets/Reset.png"/>
@@ -33,7 +33,7 @@
                     Command="{Binding Path=PasteSelfCommand}"
                     Height="15" 
                     Width="15" 
-                    Style="{StaticResource ButtonImageBase}"
+                    Style="{StaticResource ButtonImage}"
                     >
                     <Button.Content>
                         <Image Source="/Assets/Paste.png"/>
@@ -45,7 +45,7 @@
                     Command="{Binding Path=CopySelfCommand}"
                     Height="15" 
                     Width="15" 
-                    Style="{StaticResource ButtonImageBase}"
+                    Style="{StaticResource ButtonImage}"
                     >
                     <Button.Content>
                         <Image Source="/Assets/Copy.png"/>

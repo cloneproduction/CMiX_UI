@@ -57,7 +57,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="ButtonTabDynamic" TargetType="Button">
+    <Style BasedOn="{StaticResource ButtonBase}" x:Key="ButtonTabDynamic" TargetType="Button">
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -86,6 +86,35 @@
                         <Trigger Property="IsPressed" Value="True">
                             <Setter Property="Foreground" Value="{StaticResource TextBase}" />
                             <Setter TargetName="circle" Property="Fill" Value="{StaticResource LightColor}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource ButtonBase}" x:Key="ButtonImage" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border
+                        x:Name="border"
+                        Margin="0"
+                        Opacity="0.6"
+                        Padding="1"
+                        Background="{StaticResource Color}"
+                        SnapsToDevicePixels="True">
+                        <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
+                            <ContentPresenter ContentTemplate="{TemplateBinding Content}"/>
+                        </Viewbox>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Opacity" Value="0.75"/>
+                            <Setter Property="Foreground" Value="{StaticResource TextBase}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource HighLightColor}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

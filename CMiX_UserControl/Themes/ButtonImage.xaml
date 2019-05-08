@@ -5,54 +5,5 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Brushes.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
-    <Style x:Key="ButtonImageBase" TargetType="{x:Type Button}">
-        <Setter Property="FocusVisualStyle">
-            <Setter.Value>
-                <Style>
-                    <Setter Property="Control.Template">
-                        <Setter.Value>
-                            <ControlTemplate>
-                                <Rectangle
-                                    Margin="0"
-                                    SnapsToDevicePixels="True"
-                                    Stroke="White"
-                                    StrokeThickness="1" />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="Background" Value="{StaticResource DarkColor}" />
-        <Setter Property="Foreground" Value="{StaticResource TextBase}" />
-        <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border
-                        x:Name="border"
-                        Margin="0"
-                        Opacity="0.6"
-                        Padding="1"
-                        Background="{StaticResource Color}"
-                        SnapsToDevicePixels="True">
-                        <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
-                            <ContentPresenter ContentTemplate="{TemplateBinding Content}"/>
-                        </Viewbox>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Opacity" Value="0.75"/>
-                            <Setter Property="Foreground" Value="{StaticResource TextBase}" />
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="{StaticResource HighLightColor}" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
+
 </ResourceDictionary>

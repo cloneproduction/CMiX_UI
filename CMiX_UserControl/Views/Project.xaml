@@ -155,7 +155,7 @@
                                 Command="{Binding Path=AddOSCCommand}"
                                 Width="15"
                                 Height="15"
-                                Style="{StaticResource ButtonImageBase}" >
+                                Style="{StaticResource ButtonImage}" >
                                 <Button.Content>
                                     <Image Source="/Assets/NewLayer.png"/>
                                 </Button.Content>
