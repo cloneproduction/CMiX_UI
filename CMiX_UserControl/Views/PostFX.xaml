@@ -106,7 +106,6 @@
                             ItemsSource="{Binding Source={StaticResource PostFXTransforms}}"
                             SelectedItem="{Binding Transforms}"
                             SelectedIndex="0"
-                            Style="{StaticResource ComboBoxBase}" 
                             />
                         <ComboBox
                             Grid.Column="1"
@@ -117,7 +116,6 @@
                             ItemsSource="{Binding Source={StaticResource PostFXView}}"
                             SelectedItem="{Binding View}"
                             SelectedIndex="0"
-                            Style="{StaticResource ComboBoxBase}" 
                             />
                     </Grid>
                 </StackPanel>

@@ -59,8 +59,7 @@
                                 Grid.Column="0"
                                 Margin="0, 0, 1, 0"
                                 Height="20"
-                                Style="{StaticResource ComboBoxBase}" 
-                                ItemContainerStyle="{StaticResource BaseListBoxItemStyle}"
+                                ItemContainerStyle="{StaticResource ComboBoxItemBase}"
                                 ItemsSource="{Binding Source={StaticResource CameraRotation}}"
                                 SelectedItem="{Binding Rotation}"
                                 />
@@ -68,8 +67,7 @@
                                 Margin="1, 0, 1, 0"
                                 Grid.Column="1"
                                 Height="20"
-                                Style="{StaticResource ComboBoxBase}" 
-                                ItemContainerStyle="{StaticResource BaseListBoxItemStyle}"
+                                ItemContainerStyle="{StaticResource ComboBoxItemBase}"
                                 ItemsSource="{Binding Source={StaticResource CameraView}}"
                                 SelectedItem="{Binding LookAt}"
                                 />
@@ -77,8 +75,7 @@
                                 Margin="1, 0, 0, 0"
                                 Grid.Column="2"
                                 Height="20"
-                                Style="{StaticResource ComboBoxBase}" 
-                                ItemContainerStyle="{StaticResource BaseListBoxItemStyle}"
+                                ItemContainerStyle="{StaticResource ComboBoxItemBase}"
                                 ItemsSource="{Binding Source={StaticResource CameraLookAt}}"
                                 SelectedItem="{Binding View}"
                                 />

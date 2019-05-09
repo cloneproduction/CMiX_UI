@@ -4,8 +4,8 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Brushes.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
-    <Style x:Key="ComboBoxBase" TargetType="{x:Type ComboBox}">
+
+    <Style TargetType="{x:Type ComboBox}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Template">
@@ -45,12 +45,12 @@
                                                 x:Name="OpaqueRect"
                                                 Width="{Binding ActualWidth, ElementName=DropDownBorder}"
                                                 Height="{Binding ActualHeight, ElementName=DropDownBorder}"
-                                                Fill="{Binding Background, ElementName=DropDownBorder}" />
+                                                Fill="{Binding Background, ElementName=DropDownBorder}"/>
                                         </Canvas>
                                         <ItemsPresenter
                                             x:Name="ItemsPresenter"
                                             KeyboardNavigation.DirectionalNavigation="Contained"
-                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                                     </Grid>
                                 </ScrollViewer>
                             </Border>
@@ -168,7 +168,7 @@
                                 </Style>
                             </ToggleButton.Style>
                         </ToggleButton>
-                        
+
                         <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
                             <ContentPresenter
                                 x:Name="contentPresenter"
@@ -183,6 +183,7 @@
                                 TextElement.Foreground="{StaticResource TextBase}" />
                         </Viewbox>
                     </Grid>
+
                     <ControlTemplate.Triggers>
                         <Trigger Property="HasItems" Value="False">
                             <Setter TargetName="DropDownBorder" Property="Height" Value="95" />
@@ -203,7 +204,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="ComboBoxItemBase" TargetType="{x:Type ComboBoxItem}">
+    <Style TargetType="{x:Type ComboBoxItem}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Padding" Value="4" />
         <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}" />
@@ -302,4 +303,5 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
 </ResourceDictionary>

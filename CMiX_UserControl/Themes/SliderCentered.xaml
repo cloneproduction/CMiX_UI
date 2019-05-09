@@ -20,6 +20,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
     <Style x:Key="RepeatButtonDecreaseOver" TargetType="{x:Type RepeatButton}">
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Background" Value="Transparent" />
@@ -53,6 +54,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
     <Style x:Key="RepeatButtonIncreaseOver" TargetType="{x:Type RepeatButton}">
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Background" Value="Transparent" />

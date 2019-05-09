@@ -79,9 +79,9 @@
             </Border>
 
             <Border 
-                        DockPanel.Dock="Bottom"
-                         Margin="0, 2"
-                        Style="{StaticResource BorderContainer}">
+                DockPanel.Dock="Bottom"
+                Margin="0, 2"
+                Style="{StaticResource BorderContainer}">
                 <TabControl DockPanel.Dock="Bottom"
                             Background="{StaticResource DarkerColor}"
                             Style="{StaticResource TabControlBase}">
@@ -95,39 +95,37 @@
                         </TabItem.Header>
                         <StackPanel>
                             <Views:SliderCentered
-                                        Margin="0, 1, 0, 1"
-                                        Caption="Brightness"
-                                        DockPanel.Dock="Bottom"
-                                        DataContext="{Binding Brightness}"
-                                        />
+                                Margin="0, 1, 0, 1"
+                                Caption="Brightness"
+                                DockPanel.Dock="Bottom"
+                                DataContext="{Binding Brightness}"
+                                />
                             <Views:SliderCentered
-                                        Margin="0, 1, 0, 1"
-                                        Caption="Contrast"
-                                        DockPanel.Dock="Bottom"
-                                        DataContext="{Binding Contrast}"
-                                        />
+                                Margin="0, 1, 0, 1"
+                                Caption="Contrast"
+                                DockPanel.Dock="Bottom"
+                                DataContext="{Binding Contrast}"
+                                />
                             <Grid
-                                        Height="20"
-                                        Margin="0, 2, 0, 0"
-                                        DockPanel.Dock="Bottom">
+                                Height="20"
+                                Margin="0, 2, 0, 0"
+                                DockPanel.Dock="Bottom">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
                                     <ColumnDefinition Width="0.3*" />
                                 </Grid.ColumnDefinitions>
                                 <ComboBox
-                                            Grid.Column="1"
-                                            Margin="1, 0, 0, 0"
-                                            ItemsSource="{Binding Source={StaticResource InvertMode}}"
-                                            SelectedItem="{Binding InvertMode}"
-                                            SelectedIndex="0"
-                                            ItemContainerStyle="{StaticResource BaseListBoxItemStyle}"
-                                            Style="{StaticResource ComboBoxBase}" 
-                                            />
+                                    Grid.Column="1"
+                                    Margin="1, 0, 0, 0"
+                                    ItemsSource="{Binding Source={StaticResource InvertMode}}"
+                                    SelectedItem="{Binding InvertMode}"
+                                    SelectedIndex="0"
+                                    />
                                 <Views:Slider
-                                            Grid.Column="0"
-                                            Caption="Invert"
-                                            DataContext="{Binding Invert}"
-                                            />
+                                    Grid.Column="0"
+                                    Caption="Invert"
+                                    DataContext="{Binding Invert}"
+                                    />
                             </Grid>
                         </StackPanel>
                     </TabItem>
@@ -210,7 +208,7 @@
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Text="U" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    <ComboBox Style="{StaticResource ComboBoxBase}" Margin="0, 0, 2, 0" Grid.Column="1"/>
+                                    <ComboBox Margin="0, 0, 2, 0" Grid.Column="1"/>
                                 </Grid>
                                 <Grid Grid.Column="1">
                                     <Grid.ColumnDefinitions>
@@ -218,15 +216,14 @@
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock 
-                                                Text="V" 
-                                                HorizontalAlignment="Center" 
-                                                VerticalAlignment="Center"
-                                                />
+                                        Text="V" 
+                                        HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center"
+                                        />
                                     <ComboBox 
-                                                Style="{StaticResource ComboBoxBase}" 
-                                                Grid.Column="1" 
-                                                Margin="2, 0, 0, 0"
-                                                />
+                                        Grid.Column="1" 
+                                        Margin="2, 0, 0, 0"
+                                        />
                                 </Grid>
                             </Grid>
                         </StackPanel>
