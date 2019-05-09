@@ -15,7 +15,6 @@
             DockPanel.Dock="Top">
             <DockPanel>
                 <Label
-                    Style="{StaticResource LabelBase}"
                     Content="MASK"
                     DockPanel.Dock="Left"
                     FontWeight="SemiBold"

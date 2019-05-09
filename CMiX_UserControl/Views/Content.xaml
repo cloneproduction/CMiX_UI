@@ -52,7 +52,6 @@
                     </Button.Content>
                 </Button>
                 <Label
-                    Style="{StaticResource LabelBase}"
                     HorizontalAlignment="Left"
                     Content="CONTENT"
                     DockPanel.Dock="Bottom"

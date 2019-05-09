@@ -4,7 +4,7 @@
         <ResourceDictionary Source="Brushes.xaml" />
     </ResourceDictionary.MergedDictionaries>
     
-    <Style x:Key="ListBoxBase" TargetType="{x:Type ListBox}">
+    <Style TargetType="{x:Type ListBox}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate  TargetType="{x:Type ListBox}">
@@ -30,7 +30,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="BaseListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
+    <Style TargetType="{x:Type ListBoxItem}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Center" />

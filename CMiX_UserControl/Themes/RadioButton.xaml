@@ -31,7 +31,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="RadioButtonBase" TargetType="{x:Type RadioButton}">
+    <Style TargetType="{x:Type RadioButton}">
         <!--<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>-->
         <Setter Property="Background" Value="{StaticResource Color}" />
         <Setter Property="BorderBrush" Value="Red" />

@@ -15,7 +15,6 @@
             <Border Margin="0, 0, 0, 0">
                 <Label
                     Margin="0"
-                    Style="{StaticResource LabelBase}"
                     Content="BEAT"
                     HorizontalAlignment="Left"
                     DockPanel.Dock="Bottom"
@@ -37,7 +36,6 @@
                             Command="{Binding Path=ResyncCommand}"
                             Content="Rc"
                             DockPanel.Dock="Right"
-                            Style="{StaticResource ButtonBase}" 
                             />
                         <Button
                             Margin="4, 0"
@@ -45,7 +43,6 @@
                             Command="{Binding Path=MultiplyCommand}"
                             Content="+"
                             DockPanel.Dock="Right"
-                            Style="{StaticResource ButtonBase}" 
                             />
                         <Button
                             Grid.Column="2"
@@ -53,7 +50,6 @@
                             Command="{Binding Path=DivideCommand}"
                             Content="-"
                             DockPanel.Dock="Right"
-                            Style="{StaticResource ButtonBase}" 
                             />
                         <Border 
                             Background="{StaticResource HighDarkerColor}" 
@@ -70,7 +66,6 @@
                             Grid.Row="2"
                             Command="{Binding Path=TapCommand}"
                             Content="TAP"
-                            Style="{StaticResource ButtonBase}" 
                             />
                     </DockPanel>
                 </StackPanel>

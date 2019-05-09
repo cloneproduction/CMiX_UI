@@ -45,7 +45,6 @@
                         Height="25"
                         Margin="0,0,0,4"
                         Content="STEADY"
-                        Style="{StaticResource LabelBase}" 
                         />
                     <RadioButton
                         Height="25"
@@ -53,7 +52,7 @@
                         Content="STD_CTR"
                         GroupName="Scale"
                         IsChecked="{Binding ScaleMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryScaleMode.STD_CTR}}"
-                        Style="{StaticResource RadioButtonBase}"
+                        
                         />
                     <RadioButton
                         Height="25"
@@ -61,7 +60,7 @@
                         Content="STD_RDM"
                         IsChecked="{Binding ScaleMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryScaleMode.STD_RDM}}"
                         GroupName="Scale"
-                        Style="{StaticResource RadioButtonBase}" 
+                        
                         />
                 </StackPanel>
                 <StackPanel Grid.Column="1">
@@ -69,7 +68,6 @@
                         Height="25"
                         Margin="0,0,0,4"
                         Content="FLASH"
-                        Style="{StaticResource LabelBase}" 
                         />
                     <RadioButton
                         Height="25"
@@ -77,7 +75,7 @@
                         Content="FLA_RDM"
                         IsChecked="{Binding ScaleMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryScaleMode.FLA_RDM}}"
                         GroupName="Scale"
-                        Style="{StaticResource RadioButtonBase}" 
+                        
                         />
                 </StackPanel>
                 <StackPanel Grid.Column="2">
@@ -85,7 +83,6 @@
                         Height="25"
                         Margin="0,0,0,4"
                         Content="SLIDE"
-                        Style="{StaticResource LabelBase}" 
                         />
                     <RadioButton
                         Height="25"
@@ -93,7 +90,7 @@
                         Content="SLD_RDM_DMP"
                         IsChecked="{Binding ScaleMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryScaleMode.SLD_RDM_DMP}}"
                         GroupName="Scale"
-                        Style="{StaticResource RadioButtonBase}" 
+                        
                         />
                     <RadioButton
                         Height="25"
@@ -101,7 +98,7 @@
                         Content="SLD_RDM_LIN"
                         IsChecked="{Binding ScaleMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryScaleMode.SLD_RDM_LIN}}"
                         GroupName="Scale"
-                        Style="{StaticResource RadioButtonBase}" 
+                        
                         />
                     <RadioButton
                         Height="25"
@@ -109,7 +106,7 @@
                         Content="SLD_GRW"
                         GroupName="Scale"
                         IsChecked="{Binding ScaleMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryScaleMode.SLD_GRW}}"
-                        Style="{StaticResource RadioButtonBase}" 
+                        
                         />
                 </StackPanel>
             </Grid>

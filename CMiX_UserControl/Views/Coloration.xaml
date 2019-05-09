@@ -49,7 +49,6 @@
                     </Button.Content>
                 </Button>
                 <Label
-                    Style="{StaticResource LabelBase}"
                     HorizontalAlignment="Left"
                     Content="COLORATION"
                     DockPanel.Dock="Bottom"
@@ -125,7 +124,6 @@
             <StackPanel Grid.Row="1">
                 <Label
                     Margin="0, 0, 0, 4"
-                    Style="{StaticResource LabelBase}"
                     Content="Modifier"
                     DockPanel.Dock="Bottom"
                     FontSize="12"

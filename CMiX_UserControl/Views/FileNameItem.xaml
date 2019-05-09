@@ -26,7 +26,6 @@
                 CommandParameter="{Binding}"
                 Content="X"
                 Foreground="{StaticResource TextBase}"
-                Style="{StaticResource ButtonBase}" 
                 />
             <TextBlock
                 Padding="4"

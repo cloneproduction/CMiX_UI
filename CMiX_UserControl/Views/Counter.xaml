@@ -14,7 +14,7 @@
             Content="+"
             DockPanel.Dock="Right"
             Command="{Binding Path=AddCommand}"
-            Style="{StaticResource ButtonBase}"/>
+            />
         <Button
             Grid.Column="0"
             Width="20"
@@ -22,7 +22,7 @@
             Content="-"
             DockPanel.Dock="Right"
             Command="{Binding Path=SubCommand}"
-            Style="{StaticResource ButtonBase}"/>
+            />
         <Border Background="{StaticResource DarkColor}">
             <TextBlock
                 HorizontalAlignment="Center"

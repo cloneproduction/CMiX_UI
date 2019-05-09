@@ -133,10 +133,9 @@
                                             </Border.Style>
                                             <Views:ChannelLayer>
                                                 <Views:ChannelLayer.ContextMenu>
-                                                    <ContextMenu Style="{StaticResource ContextMenuBase }">
+                                                    <ContextMenu>
                                                         <MenuItem
                                                         Padding="8, 4"
-                                                        Style="{StaticResource MenuItemBase}"
                                                         Foreground="{StaticResource TextBase}"
                                                         Command="{Binding Data.DeleteLayerCommand, Source={StaticResource proxy}}"
                                                         CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
@@ -150,7 +149,6 @@
                                                         </MenuItem>
                                                         <MenuItem
                                                         Padding="8, 4"
-                                                        Style="{StaticResource MenuItemBase}"
                                                         Foreground="{StaticResource TextBase}"
                                                         Command="{Binding Data.DuplicateLayerCommand, Source={StaticResource proxy}}"
                                                         CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">

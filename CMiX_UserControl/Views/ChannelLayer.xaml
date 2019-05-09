@@ -53,7 +53,6 @@
                     <RadioButton 
                         DockPanel.Dock="Right" 
                         IsChecked="{Binding Out}"
-                        Style="{StaticResource RadioButtonBase}" 
                         Margin="2, 4, 2, 4" 
                         Content="OUT" 
                         GroupName="Output" 
@@ -62,7 +61,6 @@
                     <ComboBox 
                         Height="20"
                         Margin="0,4"
-                        ItemContainerStyle="{StaticResource ComboBoxItemBase}"
                         SelectedItem="{Binding BlendMode}"
                         ItemsSource="{Binding Source={StaticResource BlendMode}}"
                         />

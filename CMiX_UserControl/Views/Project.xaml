@@ -34,7 +34,6 @@
     <DockPanel>
         <Grid Margin="0,0,0,2" DockPanel.Dock="Top">
             <Label
-                Style="{StaticResource LabelBase}"
                 HorizontalContentAlignment="Right"
                 Background="{StaticResource Color}"
                 Foreground="{StaticResource TextBase}" 
@@ -43,15 +42,13 @@
                 Grid.Row="0"
                 Height="25"
                 HorizontalAlignment="Left"
-                VerticalContentAlignment="Center"
-                Style="{StaticResource MenuBase}">
+                VerticalContentAlignment="Center">
                 <MenuItem
                     Height="25"
                     Padding="20,0,20,0"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="center"
-                    Header="File"
-                    Style="{StaticResource MenuItemBase}">
+                    Header="File">
                     <MenuItem
                         Header="New"
                         Command="{Binding NewProjectCommand}"
@@ -84,8 +81,7 @@
                     Padding="20,0,20,0"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="center"
-                    Header="Edit"
-                    Style="{StaticResource MenuItemBase}">
+                    Header="Edit">
                     <MenuItem
                         Header="Undo    Ctrl + Z"
                         Template="{StaticResource SubMenuItemBase}"
@@ -102,8 +98,7 @@
                     Padding="20,0,20,0"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="center"
-                    Header="Compo"
-                    Style="{StaticResource MenuItemBase}">
+                    Header="Compo">
                     <MenuItem
                         Header="Add"
                         Command="{Binding AddCompoCommand}"
@@ -175,10 +170,9 @@
                             <DataTemplate>
                                 <Views:OSCControl Margin="2">
                                     <Views:OSCControl.ContextMenu>
-                                        <ContextMenu Style="{StaticResource ContextMenuBase }">
+                                        <ContextMenu>
                                             <MenuItem
                                                 Padding="8, 4"
-                                                Style="{StaticResource MenuItemBase}"
                                                 Foreground="{StaticResource TextBase}"
                                                 Command="{Binding Data.AddOSCCommand, Source={StaticResource proxy}}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
@@ -192,7 +186,6 @@
                                             </MenuItem>
                                             <MenuItem
                                                     Padding="8, 4"
-                                                    Style="{StaticResource MenuItemBase}"
                                                     Foreground="{StaticResource TextBase}"
                                                     Command="{Binding Data.DeleteOSCCommand, Source={StaticResource proxy}}"
                                                     CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
@@ -224,10 +217,9 @@
                 <DataTemplate>
                     <DockPanel Height="20" HorizontalAlignment="Stretch" x:Name="Docks" Background="Transparent">
                         <DockPanel.ContextMenu>
-                            <ContextMenu Style="{StaticResource ContextMenuBase }">
+                            <ContextMenu>
                                 <MenuItem
                                     Padding="8, 4"
-                                    Style="{StaticResource MenuItemBase}"
                                     Foreground="{StaticResource TextBase}"
                                     Command="{Binding Data.DeleteCompoCommand, Source={StaticResource proxy}}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
@@ -241,7 +233,6 @@
                                 </MenuItem>
                                 <MenuItem
                                     Padding="8, 4"
-                                    Style="{StaticResource MenuItemBase}"
                                     Foreground="{StaticResource TextBase}"
                                     Command="{Binding Data.DuplicateCompoCommand, Source={StaticResource proxy}}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">

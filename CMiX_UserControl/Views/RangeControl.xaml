@@ -27,7 +27,6 @@
             Margin="1, 0, 0, 0"
             SelectedItem="{Binding Modifier}"
             SelectedIndex="0"
-            ItemContainerStyle="{StaticResource ComboBoxItemBase}"
             ItemsSource="{Binding Source={StaticResource RangeModifier}}"
             />
         <Views:Slider 

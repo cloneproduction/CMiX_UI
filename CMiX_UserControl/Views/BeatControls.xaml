@@ -17,15 +17,14 @@
             Command="{Binding Path=ResetCommand}"
             Content="Rt"
             IsDefault="True"
-            IsTabStop="False"
-            Style="{DynamicResource ButtonBase}" />
+            IsTabStop="False"/>
         <Button
             DockPanel.Dock="Left"
             Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
             Command="{Binding Path=DivideCommand}"
             Content="-"
             IsDefault="True"
-            Style="{DynamicResource ButtonBase}" />
+            />
         <Button
             Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
             Margin="2, 0"
@@ -33,7 +32,7 @@
             Content="+"
             DockPanel.Dock="Left"
             IsDefault="True"
-            Style="{DynamicResource ButtonBase}" />
+            />
         <Border
             Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
             HorizontalAlignment="Stretch"

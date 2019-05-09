@@ -49,7 +49,6 @@
                     Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}, Mode=OneWay}"
                     Content="+"
                     Focusable="False"
-                    Style="{StaticResource ButtonBase}" 
                     Command="{Binding AddCommand}"
                     />
                 <Button
@@ -58,7 +57,6 @@
                     Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}, Mode=OneWay}"
                     Content="-"
                     Focusable="False"
-                    Style="{StaticResource ButtonBase}" 
                     Command="{Binding SubCommand}"
                     />
             </Grid>

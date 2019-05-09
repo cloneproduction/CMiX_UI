@@ -5,7 +5,7 @@
         <ResourceDictionary Source="Brushes.xaml" />
     </ResourceDictionary.MergedDictionaries>
     
-    <Style x:Key="ButtonBase" TargetType="{x:Type Button}">
+    <Style TargetType="{x:Type Button}">
         <Setter Property="FocusVisualStyle">
             <Setter.Value>
                 <Style>
@@ -57,7 +57,7 @@
         </Setter>
     </Style>
 
-    <Style BasedOn="{StaticResource ButtonBase}" x:Key="ButtonTabDynamic" TargetType="Button">
+    <Style x:Key="ButtonTabDynamic" BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}">
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -93,7 +93,7 @@
         </Setter>
     </Style>
 
-    <Style BasedOn="{StaticResource ButtonBase}" x:Key="ButtonImage" TargetType="{x:Type Button}">
+    <Style x:Key="ButtonImage" BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">

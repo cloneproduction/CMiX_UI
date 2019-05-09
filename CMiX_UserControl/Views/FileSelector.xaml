@@ -22,8 +22,7 @@
                 HorizontalAlignment="Right"
                 DockPanel.Dock="Right"
                 FlowDirection="RightToLeft"
-                Focusable="False"
-                Style="{DynamicResource MenuBase}">
+                Focusable="False">
                 <MenuItem
                     Width="15"
                     Height="15"
@@ -32,8 +31,7 @@
                     VerticalContentAlignment="Center"
                     Focusable="False"
                     FontSize="11"
-                    Header="..."
-                    Style="{StaticResource MenuItemBase}">
+                    Header="...">
                     <MenuItem
                         Command="{Binding ClearSelectedCommand}"
                         FontSize="11"
@@ -69,32 +67,12 @@
             dd:DragDrop.IsDropTarget="True"
             dd:DragDrop.DragHandler="{Binding}"
             dd:DragDrop.DropHandler="{Binding}"
-            SelectionMode="{Binding SelectionMode}"
-            Style="{DynamicResource ListBoxBase}">
+            SelectionMode="{Binding SelectionMode}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Views:FileNameItem/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-            <ListBox.ItemContainerStyle>
-                <Style BasedOn="{StaticResource BaseListBoxItemStyle}" TargetType="ListBoxItem">
-                    <Setter Property="IsSelected" Value="{Binding FileIsSelected, Mode=TwoWay}" />
-                    <Setter Property="VerticalContentAlignment" Value="Bottom" />
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="BorderBrush" Value="{StaticResource Color}" />
-                        </Trigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsMouseOver" Value="True" />
-                                <Condition Property="IsSelected" Value="True" />
-                            </MultiTrigger.Conditions>
-                            <Setter Property="BorderBrush" Value="{StaticResource HighLightColor}" />
-                        </MultiTrigger>
-                    </Style.Triggers>
-                </Style>
-            </ListBox.ItemContainerStyle>
         </ListBox>
     </DockPanel>
 </UserControl>
