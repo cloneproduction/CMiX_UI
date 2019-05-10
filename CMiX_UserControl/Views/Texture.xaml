@@ -42,7 +42,7 @@
                         Style="{StaticResource ButtonImage}"
                         >
                         <Button.Content>
-                            <Image Source="/Assets/Reset.png"/>
+                            <Image Source="{StaticResource Reset}"/>
                         </Button.Content>
                     </Button>
                     <Button 
@@ -55,7 +55,7 @@
                         Style="{StaticResource ButtonImage}"
                         >
                         <Button.Content>
-                            <Image Source="/Assets/Paste.png"/>
+                            <Image Source="{StaticResource Paste}"/>
                         </Button.Content>
                     </Button>
                     <Button 
@@ -67,7 +67,7 @@
                         Style="{StaticResource ButtonImage}"
                         >
                         <Button.Content>
-                            <Image Source="/Assets/Copy.png"/>
+                            <Image Source="{StaticResource Copy}"/>
                         </Button.Content>
                     </Button>
                 </DockPanel>
@@ -83,15 +83,10 @@
                 Margin="0, 2"
                 Style="{StaticResource BorderContainer}">
                 <TabControl DockPanel.Dock="Bottom"
-                            Background="{StaticResource DarkerColor}"
-                            Style="{StaticResource TabControlBase}">
-                    <TabItem Style="{StaticResource TabItemBase}">
+                            Background="{StaticResource DarkerColor}">
+                    <TabItem>
                         <TabItem.Header>
-                            <Image Height="15" Width="auto" Opacity="0.75">
-                                <Image.Source>
-                                    <BitmapImage UriSource="/Assets/BC.png"/>
-                                </Image.Source>
-                            </Image>
+                            <Image Source="{StaticResource BrightnessContrast}" Height="15" Width="auto" Opacity="0.75"/>
                         </TabItem.Header>
                         <StackPanel>
                             <Views:SliderCentered
@@ -129,13 +124,9 @@
                             </Grid>
                         </StackPanel>
                     </TabItem>
-                    <TabItem Style="{StaticResource TabItemBase}">
+                    <TabItem>
                         <TabItem.Header>
-                            <Image Height="15" Width="auto" Opacity="0.75">
-                                <Image.Source>
-                                    <BitmapImage UriSource="/Assets/HSL.png"/>
-                                </Image.Source>
-                            </Image>
+                            <Image Source="{StaticResource HSL}" Height="15" Width="auto" Opacity="0.75"/>
                         </TabItem.Header>
                         <StackPanel>
                             <Views:SliderCentered
@@ -164,13 +155,9 @@
                                         />
                         </StackPanel>
                     </TabItem>
-                    <TabItem Style="{StaticResource TabItemBase}">
+                    <TabItem>
                         <TabItem.Header>
-                            <Image Height="15" Width="auto" Opacity="0.75">
-                                <Image.Source>
-                                    <BitmapImage UriSource="/Assets/Size.png"/>
-                                </Image.Source>
-                            </Image>
+                            <Image Source="{StaticResource TexTransform}" Height="15" Width="auto" Opacity="0.75"/>
                         </TabItem.Header>
                         <StackPanel>
                             <Views:SliderCentered

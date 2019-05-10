@@ -71,8 +71,8 @@
                 Padding="8"
                 CornerRadius="2"
                 Background="{StaticResource HighDarkerColor}">
-                <TabControl Style="{StaticResource TabControlBase}">
-                    <TabItem Style="{StaticResource TabItemBase}">
+                <TabControl>
+                    <TabItem>
                         <TabItem.Header>
                             <TextBlock Text="LAYERS" Margin="4, 0, 4, 0"/>
                         </TabItem.Header>
@@ -88,7 +88,7 @@
                                         Height="15"
                                         Style="{StaticResource ButtonImage}" >
                                         <Button.Content>
-                                            <Image Source="/Assets/NewLayer.png"/>
+                                            <Image Source="{StaticResource NewLayer}"/>
                                         </Button.Content>
                                     </Button>
                                     <Button
@@ -99,7 +99,7 @@
                                         Height="15"
                                         Style="{StaticResource ButtonImage}">
                                         <Button.Content>
-                                            <Image Source="/Assets/DeleteLayer.png"/>
+                                            <Image Source="{StaticResource DeleteLayer}"/>
                                         </Button.Content>
                                     </Button>
                                 </StackPanel>
@@ -170,7 +170,7 @@
                             </ListBox>
                         </DockPanel>
                     </TabItem>
-                    <TabItem Style="{StaticResource TabItemBase}">
+                    <TabItem>
                         <TabItem.Header>
                             <TextBlock Text="OSC" Margin="4, 0, 4, 0"/>
                         </TabItem.Header>
@@ -211,11 +211,9 @@
                             />
                     <TabControl 
                         Margin="2, 4, 4, 4"
-                        Grid.Column="1" 
-                        Style="{StaticResource TabControlBase}">
+                        Grid.Column="1" >
                         <TabItem 
-                            Header="Camera"
-                            Style="{StaticResource TabItemBase}">
+                            Header="Camera">
                             <CMiX:Camera
                                 Margin="4, 0, 0, 0"
                                 DataContext="{Binding Camera}"

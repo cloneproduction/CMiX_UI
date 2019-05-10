@@ -47,7 +47,7 @@
                         Style="{StaticResource ButtonImage}"
                         >
                         <Button.Content>
-                            <Image Source="/Assets/Reset.png"/>
+                            <Image Source="{StaticResource Reset}"/>
                         </Button.Content>
                     </Button>
                     <Button 
@@ -60,7 +60,7 @@
                         Style="{StaticResource ButtonImage}"
                         >
                         <Button.Content>
-                            <Image Source="/Assets/Paste.png"/>
+                            <Image Source="{StaticResource Paste}"/>
                         </Button.Content>
                     </Button>
                     <Button 
@@ -72,7 +72,7 @@
                         Style="{StaticResource ButtonImage}"
                         >
                         <Button.Content>
-                            <Image Source="/Assets/Copy.png"/>
+                            <Image Source="{StaticResource Copy}"/>
                         </Button.Content>
                     </Button>
                 </DockPanel>

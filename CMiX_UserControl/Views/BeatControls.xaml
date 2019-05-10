@@ -14,8 +14,8 @@
             DockPanel.Dock="Left"
             Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
             Margin="0, 0, 2, 0"
-            Command="{Binding Path=ResetCommand}"
             Content="Rt"
+            Command="{Binding Path=ResetCommand}"
             IsDefault="True"
             IsTabStop="False"/>
         <Button

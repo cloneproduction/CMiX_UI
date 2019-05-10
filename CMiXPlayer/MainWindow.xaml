@@ -13,21 +13,24 @@
         </Grid.RowDefinitions>
         <DockPanel>
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                <Button Style="{StaticResource ButtonBase}" 
+                <Button
                     Height="20" 
                     Width="20" 
                     Content="Prev." 
-                    Margin="2"/>
-                <ToggleButton Style="{StaticResource ToggleButtonBase}" 
-                          Height="20" 
-                          Width="20" 
-                          Content="Play" 
-                          Margin="2"/>
-                <Button Style="{StaticResource ButtonBase}" 
+                    Margin="2"
+                    />
+                <ToggleButton 
+                    Height="20" 
+                    Width="20" 
+                    Content="Play" 
+                    Margin="2"
+                    />
+                <Button 
                     Height="20" 
                     Width="20" 
                     Content="Prev." 
-                    Margin="2"/>
+                    Margin="2"
+                    />
                 <TextBlock Text="Now playing : "
                        VerticalAlignment="Center"
                        Foreground="{DynamicResource TextBase}"/>

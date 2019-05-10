@@ -244,9 +244,6 @@
     <Compile Include="Views\ChannelLayer.xaml.cs">
       <DependentUpon>ChannelLayer.xaml</DependentUpon>
     </Compile>
-    <None Include="Views\LayerButton.xaml.cs">
-      <DependentUpon>LayerButton.xaml</DependentUpon>
-    </None>
     <Compile Include="Resources\Utils.cs" />
     <Compile Include="Views\Counter.xaml.cs">
       <DependentUpon>Counter.xaml</DependentUpon>
@@ -314,10 +311,6 @@
     <Page Include="Themes\Icons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\ScrollBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Label.xaml">
       <SubType>Designer</SubType>
@@ -488,10 +481,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <None Include="Views\LayerButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </None>
     <Page Include="Views\Geometry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -538,9 +527,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\HueCircle.PNG" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Grid.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ColorPicker\ColorPicker.csproj">

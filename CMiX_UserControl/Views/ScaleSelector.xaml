@@ -52,7 +52,6 @@
                         Content="STD_CTR"
                         GroupName="Scale"
                         IsChecked="{Binding ScaleMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryScaleMode.STD_CTR}}"
-                        
                         />
                     <RadioButton
                         Height="25"
@@ -60,7 +59,6 @@
                         Content="STD_RDM"
                         IsChecked="{Binding ScaleMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryScaleMode.STD_RDM}}"
                         GroupName="Scale"
-                        
                         />
                 </StackPanel>
                 <StackPanel Grid.Column="1">
@@ -75,7 +73,6 @@
                         Content="FLA_RDM"
                         IsChecked="{Binding ScaleMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryScaleMode.FLA_RDM}}"
                         GroupName="Scale"
-                        
                         />
                 </StackPanel>
                 <StackPanel Grid.Column="2">
@@ -90,7 +87,6 @@
                         Content="SLD_RDM_DMP"
                         IsChecked="{Binding ScaleMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryScaleMode.SLD_RDM_DMP}}"
                         GroupName="Scale"
-                        
                         />
                     <RadioButton
                         Height="25"
@@ -98,7 +94,6 @@
                         Content="SLD_RDM_LIN"
                         IsChecked="{Binding ScaleMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryScaleMode.SLD_RDM_LIN}}"
                         GroupName="Scale"
-                        
                         />
                     <RadioButton
                         Height="25"
@@ -106,7 +101,6 @@
                         Content="SLD_GRW"
                         GroupName="Scale"
                         IsChecked="{Binding ScaleMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryScaleMode.SLD_GRW}}"
-                        
                         />
                 </StackPanel>
             </Grid>

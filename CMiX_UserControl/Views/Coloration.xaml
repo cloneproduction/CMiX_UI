@@ -22,7 +22,7 @@
                     Width="15" 
                     Style="{StaticResource ButtonImage}">
                     <Button.Content>
-                        <Image Source="/Assets/Reset.png"/>
+                        <Image  Source="{StaticResource Reset}"/>
                     </Button.Content>
                 </Button>
                 <Button 
@@ -34,7 +34,7 @@
                     Width="15" 
                     Style="{StaticResource ButtonImage}">
                     <Button.Content>
-                        <Image Source="/Assets/Paste.png"/>
+                        <Image  Source="{StaticResource Paste}"/>
                     </Button.Content>
                 </Button>
                 <Button 
@@ -45,7 +45,7 @@
                     Width="15" 
                     Style="{StaticResource ButtonImage}">
                     <Button.Content>
-                        <Image Source="/Assets/Copy.png"/>
+                        <Image  Source="{StaticResource Copy}"/>
                     </Button.Content>
                 </Button>
                 <Label
@@ -68,20 +68,13 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <TabControl
-                    Background="{StaticResource DarkColor}"
-                    DockPanel.Dock="Top"
-                    Style="{StaticResource TabControlBase}">
+                    DockPanel.Dock="Top">
                     <TabItem
                         Height="25"
                         Width="25"
-                        IsSelected="True"
-                        Style="{StaticResource TabItemBase}">
+                        IsSelected="True">
                         <TabItem.Header>
-                            <Image Height="15" Width="auto" Opacity="0.75">
-                                <Image.Source>
-                                    <BitmapImage UriSource="/Assets/Coloration.png"/>
-                                </Image.Source>
-                            </Image>
+                            <Image Source="{StaticResource Coloration}" Height="15" Width="auto" Opacity="0.75"/>
                         </TabItem.Header>
                         <StackPanel Background="{StaticResource HighDarkerColor}">
                             <Border 

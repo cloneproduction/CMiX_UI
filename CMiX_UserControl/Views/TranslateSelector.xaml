@@ -52,38 +52,33 @@
                         Content="STD_CTR"
                         GroupName="Translate"
                         IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.STD_CTR}}"
-                        
                         />
                     <RadioButton
                         Height="25"
                         Margin="1"
                         Content="STD_TOP_LT"
                         GroupName="Translate"
-                        IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.STD_TOP_LT}}"
-                        
+                        IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.STD_TOP_LT}}"                    
                         />
                     <RadioButton
                         Height="25"
                         Margin="1"
                         Content="STD_LT"
-                        GroupName="Translate"
-                        
+                        GroupName="Translate"                    
                         />
                     <RadioButton
                         Height="25"
                         Margin="1"
                         Content="STD_RT"
                         GroupName="Translate"
-                        IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.STD_RT}}"
-                        
+                        IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.STD_RT}}"                
                         />
                     <RadioButton
                         Height="25"
                         Margin="1"
                         Content="STD_TOP"
                         GroupName="Translate"
-                        IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.STD_TOP}}"
-                        
+                        IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.STD_TOP}}"             
                         />
                     <RadioButton
                         Height="25"
@@ -91,7 +86,6 @@
                         Content="STD_TOP_RT"
                         GroupName="Translate"
                         IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.STD_TOP_RT}}"
-                        
                         />
                     <RadioButton
                         Height="25"
@@ -99,7 +93,6 @@
                         Content="STD_BOT"
                         GroupName="Translate"
                         IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.STD_BOT}}"
-                        
                         />
                     <RadioButton
                         Height="25"
@@ -107,7 +100,6 @@
                         Content="STD_BOT_RT"
                         GroupName="Translate"
                         IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.STD_BOT_RT}}"
-                        
                         />
                     <RadioButton
                         Height="25"
@@ -115,7 +107,6 @@
                         Content="STD_BOT_LT"
                         GroupName="Translate"
                         IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.STD_BOT_LT}}"
-                        
                         />
                 </StackPanel>
 
@@ -139,7 +130,6 @@
                         Content="FLA_RDM_X"
                         GroupName="Translate"
                         IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.FLA_RDM_X}}"
-                        
                         />
                     <RadioButton
                         Height="25"
@@ -147,7 +137,6 @@
                         Content="FLA_RDM_Y"
                         GroupName="Translate"
                         IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.FLA_RDM_Y}}"
-                        
                         />
                     <RadioButton
                         Height="25"
@@ -155,7 +144,6 @@
                         Content="FLA_RDM_Z"
                         GroupName="Translate"
                         IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.FLA_RDM_Z}}"
-                        
                         />
                     <RadioButton
                         Height="25"
@@ -163,7 +151,6 @@
                         Content="FLA_RDM_SLDXYZ"
                         GroupName="Translate"
                         IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.FLA_RDM_SLDXYZ}}"
-                        
                         />
                     <RadioButton
                         Height="25"
@@ -171,7 +158,6 @@
                         Content="FLA_RDM_SLDX"
                         GroupName="Translate"
                         IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.FLA_RDM_SLDX}}"
-                        
                         />
                     <RadioButton
                         Height="25"
@@ -179,7 +165,6 @@
                         Content="FLA_RDM_SLDY"
                         GroupName="Translate"
                         IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.FLA_RDM_SLDY}}"
-                        
                         />
                     <RadioButton
                         Height="25"
@@ -187,7 +172,6 @@
                         Content="FLA_RDM_SLDZ"
                         GroupName="Translate"
                         IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.FLA_RDM_SLDZ}}"
-                        
                         />
                 </StackPanel>
                 <StackPanel Grid.Column="2" Margin="2,0,2,0">
@@ -210,7 +194,6 @@
                         Content="SLD_RDM_X"
                         GroupName="Translate"
                         IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.SLD_RDM_X}}"
-                        
                         />
                     <RadioButton
                         Height="25"
@@ -218,7 +201,6 @@
                         Content="SLD_RDM_Y"
                         GroupName="Translate"
                         IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.SLD_RDM_Y}}"
-                        
                         />
                     <RadioButton
                         Height="25"
@@ -226,7 +208,6 @@
                         Content="SLD_RDM_Z"
                         GroupName="Translate"
                         IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.SLD_RDM_Z}}"
-                        
                         />
                     <RadioButton
                         Height="25"
@@ -234,7 +215,6 @@
                         Content="SLD_LT"
                         GroupName="Translate"
                         IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.SLD_LT}}"
-                        
                         />
                     <RadioButton
                         Height="25"
@@ -242,7 +222,6 @@
                         Content="SLD_LTRT"
                         GroupName="Translate"
                         IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.SLD_LTRT}}"
-                        
                         />
                     <RadioButton
                         Height="25"
@@ -250,7 +229,6 @@
                         Content="SLD_RT"
                         GroupName="Translate"
                         IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.SLD_RT}}"
-                        
                         />
                     <RadioButton
                         Height="25"
@@ -258,7 +236,6 @@
                         Content="SLD_DN"
                         GroupName="Translate"
                         IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.SLD_DN}}"
-                        
                         />
                     <RadioButton
                         Height="25"
@@ -266,7 +243,6 @@
                         Content="SLD_DNUP"
                         GroupName="Translate"
                         IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.SLD_DNUP}}"
-                        
                         />
                     <RadioButton
                         Height="25"
@@ -274,7 +250,6 @@
                         Content="SLD_UP"
                         GroupName="Translate"
                         IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.SLD_UP}}"
-                        
                         />
                     <RadioButton
                         Height="25"
@@ -282,7 +257,6 @@
                         Content="SLD_BA"
                         GroupName="Translate"
                         IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.SLD_BA}}"
-                        
                         />
                     <RadioButton
                         Height="25"
@@ -290,7 +264,6 @@
                         Content="SLD_BAFO"
                         GroupName="Translate"
                         IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.SLD_BAFO}}"
-                        
                         />
                     <RadioButton
                         Height="25"
@@ -298,7 +271,6 @@
                         Content="SLD_FO"
                         GroupName="Translate"
                         IsChecked="{Binding TranslateMode, Converter={StaticResource EnumToBoolean}, ConverterParameter={x:Static ViewModels:GeometryTranslateMode.SLD_FO}}"
-                        
                         />
                 </StackPanel>
             </Grid>

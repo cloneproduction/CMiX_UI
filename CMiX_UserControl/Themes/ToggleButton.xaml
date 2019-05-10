@@ -6,7 +6,7 @@
         <ResourceDictionary Source="Brushes.xaml" />
     </ResourceDictionary.MergedDictionaries>
     
-    <Style x:Key="ToggleButtonBase" TargetType="{x:Type ToggleButton}">
+    <Style TargetType="{x:Type ToggleButton}">
         <Setter Property="FocusVisualStyle">
             <Setter.Value>
                 <Style>

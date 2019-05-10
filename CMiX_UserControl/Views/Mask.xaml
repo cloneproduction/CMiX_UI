@@ -30,7 +30,6 @@
                         HorizontalAlignment="Right"
                         HorizontalContentAlignment="Center"
                         IsChecked="{Binding KeepOriginal, Mode=TwoWay}"
-                        Style="{StaticResource ToggleButtonBase}" 
                         />
                     <ToggleButton
                         ToolTip="Enable"
@@ -41,7 +40,6 @@
                         HorizontalAlignment="Right"
                         HorizontalContentAlignment="Center"
                         IsChecked="{Binding Enable, Mode=TwoWay}"
-                        Style="{StaticResource ToggleButtonBase}" 
                         />
                 </StackPanel>
                 <DockPanel LastChildFill="False">
@@ -53,7 +51,7 @@
                         Style="{StaticResource ButtonImage}"
                         >
                         <Button.Content>
-                            <Image Source="/Assets/Reset.png"/>
+                            <Image  Source="{StaticResource Reset}"/>
                         </Button.Content>
                         <Button.ToolTip>
                             <TextBlock Text="Reset"/>
@@ -68,7 +66,7 @@
                         Style="{StaticResource ButtonImage}"
                         >
                         <Button.Content>
-                            <Image Source="/Assets/Paste.png"/>
+                            <Image  Source="{StaticResource Paste}"/>
                         </Button.Content>
                         <Button.ToolTip>
                             <TextBlock Text="Paste"/>
@@ -82,7 +80,7 @@
                         Style="{StaticResource ButtonImage}"
                         >
                         <Button.Content>
-                            <Image Source="/Assets/Copy.png"/>
+                            <Image Source="{StaticResource Copy}"/>
                         </Button.Content>
                         <Button.ToolTip>
                             <TextBlock Text="Copy"/>
@@ -102,14 +100,12 @@
         </Border>
         <TabControl 
             DockPanel.Dock="Bottom" 
-            AllowDrop="True" 
-            Style="{StaticResource TabControlBase}">
+            AllowDrop="True">
             <TabItem 
                 Width="25"
                 Height="25"
                 HorizontalAlignment="Left"
-                DragOver="TabItem_DragOver"
-                Style="{StaticResource TabItemBase}">
+                DragOver="TabItem_DragOver">
                 <TabItem.Header>
                     <Image ToolTip="Geometry" Height="15" Width="auto" Opacity="0.75">
                         <Image.Source>
@@ -125,8 +121,7 @@
             <TabItem Width="25"
                      Height="25"
                      HorizontalAlignment="Left"
-                     DragOver="TabItem_DragOver"
-                     Style="{StaticResource TabItemBase}">
+                     DragOver="TabItem_DragOver">
                 <TabItem.Header>
                     <Image ToolTip="Texture" Height="15" Width="auto" Opacity="0.75">
                         <Image.Source>
@@ -142,8 +137,7 @@
             <TabItem Width="25"
                      Height="25"
                      HorizontalAlignment="Left"
-                     DragOver="TabItem_DragOver"
-                     Style="{StaticResource TabItemBase}">
+                     DragOver="TabItem_DragOver">
                 <TabItem.Header>
                     <Image ToolTip="PostFX" Height="15" Width="auto" Opacity="0.75">
                         <Image.Source>

@@ -23,7 +23,7 @@
                     Style="{StaticResource ButtonImage}"
                     >
                     <Button.Content>
-                        <Image Source="/Assets/Reset.png"/>
+                        <Image Source="{StaticResource Reset}"/>
                     </Button.Content>
                 </Button>
                 <Button 
@@ -36,7 +36,7 @@
                     Style="{StaticResource ButtonImage}"
                     >
                     <Button.Content>
-                        <Image Source="/Assets/Paste.png"/>
+                        <Image Source="{StaticResource Paste}"/>
                     </Button.Content>
                 </Button>
                 <Button 
@@ -48,7 +48,7 @@
                     Style="{StaticResource ButtonImage}"
                     >
                     <Button.Content>
-                        <Image Source="/Assets/Copy.png"/>
+                        <Image Source="{StaticResource Copy}"/>
                     </Button.Content>
                 </Button>
                 <Label
@@ -73,19 +73,13 @@
                 </Border>
                 <TabControl 
                     DockPanel.Dock="Bottom" 
-                    AllowDrop="True" 
-                    Style="{StaticResource TabControlBase}">
+                    AllowDrop="True" >
                     <TabItem Width="25"
                          Height="25"
                          HorizontalAlignment="Left"
-                         DragOver="TabItem_DragOver"
-                         Style="{StaticResource TabItemBase}">
+                         DragOver="TabItem_DragOver">
                         <TabItem.Header>
-                            <Image ToolTip="Geometry" Height="15" Width="auto" Opacity="0.75">
-                                <Image.Source>
-                                    <BitmapImage UriSource="/Assets/Cube.png"/>
-                                </Image.Source>
-                            </Image>
+                            <Image Source="{StaticResource Geometry}"  ToolTip="Geometry" Height="15" Width="auto" Opacity="0.75"/>
                         </TabItem.Header>
                         <Views:Geometry
                             DataContext="{Binding Geometry}"
@@ -94,14 +88,9 @@
                     </TabItem>
                     <TabItem  
                         HorizontalAlignment="Left"
-                        DragOver="TabItem_DragOver"
-                        Style="{StaticResource TabItemBase}">
+                        DragOver="TabItem_DragOver">
                         <TabItem.Header>
-                            <Image ToolTip="Texture" Height="15" Width="auto" Opacity="0.75">
-                                <Image.Source>
-                                    <BitmapImage UriSource="/Assets/Texture.png"/>
-                                </Image.Source>
-                            </Image>
+                            <Image Source="{StaticResource Texture}" ToolTip="Texture" Height="15" Width="auto" Opacity="0.75"/>
                         </TabItem.Header>
                         <Views:Texture
                             DataContext="{Binding Texture}"
@@ -110,14 +99,9 @@
                     </TabItem>
                     <TabItem 
                         HorizontalAlignment="Left"
-                        DragOver="TabItem_DragOver"
-                        Style="{StaticResource TabItemBase}">
+                        DragOver="TabItem_DragOver">
                         <TabItem.Header>
-                            <Image ToolTip="PostFX" Height="15" Width="auto" Opacity="0.75">
-                                <Image.Source>
-                                    <BitmapImage UriSource="/Assets/Effect.png"/>
-                                </Image.Source>
-                            </Image>
+                            <Image Source="{StaticResource PostFX}" ToolTip="PostFX" Height="15" Width="auto" Opacity="0.75"/>
                         </TabItem.Header>
                         <Views:PostFX
                             DataContext="{Binding PostFX}"

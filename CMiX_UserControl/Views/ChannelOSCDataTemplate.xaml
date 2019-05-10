@@ -50,7 +50,6 @@
                 Width="20"
                 Height="20" 
                 IsChecked="{Binding SendEnabled}"
-                Style="{StaticResource ToggleButtonBase}"
                 />
             </Grid>
             <Grid Height="20">
