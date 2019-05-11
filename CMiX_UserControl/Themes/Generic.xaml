@@ -13,7 +13,6 @@
         <ResourceDictionary Source="Tab.xaml"/>
         <ResourceDictionary Source="BorderContainer.xaml"/>
         <ResourceDictionary Source="ScrollViewer.xaml"/>
-        <ResourceDictionary Source="SliderCentered.xaml"/>
         <ResourceDictionary Source="Icons.xaml"/>
         <ResourceDictionary Source="ToolTip.xaml"/>
         <ResourceDictionary Source="ContextMenu.xaml"/>

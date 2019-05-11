@@ -73,7 +73,7 @@
                     Maximum="1.0"
                     Minimum="-1.0"
                     SmallChange="0.01"
-                    Style="{StaticResource SliderCenteredBase}"
+                    Style="{StaticResource SliderCentered}"
                     Value="{Binding Amount}"
                     />
             </Border>
