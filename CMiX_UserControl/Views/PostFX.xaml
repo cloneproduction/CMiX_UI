@@ -77,7 +77,7 @@
                     </Button>
                 </DockPanel>
             </Border>
-            <Border DockPanel.Dock="Bottom">
+            <Border DockPanel.Dock="Bottom" Style="{StaticResource BorderContainer}">
                 <StackPanel x:Name="TexFXControl">
                     <Views:Slider
                         Height="20"

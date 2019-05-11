@@ -36,21 +36,20 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TextBlock 
-                Text="Send" 
-                Foreground="{StaticResource TextBase}"
-                Margin="0, 0, 8, 0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                />
+                    Text="Send" 
+                    Foreground="{StaticResource TextBase}"
+                    Margin="0, 0, 8, 0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    />
                 <ToggleButton 
-
-                HorizontalAlignment="Left"
-                Margin="1"
-                Grid.Column="1"
-                Width="20"
-                Height="20" 
-                IsChecked="{Binding SendEnabled}"
-                />
+                    HorizontalAlignment="Left"
+                    Margin="1"
+                    Grid.Column="1"
+                    Width="20"
+                    Height="20" 
+                    IsChecked="{Binding SendEnabled}"
+                    />
             </Grid>
             <Grid Height="20">
                 <Grid.ColumnDefinitions>
@@ -58,12 +57,12 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TextBlock 
-                Text="Reload" 
-                Foreground="{StaticResource TextBase}"
-                Margin="0, 0, 8, 0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                />
+                    Text="Reload" 
+                    Foreground="{StaticResource TextBase}"
+                    Margin="0, 0, 8, 0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    />
                 <Button 
                     HorizontalAlignment="Left"
                     Margin="1"
@@ -72,8 +71,7 @@
                     Height="20" 
                     Command="{Binding ReloadCommand}"
                     CommandParameter="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type views:Composition}}}"
-                    Style="{StaticResource ButtonBase}"
-                />
+                    />
             </Grid>
         </StackPanel>
     </Border>
