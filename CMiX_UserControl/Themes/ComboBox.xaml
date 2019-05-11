@@ -23,7 +23,7 @@
                             AllowsTransparency="True"
                             IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                             Placement="Bottom"
-                            VerticalOffset="1"
+                            VerticalOffset="2"
                             PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
                             <Border 
                                 x:Name="DropDownBorder"
@@ -209,7 +209,7 @@
         <Setter Property="Padding" Value="4" />
         <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}" />
         <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}" />
-        <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}" />
+        <Setter Property="Width" Value="Auto" />
         <Setter Property="Foreground" Value="{StaticResource TextBase}" />
         <Setter Property="FocusVisualStyle">
             <Setter.Value>

@@ -12,7 +12,7 @@
     
     <Border>
         <StackPanel>
-            <Border Margin="0, 0, 0, 0">
+            <!--<Border Margin="0, 0, 0, 0">
                 <Label
                     Margin="0"
                     Content="BEAT"
@@ -21,7 +21,7 @@
                     FontWeight="SemiBold"
                     FontSize="12"
                     />
-            </Border>
+            </Border>-->
             <Border             
                 DockPanel.Dock="Bottom"
                 Style="{StaticResource BorderContainer}">

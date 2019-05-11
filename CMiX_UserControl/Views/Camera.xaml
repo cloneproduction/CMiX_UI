@@ -8,10 +8,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="CameraControl"
-    d:DesignHeight="103.445"
-    d:DesignWidth="883.112"
+    d:DesignHeight="137.408"
+    d:DesignWidth="335.133"
     mc:Ignorable="d">
-    
+
     <UserControl.Resources>
         <ObjectDataProvider x:Key="CameraView" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
@@ -31,74 +31,68 @@
     </UserControl.Resources>
 
     <StackPanel>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Border             
+        <Border             
                 Grid.Column="0"
-                Margin="0, 0, 4, 0"
+                Margin="4"
                 Style="{StaticResource BorderContainer}">
-                <StackPanel>
-                    <Views:BeatModifier
+            <StackPanel>
+                <Views:BeatModifier
                         DataContext="{Binding BeatModifier}"/>
-                    <Border             
+                <Border             
                         DockPanel.Dock="Bottom"
                         Background="{StaticResource DarkerColor}"
                         Margin="0, 4, 0, 0"
                         Padding="4"
                         CornerRadius="2">
-                        <Grid DockPanel.Dock="Top">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <ComboBox
+                    <Grid DockPanel.Dock="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <ComboBox
                                 Grid.Column="0"
                                 Margin="0, 0, 1, 0"
                                 Height="20"
                                 ItemsSource="{Binding Source={StaticResource CameraRotation}}"
                                 SelectedItem="{Binding Rotation}"
                                 />
-                            <ComboBox
+                        <ComboBox
                                 Margin="1, 0, 1, 0"
                                 Grid.Column="1"
                                 Height="20"
                                 ItemsSource="{Binding Source={StaticResource CameraView}}"
                                 SelectedItem="{Binding LookAt}"
                                 />
-                            <ComboBox
+                        <ComboBox
                                 Margin="1, 0, 0, 0"
                                 Grid.Column="2"
                                 Height="20"
                                 ItemsSource="{Binding Source={StaticResource CameraLookAt}}"
                                 SelectedItem="{Binding View}"
                                 />
-                        </Grid>
-                    </Border>
-                </StackPanel>
-            </Border>
-            <Border             
+                    </Grid>
+                </Border>
+            </StackPanel>
+        </Border>
+        <Border             
                 Grid.Column="1"
-                Margin="4, 0, 0, 0"
+                Margin="4"
                 Style="{StaticResource BorderContainer}">
-                <StackPanel>
-                    <Views:Slider
+            <StackPanel>
+                <Views:Slider
                         Margin="0, 0, 0, 1"
                         Caption="FOV"
                         DockPanel.Dock="Top"
                         DataContext="{Binding FOV}" 
                         />
-                    <Views:Slider
+                <Views:Slider
                         Margin="0, 1, 0, 0"
                         Caption="Zoom"
                         DockPanel.Dock="Top"
                         DataContext="{Binding Zoom}" 
                         />
-                </StackPanel>
-            </Border>
-        </Grid>
+            </StackPanel>
+        </Border>
     </StackPanel>
 </UserControl>

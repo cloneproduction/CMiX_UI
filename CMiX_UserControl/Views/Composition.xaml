@@ -190,37 +190,27 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </TabItem>
+                    <TabItem>
+                        <TabItem.Header>
+                            <TextBlock Text="CAMERA" Margin="4, 0, 4, 0"/>
+                        </TabItem.Header>
+                        <CMiX:Camera
+                            Margin="4, 0, 0, 0"
+                            DataContext="{Binding Camera}"
+                            />
+                    </TabItem>
                 </TabControl>
             </Border>
-
-
             <Border
                 Margin="4"
                 DockPanel.Dock="Bottom"
                 CornerRadius="2"
                 Background="{StaticResource HighDarkerColor}">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <CMiX:MasterBeatControl
-                            Margin="4, 4, 0, 4"
-                            Grid.Column="0"
-                            DataContext="{Binding MasterBeat}"
-                            />
-                    <TabControl 
-                        Margin="2, 4, 4, 4"
-                        Grid.Column="1" >
-                        <TabItem 
-                            Header="Camera">
-                            <CMiX:Camera
-                                Margin="4, 0, 0, 0"
-                                DataContext="{Binding Camera}"
-                                />
-                        </TabItem>
-                    </TabControl>
-                </Grid>
+                <CMiX:MasterBeatControl
+                    Margin="4, 4, 0, 4"
+                    Grid.Column="0"
+                    DataContext="{Binding MasterBeat}"
+                    />
             </Border>
             <Border Grid.Column="1" Margin="4">
                 <ScrollViewer>
