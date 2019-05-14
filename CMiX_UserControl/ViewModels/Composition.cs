@@ -441,7 +441,7 @@ namespace CMiX.ViewModels
                 Mementor.BeginBatch();
                 if (insertindex >= Layers.Count - 1)
                 {
-                    Layers.Move(sourceindex, insertindex - 1);
+                    Layers.Move(sourceindex, insertindex - 1); //error here on drop
                     SelectedLayer = Layers[insertindex - 1];
                     Mementor.ElementIndexChange(Layers, Layers[insertindex - 1], sourceindex);
                 }

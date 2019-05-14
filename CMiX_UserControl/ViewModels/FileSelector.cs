@@ -23,7 +23,6 @@ namespace CMiX.ViewModels
 
                 filemask: filemask,
                 selectionmode: String.Empty,
-
                 mementor: mementor
             )
         { }
@@ -45,12 +44,13 @@ namespace CMiX.ViewModels
             FileMask = filemask;
 
             ClearSelectedCommand = new RelayCommand(p => ClearSelected());
+            SelectionChangedCommand = new RelayCommand(p => SelectionChanged());
             ClearUnselectedCommand = new RelayCommand(p => ClearUnselected());
             ClearAllCommand = new RelayCommand(p => ClearAll());
             DeleteItemCommand = new RelayCommand(p => DeleteItem(p));
 
             FilePaths = new ObservableCollection<FileNameItem>();
-            FilePaths.CollectionChanged += ContentCollectionChanged;
+            //FilePaths.CollectionChanged += ContentCollectionChanged;
 
             Mementor = mementor;
         }
@@ -63,6 +63,7 @@ namespace CMiX.ViewModels
         public List<string> FileMask { get; set; }
         public string SelectionMode { get; set; }
 
+        public ICommand SelectionChangedCommand { get; }
         public ICommand ClearSelectedCommand { get; }
         public ICommand ClearUnselectedCommand { get; }
         public ICommand ClearAllCommand { get; }
@@ -71,6 +72,19 @@ namespace CMiX.ViewModels
         public ICommand MouseUpCommand { get; }
 
         #endregion
+
+        public void SelectionChanged()
+        {
+            List<string> filename = new List<string>();
+            foreach (FileNameItem lb in FilePaths)
+            {
+                if (lb.FileIsSelected == true)
+                {
+                    filename.Add(lb.FileName);
+                }
+            }
+            SendMessages(MessageAddress + nameof(FilePaths), filename.ToArray());
+        }
 
         #region METHODS
 
@@ -267,7 +281,7 @@ namespace CMiX.ViewModels
         }
         #endregion
 
-        #region COLLECTIONCHANGED
+       /* #region COLLECTIONCHANGED
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == NotifyCollectionChangedAction.Remove)
@@ -294,10 +308,6 @@ namespace CMiX.ViewModels
                 }
             }
             SendMessages(MessageAddress + nameof(FilePaths), filename.ToArray());
-            if(MessageAddress == null)
-            {
-                Console.WriteLine("FileSelector Message Address is NULL");
-            }
         }
 
         public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -312,7 +322,7 @@ namespace CMiX.ViewModels
             }
             SendMessages(MessageAddress + nameof(FilePaths), filename.ToArray());
         }
-        #endregion
+        #endregion*/
     }
 }
  

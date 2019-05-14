@@ -6,6 +6,7 @@
              xmlns:CMiX="clr-namespace:CMiX"
              xmlns:Views="clr-namespace:CMiX.Views"
              xmlns:dd="urn:gong-wpf-dragdrop"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -62,12 +63,23 @@
             ScrollViewer.VerticalScrollBarVisibility="Auto"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             ItemsSource="{Binding FilePaths}"
+            SelectionMode="{Binding SelectionMode}"
             AllowDrop="True"
             dd:DragDrop.IsDragSource="True"
             dd:DragDrop.IsDropTarget="True"
             dd:DragDrop.DragHandler="{Binding}"
-            dd:DragDrop.DropHandler="{Binding}"
-            SelectionMode="{Binding SelectionMode}">
+            dd:DragDrop.DropHandler="{Binding}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" />
+                    <!--CommandParameter="{Binding ElementName=MyView, Path=SelectedItems.Count}"-->
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <ListBox.Resources>
+                <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                    <Setter Property="IsSelected" Value="{Binding FileIsSelected, Mode=TwoWay}" />
+                </Style>
+            </ListBox.Resources>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Views:FileNameItem/>
