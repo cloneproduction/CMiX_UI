@@ -69,8 +69,6 @@ namespace CMiX.ViewModels
 
         public ObservableCollection<Composition> Compositions { get; set; }
 
-        public ImportFromProject ImportFromProject { get; set; }
-
         public CerasSerializer Serializer { get; set; }
 
         public string FolderPath { get; set; }

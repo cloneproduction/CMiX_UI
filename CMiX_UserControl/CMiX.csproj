@@ -135,7 +135,6 @@
     <Compile Include="Services\SetAndNotifyPropertyAction.cs" />
     <Compile Include="ViewModels\FileNameItem.cs" />
     <Compile Include="ViewModels\FileSelector.cs" />
-    <Compile Include="ViewModels\ImportFromProject.cs" />
     <Compile Include="ViewModels\OSCControl.cs" />
     <Compile Include="ViewModels\Project.cs" />
     <Compile Include="ViewModels\Slider.cs" />
@@ -199,9 +198,6 @@
     </Compile>
     <Compile Include="Views\FileSelector.xaml.cs">
       <DependentUpon>FileSelector.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ImportProject.xaml.cs">
-      <DependentUpon>ImportProject.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OSCControl.xaml.cs">
       <DependentUpon>OSCControl.xaml</DependentUpon>
@@ -381,10 +377,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\FileSelector.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ImportProject.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
