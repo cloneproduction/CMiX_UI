@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows;
-using System.Collections.Specialized;
-using System.ComponentModel;
 using CMiX.Services;
 using CMiX.Models;
 using GongSolutions.Wpf.DragDrop;
@@ -15,44 +13,17 @@ namespace CMiX.ViewModels
     public class FileSelector : ViewModel, IDropTarget, IDragSource
     {
         #region CONSTRUCTORS
-        public FileSelector(string layername, List<string> filemask, ObservableCollection<OSCMessenger> messengers, Mementor mementor)
-            : this
-            (
-                messageaddress: String.Format("{0}/", layername),
-                messengers: messengers,
-
-                filemask: filemask,
-                selectionmode: String.Empty,
-                mementor: mementor
-            )
-        { }
-
-        public FileSelector
-            (
-                String selectionmode,
-                List<string> filemask,
-                ObservableCollection<OSCMessenger> messengers,
-                string messageaddress,
-                Mementor mementor
-            )
-            : base(messengers)
+        public FileSelector(string selectionmode, List<string> filemask, ObservableCollection<OSCMessenger> oscmessengers, string layername, Mementor mementor) : base(oscmessengers, mementor)
         {
-            MessageAddress = messageaddress;
-            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
-
+            MessageAddress = String.Format("{0}/", layername);
             SelectionMode = selectionmode;
             FileMask = filemask;
-
             ClearSelectedCommand = new RelayCommand(p => ClearSelected());
             SelectionChangedCommand = new RelayCommand(p => SelectionChanged());
             ClearUnselectedCommand = new RelayCommand(p => ClearUnselected());
             ClearAllCommand = new RelayCommand(p => ClearAll());
             DeleteItemCommand = new RelayCommand(p => DeleteItem(p));
-
             FilePaths = new ObservableCollection<FileNameItem>();
-            //FilePaths.CollectionChanged += ContentCollectionChanged;
-
-            Mementor = mementor;
         }
         #endregion
 
@@ -280,49 +251,6 @@ namespace CMiX.ViewModels
             }
         }
         #endregion
-
-       /* #region COLLECTIONCHANGED
-        public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (e.Action == NotifyCollectionChangedAction.Remove)
-            {
-                foreach (FileNameItem item in e.OldItems)
-                {
-                    item.PropertyChanged -= EntityViewModelPropertyChanged;
-                }
-            }
-            else if (e.Action == NotifyCollectionChangedAction.Add)
-            {
-                foreach (FileNameItem item in e.NewItems)
-                {
-                    item.PropertyChanged += EntityViewModelPropertyChanged;
-                }
-            }
-
-            List<string> filename = new List<string>();
-            foreach (FileNameItem lb in FilePaths)
-            {
-                if (lb.FileIsSelected == true)
-                {
-                    filename.Add(lb.FileName);
-                }
-            }
-            SendMessages(MessageAddress + nameof(FilePaths), filename.ToArray());
-        }
-
-        public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            List<string> filename = new List<string>();
-            foreach (FileNameItem lb in FilePaths)
-            {
-                if (lb.FileIsSelected == true)
-                {
-                    filename.Add(lb.FileName);
-                }
-            }
-            SendMessages(MessageAddress + nameof(FilePaths), filename.ToArray());
-        }
-        #endregion*/
     }
 }
  

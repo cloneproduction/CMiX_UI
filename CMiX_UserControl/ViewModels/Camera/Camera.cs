@@ -37,7 +37,7 @@ namespace CMiX.ViewModels
                 ObservableCollection<OSCMessenger> messengers,
                 string messageaddress
             )
-            : base(messengers)
+            : base(messengers, mementor)
         {
             
             Rotation = rotation;

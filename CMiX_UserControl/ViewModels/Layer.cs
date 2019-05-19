@@ -11,12 +11,10 @@ namespace CMiX.ViewModels
     {
         #region CONSTRUCTORS
         public Layer(MasterBeat masterBeat, string layername, ObservableCollection<OSCMessenger> messengers, int index, Mementor mementor)
-            : base (messengers)
+            : base (messengers, mementor)
         {
             MessageAddress = String.Format("{0}/", layername);
-            LayerName = layername;
-            Messengers = messengers;
-            
+            LayerName = layername;           
             Index = index;
             Index = 0;
             Enabled = false;
@@ -27,41 +25,7 @@ namespace CMiX.ViewModels
             Mask = new Mask(BeatModifier, layername, messengers, mementor);
             Coloration = new Coloration(BeatModifier, layername, messengers, mementor);
             PostFX = new PostFX(layername, messengers, mementor);
-            Mementor = mementor;
         }
-
-        /*public Layer
-            (
-                Mementor mementor,
-                ObservableCollection<OSCMessenger> messengers,
-                string messageaddress,
-                string layername,
-                bool enabled,
-                int index,
-                string blendMode,
-                Slider fade,
-                BeatModifier beatModifier,
-                Content content,
-                Mask mask,
-                Coloration coloration,
-                PostFX postfx
-            )
-            : base (messengers)
-        {
-            LayerName = layername;
-            Index = index;
-            Enabled = enabled;
-            BlendMode = blendMode;
-            Fade = fade ?? throw new ArgumentNullException(nameof(fade));
-            BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
-            Content = content ?? throw new ArgumentNullException(nameof(content));
-            Mask = mask ?? throw new ArgumentNullException(nameof(mask));
-            Coloration = coloration ?? throw new ArgumentNullException(nameof(coloration));
-            PostFX = postfx ?? throw new ArgumentNullException(nameof(postfx));
-            Messengers = messengers;
-            MessageAddress = messageaddress;
-            Mementor = mementor;
-        }*/
         #endregion
 
         #region PROPERTIES

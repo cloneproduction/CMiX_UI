@@ -1,7 +1,7 @@
-﻿using CMiX.Models;
-using CMiX.Services;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
+using CMiX.Models;
+using CMiX.Services;
 using Memento;
 
 namespace CMiX.ViewModels
@@ -9,26 +9,10 @@ namespace CMiX.ViewModels
     public class GeometryFX : ViewModel
     {
         #region CONSTRUCTORS
-        public GeometryFX(string layername, ObservableCollection<OSCMessenger> messengers, Mementor mementor)
-        : this
-        (
-            messengers: messengers,
-            explode: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(GeometryFX), "Explode"), messengers, mementor),
-            messageaddress: String.Format("{0}/{1}/", layername, nameof(GeometryFX))
-        )
-        {}
-
-        public GeometryFX
-            (
-                ObservableCollection<OSCMessenger> messengers,
-                Slider explode,
-                string messageaddress
-            )
-            : base(messengers)
+        public GeometryFX(string layername, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base(oscmessengers, mementor)
         {
-            Explode = explode;
-            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
-            MessageAddress = messageaddress;
+            Explode = new Slider(String.Format("{0}/{1}/{2}", layername, nameof(GeometryFX), "Explode"), oscmessengers, mementor);
+            MessageAddress = String.Format("{0}/{1}/", layername, nameof(GeometryFX));
         }
         #endregion
 

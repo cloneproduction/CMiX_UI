@@ -12,48 +12,17 @@ namespace CMiX.ViewModels
     public class Content : ViewModel
     {
         #region CONSTRUCTORS
-        public Content(Beat masterbeat, string layername, ObservableCollection<OSCMessenger> messengers, Mementor mementor)
-        : this
-        (
-            messageaddress: String.Format("{0}/{1}/", layername, nameof(Content)),
-            messengers: messengers,
-
-            enable: true,
-            beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Content)), messengers, masterbeat, mementor),
-            geometry: new Geometry(String.Format("{0}/{1}", layername, nameof(Content)), messengers, mementor),
-            texture: new Texture(String.Format("{0}/{1}", layername, nameof(Content)), messengers, mementor),
-            postFX: new PostFX(String.Format("{0}/{1}", layername, nameof(Content)), messengers, mementor),
-
-            mementor: mementor
-        )
-        { }
-
-        public Content
-            (
-                bool enable,
-                Mementor mementor,
-                string messageaddress,
-                ObservableCollection<OSCMessenger> messengers,
-                BeatModifier beatModifier,
-                Geometry geometry,
-                Texture texture,
-                PostFX postFX
-            )
-            : base(messengers)
+        public Content(Beat masterbeat, string layername, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
         {
-            Enable = enable;
-            MessageAddress = messageaddress;
-            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
-
-            BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
-            Geometry = geometry ?? throw new ArgumentNullException(nameof(geometry));
-            Texture = texture ?? throw new ArgumentNullException(nameof(texture));
-            PostFX = postFX ?? throw new ArgumentNullException(nameof(postFX));
+            MessageAddress = String.Format("{0}/{1}/", layername, nameof(Content));
+            Enable = true;
+            BeatModifier = new BeatModifier(String.Format("{0}/{1}", layername, nameof(Content)), oscmessengers, masterbeat, mementor);
+            Geometry = new Geometry(String.Format("{0}/{1}", layername, nameof(Content)), oscmessengers, mementor);
+            Texture = new Texture(String.Format("{0}/{1}", layername, nameof(Content)), oscmessengers, mementor);
+            PostFX = new PostFX(String.Format("{0}/{1}", layername, nameof(Content)), oscmessengers, mementor);
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
-
-            Mementor = mementor;
         }
         #endregion
 

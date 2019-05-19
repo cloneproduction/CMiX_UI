@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
-using CMiX.Services;
-using CMiX.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using CMiX.Services;
+using CMiX.Models;
 using Memento;
 
 namespace CMiX.ViewModels
@@ -12,70 +12,20 @@ namespace CMiX.ViewModels
     public class Geometry : ViewModel
     {
         #region CONSTRUCTORS
-        public Geometry(string layername, ObservableCollection<OSCMessenger> messengers, Mementor mementor)
-            : this
-            (
-                messageaddress: String.Format("{0}/{1}/", layername, nameof(Geometry)),
-                messengers: messengers,
-
-                fileselector: new FileSelector("Single", new List<string> { ".FBX", ".OBJ" }, messengers, String.Format("{0}/{1}/", layername, nameof(Geometry)), mementor),
-                translatemode: new GeometryTranslate(String.Format("{0}/{1}", layername, nameof(Geometry)), messengers, mementor),
-                scalemode: new GeometryScale(String.Format("{0}/{1}", layername, nameof(Geometry)), messengers, mementor),
-                rotationmode: new GeometryRotation(String.Format("{0}/{1}", layername, nameof(Geometry)), messengers, mementor),
-                geometryfx : new GeometryFX(String.Format("{0}/{1}", layername, nameof(Geometry)), messengers, mementor),
-                translateAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Translate"), messengers, mementor),
-                scaleAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Scale"), messengers, mementor),
-                rotationAmount: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Rotation"), messengers, mementor),
-                counter: new Counter(String.Format("{0}/{1}/{2}", layername, nameof(Geometry), "Counter"), messengers, mementor),
-                is3D: false,    
-                keepAspectRatio: false,
-
-                mementor: mementor
-            )
-        {}
-
-        public Geometry
-            (
-                
-                ObservableCollection<OSCMessenger> messengers,
-                string messageaddress,
-
-                FileSelector fileselector,
-                GeometryTranslate translatemode,
-                GeometryScale scalemode,
-                GeometryRotation rotationmode,
-                GeometryFX geometryfx,
-                Slider translateAmount,
-                Slider scaleAmount,
-                Slider rotationAmount,
-                Counter counter,
-                bool is3D,
-                bool keepAspectRatio,
-
-                Mementor mementor
-            )
-            : base (messengers)
+        public Geometry(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
         {
-            MessageAddress = messageaddress;
-            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
-
-            FileSelector = fileselector ?? throw new ArgumentNullException(nameof(FileSelector));
-            TranslateMode = translatemode ?? throw new ArgumentNullException(nameof(TranslateMode));
-            RotationMode = rotationmode ?? throw new ArgumentNullException(nameof(RotationMode));
-            ScaleMode = scalemode ?? throw new ArgumentNullException(nameof(ScaleMode));
-            GeometryFX = geometryfx ?? throw new ArgumentNullException(nameof(GeometryFX));
-            TranslateAmount = translateAmount;
-            RotationAmount = rotationAmount;
-            ScaleAmount = scaleAmount;
-            Counter = counter;
-            Is3D = is3D;
-            KeepAspectRatio = keepAspectRatio;
-
-            CopySelfCommand = new RelayCommand(p => CopySelf());
-            PasteSelfCommand = new RelayCommand(p => PasteSelf());
-            ResetSelfCommand = new RelayCommand(p => ResetSelf());
-
-            Mementor = mementor;
+            MessageAddress = String.Format("{0}/{1}/", messageaddress, nameof(Geometry));
+            FileSelector = new FileSelector("Single", new List<string> { ".FBX", ".OBJ" }, oscmessengers, String.Format("{0}/{1}/", messageaddress, nameof(Geometry)), mementor);
+            TranslateMode = new GeometryTranslate(String.Format("{0}/{1}", messageaddress, nameof(Geometry)), oscmessengers, mementor);
+            ScaleMode = new GeometryScale(String.Format("{0}/{1}", messageaddress, nameof(Geometry)), oscmessengers, mementor);
+            RotationMode = new GeometryRotation(String.Format("{0}/{1}", messageaddress, nameof(Geometry)), oscmessengers, mementor);
+            GeometryFX = new GeometryFX(String.Format("{0}/{1}", messageaddress, nameof(Geometry)), oscmessengers, mementor);
+            TranslateAmount = new Slider(String.Format("{0}/{1}/{2}", messageaddress, nameof(Geometry), "Translate"), oscmessengers, mementor);
+            ScaleAmount = new Slider(String.Format("{0}/{1}/{2}", messageaddress, nameof(Geometry), "Scale"), oscmessengers, mementor);
+            RotationAmount = new Slider(String.Format("{0}/{1}/{2}", messageaddress, nameof(Geometry), "Rotation"), oscmessengers, mementor);
+            Counter = new Counter(String.Format("{0}/{1}/{2}", messageaddress, nameof(Geometry), "Counter"), oscmessengers, mementor);
+            Is3D = false;
+            KeepAspectRatio = false;
         }
         #endregion
 

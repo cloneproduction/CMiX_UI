@@ -13,55 +13,19 @@ namespace CMiX.ViewModels
     public class Coloration : ViewModel
     {
         #region CONSTRUCTORS
-        public Coloration(Beat masterbeat, string layername, ObservableCollection<OSCMessenger> messengers, Mementor mementor)
-        : this
-        (
-            mementor: mementor,
-            messengers: messengers,
-            messageaddress: String.Format("{0}/{1}/", layername, nameof(Coloration)),
-            objColor: Colors.BlueViolet,
-            bgColor: Colors.Black,
-            backgroundColor: Colors.Black,
-            beatModifier: new BeatModifier(String.Format("{0}/{1}", layername, nameof(Coloration)), messengers, masterbeat, mementor),
-            hue: new RangeControl(messengers, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Hue), mementor),
-            saturation: new RangeControl(messengers, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Saturation), mementor),
-            value: new RangeControl(messengers, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Value), mementor)
-        )
-        { }
-
-        public Coloration
-            (
-                Mementor mementor,
-                ObservableCollection<OSCMessenger> messengers,
-                string messageaddress,
-                BeatModifier beatModifier,
-                Color objColor,
-                Color bgColor,
-                Color backgroundColor,
-                RangeControl hue,
-                RangeControl saturation,
-                RangeControl value
-            )
-            : base(messengers)
+        public Coloration(Beat masterbeat, string layername, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base(oscmessengers, mementor)
         {
-            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
-            MessageAddress = messageaddress;
-            ObjColor = objColor;
-            BgColor = bgColor;
-            BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
-            Hue = hue ?? throw new ArgumentNullException(nameof(hue));
-            Saturation = saturation ?? throw new ArgumentNullException(nameof(saturation));
-            Value = value ?? throw new ArgumentNullException(nameof(value));
+            MessageAddress = String.Format("{0}/{1}/", layername, nameof(Coloration));
+            ObjColor = Colors.BlueViolet;
+            BgColor = Colors.Black;
+            BeatModifier = new BeatModifier(String.Format("{0}/{1}", layername, nameof(Coloration)), oscmessengers, masterbeat, mementor);
+            Hue = new RangeControl(oscmessengers, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Hue), mementor);
+            Saturation = new RangeControl(oscmessengers, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Saturation), mementor);
+            Value = new RangeControl(oscmessengers, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Value), mementor);
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
             MouseDownCommand = new RelayCommand(p => MouseDown());
-            Mementor = mementor;
-        }
-
-        private void MouseDown()
-        {
-            Mementor.PropertyChange(this, "ObjColor");
         }
         #endregion
 
@@ -100,6 +64,11 @@ namespace CMiX.ViewModels
             }
         }
         #endregion
+
+        private void MouseDown()
+        {
+            Mementor.PropertyChange(this, "ObjColor");
+        }
 
         #region COPY/PASTE
         public void Copy(ColorationDTO colorationdto)

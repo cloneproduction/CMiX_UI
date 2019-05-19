@@ -9,37 +9,13 @@ namespace CMiX.ViewModels
     public class GeometryRotation :ViewModel
     {
         #region CONSTRUCTORS
-        public GeometryRotation(string layername, ObservableCollection<OSCMessenger> messengers, Mementor mementor)
-        : this
-        (
-            mementor: mementor,
-            messageaddress: layername + "/",
-            messengers: messengers,
-            rotationMode: default,
-            rotationX: true,
-            rotationY: true,
-            rotationZ: true
-        )
-        { }
-
-        public GeometryRotation
-            (
-                Mementor mementor,
-                string messageaddress,
-                ObservableCollection<OSCMessenger> messengers,
-                bool rotationX,
-                bool rotationY,
-                bool rotationZ,
-                GeometryRotationMode rotationMode
-            )
-            : base(messengers)
+        public GeometryRotation(string layername, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
         {
-            MessageAddress = messageaddress;
-            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
-            RotationX = rotationX;
-            RotationY = rotationY;
-            RotationZ = rotationZ;
-            Mementor = mementor;
+            MessageAddress = layername + "/";
+            RotationMode = default;
+            RotationX = true;
+            RotationY = true;
+            RotationZ = true;
         }
         #endregion
 

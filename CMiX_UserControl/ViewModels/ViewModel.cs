@@ -20,6 +20,12 @@ namespace CMiX.ViewModels
         {
             Messengers = oscmessengers ?? throw new ArgumentNullException(nameof(oscmessengers));
         }
+
+        public ViewModel(ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor)
+        {
+            Messengers = oscmessengers ?? throw new ArgumentNullException(nameof(oscmessengers));
+            Mementor = mementor;
+        }
         #endregion
 
         #region PROPERTIES

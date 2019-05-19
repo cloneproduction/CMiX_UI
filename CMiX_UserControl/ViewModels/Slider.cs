@@ -27,7 +27,7 @@ namespace CMiX.ViewModels
                 double amount,
                 Mementor mementor
             )
-            : base(messengers)
+            : base(messengers, mementor)
         {
             Mementor = mementor;
             MessageAddress = messageaddress;

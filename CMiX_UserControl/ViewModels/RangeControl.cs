@@ -28,7 +28,7 @@ namespace CMiX.ViewModels
                 Slider range,
                 string modifier
             )
-            : base(messengers)
+            : base(messengers, mementor)
         {
             MessageAddress = messageaddress;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));

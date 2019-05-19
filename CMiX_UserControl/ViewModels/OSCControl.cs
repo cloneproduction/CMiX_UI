@@ -1,4 +1,5 @@
 ﻿using CMiX.Services;
+using Memento;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -8,18 +9,19 @@ namespace CMiX.ViewModels
     public class OSCControl : ViewModel
     {
         #region CONSTRUCTORS
-        public OSCControl()
+        /*public OSCControl()
         : this
         (
             messengers: new ObservableCollection<OSCMessenger>()
         )
-        { }
+        { }*/
 
         public OSCControl
         (
-            ObservableCollection<OSCMessenger> messengers
+            ObservableCollection<OSCMessenger> messengers,
+            Mementor mementor
         )
-        : base(messengers)
+        : base(messengers, mementor)
         {
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
         }

@@ -11,41 +11,16 @@ namespace CMiX.ViewModels
     public class PostFX : ViewModel
     {
         #region CONSTRUCTORS
-        public PostFX(string layername, ObservableCollection<OSCMessenger> messengers,  Mementor mementor)
-            : this
-            (
-                mementor: mementor,
-                messengers: messengers,
-                feedback: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(PostFX), "Feedback"), messengers, mementor),
-                blur: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(PostFX), "Blur"), messengers, mementor),
-                transforms: ((PostFXTransforms)0).ToString(), 
-                view: ((PostFXView)0).ToString(),
-                messageaddress: String.Format("{0}/{1}/", layername, nameof(PostFX))
-            )
-        { }
-
-        public PostFX
-            (
-                Mementor mementor,
-                ObservableCollection<OSCMessenger> messengers,
-                Slider feedback,
-                Slider blur,
-                string transforms,
-                string view,
-                string messageaddress
-            )
-            : base (messengers)
+        public PostFX(string layername, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
         {
-            MessageAddress = messageaddress;
-            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
-            Feedback = feedback;
-            Blur = blur;
-            Transforms = transforms;
-            View = view;
+            MessageAddress = String.Format("{0}/{1}/", layername, nameof(PostFX));
+            Feedback = new Slider(String.Format("{0}/{1}/{2}", layername, nameof(PostFX), "Feedback"), oscmessengers, mementor);
+            Blur = new Slider(String.Format("{0}/{1}/{2}", layername, nameof(PostFX), "Blur"), oscmessengers, mementor);
+            Transforms = ((PostFXTransforms)0).ToString();
+            View = ((PostFXView)0).ToString();
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
-            Mementor = mementor;
         }
         #endregion
 

@@ -16,6 +16,7 @@ namespace CMiX.ViewModels
         }
 
         public delegate void PeriodChangedEventHandler(Beat sender, double newValue);
+
         public event PeriodChangedEventHandler PeriodChanged;
 
         protected void OnPeriodChanged(double newPeriod) => PeriodChanged?.Invoke(this, newPeriod);

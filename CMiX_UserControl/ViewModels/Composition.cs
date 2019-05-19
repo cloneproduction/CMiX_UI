@@ -41,25 +41,6 @@ namespace CMiX.ViewModels
             Camera = new Camera(Messengers, MasterBeat, Mementor);
             Mementor = new Mementor();
         }
-
-        /*public Composition(string name, Camera camera, MasterBeat masterBeat, IEnumerable<Layer> layers, Mementor mementor)
-            : base(new ObservableCollection<OSCMessenger>())
-        {
-            if (layers == null)
-            {
-                throw new ArgumentNullException(nameof(layers));
-            }
-
-            Messengers = new ObservableCollection<OSCMessenger>();
-            MessageAddress = String.Empty;
-            Name = name;
-            Camera = camera ?? throw new ArgumentNullException(nameof(camera));
-            MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
-            Layers = new ObservableCollection<Layer>(layers);
-            Layers.CollectionChanged += ContentCollectionChanged;
-
-            Mementor = mementor;
-        }*/
         #endregion
 
         #region PROPERTIES

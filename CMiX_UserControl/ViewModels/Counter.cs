@@ -10,31 +10,12 @@ namespace CMiX.ViewModels
     public class Counter : ViewModel
     {
         #region CONSTRUCTORS
-        public Counter(string layername, ObservableCollection<OSCMessenger> messengers, Mementor mementor)
-                : this
-                (
-                    mementor: mementor,
-                    messengers: messengers,
-                    messageaddress: String.Format("{0}/", layername),
-                    count: 1
-                )
-        {}
-
-        public Counter
-            (
-                ObservableCollection<OSCMessenger> messengers,
-                string messageaddress,
-                int count,
-                Mementor mementor
-            )
-            : base (messengers)
+        public Counter(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
         {
-            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             MessageAddress = messageaddress;
-            Count = count;
+            Count = 1;
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
-            Mementor = mementor;
         }
         #endregion
 
