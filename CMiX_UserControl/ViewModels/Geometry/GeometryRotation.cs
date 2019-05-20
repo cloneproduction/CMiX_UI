@@ -78,7 +78,7 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void Copy(GeometryRotationDTO geometryrotationdto)
+        public void Copy(GeometryRotationModel geometryrotationdto)
         {
             geometryrotationdto.RotationModeDTO = RotationMode;
             geometryrotationdto.RotationX = RotationX;
@@ -86,7 +86,7 @@ namespace CMiX.ViewModels
             geometryrotationdto.RotationZ = RotationZ;
         }
 
-        public void Paste(GeometryRotationDTO geometryrotationdto)
+        public void Paste(GeometryRotationModel geometryrotationdto)
         {
             DisabledMessages();
             RotationMode = geometryrotationdto.RotationModeDTO;

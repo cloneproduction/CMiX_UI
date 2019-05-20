@@ -109,13 +109,13 @@ namespace CMiX.ViewModels
         private double CurrentTime => (DateTime.Now - DateTime.MinValue).TotalMilliseconds;
 
 
-        public void Copy(MasterBeatDTO masterbeatdto)
+        public void Copy(MasterBeatModel masterbeatdto)
         {
             masterbeatdto.Period = Period;
             masterbeatdto.MessageAddress = MessageAddress;
         }
 
-        public void Paste(MasterBeatDTO masterbeatdto)
+        public void Paste(MasterBeatModel masterbeatdto)
         {
             DisabledMessages();
             MessageAddress = masterbeatdto.MessageAddress;

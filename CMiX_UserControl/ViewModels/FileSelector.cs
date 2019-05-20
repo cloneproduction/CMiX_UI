@@ -217,12 +217,12 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void Copy(FileSelectorDTO fileselectordto)
+        public void Copy(FileSelectorModel fileselectordto)
         {
-            List<FileNameItemDTO> fileNameItemDTOs = new List<FileNameItemDTO>();
+            List<FileNameItemModel> fileNameItemDTOs = new List<FileNameItemModel>();
             foreach (var item in FilePaths)
             {
-                var filenameitemdto = new FileNameItemDTO();
+                var filenameitemdto = new FileNameItemModel();
                 filenameitemdto.FileIsSelected = item.FileIsSelected;
                 filenameitemdto.FileName = item.FileName;
                 fileNameItemDTOs.Add(filenameitemdto);
@@ -230,7 +230,7 @@ namespace CMiX.ViewModels
             fileselectordto.FilePaths = fileNameItemDTOs;
         }
 
-        public void Paste(FileSelectorDTO fileselectordto)
+        public void Paste(FileSelectorModel fileselectordto)
         {
 
             if(fileselectordto.FilePaths != null) // NOT SURE THIS IS USEFULL ...

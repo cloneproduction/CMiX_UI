@@ -74,7 +74,7 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public void Copy(GeometryDTO geometrydto)
+        public void Copy(GeometryModel geometrydto)
         {
             FileSelector.Copy(geometrydto.FileSelector);
             TranslateMode.Copy(geometrydto.GeometryTranslate);
@@ -88,7 +88,7 @@ namespace CMiX.ViewModels
             GeometryFX.Copy(geometrydto.GeometryFX);
         }
 
-        public void Paste(GeometryDTO geometrydto)
+        public void Paste(GeometryModel geometrydto)
         {
             DisabledMessages();
 
@@ -108,7 +108,7 @@ namespace CMiX.ViewModels
 
         public void CopySelf()
         {
-            GeometryDTO geometrydto = new GeometryDTO();
+            GeometryModel geometrydto = new GeometryModel();
             this.Copy(geometrydto);
             IDataObject data = new DataObject();
             data.SetData("Geometry", geometrydto, false);
@@ -120,7 +120,7 @@ namespace CMiX.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("Geometry"))
             {
-                var geometrydto = (GeometryDTO)data.GetData("Geometry") as GeometryDTO;
+                var geometrydto = (GeometryModel)data.GetData("Geometry") as GeometryModel;
                 this.Paste(geometrydto);
 
                 QueueObjects(this);
@@ -130,7 +130,7 @@ namespace CMiX.ViewModels
 
         public void ResetSelf()
         {
-            GeometryDTO geometrydto = new GeometryDTO();
+            GeometryModel geometrydto = new GeometryModel();
             this.Paste(geometrydto);
         }
         #endregion

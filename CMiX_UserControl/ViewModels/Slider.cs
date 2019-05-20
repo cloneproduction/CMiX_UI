@@ -87,12 +87,12 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void Copy(SliderDTO sliderdto)
+        public void Copy(SliderModel sliderdto)
         {
             sliderdto.Amount = Amount;
         }
 
-        public void Paste(SliderDTO sliderdto)
+        public void Paste(SliderModel sliderdto)
         {
             DisabledMessages();
 

@@ -124,7 +124,7 @@ namespace CMiX.ViewModels
             if(compo != null)
             {
                 Composition comp = compo as Composition;
-                CompositionDTO compDTO = new CompositionDTO();
+                CompositionModel compDTO = new CompositionModel();
                 comp.Copy(compDTO);
                 Composition newcomp = new Composition(this.Messengers);
                 newcomp.Paste(compDTO);
@@ -151,7 +151,7 @@ namespace CMiX.ViewModels
                 {
                     CerasSerializer serializer = new CerasSerializer();
                     byte[] data = File.ReadAllBytes(folderPath) ;
-                    ProjectDTO projectdto = serializer.Deserialize<ProjectDTO>(data);
+                    ProjectModel projectdto = serializer.Deserialize<ProjectModel>(data);
                     Compositions.Clear();
                     Paste(projectdto);
                     FolderPath = folderPath;
@@ -164,7 +164,7 @@ namespace CMiX.ViewModels
             System.Windows.Forms.SaveFileDialog savedialog = new System.Windows.Forms.SaveFileDialog();
             if(!string.IsNullOrEmpty(FolderPath))
             {
-                ProjectDTO projectdto = new ProjectDTO();
+                ProjectModel projectdto = new ProjectModel();
                 this.Copy(projectdto);
                 var serializer = new CerasSerializer();
                 var data = serializer.Serialize(projectdto);
@@ -185,7 +185,7 @@ namespace CMiX.ViewModels
 
             if (savedialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                ProjectDTO projectdto = new ProjectDTO();
+                ProjectModel projectdto = new ProjectModel();
                 this.Copy(projectdto);
                 string folderPath = savedialog.FileName;
                 var data = Serializer.Serialize(projectdto);
@@ -217,7 +217,7 @@ namespace CMiX.ViewModels
                 if (opendialog.FileName.Trim() != string.Empty) // Check if you really have a file name 
                 {
                     byte[] data = File.ReadAllBytes(folderPath);
-                    CompositionDTO compositiondto = Serializer.Deserialize<CompositionDTO>(data);
+                    CompositionModel compositiondto = Serializer.Deserialize<CompositionModel>(data);
                     Composition newcomp = new Composition(this.Messengers);
                     newcomp.Paste(compositiondto);
                     Compositions.Add(newcomp);
@@ -235,7 +235,7 @@ namespace CMiX.ViewModels
 
             if (savedialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                CompositionDTO compositiondto = new CompositionDTO();
+                CompositionModel compositiondto = new CompositionModel();
                 SelectedComposition.Copy(compositiondto);
                 string folderPath = savedialog.FileName;
                 var data = Serializer.Serialize(compositiondto);
@@ -245,19 +245,19 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void Copy(ProjectDTO projectdto)
+        public void Copy(ProjectModel projectdto)
         {
             foreach (var comp in Compositions)
             {
-                CompositionDTO compositiondto = new CompositionDTO();
+                CompositionModel compositiondto = new CompositionModel();
                 comp.Copy(compositiondto);
-                projectdto.CompositionDTO.Add(compositiondto);
+                projectdto.CompositionModel.Add(compositiondto);
             }
         }
 
-        public void Paste(ProjectDTO projectdto)
+        public void Paste(ProjectModel projectdto)
         {
-            foreach (var compositiondto in projectdto.CompositionDTO)
+            foreach (var compositiondto in projectdto.CompositionModel)
             {
                 Composition composition = new Composition(this.Messengers);
                 composition.Paste(compositiondto);

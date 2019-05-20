@@ -93,36 +93,36 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE/LOAD
-        public void Copy(LayerDTO layerdto)
+        public void Copy(LayerModel layerdto)
         {
             layerdto.BlendMode = BlendMode;
             layerdto.LayerName = LayerName;
             layerdto.Index = Index;
             Fade.Copy(layerdto.Fade);
-            BeatModifier.Copy(layerdto.BeatModifierDTO);
-            Content.Copy(layerdto.ContentDTO);
+            BeatModifier.Copy(layerdto.BeatModifierModel);
+            Content.Copy(layerdto.ContentModel);
             Mask.Copy(layerdto.MaskDTO);
-            Coloration.Copy(layerdto.ColorationDTO);
+            Coloration.Copy(layerdto.ColorationModel);
             PostFX.Copy(layerdto.PostFXDTO);
         }
 
-        public void Paste(LayerDTO layerdto)
+        public void Paste(LayerModel layerdto)
         {
             DisabledMessages();
 
             BlendMode = layerdto.BlendMode;
             Fade.Paste(layerdto.Fade);
             Out = layerdto.Out;
-            BeatModifier.Paste(layerdto.BeatModifierDTO);
-            Content.Paste(layerdto.ContentDTO);
+            BeatModifier.Paste(layerdto.BeatModifierModel);
+            Content.Paste(layerdto.ContentModel);
             Mask.Paste(layerdto.MaskDTO);
-            Coloration.Paste(layerdto.ColorationDTO);
+            Coloration.Paste(layerdto.ColorationModel);
             PostFX.Paste(layerdto.PostFXDTO);
 
             EnabledMessages();
         }
 
-        public void Load(LayerDTO layerdto)
+        public void Load(LayerModel layerdto)
         {
             DisabledMessages();
 
@@ -131,10 +131,10 @@ namespace CMiX.ViewModels
             Index = layerdto.Index;
             Out = layerdto.Out;
             Fade.Paste(layerdto.Fade);
-            BeatModifier.Paste(layerdto.BeatModifierDTO);
-            Content.Paste(layerdto.ContentDTO);
+            BeatModifier.Paste(layerdto.BeatModifierModel);
+            Content.Paste(layerdto.ContentModel);
             Mask.Paste(layerdto.MaskDTO);
-            Coloration.Paste(layerdto.ColorationDTO);
+            Coloration.Paste(layerdto.ColorationModel);
             PostFX.Paste(layerdto.PostFXDTO);
 
             EnabledMessages();

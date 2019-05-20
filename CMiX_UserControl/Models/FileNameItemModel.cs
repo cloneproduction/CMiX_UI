@@ -3,9 +3,9 @@
 namespace CMiX.Models
 {
     [Serializable]
-    public class FileNameItemDTO
+    public class FileNameItemModel
     {
-        public FileNameItemDTO()
+        public FileNameItemModel()
         {
 
         }

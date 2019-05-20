@@ -65,28 +65,30 @@ namespace CMiX.ViewModels
         }
         #endregion
 
+        #region METHODS
         private void MouseDown()
         {
             Mementor.PropertyChange(this, "ObjColor");
         }
+        #endregion
 
         #region COPY/PASTE
-        public void Copy(ColorationDTO colorationdto)
+        public void Copy(ColorationModel colorationdto)
         {
             colorationdto.ObjColor = Utils.ColorToHexString(ObjColor);
             colorationdto.BgColor = Utils.ColorToHexString(BgColor);
-            BeatModifier.Copy(colorationdto.BeatModifierDTO);
+            BeatModifier.Copy(colorationdto.BeatModifierModel);
             Hue.Copy(colorationdto.HueDTO);
             Saturation.Copy(colorationdto.SatDTO);
             Value.Copy(colorationdto.ValDTO);
         }
 
-        public void Paste(ColorationDTO colorationdto)
+        public void Paste(ColorationModel colorationdto)
         {
             DisabledMessages();
             ObjColor = Utils.HexStringToColor(colorationdto.ObjColor);
             BgColor = Utils.HexStringToColor(colorationdto.BgColor);
-            BeatModifier.Paste(colorationdto.BeatModifierDTO);
+            BeatModifier.Paste(colorationdto.BeatModifierModel);
             Hue.Paste(colorationdto.HueDTO);
             Saturation.Paste(colorationdto.SatDTO);
             Value.Paste(colorationdto.ValDTO);
@@ -95,7 +97,7 @@ namespace CMiX.ViewModels
 
         public void CopySelf()
         {
-            ColorationDTO colorationdto = new ColorationDTO();
+            ColorationModel colorationdto = new ColorationModel();
             Copy(colorationdto);
             IDataObject data = new DataObject();
             data.SetData("Coloration", colorationdto, false);
@@ -107,7 +109,7 @@ namespace CMiX.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("Coloration"))
             {
-                var colorationdto = (ColorationDTO)data.GetData("Coloration") as ColorationDTO;
+                var colorationdto = (ColorationModel)data.GetData("Coloration") as ColorationModel;
                 Paste(colorationdto);
                 QueueObjects(this);
                 SendQueues();
@@ -116,7 +118,7 @@ namespace CMiX.ViewModels
 
         public void ResetSelf()
         {
-            ColorationDTO colorationdto = new ColorationDTO();
+            ColorationModel colorationdto = new ColorationModel();
             Paste(colorationdto);
         }
         #endregion

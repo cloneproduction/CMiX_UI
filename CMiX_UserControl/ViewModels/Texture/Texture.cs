@@ -68,7 +68,7 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public void Copy(TextureDTO texturedto)
+        public void Copy(TextureModel texturedto)
         {
             FileSelector.Copy(texturedto.FileSelector);
             Brightness.Copy(texturedto.Brightness);
@@ -83,7 +83,7 @@ namespace CMiX.ViewModels
             texturedto.InvertMode = InvertMode;
         }
 
-        public void Paste(TextureDTO texturedto)
+        public void Paste(TextureModel texturedto)
         {
             DisabledMessages();
 
@@ -104,7 +104,7 @@ namespace CMiX.ViewModels
 
         public void CopySelf()
         {
-            TextureDTO texturedto = new TextureDTO();
+            TextureModel texturedto = new TextureModel();
             this.Copy(texturedto);
             IDataObject data = new DataObject();
             data.SetData("Texture", texturedto, false);
@@ -116,7 +116,7 @@ namespace CMiX.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("Texture"))
             {
-                var texturedto = (TextureDTO)data.GetData("Texture") as TextureDTO;
+                var texturedto = (TextureModel)data.GetData("Texture") as TextureModel;
                 this.Paste(texturedto);
 
                 QueueObjects(this);
@@ -126,7 +126,7 @@ namespace CMiX.ViewModels
 
         public void ResetSelf()
         {
-            TextureDTO texturedto = new TextureDTO();
+            TextureModel texturedto = new TextureModel();
             this.Paste(texturedto);
         }
         #endregion

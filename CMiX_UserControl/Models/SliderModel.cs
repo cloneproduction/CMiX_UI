@@ -3,7 +3,7 @@
 namespace CMiX.Models
 {
     [Serializable]
-    public class SliderDTO
+    public class SliderModel
     {
         public double Amount { get; set; }
     }

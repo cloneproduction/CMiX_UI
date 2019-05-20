@@ -90,18 +90,18 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void Copy(BeatModifierDTO beatmodifierdto)
+        public void Copy(BeatModifierModel BeatModifierModel)
         {
-            ChanceToHit.Copy(beatmodifierdto.ChanceToHit);
-            beatmodifierdto.Multiplier = Multiplier;
+            ChanceToHit.Copy(BeatModifierModel.ChanceToHit);
+            BeatModifierModel.Multiplier = Multiplier;
         }
 
-        public void Paste(BeatModifierDTO beatmodifierdto)
+        public void Paste(BeatModifierModel BeatModifierModel)
         {
             DisabledMessages();
 
-            ChanceToHit.Paste(beatmodifierdto.ChanceToHit);
-            Multiplier = beatmodifierdto.Multiplier;
+            ChanceToHit.Paste(BeatModifierModel.ChanceToHit);
+            Multiplier = BeatModifierModel.Multiplier;
 
             EnabledMessages();
         }

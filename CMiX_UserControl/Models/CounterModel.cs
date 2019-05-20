@@ -3,7 +3,7 @@
 namespace CMiX.Models
 {
     [Serializable]
-    public class CounterDTO
+    public class CounterModel
     {
         public int Count { get; set; }
     }

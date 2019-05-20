@@ -52,12 +52,12 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void Copy(CounterDTO counterdto)
+        public void Copy(CounterModel counterdto)
         {
             counterdto.Count = Count;
         }
 
-        public void Paste(CounterDTO counterdto)
+        public void Paste(CounterModel counterdto)
         {
             DisabledMessages();
             Count = counterdto.Count;

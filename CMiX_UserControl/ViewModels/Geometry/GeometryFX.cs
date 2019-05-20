@@ -21,12 +21,12 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void Copy(GeometryFXDTO geometryFXdto)
+        public void Copy(GeometryFXModel geometryFXdto)
         {
             Explode.Copy(geometryFXdto.Explode);
         }
 
-        public void Paste(GeometryFXDTO geometryFXdto)
+        public void Paste(GeometryFXModel geometryFXdto)
         {
             DisabledMessages();
             Explode.Paste(geometryFXdto.Explode);

@@ -4,7 +4,7 @@ using System;
 namespace CMiX.Models
 {
     [Serializable]
-    public class GeometryRotationDTO
+    public class GeometryRotationModel
     {
         public GeometryRotationMode RotationModeDTO { get; set; }
         public bool RotationX { get; set; }

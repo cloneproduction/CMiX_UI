@@ -66,31 +66,31 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void Copy(MaskDTO maskdto)
+        public void Copy(MaskModel maskdto)
         {
             maskdto.Enable = Enable;
             maskdto.KeepOriginal = KeepOriginal;
-            BeatModifier.Copy(maskdto.BeatModifierDTO);
+            BeatModifier.Copy(maskdto.BeatModifierModel);
             Texture.Copy(maskdto.TextureDTO);
-            Geometry.Copy(maskdto.GeometryDTO);
+            Geometry.Copy(maskdto.GeometryModel);
             PostFX.Copy(maskdto.PostFXDTO);
         }
 
-        public void Paste(MaskDTO maskdto)
+        public void Paste(MaskModel maskdto)
         {
             DisabledMessages();
             Enable = maskdto.Enable;
             KeepOriginal = maskdto.KeepOriginal;
-            BeatModifier.Paste(maskdto.BeatModifierDTO);
+            BeatModifier.Paste(maskdto.BeatModifierModel);
             Texture.Paste(maskdto.TextureDTO);
-            Geometry.Paste(maskdto.GeometryDTO);
+            Geometry.Paste(maskdto.GeometryModel);
             PostFX.Paste(maskdto.PostFXDTO);
             EnabledMessages();
         }
 
         public void CopySelf()
         {
-            MaskDTO maskdto = new MaskDTO();
+            MaskModel maskdto = new MaskModel();
             this.Copy(maskdto);
             IDataObject data = new DataObject();
             data.SetData("Mask", maskdto, false);
@@ -102,7 +102,7 @@ namespace CMiX.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("Mask"))
             {
-                var maskdto = (MaskDTO)data.GetData("Mask") as MaskDTO;
+                var maskdto = (MaskModel)data.GetData("Mask") as MaskModel;
                 this.Paste(maskdto);
                 QueueObjects(this);
                 SendQueues();
@@ -111,7 +111,7 @@ namespace CMiX.ViewModels
 
         public void ResetSelf()
         {
-            MaskDTO maskdto = new MaskDTO();
+            MaskModel maskdto = new MaskModel();
             this.Paste(maskdto);
         }
         #endregion

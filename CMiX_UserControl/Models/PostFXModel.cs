@@ -3,16 +3,16 @@
 namespace CMiX.Models
 {
     [Serializable]
-    public class PostFXDTO
+    public class PostFXModel
     {
-        public PostFXDTO()
+        public PostFXModel()
         {
-            Feedback = new SliderDTO();
-            Blur = new SliderDTO();
+            Feedback = new SliderModel();
+            Blur = new SliderModel();
         }
         public string MessageAddress { get; set; }
-        public SliderDTO Feedback { get; set; }
-        public SliderDTO Blur { get; set; }
+        public SliderModel Feedback { get; set; }
+        public SliderModel Blur { get; set; }
         public string Transforms { get; set; }
         public string View { get; set; }
     }

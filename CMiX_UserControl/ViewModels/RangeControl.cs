@@ -57,13 +57,13 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void Copy(RangeControlDTO rangecontroldto)
+        public void Copy(RangeControlModel rangecontroldto)
         {
             Range.Copy(rangecontroldto.Range);
             rangecontroldto.Modifier = Modifier;
         }
 
-        public void Paste(RangeControlDTO rangecontroldto)
+        public void Paste(RangeControlModel rangecontroldto)
         {
             DisabledMessages();
             Range.Paste(rangecontroldto.Range);

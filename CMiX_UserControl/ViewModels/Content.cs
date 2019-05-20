@@ -47,7 +47,7 @@ namespace CMiX.ViewModels
         #region COPY/PASTE
         public void CopySelf()
         {
-            ContentDTO contentdto = new ContentDTO();
+            ContentModel contentdto = new ContentModel();
             this.Copy(contentdto);
             IDataObject data = new DataObject();
             data.SetData("Content", contentdto, false);
@@ -59,7 +59,7 @@ namespace CMiX.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("Content"))
             {
-                var contentdto = (ContentDTO)data.GetData("Content") as ContentDTO;
+                var contentdto = (ContentModel)data.GetData("Content") as ContentModel;
                 this.Paste(contentdto);
                 QueueObjects(this);
                 SendQueues();
@@ -68,27 +68,27 @@ namespace CMiX.ViewModels
 
         public void ResetSelf()
         {
-            ContentDTO contentdto = new ContentDTO();
+            ContentModel contentdto = new ContentModel();
             this.Paste(contentdto);
         }
 
 
-        public void Copy(ContentDTO contentdto)
+        public void Copy(ContentModel contentdto)
         {
             contentdto.Enable = Enable;
-            BeatModifier.Copy(contentdto.BeatModifierDTO);
+            BeatModifier.Copy(contentdto.BeatModifierModel);
             Texture.Copy(contentdto.TextureDTO);
-            Geometry.Copy(contentdto.GeometryDTO);
+            Geometry.Copy(contentdto.GeometryModel);
             PostFX.Copy(contentdto.PostFXDTO);
         }
 
-        public void Paste(ContentDTO contentdto)
+        public void Paste(ContentModel contentdto)
         {
             DisabledMessages();
             Enable = contentdto.Enable;
-            BeatModifier.Paste(contentdto.BeatModifierDTO);
+            BeatModifier.Paste(contentdto.BeatModifierModel);
             Texture.Paste(contentdto.TextureDTO);
-            Geometry.Paste(contentdto.GeometryDTO);
+            Geometry.Paste(contentdto.GeometryModel);
             PostFX.Paste(contentdto.PostFXDTO);
             EnabledMessages();
         }

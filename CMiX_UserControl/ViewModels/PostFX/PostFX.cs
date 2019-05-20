@@ -62,7 +62,7 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public void Copy(PostFXDTO postFXdto)
+        public void Copy(PostFXModel postFXdto)
         {
             Feedback.Copy(postFXdto.Feedback);
             Blur.Copy(postFXdto.Blur);
@@ -70,7 +70,7 @@ namespace CMiX.ViewModels
             postFXdto.View = View;
         }
 
-        public void Paste(PostFXDTO postFXdto)
+        public void Paste(PostFXModel postFXdto)
         {
             DisabledMessages();
             Feedback.Paste(postFXdto.Feedback);
@@ -82,7 +82,7 @@ namespace CMiX.ViewModels
 
         public void CopySelf()
         {
-            PostFXDTO postFXdto = new PostFXDTO();
+            PostFXModel postFXdto = new PostFXModel();
             this.Copy(postFXdto);
             IDataObject data = new DataObject();
             data.SetData("PostFX", postFXdto, false);
@@ -94,7 +94,7 @@ namespace CMiX.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("PostFX"))
             {
-                var postFXdto = (PostFXDTO)data.GetData("PostFX") as PostFXDTO;
+                var postFXdto = (PostFXModel)data.GetData("PostFX") as PostFXModel;
                 this.Paste(postFXdto);
 
                 QueueObjects(this);
@@ -104,7 +104,7 @@ namespace CMiX.ViewModels
 
         public void ResetSelf()
         {
-            PostFXDTO postFXdto = new PostFXDTO();
+            PostFXModel postFXdto = new PostFXModel();
             this.Paste(postFXdto);
         }
         #endregion
