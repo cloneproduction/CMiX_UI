@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMiX.Services;
+using System;
 
 namespace CMiX.Models
 {
@@ -11,15 +12,25 @@ namespace CMiX.Models
             ContentModel = new ContentModel();
             MaskDTO = new MaskModel();
             ColorationModel = new ColorationModel();
-            PostFXDTO = new PostFXModel();
+            PostFXModel = new PostFXModel();
             Fade = new SliderModel();
         }
 
         public string MessageAddress { get; set; }
+
+        [OSC]
         public string LayerName { get; set; }
+
+        [OSC]
         public bool Enabled { get; set; }
+
+        [OSC]
         public bool Out { get; set; }
+
+        [OSC]
         public int Index { get; set; }
+
+        [OSC]
         public string BlendMode { get; set; }
 
         public SliderModel Fade { get; set; }
@@ -27,6 +38,6 @@ namespace CMiX.Models
         public ContentModel ContentModel { get; set; }
         public MaskModel MaskDTO { get; set; }
         public ColorationModel ColorationModel { get; set; }
-        public PostFXModel PostFXDTO{ get; set; }
+        public PostFXModel PostFXModel{ get; set; }
     }
 }

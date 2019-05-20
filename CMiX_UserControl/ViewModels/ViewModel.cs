@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using CMiX.Services;
 using System.Collections.ObjectModel;
 using Memento;
+using CMiX.Models;
 
 namespace CMiX.ViewModels
 {
@@ -59,7 +60,7 @@ namespace CMiX.ViewModels
             }
         }
 
-        public void QueueObjects(ViewModel obj)
+        public void QueueObjects(object obj)
         {
             foreach (var Message in Messengers)
             {
@@ -77,17 +78,23 @@ namespace CMiX.ViewModels
 
         public void DisabledMessages()
         {
-            foreach (var Message in Messengers)
+            if(Messengers != null)
             {
-                Message.SendEnabled = false;
+                foreach (var Message in Messengers)
+                {
+                    Message.SendEnabled = false;
+                }
             }
         }
 
         public void EnabledMessages()
         {
-            foreach (var Message in Messengers)
+            if (Messengers != null)
             {
-                Message.SendEnabled = true;
+                foreach (var Message in Messengers)
+                {
+                    Message.SendEnabled = true;
+                }
             }
         }
         #endregion

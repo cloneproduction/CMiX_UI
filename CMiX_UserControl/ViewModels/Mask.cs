@@ -73,7 +73,7 @@ namespace CMiX.ViewModels
             BeatModifier.Copy(maskdto.BeatModifierModel);
             Texture.Copy(maskdto.TextureDTO);
             Geometry.Copy(maskdto.GeometryModel);
-            PostFX.Copy(maskdto.PostFXDTO);
+            PostFX.Copy(maskdto.PostFXModel);
         }
 
         public void Paste(MaskModel maskdto)
@@ -84,7 +84,7 @@ namespace CMiX.ViewModels
             BeatModifier.Paste(maskdto.BeatModifierModel);
             Texture.Paste(maskdto.TextureDTO);
             Geometry.Paste(maskdto.GeometryModel);
-            PostFX.Paste(maskdto.PostFXDTO);
+            PostFX.Paste(maskdto.PostFXModel);
             EnabledMessages();
         }
 

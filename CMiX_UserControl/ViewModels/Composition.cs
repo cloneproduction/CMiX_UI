@@ -105,22 +105,15 @@ namespace CMiX.ViewModels
             message.SendQueue();
         }
 
+
         #region COPY/PASTE LAYER
         private void CopyLayer()
         {
-            foreach (Layer lyr in Layers)
-            {
-                if (lyr.Enabled)
-                {
-                    LayerModel layerdto = new LayerModel();
-                    lyr.Copy(layerdto);
-
-                    IDataObject data = new DataObject();
-                    data.SetData("Layer", layerdto, false);
-                    Clipboard.SetDataObject(data);
-                    continue;
-                }
-            }
+            LayerModel layermodel = new LayerModel();
+            SelectedLayer.Copy(layermodel);
+            IDataObject data = new DataObject();
+            data.SetData("Layer", layermodel, false);
+            Clipboard.SetDataObject(data);
         }
 
         private void PasteLayer()
@@ -128,20 +121,14 @@ namespace CMiX.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("Layer"))
             {
-                for (int i = 0; i < Layers.Count; i++)
-                {
-                    if (Layers[i].Enabled)
-                    {
-                        var layerdto = (LayerModel)data.GetData("Layer") as LayerModel;
-                        Layers[i].Paste(layerdto);
-
-                        QueueObjects(Layers[i]);
-                        SendQueues();
-                    }
-                }
+                var layermodel = (LayerModel)data.GetData("Layer") as LayerModel;
+                SelectedLayer.Paste(layermodel);
+                QueueObjects(layermodel);
+                SendQueues();
             }
         }
         #endregion
+
 
         #region ADD/REMOVE/DUPLICATE/DELETE LAYERS
         public void AddLayer()
@@ -165,9 +152,12 @@ namespace CMiX.ViewModels
                 layerindex.Add(lyr.Index.ToString());
             }
 
-            QueueMessages("/LayerNames", this.LayerNames.ToArray());
+            LayerModel layermodel = new LayerModel();
+            layer.Copy(layermodel);
+
+            QueueMessages("/LayerNames", LayerNames.ToArray());
             QueueMessages("/LayerIndex", layerindex.ToArray());
-            QueueObjects(layer);
+            QueueObjects(layermodel);
             SendQueues();
 
             Mementor.EndBatch();
@@ -182,11 +172,11 @@ namespace CMiX.ViewModels
             LayerNames.Add("/Layer" + layerNameID.ToString());
 
             Layer lyr = layer as Layer;
-            LayerModel layerdto = new LayerModel();
-            lyr.Copy(layerdto);
+            LayerModel layermodel = new LayerModel();
+            lyr.Copy(layermodel);
 
             Layer newlayer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messengers, layerNameID, Mementor);
-            newlayer.Paste(layerdto);
+            newlayer.Paste(layermodel);
             newlayer.LayerName = "/Layer" + layerNameID.ToString();
             newlayer.Index = layerID;
             newlayer.Enabled = false;
@@ -282,9 +272,9 @@ namespace CMiX.ViewModels
 
             foreach (Layer lyr in Layers)
             {
-                LayerModel layerdto = new LayerModel();
-                lyr.Copy(layerdto);
-                compositiondto.LayersDTO.Add(layerdto);
+                LayerModel layermodel = new LayerModel();
+                lyr.Copy(layermodel);
+                compositiondto.LayersDTO.Add(layermodel);
             }
             MasterBeat.Copy(compositiondto.MasterBeatDTO);
             Camera.Copy(compositiondto.CameraModel);
@@ -297,11 +287,12 @@ namespace CMiX.ViewModels
 
             Layers.Clear();
             layerID = -1;
-            foreach (LayerModel layerdto in compositiondto.LayersDTO)
+
+            foreach (LayerModel layermodel in compositiondto.LayersDTO)
             {
                 layerID += 1;
                 Layer layer = new Layer(MasterBeat, "/Layer" + layerID.ToString(), Messengers, 0, Mementor);
-                layer.Paste(layerdto);
+                layer.Paste(layermodel);
                 Layers.Add(layer);
             }
 
@@ -315,10 +306,10 @@ namespace CMiX.ViewModels
             LayerNames = compositiondto.LayerNames;
 
             Layers.Clear();
-            foreach (LayerModel layerdto in compositiondto.LayersDTO)
+            foreach (LayerModel layermodel in compositiondto.LayersDTO)
             {
-                Layer layer = new Layer(MasterBeat, layerdto.LayerName, Messengers, layerdto.Index, Mementor);
-                layer.Load(layerdto);
+                Layer layer = new Layer(MasterBeat, layermodel.LayerName, Messengers, layermodel.Index, Mementor);
+                layer.Load(layermodel);
                 Layers.Add(layer);
             }
 
@@ -339,7 +330,6 @@ namespace CMiX.ViewModels
                 File.WriteAllText(folderPath, json);
             }
         }
-
 
         private void Open()
         {

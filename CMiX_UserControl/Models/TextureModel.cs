@@ -1,6 +1,4 @@
 ﻿using System;
-using CMiX.Controls;
-using System.Collections.Generic;
 
 namespace CMiX.Models
 {

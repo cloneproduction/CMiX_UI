@@ -10,7 +10,7 @@ namespace CMiX.Models
             BeatModifierModel = new BeatModifierModel();
             TextureDTO = new TextureModel();
             GeometryModel = new GeometryModel();
-            PostFXDTO = new PostFXModel();
+            PostFXModel = new PostFXModel();
         }
 
         public string MessageAddress { get; set; }
@@ -19,6 +19,6 @@ namespace CMiX.Models
         public BeatModifierModel BeatModifierModel { get; set; }
         public GeometryModel GeometryModel { get; set; }
         public TextureModel TextureDTO { get; set; }
-        public PostFXModel PostFXDTO { get; set; }
+        public PostFXModel PostFXModel { get; set; }
     }
 }

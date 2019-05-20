@@ -79,7 +79,7 @@ namespace CMiX.ViewModels
             BeatModifier.Copy(contentdto.BeatModifierModel);
             Texture.Copy(contentdto.TextureDTO);
             Geometry.Copy(contentdto.GeometryModel);
-            PostFX.Copy(contentdto.PostFXDTO);
+            PostFX.Copy(contentdto.PostFXModel);
         }
 
         public void Paste(ContentModel contentdto)
@@ -89,7 +89,7 @@ namespace CMiX.ViewModels
             BeatModifier.Paste(contentdto.BeatModifierModel);
             Texture.Paste(contentdto.TextureDTO);
             Geometry.Paste(contentdto.GeometryModel);
-            PostFX.Paste(contentdto.PostFXDTO);
+            PostFX.Paste(contentdto.PostFXModel);
             EnabledMessages();
         }
         #endregion

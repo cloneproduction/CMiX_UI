@@ -93,49 +93,49 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE/LOAD
-        public void Copy(LayerModel layerdto)
+        public void Copy(LayerModel layermodel)
         {
-            layerdto.BlendMode = BlendMode;
-            layerdto.LayerName = LayerName;
-            layerdto.Index = Index;
-            Fade.Copy(layerdto.Fade);
-            BeatModifier.Copy(layerdto.BeatModifierModel);
-            Content.Copy(layerdto.ContentModel);
-            Mask.Copy(layerdto.MaskDTO);
-            Coloration.Copy(layerdto.ColorationModel);
-            PostFX.Copy(layerdto.PostFXDTO);
+            layermodel.BlendMode = BlendMode;
+            layermodel.LayerName = LayerName;
+            layermodel.Index = Index;
+            Fade.Copy(layermodel.Fade);
+            BeatModifier.Copy(layermodel.BeatModifierModel);
+            Content.Copy(layermodel.ContentModel);
+            Mask.Copy(layermodel.MaskDTO);
+            Coloration.Copy(layermodel.ColorationModel);
+            PostFX.Copy(layermodel.PostFXModel);
         }
 
-        public void Paste(LayerModel layerdto)
+        public void Paste(LayerModel layermodel)
         {
             DisabledMessages();
 
-            BlendMode = layerdto.BlendMode;
-            Fade.Paste(layerdto.Fade);
-            Out = layerdto.Out;
-            BeatModifier.Paste(layerdto.BeatModifierModel);
-            Content.Paste(layerdto.ContentModel);
-            Mask.Paste(layerdto.MaskDTO);
-            Coloration.Paste(layerdto.ColorationModel);
-            PostFX.Paste(layerdto.PostFXDTO);
+            BlendMode = layermodel.BlendMode;
+            Fade.Paste(layermodel.Fade);
+            Out = layermodel.Out;
+            BeatModifier.Paste(layermodel.BeatModifierModel);
+            Content.Paste(layermodel.ContentModel);
+            Mask.Paste(layermodel.MaskDTO);
+            Coloration.Paste(layermodel.ColorationModel);
+            PostFX.Paste(layermodel.PostFXModel);
 
             EnabledMessages();
         }
 
-        public void Load(LayerModel layerdto)
+        public void Load(LayerModel layermodel)
         {
             DisabledMessages();
 
-            BlendMode = layerdto.BlendMode;
-            LayerName = layerdto.LayerName;
-            Index = layerdto.Index;
-            Out = layerdto.Out;
-            Fade.Paste(layerdto.Fade);
-            BeatModifier.Paste(layerdto.BeatModifierModel);
-            Content.Paste(layerdto.ContentModel);
-            Mask.Paste(layerdto.MaskDTO);
-            Coloration.Paste(layerdto.ColorationModel);
-            PostFX.Paste(layerdto.PostFXDTO);
+            BlendMode = layermodel.BlendMode;
+            LayerName = layermodel.LayerName;
+            Index = layermodel.Index;
+            Out = layermodel.Out;
+            Fade.Paste(layermodel.Fade);
+            BeatModifier.Paste(layermodel.BeatModifierModel);
+            Content.Paste(layermodel.ContentModel);
+            Mask.Paste(layermodel.MaskDTO);
+            Coloration.Paste(layermodel.ColorationModel);
+            PostFX.Paste(layermodel.PostFXModel);
 
             EnabledMessages();
         }
