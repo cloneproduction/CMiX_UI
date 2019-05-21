@@ -1,4 +1,5 @@
-﻿using CMiX.ViewModels;
+﻿using CMiX.Services;
+using CMiX.ViewModels;
 using System;
 
 namespace CMiX.Models
@@ -6,9 +7,18 @@ namespace CMiX.Models
     [Serializable]
     public class GeometryRotationModel
     {
-        public GeometryRotationMode RotationModeDTO { get; set; }
+        public string MessageAddress { get; set; }
+
+        [OSC]
+        public GeometryRotationMode RotationMode { get; set; }
+
+        [OSC]
         public bool RotationX { get; set; }
+
+        [OSC]
         public bool RotationY { get; set; }
+
+        [OSC]
         public bool RotationZ { get; set; }
     }
 }

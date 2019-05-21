@@ -95,13 +95,14 @@ namespace CMiX.ViewModels
         #region COPY/PASTE/LOAD
         public void Copy(LayerModel layermodel)
         {
+            layermodel.MessageAddress = MessageAddress;
             layermodel.BlendMode = BlendMode;
             layermodel.LayerName = LayerName;
             layermodel.Index = Index;
             Fade.Copy(layermodel.Fade);
             BeatModifier.Copy(layermodel.BeatModifierModel);
             Content.Copy(layermodel.ContentModel);
-            Mask.Copy(layermodel.MaskDTO);
+            Mask.Copy(layermodel.maskmodel);
             Coloration.Copy(layermodel.ColorationModel);
             PostFX.Copy(layermodel.PostFXModel);
         }
@@ -110,12 +111,13 @@ namespace CMiX.ViewModels
         {
             DisabledMessages();
 
+            MessageAddress = layermodel.MessageAddress;
             BlendMode = layermodel.BlendMode;
             Fade.Paste(layermodel.Fade);
             Out = layermodel.Out;
             BeatModifier.Paste(layermodel.BeatModifierModel);
             Content.Paste(layermodel.ContentModel);
-            Mask.Paste(layermodel.MaskDTO);
+            Mask.Paste(layermodel.maskmodel);
             Coloration.Paste(layermodel.ColorationModel);
             PostFX.Paste(layermodel.PostFXModel);
 
@@ -133,7 +135,7 @@ namespace CMiX.ViewModels
             Fade.Paste(layermodel.Fade);
             BeatModifier.Paste(layermodel.BeatModifierModel);
             Content.Paste(layermodel.ContentModel);
-            Mask.Paste(layermodel.MaskDTO);
+            Mask.Paste(layermodel.maskmodel);
             Coloration.Paste(layermodel.ColorationModel);
             PostFX.Paste(layermodel.PostFXModel);
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMiX.Services;
+using System;
 
 namespace CMiX.Models
 {
@@ -9,8 +10,11 @@ namespace CMiX.Models
         {
             ChanceToHit = new SliderModel();
         }
+        public string MessageAddress { get; set; }
+
+        [OSC]
+        public double Multiplier { get; set; }
 
         public SliderModel ChanceToHit { get; set; }
-        public double Multiplier { get; set; }
     }
 }

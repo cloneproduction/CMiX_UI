@@ -62,30 +62,32 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public void Copy(PostFXModel postFXdto)
+        public void Copy(PostFXModel postFXmodel)
         {
-            Feedback.Copy(postFXdto.Feedback);
-            Blur.Copy(postFXdto.Blur);
-            postFXdto.Transforms = Transforms;
-            postFXdto.View = View;
+            Feedback.Copy(postFXmodel.Feedback);
+            Blur.Copy(postFXmodel.Blur);
+            postFXmodel.MessageAddress = MessageAddress;
+            postFXmodel.Transforms = Transforms;
+            postFXmodel.View = View;
         }
 
-        public void Paste(PostFXModel postFXdto)
+        public void Paste(PostFXModel postFXmodel)
         {
             DisabledMessages();
-            Feedback.Paste(postFXdto.Feedback);
-            Blur.Paste(postFXdto.Blur);
-            Transforms = postFXdto.Transforms;
-            View = postFXdto.View;
+            MessageAddress = postFXmodel.MessageAddress;
+            Feedback.Paste(postFXmodel.Feedback);
+            Blur.Paste(postFXmodel.Blur);
+            Transforms = postFXmodel.Transforms;
+            View = postFXmodel.View;
             EnabledMessages();
         }
 
         public void CopySelf()
         {
-            PostFXModel postFXdto = new PostFXModel();
-            this.Copy(postFXdto);
+            PostFXModel postFXmodel = new PostFXModel();
+            this.Copy(postFXmodel);
             IDataObject data = new DataObject();
-            data.SetData("PostFX", postFXdto, false);
+            data.SetData("PostFX", postFXmodel, false);
             Clipboard.SetDataObject(data);
         }
 
@@ -94,8 +96,8 @@ namespace CMiX.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("PostFX"))
             {
-                var postFXdto = (PostFXModel)data.GetData("PostFX") as PostFXModel;
-                this.Paste(postFXdto);
+                var postFXmodel = (PostFXModel)data.GetData("PostFX") as PostFXModel;
+                this.Paste(postFXmodel);
 
                 QueueObjects(this);
                 SendQueues();
@@ -104,8 +106,8 @@ namespace CMiX.ViewModels
 
         public void ResetSelf()
         {
-            PostFXModel postFXdto = new PostFXModel();
-            this.Paste(postFXdto);
+            PostFXModel postFXmodel = new PostFXModel();
+            this.Paste(postFXmodel);
         }
         #endregion
     }

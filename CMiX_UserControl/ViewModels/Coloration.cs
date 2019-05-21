@@ -73,34 +73,36 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void Copy(ColorationModel colorationdto)
+        public void Copy(ColorationModel colorationmodel)
         {
-            colorationdto.ObjColor = Utils.ColorToHexString(ObjColor);
-            colorationdto.BgColor = Utils.ColorToHexString(BgColor);
-            BeatModifier.Copy(colorationdto.BeatModifierModel);
-            Hue.Copy(colorationdto.HueDTO);
-            Saturation.Copy(colorationdto.SatDTO);
-            Value.Copy(colorationdto.ValDTO);
+            colorationmodel.MessageAddress = MessageAddress;
+            colorationmodel.ObjColor = Utils.ColorToHexString(ObjColor);
+            colorationmodel.BgColor = Utils.ColorToHexString(BgColor);
+            BeatModifier.Copy(colorationmodel.BeatModifierModel);
+            Hue.Copy(colorationmodel.HueDTO);
+            Saturation.Copy(colorationmodel.SatDTO);
+            Value.Copy(colorationmodel.ValDTO);
         }
 
-        public void Paste(ColorationModel colorationdto)
+        public void Paste(ColorationModel colorationmodel)
         {
             DisabledMessages();
-            ObjColor = Utils.HexStringToColor(colorationdto.ObjColor);
-            BgColor = Utils.HexStringToColor(colorationdto.BgColor);
-            BeatModifier.Paste(colorationdto.BeatModifierModel);
-            Hue.Paste(colorationdto.HueDTO);
-            Saturation.Paste(colorationdto.SatDTO);
-            Value.Paste(colorationdto.ValDTO);
+            MessageAddress = colorationmodel.MessageAddress;
+            ObjColor = Utils.HexStringToColor(colorationmodel.ObjColor);
+            BgColor = Utils.HexStringToColor(colorationmodel.BgColor);
+            BeatModifier.Paste(colorationmodel.BeatModifierModel);
+            Hue.Paste(colorationmodel.HueDTO);
+            Saturation.Paste(colorationmodel.SatDTO);
+            Value.Paste(colorationmodel.ValDTO);
             EnabledMessages();
         }
 
         public void CopySelf()
         {
-            ColorationModel colorationdto = new ColorationModel();
-            Copy(colorationdto);
+            ColorationModel colorationmodel = new ColorationModel();
+            Copy(colorationmodel);
             IDataObject data = new DataObject();
-            data.SetData("Coloration", colorationdto, false);
+            data.SetData("Coloration", colorationmodel, false);
             Clipboard.SetDataObject(data);
         }
 
@@ -109,8 +111,8 @@ namespace CMiX.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("Coloration"))
             {
-                var colorationdto = (ColorationModel)data.GetData("Coloration") as ColorationModel;
-                Paste(colorationdto);
+                var colorationmodel = (ColorationModel)data.GetData("Coloration") as ColorationModel;
+                Paste(colorationmodel);
                 QueueObjects(this);
                 SendQueues();
             }
@@ -118,8 +120,8 @@ namespace CMiX.ViewModels
 
         public void ResetSelf()
         {
-            ColorationModel colorationdto = new ColorationModel();
-            Paste(colorationdto);
+            ColorationModel colorationmodel = new ColorationModel();
+            Paste(colorationmodel);
         }
         #endregion
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMiX.Services;
+using System;
 using System.Collections.Generic;
 
 namespace CMiX.Models
@@ -11,6 +12,9 @@ namespace CMiX.Models
             FilePaths = new List<FileNameItemModel>();
         }
 
+        public string MessageAddress { get; set; }
+
+        [OSC]
         public List<FileNameItemModel> FilePaths { get; set; }
     }
 }

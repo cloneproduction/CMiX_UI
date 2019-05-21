@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMiX.Services;
+using System;
 namespace CMiX.Models
 {
     [Serializable]
@@ -7,15 +8,17 @@ namespace CMiX.Models
         public ContentModel()
         {
             BeatModifierModel = new BeatModifierModel();
-            TextureDTO = new TextureModel();
+            texturemodel = new TextureModel();
             GeometryModel = new GeometryModel();
             PostFXModel = new PostFXModel();
         }
-
-        public bool Enable { get; set; }
         public string MessageAddress { get; set; }
+
+        [OSC]
+        public bool Enable { get; set; }
+        
         public BeatModifierModel BeatModifierModel { get; set; }
-        public TextureModel TextureDTO { get; set; }
+        public TextureModel texturemodel { get; set; }
         public GeometryModel GeometryModel { get; set; }
         public PostFXModel PostFXModel { get; set; }
     }

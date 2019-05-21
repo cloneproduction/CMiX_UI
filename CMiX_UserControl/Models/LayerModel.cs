@@ -10,7 +10,7 @@ namespace CMiX.Models
         {
             BeatModifierModel = new BeatModifierModel();
             ContentModel = new ContentModel();
-            MaskDTO = new MaskModel();
+            maskmodel = new MaskModel();
             ColorationModel = new ColorationModel();
             PostFXModel = new PostFXModel();
             Fade = new SliderModel();
@@ -36,7 +36,7 @@ namespace CMiX.Models
         public SliderModel Fade { get; set; }
         public BeatModifierModel BeatModifierModel { get; set; }
         public ContentModel ContentModel { get; set; }
-        public MaskModel MaskDTO { get; set; }
+        public MaskModel maskmodel { get; set; }
         public ColorationModel ColorationModel { get; set; }
         public PostFXModel PostFXModel{ get; set; }
     }

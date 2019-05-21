@@ -63,6 +63,8 @@ namespace CMiX.ViewModels
 
         private readonly List<double> tapPeriods;
         private readonly List<double> tapTime;
+
+        private double CurrentTime => (DateTime.Now - DateTime.MinValue).TotalMilliseconds;
         #endregion
 
         private void Resync()
@@ -106,20 +108,18 @@ namespace CMiX.ViewModels
             return tapPeriods.Sum() / tapPeriods.Count;
         }
 
-        private double CurrentTime => (DateTime.Now - DateTime.MinValue).TotalMilliseconds;
 
-
-        public void Copy(MasterBeatModel masterbeatdto)
+        public void Copy(MasterBeatModel masterbeatmodel)
         {
-            masterbeatdto.Period = Period;
-            masterbeatdto.MessageAddress = MessageAddress;
+            masterbeatmodel.MessageAddress = MessageAddress;
+            masterbeatmodel.Period = Period;
         }
 
-        public void Paste(MasterBeatModel masterbeatdto)
+        public void Paste(MasterBeatModel masterbeatmodel)
         {
             DisabledMessages();
-            MessageAddress = masterbeatdto.MessageAddress;
-            Period = masterbeatdto.Period;
+            MessageAddress = masterbeatmodel.MessageAddress;
+            Period = masterbeatmodel.Period;
             EnabledMessages();
         }
     }

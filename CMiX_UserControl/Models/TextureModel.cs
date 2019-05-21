@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMiX.Services;
+using System;
 
 namespace CMiX.Models
 {
@@ -34,6 +35,8 @@ namespace CMiX.Models
         public SliderModel Tilt { get; set; }
         public SliderModel Scale { get; set; }
         public SliderModel Rotate { get; set; }
+
+        [OSC]
         public string InvertMode { get; set; }
     }
 }

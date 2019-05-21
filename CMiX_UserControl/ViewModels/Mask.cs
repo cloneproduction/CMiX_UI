@@ -66,34 +66,36 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void Copy(MaskModel maskdto)
+        public void Copy(MaskModel maskmodel)
         {
-            maskdto.Enable = Enable;
-            maskdto.KeepOriginal = KeepOriginal;
-            BeatModifier.Copy(maskdto.BeatModifierModel);
-            Texture.Copy(maskdto.TextureDTO);
-            Geometry.Copy(maskdto.GeometryModel);
-            PostFX.Copy(maskdto.PostFXModel);
+            maskmodel.MessageAddress = MessageAddress;
+            maskmodel.Enable = Enable;
+            maskmodel.KeepOriginal = KeepOriginal;
+            BeatModifier.Copy(maskmodel.BeatModifierModel);
+            Texture.Copy(maskmodel.texturemodel);
+            Geometry.Copy(maskmodel.GeometryModel);
+            PostFX.Copy(maskmodel.PostFXModel);
         }
 
-        public void Paste(MaskModel maskdto)
+        public void Paste(MaskModel maskmodel)
         {
             DisabledMessages();
-            Enable = maskdto.Enable;
-            KeepOriginal = maskdto.KeepOriginal;
-            BeatModifier.Paste(maskdto.BeatModifierModel);
-            Texture.Paste(maskdto.TextureDTO);
-            Geometry.Paste(maskdto.GeometryModel);
-            PostFX.Paste(maskdto.PostFXModel);
+            MessageAddress = maskmodel.MessageAddress;
+            Enable = maskmodel.Enable;
+            KeepOriginal = maskmodel.KeepOriginal;
+            BeatModifier.Paste(maskmodel.BeatModifierModel);
+            Texture.Paste(maskmodel.texturemodel);
+            Geometry.Paste(maskmodel.GeometryModel);
+            PostFX.Paste(maskmodel.PostFXModel);
             EnabledMessages();
         }
 
         public void CopySelf()
         {
-            MaskModel maskdto = new MaskModel();
-            this.Copy(maskdto);
+            MaskModel maskmodel = new MaskModel();
+            this.Copy(maskmodel);
             IDataObject data = new DataObject();
-            data.SetData("Mask", maskdto, false);
+            data.SetData("Mask", maskmodel, false);
             Clipboard.SetDataObject(data);
         }
 
@@ -102,8 +104,8 @@ namespace CMiX.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("Mask"))
             {
-                var maskdto = (MaskModel)data.GetData("Mask") as MaskModel;
-                this.Paste(maskdto);
+                var maskmodel = (MaskModel)data.GetData("Mask") as MaskModel;
+                this.Paste(maskmodel);
                 QueueObjects(this);
                 SendQueues();
             }
@@ -111,8 +113,8 @@ namespace CMiX.ViewModels
 
         public void ResetSelf()
         {
-            MaskModel maskdto = new MaskModel();
-            this.Paste(maskdto);
+            MaskModel maskmodel = new MaskModel();
+            this.Paste(maskmodel);
         }
         #endregion
     }

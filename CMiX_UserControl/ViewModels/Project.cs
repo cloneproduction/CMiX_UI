@@ -108,6 +108,11 @@ namespace CMiX.ViewModels
             Composition comp = new Composition(this.Messengers);
             Compositions.Add(comp);
             SelectedComposition = comp;
+
+            CompositionModel compositionmodel = new CompositionModel();
+            comp.Copy(compositionmodel);
+            QueueObjects(compositionmodel);
+            SendQueues();
         }
 
         private void DeleteComposition(object compo)
@@ -217,9 +222,9 @@ namespace CMiX.ViewModels
                 if (opendialog.FileName.Trim() != string.Empty) // Check if you really have a file name 
                 {
                     byte[] data = File.ReadAllBytes(folderPath);
-                    CompositionModel compositiondto = Serializer.Deserialize<CompositionModel>(data);
+                    CompositionModel compositionmodel = Serializer.Deserialize<CompositionModel>(data);
                     Composition newcomp = new Composition(this.Messengers);
-                    newcomp.Paste(compositiondto);
+                    newcomp.Paste(compositionmodel);
                     Compositions.Add(newcomp);
                 }
             }
@@ -235,10 +240,10 @@ namespace CMiX.ViewModels
 
             if (savedialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                CompositionModel compositiondto = new CompositionModel();
-                SelectedComposition.Copy(compositiondto);
+                CompositionModel compositionmodel = new CompositionModel();
+                SelectedComposition.Copy(compositionmodel);
                 string folderPath = savedialog.FileName;
-                var data = Serializer.Serialize(compositiondto);
+                var data = Serializer.Serialize(compositionmodel);
                 File.WriteAllBytes(folderPath, data);
             }
         }
@@ -249,18 +254,18 @@ namespace CMiX.ViewModels
         {
             foreach (var comp in Compositions)
             {
-                CompositionModel compositiondto = new CompositionModel();
-                comp.Copy(compositiondto);
-                projectdto.CompositionModel.Add(compositiondto);
+                CompositionModel compositionmodel = new CompositionModel();
+                comp.Copy(compositionmodel);
+                projectdto.CompositionModel.Add(compositionmodel);
             }
         }
 
         public void Paste(ProjectModel projectdto)
         {
-            foreach (var compositiondto in projectdto.CompositionModel)
+            foreach (var compositionmodel in projectdto.CompositionModel)
             {
                 Composition composition = new Composition(this.Messengers);
-                composition.Paste(compositiondto);
+                composition.Paste(compositionmodel);
                 Compositions.Add(composition);
             }
         }

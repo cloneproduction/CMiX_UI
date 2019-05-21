@@ -12,7 +12,7 @@ namespace CMiX.ViewModels
         #region CONSTRUCTORS
         public Counter(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
         {
-            MessageAddress = messageaddress;
+            MessageAddress = String.Format("{0}/{1}/", messageaddress, nameof(Counter));
             Count = 1;
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
@@ -52,15 +52,17 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void Copy(CounterModel counterdto)
+        public void Copy(CounterModel countermodel)
         {
-            counterdto.Count = Count;
+            countermodel.MessageAddress = MessageAddress;
+            countermodel.Count = Count;
         }
 
-        public void Paste(CounterModel counterdto)
+        public void Paste(CounterModel countermodel)
         {
             DisabledMessages();
-            Count = counterdto.Count;
+            MessageAddress = countermodel.MessageAddress;
+            Count = countermodel.Count;
             EnabledMessages();
         }
         #endregion

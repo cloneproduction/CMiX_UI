@@ -47,10 +47,10 @@ namespace CMiX.ViewModels
         #region COPY/PASTE
         public void CopySelf()
         {
-            ContentModel contentdto = new ContentModel();
-            this.Copy(contentdto);
+            ContentModel contentmodel = new ContentModel();
+            this.Copy(contentmodel);
             IDataObject data = new DataObject();
-            data.SetData("Content", contentdto, false);
+            data.SetData("Content", contentmodel, false);
             Clipboard.SetDataObject(data);
         }
 
@@ -59,8 +59,8 @@ namespace CMiX.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("Content"))
             {
-                var contentdto = (ContentModel)data.GetData("Content") as ContentModel;
-                this.Paste(contentdto);
+                var contentmodel = (ContentModel)data.GetData("Content") as ContentModel;
+                this.Paste(contentmodel);
                 QueueObjects(this);
                 SendQueues();
             }
@@ -68,28 +68,30 @@ namespace CMiX.ViewModels
 
         public void ResetSelf()
         {
-            ContentModel contentdto = new ContentModel();
-            this.Paste(contentdto);
+            ContentModel contentmodel = new ContentModel();
+            this.Paste(contentmodel);
         }
 
 
-        public void Copy(ContentModel contentdto)
+        public void Copy(ContentModel contentmodel)
         {
-            contentdto.Enable = Enable;
-            BeatModifier.Copy(contentdto.BeatModifierModel);
-            Texture.Copy(contentdto.TextureDTO);
-            Geometry.Copy(contentdto.GeometryModel);
-            PostFX.Copy(contentdto.PostFXModel);
+            contentmodel.MessageAddress = MessageAddress;
+            contentmodel.Enable = Enable;
+            BeatModifier.Copy(contentmodel.BeatModifierModel);
+            Texture.Copy(contentmodel.texturemodel);
+            Geometry.Copy(contentmodel.GeometryModel);
+            PostFX.Copy(contentmodel.PostFXModel);
         }
 
-        public void Paste(ContentModel contentdto)
+        public void Paste(ContentModel contentmodel)
         {
             DisabledMessages();
-            Enable = contentdto.Enable;
-            BeatModifier.Paste(contentdto.BeatModifierModel);
-            Texture.Paste(contentdto.TextureDTO);
-            Geometry.Paste(contentdto.GeometryModel);
-            PostFX.Paste(contentdto.PostFXModel);
+            MessageAddress = contentmodel.MessageAddress;
+            Enable = contentmodel.Enable;
+            BeatModifier.Paste(contentmodel.BeatModifierModel);
+            Texture.Paste(contentmodel.texturemodel);
+            Geometry.Paste(contentmodel.GeometryModel);
+            PostFX.Paste(contentmodel.PostFXModel);
             EnabledMessages();
         }
         #endregion

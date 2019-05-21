@@ -78,21 +78,23 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void Copy(GeometryRotationModel geometryrotationdto)
+        public void Copy(GeometryRotationModel geometryrotationmodel)
         {
-            geometryrotationdto.RotationModeDTO = RotationMode;
-            geometryrotationdto.RotationX = RotationX;
-            geometryrotationdto.RotationY = RotationY;
-            geometryrotationdto.RotationZ = RotationZ;
+            geometryrotationmodel.MessageAddress = MessageAddress;
+            geometryrotationmodel.RotationMode = RotationMode;
+            geometryrotationmodel.RotationX = RotationX;
+            geometryrotationmodel.RotationY = RotationY;
+            geometryrotationmodel.RotationZ = RotationZ;
         }
 
-        public void Paste(GeometryRotationModel geometryrotationdto)
+        public void Paste(GeometryRotationModel geometryrotationmodel)
         {
             DisabledMessages();
-            RotationMode = geometryrotationdto.RotationModeDTO;
-            RotationX = geometryrotationdto.RotationX;
-            RotationY = geometryrotationdto.RotationY;
-            RotationZ = geometryrotationdto.RotationZ;
+            MessageAddress = geometryrotationmodel.MessageAddress;
+            RotationMode = geometryrotationmodel.RotationMode;
+            RotationX = geometryrotationmodel.RotationX;
+            RotationY = geometryrotationmodel.RotationY;
+            RotationZ = geometryrotationmodel.RotationZ;
             EnabledMessages();
         }
         #endregion

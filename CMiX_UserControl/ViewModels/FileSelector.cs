@@ -44,6 +44,7 @@ namespace CMiX.ViewModels
 
         #endregion
 
+        #region METHODS
         public void SelectionChanged()
         {
             List<string> filename = new List<string>();
@@ -56,8 +57,6 @@ namespace CMiX.ViewModels
             }
             SendMessages(MessageAddress + nameof(FilePaths), filename.ToArray());
         }
-
-        #region METHODS
 
         private void ClearAll()
         {

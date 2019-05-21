@@ -33,15 +33,17 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void Copy(GeometryScaleModel geometryscaledto)
+        public void Copy(GeometryScaleModel geometryscalemodel)
         {
-            geometryscaledto.GeometryScaleMode = ScaleMode;
+            geometryscalemodel.MessageAddress = MessageAddress;
+            geometryscalemodel.ScaleMode = ScaleMode;
         }
 
-        public void Paste(GeometryScaleModel geometryscaledto)
+        public void Paste(GeometryScaleModel geometryscalemodel)
         {
             DisabledMessages();
-            ScaleMode = geometryscaledto.GeometryScaleMode;
+            MessageAddress = geometryscalemodel.MessageAddress;
+            ScaleMode = geometryscalemodel.ScaleMode;
             EnabledMessages();
         }
         #endregion

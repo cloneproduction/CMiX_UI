@@ -101,26 +101,28 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void Copy(CameraModel cameradto)
+        public void Copy(CameraModel cameramodel)
         {
-            cameradto.Rotation = Rotation;
-            cameradto.LookAt = LookAt;
-            cameradto.View = View;
-            BeatModifier.Copy(cameradto.BeatModifierModel);
-            FOV.Copy(cameradto.FOV);
-            Zoom.Copy(cameradto.Zoom);
+            cameramodel.MessageAddress = MessageAddress;
+            cameramodel.Rotation = Rotation;
+            cameramodel.LookAt = LookAt;
+            cameramodel.View = View;
+            BeatModifier.Copy(cameramodel.BeatModifierModel);
+            FOV.Copy(cameramodel.FOV);
+            Zoom.Copy(cameramodel.Zoom);
         }
 
-        public void Paste(CameraModel cameradto)
+        public void Paste(CameraModel cameramodel)
         {
             DisabledMessages();
 
-            Rotation = cameradto.Rotation;
-            LookAt = cameradto.LookAt;
-            View = cameradto.View;
-            BeatModifier.Paste(cameradto.BeatModifierModel);
-            FOV.Paste(cameradto.FOV);
-            Zoom.Paste(cameradto.Zoom);
+            MessageAddress = cameramodel.MessageAddress;
+            Rotation = cameramodel.Rotation;
+            LookAt = cameramodel.LookAt;
+            View = cameramodel.View;
+            BeatModifier.Paste(cameramodel.BeatModifierModel);
+            FOV.Paste(cameramodel.FOV);
+            Zoom.Paste(cameramodel.Zoom);
 
             EnabledMessages();
         }

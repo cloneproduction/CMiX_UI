@@ -33,15 +33,17 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void Copy(GeometryTranslateModel geometrytranslatedto)
+        public void Copy(GeometryTranslateModel geometrytranslatemodel)
         {
-            geometrytranslatedto.GeometryTranslateMode = TranslateMode;
+            geometrytranslatemodel.MessageAddress = MessageAddress;
+            geometrytranslatemodel.TranslateMode = TranslateMode;
         }
 
-        public void Paste(GeometryTranslateModel geometrytranslatedto)
+        public void Paste(GeometryTranslateModel geometrytranslatemodel)
         {
             DisabledMessages();
-            TranslateMode = geometrytranslatedto.GeometryTranslateMode;
+            MessageAddress = geometrytranslatemodel.MessageAddress;
+            TranslateMode = geometrytranslatemodel.TranslateMode;
             EnabledMessages();
         }
         #endregion

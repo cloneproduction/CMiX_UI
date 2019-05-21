@@ -129,7 +129,6 @@ namespace CMiX.ViewModels
         }
         #endregion
 
-
         #region ADD/REMOVE/DUPLICATE/DELETE LAYERS
         public void AddLayer()
         {
@@ -265,30 +264,30 @@ namespace CMiX.ViewModels
 
         #region COPY/PASTE/LOAD/SAVE/OPEN COMPOSITIONS
 
-        public void Copy(CompositionModel compositiondto)
+        public void Copy(CompositionModel compositionmodel)
         {
-            compositiondto.Name = Name;
-            compositiondto.LayerNames = LayerNames;
+            compositionmodel.Name = Name;
+            compositionmodel.LayerNames = LayerNames;
 
             foreach (Layer lyr in Layers)
             {
                 LayerModel layermodel = new LayerModel();
                 lyr.Copy(layermodel);
-                compositiondto.LayersDTO.Add(layermodel);
+                compositionmodel.LayersModel.Add(layermodel);
             }
-            MasterBeat.Copy(compositiondto.MasterBeatDTO);
-            Camera.Copy(compositiondto.CameraModel);
+            MasterBeat.Copy(compositionmodel.MasterBeatModel);
+            Camera.Copy(compositionmodel.CameraModel);
         }
 
-        public void Paste(CompositionModel compositiondto)
+        public void Paste(CompositionModel compositionmodel)
         {
-            Name = compositiondto.Name;
-            LayerNames = compositiondto.LayerNames;
+            Name = compositionmodel.Name;
+            LayerNames = compositionmodel.LayerNames;
 
             Layers.Clear();
             layerID = -1;
 
-            foreach (LayerModel layermodel in compositiondto.LayersDTO)
+            foreach (LayerModel layermodel in compositionmodel.LayersModel)
             {
                 layerID += 1;
                 Layer layer = new Layer(MasterBeat, "/Layer" + layerID.ToString(), Messengers, 0, Mementor);
@@ -296,25 +295,25 @@ namespace CMiX.ViewModels
                 Layers.Add(layer);
             }
 
-            MasterBeat.Paste(compositiondto.MasterBeatDTO);
-            Camera.Paste(compositiondto.CameraModel);
+            MasterBeat.Paste(compositionmodel.MasterBeatModel);
+            Camera.Paste(compositionmodel.CameraModel);
         }
 
-        public void Load(CompositionModel compositiondto)
+        public void Load(CompositionModel compositionmodel)
         {
-            Name = compositiondto.Name;
-            LayerNames = compositiondto.LayerNames;
+            Name = compositionmodel.Name;
+            LayerNames = compositionmodel.LayerNames;
 
             Layers.Clear();
-            foreach (LayerModel layermodel in compositiondto.LayersDTO)
+            foreach (LayerModel layermodel in compositionmodel.LayersModel)
             {
                 Layer layer = new Layer(MasterBeat, layermodel.LayerName, Messengers, layermodel.Index, Mementor);
                 layer.Load(layermodel);
                 Layers.Add(layer);
             }
 
-            MasterBeat.Paste(compositiondto.MasterBeatDTO);
-            Camera.Paste(compositiondto.CameraModel);
+            MasterBeat.Paste(compositionmodel.MasterBeatModel);
+            Camera.Paste(compositionmodel.CameraModel);
         }
 
         private void Save()
@@ -323,10 +322,10 @@ namespace CMiX.ViewModels
 
             if (savedialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                CompositionModel compositiondto = new CompositionModel();
-                this.Copy(compositiondto);
+                CompositionModel compositionmodel = new CompositionModel();
+                this.Copy(compositionmodel);
                 string folderPath = savedialog.FileName;
-                string json = JsonConvert.SerializeObject(compositiondto);
+                string json = JsonConvert.SerializeObject(compositionmodel);
                 File.WriteAllText(folderPath, json);
             }
         }
@@ -346,9 +345,9 @@ namespace CMiX.ViewModels
                     using (StreamReader r = new StreamReader(opendialog.FileName))
                     {
                         string json = r.ReadToEnd();
-                        CompositionModel compositiondto = new CompositionModel();
-                        compositiondto = JsonConvert.DeserializeObject<CompositionModel>(json);
-                        this.Load(compositiondto);
+                        CompositionModel compositionmodel = new CompositionModel();
+                        compositionmodel = JsonConvert.DeserializeObject<CompositionModel>(json);
+                        this.Load(compositionmodel);
 
                         List<string> layerindex = new List<string>();
                         foreach (Layer lyr in this.Layers)

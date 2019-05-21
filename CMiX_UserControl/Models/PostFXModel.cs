@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMiX.Services;
+using System;
 
 namespace CMiX.Models
 {
@@ -13,7 +14,11 @@ namespace CMiX.Models
         public string MessageAddress { get; set; }
         public SliderModel Feedback { get; set; }
         public SliderModel Blur { get; set; }
+
+        [OSC]
         public string Transforms { get; set; }
+
+        [OSC]
         public string View { get; set; }
     }
 }

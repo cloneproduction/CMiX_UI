@@ -15,7 +15,7 @@ namespace CMiX.ViewModels
         public Texture(string layername, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor)
         {
             MessageAddress = String.Format("{0}/{1}/", layername, nameof(Texture));
-            FileSelector = new FileSelector("Extended", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, oscmessengers, String.Format("{0}/{1}/", layername, nameof(Texture)), mementor);
+            FileSelector = new FileSelector("Extended", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, oscmessengers, String.Format("{0}/{1}", layername, nameof(Texture)), mementor);
             Brightness = new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Brightness"), oscmessengers, mementor);
             Contrast = new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Contrast"), oscmessengers, mementor);
             Invert = new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Invert"), oscmessengers, mementor);
@@ -68,46 +68,48 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public void Copy(TextureModel texturedto)
+        public void Copy(TextureModel texturemodel)
         {
-            FileSelector.Copy(texturedto.FileSelector);
-            Brightness.Copy(texturedto.Brightness);
-            Contrast.Copy(texturedto.Contrast);
-            Saturation.Copy(texturedto.Saturation);
-            Pan.Copy(texturedto.Pan);
-            Tilt.Copy(texturedto.Tilt);
-            Scale.Copy(texturedto.Scale);
-            Rotate.Copy(texturedto.Rotate);
-            Keying.Copy(texturedto.Keying);
-            Invert.Copy(texturedto.Invert);
-            texturedto.InvertMode = InvertMode;
+            texturemodel.MessageAddress = MessageAddress;
+            FileSelector.Copy(texturemodel.FileSelector);
+            Brightness.Copy(texturemodel.Brightness);
+            Contrast.Copy(texturemodel.Contrast);
+            Saturation.Copy(texturemodel.Saturation);
+            Pan.Copy(texturemodel.Pan);
+            Tilt.Copy(texturemodel.Tilt);
+            Scale.Copy(texturemodel.Scale);
+            Rotate.Copy(texturemodel.Rotate);
+            Keying.Copy(texturemodel.Keying);
+            Invert.Copy(texturemodel.Invert);
+            texturemodel.InvertMode = InvertMode;
         }
 
-        public void Paste(TextureModel texturedto)
+        public void Paste(TextureModel texturemodel)
         {
             DisabledMessages();
 
-            FileSelector.Paste(texturedto.FileSelector);
-            Brightness.Paste(texturedto.Brightness);
-            Contrast.Paste(texturedto.Contrast);
-            Saturation.Paste(texturedto.Saturation);
-            Pan.Paste(texturedto.Pan);
-            Tilt.Paste(texturedto.Tilt);
-            Scale.Paste(texturedto.Scale);
-            Rotate.Paste(texturedto.Rotate);
-            Keying.Paste(texturedto.Keying);
-            Invert.Paste(texturedto.Invert);
-            InvertMode = texturedto.InvertMode;
+            MessageAddress = texturemodel.MessageAddress;
+            FileSelector.Paste(texturemodel.FileSelector);
+            Brightness.Paste(texturemodel.Brightness);
+            Contrast.Paste(texturemodel.Contrast);
+            Saturation.Paste(texturemodel.Saturation);
+            Pan.Paste(texturemodel.Pan);
+            Tilt.Paste(texturemodel.Tilt);
+            Scale.Paste(texturemodel.Scale);
+            Rotate.Paste(texturemodel.Rotate);
+            Keying.Paste(texturemodel.Keying);
+            Invert.Paste(texturemodel.Invert);
+            InvertMode = texturemodel.InvertMode;
 
             EnabledMessages();
         }
 
         public void CopySelf()
         {
-            TextureModel texturedto = new TextureModel();
-            this.Copy(texturedto);
+            TextureModel texturemodel = new TextureModel();
+            this.Copy(texturemodel);
             IDataObject data = new DataObject();
-            data.SetData("Texture", texturedto, false);
+            data.SetData("Texture", texturemodel, false);
             Clipboard.SetDataObject(data);
         }
 
@@ -116,8 +118,8 @@ namespace CMiX.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("Texture"))
             {
-                var texturedto = (TextureModel)data.GetData("Texture") as TextureModel;
-                this.Paste(texturedto);
+                var texturemodel = (TextureModel)data.GetData("Texture") as TextureModel;
+                this.Paste(texturemodel);
 
                 QueueObjects(this);
                 SendQueues();
@@ -126,8 +128,8 @@ namespace CMiX.ViewModels
 
         public void ResetSelf()
         {
-            TextureModel texturedto = new TextureModel();
-            this.Paste(texturedto);
+            TextureModel texturemodel = new TextureModel();
+            this.Paste(texturemodel);
         }
         #endregion
     }

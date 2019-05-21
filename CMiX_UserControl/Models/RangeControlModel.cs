@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMiX.Services;
+using System;
 
 namespace CMiX.Models
 {
@@ -9,7 +10,10 @@ namespace CMiX.Models
         {
             Range = new SliderModel();
         }
+        public string MessageAddress { get; set; }
         public SliderModel Range { get; set; }
+
+        [OSC]
         public string Modifier { get; set; }
     }
 }

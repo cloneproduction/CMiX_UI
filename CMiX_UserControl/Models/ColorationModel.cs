@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMiX.Services;
+using System;
 
 namespace CMiX.Models
 {
@@ -14,7 +15,11 @@ namespace CMiX.Models
         }
 
         public string MessageAddress { get; set; }
+
+        [OSC]
         public string ObjColor { get; set; }
+
+        [OSC]
         public string BgColor { get; set; }
 
         public BeatModifierModel BeatModifierModel { get; set; }

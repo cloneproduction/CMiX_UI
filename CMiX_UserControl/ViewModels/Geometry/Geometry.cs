@@ -15,15 +15,17 @@ namespace CMiX.ViewModels
         public Geometry(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
         {
             MessageAddress = String.Format("{0}/{1}/", messageaddress, nameof(Geometry));
-            FileSelector = new FileSelector("Single", new List<string> { ".FBX", ".OBJ" }, oscmessengers, String.Format("{0}/{1}/", messageaddress, nameof(Geometry)), mementor);
+            FileSelector = new FileSelector("Single", new List<string> { ".FBX", ".OBJ" }, oscmessengers, String.Format("{0}/{1}", messageaddress, nameof(Geometry)), mementor);
+
             TranslateMode = new GeometryTranslate(String.Format("{0}/{1}", messageaddress, nameof(Geometry)), oscmessengers, mementor);
             ScaleMode = new GeometryScale(String.Format("{0}/{1}", messageaddress, nameof(Geometry)), oscmessengers, mementor);
             RotationMode = new GeometryRotation(String.Format("{0}/{1}", messageaddress, nameof(Geometry)), oscmessengers, mementor);
+
             GeometryFX = new GeometryFX(String.Format("{0}/{1}", messageaddress, nameof(Geometry)), oscmessengers, mementor);
             TranslateAmount = new Slider(String.Format("{0}/{1}/{2}", messageaddress, nameof(Geometry), "Translate"), oscmessengers, mementor);
             ScaleAmount = new Slider(String.Format("{0}/{1}/{2}", messageaddress, nameof(Geometry), "Scale"), oscmessengers, mementor);
             RotationAmount = new Slider(String.Format("{0}/{1}/{2}", messageaddress, nameof(Geometry), "Rotation"), oscmessengers, mementor);
-            Counter = new Counter(String.Format("{0}/{1}/{2}", messageaddress, nameof(Geometry), "Counter"), oscmessengers, mementor);
+            Counter = new Counter(String.Format("{0}/{1}", messageaddress, nameof(Geometry)), oscmessengers, mementor);
             Is3D = false;
             KeepAspectRatio = false;
         }
@@ -74,44 +76,48 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public void Copy(GeometryModel geometrydto)
+        public void Copy(GeometryModel geometrymodel)
         {
-            FileSelector.Copy(geometrydto.FileSelector);
-            TranslateMode.Copy(geometrydto.GeometryTranslate);
-            ScaleMode.Copy(geometrydto.GeometryScale);
-            RotationMode.Copy(geometrydto.GeometryRotation);
-            TranslateAmount.Copy(geometrydto.TranslateAmount);
-            ScaleAmount.Copy(geometrydto.ScaleAmount);
-            RotationAmount.Copy(geometrydto.RotationAmount);
-            geometrydto.Is3D = Is3D;
-            geometrydto.KeepAspectRatio = KeepAspectRatio;
-            GeometryFX.Copy(geometrydto.GeometryFX);
+            geometrymodel.MessageAddress = MessageAddress;
+            FileSelector.Copy(geometrymodel.FileSelector);
+            TranslateMode.Copy(geometrymodel.GeometryTranslate);
+            ScaleMode.Copy(geometrymodel.GeometryScale);
+            RotationMode.Copy(geometrymodel.GeometryRotation);
+            TranslateAmount.Copy(geometrymodel.TranslateAmount);
+            ScaleAmount.Copy(geometrymodel.ScaleAmount);
+            RotationAmount.Copy(geometrymodel.RotationAmount);
+            Counter.Copy(geometrymodel.Counter);
+            geometrymodel.Is3D = Is3D;
+            geometrymodel.KeepAspectRatio = KeepAspectRatio;
+            GeometryFX.Copy(geometrymodel.GeometryFX);
         }
 
-        public void Paste(GeometryModel geometrydto)
+        public void Paste(GeometryModel geometrymodel)
         {
             DisabledMessages();
 
-            FileSelector.Paste(geometrydto.FileSelector);
-            TranslateAmount.Paste(geometrydto.TranslateAmount);
-            ScaleAmount.Paste(geometrydto.ScaleAmount);
-            RotationAmount.Paste(geometrydto.RotationAmount);
-            TranslateMode.Paste(geometrydto.GeometryTranslate);
-            ScaleMode.Paste(geometrydto.GeometryScale);
-            RotationMode.Paste(geometrydto.GeometryRotation);
-            GeometryFX.Paste(geometrydto.GeometryFX);
-            Is3D = geometrydto.Is3D;
-            KeepAspectRatio = geometrydto.KeepAspectRatio;
+            MessageAddress = geometrymodel.MessageAddress;
+            FileSelector.Paste(geometrymodel.FileSelector);
+            TranslateAmount.Paste(geometrymodel.TranslateAmount);
+            ScaleAmount.Paste(geometrymodel.ScaleAmount);
+            RotationAmount.Paste(geometrymodel.RotationAmount);
+            TranslateMode.Paste(geometrymodel.GeometryTranslate);
+            ScaleMode.Paste(geometrymodel.GeometryScale);
+            RotationMode.Paste(geometrymodel.GeometryRotation);
+            GeometryFX.Paste(geometrymodel.GeometryFX);
+            Counter.Paste(geometrymodel.Counter);
+            Is3D = geometrymodel.Is3D;
+            KeepAspectRatio = geometrymodel.KeepAspectRatio;
 
             EnabledMessages();
         }
 
         public void CopySelf()
         {
-            GeometryModel geometrydto = new GeometryModel();
-            this.Copy(geometrydto);
+            GeometryModel geometrymodel = new GeometryModel();
+            this.Copy(geometrymodel);
             IDataObject data = new DataObject();
-            data.SetData("Geometry", geometrydto, false);
+            data.SetData("Geometry", geometrymodel, false);
             Clipboard.SetDataObject(data);
         }
 
@@ -120,8 +126,8 @@ namespace CMiX.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("Geometry"))
             {
-                var geometrydto = (GeometryModel)data.GetData("Geometry") as GeometryModel;
-                this.Paste(geometrydto);
+                var geometrymodel = (GeometryModel)data.GetData("Geometry") as GeometryModel;
+                this.Paste(geometrymodel);
 
                 QueueObjects(this);
                 SendQueues();
@@ -130,8 +136,8 @@ namespace CMiX.ViewModels
 
         public void ResetSelf()
         {
-            GeometryModel geometrydto = new GeometryModel();
-            this.Paste(geometrydto);
+            GeometryModel geometrymodel = new GeometryModel();
+            this.Paste(geometrymodel);
         }
         #endregion
     }

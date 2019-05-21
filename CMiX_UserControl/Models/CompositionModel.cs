@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CMiX.Services;
+using System.Collections.Generic;
 
 namespace CMiX.Models
 {
@@ -7,15 +8,19 @@ namespace CMiX.Models
         public CompositionModel()
         {
             LayerNames = new List<string>();
-            MasterBeatDTO = new MasterBeatModel();
-            LayersDTO = new List<LayerModel>();
+            MasterBeatModel = new MasterBeatModel();
+            LayersModel = new List<LayerModel>();
             CameraModel = new CameraModel();
         }
 
+        [OSC]
         public string Name { get; set; }
+
+        [OSC]
         public List<string> LayerNames { get; set; }
-        public MasterBeatModel MasterBeatDTO { get; set; }
+
+        public MasterBeatModel MasterBeatModel { get; set; }
         public CameraModel CameraModel { get; set; }
-        public List<LayerModel> LayersDTO { get; set; }
+        public List<LayerModel> LayersModel { get; set; }
     }
 }
