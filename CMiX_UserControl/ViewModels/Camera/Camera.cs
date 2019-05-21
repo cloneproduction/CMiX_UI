@@ -58,7 +58,6 @@ namespace CMiX.ViewModels
         public Slider Zoom { get; }
 
         private string _rotation;
-        [OSC]
         public string Rotation
         {
             get => _rotation;
@@ -72,7 +71,6 @@ namespace CMiX.ViewModels
         }
 
         private string _lookAt;
-        [OSC]
         public string LookAt
         {
             get => _lookAt;
@@ -86,7 +84,6 @@ namespace CMiX.ViewModels
         }
 
         private string _view;
-        [OSC]
         public string View
         {
             get => _view;

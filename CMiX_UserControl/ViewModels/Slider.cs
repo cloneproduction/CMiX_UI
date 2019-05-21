@@ -36,7 +36,6 @@ namespace CMiX.ViewModels
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
             MouseDownCommand = new RelayCommand(p => MouseDown());
-            ValueChangedCommand = new RelayCommand(p => ValueChanged());
         }
         #endregion
 
@@ -48,11 +47,6 @@ namespace CMiX.ViewModels
         public ICommand DragCompletedCommand { get; }
         public ICommand ValueChangedCommand { get; }
 
-        private void ValueChanged()
-        {
-            
-        }
-
         private void MouseDown()
         {
             if(Mementor != null)
@@ -60,7 +54,6 @@ namespace CMiX.ViewModels
         }
 
         private double _amount;
-        [OSC]
         public double Amount
         {
             get => _amount;

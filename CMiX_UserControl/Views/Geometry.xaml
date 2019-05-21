@@ -138,7 +138,7 @@
                             Grid.Column="0"
                             Margin="1, 0, 0, 0"
                             Caption="Translate"
-                            DataContext="{Binding TranslateAmount}"
+                            DataContext="{Binding Translate}"
                             />
                     </Grid>
                     <Grid Height="20" Margin="0,2">
@@ -168,7 +168,7 @@
                             Grid.Column="0"
                             Margin="1, 0, 0, 0"
                             Caption="Scale"
-                            DataContext="{Binding ScaleAmount}"
+                            DataContext="{Binding Scale}"
                             />
                     </Grid>
                     <Grid Height="20">
@@ -198,7 +198,7 @@
                             Grid.Column="0"
                             Margin="1, 0, 0, 0"
                             Caption="Rotate"
-                            DataContext="{Binding RotationAmount}"
+                            DataContext="{Binding Rotation}"
                             />
                     </Grid>
                 </StackPanel>

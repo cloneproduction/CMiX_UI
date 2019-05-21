@@ -18,7 +18,6 @@ namespace CMiX.ViewModels
 
         #region PROPERTIES
         private GeometryTranslateMode _TranslateMode;
-        [OSC]
         public GeometryTranslateMode TranslateMode
         {
             get => _TranslateMode;

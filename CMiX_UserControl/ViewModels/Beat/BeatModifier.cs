@@ -60,7 +60,6 @@ namespace CMiX.ViewModels
             set => throw new InvalidOperationException("Property is readonly. When binding, use Mode=OneWay.");
         }
 
-        [OSC]
         public override double Multiplier
         {
             get => base.Multiplier;

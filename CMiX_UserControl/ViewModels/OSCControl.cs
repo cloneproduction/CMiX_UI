@@ -9,12 +9,6 @@ namespace CMiX.ViewModels
     public class OSCControl : ViewModel
     {
         #region CONSTRUCTORS
-        /*public OSCControl()
-        : this
-        (
-            messengers: new ObservableCollection<OSCMessenger>()
-        )
-        { }*/
 
         public OSCControl
         (

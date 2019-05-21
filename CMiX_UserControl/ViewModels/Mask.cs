@@ -12,14 +12,17 @@ namespace CMiX.ViewModels
     {
         #region CONSTRUCTORS
 
-        public Mask(Beat masterbeat, string layername, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
+        public Mask(Beat masterbeat, string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
         {
-            MessageAddress = String.Format("{0}/{1}/", layername, nameof(Mask));
-            BeatModifier = new BeatModifier(String.Format("{0}/{1}", layername, nameof(Mask)), oscmessengers, masterbeat, mementor);
-            Geometry = new Geometry(String.Format("{0}/{1}", layername, nameof(Mask)), oscmessengers, mementor);
-            Texture = new Texture(String.Format("{0}/{1}", layername, nameof(Mask)), oscmessengers, mementor);
-            PostFX = new PostFX(String.Format("{0}/{1}", layername, nameof(Mask)), oscmessengers, mementor);
+            MessageAddress = messageaddress + nameof(Mask);
+
             Enable = false;
+
+            BeatModifier = new BeatModifier(MessageAddress, oscmessengers, masterbeat, mementor);
+            Geometry = new Geometry(MessageAddress, oscmessengers, mementor);
+            Texture = new Texture(MessageAddress, oscmessengers, mementor);
+            PostFX = new PostFX(MessageAddress, oscmessengers, mementor);
+
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
@@ -28,28 +31,26 @@ namespace CMiX.ViewModels
 
         #region PROPERTIES
         private bool _enable;
-        [OSC]
         public bool Enable
         {
             get => _enable;
             set
             {
                 if(Mementor != null)
-                    Mementor.PropertyChange(this, "Enable");
+                    Mementor.PropertyChange(this, nameof(Enable));
                 SetAndNotify(ref _enable, value);
                 SendMessages(MessageAddress + nameof(Enable), Enable);
             }
         }
 
         private bool _keeporiginal;
-        [OSC]
         public bool KeepOriginal
         {
             get => _keeporiginal;
             set
             {
                 if (Mementor != null)
-                    Mementor.PropertyChange(this, "KeepOriginal");
+                    Mementor.PropertyChange(this, nameof(KeepOriginal));
                 SetAndNotify(ref _keeporiginal, value);
                 SendMessages(MessageAddress + nameof(KeepOriginal), KeepOriginal);
             }

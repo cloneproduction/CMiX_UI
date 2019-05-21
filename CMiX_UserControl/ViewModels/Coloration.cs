@@ -13,15 +13,18 @@ namespace CMiX.ViewModels
     public class Coloration : ViewModel
     {
         #region CONSTRUCTORS
-        public Coloration(Beat masterbeat, string layername, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base(oscmessengers, mementor)
+        public Coloration(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor, Beat masterbeat) : base(oscmessengers, mementor)
         {
-            MessageAddress = String.Format("{0}/{1}/", layername, nameof(Coloration));
+            MessageAddress = messageaddress + nameof(Coloration);
+
             ObjColor = Colors.BlueViolet;
             BgColor = Colors.Black;
-            BeatModifier = new BeatModifier(String.Format("{0}/{1}", layername, nameof(Coloration)), oscmessengers, masterbeat, mementor);
-            Hue = new RangeControl(oscmessengers, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Hue), mementor);
-            Saturation = new RangeControl(oscmessengers, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Saturation), mementor);
-            Value = new RangeControl(oscmessengers, String.Format("{0}/{1}", layername, nameof(Coloration)) + "/" + nameof(Value), mementor);
+
+            BeatModifier = new BeatModifier(MessageAddress, oscmessengers, masterbeat, mementor);
+            Hue = new RangeControl(oscmessengers, MessageAddress + nameof(Hue), mementor);
+            Saturation = new RangeControl(oscmessengers, MessageAddress + nameof(Saturation), mementor);
+            Value = new RangeControl(oscmessengers, MessageAddress + nameof(Value), mementor);
+
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
@@ -41,7 +44,6 @@ namespace CMiX.ViewModels
         public RangeControl Value { get; }
 
         private Color _objColor;
-        [OSC]
         public Color ObjColor
         {
             get => _objColor;
@@ -53,7 +55,6 @@ namespace CMiX.ViewModels
         }
 
         private Color _bgColor;
-        [OSC]
         public Color BgColor
         {
             get => _bgColor;

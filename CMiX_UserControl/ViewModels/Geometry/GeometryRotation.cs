@@ -21,7 +21,6 @@ namespace CMiX.ViewModels
 
         #region PROPERTIES
         private GeometryRotationMode _RotationMode;
-        [OSC]
         public GeometryRotationMode RotationMode
         {
             get => _RotationMode;
@@ -35,7 +34,6 @@ namespace CMiX.ViewModels
         }
 
         private bool _RotationX;
-        [OSC]
         public bool RotationX
         {
             get => _RotationX;
@@ -49,7 +47,6 @@ namespace CMiX.ViewModels
         }
 
         private bool _RotationY;
-        [OSC]
         public bool RotationY
         {
             get => _RotationY;
@@ -63,7 +60,6 @@ namespace CMiX.ViewModels
         }
 
         private bool _RotationZ;
-        [OSC]
         public bool RotationZ
         {
             get => _RotationZ;

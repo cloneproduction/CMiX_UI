@@ -67,6 +67,7 @@ namespace CMiX.ViewModels
         private double CurrentTime => (DateTime.Now - DateTime.MinValue).TotalMilliseconds;
         #endregion
 
+        #region METHODS
         private void Resync()
         {
             SendMessages(MessageAddress + nameof(Resync), CurrentTime + Period);
@@ -107,8 +108,9 @@ namespace CMiX.ViewModels
             }
             return tapPeriods.Sum() / tapPeriods.Count;
         }
+        #endregion
 
-
+        #region COPY/PASTE
         public void Copy(MasterBeatModel masterbeatmodel)
         {
             masterbeatmodel.MessageAddress = MessageAddress;
@@ -122,5 +124,6 @@ namespace CMiX.ViewModels
             Period = masterbeatmodel.Period;
             EnabledMessages();
         }
+        #endregion
     }
 }

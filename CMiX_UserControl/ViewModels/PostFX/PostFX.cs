@@ -11,13 +11,16 @@ namespace CMiX.ViewModels
     public class PostFX : ViewModel
     {
         #region CONSTRUCTORS
-        public PostFX(string layername, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
+        public PostFX(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
         {
-            MessageAddress = String.Format("{0}/{1}/", layername, nameof(PostFX));
-            Feedback = new Slider(String.Format("{0}/{1}/{2}", layername, nameof(PostFX), "Feedback"), oscmessengers, mementor);
-            Blur = new Slider(String.Format("{0}/{1}/{2}", layername, nameof(PostFX), "Blur"), oscmessengers, mementor);
+            MessageAddress =  messageaddress + nameof(PostFX);
+
+            Feedback = new Slider(MessageAddress + "/" + nameof(Feedback), oscmessengers, mementor);
+            Blur = new Slider(MessageAddress + "/" + nameof(Blur), oscmessengers, mementor);
+
             Transforms = ((PostFXTransforms)0).ToString();
             View = ((PostFXView)0).ToString();
+
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
@@ -33,7 +36,6 @@ namespace CMiX.ViewModels
         public Slider Blur { get; }
 
         private string _transforms;
-        [OSC]
         public string Transforms
         {
             get => _transforms;
@@ -47,7 +49,6 @@ namespace CMiX.ViewModels
         }
 
         private string _view;
-        [OSC]
         public string View
         {
             get => _view;

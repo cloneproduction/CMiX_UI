@@ -59,7 +59,6 @@ namespace CMiX.ViewModels
         public MasterBeat MasterBeat { get; set; }
         public Camera Camera { get; set; }
 
-        [OSC]
         public ObservableCollection<Layer> Layers { get; }
 
         private string _name;

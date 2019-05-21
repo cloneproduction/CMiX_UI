@@ -18,7 +18,6 @@ namespace CMiX.ViewModels
 
         #region PROPERTIES
         private GeometryScaleMode _ScaleMode;
-        [OSC]
         public GeometryScaleMode ScaleMode
         {
             get => _ScaleMode;

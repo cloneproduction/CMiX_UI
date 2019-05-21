@@ -15,7 +15,9 @@ namespace CMiX.ViewModels
         public Texture(string layername, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor)
         {
             MessageAddress = String.Format("{0}/{1}/", layername, nameof(Texture));
-            FileSelector = new FileSelector("Extended", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, oscmessengers, String.Format("{0}/{1}", layername, nameof(Texture)), mementor);
+
+            FileSelector = new FileSelector(MessageAddress,  "Extended", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, oscmessengers, mementor);
+
             Brightness = new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Brightness"), oscmessengers, mementor);
             Contrast = new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Contrast"), oscmessengers, mementor);
             Invert = new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Invert"), oscmessengers, mementor);
@@ -53,7 +55,6 @@ namespace CMiX.ViewModels
         public Slider Rotate { get; }
 
         private string _invertMode;
-        [OSC]
         public string InvertMode
         {
             get => _invertMode;

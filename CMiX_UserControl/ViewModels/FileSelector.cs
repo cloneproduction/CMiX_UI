@@ -13,22 +13,24 @@ namespace CMiX.ViewModels
     public class FileSelector : ViewModel, IDropTarget, IDragSource
     {
         #region CONSTRUCTORS
-        public FileSelector(string selectionmode, List<string> filemask, ObservableCollection<OSCMessenger> oscmessengers, string layername, Mementor mementor) : base(oscmessengers, mementor)
+        public FileSelector(string layername, string selectionmode, List<string> filemask, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
         {
             MessageAddress = String.Format("{0}/", layername);
+
             SelectionMode = selectionmode;
             FileMask = filemask;
+            FilePaths = new ObservableCollection<FileNameItem>();
+
             ClearSelectedCommand = new RelayCommand(p => ClearSelected());
             SelectionChangedCommand = new RelayCommand(p => SelectionChanged());
             ClearUnselectedCommand = new RelayCommand(p => ClearUnselected());
             ClearAllCommand = new RelayCommand(p => ClearAll());
             DeleteItemCommand = new RelayCommand(p => DeleteItem(p));
-            FilePaths = new ObservableCollection<FileNameItem>();
         }
         #endregion
 
         #region PROPERTIES
-        [OSC]
+
         public ObservableCollection<FileNameItem> FilePaths { get; set; }
 
         public List<string> FileMask { get; set; }

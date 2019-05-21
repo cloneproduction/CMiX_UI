@@ -12,14 +12,17 @@ namespace CMiX.ViewModels
     public class Content : ViewModel
     {
         #region CONSTRUCTORS
-        public Content(Beat masterbeat, string layername, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
+        public Content(Beat masterbeat, string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
         {
-            MessageAddress = String.Format("{0}/{1}/", layername, nameof(Content));
             Enable = true;
-            BeatModifier = new BeatModifier(String.Format("{0}/{1}", layername, nameof(Content)), oscmessengers, masterbeat, mementor);
-            Geometry = new Geometry(String.Format("{0}/{1}", layername, nameof(Content)), oscmessengers, mementor);
-            Texture = new Texture(String.Format("{0}/{1}", layername, nameof(Content)), oscmessengers, mementor);
-            PostFX = new PostFX(String.Format("{0}/{1}", layername, nameof(Content)), oscmessengers, mementor);
+
+            MessageAddress = messageaddress + nameof(Content);
+            
+            BeatModifier = new BeatModifier(MessageAddress, oscmessengers, masterbeat, mementor);
+            Geometry = new Geometry(MessageAddress, oscmessengers, mementor);
+            Texture = new Texture(MessageAddress, oscmessengers, mementor);
+            PostFX = new PostFX(MessageAddress, oscmessengers, mementor);
+
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());

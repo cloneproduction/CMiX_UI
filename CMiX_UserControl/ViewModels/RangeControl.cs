@@ -9,7 +9,14 @@ namespace CMiX.ViewModels
     public class RangeControl : ViewModel
     {
         #region CONSTRUCTORS
-        public RangeControl(ObservableCollection<OSCMessenger> messengers, string layername, Mementor mementor)
+        public RangeControl(ObservableCollection<OSCMessenger> oscmessengers, string messageaddress, Mementor mementor) : base (oscmessengers, mementor)
+        {
+            MessageAddress = messageaddress + "/";
+            Range = new Slider(MessageAddress + nameof(Range), oscmessengers, mementor);
+            Modifier = ((RangeModifier)0).ToString();
+        }
+
+        /*public RangeControl(ObservableCollection<OSCMessenger> messengers, string layername, Mementor mementor)
         : this
             (
                 messageaddress: String.Format("{0}/", layername),
@@ -35,21 +42,20 @@ namespace CMiX.ViewModels
             Range = range ?? throw new ArgumentNullException(nameof(range));
             Modifier = modifier;
             Mementor = mementor;
-        }
+        }*/
         #endregion
 
         #region PROPERTIES
         public Slider Range { get; }
 
         private string _modifier;
-        [OSC]
         public string Modifier
         {
             get => _modifier;
             set
             {
                 if(Mementor != null)
-                    Mementor.PropertyChange(this, "Modifier");
+                    Mementor.PropertyChange(this, nameof(Modifier));
                 SetAndNotify(ref _modifier, value);
                 SendMessages(MessageAddress + nameof(Modifier), Modifier);
             }

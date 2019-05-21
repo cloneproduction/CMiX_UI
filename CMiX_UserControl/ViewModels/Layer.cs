@@ -10,28 +10,28 @@ namespace CMiX.ViewModels
     public class Layer : ViewModel
     {
         #region CONSTRUCTORS
-        public Layer(MasterBeat masterBeat, string layername, ObservableCollection<OSCMessenger> messengers, int index, Mementor mementor)
-            : base (messengers, mementor)
+        public Layer(MasterBeat masterBeat, string layername, ObservableCollection<OSCMessenger> messengers, int index, Mementor mementor) : base (messengers, mementor)
         {
-            MessageAddress = String.Format("{0}/", layername);
+            MessageAddress =  layername + "/";
+
             LayerName = layername;           
             Index = index;
             Index = 0;
             Enabled = false;
             BlendMode = ((BlendMode)0).ToString();
-            Fade = new Slider(layername + "/Fade", messengers, mementor);
-            BeatModifier = new BeatModifier(layername, messengers, masterBeat, mementor);
-            Content = new Content(BeatModifier, layername, messengers, mementor);
-            Mask = new Mask(BeatModifier, layername, messengers, mementor);
-            Coloration = new Coloration(BeatModifier, layername, messengers, mementor);
-            PostFX = new PostFX(layername, messengers, mementor);
+
+            Fade = new Slider(MessageAddress + nameof(Fade), messengers, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, messengers, masterBeat, mementor);
+            Content = new Content(BeatModifier, MessageAddress, messengers, mementor);
+            Mask = new Mask(BeatModifier, MessageAddress, messengers, mementor);
+            Coloration = new Coloration(MessageAddress, messengers, mementor, BeatModifier);
+            PostFX = new PostFX(MessageAddress, messengers, mementor);
         }
         #endregion
 
         #region PROPERTIES
 
         private string _layername;
-        [OSC]
         public string LayerName
         {
             get => _layername;
@@ -39,7 +39,6 @@ namespace CMiX.ViewModels
         }
 
         private bool _enabled;
-        [OSC]
         public bool Enabled
         {
             get => _enabled;
@@ -47,7 +46,6 @@ namespace CMiX.ViewModels
         }
 
         private int _index;
-        [OSC]
         public int Index
         {
             get => _index;
@@ -55,14 +53,13 @@ namespace CMiX.ViewModels
         }
 
         private bool _out;
-        [OSC]
         public bool Out
         {
             get => _out;
             set
             {
                 if(Mementor != null)
-                    Mementor.PropertyChange(this, "Out");
+                    Mementor.PropertyChange(this, nameof(Out));
                 SetAndNotify(ref _out, value);
                 if (Out)
                     SendMessages(MessageAddress + nameof(Out), Out);
@@ -70,14 +67,13 @@ namespace CMiX.ViewModels
         }
 
         private string _blendMode;
-        [OSC]
         public string BlendMode
         {
             get => _blendMode;
             set
             {
                 if (Mementor != null)
-                    Mementor.PropertyChange(this, "BlendMode");                  
+                    Mementor.PropertyChange(this, nameof(BlendMode));                  
                 SetAndNotify(ref _blendMode, value);
                 SendMessages(MessageAddress + nameof(BlendMode), BlendMode);
             }
