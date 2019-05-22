@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CMiX.Services;
 using Memento;
@@ -8,18 +7,22 @@ namespace CMiX.ViewModels
 {
     public abstract class Beat : ViewModel
     {
-        public Beat(ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
+        #region CONSTRUCTOR
+        public Beat(ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor)
+            : base(oscmessengers, mementor)
         {
             ResetCommand = new RelayCommand(p => Reset());
             MultiplyCommand = new RelayCommand(p => Multiply());
             DivideCommand = new RelayCommand(p => Divide());
         }
+        #endregion
 
-        public delegate void PeriodChangedEventHandler(Beat sender, double newValue);
+        #region PROPERTIES
+        public ICommand ResetCommand { get; }
+        public ICommand MultiplyCommand { get; }
+        public ICommand DivideCommand { get; }
 
-        public event PeriodChangedEventHandler PeriodChanged;
 
-        protected void OnPeriodChanged(double newPeriod) => PeriodChanged?.Invoke(this, newPeriod);
 
         public abstract double Period { get; set; }
 
@@ -28,7 +31,6 @@ namespace CMiX.ViewModels
             get
             {
                 var bpm = 50000 / Period;
-
                 if (double.IsInfinity(bpm) || double.IsNaN(bpm))
                     return 0;
                 else
@@ -48,8 +50,15 @@ namespace CMiX.ViewModels
         protected abstract void Multiply();
         protected abstract void Divide();
 
-        public ICommand ResetCommand { get; }
-        public ICommand MultiplyCommand { get; }
-        public ICommand DivideCommand { get; }
+
+        #endregion
+
+        #region EVENTS
+        public delegate void PeriodChangedEventHandler(Beat sender, double newValue);
+
+        public event PeriodChangedEventHandler PeriodChanged;
+
+        protected void OnPeriodChanged(double newPeriod) => PeriodChanged?.Invoke(this, newPeriod);
+        #endregion
     }
 }

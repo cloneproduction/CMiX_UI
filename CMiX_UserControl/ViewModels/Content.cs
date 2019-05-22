@@ -11,7 +11,8 @@ namespace CMiX.ViewModels
     public class Content : ViewModel
     {
         #region CONSTRUCTORS
-        public Content(Beat masterbeat, string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
+        public Content(Beat masterbeat, string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) 
+            : base (oscmessengers, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Content));
 
@@ -50,19 +51,19 @@ namespace CMiX.ViewModels
         public void CopySelf()
         {
             ContentModel contentmodel = new ContentModel();
-            this.Copy(contentmodel);
+            Copy(contentmodel);
             IDataObject data = new DataObject();
-            data.SetData("Content", contentmodel, false);
+            data.SetData(nameof(Content), contentmodel, false);
             Clipboard.SetDataObject(data);
         }
 
         public void PasteSelf()
         {
             IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent("Content"))
+            if (data.GetDataPresent(nameof(Content)))
             {
-                var contentmodel = (ContentModel)data.GetData("Content") as ContentModel;
-                this.Paste(contentmodel);
+                var contentmodel = (ContentModel)data.GetData(nameof(Content)) as ContentModel;
+                Paste(contentmodel);
                 QueueObjects(this);
                 SendQueues();
             }
@@ -71,7 +72,7 @@ namespace CMiX.ViewModels
         public void ResetSelf()
         {
             ContentModel contentmodel = new ContentModel();
-            this.Paste(contentmodel);
+            Paste(contentmodel);
         }
 
 

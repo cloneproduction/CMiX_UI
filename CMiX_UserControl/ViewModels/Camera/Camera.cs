@@ -1,5 +1,4 @@
-﻿using System;
-using CMiX.Services;
+﻿using CMiX.Services;
 using CMiX.Models;
 using System.Collections.ObjectModel;
 using Memento;
@@ -9,7 +8,21 @@ namespace CMiX.ViewModels
     public class Camera : ViewModel
     {
         #region CONSTRUCTORS
-        public Camera(ObservableCollection<OSCMessenger> messengers, MasterBeat masterBeat, Mementor mementor)
+        public Camera(ObservableCollection<OSCMessenger> oscmessengers, MasterBeat masterBeat, Mementor mementor) 
+            : base (oscmessengers, mementor)
+        {
+            MessageAddress = "/Camera/";
+
+            Rotation = ((CameraRotation)0).ToString();
+            LookAt = ((CameraLookAt)0).ToString();
+            View = ((CameraView)0).ToString();
+
+            BeatModifier = new BeatModifier(MessageAddress, oscmessengers, masterBeat, mementor);
+            FOV = new Slider(MessageAddress + nameof(FOV), oscmessengers, mementor);
+            Zoom = new Slider(MessageAddress + nameof(Zoom), oscmessengers, mementor);
+        }
+
+        /*public Camera(ObservableCollection<OSCMessenger> messengers, MasterBeat masterBeat, Mementor mementor)
             : this
             (
                 mementor: mementor,
@@ -49,7 +62,7 @@ namespace CMiX.ViewModels
             MessageAddress = messageaddress;
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             Mementor = mementor;
-        }
+        }*/
         #endregion
 
         #region PROPERTIES
@@ -64,7 +77,7 @@ namespace CMiX.ViewModels
             set
             {
                 if(Mementor != null)
-                    Mementor.PropertyChange(this, "Rotation");
+                    Mementor.PropertyChange(this, nameof(Rotation));
                 SetAndNotify(ref _rotation, value);
                 SendMessages(MessageAddress + nameof(Rotation), Rotation);
             }
@@ -77,7 +90,7 @@ namespace CMiX.ViewModels
             set
             {
                 if (Mementor != null)
-                    Mementor.PropertyChange(this, "LookAt");
+                    Mementor.PropertyChange(this, nameof(LookAt));
                 SetAndNotify(ref _lookAt, value);
                 SendMessages(MessageAddress + nameof(LookAt), LookAt);
             }
@@ -90,7 +103,7 @@ namespace CMiX.ViewModels
             set
             {
                 if (Mementor != null)
-                    Mementor.PropertyChange(this, "View");
+                    Mementor.PropertyChange(this, nameof(View));
                 SetAndNotify(ref _view, value);
                 SendMessages(MessageAddress + nameof(View), View);
             }

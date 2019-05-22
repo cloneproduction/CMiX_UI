@@ -13,6 +13,7 @@ namespace CMiX.ViewModels
     {
         #region CONSTRUCTORS
         public Texture(string layername, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor)
+            : base (oscmessengers, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", layername, nameof(Texture));
 

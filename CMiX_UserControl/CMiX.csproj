@@ -143,7 +143,7 @@
     <Compile Include="ViewModels\Geometry\GeometryFX.cs" />
     <Compile Include="ViewModels\Geometry\GeometryRotation.cs" />
     <Compile Include="ViewModels\Geometry\GeometryScale.cs" />
-    <Compile Include="Services\IMessenger.cs" />
+    <None Include="_Unused\IMessenger.cs" />
     <Compile Include="Services\OSCMessenger.cs" />
     <Compile Include="ViewModels\Beat\Beat.cs" />
     <Compile Include="ViewModels\Beat\BeatModifier.cs" />
@@ -261,10 +261,6 @@
       <DependentUpon>Texture.xaml</DependentUpon>
     </Compile>
     <Page Include="Controls\IPBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\Fonts\Roboto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -500,8 +496,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Resource Include="Resources\Fonts\Roboto-Medium.ttf" />
-    <Resource Include="Resources\Fonts\Roboto-Regular.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

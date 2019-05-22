@@ -11,8 +11,8 @@ namespace CMiX.ViewModels
     public class Mask : ViewModel
     {
         #region CONSTRUCTORS
-
-        public Mask(Beat masterbeat, string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
+        public Mask(Beat masterbeat, string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) 
+            : base (oscmessengers, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Mask));
 

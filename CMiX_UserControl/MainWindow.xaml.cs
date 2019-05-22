@@ -1,9 +1,7 @@
 ﻿using System.Windows;
-using SharpOSC;
-using System;
 using System.Windows.Input;
 using CMiX.ViewModels;
-using Memento;
+
 namespace CMiX
 {
     public partial class MainWindow : Window
