@@ -2,13 +2,13 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CMiX.Services;
+using Memento;
 
 namespace CMiX.ViewModels
 {
-    [Serializable]
     public abstract class Beat : ViewModel
     {
-        public Beat(ObservableCollection<OSCMessenger> messengers) 
+        public Beat(ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
         {
             ResetCommand = new RelayCommand(p => Reset());
             MultiplyCommand = new RelayCommand(p => Multiply());

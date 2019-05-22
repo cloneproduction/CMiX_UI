@@ -12,7 +12,7 @@ namespace CMiX.ViewModels
         #region CONSTRUCTORS
         public Counter(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
         {
-            MessageAddress = String.Format("{0}/{1}/", messageaddress, nameof(Counter));
+            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Counter));
             Count = 1;
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());

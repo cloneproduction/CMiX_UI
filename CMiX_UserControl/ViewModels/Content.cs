@@ -8,16 +8,15 @@ using Memento;
 
 namespace CMiX.ViewModels
 {
-    [Serializable]
     public class Content : ViewModel
     {
         #region CONSTRUCTORS
         public Content(Beat masterbeat, string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
         {
+            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Content));
+
             Enable = true;
 
-            MessageAddress = messageaddress + nameof(Content);
-            
             BeatModifier = new BeatModifier(MessageAddress, oscmessengers, masterbeat, mementor);
             Geometry = new Geometry(MessageAddress, oscmessengers, mementor);
             Texture = new Texture(MessageAddress, oscmessengers, mementor);

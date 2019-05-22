@@ -20,7 +20,7 @@ namespace CMiX.ViewModels
         {
             Name = string.Empty;
             Messengers = oscmessengers;
-            MessageAddress = String.Empty;
+            MessageAddress = "/Layer";
 
             LayerNames = new List<string>();
             Layers = new ObservableCollection<Layer>();
@@ -136,13 +136,13 @@ namespace CMiX.ViewModels
             layerID += 1;
             layerNameID += 1;
 
-            Layer layer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messengers, layerNameID, Mementor);
+            Layer layer = new Layer(MasterBeat, string.Format("{0}/", MessageAddress + layerNameID.ToString()), Messengers, layerNameID, Mementor);
             layer.Index = layerID;
             Layers.Add(layer);
             Mementor.ElementAdd(Layers, layer);
             SelectedLayer = layer;
 
-            LayerNames.Add("/Layer" + layerNameID.ToString());
+            LayerNames.Add(MessageAddress + layerNameID.ToString());
 
             List<string> layerindex = new List<string>();
             foreach (Layer lyr in Layers)
@@ -167,15 +167,15 @@ namespace CMiX.ViewModels
 
             layerID += 1;
             layerNameID += 1;
-            LayerNames.Add("/Layer" + layerNameID.ToString());
+            LayerNames.Add(MessageAddress + layerNameID.ToString());
 
             Layer lyr = layer as Layer;
             LayerModel layermodel = new LayerModel();
             lyr.Copy(layermodel);
 
-            Layer newlayer = new Layer(MasterBeat, "/Layer" + layerNameID.ToString(), Messengers, layerNameID, Mementor);
+            Layer newlayer = new Layer(MasterBeat, string.Format("{0}/", MessageAddress + layerNameID.ToString()), Messengers, layerNameID, Mementor);
             newlayer.Paste(layermodel);
-            newlayer.LayerName = "/Layer" + layerNameID.ToString();
+            newlayer.LayerName = MessageAddress + layerNameID.ToString();
             newlayer.Index = layerID;
             newlayer.Enabled = false;
 
@@ -289,7 +289,7 @@ namespace CMiX.ViewModels
             foreach (LayerModel layermodel in compositionmodel.LayersModel)
             {
                 layerID += 1;
-                Layer layer = new Layer(MasterBeat, "/Layer" + layerID.ToString(), Messengers, 0, Mementor);
+                Layer layer = new Layer(MasterBeat, MessageAddress + layerID.ToString(), Messengers, 0, Mementor);
                 layer.Paste(layermodel);
                 Layers.Add(layer);
             }

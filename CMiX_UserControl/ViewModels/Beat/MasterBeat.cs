@@ -29,7 +29,7 @@ namespace CMiX.ViewModels
                 double period,
                 int multiplier
             )
-            : base(messengers)
+            : base(messengers, mementor)
         {
             Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             Period = period;

@@ -9,9 +9,9 @@ namespace CMiX.ViewModels
     public class GeometryScale : ViewModel
     {
         #region CONSTRUCTORS
-        public GeometryScale(string layername, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
+        public GeometryScale(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
         {
-            MessageAddress = layername + "/";
+            MessageAddress = messageaddress;
             ScaleMode = default;
         }
         #endregion
@@ -24,7 +24,7 @@ namespace CMiX.ViewModels
             set
             {
                 if(Mementor != null)
-                    Mementor.PropertyChange(this, "ScaleMode");
+                    Mementor.PropertyChange(this, nameof(ScaleMode));
                 SetAndNotify(ref _ScaleMode, value);
                 SendMessages(MessageAddress + nameof(ScaleMode), ScaleMode);
             }

@@ -9,9 +9,9 @@ namespace CMiX.ViewModels
     public class GeometryRotation :ViewModel
     {
         #region CONSTRUCTORS
-        public GeometryRotation(string layername, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
+        public GeometryRotation(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
         {
-            MessageAddress = layername + "/";
+            MessageAddress = messageaddress;
             RotationMode = default;
             RotationX = true;
             RotationY = true;
@@ -27,9 +27,9 @@ namespace CMiX.ViewModels
             set
             {
                 if (Mementor != null)
-                    Mementor.PropertyChange(this, "RotationMode");
+                    Mementor.PropertyChange(this, nameof(RotationMode));
                 SetAndNotify(ref _RotationMode, value);
-                SendMessages(MessageAddress +"RotationMode", RotationMode);
+                SendMessages(MessageAddress + nameof(RotationMode), RotationMode);
             }
         }
 
@@ -40,7 +40,7 @@ namespace CMiX.ViewModels
             set
             {
                 if (Mementor != null)
-                    Mementor.PropertyChange(this, "RotationX");
+                    Mementor.PropertyChange(this, nameof(RotationX));
                 SetAndNotify(ref _RotationX, value);
                 SendMessages(MessageAddress + nameof(RotationX), RotationX);
             }
@@ -53,7 +53,7 @@ namespace CMiX.ViewModels
             set
             {
                 if (Mementor != null)
-                    Mementor.PropertyChange(this, "RotationY");
+                    Mementor.PropertyChange(this, nameof(RotationY));
                 SetAndNotify(ref _RotationY, value);
                 SendMessages(MessageAddress + nameof(RotationY), RotationY);
             }
@@ -66,7 +66,7 @@ namespace CMiX.ViewModels
             set
             {
                 if (Mementor != null)
-                    Mementor.PropertyChange(this, "RotationZ");
+                    Mementor.PropertyChange(this, nameof(RotationZ));
                 SetAndNotify(ref _RotationZ, value);
                 SendMessages(MessageAddress + nameof(RotationZ), RotationZ);
             }

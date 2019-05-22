@@ -9,9 +9,9 @@ namespace CMiX.ViewModels
     public class GeometryTranslate : ViewModel
     {
         #region CONSTRUCTORS
-        public GeometryTranslate(string layername, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
+        public GeometryTranslate(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
         {
-            MessageAddress = layername + "/";
+            MessageAddress = messageaddress;
             TranslateMode = default;
         }
         #endregion
@@ -24,7 +24,7 @@ namespace CMiX.ViewModels
             set
             {
                 if(Mementor != null)
-                    Mementor.PropertyChange(this, "TranslateMode");
+                    Mementor.PropertyChange(this, nameof(TranslateMode));
                 SetAndNotify(ref _TranslateMode, value);
                 SendMessages(MessageAddress + nameof(TranslateMode), TranslateMode);
             }

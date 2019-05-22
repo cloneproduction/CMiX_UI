@@ -40,7 +40,8 @@ namespace CMiX.ViewModels
         #region MESSENGERS
         public void SendMessages(string address, params object[] args)
         {
-            if(Messengers != null)
+            Console.WriteLine(address);
+            if (Messengers != null)
             {
                 foreach (var Message in Messengers)
                 {

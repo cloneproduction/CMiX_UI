@@ -14,7 +14,7 @@ namespace CMiX.ViewModels
 
         public Mask(Beat masterbeat, string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
         {
-            MessageAddress = messageaddress + nameof(Mask);
+            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Mask));
 
             Enable = false;
 

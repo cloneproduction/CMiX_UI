@@ -9,10 +9,10 @@ namespace CMiX.ViewModels
     public class GeometryFX : ViewModel
     {
         #region CONSTRUCTORS
-        public GeometryFX(string layername, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base(oscmessengers, mementor)
+        public GeometryFX(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base(oscmessengers, mementor)
         {
-            Explode = new Slider(String.Format("{0}/{1}/{2}", layername, nameof(GeometryFX), "Explode"), oscmessengers, mementor);
-            MessageAddress = String.Format("{0}/{1}/", layername, nameof(GeometryFX));
+            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(GeometryFX));
+            Explode = new Slider(MessageAddress + nameof(Explode), oscmessengers, mementor);  
         }
         #endregion
 

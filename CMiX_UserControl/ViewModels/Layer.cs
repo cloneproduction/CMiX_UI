@@ -12,7 +12,7 @@ namespace CMiX.ViewModels
         #region CONSTRUCTORS
         public Layer(MasterBeat masterBeat, string layername, ObservableCollection<OSCMessenger> messengers, int index, Mementor mementor) : base (messengers, mementor)
         {
-            MessageAddress =  layername + "/";
+            MessageAddress =  layername;
 
             LayerName = layername;           
             Index = index;

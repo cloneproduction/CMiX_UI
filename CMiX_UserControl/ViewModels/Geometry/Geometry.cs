@@ -14,7 +14,7 @@ namespace CMiX.ViewModels
         #region CONSTRUCTORS
         public Geometry(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
         {
-            MessageAddress = String.Format("{0}/{1}", messageaddress, nameof(Geometry));
+            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Geometry));
 
             FileSelector = new FileSelector(MessageAddress, "Single", new List<string> { ".FBX", ".OBJ" }, oscmessengers, mementor);
 
@@ -22,14 +22,18 @@ namespace CMiX.ViewModels
             ScaleMode = new GeometryScale(MessageAddress, oscmessengers, mementor);
             RotationMode = new GeometryRotation(MessageAddress, oscmessengers, mementor);
        
-            Translate = new Slider(MessageAddress + "/" + nameof(Translate), oscmessengers, mementor);
-            Scale = new Slider(MessageAddress + "/" + nameof(Scale), oscmessengers, mementor);
-            Rotation = new Slider(MessageAddress + "/" + nameof(Rotation), oscmessengers, mementor);
+            Translate = new Slider(MessageAddress + nameof(Translate), oscmessengers, mementor);
+            Scale = new Slider(MessageAddress + nameof(Scale), oscmessengers, mementor);
+            Rotation = new Slider(MessageAddress + nameof(Rotation), oscmessengers, mementor);
             Counter = new Counter(MessageAddress, oscmessengers, mementor);
             GeometryFX = new GeometryFX(MessageAddress, oscmessengers, mementor);
 
             Is3D = false;
             KeepAspectRatio = false;
+
+            CopySelfCommand = new RelayCommand(p => CopySelf());
+            PasteSelfCommand = new RelayCommand(p => PasteSelf());
+            ResetSelfCommand = new RelayCommand(p => ResetSelf());
         }
         #endregion
 

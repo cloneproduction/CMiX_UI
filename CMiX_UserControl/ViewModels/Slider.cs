@@ -10,29 +10,11 @@ namespace CMiX.ViewModels
     public class Slider : ViewModel
     {
         #region CONSTRUCTORS
-        public Slider(string layername, ObservableCollection<OSCMessenger> messengers, Mementor mementor)
-            : this
-            (
-                messageaddress: String.Format("{0}/", layername),
-                messengers: messengers,
-                amount: 0.0,
-                mementor: mementor
-            )
-        {}
-
-        public Slider
-            (
-                ObservableCollection<OSCMessenger> messengers,
-                string messageaddress,
-                double amount,
-                Mementor mementor
-            )
-            : base(messengers, mementor)
+        public Slider(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
         {
-            Mementor = mementor;
-            MessageAddress = messageaddress;
-            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
-            Amount = amount;
+            MessageAddress = String.Format("{0}/", messageaddress);
+            Amount = 0.0;
+
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
             MouseDownCommand = new RelayCommand(p => MouseDown());

@@ -14,22 +14,23 @@ namespace CMiX.ViewModels
         #region CONSTRUCTORS
         public Texture(string layername, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor)
         {
-            MessageAddress = String.Format("{0}/{1}/", layername, nameof(Texture));
+            MessageAddress = String.Format("{0}{1}/", layername, nameof(Texture));
 
             FileSelector = new FileSelector(MessageAddress,  "Extended", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, oscmessengers, mementor);
 
-            Brightness = new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Brightness"), oscmessengers, mementor);
-            Contrast = new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Contrast"), oscmessengers, mementor);
-            Invert = new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Invert"), oscmessengers, mementor);
+            Brightness = new Slider(MessageAddress + nameof(Brightness), oscmessengers, mementor);
+            Contrast = new Slider(MessageAddress + nameof(Contrast), oscmessengers, mementor);
+            Invert = new Slider(MessageAddress + nameof(Invert), oscmessengers, mementor);
             InvertMode = ((TextureInvertMode)0).ToString();
-            Hue = new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Hue"), oscmessengers, mementor);
-            Saturation = new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Saturation"), oscmessengers, mementor);
-            Luminosity = new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Luminosity"), oscmessengers, mementor);
-            Keying = new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Keying"), oscmessengers, mementor);
-            Scale = new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Scale"), oscmessengers, mementor);
-            Rotate = new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Rotate"), oscmessengers, mementor);
-            Pan = new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Pan"), oscmessengers, mementor);
-            Tilt = new Slider(String.Format("{0}/{1}/{2}", layername, nameof(Texture), "Tilt"), oscmessengers, mementor);
+            Hue = new Slider(MessageAddress + nameof(Hue), oscmessengers, mementor);
+            Saturation = new Slider(MessageAddress + nameof(Saturation), oscmessengers, mementor);
+            Luminosity = new Slider(MessageAddress + nameof(Luminosity), oscmessengers, mementor);
+            Keying = new Slider(MessageAddress + nameof(Keying), oscmessengers, mementor);
+            Scale = new Slider(MessageAddress + nameof(Scale), oscmessengers, mementor);
+            Rotate = new Slider(MessageAddress + nameof(Rotate), oscmessengers, mementor);
+            Pan = new Slider(MessageAddress + nameof(Pan), oscmessengers, mementor);
+            Tilt = new Slider(MessageAddress + nameof(Tilt), oscmessengers, mementor);
+
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
@@ -61,7 +62,7 @@ namespace CMiX.ViewModels
             set
             {
                 if(Mementor != null)
-                    Mementor.PropertyChange(this, "InvertMode");
+                    Mementor.PropertyChange(this, nameof(InvertMode));
                 SetAndNotify(ref _invertMode, value);
                 SendMessages(MessageAddress + nameof(InvertMode), InvertMode);
             }

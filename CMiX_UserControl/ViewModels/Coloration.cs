@@ -9,18 +9,18 @@ using Memento;
 
 namespace CMiX.ViewModels
 {
-    [Serializable]
     public class Coloration : ViewModel
     {
         #region CONSTRUCTORS
         public Coloration(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor, Beat masterbeat) : base(oscmessengers, mementor)
         {
-            MessageAddress = messageaddress + nameof(Coloration);
+            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Coloration));
 
             ObjColor = Colors.BlueViolet;
             BgColor = Colors.Black;
 
             BeatModifier = new BeatModifier(MessageAddress, oscmessengers, masterbeat, mementor);
+
             Hue = new RangeControl(oscmessengers, MessageAddress + nameof(Hue), mementor);
             Saturation = new RangeControl(oscmessengers, MessageAddress + nameof(Saturation), mementor);
             Value = new RangeControl(oscmessengers, MessageAddress + nameof(Value), mementor);

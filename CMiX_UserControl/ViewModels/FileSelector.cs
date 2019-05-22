@@ -13,9 +13,9 @@ namespace CMiX.ViewModels
     public class FileSelector : ViewModel, IDropTarget, IDragSource
     {
         #region CONSTRUCTORS
-        public FileSelector(string layername, string selectionmode, List<string> filemask, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
+        public FileSelector(string messageaddress, string selectionmode, List<string> filemask, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
         {
-            MessageAddress = String.Format("{0}/", layername);
+            MessageAddress = messageaddress;
 
             SelectionMode = selectionmode;
             FileMask = filemask;

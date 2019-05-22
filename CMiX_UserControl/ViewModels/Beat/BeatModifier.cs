@@ -6,48 +6,65 @@ using Memento;
 
 namespace CMiX.ViewModels
 {
-    [Serializable]
     public class BeatModifier : Beat
     {
         #region CONSTRUCTORS
-        public BeatModifier(string layername, ObservableCollection<OSCMessenger> messengers, Beat masterBeat, Mementor mementor)
-        : this
-        (
-            mementor: mementor,
-            messengers: messengers,
-            messageaddress: String.Format("{0}/{1}/", layername, nameof(BeatModifier)),
-            masterBeat: masterBeat,
-            multiplier: 1.0,
-            chanceToHit: new Slider(String.Format("{0}/{1}/{2}", layername, nameof(BeatModifier), "ChanceToHit"), messengers, mementor)
-        )
-        { }
-
-        public BeatModifier
-            (
-                Mementor mementor,
-                ObservableCollection<OSCMessenger> messengers,
-                Beat masterBeat,
-                double multiplier,
-                Slider chanceToHit,
-                string messageaddress
-            )
-            : base(messengers)
+        public BeatModifier(string layername, ObservableCollection<OSCMessenger> oscmessengers, Beat beat, Mementor mementor) : base (oscmessengers, mementor)
         {
-            MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
-            Multiplier = multiplier;
-            ChanceToHit = chanceToHit;
+            MessageAddress = String.Format("{0}{1}/", layername, nameof(BeatModifier));
+
+            MasterBeat = beat;
+            Multiplier = 1.0;
+            ChanceToHit = new Slider(MessageAddress + nameof(ChanceToHit), oscmessengers, mementor);
             ChanceToHit.Amount = 1.0;
-            masterBeat.PeriodChanged += (s, newValue) =>
+            beat.PeriodChanged += (s, newvalue) =>
             {
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
             };
-
-            Messengers = messengers ?? throw new ArgumentNullException(nameof(Messengers));
-            MessageAddress = messageaddress;
-            Mementor = mementor;
         }
+
+        //public BeatModifier(string layername, ObservableCollection<OSCMessenger> messengers, Beat masterBeat, Mementor mementor)
+        //: this
+        //(
+        //    mementor: mementor,
+        //    messengers: messengers,
+
+        //    messageaddress: String.Format("{0}{1}/", layername, nameof(BeatModifier)),
+
+        //    masterBeat: masterBeat,
+        //    multiplier: 1.0,
+        //    chanceToHit: new Slider(String.Format("{0}{1}/{2}", layername, nameof(BeatModifier), "ChanceToHit"), messengers, mementor)
+        //)
+        //{ }
+
+        //public BeatModifier
+        //    (
+        //        Mementor mementor,
+        //        ObservableCollection<OSCMessenger> messengers,
+        //        Beat masterBeat,
+        //        double multiplier,
+        //        Slider chanceToHit,
+        //        string messageaddress
+        //    )
+        //    : base(messengers, mementor)
+        //{
+        //    MasterBeat = masterBeat ?? throw new ArgumentNullException(nameof(masterBeat));
+        //    Multiplier = multiplier;
+        //    ChanceToHit = chanceToHit;
+        //    ChanceToHit.Amount = 1.0;
+        //    masterBeat.PeriodChanged += (s, newValue) =>
+        //    {
+        //        OnPeriodChanged(Period);
+        //        Notify(nameof(Period));
+        //        Notify(nameof(BPM));
+        //    };
+
+        //    Messengers = messengers ?? throw new ArgumentNullException(nameof(Messengers));
+        //    MessageAddress = messageaddress;
+        //    Mementor = mementor;
+        //}
         #endregion
 
         #region PROPERTIES
@@ -65,6 +82,7 @@ namespace CMiX.ViewModels
             get => base.Multiplier;
             set
             {
+                
                 if (Mementor != null)
                     Mementor.PropertyChange(this, "Multiplier");                   
                 base.Multiplier = value;
