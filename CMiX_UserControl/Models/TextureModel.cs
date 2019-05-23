@@ -23,6 +23,7 @@ namespace CMiX.Models
         }
 
         public string MessageAddress { get; set; }
+
         public FileSelectorModel FileSelector { get; set; }
         public SliderModel Brightness { get; set; }
         public SliderModel Contrast { get; set; }

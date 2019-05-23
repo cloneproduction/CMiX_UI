@@ -15,34 +15,6 @@ namespace CMiX.ViewModels
             Range = new Slider(MessageAddress + nameof(Range), oscmessengers, mementor);
             Modifier = ((RangeModifier)0).ToString();
         }
-
-        /*public RangeControl(ObservableCollection<OSCMessenger> messengers, string layername, Mementor mementor)
-        : this
-            (
-                messageaddress: String.Format("{0}/", layername),
-                mementor: mementor,
-                messengers: messengers,
-                range: new Slider(layername, messengers, mementor),
-                modifier: ((RangeModifier)0).ToString()
-            )
-        { }
-
-        public RangeControl
-            (
-                Mementor mementor,
-                string messageaddress,
-                ObservableCollection<OSCMessenger> messengers,
-                Slider range,
-                string modifier
-            )
-            : base(messengers, mementor)
-        {
-            MessageAddress = messageaddress;
-            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
-            Range = range ?? throw new ArgumentNullException(nameof(range));
-            Modifier = modifier;
-            Mementor = mementor;
-        }*/
         #endregion
 
         #region PROPERTIES

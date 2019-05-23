@@ -78,6 +78,8 @@ namespace CMiX.ViewModels
             Brightness.Copy(texturemodel.Brightness);
             Contrast.Copy(texturemodel.Contrast);
             Saturation.Copy(texturemodel.Saturation);
+            Luminosity.Copy(texturemodel.Luminosity);
+            Hue.Copy(texturemodel.Hue);
             Pan.Copy(texturemodel.Pan);
             Tilt.Copy(texturemodel.Tilt);
             Scale.Copy(texturemodel.Scale);
@@ -96,6 +98,8 @@ namespace CMiX.ViewModels
             Brightness.Paste(texturemodel.Brightness);
             Contrast.Paste(texturemodel.Contrast);
             Saturation.Paste(texturemodel.Saturation);
+            Luminosity.Paste(texturemodel.Luminosity);
+            Hue.Paste(texturemodel.Hue);
             Pan.Paste(texturemodel.Pan);
             Tilt.Paste(texturemodel.Tilt);
             Scale.Paste(texturemodel.Scale);

@@ -14,6 +14,7 @@ namespace CMiX.ViewModels
         public Project() : base(new ObservableCollection<OSCMessenger>())
         {
             Messengers = new ObservableCollection<OSCMessenger>();
+            Messengers.Add(new OSCMessenger("127.0.0.1", 1111) { Name = "Default" });
 
             NewProjectCommand = new RelayCommand(p => NewProject());
             OpenProjectCommand = new RelayCommand(p => OpenProject());

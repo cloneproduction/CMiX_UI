@@ -142,7 +142,7 @@ namespace CMiX.ViewModels
             Mementor.ElementAdd(Layers, layer);
             SelectedLayer = layer;
 
-            LayerNames.Add(MessageAddress + layerNameID.ToString());
+            LayerNames.Add(string.Format("{0}/", MessageAddress + layerNameID.ToString()));
 
             List<string> layerindex = new List<string>();
             foreach (Layer lyr in Layers)
@@ -175,7 +175,7 @@ namespace CMiX.ViewModels
 
             Layer newlayer = new Layer(MasterBeat, string.Format("{0}/", MessageAddress + layerNameID.ToString()), Messengers, layerNameID, Mementor);
             newlayer.Paste(layermodel);
-            newlayer.LayerName = MessageAddress + layerNameID.ToString();
+            newlayer.LayerName = string.Format("{0}/", MessageAddress + layerNameID.ToString());
             newlayer.Index = layerID;
             newlayer.Enabled = false;
 
@@ -206,12 +206,14 @@ namespace CMiX.ViewModels
                 Mementor.BeginBatch();
 
                 layerID -= 1;
-                string removedlayername = string.Empty;
                 List<string> layerindex = new List<string>();
-                removedlayername = SelectedLayer.LayerName;
-                LayerNames.Remove(SelectedLayer.LayerName);
-                Layers.Remove(SelectedLayer);
+                string removedlayername = SelectedLayer.LayerName;
 
+                Console.WriteLine(removedlayername);
+
+                LayerNames.Remove(removedlayername);
+                Layers.Remove(SelectedLayer);
+                
                 foreach (Layer lyr in Layers)
                 {
                     if (lyr.Index > Layers.IndexOf(SelectedLayer))
@@ -240,7 +242,8 @@ namespace CMiX.ViewModels
             Mementor.ElementRemove(Layers, lyr);
             LayerNames.Remove(lyr.LayerName);
             Layers.Remove(lyr);
-            
+
+            Console.WriteLine(lyr.LayerName);
 
             List<string> layerindex = new List<string>();
             foreach (Layer lay in Layers)
