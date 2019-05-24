@@ -17,7 +17,7 @@ namespace CMiX.ViewModels
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Texture));
 
-            FileSelector = new FileSelector(MessageAddress,  "Extended", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, oscmessengers, mementor);
+            FileSelector = new FileSelector(MessageAddress,  "Single", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, oscmessengers, mementor);
 
             Brightness = new Slider(MessageAddress + nameof(Brightness), oscmessengers, mementor);
             Contrast = new Slider(MessageAddress + nameof(Contrast), oscmessengers, mementor);
@@ -57,7 +57,6 @@ namespace CMiX.ViewModels
             Tilt.UpdateMessageAddress(MessageAddress + nameof(Tilt));
         }
         #endregion
-
 
         #region PROPERTIES
         public ICommand CopySelfCommand { get; }

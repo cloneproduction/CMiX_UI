@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMiX.Services;
+using System;
 
 namespace CMiX.Models
 {
@@ -9,7 +10,9 @@ namespace CMiX.Models
         {
 
         }
+
         public string FileName { get; set; }
+
         public bool FileIsSelected { get; set; }
     }
 }

@@ -7,6 +7,7 @@ using System.Reflection;
 using SharpOSC;
 using CMiX.ViewModels;
 using System.Windows.Input;
+using CMiX.Models;
 
 namespace CMiX.Services
 {
@@ -148,6 +149,13 @@ namespace CMiX.Services
                             }
                             QueueMessage(address + propertyname, filenames.ToArray());
                         }
+                        else if (propValue is FileNameItemModel)
+                        {
+                            var item = propValue as FileNameItemModel;
+                            QueueMessage(address + propertyname, item.FileName);
+                        }
+
+                        
                         else
                         {
                             propdata = property.GetValue(obj, null).ToString();

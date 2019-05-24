@@ -27,63 +27,51 @@ namespace CMiX.ViewModels
             FilePaths = new ObservableCollection<FileNameItem>();
 
             ClearSelectedCommand = new RelayCommand(p => ClearSelected());
-            SelectionChangedCommand = new RelayCommand(p => SelectionChanged());
             ClearUnselectedCommand = new RelayCommand(p => ClearUnselected());
             ClearAllCommand = new RelayCommand(p => ClearAll());
             DeleteItemCommand = new RelayCommand(p => DeleteItem(p));
-
-            SelectedItems = new CollectionViewSource { Source = FilePaths }.View;
-            SelectedItems.Filter = o => ((FileNameItem)o).FileIsSelected;
         }
         #endregion
 
-        private void MyList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (e.OldItems != null) foreach (var item in e.OldItems) ((FileNameItem)item).PropertyChanged -= ItemChanged;
-            if (e.NewItems != null) foreach (var item in e.NewItems) ((FileNameItem)item).PropertyChanged += ItemChanged;
-        }
 
-        private void ItemChanged(object sender, PropertyChangedEventArgs e)
-        {
-            SelectedItems.Refresh();
-        }
 
-        public ICollectionView SelectedItems { get; }
 
         #region PROPERTIES
-
         public ObservableCollection<FileNameItem> FilePaths { get; set; }
 
         public List<string> FileMask { get; set; }
         public string SelectionMode { get; set; }
 
-        public ICommand SelectionChangedCommand { get; }
         public ICommand ClearSelectedCommand { get; }
         public ICommand ClearUnselectedCommand { get; }
         public ICommand ClearAllCommand { get; }
         public ICommand DeleteItemCommand { get; }
 
+        private FileNameItem selectedfilenameitem;
+        public FileNameItem SelectedFileNameItem
+        {
+            get { return selectedfilenameitem; }
+            set
+            {
+                SetAndNotify(ref selectedfilenameitem, value);
 
+                if (Mementor != null)
+                    Mementor.PropertyChange(this, nameof(FilePaths));
+                
+                if(SelectedFileNameItem != null && send == true)
+                {
+                    SendMessages(MessageAddress + nameof(FilePaths), SelectedFileNameItem.FileName);
+                    
+                }
+                send = true;
+            }
+        }
         #endregion
 
         #region METHODS
         public void UpdateMessageAddress(string messageaddress)
         {
             MessageAddress = messageaddress;
-        }
-
-        public void SelectionChanged()
-        {
-            List<string> filename = new List<string>();
-            foreach (FileNameItem lb in FilePaths)
-            {
-                if (lb.FileIsSelected == true)
-                {
-                    filename.Add(lb.FileName);
-                }
-            }
-            //Console.WriteLine("FileSelectorSelectionChanged");
-            SendMessages(MessageAddress + nameof(FilePaths), filename.ToArray());
         }
 
         private void ClearAll()
@@ -244,37 +232,35 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void Copy(FileSelectorModel fileselectordto)
+        public void Copy(FileSelectorModel fileselectormodel)
         {
-            List<FileNameItemModel> fileNameItemDTOs = new List<FileNameItemModel>();
+            fileselectormodel.MessageAddress = MessageAddress;
+            List<FileNameItemModel> FileNameItemModelList = new List<FileNameItemModel>();
             foreach (var item in FilePaths)
             {
                 var filenameitemdto = new FileNameItemModel();
-                filenameitemdto.FileIsSelected = item.FileIsSelected;
-                filenameitemdto.FileName = item.FileName;
-                fileNameItemDTOs.Add(filenameitemdto);
+                item.Copy(filenameitemdto);
+                FileNameItemModelList.Add(filenameitemdto);
             }
-            fileselectordto.FilePaths = fileNameItemDTOs;
+            fileselectormodel.FilePaths = FileNameItemModelList;
         }
 
-        public void Paste(FileSelectorModel fileselectordto)
+        bool send = true;
+        public void Paste(FileSelectorModel fileselectormodel)
         {
-            if(fileselectordto.FilePaths != null) // NOT SURE THIS IS USEFULL ...
+            DisabledMessages();
+            MessageAddress = fileselectormodel.MessageAddress;
+            FilePaths.Clear();
+            foreach (var item in fileselectormodel.FilePaths)
             {
-                DisabledMessages();
-
-                FilePaths.Clear();
-                foreach (var item in fileselectordto.FilePaths)
-                {
-                    var filenameitem = new FileNameItem(Mementor);
-                    filenameitem.FileIsSelected = item.FileIsSelected;
-                    filenameitem.FileName = item.FileName;
-                    Mementor.ElementAdd(FilePaths, filenameitem);
-                    FilePaths.Add(filenameitem);
-                }
-
-                EnabledMessages();
+                FileNameItem filenameitem = new FileNameItem(Mementor);
+                filenameitem.Paste(item);
+                FilePaths.Add(filenameitem);
             }
+
+            EnabledMessages();
+            send = false;
+            //Console.WriteLine(send.ToString());
         }
         #endregion
     }

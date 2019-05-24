@@ -63,25 +63,27 @@
             VerticalContentAlignment="Stretch"
             ScrollViewer.VerticalScrollBarVisibility="Auto"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            SelectedItem="{Binding SelectedFileNameItem}"
             ItemsSource="{Binding FilePaths}"
             SelectionMode="{Binding SelectionMode}"
+
             AllowDrop="True"
             dd:DragDrop.IsDragSource="True"
             dd:DragDrop.IsDropTarget="True"
             dd:DragDrop.DragHandler="{Binding}"
             dd:DragDrop.DropHandler="{Binding}">
-            <ListBox.ItemContainerStyle>
+            <!--<ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
                     <Setter Property="IsSelected" Value="{Binding FileIsSelected, Mode=TwoWay}"/>
                 </Style>
-            </ListBox.ItemContainerStyle>
-            
-            <!--<ListBox.Resources>
+            </ListBox.ItemContainerStyle>-->
+
+            <ListBox.Resources>
                 <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
                     <Setter Property="IsSelected" Value="{Binding FileIsSelected, Mode=TwoWay}" />
                 </Style>
-            </ListBox.Resources>-->
-            
+            </ListBox.Resources>
+
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Views:FileNameItem/>

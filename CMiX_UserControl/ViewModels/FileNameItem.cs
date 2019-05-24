@@ -1,4 +1,5 @@
 ﻿using System;
+using CMiX.Models;
 using Memento;
 
 namespace CMiX.ViewModels 
@@ -15,7 +16,7 @@ namespace CMiX.ViewModels
         public string FileName
         {
             get => _filename;
-            set => SetAndNotify(ref _filename, Utils.GetRelativePath(@"D:\", value));
+            set => SetAndNotify(ref _filename, value);
         }
 
         private bool _fileisselected;
@@ -24,5 +25,24 @@ namespace CMiX.ViewModels
             get => _fileisselected;
             set => SetAndNotify(ref _fileisselected, value);
         }
+
+        #region COPY/PASTE
+        public void Copy(FileNameItemModel filenameitemmodel)
+        {
+            filenameitemmodel.FileIsSelected = FileIsSelected;
+            filenameitemmodel.FileName = FileName;
+        }
+
+        public void Paste(FileNameItemModel filenameitemmodel)
+        {
+
+            DisabledMessages();
+
+            FileIsSelected = filenameitemmodel.FileIsSelected;
+            FileName = filenameitemmodel.FileName;
+
+            EnabledMessages();
+        }
+        #endregion
     }
 }

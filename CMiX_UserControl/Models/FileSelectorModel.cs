@@ -10,11 +10,15 @@ namespace CMiX.Models
         public FileSelectorModel()
         {
             FilePaths = new List<FileNameItemModel>();
+            SelectedFileNameItem = new FileNameItemModel();
         }
 
         public string MessageAddress { get; set; }
 
-        [OSC]
+        //[OSC]
         public List<FileNameItemModel> FilePaths { get; set; }
+
+        [OSC]
+        public FileNameItemModel SelectedFileNameItem { get; set; }
     }
 }
