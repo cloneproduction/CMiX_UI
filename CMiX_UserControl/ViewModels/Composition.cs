@@ -122,9 +122,11 @@ namespace CMiX.ViewModels
             {
                 var layermodel = (LayerModel)data.GetData("Layer") as LayerModel;
                 var selectedlayermessageaddress = SelectedLayer.MessageAddress;
+                var selectedlayername = SelectedLayer.LayerName;
 
                 SelectedLayer.Paste(layermodel);
                 SelectedLayer.UpdateMessageAddress(selectedlayermessageaddress);
+                SelectedLayer.LayerName = selectedlayername;
                 SelectedLayer.Copy(layermodel);
 
                 QueueObjects(layermodel);

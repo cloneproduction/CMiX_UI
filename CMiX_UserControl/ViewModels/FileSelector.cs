@@ -7,6 +7,10 @@ using CMiX.Services;
 using CMiX.Models;
 using GongSolutions.Wpf.DragDrop;
 using Memento;
+using System.Collections;
+using System.Windows.Data;
+using System.Collections.Specialized;
+using System.ComponentModel;
 
 namespace CMiX.ViewModels
 {
@@ -27,8 +31,24 @@ namespace CMiX.ViewModels
             ClearUnselectedCommand = new RelayCommand(p => ClearUnselected());
             ClearAllCommand = new RelayCommand(p => ClearAll());
             DeleteItemCommand = new RelayCommand(p => DeleteItem(p));
+
+            SelectedItems = new CollectionViewSource { Source = FilePaths }.View;
+            SelectedItems.Filter = o => ((FileNameItem)o).FileIsSelected;
         }
         #endregion
+
+        private void MyList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.OldItems != null) foreach (var item in e.OldItems) ((FileNameItem)item).PropertyChanged -= ItemChanged;
+            if (e.NewItems != null) foreach (var item in e.NewItems) ((FileNameItem)item).PropertyChanged += ItemChanged;
+        }
+
+        private void ItemChanged(object sender, PropertyChangedEventArgs e)
+        {
+            SelectedItems.Refresh();
+        }
+
+        public ICollectionView SelectedItems { get; }
 
         #region PROPERTIES
 
@@ -42,8 +62,7 @@ namespace CMiX.ViewModels
         public ICommand ClearUnselectedCommand { get; }
         public ICommand ClearAllCommand { get; }
         public ICommand DeleteItemCommand { get; }
-        public ICommand MouseDownCommand { get; }
-        public ICommand MouseUpCommand { get; }
+
 
         #endregion
 
@@ -63,6 +82,7 @@ namespace CMiX.ViewModels
                     filename.Add(lb.FileName);
                 }
             }
+            //Console.WriteLine("FileSelectorSelectionChanged");
             SendMessages(MessageAddress + nameof(FilePaths), filename.ToArray());
         }
 
@@ -239,7 +259,6 @@ namespace CMiX.ViewModels
 
         public void Paste(FileSelectorModel fileselectordto)
         {
-
             if(fileselectordto.FilePaths != null) // NOT SURE THIS IS USEFULL ...
             {
                 DisabledMessages();
