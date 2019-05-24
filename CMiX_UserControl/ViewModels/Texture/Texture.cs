@@ -12,10 +12,10 @@ namespace CMiX.ViewModels
     public class Texture : ViewModel
     {
         #region CONSTRUCTORS
-        public Texture(string layername, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor)
+        public Texture(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor)
             : base (oscmessengers, mementor)
         {
-            MessageAddress = String.Format("{0}{1}/", layername, nameof(Texture));
+            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Texture));
 
             FileSelector = new FileSelector(MessageAddress,  "Extended", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, oscmessengers, mementor);
 
@@ -37,6 +37,27 @@ namespace CMiX.ViewModels
             ResetSelfCommand = new RelayCommand(p => ResetSelf());
         }
         #endregion
+
+        #region METHODS
+        public void UpdateMessageAddress(string messageaddress)
+        {
+            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Texture));
+
+            FileSelector.UpdateMessageAddress(MessageAddress);
+            Brightness.UpdateMessageAddress(MessageAddress + nameof(Brightness));
+            Contrast.UpdateMessageAddress(MessageAddress + nameof(Contrast));
+            Invert.UpdateMessageAddress(MessageAddress + nameof(Invert));
+            Hue.UpdateMessageAddress(MessageAddress + nameof(Hue));
+            Saturation.UpdateMessageAddress(MessageAddress + nameof(Saturation));
+            Luminosity.UpdateMessageAddress(MessageAddress + nameof(Luminosity));
+            Keying.UpdateMessageAddress(MessageAddress + nameof(Keying));
+            Scale.UpdateMessageAddress(MessageAddress + nameof(Scale));
+            Rotate.UpdateMessageAddress(MessageAddress + nameof(Rotate));
+            Pan.UpdateMessageAddress(MessageAddress + nameof(Pan));
+            Tilt.UpdateMessageAddress(MessageAddress + nameof(Tilt));
+        }
+        #endregion
+
 
         #region PROPERTIES
         public ICommand CopySelfCommand { get; }

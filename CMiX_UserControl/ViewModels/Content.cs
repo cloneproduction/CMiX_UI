@@ -29,6 +29,18 @@ namespace CMiX.ViewModels
         }
         #endregion
 
+        #region METHODS
+        public void UpdateMessageAddress(string messageaddress)
+        {
+            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Content));
+
+            BeatModifier.UpdateMessageAddress(MessageAddress);
+            Geometry.UpdateMessageAddress(MessageAddress);
+            Texture.UpdateMessageAddress(MessageAddress);
+            PostFX.UpdateMessageAddress(MessageAddress);
+        }
+        #endregion
+
         #region PROPERTIES
         public ICommand CopySelfCommand { get; }
         public ICommand PasteSelfCommand { get; }

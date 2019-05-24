@@ -67,6 +67,16 @@ namespace CMiX.ViewModels
         #endregion
 
         #region METHODS
+        public void UpdateMessageAddress(string messageaddress)
+        {
+            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Coloration));
+
+            BeatModifier.UpdateMessageAddress(MessageAddress);
+            Hue.UpdateMessageAddress(MessageAddress + nameof(Hue));
+            Saturation.UpdateMessageAddress(MessageAddress + nameof(Saturation));
+            Value.UpdateMessageAddress(MessageAddress + nameof(Value));
+        }
+
         private void MouseDown()
         {
             Mementor.PropertyChange(this, "ObjColor");

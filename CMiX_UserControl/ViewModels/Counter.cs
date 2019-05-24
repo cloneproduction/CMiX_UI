@@ -19,6 +19,13 @@ namespace CMiX.ViewModels
         }
         #endregion
 
+        #region METHODS
+        public void UpdateMessageAddress(string messageaddress)
+        {
+            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Counter));
+        }
+        #endregion
+
         #region PROPERTIES
         public ICommand AddCommand { get; }
         public ICommand SubCommand { get; }

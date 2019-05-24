@@ -48,6 +48,11 @@ namespace CMiX.ViewModels
         #endregion
 
         #region METHODS
+        public void UpdateMessageAddress(string messageaddress)
+        {
+            MessageAddress = messageaddress;
+        }
+
         public void SelectionChanged()
         {
             List<string> filename = new List<string>();

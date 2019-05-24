@@ -9,10 +9,10 @@ namespace CMiX.ViewModels
     public class BeatModifier : Beat
     {
         #region CONSTRUCTORS
-        public BeatModifier(string layername, ObservableCollection<OSCMessenger> oscmessengers, Beat beat, Mementor mementor) 
+        public BeatModifier(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Beat beat, Mementor mementor) 
             : base (oscmessengers, mementor)
         {
-            MessageAddress = String.Format("{0}{1}/", layername, nameof(BeatModifier));
+            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(BeatModifier));
 
             MasterBeat = beat;
             Multiplier = 1.0;
@@ -24,6 +24,14 @@ namespace CMiX.ViewModels
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
             };
+        }
+        #endregion
+
+        #region METHODS
+        public void UpdateMessageAddress(string messageaddress)
+        {
+            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(BeatModifier));
+            ChanceToHit.UpdateMessageAddress(MessageAddress + nameof(ChanceToHit));
         }
         #endregion
 

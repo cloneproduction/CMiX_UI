@@ -19,6 +19,13 @@ namespace CMiX.ViewModels
         }
         #endregion
 
+        #region METHODS
+        public void UpdateMessageAddress(string messageaddress)
+        {
+            MessageAddress = messageaddress;
+        }
+        #endregion
+
         #region PROPERTIES
         private GeometryRotationMode _RotationMode;
         public GeometryRotationMode RotationMode

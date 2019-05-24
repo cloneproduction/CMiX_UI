@@ -37,6 +37,24 @@ namespace CMiX.ViewModels
         }
         #endregion
 
+        #region METHODS
+        public void UpdateMessageAddress(string messageaddress)
+        {
+            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Geometry));
+
+            FileSelector.UpdateMessageAddress(MessageAddress);
+            TranslateMode.UpdateMessageAddress(MessageAddress);
+            ScaleMode.UpdateMessageAddress(MessageAddress);
+            RotationMode.UpdateMessageAddress(MessageAddress);
+
+            Translate.UpdateMessageAddress(MessageAddress + nameof(Translate));
+            Scale.UpdateMessageAddress(MessageAddress + nameof(Scale));
+            Rotation.UpdateMessageAddress(MessageAddress + nameof(Rotation));
+            Counter.UpdateMessageAddress(MessageAddress);
+            GeometryFX.UpdateMessageAddress(MessageAddress);
+        }
+        #endregion
+
         #region PROPERTIES
         public ICommand CopySelfCommand { get; }
         public ICommand PasteSelfCommand { get; }

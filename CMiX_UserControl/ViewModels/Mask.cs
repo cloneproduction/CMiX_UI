@@ -29,6 +29,18 @@ namespace CMiX.ViewModels
         }
         #endregion
 
+        #region METHODS
+        public void UpdateMessageAddress(string messageaddress)
+        {
+            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Mask));
+
+            BeatModifier.UpdateMessageAddress(MessageAddress);
+            Geometry.UpdateMessageAddress(MessageAddress);
+            Texture.UpdateMessageAddress(MessageAddress);
+            PostFX.UpdateMessageAddress(MessageAddress);
+        }
+        #endregion
+
         #region PROPERTIES
         private bool _enable;
         public bool Enable

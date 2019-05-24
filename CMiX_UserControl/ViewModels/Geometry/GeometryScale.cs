@@ -16,6 +16,13 @@ namespace CMiX.ViewModels
         }
         #endregion
 
+        #region METHODS
+        public void UpdateMessageAddress(string messageaddress)
+        {
+            MessageAddress = messageaddress;
+        }
+        #endregion
+
         #region PROPERTIES
         private GeometryScaleMode _ScaleMode;
         public GeometryScaleMode ScaleMode

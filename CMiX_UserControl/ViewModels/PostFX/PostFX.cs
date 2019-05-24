@@ -27,6 +27,16 @@ namespace CMiX.ViewModels
         }
         #endregion
 
+        #region METHODS
+        public void UpdateMessageAddress(string messageaddress)
+        {
+            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(PostFX));
+
+            Feedback.UpdateMessageAddress(MessageAddress + nameof(Feedback));
+            Blur.UpdateMessageAddress(MessageAddress + nameof(Blur));
+        }
+        #endregion
+
         #region PROPERTIES
         public ICommand CopySelfCommand { get; }
         public ICommand PasteSelfCommand { get; }

@@ -10,7 +10,8 @@ namespace CMiX.ViewModels
     public class Layer : ViewModel
     {
         #region CONSTRUCTORS
-        public Layer(MasterBeat masterBeat, string layername, ObservableCollection<OSCMessenger> messengers, int index, Mementor mementor) : base (messengers, mementor)
+        public Layer(MasterBeat masterBeat, string layername, ObservableCollection<OSCMessenger> messengers, int index, Mementor mementor) 
+            : base (messengers, mementor)
         {
             MessageAddress =  layername;
 
@@ -26,6 +27,20 @@ namespace CMiX.ViewModels
             Mask = new Mask(BeatModifier, MessageAddress, messengers, mementor);
             Coloration = new Coloration(MessageAddress, messengers, mementor, BeatModifier);
             PostFX = new PostFX(MessageAddress, messengers, mementor);
+        }
+        #endregion
+
+        #region METHODS
+        public void UpdateMessageAddress(string messageaddress)
+        {
+            MessageAddress = messageaddress;
+
+            Fade.UpdateMessageAddress(MessageAddress + nameof(Fade));
+            BeatModifier.UpdateMessageAddress(MessageAddress);
+            Content.UpdateMessageAddress(MessageAddress);
+            Mask.UpdateMessageAddress(MessageAddress);
+            Coloration.UpdateMessageAddress(MessageAddress);
+            PostFX.UpdateMessageAddress(MessageAddress);
         }
         #endregion
 
@@ -108,9 +123,11 @@ namespace CMiX.ViewModels
             DisabledMessages();
 
             MessageAddress = layermodel.MessageAddress;
+            LayerName = layermodel.LayerName;
             BlendMode = layermodel.BlendMode;
             Fade.Paste(layermodel.Fade);
             Out = layermodel.Out;
+
             BeatModifier.Paste(layermodel.BeatModifierModel);
             Content.Paste(layermodel.ContentModel);
             Mask.Paste(layermodel.maskmodel);

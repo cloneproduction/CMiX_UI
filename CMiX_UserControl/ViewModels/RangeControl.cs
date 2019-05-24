@@ -17,6 +17,14 @@ namespace CMiX.ViewModels
         }
         #endregion
 
+        #region METHODS
+        public void UpdateMessageAddress(string messageaddress)
+        {
+            MessageAddress = messageaddress + "/";
+            Range.UpdateMessageAddress(MessageAddress + nameof(Range));
+        }
+        #endregion
+
         #region PROPERTIES
         public Slider Range { get; }
 
