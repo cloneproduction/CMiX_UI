@@ -118,7 +118,9 @@ namespace CMiX.ViewModels
         public void ResetSelf()
         {
             PostFXModel postFXmodel = new PostFXModel();
-            this.Paste(postFXmodel);
+            var messageaddress = this.MessageAddress;
+            Paste(postFXmodel);
+            UpdateMessageAddress(messageaddress);
         }
         #endregion
     }

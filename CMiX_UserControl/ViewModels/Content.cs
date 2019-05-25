@@ -83,8 +83,10 @@ namespace CMiX.ViewModels
 
         public void ResetSelf()
         {
-            ContentModel contentmodel = new ContentModel();
+            ContentModel contentmodel = new ContentModel(MessageAddress);
+            //var messageaddress = this.MessageAddress;
             Paste(contentmodel);
+            //UpdateMessageAddress(messageaddress);
         }
 
 
@@ -93,7 +95,7 @@ namespace CMiX.ViewModels
             contentmodel.MessageAddress = MessageAddress;
             contentmodel.Enable = Enable;
             BeatModifier.Copy(contentmodel.BeatModifierModel);
-            Texture.Copy(contentmodel.texturemodel);
+            Texture.Copy(contentmodel.TextureModel);
             Geometry.Copy(contentmodel.GeometryModel);
             PostFX.Copy(contentmodel.PostFXModel);
         }
@@ -104,7 +106,7 @@ namespace CMiX.ViewModels
             MessageAddress = contentmodel.MessageAddress;
             Enable = contentmodel.Enable;
             BeatModifier.Paste(contentmodel.BeatModifierModel);
-            Texture.Paste(contentmodel.texturemodel);
+            Texture.Paste(contentmodel.TextureModel);
             Geometry.Paste(contentmodel.GeometryModel);
             PostFX.Paste(contentmodel.PostFXModel);
             EnabledMessages();

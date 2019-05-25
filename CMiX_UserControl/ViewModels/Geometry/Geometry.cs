@@ -159,7 +159,9 @@ namespace CMiX.ViewModels
         public void ResetSelf()
         {
             GeometryModel geometrymodel = new GeometryModel();
-            this.Paste(geometrymodel);
+            var messageaddress = this.MessageAddress;
+            Paste(geometrymodel);
+            UpdateMessageAddress(messageaddress);
         }
         #endregion
     }

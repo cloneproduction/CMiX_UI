@@ -6,6 +6,11 @@ namespace CMiX.Models
     [Serializable]
     public class CounterModel
     {
+        public CounterModel()
+        {
+            Count = 1;
+        }
+
         public string MessageAddress { get; set; }
 
         [OSC]

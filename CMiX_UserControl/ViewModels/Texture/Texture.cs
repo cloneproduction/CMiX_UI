@@ -156,7 +156,9 @@ namespace CMiX.ViewModels
         public void ResetSelf()
         {
             TextureModel texturemodel = new TextureModel();
-            this.Paste(texturemodel);
+            var messageaddress = this.MessageAddress;
+            Paste(texturemodel);
+            UpdateMessageAddress(messageaddress);
         }
         #endregion
     }

@@ -12,12 +12,13 @@ namespace CMiX.ViewModels
     public class Coloration : ViewModel
     {
         #region CONSTRUCTORS
-        public Coloration(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor, Beat masterbeat) : base(oscmessengers, mementor)
+        public Coloration(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor, Beat masterbeat) 
+            : base(oscmessengers, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Coloration));
 
-            ObjColor = Colors.BlueViolet;
-            BgColor = Colors.Black;
+            ObjColor = Utils.HexStringToColor("#FF00FF");
+            BgColor = Utils.HexStringToColor("#FF00FF");
 
             BeatModifier = new BeatModifier(MessageAddress, oscmessengers, masterbeat, mementor);
 
@@ -65,7 +66,7 @@ namespace CMiX.ViewModels
             }
         }
         #endregion
-
+         
         #region METHODS
         public void UpdateMessageAddress(string messageaddress)
         {
@@ -132,7 +133,9 @@ namespace CMiX.ViewModels
         public void ResetSelf()
         {
             ColorationModel colorationmodel = new ColorationModel();
+            var messageaddress = this.MessageAddress;
             Paste(colorationmodel);
+            UpdateMessageAddress(messageaddress);
         }
         #endregion
     }

@@ -127,7 +127,9 @@ namespace CMiX.ViewModels
         public void ResetSelf()
         {
             MaskModel maskmodel = new MaskModel();
-            this.Paste(maskmodel);
+            var messageaddress = this.MessageAddress;
+            Paste(maskmodel);
+            UpdateMessageAddress(messageaddress);
         }
         #endregion
     }

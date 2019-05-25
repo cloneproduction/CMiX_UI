@@ -22,6 +22,24 @@ namespace CMiX.Models
             Rotate = new SliderModel();
         }
 
+        public TextureModel(string messageaddress)
+        {
+            MessageAddress = messageaddress;
+
+            FileSelector = new FileSelectorModel(messageaddress);
+            Brightness = new SliderModel(messageaddress);
+            Contrast = new SliderModel(messageaddress);
+            Invert = new SliderModel(messageaddress);
+            Hue = new SliderModel(messageaddress);
+            Saturation = new SliderModel(messageaddress);
+            Luminosity = new SliderModel(messageaddress);
+            Keying = new SliderModel(messageaddress);
+            Pan = new SliderModel(messageaddress);
+            Tilt = new SliderModel(messageaddress);
+            Scale = new SliderModel(messageaddress);
+            Rotate = new SliderModel(messageaddress);
+        }
+
         public string MessageAddress { get; set; }
 
         public FileSelectorModel FileSelector { get; set; }

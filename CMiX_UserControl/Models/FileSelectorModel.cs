@@ -13,9 +13,14 @@ namespace CMiX.Models
             SelectedFileNameItem = new FileNameItemModel();
         }
 
+        public FileSelectorModel(string messageaddress) 
+            : this()
+        {
+            MessageAddress = messageaddress;
+        }
+
         public string MessageAddress { get; set; }
 
-        //[OSC]
         public List<FileNameItemModel> FilePaths { get; set; }
 
         [OSC]

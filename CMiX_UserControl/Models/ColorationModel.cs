@@ -12,6 +12,9 @@ namespace CMiX.Models
             HueDTO = new RangeControlModel();
             SatDTO = new RangeControlModel();
             ValDTO = new RangeControlModel();
+
+            ObjColor = "#FF00FF";
+            BgColor = "#FF00FF";
         }
 
         public string MessageAddress { get; set; }

@@ -8,8 +8,10 @@ namespace CMiX.Models
     {
         public BeatModifierModel()
         {
-            ChanceToHit = new SliderModel();
+            ChanceToHit = new SliderModel { Amount = 1.0 };
+            Multiplier = 1.0;
         }
+
         public string MessageAddress { get; set; }
 
         [OSC]

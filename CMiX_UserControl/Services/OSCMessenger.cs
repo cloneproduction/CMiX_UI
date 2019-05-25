@@ -155,7 +155,6 @@ namespace CMiX.Services
                             QueueMessage(address + propertyname, item.FileName);
                         }
 
-                        
                         else
                         {
                             propdata = property.GetValue(obj, null).ToString();

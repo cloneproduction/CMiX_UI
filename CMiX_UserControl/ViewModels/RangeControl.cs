@@ -53,9 +53,11 @@ namespace CMiX.ViewModels
         public void Paste(RangeControlModel rangecontrolmodel)
         {
             DisabledMessages();
+
             MessageAddress = rangecontrolmodel.MessageAddress;
             Range.Paste(rangecontrolmodel.Range);
             Modifier = rangecontrolmodel.Modifier;
+
             EnabledMessages();
         }
         #endregion

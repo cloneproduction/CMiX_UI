@@ -1,4 +1,5 @@
 ﻿using CMiX.Services;
+using CMiX.ViewModels;
 using System;
 
 namespace CMiX.Models
@@ -9,8 +10,10 @@ namespace CMiX.Models
         public RangeControlModel()
         {
             Range = new SliderModel();
+            Modifier = ((RangeModifier)0).ToString();
         }
         public string MessageAddress { get; set; }
+
         public SliderModel Range { get; set; }
 
         [OSC]
