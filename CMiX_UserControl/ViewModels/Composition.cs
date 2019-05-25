@@ -174,18 +174,19 @@ namespace CMiX.ViewModels
 
             layerID += 1;
             layerNameID += 1;
-            LayerNames.Add(MessageAddress + layerNameID.ToString());
+            LayerNames.Add(string.Format("{0}/", MessageAddress + layerNameID.ToString()));
 
             Layer lyr = layer as Layer;
             LayerModel layermodel = new LayerModel();
             lyr.Copy(layermodel);
-
+            
             Layer newlayer = new Layer(MasterBeat, string.Format("{0}/", MessageAddress + layerNameID.ToString()), Messengers, layerNameID, Mementor);
             newlayer.Paste(layermodel);
             newlayer.LayerName = string.Format("{0}/", MessageAddress + layerNameID.ToString());
+            newlayer.UpdateMessageAddress(string.Format("{0}/", MessageAddress + layerNameID.ToString()));
             newlayer.Index = layerID;
             newlayer.Enabled = false;
-
+            
             int index = Layers.IndexOf(lyr) + 1;
             Layers.Insert(index, newlayer);
             Mementor.ElementAdd(Layers, newlayer);
@@ -197,10 +198,10 @@ namespace CMiX.ViewModels
                 layerindex.Add(lay.Index.ToString());
             }
 
-
+            newlayer.Copy(layermodel);
             QueueMessages("/LayerNames", this.LayerNames.ToArray());
             QueueMessages("/LayerIndex", layerindex.ToArray());
-            QueueObjects(newlayer);
+            QueueObjects(layermodel);
             SendQueues();
 
             Mementor.EndBatch();

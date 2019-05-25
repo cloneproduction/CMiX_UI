@@ -33,9 +33,6 @@ namespace CMiX.ViewModels
         }
         #endregion
 
-
-
-
         #region PROPERTIES
         public ObservableCollection<FileNameItem> FilePaths { get; set; }
 
@@ -56,11 +53,11 @@ namespace CMiX.ViewModels
                 SetAndNotify(ref selectedfilenameitem, value);
 
                 if (Mementor != null)
-                    Mementor.PropertyChange(this, nameof(FilePaths));
+                    Mementor.PropertyChange(this, nameof(SelectedFileNameItem));
                 
                 if(SelectedFileNameItem != null && send == true)
                 {
-                    SendMessages(MessageAddress + nameof(FilePaths), SelectedFileNameItem.FileName);
+                    SendMessages(MessageAddress + nameof(SelectedFileNameItem), SelectedFileNameItem.FileName);
                     
                 }
                 send = true;
@@ -243,6 +240,14 @@ namespace CMiX.ViewModels
                 FileNameItemModelList.Add(filenameitemdto);
             }
             fileselectormodel.FilePaths = FileNameItemModelList;
+
+            if(SelectedFileNameItem != null)
+            {
+                var selectedfilenameitemdto = new FileNameItemModel();
+                selectedfilenameitemdto.FileIsSelected = SelectedFileNameItem.FileIsSelected;
+                selectedfilenameitemdto.FileName = SelectedFileNameItem.FileName;
+                fileselectormodel.SelectedFileNameItem = selectedfilenameitemdto;
+            }
         }
 
         bool send = true;
@@ -260,7 +265,6 @@ namespace CMiX.ViewModels
 
             EnabledMessages();
             send = false;
-            //Console.WriteLine(send.ToString());
         }
         #endregion
     }
