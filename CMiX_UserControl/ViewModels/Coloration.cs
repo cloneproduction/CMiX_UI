@@ -28,7 +28,7 @@ namespace CMiX.ViewModels
 
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
-            ResetSelfCommand = new RelayCommand(p => ResetSelf());
+            ResetCommand = new RelayCommand(p => Reset());
             MouseDownCommand = new RelayCommand(p => MouseDown());
         }
         #endregion
@@ -36,7 +36,7 @@ namespace CMiX.ViewModels
         #region PROPERTIES
         public ICommand CopySelfCommand { get; }
         public ICommand PasteSelfCommand { get; }
-        public ICommand ResetSelfCommand { get; }
+        public ICommand ResetCommand { get; }
         public ICommand MouseDownCommand { get; }
 
         public BeatModifier BeatModifier { get; }
@@ -130,7 +130,7 @@ namespace CMiX.ViewModels
             }
         }
 
-        public void ResetSelf()
+        public void Reset()
         {
             ColorationModel colorationmodel = new ColorationModel();
             var messageaddress = this.MessageAddress;

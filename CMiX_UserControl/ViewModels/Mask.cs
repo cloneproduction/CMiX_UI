@@ -25,7 +25,7 @@ namespace CMiX.ViewModels
 
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
-            ResetSelfCommand = new RelayCommand(p => ResetSelf());
+            ResetCommand = new RelayCommand(p => Reset());
         }
         #endregion
 
@@ -70,7 +70,7 @@ namespace CMiX.ViewModels
 
         public ICommand CopySelfCommand { get; }
         public ICommand PasteSelfCommand { get; }
-        public ICommand ResetSelfCommand { get; }
+        public ICommand ResetCommand { get; }
 
         public BeatModifier BeatModifier { get; }
         public Geometry Geometry { get; }
@@ -124,7 +124,7 @@ namespace CMiX.ViewModels
             }
         }
 
-        public void ResetSelf()
+        public void Reset()
         {
             MaskModel maskmodel = new MaskModel();
             var messageaddress = this.MessageAddress;

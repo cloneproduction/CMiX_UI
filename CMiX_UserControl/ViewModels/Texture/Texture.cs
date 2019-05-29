@@ -34,7 +34,7 @@ namespace CMiX.ViewModels
 
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
-            ResetSelfCommand = new RelayCommand(p => Reset());
+            ResetCommand = new RelayCommand(p => Reset());
         }
         #endregion
 
@@ -61,7 +61,7 @@ namespace CMiX.ViewModels
         #region PROPERTIES
         public ICommand CopySelfCommand { get; }
         public ICommand PasteSelfCommand { get; }
-        public ICommand ResetSelfCommand { get; }
+        public ICommand ResetCommand { get; }
 
         public FileSelector FileSelector { get;  }
         public Slider Brightness { get; }
