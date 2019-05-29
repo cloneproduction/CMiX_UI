@@ -16,6 +16,12 @@ namespace CMiX.Models
             Fade = new SliderModel();
         }
 
+        public LayerModel(string layername) 
+            : this()
+        {
+            MessageAddress = layername;
+        }
+
         public string MessageAddress { get; set; }
 
         [OSC]

@@ -16,8 +16,10 @@ namespace CMiX.Models
         public ContentModel(string messageaddress) 
             : this()
         {
-            MessageAddress = messageaddress;
+            MessageAddress = String.Format("{0}{1}/", messageaddress, "Content");
+            BeatModifierModel = new BeatModifierModel(messageaddress);
             TextureModel = new TextureModel(messageaddress);
+            GeometryModel = new GeometryModel(messageaddress);
         }
 
         public string MessageAddress { get; set; }

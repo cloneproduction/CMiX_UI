@@ -23,7 +23,7 @@ namespace CMiX.ViewModels
 
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
-            ResetSelfCommand = new RelayCommand(p => ResetSelf());
+            ResetSelfCommand = new RelayCommand(p => Reset());
         }
         #endregion
 
@@ -115,12 +115,16 @@ namespace CMiX.ViewModels
             }
         }
 
-        public void ResetSelf()
+        public void Reset()
         {
-            PostFXModel postFXmodel = new PostFXModel();
-            var messageaddress = this.MessageAddress;
-            Paste(postFXmodel);
-            UpdateMessageAddress(messageaddress);
+            DisabledMessages();
+
+            Feedback.Reset();
+            Blur.Reset();
+            Transforms = ((PostFXTransforms)0).ToString();
+            View = ((PostFXView)0).ToString();
+
+            EnabledMessages();
         }
         #endregion
     }

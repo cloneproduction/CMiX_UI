@@ -7,10 +7,6 @@ using CMiX.Services;
 using CMiX.Models;
 using GongSolutions.Wpf.DragDrop;
 using Memento;
-using System.Collections;
-using System.Windows.Data;
-using System.Collections.Specialized;
-using System.ComponentModel;
 
 namespace CMiX.ViewModels
 {
@@ -229,6 +225,14 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE
+        public void Reset()
+        {
+            DisabledMessages();
+
+            FilePaths.Clear();
+
+            EnabledMessages();
+        }
         public void Copy(FileSelectorModel fileselectormodel)
         {
             fileselectormodel.MessageAddress = MessageAddress;

@@ -68,7 +68,14 @@ namespace CMiX.ViewModels
         }
         #endregion
 
-        #region COPY/PASTE
+        #region COPY/PASTE/RESET
+        public void Reset()
+        {
+            DisabledMessages();
+            Amount = 0.0;
+            EnabledMessages();
+        }
+
         public void Copy(SliderModel slidermodel)
         {
             slidermodel.Amount = Amount;

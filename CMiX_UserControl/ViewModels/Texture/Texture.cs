@@ -34,7 +34,7 @@ namespace CMiX.ViewModels
 
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
-            ResetSelfCommand = new RelayCommand(p => ResetSelf());
+            ResetSelfCommand = new RelayCommand(p => Reset());
         }
         #endregion
 
@@ -153,12 +153,22 @@ namespace CMiX.ViewModels
             }
         }
 
-        public void ResetSelf()
+        public void Reset()
         {
-            TextureModel texturemodel = new TextureModel();
-            var messageaddress = this.MessageAddress;
-            Paste(texturemodel);
-            UpdateMessageAddress(messageaddress);
+            FileSelector.Reset();
+
+            Brightness.Reset();
+            Contrast.Reset();
+            Invert.Reset();
+            InvertMode = ((TextureInvertMode)0).ToString();
+            Hue.Reset();
+            Saturation.Reset();
+            Luminosity.Reset();
+            Keying.Reset();
+            Scale.Reset();
+            Rotate.Reset();
+            Pan.Reset();
+            Tilt.Reset();
         }
         #endregion
     }

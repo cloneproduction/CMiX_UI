@@ -25,7 +25,7 @@ namespace CMiX.ViewModels
 
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
-            ResetSelfCommand = new RelayCommand(p => ResetSelf());
+            ResetSelfCommand = new RelayCommand(p => Reset());
         }
         #endregion
 
@@ -33,7 +33,6 @@ namespace CMiX.ViewModels
         public void UpdateMessageAddress(string messageaddress)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Content));
-
             BeatModifier.UpdateMessageAddress(MessageAddress);
             Geometry.UpdateMessageAddress(MessageAddress);
             Texture.UpdateMessageAddress(MessageAddress);
@@ -81,12 +80,13 @@ namespace CMiX.ViewModels
             }
         }
 
-        public void ResetSelf()
+        public void Reset()
         {
-            ContentModel contentmodel = new ContentModel(MessageAddress);
-            //var messageaddress = this.MessageAddress;
-            Paste(contentmodel);
-            //UpdateMessageAddress(messageaddress);
+            Enable = true;
+            BeatModifier.Reset();
+            Geometry.Reset();
+            Texture.Reset();
+            PostFX.Reset();
         }
 
 
@@ -103,6 +103,7 @@ namespace CMiX.ViewModels
         public void Paste(ContentModel contentmodel)
         {
             DisabledMessages();
+            MessageAddress = string.Empty;
             MessageAddress = contentmodel.MessageAddress;
             Enable = contentmodel.Enable;
             BeatModifier.Paste(contentmodel.BeatModifierModel);

@@ -13,6 +13,13 @@ namespace CMiX.Models
             CameraModel = new CameraModel();
         }
 
+        public CompositionModel(string messageaddress)
+        {
+            MessageAddress = "/Layer";
+        }
+
+        public string MessageAddress { get; set; }
+
         [OSC]
         public string Name { get; set; }
 

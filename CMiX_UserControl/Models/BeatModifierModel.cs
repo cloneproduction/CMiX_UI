@@ -12,6 +12,12 @@ namespace CMiX.Models
             Multiplier = 1.0;
         }
 
+        public BeatModifierModel(string messageaddress) 
+            : this()
+        {
+            MessageAddress = String.Format("{0}{1}/", messageaddress, "BeatModifier");
+        }
+
         public string MessageAddress { get; set; }
 
         [OSC]

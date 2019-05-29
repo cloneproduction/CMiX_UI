@@ -75,6 +75,17 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE
+        public void Reset()
+        {
+            DisabledMessages();
+
+            Multiplier = 1.0;
+            ChanceToHit.Reset();
+            ChanceToHit.Amount = 1.0;
+
+            EnabledMessages();
+        }
+
         public void Copy(BeatModifierModel beatmodifiermodel)
         {
             beatmodifiermodel.MessageAddress = MessageAddress;

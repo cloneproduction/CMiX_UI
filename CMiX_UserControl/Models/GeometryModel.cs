@@ -19,6 +19,13 @@ namespace CMiX.Models
             Counter = new CounterModel();
         }
 
+        public GeometryModel(string messageaddress)
+            : this()
+        {
+            MessageAddress = messageaddress;
+            FileSelector = new FileSelectorModel(messageaddress);
+        }
+
         public string MessageAddress { get; set; }
 
         public FileSelectorModel FileSelector { get; set; }

@@ -42,7 +42,7 @@
                     <Button 
                         ToolTip="Reset"
                         DockPanel.Dock="Right"
-                        Command="{Binding Path=ResetSelfCommand}"
+                        Command="{Binding Path=ResetCommand}"
                         Height="15" 
                         Width="15" 
                         Style="{StaticResource ButtonImage}">

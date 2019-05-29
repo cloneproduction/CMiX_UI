@@ -33,7 +33,7 @@ namespace CMiX.ViewModels
 
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
-            ResetSelfCommand = new RelayCommand(p => ResetSelf());
+            ResetSelfCommand = new RelayCommand(p => Reset());
         }
         #endregion
 
@@ -156,12 +156,17 @@ namespace CMiX.ViewModels
             }
         }
 
-        public void ResetSelf()
+        public void Reset()
         {
-            GeometryModel geometrymodel = new GeometryModel();
-            var messageaddress = this.MessageAddress;
-            Paste(geometrymodel);
-            UpdateMessageAddress(messageaddress);
+            DisabledMessages();
+
+            Is3D = false;
+            KeepAspectRatio = false;
+            Translate.Reset();
+            Scale.Reset();
+            Rotation.Reset();
+
+            EnabledMessages();
         }
         #endregion
     }

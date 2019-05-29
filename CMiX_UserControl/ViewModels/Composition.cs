@@ -285,6 +285,7 @@ namespace CMiX.ViewModels
                 lyr.Copy(layermodel);
                 compositionmodel.LayersModel.Add(layermodel);
             }
+
             MasterBeat.Copy(compositionmodel.MasterBeatModel);
             Camera.Copy(compositionmodel.CameraModel);
         }
