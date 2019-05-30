@@ -74,14 +74,14 @@ namespace CMiX.ViewModels
         }
         #endregion
 
-        #region COPY/PASTE
+        #region COPY/PASTE/RESET
         public void Reset()
         {
             DisabledMessages();
 
             Multiplier = 1.0;
-            ChanceToHit.Reset();
             ChanceToHit.Amount = 1.0;
+            ChanceToHit.Reset();
 
             EnabledMessages();
         }

@@ -224,7 +224,8 @@ namespace CMiX.ViewModels
         }
         #endregion
 
-        #region COPY/PASTE
+        #region COPY/PASTE/RESET
+
         public void Reset()
         {
             DisabledMessages();
@@ -233,6 +234,7 @@ namespace CMiX.ViewModels
 
             EnabledMessages();
         }
+
         public void Copy(FileSelectorModel fileselectormodel)
         {
             fileselectormodel.MessageAddress = MessageAddress;

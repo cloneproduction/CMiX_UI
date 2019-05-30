@@ -218,7 +218,7 @@
                         Width="15"
                         Margin="4"
                         Grid.Column="0"
-                        IsChecked="{Binding KeepAspectRatio, Mode=TwoWay}"
+                        IsChecked="{Binding KeepAspectRatio}"
                         />
                 </DockPanel>
             </Border>

@@ -57,7 +57,14 @@ namespace CMiX.ViewModels
         }
         #endregion
 
-        #region COPY/PASTE
+        #region COPY/PASTE/RESET
+        public void Reset()
+        {
+            DisabledMessages();
+            Count = 1;
+            EnabledMessages();
+        }
+
         public void Copy(CounterModel countermodel)
         {
             countermodel.MessageAddress = MessageAddress;

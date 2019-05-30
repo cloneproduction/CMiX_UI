@@ -155,12 +155,13 @@ namespace CMiX.ViewModels
 
         public void Reset()
         {
-            FileSelector.Reset();
+            DisabledMessages();
 
+            InvertMode = ((TextureInvertMode)0).ToString();
+            FileSelector.Reset();
             Brightness.Reset();
             Contrast.Reset();
             Invert.Reset();
-            InvertMode = ((TextureInvertMode)0).ToString();
             Hue.Reset();
             Saturation.Reset();
             Luminosity.Reset();
@@ -169,6 +170,8 @@ namespace CMiX.ViewModels
             Rotate.Reset();
             Pan.Reset();
             Tilt.Reset();
+
+            EnabledMessages();
         }
         #endregion
     }

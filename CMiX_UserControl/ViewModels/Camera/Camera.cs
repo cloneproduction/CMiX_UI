@@ -110,7 +110,18 @@ namespace CMiX.ViewModels
         }
         #endregion
 
-        #region COPY/PASTE
+        #region COPY/PASTE/RESET
+        public void Reset()
+        {
+            DisabledMessages();
+            Rotation = ((CameraRotation)0).ToString();
+            LookAt = ((CameraLookAt)0).ToString();
+            View = ((CameraView)0).ToString();
+            BeatModifier.Reset();
+            FOV.Reset();
+            Zoom.Reset();
+            EnabledMessages();
+        }
         public void Copy(CameraModel cameramodel)
         {
             cameramodel.MessageAddress = MessageAddress;

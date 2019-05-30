@@ -38,7 +38,14 @@ namespace CMiX.ViewModels
         }
         #endregion
 
-        #region COPY/PASTE
+        #region COPY/PASTE/RESET
+        public void Reset()
+        {
+            DisabledMessages();
+            TranslateMode = default;
+            EnabledMessages();
+        }
+
         public void Copy(GeometryTranslateModel geometrytranslatemodel)
         {
             geometrytranslatemodel.MessageAddress = MessageAddress;

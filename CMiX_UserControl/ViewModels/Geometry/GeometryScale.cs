@@ -38,7 +38,14 @@ namespace CMiX.ViewModels
         }
         #endregion
 
-        #region COPY/PASTE
+        #region COPY/PASTE/RESET
+        public void Reset()
+        {
+            DisabledMessages();
+            ScaleMode = default;
+            EnabledMessages();
+        }
+
         public void Copy(GeometryScaleModel geometryscalemodel)
         {
             geometryscalemodel.MessageAddress = MessageAddress;

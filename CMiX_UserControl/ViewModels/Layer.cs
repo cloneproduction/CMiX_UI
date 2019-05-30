@@ -104,6 +104,19 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE/LOAD
+        public void Reset()
+        {
+            Enabled = false;
+            BlendMode = ((BlendMode)0).ToString();
+
+            Fade.Reset();
+            BeatModifier.Reset();
+            Content.Reset();
+            Mask.Reset();
+            Coloration.Reset();
+            PostFX.Reset();
+        }
+
         public void Copy(LayerModel layermodel)
         {
             layermodel.MessageAddress = MessageAddress;

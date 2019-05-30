@@ -16,6 +16,9 @@ namespace CMiX.ViewModels
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Geometry));
 
+            Is3D = false;
+            KeepAspectRatio = false;
+
             FileSelector = new FileSelector(MessageAddress, "Single", new List<string> { ".FBX", ".OBJ" }, oscmessengers, mementor);
 
             TranslateMode = new GeometryTranslate(MessageAddress, oscmessengers, mementor);
@@ -27,9 +30,6 @@ namespace CMiX.ViewModels
             Rotation = new Slider(MessageAddress + nameof(Rotation), oscmessengers, mementor);
             Counter = new Counter(MessageAddress, oscmessengers, mementor);
             GeometryFX = new GeometryFX(MessageAddress, oscmessengers, mementor);
-
-            Is3D = false;
-            KeepAspectRatio = false;
 
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
@@ -76,7 +76,8 @@ namespace CMiX.ViewModels
             get => _is3D;
             set
             {
-                if(Mementor != null)
+                Console.WriteLine("DisabledMessageFromPROPERTY  " + Messengers[0].SendEnabled.ToString());
+                if (Mementor != null)
                     Mementor.PropertyChange(this, "Is3D");
                 SetAndNotify(ref _is3D, value);
                 SendMessages(MessageAddress + nameof(Is3D), Is3D.ToString());
@@ -159,14 +160,30 @@ namespace CMiX.ViewModels
         public void Reset()
         {
             DisabledMessages();
+            Mementor.BeginBatch();
 
             Is3D = false;
             KeepAspectRatio = false;
+
+            FileSelector.Reset();
+
+            TranslateMode.Reset();
+            ScaleMode.Reset();
+            RotationMode.Reset();
+
             Translate.Reset();
             Scale.Reset();
             Rotation.Reset();
+            Counter.Reset();
+            GeometryFX.Reset();
 
+            Mementor.EndBatch();
             EnabledMessages();
+
+            GeometryModel geometrymodel = new GeometryModel();
+            this.Copy(geometrymodel);
+            QueueObjects(geometrymodel);
+            SendQueues();
         }
         #endregion
     }

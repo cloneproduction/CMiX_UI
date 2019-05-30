@@ -44,7 +44,7 @@ namespace CMiX.ViewModels
             {
                 foreach (var Message in Messengers)
                 {
-                    if (Message.SendEnabled)
+                    if (Message.SendEnabled == true)
                     {
                         Message.SendMessage(address, args);
                     }

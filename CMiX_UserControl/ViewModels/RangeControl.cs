@@ -60,6 +60,14 @@ namespace CMiX.ViewModels
 
             EnabledMessages();
         }
+
+        public void Reset()
+        {
+            DisabledMessages();
+            Modifier = ((RangeModifier)0).ToString();
+            Range.Reset();
+            EnabledMessages();
+        }
         #endregion
     }
 }

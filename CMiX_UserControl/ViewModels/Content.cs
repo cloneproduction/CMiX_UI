@@ -82,11 +82,22 @@ namespace CMiX.ViewModels
 
         public void Reset()
         {
+            DisabledMessages();
+            Mementor.BeginBatch();
+
             Enable = true;
             BeatModifier.Reset();
             Geometry.Reset();
             Texture.Reset();
             PostFX.Reset();
+
+            EnabledMessages();
+            Mementor.BeginBatch();
+
+            ContentModel contentmodel = new ContentModel();
+            this.Copy(contentmodel);
+            QueueObjects(contentmodel);
+            SendQueues();
         }
 
 

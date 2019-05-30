@@ -26,6 +26,10 @@ namespace CMiX.ViewModels
             Layers = new ObservableCollection<Layer>();
             Layers.CollectionChanged += ContentCollectionChanged;
 
+            MasterBeat = new MasterBeat(Messengers, Mementor);
+            Camera = new Camera(Messengers, MasterBeat, Mementor);
+            Mementor = new Mementor();
+
             ReloadCompositionCommand = new RelayCommand(p => ReloadComposition(p));
             AddLayerCommand = new RelayCommand(p => AddLayer());
             RemoveLayerCommand = new RelayCommand(p => RemoveLayer());
@@ -35,10 +39,6 @@ namespace CMiX.ViewModels
             PasteLayerCommand = new RelayCommand(p => PasteLayer());
             SaveCompositionCommand = new RelayCommand(p => Save());
             OpenCompositionCommand = new RelayCommand(p => Open());
-            
-            MasterBeat = new MasterBeat(Messengers, Mementor);
-            Camera = new Camera(Messengers, MasterBeat, Mementor);
-            Mementor = new Mementor();
         }
         #endregion
 
@@ -120,6 +120,7 @@ namespace CMiX.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("Layer"))
             {
+                Mementor.BeginBatch();
                 var layermodel = (LayerModel)data.GetData("Layer") as LayerModel;
                 var selectedlayermessageaddress = SelectedLayer.MessageAddress;
                 var selectedlayername = SelectedLayer.LayerName;
@@ -128,6 +129,7 @@ namespace CMiX.ViewModels
                 SelectedLayer.UpdateMessageAddress(selectedlayermessageaddress);
                 SelectedLayer.LayerName = selectedlayername;
                 SelectedLayer.Copy(layermodel);
+                Mementor.EndBatch();
 
                 QueueObjects(layermodel);
                 SendQueues();

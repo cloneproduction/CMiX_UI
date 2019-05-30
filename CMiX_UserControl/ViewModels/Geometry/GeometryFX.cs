@@ -28,7 +28,14 @@ namespace CMiX.ViewModels
         public Slider Explode { get; }
         #endregion
 
-        #region COPY/PASTE
+        #region COPY/PASTE/RESET
+        public void Reset()
+        {
+            DisabledMessages();
+            Explode.Reset();
+            EnabledMessages();
+        }
+
         public void Copy(GeometryFXModel geometryFXdto)
         {
             Explode.Copy(geometryFXdto.Explode);

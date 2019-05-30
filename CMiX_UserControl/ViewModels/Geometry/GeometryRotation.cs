@@ -80,7 +80,14 @@ namespace CMiX.ViewModels
         }
         #endregion
 
-        #region COPY/PASTE
+        #region COPY/PASTE/RESET
+        public void Reset()
+        {
+            DisabledMessages();
+            RotationMode = default;
+            EnabledMessages();
+        }
+
         public void Copy(GeometryRotationModel geometryrotationmodel)
         {
             geometryrotationmodel.MessageAddress = MessageAddress;

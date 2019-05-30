@@ -78,7 +78,7 @@ namespace CMiX.ViewModels
         public PostFX PostFX { get; }
         #endregion
 
-        #region COPY/PASTE
+        #region COPY/PASTE/RESET
         public void Copy(MaskModel maskmodel)
         {
             maskmodel.MessageAddress = MessageAddress;
@@ -126,10 +126,20 @@ namespace CMiX.ViewModels
 
         public void Reset()
         {
+            DisabledMessages();
+
+            Enable = false;
+            BeatModifier.Reset();
+            Geometry.Reset();
+            Texture.Reset();
+            PostFX.Reset();
+
+            EnabledMessages();
+
             MaskModel maskmodel = new MaskModel();
-            var messageaddress = this.MessageAddress;
-            Paste(maskmodel);
-            UpdateMessageAddress(messageaddress);
+            this.Copy(maskmodel);
+            QueueObjects(maskmodel);
+            SendQueues();
         }
         #endregion
     }

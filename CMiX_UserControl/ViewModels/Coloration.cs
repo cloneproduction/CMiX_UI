@@ -132,10 +132,23 @@ namespace CMiX.ViewModels
 
         public void Reset()
         {
+            DisabledMessages();
+
+            ObjColor = Utils.HexStringToColor("#FF00FF");
+            BgColor = Utils.HexStringToColor("#FF00FF");
+
+            BeatModifier.Reset();
+
+            Hue.Reset();
+            Saturation.Reset();
+            Value.Reset();
+
+            EnabledMessages();
+
             ColorationModel colorationmodel = new ColorationModel();
-            var messageaddress = this.MessageAddress;
-            Paste(colorationmodel);
-            UpdateMessageAddress(messageaddress);
+            this.Copy(colorationmodel);
+            QueueObjects(colorationmodel);
+            SendQueues();
         }
         #endregion
     }

@@ -73,6 +73,20 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
+
+        public void Reset()
+        {
+            DisabledMessages();
+
+            Transforms = ((PostFXTransforms)0).ToString();
+            View = ((PostFXView)0).ToString();
+
+            Feedback.Reset();
+            Blur.Reset();
+
+            EnabledMessages();
+        }
+
         public void Copy(PostFXModel postFXmodel)
         {
             Feedback.Copy(postFXmodel.Feedback);
@@ -113,18 +127,6 @@ namespace CMiX.ViewModels
                 QueueObjects(this);
                 SendQueues();
             }
-        }
-
-        public void Reset()
-        {
-            DisabledMessages();
-
-            Feedback.Reset();
-            Blur.Reset();
-            Transforms = ((PostFXTransforms)0).ToString();
-            View = ((PostFXView)0).ToString();
-
-            EnabledMessages();
         }
         #endregion
     }
