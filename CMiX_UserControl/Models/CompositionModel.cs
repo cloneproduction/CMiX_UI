@@ -32,6 +32,7 @@ namespace CMiX.Models
 
         public MasterBeatModel MasterBeatModel { get; set; }
         public CameraModel CameraModel { get; set; }
+
         public List<LayerModel> LayersModel { get; set; }
     }
 }

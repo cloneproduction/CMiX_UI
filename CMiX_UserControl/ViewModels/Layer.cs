@@ -121,6 +121,7 @@ namespace CMiX.ViewModels
         {
             layermodel.MessageAddress = MessageAddress;
             layermodel.BlendMode = BlendMode;
+            layermodel.Index = Index;
             layermodel.LayerName = LayerName;
             layermodel.Index = Index;
             Fade.Copy(layermodel.Fade);
@@ -136,6 +137,7 @@ namespace CMiX.ViewModels
             DisabledMessages();
 
             MessageAddress = layermodel.MessageAddress;
+            Index = layermodel.Index;
             LayerName = layermodel.LayerName;
             BlendMode = layermodel.BlendMode;
             Fade.Paste(layermodel.Fade);

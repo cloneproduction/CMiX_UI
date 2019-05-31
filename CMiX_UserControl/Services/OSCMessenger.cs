@@ -137,23 +137,23 @@ namespace CMiX.Services
                     {
                         propertyname = property.Name;
 
-                        if (propValue is ObservableCollection<FileNameItem>)
-                        {
-                            List<string> filenames = new List<string>();
-                            foreach (FileNameItem lbfn in (ObservableCollection<FileNameItem>)propValue)
-                            {
-                                if (lbfn.FileIsSelected == true)
-                                {
-                                    filenames.Add(lbfn.FileName);
-                                }
-                            }
-                            QueueMessage(address + propertyname, filenames.ToArray());
-                        }
-                        else if (propValue is FileNameItemModel)
+                        //if (propValue is ObservableCollection<FileNameItem>)
+                        //{
+                        //    List<string> filenames = new List<string>();
+                        //    foreach (FileNameItem lbfn in (ObservableCollection<FileNameItem>)propValue)
+                        //    {
+                        //        if (lbfn.FileIsSelected == true)
+                        //        {
+                        //            filenames.Add(lbfn.FileName);
+                        //        }
+                        //    }
+                        //    QueueMessage(address + propertyname, filenames.ToArray());
+                        //}
+                        if (propValue is FileNameItemModel)
                         {
                             var item = propValue as FileNameItemModel;
-                            Console.WriteLine(item.FileName + "    "  + item.FileIsSelected);
-                            QueueMessage(address + propertyname, item.FileName);
+                            if(item.FileIsSelected)
+                                QueueMessage(address + propertyname, item.FileName);
                         }
 
                         else

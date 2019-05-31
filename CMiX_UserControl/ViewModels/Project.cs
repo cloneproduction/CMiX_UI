@@ -91,7 +91,7 @@ namespace CMiX.ViewModels
 
         private void RemoveSelectedOSC()
         {
-            //Console.WriteLine("Remove OSC");
+
         }
 
         int portnumber = 0;

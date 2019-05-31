@@ -172,7 +172,7 @@ namespace CMiX.ViewModels
             layer.Copy(layermodel);
 
             QueueMessages("/LayerNames", LayerNames.ToArray());
-            QueueMessages("/LayerIndex", LayerIndex.ToArray());
+            QueueMessages("/LayerIndex", LayerIndex.ToArray().ToString());
             QueueObjects(layermodel);
             SendQueues();
 
