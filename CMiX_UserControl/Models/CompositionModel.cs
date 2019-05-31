@@ -8,6 +8,7 @@ namespace CMiX.Models
         public CompositionModel()
         {
             LayerNames = new List<string>();
+            LayerIndex = new List<int>();
             MasterBeatModel = new MasterBeatModel();
             LayersModel = new List<LayerModel>();
             CameraModel = new CameraModel();
@@ -25,6 +26,9 @@ namespace CMiX.Models
 
         [OSC]
         public List<string> LayerNames { get; set; }
+
+        [OSC]
+        public List<int> LayerIndex { get; set; }
 
         public MasterBeatModel MasterBeatModel { get; set; }
         public CameraModel CameraModel { get; set; }

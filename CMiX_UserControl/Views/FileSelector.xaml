@@ -80,7 +80,7 @@
 
             <ListBox.Resources>
                 <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
-                    <Setter Property="IsSelected" Value="{Binding FileIsSelected, Mode=TwoWay}" />
+                    <Setter Property="IsSelected" Value="{Binding FileIsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </Style>
             </ListBox.Resources>
 

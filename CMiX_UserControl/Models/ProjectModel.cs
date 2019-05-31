@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMiX.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,8 @@ namespace CMiX.Models
         {
             CompositionModel = new List<CompositionModel>();
         }
+
+        [OSC]
         public List<CompositionModel> CompositionModel { get; set; }
     }
 }

@@ -23,6 +23,7 @@ namespace CMiX.ViewModels
             MessageAddress = "/Layer";
 
             LayerNames = new List<string>();
+            LayerIndex = new List<int>();
             Layers = new ObservableCollection<Layer>();
             Layers.CollectionChanged += ContentCollectionChanged;
 
@@ -75,6 +76,13 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _layernames, value);
         }
 
+        private List<int> _layerindex;
+        public List<int> LayerIndex
+        {
+            get => _layerindex;
+            set => SetAndNotify(ref _layerindex, value);
+        }
+
         private bool enabled;
         public bool Enabled
         {
@@ -99,9 +107,10 @@ namespace CMiX.ViewModels
 
         private void ReloadComposition(object messenger)
         {
-            OSCMessenger message = messenger as OSCMessenger;
-            message.QueueObject(this);
-            message.SendQueue();
+            CompositionModel compositionmodel = new CompositionModel();
+            this.Copy(compositionmodel);
+            QueueObjects(compositionmodel);
+            SendQueues();
         }
 
 
@@ -153,17 +162,17 @@ namespace CMiX.ViewModels
 
             LayerNames.Add(string.Format("{0}/", MessageAddress + layerNameID.ToString()));
 
-            List<string> layerindex = new List<string>();
+            LayerIndex.Clear();
             foreach (Layer lyr in Layers)
             {
-                layerindex.Add(lyr.Index.ToString());
+                LayerIndex.Add(lyr.Index);
             }
 
             LayerModel layermodel = new LayerModel();
             layer.Copy(layermodel);
 
             QueueMessages("/LayerNames", LayerNames.ToArray());
-            QueueMessages("/LayerIndex", layerindex.ToArray());
+            QueueMessages("/LayerIndex", LayerIndex.ToArray());
             QueueObjects(layermodel);
             SendQueues();
 
@@ -194,15 +203,15 @@ namespace CMiX.ViewModels
             Mementor.ElementAdd(Layers, newlayer);
             SelectedLayer = newlayer;
 
-            List<string> layerindex = new List<string>();
+            LayerIndex.Clear();
             foreach (Layer lay in Layers)
             {
-                layerindex.Add(lay.Index.ToString());
+                LayerIndex.Add(lay.Index);
             }
 
             newlayer.Copy(layermodel);
             QueueMessages("/LayerNames", this.LayerNames.ToArray());
-            QueueMessages("/LayerIndex", layerindex.ToArray());
+            QueueMessages("/LayerIndex", LayerIndex.ToArray());
             QueueObjects(layermodel);
             SendQueues();
 
@@ -216,10 +225,8 @@ namespace CMiX.ViewModels
                 Mementor.BeginBatch();
 
                 layerID -= 1;
-                List<string> layerindex = new List<string>();
+                LayerIndex.Clear();
                 string removedlayername = SelectedLayer.LayerName;
-
-                Console.WriteLine(removedlayername);
 
                 LayerNames.Remove(removedlayername);
                 Layers.Remove(SelectedLayer);
@@ -230,11 +237,11 @@ namespace CMiX.ViewModels
                     {
                         lyr.Index -= 1;
                     }
-                    layerindex.Add(lyr.Index.ToString());
+                    LayerIndex.Add(lyr.Index);
                 }
 
                 QueueMessages("/LayerNames", this.LayerNames.ToArray());
-                QueueMessages("/LayerIndex", layerindex.ToArray());
+                QueueMessages("/LayerIndex", LayerIndex.ToArray());
                 QueueMessages("/LayerRemoved", removedlayername);
                 SendQueues();
 
@@ -253,20 +260,19 @@ namespace CMiX.ViewModels
             LayerNames.Remove(lyr.LayerName);
             Layers.Remove(lyr);
 
-            Console.WriteLine(lyr.LayerName);
 
-            List<string> layerindex = new List<string>();
+            LayerIndex.Clear();
             foreach (Layer lay in Layers)
             {
                 if (lay.Index > lyr.Index)
                 {
                     lay.Index -= 1;
                 }
-                layerindex.Add(lay.Index.ToString());
+                LayerIndex.Add(lay.Index);
             }
 
             QueueMessages("/LayerNames", this.LayerNames.ToArray());
-            QueueMessages("/LayerIndex", layerindex.ToArray());
+            QueueMessages("/LayerIndex", LayerIndex.ToArray());
             QueueMessages("/LayerRemoved", lyr.LayerName);
             SendQueues();
 
@@ -362,15 +368,15 @@ namespace CMiX.ViewModels
                         compositionmodel = JsonConvert.DeserializeObject<CompositionModel>(json);
                         this.Load(compositionmodel);
 
-                        List<string> layerindex = new List<string>();
+                        LayerIndex.Clear();
                         foreach (Layer lyr in this.Layers)
                         {
-                            layerindex.Add(lyr.Index.ToString());
+                            LayerIndex.Add(lyr.Index);
                         }
 
                         QueueObjects(this);
                         QueueMessages("/LayerNames", this.LayerNames.ToArray());
-                        QueueMessages("/LayerIndex", layerindex.ToArray());
+                        QueueMessages("/LayerIndex", LayerIndex.ToArray());
                         SendQueues();
                     }
                 }
@@ -381,15 +387,15 @@ namespace CMiX.ViewModels
         #region NOTIFYCOLLECTIONCHANGED
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            List<string> layerindex = new List<string>();
+            LayerIndex.Clear();
 
             foreach (Layer lyr in Layers)
             {
-                layerindex.Add(lyr.Index.ToString());
+                LayerIndex.Add(lyr.Index);
             }
 
             QueueMessages("/LayerNames", this.LayerNames.ToArray());
-            QueueMessages("/LayerIndex", layerindex.ToArray());
+            QueueMessages("/LayerIndex", LayerIndex.ToArray());
             SendQueues();
         }
         #endregion

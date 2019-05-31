@@ -69,8 +69,8 @@
                     Grid.Column="1"
                     Width="20"
                     Height="20" 
-                    Command="{Binding ReloadCommand}"
-                    CommandParameter="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type views:Composition}}}"
+                    Command="{Binding Path=DataContext.ReloadCompositionCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type views:Composition}}}"
+
                     />
             </Grid>
         </StackPanel>

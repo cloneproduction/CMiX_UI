@@ -152,6 +152,7 @@ namespace CMiX.Services
                         else if (propValue is FileNameItemModel)
                         {
                             var item = propValue as FileNameItemModel;
+                            Console.WriteLine(item.FileName + "    "  + item.FileIsSelected);
                             QueueMessage(address + propertyname, item.FileName);
                         }
 

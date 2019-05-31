@@ -141,6 +141,7 @@ namespace CMiX.ViewModels
             Rotation = cameramodel.Rotation;
             LookAt = cameramodel.LookAt;
             View = cameramodel.View;
+
             BeatModifier.Paste(cameramodel.BeatModifierModel);
             FOV.Paste(cameramodel.FOV);
             Zoom.Paste(cameramodel.Zoom);

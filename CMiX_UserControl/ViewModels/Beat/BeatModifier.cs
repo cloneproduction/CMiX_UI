@@ -98,8 +98,8 @@ namespace CMiX.ViewModels
             DisabledMessages();
 
             MessageAddress = beatmodifiermodel.MessageAddress;
-            ChanceToHit.Paste(beatmodifiermodel.ChanceToHit);
             Multiplier = beatmodifiermodel.Multiplier;
+            ChanceToHit.Paste(beatmodifiermodel.ChanceToHit);
 
             EnabledMessages();
         }

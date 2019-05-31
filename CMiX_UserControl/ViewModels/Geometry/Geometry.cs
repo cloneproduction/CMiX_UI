@@ -76,7 +76,6 @@ namespace CMiX.ViewModels
             get => _is3D;
             set
             {
-                Console.WriteLine("DisabledMessageFromPROPERTY  " + Messengers[0].SendEnabled.ToString());
                 if (Mementor != null)
                     Mementor.PropertyChange(this, "Is3D");
                 SetAndNotify(ref _is3D, value);
