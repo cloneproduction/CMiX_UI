@@ -4,7 +4,7 @@ using System;
 namespace CMiX.Models
 {
     [Serializable]
-    public class ColorationModel
+    public class ColorationModel : Model
     {
         public ColorationModel()
         {
@@ -16,8 +16,6 @@ namespace CMiX.Models
             ObjColor = "#FF00FF";
             BgColor = "#FF00FF";
         }
-
-        public string MessageAddress { get; set; }
 
         [OSC]
         public string ObjColor { get; set; }

@@ -123,8 +123,7 @@ namespace CMiX.ViewModels
             {
                 var postFXmodel = (PostFXModel)data.GetData("PostFX") as PostFXModel;
                 this.Paste(postFXmodel);
-
-                QueueObjects(this);
+                QueueObjects(postFXmodel);
                 SendQueues();
             }
         }

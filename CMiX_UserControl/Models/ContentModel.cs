@@ -3,7 +3,7 @@ using System;
 namespace CMiX.Models
 {
     [Serializable]
-    public class ContentModel
+    public class ContentModel : Model
     {
         public ContentModel()
         {
@@ -21,8 +21,6 @@ namespace CMiX.Models
             TextureModel = new TextureModel(messageaddress);
             GeometryModel = new GeometryModel(messageaddress);
         }
-
-        public string MessageAddress { get; set; }
 
         [OSC]
         public bool Enable { get; set; }

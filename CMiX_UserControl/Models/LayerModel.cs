@@ -4,7 +4,7 @@ using System;
 namespace CMiX.Models
 {
     [Serializable]
-    public class LayerModel
+    public class LayerModel : Model
     {
         public LayerModel()
         {
@@ -21,8 +21,6 @@ namespace CMiX.Models
         {
             MessageAddress = layername;
         }
-
-        public string MessageAddress { get; set; }
 
         [OSC]
         public string LayerName { get; set; }

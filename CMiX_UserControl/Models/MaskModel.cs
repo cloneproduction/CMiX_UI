@@ -4,7 +4,7 @@ using System;
 namespace CMiX.Models
 {
     [Serializable]
-    public class MaskModel
+    public class MaskModel : Model
     {
         public MaskModel()
         {
@@ -13,8 +13,6 @@ namespace CMiX.Models
             GeometryModel = new GeometryModel();
             PostFXModel = new PostFXModel();
         }
-
-        public string MessageAddress { get; set; }
 
         [OSC]
         public bool Enable { get; set; }

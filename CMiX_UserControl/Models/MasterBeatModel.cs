@@ -2,9 +2,8 @@
 
 namespace CMiX.Models
 {
-    public class MasterBeatModel
+    public class MasterBeatModel : Model
     {
-        public string MessageAddress { get; set; }
 
         [OSC]
         public double Period { get; set; }

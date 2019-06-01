@@ -4,7 +4,7 @@ using System;
 namespace CMiX.Models
 {
     [Serializable]
-    public class FileNameItemModel
+    public class FileNameItemModel : Model
     {
         public FileNameItemModel()
         {

@@ -5,14 +5,13 @@ using System;
 namespace CMiX.Models
 {
     [Serializable]
-    public class RangeControlModel
+    public class RangeControlModel : Model
     {
         public RangeControlModel()
         {
             Range = new SliderModel();
             Modifier = ((RangeModifier)0).ToString();
         }
-        public string MessageAddress { get; set; }
 
         public SliderModel Range { get; set; }
 

@@ -4,7 +4,7 @@ using System;
 namespace CMiX.Models
 {
     [Serializable]
-    public class BeatModifierModel
+    public class BeatModifierModel : Model
     {
         public BeatModifierModel()
         {
@@ -17,8 +17,6 @@ namespace CMiX.Models
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, "BeatModifier");
         }
-
-        public string MessageAddress { get; set; }
 
         [OSC]
         public double Multiplier { get; set; }

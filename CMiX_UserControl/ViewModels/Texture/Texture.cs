@@ -147,8 +147,7 @@ namespace CMiX.ViewModels
             {
                 var texturemodel = (TextureModel)data.GetData("Texture") as TextureModel;
                 this.Paste(texturemodel);
-
-                QueueObjects(this);
+                QueueObjects(texturemodel);
                 SendQueues();
             }
         }

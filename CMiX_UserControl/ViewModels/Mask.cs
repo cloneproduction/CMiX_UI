@@ -119,7 +119,7 @@ namespace CMiX.ViewModels
             {
                 var maskmodel = (MaskModel)data.GetData("Mask") as MaskModel;
                 this.Paste(maskmodel);
-                QueueObjects(this);
+                QueueObjects(maskmodel);
                 SendQueues();
             }
         }

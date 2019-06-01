@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CMiX.Models
 {
-    public class ProjectModel
+    public class ProjectModel : Model
     {
         public ProjectModel()
         {

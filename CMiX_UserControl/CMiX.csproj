@@ -126,6 +126,7 @@
     <Compile Include="Models\LayerModel.cs" />
     <Compile Include="Models\MaskModel.cs" />
     <Compile Include="Models\MasterBeatModel.cs" />
+    <Compile Include="Models\Model.cs" />
     <Compile Include="Models\PostFXModel.cs" />
     <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Models\RangeControlModel.cs" />

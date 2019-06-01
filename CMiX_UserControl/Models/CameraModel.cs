@@ -2,7 +2,7 @@
 
 namespace CMiX.Models
 {
-    public class CameraModel
+    public class CameraModel : Model
     {
         public CameraModel()
         {
@@ -10,8 +10,6 @@ namespace CMiX.Models
             FOV = new SliderModel();
             Zoom = new SliderModel();
         }
-
-        public string MessageAddress { get; set; }
 
         [OSC]
         public string Rotation { get; set; }

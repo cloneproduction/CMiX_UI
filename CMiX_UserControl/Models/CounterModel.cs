@@ -4,14 +4,19 @@ using System;
 namespace CMiX.Models
 {
     [Serializable]
-    public class CounterModel
+    public class CounterModel : Model
     {
         public CounterModel()
         {
-            Count = 1;
+           
         }
 
-        public string MessageAddress { get; set; }
+        public CounterModel(string messageaddress)
+            : this()
+        {
+            Count = 1;
+            MessageAddress = String.Format("{0}{1}/", messageaddress, "Content");
+        }
 
         [OSC]
         public int Count { get; set; }

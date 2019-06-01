@@ -125,7 +125,7 @@ namespace CMiX.ViewModels
             {
                 var colorationmodel = (ColorationModel)data.GetData("Coloration") as ColorationModel;
                 Paste(colorationmodel);
-                QueueObjects(this);
+                QueueObjects(colorationmodel);
                 SendQueues();
             }
         }

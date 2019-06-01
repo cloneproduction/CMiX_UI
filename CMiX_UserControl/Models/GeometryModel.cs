@@ -4,7 +4,7 @@ using System;
 namespace CMiX.Models
 {
     [Serializable]
-    public class GeometryModel
+    public class GeometryModel : Model
     {
         public GeometryModel()
         {
@@ -25,8 +25,6 @@ namespace CMiX.Models
             MessageAddress = messageaddress;
             FileSelector = new FileSelectorModel(messageaddress);
         }
-
-        public string MessageAddress { get; set; }
 
         public FileSelectorModel FileSelector { get; set; }
         public SliderModel Translate { get; set; }

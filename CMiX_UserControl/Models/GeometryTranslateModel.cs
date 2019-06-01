@@ -5,9 +5,12 @@ using System;
 namespace CMiX.Models
 {
     [Serializable]
-    public class GeometryTranslateModel
+    public class GeometryTranslateModel : Model
     {
-        public string MessageAddress { get; set; }
+        public GeometryTranslateModel()
+        {
+
+        }
 
         [OSC]
         public GeometryTranslateMode TranslateMode { get; set; }

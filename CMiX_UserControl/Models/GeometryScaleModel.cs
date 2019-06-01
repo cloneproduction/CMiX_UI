@@ -5,9 +5,12 @@ using System;
 namespace CMiX.Models
 {
     [Serializable]
-    public class GeometryScaleModel
+    public class GeometryScaleModel : Model
     {
-        public string MessageAddress { get; set; }
+        public GeometryScaleModel()
+        {
+
+        }
 
         [OSC]
         public GeometryScaleMode ScaleMode { get; set; }

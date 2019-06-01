@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace CMiX.Models
 {
     [Serializable]
-    public class FileSelectorModel
+    public class FileSelectorModel : Model
     {
         public FileSelectorModel()
         {
@@ -18,8 +18,6 @@ namespace CMiX.Models
         {
             MessageAddress = messageaddress;
         }
-
-        public string MessageAddress { get; set; }
 
         public List<FileNameItemModel> FilePaths { get; set; }
 

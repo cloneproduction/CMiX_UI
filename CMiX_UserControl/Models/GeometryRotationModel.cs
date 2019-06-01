@@ -5,9 +5,12 @@ using System;
 namespace CMiX.Models
 {
     [Serializable]
-    public class GeometryRotationModel
+    public class GeometryRotationModel : Model
     {
-        public string MessageAddress { get; set; }
+        public GeometryRotationModel()
+        {
+
+        }
 
         [OSC]
         public GeometryRotationMode RotationMode { get; set; }

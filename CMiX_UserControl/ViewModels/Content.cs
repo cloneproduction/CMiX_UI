@@ -75,7 +75,7 @@ namespace CMiX.ViewModels
             {
                 var contentmodel = (ContentModel)data.GetData(nameof(Content)) as ContentModel;
                 Paste(contentmodel);
-                QueueObjects(this);
+                QueueObjects(contentmodel);
                 SendQueues();
             }
         }

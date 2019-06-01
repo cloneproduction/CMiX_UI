@@ -4,7 +4,7 @@ using System;
 namespace CMiX.Models
 {
     [Serializable]
-    public class SliderModel
+    public class SliderModel : Model
     {
         public SliderModel()
         {
@@ -15,8 +15,6 @@ namespace CMiX.Models
         {
             MessageAddress = messageaddress;
         }
-
-        public string MessageAddress { get; set; }
 
         [OSC]
         public double Amount { get; set; }

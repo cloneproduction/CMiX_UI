@@ -150,8 +150,7 @@ namespace CMiX.ViewModels
             {
                 var geometrymodel = (GeometryModel)data.GetData("Geometry") as GeometryModel;
                 this.Paste(geometrymodel);
-
-                QueueObjects(this);
+                QueueObjects(geometrymodel);
                 SendQueues();
             }
         }
