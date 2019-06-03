@@ -10,6 +10,7 @@ using CMiX.Services;
 using CMiX.Models;
 using Memento;
 using GongSolutions.Wpf.DragDrop;
+using System.Linq;
 
 namespace CMiX.ViewModels
 {
@@ -172,7 +173,7 @@ namespace CMiX.ViewModels
             layer.Copy(layermodel);
 
             QueueMessages("/LayerNames", LayerNames.ToArray());
-            QueueMessages("/LayerIndex", LayerIndex.ToArray().ToString());
+            QueueMessages("/LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
             QueueObjects(layermodel);
             SendQueues();
 
@@ -211,7 +212,11 @@ namespace CMiX.ViewModels
 
             newlayer.Copy(layermodel);
             QueueMessages("/LayerNames", this.LayerNames.ToArray());
-            QueueMessages("/LayerIndex", LayerIndex.ToArray());
+            QueueMessages("/LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
+            foreach (var item in LayerIndex)
+            {
+                Console.WriteLine(item.ToString());
+            }
             QueueObjects(layermodel);
             SendQueues();
 
@@ -241,7 +246,7 @@ namespace CMiX.ViewModels
                 }
 
                 QueueMessages("/LayerNames", this.LayerNames.ToArray());
-                QueueMessages("/LayerIndex", LayerIndex.ToArray());
+                QueueMessages("/LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
                 QueueMessages("/LayerRemoved", removedlayername);
                 SendQueues();
 
@@ -272,7 +277,7 @@ namespace CMiX.ViewModels
             }
 
             QueueMessages("/LayerNames", this.LayerNames.ToArray());
-            QueueMessages("/LayerIndex", LayerIndex.ToArray());
+            QueueMessages("/LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
             QueueMessages("/LayerRemoved", lyr.LayerName);
             SendQueues();
 
@@ -286,6 +291,7 @@ namespace CMiX.ViewModels
         {
             compositionmodel.Name = Name;
             compositionmodel.LayerNames = LayerNames;
+            compositionmodel.LayerIndex = LayerIndex;
 
             foreach (Layer lyr in Layers)
             {
@@ -302,7 +308,7 @@ namespace CMiX.ViewModels
         {
             Name = compositionmodel.Name;
             LayerNames = compositionmodel.LayerNames;
-
+            LayerIndex = compositionmodel.LayerIndex;
             Layers.Clear();
             layerID = -1;
 
@@ -322,7 +328,7 @@ namespace CMiX.ViewModels
         {
             Name = compositionmodel.Name;
             LayerNames = compositionmodel.LayerNames;
-
+            LayerIndex = compositionmodel.LayerIndex;
             Layers.Clear();
             foreach (LayerModel layermodel in compositionmodel.LayersModel)
             {
@@ -376,7 +382,7 @@ namespace CMiX.ViewModels
 
                         QueueObjects(this);
                         QueueMessages("/LayerNames", this.LayerNames.ToArray());
-                        QueueMessages("/LayerIndex", LayerIndex.ToArray());
+                        QueueMessages("/LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
                         SendQueues();
                     }
                 }
