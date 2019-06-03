@@ -61,7 +61,7 @@
                     <Button 
                         ToolTip="Copy"
                         DockPanel.Dock="Right"
-                        Command="{Binding Path=CopySelfCommand}"
+                        Command="{Binding DataContext.CopyTextureCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=2}}"
                         Height="15" 
                         Width="15" 
                         Style="{StaticResource ButtonImage}"

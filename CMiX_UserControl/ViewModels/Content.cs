@@ -26,6 +26,8 @@ namespace CMiX.ViewModels
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetCommand = new RelayCommand(p => Reset());
+            CopyTextureCommand = new RelayCommand(p => CopyTexture());
+            PasteTextureCommand = new RelayCommand(p => PasteTexture());
         }
         #endregion
 
@@ -45,6 +47,9 @@ namespace CMiX.ViewModels
         public ICommand PasteSelfCommand { get; }
         public ICommand ResetCommand { get; }
 
+        public ICommand CopyTextureCommand { get; }
+        public ICommand PasteTextureCommand { get; }
+
         private bool _enable;
         public bool Enable
         {
@@ -59,6 +64,37 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE
+        public void CopyTexture()
+        {
+            TextureModel texturemodel = new TextureModel();
+            Texture.Copy(texturemodel);
+            IDataObject data = new DataObject();
+            data.SetData("Texture", texturemodel, false);
+            Clipboard.SetDataObject(data);
+            Console.WriteLine("CopyTexture");
+        }
+
+        public void PasteTexture()
+        {
+            Console.WriteLine("PasteTexture");
+            IDataObject data = Clipboard.GetDataObject();
+            if (data.GetDataPresent("Texture"))
+            {
+                Mementor.BeginBatch();
+                var texturemodel = (TextureModel)data.GetData("Texture") as TextureModel;
+                var texturemessageaddress = Texture.MessageAddress;
+
+                Texture.Paste(texturemodel);
+                Texture.UpdateMessageAddress(texturemessageaddress);
+
+                Texture.Copy(texturemodel);
+                Mementor.EndBatch();
+
+                QueueObjects(texturemodel);
+                SendQueues();
+            }
+        }
+
         public void CopySelf()
         {
             ContentModel contentmodel = new ContentModel();
