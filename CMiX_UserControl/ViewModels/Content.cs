@@ -26,19 +26,24 @@ namespace CMiX.ViewModels
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetCommand = new RelayCommand(p => Reset());
+
             CopyTextureCommand = new RelayCommand(p => CopyTexture());
             PasteTextureCommand = new RelayCommand(p => PasteTexture());
+            CopyGeometryCommand = new RelayCommand(p => CopyGeometry());
+            PasteGeometryCommand = new RelayCommand(p => PasteGeometry());
+            CopyPostFXCommand = new RelayCommand(p => CopyPostFX());
+            PastePostFXCommand = new RelayCommand(p => PastePostFX());
         }
         #endregion
 
         #region METHODS
         public void UpdateMessageAddress(string messageaddress)
         {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Content));
-            BeatModifier.UpdateMessageAddress(MessageAddress);
-            Geometry.UpdateMessageAddress(MessageAddress);
-            Texture.UpdateMessageAddress(MessageAddress);
-            PostFX.UpdateMessageAddress(MessageAddress);
+            MessageAddress = messageaddress;
+            BeatModifier.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(BeatModifier)));
+            Geometry.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Geometry)));
+            Texture.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Texture)));
+            PostFX.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(PostFX)));
         }
         #endregion
 
@@ -49,6 +54,12 @@ namespace CMiX.ViewModels
 
         public ICommand CopyTextureCommand { get; }
         public ICommand PasteTextureCommand { get; }
+
+        public ICommand CopyGeometryCommand { get; }
+        public ICommand PasteGeometryCommand { get; }
+
+        public ICommand CopyPostFXCommand { get; }
+        public ICommand PastePostFXCommand { get; }
 
         private bool _enable;
         public bool Enable
@@ -64,6 +75,66 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE
+        public void CopyPostFX()
+        {
+            PostFXModel postfxmodel = new PostFXModel();
+            PostFX.Copy(postfxmodel);
+            IDataObject data = new DataObject();
+            data.SetData("PostFX", postfxmodel, false);
+            Clipboard.SetDataObject(data);
+        }
+
+        public void PastePostFX()
+        {
+            IDataObject data = Clipboard.GetDataObject();
+            if (data.GetDataPresent("PostFX"))
+            {
+                Mementor.BeginBatch();
+                var postfxmodel = (PostFXModel)data.GetData("PostFX") as PostFXModel;
+                var postfxmessageaddress = PostFX.MessageAddress;
+
+                PostFX.Paste(postfxmodel);
+                PostFX.UpdateMessageAddress(postfxmessageaddress);
+
+                PostFX.Copy(postfxmodel);
+                Mementor.EndBatch();
+
+                QueueObjects(postfxmodel);
+                SendQueues();
+            }
+        }
+
+
+        public void CopyGeometry()
+        {
+            GeometryModel geometrymodel = new GeometryModel();
+            Geometry.Copy(geometrymodel);
+            IDataObject data = new DataObject();
+            data.SetData("Geometry", geometrymodel, false);
+            Clipboard.SetDataObject(data);
+        }
+
+        public void PasteGeometry()
+        {
+            IDataObject data = Clipboard.GetDataObject();
+            if (data.GetDataPresent("Geometry"))
+            {
+                Mementor.BeginBatch();
+                var geometrymodel = (GeometryModel)data.GetData("Geometry") as GeometryModel;
+                var geometrymessageaddress = Geometry.MessageAddress;
+
+                Geometry.Paste(geometrymodel);
+                Geometry.UpdateMessageAddress(geometrymessageaddress);
+
+                Geometry.Copy(geometrymodel);
+                Mementor.EndBatch();
+
+                QueueObjects(geometrymodel);
+                SendQueues();
+            }
+        }
+
+
         public void CopyTexture()
         {
             TextureModel texturemodel = new TextureModel();
@@ -71,12 +142,10 @@ namespace CMiX.ViewModels
             IDataObject data = new DataObject();
             data.SetData("Texture", texturemodel, false);
             Clipboard.SetDataObject(data);
-            Console.WriteLine("CopyTexture");
         }
 
         public void PasteTexture()
         {
-            Console.WriteLine("PasteTexture");
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("Texture"))
             {
@@ -94,6 +163,7 @@ namespace CMiX.ViewModels
                 SendQueues();
             }
         }
+
 
         public void CopySelf()
         {
@@ -119,7 +189,7 @@ namespace CMiX.ViewModels
         public void Reset()
         {
             DisabledMessages();
-            Mementor.BeginBatch();
+            //Mementor.BeginBatch();
 
             Enable = true;
             BeatModifier.Reset();
@@ -128,7 +198,7 @@ namespace CMiX.ViewModels
             PostFX.Reset();
 
             EnabledMessages();
-            Mementor.BeginBatch();
+            //Mementor.EndBatch();
 
             ContentModel contentmodel = new ContentModel();
             this.Copy(contentmodel);

@@ -30,10 +30,10 @@ namespace CMiX.ViewModels
         #region METHODS
         public void UpdateMessageAddress(string messageaddress)
         {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(PostFX));
+            MessageAddress = messageaddress;
 
-            Feedback.UpdateMessageAddress(MessageAddress + nameof(Feedback));
-            Blur.UpdateMessageAddress(MessageAddress + nameof(Blur));
+            Feedback.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Feedback)));
+            Blur.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Blur)));
         }
         #endregion
 

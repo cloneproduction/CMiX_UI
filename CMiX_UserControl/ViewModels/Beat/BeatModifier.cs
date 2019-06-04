@@ -30,8 +30,8 @@ namespace CMiX.ViewModels
         #region METHODS
         public void UpdateMessageAddress(string messageaddress)
         {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(BeatModifier));
-            ChanceToHit.UpdateMessageAddress(MessageAddress + nameof(ChanceToHit));
+            MessageAddress = messageaddress;
+            ChanceToHit.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(ChanceToHit)));
         }
         #endregion
 
@@ -80,9 +80,9 @@ namespace CMiX.ViewModels
             DisabledMessages();
 
             Multiplier = 1.0;
-            ChanceToHit.Amount = 1.0;
+            
             ChanceToHit.Reset();
-
+            ChanceToHit.Amount = 1.0;
             EnabledMessages();
         }
 

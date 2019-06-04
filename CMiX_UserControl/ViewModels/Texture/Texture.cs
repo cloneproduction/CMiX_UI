@@ -41,20 +41,20 @@ namespace CMiX.ViewModels
         #region METHODS
         public void UpdateMessageAddress(string messageaddress)
         {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Texture));
+            MessageAddress =  messageaddress;
 
             FileSelector.UpdateMessageAddress(MessageAddress);
-            Brightness.UpdateMessageAddress(MessageAddress + nameof(Brightness));
-            Contrast.UpdateMessageAddress(MessageAddress + nameof(Contrast));
-            Invert.UpdateMessageAddress(MessageAddress + nameof(Invert));
-            Hue.UpdateMessageAddress(MessageAddress + nameof(Hue));
-            Saturation.UpdateMessageAddress(MessageAddress + nameof(Saturation));
-            Luminosity.UpdateMessageAddress(MessageAddress + nameof(Luminosity));
-            Keying.UpdateMessageAddress(MessageAddress + nameof(Keying));
-            Scale.UpdateMessageAddress(MessageAddress + nameof(Scale));
-            Rotate.UpdateMessageAddress(MessageAddress + nameof(Rotate));
-            Pan.UpdateMessageAddress(MessageAddress + nameof(Pan));
-            Tilt.UpdateMessageAddress(MessageAddress + nameof(Tilt));
+            Brightness.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Brightness)));
+            Contrast.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Contrast)));
+            Invert.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Invert)));
+            Hue.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Hue)));
+            Saturation.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Saturation)));
+            Luminosity.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Luminosity)));
+            Keying.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Keying)));
+            Scale.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Scale)));
+            Rotate.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Rotate)));
+            Pan.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Pan)));
+            Tilt.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Tilt)));
         }
         #endregion
 

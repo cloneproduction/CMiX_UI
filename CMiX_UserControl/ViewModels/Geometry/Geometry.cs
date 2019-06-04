@@ -40,18 +40,18 @@ namespace CMiX.ViewModels
         #region METHODS
         public void UpdateMessageAddress(string messageaddress)
         {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Geometry));
+            MessageAddress = messageaddress;
 
             FileSelector.UpdateMessageAddress(MessageAddress);
-            TranslateMode.UpdateMessageAddress(MessageAddress);
-            ScaleMode.UpdateMessageAddress(MessageAddress);
-            RotationMode.UpdateMessageAddress(MessageAddress);
+            TranslateMode.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(TranslateMode)));
+            ScaleMode.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(ScaleMode)));
+            RotationMode.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(RotationMode)));
 
-            Translate.UpdateMessageAddress(MessageAddress + nameof(Translate));
-            Scale.UpdateMessageAddress(MessageAddress + nameof(Scale));
-            Rotation.UpdateMessageAddress(MessageAddress + nameof(Rotation));
-            Counter.UpdateMessageAddress(MessageAddress);
-            GeometryFX.UpdateMessageAddress(MessageAddress);
+            Translate.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Translate)));
+            Scale.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Scale)));
+            Rotation.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Rotation)));
+            Counter.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Counter)));
+            GeometryFX.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(GeometryFX)));
         }
         #endregion
 
@@ -158,7 +158,7 @@ namespace CMiX.ViewModels
         public void Reset()
         {
             DisabledMessages();
-            Mementor.BeginBatch();
+            //Mementor.BeginBatch();
 
             Is3D = false;
             KeepAspectRatio = false;
@@ -175,7 +175,7 @@ namespace CMiX.ViewModels
             Counter.Reset();
             GeometryFX.Reset();
 
-            Mementor.EndBatch();
+            //Mementor.EndBatch();
             EnabledMessages();
 
             GeometryModel geometrymodel = new GeometryModel();

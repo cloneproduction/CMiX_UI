@@ -401,7 +401,7 @@ namespace CMiX.ViewModels
             }
 
             QueueMessages("/LayerNames", this.LayerNames.ToArray());
-            QueueMessages("/LayerIndex", LayerIndex.ToArray());
+            QueueMessages("/LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
             SendQueues();
         }
         #endregion
@@ -410,7 +410,7 @@ namespace CMiX.ViewModels
         public void DragOver(IDropInfo dropInfo)
         {
             var dataObject = dropInfo.Data as IDataObject;
-            if (dropInfo.Data.GetType() == typeof(Layer))
+            if (dropInfo.Data.GetType() == typeof(Layer) && Layers.Count > 1)
             {
                 dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
                 dropInfo.Effects = DragDropEffects.Copy;

@@ -24,7 +24,7 @@ namespace CMiX.ViewModels
         #region METHODS
         public void UpdateMessageAddress(string messageaddress)
         {
-            MessageAddress = String.Format("{0}/", messageaddress);
+            MessageAddress = messageaddress;
         }
         #endregion
 

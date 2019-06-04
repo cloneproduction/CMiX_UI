@@ -70,12 +70,12 @@ namespace CMiX.ViewModels
         #region METHODS
         public void UpdateMessageAddress(string messageaddress)
         {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Coloration));
+            MessageAddress = messageaddress;
 
-            BeatModifier.UpdateMessageAddress(MessageAddress);
-            Hue.UpdateMessageAddress(MessageAddress + nameof(Hue));
-            Saturation.UpdateMessageAddress(MessageAddress + nameof(Saturation));
-            Value.UpdateMessageAddress(MessageAddress + nameof(Value));
+            BeatModifier.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(BeatModifier)));
+            Hue.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Hue)));
+            Saturation.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Saturation)));
+            Value.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Value)));
         }
 
         private void MouseDown()

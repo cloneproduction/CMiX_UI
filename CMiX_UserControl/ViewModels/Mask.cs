@@ -26,18 +26,25 @@ namespace CMiX.ViewModels
             CopySelfCommand = new RelayCommand(p => CopySelf());
             PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetCommand = new RelayCommand(p => Reset());
+
+            CopyTextureCommand = new RelayCommand(p => CopyTexture());
+            PasteTextureCommand = new RelayCommand(p => PasteTexture());
+            CopyGeometryCommand = new RelayCommand(p => CopyGeometry());
+            PasteGeometryCommand = new RelayCommand(p => PasteGeometry());
+            CopyPostFXCommand = new RelayCommand(p => CopyPostFX());
+            PastePostFXCommand = new RelayCommand(p => PastePostFX());
         }
         #endregion
 
         #region METHODS
         public void UpdateMessageAddress(string messageaddress)
         {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Mask));
+            MessageAddress = messageaddress;
 
-            BeatModifier.UpdateMessageAddress(MessageAddress);
-            Geometry.UpdateMessageAddress(MessageAddress);
-            Texture.UpdateMessageAddress(MessageAddress);
-            PostFX.UpdateMessageAddress(MessageAddress);
+            BeatModifier.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(BeatModifier)));
+            Geometry.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Geometry)));
+            Texture.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Texture)));
+            PostFX.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(PostFX)));
         }
         #endregion
 
@@ -72,11 +79,110 @@ namespace CMiX.ViewModels
         public ICommand PasteSelfCommand { get; }
         public ICommand ResetCommand { get; }
 
+        public ICommand CopyTextureCommand { get; }
+        public ICommand PasteTextureCommand { get; }
+
+        public ICommand CopyGeometryCommand { get; }
+        public ICommand PasteGeometryCommand { get; }
+
+        public ICommand CopyPostFXCommand { get; }
+        public ICommand PastePostFXCommand { get; }
+
         public BeatModifier BeatModifier { get; }
         public Geometry Geometry { get; }
         public Texture Texture { get; }
         public PostFX PostFX { get; }
         #endregion
+
+        public void CopyPostFX()
+        {
+            PostFXModel postfxmodel = new PostFXModel();
+            PostFX.Copy(postfxmodel);
+            IDataObject data = new DataObject();
+            data.SetData("PostFX", postfxmodel, false);
+            Clipboard.SetDataObject(data);
+        }
+
+        public void PastePostFX()
+        {
+            IDataObject data = Clipboard.GetDataObject();
+            if (data.GetDataPresent("PostFX"))
+            {
+                Mementor.BeginBatch();
+                var postfxmodel = (PostFXModel)data.GetData("PostFX") as PostFXModel;
+                var postfxmessageaddress = PostFX.MessageAddress;
+
+                PostFX.Paste(postfxmodel);
+                PostFX.UpdateMessageAddress(postfxmessageaddress);
+
+                PostFX.Copy(postfxmodel);
+                Mementor.EndBatch();
+
+                QueueObjects(postfxmodel);
+                SendQueues();
+            }
+        }
+
+
+        public void CopyGeometry()
+        {
+            GeometryModel geometrymodel = new GeometryModel();
+            Geometry.Copy(geometrymodel);
+            IDataObject data = new DataObject();
+            data.SetData("Geometry", geometrymodel, false);
+            Clipboard.SetDataObject(data);
+        }
+
+        public void PasteGeometry()
+        {
+            IDataObject data = Clipboard.GetDataObject();
+            if (data.GetDataPresent("Geometry"))
+            {
+                Mementor.BeginBatch();
+                var geometrymodel = (GeometryModel)data.GetData("Geometry") as GeometryModel;
+                var geometrymessageaddress = Geometry.MessageAddress;
+
+                Geometry.Paste(geometrymodel);
+                Geometry.UpdateMessageAddress(geometrymessageaddress);
+
+                Geometry.Copy(geometrymodel);
+                Mementor.EndBatch();
+
+                QueueObjects(geometrymodel);
+                SendQueues();
+            }
+        }
+
+
+        public void CopyTexture()
+        {
+            TextureModel texturemodel = new TextureModel();
+            Texture.Copy(texturemodel);
+            IDataObject data = new DataObject();
+            data.SetData("Texture", texturemodel, false);
+            Clipboard.SetDataObject(data);
+        }
+
+        public void PasteTexture()
+        {
+            IDataObject data = Clipboard.GetDataObject();
+            if (data.GetDataPresent("Texture"))
+            {
+                Mementor.BeginBatch();
+                var texturemodel = (TextureModel)data.GetData("Texture") as TextureModel;
+                var texturemessageaddress = Texture.MessageAddress;
+
+                Texture.Paste(texturemodel);
+                Texture.UpdateMessageAddress(texturemessageaddress);
+
+                Texture.Copy(texturemodel);
+                Mementor.EndBatch();
+
+                QueueObjects(texturemodel);
+                SendQueues();
+            }
+        }
+
 
         #region COPY/PASTE/RESET
         public void Copy(MaskModel maskmodel)
