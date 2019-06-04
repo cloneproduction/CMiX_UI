@@ -26,8 +26,8 @@ namespace CMiX.ViewModels
             Saturation = new RangeControl(oscmessengers, MessageAddress + nameof(Saturation), mementor);
             Value = new RangeControl(oscmessengers, MessageAddress + nameof(Value), mementor);
 
-            CopySelfCommand = new RelayCommand(p => CopySelf());
-            PasteSelfCommand = new RelayCommand(p => PasteSelf());
+            //CopySelfCommand = new RelayCommand(p => CopySelf());
+            //PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetCommand = new RelayCommand(p => Reset());
             MouseDownCommand = new RelayCommand(p => MouseDown());
         }
@@ -109,27 +109,6 @@ namespace CMiX.ViewModels
             EnabledMessages();
         }
 
-        public void CopySelf()
-        {
-            ColorationModel colorationmodel = new ColorationModel();
-            Copy(colorationmodel);
-            IDataObject data = new DataObject();
-            data.SetData("Coloration", colorationmodel, false);
-            Clipboard.SetDataObject(data);
-        }
-
-        public void PasteSelf()
-        {
-            IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent("Coloration"))
-            {
-                var colorationmodel = (ColorationModel)data.GetData("Coloration") as ColorationModel;
-                Paste(colorationmodel);
-                QueueObjects(colorationmodel);
-                SendQueues();
-            }
-        }
-
         public void Reset()
         {
             DisabledMessages();
@@ -153,3 +132,24 @@ namespace CMiX.ViewModels
         #endregion
     }
 }
+
+/*public void CopySelf()
+{
+    ColorationModel colorationmodel = new ColorationModel();
+    Copy(colorationmodel);
+    IDataObject data = new DataObject();
+    data.SetData("Coloration", colorationmodel, false);
+    Clipboard.SetDataObject(data);
+}
+
+public void PasteSelf()
+{
+    IDataObject data = Clipboard.GetDataObject();
+    if (data.GetDataPresent("Coloration"))
+    {
+        var colorationmodel = (ColorationModel)data.GetData("Coloration") as ColorationModel;
+        Paste(colorationmodel);
+        QueueObjects(colorationmodel);
+        SendQueues();
+    }
+}*/

@@ -134,7 +134,7 @@
     <Compile Include="Models\TextureModel.cs" />
     <Compile Include="Resources\BindingProxy.cs" />
     <Compile Include="Services\OSCAttribute.cs" />
-    <Compile Include="Services\SetAndNotifyPropertyAction.cs" />
+    <Compile Include="_Unused\SetAndNotifyPropertyAction.cs" />
     <Compile Include="ViewModels\FileNameItem.cs" />
     <Compile Include="ViewModels\FileSelector.cs" />
     <Compile Include="ViewModels\OSCControl.cs" />

@@ -32,8 +32,8 @@ namespace CMiX.ViewModels
             Pan = new Slider(MessageAddress + nameof(Pan), oscmessengers, mementor);
             Tilt = new Slider(MessageAddress + nameof(Tilt), oscmessengers, mementor);
 
-            CopySelfCommand = new RelayCommand(p => CopySelf());
-            PasteSelfCommand = new RelayCommand(p => PasteSelf());
+            //CopySelfCommand = new RelayCommand(p => CopySelf());
+            //PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetCommand = new RelayCommand(p => Reset());
         }
         #endregion
@@ -131,26 +131,6 @@ namespace CMiX.ViewModels
             EnabledMessages();
         }
 
-        public void CopySelf()
-        {
-            TextureModel texturemodel = new TextureModel();
-            this.Copy(texturemodel);
-            IDataObject data = new DataObject();
-            data.SetData("Texture", texturemodel, false);
-            Clipboard.SetDataObject(data);
-        }
-
-        public void PasteSelf()
-        {
-            IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent("Texture"))
-            {
-                var texturemodel = (TextureModel)data.GetData("Texture") as TextureModel;
-                this.Paste(texturemodel);
-                QueueObjects(texturemodel);
-                SendQueues();
-            }
-        }
 
         public void Reset()
         {
@@ -173,5 +153,25 @@ namespace CMiX.ViewModels
             EnabledMessages();
         }
         #endregion
+        /*public void CopySelf()
+        {
+            TextureModel texturemodel = new TextureModel();
+            this.Copy(texturemodel);
+            IDataObject data = new DataObject();
+            data.SetData("Texture", texturemodel, false);
+            Clipboard.SetDataObject(data);
+        }
+
+        public void PasteSelf()
+        {
+            IDataObject data = Clipboard.GetDataObject();
+            if (data.GetDataPresent("Texture"))
+            {
+                var texturemodel = (TextureModel)data.GetData("Texture") as TextureModel;
+                this.Paste(texturemodel);
+                QueueObjects(texturemodel);
+                SendQueues();
+            }
+        }*/
     }
 }

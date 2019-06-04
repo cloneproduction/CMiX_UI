@@ -23,10 +23,7 @@ namespace CMiX.ViewModels
             Texture = new Texture(MessageAddress, oscmessengers, mementor);
             PostFX = new PostFX(MessageAddress, oscmessengers, mementor);
 
-            CopySelfCommand = new RelayCommand(p => CopySelf());
-            PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetCommand = new RelayCommand(p => Reset());
-
             CopyTextureCommand = new RelayCommand(p => CopyTexture());
             PasteTextureCommand = new RelayCommand(p => PasteTexture());
             CopyGeometryCommand = new RelayCommand(p => CopyGeometry());
@@ -164,27 +161,6 @@ namespace CMiX.ViewModels
             }
         }
 
-
-        public void CopySelf()
-        {
-            ContentModel contentmodel = new ContentModel();
-            Copy(contentmodel);
-            IDataObject data = new DataObject();
-            data.SetData(nameof(Content), contentmodel, false);
-            Clipboard.SetDataObject(data);
-        }
-
-        public void PasteSelf()
-        {
-            IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent(nameof(Content)))
-            {
-                var contentmodel = (ContentModel)data.GetData(nameof(Content)) as ContentModel;
-                Paste(contentmodel);
-                QueueObjects(contentmodel);
-                SendQueues();
-            }
-        }
 
         public void Reset()
         {

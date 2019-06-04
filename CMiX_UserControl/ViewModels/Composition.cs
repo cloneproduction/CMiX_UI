@@ -114,7 +114,6 @@ namespace CMiX.ViewModels
             SendQueues();
         }
 
-
         #region COPY/PASTE LAYER
         private void CopyLayer()
         {
@@ -151,6 +150,7 @@ namespace CMiX.ViewModels
         public void AddLayer()
         {
             Mementor.BeginBatch();
+            DisabledMessages();
 
             layerID += 1;
             layerNameID += 1;
@@ -172,17 +172,19 @@ namespace CMiX.ViewModels
             LayerModel layermodel = new LayerModel();
             layer.Copy(layermodel);
 
+            EnabledMessages();
+            Mementor.EndBatch();
+
             QueueMessages("/LayerNames", LayerNames.ToArray());
             QueueMessages("/LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
             QueueObjects(layermodel);
             SendQueues();
-
-            Mementor.EndBatch();
         }
 
         private void DuplicateLayer(object layer)
         {
             Mementor.BeginBatch();
+            DisabledMessages();
 
             layerID += 1;
             layerNameID += 1;
@@ -211,16 +213,14 @@ namespace CMiX.ViewModels
             }
 
             newlayer.Copy(layermodel);
+
+            DisabledMessages();
+            Mementor.EndBatch();
+
             QueueMessages("/LayerNames", this.LayerNames.ToArray());
             QueueMessages("/LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
-            foreach (var item in LayerIndex)
-            {
-                Console.WriteLine(item.ToString());
-            }
             QueueObjects(layermodel);
             SendQueues();
-
-            Mementor.EndBatch();
         }
 
         private void RemoveLayer()
@@ -228,6 +228,7 @@ namespace CMiX.ViewModels
             if(SelectedLayer != null)
             {
                 Mementor.BeginBatch();
+                DisabledMessages();
 
                 layerID -= 1;
                 LayerIndex.Clear();
@@ -245,18 +246,20 @@ namespace CMiX.ViewModels
                     LayerIndex.Add(lyr.Index);
                 }
 
+                EnabledMessages();
+                Mementor.EndBatch();
+
                 QueueMessages("/LayerNames", this.LayerNames.ToArray());
                 QueueMessages("/LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
                 QueueMessages("/LayerRemoved", removedlayername);
-                SendQueues();
-
-                Mementor.EndBatch();
+                SendQueues(); 
             }
         }
 
         private void DeleteLayer(object layer)
         {
             Mementor.BeginBatch();
+            DisabledMessages();
 
             Layer lyr = layer as Layer;
             layerID -= 1;
@@ -276,12 +279,13 @@ namespace CMiX.ViewModels
                 LayerIndex.Add(lay.Index);
             }
 
+            EnabledMessages();
+            Mementor.EndBatch();
+
             QueueMessages("/LayerNames", this.LayerNames.ToArray());
             QueueMessages("/LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
             QueueMessages("/LayerRemoved", lyr.LayerName);
             SendQueues();
-
-            Mementor.EndBatch();
         }
         #endregion
 
@@ -306,6 +310,8 @@ namespace CMiX.ViewModels
 
         public void Paste(CompositionModel compositionmodel)
         {
+            DisabledMessages();
+
             Name = compositionmodel.Name;
             LayerNames = compositionmodel.LayerNames;
             LayerIndex = compositionmodel.LayerIndex;
@@ -322,6 +328,8 @@ namespace CMiX.ViewModels
 
             MasterBeat.Paste(compositionmodel.MasterBeatModel);
             Camera.Paste(compositionmodel.CameraModel);
+
+            EnabledMessages();
         }
 
         public void Load(CompositionModel compositionmodel)
