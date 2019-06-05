@@ -103,86 +103,6 @@ namespace CMiX.Services
             }
         }
 
-        //public void QueueObject(object obj)
-        //{
-        //    string address = string.Empty;
-        //    string propdata = string.Empty;
-        //    string propertyname = string.Empty;
-
-        //    if (obj == null) return;
-
-        //    PropertyInfo propinfo = obj.GetType().GetProperty("MessageAddress");
-
-        //    if (propinfo != null)
-        //    {
-        //        if (propinfo.GetValue(obj, null) != null) 
-        //        {
-        //            address = obj.GetType().GetProperty("MessageAddress").GetValue(obj, null).ToString();
-        //        }
-        //    }
-
-        //    Type objType = obj.GetType();
-        //    var properties = objType.GetProperties().Where(p => !p.GetIndexParameters().Any());
-
-        //    foreach (PropertyInfo property in properties)
-        //    {
-        //        object propValue = property.GetValue(obj, null);
-
-        //        object[] attrs = property.GetCustomAttributes(true);
-        //        foreach (object attr in attrs)
-        //        {
-        //            OSCAttribute oscdata = attr as OSCAttribute;
-        //            if (oscdata != null)
-        //            {
-        //                propertyname = property.Name;
-
-        //                if (propValue is FileNameItemModel)
-        //                {
-        //                    var item = propValue as FileNameItemModel;
-        //                    if(item.FileIsSelected)
-        //                        QueueMessage(address + propertyname, item.FileName);
-        //                }
-
-        //                else
-        //                {
-        //                    propdata = property.GetValue(obj, null).ToString();
-        //                    QueueMessage(address + propertyname, propdata);
-        //                }
-        //            }
-        //        }
-
-        //        var elems = propValue as IList;
-        //        if ((elems != null) && !(elems is string[]))
-        //        {
-        //            foreach (var item in elems)
-        //            {
-        //                QueueObject(item);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            // This will not cut-off System.Collections because of the first check
-        //            if (property.PropertyType.Assembly == objType.Assembly)
-        //            {
-        //                QueueObject(propValue);
-        //            }
-        //            /*else
-        //            {
-        //                if (propValue is string[])
-        //                {
-        //                    var str = new StringBuilder();
-        //                    foreach (string item in (string[])propValue)
-        //                    {
-        //                        str.AppendFormat("{0}; ", item);
-        //                    }
-        //                    propValue = str.ToString();
-        //                    str.Clear();
-        //                }
-        //            }*/
-        //        }
-        //    }
-        //}
-
         public void QueueObject(object obj)
         {
             if (obj == null) return;
@@ -213,20 +133,6 @@ namespace CMiX.Services
                                 QueueObject(item);
                             }
                         }
-                        /*else if (propValue is FileNameItemModel)
-                        {
-                            Console.WriteLine("FileNameItemModel Founded");
-                            var filenameitem = propValue as FileNameItemModel;
-                            string address = model.MessageAddress;
-                            string propdata = property.GetValue(obj, null).ToString();
-
-                            if (address != null)
-                            {
-                                address += "SelectedFileNameItem";
-                                QueueMessage(address + propertyname, filenameitem.FileName);
-                            }
-
-                        }*/
                         else if (propValue is List<FileNameItemModel>)
                         {
                             var filenameitemlist = propValue as List<FileNameItemModel>;
@@ -236,24 +142,21 @@ namespace CMiX.Services
                                 {
                                     string address = model.MessageAddress;
                                     QueueMessage(address + "SelectedFileNameItem", item.FileName);
-                                    //Console.WriteLine("fileselected" + item.FileName);
                                 }
                             }
-                            
-                        }
 
+                        }
                         else
                         {
-                            if(propertyname != "MessageAddress")
+                            if (propertyname != "MessageAddress")
                             {
                                 string address = model.MessageAddress;
                                 string propdata = property.GetValue(obj, null).ToString();
                                 if (address != null)
                                 {
-                                    //Console.WriteLine(propertyname + propdata);
                                     QueueMessage(address + propertyname, propdata);
                                 }
-                            }                        
+                            }
                         }
                     }
                 }
@@ -261,3 +164,83 @@ namespace CMiX.Services
         }
     }
 }
+
+//public void QueueObject(object obj)
+//{
+//    string address = string.Empty;
+//    string propdata = string.Empty;
+//    string propertyname = string.Empty;
+
+//    if (obj == null) return;
+
+//    PropertyInfo propinfo = obj.GetType().GetProperty("MessageAddress");
+
+//    if (propinfo != null)
+//    {
+//        if (propinfo.GetValue(obj, null) != null) 
+//        {
+//            address = obj.GetType().GetProperty("MessageAddress").GetValue(obj, null).ToString();
+//        }
+//    }
+
+//    Type objType = obj.GetType();
+//    var properties = objType.GetProperties().Where(p => !p.GetIndexParameters().Any());
+
+//    foreach (PropertyInfo property in properties)
+//    {
+//        object propValue = property.GetValue(obj, null);
+
+//        object[] attrs = property.GetCustomAttributes(true);
+//        foreach (object attr in attrs)
+//        {
+//            OSCAttribute oscdata = attr as OSCAttribute;
+//            if (oscdata != null)
+//            {
+//                propertyname = property.Name;
+
+//                if (propValue is FileNameItemModel)
+//                {
+//                    var item = propValue as FileNameItemModel;
+//                    if(item.FileIsSelected)
+//                        QueueMessage(address + propertyname, item.FileName);
+//                }
+
+//                else
+//                {
+//                    propdata = property.GetValue(obj, null).ToString();
+//                    QueueMessage(address + propertyname, propdata);
+//                }
+//            }
+//        }
+
+//        var elems = propValue as IList;
+//        if ((elems != null) && !(elems is string[]))
+//        {
+//            foreach (var item in elems)
+//            {
+//                QueueObject(item);
+//            }
+//        }
+//        else
+//        {
+//            // This will not cut-off System.Collections because of the first check
+//            if (property.PropertyType.Assembly == objType.Assembly)
+//            {
+//                QueueObject(propValue);
+//            }
+//            /*else
+//            {
+//                if (propValue is string[])
+//                {
+//                    var str = new StringBuilder();
+//                    foreach (string item in (string[])propValue)
+//                    {
+//                        str.AppendFormat("{0}; ", item);
+//                    }
+//                    propValue = str.ToString();
+//                    str.Clear();
+//                }
+//            }*/
+//        }
+//    }
+//}

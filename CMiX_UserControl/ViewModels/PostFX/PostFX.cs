@@ -11,7 +11,7 @@ namespace CMiX.ViewModels
     public class PostFX : ViewModel
     {
         #region CONSTRUCTORS
-        public PostFX(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
+        public PostFX(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base(oscmessengers, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(PostFX));
 
@@ -21,8 +21,8 @@ namespace CMiX.ViewModels
             Transforms = ((PostFXTransforms)0).ToString();
             View = ((PostFXView)0).ToString();
 
-            CopySelfCommand = new RelayCommand(p => CopySelf());
-            PasteSelfCommand = new RelayCommand(p => PasteSelf());
+            //CopySelfCommand = new RelayCommand(p => CopySelf());
+            //PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetCommand = new RelayCommand(p => Reset());
         }
         #endregion
@@ -51,7 +51,7 @@ namespace CMiX.ViewModels
             get => _transforms;
             set
             {
-                if(Mementor != null)
+                if (Mementor != null)
                     Mementor.PropertyChange(this, "Transforms");
                 SetAndNotify(ref _transforms, value);
                 SendMessages(MessageAddress + nameof(Transforms), Transforms);
@@ -106,27 +106,27 @@ namespace CMiX.ViewModels
             View = postFXmodel.View;
             EnabledMessages();
         }
-
-        public void CopySelf()
-        {
-            PostFXModel postFXmodel = new PostFXModel();
-            this.Copy(postFXmodel);
-            IDataObject data = new DataObject();
-            data.SetData("PostFX", postFXmodel, false);
-            Clipboard.SetDataObject(data);
-        }
-
-        public void PasteSelf()
-        {
-            IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent("PostFX"))
-            {
-                var postFXmodel = (PostFXModel)data.GetData("PostFX") as PostFXModel;
-                this.Paste(postFXmodel);
-                QueueObjects(postFXmodel);
-                SendQueues();
-            }
-        }
         #endregion
     }
 }
+
+            //public void CopySelf()
+            //{
+            //    PostFXModel postFXmodel = new PostFXModel();
+            //    this.Copy(postFXmodel);
+            //    IDataObject data = new DataObject();
+            //    data.SetData("PostFX", postFXmodel, false);
+            //    Clipboard.SetDataObject(data);
+            //}
+
+//public void PasteSelf()
+//{
+//    IDataObject data = Clipboard.GetDataObject();
+//    if (data.GetDataPresent("PostFX"))
+//    {
+//        var postFXmodel = (PostFXModel)data.GetData("PostFX") as PostFXModel;
+//        this.Paste(postFXmodel);
+//        QueueObjects(postFXmodel);
+//        SendQueues();
+//    }
+//}

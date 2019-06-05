@@ -23,8 +23,8 @@ namespace CMiX.ViewModels
             Texture = new Texture(MessageAddress, oscmessengers, mementor);
             PostFX = new PostFX(MessageAddress, oscmessengers, mementor);
 
-            CopySelfCommand = new RelayCommand(p => CopySelf());
-            PasteSelfCommand = new RelayCommand(p => PasteSelf());
+            //CopySelfCommand = new RelayCommand(p => CopySelf());
+            //PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetCommand = new RelayCommand(p => Reset());
 
             CopyTextureCommand = new RelayCommand(p => CopyTexture());
@@ -209,27 +209,6 @@ namespace CMiX.ViewModels
             EnabledMessages();
         }
 
-        public void CopySelf()
-        {
-            MaskModel maskmodel = new MaskModel();
-            this.Copy(maskmodel);
-            IDataObject data = new DataObject();
-            data.SetData("Mask", maskmodel, false);
-            Clipboard.SetDataObject(data);
-        }
-
-        public void PasteSelf()
-        {
-            IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent("Mask"))
-            {
-                var maskmodel = (MaskModel)data.GetData("Mask") as MaskModel;
-                this.Paste(maskmodel);
-                QueueObjects(maskmodel);
-                SendQueues();
-            }
-        }
-
         public void Reset()
         {
             DisabledMessages();
@@ -250,3 +229,24 @@ namespace CMiX.ViewModels
         #endregion
     }
 }
+
+//public void CopySelf()
+//{
+//    MaskModel maskmodel = new MaskModel();
+//    this.Copy(maskmodel);
+//    IDataObject data = new DataObject();
+//    data.SetData("Mask", maskmodel, false);
+//    Clipboard.SetDataObject(data);
+//}
+
+//public void PasteSelf()
+//{
+//    IDataObject data = Clipboard.GetDataObject();
+//    if (data.GetDataPresent("Mask"))
+//    {
+//        var maskmodel = (MaskModel)data.GetData("Mask") as MaskModel;
+//        this.Paste(maskmodel);
+//        QueueObjects(maskmodel);
+//        SendQueues();
+//    }
+//}
