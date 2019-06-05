@@ -157,10 +157,11 @@ namespace CMiX.ViewModels
                 {
                     CerasSerializer serializer = new CerasSerializer();
                     byte[] data = File.ReadAllBytes(folderPath) ;
-                    ProjectModel projectdto = serializer.Deserialize<ProjectModel>(data);
+                    ProjectModel projectmodel = serializer.Deserialize<ProjectModel>(data);
                     Compositions.Clear();
-                    Paste(projectdto);
+                    Paste(projectmodel);
                     FolderPath = folderPath;
+
                 }
             }
         }
