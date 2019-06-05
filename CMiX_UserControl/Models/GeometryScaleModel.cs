@@ -13,6 +13,6 @@ namespace CMiX.Models
         }
 
         [OSC]
-        public GeometryScaleMode ScaleMode { get; set; }
+        public GeometryScaleMode Mode { get; set; }
     }
 }

@@ -121,7 +121,7 @@
                             x:Name="GeometryTranslate"
                             Keyboard.KeyDown="Toggle_KeyDown"
                             Margin="2, 0, 0, 0"
-                            Content="{Binding TranslateMode.TranslateMode, Converter={StaticResource EnumToString}}"
+                            Content="{Binding TranslateMode.Mode, Converter={StaticResource EnumToString}}"
                             IsHitTestVisible="{Binding ElementName=GeometryTranslatePopup, Path=IsOpen, Converter={StaticResource BoolInverter}}"
                             />
                         <Popup
@@ -151,7 +151,7 @@
                             x:Name="GeometryScale"
                             Keyboard.KeyDown="Toggle_KeyDown"
                             Margin="2, 0, 0, 0"
-                            Content="{Binding ScaleMode.ScaleMode, Converter={StaticResource EnumToString}}"
+                            Content="{Binding ScaleMode.Mode, Converter={StaticResource EnumToString}}"
                             IsHitTestVisible="{Binding ElementName=GeometryScalePopup, Path=IsOpen, Converter={StaticResource BoolInverter}}"
                             />
                         <Popup
@@ -181,7 +181,7 @@
                             x:Name="GeometryRotation"
                             Keyboard.KeyDown="Toggle_KeyDown"
                             Margin="2, 0, 0, 0"
-                            Content="{Binding RotationMode.RotationMode, Converter={StaticResource EnumToString}}"
+                            Content="{Binding RotationMode.Mode, Converter={StaticResource EnumToString}}"
                             IsHitTestVisible="{Binding ElementName=GeometryRotationPopup, Path=IsOpen, Converter={StaticResource BoolInverter}}"
                             />
                         <Popup 

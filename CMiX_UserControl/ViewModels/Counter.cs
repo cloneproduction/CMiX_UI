@@ -22,7 +22,7 @@ namespace CMiX.ViewModels
         #region METHODS
         public void UpdateMessageAddress(string messageaddress)
         {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Counter));
+            MessageAddress = messageaddress;
         }
         #endregion
 

@@ -13,7 +13,7 @@ namespace CMiX.Models
         }
 
         [OSC]
-        public GeometryRotationMode RotationMode { get; set; }
+        public GeometryRotationMode Mode { get; set; }
 
         [OSC]
         public bool RotationX { get; set; }

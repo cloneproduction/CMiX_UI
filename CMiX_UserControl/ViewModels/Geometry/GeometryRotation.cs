@@ -11,8 +11,8 @@ namespace CMiX.ViewModels
         #region CONSTRUCTORS
         public GeometryRotation(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
         {
-            MessageAddress = messageaddress;
-            RotationMode = default;
+            MessageAddress = String.Format("{0}/", messageaddress);
+            Mode = default;
             RotationX = true;
             RotationY = true;
             RotationZ = true;
@@ -27,16 +27,16 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-        private GeometryRotationMode _RotationMode;
-        public GeometryRotationMode RotationMode
+        private GeometryRotationMode _Mode;
+        public GeometryRotationMode Mode
         {
-            get => _RotationMode;
+            get => _Mode;
             set
             {
                 if (Mementor != null)
-                    Mementor.PropertyChange(this, nameof(RotationMode));
-                SetAndNotify(ref _RotationMode, value);
-                SendMessages(MessageAddress + nameof(RotationMode), RotationMode);
+                    Mementor.PropertyChange(this, nameof(Mode));
+                SetAndNotify(ref _Mode, value);
+                SendMessages(MessageAddress + nameof(Mode), Mode);
             }
         }
 
@@ -84,14 +84,14 @@ namespace CMiX.ViewModels
         public void Reset()
         {
             DisabledMessages();
-            RotationMode = default;
+            Mode = default;
             EnabledMessages();
         }
 
         public void Copy(GeometryRotationModel geometryrotationmodel)
         {
             geometryrotationmodel.MessageAddress = MessageAddress;
-            geometryrotationmodel.RotationMode = RotationMode;
+            geometryrotationmodel.Mode = Mode;
             geometryrotationmodel.RotationX = RotationX;
             geometryrotationmodel.RotationY = RotationY;
             geometryrotationmodel.RotationZ = RotationZ;
@@ -101,7 +101,7 @@ namespace CMiX.ViewModels
         {
             DisabledMessages();
             MessageAddress = geometryrotationmodel.MessageAddress;
-            RotationMode = geometryrotationmodel.RotationMode;
+            Mode = geometryrotationmodel.Mode;
             RotationX = geometryrotationmodel.RotationX;
             RotationY = geometryrotationmodel.RotationY;
             RotationZ = geometryrotationmodel.RotationZ;

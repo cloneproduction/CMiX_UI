@@ -21,9 +21,9 @@ namespace CMiX.ViewModels
 
             FileSelector = new FileSelector(MessageAddress, "Single", new List<string> { ".FBX", ".OBJ" }, oscmessengers, mementor);
 
-            TranslateMode = new GeometryTranslate(MessageAddress, oscmessengers, mementor);
-            ScaleMode = new GeometryScale(MessageAddress, oscmessengers, mementor);
-            RotationMode = new GeometryRotation(MessageAddress, oscmessengers, mementor);
+            TranslateMode = new GeometryTranslate(MessageAddress + nameof(TranslateMode), oscmessengers, mementor);
+            ScaleMode = new GeometryScale(MessageAddress + nameof(ScaleMode), oscmessengers, mementor);
+            RotationMode = new GeometryRotation(MessageAddress + nameof(RotationMode), oscmessengers, mementor);
        
             Translate = new Slider(MessageAddress + nameof(Translate), oscmessengers, mementor);
             Scale = new Slider(MessageAddress + nameof(Scale), oscmessengers, mementor);
@@ -31,8 +31,6 @@ namespace CMiX.ViewModels
             Counter = new Counter(MessageAddress, oscmessengers, mementor);
             GeometryFX = new GeometryFX(MessageAddress, oscmessengers, mementor);
 
-            CopySelfCommand = new RelayCommand(p => CopySelf());
-            PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetCommand = new RelayCommand(p => Reset());
         }
         #endregion
@@ -132,27 +130,6 @@ namespace CMiX.ViewModels
             KeepAspectRatio = geometrymodel.KeepAspectRatio;
 
             EnabledMessages();
-        }
-
-        public void CopySelf()
-        {
-            GeometryModel geometrymodel = new GeometryModel();
-            this.Copy(geometrymodel);
-            IDataObject data = new DataObject();
-            data.SetData("Geometry", geometrymodel, false);
-            Clipboard.SetDataObject(data);
-        }
-
-        public void PasteSelf()
-        {
-            IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent("Geometry"))
-            {
-                var geometrymodel = (GeometryModel)data.GetData("Geometry") as GeometryModel;
-                this.Paste(geometrymodel);
-                QueueObjects(geometrymodel);
-                SendQueues();
-            }
         }
 
         public void Reset()

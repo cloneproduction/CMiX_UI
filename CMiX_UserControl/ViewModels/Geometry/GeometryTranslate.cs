@@ -9,10 +9,11 @@ namespace CMiX.ViewModels
     public class GeometryTranslate : ViewModel
     {
         #region CONSTRUCTORS
-        public GeometryTranslate(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
+        public GeometryTranslate(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) 
+            : base (oscmessengers, mementor)
         {
-            MessageAddress = messageaddress;
-            TranslateMode = default;
+            MessageAddress = String.Format("{0}/", messageaddress);
+            Mode = default;
         }
         #endregion
 
@@ -24,16 +25,16 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-        private GeometryTranslateMode _TranslateMode;
-        public GeometryTranslateMode TranslateMode
+        private GeometryTranslateMode _Mode;
+        public GeometryTranslateMode Mode
         {
-            get => _TranslateMode;
+            get => _Mode;
             set
             {
                 if(Mementor != null)
-                    Mementor.PropertyChange(this, nameof(TranslateMode));
-                SetAndNotify(ref _TranslateMode, value);
-                SendMessages(MessageAddress + nameof(TranslateMode), TranslateMode);
+                    Mementor.PropertyChange(this, nameof(Mode));
+                SetAndNotify(ref _Mode, value);
+                SendMessages(MessageAddress + nameof(Mode), Mode);
             }
         }
         #endregion
@@ -42,21 +43,21 @@ namespace CMiX.ViewModels
         public void Reset()
         {
             DisabledMessages();
-            TranslateMode = default;
+            Mode = default;
             EnabledMessages();
         }
 
         public void Copy(GeometryTranslateModel geometrytranslatemodel)
         {
             geometrytranslatemodel.MessageAddress = MessageAddress;
-            geometrytranslatemodel.TranslateMode = TranslateMode;
+            geometrytranslatemodel.Mode = Mode;
         }
 
         public void Paste(GeometryTranslateModel geometrytranslatemodel)
         {
             DisabledMessages();
             MessageAddress = geometrytranslatemodel.MessageAddress;
-            TranslateMode = geometrytranslatemodel.TranslateMode;
+            Mode = geometrytranslatemodel.Mode;
             EnabledMessages();
         }
         #endregion

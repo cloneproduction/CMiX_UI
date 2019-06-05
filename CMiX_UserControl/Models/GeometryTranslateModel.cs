@@ -13,6 +13,6 @@ namespace CMiX.Models
         }
 
         [OSC]
-        public GeometryTranslateMode TranslateMode { get; set; }
+        public GeometryTranslateMode Mode { get; set; }
     }
 }
