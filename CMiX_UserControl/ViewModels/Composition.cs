@@ -133,10 +133,12 @@ namespace CMiX.ViewModels
                 var layermodel = (LayerModel)data.GetData("Layer") as LayerModel;
                 var selectedlayermessageaddress = SelectedLayer.MessageAddress;
                 var selectedlayername = SelectedLayer.LayerName;
+                var selectedlayerindex = SelectedLayer.Index;
 
                 SelectedLayer.Paste(layermodel);
                 SelectedLayer.UpdateMessageAddress(selectedlayermessageaddress);
                 SelectedLayer.LayerName = selectedlayername;
+                SelectedLayer.Index = selectedlayerindex;
                 SelectedLayer.Copy(layermodel);
                 Mementor.EndBatch();
 
@@ -183,6 +185,7 @@ namespace CMiX.ViewModels
 
         private void DuplicateLayer(object layer)
         {
+            Console.WriteLine("DuplicateLayer");
             Mementor.BeginBatch();
             DisabledMessages();
 
@@ -214,7 +217,7 @@ namespace CMiX.ViewModels
 
             newlayer.Copy(layermodel);
 
-            DisabledMessages();
+            EnabledMessages();
             Mementor.EndBatch();
 
             QueueMessages("/LayerNames", this.LayerNames.ToArray());
@@ -258,6 +261,7 @@ namespace CMiX.ViewModels
 
         private void DeleteLayer(object layer)
         {
+            Console.WriteLine("RemovedLayer");
             Mementor.BeginBatch();
             DisabledMessages();
 
