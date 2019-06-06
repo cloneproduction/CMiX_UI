@@ -33,7 +33,6 @@
                 AllowDrop="True"
                 GroupName="SelectLayer"
                 IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}},Path=IsSelected}"
-                DragOver="RadioButton_DragOver"
                 Style="{StaticResource RadioButtonLayer}">
                 <RadioButton.Background>
                     <SolidColorBrush Color="{Binding Coloration.ObjColor}"/>

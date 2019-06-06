@@ -428,9 +428,14 @@ namespace CMiX.ViewModels
                 dropInfo.Effects = DragDropEffects.Copy;
             }
 
+            if (dropInfo.Data.GetType() == typeof(FileNameItem) && Layers.Count > 1 && dropInfo.TargetItem != null)
+            {
+                SelectedLayer = dropInfo.TargetItem as Layer;
+            }
+
             if (dataObject != null)
             {
-                if (dataObject.GetDataPresent(DataFormats.FileDrop) || dropInfo.Data.GetType() == typeof(FileNameItem))
+                if (dataObject.GetDataPresent(DataFormats.FileDrop) && dropInfo.TargetItem != null)
                 {
                     SelectedLayer = dropInfo.TargetItem as Layer;
                 }
