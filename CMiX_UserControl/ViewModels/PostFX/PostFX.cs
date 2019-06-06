@@ -21,8 +21,6 @@ namespace CMiX.ViewModels
             Transforms = ((PostFXTransforms)0).ToString();
             View = ((PostFXView)0).ToString();
 
-            //CopySelfCommand = new RelayCommand(p => CopySelf());
-            //PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetCommand = new RelayCommand(p => Reset());
         }
         #endregion
@@ -85,6 +83,11 @@ namespace CMiX.ViewModels
             Blur.Reset();
 
             EnabledMessages();
+
+            PostFXModel postfxmodel = new PostFXModel();
+            this.Copy(postfxmodel);
+            QueueObjects(postfxmodel);
+            SendQueues();
         }
 
         public void Copy(PostFXModel postFXmodel)
