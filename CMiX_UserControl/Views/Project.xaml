@@ -149,10 +149,10 @@
                                 <DockPanel.ContextMenu>
                                     <ContextMenu>
                                         <MenuItem
-                                    Padding="8, 4"
-                                    Foreground="{StaticResource TextBase}"
-                                    Command="{Binding Data.DeleteCompoCommand, Source={StaticResource proxy}}"
-                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
+                                            Padding="8, 4"
+                                            Foreground="{StaticResource TextBase}"
+                                            Command="{Binding Data.DeleteCompoCommand, Source={StaticResource proxy}}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                                             <MenuItem.Header>
                                                 <StackPanel Orientation="Horizontal">
                                                     <Image Width="10" Height="10" Source="/CMiX_UserControl;component/Assets/DeleteLayer.png" />

@@ -161,7 +161,6 @@ namespace CMiX.ViewModels
                     Compositions.Clear();
                     Paste(projectmodel);
                     FolderPath = folderPath;
-
                 }
             }
         }

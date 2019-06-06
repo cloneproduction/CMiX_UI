@@ -108,7 +108,6 @@ namespace CMiX.ViewModels
 
         private void ReloadComposition(object messenger)
         {
-            Console.WriteLine("reload");
             CompositionModel compositionmodel = new CompositionModel();
             this.Copy(compositionmodel);
             QueueObjects(compositionmodel);
