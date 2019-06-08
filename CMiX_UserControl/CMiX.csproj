@@ -79,6 +79,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ceras, Version=4.0.38.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Ceras.4.0.38\lib\net45\Ceras.dll</HintPath>
