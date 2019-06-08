@@ -153,25 +153,5 @@ namespace CMiX.ViewModels
             EnabledMessages();
         }
         #endregion
-        /*public void CopySelf()
-        {
-            TextureModel texturemodel = new TextureModel();
-            this.Copy(texturemodel);
-            IDataObject data = new DataObject();
-            data.SetData("Texture", texturemodel, false);
-            Clipboard.SetDataObject(data);
-        }
-
-        public void PasteSelf()
-        {
-            IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent("Texture"))
-            {
-                var texturemodel = (TextureModel)data.GetData("Texture") as TextureModel;
-                this.Paste(texturemodel);
-                QueueObjects(texturemodel);
-                SendQueues();
-            }
-        }*/
     }
 }

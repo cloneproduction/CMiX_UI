@@ -21,13 +21,11 @@ namespace CMiX.Models
             MessageAddress = "/Layer";
         }
 
-        [OSC]
+
         public string Name { get; set; }
 
-        [OSC]
         public List<string> LayerNames { get; set; }
 
-        [OSC]
         public List<int> LayerIndex { get; set; }
 
         public List<Model> LayersModel { get; set; }

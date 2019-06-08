@@ -21,7 +21,7 @@ namespace CMiX.ViewModels
             SelectionMode = selectionmode;
             FileMask = filemask;
             FilePaths = new ObservableCollection<FileNameItem>();
-
+            SelectedFileNameItem = new FileNameItem(Mementor);
             ClearSelectedCommand = new RelayCommand(p => ClearSelected());
             ClearUnselectedCommand = new RelayCommand(p => ClearUnselected());
             ClearAllCommand = new RelayCommand(p => ClearAll());
@@ -249,10 +249,10 @@ namespace CMiX.ViewModels
 
             if(SelectedFileNameItem != null)
             {
-                var selectedfilenameitemdto = new FileNameItemModel();
-                selectedfilenameitemdto.FileIsSelected = SelectedFileNameItem.FileIsSelected;
-                selectedfilenameitemdto.FileName = SelectedFileNameItem.FileName;
-                fileselectormodel.SelectedFileNameItem = selectedfilenameitemdto;
+                var selectedfilenameitemmodel = new FileNameItemModel();
+                selectedfilenameitemmodel.FileIsSelected = SelectedFileNameItem.FileIsSelected;
+                selectedfilenameitemmodel.FileName = SelectedFileNameItem.FileName;
+                fileselectormodel.SelectedFileNameItem = selectedfilenameitemmodel;
             }
         }
 
@@ -268,7 +268,7 @@ namespace CMiX.ViewModels
                 filenameitem.Paste(item);
                 FilePaths.Add(filenameitem);
             }
-
+            SelectedFileNameItem.Paste(fileselectormodel.SelectedFileNameItem);
             EnabledMessages();
             send = false;
         }

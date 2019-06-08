@@ -110,6 +110,10 @@ namespace CMiX.ViewModels
         {
             CompositionModel compositionmodel = new CompositionModel();
             this.Copy(compositionmodel);
+            foreach (var item in compositionmodel.LayerNames)
+            {
+                Console.WriteLine(item);
+            }
             QueueObjects(compositionmodel);
             SendQueues();
         }
@@ -297,6 +301,7 @@ namespace CMiX.ViewModels
 
         public void Copy(CompositionModel compositionmodel)
         {
+            compositionmodel.MessageAddress = MessageAddress;
             compositionmodel.Name = Name;
             compositionmodel.LayerNames = LayerNames;
             compositionmodel.LayerIndex = LayerIndex;
@@ -316,6 +321,7 @@ namespace CMiX.ViewModels
         {
             DisabledMessages();
 
+            MessageAddress = compositionmodel.MessageAddress;
             Name = compositionmodel.Name;
             LayerNames = compositionmodel.LayerNames;
             LayerIndex = compositionmodel.LayerIndex;

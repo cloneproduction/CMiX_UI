@@ -125,6 +125,16 @@ namespace CMiX.Services
                         {
                             QueueObject(propValue);
                         }
+                        else if(propertyname is "LayerNames")
+                        {
+                            var list = propValue as List<string>;
+                            QueueMessage(propertyname, list.ToArray());
+                        }
+                        else if (propertyname is "LayerIndex")
+                        {
+                            var list = propValue as List<int>;
+                            QueueMessage(propertyname, list.Select(i => i.ToString()).ToArray());
+                        }
                         else if (propValue is List<Model>)
                         {
                             var modellist = propValue as List<Model>;
@@ -140,6 +150,7 @@ namespace CMiX.Services
                             {
                                 if (item.FileIsSelected)
                                 {
+                                    
                                     string address = model.MessageAddress;
                                     QueueMessage(address + "SelectedFileNameItem", item.FileName);
                                 }
