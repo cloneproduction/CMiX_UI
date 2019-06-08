@@ -9,19 +9,8 @@
     d:DesignHeight="144.444"
     d:DesignWidth="714"
     mc:Ignorable="d">
-    
-    <Border>
+
         <StackPanel>
-            <!--<Border Margin="0, 0, 0, 0">
-                <Label
-                    Margin="0"
-                    Content="BEAT"
-                    HorizontalAlignment="Left"
-                    DockPanel.Dock="Bottom"
-                    FontWeight="SemiBold"
-                    FontSize="12"
-                    />
-            </Border>-->
             <Border             
                 DockPanel.Dock="Bottom"
                 Style="{StaticResource BorderContainer}">
@@ -71,5 +60,5 @@
                 </StackPanel>
             </Border>
         </StackPanel>
-    </Border>
+
 </UserControl>

@@ -268,7 +268,11 @@ namespace CMiX.ViewModels
                 filenameitem.Paste(item);
                 FilePaths.Add(filenameitem);
             }
-            SelectedFileNameItem.Paste(fileselectormodel.SelectedFileNameItem);
+            if(SelectedFileNameItem != null)
+            {
+                SelectedFileNameItem.Paste(fileselectormodel.SelectedFileNameItem);
+            }
+
             EnabledMessages();
             send = false;
         }

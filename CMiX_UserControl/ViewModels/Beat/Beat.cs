@@ -30,7 +30,7 @@ namespace CMiX.ViewModels
         {
             get
             {
-                var bpm = 50000 / Period;
+                var bpm = 60000 / Period;
                 if (double.IsInfinity(bpm) || double.IsNaN(bpm))
                     return 0;
                 else

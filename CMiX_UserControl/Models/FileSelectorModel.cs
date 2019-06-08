@@ -20,8 +20,6 @@ namespace CMiX.Models
         }
 
         public List<FileNameItemModel> FilePaths { get; set; }
-
-        [OSC]
         public FileNameItemModel SelectedFileNameItem { get; set; }
     }
 }
