@@ -1,14 +1,17 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using CMiX.Models;
+using CMiX.Services;
 using Memento;
 
 namespace CMiX.ViewModels 
 {
     public class FileNameItem : ViewModel
     {
-        public FileNameItem(Mementor mementor)
+        public FileNameItem(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor)
+            : base (oscmessengers, mementor)
         {
-            MessageAddress = string.Empty;
+            MessageAddress = messageaddress;
             Mementor = mementor;
         }
 
@@ -23,7 +26,14 @@ namespace CMiX.ViewModels
         public bool FileIsSelected
         {
             get => _fileisselected;
-            set => SetAndNotify(ref _fileisselected, value);
+            set
+            {
+                SetAndNotify(ref _fileisselected, value);
+                if (FileIsSelected)
+                {
+                    SendMessages(MessageAddress + "SelectedFileNameItem", FileName);
+                }
+            }
         }
 
         #region COPY/PASTE

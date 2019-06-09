@@ -155,7 +155,6 @@ namespace CMiX.Services
                                     QueueMessage(address + "SelectedFileNameItem", item.FileName);
                                 }
                             }
-
                         }
                         else
                         {

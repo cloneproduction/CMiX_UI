@@ -208,8 +208,7 @@ namespace CMiX.ViewModels
             newlayer.Index = layerID;
             newlayer.Enabled = false;
             
-            int index = Layers.IndexOf(lyr) + 1;
-            Layers.Insert(index, newlayer);
+            Layers.Insert(Layers.IndexOf(lyr) + 1, newlayer);
             Mementor.ElementAdd(Layers, newlayer);
             SelectedLayer = newlayer;
 

@@ -26,8 +26,6 @@ namespace CMiX.ViewModels
             Saturation = new RangeControl(oscmessengers, MessageAddress + nameof(Saturation), mementor);
             Value = new RangeControl(oscmessengers, MessageAddress + nameof(Value), mementor);
 
-            //CopySelfCommand = new RelayCommand(p => CopySelf());
-            //PasteSelfCommand = new RelayCommand(p => PasteSelf());
             ResetCommand = new RelayCommand(p => Reset());
             MouseDownCommand = new RelayCommand(p => MouseDown());
         }
