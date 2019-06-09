@@ -26,15 +26,21 @@ namespace CMiX.ViewModels
 
         public abstract double Period { get; set; }
 
+        private double _bpm;
         public double BPM
         {
             get
             {
-                var bpm = 60000 / Period;
-                if (double.IsInfinity(bpm) || double.IsNaN(bpm))
+                _bpm = 60000 / Period;
+                if (double.IsInfinity(_bpm) || double.IsNaN(_bpm))
                     return 0;
                 else
-                    return bpm;
+                    return _bpm;
+            }
+            set
+            {
+                Period = 60000 / value;
+                _bpm = value;
             }
         }
 

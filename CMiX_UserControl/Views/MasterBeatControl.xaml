@@ -44,11 +44,16 @@
                             Background="{StaticResource HighDarkerColor}" 
                             Margin="4, 0" DockPanel.Dock="Right" 
                             Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}">
-                            <TextBlock 
+                            <TextBox 
                                 Foreground="{StaticResource TextBase}" 
-                                HorizontalAlignment="Center"
-                                Text="{Binding Path=BPM, Mode=OneWay, StringFormat=F0}" 
-                                VerticalAlignment="Center"
+                                Background="{StaticResource DarkerColor}"
+                                BorderThickness="1"
+                                BorderBrush="{StaticResource DarkColor}"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                VerticalAlignment="Stretch"
+                                HorizontalAlignment="Stretch"
+                                Text="{Binding Path=BPM, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F0}" 
                                 />
                         </Border>
                         <Button
