@@ -1,10 +1,8 @@
-﻿using CMiX.ViewModels;
+﻿
 using ColorMine.ColorSpaces;
 using System;
-using System.ComponentModel;
 using System.Globalization;
 using System.IO;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
