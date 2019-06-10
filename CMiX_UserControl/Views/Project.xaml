@@ -7,10 +7,11 @@
              xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
              xmlns:Resources="clr-namespace:CMiX.Resources"
              xmlns:dd="urn:gong-wpf-dragdrop"
-             xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
-             md:DialogServiceViews.IsRegistered="True"
+
              mc:Ignorable="d"
              d:DesignHeight="706" d:DesignWidth="1042.667">
+    <!--             xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+             md:DialogServiceViews.IsRegistered="True"-->
     <UserControl.DataContext>
         <ViewModels:Project/>
     </UserControl.DataContext>
