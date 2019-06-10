@@ -47,8 +47,15 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref selectedfilenameitem, value);
+
                 if (Mementor != null)
                     Mementor.PropertyChange(this, nameof(SelectedFileNameItem));
+                
+                //if(SelectedFileNameItem != null && send == true)
+                //{
+                    //SendMessages(MessageAddress + nameof(SelectedFileNameItem), SelectedFileNameItem.FileName);
+                //}
+                //send = true;
             }
         }
         #endregion

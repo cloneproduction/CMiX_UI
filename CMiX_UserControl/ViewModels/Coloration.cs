@@ -130,3 +130,24 @@ namespace CMiX.ViewModels
         #endregion
     }
 }
+
+/*public void CopySelf()
+{
+    ColorationModel colorationmodel = new ColorationModel();
+    Copy(colorationmodel);
+    IDataObject data = new DataObject();
+    data.SetData("Coloration", colorationmodel, false);
+    Clipboard.SetDataObject(data);
+}
+
+public void PasteSelf()
+{
+    IDataObject data = Clipboard.GetDataObject();
+    if (data.GetDataPresent("Coloration"))
+    {
+        var colorationmodel = (ColorationModel)data.GetData("Coloration") as ColorationModel;
+        Paste(colorationmodel);
+        QueueObjects(colorationmodel);
+        SendQueues();
+    }
+}*/
