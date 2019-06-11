@@ -1,7 +1,5 @@
 # CMiX
 
-https://ci.appveyor.com/api/projects/status/44lj0ol4sk6mxk1s?svg=true
-
 
 A realtime graphic composition tool designed for visual production and installation.
 
