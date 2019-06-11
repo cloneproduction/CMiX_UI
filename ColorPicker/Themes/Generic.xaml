@@ -112,44 +112,6 @@
         </Setter>
     </Style>
 
-    <Style x:Key="ColorSliderThumbStyle" TargetType="{x:Type Thumb}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate>
-                    <Grid
-                        Width="15"
-                        Height="auto"
-                        Background="Transparent">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="0.2*" />
-                            <RowDefinition Height="0.2*" />
-                            <RowDefinition Height="0.2*" />
-                        </Grid.RowDefinitions>
-                        <Viewbox Grid.Row="0" Stretch="Uniform">
-                            <Grid>
-                                <Polygon
-                                    VerticalAlignment="Top"
-                                    Fill="{StaticResource BaseLightColor}"
-                                    Points="0,0.0 15,0 7.5,10"
-                                    Stretch="Uniform"
-                                    Stroke="Gray"
-                                    StrokeThickness="1" />
-                            </Grid>
-                        </Viewbox>
-                        <Viewbox Grid.Row="2">
-                            <Polygon
-                                VerticalAlignment="Bottom"
-                                Fill="{StaticResource BaseLightColor}"
-                                Points="0,11 7.5,0 15,11"
-                                Stroke="Gray"
-                                StrokeThickness="1" />
-                        </Viewbox>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
     <Style x:Key="SpectrumSliderThumbStyle" TargetType="{x:Type Thumb}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Template">
@@ -210,6 +172,44 @@
         </Setter>
     </Style>
 
+    <Style x:Key="ColorSliderThumbStyle" TargetType="{x:Type Thumb}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid
+                        Width="15"
+                        Height="auto"
+                        Background="Transparent">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.2*" />
+                            <RowDefinition Height="0.2*" />
+                            <RowDefinition Height="0.2*" />
+                        </Grid.RowDefinitions>
+                        <Viewbox Grid.Row="0" Stretch="Uniform">
+                            <Grid>
+                                <Polygon
+                                    VerticalAlignment="Top"
+                                    Fill="{StaticResource BaseLightColor}"
+                                    Points="0,0.0 15,0 7.5,10"
+                                    Stretch="Uniform"
+                                    Stroke="Gray"
+                                    StrokeThickness="1" />
+                            </Grid>
+                        </Viewbox>
+                        <Viewbox Grid.Row="2">
+                            <Polygon
+                                VerticalAlignment="Bottom"
+                                Fill="{StaticResource BaseLightColor}"
+                                Points="0,11 7.5,0 15,11"
+                                Stroke="Gray"
+                                StrokeThickness="1" />
+                        </Viewbox>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+ 
     <Style TargetType="{x:Type local:ColorSlider}">
         <Setter Property="Maximum" Value="255" />
         <Setter Property="Focusable" Value="False" />
@@ -752,13 +752,15 @@
                                             x:Name="PART_HueWheel"
                                             Grid.RowSpan="4"
                                             Grid.ColumnSpan="4"
-                                            Padding="4" />
+                                            Padding="4" 
+                                            />
                                         <local:HsvControl
                                             x:Name="PART_HsvControl"
                                             Grid.Row="1"
                                             Grid.RowSpan="2"
                                             Grid.Column="1"
-                                            Grid.ColumnSpan="2" />
+                                            Grid.ColumnSpan="2" 
+                                            />
                                     </Grid>
                                 </Viewbox>
 

@@ -16,5 +16,6 @@
         <ResourceDictionary Source="Icons.xaml"/>
         <ResourceDictionary Source="ToolTip.xaml"/>
         <ResourceDictionary Source="ContextMenu.xaml"/>
+        <ResourceDictionary Source="HueWheel.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

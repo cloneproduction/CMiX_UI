@@ -100,6 +100,19 @@ namespace CMiX
         }
     }
 
+    public class ColorToHueConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public class ColorToDoubleConverter : IValueConverter
     {
         private Color _lastColor;
@@ -186,28 +199,11 @@ namespace CMiX
         }
     }
 
-    public class BoolToStringConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            string s = (String)value;
-            bool Output = bool.Parse(s);
-            return Output;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            bool b = (bool)value;
-            string Output = b.ToString();
-            return Output;
-        }
-    }
-
     public class ColorToBrushConverter : IValueConverter
     {
-        SolidColorBrush _red = new SolidColorBrush(), 
-                        _green = new SolidColorBrush(), 
-                        _blue = new SolidColorBrush(), 
+        SolidColorBrush _red = new SolidColorBrush(),
+                        _green = new SolidColorBrush(),
+                        _blue = new SolidColorBrush(),
                         _alpha = new SolidColorBrush(),
                         _all = new SolidColorBrush();
 
@@ -240,6 +236,25 @@ namespace CMiX
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
+        }
+    }
+
+
+
+    public class BoolToStringConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            string s = (String)value;
+            bool Output = bool.Parse(s);
+            return Output;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            bool b = (bool)value;
+            string Output = b.ToString();
+            return Output;
         }
     }
 

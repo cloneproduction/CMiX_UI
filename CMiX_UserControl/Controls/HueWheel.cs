@@ -3,29 +3,30 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 
-namespace ColorPicker
+namespace CMiX.Controls
 {
-    public class HueWheel : Slider
+    public sealed class HueWheel : Slider
     {
-        static HueWheel()
+        public HueWheel()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(HueWheel), new FrameworkPropertyMetadata(typeof(HueWheel)));
+            //DefaultStyleKeyProperty.OverrideMetadata(typeof(HueWheel), new FrameworkPropertyMetadata(typeof(HueWheel)));
         }
 
         private bool _isPressed = false;
         private bool m_withinChanging = false;
 
         #region Dependency Properties
-
+        public static readonly DependencyProperty HueProperty =
+            DependencyProperty.Register("Hue", typeof(double), typeof(HueWheel),
+            new UIPropertyMetadata((double)0, new PropertyChangedCallback(OnHuePropertyChanged)));
         public double Hue
         {
             get { return (double)GetValue(HueProperty); }
             set { SetValue(HueProperty, value); }
         }
-        public static readonly DependencyProperty HueProperty =
-            DependencyProperty.Register("Hue", typeof(double), typeof(HueWheel),
-            new UIPropertyMetadata((double)0, new PropertyChangedCallback(OnHuePropertyChanged)));
+
 
         #endregion
 
@@ -45,11 +46,10 @@ namespace ColorPicker
         #endregion
 
         #region Private Methods
-
         private static void OnHuePropertyChanged(DependencyObject relatedObject, DependencyPropertyChangedEventArgs e)
         {
             HueWheel hueWheel = relatedObject as HueWheel;
-            
+
             if (hueWheel != null && !hueWheel.m_withinChanging)
             {
                 hueWheel.m_withinChanging = true;
@@ -79,7 +79,7 @@ namespace ColorPicker
             Mouse.Capture(this);
             AddHandler();
             _isPressed = true;
-            
+
             if (_isPressed)
             {
                 const double RADIUS = 150;
@@ -108,21 +108,21 @@ namespace ColorPicker
         }
     }
 
-    public class ValueTextConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter,
-                  System.Globalization.CultureInfo culture)
-        {
-            double v = (double)value;
-            return String.Format("{0:F2}", v);
-        }
+    //public class ValueTextConverter : IValueConverter
+    //{
+    //    public object Convert(object value, Type targetType, object parameter,
+    //              System.Globalization.CultureInfo culture)
+    //    {
+    //        double v = (double)value;
+    //        return String.Format("{0:F2}", v);
+    //    }
 
-        public object ConvertBack(object value, Type targetType, object parameter,
-            System.Globalization.CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
+    //    public object ConvertBack(object value, Type targetType, object parameter,
+    //        System.Globalization.CultureInfo culture)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+    //}
 
     public class ValueAngleConverter : IMultiValueConverter
     {
