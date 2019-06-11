@@ -1,4 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Globalization;
+using System.IO;
+using System.Reflection;
+using System.Windows;
 using System.Windows.Input;
 using CMiX.ViewModels;
 
