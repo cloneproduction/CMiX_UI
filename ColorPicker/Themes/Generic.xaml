@@ -413,7 +413,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
     <Style x:Key="ExpanderUpHeaderStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Template">
             <Setter.Value>

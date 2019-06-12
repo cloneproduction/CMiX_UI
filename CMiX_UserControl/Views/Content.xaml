@@ -5,10 +5,10 @@
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="583.667"
-    d:DesignWidth="278"
+    d:DesignHeight="745.667"
+    d:DesignWidth="380"
     mc:Ignorable="d">
-    
+
     <DockPanel LastChildFill="True">
         <Border 
             Padding="4, 0"

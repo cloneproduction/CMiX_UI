@@ -74,7 +74,12 @@
                         Width="25"
                         IsSelected="True">
                         <TabItem.Header>
-                            <Image Source="{StaticResource Coloration}" Height="15" Width="auto" Opacity="0.75"/>
+                            <Image 
+                                Source="{StaticResource Coloration}" 
+                                Height="15"
+                                Width="auto" 
+                                Opacity="0.75"
+                                />
                         </TabItem.Header>
                         <StackPanel Background="{StaticResource HighDarkerColor}">
                             <Border 
@@ -136,6 +141,6 @@
                     />
             </StackPanel>
         </Border>
-        <!--<Views:ColorSelector />-->
+        <!--<Views:ColorSelector DataContext="{Binding ColorSelector}"/>-->
     </StackPanel>
 </UserControl>

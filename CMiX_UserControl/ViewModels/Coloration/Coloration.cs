@@ -26,6 +26,8 @@ namespace CMiX.ViewModels
             Saturation = new RangeControl(oscmessengers, MessageAddress + nameof(Saturation), mementor);
             Value = new RangeControl(oscmessengers, MessageAddress + nameof(Value), mementor);
 
+            ColorSelector = new ColorSelector(MessageAddress + nameof(ColorSelector), oscmessengers, mementor);
+
             ResetCommand = new RelayCommand(p => Reset());
             MouseDownCommand = new RelayCommand(p => MouseDown());
         }
@@ -42,6 +44,8 @@ namespace CMiX.ViewModels
         public RangeControl Saturation { get; }
         public RangeControl Value { get; }
 
+        public ColorSelector ColorSelector { get; }
+
         private Color _selectedColor;
         public Color SelectedColor
         {
@@ -52,7 +56,6 @@ namespace CMiX.ViewModels
                 //SendMessages(MessageAddress + nameof(SelectedColor), SelectedColor);
             }
         }
-
 
         private Color _objColor;
         public Color ObjColor

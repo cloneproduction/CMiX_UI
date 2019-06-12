@@ -148,9 +148,18 @@
     <Compile Include="Models\TextureModel.cs" />
     <Compile Include="Resources\BindingProxy.cs" />
     <Compile Include="Services\OSCAttribute.cs" />
-    <Compile Include="ViewModels\ColorSelector.cs" />
+    <Compile Include="ViewModels\Coloration\ColorSelector.cs" />
+    <Compile Include="ViewModels\Coloration\SliderHue.cs" />
+    <Compile Include="ViewModels\Coloration\SliderValue.cs" />
+    <Compile Include="ViewModels\Coloration\SliderSaturation.cs" />
     <Compile Include="Views\ColorSelector.xaml.cs">
       <DependentUpon>ColorSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Sliders\HueWheel.xaml.cs">
+      <DependentUpon>HueWheel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Sliders\SliderHSV.xaml.cs">
+      <DependentUpon>SliderHSV.xaml</DependentUpon>
     </Compile>
     <Compile Include="_Unused\SetAndNotifyPropertyAction.cs" />
     <Compile Include="ViewModels\FileNameItem.cs" />
@@ -181,7 +190,7 @@
     <Compile Include="ViewModels\Camera\CameraLookAt.cs" />
     <Compile Include="ViewModels\Camera\CameraRotation.cs" />
     <Compile Include="ViewModels\Camera\CameraView.cs" />
-    <Compile Include="ViewModels\Coloration.cs" />
+    <Compile Include="ViewModels\Coloration\Coloration.cs" />
     <Compile Include="ViewModels\Content.cs" />
     <Compile Include="ViewModels\Geometry\Geometry.cs" />
     <Compile Include="ViewModels\Geometry\GeometryRotationMode.cs" />
@@ -226,10 +235,10 @@
     <Compile Include="Views\Project.xaml.cs">
       <DependentUpon>Project.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SliderCentered.xaml.cs">
+    <Compile Include="Views\Sliders\SliderCentered.xaml.cs">
       <DependentUpon>SliderCentered.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Slider.xaml.cs">
+    <Compile Include="Views\Sliders\Slider.xaml.cs">
       <DependentUpon>Slider.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Mask.xaml.cs">
@@ -357,6 +366,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Sliders\HueWheel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Sliders\SliderHSV.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="_Unused\SliderCentered.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -413,11 +430,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SliderCentered.xaml">
+    <Page Include="Views\Sliders\SliderCentered.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Slider.xaml">
+    <Page Include="Views\Sliders\Slider.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

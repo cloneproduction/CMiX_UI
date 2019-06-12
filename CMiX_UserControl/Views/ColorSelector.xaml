@@ -3,18 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:controls="clr-namespace:CMiX.Controls"
              xmlns:CMiX="clr-namespace:CMiX"
+             xmlns:Views="clr-namespace:CMiX.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="342" d:DesignWidth="341">
+             d:DesignHeight="405.5" d:DesignWidth="345.5">
 
     <UserControl.Resources>
         <ResourceDictionary>
             <CMiX:ColorToDoubleConverter x:Key="ColorToDoubleConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
-    
-    <Grid>
-        <controls:HueWheel Hue="{Binding ObjColor, Converter={StaticResource ColorToDoubleConverter}, ConverterParameter= r, Mode=TwoWay}"/>
-    </Grid>
+
+    <StackPanel>
+        <Views:HueWheel DataContext="{Binding HueWheel}"/>
+        <Views:SliderHSV Caption="Value" DataContext="{Binding Value}"/>
+        <Views:SliderHSV Caption="Saturation" DataContext="{Binding Saturation}"/>
+        <Rectangle Height="20">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="{Binding SelectedColor}" />
+            </Rectangle.Fill>
+        </Rectangle>
+    </StackPanel>
 </UserControl>

@@ -22,8 +22,6 @@ namespace CMiX.ViewModels
         public ICommand MultiplyCommand { get; }
         public ICommand DivideCommand { get; }
 
-
-
         public abstract double Period { get; set; }
 
         private double _bpm;
@@ -55,8 +53,6 @@ namespace CMiX.ViewModels
 
         protected abstract void Multiply();
         protected abstract void Divide();
-
-
         #endregion
 
         #region EVENTS
