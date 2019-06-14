@@ -21,6 +21,8 @@ namespace CMiX.ViewModels
 
         }
 
+
+
         public SliderValue Value { get; }
         public SliderSaturation Saturation { get; }
         public SliderHue HueWheel { get; }
@@ -34,8 +36,15 @@ namespace CMiX.ViewModels
                 if (Mementor != null)
                     Mementor.PropertyChange(this, "SelectedColor");
                 SetAndNotify(ref _selectedcolor, value);
+                if(ColorChangedEvent != null)
+                    ColorChangedEvent(SelectedColor);
                 //SendMessages(MessageAddress + nameof(SelectedColor), SelectedColor);
             }
         }
+
+        #region EVENT
+        public delegate void ColorChanged(Color selectedcolor);
+        public event ColorChanged ColorChangedEvent;
+        #endregion
     }
 }

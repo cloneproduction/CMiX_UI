@@ -11,19 +11,29 @@ namespace CMiX.ViewModels
     public class SliderSaturation : ViewModel
     {
         #region CONSTRUCTORS
-        public SliderSaturation(ColorSelector colorselector, string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) 
-            : base (oscmessengers, mementor)
+
+        public SliderSaturation(ColorSelector colorselector, string messageaddress,
+            ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor)
+            : base(oscmessengers, mementor)
         {
             MessageAddress = String.Format("{0}/", messageaddress);
             ColorSelector = colorselector;
-            Amount = 0.0;
+            Amount = 1.0;
 
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
             MouseDownCommand = new RelayCommand(p => MouseDown());
+
+            colorselector.ColorChangedEvent += OnColorChanged;
+            RightColor = ColorSelector.SelectedColor;
         }
+
         #endregion
 
+        void OnColorChanged(Color selectedcolor)
+        {
+            RightColor = selectedcolor;
+        }
         #region METHODS
         public void UpdateMessageAddress(string messageaddress)
         {
@@ -48,6 +58,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _leftcolor, value);
+                
             }
         }
 

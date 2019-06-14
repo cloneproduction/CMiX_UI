@@ -16,13 +16,21 @@ namespace CMiX.ViewModels
         {
             MessageAddress = String.Format("{0}/", messageaddress);
             ColorSelector = colorselector;
-            Amount = 0.0;
+            Amount = 1.0;
             
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
             MouseDownCommand = new RelayCommand(p => MouseDown());
+
+            ColorSelector.ColorChangedEvent += OnColorChanged;
+            RightColor = ColorSelector.SelectedColor;
         }
         #endregion
+
+        public void OnColorChanged(Color selectedcolor)
+        {
+            RightColor = selectedcolor;
+        }
 
         #region METHODS
         public void UpdateMessageAddress(string messageaddress)
