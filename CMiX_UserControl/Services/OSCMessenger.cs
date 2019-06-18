@@ -150,9 +150,8 @@ namespace CMiX.Services
                             {
                                 if (item.FileIsSelected)
                                 {
-                                    
-                                    string address = model.MessageAddress;
-                                    QueueMessage(address + "SelectedFileNameItem", item.FileName);
+                                    string address = item.MessageAddress;
+                                    QueueMessage(address, item.FileName);
                                 }
                             }
                         }

@@ -110,10 +110,6 @@ namespace CMiX.ViewModels
         {
             CompositionModel compositionmodel = new CompositionModel();
             this.Copy(compositionmodel);
-            foreach (var item in compositionmodel.LayerNames)
-            {
-                Console.WriteLine(item);
-            }
             QueueObjects(compositionmodel);
             SendQueues();
         }
@@ -189,7 +185,6 @@ namespace CMiX.ViewModels
 
         private void DuplicateLayer(object layer)
         {
-            Console.WriteLine("DuplicateLayer");
             Mementor.BeginBatch();
             DisabledMessages();
 
@@ -264,7 +259,6 @@ namespace CMiX.ViewModels
 
         private void DeleteLayer(object layer)
         {
-            Console.WriteLine("RemovedLayer");
             Mementor.BeginBatch();
             DisabledMessages();
 

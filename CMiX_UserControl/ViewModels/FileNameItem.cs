@@ -11,7 +11,7 @@ namespace CMiX.ViewModels
         public FileNameItem(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor)
             : base (oscmessengers, mementor)
         {
-            MessageAddress = messageaddress;
+            MessageAddress = messageaddress + "Selected";
             Mementor = mementor;
         }
 
@@ -31,14 +31,20 @@ namespace CMiX.ViewModels
                 SetAndNotify(ref _fileisselected, value);
                 if (FileIsSelected)
                 {
-                    SendMessages(MessageAddress + "SelectedFileNameItem", FileName);
+                    SendMessages(MessageAddress, FileName);
                 }
             }
+        }
+
+        public void UpdateMessageAddress(string messageaddress)
+        {
+            MessageAddress = messageaddress + "Selected";
         }
 
         #region COPY/PASTE
         public void Copy(FileNameItemModel filenameitemmodel)
         {
+            filenameitemmodel.MessageAddress = MessageAddress;
             filenameitemmodel.FileIsSelected = FileIsSelected;
             filenameitemmodel.FileName = FileName;
         }
@@ -48,6 +54,7 @@ namespace CMiX.ViewModels
 
             DisabledMessages();
 
+            MessageAddress = filenameitemmodel.MessageAddress;
             FileIsSelected = filenameitemmodel.FileIsSelected;
             FileName = filenameitemmodel.FileName;
 

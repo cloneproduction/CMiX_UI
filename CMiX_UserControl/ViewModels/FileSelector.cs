@@ -16,7 +16,7 @@ namespace CMiX.ViewModels
         public FileSelector(string messageaddress, string selectionmode, List<string> filemask, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) 
             : base (oscmessengers, mementor)
         {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(SelectedFileNameItem));
+            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(FileSelector));
 
             SelectionMode = selectionmode;
             FileMask = filemask;
@@ -47,15 +47,8 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref selectedfilenameitem, value);
-
                 if (Mementor != null)
                     Mementor.PropertyChange(this, nameof(SelectedFileNameItem));
-                
-                //if(SelectedFileNameItem != null && send == true)
-                //{
-                    //SendMessages(MessageAddress + nameof(SelectedFileNameItem), SelectedFileNameItem.FileName);
-                //}
-                //send = true;
             }
         }
         #endregion
@@ -64,6 +57,10 @@ namespace CMiX.ViewModels
         public void UpdateMessageAddress(string messageaddress)
         {
             MessageAddress = messageaddress;
+            foreach (var item in FilePaths)
+            {
+                item.UpdateMessageAddress(messageaddress);
+            }
         }
 
         private void ClearAll()
@@ -240,22 +237,16 @@ namespace CMiX.ViewModels
             List<FileNameItemModel> FileNameItemModelList = new List<FileNameItemModel>();
             foreach (var item in FilePaths)
             {
-                var filenameitemdto = new FileNameItemModel();
-                item.Copy(filenameitemdto);
-                FileNameItemModelList.Add(filenameitemdto);
+                var filenameitemmodel = new FileNameItemModel();
+                
+                item.Copy(filenameitemmodel);
+                
+                FileNameItemModelList.Add(filenameitemmodel);
             }
             fileselectormodel.FilePaths = FileNameItemModelList;
-
-            if(SelectedFileNameItem != null)
-            {
-                var selectedfilenameitemmodel = new FileNameItemModel();
-                selectedfilenameitemmodel.FileIsSelected = SelectedFileNameItem.FileIsSelected;
-                selectedfilenameitemmodel.FileName = SelectedFileNameItem.FileName;
-                fileselectormodel.SelectedFileNameItem = selectedfilenameitemmodel;
-            }
         }
 
-        bool send = true;
+        //bool send = true;
         public void Paste(FileSelectorModel fileselectormodel)
         {
             DisabledMessages();
@@ -271,7 +262,7 @@ namespace CMiX.ViewModels
             }
 
             EnabledMessages();
-            send = false;
+            //send = false;
         }
         #endregion
     }

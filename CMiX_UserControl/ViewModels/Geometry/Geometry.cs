@@ -40,7 +40,7 @@ namespace CMiX.ViewModels
         {
             MessageAddress = messageaddress;
 
-            FileSelector.UpdateMessageAddress(MessageAddress);
+            FileSelector.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(FileSelector)));
             TranslateMode.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(TranslateMode)));
             ScaleMode.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(ScaleMode)));
             RotationMode.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(RotationMode)));

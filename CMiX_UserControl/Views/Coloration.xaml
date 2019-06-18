@@ -141,6 +141,6 @@
                     />
             </StackPanel>
         </Border>
-        <Views:ColorSelector DataContext="{Binding ColorSelector}"/>
+        <!--<Views:ColorSelector DataContext="{Binding ColorSelector}"/>-->
     </StackPanel>
 </UserControl>

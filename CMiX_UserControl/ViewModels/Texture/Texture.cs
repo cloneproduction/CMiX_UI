@@ -43,7 +43,7 @@ namespace CMiX.ViewModels
         {
             MessageAddress =  messageaddress;
 
-            FileSelector.UpdateMessageAddress(MessageAddress);
+            FileSelector.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(FileSelector)));
             Brightness.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Brightness)));
             Contrast.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Contrast)));
             Invert.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Invert)));
