@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
 using CMiX.Models;
 using CMiX.Services;
@@ -106,14 +108,13 @@ namespace CMiX.ViewModels
         #region ADD/DELETE/DUPLICATE COMPOSITION
         private void AddComposition()
         {
+            DisabledMessages();
+
             Composition comp = new Composition(this.Messengers);
             Compositions.Add(comp);
             SelectedComposition = comp;
 
-            CompositionModel compositionmodel = new CompositionModel();
-            comp.Copy(compositionmodel);
-            QueueObjects(compositionmodel);
-            SendQueues();
+            EnabledMessages();
         }
 
         private void DeleteComposition(object compo)
@@ -121,8 +122,17 @@ namespace CMiX.ViewModels
             if(compo != null)
             {
                 Composition comp = compo as Composition;
+                List<string> removedlayername = new List<string>();
+                foreach (var layer in comp.Layers)
+                {
+                    removedlayername.Add(layer.LayerName);
+                }
                 Compositions.Remove(comp);
+
+                QueueMessages("/LayerRemoved", removedlayername.ToArray());
+                SendQueues();
             }
+
         }
 
         private void DuplicateComposition(object compo)

@@ -1,4 +1,5 @@
-﻿using CMiX.Services;
+﻿using System;
+using CMiX.Services;
 using CMiX.Models;
 using System.Collections.ObjectModel;
 using Memento;
@@ -13,6 +14,7 @@ namespace CMiX.ViewModels
         {
             MessageAddress = "/Camera/";
 
+            DisabledMessages();
             Rotation = ((CameraRotation)0).ToString();
             LookAt = ((CameraLookAt)0).ToString();
             View = ((CameraView)0).ToString();
@@ -22,47 +24,6 @@ namespace CMiX.ViewModels
             Zoom = new Slider(MessageAddress + nameof(Zoom), oscmessengers, mementor);
         }
 
-        /*public Camera(ObservableCollection<OSCMessenger> messengers, MasterBeat masterBeat, Mementor mementor)
-            : this
-            (
-                mementor: mementor,
-                messengers: messengers,
-                messageaddress: "/Camera/",
-                rotation: ((CameraRotation)0).ToString(),
-                lookAt: ((CameraLookAt)0).ToString(),
-                view: ((CameraView)0).ToString(),
-                beatModifier: new BeatModifier("/Camera", messengers, masterBeat, mementor),
-                fov: new Slider(String.Format("/{0}/{1}", "Camera", "FOV"), messengers, mementor),
-                zoom: new Slider(String.Format("/{0}/{1}", "Camera", "Zoom"), messengers, mementor)
-            )
-        {
-        }
-
-        public Camera
-            (
-                Mementor mementor,
-                string rotation,
-                string lookAt,
-                string view,
-                BeatModifier beatModifier,
-                Slider fov,
-                Slider zoom,
-                ObservableCollection<OSCMessenger> messengers,
-                string messageaddress
-            )
-            : base(messengers, mementor)
-        {
-            
-            Rotation = rotation;
-            LookAt = lookAt;
-            View = view;
-            BeatModifier = beatModifier ?? throw new ArgumentNullException(nameof(beatModifier));
-            FOV = fov;
-            Zoom = zoom;
-            MessageAddress = messageaddress;
-            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
-            Mementor = mementor;
-        }*/
         #endregion
 
         #region PROPERTIES
