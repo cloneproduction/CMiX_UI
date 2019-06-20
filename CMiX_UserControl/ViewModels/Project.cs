@@ -129,7 +129,9 @@ namespace CMiX.ViewModels
                 }
                 Compositions.Remove(comp);
 
+                List<string> layerindex = new List<string>();
                 QueueMessages("/LayerRemoved", removedlayername.ToArray());
+                QueueMessages("/LayerIndex", layerindex.ToArray());
                 SendQueues();
             }
 
