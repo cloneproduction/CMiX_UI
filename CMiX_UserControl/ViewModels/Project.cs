@@ -136,7 +136,6 @@ namespace CMiX.ViewModels
                 QueueMessages("LayerIndex", layerindex.ToArray());
                 SendQueues();
             }
-
         }
 
         private void DuplicateComposition(object compo)

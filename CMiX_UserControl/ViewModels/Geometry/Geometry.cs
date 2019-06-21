@@ -20,6 +20,7 @@ namespace CMiX.ViewModels
             KeepAspectRatio = false;
 
             FileSelector = new FileSelector(MessageAddress, "Single", new List<string> { ".FBX", ".OBJ" }, oscmessengers, mementor);
+            FileSelector.FilePaths.Add(new FileNameItem(FileSelector.MessageAddress, oscmessengers, mementor) { FileIsSelected = true, FileName = "Quad (default)" });
 
             TranslateMode = new GeometryTranslate(MessageAddress + nameof(TranslateMode), oscmessengers, mementor);
             ScaleMode = new GeometryScale(MessageAddress + nameof(ScaleMode), oscmessengers, mementor);
@@ -27,6 +28,7 @@ namespace CMiX.ViewModels
        
             Translate = new Slider(MessageAddress + nameof(Translate), oscmessengers, mementor);
             Scale = new Slider(MessageAddress + nameof(Scale), oscmessengers, mementor);
+            Scale.Amount = 0.25;
             Rotation = new Slider(MessageAddress + nameof(Rotation), oscmessengers, mementor);
             Counter = new Counter(MessageAddress, oscmessengers, mementor);
             GeometryFX = new GeometryFX(MessageAddress, oscmessengers, mementor);

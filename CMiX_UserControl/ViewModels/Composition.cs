@@ -32,6 +32,15 @@ namespace CMiX.ViewModels
             Camera = new Camera(Messengers, MasterBeat, Mementor);
             Mementor = new Mementor();
 
+            // CREATE DEFAULT LAYER
+            layerID += 1;
+            layerNameID += 1;
+            Layer layer = new Layer(MasterBeat, string.Format("{0}/", MessageAddress + layerNameID.ToString()), Messengers, layerNameID, Mementor);
+            layer.Index = layerID;
+            Layers.Add(layer);
+            SelectedLayer = layer;
+            LayerNames.Add(string.Format("{0}/", MessageAddress + layerNameID.ToString()));
+
             ReloadCompositionCommand = new RelayCommand(p => ReloadComposition(p));
             AddLayerCommand = new RelayCommand(p => AddLayer());
             RemoveLayerCommand = new RelayCommand(p => RemoveLayer());
@@ -90,7 +99,6 @@ namespace CMiX.ViewModels
             get { return enabled; }
             set { enabled = value; }
         }
-
 
         private Layer _selectedlayer;
         public Layer SelectedLayer
@@ -268,7 +276,6 @@ namespace CMiX.ViewModels
             Mementor.ElementRemove(Layers, lyr);
             LayerNames.Remove(lyr.LayerName);
             Layers.Remove(lyr);
-
 
             LayerIndex.Clear();
             foreach (Layer lay in Layers)
