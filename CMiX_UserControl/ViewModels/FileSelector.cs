@@ -167,9 +167,17 @@ namespace CMiX.ViewModels
                 if (dropInfo.DragInfo.VisualSource != dropInfo.VisualTarget && dropInfo.Data.GetType() == typeof(FileNameItem))
                 {
                     FileNameItem filenameitem = dropInfo.Data as FileNameItem;
-                    FileNameItem newfilenameitem = filenameitem.Clone() as FileNameItem;
-                    FilePaths.Insert(dropInfo.InsertIndex, newfilenameitem);
-                    Mementor.ElementAdd(FilePaths, newfilenameitem);
+                    foreach (string fm in FileMask)
+                    {
+                        if (System.IO.Path.GetExtension(filenameitem.FileName).ToUpperInvariant() == fm)
+                        {
+                            FileNameItem newfilenameitem = filenameitem.Clone() as FileNameItem;
+                            newfilenameitem.UpdateMessageAddress(MessageAddress);
+                            FilePaths.Insert(dropInfo.InsertIndex, newfilenameitem);
+                            Mementor.ElementAdd(FilePaths, newfilenameitem);
+                            SendMessages(newfilenameitem.MessageAddress, newfilenameitem.FileName);
+                        }
+                    }
                 }
             }
         }

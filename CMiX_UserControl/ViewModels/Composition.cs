@@ -177,8 +177,8 @@ namespace CMiX.ViewModels
             EnabledMessages();
             Mementor.EndBatch();
 
-            QueueMessages("/LayerNames", LayerNames.ToArray());
-            QueueMessages("/LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
+            QueueMessages("LayerNames", LayerNames.ToArray());
+            QueueMessages("LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
             QueueObjects(layermodel);
             SendQueues();
         }
@@ -218,8 +218,8 @@ namespace CMiX.ViewModels
             EnabledMessages();
             Mementor.EndBatch();
 
-            QueueMessages("/LayerNames", this.LayerNames.ToArray());
-            QueueMessages("/LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
+            QueueMessages("LayerNames", this.LayerNames.ToArray());
+            QueueMessages("LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
             QueueObjects(layermodel);
             SendQueues();
         }
@@ -250,9 +250,9 @@ namespace CMiX.ViewModels
                 EnabledMessages();
                 Mementor.EndBatch();
 
-                QueueMessages("/LayerNames", this.LayerNames.ToArray());
-                QueueMessages("/LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
-                QueueMessages("/LayerRemoved", removedlayername);
+                QueueMessages("LayerNames", this.LayerNames.ToArray());
+                QueueMessages("LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
+                QueueMessages("LayerRemoved", removedlayername);
                 SendQueues(); 
             }
         }
@@ -283,9 +283,9 @@ namespace CMiX.ViewModels
             EnabledMessages();
             Mementor.EndBatch();
 
-            QueueMessages("/LayerNames", this.LayerNames.ToArray());
-            QueueMessages("/LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
-            QueueMessages("/LayerRemoved", lyr.LayerName);
+            QueueMessages("LayerNames", this.LayerNames.ToArray());
+            QueueMessages("LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
+            QueueMessages("LayerRemoved", lyr.LayerName);
             SendQueues();
         }
         #endregion
@@ -392,8 +392,8 @@ namespace CMiX.ViewModels
                         }
 
                         QueueObjects(this);
-                        QueueMessages("/LayerNames", this.LayerNames.ToArray());
-                        QueueMessages("/LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
+                        QueueMessages("LayerNames", this.LayerNames.ToArray());
+                        QueueMessages("LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
                         SendQueues();
                     }
                 }
@@ -411,8 +411,8 @@ namespace CMiX.ViewModels
                 LayerIndex.Add(lyr.Index);
             }
 
-            QueueMessages("/LayerNames", this.LayerNames.ToArray());
-            QueueMessages("/LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
+            QueueMessages("LayerNames", this.LayerNames.ToArray());
+            QueueMessages("LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
             SendQueues();
         }
         #endregion
