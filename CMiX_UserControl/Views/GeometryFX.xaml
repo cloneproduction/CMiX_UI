@@ -4,11 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:Controls="clr-namespace:CMiX.Controls"
+    xmlns:controls="clr-namespace:CMiX.Controls"
     xmlns:Views="clr-namespace:CMiX.Views"
+    xmlns:CMiX="clr-namespace:CMiX"
     mc:Ignorable="d" 
-    d:DesignHeight="24.167" 
-    d:DesignWidth="313.107">
+    d:DesignHeight="89.308" 
+    d:DesignWidth="248.203">
 
     <StackPanel>
         <Views:Slider
