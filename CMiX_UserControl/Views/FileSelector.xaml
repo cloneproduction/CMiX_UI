@@ -38,12 +38,14 @@
                         Command="{Binding ClearSelectedCommand}"
                         FontSize="11"
                         Header="Clear Selected"
-                        Template="{StaticResource SubMenuItemBase}" />
+                        Template="{StaticResource SubMenuItemBase}" 
+                        />
                     <MenuItem
                         Command="{Binding ClearUnselectedCommand}"
                         FontSize="11"
                         Header="Clear Unselected"
-                        Template="{DynamicResource SubMenuItemBase}" />
+                        Template="{DynamicResource SubMenuItemBase}" 
+                        />
                     <Separator 
                         HorizontalAlignment="Stretch" 
                         Background="{StaticResource Color}" 
@@ -52,7 +54,8 @@
                         Command="{Binding ClearAllCommand}"
                         FontSize="11"
                         Header="Clear All"
-                        Template="{StaticResource SubMenuItemBase}" />
+                        Template="{StaticResource SubMenuItemBase}" 
+                        />
                 </MenuItem>
             </Menu>
         </DockPanel>
@@ -66,7 +69,6 @@
             SelectedItem="{Binding SelectedFileNameItem}"
             ItemsSource="{Binding FilePaths}"
             SelectionMode="{Binding SelectionMode}"
-
             AllowDrop="True"
             dd:DragDrop.IsDragSource="True"
             dd:DragDrop.IsDropTarget="True"
