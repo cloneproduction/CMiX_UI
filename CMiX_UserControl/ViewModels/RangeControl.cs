@@ -20,8 +20,8 @@ namespace CMiX.ViewModels
         #region METHODS
         public void UpdateMessageAddress(string messageaddress)
         {
-            MessageAddress = messageaddress + "/";
-            Range.UpdateMessageAddress(MessageAddress + nameof(Range));
+            MessageAddress = messageaddress;
+            Range.UpdateMessageAddress(messageaddress + nameof(Range) + "/");
         }
         #endregion
 
