@@ -455,20 +455,23 @@ namespace CMiX.ViewModels
                 int sourceindex = dropInfo.DragInfo.SourceIndex;
                 int insertindex = dropInfo.InsertIndex;
 
-                Mementor.BeginBatch();
-                if (insertindex >= Layers.Count - 1)
+                if(sourceindex != insertindex)
                 {
-                    Layers.Move(sourceindex, insertindex - 1); //error here on drop
-                    SelectedLayer = Layers[insertindex - 1];
-                    Mementor.ElementIndexChange(Layers, Layers[insertindex - 1], sourceindex);
+                    Mementor.BeginBatch();
+                    if (insertindex >= Layers.Count - 1)
+                    {
+                        Layers.Move(sourceindex, insertindex - 1); //error here on drop
+                        SelectedLayer = Layers[insertindex - 1];
+                        Mementor.ElementIndexChange(Layers, Layers[insertindex - 1], sourceindex);
+                    }
+                    else
+                    {
+                        Layers.Move(dropInfo.DragInfo.SourceIndex, dropInfo.InsertIndex);
+                        SelectedLayer = Layers[insertindex];
+                        Mementor.ElementIndexChange(Layers, Layers[insertindex], sourceindex);
+                    }
+                    Mementor.EndBatch();
                 }
-                else
-                {
-                    Layers.Move(dropInfo.DragInfo.SourceIndex, dropInfo.InsertIndex);
-                    SelectedLayer = Layers[insertindex];
-                    Mementor.ElementIndexChange(Layers, Layers[insertindex], sourceindex);
-                }
-                Mementor.EndBatch();
             }
         }
         #endregion
