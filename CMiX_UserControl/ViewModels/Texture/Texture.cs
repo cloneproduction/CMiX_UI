@@ -21,20 +21,37 @@ namespace CMiX.ViewModels
             FileSelector.FilePaths.Add(new FileNameItem(FileSelector.MessageAddress, oscmessengers, mementor) { FileIsSelected = true, FileName = "Black (default).png" });
 
             Brightness = new Slider(MessageAddress + nameof(Brightness), oscmessengers, mementor);
+            Brightness.Minimum = -1.0;
+
             Contrast = new Slider(MessageAddress + nameof(Contrast), oscmessengers, mementor);
+            Contrast.Minimum = -1.0;
+
             Invert = new Slider(MessageAddress + nameof(Invert), oscmessengers, mementor);
             InvertMode = ((TextureInvertMode)0).ToString();
-            Hue = new Slider(MessageAddress + nameof(Hue), oscmessengers, mementor);
-            Saturation = new Slider(MessageAddress + nameof(Saturation), oscmessengers, mementor);
-            Luminosity = new Slider(MessageAddress + nameof(Luminosity), oscmessengers, mementor);
-            Keying = new Slider(MessageAddress + nameof(Keying), oscmessengers, mementor);
-            Scale = new Slider(MessageAddress + nameof(Scale), oscmessengers, mementor);
-            Rotate = new Slider(MessageAddress + nameof(Rotate), oscmessengers, mementor);
-            Pan = new Slider(MessageAddress + nameof(Pan), oscmessengers, mementor);
-            Tilt = new Slider(MessageAddress + nameof(Tilt), oscmessengers, mementor);
 
-            //CopySelfCommand = new RelayCommand(p => CopySelf());
-            //PasteSelfCommand = new RelayCommand(p => PasteSelf());
+            Hue = new Slider(MessageAddress + nameof(Hue), oscmessengers, mementor);
+            Hue.Minimum = -1.0;
+
+            Saturation = new Slider(MessageAddress + nameof(Saturation), oscmessengers, mementor);
+            Saturation.Minimum = -1.0;
+
+            Luminosity = new Slider(MessageAddress + nameof(Luminosity), oscmessengers, mementor);
+            Luminosity.Minimum = -1.0;
+
+            Keying = new Slider(MessageAddress + nameof(Keying), oscmessengers, mementor);
+
+            Scale = new Slider(MessageAddress + nameof(Scale), oscmessengers, mementor);
+            Scale.Minimum = -1.0;
+
+            Rotate = new Slider(MessageAddress + nameof(Rotate), oscmessengers, mementor);
+            Rotate.Minimum = -1.0;
+
+            Pan = new Slider(MessageAddress + nameof(Pan), oscmessengers, mementor);
+            Pan.Minimum = -1.0;
+
+            Tilt = new Slider(MessageAddress + nameof(Tilt), oscmessengers, mementor);
+            Tilt.Minimum = -1.0;
+
             ResetCommand = new RelayCommand(p => Reset());
         }
         #endregion

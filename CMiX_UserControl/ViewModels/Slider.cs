@@ -52,18 +52,37 @@ namespace CMiX.ViewModels
                 SendMessages(MessageAddress + nameof(Amount), Amount);
             }
         }
+
+        private double minimum = 0.0;
+        public double Minimum
+        {
+            get { return minimum; }
+            set { minimum = value; }
+        }
+
+        private double maximum = 1.0;
+        public double Maximum
+        {
+            get { return maximum; }
+            set { maximum = value; }
+        }
+
         #endregion
 
         #region ADD/SUB
         private void Add()
         {
-            if (Amount < 1.0)
+            if (Amount >= Maximum)
+                Amount = Maximum;
+            else
                 Amount += 0.01;
         }
 
         private void Sub()
         {
-            if (Amount > 0.0)
+            if (Amount <= Minimum)
+                Amount = Minimum;
+            else
                 Amount -= 0.01;
         }
         #endregion
