@@ -118,6 +118,8 @@ namespace CMiX.ViewModels
         {
             CompositionModel compositionmodel = new CompositionModel();
             this.Copy(compositionmodel);
+            bool compreloaded = true;
+            SendMessages("CompositionReloaded", compreloaded);
             QueueObjects(compositionmodel);
             SendQueues();
         }
@@ -398,10 +400,10 @@ namespace CMiX.ViewModels
                             LayerIndex.Add(lyr.Index);
                         }
 
-                        QueueObjects(this);
+                        /*QueueObjects(this);
                         QueueMessages("LayerNames", this.LayerNames.ToArray());
                         QueueMessages("LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
-                        SendQueues();
+                        SendQueues();*/
                     }
                 }
             }

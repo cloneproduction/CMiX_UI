@@ -7,6 +7,7 @@ using CMiX.Services;
 using CMiX.Models;
 using GongSolutions.Wpf.DragDrop;
 using Memento;
+using System.Windows.Controls;
 
 namespace CMiX.ViewModels
 {
@@ -162,9 +163,9 @@ namespace CMiX.ViewModels
                 }
             }
 
-
             if (dropInfo.DragInfo != null)
             {
+
                 if (dropInfo.DragInfo.VisualSource != dropInfo.VisualTarget && dropInfo.Data.GetType() == typeof(FileNameItem))
                 {
                     FileNameItem filenameitem = dropInfo.Data as FileNameItem;
@@ -207,8 +208,12 @@ namespace CMiX.ViewModels
                 {
                     FileNameItem filenameitem = dropInfo.Data as FileNameItem;
                     FileNameItem newfilenameitem = filenameitem.Clone() as FileNameItem;
+
+                    newfilenameitem.UpdateMessageAddress(MessageAddress);
                     FilePaths.Insert(dropInfo.InsertIndex, newfilenameitem);
                     FilePaths.Remove(filenameitem);
+                    Mementor.ElementAdd(FilePaths, newfilenameitem);
+                    SendMessages(newfilenameitem.MessageAddress, newfilenameitem.FileName);
                 }
             }
         }
