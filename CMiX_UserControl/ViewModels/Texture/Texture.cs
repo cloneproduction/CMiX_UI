@@ -77,8 +77,6 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-        public ICommand CopySelfCommand { get; }
-        public ICommand PasteSelfCommand { get; }
         public ICommand ResetCommand { get; }
 
         public FileSelector FileSelector { get;  }

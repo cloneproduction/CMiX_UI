@@ -181,7 +181,6 @@
     <Compile Include="ViewModels\Beat\Beat.cs" />
     <Compile Include="ViewModels\Beat\BeatModifier.cs" />
     <Compile Include="ViewModels\Geometry\GeometryTranslate.cs" />
-    <None Include="_Unused\InvertMode.cs" />
     <Compile Include="ViewModels\RangeControl.cs" />
     <Compile Include="ViewModels\_Enums\RangeModifier.cs" />
     <Compile Include="_Unused\ShortCodeAttribute.cs" />

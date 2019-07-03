@@ -1,7 +1,5 @@
 ﻿using System;
-using CMiX.Services;
 using CMiX.Models;
-using System.Windows;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using Memento;
@@ -20,7 +18,6 @@ namespace CMiX.ViewModels
 
             Transforms = ((PostFXTransforms)0).ToString();
             View = ((PostFXView)0).ToString();
-
             ResetCommand = new RelayCommand(p => Reset());
         }
         #endregion
@@ -36,8 +33,6 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-        public ICommand CopySelfCommand { get; }
-        public ICommand PasteSelfCommand { get; }
         public ICommand ResetCommand { get; }
 
         public Slider Feedback { get; }
@@ -71,25 +66,6 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-
-        public void Reset()
-        {
-            DisabledMessages();
-
-            Transforms = ((PostFXTransforms)0).ToString();
-            View = ((PostFXView)0).ToString();
-
-            Feedback.Reset();
-            Blur.Reset();
-
-            EnabledMessages();
-
-            PostFXModel postfxmodel = new PostFXModel();
-            this.Copy(postfxmodel);
-            QueueObjects(postfxmodel);
-            SendQueues();
-        }
-
         public void Copy(PostFXModel postFXmodel)
         {
             Feedback.Copy(postFXmodel.Feedback);
@@ -102,34 +78,33 @@ namespace CMiX.ViewModels
         public void Paste(PostFXModel postFXmodel)
         {
             DisabledMessages();
+
             MessageAddress = postFXmodel.MessageAddress;
             Feedback.Paste(postFXmodel.Feedback);
             Blur.Paste(postFXmodel.Blur);
             Transforms = postFXmodel.Transforms;
             View = postFXmodel.View;
+
+            EnabledMessages();
+        }
+
+        public void Reset()
+        {
+            DisabledMessages();
+
+            Transforms = ((PostFXTransforms)0).ToString();
+            View = ((PostFXView)0).ToString();
+
+            Feedback.Reset();
+            Blur.Reset();
+
+            PostFXModel postfxmodel = new PostFXModel();
+            this.Copy(postfxmodel);
+            QueueObjects(postfxmodel);
+            SendQueues();
+
             EnabledMessages();
         }
         #endregion
     }
 }
-
-            //public void CopySelf()
-            //{
-            //    PostFXModel postFXmodel = new PostFXModel();
-            //    this.Copy(postFXmodel);
-            //    IDataObject data = new DataObject();
-            //    data.SetData("PostFX", postFXmodel, false);
-            //    Clipboard.SetDataObject(data);
-            //}
-
-//public void PasteSelf()
-//{
-//    IDataObject data = Clipboard.GetDataObject();
-//    if (data.GetDataPresent("PostFX"))
-//    {
-//        var postFXmodel = (PostFXModel)data.GetData("PostFX") as PostFXModel;
-//        this.Paste(postFXmodel);
-//        QueueObjects(postFXmodel);
-//        SendQueues();
-//    }
-//}

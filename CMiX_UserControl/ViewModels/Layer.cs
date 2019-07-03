@@ -36,6 +36,8 @@ namespace CMiX.ViewModels
             PasteMaskCommand = new RelayCommand(p => PasteMask());
             CopyColorationCommand = new RelayCommand(p => CopyColoration());
             PasteColorationCommand = new RelayCommand(p => PasteColoration());
+            CopyPostFXCommand = new RelayCommand(p => CopyPostFX());
+            PastePostFXCommand = new RelayCommand(p => PastePostFX());
         }
         #endregion
 
@@ -54,8 +56,6 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-        public ICommand CopyPostFXCommand { get; }
-        public ICommand PastePostFXCommand { get; }
 
         public ICommand CopyContentCommand { get; }
         public ICommand PasteContentCommand { get; }
@@ -65,6 +65,9 @@ namespace CMiX.ViewModels
 
         public ICommand CopyColorationCommand { get; }
         public ICommand PasteColorationCommand { get; }
+
+        public ICommand CopyPostFXCommand { get; }
+        public ICommand PastePostFXCommand { get; }
 
         private string _layername;
         public string LayerName
