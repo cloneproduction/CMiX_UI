@@ -120,6 +120,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\FolderDialogBehavior.cs" />
     <Compile Include="Behaviors\ListBoxSelectionBehavior.cs" />
     <Compile Include="Behaviors\SliderBehavior.cs" />
     <Compile Include="Controls\HueWheel.cs" />

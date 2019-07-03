@@ -79,6 +79,39 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _name, value);
         }
 
+        private string _videofoldername;
+        public string VideoFolderName
+        {
+            get => _videofoldername;
+            set
+            {
+                SetAndNotify(ref _videofoldername, value);
+                SendMessages("/VideoFolder", VideoFolderName);
+            }
+        }
+
+        private string _imagefoldername;
+        public string ImageFolderName
+        {
+            get => _imagefoldername;
+            set
+            {
+                SetAndNotify(ref _imagefoldername, value);
+                SendMessages("/ImageFolder", ImageFolderName);
+            }
+        }
+
+        private string _geometryfoldername;
+        public string GeometryFolderName
+        {
+            get => _geometryfoldername;
+            set
+            {
+                SetAndNotify(ref _geometryfoldername, value);
+                SendMessages("/GeometryFolder", GeometryFolderName);
+            }
+        }
+
         private List<string> _layernames;
         public List<string> LayerNames
         {
@@ -307,6 +340,9 @@ namespace CMiX.ViewModels
             compositionmodel.Name = Name;
             compositionmodel.LayerNames = LayerNames;
             compositionmodel.LayerIndex = LayerIndex;
+            compositionmodel.ImageFolderName = ImageFolderName;
+            compositionmodel.VideoFolderName = VideoFolderName;
+            compositionmodel.GeometryFolderName = GeometryFolderName;
 
             foreach (Layer lyr in Layers)
             {
@@ -325,6 +361,10 @@ namespace CMiX.ViewModels
 
             MessageAddress = compositionmodel.MessageAddress;
             Name = compositionmodel.Name;
+            VideoFolderName = compositionmodel.VideoFolderName;
+            ImageFolderName = compositionmodel.ImageFolderName;
+            GeometryFolderName = compositionmodel.GeometryFolderName;
+            
             LayerNames = compositionmodel.LayerNames;
             LayerIndex = compositionmodel.LayerIndex;
             Layers.Clear();
@@ -347,6 +387,10 @@ namespace CMiX.ViewModels
         public void Load(CompositionModel compositionmodel)
         {
             Name = compositionmodel.Name;
+            GeometryFolderName = compositionmodel.GeometryFolderName;
+            ImageFolderName = compositionmodel.ImageFolderName;
+            VideoFolderName = compositionmodel.VideoFolderName;
+
             LayerNames = compositionmodel.LayerNames;
             LayerIndex = compositionmodel.LayerIndex;
             Layers.Clear();
@@ -399,11 +443,6 @@ namespace CMiX.ViewModels
                         {
                             LayerIndex.Add(lyr.Index);
                         }
-
-                        /*QueueObjects(this);
-                        QueueMessages("LayerNames", this.LayerNames.ToArray());
-                        QueueMessages("LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
-                        SendQueues();*/
                     }
                 }
             }
