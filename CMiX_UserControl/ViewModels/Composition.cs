@@ -6,7 +6,6 @@ using System.Collections.Specialized;
 using System.Windows;
 using System.IO;
 using Newtonsoft.Json;
-using CMiX.Services;
 using CMiX.Models;
 using Memento;
 using GongSolutions.Wpf.DragDrop;

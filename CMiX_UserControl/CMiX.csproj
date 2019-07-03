@@ -150,7 +150,7 @@
     <Compile Include="Models\SliderModel.cs" />
     <Compile Include="Models\TextureModel.cs" />
     <Compile Include="Resources\BindingProxy.cs" />
-    <Compile Include="Services\OSCAttribute.cs" />
+    <Compile Include="_Unused\OSCAttribute.cs" />
     <Compile Include="ViewModels\Coloration\ColorSelector.cs" />
     <Compile Include="ViewModels\Coloration\SliderHue.cs" />
     <Compile Include="ViewModels\Coloration\SliderValue.cs" />
@@ -167,7 +167,7 @@
     <Compile Include="_Unused\SetAndNotifyPropertyAction.cs" />
     <Compile Include="ViewModels\FileNameItem.cs" />
     <Compile Include="ViewModels\FileSelector.cs" />
-    <Compile Include="ViewModels\OSCControl.cs" />
+    <Compile Include="_Unused\OSCControl.cs" />
     <Compile Include="ViewModels\Project.cs" />
     <Compile Include="ViewModels\Slider.cs" />
     <Compile Include="ViewModels\Counter.cs" />
@@ -177,18 +177,18 @@
     <Compile Include="ViewModels\Geometry\GeometryScale.cs" />
     <None Include="packages.config" />
     <None Include="_Unused\IMessenger.cs" />
-    <Compile Include="Services\OSCMessenger.cs" />
+    <Compile Include="ViewModels\OSCMessenger.cs" />
     <Compile Include="ViewModels\Beat\Beat.cs" />
     <Compile Include="ViewModels\Beat\BeatModifier.cs" />
     <Compile Include="ViewModels\Geometry\GeometryTranslate.cs" />
-    <Compile Include="ViewModels\InvertMode.cs" />
+    <None Include="_Unused\InvertMode.cs" />
     <Compile Include="ViewModels\RangeControl.cs" />
-    <Compile Include="ViewModels\RangeModifier.cs" />
-    <Compile Include="ViewModels\ShortCodeAttribute.cs" />
-    <Compile Include="Views\BeatModifier.xaml.cs">
+    <Compile Include="ViewModels\_Enums\RangeModifier.cs" />
+    <Compile Include="_Unused\ShortCodeAttribute.cs" />
+    <Compile Include="Views\Beat\BeatModifier.xaml.cs">
       <DependentUpon>BeatModifier.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\BlendMode.cs" />
+    <Compile Include="ViewModels\_Enums\BlendMode.cs" />
     <Compile Include="ViewModels\Camera\Camera.cs" />
     <Compile Include="ViewModels\Camera\CameraLookAt.cs" />
     <Compile Include="ViewModels\Camera\CameraRotation.cs" />
@@ -210,7 +210,7 @@
     <Compile Include="ViewModels\Texture\Texture.cs" />
     <Compile Include="ViewModels\Texture\TextureInvertMode.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
-    <Compile Include="Views\BeatControls.xaml.cs">
+    <Compile Include="Views\Beat\BeatControls.xaml.cs">
       <DependentUpon>BeatControls.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\RangeSlider.cs" />
@@ -284,7 +284,7 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Compile Include="Views\MasterBeatControl.xaml.cs">
+    <Compile Include="Views\Beat\MasterBeatControl.xaml.cs">
       <DependentUpon>MasterBeatControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Geometry.xaml.cs">
@@ -397,7 +397,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\BeatModifier.xaml">
+    <Page Include="Views\Beat\BeatModifier.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -473,7 +473,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\BeatControls.xaml">
+    <Page Include="Views\Beat\BeatControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -510,7 +510,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MasterBeatControl.xaml">
+    <Page Include="Views\Beat\MasterBeatControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

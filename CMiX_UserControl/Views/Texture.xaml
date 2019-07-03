@@ -15,7 +15,7 @@
     <UserControl.Resources>
         <ObjectDataProvider x:Key="InvertMode" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="ViewModels:InvertMode"/>
+                <x:Type TypeName="ViewModels:TextureInvertMode"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </UserControl.Resources>
