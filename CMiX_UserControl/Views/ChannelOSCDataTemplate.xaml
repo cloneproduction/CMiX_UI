@@ -36,27 +36,6 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TextBlock 
-                    Text="Send" 
-                    Foreground="{StaticResource TextBase}"
-                    Margin="0, 0, 8, 0"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    />
-                <ToggleButton 
-                    HorizontalAlignment="Left"
-                    Margin="1"
-                    Grid.Column="1"
-                    Width="20"
-                    Height="20" 
-                    IsChecked="{Binding SendEnabled}"
-                    />
-            </Grid>
-            <Grid Height="20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.4*"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <TextBlock 
                     Text="Reload" 
                     Foreground="{StaticResource TextBase}"
                     Margin="0, 0, 8, 0"
