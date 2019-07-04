@@ -53,7 +53,6 @@ namespace CMiX.ViewModels
 
         public void Paste(FileNameItemModel filenameitemmodel)
         {
-
             DisabledMessages();
 
             MessageAddress = filenameitemmodel.MessageAddress;

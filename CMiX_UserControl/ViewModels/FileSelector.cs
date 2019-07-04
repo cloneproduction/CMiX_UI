@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows;
-using CMiX.Services;
 using CMiX.Models;
 using GongSolutions.Wpf.DragDrop;
 using Memento;
-using System.Windows.Controls;
 
 namespace CMiX.ViewModels
 {
@@ -81,7 +79,6 @@ namespace CMiX.ViewModels
                         Mementor.ElementRemove(FilePaths, FilePaths[i]);
                         FilePaths.Remove(FilePaths[i]);
                     }
-
                 }
             });
         }
@@ -174,10 +171,11 @@ namespace CMiX.ViewModels
                         if (System.IO.Path.GetExtension(filenameitem.FileName).ToUpperInvariant() == fm)
                         {
                             FileNameItem newfilenameitem = filenameitem.Clone() as FileNameItem;
+                            newfilenameitem.FileIsSelected = true;
                             newfilenameitem.UpdateMessageAddress(MessageAddress);
+                            SelectedFileNameItem = newfilenameitem;
                             FilePaths.Insert(dropInfo.InsertIndex, newfilenameitem);
                             Mementor.ElementAdd(FilePaths, newfilenameitem);
-                            SendMessages(newfilenameitem.MessageAddress, newfilenameitem.FileName);
                         }
                     }
                 }
@@ -212,8 +210,9 @@ namespace CMiX.ViewModels
                     newfilenameitem.UpdateMessageAddress(MessageAddress);
                     FilePaths.Insert(dropInfo.InsertIndex, newfilenameitem);
                     FilePaths.Remove(filenameitem);
+                    newfilenameitem.FileIsSelected = true;
+                    SelectedFileNameItem = newfilenameitem;
                     Mementor.ElementAdd(FilePaths, newfilenameitem);
-                    SendMessages(newfilenameitem.MessageAddress, newfilenameitem.FileName);
                 }
             }
         }
@@ -260,7 +259,6 @@ namespace CMiX.ViewModels
             fileselectormodel.FilePaths = FileNameItemModelList;
         }
 
-        //bool send = true;
         public void Paste(FileSelectorModel fileselectormodel)
         {
             DisabledMessages();
@@ -277,7 +275,6 @@ namespace CMiX.ViewModels
             }
 
             EnabledMessages();
-            //send = false;
         }
         #endregion
     }
