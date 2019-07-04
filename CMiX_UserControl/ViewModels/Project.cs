@@ -88,6 +88,12 @@ namespace CMiX.ViewModels
         private void DeleteOSC(object oscmessenger)
         {
             OSCMessenger messenger = oscmessenger as OSCMessenger;
+            int messengerindex = Messengers.IndexOf(messenger);
+            
+            foreach (var compo in Compositions)
+            {
+                OSCValidation.RemoveAt(messengerindex);
+            }
             Messengers.Remove(messenger);
         }
 
@@ -101,6 +107,11 @@ namespace CMiX.ViewModels
         {
             OSCMessenger oscmessenger = new OSCMessenger("127.0.0.1", 1111 + portnumber);
             Messengers.Add(oscmessenger);
+
+            foreach (var compo in Compositions)
+            {
+                compo.OSCValidation.Add(new OSCValidation(oscmessenger));
+            }
             portnumber++;
         }
         #endregion

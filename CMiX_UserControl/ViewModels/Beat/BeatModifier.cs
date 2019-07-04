@@ -9,14 +9,14 @@ namespace CMiX.ViewModels
     public class BeatModifier : Beat
     {
         #region CONSTRUCTORS
-        public BeatModifier(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Beat beat, Mementor mementor) 
-            : base (oscmessengers, mementor)
+        public BeatModifier(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Beat beat, ObservableCollection<OSCValidation> cansendmessage, Mementor mementor) 
+            : base (oscmessengers, cansendmessage, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(BeatModifier));
 
             MasterBeat = beat;
             Multiplier = 1.0;
-            ChanceToHit = new Slider(MessageAddress + nameof(ChanceToHit), oscmessengers, mementor);
+            ChanceToHit = new Slider(MessageAddress + nameof(ChanceToHit), oscmessengers, cansendmessage, mementor);
             ChanceToHit.Amount = 1.0;
             beat.PeriodChanged += (s, newvalue) =>
             {

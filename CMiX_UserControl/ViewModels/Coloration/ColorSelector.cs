@@ -9,15 +9,15 @@ namespace CMiX.ViewModels
 {
     public class ColorSelector : ViewModel
     {
-        public ColorSelector(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) 
-            : base(oscmessengers, mementor)
+        public ColorSelector(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, ObservableCollection<OSCValidation> cansendmessage, Mementor mementor) 
+            : base(oscmessengers, cansendmessage, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(ColorSelector));
             SelectedColor = Color.FromArgb(255, 51, 125, 253);
 
-            Value = new SliderValue(this, MessageAddress + nameof(Value), oscmessengers, mementor);
-            Saturation = new SliderSaturation(this, MessageAddress + nameof(Value), oscmessengers, mementor);
-            HueWheel = new SliderHue(this, MessageAddress + nameof(HueWheel), oscmessengers, mementor);
+            Value = new SliderValue(this, MessageAddress + nameof(Value), oscmessengers, cansendmessage, mementor);
+            Saturation = new SliderSaturation(this, MessageAddress + nameof(Value), oscmessengers, cansendmessage, mementor);
+            HueWheel = new SliderHue(this, MessageAddress + nameof(HueWheel), oscmessengers, cansendmessage, mementor);
 
         }
 

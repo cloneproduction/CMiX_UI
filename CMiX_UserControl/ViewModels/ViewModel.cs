@@ -22,9 +22,10 @@ namespace CMiX.ViewModels
             Messengers = oscmessengers ?? throw new ArgumentNullException(nameof(oscmessengers));
         }
 
-        public ViewModel(ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor)
+        public ViewModel(ObservableCollection<OSCMessenger> oscmessengers, ObservableCollection<OSCValidation> cansendmessage, Mementor mementor)
         {
             Messengers = oscmessengers ?? throw new ArgumentNullException(nameof(oscmessengers));
+            OSCValidation = cansendmessage;
             Mementor = mementor;
         }
         #endregion
@@ -35,18 +36,20 @@ namespace CMiX.ViewModels
         public ObservableCollection<OSCMessenger> Messengers { get; set; }
 
         public string MessageAddress { get; set; }
+
+        public ObservableCollection<OSCValidation> OSCValidation { get; set; }
         #endregion
 
         #region MESSENGERS
         public void SendMessages(string address, params object[] args)
         {
-            if (Messengers != null)
+            if (OSCValidation != null)
             {
-                foreach (var Message in Messengers)
+                foreach (var oscvalidation in OSCValidation)
                 {
-                    if (Message.SendEnabled == true)
+                    if (oscvalidation.SendEnabled)
                     {
-                        Message.SendMessage(address, args);
+                        oscvalidation.OSCMessenger.SendMessage(address, args);
                     }
                 }
             }

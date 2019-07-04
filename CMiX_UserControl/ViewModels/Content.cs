@@ -11,17 +11,17 @@ namespace CMiX.ViewModels
     public class Content : ViewModel
     {
         #region CONSTRUCTORS
-        public Content(Beat masterbeat, string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) 
-            : base (oscmessengers, mementor)
+        public Content(Beat masterbeat, string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, ObservableCollection<OSCValidation> cansendmessage, Mementor mementor) 
+            : base (oscmessengers, cansendmessage, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Content));
 
             Enable = true;
 
-            BeatModifier = new BeatModifier(MessageAddress, oscmessengers, masterbeat, mementor);
-            Geometry = new Geometry(MessageAddress, oscmessengers, mementor);
-            Texture = new Texture(MessageAddress, oscmessengers, mementor);
-            PostFX = new PostFX(MessageAddress, oscmessengers, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, oscmessengers, masterbeat, cansendmessage, mementor);
+            Geometry = new Geometry(MessageAddress, oscmessengers, cansendmessage, mementor);
+            Texture = new Texture(MessageAddress, oscmessengers, cansendmessage, mementor);
+            PostFX = new PostFX(MessageAddress, oscmessengers, cansendmessage, mementor);
 
             ResetCommand = new RelayCommand(p => Reset());
             CopyTextureCommand = new RelayCommand(p => CopyTexture());

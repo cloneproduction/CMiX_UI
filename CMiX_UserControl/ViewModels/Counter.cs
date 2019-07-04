@@ -10,7 +10,7 @@ namespace CMiX.ViewModels
     public class Counter : ViewModel
     {
         #region CONSTRUCTORS
-        public Counter(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
+        public Counter(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, ObservableCollection<OSCValidation> cansendmessage, Mementor mementor) : base (oscmessengers, cansendmessage, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Counter));
             Count = 1;

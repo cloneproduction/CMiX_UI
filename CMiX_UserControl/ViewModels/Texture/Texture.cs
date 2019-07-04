@@ -12,44 +12,44 @@ namespace CMiX.ViewModels
     public class Texture : ViewModel
     {
         #region CONSTRUCTORS
-        public Texture(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor)
-            : base (oscmessengers, mementor)
+        public Texture(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, ObservableCollection<OSCValidation> cansendmessage, Mementor mementor)
+            : base (oscmessengers, cansendmessage, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Texture));
 
-            FileSelector = new FileSelector(MessageAddress,  "Single", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, oscmessengers, mementor);
-            FileSelector.FilePaths.Add(new FileNameItem(FileSelector.MessageAddress, oscmessengers, mementor) { FileIsSelected = true, FileName = "Black (default).png" });
+            FileSelector = new FileSelector(MessageAddress,  "Single", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, oscmessengers, cansendmessage, mementor);
+            FileSelector.FilePaths.Add(new FileNameItem(FileSelector.MessageAddress, oscmessengers, cansendmessage, mementor) { FileIsSelected = true, FileName = "Black (default).png" });
 
-            Brightness = new Slider(MessageAddress + nameof(Brightness), oscmessengers, mementor);
+            Brightness = new Slider(MessageAddress + nameof(Brightness), oscmessengers, cansendmessage, mementor);
             Brightness.Minimum = -1.0;
 
-            Contrast = new Slider(MessageAddress + nameof(Contrast), oscmessengers, mementor);
+            Contrast = new Slider(MessageAddress + nameof(Contrast), oscmessengers, cansendmessage, mementor);
             Contrast.Minimum = -1.0;
 
-            Invert = new Slider(MessageAddress + nameof(Invert), oscmessengers, mementor);
+            Invert = new Slider(MessageAddress + nameof(Invert), oscmessengers, cansendmessage, mementor);
             InvertMode = ((TextureInvertMode)0).ToString();
 
-            Hue = new Slider(MessageAddress + nameof(Hue), oscmessengers, mementor);
+            Hue = new Slider(MessageAddress + nameof(Hue), oscmessengers, cansendmessage, mementor);
             Hue.Minimum = -1.0;
 
-            Saturation = new Slider(MessageAddress + nameof(Saturation), oscmessengers, mementor);
+            Saturation = new Slider(MessageAddress + nameof(Saturation), oscmessengers, cansendmessage, mementor);
             Saturation.Minimum = -1.0;
 
-            Luminosity = new Slider(MessageAddress + nameof(Luminosity), oscmessengers, mementor);
+            Luminosity = new Slider(MessageAddress + nameof(Luminosity), oscmessengers, cansendmessage, mementor);
             Luminosity.Minimum = -1.0;
 
-            Keying = new Slider(MessageAddress + nameof(Keying), oscmessengers, mementor);
+            Keying = new Slider(MessageAddress + nameof(Keying), oscmessengers, cansendmessage, mementor);
 
-            Scale = new Slider(MessageAddress + nameof(Scale), oscmessengers, mementor);
+            Scale = new Slider(MessageAddress + nameof(Scale), oscmessengers, cansendmessage, mementor);
             Scale.Minimum = -1.0;
 
-            Rotate = new Slider(MessageAddress + nameof(Rotate), oscmessengers, mementor);
+            Rotate = new Slider(MessageAddress + nameof(Rotate), oscmessengers, cansendmessage, mementor);
             Rotate.Minimum = -1.0;
 
-            Pan = new Slider(MessageAddress + nameof(Pan), oscmessengers, mementor);
+            Pan = new Slider(MessageAddress + nameof(Pan), oscmessengers, cansendmessage, mementor);
             Pan.Minimum = -1.0;
 
-            Tilt = new Slider(MessageAddress + nameof(Tilt), oscmessengers, mementor);
+            Tilt = new Slider(MessageAddress + nameof(Tilt), oscmessengers, cansendmessage, mementor);
             Tilt.Minimum = -1.0;
 
             ResetCommand = new RelayCommand(p => Reset());

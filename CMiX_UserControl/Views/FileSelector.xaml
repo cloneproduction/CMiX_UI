@@ -74,12 +74,6 @@
             dd:DragDrop.IsDropTarget="True"
             dd:DragDrop.DragHandler="{Binding}"
             dd:DragDrop.DropHandler="{Binding}">
-            <!--<ListBox.ItemContainerStyle>
-                <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
-                    <Setter Property="IsSelected" Value="{Binding FileIsSelected, Mode=TwoWay}"/>
-                </Style>
-            </ListBox.ItemContainerStyle>-->
-
             <ListBox.Resources>
                 <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
                     <Setter Property="IsSelected" Value="{Binding FileIsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />

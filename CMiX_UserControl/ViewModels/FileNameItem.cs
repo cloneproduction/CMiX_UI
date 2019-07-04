@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Reflection;
 using CMiX.Models;
-using CMiX.Services;
 using Memento;
 
 namespace CMiX.ViewModels 
 {
     public class FileNameItem : ViewModel
     {
-        public FileNameItem(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor)
-            : base (oscmessengers, mementor)
+        public FileNameItem(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, ObservableCollection<OSCValidation> cansendmessage, Mementor mementor)
+            : base (oscmessengers, cansendmessage, mementor)
         {
             MessageAddress = messageaddress + "Selected";
             Mementor = mementor;

@@ -88,6 +88,7 @@ namespace CMiX.ViewModels
         {
             if (SendEnabled)
             {
+                Console.WriteLine("SendMessage from OSC Messenger");
                 var message = CreateOscMessage(address, args);
                 Sender.Send(message);
             }

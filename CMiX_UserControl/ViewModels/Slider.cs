@@ -10,7 +10,7 @@ namespace CMiX.ViewModels
     public class Slider : ViewModel
     {
         #region CONSTRUCTORS
-        public Slider(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) : base (oscmessengers, mementor)
+        public Slider(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, ObservableCollection<OSCValidation> cansendmessage, Mementor mementor) : base (oscmessengers, cansendmessage, mementor)
         {
             MessageAddress = String.Format("{0}/", messageaddress);
             Amount = 0.0;

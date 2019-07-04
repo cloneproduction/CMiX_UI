@@ -8,8 +8,8 @@ namespace CMiX.ViewModels
     public abstract class Beat : ViewModel
     {
         #region CONSTRUCTOR
-        public Beat(ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor)
-            : base(oscmessengers, mementor)
+        public Beat(ObservableCollection<OSCMessenger> oscmessengers, ObservableCollection<OSCValidation> cansendmessage, Mementor mementor)
+            : base(oscmessengers, cansendmessage, mementor)
         {
             ResetCommand = new RelayCommand(p => Reset());
             MultiplyCommand = new RelayCommand(p => Multiply());

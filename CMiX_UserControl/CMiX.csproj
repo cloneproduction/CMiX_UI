@@ -150,6 +150,10 @@
     <Compile Include="Models\SliderModel.cs" />
     <Compile Include="Models\TextureModel.cs" />
     <Compile Include="Resources\BindingProxy.cs" />
+    <Compile Include="ViewModels\OSCValidation.cs" />
+    <Compile Include="Views\ChannelOSCDataTemplate.xaml.cs">
+      <DependentUpon>ChannelOSCDataTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="_Unused\OSCAttribute.cs" />
     <Compile Include="ViewModels\Coloration\ColorSelector.cs" />
     <Compile Include="ViewModels\Coloration\SliderHue.cs" />
@@ -216,8 +220,8 @@
     <Compile Include="Views\Camera.xaml.cs">
       <DependentUpon>Camera.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ChannelOSCDataTemplate.xaml.cs">
-      <DependentUpon>ChannelOSCDataTemplate.xaml</DependentUpon>
+    <Compile Include="Views\OSCValidationDataTemplate.xaml.cs">
+      <DependentUpon>OSCValidationDataTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Coloration.xaml.cs">
       <DependentUpon>Coloration.xaml</DependentUpon>
@@ -364,6 +368,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ChannelOSCDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\ColorSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -404,7 +412,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ChannelOSCDataTemplate.xaml">
+    <Page Include="Views\OSCValidationDataTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

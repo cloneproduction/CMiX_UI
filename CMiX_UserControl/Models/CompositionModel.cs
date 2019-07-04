@@ -24,7 +24,7 @@ namespace CMiX.Models
 
         public string Name { get; set; }
 
-        public string ImageFolderName { get; set; }
+        public string ContentFolderName { get; set; }
         public string GeometryFolderName { get; set; }
         public string VideoFolderName { get; set; }
 

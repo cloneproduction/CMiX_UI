@@ -9,8 +9,8 @@ namespace CMiX.ViewModels
     public class GeometryScale : ViewModel
     {
         #region CONSTRUCTORS
-        public GeometryScale(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) 
-            : base (oscmessengers, mementor)
+        public GeometryScale(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers,ObservableCollection<OSCValidation> cansendmessage, Mementor mementor) 
+            : base (oscmessengers, cansendmessage, mementor)
         {
             MessageAddress = String.Format("{0}/", messageaddress);
             Mode = default;

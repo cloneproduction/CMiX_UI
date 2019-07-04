@@ -12,15 +12,15 @@ namespace CMiX.ViewModels
     public class FileSelector : ViewModel, IDropTarget, IDragSource
     {
         #region CONSTRUCTORS
-        public FileSelector(string messageaddress, string selectionmode, List<string> filemask, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) 
-            : base (oscmessengers, mementor)
+        public FileSelector(string messageaddress, string selectionmode, List<string> filemask, ObservableCollection<OSCMessenger> oscmessengers, ObservableCollection<OSCValidation> cansendmessage, Mementor mementor) 
+            : base (oscmessengers, cansendmessage, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(FileSelector));
 
             SelectionMode = selectionmode;
             FileMask = filemask;
             FilePaths = new ObservableCollection<FileNameItem>();
-            SelectedFileNameItem = new FileNameItem(MessageAddress, oscmessengers, Mementor);
+            SelectedFileNameItem = new FileNameItem(MessageAddress, oscmessengers, cansendmessage, Mementor);
             ClearSelectedCommand = new RelayCommand(p => ClearSelected());
             ClearUnselectedCommand = new RelayCommand(p => ClearUnselected());
             ClearAllCommand = new RelayCommand(p => ClearAll());
@@ -48,6 +48,17 @@ namespace CMiX.ViewModels
                 SetAndNotify(ref selectedfilenameitem, value);
                 if (Mementor != null)
                     Mementor.PropertyChange(this, nameof(SelectedFileNameItem));
+            }
+        }
+
+        private string _folderpath;
+        public string FolderPath
+        {
+            get => _folderpath;
+            set
+            {
+                SetAndNotify(ref _folderpath, value);
+                Console.WriteLine(FolderPath);
             }
         }
         #endregion
@@ -145,12 +156,21 @@ namespace CMiX.ViewModels
                     var filedrop = dataObject.GetFileDropList();
                     foreach (string str in filedrop)
                     {
+                        
                         foreach (string fm in FileMask)
                         {
                             if (System.IO.Path.GetExtension(str).ToUpperInvariant() == fm)
                             {
-                                FileNameItem lbfn = new FileNameItem(MessageAddress, Messengers, Mementor) { FileName = str, FileIsSelected = false };
-                                Console.WriteLine(MessageAddress);
+                                FileNameItem lbfn = new FileNameItem(MessageAddress, Messengers, OSCValidation, Mementor);
+                                lbfn.FileIsSelected = false;
+                                if(FolderPath != null)
+                                {
+                                    lbfn.FileName = Utils.GetRelativePath(FolderPath, str);
+                                }
+                                else
+                                {
+                                    lbfn.FileName = str;
+                                }
                                 FilePaths.Add(lbfn);
                                 Mementor.ElementAdd(FilePaths, lbfn);
                             }
@@ -239,6 +259,7 @@ namespace CMiX.ViewModels
         {
             DisabledMessages();
 
+            Mementor.PropertyChange(this, "FilePaths");
             FilePaths.Clear();
 
             EnabledMessages();
@@ -268,7 +289,7 @@ namespace CMiX.ViewModels
 
             foreach (var item in fileselectormodel.FilePaths)
             {
-                FileNameItem filenameitem = new FileNameItem(MessageAddress, Messengers, Mementor);
+                FileNameItem filenameitem = new FileNameItem(MessageAddress, Messengers, OSCValidation, Mementor);
                 filenameitem.Paste(item);
                 //filenameitem.UpdateMessageAddress(MessageAddress);
                 FilePaths.Add(filenameitem);

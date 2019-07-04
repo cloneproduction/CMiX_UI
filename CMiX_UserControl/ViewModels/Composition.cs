@@ -19,22 +19,26 @@ namespace CMiX.ViewModels
         public Composition(ObservableCollection<OSCMessenger> oscmessengers)
         {
             Name = string.Empty;
+
             Messengers = oscmessengers;
             MessageAddress = "/Layer";
+
+            OSCValidation = new ObservableCollection<OSCValidation>();
+            CreateOSCValidation();
 
             LayerNames = new List<string>();
             LayerIndex = new List<int>();
             Layers = new ObservableCollection<Layer>();
             Layers.CollectionChanged += ContentCollectionChanged;
 
-            MasterBeat = new MasterBeat(Messengers, Mementor);
-            Camera = new Camera(Messengers, MasterBeat, Mementor);
+            MasterBeat = new MasterBeat(Messengers, OSCValidation, Mementor);
+            Camera = new Camera(Messengers, OSCValidation, MasterBeat, Mementor);
             Mementor = new Mementor();
 
             // CREATE DEFAULT LAYER
             layerID += 1;
             layerNameID += 1;
-            Layer layer = new Layer(MasterBeat, string.Format("{0}/", MessageAddress + layerNameID.ToString()), Messengers, layerNameID, Mementor);
+            Layer layer = new Layer(MasterBeat, string.Format("{0}/", MessageAddress + layerNameID.ToString()), Messengers, OSCValidation, layerNameID, Mementor);
             layer.Index = layerID;
             Layers.Add(layer);
             SelectedLayer = layer;
@@ -51,6 +55,14 @@ namespace CMiX.ViewModels
             OpenCompositionCommand = new RelayCommand(p => Open());
         }
         #endregion
+
+        public void CreateOSCValidation()
+        {
+            foreach (var messenger in Messengers)
+            {
+                OSCValidation.Add(new OSCValidation(messenger));
+            }
+        }
 
         #region PROPERTIES
         private int layerID = -1;
@@ -78,38 +90,25 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _name, value);
         }
 
-        private string _videofoldername;
-        public string VideoFolderName
+
+        private string _contentfoldername;
+        public string ContentFolderName
         {
-            get => _videofoldername;
+            get => _contentfoldername;
             set
             {
-                SetAndNotify(ref _videofoldername, value);
-                SendMessages("/VideoFolder", VideoFolderName);
+                SetAndNotify(ref _contentfoldername, value);
+                foreach (var layer in Layers)
+                {
+                    layer.Content.Texture.FileSelector.FolderPath = ContentFolderName;
+                    layer.Content.Geometry.FileSelector.FolderPath = ContentFolderName;
+                    layer.Mask.Texture.FileSelector.FolderPath = ContentFolderName;
+                    layer.Mask.Geometry.FileSelector.FolderPath = ContentFolderName;
+                }
+                SendMessages("/ContentFolder", ContentFolderName);
             }
         }
 
-        private string _imagefoldername;
-        public string ImageFolderName
-        {
-            get => _imagefoldername;
-            set
-            {
-                SetAndNotify(ref _imagefoldername, value);
-                SendMessages("/ImageFolder", ImageFolderName);
-            }
-        }
-
-        private string _geometryfoldername;
-        public string GeometryFolderName
-        {
-            get => _geometryfoldername;
-            set
-            {
-                SetAndNotify(ref _geometryfoldername, value);
-                SendMessages("/GeometryFolder", GeometryFolderName);
-            }
-        }
 
         private List<string> _layernames;
         public List<string> LayerNames
@@ -173,6 +172,7 @@ namespace CMiX.ViewModels
             if (data.GetDataPresent("Layer"))
             {
                 Mementor.BeginBatch();
+
                 var layermodel = (LayerModel)data.GetData("Layer") as LayerModel;
                 var selectedlayermessageaddress = SelectedLayer.MessageAddress;
                 var selectedlayername = SelectedLayer.LayerName;
@@ -183,6 +183,7 @@ namespace CMiX.ViewModels
                 SelectedLayer.LayerName = selectedlayername;
                 SelectedLayer.Index = selectedlayerindex;
                 SelectedLayer.Copy(layermodel);
+
                 Mementor.EndBatch();
 
                 QueueObjects(layermodel);
@@ -200,7 +201,7 @@ namespace CMiX.ViewModels
             layerID += 1;
             layerNameID += 1;
 
-            Layer layer = new Layer(MasterBeat, string.Format("{0}/", MessageAddress + layerNameID.ToString()), Messengers, layerNameID, Mementor);
+            Layer layer = new Layer(MasterBeat, string.Format("{0}/", MessageAddress + layerNameID.ToString()), Messengers, OSCValidation, layerNameID, Mementor);
             layer.Index = layerID;
             Layers.Add(layer);
             Mementor.ElementAdd(Layers, layer);
@@ -239,7 +240,7 @@ namespace CMiX.ViewModels
             LayerModel layermodel = new LayerModel();
             lyr.Copy(layermodel);
             
-            Layer newlayer = new Layer(MasterBeat, string.Format("{0}/", MessageAddress + layerNameID.ToString()), Messengers, layerNameID, Mementor);
+            Layer newlayer = new Layer(MasterBeat, string.Format("{0}/", MessageAddress + layerNameID.ToString()), Messengers, OSCValidation, layerNameID, Mementor);
             newlayer.Paste(layermodel);
             newlayer.LayerName = string.Format("{0}/", MessageAddress + layerNameID.ToString());
             newlayer.UpdateMessageAddress(string.Format("{0}/", MessageAddress + layerNameID.ToString()));
@@ -340,9 +341,8 @@ namespace CMiX.ViewModels
             compositionmodel.Name = Name;
             compositionmodel.LayerNames = LayerNames;
             compositionmodel.LayerIndex = LayerIndex;
-            compositionmodel.ImageFolderName = ImageFolderName;
-            compositionmodel.VideoFolderName = VideoFolderName;
-            compositionmodel.GeometryFolderName = GeometryFolderName;
+            compositionmodel.ContentFolderName = ContentFolderName;
+
 
             foreach (Layer lyr in Layers)
             {
@@ -361,9 +361,7 @@ namespace CMiX.ViewModels
 
             MessageAddress = compositionmodel.MessageAddress;
             Name = compositionmodel.Name;
-            VideoFolderName = compositionmodel.VideoFolderName;
-            ImageFolderName = compositionmodel.ImageFolderName;
-            GeometryFolderName = compositionmodel.GeometryFolderName;
+            ContentFolderName = compositionmodel.ContentFolderName;
             
             LayerNames = compositionmodel.LayerNames;
             LayerIndex = compositionmodel.LayerIndex;
@@ -373,7 +371,7 @@ namespace CMiX.ViewModels
             foreach (LayerModel layermodel in compositionmodel.LayersModel)
             {
                 layerID += 1;
-                Layer layer = new Layer(MasterBeat, MessageAddress + layerID.ToString(), Messengers, 0, Mementor);
+                Layer layer = new Layer(MasterBeat, MessageAddress + layerID.ToString(), Messengers, OSCValidation, 0, Mementor);
                 layer.Paste(layermodel);
                 Layers.Add(layer);
             }
@@ -387,16 +385,14 @@ namespace CMiX.ViewModels
         public void Load(CompositionModel compositionmodel)
         {
             Name = compositionmodel.Name;
-            GeometryFolderName = compositionmodel.GeometryFolderName;
-            ImageFolderName = compositionmodel.ImageFolderName;
-            VideoFolderName = compositionmodel.VideoFolderName;
+            ContentFolderName = compositionmodel.ContentFolderName;
 
             LayerNames = compositionmodel.LayerNames;
             LayerIndex = compositionmodel.LayerIndex;
             Layers.Clear();
             foreach (LayerModel layermodel in compositionmodel.LayersModel)
             {
-                Layer layer = new Layer(MasterBeat, layermodel.LayerName, Messengers, layermodel.Index, Mementor);
+                Layer layer = new Layer(MasterBeat, layermodel.LayerName, Messengers, OSCValidation, layermodel.Index, Mementor);
                 layer.Load(layermodel);
                 Layers.Add(layer);
             }

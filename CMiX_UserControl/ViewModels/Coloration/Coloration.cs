@@ -12,21 +12,21 @@ namespace CMiX.ViewModels
     public class Coloration : ViewModel
     {
         #region CONSTRUCTORS
-        public Coloration(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor, Beat masterbeat) 
-            : base(oscmessengers, mementor)
+        public Coloration(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, ObservableCollection<OSCValidation> cansendmessage, Mementor mementor, Beat masterbeat) 
+            : base(oscmessengers, cansendmessage, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Coloration));
 
             ObjColor = Utils.HexStringToColor("#FF00FF");
             BgColor = Utils.HexStringToColor("#FF00FF");
 
-            BeatModifier = new BeatModifier(MessageAddress, oscmessengers, masterbeat, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, oscmessengers, masterbeat, cansendmessage, mementor);
 
-            Hue = new RangeControl(oscmessengers, MessageAddress + nameof(Hue), mementor);
-            Saturation = new RangeControl(oscmessengers, MessageAddress + nameof(Saturation), mementor);
-            Value = new RangeControl(oscmessengers, MessageAddress + nameof(Value), mementor);
+            Hue = new RangeControl(oscmessengers, MessageAddress + nameof(Hue), cansendmessage, mementor);
+            Saturation = new RangeControl(oscmessengers, MessageAddress + nameof(Saturation), cansendmessage, mementor);
+            Value = new RangeControl(oscmessengers, MessageAddress + nameof(Value), cansendmessage, mementor);
 
-            ColorSelector = new ColorSelector(MessageAddress + nameof(ColorSelector), oscmessengers, mementor);
+            ColorSelector = new ColorSelector(MessageAddress + nameof(ColorSelector), oscmessengers, cansendmessage, mementor);
 
             ResetCommand = new RelayCommand(p => Reset());
             MouseDownCommand = new RelayCommand(p => MouseDown());

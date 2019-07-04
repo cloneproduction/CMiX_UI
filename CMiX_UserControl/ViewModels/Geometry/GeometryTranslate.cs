@@ -9,8 +9,8 @@ namespace CMiX.ViewModels
     public class GeometryTranslate : ViewModel
     {
         #region CONSTRUCTORS
-        public GeometryTranslate(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, Mementor mementor) 
-            : base (oscmessengers, mementor)
+        public GeometryTranslate(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, ObservableCollection<OSCValidation> cansendmessage, Mementor mementor) 
+            : base (oscmessengers, cansendmessage, mementor)
         {
             MessageAddress = String.Format("{0}/", messageaddress);
             Mode = default;

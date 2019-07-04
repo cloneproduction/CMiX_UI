@@ -176,7 +176,13 @@
                         <TabItem.Header>
                             <TextBlock Text="OSC" Margin="4, 0, 4, 0"/>
                         </TabItem.Header>
-                        <ListBox 
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <ListBox 
+                                
                             Margin="0, 8, 0, 0"
                             HorizontalContentAlignment="Stretch" 
                             ScrollViewer.HorizontalScrollBarVisibility="Hidden"
@@ -185,12 +191,34 @@
                             ItemsSource="{Binding Messengers}" 
                             dd:DragDrop.IsDragSource="True"
                             dd:DragDrop.IsDropTarget="True">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Views:ChannelOSCDataTemplate Margin="2"/>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Views:ChannelOSCDataTemplate Height="60" Margin="2"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <ListBox 
+                                Grid.Column="1"
+                                Margin="0, 8, 0, 0"
+                                HorizontalContentAlignment="Stretch" 
+                                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                Style="{StaticResource LayerListBox}"
+                                ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
+                                ItemsSource="{Binding OSCValidation}" 
+                                dd:DragDrop.IsDragSource="True"
+                                dd:DragDrop.IsDropTarget="True">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Views:OSCValidationDataTemplate Height="60" Margin="2"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                        
                     </TabItem>
                     <TabItem>
                         <TabItem.Header>
@@ -207,30 +235,10 @@
                         </TabItem.Header>
                         <StackPanel>
                             <DockPanel Margin="4">
-                                <TextBlock Text="Video Path" VerticalAlignment="Center" />
-                                <Button 
-                                    Height="25" 
-                                    Content="..." 
-                                    Width="25" 
-                                    HorizontalAlignment="Right" 
-                                    Margin="2">
-                                    <i:Interaction.Behaviors>
-                                        <Behavior:FolderDialogBehavior SetterName="VideoFolderName"/>
-                                    </i:Interaction.Behaviors>
-                                </Button>
-                            </DockPanel>
-                            <TextBox 
-                                Height="20" 
-                                Margin="4" 
-                                Foreground="{StaticResource TextBase}" 
-                                Background="{StaticResource HighDarkerColor}" 
-                                Text="{Binding VideoFolderName}"
-                                />
-                            <DockPanel Margin="4">
-                                <TextBlock Text="Image Path" VerticalAlignment="Center" />
+                                <TextBlock Text="Content Folder" VerticalAlignment="Center" />
                                 <Button Height="25" Content="..." Width="25" HorizontalAlignment="Right" Margin="2">
                                     <i:Interaction.Behaviors>
-                                        <Behavior:FolderDialogBehavior SetterName="ImageFolderName"/>
+                                        <Behavior:FolderDialogBehavior SetterName="ContentFolderName"/>
                                     </i:Interaction.Behaviors>
                                 </Button>
                             </DockPanel>
@@ -239,22 +247,7 @@
                                 Margin="4" 
                                 Foreground="{StaticResource TextBase}" 
                                 Background="{StaticResource HighDarkerColor}" 
-                                Text="{Binding ImageFolderName}"
-                                />
-                            <DockPanel Margin="4">
-                                <TextBlock Text="Geometry Path" VerticalAlignment="Center" />
-                                <Button Height="25" Content="..." Width="25" HorizontalAlignment="Right" Margin="2">
-                                    <i:Interaction.Behaviors>
-                                        <Behavior:FolderDialogBehavior SetterName="GeometryFolderName"/>
-                                    </i:Interaction.Behaviors>
-                                </Button>
-                            </DockPanel>
-                            <TextBox 
-                                Height="20" 
-                                Margin="4" 
-                                Foreground="{StaticResource TextBase}" 
-                                Background="{StaticResource HighDarkerColor}" 
-                                Text="{Binding GeometryFolderName}"
+                                Text="{Binding ContentFolderName}"
                                 />
                         </StackPanel>
                     </TabItem>

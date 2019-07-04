@@ -9,8 +9,8 @@ namespace CMiX.ViewModels
     public class Camera : ViewModel
     {
         #region CONSTRUCTORS
-        public Camera(ObservableCollection<OSCMessenger> oscmessengers, MasterBeat masterBeat, Mementor mementor) 
-            : base (oscmessengers, mementor)
+        public Camera(ObservableCollection<OSCMessenger> oscmessengers, ObservableCollection<OSCValidation> cansendmessage, MasterBeat masterBeat, Mementor mementor) 
+            : base (oscmessengers, cansendmessage, mementor)
         {
             MessageAddress = "/Camera/";
 
@@ -19,9 +19,9 @@ namespace CMiX.ViewModels
             LookAt = ((CameraLookAt)0).ToString();
             View = ((CameraView)0).ToString();
 
-            BeatModifier = new BeatModifier(MessageAddress, oscmessengers, masterBeat, mementor);
-            FOV = new Slider(MessageAddress + nameof(FOV), oscmessengers, mementor);
-            Zoom = new Slider(MessageAddress + nameof(Zoom), oscmessengers, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, oscmessengers, masterBeat, cansendmessage, mementor);
+            FOV = new Slider(MessageAddress + nameof(FOV), oscmessengers, cansendmessage, mementor);
+            Zoom = new Slider(MessageAddress + nameof(Zoom), oscmessengers, cansendmessage, mementor);
         }
 
         #endregion
