@@ -75,13 +75,10 @@ namespace CMiX.ViewModels
         {
             CompositionModel compositionmodel = new CompositionModel();
             this.Copy(compositionmodel);
-
-            foreach (var oscvalidation in OSCValidation)
-            {
-                oscvalidation.OSCMessenger.SendMessage("CompositionReloaded", true);
-                oscvalidation.OSCMessenger.QueueObject(compositionmodel);
-                oscvalidation.OSCMessenger.SendQueue();
-            }
+            OSCMessenger oscmessenger = messenger as OSCMessenger;
+            oscmessenger.SendMessage("CompositionReloaded", true);
+            oscmessenger.QueueObject(compositionmodel);
+            oscmessenger.SendQueue();
         }
         #endregion
 

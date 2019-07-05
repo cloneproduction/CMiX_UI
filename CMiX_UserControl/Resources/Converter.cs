@@ -1,5 +1,4 @@
-﻿
-using ColorMine.ColorSpaces;
+﻿using ColorMine.ColorSpaces;
 using System;
 using System.Globalization;
 using System.IO;
@@ -10,6 +9,27 @@ using System.Windows.Media;
 
 namespace CMiX
 {
+    class RadioButtonSelectionConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value != null && value.Equals(parameter))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value != null && value.Equals(true))
+            {
+                return parameter;
+            }
+            return DependencyProperty.UnsetValue;
+        }
+    }
+
     public class AltBackgroundConverter : IValueConverter
     {
         bool isAlternate;

@@ -4,8 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:views="clr-namespace:CMiX.Views"
+             xmlns:CMiX="clr-namespace:CMiX"
              mc:Ignorable="d" 
-             d:DesignHeight="71.986" d:DesignWidth="303.267">
+             d:DesignHeight="67.719" d:DesignWidth="307.267">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <CMiX:RadioButtonSelectionConverter x:Key="RadioButtonSelection" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Border
         DockPanel.Dock="Bottom"
         Background="{StaticResource DarkerColor}"
@@ -49,6 +57,7 @@
                     Width="20"
                     Height="20" 
                     Command="{Binding Path=DataContext.ReloadCompositionCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type views:Composition}}}"
+                    CommandParameter="{Binding OSCMessenger}"
                     />
             </Grid>
             <Grid Height="20">
@@ -63,7 +72,7 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     />
-                <ToggleButton 
+                <ToggleButton
                     HorizontalAlignment="Left"
                     Margin="1"
                     Grid.Column="1"
