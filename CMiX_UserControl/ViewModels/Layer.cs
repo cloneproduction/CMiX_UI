@@ -12,8 +12,8 @@ namespace CMiX.ViewModels
     public class Layer : ViewModel
     {
         #region CONSTRUCTORS
-        public Layer(MasterBeat masterBeat, string layername, ObservableCollection<OSCMessenger> messengers, ObservableCollection<OSCValidation> cansendmessage, int index, Mementor mementor) 
-            : base (messengers, cansendmessage, mementor)
+        public Layer(MasterBeat masterBeat, string layername,  ObservableCollection<OSCValidation> oscvalidation, int index, Mementor mementor) 
+            : base (oscvalidation, mementor)
         {
             MessageAddress =  layername;
 
@@ -23,12 +23,12 @@ namespace CMiX.ViewModels
             Enabled = false;
             BlendMode = ((BlendMode)0).ToString();
 
-            Fade = new Slider(MessageAddress + nameof(Fade), messengers, cansendmessage, mementor);
-            BeatModifier = new BeatModifier(MessageAddress, messengers, masterBeat, cansendmessage, mementor);
-            Content = new Content(BeatModifier, MessageAddress, messengers, cansendmessage, mementor);
-            Mask = new Mask(BeatModifier, MessageAddress, messengers, cansendmessage, mementor);
-            Coloration = new Coloration(MessageAddress, messengers, cansendmessage, mementor, BeatModifier);
-            PostFX = new PostFX(MessageAddress, messengers, cansendmessage, mementor);
+            Fade = new Slider(MessageAddress + nameof(Fade), oscvalidation, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, masterBeat, oscvalidation, mementor);
+            Content = new Content(BeatModifier, MessageAddress, oscvalidation, mementor);
+            Mask = new Mask(BeatModifier, MessageAddress, oscvalidation, mementor);
+            Coloration = new Coloration(MessageAddress, oscvalidation, mementor, BeatModifier);
+            PostFX = new PostFX(MessageAddress, oscvalidation, mementor);
 
             CopyContentCommand = new RelayCommand(p => CopyContent());
             PasteContentCommand = new RelayCommand(p => PasteContent());

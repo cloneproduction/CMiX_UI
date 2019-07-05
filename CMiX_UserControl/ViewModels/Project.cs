@@ -13,10 +13,14 @@ namespace CMiX.ViewModels
 {
     public class Project : ViewModel
     {
-        public Project() : base(new ObservableCollection<OSCMessenger>())
+        public Project()
         {
-            Messengers = new ObservableCollection<OSCMessenger>();
-            Messengers.Add(new OSCMessenger("127.0.0.1", 1111) { Name = "Default" });
+            OSCMessengers = new ObservableCollection<OSCMessenger>();
+            OSCMessengers.Add(new OSCMessenger("127.0.0.1", 1111) { Name = "Default" });
+
+            Compositions = new ObservableCollection<Composition>();
+            FolderPath = string.Empty;
+            Serializer = new CerasSerializer();
 
             NewProjectCommand = new RelayCommand(p => NewProject());
             OpenProjectCommand = new RelayCommand(p => OpenProject());
@@ -38,9 +42,7 @@ namespace CMiX.ViewModels
 
             DuplicateCompoCommand = new RelayCommand(p => DuplicateComposition(p));
             AddLayerCommand = new RelayCommand(p => AddLayer());
-            Compositions = new ObservableCollection<Composition>();
-            FolderPath = string.Empty;
-            Serializer = new CerasSerializer();
+
         }
 
         private void ImportCompoFromProject()
@@ -72,6 +74,8 @@ namespace CMiX.ViewModels
 
         public ObservableCollection<Composition> Compositions { get; set; }
 
+        public ObservableCollection<OSCMessenger> OSCMessengers { get; set; }
+
         public CerasSerializer Serializer { get; set; }
 
         public string FolderPath { get; set; }
@@ -88,13 +92,13 @@ namespace CMiX.ViewModels
         private void DeleteOSC(object oscmessenger)
         {
             OSCMessenger messenger = oscmessenger as OSCMessenger;
-            int messengerindex = Messengers.IndexOf(messenger);
+            int messengerindex = OSCMessengers.IndexOf(messenger);
             
             foreach (var compo in Compositions)
             {
                 OSCValidation.RemoveAt(messengerindex);
             }
-            Messengers.Remove(messenger);
+            OSCMessengers.Remove(messenger);
         }
 
         private void RemoveSelectedOSC()
@@ -106,7 +110,7 @@ namespace CMiX.ViewModels
         private void AddOSC()
         {
             OSCMessenger oscmessenger = new OSCMessenger("127.0.0.1", 1111 + portnumber);
-            Messengers.Add(oscmessenger);
+            OSCMessengers.Add(oscmessenger);
 
             foreach (var compo in Compositions)
             {
@@ -119,13 +123,9 @@ namespace CMiX.ViewModels
         #region ADD/DELETE/DUPLICATE COMPOSITION
         private void AddComposition()
         {
-            DisabledMessages();
-
-            Composition comp = new Composition(this.Messengers);
+            Composition comp = new Composition(OSCMessengers);
             Compositions.Add(comp);
             SelectedComposition = comp;
-
-            EnabledMessages();
         }
 
         private void DeleteComposition(object compo)
@@ -142,10 +142,10 @@ namespace CMiX.ViewModels
 
                 List<string> layerindex = new List<string>();
                 List<string> layername = new List<string>();
-                QueueMessages("LayerNames", layername.ToArray()); // send empty list to engine for reset
-                QueueMessages("LayerRemoved", removedlayername.ToArray());
-                QueueMessages("LayerIndex", layerindex.ToArray());
-                SendQueues();
+                //QueueMessages("LayerNames", layername.ToArray()); // send empty list to engine for reset
+                //QueueMessages("LayerRemoved", removedlayername.ToArray());
+                //QueueMessages("LayerIndex", layerindex.ToArray());
+                //SendQueues();
             }
         }
 
@@ -156,7 +156,7 @@ namespace CMiX.ViewModels
                 Composition comp = compo as Composition;
                 CompositionModel compDTO = new CompositionModel();
                 comp.Copy(compDTO);
-                Composition newcomp = new Composition(this.Messengers);
+                Composition newcomp = new Composition(OSCMessengers);
                 newcomp.Paste(compDTO);
                 Compositions.Add(newcomp);
             }
@@ -248,7 +248,7 @@ namespace CMiX.ViewModels
                 {
                     byte[] data = File.ReadAllBytes(folderPath);
                     CompositionModel compositionmodel = Serializer.Deserialize<CompositionModel>(data);
-                    Composition newcomp = new Composition(this.Messengers);
+                    Composition newcomp = new Composition(OSCMessengers);
                     newcomp.Paste(compositionmodel);
                     Compositions.Add(newcomp);
                 }
@@ -289,7 +289,7 @@ namespace CMiX.ViewModels
         {
             foreach (var compositionmodel in projectdto.CompositionModel)
             {
-                Composition composition = new Composition(this.Messengers);
+                Composition composition = new Composition(OSCMessengers);
                 composition.Paste(compositionmodel);
                 Compositions.Add(composition);
             }

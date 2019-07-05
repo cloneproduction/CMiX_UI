@@ -179,9 +179,9 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
-                                <ColumnDefinition/>
+                                <!--<ColumnDefinition/>-->
                             </Grid.ColumnDefinitions>
-                            <ListBox 
+                            <!--<ListBox 
                                 
                             Margin="0, 8, 0, 0"
                             HorizontalContentAlignment="Stretch" 
@@ -198,7 +198,7 @@
                                         </StackPanel>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
-                            </ListBox>
+                            </ListBox>-->
                             <ListBox 
                                 Grid.Column="1"
                                 Margin="0, 8, 0, 0"
@@ -212,7 +212,7 @@
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel>
-                                            <Views:OSCValidationDataTemplate Height="60" Margin="2"/>
+                                            <Views:OSCValidationDataTemplate Margin="2"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>

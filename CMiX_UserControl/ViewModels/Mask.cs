@@ -11,17 +11,17 @@ namespace CMiX.ViewModels
     public class Mask : ViewModel
     {
         #region CONSTRUCTORS
-        public Mask(Beat masterbeat, string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, ObservableCollection<OSCValidation> cansendmessage, Mementor mementor) 
-            : base (oscmessengers, cansendmessage, mementor)
+        public Mask(Beat masterbeat, string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor) 
+            : base (oscvalidation, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Mask));
 
             Enable = false;
 
-            BeatModifier = new BeatModifier(MessageAddress, oscmessengers, masterbeat, cansendmessage, mementor);
-            Geometry = new Geometry(MessageAddress, oscmessengers, cansendmessage, mementor);
-            Texture = new Texture(MessageAddress, oscmessengers, cansendmessage, mementor);
-            PostFX = new PostFX(MessageAddress, oscmessengers, cansendmessage, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, masterbeat, oscvalidation, mementor);
+            Geometry = new Geometry(MessageAddress, oscvalidation, mementor);
+            Texture = new Texture(MessageAddress, oscvalidation, mementor);
+            PostFX = new PostFX(MessageAddress, oscvalidation, mementor);
 
             ResetCommand = new RelayCommand(p => Reset());
             CopyTextureCommand = new RelayCommand(p => CopyTexture());

@@ -15,6 +15,7 @@ namespace CMiX.ViewModels
     {
         public OSCMessenger(string address, int port)
         {
+            Enabled = true;
             Address = address;
             Port = port;
             Sender = new UDPSender(address, port);
@@ -22,17 +23,19 @@ namespace CMiX.ViewModels
             ReloadCommand = new RelayCommand(p => Reload(p));
         }
 
+
+        #region PROPERTIES
         public UDPSender Sender { get; set; }
 
         private readonly List<OscMessage> messages;
 
         public ICommand ReloadCommand { get; }
 
-        private bool _sendenabled = true;
-        public bool SendEnabled
+        private bool _enabled;
+        public bool Enabled
         {
-            get { return _sendenabled; }
-            set => SetAndNotify(ref _sendenabled, value);
+            get { return _enabled; }
+            set => SetAndNotify(ref _enabled, value);
         }
 
         private string _name;
@@ -64,12 +67,19 @@ namespace CMiX.ViewModels
                 UpdateUDPSender();
             }
         }
+        #endregion
+
 
         public void Reload(object obj)
         {
-            QueueObject(obj);
-            SendQueue();
+            if (Enabled)
+            {
+                QueueObject(obj);
+                SendQueue();
+            }
+
         }
+
 
         private void UpdateUDPSender()
         {
@@ -80,15 +90,17 @@ namespace CMiX.ViewModels
 
         public void QueueMessage(string address, params object[] args)
         {
-            var message = CreateOscMessage(address, args);
-            messages.Add(message);
+            if (Enabled)
+            {
+                var message = CreateOscMessage(address, args);
+                messages.Add(message);
+            }
         }
 
         public void SendMessage(string address, params object[] args)
         {
-            if (SendEnabled)
+            if (Enabled)
             {
-                Console.WriteLine("SendMessage from OSC Messenger");
                 var message = CreateOscMessage(address, args);
                 Sender.Send(message);
             }
@@ -96,7 +108,7 @@ namespace CMiX.ViewModels
 
         public void SendQueue()
         {
-            if (SendEnabled)
+            if (Enabled)
             {
                 var bundle = new OscBundle(0, messages.ToArray());
                 Sender.Send(bundle);
@@ -108,7 +120,7 @@ namespace CMiX.ViewModels
         {
             if (obj == null) return;
 
-            if (obj is Model)
+            if (obj is Model && Enabled)
             {
                 var model = obj as Model;
                 var properties = obj.GetType().GetProperties().Where(p => !p.GetIndexParameters().Any());

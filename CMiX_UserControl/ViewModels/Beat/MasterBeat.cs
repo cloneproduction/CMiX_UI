@@ -12,12 +12,11 @@ namespace CMiX.ViewModels
     public class MasterBeat : Beat
     {
         #region CONSTRUCTORS
-        public MasterBeat(ObservableCollection<OSCMessenger> messengers, ObservableCollection<OSCValidation> cansendmessage, Mementor mementor)
+        public MasterBeat(ObservableCollection<OSCValidation> oscvalidation, Mementor mementor)
         : this
         (
             mementor: mementor,
-            messengers: messengers,
-            cansendmessage: cansendmessage,
+            oscvalidation: oscvalidation,
             period: 0.0,
             multiplier: 1
         )
@@ -26,14 +25,13 @@ namespace CMiX.ViewModels
         public MasterBeat
             (
                 Mementor mementor,
-                ObservableCollection<OSCMessenger> messengers,
-                ObservableCollection<OSCValidation> cansendmessage,
+                ObservableCollection<OSCValidation> oscvalidation,
                 double period,
                 int multiplier
             )
-            : base(messengers, cansendmessage, mementor)
+            : base(oscvalidation, mementor)
         {
-            Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
+            //Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             Period = period;
             Multiplier = multiplier;
             ResyncCommand = new RelayCommand(p => Resync());

@@ -12,21 +12,21 @@ namespace CMiX.ViewModels
     public class Coloration : ViewModel
     {
         #region CONSTRUCTORS
-        public Coloration(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, ObservableCollection<OSCValidation> cansendmessage, Mementor mementor, Beat masterbeat) 
-            : base(oscmessengers, cansendmessage, mementor)
+        public Coloration(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor, Beat masterbeat) 
+            : base(oscvalidation, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Coloration));
 
             ObjColor = Utils.HexStringToColor("#FF00FF");
             BgColor = Utils.HexStringToColor("#FF00FF");
 
-            BeatModifier = new BeatModifier(MessageAddress, oscmessengers, masterbeat, cansendmessage, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, masterbeat, oscvalidation, mementor);
 
-            Hue = new RangeControl(oscmessengers, MessageAddress + nameof(Hue), cansendmessage, mementor);
-            Saturation = new RangeControl(oscmessengers, MessageAddress + nameof(Saturation), cansendmessage, mementor);
-            Value = new RangeControl(oscmessengers, MessageAddress + nameof(Value), cansendmessage, mementor);
+            Hue = new RangeControl(MessageAddress + nameof(Hue), oscvalidation, mementor);
+            Saturation = new RangeControl(MessageAddress + nameof(Saturation), oscvalidation, mementor);
+            Value = new RangeControl(MessageAddress + nameof(Value), oscvalidation, mementor);
 
-            ColorSelector = new ColorSelector(MessageAddress + nameof(ColorSelector), oscmessengers, cansendmessage, mementor);
+            ColorSelector = new ColorSelector(MessageAddress + nameof(ColorSelector), oscvalidation, mementor);
 
             ResetCommand = new RelayCommand(p => Reset());
             MouseDownCommand = new RelayCommand(p => MouseDown());
@@ -112,13 +112,17 @@ namespace CMiX.ViewModels
         public void Paste(ColorationModel colorationmodel)
         {
             DisabledMessages();
+
             MessageAddress = colorationmodel.MessageAddress;
+
             ObjColor = Utils.HexStringToColor(colorationmodel.ObjColor);
             BgColor = Utils.HexStringToColor(colorationmodel.BgColor);
+
             BeatModifier.Paste(colorationmodel.BeatModifierModel);
             Hue.Paste(colorationmodel.HueDTO);
             Saturation.Paste(colorationmodel.SatDTO);
             Value.Paste(colorationmodel.ValDTO);
+
             EnabledMessages();
         }
 

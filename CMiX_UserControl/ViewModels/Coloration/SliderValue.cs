@@ -11,8 +11,8 @@ namespace CMiX.ViewModels
     public class SliderValue : ViewModel
     {
         #region CONSTRUCTORS
-        public SliderValue(ColorSelector colorselector, string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, ObservableCollection<OSCValidation> cansendmessage, Mementor mementor) 
-            : base (oscmessengers, cansendmessage, mementor)
+        public SliderValue(ColorSelector colorselector, string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor) 
+            : base (oscvalidation, mementor)
         {
             MessageAddress = String.Format("{0}/", messageaddress);
             ColorSelector = colorselector;

@@ -1,13 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reflection;
-using SharpOSC;
-
-using System.Windows.Input;
-using CMiX.Models;
 
 namespace CMiX.ViewModels
 {
@@ -16,17 +7,18 @@ namespace CMiX.ViewModels
         public OSCValidation(OSCMessenger oscmessenger)
         {
             OSCMessenger = oscmessenger;
+            SendEnabled = false;
         }
 
-        private OSCMessenger oscmessenger;
+        private OSCMessenger _oscmessenger;
         public OSCMessenger OSCMessenger
         {
-            get { return oscmessenger; }
-            set { oscmessenger = value; }
+            get { return _oscmessenger; }
+            set => SetAndNotify(ref _oscmessenger, value);
         }
 
 
-        private bool _sendenabled = true;
+        private bool _sendenabled;
         public bool SendEnabled
         {
             get { return _sendenabled; }

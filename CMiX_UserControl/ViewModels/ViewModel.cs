@@ -2,10 +2,8 @@
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
-using CMiX.Services;
 using System.Collections.ObjectModel;
 using Memento;
-using CMiX.Models;
 
 namespace CMiX.ViewModels
 {
@@ -17,23 +15,15 @@ namespace CMiX.ViewModels
 
         }
 
-        public ViewModel(ObservableCollection<OSCMessenger> oscmessengers)
+        public ViewModel( ObservableCollection<OSCValidation> oscvalidation, Mementor mementor)
         {
-            Messengers = oscmessengers ?? throw new ArgumentNullException(nameof(oscmessengers));
-        }
-
-        public ViewModel(ObservableCollection<OSCMessenger> oscmessengers, ObservableCollection<OSCValidation> cansendmessage, Mementor mementor)
-        {
-            Messengers = oscmessengers ?? throw new ArgumentNullException(nameof(oscmessengers));
-            OSCValidation = cansendmessage;
+            OSCValidation = oscvalidation;
             Mementor = mementor;
         }
         #endregion
 
         #region PROPERTIES
         public Mementor Mementor { get; set; }
-
-        public ObservableCollection<OSCMessenger> Messengers { get; set; }
 
         public string MessageAddress { get; set; }
 
@@ -47,7 +37,21 @@ namespace CMiX.ViewModels
             {
                 foreach (var oscvalidation in OSCValidation)
                 {
-                    if (oscvalidation.SendEnabled)
+                    if (oscvalidation.SendEnabled && oscvalidation.OSCMessenger.Enabled)
+                    {
+                        oscvalidation.OSCMessenger.SendMessage(address, args);
+                    }
+                }
+            }
+        }
+
+        public void SendMessagesWithoutValidation(string address, params object[] args)
+        {
+            if (OSCValidation != null)
+            {
+                foreach (var oscvalidation in OSCValidation)
+                {
+                    if (oscvalidation.OSCMessenger.Enabled)
                     {
                         oscvalidation.OSCMessenger.SendMessage(address, args);
                     }
@@ -57,46 +61,67 @@ namespace CMiX.ViewModels
 
         public void QueueMessages(string address, params object[] args)
         {
-            foreach (var Message in Messengers)
+            if (OSCValidation != null)
             {
-                Message.QueueMessage(address, args);
+                foreach (var oscvalidation in OSCValidation)
+                {
+                    if (oscvalidation.SendEnabled && oscvalidation.OSCMessenger.Enabled)
+                    {
+                        oscvalidation.OSCMessenger.QueueMessage(address, args);
+                    }
+
+                }
             }
         }
 
         public void QueueObjects(object obj)
         {
-            foreach (var Message in Messengers)
+            if (OSCValidation != null)
             {
-                Message.QueueObject(obj);
+                foreach (var oscvalidation in OSCValidation)
+                {
+                    if (oscvalidation.SendEnabled && oscvalidation.OSCMessenger.Enabled)
+                    {
+                        oscvalidation.OSCMessenger.QueueObject(obj);
+                    }
+                }
             }
         }
 
         public void SendQueues()
         {
-            foreach (var Message in Messengers)
+            if (OSCValidation != null)
             {
-                Message.SendQueue();
+                foreach (var oscvalidation in OSCValidation)
+                {
+                    if (oscvalidation.SendEnabled && oscvalidation.OSCMessenger.Enabled)
+                    {
+                        oscvalidation.OSCMessenger.SendQueue();
+                    }
+                }
             }
         }
 
         public void DisabledMessages()
         {
-            if(Messengers != null)
+            if(OSCValidation != null)
             {
-                foreach (var Message in Messengers)
+                foreach (var oscvalidation in OSCValidation)
                 {
-                    Message.SendEnabled = false;
+                    oscvalidation.OSCMessenger.Enabled = false;
+                    Console.WriteLine("Message DISABLED From ViewModel");
                 }
             }
         }
 
         public void EnabledMessages()
         {
-            if (Messengers != null)
+            if (OSCValidation != null)
             {
-                foreach (var Message in Messengers)
+                foreach (var oscvalidation in OSCValidation)
                 {
-                    Message.SendEnabled = true;
+                    oscvalidation.OSCMessenger.Enabled = true;
+                    Console.WriteLine("Message ENABLED From ViewModel");
                 }
             }
         }

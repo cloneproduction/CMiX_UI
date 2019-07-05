@@ -9,19 +9,18 @@ namespace CMiX.ViewModels
     public class Camera : ViewModel
     {
         #region CONSTRUCTORS
-        public Camera(ObservableCollection<OSCMessenger> oscmessengers, ObservableCollection<OSCValidation> cansendmessage, MasterBeat masterBeat, Mementor mementor) 
-            : base (oscmessengers, cansendmessage, mementor)
+        public Camera(ObservableCollection<OSCValidation> oscvalidation, MasterBeat masterBeat, Mementor mementor) 
+            : base (oscvalidation, mementor)
         {
             MessageAddress = "/Camera/";
 
-            DisabledMessages();
             Rotation = ((CameraRotation)0).ToString();
             LookAt = ((CameraLookAt)0).ToString();
             View = ((CameraView)0).ToString();
 
-            BeatModifier = new BeatModifier(MessageAddress, oscmessengers, masterBeat, cansendmessage, mementor);
-            FOV = new Slider(MessageAddress + nameof(FOV), oscmessengers, cansendmessage, mementor);
-            Zoom = new Slider(MessageAddress + nameof(Zoom), oscmessengers, cansendmessage, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, masterBeat, oscvalidation, mementor);
+            FOV = new Slider(MessageAddress + nameof(FOV), oscvalidation, mementor);
+            Zoom = new Slider(MessageAddress + nameof(Zoom), oscvalidation, mementor);
         }
 
         #endregion
@@ -72,17 +71,6 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public void Reset()
-        {
-            DisabledMessages();
-            Rotation = ((CameraRotation)0).ToString();
-            LookAt = ((CameraLookAt)0).ToString();
-            View = ((CameraView)0).ToString();
-            BeatModifier.Reset();
-            FOV.Reset();
-            Zoom.Reset();
-            EnabledMessages();
-        }
         public void Copy(CameraModel cameramodel)
         {
             cameramodel.MessageAddress = MessageAddress;
@@ -106,6 +94,20 @@ namespace CMiX.ViewModels
             BeatModifier.Paste(cameramodel.BeatModifierModel);
             FOV.Paste(cameramodel.FOV);
             Zoom.Paste(cameramodel.Zoom);
+
+            EnabledMessages();
+        }
+
+        public void Reset()
+        {
+            DisabledMessages();
+
+            Rotation = ((CameraRotation)0).ToString();
+            LookAt = ((CameraLookAt)0).ToString();
+            View = ((CameraView)0).ToString();
+            BeatModifier.Reset();
+            FOV.Reset();
+            Zoom.Reset();
 
             EnabledMessages();
         }

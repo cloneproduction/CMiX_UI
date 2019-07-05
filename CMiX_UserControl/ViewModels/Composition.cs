@@ -19,30 +19,31 @@ namespace CMiX.ViewModels
         public Composition(ObservableCollection<OSCMessenger> oscmessengers)
         {
             Name = string.Empty;
-
-            Messengers = oscmessengers;
             MessageAddress = "/Layer";
 
             OSCValidation = new ObservableCollection<OSCValidation>();
-            CreateOSCValidation();
+            CreateOSCValidation(oscmessengers);
 
             LayerNames = new List<string>();
             LayerIndex = new List<int>();
             Layers = new ObservableCollection<Layer>();
-            Layers.CollectionChanged += ContentCollectionChanged;
+            
 
-            MasterBeat = new MasterBeat(Messengers, OSCValidation, Mementor);
-            Camera = new Camera(Messengers, OSCValidation, MasterBeat, Mementor);
+            MasterBeat = new MasterBeat(OSCValidation, Mementor);
+            Camera = new Camera(OSCValidation, MasterBeat, Mementor);
             Mementor = new Mementor();
+
 
             // CREATE DEFAULT LAYER
             layerID += 1;
             layerNameID += 1;
-            Layer layer = new Layer(MasterBeat, string.Format("{0}/", MessageAddress + layerNameID.ToString()), Messengers, OSCValidation, layerNameID, Mementor);
+            Layer layer = new Layer(MasterBeat, string.Format("{0}/", MessageAddress + layerNameID.ToString()), OSCValidation, layerNameID, Mementor);
             layer.Index = layerID;
             Layers.Add(layer);
             SelectedLayer = layer;
             LayerNames.Add(string.Format("{0}/", MessageAddress + layerNameID.ToString()));
+            LayerIndex.Add(layer.Index);
+            Layers.CollectionChanged += ContentCollectionChanged;
 
             ReloadCompositionCommand = new RelayCommand(p => ReloadComposition(p));
             AddLayerCommand = new RelayCommand(p => AddLayer());
@@ -56,13 +57,33 @@ namespace CMiX.ViewModels
         }
         #endregion
 
-        public void CreateOSCValidation()
+        #region PRIVATE METHODS
+        private void CreateOSCValidation(ObservableCollection<OSCMessenger> oscmessengers)
         {
-            foreach (var messenger in Messengers)
+            foreach (var messenger in oscmessengers)
             {
                 OSCValidation.Add(new OSCValidation(messenger));
+                
+            }
+            foreach (var item in OSCValidation)
+            {
+                Console.WriteLine(item.SendEnabled.ToString() ); 
             }
         }
+
+        private void ReloadComposition(object messenger)
+        {
+            CompositionModel compositionmodel = new CompositionModel();
+            this.Copy(compositionmodel);
+
+            foreach (var oscvalidation in OSCValidation)
+            {
+                oscvalidation.OSCMessenger.SendMessage("CompositionReloaded", true);
+                oscvalidation.OSCMessenger.QueueObject(compositionmodel);
+                oscvalidation.OSCMessenger.SendQueue();
+            }
+        }
+        #endregion
 
         #region PROPERTIES
         private int layerID = -1;
@@ -145,17 +166,6 @@ namespace CMiX.ViewModels
         }
         #endregion
 
-        private void ReloadComposition(object messenger)
-        {
-            CompositionModel compositionmodel = new CompositionModel();
-            this.Copy(compositionmodel);
-            bool compreloaded = true;
-            SendMessages("CompositionReloaded", compreloaded);
-            QueueObjects(compositionmodel);
-            SendQueues();
-        }
-
-
         #region COPY/PASTE LAYER
         private void CopyLayer()
         {
@@ -201,7 +211,7 @@ namespace CMiX.ViewModels
             layerID += 1;
             layerNameID += 1;
 
-            Layer layer = new Layer(MasterBeat, string.Format("{0}/", MessageAddress + layerNameID.ToString()), Messengers, OSCValidation, layerNameID, Mementor);
+            Layer layer = new Layer(MasterBeat, string.Format("{0}/", MessageAddress + layerNameID.ToString()), OSCValidation, layerNameID, Mementor);
             layer.Index = layerID;
             Layers.Add(layer);
             Mementor.ElementAdd(Layers, layer);
@@ -240,7 +250,7 @@ namespace CMiX.ViewModels
             LayerModel layermodel = new LayerModel();
             lyr.Copy(layermodel);
             
-            Layer newlayer = new Layer(MasterBeat, string.Format("{0}/", MessageAddress + layerNameID.ToString()), Messengers, OSCValidation, layerNameID, Mementor);
+            Layer newlayer = new Layer(MasterBeat, string.Format("{0}/", MessageAddress + layerNameID.ToString()), OSCValidation, layerNameID, Mementor);
             newlayer.Paste(layermodel);
             newlayer.LayerName = string.Format("{0}/", MessageAddress + layerNameID.ToString());
             newlayer.UpdateMessageAddress(string.Format("{0}/", MessageAddress + layerNameID.ToString()));
@@ -371,7 +381,7 @@ namespace CMiX.ViewModels
             foreach (LayerModel layermodel in compositionmodel.LayersModel)
             {
                 layerID += 1;
-                Layer layer = new Layer(MasterBeat, MessageAddress + layerID.ToString(), Messengers, OSCValidation, 0, Mementor);
+                Layer layer = new Layer(MasterBeat, MessageAddress + layerID.ToString(), OSCValidation, 0, Mementor);
                 layer.Paste(layermodel);
                 Layers.Add(layer);
             }
@@ -392,7 +402,7 @@ namespace CMiX.ViewModels
             Layers.Clear();
             foreach (LayerModel layermodel in compositionmodel.LayersModel)
             {
-                Layer layer = new Layer(MasterBeat, layermodel.LayerName, Messengers, OSCValidation, layermodel.Index, Mementor);
+                Layer layer = new Layer(MasterBeat, layermodel.LayerName, OSCValidation, layermodel.Index, Mementor);
                 layer.Load(layermodel);
                 Layers.Add(layer);
             }

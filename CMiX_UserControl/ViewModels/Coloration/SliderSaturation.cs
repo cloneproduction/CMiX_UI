@@ -12,9 +12,8 @@ namespace CMiX.ViewModels
     {
         #region CONSTRUCTORS
 
-        public SliderSaturation(ColorSelector colorselector, string messageaddress,
-            ObservableCollection<OSCMessenger> oscmessengers, ObservableCollection<OSCValidation> cansendmessage, Mementor mementor)
-            : base(oscmessengers, cansendmessage, mementor)
+        public SliderSaturation(ColorSelector colorselector, string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor)
+            : base(oscvalidation, mementor)
         {
             MessageAddress = String.Format("{0}/", messageaddress);
             ColorSelector = colorselector;

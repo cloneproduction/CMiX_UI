@@ -9,10 +9,10 @@ namespace CMiX.ViewModels
     public class RangeControl : ViewModel
     {
         #region CONSTRUCTORS
-        public RangeControl(ObservableCollection<OSCMessenger> oscmessengers, string messageaddress, ObservableCollection<OSCValidation> cansendmessage, Mementor mementor) : base (oscmessengers, cansendmessage, mementor)
+        public RangeControl(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor) : base (oscvalidation, mementor)
         {
             MessageAddress = messageaddress + "/";
-            Range = new Slider(MessageAddress + nameof(Range), oscmessengers, cansendmessage, mementor);
+            Range = new Slider(MessageAddress + nameof(Range), oscvalidation, mementor);
             Modifier = ((RangeModifier)0).ToString();
         }
         #endregion

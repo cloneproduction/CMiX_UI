@@ -12,26 +12,26 @@ namespace CMiX.ViewModels
     public class Geometry : ViewModel
     {
         #region CONSTRUCTORS
-        public Geometry(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, ObservableCollection<OSCValidation> cansendmessage, Mementor mementor) : base (oscmessengers, cansendmessage, mementor)
+        public Geometry(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor) : base (oscvalidation, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Geometry));
 
             Is3D = false;
             KeepAspectRatio = false;
 
-            FileSelector = new FileSelector(MessageAddress, "Single", new List<string> { ".FBX", ".OBJ" }, oscmessengers, cansendmessage, mementor);
-            FileSelector.FilePaths.Add(new FileNameItem(FileSelector.MessageAddress, oscmessengers, cansendmessage, mementor) { FileIsSelected = true, FileName = "Quad (default)" });
+            FileSelector = new FileSelector(MessageAddress, "Single", new List<string> { ".FBX", ".OBJ" }, oscvalidation, mementor);
+            FileSelector.FilePaths.Add(new FileNameItem(FileSelector.MessageAddress, oscvalidation, mementor) { FileIsSelected = true, FileName = "Quad (default)" });
 
-            TranslateMode = new GeometryTranslate(MessageAddress + nameof(TranslateMode), oscmessengers, cansendmessage, mementor);
-            ScaleMode = new GeometryScale(MessageAddress + nameof(ScaleMode), oscmessengers, cansendmessage, mementor);
-            RotationMode = new GeometryRotation(MessageAddress + nameof(RotationMode), oscmessengers, cansendmessage, mementor);
+            TranslateMode = new GeometryTranslate(MessageAddress + nameof(TranslateMode), oscvalidation, mementor);
+            ScaleMode = new GeometryScale(MessageAddress + nameof(ScaleMode), oscvalidation, mementor);
+            RotationMode = new GeometryRotation(MessageAddress + nameof(RotationMode), oscvalidation, mementor);
        
-            Translate = new Slider(MessageAddress + nameof(Translate), oscmessengers, cansendmessage, mementor);
-            Scale = new Slider(MessageAddress + nameof(Scale), oscmessengers, cansendmessage, mementor);
+            Translate = new Slider(MessageAddress + nameof(Translate), oscvalidation, mementor);
+            Scale = new Slider(MessageAddress + nameof(Scale), oscvalidation, mementor);
             Scale.Amount = 0.25;
-            Rotation = new Slider(MessageAddress + nameof(Rotation), oscmessengers, cansendmessage, mementor);
-            Counter = new Counter(MessageAddress, oscmessengers, cansendmessage, mementor);
-            GeometryFX = new GeometryFX(MessageAddress, oscmessengers, cansendmessage, mementor);
+            Rotation = new Slider(MessageAddress + nameof(Rotation), oscvalidation, mementor);
+            Counter = new Counter(MessageAddress, oscvalidation, mementor);
+            GeometryFX = new GeometryFX(MessageAddress, oscvalidation, mementor);
 
             ResetCommand = new RelayCommand(p => Reset());
         }

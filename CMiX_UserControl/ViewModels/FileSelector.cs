@@ -12,15 +12,15 @@ namespace CMiX.ViewModels
     public class FileSelector : ViewModel, IDropTarget, IDragSource
     {
         #region CONSTRUCTORS
-        public FileSelector(string messageaddress, string selectionmode, List<string> filemask, ObservableCollection<OSCMessenger> oscmessengers, ObservableCollection<OSCValidation> cansendmessage, Mementor mementor) 
-            : base (oscmessengers, cansendmessage, mementor)
+        public FileSelector(string messageaddress, string selectionmode, List<string> filemask, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor) 
+            : base (oscvalidation, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(FileSelector));
 
             SelectionMode = selectionmode;
             FileMask = filemask;
             FilePaths = new ObservableCollection<FileNameItem>();
-            SelectedFileNameItem = new FileNameItem(MessageAddress, oscmessengers, cansendmessage, Mementor);
+            SelectedFileNameItem = new FileNameItem(MessageAddress, oscvalidation, Mementor);
             ClearSelectedCommand = new RelayCommand(p => ClearSelected());
             ClearUnselectedCommand = new RelayCommand(p => ClearUnselected());
             ClearAllCommand = new RelayCommand(p => ClearAll());
@@ -161,7 +161,7 @@ namespace CMiX.ViewModels
                         {
                             if (System.IO.Path.GetExtension(str).ToUpperInvariant() == fm)
                             {
-                                FileNameItem lbfn = new FileNameItem(MessageAddress, Messengers, OSCValidation, Mementor);
+                                FileNameItem lbfn = new FileNameItem(MessageAddress, OSCValidation, Mementor);
                                 lbfn.FileIsSelected = false;
                                 if(FolderPath != null)
                                 {
@@ -289,7 +289,7 @@ namespace CMiX.ViewModels
 
             foreach (var item in fileselectormodel.FilePaths)
             {
-                FileNameItem filenameitem = new FileNameItem(MessageAddress, Messengers, OSCValidation, Mementor);
+                FileNameItem filenameitem = new FileNameItem(MessageAddress, OSCValidation, Mementor);
                 filenameitem.Paste(item);
                 //filenameitem.UpdateMessageAddress(MessageAddress);
                 FilePaths.Add(filenameitem);

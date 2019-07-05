@@ -7,8 +7,8 @@ namespace CMiX.ViewModels
 {
     public class FileNameItem : ViewModel
     {
-        public FileNameItem(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, ObservableCollection<OSCValidation> cansendmessage, Mementor mementor)
-            : base (oscmessengers, cansendmessage, mementor)
+        public FileNameItem(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor)
+            : base (oscvalidation, mementor)
         {
             MessageAddress = messageaddress + "Selected";
             Mementor = mementor;

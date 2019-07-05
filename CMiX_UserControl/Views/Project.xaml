@@ -244,14 +244,14 @@
                             </StackPanel>
                         </Border>
                         <ListBox 
-                        Margin="0, 8, 0, 0"
-                        HorizontalContentAlignment="Stretch" 
-                        ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                        Style="{StaticResource LayerListBox}"
-                        ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
-                        ItemsSource="{Binding Messengers}" 
-                        dd:DragDrop.IsDragSource="True"
-                        dd:DragDrop.IsDropTarget="True">
+                            Margin="0, 8, 0, 0"
+                            HorizontalContentAlignment="Stretch" 
+                            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                            Style="{StaticResource LayerListBox}"
+                            ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
+                            ItemsSource="{Binding OSCMessengers}" 
+                            dd:DragDrop.IsDragSource="True"
+                            dd:DragDrop.IsDropTarget="True">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Views:OSCControl Margin="2">

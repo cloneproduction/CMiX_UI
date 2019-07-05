@@ -9,12 +9,12 @@ namespace CMiX.ViewModels
     public class PostFX : ViewModel
     {
         #region CONSTRUCTORS
-        public PostFX(string messageaddress, ObservableCollection<OSCMessenger> oscmessengers, ObservableCollection<OSCValidation> cansendmessage, Mementor mementor) : base(oscmessengers, cansendmessage, mementor)
+        public PostFX(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor) : base(oscvalidation, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(PostFX));
 
-            Feedback = new Slider(MessageAddress + nameof(Feedback), oscmessengers, cansendmessage, mementor);
-            Blur = new Slider(MessageAddress + nameof(Blur), oscmessengers, cansendmessage, mementor);
+            Feedback = new Slider(MessageAddress + nameof(Feedback),oscvalidation, mementor);
+            Blur = new Slider(MessageAddress + nameof(Blur),oscvalidation, mementor);
 
             Transforms = ((PostFXTransforms)0).ToString();
             View = ((PostFXView)0).ToString();
@@ -80,10 +80,12 @@ namespace CMiX.ViewModels
             DisabledMessages();
 
             MessageAddress = postFXmodel.MessageAddress;
-            Feedback.Paste(postFXmodel.Feedback);
-            Blur.Paste(postFXmodel.Blur);
+
             Transforms = postFXmodel.Transforms;
             View = postFXmodel.View;
+
+            Feedback.Paste(postFXmodel.Feedback);
+            Blur.Paste(postFXmodel.Blur);
 
             EnabledMessages();
         }

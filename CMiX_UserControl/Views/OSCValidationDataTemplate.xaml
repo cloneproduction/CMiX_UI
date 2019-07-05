@@ -3,13 +3,54 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:views="clr-namespace:CMiX.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="25.053" d:DesignWidth="331.534">
+             d:DesignHeight="71.986" d:DesignWidth="303.267">
     <Border
         DockPanel.Dock="Bottom"
         Background="{StaticResource DarkerColor}"
         Style="{StaticResource BorderContainer}">
         <StackPanel>
+            <Grid Height="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock 
+                    Text="Name" 
+                    Foreground="{StaticResource TextBase}"
+                    HorizontalAlignment="Right"
+                    Margin="0, 0, 8, 0"
+                    VerticalAlignment="Center"
+                    />
+                <TextBlock
+                    Margin="1"
+                    Text="{Binding OSCMessenger.Name}"
+                    Grid.Column="1"
+                    Foreground="{StaticResource TextBase}"
+                    />
+            </Grid>
+            <Grid Height="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock 
+                    Text="Reload" 
+                    Foreground="{StaticResource TextBase}"
+                    Margin="0, 0, 8, 0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    />
+                <Button 
+                    HorizontalAlignment="Left"
+                    Margin="1"
+                    Grid.Column="1"
+                    Width="20"
+                    Height="20" 
+                    Command="{Binding Path=DataContext.ReloadCompositionCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type views:Composition}}}"
+                    />
+            </Grid>
             <Grid Height="20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.4*"/>
