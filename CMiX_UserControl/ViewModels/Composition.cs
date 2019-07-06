@@ -65,10 +65,6 @@ namespace CMiX.ViewModels
                 OSCValidation.Add(new OSCValidation(messenger));
                 
             }
-            foreach (var item in OSCValidation)
-            {
-                Console.WriteLine(item.SendEnabled.ToString() ); 
-            }
         }
 
         private void ReloadComposition(object messenger)

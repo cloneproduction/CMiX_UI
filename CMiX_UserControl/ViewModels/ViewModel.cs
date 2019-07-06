@@ -109,7 +109,6 @@ namespace CMiX.ViewModels
                 foreach (var oscvalidation in OSCValidation)
                 {
                     oscvalidation.OSCMessenger.Enabled = false;
-                    Console.WriteLine("Message DISABLED From ViewModel");
                 }
             }
         }
@@ -121,7 +120,6 @@ namespace CMiX.ViewModels
                 foreach (var oscvalidation in OSCValidation)
                 {
                     oscvalidation.OSCMessenger.Enabled = true;
-                    Console.WriteLine("Message ENABLED From ViewModel");
                 }
             }
         }

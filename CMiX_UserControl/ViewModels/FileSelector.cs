@@ -55,11 +55,7 @@ namespace CMiX.ViewModels
         public string FolderPath
         {
             get => _folderpath;
-            set
-            {
-                SetAndNotify(ref _folderpath, value);
-                Console.WriteLine(FolderPath);
-            }
+            set => SetAndNotify(ref _folderpath, value);
         }
         #endregion
 
