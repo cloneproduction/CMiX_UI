@@ -163,10 +163,10 @@
                                             </MenuItem.Header>
                                         </MenuItem>
                                         <MenuItem
-                                    Padding="8, 4"
-                                    Foreground="{StaticResource TextBase}"
-                                    Command="{Binding Data.DuplicateCompoCommand, Source={StaticResource proxy}}"
-                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
+                                            Padding="8, 4"
+                                            Foreground="{StaticResource TextBase}"
+                                            Command="{Binding Data.DuplicateCompoCommand, Source={StaticResource proxy}}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                                             <MenuItem.Header>
                                                 <StackPanel Orientation="Horizontal">
                                                     <Image Width="10" Height="10" Source="/CMiX_UserControl;component/Assets/Copy.png" />
@@ -179,30 +179,30 @@
                                 </DockPanel.ContextMenu>
                                 <DockPanel.InputBindings>
                                     <MouseBinding 
-                                Command="{Binding Data.DeleteCompoCommand, Source={StaticResource proxy}}"
-                                CommandParameter="{Binding ElementName=Docks, Path=DataContext}"
-                                MouseAction="MiddleClick"
-                                />
+                                        Command="{Binding Data.DeleteCompoCommand, Source={StaticResource proxy}}"
+                                        CommandParameter="{Binding ElementName=Docks, Path=DataContext}"
+                                        MouseAction="MiddleClick"
+                                        />
                                 </DockPanel.InputBindings>
                                 <Button
-                            DockPanel.Dock="Right" 
-                            Command="{Binding Data.DeleteCompoCommand, Source={StaticResource proxy}}"
-                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"
-                            Style="{DynamicResource ButtonTabDynamic}"
-                            Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"                
-                            >
+                                    DockPanel.Dock="Right" 
+                                    Command="{Binding Data.DeleteCompoCommand, Source={StaticResource proxy}}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"
+                                    Style="{DynamicResource ButtonTabDynamic}"
+                                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"                
+                                    >
                                     <Button.Content>
                                         <Image Opacity="0.5" Margin="5" Source="{StaticResource CloseTab}"/>
                                     </Button.Content>
                                 </Button>
                                 <TextBlock
-                            Margin="4, 0, 0, 0"
-                            Text="{Binding Name}"
-                            ToolTip="{Binding Name}"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            DockPanel.Dock="Left"
-                            >
+                                    Margin="4, 0, 0, 0"
+                                    Text="{Binding Name}"
+                                    ToolTip="{Binding Name}"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    DockPanel.Dock="Left"
+                                    >
                                 </TextBlock>
                             </DockPanel>
                         </DataTemplate>
@@ -214,7 +214,11 @@
                     </TabControl.ContentTemplate>
                 </TabControl>
             </DockPanel>
-            <Expander  HorizontalAlignment="Left"  ExpandDirection="Right" DockPanel.Dock="Left" Style="{DynamicResource ExpanderBase}">
+            <Expander  
+                HorizontalAlignment="Left"  
+                ExpandDirection="Right" 
+                DockPanel.Dock="Left" 
+                Style="{DynamicResource ExpanderBase}">
                 <Expander.Effect>
                     <DropShadowEffect 
                         BlurRadius="10" 
@@ -232,11 +236,11 @@
                         <Border DockPanel.Dock="Top"  Style="{StaticResource BorderContainer}">
                             <StackPanel Orientation="Horizontal">
                                 <Button
-                                ToolTip="New Layer"
-                                Command="{Binding Path=AddOSCCommand}"
-                                Width="15"
-                                Height="15"
-                                Style="{StaticResource ButtonImage}" >
+                                    ToolTip="New Layer"
+                                    Command="{Binding Path=AddOSCCommand}"
+                                    Width="15"
+                                    Height="15"
+                                    Style="{StaticResource ButtonImage}" >
                                     <Button.Content>
                                         <Image Source="/Assets/NewLayer.png"/>
                                     </Button.Content>
@@ -261,11 +265,19 @@
                                                 <MenuItem
                                                     Padding="8, 4"
                                                     Foreground="{StaticResource TextBase}"
-                                                    Command="{Binding Data.DeleteOSCCommand, Source={StaticResource proxy}}">
+                                                    Command="{Binding Data.DeleteOSCCommand, Source={StaticResource proxy}}"
+                                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                                                     <MenuItem.Header>
                                                         <StackPanel Orientation="Horizontal">
-                                                            <Image Width="10" Height="10" Source="/CMiX_UserControl;component/Assets/DeleteLayer.png" />
-                                                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                                            <Image 
+                                                                Width="10" 
+                                                                Height="10" 
+                                                                Source="/CMiX_UserControl;component/Assets/DeleteLayer.png" 
+                                                                />
+                                                            <Separator 
+                                                                Margin="8, 0" 
+                                                                Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" 
+                                                                />
                                                             <TextBlock Text="Delete OSC"/>
                                                         </StackPanel>
                                                     </MenuItem.Header>

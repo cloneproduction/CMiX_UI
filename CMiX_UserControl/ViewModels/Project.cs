@@ -98,10 +98,8 @@ namespace CMiX.ViewModels
         #region ADD/REMOVE/DELETE OSC
         private void DeleteOSC(object oscmessenger)
         {
-            if(SelectedOSCMessenger != null)
-            {
-                OSCMessengers.Remove(SelectedOSCMessenger);
-            }
+            var messenger = oscmessenger as OSCMessenger;
+            OSCMessengers.Remove(messenger);
         }
 
         private void RemoveSelectedOSC()
