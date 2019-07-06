@@ -86,19 +86,22 @@ namespace CMiX.ViewModels
             get => _selectedcomposition;
             set => SetAndNotify(ref _selectedcomposition, value);
         }
+
+        private OSCMessenger _selectedoscmessenger;
+        public OSCMessenger SelectedOSCMessenger
+        {
+            get => _selectedoscmessenger;
+            set => SetAndNotify(ref _selectedoscmessenger, value);
+        }
         #endregion
 
         #region ADD/REMOVE/DELETE OSC
         private void DeleteOSC(object oscmessenger)
         {
-            OSCMessenger messenger = oscmessenger as OSCMessenger;
-            int messengerindex = OSCMessengers.IndexOf(messenger);
-            
-            foreach (var compo in Compositions)
+            if(SelectedOSCMessenger != null)
             {
-                OSCValidation.RemoveAt(messengerindex);
+                OSCMessengers.Remove(SelectedOSCMessenger);
             }
-            OSCMessengers.Remove(messenger);
         }
 
         private void RemoveSelectedOSC()
