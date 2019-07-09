@@ -6,15 +6,15 @@
              xmlns:CMiX="clr-namespace:CMiX"
              xmlns:Views="clr-namespace:CMiX.Views"
              xmlns:dd="urn:gong-wpf-dragdrop"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
-             xmlns:behaviors="clr-namespace:CMiX.Behaviors"
              d:DesignHeight="300" d:DesignWidth="300">
+    
     <UserControl.Resources>
         <ResourceDictionary>
             <CMiX:PathToFilenameConverter x:Key="PathToFileName" />
         </ResourceDictionary>
     </UserControl.Resources>
+    
     <DockPanel>
         <DockPanel Height="20" DockPanel.Dock="Top">
             <Menu
@@ -79,7 +79,6 @@
                     <Setter Property="IsSelected" Value="{Binding FileIsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </Style>
             </ListBox.Resources>
-
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Views:FileNameItem/>

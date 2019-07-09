@@ -116,6 +116,8 @@ namespace CMiX.ViewModels
                 {
                     layer.Content.Texture.FileSelector.FolderPath = ContentFolderName;
                     layer.Content.Geometry.FileSelector.FolderPath = ContentFolderName;
+                    layer.Content.Geometry.GeometryFX.FileSelector.FolderPath = ContentFolderName;
+
                     layer.Mask.Texture.FileSelector.FolderPath = ContentFolderName;
                     layer.Mask.Geometry.FileSelector.FolderPath = ContentFolderName;
                 }

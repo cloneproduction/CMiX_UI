@@ -4,19 +4,23 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:controls="clr-namespace:CMiX.Controls"
     xmlns:Views="clr-namespace:CMiX.Views"
-    xmlns:CMiX="clr-namespace:CMiX"
     mc:Ignorable="d" 
-    d:DesignHeight="89.308" 
-    d:DesignWidth="248.203">
+    d:DesignHeight="390.508" 
+    d:DesignWidth="329.003">
 
     <StackPanel>
-        <Views:Slider
+        <Views:FileSelector 
+            Height="300"
+            DataContext="{Binding FileSelector}"
+            />
+        <Border  Margin="0, 2" Style="{StaticResource BorderContainer}" DockPanel.Dock="Bottom">
+            <Views:Slider
             Height="20"
             Margin="0,2,0,1"
             Caption="Explode"
             DataContext="{Binding Explode}"
             />
+        </Border>
     </StackPanel>
 </UserControl>

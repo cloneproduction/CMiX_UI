@@ -8,8 +8,10 @@ namespace CMiX.Models
         public GeometryFXModel()
         {
             Explode = new SliderModel();
+            FileSelector = new FileSelectorModel();
         }
 
         public SliderModel Explode { get; set; }
+        public FileSelectorModel FileSelector { get; set; }
     }
 }
