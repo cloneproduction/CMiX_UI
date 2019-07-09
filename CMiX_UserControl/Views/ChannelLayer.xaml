@@ -9,8 +9,8 @@
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
-    d:DesignHeight="77.977"
-    d:DesignWidth="361.384"
+    d:DesignHeight="101.177"
+    d:DesignWidth="391.784"
     mc:Ignorable="d">
 
     <UserControl.Resources>

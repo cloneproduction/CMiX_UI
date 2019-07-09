@@ -47,13 +47,13 @@ namespace CMiX.ViewModels
         #region ADD/SUB
         private void Add()
         {
-            Count *= 2;
+            Count += 1;
         }
 
         private void Sub()
         {
             if (Count > 1)
-                Count /= 2;
+                Count -= 1;
         }
         #endregion
 

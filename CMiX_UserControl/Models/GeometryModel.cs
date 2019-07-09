@@ -1,5 +1,4 @@
-﻿using CMiX.Services;
-using System;
+﻿using System;
 
 namespace CMiX.Models
 {
@@ -36,10 +35,7 @@ namespace CMiX.Models
         public GeometryRotationModel GeometryRotation { get; set; }
         public GeometryFXModel GeometryFX { get; set; }
 
-        [OSC]
         public bool Is3D { get; set; }
-
-        [OSC]
         public bool KeepAspectRatio { get; set; }
     }
 }

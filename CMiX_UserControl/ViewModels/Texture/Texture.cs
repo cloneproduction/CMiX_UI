@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
-using CMiX.Services;
 using CMiX.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

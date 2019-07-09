@@ -4,7 +4,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Brushes.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
+
     <Style TargetType="{x:Type Button}">
         <Setter Property="FocusVisualStyle">
             <Setter.Value>
@@ -122,4 +122,5 @@
             </Setter.Value>
         </Setter>
     </Style>
+
 </ResourceDictionary>
