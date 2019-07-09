@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Globalization;
-using System.IO;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using CMiX.ViewModels;
@@ -14,6 +11,7 @@ namespace CMiX
         {
             InitializeComponent();
             ProjectView.DataContext = new Project();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
         private void UndoCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
