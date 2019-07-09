@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using SharpOSC;
-
 using System.Windows.Input;
 using CMiX.Models;
+using CMiX.ViewModels;
 
-namespace CMiX.ViewModels
+
+namespace CMiX
 {
     public class OSCMessenger : ViewModel
     {
@@ -68,6 +67,8 @@ namespace CMiX.ViewModels
             }
         }
         #endregion
+
+
         public void Reload(object obj)
         {
             if (Enabled)
