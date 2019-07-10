@@ -45,7 +45,10 @@ namespace CMiX.ViewModels
             get { return selectedfilenameitem; }
             set
             {
-                if(SelectedFileNameItem == null)
+                SetAndNotify(ref selectedfilenameitem, value);
+                if (Mementor != null)
+                    Mementor.PropertyChange(this, nameof(SelectedFileNameItem));
+                if (SelectedFileNameItem == null)
                 {
                     Console.WriteLine("SelectedFileNameItem is NULL");
                 }
@@ -53,9 +56,6 @@ namespace CMiX.ViewModels
                 {
                     Console.WriteLine(SelectedFileNameItem.FileName);
                 }
-                SetAndNotify(ref selectedfilenameitem, value);
-                if (Mementor != null)
-                    Mementor.PropertyChange(this, nameof(SelectedFileNameItem));
             }
         }
 
