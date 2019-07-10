@@ -59,18 +59,6 @@
                 </MenuItem>
             </Menu>
         </DockPanel>
-        <!--<ComboBox 
-            Margin="1"
-            DockPanel.Dock="Bottom" 
-            Height="25" 
-            SelectedItem="{Binding SelectedFileNameItem}"
-            ItemsSource="{Binding FilePaths}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <Views:FileNameItem/>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>-->
         <ListBox
             VerticalAlignment="Stretch"
             HorizontalAlignment="Stretch"
