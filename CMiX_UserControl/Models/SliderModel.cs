@@ -16,7 +16,6 @@ namespace CMiX.Models
             MessageAddress = messageaddress;
         }
 
-        [OSC]
         public double Amount { get; set; }
     }
 }

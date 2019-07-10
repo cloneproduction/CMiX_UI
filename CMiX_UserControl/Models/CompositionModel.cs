@@ -28,8 +28,10 @@ namespace CMiX.Models
         public string GeometryFolderName { get; set; }
         public string VideoFolderName { get; set; }
 
+        [OSC]
         public List<string> LayerNames { get; set; }
 
+        [OSC]
         public List<int> LayerIndex { get; set; }
 
         public List<Model> LayersModel { get; set; }

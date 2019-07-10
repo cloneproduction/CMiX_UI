@@ -8,6 +8,7 @@ using SharpOSC;
 
 using System.Windows.Input;
 using CMiX.Models;
+using CMiX.Services;
 
 namespace CMiX.ViewModels
 {
@@ -27,7 +28,7 @@ namespace CMiX.ViewModels
         #region PROPERTIES
         public UDPSender Sender { get; set; }
 
-        private readonly List<OscMessage> messages;
+        public readonly List<OscMessage> messages;
 
         public ICommand ReloadCommand { get; }
 
@@ -68,6 +69,7 @@ namespace CMiX.ViewModels
             }
         }
         #endregion
+
         public void Reload(object obj)
         {
             if (Enabled)
@@ -75,7 +77,6 @@ namespace CMiX.ViewModels
                 QueueObject(obj);
                 SendQueue();
             }
-
         }
 
 
@@ -84,7 +85,10 @@ namespace CMiX.ViewModels
             Sender = new UDPSender(Address, Port);
         }
 
-        private OscMessage CreateOscMessage(string address, params object[] args) => new OscMessage(address, args.Select(a => a?.ToString()).ToArray());
+        public OscMessage CreateOscMessage(string address, params object[] args)
+        {
+            return new OscMessage(address, args.Select(a => a?.ToString()).ToArray());
+        }
 
         public void QueueMessage(string address, params object[] args)
         {
@@ -127,15 +131,19 @@ namespace CMiX.ViewModels
                 {
                     object propValue = property.GetValue(obj, null);
 
+                    var IsOSC = Attribute.IsDefined(property, typeof(OSCAttribute));
+
                     if (propValue != null)
                     {
                         string propertyname = property.Name;
                         Type type = propValue.GetType();
 
+
                         if (typeof(Model).IsAssignableFrom(propValue.GetType()))
                         {
                             QueueObject(propValue);
                         }
+
                         else if(propertyname is "LayerNames")
                         {
                             var list = propValue as List<string>;
@@ -152,6 +160,7 @@ namespace CMiX.ViewModels
                             foreach (var item in modellist)
                             {
                                 QueueObject(item);
+                                Console.WriteLine(item.ToString());
                             }
                         }
                         else if (propValue is List<FileNameItemModel>)
@@ -184,3 +193,5 @@ namespace CMiX.ViewModels
         }
     }
 }
+
+

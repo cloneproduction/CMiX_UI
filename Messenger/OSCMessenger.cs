@@ -155,18 +155,18 @@ namespace CMiX
                                 QueueObject(item);
                             }
                         }
-                        else if (propValue is List<FileNameItemModel>)
-                        {
-                            var filenameitemlist = propValue as List<FileNameItemModel>;
-                            foreach (var item in filenameitemlist)
-                            {
-                                if (item.FileIsSelected)
-                                {
-                                    string address = item.MessageAddress;
-                                    QueueMessage(address, item.FileName);
-                                }
-                            }
-                        }
+                        //else if (propValue is List<FileNameItemModel>)
+                        //{
+                        //    var filenameitemlist = propValue as List<FileNameItemModel>;
+                        //    foreach (var item in filenameitemlist)
+                        //    {
+                        //        if (item.FileIsSelected)
+                        //        {
+                        //            string address = item.MessageAddress;
+                        //            QueueMessage(address, item.FileName);
+                        //        }
+                        //    }
+                        //}
                         else
                         {
                             if (propertyname != "MessageAddress")

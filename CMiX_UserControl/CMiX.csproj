@@ -154,7 +154,7 @@
     <Compile Include="Views\ChannelOSCDataTemplate.xaml.cs">
       <DependentUpon>ChannelOSCDataTemplate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="_Unused\OSCAttribute.cs" />
+    <Compile Include="Services\OSCAttribute.cs" />
     <Compile Include="ViewModels\Coloration\ColorSelector.cs" />
     <Compile Include="ViewModels\Coloration\SliderHue.cs" />
     <Compile Include="ViewModels\Coloration\SliderValue.cs" />

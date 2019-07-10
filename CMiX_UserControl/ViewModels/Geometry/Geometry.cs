@@ -21,6 +21,7 @@ namespace CMiX.ViewModels
 
             FileSelector = new FileSelector(MessageAddress, "Single", new List<string> { ".FBX", ".OBJ" }, oscvalidation, mementor);
             FileSelector.FilePaths.Add(new FileNameItem(FileSelector.MessageAddress, oscvalidation, mementor) { FileIsSelected = true, FileName = "Quad (default)" });
+            FileSelector.SelectedFileNameItem = new FileNameItem(FileSelector.MessageAddress, oscvalidation, mementor) { FileIsSelected = true, FileName = "Quad (default)" };
 
             TranslateMode = new GeometryTranslate(MessageAddress + nameof(TranslateMode), oscvalidation, mementor);
             ScaleMode = new GeometryScale(MessageAddress + nameof(ScaleMode), oscvalidation, mementor);

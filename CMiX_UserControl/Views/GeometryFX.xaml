@@ -10,10 +10,10 @@
     d:DesignWidth="329.003">
 
     <StackPanel>
-        <Views:FileSelector 
+        <!--<Views:FileSelector 
             Height="300"
             DataContext="{Binding FileSelector}"
-            />
+            />-->
         <Border  Margin="0, 2" Style="{StaticResource BorderContainer}" DockPanel.Dock="Bottom">
             <Views:Slider
             Height="20"

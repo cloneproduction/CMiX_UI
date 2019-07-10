@@ -18,6 +18,7 @@ namespace CMiX.ViewModels
 
             FileSelector = new FileSelector(MessageAddress,  "Single", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" },oscvalidation, mementor);
             FileSelector.FilePaths.Add(new FileNameItem(FileSelector.MessageAddress,oscvalidation, mementor) { FileIsSelected = true, FileName = "Black (default).png" });
+            FileSelector.SelectedFileNameItem = new FileNameItem(FileSelector.MessageAddress, oscvalidation, mementor) { FileIsSelected = true, FileName = "Quad (default)" };
 
             Brightness = new Slider(MessageAddress + nameof(Brightness),oscvalidation, mementor);
             Brightness.Minimum = -1.0;

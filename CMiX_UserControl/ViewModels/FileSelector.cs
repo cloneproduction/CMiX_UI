@@ -20,7 +20,7 @@ namespace CMiX.ViewModels
             SelectionMode = selectionmode;
             FileMask = filemask;
             FilePaths = new ObservableCollection<FileNameItem>();
-            SelectedFileNameItem = new FileNameItem(MessageAddress, oscvalidation, Mementor);
+
             ClearSelectedCommand = new RelayCommand(p => ClearSelected());
             ClearUnselectedCommand = new RelayCommand(p => ClearUnselected());
             ClearAllCommand = new RelayCommand(p => ClearAll());
@@ -45,6 +45,14 @@ namespace CMiX.ViewModels
             get { return selectedfilenameitem; }
             set
             {
+                if(SelectedFileNameItem == null)
+                {
+                    Console.WriteLine("SelectedFileNameItem is NULL");
+                }
+                else
+                {
+                    Console.WriteLine(SelectedFileNameItem.FileName);
+                }
                 SetAndNotify(ref selectedfilenameitem, value);
                 if (Mementor != null)
                     Mementor.PropertyChange(this, nameof(SelectedFileNameItem));
