@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
         Title="CMiX Player"
         mc:Ignorable="d"
         Height="350" Width="525">
@@ -11,33 +12,6 @@
             <RowDefinition Height="0.3*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <DockPanel>
-            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                <Button
-                    Height="20" 
-                    Width="20" 
-                    Content="Prev." 
-                    Margin="2"
-                    />
-                <ToggleButton 
-                    Height="20" 
-                    Width="20" 
-                    Content="Play" 
-                    Margin="2"
-                    />
-                <Button 
-                    Height="20" 
-                    Width="20" 
-                    Content="Prev." 
-                    Margin="2"
-                    />
-                <TextBlock Text="Now playing : "
-                       VerticalAlignment="Center"
-                       Foreground="{DynamicResource TextBase}"/>
-            </StackPanel>
-            <ProgressBar DockPanel.Dock="Bottom" Height="20" Minimum="0" Maximum="100" Value="72"/>
-
-        </DockPanel>
 
     </Grid>
 </Window>

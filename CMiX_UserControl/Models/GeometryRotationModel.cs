@@ -1,5 +1,6 @@
 ﻿using CMiX.Services;
 using CMiX.ViewModels;
+using CMiX.MVVM.Models;
 using System;
 
 namespace CMiX.Models

@@ -2,10 +2,13 @@
     x:Class="CMiX.Views.Texture"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Controls="clr-namespace:CMiX.Controls"
+
     xmlns:Views="clr-namespace:CMiX.Views"
-    xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
+    xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX_MVVM"
+    xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
+    
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="636.667"
@@ -39,8 +42,7 @@
                         Command="{Binding Path=ResetCommand}"
                         Height="15" 
                         Width="15" 
-                        Style="{StaticResource ButtonImage}"
-                        >
+                        Style="{StaticResource ButtonImage}">
                         <Button.Content>
                             <Image Source="{StaticResource Reset}"/>
                         </Button.Content>
@@ -52,8 +54,7 @@
                         Command="{Binding DataContext.PasteTextureCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=2}}"
                         Height="15" 
                         Width="15" 
-                        Style="{StaticResource ButtonImage}"
-                        >
+                        Style="{StaticResource ButtonImage}">
                         <Button.Content>
                             <Image Source="{StaticResource Paste}"/>
                         </Button.Content>
@@ -64,8 +65,7 @@
                         Command="{Binding DataContext.CopyTextureCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=2}}"
                         Height="15" 
                         Width="15" 
-                        Style="{StaticResource ButtonImage}"
-                        >
+                        Style="{StaticResource ButtonImage}">
                         <Button.Content>
                             <Image Source="{StaticResource Copy}"/>
                         </Button.Content>
@@ -73,29 +73,36 @@
                 </DockPanel>
             </Border>
             <Border Margin="0, 2" Style="{StaticResource BorderContainer}">
-                <Views:FileSelector 
-                        Height="300"
-                        DataContext="{Binding FileSelector}"/>
+                <MVVM.Views:FileSelector
+                    Height="300"
+                    DataContext="{Binding FileSelector}"
+                    />
             </Border>
 
             <Border 
                 DockPanel.Dock="Bottom"
                 Margin="0, 2"
                 Style="{StaticResource BorderContainer}">
-                <TabControl DockPanel.Dock="Bottom"
-                            Background="{StaticResource DarkerColor}">
+                <TabControl 
+                    DockPanel.Dock="Bottom"
+                    Background="{StaticResource DarkerColor}">
                     <TabItem>
                         <TabItem.Header>
-                            <Image Source="{StaticResource BrightnessContrast}" Height="15" Width="auto" Opacity="0.75"/>
+                            <Image 
+                                Source="{StaticResource BrightnessContrast}" 
+                                Height="15" 
+                                Width="auto" 
+                                Opacity="0.75"
+                                />
                         </TabItem.Header>
                         <StackPanel>
-                            <Views:SliderCentered
+                            <MVVM.Views:SliderCentered
                                 Margin="0, 1, 0, 1"
                                 Caption="Brightness"
                                 DockPanel.Dock="Bottom"
                                 DataContext="{Binding Brightness}"
                                 />
-                            <Views:SliderCentered
+                            <MVVM.Views:SliderCentered
                                 Margin="0, 1, 0, 1"
                                 Caption="Contrast"
                                 DockPanel.Dock="Bottom"
@@ -116,7 +123,7 @@
                                     SelectedItem="{Binding InvertMode}"
                                     SelectedIndex="0"
                                     />
-                                <Views:Slider
+                                <MVVM.Views:Slider
                                     Grid.Column="0"
                                     Caption="Invert"
                                     DataContext="{Binding Invert}"
@@ -126,64 +133,74 @@
                     </TabItem>
                     <TabItem>
                         <TabItem.Header>
-                            <Image Source="{StaticResource HSL}" Height="15" Width="auto" Opacity="0.75"/>
+                            <Image 
+                                Source="{StaticResource HSL}" 
+                                Height="15" 
+                                Width="auto" 
+                                Opacity="0.75"
+                                />
                         </TabItem.Header>
                         <StackPanel>
-                            <Views:SliderCentered
-                                        Margin="0, 1, 0, 1"
-                                        Caption="Hue"
-                                        DockPanel.Dock="Bottom"
-                                        DataContext="{Binding Hue}"
-                                        />
-                            <Views:SliderCentered
-                                        Margin="0, 1, 0, 1"
-                                        Caption="Saturation"
-                                        DockPanel.Dock="Bottom"
-                                        DataContext="{Binding Saturation}"
-                                        />
-                            <Views:SliderCentered
-                                        Margin="0, 1, 0, 1"
-                                        Caption="Luminosity"
-                                        DockPanel.Dock="Bottom"
-                                        DataContext="{Binding Luminosity}"
-                                        />
-                            <Views:Slider
-                                        Margin="0, 1, 0, 1"
-                                        Caption="Keying"
-                                        DockPanel.Dock="Bottom"
-                                        DataContext="{Binding Keying}"
-                                        />
+                            <MVVM.Views:SliderCentered
+                                Margin="0, 1, 0, 1"
+                                Caption="Hue"
+                                DockPanel.Dock="Bottom"
+                                DataContext="{Binding Hue}"
+                                />
+                            <MVVM.Views:SliderCentered
+                                Margin="0, 1, 0, 1"
+                                Caption="Saturation"
+                                DockPanel.Dock="Bottom"
+                                DataContext="{Binding Saturation}"
+                                />
+                            <MVVM.Views:SliderCentered
+                                Margin="0, 1, 0, 1"
+                                Caption="Luminosity"
+                                DockPanel.Dock="Bottom"
+                                DataContext="{Binding Luminosity}"
+                                />
+                            <MVVM.Views:Slider
+                                Margin="0, 1, 0, 1"
+                                Caption="Keying"
+                                DockPanel.Dock="Bottom"
+                                DataContext="{Binding Keying}"
+                                />
                         </StackPanel>
                     </TabItem>
                     <TabItem>
                         <TabItem.Header>
-                            <Image Source="{StaticResource TexTransform}" Height="15" Width="auto" Opacity="0.75"/>
+                            <Image 
+                                Source="{StaticResource TexTransform}" 
+                                Height="15" 
+                                Width="auto" 
+                                Opacity="0.75"
+                                />
                         </TabItem.Header>
                         <StackPanel>
-                            <Views:SliderCentered
-                                        Margin="0, 1, 0, 1"
-                                        Caption="Pan"
-                                        DockPanel.Dock="Bottom"
-                                        DataContext="{Binding Pan}"
-                                        />
-                            <Views:SliderCentered
-                                        Margin="0, 1, 0, 1"
-                                        Caption="Tilt"
-                                        DockPanel.Dock="Bottom"
-                                        DataContext="{Binding Tilt}"
-                                        />
-                            <Views:SliderCentered
-                                        Margin="0, 1, 0, 1"
-                                        Caption="Scale"
-                                        DockPanel.Dock="Bottom"
-                                        DataContext="{Binding Scale}"
-                                        />
-                            <Views:SliderCentered
-                                        Margin="0, 1, 0, 1"
-                                        Caption="Rotate"
-                                        DockPanel.Dock="Bottom"
-                                        DataContext="{Binding Rotate}"
-                                        />
+                            <MVVM.Views:SliderCentered
+                                Margin="0, 1, 0, 1"
+                                Caption="Pan"
+                                DockPanel.Dock="Bottom"
+                                DataContext="{Binding Pan}"
+                                />
+                            <MVVM.Views:SliderCentered
+                                Margin="0, 1, 0, 1"
+                                Caption="Tilt"
+                                DockPanel.Dock="Bottom"
+                                DataContext="{Binding Tilt}"
+                                />
+                            <MVVM.Views:SliderCentered
+                                Margin="0, 1, 0, 1"
+                                Caption="Scale"
+                                DockPanel.Dock="Bottom"
+                                DataContext="{Binding Scale}"
+                                />
+                            <MVVM.Views:SliderCentered
+                                Margin="0, 1, 0, 1"
+                                Caption="Rotate"
+                                DockPanel.Dock="Bottom"
+                                DataContext="{Binding Rotate}"
+                                />
                             <Grid Margin="0, 4, 0, 0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>

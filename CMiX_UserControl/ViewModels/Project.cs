@@ -5,8 +5,11 @@ using System.IO;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
+
 using CMiX.Models;
 using CMiX.Services;
+using CMiX.MVVM.ViewModels;
+using CMiX.MVVM.Models;
 using Ceras;
 
 namespace CMiX.ViewModels

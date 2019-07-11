@@ -3,21 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:CMiX="clr-namespace:CMiX"
-             xmlns:Views="clr-namespace:CMiX.Views"
+             xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX_MVVM"
+             xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
              mc:Ignorable="d" 
              d:DesignHeight="405.5" d:DesignWidth="345.5">
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <CMiX:ColorToDoubleConverter x:Key="ColorToDoubleConverter" />
+            <Resources:ColorToDoubleConverter x:Key="ColorToDoubleConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
 
     <StackPanel>
-        <Views:HueWheel DataContext="{Binding HueWheel}"/>
-        <Views:SliderHSV Caption="Value" DataContext="{Binding Value}"/>
-        <Views:SliderHSV Caption="Saturation" DataContext="{Binding Saturation}"/>
+        <MVVM.Views:HueWheel DataContext="{Binding HueWheel}"/>
+        <MVVM.Views:SliderHSV Caption="Value" DataContext="{Binding Value}"/>
+        <MVVM.Views:SliderHSV Caption="Saturation" DataContext="{Binding Saturation}"/>
         <Rectangle Height="20">
             <Rectangle.Fill>
                 <SolidColorBrush Color="{Binding SelectedColor}" />

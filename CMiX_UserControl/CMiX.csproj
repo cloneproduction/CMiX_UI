@@ -95,6 +95,9 @@
     <Reference Include="Memento, Version=1.0.0.0, Culture=neutral, PublicKeyToken=38cdbba176369010, processorArchitecture=MSIL">
       <HintPath>..\packages\Memento.1.2.1\lib\net40\Memento.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -109,8 +112,8 @@
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Expression.Blend.Sdk.1.0.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
@@ -123,18 +126,12 @@
     <Compile Include="Behaviors\FolderDialogBehavior.cs" />
     <Compile Include="Behaviors\ListBoxSelectionBehavior.cs" />
     <Compile Include="Behaviors\SliderBehavior.cs" />
-    <Compile Include="Controls\HueWheel.cs" />
-    <Compile Include="Controls\IPBox.xaml.cs">
-      <DependentUpon>IPBox.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Models\BeatModifierModel.cs" />
     <Compile Include="Models\CameraModel.cs" />
     <Compile Include="Models\ColorationModel.cs" />
     <Compile Include="Models\CompositionModel.cs" />
     <Compile Include="Models\ContentModel.cs" />
     <Compile Include="Models\CounterModel.cs" />
-    <Compile Include="Models\FileNameItemModel.cs" />
-    <Compile Include="Models\FileSelectorModel.cs" />
     <Compile Include="Models\GeometryModel.cs" />
     <Compile Include="Models\GeometryFXModel.cs" />
     <Compile Include="Models\GeometryRotationModel.cs" />
@@ -143,14 +140,10 @@
     <Compile Include="Models\LayerModel.cs" />
     <Compile Include="Models\MaskModel.cs" />
     <Compile Include="Models\MasterBeatModel.cs" />
-    <Compile Include="Models\Model.cs" />
     <Compile Include="Models\PostFXModel.cs" />
     <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Models\RangeControlModel.cs" />
-    <Compile Include="Models\SliderModel.cs" />
     <Compile Include="Models\TextureModel.cs" />
-    <Compile Include="Resources\BindingProxy.cs" />
-    <Compile Include="ViewModels\OSCValidation.cs" />
     <Compile Include="Views\ChannelOSCDataTemplate.xaml.cs">
       <DependentUpon>ChannelOSCDataTemplate.xaml</DependentUpon>
     </Compile>
@@ -162,18 +155,11 @@
     <Compile Include="Views\ColorSelector.xaml.cs">
       <DependentUpon>ColorSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Sliders\HueWheel.xaml.cs">
-      <DependentUpon>HueWheel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Sliders\SliderHSV.xaml.cs">
-      <DependentUpon>SliderHSV.xaml</DependentUpon>
-    </Compile>
     <Compile Include="_Unused\SetAndNotifyPropertyAction.cs" />
-    <Compile Include="ViewModels\FileNameItem.cs" />
-    <Compile Include="ViewModels\FileSelector.cs" />
+    <Compile Include="ViewModels\FileSelector\FileNameItem.cs" />
+    <Compile Include="ViewModels\FileSelector\FileSelector.cs" />
     <Compile Include="_Unused\OSCControl.cs" />
     <Compile Include="ViewModels\Project.cs" />
-    <Compile Include="ViewModels\Slider.cs" />
     <Compile Include="ViewModels\Counter.cs" />
     <Compile Include="ViewModels\Geometry\GeometryFileMask.cs" />
     <Compile Include="ViewModels\Geometry\GeometryFX.cs" />
@@ -181,7 +167,6 @@
     <Compile Include="ViewModels\Geometry\GeometryScale.cs" />
     <None Include="packages.config" />
     <None Include="_Unused\IMessenger.cs" />
-    <Compile Include="ViewModels\OSCMessenger.cs" />
     <Compile Include="ViewModels\Beat\Beat.cs" />
     <Compile Include="ViewModels\Beat\BeatModifier.cs" />
     <Compile Include="ViewModels\Geometry\GeometryTranslate.cs" />
@@ -209,14 +194,11 @@
     <Compile Include="ViewModels\Composition.cs" />
     <Compile Include="ViewModels\PostFX\PostFXTransforms.cs" />
     <Compile Include="ViewModels\PostFX\PostFXView.cs" />
-    <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\Texture\Texture.cs" />
     <Compile Include="ViewModels\Texture\TextureInvertMode.cs" />
-    <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="Views\Beat\BeatControls.xaml.cs">
       <DependentUpon>BeatControls.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\RangeSlider.cs" />
     <Compile Include="Views\Camera.xaml.cs">
       <DependentUpon>Camera.xaml</DependentUpon>
     </Compile>
@@ -229,23 +211,11 @@
     <Compile Include="Views\Content.xaml.cs">
       <DependentUpon>Content.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\FileNameItem.xaml.cs">
-      <DependentUpon>FileNameItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\FileSelector.xaml.cs">
-      <DependentUpon>FileSelector.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\OSCControl.xaml.cs">
       <DependentUpon>OSCControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Project.xaml.cs">
       <DependentUpon>Project.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Sliders\SliderCentered.xaml.cs">
-      <DependentUpon>SliderCentered.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Sliders\Slider.xaml.cs">
-      <DependentUpon>Slider.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Mask.xaml.cs">
       <DependentUpon>Mask.xaml</DependentUpon>
@@ -265,9 +235,6 @@
     <Compile Include="Views\TranslateSelector.xaml.cs">
       <DependentUpon>TranslateSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CMiXRangeSlider.xaml.cs">
-      <DependentUpon>CMiXRangeSlider.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\GeometryFX.xaml.cs">
       <DependentUpon>GeometryFX.xaml</DependentUpon>
     </Compile>
@@ -276,11 +243,9 @@
     <Compile Include="Views\ChannelLayer.xaml.cs">
       <DependentUpon>ChannelLayer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\Utils.cs" />
     <Compile Include="Views\Counter.xaml.cs">
       <DependentUpon>Counter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\Converter.cs" />
     <Compile Include="_Unused\ShiftSlider.xaml.cs">
       <DependentUpon>ShiftSlider.xaml</DependentUpon>
     </Compile>
@@ -296,77 +261,89 @@
     <Compile Include="Views\Texture.xaml.cs">
       <DependentUpon>Texture.xaml</DependentUpon>
     </Compile>
-    <Page Include="Controls\IPBox.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Themes\BorderContainer.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Brushes.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Colors.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ComboBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\ContextMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Expander.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\HueWheel.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Label.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ListBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\RadioButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\RangeSlider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ScrollViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Slider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Tab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\TextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ToggleButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\ToolTip.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\BorderContainer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Button.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\ComboBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Generic.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Icons.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Label.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\ListBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Menu.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\RadioButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\RangeSlider.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\ScrollViewer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ChannelOSCDataTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -376,33 +353,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Sliders\HueWheel.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Sliders\SliderHSV.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="_Unused\SliderCentered.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Slider.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Tab.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\TextBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\ToggleButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Beat\BeatModifier.xaml">
       <SubType>Designer</SubType>
@@ -424,27 +377,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\FileNameItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\FileSelector.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\OSCControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Project.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Sliders\SliderCentered.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Sliders\Slider.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -469,10 +406,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\TranslateSelector.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\CMiXRangeSlider.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -572,6 +505,10 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CMiX_MVVM\CMiX_MVVM.csproj">
+      <Project>{b49435ef-ef33-47b4-a92d-267566db96d8}</Project>
+      <Name>CMiX_MVVM</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ColorPicker\ColorPicker.csproj">
       <Project>{89b6207c-9c60-4c00-8f0e-36854692b65b}</Project>
       <Name>ColorPicker</Name>

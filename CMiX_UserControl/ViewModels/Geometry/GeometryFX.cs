@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using CMiX.Models;
-using CMiX.Services;
+using CMiX.MVVM.ViewModels;
+using CMiX.MVVM.Models;
 using Memento;
 
 namespace CMiX.ViewModels

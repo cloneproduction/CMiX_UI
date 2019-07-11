@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="CMiX.MVVM.Views.SliderHSV"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views"
+             xmlns:Resources="clr-namespace:CMiX.MVVM.Resources"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="27.833" d:DesignWidth="387.167">
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Resources:ColorToDoubleConverter x:Key="ColorToDoubleConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid 
+        Height="20" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <TextBlock 
+            Padding="2, 0, 0, 0"
+            TextTrimming="CharacterEllipsis" 
+            Text="{Binding Path=Caption, RelativeSource={RelativeSource AncestorType={x:Type MVVM.Views:SliderHSV}}}"  
+            FontSize="10" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Center" 
+            Foreground="{StaticResource TextBase}"
+            />
+        <TextBox 
+            Grid.Column="1"
+            Background="{StaticResource HighDarkerColor}" 
+            BorderBrush="{StaticResource DarkColor}" 
+            BorderThickness="1" Padding="4, 0, 0, 0" 
+            Text="{Binding Amount, StringFormat=N2}" 
+            FontSize="10" 
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Stretch" 
+            Foreground="{StaticResource TextBase}"
+            />
+        <DockPanel Grid.Column="2">
+            <Grid DockPanel.Dock="Right">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Button
+                    Grid.Row="0"
+                    Margin="1, 0, 0, 1"
+                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}, Mode=OneWay}"
+                    Content="+"
+                    Focusable="False"
+                    Command="{Binding AddCommand}"
+                    />
+                <Button
+                    Grid.Row="1"
+                    Margin="1, 1, 0, 0"
+                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}, Mode=OneWay}"
+                    Content="-"
+                    Focusable="False"
+                    Command="{Binding SubCommand}"
+                    />
+            </Grid>
+            <Border Background="Transparent">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PreviewMouseDown">
+                        <i:InvokeCommandAction Command="{Binding MouseDownCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Slider
+                    x:Name="CMiXSliderHSV"
+                    IsMoveToPointEnabled="True"
+                    LargeChange="0.1"
+                    Minimum="0.0"
+                    Maximum="1.0"
+                    SmallChange="0.01"
+                    Style="{StaticResource SliderHSV}"
+                    Value="{Binding Amount}"
+                    />
+            </Border>
+        </DockPanel>
+    </Grid>
+</UserControl>

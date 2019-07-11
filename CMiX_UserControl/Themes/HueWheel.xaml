@@ -1,15 +1,15 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:CMiX.Controls">
+                    xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX_MVVM">
 
-    <local:ValueAngleConverter x:Key="ValueAngleConverter" />
+    <Controls:ValueAngleConverter x:Key="ValueAngleConverter" />
 
-    <Style TargetType="{x:Type local:HueWheel}">
+    <Style TargetType="{x:Type Controls:HueWheel}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Maximum" Value="360" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate x:Name="Part_Slider" TargetType="{x:Type local:HueWheel}">
+                <ControlTemplate x:Name="Part_Slider" TargetType="{x:Type Controls:HueWheel}">
                     <Grid
                         x:Name="PART_FirstCanvas"
                         HorizontalAlignment="Center"
@@ -41,12 +41,23 @@
                                     />
                             </Grid>
                             <Canvas.RenderTransform>
-                                <RotateTransform CenterX="150" CenterY="150">
+                                <RotateTransform 
+                                    CenterX="150" 
+                                    CenterY="150">
                                     <RotateTransform.Angle>
                                         <MultiBinding Converter="{StaticResource ValueAngleConverter}">
-                                            <Binding Path="Value" RelativeSource="{RelativeSource TemplatedParent}" />
-                                            <Binding Path="Minimum" RelativeSource="{RelativeSource TemplatedParent}" />
-                                            <Binding Path="Maximum" RelativeSource="{RelativeSource TemplatedParent}" />
+                                            <Binding 
+                                                Path="Value" 
+                                                RelativeSource="{RelativeSource TemplatedParent}" 
+                                                />
+                                            <Binding 
+                                                Path="Minimum" 
+                                                RelativeSource="{RelativeSource TemplatedParent}" 
+                                                />
+                                            <Binding 
+                                                Path="Maximum" 
+                                                RelativeSource="{RelativeSource TemplatedParent}" 
+                                                />
                                         </MultiBinding>
                                     </RotateTransform.Angle>
                                 </RotateTransform>

@@ -1,6 +1,8 @@
 ﻿using System;
 using CMiX.Services;
 using CMiX.Models;
+using CMiX.MVVM.ViewModels;
+using CMiX.MVVM.Models;
 using System.Windows;
 using System.Windows.Input;
 using System.Collections.ObjectModel;

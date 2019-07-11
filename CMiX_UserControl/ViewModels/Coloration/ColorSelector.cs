@@ -1,4 +1,5 @@
 ﻿using CMiX.Services;
+using CMiX.MVVM.ViewModels;
 using Memento;
 using ColorMine;
 using System;

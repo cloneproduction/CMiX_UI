@@ -1,4 +1,5 @@
 ﻿using CMiX.Services;
+using CMiX.MVVM.Models;
 using System.Collections.Generic;
 
 namespace CMiX.Models

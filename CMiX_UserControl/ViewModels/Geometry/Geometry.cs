@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using CMiX.MVVM.ViewModels;
 using CMiX.Services;
 using CMiX.Models;
 using Memento;

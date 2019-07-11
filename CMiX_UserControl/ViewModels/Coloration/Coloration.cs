@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Windows.Media;
-using CMiX.Services;
-using CMiX.Models;
 using System.Windows.Input;
 using System.Windows;
 using System.Collections.ObjectModel;
+
+using CMiX.MVVM.ViewModels;
+using CMiX.Services;
+using CMiX.Models;
+using CMiX.MVVM;
+using CMiX.MVVM.Resources;
+
 using Memento;
 
 namespace CMiX.ViewModels

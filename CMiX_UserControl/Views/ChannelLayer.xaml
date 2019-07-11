@@ -5,8 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:CMiX="clr-namespace:CMiX"
+    xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX_MVVM"
     xmlns:Views="clr-namespace:CMiX.Views"
+    xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
     xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     d:DesignHeight="101.177"
@@ -14,7 +15,7 @@
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <CMiX:EnumToStringConverter x:Key="EnumToString"/>
+        <Resources:EnumToStringConverter x:Key="EnumToString"/>
         <ObjectDataProvider x:Key="BlendMode" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="ViewModels:BlendMode"/>
@@ -63,7 +64,7 @@
                         ItemsSource="{Binding Source={StaticResource BlendMode}}"
                         />
                 </DockPanel>
-                <Views:Slider 
+                <MVVM.Views:Slider 
                     DataContext="{Binding Fade}" 
                     Caption="Alpha"
                     />

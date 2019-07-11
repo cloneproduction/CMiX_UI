@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
     xmlns:Views="clr-namespace:CMiX.Views"
+    xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -44,8 +45,7 @@
                         Command="{Binding Path=ResetCommand}"
                         Height="15" 
                         Width="15" 
-                        Style="{StaticResource ButtonImage}"
-                        >
+                        Style="{StaticResource ButtonImage}">
                         <Button.Content>
                             <Image Source="{StaticResource Reset}"/>
                         </Button.Content>
@@ -57,8 +57,7 @@
                         Command="{Binding DataContext.PastePostFXCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=2}}"
                         Height="15" 
                         Width="15" 
-                        Style="{StaticResource ButtonImage}"
-                        >
+                        Style="{StaticResource ButtonImage}">
                         <Button.Content>
                             <Image Source="{StaticResource Paste}"/>
                         </Button.Content>
@@ -79,13 +78,13 @@
             </Border>
             <Border DockPanel.Dock="Bottom" Style="{StaticResource BorderContainer}">
                 <StackPanel x:Name="TexFXControl">
-                    <Views:Slider
+                    <MVVM.Views:Slider
                         Height="20"
                         Margin="0,2,0,1"
                         Caption="Feedback"
                         DataContext="{Binding Feedback}"
                         />
-                    <Views:Slider
+                    <MVVM.Views:Slider
                         Height="20"
                         Margin="0,1,0,1"
                         Caption="Blur"

@@ -1,5 +1,7 @@
 ﻿using System;
 using CMiX.Models;
+using CMiX.MVVM.ViewModels;
+using CMiX.MVVM.Models;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using Memento;

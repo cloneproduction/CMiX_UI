@@ -5,6 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:Views="clr-namespace:CMiX.Views"
+    xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
     mc:Ignorable="d" 
     d:DesignHeight="390.508" 
     d:DesignWidth="329.003">
@@ -15,7 +16,7 @@
             DataContext="{Binding FileSelector}"
             />-->
         <Border  Margin="0, 2" Style="{StaticResource BorderContainer}" DockPanel.Dock="Bottom">
-            <Views:Slider
+            <MVVM.Views:Slider
             Height="20"
             Margin="0,2,0,1"
             Caption="Explode"

@@ -6,6 +6,7 @@ using CMiX.Services;
 using CMiX.Models;
 using Memento;
 using System.Collections.ObjectModel;
+using CMiX.MVVM.ViewModels;
 
 namespace CMiX.ViewModels
 {

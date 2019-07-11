@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Views="clr-namespace:CMiX.Views"
-             xmlns:ViewModels="clr-namespace:CMiX.ViewModels"             
+             xmlns:ViewModels="clr-namespace:CMiX.ViewModels"  
+             xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="18.666" d:DesignWidth="350.667">
@@ -29,10 +30,11 @@
             SelectedIndex="0"
             ItemsSource="{Binding Source={StaticResource RangeModifier}}"
             />
-        <Views:Slider 
+        <MVVM.Views:Slider 
             Grid.Column="0" 
             Margin="0, 0, 1, 0"
             DataContext="{Binding Range}"
-            Caption="{Binding Caption, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:RangeControl}}}" />
+            Caption="{Binding Caption, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:RangeControl}}}" 
+            />
     </Grid>
 </UserControl>

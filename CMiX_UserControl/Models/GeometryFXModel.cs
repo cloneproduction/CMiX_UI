@@ -1,4 +1,5 @@
 ﻿using System;
+using CMiX.MVVM.Models;
 
 namespace CMiX.Models
 {

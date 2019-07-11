@@ -5,16 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Views="clr-namespace:CMiX.Views"
              xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
-             xmlns:Resources="clr-namespace:CMiX.Resources"
+             xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX_MVVM"
              xmlns:dd="urn:gong-wpf-dragdrop"
-
              mc:Ignorable="d"
              d:DesignHeight="706" d:DesignWidth="1042.667">
-    <!--             xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
-             md:DialogServiceViews.IsRegistered="True"-->
+
     <UserControl.DataContext>
         <ViewModels:Project/>
     </UserControl.DataContext>
+    
     <UserControl.InputBindings>
         <KeyBinding 
             Modifiers="Control"
@@ -189,8 +188,7 @@
                                     Command="{Binding Data.DeleteCompoCommand, Source={StaticResource proxy}}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"
                                     Style="{DynamicResource ButtonTabDynamic}"
-                                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"                
-                                    >
+                                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
                                     <Button.Content>
                                         <Image Opacity="0.5" Margin="5" Source="{StaticResource CloseTab}"/>
                                     </Button.Content>
@@ -201,8 +199,7 @@
                                     ToolTip="{Binding Name}"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    DockPanel.Dock="Left"
-                                    >
+                                    DockPanel.Dock="Left">
                                 </TextBlock>
                             </DockPanel>
                         </DataTemplate>

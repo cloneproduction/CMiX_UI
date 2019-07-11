@@ -1,5 +1,7 @@
 ﻿using CMiX.Models;
 using CMiX.Services;
+using CMiX.MVVM.ViewModels;
+using CMiX.MVVM.Models;
 using System;
 using System.Collections.ObjectModel;
 using Memento;
