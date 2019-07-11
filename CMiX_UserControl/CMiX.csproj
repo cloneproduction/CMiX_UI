@@ -497,14 +497,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\colorChart.PNG" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\HueCircle.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\CMiX_MVVM\CMiX_MVVM.csproj">
       <Project>{b49435ef-ef33-47b4-a92d-267566db96d8}</Project>
       <Name>CMiX_MVVM</Name>
@@ -513,48 +505,6 @@
       <Project>{89b6207c-9c60-4c00-8f0e-36854692b65b}</Project>
       <Name>ColorPicker</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Cube.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Texture.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Effect.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\HSL.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\BC.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Size.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Copy.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Paste.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Reset.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Coloration.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\NewLayer.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\DeleteLayer.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\AddTab.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\CloseTab.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

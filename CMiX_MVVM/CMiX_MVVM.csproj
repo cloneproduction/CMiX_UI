@@ -78,6 +78,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\BindingProxy.cs" />
     <Compile Include="Resources\Converter.cs" />
+    <Compile Include="Resources\MyHelper.cs" />
     <Compile Include="Resources\Utils.cs" />
     <Compile Include="ViewModels\Message\OSCMessenger.cs" />
     <Compile Include="ViewModels\Message\OSCValidation.cs" />
@@ -115,6 +116,90 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\BorderContainer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Brushes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ComboBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ContextMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Expander.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\HueWheel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Label.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ListBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\RadioButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\RangeSlider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ScrollViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Slider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Tab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\TextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ToggleButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ToolTip.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\FileNameItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -139,6 +224,56 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\AddTab.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\BC.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\CloseTab.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Coloration.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\colorChart.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Cube.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\DeleteLayer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Effect.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\HSL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\HueCircle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\NewLayer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Paste.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Reset.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Size.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Texture.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

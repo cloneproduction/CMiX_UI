@@ -26,11 +26,13 @@
             Command="{Binding AddLayerCommand}" 
             />
     </UserControl.InputBindings>
+    
     <UserControl.Resources>
         <ResourceDictionary>
             <Resources:BindingProxy x:Key="proxy" Data="{Binding}"/>
         </ResourceDictionary>
     </UserControl.Resources>
+    
     <DockPanel>
         <Border 
             Background="{StaticResource Color}" 

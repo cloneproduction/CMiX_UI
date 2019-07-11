@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Globalization;
 
 namespace CMiX.MVVM.Controls
 {
-    /// <summary>
-    /// Interaction logic for UserControl1.xaml
-    /// </summary>
     public partial class CMiXRangeSlider : UserControl
     {
         public CMiXRangeSlider()
@@ -25,7 +18,6 @@ namespace CMiX.MVVM.Controls
             if (handler != null)
                 handler(this, e);
         }
-
 
         #region Properties
         public static readonly DependencyProperty RangeMinProperty =

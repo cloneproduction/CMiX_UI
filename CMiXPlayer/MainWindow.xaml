@@ -8,10 +8,6 @@
         mc:Ignorable="d"
         Height="350" Width="525">
     <Grid Background="Black">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0.3*"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-
+        <MVVM.Views:Slider/>
     </Grid>
 </Window>
