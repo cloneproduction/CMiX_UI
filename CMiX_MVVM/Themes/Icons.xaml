@@ -1,23 +1,23 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
-    <BitmapImage x:Key="Copy" UriSource="/Assets/Copy.png"/>
-    <BitmapImage x:Key="Paste" UriSource="/Assets/Paste.png"/>
-    <BitmapImage x:Key="Reset" UriSource="/Assets/Reset.png"/>
-    
-    <BitmapImage x:Key="NewLayer" UriSource="/Assets/NewLayer.png"/>
-    <BitmapImage x:Key="DeleteLayer" UriSource="/Assets/DeleteLayer.png"/>
-    
-    <BitmapImage x:Key="AddTab" UriSource="/Assets/AddTab.png"/>
-    <BitmapImage x:Key="CloseTab" UriSource="/Assets/CloseTab.png"/>
 
-    <BitmapImage x:Key="Coloration" UriSource="/Assets/Coloration.png"/>
-    <BitmapImage x:Key="Geometry" UriSource="/Assets/Cube.png"/>
-    <BitmapImage x:Key="PostFX" UriSource="/Assets/Effect.png"/>
+    <BitmapImage x:Key="Copy" UriSource="pack://application:,,,/CMiX_MVVM;component/Assets/Copy.png"/>
+    <BitmapImage x:Key="Paste" UriSource="pack://application:,,,/CMiX_MVVM;component/Assets/Paste.png"/>
+    <BitmapImage x:Key="Reset" UriSource="pack://application:,,,/CMiX_MVVM;component/Assets/Reset.png"/>
 
-    <BitmapImage x:Key="Texture" UriSource="/Assets/Texture.png"/>
-    <BitmapImage x:Key="HSL" UriSource="/Assets/HSL.png"/>
-    <BitmapImage x:Key="BrightnessContrast" UriSource="/Assets/BC.png"/>
-    <BitmapImage x:Key="TexTransform" UriSource="/Assets/Size.png"/>
+    <BitmapImage x:Key="NewLayer" UriSource="pack://application:,,,/CMiX_MVVM;component/Assets/NewLayer.png"/>
+    <BitmapImage x:Key="DeleteLayer" UriSource="pack://application:,,,/CMiX_MVVM;component/Assets/DeleteLayer.png"/>
+    <!--Source="pack://application:,,,/CMiX_MVVM;component/Themes/Generic.xaml"/>-->
+    <BitmapImage x:Key="AddTab" UriSource="pack://application:,,,/CMiX_MVVM;component/Assets/AddTab.png"/>
+    <BitmapImage x:Key="CloseTab" UriSource="pack://application:,,,/CMiX_MVVM;component/Assets/CloseTab.png"/>
+
+    <BitmapImage x:Key="Coloration" UriSource="pack://application:,,,/CMiX_MVVM;component/Assets/Coloration.png"/>
+    <BitmapImage x:Key="Geometry" UriSource="pack://application:,,,/CMiX_MVVM;component/Assets/Cube.png"/>
+    <BitmapImage x:Key="PostFX" UriSource="pack://application:,,,/CMiX_MVVM;component/Assets/Effect.png"/>
+
+    <BitmapImage x:Key="Texture" UriSource="pack://application:,,,/CMiX_MVVM;component/Assets/Texture.png"/>
+    <BitmapImage x:Key="HSL" UriSource="pack://application:,,,/CMiX_MVVM;component/Assets/HSL.png"/>
+    <BitmapImage x:Key="BrightnessContrast" UriSource="pack://application:,,,/CMiX_MVVM;component/Assets/BC.png"/>
+    <BitmapImage x:Key="TexTransform" UriSource="pack://application:,,,/CMiX_MVVM;component/Assets/Size.png"/>
     
 </ResourceDictionary>
