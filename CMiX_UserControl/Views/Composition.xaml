@@ -149,7 +149,7 @@
                                                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                                                             <MenuItem.Header>
                                                                 <StackPanel Orientation="Horizontal">
-                                                                    <Image Width="10" Height="10" Source="/CMiX_UserControl;component/Assets/DeleteLayer.png" />
+                                                                    <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
                                                                     <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                                                                     <TextBlock Text="Delete Layer"/>
                                                                 </StackPanel>
@@ -162,7 +162,7 @@
                                                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                                                             <MenuItem.Header>
                                                                 <StackPanel Orientation="Horizontal">
-                                                                    <Image Width="10" Height="10" Source="/CMiX_UserControl;component/Assets/Copy.png" />
+                                                                    <Image Width="10" Height="10" Source="{StaticResource Copy}" />
                                                                     <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                                                                     <TextBlock Text="Duplicate Layer"/>
                                                                 </StackPanel>

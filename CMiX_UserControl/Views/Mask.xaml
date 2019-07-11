@@ -107,11 +107,7 @@
                 HorizontalAlignment="Left"
                 DragOver="TabItem_DragOver">
                 <TabItem.Header>
-                    <Image ToolTip="Geometry" Height="15" Width="auto" Opacity="0.75">
-                        <Image.Source>
-                            <BitmapImage UriSource="/Assets/Cube.png"/>
-                        </Image.Source>
-                    </Image>
+                    <Image Source="{StaticResource Geometry}"  ToolTip="Geometry" Height="15" Width="auto" Opacity="0.75"/>
                 </TabItem.Header>
                 <Views:Geometry
                     DataContext="{Binding Geometry}"
@@ -123,11 +119,7 @@
                      HorizontalAlignment="Left"
                      DragOver="TabItem_DragOver">
                 <TabItem.Header>
-                    <Image ToolTip="Texture" Height="15" Width="auto" Opacity="0.75">
-                        <Image.Source>
-                            <BitmapImage UriSource="/Assets/Texture.png"/>
-                        </Image.Source>
-                    </Image>
+                    <Image Source="{StaticResource Texture}" ToolTip="Texture" Height="15" Width="auto" Opacity="0.75"/>
                 </TabItem.Header>
                 <Views:Texture
                     DataContext="{Binding Texture}"
@@ -139,11 +131,7 @@
                      HorizontalAlignment="Left"
                      DragOver="TabItem_DragOver">
                 <TabItem.Header>
-                    <Image ToolTip="PostFX" Height="15" Width="auto" Opacity="0.75">
-                        <Image.Source>
-                            <BitmapImage UriSource="/Assets/Effect.png"/>
-                        </Image.Source>
-                    </Image>
+                    <Image Source="{StaticResource PostFX}" ToolTip="PostFX" Height="15" Width="auto" Opacity="0.75"/>
                 </TabItem.Header>
                 <Views:PostFX
                     DataContext="{Binding PostFX}"

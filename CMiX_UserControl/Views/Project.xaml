@@ -157,7 +157,7 @@
                                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                                             <MenuItem.Header>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <Image Width="10" Height="10" Source="/CMiX_UserControl;component/Assets/DeleteLayer.png" />
+                                                    <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
                                                     <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                                                     <TextBlock Text="Delete Composition"/>
                                                 </StackPanel>
@@ -170,7 +170,7 @@
                                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                                             <MenuItem.Header>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <Image Width="10" Height="10" Source="/CMiX_UserControl;component/Assets/Copy.png" />
+                                                    <Image Width="10" Height="10" Source="{StaticResource Copy}" />
                                                     <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                                                     <TextBlock Text="Duplicate Composition"/>
                                                 </StackPanel>
@@ -241,7 +241,7 @@
                                     Height="15"
                                     Style="{StaticResource ButtonImage}" >
                                     <Button.Content>
-                                        <Image Source="/Assets/NewLayer.png"/>
+                                        <Image Source="{StaticResource NewLayer}"/>
                                     </Button.Content>
                                 </Button>
                             </StackPanel>
@@ -271,7 +271,7 @@
                                                             <Image 
                                                                 Width="10" 
                                                                 Height="10" 
-                                                                Source="/CMiX_UserControl;component/Assets/DeleteLayer.png" 
+                                                                Source="{StaticResource DeleteLayer}" 
                                                                 />
                                                             <Separator 
                                                                 Margin="8, 0" 
