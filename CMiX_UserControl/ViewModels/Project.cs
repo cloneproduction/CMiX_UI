@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
 
-using CMiX.Models;
+
 using CMiX.Services;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
@@ -146,10 +146,6 @@ namespace CMiX.ViewModels
 
                 List<string> layerindex = new List<string>();
                 List<string> layername = new List<string>();
-                //QueueMessages("LayerNames", layername.ToArray()); // send empty list to engine for reset
-                //QueueMessages("LayerRemoved", removedlayername.ToArray());
-                //QueueMessages("LayerIndex", layerindex.ToArray());
-                //SendQueues();
             }
         }
 

@@ -8,7 +8,7 @@
     xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX_MVVM"
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
-    xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
+    xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX_MVVM"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     d:DesignHeight="101.177"
     d:DesignWidth="391.784"

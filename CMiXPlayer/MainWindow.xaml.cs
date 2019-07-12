@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using CMiXPlayer.ViewModels;
 
 namespace CMiXPlayer
 {
@@ -7,6 +8,8 @@ namespace CMiXPlayer
         public MainWindow()
         {
             InitializeComponent();
+            ProjectView.DataContext = new Project();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
     }
 }

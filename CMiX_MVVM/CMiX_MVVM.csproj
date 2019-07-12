@@ -67,15 +67,35 @@
       <DependentUpon>IPBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\RangeSlider.cs" />
+    <Compile Include="Models\BeatModifierModel.cs" />
+    <Compile Include="Models\CameraModel.cs" />
+    <Compile Include="Models\ColorationModel.cs" />
+    <Compile Include="Models\CompositionModel.cs" />
+    <Compile Include="Models\ContentModel.cs" />
+    <Compile Include="Models\CounterModel.cs" />
     <Compile Include="Models\FileNameItemModel.cs" />
     <Compile Include="Models\FileSelectorModel.cs" />
+    <Compile Include="Models\GeometryFXModel.cs" />
+    <Compile Include="Models\GeometryModel.cs" />
+    <Compile Include="Models\GeometryRotationModel.cs" />
+    <Compile Include="Models\GeometryScaleModel.cs" />
+    <Compile Include="Models\GeometryTranslateModel.cs" />
+    <Compile Include="Models\LayerModel.cs" />
+    <Compile Include="Models\MaskModel.cs" />
+    <Compile Include="Models\MasterBeatModel.cs" />
     <Compile Include="Models\Model.cs" />
+    <Compile Include="Models\PostFXModel.cs" />
+    <Compile Include="Models\ProjectModel.cs" />
+    <Compile Include="Models\RangeControlModel.cs" />
     <Compile Include="Models\SliderModel.cs" />
+    <Compile Include="Models\TextureModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\BindingProxy.cs" />
     <Compile Include="Resources\Converter.cs" />
     <Compile Include="Resources\MyHelper.cs" />
     <Compile Include="Resources\Utils.cs" />
+    <Compile Include="ViewModels\FileSelector\FileNameItem.cs" />
+    <Compile Include="ViewModels\FileSelector\FileSelector.cs" />
     <Compile Include="ViewModels\Message\OSCMessenger.cs" />
     <Compile Include="ViewModels\Message\OSCValidation.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
@@ -99,6 +119,18 @@
     <Compile Include="Views\Sliders\SliderHSV.xaml.cs">
       <DependentUpon>SliderHSV.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\_Enums\BlendMode.cs" />
+    <Compile Include="ViewModels\_Enums\CameraLookAt.cs" />
+    <Compile Include="ViewModels\_Enums\CameraRotation.cs" />
+    <Compile Include="ViewModels\_Enums\CameraView.cs" />
+    <Compile Include="ViewModels\_Enums\GeometryFileMask.cs" />
+    <Compile Include="ViewModels\_Enums\GeometryRotationMode.cs" />
+    <Compile Include="ViewModels\_Enums\GeometryScaleMode.cs" />
+    <Compile Include="ViewModels\_Enums\GeometryTranslateMode.cs" />
+    <Compile Include="ViewModels\_Enums\PostFXTransforms.cs" />
+    <Compile Include="ViewModels\_Enums\PostFXView.cs" />
+    <Compile Include="ViewModels\_Enums\RangeModifier.cs" />
+    <Compile Include="ViewModels\_Enums\TextureInvertMode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
-using CMiX.Models;
+
 using CMiX.Services;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;

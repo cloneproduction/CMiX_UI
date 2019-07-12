@@ -6,8 +6,7 @@ using System.Collections.ObjectModel;
 
 using CMiX.MVVM.ViewModels;
 using CMiX.Services;
-using CMiX.Models;
-using CMiX.MVVM;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
 
 using Memento;

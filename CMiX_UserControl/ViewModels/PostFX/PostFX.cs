@@ -1,5 +1,5 @@
 ﻿using System;
-using CMiX.Models;
+
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using System.Windows.Input;

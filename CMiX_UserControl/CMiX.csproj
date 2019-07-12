@@ -123,24 +123,6 @@
     <Compile Include="Behaviors\FolderDialogBehavior.cs" />
     <Compile Include="Behaviors\ListBoxSelectionBehavior.cs" />
     <Compile Include="Behaviors\SliderBehavior.cs" />
-    <Compile Include="Models\BeatModifierModel.cs" />
-    <Compile Include="Models\CameraModel.cs" />
-    <Compile Include="Models\ColorationModel.cs" />
-    <Compile Include="Models\CompositionModel.cs" />
-    <Compile Include="Models\ContentModel.cs" />
-    <Compile Include="Models\CounterModel.cs" />
-    <Compile Include="Models\GeometryModel.cs" />
-    <Compile Include="Models\GeometryFXModel.cs" />
-    <Compile Include="Models\GeometryRotationModel.cs" />
-    <Compile Include="Models\GeometryScaleModel.cs" />
-    <Compile Include="Models\GeometryTranslateModel.cs" />
-    <Compile Include="Models\LayerModel.cs" />
-    <Compile Include="Models\MaskModel.cs" />
-    <Compile Include="Models\MasterBeatModel.cs" />
-    <Compile Include="Models\PostFXModel.cs" />
-    <Compile Include="Models\ProjectModel.cs" />
-    <Compile Include="Models\RangeControlModel.cs" />
-    <Compile Include="Models\TextureModel.cs" />
     <Compile Include="Views\ChannelOSCDataTemplate.xaml.cs">
       <DependentUpon>ChannelOSCDataTemplate.xaml</DependentUpon>
     </Compile>
@@ -158,7 +140,6 @@
     <Compile Include="_Unused\OSCControl.cs" />
     <Compile Include="ViewModels\Project.cs" />
     <Compile Include="ViewModels\Counter.cs" />
-    <Compile Include="ViewModels\Geometry\GeometryFileMask.cs" />
     <Compile Include="ViewModels\Geometry\GeometryFX.cs" />
     <Compile Include="ViewModels\Geometry\GeometryRotation.cs" />
     <Compile Include="ViewModels\Geometry\GeometryScale.cs" />
@@ -168,31 +149,20 @@
     <Compile Include="ViewModels\Beat\BeatModifier.cs" />
     <Compile Include="ViewModels\Geometry\GeometryTranslate.cs" />
     <Compile Include="ViewModels\RangeControl.cs" />
-    <Compile Include="ViewModels\_Enums\RangeModifier.cs" />
     <Compile Include="_Unused\ShortCodeAttribute.cs" />
     <Compile Include="Views\Beat\BeatModifier.xaml.cs">
       <DependentUpon>BeatModifier.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\_Enums\BlendMode.cs" />
     <Compile Include="ViewModels\Camera\Camera.cs" />
-    <Compile Include="ViewModels\Camera\CameraLookAt.cs" />
-    <Compile Include="ViewModels\Camera\CameraRotation.cs" />
-    <Compile Include="ViewModels\Camera\CameraView.cs" />
     <Compile Include="ViewModels\Coloration\Coloration.cs" />
     <Compile Include="ViewModels\Content.cs" />
     <Compile Include="ViewModels\Geometry\Geometry.cs" />
-    <Compile Include="ViewModels\Geometry\GeometryRotationMode.cs" />
-    <Compile Include="ViewModels\Geometry\GeometryScaleMode.cs" />
-    <Compile Include="ViewModels\Geometry\GeometryTranslateMode.cs" />
     <Compile Include="ViewModels\Layer.cs" />
     <Compile Include="ViewModels\Beat\MasterBeat.cs" />
     <Compile Include="ViewModels\Mask.cs" />
     <Compile Include="ViewModels\PostFX\PostFX.cs" />
     <Compile Include="ViewModels\Composition.cs" />
-    <Compile Include="ViewModels\PostFX\PostFXTransforms.cs" />
-    <Compile Include="ViewModels\PostFX\PostFXView.cs" />
     <Compile Include="ViewModels\Texture\Texture.cs" />
-    <Compile Include="ViewModels\Texture\TextureInvertMode.cs" />
     <Compile Include="Views\Beat\BeatControls.xaml.cs">
       <DependentUpon>BeatControls.xaml</DependentUpon>
     </Compile>
@@ -430,6 +400,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

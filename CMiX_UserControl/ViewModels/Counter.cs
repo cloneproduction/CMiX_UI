@@ -1,7 +1,8 @@
 ﻿using System;
 
 using CMiX.MVVM.ViewModels;
-using CMiX.Models;
+using CMiX.MVVM.Models;
+
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using Memento;

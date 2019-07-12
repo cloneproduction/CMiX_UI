@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
+        xmlns:Views="clr-namespace:CMiXPlayer.Views"
         Title="CMiX Player"
         mc:Ignorable="d"
-        Height="350" Width="525">
-    <Grid Background="Black">
-        <MVVM.Views:Slider/>
+        Height="700" Width="800">
+    <Grid Background="Black" x:Name="ProjectView">
+        <Views:Project/>
     </Grid>
 </Window>

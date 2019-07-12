@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="CMiXPlayer.Views.Client"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
+             xmlns:Views="clr-namespace:CMiXPlayer.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="152.667" d:DesignWidth="654.934">
+    <Border Style="{StaticResource BorderContainer}">
+        <Expander>
+            <Expander.Header>
+                <DockPanel >
+                    <Button
+                        Height="20"
+                        HorizontalAlignment="Right"
+                        Command="{Binding DataContext.DeleteClientCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Project}}}" 
+                        CommandParameter="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Client}}}"
+                        DockPanel.Dock="Right" 
+                        Width="20" 
+                        Margin="0, 0, 60, 0">
+                        <Button.Content>
+                            <Image Source="{StaticResource DeleteLayer}"/>
+                        </Button.Content>
+                    </Button>
+                    <TextBox 
+                        Background="{StaticResource HighDarkerColor}" 
+                        Foreground="{StaticResource TextBase}"
+                        Width="300"
+                        />
+                </DockPanel>
+            </Expander.Header>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <DockPanel Grid.Column="0">
+                    <MVVM.Views:FileSelector 
+                    VerticalAlignment="Stretch"
+                    Margin="4"
+                    DataContext="{Binding CompoSelector}"
+                    />
+                </DockPanel>
+                <StackPanel Grid.Column="1">
+                    <Views:OSCControls DataContext="{Binding OSCMessenger}"/>
+                </StackPanel>
+            </Grid>
+        </Expander>
+    </Border>
+</UserControl>

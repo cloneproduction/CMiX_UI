@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Windows.Media;
 
 using CMiX.Services;
-using CMiX.Models;
 using CMiX.MVVM;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
