@@ -26,7 +26,7 @@ namespace CMiXPlayer.ViewModels
             SendCompositionCommand = new RelayCommand(p => SendComposition());
         }
 
-        private void SendComposition()
+        public void SendComposition()
         {
             if(CompoSelector.SelectedFileNameItem.FileName != null)
             {

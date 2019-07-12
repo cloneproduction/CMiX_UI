@@ -11,8 +11,19 @@
     <TabControl Margin="0, 8, 0, 0">
         <TabItem Header="Compo">
             <DockPanel>
-                <DockPanel Height="25" DockPanel.Dock="Top" Margin="4">
-                    <Button Command="{Binding AddClientCommand}" Content="Add Client"/>
+                <DockPanel Height="25" DockPanel.Dock="Top">
+                    <Button 
+                        Margin="4"
+                        DockPanel.Dock="Right"
+                        Command="{Binding SendAllCommand}" 
+                        Content="Send All"
+                        />
+                    <Button 
+                        Margin="4"
+                        Command="{Binding AddClientCommand}" 
+                        Content="Add Client"
+                        />
+                    
                 </DockPanel>
                 <ListView
                     BorderThickness="0"
@@ -28,7 +39,13 @@
             </DockPanel>
         </TabItem>
         <TabItem Header="Settings">
-
+            <DockPanel>
+                <MVVM.Views:FileSelector 
+                    VerticalAlignment="Stretch"
+                    Margin="4"
+                    DataContext="{Binding CompoSelector}"
+                    />
+            </DockPanel>
         </TabItem>
     </TabControl>
 </UserControl>

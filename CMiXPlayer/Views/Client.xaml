@@ -32,10 +32,10 @@
                 </Grid.ColumnDefinitions>
                 <DockPanel Grid.Column="0">
                     <MVVM.Views:FileSelector 
-                    VerticalAlignment="Stretch"
-                    Margin="4"
-                    DataContext="{Binding CompoSelector}"
-                    />
+                        VerticalAlignment="Stretch"
+                        Margin="4"
+                        DataContext="{Binding CompoSelector}"
+                        />
                 </DockPanel>
                 <StackPanel Grid.Column="1">
                     <Views:OSCControls DataContext="{Binding OSCMessenger}"/>
