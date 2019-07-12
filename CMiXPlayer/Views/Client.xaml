@@ -23,11 +23,6 @@
                             <Image Source="{StaticResource DeleteLayer}"/>
                         </Button.Content>
                     </Button>
-                    <TextBox 
-                        Background="{StaticResource HighDarkerColor}" 
-                        Foreground="{StaticResource TextBase}"
-                        Width="300"
-                        />
                 </DockPanel>
             </Expander.Header>
             <Grid>
