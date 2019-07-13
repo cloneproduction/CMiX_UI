@@ -20,10 +20,12 @@ namespace CMiXPlayer.ViewModels
         public Client(CerasSerializer cerasSerializer)
         {
             CompoSelector = new FileSelector(string.Empty,"Single", new List<string>() { ".COMPMIX" }, new ObservableCollection<OSCValidation> (), new Mementor());
+            CompoSelector.SelectedFileNameItem = new FileNameItem(string.Empty, new ObservableCollection<OSCValidation>(), new Mementor());
             OSCMessenger = new OSCMessenger("127.0.0.1", 1111);
             Serializer = cerasSerializer;
 
             SendCompositionCommand = new RelayCommand(p => SendComposition());
+            ResetClientCommand = new RelayCommand(p => ResetClient());
         }
 
         public void SendComposition()
@@ -33,10 +35,15 @@ namespace CMiXPlayer.ViewModels
                 var filename = CompoSelector.SelectedFileNameItem.FileName;
                 byte[] data = File.ReadAllBytes(filename);
                 CompositionModel compositionmodel = Serializer.Deserialize<CompositionModel>(data);
-                OSCMessenger.SendMessage("CompositionReloaded", true);
+                OSCMessenger.SendMessage("/CompositionReloaded", true);
                 OSCMessenger.QueueObject(compositionmodel);
                 OSCMessenger.SendQueue();
             }
+        }
+
+        public void ResetClient()
+        {
+            OSCMessenger.SendMessage("/CompositionReloaded", true);
         }
 
         private string _name;
@@ -49,6 +56,7 @@ namespace CMiXPlayer.ViewModels
         public CerasSerializer Serializer { get; set; }
 
         public ICommand SendCompositionCommand { get; }
+        public ICommand ResetClientCommand { get; }
 
         public FileSelector CompoSelector { get; set; }
 

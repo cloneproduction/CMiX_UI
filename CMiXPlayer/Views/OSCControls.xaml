@@ -91,5 +91,25 @@
                     HorizontalAlignment="Left"
                     />
         </Grid>
+        <Grid Height="25">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.4*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock 
+                    Text="Reset" 
+                    Margin="0, 0, 8, 0"
+                    Foreground="{StaticResource TextBase}"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    />
+            <Button
+                    Command="{Binding DataContext.ResetClientCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Client}}}" 
+                    Margin="2" 
+                    Grid.Column="1" 
+                    Width="20" 
+                    HorizontalAlignment="Left"
+                    />
+        </Grid>
     </StackPanel>
 </UserControl>

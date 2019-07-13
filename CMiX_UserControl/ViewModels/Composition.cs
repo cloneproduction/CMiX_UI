@@ -75,7 +75,7 @@ namespace CMiX.ViewModels
             CompositionModel compositionmodel = new CompositionModel();
             this.Copy(compositionmodel);
             OSCMessenger oscmessenger = messenger as OSCMessenger;
-            oscmessenger.SendMessage("CompositionReloaded", true);
+            oscmessenger.SendMessage("/CompositionReloaded", true);
             oscmessenger.QueueObject(compositionmodel);
             oscmessenger.SendQueue();
         }

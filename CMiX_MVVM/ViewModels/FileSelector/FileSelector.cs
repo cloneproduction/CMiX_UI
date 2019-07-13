@@ -177,6 +177,7 @@ namespace CMiX.MVVM.ViewModels
                                 if(FolderPath != null)
                                 {
                                     lbfn.FileName = Utils.GetRelativePath(FolderPath, str);
+                                    Console.WriteLine("POUET");
                                 }
                                 else
                                 {
