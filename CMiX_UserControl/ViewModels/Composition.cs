@@ -117,17 +117,21 @@ namespace CMiX.ViewModels
                 SetAndNotify(ref _contentfoldername, value);
                 foreach (var layer in Layers)
                 {
-                    layer.Content.Texture.FileSelector.FolderPath = ContentFolderName;
-                    layer.Content.Geometry.FileSelector.FolderPath = ContentFolderName;
-                    layer.Content.Geometry.GeometryFX.FileSelector.FolderPath = ContentFolderName;
-
-                    layer.Mask.Texture.FileSelector.FolderPath = ContentFolderName;
-                    layer.Mask.Geometry.FileSelector.FolderPath = ContentFolderName;
+                    UpdateLayerContentFolder(layer);
                 }
                 SendMessages("/ContentFolder", ContentFolderName);
             }
         }
 
+        public void UpdateLayerContentFolder(Layer layer)
+        {
+            layer.Content.Texture.FileSelector.FolderPath = ContentFolderName;
+            layer.Content.Geometry.FileSelector.FolderPath = ContentFolderName;
+            layer.Content.Geometry.GeometryFX.FileSelector.FolderPath = ContentFolderName;
+
+            layer.Mask.Texture.FileSelector.FolderPath = ContentFolderName;
+            layer.Mask.Geometry.FileSelector.FolderPath = ContentFolderName;
+        }
 
         private List<string> _layernames;
         public List<string> LayerNames
@@ -215,6 +219,7 @@ namespace CMiX.ViewModels
             Mementor.ElementAdd(Layers, layer);
             SelectedLayer = layer;
 
+            UpdateLayerContentFolder(layer);
             LayerNames.Add(string.Format("{0}/", MessageAddress + layerNameID.ToString()));
 
             LayerIndex.Clear();
