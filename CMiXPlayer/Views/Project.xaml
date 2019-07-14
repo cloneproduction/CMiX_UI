@@ -22,7 +22,7 @@
                         Grid.Column="0"
                         Margin="4,4,3.8,4"
                         Command="{Binding AddClientCommand}" 
-                        Content="Add Client" Grid.ColumnSpan="2"
+                        Content="Add Server" Grid.ColumnSpan="2"
                         />
                     <Button 
                         Grid.Column="2"
