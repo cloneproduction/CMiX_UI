@@ -17,6 +17,7 @@
                         <ColumnDefinition Width="123*"/>
                         <ColumnDefinition Width="138*"/>
                         <ColumnDefinition Width="138*"/>
+                        <ColumnDefinition Width="138*"/>
                     </Grid.ColumnDefinitions>
                     <Button 
                         Grid.Column="0"
@@ -36,8 +37,12 @@
                         Command="{Binding ResetAllClientCommand}" 
                         Content="Reset All"
                         />
-
-
+                    <Button 
+                        Grid.Column="4"
+                        Margin="3.8,4,3.6,4"
+                        Command="{Binding MakeJobCommand}" 
+                        Content="Make Job"
+                        />
                 </Grid>
                 <ListView
                     BorderThickness="0"
