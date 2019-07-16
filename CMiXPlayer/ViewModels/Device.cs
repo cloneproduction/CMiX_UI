@@ -15,9 +15,9 @@ using Ceras;
 
 namespace CMiXPlayer.ViewModels
 {
-    public class Client : ViewModel
+    public class Device : ViewModel
     {
-        public Client(CerasSerializer cerasSerializer)
+        public Device(CerasSerializer cerasSerializer)
         {
             CompoSelector = new FileSelector(string.Empty,"Single", new List<string>() { ".COMPMIX" }, new ObservableCollection<OSCValidation> (), new Mementor());
             CompoSelector.SelectedFileNameItem = new FileNameItem(string.Empty, new ObservableCollection<OSCValidation>(), new Mementor());

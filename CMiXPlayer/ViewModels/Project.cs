@@ -16,7 +16,7 @@ namespace CMiXPlayer.ViewModels
         #region CONSTRUCTORS
         public Project()
         {
-            Clients = new ObservableCollection<Client>();
+            Devices = new ObservableCollection<Device>();
             Serializer = new CerasSerializer();
             CompoSelector = new FileSelector(string.Empty, "Single", new List<string>() { ".COMPMIX" }, new ObservableCollection<OSCValidation>(), new Mementor());
 
@@ -36,7 +36,7 @@ namespace CMiXPlayer.ViewModels
         public ICommand MakeJobCommand { get; }
 
         public CerasSerializer Serializer { get; set; }
-        public ObservableCollection<Client> Clients { get; set; }
+        public ObservableCollection<Device> Devices { get; set; }
         public FileSelector CompoSelector { get; set; }
         #endregion
 
@@ -51,9 +51,9 @@ namespace CMiXPlayer.ViewModels
             await sched.Start();
 
             JobDataMap jobdatamap = new JobDataMap();
-            jobdatamap.Add("CompoSelector", Clients[0].CompoSelector);
-            jobdatamap.Add("OSCMessenger", Clients[0].OSCMessenger);
-            jobdatamap.Add("Serializer", Clients[0].Serializer);
+            jobdatamap.Add("CompoSelector", Devices[0].CompoSelector);
+            jobdatamap.Add("OSCMessenger", Devices[0].OSCMessenger);
+            jobdatamap.Add("Serializer", Devices[0].Serializer);
 
             // define the job and tie it to our HelloJob class
             IJobDetail job = JobBuilder.Create<Jobs.JobSendComposition>()
@@ -76,18 +76,18 @@ namespace CMiXPlayer.ViewModels
         #region METHODS
         private void AddClient()
         {
-            var client = new Client(Serializer) { Name = "pouet" };
-            Clients.Add(client);
+            var client = new Device(Serializer) { Name = "pouet" };
+            Devices.Add(client);
         }
 
         private void DeleteClient(object client)
         {
-            Clients.Remove(client as Client);
+            Devices.Remove(client as Device);
         }
 
         private void SendAllClient()
         {
-            foreach (var client in Clients)
+            foreach (var client in Devices)
             {
                 client.SendComposition();
             }
@@ -95,7 +95,7 @@ namespace CMiXPlayer.ViewModels
 
         private void ResetAllClient()
         {
-            foreach(var client in Clients)
+            foreach(var client in Devices)
             {
                 client.ResetClient();
             }
