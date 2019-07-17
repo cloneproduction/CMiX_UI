@@ -14,22 +14,22 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <TextBlock 
-                    Text="Name" 
-                    Foreground="{StaticResource TextBase}"
-                    HorizontalAlignment="Right"
-                    Margin="0, 0, 8, 0"
-                    VerticalAlignment="Center"
-                    />
+                Text="Name" 
+                Foreground="{StaticResource TextBase}"
+                HorizontalAlignment="Right"
+                Margin="0, 0, 8, 0"
+                VerticalAlignment="Center"
+                />
             <TextBox
-                    Margin="1"
-                    VerticalContentAlignment="Center"
-                    Text="{Binding Name}"
-                    Grid.Column="1"
-                    BorderThickness="0"
-                    BorderBrush="{StaticResource DarkColor}"
-                    Foreground="{StaticResource TextBase}"
-                    Background="{StaticResource HighDarkerColor}"
-                    />
+                Margin="1"
+                VerticalContentAlignment="Center"
+                Text="{Binding Name}"
+                Grid.Column="1"
+                BorderThickness="0"
+                BorderBrush="{StaticResource DarkColor}"
+                Foreground="{StaticResource TextBase}"
+                Background="{StaticResource HighDarkerColor}"
+                />
         </Grid>
         <Grid Height="25">
             <Grid.ColumnDefinitions>
@@ -37,16 +37,17 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <TextBlock 
-                    Text="IP" 
-                    Foreground="{StaticResource TextBase}"
-                    HorizontalAlignment="Right"
-                    Margin="0, 0, 8, 0"
-                    VerticalAlignment="Center"
-                    />
+                Text="IP" 
+                Foreground="{StaticResource TextBase}"
+                HorizontalAlignment="Right"
+                Margin="0, 0, 8, 0"
+                VerticalAlignment="Center"
+                />
             <Controls:IPBox 
-                    Margin="1"
-                    Grid.Column="1" 
-                    IPAddress="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                Margin="1"
+                Grid.Column="1" 
+                IPAddress="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                />
         </Grid>
         <Grid Height="25">
             <Grid.ColumnDefinitions>
@@ -54,22 +55,22 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <TextBlock 
-                    Text="Port" 
-                    Margin="0, 0, 8, 0"
-                    Foreground="{StaticResource TextBase}"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    />
+                Text="Port" 
+                Margin="0, 0, 8, 0"
+                Foreground="{StaticResource TextBase}"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                />
             <TextBox
-                    Margin="1"
-                    VerticalContentAlignment="Center"
-                    Text="{Binding Port}"
-                    Grid.Column="1"
-                    BorderThickness="0"
-                    BorderBrush="{StaticResource DarkColor}"
-                    Foreground="{StaticResource TextBase}"
-                    Background="{StaticResource HighDarkerColor}"
-                    />
+                Margin="1"
+                VerticalContentAlignment="Center"
+                Text="{Binding Port}"
+                Grid.Column="1"
+                BorderThickness="0"
+                BorderBrush="{StaticResource DarkColor}"
+                Foreground="{StaticResource TextBase}"
+                Background="{StaticResource HighDarkerColor}"
+                />
         </Grid>
         <Grid Height="25">
             <Grid.ColumnDefinitions>
@@ -77,19 +78,19 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <TextBlock 
-                    Text="Send" 
-                    Margin="0, 0, 8, 0"
-                    Foreground="{StaticResource TextBase}"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    />
+                Text="Send" 
+                Margin="0, 0, 8, 0"
+                Foreground="{StaticResource TextBase}"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                />
             <Button
-                    Command="{Binding DataContext.SendCompositionCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Client}}}" 
-                    Margin="2" 
-                    Grid.Column="1" 
-                    Width="20" 
-                    HorizontalAlignment="Left"
-                    />
+                Command="{Binding DataContext.SendCompositionCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Client}}}" 
+                Margin="2" 
+                Grid.Column="1" 
+                Width="20" 
+                HorizontalAlignment="Left"
+                />
         </Grid>
         <Grid Height="25">
             <Grid.ColumnDefinitions>
@@ -97,19 +98,19 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <TextBlock 
-                    Text="Reset" 
-                    Margin="0, 0, 8, 0"
-                    Foreground="{StaticResource TextBase}"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    />
+                Text="Reset" 
+                Margin="0, 0, 8, 0"
+                Foreground="{StaticResource TextBase}"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                />
             <Button
-                    Command="{Binding DataContext.ResetClientCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Client}}}" 
-                    Margin="2" 
-                    Grid.Column="1" 
-                    Width="20" 
-                    HorizontalAlignment="Left"
-                    />
+                Command="{Binding DataContext.ResetClientCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Client}}}" 
+                Margin="2" 
+                Grid.Column="1" 
+                Width="20" 
+                HorizontalAlignment="Left"
+                />
         </Grid>
     </StackPanel>
 </UserControl>

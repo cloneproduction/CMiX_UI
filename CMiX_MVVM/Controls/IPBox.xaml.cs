@@ -12,38 +12,28 @@ namespace CMiX.MVVM.Controls
         public IPBox()
         {
             InitializeComponent();
-            IPAddress = "127.0.0.1";
         }
 
         #region PROPERTIES
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(String info)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
-        }
-
         public static readonly DependencyProperty IPAddressProperty =
-        DependencyProperty.Register("IPAddress", typeof(string), typeof(IPBox));
+        DependencyProperty.Register("IPAddress", typeof(string), typeof(IPBox), new FrameworkPropertyMetadata(null, PropertyChangedCallback));
         [Bindable(true)]
         public string IPAddress
         {
-            get
-            {
-                return (string)GetValue(IPAddressProperty);
-            }
-            set
-            {
-                string[] splitValues = value.Split('.');
-                txtboxFirstPart.Text = splitValues[0];
-                txtboxSecondPart.Text = splitValues[1];
-                txtboxThridPart.Text = splitValues[2];
-                txtboxFourthPart.Text = splitValues[3];
-                NotifyPropertyChanged("IPAddress");
-                SetValue(IPAddressProperty, value);
-            }
+            get => (string)GetValue(IPAddressProperty);
+            set => SetValue(IPAddressProperty, value);
+        }
+
+        private static void PropertyChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+        {
+            IPBox userControl = ((IPBox)dependencyObject);
+            var val = (string)args.NewValue;
+            string[] splitValues = val.Split('.');
+            userControl.txtboxFirstPart.Text = splitValues[0];
+            userControl.txtboxSecondPart.Text = splitValues[1];
+            userControl.txtboxThridPart.Text = splitValues[2];
+            userControl.txtboxFourthPart.Text = splitValues[3];
+            userControl.IPAddress = val;
         }
 
         private bool focusMoved = false;

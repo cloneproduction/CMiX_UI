@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Views="clr-namespace:CMiXPlayer.Views"
              xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
+             xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX_MVVM"
              mc:Ignorable="d" 
              d:DesignHeight="522.751" d:DesignWidth="553.585">
     <DockPanel>
@@ -142,10 +143,10 @@
                         />
                     </Grid>
                     <ListView
-                    BorderThickness="0"
-                    HorizontalContentAlignment="Stretch"
-                    Background="{StaticResource DarkColor}"
-                    ItemsSource="{Binding Devices}">
+                        BorderThickness="0"
+                        HorizontalContentAlignment="Stretch"
+                        Background="{StaticResource DarkColor}"
+                        ItemsSource="{Binding Devices}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Views:Client Margin="4"/>
@@ -155,7 +156,37 @@
                 </DockPanel>
             </TabItem>
             <TabItem Header="Devices">
-                <Views:Device/>
+                <DataGrid 
+                    ItemsSource="{Binding Devices}" 
+                    Background="Black"
+                    AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn 
+                            Width="150"
+                            Header="Name" 
+                            Binding="{Binding OSCMessenger.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                            />
+                        <DataGridTemplateColumn Header="IP Address" Width="150">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Controls:IPBox 
+                                        IPAddress="{Binding OSCMessenger.Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Port" Width="150">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock 
+                                        VerticalAlignment="Center"
+                                        Text="{Binding OSCMessenger.Port}"
+                                        />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
             </TabItem>
         </TabControl>
     </DockPanel>

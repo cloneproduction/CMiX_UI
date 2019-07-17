@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Memento;
-
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
@@ -59,7 +58,6 @@ namespace CMiXPlayer.ViewModels
         public ICommand ResetClientCommand { get; }
 
         public FileSelector CompoSelector { get; set; }
-
         public OSCMessenger OSCMessenger { get; set; }
     }
 }

@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CMiXPlayer.Views"
              xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX_MVVM"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -12,13 +11,6 @@
         Background="Black"
         AutoGenerateColumns="False">
         <DataGrid.Columns>
-
-            <DataGridTextColumn 
-                Width="150"
-                Header="Name" 
-                Binding="{Binding OSCMessenger.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                />
-
             <DataGridTemplateColumn Header="IP Address" Width="150">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
@@ -28,20 +20,28 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
+        </DataGrid.Columns>
 
-            <DataGridTemplateColumn Header="Port" Width="150">
-                <DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate>
-                        <TextBlock 
+        <DataGridTemplateColumn Header="Port" Width="150">
+            <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                    <TextBlock 
                             VerticalAlignment="Center"
                             Text="{Binding OSCMessenger.Port}"
                             />
-                    </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-            </DataGridTemplateColumn>
-
-
-        </DataGrid.Columns>
+                </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
     </DataGrid>
-
 </UserControl>
+<!--<DataGridTextColumn 
+                Width="150"
+                Header="Name" 
+                Binding="{Binding OSCMessenger.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                />
+
+
+
+-->
+
+

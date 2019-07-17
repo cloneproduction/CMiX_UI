@@ -21,7 +21,6 @@ namespace CMiX.MVVM.ViewModels
             ReloadCommand = new RelayCommand(p => Reload(p));
         }
 
-
         #region PROPERTIES
         public UDPSender Sender { get; set; }
 
@@ -75,7 +74,6 @@ namespace CMiX.MVVM.ViewModels
                 SendQueue();
             }
         }
-
 
         private void UpdateUDPSender()
         {
@@ -190,5 +188,3 @@ namespace CMiX.MVVM.ViewModels
         }
     }
 }
-
-
