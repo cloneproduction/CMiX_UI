@@ -79,6 +79,7 @@
     </ApplicationDefinition>
     <Compile Include="Jobs\JobSendComposition.cs" />
     <Compile Include="ViewModels\Device.cs" />
+    <Compile Include="ViewModels\Playlist.cs" />
     <Compile Include="ViewModels\Project.cs" />
     <Compile Include="ViewModels\Settings.cs" />
     <Compile Include="Views\Client.xaml.cs">

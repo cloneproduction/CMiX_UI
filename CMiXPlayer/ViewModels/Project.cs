@@ -37,6 +37,7 @@ namespace CMiXPlayer.ViewModels
 
         public CerasSerializer Serializer { get; set; }
         public ObservableCollection<Device> Devices { get; set; }
+        public ObservableCollection<Playlist> Playlists { get; set; }
         public FileSelector CompoSelector { get; set; }
         #endregion
 

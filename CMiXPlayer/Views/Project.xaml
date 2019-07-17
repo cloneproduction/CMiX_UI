@@ -157,37 +157,9 @@
             </TabItem>
             <TabItem Header="Devices">
                 <Views:Device/>
-                <!--<DataGrid 
-                    ItemsSource="{Binding Devices}" 
-                    Background="Black"
-                    AutoGenerateColumns="False">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn 
-                            Width="150"
-                            Header="Name" 
-                            Binding="{Binding OSCMessenger.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                            />
-                        <DataGridTemplateColumn Header="IP Address" Width="150">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Controls:IPBox 
-                                        IPAddress="{Binding OSCMessenger.Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Port" Width="150">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock 
-                                        VerticalAlignment="Center"
-                                        Text="{Binding OSCMessenger.Port}"
-                                        />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>-->
+            </TabItem>
+            <TabItem Header="Playlist">
+                
             </TabItem>
         </TabControl>
     </DockPanel>
