@@ -107,7 +107,7 @@
             </Menu>
         </Border>
         <TabControl Margin="0, 8, 0, 0">
-            <TabItem Width="100"  Header="Compo">
+            <TabItem Width="100"  Header="Compos">
                 <DockPanel>
                     <Grid Height="30" DockPanel.Dock="Top">
                         <Grid.ColumnDefinitions>
@@ -159,7 +159,7 @@
                 <Views:Device/>
             </TabItem>
             <TabItem Header="Playlist">
-                
+                <Views:PlaylistEditor/>
             </TabItem>
         </TabControl>
     </DockPanel>
