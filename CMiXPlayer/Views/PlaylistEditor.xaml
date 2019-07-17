@@ -61,9 +61,7 @@
                     Height="25" 
                     DockPanel.Dock="Bottom"
                     />
-                <ListView 
-                    Margin="4">
-                </ListView>
+                <MVVM.Views:FileSelector/>
             </DockPanel>
         </Border>
 

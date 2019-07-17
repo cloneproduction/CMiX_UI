@@ -13,11 +13,11 @@ namespace CMiXPlayer.ViewModels
     {
         public Playlist()
         {
-
+            Compositions = new ObservableCollection<CompositionModel>();
         }
 
         public string Name { get; set; }
 
-        public ObservableCollection<CompositionModel> CompositionPlaylist { get; set; }
+        public ObservableCollection<CompositionModel> Compositions { get; set; }
     }
 }
