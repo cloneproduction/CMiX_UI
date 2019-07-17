@@ -4,7 +4,7 @@
         <ResourceDictionary Source="Brushes.xaml" />
     </ResourceDictionary.MergedDictionaries>
     
-    <Style x:Key="BaseTextBoxStyle" TargetType="{x:Type TextBoxBase}">
+    <Style x:Key="BaseTextBoxStyle" TargetType="{x:Type TextBox}">
         <Setter Property="FocusVisualStyle">
             <Setter.Value>
                 <Style>

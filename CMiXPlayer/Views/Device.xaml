@@ -10,38 +10,55 @@
         ItemsSource="{Binding Devices}" 
         Background="Black"
         AutoGenerateColumns="False">
+
         <DataGrid.Columns>
-            <DataGridTemplateColumn Header="IP Address" Width="150">
+            <DataGridTemplateColumn Header="Name" Width="150" >
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <DockPanel>
+                            <TextBox 
+                                Padding="4"
+                                Cursor="IBeam"
+                                CaretBrush="{StaticResource TextBase}"
+                                SelectionBrush="{StaticResource LightColor}"
+                                BorderBrush="Transparent"
+                                BorderThickness="0"
+                                Background="{StaticResource HighDarkerColor}"
+                                Foreground="{StaticResource TextBase}"
+                                Text="{Binding OSCMessenger.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                />
+                        </DockPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            
+            <DataGridTemplateColumn Header="IP" Width="150">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
                         <Controls:IPBox 
+                            HorizontalContentAlignment="Stretch"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
                             IPAddress="{Binding OSCMessenger.Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            />
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Port" Width="150">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <TextBlock 
+                            VerticalAlignment="Center"
+                            Text="{Binding OSCMessenger.Port}"
                             />
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
         </DataGrid.Columns>
 
-        <DataGridTemplateColumn Header="Port" Width="150">
-            <DataGridTemplateColumn.CellTemplate>
-                <DataTemplate>
-                    <TextBlock 
-                            VerticalAlignment="Center"
-                            Text="{Binding OSCMessenger.Port}"
-                            />
-                </DataTemplate>
-            </DataGridTemplateColumn.CellTemplate>
-        </DataGridTemplateColumn>
+
     </DataGrid>
 </UserControl>
-<!--<DataGridTextColumn 
-                Width="150"
-                Header="Name" 
-                Binding="{Binding OSCMessenger.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                />
 
-
-
--->
 
 

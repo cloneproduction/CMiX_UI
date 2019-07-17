@@ -17,5 +17,7 @@
         <ResourceDictionary Source="ContextMenu.xaml"/>
         <ResourceDictionary Source="HueWheel.xaml"/>
         <ResourceDictionary Source="ComboBox.xaml"/>
+        <ResourceDictionary Source="DataGrid.xaml"/>
+        <ResourceDictionary Source="TextBox.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

@@ -156,7 +156,8 @@
                 </DockPanel>
             </TabItem>
             <TabItem Header="Devices">
-                <DataGrid 
+                <Views:Device/>
+                <!--<DataGrid 
                     ItemsSource="{Binding Devices}" 
                     Background="Black"
                     AutoGenerateColumns="False">
@@ -186,7 +187,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
-                </DataGrid>
+                </DataGrid>-->
             </TabItem>
         </TabControl>
     </DockPanel>
