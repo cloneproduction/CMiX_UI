@@ -159,7 +159,7 @@
                 <Views:Device/>
             </TabItem>
             <TabItem Header="Playlist">
-                <Views:PlaylistEditor/>
+                <Views:PlaylistEditor DataContext="{Binding PlaylistEditor}"/>
             </TabItem>
         </TabControl>
     </DockPanel>

@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="CMiXPlayer.Views.PlaylistEditable"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CMiXPlayer.Views"
+             xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
+             xmlns:dd="urn:gong-wpf-dragdrop"
+             mc:Ignorable="d" 
+             d:DesignHeight="471.333" d:DesignWidth="344">
+    <Border Style="{StaticResource BorderContainer}">
+        <DockPanel>
+            <Grid 
+                Height="25"
+                DockPanel.Dock="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label
+                    HorizontalAlignment="Right"
+                    Grid.Column="0"
+                    Content="Playlist Name" 
+                    />
+                <TextBox 
+                    Grid.Column="1"
+                    Margin="4"
+                    Background="{StaticResource HighDarkerColor}"
+                    BorderThickness="0"
+                    Text="{Binding PlaylistName}"
+                    />
+            </Grid>
+            <ListBox 
+                AllowDrop="True"
+                dd:DragDrop.IsDragSource="True"
+                dd:DragDrop.IsDropTarget="True"
+                dd:DragDrop.DragHandler="{Binding}"
+                dd:DragDrop.DropHandler="{Binding}"
+                ItemsSource="{Binding Compositions}">
+            </ListBox>
+        </DockPanel>
+    </Border>
+</UserControl>

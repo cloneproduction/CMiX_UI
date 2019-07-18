@@ -82,6 +82,7 @@
     </ApplicationDefinition>
     <Compile Include="Jobs\JobSendComposition.cs" />
     <Compile Include="ViewModels\Device.cs" />
+    <Compile Include="ViewModels\PlaylistEditable.cs" />
     <Compile Include="ViewModels\PlaylistEditor.cs" />
     <Compile Include="ViewModels\Playlist.cs" />
     <Compile Include="ViewModels\Project.cs" />
@@ -97,6 +98,9 @@
     </Compile>
     <Compile Include="Views\PlaylistEditor.xaml.cs">
       <DependentUpon>PlaylistEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlaylistEditable.xaml.cs">
+      <DependentUpon>PlaylistEditable.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Project.xaml.cs">
       <DependentUpon>Project.xaml</DependentUpon>
@@ -126,6 +130,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PlaylistEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PlaylistEditable.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

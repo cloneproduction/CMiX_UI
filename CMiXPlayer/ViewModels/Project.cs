@@ -17,8 +17,12 @@ namespace CMiXPlayer.ViewModels
         public Project()
         {
             Devices = new ObservableCollection<Device>();
+            Playlists = new ObservableCollection<Playlist>();
+
             Serializer = new CerasSerializer();
+
             CompoSelector = new FileSelector(string.Empty, "Single", new List<string>() { ".COMPMIX" }, new ObservableCollection<OSCValidation>(), new Mementor());
+            PlaylistEditor = new PlaylistEditor(Serializer, Playlists);
 
             AddClientCommand = new RelayCommand(p => AddClient());
             DeleteClientCommand = new RelayCommand(p => DeleteClient(p));
@@ -39,6 +43,7 @@ namespace CMiXPlayer.ViewModels
         public ObservableCollection<Device> Devices { get; set; }
         public ObservableCollection<Playlist> Playlists { get; set; }
         public FileSelector CompoSelector { get; set; }
+        public PlaylistEditor PlaylistEditor { get; set; }
         #endregion
 
         #region METHODS
