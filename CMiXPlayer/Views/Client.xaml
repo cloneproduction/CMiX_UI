@@ -30,13 +30,25 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <DockPanel Grid.Column="0">
-                    <MVVM.Views:FileSelector 
-                        VerticalAlignment="Stretch"
-                        Margin="4"
-                        DataContext="{Binding CompoSelector}"
-                        />
-                </DockPanel>
+                <StackPanel Grid.Column="0" >
+                    <TextBlock 
+                        Height="25"
+                        VerticalAlignment="Center"
+                        DockPanel.Dock="Top"
+                        Text="Playlist" 
+                        Foreground="{StaticResource TextBase}"/>
+                    <ComboBox 
+                        DockPanel.Dock="Top"
+                        Height="25"
+                        ItemsSource="{Binding Playlists}"
+                        SelectedItem="{Binding SelectedPlaylist}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
                 <StackPanel Grid.Column="1">
                     <Views:OSCControls DataContext="{Binding OSCMessenger}"/>
                 </StackPanel>

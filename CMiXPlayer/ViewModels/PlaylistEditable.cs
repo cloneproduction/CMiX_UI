@@ -1,12 +1,12 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Collections.ObjectModel;
 using GongSolutions.Wpf.DragDrop;
 using System.IO;
 using Ceras;
+
 namespace CMiXPlayer.ViewModels
 {
     public class PlaylistEditable : ViewModel, IDropTarget
@@ -16,16 +16,14 @@ namespace CMiXPlayer.ViewModels
             Serializer = serializer;
         }
 
-        private string _playlistname;
-        public string PlaylistName
+        private Playlist _playlist;
+        public Playlist Playlist
         {
-            get => _playlistname;
-            set => SetAndNotify(ref _playlistname, value);
+            get => _playlist;
+            set => SetAndNotify(ref _playlist, value);
         }
 
-        public ObservableCollection<CompositionModel> Compositions { get; set; }
         public CerasSerializer Serializer { get; set; }
-
 
         public void DragOver(IDropInfo dropInfo)
         {
@@ -58,7 +56,7 @@ namespace CMiXPlayer.ViewModels
                         {
                             byte[] data = File.ReadAllBytes(str);
                             CompositionModel compositionmodel = Serializer.Deserialize<CompositionModel>(data);
-                            Compositions.Add(compositionmodel);
+                            Playlist.Compositions.Add(compositionmodel);
                         }
                     }
                     //Mementor.EndBatch();

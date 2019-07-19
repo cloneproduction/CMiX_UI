@@ -31,7 +31,7 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            
+
             <DataGridTemplateColumn Header="IP" Width="150">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
@@ -55,8 +55,6 @@
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
         </DataGrid.Columns>
-
-
     </DataGrid>
 </UserControl>
 

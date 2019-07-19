@@ -3,36 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Quartz;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels;
-using System.IO;
-using Ceras;
+using CMiXPlayer.ViewModels;
+using FluentScheduler;
 
 namespace CMiXPlayer.Jobs
 {
-    class JobSendComposition : IJob
+    public class JobSendComposition : ViewModel, IJob
     {
-        public async Task Execute(IJobExecutionContext context)
+        public JobSendComposition(Playlist playlist, OSCMessenger oscmessenger)
         {
-            var dataMap = context.MergedJobDataMap;
-            FileSelector compositionmodel = (FileSelector)dataMap["CompoSelector"];
-            OSCMessenger oscmessenger = (OSCMessenger)dataMap["OSCMessenger"];
-            CerasSerializer serializer = (CerasSerializer)dataMap["Serializer"];
-
-            SendComposition(oscmessenger, compositionmodel, serializer);
-
-            await Console.Out.WriteLineAsync("Composition Sent");
+            Playlist = playlist;
+            OSCMessenger = oscmessenger;
         }
 
-        private void SendComposition(OSCMessenger oscmessenger, FileSelector composelector, CerasSerializer serializer)
+        public Playlist Playlist{ get; set; }
+        public OSCMessenger OSCMessenger { get; set; }
+
+        int CompositionIndex = 0;
+
+        public void Execute()
         {
-            var filename = composelector.SelectedFileNameItem.FileName;
-            byte[] data = File.ReadAllBytes(filename);
-            CompositionModel compositionmodel = serializer.Deserialize<CompositionModel>(data);
-            oscmessenger.SendMessage("/CompositionReloaded", true);
-            oscmessenger.QueueObject(compositionmodel);
-            oscmessenger.SendQueue();
+            if(CompositionIndex <= Playlist.Compositions.Count - 1)
+            {
+                CompositionModel compositionmodel = Playlist.Compositions[CompositionIndex];
+                OSCMessenger.SendMessage("/CompositionReloaded", true);
+                OSCMessenger.QueueObject(compositionmodel);
+                OSCMessenger.SendQueue();
+                Console.WriteLine(compositionmodel.Name + " Has been sent to engine");
+
+                CompositionIndex += 1;
+            }
+            else
+            {
+                CompositionIndex = 0;
+            }
         }
     }
 }

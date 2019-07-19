@@ -17,56 +17,48 @@
             Margin="4"  
             Grid.Column="0" 
             Style="{StaticResource BorderContainer}">
-            <ListView 
-                SelectedItem="{Binding SelectedPlaylist}"
-                ItemsSource="{Binding Playlists}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Name}"/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <DockPanel>
+                <Grid DockPanel.Dock="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button 
+                        Grid.Column="0"
+                        Margin="4"
+                        Content="New"
+                        Height="25" 
+                        Command="{Binding NewPlaylistCommand}"
+                        />
+                    <Button 
+                        Grid.Column="1"
+                        Margin="4"
+                        Content="Delete"
+                        Height="25" 
+                        Command="{Binding DeletePlaylistCommand}"
+                        />
+                </Grid>
+
+                <ListView 
+                    Background="{StaticResource HighDarkerColor}"
+                    Foreground="{StaticResource TextBase}"
+                    SelectedItem="{Binding EditablePlaylist.Playlist}"
+                    ItemsSource="{Binding Playlists}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </DockPanel>
         </Border>
         <Border 
             Margin="4"  
             Grid.Column="1" 
             Style="{StaticResource BorderContainer}">
             <DockPanel>
-
-
-
-                <Button 
-                    Margin="4"
-                    Content="Create"
-                    Height="25" 
-                    DockPanel.Dock="Bottom"
-                    Command="{Binding CreatePlaylistCommand}"
-                    />
-                <Button 
-                    Margin="4"
-                    Content="Edit Selected"
-                    Height="25" 
-                    DockPanel.Dock="Bottom"
-                    Command="{Binding EditPlaylistCommand}"
-                    />
-                <Button 
-                    Margin="4"
-                    Content="Save"
-                    Height="25" 
-                    DockPanel.Dock="Bottom"
-                    Command="{Binding SavePlaylistCommand}"
-                    />
-                <Button 
-                    Margin="4"
-                    Content="New"
-                    Height="25" 
-                    DockPanel.Dock="Bottom"
-                    Command="{Binding NewPlaylistCommand}"
-                    />
                 <Views:PlaylistEditable DataContext="{Binding EditablePlaylist}"/>
             </DockPanel>
         </Border>
-
-
     </Grid>
 </UserControl>

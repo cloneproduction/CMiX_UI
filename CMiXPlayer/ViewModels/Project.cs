@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Ceras;
 using CMiX.MVVM.ViewModels;
+using FluentScheduler;
 using Memento;
-using Quartz;
-using Quartz.Impl;
+
 
 namespace CMiXPlayer.ViewModels
 {
@@ -44,12 +46,14 @@ namespace CMiXPlayer.ViewModels
         public ObservableCollection<Playlist> Playlists { get; set; }
         public FileSelector CompoSelector { get; set; }
         public PlaylistEditor PlaylistEditor { get; set; }
+
+        public string Name => throw new NotImplementedException();
         #endregion
 
         #region METHODS
         private void AddClient()
         {
-            var client = new Device(Serializer) { Name = "pouet" };
+            var client = new Device(Serializer, Playlists) { Name = "pouet" };
             Devices.Add(client);
         }
 
@@ -75,37 +79,16 @@ namespace CMiXPlayer.ViewModels
         }
         #endregion
 
-        public async void MakeJob()
+
+        public void MakeJob()
         {
-            // construct a scheduler factory
-            NameValueCollection props = new NameValueCollection { { "quartz.serializer.type", "binary" } };
-            StdSchedulerFactory factory = new StdSchedulerFactory(props);
+            Console.WriteLine("StartMakeJob");
+            var registry = new Registry();
+            JobManager.Initialize(registry);
 
-            // get a scheduler
-            IScheduler sched = await factory.GetScheduler();
-            await sched.Start();
+            IJob job = new Jobs.JobSendComposition(Devices[0].SelectedPlaylist, Devices[0].OSCMessenger);
 
-            JobDataMap jobdatamap = new JobDataMap();
-            jobdatamap.Add("CompoSelector", Devices[0].CompoSelector);
-            jobdatamap.Add("OSCMessenger", Devices[0].OSCMessenger);
-            jobdatamap.Add("Serializer", Devices[0].Serializer);
-
-            // define the job and tie it to our HelloJob class
-            IJobDetail job = JobBuilder.Create<Jobs.JobSendComposition>()
-                .SetJobData(jobdatamap)
-                .WithIdentity("myJob", "group1")
-                .Build();
-
-            // Trigger the job to run now, and then every 40 seconds
-            ITrigger trigger = TriggerBuilder.Create()
-                .WithIdentity("myTrigger", "group1")
-                .StartNow()
-                .WithSimpleSchedule(x => x
-                    .WithIntervalInSeconds(10)
-                    .WithRepeatCount(2))
-            .Build();
-
-            await sched.ScheduleJob(job, trigger);
+            JobManager.AddJob(job, s => s.ToRunEvery(30).Seconds());
         }
     }
 }

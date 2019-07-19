@@ -16,7 +16,12 @@ namespace CMiXPlayer.ViewModels
             Compositions = new ObservableCollection<CompositionModel>();
         }
 
-        public string Name { get; set; }
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set => SetAndNotify(ref _name, value);
+        }
 
         public ObservableCollection<CompositionModel> Compositions { get; set; }
     }

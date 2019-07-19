@@ -7,7 +7,7 @@
              xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
              xmlns:dd="urn:gong-wpf-dragdrop"
              mc:Ignorable="d" 
-             d:DesignHeight="471.333" d:DesignWidth="344">
+             d:DesignHeight="377.333" d:DesignWidth="316.667">
     <Border Style="{StaticResource BorderContainer}">
         <DockPanel>
             <Grid 
@@ -23,11 +23,12 @@
                     Content="Playlist Name" 
                     />
                 <TextBox 
+                    Foreground="{StaticResource TextBase}"
                     Grid.Column="1"
                     Margin="4"
                     Background="{StaticResource HighDarkerColor}"
                     BorderThickness="0"
-                    Text="{Binding PlaylistName}"
+                    Text="{Binding Playlist.Name, UpdateSourceTrigger=PropertyChanged}"
                     />
             </Grid>
             <ListBox 
@@ -36,7 +37,12 @@
                 dd:DragDrop.IsDropTarget="True"
                 dd:DragDrop.DragHandler="{Binding}"
                 dd:DragDrop.DropHandler="{Binding}"
-                ItemsSource="{Binding Compositions}">
+                ItemsSource="{Binding Playlist.Compositions}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
         </DockPanel>
     </Border>

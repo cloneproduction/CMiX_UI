@@ -16,8 +16,9 @@ namespace CMiXPlayer.ViewModels
 {
     public class Device : ViewModel
     {
-        public Device(CerasSerializer cerasSerializer)
+        public Device(CerasSerializer cerasSerializer, ObservableCollection<Playlist> playlists)
         {
+            Playlists = playlists;
             CompoSelector = new FileSelector(string.Empty,"Single", new List<string>() { ".COMPMIX" }, new ObservableCollection<OSCValidation> (), new Mementor());
             CompoSelector.SelectedFileNameItem = new FileNameItem(string.Empty, new ObservableCollection<OSCValidation>(), new Mementor());
             OSCMessenger = new OSCMessenger("127.0.0.1", 1111);
@@ -26,6 +27,16 @@ namespace CMiXPlayer.ViewModels
             SendCompositionCommand = new RelayCommand(p => SendComposition());
             ResetClientCommand = new RelayCommand(p => ResetClient());
         }
+
+        public ObservableCollection<Playlist> Playlists { get; set; }
+
+        private Playlist _selectedplaylist;
+        public Playlist SelectedPlaylist
+        {
+            get => _selectedplaylist;
+            set => SetAndNotify(ref _selectedplaylist, value);
+        }
+
 
         public void SendComposition()
         {
