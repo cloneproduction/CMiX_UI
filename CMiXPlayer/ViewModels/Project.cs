@@ -82,7 +82,6 @@ namespace CMiXPlayer.ViewModels
 
         public void MakeJob()
         {
-            Console.WriteLine("StartMakeJob");
             var registry = new Registry();
             JobManager.Initialize(registry);
 
