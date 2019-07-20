@@ -80,14 +80,23 @@ namespace CMiXPlayer.ViewModels
         #endregion
 
 
+        public Action Action { get; set; }
         public void MakeJob()
         {
+            Action = new Action(() => { Console.WriteLine("pouet"); });
+
             var registry = new Registry();
             JobManager.Initialize(registry);
 
             IJob job = new Jobs.JobSendComposition(Devices[0].SelectedPlaylist, Devices[0].OSCMessenger);
 
-            JobManager.AddJob(job, s => s.ToRunEvery(30).Seconds());
+            //Jobs.MyRegistry reg = new Jobs.MyRegistry();
+
+            Jobs.ToRunType toruntype = new Jobs.ToRunType(new Schedule(Action));
+
+            //toruntype.SelectedToRunType.Action
+
+            JobManager.AddJob(job, s => s.ToRunNow().AndEvery(4).Seconds());
         }
     }
 }

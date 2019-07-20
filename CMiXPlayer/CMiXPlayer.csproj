@@ -81,6 +81,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Jobs\JobSendComposition.cs" />
+    <Compile Include="Jobs\MyRegistry.cs" />
+    <Compile Include="Jobs\ToRun\ToRunNow.cs" />
+    <Compile Include="Jobs\ToRun\ToRunEvery.cs" />
+    <Compile Include="Jobs\ToRun\ToRunType.cs" />
+    <Compile Include="Jobs\UnitTypeViewModel.cs" />
+    <Compile Include="Jobs\TimeUnitTypeViewModel.cs" />
+    <Compile Include="Jobs\UnitType\HourUnit.cs" />
+    <Compile Include="Jobs\UnitType\MinuteUnit.cs" />
+    <Compile Include="Jobs\UnitType\SecondUnit.cs" />
+    <Compile Include="Jobs\UnitType\UnitType.cs" />
     <Compile Include="ViewModels\Device.cs" />
     <Compile Include="ViewModels\PlaylistEditable.cs" />
     <Compile Include="ViewModels\PlaylistEditor.cs" />
