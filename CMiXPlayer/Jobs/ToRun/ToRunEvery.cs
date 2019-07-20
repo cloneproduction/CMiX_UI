@@ -4,12 +4,13 @@ using System;
 
 namespace CMiXPlayer.Jobs
 {
-    public class ToRunEvery : ViewModel
+    public class ToRunEvery : ViewModel, IScheduleInterface
     {
         public ToRunEvery(Schedule schedule, int interval)
         {
             Name = "ToRunEvery";
             Action = new Action(() => { SetToRunEvery(schedule, interval); });
+
         }
 
         private string _name;
@@ -19,11 +20,21 @@ namespace CMiXPlayer.Jobs
             set => SetAndNotify(ref _name, value);
         }
 
+        private UnitType _unittype;
+        public UnitType UnitType
+        {
+            get => _unittype;
+            set => SetAndNotify(ref _unittype, value);
+        }
+
+
         public Action Action { get; set; }
 
         public void SetToRunEvery(Schedule schedule, int interval)
         {
             schedule.ToRunEvery(interval);
+            var unitype = (IScheduleInterface)UnitType.SelectedUnitType;
+            unitype.Action();
         }
     }
 }

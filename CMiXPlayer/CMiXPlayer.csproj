@@ -80,6 +80,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Jobs\IScheduleInterface.cs" />
     <Compile Include="Jobs\JobSendComposition.cs" />
     <Compile Include="Jobs\MyRegistry.cs" />
     <Compile Include="Jobs\ToRun\ToRunNow.cs" />

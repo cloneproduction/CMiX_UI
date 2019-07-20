@@ -13,6 +13,7 @@ namespace CMiXPlayer.Jobs
             UnitTypes.Add(new SecondUnit(TimeUnit));
             UnitTypes.Add(new MinuteUnit(TimeUnit));
             UnitTypes.Add(new HourUnit(TimeUnit));
+            SelectedUnitType = new SecondUnit(TimeUnit);
         }
 
         public TimeUnit TimeUnit { get; set; }

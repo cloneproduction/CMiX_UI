@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Ceras;
 using CMiX.MVVM.ViewModels;
+using CMiXPlayer.Jobs;
 using FluentScheduler;
 using Memento;
 
@@ -80,23 +81,26 @@ namespace CMiXPlayer.ViewModels
         #endregion
 
 
-        public Action Action { get; set; }
+        //public Action Action { get; set; }
+
         public void MakeJob()
         {
-            Action = new Action(() => { Console.WriteLine("pouet"); });
+            Console.WriteLine("MakeJob");
+            //Action = new Action(() => { Console.WriteLine("pouet"); });
 
             var registry = new Registry();
-            JobManager.Initialize(registry);
+            
 
-            IJob job = new Jobs.JobSendComposition(Devices[0].SelectedPlaylist, Devices[0].OSCMessenger);
+            IJob job = new JobSendComposition(Devices[0].SelectedPlaylist, Devices[0].OSCMessenger);
 
             //Jobs.MyRegistry reg = new Jobs.MyRegistry();
+            //Schedule schedule = new Schedule(Action);
+            ToRunType toruntype = new ToRunType(registry.Schedule(job));
+            toruntype.Action.Invoke();
 
-            Jobs.ToRunType toruntype = new Jobs.ToRunType(new Schedule(Action));
+            JobManager.Initialize(registry);
 
-            //toruntype.SelectedToRunType.Action
-
-            JobManager.AddJob(job, s => s.ToRunNow().AndEvery(4).Seconds());
+            //JobManager.AddJob(job, (s) => toruntype.Action.Invoke()); this is working (kind of...)
         }
     }
 }

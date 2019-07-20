@@ -25,7 +25,8 @@ namespace CMiXPlayer.Jobs
 
         public void Execute()
         {
-            if(CompositionIndex <= Playlist.Compositions.Count - 1)
+            Console.WriteLine("HELLO JOB");
+            if (CompositionIndex <= Playlist.Compositions.Count - 1)
             {
                 CompositionModel compositionmodel = Playlist.Compositions[CompositionIndex];
                 OSCMessenger.SendMessage("/CompositionReloaded", true);

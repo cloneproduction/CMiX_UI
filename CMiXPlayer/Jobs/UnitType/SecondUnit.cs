@@ -24,6 +24,7 @@ namespace CMiXPlayer.Jobs
         public void SetSecondUnit(TimeUnit timeunit)
         {
             timeunit.Seconds();
+            Console.WriteLine("pouetpouet");
         }
     }
 }
