@@ -1,16 +1,15 @@
 ﻿using CMiX.MVVM.ViewModels;
 using System;
-
 using FluentScheduler;
 
 namespace CMiXPlayer.Jobs
 {
-    public class MinuteUnit : ViewModel
+    public class MinuteUnit : ViewModel, IScheduleInterface<TimeUnit>
     {
-        public MinuteUnit(TimeUnit timeunit)
+        public MinuteUnit()
         {
             Name = "Minutes";
-            MinuteUnitAction = new Action(() => { SetMinuteUnit(timeunit); });
+            SetScheduler = new Action<TimeUnit>((s) => { SetMinuteUnit(s); });
         }
 
         private string _name;
@@ -20,10 +19,11 @@ namespace CMiXPlayer.Jobs
             set => SetAndNotify(ref _name, value);
         }
 
-        public Action MinuteUnitAction { get; set; }
+        public Action <TimeUnit> SetScheduler { get; set; }
 
         public void SetMinuteUnit(TimeUnit timeunit)
         {
+            Console.WriteLine("SetMinuteUnit");
             timeunit.Minutes();
         }
     }

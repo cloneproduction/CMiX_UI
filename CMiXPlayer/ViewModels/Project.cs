@@ -32,6 +32,7 @@ namespace CMiXPlayer.ViewModels
             SendAllCommand = new RelayCommand(p => SendAllClient());
             ResetAllClientCommand = new RelayCommand(p => ResetAllClient());
             MakeJobCommand = new RelayCommand(p => MakeJob());
+            InitJobCommand = new RelayCommand(p => InitJob());
         }
         #endregion
 
@@ -41,6 +42,7 @@ namespace CMiXPlayer.ViewModels
         public ICommand SendAllCommand { get; }
         public ICommand ResetAllClientCommand { get; }
         public ICommand MakeJobCommand { get; }
+        public ICommand InitJobCommand { get; }
 
         public CerasSerializer Serializer { get; set; }
         public ObservableCollection<Device> Devices { get; set; }
@@ -81,26 +83,25 @@ namespace CMiXPlayer.ViewModels
         #endregion
 
 
-        //public Action Action { get; set; }
+        public Registry Registry { get; set; }
 
         public void MakeJob()
         {
-            Console.WriteLine("MakeJob");
-            //Action = new Action(() => { Console.WriteLine("pouet"); });
 
-            var registry = new Registry();
-            
+            Registry = new Registry();
 
-            IJob job = new JobSendComposition(Devices[0].SelectedPlaylist, Devices[0].OSCMessenger);
 
-            //Jobs.MyRegistry reg = new Jobs.MyRegistry();
-            //Schedule schedule = new Schedule(Action);
-            ToRunType toruntype = new ToRunType(registry.Schedule(job));
-            toruntype.Action.Invoke();
 
-            JobManager.Initialize(registry);
-
-            //JobManager.AddJob(job, (s) => toruntype.Action.Invoke()); this is working (kind of...)
+            JobManager.Initialize(Registry);
         }
+
+        public void InitJob()
+        {
+            IJob job = new JobSendComposition(Devices[0].SelectedPlaylist, Devices[0].OSCMessenger);
+            ToRunType toruntype = new ToRunType();
+
+            JobManager.AddJob(job, (s) => toruntype.SetRunType(s));
+        }
+
     }
 }

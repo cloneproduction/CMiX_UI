@@ -1,24 +1,21 @@
 ﻿using CMiX.MVVM.ViewModels;
 using FluentScheduler;
-using System;
 using System.Collections.ObjectModel;
 
 namespace CMiXPlayer.Jobs
 {
-    public class ToRunType : ViewModel, IScheduleInterface
+    public class ToRunType : ViewModel//, IScheduleInterface<Schedule, TimeUnit>
     {
-        public ToRunType(Schedule schedule)
+        public ToRunType()
         {
-            Schedule = schedule;
             Interval = 10;
-            Action = new Action(() => { SetUnitType(); });
-            ToRunTypes = new ObservableCollection<ViewModel>();
-            ToRunTypes.Add(new ToRunNow(Schedule));
-            ToRunTypes.Add(new ToRunEvery(Schedule, Interval));
-            SelectedToRunType = new ToRunNow(Schedule);
-        }
 
-        public Schedule Schedule { get; set; }
+            ToRunTypes = new ObservableCollection<ViewModel>();
+            ToRunTypes.Add(new ToRunNow());
+            ToRunTypes.Add(new ToRunEvery(Interval));
+
+            SelectedToRunType = new ToRunNow();
+        }
 
         private int _interval;
         public int Interval
@@ -36,13 +33,10 @@ namespace CMiXPlayer.Jobs
             set => SetAndNotify(ref _selectedToRunType, value);
         }
 
-        public Action Action { get; set; }
-
-        public void SetUnitType()
+        public void SetRunType(Schedule schedule)
         {
-            Console.WriteLine("SetUnitType ToRunNow");
-            var selected = (IScheduleInterface)SelectedToRunType;
-            selected.Action.Invoke();
+            var selected = SelectedToRunType as IScheduleInterface<Schedule>;
+            selected.SetScheduler.Invoke(schedule);
         }
     }
 }

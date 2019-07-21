@@ -86,8 +86,6 @@
     <Compile Include="Jobs\ToRun\ToRunNow.cs" />
     <Compile Include="Jobs\ToRun\ToRunEvery.cs" />
     <Compile Include="Jobs\ToRun\ToRunType.cs" />
-    <Compile Include="Jobs\UnitTypeViewModel.cs" />
-    <Compile Include="Jobs\TimeUnitTypeViewModel.cs" />
     <Compile Include="Jobs\UnitType\HourUnit.cs" />
     <Compile Include="Jobs\UnitType\MinuteUnit.cs" />
     <Compile Include="Jobs\UnitType\SecondUnit.cs" />

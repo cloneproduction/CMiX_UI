@@ -4,12 +4,12 @@ using FluentScheduler;
 
 namespace CMiXPlayer.Jobs
 {
-    public class HourUnit : ViewModel
+    public class HourUnit : ViewModel, IScheduleInterface<TimeUnit>
     {
-        public HourUnit(TimeUnit timeunit)
+        public HourUnit()
         {
             Name = "Hours";
-            HourUnitAction = new Action(() => { SetHourUnit(timeunit); });
+            SetScheduler = new Action<TimeUnit>((s) => { SetHourUnit(s); });
         }
 
         private string _name;
@@ -19,10 +19,11 @@ namespace CMiXPlayer.Jobs
             set => SetAndNotify(ref _name, value);
         }
 
-        public Action HourUnitAction { get; set; }
+        public Action<TimeUnit> SetScheduler { get; set; }
 
         public void SetHourUnit(TimeUnit timeunit)
         {
+            Console.WriteLine("SetHourUnit");
             timeunit.Hours();
         }
     }

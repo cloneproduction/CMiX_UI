@@ -25,7 +25,10 @@ namespace CMiXPlayer.Jobs
 
         public void Execute()
         {
-            Console.WriteLine("HELLO JOB");
+            foreach (var item in Playlist.Compositions)
+            {
+                Console.WriteLine(item.Name);
+            }
             if (CompositionIndex <= Playlist.Compositions.Count - 1)
             {
                 CompositionModel compositionmodel = Playlist.Compositions[CompositionIndex];

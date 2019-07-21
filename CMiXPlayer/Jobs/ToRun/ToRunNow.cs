@@ -4,20 +4,12 @@ using System;
 
 namespace CMiXPlayer.Jobs
 {
-    public class ToRunNow : ViewModel, IScheduleInterface
+    public class ToRunNow : ViewModel, IScheduleInterface<Schedule>
     {
-        public ToRunNow(Schedule schedule)
+        public ToRunNow()
         {
-            Schedule = schedule;
             Name = "ToRunNow";
-            Action = new Action(() => { SetToRunNow(); });
-        }
-
-        private Schedule _schedule;
-        public Schedule Schedule
-        {
-            get => _schedule;
-            set => SetAndNotify(ref _schedule, value);
+            SetScheduler = new Action<Schedule>((s) => { SetToRunNow(s); });
         }
 
         private string _name;
@@ -27,12 +19,12 @@ namespace CMiXPlayer.Jobs
             set => SetAndNotify(ref _name, value);
         }
 
-        public Action Action { get; set; }
+        public Action<Schedule> SetScheduler { get; set; }
 
-        public void SetToRunNow()
+        public void SetToRunNow(Schedule schedule)
         {
-            Schedule.ToRunNow();
             Console.WriteLine("SetToRunNow");
+            schedule.ToRunOnceIn(20).Seconds();
         }
     }
 }

@@ -116,30 +116,37 @@
                             <ColumnDefinition Width="138*"/>
                             <ColumnDefinition Width="138*"/>
                             <ColumnDefinition Width="138*"/>
+                            <ColumnDefinition Width="138*"/>
                         </Grid.ColumnDefinitions>
                         <Button 
-                        Grid.Column="0"
-                        Margin="4,4,3.8,4"
-                        Command="{Binding AddClientCommand}" 
-                        Content="Add Server" Grid.ColumnSpan="2"
+                            Grid.Column="0"
+                            Margin="4,4,3.8,4"
+                            Command="{Binding AddClientCommand}" 
+                            Content="Add Server" Grid.ColumnSpan="2"
                         />
                         <Button 
-                        Grid.Column="2"
-                        Margin="4.2,4"
-                        Command="{Binding SendAllCommand}" 
-                        Content="Send All"
+                            Grid.Column="2"
+                            Margin="4.2,4"
+                            Command="{Binding SendAllCommand}" 
+                            Content="Send All"
                         />
                         <Button 
-                        Grid.Column="3"
-                        Margin="3.8,4,3.6,4"
-                        Command="{Binding ResetAllClientCommand}" 
-                        Content="Reset All"
+                            Grid.Column="3"
+                            Margin="3.8,4,3.6,4"
+                            Command="{Binding ResetAllClientCommand}" 
+                            Content="Reset All"
                         />
                         <Button 
-                        Grid.Column="4"
-                        Margin="3.8,4,3.6,4"
-                        Command="{Binding MakeJobCommand}" 
-                        Content="Make Job"
+                            Grid.Column="4"
+                            Margin="3.8,4,3.6,4"
+                            Command="{Binding MakeJobCommand}" 
+                            Content="Make Job"
+                        />
+                        <Button 
+                            Grid.Column="5"
+                            Margin="3.8,4,3.6,4"
+                            Command="{Binding InitJobCommand}" 
+                            Content="Init Job"
                         />
                     </Grid>
                     <ListView

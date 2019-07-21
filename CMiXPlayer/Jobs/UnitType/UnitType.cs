@@ -1,19 +1,23 @@
 ﻿using CMiX.MVVM.ViewModels;
 using FluentScheduler;
+using System;
 using System.Collections.ObjectModel;
 
 namespace CMiXPlayer.Jobs
 {
-    public class UnitType : ViewModel
+    public class UnitType : ViewModel, IScheduleInterface<TimeUnit>
     {
-        public UnitType(TimeUnit timeunit)
+        public UnitType()
         {
-            TimeUnit = timeunit;
+            SetScheduler = new Action<TimeUnit>((s) => { SetUnitType(s); });
+
             UnitTypes = new ObservableCollection<ViewModel>();
-            UnitTypes.Add(new SecondUnit(TimeUnit));
-            UnitTypes.Add(new MinuteUnit(TimeUnit));
-            UnitTypes.Add(new HourUnit(TimeUnit));
-            SelectedUnitType = new SecondUnit(TimeUnit);
+
+            UnitTypes.Add(new SecondUnit());
+            UnitTypes.Add(new MinuteUnit());
+            UnitTypes.Add(new HourUnit());
+
+            SelectedUnitType = new SecondUnit();
         }
 
         public TimeUnit TimeUnit { get; set; }
@@ -25,6 +29,14 @@ namespace CMiXPlayer.Jobs
         {
             get => _selectedUnitType;
             set => SetAndNotify(ref _selectedUnitType, value);
+        }
+
+        public Action<TimeUnit> SetScheduler { get; set; }
+
+        public void SetUnitType(TimeUnit timeunit)
+        {
+            var selected = SelectedUnitType as IScheduleInterface<TimeUnit>;
+            selected.SetScheduler.Invoke(timeunit);
         }
     }
 }
