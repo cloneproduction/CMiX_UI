@@ -6,7 +6,7 @@
              xmlns:Views="clr-namespace:CMiXPlayer.Views"
              xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
              mc:Ignorable="d" 
-             d:DesignHeight="91.736" d:DesignWidth="455.394">
+             d:DesignHeight="65.958" d:DesignWidth="413.172">
     <StackPanel>
         <Grid Height="30">
             <Grid.ColumnDefinitions>
@@ -70,8 +70,7 @@
                         Width="20"
                         Content="+"
                         DockPanel.Dock="Right"
-                        Command="{Binding DataContext.SelectedToRunType.AddCommand, RelativeSource={RelativeSource AncestorType=Views:ToRunType}}"
-                        >
+                        Command="{Binding DataContext.SelectedToRunType.AddCommand, RelativeSource={RelativeSource AncestorType=Views:ToRunType}}">
                     </Button>
                     <Button
                         x:Name="Sub"
@@ -80,8 +79,7 @@
                         Width="20"
                         Content="-"
                         DockPanel.Dock="Right"
-                        Command="{Binding DataContext.SelectedToRunType.SubCommand, RelativeSource={RelativeSource AncestorType=Views:ToRunType}}"
-                        >
+                        Command="{Binding DataContext.SelectedToRunType.SubCommand, RelativeSource={RelativeSource AncestorType=Views:ToRunType}}">
                     </Button>
                 </Grid>
             </DockPanel>
