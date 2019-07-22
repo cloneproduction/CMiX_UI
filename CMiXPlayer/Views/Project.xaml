@@ -7,7 +7,7 @@
              xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
              xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX_MVVM"
              mc:Ignorable="d" 
-             d:DesignHeight="522.751" d:DesignWidth="553.585">
+             d:DesignHeight="498.751" d:DesignWidth="942.918">
     <DockPanel>
         <Border 
             DockPanel.Dock="Top"
@@ -107,7 +107,13 @@
             </Menu>
         </Border>
         <TabControl Margin="0, 8, 0, 0">
-            <TabItem Width="100"  Header="Compos">
+            <TabItem Header="Scheduler">
+                <Views:Scheduler DataContext="{Binding Scheduler}"/>
+            </TabItem>
+            <TabItem Header="Tasks">
+                <Views:JobEditor DataContext="{Binding JobEditor}"/>
+            </TabItem>
+            <TabItem Width="100"  Header="Devices">
                 <DockPanel>
                     <Grid Height="30" DockPanel.Dock="Top">
                         <Grid.ColumnDefinitions>
@@ -162,11 +168,13 @@
                     </ListView>
                 </DockPanel>
             </TabItem>
-            <TabItem Header="Devices">
-                <Views:Device/>
-            </TabItem>
+
             <TabItem Header="Playlist">
                 <Views:PlaylistEditor DataContext="{Binding PlaylistEditor}"/>
+            </TabItem>
+
+            <TabItem Header="Overview">
+                <Views:DataOverview/>
             </TabItem>
         </TabControl>
     </DockPanel>

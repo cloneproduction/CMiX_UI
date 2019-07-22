@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Ceras;
 using CMiX.MVVM.ViewModels;
@@ -19,13 +16,17 @@ namespace CMiXPlayer.ViewModels
         #region CONSTRUCTORS
         public Project()
         {
-            Devices = new ObservableCollection<Device>();
-            Playlists = new ObservableCollection<Playlist>();
-
             Serializer = new CerasSerializer();
 
-            CompoSelector = new FileSelector(string.Empty, "Single", new List<string>() { ".COMPMIX" }, new ObservableCollection<OSCValidation>(), new Mementor());
+            Devices = new ObservableCollection<Device>();
+            Playlists = new ObservableCollection<Playlist>();
+            Scheduler = new Scheduler(Devices);
+            
+            JobEditor = new JobEditor(Devices, Playlists);
             PlaylistEditor = new PlaylistEditor(Serializer, Playlists);
+
+            CompoSelector = new FileSelector(string.Empty, "Single", new List<string>() { ".COMPMIX" }, new ObservableCollection<OSCValidation>(), new Mementor());
+            
 
             AddClientCommand = new RelayCommand(p => AddClient());
             DeleteClientCommand = new RelayCommand(p => DeleteClient(p));
@@ -45,24 +46,36 @@ namespace CMiXPlayer.ViewModels
         public ICommand InitJobCommand { get; }
 
         public CerasSerializer Serializer { get; set; }
-        public ObservableCollection<Device> Devices { get; set; }
-        public ObservableCollection<Playlist> Playlists { get; set; }
+        public Scheduler Scheduler { get; set; }
+        public JobEditor JobEditor { get; set; }
         public FileSelector CompoSelector { get; set; }
         public PlaylistEditor PlaylistEditor { get; set; }
+
+        public ObservableCollection<Device> Devices { get; set; }
+        public ObservableCollection<Playlist> Playlists { get; set; }
 
         public string Name => throw new NotImplementedException();
         #endregion
 
         #region METHODS
+
+        int clientcreationindex = 0;
         private void AddClient()
         {
-            var client = new Device(Serializer, Playlists) { Name = "pouet" };
+            clientcreationindex++;
+            Console.WriteLine("Added Client");
+            var client = new Device(Serializer, Playlists);
+            client.OSCMessenger.Name = $"Server ({clientcreationindex})";
             Devices.Add(client);
         }
 
         private void DeleteClient(object client)
         {
             Devices.Remove(client as Device);
+            if(Devices.Count == 0)
+            {
+                clientcreationindex = 0;
+            }
         }
 
         private void SendAllClient()
@@ -83,25 +96,26 @@ namespace CMiXPlayer.ViewModels
         #endregion
 
 
-        public Registry Registry { get; set; }
+        //public Registry Registry { get; set; }
+
+        //public List<Action<Schedule>> action { get; set; }
+
+        //public IJob job { get; set; }
 
         public void MakeJob()
         {
+            //job = new JobSendComposition(Devices[0].SelectedPlaylist, Devices[0].OSCMessenger);
+            //ToRunType toruntype = new ToRunType();
+            //action = new List<Action<Schedule>>();
 
-            Registry = new Registry();
-
-
-
-            JobManager.Initialize(Registry);
+            //action.Add((s) => toruntype.SetRunType(s));
+            //Registry = new Registry();
+            //JobManager.Initialize(Registry);
         }
 
         public void InitJob()
         {
-            IJob job = new JobSendComposition(Devices[0].SelectedPlaylist, Devices[0].OSCMessenger);
-            ToRunType toruntype = new ToRunType();
-
-            JobManager.AddJob(job, (s) => toruntype.SetRunType(s));
+            //JobManager.AddJob(job, (s) => action[0].Invoke(s));
         }
-
     }
 }

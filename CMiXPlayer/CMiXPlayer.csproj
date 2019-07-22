@@ -91,16 +91,24 @@
     <Compile Include="Jobs\UnitType\SecondUnit.cs" />
     <Compile Include="Jobs\UnitType\UnitType.cs" />
     <Compile Include="ViewModels\Device.cs" />
+    <Compile Include="ViewModels\JobEditor.cs" />
     <Compile Include="ViewModels\PlaylistEditable.cs" />
     <Compile Include="ViewModels\PlaylistEditor.cs" />
     <Compile Include="ViewModels\Playlist.cs" />
     <Compile Include="ViewModels\Project.cs" />
+    <Compile Include="ViewModels\Scheduler.cs" />
     <Compile Include="ViewModels\Settings.cs" />
     <Compile Include="Views\Client.xaml.cs">
       <DependentUpon>Client.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Device.xaml.cs">
-      <DependentUpon>Device.xaml</DependentUpon>
+    <Compile Include="Views\DataOverview.xaml.cs">
+      <DependentUpon>DataOverview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\JobEditor.xaml.cs">
+      <DependentUpon>JobEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\JobScheduled.xaml.cs">
+      <DependentUpon>JobScheduled.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OSCControls.xaml.cs">
       <DependentUpon>OSCControls.xaml</DependentUpon>
@@ -113,6 +121,9 @@
     </Compile>
     <Compile Include="Views\Project.xaml.cs">
       <DependentUpon>Project.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Scheduler.xaml.cs">
+      <DependentUpon>Scheduler.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -130,7 +141,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Device.xaml">
+    <Page Include="Views\DataOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\JobEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\JobScheduled.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -147,6 +166,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Project.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Scheduler.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

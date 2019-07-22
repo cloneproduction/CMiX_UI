@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels;
 using CMiXPlayer.ViewModels;
@@ -12,6 +8,11 @@ namespace CMiXPlayer.Jobs
 {
     public class JobSendComposition : ViewModel, IJob
     {
+        public JobSendComposition()
+        {
+
+        }
+
         public JobSendComposition(Playlist playlist, OSCMessenger oscmessenger)
         {
             Playlist = playlist;
@@ -35,7 +36,7 @@ namespace CMiXPlayer.Jobs
                 OSCMessenger.SendMessage("/CompositionReloaded", true);
                 OSCMessenger.QueueObject(compositionmodel);
                 OSCMessenger.SendQueue();
-                Console.WriteLine(compositionmodel.Name + " Has been sent to engine");
+                Console.WriteLine("The composition named : " + compositionmodel.Name + " has been sent to engine");
 
                 CompositionIndex += 1;
             }

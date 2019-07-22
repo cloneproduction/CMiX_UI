@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="CMiXPlayer.Views.JobEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CMiXPlayer.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="467.668" d:DesignWidth="655.666">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <DockPanel Margin="4" Grid.Column="0">
+            <TextBlock 
+                DockPanel.Dock="Top"
+                Foreground="{StaticResource TextBase}"
+                Text="Name"
+                Margin="4"
+                />
+            <TextBox
+                DockPanel.Dock="Top"
+                BorderThickness="0"
+                Height="25"
+                Margin="4"
+                Background="{StaticResource HighDarkerColor}"
+                />
+            <TextBlock 
+                DockPanel.Dock="Top"
+                Foreground="{StaticResource TextBase}"
+                Text="Device"
+                Margin="4, 16, 4, 4"
+                />
+            <ComboBox
+                DockPanel.Dock="Top"
+                Height="25"
+                Margin="4"
+                ItemsSource="{Binding Devices}"
+                SelectedItem="{Binding SelectedDevice}"
+                >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding OSCMessenger.Name}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock 
+                DockPanel.Dock="Top"
+                Foreground="{StaticResource TextBase}"
+                Text="Playlist"
+                Margin="4, 16, 4, 4"
+                />
+            <ComboBox
+                DockPanel.Dock="Top"
+                Height="25"
+                Margin="4"
+                ItemsSource="{Binding Playlists}"
+                SelectedItem="{Binding SelectedPlaylist}"
+                >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button 
+                DockPanel.Dock="Bottom"
+                Content="Add To Schedule"
+                Height="50"
+                Grid.Column="3"
+                Margin="4, 16, 4, 4"
+                Command="{Binding CreateJobCommand}">
+            </Button>
+        </DockPanel>
+        <StackPanel Margin="4" Grid.Column="1">
+            <TextBlock 
+                DockPanel.Dock="Top"
+                Foreground="{StaticResource TextBase}"
+                Text="Run Type"
+                Margin="4"
+                />
+            <ComboBox 
+                Margin="4"
+                ItemsSource="{Binding ToRunType.ToRunTypes}"
+                SelectedItem="{Binding ToRunType.SelectedToRunType}"
+                />
+        </StackPanel>
+    </Grid>
+</UserControl>

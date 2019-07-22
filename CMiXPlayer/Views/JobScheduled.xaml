@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="CMiXPlayer.Views.JobScheduled"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CMiXPlayer.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="35.661" d:DesignWidth="893.99">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock
+            Margin="4"
+            Foreground="{StaticResource TextBase}"
+            VerticalAlignment="Center"
+            Grid.Column="0"
+            Text="{Binding Name}"
+            />
+        <Button 
+            Margin="4"
+            Grid.Column="2"
+            Content="Start Job"
+            Command="{Binding StartJobCommand}"
+            />
+    </Grid>
+</UserControl>

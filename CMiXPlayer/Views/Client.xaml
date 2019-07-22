@@ -6,53 +6,18 @@
              xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
              xmlns:Views="clr-namespace:CMiXPlayer.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="152.667" d:DesignWidth="654.934">
+             d:DesignHeight="166.667" d:DesignWidth="652.934">
     <Border Style="{StaticResource BorderContainer}">
-        <Expander>
-            <Expander.Header>
-                <DockPanel >
-                    <Button
-                        Height="20"
-                        HorizontalAlignment="Right"
-                        Command="{Binding DataContext.DeleteClientCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Project}}}" 
-                        CommandParameter="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Client}}}"
-                        DockPanel.Dock="Right" 
-                        Width="20" 
-                        Margin="0, 0, 60, 0">
-                        <Button.Content>
-                            <Image Source="{StaticResource DeleteLayer}"/>
-                        </Button.Content>
-                    </Button>
-                </DockPanel>
-            </Expander.Header>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" >
-                    <TextBlock 
-                        Height="25"
-                        VerticalAlignment="Center"
-                        DockPanel.Dock="Top"
-                        Text="Playlist" 
-                        Foreground="{StaticResource TextBase}"/>
-                    <ComboBox 
-                        DockPanel.Dock="Top"
-                        Height="25"
-                        ItemsSource="{Binding Playlists}"
-                        SelectedItem="{Binding SelectedPlaylist}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Name}"/>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                </StackPanel>
-                <StackPanel Grid.Column="1">
-                    <Views:OSCControls DataContext="{Binding OSCMessenger}"/>
-                </StackPanel>
-            </Grid>
-        </Expander>
+        <StackPanel Grid.Column="1">
+            <Views:OSCControls DataContext="{Binding OSCMessenger}"/>
+            <Button
+                Content="Delete Device"
+                Margin="8"
+                Height="20"
+                Command="{Binding DataContext.DeleteClientCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Project}}}" 
+                CommandParameter="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Client}}}"
+                DockPanel.Dock="Right" >
+            </Button>
+        </StackPanel>
     </Border>
 </UserControl>

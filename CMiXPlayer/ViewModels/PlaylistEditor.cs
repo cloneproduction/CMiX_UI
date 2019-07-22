@@ -22,7 +22,7 @@ namespace CMiXPlayer.ViewModels
             Serializer = serializer;
 
             EditablePlaylist = new PlaylistEditable(Serializer);
-            var play = new Playlist() { Name = "NewPLaylistTest" };
+            var play = new Playlist() { Name = "NewPlaylist" };
             Playlists.Add(play);
             SelectedPlaylist = play;
             EditablePlaylist.Playlist = play;
@@ -52,10 +52,13 @@ namespace CMiXPlayer.ViewModels
 
         #endregion
 
+        int plCreateIndex = 0;
+
         public void NewPlaylist()
         {
+            plCreateIndex++;
             Playlist playlist = new Playlist();
-            playlist.Name = "Hello";
+            playlist.Name = $"Playlist ({plCreateIndex})";
             Playlists.Add(playlist);
             SelectedPlaylist = playlist;
         }
@@ -63,6 +66,8 @@ namespace CMiXPlayer.ViewModels
         public void DeletePlaylist()
         {
             Playlists.Remove(SelectedPlaylist);
+            if (Playlists.Count == 0)
+                plCreateIndex = 0;
         }
     }
 }

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace CMiXPlayer.Views
 {
     /// <summary>
-    /// Interaction logic for Device.xaml
+    /// Interaction logic for UnitType.xaml
     /// </summary>
-    public partial class Device : UserControl
+    public partial class UnitType : UserControl
     {
-        public Device()
+        public UnitType()
         {
             InitializeComponent();
         }

@@ -23,8 +23,7 @@ namespace CMiXPlayer.Jobs
 
         public void SetToRunNow(Schedule schedule)
         {
-            Console.WriteLine("SetToRunNow");
-            schedule.ToRunOnceIn(20).Seconds();
+            schedule.ToRunNow();
         }
     }
 }
