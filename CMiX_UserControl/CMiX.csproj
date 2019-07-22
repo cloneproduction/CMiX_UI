@@ -139,7 +139,6 @@
     <Compile Include="ViewModels\FileSelector\FileSelector.cs" />
     <Compile Include="_Unused\OSCControl.cs" />
     <Compile Include="ViewModels\Project.cs" />
-    <Compile Include="ViewModels\Counter.cs" />
     <Compile Include="ViewModels\Geometry\GeometryFX.cs" />
     <Compile Include="ViewModels\Geometry\GeometryRotation.cs" />
     <Compile Include="ViewModels\Geometry\GeometryScale.cs" />
@@ -209,9 +208,6 @@
     <Compile Include="Services\OSCListener.cs" />
     <Compile Include="Views\ChannelLayer.xaml.cs">
       <DependentUpon>ChannelLayer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Counter.xaml.cs">
-      <DependentUpon>Counter.xaml</DependentUpon>
     </Compile>
     <Compile Include="_Unused\ShiftSlider.xaml.cs">
       <DependentUpon>ShiftSlider.xaml</DependentUpon>
@@ -289,10 +285,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\TranslateSelector.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Counter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

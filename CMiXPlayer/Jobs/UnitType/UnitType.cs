@@ -2,6 +2,7 @@
 using FluentScheduler;
 using System;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace CMiXPlayer.Jobs
 {
@@ -18,6 +19,7 @@ namespace CMiXPlayer.Jobs
             UnitTypes.Add(new HourUnit());
 
             SelectedUnitType = new SecondUnit();
+
         }
 
         public TimeUnit TimeUnit { get; set; }

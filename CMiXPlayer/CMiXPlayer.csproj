@@ -82,7 +82,6 @@
     </ApplicationDefinition>
     <Compile Include="Jobs\IScheduleInterface.cs" />
     <Compile Include="Jobs\JobSendComposition.cs" />
-    <Compile Include="Jobs\MyRegistry.cs" />
     <Compile Include="Jobs\ToRun\ToRunNow.cs" />
     <Compile Include="Jobs\ToRun\ToRunEvery.cs" />
     <Compile Include="Jobs\ToRun\ToRunType.cs" />
@@ -124,6 +123,12 @@
     </Compile>
     <Compile Include="Views\Scheduler.xaml.cs">
       <DependentUpon>Scheduler.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ToRunType.xaml.cs">
+      <DependentUpon>ToRunType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UnitType.xaml.cs">
+      <DependentUpon>UnitType.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -170,6 +175,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Scheduler.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ToRunType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UnitType.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

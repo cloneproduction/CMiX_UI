@@ -4,24 +4,15 @@ using System.Collections.ObjectModel;
 
 namespace CMiXPlayer.Jobs
 {
-    public class ToRunType : ViewModel//, IScheduleInterface<Schedule, TimeUnit>
+    public class ToRunType : ViewModel
     {
         public ToRunType()
         {
-            Interval = 10;
-
             ToRunTypes = new ObservableCollection<ViewModel>();
             ToRunTypes.Add(new ToRunNow());
-            ToRunTypes.Add(new ToRunEvery(Interval));
+            ToRunTypes.Add(new ToRunEvery());
 
-            SelectedToRunType = new ToRunNow();
-        }
-
-        private int _interval;
-        public int Interval
-        {
-            get => _interval;
-            set => SetAndNotify(ref _interval, value);
+            SelectedToRunType = new ToRunEvery();
         }
 
         public ObservableCollection<ViewModel> ToRunTypes { get; set; }

@@ -94,6 +94,7 @@
     <Compile Include="Resources\Converter.cs" />
     <Compile Include="Resources\MyHelper.cs" />
     <Compile Include="Resources\Utils.cs" />
+    <Compile Include="ViewModels\Counter.cs" />
     <Compile Include="ViewModels\FileSelector\FileNameItem.cs" />
     <Compile Include="ViewModels\FileSelector\FileSelector.cs" />
     <Compile Include="ViewModels\Message\OSCMessenger.cs" />
@@ -101,6 +102,9 @@
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\Slider.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
+    <Compile Include="Views\Counter.xaml.cs">
+      <DependentUpon>Counter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\FileNameItem.xaml.cs">
       <DependentUpon>FileNameItem.xaml</DependentUpon>
     </Compile>
@@ -229,6 +233,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\ToolTip.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Counter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

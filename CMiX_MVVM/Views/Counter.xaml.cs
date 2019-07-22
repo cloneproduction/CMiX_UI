@@ -1,7 +1,6 @@
-﻿
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
-namespace CMiX.Views
+namespace CMiX.MVVM.Views
 {
     public partial class Counter : UserControl
     {

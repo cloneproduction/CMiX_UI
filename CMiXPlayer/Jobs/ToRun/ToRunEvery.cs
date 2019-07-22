@@ -1,18 +1,25 @@
 ﻿using CMiX.MVVM.ViewModels;
 using FluentScheduler;
 using System;
+using System.Windows.Input;
 
 namespace CMiXPlayer.Jobs
 {
     public class ToRunEvery : ViewModel, IScheduleInterface<Schedule>
     {
-        public ToRunEvery(int interval)
+        public ToRunEvery()
         {
             Name = "ToRunEvery";
-            Interval = interval;
+            Interval = 60;
             SetScheduler = new Action<Schedule>((s) => { SetToRunEvery(s); });
             UnitType = new UnitType();
+
+            AddCommand = new RelayCommand(p => Add());
+            SubCommand = new RelayCommand(p => Sub());
         }
+
+        public ICommand AddCommand { get; set; }
+        public ICommand SubCommand { get; set; }
 
         private string _name;
         public string Name
@@ -20,7 +27,6 @@ namespace CMiXPlayer.Jobs
             get => _name;
             set => SetAndNotify(ref _name, value);
         }
-
 
         private int _interval;
         public int Interval
@@ -40,7 +46,18 @@ namespace CMiXPlayer.Jobs
         public void SetToRunEvery(Schedule schedule)
         {
             var unittype = (IScheduleInterface<TimeUnit>)UnitType.SelectedUnitType;
-            unittype.SetScheduler.Invoke(schedule.ToRunEvery(10));
+            unittype.SetScheduler.Invoke(schedule.ToRunEvery(Interval));
+        }
+
+        private void Add()
+        {
+            Interval += 1;
+        }
+
+        private void Sub()
+        {
+            if (Interval > 1)
+                Interval -= 1;
         }
     }
 }
