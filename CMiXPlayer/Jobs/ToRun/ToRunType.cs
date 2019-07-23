@@ -11,6 +11,7 @@ namespace CMiXPlayer.Jobs
             ToRunTypes = new ObservableCollection<ViewModel>();
             ToRunTypes.Add(new ToRunNow());
             ToRunTypes.Add(new ToRunEvery());
+            ToRunTypes.Add(new ToRunNowAndEvery());
 
             SelectedToRunType = new ToRunEvery();
         }

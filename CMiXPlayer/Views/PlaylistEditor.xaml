@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:CMiXPlayer.Views"
              xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
              xmlns:Views="clr-namespace:CMiXPlayer.Views"
+             xmlns:dd="urn:gong-wpf-dragdrop"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -42,7 +43,7 @@
                 <ListView 
                     Background="{StaticResource HighDarkerColor}"
                     Foreground="{StaticResource TextBase}"
-                    SelectedItem="{Binding EditablePlaylist.Playlist}"
+                    SelectedItem="{Binding SelectedPlaylist}"
                     ItemsSource="{Binding Playlists}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -56,9 +57,44 @@
             Margin="4"  
             Grid.Column="1" 
             Style="{StaticResource BorderContainer}">
-            <DockPanel>
-                <Views:PlaylistEditable DataContext="{Binding EditablePlaylist}"/>
-            </DockPanel>
+            <Border Style="{StaticResource BorderContainer}">
+                <DockPanel>
+                    <Grid 
+                        Height="25"
+                        DockPanel.Dock="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            HorizontalAlignment="Right"
+                            Grid.Column="0"
+                            Content="Playlist Name" 
+                            />
+                        <TextBox 
+                            Foreground="{StaticResource TextBase}"
+                            Grid.Column="1"
+                            Margin="4"
+                            Background="{StaticResource HighDarkerColor}"
+                            BorderThickness="0"
+                            Text="{Binding SelectedPlaylist.Name, UpdateSourceTrigger=PropertyChanged}"
+                            />
+                    </Grid>
+                    <ListBox 
+                        AllowDrop="True"
+                        dd:DragDrop.IsDragSource="True"
+                        dd:DragDrop.IsDropTarget="True"
+                        dd:DragDrop.DragHandler="{Binding SelectedPlaylist}"
+                        dd:DragDrop.DropHandler="{Binding SelectedPlaylist}"
+                        ItemsSource="{Binding SelectedPlaylist.Compositions}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </DockPanel>
+            </Border>
         </Border>
     </Grid>
 </UserControl>

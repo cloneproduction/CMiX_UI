@@ -14,7 +14,7 @@ namespace CMiXPlayer.ViewModels
         {
             Devices = devices;
             Playlists = playlists;
-            SelectedPlaylist = new Playlist();
+            //SelectedPlaylist = new Playlist();
 
             ToRunType = new ToRunType();
 
@@ -49,6 +49,13 @@ namespace CMiXPlayer.ViewModels
             get => _toruntype;
             set => SetAndNotify(ref _toruntype, value);
         }
+
+        private string _schedulename;
+        public string ScheduleName
+        {
+            get => _schedulename;
+            set => SetAndNotify(ref _schedulename, value);
+        }
         #endregion
 
         #region PRIVATE METHODS
@@ -58,7 +65,7 @@ namespace CMiXPlayer.ViewModels
             if (SelectedPlaylist != null && SelectedDevice.OSCMessenger != null)
             {
                 var j = new JobSendComposition(SelectedPlaylist, SelectedDevice.OSCMessenger);
-                JobManager.AddJob(j, (s) => ToRunType.SetRunType(s));
+                JobManager.AddJob(j, (s) => ToRunType.SetRunType(s.WithName(ScheduleName)));
             }
         }
         #endregion

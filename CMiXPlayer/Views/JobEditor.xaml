@@ -7,74 +7,92 @@
     xmlns:Views="clr-namespace:CMiXPlayer.Views"
     mc:Ignorable="d" 
     d:DesignHeight="467.668" d:DesignWidth="655.666">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <DockPanel Margin="4" Grid.Column="0">
+
+    <DockPanel Margin="4" Grid.Column="0">
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="0.7*"/>
+            </Grid.ColumnDefinitions>
             <TextBlock 
-                DockPanel.Dock="Top"
+                VerticalAlignment="Center"
+                Grid.Column="0"
                 Foreground="{StaticResource TextBase}"
                 Text="Name"
-                Margin="4"
                 />
             <TextBox
+                Foreground="{StaticResource TextBase}"
+                Grid.Column="1"
                 DockPanel.Dock="Top"
                 BorderThickness="0"
                 Height="25"
                 Margin="4"
                 Background="{StaticResource HighDarkerColor}"
                 />
+        </Grid>
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="0.7*"/>
+            </Grid.ColumnDefinitions>
             <TextBlock 
-                DockPanel.Dock="Top"
-                Foreground="{StaticResource TextBase}"
-                Text="Device"
-                Margin="4, 16, 4, 4"
-                />
+                    VerticalAlignment="Center"
+                    Grid.Column="0"
+                    Foreground="{StaticResource TextBase}"
+                    Text="Device"
+                    />
             <ComboBox
-                DockPanel.Dock="Top"
-                Height="25"
-                Margin="4"
-                ItemsSource="{Binding Devices}"
-                SelectedItem="{Binding SelectedDevice}"
-                >
+                    Grid.Column="1"
+                    DockPanel.Dock="Top"
+                    Height="25"
+                    Margin="4"
+                    ItemsSource="{Binding Devices}"
+                    SelectedItem="{Binding SelectedDevice}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding OSCMessenger.Name}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
+        </Grid>
+
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="0.7*"/>
+            </Grid.ColumnDefinitions>
             <TextBlock 
-                DockPanel.Dock="Top"
-                Foreground="{StaticResource TextBase}"
-                Text="Playlist"
-                Margin="4, 16, 4, 4"
-                />
+                    VerticalAlignment="Center"
+                    Grid.Column="0"
+                    Foreground="{StaticResource TextBase}"
+                    Text="Playlist"
+                    />
             <ComboBox
-                DockPanel.Dock="Top"
-                Height="25"
-                Margin="4"
-                ItemsSource="{Binding Playlists}"
-                SelectedItem="{Binding SelectedPlaylist}">
+                    Grid.Column="1"
+                    Height="25"
+                    Margin="4"
+                    ItemsSource="{Binding Playlists}"
+                    SelectedItem="{Binding SelectedPlaylist}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Button 
-                DockPanel.Dock="Bottom"
-                Content="Add To Schedule"
-                Height="50"
-                Grid.Column="3"
-                Margin="4, 16, 4, 4"
-                Command="{Binding CreateJobCommand}">
-            </Button>
-        </DockPanel>
+        </Grid>
         <Views:ToRunType 
-            Grid.Column="1"
+            DockPanel.Dock="Top"
             DataContext="{Binding ToRunType}"
             />
-    </Grid>
+        <Button 
+            HorizontalAlignment="Right"
+            Width="200"
+            DockPanel.Dock="Bottom"
+            Content="Add To Schedule"
+            Height="50"
+            Grid.Column="3"
+            Margin="4, 16, 4, 4"
+            Command="{Binding CreateJobCommand}"
+            />
+    </DockPanel>
 </UserControl>

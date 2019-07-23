@@ -82,21 +82,28 @@
     </ApplicationDefinition>
     <Compile Include="Jobs\IScheduleInterface.cs" />
     <Compile Include="Jobs\JobSendComposition.cs" />
+    <Compile Include="Jobs\ToRun\ToRunNowAndEvery.cs" />
     <Compile Include="Jobs\ToRun\ToRunNow.cs" />
     <Compile Include="Jobs\ToRun\ToRunEvery.cs" />
     <Compile Include="Jobs\ToRun\ToRunType.cs" />
+    <Compile Include="Jobs\UnitType\At.cs" />
+    <Compile Include="Jobs\UnitType\DayUnit.cs" />
     <Compile Include="Jobs\UnitType\HourUnit.cs" />
+    <Compile Include="Jobs\UnitType\UnitInterval.cs" />
     <Compile Include="Jobs\UnitType\MinuteUnit.cs" />
+    <Compile Include="Jobs\UnitType\MonthUnit.cs" />
     <Compile Include="Jobs\UnitType\SecondUnit.cs" />
     <Compile Include="Jobs\UnitType\UnitType.cs" />
     <Compile Include="ViewModels\Device.cs" />
     <Compile Include="ViewModels\JobEditor.cs" />
-    <Compile Include="ViewModels\PlaylistEditable.cs" />
     <Compile Include="ViewModels\PlaylistEditor.cs" />
     <Compile Include="ViewModels\Playlist.cs" />
     <Compile Include="ViewModels\Project.cs" />
     <Compile Include="ViewModels\Scheduler.cs" />
     <Compile Include="ViewModels\Settings.cs" />
+    <Compile Include="Views\At.xaml.cs">
+      <DependentUpon>At.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Client.xaml.cs">
       <DependentUpon>Client.xaml</DependentUpon>
     </Compile>
@@ -124,8 +131,14 @@
     <Compile Include="Views\Scheduler.xaml.cs">
       <DependentUpon>Scheduler.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ToRunEvery.xaml.cs">
+      <DependentUpon>ToRunEvery.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ToRunType.xaml.cs">
       <DependentUpon>ToRunType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UnitInterval.xaml.cs">
+      <DependentUpon>UnitInterval.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UnitType.xaml.cs">
       <DependentUpon>UnitType.xaml</DependentUpon>
@@ -142,6 +155,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\At.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Client.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -178,7 +195,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ToRunEvery.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ToRunType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UnitInterval.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

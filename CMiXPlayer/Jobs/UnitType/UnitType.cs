@@ -17,14 +17,23 @@ namespace CMiXPlayer.Jobs
             UnitTypes.Add(new SecondUnit());
             UnitTypes.Add(new MinuteUnit());
             UnitTypes.Add(new HourUnit());
+            UnitTypes.Add(new DayUnit());
+            UnitTypes.Add(new MonthUnit());
 
             SelectedUnitType = new SecondUnit();
-
+            UnitInterval = new UnitInterval(60);
         }
 
         public TimeUnit TimeUnit { get; set; }
 
         public ObservableCollection<ViewModel> UnitTypes { get; set; }
+
+        private UnitInterval _unitinterval;
+        public UnitInterval UnitInterval
+        {
+            get => _unitinterval;
+            set => SetAndNotify(ref _unitinterval, value);
+        }
 
         private ViewModel _selectedUnitType;
         public ViewModel SelectedUnitType

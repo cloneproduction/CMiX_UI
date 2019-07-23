@@ -7,36 +7,49 @@
              xmlns:Jobs="clr-namespace:CMiXPlayer.Jobs"
              mc:Ignorable="d" 
              d:DesignHeight="364.11" d:DesignWidth="509.543">
-    <Grid>
-        <StackPanel Margin="4" Grid.Column="1">
+    <StackPanel Margin="4" Grid.Column="1">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="0.7*"/>
+            </Grid.ColumnDefinitions>
             <TextBlock 
-                DockPanel.Dock="Top"
-                Foreground="{StaticResource TextBase}"
-                Text="Run Type"
-                Margin="4"
-                />
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Foreground="{StaticResource TextBase}"
+                    Text="Run Type"
+                    />
             <ComboBox 
-                Margin="4"
-                ItemsSource="{Binding ToRunTypes}"
-                SelectedItem="{Binding SelectedToRunType}"
-                />
-            <ContentControl Grid.Row="1" Content="{Binding SelectedToRunType}">
-                <ContentControl.Resources>
-                    <DataTemplate DataType="{x:Type Jobs:ToRunEvery}">
-                        <Views:UnitType 
-                            Margin="4"
-                            DataContext="{Binding UnitType}"
-                            />
+                    Grid.Column="1"
+                    ItemsSource="{Binding ToRunTypes}"
+                    SelectedItem="{Binding SelectedToRunType}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
                     </DataTemplate>
-                    <DataTemplate DataType="{x:Type Jobs:ToRunNow}">
-                        <StackPanel  Height="50">
-                            <TextBlock Text="This Is the template for Thing2" />
-                            <TextBox Text="Enter some text" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ContentControl.Resources>
-            </ContentControl>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </Grid>
+        <ContentControl Grid.Row="1" Content="{Binding SelectedToRunType}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type Jobs:ToRunNow}">
+                    <Grid>
 
-        </StackPanel>
-    </Grid>
+                    </Grid>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type Jobs:ToRunNowAndEvery}">
+                    <Views:ToRunEvery 
+                            Margin="4"
+                            DataContext="{Binding}"
+                            />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type Jobs:ToRunEvery}">
+                    <Views:ToRunEvery 
+                            Margin="4"
+                            DataContext="{Binding}"
+                            />
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
+    </StackPanel>
 </UserControl>

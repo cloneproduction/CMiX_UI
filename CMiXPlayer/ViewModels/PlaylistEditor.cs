@@ -21,11 +21,10 @@ namespace CMiXPlayer.ViewModels
             Playlists = playlists;
             Serializer = serializer;
 
-            EditablePlaylist = new PlaylistEditable(Serializer);
-            var play = new Playlist() { Name = "NewPlaylist" };
+
+            var play = new Playlist(Serializer) { Name = "NewPlaylist" };
             Playlists.Add(play);
             SelectedPlaylist = play;
-            EditablePlaylist.Playlist = play;
 
             NewPlaylistCommand = new RelayCommand(p => NewPlaylist());
             DeletePlaylistCommand = new RelayCommand(p => DeletePlaylist());
@@ -36,8 +35,6 @@ namespace CMiXPlayer.ViewModels
         public CerasSerializer Serializer;
 
         public ObservableCollection<Playlist> Playlists { get; set; }
-
-        public PlaylistEditable EditablePlaylist { get; set; }
 
         private Playlist _selectedplaylist;
         public Playlist SelectedPlaylist
@@ -57,7 +54,7 @@ namespace CMiXPlayer.ViewModels
         public void NewPlaylist()
         {
             plCreateIndex++;
-            Playlist playlist = new Playlist();
+            Playlist playlist = new Playlist(Serializer);
             playlist.Name = $"Playlist ({plCreateIndex})";
             Playlists.Add(playlist);
             SelectedPlaylist = playlist;

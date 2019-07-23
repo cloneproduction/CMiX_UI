@@ -106,14 +106,27 @@
                 </MenuItem>
             </Menu>
         </Border>
-        <TabControl Margin="0, 8, 0, 0">
-            <TabItem Header="Scheduler">
+
+        <TabControl Style="{StaticResource TabControlVerticalPanel}" Margin="0, 8, 0, 0">
+            <TabItem 
+                Height="50"
+                Style="{StaticResource TabItemVerticalPanel}"  
+                Header="Scheduler">
                 <Views:Scheduler DataContext="{Binding Scheduler}"/>
             </TabItem>
-            <TabItem Header="Tasks">
-                <Views:JobEditor DataContext="{Binding JobEditor}"/>
+            <TabItem
+                Height="50"
+                Style="{StaticResource TabItemVerticalPanel}"  
+                Header="Tasks">
+                <Views:JobEditor 
+                    Margin="8"
+                    DataContext="{Binding JobEditor}"
+                    />
             </TabItem>
-            <TabItem Width="100"  Header="Devices">
+            <TabItem 
+                Height="50"
+                Style="{StaticResource TabItemVerticalPanel}"  
+                Header="Devices">
                 <DockPanel>
                     <Grid Height="30" DockPanel.Dock="Top">
                         <Grid.ColumnDefinitions>
@@ -169,11 +182,17 @@
                 </DockPanel>
             </TabItem>
 
-            <TabItem Header="Playlist">
+            <TabItem 
+                Height="50"
+                Style="{StaticResource TabItemVerticalPanel}"  
+                Header="Playlist">
                 <Views:PlaylistEditor DataContext="{Binding PlaylistEditor}"/>
             </TabItem>
 
-            <TabItem Header="Overview">
+            <TabItem 
+                Height="50"
+                Style="{StaticResource TabItemVerticalPanel}"  
+                Header="Overview">
                 <Views:DataOverview/>
             </TabItem>
         </TabControl>

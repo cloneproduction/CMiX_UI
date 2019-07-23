@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Views="clr-namespace:CMiXPlayer.Views"
              xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
+             xmlns:Jobs="clr-namespace:CMiXPlayer.Jobs"
              mc:Ignorable="d" 
              d:DesignHeight="65.958" d:DesignWidth="413.172">
     <StackPanel>
@@ -28,61 +29,43 @@
                     <DataTemplate>
                         <StackPanel>
                             <TextBlock 
-                            Text="{Binding Name}"
-                            />
+                                Text="{Binding Name}"
+                                />
                         </StackPanel>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
         </Grid>
-        <Grid Height="30">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="0.5*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock
-                Padding="8, 0, 0, 0"
-                Foreground="{StaticResource TextBase}"
-                Text="Interval"
-                VerticalAlignment="Center"
-                />
-            <DockPanel Grid.Column="1">
-                <Grid Margin="4">
-                    <Border 
-                        CornerRadius="4"
-                        x:Name="CounterBorder" 
-                        Background="{StaticResource DarkColor}">
-                        <TextBox
-                            HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center"
-                            BorderThickness="0"
-                            Background="{StaticResource DarkerColor}"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Text="{Binding DataContext.SelectedToRunType.Interval, RelativeSource={RelativeSource AncestorType=Views:ToRunType}}"
-                            Foreground="{StaticResource TextBase}"
-                            />
-                    </Border>
-                    <Button
-                        x:Name="Add"
-                        Grid.Column="1"
-                        HorizontalAlignment="Right"
-                        Width="20"
-                        Content="+"
-                        DockPanel.Dock="Right"
-                        Command="{Binding DataContext.SelectedToRunType.AddCommand, RelativeSource={RelativeSource AncestorType=Views:ToRunType}}">
-                    </Button>
-                    <Button
-                        x:Name="Sub"
-                        HorizontalAlignment="Left"
-                        Grid.Column="0"
-                        Width="20"
-                        Content="-"
-                        DockPanel.Dock="Right"
-                        Command="{Binding DataContext.SelectedToRunType.SubCommand, RelativeSource={RelativeSource AncestorType=Views:ToRunType}}">
-                    </Button>
-                </Grid>
-            </DockPanel>
-        </Grid>
+        <ContentControl Grid.Row="1" Content="{Binding SelectedUnitType}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type Jobs:MonthUnit}">
+                    <Views:At 
+                        Margin="4"
+                        DataContext="{Binding At}"
+                        />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type Jobs:DayUnit}">
+                    <Views:At 
+                        Margin="4"
+                        DataContext="{Binding At}"
+                        />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type Jobs:HourUnit}">
+                    <Views:UnitInterval 
+                        DataContext="{Binding Path=DataContext.UnitInterval, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                        />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type Jobs:MinuteUnit}">
+                    <Views:UnitInterval 
+                        DataContext="{Binding Path=DataContext.UnitInterval, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                        />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type Jobs:SecondUnit}">
+                    <Views:UnitInterval 
+                        DataContext="{Binding Path=DataContext.UnitInterval, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                        />
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
     </StackPanel>
 </UserControl>

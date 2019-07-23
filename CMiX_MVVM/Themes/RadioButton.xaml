@@ -33,7 +33,7 @@
 
     <Style TargetType="{x:Type RadioButton}">
         <!--<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>-->
-        <Setter Property="Background" Value="{StaticResource Color}" />
+        <Setter Property="Background" Value="{StaticResource DarkColor}" />
         <Setter Property="BorderBrush" Value="Red" />
         <Setter Property="Foreground" Value="{StaticResource TextBase}" />
         <Setter Property="BorderThickness" Value="2" />
