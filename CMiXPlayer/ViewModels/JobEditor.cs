@@ -14,8 +14,6 @@ namespace CMiXPlayer.ViewModels
         {
             Devices = devices;
             Playlists = playlists;
-            //SelectedPlaylist = new Playlist();
-
             ToRunType = new ToRunType();
 
             CreateJobCommand = new RelayCommand(p => CreateJob());

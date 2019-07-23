@@ -39,8 +39,8 @@
                         Command="{Binding DeletePlaylistCommand}"
                         />
                 </Grid>
-
                 <ListView 
+                    BorderThickness="0"
                     Background="{StaticResource HighDarkerColor}"
                     Foreground="{StaticResource TextBase}"
                     SelectedItem="{Binding SelectedPlaylist}"

@@ -8,62 +8,51 @@
              xmlns:Jobs="clr-namespace:CMiXPlayer.Jobs"
              mc:Ignorable="d" 
              d:DesignHeight="65.958" d:DesignWidth="413.172">
+    
     <StackPanel>
-        <Grid Height="30">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.7*"/>
             </Grid.ColumnDefinitions>
             <TextBlock
-                Padding="8, 0, 0, 0"
                 Foreground="{StaticResource TextBase}"
                 Text="Unit Type"
                 VerticalAlignment="Center"
                 />
             <ComboBox
+                Height="25"
                 Grid.Column="1"
-                Margin="4"
                 ItemsSource="{Binding UnitTypes}"
                 SelectedItem="{Binding SelectedUnitType}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                            <TextBlock 
-                                Text="{Binding Name}"
-                                />
+                            <TextBlock Text="{Binding Name}" />
                         </StackPanel>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
         </Grid>
-        <ContentControl Grid.Row="1" Content="{Binding SelectedUnitType}">
+        <ContentControl 
+            Margin="0, 8" 
+            Grid.Row="1" 
+            Content="{Binding SelectedUnitType}">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type Jobs:MonthUnit}">
-                    <Views:At 
-                        Margin="4"
-                        DataContext="{Binding At}"
-                        />
+                    <Views:At DataContext="{Binding At}"/>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type Jobs:DayUnit}">
-                    <Views:At 
-                        Margin="4"
-                        DataContext="{Binding At}"
-                        />
+                    <Views:At DataContext="{Binding At}"/>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type Jobs:HourUnit}">
-                    <Views:UnitInterval 
-                        DataContext="{Binding Path=DataContext.UnitInterval, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
-                        />
+                    <Views:UnitInterval DataContext="{Binding Path=DataContext.UnitInterval, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"/>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type Jobs:MinuteUnit}">
-                    <Views:UnitInterval 
-                        DataContext="{Binding Path=DataContext.UnitInterval, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
-                        />
+                    <Views:UnitInterval DataContext="{Binding Path=DataContext.UnitInterval, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"/>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type Jobs:SecondUnit}">
-                    <Views:UnitInterval 
-                        DataContext="{Binding Path=DataContext.UnitInterval, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
-                        />
+                    <Views:UnitInterval DataContext="{Binding Path=DataContext.UnitInterval, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"/>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

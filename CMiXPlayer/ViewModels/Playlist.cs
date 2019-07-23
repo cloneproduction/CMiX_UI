@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using System.Collections.ObjectModel;
@@ -15,12 +11,15 @@ namespace CMiXPlayer.ViewModels
 {
     public class Playlist : ViewModel, IDropTarget
     {
+        #region CONSTRUCTORS
         public Playlist(CerasSerializer serializer)
         {
             Compositions = new ObservableCollection<CompositionModel>();
             Serializer = serializer;
         }
+        #endregion
 
+        #region PROPERTIES
         private string _name;
         public string Name
         {
@@ -30,9 +29,10 @@ namespace CMiXPlayer.ViewModels
 
         public ObservableCollection<CompositionModel> Compositions { get; set; }
 
-
         public CerasSerializer Serializer { get; set; }
+        #endregion
 
+        #region METHODS
         public void DragOver(IDropInfo dropInfo)
         {
             Console.WriteLine("DragOver");
@@ -71,5 +71,6 @@ namespace CMiXPlayer.ViewModels
                 }
             }
         }
+        #endregion
     }
 }

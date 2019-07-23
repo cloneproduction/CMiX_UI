@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CMiX.MVVM.ViewModels;
-using CMiX.MVVM.Models;
-
+﻿using CMiX.MVVM.ViewModels;
 using Ceras;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using System.IO;
 
 namespace CMiXPlayer.ViewModels
 {
@@ -20,7 +12,6 @@ namespace CMiXPlayer.ViewModels
         {
             Playlists = playlists;
             Serializer = serializer;
-
 
             var play = new Playlist(Serializer) { Name = "NewPlaylist" };
             Playlists.Add(play);
@@ -49,6 +40,7 @@ namespace CMiXPlayer.ViewModels
 
         #endregion
 
+        #region METHODS
         int plCreateIndex = 0;
 
         public void NewPlaylist()
@@ -66,5 +58,6 @@ namespace CMiXPlayer.ViewModels
             if (Playlists.Count == 0)
                 plCreateIndex = 0;
         }
+        #endregion
     }
 }
