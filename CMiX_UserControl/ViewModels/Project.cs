@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
-using System.Windows.Documents;
 using System.Windows.Input;
-
-
 using CMiX.Services;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
@@ -99,17 +96,6 @@ namespace CMiX.ViewModels
         #endregion
 
         #region ADD/REMOVE/DELETE OSC
-        private void DeleteOSC(object oscmessenger)
-        {
-            var messenger = oscmessenger as OSCMessenger;
-            OSCMessengers.Remove(messenger);
-        }
-
-        private void RemoveSelectedOSC()
-        {
-
-        }
-
         int portnumber = 0;
         private void AddOSC()
         {
@@ -121,6 +107,23 @@ namespace CMiX.ViewModels
                 compo.OSCValidation.Add(new OSCValidation(oscmessenger));
             }
             portnumber++;
+        }
+
+        private void DeleteOSC(object oscmessenger)
+        {
+            var messenger = oscmessenger as OSCMessenger;
+            int index = OSCMessengers.IndexOf(messenger);
+            OSCMessengers.Remove(messenger);
+
+            foreach (var compo in Compositions)
+            {
+                compo.OSCValidation.RemoveAt(index);
+            }
+        }
+
+        private void RemoveSelectedOSC()
+        {
+
         }
         #endregion
 

@@ -13,6 +13,7 @@ using CMiX.MVVM.Models;
 using Memento;
 using GongSolutions.Wpf.DragDrop;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CMiX.ViewModels
 {
@@ -30,7 +31,9 @@ namespace CMiX.ViewModels
             LayerNames = new List<string>();
             LayerIndex = new List<int>();
             Layers = new ObservableCollection<Layer>();
-            
+
+            Transition = new Slider("/Transition", OSCValidation, Mementor);
+            Transition.Amount = 0.2;
 
             MasterBeat = new MasterBeat(OSCValidation, Mementor);
             Camera = new Camera(OSCValidation, MasterBeat, Mementor);
@@ -38,19 +41,12 @@ namespace CMiX.ViewModels
 
 
             // CREATE DEFAULT LAYER
-            layerID += 1;
-            layerNameID += 1;
-            Layer layer = new Layer(MasterBeat, string.Format("{0}/", MessageAddress + layerNameID.ToString()), OSCValidation, layerNameID, Mementor);
-            layer.Index = layerID;
-            Layers.Add(layer);
-            SelectedLayer = layer;
-            LayerNames.Add(string.Format("{0}/", MessageAddress + layerNameID.ToString()));
-            LayerIndex.Add(layer.Index);
-            Layers.CollectionChanged += ContentCollectionChanged;
+            CreateLayer();
+
+            //Layers.CollectionChanged += ContentCollectionChanged;
 
             ReloadCompositionCommand = new RelayCommand(p => ReloadComposition(p));
             AddLayerCommand = new RelayCommand(p => AddLayer());
-            RemoveLayerCommand = new RelayCommand(p => RemoveLayer());
             DeleteLayerCommand = new RelayCommand(p => DeleteLayer(p));
             DuplicateLayerCommand = new RelayCommand(p => DuplicateLayer(p));
             CopyLayerCommand = new RelayCommand(p => CopyLayer());
@@ -59,6 +55,18 @@ namespace CMiX.ViewModels
             OpenCompositionCommand = new RelayCommand(p => Open());
         }
         #endregion
+
+        public void CreateLayer()
+        {
+            layerID += 1;
+            layerNameID += 1;
+            Layer layer = new Layer(MasterBeat, string.Format("{0}/", MessageAddress + layerNameID.ToString()), OSCValidation, layerNameID, Mementor);
+            layer.Index = layerID;
+            Layers.Add(layer);
+            SelectedLayer = layer;
+            LayerNames.Add(layer.LayerName);
+            LayerIndex.Add(layer.Index);
+        }
 
         #region PRIVATE METHODS
         private void CreateOSCValidation(ObservableCollection<OSCMessenger> oscmessengers)
@@ -70,16 +78,31 @@ namespace CMiX.ViewModels
             }
         }
 
-        private void ReloadComposition(object messenger)
+        private async void ReloadComposition(object messenger)
         {
             CompositionModel compositionmodel = new CompositionModel();
             this.Copy(compositionmodel);
             OSCMessenger oscmessenger = messenger as OSCMessenger;
-            oscmessenger.SendMessage("/CompositionReloaded", true);
+
+            oscmessenger.QueueMessage("/Transition/Amount", Transition.Amount);
+            oscmessenger.QueueMessage("/Transition/Start", true);
+            oscmessenger.SendQueue();
+
+            oscmessenger.QueueMessage("/CompositionReloaded", true);
             oscmessenger.QueueObject(compositionmodel);
+            await Task.Delay(TimeSpan.FromMinutes(Transition.Amount));
             oscmessenger.SendQueue();
         }
         #endregion
+
+        public void UpdateLayerContentFolder(Layer layer)
+        {
+            layer.Content.Texture.FileSelector.FolderPath = ContentFolderName;
+            layer.Content.Geometry.FileSelector.FolderPath = ContentFolderName;
+            layer.Content.Geometry.GeometryFX.FileSelector.FolderPath = ContentFolderName;
+            layer.Mask.Texture.FileSelector.FolderPath = ContentFolderName;
+            layer.Mask.Geometry.FileSelector.FolderPath = ContentFolderName;
+        }
 
         #region PROPERTIES
         private int layerID = -1;
@@ -87,7 +110,6 @@ namespace CMiX.ViewModels
 
         public ICommand ReloadCompositionCommand { get; }
         public ICommand AddLayerCommand { get; }
-        public ICommand RemoveLayerCommand { get; }
         public ICommand CopyLayerCommand { get; }
         public ICommand PasteLayerCommand { get; }
         public ICommand SaveCompositionCommand { get; }
@@ -97,7 +119,7 @@ namespace CMiX.ViewModels
 
         public MasterBeat MasterBeat { get; set; }
         public Camera Camera { get; set; }
-
+        public Slider Transition { get; set; }
         public ObservableCollection<Layer> Layers { get; }
 
         private string _name;
@@ -106,7 +128,6 @@ namespace CMiX.ViewModels
             get => _name;
             set => SetAndNotify(ref _name, value);
         }
-
 
         private string _contentfoldername;
         public string ContentFolderName
@@ -121,16 +142,6 @@ namespace CMiX.ViewModels
                 }
                 SendMessages("/ContentFolder", ContentFolderName);
             }
-        }
-
-        public void UpdateLayerContentFolder(Layer layer)
-        {
-            layer.Content.Texture.FileSelector.FolderPath = ContentFolderName;
-            layer.Content.Geometry.FileSelector.FolderPath = ContentFolderName;
-            layer.Content.Geometry.GeometryFX.FileSelector.FolderPath = ContentFolderName;
-
-            layer.Mask.Texture.FileSelector.FolderPath = ContentFolderName;
-            layer.Mask.Geometry.FileSelector.FolderPath = ContentFolderName;
         }
 
         private List<string> _layernames;
@@ -221,12 +232,13 @@ namespace CMiX.ViewModels
 
             UpdateLayerContentFolder(layer);
             LayerNames.Add(string.Format("{0}/", MessageAddress + layerNameID.ToString()));
+            LayerIndex.Add(layer.Index);
 
-            LayerIndex.Clear();
-            foreach (Layer lyr in Layers)
-            {
-                LayerIndex.Add(lyr.Index);
-            }
+            //LayerIndex.Clear();
+            //foreach (Layer lyr in Layers)
+            //{
+            //    LayerIndex.Add(lyr.Index);
+            //}
 
             LayerModel layermodel = new LayerModel();
             layer.Copy(layermodel);
@@ -261,14 +273,15 @@ namespace CMiX.ViewModels
             newlayer.Enabled = false;
             
             Layers.Insert(Layers.IndexOf(lyr) + 1, newlayer);
+            LayerIndex.Insert(Layers.IndexOf(lyr) + 1, layerID);
             Mementor.ElementAdd(Layers, newlayer);
             SelectedLayer = newlayer;
 
-            LayerIndex.Clear();
-            foreach (Layer lay in Layers)
-            {
-                LayerIndex.Add(lay.Index);
-            }
+            //LayerIndex.Clear();
+            //foreach (Layer lay in Layers)
+            //{
+            //    LayerIndex.Add(lay.Index);
+            //}
 
             newlayer.Copy(layermodel);
 
@@ -281,27 +294,28 @@ namespace CMiX.ViewModels
             SendQueues();
         }
 
-        private void RemoveLayer()
+        private void DeleteLayer(object layer)
         {
-            if(SelectedLayer != null)
+            if(layer != null)
             {
                 Mementor.BeginBatch();
                 DisabledMessages();
 
+                Layer lyr = layer as Layer;
                 layerID -= 1;
-                LayerIndex.Clear();
-                string removedlayername = SelectedLayer.LayerName;
 
-                LayerNames.Remove(removedlayername);
-                Layers.Remove(SelectedLayer);
-                
-                foreach (Layer lyr in Layers)
+                Mementor.ElementRemove(Layers, lyr);
+                LayerNames.Remove(lyr.LayerName);
+                Layers.Remove(lyr);
+
+                LayerIndex.Clear();
+                foreach (Layer lay in Layers)
                 {
-                    if (lyr.Index > Layers.IndexOf(SelectedLayer))
+                    if (lay.Index > lyr.Index)
                     {
-                        lyr.Index -= 1;
+                        lay.Index -= 1;
                     }
-                    LayerIndex.Add(lyr.Index);
+                    LayerIndex.Add(lay.Index);
                 }
 
                 EnabledMessages();
@@ -309,40 +323,9 @@ namespace CMiX.ViewModels
 
                 QueueMessages("LayerNames", this.LayerNames.ToArray());
                 QueueMessages("LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
-                QueueMessages("LayerRemoved", removedlayername);
-                SendQueues(); 
+                QueueMessages("LayerRemoved", lyr.LayerName);
+                SendQueues();
             }
-        }
-
-        private void DeleteLayer(object layer)
-        {
-            Mementor.BeginBatch();
-            DisabledMessages();
-
-            Layer lyr = layer as Layer;
-            layerID -= 1;
-
-            Mementor.ElementRemove(Layers, lyr);
-            LayerNames.Remove(lyr.LayerName);
-            Layers.Remove(lyr);
-
-            LayerIndex.Clear();
-            foreach (Layer lay in Layers)
-            {
-                if (lay.Index > lyr.Index)
-                {
-                    lay.Index -= 1;
-                }
-                LayerIndex.Add(lay.Index);
-            }
-
-            EnabledMessages();
-            Mementor.EndBatch();
-
-            QueueMessages("LayerNames", this.LayerNames.ToArray());
-            QueueMessages("LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
-            QueueMessages("LayerRemoved", lyr.LayerName);
-            SendQueues();
         }
         #endregion
 
@@ -366,6 +349,7 @@ namespace CMiX.ViewModels
 
             MasterBeat.Copy(compositionmodel.MasterBeatModel);
             Camera.Copy(compositionmodel.CameraModel);
+            Transition.Copy(compositionmodel.TransitionModel);
         }
 
         public void Paste(CompositionModel compositionmodel)
@@ -391,7 +375,7 @@ namespace CMiX.ViewModels
 
             MasterBeat.Paste(compositionmodel.MasterBeatModel);
             Camera.Paste(compositionmodel.CameraModel);
-
+            Transition.Paste(compositionmodel.TransitionModel);
             EnabledMessages();
         }
 
@@ -412,6 +396,7 @@ namespace CMiX.ViewModels
 
             MasterBeat.Paste(compositionmodel.MasterBeatModel);
             Camera.Paste(compositionmodel.CameraModel);
+            Transition.Paste(compositionmodel.TransitionModel);
         }
 
         private void Save()
@@ -459,19 +444,15 @@ namespace CMiX.ViewModels
         #endregion
 
         #region NOTIFYCOLLECTIONCHANGED
-        public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            LayerIndex.Clear();
+        //public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        //{
+        //    LayerIndex.Clear();
 
-            foreach (Layer lyr in Layers)
-            {
-                LayerIndex.Add(lyr.Index);
-            }
-
-            QueueMessages("LayerNames", this.LayerNames.ToArray());
-            QueueMessages("LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
-            SendQueues();
-        }
+        //    foreach (Layer lyr in Layers)
+        //    {
+        //        LayerIndex.Add(lyr.Index);
+        //    }
+        //}
         #endregion
 
         #region DRAG DROP
@@ -510,16 +491,22 @@ namespace CMiX.ViewModels
                     Mementor.BeginBatch();
                     if (insertindex >= Layers.Count - 1)
                     {
-                        Layers.Move(sourceindex, insertindex - 1); //error here on drop
+                        Layers.Move(sourceindex, insertindex - 1);
+                        /// need to move layername and index too
                         SelectedLayer = Layers[insertindex - 1];
                         Mementor.ElementIndexChange(Layers, Layers[insertindex - 1], sourceindex);
                     }
                     else
                     {
                         Layers.Move(dropInfo.DragInfo.SourceIndex, dropInfo.InsertIndex);
+                        /// need to move layername and index too
                         SelectedLayer = Layers[insertindex];
                         Mementor.ElementIndexChange(Layers, Layers[insertindex], sourceindex);
                     }
+
+                    QueueMessages("LayerNames", this.LayerNames.ToArray());
+                    QueueMessages("LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
+                    SendQueues();
                     Mementor.EndBatch();
                 }
             }

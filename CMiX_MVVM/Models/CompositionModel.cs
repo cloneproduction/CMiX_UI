@@ -15,6 +15,7 @@ namespace CMiX.MVVM.Models
             MasterBeatModel = new MasterBeatModel();
             LayersModel = new List<Model>();
             CameraModel = new CameraModel();
+            TransitionModel = new SliderModel();
         }
 
         public CompositionModel(string messageaddress)
@@ -39,5 +40,6 @@ namespace CMiX.MVVM.Models
 
         public MasterBeatModel MasterBeatModel { get; set; }
         public CameraModel CameraModel { get; set; }
+        public SliderModel TransitionModel { get; set; }
     }
 }

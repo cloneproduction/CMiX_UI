@@ -6,7 +6,7 @@
     xmlns:Behavior="clr-namespace:CMiX.Behaviors"
     xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX_MVVM"
     xmlns:Views="clr-namespace:CMiX.Views"
-
+    xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:dd="urn:gong-wpf-dragdrop"
@@ -101,7 +101,8 @@
                                     </Button>
                                     <Button
                                         ToolTip="Delete Layer"
-                                        Command="{Binding Path=RemoveLayerCommand}"
+                                        Command="{Binding Path=DeleteLayerCommand}"
+                                        CommandParameter="{Binding SelectedLayer}"
                                         Margin="2, 0, 0, 0"
                                         Width="15" 
                                         Height="15"
@@ -181,24 +182,33 @@
                         <TabItem.Header>
                             <TextBlock Text="OSC" Margin="4, 0, 4, 0"/>
                         </TabItem.Header>
-                        <ListBox 
-                            Grid.Column="1"
-                            Margin="0, 8, 0, 0"
-                            HorizontalContentAlignment="Stretch" 
-                            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                            Style="{StaticResource LayerListBox}"
-                            ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
-                            ItemsSource="{Binding OSCValidation}" 
-                            dd:DragDrop.IsDragSource="True"
-                            dd:DragDrop.IsDropTarget="True">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel>
-                                        <Views:OSCValidationDataTemplate Margin="2"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
+                        <StackPanel>
+                            <MVVM.Views:Slider
+                                Grid.Column="1"
+                                Height="20"
+                                Margin="0,8,0,0"
+                                Caption="Transition"
+                                DataContext="{Binding Transition}"
+                                />
+                            <ListBox 
+                                Grid.Column="1"
+                                Margin="0, 8, 0, 0"
+                                HorizontalContentAlignment="Stretch" 
+                                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                Style="{StaticResource LayerListBox}"
+                                ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
+                                ItemsSource="{Binding OSCValidation}" 
+                                dd:DragDrop.IsDragSource="True"
+                                dd:DragDrop.IsDropTarget="True">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Views:OSCValidationDataTemplate Margin="2"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </StackPanel>
                     </TabItem>
                     <TabItem>
                         <TabItem.Header>

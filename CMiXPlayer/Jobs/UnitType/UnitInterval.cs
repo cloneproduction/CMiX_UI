@@ -19,7 +19,10 @@ namespace CMiXPlayer.Jobs
         public int Interval
         {
             get => _interval;
-            set => SetAndNotify(ref _interval, value);
+            set
+            {
+                SetAndNotify(ref _interval, value);
+            }
         }
 
         private void Add()
