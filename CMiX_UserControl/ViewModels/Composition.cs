@@ -179,6 +179,26 @@ namespace CMiX.ViewModels
         }
         #endregion
 
+        public void QueueLayerNames()
+        {
+            List<string> layernames = new List<string>();
+            foreach (var layer in Layers)
+            {
+                layernames.Add(layer.LayerName);
+            }
+            QueueMessages("LayerNames", layernames.ToArray());
+        }
+
+        public void QueueLayerIndex()
+        {
+            List<int> layerindex = new List<int>();
+            foreach (var layer in Layers)
+            {
+                layerindex.Add(layer.Index);
+            }
+            QueueMessages("LayerNames", layerindex.ToArray());
+        }
+
         #region COPY/PASTE LAYER
         private void CopyLayer()
         {
@@ -234,20 +254,15 @@ namespace CMiX.ViewModels
             LayerNames.Add(string.Format("{0}/", MessageAddress + layerNameID.ToString()));
             LayerIndex.Add(layer.Index);
 
-            //LayerIndex.Clear();
-            //foreach (Layer lyr in Layers)
-            //{
-            //    LayerIndex.Add(lyr.Index);
-            //}
-
             LayerModel layermodel = new LayerModel();
             layer.Copy(layermodel);
 
             EnabledMessages();
             Mementor.EndBatch();
 
-            QueueMessages("LayerNames", LayerNames.ToArray());
-            QueueMessages("LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
+            QueueLayerNames();
+            QueueLayerIndex();
+
             QueueObjects(layermodel);
             SendQueues();
         }
@@ -277,19 +292,14 @@ namespace CMiX.ViewModels
             Mementor.ElementAdd(Layers, newlayer);
             SelectedLayer = newlayer;
 
-            //LayerIndex.Clear();
-            //foreach (Layer lay in Layers)
-            //{
-            //    LayerIndex.Add(lay.Index);
-            //}
-
             newlayer.Copy(layermodel);
 
             EnabledMessages();
             Mementor.EndBatch();
 
-            QueueMessages("LayerNames", this.LayerNames.ToArray());
-            QueueMessages("LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
+            QueueLayerNames();
+            QueueLayerIndex();
+
             QueueObjects(layermodel);
             SendQueues();
         }
@@ -321,8 +331,8 @@ namespace CMiX.ViewModels
                 EnabledMessages();
                 Mementor.EndBatch();
 
-                QueueMessages("LayerNames", this.LayerNames.ToArray());
-                QueueMessages("LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
+                QueueLayerNames();
+                QueueLayerIndex();
                 QueueMessages("LayerRemoved", lyr.LayerName);
                 SendQueues();
             }
@@ -504,8 +514,9 @@ namespace CMiX.ViewModels
                         Mementor.ElementIndexChange(Layers, Layers[insertindex], sourceindex);
                     }
 
-                    QueueMessages("LayerNames", this.LayerNames.ToArray());
-                    QueueMessages("LayerIndex", LayerIndex.Select(i => i.ToString()).ToArray());
+                    QueueLayerNames();
+                    QueueLayerIndex();
+
                     SendQueues();
                     Mementor.EndBatch();
                 }
