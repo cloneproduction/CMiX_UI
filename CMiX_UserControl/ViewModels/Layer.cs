@@ -21,7 +21,6 @@ namespace CMiX.ViewModels
 
             LayerName = layername;           
             Index = index;
-            Index = 0;
             Enabled = false;
             BlendMode = ((BlendMode)0).ToString();
 

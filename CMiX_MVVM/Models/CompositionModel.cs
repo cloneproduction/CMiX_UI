@@ -1,6 +1,4 @@
-﻿//using CMiX.Services;
-using CMiX.MVVM.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace CMiX.MVVM.Models
@@ -10,8 +8,6 @@ namespace CMiX.MVVM.Models
     {
         public CompositionModel()
         {
-            LayerNames = new List<string>();
-            LayerIndex = new List<int>();
             MasterBeatModel = new MasterBeatModel();
             LayersModel = new List<Model>();
             CameraModel = new CameraModel();
@@ -23,18 +19,11 @@ namespace CMiX.MVVM.Models
             MessageAddress = "/Layer";
         }
 
-
         public string Name { get; set; }
 
         public string ContentFolderName { get; set; }
         public string GeometryFolderName { get; set; }
         public string VideoFolderName { get; set; }
-
-        //[OSC]
-        public List<string> LayerNames { get; set; }
-
-        //[OSC]
-        public List<int> LayerIndex { get; set; }
 
         public List<Model> LayersModel { get; set; }
 
