@@ -10,8 +10,8 @@
     xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
     xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX_MVVM"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
-    d:DesignHeight="101.177"
-    d:DesignWidth="391.784"
+    d:DesignHeight="90.955"
+    d:DesignWidth="392.451"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -42,29 +42,37 @@
             <StackPanel 
                 Grid.Column="1" 
                 Margin="4, 0, 0, 0">
-                <Views:BeatModifier
-                    DataContext="{Binding BeatModifier}"/>
-                <DockPanel>
+                <TextBlock
+                    Text="{Binding LayerName}"
+                    Margin="2"
+                    VerticalAlignment="Center"
+                    Foreground="{StaticResource TextBase}"
+                    Background="{StaticResource HighDarkerColor}"
+
+                    Height="20"
+                    />
+                <DockPanel Margin="2">
                     <ToggleButton 
-                        Margin="2, 4, 2, 4"
+                        Margin="0, 0, 2, 0"
                         Width="20"
                         />
                     <RadioButton 
                         DockPanel.Dock="Right" 
                         IsChecked="{Binding Out}"
-                        Margin="2, 4, 2, 4" 
+                        Margin="2, 0, 0, 0" 
                         Content="OUT" 
                         GroupName="Output" 
                         Width="40" 
                         />
                     <ComboBox 
                         Height="20"
-                        Margin="0,4"
+                        Margin="2,0"
                         SelectedItem="{Binding BlendMode}"
                         ItemsSource="{Binding Source={StaticResource BlendMode}}"
                         />
                 </DockPanel>
-                <MVVM.Views:Slider 
+                <MVVM.Views:Slider
+                    Margin="2"
                     DataContext="{Binding Fade}" 
                     Caption="Alpha"
                     />

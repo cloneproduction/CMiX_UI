@@ -3,7 +3,6 @@ using System.Windows;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 
-using CMiX.Services;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using Memento;
@@ -14,21 +13,20 @@ namespace CMiX.ViewModels
     public class Layer : ViewModel
     {
         #region CONSTRUCTORS
-        public Layer(MasterBeat masterBeat, string layername,  ObservableCollection<OSCValidation> oscvalidation, int index, Mementor mementor) 
+        public Layer(MasterBeat masterBeat, string layername,  ObservableCollection<OSCValidation> oscvalidation, Mementor mementor) 
             : base (oscvalidation, mementor)
         {
             MessageAddress =  layername;
 
             LayerName = layername;           
-            Index = index;
             Enabled = false;
             BlendMode = ((BlendMode)0).ToString();
 
             Fade = new Slider(MessageAddress + nameof(Fade), oscvalidation, mementor);
-            BeatModifier = new BeatModifier(MessageAddress, masterBeat, oscvalidation, mementor);
-            Content = new Content(BeatModifier, MessageAddress, oscvalidation, mementor);
-            Mask = new Mask(BeatModifier, MessageAddress, oscvalidation, mementor);
-            Coloration = new Coloration(MessageAddress, oscvalidation, mementor, BeatModifier);
+
+            Content = new Content(masterBeat, MessageAddress, oscvalidation, mementor);
+            Mask = new Mask(masterBeat, MessageAddress, oscvalidation, mementor);
+            Coloration = new Coloration(MessageAddress, oscvalidation, mementor, masterBeat);
             PostFX = new PostFX(MessageAddress, oscvalidation, mementor);
 
             CopyContentCommand = new RelayCommand(p => CopyContent());
@@ -48,7 +46,6 @@ namespace CMiX.ViewModels
             MessageAddress = messageaddress;
 
             Fade.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Fade)));
-            BeatModifier.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(BeatModifier)));
             Content.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Content)));
             Mask.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Mask)));
             Coloration.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Coloration)));
@@ -84,13 +81,6 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _enabled, value);
         }
 
-        private int _index;
-        public int Index
-        {
-            get => _index;
-            set => SetAndNotify(ref _index, value);
-        }
-
         private bool _out;
         public bool Out
         {
@@ -119,7 +109,6 @@ namespace CMiX.ViewModels
         }
 
         public Slider Fade { get; }
-        public BeatModifier BeatModifier { get; }
         public Content Content { get; }
         public Mask Mask { get; }
         public Coloration Coloration { get; }
@@ -253,7 +242,6 @@ namespace CMiX.ViewModels
             BlendMode = ((BlendMode)0).ToString();
 
             Fade.Reset();
-            BeatModifier.Reset();
             Content.Reset();
             Mask.Reset();
             Coloration.Reset();
@@ -264,11 +252,8 @@ namespace CMiX.ViewModels
         {
             layermodel.MessageAddress = MessageAddress;
             layermodel.BlendMode = BlendMode;
-            layermodel.Index = Index;
             layermodel.LayerName = LayerName;
-            layermodel.Index = Index;
             Fade.Copy(layermodel.Fade);
-            BeatModifier.Copy(layermodel.BeatModifierModel);
             Content.Copy(layermodel.ContentModel);
             Mask.Copy(layermodel.maskmodel);
             Coloration.Copy(layermodel.ColorationModel);
@@ -280,13 +265,11 @@ namespace CMiX.ViewModels
             DisabledMessages();
 
             MessageAddress = layermodel.MessageAddress;
-            Index = layermodel.Index;
             LayerName = layermodel.LayerName;
             BlendMode = layermodel.BlendMode;
             Fade.Paste(layermodel.Fade);
             Out = layermodel.Out;
 
-            BeatModifier.Paste(layermodel.BeatModifierModel);
             Content.Paste(layermodel.ContentModel);
             Mask.Paste(layermodel.maskmodel);
             Coloration.Paste(layermodel.ColorationModel);
@@ -301,10 +284,8 @@ namespace CMiX.ViewModels
 
             BlendMode = layermodel.BlendMode;
             LayerName = layermodel.LayerName;
-            Index = layermodel.Index;
             Out = layermodel.Out;
             Fade.Paste(layermodel.Fade);
-            BeatModifier.Paste(layermodel.BeatModifierModel);
             Content.Paste(layermodel.ContentModel);
             Mask.Paste(layermodel.maskmodel);
             Coloration.Paste(layermodel.ColorationModel);

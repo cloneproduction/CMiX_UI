@@ -137,19 +137,19 @@ namespace CMiX.ViewModels
 
         private void DeleteComposition(object compo)
         {
-            if(compo != null)
-            {
-                Composition comp = compo as Composition;
-                List<string> removedlayername = new List<string>();
-                foreach (var layer in comp.Layers)
-                {
-                    removedlayername.Add(layer.LayerName);
-                }
-                Compositions.Remove(comp);
+            //if(compo != null)
+            //{
+            //    Composition comp = compo as Composition;
+            //    List<string> removedlayername = new List<string>();
+            //    foreach (var layer in comp.Layers)
+            //    {
+            //        removedlayername.Add(layer.LayerName);
+            //    }
+            //    Compositions.Remove(comp);
 
-                List<string> layerindex = new List<string>();
-                List<string> layername = new List<string>();
-            }
+            //    List<string> layerindex = new List<string>();
+            //    List<string> layername = new List<string>();
+            //}
         }
 
         private void DuplicateComposition(object compo)
