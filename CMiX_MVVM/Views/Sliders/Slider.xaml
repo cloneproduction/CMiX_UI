@@ -13,6 +13,7 @@
             <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
         </ResourceDictionary>
     </UserControl.Resources>
+    
     <UserControl.ContextMenu>
         <ContextMenu>
             <MenuItem

@@ -37,6 +37,8 @@ namespace CMiX.ViewModels
             GeometryFX = new GeometryFX(MessageAddress, oscvalidation, mementor);
 
             ResetCommand = new RelayCommand(p => Reset());
+            CopyGeometryCommand = new RelayCommand(p => CopyGeometry());
+            PasteGeometryCommand = new RelayCommand(p => PasteGeometry());
         }
         #endregion
 
@@ -62,6 +64,10 @@ namespace CMiX.ViewModels
         public ICommand CopySelfCommand { get; }
         public ICommand PasteSelfCommand { get; }
         public ICommand ResetCommand { get; }
+
+        public ICommand CopyGeometryCommand { get; }
+        public ICommand PasteGeometryCommand { get; }
+
 
         public FileSelector FileSelector { get; }
         public Counter Counter { get; }
@@ -99,6 +105,30 @@ namespace CMiX.ViewModels
             }
         }
         #endregion
+
+        public void CopyGeometry()
+        {
+            GeometryModel geometrymodel = new GeometryModel();
+            this.Copy(geometrymodel);
+            IDataObject data = new DataObject();
+            data.SetData("GeometryModel", geometrymodel, false);
+            Clipboard.SetDataObject(data);
+            Console.WriteLine("CopyGeometry");
+        }
+
+        public void PasteGeometry()
+        {
+            IDataObject data = Clipboard.GetDataObject();
+            if (data.GetDataPresent("GeometryModel"))
+            {
+                Mementor.BeginBatch();
+                var geometrymodel = data.GetData("GeometryModel") as GeometryModel;
+                this.Paste(geometrymodel);
+                Mementor.EndBatch();
+                Console.WriteLine("PasteGeometry");
+            }
+            
+        }
 
         #region COPY/PASTE/RESET
         public void Copy(GeometryModel geometrymodel)

@@ -102,8 +102,8 @@
             DockPanel.Dock="Bottom" 
             AllowDrop="True">
             <TabItem 
-                Width="25"
-                Height="25"
+                Width="40"
+                Height="30"
                 HorizontalAlignment="Left"
                 DragOver="TabItem_DragOver">
                 <TabItem.Header>
@@ -114,10 +114,11 @@
                     DockPanel.Dock="Bottom" 
                     />
             </TabItem>
-            <TabItem Width="25"
-                     Height="25"
-                     HorizontalAlignment="Left"
-                     DragOver="TabItem_DragOver">
+            <TabItem 
+                Width="40"
+                Height="30"
+                HorizontalAlignment="Left"
+                DragOver="TabItem_DragOver">
                 <TabItem.Header>
                     <Image Source="{StaticResource Texture}" ToolTip="Texture" Height="15" Width="auto" Opacity="0.75"/>
                 </TabItem.Header>
@@ -126,10 +127,11 @@
                     DockPanel.Dock="Top" 
                     />
             </TabItem>
-            <TabItem Width="25"
-                     Height="25"
-                     HorizontalAlignment="Left"
-                     DragOver="TabItem_DragOver">
+            <TabItem 
+                Width="40"
+                Height="30"
+                HorizontalAlignment="Left"
+                DragOver="TabItem_DragOver">
                 <TabItem.Header>
                     <Image Source="{StaticResource PostFX}" ToolTip="PostFX" Height="15" Width="auto" Opacity="0.75"/>
                 </TabItem.Header>

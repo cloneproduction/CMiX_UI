@@ -74,19 +74,23 @@
                 <TabControl 
                     DockPanel.Dock="Bottom" 
                     AllowDrop="True" >
-                    <TabItem Width="25"
-                         Height="25"
+                    <TabItem 
+                         Width="40"
+                         Height="30"
                          HorizontalAlignment="Left"
                          DragOver="TabItem_DragOver">
                         <TabItem.Header>
                             <Image Source="{StaticResource Geometry}"  ToolTip="Geometry" Height="15" Width="auto" Opacity="0.75"/>
                         </TabItem.Header>
                         <Views:Geometry
+                            Padding="1, 0, 1, 0"
                             DataContext="{Binding Geometry}"
                             DockPanel.Dock="Bottom" 
                             />
                     </TabItem>
                     <TabItem  
+                         Width="40"
+                         Height="30"
                         HorizontalAlignment="Left"
                         DragOver="TabItem_DragOver">
                         <TabItem.Header>
@@ -98,6 +102,8 @@
                             />
                     </TabItem>
                     <TabItem 
+                        Width="40"
+                        Height="30"
                         HorizontalAlignment="Left"
                         DragOver="TabItem_DragOver">
                         <TabItem.Header>

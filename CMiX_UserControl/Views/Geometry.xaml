@@ -6,6 +6,7 @@
     xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
     xmlns:Views = "clr-namespace:CMiX.Views"
     xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
+    xmlns:MVVM.ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX_MVVM"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -15,65 +16,72 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
+            <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
             <ObjectDataProvider x:Key="FileMask" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
                 <ObjectDataProvider.MethodParameters>
-                    <x:Type TypeName="ViewModels:GeometryFileMask"/>
+                    <x:Type TypeName="MVVM.ViewModels:GeometryFileMask"/>
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
             <Resources:BoolInverterConverter x:Key="BoolInverter" />
             <Resources:EnumToStringConverter x:Key="EnumToString" />
         </ResourceDictionary>
     </UserControl.Resources>
-
     <Border 
         BorderBrush="{StaticResource HighDarkerColor}"
         Background="{StaticResource HighDarkerColor}">
         <StackPanel>
-            <Border 
+            <Border
+                Height="25"
                 Margin="0, 0, 0, 2"
                 Background="{StaticResource DarkColor}"
                 Padding="4"
                 BorderBrush="{StaticResource HighDarkerColor}"
                 DockPanel.Dock="Top">
-                <DockPanel LastChildFill="False">
+                <Border.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem
+                            Padding="8, 4"
+                            Foreground="{StaticResource TextBase}"
+                            Command="{Binding Data.CopyGeometryCommand, Source={StaticResource proxy}}">
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="10" Height="10" Source="{StaticResource Copy}" />
+                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                    <TextBlock Text="Copy"/>
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                        <MenuItem
+                            Padding="8, 4"
+                            Foreground="{StaticResource TextBase}"
+                            Command="{Binding Data.PasteGeometryCommand, Source={StaticResource proxy}}">
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="10" Height="10" Source="{StaticResource Paste}" />
+                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                    <TextBlock Text="Paste"/>
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                        <MenuItem
+                                Padding="8, 4"
+                                Foreground="{StaticResource TextBase}"
+                                Command="{Binding Data.ResetCommand, Source={StaticResource proxy}}">
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="10" Height="10" Source="{StaticResource Reset}" />
+                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                    <TextBlock Text="Reset"/>
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                    </ContextMenu>
+                </Border.ContextMenu>
+                <DockPanel VerticalAlignment="Center" LastChildFill="False">
                     <TextBlock
                         Margin="4, 0, 0, 0"
                         Text="Geometry"
                         Foreground="{StaticResource TextBase}"/>
-                    <Button 
-                        ToolTip="Reset"
-                        DockPanel.Dock="Right"
-                        Command="{Binding Path=ResetCommand}"
-                        Height="15" 
-                        Width="15" 
-                        Style="{StaticResource ButtonImage}">
-                        <Button.Content>
-                            <Image  Source="{StaticResource Reset}"/>
-                        </Button.Content>
-                    </Button>
-                    <Button 
-                        DockPanel.Dock="Right"
-                        ToolTip="Paste"
-                        Margin="2, 0"
-                        Command="{Binding DataContext.PasteGeometryCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=2}}"
-                        Height="15" 
-                        Width="15" 
-                        Style="{StaticResource ButtonImage}">
-                        <Button.Content>
-                            <Image  Source="{StaticResource Paste}"/>
-                        </Button.Content>
-                    </Button>
-                    <Button 
-                        ToolTip="Copy"
-                        DockPanel.Dock="Right"
-                        Command="{Binding DataContext.CopyGeometryCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=2}}"
-                        Height="15" 
-                        Width="15" 
-                        Style="{StaticResource ButtonImage}">
-                        <Button.Content>
-                            <Image  Source="{StaticResource Copy}"/>
-                        </Button.Content>
-                    </Button>
                 </DockPanel>
             </Border>
             <Border 
@@ -112,6 +120,16 @@
             </Border>
             <Border  Margin="0, 2" Style="{StaticResource BorderContainer}">
                 <StackPanel>
+                    <Border 
+                        Margin="0, 0, 0 4"
+                        Height="25">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Margin="4, 0, 0, 0"
+                            Text="Transforms"
+                            Foreground="{StaticResource TextBase}"
+                            />
+                    </Border>
                     <Grid Height="20">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -144,14 +162,15 @@
                     </Grid>
                     <Grid Height="20" Margin="0,2">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition  />
-                            <ColumnDefinition Width="0.3*"/>
+                            <ColumnDefinition Width="165*"  />
+                            <ColumnDefinition Width="111*"/>
+                            <ColumnDefinition Width="83*"/>
                         </Grid.ColumnDefinitions>
                         <ToggleButton
-                            Grid.Column="1"
+                            Grid.Column="2"
                             x:Name="GeometryScale"
                             Keyboard.KeyDown="Toggle_KeyDown"
-                            Margin="2, 0, 0, 0"
+                            Margin="2,0,-0.333,0"
                             Content="{Binding ScaleMode.Mode, Converter={StaticResource EnumToString}}"
                             IsHitTestVisible="{Binding ElementName=GeometryScalePopup, Path=IsOpen, Converter={StaticResource BoolInverter}}"
                             />
@@ -162,14 +181,14 @@
                             AllowsTransparency="True"
                             IsOpen="{Binding IsChecked, ElementName=GeometryScale}"
                             Placement="Center"
-                            StaysOpen="False">
+                            StaysOpen="False" Grid.ColumnSpan="3" Margin="0,0,-73.333,0">
                             <ViewModels:ScaleSelector DataContext="{Binding ScaleMode}"/>
                         </Popup>
                         <MVVM.Views:Slider
                             Grid.Column="0"
                             Margin="1, 0, 0, 0"
                             Caption="Scale"
-                            DataContext="{Binding Scale}"
+                            DataContext="{Binding Scale}" Grid.ColumnSpan="2"
                             />
                     </Grid>
                     <Grid Height="20">
@@ -206,20 +225,20 @@
             </Border>
             <Border  Margin="0, 2" Style="{StaticResource BorderContainer}" DockPanel.Dock="Bottom">
                 <DockPanel Height="25">
+                    <ToggleButton
+                        HorizontalAlignment="left"
+                        Height="15"
+                        Width="15"
+                        Margin="4"
+                        Grid.Column="0"
+                        IsChecked="{Binding KeepAspectRatio}"
+                        />
                     <TextBlock 
                         Text="Aspect Ratio" 
                         Margin="4, 0" 
                         Foreground="{StaticResource TextBase}" 
                         VerticalAlignment="Center" 
                         HorizontalAlignment="Left"
-                        />
-                    <ToggleButton
-                        HorizontalAlignment="Right"
-                        Height="15"
-                        Width="15"
-                        Margin="4"
-                        Grid.Column="0"
-                        IsChecked="{Binding KeepAspectRatio}"
                         />
                 </DockPanel>
             </Border>
@@ -228,18 +247,19 @@
                 Style="{StaticResource BorderContainer}" 
                 DockPanel.Dock="Bottom">
                 <DockPanel Height="25">
+
+                    <ToggleButton
+                        HorizontalAlignment="left"
+                        Height="15"
+                        Width="15"
+                        Margin="4"
+                        IsChecked="{Binding Is3D, Mode=TwoWay}"
+                        />
                     <TextBlock 
                         Text="3D Space"
                         Margin="4, 0, 0, 0"
                         VerticalAlignment="Center" 
                         Foreground="{StaticResource TextBase}"
-                        />
-                    <ToggleButton
-                        HorizontalAlignment="Right"
-                        Height="15"
-                        Width="15"
-                        Margin="4"
-                        IsChecked="{Binding Is3D, Mode=TwoWay}"
                         />
                 </DockPanel>
             </Border>
