@@ -261,39 +261,42 @@ namespace CMiX.ViewModels
 
         private void DuplicateLayer()
         {
-            Mementor.BeginBatch();
-            DisabledMessages();
+            if(SelectedLayer != null)
+            {
+                Mementor.BeginBatch();
+                DisabledMessages();
 
-            var lyr = SelectedLayer;
-            LayerModel layermodel = new LayerModel();
-            lyr.Copy(layermodel);
+                var lyr = SelectedLayer;
+                LayerModel layermodel = new LayerModel();
+                lyr.Copy(layermodel);
 
-            layerID++;
-            layerNameID++;
-            Layer newlayer = CreateLayer();
-            var newlayername = CreateLayerName();
-            Mementor.ElementAdd(Layers, newlayer);
+                layerID++;
+                layerNameID++;
+                Layer newlayer = CreateLayer();
+                var newlayername = CreateLayerName();
+                Mementor.ElementAdd(Layers, newlayer);
 
-            newlayer.Paste(layermodel);
-            newlayer.LayerName = newlayername;
-            newlayer.Name += " - Copy";
-            newlayer.ID = layerID;
-            newlayer.UpdateMessageAddress(newlayername);
-            newlayer.Enabled = false;
-            newlayer.Copy(layermodel);
+                newlayer.Paste(layermodel);
+                newlayer.LayerName = newlayername;
+                newlayer.Name += " - Copy";
+                newlayer.ID = layerID;
+                newlayer.UpdateMessageAddress(newlayername);
+                newlayer.Enabled = false;
+                newlayer.Copy(layermodel);
 
-            Layers.Move(Layers.IndexOf(SelectedLayer), Layers.IndexOf(lyr) + 1);
+                Layers.Move(Layers.IndexOf(SelectedLayer), Layers.IndexOf(lyr) + 1);
 
-            SelectedLayer = newlayer;
+                SelectedLayer = newlayer;
 
-            EnabledMessages();
+                EnabledMessages();
 
-            QueueLayerID();
-            QueueLayerNames();
-            QueueObjects(layermodel);
-            SendQueues();
+                QueueLayerID();
+                QueueLayerNames();
+                QueueObjects(layermodel);
+                SendQueues();
 
-            Mementor.EndBatch();
+                Mementor.EndBatch();
+            }
         }
 
         private void DeleteLayer()

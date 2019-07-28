@@ -88,8 +88,9 @@
                             <Border 
                                 DockPanel.Dock="Bottom"  
                                 Style="{StaticResource BorderContainer}">
-                                <StackPanel Orientation="Horizontal">
+                                <DockPanel LastChildFill="False">
                                     <Button
+                                        DockPanel.Dock="Left"
                                         ToolTip="New Layer"
                                         Command="{Binding Path=AddLayerCommand}"
                                         Width="25"
@@ -100,6 +101,19 @@
                                         </Button.Content>
                                     </Button>
                                     <Button
+                                        DockPanel.Dock="Left"
+                                        ToolTip="Duplicate Layer"
+                                        Command="{Binding Path=DuplicateLayerCommand}"
+                                        Margin="2, 0, 0, 0"
+                                        Width="25" 
+                                        Height="25"
+                                        Style="{StaticResource ButtonImage}">
+                                        <Button.Content>
+                                            <Image Margin="15" Source="{StaticResource Copy}" />
+                                        </Button.Content>
+                                    </Button>
+                                    <Button
+                                        DockPanel.Dock="left"
                                         ToolTip="Delete Layer"
                                         Command="{Binding Path=DeleteLayerCommand}"
                                         CommandParameter="{Binding SelectedLayer}"
@@ -111,7 +125,7 @@
                                             <Image Margin="15" Source="{StaticResource DeleteLayer}"/>
                                         </Button.Content>
                                     </Button>
-                                </StackPanel>
+                                </DockPanel>
                             </Border>
                             <ListBox 
                                 Margin="0, 8, 0, 0"
