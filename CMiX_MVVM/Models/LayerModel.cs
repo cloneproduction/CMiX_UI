@@ -21,6 +21,7 @@ namespace CMiX.MVVM.Models
         }
 
         public string LayerName { get; set; }
+        public int ID { get; set; }
         public bool Enabled { get; set; }
         public bool Out { get; set; }
         public string BlendMode { get; set; }

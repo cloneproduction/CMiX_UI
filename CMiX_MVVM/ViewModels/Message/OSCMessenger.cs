@@ -142,12 +142,17 @@ namespace CMiX.MVVM.ViewModels
                         else if(propertyname is "LayerNames")
                         {
                             var list = propValue as List<string>;
-                            QueueMessage(propertyname, list.ToArray());
+                            list.Sort();
+                            QueueMessage("/LayerNames", list.ToArray());
                         }
-                        else if (propertyname is "LayerIndex")
+                        else if (propertyname is "LayerID")
                         {
                             var list = propValue as List<int>;
-                            QueueMessage(propertyname, list.Select(i => i.ToString()).ToArray());
+                            QueueMessage("/LayerID", list.Select(i => i.ToString()).ToArray());
+                            foreach (var item in list)
+                            {
+                                Console.WriteLine("LayerID" + item);
+                            }
                         }
                         else if (propValue is List<Model>)
                         {

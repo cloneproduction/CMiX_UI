@@ -31,6 +31,7 @@
         //[ShortCode("STD_BOT_LT", "Steady Bottom Left")]
         STD_BOT_LT,
 
+        STD_GRID,
         #endregion
 
         #region FLASH

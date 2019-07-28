@@ -26,6 +26,8 @@ namespace CMiX.MVVM.Models
         public string VideoFolderName { get; set; }
 
         public List<Model> LayersModel { get; set; }
+        public List<int> LayerID { get; set; }
+        public List<string> LayerNames { get; set; }
 
         public MasterBeatModel MasterBeatModel { get; set; }
         public CameraModel CameraModel { get; set; }

@@ -64,7 +64,7 @@
                 <TextBox 
                     Background="{StaticResource HighDarkerColor}" 
                     VerticalContentAlignment="Center"
-                    Text="{Binding Name}" 
+                    Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                     Foreground="{StaticResource TextBase}"
                     BorderThickness="0"
                     />
