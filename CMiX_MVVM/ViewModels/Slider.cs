@@ -1,7 +1,7 @@
 ﻿
 using System;
 using System.Windows.Input;
-
+using System.Windows;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 
@@ -20,6 +20,9 @@ namespace CMiX.MVVM.ViewModels
 
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
+            ResetCommand = new RelayCommand(p => Reset());
+            CopySliderCommand = new RelayCommand(p => CopySlider());
+            PasteSliderCommand = new RelayCommand(p => PasteSlider());
             MouseDownCommand = new RelayCommand(p => MouseDown());
         }
         #endregion
@@ -34,7 +37,9 @@ namespace CMiX.MVVM.ViewModels
         #region PROPERTIES
         public ICommand AddCommand { get; }
         public ICommand SubCommand { get; }
-
+        public ICommand ResetCommand { get; }
+        public ICommand CopySliderCommand { get; }
+        public ICommand PasteSliderCommand { get; }
         public ICommand MouseDownCommand { get; }
         public ICommand DragCompletedCommand { get; }
         public ICommand ValueChangedCommand { get; }
@@ -96,6 +101,27 @@ namespace CMiX.MVVM.ViewModels
             DisabledMessages();
             Amount = 0.0;
             EnabledMessages();
+        }
+
+        public void CopySlider()
+        {
+            SliderModel slidermodel = new SliderModel();
+            this.Copy(slidermodel);
+            IDataObject data = new DataObject();
+            data.SetData("SliderModel", slidermodel, false);
+            Clipboard.SetDataObject(data);
+        }
+
+        public void PasteSlider()
+        {
+            IDataObject data = Clipboard.GetDataObject();
+            if (data.GetDataPresent("SliderModel"))
+            {
+                Mementor.BeginBatch();
+                var slidermodel = data.GetData("SliderModel") as SliderModel;
+                this.Paste(slidermodel);
+                Mementor.EndBatch();
+            }
         }
 
         public void Copy(SliderModel slidermodel)
