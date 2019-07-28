@@ -126,29 +126,26 @@ namespace CMiX.ViewModels
         }
         #endregion
 
+        int CompID = 0;
         #region ADD/DELETE/DUPLICATE COMPOSITION
         private void AddComposition()
         {
             Composition comp = new Composition(OSCMessengers);
+            comp.Name = "Composition " + CompID++.ToString();
             Compositions.Add(comp);
             SelectedComposition = comp;
         }
 
         private void DeleteComposition(object compo)
         {
-            //if(compo != null)
-            //{
-            //    Composition comp = compo as Composition;
-            //    List<string> removedlayername = new List<string>();
-            //    foreach (var layer in comp.Layers)
-            //    {
-            //        removedlayername.Add(layer.LayerName);
-            //    }
-            //    Compositions.Remove(comp);
+            if (compo != null)
+                Compositions.Remove(compo as Composition);
 
-            //    List<string> layerindex = new List<string>();
-            //    List<string> layername = new List<string>();
-            //}
+            if (Compositions.Count > 0)
+                SelectedComposition = Compositions[0];
+
+            if (Compositions.Count == 0)
+                CompID = 0;
         }
 
         private void DuplicateComposition(object compo)
@@ -156,11 +153,15 @@ namespace CMiX.ViewModels
             if(compo != null)
             {
                 Composition comp = compo as Composition;
-                CompositionModel compDTO = new CompositionModel();
-                comp.Copy(compDTO);
+                CompositionModel compositionmodel = new CompositionModel();
+                comp.Copy(compositionmodel);
                 Composition newcomp = new Composition(OSCMessengers);
-                newcomp.Paste(compDTO);
+                newcomp.Paste(compositionmodel);
+                newcomp.Name = newcomp.Name + "- Copy";
                 Compositions.Add(newcomp);
+
+                if (newcomp.Layers[0] != null)
+                    newcomp.SelectedLayer = newcomp.Layers[0];
             }
         }
         #endregion

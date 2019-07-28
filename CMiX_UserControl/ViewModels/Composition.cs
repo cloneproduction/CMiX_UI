@@ -18,7 +18,6 @@ namespace CMiX.ViewModels
         public Composition(ObservableCollection<OSCMessenger> oscmessengers)
         {
             Name = string.Empty;
-            MessageAddress = "";
 
             OSCValidation = new ObservableCollection<OSCValidation>();
             CreateOSCValidation(oscmessengers);
@@ -164,7 +163,6 @@ namespace CMiX.ViewModels
             foreach (var messenger in oscmessengers)
             {
                 OSCValidation.Add(new OSCValidation(messenger));
-                
             }
         }
 
@@ -191,14 +189,14 @@ namespace CMiX.ViewModels
             LayerModel layermodel = new LayerModel();
             SelectedLayer.Copy(layermodel);
             IDataObject data = new DataObject();
-            data.SetData("Layer", layermodel, false);
+            data.SetData("LayerModel", layermodel, false);
             Clipboard.SetDataObject(data);
         }
 
         private void PasteLayer()
         {
             IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent("Layer"))
+            if (data.GetDataPresent("LayerModel"))
             {
                 Mementor.BeginBatch();
 
@@ -206,7 +204,7 @@ namespace CMiX.ViewModels
                 var selectedlayername = SelectedLayer.LayerName;
                 var selectedlayerID = SelectedLayer.ID;
 
-                var layermodel = (LayerModel)data.GetData("Layer") as LayerModel;
+                var layermodel = data.GetData("LayerModel") as LayerModel;
 
                 SelectedLayer.Paste(layermodel);
                 SelectedLayer.UpdateMessageAddress(selectedlayermessageaddress);
@@ -288,10 +286,10 @@ namespace CMiX.ViewModels
 
             EnabledMessages();
 
-            this.QueueLayerID();
-            this.QueueLayerNames();
-            this.QueueObjects(layermodel);
-            this.SendQueues();
+            QueueLayerID();
+            QueueLayerNames();
+            QueueObjects(layermodel);
+            SendQueues();
 
             Mementor.EndBatch();
         }
@@ -305,17 +303,29 @@ namespace CMiX.ViewModels
                 DisabledMessages();
 
                 Layer removedlayer = layer as Layer;
-
+                int removedlayerindex = Layers.IndexOf(removedlayer);
                 UpdateLayersIDOnDelete(removedlayer);
                 Mementor.ElementRemove(Layers, removedlayer);
                 Layers.Remove(removedlayer);
 
+                if (Layers.Count == 0)
+                    layerNameID = 0;
+
+                if (Layers.Count > 0)
+                {
+                    if(removedlayerindex > 0)
+                        SelectedLayer = Layers[removedlayerindex - 1];
+                    else
+                        SelectedLayer = Layers[0];
+                }
+
+
                 EnabledMessages();
 
-                this.QueueLayerID();
-                this.QueueLayerNames();
-                this.QueueMessages("LayerRemoved", removedlayer.LayerName);
-                this.SendQueues();
+                QueueLayerID();
+                QueueLayerNames();
+                QueueMessages("LayerRemoved", removedlayer.LayerName);
+                SendQueues();
 
                 Mementor.EndBatch();
             }
@@ -347,8 +357,6 @@ namespace CMiX.ViewModels
         public void Paste(CompositionModel compositionmodel)
         {
             Layers.Clear();
-            layerID = -1;
-
             DisabledMessages();
 
             MessageAddress = compositionmodel.MessageAddress;
@@ -359,7 +367,6 @@ namespace CMiX.ViewModels
             {
                 Layer layer = new Layer(MasterBeat, CreateLayerName(), OSCValidation, Mementor);
                 layer.Paste(layermodel);
-                layer.ID = layerID++;
                 Layers.Add(layer);
             }
 
@@ -420,8 +427,8 @@ namespace CMiX.ViewModels
                     Mementor.ElementIndexChange(Layers, Layers[insertindex], sourceindex);
                     SelectedLayer = Layers[insertindex];
 
-                    this.QueueLayerID();
-                    this.QueueLayerNames();
+                    QueueLayerID();
+                    QueueLayerNames();
                     SendQueues();
                     Mementor.EndBatch();
                 }
