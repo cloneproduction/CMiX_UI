@@ -100,6 +100,11 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PUBLIC METHODS
+        public string CreateLayerName()
+        {
+            return "/Layer" + layerNameID.ToString() + "/";
+        }
+
         public Layer CreateLayer()
         {
             var layername = CreateLayerName();
@@ -142,6 +147,15 @@ namespace CMiX.ViewModels
         {
             this.QueueMessages("/LayerID", GetLayerID().Select(x => x.ToString()).ToArray());
         }
+
+        public void UpdateLayerContentFolder(Layer layer)
+        {
+            layer.Content.Texture.FileSelector.FolderPath = ContentFolderName;
+            layer.Content.Geometry.FileSelector.FolderPath = ContentFolderName;
+            layer.Content.Geometry.GeometryFX.FileSelector.FolderPath = ContentFolderName;
+            layer.Mask.Texture.FileSelector.FolderPath = ContentFolderName;
+            layer.Mask.Geometry.FileSelector.FolderPath = ContentFolderName;
+        }
         #endregion
 
         #region PRIVATE METHODS
@@ -169,24 +183,7 @@ namespace CMiX.ViewModels
             await Task.Delay(TimeSpan.FromMinutes(Transition.Amount));
             oscmessenger.SendQueue();
         }
-
-        private string CreateLayerName()
-        {
-            return "/Layer" + layerNameID.ToString() + "/";
-        }
-
         #endregion
-
-        public void UpdateLayerContentFolder(Layer layer)
-        {
-            layer.Content.Texture.FileSelector.FolderPath = ContentFolderName;
-            layer.Content.Geometry.FileSelector.FolderPath = ContentFolderName;
-            layer.Content.Geometry.GeometryFX.FileSelector.FolderPath = ContentFolderName;
-            layer.Mask.Texture.FileSelector.FolderPath = ContentFolderName;
-            layer.Mask.Geometry.FileSelector.FolderPath = ContentFolderName;
-        }
-
-
 
         #region COPY/PASTE LAYER
         private void CopyLayer()
@@ -210,14 +207,12 @@ namespace CMiX.ViewModels
                 var selectedlayerID = SelectedLayer.ID;
 
                 var layermodel = (LayerModel)data.GetData("Layer") as LayerModel;
-                SelectedLayer.Paste(layermodel);
 
+                SelectedLayer.Paste(layermodel);
                 SelectedLayer.UpdateMessageAddress(selectedlayermessageaddress);
                 SelectedLayer.LayerName = selectedlayername;
                 SelectedLayer.ID = selectedlayerID;
-
                 SelectedLayer.Copy(layermodel);
-
 
                 QueueLayerID();
                 QueueLayerNames();
@@ -233,7 +228,6 @@ namespace CMiX.ViewModels
         public void AddLayer()
         {
             Mementor.BeginBatch();
-
             DisabledMessages();
 
             layerID++;
@@ -423,8 +417,8 @@ namespace CMiX.ViewModels
                     }
 
                     Layers.Move(sourceindex, insertindex);
-                    SelectedLayer = Layers[insertindex];
                     Mementor.ElementIndexChange(Layers, Layers[insertindex], sourceindex);
+                    SelectedLayer = Layers[insertindex];
 
                     this.QueueLayerID();
                     this.QueueLayerNames();

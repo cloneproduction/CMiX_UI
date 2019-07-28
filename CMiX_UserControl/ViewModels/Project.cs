@@ -73,7 +73,6 @@ namespace CMiX.ViewModels
         public ICommand AddLayerCommand { get; }
 
         public ObservableCollection<Composition> Compositions { get; set; }
-
         public ObservableCollection<OSCMessenger> OSCMessengers { get; set; }
 
         public CerasSerializer Serializer { get; set; }
