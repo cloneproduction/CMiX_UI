@@ -99,17 +99,13 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PUBLIC METHODS
-        public string CreateLayerName()
-        {
-            return "/Layer" + layerNameID.ToString() + "/";
-        }
-
         public Layer CreateLayer()
         {
             var layername = CreateLayerName();
 
             Layer layer = new Layer(MasterBeat, layername, OSCValidation, Mementor);
             layer.ID = layerID;
+            layer.Name = "Layer " + layer.ID;
             Layers.Add(layer);
             SelectedLayer = layer;
 
@@ -158,6 +154,11 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PRIVATE METHODS
+        private string CreateLayerName()
+        {
+            return "/Layer" + layerNameID.ToString() + "/";
+        }
+
         private void CreateOSCValidation(ObservableCollection<OSCMessenger> oscmessengers)
         {
             foreach (var messenger in oscmessengers)
@@ -275,6 +276,7 @@ namespace CMiX.ViewModels
 
             newlayer.Paste(layermodel);
             newlayer.LayerName = newlayername;
+            newlayer.Name += " - Copy";
             newlayer.ID = layerID;
             newlayer.UpdateMessageAddress(newlayername);
             newlayer.Enabled = false;
@@ -318,7 +320,6 @@ namespace CMiX.ViewModels
                     else
                         SelectedLayer = Layers[0];
                 }
-
 
                 EnabledMessages();
 

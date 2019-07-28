@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
-using CMiX.Services;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using Ceras;
@@ -96,6 +93,7 @@ namespace CMiX.ViewModels
 
         #region ADD/REMOVE/DELETE OSC
         int portnumber = 0;
+
         private void AddOSC()
         {
             OSCMessenger oscmessenger = new OSCMessenger("127.0.0.1", 1111 + portnumber);
@@ -278,19 +276,19 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void Copy(ProjectModel projectdto)
+        public void Copy(ProjectModel projectmodel)
         {
             foreach (var comp in Compositions)
             {
                 CompositionModel compositionmodel = new CompositionModel();
                 comp.Copy(compositionmodel);
-                projectdto.CompositionModel.Add(compositionmodel);
+                projectmodel.CompositionModel.Add(compositionmodel);
             }
         }
 
-        public void Paste(ProjectModel projectdto)
+        public void Paste(ProjectModel projectmodel)
         {
-            foreach (var compositionmodel in projectdto.CompositionModel)
+            foreach (var compositionmodel in projectmodel.CompositionModel)
             {
                 Composition composition = new Composition(OSCMessengers);
                 composition.Paste(compositionmodel);

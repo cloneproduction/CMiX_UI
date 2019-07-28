@@ -42,10 +42,12 @@
             <StackPanel 
                 Grid.Column="1" 
                 Margin="4, 0, 0, 0">
-                <TextBlock
-                    Text="{Binding LayerName}"
+                <TextBox
+                    Text="{Binding Name}"
+                    Padding="1"
                     Margin="2"
                     VerticalAlignment="Center"
+                    BorderThickness="0"
                     Foreground="{StaticResource TextBase}"
                     Background="{StaticResource HighDarkerColor}"
 

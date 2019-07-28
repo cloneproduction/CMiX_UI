@@ -432,7 +432,10 @@
                             <RowDefinition x:Name="RowDefinition0" Height="Auto"/>
                             <RowDefinition x:Name="RowDefinition1" Height="*"/>
                         </Grid.RowDefinitions>
-                        <StackPanel Orientation="Horizontal" Grid.Column="0">
+                        <StackPanel 
+                            Height="30" 
+                            Orientation="Horizontal" 
+                            Grid.Column="0">
                             <TabPanel 
                                 x:Name="headerPanel" 
                                 Background="Transparent" 

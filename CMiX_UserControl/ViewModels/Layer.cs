@@ -74,6 +74,13 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _layername, value);
         }
 
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set => SetAndNotify(ref _name, value);
+        }
+
         private int _id;
         public int ID
         {
@@ -260,6 +267,7 @@ namespace CMiX.ViewModels
             layermodel.MessageAddress = MessageAddress;
             layermodel.BlendMode = BlendMode;
             layermodel.LayerName = LayerName;
+            layermodel.Name = Name;
             layermodel.ID = ID;
             Fade.Copy(layermodel.Fade);
             Content.Copy(layermodel.ContentModel);
@@ -274,6 +282,7 @@ namespace CMiX.ViewModels
 
             MessageAddress = layermodel.MessageAddress;
             LayerName = layermodel.LayerName;
+            Name = layermodel.Name;
             BlendMode = layermodel.BlendMode;
             Fade.Paste(layermodel.Fade);
             Out = layermodel.Out;
@@ -292,6 +301,7 @@ namespace CMiX.ViewModels
 
             BlendMode = layermodel.BlendMode;
             LayerName = layermodel.LayerName;
+            Name = layermodel.Name;
             Out = layermodel.Out;
             Fade.Paste(layermodel.Fade);
             Content.Paste(layermodel.ContentModel);
