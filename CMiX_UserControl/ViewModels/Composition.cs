@@ -34,8 +34,8 @@ namespace CMiX.ViewModels
 
             ReloadCompositionCommand = new RelayCommand(p => ReloadComposition(p));
             AddLayerCommand = new RelayCommand(p => AddLayer());
-            DeleteLayerCommand = new RelayCommand(p => DeleteLayer(p));
-            DuplicateLayerCommand = new RelayCommand(p => DuplicateLayer(p));
+            DeleteLayerCommand = new RelayCommand(p => DeleteLayer());
+            DuplicateLayerCommand = new RelayCommand(p => DuplicateLayer());
             CopyLayerCommand = new RelayCommand(p => CopyLayer());
             PasteLayerCommand = new RelayCommand(p => PasteLayer());
         }
@@ -259,12 +259,12 @@ namespace CMiX.ViewModels
             layerID--;
         }
 
-        private void DuplicateLayer(object layer)
+        private void DuplicateLayer()
         {
             Mementor.BeginBatch();
             DisabledMessages();
 
-            var lyr = layer as Layer;
+            var lyr = SelectedLayer;
             LayerModel layermodel = new LayerModel();
             lyr.Copy(layermodel);
 
@@ -296,15 +296,15 @@ namespace CMiX.ViewModels
             Mementor.EndBatch();
         }
 
-        private void DeleteLayer(object layer)
+        private void DeleteLayer()
         {
-            if(layer != null)
+            if(SelectedLayer != null)
             {
                 Mementor.BeginBatch();
 
                 DisabledMessages();
 
-                Layer removedlayer = layer as Layer;
+                Layer removedlayer = SelectedLayer as Layer;
                 int removedlayerindex = Layers.IndexOf(removedlayer);
                 UpdateLayersIDOnDelete(removedlayer);
                 Mementor.ElementRemove(Layers, removedlayer);
