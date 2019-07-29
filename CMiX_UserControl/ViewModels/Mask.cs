@@ -32,6 +32,8 @@ namespace CMiX.ViewModels
             PasteGeometryCommand = new RelayCommand(p => PasteGeometry());
             CopyPostFXCommand = new RelayCommand(p => CopyPostFX());
             PastePostFXCommand = new RelayCommand(p => PastePostFX());
+            CopyMaskCommand = new RelayCommand(p => CopyMask());
+            PasteMaskCommand = new RelayCommand(p => PasteMask());
         }
         #endregion
 
@@ -48,6 +50,27 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
+        public ICommand CopySelfCommand { get; }
+        public ICommand PasteSelfCommand { get; }
+        public ICommand ResetCommand { get; }
+
+        public ICommand CopyTextureCommand { get; }
+        public ICommand PasteTextureCommand { get; }
+
+        public ICommand CopyGeometryCommand { get; }
+        public ICommand PasteGeometryCommand { get; }
+
+        public ICommand CopyPostFXCommand { get; }
+        public ICommand PastePostFXCommand { get; }
+
+        public ICommand CopyMaskCommand { get; }
+        public ICommand PasteMaskCommand { get; }
+
+        public BeatModifier BeatModifier { get; }
+        public Geometry Geometry { get; }
+        public Texture Texture { get; }
+        public PostFX PostFX { get; }
+
         private bool _enable;
         public bool Enable
         {
@@ -74,23 +97,6 @@ namespace CMiX.ViewModels
             }
         }
 
-        public ICommand CopySelfCommand { get; }
-        public ICommand PasteSelfCommand { get; }
-        public ICommand ResetCommand { get; }
-
-        public ICommand CopyTextureCommand { get; }
-        public ICommand PasteTextureCommand { get; }
-
-        public ICommand CopyGeometryCommand { get; }
-        public ICommand PasteGeometryCommand { get; }
-
-        public ICommand CopyPostFXCommand { get; }
-        public ICommand PastePostFXCommand { get; }
-
-        public BeatModifier BeatModifier { get; }
-        public Geometry Geometry { get; }
-        public Texture Texture { get; }
-        public PostFX PostFX { get; }
         #endregion
 
         public void CopyPostFX()
@@ -224,6 +230,27 @@ namespace CMiX.ViewModels
             this.Copy(maskmodel);
             QueueObjects(maskmodel);
             SendQueues();
+        }
+
+        public void CopyMask()
+        {
+            MaskModel maskmodel = new MaskModel();
+            this.Copy(maskmodel);
+            IDataObject data = new DataObject();
+            data.SetData("MaskModel", maskmodel, false);
+            Clipboard.SetDataObject(data);
+        }
+
+        public void PasteMask()
+        {
+            IDataObject data = Clipboard.GetDataObject();
+            if (data.GetDataPresent("MaskModel"))
+            {
+                Mementor.BeginBatch();
+                var maskmodel = data.GetData("MaskModel") as MaskModel;
+                this.Paste(maskmodel);
+                Mementor.EndBatch();
+            }
         }
         #endregion
     }

@@ -77,13 +77,16 @@
                         </MenuItem>
                     </ContextMenu>
                 </Border.ContextMenu>
-                <DockPanel VerticalAlignment="Center" LastChildFill="False">
+                <DockPanel 
+                    VerticalAlignment="Center" 
+                    LastChildFill="False">
                     <TextBlock
                         Margin="4, 0, 0, 0"
-                        Text="Geometry"
+                        Text="GEOMETRY"
                         Foreground="{StaticResource TextBase}"/>
                 </DockPanel>
             </Border>
+            
             <Border 
                 Margin="0, 2"
                 DockPanel.Dock="Bottom"

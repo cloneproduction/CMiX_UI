@@ -32,6 +32,7 @@ namespace CMiX.MVVM.ViewModels
             ClearUnselectedCommand = new RelayCommand(p => ClearUnselected());
             ClearAllCommand = new RelayCommand(p => ClearAll());
             DeleteItemCommand = new RelayCommand(p => DeleteItem(p));
+            ResetCommand = new RelayCommand(p => Reset());
         }
         #endregion
 
@@ -45,6 +46,7 @@ namespace CMiX.MVVM.ViewModels
         public ICommand ClearUnselectedCommand { get; }
         public ICommand ClearAllCommand { get; }
         public ICommand DeleteItemCommand { get; }
+        public ICommand ResetCommand { get; }
 
         private FileNameItem selectedfilenameitem;
         public FileNameItem SelectedFileNameItem
@@ -169,7 +171,6 @@ namespace CMiX.MVVM.ViewModels
                                 if(FolderPath != null)
                                 {
                                     lbfn.FileName = Utils.GetRelativePath(FolderPath, str);
-                                    Console.WriteLine("POUET");
                                 }
                                 else
                                 {

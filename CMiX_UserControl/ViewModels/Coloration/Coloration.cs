@@ -34,6 +34,9 @@ namespace CMiX.ViewModels
 
             ResetCommand = new RelayCommand(p => Reset());
             MouseDownCommand = new RelayCommand(p => MouseDown());
+
+            CopyColorationCommand = new RelayCommand(p => CopyColoration());
+            PasteColorationCommand = new RelayCommand(p => PasteColoration());
         }
         #endregion
 
@@ -42,6 +45,8 @@ namespace CMiX.ViewModels
         public ICommand PasteSelfCommand { get; }
         public ICommand ResetCommand { get; }
         public ICommand MouseDownCommand { get; }
+        public ICommand CopyColorationCommand { get; }
+        public ICommand PasteColorationCommand { get; }
 
         public BeatModifier BeatModifier { get; }
         public RangeControl Hue { get; }
@@ -149,6 +154,27 @@ namespace CMiX.ViewModels
             this.Copy(colorationmodel);
             QueueObjects(colorationmodel);
             SendQueues();
+        }
+
+        public void CopyColoration()
+        {
+            ColorationModel colorationmodel = new ColorationModel();
+            this.Copy(colorationmodel);
+            IDataObject data = new DataObject();
+            data.SetData("ColorationModel", colorationmodel, false);
+            Clipboard.SetDataObject(data);
+        }
+
+        public void PasteColoration()
+        {
+            IDataObject data = Clipboard.GetDataObject();
+            if (data.GetDataPresent("ColorationModel"))
+            {
+                Mementor.BeginBatch();
+                var colorationmodel = data.GetData("ColorationModel") as ColorationModel;
+                this.Paste(colorationmodel);
+                Mementor.EndBatch();
+            }
         }
         #endregion
     }

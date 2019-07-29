@@ -7,7 +7,7 @@
     xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX_MVVM"
     xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX_MVVM"
     xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
-    
+    xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX_MVVM"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -16,6 +16,7 @@
     mc:Ignorable="d">
 
     <UserControl.Resources>
+        <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
         <ObjectDataProvider x:Key="InvertMode" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="ViewModels:TextureInvertMode"/>
@@ -25,51 +26,60 @@
 
     <Border>
         <StackPanel>
-            <Border 
+            <Border
+                Height="25"
                 Margin="0, 0, 0, 2"
                 Background="{StaticResource DarkColor}"
                 Padding="4"
+                BorderBrush="{StaticResource HighDarkerColor}"
                 DockPanel.Dock="Top">
-                <DockPanel LastChildFill="False">
+                <Border.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem
+                            Padding="8, 4"
+                            Foreground="{StaticResource TextBase}"
+                            Command="{Binding Data.CopyTextureCommand, Source={StaticResource proxy}}">
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="10" Height="10" Source="{StaticResource Copy}" />
+                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                    <TextBlock Text="Copy"/>
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                        <MenuItem
+                            Padding="8, 4"
+                            Foreground="{StaticResource TextBase}"
+                            Command="{Binding Data.PasteTextureCommand, Source={StaticResource proxy}}">
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="10" Height="10" Source="{StaticResource Paste}" />
+                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                    <TextBlock Text="Paste"/>
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                        <MenuItem
+                                Padding="8, 4"
+                                Foreground="{StaticResource TextBase}"
+                                Command="{Binding Data.ResetCommand, Source={StaticResource proxy}}">
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="10" Height="10" Source="{StaticResource Reset}" />
+                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                    <TextBlock Text="Reset"/>
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                    </ContextMenu>
+                </Border.ContextMenu>
+                <DockPanel 
+                    VerticalAlignment="Center" 
+                    LastChildFill="False">
                     <TextBlock
-                        Text="Texture"
-                        Foreground="{StaticResource TextBase}"
-                        Margin="8, 0, 0, 0">
-                    </TextBlock>
-                    <Button 
-                        ToolTip="Reset"
-                        DockPanel.Dock="Right"
-                        Command="{Binding Path=ResetCommand}"
-                        Height="15" 
-                        Width="15" 
-                        Style="{StaticResource ButtonImage}">
-                        <Button.Content>
-                            <Image Source="{StaticResource Reset}"/>
-                        </Button.Content>
-                    </Button>
-                    <Button 
-                        DockPanel.Dock="Right"
-                        ToolTip="Paste"
-                        Margin="2, 0"
-                        Command="{Binding DataContext.PasteTextureCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=2}}"
-                        Height="15" 
-                        Width="15" 
-                        Style="{StaticResource ButtonImage}">
-                        <Button.Content>
-                            <Image Source="{StaticResource Paste}"/>
-                        </Button.Content>
-                    </Button>
-                    <Button 
-                        ToolTip="Copy"
-                        DockPanel.Dock="Right"
-                        Command="{Binding DataContext.CopyTextureCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=2}}"
-                        Height="15" 
-                        Width="15" 
-                        Style="{StaticResource ButtonImage}">
-                        <Button.Content>
-                            <Image Source="{StaticResource Copy}"/>
-                        </Button.Content>
-                    </Button>
+                        Margin="4, 0, 0, 0"
+                        Text="TEXTURE"
+                        Foreground="{StaticResource TextBase}"/>
                 </DockPanel>
             </Border>
             <Border Margin="0, 2" Style="{StaticResource BorderContainer}">

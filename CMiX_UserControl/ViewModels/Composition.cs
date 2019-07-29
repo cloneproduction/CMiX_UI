@@ -43,8 +43,6 @@ namespace CMiX.ViewModels
 
 
         #region PROPERTIES
-        private int layerID = 0;
-        private int layerNameID = 0;
 
         public ICommand ReloadCompositionCommand { get; }
         public ICommand AddLayerCommand { get; }
@@ -60,6 +58,20 @@ namespace CMiX.ViewModels
         public Slider Transition { get; set; }
 
         public ObservableCollection<Layer> Layers { get; }
+
+        private int _layerID = 0;
+        public int layerID
+        {
+            get { return _layerID; }
+            set { _layerID = value; }
+        }
+
+        private int _layerNameID = 0;
+        public int layerNameID
+        {
+            get { return _layerNameID; }
+            set { _layerNameID = value; }
+        }
 
         private string _name;
         public string Name
@@ -203,6 +215,7 @@ namespace CMiX.ViewModels
 
                 var selectedlayermessageaddress = SelectedLayer.MessageAddress;
                 var selectedlayername = SelectedLayer.LayerName;
+                var selectedname = SelectedLayer.Name;
                 var selectedlayerID = SelectedLayer.ID;
 
                 var layermodel = data.GetData("LayerModel") as LayerModel;
@@ -210,6 +223,7 @@ namespace CMiX.ViewModels
                 SelectedLayer.Paste(layermodel);
                 SelectedLayer.UpdateMessageAddress(selectedlayermessageaddress);
                 SelectedLayer.LayerName = selectedlayername;
+                SelectedLayer.Name = selectedname;
                 SelectedLayer.ID = selectedlayerID;
                 SelectedLayer.Copy(layermodel);
 
@@ -345,6 +359,8 @@ namespace CMiX.ViewModels
             compositionmodel.ContentFolderName = ContentFolderName;
             compositionmodel.LayerID = GetLayerID();
             compositionmodel.LayerNames = GetLayerNames();
+            compositionmodel.layerID = layerID;
+            compositionmodel.layerNameID = layerNameID;
 
             foreach (Layer lyr in Layers)
             {
@@ -366,6 +382,8 @@ namespace CMiX.ViewModels
             MessageAddress = compositionmodel.MessageAddress;
             Name = compositionmodel.Name;
             ContentFolderName = compositionmodel.ContentFolderName;
+            layerID = compositionmodel.layerID;
+            layerNameID = compositionmodel.layerNameID;
 
             foreach (LayerModel layermodel in compositionmodel.LayersModel)
             {

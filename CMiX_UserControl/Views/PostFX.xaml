@@ -6,6 +6,7 @@
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX_MVVM"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="120"
@@ -13,6 +14,7 @@
     mc:Ignorable="d">
 
     <UserControl.Resources>
+        <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
         <ObjectDataProvider x:Key="PostFXTransforms" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="ViewModels:PostFXTransforms"/>
@@ -28,52 +30,60 @@
     <Border             
         DockPanel.Dock="Bottom">
         <StackPanel>
-            <Border 
+            <Border
+                Height="25"
+                Margin="0, 0, 0, 2"
                 Background="{StaticResource DarkColor}"
                 Padding="4"
-                Margin="0, 0, 0, 8"
+                BorderBrush="{StaticResource HighDarkerColor}"
                 DockPanel.Dock="Top">
-                <DockPanel LastChildFill="False">
+                <Border.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem
+                            Padding="8, 4"
+                            Foreground="{StaticResource TextBase}"
+                            Command="{Binding Data.CopyPostFXCommand, Source={StaticResource proxy}}">
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="10" Height="10" Source="{StaticResource Copy}" />
+                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                    <TextBlock Text="Copy"/>
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                        <MenuItem
+                            Padding="8, 4"
+                            Foreground="{StaticResource TextBase}"
+                            Command="{Binding Data.PastePostFXCommand, Source={StaticResource proxy}}">
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="10" Height="10" Source="{StaticResource Paste}" />
+                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                    <TextBlock Text="Paste"/>
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                        <MenuItem
+                                Padding="8, 4"
+                                Foreground="{StaticResource TextBase}"
+                                Command="{Binding Data.ResetCommand, Source={StaticResource proxy}}">
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="10" Height="10" Source="{StaticResource Reset}" />
+                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                    <TextBlock Text="Reset"/>
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                    </ContextMenu>
+                </Border.ContextMenu>
+                <DockPanel 
+                    VerticalAlignment="Center" 
+                    LastChildFill="False">
                     <TextBlock
-                        Margin="8, 0, 0, 0"
-                        Text="PostFX"
-                        Foreground="{StaticResource TextBase}"
-                        />
-                    <Button 
-                        ToolTip="Reset"
-                        DockPanel.Dock="Right"
-                        Command="{Binding Path=ResetCommand}"
-                        Height="15" 
-                        Width="15" 
-                        Style="{StaticResource ButtonImage}">
-                        <Button.Content>
-                            <Image Source="{StaticResource Reset}"/>
-                        </Button.Content>
-                    </Button>
-                    <Button 
-                        DockPanel.Dock="Right"
-                        ToolTip="Paste"
-                        Margin="2, 0"
-                        Command="{Binding DataContext.PastePostFXCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=2}}"
-                        Height="15" 
-                        Width="15" 
-                        Style="{StaticResource ButtonImage}">
-                        <Button.Content>
-                            <Image Source="{StaticResource Paste}"/>
-                        </Button.Content>
-                    </Button>
-                    <Button 
-                        ToolTip="Copy"
-                        DockPanel.Dock="Right"
-                        Command="{Binding DataContext.CopyPostFXCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=2}}"
-                        Height="15" 
-                        Width="15" 
-                        Style="{StaticResource ButtonImage}"
-                        >
-                        <Button.Content>
-                            <Image Source="{StaticResource Copy}"/>
-                        </Button.Content>
-                    </Button>
+                        Margin="4, 0, 0, 0"
+                        Text="FX"
+                        Foreground="{StaticResource TextBase}"/>
                 </DockPanel>
             </Border>
             <Border DockPanel.Dock="Bottom" Style="{StaticResource BorderContainer}">

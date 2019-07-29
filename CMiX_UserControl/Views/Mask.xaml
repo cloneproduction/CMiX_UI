@@ -5,14 +5,62 @@
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX_MVVM"
     d:DesignHeight="812"
     d:DesignWidth="321"
     mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
+        </ResourceDictionary>
+    </UserControl.Resources>
     
     <DockPanel LastChildFill="True">
         <Border 
+            Background="Transparent"
             Padding="4, 0"
             DockPanel.Dock="Top">
+            <Border.ContextMenu>
+                <ContextMenu>
+                    <MenuItem
+                        Padding="8, 4"
+                        Foreground="{StaticResource TextBase}"
+                        Command="{Binding Data.CopyMaskCommand, Source={StaticResource proxy}}">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="10" Height="10" Source="{StaticResource Copy}" />
+                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                <TextBlock Text="Copy"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem
+                        Padding="8, 4"
+                        Foreground="{StaticResource TextBase}"
+                        Command="{Binding Data.PasteMaskCommand, Source={StaticResource proxy}}">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="10" Height="10" Source="{StaticResource Paste}" />
+                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                <TextBlock Text="Paste"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem
+                        Padding="8, 4"
+                        Foreground="{StaticResource TextBase}"
+                        Command="{Binding Data.ResetCommand, Source={StaticResource proxy}}">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="10" Height="10" Source="{StaticResource Reset}" />
+                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                <TextBlock Text="Reset"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                </ContextMenu>
+            </Border.ContextMenu>
             <DockPanel>
                 <Label
                     Content="MASK"
@@ -42,51 +90,6 @@
                         IsChecked="{Binding Enable, Mode=TwoWay}"
                         />
                 </StackPanel>
-                <DockPanel LastChildFill="False">
-                    <Button 
-                        DockPanel.Dock="Right"
-                        Command="{Binding Path=ResetCommand}"
-                        Height="15" 
-                        Width="15" 
-                        Style="{StaticResource ButtonImage}"
-                        >
-                        <Button.Content>
-                            <Image  Source="{StaticResource Reset}"/>
-                        </Button.Content>
-                        <Button.ToolTip>
-                            <TextBlock Text="Reset"/>
-                        </Button.ToolTip>
-                    </Button>
-                    <Button 
-                        DockPanel.Dock="Right"
-                        Margin="2, 0"
-                        Command="{Binding DataContext.PasteMaskCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=2}}"
-                        Height="15" 
-                        Width="15" 
-                        Style="{StaticResource ButtonImage}"
-                        >
-                        <Button.Content>
-                            <Image  Source="{StaticResource Paste}"/>
-                        </Button.Content>
-                        <Button.ToolTip>
-                            <TextBlock Text="Paste"/>
-                        </Button.ToolTip>
-                    </Button>
-                    <Button 
-                        DockPanel.Dock="Right"
-                        Command="{Binding DataContext.CopyMaskCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=2}}"
-                        Height="15" 
-                        Width="15" 
-                        Style="{StaticResource ButtonImage}"
-                        >
-                        <Button.Content>
-                            <Image Source="{StaticResource Copy}"/>
-                        </Button.Content>
-                        <Button.ToolTip>
-                            <TextBlock Text="Copy"/>
-                        </Button.ToolTip>
-                    </Button>
-                </DockPanel>
             </DockPanel>
         </Border>
         <Border 

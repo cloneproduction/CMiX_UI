@@ -113,7 +113,6 @@ namespace CMiX.ViewModels
             IDataObject data = new DataObject();
             data.SetData("GeometryModel", geometrymodel, false);
             Clipboard.SetDataObject(data);
-            Console.WriteLine("CopyGeometry");
         }
 
         public void PasteGeometry()
@@ -125,9 +124,7 @@ namespace CMiX.ViewModels
                 var geometrymodel = data.GetData("GeometryModel") as GeometryModel;
                 this.Paste(geometrymodel);
                 Mementor.EndBatch();
-                Console.WriteLine("PasteGeometry");
             }
-            
         }
 
         #region COPY/PASTE/RESET

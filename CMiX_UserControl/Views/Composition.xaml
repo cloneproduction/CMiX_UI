@@ -138,6 +138,14 @@
                                 dd:DragDrop.IsDragSource="True"
                                 dd:DragDrop.IsDropTarget="True"
                                 dd:DragDrop.DropHandler="{Binding}">
+                                <!--<dd:DragDrop.EffectCopyAdornerTemplate>
+                                    <DataTemplate>
+                                        <Views:ChannelLayer 
+                                            
+                                            Width="250"
+                                            Opacity="0.75"/>
+                                    </DataTemplate>
+                                </dd:DragDrop.EffectCopyAdornerTemplate>-->
                                 <ListBox.ContextMenu>
                                     <ContextMenu>
                                         <MenuItem
@@ -238,7 +246,7 @@
                             <TextBlock Text="CAMERA" Margin="4, 0, 4, 0"/>
                         </TabItem.Header>
                         <CMiX:Camera
-                            Margin="4, 0, 0, 0"
+                            Margin="0, 8, 0, 0"
                             DataContext="{Binding Camera}"
                             />
                     </TabItem>

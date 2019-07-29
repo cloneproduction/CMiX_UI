@@ -5,6 +5,7 @@ using CMiX.MVVM.Models;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using Memento;
+using System.Windows;
 
 namespace CMiX.ViewModels
 {
@@ -21,6 +22,8 @@ namespace CMiX.ViewModels
             Transforms = ((PostFXTransforms)0).ToString();
             View = ((PostFXView)0).ToString();
             ResetCommand = new RelayCommand(p => Reset());
+            CopyPostFXCommand = new RelayCommand(p => CopyPostFX());
+            PastePostFXCommand = new RelayCommand(p => PastePostFX());
         }
         #endregion
 
@@ -36,6 +39,8 @@ namespace CMiX.ViewModels
 
         #region PROPERTIES
         public ICommand ResetCommand { get; }
+        public ICommand CopyPostFXCommand { get; }
+        public ICommand PastePostFXCommand { get; }
 
         public Slider Feedback { get; }
         public Slider Blur { get; }
@@ -108,6 +113,27 @@ namespace CMiX.ViewModels
             SendQueues();
 
             EnabledMessages();
+        }
+
+        public void CopyPostFX()
+        {
+            PostFXModel postfxmodel = new PostFXModel();
+            this.Copy(postfxmodel);
+            IDataObject data = new DataObject();
+            data.SetData("PostFX", postfxmodel, false);
+            Clipboard.SetDataObject(data);
+        }
+
+        public void PastePostFX()
+        {
+            IDataObject data = Clipboard.GetDataObject();
+            if (data.GetDataPresent("PostFXModel"))
+            {
+                Mementor.BeginBatch();
+                var postfxmodel = data.GetData("PostFXModel") as PostFXModel;
+                this.Paste(postfxmodel);
+                Mementor.EndBatch();
+            }
         }
         #endregion
     }

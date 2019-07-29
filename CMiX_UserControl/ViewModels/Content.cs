@@ -31,6 +31,8 @@ namespace CMiX.ViewModels
             PasteGeometryCommand = new RelayCommand(p => PasteGeometry());
             CopyPostFXCommand = new RelayCommand(p => CopyPostFX());
             PastePostFXCommand = new RelayCommand(p => PastePostFX());
+            CopyContentCommand = new RelayCommand(p => CopyContent());
+            PasteContentCommand = new RelayCommand(p => PasteContent());
         }
         #endregion
 
@@ -49,15 +51,14 @@ namespace CMiX.ViewModels
         public ICommand CopySelfCommand { get; }
         public ICommand PasteSelfCommand { get; }
         public ICommand ResetCommand { get; }
-
         public ICommand CopyTextureCommand { get; }
         public ICommand PasteTextureCommand { get; }
-
         public ICommand CopyGeometryCommand { get; }
         public ICommand PasteGeometryCommand { get; }
-
         public ICommand CopyPostFXCommand { get; }
         public ICommand PastePostFXCommand { get; }
+        public ICommand CopyContentCommand { get; }
+        public ICommand PasteContentCommand { get; }
 
         private bool _enable;
         public bool Enable
@@ -205,6 +206,27 @@ namespace CMiX.ViewModels
             Geometry.Paste(contentmodel.GeometryModel);
             PostFX.Paste(contentmodel.PostFXModel);
             EnabledMessages();
+        }
+
+        public void CopyContent()
+        {
+            ContentModel contentmodel = new ContentModel();
+            this.Copy(contentmodel);
+            IDataObject data = new DataObject();
+            data.SetData("ContentModel", contentmodel, false);
+            Clipboard.SetDataObject(data);
+        }
+
+        public void PasteContent()
+        {
+            IDataObject data = Clipboard.GetDataObject();
+            if (data.GetDataPresent("ContentModel"))
+            {
+                Mementor.BeginBatch();
+                var contentmodel = data.GetData("ContentModel") as ContentModel;
+                this.Paste(contentmodel);
+                Mementor.EndBatch();
+            }
         }
         #endregion
     }

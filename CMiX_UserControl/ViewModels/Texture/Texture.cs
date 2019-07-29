@@ -55,6 +55,8 @@ namespace CMiX.ViewModels
             Tilt.Minimum = -1.0;
 
             ResetCommand = new RelayCommand(p => Reset());
+            CopyTextureCommand = new RelayCommand(p => CopyTexture());
+            PasteTextureCommand = new RelayCommand(p => PasteTexture());
         }
         #endregion
 
@@ -80,6 +82,8 @@ namespace CMiX.ViewModels
 
         #region PROPERTIES
         public ICommand ResetCommand { get; }
+        public ICommand CopyTextureCommand { get; }
+        public ICommand PasteTextureCommand { get; }
 
         public FileSelector FileSelector { get;  }
         public Slider Brightness { get; }
@@ -169,6 +173,28 @@ namespace CMiX.ViewModels
             Tilt.Reset();
 
             EnabledMessages();
+        }
+
+        public void CopyTexture()
+        {
+            TextureModel texturemodel = new TextureModel();
+            this.Copy(texturemodel);
+            IDataObject data = new DataObject();
+            data.SetData("TextureModel", texturemodel, false);
+            Clipboard.SetDataObject(data);
+        }
+
+        public void PasteTexture()
+        {
+            IDataObject data = Clipboard.GetDataObject();
+            if (data.GetDataPresent("TextureModel"))
+            {
+                Mementor.BeginBatch();
+                var texturemodel = data.GetData("TextureModel") as TextureModel;
+                this.Paste(texturemodel);
+                Mementor.EndBatch();
+            }
+
         }
         #endregion
     }

@@ -20,6 +20,8 @@ namespace CMiX.MVVM.Models
         }
 
         public string Name { get; set; }
+        public int layerID { get; set; }
+        public int layerNameID { get; set; }
 
         public string ContentFolderName { get; set; }
         public string GeometryFolderName { get; set; }

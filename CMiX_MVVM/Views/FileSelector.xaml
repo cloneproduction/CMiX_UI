@@ -8,15 +8,15 @@
              xmlns:dd="urn:gong-wpf-dragdrop"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    
+
     <UserControl.Resources>
         <ResourceDictionary>
             <Converters:PathToFilenameConverter x:Key="PathToFileName" />
         </ResourceDictionary>
     </UserControl.Resources>
-    
+
     <DockPanel>
-        <DockPanel Height="20" DockPanel.Dock="Top">
+        <DockPanel DockPanel.Dock="Top">
             <Menu
                 Grid.Row="0"
                 Grid.Column="1"
@@ -58,6 +58,20 @@
                         />
                 </MenuItem>
             </Menu>
+            <Border
+                Height="25"
+                Padding="4"
+                BorderBrush="{StaticResource HighDarkerColor}"
+                DockPanel.Dock="left">
+                <DockPanel 
+                    VerticalAlignment="Center" 
+                    LastChildFill="False">
+                    <TextBlock
+                        Margin="4, 0, 0, 0"
+                        Text="Files"
+                        Foreground="{StaticResource TextBase}"/>
+                </DockPanel>
+            </Border>
         </DockPanel>
         <ListBox
             VerticalAlignment="Stretch"
@@ -74,6 +88,11 @@
             dd:DragDrop.IsDropTarget="True"
             dd:DragDrop.DragHandler="{Binding}"
             dd:DragDrop.DropHandler="{Binding}">
+            <!--<dd:DragDrop.EffectCopyAdornerTemplate>
+                <DataTemplate>
+                    <MVVM.Views:FileNameItem/>
+                </DataTemplate>
+            </dd:DragDrop.EffectCopyAdornerTemplate>-->
             <ListBox.Resources>
                 <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
                     <Setter Property="IsSelected" Value="{Binding FileIsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
