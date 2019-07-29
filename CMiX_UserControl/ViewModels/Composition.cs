@@ -23,12 +23,12 @@ namespace CMiX.ViewModels
             CreateOSCValidation(oscmessengers);
 
             Layers = new ObservableCollection<Layer>();
-
+            Mementor = new Mementor();
             Transition = new Slider("/Transition", OSCValidation, Mementor);
 
             MasterBeat = new MasterBeat(OSCValidation, Mementor);
             Camera = new Camera(OSCValidation, MasterBeat, Mementor);
-            Mementor = new Mementor();
+            
 
             CreateLayer();
 
