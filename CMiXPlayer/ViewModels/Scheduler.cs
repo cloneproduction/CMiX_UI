@@ -10,18 +10,17 @@ namespace CMiXPlayer.ViewModels
 {
     public class Scheduler : ViewModel
     {
-        public Scheduler(ObservableCollection<Device> devices)
+        public Scheduler(ObservableCollection<Device> devices, ObservableCollection<IJob> runningJobs)
         {
             Devices = devices;
-            //SelectedDevice = new Device();
-            Jobs = new ObservableCollection<IJob>();
+            RunningJobs = runningJobs;
 
             NewJobCommand = new RelayCommand(p => NewJob());
         }
 
         public ObservableCollection<Device> Devices { get; set; }
 
-        public ObservableCollection<IJob> Jobs { get; set; }
+        public ObservableCollection<IJob> RunningJobs { get; set; }
 
         private Device _selecteddevice;
         public Device SelectedDevice

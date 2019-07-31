@@ -27,6 +27,7 @@
                     />
                 <TextBox
                     VerticalContentAlignment="Center"
+                    Text="{Binding JobName}"
                     Foreground="{StaticResource TextBase}"
                     Grid.Column="1"
                     DockPanel.Dock="Top"
@@ -48,11 +49,11 @@
                         Text="Device"
                         />
                     <ComboBox
-                    Grid.Column="1"
-                    DockPanel.Dock="Top"
-                    Height="25"
-                    ItemsSource="{Binding Devices}"
-                    SelectedItem="{Binding SelectedDevice}">
+                        Grid.Column="1"
+                        DockPanel.Dock="Top"
+                        Height="25"
+                        ItemsSource="{Binding Devices}"
+                        SelectedItem="{Binding SelectedDevice}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding OSCMessenger.Name}"/>

@@ -10,12 +10,12 @@ namespace CMiXPlayer.ViewModels
     public class JobEditor : ViewModel
     {
         #region CONTRUCTORS
-        public JobEditor(ObservableCollection<Device> devices, ObservableCollection<Playlist> playlists)
+        public JobEditor(ObservableCollection<Device> devices, ObservableCollection<Playlist> playlists, ObservableCollection<IJob> runningJob)
         {
             Devices = devices;
             Playlists = playlists;
             ToRunType = new ToRunType();
-
+            RunningJobs = runningJob;
             CreateJobCommand = new RelayCommand(p => CreateJob());
         }
         #endregion
@@ -24,6 +24,8 @@ namespace CMiXPlayer.ViewModels
         public ICommand CreateJobCommand { get; }
 
         public ObservableCollection<Device> Devices { get; set; }
+        ObservableCollection<IJob> RunningJobs { get; set; }
+
 
         private Device _selecteddevice;
         public Device SelectedDevice
@@ -48,22 +50,22 @@ namespace CMiXPlayer.ViewModels
             set => SetAndNotify(ref _toruntype, value);
         }
 
-        private string _schedulename;
-        public string ScheduleName
+        private string _jobName;
+        public string JobName
         {
-            get => _schedulename;
-            set => SetAndNotify(ref _schedulename, value);
+            get => _jobName;
+            set => SetAndNotify(ref _jobName, value);
         }
         #endregion
 
         #region PRIVATE METHODS
         private void CreateJob()
         {
-            Console.WriteLine("Create Job");
             if (SelectedPlaylist != null && SelectedDevice.OSCMessenger != null)
             {
-                var j = new JobSendComposition(SelectedPlaylist, SelectedDevice.OSCMessenger);
-                JobManager.AddJob(j, (s) => ToRunType.SetRunType(s.WithName(ScheduleName)));
+                var j = new JobSendComposition(JobName, SelectedPlaylist, SelectedDevice.OSCMessenger);
+                RunningJobs.Add(j);
+                JobManager.AddJob(j, (s) => ToRunType.SetRunType(s.WithName(JobName)));
             }
         }
         #endregion

@@ -13,31 +13,47 @@ namespace CMiXPlayer.Jobs
 
         }
 
-        public JobSendComposition(Playlist playlist, OSCMessenger oscmessenger)
+        public JobSendComposition(string name, Playlist playlist, OSCMessenger oscmessenger)
         {
+            Name = name;
             Playlist = playlist;
             OSCMessenger = oscmessenger;
         }
-
-        public Playlist Playlist{ get; set; }
         public OSCMessenger OSCMessenger { get; set; }
+
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set => SetAndNotify(ref _name, value);
+        }
+
+        private Playlist _playlist;
+        public Playlist Playlist
+        {
+            get => _playlist;
+            set => SetAndNotify(ref _playlist, value);
+        }
+
+        public CompositionModel _currentComposition;
+        public CompositionModel CurrentComposition
+        {
+            get => _currentComposition;
+            set => SetAndNotify(ref _currentComposition, value);
+        }
+
 
         int CompositionIndex = 0;
 
         public void Execute()
         {
-            foreach (var item in Playlist.Compositions)
-            {
-                Console.WriteLine(item.Name);
-            }
             if (CompositionIndex <= Playlist.Compositions.Count - 1)
             {
                 CompositionModel compositionmodel = Playlist.Compositions[CompositionIndex];
+                CurrentComposition = compositionmodel;
                 OSCMessenger.SendMessage("/CompositionReloaded", true);
                 OSCMessenger.QueueObject(compositionmodel);
                 OSCMessenger.SendQueue();
-                Console.WriteLine("The composition named : " + compositionmodel.Name + " has been sent to engine");
-
                 CompositionIndex += 1;
             }
             else

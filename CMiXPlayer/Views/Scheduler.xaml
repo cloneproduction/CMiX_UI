@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <ListView
-        ItemsSource="{Binding Jobs}"
+        ItemsSource="{Binding RunningJobs}"
         BorderThickness="0"
         Background="{StaticResource HighDarkerColor}">
         <ListView.ItemTemplate>

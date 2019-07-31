@@ -18,6 +18,8 @@ namespace CMiX.MVVM.Models
             MessageAddress = messageaddress;
         }
 
+        public string FolderPath { get; set; }
+
         public List<FileNameItemModel> FilePaths { get; set; }
 
         public FileNameItemModel SelectedFileNameItem { get; set; }

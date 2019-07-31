@@ -8,7 +8,7 @@
     mc:Ignorable="d" 
     d:DesignHeight="450" d:DesignWidth="800">
     <DataGrid 
-        ItemsSource="{Binding Devices}" 
+        ItemsSource="{Binding RunningJobs}" 
         Background="Black"
         AutoGenerateColumns="False">
         <DataGrid.Columns>
@@ -25,30 +25,48 @@
                                 BorderThickness="0"
                                 Background="{StaticResource HighDarkerColor}"
                                 Foreground="{StaticResource TextBase}"
-                                Text="{Binding OSCMessenger.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 />
                         </DockPanel>
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="IP" Width="150">
+            <DataGridTemplateColumn Header="Playlist" Width="150">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
-                        <Controls:IPBox 
+                        <TextBox 
+                                Padding="4"
+                                Cursor="IBeam"
+                                CaretBrush="{StaticResource TextBase}"
+                                SelectionBrush="{StaticResource LightColor}"
+                                BorderBrush="Transparent"
+                                BorderThickness="0"
+                                Background="{StaticResource HighDarkerColor}"
+                                Foreground="{StaticResource TextBase}"
+                                Text="{Binding Playlist.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                />
+                        <!--<Controls:IPBox 
                             HorizontalContentAlignment="Stretch"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             IPAddress="{Binding OSCMessenger.Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            />
+                            />-->
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="Port" Width="150">
+            <DataGridTemplateColumn Header="Current" Width="150">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
-                        <TextBlock 
-                            VerticalAlignment="Center"
-                            Text="{Binding OSCMessenger.Port}"
+                        <TextBox 
+                            Padding="4"
+                            Cursor="IBeam"
+                            CaretBrush="{StaticResource TextBase}"
+                            SelectionBrush="{StaticResource LightColor}"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Background="{StaticResource HighDarkerColor}"
+                            Foreground="{StaticResource TextBase}"
+                            Text="{Binding CurrentComposition.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             />
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>

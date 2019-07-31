@@ -4,8 +4,6 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows;
 
-//using CMiX.Models;
-using CMiX.MVVM;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
@@ -141,11 +139,6 @@ namespace CMiX.ViewModels
             {
                 Mementor.EndBatch();
             }
-            /*if ((dropInfo.Data is PupilViewModel || dropInfo.Data is IEnumerable<PupilViewModel>) && dropInfo.TargetItem is SchoolViewModel)
-            {
-                dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
-                dropInfo.Effects = DragDropEffects.Move;
-            }*/
         }
 
         public void Drop(IDropInfo dropInfo)
@@ -157,9 +150,9 @@ namespace CMiX.ViewModels
                 {
                     Mementor.BeginBatch();
                     var filedrop = dataObject.GetFileDropList();
+
                     foreach (string str in filedrop)
                     {
-                        
                         foreach (string fm in FileMask)
                         {
                             if (System.IO.Path.GetExtension(str).ToUpperInvariant() == fm)
@@ -271,6 +264,7 @@ namespace CMiX.ViewModels
         public void Copy(FileSelectorModel fileselectormodel)
         {
             fileselectormodel.MessageAddress = MessageAddress;
+            fileselectormodel.FolderPath = FolderPath;
             List<FileNameItemModel> FileNameItemModelList = new List<FileNameItemModel>();
             foreach (var item in FilePaths)
             {
@@ -288,6 +282,8 @@ namespace CMiX.ViewModels
             DisabledMessages();
 
             MessageAddress = fileselectormodel.MessageAddress;
+            FolderPath = fileselectormodel.FolderPath;
+
             FilePaths.Clear();
 
             foreach (var item in fileselectormodel.FilePaths)

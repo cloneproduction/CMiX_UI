@@ -214,10 +214,33 @@
                             <TextBlock Text="OSC" Margin="4, 0, 4, 0"/>
                         </TabItem.Header>
                         <StackPanel>
+                            <Grid 
+                                Height="25" 
+                                Margin="0, 8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Button
+                                    Content="Send All"
+                                    Grid.Column="0"
+                                    Margin="2, 0"
+                                    />
+                                <Button
+                                    Content="Reset All"
+                                    Grid.Column="1"
+                                    Margin="2, 0"
+                                    />
+                                <Button
+                                    Content="Reload All"
+                                    Grid.Column="2"
+                                    Margin="2, 0"
+                                    />
+                            </Grid>
                             <MVVM.Views:Slider
                                 Grid.Column="1"
                                 Height="20"
-                                Margin="0,8,0,0"
                                 Caption="Transition"
                                 DataContext="{Binding Transition}"
                                 />
@@ -243,7 +266,10 @@
                     </TabItem>
                     <TabItem>
                         <TabItem.Header>
-                            <TextBlock Text="CAMERA" Margin="4, 0, 4, 0"/>
+                            <TextBlock 
+                                Text="CAMERA" 
+                                Margin="4, 0, 4, 0"
+                                />
                         </TabItem.Header>
                         <CMiX:Camera
                             Margin="0, 8, 0, 0"
@@ -252,7 +278,10 @@
                     </TabItem>
                     <TabItem>
                         <TabItem.Header>
-                            <TextBlock Text="PATH" Margin="4, 0, 4, 0"/>
+                            <TextBlock 
+                                Text="PATH" 
+                                Margin="4, 0, 4, 0"
+                                />
                         </TabItem.Header>
                         <StackPanel>
                             <DockPanel Margin="4">

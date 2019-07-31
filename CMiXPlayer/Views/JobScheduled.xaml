@@ -19,11 +19,19 @@
             Grid.Column="0"
             Text="{Binding Name}"
             />
-        <Button 
+        <TextBlock
             Margin="4"
+            Foreground="{StaticResource TextBase}"
+            VerticalAlignment="Center"
+            Grid.Column="1"
+            Text="{Binding Playlist.Name}"
+            />
+        <TextBlock
+            Margin="4"
+            Foreground="{StaticResource TextBase}"
+            VerticalAlignment="Center"
             Grid.Column="2"
-            Content="Start Job"
-            Command="{Binding StartJobCommand}"
+            Text="{Binding CurrentComposition.Name}"
             />
     </Grid>
 </UserControl>
