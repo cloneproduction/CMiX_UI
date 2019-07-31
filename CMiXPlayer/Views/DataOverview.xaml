@@ -12,7 +12,21 @@
         Background="Black"
         AutoGenerateColumns="False">
         <DataGrid.Columns>
-            <DataGridTemplateColumn Header="Name" Width="150" >
+            <DataGridTemplateColumn Header="Server" Width="150" >
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <DockPanel>
+                            <TextBlock 
+                                Padding="4"
+                                Background="{StaticResource HighDarkerColor}"
+                                Foreground="{StaticResource TextBase}"
+                                Text="{Binding OscMessenger.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                />
+                        </DockPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Task" Width="150" >
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
                         <DockPanel>
@@ -34,17 +48,12 @@
             <DataGridTemplateColumn Header="Playlist" Width="150">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
-                        <TextBox 
-                                Padding="4"
-                                Cursor="IBeam"
-                                CaretBrush="{StaticResource TextBase}"
-                                SelectionBrush="{StaticResource LightColor}"
-                                BorderBrush="Transparent"
-                                BorderThickness="0"
-                                Background="{StaticResource HighDarkerColor}"
-                                Foreground="{StaticResource TextBase}"
-                                Text="{Binding Playlist.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                />
+                        <TextBlock 
+                            Padding="4"
+                            Background="{StaticResource HighDarkerColor}"
+                            Foreground="{StaticResource TextBase}"
+                            Text="{Binding Playlist.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            />
                         <!--<Controls:IPBox 
                             HorizontalContentAlignment="Stretch"
                             HorizontalAlignment="Stretch"
@@ -57,16 +66,23 @@
             <DataGridTemplateColumn Header="Current" Width="150">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
-                        <TextBox 
+                        <TextBlock 
                             Padding="4"
-                            Cursor="IBeam"
-                            CaretBrush="{StaticResource TextBase}"
-                            SelectionBrush="{StaticResource LightColor}"
-                            BorderBrush="Transparent"
-                            BorderThickness="0"
                             Background="{StaticResource HighDarkerColor}"
                             Foreground="{StaticResource TextBase}"
                             Text="{Binding CurrentComposition.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            />
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Next" Width="150">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <TextBlock 
+                            Padding="4"
+                            Background="{StaticResource HighDarkerColor}"
+                            Foreground="{StaticResource TextBase}"
+                            Text="{Binding NextComposition.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             />
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>

@@ -5,9 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CMiXPlayer.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="35.661" d:DesignWidth="893.99">
-    <Grid>
+             d:DesignHeight="40.105" d:DesignWidth="896.212">
+    <Grid Height="30">
         <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -33,5 +35,42 @@
             Grid.Column="2"
             Text="{Binding CurrentComposition.Name}"
             />
+        <TextBlock
+            Margin="4"
+            Foreground="{StaticResource TextBase}"
+            VerticalAlignment="Center"
+            Grid.Column="3"
+            Text="{Binding NextComposition.Name}"
+            />
+        <StackPanel 
+            Grid.Column="4" 
+            Orientation="Horizontal" 
+            FlowDirection="RightToLeft">
+            <Button
+                Margin="1, 0"
+                Width="30"
+                Content="X"
+                Command="{Binding Path=DataContext.RemoveJobCommand, RelativeSource={RelativeSource AncestorType={x:Type local:Scheduler}}}"
+                CommandParameter="{Binding}"
+                />
+            <Button
+                Margin="1, 0"
+                Width="30"
+                Content="Next"
+                Command="{Binding SendNextCommand}"
+                />
+            <Button
+                Margin="1, 0"
+                Width="30"
+                Content="Prev"
+                Command="{Binding PreviousJobCommand}"
+                />
+            <Button
+                Margin="1, 0"
+                Width="30"
+                Content="Pause"
+                Command="{Binding PauseJobCommand}"
+                />
+        </StackPanel>
     </Grid>
 </UserControl>

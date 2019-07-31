@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Input;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels;
 using CMiXPlayer.ViewModels;
@@ -18,8 +19,16 @@ namespace CMiXPlayer.Jobs
             Name = name;
             Playlist = playlist;
             OSCMessenger = oscmessenger;
+            NextComposition = playlist.Compositions[0];
+
+            SendNextCommand = new RelayCommand(p => SendNext());
         }
+
         public OSCMessenger OSCMessenger { get; set; }
+
+        public ICommand SendNextCommand { get; }
+        public ICommand PreviousJobCommand { get; }
+        public ICommand PauseJobCommand { get; }
 
         private string _name;
         public string Name
@@ -42,24 +51,45 @@ namespace CMiXPlayer.Jobs
             set => SetAndNotify(ref _currentComposition, value);
         }
 
+        public CompositionModel _nextComposition;
+        public CompositionModel NextComposition
+        {
+            get => _nextComposition;
+            set => SetAndNotify(ref _nextComposition, value);
+        }
 
-        int CompositionIndex = 0;
+        int NextCompositionIndex = 0;
 
         public void Execute()
         {
-            if (CompositionIndex <= Playlist.Compositions.Count - 1)
+            SendNext();
+        }
+
+        public void Send()
+        {
+            CurrentComposition = NextComposition;
+            OSCMessenger.SendMessage("/CompositionReloaded", true);
+            OSCMessenger.QueueObject(CurrentComposition);
+            OSCMessenger.SendQueue();
+        }
+
+        public void Next()
+        {
+            if (NextCompositionIndex < Playlist.Compositions.Count - 1)
             {
-                CompositionModel compositionmodel = Playlist.Compositions[CompositionIndex];
-                CurrentComposition = compositionmodel;
-                OSCMessenger.SendMessage("/CompositionReloaded", true);
-                OSCMessenger.QueueObject(compositionmodel);
-                OSCMessenger.SendQueue();
-                CompositionIndex += 1;
+                NextCompositionIndex += 1;
             }
             else
             {
-                CompositionIndex = 0;
+                NextCompositionIndex = 0;
             }
+            NextComposition = Playlist.Compositions[NextCompositionIndex];
+        }
+
+        public void SendNext()
+        {
+            Send();
+            Next();
         }
     }
 }

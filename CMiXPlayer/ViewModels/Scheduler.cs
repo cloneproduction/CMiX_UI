@@ -15,7 +15,7 @@ namespace CMiXPlayer.ViewModels
             Devices = devices;
             RunningJobs = runningJobs;
 
-            NewJobCommand = new RelayCommand(p => NewJob());
+            RemoveJobCommand = new RelayCommand(p => RemoveJob(p));
         }
 
         public ObservableCollection<Device> Devices { get; set; }
@@ -29,16 +29,16 @@ namespace CMiXPlayer.ViewModels
             set { _selecteddevice = value; }
         }
 
-
-        public ICommand NewJobCommand { get; set; }
-        public ICommand StartJobCommand { get; set; }
+        public ICommand RemoveJobCommand { get; set; }
 
         public List<Action<Schedule>> action { get; set; }
 
-        private void NewJob()
+        private void RemoveJob(object job)
         {
-            //Job job = new Job(Devices);
-            //Jobs.Add(job);
+            Console.WriteLine("RemoveJob");
+            JobSendComposition j = job as JobSendComposition;
+            JobManager.RemoveJob(j.Name);
+            RunningJobs.Remove(j);
         }
     }
 }
