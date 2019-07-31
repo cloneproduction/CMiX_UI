@@ -1,9 +1,9 @@
-﻿using CMiX.MVVM.ViewModels;
-using CMiXPlayer.Jobs;
-using FluentScheduler;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using CMiX.MVVM.ViewModels;
+using CMiXPlayer.Jobs;
+using FluentScheduler;
 
 namespace CMiXPlayer.ViewModels
 {
@@ -14,8 +14,9 @@ namespace CMiXPlayer.ViewModels
         {
             Devices = devices;
             Playlists = playlists;
-            ToRunType = new ToRunType();
             RunningJobs = runningJob;
+            ToRunType = new ToRunType();
+
             CreateJobCommand = new RelayCommand(p => CreateJob());
         }
         #endregion
@@ -24,8 +25,8 @@ namespace CMiXPlayer.ViewModels
         public ICommand CreateJobCommand { get; }
 
         public ObservableCollection<Device> Devices { get; set; }
-        ObservableCollection<IJob> RunningJobs { get; set; }
-
+        public ObservableCollection<IJob> RunningJobs { get; set; }
+        public ObservableCollection<Playlist> Playlists { get; set; }
 
         private Device _selecteddevice;
         public Device SelectedDevice
@@ -33,8 +34,6 @@ namespace CMiXPlayer.ViewModels
             get => _selecteddevice;
             set => SetAndNotify(ref _selecteddevice, value);
         }
-
-        public ObservableCollection<Playlist> Playlists { get; set; }
 
         private Playlist _selectedplaylist;
         public Playlist SelectedPlaylist
@@ -63,7 +62,7 @@ namespace CMiXPlayer.ViewModels
         {
             if (SelectedPlaylist != null && SelectedDevice.OSCMessenger != null)
             {
-                var j = new JobSendComposition(JobName, SelectedPlaylist, SelectedDevice.OSCMessenger);
+                var j = new JobSendComposition(JobName, SelectedPlaylist, SelectedDevice);
                 RunningJobs.Add(j);
                 JobManager.AddJob(j, (s) => ToRunType.SetRunType(s.WithName(JobName)));
             }

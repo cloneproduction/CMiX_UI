@@ -20,7 +20,7 @@
                                 Padding="4"
                                 Background="{StaticResource HighDarkerColor}"
                                 Foreground="{StaticResource TextBase}"
-                                Text="{Binding OscMessenger.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Text="{Binding Device.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 />
                         </DockPanel>
                     </DataTemplate>

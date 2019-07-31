@@ -14,29 +14,6 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <TextBlock 
-                Text="Name" 
-                Foreground="{StaticResource TextBase}"
-                HorizontalAlignment="Right"
-                Margin="0, 0, 8, 0"
-                VerticalAlignment="Center"
-                />
-            <TextBox
-                Margin="1"
-                VerticalContentAlignment="Center"
-                Text="{Binding Name}"
-                Grid.Column="1"
-                BorderThickness="0"
-                BorderBrush="{StaticResource DarkColor}"
-                Foreground="{StaticResource TextBase}"
-                Background="{StaticResource HighDarkerColor}"
-                />
-        </Grid>
-        <Grid Height="25">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.4*"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <TextBlock 
                 Text="IP" 
                 Foreground="{StaticResource TextBase}"
                 HorizontalAlignment="Right"

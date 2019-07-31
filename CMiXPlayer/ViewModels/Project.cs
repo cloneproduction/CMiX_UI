@@ -33,8 +33,6 @@ namespace CMiXPlayer.ViewModels
             DeleteClientCommand = new RelayCommand(p => DeleteClient(p));
             SendAllCommand = new RelayCommand(p => SendAllClient());
             ResetAllClientCommand = new RelayCommand(p => ResetAllClient());
-            MakeJobCommand = new RelayCommand(p => MakeJob());
-            InitJobCommand = new RelayCommand(p => InitJob());
         }
         #endregion
 
@@ -66,9 +64,8 @@ namespace CMiXPlayer.ViewModels
         private void AddClient()
         {
             clientcreationindex++;
-            Console.WriteLine("Added Client");
             var client = new Device(Serializer, Playlists);
-            client.OSCMessenger.Name = $"Server ({clientcreationindex})";
+            client.Name = $"Server ({clientcreationindex})";
             Devices.Add(client);
         }
 
@@ -97,22 +94,5 @@ namespace CMiXPlayer.ViewModels
             }
         }
         #endregion
-
-
-        //public Registry Registry { get; set; }
-
-        //public List<Action<Schedule>> action { get; set; }
-
-        //public IJob job { get; set; }
-
-        public void MakeJob()
-        {
-
-        }
-
-        public void InitJob()
-        {
-
-        }
     }
 }

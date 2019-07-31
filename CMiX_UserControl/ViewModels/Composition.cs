@@ -41,7 +41,6 @@ namespace CMiX.ViewModels
         }
         #endregion
 
-
         #region PROPERTIES
 
         public ICommand ReloadCompositionCommand { get; }

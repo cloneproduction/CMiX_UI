@@ -14,13 +14,14 @@ namespace CMiXPlayer.Jobs
 
         }
 
-        public JobSendComposition(string name, Playlist playlist, OSCMessenger oscmessenger)
+        public JobSendComposition(string name, Playlist playlist, Device device)
         {
             Name = name;
             Playlist = playlist;
-            OSCMessenger = oscmessenger;
-            NextComposition = playlist.Compositions[0];
+            Device = device;
+            OSCMessenger = device.OSCMessenger;
 
+            Init();
             SendNextCommand = new RelayCommand(p => SendNext());
         }
 
@@ -35,6 +36,13 @@ namespace CMiXPlayer.Jobs
         {
             get => _name;
             set => SetAndNotify(ref _name, value);
+        }
+
+        private Device _device;
+        public Device Device
+        {
+            get => _device;
+            set => SetAndNotify(ref _device, value);
         }
 
         private Playlist _playlist;
@@ -67,10 +75,13 @@ namespace CMiXPlayer.Jobs
 
         public void Send()
         {
-            CurrentComposition = NextComposition;
-            OSCMessenger.SendMessage("/CompositionReloaded", true);
-            OSCMessenger.QueueObject(CurrentComposition);
-            OSCMessenger.SendQueue();
+            if(NextComposition != null)
+            {
+                CurrentComposition = NextComposition;
+                OSCMessenger.SendMessage("/CompositionReloaded", true);
+                OSCMessenger.QueueObject(CurrentComposition);
+                OSCMessenger.SendQueue();
+            }
         }
 
         public void Next()
@@ -83,13 +94,20 @@ namespace CMiXPlayer.Jobs
             {
                 NextCompositionIndex = 0;
             }
-            NextComposition = Playlist.Compositions[NextCompositionIndex];
+            if (Playlist.Compositions.Count > 0)
+                NextComposition = Playlist.Compositions[NextCompositionIndex];
         }
 
         public void SendNext()
         {
             Send();
             Next();
+        }
+
+        public void Init()
+        {
+            if (Playlist.Compositions.Count > 0)
+                NextComposition = Playlist.Compositions[0];
         }
     }
 }
