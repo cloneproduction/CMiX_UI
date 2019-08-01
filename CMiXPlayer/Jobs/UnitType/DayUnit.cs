@@ -40,7 +40,6 @@ namespace CMiXPlayer.Jobs
 
         public void SetDayUnit(TimeUnit timeunit)
         {
-            Console.WriteLine("SetDayUnit");
             timeunit.Days().At(At.Hours, At.Minutes);
         }
     }

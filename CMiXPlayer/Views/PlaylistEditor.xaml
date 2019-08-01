@@ -80,12 +80,13 @@
                             Text="{Binding SelectedPlaylist.Name, UpdateSourceTrigger=PropertyChanged}"
                             />
                     </Grid>
+                    <!--<MVVM.Views:FileSelector DataContext="{Binding Playlists}"/>-->
                     <ListBox 
                         AllowDrop="True"
                         dd:DragDrop.IsDragSource="True"
                         dd:DragDrop.IsDropTarget="True"
-                        dd:DragDrop.DragHandler="{Binding SelectedPlaylist}"
-                        dd:DragDrop.DropHandler="{Binding SelectedPlaylist}"
+                        dd:DragDrop.DragHandler="{Binding}"
+                        dd:DragDrop.DropHandler="{Binding}"
                         ItemsSource="{Binding SelectedPlaylist.Compositions}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>

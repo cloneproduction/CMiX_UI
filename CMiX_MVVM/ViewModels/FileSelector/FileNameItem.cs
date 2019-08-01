@@ -1,22 +1,26 @@
-﻿using System;
-using System.Collections.ObjectModel;
-
-using CMiX.MVVM.ViewModels;
+﻿using System.Collections.ObjectModel;
 using CMiX.MVVM.Models;
-
 using Memento;
 
 namespace CMiX.MVVM.ViewModels 
 {
     public class FileNameItem : ViewModel
     {
+        #region CONSTRUCTORS
+        public FileNameItem()
+        {
+
+        }
+
         public FileNameItem(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor)
             : base (oscvalidation, mementor)
         {
             MessageAddress = messageaddress + "Selected";
             Mementor = mementor;
         }
+        #endregion
 
+        #region PROPERTIES
         private string _filename;
         public string FileName
         {
@@ -37,13 +41,14 @@ namespace CMiX.MVVM.ViewModels
                 }
             }
         }
+        #endregion
 
+        #region COPY/PASTE/UPDATE
         public void UpdateMessageAddress(string messageaddress)
         {
             MessageAddress = messageaddress + "Selected";
         }
 
-        #region COPY/PASTE
         public void Copy(FileNameItemModel filenameitemmodel)
         {
             filenameitemmodel.MessageAddress = MessageAddress;

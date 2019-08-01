@@ -35,7 +35,6 @@ namespace CMiXPlayer.ViewModels
         #region METHODS
         public void DragOver(IDropInfo dropInfo)
         {
-            Console.WriteLine("DragOver");
             dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
             var dataObject = dropInfo.Data as IDataObject;
             if (dataObject != null && dataObject.GetDataPresent(DataFormats.FileDrop))

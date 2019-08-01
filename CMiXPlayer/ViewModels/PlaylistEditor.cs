@@ -2,6 +2,7 @@
 using Ceras;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using GongSolutions.Wpf.DragDrop;
 
 namespace CMiXPlayer.ViewModels
 {

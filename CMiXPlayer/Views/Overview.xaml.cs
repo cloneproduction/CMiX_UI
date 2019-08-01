@@ -2,9 +2,9 @@
 
 namespace CMiXPlayer.Views
 {
-    public partial class DataOverview : UserControl
+    public partial class Overview : UserControl
     {
-        public DataOverview()
+        public Overview()
         {
             InitializeComponent();
         }

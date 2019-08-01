@@ -186,9 +186,7 @@
                     <TabItem.Header>
                         <TextBlock Text="Overview" Style="{StaticResource HeaderStyle}" />
                     </TabItem.Header>
-                    <Views:DataOverview
-                        Margin="16"
-                        />
+                    <Views:Overview Margin="16" />
                 </TabItem>
             </TabControl>
         </Border>

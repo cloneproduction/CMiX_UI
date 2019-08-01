@@ -143,16 +143,10 @@ namespace CMiX.MVVM.ViewModels
             {
                 Mementor.EndBatch();
             }
-            /*if ((dropInfo.Data is PupilViewModel || dropInfo.Data is IEnumerable<PupilViewModel>) && dropInfo.TargetItem is SchoolViewModel)
-            {
-                dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
-                dropInfo.Effects = DragDropEffects.Move;
-            }*/
         }
 
         public void Drop(IDropInfo dropInfo)
         {
-            
             var dataObject = dropInfo.Data as DataObject;
             if(dataObject != null)
             {

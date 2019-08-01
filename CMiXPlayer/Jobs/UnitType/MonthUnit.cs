@@ -39,7 +39,6 @@ namespace CMiXPlayer.Jobs
 
         public void SetMonthUnit(TimeUnit timeunit)
         {
-            Console.WriteLine("SetMonthUnit");
             //timeunit.Months().;
         }
     }

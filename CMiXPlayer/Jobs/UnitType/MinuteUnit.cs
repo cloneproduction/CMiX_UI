@@ -23,7 +23,6 @@ namespace CMiXPlayer.Jobs
 
         public void SetMinuteUnit(TimeUnit timeunit)
         {
-            Console.WriteLine("SetMinuteUnit");
             timeunit.Minutes();
         }
     }

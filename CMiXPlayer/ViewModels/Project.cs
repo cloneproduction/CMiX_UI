@@ -31,7 +31,6 @@ namespace CMiXPlayer.ViewModels
             
             AddClientCommand = new RelayCommand(p => AddClient());
             DeleteClientCommand = new RelayCommand(p => DeleteClient(p));
-            SendAllCommand = new RelayCommand(p => SendAllClient());
             ResetAllClientCommand = new RelayCommand(p => ResetAllClient());
         }
         #endregion
@@ -41,8 +40,6 @@ namespace CMiXPlayer.ViewModels
         public ICommand DeleteClientCommand { get; }
         public ICommand SendAllCommand { get; }
         public ICommand ResetAllClientCommand { get; }
-        public ICommand MakeJobCommand { get; }
-        public ICommand InitJobCommand { get; }
 
         public CerasSerializer Serializer { get; set; }
         public Scheduler Scheduler { get; set; }
@@ -56,12 +53,11 @@ namespace CMiXPlayer.ViewModels
         public ObservableCollection<Playlist> Playlists { get; set; }
 
         public string Name => throw new NotImplementedException();
+
+        int clientcreationindex = 0;
         #endregion
 
         #region METHODS
-
-        int clientcreationindex = 0;
-
         private void AddClient()
         {
             clientcreationindex++;
@@ -76,14 +72,6 @@ namespace CMiXPlayer.ViewModels
             if(Devices.Count == 0)
             {
                 clientcreationindex = 0;
-            }
-        }
-
-        private void SendAllClient()
-        {
-            foreach (var client in Devices)
-            {
-                client.SendComposition();
             }
         }
 

@@ -94,6 +94,10 @@
     <Compile Include="Jobs\UnitType\MonthUnit.cs" />
     <Compile Include="Jobs\UnitType\SecondUnit.cs" />
     <Compile Include="Jobs\UnitType\UnitType.cs" />
+    <Compile Include="Models\DeviceModel.cs" />
+    <Compile Include="Models\OSCMessengerModel.cs" />
+    <Compile Include="Models\PlaylistModel.cs" />
+    <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="ViewModels\Device.cs" />
     <Compile Include="ViewModels\JobEditor.cs" />
     <Compile Include="ViewModels\PlaylistEditor.cs" />
@@ -107,17 +111,14 @@
     <Compile Include="Views\Client.xaml.cs">
       <DependentUpon>Client.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DataOverview.xaml.cs">
-      <DependentUpon>DataOverview.xaml</DependentUpon>
+    <Compile Include="Views\Overview.xaml.cs">
+      <DependentUpon>Overview.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\JobEditor.xaml.cs">
       <DependentUpon>JobEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\JobScheduled.xaml.cs">
       <DependentUpon>JobScheduled.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\OSCControls.xaml.cs">
-      <DependentUpon>OSCControls.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PlaylistEditor.xaml.cs">
       <DependentUpon>PlaylistEditor.xaml</DependentUpon>
@@ -160,7 +161,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DataOverview.xaml">
+    <Page Include="Views\Overview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -169,10 +170,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\JobScheduled.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\OSCControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

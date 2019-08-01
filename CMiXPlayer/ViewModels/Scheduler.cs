@@ -35,7 +35,6 @@ namespace CMiXPlayer.ViewModels
 
         private void RemoveJob(object job)
         {
-            Console.WriteLine("RemoveJob");
             JobSendComposition j = job as JobSendComposition;
             JobManager.RemoveJob(j.Name);
             RunningJobs.Remove(j);

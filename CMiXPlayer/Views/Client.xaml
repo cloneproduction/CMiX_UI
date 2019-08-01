@@ -14,32 +14,31 @@
     <UserControl.Resources>
         <Resources:IntToStringConverter x:Key="InToString"/>
     </UserControl.Resources>
-    
-    <Border Style="{StaticResource BorderContainer}">
-        <DataGrid
+
+    <DataGrid
             ItemsSource="{Binding Devices}" 
             Background="{StaticResource DarkerColor}"
             AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                
-                <DataGridTemplateColumn Width="50" >
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Border Background="{StaticResource DarkerColor}">
-                                <ToggleButton
-                                    Margin="8"
-                                    Height="15"
-                                    Width="15"
-                                    />
-                            </Border>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                
-                <DataGridTemplateColumn Header="Name" Width="175" >
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBox 
+        <DataGrid.Columns>
+
+            <DataGridTemplateColumn Width="50" >
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <Border Background="{StaticResource DarkerColor}">
+                            <ToggleButton
+                                Margin="8"
+                                Height="15"
+                                Width="15"
+                                />
+                        </Border>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+
+            <DataGridTemplateColumn Header="Name" Width="175" >
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <TextBox 
                                 Padding="4"
                                 Cursor="IBeam"
                                 CaretBrush="{StaticResource TextBase}"
@@ -50,27 +49,27 @@
                                 Foreground="{StaticResource TextBase}"
                                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                
-                <DataGridTemplateColumn Header="IP" Width="150">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Controls:IPBox 
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+
+            <DataGridTemplateColumn Header="IP" Width="150">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <Controls:IPBox 
                                 HorizontalContentAlignment="Stretch"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
                                 IPAddress="{Binding OSCMessenger.Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                
-                <DataGridTemplateColumn Header="Port" Width="150" >
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBox
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+
+            <DataGridTemplateColumn Header="Port" Width="150" >
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <TextBox
                                 Padding="4"
                                 Cursor="IBeam"
                                 CaretBrush="{StaticResource TextBase}"
@@ -81,11 +80,9 @@
                                 Foreground="{StaticResource TextBase}"
                                 Text="{Binding OSCMessenger.Port, Converter={StaticResource InToString}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                
-            </DataGrid.Columns>
-        </DataGrid>
-    </Border>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+        </DataGrid.Columns>
+    </DataGrid>
 </UserControl>
