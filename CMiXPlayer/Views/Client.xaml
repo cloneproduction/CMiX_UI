@@ -6,43 +6,86 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
     xmlns:Views="clr-namespace:CMiXPlayer.Views"
+    xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX_MVVM"
+    xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX_MVVM"
     mc:Ignorable="d" 
-    d:DesignHeight="160.156" d:DesignWidth="368.094">
+    d:DesignHeight="372.823" d:DesignWidth="915.427">
 
+    <UserControl.Resources>
+        <Resources:IntToStringConverter x:Key="InToString"/>
+    </UserControl.Resources>
+    
     <Border Style="{StaticResource BorderContainer}">
-        <StackPanel Grid.Column="1">
-            <Grid Height="25">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.4*"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <TextBlock 
-                    Text="Name" 
-                    Foreground="{StaticResource TextBase}"
-                    HorizontalAlignment="Right"
-                    Margin="0, 0, 8, 0"
-                    VerticalAlignment="Center"
-                    />
-                <TextBox
-                    Margin="1"
-                    VerticalContentAlignment="Center"
-                    Text="{Binding Name}"
-                    Grid.Column="1"
-                    BorderThickness="0"
-                    BorderBrush="{StaticResource DarkColor}"
-                    Foreground="{StaticResource TextBase}"
-                    Background="{StaticResource HighDarkerColor}"
-                    />
-            </Grid>
-            <Views:OSCControls DataContext="{Binding OSCMessenger}"/>
-            <Button
-                Content="Delete Device"
-                Margin="8"
-                Height="20"
-                Command="{Binding DataContext.DeleteClientCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Project}}}" 
-                CommandParameter="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Client}}}"
-                DockPanel.Dock="Right" >
-            </Button>
-        </StackPanel>
+        <DataGrid
+            ItemsSource="{Binding Devices}" 
+            Background="{StaticResource DarkerColor}"
+            AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                
+                <DataGridTemplateColumn Width="50" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Border Background="{StaticResource DarkerColor}">
+                                <ToggleButton
+                                    Margin="8"
+                                    Height="15"
+                                    Width="15"
+                                    />
+                            </Border>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+                <DataGridTemplateColumn Header="Name" Width="175" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox 
+                                Padding="4"
+                                Cursor="IBeam"
+                                CaretBrush="{StaticResource TextBase}"
+                                SelectionBrush="{StaticResource LightColor}"
+                                BorderBrush="Transparent"
+                                BorderThickness="0"
+                                Background="{StaticResource HighDarkerColor}"
+                                Foreground="{StaticResource TextBase}"
+                                Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+                <DataGridTemplateColumn Header="IP" Width="150">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Controls:IPBox 
+                                HorizontalContentAlignment="Stretch"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                IPAddress="{Binding OSCMessenger.Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+                <DataGridTemplateColumn Header="Port" Width="150" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox
+                                Padding="4"
+                                Cursor="IBeam"
+                                CaretBrush="{StaticResource TextBase}"
+                                SelectionBrush="{StaticResource LightColor}"
+                                BorderBrush="Transparent"
+                                BorderThickness="0"
+                                Background="{StaticResource HighDarkerColor}"
+                                Foreground="{StaticResource TextBase}"
+                                Text="{Binding OSCMessenger.Port, Converter={StaticResource InToString}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+            </DataGrid.Columns>
+        </DataGrid>
     </Border>
 </UserControl>

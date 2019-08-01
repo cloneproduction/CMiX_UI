@@ -507,6 +507,7 @@
                             <ColumnDefinition Width="2.0*"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel
+                            Background="{StaticResource HighDarkerColor}"
                             x:Name="HeaderPanel"
                             HorizontalAlignment="Stretch"
                             IsItemsHost="True" />
@@ -552,7 +553,8 @@
                                     SnapsToDevicePixels="True"
                                     Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
                                     StrokeDashArray="1 2"
-                                    StrokeThickness="1" />
+                                    StrokeThickness="1" 
+                                    />
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
@@ -570,6 +572,7 @@
                     <Grid
                         x:Name="templateRoot"
                         Margin="1, 0"
+                        Height="60"
                         SnapsToDevicePixels="True">
                         <Border
                             x:Name="mainBorder"
@@ -697,8 +700,8 @@
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Panel.ZIndex" Value="1" />
                             <Setter TargetName="innerBorder" Property="Opacity" Value="1" />
-                            <Setter TargetName="innerBorder" Property="CornerRadius" Value="4, 4, 0, 0"/>
-                            <Setter TargetName="innerBorder" Property="Background" Value="{DynamicResource DarkColor}" />
+                            <Setter TargetName="innerBorder" Property="CornerRadius" Value="4, 0, 0, 4"/>
+                            <Setter TargetName="innerBorder" Property="Background" Value="{DynamicResource Color}" />
                         </MultiDataTrigger>
 
                         <MultiDataTrigger>

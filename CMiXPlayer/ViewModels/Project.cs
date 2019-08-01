@@ -61,6 +61,7 @@ namespace CMiXPlayer.ViewModels
         #region METHODS
 
         int clientcreationindex = 0;
+
         private void AddClient()
         {
             clientcreationindex++;

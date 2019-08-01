@@ -12,7 +12,7 @@ namespace CMiXPlayer.Jobs
             Name = "ToRunEvery";
             SetScheduler = new Action<Schedule>((s) => { SetToRunEvery(s); });
             UnitType = new UnitType();
-
+            UnitInterval = new UnitInterval(60);
         }
 
         private string _name;
@@ -22,6 +22,13 @@ namespace CMiXPlayer.Jobs
             set => SetAndNotify(ref _name, value);
         }
 
+        private UnitInterval _unitinterval;
+        public UnitInterval UnitInterval
+        {
+            get => _unitinterval;
+            set => SetAndNotify(ref _unitinterval, value);
+        }
+
         private UnitType _unittype;
         public UnitType UnitType
         {
@@ -29,19 +36,12 @@ namespace CMiXPlayer.Jobs
             set => SetAndNotify(ref _unittype, value);
         }
 
-        private UnitType _selectedunittype;
-        public UnitType SelectedUnitType
-        {
-            get => _selectedunittype;
-            set => SetAndNotify(ref _selectedunittype, value);
-        }
-
         public Action<Schedule> SetScheduler { get; set; }
 
         public void SetToRunEvery(Schedule schedule)
         {
             var unittype = (IScheduleInterface<TimeUnit>)UnitType.SelectedUnitType;
-            unittype.SetScheduler.Invoke(schedule.ToRunEvery(SelectedUnitType.UnitInterval.Interval));
+            unittype.SetScheduler.Invoke(schedule.ToRunEvery(UnitType.UnitInterval.Interval));
         }
     }
 }

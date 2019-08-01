@@ -107,95 +107,90 @@
             </Menu>
         </Border>
 
-        <TabControl Style="{StaticResource TabControlVerticalPanel}" Margin="0, 8, 0, 0">
-            <TabItem 
-                Height="50"
-                Style="{StaticResource TabItemVerticalPanel}"  
-                Header="Scheduler">
-                <Views:Scheduler DataContext="{Binding Scheduler}"/>
-            </TabItem>
-            <TabItem
-                Height="50"
-                Style="{StaticResource TabItemVerticalPanel}"  
-                Header="Tasks">
-                <Views:JobEditor 
-                    Margin="8"
-                    DataContext="{Binding JobEditor}"
-                    />
-            </TabItem>
-            <TabItem 
-                Height="50"
-                Style="{StaticResource TabItemVerticalPanel}"  
-                Header="Devices">
-                <DockPanel>
-                    <Grid Height="30" DockPanel.Dock="Top">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="154*"/>
-                            <ColumnDefinition Width="123*"/>
-                            <ColumnDefinition Width="138*"/>
-                            <ColumnDefinition Width="138*"/>
-                            <ColumnDefinition Width="138*"/>
-                            <ColumnDefinition Width="138*"/>
-                        </Grid.ColumnDefinitions>
-                        <Button 
-                            Grid.Column="0"
-                            Margin="4,4,3.8,4"
-                            Command="{Binding AddClientCommand}" 
-                            Content="Add Server" Grid.ColumnSpan="2"
-                        />
-                        <Button 
-                            Grid.Column="2"
-                            Margin="4.2,4"
-                            Command="{Binding SendAllCommand}" 
-                            Content="Send All"
-                        />
-                        <Button 
-                            Grid.Column="3"
-                            Margin="3.8,4,3.6,4"
-                            Command="{Binding ResetAllClientCommand}" 
-                            Content="Reset All"
-                        />
-                        <Button 
-                            Grid.Column="4"
-                            Margin="3.8,4,3.6,4"
-                            Command="{Binding MakeJobCommand}" 
-                            Content="Make Job"
-                        />
-                        <Button 
-                            Grid.Column="5"
-                            Margin="3.8,4,3.6,4"
-                            Command="{Binding InitJobCommand}" 
-                            Content="Init Job"
-                        />
-                    </Grid>
-                    <ListView
-                        BorderThickness="0"
-                        HorizontalContentAlignment="Stretch"
-                        Background="{StaticResource DarkColor}"
-                        ItemsSource="{Binding Devices}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Views:Client Margin="4"/>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </DockPanel>
-            </TabItem>
+        <Border Margin="8">
+            <TabControl 
+                Style="{StaticResource TabControlVerticalPanel}">
+                <TabControl.Resources>
+                    <Style x:Key="HeaderStyle" TargetType="{x:Type TextBlock}">
+                        <Setter Property="Padding" Value="10"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="Control.FontSize" Value="16" />
+                    </Style>
+                </TabControl.Resources>
 
-            <TabItem 
-                Height="50"
-                Style="{StaticResource TabItemVerticalPanel}"  
-                Header="Playlist">
-                <Views:PlaylistEditor DataContext="{Binding PlaylistEditor}"/>
-            </TabItem>
-
-            <TabItem 
-                Height="50"
-                Style="{StaticResource TabItemVerticalPanel}"  
-                Header="Overview">
-                <Views:DataOverview/>
-            </TabItem>
-        </TabControl>
+                <TabItem 
+                    Style="{StaticResource TabItemVerticalPanel}"  >
+                    <TabItem.Header>
+                        <TextBlock Text="Scheduler" Style="{StaticResource HeaderStyle}" />
+                    </TabItem.Header>
+                    <Views:Scheduler 
+                        Margin="16"
+                        Padding="10"
+                        DataContext="{Binding Scheduler}"
+                        />
+                </TabItem>
+                <TabItem 
+                    Style="{StaticResource TabItemVerticalPanel}" >
+                    <TabItem.Header>
+                        <TextBlock Text="Devices" Style="{StaticResource HeaderStyle}" />
+                    </TabItem.Header>
+                    <DockPanel>
+                        <DockPanel 
+                            LastChildFill="False"
+                            Margin="16"
+                            Height="30" 
+                            DockPanel.Dock="Bottom">
+                            <Button 
+                                Width="100"
+                                Margin="4"
+                                Command="{Binding AddClientCommand}" 
+                                Content="Add Device" Grid.ColumnSpan="2"
+                                />
+                            <Button 
+                                Width="100"
+                                Margin="4"
+                                Command="{Binding ResetAllClientCommand}" 
+                                Content="Reset All"
+                                />
+                        </DockPanel>
+                        <Border      
+                            Style="{StaticResource BorderContainer}"
+                            Margin="16, 16, 16, 0"
+                            Padding="10">
+                            <Views:Client />
+                        </Border>
+                    </DockPanel>
+                </TabItem>
+                <TabItem 
+                    Style="{StaticResource TabItemVerticalPanel}"  >
+                    <TabItem.Header>
+                        <TextBlock Text="Playlist" Style="{StaticResource HeaderStyle}" />
+                    </TabItem.Header>
+                    <Views:PlaylistEditor 
+                        Margin="16"
+                        DataContext="{Binding PlaylistEditor}"
+                        />
+                </TabItem>
+                <TabItem
+                    Style="{StaticResource TabItemVerticalPanel}"  >
+                    <TabItem.Header>
+                        <TextBlock Text="Tasks" Style="{StaticResource HeaderStyle}" />
+                    </TabItem.Header>
+                    <Views:JobEditor 
+                        Margin="16"
+                        DataContext="{Binding JobEditor}"
+                        />
+                </TabItem>
+                <TabItem 
+                    Style="{StaticResource TabItemVerticalPanel}"  >
+                    <TabItem.Header>
+                        <TextBlock Text="Overview" Style="{StaticResource HeaderStyle}" />
+                    </TabItem.Header>
+                    <Views:DataOverview
+                        Margin="16"
+                        />
+                </TabItem>
+            </TabControl>
+        </Border>
     </DockPanel>
-
 </UserControl>

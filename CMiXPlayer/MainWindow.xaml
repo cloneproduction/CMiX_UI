@@ -7,7 +7,7 @@
         xmlns:Views="clr-namespace:CMiXPlayer.Views"
         Title="CMiX Player"
         mc:Ignorable="d"
-        Height="600" Width="800">
+        Height="600" Width="1200">
     <Grid Background="Black" x:Name="ProjectView">
         <Views:Project/>
     </Grid>

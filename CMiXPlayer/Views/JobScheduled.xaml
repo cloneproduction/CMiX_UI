@@ -63,13 +63,13 @@
                 Margin="1, 0"
                 Width="30"
                 Content="Prev"
-                Command="{Binding PreviousJobCommand}"
+                Command="{Binding SendPreviousCommand}"
                 />
-            <Button
+            <ToggleButton
                 Margin="1, 0"
                 Width="30"
                 Content="Pause"
-                Command="{Binding PauseJobCommand}"
+                IsChecked="{Binding Pause}"
                 />
         </StackPanel>
     </Grid>

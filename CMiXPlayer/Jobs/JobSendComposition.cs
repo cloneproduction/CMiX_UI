@@ -22,14 +22,15 @@ namespace CMiXPlayer.Jobs
             OSCMessenger = device.OSCMessenger;
 
             Init();
+
             SendNextCommand = new RelayCommand(p => SendNext());
+            SendPreviousCommand = new RelayCommand(p => SendPrevious());
         }
 
         public OSCMessenger OSCMessenger { get; set; }
 
         public ICommand SendNextCommand { get; }
-        public ICommand PreviousJobCommand { get; }
-        public ICommand PauseJobCommand { get; }
+        public ICommand SendPreviousCommand { get; }
 
         private string _name;
         public string Name
@@ -66,11 +67,14 @@ namespace CMiXPlayer.Jobs
             set => SetAndNotify(ref _nextComposition, value);
         }
 
+        public bool Pause { get; set; }
+
         int NextCompositionIndex = 0;
 
         public void Execute()
         {
-            SendNext();
+            if(!Pause)
+                SendNext();
         }
 
         public void Send()
@@ -98,10 +102,30 @@ namespace CMiXPlayer.Jobs
                 NextComposition = Playlist.Compositions[NextCompositionIndex];
         }
 
+        public void Previous()
+        {
+            if (NextCompositionIndex > 0)
+            {
+                NextCompositionIndex -= 1;
+            }
+            else
+            {
+                NextCompositionIndex = Playlist.Compositions.Count - 1;
+            }
+            if (Playlist.Compositions.Count > 0)
+                NextComposition = Playlist.Compositions[NextCompositionIndex];
+        }
+
         public void SendNext()
         {
             Send();
             Next();
+        }
+
+        public void SendPrevious()
+        {
+            Send();
+            Previous();
         }
 
         public void Init()

@@ -38,13 +38,6 @@ namespace CMiXPlayer.Jobs
             set => SetAndNotify(ref _unittype, value);
         }
 
-        //private UnitType _selectedunittype;
-        //public UnitType SelectedUnitType
-        //{
-        //    get => _selectedunittype;
-        //    set => SetAndNotify(ref _selectedunittype, value);
-        //}
-
         public Action<Schedule> SetScheduler { get; set; }
         #endregion
 

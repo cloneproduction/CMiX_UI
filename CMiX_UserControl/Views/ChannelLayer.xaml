@@ -15,7 +15,6 @@
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <Resources:EnumToStringConverter x:Key="EnumToString"/>
         <ObjectDataProvider x:Key="BlendMode" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="ViewModels:BlendMode"/>

@@ -9,7 +9,7 @@
     d:DesignHeight="450" d:DesignWidth="800">
     <DataGrid 
         ItemsSource="{Binding RunningJobs}" 
-        Background="Black"
+        Background="{StaticResource DarkerColor}"
         AutoGenerateColumns="False">
         <DataGrid.Columns>
             <DataGridTemplateColumn Header="Server" Width="150" >
