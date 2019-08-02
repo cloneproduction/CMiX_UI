@@ -34,6 +34,40 @@ namespace CMiXPlayer.ViewModels
         public CerasSerializer Serializer { get; set; }
         #endregion
 
+        #region DRAG/DROP
+        public void DragOver(IDropInfo dropInfo)
+        {
+            dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+            var dataObject = dropInfo.Data as IDataObject;
+            if (dataObject != null && dataObject.GetDataPresent(DataFormats.FileDrop))
+            {
+                dropInfo.Effects = DragDropEffects.Copy;
+            }
+        }
+
+        public void Drop(IDropInfo dropInfo)
+        {
+            var dataObject = dropInfo.Data as DataObject;
+            if (dataObject != null)
+            {
+                if (dataObject.ContainsFileDropList())
+                {
+                    var filedrop = dataObject.GetFileDropList();
+                    foreach (string str in filedrop)
+                    {
+                        if (Path.GetExtension(str).ToUpperInvariant() == ".COMPMIX")
+                        {
+                            byte[] data = File.ReadAllBytes(str);
+                            CompositionModel compositionmodel = Serializer.Deserialize<CompositionModel>(data);
+                            Compositions.Add(compositionmodel);
+                        }
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region COPY/PASTE
         public void Copy(PlaylistModel playlistmodel)
         {
             playlistmodel.Name = Name;
@@ -46,45 +80,6 @@ namespace CMiXPlayer.ViewModels
             foreach (var composition in playlistmodel.Compositions)
             {
                 Compositions.Add(composition);
-            }
-        }
-
-        #region METHODS
-        public void DragOver(IDropInfo dropInfo)
-        {
-            dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
-            var dataObject = dropInfo.Data as IDataObject;
-            if (dataObject != null && dataObject.GetDataPresent(DataFormats.FileDrop))
-            {
-                dropInfo.Effects = DragDropEffects.Copy;
-            }
-
-            //if (Mementor.IsInBatch)
-            //{
-            //    Mementor.EndBatch();
-            //}
-        }
-
-        public void Drop(IDropInfo dropInfo)
-        {
-            var dataObject = dropInfo.Data as DataObject;
-            if (dataObject != null)
-            {
-                if (dataObject.ContainsFileDropList())
-                {
-                    //Mementor.BeginBatch();
-                    var filedrop = dataObject.GetFileDropList();
-                    foreach (string str in filedrop)
-                    {
-                        if (Path.GetExtension(str).ToUpperInvariant() == ".COMPMIX")
-                        {
-                            byte[] data = File.ReadAllBytes(str);
-                            CompositionModel compositionmodel = Serializer.Deserialize<CompositionModel>(data);
-                            Compositions.Add(compositionmodel);
-                        }
-                    }
-                    //Mementor.EndBatch();
-                }
             }
         }
         #endregion
