@@ -1,8 +1,5 @@
-﻿using System;
+﻿using CMiX.MVVM.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMiXPlayer.Models
 {
@@ -10,9 +7,10 @@ namespace CMiXPlayer.Models
     {
         public PlaylistModel()
         {
-
+            Compositions = new List<CompositionModel>();
         }
 
-
+        public string Name { get; set; }
+        public List<CompositionModel> Compositions { get; set;}
     }
 }

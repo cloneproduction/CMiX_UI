@@ -6,6 +6,8 @@ using Ceras;
 using GongSolutions.Wpf.DragDrop;
 using System.Windows;
 using System.IO;
+using CMiXPlayer.Models;
+using System.Linq;
 
 namespace CMiXPlayer.ViewModels
 {
@@ -31,6 +33,21 @@ namespace CMiXPlayer.ViewModels
 
         public CerasSerializer Serializer { get; set; }
         #endregion
+
+        public void Copy(PlaylistModel playlistmodel)
+        {
+            playlistmodel.Name = Name;
+            playlistmodel.Compositions = Compositions.ToList();
+        }
+
+        public void Paste(PlaylistModel playlistmodel)
+        {
+            Name = playlistmodel.Name;
+            foreach (var composition in playlistmodel.Compositions)
+            {
+                Compositions.Add(composition);
+            }
+        }
 
         #region METHODS
         public void DragOver(IDropInfo dropInfo)

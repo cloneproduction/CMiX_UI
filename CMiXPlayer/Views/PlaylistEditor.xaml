@@ -6,9 +6,17 @@
              xmlns:local="clr-namespace:CMiXPlayer.Views"
              xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
              xmlns:Views="clr-namespace:CMiXPlayer.Views"
+             xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX_MVVM"
              xmlns:dd="urn:gong-wpf-dragdrop"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -19,80 +27,181 @@
             Grid.Column="0" 
             Style="{StaticResource BorderContainer}">
             <DockPanel>
-                <Grid DockPanel.Dock="Top">
+
+                <Border 
+                    DockPanel.Dock="Top"
+                    Height="30"
+                    Margin="4, 4, 4, 4">
+                    <TextBlock
+                        Foreground="{StaticResource TextBase}"
+                        Text="Playlists"
+                        VerticalAlignment="Center"
+                        />
+                </Border>
+                <Separator 
+                    Background="{StaticResource DarkColor}"
+                    Margin="4"
+                    DockPanel.Dock="Top"
+                    VerticalAlignment="Stretch"
+                    />
+                <Grid 
+                    Margin="4"
+                    DockPanel.Dock="Top" 
+                    Height="30">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Button 
+                        VerticalContentAlignment="Center"
                         Grid.Column="0"
-                        Margin="4"
+                        Margin="0, 0, 4, 0"
                         Content="New"
-                        Height="25" 
                         Command="{Binding NewPlaylistCommand}"
                         />
                     <Button 
                         Grid.Column="1"
-                        Margin="4"
+                        Margin="4, 0, 0, 0"
                         Content="Delete"
-                        Height="25" 
                         Command="{Binding DeletePlaylistCommand}"
                         />
+                    <Button 
+                        Grid.Column="2"
+                        Margin="4, 0, 0, 0"
+                        Content="Export"
+                        Command="{Binding ExportSelectedPlaylistCommand}"
+                        />
+                    <Button 
+                        Grid.Column="3"
+                        Margin="4, 0, 0, 0"
+                        Content="Import"
+                        Command="{Binding ImportPlaylistCommand}"
+                        />
                 </Grid>
-                <ListView 
+                <ListBox 
+                    Margin="4"
                     BorderThickness="0"
                     Background="{StaticResource HighDarkerColor}"
                     Foreground="{StaticResource TextBase}"
                     SelectedItem="{Binding SelectedPlaylist}"
                     ItemsSource="{Binding Playlists}">
-                    <ListView.ItemTemplate>
+                    <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Name}"/>
+                            <Border 
+                                Height="30" >
+                                <TextBlock VerticalAlignment="Center" Text="{Binding Name}"/>
+                            </Border>
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </DockPanel>
         </Border>
         <Border 
             Margin="4"  
-            Grid.Column="1" 
-            Style="{StaticResource BorderContainer}">
+            Grid.Column="1" >
             <Border Style="{StaticResource BorderContainer}">
                 <DockPanel>
                     <Grid 
-                        Height="25"
+                        Margin="4"
+                        Height="30"
                         DockPanel.Dock="Top">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0.5*"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Label
-                            HorizontalAlignment="Right"
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{StaticResource TextBase}"
+                            HorizontalAlignment="Left"
                             Grid.Column="0"
-                            Content="Playlist Name" 
+                            Text="Playlist Name" 
                             />
                         <TextBox 
+                            Padding="4"
+                            VerticalContentAlignment="Center"
                             Foreground="{StaticResource TextBase}"
                             Grid.Column="1"
-                            Margin="4"
                             Background="{StaticResource HighDarkerColor}"
                             BorderThickness="0"
                             Text="{Binding SelectedPlaylist.Name, UpdateSourceTrigger=PropertyChanged}"
                             />
                     </Grid>
-                    <!--<MVVM.Views:FileSelector DataContext="{Binding Playlists}"/>-->
+                    <Separator 
+                        Background="{StaticResource DarkColor}"
+                        Margin="4"
+                        DockPanel.Dock="Top"
+                        VerticalAlignment="Stretch"
+                        />
+                    <Border 
+                        DockPanel.Dock="Top"
+                        Height="30"
+                        Margin="4">
+                        <TextBlock
+                        Foreground="{StaticResource TextBase}"
+                        Text="Compositions"
+                        VerticalAlignment="Center"
+                        />
+                    </Border>
+
                     <ListBox 
+                        Margin="4"
                         AllowDrop="True"
                         dd:DragDrop.IsDragSource="True"
                         dd:DragDrop.IsDropTarget="True"
                         dd:DragDrop.DragHandler="{Binding}"
                         dd:DragDrop.DropHandler="{Binding}"
+                        SelectedItem="{Binding SelectedComposition}"
                         ItemsSource="{Binding SelectedPlaylist.Compositions}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name}"/>
+                                <Border 
+                                    Height="30" >
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding Name}"/>
+                                </Border>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
+                        <ListBox.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem
+                                    Padding="8, 4"
+                                    Foreground="{StaticResource TextBase}"
+                                    Command="{Binding Data.DeleteSelectedCompoCommand, Source={StaticResource proxy}}">
+                                    <MenuItem.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
+                                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                            <TextBlock Text="Delete"/>
+                                        </StackPanel>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                                <MenuItem
+                                    Padding="8, 4"
+                                    Foreground="{StaticResource TextBase}"
+                                    Command="{Binding Data.DuplicateSelectedCompoCommand, Source={StaticResource proxy}}">
+                                    <MenuItem.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Width="10" Height="10" Source="{StaticResource Copy}" />
+                                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                            <TextBlock Text="Duplicate"/>
+                                        </StackPanel>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                                <MenuItem
+                                Padding="8, 4"
+                                Foreground="{StaticResource TextBase}"
+                                Command="{Binding Data.DeleteAllCompoCommand, Source={StaticResource proxy}}">
+                                    <MenuItem.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Width="10" Height="10"/>
+                                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                            <TextBlock Text="Delete All"/>
+                                        </StackPanel>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                            </ContextMenu>
+                        </ListBox.ContextMenu>
                     </ListBox>
                 </DockPanel>
             </Border>
