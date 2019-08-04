@@ -21,8 +21,6 @@ namespace CMiXPlayer.Jobs
             Device = device;
             OSCMessenger = device.OSCMessenger;
 
-            Init();
-
             SendNextCommand = new RelayCommand(p => SendNext());
             SendPreviousCommand = new RelayCommand(p => SendPrevious());
         }
@@ -60,16 +58,9 @@ namespace CMiXPlayer.Jobs
             set => SetAndNotify(ref _currentComposition, value);
         }
 
-        public CompositionModel _nextComposition;
-        public CompositionModel NextComposition
-        {
-            get => _nextComposition;
-            set => SetAndNotify(ref _nextComposition, value);
-        }
-
         public bool Pause { get; set; }
 
-        int NextCompositionIndex = 0;
+        int CompositionIndex = -1;
 
         public void Execute()
         {
@@ -79,9 +70,8 @@ namespace CMiXPlayer.Jobs
 
         public void Send()
         {
-            if(NextComposition != null)
+            if(CurrentComposition != null)
             {
-                CurrentComposition = NextComposition;
                 OSCMessenger.SendMessage("/CompositionReloaded", true);
                 OSCMessenger.QueueObject(CurrentComposition);
                 OSCMessenger.SendQueue();
@@ -90,48 +80,32 @@ namespace CMiXPlayer.Jobs
 
         public void Next()
         {
-            if (NextCompositionIndex < Playlist.Compositions.Count - 1)
-            {
-                NextCompositionIndex += 1;
-            }
+            if (CompositionIndex >= Playlist.Compositions.Count - 1)
+                CompositionIndex = 0;
             else
-            {
-                NextCompositionIndex = 0;
-            }
-            if (Playlist.Compositions.Count > 0)
-                NextComposition = Playlist.Compositions[NextCompositionIndex];
+                CompositionIndex += 1;
+            CurrentComposition = Playlist.Compositions[CompositionIndex];
         }
 
         public void Previous()
         {
-            if (NextCompositionIndex > 0)
-            {
-                NextCompositionIndex -= 1;
-            }
+            if (CompositionIndex <= 0)
+                CompositionIndex = Playlist.Compositions.Count - 1;
             else
-            {
-                NextCompositionIndex = Playlist.Compositions.Count - 1;
-            }
-            if (Playlist.Compositions.Count > 0)
-                NextComposition = Playlist.Compositions[NextCompositionIndex];
+                CompositionIndex -= 1;
+            CurrentComposition = Playlist.Compositions[CompositionIndex];
         }
 
         public void SendNext()
         {
-            Send();
             Next();
+            Send();
         }
 
         public void SendPrevious()
         {
-            Send();
             Previous();
-        }
-
-        public void Init()
-        {
-            if (Playlist.Compositions.Count > 0)
-                NextComposition = Playlist.Compositions[0];
+            Send();
         }
     }
 }

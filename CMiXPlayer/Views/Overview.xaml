@@ -61,7 +61,7 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            
+
             <DataGridTemplateColumn Header="Current" Width="150">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
@@ -74,20 +74,7 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            
-            <DataGridTemplateColumn Header="Next" Width="150">
-                <DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate>
-                        <TextBlock 
-                            Padding="4"
-                            Background="{StaticResource HighDarkerColor}"
-                            Foreground="{StaticResource TextBase}"
-                            Text="{Binding NextComposition.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            />
-                    </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-            </DataGridTemplateColumn>
-            
+
         </DataGrid.Columns>
     </DataGrid>
 </UserControl>
