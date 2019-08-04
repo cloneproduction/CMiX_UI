@@ -72,7 +72,7 @@ namespace CMiXPlayer.Jobs
         {
             if(CurrentComposition != null)
             {
-                OSCMessenger.SendMessage("/CompositionReloaded", true);
+                OSCMessenger.QueueMessage("/CompositionReloaded", true);
                 OSCMessenger.QueueObject(CurrentComposition);
                 OSCMessenger.SendQueue();
             }
