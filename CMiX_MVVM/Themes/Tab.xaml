@@ -151,7 +151,6 @@
                         </Border>
                         <ContentPresenter
                             x:Name="contentPresenter"
-                            Margin="5"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Content="{TemplateBinding Header}"
@@ -264,8 +263,9 @@
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Panel.ZIndex" Value="1" />
                             <Setter TargetName="innerBorder" Property="Opacity" Value="1" />
-                            <Setter TargetName="innerBorder" Property="CornerRadius" Value="4, 4, 0, 0"/>
-                            <Setter TargetName="innerBorder" Property="Background" Value="{DynamicResource DarkColor}" />
+                            <Setter TargetName="innerBorder" Property="BorderThickness" Value="0, 0, 0, 2"/>
+                            <Setter TargetName="innerBorder" Property="BorderBrush" Value="{DynamicResource HighLightColor}"/>
+                            <Setter TargetName="innerBorder" Property="Background" Value="{DynamicResource HighDarkerColor}" />
                         </MultiDataTrigger>
 
                         <MultiDataTrigger>

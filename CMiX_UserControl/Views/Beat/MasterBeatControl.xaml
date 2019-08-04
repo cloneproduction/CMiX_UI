@@ -15,48 +15,54 @@
                 DockPanel.Dock="Bottom"
                 Style="{StaticResource BorderContainer}">
                 <StackPanel>
-                    <DockPanel
+                <DockPanel
                         Grid.Row="0"
                         Height="50"
                         Margin="0,0,0,1"
                         LastChildFill="True">
-                        <Button
-                            Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
-                            Command="{Binding Path=ResyncCommand}"
-                            Content="Rc"
-                            DockPanel.Dock="Right"
-                            />
-                        <Button
-                            Margin="4, 0"
-                            Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
-                            Command="{Binding Path=MultiplyCommand}"
-                            Content="+"
-                            DockPanel.Dock="Right"
-                            />
-                        <Button
-                            Grid.Column="2"
-                            Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
-                            Command="{Binding Path=DivideCommand}"
-                            Content="-"
-                            DockPanel.Dock="Right"
-                            />
-                        <Border 
+                    <Button
+                        Style="{StaticResource ButtonRounded}"
+                        Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+                        Command="{Binding Path=ResyncCommand}"
+                        Content="Rc"
+                        DockPanel.Dock="Right"
+                        />
+                    <Button
+                        Style="{StaticResource ButtonRounded}"
+                        Margin="4, 0"
+                        Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+                        Command="{Binding Path=MultiplyCommand}"
+                        Content="+"
+                        DockPanel.Dock="Right"
+                        />
+                    <Button
+                        Style="{StaticResource ButtonRounded}"
+                        Grid.Column="2"
+                        Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+                        Command="{Binding Path=DivideCommand}"
+                        Content="-"
+                        DockPanel.Dock="Right"
+                        />
+                    <Border 
                             Background="{StaticResource HighDarkerColor}" 
                             Margin="4, 0" DockPanel.Dock="Right" 
                             Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}">
-                            <TextBox 
-                                Foreground="{StaticResource TextBase}" 
-                                Background="{StaticResource DarkerColor}"
-                                BorderThickness="1"
-                                BorderBrush="{StaticResource DarkColor}"
-                                HorizontalContentAlignment="Center"
-                                VerticalContentAlignment="Center"
-                                VerticalAlignment="Stretch"
-                                HorizontalAlignment="Stretch"
-                                Text="{Binding Path=BPM, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F0}" 
-                                />
+                        <TextBox 
+                            Foreground="{StaticResource TextBase}" 
+                            Background="{StaticResource HighDarkerColor}"
+                            BorderThickness="1"
+                            BorderBrush="{StaticResource DarkColor}"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            VerticalAlignment="Stretch"
+                            HorizontalAlignment="Stretch"
+                            Text="{Binding Path=BPM, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F0}" 
+                            />
                         </Border>
                         <Button
+                            Style="{StaticResource ButtonRounded}"
+                            VerticalAlignment="Stretch"
+                            HorizontalAlignment="Stretch"
                             Grid.Row="2"
                             Command="{Binding Path=TapCommand}"
                             Content="TAP"

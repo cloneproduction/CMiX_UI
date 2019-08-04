@@ -23,13 +23,15 @@
                             AllowsTransparency="True"
                             IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                             Placement="Bottom"
-                            VerticalOffset="2"
+                            VerticalOffset="0"
                             PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
                             <Border 
                                 x:Name="DropDownBorder"
-                                BorderBrush="{StaticResource LightColor}"
+                                Padding="0, 4"
+                                CornerRadius="4"
+                                BorderBrush="{StaticResource Color}"
                                 BorderThickness="1"
-                                Background="Transparent">
+                                Background="{StaticResource DarkerColor}">
                                 <ScrollViewer 
                                     x:Name="DropDownScrollViewer"
                                     VerticalScrollBarVisibility="Auto">
@@ -90,6 +92,7 @@
                                         <Setter.Value>
                                             <ControlTemplate TargetType="{x:Type ToggleButton}">
                                                 <Border
+                                                    CornerRadius="2"
                                                     x:Name="templateRoot"
                                                     Margin="0"
                                                     Background="{StaticResource Color}"
@@ -234,8 +237,8 @@
                 <ControlTemplate TargetType="{x:Type ComboBoxItem}">
                     <Border
                         x:Name="Bd"
-                        Padding="{TemplateBinding Padding}"
-                        Background="{StaticResource Color}"
+                        Padding="8"
+                        Background="Transparent"
                         SnapsToDevicePixels="True">
                         <ContentPresenter
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -256,7 +259,7 @@
                                 <Condition Property="IsMouseOver" Value="True" />
                                 <Condition Property="IsKeyboardFocused" Value="False" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource LightColor}" />
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource DarkColor}" />
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -288,7 +291,7 @@
                                 <Condition Property="IsMouseOver" Value="False" />
                                 <Condition Property="IsKeyboardFocused" Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource LightColor}" />
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource Color}" />
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -296,7 +299,7 @@
                                 <Condition Property="IsMouseOver" Value="True" />
                                 <Condition Property="IsKeyboardFocused" Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource LightColor}" />
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource DarkColor}" />
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

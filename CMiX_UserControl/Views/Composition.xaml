@@ -36,18 +36,11 @@
             Command="{Binding CopyLayerCommand}" 
             />
     </UserControl.InputBindings>
-     
+
     <DockPanel
         x:Name="CMiX_UserControl"
         Background="Transparent"
         LastChildFill="True">
-        <Border
-            Grid.Row="2"
-            Height="25"
-            Margin="0,2,0,0"
-            Background="{StaticResource DarkerColor}"
-            DockPanel.Dock="Bottom" 
-            />
         <DockPanel>
             <DockPanel 
                 Margin="4, 8, 0, 4"
@@ -81,7 +74,7 @@
                         <TabItem.Header>
                             <TextBlock 
                                 Text="LAYERS" 
-                                Margin="4, 0, 4, 0"
+                                Margin="8"
                                 />
                         </TabItem.Header>
                         <DockPanel>
@@ -211,7 +204,7 @@
                     </TabItem>
                     <TabItem>
                         <TabItem.Header>
-                            <TextBlock Text="OSC" Margin="4, 0, 4, 0"/>
+                            <TextBlock Text="OSC" Margin="8"/>
                         </TabItem.Header>
                         <StackPanel>
                             <Grid 
@@ -268,7 +261,7 @@
                         <TabItem.Header>
                             <TextBlock 
                                 Text="CAMERA" 
-                                Margin="4, 0, 4, 0"
+                                Margin="8"
                                 />
                         </TabItem.Header>
                         <CMiX:Camera
@@ -280,7 +273,7 @@
                         <TabItem.Header>
                             <TextBlock 
                                 Text="PATH" 
-                                Margin="4, 0, 4, 0"
+                                Margin="8"
                                 />
                         </TabItem.Header>
                         <StackPanel>

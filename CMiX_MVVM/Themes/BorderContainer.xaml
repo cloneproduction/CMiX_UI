@@ -4,18 +4,16 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Brushes.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
+
     <Style x:Key="BorderContainer" TargetType="{x:Type Border}">
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Padding" Value="2"/>
-        <Setter Property="CornerRadius" Value="2"/>
+        <Setter Property="Padding" Value="4"/>
+        <Setter Property="CornerRadius" Value="4"/>
         <Setter Property="Background" Value="{StaticResource DarkerColor}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource DarkerColor}"/>
-        <Style.Triggers>
+        <!--<Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="BorderBrush" Value="{StaticResource LightColor}" />
             </Trigger>
-        </Style.Triggers>
+        </Style.Triggers>-->
     </Style>
     
 </ResourceDictionary>

@@ -104,7 +104,7 @@
                                 <DockPanel LastChildFill="False">
                                     <TextBlock
                                         Margin="4, 0, 0, 0"
-                                        Text="Foreground"
+                                        Text="COLORATION"
                                         Foreground="{StaticResource TextBase}"
                                         />
                                 </DockPanel>
@@ -134,19 +134,23 @@
             DockPanel.Dock="Bottom"
             Style="{StaticResource BorderContainer}">
             <StackPanel Grid.Row="1">
-                <Label
-                    Margin="0, 0, 0, 4"
-                    Content="Modifier"
-                    DockPanel.Dock="Bottom"
-                    FontSize="12"
-                    />
+                <Border 
+                    Margin="0, 0, 0 4"
+                    Height="25">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Margin="4, 0, 0, 0"
+                        Text="Modifiers"
+                        Foreground="{StaticResource TextBase}"
+                        />
+                </Border>
                 <Views:RangeControl 
                     Caption="Hue"
                     DataContext="{Binding Hue}"
                     />
                 <Views:RangeControl 
                     Caption="Saturation"
-                    Margin="0, 1"
+                    Margin="0, 2"
                     DataContext="{Binding Saturation}"
                     />
                 <Views:RangeControl 
