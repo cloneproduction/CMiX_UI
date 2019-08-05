@@ -4,15 +4,64 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views"
+             xmlns:Resources="clr-namespace:CMiX.MVVM.Resources"
              mc:Ignorable="d" 
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              d:DesignHeight="27.833" d:DesignWidth="387.167">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <UserControl.ContextMenu>
+        <ContextMenu>
+            <MenuItem
+                Padding="8, 4"
+                Foreground="{StaticResource TextBase}"
+                Command="{Binding Data.ResetCommand, Source={StaticResource proxy}}">
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="10" Height="10" Source="{StaticResource Reset}" />
+                        <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                        <TextBlock Text="Reset"/>
+                    </StackPanel>
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem
+                Padding="8, 4"
+                Foreground="{StaticResource TextBase}"
+                Command="{Binding Data.CopySliderCommand, Source={StaticResource proxy}}">
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="10" Height="10" Source="{StaticResource Copy}" />
+                        <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                        <TextBlock Text="Copy"/>
+                    </StackPanel>
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem
+                Padding="8, 4"
+                Foreground="{StaticResource TextBase}"
+                Command="{Binding Data.PasteSliderCommand, Source={StaticResource proxy}}">
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="10" Height="10" Source="{StaticResource Paste}" />
+                        <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                        <TextBlock Text="Paste"/>
+                    </StackPanel>
+                </MenuItem.Header>
+            </MenuItem>
+        </ContextMenu>
+    </UserControl.ContextMenu>
+    
     <Grid 
         Height="20" 
         Background="Transparent">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.2*"/>
-            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="35"/>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <TextBlock 
@@ -28,7 +77,8 @@
             Grid.Column="1"
             Background="{StaticResource HighDarkerColor}" 
             BorderBrush="{StaticResource DarkColor}" 
-            BorderThickness="1" Padding="4, 0, 0, 0" 
+            BorderThickness="1" 
+            Padding="4, 0, 0, 0" 
             Text="{Binding Amount, StringFormat=N2}" 
             FontSize="10" 
             HorizontalContentAlignment="Center"

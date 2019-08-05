@@ -94,7 +94,6 @@
                             <Image Source="{StaticResource Geometry}"  ToolTip="Geometry" Height="15" Width="auto" Opacity="0.75"/>
                         </TabItem.Header>
                         <Views:Geometry
-                            Padding="1, 0, 1, 0"
                             DataContext="{Binding Geometry}"
                             DockPanel.Dock="Bottom" 
                             />

@@ -20,7 +20,7 @@ namespace CMiX.MVVM.ViewModels
 
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
-            ResetCommand = new RelayCommand(p => Reset());
+            ResetCommand = new RelayCommand(p => ResetSlider());
             CopySliderCommand = new RelayCommand(p => CopySlider());
             PasteSliderCommand = new RelayCommand(p => PasteSlider());
             MouseDownCommand = new RelayCommand(p => MouseDown());
@@ -101,6 +101,11 @@ namespace CMiX.MVVM.ViewModels
             DisabledMessages();
             Amount = 0.0;
             EnabledMessages();
+        }
+
+        public void ResetSlider()
+        {
+            Amount = 0.0;
         }
 
         public void CopySlider()

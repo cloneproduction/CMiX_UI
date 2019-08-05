@@ -8,7 +8,7 @@
              xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
-             d:DesignHeight="18.666" d:DesignWidth="350.667">
+             d:DesignHeight="31.333" d:DesignWidth="354.223">
 
     <UserControl.Resources>
         <ObjectDataProvider x:Key="RangeModifier" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
@@ -18,7 +18,7 @@
         </ObjectDataProvider>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Height="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition  />
             <ColumnDefinition Width="0.3*"/>

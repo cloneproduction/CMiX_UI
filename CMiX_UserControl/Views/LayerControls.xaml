@@ -32,7 +32,7 @@
                     <Views:Coloration DataContext="{Binding Coloration}"/>
                 </Border>
                 <Views:PostFX 
-                    Margin="0, 4, 0, 0" 
+                    Margin="0, 16, 0, 0" 
                     DataContext="{Binding PostFX}"
                     />
             </StackPanel>

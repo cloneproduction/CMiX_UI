@@ -3,7 +3,8 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Colors.xaml"/>
     </ResourceDictionary.MergedDictionaries>
-    
+
+    <SolidColorBrush x:Key="SuperHighDarkerColor" Color="{StaticResource SuperHighDarker}" />
     <SolidColorBrush x:Key="HighDarkerColor" Color="{StaticResource HighDarker}" />
     <SolidColorBrush x:Key="DarkerColor" Color="{StaticResource Darker}" />
     <SolidColorBrush x:Key="DarkColor" Color="{StaticResource Dark}" />

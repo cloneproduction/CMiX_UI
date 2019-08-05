@@ -70,6 +70,7 @@
                     />
                 <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
                     <ToggleButton
+                        Foreground="{StaticResource TextBase}"
                         ToolTip="Keep Original"
                         Grid.Row="0"
                         Height="15" 
@@ -81,6 +82,7 @@
                         />
                     <ToggleButton
                         ToolTip="Enable"
+                        Foreground="{StaticResource TextBase}"
                         Grid.Row="0"
                         Height="15" 
                         Width="15"

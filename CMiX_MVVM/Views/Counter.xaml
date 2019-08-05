@@ -17,7 +17,7 @@
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
                     BorderThickness="0"
-                    Background="{StaticResource DarkerColor}"
+                    Background="{StaticResource HighDarkerColor}"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     Text="{Binding Count}"

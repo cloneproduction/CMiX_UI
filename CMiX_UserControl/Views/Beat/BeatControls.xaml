@@ -14,10 +14,12 @@
             DockPanel.Dock="Left"
             Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
             Margin="0, 0, 2, 0"
-            Content="Rt"
             Command="{Binding Path=ResetCommand}"
-            IsDefault="True"
-            IsTabStop="False"/>
+            Style="{StaticResource ButtonImage}">
+            <Button.Content>
+                <Image Margin="15" Source="{StaticResource Reset}"/>
+            </Button.Content>
+        </Button>
         <Button
             DockPanel.Dock="Left"
             Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"

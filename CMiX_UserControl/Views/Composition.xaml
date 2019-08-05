@@ -39,22 +39,23 @@
 
     <DockPanel
         x:Name="CMiX_UserControl"
-        Background="Transparent"
+        Background="{StaticResource SuperHighDarkerColor}"
         LastChildFill="True">
         <DockPanel>
             <DockPanel 
-                Margin="4, 8, 0, 4"
+                Margin="4"
                 DockPanel.Dock="Top"
                 Height="25">
-                <Border Background="{StaticResource Color}">
+                <Border CornerRadius="4, 0, 0, 4" Background="{StaticResource Color}">
                     <TextBlock 
                         Margin="4"
                         VerticalAlignment="Center"
-                        Text="Composition Name : " 
+                        Text="Name : " 
                         Foreground="{StaticResource TextBase}"
                         />
                 </Border>
                 <TextBox 
+                    Padding="4"
                     Background="{StaticResource HighDarkerColor}" 
                     VerticalContentAlignment="Center"
                     Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
@@ -65,7 +66,7 @@
             <Border
                 DockPanel.Dock="Right"
                 Width="300"
-                Margin="0, 4"
+                Margin="8, 4, 4, 4"
                 Padding="8"
                 CornerRadius="2"
                 Background="{StaticResource HighDarkerColor}">
@@ -123,7 +124,7 @@
                             <ListBox 
                                 Margin="0, 8, 0, 0"
                                 HorizontalContentAlignment="Stretch" 
-                                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                 Style="{StaticResource LayerListBox}"
                                 ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
                                 ItemsSource="{Binding Layers}" 
@@ -206,10 +207,9 @@
                         <TabItem.Header>
                             <TextBlock Text="OSC" Margin="8"/>
                         </TabItem.Header>
-                        <StackPanel>
-                            <Grid 
-                                Height="25" 
-                                Margin="0, 8">
+                        <DockPanel>
+                            <Grid DockPanel.Dock="Bottom"
+                                Height="25" >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
@@ -232,6 +232,8 @@
                                     />
                             </Grid>
                             <MVVM.Views:Slider
+                                DockPanel.Dock="Top"
+                                Margin="0, 8, 0, 0"
                                 Grid.Column="1"
                                 Height="20"
                                 Caption="Transition"
@@ -239,10 +241,9 @@
                                 />
                             <ListBox 
                                 Grid.Column="1"
-                                Margin="0, 8, 0, 0"
+                                Margin="0, 8"
                                 HorizontalContentAlignment="Stretch" 
-                                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                                Style="{StaticResource LayerListBox}"
+                                ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                 ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
                                 ItemsSource="{Binding OSCValidation}" 
                                 dd:DragDrop.IsDragSource="True"
@@ -255,7 +256,8 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                        </StackPanel>
+                        </DockPanel>
+                        
                     </TabItem>
                     <TabItem>
                         <TabItem.Header>
@@ -296,18 +298,12 @@
                     </TabItem>
                 </TabControl>
             </Border>
-            <Border
-                Margin="4"
+            <CMiX:MasterBeatControl
                 DockPanel.Dock="Bottom"
-                CornerRadius="2"
-                Background="{StaticResource HighDarkerColor}">
-                <CMiX:MasterBeatControl
-                    Margin="4, 4, 0, 4"
-                    Grid.Column="0"
-                    DataContext="{Binding MasterBeat}"
-                    />
-            </Border>
-            <Border Grid.Column="1" Margin="4">
+                Margin="4, 4, 0, 4"
+                DataContext="{Binding MasterBeat}"
+                />
+            <Border Grid.Column="1" Margin="4, 4, 0, 4">
                 <ScrollViewer>
                     <Views:LayerControls 
                         DataContext="{Binding SelectedLayer}" 

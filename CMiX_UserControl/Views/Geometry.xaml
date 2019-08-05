@@ -266,12 +266,12 @@
                         />
                 </DockPanel>
             </Border>
-            <Border Margin="0, 2" Style="{StaticResource BorderContainer}" DockPanel.Dock="Bottom">
-                <Views:GeometryFX  
+
+            <Views:GeometryFX  
+                Margin="0, 2"
                     DockPanel.Dock="Bottom" 
                     DataContext="{Binding GeometryFX}"
                     />
-            </Border>
         </StackPanel>
     </Border>
 </UserControl>

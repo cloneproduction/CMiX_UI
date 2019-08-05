@@ -6,6 +6,7 @@
     <FontFamily x:Key="DefaultFont">Microsoft Sans Serif</FontFamily>
     <system:Double x:Key="DefaultFontSize">11</system:Double>
 
+    <Color x:Key="SuperHighDarker">#FF0f0f0f</Color>
     <Color x:Key="HighDarker">#FF1e1e1e</Color>
     <Color x:Key="Darker">#FF282828</Color>
     

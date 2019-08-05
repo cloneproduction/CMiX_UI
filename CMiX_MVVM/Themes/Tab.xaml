@@ -4,9 +4,8 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Brushes.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
+
     <Style TargetType="{x:Type TabControl}">
-        <Setter Property="Padding" Value="0" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
@@ -36,9 +35,6 @@
                             Grid.Row="1"
                             Grid.Column="0"
                             Background="{TemplateBinding Background}"
-                            BorderBrush="{StaticResource DarkColor}"
-                            BorderThickness="0, 2, 0, 0"
-                            CornerRadius="0"
                             KeyboardNavigation.DirectionalNavigation="Contained"
                             KeyboardNavigation.TabIndex="2"
                             KeyboardNavigation.TabNavigation="Local">
@@ -138,7 +134,6 @@
                 <ControlTemplate TargetType="{x:Type TabItem}">
                     <Grid
                         x:Name="templateRoot"
-                        Margin="1, 0"
                         SnapsToDevicePixels="True">
                         <Border
                             x:Name="mainBorder"
@@ -147,7 +142,8 @@
                                 x:Name="innerBorder"
                                 VerticalAlignment="Stretch"
                                 FlowDirection="LeftToRight"
-                                ScrollViewer.VerticalScrollBarVisibility="Disabled" />
+                                ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                                />
                         </Border>
                         <ContentPresenter
                             x:Name="contentPresenter"
@@ -461,12 +457,12 @@
 
                         <Border 
                             x:Name="contentPanel" 
-                            BorderBrush="{StaticResource Color}" 
-                            BorderThickness="1" 
-                            Background="Black" 
+                            BorderThickness="0, 1, 0, 0"
+                            BorderBrush="{StaticResource DarkerColor}"
                             Grid.Column="0" 
                             KeyboardNavigation.DirectionalNavigation="Contained" 
-                            Grid.Row="1" KeyboardNavigation.TabIndex="2" 
+                            Grid.Row="1" 
+                            KeyboardNavigation.TabIndex="2" 
                             KeyboardNavigation.TabNavigation="Local">
                             <ContentPresenter 
                                 x:Name="PART_SelectedContentHost" 
