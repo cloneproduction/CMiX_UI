@@ -14,7 +14,8 @@
             <Border 
                 Padding="8"
                 DockPanel.Dock="Bottom"
-                Style="{StaticResource BorderContainer}">
+                Background="{StaticResource HighDarkerColor}"
+                CornerRadius="4">
                 <StackPanel>
                 <DockPanel
                     Grid.Row="0"

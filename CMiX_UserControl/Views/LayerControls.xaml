@@ -10,8 +10,7 @@
     mc:Ignorable="d">
     <Border
         BorderBrush="{StaticResource DarkerColor}"
-        CornerRadius="2"
-        BorderThickness="1"
+        CornerRadius="4"
         Background="{StaticResource HighDarkerColor}"
         Padding="8">
         <Grid>

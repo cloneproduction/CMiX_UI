@@ -42,33 +42,28 @@
         Background="{StaticResource SuperHighDarkerColor}"
         LastChildFill="True">
         <DockPanel>
-            <DockPanel 
+            <Border 
                 Margin="4"
+                Background="{StaticResource HighDarkerColor}"
+                CornerRadius="4"
                 DockPanel.Dock="Top"
                 Height="25">
-                <Border CornerRadius="4, 0, 0, 4" Background="{StaticResource Color}">
-                    <TextBlock 
-                        Margin="4"
-                        VerticalAlignment="Center"
-                        Text="Name : " 
-                        Foreground="{StaticResource TextBase}"
-                        />
-                </Border>
                 <TextBox 
+                    
                     Padding="4"
-                    Background="{StaticResource HighDarkerColor}" 
+                    Background="Transparent" 
                     VerticalContentAlignment="Center"
                     Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                     Foreground="{StaticResource TextBase}"
                     BorderThickness="0"
                     />
-            </DockPanel>
+            </Border>
             <Border
                 DockPanel.Dock="Right"
                 Width="300"
                 Margin="8, 4, 4, 4"
                 Padding="8"
-                CornerRadius="2"
+                CornerRadius="4"
                 Background="{StaticResource HighDarkerColor}">
                 <TabControl>
                     <TabItem>
@@ -185,9 +180,9 @@
                                         <Border>
                                             <Border.Style>
                                                 <Style TargetType="Border">
-                                                    <Setter Property="BorderThickness" Value="2" />
-                                                    <Setter Property="Padding" Value="2" />
-                                                    <Setter Property="CornerRadius" Value="6" />
+                                                    <Setter Property="BorderThickness" Value="1" />
+                                                    <Setter Property="Margin" Value="0, 1" />
+                                                    <Setter Property="CornerRadius" Value="4" />
                                                     <Setter Property="BorderBrush" Value="Transparent" />
                                                     <Style.Triggers>
                                                         <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">

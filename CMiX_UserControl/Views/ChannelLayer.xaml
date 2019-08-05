@@ -25,6 +25,7 @@
     <Border
         DockPanel.Dock="Bottom"
         Background="{StaticResource DarkerColor}"
+        Padding="8"
         Style="{StaticResource BorderContainer}">
         <DockPanel>
             <RadioButton
