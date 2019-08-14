@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
-using CMiX.Services;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using System.Collections.ObjectModel;
@@ -24,7 +23,6 @@ namespace CMiX.ViewModels
             Texture = new Texture(MessageAddress, oscvalidation, mementor);
             PostFX = new PostFX(MessageAddress, oscvalidation, mementor);
 
-            
             CopyTextureCommand = new RelayCommand(p => CopyTexture());
             PasteTextureCommand = new RelayCommand(p => PasteTexture());
             CopyGeometryCommand = new RelayCommand(p => CopyGeometry());

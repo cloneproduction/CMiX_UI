@@ -76,8 +76,10 @@ namespace CMiX.ViewModels
         public void Paste(CounterModel countermodel)
         {
             DisabledMessages();
+
             MessageAddress = countermodel.MessageAddress;
             Count = countermodel.Count;
+
             EnabledMessages();
         }
         #endregion

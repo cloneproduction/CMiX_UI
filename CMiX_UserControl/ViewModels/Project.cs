@@ -124,8 +124,9 @@ namespace CMiX.ViewModels
         }
         #endregion
 
-        int CompID = 0;
         #region ADD/DELETE/DUPLICATE COMPOSITION
+        int CompID = 0;
+
         private void AddComposition()
         {
             Composition comp = new Composition(OSCMessengers);

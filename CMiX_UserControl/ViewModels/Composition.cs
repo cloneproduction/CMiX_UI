@@ -33,6 +33,8 @@ namespace CMiX.ViewModels
             CreateLayer();
 
             ReloadCompositionCommand = new RelayCommand(p => ReloadComposition(p));
+            ReloadAllOSCCommand = new RelayCommand(p => ReloadAllOSC());
+            ResetAllOSCCommand = new RelayCommand(p => ResetAllOSC());
             AddLayerCommand = new RelayCommand(p => AddLayer());
             DeleteLayerCommand = new RelayCommand(p => DeleteLayer());
             DuplicateLayerCommand = new RelayCommand(p => DuplicateLayer());
@@ -45,6 +47,10 @@ namespace CMiX.ViewModels
         #region PROPERTIES
 
         public ICommand ReloadCompositionCommand { get; }
+        public ICommand ResetAllOSCCommand { get; }
+        public ICommand ReloadAllOSCCommand { get; }
+
+
         public ICommand AddLayerCommand { get; }
         public ICommand CopyLayerCommand { get; }
         public ICommand PasteLayerCommand { get; }
@@ -195,6 +201,34 @@ namespace CMiX.ViewModels
             oscmessenger.QueueObject(compositionmodel);
             await Task.Delay(TimeSpan.FromMinutes(Transition.Amount));
             oscmessenger.SendQueue();
+        }
+
+        private async void ReloadAllOSC()
+        {
+            foreach (var oscvalidation in OSCValidation)
+            {
+                CompositionModel compositionmodel = new CompositionModel();
+                this.Copy(compositionmodel);
+                OSCMessenger oscmessenger = oscvalidation.OSCMessenger as OSCMessenger;
+
+                oscmessenger.QueueMessage("/Transition/Amount", Transition.Amount);
+                oscmessenger.QueueMessage("/Transition/Start", true);
+                oscmessenger.SendQueue();
+
+                oscmessenger.QueueMessage("/CompositionReloaded", true);
+                oscmessenger.QueueObject(compositionmodel);
+                await Task.Delay(TimeSpan.FromMinutes(Transition.Amount));
+                oscmessenger.SendQueue();
+            }
+        }
+
+        private void ResetAllOSC()
+        {
+            foreach (var oscvalidation in OSCValidation)
+            {
+                OSCMessenger oscmessenger = oscvalidation.OSCMessenger as OSCMessenger;
+                oscmessenger.SendMessage("/CompositionReloaded", true);
+            }
         }
         #endregion
 
