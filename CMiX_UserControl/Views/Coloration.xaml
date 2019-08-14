@@ -52,7 +52,7 @@
                     <MenuItem
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.ResetCommand, Source={StaticResource proxy}}">
+                        Command="{Binding Data.ResetColorationCommand, Source={StaticResource proxy}}">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource Reset}" />
@@ -64,12 +64,12 @@
                 </ContextMenu>
             </Border.ContextMenu>
             <Label
-                    HorizontalAlignment="Left"
-                    Content="COLORATION"
-                    DockPanel.Dock="Bottom"
-                    FontWeight="SemiBold"
-                    FontSize="12"
-                    />
+                HorizontalAlignment="Left"
+                Content="COLORATION"
+                DockPanel.Dock="Bottom"
+                FontWeight="SemiBold"
+                FontSize="12"
+                />
         </Border>
         <Border Style="{StaticResource BorderContainer}" Margin="0, 4, 0, 8">
             <Views:BeatModifier DataContext="{Binding BeatModifier}"/>

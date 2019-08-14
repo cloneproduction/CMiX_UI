@@ -142,6 +142,7 @@ namespace CMiX.ViewModels
 
         public void PasteColoration()
         {
+            Console.WriteLine("PASTE");
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("ColorationModel"))
             {
@@ -159,6 +160,7 @@ namespace CMiX.ViewModels
                 SendQueues();
             }
         }
+
 
         public void CopyMask()
         {
@@ -219,6 +221,10 @@ namespace CMiX.ViewModels
             }
         }
 
+        public void ResetContent()
+        {
+
+        }
 
         public void CopyPostFX()
         {
@@ -248,6 +254,8 @@ namespace CMiX.ViewModels
                 SendQueues();
             }
         }
+
+
 
 
         public void Reset()
@@ -287,23 +295,6 @@ namespace CMiX.ViewModels
             Fade.Paste(layermodel.Fade);
             Out = layermodel.Out;
             ID = layermodel.ID;
-            Content.Paste(layermodel.ContentModel);
-            Mask.Paste(layermodel.maskmodel);
-            Coloration.Paste(layermodel.ColorationModel);
-            PostFX.Paste(layermodel.PostFXModel);
-
-            EnabledMessages();
-        }
-
-        public void Load(LayerModel layermodel)
-        {
-            DisabledMessages();
-
-            BlendMode = layermodel.BlendMode;
-            LayerName = layermodel.LayerName;
-            Name = layermodel.Name;
-            Out = layermodel.Out;
-            Fade.Paste(layermodel.Fade);
             Content.Paste(layermodel.ContentModel);
             Mask.Paste(layermodel.maskmodel);
             Coloration.Paste(layermodel.ColorationModel);

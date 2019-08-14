@@ -37,6 +37,7 @@ namespace CMiX.ViewModels
 
             CopyColorationCommand = new RelayCommand(p => CopyColoration());
             PasteColorationCommand = new RelayCommand(p => PasteColoration());
+            ResetColorationCommand = new RelayCommand(p => ResetColoration());
         }
         #endregion
 
@@ -47,6 +48,7 @@ namespace CMiX.ViewModels
         public ICommand MouseDownCommand { get; }
         public ICommand CopyColorationCommand { get; }
         public ICommand PasteColorationCommand { get; }
+        public ICommand ResetColorationCommand { get; }
 
         public BeatModifier BeatModifier { get; }
         public RangeControl Hue { get; }
@@ -143,17 +145,11 @@ namespace CMiX.ViewModels
             BgColor = Utils.HexStringToColor("#FF00FF");
 
             BeatModifier.Reset();
-
             Hue.Reset();
             Saturation.Reset();
             Value.Reset();
 
             EnabledMessages();
-
-            ColorationModel colorationmodel = new ColorationModel();
-            this.Copy(colorationmodel);
-            QueueObjects(colorationmodel);
-            SendQueues();
         }
 
         public void CopyColoration()
@@ -175,6 +171,15 @@ namespace CMiX.ViewModels
                 this.Paste(colorationmodel);
                 Mementor.EndBatch();
             }
+        }
+
+        public void ResetColoration()
+        {
+            ColorationModel colorationmodel = new ColorationModel();
+            this.Reset();
+            this.Copy(colorationmodel);
+            QueueObjects(colorationmodel);
+            SendQueues();
         }
         #endregion
     }

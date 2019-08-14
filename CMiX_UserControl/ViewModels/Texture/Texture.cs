@@ -54,9 +54,9 @@ namespace CMiX.ViewModels
             Tilt = new Slider(MessageAddress + nameof(Tilt),oscvalidation, mementor);
             Tilt.Minimum = -1.0;
 
-            ResetCommand = new RelayCommand(p => Reset());
             CopyTextureCommand = new RelayCommand(p => CopyTexture());
             PasteTextureCommand = new RelayCommand(p => PasteTexture());
+            ResetTextureCommand = new RelayCommand(p => ResetTexture());
         }
         #endregion
 
@@ -81,9 +81,9 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-        public ICommand ResetCommand { get; }
         public ICommand CopyTextureCommand { get; }
         public ICommand PasteTextureCommand { get; }
+        public ICommand ResetTextureCommand { get; }
 
         public FileSelector FileSelector { get;  }
         public Slider Brightness { get; }
@@ -194,7 +194,15 @@ namespace CMiX.ViewModels
                 this.Paste(texturemodel);
                 Mementor.EndBatch();
             }
+        }
 
+        public void ResetTexture()
+        {
+            TextureModel texturemodel = new TextureModel();
+            this.Reset();
+            this.Copy(texturemodel);
+            QueueObjects(texturemodel);
+            SendQueues();
         }
         #endregion
     }

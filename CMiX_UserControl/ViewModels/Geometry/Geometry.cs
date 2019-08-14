@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
-using CMiX.Services;
-//using CMiX.Models;
 using Memento;
 
 namespace CMiX.ViewModels
@@ -36,9 +34,9 @@ namespace CMiX.ViewModels
             Counter = new Counter(MessageAddress, oscvalidation, mementor);
             GeometryFX = new GeometryFX(MessageAddress, oscvalidation, mementor);
 
-            ResetCommand = new RelayCommand(p => Reset());
             CopyGeometryCommand = new RelayCommand(p => CopyGeometry());
             PasteGeometryCommand = new RelayCommand(p => PasteGeometry());
+            ResetGeometryCommand = new RelayCommand(p => ResetGeometry());
         }
         #endregion
 
@@ -61,13 +59,9 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-        public ICommand CopySelfCommand { get; }
-        public ICommand PasteSelfCommand { get; }
-        public ICommand ResetCommand { get; }
-
         public ICommand CopyGeometryCommand { get; }
         public ICommand PasteGeometryCommand { get; }
-
+        public ICommand ResetGeometryCommand { get; }
 
         public FileSelector FileSelector { get; }
         public Counter Counter { get; }
@@ -126,6 +120,16 @@ namespace CMiX.ViewModels
                 Mementor.EndBatch();
             }
         }
+
+        public void ResetGeometry()
+        {
+            GeometryModel geometrymodel = new GeometryModel();
+            this.Reset();
+            this.Copy(geometrymodel);
+            QueueObjects(geometrymodel);
+            SendQueues();
+        }
+
 
         #region COPY/PASTE/RESET
         public void Copy(GeometryModel geometrymodel)

@@ -173,6 +173,18 @@
                                                 </StackPanel>
                                             </MenuItem.Header>
                                         </MenuItem>
+                                        <MenuItem
+                                            Padding="8, 4"
+                                            Foreground="{StaticResource TextBase}"
+                                            Command="{Binding Data.ResetLayerCommand, Source={StaticResource proxy}}">
+                                            <MenuItem.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Image Width="10" Height="10" Source="{StaticResource Reset}" />
+                                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                                    <TextBlock Text="Reset Layer"/>
+                                                </StackPanel>
+                                            </MenuItem.Header>
+                                        </MenuItem>
                                     </ContextMenu>
                                 </ListBox.ContextMenu>
                                 <ListBox.ItemTemplate>

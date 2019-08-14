@@ -21,9 +21,10 @@ namespace CMiX.ViewModels
 
             Transforms = ((PostFXTransforms)0).ToString();
             View = ((PostFXView)0).ToString();
-            ResetCommand = new RelayCommand(p => Reset());
+
             CopyPostFXCommand = new RelayCommand(p => CopyPostFX());
             PastePostFXCommand = new RelayCommand(p => PastePostFX());
+            ResetPostFXCommand = new RelayCommand(p => ResetPostFX());
         }
         #endregion
 
@@ -38,9 +39,9 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-        public ICommand ResetCommand { get; }
         public ICommand CopyPostFXCommand { get; }
         public ICommand PastePostFXCommand { get; }
+        public ICommand ResetPostFXCommand { get; }
 
         public Slider Feedback { get; }
         public Slider Blur { get; }
@@ -134,6 +135,15 @@ namespace CMiX.ViewModels
                 this.Paste(postfxmodel);
                 Mementor.EndBatch();
             }
+        }
+
+        public void ResetPostFX()
+        {
+            PostFXModel postfxmodel = new PostFXModel();
+            this.Reset();
+            this.Copy(postfxmodel);
+            QueueObjects(postfxmodel);
+            SendQueues();
         }
         #endregion
     }

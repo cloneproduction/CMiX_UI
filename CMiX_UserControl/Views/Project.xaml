@@ -25,6 +25,16 @@
             Key="N" 
             Command="{Binding AddLayerCommand}" 
             />
+        <KeyBinding 
+            Modifiers="Control"
+            Key="E" 
+            Command="{Binding ExportCompoCommand}" 
+            />
+        <KeyBinding 
+            Modifiers="Control"
+            Key="I" 
+            Command="{Binding ImportCompoCommand}" 
+            />
     </UserControl.InputBindings>
     
     <UserControl.Resources>

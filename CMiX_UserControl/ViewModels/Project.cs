@@ -252,6 +252,7 @@ namespace CMiX.ViewModels
                     Composition newcomp = new Composition(OSCMessengers);
                     newcomp.Paste(compositionmodel);
                     Compositions.Add(newcomp);
+                    SelectedComposition = newcomp;
                 }
             }
         }

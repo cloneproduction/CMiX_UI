@@ -82,9 +82,9 @@ namespace CMiX.ViewModels
             DisabledMessages();
 
             Multiplier = 1.0;
-            
             ChanceToHit.Reset();
             ChanceToHit.Amount = 1.0;
+
             EnabledMessages();
         }
 

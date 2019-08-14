@@ -31,7 +31,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource Copy}" />
                                 <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                <TextBlock Text="Copy"/>
+                                <TextBlock Text="Copy Content"/>
                             </StackPanel>
                         </MenuItem.Header>
                     </MenuItem>
@@ -43,19 +43,19 @@
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource Paste}" />
                                 <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                <TextBlock Text="Paste"/>
+                                <TextBlock Text="Paste Content"/>
                             </StackPanel>
                         </MenuItem.Header>
                     </MenuItem>
                     <MenuItem
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.ResetCommand, Source={StaticResource proxy}}">
+                        Command="{Binding Data.ResetContentCommand, Source={StaticResource proxy}}">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource Reset}" />
                                 <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                <TextBlock Text="Reset"/>
+                                <TextBlock Text="Reset Content"/>
                             </StackPanel>
                         </MenuItem.Header>
                     </MenuItem>

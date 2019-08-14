@@ -25,7 +25,7 @@ namespace CMiX.ViewModels
             Texture = new Texture(MessageAddress, oscvalidation, mementor);
             PostFX = new PostFX(MessageAddress, oscvalidation, mementor);
 
-            ResetCommand = new RelayCommand(p => Reset());
+            
             CopyTextureCommand = new RelayCommand(p => CopyTexture());
             PasteTextureCommand = new RelayCommand(p => PasteTexture());
             CopyGeometryCommand = new RelayCommand(p => CopyGeometry());
@@ -34,6 +34,7 @@ namespace CMiX.ViewModels
             PastePostFXCommand = new RelayCommand(p => PastePostFX());
             CopyMaskCommand = new RelayCommand(p => CopyMask());
             PasteMaskCommand = new RelayCommand(p => PasteMask());
+            ResetMaskCommand = new RelayCommand(p => ResetMask());
         }
         #endregion
 
@@ -50,10 +51,6 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-        public ICommand CopySelfCommand { get; }
-        public ICommand PasteSelfCommand { get; }
-        public ICommand ResetCommand { get; }
-
         public ICommand CopyTextureCommand { get; }
         public ICommand PasteTextureCommand { get; }
 
@@ -65,6 +62,7 @@ namespace CMiX.ViewModels
 
         public ICommand CopyMaskCommand { get; }
         public ICommand PasteMaskCommand { get; }
+        public ICommand ResetMaskCommand { get; }
 
         public BeatModifier BeatModifier { get; }
         public Geometry Geometry { get; }
@@ -98,6 +96,7 @@ namespace CMiX.ViewModels
         }
 
         #endregion
+
 
         public void CopyPostFX()
         {
@@ -225,11 +224,6 @@ namespace CMiX.ViewModels
             PostFX.Reset();
 
             EnabledMessages();
-
-            MaskModel maskmodel = new MaskModel();
-            this.Copy(maskmodel);
-            QueueObjects(maskmodel);
-            SendQueues();
         }
 
         public void CopyMask()
@@ -251,6 +245,15 @@ namespace CMiX.ViewModels
                 this.Paste(maskmodel);
                 Mementor.EndBatch();
             }
+        }
+
+        public void ResetMask()
+        {
+            MaskModel maskmodel = new MaskModel();
+            this.Reset();
+            this.Copy(maskmodel);
+            QueueObjects(maskmodel);
+            SendQueues();
         }
         #endregion
     }

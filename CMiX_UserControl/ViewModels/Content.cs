@@ -24,7 +24,7 @@ namespace CMiX.ViewModels
             Texture = new Texture(MessageAddress, oscvalidation, mementor);
             PostFX = new PostFX(MessageAddress, oscvalidation, mementor);
 
-            ResetCommand = new RelayCommand(p => Reset());
+            
             CopyTextureCommand = new RelayCommand(p => CopyTexture());
             PasteTextureCommand = new RelayCommand(p => PasteTexture());
             CopyGeometryCommand = new RelayCommand(p => CopyGeometry());
@@ -33,6 +33,7 @@ namespace CMiX.ViewModels
             PastePostFXCommand = new RelayCommand(p => PastePostFX());
             CopyContentCommand = new RelayCommand(p => CopyContent());
             PasteContentCommand = new RelayCommand(p => PasteContent());
+            ResetContentCommand = new RelayCommand(p => ResetContent());
         }
         #endregion
 
@@ -48,9 +49,6 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-        public ICommand CopySelfCommand { get; }
-        public ICommand PasteSelfCommand { get; }
-        public ICommand ResetCommand { get; }
         public ICommand CopyTextureCommand { get; }
         public ICommand PasteTextureCommand { get; }
         public ICommand CopyGeometryCommand { get; }
@@ -59,6 +57,7 @@ namespace CMiX.ViewModels
         public ICommand PastePostFXCommand { get; }
         public ICommand CopyContentCommand { get; }
         public ICommand PasteContentCommand { get; }
+        public ICommand ResetContentCommand { get; }
 
         private bool _enable;
         public bool Enable
@@ -167,7 +166,6 @@ namespace CMiX.ViewModels
         public void Reset()
         {
             DisabledMessages();
-            //Mementor.BeginBatch();
 
             Enable = true;
             BeatModifier.Reset();
@@ -176,12 +174,6 @@ namespace CMiX.ViewModels
             PostFX.Reset();
 
             EnabledMessages();
-            //Mementor.EndBatch();
-
-            ContentModel contentmodel = new ContentModel();
-            this.Copy(contentmodel);
-            QueueObjects(contentmodel);
-            SendQueues();
         }
 
 
@@ -227,6 +219,15 @@ namespace CMiX.ViewModels
                 this.Paste(contentmodel);
                 Mementor.EndBatch();
             }
+        }
+
+        public void ResetContent()
+        {
+            ContentModel contentmodel = new ContentModel();
+            this.Reset();
+            this.Copy(contentmodel);
+            QueueObjects(contentmodel);
+            SendQueues();
         }
         #endregion
     }

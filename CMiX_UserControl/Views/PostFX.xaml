@@ -31,11 +31,11 @@
         DockPanel.Dock="Bottom">
         <StackPanel>
             <Border
+                DockPanel.Dock="Top"
                 Height="25"
-                Background="{StaticResource DarkColor}"
                 Padding="4"
-                BorderBrush="{StaticResource HighDarkerColor}"
-                DockPanel.Dock="Top">
+                Background="{StaticResource DarkColor}"
+                BorderBrush="{StaticResource HighDarkerColor}">
                 <Border.ContextMenu>
                     <ContextMenu>
                         <MenuItem
@@ -46,7 +46,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <Image Width="10" Height="10" Source="{StaticResource Copy}" />
                                     <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                    <TextBlock Text="Copy"/>
+                                    <TextBlock Text="Copy PostFX"/>
                                 </StackPanel>
                             </MenuItem.Header>
                         </MenuItem>
@@ -58,19 +58,19 @@
                                 <StackPanel Orientation="Horizontal">
                                     <Image Width="10" Height="10" Source="{StaticResource Paste}" />
                                     <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                    <TextBlock Text="Paste"/>
+                                    <TextBlock Text="Paste PostFX"/>
                                 </StackPanel>
                             </MenuItem.Header>
                         </MenuItem>
                         <MenuItem
                                 Padding="8, 4"
                                 Foreground="{StaticResource TextBase}"
-                                Command="{Binding Data.ResetCommand, Source={StaticResource proxy}}">
+                                Command="{Binding Data.ResetPostFXCommand, Source={StaticResource proxy}}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Width="10" Height="10" Source="{StaticResource Reset}" />
                                     <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                    <TextBlock Text="Reset"/>
+                                    <TextBlock Text="Reset PostFX"/>
                                 </StackPanel>
                             </MenuItem.Header>
                         </MenuItem>
@@ -82,24 +82,25 @@
                     <TextBlock
                         Margin="4, 0, 0, 0"
                         Text="FX"
-                        Foreground="{StaticResource TextBase}"/>
+                        Foreground="{StaticResource TextBase}"
+                        />
                 </DockPanel>
             </Border>
             <StackPanel>
                 <Border Margin="0, 4" DockPanel.Dock="Bottom" Style="{StaticResource BorderContainer}">
                     <StackPanel x:Name="TexFXControl">
                         <MVVM.Views:Slider
-                        Height="20"
-                        Margin="0,0,0,2"
-                        Caption="Feedback"
-                        DataContext="{Binding Feedback}"
-                        />
+                            Height="20"
+                            Margin="0,0,0,2"
+                            Caption="Feedback"
+                            DataContext="{Binding Feedback}"
+                            />
                         <MVVM.Views:Slider
-                        Height="20"
-                        Margin="0"
-                        Caption="Blur"
-                        DataContext="{Binding Blur}"
-                        />
+                            Height="20"
+                            Margin="0"
+                            Caption="Blur"
+                            DataContext="{Binding Blur}"
+                            />
                     </StackPanel>
                 </Border>
                 <Border DockPanel.Dock="Bottom" Style="{StaticResource BorderContainer}">

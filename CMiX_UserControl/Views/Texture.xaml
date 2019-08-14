@@ -2,7 +2,6 @@
     x:Class="CMiX.Views.Texture"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX_MVVM"
     xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX_MVVM"
@@ -43,7 +42,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <Image Width="10" Height="10" Source="{StaticResource Copy}" />
                                     <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                    <TextBlock Text="Copy"/>
+                                    <TextBlock Text="Copy Texture"/>
                                 </StackPanel>
                             </MenuItem.Header>
                         </MenuItem>
@@ -55,19 +54,19 @@
                                 <StackPanel Orientation="Horizontal">
                                     <Image Width="10" Height="10" Source="{StaticResource Paste}" />
                                     <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                    <TextBlock Text="Paste"/>
+                                    <TextBlock Text="Paste Texture"/>
                                 </StackPanel>
                             </MenuItem.Header>
                         </MenuItem>
                         <MenuItem
-                                Padding="8, 4"
-                                Foreground="{StaticResource TextBase}"
-                                Command="{Binding Data.ResetCommand, Source={StaticResource proxy}}">
+                            Padding="8, 4"
+                            Foreground="{StaticResource TextBase}"
+                            Command="{Binding Data.ResetTextureCommand, Source={StaticResource proxy}}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Width="10" Height="10" Source="{StaticResource Reset}" />
                                     <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                    <TextBlock Text="Reset"/>
+                                    <TextBlock Text="Reset Texture"/>
                                 </StackPanel>
                             </MenuItem.Header>
                         </MenuItem>
@@ -82,7 +81,9 @@
                         Foreground="{StaticResource TextBase}"/>
                 </DockPanel>
             </Border>
-            <Border Margin="0, 2" Style="{StaticResource BorderContainer}">
+            <Border 
+                Margin="0, 2" 
+                Style="{StaticResource BorderContainer}">
                 <MVVM.Views:FileSelector
                     Height="300"
                     DataContext="{Binding FileSelector}"
@@ -106,9 +107,9 @@
                                 />
                         </TabItem.Header>
                         <StackPanel>
-                            <Border Margin="0, 4" Style="{StaticResource BorderContainer}">
+                            <Border 
+                                Margin="0, 4" Style="{StaticResource BorderContainer}">
                                 <StackPanel>
-                                
                                     <MVVM.Views:SliderCentered
                                         Margin="0, 1, 0, 1"
                                         Caption="Brightness"
@@ -121,32 +122,30 @@
                                         DockPanel.Dock="Bottom"
                                         DataContext="{Binding Contrast}"
                                         />
-                                
-                            </StackPanel>
+                                </StackPanel>
                             </Border>
                             <Border Style="{StaticResource BorderContainer}">
-                                    <Grid
-                                        Height="20"
-                                        DockPanel.Dock="Bottom">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition Width="0.3*" />
-                                        </Grid.ColumnDefinitions>
-                                        <ComboBox
-                                            Grid.Column="1"
-                                            Margin="1, 0, 0, 0"
-                                            ItemsSource="{Binding Source={StaticResource InvertMode}}"
-                                            SelectedItem="{Binding InvertMode}"
-                                            SelectedIndex="0"
-                                            />
-                                        <MVVM.Views:Slider
-                                            Grid.Column="0"
-                                            Caption="Invert"
-                                            DataContext="{Binding Invert}"
-                                            />
-                                    </Grid>
-                                </Border>
-
+                                <Grid
+                                    Height="20"
+                                    DockPanel.Dock="Bottom">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="0.3*" />
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox
+                                        Grid.Column="1"
+                                        Margin="1, 0, 0, 0"
+                                        ItemsSource="{Binding Source={StaticResource InvertMode}}"
+                                        SelectedItem="{Binding InvertMode}"
+                                        SelectedIndex="0"
+                                        />
+                                    <MVVM.Views:Slider
+                                        Grid.Column="0"
+                                        Caption="Invert"
+                                        DataContext="{Binding Invert}"
+                                        />
+                                </Grid>
+                            </Border>
                         </StackPanel>
                     </TabItem>
                     <TabItem>
@@ -164,21 +163,21 @@
                                 Style="{StaticResource BorderContainer}">
                                 <StackPanel>
                                     <MVVM.Views:SliderCentered
-                                            Caption="Hue"
-                                            DockPanel.Dock="Bottom"
-                                            DataContext="{Binding Hue}"
-                                            />
+                                        Caption="Hue"
+                                        DockPanel.Dock="Bottom"
+                                        DataContext="{Binding Hue}"
+                                        />
                                     <MVVM.Views:SliderCentered
-                                            Margin="0, 2"
-                                            Caption="Saturation"
-                                            DockPanel.Dock="Bottom"
-                                            DataContext="{Binding Saturation}"
-                                            />
+                                        Margin="0, 2"
+                                        Caption="Saturation"
+                                        DockPanel.Dock="Bottom"
+                                        DataContext="{Binding Saturation}"
+                                        />
                                     <MVVM.Views:SliderCentered
-                                            Caption="Luminosity"
-                                            DockPanel.Dock="Bottom"
-                                            DataContext="{Binding Luminosity}"
-                                            />
+                                        Caption="Luminosity"
+                                        DockPanel.Dock="Bottom"
+                                        DataContext="{Binding Luminosity}"
+                                        />
                                 </StackPanel>
                             </Border>
                             <Border Style="{StaticResource BorderContainer}">
@@ -208,22 +207,22 @@
                                         DataContext="{Binding Pan}"
                                         />
                                     <MVVM.Views:SliderCentered
-                                    Margin="0, 2, 0, 2"
-                                    Caption="Tilt"
-                                    DockPanel.Dock="Bottom"
-                                    DataContext="{Binding Tilt}"
-                                    />
+                                        Margin="0, 2, 0, 2"
+                                        Caption="Tilt"
+                                        DockPanel.Dock="Bottom"
+                                        DataContext="{Binding Tilt}"
+                                        />
                                     <MVVM.Views:SliderCentered
-                                    Caption="Scale"
-                                    DockPanel.Dock="Bottom"
-                                    DataContext="{Binding Scale}"
-                                    />
+                                        Caption="Scale"
+                                        DockPanel.Dock="Bottom"
+                                        DataContext="{Binding Scale}"
+                                        />
                                     <MVVM.Views:SliderCentered
-                                    Margin="0, 2, 0, 0"
-                                    Caption="Rotate"
-                                    DockPanel.Dock="Bottom"
-                                    DataContext="{Binding Rotate}"
-                                    />
+                                        Margin="0, 2, 0, 0"
+                                        Caption="Rotate"
+                                        DockPanel.Dock="Bottom"
+                                        DataContext="{Binding Rotate}"
+                                        />
                                 </StackPanel>
                             </Border>
 
@@ -247,14 +246,14 @@
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
                                         <TextBlock 
-                                        Text="V" 
-                                        HorizontalAlignment="Center" 
-                                        VerticalAlignment="Center"
-                                        />
+                                            Text="V" 
+                                            HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"
+                                            />
                                         <ComboBox 
-                                        Grid.Column="1" 
-                                        Margin="2, 0, 0, 0"
-                                        />
+                                            Grid.Column="1" 
+                                            Margin="2, 0, 0, 0"
+                                            />
                                     </Grid>
                                 </Grid>
                             </Border>

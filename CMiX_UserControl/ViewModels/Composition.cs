@@ -38,6 +38,7 @@ namespace CMiX.ViewModels
             DuplicateLayerCommand = new RelayCommand(p => DuplicateLayer());
             CopyLayerCommand = new RelayCommand(p => CopyLayer());
             PasteLayerCommand = new RelayCommand(p => PasteLayer());
+            ResetLayerCommand = new RelayCommand(p => ResetLayer());
         }
         #endregion
 
@@ -47,6 +48,8 @@ namespace CMiX.ViewModels
         public ICommand AddLayerCommand { get; }
         public ICommand CopyLayerCommand { get; }
         public ICommand PasteLayerCommand { get; }
+        public ICommand ResetLayerCommand { get; }
+
         public ICommand SaveCompositionCommand { get; }
         public ICommand OpenCompositionCommand { get; }
         public ICommand DeleteLayerCommand { get; }
@@ -195,7 +198,7 @@ namespace CMiX.ViewModels
         }
         #endregion
 
-        #region COPY/PASTE LAYER
+        #region COPY/PASTE/RESET LAYER
         private void CopyLayer()
         {
             LayerModel layermodel = new LayerModel();
@@ -234,9 +237,18 @@ namespace CMiX.ViewModels
                 Mementor.EndBatch();
             }
         }
+
+        public void ResetLayer()
+        {
+            SelectedLayer.Reset();
+            LayerModel layerModel = new LayerModel();
+            SelectedLayer.Copy(layerModel);
+            QueueObjects(layerModel);
+            SendQueues();
+        }
         #endregion
 
-        #region ADD/REMOVE/DUPLICATE/DELETE LAYERS
+        #region ADD/DUPLICATE/DELETE LAYERS
         public void AddLayer()
         {
             Mementor.BeginBatch();
@@ -395,24 +407,6 @@ namespace CMiX.ViewModels
             Camera.Paste(compositionmodel.CameraModel);
             Transition.Paste(compositionmodel.TransitionModel);
             EnabledMessages();
-        }
-
-        public void Load(CompositionModel compositionmodel)
-        {
-            Name = compositionmodel.Name;
-            ContentFolderName = compositionmodel.ContentFolderName;
-
-            Layers.Clear();
-            foreach (LayerModel layermodel in compositionmodel.LayersModel)
-            {
-                Layer layer = new Layer(MasterBeat, layermodel.LayerName, OSCValidation, Mementor);
-                layer.Load(layermodel);
-                Layers.Add(layer);
-            }
-
-            MasterBeat.Paste(compositionmodel.MasterBeatModel);
-            Camera.Paste(compositionmodel.CameraModel);
-            Transition.Paste(compositionmodel.TransitionModel);
         }
         #endregion
 
