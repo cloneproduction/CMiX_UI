@@ -12,6 +12,7 @@
             <Resources:HueSatToColorConverter x:Key="HueSatToColor" />
             <Resources:HueValToColorConverter x:Key="HueValToColor" />
             <Resources:ValToColorConverter x:Key="ValToColor" />
+            <Resources:HueToColorConverter x:Key="HueToColor" />
             <Resources:ColorToColorComponentConverter x:Key="ColorToColorComponent" />
             <Resources:ColorToSliderBgColorConverter x:Key="ColorToSliderBgColor" />
             <Resources:ColorHueToDoubleConverter x:Key="ColorHueToDouble"/>

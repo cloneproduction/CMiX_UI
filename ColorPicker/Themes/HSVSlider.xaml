@@ -175,15 +175,15 @@
     </Style>
 
     
-    <Style x:Key="HSVSliderVertical" TargetType="{x:Type local:HSVSlider}">
+    <Style x:Key="HSVSliderVertical" TargetType="{x:Type local:ColorSlider}">
         <Setter Property="Maximum" Value="255" />
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:HSVSlider}">
+                <ControlTemplate TargetType="{x:Type local:ColorSlider}">
                     <Border>
                         <Border.Background>
-                            <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                 <GradientStop Offset="0" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=LeftColor}" />
                                 <GradientStop Offset="1" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=RightColor}" />
                             </LinearGradientBrush>
