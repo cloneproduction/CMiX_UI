@@ -2,7 +2,7 @@
 using System.Windows.Data;
 using System.Windows.Input;
 
-namespace ColorPicker
+namespace CMiX.ColorPicker
 {
     public class ColorText : TextBox
     {

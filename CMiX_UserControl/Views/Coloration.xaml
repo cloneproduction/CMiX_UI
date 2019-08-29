@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Views="clr-namespace:CMiX.Views"
-    xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
+    xmlns:ColorPickerViews="clr-namespace:CMiX.ColorPicker.Views;assembly=ColorPicker"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -19,6 +19,7 @@
     </UserControl.Resources>
     
     <StackPanel>
+
         <Border 
             Background="Transparent"
             Padding="4, 0"
@@ -117,47 +118,54 @@
                                         <i:InvokeCommandAction Command="{Binding MouseDownCommand}"/>
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
-                                <colorpicker:ColorPicker
-                                    MaxHeight="300"
-                                    x:Name="Color"
-                                    Background="{StaticResource HighDarkerColor}"
-                                    SelectedColor="{Binding ObjColor, Mode=TwoWay}" 
-                                    />
+                                <Views:ColorSelector DataContext="{Binding ColorSelector}"/>
                             </Border>
                         </StackPanel>
                     </TabItem>
-                </TabControl>
-            </Grid>
-        </Border>
-        <Border             
+                    <TabItem
+                        Width="40"
+                        Height="30"
+                        IsSelected="True">
+                        <TabItem.Header>
+                            <Image 
+                                Source="{StaticResource PostFX}" 
+                                Height="15"
+                                Width="auto" 
+                                Opacity="0.75"
+                                />
+                        </TabItem.Header>
+                        <Border             
             DockPanel.Dock="Bottom"
             Style="{StaticResource BorderContainer}">
-            <StackPanel Grid.Row="1">
-                <Border 
+                            <StackPanel Grid.Row="1">
+                                <Border 
                     Margin="0, 0, 0 4"
                     Height="25">
-                    <TextBlock
+                                    <TextBlock
                         VerticalAlignment="Center"
                         Margin="4, 0, 0, 0"
                         Text="Modifiers"
                         Foreground="{StaticResource TextBase}"
                         />
-                </Border>
-                <Views:RangeControl 
+                                </Border>
+                                <Views:RangeControl 
                     Caption="Hue"
                     DataContext="{Binding Hue}"
                     />
-                <Views:RangeControl 
+                                <Views:RangeControl 
                     Caption="Saturation"
                     Margin="0, 2"
                     DataContext="{Binding Saturation}"
                     />
-                <Views:RangeControl 
+                                <Views:RangeControl 
                     Caption="Value"
                     DataContext="{Binding Value}"
                     />
-            </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </TabItem>
+                </TabControl>
+            </Grid>
         </Border>
-        <!--<Views:ColorSelector DataContext="{Binding ColorSelector}"/>-->
     </StackPanel>
 </UserControl>

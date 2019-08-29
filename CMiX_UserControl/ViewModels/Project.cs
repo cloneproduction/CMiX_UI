@@ -13,7 +13,7 @@ namespace CMiX.ViewModels
         public Project()
         {
             OSCMessengers = new ObservableCollection<OSCMessenger>();
-            OSCMessengers.Add(new OSCMessenger("127.0.0.1", 1111) { Name = "Default" });
+            OSCMessengers.Add(new OSCMessenger("127.0.0.1", 1111) { Name = "Device (0)" });
 
             Compositions = new ObservableCollection<Composition>();
             FolderPath = string.Empty;
@@ -93,10 +93,13 @@ namespace CMiX.ViewModels
 
         #region ADD/REMOVE/DELETE OSC
         int portnumber = 0;
+        int oscnameid = 0;
 
         private void AddOSC()
         {
             OSCMessenger oscmessenger = new OSCMessenger("127.0.0.1", 1111 + portnumber);
+            oscnameid++;
+            oscmessenger.Name = "Device " + "(" + oscnameid.ToString() + ")";
             OSCMessengers.Add(oscmessenger);
 
             foreach (var compo in Compositions)

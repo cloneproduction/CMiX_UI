@@ -6,7 +6,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace ColorPicker
+namespace CMiX.ColorPicker
 {
     public class ColorHex : TextBox //, INotifyPropertyChanged
     {

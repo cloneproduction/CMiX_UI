@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 
-namespace ColorPicker
+namespace CMiX.ColorPicker
 {
     public class HueWheel : Slider
     {

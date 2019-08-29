@@ -121,104 +121,409 @@ namespace CMiX.MVVM.Resources
         }
     }
 
-    public class ColorToHueConverter : IValueConverter
+
+
+
+
+    public class ByteToNormalizedDoubleConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            byte b = (byte)value;
+            return (double)b / 255;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return (byte)((double)value * 255);
+        }
+    }
+
+    public class HueSatToColorConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            var rgb = new Hsv() { H = (double)values[0], S = (double)values[1], V = 1.0 }.To<Rgb>();
+            return new Color() { R = (byte)rgb.R, G = (byte)rgb.G, B = (byte)rgb.B, ScA = 1.0f };
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
             throw new NotImplementedException();
+        }
+    }
+
+    public class ColorToHSVControledConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            Color color = (Color)ColorConverter.ConvertFromString((string)parameter);
+            var hsv = new Rgb() { R = color.R, G = color.G, B = color.B }.To<Hsv>();
+
+            hsv.S = (double)values[0];
+            hsv.V = (double)values[1];
+
+            var rgb = hsv.To<Rgb>();
+
+            return Color.FromRgb((byte)rgb.R, (byte)rgb.G, (byte)rgb.B);
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
+    public class HueValToColorConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            var rgb = new Hsv() { H = (double)values[0], S = 1.0, V = (double)values[1] }.To<Rgb>();
+            return new Color() { R = (byte)rgb.R, G = (byte)rgb.G, B = (byte)rgb.B, ScA = 1.0f };
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class ValToColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var rgb = new Hsv() { H = 0.0, S = 0.0, V = (double)value }.To<Rgb>();
+            return new Color() { R = (byte)rgb.R, G = (byte)rgb.G, B = (byte)rgb.B, ScA = 1.0f };
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
+        }
+    }
+
+    public class HueToColorConverter : IValueConverter
+    {
+        public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+        {
+            var rgb = new Hsv() { H = (double)value, S = 1.0, V = 1.0 }.To<Rgb>();
+            return new Color() {R = (byte)rgb.R, G = (byte)rgb.G, B = (byte)rgb.B, ScA=1.0f };
+        }
+        public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class DoubleToInvertedConverter : IValueConverter
+    {
+        public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+        {
+            return 1.0 - (double)value;
+        }
+        public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
+    public class DoubleToDividedConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return (double)value / (double)parameter;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return (double)value * (double)parameter;
+        }
+    }
+
+    //public class ColorToHSVConverter : IValueConverter
+    //{
+    //    double hue, sat, val;
+
+    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        Color colorIn = (Color)value;
+    //        ColorUtils.ColorToHSV(colorIn, out hue, out sat, out val);
+    //        double valueout = 0.0;
+
+    //        if ((string)parameter == "Hue")
+    //        {
+    //            valueout = hue / 360;
+    //        }
+
+
+    //        if ((string)parameter == "Sat")
+    //        {
+    //            valueout = sat;
+    //            //Console.WriteLine("Sat : " + sat.ToString() + "  Val : " + val.ToString());
+    //        }
+
+
+    //        if ((string)parameter == "Val")
+    //        {
+    //            valueout = val;
+    //        }
+
+    //        return valueout;
+    //    }
+
+    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        double newval = (double)value;
+    //        return ColorUtils.ColorFromHSV(hue, sat, newval);
+    //    }
+    //}
+
+    public class ColorHueToDoubleConverter : IValueConverter
+    {
+        double hue, sat, val;
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            Color colorIn = (Color)value;
+            ColorUtils.ColorToHSV(colorIn, out hue, out sat, out val);
+            return hue / 360;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            double newhue = (double)value;
+            Color colorOut = ColorUtils.ColorFromHSV(newhue * 360, sat, val);
+            return colorOut;
+        }
+    }
+
+    public class DoubleToColorSatConverter : IValueConverter
+    {
+        double hue, sat, val;
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            Color colorIn = (Color)value;
+            ColorUtils.ColorToHSV(colorIn, out hue, out sat, out val);
+            return 1-sat;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            double newsat = (double)value;
+            return ColorUtils.ColorFromHSV(hue, newsat, val); ;
         }
     }
 
     public class ColorToDoubleConverter : IValueConverter
     {
-        private Color _lastColor;
-        private Hsv _lastHsv;
+        double hue, sat, val;
+        double output = 0.0;
+        Color colorOut = new Color();
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
 
-            Color color = (Color)value;
-            _lastColor = color;
+            Color colorIn = (Color)value;
+            System.Drawing.Color col = System.Drawing.Color.FromArgb(255, colorIn.R, colorIn.G, colorIn.B);
+            //ColorUtils.ColorToHSV(colorIn, out hue, out sat, out val);
+            ColorUtils.ColorToHSV(colorIn, out hue, out sat, out val);
 
-            Rgb colrgb = new Rgb();
-            colrgb.R = color.R;
-            colrgb.G = color.G;
-            colrgb.B = color.B;
+            if ((string)parameter == "Hue")
+                output = col.GetHue(); ;
+            if ((string)parameter == "Sat")
+                output = col.GetSaturation();
+            if ((string)parameter == "Val")
+                output = col.GetBrightness();
 
-            Hsv colhsv = colrgb.To<Hsv>();
-            _lastHsv = colhsv;
-
-            switch ((string)parameter)
-            {
-                case "r": return colhsv.H;
-                case "g": return colhsv.S;
-                case "b": return colhsv.V;
-                //case "a": return color.A;
-            }
-            return Binding.DoNothing;
+            return output;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Color color = _lastColor;
-            Hsv colhsv = _lastHsv;
-            var intensity = (double)value;
+            double newvalue = (double)value;
 
-            Rgb col = new Rgb { R = 0, B = 0, G = 0 };
-            col.R = color.R;
-            col.G = color.G;
-            col.B = color.B;
+            if ((string)parameter == "Hue")
+                colorOut = ColorUtils.ColorFromHSV(newvalue, sat, val);
+            if ((string)parameter == "Sat")
+                colorOut = ColorUtils.ColorFromHSV(hue, newvalue, val);
+            if ((string)parameter == "Val")
+                colorOut = ColorUtils.ColorFromHSV(hue, sat, newvalue);
 
-            switch ((string)parameter)
-            {
-                case "r":
-                    colhsv.H = intensity;
-                    //color.R = intensity;
-                    break;
-                case "g":
-                    colhsv.S = intensity;
-                    //color.G = intensity;
-                    break;
-                case "b":
-                    colhsv.V = intensity;
-                    //color.B = intensity;
-                    break;
-                case "a":
-                    //color.A = intensity;
-                    break;
-            }
-            col = colhsv.To<Rgb>();
-            color.R = (byte)col.R;
-            color.G = (byte)col.G;
-            color.B = (byte)col.B;
-
-            _lastColor = color;
-            _lastHsv = colhsv;
-            return color;
+            return colorOut;
         }
     }
 
-    public class ColorToStringConverter : IValueConverter
+    //public class ColorSatToDoubleConverter : IValueConverter
+    //{
+    //    double hue, sat, val;
+
+    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        Color colorIn = (Color)value;
+    //        ColorUtils.ColorToHSV(colorIn, out hue, out sat, out val);
+    //        return sat;
+    //    }
+
+    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        double newsat = (double)value;
+    //        return ColorUtils.ColorFromHSV(hue, newsat, val); ;
+    //    }
+    //}
+
+    //public class ColorValToDoubleConverter : IValueConverter
+    //{
+    //    double hue, sat, val;
+
+    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        Color colorIn = (Color)value;
+    //        ColorUtils.ColorToHSV(colorIn, out hue, out sat, out val);
+    //        return val;
+    //    }
+
+    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        double newval = (double)value;
+    //        return ColorUtils.ColorFromHSV(hue, sat, newval); ;
+    //    }
+    //}
+
+    //public class ColorValToDoubleInvertedConverter : IValueConverter
+    //{
+    //    public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+    //    {
+    //        Color color = (Color)value;
+    //        Hsv hsv = new Rgb() { R = color.ScR, G = color.ScG, B = color.ScB }.To<Hsv>();
+
+    //        return 1.0 - (hsv.V*255);
+    //    }
+    //    public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+    //}
+
+
+
+    //public class ColorToRGBHSVComponentConverter : IMultiValueConverter
+    //{
+    //    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+
+    //    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+    //}
+
+    public class ColorToColorComponentConverter : IValueConverter
     {
+        float Red, Green, Blue, Alpha;
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string color = (string)value;
-            Color Output = Utils.HexStringToColor(color);
-            return Output;
+            double componentout = 0.0;
+
+            Color colorIn = (Color)value;
+            Red = colorIn.ScR;
+            Green = colorIn.ScG;
+            Blue = colorIn.ScB;
+            Alpha = colorIn.ScA;
+
+            string param = (string)parameter;
+
+            if (param == "Red")
+                componentout = (double)Red;
+
+            if (param == "Green")
+                componentout = (double)Green;
+
+            if (param == "Blue")
+                componentout = (double)Blue;
+
+            if (param == "Alpha")
+                componentout = (double)Alpha;
+
+            return componentout;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Color color = (Color)value;
-            string Output = Utils.ColorToHexString(color);
-            return Output;
+            double newcomponent = (double)value;
+            string param = (string)parameter;
+            Color colorOut = new Color();
+
+            if (param == "Red")
+                colorOut = Color.FromScRgb(Alpha, (float)newcomponent, Green, Blue);
+
+            if (param == "Green")
+                colorOut = Color.FromScRgb(Alpha, Red, (float)newcomponent, Blue);
+
+            if (param == "Blue")
+                colorOut = Color.FromScRgb(Alpha, Red, Green, (float)newcomponent);
+
+            if (param == "Alpha")
+                colorOut = Color.FromScRgb((float)newcomponent, Red, Green, Blue);
+
+            return colorOut;
         }
     }
+
+    public class ColorToSliderBgColorConverter : IValueConverter
+    {
+        float Red, Green, Blue, Alpha;
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            Color colorOut = new Color();
+
+            Color colorIn = (Color)value;
+
+            Red = colorIn.ScR;
+            Green = colorIn.ScG;
+            Blue = colorIn.ScB;
+            Alpha = colorIn.ScA;
+
+            string param = (string)parameter;
+
+            if (param == "RedRight")
+                colorOut = Color.FromScRgb(Alpha, 1.0f, Green, Blue) ;
+
+            if (param == "RedLeft")
+                colorOut = Color.FromScRgb(Alpha, 0.0f, Green, Blue);
+
+            if (param == "GreenRight")
+                colorOut = Color.FromScRgb(Alpha, Red, 1.0f, Blue);
+
+            if (param == "GreenLeft")
+                colorOut = Color.FromScRgb(Alpha, Red, 0.0f, Blue);
+
+            if (param == "BlueRight")
+                colorOut = Color.FromScRgb(Alpha, Red, Green, 1.0f);
+
+            if (param == "BlueLeft")
+                colorOut = Color.FromScRgb(Alpha, Red, Green, 0.0f);
+
+            if (param == "Alpha")
+                colorOut = Color.FromScRgb(1.0f, Red, Green, Blue);
+
+
+            return colorOut;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    #region COLOR CONVERTERS
+
 
     public class ColorToBrushConverter : IValueConverter
     {
@@ -259,6 +564,51 @@ namespace CMiX.MVVM.Resources
             throw new NotImplementedException();
         }
     }
+
+    public class ColorToStringConverter : IValueConverter
+    {
+        public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+        {
+            Color colorValue = (Color)value;
+            return ColorNames.GetColorName(colorValue);
+        }
+        public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class ColorToHexConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var hexCode = System.Convert.ToString(value);
+            try
+            {
+                var color = (Color)ColorConverter.ConvertFromString(hexCode);
+                return color;
+            }
+            catch
+            {
+                return null;
+            }
+
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var hexCode = System.Convert.ToString(value);
+            try
+            {
+                return hexCode;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+    }
+    #endregion
+
 
     public class BoolToStringConverter : IValueConverter
     {

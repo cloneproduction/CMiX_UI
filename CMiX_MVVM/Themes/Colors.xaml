@@ -14,7 +14,8 @@
     <Color x:Key="Normal">#FF404040</Color>
     <Color x:Key="Light">#FF5A5A5A</Color>
     <Color x:Key="HighLight">#FF787878</Color>
-
+    <Color x:Key="SuperHighLight">#FFb3b3b3</Color>
+    
     <Color x:Key="Over">#FF4D4D4D</Color>
     <Color x:Key="Active">#FF7D00FF</Color>
 

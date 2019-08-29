@@ -5,8 +5,10 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using CMiX.MVVM.Resources;
 
-namespace ColorPicker
+
+namespace CMiX.ColorPicker
 {
     [ValueConversion(typeof(double), typeof(String))]
     public class DoubleToIntegerStringConverter : IValueConverter
@@ -54,7 +56,7 @@ namespace ColorPicker
         private ColorSlider m_alphaColorSlider;
         private HSVSlider m_satSlider;
         private HSVSlider m_valSlider;
-        private SpectrumSlider m_hueSlider;
+        private HueSlider m_hueSlider;
         private ColorHex m_colorHex;
 
         private HsvControl m_hsvControl;
@@ -237,7 +239,7 @@ namespace ColorPicker
 
             m_hsvControl = GetTemplateChild(HsvControlName) as HsvControl;
             m_hueWheel = GetTemplateChild(HueWheelName) as HueWheel;
-            m_hueSlider = GetTemplateChild(HueSliderName) as SpectrumSlider;
+            m_hueSlider = GetTemplateChild(HueSliderName) as HueSlider;
             m_templateApplied = true;
             UpdateControlColors(SelectedColor);
         }
@@ -354,7 +356,7 @@ namespace ColorPicker
 
         private void UpdateHueWheel(double hue)
         {
-            m_hueWheel.Hue = hue;
+            //m_hueWheel.Hue = hue;
         }
 
         private void UpdateHsvSliderColor(Color newColor)

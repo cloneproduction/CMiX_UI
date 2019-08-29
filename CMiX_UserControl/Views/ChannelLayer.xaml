@@ -36,7 +36,7 @@
                 IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}},Path=IsSelected}"
                 Style="{StaticResource RadioButtonLayer}">
                 <RadioButton.Background>
-                    <SolidColorBrush Color="{Binding Coloration.ObjColor}"/>
+                    <SolidColorBrush Color="{Binding Coloration.ColorSelector.ColorPicker.SelectedColor}"/>
                 </RadioButton.Background>
             </RadioButton>
             <StackPanel 

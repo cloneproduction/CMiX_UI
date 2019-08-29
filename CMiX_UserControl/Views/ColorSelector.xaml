@@ -5,8 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX_MVVM"
              xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
+             xmlns:ColorPicker.Views="clr-namespace:CMiX.ColorPicker.Views;assembly=ColorPicker"
              mc:Ignorable="d" 
-             d:DesignHeight="405.5" d:DesignWidth="345.5">
+             d:DesignHeight="462.78" 
+             d:DesignWidth="255.06">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -15,13 +17,6 @@
     </UserControl.Resources>
 
     <StackPanel>
-        <MVVM.Views:HueWheel DataContext="{Binding HueWheel}"/>
-        <MVVM.Views:SliderHSV Caption="Value" DataContext="{Binding Value}"/>
-        <MVVM.Views:SliderHSV Caption="Saturation" DataContext="{Binding Saturation}"/>
-        <Rectangle Height="20">
-            <Rectangle.Fill>
-                <SolidColorBrush Color="{Binding SelectedColor}" />
-            </Rectangle.Fill>
-        </Rectangle>
+        <ColorPicker.Views:ColorPicker DataContext="{Binding ColorPicker}"/>
     </StackPanel>
 </UserControl>

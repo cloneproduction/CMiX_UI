@@ -203,32 +203,16 @@ namespace CMiX.ViewModels
             oscmessenger.SendQueue();
         }
 
-        private async void ReloadAllOSC()
+        private void ReloadAllOSC()
         {
             foreach (var oscvalidation in OSCValidation)
-            {
-                CompositionModel compositionmodel = new CompositionModel();
-                this.Copy(compositionmodel);
-                OSCMessenger oscmessenger = oscvalidation.OSCMessenger as OSCMessenger;
-
-                oscmessenger.QueueMessage("/Transition/Amount", Transition.Amount);
-                oscmessenger.QueueMessage("/Transition/Start", true);
-                oscmessenger.SendQueue();
-
-                oscmessenger.QueueMessage("/CompositionReloaded", true);
-                oscmessenger.QueueObject(compositionmodel);
-                await Task.Delay(TimeSpan.FromMinutes(Transition.Amount));
-                oscmessenger.SendQueue();
-            }
+                ReloadComposition(oscvalidation.OSCMessenger);
         }
 
         private void ResetAllOSC()
         {
             foreach (var oscvalidation in OSCValidation)
-            {
-                OSCMessenger oscmessenger = oscvalidation.OSCMessenger as OSCMessenger;
-                oscmessenger.SendMessage("/CompositionReloaded", true);
-            }
+                oscvalidation.OSCMessenger.SendMessage("/CompositionReloaded", true);
         }
         #endregion
 

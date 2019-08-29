@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ColorPicker
+namespace CMiX.ColorPicker
 {
     public partial class MainWindow : Window
     {

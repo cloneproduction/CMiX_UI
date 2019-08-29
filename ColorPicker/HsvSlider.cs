@@ -2,10 +2,9 @@
 using System.Windows.Media;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 
-namespace ColorPicker
+namespace CMiX.ColorPicker
 {
     class HSVSlider : Slider
     {
@@ -45,12 +44,35 @@ namespace ColorPicker
             if (_isPressed)
             {
                 Point position = e.GetPosition(this);
-                double d = 1.0d / this.ActualWidth * position.X;
+                double d = 0.0;
+                if (this.Orientation == Orientation.Horizontal)
+                    d = 1.0d / this.ActualWidth * position.X;
+
+                else if (this.Orientation == Orientation.Vertical)
+                    d = -(1.0d / this.ActualHeight * position.Y) + 1.0;
+
                 var p = this.Maximum * d;
                 this.Value = p;
             }
             e.Handled = true;
             base.OnPreviewMouseLeftButtonDown(e);
+        }
+
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            if (_isPressed)
+            {
+                Point position = e.GetPosition(this);
+                double d = 0.0;
+                if (this.Orientation == Orientation.Horizontal)
+                    d = 1.0d / this.ActualWidth * position.X;
+
+                else if (this.Orientation == Orientation.Vertical)
+                    d = -(1.0d / this.ActualHeight * position.Y) + 1.0;
+
+                var p = this.Maximum * d;
+                this.Value = p;
+            }
         }
 
         private void AddHandler()
@@ -68,17 +90,6 @@ namespace ColorPicker
         {
             base.OnPreviewMouseLeftButtonUp(e);
             _isPressed = false;
-        }
-
-        protected override void OnMouseMove(MouseEventArgs e)
-        {
-            if (_isPressed)
-            {
-                Point position = e.GetPosition(this);
-                double d = 1.0d / this.ActualWidth * position.X;
-                var p = this.Maximum * d;
-                this.Value = p;
-            }
         }
     }
 }

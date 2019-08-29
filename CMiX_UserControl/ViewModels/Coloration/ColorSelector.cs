@@ -1,10 +1,10 @@
 ﻿using CMiX.Services;
 using CMiX.MVVM.ViewModels;
 using Memento;
-using ColorMine;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
+using CMiX.ColorPicker.ViewModels;
 
 namespace CMiX.ViewModels
 {
@@ -16,13 +16,15 @@ namespace CMiX.ViewModels
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(ColorSelector));
             SelectedColor = Color.FromArgb(255, 51, 125, 253);
 
+            ColorPicker = new ColorPicker.ViewModels.ColorPicker();
+
             Value = new SliderValue(this, MessageAddress + nameof(Value), oscvalidation, mementor);
             Saturation = new SliderSaturation(this, MessageAddress + nameof(Value), oscvalidation, mementor);
             HueWheel = new SliderHue(this, MessageAddress + nameof(HueWheel), oscvalidation, mementor);
 
         }
 
-
+        public ColorPicker.ViewModels.ColorPicker ColorPicker { get;  }
 
         public SliderValue Value { get; }
         public SliderSaturation Saturation { get; }

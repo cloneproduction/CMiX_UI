@@ -5,14 +5,16 @@
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ColorPicker="clr-namespace:ColorPicker;assembly=ColorPicker"
     Title="C-MiX"
     Width="1200"
     Height="800"
+    Background="Black"
     mc:Ignorable="d">
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Undo" Executed="UndoCommand_Executed" CanExecute="UndoCommand_CanExecute" />
         <CommandBinding Command="ApplicationCommands.Redo" Executed="RedoCommand_Executed" CanExecute="RedoCommand_CanExecute" />
     </Window.CommandBindings>
-    <Views:Project x:Name="ProjectView" Background="Black">
-    </Views:Project>
+    <Views:Project x:Name="ProjectView" Background="Black"/>
+    <!--<Views:Coloration x:Name="ProjectView" Background="Black"/>-->
 </Window>

@@ -11,6 +11,8 @@
     <SolidColorBrush x:Key="Color" Color="{StaticResource Normal}" />
     <SolidColorBrush x:Key="LightColor" Color="{StaticResource Light}" />
     <SolidColorBrush x:Key="HighLightColor" Color="{StaticResource HighLight}" />
+    <SolidColorBrush x:Key="SuperHighLightColor" Color="{StaticResource SuperHighLight}" />
+    
     <SolidColorBrush x:Key="OverColor" Color="{StaticResource Over}" />
     <SolidColorBrush x:Key="ActiveColor" Color="{StaticResource Active}" />
     <SolidColorBrush x:Key="TextBase" Color="{StaticResource Text}" />

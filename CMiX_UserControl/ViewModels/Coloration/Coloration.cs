@@ -8,6 +8,7 @@ using CMiX.MVVM.ViewModels;
 using CMiX.Services;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
+using CMiX.ColorPicker.ViewModels;
 
 using Memento;
 
@@ -31,6 +32,7 @@ namespace CMiX.ViewModels
             Value = new RangeControl(MessageAddress + nameof(Value), oscvalidation, mementor);
 
             ColorSelector = new ColorSelector(MessageAddress + nameof(ColorSelector), oscvalidation, mementor);
+
 
             ResetCommand = new RelayCommand(p => Reset());
             MouseDownCommand = new RelayCommand(p => MouseDown());
@@ -56,6 +58,9 @@ namespace CMiX.ViewModels
         public RangeControl Value { get; }
 
         public ColorSelector ColorSelector { get; }
+
+        public ColorPicker.ViewModels.ColorPicker ColorPicker { get;  }
+
 
         private Color _selectedColor;
         public Color SelectedColor

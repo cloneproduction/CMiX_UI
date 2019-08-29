@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace ColorPicker
+namespace CMiX.ColorPicker
 {
     public class ColorSlider : Slider
     {
@@ -47,15 +47,44 @@ namespace ColorPicker
             AddHandler();
 
             _isPressed = true;
-            if (_isPressed==true)
+            if (_isPressed)
             {
                 Point position = e.GetPosition(this);
-                double d = 1.0d / this.ActualWidth * position.X;
+                double d = 0.0;
+                if (this.Orientation == Orientation.Horizontal)
+                    d = 1.0d / this.ActualWidth * position.X;
+
+                else if (this.Orientation == Orientation.Vertical)
+                    d = -(1.0d / this.ActualHeight * position.Y) + 1.0;
+
                 var p = this.Maximum * d;
                 this.Value = p;
             }
             e.Handled = true;
             base.OnPreviewMouseLeftButtonDown(e);
+        }
+
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            if (_isPressed)
+            {
+                Point position = e.GetPosition(this);
+                double d = 0.0;
+                if (this.Orientation == Orientation.Horizontal)
+                    d = 1.0d / this.ActualWidth * position.X;
+
+                else if (this.Orientation == Orientation.Vertical)
+                    d = -(1.0d / this.ActualHeight * position.Y) + 1.0;
+
+                var p = this.Maximum * d;
+
+                if (p >= this.Maximum)
+                    p = this.Maximum;
+                if (p <= this.Minimum)
+                    p = this.Minimum;
+
+                this.Value = p;
+            }
         }
 
         private void AddHandler()
@@ -73,17 +102,6 @@ namespace ColorPicker
         {
             base.OnPreviewMouseLeftButtonUp(e);
             _isPressed = false;
-        }
-
-        protected override void OnMouseMove(MouseEventArgs e)
-        {
-            if (_isPressed)
-            {
-                Point position = e.GetPosition(this);
-                double d = 1.0d / this.ActualWidth * position.X;
-                var p = this.Maximum * d;
-                this.Value = p;
-            }
         }
     }
 }

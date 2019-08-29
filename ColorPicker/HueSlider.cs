@@ -4,21 +4,22 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using CMiX.MVVM.Resources;
 
-namespace ColorPicker
+namespace CMiX.ColorPicker
 {
-    public class SpectrumSlider : Slider
+    public class HueSlider : Slider
     {
         #region Public Methods
 
-        static SpectrumSlider()
+        static HueSlider()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(SpectrumSlider), new FrameworkPropertyMetadata(typeof(SpectrumSlider)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(HueSlider), new FrameworkPropertyMetadata(typeof(HueSlider)));
         }
 
-        public SpectrumSlider()
+        public HueSlider()
         {
-            SetBackground();
+            //SetBackground();
         }
 
         #endregion
@@ -32,7 +33,7 @@ namespace ColorPicker
         }
 
         public static readonly DependencyProperty HueProperty =
-            DependencyProperty.Register("Hue", typeof(double), typeof(SpectrumSlider),
+            DependencyProperty.Register("Hue", typeof(double), typeof(HueSlider),
                 new UIPropertyMetadata((double)0, new PropertyChangedCallback(OnHuePropertyChanged)));
 
         #endregion
@@ -61,37 +62,45 @@ namespace ColorPicker
 
         #region Private Methods
 
-        private void SetBackground()
-        {
-            LinearGradientBrush backgroundBrush = new LinearGradientBrush();
-            backgroundBrush.StartPoint = new Point(1, 0.5);
-            backgroundBrush.EndPoint = new Point(0, 0.5);
-
-            const int spectrumColorCount = 30;
-
-            Color[] spectrumColors = ColorUtils.GetSpectrumColors(spectrumColorCount);
-            for (int i = 0; i < spectrumColorCount; ++i)
-            {
-                double offset = i * 1.0 / spectrumColorCount;
-                GradientStop gradientStop = new GradientStop(spectrumColors[i], offset);
-                backgroundBrush.GradientStops.Add(gradientStop);
-            }
-            Background = backgroundBrush;
-        }
 
         private static void OnHuePropertyChanged(
             DependencyObject relatedObject, DependencyPropertyChangedEventArgs e)
         {
-            SpectrumSlider spectrumSlider = relatedObject as SpectrumSlider;
+            HueSlider spectrumSlider = relatedObject as HueSlider;
             if (spectrumSlider != null && !spectrumSlider.m_withinChanging)
             {
                 spectrumSlider.m_withinChanging = true;
                 double hue = (double)e.NewValue;
-                spectrumSlider.Value = 360 - hue;
+                spectrumSlider.Value = 361 - hue;
                 spectrumSlider.m_withinChanging = false;
             }
         }
 
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            if (_isPressed)
+            {
+                Point position = e.GetPosition(this);
+                double d = 0.0;
+                if (this.Orientation == Orientation.Vertical)
+                {
+                    d = -(1.0d / this.ActualHeight * position.Y) + 1.0;
+                }
+
+                else if (this.Orientation == Orientation.Horizontal)
+                {
+                    d = (1.0d / this.ActualWidth * position.X);
+                }
+                var p = this.Maximum * d;
+
+                if (p >= this.Maximum)
+                    p = this.Maximum;
+                if (p <= this.Minimum)
+                    p = this.Minimum;
+
+                this.Value = p;
+            }
+        }
         #endregion
 
         private bool _isPressed = false;
@@ -105,8 +114,21 @@ namespace ColorPicker
             if (_isPressed)
             {
                 Point position = e.GetPosition(this);
-                double d = 1.0d / this.ActualWidth * position.X;
+                double d = 0.0;
+
+                if (this.Orientation == Orientation.Vertical)
+                     d = -(1.0d / this.ActualHeight * position.Y) + 1.0;
+
+                else if(this.Orientation == Orientation.Horizontal)
+                    d = (1.0d / this.ActualWidth * position.X);
+
                 var p = this.Maximum * d;
+
+                if (p >= this.Maximum)
+                    p = this.Maximum;
+                if (p <= this.Minimum)
+                    p = this.Minimum;
+
                 this.Value = p;
             }
             e.Handled = true;
@@ -128,17 +150,6 @@ namespace ColorPicker
         {
             base.OnPreviewMouseLeftButtonUp(e);
             _isPressed = false;
-        }
-
-        protected override void OnMouseMove(MouseEventArgs e)
-        {
-            if (_isPressed)
-            {
-                Point position = e.GetPosition(this);
-                double d = 1.0d / this.ActualWidth * position.X;
-                var p = this.Maximum * d;
-                this.Value = p;
-            }
         }
     }
 }

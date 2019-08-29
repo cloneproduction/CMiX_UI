@@ -1,0 +1,26 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX_MVVM"
+                    xmlns:local="clr-namespace:ColorPicker.Themes">
+
+    
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary>
+            <Resources:BoolToVisibilityConverter x:Key="BoolToVisibility"/>
+            <Resources:ColorToHexConverter x:Key="ColorHex" />
+            <Resources:ByteToNormalizedDoubleConverter x:Key="ByteToNormalizedDouble" />
+            <Resources:HueSatToColorConverter x:Key="HueSatToColor" />
+            <Resources:HueValToColorConverter x:Key="HueValToColor" />
+            <Resources:ValToColorConverter x:Key="ValToColor" />
+            <Resources:ColorToColorComponentConverter x:Key="ColorToColorComponent" />
+            <Resources:ColorToSliderBgColorConverter x:Key="ColorToSliderBgColor" />
+            <Resources:ColorHueToDoubleConverter x:Key="ColorHueToDouble"/>
+            <Resources:ColorToHSVControledConverter x:Key="ColorToHSVControled"/>
+            <Resources:ColorToDoubleConverter x:Key="ColorToDouble"/>
+            <Resources:DoubleToInvertedConverter x:Key="DoubleToInverted"/>
+            <Resources:DoubleToDividedConverter x:Key="DoubleToDivided" />
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+    
+    
+</ResourceDictionary>
