@@ -20,6 +20,8 @@
             <Resources:ColorToDoubleConverter x:Key="ColorToDouble"/>
             <Resources:DoubleToInvertedConverter x:Key="DoubleToInverted"/>
             <Resources:DoubleToDividedConverter x:Key="DoubleToDivided" />
+            <Resources:ByteToStringConverter x:Key="ByteToString" />
+            <Resources:DoubleToStringConverter x:Key="DoubleToString" />
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
     
