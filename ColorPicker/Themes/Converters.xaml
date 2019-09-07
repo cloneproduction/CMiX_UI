@@ -22,6 +22,7 @@
             <Resources:DoubleToDividedConverter x:Key="DoubleToDivided" />
             <Resources:ByteToStringConverter x:Key="ByteToString" />
             <Resources:DoubleToStringConverter x:Key="DoubleToString" />
+            <Resources:IntToStringWithMaxConverter x:Key="IntToStringWithMax" />
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
     

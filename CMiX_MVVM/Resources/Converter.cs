@@ -101,6 +101,37 @@ namespace CMiX.MVVM.Resources
         }
     }
 
+    public class IntToStringWithMaxConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            string result = null;
+            if (value != null)
+            {
+                result = value.ToString();
+            }
+            return result;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var st = (string)value;
+            var max = int.Parse((string)parameter, System.Globalization.CultureInfo.InvariantCulture);
+
+            if (!string.IsNullOrEmpty(st))
+            {
+                int b = System.Convert.ToInt32(value);
+                if (b < 0)
+                    b = 0;
+                else if (b > max)
+                    b = max;
+                return b;
+            }
+            else
+                return 0;
+        }
+    }
+
     public class IndexToCountConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -109,7 +140,6 @@ namespace CMiX.MVVM.Resources
             int integer = (int)value;
             if (value != null)
             {
-                //if (string.IsNullOrWhiteSpace(path) == false)
                 result = Math.Pow(2, integer).ToString();
             }
             return result;
@@ -165,14 +195,15 @@ namespace CMiX.MVVM.Resources
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var st = (string)value;
+            var max = double.Parse((string)parameter, System.Globalization.CultureInfo.InvariantCulture);
 
             if (!string.IsNullOrEmpty(st))
             {
                 double b = System.Convert.ToDouble(value);
                 if (b < 0)
                     b = 0.0;
-                else if (b > 255)
-                    b = 255;
+                else if (b > max)
+                    b = max;
                 return b;
             }
             else
