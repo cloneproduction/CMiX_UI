@@ -108,7 +108,9 @@ namespace CMiX.MVVM.Resources
             string result = null;
             if (value != null)
             {
-                result = value.ToString();
+                var val = (double)value;
+                var integer = System.Convert.ToInt32(val);
+                result = integer.ToString();
             }
             return result;
         }
@@ -188,8 +190,8 @@ namespace CMiX.MVVM.Resources
         {
 
             double b = (double)value;
-
-            return b.ToString();
+            
+            return String.Format("{0:0.00}", b) ;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -229,7 +231,9 @@ namespace CMiX.MVVM.Resources
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            var rgb = new Hsv() { H = (double)values[0], S = (double)values[1], V = 1.0 }.To<Rgb>();
+            var rgb = new Rgb();
+            if (values[0] != DependencyProperty.UnsetValue && values[1] != DependencyProperty.UnsetValue)
+                rgb = new Hsv() { H = (double)values[0], S = (double)values[1], V = 1.0 }.To<Rgb>();
             return new Color() { R = (byte)rgb.R, G = (byte)rgb.G, B = (byte)rgb.B, ScA = 1.0f };
         }
 
@@ -246,8 +250,10 @@ namespace CMiX.MVVM.Resources
             Color color = (Color)ColorConverter.ConvertFromString((string)parameter);
             var hsv = new Rgb() { R = color.R, G = color.G, B = color.B }.To<Hsv>();
 
-            hsv.S = (double)values[0];
-            hsv.V = (double)values[1];
+            if (values[0] != DependencyProperty.UnsetValue)
+                hsv.S = (double)values[0];
+            if(values[1] != DependencyProperty.UnsetValue)
+                hsv.V = (double)values[1];
 
             var rgb = hsv.To<Rgb>();
 
@@ -265,7 +271,10 @@ namespace CMiX.MVVM.Resources
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            var rgb = new Hsv() { H = (double)values[0], S = 1.0, V = (double)values[1] }.To<Rgb>();
+            var rgb = new Rgb();
+            if(values[0] != DependencyProperty.UnsetValue && values[1] != DependencyProperty.UnsetValue)
+                rgb = new Hsv() { H = (double)values[0], S = 1.0, V = (double)values[1] }.To<Rgb>();
+                
             return new Color() { R = (byte)rgb.R, G = (byte)rgb.G, B = (byte)rgb.B, ScA = 1.0f };
         }
 

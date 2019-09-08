@@ -83,11 +83,11 @@
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ceras, Version=4.0.40.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ceras.4.0.40\lib\net45\Ceras.dll</HintPath>
+    <Reference Include="Ceras, Version=4.1.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ceras.4.1.7\lib\net45\Ceras.dll</HintPath>
     </Reference>
     <Reference Include="GongSolutions.WPF.DragDrop, Version=2.0.0.0, Culture=neutral, PublicKeyToken=91f1945125b7a587, processorArchitecture=MSIL">
-      <HintPath>..\packages\gong-wpf-dragdrop.2.0.2\lib\net46\GongSolutions.WPF.DragDrop.dll</HintPath>
+      <HintPath>..\packages\gong-wpf-dragdrop.2.0.5\lib\net46\GongSolutions.WPF.DragDrop.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignColors, Version=1.2.0.325, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.2.0\lib\net45\MaterialDesignColors.dll</HintPath>
@@ -131,9 +131,6 @@
     </Compile>
     <Compile Include="Services\OSCAttribute.cs" />
     <Compile Include="ViewModels\Coloration\ColorSelector.cs" />
-    <Compile Include="ViewModels\Coloration\SliderHue.cs" />
-    <Compile Include="ViewModels\Coloration\SliderValue.cs" />
-    <Compile Include="ViewModels\Coloration\SliderSaturation.cs" />
     <Compile Include="Views\ColorSelector.xaml.cs">
       <DependentUpon>ColorSelector.xaml</DependentUpon>
     </Compile>

@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Media;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.ViewModels;
 using ColorMine.ColorSpaces;
+using Memento;
 
 namespace CMiX.ColorPicker.ViewModels
 {
     public class ColorPicker : ViewModel
     {
-        public ColorPicker()
+        public ColorPicker(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor)
+            : base(oscvalidation, mementor)
         {
-            SelectedColor = Color.FromScRgb(1.0f, 0.5f, 0.5f, 0.5f);
+            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(ColorPicker));
+            SelectedColor = Color.FromScRgb(1.0f, 0.0f, 0.0f, 1.0f);
             NotifyAll();
         }
 
@@ -22,6 +26,7 @@ namespace CMiX.ColorPicker.ViewModels
             set
             {
                 SetAndNotify(ref _selectedColor, value);
+                //SendMessages(MessageAddress + nameof(Color), SelectedColor.ToString());
             }
         }
 
@@ -54,6 +59,7 @@ namespace CMiX.ColorPicker.ViewModels
 
                 this._selectedColor.R = value;
                 Notify("SelectedColor");
+                SendMessages(MessageAddress + nameof(Color), SelectedColor.ToString());
             }
         }
 
@@ -75,6 +81,7 @@ namespace CMiX.ColorPicker.ViewModels
 
                 this._selectedColor.G = value;
                 Notify("SelectedColor");
+                SendMessages(MessageAddress + nameof(Color), SelectedColor.ToString());
             }
         }
 
@@ -96,6 +103,7 @@ namespace CMiX.ColorPicker.ViewModels
 
                 this._selectedColor.B = value;
                 Notify("SelectedColor");
+                SendMessages(MessageAddress + nameof(Color), SelectedColor.ToString());
             }
         }
 
@@ -120,6 +128,7 @@ namespace CMiX.ColorPicker.ViewModels
 
                 SelectedColor = Color.FromRgb(_red, _green, _blue);
                 Notify("SelectedColor");
+                SendMessages(MessageAddress + nameof(Color), SelectedColor.ToString());
             }
         }
 
@@ -145,6 +154,7 @@ namespace CMiX.ColorPicker.ViewModels
 
                 SelectedColor = Color.FromRgb(_red, _green, _blue);
                 Notify("SelectedColor");
+                SendMessages(MessageAddress + nameof(Color), SelectedColor.ToString());
             }
         }
 
@@ -177,6 +187,7 @@ namespace CMiX.ColorPicker.ViewModels
                     SelectedColor = Color.FromRgb(0, 0, 0);
                 }
                 Notify("SelectedColor");
+                SendMessages(MessageAddress + nameof(Color), SelectedColor.ToString());
             }
         }
     }
