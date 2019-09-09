@@ -113,7 +113,7 @@ namespace CMiX.ColorPicker.ViewModels
             get => _hue;
             set
             {
-                SetAndNotify(ref _hue, value);
+                
 
                 var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = SelectedColor.B }.To<Hsv>();
                 hsv.H = value;
@@ -128,6 +128,7 @@ namespace CMiX.ColorPicker.ViewModels
 
                 SelectedColor = Color.FromRgb(_red, _green, _blue);
                 Notify("SelectedColor");
+                SetAndNotify(ref _hue, value);
                 SendMessages(MessageAddress + nameof(Color), SelectedColor.ToString());
             }
         }
@@ -138,7 +139,7 @@ namespace CMiX.ColorPicker.ViewModels
             get => _sat;
             set
             {
-                SetAndNotify(ref _sat, value);
+                
                 var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = SelectedColor.B }.To<Hsv>();
                 hsv.V = _val;
                 hsv.S = value;
@@ -154,6 +155,7 @@ namespace CMiX.ColorPicker.ViewModels
 
                 SelectedColor = Color.FromRgb(_red, _green, _blue);
                 Notify("SelectedColor");
+                SetAndNotify(ref _sat, value);
                 SendMessages(MessageAddress + nameof(Color), SelectedColor.ToString());
             }
         }
@@ -164,7 +166,7 @@ namespace CMiX.ColorPicker.ViewModels
             get => _val;
             set
             {
-                SetAndNotify(ref _val, value);
+                
                 var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = SelectedColor.B }.To<Hsv>();
                 hsv.V = value;
                 hsv.S = _sat;
@@ -187,6 +189,7 @@ namespace CMiX.ColorPicker.ViewModels
                     SelectedColor = Color.FromRgb(0, 0, 0);
                 }
                 Notify("SelectedColor");
+                SetAndNotify(ref _val, value);
                 SendMessages(MessageAddress + nameof(Color), SelectedColor.ToString());
             }
         }

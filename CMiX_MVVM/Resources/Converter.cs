@@ -758,7 +758,8 @@ namespace CMiX.MVVM.Resources
 
     public class BoolToVisibilityConverter : IValueConverter
     {
-        private object GetVisibility(object value)
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (!(value is bool))
                 return Visibility.Collapsed;
@@ -768,10 +769,6 @@ namespace CMiX.MVVM.Resources
                 return Visibility.Visible;
             }
             return Visibility.Collapsed;
-        }
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return GetVisibility(value);
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {

@@ -19,7 +19,7 @@ namespace CMiX.ColorPicker
 
         public HueSlider()
         {
-            //SetBackground();
+
         }
 
         #endregion

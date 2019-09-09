@@ -124,11 +124,9 @@ namespace CMiX.ColorPicker
             return (value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow;
         }
 
-        #region Overridden Members
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-
             m_thumb = GetTemplateChild(ThumbName) as Thumb;
             if (m_thumb != null)
             {
@@ -136,6 +134,5 @@ namespace CMiX.ColorPicker
                 m_thumb.RenderTransform = m_thumbTransform;
             }
         }
-        #endregion
     }
 }
