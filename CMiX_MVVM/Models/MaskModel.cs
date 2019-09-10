@@ -1,6 +1,4 @@
-﻿//using CMiX.Services;
-using CMiX.MVVM.Models;
-using System;
+﻿using System;
 
 namespace CMiX.MVVM.Models
 {
@@ -15,10 +13,7 @@ namespace CMiX.MVVM.Models
             PostFXModel = new PostFXModel();
         }
 
-        //[OSC]
         public bool Enable { get; set; }
-
-        //[OSC]
         public bool KeepOriginal { get; set; }
 
         public BeatModifierModel BeatModifierModel { get; set; }

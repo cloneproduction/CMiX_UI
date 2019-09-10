@@ -1,7 +1,5 @@
-﻿//using CMiX.Services;
-using CMiX.MVVM.Models;
+﻿using System;
 using CMiX.MVVM.ViewModels;
-using System;
 
 namespace CMiX.MVVM.Models
 {
@@ -13,7 +11,6 @@ namespace CMiX.MVVM.Models
 
         }
 
-        //[OSC]
         public GeometryScaleMode Mode { get; set; }
     }
 }

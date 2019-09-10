@@ -4,8 +4,8 @@ using CMiX.MVVM.Models;
 using Memento;
 using System;
 using System.Collections.ObjectModel;
-using System.Windows.Media;
-using CMiX.ColorPicker.ViewModels;
+using System.Windows.Input;
+using System.Windows;
 
 namespace CMiX.ViewModels
 {
@@ -16,10 +16,48 @@ namespace CMiX.ViewModels
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(ColorSelector));
             ColorPicker = new ColorPicker.ViewModels.ColorPicker(MessageAddress, oscvalidation, mementor);
+
+            CopyColorSelectorCommand = new RelayCommand(p => CopyColorSelector());
+            PasteColorSelectorCommand = new RelayCommand(p => PasteColorSelector());
+            ResetColorSelectorCommand = new RelayCommand(p => ResetColorSelector());
         }
 
+        #region PROPERTIES
+        public ICommand CopyColorSelectorCommand { get; }
+        public ICommand PasteColorSelectorCommand { get; }
+        public ICommand ResetColorSelectorCommand { get; }
         public ColorPicker.ViewModels.ColorPicker ColorPicker { get; set; }
+        #endregion
 
+        public void CopyColorSelector()
+        {
+            ColorSelectorModel colorselectormodel = new ColorSelectorModel();
+            this.Copy(colorselectormodel);
+            IDataObject data = new DataObject();
+            data.SetData("ColorSelectorModel", colorselectormodel, false);
+            Clipboard.SetDataObject(data);
+        }
+
+        public void PasteColorSelector()
+        {
+            IDataObject data = Clipboard.GetDataObject();
+            if (data.GetDataPresent("ColorSelectorModel"))
+            {
+                Mementor.BeginBatch();
+                var colorselectormodel = data.GetData("ColorSelectorModel") as ColorSelectorModel;
+                this.Paste(colorselectormodel);
+                Mementor.EndBatch();
+            }
+        }
+
+        public void ResetColorSelector()
+        {
+            ColorSelectorModel colorselectormodel = new ColorSelectorModel();
+            this.Reset();
+            this.Copy(colorselectormodel);
+            QueueObjects(colorselectormodel);
+            SendQueues();
+        }
 
         public void UpdateMessageAddress(string messageaddress)
         {

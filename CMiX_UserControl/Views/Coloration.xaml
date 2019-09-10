@@ -34,7 +34,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource Copy}" />
                                 <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                <TextBlock Text="Copy"/>
+                                <TextBlock Text="Copy Coloration"/>
                             </StackPanel>
                         </MenuItem.Header>
                     </MenuItem>
@@ -46,7 +46,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource Paste}" />
                                 <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                <TextBlock Text="Paste"/>
+                                <TextBlock Text="Paste Coloration"/>
                             </StackPanel>
                         </MenuItem.Header>
                     </MenuItem>
@@ -58,7 +58,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource Reset}" />
                                 <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                <TextBlock Text="Reset"/>
+                                <TextBlock Text="Reset Coloration"/>
                             </StackPanel>
                         </MenuItem.Header>
                     </MenuItem>
@@ -96,26 +96,7 @@
                                 Opacity="0.75"
                                 />
                         </TabItem.Header>
-                        <StackPanel Background="{StaticResource HighDarkerColor}">
-                            <Border 
-                                Padding="4"
-                                Background="{StaticResource DarkColor}"
-                                DockPanel.Dock="Top">
-                                <DockPanel LastChildFill="False">
-                                    <TextBlock
-                                        Margin="4, 0, 0, 0"
-                                        Text="COLOR"
-                                        Foreground="{StaticResource TextBase}"
-                                        />
-                                </DockPanel>
-                            </Border>
-                            <Border 
-                                Margin="0, 4" 
-                                Padding="8" 
-                                Style="{StaticResource BorderContainer}">
-                                <Views:ColorSelector DataContext="{Binding ColorSelector}"/>
-                            </Border>
-                        </StackPanel>
+                        <Views:ColorSelector DataContext="{Binding ColorSelector}"/>
                     </TabItem>
                     <TabItem
                         Width="40"
