@@ -17,9 +17,8 @@
             <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
         </ResourceDictionary>
     </UserControl.Resources>
-    
-    <StackPanel>
 
+    <StackPanel>
         <Border 
             Background="Transparent"
             Padding="4, 0"
@@ -111,32 +110,32 @@
                                 />
                         </TabItem.Header>
                         <Border             
-            DockPanel.Dock="Bottom"
-            Style="{StaticResource BorderContainer}">
+                            DockPanel.Dock="Bottom"
+                            Style="{StaticResource BorderContainer}">
                             <StackPanel Grid.Row="1">
                                 <Border 
-                    Margin="0, 0, 0 4"
-                    Height="25">
+                                    Margin="0, 0, 0 4"
+                                    Height="25">
                                     <TextBlock
-                        VerticalAlignment="Center"
-                        Margin="4, 0, 0, 0"
-                        Text="Modifiers"
-                        Foreground="{StaticResource TextBase}"
-                        />
+                                        VerticalAlignment="Center"
+                                        Margin="4, 0, 0, 0"
+                                        Text="Modifiers"
+                                        Foreground="{StaticResource TextBase}"
+                                        />
                                 </Border>
                                 <Views:RangeControl 
-                    Caption="Hue"
-                    DataContext="{Binding Hue}"
-                    />
+                                    Caption="Hue"
+                                    DataContext="{Binding Hue}"
+                                    />
                                 <Views:RangeControl 
-                    Caption="Saturation"
-                    Margin="0, 2"
-                    DataContext="{Binding Saturation}"
-                    />
+                                    Caption="Saturation"
+                                    Margin="0, 2"
+                                    DataContext="{Binding Saturation}"
+                                    />
                                 <Views:RangeControl 
-                    Caption="Value"
-                    DataContext="{Binding Value}"
-                    />
+                                    Caption="Value"
+                                    DataContext="{Binding Value}"
+                                    />
                             </StackPanel>
                         </Border>
                     </TabItem>
