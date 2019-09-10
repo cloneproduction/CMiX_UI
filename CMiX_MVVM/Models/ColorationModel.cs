@@ -10,20 +10,13 @@ namespace CMiX.MVVM.Models
         public ColorationModel()
         {
             BeatModifierModel = new BeatModifierModel();
+            ColorSelectorModel = new ColorSelectorModel();
             HueDTO = new RangeControlModel();
             SatDTO = new RangeControlModel();
             ValDTO = new RangeControlModel();
-
-            ObjColor = "#FF00FF";
-            BgColor = "#FF00FF";
         }
 
-        //[OSC]
-        public string ObjColor { get; set; }
-
-        //[OSC]
-        public string BgColor { get; set; }
-
+        public ColorSelectorModel ColorSelectorModel { get; set; }
         public BeatModifierModel BeatModifierModel { get; set; }
         public RangeControlModel HueDTO { get; set; }
         public RangeControlModel SatDTO { get; set; }

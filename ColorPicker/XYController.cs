@@ -12,8 +12,14 @@ namespace CMiX.ColorPicker
     {
         static XYController()
         {
+            UIElement.VisibilityProperty.OverrideMetadata(typeof(XYController),new PropertyMetadata(Visibility.Visible, OnVisibililtyChanged));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(XYController), new FrameworkPropertyMetadata(typeof(XYController)));
             EventManager.RegisterClassHandler(typeof(XYController), Thumb.DragDeltaEvent, new DragDeltaEventHandler(XYController.OnThumbDragDelta));
+        }
+
+        private static void OnVisibililtyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            OnThumbPosChanged(d, e);
         }
 
         #region Private Members
@@ -57,6 +63,11 @@ namespace CMiX.ColorPicker
         private static void OnThumbPosChanged(DependencyObject relatedObject, DependencyPropertyChangedEventArgs e)
         {
             XYController xycontroller = relatedObject as XYController;
+            if (xycontroller.Visibility == Visibility.Collapsed)
+            {
+                return;
+            }
+
             if (xycontroller != null)
             {
                 xycontroller.m_thumbTransform.X = xycontroller.ThumbPosX * xycontroller.ActualWidth;
@@ -67,6 +78,11 @@ namespace CMiX.ColorPicker
 
         private void UpdatePosition(double positionX, double positionY)
         {
+            if (this.Visibility == Visibility.Collapsed)
+            {
+                return;
+            }
+
             positionX = LimitValue(positionX, ActualWidth);
             positionY = LimitValue(positionY, ActualHeight);
 

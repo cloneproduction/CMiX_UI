@@ -71,6 +71,8 @@
     <Compile Include="Models\BeatModifierModel.cs" />
     <Compile Include="Models\CameraModel.cs" />
     <Compile Include="Models\ColorationModel.cs" />
+    <Compile Include="Models\ColorPickerModel.cs" />
+    <Compile Include="Models\ColorSelectorModel.cs" />
     <Compile Include="Models\CompositionModel.cs" />
     <Compile Include="Models\ContentModel.cs" />
     <Compile Include="Models\CounterModel.cs" />

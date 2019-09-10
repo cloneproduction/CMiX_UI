@@ -113,11 +113,6 @@
                                 Margin="0, 4" 
                                 Padding="8" 
                                 Style="{StaticResource BorderContainer}">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="PreviewMouseDown">
-                                        <i:InvokeCommandAction Command="{Binding MouseDownCommand}"/>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
                                 <Views:ColorSelector DataContext="{Binding ColorSelector}"/>
                             </Border>
                         </StackPanel>

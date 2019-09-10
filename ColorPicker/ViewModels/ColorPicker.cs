@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
-using CMiX.MVVM.Resources;
 using CMiX.MVVM.ViewModels;
+using CMiX.MVVM.Models;
+using CMiX.MVVM.Resources;
 using ColorMine.ColorSpaces;
 using Memento;
 
@@ -15,8 +15,7 @@ namespace CMiX.ColorPicker.ViewModels
             : base(oscvalidation, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(ColorPicker));
-            SelectedColor = Color.FromScRgb(1.0f, 0.0f, 0.0f, 1.0f);
-            NotifyAll();
+            SelectedColor = Color.FromArgb(255, 255, 0, 0);
         }
 
         private Color _selectedColor;
@@ -26,19 +25,10 @@ namespace CMiX.ColorPicker.ViewModels
             set
             {
                 SetAndNotify(ref _selectedColor, value);
-                //SendMessages(MessageAddress + nameof(Color), SelectedColor.ToString());
+                Red = SelectedColor.R;
+                Green = SelectedColor.G;
+                Blue = SelectedColor.B;
             }
-        }
-
-        private void NotifyAll()
-        {
-            Notify("Red");
-            Notify("Green");
-            Notify("Blue");
-            Notify("Hue");
-            Notify("Sat");
-            Notify("Val");
-            Notify("SelectedColor");
         }
 
         private byte _red;
@@ -113,8 +103,6 @@ namespace CMiX.ColorPicker.ViewModels
             get => _hue;
             set
             {
-                
-
                 var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = SelectedColor.B }.To<Hsv>();
                 hsv.H = value;
 
@@ -139,7 +127,6 @@ namespace CMiX.ColorPicker.ViewModels
             get => _sat;
             set
             {
-                
                 var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = SelectedColor.B }.To<Hsv>();
                 hsv.V = _val;
                 hsv.S = value;
@@ -166,7 +153,6 @@ namespace CMiX.ColorPicker.ViewModels
             get => _val;
             set
             {
-                
                 var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = SelectedColor.B }.To<Hsv>();
                 hsv.V = value;
                 hsv.S = _sat;
@@ -192,6 +178,34 @@ namespace CMiX.ColorPicker.ViewModels
                 SetAndNotify(ref _val, value);
                 SendMessages(MessageAddress + nameof(Color), SelectedColor.ToString());
             }
+        }
+
+
+        public void UpdateMessageAddress(string messageaddress)
+        {
+            MessageAddress = messageaddress;
+        }
+
+
+        public void Copy(ColorPickerModel colorpickermodel)
+        {
+            colorpickermodel.MessageAddress = MessageAddress;
+            colorpickermodel.SelectedColor = Utils.ColorToHexString(SelectedColor);
+        }
+
+        public void Paste(ColorPickerModel colorpickermodel)
+        {
+            DisabledMessages();
+
+            MessageAddress = colorpickermodel.MessageAddress;
+            SelectedColor = Utils.HexStringToColor(colorpickermodel.SelectedColor);
+
+            EnabledMessages();
+        }
+
+        public void Reset()
+        {
+            SelectedColor = Color.FromArgb(255, 255, 0, 0);
         }
     }
 }
