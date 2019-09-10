@@ -1,6 +1,4 @@
-﻿//using CMiX.Services;
-using CMiX.MVVM.Models;
-using System;
+﻿using System;
 
 namespace CMiX.MVVM.Models
 {
@@ -16,10 +14,7 @@ namespace CMiX.MVVM.Models
         public SliderModel Feedback { get; set; }
         public SliderModel Blur { get; set; }
 
-        //[OSC]
         public string Transforms { get; set; }
-
-        //[OSC]
         public string View { get; set; }
     }
 }

@@ -121,7 +121,7 @@ namespace CMiX.ViewModels
             PostFXModel postfxmodel = new PostFXModel();
             this.Copy(postfxmodel);
             IDataObject data = new DataObject();
-            data.SetData("PostFX", postfxmodel, false);
+            data.SetData("PostFXModel", postfxmodel, false);
             Clipboard.SetDataObject(data);
         }
 
