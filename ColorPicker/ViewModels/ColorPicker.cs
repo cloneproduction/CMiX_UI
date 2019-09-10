@@ -49,7 +49,7 @@ namespace CMiX.ColorPicker.ViewModels
 
                 this._selectedColor.R = value;
                 Notify("SelectedColor");
-                SendMessages(MessageAddress + nameof(Color), SelectedColor.ToString());
+                SendMessages(MessageAddress + nameof(SelectedColor), SelectedColor.ToString());
             }
         }
 
@@ -71,7 +71,7 @@ namespace CMiX.ColorPicker.ViewModels
 
                 this._selectedColor.G = value;
                 Notify("SelectedColor");
-                SendMessages(MessageAddress + nameof(Color), SelectedColor.ToString());
+                SendMessages(MessageAddress + nameof(SelectedColor), SelectedColor.ToString());
             }
         }
 
@@ -93,7 +93,7 @@ namespace CMiX.ColorPicker.ViewModels
 
                 this._selectedColor.B = value;
                 Notify("SelectedColor");
-                SendMessages(MessageAddress + nameof(Color), SelectedColor.ToString());
+                SendMessages(MessageAddress + nameof(SelectedColor), SelectedColor.ToString());
             }
         }
 
@@ -117,7 +117,7 @@ namespace CMiX.ColorPicker.ViewModels
                 SelectedColor = Color.FromRgb(_red, _green, _blue);
                 Notify("SelectedColor");
                 SetAndNotify(ref _hue, value);
-                SendMessages(MessageAddress + nameof(Color), SelectedColor.ToString());
+                SendMessages(MessageAddress + nameof(SelectedColor), SelectedColor.ToString());
             }
         }
 
@@ -143,7 +143,7 @@ namespace CMiX.ColorPicker.ViewModels
                 SelectedColor = Color.FromRgb(_red, _green, _blue);
                 Notify("SelectedColor");
                 SetAndNotify(ref _sat, value);
-                SendMessages(MessageAddress + nameof(Color), SelectedColor.ToString());
+                SendMessages(MessageAddress + nameof(SelectedColor), SelectedColor.ToString());
             }
         }
 
@@ -176,7 +176,7 @@ namespace CMiX.ColorPicker.ViewModels
                 }
                 Notify("SelectedColor");
                 SetAndNotify(ref _val, value);
-                SendMessages(MessageAddress + nameof(Color), SelectedColor.ToString());
+                SendMessages(MessageAddress + nameof(SelectedColor), SelectedColor.ToString());
             }
         }
 

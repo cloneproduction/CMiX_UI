@@ -94,6 +94,7 @@ namespace CMiX.ViewModels
         {
             DisabledMessages();
 
+            ColorSelector.Reset();
             BeatModifier.Reset();
             Hue.Reset();
             Saturation.Reset();
