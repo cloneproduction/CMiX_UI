@@ -6,20 +6,36 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
 using ColorMine.ColorSpaces;
 using Memento;
+using System.Windows.Input;
 
 namespace CMiX.ColorPicker.ViewModels
 {
     public class ColorPicker : ViewModel
     {
+        #region CONSTRUCTORS
         public ColorPicker(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor)
             : base(oscvalidation, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(ColorPicker));
+
             SelectedColor = Color.FromArgb(255, 255, 0, 0);
             Red = SelectedColor.R;
             Green = SelectedColor.G;
             Blue = SelectedColor.B;
+            MouseDown = false;
+
+            PreviewMouseDownCommand = new RelayCommand(p => PreviewMouseDown());
+            PreviewMouseUpCommand = new RelayCommand(p => PreviewMouseUp());
+            PreviewMouseLeaveCommand = new RelayCommand(p => PreviewMouseLeave());
         }
+        #endregion
+
+        #region PROPERTIES
+        public ICommand PreviewMouseDownCommand { get; }
+        public ICommand PreviewMouseUpCommand { get; }
+        public ICommand PreviewMouseLeaveCommand { get; }
+
+        public bool MouseDown { get; set; }
 
         private Color _selectedColor;
         public Color SelectedColor
@@ -28,7 +44,15 @@ namespace CMiX.ColorPicker.ViewModels
             set
             {
                 SetAndNotify(ref _selectedColor, value);
+                //UpdateMementor(nameof(SelectedColor));
             }
+        }
+
+        private void UpdateMementor(string propertyname)
+        {
+            if (MouseDown)
+                Mementor.PropertyChange(this, propertyname);
+            
         }
 
         private byte _red;
@@ -37,6 +61,7 @@ namespace CMiX.ColorPicker.ViewModels
             get => _red;
             set
             {
+                UpdateMementor(nameof(Red));
                 SetAndNotify(ref _red, value);
 
                 var hsv = new Rgb() { R = _selectedColor.R, G = _selectedColor.G, B = _selectedColor.B }.To<Hsv>();
@@ -59,6 +84,7 @@ namespace CMiX.ColorPicker.ViewModels
             get => _green;
             set
             {
+                UpdateMementor(nameof(Green));
                 SetAndNotify(ref _green, value);
 
                 var hsv = new Rgb() { R = _selectedColor.R, G = _selectedColor.G, B = _selectedColor.B }.To<Hsv>();
@@ -81,6 +107,7 @@ namespace CMiX.ColorPicker.ViewModels
             get => _blue;
             set
             {
+                UpdateMementor(nameof(Blue));
                 SetAndNotify(ref _blue, value);
 
                 var hsv = new Rgb() { R = _selectedColor.R, G = _selectedColor.G, B = _selectedColor.B }.To<Hsv>();
@@ -103,6 +130,7 @@ namespace CMiX.ColorPicker.ViewModels
             get => _hue;
             set
             {
+                UpdateMementor(nameof(Hue));
                 SetAndNotify(ref _hue, value);
 
                 var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = SelectedColor.B }.To<Hsv>();
@@ -129,13 +157,14 @@ namespace CMiX.ColorPicker.ViewModels
             get => _sat;
             set
             {
+                UpdateMementor(nameof(Sat));
                 SetAndNotify(ref _sat, value);
 
                 var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = SelectedColor.B }.To<Hsv>();
                 hsv.V = _val;
                 hsv.S = value;
                 hsv.H = _hue;
-
+                
                 var rgb = hsv.To<Rgb>();
                 _red = (byte)rgb.R;
                 Notify("Red");
@@ -157,6 +186,7 @@ namespace CMiX.ColorPicker.ViewModels
             get => _val;
             set
             {
+                UpdateMementor(nameof(Val));
                 SetAndNotify(ref _val, value);
 
                 var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = SelectedColor.B }.To<Hsv>();
@@ -185,14 +215,37 @@ namespace CMiX.ColorPicker.ViewModels
                 SendMessages(MessageAddress + nameof(SelectedColor), SelectedColor.ToString());
             }
         }
+        #endregion
 
+        #region METHODS
+        public void PreviewMouseDown()
+        {
+            if(!Mementor.IsInBatch)
+                Mementor.BeginBatch();
+            MouseDown = true;
+        }
+
+        public void PreviewMouseUp()
+        {
+            if(Mementor.IsInBatch)
+                Mementor.EndBatch();
+            MouseDown = false;
+        }
+
+        public void PreviewMouseLeave()
+        {
+            if(Mementor.IsInBatch)
+                Mementor.EndBatch();
+            MouseDown = false;
+        }
 
         public void UpdateMessageAddress(string messageaddress)
         {
             MessageAddress = messageaddress;
         }
+        #endregion
 
-
+        #region COPY/PASTE/RESET
         public void Copy(ColorPickerModel colorpickermodel)
         {
             colorpickermodel.MessageAddress = MessageAddress;
@@ -219,5 +272,6 @@ namespace CMiX.ColorPicker.ViewModels
             Green = SelectedColor.G;
             Blue = SelectedColor.B;
         }
+        #endregion
     }
 }

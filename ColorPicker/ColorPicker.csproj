@@ -73,6 +73,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -105,16 +106,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ColorHex.cs" />
-    <Compile Include="HsvSlider.cs" />
-    <Compile Include="XYController.cs" />
+    <Compile Include="Controls\ColorHex.cs" />
+    <Compile Include="Controls\HsvSlider.cs" />
+    <Compile Include="Controls\XYController.cs" />
     <Compile Include="_Trash\ColorText.cs" />
     <Compile Include="_Trash\ColorUtils.cs" />
     <None Include="_Trash\ColorPicker.cs" />
-    <Compile Include="ColorSlider.cs" />
-    <Compile Include="HueWheel.cs" />
-    <Compile Include="HueSlider.cs" />
-    <Compile Include="XYColorControl.cs" />
+    <Compile Include="Controls\ColorSlider.cs" />
+    <Compile Include="Controls\HueWheel.cs" />
+    <Compile Include="Controls\HueSlider.cs" />
+    <Compile Include="Controls\XYColorControl.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
