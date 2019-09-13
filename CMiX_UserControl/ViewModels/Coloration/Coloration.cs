@@ -22,7 +22,7 @@ namespace CMiX.ViewModels
             Saturation = new RangeControl(MessageAddress + nameof(Saturation), oscvalidation, mementor);
             Value = new RangeControl(MessageAddress + nameof(Value), oscvalidation, mementor);
 
-            ColorSelector = new ColorSelector(MessageAddress + nameof(ColorSelector), oscvalidation, mementor);
+            ColorSelector = new ColorSelector(MessageAddress, oscvalidation, mementor);
 
             ResetCommand = new RelayCommand(p => Reset());
 
