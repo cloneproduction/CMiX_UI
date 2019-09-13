@@ -116,7 +116,9 @@ namespace CMiX.ViewModels
             {
                 Mementor.BeginBatch();
                 var geometrymodel = data.GetData("GeometryModel") as GeometryModel;
+                var geometrymessageaddress = MessageAddress;
                 this.Paste(geometrymodel);
+                UpdateMessageAddress(geometrymessageaddress);
                 Mementor.EndBatch();
             }
         }

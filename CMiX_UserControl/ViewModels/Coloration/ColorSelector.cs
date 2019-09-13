@@ -45,7 +45,9 @@ namespace CMiX.ViewModels
             {
                 Mementor.BeginBatch();
                 var colorselectormodel = data.GetData("ColorSelectorModel") as ColorSelectorModel;
+                var colorselectormessageaddress = MessageAddress;
                 this.Paste(colorselectormodel);
+                UpdateMessageAddress(colorselectormessageaddress);
                 Mementor.EndBatch();
             }
         }

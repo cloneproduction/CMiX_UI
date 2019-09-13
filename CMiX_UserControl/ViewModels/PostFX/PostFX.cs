@@ -132,7 +132,9 @@ namespace CMiX.ViewModels
             {
                 Mementor.BeginBatch();
                 var postfxmodel = data.GetData("PostFXModel") as PostFXModel;
+                var postfxmessageaddress = MessageAddress;
                 this.Paste(postfxmodel);
+                UpdateMessageAddress(postfxmessageaddress);
                 Mementor.EndBatch();
             }
         }

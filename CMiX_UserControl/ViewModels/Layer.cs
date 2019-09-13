@@ -29,14 +29,14 @@ namespace CMiX.ViewModels
             Coloration = new Coloration(MessageAddress, oscvalidation, mementor, masterBeat);
             PostFX = new PostFX(MessageAddress, oscvalidation, mementor);
 
-            CopyContentCommand = new RelayCommand(p => CopyContent());
-            PasteContentCommand = new RelayCommand(p => PasteContent());
-            CopyMaskCommand = new RelayCommand(p => CopyMask());
-            PasteMaskCommand = new RelayCommand(p => PasteMask());
-            CopyColorationCommand = new RelayCommand(p => CopyColoration());
-            PasteColorationCommand = new RelayCommand(p => PasteColoration());
-            CopyPostFXCommand = new RelayCommand(p => CopyPostFX());
-            PastePostFXCommand = new RelayCommand(p => PastePostFX());
+            //CopyContentCommand = new RelayCommand(p => CopyContent());
+            //PasteContentCommand = new RelayCommand(p => PasteContent());
+            //CopyMaskCommand = new RelayCommand(p => CopyMask());
+            //PasteMaskCommand = new RelayCommand(p => PasteMask());
+            //CopyColorationCommand = new RelayCommand(p => CopyColoration());
+            //PasteColorationCommand = new RelayCommand(p => PasteColoration());
+            //CopyPostFXCommand = new RelayCommand(p => CopyPostFX());
+            //PastePostFXCommand = new RelayCommand(p => PastePostFX());
         }
         #endregion
 
@@ -55,17 +55,17 @@ namespace CMiX.ViewModels
 
         #region PROPERTIES
 
-        public ICommand CopyContentCommand { get; }
-        public ICommand PasteContentCommand { get; }
+        //public ICommand CopyContentCommand { get; }
+        //public ICommand PasteContentCommand { get; }
 
-        public ICommand CopyMaskCommand { get; }
-        public ICommand PasteMaskCommand { get; }
+        //public ICommand CopyMaskCommand { get; }
+        //public ICommand PasteMaskCommand { get; }
 
-        public ICommand CopyColorationCommand { get; }
-        public ICommand PasteColorationCommand { get; }
+        //public ICommand CopyColorationCommand { get; }
+        //public ICommand PasteColorationCommand { get; }
 
-        public ICommand CopyPostFXCommand { get; }
-        public ICommand PastePostFXCommand { get; }
+        //public ICommand CopyPostFXCommand { get; }
+        //public ICommand PastePostFXCommand { get; }
 
         private string _layername;
         public string LayerName
@@ -131,129 +131,129 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE/LOAD
-        public void CopyColoration()
-        {
-            ColorationModel colorationmodel = new ColorationModel();
-            Coloration.Copy(colorationmodel);
-            IDataObject data = new DataObject();
-            data.SetData("ColorationModel", colorationmodel, false);
-            Clipboard.SetDataObject(data);
-        }
+        //public void CopyColoration()
+        //{
+        //    ColorationModel colorationmodel = new ColorationModel();
+        //    Coloration.Copy(colorationmodel);
+        //    IDataObject data = new DataObject();
+        //    data.SetData("ColorationModel", colorationmodel, false);
+        //    Clipboard.SetDataObject(data);
+        //}
 
-        public void PasteColoration()
-        {
-            Console.WriteLine("PASTE");
-            IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent("ColorationModel"))
-            {
-                Mementor.BeginBatch();
-                var colorationmodel = (ColorationModel)data.GetData("ColorationModel") as ColorationModel;
-                var colorationmessageaddress = Coloration.MessageAddress;
+        //public void PasteColoration()
+        //{
+        //    Console.WriteLine("PASTE");
+        //    IDataObject data = Clipboard.GetDataObject();
+        //    if (data.GetDataPresent("ColorationModel"))
+        //    {
+        //        Mementor.BeginBatch();
+        //        var colorationmodel = (ColorationModel)data.GetData("ColorationModel") as ColorationModel;
+        //        var colorationmessageaddress = Coloration.MessageAddress;
 
-                Coloration.Paste(colorationmodel);
-                Coloration.UpdateMessageAddress(colorationmessageaddress);
+        //        Coloration.Paste(colorationmodel);
+        //        Coloration.UpdateMessageAddress(colorationmessageaddress);
 
-                Coloration.Copy(colorationmodel);
-                Mementor.EndBatch();
+        //        Coloration.Copy(colorationmodel);
+        //        Mementor.EndBatch();
 
-                QueueObjects(colorationmodel);
-                SendQueues();
-            }
-        }
-
-
-        public void CopyMask()
-        {
-            MaskModel maskmodel = new MaskModel();
-            Mask.Copy(maskmodel);
-            IDataObject data = new DataObject();
-            data.SetData("MaskModel", maskmodel, false);
-            Clipboard.SetDataObject(data);
-        }
-
-        public void PasteMask()
-        {
-            IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent("MaskModel"))
-            {
-                Mementor.BeginBatch();
-                var maskmodel = (MaskModel)data.GetData("MaskModel") as MaskModel;
-                var maskmessageaddress = Mask.MessageAddress;
-
-                Mask.Paste(maskmodel);
-                Mask.UpdateMessageAddress(maskmessageaddress);
-
-                Mask.Copy(maskmodel);
-                Mementor.EndBatch();
-
-                QueueObjects(maskmodel);
-                SendQueues();
-            }
-        }
+        //        QueueObjects(colorationmodel);
+        //        SendQueues();
+        //    }
+        //}
 
 
-        public void CopyContent()
-        {
-            ContentModel contentmodel = new ContentModel();
-            Content.Copy(contentmodel);
-            IDataObject data = new DataObject();
-            data.SetData("ContentModel", contentmodel, false);
-            Clipboard.SetDataObject(data);
-        }
+        //public void CopyMask()
+        //{
+        //    MaskModel maskmodel = new MaskModel();
+        //    Mask.Copy(maskmodel);
+        //    IDataObject data = new DataObject();
+        //    data.SetData("MaskModel", maskmodel, false);
+        //    Clipboard.SetDataObject(data);
+        //}
 
-        public void PasteContent()
-        {
-            IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent("ContentModel"))
-            {
-                Mementor.BeginBatch();
-                var contentmodel = (ContentModel)data.GetData("ContentModel") as ContentModel;
-                var contentmessageaddress = Content.MessageAddress;
+        //public void PasteMask()
+        //{
+        //    IDataObject data = Clipboard.GetDataObject();
+        //    if (data.GetDataPresent("MaskModel"))
+        //    {
+        //        Mementor.BeginBatch();
+        //        var maskmodel = (MaskModel)data.GetData("MaskModel") as MaskModel;
+        //        var maskmessageaddress = Mask.MessageAddress;
 
-                Content.Paste(contentmodel);
-                Content.UpdateMessageAddress(contentmessageaddress);
+        //        Mask.Paste(maskmodel);
+        //        Mask.UpdateMessageAddress(maskmessageaddress);
 
-                Content.Copy(contentmodel);
-                Mementor.EndBatch();
+        //        Mask.Copy(maskmodel);
+        //        Mementor.EndBatch();
 
-                QueueObjects(contentmodel);
-                SendQueues();
-            }
-        }
+        //        QueueObjects(maskmodel);
+        //        SendQueues();
+        //    }
+        //}
 
-        public void ResetContent()
-        {
 
-        }
+        //public void CopyContent()
+        //{
+        //    ContentModel contentmodel = new ContentModel();
+        //    Content.Copy(contentmodel);
+        //    IDataObject data = new DataObject();
+        //    data.SetData("ContentModel", contentmodel, false);
+        //    Clipboard.SetDataObject(data);
+        //}
 
-        public void CopyPostFX()
-        {
-            PostFXModel postfxmodel = new PostFXModel();
-            PostFX.Copy(postfxmodel);
-            IDataObject data = new DataObject();
-            data.SetData("PostFX", postfxmodel, false);
-            Clipboard.SetDataObject(data);
-        }
+        //public void PasteContent()
+        //{
+        //    IDataObject data = Clipboard.GetDataObject();
+        //    if (data.GetDataPresent("ContentModel"))
+        //    {
+        //        Mementor.BeginBatch();
+        //        var contentmodel = (ContentModel)data.GetData("ContentModel") as ContentModel;
+        //        var contentmessageaddress = Content.MessageAddress;
 
-        public void PastePostFX()
-        {
-            IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent("PostFX"))
-            {
-                Mementor.BeginBatch();
-                var postfxmodel = (PostFXModel)data.GetData("PostFX") as PostFXModel;
-                var postfxmessageaddress = PostFX.MessageAddress;
+        //        Content.Paste(contentmodel);
+        //        Content.UpdateMessageAddress(contentmessageaddress);
 
-                PostFX.Paste(postfxmodel);
-                PostFX.UpdateMessageAddress(postfxmessageaddress);
+        //        Content.Copy(contentmodel);
+        //        Mementor.EndBatch();
 
-                PostFX.Copy(postfxmodel);
-                Mementor.EndBatch();
+        //        QueueObjects(contentmodel);
+        //        SendQueues();
+        //    }
+        //}
 
-                QueueObjects(postfxmodel);
-                SendQueues();
-            }
-        }
+        //public void ResetContent()
+        //{
+
+        //}
+
+        //public void CopyPostFX()
+        //{
+        //    PostFXModel postfxmodel = new PostFXModel();
+        //    PostFX.Copy(postfxmodel);
+        //    IDataObject data = new DataObject();
+        //    data.SetData("PostFX", postfxmodel, false);
+        //    Clipboard.SetDataObject(data);
+        //}
+
+        //public void PastePostFX()
+        //{
+        //    IDataObject data = Clipboard.GetDataObject();
+        //    if (data.GetDataPresent("PostFX"))
+        //    {
+        //        Mementor.BeginBatch();
+        //        var postfxmodel = (PostFXModel)data.GetData("PostFX") as PostFXModel;
+        //        var postfxmessageaddress = PostFX.MessageAddress;
+
+        //        PostFX.Paste(postfxmodel);
+        //        PostFX.UpdateMessageAddress(postfxmessageaddress);
+
+        //        PostFX.Copy(postfxmodel);
+        //        Mementor.EndBatch();
+
+        //        QueueObjects(postfxmodel);
+        //        SendQueues();
+        //    }
+        //}
 
 
 

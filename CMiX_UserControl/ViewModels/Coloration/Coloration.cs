@@ -112,7 +112,9 @@ namespace CMiX.ViewModels
             {
                 Mementor.BeginBatch();
                 var colorationmodel = data.GetData("ColorationModel") as ColorationModel;
+                var colorationmessageaddress = MessageAddress;
                 this.Paste(colorationmodel);
+                UpdateMessageAddress(colorationmessageaddress);
                 Mementor.EndBatch();
             }
         }
