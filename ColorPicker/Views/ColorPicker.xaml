@@ -11,7 +11,7 @@
              d:DesignHeight="4145.5"
              d:DesignWidth="566.5"
              Background="Transparent">
-    
+
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="PreviewMouseDown">
             <i:InvokeCommandAction Command="{Binding PreviewMouseDownCommand}"/>
@@ -119,15 +119,14 @@
                 LeftColor="#FFFF0000">
             </local:ColorSlider>
             <local:XYController
-            x:Name="RedColorControl"
-            Style="{StaticResource RedController}"
-            SelectedColor="{Binding SelectedColor}"
-            Margin="0, 4" 
-            Height="200" 
-            Visibility="{Binding Path=IsChecked, ElementName=RedRadio, Converter={StaticResource BoolToVisibility}}">
+                x:Name="RedColorControl"
+                Style="{StaticResource RedController}"
+                SelectedColor="{Binding SelectedColor}"
+                Margin="0, 4" 
+                Height="200" 
+                Visibility="{Binding Path=IsChecked, ElementName=RedRadio, Converter={StaticResource BoolToVisibility}}">
                 <local:XYController.ThumbPosX>
                     <Binding Path="Blue" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource ByteToNormalizedDouble}"/>
-
                 </local:XYController.ThumbPosX>
                 <local:XYController.ThumbPosY>
                     <Binding Path="Green" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource ByteToNormalizedDouble}"/>
@@ -184,7 +183,7 @@
                 Margin="0, 4" 
                 Height="200" 
                 Visibility="{Binding Path=IsChecked, ElementName=BlueRadio, Converter={StaticResource BoolToVisibility}}"
-            />
+                />
         </DockPanel>
         <Separator Background="Gray" Opacity="0.25" Margin="0, 16"/>
         <Grid Height="20">
@@ -366,7 +365,8 @@
                 x:Name="HueRadio"
                 IsChecked="True"
                 GroupName="SliderRadio"
-                Grid.Column="0"/>
+                Grid.Column="0"
+                />
             <TextBlock 
                 Grid.Column="1"
                 TextTrimming="CharacterEllipsis" 
@@ -504,5 +504,5 @@
             </local:ColorSlider>
         </Grid>
     </StackPanel>
-    
+
 </UserControl>

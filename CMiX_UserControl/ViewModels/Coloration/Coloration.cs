@@ -17,18 +17,16 @@ namespace CMiX.ViewModels
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Coloration));
 
             BeatModifier = new BeatModifier(MessageAddress, masterbeat, oscvalidation, mementor);
+            ColorSelector = new ColorSelector(MessageAddress, oscvalidation, mementor);
 
             Hue = new RangeControl(MessageAddress + nameof(Hue), oscvalidation, mementor);
             Saturation = new RangeControl(MessageAddress + nameof(Saturation), oscvalidation, mementor);
             Value = new RangeControl(MessageAddress + nameof(Value), oscvalidation, mementor);
 
-            ColorSelector = new ColorSelector(MessageAddress, oscvalidation, mementor);
-
-            ResetCommand = new RelayCommand(p => Reset());
-
             CopyColorationCommand = new RelayCommand(p => CopyColoration());
             PasteColorationCommand = new RelayCommand(p => PasteColoration());
             ResetColorationCommand = new RelayCommand(p => ResetColoration());
+            ResetCommand = new RelayCommand(p => Reset());
         }
         #endregion
 
@@ -40,15 +38,11 @@ namespace CMiX.ViewModels
         public ICommand PasteColorationCommand { get; }
         public ICommand ResetColorationCommand { get; }
 
+        public ColorSelector ColorSelector { get; }
         public BeatModifier BeatModifier { get; }
         public RangeControl Hue { get; }
         public RangeControl Saturation { get; }
         public RangeControl Value { get; }
-
-        public ColorSelector ColorSelector { get; }
-
-        public ColorPicker.ViewModels.ColorPicker ColorPicker { get;  }
-
         #endregion
          
         #region METHODS
@@ -62,7 +56,6 @@ namespace CMiX.ViewModels
             Saturation.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Saturation)));
             Value.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Value)));
         }
-
         #endregion
 
         #region COPY/PASTE
