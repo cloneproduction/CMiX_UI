@@ -190,9 +190,19 @@ namespace CMiX.ViewModels
             if (data.GetDataPresent("TextureModel"))
             {
                 Mementor.BeginBatch();
+                DisabledMessages();
+
                 var texturemodel = data.GetData("TextureModel") as TextureModel;
+                var texturemessageaddress = MessageAddress;
                 this.Paste(texturemodel);
+                UpdateMessageAddress(texturemessageaddress);
+                this.Copy(texturemodel);
+
+                EnabledMessages();
                 Mementor.EndBatch();
+
+                QueueObjects(texturemodel);
+                SendQueues();
             }
         }
 

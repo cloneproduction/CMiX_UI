@@ -110,12 +110,20 @@ namespace CMiX.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("ColorationModel"))
             {
-                Mementor.BeginBatch();
+                this.Mementor.BeginBatch();
+                this.DisabledMessages();
+
                 var colorationmodel = data.GetData("ColorationModel") as ColorationModel;
                 var colorationmessageaddress = MessageAddress;
                 this.Paste(colorationmodel);
-                UpdateMessageAddress(colorationmessageaddress);
-                Mementor.EndBatch();
+                this.UpdateMessageAddress(colorationmessageaddress);
+
+                this.Copy(colorationmodel);
+                this.EnabledMessages();
+                this.Mementor.EndBatch();
+
+                this.QueueObjects(colorationmodel);
+                this.SendQueues();
             }
         }
 

@@ -95,97 +95,6 @@ namespace CMiX.ViewModels
 
         #endregion
 
-
-        //public void CopyPostFX()
-        //{
-        //    PostFXModel postfxmodel = new PostFXModel();
-        //    PostFX.Copy(postfxmodel);
-        //    IDataObject data = new DataObject();
-        //    data.SetData("PostFX", postfxmodel, false);
-        //    Clipboard.SetDataObject(data);
-        //}
-
-        //public void PastePostFX()
-        //{
-        //    IDataObject data = Clipboard.GetDataObject();
-        //    if (data.GetDataPresent("PostFX"))
-        //    {
-        //        Mementor.BeginBatch();
-        //        var postfxmodel = (PostFXModel)data.GetData("PostFX") as PostFXModel;
-        //        var postfxmessageaddress = PostFX.MessageAddress;
-
-        //        PostFX.Paste(postfxmodel);
-        //        PostFX.UpdateMessageAddress(postfxmessageaddress);
-
-        //        PostFX.Copy(postfxmodel);
-        //        Mementor.EndBatch();
-
-        //        QueueObjects(postfxmodel);
-        //        SendQueues();
-        //    }
-        //}
-
-
-        //public void CopyGeometry()
-        //{
-        //    GeometryModel geometrymodel = new GeometryModel();
-        //    Geometry.Copy(geometrymodel);
-        //    IDataObject data = new DataObject();
-        //    data.SetData("Geometry", geometrymodel, false);
-        //    Clipboard.SetDataObject(data);
-        //}
-
-        //public void PasteGeometry()
-        //{
-        //    IDataObject data = Clipboard.GetDataObject();
-        //    if (data.GetDataPresent("Geometry"))
-        //    {
-        //        Mementor.BeginBatch();
-        //        var geometrymodel = (GeometryModel)data.GetData("Geometry") as GeometryModel;
-        //        var geometrymessageaddress = Geometry.MessageAddress;
-
-        //        Geometry.Paste(geometrymodel);
-        //        Geometry.UpdateMessageAddress(geometrymessageaddress);
-
-        //        Geometry.Copy(geometrymodel);
-        //        Mementor.EndBatch();
-
-        //        QueueObjects(geometrymodel);
-        //        SendQueues();
-        //    }
-        //}
-
-
-        //public void CopyTexture()
-        //{
-        //    TextureModel texturemodel = new TextureModel();
-        //    Texture.Copy(texturemodel);
-        //    IDataObject data = new DataObject();
-        //    data.SetData("Texture", texturemodel, false);
-        //    Clipboard.SetDataObject(data);
-        //}
-
-        //public void PasteTexture()
-        //{
-        //    IDataObject data = Clipboard.GetDataObject();
-        //    if (data.GetDataPresent("Texture"))
-        //    {
-        //        Mementor.BeginBatch();
-        //        var texturemodel = (TextureModel)data.GetData("Texture") as TextureModel;
-        //        var texturemessageaddress = Texture.MessageAddress;
-
-        //        Texture.Paste(texturemodel);
-        //        Texture.UpdateMessageAddress(texturemessageaddress);
-
-        //        Texture.Copy(texturemodel);
-        //        Mementor.EndBatch();
-
-        //        QueueObjects(texturemodel);
-        //        SendQueues();
-        //    }
-        //}
-
-
         #region COPY/PASTE/RESET
         public void Copy(MaskModel maskmodel)
         {
@@ -201,6 +110,7 @@ namespace CMiX.ViewModels
         public void Paste(MaskModel maskmodel)
         {
             DisabledMessages();
+
             MessageAddress = maskmodel.MessageAddress;
             Enable = maskmodel.Enable;
             KeepOriginal = maskmodel.KeepOriginal;
@@ -208,6 +118,7 @@ namespace CMiX.ViewModels
             Texture.Paste(maskmodel.texturemodel);
             Geometry.Paste(maskmodel.GeometryModel);
             PostFX.Paste(maskmodel.PostFXModel);
+
             EnabledMessages();
         }
 
@@ -239,11 +150,19 @@ namespace CMiX.ViewModels
             if (data.GetDataPresent("MaskModel"))
             {
                 Mementor.BeginBatch();
+                DisabledMessages();
+
                 var maskmodel = data.GetData("MaskModel") as MaskModel;
                 var maskmessageaddress = MessageAddress;
                 this.Paste(maskmodel);
                 UpdateMessageAddress(maskmessageaddress);
+
+                this.Copy(maskmodel);
+                EnabledMessages();
                 Mementor.EndBatch();
+
+                QueueObjects(maskmodel);
+                SendQueues();
             }
         }
 

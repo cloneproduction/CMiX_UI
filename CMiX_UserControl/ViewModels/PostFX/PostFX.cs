@@ -131,11 +131,19 @@ namespace CMiX.ViewModels
             if (data.GetDataPresent("PostFXModel"))
             {
                 Mementor.BeginBatch();
+                DisabledMessages();
+
                 var postfxmodel = data.GetData("PostFXModel") as PostFXModel;
                 var postfxmessageaddress = MessageAddress;
                 this.Paste(postfxmodel);
                 UpdateMessageAddress(postfxmessageaddress);
+                this.Copy(postfxmodel);
+
                 Mementor.EndBatch();
+                EnabledMessages();
+
+                QueueObjects(postfxmodel);
+                SendQueues();
             }
         }
 

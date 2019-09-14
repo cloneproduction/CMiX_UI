@@ -43,12 +43,19 @@ namespace CMiX.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("ColorSelectorModel"))
             {
-                Mementor.BeginBatch();
+                this.Mementor.BeginBatch();
+                this.DisabledMessages();
+
                 var colorselectormodel = data.GetData("ColorSelectorModel") as ColorSelectorModel;
                 var colorselectormessageaddress = MessageAddress;
                 this.Paste(colorselectormodel);
-                UpdateMessageAddress(colorselectormessageaddress);
-                Mementor.EndBatch();
+                this.UpdateMessageAddress(colorselectormessageaddress);
+                this.Copy(colorselectormodel);
+                this.EnabledMessages();
+                this.Mementor.EndBatch();
+
+                this.QueueObjects(colorselectormodel);
+                this.SendQueues();
             }
         }
 
