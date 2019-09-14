@@ -100,6 +100,7 @@ namespace CMiX.ViewModels
         }
         #endregion
 
+        #region COPY/PASTE/RESET
         public void CopyGeometry()
         {
             GeometryModel geometrymodel = new GeometryModel();
@@ -140,8 +141,6 @@ namespace CMiX.ViewModels
             SendQueues();
         }
 
-
-        #region COPY/PASTE/RESET
         public void Copy(GeometryModel geometrymodel)
         {
             geometrymodel.MessageAddress = MessageAddress;

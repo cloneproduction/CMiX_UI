@@ -1,16 +1,16 @@
-﻿using CMiX.Services;
-using CMiX.MVVM.ViewModels;
-using CMiX.MVVM.Models;
-using Memento;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows;
+using CMiX.MVVM.ViewModels;
+using CMiX.MVVM.Models;
+using Memento;
 
 namespace CMiX.ViewModels
 {
     public class ColorSelector : ViewModel
     {
+        #region CONSTRUCTORS
         public ColorSelector(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor) 
             : base(oscvalidation, mementor)
         {
@@ -21,6 +21,7 @@ namespace CMiX.ViewModels
             PasteColorSelectorCommand = new RelayCommand(p => PasteColorSelector());
             ResetColorSelectorCommand = new RelayCommand(p => ResetColorSelector());
         }
+        #endregion
 
         #region PROPERTIES
         public ICommand CopyColorSelectorCommand { get; }
@@ -29,6 +30,16 @@ namespace CMiX.ViewModels
         public ColorPicker.ViewModels.ColorPicker ColorPicker { get; set; }
         #endregion
 
+        #region METHODS
+        public void UpdateMessageAddress(string messageaddress)
+        {
+            MessageAddress = messageaddress;
+
+            ColorPicker.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(ColorPicker)));
+        }
+        #endregion
+
+        #region COPY/PASTE/RESET
         public void CopyColorSelector()
         {
             ColorSelectorModel colorselectormodel = new ColorSelectorModel();
@@ -68,14 +79,6 @@ namespace CMiX.ViewModels
             SendQueues();
         }
 
-        public void UpdateMessageAddress(string messageaddress)
-        {
-            MessageAddress = messageaddress;
-
-            ColorPicker.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(ColorPicker)));
-        }
-
-
         public void Copy(ColorSelectorModel colorselectormodel)
         {
             colorselectormodel.MessageAddress = MessageAddress;
@@ -100,5 +103,6 @@ namespace CMiX.ViewModels
 
             EnabledMessages();
         }
+        #endregion
     }
 }

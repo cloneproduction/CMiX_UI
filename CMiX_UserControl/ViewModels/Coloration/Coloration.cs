@@ -58,7 +58,7 @@ namespace CMiX.ViewModels
         }
         #endregion
 
-        #region COPY/PASTE
+        #region COPY/PASTE/RESET
         public void Copy(ColorationModel colorationmodel)
         {
             colorationmodel.MessageAddress = MessageAddress;
