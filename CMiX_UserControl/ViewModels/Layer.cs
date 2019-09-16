@@ -25,15 +25,6 @@ namespace CMiX.ViewModels
             Mask = new Mask(masterBeat, MessageAddress, oscvalidation, mementor);
             Coloration = new Coloration(MessageAddress, oscvalidation, mementor, masterBeat);
             PostFX = new PostFX(MessageAddress, oscvalidation, mementor);
-
-            //CopyContentCommand = new RelayCommand(p => CopyContent());
-            //PasteContentCommand = new RelayCommand(p => PasteContent());
-            //CopyMaskCommand = new RelayCommand(p => CopyMask());
-            //PasteMaskCommand = new RelayCommand(p => PasteMask());
-            //CopyColorationCommand = new RelayCommand(p => CopyColoration());
-            //PasteColorationCommand = new RelayCommand(p => PasteColoration());
-            //CopyPostFXCommand = new RelayCommand(p => CopyPostFX());
-            //PastePostFXCommand = new RelayCommand(p => PastePostFX());
         }
         #endregion
 
@@ -51,19 +42,6 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-
-        //public ICommand CopyContentCommand { get; }
-        //public ICommand PasteContentCommand { get; }
-
-        //public ICommand CopyMaskCommand { get; }
-        //public ICommand PasteMaskCommand { get; }
-
-        //public ICommand CopyColorationCommand { get; }
-        //public ICommand PasteColorationCommand { get; }
-
-        //public ICommand CopyPostFXCommand { get; }
-        //public ICommand PastePostFXCommand { get; }
-
         private string _layername;
         public string LayerName
         {

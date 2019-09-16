@@ -15,6 +15,8 @@ namespace CMiX.MVVM.Models
 
         public bool Enable { get; set; }
         public bool KeepOriginal { get; set; }
+        public string MaskType { get; set; }
+        public string MaskControlType { get; set; }
 
         public BeatModifierModel BeatModifierModel { get; set; }
         public GeometryModel GeometryModel { get; set; }

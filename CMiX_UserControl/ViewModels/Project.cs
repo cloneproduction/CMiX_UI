@@ -19,6 +19,8 @@ namespace CMiX.ViewModels
             FolderPath = string.Empty;
             Serializer = new CerasSerializer();
 
+            ResourceTree = new ResourceTree();
+
             NewProjectCommand = new RelayCommand(p => NewProject());
             OpenProjectCommand = new RelayCommand(p => OpenProject());
             SaveProjectCommand = new RelayCommand(p => SaveProject());
@@ -39,7 +41,6 @@ namespace CMiX.ViewModels
 
             DuplicateCompoCommand = new RelayCommand(p => DuplicateComposition(p));
             AddLayerCommand = new RelayCommand(p => AddLayer());
-
         }
 
         private void ImportCompoFromProject()
@@ -73,6 +74,7 @@ namespace CMiX.ViewModels
         public ObservableCollection<OSCMessenger> OSCMessengers { get; set; }
 
         public CerasSerializer Serializer { get; set; }
+        public ResourceTree ResourceTree { get; set; }
 
         public string FolderPath { get; set; }
 

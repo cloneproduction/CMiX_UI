@@ -106,6 +106,8 @@
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\Slider.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
+    <Compile Include="ViewModels\_Enums\MaskControlType.cs" />
+    <Compile Include="ViewModels\_Enums\MaskType.cs" />
     <Compile Include="Views\Counter.xaml.cs">
       <DependentUpon>Counter.xaml</DependentUpon>
     </Compile>

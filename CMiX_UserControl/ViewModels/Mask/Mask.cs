@@ -15,7 +15,8 @@ namespace CMiX.ViewModels
             : base (oscvalidation, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Mask));
-
+            MaskType = ((MaskType)0).ToString();
+            MaskControlType = ((MaskControlType)0).ToString();
             Enable = false;
 
             BeatModifier = new BeatModifier(MessageAddress, masterbeat, oscvalidation, mementor);
@@ -23,13 +24,6 @@ namespace CMiX.ViewModels
             Texture = new Texture(MessageAddress, oscvalidation, mementor);
             PostFX = new PostFX(MessageAddress, oscvalidation, mementor);
 
-            
-            //CopyTextureCommand = new RelayCommand(p => CopyTexture());
-            //PasteTextureCommand = new RelayCommand(p => PasteTexture());
-            //CopyGeometryCommand = new RelayCommand(p => CopyGeometry());
-            //PasteGeometryCommand = new RelayCommand(p => PasteGeometry());
-            //CopyPostFXCommand = new RelayCommand(p => CopyPostFX());
-            //PastePostFXCommand = new RelayCommand(p => PastePostFX());
             CopyMaskCommand = new RelayCommand(p => CopyMask());
             PasteMaskCommand = new RelayCommand(p => PasteMask());
             ResetMaskCommand = new RelayCommand(p => ResetMask());
@@ -49,15 +43,6 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-        //public ICommand CopyTextureCommand { get; }
-        //public ICommand PasteTextureCommand { get; }
-
-        //public ICommand CopyGeometryCommand { get; }
-        //public ICommand PasteGeometryCommand { get; }
-
-        //public ICommand CopyPostFXCommand { get; }
-        //public ICommand PastePostFXCommand { get; }
-
         public ICommand CopyMaskCommand { get; }
         public ICommand PasteMaskCommand { get; }
         public ICommand ResetMaskCommand { get; }
@@ -93,6 +78,31 @@ namespace CMiX.ViewModels
             }
         }
 
+        private string _masktype;
+        public string MaskType
+        {
+            get => _masktype;
+            set
+            {
+                if (Mementor != null)
+                    Mementor.PropertyChange(this, nameof(MaskType));
+                SetAndNotify(ref _masktype, value);
+                SendMessages(MessageAddress + nameof(MaskType), MaskType);
+            }
+        }
+
+        private string _maskcontroltype;
+        public string MaskControlType
+        {
+            get => _maskcontroltype;
+            set
+            {
+                if (Mementor != null)
+                    Mementor.PropertyChange(this, nameof(MaskControlType));
+                SetAndNotify(ref _maskcontroltype, value);
+                SendMessages(MessageAddress + nameof(MaskControlType), MaskControlType);
+            }
+        }
         #endregion
 
         #region COPY/PASTE/RESET
@@ -100,6 +110,8 @@ namespace CMiX.ViewModels
         {
             maskmodel.MessageAddress = MessageAddress;
             maskmodel.Enable = Enable;
+            maskmodel.MaskType = MaskType;
+            maskmodel.MaskControlType = MaskControlType;
             maskmodel.KeepOriginal = KeepOriginal;
             BeatModifier.Copy(maskmodel.BeatModifierModel);
             Texture.Copy(maskmodel.texturemodel);
@@ -114,6 +126,8 @@ namespace CMiX.ViewModels
             MessageAddress = maskmodel.MessageAddress;
             Enable = maskmodel.Enable;
             KeepOriginal = maskmodel.KeepOriginal;
+            MaskType = maskmodel.MaskType;
+            MaskControlType = maskmodel.MaskControlType;
             BeatModifier.Paste(maskmodel.BeatModifierModel);
             Texture.Paste(maskmodel.texturemodel);
             Geometry.Paste(maskmodel.GeometryModel);

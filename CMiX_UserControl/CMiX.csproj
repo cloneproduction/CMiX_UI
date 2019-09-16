@@ -117,6 +117,10 @@
     <Compile Include="Behaviors\FolderDialogBehavior.cs" />
     <Compile Include="Behaviors\ListBoxSelectionBehavior.cs" />
     <Compile Include="Behaviors\SliderBehavior.cs" />
+    <Compile Include="ViewModels\RessourceTree\DirectoryItem.cs" />
+    <Compile Include="ViewModels\RessourceTree\FileItem.cs" />
+    <Compile Include="ViewModels\RessourceTree\Item.cs" />
+    <Compile Include="ViewModels\RessourceTree\ResourceTree.cs" />
     <Compile Include="Views\ChannelOSCDataTemplate.xaml.cs">
       <DependentUpon>ChannelOSCDataTemplate.xaml</DependentUpon>
     </Compile>
@@ -124,6 +128,9 @@
     <Compile Include="ViewModels\Coloration\ColorSelector.cs" />
     <Compile Include="Views\ColorSelector.xaml.cs">
       <DependentUpon>ColorSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ResourceTree.xaml.cs">
+      <DependentUpon>ResourceTree.xaml</DependentUpon>
     </Compile>
     <Compile Include="_Unused\SetAndNotifyPropertyAction.cs" />
     <Compile Include="ViewModels\FileSelector\FileNameItem.cs" />
@@ -149,7 +156,7 @@
     <Compile Include="ViewModels\Geometry\Geometry.cs" />
     <Compile Include="ViewModels\Layer.cs" />
     <Compile Include="ViewModels\Beat\MasterBeat.cs" />
-    <Compile Include="ViewModels\Mask.cs" />
+    <Compile Include="ViewModels\Mask\Mask.cs" />
     <Compile Include="ViewModels\PostFX\PostFX.cs" />
     <Compile Include="ViewModels\Composition.cs" />
     <Compile Include="ViewModels\Texture\Texture.cs" />
@@ -220,6 +227,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ColorSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ResourceTree.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

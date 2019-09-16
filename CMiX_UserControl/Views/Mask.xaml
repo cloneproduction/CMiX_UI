@@ -6,6 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX_MVVM"
+    xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX_MVVM"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
     d:DesignHeight="812"
     d:DesignWidth="321"
     mc:Ignorable="d">
@@ -13,10 +15,20 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
+            <ObjectDataProvider x:Key="MaskType" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="ViewModels:MaskType"/>
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+            <ObjectDataProvider x:Key="MaskControlType" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="ViewModels:MaskControlType"/>
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
         </ResourceDictionary>
     </UserControl.Resources>
-    
-    <DockPanel LastChildFill="True">
+
+    <StackPanel>
         <Border 
             Background="Transparent"
             Padding="4, 0"
@@ -146,5 +158,51 @@
                     />
             </TabItem>
         </TabControl>
-    </DockPanel>
+        <Border Style="{StaticResource BorderContainer}">
+            <StackPanel>
+                <Grid 
+                    Margin="2, 4"
+                    DockPanel.Dock="Bottom"
+                    Height="20" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.2*"/>
+                        <ColumnDefinition Width="35"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock 
+                        Grid.ColumnSpan="2"
+                        Foreground="{StaticResource TextBase}"
+                        Text="Type"/>
+                    <ComboBox 
+                        Grid.Column="2"
+                        Height="20"
+                        SelectedItem="{Binding MaskType}"
+                        ItemsSource="{Binding Source={StaticResource MaskType}}"
+                        />
+                </Grid>
+                <Grid 
+                    Margin="2, 4"
+                    DockPanel.Dock="Bottom"
+                    Height="20" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.2*"/>
+                        <ColumnDefinition Width="35"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock 
+                        Grid.ColumnSpan="2"
+                        Foreground="{StaticResource TextBase}"
+                        Text="Control"/>
+                    <ComboBox 
+                        Grid.Column="2"
+                        DockPanel.Dock="Bottom"
+                        Height="20"
+                        SelectedItem="{Binding MaskControlType}"
+                        ItemsSource="{Binding Source={StaticResource MaskControlType}}"
+                        />
+                </Grid>
+            </StackPanel>
+        </Border>
+
+    </StackPanel>
 </UserControl>
