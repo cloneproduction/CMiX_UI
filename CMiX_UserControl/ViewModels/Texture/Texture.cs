@@ -18,8 +18,8 @@ namespace CMiX.ViewModels
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Texture));
 
             FileSelector = new FileSelector(MessageAddress,  "Single", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" },oscvalidation, mementor);
-            FileSelector.FilePaths.Add(new FileNameItem(FileSelector.MessageAddress,oscvalidation, mementor) { FileIsSelected = true, FileName = "Black (default).png" });
-            FileSelector.SelectedFileNameItem = new FileNameItem(FileSelector.MessageAddress, oscvalidation, mementor) { FileIsSelected = true, FileName = "Black (default).png" };
+            FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress,oscvalidation, mementor) { FileIsSelected = true, FileName = "Black (default).png" });
+            FileSelector.SelectedFileNameItem = new FileNameItem(string.Empty, FileSelector.MessageAddress, oscvalidation, mementor) { FileIsSelected = true, FileName = "Black (default).png" };
 
             Brightness = new Slider(MessageAddress + nameof(Brightness),oscvalidation, mementor);
             Brightness.Minimum = -1.0;

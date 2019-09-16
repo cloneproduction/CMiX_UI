@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using Memento;
@@ -16,7 +15,7 @@ namespace CMiX.ViewModels
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(GeometryFX));
             Explode = new Slider(MessageAddress + nameof(Explode), oscvalidation, mementor);
             FileSelector = new FileSelector(MessageAddress, "Single", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, oscvalidation, mementor);
-            FileSelector.FilePaths.Add(new FileNameItem(FileSelector.MessageAddress, oscvalidation, mementor) { FileIsSelected = true, FileName = "Black (default).png" });
+            FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress, oscvalidation, mementor) { FileIsSelected = true, FileName = "Black (default).png" });
         }
         #endregion
 

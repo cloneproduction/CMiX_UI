@@ -25,6 +25,7 @@ namespace CMiX.ViewModels
             SelectionMode = selectionmode;
             FileMask = filemask;
             FilePaths = new ObservableCollection<FileNameItem>();
+            FolderPath = string.Empty;
 
             ClearSelectedCommand = new RelayCommand(p => ClearSelected());
             ClearUnselectedCommand = new RelayCommand(p => ClearUnselected());
@@ -60,7 +61,11 @@ namespace CMiX.ViewModels
         public string FolderPath
         {
             get => _folderpath;
-            set => SetAndNotify(ref _folderpath, value);
+            set
+            {
+                SetAndNotify(ref _folderpath, value);
+                UpdateFileNameItemFolderName();
+            }
         }
         #endregion
 
@@ -141,6 +146,14 @@ namespace CMiX.ViewModels
             }
         }
 
+        public void UpdateFileNameItemFolderName()
+        {
+            foreach (var filename in FilePaths)
+            {
+                filename.FolderPath = FolderPath;
+            }
+        }
+
         public void Drop(IDropInfo dropInfo)
         {
             var dataObject = dropInfo.Data as DataObject;
@@ -157,16 +170,7 @@ namespace CMiX.ViewModels
                         {
                             if (System.IO.Path.GetExtension(str).ToUpperInvariant() == fm)
                             {
-                                FileNameItem lbfn = new FileNameItem(MessageAddress, OSCValidation, Mementor);
-                                lbfn.FileIsSelected = false;
-                                if(FolderPath != null)
-                                {
-                                    lbfn.FileName = Utils.GetRelativePath(FolderPath, str);
-                                }
-                                else
-                                {
-                                    lbfn.FileName = str;
-                                }
+                                FileNameItem lbfn = new FileNameItem(FolderPath, MessageAddress, OSCValidation, Mementor) { FileIsSelected = false, FileName = str };
                                 FilePaths.Add(lbfn);
                                 Mementor.ElementAdd(FilePaths, lbfn);
                             }
@@ -288,7 +292,7 @@ namespace CMiX.ViewModels
 
             foreach (var item in fileselectormodel.FilePaths)
             {
-                FileNameItem filenameitem = new FileNameItem(MessageAddress, OSCValidation, Mementor);
+                FileNameItem filenameitem = new FileNameItem(FolderPath, MessageAddress, OSCValidation, Mementor);
                 filenameitem.Paste(item);
                 //filenameitem.UpdateMessageAddress(MessageAddress);
                 FilePaths.Add(filenameitem);

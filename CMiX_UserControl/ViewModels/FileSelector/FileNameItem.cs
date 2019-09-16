@@ -5,16 +5,26 @@ using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 
 using Memento;
+using CMiX.MVVM.Resources;
 
 namespace CMiX.ViewModels 
 {
     public class FileNameItem : ViewModel
     {
-        public FileNameItem(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor)
+        public FileNameItem(string folderpath, string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor)
             : base (oscvalidation, mementor)
         {
             MessageAddress = messageaddress + "Selected";
+            FolderPath = folderpath;
             Mementor = mementor;
+        }
+
+        private string _folderpath;
+        public string FolderPath
+        {
+            get => _folderpath;
+            set => SetAndNotify(ref _folderpath, value);
+
         }
 
         private string _filename;
@@ -33,7 +43,13 @@ namespace CMiX.ViewModels
                 SetAndNotify(ref _fileisselected, value);
                 if (FileIsSelected)
                 {
-                    SendMessages(MessageAddress, FileName);
+                    if(!string.IsNullOrEmpty(this.FileName) && !string.IsNullOrEmpty(this.FolderPath))
+                    {
+                        string fn = Utils.GetRelativePath(FolderPath, this.FileName);
+                        SendMessages(MessageAddress, fn);
+                    }
+                    else
+                        SendMessages(MessageAddress, FileName);
                 }
             }
         }
