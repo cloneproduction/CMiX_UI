@@ -122,7 +122,13 @@ namespace CMiX.ViewModels
             FilePaths.Remove(fni);
         }
         #endregion
-
+        public void UpdateFileNameItemFolderName()
+        {
+            foreach (var filename in FilePaths)
+            {
+                filename.FolderPath = FolderPath;
+            }
+        }
         #region DRAG/DROP
 
         public void DragOver(IDropInfo dropInfo)
@@ -143,14 +149,6 @@ namespace CMiX.ViewModels
             if (Mementor.IsInBatch)
             {
                 Mementor.EndBatch();
-            }
-        }
-
-        public void UpdateFileNameItemFolderName()
-        {
-            foreach (var filename in FilePaths)
-            {
-                filename.FolderPath = FolderPath;
             }
         }
 

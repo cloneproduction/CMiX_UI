@@ -129,6 +129,9 @@
     <Compile Include="Views\ColorSelector.xaml.cs">
       <DependentUpon>ColorSelector.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\CompositionList.xaml.cs">
+      <DependentUpon>CompositionList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ResourceTree.xaml.cs">
       <DependentUpon>ResourceTree.xaml</DependentUpon>
     </Compile>
@@ -227,6 +230,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ColorSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CompositionList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

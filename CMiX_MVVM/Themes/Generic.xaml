@@ -19,5 +19,7 @@
         <ResourceDictionary Source="ComboBox.xaml"/>
         <ResourceDictionary Source="DataGrid.xaml"/>
         <ResourceDictionary Source="TextBox.xaml"/>
+        <ResourceDictionary Source="GridSplitter.xaml"/>
+        <ResourceDictionary Source="TreeView.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

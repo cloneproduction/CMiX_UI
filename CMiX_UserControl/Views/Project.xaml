@@ -6,14 +6,15 @@
              xmlns:Views="clr-namespace:CMiX.Views"
              xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
              xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX_MVVM"
+             xmlns:MVVM.Views ="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
              xmlns:dd="urn:gong-wpf-dragdrop"
              mc:Ignorable="d"
-             d:DesignHeight="706" d:DesignWidth="1042.667">
+             d:DesignHeight="770" d:DesignWidth="1345.334">
 
     <UserControl.DataContext>
         <ViewModels:Project/>
     </UserControl.DataContext>
-    
+
     <UserControl.InputBindings>
         <KeyBinding 
             Modifiers="Control"
@@ -36,7 +37,7 @@
             Command="{Binding ImportCompoCommand}" 
             />
     </UserControl.InputBindings>
-    
+
     <UserControl.Resources>
         <ResourceDictionary>
             <Resources:BindingProxy x:Key="proxy" Data="{Binding}"/>
@@ -120,7 +121,7 @@
                         />
                     <MenuItem
                         Header="Duplicate"
-                        Command="{Binding DuplicateCompoCommand}"
+                        Command="{Binding DuplicateSelectedCompositionCommand}"
                         CommandParameter="{Binding SelectedComposition}"
                         Template="{StaticResource SubMenuItemBase}" 
                         />
@@ -144,42 +145,48 @@
             </Menu>
         </Border>
         <Grid Background="{StaticResource SuperHighDarkerColor}" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="3" />
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
             <Border 
-                BorderThickness="1, 0, 0, 0"
-                
-                BorderBrush="{StaticResource HighDarkerColor}"
-                Margin="30, 0, 0, 0">
+                    Grid.Column="2"
+                    BorderThickness="1, 0, 0, 0"
+                    BorderBrush="{StaticResource HighDarkerColor}"
+                    Margin="0">
                 <DockPanel >
                     <TabControl  
-                    dd:DragDrop.IsDragSource="True"
-                    dd:DragDrop.IsDropTarget="True"
-                    Style="{StaticResource TabControlDynamic}"
-                    ItemsSource="{Binding Compositions}"
-                    SelectedItem="{Binding SelectedComposition, Mode=TwoWay}"
-                    ItemContainerStyle="{StaticResource TabItemDynamic}">
+                        Margin="0, 0"
+                        dd:DragDrop.IsDragSource="True"
+                        dd:DragDrop.IsDropTarget="True"
+                        Style="{StaticResource TabControlDynamic}"
+                        ItemsSource="{Binding EditableCompositions}"
+                        SelectedItem="{Binding SelectedEditableComposition, Mode=TwoWay}"
+                        ItemContainerStyle="{StaticResource TabItemDynamic}">
                         <TabControl.ItemTemplate>
                             <DataTemplate>
                                 <DockPanel Height="20" HorizontalAlignment="Stretch" x:Name="Docks" Background="Transparent">
-                                    <DockPanel.ContextMenu>
+                                    <!--<DockPanel.ContextMenu>
                                         <ContextMenu>
                                             <MenuItem
-                                            Padding="8, 4"
-                                            Foreground="{StaticResource TextBase}"
-                                            Command="{Binding Data.DeleteCompoCommand, Source={StaticResource proxy}}"
-                                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
+                                                Padding="8, 4"
+                                                Foreground="{StaticResource TextBase}"
+                                                Command="{Binding Data.RemoveEditableCompoCommand, Source={StaticResource proxy}}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                                                 <MenuItem.Header>
                                                     <StackPanel Orientation="Horizontal">
                                                         <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
                                                         <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                                        <TextBlock Text="Delete Composition"/>
+                                                        <TextBlock Text="Remove Composition"/>
                                                     </StackPanel>
                                                 </MenuItem.Header>
                                             </MenuItem>
                                             <MenuItem
-                                            Padding="8, 4"
-                                            Foreground="{StaticResource TextBase}"
-                                            Command="{Binding Data.DuplicateCompoCommand, Source={StaticResource proxy}}"
-                                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
+                                                Padding="8, 4"
+                                                Foreground="{StaticResource TextBase}"
+                                                Command="{Binding Data.DuplicateCompoCommand, Source={StaticResource proxy}}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                                                 <MenuItem.Header>
                                                     <StackPanel Orientation="Horizontal">
                                                         <Image Width="10" Height="10" Source="{StaticResource Copy}" />
@@ -189,31 +196,31 @@
                                                 </MenuItem.Header>
                                             </MenuItem>
                                         </ContextMenu>
-                                    </DockPanel.ContextMenu>
+                                    </DockPanel.ContextMenu>-->
                                     <DockPanel.InputBindings>
                                         <MouseBinding 
-                                        Command="{Binding Data.DeleteCompoCommand, Source={StaticResource proxy}}"
-                                        CommandParameter="{Binding ElementName=Docks, Path=DataContext}"
-                                        MouseAction="MiddleClick"
-                                        />
+                                            Command="{Binding Data.RemoveEditableCompositionCommand, Source={StaticResource proxy}}"
+                                            CommandParameter="{Binding ElementName=Docks, Path=DataContext}"
+                                            MouseAction="MiddleClick"
+                                            />
                                     </DockPanel.InputBindings>
                                     <Button
-                                    DockPanel.Dock="Right" 
-                                    Command="{Binding Data.DeleteCompoCommand, Source={StaticResource proxy}}"
-                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"
-                                    Style="{DynamicResource ButtonTabDynamic}"
-                                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
+                                        DockPanel.Dock="Right" 
+                                        Command="{Binding Data.RemoveEditableCompositionCommand, Source={StaticResource proxy}}"
+                                        CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"
+                                        Style="{DynamicResource ButtonTabDynamic}"
+                                        Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
                                         <Button.Content>
                                             <Image Opacity="0.5" Margin="5" Source="{StaticResource CloseTab}"/>
                                         </Button.Content>
                                     </Button>
                                     <TextBlock
-                                    Margin="4, 0, 0, 0"
-                                    Text="{Binding Name}"
-                                    ToolTip="{Binding Name}"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    DockPanel.Dock="Left">
+                                        Margin="4, 0, 0, 0"
+                                        Text="{Binding Name}"
+                                        ToolTip="{Binding Name}"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        DockPanel.Dock="Left">
                                     </TextBlock>
                                 </DockPanel>
                             </DataTemplate>
@@ -226,28 +233,39 @@
                     </TabControl>
                 </DockPanel>
             </Border>
-
-
-            <Expander  
-                    HorizontalAlignment="Left"  
-                    ExpandDirection="Right" 
-                    DockPanel.Dock="Left" 
-                    Style="{DynamicResource ExpanderBase}">
-                <Expander.Effect>
-                    <DropShadowEffect 
-                        BlurRadius="10" 
-                        ShadowDepth="0" 
-                        Color="Black"
-                        />
-                </Expander.Effect>
-                <TabControl >
+            <GridSplitter Style="{StaticResource GridSplitter}" Grid.Column="1" Width="3" HorizontalAlignment="Stretch" />
+            <Border
+                DockPanel.Dock="Right"
+                Margin="8, 0, 4, 8"
+                Padding="8, 0, 8, 8"
+                CornerRadius="4"
+                Background="{StaticResource HighDarkerColor}">
+                <TabControl>
+                    <TabItem>
+                        <TabItem.Header>
+                            <TextBlock 
+                                Text="RESOURCES" 
+                                Margin="8"
+                                />
+                        </TabItem.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="3"/>
+                                <RowDefinition Height="0.5*"/>
+                            </Grid.RowDefinitions>
+                            <Views:TreeView Margin="0, 4"  DataContext="{Binding ResourceTree}"/>
+                            <GridSplitter Style="{StaticResource GridSplitter}" Height="3" Grid.Row="1" />
+                            <Views:CompositionList Margin="0, 4, 0, 0" Grid.Row="2" DataContext="{Binding}"/>
+                        </Grid>
+                    </TabItem>
                     <TabItem Header="OSC" Width="50" Height="20">
                         <Border
-                            DockPanel.Dock="Right"
-                            Margin="0, 4"
-                            Padding="8, 0, 8, 8"
-                            CornerRadius="2"
-                            Background="{StaticResource HighDarkerColor}">
+                        DockPanel.Dock="Right"
+                        Margin="0, 4"
+                        Padding="8, 0, 8, 8"
+                        CornerRadius="2"
+                        Background="{StaticResource HighDarkerColor}">
                             <TabControl>
                                 <DockPanel Width="200">
                                     <Border DockPanel.Dock="Top"  Style="{StaticResource BorderContainer}">
@@ -265,15 +283,15 @@
                                         </StackPanel>
                                     </Border>
                                     <ListBox 
-                                Margin="0, 8, 0, 0"
-                                HorizontalContentAlignment="Stretch" 
-                                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                                Style="{StaticResource LayerListBox}"
-                                ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
-                                ItemsSource="{Binding OSCMessengers}" 
-                                SelectedItem="{Binding SelectedOSCMessenger}"
-                                dd:DragDrop.IsDragSource="True"
-                                dd:DragDrop.IsDropTarget="True">
+                                    Margin="0, 8, 0, 0"
+                                    HorizontalContentAlignment="Stretch" 
+                                    ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                    Style="{StaticResource LayerListBox}"
+                                    ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
+                                    ItemsSource="{Binding OSCMessengers}" 
+                                    SelectedItem="{Binding SelectedOSCMessenger}"
+                                    dd:DragDrop.IsDragSource="True"
+                                    dd:DragDrop.IsDropTarget="True">
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
                                                 <Views:OSCControl Margin="2">
@@ -310,13 +328,8 @@
 
                         </Border>
                     </TabItem>
-                    <TabItem Header="Tree" Width="50" Height="20">
-                        <Views:TreeView Width="200" DataContext="{Binding ResourceTree}"/>
-                    </TabItem>
                 </TabControl>
-            </Expander>
-
-
-            </Grid>
+            </Border>
+        </Grid>
     </DockPanel>
 </UserControl>

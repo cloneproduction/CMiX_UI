@@ -16,6 +16,8 @@ namespace CMiX.ViewModels
             OSCMessengers.Add(new OSCMessenger("127.0.0.1", 1111) { Name = "Device (0)" });
 
             Compositions = new ObservableCollection<Composition>();
+            EditableCompositions = new ObservableCollection<Composition>();
+
             FolderPath = string.Empty;
             Serializer = new CerasSerializer();
 
@@ -35,12 +37,23 @@ namespace CMiX.ViewModels
             ImportCompoFromProjectCommand = new RelayCommand(p => ImportCompoFromProject());
             ExportCompoCommand = new RelayCommand(p => ExportCompo());
 
-            AddCompoCommand = new RelayCommand(p => AddComposition());
-            AddTabCommand = new RelayCommand(p => AddComposition());
-            DeleteCompoCommand = new RelayCommand(p => DeleteComposition(p));
+            AddTabCommand = new RelayCommand(p => AddEditableComposition());
 
-            DuplicateCompoCommand = new RelayCommand(p => DuplicateComposition(p));
+            AddEditableCompositionCommand = new RelayCommand(p => AddEditableComposition());
+            RemoveEditableCompositionCommand = new RelayCommand(p => RemoveEditableComposition(p));
+
+            AddCompositionCommand = new RelayCommand(p => AddComposition());
+            DeleteSelectedCompositionCommand = new RelayCommand(p => DeleteSelectedComposition());
+
+            DuplicateSelectedCompositionCommand = new RelayCommand(p => DuplicateSelectedComposition());
             AddLayerCommand = new RelayCommand(p => AddLayer());
+            EditCompositionCommand = new RelayCommand(p => EditComposition());
+            CompositionListDoubleClickCommand = new RelayCommand(p => CompositionListDoubleClick());
+        }
+
+        public void CompositionListDoubleClick()
+        {
+            System.Console.WriteLine("DoubleClickOnItem");
         }
 
         private void ImportCompoFromProject()
@@ -49,6 +62,8 @@ namespace CMiX.ViewModels
         }
 
         #region PROPERTIES
+        public ICommand CompositionListDoubleClickCommand { get; }
+
         public ICommand ImportCompoCommand { get; }
         public ICommand ImportCompoFromProjectCommand { get; }
         public ICommand ExportCompoCommand { get; }
@@ -63,14 +78,20 @@ namespace CMiX.ViewModels
         public ICommand RemoveSelectedOSCCommand { get; set; }
         public ICommand DeleteOSCCommand { get; set; }
 
-        public ICommand AddCompoCommand { get; }
-        public ICommand DeleteCompoCommand { get; }
-        public ICommand DuplicateCompoCommand { get; }
+        public ICommand AddEditableCompositionCommand { get; }
+        public ICommand RemoveEditableCompositionCommand { get; }
+        public ICommand EditCompositionCommand { get; }
+
+        public ICommand AddCompositionCommand { get; }
+        public ICommand DeleteSelectedCompositionCommand { get; }
+        public ICommand DuplicateSelectedCompositionCommand { get; }
 
         public ICommand AddTabCommand { get; }
         public ICommand AddLayerCommand { get; }
 
         public ObservableCollection<Composition> Compositions { get; set; }
+        public ObservableCollection<Composition> EditableCompositions { get; set; }
+
         public ObservableCollection<OSCMessenger> OSCMessengers { get; set; }
 
         public CerasSerializer Serializer { get; set; }
@@ -83,6 +104,13 @@ namespace CMiX.ViewModels
         {
             get => _selectedcomposition;
             set => SetAndNotify(ref _selectedcomposition, value);
+        }
+
+        private Composition _selectededitablecomposition;
+        public Composition SelectedEditableComposition
+        {
+            get => _selectededitablecomposition;
+            set => SetAndNotify(ref _selectededitablecomposition, value);
         }
 
         private OSCMessenger _selectedoscmessenger;
@@ -140,30 +168,69 @@ namespace CMiX.ViewModels
             SelectedComposition = comp;
         }
 
-        private void DeleteComposition(object compo)
+        private void AddEditableComposition()
+        {
+            Composition comp = new Composition(OSCMessengers);
+            comp.Name = "Composition " + CompID++.ToString();
+            Compositions.Add(comp);
+            SelectedComposition = comp;
+            EditableCompositions.Add(comp);
+            SelectedEditableComposition = comp;
+        }
+
+        private void EditComposition()
+        {
+            if(SelectedComposition != null && !EditableCompositions.Contains(SelectedComposition))
+            {
+                System.Console.WriteLine("Edit");
+                var compo = SelectedComposition;
+                EditableCompositions.Add(compo);
+                SelectedEditableComposition = compo;
+            }
+        }
+
+        private void RemoveEditableComposition(object compo)
         {
             if (compo != null)
-                Compositions.Remove(compo as Composition);
+            {
+                EditableCompositions.Remove(compo as Composition);
+            }
 
             if (Compositions.Count > 0)
+            {
+                SelectedEditableComposition = Compositions[0];
+            }
+        }
+
+        private void DeleteSelectedComposition()
+        {
+            if (SelectedComposition != null)
+            {
+                var deletedcompo = SelectedComposition as Composition;
+                Compositions.Remove(deletedcompo);
+                EditableCompositions.Remove(deletedcompo);
+            }
+
+            if (Compositions.Count > 0)
+            {
                 SelectedComposition = Compositions[0];
+            }
 
             if (Compositions.Count == 0)
                 CompID = 0;
         }
 
-        private void DuplicateComposition(object compo)
+        private void DuplicateSelectedComposition()
         {
-            if(compo != null)
+            if(SelectedComposition != null)
             {
-                Composition comp = compo as Composition;
+                Composition comp = SelectedComposition as Composition;
                 CompositionModel compositionmodel = new CompositionModel();
                 comp.Copy(compositionmodel);
                 Composition newcomp = new Composition(OSCMessengers);
                 newcomp.Paste(compositionmodel);
                 newcomp.Name = newcomp.Name + "- Copy";
                 Compositions.Add(newcomp);
-
                 if (newcomp.Layers[0] != null)
                     newcomp.SelectedLayer = newcomp.Layers[0];
             }

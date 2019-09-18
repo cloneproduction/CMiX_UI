@@ -19,5 +19,5 @@
     <BitmapImage x:Key="HSL" UriSource="pack://application:,,,/CMiX_MVVM;component/Assets/HSL.png"/>
     <BitmapImage x:Key="BrightnessContrast" UriSource="pack://application:,,,/CMiX_MVVM;component/Assets/BC.png"/>
     <BitmapImage x:Key="TexTransform" UriSource="pack://application:,,,/CMiX_MVVM;component/Assets/Size.png"/>
-    
+    <BitmapImage x:Key="Edit" UriSource="pack://application:,,,/CMiX_MVVM;component/Assets/Edit.png"/>
 </ResourceDictionary>
