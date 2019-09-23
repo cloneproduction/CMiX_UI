@@ -6,21 +6,105 @@
              xmlns:local="clr-namespace:CMiX.Views"
              xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
              xmlns:dd="urn:gong-wpf-dragdrop"
+             xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX_MVVM"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Interaction="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:Behavior="clr-namespace:CMiX.Behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.Resources>
-        <HierarchicalDataTemplate 
-            DataType="{x:Type ViewModels:DirectoryItem}"
-            ItemsSource="{Binding Items}">
-            <TextBlock Text="{Binding Path=Name}" ToolTip="{Binding Path=Path}" />
-        </HierarchicalDataTemplate>
-        <DataTemplate DataType="{x:Type ViewModels:FileItem}">
-            <TextBlock Text="{Binding Path=Name}" ToolTip="{Binding Path=Path}" />
-        </DataTemplate>
+        <ResourceDictionary>
+
+            
+            <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
+            
+            <!--<HierarchicalDataTemplate DataType="{x:Type ViewModels:DirectoryItem}" ItemsSource="{Binding Items}">
+                <TextBox IsReadOnly="{Binding IsReadOnly}" Text="{Binding Path=Name}" ToolTip="{Binding Path=Path}" >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PreviewMouseDown" >
+                            <i:InvokeCommandAction Command="{Binding PreviewMouseDownCommand}" CommandParameter="{Binding}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+            </HierarchicalDataTemplate>-->
+
+            <DataTemplate x:Key="NormalTemplate">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Path=Name}" Margin="3">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseDown" >
+                                <i:InvokeCommandAction Command="{Binding PreviewMouseDownCommand}" CommandParameter="{Binding}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBlock>
+                </StackPanel>
+            </DataTemplate>
+
+            <DataTemplate x:Key="EditTemplate">
+                <StackPanel>
+                    <TextBox Text="{Binding Path=Name}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="LostFocus" >
+                                <i:InvokeCommandAction Command="{Binding LostFocusCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
+                </StackPanel>
+            </DataTemplate>
+
+            <HierarchicalDataTemplate DataType="{x:Type ViewModels:DirectoryItem}" ItemsSource="{Binding Items}">
+                <ContentPresenter Content="{Binding}">
+                    <ContentPresenter.Style>
+                        <Style TargetType="{x:Type ContentPresenter}">
+                            <Setter Property="ContentTemplate" Value="{StaticResource NormalTemplate}"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsEditable}" Value="True">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource EditTemplate}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentPresenter.Style>
+                </ContentPresenter>
+            </HierarchicalDataTemplate>
+
+
+            
+            <DataTemplate DataType="{x:Type ViewModels:TextureItem}">
+                <DockPanel Margin="0, 1">
+                    <Image Margin="4, 0" Width="10" Height="10" DockPanel.Dock="Left" Source="{StaticResource Texture}"/>
+                    <TextBlock Text="{Binding Path=Name}" ToolTip="{Binding Path=Path}" />
+                </DockPanel>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type ViewModels:GeometryItem}">
+                <DockPanel Margin="0, 1">
+                    <Image Margin="4, 0" Width="10" Height="10" DockPanel.Dock="Left" Source="{StaticResource Geometry}"/>
+                    <TextBlock Text="{Binding Path=Name}" ToolTip="{Binding Path=Path}" />
+                </DockPanel>
+            </DataTemplate>
+        </ResourceDictionary>
     </UserControl.Resources>
 
+    
     <Border Style="{StaticResource BorderContainer}">
+        <Border.ContextMenu>
+            <ContextMenu>
+                <MenuItem
+                    Padding="8, 4"
+                    Foreground="{StaticResource TextBase}"
+                    Command="{Binding Data.AddNewFolderCommand, Source={StaticResource proxy}}">
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="10" Height="10" Source="{StaticResource Copy}" />
+                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                            <TextBlock Text="Add New Folder"/>
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+            </ContextMenu>
+        </Border.ContextMenu>
+
         <DockPanel>
             <Border 
                 DockPanel.Dock="Top"
@@ -34,12 +118,19 @@
                     />
             </Border>
             <TreeView 
-            AllowDrop="True"
-            dd:DragDrop.IsDragSource="True"
-            dd:DragDrop.IsDropTarget="True"
-            dd:DragDrop.DragHandler="{Binding}"
-            dd:DragDrop.DropHandler="{Binding}"
-            ItemsSource="{Binding ResourceItems}"/>
+                AllowDrop="True"
+                dd:DragDrop.IsDragSource="True"
+                dd:DragDrop.IsDropTarget="True"
+                dd:DragDrop.DragHandler="{Binding}"
+                dd:DragDrop.DropHandler="{Binding}"
+                ItemsSource="{Binding ResourceItems}">
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+                    </Style>
+                </TreeView.ItemContainerStyle>
+                
+            </TreeView>
         </DockPanel>
     </Border>
 </UserControl>

@@ -21,8 +21,8 @@ namespace CMiX.ViewModels
             FolderPath = string.Empty;
             Serializer = new CerasSerializer();
 
-            ResourceTree = new ResourceTree();
-
+            Assets = new Assets();
+            
             NewProjectCommand = new RelayCommand(p => NewProject());
             OpenProjectCommand = new RelayCommand(p => OpenProject());
             SaveProjectCommand = new RelayCommand(p => SaveProject());
@@ -95,7 +95,7 @@ namespace CMiX.ViewModels
         public ObservableCollection<OSCMessenger> OSCMessengers { get; set; }
 
         public CerasSerializer Serializer { get; set; }
-        public ResourceTree ResourceTree { get; set; }
+        public Assets Assets { get; set; }
 
         public string FolderPath { get; set; }
 
@@ -162,7 +162,7 @@ namespace CMiX.ViewModels
 
         private void AddComposition()
         {
-            Composition comp = new Composition(OSCMessengers);
+            Composition comp = new Composition(OSCMessengers, Assets);
             comp.Name = "Composition " + CompID++.ToString();
             Compositions.Add(comp);
             SelectedComposition = comp;
@@ -170,7 +170,7 @@ namespace CMiX.ViewModels
 
         private void AddEditableComposition()
         {
-            Composition comp = new Composition(OSCMessengers);
+            Composition comp = new Composition(OSCMessengers, Assets);
             comp.Name = "Composition " + CompID++.ToString();
             Compositions.Add(comp);
             SelectedComposition = comp;
@@ -227,7 +227,7 @@ namespace CMiX.ViewModels
                 Composition comp = SelectedComposition as Composition;
                 CompositionModel compositionmodel = new CompositionModel();
                 comp.Copy(compositionmodel);
-                Composition newcomp = new Composition(OSCMessengers);
+                Composition newcomp = new Composition(OSCMessengers, Assets);
                 newcomp.Paste(compositionmodel);
                 newcomp.Name = newcomp.Name + "- Copy";
                 Compositions.Add(newcomp);
@@ -322,7 +322,7 @@ namespace CMiX.ViewModels
                 {
                     byte[] data = File.ReadAllBytes(folderPath);
                     CompositionModel compositionmodel = Serializer.Deserialize<CompositionModel>(data);
-                    Composition newcomp = new Composition(OSCMessengers);
+                    Composition newcomp = new Composition(OSCMessengers, Assets);
                     newcomp.Paste(compositionmodel);
                     Compositions.Add(newcomp);
                     SelectedComposition = newcomp;
@@ -364,7 +364,7 @@ namespace CMiX.ViewModels
         {
             foreach (var compositionmodel in projectmodel.CompositionModel)
             {
-                Composition composition = new Composition(OSCMessengers);
+                Composition composition = new Composition(OSCMessengers, Assets);
                 composition.Paste(compositionmodel);
                 Compositions.Add(composition);
             }

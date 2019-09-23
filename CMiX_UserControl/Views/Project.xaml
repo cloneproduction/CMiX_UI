@@ -14,7 +14,9 @@
     <UserControl.DataContext>
         <ViewModels:Project/>
     </UserControl.DataContext>
+    
 
+    
     <UserControl.InputBindings>
         <KeyBinding 
             Modifiers="Control"
@@ -131,11 +133,6 @@
                         Command="{Binding ImportCompoCommand}"
                         Template="{StaticResource SubMenuItemBase}" 
                         />
-                    <!--<MenuItem
-                        Header="ImportFromProject"
-                        Command="{Binding ImportCompoFromProjectCommand}"
-                        Template="{StaticResource SubMenuItemBase}" 
-                        />-->
                     <MenuItem
                         Header="Export"
                         Command="{Binding ExportCompoCommand}"
@@ -167,36 +164,6 @@
                         <TabControl.ItemTemplate>
                             <DataTemplate>
                                 <DockPanel Height="20" HorizontalAlignment="Stretch" x:Name="Docks" Background="Transparent">
-                                    <!--<DockPanel.ContextMenu>
-                                        <ContextMenu>
-                                            <MenuItem
-                                                Padding="8, 4"
-                                                Foreground="{StaticResource TextBase}"
-                                                Command="{Binding Data.RemoveEditableCompoCommand, Source={StaticResource proxy}}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
-                                                <MenuItem.Header>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
-                                                        <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                                        <TextBlock Text="Remove Composition"/>
-                                                    </StackPanel>
-                                                </MenuItem.Header>
-                                            </MenuItem>
-                                            <MenuItem
-                                                Padding="8, 4"
-                                                Foreground="{StaticResource TextBase}"
-                                                Command="{Binding Data.DuplicateCompoCommand, Source={StaticResource proxy}}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
-                                                <MenuItem.Header>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <Image Width="10" Height="10" Source="{StaticResource Copy}" />
-                                                        <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                                        <TextBlock Text="Duplicate Composition"/>
-                                                    </StackPanel>
-                                                </MenuItem.Header>
-                                            </MenuItem>
-                                        </ContextMenu>
-                                    </DockPanel.ContextMenu>-->
                                     <DockPanel.InputBindings>
                                         <MouseBinding 
                                             Command="{Binding Data.RemoveEditableCompositionCommand, Source={StaticResource proxy}}"
@@ -254,7 +221,7 @@
                                 <RowDefinition Height="3"/>
                                 <RowDefinition Height="0.5*"/>
                             </Grid.RowDefinitions>
-                            <Views:TreeView Margin="0, 4"  DataContext="{Binding ResourceTree}"/>
+                            <Views:TreeView Margin="0, 4"  DataContext="{Binding Assets}"/>
                             <GridSplitter Style="{StaticResource GridSplitter}" Height="3" Grid.Row="1" />
                             <Views:CompositionList Margin="0, 4, 0, 0" Grid.Row="2" DataContext="{Binding}"/>
                         </Grid>

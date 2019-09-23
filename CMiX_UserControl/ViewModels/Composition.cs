@@ -15,13 +15,14 @@ namespace CMiX.ViewModels
     public class Composition : ViewModel, IDropTarget
     {
         #region CONSTRUCTORS
-        public Composition(ObservableCollection<OSCMessenger> oscmessengers)
+        public Composition(ObservableCollection<OSCMessenger> oscmessengers, Assets assets)
         {
             Name = string.Empty;
 
             OSCValidation = new ObservableCollection<OSCValidation>();
             CreateOSCValidation(oscmessengers);
 
+            Assets = assets;
             Layers = new ObservableCollection<Layer>();
             Mementor = new Mementor();
             Transition = new Slider("/Transition", OSCValidation, Mementor);
@@ -108,6 +109,8 @@ namespace CMiX.ViewModels
             get { return enabled; }
             set { enabled = value; }
         }
+
+        public Assets Assets { get; set; }
 
         private Layer _selectedlayer;
         public Layer SelectedLayer

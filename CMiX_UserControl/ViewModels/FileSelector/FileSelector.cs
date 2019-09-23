@@ -133,14 +133,22 @@ namespace CMiX.ViewModels
 
         public void DragOver(IDropInfo dropInfo)
         {
-            dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+            
             var dataObject = dropInfo.Data as IDataObject;
+
             if (dataObject != null && dataObject.GetDataPresent(DataFormats.FileDrop))
             {
+                dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
                 dropInfo.Effects = DragDropEffects.Copy;
             }
 
             if (dropInfo.Data.GetType() == typeof(FileNameItem))
+            {
+                dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                dropInfo.Effects = DragDropEffects.Copy;
+            }
+
+            if(dropInfo.Data is Item)
             {
                 dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
                 dropInfo.Effects = DragDropEffects.Copy;
@@ -180,20 +188,22 @@ namespace CMiX.ViewModels
 
             if (dropInfo.DragInfo != null)
             {
-
-                if (dropInfo.DragInfo.VisualSource != dropInfo.VisualTarget && dropInfo.Data.GetType() == typeof(FileNameItem))
+                if (dropInfo.DragInfo.VisualSource != dropInfo.VisualTarget)
                 {
-                    FileNameItem filenameitem = dropInfo.Data as FileNameItem;
-                    foreach (string fm in FileMask)
+                    if(dropInfo.Data is FileNameItem)
                     {
-                        if (System.IO.Path.GetExtension(filenameitem.FileName).ToUpperInvariant() == fm)
+                        FileNameItem filenameitem = dropInfo.Data as FileNameItem;
+                        foreach (string fm in FileMask)
                         {
-                            FileNameItem newfilenameitem = filenameitem.Clone() as FileNameItem;
-                            newfilenameitem.FileIsSelected = true;
-                            newfilenameitem.UpdateMessageAddress(MessageAddress);
-                            SelectedFileNameItem = newfilenameitem;
-                            FilePaths.Insert(dropInfo.InsertIndex, newfilenameitem);
-                            Mementor.ElementAdd(FilePaths, newfilenameitem);
+                            if (System.IO.Path.GetExtension(filenameitem.FileName).ToUpperInvariant() == fm)
+                            {
+                                FileNameItem newfilenameitem = filenameitem.Clone() as FileNameItem;
+                                newfilenameitem.FileIsSelected = true;
+                                newfilenameitem.UpdateMessageAddress(MessageAddress);
+                                SelectedFileNameItem = newfilenameitem;
+                                FilePaths.Insert(dropInfo.InsertIndex, newfilenameitem);
+                                Mementor.ElementAdd(FilePaths, newfilenameitem);
+                            }
                         }
                     }
                 }

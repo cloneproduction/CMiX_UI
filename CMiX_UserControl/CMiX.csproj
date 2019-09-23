@@ -86,8 +86,23 @@
     <Reference Include="Ceras, Version=4.1.7.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Ceras.4.1.7\lib\net45\Ceras.dll</HintPath>
     </Reference>
+    <Reference Include="DropDownButtonLib, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dirkster.FolderBrowser.3.1.1\lib\net452\DropDownButtonLib.dll</HintPath>
+    </Reference>
+    <Reference Include="FileSystemModels, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dirkster.FolderBrowser.3.1.1\lib\net452\FileSystemModels.dll</HintPath>
+    </Reference>
+    <Reference Include="FolderBrowser, Version=3.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dirkster.FolderBrowser.3.1.1\lib\net452\FolderBrowser.dll</HintPath>
+    </Reference>
     <Reference Include="GongSolutions.WPF.DragDrop, Version=2.0.0.0, Culture=neutral, PublicKeyToken=91f1945125b7a587, processorArchitecture=MSIL">
       <HintPath>..\packages\gong-wpf-dragdrop.2.0.6\lib\net46\GongSolutions.WPF.DragDrop.dll</HintPath>
+    </Reference>
+    <Reference Include="InplaceEditBoxLib, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dirkster.FolderBrowser.3.1.1\lib\net452\InplaceEditBoxLib.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dirkster.FolderBrowser.3.1.1\lib\net452\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Memento, Version=1.0.0.0, Culture=neutral, PublicKeyToken=38cdbba176369010, processorArchitecture=MSIL">
       <HintPath>..\packages\Memento.1.2.1\lib\net40\Memento.dll</HintPath>
@@ -109,6 +124,9 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UserNotification, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dirkster.FolderBrowser.3.1.1\lib\net452\UserNotification.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -117,10 +135,13 @@
     <Compile Include="Behaviors\FolderDialogBehavior.cs" />
     <Compile Include="Behaviors\ListBoxSelectionBehavior.cs" />
     <Compile Include="Behaviors\SliderBehavior.cs" />
-    <Compile Include="ViewModels\RessourceTree\DirectoryItem.cs" />
-    <Compile Include="ViewModels\RessourceTree\FileItem.cs" />
-    <Compile Include="ViewModels\RessourceTree\Item.cs" />
-    <Compile Include="ViewModels\RessourceTree\ResourceTree.cs" />
+    <Compile Include="Behaviors\TextBoxFocusBehavior.cs" />
+    <Compile Include="ViewModels\Assets\DirectoryItem.cs" />
+    <Compile Include="ViewModels\Assets\FileItem.cs" />
+    <Compile Include="ViewModels\Assets\TextureItem.cs" />
+    <Compile Include="ViewModels\Assets\GeometryItem.cs" />
+    <Compile Include="ViewModels\Assets\Item.cs" />
+    <Compile Include="ViewModels\Assets\Assets.cs" />
     <Compile Include="Views\ChannelOSCDataTemplate.xaml.cs">
       <DependentUpon>ChannelOSCDataTemplate.xaml</DependentUpon>
     </Compile>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using CMiX.MVVM.ViewModels;
 
 namespace CMiX.ViewModels
@@ -11,7 +12,6 @@ namespace CMiX.ViewModels
     {
         public Item()
         {
-
         }
 
         private string _path;

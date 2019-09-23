@@ -24,5 +24,10 @@ namespace CMiX.Views
         {
             InitializeComponent();
         }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("TextBox_LostFocus");
+        }
     }
 }
