@@ -10,6 +10,7 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:Interaction="http://schemas.microsoft.com/expression/2010/interactions"
              xmlns:Behavior="clr-namespace:CMiX.Behaviors"
+             xmlns:Dirkster="clr-namespace:FolderBrowser.Views;assembly=FolderBrowser"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -117,7 +118,9 @@
                     Foreground="{StaticResource TextBase}"
                     />
             </Border>
-            <TreeView 
+
+
+            <!--<TreeView 
                 AllowDrop="True"
                 dd:DragDrop.IsDragSource="True"
                 dd:DragDrop.IsDropTarget="True"
@@ -130,7 +133,7 @@
                     </Style>
                 </TreeView.ItemContainerStyle>
                 
-            </TreeView>
+            </TreeView>-->
         </DockPanel>
     </Border>
 </UserControl>
