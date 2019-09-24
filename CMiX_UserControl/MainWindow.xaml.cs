@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using CMiX.ViewModels;
 
@@ -36,6 +37,13 @@ namespace CMiX
             var proj = ProjectView.DataContext as Project;
             if (proj.SelectedComposition.Mementor.CanRedo)
                 proj.SelectedComposition.Mementor.Redo();
+        }
+
+        private void Window_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Console.WriteLine("Window_PreviewMouseDown");
+            WindowMainGrid.Focus();
+            
         }
     }
 }

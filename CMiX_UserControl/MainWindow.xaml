@@ -10,11 +10,16 @@
     Width="1200"
     Height="800"
     Background="Black"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    PreviewMouseDown="Window_PreviewMouseDown">
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Undo" Executed="UndoCommand_Executed" CanExecute="UndoCommand_CanExecute" />
         <CommandBinding Command="ApplicationCommands.Redo" Executed="RedoCommand_Executed" CanExecute="RedoCommand_CanExecute" />
     </Window.CommandBindings>
-    <Views:Project x:Name="ProjectView" Background="Black"/>
+    <Grid >
+        <Button x:Name="WindowMainGrid"/>
+        <Views:Project x:Name="ProjectView" Background="Black"/>
+    </Grid>
+    
     <!--<Views:Coloration x:Name="ProjectView" Background="Black"/>-->
 </Window>

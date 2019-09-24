@@ -10,7 +10,7 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:Interaction="http://schemas.microsoft.com/expression/2010/interactions"
              xmlns:Behavior="clr-namespace:CMiX.Behaviors"
-             xmlns:Dirkster="clr-namespace:FolderBrowser.Views;assembly=FolderBrowser"
+             xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX_MVVM"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -55,7 +55,8 @@
             </DataTemplate>
 
             <HierarchicalDataTemplate DataType="{x:Type ViewModels:DirectoryItem}" ItemsSource="{Binding Items}">
-                <ContentPresenter Content="{Binding}">
+                <Controls:EditableTextBox Text="POUETPOUET"/>
+                <!--<ContentPresenter Content="{Binding}">
                     <ContentPresenter.Style>
                         <Style TargetType="{x:Type ContentPresenter}">
                             <Setter Property="ContentTemplate" Value="{StaticResource NormalTemplate}"/>
@@ -66,7 +67,7 @@
                             </Style.Triggers>
                         </Style>
                     </ContentPresenter.Style>
-                </ContentPresenter>
+                </ContentPresenter>-->
             </HierarchicalDataTemplate>
 
 
@@ -120,7 +121,8 @@
             </Border>
 
 
-            <!--<TreeView 
+            <TreeView 
+                Background="Transparent"
                 AllowDrop="True"
                 dd:DragDrop.IsDragSource="True"
                 dd:DragDrop.IsDropTarget="True"
@@ -133,7 +135,7 @@
                     </Style>
                 </TreeView.ItemContainerStyle>
                 
-            </TreeView>-->
+            </TreeView>
         </DockPanel>
     </Border>
 </UserControl>
