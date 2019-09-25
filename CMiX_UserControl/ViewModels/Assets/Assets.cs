@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using CMiX.MVVM.ViewModels;
 using GongSolutions.Wpf.DragDrop;
+
 namespace CMiX.ViewModels
 {
     public class Assets : ViewModel, IDropTarget, IDragSource
@@ -19,10 +20,6 @@ namespace CMiX.ViewModels
             AddNewFolderCommand = new RelayCommand(p => AddNewFolder());
         }
 
-        public void treeView_FocusLoser(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Argg!");
-        }
 
         public void AddNewFolder()
         {
@@ -38,6 +35,7 @@ namespace CMiX.ViewModels
 
 
         public ICommand AddNewFolderCommand { get; set; }
+
 
         private ObservableCollection<Item> _resourceItems;
         public ObservableCollection<Item> ResourceItems
@@ -153,6 +151,7 @@ namespace CMiX.ViewModels
                         targetdirectoryitem.Items.Add(droppedDirectoryItem);
                         droppedDirectoryItem.ParentDirectory.Remove(droppedDirectoryItem);
                         droppedDirectoryItem.ParentDirectory = targetdirectoryitem.Items;
+                        droppedDirectoryItem.IsSelected = false;
                     }
                 }
             }

@@ -65,6 +65,9 @@
       <DependentUpon>CMiXRangeSlider.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\EditableTextBox.cs" />
+    <Compile Include="Controls\EditableTextBox.xaml.cs">
+      <DependentUpon>EditableTextBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="_Trash\HueWheel.cs" />
     <Compile Include="Controls\IPBox.xaml.cs">
       <DependentUpon>IPBox.xaml</DependentUpon>
@@ -155,6 +158,10 @@
     <Page Include="Controls\IPBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\EditableTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\TreeView.xaml">
       <Generator>MSBuild:Compile</Generator>

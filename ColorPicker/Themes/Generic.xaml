@@ -17,10 +17,3 @@
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
-
-<!--<local:HueWheel
-        x:Name="PART_HueWheel"
-        Grid.RowSpan="4"
-        Grid.ColumnSpan="4"
-        Padding="4" 
-        />-->

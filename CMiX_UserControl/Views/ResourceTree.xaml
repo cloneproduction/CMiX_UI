@@ -9,27 +9,14 @@
              xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX_MVVM"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:Interaction="http://schemas.microsoft.com/expression/2010/interactions"
-             xmlns:Behavior="clr-namespace:CMiX.Behaviors"
              xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX_MVVM"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.Resources>
         <ResourceDictionary>
-
-            
             <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
             
-            <!--<HierarchicalDataTemplate DataType="{x:Type ViewModels:DirectoryItem}" ItemsSource="{Binding Items}">
-                <TextBox IsReadOnly="{Binding IsReadOnly}" Text="{Binding Path=Name}" ToolTip="{Binding Path=Path}" >
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="PreviewMouseDown" >
-                            <i:InvokeCommandAction Command="{Binding PreviewMouseDownCommand}" CommandParameter="{Binding}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </TextBox>
-            </HierarchicalDataTemplate>-->
-
             <DataTemplate x:Key="NormalTemplate">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding Path=Name}" Margin="3">
@@ -46,7 +33,7 @@
                 <StackPanel>
                     <TextBox Text="{Binding Path=Name}">
                         <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="LostFocus" >
+                            <i:EventTrigger EventName="LostKeyboardFocus " >
                                 <i:InvokeCommandAction Command="{Binding LostFocusCommand}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
@@ -55,23 +42,20 @@
             </DataTemplate>
 
             <HierarchicalDataTemplate DataType="{x:Type ViewModels:DirectoryItem}" ItemsSource="{Binding Items}">
-                <Controls:EditableTextBox Text="POUETPOUET"/>
-                <!--<ContentPresenter Content="{Binding}">
-                    <ContentPresenter.Style>
-                        <Style TargetType="{x:Type ContentPresenter}">
-                            <Setter Property="ContentTemplate" Value="{StaticResource NormalTemplate}"/>
+                <Border HorizontalAlignment="Stretch" BorderThickness="1" BorderBrush="{StaticResource Color}">
+                    <Border.Style>
+                        <Style TargetType="{x:Type Border}">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsEditable}" Value="True">
-                                    <Setter Property="ContentTemplate" Value="{StaticResource EditTemplate}" />
+                                <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                    <Setter Property="Background" Value="Red"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
-                    </ContentPresenter.Style>
-                </ContentPresenter>-->
+                    </Border.Style>
+                    <Controls:EditableTextBox HorizontalAlignment="Stretch" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CanEdit="{Binding IsSelected, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </Border>
             </HierarchicalDataTemplate>
 
-
-            
             <DataTemplate DataType="{x:Type ViewModels:TextureItem}">
                 <DockPanel Margin="0, 1">
                     <Image Margin="4, 0" Width="10" Height="10" DockPanel.Dock="Left" Source="{StaticResource Texture}"/>
@@ -88,7 +72,6 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    
     <Border Style="{StaticResource BorderContainer}">
         <Border.ContextMenu>
             <ContextMenu>
@@ -134,7 +117,6 @@
                         <Setter Property="IsSelected" Value="{Binding IsSelected}" />
                     </Style>
                 </TreeView.ItemContainerStyle>
-                
             </TreeView>
         </DockPanel>
     </Border>

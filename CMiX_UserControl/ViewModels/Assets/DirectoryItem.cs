@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using CMiX.MVVM.ViewModels;
 
 namespace CMiX.ViewModels
 {
@@ -14,13 +8,7 @@ namespace CMiX.ViewModels
         public DirectoryItem()
         {
             Items = new ObservableCollection<Item>();
-            ParentDirectory = new ObservableCollection<Item>();
-            IsEditable = false;
-            IsSelected = false;
-
-            PreviewMouseDownCommand = new RelayCommand(p => Edit(p));
-            LostFocusCommand = new RelayCommand(p => LostFocus());
-            
+            ParentDirectory = new ObservableCollection<Item>();    
         }
 
         private bool _isSelected;
@@ -29,33 +17,9 @@ namespace CMiX.ViewModels
             get => _isSelected;
             set
             {
-                if (value == false)
-                    IsEditable = false;
                 SetAndNotify(ref _isSelected, value);
             }
         }
-        public void LostFocus()
-        {
-            IsEditable = false;
-            Console.WriteLine("lost focus");
-        }
-
-        public void Edit(object p)
-        {
-            if (this.IsSelected)
-                IsEditable = true;
-        }
-
-        public ICommand LostFocusCommand { get; set; }
-        public ICommand PreviewMouseDownCommand { get; set; }
-
-        private bool _isEditable;
-        public bool IsEditable
-        {
-            get => _isEditable;
-            set => SetAndNotify(ref _isEditable, value);
-        }
-
 
         private ObservableCollection<Item> _items;
         public ObservableCollection<Item> Items
