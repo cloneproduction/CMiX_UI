@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -14,30 +16,65 @@ namespace CMiX.MVVM.Controls
             InitializeComponent();
             TextInput.Visibility = Visibility.Hidden;
             TextDisplay.Visibility = Visibility.Visible;
+
+            IsEditing = false;
+
+            ClickTimer = new Timer(300);
+            ClickTimer.Elapsed += new ElapsedEventHandler(EvaluateClicks);
         }
 
+        private System.Timers.Timer ClickTimer;
+        private int ClickCounter;
+
+
+        private void EvaluateClicks(object source, ElapsedEventArgs e)
+        {
+            ClickTimer.Stop();
+            if (ClickCounter == 1)
+                IsEditing = true;
+            // Evaluate ClickCounter here
+            ClickCounter = 0;
+        }
+
+
+        private bool _IsEditing;
+        public bool IsEditing
+        {
+            get { return _IsEditing; }
+            set
+            {
+                if(value == true)
+                    Console.WriteLine("IsEditing");
+                _IsEditing = value;
+            }
+        }
+
+
         #region PROPERTIES
+        public Stopwatch Stopwatch { get; set; }
+
         public static readonly DependencyProperty CanEditProperty =
-        DependencyProperty.Register("CanEdit", typeof(bool), typeof(EditableTextBox), new UIPropertyMetadata(false, new PropertyChangedCallback(CanEditProperty_PropertyChanged)));
+        DependencyProperty.Register("CanEdit", typeof(bool), typeof(EditableTextBox), new UIPropertyMetadata(false));
         public bool CanEdit
         {
             get { return (bool)GetValue(CanEditProperty); }
             set { SetValue(CanEditProperty, value); }
         }
 
-        private static void CanEditProperty_PropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
-        { 
-            EditableTextBox textbox = obj as EditableTextBox;
-            if (!textbox.CanEdit)
-            {
-                textbox.clickcount = 0;
-            }
-            if (textbox.CanEdit)
-            {
-                //textbox.clickcount = 0;
-            }
-                
-        }
+        //[Bindable(true)]
+        //public static readonly DependencyProperty IsEditingProperty =
+        //DependencyProperty.Register("IsEditing", typeof(bool), typeof(EditableTextBox), new UIPropertyMetadata(new PropertyChangedCallback(IsEditingProperty_PropertyChanged)));
+        //public bool IsEditing
+        //{
+        //    get { return (bool)GetValue(IsEditingProperty); }
+        //    set { SetValue(IsEditingProperty, value); }
+        //}
+
+        //private static void IsEditingProperty_PropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+        //{
+        //    //EditableTextBox textbox = obj as EditableTextBox;
+
+        //}
 
         [Bindable(true)]
         public static readonly DependencyProperty TextProperty =
@@ -72,24 +109,25 @@ namespace CMiX.MVVM.Controls
             }
         }
 
-        protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
+        protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            clickcount = 1;
-            OnSwitchToNormalMode();
-
-            //base.OnMouseDoubleClick(e);
+            ClickTimer.Stop();
+            ClickCounter++;
+            ClickTimer.Start();
         }
 
         protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
         {
-            clickcount++;
-            if (CanEdit && clickcount > 1)
+            if (CanEdit && IsEditing)
             {
                 OnSwitchToEditingMode();
                 TextInput.Focus();
                 TextInput.SelectAll();
+                e.Handled = true;
             }
-            e.Handled = false ;
+               
+            //Console.WriteLine("TimeBetweenClicks : " + timeBetweenClicks.ToString());
+            //Console.WriteLine("LastClicked : " + _LastClicked.ToString());
         }
 
         protected override void OnLostFocus(RoutedEventArgs e)
@@ -123,6 +161,7 @@ namespace CMiX.MVVM.Controls
 
         private void OnSwitchToNormalMode(bool bCancelEdit = true)
         {
+            IsEditing = false;
             TextDisplay.Text = TextInput.Text;
             TextDisplay.Visibility = Visibility.Visible;
 
