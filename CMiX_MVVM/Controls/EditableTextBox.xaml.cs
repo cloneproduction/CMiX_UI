@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,62 +18,72 @@ namespace CMiX.MVVM.Controls
 
             IsEditing = false;
 
-            ClickTimer = new Timer(300);
-            ClickTimer.Elapsed += new ElapsedEventHandler(EvaluateClicks);
+            _timer.Interval = TimeSpan.FromSeconds(0.3); //wait for the other click for 200ms
+            _timer.Tick += Timer_Tick;
         }
 
-        private System.Timers.Timer ClickTimer;
-        private int ClickCounter;
+        public int clickcount = 0;
+        public bool doublecliked = false;
 
+        private readonly System.Windows.Threading.DispatcherTimer _timer = new System.Windows.Threading.DispatcherTimer();
 
-        private void EvaluateClicks(object source, ElapsedEventArgs e)
+        private void Timer_Tick(object sender, EventArgs e)
         {
-            ClickTimer.Stop();
-            if (ClickCounter == 1)
+            _timer.Stop();
+            if(clickcount > 1)
                 IsEditing = true;
-            // Evaluate ClickCounter here
-            ClickCounter = 0;
+            Console.WriteLine("Single Click!");//handle the single click event here...
         }
 
-
-        private bool _IsEditing;
-        public bool IsEditing
+        protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            get { return _IsEditing; }
-            set
+            clickcount++;
+            if (e.ClickCount == 2)
             {
-                if(value == true)
-                    Console.WriteLine("IsEditing");
-                _IsEditing = value;
+                _timer.Stop();
+                clickcount = 1;
+                Console.WriteLine("Double Click!"); //handle the double click event here...
+                IsEditing = false;
+                doublecliked = true;
+            }
+            else
+            {
+                _timer.Start();
+                if (clickcount > 1)
+                    IsEditing = true;
+                doublecliked = false;
             }
         }
-
 
         #region PROPERTIES
         public Stopwatch Stopwatch { get; set; }
 
+        public static readonly DependencyProperty IsEditingProperty =
+        DependencyProperty.Register("IsEditing", typeof(bool), typeof(EditableTextBox), new UIPropertyMetadata(false));
+        public bool IsEditing
+        {
+            get { return (bool)GetValue(IsEditingProperty); }
+            set { SetValue(IsEditingProperty, value); }
+        }
+
         public static readonly DependencyProperty CanEditProperty =
-        DependencyProperty.Register("CanEdit", typeof(bool), typeof(EditableTextBox), new UIPropertyMetadata(false));
+        DependencyProperty.Register("CanEdit", typeof(bool), typeof(EditableTextBox), new UIPropertyMetadata(false, new PropertyChangedCallback(CanEditProperty_PropertyChanged)));
         public bool CanEdit
         {
             get { return (bool)GetValue(CanEditProperty); }
             set { SetValue(CanEditProperty, value); }
         }
 
-        //[Bindable(true)]
-        //public static readonly DependencyProperty IsEditingProperty =
-        //DependencyProperty.Register("IsEditing", typeof(bool), typeof(EditableTextBox), new UIPropertyMetadata(new PropertyChangedCallback(IsEditingProperty_PropertyChanged)));
-        //public bool IsEditing
-        //{
-        //    get { return (bool)GetValue(IsEditingProperty); }
-        //    set { SetValue(IsEditingProperty, value); }
-        //}
-
-        //private static void IsEditingProperty_PropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
-        //{
-        //    //EditableTextBox textbox = obj as EditableTextBox;
-
-        //}
+        private static void CanEditProperty_PropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+        {
+            EditableTextBox textbox = obj as EditableTextBox;
+            var canedit = (bool)e.NewValue;
+            if(!canedit)
+            {
+                textbox.clickcount = 0;
+                textbox.IsEditing = false;
+            }
+        }
 
         [Bindable(true)]
         public static readonly DependencyProperty TextProperty =
@@ -93,7 +102,6 @@ namespace CMiX.MVVM.Controls
             textbox.TextInput.Text = newtext;
         }
 
-        public int clickcount = 0;
 
         public ItemsControl _ParentItemsControl { get; set; }
         #endregion
@@ -109,25 +117,16 @@ namespace CMiX.MVVM.Controls
             }
         }
 
-        protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
-        {
-            ClickTimer.Stop();
-            ClickCounter++;
-            ClickTimer.Start();
-        }
-
         protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
         {
-            if (CanEdit && IsEditing)
+            clickcount++;
+            if (CanEdit && IsEditing && !doublecliked)
             {
                 OnSwitchToEditingMode();
                 TextInput.Focus();
                 TextInput.SelectAll();
                 e.Handled = true;
             }
-               
-            //Console.WriteLine("TimeBetweenClicks : " + timeBetweenClicks.ToString());
-            //Console.WriteLine("LastClicked : " + _LastClicked.ToString());
         }
 
         protected override void OnLostFocus(RoutedEventArgs e)
@@ -155,7 +154,6 @@ namespace CMiX.MVVM.Controls
             TextDisplay.Visibility = Visibility.Hidden;
             TextInput.Visibility = Visibility.Visible;
             HookItemsControlEvents();
-
             Text = TextInput.Text;
         }
 
@@ -164,9 +162,7 @@ namespace CMiX.MVVM.Controls
             IsEditing = false;
             TextDisplay.Text = TextInput.Text;
             TextDisplay.Visibility = Visibility.Visible;
-
             TextInput.Visibility = Visibility.Hidden;
-
             Mouse.RemovePreviewMouseDownOutsideCapturedElementHandler(this, OnMouseDownOutsideElement);
             ReleaseMouseCapture();
         }
