@@ -162,14 +162,15 @@ namespace CMiX.MVVM.ViewModels
                             {
                                 FileNameItem lbfn = new FileNameItem(MessageAddress, OSCValidation, Mementor);
                                 lbfn.FileIsSelected = false;
-                                if(FolderPath != null)
-                                {
-                                    lbfn.FileName = Utils.GetRelativePath(FolderPath, str);
-                                }
-                                else
-                                {
-                                    lbfn.FileName = str;
-                                }
+                                //if(FolderPath != null)
+                                //{
+                                //    lbfn.FileName = Utils.GetRelativePath(FolderPath, str);
+                                //}
+                                //else
+                                //{
+                                    
+                                //}
+                                lbfn.FileName = str;
                                 FilePaths.Add(lbfn);
                                 Mementor.ElementAdd(FilePaths, lbfn);
                             }

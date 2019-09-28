@@ -99,6 +99,7 @@ namespace CMiX.ViewModels
                 {
                     UpdateLayerContentFolder(layer);
                 }
+                Console.WriteLine("CONTENTFOLDER");
                 SendMessages("/ContentFolder", ContentFolderName);
             }
         }
@@ -388,6 +389,7 @@ namespace CMiX.ViewModels
             compositionmodel.MessageAddress = MessageAddress;
             compositionmodel.Name = Name;
             compositionmodel.ContentFolderName = ContentFolderName;
+
             compositionmodel.LayerID = GetLayerID();
             compositionmodel.LayerNames = GetLayerNames();
             compositionmodel.layerID = layerID;
@@ -413,6 +415,7 @@ namespace CMiX.ViewModels
             MessageAddress = compositionmodel.MessageAddress;
             Name = compositionmodel.Name;
             ContentFolderName = compositionmodel.ContentFolderName;
+
             layerID = compositionmodel.layerID;
             layerNameID = compositionmodel.layerNameID;
 

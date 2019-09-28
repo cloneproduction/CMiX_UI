@@ -7,7 +7,7 @@ namespace CMiX.MVVM.ViewModels
         public OSCValidation(OSCMessenger oscmessenger)
         {
             OSCMessenger = oscmessenger;
-            SendEnabled = false;
+            SendEnabled = true;
         }
         private OSCMessenger _oscmessenger;
         public OSCMessenger OSCMessenger

@@ -1,6 +1,4 @@
-﻿//using CMiX.Services;
-using CMiX.MVVM.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace CMiX.MVVM.Models
 {
@@ -11,7 +9,6 @@ namespace CMiX.MVVM.Models
             CompositionModel = new List<CompositionModel>();
         }
 
-        //[OSC]
         public List<CompositionModel> CompositionModel { get; set; }
     }
 }

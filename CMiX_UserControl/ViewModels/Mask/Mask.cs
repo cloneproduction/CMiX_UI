@@ -15,8 +15,8 @@ namespace CMiX.ViewModels
             : base (oscvalidation, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Mask));
-            MaskType = ((MaskType)0).ToString();
-            MaskControlType = ((MaskControlType)0).ToString();
+            MaskType = ((MaskType)2).ToString();
+            MaskControlType = ((MaskControlType)1).ToString();
             Enable = false;
 
             BeatModifier = new BeatModifier(MessageAddress, masterbeat, oscvalidation, mementor);
