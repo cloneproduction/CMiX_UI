@@ -61,8 +61,8 @@ namespace CMiX.MVVM.ViewModels
             DisabledMessages();
 
             MessageAddress = filenameitemmodel.MessageAddress;
-            FileIsSelected = filenameitemmodel.FileIsSelected;
             FileName = filenameitemmodel.FileName;
+            FileIsSelected = filenameitemmodel.FileIsSelected;
 
             EnabledMessages();
         }

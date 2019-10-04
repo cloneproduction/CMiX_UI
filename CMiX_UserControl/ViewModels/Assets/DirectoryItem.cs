@@ -1,7 +1,5 @@
 ﻿using CMiX.MVVM.ViewModels;
-using System;
 using System.Collections.ObjectModel;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace CMiX.ViewModels
@@ -25,22 +23,17 @@ namespace CMiX.ViewModels
 
         private void PreviewMouseUp()
         {
-            if (CanEdit)
-                IsEditing = true;
-            //Console.WriteLine("Preview MouseUp"); //handle the double click event here...
+
         }
 
         private void DoubleClick(object obj)
         {
-            //Console.WriteLine("Double Click!"); //handle the double click event here...
-            DirectoryItem DItem = obj as DirectoryItem;
+
         }
 
         private void SingleClick(object obj)
         {
-            //Console.WriteLine("Single Click!"); //handle the double click event here...
-            DirectoryItem DItem = obj as DirectoryItem;
-            DItem.CanEdit = true;
+
         }
 
         private bool _canEdit;
@@ -50,7 +43,6 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _canEdit, value);
-                Console.WriteLine("CanEdit " + CanEdit.ToString());
             }
         }
 
@@ -61,7 +53,6 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _isEditing, value);
-                Console.WriteLine("IsEditing " + IsEditing.ToString());
             }
         }
 
@@ -72,20 +63,10 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _isExpanded, value);
-                Console.WriteLine("IsExpanded " + IsExpanded.ToString());
             }
         }
 
-        private bool _isSelected;
-        public bool IsSelected
-        {
-            get => _isSelected;
-            set
-            {
-                SetAndNotify(ref _isSelected, value);
-                Console.WriteLine("IsSelected " + IsSelected.ToString());
-            }
-        }
+
 
         private ObservableCollection<Item> _items;
         public ObservableCollection<Item> Items

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using CMiX.MVVM.ViewModels;
 
 namespace CMiX.ViewModels
@@ -18,15 +13,21 @@ namespace CMiX.ViewModels
         public string Path
         {
             get { return _path; }
-            set { _path = value; }
+            set => SetAndNotify(ref _path, value);
         }
 
         private string _name;
         public string Name
         {
             get { return _name; }
-            set { _name = value; }
+            set => SetAndNotify(ref _name, value);
         }
 
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set => SetAndNotify(ref _isSelected, value);
+        }
     }
 }

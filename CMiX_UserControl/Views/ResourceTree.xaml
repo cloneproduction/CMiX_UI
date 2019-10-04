@@ -18,7 +18,7 @@
         <ResourceDictionary>
             <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
             
-            <DataTemplate x:Key="NormalTemplate">
+            <!--<DataTemplate x:Key="NormalTemplate">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding Path=Name}" Margin="3">
                         <i:Interaction.Triggers>
@@ -40,7 +40,7 @@
                         </i:Interaction.Triggers>
                     </TextBox>
                 </StackPanel>
-            </DataTemplate>
+            </DataTemplate>-->
 
             <HierarchicalDataTemplate DataType="{x:Type ViewModels:DirectoryItem}" ItemsSource="{Binding Items}">
                 <Border HorizontalAlignment="Stretch" BorderThickness="1" BorderBrush="{StaticResource Color}">
@@ -48,16 +48,52 @@
                         <Style TargetType="{x:Type Border}">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                    <Setter Property="Background" Value="Red"/>
+                                    <Setter Property="Background" Value="{StaticResource LightColor}"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
-                    <!--<TextBlock Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
-                    <Controls:EditableTextBox 
+                    <StackPanel>
+                        <StackPanel.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem
+                                    Padding="8, 4"
+                                    Foreground="{StaticResource TextBase}"
+                                    Command="{Binding Data.RenameCommand, Source={StaticResource proxy}}">
+                                    <MenuItem.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Width="10" Height="10" Source="{StaticResource Copy}" />
+                                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                            <TextBlock Text="Rename"/>
+                                        </StackPanel>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                            </ContextMenu>
+                        </StackPanel.ContextMenu>
+                        <Controls:EditableTextBox 
                         HorizontalAlignment="Stretch" 
                         Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        CanEdit="{Binding IsEditing, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        CanEdit="{Binding CanEdit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        IsEditing="{Binding IsEditing, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <Controls:EditableTextBox.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem
+                                Padding="8, 4"
+                                Foreground="{StaticResource TextBase}"
+                                Command="{Binding Data.RenameCommand, Source={StaticResource proxy}}">
+                                        <MenuItem.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Width="10" Height="10" Source="{StaticResource Copy}" />
+                                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                                <TextBlock Text="Rename"/>
+                                            </StackPanel>
+                                        </MenuItem.Header>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </Controls:EditableTextBox.ContextMenu>
+                        </Controls:EditableTextBox>
+                    </StackPanel>
+                    
                 </Border>
             </HierarchicalDataTemplate>
 
@@ -78,23 +114,6 @@
     </UserControl.Resources>
 
     <Border Style="{StaticResource BorderContainer}">
-        <Border.ContextMenu>
-            <ContextMenu>
-                <MenuItem
-                    Padding="8, 4"
-                    Foreground="{StaticResource TextBase}"
-                    Command="{Binding Data.AddNewFolderCommand, Source={StaticResource proxy}}">
-                    <MenuItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Width="10" Height="10" Source="{StaticResource Copy}" />
-                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                            <TextBlock Text="Add New Folder"/>
-                        </StackPanel>
-                    </MenuItem.Header>
-                </MenuItem>
-            </ContextMenu>
-        </Border.ContextMenu>
-
         <DockPanel>
             <Border 
                 DockPanel.Dock="Top"
@@ -108,7 +127,18 @@
                     />
             </Border>
 
-
+            <Border 
+                DockPanel.Dock="Top"
+                Margin="0, 0, 0 4"
+                Height="25">
+                <Button
+                    VerticalAlignment="Center"
+                    Margin="4, 0, 0, 0"
+                    Content="New Folder"
+                    Command="{Binding AddNewFolderCommand}"
+                    Foreground="{StaticResource TextBase}"
+                    />
+            </Border>
             <TreeView 
                 Background="Transparent"
                 AllowDrop="True"
@@ -117,15 +147,21 @@
                 dd:DragDrop.DragHandler="{Binding}"
                 dd:DragDrop.DropHandler="{Binding}"
                 ItemsSource="{Binding ResourceItems}">
+                <i:Interaction.Behaviors>
+                    <Behaviors:BindableSelectedItemBehavior SelectedItem="{Binding SelectedItem, Mode=TwoWay}"/>
+                </i:Interaction.Behaviors>
+                
                 <TreeView.ItemContainerStyle>
                     <Style TargetType="{x:Type TreeViewItem}">
-                        <Setter Property="IsSelected" Value="{Binding IsSelected}" />
-                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=OneWay}"/>
-                        <Setter Property="Behaviors:TreeViewItemClickBehavior.SingleClickCommand" Value="{Binding SingleClickCommand}"/>
+                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <EventSetter Event="PreviewMouseRightButtonDown" Handler="treeView_PreviewMouseRightButtonDown" />
+
+                        <!--<Setter Property="Behaviors:TreeViewItemClickBehavior.SingleClickCommand" Value="{Binding SingleClickCommand}"/>
                         <Setter Property="Behaviors:TreeViewItemClickBehavior.SingleClickCommandParameter" Value="{Binding}"/>
                         <Setter Property="Behaviors:TreeViewItemClickBehavior.DoubleClickCommand" Value="{Binding DoubleClickCommand}"/>
                         <Setter Property="Behaviors:TreeViewItemClickBehavior.DoubleClickCommandParameter" Value="{Binding}"/>
-                        <Setter Property="Behaviors:TreeViewItemClickBehavior.PreviewMouseUpCommand" Value="{Binding PreviewMouseUpCommand}"/>
+                        <Setter Property="Behaviors:TreeViewItemClickBehavior.PreviewMouseUpCommand" Value="{Binding PreviewMouseUpCommand}"/>-->
                         <!--<Setter Property="commandBehaviors:MouseDoubleClick.CommandParameter"
                     Value="{Binding}"/>-->
                     </Style>

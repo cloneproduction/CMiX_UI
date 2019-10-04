@@ -291,6 +291,8 @@ namespace CMiX.MVVM.ViewModels
             {
                 FileNameItem filenameitem = new FileNameItem(MessageAddress, OSCValidation, Mementor);
                 filenameitem.Paste(item);
+                if (filenameitem.FileIsSelected)
+                    this.SelectedFileNameItem = filenameitem;
                 //filenameitem.UpdateMessageAddress(MessageAddress);
                 FilePaths.Add(filenameitem);
             }

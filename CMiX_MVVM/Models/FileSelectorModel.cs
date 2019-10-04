@@ -9,7 +9,7 @@ namespace CMiX.MVVM.Models
         public FileSelectorModel()
         {
             FilePaths = new List<FileNameItemModel>();
-            SelectedFileNameItem = new FileNameItemModel();
+            //SelectedFileNameItem = new FileNameItemModel();
         }
 
         public FileSelectorModel(string messageaddress) 
@@ -22,6 +22,6 @@ namespace CMiX.MVVM.Models
 
         public List<FileNameItemModel> FilePaths { get; set; }
 
-        public FileNameItemModel SelectedFileNameItem { get; set; }
+        //public FileNameItemModel SelectedFileNameItem { get; set; }
     }
 }

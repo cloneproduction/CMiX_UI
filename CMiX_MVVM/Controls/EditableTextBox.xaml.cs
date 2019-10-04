@@ -15,81 +15,44 @@ namespace CMiX.MVVM.Controls
             InitializeComponent();
             TextInput.Visibility = Visibility.Hidden;
             TextDisplay.Visibility = Visibility.Visible;
-
-            IsEditing = false;
-
-            //_timer.Interval = TimeSpan.FromSeconds(0.3); //wait for the other click for 200ms
-            //_timer.Tick += Timer_Tick;
         }
 
-        public int clickcount = 0;
-        public bool doublecliked = false;
-
-        //private readonly System.Windows.Threading.DispatcherTimer _timer = new System.Windows.Threading.DispatcherTimer();
-
-        //private void Timer_Tick(object sender, EventArgs e)
-        //{
-        //    _timer.Stop();
-        //    if(clickcount > 1)
-        //        IsEditing = true;
-        //    Console.WriteLine("Single Click!");//handle the single click event here...
-        //}
-
-        //protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
-        //{
-        //    //clickcount++;
-        //    //if (e.ClickCount == 2)
-        //    //{
-        //    //    _timer.Stop();
-        //    //    clickcount = 1;
-        //    //    Console.WriteLine("Double Click!"); //handle the double click event here...
-        //    //    IsEditing = false;
-        //    //    doublecliked = true;
-        //    //}
-        //    //else
-        //    //{
-        //    //    _timer.Start();
-        //    //    if (clickcount > 1)
-        //    //        IsEditing = true;
-        //    //    doublecliked = false;
-        //    //}
-        //}
-
         #region PROPERTIES
-        //public Stopwatch Stopwatch { get; set; }
-
         public static readonly DependencyProperty IsEditingProperty =
-        DependencyProperty.Register("IsEditing", typeof(bool), typeof(EditableTextBox), new UIPropertyMetadata(false));
+        DependencyProperty.Register("IsEditing", typeof(bool), typeof(EditableTextBox), new UIPropertyMetadata(false, new PropertyChangedCallback(IsEditing_PropertyChanged)));
         public bool IsEditing
         {
             get { return (bool)GetValue(IsEditingProperty); }
             set { SetValue(IsEditingProperty, value); }
         }
 
+        private static void IsEditing_PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            EditableTextBox textbox = d as EditableTextBox;
+            textbox.OnSwitchToEditingMode();
+            textbox.TextInput.Focus();
+            textbox.TextInput.SelectAll();
+            Console.WriteLine("POUETPOUET");
+            //
+            //if (textbox.CanEdit)
+            //{
+
+            //}
+            //else
+            //{
+            //    textbox.OnSwitchToNormalMode();
+            //}
+        }
+
+
         public static readonly DependencyProperty CanEditProperty =
-        DependencyProperty.Register("CanEdit", typeof(bool), typeof(EditableTextBox), new UIPropertyMetadata(false, new PropertyChangedCallback(CanEditProperty_PropertyChanged)));
+        DependencyProperty.Register("CanEdit", typeof(bool), typeof(EditableTextBox), new UIPropertyMetadata(false));
         public bool CanEdit
         {
             get { return (bool)GetValue(CanEditProperty); }
             set { SetValue(CanEditProperty, value); }
         }
 
-        private static void CanEditProperty_PropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
-        {
-            EditableTextBox textbox = obj as EditableTextBox;
-            Console.WriteLine("CanEditChanged " + textbox.CanEdit.ToString());
-            
-            if (textbox.CanEdit)
-            {
-                textbox.OnSwitchToEditingMode();
-                textbox.TextInput.Focus();
-                textbox.TextInput.SelectAll();
-            }
-            else
-            {
-                textbox.OnSwitchToNormalMode();
-            }
-        }
 
         [Bindable(true)]
         public static readonly DependencyProperty TextProperty =
@@ -153,7 +116,7 @@ namespace CMiX.MVVM.Controls
 
         private void OnSwitchToNormalMode(bool bCancelEdit = true)
         {
-            CanEdit = false;
+            IsEditing = false;
             TextDisplay.Text = TextInput.Text;
             TextDisplay.Visibility = Visibility.Visible;
             TextInput.Visibility = Visibility.Hidden;

@@ -182,7 +182,6 @@ namespace CMiX.ViewModels
         {
             if(SelectedComposition != null && !EditableCompositions.Contains(SelectedComposition))
             {
-                System.Console.WriteLine("Edit");
                 var compo = SelectedComposition;
                 EditableCompositions.Add(compo);
                 SelectedEditableComposition = compo;

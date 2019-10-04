@@ -402,6 +402,7 @@ namespace CMiX.ViewModels
                 compositionmodel.LayersModel.Add(layermodel);
             }
 
+            SelectedLayer.Copy(compositionmodel.SelectedLayer);
             MasterBeat.Copy(compositionmodel.MasterBeatModel);
             Camera.Copy(compositionmodel.CameraModel);
             Transition.Copy(compositionmodel.TransitionModel);
@@ -419,6 +420,7 @@ namespace CMiX.ViewModels
             layerID = compositionmodel.layerID;
             layerNameID = compositionmodel.layerNameID;
 
+
             foreach (LayerModel layermodel in compositionmodel.LayersModel)
             {
                 Layer layer = new Layer(MasterBeat, CreateLayerName(), OSCValidation, Mementor);
@@ -426,6 +428,7 @@ namespace CMiX.ViewModels
                 Layers.Add(layer);
             }
 
+            //SelectedLayer.Paste(compositionmodel.SelectedLayer);
             MasterBeat.Paste(compositionmodel.MasterBeatModel);
             Camera.Paste(compositionmodel.CameraModel);
             Transition.Paste(compositionmodel.TransitionModel);

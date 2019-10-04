@@ -103,8 +103,8 @@ namespace CMiX.Behaviors
         }
 
         public static readonly DependencyProperty PreviewMouseUpCommand = DependencyProperty.RegisterAttached("PreviewMouseUpCommand",
-    typeof(ICommand), typeof(TreeViewItemClickBehavior),
-    new UIPropertyMetadata(null, PreviewMouseUpCommandChange));
+        typeof(ICommand), typeof(TreeViewItemClickBehavior),
+        new UIPropertyMetadata(null, PreviewMouseUpCommandChange));
 
         public static object GetPreviewMouseUpCommandParameter(DependencyObject obj)
         {
@@ -145,17 +145,17 @@ namespace CMiX.Behaviors
             if (command != null)
             {
                 command.Execute(e);
-                
             }
             e.Handled = true;
         }
 
         private static void CommandChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            var targetElement = sender as UIElement;
+            var targetElement = sender as TreeViewItem;
 
             if (targetElement != null)
             {
+                
                 //remove any existing handlers 
                 targetElement.RemoveHandler(UIElement.PreviewMouseLeftButtonDownEvent, new MouseButtonEventHandler(element_MouseLeftButtonDown));
                 //use AddHandler to be able to listen to handled events 
@@ -167,7 +167,7 @@ namespace CMiX.Behaviors
                 if (timer == null)
                 {
                     timer = new DispatcherTimer() { IsEnabled = false };
-                    timer.Interval = TimeSpan.FromSeconds(0.3);
+                    timer.Interval = TimeSpan.FromSeconds(0.2);
                     timer.Tick += (s, args) =>
                     {
                         //if the interval has been reached without a second click then execute the SingClickCommand  
@@ -193,8 +193,7 @@ namespace CMiX.Behaviors
         private static void element_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var targetElement = sender as TreeViewItem;
-
-            if (targetElement != null && targetElement.IsSelected)
+            if (targetElement != null)
             {
                 var timer = GetClickWaitTimer(targetElement);
 
@@ -214,7 +213,6 @@ namespace CMiX.Behaviors
                             command.Execute(commandParameter);
                         }
                     }
-                    
                 }
                 else
                 {
