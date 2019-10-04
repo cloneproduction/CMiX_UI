@@ -71,21 +71,46 @@
                             </ContextMenu>
                         </StackPanel.ContextMenu>
                         <Controls:EditableTextBox 
-                        HorizontalAlignment="Stretch" 
-                        Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        CanEdit="{Binding CanEdit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        IsEditing="{Binding IsEditing, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            HorizontalAlignment="Stretch" 
+                            Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            CanEdit="{Binding CanEdit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            IsEditing="{Binding IsEditing, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <Controls:EditableTextBox.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem
-                                Padding="8, 4"
-                                Foreground="{StaticResource TextBase}"
-                                Command="{Binding Data.RenameCommand, Source={StaticResource proxy}}">
+                                        Padding="8, 4"
+                                        Foreground="{StaticResource TextBase}"
+                                        Command="{Binding Data.AddNewFolderCommand, Source={StaticResource proxy}}">
+                                        <MenuItem.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Width="10" Height="10" Source="{StaticResource Copy}" />
+                                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                                <TextBlock Text="Add"/>
+                                            </StackPanel>
+                                        </MenuItem.Header>
+                                    </MenuItem>
+                                    <MenuItem
+                                        Padding="8, 4"
+                                        Foreground="{StaticResource TextBase}"
+                                        Command="{Binding Data.RenameFolderCommand, Source={StaticResource proxy}}">
                                         <MenuItem.Header>
                                             <StackPanel Orientation="Horizontal">
                                                 <Image Width="10" Height="10" Source="{StaticResource Copy}" />
                                                 <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                                                 <TextBlock Text="Rename"/>
+                                            </StackPanel>
+                                        </MenuItem.Header>
+                                    </MenuItem>
+                                    
+                                    <MenuItem
+                                        Padding="8, 4"
+                                        Foreground="{StaticResource TextBase}"
+                                        Command="{Binding Data.DeleteItemCommand, Source={StaticResource proxy}}">
+                                        <MenuItem.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Width="10" Height="10" Source="{StaticResource Copy}" />
+                                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                                <TextBlock Text="Delete"/>
                                             </StackPanel>
                                         </MenuItem.Header>
                                     </MenuItem>

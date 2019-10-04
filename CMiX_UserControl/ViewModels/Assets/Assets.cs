@@ -17,7 +17,14 @@ namespace CMiX.ViewModels
             TextureItems = new ObservableCollection<TextureItem>();
             ResourceItems = new ObservableCollection<Item>();// GetItems("C:\\Users\\BabyClone\\Google Drive");
             AddNewFolderCommand = new RelayCommand(p => AddNewFolder());
-            RenameCommand = new RelayCommand(p => Rename());
+            RenameFolderCommand = new RelayCommand(p => RenameFolder());
+            DeleteItemCommand = new RelayCommand(p => DeleteItem());
+        }
+
+        private void DeleteItem()
+        {
+            if (SelectedItem != null)
+                ResourceItems.Remove(SelectedItem);
         }
 
         public void AddNewFolder()
@@ -29,21 +36,27 @@ namespace CMiX.ViewModels
                 //Path = directory.FullName,
                 //Items = GetItems(directory.FullName)
             };
-            ResourceItems.Add(item);
+
+            if (SelectedItem != null)
+            {
+                ResourceItems.Insert(ResourceItems.IndexOf(SelectedItem), item);
+            }
+            else
+                ResourceItems.Add(item);
         }
 
-        private void Rename()
+        private void RenameFolder()
         {
             if(SelectedItem is DirectoryItem)
             {
-                Console.WriteLine("DirectoryItem Is Selected");
                 DirectoryItem dirItem = SelectedItem as DirectoryItem;
                 dirItem.IsEditing = true;
             }
         }
 
-        public ICommand RenameCommand { get; set; }
+        public ICommand RenameFolderCommand { get; set; }
         public ICommand AddNewFolderCommand { get; set; }
+        public ICommand DeleteItemCommand { get; set; }
 
         private Item _selectedItem;
         public Item SelectedItem
