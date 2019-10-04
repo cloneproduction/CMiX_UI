@@ -20,7 +20,6 @@ namespace CMiX.ViewModels
             AddNewFolderCommand = new RelayCommand(p => AddNewFolder());
         }
 
-
         public void AddNewFolder()
         {
             var item = new DirectoryItem

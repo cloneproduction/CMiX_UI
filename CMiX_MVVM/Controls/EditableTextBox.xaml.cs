@@ -18,45 +18,45 @@ namespace CMiX.MVVM.Controls
 
             IsEditing = false;
 
-            _timer.Interval = TimeSpan.FromSeconds(0.3); //wait for the other click for 200ms
-            _timer.Tick += Timer_Tick;
+            //_timer.Interval = TimeSpan.FromSeconds(0.3); //wait for the other click for 200ms
+            //_timer.Tick += Timer_Tick;
         }
 
         public int clickcount = 0;
         public bool doublecliked = false;
 
-        private readonly System.Windows.Threading.DispatcherTimer _timer = new System.Windows.Threading.DispatcherTimer();
+        //private readonly System.Windows.Threading.DispatcherTimer _timer = new System.Windows.Threading.DispatcherTimer();
 
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            _timer.Stop();
-            if(clickcount > 1)
-                IsEditing = true;
-            Console.WriteLine("Single Click!");//handle the single click event here...
-        }
+        //private void Timer_Tick(object sender, EventArgs e)
+        //{
+        //    _timer.Stop();
+        //    if(clickcount > 1)
+        //        IsEditing = true;
+        //    Console.WriteLine("Single Click!");//handle the single click event here...
+        //}
 
-        protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
-        {
-            clickcount++;
-            if (e.ClickCount == 2)
-            {
-                _timer.Stop();
-                clickcount = 1;
-                Console.WriteLine("Double Click!"); //handle the double click event here...
-                IsEditing = false;
-                doublecliked = true;
-            }
-            else
-            {
-                _timer.Start();
-                if (clickcount > 1)
-                    IsEditing = true;
-                doublecliked = false;
-            }
-        }
+        //protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
+        //{
+        //    //clickcount++;
+        //    //if (e.ClickCount == 2)
+        //    //{
+        //    //    _timer.Stop();
+        //    //    clickcount = 1;
+        //    //    Console.WriteLine("Double Click!"); //handle the double click event here...
+        //    //    IsEditing = false;
+        //    //    doublecliked = true;
+        //    //}
+        //    //else
+        //    //{
+        //    //    _timer.Start();
+        //    //    if (clickcount > 1)
+        //    //        IsEditing = true;
+        //    //    doublecliked = false;
+        //    //}
+        //}
 
         #region PROPERTIES
-        public Stopwatch Stopwatch { get; set; }
+        //public Stopwatch Stopwatch { get; set; }
 
         public static readonly DependencyProperty IsEditingProperty =
         DependencyProperty.Register("IsEditing", typeof(bool), typeof(EditableTextBox), new UIPropertyMetadata(false));
@@ -77,11 +77,17 @@ namespace CMiX.MVVM.Controls
         private static void CanEditProperty_PropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
             EditableTextBox textbox = obj as EditableTextBox;
-            var canedit = (bool)e.NewValue;
-            if(!canedit)
+            Console.WriteLine("CanEditChanged " + textbox.CanEdit.ToString());
+            
+            if (textbox.CanEdit)
             {
-                textbox.clickcount = 0;
-                textbox.IsEditing = false;
+                textbox.OnSwitchToEditingMode();
+                textbox.TextInput.Focus();
+                textbox.TextInput.SelectAll();
+            }
+            else
+            {
+                textbox.OnSwitchToNormalMode();
             }
         }
 
@@ -117,18 +123,6 @@ namespace CMiX.MVVM.Controls
             }
         }
 
-        protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
-        {
-            clickcount++;
-            if (CanEdit && IsEditing && !doublecliked)
-            {
-                OnSwitchToEditingMode();
-                TextInput.Focus();
-                TextInput.SelectAll();
-                e.Handled = true;
-            }
-        }
-
         protected override void OnLostFocus(RoutedEventArgs e)
         {
             OnSwitchToNormalMode();
@@ -159,7 +153,7 @@ namespace CMiX.MVVM.Controls
 
         private void OnSwitchToNormalMode(bool bCancelEdit = true)
         {
-            IsEditing = false;
+            CanEdit = false;
             TextDisplay.Text = TextInput.Text;
             TextDisplay.Visibility = Visibility.Visible;
             TextInput.Visibility = Visibility.Hidden;

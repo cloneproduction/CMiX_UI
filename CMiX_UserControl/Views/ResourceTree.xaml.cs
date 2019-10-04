@@ -9,5 +9,18 @@ namespace CMiX.Views
         {
             InitializeComponent();
         }
+
+        //protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
+        //{
+            
+        //    e.Handled = true;
+        //    base.OnMouseDoubleClick(e);
+        //}
+
+        //protected override void OnPreviewMouseUp (MouseButtonEventArgs e)
+        //{
+        //    base.OnPreviewMouseUp(e);
+        //    e.Handled = true;
+        //}
     }
 }
