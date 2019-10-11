@@ -68,6 +68,7 @@
     <Compile Include="Controls\EditableTextBox.xaml.cs">
       <DependentUpon>EditableTextBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\ModifierModel.cs" />
     <Compile Include="_Trash\HueWheel.cs" />
     <Compile Include="Controls\IPBox.xaml.cs">
       <DependentUpon>IPBox.xaml</DependentUpon>
@@ -340,6 +341,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Folder.png" />
+    <Resource Include="Assets\Folder_Opened.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

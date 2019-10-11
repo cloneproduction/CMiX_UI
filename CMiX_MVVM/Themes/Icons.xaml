@@ -20,4 +20,7 @@
     <BitmapImage x:Key="BrightnessContrast" UriSource="pack://application:,,,/CMiX_MVVM;component/Assets/BC.png"/>
     <BitmapImage x:Key="TexTransform" UriSource="pack://application:,,,/CMiX_MVVM;component/Assets/Size.png"/>
     <BitmapImage x:Key="Edit" UriSource="pack://application:,,,/CMiX_MVVM;component/Assets/Edit.png"/>
+
+    <BitmapImage x:Key="Folder" UriSource="pack://application:,,,/CMiX_MVVM;component/Assets/Folder.png"/>
+    <BitmapImage x:Key="Folder_Opened" UriSource="pack://application:,,,/CMiX_MVVM;component/Assets/Folder_Opened.png"/>
 </ResourceDictionary>

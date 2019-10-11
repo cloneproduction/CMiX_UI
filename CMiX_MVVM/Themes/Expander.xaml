@@ -56,15 +56,6 @@
                                         </TransformGroup.Children>
                                     </TransformGroup>
                                 </Grid.LayoutTransform>
-                                <Ellipse 
-                                    x:Name="circle" 
-                                    Fill="{StaticResource Expander.Static.Circle.Fill}" 
-                                    HorizontalAlignment="Center" 
-                                    Height="19" 
-                                    Stroke="{StaticResource Expander.Static.Circle.Stroke}" 
-                                    VerticalAlignment="Center" 
-                                    Width="19"
-                                    />
                                 <Path 
                                     x:Name="arrow" 
                                     Data="M 1,1.5 L 4.5,5 L 8,1.5" 
@@ -87,19 +78,12 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.MouseOver.Circle.Stroke}"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.MouseOver.Circle.Fill}"/>
                             <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.MouseOver.Arrow.Stroke}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.Pressed.Circle.Stroke}"/>
-                            <Setter Property="StrokeThickness" TargetName="circle" Value="1.5"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.Pressed.Circle.Fill}"/>
                             <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Pressed.Arrow.Stroke}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.Disabled.Circle.Stroke}"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.Disabled.Circle.Fill}"/>
                             <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Disabled.Arrow.Stroke}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -128,15 +112,6 @@
                                         </TransformGroup.Children>
                                     </TransformGroup>
                                 </Grid.LayoutTransform>
-                                <Ellipse 
-                                    x:Name="circle" 
-                                    Fill="{StaticResource Expander.Static.Circle.Fill}" 
-                                    HorizontalAlignment="Center" 
-                                    Height="19" 
-                                    Stroke="{StaticResource Expander.Static.Circle.Stroke}" 
-                                    VerticalAlignment="Center" 
-                                    Width="19"
-                                    />
                                 <Path 
                                     x:Name="arrow" 
                                     Data="M 1,1.5 L 4.5,5 L 8,1.5" 
@@ -162,18 +137,12 @@
                             <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.MouseOver.Circle.Stroke}"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.MouseOver.Circle.Fill}"/>
                             <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.MouseOver.Arrow.Stroke}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.Pressed.Circle.Stroke}"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.Pressed.Circle.Fill}"/>
                             <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Pressed.Arrow.Stroke}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.Disabled.Circle.Stroke}"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.Disabled.Circle.Fill}"/>
                             <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Disabled.Arrow.Stroke}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -202,15 +171,6 @@
                                         </TransformGroup.Children>
                                     </TransformGroup>
                                 </Grid.LayoutTransform>
-                                <Ellipse 
-                                    x:Name="circle" 
-                                    Fill="{StaticResource Expander.Static.Circle.Fill}" 
-                                    HorizontalAlignment="Center" 
-                                    Height="19" 
-                                    Stroke="{StaticResource Expander.Static.Circle.Stroke}" 
-                                    VerticalAlignment="Center" 
-                                    Width="19"
-                                    />
                                 <Path 
                                     x:Name="arrow" 
                                     Data="M 1,1.5 L 4.5,5 L 8,1.5" 
@@ -236,18 +196,12 @@
                             <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.MouseOver.Circle.Stroke}"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.MouseOver.Circle.Fill}"/>
                             <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.MouseOver.Arrow.Stroke}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.Pressed.Circle.Stroke}"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.Pressed.Circle.Fill}"/>
                             <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Pressed.Arrow.Stroke}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.Disabled.Circle.Stroke}"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.Disabled.Circle.Fill}"/>
                             <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Disabled.Arrow.Stroke}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -260,36 +214,29 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
-                    <Border Padding="{TemplateBinding Padding}">
+                    <Border 
+                        x:Name="mainBorder"
+                        CornerRadius="4" 
+                        Padding="4" 
+                        Background="{StaticResource DarkColor}" >
                         <Grid 
-                            Background="Transparent" 
                             SnapsToDevicePixels="False">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="19"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Ellipse 
-                                x:Name="circle" 
-                                Fill="{StaticResource Expander.Static.Circle.Fill}" 
-                                HorizontalAlignment="Center" 
-                                Height="19" 
-                                Stroke="{StaticResource Expander.Static.Circle.Stroke}" 
-                                VerticalAlignment="Center" 
-                                Width="19"
-                                />
                             <Path 
                                 x:Name="arrow" 
                                 Data="M 1,1.5 L 4.5,5 L 8,1.5" 
                                 HorizontalAlignment="Center" 
                                 SnapsToDevicePixels="false" 
-                                Stroke="{StaticResource Expander.Static.Arrow.Stroke}" 
+                                Stroke="{StaticResource TextBase}" 
                                 StrokeThickness="2" 
                                 VerticalAlignment="Center"
                                 />
                             <ContentPresenter 
                                 Grid.Column="1" 
                                 HorizontalAlignment="Left" 
-                                Margin="4,0,0,0" 
                                 RecognizesAccessKey="True" 
                                 SnapsToDevicePixels="True" 
                                 VerticalAlignment="Center"
@@ -299,22 +246,17 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="true">
                             <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
+                            <Setter Property="CornerRadius" TargetName="mainBorder" Value="4, 4, 0, 0"/>
                         </Trigger>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.MouseOver.Circle.Stroke}"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.MouseOver.Circle.Fill}"/>
+                        <!--<Trigger Property="IsMouseOver" Value="true">
                             <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.MouseOver.Arrow.Stroke}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.Pressed.Circle.Stroke}"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.Pressed.Circle.Fill}"/>
                             <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Pressed.Arrow.Stroke}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.Disabled.Circle.Stroke}"/>
-                            <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.Disabled.Circle.Fill}"/>
                             <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Disabled.Arrow.Stroke}"/>
-                        </Trigger>
+                        </Trigger>-->
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -327,15 +269,15 @@
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Stretch"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
-        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Expander}">
                     <Border 
+                        CornerRadius="4"
+                        Background="{StaticResource DarkerColor}"
                         BorderBrush="{TemplateBinding BorderBrush}" 
                         BorderThickness="{TemplateBinding BorderThickness}" 
-                        Background="{TemplateBinding Background}" 
-                        CornerRadius="3" 
                         SnapsToDevicePixels="true">
                         <DockPanel>
                             <ToggleButton 
@@ -344,7 +286,7 @@
                                 ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" 
                                 Content="{TemplateBinding Header}" 
                                 DockPanel.Dock="Top" 
-                                Foreground="{TemplateBinding Foreground}" 
+                                Foreground="{StaticResource TextBase}"
                                 FontWeight="{TemplateBinding FontWeight}" 
                                 FocusVisualStyle="{StaticResource ExpanderHeaderFocusVisual}" 
                                 FontStyle="{TemplateBinding FontStyle}" 
@@ -353,7 +295,6 @@
                                 FontFamily="{TemplateBinding FontFamily}" 
                                 HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
                                 IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" 
-                                Margin="1" 
                                 MinWidth="0" 
                                 MinHeight="0" 
                                 Padding="{TemplateBinding Padding}" 

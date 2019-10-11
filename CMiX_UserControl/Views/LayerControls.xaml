@@ -5,8 +5,8 @@
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="902.222"
-    d:DesignWidth="1403.739"
+    d:DesignHeight="612.222"
+    d:DesignWidth="1419.739"
     mc:Ignorable="d">
     <Border
         BorderBrush="{StaticResource DarkerColor}"

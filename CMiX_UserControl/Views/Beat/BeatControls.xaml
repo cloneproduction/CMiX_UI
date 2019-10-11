@@ -9,41 +9,58 @@
     d:DesignHeight="46.5"
     d:DesignWidth="226.667"
     mc:Ignorable="d">
-    <StackPanel Orientation="Horizontal">
-        <Button
-            DockPanel.Dock="Left"
-            Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
-            Margin="0, 0, 2, 0"
-            Command="{Binding Path=ResetCommand}"
-            Style="{StaticResource ButtonImage}">
-            <Button.Content>
-                <Image Margin="15" Source="{StaticResource Reset}"/>
-            </Button.Content>
-        </Button>
-        <Button
+    <Grid 
+        Height="20" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="35"/>
+            </Grid.ColumnDefinitions>
+        <TextBlock 
+            Padding="2, 0, 0, 0"
+            TextTrimming="CharacterEllipsis" 
+            Text="Multi"  
+            FontSize="10" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Center" 
+            Foreground="{StaticResource TextBase}"/>
+        <DockPanel Grid.ColumnSpan="2" Grid.Column="1" LastChildFill="True">
+            <Button
+                DockPanel.Dock="Right"
+                Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+                Command="{Binding Path=ResetCommand}"
+                Style="{StaticResource ButtonImage}">
+                <Button.Content>
+                    <Image Margin="15" Source="{StaticResource Reset}"/>
+                </Button.Content>
+            </Button>
+            <Button
+            Margin="0, 0, 1, 0"
             DockPanel.Dock="Left"
             Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
             Command="{Binding Path=DivideCommand}"
             Content="-"
             IsDefault="True"
             />
-        <Button
+            <Button
             Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
-            Margin="2, 0"
+            Margin="1, 0"
             Command="{Binding Path=MultiplyCommand}"
             Content="+"
-            DockPanel.Dock="Left"
+            DockPanel.Dock="Right"
             IsDefault="True"
             />
-        <Border
-            Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+            <Border
             HorizontalAlignment="Stretch"
             Background="{StaticResource DarkColor}">
-            <TextBlock 
+                <TextBlock 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center"
                 Foreground="{StaticResource TextBase}" 
                 Text="{Binding BPM, Mode=OneWay, StringFormat=F0}" />
-        </Border>
-    </StackPanel>
+            </Border>
+        </DockPanel>
+
+    </Grid>
+
 </UserControl>

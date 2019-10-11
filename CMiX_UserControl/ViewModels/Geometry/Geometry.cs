@@ -12,9 +12,10 @@ namespace CMiX.ViewModels
     public class Geometry : ViewModel
     {
         #region CONSTRUCTORS
-        public Geometry(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor) : base (oscvalidation, mementor)
+        public Geometry(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor, Beat beat) : base (oscvalidation, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Geometry));
+            Modifier = new Modifier(MessageAddress, oscvalidation, mementor, beat);
 
             Is3D = false;
             KeepAspectRatio = false;
@@ -23,17 +24,22 @@ namespace CMiX.ViewModels
             FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress, oscvalidation, mementor) { FileIsSelected = true, FileName = "Quad (default)" });
             FileSelector.SelectedFileNameItem = new FileNameItem(string.Empty, FileSelector.MessageAddress, oscvalidation, mementor) { FileIsSelected = true, FileName = "Quad (default)" };
 
-            TranslateMode = new GeometryTranslate(MessageAddress + nameof(TranslateMode), oscvalidation, mementor);
-            ScaleMode = new GeometryScale(MessageAddress + nameof(ScaleMode), oscvalidation, mementor);
-            RotationMode = new GeometryRotation(MessageAddress + nameof(RotationMode), oscvalidation, mementor);
-       
-            Translate = new Slider(MessageAddress + nameof(Translate), oscvalidation, mementor);
-            Scale = new Slider(MessageAddress + nameof(Scale), oscvalidation, mementor);
-            Scale.Amount = 0.25;
-            Rotation = new Slider(MessageAddress + nameof(Rotation), oscvalidation, mementor);
+            //TranslateMode = new GeometryTranslate(MessageAddress + nameof(TranslateMode), oscvalidation, mementor);
+            //ScaleMode = new GeometryScale(MessageAddress + nameof(ScaleMode), oscvalidation, mementor);
+            //RotationMode = new GeometryRotation(MessageAddress + nameof(RotationMode), oscvalidation, mementor);
+
+            
+
+            //Translate = new Slider(MessageAddress + nameof(Translate), oscvalidation, mementor);
+            //Scale = new Slider(MessageAddress + nameof(Scale), oscvalidation, mementor);
+            //Scale.Amount = 0.25;
+            //Rotation = new Slider(MessageAddress + nameof(Rotation), oscvalidation, mementor);
+
+
             Counter = new Counter(MessageAddress, oscvalidation, mementor);
             GeometryFX = new GeometryFX(MessageAddress, oscvalidation, mementor);
 
+            Transform = new Transform(MessageAddress, oscvalidation, mementor);
             CopyGeometryCommand = new RelayCommand(p => CopyGeometry());
             PasteGeometryCommand = new RelayCommand(p => PasteGeometry());
             ResetGeometryCommand = new RelayCommand(p => ResetGeometry());
@@ -46,15 +52,18 @@ namespace CMiX.ViewModels
             MessageAddress = messageaddress;
 
             FileSelector.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(FileSelector)));
-            TranslateMode.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(TranslateMode)));
-            ScaleMode.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(ScaleMode)));
-            RotationMode.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(RotationMode)));
 
-            Translate.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Translate)));
-            Scale.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Scale)));
-            Rotation.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Rotation)));
+            //TranslateMode.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(TranslateMode)));
+            //ScaleMode.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(ScaleMode)));
+            //RotationMode.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(RotationMode)));
+            //Translate.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Translate)));
+            //Scale.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Scale)));
+            //Rotation.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Rotation)));
+
             Counter.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Counter)));
             GeometryFX.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(GeometryFX)));
+
+            Modifier.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Modifier)));
         }
         #endregion
 
@@ -65,12 +74,17 @@ namespace CMiX.ViewModels
 
         public FileSelector FileSelector { get; }
         public Counter Counter { get; }
-        public GeometryTranslate TranslateMode { get; }
-        public Slider Translate { get; }
-        public GeometryRotation RotationMode { get; }
-        public Slider Rotation { get; }
-        public GeometryScale ScaleMode { get; }
-        public Slider Scale { get; }
+        public Transform Transform { get; }
+
+        public Modifier Modifier { get;  }
+
+        //public GeometryTranslate TranslateMode { get; }
+        //public Slider Translate { get; }
+        //public GeometryRotation RotationMode { get; }
+        //public Slider Rotation { get; }
+        //public GeometryScale ScaleMode { get; }
+        //public Slider Scale { get; }
+
         public GeometryFX GeometryFX { get; }
 
         private bool _is3D;
@@ -145,12 +159,12 @@ namespace CMiX.ViewModels
         {
             geometrymodel.MessageAddress = MessageAddress;
             FileSelector.Copy(geometrymodel.FileSelector);
-            TranslateMode.Copy(geometrymodel.GeometryTranslate);
-            ScaleMode.Copy(geometrymodel.GeometryScale);
-            RotationMode.Copy(geometrymodel.GeometryRotation);
-            Translate.Copy(geometrymodel.Translate);
-            Scale.Copy(geometrymodel.Scale);
-            Rotation.Copy(geometrymodel.Rotation);
+            //TranslateMode.Copy(geometrymodel.GeometryTranslate);
+            //ScaleMode.Copy(geometrymodel.GeometryScale);
+            //RotationMode.Copy(geometrymodel.GeometryRotation);
+            //Translate.Copy(geometrymodel.Translate);
+            //Scale.Copy(geometrymodel.Scale);
+            //Rotation.Copy(geometrymodel.Rotation);
             Counter.Copy(geometrymodel.Counter);
             geometrymodel.Is3D = Is3D;
             geometrymodel.KeepAspectRatio = KeepAspectRatio;
@@ -163,12 +177,12 @@ namespace CMiX.ViewModels
 
             MessageAddress = geometrymodel.MessageAddress;
             FileSelector.Paste(geometrymodel.FileSelector);
-            Translate.Paste(geometrymodel.Translate);
-            Scale.Paste(geometrymodel.Scale);
-            Rotation.Paste(geometrymodel.Rotation);
-            TranslateMode.Paste(geometrymodel.GeometryTranslate);
-            ScaleMode.Paste(geometrymodel.GeometryScale);
-            RotationMode.Paste(geometrymodel.GeometryRotation);
+            //Translate.Paste(geometrymodel.Translate);
+            //Scale.Paste(geometrymodel.Scale);
+            //Rotation.Paste(geometrymodel.Rotation);
+            //TranslateMode.Paste(geometrymodel.GeometryTranslate);
+            //ScaleMode.Paste(geometrymodel.GeometryScale);
+            //RotationMode.Paste(geometrymodel.GeometryRotation);
             GeometryFX.Paste(geometrymodel.GeometryFX);
             Counter.Paste(geometrymodel.Counter);
             Is3D = geometrymodel.Is3D;
@@ -187,13 +201,13 @@ namespace CMiX.ViewModels
 
             FileSelector.Reset();
 
-            TranslateMode.Reset();
-            ScaleMode.Reset();
-            RotationMode.Reset();
+            //TranslateMode.Reset();
+            //ScaleMode.Reset();
+            //RotationMode.Reset();
 
-            Translate.Reset();
-            Scale.Reset();
-            Rotation.Reset();
+            //Translate.Reset();
+            //Scale.Reset();
+            //Rotation.Reset();
             Counter.Reset();
             GeometryFX.Reset();
 

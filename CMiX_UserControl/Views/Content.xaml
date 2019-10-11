@@ -78,9 +78,7 @@
                     DockPanel.Dock="Top" 
                     Style="{StaticResource BorderContainer}">
                     <Views:BeatModifier 
-                        Height="20" 
-                        DataContext="{Binding BeatModifier}"
-                        />
+                        DataContext="{Binding BeatModifier}"/>
                 </Border>
                 <TabControl 
                     DockPanel.Dock="Bottom" 

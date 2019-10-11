@@ -60,33 +60,18 @@
         Height="20" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.2*"/>
-            <ColumnDefinition Width="35"/>
             <ColumnDefinition />
+            <ColumnDefinition Width="35"/>
         </Grid.ColumnDefinitions>
         <TextBlock 
-            Padding="2, 0, 0, 0"
+            Padding="4, 0"
             TextTrimming="CharacterEllipsis" 
             Text="{Binding Path=Caption, RelativeSource={RelativeSource AncestorType={x:Type MVVM.Views:Slider}}}"  
             FontSize="10" 
-            HorizontalAlignment="Left" 
+            HorizontalAlignment="Right" 
             VerticalAlignment="Center" 
-            Foreground="{StaticResource TextBase}"
-            />
-        <TextBox 
-            Grid.Column="1"
-            Background="{StaticResource HighDarkerColor}" 
-            BorderBrush="{StaticResource DarkColor}" 
-            BorderThickness="1" 
-            Padding="4, 0, 0, 0" 
-            Text="{Binding Amount, StringFormat=N2}" 
-            FontSize="10" 
-            HorizontalContentAlignment="Center"
-            VerticalContentAlignment="Center"
-            HorizontalAlignment="Stretch" 
-            VerticalAlignment="Stretch" 
-            Foreground="{StaticResource TextBase}"
-            />
-        <DockPanel Grid.Column="2">
+            Foreground="{StaticResource TextBase}"/>
+        <DockPanel Grid.Column="1">
             <Grid DockPanel.Dock="Right">
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -98,16 +83,14 @@
                     Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}, Mode=OneWay}"
                     Content="+"
                     Focusable="False"
-                    Command="{Binding AddCommand}"
-                    />
+                    Command="{Binding AddCommand}"/>
                 <Button
                     Grid.Row="1"
                     Margin="1, 1, 0, 0"
                     Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}, Mode=OneWay}"
                     Content="-"
                     Focusable="False"
-                    Command="{Binding SubCommand}"
-                    />
+                    Command="{Binding SubCommand}"/>
             </Grid>
             <Border Background="Transparent">
                 <i:Interaction.Triggers>
@@ -122,9 +105,21 @@
                     Maximum="1.0"
                     Minimum="0.0"
                     SmallChange="0.01"
-                    Value="{Binding Amount, Mode=TwoWay}"   
-                />
+                    Value="{Binding Amount, Mode=TwoWay}"/>
             </Border>
         </DockPanel>
+        <TextBox 
+            Grid.Column="2"
+            Background="{StaticResource HighDarkerColor}" 
+            BorderBrush="{StaticResource DarkColor}" 
+            BorderThickness="1" 
+            Padding="4, 0, 0, 0" 
+            Text="{Binding Amount, StringFormat=N2}" 
+            FontSize="10" 
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Stretch" 
+            Foreground="{StaticResource TextBase}"/>
     </Grid>
 </UserControl>

@@ -185,7 +185,7 @@
                 Visibility="{Binding Path=IsChecked, ElementName=BlueRadio, Converter={StaticResource BoolToVisibility}}"
                 />
         </DockPanel>
-        <Separator Background="Gray" Opacity="0.25" Margin="0, 16"/>
+        <Separator Background="{StaticResource DarkColor}" Opacity="0.25" Margin="0, 16"/>
         <Grid Height="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.2*"/>
@@ -210,7 +210,8 @@
                 Text="{Binding SelectedColor, Converter={StaticResource ColorHex}}"
                 />
         </Grid>
-        <Separator Background="Gray" Opacity="0.25" Margin="0, 16"/>
+
+        <Separator Background="{StaticResource DarkColor}" Opacity="0.25" Margin="0, 16"/>
         <Grid 
             Margin="0, 0, 0, 4"
             Height="20" >
@@ -351,7 +352,7 @@
                 RightColor="{Binding SelectedColor, ConverterParameter='BlueRight', Converter={StaticResource ColorToSliderBgColor}}"
                 />
         </Grid>
-        <Separator Background="Gray" Opacity="0.25" Margin="0, 16"/>
+        <Separator Background="{StaticResource DarkColor}" Opacity="0.25" Margin="0, 16"/>
         <Grid 
             Margin="0, 4"
             Height="20" >

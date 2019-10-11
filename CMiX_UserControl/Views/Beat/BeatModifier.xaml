@@ -8,22 +8,23 @@
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
     d:DataContext="{d:DesignInstance Type={x:Type viewModels:BeatModifier}, IsDesignTimeCreatable=False}"
-    d:DesignHeight="20.493"
-    d:DesignWidth="327.081"
+    d:DesignHeight="58.826"
+    d:DesignWidth="324.414"
     mc:Ignorable="d">
 
     <Border             
         Background="{StaticResource DarkerColor}">
-        <DockPanel LastChildFill="True">
+        <StackPanel>
             <Views:BeatControls 
-                Margin="1, 0, 0, 0" 
+                Height="20"
+                Margin="0, 1" 
                 DockPanel.Dock="Right" 
                 />
             <MVVM.Views:Slider
                 Caption="ToHit" 
-                Margin="0, 0, 1, 0" 
+                Margin="0, 1" 
                 DataContext="{Binding ChanceToHit}" 
                 />
-        </DockPanel>
+        </StackPanel>
     </Border>
 </UserControl>

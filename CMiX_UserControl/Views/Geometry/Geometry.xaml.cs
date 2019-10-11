@@ -28,5 +28,10 @@ namespace CMiX.Views
                 toggle.IsChecked = false;
             }
         }
+
+        private void Animation_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
     }
 }

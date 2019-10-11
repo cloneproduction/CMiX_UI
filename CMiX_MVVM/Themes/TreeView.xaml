@@ -15,7 +15,6 @@
                 <ControlTemplate TargetType="TreeView">
                     <Border 
                         Name="Border"
-                        BorderBrush="{StaticResource Color}"
                         Background="{StaticResource HighDarkerColor}">
                         <ScrollViewer Focusable="False" CanContentScroll="False" Padding="4">
                             <ItemsPresenter />
@@ -54,7 +53,7 @@
                             VerticalAlignment="Center"
                             Margin="1,1,1,1"
                             Data="M 4 0 L 8 4 L 4 8 Z"
-                            Fill="{StaticResource TextBase}">
+                            Fill="{StaticResource HighLightColor}">
                         </Path>
                         <Path 
                             x:Name="Expanded"
@@ -90,11 +89,12 @@
 
     <Style x:Key="{x:Type TreeViewItem}" TargetType="{x:Type TreeViewItem}">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="HorizontalContentAlignment" Value="{Binding Path=HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="{Binding Path=VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
         <Setter Property="Padding" Value="1,0,0,0" />
         <Setter Property="Foreground" Value="{StaticResource TextBase}" />
         <Setter Property="FocusVisualStyle" Value="{StaticResource TreeViewItemFocusVisual}" />
+        <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TreeViewItem}">
@@ -154,7 +154,7 @@
                               Grid.Column="1"
                               Background="{TemplateBinding Background}"
                               BorderBrush="{TemplateBinding BorderBrush}"
-                              BorderThickness="{TemplateBinding BorderThickness}"
+                              BorderThickness="0"
                               Padding="{TemplateBinding Padding}">
                             <ContentPresenter x:Name="PART_Header"
                               ContentSource="Header"

@@ -19,7 +19,7 @@ namespace CMiX.ViewModels
             Enable = true;
 
             BeatModifier = new BeatModifier(MessageAddress, masterbeat, oscvalidation, mementor);
-            Geometry = new Geometry(MessageAddress, oscvalidation, mementor);
+            Geometry = new Geometry(MessageAddress, oscvalidation, mementor, masterbeat);
             Texture = new Texture(MessageAddress, oscvalidation, mementor);
             PostFX = new PostFX(MessageAddress, oscvalidation, mementor);
 

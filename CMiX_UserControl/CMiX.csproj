@@ -136,6 +136,11 @@
     <Compile Include="ViewModels\Assets\GeometryItem.cs" />
     <Compile Include="ViewModels\Assets\Item.cs" />
     <Compile Include="ViewModels\Assets\Assets.cs" />
+    <Compile Include="ViewModels\Geometry\Modifier\Modifier.cs" />
+    <Compile Include="ViewModels\Transform\Rotation.cs" />
+    <Compile Include="ViewModels\Transform\Scale.cs" />
+    <Compile Include="ViewModels\Transform\Transform.cs" />
+    <Compile Include="ViewModels\Transform\Translate.cs" />
     <Compile Include="Views\ChannelOSCDataTemplate.xaml.cs">
       <DependentUpon>ChannelOSCDataTemplate.xaml</DependentUpon>
     </Compile>
@@ -149,6 +154,21 @@
     </Compile>
     <Compile Include="Views\ResourceTree.xaml.cs">
       <DependentUpon>ResourceTree.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Geometry\Modifier.xaml.cs">
+      <DependentUpon>Modifier.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Transform\Translate.xaml.cs">
+      <DependentUpon>Translate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Transform\Rotation.xaml.cs">
+      <DependentUpon>Rotation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Transform\Scale.xaml.cs">
+      <DependentUpon>Scale.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Transform\Transform.xaml.cs">
+      <DependentUpon>Transform.xaml</DependentUpon>
     </Compile>
     <Compile Include="_Unused\SetAndNotifyPropertyAction.cs" />
     <Compile Include="ViewModels\FileSelector\FileNameItem.cs" />
@@ -234,7 +254,7 @@
     <Compile Include="Views\Beat\MasterBeatControl.xaml.cs">
       <DependentUpon>MasterBeatControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Geometry.xaml.cs">
+    <Compile Include="Views\Geometry\Geometry.xaml.cs">
       <DependentUpon>Geometry.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Texture.xaml.cs">
@@ -253,6 +273,26 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ResourceTree.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Geometry\Modifier.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Transform\Translate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Transform\Rotation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Transform\Scale.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Transform\Transform.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -357,7 +397,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Geometry.xaml">
+    <Page Include="Views\Geometry\Geometry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

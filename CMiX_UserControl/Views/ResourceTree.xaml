@@ -43,7 +43,7 @@
             </DataTemplate>-->
 
             <HierarchicalDataTemplate DataType="{x:Type ViewModels:DirectoryItem}" ItemsSource="{Binding Items}">
-                <Border HorizontalAlignment="Stretch" BorderThickness="1" BorderBrush="{StaticResource Color}">
+                <Border HorizontalAlignment="Stretch">
                     <Border.Style>
                         <Style TargetType="{x:Type Border}">
                             <Style.Triggers>
@@ -70,53 +70,68 @@
                                 </MenuItem>
                             </ContextMenu>
                         </StackPanel.ContextMenu>
-                        <Controls:EditableTextBox 
-                            HorizontalAlignment="Stretch" 
-                            Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            CanEdit="{Binding CanEdit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            IsEditing="{Binding IsEditing, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            <Controls:EditableTextBox.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem
-                                        Padding="8, 4"
-                                        Foreground="{StaticResource TextBase}"
-                                        Command="{Binding Data.AddNewFolderCommand, Source={StaticResource proxy}}">
-                                        <MenuItem.Header>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Image Width="10" Height="10" Source="{StaticResource Copy}" />
-                                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                                <TextBlock Text="Add"/>
-                                            </StackPanel>
-                                        </MenuItem.Header>
-                                    </MenuItem>
-                                    <MenuItem
-                                        Padding="8, 4"
-                                        Foreground="{StaticResource TextBase}"
-                                        Command="{Binding Data.RenameFolderCommand, Source={StaticResource proxy}}">
-                                        <MenuItem.Header>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Image Width="10" Height="10" Source="{StaticResource Copy}" />
-                                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                                <TextBlock Text="Rename"/>
-                                            </StackPanel>
-                                        </MenuItem.Header>
-                                    </MenuItem>
-                                    
-                                    <MenuItem
-                                        Padding="8, 4"
-                                        Foreground="{StaticResource TextBase}"
-                                        Command="{Binding Data.DeleteItemCommand, Source={StaticResource proxy}}">
-                                        <MenuItem.Header>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Image Width="10" Height="10" Source="{StaticResource Copy}" />
-                                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                                <TextBlock Text="Delete"/>
-                                            </StackPanel>
-                                        </MenuItem.Header>
-                                    </MenuItem>
-                                </ContextMenu>
-                            </Controls:EditableTextBox.ContextMenu>
-                        </Controls:EditableTextBox>
+                        <DockPanel Margin="0, 1">
+                            <Image Margin="4, 0" Width="15" Height="15" DockPanel.Dock="Left">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="{Binding Source={StaticResource Folder}, Mode=OneTime}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=TreeViewItem}, Path=IsExpanded}" Value="True">
+                                                <Setter Property="Source" Value="{Binding Source={StaticResource Folder_Opened}, Mode=OneTime}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <!--<Image Margin="4, 0" Width="10" Height="10" DockPanel.Dock="Left" Source="{StaticResource Folder}"/>-->
+                            <Controls:EditableTextBox 
+                                HorizontalAlignment="Stretch" 
+                                Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                CanEdit="{Binding CanEdit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                IsEditing="{Binding IsEditing, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <Controls:EditableTextBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem
+                                            Padding="8, 4"
+                                            Foreground="{StaticResource TextBase}"
+                                            Command="{Binding Data.AddNewFolderCommand, Source={StaticResource proxy}}">
+                                            <MenuItem.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Image Width="10" Height="10" Source="{StaticResource Copy}" />
+                                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                                    <TextBlock Text="Add"/>
+                                                </StackPanel>
+                                            </MenuItem.Header>
+                                        </MenuItem>
+                                        <MenuItem
+                                            Padding="8, 4"
+                                            Foreground="{StaticResource TextBase}"
+                                            Command="{Binding Data.RenameFolderCommand, Source={StaticResource proxy}}">
+                                            <MenuItem.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Image Width="10" Height="10" Source="{StaticResource Copy}" />
+                                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                                    <TextBlock Text="Rename"/>
+                                                </StackPanel>
+                                            </MenuItem.Header>
+                                        </MenuItem>
+
+                                        <MenuItem
+                                            Padding="8, 4"
+                                            Foreground="{StaticResource TextBase}"
+                                            Command="{Binding Data.DeleteItemCommand, Source={StaticResource proxy}}">
+                                            <MenuItem.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Image Width="10" Height="10" Source="{StaticResource Copy}" />
+                                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                                    <TextBlock Text="Delete"/>
+                                                </StackPanel>
+                                            </MenuItem.Header>
+                                        </MenuItem>
+                                    </ContextMenu>
+                                </Controls:EditableTextBox.ContextMenu>
+                            </Controls:EditableTextBox>
+                        </DockPanel>
                     </StackPanel>
                     
                 </Border>

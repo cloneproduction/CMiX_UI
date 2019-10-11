@@ -12,13 +12,8 @@ namespace CMiX.MVVM.Models
             Zoom = new SliderModel();
         }
 
-        //[OSC]
         public string Rotation { get; set; }
-
-        //[OSC]
         public string LookAt { get; set; }
-
-        //[OSC]
         public string View { get; set; }
 
         public BeatModifierModel BeatModifierModel { get; set; }

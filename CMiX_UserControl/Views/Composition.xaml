@@ -51,15 +51,11 @@
                 <CMiX:MasterBeatControl
                     DockPanel.Dock="Bottom"
                     Margin="4, 4, 0, 4"
-                    DataContext="{Binding MasterBeat}"
-                    />
+                    DataContext="{Binding MasterBeat}"/>
                 <Border DockPanel.Dock="Top" Grid.Column="0" Margin="4, 4, 0, 4">
-                    <ScrollViewer>
-                        <Views:LayerControls 
+                    <Views:LayerControls 
                         DataContext="{Binding SelectedLayer}" 
-                        Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}"
-                        />
-                    </ScrollViewer>
+                        Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}"/>
                 </Border>
             </DockPanel>
 
