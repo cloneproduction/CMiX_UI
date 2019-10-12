@@ -170,16 +170,16 @@
     <Compile Include="Views\Geometry\Modifier\Modifier.xaml.cs">
       <DependentUpon>Modifier.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Transform\Translate.xaml.cs">
+    <Compile Include="Views\Geometry\Transform\Translate.xaml.cs">
       <DependentUpon>Translate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Transform\Rotation.xaml.cs">
+    <Compile Include="Views\Geometry\Transform\Rotation.xaml.cs">
       <DependentUpon>Rotation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Transform\Scale.xaml.cs">
+    <Compile Include="Views\Geometry\Transform\Scale.xaml.cs">
       <DependentUpon>Scale.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Transform\Transform.xaml.cs">
+    <Compile Include="Views\Geometry\Transform\Transform.xaml.cs">
       <DependentUpon>Transform.xaml</DependentUpon>
     </Compile>
     <Compile Include="_Unused\SetAndNotifyPropertyAction.cs" />
@@ -249,7 +249,7 @@
     <Compile Include="Views\TranslateSelector.xaml.cs">
       <DependentUpon>TranslateSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\GeometryFX.xaml.cs">
+    <Compile Include="Views\Geometry\GeometryFX.xaml.cs">
       <DependentUpon>GeometryFX.xaml</DependentUpon>
     </Compile>
     <Compile Include="_Unused\DragAndDropListbox.cs" />
@@ -304,19 +304,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Transform\Translate.xaml">
+    <Page Include="Views\Geometry\Transform\Translate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Transform\Rotation.xaml">
+    <Page Include="Views\Geometry\Transform\Rotation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Transform\Scale.xaml">
+    <Page Include="Views\Geometry\Transform\Scale.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Transform\Transform.xaml">
+    <Page Include="Views\Geometry\Transform\Transform.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -405,7 +405,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\GeometryFX.xaml">
+    <Page Include="Views\Geometry\GeometryFX.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

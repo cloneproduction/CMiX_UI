@@ -61,8 +61,8 @@
         Background="Transparent">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.2*"/>
-            <ColumnDefinition Width="35"/>
             <ColumnDefinition />
+            <ColumnDefinition Width="35"/>
         </Grid.ColumnDefinitions>
         <TextBlock 
             Padding="2, 0, 0, 0"
@@ -74,10 +74,9 @@
             Foreground="{StaticResource TextBase}"
             />
         <TextBox 
-            Grid.Column="1"
-            Background="{StaticResource HighDarkerColor}" 
-            BorderBrush="{StaticResource DarkColor}" 
-            BorderThickness="1" 
+            Grid.Column="2"
+            Background="{StaticResource SuperHighDarkerColor}" 
+            BorderThickness="0" 
             Padding="4, 0, 0, 0" 
             Text="{Binding Amount, StringFormat=N2}" 
             FontSize="10" 
@@ -87,7 +86,7 @@
             VerticalAlignment="Stretch" 
             Foreground="{StaticResource TextBase}"
             />
-        <DockPanel Grid.Column="2">
+        <DockPanel Grid.Column="1">
             <Grid DockPanel.Dock="Right">
                 <Grid.RowDefinitions>
                     <RowDefinition />

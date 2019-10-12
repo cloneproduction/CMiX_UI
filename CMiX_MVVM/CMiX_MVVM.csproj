@@ -130,17 +130,11 @@
     <Compile Include="Views\FileSelector.xaml.cs">
       <DependentUpon>FileSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Sliders\HueWheel.xaml.cs">
-      <DependentUpon>HueWheel.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Sliders\Slider.xaml.cs">
       <DependentUpon>Slider.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Sliders\SliderCentered.xaml.cs">
       <DependentUpon>SliderCentered.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Sliders\SliderHSV.xaml.cs">
-      <DependentUpon>SliderHSV.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\_Enums\BlendMode.cs" />
     <Compile Include="ViewModels\_Enums\CameraLookAt.cs" />
@@ -279,19 +273,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Sliders\HueWheel.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Sliders\Slider.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Sliders\SliderCentered.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Sliders\SliderHSV.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

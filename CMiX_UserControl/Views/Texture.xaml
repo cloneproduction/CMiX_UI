@@ -153,71 +153,61 @@
             </Expander>
             <Expander Margin="0, 2" Header="Color" Style="{StaticResource ExpanderBase}">
                 <StackPanel>
-                    <Border 
-                                Margin="0, 4" Style="{StaticResource BorderContainer}">
-                        <StackPanel>
-                            <MVVM.Views:SliderCentered
-                                        Margin="0, 1, 0, 1"
-                                        Caption="Brightness"
-                                        DockPanel.Dock="Bottom"
-                                        DataContext="{Binding Brightness}"
-                                        />
-                            <MVVM.Views:SliderCentered
-                                        Margin="0, 1, 0, 1"
-                                        Caption="Contrast"
-                                        DockPanel.Dock="Bottom"
-                                        DataContext="{Binding Contrast}"
-                                        />
-                        </StackPanel>
-                    </Border>
-                    <Border Style="{StaticResource BorderContainer}">
-                        <Grid
-                                    Height="20"
-                                    DockPanel.Dock="Bottom">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="0.3*" />
-                            </Grid.ColumnDefinitions>
-                            <ComboBox
-                                        Grid.Column="1"
-                                        Margin="1, 0, 0, 0"
-                                        ItemsSource="{Binding Source={StaticResource InvertMode}}"
-                                        SelectedItem="{Binding InvertMode}"
-                                        SelectedIndex="0"
-                                        />
-                            <MVVM.Views:Slider
-                                        Grid.Column="0"
-                                        Caption="Invert"
-                                        DataContext="{Binding Invert}"
-                                        />
-                        </Grid>
-                    </Border>
-                    <Border 
-                        Margin="0, 4" 
-                        Style="{StaticResource BorderContainer}">
-                        <StackPanel>
-                            <MVVM.Views:SliderCentered
-                                Caption="Hue"
-                                DockPanel.Dock="Bottom"
-                                DataContext="{Binding Hue}"/>
-                            <MVVM.Views:SliderCentered
-                                Margin="0, 2"
-                                Caption="Saturation"
-                                DockPanel.Dock="Bottom"
-                                DataContext="{Binding Saturation}"/>
-                            <MVVM.Views:SliderCentered
-                                Caption="Luminosity"
-                                DockPanel.Dock="Bottom"
-                                DataContext="{Binding Luminosity}"/>
-                        </StackPanel>
-                    </Border>
-                    <Border Style="{StaticResource BorderContainer}">
-                        <MVVM.Views:Slider
-                                    Caption="Keying"
-                                    DockPanel.Dock="Bottom"
-                                    DataContext="{Binding Keying}"
-                                    />
-                    </Border>
+                    <MVVM.Views:SliderCentered
+                        Margin="0, 8, 0, 1"
+                        Caption="Brightness"
+                        DockPanel.Dock="Bottom"
+                        DataContext="{Binding Brightness}"/>
+                    <MVVM.Views:SliderCentered
+                        Margin="0, 1, 0, 8"
+                        Caption="Contrast"
+                        DockPanel.Dock="Bottom"
+                        DataContext="{Binding Contrast}"
+                        />
+
+                    <MVVM.Views:Slider
+                        Margin="0, 1"
+                        Grid.Column="0"
+                        Caption="Invert"
+                        DataContext="{Binding Invert}"/>
+                    <Grid Margin="0, 1, 0, 8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <ComboBox
+                            Grid.Column="1"
+                            ItemsSource="{Binding Source={StaticResource InvertMode}}"
+                            SelectedItem="{Binding InvertMode}"
+                            SelectedIndex="0"
+                            />
+                        <TextBlock 
+                            VerticalAlignment="Center" 
+                            HorizontalAlignment="Right" 
+                            Padding="8, 0" 
+                            Foreground="{StaticResource TextBase}" 
+                            Text="Invert Mode" Grid.Column="0"/>
+                    </Grid>
+                    <MVVM.Views:SliderCentered
+                        Margin="0, 1"
+                        Caption="Hue"
+                        DockPanel.Dock="Bottom"
+                        DataContext="{Binding Hue}"/>
+                    <MVVM.Views:SliderCentered
+                        Margin="0, 1"
+                        Caption="Saturation"
+                        DockPanel.Dock="Bottom"
+                        DataContext="{Binding Saturation}"/>
+                    <MVVM.Views:SliderCentered
+                        Margin="0, 1, 0, 8"
+                        Caption="Luminosity"
+                        DockPanel.Dock="Bottom"
+                        DataContext="{Binding Luminosity}"/>
+                    <MVVM.Views:Slider
+                        Margin="0, 1, 0, 8"
+                        Caption="Keying"
+                        DockPanel.Dock="Bottom"
+                        DataContext="{Binding Keying}"/>
                 </StackPanel>
             </Expander>
         </StackPanel>
