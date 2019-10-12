@@ -118,7 +118,6 @@ namespace CMiX.ViewModels
             FileSelector.Copy(geometrymodel.FileSelector);
             Transform.Copy(geometrymodel.Transform);
             Counter.Copy(geometrymodel.Counter);
-            geometrymodel.KeepAspectRatio = KeepAspectRatio;
             GeometryFX.Copy(geometrymodel.GeometryFX);
         }
 
@@ -131,7 +130,6 @@ namespace CMiX.ViewModels
             Transform.Paste(geometrymodel.Transform);
             GeometryFX.Paste(geometrymodel.GeometryFX);
             Counter.Paste(geometrymodel.Counter);
-            KeepAspectRatio = geometrymodel.KeepAspectRatio;
 
             EnabledMessages();
         }

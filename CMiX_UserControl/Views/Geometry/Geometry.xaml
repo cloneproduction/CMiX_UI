@@ -95,9 +95,8 @@
                         Background="{StaticResource DarkerColor}"
                         Style="{StaticResource BorderContainer}">
                         <MVVM.Views:FileSelector 
-                    Height="300"
-                    DataContext="{Binding FileSelector}"
-                    />
+                            Height="300"
+                            DataContext="{Binding FileSelector}"/>
                     </Border>
                     <ComboBox Margin="0, 2" ItemsSource="{Binding DataContext.Assets.GeometryItems, RelativeSource={RelativeSource AncestorType={x:Type Views:Composition}}}">
                         <ComboBox.ItemTemplate>
@@ -114,49 +113,10 @@
                         DockPanel.Dock="Bottom" 
                         Margin="0, 2" 
                         DataContext="{Binding Modifier}"/>
-                    <Border  Margin="0, 2" Style="{StaticResource BorderContainer}" DockPanel.Dock="Bottom">
-                        <DockPanel Height="25">
-                            <ToggleButton
-                                HorizontalAlignment="left"
-                                Height="15"
-                                Width="15"
-                                Margin="4"
-                                Grid.Column="0"
-                                IsChecked="{Binding KeepAspectRatio}"/>
-                            <TextBlock 
-                                Text="No Aspect Ratio" 
-                                Margin="4, 0" 
-                                Foreground="{StaticResource TextBase}" 
-                                VerticalAlignment="Center" 
-                                HorizontalAlignment="Left"/>
-                        </DockPanel>
-                    </Border>
-                    <Border 
-                        Margin="0, 2" 
-                        Style="{StaticResource BorderContainer}" 
-                        DockPanel.Dock="Bottom">
-                        <DockPanel Height="25">
-                            <ToggleButton
-                                HorizontalAlignment="left"
-                                Height="15"
-                                Width="15"
-                                Margin="4"
-                                IsChecked="{Binding Is3D, Mode=TwoWay}"/>
-                            <TextBlock 
-                                Text="3D Space"
-                                Margin="4, 0, 0, 0"
-                                VerticalAlignment="Center" 
-                                Foreground="{StaticResource TextBase}"/>
-                        </DockPanel>
-                    </Border>
-                    <Expander Style="{StaticResource ExpanderBase}" Foreground="{StaticResource TextBase}" Header="GSFX">
-                        <StackPanel>
-                            <Views:GeometryFX  
-                                Margin="0, 2"
-                                DockPanel.Dock="Bottom" 
-                                DataContext="{Binding GeometryFX}"/>
-                        </StackPanel>
-                    </Expander>
+                    <Views:GeometryFX  
+                        Margin="0, 2"
+                        DockPanel.Dock="Bottom" 
+                        DataContext="{Binding GeometryFX}"/>
                 </StackPanel>
             </ScrollViewer>
         </DockPanel>

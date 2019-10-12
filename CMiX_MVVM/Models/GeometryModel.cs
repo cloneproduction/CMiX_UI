@@ -26,8 +26,5 @@ namespace CMiX.MVVM.Models
         public CounterModel Counter { get; set; }
 
         public GeometryFXModel GeometryFX { get; set; }
-
-        public bool Is3D { get; set; }
-        public bool KeepAspectRatio { get; set; }
     }
 }

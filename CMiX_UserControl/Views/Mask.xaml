@@ -8,8 +8,8 @@
     xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX_MVVM"
     xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX_MVVM"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
-    d:DesignHeight="812"
-    d:DesignWidth="321"
+    d:DesignHeight="16669"
+    d:DesignWidth="415"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -82,17 +82,6 @@
                     />
                 <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
                     <ToggleButton
-                        Foreground="{StaticResource TextBase}"
-                        ToolTip="Keep Original"
-                        Grid.Row="0"
-                        Height="15" 
-                        Width="15"
-                        Content="Keep"
-                        HorizontalAlignment="Right"
-                        HorizontalContentAlignment="Center"
-                        IsChecked="{Binding KeepOriginal, Mode=TwoWay}"
-                        />
-                    <ToggleButton
                         ToolTip="Enable"
                         Foreground="{StaticResource TextBase}"
                         Grid.Row="0"
@@ -111,7 +100,6 @@
             DockPanel.Dock="Top" 
             Style="{StaticResource BorderContainer}">
             <Views:BeatModifier 
-                Height="20" 
                 DataContext="{Binding BeatModifier}"
                 />
         </Border>
@@ -158,51 +146,54 @@
                     />
             </TabItem>
         </TabControl>
-        <Border Style="{StaticResource BorderContainer}">
-            <StackPanel>
-                <Grid 
+        <Expander
+            Style="{StaticResource ExpanderBase}"
+            Header="Mode">
+            <Border Padding="8">
+                <StackPanel>
+                    <Grid 
                     Margin="2, 4"
                     DockPanel.Dock="Bottom"
                     Height="20" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.2*"/>
-                        <ColumnDefinition Width="35"/>
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock 
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.2*"/>
+                            <ColumnDefinition Width="35"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock 
                         Grid.ColumnSpan="2"
                         Foreground="{StaticResource TextBase}"
                         Text="Use"/>
-                    <ComboBox 
+                        <ComboBox 
                         Grid.Column="2"
                         Height="20"
                         SelectedItem="{Binding MaskType}"
                         ItemsSource="{Binding Source={StaticResource MaskType}}"
                         />
-                </Grid>
-                <Grid 
+                    </Grid>
+                    <Grid 
                     Margin="2, 4"
                     DockPanel.Dock="Bottom"
                     Height="20" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.2*"/>
-                        <ColumnDefinition Width="35"/>
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock 
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.2*"/>
+                            <ColumnDefinition Width="35"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock 
                         Grid.ColumnSpan="2"
                         Foreground="{StaticResource TextBase}"
                         Text="To Control"/>
-                    <ComboBox 
+                        <ComboBox 
                         Grid.Column="2"
                         DockPanel.Dock="Bottom"
                         Height="20"
                         SelectedItem="{Binding MaskControlType}"
                         ItemsSource="{Binding Source={StaticResource MaskControlType}}"
                         />
-                </Grid>
-            </StackPanel>
-        </Border>
-
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Expander>
     </StackPanel>
 </UserControl>

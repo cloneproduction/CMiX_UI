@@ -24,7 +24,6 @@ namespace CMiX.MVVM.Models
             MessageAddress = messageaddress;
 
             Counter = new CounterModel(messageaddress);
-
             TranslateModifierModel = new BeatModifierModel(messageaddress);
             ScaleModifierModel = new BeatModifierModel(messageaddress);
             RotationModifierModel = new BeatModifierModel(messageaddress);
@@ -43,5 +42,7 @@ namespace CMiX.MVVM.Models
         public BeatModifierModel TranslateModifierModel { get; set; }
         public BeatModifierModel ScaleModifierModel { get; set; }
         public BeatModifierModel RotationModifierModel { get; set; }
+
+        public bool KeepAspectRatio { get; set; }
     }
 }

@@ -65,19 +65,6 @@ namespace CMiX.ViewModels
             }
         }
 
-        private bool _keeporiginal;
-        public bool KeepOriginal
-        {
-            get => _keeporiginal;
-            set
-            {
-                if (Mementor != null)
-                    Mementor.PropertyChange(this, nameof(KeepOriginal));
-                SetAndNotify(ref _keeporiginal, value);
-                SendMessages(MessageAddress + nameof(KeepOriginal), KeepOriginal);
-            }
-        }
-
         private string _masktype;
         public string MaskType
         {
@@ -112,7 +99,6 @@ namespace CMiX.ViewModels
             maskmodel.Enable = Enable;
             maskmodel.MaskType = MaskType;
             maskmodel.MaskControlType = MaskControlType;
-            maskmodel.KeepOriginal = KeepOriginal;
             BeatModifier.Copy(maskmodel.BeatModifierModel);
             Texture.Copy(maskmodel.texturemodel);
             Geometry.Copy(maskmodel.GeometryModel);
@@ -125,7 +111,6 @@ namespace CMiX.ViewModels
 
             MessageAddress = maskmodel.MessageAddress;
             Enable = maskmodel.Enable;
-            KeepOriginal = maskmodel.KeepOriginal;
             MaskType = maskmodel.MaskType;
             MaskControlType = maskmodel.MaskControlType;
             BeatModifier.Paste(maskmodel.BeatModifierModel);

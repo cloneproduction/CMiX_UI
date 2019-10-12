@@ -69,9 +69,9 @@ namespace CMiX.ViewModels
                 DisabledMessages();
 
                 var transformmodel = data.GetData("TransformModel") as TransformModel;
-                var geometrymessageaddress = MessageAddress;
+                var messageaddress = MessageAddress;
                 this.Paste(transformmodel);
-                UpdateMessageAddress(geometrymessageaddress);
+                UpdateMessageAddress(messageaddress);
                 this.Copy(transformmodel);
 
                 EnabledMessages();

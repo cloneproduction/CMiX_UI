@@ -31,6 +31,5 @@ namespace CMiX.MVVM.Models
         public GeometryRotationModel GeometryRotation { get; set; }
 
         public bool Is3D { get; set; }
-        public bool KeepAspectRatio { get; set; }
     }
 }

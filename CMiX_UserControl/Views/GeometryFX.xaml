@@ -7,18 +7,20 @@
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
     mc:Ignorable="d" 
-    d:DesignHeight="33.175" 
-    d:DesignWidth="321.67">
+    d:DesignHeight="123.175" 
+    d:DesignWidth="332.003">
 
     <!--<Views:FileSelector 
             Height="300"
             DataContext="{Binding FileSelector}"
             />-->
-    <Border  Style="{StaticResource BorderContainer}">
-        <MVVM.Views:Slider
-            Height="25"
-            Caption="Explode"
-            DataContext="{Binding Explode}"
-            />
-    </Border>
+    <Expander Style="{StaticResource ExpanderBase}" Foreground="{StaticResource TextBase}" Header="GSFX">
+        <StackPanel>
+            <MVVM.Views:Slider
+                Margin="0, 4, 0, 0"
+                Height="25"
+                Caption="Explode"
+                DataContext="{Binding Explode}"/>
+        </StackPanel>
+    </Expander>
 </UserControl>
