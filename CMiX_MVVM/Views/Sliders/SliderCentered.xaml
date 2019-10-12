@@ -55,25 +55,23 @@
             </MenuItem>
         </ContextMenu>
     </UserControl.ContextMenu>
-    
-    <Grid 
+
+    <DockPanel 
         Height="20" 
         Background="Transparent">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.2*"/>
-            <ColumnDefinition />
-            <ColumnDefinition Width="35"/>
-        </Grid.ColumnDefinitions>
         <TextBlock 
+            Width="70"
             Padding="2, 0, 0, 0"
             TextTrimming="CharacterEllipsis" 
             Text="{Binding Path=Caption, RelativeSource={RelativeSource AncestorType={x:Type MVVM.Views:SliderCentered}}}"  
             FontSize="10" 
-            HorizontalAlignment="Left" 
+            HorizontalAlignment="Right" 
             VerticalAlignment="Center" 
             Foreground="{StaticResource TextBase}"
             />
         <TextBox 
+            DockPanel.Dock="Right"
+            Width="35"
             Grid.Column="2"
             Background="{StaticResource SuperHighDarkerColor}" 
             BorderThickness="0" 
@@ -86,46 +84,41 @@
             VerticalAlignment="Stretch" 
             Foreground="{StaticResource TextBase}"
             />
-        <DockPanel Grid.Column="1">
-            <Grid DockPanel.Dock="Right">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Button
-                    Grid.Row="0"
-                    Margin="1, 0, 0, 1"
-                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}, Mode=OneWay}"
-                    Content="+"
-                    Focusable="False"
-                    Command="{Binding AddCommand}"
-                    />
-                <Button
-                    Grid.Row="1"
-                    Margin="1, 1, 0, 0"
-                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}, Mode=OneWay}"
-                    Content="-"
-                    Focusable="False"
-                    Command="{Binding SubCommand}"
-                    />
-            </Grid>
-            <Border Background="Transparent">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="PreviewMouseDown">
-                        <i:InvokeCommandAction Command="{Binding MouseDownCommand}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <Slider
-                    x:Name="CMiXSliderCentered"
-                    IsMoveToPointEnabled="True"
-                    LargeChange="0.1"
-                    Maximum="{Binding Maximum}"
-                    Minimum="{Binding Minimum}"
-                    SmallChange="0.01"
-                    Style="{StaticResource SliderCentered}"
-                    Value="{Binding Amount}"
-                    />
-            </Border>
+        <DockPanel Margin="1, 0" DockPanel.Dock="Right">
+            <Button
+                Margin="0, 0, 0, 1"
+                DockPanel.Dock="Top"
+                Grid.Row="0"
+                Height="10"
+                Width="10"
+                Content="+"
+                Focusable="False"
+                Command="{Binding AddCommand}"/>
+            <Button
+                DockPanel.Dock="Bottom"
+                Grid.Row="1"
+                Height="10"
+                Width="10"
+                Content="-"
+                Focusable="False"
+                Command="{Binding SubCommand}"/>
         </DockPanel>
-    </Grid>
+        <Border Background="Transparent">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PreviewMouseDown">
+                    <i:InvokeCommandAction Command="{Binding MouseDownCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Slider
+                x:Name="CMiXSliderCentered"
+                IsMoveToPointEnabled="True"
+                LargeChange="0.1"
+                Maximum="{Binding Maximum}"
+                Minimum="{Binding Minimum}"
+                SmallChange="0.01"
+                Style="{StaticResource SliderCentered}"
+                Value="{Binding Amount}"
+                />
+        </Border>
+    </DockPanel>
 </UserControl>
