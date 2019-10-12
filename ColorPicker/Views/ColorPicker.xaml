@@ -190,23 +190,21 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.2*"/>
                 <ColumnDefinition Width="0.2*"/>
-                <ColumnDefinition Width="35"/>
                 <ColumnDefinition />
+                <ColumnDefinition Width="35"/>
             </Grid.ColumnDefinitions>
             <Rectangle 
-                Grid.Column="3">
+                Grid.Column="2">
                 <Rectangle.Fill>
                     <SolidColorBrush Color="{Binding SelectedColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </Rectangle.Fill>
             </Rectangle>
             <TextBox 
-                Grid.ColumnSpan="3"
-                Padding="4, 0, 0, 0"
+                Grid.ColumnSpan="2"
                 VerticalContentAlignment="Center"
                 BorderThickness="0"
                 Background="{StaticResource SuperHighDarkerColor}"
                 Foreground="{StaticResource TextBase}"
-                Margin="0, 0, 4, 0"
                 Text="{Binding SelectedColor, Converter={StaticResource ColorHex}}"
                 />
         </Grid>
@@ -218,8 +216,8 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.2*"/>
                 <ColumnDefinition Width="0.2*"/>
-                <ColumnDefinition Width="35"/>
                 <ColumnDefinition />
+                <ColumnDefinition Width="35"/>
             </Grid.ColumnDefinitions>
             <RadioButton 
                 GroupName="SliderRadio"
@@ -232,12 +230,12 @@
                 FontSize="10" 
                 Margin="4, 0"
                 Padding="4"
-                HorizontalAlignment="Center" 
+                HorizontalAlignment="Right" 
                 VerticalAlignment="Center" 
                 Foreground="{DynamicResource TextBase}"
                 />
             <TextBox 
-                Grid.Column="2"
+                Grid.Column="3"
                 BorderThickness="0" 
                 Margin="2, 0"
                 Background="{DynamicResource SuperHighDarkerColor}"
@@ -252,7 +250,7 @@
                 Minimum="0"
                 Maximum="255"
                 Value="{Binding Red, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                Grid.Column="3"
+                Grid.Column="2"
                 Height="20"
                 LeftColor="{Binding SelectedColor, ConverterParameter='RedLeft', Converter={StaticResource ColorToSliderBgColor}}"
                 RightColor="{Binding SelectedColor, ConverterParameter='RedRight', Converter={StaticResource ColorToSliderBgColor}}"
@@ -264,8 +262,8 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.2*"/>
                 <ColumnDefinition Width="0.2*"/>
-                <ColumnDefinition Width="35"/>
                 <ColumnDefinition />
+                <ColumnDefinition Width="35"/>
             </Grid.ColumnDefinitions>
             <RadioButton     
                 GroupName="SliderRadio"
@@ -279,12 +277,12 @@
                 Text="G"  
                 FontSize="10" 
                 Margin="4, 0"
-                HorizontalAlignment="Center" 
+                HorizontalAlignment="Right" 
                 VerticalAlignment="Center"
                 Foreground="{DynamicResource TextBase}"
                 />
             <TextBox 
-                Grid.Column="2"
+                Grid.Column="3"
                 BorderThickness="0" 
                 Margin="2, 0"
                 Background="{DynamicResource SuperHighDarkerColor}"
@@ -299,7 +297,7 @@
                 Minimum="0"
                 Maximum="255"
                 Value="{Binding Green}"
-                Grid.Column="3"
+                Grid.Column="2"
                 Height="20"
                 LeftColor="{Binding SelectedColor, ConverterParameter='GreenLeft', Converter={StaticResource ColorToSliderBgColor}}"
                 RightColor="{Binding SelectedColor, ConverterParameter='GreenRight', Converter={StaticResource ColorToSliderBgColor}}"
@@ -311,8 +309,8 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.2*"/>
                 <ColumnDefinition Width="0.2*"/>
-                <ColumnDefinition Width="35"/>
                 <ColumnDefinition />
+                <ColumnDefinition Width="35"/>
             </Grid.ColumnDefinitions>
             <RadioButton 
                 x:Name="BlueRadio"
@@ -326,12 +324,12 @@
                 FontSize="10" 
                 Margin="4, 0"
                 Padding="4"
-                HorizontalAlignment="Center" 
+                HorizontalAlignment="Right" 
                 VerticalAlignment="Center" 
                 Foreground="{DynamicResource TextBase}"
                 />
             <TextBox 
-                Grid.Column="2"
+                Grid.Column="3"
                 BorderThickness="0" 
                 Margin="2, 0"
                 Background="{DynamicResource SuperHighDarkerColor}"
@@ -346,7 +344,7 @@
                 Minimum="0"
                 Maximum="255"
                 Value="{Binding Blue}"
-                Grid.Column="3"
+                Grid.Column="2"
                 Height="20"
                 LeftColor="{Binding SelectedColor, ConverterParameter='BlueLeft', Converter={StaticResource ColorToSliderBgColor}}"
                 RightColor="{Binding SelectedColor, ConverterParameter='BlueRight', Converter={StaticResource ColorToSliderBgColor}}"
@@ -359,8 +357,8 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.2*"/>
                 <ColumnDefinition Width="0.2*"/>
-                <ColumnDefinition Width="35"/>
                 <ColumnDefinition />
+                <ColumnDefinition Width="35"/>
             </Grid.ColumnDefinitions>
             <RadioButton 
                 x:Name="HueRadio"
@@ -375,12 +373,12 @@
                 FontSize="10" 
                 Margin="4, 0"
                 Padding="4"
-                HorizontalAlignment="Center" 
+                HorizontalAlignment="Right" 
                 VerticalAlignment="Center" 
                 Foreground="{DynamicResource TextBase}"
                 />
             <TextBox 
-                Grid.Column="2"
+                Grid.Column="3"
                 BorderThickness="0" 
                 Margin="2, 0"
                 Background="{DynamicResource SuperHighDarkerColor}"
@@ -396,7 +394,7 @@
                 Maximum="360"
                 Style="{DynamicResource HueSliderHorizontal}"
                 Value="{Binding Hue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                Grid.Column="3"
+                Grid.Column="2"
                 Height="20"
                 />
         </Grid>
@@ -406,8 +404,8 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.2*"/>
                 <ColumnDefinition Width="0.2*"/>
-                <ColumnDefinition Width="35"/>
                 <ColumnDefinition />
+                <ColumnDefinition Width="35"/>
             </Grid.ColumnDefinitions>
             <RadioButton
                 Grid.Column="0"
@@ -421,12 +419,12 @@
                 FontSize="10" 
                 Margin="4, 0"
                 Padding="4"
-                HorizontalAlignment="Center" 
+                HorizontalAlignment="Right" 
                 VerticalAlignment="Center" 
                 Foreground="{DynamicResource TextBase}"
                 />
             <TextBox 
-                Grid.Column="2"
+                Grid.Column="3"
                 BorderThickness="0" 
                 Margin="2, 0"
                 Background="{DynamicResource SuperHighDarkerColor}"
@@ -441,7 +439,7 @@
                 Minimum="0"
                 Maximum="1"
                 Value="{Binding Sat}"
-                Grid.Column="3"
+                Grid.Column="2"
                 Height="20"
                 LeftColor="{Binding Val, Converter={StaticResource ValToColor}}">
                 <local:ColorSlider.RightColor>
@@ -458,8 +456,8 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.2*"/>
                 <ColumnDefinition Width="0.2*"/>
-                <ColumnDefinition Width="35"/>
                 <ColumnDefinition />
+                <ColumnDefinition Width="35"/>
             </Grid.ColumnDefinitions>
             <RadioButton
                 x:Name="ValRadio"
@@ -473,12 +471,12 @@
                 FontSize="10" 
                 Margin="4, 0"
                 Padding="4"
-                HorizontalAlignment="Center" 
+                HorizontalAlignment="Right" 
                 VerticalAlignment="Center" 
                 Foreground="{DynamicResource TextBase}"
                 />
             <TextBox 
-                Grid.Column="2"
+                Grid.Column="3"
                 BorderThickness="0" 
                 Margin="2, 0"
                 Background="{DynamicResource SuperHighDarkerColor}"
@@ -493,7 +491,7 @@
                 Minimum="0"
                 Maximum="1"
                 Value="{Binding Val}"
-                Grid.Column="3"
+                Grid.Column="2"
                 Height="20"
                 LeftColor="Black">
                 <local:ColorSlider.RightColor>
