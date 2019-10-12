@@ -16,7 +16,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <DockPanel LastChildFill="True">
+    <DockPanel>
         <Border 
             Background="Transparent"
             Padding="4, 0"
@@ -71,59 +71,51 @@
                     />
             </DockPanel>
         </Border>
-        <Border>
-            <DockPanel>
-                <Border 
-                    Margin="0, 4, 0, 8" 
-                    DockPanel.Dock="Top" 
-                    Style="{StaticResource BorderContainer}">
-                    <Views:BeatModifier 
-                        DataContext="{Binding BeatModifier}"/>
-                </Border>
-                <TabControl 
-                    DockPanel.Dock="Bottom" 
-                    AllowDrop="True">
-                    <TabItem 
-                         Width="40"
-                         Height="30"
-                         HorizontalAlignment="Left"
-                         DragOver="TabItem_DragOver">
-                        <TabItem.Header>
-                            <Image Source="{StaticResource Geometry}"  ToolTip="Geometry" Height="15" Width="auto" Opacity="0.75"/>
-                        </TabItem.Header>
-                        <Views:Geometry
-                            DataContext="{Binding Geometry}"
-                            DockPanel.Dock="Bottom" 
-                            />
-                    </TabItem>
-                    <TabItem  
-                         Width="40"
-                         Height="30"
-                        HorizontalAlignment="Left"
-                        DragOver="TabItem_DragOver">
-                        <TabItem.Header>
-                            <Image Source="{StaticResource Texture}" ToolTip="Texture" Height="15" Width="auto" Opacity="0.75"/>
-                        </TabItem.Header>
-                        <Views:Texture
-                            DataContext="{Binding Texture}"
-                            DockPanel.Dock="Bottom" 
-                            />
-                    </TabItem>
-                    <TabItem 
-                        Width="40"
-                        Height="30"
-                        HorizontalAlignment="Left"
-                        DragOver="TabItem_DragOver">
-                        <TabItem.Header>
-                            <Image Source="{StaticResource PostFX}" ToolTip="PostFX" Height="15" Width="auto" Opacity="0.75"/>
-                        </TabItem.Header>
-                        <Views:PostFX
-                            DataContext="{Binding PostFX}"
-                            DockPanel.Dock="Bottom" 
-                            />
-                    </TabItem>
-                </TabControl>
-            </DockPanel>
+        <Border 
+            Margin="0, 4, 0, 8" 
+            DockPanel.Dock="Top" 
+            Style="{StaticResource BorderContainer}">
+            <Views:BeatModifier DataContext="{Binding BeatModifier}"/>
         </Border>
+        <TabControl 
+            DockPanel.Dock="Bottom" 
+            AllowDrop="True">
+            <TabItem 
+                Width="40"
+                Height="30"
+                HorizontalAlignment="Left"
+                DragOver="TabItem_DragOver">
+                <TabItem.Header>
+                    <Image Source="{StaticResource Geometry}"  ToolTip="Geometry" Height="15" Width="auto" Opacity="0.75"/>
+                </TabItem.Header>
+                <Views:Geometry
+                    DataContext="{Binding Geometry}"
+                    DockPanel.Dock="Bottom" />
+            </TabItem>
+            <TabItem  
+                Width="40"
+                Height="30"
+                HorizontalAlignment="Left"
+                DragOver="TabItem_DragOver">
+                <TabItem.Header>
+                    <Image Source="{StaticResource Texture}" ToolTip="Texture" Height="15" Width="auto" Opacity="0.75"/>
+                </TabItem.Header>
+                <Views:Texture
+                    DataContext="{Binding Texture}"
+                    DockPanel.Dock="Bottom" />
+            </TabItem>
+            <TabItem 
+                Width="40"
+                Height="30"
+                HorizontalAlignment="Left"
+                DragOver="TabItem_DragOver">
+                <TabItem.Header>
+                    <Image Source="{StaticResource PostFX}" ToolTip="PostFX" Height="15" Width="auto" Opacity="0.75"/>
+                </TabItem.Header>
+                <Views:PostFX
+                    DataContext="{Binding PostFX}"
+                    DockPanel.Dock="Bottom" />
+            </TabItem>
+        </TabControl>
     </DockPanel>
 </UserControl>

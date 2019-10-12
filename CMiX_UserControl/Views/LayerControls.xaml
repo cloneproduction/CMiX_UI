@@ -8,11 +8,9 @@
     d:DesignHeight="612.222"
     d:DesignWidth="1419.739"
     mc:Ignorable="d">
+    
     <Border
-        BorderBrush="{StaticResource DarkerColor}"
-        CornerRadius="4"
-        Background="{StaticResource HighDarkerColor}"
-        Padding="8">
+        Background="{StaticResource HighDarkerColor}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -24,6 +22,11 @@
                 Margin="4, 0, 4, 0">
                 <Views:Content DataContext="{Binding Content}"/>
             </Border>
+            <Border
+                Grid.Column="1"
+                Margin="4, 0, 4, 0">
+                <Views:Mask DataContext="{Binding Mask}"/>
+            </Border>
             <StackPanel 
                 Grid.Column="2"
                 Margin="4, 0, 4, 0">
@@ -32,14 +35,8 @@
                 </Border>
                 <Views:PostFX 
                     Margin="0, 16, 0, 0" 
-                    DataContext="{Binding PostFX}"
-                    />
+                    DataContext="{Binding PostFX}" />
             </StackPanel>
-            <Border
-                Grid.Column="1"
-                Margin="4, 0, 4, 0">
-                <Views:Mask DataContext="{Binding Mask}"/>
-            </Border>
         </Grid>
     </Border>
 </UserControl>

@@ -28,7 +28,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <StackPanel>
+    <DockPanel>
         <Border 
             Background="Transparent"
             Padding="4, 0"
@@ -99,12 +99,10 @@
             Margin="0 ,4, 0, 8" 
             DockPanel.Dock="Top" 
             Style="{StaticResource BorderContainer}">
-            <Views:BeatModifier 
-                DataContext="{Binding BeatModifier}"
-                />
+            <Views:BeatModifier DataContext="{Binding BeatModifier}"/>
         </Border>
         <TabControl 
-            DockPanel.Dock="Bottom" 
+            DockPanel.Dock="Top"
             AllowDrop="True">
             <TabItem 
                 Width="40"
@@ -114,10 +112,7 @@
                 <TabItem.Header>
                     <Image Source="{StaticResource Geometry}"  ToolTip="Geometry" Height="15" Width="auto" Opacity="0.75"/>
                 </TabItem.Header>
-                <Views:Geometry
-                    DataContext="{Binding Geometry}"
-                    DockPanel.Dock="Bottom" 
-                    />
+                <Views:Geometry DataContext="{Binding Geometry}" DockPanel.Dock="Bottom" />
             </TabItem>
             <TabItem 
                 Width="40"
@@ -147,6 +142,7 @@
             </TabItem>
         </TabControl>
         <Expander
+            DockPanel.Dock="Top"
             Style="{StaticResource ExpanderBase}"
             Header="Mode">
             <Border Padding="8">
@@ -195,5 +191,6 @@
                 </StackPanel>
             </Border>
         </Expander>
-    </StackPanel>
+        <Border/>
+    </DockPanel>
 </UserControl>

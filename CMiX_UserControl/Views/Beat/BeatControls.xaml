@@ -17,11 +17,11 @@
                 <ColumnDefinition Width="35"/>
             </Grid.ColumnDefinitions>
         <TextBlock 
-            Padding="2, 0, 0, 0"
+            Padding="2, 0"
             TextTrimming="CharacterEllipsis" 
             Text="Multi"  
             FontSize="10" 
-            HorizontalAlignment="Left" 
+            HorizontalAlignment="Right" 
             VerticalAlignment="Center" 
             Foreground="{StaticResource TextBase}"/>
         <DockPanel Grid.ColumnSpan="2" Grid.Column="1" LastChildFill="True">

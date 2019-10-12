@@ -185,7 +185,7 @@
                 Visibility="{Binding Path=IsChecked, ElementName=BlueRadio, Converter={StaticResource BoolToVisibility}}"
                 />
         </DockPanel>
-        <Separator Background="{StaticResource DarkColor}" Opacity="0.25" Margin="0, 16"/>
+        <Separator Background="{StaticResource DarkColor}" Opacity="0.25" Margin="0, 8"/>
         <Grid Height="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.2*"/>
@@ -211,9 +211,9 @@
                 />
         </Grid>
 
-        <Separator Background="{StaticResource DarkColor}" Opacity="0.25" Margin="0, 16"/>
+        <Separator Background="{StaticResource DarkColor}" Opacity="0.25" Margin="0, 8"/>
         <Grid 
-            Margin="0, 0, 0, 4"
+            Margin="0, 0, 0, 1"
             Height="20" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.2*"/>
@@ -259,7 +259,7 @@
                 />
         </Grid>
         <Grid 
-            Margin="0, 4"
+            Margin="0, 1"
             Height="20" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.2*"/>
@@ -306,7 +306,7 @@
                 />
         </Grid>
         <Grid 
-            Margin="0, 4"
+            Margin="0, 1"
             Height="20" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.2*"/>
@@ -352,9 +352,9 @@
                 RightColor="{Binding SelectedColor, ConverterParameter='BlueRight', Converter={StaticResource ColorToSliderBgColor}}"
                 />
         </Grid>
-        <Separator Background="{StaticResource DarkColor}" Opacity="0.25" Margin="0, 16"/>
+        <Separator Background="{StaticResource DarkColor}" Opacity="0.25" Margin="0, 8"/>
         <Grid 
-            Margin="0, 4"
+            Margin="0, 1"
             Height="20" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.2*"/>
@@ -401,7 +401,7 @@
                 />
         </Grid>
         <Grid 
-            Margin="0, 4"
+            Margin="0, 1"
             Height="20" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.2*"/>
@@ -453,7 +453,7 @@
             </local:ColorSlider>
         </Grid>
         <Grid 
-            Margin="0, 4"
+            Margin="0, 1"
             Height="20" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.2*"/>
