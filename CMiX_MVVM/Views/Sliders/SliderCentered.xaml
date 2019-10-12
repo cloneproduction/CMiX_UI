@@ -59,16 +59,18 @@
     <DockPanel 
         Height="20" 
         Background="Transparent">
-        <TextBlock 
-            Width="70"
-            Padding="2, 0, 0, 0"
-            TextTrimming="CharacterEllipsis" 
-            Text="{Binding Path=Caption, RelativeSource={RelativeSource AncestorType={x:Type MVVM.Views:SliderCentered}}}"  
-            FontSize="10" 
-            HorizontalAlignment="Right" 
-            VerticalAlignment="Center" 
-            Foreground="{StaticResource TextBase}"
-            />
+        <Border
+            Width="60"
+            Padding="4, 0">
+            <TextBlock 
+                TextTrimming="CharacterEllipsis" 
+                Text="{Binding Path=Caption, RelativeSource={RelativeSource AncestorType={x:Type MVVM.Views:SliderCentered}}}"  
+                FontSize="10" 
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Center" 
+                Foreground="{StaticResource TextBase}"/>
+        </Border>
+
         <TextBox 
             DockPanel.Dock="Right"
             Width="35"

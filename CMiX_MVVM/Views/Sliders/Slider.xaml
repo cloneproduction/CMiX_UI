@@ -57,15 +57,18 @@
     </UserControl.ContextMenu>
 
     <DockPanel Height="20" >
-        <TextBlock 
-            Width="70"
-            Padding="4, 0"
-            TextTrimming="CharacterEllipsis" 
-            Text="{Binding Path=Caption, RelativeSource={RelativeSource AncestorType={x:Type MVVM.Views:Slider}}}"  
-            FontSize="10" 
-            HorizontalAlignment="Right" 
-            VerticalAlignment="Center" 
-            Foreground="{StaticResource TextBase}"/>
+        <Border
+            Width="60"
+            Padding="4, 0">
+            <TextBlock 
+                TextTrimming="CharacterEllipsis" 
+                Text="{Binding Path=Caption, RelativeSource={RelativeSource AncestorType={x:Type MVVM.Views:Slider}}}"  
+                FontSize="10" 
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Center" 
+                Foreground="{StaticResource TextBase}"/>
+        </Border>
+
 
         <TextBox 
             DockPanel.Dock="Right"
