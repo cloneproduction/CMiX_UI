@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Windows;
 using System.Collections.ObjectModel;
 using CMiX.MVVM.ViewModels;
-using Memento;
 using CMiX.MVVM.Models;
-using System.Windows;
+using Memento;
 
 namespace CMiX.ViewModels
 {
@@ -105,11 +105,9 @@ namespace CMiX.ViewModels
             DisabledMessages();
 
             MessageAddress = transformmodel.MessageAddress;
-
             Translate.Paste(transformmodel.Translate);
             Scale.Paste(transformmodel.Scale);
             Rotation.Paste(transformmodel.Rotation);
-
             Is3D = transformmodel.Is3D;
 
             EnabledMessages();
@@ -120,12 +118,10 @@ namespace CMiX.ViewModels
             DisabledMessages();
             //Mementor.BeginBatch();
 
-            Is3D = false;
-
             Translate.Reset();
             Scale.Reset();
             Rotation.Reset();
-
+            Is3D = false;
             //Mementor.EndBatch();
             EnabledMessages();
 

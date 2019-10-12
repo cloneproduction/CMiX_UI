@@ -1,7 +1,4 @@
-﻿//using CMiX.Services;
-using CMiX.MVVM.Models;
-
-namespace CMiX.MVVM.Models
+﻿namespace CMiX.MVVM.Models
 {
     public class CameraModel : Model
     {

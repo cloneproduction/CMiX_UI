@@ -110,9 +110,9 @@
         </DockPanel>
         <TextBox 
             Grid.Column="2"
-            Background="{StaticResource HighDarkerColor}" 
+            Background="{StaticResource SuperHighDarkerColor}" 
             BorderBrush="{StaticResource DarkColor}" 
-            BorderThickness="1" 
+            BorderThickness="0" 
             Padding="4, 0, 0, 0" 
             Text="{Binding Amount, StringFormat=N2}" 
             FontSize="10" 

@@ -10,40 +10,36 @@ namespace CMiX.ViewModels
     [Serializable]
     public class Modifier : ViewModel
     {
-        public Modifier(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor, Beat beat) 
+        public Modifier(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor, Beat beat)
             : base(oscvalidation, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Modifier));
 
             Counter = new Counter(MessageAddress, oscvalidation, mementor);
+            TranslateModifier = new TranslateModifier(MessageAddress, oscvalidation, mementor, beat);
+            ScaleModifier = new ScaleModifier(MessageAddress, oscvalidation, mementor, beat);
+            RotationModifier = new RotationModifier(MessageAddress, oscvalidation, mementor, beat);
 
-            TranslateMode = new GeometryTranslate(MessageAddress + nameof(TranslateMode), oscvalidation, mementor);
-            Translate = new Slider(MessageAddress + nameof(Translate), oscvalidation, mementor);
-            TranslateBeatModifier = new BeatModifier(MessageAddress, beat, oscvalidation, mementor);
-
-            ScaleMode = new GeometryScale(MessageAddress + nameof(ScaleMode), oscvalidation, mementor);
-            Scale = new Slider(MessageAddress + nameof(Scale), oscvalidation, mementor);
-            Scale.Amount = 0.25;
-            ScaleBeatModifier = new BeatModifier(MessageAddress, beat, oscvalidation, mementor);
-
-            RotationMode = new GeometryRotation(MessageAddress + nameof(RotationMode), oscvalidation, mementor);
-            Rotation = new Slider(MessageAddress + nameof(Rotation), oscvalidation, mementor);
-            RotationBeatModifier = new BeatModifier(MessageAddress, beat, oscvalidation, mementor);
+            NoAspectRatio = false;
         }
 
         public Counter Counter { get; }
+        public TranslateModifier TranslateModifier { get; }
+        public ScaleModifier ScaleModifier { get; }
+        public RotationModifier RotationModifier { get; }
 
-        public GeometryTranslate TranslateMode { get; }
-        public Slider Translate { get; }
-        public BeatModifier TranslateBeatModifier { get; }
-
-        public GeometryScale ScaleMode { get; }
-        public Slider Scale { get; }
-        public BeatModifier ScaleBeatModifier { get; }
-
-        public GeometryRotation RotationMode { get; }
-        public Slider Rotation { get; }
-        public BeatModifier RotationBeatModifier { get; }
+        private bool _noAspectRatio;
+        public bool NoAspectRatio
+        {
+            get => _noAspectRatio;
+            set
+            {
+                if (Mementor != null)
+                    Mementor.PropertyChange(this, "NoAspectRatio");
+                SetAndNotify(ref _noAspectRatio, value);
+                SendMessages(MessageAddress + nameof(NoAspectRatio), NoAspectRatio.ToString());
+            }
+        }
 
         #region METHODS
         public void UpdateMessageAddress(string messageaddress)
@@ -51,18 +47,9 @@ namespace CMiX.ViewModels
             MessageAddress = messageaddress;
 
             Counter.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Counter)));
-
-            TranslateMode.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(TranslateMode)));
-            ScaleMode.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(ScaleMode)));
-            RotationMode.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(RotationMode)));
-
-            Translate.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Translate)));
-            Scale.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Scale)));
-            Rotation.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Rotation)));
-
-            TranslateBeatModifier.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(TranslateBeatModifier)));
-            ScaleBeatModifier.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(ScaleBeatModifier)));
-            RotationBeatModifier.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(RotationBeatModifier)));
+            TranslateModifier.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(TranslateModifier)));
+            ScaleModifier.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(ScaleModifier)));
+            RotationModifier.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(RotationModifier)));
         }
         #endregion
 
@@ -111,15 +98,10 @@ namespace CMiX.ViewModels
         {
             modifiermodel.MessageAddress = MessageAddress;
             Counter.Copy(modifiermodel.Counter);
-            TranslateMode.Copy(modifiermodel.GeometryTranslate);
-            ScaleMode.Copy(modifiermodel.GeometryScale);
-            RotationMode.Copy(modifiermodel.GeometryRotation);
-            Translate.Copy(modifiermodel.Translate);
-            Scale.Copy(modifiermodel.Scale);
-            Rotation.Copy(modifiermodel.Rotation);
-            TranslateBeatModifier.Copy(modifiermodel.TranslateModifierModel);
-            ScaleBeatModifier.Copy(modifiermodel.ScaleModifierModel);
-            RotationBeatModifier.Copy(modifiermodel.RotationModifierModel);
+            TranslateModifier.Copy(modifiermodel.TranslateModifier);
+            ScaleModifier.Copy(modifiermodel.ScaleModifier);
+            RotationModifier.Copy(modifiermodel.RotationModifier);
+            modifiermodel.NoAspectRatio = NoAspectRatio;
         }
 
         public void Paste(ModifierModel modifiermodel)
@@ -127,16 +109,11 @@ namespace CMiX.ViewModels
             DisabledMessages();
 
             MessageAddress = modifiermodel.MessageAddress;
-            Counter.Copy(modifiermodel.Counter);
-            Translate.Paste(modifiermodel.Translate);
-            Scale.Paste(modifiermodel.Scale);
-            Rotation.Paste(modifiermodel.Rotation);
-            TranslateMode.Paste(modifiermodel.GeometryTranslate);
-            ScaleMode.Paste(modifiermodel.GeometryScale);
-            RotationMode.Paste(modifiermodel.GeometryRotation);
-            TranslateBeatModifier.Paste(modifiermodel.TranslateModifierModel);
-            ScaleBeatModifier.Paste(modifiermodel.ScaleModifierModel);
-            RotationBeatModifier.Paste(modifiermodel.RotationModifierModel);
+            Counter.Paste(modifiermodel.Counter);
+            TranslateModifier.Paste(modifiermodel.TranslateModifier);
+            ScaleModifier.Paste(modifiermodel.ScaleModifier);
+            RotationModifier.Paste(modifiermodel.RotationModifier);
+            NoAspectRatio = modifiermodel.NoAspectRatio;
 
             EnabledMessages();
         }
@@ -146,18 +123,10 @@ namespace CMiX.ViewModels
             DisabledMessages();
             //Mementor.BeginBatch();
             Counter.Reset();
-            TranslateMode.Reset();
-            ScaleMode.Reset();
-            RotationMode.Reset();
-
-            Translate.Reset();
-            Scale.Reset();
-            Rotation.Reset();
-
-            TranslateBeatModifier.Reset();
-            ScaleBeatModifier.Reset();
-            RotationBeatModifier.Reset();
-
+            TranslateModifier.Reset();
+            ScaleModifier.Reset();
+            RotationModifier.Reset();
+            NoAspectRatio = false;
             //Mementor.EndBatch();
             EnabledMessages();
 

@@ -5,37 +5,32 @@
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="612.222"
-    d:DesignWidth="1419.739"
+    d:DesignHeight="948.222"
+    d:DesignWidth="1663.739"
     mc:Ignorable="d">
-    
+
     <Border
-        Background="{StaticResource HighDarkerColor}">
+        Background="{StaticResource SuperHighDarkerColor}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Border
+
+            <Views:Content                 
                 Grid.Column="0" 
-                Margin="4, 0, 4, 0">
-                <Views:Content DataContext="{Binding Content}"/>
-            </Border>
-            <Border
+                Margin="4, 0, 4, 0"
+                DataContext="{Binding Content}"/>
+            <Views:Mask                 
                 Grid.Column="1"
-                Margin="4, 0, 4, 0">
-                <Views:Mask DataContext="{Binding Mask}"/>
-            </Border>
+                Margin="4, 0, 4, 0" 
+                DataContext="{Binding Mask}"/>
             <StackPanel 
                 Grid.Column="2"
                 Margin="4, 0, 4, 0">
-                <Border>
-                    <Views:Coloration DataContext="{Binding Coloration}"/>
-                </Border>
-                <Views:PostFX 
-                    Margin="0, 16, 0, 0" 
-                    DataContext="{Binding PostFX}" />
+                <Views:Coloration DataContext="{Binding Coloration}"/>
+                <Views:PostFX Margin="0, 16, 0, 0" DataContext="{Binding PostFX}" />
             </StackPanel>
         </Grid>
     </Border>

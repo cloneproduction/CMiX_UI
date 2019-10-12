@@ -142,6 +142,7 @@
             </TabItem>
         </TabControl>
         <Expander
+            Margin="0, 1"
             DockPanel.Dock="Top"
             Style="{StaticResource ExpanderBase}"
             Header="Mode">

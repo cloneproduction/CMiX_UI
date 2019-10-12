@@ -8,10 +8,9 @@ namespace CMiX.MVVM.Models
         public GeometryModel()
         {
             FileSelector = new FileSelectorModel();
-
-            Counter = new CounterModel();
             GeometryFX = new GeometryFXModel();
             Transform = new TransformModel();
+            Modifier = new ModifierModel();
         }
 
         public GeometryModel(string messageaddress)
@@ -19,12 +18,12 @@ namespace CMiX.MVVM.Models
         {
             MessageAddress = messageaddress;
             FileSelector = new FileSelectorModel(messageaddress);
+            Modifier = new ModifierModel(messageaddress);
         }
 
         public TransformModel Transform { get; set; }
         public FileSelectorModel FileSelector { get; set; }
-        public CounterModel Counter { get; set; }
-
+        public ModifierModel Modifier { get; set; }
         public GeometryFXModel GeometryFX { get; set; }
     }
 }

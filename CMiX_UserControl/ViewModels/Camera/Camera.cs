@@ -1,6 +1,5 @@
 ﻿using System;
 using CMiX.MVVM.ViewModels;
-using CMiX.Services;
 using CMiX.MVVM.Models;
 using System.Collections.ObjectModel;
 using Memento;
@@ -23,7 +22,6 @@ namespace CMiX.ViewModels
             FOV = new Slider(MessageAddress + nameof(FOV), oscvalidation, mementor);
             Zoom = new Slider(MessageAddress + nameof(Zoom), oscvalidation, mementor);
         }
-
         #endregion
 
         #region PROPERTIES

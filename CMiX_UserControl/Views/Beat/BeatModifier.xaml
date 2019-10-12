@@ -12,19 +12,14 @@
     d:DesignWidth="324.414"
     mc:Ignorable="d">
 
-    <Border             
-        Background="{StaticResource DarkerColor}">
-        <StackPanel>
-            <Views:BeatControls 
-                Height="20"
-                Margin="0, 1" 
-                DockPanel.Dock="Right" 
-                />
-            <MVVM.Views:Slider
-                Caption="ToHit" 
-                Margin="0, 1" 
-                DataContext="{Binding ChanceToHit}" 
-                />
-        </StackPanel>
-    </Border>
+    <StackPanel>
+        <Views:BeatControls 
+            Height="20"
+            Margin="0, 1" 
+            DockPanel.Dock="Right" />
+        <MVVM.Views:Slider
+            Caption="ToHit" 
+            Margin="0, 1" 
+            DataContext="{Binding ChanceToHit}" />
+    </StackPanel>
 </UserControl>

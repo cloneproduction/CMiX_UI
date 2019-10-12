@@ -16,17 +16,15 @@ namespace CMiX.ViewModels
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Geometry));
             Modifier = new Modifier(MessageAddress, oscvalidation, mementor, beat);
-
-            KeepAspectRatio = false;
+            Transform = new Transform(MessageAddress, oscvalidation, mementor);
 
             FileSelector = new FileSelector(MessageAddress, "Single", new List<string> { ".FBX", ".OBJ" }, oscvalidation, mementor);
             FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress, oscvalidation, mementor) { FileIsSelected = true, FileName = "Quad (default)" });
             FileSelector.SelectedFileNameItem = new FileNameItem(string.Empty, FileSelector.MessageAddress, oscvalidation, mementor) { FileIsSelected = true, FileName = "Quad (default)" };
 
-            Counter = new Counter(MessageAddress, oscvalidation, mementor);
             GeometryFX = new GeometryFX(MessageAddress, oscvalidation, mementor);
 
-            Transform = new Transform(MessageAddress, oscvalidation, mementor);
+            
             CopyGeometryCommand = new RelayCommand(p => CopyGeometry());
             PasteGeometryCommand = new RelayCommand(p => PasteGeometry());
             ResetGeometryCommand = new RelayCommand(p => ResetGeometry());
@@ -39,7 +37,6 @@ namespace CMiX.ViewModels
             MessageAddress = messageaddress;
 
             FileSelector.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(FileSelector)));
-            Counter.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Counter)));
             GeometryFX.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(GeometryFX)));
             Modifier.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Modifier)));
             Transform.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Transform)));
@@ -52,23 +49,10 @@ namespace CMiX.ViewModels
         public ICommand ResetGeometryCommand { get; }
 
         public FileSelector FileSelector { get; }
-        public Counter Counter { get; }
+
         public Transform Transform { get; }
         public Modifier Modifier { get;  }
         public GeometryFX GeometryFX { get; }
-
-        private bool _keepAspectRatio;
-        public bool KeepAspectRatio
-        {
-            get => _keepAspectRatio;
-            set
-            {
-                if (Mementor != null)
-                    Mementor.PropertyChange(this, "KeepAspectRatio");
-                SetAndNotify(ref _keepAspectRatio, value);
-                SendMessages(MessageAddress + nameof(KeepAspectRatio), KeepAspectRatio.ToString());
-            }
-        }
         #endregion
 
         #region COPY/PASTE/RESET
@@ -117,8 +101,8 @@ namespace CMiX.ViewModels
             geometrymodel.MessageAddress = MessageAddress;
             FileSelector.Copy(geometrymodel.FileSelector);
             Transform.Copy(geometrymodel.Transform);
-            Counter.Copy(geometrymodel.Counter);
             GeometryFX.Copy(geometrymodel.GeometryFX);
+            Modifier.Copy(geometrymodel.Modifier);
         }
 
         public void Paste(GeometryModel geometrymodel)
@@ -129,8 +113,7 @@ namespace CMiX.ViewModels
             FileSelector.Paste(geometrymodel.FileSelector);
             Transform.Paste(geometrymodel.Transform);
             GeometryFX.Paste(geometrymodel.GeometryFX);
-            Counter.Paste(geometrymodel.Counter);
-
+            Modifier.Paste(geometrymodel.Modifier);
             EnabledMessages();
         }
 
@@ -139,14 +122,10 @@ namespace CMiX.ViewModels
             DisabledMessages();
             //Mementor.BeginBatch();
 
-            KeepAspectRatio = false;
-
             FileSelector.Reset();
             Transform.Reset();
-
-            Counter.Reset();
             GeometryFX.Reset();
-
+            Modifier.Reset();
             //Mementor.EndBatch();
             EnabledMessages();
 
