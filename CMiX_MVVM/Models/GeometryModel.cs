@@ -11,14 +11,7 @@ namespace CMiX.MVVM.Models
 
             Counter = new CounterModel();
             GeometryFX = new GeometryFXModel();
-
-            //GeometryTranslate = new GeometryTranslateModel();
-            //GeometryScale = new GeometryScaleModel();
-            //GeometryRotation = new GeometryRotationModel();
-
-            //Translate = new SliderModel();
-            //Scale = new SliderModel();
-            //Rotation = new SliderModel();
+            Transform = new TransformModel();
         }
 
         public GeometryModel(string messageaddress)
@@ -28,16 +21,9 @@ namespace CMiX.MVVM.Models
             FileSelector = new FileSelectorModel(messageaddress);
         }
 
+        public TransformModel Transform { get; set; }
         public FileSelectorModel FileSelector { get; set; }
         public CounterModel Counter { get; set; }
-
-        //public SliderModel Translate { get; set; }
-        //public SliderModel Scale { get; set; }
-        //public SliderModel Rotation { get; set; }
-
-        //public GeometryTranslateModel GeometryTranslate { get; set; }
-        //public GeometryScaleModel GeometryScale { get; set; }
-        //public GeometryRotationModel GeometryRotation { get; set; }
 
         public GeometryFXModel GeometryFX { get; set; }
 

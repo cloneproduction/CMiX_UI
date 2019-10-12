@@ -69,6 +69,10 @@
       <DependentUpon>EditableTextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\ModifierModel.cs" />
+    <Compile Include="Models\RotationModel.cs" />
+    <Compile Include="Models\ScaleModel.cs" />
+    <Compile Include="Models\TransformModel.cs" />
+    <Compile Include="Models\TranslateModel.cs" />
     <Compile Include="_Trash\HueWheel.cs" />
     <Compile Include="Controls\IPBox.xaml.cs">
       <DependentUpon>IPBox.xaml</DependentUpon>

@@ -6,17 +6,36 @@
              xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
              xmlns:Views="clr-namespace:CMiX.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="352" d:DesignWidth="438">
+             d:DesignHeight="358" d:DesignWidth="396.666">
 
     <Expander
         Style="{StaticResource ExpanderBase}"
-        Header="Transform" 
-        Foreground="{StaticResource TextBase}">
+        Header="Transform">
         <Border Padding="8">
             <StackPanel>
+                <Border 
+                        Margin="0, 2" 
+                        Style="{StaticResource BorderContainer}" 
+                        DockPanel.Dock="Bottom">
+                    <DockPanel Height="25">
+
+                        <TextBlock 
+                                Text="3D Space"
+                                Margin="4, 0"
+                                VerticalAlignment="Center" 
+                                Foreground="{StaticResource TextBase}"/>
+                        <ToggleButton
+                                HorizontalAlignment="left"
+                                Height="15"
+                                Width="15"
+                                Margin="4"
+                                IsChecked="{Binding Is3D, Mode=TwoWay}"/>
+                    </DockPanel>
+                </Border>
                 <Views:Translate Margin="0, 4, 0, 0" DataContext="{Binding Translate}"/>
                 <Views:Scale Margin="0, 4, 0, 0" DataContext="{Binding Scale}"/>
                 <Views:Rotation Margin="0, 4, 0, 8" DataContext="{Binding Rotation}"/>
+
             </StackPanel>
         </Border>
     </Expander>
