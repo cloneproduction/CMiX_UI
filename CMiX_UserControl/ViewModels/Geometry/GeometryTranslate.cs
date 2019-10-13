@@ -14,7 +14,6 @@ namespace CMiX.ViewModels
             : base (oscvalidation, mementor)
         {
             MessageAddress = String.Format("{0}/", messageaddress);
-            Mode = default;
         }
         #endregion
 

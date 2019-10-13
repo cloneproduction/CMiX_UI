@@ -14,8 +14,14 @@ namespace CMiX.ViewModels
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Translate));
             TranslateX = new Slider(MessageAddress + nameof(TranslateX), oscvalidation, mementor);
+            TranslateX.Minimum = -1;
+            TranslateX.Maximum = 1;
             TranslateY = new Slider(MessageAddress + nameof(TranslateY), oscvalidation, mementor);
+            TranslateY.Minimum = -1;
+            TranslateY.Maximum = 1;
             TranslateZ = new Slider(MessageAddress + nameof(TranslateZ), oscvalidation, mementor);
+            TranslateZ.Minimum = -1;
+            TranslateZ.Maximum = 1;
         }
 
         public Slider TranslateX { get; set; }

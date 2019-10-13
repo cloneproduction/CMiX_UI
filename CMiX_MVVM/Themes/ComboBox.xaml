@@ -19,6 +19,9 @@
                         <Popup
                             x:Name="PART_Popup"
                             MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}}"
+                            MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}}"
+                            MinHeight="200"
+                            MaxHeight="200"
                             Grid.ColumnSpan="2"
                             AllowsTransparency="True"
                             IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
@@ -34,7 +37,7 @@
                                 Background="{StaticResource DarkerColor}">
                                 <ScrollViewer 
                                     x:Name="DropDownScrollViewer"
-                                    VerticalScrollBarVisibility="Auto">
+                                    VerticalScrollBarVisibility="Hidden">
                                     <Grid x:Name="grid" 
                                           RenderOptions.ClearTypeHint="Enabled">
                                         <Canvas
@@ -237,7 +240,7 @@
                 <ControlTemplate TargetType="{x:Type ComboBoxItem}">
                     <Border
                         x:Name="Bd"
-                        Padding="8"
+                        Padding="8, 4"
                         Background="Transparent"
                         SnapsToDevicePixels="True">
                         <ContentPresenter

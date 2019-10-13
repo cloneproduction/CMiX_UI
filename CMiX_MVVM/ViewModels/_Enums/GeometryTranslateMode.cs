@@ -2,37 +2,7 @@
 {
     public enum GeometryTranslateMode 
     {
-        #region STEADY
-
-        //[ShortCode("STD_CTR", "Steady Center")]
-        STD_CTR,
-
-        //[ShortCode("STD_LT", "Steady Left")]
-        STD_LT,
-
-        //[ShortCode("STD_TOP", "Steady Bottom")]
-        STD_TOP,
-
-        //[ShortCode("STD_TOP_LT", "Steady Top Left")]
-        STD_TOP_LT,
-
-        //[ShortCode("STD_TOP_RT", "Steady Top Right")]
-        STD_TOP_RT,
-
-        //[ShortCode("STD_RT", "Steady Right")]
-        STD_RT,
-
-        //[ShortCode("STD_BOT_RT", "Steady Bottom Right")]
-        STD_BOT_RT,
-
-        //[ShortCode("STD_BOT", "Steady Bottom")]
-        STD_BOT,
-
-        //[ShortCode("STD_BOT_LT", "Steady Bottom Left")]
-        STD_BOT_LT,
-
-        STD_GRID,
-        #endregion
+        STEADY,
 
         #region FLASH
 

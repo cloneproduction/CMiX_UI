@@ -13,10 +13,10 @@ namespace CMiX.MVVM.ViewModels
     public class Slider : ViewModel
     {
         #region CONSTRUCTORS
-        public Slider(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor) : base (oscvalidation, mementor)
+        public Slider(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor) 
+            : base (oscvalidation, mementor)
         {
             MessageAddress = String.Format("{0}/", messageaddress);
-            Amount = 0.0;
 
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
@@ -54,7 +54,7 @@ namespace CMiX.MVVM.ViewModels
                 Mementor.PropertyChange(this, "Amount");     
         }
 
-        private double _amount;
+        private double _amount = 0.0;
         public double Amount
         {
             get => _amount;
@@ -65,18 +65,18 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        private double minimum = 0.0;
+        private double _minimum = 0.0;
         public double Minimum
         {
-            get { return minimum; }
-            set { minimum = value; }
+            get => _minimum; 
+            set => SetAndNotify(ref _minimum, value);
         }
 
-        private double maximum = 1.0;
+        private double _maximum = 1.0;
         public double Maximum
         {
-            get { return maximum; }
-            set { maximum = value; }
+            get => _maximum; 
+            set => SetAndNotify(ref _maximum, value);
         }
 
         #endregion

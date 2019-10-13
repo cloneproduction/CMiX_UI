@@ -7,7 +7,7 @@
              xmlns:Resources="clr-namespace:CMiX.MVVM.Resources"
              mc:Ignorable="d" 
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             d:DesignHeight="27.833" d:DesignWidth="387.167">
+             d:DesignHeight="32.055" d:DesignWidth="383.834">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -115,8 +115,8 @@
                 x:Name="CMiXSliderCentered"
                 IsMoveToPointEnabled="True"
                 LargeChange="0.1"
-                Maximum="{Binding Maximum}"
-                Minimum="{Binding Minimum}"
+                Maximum="{Binding Maximum, Mode=OneWay}"
+                Minimum="{Binding Minimum, Mode=OneWay}"
                 SmallChange="0.01"
                 Style="{StaticResource SliderCentered}"
                 Value="{Binding Amount}"

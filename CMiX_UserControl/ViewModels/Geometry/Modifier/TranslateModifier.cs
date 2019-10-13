@@ -23,8 +23,8 @@ namespace CMiX.ViewModels
         }
 
         #region PROPERTIES
-        public GeometryTranslate TranslateMode { get; }
-        public BeatModifier TranslateBeatModifier { get; }
+        public GeometryTranslate TranslateMode { get; set; }
+        public BeatModifier TranslateBeatModifier { get; set; }
 
         public Slider X { get; set; }
         public Slider Y { get; set; }

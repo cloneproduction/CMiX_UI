@@ -73,7 +73,7 @@
     <Compile Include="Models\Geometry\Modifier\RotationModifierModel.cs" />
     <Compile Include="Models\RotationModel.cs" />
     <Compile Include="Models\ScaleModel.cs" />
-    <Compile Include="Models\Geometry\TransformModel.cs" />
+    <Compile Include="Models\Geometry\Transform\TransformModel.cs" />
     <Compile Include="Models\TranslateModel.cs" />
     <Compile Include="Models\Geometry\Modifier\TranslateModifierModel.cs" />
     <Compile Include="_Trash\HueWheel.cs" />
@@ -93,9 +93,9 @@
     <Compile Include="Models\FileSelectorModel.cs" />
     <Compile Include="Models\Geometry\GeometryFXModel.cs" />
     <Compile Include="Models\Geometry\GeometryModel.cs" />
-    <Compile Include="Models\Geometry\GeometryRotationModel.cs" />
-    <Compile Include="Models\Geometry\GeometryScaleModel.cs" />
-    <Compile Include="Models\Geometry\GeometryTranslateModel.cs" />
+    <Compile Include="Models\Geometry\Transform\GeometryRotationModel.cs" />
+    <Compile Include="Models\Geometry\Transform\GeometryScaleModel.cs" />
+    <Compile Include="Models\Geometry\Transform\GeometryTranslateModel.cs" />
     <Compile Include="Models\LayerModel.cs" />
     <Compile Include="Models\MaskModel.cs" />
     <Compile Include="Models\MasterBeatModel.cs" />

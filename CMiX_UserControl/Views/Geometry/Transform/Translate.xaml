@@ -15,19 +15,19 @@
                 Text="Translate"
                 Foreground="{StaticResource TextBase}"/>
         </Border>
-        <MVVM.Views:Slider
+        <MVVM.Views:SliderCentered
                 Height="20"
                 Grid.Column="0"
                 Margin="1"
                 Caption="X"
                 DataContext="{Binding TranslateX}"/>
-        <MVVM.Views:Slider
+        <MVVM.Views:SliderCentered
                 Height="20"
                 Grid.Column="0"
                 Margin="1"
                 Caption="Y"
                 DataContext="{Binding TranslateY}"/>
-        <MVVM.Views:Slider
+        <MVVM.Views:SliderCentered
                 Height="20"
                 Grid.Column="0"
                 Margin="1"

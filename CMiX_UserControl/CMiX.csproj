@@ -140,10 +140,10 @@
     <Compile Include="ViewModels\Geometry\Modifier\RotationModifier.cs" />
     <Compile Include="ViewModels\Geometry\Modifier\TranslateModifier.cs" />
     <Compile Include="ViewModels\Geometry\Modifier\Modifier.cs" />
-    <Compile Include="ViewModels\Transform\Rotation.cs" />
-    <Compile Include="ViewModels\Transform\Scale.cs" />
-    <Compile Include="ViewModels\Transform\Transform.cs" />
-    <Compile Include="ViewModels\Transform\Translate.cs" />
+    <Compile Include="ViewModels\Geometry\Transform\Rotation.cs" />
+    <Compile Include="ViewModels\Geometry\Transform\Scale.cs" />
+    <Compile Include="ViewModels\Geometry\Transform\Transform.cs" />
+    <Compile Include="ViewModels\Geometry\Transform\Translate.cs" />
     <Compile Include="Views\ChannelOSCDataTemplate.xaml.cs">
       <DependentUpon>ChannelOSCDataTemplate.xaml</DependentUpon>
     </Compile>
@@ -182,21 +182,21 @@
     <Compile Include="Views\Geometry\Transform\Transform.xaml.cs">
       <DependentUpon>Transform.xaml</DependentUpon>
     </Compile>
-    <Compile Include="_Unused\SetAndNotifyPropertyAction.cs" />
+    <Compile Include="_Thrash\SetAndNotifyPropertyAction.cs" />
     <Compile Include="ViewModels\FileSelector\FileNameItem.cs" />
     <Compile Include="ViewModels\FileSelector\FileSelector.cs" />
-    <Compile Include="_Unused\OSCControl.cs" />
+    <Compile Include="_Thrash\OSCControl.cs" />
     <Compile Include="ViewModels\Project.cs" />
     <Compile Include="ViewModels\Geometry\GeometryFX.cs" />
     <Compile Include="ViewModels\Geometry\GeometryRotation.cs" />
     <Compile Include="ViewModels\Geometry\GeometryScale.cs" />
     <None Include="packages.config" />
-    <None Include="_Unused\IMessenger.cs" />
+    <None Include="_Thrash\IMessenger.cs" />
     <Compile Include="ViewModels\Beat\Beat.cs" />
     <Compile Include="ViewModels\Beat\BeatModifier.cs" />
     <Compile Include="ViewModels\Geometry\GeometryTranslate.cs" />
     <Compile Include="ViewModels\RangeControl.cs" />
-    <Compile Include="_Unused\ShortCodeAttribute.cs" />
+    <Compile Include="_Thrash\ShortCodeAttribute.cs" />
     <Compile Include="Views\Beat\BeatModifier.xaml.cs">
       <DependentUpon>BeatModifier.xaml</DependentUpon>
     </Compile>
@@ -240,24 +240,24 @@
     <Compile Include="Views\RangeControl.xaml.cs">
       <DependentUpon>RangeControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ScaleSelector.xaml.cs">
+    <Compile Include="_Thrash\ScaleSelector.xaml.cs">
       <DependentUpon>ScaleSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RotationSelector.xaml.cs">
+    <Compile Include="Views\Geometry\RotationSelector.xaml.cs">
       <DependentUpon>RotationSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TranslateSelector.xaml.cs">
+    <Compile Include="_Thrash\TranslateSelector.xaml.cs">
       <DependentUpon>TranslateSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Geometry\GeometryFX.xaml.cs">
       <DependentUpon>GeometryFX.xaml</DependentUpon>
     </Compile>
-    <Compile Include="_Unused\DragAndDropListbox.cs" />
+    <Compile Include="_Thrash\DragAndDropListbox.cs" />
     <Compile Include="Services\OSCListener.cs" />
     <Compile Include="Views\ChannelLayer.xaml.cs">
       <DependentUpon>ChannelLayer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="_Unused\ShiftSlider.xaml.cs">
+    <Compile Include="_Thrash\ShiftSlider.xaml.cs">
       <DependentUpon>ShiftSlider.xaml</DependentUpon>
     </Compile>
     <ApplicationDefinition Include="App.xaml">
@@ -320,7 +320,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="_Unused\SliderCentered.xaml">
+    <Page Include="_Thrash\SliderCentered.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -364,15 +364,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ScaleSelector.xaml">
+    <Page Include="_Thrash\ScaleSelector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\RotationSelector.xaml">
+    <Page Include="Views\Geometry\RotationSelector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\TranslateSelector.xaml">
+    <Page Include="_Thrash\TranslateSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -409,7 +409,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="_Unused\ShiftSlider.xaml">
+    <Page Include="_Thrash\ShiftSlider.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

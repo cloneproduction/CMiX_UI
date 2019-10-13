@@ -23,10 +23,10 @@ namespace CMiX.ViewModels
             NoAspectRatio = false;
         }
 
-        public Counter Counter { get; }
-        public TranslateModifier TranslateModifier { get; }
-        public ScaleModifier ScaleModifier { get; }
-        public RotationModifier RotationModifier { get; }
+        public Counter Counter { get; set; }
+        public TranslateModifier TranslateModifier { get; set; }
+        public ScaleModifier ScaleModifier { get; set; }
+        public RotationModifier RotationModifier { get; set; }
 
         private bool _noAspectRatio;
         public bool NoAspectRatio
