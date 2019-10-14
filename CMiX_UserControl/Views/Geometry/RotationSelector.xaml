@@ -77,7 +77,7 @@
                     <Label
                         Height="25"
                         Margin="0,0,0,4"
-                        Content="STEADY"
+                        Content="None"
                         />
                 </StackPanel>
                 <StackPanel Grid.Column="1">

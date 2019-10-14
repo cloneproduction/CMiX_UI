@@ -33,6 +33,7 @@
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                     <Border
                         x:Name="border"
+                        CornerRadius="4"
                         Background="{TemplateBinding Background}"
                         SnapsToDevicePixels="True">
                         <Viewbox Stretch="Uniform" StretchDirection="DownOnly">

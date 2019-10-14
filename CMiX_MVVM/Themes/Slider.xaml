@@ -115,6 +115,9 @@
                 <Setter TargetName="RBD" Property="Style" Value="{DynamicResource RepeatButtonDecreaseOver}" />
                 <Setter TargetName="RBI" Property="Style" Value="{DynamicResource RepeatButtonIncreaseOver}" />
             </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="border" Property="Opacity" Value="0.5" />
+            </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
@@ -150,43 +153,5 @@
     <Style x:Key="SliderCentered" TargetType="{x:Type Slider}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Template" Value="{StaticResource SliderCenteredTemplate}" />
-    </Style>
-    
-    
-    <!-- COLOR SLIDER-->
-    <ControlTemplate x:Key="SliderHSVTemplate" TargetType="{x:Type Slider}">
-        <Border        
-            x:Name="border"
-            BorderBrush="{TemplateBinding BorderBrush}"
-            BorderThickness="{TemplateBinding BorderThickness}"
-            SnapsToDevicePixels="True">
-            <Border.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                    <GradientStop Offset="0" Color="{Binding LeftColor}"/>
-                    <GradientStop Offset="1" Color="{Binding RightColor}" />
-                </LinearGradientBrush>
-            </Border.Background>
-            
-            <Track
-                x:Name="PART_Track"
-                Grid.Row="1">
-                <Track.Thumb>
-                    <Thumb
-                        x:Name="Thumb"
-                        Height="Auto"
-                        VerticalAlignment="Stretch"
-                        Focusable="False"
-                        OverridesDefaultStyle="True"
-                        Template="{StaticResource SliderThumb}" 
-                        />
-                </Track.Thumb>
-            </Track>
-        </Border>
-    </ControlTemplate>
-    
-    <Style x:Key="SliderHSV" TargetType="{x:Type Slider}">
-        <Setter Property="Maximum" Value="255" />
-        <Setter Property="Focusable" Value="False" />
-        <Setter Property="Template" Value="{StaticResource SliderHSVTemplate}"/>
     </Style>
 </ResourceDictionary>

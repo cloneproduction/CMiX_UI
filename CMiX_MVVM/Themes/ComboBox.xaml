@@ -156,16 +156,20 @@
                                                             <Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false" />
                                                             <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ComboBox}}}" Value="false" />
                                                         </MultiDataTrigger.Conditions>
-                                                        <Setter TargetName="templateRoot" Property="Background" Value="#FFF0F0F0" />
-                                                        <Setter TargetName="templateRoot" Property="BorderBrush" Value="#FFD9D9D9" />
+                                                        <Setter TargetName="templateRoot" Property="Opacity" Value="0.5"/>
+                                                        <!--<Setter TargetName="templateRoot" Property="Background" Value="{StaticResource DarkerColor}" />
+                                                        <Setter TargetName="templateRoot" Property="BorderBrush" Value="{StaticResource DarkColor}" />
+                                                        <Setter TargetName="Arrow" Property="Fill" Value="{StaticResource Color}"/>-->
                                                     </MultiDataTrigger>
                                                     <MultiDataTrigger>
                                                         <MultiDataTrigger.Conditions>
                                                             <Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false" />
                                                             <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ComboBox}}}" Value="true" />
                                                         </MultiDataTrigger.Conditions>
-                                                        <Setter TargetName="templateRoot" Property="Background" Value="White" />
-                                                        <Setter TargetName="templateRoot" Property="BorderBrush" Value="#FFBFBFBF" />
+                                                        <Setter TargetName="templateRoot" Property="Opacity" Value="0.5"/>
+                                                        <!--<Setter TargetName="templateRoot" Property="Background" Value="{StaticResource DarkerColor}" />
+                                                        <Setter TargetName="templateRoot" Property="BorderBrush" Value="{StaticResource DarkColor}" />
+                                                        <Setter TargetName="Arrow" Property="Fill" Value="{StaticResource Color}"/>-->
                                                     </MultiDataTrigger>
                                                 </ControlTemplate.Triggers>
                                             </ControlTemplate>

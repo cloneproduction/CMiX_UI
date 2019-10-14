@@ -23,7 +23,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Expander Header="Modifier" Style="{StaticResource ExpanderBase}">
+    <Expander Header="Instancer" Style="{StaticResource ExpanderBase}">
         <StackPanel>
             <Border
                 Margin="0, 4, 0, 2"
@@ -35,7 +35,7 @@
                         <ColumnDefinition Width="0.5*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock 
-                        Text="Instance Count" 
+                        Text="Count" 
                         Padding="8, 0"
                         Foreground="{StaticResource TextBase}" 
                         VerticalAlignment="Center" 

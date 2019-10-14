@@ -5,6 +5,7 @@
     </ResourceDictionary.MergedDictionaries>
 
     <SolidColorBrush x:Key="SuperHighDarkerColor" Color="{StaticResource SuperHighDarker}" />
+    <SolidColorBrush x:Key="HighHighDarkerColor" Color="{StaticResource HighHighDarker}" />
     <SolidColorBrush x:Key="HighDarkerColor" Color="{StaticResource HighDarker}" />
     <SolidColorBrush x:Key="DarkerColor" Color="{StaticResource Darker}" />
     <SolidColorBrush x:Key="DarkColor" Color="{StaticResource Dark}" />

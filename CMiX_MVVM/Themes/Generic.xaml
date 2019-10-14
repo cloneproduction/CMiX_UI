@@ -21,5 +21,6 @@
         <ResourceDictionary Source="TextBox.xaml"/>
         <ResourceDictionary Source="GridSplitter.xaml"/>
         <ResourceDictionary Source="TreeView.xaml"/>
+        <ResourceDictionary Source="TextBlock.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

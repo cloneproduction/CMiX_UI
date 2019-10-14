@@ -2,7 +2,7 @@
 {
     public enum GeometryTranslateMode 
     {
-        STEADY,
+        None,
 
         #region FLASH
 
