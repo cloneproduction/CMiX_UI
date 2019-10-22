@@ -8,18 +8,11 @@
              d:DesignHeight="145.023" d:DesignWidth="357.03">
 
     <StackPanel>
-        <Border Height="25">
-            <TextBlock
-                VerticalAlignment="Center"
-                Margin="4, 0, 0, 0"
-                Text="Rotation"
-                Foreground="{StaticResource TextBase}"/>
-        </Border>
         <MVVM.Views:Slider
                 Height="20"
                 Grid.Column="0"
                 Margin="1"
-                Caption="X"
+                Caption="Rotation X"
                 DataContext="{Binding RotationX}"/>
         <MVVM.Views:Slider
                 Height="20"

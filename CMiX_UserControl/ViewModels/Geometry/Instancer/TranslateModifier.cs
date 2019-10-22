@@ -15,20 +15,17 @@ namespace CMiX.ViewModels
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(TranslateModifier));
 
-            TranslateMode = new GeometryTranslate(MessageAddress + nameof(TranslateMode), oscvalidation, mementor);
-            X = new Slider(MessageAddress + nameof(X), oscvalidation, mementor);
-            Y = new Slider(MessageAddress + nameof(Y), oscvalidation, mementor);
-            Z = new Slider(MessageAddress + nameof(Z), oscvalidation, mementor);
-            TranslateBeatModifier = new BeatModifier(MessageAddress, beat, oscvalidation, mementor);
+            Translate = new AnimParameter(MessageAddress + nameof(Translate), oscvalidation, mementor, beat, true);
+            TranslateX = new AnimParameter(MessageAddress + nameof(TranslateX), oscvalidation, mementor, beat, false);
+            TranslateY = new AnimParameter(MessageAddress + nameof(TranslateY), oscvalidation, mementor, beat, false);
+            TranslateZ = new AnimParameter(MessageAddress + nameof(TranslateZ), oscvalidation, mementor, beat, false);
         }
 
         #region PROPERTIES
-        public GeometryTranslate TranslateMode { get; set; }
-        public BeatModifier TranslateBeatModifier { get; set; }
-
-        public Slider X { get; set; }
-        public Slider Y { get; set; }
-        public Slider Z { get; set; }
+        public AnimParameter Translate { get; set; }
+        public AnimParameter TranslateX { get; set; }
+        public AnimParameter TranslateY { get; set; }
+        public AnimParameter TranslateZ { get; set; }
         #endregion
 
         #region METHODS
@@ -36,11 +33,10 @@ namespace CMiX.ViewModels
         {
             MessageAddress = messageaddress;
 
-            TranslateMode.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(TranslateMode)));
-            X.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(X)));
-            Y.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Y)));
-            Z.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Z)));
-            TranslateBeatModifier.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(TranslateBeatModifier)));
+            Translate.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Translate)));
+            TranslateX.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(TranslateX)));
+            TranslateY.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(TranslateY)));
+            TranslateZ.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(TranslateZ)));
         }
         #endregion
 
@@ -88,12 +84,10 @@ namespace CMiX.ViewModels
         public void Copy(TranslateModifierModel translatemodifiermodel)
         {
             translatemodifiermodel.MessageAddress = MessageAddress;
-
-            TranslateMode.Copy(translatemodifiermodel.TranslatePattern);
-            X.Copy(translatemodifiermodel.X);
-            Y.Copy(translatemodifiermodel.Y);
-            Z.Copy(translatemodifiermodel.Z);
-            TranslateBeatModifier.Copy(translatemodifiermodel.TranslateBeatModifier);
+            Translate.Copy(translatemodifiermodel.Translate);
+            TranslateX.Copy(translatemodifiermodel.TranslateX);
+            TranslateY.Copy(translatemodifiermodel.TranslateY);
+            TranslateZ.Copy(translatemodifiermodel.TranslateZ);
         }
 
         public void Paste(TranslateModifierModel translatemodifiermodel)
@@ -101,24 +95,24 @@ namespace CMiX.ViewModels
             DisabledMessages();
 
             MessageAddress = translatemodifiermodel.MessageAddress;
-            X.Paste(translatemodifiermodel.X);
-            Y.Paste(translatemodifiermodel.Y);
-            Z.Paste(translatemodifiermodel.Z);
-            TranslateMode.Paste(translatemodifiermodel.TranslatePattern);
-            TranslateBeatModifier.Paste(translatemodifiermodel.TranslateBeatModifier);
+
+            Translate.Paste(translatemodifiermodel.Translate);
+            TranslateX.Paste(translatemodifiermodel.TranslateX);
+            TranslateY.Paste(translatemodifiermodel.TranslateY);
+            TranslateZ.Paste(translatemodifiermodel.TranslateZ);
+
             EnabledMessages();
         }
 
         public void Reset()
         {
             DisabledMessages();
-            //Mementor.BeginBatch();
-            TranslateMode.Reset();
-            X.Reset();
-            Y.Reset();
-            Y.Reset();
-            TranslateBeatModifier.Reset();
-            //Mementor.EndBatch();
+
+            Translate.Reset();
+            TranslateX.Reset();
+            TranslateY.Reset();
+            TranslateZ.Reset();
+
             EnabledMessages();
 
             TranslateModifierModel translatemodifiermodel = new TranslateModifierModel();

@@ -2,9 +2,9 @@
 
 namespace CMiX.Views
 {
-    public partial class Modifier : UserControl
+    public partial class AnimParameter : UserControl
     {
-        public Modifier()
+        public AnimParameter()
         {
             InitializeComponent();
         }

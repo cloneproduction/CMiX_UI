@@ -10,28 +10,5 @@ namespace CMiX.Views
         {
             InitializeComponent();
         }
-
-        private void Popup_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            Popup popup = sender as Popup;
-            if (popup.IsOpen)
-            {
-                popup.IsOpen = false;
-            }
-        }
-
-        private void Toggle_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            ToggleButton toggle = sender as ToggleButton;
-            if (toggle.IsChecked == true)
-            {
-                toggle.IsChecked = false;
-            }
-        }
-
-        private void Animation_Loaded(object sender, System.Windows.RoutedEventArgs e)
-        {
-
-        }
     }
 }

@@ -2,7 +2,7 @@
 {
     public enum GeometryScaleMode
     {
-        STEADY,
+        None,
         STD_RDM,
         FLA_RDM,
         SLD_RDM_DMP,

@@ -68,7 +68,8 @@
     <Compile Include="Controls\EditableTextBox.xaml.cs">
       <DependentUpon>EditableTextBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Geometry\Modifier\ModifierModel.cs" />
+    <Compile Include="Models\Geometry\Modifier\AnimParameterModel.cs" />
+    <Compile Include="Models\Geometry\Modifier\InstancerModel.cs" />
     <Compile Include="Models\Geometry\Modifier\ScaleModifierModel.cs" />
     <Compile Include="Models\Geometry\Modifier\RotationModifierModel.cs" />
     <Compile Include="Models\RotationModel.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Models\Geometry\Transform\TransformModel.cs" />
     <Compile Include="Models\TranslateModel.cs" />
     <Compile Include="Models\Geometry\Modifier\TranslateModifierModel.cs" />
+    <Compile Include="ViewModels\_Enums\AnimMode.cs" />
     <Compile Include="_Trash\HueWheel.cs" />
     <Compile Include="Controls\IPBox.xaml.cs">
       <DependentUpon>IPBox.xaml</DependentUpon>

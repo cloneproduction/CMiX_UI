@@ -8,18 +8,11 @@
              d:DesignHeight="150.801" d:DesignWidth="415.252">
 
     <StackPanel>
-        <Border Height="25">
-            <TextBlock
-                VerticalAlignment="Center"
-                Margin="4, 0, 0, 0"
-                Text="Scale"
-                Foreground="{StaticResource TextBase}"/>
-        </Border>
         <MVVM.Views:Slider
                 Height="20"
                 Grid.Column="0"
                 Margin="1"
-                Caption="X"
+                Caption="Scale X"
                 DataContext="{Binding ScaleX}"/>
         <MVVM.Views:Slider
                 Height="20"

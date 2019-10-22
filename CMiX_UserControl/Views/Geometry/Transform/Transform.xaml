@@ -8,29 +8,26 @@
              mc:Ignorable="d" 
              d:DesignHeight="409" d:DesignWidth="415.666">
 
-    <Expander
-        Style="{StaticResource ExpanderBase}"
-        Header="Transform">
-        <StackPanel>
-            <DockPanel Height="25" Margin="0, 2">
-                <ToggleButton
+
+    <StackPanel>
+        <DockPanel Height="25" Margin="0, 2">
+            <ToggleButton
                             DockPanel.Dock="Right"
                                 HorizontalAlignment="left"
                                 Height="15"
                                 Width="15"
                                 Margin="4"
                                 IsChecked="{Binding Is3D, Mode=TwoWay}"/>
-                <TextBlock 
+            <TextBlock 
                         DockPanel.Dock="Right"
                         Text="3D Space" 
                         Margin="4, 0" 
                         Foreground="{StaticResource TextBase}" 
                         VerticalAlignment="Center" 
                         HorizontalAlignment="Right"/>
-            </DockPanel>
-            <Views:Translate Padding="4" Margin="0, 2" DataContext="{Binding Translate}"/>
-            <Views:Scale Padding="4" Margin="0, 2" DataContext="{Binding Scale}"/>
-            <Views:Rotation Padding="4" Margin="0, 2, 0, 8" DataContext="{Binding Rotation}"/>
-        </StackPanel>
-    </Expander>
+        </DockPanel>
+        <Views:Translate Padding="4" Margin="0, 2" DataContext="{Binding Translate}"/>
+        <Views:Scale Padding="4" Margin="0, 2" DataContext="{Binding Scale}"/>
+        <Views:Rotation Padding="4" Margin="0, 2, 0, 8" DataContext="{Binding Rotation}"/>
+    </StackPanel>
 </UserControl>

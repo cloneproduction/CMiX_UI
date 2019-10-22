@@ -136,10 +136,11 @@
     <Compile Include="ViewModels\Assets\GeometryItem.cs" />
     <Compile Include="ViewModels\Assets\Item.cs" />
     <Compile Include="ViewModels\Assets\Assets.cs" />
-    <Compile Include="ViewModels\Geometry\Modifier\ScaleModifier.cs" />
-    <Compile Include="ViewModels\Geometry\Modifier\RotationModifier.cs" />
-    <Compile Include="ViewModels\Geometry\Modifier\TranslateModifier.cs" />
-    <Compile Include="ViewModels\Geometry\Modifier\Modifier.cs" />
+    <Compile Include="ViewModels\Geometry\Instancer\AnimParameter.cs" />
+    <Compile Include="ViewModels\Geometry\Instancer\ScaleModifier.cs" />
+    <Compile Include="ViewModels\Geometry\Instancer\RotationModifier.cs" />
+    <Compile Include="ViewModels\Geometry\Instancer\TranslateModifier.cs" />
+    <Compile Include="ViewModels\Geometry\Instancer\Instancer.cs" />
     <Compile Include="ViewModels\Geometry\Transform\Rotation.cs" />
     <Compile Include="ViewModels\Geometry\Transform\Scale.cs" />
     <Compile Include="ViewModels\Geometry\Transform\Transform.cs" />
@@ -155,20 +156,23 @@
     <Compile Include="Views\CompositionList.xaml.cs">
       <DependentUpon>CompositionList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Geometry\Modifier\ScaleModifier.xaml.cs">
+    <Compile Include="Views\Geometry\Instancer\AnimParameter.xaml.cs">
+      <DependentUpon>AnimParameter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Geometry\Instancer\ScaleModifier.xaml.cs">
       <DependentUpon>ScaleModifier.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Geometry\Modifier\RotationModifier.xaml.cs">
+    <Compile Include="Views\Geometry\Instancer\RotationModifier.xaml.cs">
       <DependentUpon>RotationModifier.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Geometry\Modifier\TranslateModifier.xaml.cs">
+    <Compile Include="Views\Geometry\Instancer\TranslateModifier.xaml.cs">
       <DependentUpon>TranslateModifier.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ResourceTree.xaml.cs">
       <DependentUpon>ResourceTree.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Geometry\Modifier\Modifier.xaml.cs">
-      <DependentUpon>Modifier.xaml</DependentUpon>
+    <Compile Include="Views\Geometry\Instancer\Instancer.xaml.cs">
+      <DependentUpon>Instancer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Geometry\Transform\Translate.xaml.cs">
       <DependentUpon>Translate.xaml</DependentUpon>
@@ -243,7 +247,7 @@
     <Compile Include="_Thrash\ScaleSelector.xaml.cs">
       <DependentUpon>ScaleSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Geometry\RotationSelector.xaml.cs">
+    <Compile Include="_Thrash\RotationSelector.xaml.cs">
       <DependentUpon>RotationSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="_Thrash\TranslateSelector.xaml.cs">
@@ -284,15 +288,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Geometry\Modifier\ScaleModifier.xaml">
+    <Page Include="Views\Geometry\Instancer\AnimParameter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Geometry\Modifier\RotationModifier.xaml">
+    <Page Include="Views\Geometry\Instancer\ScaleModifier.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Geometry\Modifier\TranslateModifier.xaml">
+    <Page Include="Views\Geometry\Instancer\RotationModifier.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Geometry\Instancer\TranslateModifier.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -300,7 +308,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Geometry\Modifier\Modifier.xaml">
+    <Page Include="Views\Geometry\Instancer\Instancer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -368,7 +376,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Geometry\RotationSelector.xaml">
+    <Page Include="_Thrash\RotationSelector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

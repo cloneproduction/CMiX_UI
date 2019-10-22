@@ -7,23 +7,23 @@ namespace CMiX.MVVM.Models
     {
         public RotationModifierModel()
         {
-            RotationPattern = new GeometryRotationModel();
-            X = new SliderModel();
-            Y = new SliderModel();
-            Z = new SliderModel();
-            RotationBeatModifier = new BeatModifierModel();
+            Rotation = new AnimParameterModel();
+            RotationX = new AnimParameterModel();
+            RotationY = new AnimParameterModel();
+            RotationZ = new AnimParameterModel();
         }
 
         public RotationModifierModel(string messageaddress) : this()
         {
             MessageAddress = messageaddress;
-            RotationBeatModifier = new BeatModifierModel(messageaddress);
+            RotationX = new AnimParameterModel(messageaddress);
+            RotationY = new AnimParameterModel(messageaddress);
+            RotationZ = new AnimParameterModel(messageaddress);
         }
 
-        public SliderModel X { get; set; }
-        public SliderModel Y { get; set; }
-        public SliderModel Z { get; set; }
-        public GeometryRotationModel RotationPattern { get; set; }
-        public BeatModifierModel RotationBeatModifier { get; set; }
+        public AnimParameterModel Rotation { get; set; }
+        public AnimParameterModel RotationX { get; set; }
+        public AnimParameterModel RotationY { get; set; }
+        public AnimParameterModel RotationZ { get; set; }
     }
 }

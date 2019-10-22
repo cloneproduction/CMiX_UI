@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="CMiX.Views.Modifier"
+    x:Class="CMiX.Views.Instancer"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX_MVVM"
@@ -64,6 +64,7 @@
                         VerticalAlignment="Center" 
                         HorizontalAlignment="Right"/>
             </DockPanel>
+            <Views:Transform DataContext="{Binding Transform}"/>
             <Views:TranslateModifier DataContext="{Binding TranslateModifier}"/>
             <Views:ScaleModifier DataContext="{Binding ScaleModifier}"/>
             <Views:RotationModifier DataContext="{Binding RotationModifier}"/>

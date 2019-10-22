@@ -8,13 +8,14 @@ using Memento;
 namespace CMiX.ViewModels
 {
     [Serializable]
-    public class Modifier : ViewModel
+    public class Instancer : ViewModel
     {
-        public Modifier(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor, Beat beat)
+        public Instancer(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor, Beat beat)
             : base(oscvalidation, mementor)
         {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Modifier));
+            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Instancer));
 
+            Transform = new Transform(MessageAddress, oscvalidation, mementor);
             Counter = new Counter(MessageAddress, oscvalidation, mementor);
             TranslateModifier = new TranslateModifier(MessageAddress, oscvalidation, mementor, beat);
             ScaleModifier = new ScaleModifier(MessageAddress, oscvalidation, mementor, beat);
@@ -23,6 +24,7 @@ namespace CMiX.ViewModels
             NoAspectRatio = false;
         }
 
+        public Transform Transform { get; set; }
         public Counter Counter { get; set; }
         public TranslateModifier TranslateModifier { get; set; }
         public ScaleModifier ScaleModifier { get; set; }
@@ -56,64 +58,66 @@ namespace CMiX.ViewModels
         #region COPY/PASTE/RESET
         public void CopyGeometry()
         {
-            ModifierModel modifiermodel = new ModifierModel();
-            this.Copy(modifiermodel);
+            InstancerModel instancermodel = new InstancerModel();
+            this.Copy(instancermodel);
             IDataObject data = new DataObject();
-            data.SetData("ModifierModel", modifiermodel, false);
+            data.SetData("InstancerModel", instancermodel, false);
             Clipboard.SetDataObject(data);
         }
 
         public void PasteGeometry()
         {
             IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent("ModifierModel"))
+            if (data.GetDataPresent("InstancerModel"))
             {
                 Mementor.BeginBatch();
                 DisabledMessages();
 
-                var modifiermodel = data.GetData("ModifierModel") as ModifierModel;
+                var instancermodel = data.GetData("InstancerModel") as InstancerModel;
                 var geometrymessageaddress = MessageAddress;
-                this.Paste(modifiermodel);
+                this.Paste(instancermodel);
                 UpdateMessageAddress(geometrymessageaddress);
-                this.Copy(modifiermodel);
+                this.Copy(instancermodel);
 
                 EnabledMessages();
                 Mementor.EndBatch();
 
-                QueueObjects(modifiermodel);
+                QueueObjects(instancermodel);
                 SendQueues();
             }
         }
 
         public void ResetGeometry()
         {
-            ModifierModel modifiermodel = new ModifierModel();
+            InstancerModel instancermodel = new InstancerModel();
             this.Reset();
-            this.Copy(modifiermodel);
-            QueueObjects(modifiermodel);
+            this.Copy(instancermodel);
+            QueueObjects(instancermodel);
             SendQueues();
         }
 
-        public void Copy(ModifierModel modifiermodel)
+        public void Copy(InstancerModel instancermodel)
         {
-            modifiermodel.MessageAddress = MessageAddress;
-            Counter.Copy(modifiermodel.Counter);
-            TranslateModifier.Copy(modifiermodel.TranslateModifier);
-            ScaleModifier.Copy(modifiermodel.ScaleModifier);
-            RotationModifier.Copy(modifiermodel.RotationModifier);
-            modifiermodel.NoAspectRatio = NoAspectRatio;
+            instancermodel.MessageAddress = MessageAddress;
+            Transform.Copy(instancermodel.Transform);
+            Counter.Copy(instancermodel.Counter);
+            TranslateModifier.Copy(instancermodel.TranslateModifier);
+            ScaleModifier.Copy(instancermodel.ScaleModifier);
+            RotationModifier.Copy(instancermodel.RotationModifier);
+            instancermodel.NoAspectRatio = NoAspectRatio;
         }
 
-        public void Paste(ModifierModel modifiermodel)
+        public void Paste(InstancerModel instancermodel)
         {
             DisabledMessages();
 
-            MessageAddress = modifiermodel.MessageAddress;
-            Counter.Paste(modifiermodel.Counter);
-            TranslateModifier.Paste(modifiermodel.TranslateModifier);
-            ScaleModifier.Paste(modifiermodel.ScaleModifier);
-            RotationModifier.Paste(modifiermodel.RotationModifier);
-            NoAspectRatio = modifiermodel.NoAspectRatio;
+            MessageAddress = instancermodel.MessageAddress;
+            Transform.Paste(instancermodel.Transform);
+            Counter.Paste(instancermodel.Counter);
+            TranslateModifier.Paste(instancermodel.TranslateModifier);
+            ScaleModifier.Paste(instancermodel.ScaleModifier);
+            RotationModifier.Paste(instancermodel.RotationModifier);
+            NoAspectRatio = instancermodel.NoAspectRatio;
 
             EnabledMessages();
         }
@@ -130,9 +134,9 @@ namespace CMiX.ViewModels
             //Mementor.EndBatch();
             EnabledMessages();
 
-            ModifierModel modifiermodel = new ModifierModel();
-            this.Copy(modifiermodel);
-            QueueObjects(modifiermodel);
+            InstancerModel instancermodel = new InstancerModel();
+            this.Copy(instancermodel);
+            QueueObjects(instancermodel);
             SendQueues();
         }
         #endregion

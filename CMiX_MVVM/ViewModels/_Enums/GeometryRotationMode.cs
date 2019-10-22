@@ -4,7 +4,7 @@
     {
         #region STEADY
 
-        STEADY,
+        None,
         #endregion
 
         #region FLASH

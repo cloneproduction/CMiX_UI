@@ -15,7 +15,7 @@ namespace CMiX.ViewModels
         public Geometry(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor, Beat beat) : base (oscvalidation, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Geometry));
-            Modifier = new Modifier(MessageAddress, oscvalidation, mementor, beat);
+            Instancer = new Instancer(MessageAddress, oscvalidation, mementor, beat);
             Transform = new Transform(MessageAddress, oscvalidation, mementor);
 
             FileSelector = new FileSelector(MessageAddress, "Single", new List<string> { ".FBX", ".OBJ" }, oscvalidation, mementor);
@@ -24,7 +24,6 @@ namespace CMiX.ViewModels
 
             GeometryFX = new GeometryFX(MessageAddress, oscvalidation, mementor);
 
-            
             CopyGeometryCommand = new RelayCommand(p => CopyGeometry());
             PasteGeometryCommand = new RelayCommand(p => PasteGeometry());
             ResetGeometryCommand = new RelayCommand(p => ResetGeometry());
@@ -38,7 +37,7 @@ namespace CMiX.ViewModels
 
             FileSelector.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(FileSelector)));
             GeometryFX.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(GeometryFX)));
-            Modifier.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Modifier)));
+            Instancer.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Instancer)));
             Transform.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Transform)));
         }
         #endregion
@@ -51,7 +50,7 @@ namespace CMiX.ViewModels
         public FileSelector FileSelector { get; }
 
         public Transform Transform { get; }
-        public Modifier Modifier { get;  }
+        public Instancer Instancer { get;  }
         public GeometryFX GeometryFX { get; }
         #endregion
 
@@ -102,7 +101,7 @@ namespace CMiX.ViewModels
             FileSelector.Copy(geometrymodel.FileSelector);
             Transform.Copy(geometrymodel.Transform);
             GeometryFX.Copy(geometrymodel.GeometryFX);
-            Modifier.Copy(geometrymodel.Modifier);
+            Instancer.Copy(geometrymodel.Instancer);
         }
 
         public void Paste(GeometryModel geometrymodel)
@@ -113,7 +112,7 @@ namespace CMiX.ViewModels
             FileSelector.Paste(geometrymodel.FileSelector);
             Transform.Paste(geometrymodel.Transform);
             GeometryFX.Paste(geometrymodel.GeometryFX);
-            Modifier.Paste(geometrymodel.Modifier);
+            Instancer.Paste(geometrymodel.Instancer);
             EnabledMessages();
         }
 
@@ -125,7 +124,7 @@ namespace CMiX.ViewModels
             FileSelector.Reset();
             Transform.Reset();
             GeometryFX.Reset();
-            Modifier.Reset();
+            Instancer.Reset();
             //Mementor.EndBatch();
             EnabledMessages();
 

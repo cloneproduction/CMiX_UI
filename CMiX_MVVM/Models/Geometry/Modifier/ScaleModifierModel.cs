@@ -7,23 +7,23 @@ namespace CMiX.MVVM.Models
     {
         public ScaleModifierModel()
         {
-            ScalePattern = new GeometryScaleModel();
-            X = new SliderModel();
-            Y = new SliderModel();
-            Z = new SliderModel();
-            ScaleBeatModifier = new BeatModifierModel();
+            Scale = new AnimParameterModel();
+            ScaleX = new AnimParameterModel();
+            ScaleY = new AnimParameterModel();
+            ScaleZ = new AnimParameterModel();
         }
 
         public ScaleModifierModel(string messageaddress) : this()
         {
             MessageAddress = messageaddress;
-            ScaleBeatModifier = new BeatModifierModel(messageaddress);
+            ScaleX = new AnimParameterModel(messageaddress);
+            ScaleY = new AnimParameterModel(messageaddress);
+            ScaleZ = new AnimParameterModel(messageaddress);
         }
 
-        public SliderModel X { get; set; }
-        public SliderModel Y { get; set; }
-        public SliderModel Z { get; set; }
-        public GeometryScaleModel ScalePattern { get; set; }
-        public BeatModifierModel ScaleBeatModifier { get; set; }
+        public AnimParameterModel Scale { get; set; }
+        public AnimParameterModel ScaleX { get; set; }
+        public AnimParameterModel ScaleY { get; set; }
+        public AnimParameterModel ScaleZ { get; set; }
     }
 }

@@ -27,9 +27,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Border 
-        BorderBrush="{StaticResource HighDarkerColor}"
-        Background="{StaticResource HighDarkerColor}">
+    <Border>
         <Border.ContextMenu>
             <ContextMenu>
                 <MenuItem
@@ -111,14 +109,17 @@
                         </StackPanel>
                     </Expander>
 
-                    <Views:Transform 
+                    <Expander Header="Transform" Style="{StaticResource ExpanderBase}">
+                        <Views:Transform 
                         Margin="0, 2" 
                         DockPanel.Dock="Bottom" 
                         DataContext="{Binding Transform}"/>
-                    <Views:Modifier 
+                    </Expander>
+
+                    <Views:Instancer 
                         DockPanel.Dock="Bottom" 
                         Margin="0, 2" 
-                        DataContext="{Binding Modifier}"/>
+                        DataContext="{Binding Instancer}"/>
                     <Views:GeometryFX  
                         Margin="0, 2"
                         DockPanel.Dock="Bottom" 

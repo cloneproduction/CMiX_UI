@@ -5,54 +5,106 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ViewModels="clr-namespace:CMiX.ViewModels"
+    xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX_MVVM"
     d:DataContext="{d:DesignInstance Type={x:Type ViewModels:BeatModifier}, IsDesignTimeCreatable=False}"
     d:DesignHeight="46.5"
     d:DesignWidth="226.667"
     mc:Ignorable="d">
-    <DockPanel  Height="20" >
-        <Border Width="60">
-            <TextBlock 
-            Padding="4, 0"
-            TextTrimming="CharacterEllipsis" 
-            Text="Multi"  
-            FontSize="10" 
-            HorizontalAlignment="Right" 
-            VerticalAlignment="Center" 
-            Foreground="{StaticResource TextBase}"/>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Border>
+        <Border.ContextMenu>
+            <ContextMenu>
+                <MenuItem
+                        Padding="8, 4"
+                        Foreground="{StaticResource TextBase}"
+                        Command="{Binding Data.ResetCommand, Source={StaticResource proxy}}">
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="10" Height="10" Source="{StaticResource Reset}" />
+                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                            <TextBlock Text="Reset BPM"/>
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+            </ContextMenu>
+        </Border.ContextMenu>
+
+
+        <Border x:Name="CounterBorder" Background="Transparent">
+            <Grid  Height="20" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Border
+                    HorizontalAlignment="Right"
+                    Width="60"
+                    Padding="4, 0">
+                    <TextBlock 
+                        TextTrimming="CharacterEllipsis" 
+                        Text="BPM"
+                        FontSize="10" 
+                        HorizontalAlignment="Right" 
+                        VerticalAlignment="Center" 
+                        Foreground="{StaticResource TextBase}"/>
+                </Border>
+                <Grid Grid.Column="1">
+                    <Border
+                        HorizontalAlignment="Stretch"
+                        Background="{StaticResource DarkColor}">
+                        <TextBlock 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center"
+                            Foreground="{StaticResource TextBase}" 
+                            Text="{Binding BPM, Mode=OneWay, StringFormat=F0}" />
+                    </Border>
+                    <Button
+                        HorizontalAlignment="Left"
+                        DockPanel.Dock="Left"
+                        Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+                        Command="{Binding Path=DivideCommand}"
+                        Content="-"
+                        IsDefault="True">
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}">
+                                <Setter Property="Visibility" Value="Hidden" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsMouseOver, ElementName=CounterBorder}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button
+                        HorizontalAlignment="Right"
+                        Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+                        Command="{Binding Path=MultiplyCommand}"
+                        Content="+"
+                        DockPanel.Dock="Right"
+                        IsDefault="True">
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}">
+                                <Setter Property="Visibility" Value="Hidden" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsMouseOver, ElementName=CounterBorder}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+
+
+            </Grid>
         </Border>
-        <Button
-                DockPanel.Dock="Right"
-                Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
-                Command="{Binding Path=ResetCommand}"
-                Style="{StaticResource ButtonImage}">
-            <Button.Content>
-                <Image Margin="15" Source="{StaticResource Reset}"/>
-            </Button.Content>
-        </Button>
-        <Button
-            Margin="0, 0, 1, 0"
-            DockPanel.Dock="Left"
-            Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
-            Command="{Binding Path=DivideCommand}"
-            Content="-"
-            IsDefault="True"
-            />
-        <Button
-            Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
-            Margin="1, 0"
-            Command="{Binding Path=MultiplyCommand}"
-            Content="+"
-            DockPanel.Dock="Right"
-            IsDefault="True"
-            />
-        <Border
-            HorizontalAlignment="Stretch"
-            Background="{StaticResource DarkColor}">
-            <TextBlock 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Center"
-                Foreground="{StaticResource TextBase}" 
-                Text="{Binding BPM, Mode=OneWay, StringFormat=F0}" />
-        </Border>
-    </DockPanel>
+
+    </Border>
 </UserControl>

@@ -7,23 +7,23 @@ namespace CMiX.MVVM.Models
     {
         public TranslateModifierModel()
         {
-            TranslatePattern = new GeometryTranslateModel();
-            X = new SliderModel();
-            Y = new SliderModel();
-            Z = new SliderModel();
-            TranslateBeatModifier = new BeatModifierModel();
+            Translate = new AnimParameterModel();
+            TranslateX = new AnimParameterModel();
+            TranslateY = new AnimParameterModel();
+            TranslateZ = new AnimParameterModel();
         }
 
         public TranslateModifierModel(string messageaddress) : this()
         {
             MessageAddress = messageaddress;
-            TranslateBeatModifier = new BeatModifierModel(messageaddress);
+            TranslateX = new AnimParameterModel(messageaddress);
+            TranslateY = new AnimParameterModel(messageaddress);
+            TranslateZ = new AnimParameterModel(messageaddress);
         }
 
-        public SliderModel X { get; set; }
-        public SliderModel Y { get; set; }
-        public SliderModel Z { get; set; }
-        public GeometryTranslateModel TranslatePattern { get; set; }
-        public BeatModifierModel TranslateBeatModifier { get; set; }
+        public AnimParameterModel Translate { get; set; }
+        public AnimParameterModel TranslateX { get; set; }
+        public AnimParameterModel TranslateY { get; set; }
+        public AnimParameterModel TranslateZ { get; set; }
     }
 }
