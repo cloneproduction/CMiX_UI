@@ -7,8 +7,8 @@
     <ProjectGuid>{B49435EF-EF33-47B4-A92D-267566DB96D8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CMiX_MVVM</RootNamespace>
-    <AssemblyName>CMiX_MVVM</AssemblyName>
+    <RootNamespace>CMiX.MVVM</RootNamespace>
+    <AssemblyName>CMiX.MVVM</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -86,9 +86,9 @@
     <Compile Include="Models\Geometry\Transform\TransformModel.cs" />
     <Compile Include="Models\TranslateModel.cs" />
     <Compile Include="Models\Geometry\Modifier\TranslateModifierModel.cs" />
-    <Compile Include="ViewModels\Message\Ceras\CerasMessenger.cs" />
-    <Compile Include="ViewModels\Message\Ceras\Client.cs" />
-    <Compile Include="ViewModels\Message\Ceras\Server.cs" />
+    <Compile Include="Message\Ceras\Messenger.cs" />
+    <Compile Include="Message\Ceras\Client.cs" />
+    <Compile Include="Message\Ceras\Server.cs" />
     <Compile Include="ViewModels\_Enums\AnimMode.cs" />
     <Compile Include="ViewModels\_Enums\EasingTypes.cs" />
     <Compile Include="_Trash\HueWheel.cs" />
@@ -129,8 +129,8 @@
     <Compile Include="ViewModels\Counter.cs" />
     <Compile Include="ViewModels\FileSelector\FileNameItem.cs" />
     <Compile Include="ViewModels\FileSelector\FileSelector.cs" />
-    <Compile Include="ViewModels\Message\OSCMessenger.cs" />
-    <Compile Include="ViewModels\Message\OSCValidation.cs" />
+    <Compile Include="Message\OSCMessenger.cs" />
+    <Compile Include="Message\OSCValidation.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\Slider.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />

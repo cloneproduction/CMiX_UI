@@ -15,10 +15,10 @@ namespace CMiX.ViewModels
         public Project()
         {
             //Start Server for CerasMessenger
-            Server.Start();
-            Client = new Client();
-            Client.Start();
-            
+            //Server.Start();
+            //Client = new Client();
+            //Client.Start();
+
 
             OSCMessengers = new ObservableCollection<OSCMessenger>();
             OSCMessengers.Add(new OSCMessenger("127.0.0.1", 1111) { Name = "Device (0)" });

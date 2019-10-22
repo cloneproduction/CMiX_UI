@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Views="clr-namespace:CMiXPlayer.Views"
-             xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
+             xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
              xmlns:Jobs="clr-namespace:CMiXPlayer.Jobs"
              mc:Ignorable="d" 
              d:DesignHeight="65.958" d:DesignWidth="413.172">

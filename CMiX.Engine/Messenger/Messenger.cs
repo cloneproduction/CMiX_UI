@@ -91,26 +91,4 @@ namespace CMiX.Engine.Messenger
 
         void Send(object obj) => _sendCeras.WriteToStream(_netStream, obj);
     }
-
-
-    static class Server
-    {
-        public static void Start()
-        {
-            new Thread(AcceptClients).Start();
-        }
-
-        static void AcceptClients()
-        {
-            var listener = new TcpListener(IPAddress.Any, 43210);
-            listener.Start();
-
-            while (true)
-            {
-                var tcpClient = listener.AcceptTcpClient();
-
-                var serverClientHandler = new Messenger(tcpClient);
-            }
-        }
-    }
 }

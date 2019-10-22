@@ -56,7 +56,6 @@ namespace CMiX.MVVM.Message
 
         void HandleMessage(object obj)
         {
-            MessageBox.Show(obj.ToString() + "POUETPOUET");
             Log($"Received a '{obj.GetType().Name}': {obj}");
         }
 

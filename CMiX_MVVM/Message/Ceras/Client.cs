@@ -17,7 +17,7 @@ namespace CMiX.MVVM.Message
         public void Start()
         {
             _client = new TcpClient();
-            _client.Connect("localhost", 1234);
+            _client.Connect("localhost", 5555);
             _netStream = _client.GetStream();
             var config = new SerializerConfig();
             config.Advanced.PersistTypeCache = true;

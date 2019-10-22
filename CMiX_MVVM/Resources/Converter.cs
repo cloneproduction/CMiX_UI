@@ -1,4 +1,4 @@
-﻿using CMiX_MVVM.Resources;
+﻿using CMiX.MVVM.Resources;
 using ColorMine.ColorSpaces;
 using System;
 using System.Globalization;

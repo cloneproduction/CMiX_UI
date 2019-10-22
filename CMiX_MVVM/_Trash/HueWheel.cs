@@ -1,5 +1,5 @@
 ﻿using CMiX.MVVM.Resources;
-using CMiX_MVVM.Resources;
+using CMiX.MVVM.Resources;
 using System;
 using System.Windows;
 using System.Windows.Controls;

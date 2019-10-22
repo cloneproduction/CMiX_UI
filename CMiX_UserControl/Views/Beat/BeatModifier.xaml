@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:CMiX.ViewModels"
     xmlns:Views="clr-namespace:CMiX.Views"
-    xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX_MVVM"
+    xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
     d:DataContext="{d:DesignInstance Type={x:Type viewModels:BeatModifier}, IsDesignTimeCreatable=False}"
     d:DesignHeight="58.826"
     d:DesignWidth="324.414"

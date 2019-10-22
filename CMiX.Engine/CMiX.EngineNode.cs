@@ -6,6 +6,7 @@ using VVVV.PluginInterfaces.V2;
 using VVVV.Utils.VColor;
 using VVVV.Utils.VMath;
 using VVVV.Core.Logging;
+using CMiX.MVVM.Message;
 #endregion usings
 
 namespace CMiX.Engine
@@ -24,7 +25,16 @@ namespace CMiX.Engine
 
 		[Import()]
 		public ILogger FLogger;
-		#endregion fields & pins
+        #endregion fields & pins
+
+        //Client Client;
+
+        public CMiXEngine()
+        {
+            //Client = new Client();
+            //Client.Start();
+        }
+
 
 		//called when data for any output pin is requested
 		public void Evaluate(int SpreadMax)

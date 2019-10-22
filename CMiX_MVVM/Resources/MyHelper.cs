@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace CMiX_MVVM.Resources
+namespace CMiX.MVVM.Resources
 {
     public static class MyHelper
     {
