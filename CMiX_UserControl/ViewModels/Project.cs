@@ -15,9 +15,9 @@ namespace CMiX.ViewModels
         public Project()
         {
             //Start Server for CerasMessenger
-            //Server.Start();
-            //Client = new Client();
-            //Client.Start();
+            Server.Start();
+            Client = new Client();
+            Client.Start();
 
 
             OSCMessengers = new ObservableCollection<OSCMessenger>();
@@ -62,8 +62,13 @@ namespace CMiX.ViewModels
 
         private void SendCerasMessage()
         {
-            Console.WriteLine("SendTest");
-            Client.SendExampleObjects();
+            if(Compositions.Count >= 1)
+            {
+                CompositionModel compmodel = new CompositionModel();
+                Compositions[0].Copy(compmodel);
+                Client.SendExampleObjects(compmodel);
+            }
+            
         }
 
         public void CompositionListDoubleClick()

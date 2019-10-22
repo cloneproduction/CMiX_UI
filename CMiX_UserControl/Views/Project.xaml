@@ -11,9 +11,7 @@
              mc:Ignorable="d"
              d:DesignHeight="770" d:DesignWidth="1345.334">
 
-    <UserControl.DataContext>
-        <ViewModels:Project/>
-    </UserControl.DataContext>
+
     
 
     

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Ceras;
 using Ceras.Helpers;
+using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.Message
 {
@@ -56,7 +57,13 @@ namespace CMiX.MVVM.Message
 
         void HandleMessage(object obj)
         {
-            Log($"Received a '{obj.GetType().Name}': {obj}");
+            if (obj is CompositionModel compmodel)
+            {
+                Send($"Composition Model received with Name '{compmodel.Name}'");
+                return;
+            }
+
+            Log($"Just Received a '{obj.GetType().Name}': {obj}");
         }
 
         void Log(string text) => Console.WriteLine("[Server] " + text);

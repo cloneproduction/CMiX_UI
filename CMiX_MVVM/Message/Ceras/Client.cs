@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.Message
 {
@@ -27,12 +28,12 @@ namespace CMiX.MVVM.Message
 
             StartReceiving();
 
-            SendExampleObjects();
+            //SendExampleObjects();
         }
 
-        public void SendExampleObjects()
+        public void SendExampleObjects(object obj)
         {
-            Send("POUETPOUET");
+            Send(obj);
         }
 
         void StartReceiving()

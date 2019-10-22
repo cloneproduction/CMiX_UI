@@ -9,11 +9,13 @@ using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using Memento;
 using GongSolutions.Wpf.DragDrop;
+using CMiX.MVVM.Message;
 
 namespace CMiX.ViewModels
 {
     public class Composition : ViewModel, IDropTarget
     {
+
         #region CONSTRUCTORS
         public Composition(ObservableCollection<OSCMessenger> oscmessengers, Assets assets)
         {
