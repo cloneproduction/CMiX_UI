@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMiX", "CMiX_UserControl\CMiX.csproj", "{53DC5124-81FA-4A26-88B4-26D755A6267F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMiX.Studio", "CMiX_UserControl\CMiX.Studio.csproj", "{53DC5124-81FA-4A26-88B4-26D755A6267F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorPicker", "ColorPicker\ColorPicker.csproj", "{89B6207C-9C60-4C00-8F0E-36854692B65B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMiXPlayer", "CMiXPlayer\CMiXPlayer.csproj", "{1B0D9C73-3235-4676-A8C2-E1C7273BB575}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMiX.Player", "CMiXPlayer\CMiX.Player.csproj", "{1B0D9C73-3235-4676-A8C2-E1C7273BB575}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMiX_MVVM", "CMiX_MVVM\CMiX_MVVM.csproj", "{B49435EF-EF33-47B4-A92D-267566DB96D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMiX.MVVM", "CMiX_MVVM\CMiX.MVVM.csproj", "{B49435EF-EF33-47B4-A92D-267566DB96D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMiX.Engine", "CMiX.Engine\CMiX.Engine.csproj", "{FE57DF84-433C-49D8-B4DE-D77A934A2429}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,14 @@ Global
 		{B49435EF-EF33-47B4-A92D-267566DB96D8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B49435EF-EF33-47B4-A92D-267566DB96D8}.Release|x64.ActiveCfg = Release|Any CPU
 		{B49435EF-EF33-47B4-A92D-267566DB96D8}.Release|x64.Build.0 = Release|Any CPU
+		{FE57DF84-433C-49D8-B4DE-D77A934A2429}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE57DF84-433C-49D8-B4DE-D77A934A2429}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE57DF84-433C-49D8-B4DE-D77A934A2429}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FE57DF84-433C-49D8-B4DE-D77A934A2429}.Debug|x64.Build.0 = Debug|Any CPU
+		{FE57DF84-433C-49D8-B4DE-D77A934A2429}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE57DF84-433C-49D8-B4DE-D77A934A2429}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE57DF84-433C-49D8-B4DE-D77A934A2429}.Release|x64.ActiveCfg = Release|Any CPU
+		{FE57DF84-433C-49D8-B4DE-D77A934A2429}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

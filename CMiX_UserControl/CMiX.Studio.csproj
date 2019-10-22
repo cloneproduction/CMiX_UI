@@ -469,9 +469,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CMiX_MVVM\CMiX_MVVM.csproj">
+    <ProjectReference Include="..\CMiX_MVVM\CMiX.MVVM.csproj">
       <Project>{b49435ef-ef33-47b4-a92d-267566db96d8}</Project>
-      <Name>CMiX_MVVM</Name>
+      <Name>CMiX.MVVM</Name>
     </ProjectReference>
     <ProjectReference Include="..\ColorPicker\ColorPicker.csproj">
       <Project>{89b6207c-9c60-4c00-8f0e-36854692b65b}</Project>
