@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CMiX.MVVM
+namespace CMiX.MVVM.Message
 {
-    static class Server
+    public static class Server
     {
         public static void Start()
         {
@@ -18,14 +18,13 @@ namespace CMiX.MVVM
 
         static void AcceptClients()
         {
-            var listener = new TcpListener(IPAddress.Any, 43210);
+            var listener = new TcpListener(IPAddress.Any, 1234);
             listener.Start();
-
+            var tcpClient = listener.AcceptTcpClient();
+            var serverClientHandler = new Messenger(tcpClient);
             while (true)
             {
-                var tcpClient = listener.AcceptTcpClient();
 
-                var serverClientHandler = new Messenger(tcpClient);
             }
         }
     }

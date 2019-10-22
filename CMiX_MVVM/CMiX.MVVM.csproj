@@ -90,6 +90,7 @@
     <Compile Include="ViewModels\Message\Ceras\Client.cs" />
     <Compile Include="ViewModels\Message\Ceras\Server.cs" />
     <Compile Include="ViewModels\_Enums\AnimMode.cs" />
+    <Compile Include="ViewModels\_Enums\EasingTypes.cs" />
     <Compile Include="_Trash\HueWheel.cs" />
     <Compile Include="Controls\IPBox.xaml.cs">
       <DependentUpon>IPBox.xaml</DependentUpon>

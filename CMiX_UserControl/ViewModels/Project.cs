@@ -4,7 +4,9 @@ using System.Windows;
 using System.Windows.Input;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.Message;
 using Ceras;
+using System;
 
 namespace CMiX.ViewModels
 {
@@ -12,6 +14,12 @@ namespace CMiX.ViewModels
     {
         public Project()
         {
+            //Start Server for CerasMessenger
+            Server.Start();
+            Client = new Client();
+            Client.Start();
+            
+
             OSCMessengers = new ObservableCollection<OSCMessenger>();
             OSCMessengers.Add(new OSCMessenger("127.0.0.1", 1111) { Name = "Device (0)" });
 
@@ -49,6 +57,13 @@ namespace CMiX.ViewModels
             AddLayerCommand = new RelayCommand(p => AddLayer());
             EditCompositionCommand = new RelayCommand(p => EditComposition());
             CompositionListDoubleClickCommand = new RelayCommand(p => CompositionListDoubleClick());
+            SendCerasMessageCommand = new RelayCommand(p => SendCerasMessage());
+        }
+
+        private void SendCerasMessage()
+        {
+            Console.WriteLine("SendTest");
+            Client.SendExampleObjects();
         }
 
         public void CompositionListDoubleClick()
@@ -62,6 +77,10 @@ namespace CMiX.ViewModels
         }
 
         #region PROPERTIES
+        public Client Client { get; set; }
+        public ICommand SendCerasMessageCommand { get; }
+
+
         public ICommand CompositionListDoubleClickCommand { get; }
 
         public ICommand ImportCompoCommand { get; }

@@ -138,6 +138,11 @@
                         Command="{Binding ExportCompoCommand}"
                         Template="{StaticResource SubMenuItemBase}" 
                         />
+                    <MenuItem
+                        Header="SendTest"
+                        Command="{Binding SendCerasMessageCommand}"
+                        Template="{StaticResource SubMenuItemBase}" 
+                        />
                 </MenuItem>
             </Menu>
         </Border>

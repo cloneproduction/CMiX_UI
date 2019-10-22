@@ -1,53 +1,12 @@
-﻿#region usings
-using System;
-using System.ComponentModel.Composition;
-using VVVV.PluginInterfaces.V1;
-using VVVV.PluginInterfaces.V2;
-using VVVV.Utils.VColor;
-using VVVV.Utils.VMath;
-using VVVV.Core.Logging;
-#endregion usings
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using CMiX.MVVM.ViewModels;
 
 namespace CMiX.Engine
 {
-    /// <summary>
-    /// Easing EasingType enumeration
-    /// </summary>
-    public enum EasingType
-    {
-        Linear,
-        QuadraticEaseIn,
-        QuadraticEaseOut,
-        QuadraticEaseInOut,
-        CubicEaseIn,
-        CubicEaseOut,
-        CubicEaseInOut,
-        QuarticEaseIn,
-        QuarticEaseOut,
-        QuarticEaseInOut,
-        QuinticEaseIn,
-        QuinticEaseOut,
-        QuinticEaseInOut,
-        SineEaseIn,
-        SineEaseOut,
-        SineEaseInOut,
-        CircularEaseIn,
-        CircularEaseOut,
-        CircularEaseInOut,
-        ExponentialEaseIn,
-        ExponentialEaseOut,
-        ExponentialEaseInOut,
-        ElasticEaseIn,
-        ElasticEaseOut,
-        ElasticEaseInOut,
-        BackEaseIn,
-        BackEaseOut,
-        BackEaseInOut,
-        BounceEaseIn,
-        BounceEaseOut,
-        BounceEaseInOut
-    }
-
     public static class Easing
     {
         static public double Interpolate(double p, EasingType function)
