@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using CMiX.MVVM.Models;
+using System.Windows;
 
 namespace CMiX.MVVM.Message
 {
@@ -14,6 +15,8 @@ namespace CMiX.MVVM.Message
         NetworkStream _netStream;
         CerasSerializer _sendCeras;
         CerasSerializer _receiveCeras;
+
+        public string MessageReceived { get; set; }
 
         public void Start()
         {
@@ -26,8 +29,8 @@ namespace CMiX.MVVM.Message
             _sendCeras = new CerasSerializer(config);
             _receiveCeras = new CerasSerializer(config);
 
+            MessageReceived = "No Message Yet";
             StartReceiving();
-
             //SendExampleObjects();
         }
 
@@ -44,8 +47,11 @@ namespace CMiX.MVVM.Message
                 {
                     while (true)
                     {
+                        //MessageReceived = "while (true)";
                         // Read until we received the next message from the server
                         var obj = await _receiveCeras.ReadFromStream(_netStream);
+                        MessageBox.Show("POUET");
+                        MessageReceived = "ObjAwait";
                         HandleMessage(obj);
                     }
                 }
@@ -58,9 +64,10 @@ namespace CMiX.MVVM.Message
 
         void HandleMessage(object obj)
         {
-
+            MessageReceived = "POUETPOUET";
             Console.WriteLine($"[Client] Received a '{obj.GetType().Name}': {obj}");
         }
+
         void Send(object obj) => _sendCeras.WriteToStream(_netStream, obj);
     }
 }

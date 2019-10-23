@@ -66,7 +66,7 @@ namespace CMiX.ViewModels
             {
                 CompositionModel compmodel = new CompositionModel();
                 Compositions[0].Copy(compmodel);
-                Client.SendExampleObjects(compmodel);
+                Client.SendExampleObjects(compmodel.SelectedLayer);
             }
             
         }

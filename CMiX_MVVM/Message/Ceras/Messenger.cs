@@ -57,12 +57,16 @@ namespace CMiX.MVVM.Message
 
         void HandleMessage(object obj)
         {
-            if (obj is CompositionModel compmodel)
+            if (obj is Model model)
             {
-                Send($"Composition Model received with Name '{compmodel.Name}'");
+                if(model.MessageAddress == "/Layer0/")
+                {
+                    var layerModel = model as LayerModel;
+                    Send($"Layer Model received with Name '{layerModel.Name}'");
+                }
+                
                 return;
             }
-
             Log($"Just Received a '{obj.GetType().Name}': {obj}");
         }
 

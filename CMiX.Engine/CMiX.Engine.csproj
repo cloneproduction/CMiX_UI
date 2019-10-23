@@ -97,7 +97,6 @@
     <Compile Include="CMiX.EngineNode.cs" />
     <Compile Include="Easing.cs" />
     <Compile Include="Enums\ModeType.cs" />
-    <Compile Include="Messenger\Messenger.cs" />
     <Compile Include="Mode\LFO.cs" />
     <Compile Include="Mode\Mode.cs" />
     <Compile Include="Mode\Randomized.cs" />

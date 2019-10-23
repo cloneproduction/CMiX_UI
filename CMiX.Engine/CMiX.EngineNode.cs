@@ -23,16 +23,19 @@ namespace CMiX.Engine
 		[Output("Output")]
 		public ISpread<double> FOutput;
 
-		[Import()]
+        [Output("MessageReceived")]
+        public ISpread<string> FMessageReceived;
+
+        [Import()]
 		public ILogger FLogger;
         #endregion fields & pins
 
-        //Client Client;
+        public Client Client  { get; set; }
 
         public CMiXEngine()
         {
-            //Client = new Client();
-            //Client.Start();
+            Client = new Client();
+            Client.Start();
         }
 
 
@@ -40,8 +43,9 @@ namespace CMiX.Engine
 		public void Evaluate(int SpreadMax)
 		{
 			FOutput.SliceCount = SpreadMax;
-
-			for (int i = 0; i < SpreadMax; i++)
+            FMessageReceived[0] = Client.MessageReceived;
+            FLogger.Log(LogType.Message, Client.MessageReceived);
+            for (int i = 0; i < SpreadMax; i++)
 				FOutput[i] = FInput[i] * 4;
 
 			//FLogger.Log(LogType.Debug, "hi tty!");
