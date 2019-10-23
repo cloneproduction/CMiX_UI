@@ -58,6 +58,7 @@ namespace CMiX.MVVM.Message
 
         void HandleMessage(object obj)
         {
+
             Console.WriteLine($"[Client] Received a '{obj.GetType().Name}': {obj}");
         }
         void Send(object obj) => _sendCeras.WriteToStream(_netStream, obj);
