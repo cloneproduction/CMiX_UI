@@ -12,7 +12,7 @@ using CMiX.MVVM.Message;
 namespace CMiX.Engine
 {
 	#region PluginInfo
-	[PluginInfo(Name = "CMiX.Engine", Category = "Value")]
+	[PluginInfo(Name = "CMiX.Engine", Category = "Value", AutoEvaluate =true)]
 	#endregion PluginInfo
 	public class CMiXEngine : IPluginEvaluate
 	{
@@ -30,12 +30,12 @@ namespace CMiX.Engine
 		public ILogger FLogger;
         #endregion fields & pins
 
-        public Client Client  { get; set; }
+        NetMQMessenger NetMQMessenger;
 
         public CMiXEngine()
         {
-            Client = new Client();
-            Client.Start();
+            NetMQMessenger = new NetMQMessenger();
+            NetMQMessenger.StartSubscriber();
         }
 
 
@@ -43,10 +43,12 @@ namespace CMiX.Engine
 		public void Evaluate(int SpreadMax)
 		{
 			FOutput.SliceCount = SpreadMax;
-            FMessageReceived[0] = Client.MessageReceived;
-            FLogger.Log(LogType.Message, Client.MessageReceived);
-            for (int i = 0; i < SpreadMax; i++)
-				FOutput[i] = FInput[i] * 4;
+
+            FLogger.Log(LogType.Message, NetMQMessenger.ReceivedString);
+            FMessageReceived[0] = NetMQMessenger.ReceivedString;
+
+    //        for (int i = 0; i < SpreadMax; i++)
+				//FOutput[i] = FInput[i] * 4;
 
 			//FLogger.Log(LogType.Debug, "hi tty!");
 		}

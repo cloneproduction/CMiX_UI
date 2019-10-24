@@ -6,7 +6,9 @@ using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Message;
 using Ceras;
+using Ceras.Helpers;
 using System;
+using System.Threading;
 
 namespace CMiX.ViewModels
 {
@@ -14,11 +16,9 @@ namespace CMiX.ViewModels
     {
         public Project()
         {
-            //Start Server for CerasMessenger
-            Server.Start();
-            Client = new Client();
-            Client.Start();
-
+            Messenger = new NetMQMessenger();
+            Messenger.StartPublisher();
+            Messenger.StartSubscriber();
 
             OSCMessengers = new ObservableCollection<OSCMessenger>();
             OSCMessengers.Add(new OSCMessenger("127.0.0.1", 1111) { Name = "Device (0)" });
@@ -59,16 +59,23 @@ namespace CMiX.ViewModels
             CompositionListDoubleClickCommand = new RelayCommand(p => CompositionListDoubleClick());
             SendCerasMessageCommand = new RelayCommand(p => SendCerasMessage());
         }
+        public NetMQMessenger Messenger { get; set; }
+
 
         private void SendCerasMessage()
         {
-            if(Compositions.Count >= 1)
-            {
-                CompositionModel compmodel = new CompositionModel();
-                Compositions[0].Copy(compmodel);
-                Client.SendExampleObjects(compmodel.SelectedLayer);
-            }
-            
+            SliderModel slider = new SliderModel();
+            slider.Amount = 10.1;
+            byte[] data = Serializer.Serialize<SliderModel>(slider);
+            Messenger.Send("testTopic", data);
+        }
+
+
+        private int _slidetTest;
+        public int SliderTest
+        {
+            get => _slidetTest;
+            set => SetAndNotify(ref _slidetTest, value);
         }
 
         public void CompositionListDoubleClick()
