@@ -16,11 +16,10 @@ namespace CMiX.ViewModels
     {
         public Project()
         {
-            NetMQMessenger.StartPublisher();
-
-            //Messenger = new NetMQMessenger();
-            //Messenger.StartPublisher();
+            Messenger = new NetMQMessenger();
+            Messenger.StartPublisher();
             //Messenger.StartSubscriber();
+
 
             OSCMessengers = new ObservableCollection<OSCMessenger>();
             OSCMessengers.Add(new OSCMessenger("127.0.0.1", 1111) { Name = "Device (0)" });
@@ -62,7 +61,7 @@ namespace CMiX.ViewModels
             SendCerasMessageCommand = new RelayCommand(p => SendCerasMessage());
         }
 
-        //public NetMQMessenger Messenger { get; set; }
+        public NetMQMessenger Messenger { get; set; }
 
         private void SendCerasMessage()
         {
@@ -99,7 +98,7 @@ namespace CMiX.ViewModels
             set
             {
                 SetAndNotify(ref _valueTest, value);
-                NetMQMessenger.SendDouble("testTopic", ValueTest);
+                Messenger.SendDouble("testTopic", ValueTest);
             }
         }
 
