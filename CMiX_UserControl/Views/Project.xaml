@@ -298,6 +298,9 @@
 
                         </Border>
                     </TabItem>
+                    <TabItem>
+                        <Slider Minimum="0" Maximum="100" Height="20" VerticalAlignment="Top" Value="{Binding ValueTest}"/>
+                    </TabItem>
                 </TabControl>
             </Border>
         </Grid>

@@ -32,16 +32,6 @@ namespace CMiX.MVVM.Controls
             textbox.OnSwitchToEditingMode();
             textbox.TextInput.Focus();
             textbox.TextInput.SelectAll();
-            Console.WriteLine("POUETPOUET");
-            //
-            //if (textbox.CanEdit)
-            //{
-
-            //}
-            //else
-            //{
-            //    textbox.OnSwitchToNormalMode();
-            //}
         }
 
 

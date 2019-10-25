@@ -30,27 +30,20 @@ namespace CMiX.Engine
 		public ILogger FLogger;
         #endregion fields & pins
 
-        NetMQMessenger NetMQMessenger;
+        //NetMQMessenger NetMQMessenger;
 
         public CMiXEngine()
         {
-            NetMQMessenger = new NetMQMessenger();
-            NetMQMessenger.StartSubscriber();
+            //NetMQMessenger = new NetMQMessenger();
+            //NetMQMessenger.StartSubscriber();
         }
 
-
-		//called when data for any output pin is requested
 		public void Evaluate(int SpreadMax)
 		{
 			FOutput.SliceCount = SpreadMax;
 
-            FLogger.Log(LogType.Message, NetMQMessenger.ReceivedString);
-            FMessageReceived[0] = NetMQMessenger.ReceivedString;
-
-    //        for (int i = 0; i < SpreadMax; i++)
-				//FOutput[i] = FInput[i] * 4;
-
-			//FLogger.Log(LogType.Debug, "hi tty!");
-		}
+            //FLogger.Log(LogType.Message, NetMQMessenger.ReceivedString);
+            //FMessageReceived[0] = NetMQMessenger.ReceivedString;
+        }
 	}
 }

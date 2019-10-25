@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ using NetMQ;
 using NetMQ.Sockets;
 using Ceras;
 using CMiX.MVVM.Models;
-using System.Windows;
+
 
 namespace CMiX.MVVM.Message
 {
@@ -17,35 +18,70 @@ namespace CMiX.MVVM.Message
         public NetMQMessenger()
         {
             Serializer = new CerasSerializer();
+
+
         }
-        PublisherSocket Publisher = new PublisherSocket();
+        
+        
         public CerasSerializer Serializer { get; set; }
+
+        //async Task ServerAsync()
+        //{
+        //    using (var server = new RouterSocket("inproc://async"))
+        //    {
+        //        for (int i = 0; i < 1000; i++)
+        //        {
+        //            var (routingKey, more) = await server.ReceiveRoutingKeyAsync();
+        //            var (message, _) = await server.ReceiveFrameStringAsync();
+
+        //            // TODO: process message
+
+        //            await Task.Delay(100);
+        //            server.SendMoreFrame(routingKey);
+        //            server.SendFrame("Welcome");
+        //        }
+        //    }
+        //}
+
+        //async Task ClientAsync()
+        //{
+        //    using (var client = new DealerSocket("inproc://async"))
+        //    {
+        //        for (int i = 0; i < 1000; i++)
+        //        {
+        //            client.SendFrame("Hello");
+        //            var (message, more) = await client.ReceiveFrameStringAsync();
+
+        //            // TODO: process reply
+
+        //            await Task.Delay(100);
+        //        }
+        //    }
+        //}
+
+        //public void StartMessenger()
+        //{
+        //    using (var runtime = new NetMQRuntime())
+        //    {
+        //        runtime.Run(ServerAsync(), ClientAsync());
+        //    }
+        //}
+
+
+
+        PublisherSocket Publisher = new PublisherSocket();
 
         public void StartPublisher()
         {
-            Random rand = new Random(50);
             Task.Run(() =>
             {
                 using (Publisher = new PublisherSocket())
                 {
-                    Console.WriteLine("Publisher socket binding...");
                     Publisher.Options.SendHighWatermark = 1000;
                     Publisher.Bind("tcp://*:6666");
+                    //Task.Delay(100);
                     for (var i = 0; i < 100; i++)
                     {
-                        //var randomizedTopic = rand.NextDouble();
-                        //if (randomizedTopic > 0.5)
-                        //{
-                        //    var msg = "testTopic msg-" + i;
-                        //    Console.WriteLine("Sending message : {0}", msg);
-                        //    //Publisher.SendMoreFrame("testTopic").SendFrame(msg);
-                        //}
-                        //else
-                        //{
-                        //    var msg = "TopicB msg-" + i;
-                        //    Console.WriteLine("Sending message : {0}", msg);
-                        //    //Publisher.SendMoreFrame("TopicB").SendFrame(msg);
-                        //}
                         Thread.Sleep(500);
                     }
                 }
@@ -54,44 +90,61 @@ namespace CMiX.MVVM.Message
 
         public void Send(string topic, byte[] data)
         {
-            Publisher.SendMoreFrame(topic).SendFrame(data, data.Length);
+            Publisher.SendMoreFrame(topic).SendFrame(data);
         }
 
-        //public void Send(string topic, string data)
-        //{
-        //    Publisher.SendMoreFrame(topic).SendFrame(data);
-        //}
+        public void SendDouble(string topic, double data)
+        {
+            Publisher.SendMoreFrame(topic).SendFrame(data.ToString());
+            Console.WriteLine(data.ToString());
+        }
 
         public static IList<string> allowableCommandLineArgs = new[] { "TopicA", "TopicB", "All" };
-        public string ReceivedString { get; set; }
+        //public string ReceivedString { get; set; }
+
+        private string _receivedString;
+        public string ReceivedString
+        {
+            get { return _receivedString; }
+            set
+            {
+                _receivedString = value;
+                Console.WriteLine("ReceivedString " + ReceivedString);
+            }
+        }
+
+
+
         private byte[] _receivedData;
         public byte[] ReceivedData
         {
             get { return _receivedData; }
-            set {
+            set
+            {
                 _receivedData = value;
-                Console.WriteLine(ReceivedData.Length.ToString());
             }
         }
 
-        public async void StartSubscriber ()
+        public  void StartSubscriber()
         {
-            await Task.Run(() =>
+             Task.Run(() =>
             {
                 using (var subSocket = new SubscriberSocket())
                 {
                     subSocket.Options.ReceiveHighWatermark = 1000;
                     subSocket.Connect("tcp://localhost:6666");
                     subSocket.Subscribe("testTopic");
-
+                    Console.WriteLine("Subscriber started");
                     while (true)
                     {
-                        byte[] data = subSocket.ReceiveFrameBytes();
-                        ReceivedString = data.Length.ToString();
-                        ReceivedData = data;
-                        //SliderModel slider = Serializer.Deserialize<SliderModel>(data);
-                    }
+                        string topic = subSocket.ReceiveFrameString();
+                        string data = subSocket.ReceiveFrameString();
 
+                        //ReceivedData = data;
+                        //ProjectModel project = Serializer.Deserialize<ProjectModel>(data);
+                        //Console.WriteLine("Project " + project.MessageAddress);
+                        ReceivedString = data;
+                    }
                 }
             });
         }

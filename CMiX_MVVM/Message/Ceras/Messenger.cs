@@ -34,7 +34,7 @@ namespace CMiX.MVVM.Message
         readonly CerasSerializer _sendCeras;
         readonly CerasSerializer _receiveCeras;
 
-        string _clientName;
+        //string _clientName;
 
         void StartReceivingMessages()
         {

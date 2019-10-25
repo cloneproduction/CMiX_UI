@@ -69,11 +69,11 @@ namespace CMiX.ViewModels
 
         public ObservableCollection<Layer> Layers { get; }
 
-        private int _layerID = 0;
-        public int layerID
+        private int _LayerID = 0;
+        public int LayerID
         {
-            get { return _layerID; }
-            set { _layerID = value; }
+            get { return _LayerID; }
+            set { _LayerID = value; }
         }
 
         private int _layerNameID = 0;
@@ -129,7 +129,7 @@ namespace CMiX.ViewModels
             var layername = CreateLayerName();
 
             Layer layer = new Layer(MasterBeat, layername, OSCValidation, Mementor);
-            layer.ID = layerID;
+            layer.ID = LayerID;
             layer.Name = "Layer " + layer.ID;
             Layers.Add(layer);
             SelectedLayer = layer;
@@ -150,12 +150,12 @@ namespace CMiX.ViewModels
 
         public List<int> GetLayerID()
         {
-            var layerID = new List<int>();
+            var LayerID = new List<int>();
             foreach (var layer in Layers)
             {
-                layerID.Add(layer.ID);
+                LayerID.Add(layer.ID);
             }
-            return layerID;
+            return LayerID;
         }
 
         public void QueueLayerNames()
@@ -241,7 +241,7 @@ namespace CMiX.ViewModels
                 var selectedlayermessageaddress = SelectedLayer.MessageAddress;
                 var selectedlayername = SelectedLayer.LayerName;
                 var selectedname = SelectedLayer.Name;
-                var selectedlayerID = SelectedLayer.ID;
+                var selectedLayerID = SelectedLayer.ID;
 
                 var layermodel = data.GetData("LayerModel") as LayerModel;
 
@@ -249,7 +249,7 @@ namespace CMiX.ViewModels
                 SelectedLayer.UpdateMessageAddress(selectedlayermessageaddress);
                 SelectedLayer.LayerName = selectedlayername;
                 SelectedLayer.Name = selectedname;
-                SelectedLayer.ID = selectedlayerID;
+                SelectedLayer.ID = selectedLayerID;
                 SelectedLayer.Copy(layermodel);
 
                 QueueLayerID();
@@ -277,7 +277,7 @@ namespace CMiX.ViewModels
             Mementor.BeginBatch();
             DisabledMessages();
 
-            layerID++;
+            LayerID++;
             layerNameID++;
             var layer = CreateLayer();
 
@@ -304,7 +304,7 @@ namespace CMiX.ViewModels
                 if (item.ID > deletedlayer.ID)
                     item.ID--;
             }
-            layerID--;
+            LayerID--;
         }
 
         private void DuplicateLayer()
@@ -318,7 +318,7 @@ namespace CMiX.ViewModels
                 LayerModel layermodel = new LayerModel();
                 lyr.Copy(layermodel);
 
-                layerID++;
+                LayerID++;
                 layerNameID++;
                 Layer newlayer = CreateLayer();
                 var newlayername = CreateLayerName();
@@ -327,7 +327,7 @@ namespace CMiX.ViewModels
                 newlayer.Paste(layermodel);
                 newlayer.LayerName = newlayername;
                 newlayer.Name += " - Copy";
-                newlayer.ID = layerID;
+                newlayer.ID = LayerID;
                 newlayer.UpdateMessageAddress(newlayername);
                 newlayer.Enabled = false;
                 newlayer.Copy(layermodel);
@@ -394,7 +394,7 @@ namespace CMiX.ViewModels
 
             compositionmodel.LayerID = GetLayerID();
             compositionmodel.LayerNames = GetLayerNames();
-            compositionmodel.layerID = layerID;
+            compositionmodel.layerID = LayerID;
             compositionmodel.layerNameID = layerNameID;
 
             foreach (Layer lyr in Layers)
@@ -419,7 +419,7 @@ namespace CMiX.ViewModels
             Name = compositionmodel.Name;
             ContentFolderName = compositionmodel.ContentFolderName;
 
-            layerID = compositionmodel.layerID;
+            LayerID = compositionmodel.layerID;
             layerNameID = compositionmodel.layerNameID;
 
 

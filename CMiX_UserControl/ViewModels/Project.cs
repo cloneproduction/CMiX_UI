@@ -16,9 +16,11 @@ namespace CMiX.ViewModels
     {
         public Project()
         {
-            Messenger = new NetMQMessenger();
-            Messenger.StartPublisher();
-            Messenger.StartSubscriber();
+            NetMQMessenger.StartPublisher();
+
+            //Messenger = new NetMQMessenger();
+            //Messenger.StartPublisher();
+            //Messenger.StartSubscriber();
 
             OSCMessengers = new ObservableCollection<OSCMessenger>();
             OSCMessengers.Add(new OSCMessenger("127.0.0.1", 1111) { Name = "Device (0)" });
@@ -59,15 +61,17 @@ namespace CMiX.ViewModels
             CompositionListDoubleClickCommand = new RelayCommand(p => CompositionListDoubleClick());
             SendCerasMessageCommand = new RelayCommand(p => SendCerasMessage());
         }
-        public NetMQMessenger Messenger { get; set; }
 
+        //public NetMQMessenger Messenger { get; set; }
 
         private void SendCerasMessage()
         {
-            SliderModel slider = new SliderModel();
-            slider.Amount = 10.1;
-            byte[] data = Serializer.Serialize<SliderModel>(slider);
-            Messenger.Send("testTopic", data);
+            ProjectModel project = new ProjectModel();
+            project.CompositionModel.Add(new CompositionModel());
+
+            project.MessageAddress = "Hello Project";
+            byte[] data = Serializer.Serialize<ProjectModel>(project);
+            //Messenger.Send("testTopic", data);
         }
 
 
@@ -80,7 +84,7 @@ namespace CMiX.ViewModels
 
         public void CompositionListDoubleClick()
         {
-            System.Console.WriteLine("DoubleClickOnItem");
+
         }
 
         private void ImportCompoFromProject()
@@ -88,10 +92,21 @@ namespace CMiX.ViewModels
 
         }
 
+        private double _valueTest;
+        public double ValueTest
+        {
+            get => _valueTest;
+            set
+            {
+                SetAndNotify(ref _valueTest, value);
+                NetMQMessenger.SendDouble("testTopic", ValueTest);
+            }
+        }
+
+
         #region PROPERTIES
         public Client Client { get; set; }
         public ICommand SendCerasMessageCommand { get; }
-
 
         public ICommand CompositionListDoubleClickCommand { get; }
 
