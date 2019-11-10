@@ -10,15 +10,15 @@ namespace CMiX.ViewModels
     [Serializable]
     public class ScaleModifier : ViewModel
     {
-        public ScaleModifier(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor, Beat beat)
-            : base(oscvalidation, mementor)
+        public ScaleModifier(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor, Beat beat)
+            : base(serverValidations, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(ScaleModifier));
 
-            Scale = new AnimParameter(MessageAddress + nameof(Scale), oscvalidation, mementor, beat, true);
-            ScaleX = new AnimParameter(MessageAddress + nameof(ScaleX), oscvalidation, mementor, beat, false);
-            ScaleY = new AnimParameter(MessageAddress + nameof(ScaleY), oscvalidation, mementor, beat, false);
-            ScaleZ = new AnimParameter(MessageAddress + nameof(ScaleZ), oscvalidation, mementor, beat, false);
+            Scale = new AnimParameter(MessageAddress + nameof(Scale), serverValidations, mementor, beat, true);
+            ScaleX = new AnimParameter(MessageAddress + nameof(ScaleX), serverValidations, mementor, beat, false);
+            ScaleY = new AnimParameter(MessageAddress + nameof(ScaleY), serverValidations, mementor, beat, false);
+            ScaleZ = new AnimParameter(MessageAddress + nameof(ScaleZ), serverValidations, mementor, beat, false);
         }
 
         #region PROPERTIES
@@ -66,9 +66,9 @@ namespace CMiX.ViewModels
 
                 EnabledMessages();
                 Mementor.EndBatch();
-
-                QueueObjects(Scalemodifiermodel);
-                SendQueues();
+                //SendMessages(MessageAddress, Scalemodifiermodel);
+                //QueueObjects(Scalemodifiermodel);
+                //SendQueues();
             }
         }
 
@@ -77,8 +77,9 @@ namespace CMiX.ViewModels
             ScaleModifierModel Scalemodifiermodel = new ScaleModifierModel();
             this.Reset();
             this.Copy(Scalemodifiermodel);
-            QueueObjects(Scalemodifiermodel);
-            SendQueues();
+            //SendMessages(MessageAddress, Scalemodifiermodel);
+            //QueueObjects(Scalemodifiermodel);
+            //SendQueues();
         }
 
         public void Copy(ScaleModifierModel Scalemodifiermodel)
@@ -117,8 +118,9 @@ namespace CMiX.ViewModels
 
             ScaleModifierModel Scalemodifiermodel = new ScaleModifierModel();
             this.Copy(Scalemodifiermodel);
-            QueueObjects(Scalemodifiermodel);
-            SendQueues();
+            //SendMessages(MessageAddress, Scalemodifiermodel);
+            //QueueObjects(Scalemodifiermodel);
+            //SendQueues();
         }
         #endregion
     }

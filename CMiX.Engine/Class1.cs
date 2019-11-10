@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CMiX.MVVM.Message.NetMQ
+namespace CMiX.Engine
 {
-    public class Server
+    public class Class1
     {
-
     }
 }

@@ -12,45 +12,45 @@ namespace CMiX.ViewModels
     public class Texture : ViewModel
     {
         #region CONSTRUCTORS
-        public Texture(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor)
-            : base ( oscvalidation, mementor)
+        public Texture(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor)
+            : base (serverValidations, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Texture));
 
-            FileSelector = new FileSelector(MessageAddress,  "Single", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" },oscvalidation, mementor);
-            FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress,oscvalidation, mementor) { FileIsSelected = true, FileName = "Black (default).png" });
-            FileSelector.SelectedFileNameItem = new FileNameItem(string.Empty, FileSelector.MessageAddress, oscvalidation, mementor) { FileIsSelected = true, FileName = "Black (default).png" };
+            FileSelector = new FileSelector(MessageAddress,  "Single", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, serverValidations, mementor);
+            FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress, serverValidations, mementor) { FileIsSelected = true, FileName = "Black (default).png" });
+            FileSelector.SelectedFileNameItem = new FileNameItem(string.Empty, FileSelector.MessageAddress, serverValidations, mementor) { FileIsSelected = true, FileName = "Black (default).png" };
 
-            Brightness = new Slider(MessageAddress + nameof(Brightness),oscvalidation, mementor);
+            Brightness = new Slider(MessageAddress + nameof(Brightness), serverValidations, mementor);
             Brightness.Minimum = -1.0;
 
-            Contrast = new Slider(MessageAddress + nameof(Contrast),oscvalidation, mementor);
+            Contrast = new Slider(MessageAddress + nameof(Contrast), serverValidations, mementor);
             Contrast.Minimum = -1.0;
 
-            Invert = new Slider(MessageAddress + nameof(Invert),oscvalidation, mementor);
+            Invert = new Slider(MessageAddress + nameof(Invert), serverValidations, mementor);
             InvertMode = ((TextureInvertMode)0).ToString();
 
-            Hue = new Slider(MessageAddress + nameof(Hue),oscvalidation, mementor);
+            Hue = new Slider(MessageAddress + nameof(Hue), serverValidations, mementor);
             Hue.Minimum = -1.0;
 
-            Saturation = new Slider(MessageAddress + nameof(Saturation),oscvalidation, mementor);
+            Saturation = new Slider(MessageAddress + nameof(Saturation), serverValidations, mementor);
             Saturation.Minimum = -1.0;
 
-            Luminosity = new Slider(MessageAddress + nameof(Luminosity),oscvalidation, mementor);
+            Luminosity = new Slider(MessageAddress + nameof(Luminosity), serverValidations, mementor);
             Luminosity.Minimum = -1.0;
 
-            Keying = new Slider(MessageAddress + nameof(Keying),oscvalidation, mementor);
+            Keying = new Slider(MessageAddress + nameof(Keying), serverValidations, mementor);
 
-            Scale = new Slider(MessageAddress + nameof(Scale),oscvalidation, mementor);
+            Scale = new Slider(MessageAddress + nameof(Scale), serverValidations, mementor);
             Scale.Minimum = -1.0;
 
-            Rotate = new Slider(MessageAddress + nameof(Rotate),oscvalidation, mementor);
+            Rotate = new Slider(MessageAddress + nameof(Rotate), serverValidations, mementor);
             Rotate.Minimum = -1.0;
 
-            Pan = new Slider(MessageAddress + nameof(Pan),oscvalidation, mementor);
+            Pan = new Slider(MessageAddress + nameof(Pan), serverValidations, mementor);
             Pan.Minimum = -1.0;
 
-            Tilt = new Slider(MessageAddress + nameof(Tilt),oscvalidation, mementor);
+            Tilt = new Slider(MessageAddress + nameof(Tilt), serverValidations, mementor);
             Tilt.Minimum = -1.0;
 
             CopyTextureCommand = new RelayCommand(p => CopyTexture());
@@ -106,7 +106,7 @@ namespace CMiX.ViewModels
                 if(Mementor != null)
                     Mementor.PropertyChange(this, nameof(InvertMode));
                 SetAndNotify(ref _invertMode, value);
-                SendMessages(MessageAddress + nameof(InvertMode), InvertMode);
+                //SendMessages(MessageAddress + nameof(InvertMode), InvertMode);
             }
         }
         #endregion
@@ -200,8 +200,9 @@ namespace CMiX.ViewModels
                 EnabledMessages();
                 Mementor.EndBatch();
 
-                QueueObjects(texturemodel);
-                SendQueues();
+                //SendMessages(nameof(TextureModel), texturemodel);
+                //QueueObjects(texturemodel);
+                //SendQueues();
             }
         }
 
@@ -210,8 +211,9 @@ namespace CMiX.ViewModels
             TextureModel texturemodel = new TextureModel();
             this.Reset();
             this.Copy(texturemodel);
-            QueueObjects(texturemodel);
-            SendQueues();
+            //SendMessages(nameof(TextureModel), texturemodel);
+            //QueueObjects(texturemodel);
+            //SendQueues();
         }
         #endregion
     }

@@ -12,8 +12,8 @@ namespace CMiX.MVVM.ViewModels
 
         }
 
-        public FileNameItem(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor)
-            : base (oscvalidation, mementor)
+        public FileNameItem(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor)
+            : base (serverValidations, mementor)
         {
             MessageAddress = messageaddress + "Selected";
             Mementor = mementor;
@@ -37,7 +37,7 @@ namespace CMiX.MVVM.ViewModels
                 SetAndNotify(ref _fileisselected, value);
                 if (FileIsSelected)
                 {
-                    SendMessages(MessageAddress, FileName);
+                    //SendMessages(MessageAddress, FileName);
                 }
             }
         }

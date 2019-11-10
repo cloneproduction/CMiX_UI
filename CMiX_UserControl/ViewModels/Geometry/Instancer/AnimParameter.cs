@@ -9,13 +9,13 @@ namespace CMiX.ViewModels
 {
     public class AnimParameter : ViewModel
     {
-        public AnimParameter(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor, Beat beat, bool isEnabled)
-            : base(oscvalidation, mementor)
+        public AnimParameter(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor, Beat beat, bool isEnabled)
+            : base(serverValidations, mementor)
         {
             Mode = AnimMode.None;
             IsEnabled = isEnabled;
-            Slider = new Slider(MessageAddress, oscvalidation, mementor);
-            BeatModifier = new BeatModifier(MessageAddress, beat, oscvalidation, mementor);
+            Slider = new Slider(MessageAddress, serverValidations, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, beat, serverValidations, mementor);
         }
 
         #region PROPERTIES
@@ -28,7 +28,7 @@ namespace CMiX.ViewModels
                 if (Mementor != null)
                     Mementor.PropertyChange(this, nameof(IsEnabled));
                 SetAndNotify(ref _IsEnabled, value);
-                SendMessages(MessageAddress + nameof(Mode), IsEnabled);
+                //SendMessages(MessageAddress + nameof(Mode), IsEnabled);
             }
         }
 
@@ -41,7 +41,7 @@ namespace CMiX.ViewModels
                 if (Mementor != null)
                     Mementor.PropertyChange(this, nameof(Mode));
                 SetAndNotify(ref _Mode, value);
-                SendMessages(MessageAddress + nameof(Mode), Mode);
+                //SendMessages(MessageAddress + nameof(Mode), Mode);
             }
         }
 
@@ -84,9 +84,9 @@ namespace CMiX.ViewModels
 
                 EnabledMessages();
                 Mementor.EndBatch();
-
-                QueueObjects(animparametermodel);
-                SendQueues();
+                //SendMessages(MessageAddress, animparametermodel);
+                //QueueObjects(animparametermodel);
+                //SendQueues();
             }
         }
 
@@ -95,8 +95,9 @@ namespace CMiX.ViewModels
             AnimParameterModel animparametermodel = new AnimParameterModel();
             this.Reset();
             this.Copy(animparametermodel);
-            QueueObjects(animparametermodel);
-            SendQueues();
+            //SendMessages(MessageAddress, animparametermodel);
+            //QueueObjects(animparametermodel);
+            //SendQueues();
         }
 
         public void Copy(AnimParameterModel animparametermodel)
@@ -129,8 +130,9 @@ namespace CMiX.ViewModels
 
             AnimParameterModel animparametermodel = new AnimParameterModel();
             this.Copy(animparametermodel);
-            QueueObjects(animparametermodel);
-            SendQueues();
+            //SendMessages(MessageAddress, animparametermodel);
+            //QueueObjects(animparametermodel);
+            //SendQueues();
         }
         #endregion
     }

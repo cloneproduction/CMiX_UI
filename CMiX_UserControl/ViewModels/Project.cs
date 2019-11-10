@@ -6,9 +6,6 @@ using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Message;
 using Ceras;
-using Ceras.Helpers;
-using System;
-using System.Threading;
 
 namespace CMiX.ViewModels
 {
@@ -16,13 +13,8 @@ namespace CMiX.ViewModels
     {
         public Project()
         {
-            Messenger = new NetMQMessenger();
-            Messenger.StartPublisher();
-            //Messenger.StartSubscriber();
-
-
-            OSCMessengers = new ObservableCollection<OSCMessenger>();
-            OSCMessengers.Add(new OSCMessenger("127.0.0.1", 1111) { Name = "Device (0)" });
+            Servers = new ObservableCollection<Server>();
+            Servers.Add(new Server("127.0.0.1", 7777) { Name = "Device (0)" });
 
             Compositions = new ObservableCollection<Composition>();
             EditableCompositions = new ObservableCollection<Composition>();
@@ -38,12 +30,10 @@ namespace CMiX.ViewModels
             SaveAsProjectCommand = new RelayCommand(p => SaveAsProject());
             QuitCommand = new RelayCommand(p => Quit(p));
 
-            AddOSCCommand = new RelayCommand(p => AddOSC());
-            RemoveSelectedOSCCommand = new RelayCommand(p => RemoveSelectedOSC());
-            DeleteOSCCommand = new RelayCommand(p => DeleteOSC(p));
+            AddOSCCommand = new RelayCommand(p => AddServer());
+            DeleteOSCCommand = new RelayCommand(p => DeleteServer(p));
 
             ImportCompoCommand = new RelayCommand(p => ImportCompo());
-            ImportCompoFromProjectCommand = new RelayCommand(p => ImportCompoFromProject());
             ExportCompoCommand = new RelayCommand(p => ExportCompo());
 
             AddTabCommand = new RelayCommand(p => AddEditableComposition());
@@ -57,22 +47,24 @@ namespace CMiX.ViewModels
             DuplicateSelectedCompositionCommand = new RelayCommand(p => DuplicateSelectedComposition());
             AddLayerCommand = new RelayCommand(p => AddLayer());
             EditCompositionCommand = new RelayCommand(p => EditComposition());
-            CompositionListDoubleClickCommand = new RelayCommand(p => CompositionListDoubleClick());
-            SendCerasMessageCommand = new RelayCommand(p => SendCerasMessage());
+
+            StopSendingCommand = new RelayCommand(p => StopSending());
+            StartSendingCommand = new RelayCommand(p => StartSending());
         }
 
-        public NetMQMessenger Messenger { get; set; }
+        public NetMQServer NetMQServer { get; set; }
 
-        private void SendCerasMessage()
+        public void StartSending()
         {
-            ProjectModel project = new ProjectModel();
-            project.CompositionModel.Add(new CompositionModel());
-
-            project.MessageAddress = "Hello Project";
-            byte[] data = Serializer.Serialize<ProjectModel>(project);
-            //Messenger.Send("testTopic", data);
+            NetMQServer = new NetMQServer("127.0.0.1", 7777);
+            NetMQServer.Start();
         }
 
+
+        public void StopSending()
+        {
+            NetMQServer.Stop();
+        }
 
         private int _slidetTest;
         public int SliderTest
@@ -81,36 +73,16 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _slidetTest, value);
         }
 
-        public void CompositionListDoubleClick()
-        {
-
-        }
-
-        private void ImportCompoFromProject()
-        {
-
-        }
-
-        private double _valueTest;
-        public double ValueTest
-        {
-            get => _valueTest;
-            set
-            {
-                SetAndNotify(ref _valueTest, value);
-                Messenger.SendDouble("testTopic", ValueTest);
-            }
-        }
-
-
         #region PROPERTIES
-        public Client Client { get; set; }
+
+        #region COMMANDS
         public ICommand SendCerasMessageCommand { get; }
+        public ICommand StopSendingCommand { get; }
+        public ICommand StartSendingCommand { get; }
 
         public ICommand CompositionListDoubleClickCommand { get; }
 
         public ICommand ImportCompoCommand { get; }
-        public ICommand ImportCompoFromProjectCommand { get; }
         public ICommand ExportCompoCommand { get; }
 
         public ICommand NewProjectCommand { get; }
@@ -133,12 +105,11 @@ namespace CMiX.ViewModels
 
         public ICommand AddTabCommand { get; }
         public ICommand AddLayerCommand { get; }
+        #endregion
 
         public ObservableCollection<Composition> Compositions { get; set; }
         public ObservableCollection<Composition> EditableCompositions { get; set; }
-
-        public ObservableCollection<OSCMessenger> OSCMessengers { get; set; }
-
+        public ObservableCollection<Server> Servers { get; set; }
         public CerasSerializer Serializer { get; set; }
         public Assets Assets { get; set; }
 
@@ -164,42 +135,82 @@ namespace CMiX.ViewModels
             get => _selectedoscmessenger;
             set => SetAndNotify(ref _selectedoscmessenger, value);
         }
+
+        private Server _selectedServer;
+        public Server SelectedServer
+        {
+            get => _selectedServer;
+            set => SetAndNotify(ref _selectedServer, value);
+        }
         #endregion
 
+        #region ADD/REMOVE/DELETE NETMQSERVERS
+        int serverport;
+        int servernameid;
+
+        private void AddServer()
+        {
+            Server Server = new Server("127.0.0.1", 1111 + serverport);
+            servernameid++;
+            Server.Name = "Device " + "(" + servernameid.ToString() + ")";
+            Servers.Add(Server);
+
+            foreach (var compo in Compositions)
+            {
+                compo.ServerValidation.Add(new ServerValidation(Server));
+            }
+            serverport++;
+        }
+
+        private void DeleteServer(object server)
+        {
+            var messenger = server as Server;
+            int index = Servers.IndexOf(messenger);
+            messenger.Stop();
+            Servers.Remove(messenger);
+
+            foreach (var compo in Compositions)
+            {
+                compo.ServerValidation.RemoveAt(index);
+            }
+        }
+        #endregion
+
+
         #region ADD/REMOVE/DELETE OSC
-        int portnumber = 0;
-        int oscnameid = 0;
 
-        private void AddOSC()
-        {
-            OSCMessenger oscmessenger = new OSCMessenger("127.0.0.1", 1111 + portnumber);
-            oscnameid++;
-            oscmessenger.Name = "Device " + "(" + oscnameid.ToString() + ")";
-            OSCMessengers.Add(oscmessenger);
+        //int portnumber = 0;
+        //int oscnameid = 0;
+        //private void AddOSC()
+        //{
+        //    OSCMessenger oscmessenger = new OSCMessenger("127.0.0.1", 1111 + portnumber);
+        //    oscnameid++;
+        //    oscmessenger.Name = "Device " + "(" + oscnameid.ToString() + ")";
+        //    OSCMessengers.Add(oscmessenger);
 
-            foreach (var compo in Compositions)
-            {
-                compo.OSCValidation.Add(new OSCValidation(oscmessenger));
-            }
-            portnumber++;
-        }
+        //    foreach (var compo in Compositions)
+        //    {
+        //        compo.ServerValidation.Add(new ServerValidation(oscmessenger));
+        //    }
+        //    portnumber++;
+        //}
 
-        private void DeleteOSC(object oscmessenger)
-        {
-            var messenger = oscmessenger as OSCMessenger;
-            int index = OSCMessengers.IndexOf(messenger);
-            OSCMessengers.Remove(messenger);
+        //private void DeleteOSC(object oscmessenger)
+        //{
+        //    var messenger = oscmessenger as OSCMessenger;
+        //    int index = OSCMessengers.IndexOf(messenger);
+        //    OSCMessengers.Remove(messenger);
 
-            foreach (var compo in Compositions)
-            {
-                compo.OSCValidation.RemoveAt(index);
-            }
-        }
+        //    foreach (var compo in Compositions)
+        //    {
+        //        compo.OSCValidation.RemoveAt(index);
+        //    }
+        //}
 
-        private void RemoveSelectedOSC()
-        {
+        //private void RemoveSelectedOSC()
+        //{
 
-        }
+        //}
         #endregion
 
         #region ADD/DELETE/DUPLICATE COMPOSITION
@@ -207,7 +218,7 @@ namespace CMiX.ViewModels
 
         private void AddComposition()
         {
-            Composition comp = new Composition(OSCMessengers, Assets);
+            Composition comp = new Composition(Servers, Assets);
             comp.Name = "Composition " + CompID++.ToString();
             Compositions.Add(comp);
             SelectedComposition = comp;
@@ -215,7 +226,7 @@ namespace CMiX.ViewModels
 
         private void AddEditableComposition()
         {
-            Composition comp = new Composition(OSCMessengers, Assets);
+            Composition comp = new Composition(Servers, Assets);
             comp.Name = "Composition " + CompID++.ToString();
             Compositions.Add(comp);
             SelectedComposition = comp;
@@ -271,7 +282,7 @@ namespace CMiX.ViewModels
                 Composition comp = SelectedComposition as Composition;
                 CompositionModel compositionmodel = new CompositionModel();
                 comp.Copy(compositionmodel);
-                Composition newcomp = new Composition(OSCMessengers, Assets);
+                Composition newcomp = new Composition(Servers, Assets);
                 newcomp.Paste(compositionmodel);
                 newcomp.Name = newcomp.Name + "- Copy";
                 Compositions.Add(newcomp);
@@ -366,7 +377,7 @@ namespace CMiX.ViewModels
                 {
                     byte[] data = File.ReadAllBytes(folderPath);
                     CompositionModel compositionmodel = Serializer.Deserialize<CompositionModel>(data);
-                    Composition newcomp = new Composition(OSCMessengers, Assets);
+                    Composition newcomp = new Composition(Servers, Assets);
                     newcomp.Paste(compositionmodel);
                     Compositions.Add(newcomp);
                     SelectedComposition = newcomp;
@@ -408,7 +419,7 @@ namespace CMiX.ViewModels
         {
             foreach (var compositionmodel in projectmodel.CompositionModel)
             {
-                Composition composition = new Composition(OSCMessengers, Assets);
+                Composition composition = new Composition(Servers, Assets);
                 composition.Paste(compositionmodel);
                 Compositions.Add(composition);
             }

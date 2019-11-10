@@ -11,14 +11,14 @@ namespace CMiX.ViewModels
     public class BeatModifier : Beat
     {
         #region CONSTRUCTORS
-        public BeatModifier(string messageaddress, Beat beat, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor) 
-            : base (oscvalidation, mementor)
+        public BeatModifier(string messageaddress, Beat beat, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
+            : base (serverValidations, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(BeatModifier));
 
             MasterBeat = beat;
             Multiplier = 1.0;
-            ChanceToHit = new Slider(MessageAddress + nameof(ChanceToHit), oscvalidation, mementor);
+            ChanceToHit = new Slider(MessageAddress + nameof(ChanceToHit), serverValidations, mementor);
             ChanceToHit.Amount = 1.0;
             beat.PeriodChanged += (s, newvalue) =>
             {
@@ -59,7 +59,7 @@ namespace CMiX.ViewModels
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
-                SendMessages(MessageAddress + nameof(Multiplier), Multiplier);
+                //SendMessages(MessageAddress + nameof(Multiplier), Multiplier);
             }
         }
         #endregion

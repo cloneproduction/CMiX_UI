@@ -17,8 +17,8 @@ namespace CMiX.ViewModels
     public class FileSelector : ViewModel, IDropTarget, IDragSource
     {
         #region CONSTRUCTORS
-        public FileSelector(string messageaddress, string selectionmode, List<string> filemask, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor) 
-            : base (oscvalidation, mementor)
+        public FileSelector(string messageaddress, string selectionmode, List<string> filemask, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
+            : base (serverValidations, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(FileSelector));
 
@@ -176,7 +176,7 @@ namespace CMiX.ViewModels
                         {
                             if (System.IO.Path.GetExtension(str).ToUpperInvariant() == fm)
                             {
-                                FileNameItem lbfn = new FileNameItem(FolderPath, MessageAddress, OSCValidation, Mementor) { FileIsSelected = false, FileName = str };
+                                FileNameItem lbfn = new FileNameItem(FolderPath, MessageAddress, ServerValidation, Mementor) { FileIsSelected = false, FileName = str };
                                 FilePaths.Add(lbfn);
                                 Mementor.ElementAdd(FilePaths, lbfn);
                             }
@@ -300,7 +300,7 @@ namespace CMiX.ViewModels
 
             foreach (var item in fileselectormodel.FilePaths)
             {
-                FileNameItem filenameitem = new FileNameItem(FolderPath, MessageAddress, OSCValidation, Mementor);
+                FileNameItem filenameitem = new FileNameItem(FolderPath, MessageAddress, ServerValidation, Mementor);
                 filenameitem.Paste(item);
                 //filenameitem.UpdateMessageAddress(MessageAddress);
                 FilePaths.Add(filenameitem);

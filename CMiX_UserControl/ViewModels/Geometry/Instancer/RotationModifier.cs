@@ -10,15 +10,15 @@ namespace CMiX.ViewModels
     [Serializable]
     public class RotationModifier : ViewModel
     {
-        public RotationModifier(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor, Beat beat)
-            : base(oscvalidation, mementor)
+        public RotationModifier(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor, Beat beat)
+            : base(serverValidations, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(RotationModifier));
 
-            Rotation = new AnimParameter(MessageAddress + nameof(Rotation), oscvalidation, mementor, beat, true);
-            RotationX = new AnimParameter(MessageAddress + nameof(RotationX), oscvalidation, mementor, beat, false);
-            RotationY = new AnimParameter(MessageAddress + nameof(RotationY), oscvalidation, mementor, beat, false);
-            RotationZ = new AnimParameter(MessageAddress + nameof(RotationZ), oscvalidation, mementor, beat, false);
+            Rotation = new AnimParameter(MessageAddress + nameof(Rotation), serverValidations, mementor, beat, true);
+            RotationX = new AnimParameter(MessageAddress + nameof(RotationX), serverValidations, mementor, beat, false);
+            RotationY = new AnimParameter(MessageAddress + nameof(RotationY), serverValidations, mementor, beat, false);
+            RotationZ = new AnimParameter(MessageAddress + nameof(RotationZ), serverValidations, mementor, beat, false);
         }
 
         #region PROPERTIES
@@ -66,9 +66,9 @@ namespace CMiX.ViewModels
 
                 EnabledMessages();
                 Mementor.EndBatch();
-
-                QueueObjects(Rotationmodifiermodel);
-                SendQueues();
+                //SendMessages(MessageAddress, Rotationmodifiermodel);
+                //QueueObjects(Rotationmodifiermodel);
+                //SendQueues();
             }
         }
 
@@ -77,8 +77,9 @@ namespace CMiX.ViewModels
             RotationModifierModel Rotationmodifiermodel = new RotationModifierModel();
             this.Reset();
             this.Copy(Rotationmodifiermodel);
-            QueueObjects(Rotationmodifiermodel);
-            SendQueues();
+            //SendMessages(MessageAddress, Rotationmodifiermodel);
+            //QueueObjects(Rotationmodifiermodel);
+            //SendQueues();
         }
 
         public void Copy(RotationModifierModel Rotationmodifiermodel)
@@ -117,8 +118,9 @@ namespace CMiX.ViewModels
 
             RotationModifierModel Rotationmodifiermodel = new RotationModifierModel();
             this.Copy(Rotationmodifiermodel);
-            QueueObjects(Rotationmodifiermodel);
-            SendQueues();
+            //SendMessages(MessageAddress, Rotationmodifiermodel);
+            //QueueObjects(Rotationmodifiermodel);
+            //SendQueues();
         }
         #endregion
     }

@@ -10,13 +10,13 @@ namespace CMiX.ViewModels
     [Serializable]
     public class Scale : ViewModel
     {
-        public Scale(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor) 
-            : base (oscvalidation, mementor)
+        public Scale(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
+            : base (serverValidations, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Scale));
-            ScaleX = new Slider(MessageAddress + nameof(ScaleX), oscvalidation, mementor);
-            ScaleY = new Slider(MessageAddress + nameof(ScaleY), oscvalidation, mementor);
-            ScaleZ = new Slider(MessageAddress + nameof(ScaleZ), oscvalidation, mementor);
+            ScaleX = new Slider(MessageAddress + nameof(ScaleX), serverValidations, mementor);
+            ScaleY = new Slider(MessageAddress + nameof(ScaleY), serverValidations, mementor);
+            ScaleZ = new Slider(MessageAddress + nameof(ScaleZ), serverValidations, mementor);
         }
 
         public Slider ScaleX { get; set; }
@@ -57,9 +57,7 @@ namespace CMiX.ViewModels
 
                 EnabledMessages();
                 Mementor.EndBatch();
-
-                QueueObjects(scalemodel);
-                SendQueues();
+                //SendMessages(nameof(ScaleModel), scalemodel);
             }
         }
 
@@ -68,8 +66,9 @@ namespace CMiX.ViewModels
             ScaleModel scalemodel = new ScaleModel();
             this.Reset();
             this.Copy(scalemodel);
-            QueueObjects(scalemodel);
-            SendQueues();
+            //SendMessages(nameof(ScaleModel), scalemodel);
+            //QueueObjects(scalemodel);
+            //SendQueues();
         }
 
         public void Copy(ScaleModel scalemodel)
@@ -105,8 +104,9 @@ namespace CMiX.ViewModels
 
             ScaleModel scalemodel = new ScaleModel();
             this.Copy(scalemodel);
-            QueueObjects(scalemodel);
-            SendQueues();
+            //SendMessages(nameof(ScaleModel), scalemodel);
+            //QueueObjects(scalemodel);
+            //SendQueues();
         }
         #endregion
     }

@@ -12,10 +12,11 @@ namespace CMiX.ViewModels
     public class RangeControl : ViewModel
     {
         #region CONSTRUCTORS
-        public RangeControl(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor) : base (oscvalidation, mementor)
+        public RangeControl(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
+            : base (serverValidations, mementor)
         {
             MessageAddress = messageaddress + "/";
-            Range = new Slider(MessageAddress + nameof(Range), oscvalidation, mementor);
+            Range = new Slider(MessageAddress + nameof(Range), serverValidations, mementor);
             Modifier = ((RangeModifier)0).ToString();
         }
         #endregion
@@ -40,7 +41,7 @@ namespace CMiX.ViewModels
                 if(Mementor != null)
                     Mementor.PropertyChange(this, nameof(Modifier));
                 SetAndNotify(ref _modifier, value);
-                SendMessages(MessageAddress + nameof(Modifier), Modifier);
+                //SendMessages(MessageAddress + nameof(Modifier), Modifier);
             }
         }
         #endregion

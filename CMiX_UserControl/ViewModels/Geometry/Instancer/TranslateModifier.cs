@@ -10,15 +10,15 @@ namespace CMiX.ViewModels
     [Serializable]
     public class TranslateModifier : ViewModel
     {
-        public TranslateModifier(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor, Beat beat) 
-            : base(oscvalidation, mementor)
+        public TranslateModifier(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor, Beat beat) 
+            : base(serverValidations, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(TranslateModifier));
 
-            Translate = new AnimParameter(MessageAddress + nameof(Translate), oscvalidation, mementor, beat, true);
-            TranslateX = new AnimParameter(MessageAddress + nameof(TranslateX), oscvalidation, mementor, beat, false);
-            TranslateY = new AnimParameter(MessageAddress + nameof(TranslateY), oscvalidation, mementor, beat, false);
-            TranslateZ = new AnimParameter(MessageAddress + nameof(TranslateZ), oscvalidation, mementor, beat, false);
+            Translate = new AnimParameter(MessageAddress + nameof(Translate), serverValidations, mementor, beat, true);
+            TranslateX = new AnimParameter(MessageAddress + nameof(TranslateX), serverValidations, mementor, beat, false);
+            TranslateY = new AnimParameter(MessageAddress + nameof(TranslateY), serverValidations, mementor, beat, false);
+            TranslateZ = new AnimParameter(MessageAddress + nameof(TranslateZ), serverValidations, mementor, beat, false);
         }
 
         #region PROPERTIES
@@ -66,9 +66,9 @@ namespace CMiX.ViewModels
 
                 EnabledMessages();
                 Mementor.EndBatch();
-
-                QueueObjects(translatemodifiermodel);
-                SendQueues();
+                //SendMessages(MessageAddress, translatemodifiermodel);
+                //QueueObjects(translatemodifiermodel);
+                //SendQueues();
             }
         }
 
@@ -77,8 +77,7 @@ namespace CMiX.ViewModels
             TranslateModifierModel translatemodifiermodel = new TranslateModifierModel();
             this.Reset();
             this.Copy(translatemodifiermodel);
-            QueueObjects(translatemodifiermodel);
-            SendQueues();
+            //SendMessages(MessageAddress, translatemodifiermodel);
         }
 
         public void Copy(TranslateModifierModel translatemodifiermodel)
@@ -117,8 +116,9 @@ namespace CMiX.ViewModels
 
             TranslateModifierModel translatemodifiermodel = new TranslateModifierModel();
             this.Copy(translatemodifiermodel);
-            QueueObjects(translatemodifiermodel);
-            SendQueues();
+            //SendMessages(MessageAddress, translatemodifiermodel);
+            //QueueObjects(translatemodifiermodel);
+            //SendQueues();
         }
         #endregion
     }

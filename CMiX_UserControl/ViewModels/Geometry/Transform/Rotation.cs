@@ -9,13 +9,13 @@ namespace CMiX.ViewModels
 {
     public class Rotation : ViewModel
     {
-        public Rotation(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor)
-            : base(oscvalidation, mementor)
+        public Rotation(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor)
+            : base(serverValidations, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Rotation));
-            RotationX = new Slider(MessageAddress + nameof(RotationX), oscvalidation, mementor);
-            RotationY = new Slider(MessageAddress + nameof(RotationY), oscvalidation, mementor);
-            RotationZ = new Slider(MessageAddress + nameof(RotationZ), oscvalidation, mementor);
+            RotationX = new Slider(MessageAddress + nameof(RotationX), serverValidations, mementor);
+            RotationY = new Slider(MessageAddress + nameof(RotationY), serverValidations, mementor);
+            RotationZ = new Slider(MessageAddress + nameof(RotationZ), serverValidations, mementor);
         }
 
         public Slider RotationX { get; set; }
@@ -56,9 +56,9 @@ namespace CMiX.ViewModels
 
                 EnabledMessages();
                 Mementor.EndBatch();
-
-                QueueObjects(rotationmodel);
-                SendQueues();
+                //SendMessages(nameof(RotationModel), rotationmodel);
+                //QueueObjects(rotationmodel);
+                //SendQueues();
             }
         }
 
@@ -67,8 +67,9 @@ namespace CMiX.ViewModels
             RotationModel rotationmodel = new RotationModel();
             this.Reset();
             this.Copy(rotationmodel);
-            QueueObjects(rotationmodel);
-            SendQueues();
+            //SendMessages(nameof(RotationModel), rotationmodel);
+            //QueueObjects(rotationmodel);
+            //SendQueues();
         }
 
         public void Copy(RotationModel rotationmodel)
@@ -104,8 +105,9 @@ namespace CMiX.ViewModels
 
             RotationModel rotationmodel = new RotationModel();
             this.Copy(rotationmodel);
-            QueueObjects(rotationmodel);
-            SendQueues();
+            //SendMessages(nameof(RotationModel), rotationmodel);
+            //QueueObjects(rotationmodel);
+            //SendQueues();
         }
         #endregion
     }

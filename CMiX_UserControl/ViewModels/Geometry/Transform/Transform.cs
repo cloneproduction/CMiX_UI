@@ -9,13 +9,13 @@ namespace CMiX.ViewModels
 {
     public class Transform : ViewModel
     {
-        public Transform(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor)
-            : base(oscvalidation, mementor)
+        public Transform(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor)
+            : base(serverValidations, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Transform));
-            Translate = new Translate(MessageAddress, oscvalidation, mementor);
-            Scale = new Scale(MessageAddress, oscvalidation, mementor);
-            Rotation = new Rotation(MessageAddress, oscvalidation, mementor);
+            Translate = new Translate(MessageAddress, serverValidations, mementor);
+            Scale = new Scale(MessageAddress, serverValidations, mementor);
+            Rotation = new Rotation(MessageAddress, serverValidations, mementor);
 
             Is3D = false;
         }
@@ -34,7 +34,7 @@ namespace CMiX.ViewModels
                 if (Mementor != null)
                     Mementor.PropertyChange(this, "Is3D");
                 SetAndNotify(ref _is3D, value);
-                SendMessages(MessageAddress + nameof(Is3D), Is3D.ToString());
+                //SendMessages(MessageAddress + nameof(Is3D), Is3D.ToString());
             }
         }
         #endregion
@@ -76,9 +76,9 @@ namespace CMiX.ViewModels
 
                 EnabledMessages();
                 Mementor.EndBatch();
-
-                QueueObjects(transformmodel);
-                SendQueues();
+                //this.SendMessages(nameof(TransformModel), transformmodel);
+                //QueueObjects(transformmodel);
+                //SendQueues();
             }
         }
 
@@ -87,8 +87,9 @@ namespace CMiX.ViewModels
             TransformModel transformmodel = new TransformModel();
             this.Reset();
             this.Copy(transformmodel);
-            QueueObjects(transformmodel);
-            SendQueues();
+            //this.SendMessages(nameof(TransformModel), transformmodel);
+            //QueueObjects(transformmodel);
+            //SendQueues();
         }
 
         public void Copy(TransformModel transformmodel)
@@ -127,8 +128,9 @@ namespace CMiX.ViewModels
 
             TransformModel transformmodel = new TransformModel();
             this.Copy(transformmodel);
-            QueueObjects(transformmodel);
-            SendQueues();
+            //this.SendMessages(nameof(TransformModel), transformmodel);
+            //QueueObjects(transformmodel);
+            //SendQueues();
         }
         #endregion
     }

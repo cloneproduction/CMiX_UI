@@ -11,12 +11,13 @@ namespace CMiX.ViewModels
     public class PostFX : ViewModel
     {
         #region CONSTRUCTORS
-        public PostFX(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor) : base(oscvalidation, mementor)
+        public PostFX(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
+            : base(serverValidations, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(PostFX));
 
-            Feedback = new Slider(MessageAddress + nameof(Feedback),oscvalidation, mementor);
-            Blur = new Slider(MessageAddress + nameof(Blur),oscvalidation, mementor);
+            Feedback = new Slider(MessageAddress + nameof(Feedback), serverValidations, mementor);
+            Blur = new Slider(MessageAddress + nameof(Blur), serverValidations, mementor);
 
             Transforms = ((PostFXTransforms)0).ToString();
             View = ((PostFXView)0).ToString();
@@ -54,7 +55,7 @@ namespace CMiX.ViewModels
                 if (Mementor != null)
                     Mementor.PropertyChange(this, "Transforms");
                 SetAndNotify(ref _transforms, value);
-                SendMessages(MessageAddress + nameof(Transforms), Transforms);
+                //SendMessages(MessageAddress + nameof(Transforms), Transforms);
             }
         }
 
@@ -67,7 +68,7 @@ namespace CMiX.ViewModels
                 if (Mementor != null)
                     Mementor.PropertyChange(this, "View");
                 SetAndNotify(ref _view, value);
-                SendMessages(MessageAddress + nameof(View), View);
+                //SendMessages(MessageAddress + nameof(View), View);
             }
         }
         #endregion
@@ -109,8 +110,9 @@ namespace CMiX.ViewModels
 
             PostFXModel postfxmodel = new PostFXModel();
             this.Copy(postfxmodel);
-            QueueObjects(postfxmodel);
-            SendQueues();
+            //this.SendMessages(nameof(PostFXModel), postfxmodel);
+            //QueueObjects(postfxmodel);
+            //SendQueues();
 
             EnabledMessages();
         }
@@ -140,9 +142,9 @@ namespace CMiX.ViewModels
 
                 Mementor.EndBatch();
                 EnabledMessages();
-
-                QueueObjects(postfxmodel);
-                SendQueues();
+                //this.SendMessages(nameof(PostFXModel), postfxmodel);
+                //QueueObjects(postfxmodel);
+                //SendQueues();
             }
         }
 
@@ -151,8 +153,9 @@ namespace CMiX.ViewModels
             PostFXModel postfxmodel = new PostFXModel();
             this.Reset();
             this.Copy(postfxmodel);
-            QueueObjects(postfxmodel);
-            SendQueues();
+            //this.SendMessages(nameof(PostFXModel), postfxmodel);
+            //QueueObjects(postfxmodel);
+            //SendQueues();
         }
         #endregion
     }

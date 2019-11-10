@@ -11,7 +11,7 @@ namespace CMiX.ViewModels
     public class GeometryRotation :ViewModel
     {
         #region CONSTRUCTORS
-        public GeometryRotation(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor) : base (oscvalidation, mementor)
+        public GeometryRotation(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) : base (serverValidations, mementor)
         {
             MessageAddress = String.Format("{0}/", messageaddress);
             Mode = default;
@@ -38,7 +38,7 @@ namespace CMiX.ViewModels
                 if (Mementor != null)
                     Mementor.PropertyChange(this, nameof(Mode));
                 SetAndNotify(ref _Mode, value);
-                SendMessages(MessageAddress + nameof(Mode), Mode);
+                //SendMessages(MessageAddress + nameof(Mode), Mode);
             }
         }
 
@@ -51,7 +51,7 @@ namespace CMiX.ViewModels
                 if (Mementor != null)
                     Mementor.PropertyChange(this, nameof(RotationX));
                 SetAndNotify(ref _RotationX, value);
-                SendMessages(MessageAddress + nameof(RotationX), RotationX);
+                //SendMessages(MessageAddress + nameof(RotationX), RotationX);
             }
         }
 
@@ -64,7 +64,7 @@ namespace CMiX.ViewModels
                 if (Mementor != null)
                     Mementor.PropertyChange(this, nameof(RotationY));
                 SetAndNotify(ref _RotationY, value);
-                SendMessages(MessageAddress + nameof(RotationY), RotationY);
+                //SendMessages(MessageAddress + nameof(RotationY), RotationY);
             }
         }
 
@@ -77,7 +77,7 @@ namespace CMiX.ViewModels
                 if (Mementor != null)
                     Mementor.PropertyChange(this, nameof(RotationZ));
                 SetAndNotify(ref _RotationZ, value);
-                SendMessages(MessageAddress + nameof(RotationZ), RotationZ);
+                //SendMessages(MessageAddress + nameof(RotationZ), RotationZ);
             }
         }
         #endregion

@@ -11,17 +11,17 @@ namespace CMiX.ViewModels
     public class Coloration : ViewModel
     {
         #region CONSTRUCTORS
-        public Coloration(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor, Beat masterbeat) 
-            : base(oscvalidation, mementor)
+        public Coloration(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor, Beat masterbeat) 
+            : base(serverValidations, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Coloration));
 
-            BeatModifier = new BeatModifier(MessageAddress, masterbeat, oscvalidation, mementor);
-            ColorSelector = new ColorSelector(MessageAddress, oscvalidation, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, masterbeat, serverValidations, mementor);
+            ColorSelector = new ColorSelector(MessageAddress, serverValidations, mementor);
 
-            Hue = new RangeControl(MessageAddress + nameof(Hue), oscvalidation, mementor);
-            Saturation = new RangeControl(MessageAddress + nameof(Saturation), oscvalidation, mementor);
-            Value = new RangeControl(MessageAddress + nameof(Value), oscvalidation, mementor);
+            Hue = new RangeControl(MessageAddress + nameof(Hue), serverValidations, mementor);
+            Saturation = new RangeControl(MessageAddress + nameof(Saturation), serverValidations, mementor);
+            Value = new RangeControl(MessageAddress + nameof(Value), serverValidations, mementor);
 
             CopyColorationCommand = new RelayCommand(p => CopyColoration());
             PasteColorationCommand = new RelayCommand(p => PasteColoration());
@@ -122,8 +122,9 @@ namespace CMiX.ViewModels
                 this.EnabledMessages();
                 this.Mementor.EndBatch();
 
-                this.QueueObjects(colorationmodel);
-                this.SendQueues();
+                //SendMessages(nameof(ColorationModel), colorationmodel);
+                //this.QueueObjects(colorationmodel);
+                //this.SendQueues();
             }
         }
 
@@ -132,8 +133,9 @@ namespace CMiX.ViewModels
             ColorationModel colorationmodel = new ColorationModel();
             this.Reset();
             this.Copy(colorationmodel);
-            QueueObjects(colorationmodel);
-            SendQueues();
+            //SendMessages(nameof(Coloration), colorationmodel);
+            //QueueObjects(colorationmodel);
+            //SendQueues();
         }
         #endregion
     }

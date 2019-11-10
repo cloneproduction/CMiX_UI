@@ -11,18 +11,18 @@ namespace CMiX.ViewModels
     public class Mask : ViewModel
     {
         #region CONSTRUCTORS
-        public Mask(Beat masterbeat, string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor) 
-            : base (oscvalidation, mementor)
+        public Mask(Beat masterbeat, string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
+            : base (serverValidations, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Mask));
             MaskType = ((MaskType)2).ToString();
             MaskControlType = ((MaskControlType)1).ToString();
             Enable = false;
 
-            BeatModifier = new BeatModifier(MessageAddress, masterbeat, oscvalidation, mementor);
-            Geometry = new Geometry(MessageAddress, oscvalidation, mementor, masterbeat);
-            Texture = new Texture(MessageAddress, oscvalidation, mementor);
-            PostFX = new PostFX(MessageAddress, oscvalidation, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, masterbeat, serverValidations, mementor);
+            Geometry = new Geometry(MessageAddress, serverValidations, mementor, masterbeat);
+            Texture = new Texture(MessageAddress, serverValidations, mementor);
+            PostFX = new PostFX(MessageAddress, serverValidations, mementor);
 
             CopyMaskCommand = new RelayCommand(p => CopyMask());
             PasteMaskCommand = new RelayCommand(p => PasteMask());
@@ -61,7 +61,7 @@ namespace CMiX.ViewModels
                 if(Mementor != null)
                     Mementor.PropertyChange(this, nameof(Enable));
                 SetAndNotify(ref _enable, value);
-                SendMessages(MessageAddress + nameof(Enable), Enable);
+                //SendMessages(MessageAddress + nameof(Enable), Enable);
             }
         }
 
@@ -74,7 +74,7 @@ namespace CMiX.ViewModels
                 if (Mementor != null)
                     Mementor.PropertyChange(this, nameof(MaskType));
                 SetAndNotify(ref _masktype, value);
-                SendMessages(MessageAddress + nameof(MaskType), MaskType);
+                //SendMessages(MessageAddress + nameof(MaskType), MaskType);
             }
         }
 
@@ -87,7 +87,7 @@ namespace CMiX.ViewModels
                 if (Mementor != null)
                     Mementor.PropertyChange(this, nameof(MaskControlType));
                 SetAndNotify(ref _maskcontroltype, value);
-                SendMessages(MessageAddress + nameof(MaskControlType), MaskControlType);
+                //SendMessages(MessageAddress + nameof(MaskControlType), MaskControlType);
             }
         }
         #endregion
@@ -159,9 +159,9 @@ namespace CMiX.ViewModels
                 this.Copy(maskmodel);
                 EnabledMessages();
                 Mementor.EndBatch();
-
-                QueueObjects(maskmodel);
-                SendQueues();
+                //this.SendMessages(nameof(MaskModel), maskmodel);
+                //QueueObjects(maskmodel);
+                //SendQueues();
             }
         }
 
@@ -170,8 +170,9 @@ namespace CMiX.ViewModels
             MaskModel maskmodel = new MaskModel();
             this.Reset();
             this.Copy(maskmodel);
-            QueueObjects(maskmodel);
-            SendQueues();
+            //this.SendMessages(nameof(MaskModel), maskmodel);
+            //QueueObjects(maskmodel);
+            //SendQueues();
         }
         #endregion
     }

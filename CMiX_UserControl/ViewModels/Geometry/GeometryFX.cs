@@ -10,12 +10,12 @@ namespace CMiX.ViewModels
     public class GeometryFX : ViewModel
     {
         #region CONSTRUCTORS
-        public GeometryFX(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor) : base(oscvalidation, mementor)
+        public GeometryFX(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) : base(serverValidations, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(GeometryFX));
-            Explode = new Slider(MessageAddress + nameof(Explode), oscvalidation, mementor);
-            FileSelector = new FileSelector(MessageAddress, "Single", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, oscvalidation, mementor);
-            FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress, oscvalidation, mementor) { FileIsSelected = true, FileName = "Black (default).png" });
+            Explode = new Slider(MessageAddress + nameof(Explode), serverValidations, mementor);
+            FileSelector = new FileSelector(MessageAddress, "Single", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, serverValidations, mementor);
+            FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress, serverValidations, mementor) { FileIsSelected = true, FileName = "Black (default).png" });
         }
         #endregion
 

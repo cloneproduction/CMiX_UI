@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CMiX.Engine")]
+[assembly: AssemblyTitle("CMiX.Engine.Testing")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CMiX.Engine")]
+[assembly: AssemblyProduct("CMiX.Engine.Testing")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("ad0b09dc-c08d-4402-9927-fad2b5e444b8")]
+[assembly: Guid("a56dbbde-9dbc-4468-8b07-8b94427fc3a7")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -13,8 +13,8 @@ namespace CMiX.ColorPicker.ViewModels
     public class ColorPicker : ViewModel
     {
         #region CONSTRUCTORS
-        public ColorPicker(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor)
-            : base(oscvalidation, mementor)
+        public ColorPicker(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor)
+            : base(serverValidations, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(ColorPicker));
 
@@ -74,7 +74,7 @@ namespace CMiX.ColorPicker.ViewModels
 
                 this._selectedColor.R = value;
                 Notify("SelectedColor");
-                SendMessages(MessageAddress + nameof(SelectedColor), SelectedColor.ToString());
+                //SendMessages(MessageAddress + nameof(SelectedColor), SelectedColor.ToString());
             }
         }
 
@@ -97,7 +97,7 @@ namespace CMiX.ColorPicker.ViewModels
 
                 this._selectedColor.G = value;
                 Notify("SelectedColor");
-                SendMessages(MessageAddress + nameof(SelectedColor), SelectedColor.ToString());
+                //SendMessages(MessageAddress + nameof(SelectedColor), SelectedColor.ToString());
             }
         }
 
@@ -120,7 +120,7 @@ namespace CMiX.ColorPicker.ViewModels
 
                 this._selectedColor.B = value;
                 Notify("SelectedColor");
-                SendMessages(MessageAddress + nameof(SelectedColor), SelectedColor.ToString());
+                //SendMessages(MessageAddress + nameof(SelectedColor), SelectedColor.ToString());
             }
         }
 
@@ -147,7 +147,7 @@ namespace CMiX.ColorPicker.ViewModels
                 SelectedColor = Color.FromRgb(_red, _green, _blue);
                 Notify("SelectedColor");
                 
-                SendMessages(MessageAddress + nameof(SelectedColor), SelectedColor.ToString());
+                //SendMessages(MessageAddress + nameof(SelectedColor), SelectedColor.ToString());
             }
         }
 
@@ -176,7 +176,7 @@ namespace CMiX.ColorPicker.ViewModels
                 SelectedColor = Color.FromRgb(_red, _green, _blue);
                 Notify("SelectedColor");
                 
-                SendMessages(MessageAddress + nameof(SelectedColor), SelectedColor.ToString());
+                //SendMessages(MessageAddress + nameof(SelectedColor), SelectedColor.ToString());
             }
         }
 
@@ -212,7 +212,7 @@ namespace CMiX.ColorPicker.ViewModels
                 }
                 Notify("SelectedColor");
                 
-                SendMessages(MessageAddress + nameof(SelectedColor), SelectedColor.ToString());
+                //SendMessages(MessageAddress + nameof(SelectedColor), SelectedColor.ToString());
             }
         }
         #endregion

@@ -10,8 +10,8 @@ namespace CMiX.ViewModels
     public class Layer : ViewModel
     {
         #region CONSTRUCTORS
-        public Layer(MasterBeat masterBeat, string layername,  ObservableCollection<OSCValidation> oscvalidation, Mementor mementor) 
-            : base (oscvalidation, mementor)
+        public Layer(MasterBeat masterBeat, string layername,  ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
+            : base (serverValidations, mementor)
         {
             MessageAddress =  layername;
 
@@ -19,12 +19,12 @@ namespace CMiX.ViewModels
             Enabled = false;
             BlendMode = ((BlendMode)0).ToString();
 
-            Fade = new Slider(MessageAddress + nameof(Fade), oscvalidation, mementor);
+            Fade = new Slider(MessageAddress + nameof(Fade), serverValidations, mementor);
 
-            Content = new Content(masterBeat, MessageAddress, oscvalidation, mementor);
-            Mask = new Mask(masterBeat, MessageAddress, oscvalidation, mementor);
-            Coloration = new Coloration(MessageAddress, oscvalidation, mementor, masterBeat);
-            PostFX = new PostFX(MessageAddress, oscvalidation, mementor);
+            Content = new Content(masterBeat, MessageAddress, serverValidations, mementor);
+            Mask = new Mask(masterBeat, MessageAddress, serverValidations, mementor);
+            Coloration = new Coloration(MessageAddress, serverValidations, mementor, masterBeat);
+            PostFX = new PostFX(MessageAddress, serverValidations, mementor);
         }
         #endregion
 
@@ -79,8 +79,8 @@ namespace CMiX.ViewModels
                 if(Mementor != null)
                     Mementor.PropertyChange(this, nameof(Out));
                 SetAndNotify(ref _out, value);
-                if (Out)
-                    SendMessages(MessageAddress + nameof(Out), Out);
+                //if (Out)
+                    //SendMessages(MessageAddress + nameof(Out), Out);
             }
         }
 
@@ -93,7 +93,7 @@ namespace CMiX.ViewModels
                 if (Mementor != null)
                     Mementor.PropertyChange(this, nameof(BlendMode));                  
                 SetAndNotify(ref _blendMode, value);
-                SendMessages(MessageAddress + nameof(BlendMode), BlendMode);
+                //SendMessages(MessageAddress + nameof(BlendMode), BlendMode);
             }
         }
 

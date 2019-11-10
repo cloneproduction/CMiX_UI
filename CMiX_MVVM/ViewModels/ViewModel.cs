@@ -15,9 +15,9 @@ namespace CMiX.MVVM.ViewModels
 
         }
 
-        public ViewModel( ObservableCollection<OSCValidation> oscvalidation, Mementor mementor)
+        public ViewModel( ObservableCollection<ServerValidation> servervalidation, Mementor mementor)
         {
-            OSCValidation = oscvalidation;
+            ServerValidation = servervalidation;
             Mementor = mementor;
         }
         #endregion
@@ -27,76 +27,33 @@ namespace CMiX.MVVM.ViewModels
 
         public string MessageAddress { get; set; }
 
-        public ObservableCollection<OSCValidation> OSCValidation { get; set; }
+        public ObservableCollection<ServerValidation> ServerValidation { get; set; }
         #endregion
 
         #region MESSENGERS
-        public void SendMessages(string address, params object[] args)
+        public void SendMessages(string topic,  object obj)
         {
-            if (OSCValidation != null)
+            if (ServerValidation != null)
             {
-                foreach (var oscvalidation in OSCValidation)
+                foreach (var servervalidation in ServerValidation)
                 {
-                    if (oscvalidation.SendEnabled && oscvalidation.OSCMessenger.Enabled)
+                    if (servervalidation.SendEnabled && servervalidation.Server.Enabled)
                     {
-                        oscvalidation.OSCMessenger.SendMessage(address, args);
+                        servervalidation.Server.Send(topic, obj);
                     }
                 }
             }
         }
 
-        public void SendMessagesWithoutValidation(string address, params object[] args)
+        public void SendMessagesWithoutValidation(string address, object obj)
         {
-            if (OSCValidation != null)
+            if (ServerValidation != null)
             {
-                foreach (var oscvalidation in OSCValidation)
+                foreach (var servervalidation in ServerValidation)
                 {
-                    if (oscvalidation.OSCMessenger.Enabled)
+                    if (servervalidation.Server.Enabled)
                     {
-                        oscvalidation.OSCMessenger.SendMessage(address, args);
-                    }
-                }
-            }
-        }
-
-        public void QueueMessages(string address, params object[] args)
-        {
-            if (OSCValidation != null)
-            {
-                foreach (var oscvalidation in OSCValidation)
-                {
-                    if (oscvalidation.SendEnabled && oscvalidation.OSCMessenger.Enabled)
-                    {
-                        oscvalidation.OSCMessenger.QueueMessage(address, args);
-                    }
-
-                }
-            }
-        }
-
-        public void QueueObjects(object obj)
-        {
-            if (OSCValidation != null)
-            {
-                foreach (var oscvalidation in OSCValidation)
-                {
-                    if (oscvalidation.SendEnabled && oscvalidation.OSCMessenger.Enabled)
-                    {
-                        oscvalidation.OSCMessenger.QueueObject(obj);
-                    }
-                }
-            }
-        }
-
-        public void SendQueues()
-        {
-            if (OSCValidation != null)
-            {
-                foreach (var oscvalidation in OSCValidation)
-                {
-                    if (oscvalidation.SendEnabled && oscvalidation.OSCMessenger.Enabled)
-                    {
-                        oscvalidation.OSCMessenger.SendQueue();
+                        servervalidation.Server.Send(address, obj);
                     }
                 }
             }
@@ -104,25 +61,68 @@ namespace CMiX.MVVM.ViewModels
 
         public void DisabledMessages()
         {
-            if(OSCValidation != null)
+            if(ServerValidation != null)
             {
-                foreach (var oscvalidation in OSCValidation)
+                foreach (var serverValidation in ServerValidation)
                 {
-                    oscvalidation.OSCMessenger.Enabled = false;
+                    serverValidation.Server.Enabled = false;
                 }
             }
         }
 
         public void EnabledMessages()
         {
-            if (OSCValidation != null)
+            if (ServerValidation != null)
             {
-                foreach (var oscvalidation in OSCValidation)
+                foreach (var serverValidation in ServerValidation)
                 {
-                    oscvalidation.OSCMessenger.Enabled = true;
+                    serverValidation.Server.Enabled = true;
                 }
             }
         }
+
+        //public void QueueMessages(string address, params object[] args)
+        //{
+        //    if (OSCValidation != null)
+        //    {
+        //        foreach (var oscvalidation in OSCValidation)
+        //        {
+        //            if (oscvalidation.SendEnabled && oscvalidation.OSCMessenger.Enabled)
+        //            {
+        //                oscvalidation.OSCMessenger.QueueMessage(address, args);
+        //            }
+
+        //        }
+        //    }
+        //}
+
+        //public void QueueObjects(object obj)
+        //{
+        //    if (OSCValidation != null)
+        //    {
+        //        foreach (var oscvalidation in OSCValidation)
+        //        {
+        //            if (oscvalidation.SendEnabled && oscvalidation.OSCMessenger.Enabled)
+        //            {
+        //                oscvalidation.OSCMessenger.QueueObject(obj);
+        //            }
+        //        }
+        //    }
+        //}
+
+        //public void SendQueues()
+        //{
+        //    if (OSCValidation != null)
+        //    {
+        //        foreach (var oscvalidation in OSCValidation)
+        //        {
+        //            if (oscvalidation.SendEnabled && oscvalidation.OSCMessenger.Enabled)
+        //            {
+        //                oscvalidation.OSCMessenger.SendQueue();
+        //            }
+        //        }
+        //    }
+        //}
         #endregion
 
         #region INOTIFYPROPERTYCHANGED

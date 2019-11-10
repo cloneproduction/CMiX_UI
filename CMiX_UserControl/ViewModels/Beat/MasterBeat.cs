@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
-using CMiX.Services;
 using CMiX.MVVM.Models;
 using Memento;
 using System.Collections.ObjectModel;
@@ -13,11 +12,11 @@ namespace CMiX.ViewModels
     public class MasterBeat : Beat
     {
         #region CONSTRUCTORS
-        public MasterBeat(ObservableCollection<OSCValidation> oscvalidation, Mementor mementor)
+        public MasterBeat(ObservableCollection<ServerValidation> serverValidations, Mementor mementor)
         : this
         (
             mementor: mementor,
-            oscvalidation: oscvalidation,
+            serverValidations: serverValidations,
             period: 0.0,
             multiplier: 1
         )
@@ -26,13 +25,12 @@ namespace CMiX.ViewModels
         public MasterBeat
             (
                 Mementor mementor,
-                ObservableCollection<OSCValidation> oscvalidation,
+                ObservableCollection<ServerValidation> serverValidations,
                 double period,
                 int multiplier
             )
-            : base(oscvalidation, mementor)
+            : base(serverValidations, mementor)
         {
-            //Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
             Period = period;
             Multiplier = multiplier;
             ResyncCommand = new RelayCommand(p => Resync());
@@ -44,8 +42,15 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
+        public ICommand ResyncCommand { get; }
+        public ICommand TapCommand { get; }
+
+        private readonly List<double> tapPeriods;
+        private readonly List<double> tapTime;
+
+        private double CurrentTime => (DateTime.Now - DateTime.MinValue).TotalMilliseconds;
+
         private double _period;
-        [OSC]
         public override double Period
         {
             get => _period;
@@ -54,24 +59,15 @@ namespace CMiX.ViewModels
                 SetAndNotify(ref _period, value);
                 OnPeriodChanged(Period);
                 Notify(nameof(BPM));
-                SendMessages(MessageAddress + nameof(Period), Period);
+                //SendMessages(MessageAddress + nameof(Period), Period);
             }
         }
-
-        public ICommand ResyncCommand { get; }
-        public ICommand TapCommand { get; }
-
-
-        private readonly List<double> tapPeriods;
-        private readonly List<double> tapTime;
-
-        private double CurrentTime => (DateTime.Now - DateTime.MinValue).TotalMilliseconds;
         #endregion
 
         #region METHODS
         private void Resync()
         {
-            SendMessages(MessageAddress + nameof(Resync), CurrentTime + Period);
+            //SendMessages(MessageAddress + nameof(Resync), CurrentTime + Period);
         }
 
         protected override void Multiply()

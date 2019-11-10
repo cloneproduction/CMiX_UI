@@ -13,8 +13,8 @@ namespace CMiX.MVVM.ViewModels
     public class Slider : ViewModel
     {
         #region CONSTRUCTORS
-        public Slider(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor) 
-            : base (oscvalidation, mementor)
+        public Slider(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
+            : base (serverValidations, mementor)
         {
             MessageAddress = String.Format("{0}/", messageaddress);
 
@@ -61,7 +61,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _amount, value);
-                SendMessages(MessageAddress + nameof(Amount), Amount);
+                //SendMessages(MessageAddress + nameof(Amount), Amount);
             }
         }
 

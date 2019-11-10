@@ -11,8 +11,8 @@ namespace CMiX.ViewModels
     public class GeometryScale : ViewModel
     {
         #region CONSTRUCTORS
-        public GeometryScale(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor) 
-            : base (oscvalidation, mementor)
+        public GeometryScale(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
+            : base (serverValidations, mementor)
         {
             MessageAddress = String.Format("{0}/", messageaddress);
             Mode = default;
@@ -36,7 +36,7 @@ namespace CMiX.ViewModels
                 if(Mementor != null)
                     Mementor.PropertyChange(this, nameof(Mode));
                 SetAndNotify(ref _Mode, value);
-                SendMessages(MessageAddress + nameof(Mode), Mode);
+                //SendMessages(MessageAddress + nameof(Mode), Mode);
             }
         }
         #endregion

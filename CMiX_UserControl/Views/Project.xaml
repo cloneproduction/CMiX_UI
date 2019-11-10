@@ -231,21 +231,21 @@
                     </TabItem>
                     <TabItem Header="OSC" Width="50" Height="20">
                         <Border
-                        DockPanel.Dock="Right"
-                        Margin="0, 4"
-                        Padding="8, 0, 8, 8"
-                        CornerRadius="2"
-                        Background="{StaticResource HighDarkerColor}">
+                            DockPanel.Dock="Right"
+                            Margin="0, 4"
+                            Padding="8, 0, 8, 8"
+                            CornerRadius="2"
+                            Background="{StaticResource HighDarkerColor}">
                             <TabControl>
                                 <DockPanel Width="200">
                                     <Border DockPanel.Dock="Top"  Style="{StaticResource BorderContainer}">
                                         <StackPanel Orientation="Horizontal">
                                             <Button
-                                    ToolTip="New Layer"
-                                    Command="{Binding Path=AddOSCCommand}"
-                                    Width="15"
-                                    Height="15"
-                                    Style="{StaticResource ButtonImage}" >
+                                                ToolTip="New Layer"
+                                                Command="{Binding Path=AddOSCCommand}"
+                                                Width="15"
+                                                Height="15"
+                                                Style="{StaticResource ButtonImage}" >
                                                 <Button.Content>
                                                     <Image Source="{StaticResource NewLayer}"/>
                                                 </Button.Content>
@@ -253,36 +253,36 @@
                                         </StackPanel>
                                     </Border>
                                     <ListBox 
-                                    Margin="0, 8, 0, 0"
-                                    HorizontalContentAlignment="Stretch" 
-                                    ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                                    Style="{StaticResource LayerListBox}"
-                                    ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
-                                    ItemsSource="{Binding OSCMessengers}" 
-                                    SelectedItem="{Binding SelectedOSCMessenger}"
-                                    dd:DragDrop.IsDragSource="True"
-                                    dd:DragDrop.IsDropTarget="True">
+                                        Margin="0, 8, 0, 0"
+                                        HorizontalContentAlignment="Stretch" 
+                                        ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                        Style="{StaticResource LayerListBox}"
+                                        ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
+                                        ItemsSource="{Binding Servers}" 
+                                        SelectedItem="{Binding SelectedServer}"
+                                        dd:DragDrop.IsDragSource="True"
+                                        dd:DragDrop.IsDropTarget="True">
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
                                                 <Views:OSCControl Margin="2">
                                                     <Views:OSCControl.ContextMenu>
                                                         <ContextMenu>
                                                             <MenuItem
-                                                    Padding="8, 4"
-                                                    Foreground="{StaticResource TextBase}"
-                                                    Command="{Binding Data.DeleteOSCCommand, Source={StaticResource proxy}}"
-                                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
+                                                                Padding="8, 4"
+                                                                Foreground="{StaticResource TextBase}"
+                                                                Command="{Binding Data.DeleteOSCCommand, Source={StaticResource proxy}}"
+                                                                CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                                                                 <MenuItem.Header>
                                                                     <StackPanel Orientation="Horizontal">
                                                                         <Image 
-                                                                Width="10" 
-                                                                Height="10" 
-                                                                Source="{StaticResource DeleteLayer}" 
-                                                                />
+                                                                            Width="10" 
+                                                                            Height="10" 
+                                                                            Source="{StaticResource DeleteLayer}" 
+                                                                            />
                                                                         <Separator 
-                                                                Margin="8, 0" 
-                                                                Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" 
-                                                                />
+                                                                            Margin="8, 0" 
+                                                                            Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" 
+                                                                            />
                                                                         <TextBlock Text="Delete OSC"/>
                                                                     </StackPanel>
                                                                 </MenuItem.Header>
@@ -297,9 +297,6 @@
                             </TabControl>
 
                         </Border>
-                    </TabItem>
-                    <TabItem>
-                        <Slider Minimum="0" Maximum="100" Height="20" VerticalAlignment="Top" Value="{Binding ValueTest}"/>
                     </TabItem>
                 </TabControl>
             </Border>

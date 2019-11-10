@@ -11,8 +11,8 @@ namespace CMiX.ViewModels
 {
     public class FileNameItem : ViewModel
     {
-        public FileNameItem(string folderpath, string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor)
-            : base (oscvalidation, mementor)
+        public FileNameItem(string folderpath, string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor)
+            : base (serverValidations, mementor)
         {
             MessageAddress = messageaddress + "Selected";
             FolderPath = folderpath;
@@ -46,10 +46,10 @@ namespace CMiX.ViewModels
                     if(!string.IsNullOrEmpty(this.FileName) && !string.IsNullOrEmpty(this.FolderPath))
                     {
                         string fn = Utils.GetRelativePath(FolderPath, this.FileName);
-                        SendMessages(MessageAddress, fn);
+                        //SendMessages(MessageAddress, fn);
                     }
-                    else
-                        SendMessages(MessageAddress, FileName);
+                    //else
+                        //SendMessages(MessageAddress, FileName);
                 }
             }
         }

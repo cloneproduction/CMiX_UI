@@ -1,5 +1,4 @@
 ﻿using System;
-using VVVV.Utils.VMath;
 
 namespace CMiX.Engine
 {
@@ -37,7 +36,7 @@ namespace CMiX.Engine
                     }
                 case RandomType.LINEAR:
                     {
-                        ParameterValue = VMath.Lerp(oldValue, newValue, Stopwatcher.LFO);
+                        //ParameterValue = VMath.Lerp(oldValue, newValue, Stopwatcher.LFO);
                         break;
                     }
                 default: break;

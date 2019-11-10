@@ -9,17 +9,17 @@ namespace CMiX.ViewModels
 {
     public class Translate : ViewModel
     {
-        public Translate(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor)
-            : base(oscvalidation, mementor)
+        public Translate(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor)
+            : base(serverValidations, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Translate));
-            TranslateX = new Slider(MessageAddress + nameof(TranslateX), oscvalidation, mementor);
+            TranslateX = new Slider(MessageAddress + nameof(TranslateX), serverValidations, mementor);
             TranslateX.Minimum = -1;
             TranslateX.Maximum = 1;
-            TranslateY = new Slider(MessageAddress + nameof(TranslateY), oscvalidation, mementor);
+            TranslateY = new Slider(MessageAddress + nameof(TranslateY), serverValidations, mementor);
             TranslateY.Minimum = -1;
             TranslateY.Maximum = 1;
-            TranslateZ = new Slider(MessageAddress + nameof(TranslateZ), oscvalidation, mementor);
+            TranslateZ = new Slider(MessageAddress + nameof(TranslateZ), serverValidations, mementor);
             TranslateZ.Minimum = -1;
             TranslateZ.Maximum = 1;
         }
@@ -62,9 +62,9 @@ namespace CMiX.ViewModels
 
                 EnabledMessages();
                 Mementor.EndBatch();
-
-                QueueObjects(translatemodel);
-                SendQueues();
+                //SendMessages(nameof(TranslateModel), translatemodel);
+                //QueueObjects(translatemodel);
+                //SendQueues();
             }
         }
 
@@ -73,8 +73,9 @@ namespace CMiX.ViewModels
             TranslateModel translatemodel = new TranslateModel();
             this.Reset();
             this.Copy(translatemodel);
-            QueueObjects(translatemodel);
-            SendQueues();
+            //this.SendMessages(nameof(TranslateModel), translatemodel);
+            //QueueObjects(translatemodel);
+            //SendQueues();
         }
 
         public void Copy(TranslateModel translatemodel)
@@ -110,8 +111,9 @@ namespace CMiX.ViewModels
 
             TranslateModel translatemodel = new TranslateModel();
             this.Copy(translatemodel);
-            QueueObjects(translatemodel);
-            SendQueues();
+            //this.SendMessages(nameof(TranslateModel), translatemodel);
+            //QueueObjects(translatemodel);
+            //SendQueues();
         }
         #endregion
     }

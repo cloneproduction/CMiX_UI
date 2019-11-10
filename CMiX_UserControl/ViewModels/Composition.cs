@@ -9,7 +9,6 @@ using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using Memento;
 using GongSolutions.Wpf.DragDrop;
-using CMiX.MVVM.Message;
 
 namespace CMiX.ViewModels
 {
@@ -17,20 +16,21 @@ namespace CMiX.ViewModels
     {
 
         #region CONSTRUCTORS
-        public Composition(ObservableCollection<OSCMessenger> oscmessengers, Assets assets)
+        public Composition(ObservableCollection<Server> servers, Assets assets)
         {
             Name = string.Empty;
+            MessageAddress = "/Composition";
 
-            OSCValidation = new ObservableCollection<OSCValidation>();
-            CreateOSCValidation(oscmessengers);
+            ServerValidation = new ObservableCollection<ServerValidation>();
+            CreateServerValidation(servers);
 
             Assets = assets;
             Layers = new ObservableCollection<Layer>();
             Mementor = new Mementor();
-            Transition = new Slider("/Transition", OSCValidation, Mementor);
+            Transition = new Slider("/Transition", ServerValidation, Mementor);
             ContentFolderName = string.Empty;
-            MasterBeat = new MasterBeat(OSCValidation, Mementor);
-            Camera = new Camera(OSCValidation, MasterBeat, Mementor);
+            MasterBeat = new MasterBeat(ServerValidation, Mementor);
+            Camera = new Camera(ServerValidation, MasterBeat, Mementor);
 
             CreateLayer();
 
@@ -46,12 +46,13 @@ namespace CMiX.ViewModels
         }
         #endregion
 
+
         #region PROPERTIES
 
+        #region COMMANDS
         public ICommand ReloadCompositionCommand { get; }
         public ICommand ResetAllOSCCommand { get; }
         public ICommand ReloadAllOSCCommand { get; }
-
 
         public ICommand AddLayerCommand { get; }
         public ICommand CopyLayerCommand { get; }
@@ -62,6 +63,7 @@ namespace CMiX.ViewModels
         public ICommand OpenCompositionCommand { get; }
         public ICommand DeleteLayerCommand { get; }
         public ICommand DuplicateLayerCommand { get; }
+        #endregion
 
         public MasterBeat MasterBeat { get; set; }
         public Camera Camera { get; set; }
@@ -101,8 +103,7 @@ namespace CMiX.ViewModels
                 {
                     UpdateLayerContentFolder(layer);
                 }
-                Console.WriteLine("CONTENTFOLDER");
-                SendMessages("/ContentFolder", ContentFolderName);
+                //SendMessages("/ContentFolder", ContentFolderName);
             }
         }
 
@@ -128,7 +129,7 @@ namespace CMiX.ViewModels
         {
             var layername = CreateLayerName();
 
-            Layer layer = new Layer(MasterBeat, layername, OSCValidation, Mementor);
+            Layer layer = new Layer(MasterBeat, layername, ServerValidation, Mementor);
             layer.ID = LayerID;
             layer.Name = "Layer " + layer.ID;
             Layers.Add(layer);
@@ -160,12 +161,12 @@ namespace CMiX.ViewModels
 
         public void QueueLayerNames()
         {
-            this.QueueMessages("/LayerNames", GetLayerNames().ToArray());
+            //this.QueueMessages("/LayerNames", GetLayerNames().ToArray());
         }
 
         public void QueueLayerID()
         {
-            this.QueueMessages("/LayerID", GetLayerID().Select(x => x.ToString()).ToArray());
+            //this.QueueMessages("/LayerID", GetLayerID().Select(x => x.ToString()).ToArray());
         }
 
         public void UpdateLayerContentFolder(Layer layer)
@@ -184,40 +185,44 @@ namespace CMiX.ViewModels
             return "/Layer" + layerNameID.ToString() + "/";
         }
 
-        private void CreateOSCValidation(ObservableCollection<OSCMessenger> oscmessengers)
+        private void CreateServerValidation(ObservableCollection<Server> servers)
         {
-            foreach (var messenger in oscmessengers)
+            foreach (var server in servers)
             {
-                OSCValidation.Add(new OSCValidation(messenger));
+                ServerValidation.Add(new ServerValidation(server));
             }
         }
 
         private async void ReloadComposition(object messenger)
         {
-            CompositionModel compositionmodel = new CompositionModel();
-            this.Copy(compositionmodel);
-            OSCMessenger oscmessenger = messenger as OSCMessenger;
+            //CompositionModel compositionmodel = new CompositionModel();
+            //this.Copy(compositionmodel);
+            //OSCMessenger oscmessenger = messenger as OSCMessenger;
 
-            oscmessenger.QueueMessage("/Transition/Amount", Transition.Amount);
-            oscmessenger.QueueMessage("/Transition/Start", true);
-            oscmessenger.SendQueue();
+            //oscmessenger.QueueMessage("/Transition/Amount", Transition.Amount);
+            //oscmessenger.QueueMessage("/Transition/Start", true);
+            //oscmessenger.SendQueue();
 
-            oscmessenger.QueueMessage("/CompositionReloaded", true);
-            oscmessenger.QueueObject(compositionmodel);
-            await Task.Delay(TimeSpan.FromMinutes(Transition.Amount));
-            oscmessenger.SendQueue();
+            //oscmessenger.QueueMessage("/CompositionReloaded", true);
+            //oscmessenger.QueueObject(compositionmodel);
+            //await Task.Delay(TimeSpan.FromMinutes(Transition.Amount));
+            //oscmessenger.SendQueue();
+
+
         }
 
         private void ReloadAllOSC()
         {
-            foreach (var oscvalidation in OSCValidation)
-                ReloadComposition(oscvalidation.OSCMessenger);
+            foreach (var serverValidation in ServerValidation)
+                ReloadComposition(serverValidation.Server);
+            SendMessages("/Layer", new LayerModel());
+            Console.WriteLine("Send LayerModel test");
         }
 
         private void ResetAllOSC()
         {
-            foreach (var oscvalidation in OSCValidation)
-                oscvalidation.OSCMessenger.SendMessage("/CompositionReloaded", true);
+            //foreach (var serverValidation in ServerValidation)
+                //serverValidation.Server.Send("/CompositionReloaded", true);
         }
         #endregion
 
@@ -252,10 +257,11 @@ namespace CMiX.ViewModels
                 SelectedLayer.ID = selectedLayerID;
                 SelectedLayer.Copy(layermodel);
 
-                QueueLayerID();
-                QueueLayerNames();
-                QueueObjects(layermodel);
-                SendQueues();
+                //SendMessages("LayerModel", layermodel);
+                //QueueLayerID();
+                //QueueLayerNames();
+                //QueueObjects(layermodel);
+                //SendQueues();
 
                 Mementor.EndBatch();
             }
@@ -266,8 +272,9 @@ namespace CMiX.ViewModels
             SelectedLayer.Reset();
             LayerModel layerModel = new LayerModel();
             SelectedLayer.Copy(layerModel);
-            QueueObjects(layerModel);
-            SendQueues();
+            //SendMessages("LayerModel", layerModel);
+            //QueueObjects(layerModel);
+            //SendQueues();
         }
         #endregion
 
@@ -284,16 +291,11 @@ namespace CMiX.ViewModels
             Mementor.ElementAdd(Layers, layer);
             UpdateLayerContentFolder(layer);
 
-            LayerModel layermodel = new LayerModel();
-            layer.Copy(layermodel);
-
             EnabledMessages();
 
-            QueueLayerID();
-            QueueLayerNames();
-            QueueObjects(layermodel);
-            SendQueues();
-
+            CompositionModel compositionModel = new CompositionModel();
+            this.Copy(compositionModel);
+            SendMessages("/Composition", compositionModel);
             Mementor.EndBatch();
         }
 
@@ -338,10 +340,9 @@ namespace CMiX.ViewModels
 
                 EnabledMessages();
 
-                QueueLayerID();
-                QueueLayerNames();
-                QueueObjects(layermodel);
-                SendQueues();
+                CompositionModel compositionModel = new CompositionModel();
+                this.Copy(compositionModel);
+                SendMessages("/Composition", compositionModel);
 
                 Mementor.EndBatch();
             }
@@ -374,10 +375,11 @@ namespace CMiX.ViewModels
 
                 EnabledMessages();
 
-                QueueLayerID();
-                QueueLayerNames();
-                QueueMessages("LayerRemoved", removedlayer.LayerName);
-                SendQueues();
+                //SendMessages("LayerRemoved", removedlayer.LayerName);
+                //QueueLayerID();
+                //QueueLayerNames();
+                //QueueMessages("LayerRemoved", removedlayer.LayerName);
+                //SendQueues();
 
                 Mementor.EndBatch();
             }
@@ -412,7 +414,7 @@ namespace CMiX.ViewModels
 
         public void Paste(CompositionModel compositionmodel)
         {
-            Layers.Clear();
+            
             DisabledMessages();
 
             MessageAddress = compositionmodel.MessageAddress;
@@ -422,15 +424,15 @@ namespace CMiX.ViewModels
             LayerID = compositionmodel.layerID;
             layerNameID = compositionmodel.layerNameID;
 
-
+            Layers.Clear();
             foreach (LayerModel layermodel in compositionmodel.LayersModel)
             {
-                Layer layer = new Layer(MasterBeat, CreateLayerName(), OSCValidation, Mementor);
+                Layer layer = new Layer(MasterBeat, CreateLayerName(), ServerValidation, Mementor);
                 layer.Paste(layermodel);
                 Layers.Add(layer);
             }
 
-            //SelectedLayer.Paste(compositionmodel.SelectedLayer);
+            SelectedLayer.Paste(compositionmodel.SelectedLayer);
             MasterBeat.Paste(compositionmodel.MasterBeatModel);
             Camera.Paste(compositionmodel.CameraModel);
             Transition.Paste(compositionmodel.TransitionModel);
@@ -470,9 +472,10 @@ namespace CMiX.ViewModels
                     Mementor.ElementIndexChange(Layers, Layers[insertindex], sourceindex);
                     SelectedLayer = Layers[insertindex];
 
-                    QueueLayerID();
-                    QueueLayerNames();
-                    SendQueues();
+                    //SendMessages("LayerList", Layers);
+                    //QueueLayerID();
+                    //QueueLayerNames();
+                    //SendQueues();
                     Mementor.EndBatch();
                 }
             }

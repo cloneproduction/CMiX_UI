@@ -49,6 +49,7 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="NetMQ, Version=4.0.0.239, Culture=neutral, PublicKeyToken=a6decef4ddc58b3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NetMQ.4.0.0.239-pre\lib\net47\NetMQ.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -86,8 +87,11 @@
     <Compile Include="Controls\EditableTextBox.xaml.cs">
       <DependentUpon>EditableTextBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Message\NetMQ\NetMQMessenger.cs" />
-    <Compile Include="Message\NetMQ\Server.cs" />
+    <Compile Include="Message\NetMQ\ByteMessage.cs" />
+    <Compile Include="Message\NetMQ\NetMQClient.cs" />
+    <Compile Include="Message\NetMQ\NetMQServer.cs" />
+    <Compile Include="ViewModels\Server.cs" />
+    <Compile Include="ViewModels\ServerValidation.cs" />
     <Compile Include="Models\Geometry\Modifier\AnimParameterModel.cs" />
     <Compile Include="Models\Geometry\Modifier\InstancerModel.cs" />
     <Compile Include="Models\Geometry\Modifier\ScaleModifierModel.cs" />
@@ -97,9 +101,6 @@
     <Compile Include="Models\Geometry\Transform\TransformModel.cs" />
     <Compile Include="Models\TranslateModel.cs" />
     <Compile Include="Models\Geometry\Modifier\TranslateModifierModel.cs" />
-    <Compile Include="Message\Ceras\Messenger.cs" />
-    <Compile Include="Message\Ceras\Client.cs" />
-    <Compile Include="Message\Ceras\Server.cs" />
     <Compile Include="ViewModels\_Enums\AnimMode.cs" />
     <Compile Include="ViewModels\_Enums\EasingTypes.cs" />
     <Compile Include="_Trash\HueWheel.cs" />

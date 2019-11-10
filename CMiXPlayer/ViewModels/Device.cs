@@ -14,7 +14,7 @@ namespace CMiXPlayer.ViewModels
         public Device(CerasSerializer cerasSerializer, ObservableCollection<Playlist> playlists)
         {
             Playlists = playlists;
-            CompoSelector = new FileSelector(string.Empty,"Single", new List<string>() { ".COMPMIX" }, new ObservableCollection<OSCValidation> (), new Mementor());
+            CompoSelector = new FileSelector(string.Empty,"Single", new List<string>() { ".COMPMIX" }, new ObservableCollection<ServerValidation> (), new Mementor());
             CompoSelector.SelectedFileNameItem = new FileNameItem();
 
             OSCMessenger = new OSCMessenger("127.0.0.1", 1111);

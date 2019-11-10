@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using CMiX.Services;
 using CMiX.MVVM.ViewModels;
 using Memento;
 
@@ -9,8 +8,8 @@ namespace CMiX.ViewModels
     public abstract class Beat : ViewModel
     {
         #region CONSTRUCTOR
-        public Beat(ObservableCollection<OSCValidation> oscvalidation, Mementor mementor)
-            : base(oscvalidation, mementor)
+        public Beat(ObservableCollection<ServerValidation> serverValidations, Mementor mementor)
+            : base(serverValidations, mementor)
         {
             ResetCommand = new RelayCommand(p => Reset());
             MultiplyCommand = new RelayCommand(p => Multiply());

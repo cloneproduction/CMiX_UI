@@ -11,11 +11,11 @@ namespace CMiX.ViewModels
     public class ColorSelector : ViewModel
     {
         #region CONSTRUCTORS
-        public ColorSelector(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor) 
-            : base(oscvalidation, mementor)
+        public ColorSelector(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
+            : base(serverValidations, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(ColorSelector));
-            ColorPicker = new ColorPicker.ViewModels.ColorPicker(MessageAddress, oscvalidation, mementor);
+            ColorPicker = new ColorPicker.ViewModels.ColorPicker(MessageAddress, serverValidations, mementor);
 
             CopyColorSelectorCommand = new RelayCommand(p => CopyColorSelector());
             PasteColorSelectorCommand = new RelayCommand(p => PasteColorSelector());
@@ -64,9 +64,9 @@ namespace CMiX.ViewModels
                 this.Copy(colorselectormodel);
                 this.EnabledMessages();
                 this.Mementor.EndBatch();
-
-                this.QueueObjects(colorselectormodel);
-                this.SendQueues();
+                //SendMessages(MessageAddress, colorselectormodel);
+                //this.QueueObjects(colorselectormodel);
+                //this.SendQueues();
             }
         }
 
@@ -75,8 +75,9 @@ namespace CMiX.ViewModels
             ColorSelectorModel colorselectormodel = new ColorSelectorModel();
             this.Reset();
             this.Copy(colorselectormodel);
-            QueueObjects(colorselectormodel);
-            SendQueues();
+            //SendMessages(MessageAddress, colorselectormodel);
+            //QueueObjects(colorselectormodel);
+            //SendQueues();
         }
 
         public void Copy(ColorSelectorModel colorselectormodel)

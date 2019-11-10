@@ -11,17 +11,17 @@ namespace CMiX.ViewModels
     public class Content : ViewModel
     {
         #region CONSTRUCTORS
-        public Content(Beat masterbeat, string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor) 
-            : base (oscvalidation, mementor)
+        public Content(Beat masterbeat, string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
+            : base (serverValidations, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Content));
 
             Enable = true;
 
-            BeatModifier = new BeatModifier(MessageAddress, masterbeat, oscvalidation, mementor);
-            Geometry = new Geometry(MessageAddress, oscvalidation, mementor, masterbeat);
-            Texture = new Texture(MessageAddress, oscvalidation, mementor);
-            PostFX = new PostFX(MessageAddress, oscvalidation, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, masterbeat, serverValidations, mementor);
+            Geometry = new Geometry(MessageAddress, serverValidations, mementor, masterbeat);
+            Texture = new Texture(MessageAddress, serverValidations, mementor);
+            PostFX = new PostFX(MessageAddress, serverValidations, mementor);
 
             CopyContentCommand = new RelayCommand(p => CopyContent());
             PasteContentCommand = new RelayCommand(p => PasteContent());
@@ -121,9 +121,10 @@ namespace CMiX.ViewModels
                 this.Copy(contentmodel);
                 this.EnabledMessages();
                 this.Mementor.EndBatch();
+                //SendMessages(nameof(ContentModel), contentmodel);
 
-                this.QueueObjects(contentmodel);
-                this.SendQueues();
+                //this.QueueObjects(contentmodel);
+                //this.SendQueues();
             }
         }
 
@@ -132,8 +133,9 @@ namespace CMiX.ViewModels
             ContentModel contentmodel = new ContentModel();
             this.Reset();
             this.Copy(contentmodel);
-            this.QueueObjects(contentmodel);
-            this.SendQueues();
+            //SendMessages(nameof(ContentModel), contentmodel);
+            //this.QueueObjects(contentmodel);
+            //this.SendQueues();
         }
         #endregion
     }

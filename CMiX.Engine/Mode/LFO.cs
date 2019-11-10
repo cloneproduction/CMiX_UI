@@ -16,7 +16,7 @@ namespace CMiX.Engine
 
         public void Update()
         {
-            ParameterValue = Easing.Interpolate(Stopwatcher.LFO, EasingType);
+            //ParameterValue = Easing.Interpolate(Stopwatcher.LFO, EasingType);
         }
     }
 }

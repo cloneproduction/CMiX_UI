@@ -12,7 +12,8 @@ namespace CMiX.ViewModels
     public class Counter : ViewModel
     {
         #region CONSTRUCTORS
-        public Counter(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor) : base (oscvalidation, mementor)
+        public Counter(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
+            : base (serverValidations, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Counter));
             Count = 1;
@@ -41,7 +42,7 @@ namespace CMiX.ViewModels
                 if(Mementor != null)
                     Mementor.PropertyChange(this, "Count");
                 SetAndNotify(ref _count, value);
-                SendMessages(MessageAddress + nameof(Count), Count);
+                //SendMessages(MessageAddress + nameof(Count), Count);
             }
         }
         #endregion

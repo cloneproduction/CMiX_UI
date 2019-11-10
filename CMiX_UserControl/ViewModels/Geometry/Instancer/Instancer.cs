@@ -10,16 +10,16 @@ namespace CMiX.ViewModels
     [Serializable]
     public class Instancer : ViewModel
     {
-        public Instancer(string messageaddress, ObservableCollection<OSCValidation> oscvalidation, Mementor mementor, Beat beat)
-            : base(oscvalidation, mementor)
+        public Instancer(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor, Beat beat)
+            : base(serverValidations, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Instancer));
 
-            Transform = new Transform(MessageAddress, oscvalidation, mementor);
-            Counter = new Counter(MessageAddress, oscvalidation, mementor);
-            TranslateModifier = new TranslateModifier(MessageAddress, oscvalidation, mementor, beat);
-            ScaleModifier = new ScaleModifier(MessageAddress, oscvalidation, mementor, beat);
-            RotationModifier = new RotationModifier(MessageAddress, oscvalidation, mementor, beat);
+            Transform = new Transform(MessageAddress, serverValidations, mementor);
+            Counter = new Counter(MessageAddress, serverValidations, mementor);
+            TranslateModifier = new TranslateModifier(MessageAddress, serverValidations, mementor, beat);
+            ScaleModifier = new ScaleModifier(MessageAddress, serverValidations, mementor, beat);
+            RotationModifier = new RotationModifier(MessageAddress, serverValidations, mementor, beat);
 
             NoAspectRatio = false;
         }
@@ -39,7 +39,7 @@ namespace CMiX.ViewModels
                 if (Mementor != null)
                     Mementor.PropertyChange(this, "NoAspectRatio");
                 SetAndNotify(ref _noAspectRatio, value);
-                SendMessages(MessageAddress + nameof(NoAspectRatio), NoAspectRatio.ToString());
+                //SendMessages(MessageAddress + nameof(NoAspectRatio), NoAspectRatio.ToString());
             }
         }
 
@@ -81,9 +81,9 @@ namespace CMiX.ViewModels
 
                 EnabledMessages();
                 Mementor.EndBatch();
-
-                QueueObjects(instancermodel);
-                SendQueues();
+                //SendMessages(nameof(InstancerModel), instancermodel);
+                //QueueObjects(instancermodel);
+                //SendQueues();
             }
         }
 
@@ -92,8 +92,9 @@ namespace CMiX.ViewModels
             InstancerModel instancermodel = new InstancerModel();
             this.Reset();
             this.Copy(instancermodel);
-            QueueObjects(instancermodel);
-            SendQueues();
+            //SendMessages(nameof(InstancerModel), instancermodel);
+            //QueueObjects(instancermodel);
+            //SendQueues();
         }
 
         public void Copy(InstancerModel instancermodel)
@@ -136,8 +137,9 @@ namespace CMiX.ViewModels
 
             InstancerModel instancermodel = new InstancerModel();
             this.Copy(instancermodel);
-            QueueObjects(instancermodel);
-            SendQueues();
+            //SendMessages(nameof(InstancerModel), instancermodel);
+            //QueueObjects(instancermodel);
+            //SendQueues();
         }
         #endregion
     }
