@@ -19,6 +19,7 @@ namespace CMiX.Engine.ViewModel
 
         private void OnByteReceived(object sender, PropertyChangedEventArgs e)
         {
+            Console.WriteLine("OnByteReceivedFiredFromBaseClass Viewmodel");
             ByteReceived();
         }
 

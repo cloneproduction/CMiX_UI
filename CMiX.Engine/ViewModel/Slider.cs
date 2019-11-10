@@ -16,8 +16,8 @@ namespace CMiX.Engine.ViewModel
         public override void ByteReceived()
         {
             base.ByteReceived();
-            var slider = Serializer.Deserialize<SliderModel>(NetMQClient.ByteMessage.Message);
-            this.Amount = slider.Amount;
+            //var slider = Serializer.Deserialize<SliderModel>(NetMQClient.ByteMessage.Message);
+            //this.Amount = slider.Amount;
         }
 
         private double _amount;

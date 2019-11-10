@@ -215,8 +215,7 @@ namespace CMiX.ViewModels
         {
             foreach (var serverValidation in ServerValidation)
                 ReloadComposition(serverValidation.Server);
-            SendMessages("/Layer", new LayerModel());
-            Console.WriteLine("Send LayerModel test");
+
         }
 
         private void ResetAllOSC()
@@ -279,6 +278,7 @@ namespace CMiX.ViewModels
         #endregion
 
         #region ADD/DUPLICATE/DELETE LAYERS
+
         public void AddLayer()
         {
             Mementor.BeginBatch();
@@ -290,12 +290,12 @@ namespace CMiX.ViewModels
 
             Mementor.ElementAdd(Layers, layer);
             UpdateLayerContentFolder(layer);
-
             EnabledMessages();
 
-            CompositionModel compositionModel = new CompositionModel();
-            this.Copy(compositionModel);
-            SendMessages("/Composition", compositionModel);
+            LayerModel layerModel = new LayerModel();
+            layer.Copy(layerModel);
+            SendMessages("/Composition", "AddLayer", null, layerModel);
+
             Mementor.EndBatch();
         }
 
@@ -340,9 +340,9 @@ namespace CMiX.ViewModels
 
                 EnabledMessages();
 
-                CompositionModel compositionModel = new CompositionModel();
-                this.Copy(compositionModel);
-                SendMessages("/Composition", compositionModel);
+                //CompositionModel compositionModel = new CompositionModel();
+                //this.Copy(compositionModel);
+                //SendMessages("/Composition", compositionModel);
 
                 Mementor.EndBatch();
             }

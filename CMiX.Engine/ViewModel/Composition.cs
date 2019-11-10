@@ -17,12 +17,29 @@ namespace CMiX.Engine.ViewModel
 
         public override void ByteReceived()
         {
-            object obj = Serializer.Deserialize<object>(NetMQClient.ByteMessage.Message);
+            string topic = NetMQClient.ByteMessage.Topic;
 
-            if (obj.GetType() == typeof(CompositionModel))
+            if(topic == "/Composition")
             {
-                PasteData(obj as CompositionModel);
+                string command = NetMQClient.ByteMessage.Command;
+                switch (command)
+                {
+                    case "AddLayer":
+                        if (NetMQClient.ByteMessage.Payload != null)
+                        {
+                            LayerModel layerModel = NetMQClient.ByteMessage.Payload as LayerModel;
+                            this.AddLayer(layerModel);
+                        }
+                        break;
+                }
             }
+        }
+
+        public void AddLayer(LayerModel layerModel)
+        {
+            Layer layer = new Layer(NetMQClient, "/Layer", Serializer);
+            Layers.Add(layer);
+            Console.WriteLine("Added New Layer");
         }
 
         public List<Layer> Layers { get; set; }

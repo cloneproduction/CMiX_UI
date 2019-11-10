@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NetMQ;
+using Ceras;
 
 namespace CMiX.MVVM.Message
 {
@@ -11,17 +13,61 @@ namespace CMiX.MVVM.Message
     {
         public ByteMessage()
         {
-
+            Serializer = new CerasSerializer();
         }
 
-        private byte[] _message;
-        public byte[] Message
+        public CerasSerializer Serializer { get; set; }
+
+        private NetMQMessage netMQMessage;
+        public NetMQMessage NetMQMessage
         {
-            get { return _message; }
+            get { return netMQMessage; }
             set
             {
-                _message = value;
-                OnPropertyChanged("Message");
+                netMQMessage = value;
+                OnPropertyChanged(nameof(NetMQMessage));
+            }
+        }
+
+        public string Topic
+        {
+            get
+            {
+                return NetMQMessage[0].ConvertToString();
+            }
+        }
+
+        public string Command
+        {
+            get
+            {
+                return NetMQMessage[1].ConvertToString();
+            }
+        }
+
+        public object Parameter
+        {
+            get
+            {
+                if (NetMQMessage[2].Buffer != null)
+                {
+                    return Serializer.Deserialize<object>(NetMQMessage[0].Buffer);
+                }
+                else
+                    return null;
+            }
+        }
+
+        public object Payload
+        {
+            get
+            {
+                if (NetMQMessage[3].Buffer != null)
+                {
+                    return Serializer.Deserialize<object>(NetMQMessage[3].Buffer);
+                }
+                else
+                    return null;
             }
         }
 

@@ -31,7 +31,7 @@ namespace CMiX.MVVM.ViewModels
         #endregion
 
         #region MESSENGERS
-        public void SendMessages(string topic,  object obj)
+        public void SendMessages(string topic, string command, object parameter,  object payload)
         {
             if (ServerValidation != null)
             {
@@ -39,13 +39,13 @@ namespace CMiX.MVVM.ViewModels
                 {
                     if (servervalidation.SendEnabled && servervalidation.Server.Enabled)
                     {
-                        servervalidation.Server.Send(topic, obj);
+                        servervalidation.Server.Send(topic, command, parameter, payload);
                     }
                 }
             }
         }
 
-        public void SendMessagesWithoutValidation(string address, object obj)
+        public void SendMessagesWithoutValidation(string topic, string command, object parameter, object payload)
         {
             if (ServerValidation != null)
             {
@@ -53,7 +53,7 @@ namespace CMiX.MVVM.ViewModels
                 {
                     if (servervalidation.Server.Enabled)
                     {
-                        servervalidation.Server.Send(address, obj);
+                        servervalidation.Server.Send(topic, command, parameter, payload);
                     }
                 }
             }

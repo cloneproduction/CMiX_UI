@@ -39,18 +39,14 @@ namespace CMiX.MVVM.Message
 
             private void OnShimReady(object sender, NetMQSocketEventArgs e)
             {
-                string command = e.Socket.ReceiveFrameString();
-
-                if(command == NetMQActor.EndShimMessage)
+                NetMQMessage msg = e.Socket.ReceiveMultipartMessage();
+                if (msg[0].ConvertToString() == NetMQActor.EndShimMessage)
                 {
                     poller.Stop();
                     return;
                 }
                 else
-                {
-                    byte[] byteMessage = e.Socket.ReceiveFrameBytes();
-                    publisher.SendMoreFrame(command).SendFrame(byteMessage);
-                }
+                    publisher.SendMultipartMessage(msg);
             }
 
             private void UpdateString(string stringmessage, string propertyToUpdate)
@@ -127,17 +123,20 @@ namespace CMiX.MVVM.Message
             Start();
         }
 
-        public void SendObject(string topic, object commandParameter)
+        public void SendObject(string topic, string command, object parameter, object payload)
         {
             if (actor == null)
                 return;
 
-            byte[] Serialized = Serializer.Serialize(commandParameter);
-            var message = new NetMQMessage();
-            message.Append(topic);
-            message.Append(Serialized);
-            actor.SendMultipartMessage(message);
-            Console.WriteLine("SendObject Topic" + topic);
+            byte[] serialParam = Serializer.Serialize(parameter);
+            byte[] serialPayload = Serializer.Serialize(payload);
+
+            var msg = new NetMQMessage(4);
+            msg.Append(topic);
+            msg.Append(command);
+            msg.Append(serialParam);
+            msg.Append(serialPayload);
+            actor.SendMultipartMessage(msg);
         }
     }
 }

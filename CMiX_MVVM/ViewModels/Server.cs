@@ -52,10 +52,10 @@ namespace CMiX.MVVM.ViewModels
 
         public NetMQServer NetMQServer { get; set; }
 
-        public void Send(string topic, object objectToSend)
+        public void Send(string topic, string command, object parameter, object payload)
         {
             if(Enabled)
-                NetMQServer.SendObject(topic, objectToSend);
+                NetMQServer.SendObject(topic, command, parameter, payload);
         }
 
         public void Stop()

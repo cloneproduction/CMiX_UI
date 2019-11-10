@@ -44,18 +44,16 @@ namespace CMiX.MVVM.Message
 
             private void OnSubscriberReady(object sender, NetMQSocketEventArgs e)
             {
-                Console.WriteLine("SubscriberReady");
-                string topic = e.Socket.ReceiveFrameString();
-                if (topic == Topic)
-                {
-                    Console.WriteLine("SuscriberTopicReceived");
-                    this.ByteMessage.Message = e.Socket.ReceiveFrameBytes();
-                }
+                ByteMessage.NetMQMessage = e.Socket.ReceiveMultipartMessage();
+                //NetMQMessage msg = e.Socket.ReceiveMultipartMessage();
+                //string topic = msg[0].ConvertToString();
+                //this.ByteMessage.Command = msg[1].ConvertToString();
+                //this.ByteMessage.Parameter = msg[2].Buffer;
+                //this.ByteMessage.Message = msg[3].Buffer;
             }
 
             private void OnShimReady(object sender, NetMQSocketEventArgs e)
             {
-                Console.WriteLine("Shimready");
                 string command = e.Socket.ReceiveFrameString();
                 if (command == NetMQActor.EndShimMessage)
                 {
@@ -66,13 +64,6 @@ namespace CMiX.MVVM.Message
 
         public ByteMessage ByteMessage { get; set; }
         private NetMQActor actor;
-
-        private string _command;
-        public string Command
-        {
-            get { return _command; }
-            set { _command = value;}
-        }
 
         private string _topic;
         public string Topic
