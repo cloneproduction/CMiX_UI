@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CMiX.MVVM.Message;
+using CMiX.MVVM.Commands;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -52,7 +53,7 @@ namespace CMiX.MVVM.ViewModels
 
         public NetMQServer NetMQServer { get; set; }
 
-        public void Send(string topic, string command, object parameter, object payload)
+        public void Send(string topic, MessageCommand command, object parameter, object payload)
         {
             if(Enabled)
                 NetMQServer.SendObject(topic, command, parameter, payload);

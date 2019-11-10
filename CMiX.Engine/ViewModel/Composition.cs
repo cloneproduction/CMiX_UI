@@ -2,6 +2,8 @@
 using System;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Message;
+using CMiX.MVVM.Commands;
+
 using System.Collections.Generic;
 
 namespace CMiX.Engine.ViewModel
@@ -13,6 +15,7 @@ namespace CMiX.Engine.ViewModel
         {
             Layers = new List<Layer>();
             Name = String.Empty;
+            Layers.Add(new Layer(NetMQClient, "/Layer", Serializer));
         }
 
         public override void ByteReceived()
@@ -21,14 +24,15 @@ namespace CMiX.Engine.ViewModel
 
             if(topic == "/Composition")
             {
-                string command = NetMQClient.ByteMessage.Command;
+                MessageCommand command = NetMQClient.ByteMessage.Command;
                 switch (command)
                 {
-                    case "AddLayer":
+                    case MessageCommand.AddLayer:
                         if (NetMQClient.ByteMessage.Payload != null)
                         {
                             LayerModel layerModel = NetMQClient.ByteMessage.Payload as LayerModel;
                             this.AddLayer(layerModel);
+                            Console.WriteLine("LayerCount  " + Layers.Count);
                         }
                         break;
                 }

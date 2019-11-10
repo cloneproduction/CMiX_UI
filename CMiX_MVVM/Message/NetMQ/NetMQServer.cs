@@ -2,6 +2,7 @@
 using NetMQ;
 using NetMQ.Sockets;
 using System;
+using CMiX.MVVM.Commands;
 
 namespace CMiX.MVVM.Message
 {
@@ -123,17 +124,17 @@ namespace CMiX.MVVM.Message
             Start();
         }
 
-        public void SendObject(string topic, string command, object parameter, object payload)
+        public void SendObject(string topic, MessageCommand command, object parameter, object payload)
         {
             if (actor == null)
                 return;
 
             byte[] serialParam = Serializer.Serialize(parameter);
             byte[] serialPayload = Serializer.Serialize(payload);
-
+            byte[] serialCommand = Serializer.Serialize(command);
             var msg = new NetMQMessage(4);
             msg.Append(topic);
-            msg.Append(command);
+            msg.Append(serialCommand);
             msg.Append(serialParam);
             msg.Append(serialPayload);
             actor.SendMultipartMessage(msg);

@@ -45,11 +45,6 @@ namespace CMiX.MVVM.Message
             private void OnSubscriberReady(object sender, NetMQSocketEventArgs e)
             {
                 ByteMessage.NetMQMessage = e.Socket.ReceiveMultipartMessage();
-                //NetMQMessage msg = e.Socket.ReceiveMultipartMessage();
-                //string topic = msg[0].ConvertToString();
-                //this.ByteMessage.Command = msg[1].ConvertToString();
-                //this.ByteMessage.Parameter = msg[2].Buffer;
-                //this.ByteMessage.Message = msg[3].Buffer;
             }
 
             private void OnShimReady(object sender, NetMQSocketEventArgs e)

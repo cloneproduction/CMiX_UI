@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NetMQ;
 using Ceras;
+using CMiX.MVVM.Commands;
 
 namespace CMiX.MVVM.Message
 {
@@ -37,11 +38,11 @@ namespace CMiX.MVVM.Message
             }
         }
 
-        public string Command
+        public MessageCommand Command
         {
             get
             {
-                return NetMQMessage[1].ConvertToString();
+                return Serializer.Deserialize<MessageCommand>(NetMQMessage[1].Buffer);
             }
         }
 

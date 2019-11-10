@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
+using CMiX.MVVM.Commands;
+
 using Memento;
 
 namespace CMiX.MVVM.ViewModels
@@ -31,7 +33,7 @@ namespace CMiX.MVVM.ViewModels
         #endregion
 
         #region MESSENGERS
-        public void SendMessages(string topic, string command, object parameter,  object payload)
+        public void SendMessages(string topic, MessageCommand command, object parameter,  object payload)
         {
             if (ServerValidation != null)
             {
@@ -45,7 +47,7 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public void SendMessagesWithoutValidation(string topic, string command, object parameter, object payload)
+        public void SendMessagesWithoutValidation(string topic, MessageCommand command, object parameter, object payload)
         {
             if (ServerValidation != null)
             {

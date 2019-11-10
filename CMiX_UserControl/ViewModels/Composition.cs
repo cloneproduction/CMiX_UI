@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.Commands;
 using Memento;
 using GongSolutions.Wpf.DragDrop;
 
@@ -294,7 +295,7 @@ namespace CMiX.ViewModels
 
             LayerModel layerModel = new LayerModel();
             layer.Copy(layerModel);
-            SendMessages("/Composition", "AddLayer", null, layerModel);
+            SendMessages("/Composition", MessageCommand.AddLayer, null, layerModel);
 
             Mementor.EndBatch();
         }
