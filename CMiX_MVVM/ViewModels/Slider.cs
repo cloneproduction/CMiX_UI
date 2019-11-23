@@ -7,6 +7,7 @@ using CMiX.MVVM.Models;
 
 using System.Collections.ObjectModel;
 using Memento;
+using CMiX.MVVM.Commands;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -61,7 +62,10 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _amount, value);
-                //SendMessages(MessageAddress + nameof(Amount), Amount);
+                SliderModel sliderModel = new SliderModel();
+                this.Copy(sliderModel);
+                SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, sliderModel);
+                Console.WriteLine("SliderMessageAddress" + MessageAddress);
             }
         }
 

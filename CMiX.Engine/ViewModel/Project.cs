@@ -16,7 +16,7 @@ namespace CMiX.Engine.ViewModel
         public Project()
         {
             Serializer = new CerasSerializer();
-            NetMQClient = new NetMQClient("127.0.0.1", 7777, "/Composition");
+            NetMQClient = new NetMQClient("127.0.0.1", 7777, "/Project");
             NetMQClient.Start();
             Composition = new Composition(NetMQClient, "/Composition", Serializer);
         }

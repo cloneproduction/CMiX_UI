@@ -9,29 +9,25 @@
     d:DesignWidth="1663.739"
     mc:Ignorable="d">
 
-    <Border
-        Background="{StaticResource SuperHighDarkerColor}">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-
-            <Views:Content                 
-                Grid.Column="0" 
-                Margin="4, 0, 4, 0"
-                DataContext="{Binding Content}"/>
-            <Views:Mask                 
-                Grid.Column="1"
-                Margin="4, 0, 4, 0" 
-                DataContext="{Binding Mask}"/>
-            <StackPanel 
-                Grid.Column="2"
-                Margin="4, 0, 4, 0">
-                <Views:Coloration DataContext="{Binding Coloration}"/>
-                <Views:PostFX Margin="0, 16, 0, 0" DataContext="{Binding PostFX}" />
-            </StackPanel>
-        </Grid>
+    <Border>
+        <TabControl>
+            <TabItem Width="100" Height="30" Header="Content">
+                <Views:Content                 
+                    Grid.Column="0" 
+                    Margin="4, 0, 4, 0"
+                    DataContext="{Binding Content}"/>
+            </TabItem>
+            <TabItem Header="Mask">
+                <Views:Mask                 
+                    Grid.Column="1"
+                    Margin="4, 0, 4, 0" 
+                    DataContext="{Binding Mask}"/>
+            </TabItem>
+            <TabItem Header="PostFX">
+                <Views:PostFX 
+                    Margin="0, 16, 0, 0" 
+                    DataContext="{Binding PostFX}" />
+            </TabItem>
+        </TabControl>
     </Border>
 </UserControl>

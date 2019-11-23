@@ -126,6 +126,7 @@
     <Compile Include="Behaviors\ClickBehavior.cs" />
     <Compile Include="Behaviors\TreeViewItemClickBehavior.cs" />
     <Compile Include="Behaviors\TextBoxFocusBehavior.cs" />
+    <Compile Include="Layer\BlendMode.cs" />
     <Compile Include="ViewModels\Assets\DirectoryItem.cs" />
     <Compile Include="ViewModels\Assets\FileItem.cs" />
     <Compile Include="ViewModels\Assets\TextureItem.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="ViewModels\Geometry\Transform\Scale.cs" />
     <Compile Include="ViewModels\Geometry\Transform\Transform.cs" />
     <Compile Include="ViewModels\Geometry\Transform\Translate.cs" />
+    <Compile Include="ViewModels\Object.cs" />
     <Compile Include="Views\ChannelOSCDataTemplate.xaml.cs">
       <DependentUpon>ChannelOSCDataTemplate.xaml</DependentUpon>
     </Compile>
@@ -163,6 +165,9 @@
     </Compile>
     <Compile Include="Views\Geometry\Instancer\TranslateModifier.xaml.cs">
       <DependentUpon>TranslateModifier.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Object.xaml.cs">
+      <DependentUpon>Object.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Server.xaml.cs">
       <DependentUpon>Server.xaml</DependentUpon>
@@ -207,7 +212,7 @@
     <Compile Include="ViewModels\Coloration\Coloration.cs" />
     <Compile Include="ViewModels\Content.cs" />
     <Compile Include="ViewModels\Geometry\Geometry.cs" />
-    <Compile Include="ViewModels\Layer.cs" />
+    <Compile Include="Layer\Layer.cs" />
     <Compile Include="ViewModels\Beat\MasterBeat.cs" />
     <Compile Include="ViewModels\Mask\Mask.cs" />
     <Compile Include="ViewModels\PostFX\PostFX.cs" />
@@ -300,6 +305,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Geometry\Instancer\TranslateModifier.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Object.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

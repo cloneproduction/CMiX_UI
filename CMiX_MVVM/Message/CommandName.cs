@@ -8,8 +8,14 @@ namespace CMiX.MVVM.Commands
 {
     public enum MessageCommand
     {
-        AddLayer,
-        DuplicateLayer,
-        DeleteLayer
+        VIEWMODEL_UPDATE,
+        LAYER_UPDATE_BLENDMODE,
+        LAYER_ADD,
+        LAYER_DUPLICATE,
+        LAYER_DELETE,
+        LAYER_MOVE,
+        OBJECT_ADD,
+        OBJECT_DELETE,
+        OBJECT_DUPLICATE
     }
 }

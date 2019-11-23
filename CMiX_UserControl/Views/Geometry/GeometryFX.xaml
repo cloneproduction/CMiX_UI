@@ -10,10 +10,6 @@
     d:DesignHeight="123.175" 
     d:DesignWidth="332.003">
 
-    <!--<Views:FileSelector 
-            Height="300"
-            DataContext="{Binding FileSelector}"
-            />-->
     <Expander Style="{StaticResource ExpanderBase}" Foreground="{StaticResource TextBase}" Header="GSFX">
         <StackPanel>
             <MVVM.Views:Slider

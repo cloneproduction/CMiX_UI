@@ -42,6 +42,7 @@ namespace CMiX.MVVM.ViewModels
                     if (servervalidation.SendEnabled && servervalidation.Server.Enabled)
                     {
                         servervalidation.Server.Send(topic, command, parameter, payload);
+                        Console.WriteLine("ServerValidation Sent with topic " + topic);
                     }
                 }
             }

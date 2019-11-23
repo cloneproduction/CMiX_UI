@@ -11,10 +11,11 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Server : ViewModel
     {
-        public Server(string ip, int port)
+        public Server(string ip, int port, string topic)
         {
             IP = ip;
             Port = port;
+            Topic = topic;
             Enabled = true;
             NetMQServer = new NetMQServer(IP, Port);
             NetMQServer.Start();
@@ -52,11 +53,12 @@ namespace CMiX.MVVM.ViewModels
         #endregion
 
         public NetMQServer NetMQServer { get; set; }
+        public string Topic { get; set; }
 
-        public void Send(string topic, MessageCommand command, object parameter, object payload)
+        public void Send(string messageAddress, MessageCommand command, object parameter, object payload)
         {
             if(Enabled)
-                NetMQServer.SendObject(topic, command, parameter, payload);
+                NetMQServer.SendObject(Topic, messageAddress, command, parameter, payload);
         }
 
         public void Stop()

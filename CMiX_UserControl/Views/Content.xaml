@@ -6,13 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
-    d:DesignHeight="1631.001"
-    d:DesignWidth="364"
+    d:DesignHeight="1561.001"
+    d:DesignWidth="1413.4"
     mc:Ignorable="d">
 
     <UserControl.Resources>
         <ResourceDictionary>
             <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
+            <Resources:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -61,49 +62,53 @@
                     </MenuItem>
                 </ContextMenu>
             </Border.ContextMenu>
-            <DockPanel>
-                <Label
-                    HorizontalAlignment="Left"
-                    Content="CONTENT"
-                    DockPanel.Dock="Bottom"
-                    FontWeight="SemiBold"
-                    FontSize="12"
-                    />
-            </DockPanel>
         </Border>
+
         <Border 
-            Margin="0, 4, 0, 8" 
+            Margin="0, 8" 
             DockPanel.Dock="Top" 
             Style="{StaticResource BorderContainer}">
-            <Views:BeatModifier DataContext="{Binding BeatModifier}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Views:BeatModifier Margin="4, 0" DataContext="{Binding BeatModifier}"/>
+                <StackPanel Grid.Column="1" Margin="4, 0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button Margin="0, 0, 2, 0"  Content="Add Object" Grid.Column="0" Height="25" Command="{Binding AddObjectCommand}"/>
+                        <Button Margin="2, 0, 0, 0"  Content="Delete Object" Grid.Column="1" Height="25" Command="{Binding DeleteObjectCommand}"/>
+                    </Grid>
+                    
+                    <ComboBox Height="25" Margin="0, 4" 
+                          ItemsSource="{Binding Objects}" 
+                          SelectedItem="{Binding SelectedObject}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Name}"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                </StackPanel>
+            </Grid>
+
+        </Border>
+        <Border DockPanel.Dock="Top">
+            <ScrollViewer>
+                <Views:Object DataContext="{Binding SelectedObject}"
+                          Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}"/>
+            </ScrollViewer>
         </Border>
         <TabControl 
             DockPanel.Dock="Bottom" 
             AllowDrop="True">
-            <TabItem 
-                Width="40"
-                Height="30"
-                HorizontalAlignment="Left"
-                DragOver="TabItem_DragOver">
-                <TabItem.Header>
-                    <Image Source="{StaticResource Geometry}"  ToolTip="Geometry" Height="15" Width="auto" Opacity="0.75"/>
-                </TabItem.Header>
-                <Views:Geometry
-                    DataContext="{Binding Geometry}"
-                    DockPanel.Dock="Bottom" />
-            </TabItem>
-            <TabItem  
-                Width="40"
-                Height="30"
-                HorizontalAlignment="Left"
-                DragOver="TabItem_DragOver">
-                <TabItem.Header>
-                    <Image Source="{StaticResource Texture}" ToolTip="Texture" Height="15" Width="auto" Opacity="0.75"/>
-                </TabItem.Header>
-                <Views:Texture
-                    DataContext="{Binding Texture}"
-                    DockPanel.Dock="Bottom" />
-            </TabItem>
             <TabItem 
                 Width="40"
                 Height="30"

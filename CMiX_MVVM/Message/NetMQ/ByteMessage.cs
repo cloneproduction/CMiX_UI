@@ -38,11 +38,19 @@ namespace CMiX.MVVM.Message
             }
         }
 
+        public string MessageAddress
+        {
+            get
+            {
+                return NetMQMessage[1].ConvertToString();
+            }
+        }
+
         public MessageCommand Command
         {
             get
             {
-                return Serializer.Deserialize<MessageCommand>(NetMQMessage[1].Buffer);
+                return Serializer.Deserialize<MessageCommand>(NetMQMessage[2].Buffer);
             }
         }
 
@@ -50,9 +58,9 @@ namespace CMiX.MVVM.Message
         {
             get
             {
-                if (NetMQMessage[2].Buffer != null)
+                if (NetMQMessage[3].Buffer != null)
                 {
-                    return Serializer.Deserialize<object>(NetMQMessage[0].Buffer);
+                    return Serializer.Deserialize<object>(NetMQMessage[3].Buffer);
                 }
                 else
                     return null;
@@ -63,9 +71,9 @@ namespace CMiX.MVVM.Message
         {
             get
             {
-                if (NetMQMessage[3].Buffer != null)
+                if (NetMQMessage[4].Buffer != null)
                 {
-                    return Serializer.Deserialize<object>(NetMQMessage[3].Buffer);
+                    return Serializer.Deserialize<object>(NetMQMessage[4].Buffer);
                 }
                 else
                     return null;

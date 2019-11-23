@@ -1,6 +1,4 @@
-﻿//using CMiX.Services;
-using CMiX.MVVM.Models;
-using System;
+﻿using System;
 
 namespace CMiX.MVVM.Models
 {

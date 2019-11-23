@@ -7,19 +7,16 @@ namespace CMiX.Engine.ViewModel
 {
     public class ViewModel
     {
-        public ViewModel(NetMQClient netMQClient, string topic, CerasSerializer serializer)
+        public ViewModel(NetMQClient netMQClient, string messageAddress, CerasSerializer serializer)
         {
-            MessageAddress = topic;
+            MessageAddress = String.Format("{0}/", messageAddress); ;
             Serializer = serializer;
             NetMQClient = netMQClient;
             NetMQClient.ByteMessage.PropertyChanged += OnByteReceived;
         }
 
-        public string MessageAddress { get; set; }
-
         private void OnByteReceived(object sender, PropertyChangedEventArgs e)
         {
-            Console.WriteLine("OnByteReceivedFiredFromBaseClass Viewmodel");
             ByteReceived();
         }
 
@@ -28,6 +25,7 @@ namespace CMiX.Engine.ViewModel
 
         }
 
+        public string MessageAddress { get; set; }
         public NetMQClient NetMQClient { get; set; }
         public CerasSerializer Serializer { get; set; }
     }

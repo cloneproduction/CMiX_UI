@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CMiX.MVVM.Models
 {
@@ -7,6 +8,7 @@ namespace CMiX.MVVM.Models
     {
         public ContentModel()
         {
+            ObjectModels = new List<Model>();
             BeatModifierModel = new BeatModifierModel();
             TextureModel = new TextureModel();
             GeometryModel = new GeometryModel();
@@ -24,6 +26,7 @@ namespace CMiX.MVVM.Models
 
         public bool Enable { get; set; }
 
+        public List<Model> ObjectModels { get; set; }
         public BeatModifierModel BeatModifierModel { get; set; }
         public TextureModel TextureModel { get; set; }
         public GeometryModel GeometryModel { get; set; }

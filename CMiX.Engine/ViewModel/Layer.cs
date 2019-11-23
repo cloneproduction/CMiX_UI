@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Ceras;
+using CMiX.MVVM.Commands;
 using CMiX.MVVM.Message;
 using CMiX.MVVM.Models;
 
@@ -13,22 +8,52 @@ namespace CMiX.Engine.ViewModel
 {
     public class Layer : ViewModel
     {
-        public Layer(NetMQClient netMQClient, string topic, CerasSerializer serializer)
-            : base(netMQClient, topic, serializer)
+        public Layer(NetMQClient netMQClient, string messageAddress, CerasSerializer serializer)
+            : base(netMQClient, messageAddress, serializer)
         {
-
+            Fade = new Slider(this.NetMQClient, this.MessageAddress + nameof(Fade), this.Serializer);
+            BlendMode = new BlendMode(this.NetMQClient, this.MessageAddress + nameof(BlendMode), this.Serializer);
+            Content = new Content(this.NetMQClient, this.MessageAddress + nameof(Content), this.Serializer);
         }
 
+        public Slider Fade { get; set; }
+        public BlendMode BlendMode { get; set; }
+        public Content Content { get; set; }
+        
         public string Name { get; set; }
+
+        public int ID { get; set; }
 
         public override void ByteReceived()
         {
-            Console.WriteLine("ByteReceived on Layer");
+            string receivedAddress = NetMQClient.ByteMessage.MessageAddress;
+
+            if (receivedAddress == this.MessageAddress)
+            {
+                MessageCommand command = NetMQClient.ByteMessage.Command;
+                switch (command)
+                {
+                    case MessageCommand.LAYER_UPDATE_BLENDMODE:
+                        if (NetMQClient.ByteMessage.Payload != null)
+                        {
+                            LayerModel layerModel = NetMQClient.ByteMessage.Payload as LayerModel;
+                            this.PasteData(layerModel);
+                            Console.WriteLine(MessageAddress + " Layer Updated");
+                        }
+                        break;
+                }
+            }
         }
 
         public void PasteData(LayerModel layerModel)
         {
-            Name = layerModel.Name;
+            this.Name = layerModel.Name;
+            this.ID = layerModel.ID;
+            this.MessageAddress = layerModel.MessageAddress;
+
+            this.Content.PasteData(layerModel.ContentModel);
+            this.BlendMode.PasteData(layerModel.BlendMode);
+            this.Fade.PasteData(layerModel.Fade);
         }
     }
 }

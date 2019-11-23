@@ -7,6 +7,7 @@ namespace CMiX.MVVM.Models
     {
         public LayerModel()
         {
+            BlendMode = new BlendModeModel();
             ContentModel = new ContentModel();
             maskmodel = new MaskModel();
             ColorationModel = new ColorationModel();
@@ -25,8 +26,8 @@ namespace CMiX.MVVM.Models
         public int ID { get; set; }
         public bool Enabled { get; set; }
         public bool Out { get; set; }
-        public string BlendMode { get; set; }
 
+        public BlendModeModel BlendMode { get; set; }
         public SliderModel Fade { get; set; }
         public ContentModel ContentModel { get; set; }
         public MaskModel maskmodel { get; set; }

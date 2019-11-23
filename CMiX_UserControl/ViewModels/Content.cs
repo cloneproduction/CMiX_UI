@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using Memento;
+using CMiX.MVVM.Commands;
 
 namespace CMiX.ViewModels
 {
@@ -15,14 +16,16 @@ namespace CMiX.ViewModels
             : base (serverValidations, mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Content));
-
             Enable = true;
 
             BeatModifier = new BeatModifier(MessageAddress, masterbeat, serverValidations, mementor);
-            Geometry = new Geometry(MessageAddress, serverValidations, mementor, masterbeat);
-            Texture = new Texture(MessageAddress, serverValidations, mementor);
             PostFX = new PostFX(MessageAddress, serverValidations, mementor);
 
+            Objects = new ObservableCollection<Object>();
+            CreateObject();
+
+            AddObjectCommand = new RelayCommand(p => AddObject());
+            DeleteObjectCommand = new RelayCommand(p => DeleteObject());
             CopyContentCommand = new RelayCommand(p => CopyContent());
             PasteContentCommand = new RelayCommand(p => PasteContent());
             ResetContentCommand = new RelayCommand(p => ResetContent());
@@ -30,17 +33,22 @@ namespace CMiX.ViewModels
         #endregion
 
         #region METHODS
-        public void UpdateMessageAddress(string messageaddress)
+        public void UpdateMessageAddress(string messageAddress)
         {
-            MessageAddress = messageaddress;
+            MessageAddress = messageAddress;
             BeatModifier.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(BeatModifier)));
-            Geometry.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Geometry)));
-            Texture.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Texture)));
             PostFX.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(PostFX)));
+
+            foreach (var obj in Objects)
+            {
+                obj.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Object)));
+            }
         }
         #endregion
 
         #region PROPERTIES
+        public ICommand AddObjectCommand { get; }
+        public ICommand DeleteObjectCommand { get; }
         public ICommand CopyContentCommand { get; }
         public ICommand PasteContentCommand { get; }
         public ICommand ResetContentCommand { get; }
@@ -52,11 +60,94 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _enable, value);
         }
 
+        private Object _selectedObject;
+        public Object SelectedObject
+        {
+            get => _selectedObject;
+            set => SetAndNotify(ref _selectedObject, value);
+        }
+
+        public ObservableCollection<Object> Objects { get; set; }
         public BeatModifier BeatModifier { get; }
-        public Geometry Geometry { get; }
-        public Texture Texture { get; }
         public PostFX PostFX { get; }
+
+        private int _objectID = -1;
+        public int ObjectID
+        {
+            get { return _objectID; }
+            set { _objectID = value; }
+        }
+
         #endregion
+        public Object CreateObject()
+        {
+            ObjectID++;
+
+            string messageAddress = this.MessageAddress + "Object" + ObjectID.ToString() + "/";
+            Console.WriteLine("Created object with messageAddress : " + messageAddress);
+            Object obj = new Object(this.BeatModifier, messageAddress, ServerValidation, Mementor);
+            obj.ID = ObjectID;
+            obj.Name = "Object " + ObjectID;
+            Objects.Add(obj);
+            SelectedObject = obj;
+
+            return obj;
+        }
+
+
+        public void AddObject()
+        {
+            Mementor.BeginBatch();
+            DisabledMessages();
+
+            var obj = CreateObject();
+
+            Mementor.ElementAdd(Objects, obj);
+            //UpdateLayerContentFolder(layer);
+
+            ObjectModel objectModel = new ObjectModel();
+            obj.Copy(objectModel);
+
+            EnabledMessages();
+            Mementor.EndBatch();
+
+            SendMessages(MessageAddress, MessageCommand.OBJECT_ADD, null, objectModel);
+            Console.WriteLine("Object added with MessageAddress : " + MessageAddress);
+        }
+
+        private void DeleteObject()
+        {
+            if (SelectedObject != null)
+            {
+                Mementor.BeginBatch();
+                DisabledMessages();
+
+                Object removedObject = SelectedObject as Object;
+                int removedObjectIndex = Objects.IndexOf(removedObject);
+                //UpdateLayersIDOnDelete(removedlayer);
+                Mementor.ElementRemove(Objects, removedObject);
+                Objects.Remove(removedObject);
+
+                if (Objects.Count == 0)
+                {
+                    ObjectID = -1;
+                }
+
+                if (Objects.Count > 0)
+                {
+                    if (removedObjectIndex > 0)
+                        SelectedObject = Objects[removedObjectIndex - 1];
+                    else
+                        SelectedObject = Objects[0];
+                }
+
+                EnabledMessages();
+                Mementor.EndBatch();
+
+                SendMessages(MessageAddress, MessageCommand.OBJECT_DELETE, null, removedObjectIndex);
+                Console.WriteLine("Deleted Object with index : " + removedObjectIndex.ToString());
+            }
+        }
 
         #region COPY/PASTE
         public void Reset()
@@ -65,8 +156,6 @@ namespace CMiX.ViewModels
 
             this.Enable = true;
             this.BeatModifier.Reset();
-            this.Geometry.Reset();
-            this.Texture.Reset();
             this.PostFX.Reset();
 
             this.EnabledMessages();
@@ -78,21 +167,34 @@ namespace CMiX.ViewModels
             contentmodel.MessageAddress = MessageAddress;
             contentmodel.Enable = Enable;
             this.BeatModifier.Copy(contentmodel.BeatModifierModel);
-            this.Texture.Copy(contentmodel.TextureModel);
-            this.Geometry.Copy(contentmodel.GeometryModel);
             this.PostFX.Copy(contentmodel.PostFXModel);
+
+            foreach (Object obj in Objects)
+            {
+                ObjectModel objectModel = new ObjectModel();
+                obj.Copy(objectModel);
+                contentmodel.ObjectModels.Add(objectModel);
+            }
         }
 
-        public void Paste(ContentModel contentmodel)
+        public void Paste(ContentModel contentModel)
         {
             this.DisabledMessages();
-            //MessageAddress = string.Empty;
-            this.MessageAddress = contentmodel.MessageAddress;
-            this.Enable = contentmodel.Enable;
-            this.BeatModifier.Paste(contentmodel.BeatModifierModel);
-            this.Texture.Paste(contentmodel.TextureModel);
-            this.Geometry.Paste(contentmodel.GeometryModel);
-            this.PostFX.Paste(contentmodel.PostFXModel);
+
+            this.MessageAddress = contentModel.MessageAddress;
+            this.Enable = contentModel.Enable;
+            this.BeatModifier.Paste(contentModel.BeatModifierModel);
+            this.PostFX.Paste(contentModel.PostFXModel);
+
+            Objects.Clear();
+            foreach (ObjectModel objectModel in contentModel.ObjectModels)
+            {
+                // may have some address problem here
+                Object obj = new Object(this.BeatModifier, MessageAddress, ServerValidation, Mementor);
+                obj.Paste(objectModel);
+                this.Objects.Add(obj);
+            }
+
             this.EnabledMessages();
         }
 
@@ -122,9 +224,6 @@ namespace CMiX.ViewModels
                 this.EnabledMessages();
                 this.Mementor.EndBatch();
                 //SendMessages(nameof(ContentModel), contentmodel);
-
-                //this.QueueObjects(contentmodel);
-                //this.SendQueues();
             }
         }
 
@@ -134,8 +233,6 @@ namespace CMiX.ViewModels
             this.Reset();
             this.Copy(contentmodel);
             //SendMessages(nameof(ContentModel), contentmodel);
-            //this.QueueObjects(contentmodel);
-            //this.SendQueues();
         }
         #endregion
     }

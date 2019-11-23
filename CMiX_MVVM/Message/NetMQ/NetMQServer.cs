@@ -124,7 +124,7 @@ namespace CMiX.MVVM.Message
             Start();
         }
 
-        public void SendObject(string topic, MessageCommand command, object parameter, object payload)
+        public void SendObject(string topic, string messageAddress, MessageCommand command, object parameter, object payload)
         {
             if (actor == null)
                 return;
@@ -134,6 +134,7 @@ namespace CMiX.MVVM.Message
             byte[] serialCommand = Serializer.Serialize(command);
             var msg = new NetMQMessage(4);
             msg.Append(topic);
+            msg.Append(messageAddress);
             msg.Append(serialCommand);
             msg.Append(serialParam);
             msg.Append(serialPayload);

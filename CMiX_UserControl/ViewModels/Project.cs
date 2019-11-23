@@ -14,7 +14,7 @@ namespace CMiX.ViewModels
         public Project()
         {
             Servers = new ObservableCollection<Server>();
-            Servers.Add(new Server("127.0.0.1", 7777) { Name = "Device (0)" });
+            Servers.Add(new Server("127.0.0.1", 7777, "/Project") { Name = "Device (0)" });
 
             Compositions = new ObservableCollection<Composition>();
             EditableCompositions = new ObservableCollection<Composition>();
@@ -150,7 +150,7 @@ namespace CMiX.ViewModels
 
         private void AddServer()
         {
-            Server Server = new Server("127.0.0.1", 1111 + serverport);
+            Server Server = new Server("127.0.0.1", 1111 + serverport, "/Project");
             servernameid++;
             Server.Name = "Device " + "(" + servernameid.ToString() + ")";
             Servers.Add(Server);
