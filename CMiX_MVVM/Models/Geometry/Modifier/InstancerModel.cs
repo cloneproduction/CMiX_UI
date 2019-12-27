@@ -3,7 +3,7 @@
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class InstancerModel : Model
+    public class InstancerModel : IModel
     {
         public InstancerModel()
         {
@@ -31,5 +31,6 @@ namespace CMiX.MVVM.Models
         public ScaleModifierModel ScaleModifier { get; set; }
         public RotationModifierModel RotationModifier { get; set; }
         public bool NoAspectRatio { get; set; }
+        public string MessageAddress { get; set; }
     }
 }

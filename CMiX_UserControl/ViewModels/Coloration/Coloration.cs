@@ -8,7 +8,7 @@ using Memento;
 
 namespace CMiX.ViewModels
 {
-    public class Coloration : ViewModel
+    public class Coloration : SendableViewModel
     {
         #region CONSTRUCTORS
         public Coloration(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor, Beat masterbeat) 

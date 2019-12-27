@@ -3,7 +3,7 @@
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class MaskModel : Model
+    public class MaskModel : IModel
     {
         public MaskModel()
         {
@@ -22,5 +22,6 @@ namespace CMiX.MVVM.Models
         public GeometryModel GeometryModel { get; set; }
         public TextureModel texturemodel { get; set; }
         public PostFXModel PostFXModel { get; set; }
+        public string MessageAddress { get; set; }
     }
 }

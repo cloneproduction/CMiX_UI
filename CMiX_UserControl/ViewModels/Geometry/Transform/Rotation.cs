@@ -7,7 +7,7 @@ using Memento;
 
 namespace CMiX.ViewModels
 {
-    public class Rotation : ViewModel
+    public class Rotation : SendableViewModel
     {
         public Rotation(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor)
             : base(serverValidations, mementor)

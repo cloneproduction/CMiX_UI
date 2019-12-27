@@ -8,7 +8,7 @@ using Memento;
 
 namespace CMiX
 {
-    public class BlendMode : ViewModel
+    public class BlendMode : SendableViewModel
     {
         public BlendMode(MasterBeat masterBeat, string messageAddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor)
         : base(serverValidations, mementor)

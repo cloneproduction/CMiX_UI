@@ -3,7 +3,7 @@
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class SliderModel : Model
+    public class SliderModel : IModel
     {
         public SliderModel()
         {
@@ -16,5 +16,6 @@ namespace CMiX.MVVM.Models
         }
 
         public double Amount { get; set; }
+        public string MessageAddress { get; set; }
     }
 }

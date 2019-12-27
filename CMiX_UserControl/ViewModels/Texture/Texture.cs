@@ -9,7 +9,7 @@ using Memento;
 
 namespace CMiX.ViewModels
 {
-    public class Texture : ViewModel
+    public class Texture : SendableViewModel
     {
         #region CONSTRUCTORS
         public Texture(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor)

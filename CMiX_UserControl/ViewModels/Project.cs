@@ -9,7 +9,7 @@ using Ceras;
 
 namespace CMiX.ViewModels
 {
-    public class Project : ViewModel
+    public class Project : SendableViewModel
     {
         public Project()
         {

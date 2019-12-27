@@ -8,7 +8,7 @@ using Memento;
 
 namespace CMiX.ViewModels
 {
-    public class ColorSelector : ViewModel
+    public class ColorSelector : SendableViewModel
     {
         #region CONSTRUCTORS
         public ColorSelector(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 

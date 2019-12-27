@@ -9,7 +9,7 @@ using Memento;
 
 namespace CMiX.ViewModels
 {
-    public class Geometry : ViewModel
+    public class Geometry : SendableViewModel
     {
         #region CONSTRUCTORS
         public Geometry(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor, Beat beat) 

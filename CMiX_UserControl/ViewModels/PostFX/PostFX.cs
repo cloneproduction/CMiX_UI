@@ -8,7 +8,7 @@ using Memento;
 
 namespace CMiX.ViewModels
 {
-    public class PostFX : ViewModel
+    public class PostFX : SendableViewModel
     {
         #region CONSTRUCTORS
         public PostFX(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 

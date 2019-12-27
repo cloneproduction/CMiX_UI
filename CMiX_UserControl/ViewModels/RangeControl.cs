@@ -1,15 +1,11 @@
-﻿using System;
-using CMiX.Services;
-
-using CMiX.MVVM.ViewModels;
+﻿using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
-
 using System.Collections.ObjectModel;
 using Memento;
 
 namespace CMiX.ViewModels
 {
-    public class RangeControl : ViewModel
+    public class RangeControl : SendableViewModel
     {
         #region CONSTRUCTORS
         public RangeControl(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 

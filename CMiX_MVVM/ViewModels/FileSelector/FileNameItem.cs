@@ -4,7 +4,7 @@ using Memento;
 
 namespace CMiX.MVVM.ViewModels 
 {
-    public class FileNameItem : ViewModel
+    public class FileNameItem : SendableViewModel
     {
         #region CONSTRUCTORS
         public FileNameItem()
@@ -43,12 +43,12 @@ namespace CMiX.MVVM.ViewModels
         }
         #endregion
 
-        #region COPY/PASTE/UPDATE
         public void UpdateMessageAddress(string messageaddress)
         {
             MessageAddress = messageaddress + "Selected";
         }
 
+        #region COPY/PASTE/UPDATE
         public void Copy(FileNameItemModel filenameitemmodel)
         {
             filenameitemmodel.MessageAddress = MessageAddress;

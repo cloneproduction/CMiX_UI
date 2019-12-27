@@ -5,7 +5,7 @@ using Memento;
 
 namespace CMiX.ViewModels
 {
-    public abstract class Beat : ViewModel
+    public abstract class Beat : SendableViewModel
     {
         #region CONSTRUCTOR
         public Beat(ObservableCollection<ServerValidation> serverValidations, Mementor mementor)

@@ -1,11 +1,9 @@
-﻿//using CMiX.Services;
-using CMiX.MVVM.Models;
-using System;
+﻿using System;
 
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class CounterModel : Model
+    public class CounterModel : IModel
     {
         public CounterModel()
         {
@@ -19,7 +17,7 @@ namespace CMiX.MVVM.Models
             MessageAddress = String.Format("{0}{1}/", messageaddress, "Content");
         }
 
-        //[OSC]
         public int Count { get; set; }
+        public string MessageAddress { get; set; }
     }
 }

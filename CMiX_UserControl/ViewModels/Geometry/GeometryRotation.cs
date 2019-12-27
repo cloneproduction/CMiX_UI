@@ -8,7 +8,7 @@ using Memento;
 
 namespace CMiX.ViewModels
 {
-    public class GeometryRotation :ViewModel
+    public class GeometryRotation : SendableViewModel
     {
         #region CONSTRUCTORS
         public GeometryRotation(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) : base (serverValidations, mementor)

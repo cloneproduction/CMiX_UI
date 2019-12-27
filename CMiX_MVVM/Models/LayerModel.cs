@@ -3,13 +3,13 @@
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class LayerModel : Model
+    public class LayerModel : IModel
     {
         public LayerModel()
         {
             BlendMode = new BlendModeModel();
             ContentModel = new ContentModel();
-            maskmodel = new MaskModel();
+            MaskModel = new MaskModel();
             ColorationModel = new ColorationModel();
             PostFXModel = new PostFXModel();
             Fade = new SliderModel();
@@ -22,7 +22,7 @@ namespace CMiX.MVVM.Models
         }
 
         public string LayerName { get; set; }
-        public string Name { get; set; }
+        public string DisplayName { get; set; }
         public int ID { get; set; }
         public bool Enabled { get; set; }
         public bool Out { get; set; }
@@ -30,8 +30,9 @@ namespace CMiX.MVVM.Models
         public BlendModeModel BlendMode { get; set; }
         public SliderModel Fade { get; set; }
         public ContentModel ContentModel { get; set; }
-        public MaskModel maskmodel { get; set; }
+        public MaskModel MaskModel { get; set; }
         public ColorationModel ColorationModel { get; set; }
         public PostFXModel PostFXModel{ get; set; }
+        public string MessageAddress { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using Memento;
 
 namespace CMiX.ViewModels
 {
-    public class Transform : ViewModel
+    public class Transform : SendableViewModel
     {
         public Transform(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor)
             : base(serverValidations, mementor)

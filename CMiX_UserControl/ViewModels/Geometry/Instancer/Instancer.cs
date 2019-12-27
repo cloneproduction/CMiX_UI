@@ -8,7 +8,7 @@ using Memento;
 namespace CMiX.ViewModels
 {
     [Serializable]
-    public class Instancer : ViewModel
+    public class Instancer : SendableViewModel
     {
         public Instancer(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor, Beat beat)
             : base(serverValidations, mementor)

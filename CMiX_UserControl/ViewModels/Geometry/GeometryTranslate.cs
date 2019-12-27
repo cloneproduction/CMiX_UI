@@ -7,7 +7,7 @@ using Memento;
 
 namespace CMiX.ViewModels
 {
-    public class GeometryTranslate : ViewModel
+    public class GeometryTranslate : SendableViewModel
     {
         #region CONSTRUCTORS
         public GeometryTranslate(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 

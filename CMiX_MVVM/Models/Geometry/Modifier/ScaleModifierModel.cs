@@ -3,7 +3,7 @@
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class ScaleModifierModel : Model
+    public class ScaleModifierModel : IModel
     {
         public ScaleModifierModel()
         {
@@ -25,5 +25,6 @@ namespace CMiX.MVVM.Models
         public AnimParameterModel ScaleX { get; set; }
         public AnimParameterModel ScaleY { get; set; }
         public AnimParameterModel ScaleZ { get; set; }
+        public string MessageAddress { get; set; }
     }
 }

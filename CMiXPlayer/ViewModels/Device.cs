@@ -8,7 +8,7 @@ using Ceras;
 
 namespace CMiXPlayer.ViewModels
 {
-    public class Device : ViewModel
+    public class Device : SendableViewModel
     {
         #region CONSTRUCTORS
         public Device(CerasSerializer cerasSerializer, ObservableCollection<Playlist> playlists)

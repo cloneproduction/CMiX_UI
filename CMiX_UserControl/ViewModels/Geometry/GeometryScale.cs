@@ -8,7 +8,7 @@ using Memento;
 
 namespace CMiX.ViewModels
 {
-    public class GeometryScale : ViewModel
+    public class GeometryScale : SendableViewModel
     {
         #region CONSTRUCTORS
         public GeometryScale(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 

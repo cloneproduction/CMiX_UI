@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class TranslateModel : Model
+    public class TranslateModel : IModel
     {
         public TranslateModel()
         {
@@ -28,5 +24,6 @@ namespace CMiX.MVVM.Models
         public SliderModel TranslateX { get; set; }
         public SliderModel TranslateY { get; set; }
         public SliderModel TranslateZ { get; set; }
+        public string MessageAddress { get; set; }
     }
 }

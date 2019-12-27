@@ -8,7 +8,7 @@ using Memento;
 
 namespace CMiX.ViewModels
 {
-    public class Mask : ViewModel
+    public class Mask : SendableViewModel
     {
         #region CONSTRUCTORS
         public Mask(Beat masterbeat, string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
@@ -51,19 +51,6 @@ namespace CMiX.ViewModels
         public Geometry Geometry { get; }
         public Texture Texture { get; }
         public PostFX PostFX { get; }
-
-        private bool _enable;
-        public bool Enable
-        {
-            get => _enable;
-            set
-            {
-                if(Mementor != null)
-                    Mementor.PropertyChange(this, nameof(Enable));
-                SetAndNotify(ref _enable, value);
-                //SendMessages(MessageAddress + nameof(Enable), Enable);
-            }
-        }
 
         private string _masktype;
         public string MaskType

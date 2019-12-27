@@ -20,7 +20,7 @@ namespace CMiX.Engine.ViewModel
         public BlendMode BlendMode { get; set; }
         public Content Content { get; set; }
         
-        public string Name { get; set; }
+        public string DisplayName { get; set; }
 
         public int ID { get; set; }
 
@@ -47,7 +47,7 @@ namespace CMiX.Engine.ViewModel
 
         public void PasteData(LayerModel layerModel)
         {
-            this.Name = layerModel.Name;
+            this.DisplayName = layerModel.DisplayName;
             this.ID = layerModel.ID;
             this.MessageAddress = layerModel.MessageAddress;
 

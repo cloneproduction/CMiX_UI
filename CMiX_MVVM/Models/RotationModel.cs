@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class RotationModel : Model
+    public class RotationModel : IModel
     {
         public RotationModel()
         {
@@ -28,5 +28,6 @@ namespace CMiX.MVVM.Models
         public SliderModel RotationX { get; set; }
         public SliderModel RotationY { get; set; }
         public SliderModel RotationZ { get; set; }
+        public string MessageAddress { get; set; }
     }
 }

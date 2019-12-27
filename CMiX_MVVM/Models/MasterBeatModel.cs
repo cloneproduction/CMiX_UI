@@ -3,10 +3,10 @@ using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.Models
 {
-    public class MasterBeatModel : Model
+    public class MasterBeatModel : IModel
     {
 
-        //[OSC]
         public double Period { get; set; }
+        public string MessageAddress { get; set; }
     }
 }

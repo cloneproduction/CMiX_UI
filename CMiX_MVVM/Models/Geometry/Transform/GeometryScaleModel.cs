@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels;
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class GeometryScaleModel : Model
+    public class GeometryScaleModel : IModel
     {
         public GeometryScaleModel()
         {
@@ -12,5 +12,6 @@ namespace CMiX.MVVM.Models
         }
 
         public GeometryScaleMode Mode { get; set; }
+        public string MessageAddress { get; set; }
     }
 }

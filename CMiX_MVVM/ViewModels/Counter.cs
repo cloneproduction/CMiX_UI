@@ -9,7 +9,7 @@ using Memento;
 
 namespace CMiX.ViewModels
 {
-    public class Counter : ViewModel
+    public class Counter : SendableViewModel
     {
         #region CONSTRUCTORS
         public Counter(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 

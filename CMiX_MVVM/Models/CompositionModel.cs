@@ -4,12 +4,12 @@ using System.Collections.Generic;
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class CompositionModel : Model
+    public class CompositionModel : IModel
     {
         public CompositionModel()
         {
             MasterBeatModel = new MasterBeatModel();
-            LayersModel = new List<Model>();
+            LayersModel = new List<IModel>();
             CameraModel = new CameraModel();
             TransitionModel = new SliderModel();
             SelectedLayer = new LayerModel();
@@ -28,12 +28,13 @@ namespace CMiX.MVVM.Models
         public string GeometryFolderName { get; set; }
         public string VideoFolderName { get; set; }
 
-        public List<Model> LayersModel { get; set; }
+        public List<IModel> LayersModel { get; set; }
         public LayerModel SelectedLayer { get; set; }
         public List<int> LayerID { get; set; }
         public List<string> LayerNames { get; set; }
         public MasterBeatModel MasterBeatModel { get; set; }
         public CameraModel CameraModel { get; set; }
         public SliderModel TransitionModel { get; set; }
+        public string MessageAddress { get; set; }
     }
 }

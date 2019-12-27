@@ -14,7 +14,7 @@ using Memento;
 
 namespace CMiX.ViewModels
 {
-    public class FileSelector : ViewModel, IDropTarget, IDragSource
+    public class FileSelector : SendableViewModel, IDropTarget, IDragSource
     {
         #region CONSTRUCTORS
         public FileSelector(string messageaddress, string selectionmode, List<string> filemask, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 

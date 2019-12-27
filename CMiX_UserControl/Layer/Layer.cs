@@ -6,7 +6,7 @@ using Memento;
 
 namespace CMiX.ViewModels
 {
-    public class Layer : ViewModel
+    public class Layer : SendableViewModel
     {
         #region CONSTRUCTORS
         public Layer(MasterBeat masterBeat, string messageAddress,  ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
@@ -34,11 +34,11 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _layername, value);
         }
 
-        private string _name;
-        public string Name
+        private string _displayName;
+        public string DisplayName
         {
-            get => _name;
-            set => SetAndNotify(ref _name, value);
+            get => _displayName;
+            set => SetAndNotify(ref _displayName, value);
         }
 
         private int _id;
@@ -96,7 +96,7 @@ namespace CMiX.ViewModels
         #region COPY/PASTE/LOAD
         public void Reset()
         {
-            Enabled = false;
+            Enabled = true;
 
             BlendMode.Reset();
             Fade.Reset();
@@ -110,13 +110,13 @@ namespace CMiX.ViewModels
         {
             layermodel.MessageAddress = MessageAddress;
             layermodel.LayerName = LayerName;
-            layermodel.Name = Name;
+            layermodel.DisplayName = DisplayName;
             layermodel.ID = ID;
 
             BlendMode.Copy(layermodel.BlendMode);
             Fade.Copy(layermodel.Fade);
             Content.Copy(layermodel.ContentModel);
-            Mask.Copy(layermodel.maskmodel);
+            Mask.Copy(layermodel.MaskModel);
             Coloration.Copy(layermodel.ColorationModel);
             PostFX.Copy(layermodel.PostFXModel);
         }
@@ -127,14 +127,14 @@ namespace CMiX.ViewModels
 
             MessageAddress = layerModel.MessageAddress;
             LayerName = layerModel.LayerName;
-            Name = layerModel.Name;
+            DisplayName = layerModel.DisplayName;
             Out = layerModel.Out;
             ID = layerModel.ID;
 
             BlendMode.Paste(layerModel.BlendMode);
             Fade.Paste(layerModel.Fade);
             Content.Paste(layerModel.ContentModel);
-            Mask.Paste(layerModel.maskmodel);
+            Mask.Paste(layerModel.MaskModel);
             Coloration.Paste(layerModel.ColorationModel);
             PostFX.Paste(layerModel.PostFXModel);
 

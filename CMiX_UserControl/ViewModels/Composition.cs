@@ -11,7 +11,7 @@ using GongSolutions.Wpf.DragDrop;
 
 namespace CMiX.ViewModels
 {
-    public class Composition : ViewModel, IDropTarget
+    public class Composition : SendableViewModel, IDropTarget
     {
 
         #region CONSTRUCTORS
@@ -80,7 +80,7 @@ namespace CMiX.ViewModels
         }
 
         private int _layerNameID = 0;
-        public int layerNameID
+        public int LayerNameID
         {
             get { return _layerNameID; }
             set { _layerNameID = value; }
@@ -128,9 +128,11 @@ namespace CMiX.ViewModels
         #region PUBLIC METHODS
         public Layer CreateLayer(string messageAddress, int layerID)
         {
-            Layer layer = new Layer(MasterBeat, messageAddress, ServerValidation, Mementor);
-            layer.ID = layerID;
-            layer.Name = "Layer " + layerID;
+            Layer layer = new Layer(MasterBeat, messageAddress, ServerValidation, Mementor)
+            {
+                ID = layerID,
+                DisplayName = "Layer " + layerID
+            };
             Layers.Add(layer);
             SelectedLayer = layer;
 
@@ -158,15 +160,15 @@ namespace CMiX.ViewModels
             return LayerID;
         }
 
-        public void QueueLayerNames()
-        {
-            //this.QueueMessages("/LayerNames", GetLayerNames().ToArray());
-        }
+        //public void QueueLayerNames()
+        //{
+        //    //this.QueueMessages("/LayerNames", GetLayerNames().ToArray());
+        //}
 
-        public void QueueLayerID()
-        {
-            //this.QueueMessages("/LayerID", GetLayerID().Select(x => x.ToString()).ToArray());
-        }
+        //public void QueueLayerID()
+        //{
+        //    //this.QueueMessages("/LayerID", GetLayerID().Select(x => x.ToString()).ToArray());
+        //}
 
         public void UpdateLayerContentFolder(Layer layer)
         {
@@ -181,7 +183,7 @@ namespace CMiX.ViewModels
         #region PRIVATE METHODS
         private string CreateLayerMessageAddress()
         {
-            return "/Layer" + layerNameID.ToString() + "/";
+            return "/Layer" + LayerNameID.ToString() + "/";
         }
 
         private void CreateServerValidation(ObservableCollection<Server> servers)
@@ -192,7 +194,7 @@ namespace CMiX.ViewModels
             }
         }
 
-        private async void ReloadComposition(object messenger)
+        private void ReloadComposition(object messenger)
         {
             //CompositionModel compositionmodel = new CompositionModel();
             //this.Copy(compositionmodel);
@@ -214,7 +216,6 @@ namespace CMiX.ViewModels
         {
             foreach (var serverValidation in ServerValidation)
                 ReloadComposition(serverValidation.Server);
-
         }
 
         private void ResetAllOSC()
@@ -227,36 +228,35 @@ namespace CMiX.ViewModels
         #region COPY/PASTE/RESET LAYER
         private void CopyLayer()
         {
-            LayerModel layermodel = new LayerModel();
-            SelectedLayer.Copy(layermodel);
+            LayerModel layerModel = new LayerModel();
+            SelectedLayer.Copy(layerModel);
             IDataObject data = new DataObject();
-            data.SetData("LayerModel", layermodel, false);
+            data.SetData(nameof(LayerModel), layerModel, false);
             Clipboard.SetDataObject(data);
         }
 
         private void PasteLayer()
         {
             IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent("LayerModel"))
+            if (data.GetDataPresent(nameof(LayerModel)))
             {
                 Mementor.BeginBatch();
 
                 var selectedlayermessageaddress = SelectedLayer.MessageAddress;
                 var selectedlayername = SelectedLayer.LayerName;
-                var selectedname = SelectedLayer.Name;
+                var selectedname = SelectedLayer.DisplayName;
                 var selectedLayerID = SelectedLayer.ID;
 
-                var layermodel = data.GetData("LayerModel") as LayerModel;
+                var layerModel = data.GetData(nameof(LayerModel)) as LayerModel;
 
-                SelectedLayer.Paste(layermodel);
+                SelectedLayer.Paste(layerModel);
                 SelectedLayer.UpdateMessageAddress(selectedlayermessageaddress);
                 SelectedLayer.LayerName = selectedlayername;
-                SelectedLayer.Name = selectedname;
+                SelectedLayer.DisplayName = selectedname;
                 SelectedLayer.ID = selectedLayerID;
-                SelectedLayer.Copy(layermodel);
+                SelectedLayer.Copy(layerModel);
 
-                //SendMessages("LayerModel", layermodel);
-
+                SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, layerModel);
                 Mementor.EndBatch();
             }
         }
@@ -278,7 +278,7 @@ namespace CMiX.ViewModels
             DisabledMessages();
 
             LayerID++;
-            layerNameID++;
+            LayerNameID++;
             
             string messageAddress = CreateLayerMessageAddress();
             var layer = CreateLayer(messageAddress, LayerID);
@@ -289,6 +289,7 @@ namespace CMiX.ViewModels
 
             LayerModel layerModel = new LayerModel();
             layer.Copy(layerModel);
+
             SendMessages(MessageAddress, MessageCommand.LAYER_ADD, null, layerModel);
 
             Mementor.EndBatch();
@@ -308,7 +309,7 @@ namespace CMiX.ViewModels
                 lyr.Copy(layermodel);
 
                 LayerID++;
-                layerNameID++;
+                LayerNameID++;
                 var messageAddress = CreateLayerMessageAddress();
                 Layer newlayer = CreateLayer(messageAddress, LayerID);
                 
@@ -316,7 +317,7 @@ namespace CMiX.ViewModels
 
                 newlayer.Paste(layermodel);
                 newlayer.LayerName = messageAddress;
-                newlayer.Name += " - Copy";
+                newlayer.DisplayName += " - Copy";
                 newlayer.ID = LayerID;
                 newlayer.UpdateMessageAddress(messageAddress);
                 newlayer.Enabled = false;
@@ -351,7 +352,7 @@ namespace CMiX.ViewModels
                 Layers.Remove(removedlayer);
 
                 if (Layers.Count == 0)
-                    layerNameID = 0;
+                    LayerNameID = 0;
 
                 if (Layers.Count > 0)
                 {
@@ -390,7 +391,7 @@ namespace CMiX.ViewModels
             compositionmodel.LayerID = GetLayerID();
             compositionmodel.LayerNames = GetLayerNames();
             compositionmodel.layerID = LayerID;
-            compositionmodel.layerNameID = layerNameID;
+            compositionmodel.layerNameID = LayerNameID;
 
             foreach (Layer lyr in Layers)
             {
@@ -414,7 +415,7 @@ namespace CMiX.ViewModels
             ContentFolderName = compositionmodel.ContentFolderName;
 
             LayerID = compositionmodel.layerID;
-            layerNameID = compositionmodel.layerNameID;
+            LayerNameID = compositionmodel.layerNameID;
 
             Layers.Clear();
             foreach (LayerModel layermodel in compositionmodel.LayersModel)

@@ -9,13 +9,13 @@ using CMiX.MVVM.Commands;
 
 namespace CMiX.ViewModels
 {
-    public class Content : ViewModel
+    public class Content : SendableViewModel
     {
         #region CONSTRUCTORS
-        public Content(Beat masterbeat, string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
+        public Content(Beat masterbeat, string messageAddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
             : base (serverValidations, mementor)
         {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Content));
+            MessageAddress = String.Format($"{messageAddress}{nameof(Content)}/");
             Enable = true;
 
             BeatModifier = new BeatModifier(MessageAddress, masterbeat, serverValidations, mementor);
@@ -44,56 +44,17 @@ namespace CMiX.ViewModels
                 obj.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Object)));
             }
         }
-        #endregion
 
-        #region PROPERTIES
-        public ICommand AddObjectCommand { get; }
-        public ICommand DeleteObjectCommand { get; }
-        public ICommand CopyContentCommand { get; }
-        public ICommand PasteContentCommand { get; }
-        public ICommand ResetContentCommand { get; }
-
-        private bool _enable;
-        public bool Enable
-        {
-            get => _enable;
-            set => SetAndNotify(ref _enable, value);
-        }
-
-        private Object _selectedObject;
-        public Object SelectedObject
-        {
-            get => _selectedObject;
-            set => SetAndNotify(ref _selectedObject, value);
-        }
-
-        public ObservableCollection<Object> Objects { get; set; }
-        public BeatModifier BeatModifier { get; }
-        public PostFX PostFX { get; }
-
-        private int _objectID = -1;
-        public int ObjectID
-        {
-            get { return _objectID; }
-            set { _objectID = value; }
-        }
-
-        #endregion
         public Object CreateObject()
         {
             ObjectID++;
-
-            string messageAddress = this.MessageAddress + "Object" + ObjectID.ToString() + "/";
-            Console.WriteLine("Created object with messageAddress : " + messageAddress);
-            Object obj = new Object(this.BeatModifier, messageAddress, ServerValidation, Mementor);
-            obj.ID = ObjectID;
-            obj.Name = "Object " + ObjectID;
+            string messageAddress = $"{this.MessageAddress}Object{ObjectID.ToString()}/";
+            Object obj = new Object(this.BeatModifier, messageAddress, ServerValidation, Mementor) { ID = ObjectID, Name = "Object" + ObjectID };
             Objects.Add(obj);
             SelectedObject = obj;
 
             return obj;
         }
-
 
         public void AddObject()
         {
@@ -115,7 +76,7 @@ namespace CMiX.ViewModels
             Console.WriteLine("Object added with MessageAddress : " + MessageAddress);
         }
 
-        private void DeleteObject()
+        public void DeleteObject()
         {
             if (SelectedObject != null)
             {
@@ -148,6 +109,42 @@ namespace CMiX.ViewModels
                 Console.WriteLine("Deleted Object with index : " + removedObjectIndex.ToString());
             }
         }
+        #endregion
+
+        #region PROPERTIES
+        public ICommand AddObjectCommand { get; }
+        public ICommand DeleteObjectCommand { get; }
+        public ICommand CopyContentCommand { get; }
+        public ICommand PasteContentCommand { get; }
+        public ICommand ResetContentCommand { get; }
+
+        public ObservableCollection<Object> Objects { get; set; }
+
+        private Object _selectedObject;
+        public Object SelectedObject
+        {
+            get => _selectedObject;
+            set
+            {
+                if(value == null)
+                    Console.WriteLine("SelectedObject is NULL");
+                else
+                    Console.WriteLine("SelectedObject is not NULL");
+                SetAndNotify(ref _selectedObject, value);
+            }
+        }
+
+        private int _objectID = -1;
+        public int ObjectID
+        {
+            get { return _objectID; }
+            set { _objectID = value; }
+        }
+
+        public BeatModifier BeatModifier { get; }
+        public PostFX PostFX { get; }
+
+        #endregion
 
         #region COPY/PASTE
         public void Reset()
@@ -162,19 +159,23 @@ namespace CMiX.ViewModels
         }
 
 
-        public void Copy(ContentModel contentmodel)
+        public void Copy(ContentModel contentModel)
         {
-            contentmodel.MessageAddress = MessageAddress;
-            contentmodel.Enable = Enable;
-            this.BeatModifier.Copy(contentmodel.BeatModifierModel);
-            this.PostFX.Copy(contentmodel.PostFXModel);
+            contentModel.MessageAddress = MessageAddress;
+            contentModel.Enable = Enable;
+
+            this.SelectedObject.Copy(contentModel.SelectedObjectModel);
+            this.BeatModifier.Copy(contentModel.BeatModifierModel);
+            this.PostFX.Copy(contentModel.PostFXModel);
+            
 
             foreach (Object obj in Objects)
             {
                 ObjectModel objectModel = new ObjectModel();
                 obj.Copy(objectModel);
-                contentmodel.ObjectModels.Add(objectModel);
+                contentModel.ObjectModels.Add(objectModel);
             }
+            Console.WriteLine("Copy Content");
         }
 
         public void Paste(ContentModel contentModel)
@@ -185,6 +186,7 @@ namespace CMiX.ViewModels
             this.Enable = contentModel.Enable;
             this.BeatModifier.Paste(contentModel.BeatModifierModel);
             this.PostFX.Paste(contentModel.PostFXModel);
+            this.SelectedObject.Paste(contentModel.SelectedObjectModel);
 
             Objects.Clear();
             foreach (ObjectModel objectModel in contentModel.ObjectModels)
@@ -194,10 +196,11 @@ namespace CMiX.ViewModels
                 obj.Paste(objectModel);
                 this.Objects.Add(obj);
             }
-
+            
             this.EnabledMessages();
         }
 
+        #region COPYPASTE CONTENT
         public void CopyContent()
         {
             ContentModel contentmodel = new ContentModel();
@@ -220,7 +223,7 @@ namespace CMiX.ViewModels
                 this.Paste(contentmodel);
                 this.UpdateMessageAddress(contentmessageaddress);
 
-                this.Copy(contentmodel);
+                //this.Copy(contentmodel);
                 this.EnabledMessages();
                 this.Mementor.EndBatch();
                 //SendMessages(nameof(ContentModel), contentmodel);
@@ -234,6 +237,8 @@ namespace CMiX.ViewModels
             this.Copy(contentmodel);
             //SendMessages(nameof(ContentModel), contentmodel);
         }
+        #endregion
+
         #endregion
     }
 }

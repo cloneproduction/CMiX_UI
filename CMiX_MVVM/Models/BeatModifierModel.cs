@@ -1,11 +1,9 @@
-﻿//using CMiX.Services;
-using CMiX.MVVM.Models;
-using System;
+﻿using System;
 
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class BeatModifierModel : Model
+    public class BeatModifierModel : IModel
     {
         public BeatModifierModel()
         {
@@ -19,9 +17,8 @@ namespace CMiX.MVVM.Models
             MessageAddress = String.Format("{0}{1}/", messageaddress, "BeatModifier");
         }
 
-        //[OSC]
         public double Multiplier { get; set; }
-
         public SliderModel ChanceToHit { get; set; }
+        public string MessageAddress { get; set; }
     }
 }

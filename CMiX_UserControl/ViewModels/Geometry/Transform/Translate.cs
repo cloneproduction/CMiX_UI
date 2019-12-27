@@ -7,7 +7,7 @@ using Memento;
 
 namespace CMiX.ViewModels
 {
-    public class Translate : ViewModel
+    public class Translate : SendableViewModel
     {
         public Translate(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor)
             : base(serverValidations, mementor)

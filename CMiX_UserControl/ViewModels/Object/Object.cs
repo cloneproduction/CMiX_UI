@@ -2,19 +2,20 @@
 using CMiX.MVVM.ViewModels;
 using Memento;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
 namespace CMiX.ViewModels
 {
-    public class Object : ViewModel
+    public class Object : SendableViewModel
     {
         #region CONSTRUCTORS
+        public Object()
+        {
+
+        }
+
         public Object(Beat masterbeat, string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor)
             : base(serverValidations, mementor)
         {
@@ -48,13 +49,6 @@ namespace CMiX.ViewModels
         public ICommand CopyObjectCommand { get; }
         public ICommand PasteObjectCommand { get; }
         public ICommand ResetObjectCommand { get; }
-
-        private bool _enable;
-        public bool Enable
-        {
-            get => _enable;
-            set => SetAndNotify(ref _enable, value);
-        }
 
         private int _id;
         public int ID
@@ -92,9 +86,11 @@ namespace CMiX.ViewModels
 
         public void Copy(ObjectModel objectModel)
         {
+            Console.WriteLine("ObjectModel Copy");
             objectModel.MessageAddress = MessageAddress;
             objectModel.Enable = Enable;
             objectModel.Name = Name;
+
             this.BeatModifier.Copy(objectModel.BeatModifierModel);
             this.Texture.Copy(objectModel.TextureModel);
             this.Geometry.Copy(objectModel.GeometryModel);
@@ -112,6 +108,7 @@ namespace CMiX.ViewModels
             this.Texture.Paste(objectModel.TextureModel);
             this.Geometry.Paste(objectModel.GeometryModel);
             this.Coloration.Paste(objectModel.ColorationModel);
+
             this.EnabledMessages();
         }
 

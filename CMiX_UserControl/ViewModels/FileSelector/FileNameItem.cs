@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.ObjectModel;
-//using CMiX.Models;
+﻿using System.Collections.ObjectModel;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
-
 using Memento;
 using CMiX.MVVM.Resources;
 
 namespace CMiX.ViewModels 
 {
-    public class FileNameItem : ViewModel
+    public class FileNameItem : SendableViewModel
     {
         public FileNameItem(string folderpath, string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor)
             : base (serverValidations, mementor)

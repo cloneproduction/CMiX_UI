@@ -11,7 +11,7 @@ using CMiX.MVVM.Commands;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Slider : ViewModel
+    public class Slider : SendableViewModel
     {
         #region CONSTRUCTORS
         public Slider(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 

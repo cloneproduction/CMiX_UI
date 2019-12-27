@@ -8,7 +8,7 @@ using Memento;
 namespace CMiX.ViewModels
 {
     [Serializable]
-    public class Scale : ViewModel
+    public class Scale : SendableViewModel
     {
         public Scale(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
             : base (serverValidations, mementor)

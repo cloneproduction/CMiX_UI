@@ -2,7 +2,7 @@
 
 namespace CMiX.MVVM.Models
 {
-    public class ProjectModel : Model
+    public class ProjectModel : IModel
     {
         public ProjectModel()
         {
@@ -10,5 +10,6 @@ namespace CMiX.MVVM.Models
         }
 
         public List<CompositionModel> CompositionModel { get; set; }
+        public string MessageAddress { get; set; }
     }
 }

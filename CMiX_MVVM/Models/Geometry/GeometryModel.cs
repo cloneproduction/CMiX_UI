@@ -3,7 +3,7 @@
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class GeometryModel : Model
+    public class GeometryModel : IModel
     {
         public GeometryModel()
         {
@@ -25,5 +25,6 @@ namespace CMiX.MVVM.Models
         public FileSelectorModel FileSelector { get; set; }
         public InstancerModel Instancer { get; set; }
         public GeometryFXModel GeometryFX { get; set; }
+        public string MessageAddress { get; set; }
     }
 }

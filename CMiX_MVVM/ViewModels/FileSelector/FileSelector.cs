@@ -16,7 +16,7 @@ using Memento;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class FileSelector : ViewModel, IDropTarget, IDragSource
+    public class FileSelector : SendableViewModel, IDropTarget, IDragSource
     {
         #region CONSTRUCTORS
         public FileSelector(string messageaddress, string selectionmode, List<string> filemask, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
@@ -127,8 +127,8 @@ namespace CMiX.MVVM.ViewModels
         public void DragOver(IDropInfo dropInfo)
         {
             dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
-            var dataObject = dropInfo.Data as IDataObject;
-            if (dataObject != null && dataObject.GetDataPresent(DataFormats.FileDrop))
+
+            if (dropInfo.Data is IDataObject dataObject && dataObject.GetDataPresent(DataFormats.FileDrop))
             {
                 dropInfo.Effects = DragDropEffects.Copy;
             }
@@ -147,8 +147,7 @@ namespace CMiX.MVVM.ViewModels
 
         public void Drop(IDropInfo dropInfo)
         {
-            var dataObject = dropInfo.Data as DataObject;
-            if(dataObject != null)
+            if (dropInfo.Data is DataObject dataObject)
             {
                 if (dataObject.ContainsFileDropList())
                 {
@@ -160,17 +159,19 @@ namespace CMiX.MVVM.ViewModels
                         {
                             if (System.IO.Path.GetExtension(str).ToUpperInvariant() == fm)
                             {
-                                FileNameItem lbfn = new FileNameItem(MessageAddress, ServerValidation, Mementor);
-                                lbfn.FileIsSelected = false;
-                                //if(FolderPath != null)
-                                //{
-                                //    lbfn.FileName = Utils.GetRelativePath(FolderPath, str);
-                                //}
-                                //else
-                                //{
-                                    
-                                //}
-                                lbfn.FileName = str;
+                                FileNameItem lbfn = new FileNameItem(MessageAddress, ServerValidation, Mementor)
+                                {
+                                    FileIsSelected = false,
+                                    //if(FolderPath != null)
+                                    //{
+                                    //    lbfn.FileName = Utils.GetRelativePath(FolderPath, str);
+                                    //}
+                                    //else
+                                    //{
+
+                                    //}
+                                    FileName = str
+                                };
                                 FilePaths.Add(lbfn);
                                 Mementor.ElementAdd(FilePaths, lbfn);
                             }

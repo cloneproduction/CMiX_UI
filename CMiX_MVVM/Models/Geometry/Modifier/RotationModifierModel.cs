@@ -3,7 +3,7 @@
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class RotationModifierModel : Model
+    public class RotationModifierModel : IModel
     {
         public RotationModifierModel()
         {
@@ -25,5 +25,6 @@ namespace CMiX.MVVM.Models
         public AnimParameterModel RotationX { get; set; }
         public AnimParameterModel RotationY { get; set; }
         public AnimParameterModel RotationZ { get; set; }
+        public string MessageAddress { get; set; }
     }
 }

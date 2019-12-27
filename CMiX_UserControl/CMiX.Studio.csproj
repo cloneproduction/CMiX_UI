@@ -142,7 +142,7 @@
     <Compile Include="ViewModels\Geometry\Transform\Scale.cs" />
     <Compile Include="ViewModels\Geometry\Transform\Transform.cs" />
     <Compile Include="ViewModels\Geometry\Transform\Translate.cs" />
-    <Compile Include="ViewModels\Object.cs" />
+    <Compile Include="ViewModels\Object\Object.cs" />
     <Compile Include="Views\ChannelOSCDataTemplate.xaml.cs">
       <DependentUpon>ChannelOSCDataTemplate.xaml</DependentUpon>
     </Compile>

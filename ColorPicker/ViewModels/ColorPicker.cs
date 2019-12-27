@@ -11,7 +11,7 @@ using CMiX.MVVM.Commands;
 
 namespace CMiX.ColorPicker.ViewModels
 {
-    public class ColorPicker : ViewModel
+    public class ColorPicker : SendableViewModel
     {
         #region CONSTRUCTORS
         public ColorPicker(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor)

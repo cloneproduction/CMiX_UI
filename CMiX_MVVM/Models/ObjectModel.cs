@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMiX.MVVM.Models
 {
-    public class ObjectModel : Model
+    [Serializable]
+    public class ObjectModel : IModel
     {
         public ObjectModel()
         {
@@ -30,5 +27,6 @@ namespace CMiX.MVVM.Models
         public GeometryModel GeometryModel { get; set; }
         public TextureModel TextureModel { get; set; }
         public ColorationModel ColorationModel { get; set; }
+        public string MessageAddress { get; set; }
     }
 }

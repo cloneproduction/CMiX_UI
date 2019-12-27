@@ -6,7 +6,7 @@ using Memento;
 
 namespace CMiX.ViewModels
 {
-    public class Camera : ViewModel
+    public class Camera : SendableViewModel
     {
         #region CONSTRUCTORS
         public Camera(ObservableCollection<ServerValidation> serverValidations, MasterBeat masterBeat, Mementor mementor) 

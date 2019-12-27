@@ -7,7 +7,7 @@ using Memento;
 
 namespace CMiX.ViewModels
 {
-    public class GeometryFX : ViewModel
+    public class GeometryFX : SendableViewModel
     {
         #region CONSTRUCTORS
         public GeometryFX(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) : base(serverValidations, mementor)

@@ -7,7 +7,7 @@ using Memento;
 
 namespace CMiX.ViewModels
 {
-    public class AnimParameter : ViewModel
+    public class AnimParameter : SendableViewModel
     {
         public AnimParameter(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor, Beat beat, bool isEnabled)
             : base(serverValidations, mementor)

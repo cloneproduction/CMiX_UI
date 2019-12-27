@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.Models
 {
-    public class BlendModeModel : Model
+    [Serializable]
+    public class BlendModeModel : IModel
     {
         public BlendModeModel()
         {
@@ -15,5 +11,6 @@ namespace CMiX.MVVM.Models
         }
 
         public string Mode { get; set; }
+        public string MessageAddress { get; set; }
     }
 }

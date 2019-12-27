@@ -1,11 +1,10 @@
-﻿//using CMiX.Services;
-using CMiX.MVVM.Models;
+﻿using CMiX.MVVM.Models;
 using System;
 
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class TextureModel : Model
+    public class TextureModel : IModel
     {
         public TextureModel()
         {
@@ -41,8 +40,7 @@ namespace CMiX.MVVM.Models
         public SliderModel Tilt { get; set; }
         public SliderModel Scale { get; set; }
         public SliderModel Rotate { get; set; }
-
-        //[OSC]
         public string InvertMode { get; set; }
+        public string MessageAddress { get; set; }
     }
 }

@@ -3,7 +3,7 @@
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class TranslateModifierModel : Model
+    public class TranslateModifierModel : IModel
     {
         public TranslateModifierModel()
         {
@@ -25,5 +25,6 @@ namespace CMiX.MVVM.Models
         public AnimParameterModel TranslateX { get; set; }
         public AnimParameterModel TranslateY { get; set; }
         public AnimParameterModel TranslateZ { get; set; }
+        public string MessageAddress { get; set; }
     }
 }

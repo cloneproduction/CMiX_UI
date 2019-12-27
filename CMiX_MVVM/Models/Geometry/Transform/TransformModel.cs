@@ -3,7 +3,7 @@
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class TransformModel : Model
+    public class TransformModel : IModel
     {
         public TransformModel()
         {
@@ -31,5 +31,6 @@ namespace CMiX.MVVM.Models
         public GeometryRotationModel GeometryRotation { get; set; }
 
         public bool Is3D { get; set; }
+        public string MessageAddress { get; set; }
     }
 }

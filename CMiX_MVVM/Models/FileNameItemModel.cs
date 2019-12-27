@@ -3,7 +3,7 @@
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class FileNameItemModel : Model
+    public class FileNameItemModel : IModel
     {
         public FileNameItemModel()
         {
@@ -21,5 +21,6 @@ namespace CMiX.MVVM.Models
         public bool FileIsSelected { get; set; }
 
         public FileNameItemModel SelectedFileNameItem { get; set; }
+        public string MessageAddress { get; set; }
     }
 }
