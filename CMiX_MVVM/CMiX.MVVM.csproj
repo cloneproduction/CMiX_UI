@@ -93,7 +93,7 @@
     <Compile Include="Message\NetMQ\NetMQServer.cs" />
     <Compile Include="Models\BlendModeModel.cs" />
     <Compile Include="Models\Interfaces\IModel.cs" />
-    <Compile Include="Models\ObjectModel.cs" />
+    <Compile Include="Models\EntityModel.cs" />
     <Compile Include="ViewModels\Interfaces\ISendable.cs" />
     <Compile Include="ViewModels\Interfaces\IUndoable.cs" />
     <Compile Include="ViewModels\SendableViewModel.cs" />

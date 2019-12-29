@@ -6,9 +6,9 @@ using System;
 
 namespace CMiX.Engine.ViewModel
 {
-    public class Object : ViewModel
+    public class Entity : ViewModel
     {
-        public Object(NetMQClient netMQClient, string messageAddress, CerasSerializer serializer)
+        public Entity(NetMQClient netMQClient, string messageAddress, CerasSerializer serializer)
         : base(netMQClient, messageAddress, serializer)
         {
             Geometry = new Geometry(this.NetMQClient, this.MessageAddress + nameof(Geometry), this.Serializer);
@@ -28,7 +28,7 @@ namespace CMiX.Engine.ViewModel
                     case MessageCommand.VIEWMODEL_UPDATE:
                         if (NetMQClient.ByteMessage.Payload != null)
                         {
-                            ObjectModel objectModel = NetMQClient.ByteMessage.Payload as ObjectModel;
+                            EntityModel objectModel = NetMQClient.ByteMessage.Payload as EntityModel;
                             this.PasteData(objectModel);
                             //System.Console.WriteLine(MessageAddress + " " + Mode);
                         }
@@ -41,13 +41,13 @@ namespace CMiX.Engine.ViewModel
         public Texture Texture { get; set; }
         public Coloration Coloration { get; set; }
 
-        public void PasteData(ObjectModel objectModel)
+        public void PasteData(EntityModel entityModel)
         {
-            MessageAddress = objectModel.MessageAddress;
-            this.Name = objectModel.Name;
-            Geometry.PasteData(objectModel.GeometryModel);
-            Texture.PasteData(objectModel.TextureModel);
-            Coloration.PasteData(objectModel.ColorationModel);
+            MessageAddress = entityModel.MessageAddress;
+            this.Name = entityModel.Name;
+            Geometry.PasteData(entityModel.GeometryModel);
+            Texture.PasteData(entityModel.TextureModel);
+            Coloration.PasteData(entityModel.ColorationModel);
         }
     }
 }

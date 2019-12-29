@@ -8,11 +8,11 @@ namespace CMiX.MVVM.Models
         public LayerModel()
         {
             BlendMode = new BlendModeModel();
-            ContentModel = new ContentModel();
+            
             MaskModel = new MaskModel();
-            ColorationModel = new ColorationModel();
             PostFXModel = new PostFXModel();
             Fade = new SliderModel();
+            ContentModel = new ContentModel();
         }
 
         public LayerModel(string layername) 
@@ -31,7 +31,6 @@ namespace CMiX.MVVM.Models
         public SliderModel Fade { get; set; }
         public ContentModel ContentModel { get; set; }
         public MaskModel MaskModel { get; set; }
-        public ColorationModel ColorationModel { get; set; }
         public PostFXModel PostFXModel{ get; set; }
         public string MessageAddress { get; set; }
     }

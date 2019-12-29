@@ -8,8 +8,8 @@ namespace CMiX.MVVM.Models
     {
         public ContentModel()
         {
-            ObjectModels = new List<IModel>();
-            SelectedObjectModel = new ObjectModel();
+            EntityModels = new List<EntityModel>();
+            SelectedEntityModel = new EntityModel();
             BeatModifierModel = new BeatModifierModel();
             TextureModel = new TextureModel();
             GeometryModel = new GeometryModel();
@@ -25,8 +25,8 @@ namespace CMiX.MVVM.Models
         public bool Enable { get; set; }
         public string MessageAddress { get; set; }
 
-        public List<IModel> ObjectModels { get; set; }
-        public ObjectModel SelectedObjectModel { get; set; }
+        public List<EntityModel> EntityModels { get; set; }
+        public EntityModel SelectedEntityModel { get; set; }
         public BeatModifierModel BeatModifierModel { get; set; }
         public TextureModel TextureModel { get; set; }
         public GeometryModel GeometryModel { get; set; }

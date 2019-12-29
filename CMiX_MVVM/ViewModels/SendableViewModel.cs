@@ -1,7 +1,7 @@
-﻿using CMiX.MVVM.Commands;
-using Memento;
+﻿using Memento;
 using System;
 using System.Collections.ObjectModel;
+using CMiX.MVVM.Commands;
 
 namespace CMiX.MVVM.ViewModels
 {

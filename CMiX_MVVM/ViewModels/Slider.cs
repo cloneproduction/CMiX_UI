@@ -65,7 +65,6 @@ namespace CMiX.MVVM.ViewModels
                 SliderModel sliderModel = new SliderModel();
                 this.Copy(sliderModel);
                 SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, sliderModel);
-                Console.WriteLine("SliderMessageAddress" + MessageAddress);
             }
         }
 

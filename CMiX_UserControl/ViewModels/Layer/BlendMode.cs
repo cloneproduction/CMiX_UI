@@ -3,10 +3,9 @@ using System.Collections.ObjectModel;
 using CMiX.MVVM.Commands;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels;
-using CMiX.ViewModels;
 using Memento;
 
-namespace CMiX
+namespace CMiX.ViewModels
 {
     public class BlendMode : SendableViewModel
     {

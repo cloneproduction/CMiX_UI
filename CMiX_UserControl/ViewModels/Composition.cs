@@ -28,7 +28,7 @@ namespace CMiX.ViewModels
             Mementor = new Mementor();
 
             Transition = new Slider("/Transition", ServerValidation, Mementor);
-            ContentFolderName = string.Empty;
+            //ContentFolderName = string.Empty;
             MasterBeat = new MasterBeat(ServerValidation, Mementor);
             Camera = new Camera(ServerValidation, MasterBeat, Mementor);
 
@@ -93,20 +93,20 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _name, value);
         }
 
-        private string _contentfoldername;
-        public string ContentFolderName
-        {
-            get => _contentfoldername;
-            set
-            {
-                SetAndNotify(ref _contentfoldername, value);
-                foreach (var layer in Layers)
-                {
-                    UpdateLayerContentFolder(layer);
-                }
-                //SendMessages("/ContentFolder", ContentFolderName);
-            }
-        }
+        //private string _contentfoldername;
+        //public string ContentFolderName
+        //{
+        //    get => _contentfoldername;
+        //    set
+        //    {
+        //        SetAndNotify(ref _contentfoldername, value);
+        //        foreach (var layer in Layers)
+        //        {
+        //            UpdateLayerContentFolder(layer);
+        //        }
+        //        //SendMessages("/ContentFolder", ContentFolderName);
+        //    }
+        //}
 
         private bool enabled;
         public bool Enabled
@@ -160,24 +160,14 @@ namespace CMiX.ViewModels
             return LayerID;
         }
 
-        //public void QueueLayerNames()
+        //public void UpdateLayerContentFolder(Layer layer)
         //{
-        //    //this.QueueMessages("/LayerNames", GetLayerNames().ToArray());
+        //    //layer.Content.Texture.FileSelector.FolderPath = ContentFolderName;
+        //    //layer.Content.Geometry.FileSelector.FolderPath = ContentFolderName;
+        //    //layer.Content.Geometry.GeometryFX.FileSelector.FolderPath = ContentFolderName;
+        //    layer.Mask.Texture.FileSelector.FolderPath = ContentFolderName;
+        //    layer.Mask.Geometry.FileSelector.FolderPath = ContentFolderName;
         //}
-
-        //public void QueueLayerID()
-        //{
-        //    //this.QueueMessages("/LayerID", GetLayerID().Select(x => x.ToString()).ToArray());
-        //}
-
-        public void UpdateLayerContentFolder(Layer layer)
-        {
-            //layer.Content.Texture.FileSelector.FolderPath = ContentFolderName;
-            //layer.Content.Geometry.FileSelector.FolderPath = ContentFolderName;
-            //layer.Content.Geometry.GeometryFX.FileSelector.FolderPath = ContentFolderName;
-            layer.Mask.Texture.FileSelector.FolderPath = ContentFolderName;
-            layer.Mask.Geometry.FileSelector.FolderPath = ContentFolderName;
-        }
         #endregion
 
         #region PRIVATE METHODS
@@ -196,20 +186,10 @@ namespace CMiX.ViewModels
 
         private void ReloadComposition(object messenger)
         {
-            //CompositionModel compositionmodel = new CompositionModel();
-            //this.Copy(compositionmodel);
-            //OSCMessenger oscmessenger = messenger as OSCMessenger;
-
-            //oscmessenger.QueueMessage("/Transition/Amount", Transition.Amount);
-            //oscmessenger.QueueMessage("/Transition/Start", true);
-            //oscmessenger.SendQueue();
-
-            //oscmessenger.QueueMessage("/CompositionReloaded", true);
-            //oscmessenger.QueueObject(compositionmodel);
-            //await Task.Delay(TimeSpan.FromMinutes(Transition.Amount));
-            //oscmessenger.SendQueue();
-
-
+            CompositionModel compositionModel = new CompositionModel();
+            this.Copy(compositionModel);
+            SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, compositionModel);
+            Console.WriteLine("Composition Reloaded");
         }
 
         private void ReloadAllOSC()
@@ -284,7 +264,6 @@ namespace CMiX.ViewModels
             var layer = CreateLayer(messageAddress, LayerID);
 
             Mementor.ElementAdd(Layers, layer);
-            UpdateLayerContentFolder(layer);
             EnabledMessages();
 
             LayerModel layerModel = new LayerModel();
@@ -311,10 +290,8 @@ namespace CMiX.ViewModels
                 LayerID++;
                 LayerNameID++;
                 var messageAddress = CreateLayerMessageAddress();
-                Layer newlayer = CreateLayer(messageAddress, LayerID);
-                
-                Mementor.ElementAdd(Layers, newlayer);
 
+                Layer newlayer = CreateLayer(messageAddress, LayerID);
                 newlayer.Paste(layermodel);
                 newlayer.LayerName = messageAddress;
                 newlayer.DisplayName += " - Copy";
@@ -323,17 +300,18 @@ namespace CMiX.ViewModels
                 newlayer.Enabled = false;
                 newlayer.Copy(layermodel);
 
+                SelectedLayer = newlayer;
+                Mementor.ElementAdd(Layers, newlayer);
+
                 int oldIndex = Layers.IndexOf(SelectedLayer);
                 int newIndex = Layers.IndexOf(lyr) + 1;
                 Layers.Move(oldIndex, newIndex);
                 int[] movedIndex = new int[2] { oldIndex, newIndex };
 
-                SelectedLayer = newlayer;
                 EnabledMessages();
+                Mementor.EndBatch();
 
                 SendMessages(MessageAddress, MessageCommand.LAYER_DUPLICATE, movedIndex, layermodel);
-
-                Mementor.EndBatch();
             }
         }
 
@@ -342,7 +320,6 @@ namespace CMiX.ViewModels
             if(SelectedLayer != null)
             {
                 Mementor.BeginBatch();
-
                 DisabledMessages();
 
                 Layer removedlayer = SelectedLayer as Layer;
@@ -351,9 +328,6 @@ namespace CMiX.ViewModels
                 Mementor.ElementRemove(Layers, removedlayer);
                 Layers.Remove(removedlayer);
 
-                if (Layers.Count == 0)
-                    LayerNameID = 0;
-
                 if (Layers.Count > 0)
                 {
                     if(removedlayerindex > 0)
@@ -361,11 +335,15 @@ namespace CMiX.ViewModels
                     else
                         SelectedLayer = Layers[0];
                 }
+                else
+                {
+                    LayerNameID = 0;
+                }
 
                 EnabledMessages();
-                SendMessages(MessageAddress, MessageCommand.LAYER_DELETE, null, removedlayerindex);
-
                 Mementor.EndBatch();
+
+                SendMessages(MessageAddress, MessageCommand.LAYER_DELETE, null, removedlayerindex);
             }
         }
 
@@ -386,7 +364,7 @@ namespace CMiX.ViewModels
         {
             compositionmodel.MessageAddress = MessageAddress;
             compositionmodel.Name = Name;
-            compositionmodel.ContentFolderName = ContentFolderName;
+            //compositionmodel.ContentFolderName = ContentFolderName;
 
             compositionmodel.LayerID = GetLayerID();
             compositionmodel.LayerNames = GetLayerNames();
@@ -412,7 +390,7 @@ namespace CMiX.ViewModels
 
             MessageAddress = compositionmodel.MessageAddress;
             Name = compositionmodel.Name;
-            ContentFolderName = compositionmodel.ContentFolderName;
+            //ContentFolderName = compositionmodel.ContentFolderName;
 
             LayerID = compositionmodel.layerID;
             LayerNameID = compositionmodel.layerNameID;

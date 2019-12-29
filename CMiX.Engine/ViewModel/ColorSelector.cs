@@ -2,7 +2,6 @@
 using CMiX.MVVM.Commands;
 using CMiX.MVVM.Message;
 using CMiX.MVVM.Models;
-using System;
 
 namespace CMiX.Engine.ViewModel
 {

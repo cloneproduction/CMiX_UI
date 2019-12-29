@@ -4,9 +4,6 @@ using CMiX.MVVM.Message;
 using CMiX.MVVM.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMiX.Engine.ViewModel
 {
@@ -15,10 +12,10 @@ namespace CMiX.Engine.ViewModel
         public Content(NetMQClient netMQClient, string messageAddress, CerasSerializer serializer)
         : base(netMQClient, messageAddress, serializer)
         {
-            Objects = new List<Object>();
-            Object obj = new Object(this.NetMQClient, this.MessageAddress + "Object0", this.Serializer);
-            obj.Name = "Object 0";
-            Objects.Add(obj);
+            Entities = new List<Entity>();
+            Entity entity = new Entity(this.NetMQClient, this.MessageAddress + "Entity0", this.Serializer);
+            entity.Name = "Entity 0";
+            Entities.Add(entity);
         }
 
         public override void ByteReceived()
@@ -41,8 +38,8 @@ namespace CMiX.Engine.ViewModel
                     case MessageCommand.OBJECT_ADD:
                         if(NetMQClient.ByteMessage.Payload != null)
                         {
-                            ObjectModel objectModel = NetMQClient.ByteMessage.Payload as ObjectModel;
-                            this.AddObject(objectModel);
+                            EntityModel objectModel = NetMQClient.ByteMessage.Payload as EntityModel;
+                            this.AddEntity(objectModel);
                         }
                         break;
                     case MessageCommand.OBJECT_DELETE:
@@ -50,38 +47,39 @@ namespace CMiX.Engine.ViewModel
                         {
                             int index = (int)NetMQClient.ByteMessage.Payload;
                             Console.WriteLine("Delete Object with Index : " + index.ToString());
-                            this.DeleteObject(index);
+                            this.DeleteEntity(index);
                         }
                         break;
                 }
             }
         }
 
-        public List<Object> Objects { get; set; }
+        public List<Entity> Entities { get; set; }
 
-        public void AddObject(ObjectModel objectModel)
+        public void AddEntity(EntityModel entityModel)
         {
-            Object obj = new Object(this.NetMQClient, this.MessageAddress + nameof(Object), this.Serializer);
-            obj.PasteData(objectModel);
-            Objects.Add(obj);
-            Console.WriteLine("AddObject messageaddress : " + obj.MessageAddress);
+            Entity entity = new Entity(this.NetMQClient, this.MessageAddress + nameof(Entity), this.Serializer);
+            entity.PasteData(entityModel);
+            Entities.Add(entity);
+            Console.WriteLine("AddObject messageaddress : " + entity.MessageAddress);
         }
 
-        public void DeleteObject(int index)
+        public void DeleteEntity(int index)
         {
-            Console.WriteLine("DeleteLayer : " + Objects[index].MessageAddress);
-            Objects.RemoveAt(index);
+            Console.WriteLine("DeleteLayer : " + Entities[index].MessageAddress);
+            Entities.RemoveAt(index);
         }
 
         public void PasteData(ContentModel contentModel)
         {
             MessageAddress = contentModel.MessageAddress;
-            Objects.Clear();
-            foreach (ObjectModel obj in contentModel.ObjectModels)
+            Entities.Clear();
+            foreach (EntityModel entity in contentModel.EntityModels)
             {
-                Object newObject = new Object(this.NetMQClient, this.MessageAddress, this.Serializer);
-                newObject.PasteData(obj);
+                Entity newEntity = new Entity(this.NetMQClient, this.MessageAddress, this.Serializer);
+                newEntity.PasteData(entity);
             }
+            Console.WriteLine("Content PasteData in Engine");
         }
     }
 }

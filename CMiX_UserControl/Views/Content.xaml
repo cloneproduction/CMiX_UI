@@ -80,13 +80,13 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Button Margin="0, 0, 2, 0"  Content="Add Object" Grid.Column="0" Height="25" Command="{Binding AddObjectCommand}"/>
-                        <Button Margin="2, 0, 0, 0"  Content="Delete Object" Grid.Column="1" Height="25" Command="{Binding DeleteObjectCommand}"/>
+                        <Button Margin="0, 0, 2, 0"  Content="Add Object" Grid.Column="0" Height="25" Command="{Binding AddEntityCommand}"/>
+                        <Button Margin="2, 0, 0, 0"  Content="Delete Object" Grid.Column="1" Height="25" Command="{Binding DeleteEntityCommand}"/>
                     </Grid>
-                    
+
                     <ComboBox Height="25" Margin="0, 4" 
-                          ItemsSource="{Binding Objects}" 
-                          SelectedItem="{Binding SelectedObject}">
+                          ItemsSource="{Binding Entities}" 
+                          SelectedItem="{Binding SelectedEntity}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -95,15 +95,13 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-
                 </StackPanel>
             </Grid>
 
         </Border>
         <Border DockPanel.Dock="Top">
             <ScrollViewer>
-                <Views:Object DataContext="{Binding SelectedObject}"
-                          Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}"/>
+                <Views:Object DataContext="{Binding SelectedEntity}" Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}"/>
             </ScrollViewer>
         </Border>
         <TabControl 

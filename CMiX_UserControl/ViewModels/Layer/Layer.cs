@@ -13,15 +13,13 @@ namespace CMiX.ViewModels
             : base (serverValidations, mementor)
         {
             MessageAddress =  messageAddress;
-
-            LayerName = messageAddress;           
             Enabled = false;
+            LayerName = messageAddress;           
 
             BlendMode = new BlendMode(masterBeat, MessageAddress, serverValidations, mementor);
             Fade = new Slider(MessageAddress + nameof(Fade), serverValidations, mementor);
             Content = new Content(masterBeat, MessageAddress, serverValidations, mementor);
             Mask = new Mask(masterBeat, MessageAddress, serverValidations, mementor);
-            Coloration = new Coloration(MessageAddress, serverValidations, mementor, masterBeat);
             PostFX = new PostFX(MessageAddress, serverValidations, mementor);
         }
         #endregion
@@ -72,7 +70,6 @@ namespace CMiX.ViewModels
         public Slider Fade { get; }
         public Content Content { get; }
         public Mask Mask { get; }
-        public Coloration Coloration { get; }
         public PostFX PostFX { get; }
         public BlendMode BlendMode { get; }
         #endregion
@@ -82,30 +79,15 @@ namespace CMiX.ViewModels
         {
             MessageAddress = messageaddress;
 
-            BlendMode.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(BlendMode)));
-            Fade.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Fade)));
-            Content.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Content)));
-            Mask.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Mask)));
-            Coloration.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Coloration)));
-            PostFX.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(PostFX)));
+            BlendMode.UpdateMessageAddress($"{MessageAddress}{nameof(BlendMode)}/");
+            Fade.UpdateMessageAddress($"{MessageAddress}{nameof(Fade)}/");
+            Content.UpdateMessageAddress($"{MessageAddress}{nameof(Content)}/");
+            Mask.UpdateMessageAddress($"{MessageAddress}{nameof(Mask)}/");
+            PostFX.UpdateMessageAddress($"{MessageAddress}{nameof(PostFX)}/");
         }
         #endregion
 
-
-
-        #region COPY/PASTE/LOAD
-        public void Reset()
-        {
-            Enabled = true;
-
-            BlendMode.Reset();
-            Fade.Reset();
-            Content.Reset();
-            Mask.Reset();
-            Coloration.Reset();
-            PostFX.Reset();
-        }
-
+        #region COPY/PASTE/RESET
         public void Copy(LayerModel layermodel)
         {
             layermodel.MessageAddress = MessageAddress;
@@ -113,11 +95,10 @@ namespace CMiX.ViewModels
             layermodel.DisplayName = DisplayName;
             layermodel.ID = ID;
 
-            BlendMode.Copy(layermodel.BlendMode);
             Fade.Copy(layermodel.Fade);
+            BlendMode.Copy(layermodel.BlendMode);
             Content.Copy(layermodel.ContentModel);
             Mask.Copy(layermodel.MaskModel);
-            Coloration.Copy(layermodel.ColorationModel);
             PostFX.Copy(layermodel.PostFXModel);
         }
 
@@ -131,14 +112,24 @@ namespace CMiX.ViewModels
             Out = layerModel.Out;
             ID = layerModel.ID;
 
-            BlendMode.Paste(layerModel.BlendMode);
             Fade.Paste(layerModel.Fade);
+            BlendMode.Paste(layerModel.BlendMode);
             Content.Paste(layerModel.ContentModel);
             Mask.Paste(layerModel.MaskModel);
-            Coloration.Paste(layerModel.ColorationModel);
             PostFX.Paste(layerModel.PostFXModel);
 
             EnabledMessages();
+        }
+
+        public void Reset()
+        {
+            Enabled = true;
+
+            BlendMode.Reset();
+            Fade.Reset();
+            Content.Reset();
+            Mask.Reset();
+            PostFX.Reset();
         }
         #endregion
     }
