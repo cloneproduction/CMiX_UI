@@ -1,10 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
 using Memento;
 
 namespace CMiX.MVVM.ViewModels 
 {
-    public class FileNameItem : SendableViewModel
+    public class FileNameItem : ViewModel, ISendable
     {
         #region CONSTRUCTORS
         public FileNameItem()
@@ -12,11 +13,9 @@ namespace CMiX.MVVM.ViewModels
 
         }
 
-        public FileNameItem(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor)
-            : base (serverValidations, mementor)
+        public FileNameItem(string messageaddress, MessageService messageService)
         {
             MessageAddress = messageaddress + "Selected";
-            Mementor = mementor;
         }
         #endregion
 
@@ -41,6 +40,9 @@ namespace CMiX.MVVM.ViewModels
                 }
             }
         }
+
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get; set; }
         #endregion
 
         public void UpdateMessageAddress(string messageaddress)
@@ -58,13 +60,13 @@ namespace CMiX.MVVM.ViewModels
 
         public void Paste(FileNameItemModel filenameitemmodel)
         {
-            DisabledMessages();
+            MessageService.EnabledMessages();
 
             MessageAddress = filenameitemmodel.MessageAddress;
             FileName = filenameitemmodel.FileName;
             FileIsSelected = filenameitemmodel.FileIsSelected;
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
         #endregion
     }

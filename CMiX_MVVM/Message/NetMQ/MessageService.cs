@@ -1,26 +1,17 @@
-﻿using Memento;
+﻿using CMiX.MVVM.Commands;
+using CMiX.MVVM.ViewModels;
 using System;
 using System.Collections.ObjectModel;
-using CMiX.MVVM.Commands;
 
-namespace CMiX.MVVM.ViewModels
+namespace CMiX.MVVM.Services
 {
-    public class SendableViewModel : ViewModel, ISendable, IUndoable
+    public class MessageService
     {
-        public SendableViewModel()
+        public MessageService()
         {
-
+            ServerValidation = new ObservableCollection<ServerValidation>();
         }
-
-        public SendableViewModel(ObservableCollection<ServerValidation> servervalidation, Mementor mementor)
-        {
-            ServerValidation = servervalidation;
-            Mementor = mementor;
-        }
-
-        public string MessageAddress { get; set; }
         public ObservableCollection<ServerValidation> ServerValidation { get; set; }
-        public Mementor Mementor { get; set; }
 
         #region MESSENGERS
         public void SendMessages(string topic, MessageCommand command, object parameter, object payload)

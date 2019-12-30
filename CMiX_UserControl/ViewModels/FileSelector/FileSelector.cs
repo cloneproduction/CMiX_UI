@@ -10,15 +10,14 @@ using CMiX.MVVM.Resources;
 
 using GongSolutions.Wpf.DragDrop;
 using Memento;
-
+using CMiX.MVVM.Services;
 
 namespace CMiX.ViewModels
 {
-    public class FileSelector : SendableViewModel, IDropTarget, IDragSource
+    public class FileSelector : ViewModel, ISendable, IUndoable, IDropTarget, IDragSource
     {
         #region CONSTRUCTORS
-        public FileSelector(string messageaddress, string selectionmode, List<string> filemask, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
-            : base (serverValidations, mementor)
+        public FileSelector(string messageaddress, string selectionmode, List<string> filemask, MessageService messageService, Mementor mementor) 
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(FileSelector));
 
@@ -67,6 +66,10 @@ namespace CMiX.ViewModels
                 UpdateFileNameItemFolderName();
             }
         }
+
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get ; set; }
+        public Mementor Mementor { get; set; }
         #endregion
 
         #region METHODS
@@ -121,7 +124,7 @@ namespace CMiX.ViewModels
             Mementor.ElementRemove(FilePaths, fni);
             FilePaths.Remove(fni);
         }
-        #endregion
+
         public void UpdateFileNameItemFolderName()
         {
             foreach (var filename in FilePaths)
@@ -129,14 +132,13 @@ namespace CMiX.ViewModels
                 filename.FolderPath = FolderPath;
             }
         }
+        #endregion
+
         #region DRAG/DROP
 
         public void DragOver(IDropInfo dropInfo)
         {
-            
-            var dataObject = dropInfo.Data as IDataObject;
-
-            if (dataObject != null && dataObject.GetDataPresent(DataFormats.FileDrop))
+            if (dropInfo.Data is IDataObject dataObject && dataObject.GetDataPresent(DataFormats.FileDrop))
             {
                 dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
                 dropInfo.Effects = DragDropEffects.Copy;
@@ -162,7 +164,7 @@ namespace CMiX.ViewModels
 
         public void Drop(IDropInfo dropInfo)
         {
-            var dataObject = dropInfo.Data as DataObject;
+            DataObject dataObject = dropInfo.Data as DataObject;
             if(dataObject != null)
             {
                 if (dataObject.ContainsFileDropList())
@@ -176,7 +178,7 @@ namespace CMiX.ViewModels
                         {
                             if (System.IO.Path.GetExtension(str).ToUpperInvariant() == fm)
                             {
-                                FileNameItem lbfn = new FileNameItem(FolderPath, MessageAddress, ServerValidation, Mementor) { FileIsSelected = false, FileName = str };
+                                FileNameItem lbfn = new FileNameItem(FolderPath, MessageAddress, MessageService) { FileIsSelected = false, FileName = str };
                                 FilePaths.Add(lbfn);
                                 Mementor.ElementAdd(FilePaths, lbfn);
                             }
@@ -265,12 +267,12 @@ namespace CMiX.ViewModels
 
         public void Reset()
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
 
             Mementor.PropertyChange(this, "FilePaths");
             FilePaths.Clear();
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
 
         public void Copy(FileSelectorModel fileselectormodel)
@@ -291,7 +293,7 @@ namespace CMiX.ViewModels
 
         public void Paste(FileSelectorModel fileselectormodel)
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
 
             MessageAddress = fileselectormodel.MessageAddress;
             FolderPath = fileselectormodel.FolderPath;
@@ -300,13 +302,13 @@ namespace CMiX.ViewModels
 
             foreach (var item in fileselectormodel.FilePaths)
             {
-                FileNameItem filenameitem = new FileNameItem(FolderPath, MessageAddress, ServerValidation, Mementor);
+                FileNameItem filenameitem = new FileNameItem(FolderPath, MessageAddress, MessageService);
                 filenameitem.Paste(item);
                 //filenameitem.UpdateMessageAddress(MessageAddress);
                 FilePaths.Add(filenameitem);
             }
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
         #endregion
     }

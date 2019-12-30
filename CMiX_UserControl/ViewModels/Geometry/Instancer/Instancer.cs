@@ -4,22 +4,21 @@ using System.Collections.ObjectModel;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using Memento;
+using CMiX.MVVM.Services;
 
 namespace CMiX.ViewModels
 {
-    [Serializable]
-    public class Instancer : SendableViewModel
+    public class Instancer : ViewModel, ISendable, IUndoable
     {
-        public Instancer(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor, Beat beat)
-            : base(serverValidations, mementor)
+        public Instancer(string messageaddress, MessageService messageService, Mementor mementor, Beat beat)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Instancer));
 
-            Transform = new Transform(MessageAddress, serverValidations, mementor);
-            Counter = new Counter(MessageAddress, serverValidations, mementor);
-            TranslateModifier = new TranslateModifier(MessageAddress, serverValidations, mementor, beat);
-            ScaleModifier = new ScaleModifier(MessageAddress, serverValidations, mementor, beat);
-            RotationModifier = new RotationModifier(MessageAddress, serverValidations, mementor, beat);
+            Transform = new Transform(MessageAddress, messageService, mementor);
+            Counter = new Counter(MessageAddress, messageService, mementor);
+            TranslateModifier = new TranslateModifier(MessageAddress, messageService, mementor, beat);
+            ScaleModifier = new ScaleModifier(MessageAddress, messageService, mementor, beat);
+            RotationModifier = new RotationModifier(MessageAddress, messageService, mementor, beat);
 
             NoAspectRatio = false;
         }
@@ -42,6 +41,10 @@ namespace CMiX.ViewModels
                 //SendMessages(MessageAddress + nameof(NoAspectRatio), NoAspectRatio.ToString());
             }
         }
+
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get; set; }
+        public Mementor Mementor { get; set; }
 
         #region METHODS
         public void UpdateMessageAddress(string messageaddress)
@@ -71,7 +74,7 @@ namespace CMiX.ViewModels
             if (data.GetDataPresent("InstancerModel"))
             {
                 Mementor.BeginBatch();
-                DisabledMessages();
+                MessageService.DisabledMessages();
 
                 var instancermodel = data.GetData("InstancerModel") as InstancerModel;
                 var geometrymessageaddress = MessageAddress;
@@ -79,7 +82,7 @@ namespace CMiX.ViewModels
                 UpdateMessageAddress(geometrymessageaddress);
                 this.Copy(instancermodel);
 
-                EnabledMessages();
+                MessageService.EnabledMessages();
                 Mementor.EndBatch();
                 //SendMessages(nameof(InstancerModel), instancermodel);
                 //QueueObjects(instancermodel);
@@ -110,7 +113,7 @@ namespace CMiX.ViewModels
 
         public void Paste(InstancerModel instancermodel)
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
 
             MessageAddress = instancermodel.MessageAddress;
             Transform.Paste(instancermodel.Transform);
@@ -120,12 +123,12 @@ namespace CMiX.ViewModels
             RotationModifier.Paste(instancermodel.RotationModifier);
             NoAspectRatio = instancermodel.NoAspectRatio;
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
 
         public void Reset()
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
             //Mementor.BeginBatch();
             Counter.Reset();
             TranslateModifier.Reset();
@@ -133,7 +136,7 @@ namespace CMiX.ViewModels
             RotationModifier.Reset();
             NoAspectRatio = false;
             //Mementor.EndBatch();
-            EnabledMessages();
+            MessageService.EnabledMessages();
 
             InstancerModel instancermodel = new InstancerModel();
             this.Copy(instancermodel);

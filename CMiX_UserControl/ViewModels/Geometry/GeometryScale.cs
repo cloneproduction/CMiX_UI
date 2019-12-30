@@ -1,18 +1,17 @@
 ﻿using System;
-using CMiX.Services;
 
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using System.Collections.ObjectModel;
 using Memento;
+using CMiX.MVVM.Services;
 
 namespace CMiX.ViewModels
 {
-    public class GeometryScale : SendableViewModel
+    public class GeometryScale : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public GeometryScale(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
-            : base (serverValidations, mementor)
+        public GeometryScale(string messageaddress, MessageService messageService, Mementor mementor) 
         {
             MessageAddress = String.Format("{0}/", messageaddress);
             Mode = default;
@@ -39,14 +38,18 @@ namespace CMiX.ViewModels
                 //SendMessages(MessageAddress + nameof(Mode), Mode);
             }
         }
+
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get; set; }
+        public Mementor Mementor { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
         public void Reset()
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
             Mode = default;
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
 
         public void Copy(GeometryScaleModel geometryscalemodel)
@@ -57,12 +60,12 @@ namespace CMiX.ViewModels
 
         public void Paste(GeometryScaleModel geometryscalemodel)
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
 
             MessageAddress = geometryscalemodel.MessageAddress;
             Mode = geometryscalemodel.Mode;
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
         #endregion
     }

@@ -10,23 +10,24 @@
     mc:Ignorable="d">
 
     <Border>
-        <TabControl>
+        <TabControl SelectedIndex="{Binding SelectedLayerControlIndex}">
             <TabItem Width="100" Height="30" Header="Content">
-                <Views:Content                 
-                    Grid.Column="0" 
-                    Margin="4, 0, 4, 0"
-                    DataContext="{Binding Content}"/>
-            </TabItem>
-            <TabItem Header="Mask">
-                <Views:Mask                 
-                    Grid.Column="1"
-                    Margin="4, 0, 4, 0" 
-                    DataContext="{Binding Mask}"/>
-            </TabItem>
-            <TabItem Header="PostFX">
-                <Views:PostFX 
-                    Margin="0, 16, 0, 0" 
-                    DataContext="{Binding PostFX}" />
+                    <Views:Content                 
+                        Grid.Column="0" 
+                        Margin="4, 0, 4, 0"
+                        DataContext="{Binding Content}"/>
+                </TabItem>
+            <TabItem Width="100" Height="30" Header="Mask">
+                    <Views:Mask                 
+                        Grid.Column="1"
+                        Margin="4, 0, 4, 0" 
+                        DataContext="{Binding Mask}"/>
+                </TabItem>
+            <TabItem Width="100" Height="30" Header="PostFX">
+                <Views:PostFX                 
+                        Grid.Column="1"
+                        Margin="4, 0, 4, 0" 
+                        DataContext="{Binding PostFX}"/>
             </TabItem>
         </TabControl>
     </Border>

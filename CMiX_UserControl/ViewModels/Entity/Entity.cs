@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using Memento;
 using System;
@@ -8,7 +9,7 @@ using System.Windows.Input;
 
 namespace CMiX.ViewModels
 {
-    public class Entity : SendableViewModel
+    public class Entity : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
         public Entity()
@@ -16,17 +17,18 @@ namespace CMiX.ViewModels
 
         }
 
-        public Entity(Beat masterbeat, string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor)
-            : base(serverValidations, mementor)
+        public Entity(Beat masterbeat, int id, string messageAddress, MessageService messageService, Mementor mementor)
         {
-            MessageAddress = messageaddress;
+            MessageAddress = $"{messageAddress}Entity{id.ToString()}/";
 
             Enable = true;
+            ID = id;
+            Name = "Entity" + id;
 
-            BeatModifier = new BeatModifier(MessageAddress, masterbeat, serverValidations, mementor);
-            Geometry = new Geometry(MessageAddress, serverValidations, mementor, masterbeat);
-            Texture = new Texture(MessageAddress, serverValidations, mementor);
-            Coloration = new Coloration(MessageAddress, serverValidations, mementor, masterbeat);
+            BeatModifier = new BeatModifier(MessageAddress, masterbeat, messageService, mementor);
+            Geometry = new Geometry(MessageAddress, messageService, mementor, masterbeat);
+            Texture = new Texture(MessageAddress, messageService, mementor);
+            Coloration = new Coloration(MessageAddress, messageService, mementor, masterbeat);
 
             CopyEntityCommand = new RelayCommand(p => CopyEntity());
             PasteEntityCommand = new RelayCommand(p => PasteEntity());
@@ -35,9 +37,9 @@ namespace CMiX.ViewModels
         #endregion
 
         #region METHODS
-        public void UpdateMessageAddress(string messageaddress)
+        public void SetMessageAddress(string messageAddress)
         {
-            MessageAddress = messageaddress;
+            MessageAddress = messageAddress;
             BeatModifier.UpdateMessageAddress($"{MessageAddress}{nameof(BeatModifier)}/");
             Geometry.UpdateMessageAddress($"{MessageAddress}{nameof(Geometry)}/");
             Texture.UpdateMessageAddress($"{MessageAddress}{nameof(Texture)}/");
@@ -45,12 +47,26 @@ namespace CMiX.ViewModels
 
             Console.WriteLine("Update Entity Message Address " + MessageAddress);
         }
+
+        public void UpdateMessageAddress(string messageaddress)
+        {
+
+        }
         #endregion
 
         #region PROPERTIES
         public ICommand CopyEntityCommand { get; }
         public ICommand PasteEntityCommand { get; }
         public ICommand ResetEntityCommand { get; }
+
+        private ObservableCollection<Layer> _layers;
+
+        public ObservableCollection<Layer> Layers
+        {
+            get => _layers;
+            set => _layers = value;
+        }
+
 
         private int _id;
         public int ID
@@ -70,19 +86,22 @@ namespace CMiX.ViewModels
         public Geometry Geometry { get; }
         public Texture Texture { get; }
         public Coloration Coloration { get; }
+        public string MessageAddress { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public MessageService MessageService { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Mementor Mementor { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         #endregion
 
         #region COPY/PASTE
         public void Reset()
         {
-            this.DisabledMessages();
+            MessageService.DisabledMessages();
 
             this.Enable = true;
             this.BeatModifier.Reset();
             this.Geometry.Reset();
             this.Texture.Reset();
             this.Coloration.Reset();
-            this.EnabledMessages();
+            MessageService.EnabledMessages();
         }
 
 
@@ -101,7 +120,7 @@ namespace CMiX.ViewModels
         public void Paste(EntityModel entityModel)
         {
             
-            this.DisabledMessages();
+            this.MessageService.DisabledMessages();
 
             this.MessageAddress = entityModel.MessageAddress;
             this.Enable = entityModel.Enable;
@@ -112,7 +131,7 @@ namespace CMiX.ViewModels
             this.Geometry.Paste(entityModel.GeometryModel);
             this.Coloration.Paste(entityModel.ColorationModel);
 
-            this.EnabledMessages();
+            this.MessageService.EnabledMessages();
         }
 
         public void CopyEntity()
@@ -130,7 +149,7 @@ namespace CMiX.ViewModels
             if (data.GetDataPresent("EntityModel"))
             {
                 this.Mementor.BeginBatch();
-                this.DisabledMessages();
+                this.MessageService.DisabledMessages();
 
                 var entityModel = data.GetData("EntityModel") as EntityModel;
                 var messageAddress = MessageAddress;
@@ -138,7 +157,7 @@ namespace CMiX.ViewModels
                 this.UpdateMessageAddress(messageAddress);
 
                 this.Copy(entityModel);
-                this.EnabledMessages();
+                this.MessageService.EnabledMessages();
                 this.Mementor.EndBatch();
                 //SendMessages(nameof(ContentModel), contentmodel);
             }

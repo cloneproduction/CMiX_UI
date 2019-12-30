@@ -1,18 +1,17 @@
 ﻿using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
-using System.Collections.ObjectModel;
 using Memento;
+using CMiX.MVVM.Services;
 
 namespace CMiX.ViewModels
 {
-    public class RangeControl : SendableViewModel
+    public class RangeControl : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public RangeControl(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
-            : base (serverValidations, mementor)
+        public RangeControl(string messageAddress, MessageService messageService, Mementor mementor)
         {
-            MessageAddress = messageaddress + "/";
-            Range = new Slider(MessageAddress + nameof(Range), serverValidations, mementor);
+            MessageAddress = messageAddress + "/";
+            Range = new Slider(MessageAddress + nameof(Range), messageService, mementor);
             Modifier = ((RangeModifier)0).ToString();
         }
         #endregion
@@ -40,6 +39,10 @@ namespace CMiX.ViewModels
                 //SendMessages(MessageAddress + nameof(Modifier), Modifier);
             }
         }
+
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get; set; }
+        public Mementor Mementor { get; set; }
         #endregion
 
         #region COPY/PASTE
@@ -52,21 +55,21 @@ namespace CMiX.ViewModels
 
         public void Paste(RangeControlModel rangecontrolmodel)
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
 
             MessageAddress = rangecontrolmodel.MessageAddress;
             Range.Paste(rangecontrolmodel.Range);
             Modifier = rangecontrolmodel.Modifier;
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
 
         public void Reset()
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
             Modifier = ((RangeModifier)0).ToString();
             Range.Reset();
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
         #endregion
     }

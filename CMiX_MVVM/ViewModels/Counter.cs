@@ -1,21 +1,19 @@
-﻿using System;
-
-using CMiX.MVVM.ViewModels;
+﻿using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
-
-using System.Windows.Input;
-using System.Collections.ObjectModel;
+using CMiX.MVVM.Services;
 using Memento;
+using System;
+using System.Windows.Input;
 
 namespace CMiX.ViewModels
 {
-    public class Counter : SendableViewModel
+    public class Counter : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Counter(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
-            : base (serverValidations, mementor)
+        public Counter(string messageaddress, MessageService messageService, Mementor mementor) 
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Counter));
+            MessageService = messageService;
             Count = 1;
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
@@ -45,6 +43,10 @@ namespace CMiX.ViewModels
                 //SendMessages(MessageAddress + nameof(Count), Count);
             }
         }
+
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get; set; }
+        public Mementor Mementor { get; set; }
         #endregion
 
         #region ADD/SUB
@@ -63,9 +65,9 @@ namespace CMiX.ViewModels
         #region COPY/PASTE/RESET
         public void Reset()
         {
-            DisabledMessages();
+            MessageService.EnabledMessages();
             Count = 1;
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
 
         public void Copy(CounterModel countermodel)
@@ -76,12 +78,12 @@ namespace CMiX.ViewModels
 
         public void Paste(CounterModel countermodel)
         {
-            DisabledMessages();
+            MessageService.EnabledMessages();
 
             MessageAddress = countermodel.MessageAddress;
             Count = countermodel.Count;
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
         #endregion
     }

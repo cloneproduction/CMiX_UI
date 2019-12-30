@@ -4,16 +4,17 @@ using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using System.Collections.ObjectModel;
 using Memento;
+using CMiX.MVVM.Services;
 
 namespace CMiX.ViewModels
 {
-    public class GeometryTranslate : SendableViewModel
+    public class GeometryTranslate : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public GeometryTranslate(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
-            : base (serverValidations, mementor)
+        public GeometryTranslate(string messageaddress, MessageService messageService, Mementor mementor) 
         {
             MessageAddress = String.Format("{0}/", messageaddress);
+            MessageService = messageService;
         }
         #endregion
 
@@ -37,14 +38,18 @@ namespace CMiX.ViewModels
                 //SendMessages(MessageAddress + nameof(Mode), Mode);
             }
         }
+
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get; set; }
+        public Mementor Mementor { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
         public void Reset()
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
             Mode = default;
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
 
         public void Copy(GeometryTranslateModel geometrytranslatemodel)
@@ -55,10 +60,10 @@ namespace CMiX.ViewModels
 
         public void Paste(GeometryTranslateModel geometrytranslatemodel)
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
             MessageAddress = geometrytranslatemodel.MessageAddress;
             Mode = geometrytranslatemodel.Mode;
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
         #endregion
     }

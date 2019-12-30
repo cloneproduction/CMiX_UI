@@ -3,26 +3,21 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows;
-
-
-using CMiX.MVVM;
-using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Resources;
 
 using GongSolutions.Wpf.DragDrop;
 using Memento;
-
+using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class FileSelector : SendableViewModel, IDropTarget, IDragSource
+    public class FileSelector : ViewModel, ISendable, IUndoable, IDropTarget, IDragSource
     {
         #region CONSTRUCTORS
-        public FileSelector(string messageaddress, string selectionmode, List<string> filemask, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
-            : base (serverValidations, mementor)
+        public FileSelector(string messageaddress, string selectionmode, List<string> filemask, MessageService messageService, Mementor mementor) 
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(FileSelector));
+            MessageService = messageService;
 
             SelectionMode = selectionmode;
             FileMask = filemask;
@@ -66,6 +61,9 @@ namespace CMiX.MVVM.ViewModels
             get => _folderpath;
             set => SetAndNotify(ref _folderpath, value);
         }
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get; set; }
+        public Mementor Mementor { get; set; }
         #endregion
 
         #region METHODS
@@ -159,7 +157,7 @@ namespace CMiX.MVVM.ViewModels
                         {
                             if (System.IO.Path.GetExtension(str).ToUpperInvariant() == fm)
                             {
-                                FileNameItem lbfn = new FileNameItem(MessageAddress, ServerValidation, Mementor)
+                                FileNameItem lbfn = new FileNameItem(MessageAddress, MessageService)
                                 {
                                     FileIsSelected = false,
                                     //if(FolderPath != null)
@@ -258,12 +256,12 @@ namespace CMiX.MVVM.ViewModels
 
         public void Reset()
         {
-            DisabledMessages();
+            MessageService.EnabledMessages();
 
             Mementor.PropertyChange(this, "FilePaths");
             FilePaths.Clear();
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
 
         public void Copy(FileSelectorModel fileselectormodel)
@@ -283,14 +281,14 @@ namespace CMiX.MVVM.ViewModels
 
         public void Paste(FileSelectorModel fileselectormodel)
         {
-            DisabledMessages();
+            MessageService.EnabledMessages();
 
             MessageAddress = fileselectormodel.MessageAddress;
             FilePaths.Clear();
 
             foreach (var item in fileselectormodel.FilePaths)
             {
-                FileNameItem filenameitem = new FileNameItem(MessageAddress, ServerValidation, Mementor);
+                FileNameItem filenameitem = new FileNameItem(MessageAddress, MessageService);
                 filenameitem.Paste(item);
                 if (filenameitem.FileIsSelected)
                     this.SelectedFileNameItem = filenameitem;
@@ -298,7 +296,7 @@ namespace CMiX.MVVM.ViewModels
                 FilePaths.Add(filenameitem);
             }
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
         #endregion
     }

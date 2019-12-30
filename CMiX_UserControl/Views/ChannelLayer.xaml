@@ -28,7 +28,7 @@
         Padding="8"
         Style="{StaticResource BorderContainer}">
         <DockPanel>
-            <RadioButton
+            <!--<RadioButton
                 Width="50"
                 Margin="0,0,2,0"
                 AllowDrop="True"
@@ -38,7 +38,7 @@
                 <RadioButton.Background>
                     <SolidColorBrush Color="{Binding Coloration.ColorSelector.ColorPicker.SelectedColor}"/>
                 </RadioButton.Background>
-            </RadioButton>
+            </RadioButton>-->
             <StackPanel 
                 Grid.Column="1" 
                 Margin="4, 0, 0, 0">

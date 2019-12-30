@@ -8,16 +8,17 @@ using CMiX.MVVM.Models;
 using System.Collections.ObjectModel;
 using Memento;
 using CMiX.MVVM.Commands;
+using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Slider : SendableViewModel
+    public class Slider : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Slider(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
-            : base (serverValidations, mementor)
+        public Slider(string messageaddress, MessageService messageService, Mementor mementor)
         {
             MessageAddress = String.Format("{0}/", messageaddress);
+            MessageService = messageService;
 
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
@@ -64,7 +65,7 @@ namespace CMiX.MVVM.ViewModels
                 SetAndNotify(ref _amount, value);
                 SliderModel sliderModel = new SliderModel();
                 this.Copy(sliderModel);
-                SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, sliderModel);
+                MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, sliderModel);
             }
         }
 
@@ -81,6 +82,9 @@ namespace CMiX.MVVM.ViewModels
             get => _maximum; 
             set => SetAndNotify(ref _maximum, value);
         }
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get; set; }
+        public Mementor Mementor { get; set; }
 
         #endregion
 
@@ -105,9 +109,9 @@ namespace CMiX.MVVM.ViewModels
         #region COPY/PASTE/RESET
         public void Reset()
         {
-            DisabledMessages();
+            MessageService.EnabledMessages();
             Amount = 0.0;
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
 
         public void ResetSlider()
@@ -144,10 +148,10 @@ namespace CMiX.MVVM.ViewModels
 
         public void Paste(SliderModel slidermodel)
         {
-            DisabledMessages();
+            MessageService.EnabledMessages();
             MessageAddress = slidermodel.MessageAddress;
             Amount = slidermodel.Amount;
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
         #endregion
     }

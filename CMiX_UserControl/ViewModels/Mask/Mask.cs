@@ -5,24 +5,24 @@ using System.Collections.ObjectModel;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using Memento;
+using CMiX.MVVM.Services;
 
 namespace CMiX.ViewModels
 {
-    public class Mask : SendableViewModel
+    public class Mask : ViewModel, ISendableEntityContext, IUndoable
     {
         #region CONSTRUCTORS
-        public Mask(Beat masterbeat, string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
-            : base (serverValidations, mementor)
+        public Mask(Beat masterbeat, string messageaddress, MessageService messageService, Mementor mementor) 
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Mask));
             MaskType = ((MaskType)2).ToString();
             MaskControlType = ((MaskControlType)1).ToString();
             Enable = false;
 
-            BeatModifier = new BeatModifier(MessageAddress, masterbeat, serverValidations, mementor);
-            Geometry = new Geometry(MessageAddress, serverValidations, mementor, masterbeat);
-            Texture = new Texture(MessageAddress, serverValidations, mementor);
-            PostFX = new PostFX(MessageAddress, serverValidations, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, masterbeat, messageService, mementor);
+            Geometry = new Geometry(MessageAddress, messageService, mementor, masterbeat);
+            Texture = new Texture(MessageAddress, messageService, mementor);
+            PostFX = new PostFX(MessageAddress, messageService, mementor);
 
             CopyMaskCommand = new RelayCommand(p => CopyMask());
             PasteMaskCommand = new RelayCommand(p => PasteMask());
@@ -77,6 +77,12 @@ namespace CMiX.ViewModels
                 //SendMessages(MessageAddress + nameof(MaskControlType), MaskControlType);
             }
         }
+
+        public ObservableCollection<Entity> Entities { get; set; }
+        public Entity SelectedEntity { get; set; }
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get; set; }
+        public Mementor Mementor { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
@@ -94,7 +100,7 @@ namespace CMiX.ViewModels
 
         public void Paste(MaskModel maskmodel)
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
 
             MessageAddress = maskmodel.MessageAddress;
             Enable = maskmodel.Enable;
@@ -105,12 +111,12 @@ namespace CMiX.ViewModels
             Geometry.Paste(maskmodel.GeometryModel);
             PostFX.Paste(maskmodel.PostFXModel);
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
 
         public void Reset()
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
 
             Enable = false;
             BeatModifier.Reset();
@@ -118,7 +124,7 @@ namespace CMiX.ViewModels
             Texture.Reset();
             PostFX.Reset();
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
 
         public void CopyMask()
@@ -136,7 +142,7 @@ namespace CMiX.ViewModels
             if (data.GetDataPresent("MaskModel"))
             {
                 Mementor.BeginBatch();
-                DisabledMessages();
+                MessageService.DisabledMessages();
 
                 var maskmodel = data.GetData("MaskModel") as MaskModel;
                 var maskmessageaddress = MessageAddress;
@@ -144,7 +150,7 @@ namespace CMiX.ViewModels
                 UpdateMessageAddress(maskmessageaddress);
 
                 this.Copy(maskmodel);
-                EnabledMessages();
+                MessageService.EnabledMessages();
                 Mementor.EndBatch();
                 //this.SendMessages(nameof(MaskModel), maskmodel);
                 //QueueObjects(maskmodel);

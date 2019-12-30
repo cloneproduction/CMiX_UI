@@ -3,28 +3,48 @@ using System.Collections.ObjectModel;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using Memento;
+using CMiX.MVVM;
+using CMiX.MVVM.Services;
 
 namespace CMiX.ViewModels
 {
-    public class Layer : SendableViewModel
+    public class Layer : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Layer(MasterBeat masterBeat, string messageAddress,  ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
-            : base (serverValidations, mementor)
+        public Layer(MasterBeat masterBeat, string messageAddress,  MessageService messageService, Mementor mementor) 
         {
             MessageAddress =  messageAddress;
             Enabled = false;
             LayerName = messageAddress;           
 
-            BlendMode = new BlendMode(masterBeat, MessageAddress, serverValidations, mementor);
-            Fade = new Slider(MessageAddress + nameof(Fade), serverValidations, mementor);
-            Content = new Content(masterBeat, MessageAddress, serverValidations, mementor);
-            Mask = new Mask(masterBeat, MessageAddress, serverValidations, mementor);
-            PostFX = new PostFX(MessageAddress, serverValidations, mementor);
+            BlendMode = new BlendMode(masterBeat, MessageAddress, messageService, mementor);
+            Fade = new Slider(MessageAddress + nameof(Fade), messageService, mementor);
+
+            Content = new Content(masterBeat, MessageAddress, messageService, mementor);
+            Mask = new Mask(masterBeat, MessageAddress, messageService, mementor);
+            LayerControls = new ObservableCollection<ViewModel>();
+            LayerControls.Add(Content);
+            LayerControls.Add(Mask);
+
+            PostFX = new PostFX(MessageAddress, messageService, mementor);
         }
         #endregion
 
         #region PROPERTIES
+        private int _selectedLayerControlIndex;
+        public int SelectedLayerControlIndex
+        {
+            get { return _selectedLayerControlIndex; }
+            set { _selectedLayerControlIndex = value; }
+        }
+
+        private ObservableCollection<ViewModel> _layerControls;
+        public ObservableCollection<ViewModel> LayerControls
+        {
+            get => _layerControls;
+            set => SetAndNotify(ref _layerControls, value);
+        }
+
         private string _layername;
         public string LayerName
         {
@@ -67,11 +87,27 @@ namespace CMiX.ViewModels
             }
         }
 
+        private ViewModel _selectedEntityContext;
+        public ViewModel SelectedEntityContext
+        {
+            get => _selectedEntityContext;
+            set
+            {
+                SetAndNotify(ref _selectedEntityContext, value);
+                Console.WriteLine("SelectedEntityContext " + value.GetType().ToString());
+            }
+
+        }
+
+
         public Slider Fade { get; }
         public Content Content { get; }
         public Mask Mask { get; }
         public PostFX PostFX { get; }
         public BlendMode BlendMode { get; }
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get; set; }
+        public Mementor Mementor { get; set; }
         #endregion
 
         #region METHODS
@@ -84,6 +120,28 @@ namespace CMiX.ViewModels
             Content.UpdateMessageAddress($"{MessageAddress}{nameof(Content)}/");
             Mask.UpdateMessageAddress($"{MessageAddress}{nameof(Mask)}/");
             PostFX.UpdateMessageAddress($"{MessageAddress}{nameof(PostFX)}/");
+        }
+
+        public void AssignEntityToLayerControl(Entity entity)
+        {
+            var currentLayerControl = LayerControls[SelectedLayerControlIndex];
+
+            if(currentLayerControl != null)
+            {
+                if(currentLayerControl is IEntityContext)
+                {
+                    var c = currentLayerControl as IEntityContext;
+                    c.Entities.Add(entity);
+                    Console.WriteLine("entity added to " + c.GetType().ToString());
+                }
+            }
+            foreach (var layerControl in LayerControls)
+            {
+                if(layerControl is IEntityContext)
+                {
+
+                }
+            }
         }
         #endregion
 
@@ -104,7 +162,7 @@ namespace CMiX.ViewModels
 
         public void Paste(LayerModel layerModel)
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
 
             MessageAddress = layerModel.MessageAddress;
             LayerName = layerModel.LayerName;
@@ -118,7 +176,7 @@ namespace CMiX.ViewModels
             Mask.Paste(layerModel.MaskModel);
             PostFX.Paste(layerModel.PostFXModel);
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
 
         public void Reset()

@@ -1,24 +1,23 @@
-﻿using System;
-using System.Windows;
-using System.Collections.ObjectModel;
-using CMiX.MVVM.ViewModels;
+﻿using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
 using Memento;
+using System;
+using System.Windows;
 
 namespace CMiX.ViewModels
 {
     [Serializable]
-    public class ScaleModifier : SendableViewModel
+    public class ScaleModifier : ViewModel, ISendable, IUndoable
     {
-        public ScaleModifier(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor, Beat beat)
-            : base(serverValidations, mementor)
+        public ScaleModifier(string messageaddress, MessageService messageService, Mementor mementor, Beat beat)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(ScaleModifier));
 
-            Scale = new AnimParameter(MessageAddress + nameof(Scale), serverValidations, mementor, beat, true);
-            ScaleX = new AnimParameter(MessageAddress + nameof(ScaleX), serverValidations, mementor, beat, false);
-            ScaleY = new AnimParameter(MessageAddress + nameof(ScaleY), serverValidations, mementor, beat, false);
-            ScaleZ = new AnimParameter(MessageAddress + nameof(ScaleZ), serverValidations, mementor, beat, false);
+            Scale = new AnimParameter(MessageAddress + nameof(Scale), messageService, mementor, beat, true);
+            ScaleX = new AnimParameter(MessageAddress + nameof(ScaleX), messageService, mementor, beat, false);
+            ScaleY = new AnimParameter(MessageAddress + nameof(ScaleY), messageService, mementor, beat, false);
+            ScaleZ = new AnimParameter(MessageAddress + nameof(ScaleZ), messageService, mementor, beat, false);
         }
 
         #region PROPERTIES
@@ -26,6 +25,9 @@ namespace CMiX.ViewModels
         public AnimParameter ScaleX { get; set; }
         public AnimParameter ScaleY { get; set; }
         public AnimParameter ScaleZ { get; set; }
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get; set; }
+        public Mementor Mementor { get; set; }
         #endregion
 
         #region METHODS
@@ -56,7 +58,7 @@ namespace CMiX.ViewModels
             if (data.GetDataPresent("ScaleModifierModel"))
             {
                 Mementor.BeginBatch();
-                DisabledMessages();
+                MessageService.DisabledMessages();
 
                 var Scalemodifiermodel = data.GetData("ScaleModifierModel") as ScaleModifierModel;
                 var messageaddress = MessageAddress;
@@ -64,7 +66,7 @@ namespace CMiX.ViewModels
                 UpdateMessageAddress(messageaddress);
                 this.Copy(Scalemodifiermodel);
 
-                EnabledMessages();
+                MessageService.EnabledMessages();
                 Mementor.EndBatch();
                 //SendMessages(MessageAddress, Scalemodifiermodel);
                 //QueueObjects(Scalemodifiermodel);
@@ -93,7 +95,7 @@ namespace CMiX.ViewModels
 
         public void Paste(ScaleModifierModel Scalemodifiermodel)
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
 
             MessageAddress = Scalemodifiermodel.MessageAddress;
 
@@ -102,19 +104,19 @@ namespace CMiX.ViewModels
             ScaleY.Paste(Scalemodifiermodel.ScaleY);
             ScaleZ.Paste(Scalemodifiermodel.ScaleZ);
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
 
         public void Reset()
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
 
             Scale.Reset();
             ScaleX.Reset();
             ScaleY.Reset();
             ScaleZ.Reset();
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
 
             ScaleModifierModel Scalemodifiermodel = new ScaleModifierModel();
             this.Copy(Scalemodifiermodel);

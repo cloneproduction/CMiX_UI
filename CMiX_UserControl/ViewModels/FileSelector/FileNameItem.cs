@@ -3,17 +3,18 @@ using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using Memento;
 using CMiX.MVVM.Resources;
+using CMiX.MVVM.Services;
 
 namespace CMiX.ViewModels 
 {
-    public class FileNameItem : SendableViewModel
+    public class FileNameItem : ViewModel, ISendable
     {
-        public FileNameItem(string folderpath, string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor)
-            : base (serverValidations, mementor)
+        public FileNameItem(string folderpath, string messageAddress, MessageService messageService)
         {
-            MessageAddress = messageaddress + "Selected";
+            MessageAddress = messageAddress + "Selected";
+            MessageService = messageService;
             FolderPath = folderpath;
-            Mementor = mementor;
+
         }
 
         private string _folderpath;
@@ -51,6 +52,9 @@ namespace CMiX.ViewModels
             }
         }
 
+        public string MessageAddress { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+        public MessageService MessageService { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
         public void UpdateMessageAddress(string messageaddress)
         {
             MessageAddress = messageaddress + "Selected";
@@ -66,13 +70,13 @@ namespace CMiX.ViewModels
 
         public void Paste(FileNameItemModel filenameitemmodel)
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
 
             MessageAddress = filenameitemmodel.MessageAddress;
             FileIsSelected = filenameitemmodel.FileIsSelected;
             FileName = filenameitemmodel.FileName;
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
         #endregion
     }

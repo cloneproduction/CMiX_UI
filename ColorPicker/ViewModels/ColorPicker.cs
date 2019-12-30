@@ -8,17 +8,17 @@ using ColorMine.ColorSpaces;
 using Memento;
 using System.Windows.Input;
 using CMiX.MVVM.Commands;
+using CMiX.MVVM.Services;
 
 namespace CMiX.ColorPicker.ViewModels
 {
-    public class ColorPicker : SendableViewModel
+    public class ColorPicker : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public ColorPicker(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor)
-            : base(serverValidations, mementor)
+        public ColorPicker(string messageaddress, MessageService messageService, Mementor mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(ColorPicker));
-
+            MessageService = messageService;
             SelectedColor = Color.FromArgb(255, 255, 0, 0);
             Red = SelectedColor.R;
             Green = SelectedColor.G;
@@ -60,7 +60,7 @@ namespace CMiX.ColorPicker.ViewModels
         {
             ColorPickerModel colorPickerModel = new ColorPickerModel();
             this.Copy(colorPickerModel);
-            SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, colorPickerModel);
+            MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, colorPickerModel);
         }
 
         private byte _red;
@@ -220,6 +220,10 @@ namespace CMiX.ColorPicker.ViewModels
                 SendSelectedColor();
             }
         }
+
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get; set; }
+        public Mementor Mementor { get; set; }
         #endregion
 
         #region METHODS
@@ -259,7 +263,7 @@ namespace CMiX.ColorPicker.ViewModels
 
         public void Paste(ColorPickerModel colorpickermodel)
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
 
             MessageAddress = colorpickermodel.MessageAddress;
             SelectedColor = Utils.HexStringToColor(colorpickermodel.SelectedColor);
@@ -267,7 +271,7 @@ namespace CMiX.ColorPicker.ViewModels
             Green = SelectedColor.G;
             Blue = SelectedColor.B;
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
 
         public void Reset()

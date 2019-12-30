@@ -4,20 +4,20 @@ using System.Collections.ObjectModel;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using Memento;
+using CMiX.MVVM.Services;
 
 namespace CMiX.ViewModels
 {
-    public class TranslateModifier : SendableViewModel
+    public class TranslateModifier : ViewModel, ISendable, IUndoable
     {
-        public TranslateModifier(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor, Beat beat) 
-            : base(serverValidations, mementor)
+        public TranslateModifier(string messageaddress, MessageService messageService, Mementor mementor, Beat beat) 
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(TranslateModifier));
 
-            Translate = new AnimParameter(MessageAddress + nameof(Translate), serverValidations, mementor, beat, true);
-            TranslateX = new AnimParameter(MessageAddress + nameof(TranslateX), serverValidations, mementor, beat, false);
-            TranslateY = new AnimParameter(MessageAddress + nameof(TranslateY), serverValidations, mementor, beat, false);
-            TranslateZ = new AnimParameter(MessageAddress + nameof(TranslateZ), serverValidations, mementor, beat, false);
+            Translate = new AnimParameter(MessageAddress + nameof(Translate), messageService, mementor, beat, true);
+            TranslateX = new AnimParameter(MessageAddress + nameof(TranslateX), messageService, mementor, beat, false);
+            TranslateY = new AnimParameter(MessageAddress + nameof(TranslateY), messageService, mementor, beat, false);
+            TranslateZ = new AnimParameter(MessageAddress + nameof(TranslateZ), messageService, mementor, beat, false);
         }
 
         #region PROPERTIES
@@ -25,6 +25,9 @@ namespace CMiX.ViewModels
         public AnimParameter TranslateX { get; set; }
         public AnimParameter TranslateY { get; set; }
         public AnimParameter TranslateZ { get; set; }
+        public string MessageAddress { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public MessageService MessageService { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Mementor Mementor { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         #endregion
 
         #region METHODS
@@ -55,7 +58,7 @@ namespace CMiX.ViewModels
             if (data.GetDataPresent("TranslateModifierModel"))
             {
                 Mementor.BeginBatch();
-                DisabledMessages();
+                MessageService.DisabledMessages();
 
                 var translatemodifiermodel = data.GetData("TranslateModifierModel") as TranslateModifierModel;
                 var messageaddress = MessageAddress;
@@ -63,7 +66,7 @@ namespace CMiX.ViewModels
                 UpdateMessageAddress(messageaddress);
                 this.Copy(translatemodifiermodel);
 
-                EnabledMessages();
+                MessageService.EnabledMessages();
                 Mementor.EndBatch();
                 //SendMessages(MessageAddress, translatemodifiermodel);
                 //QueueObjects(translatemodifiermodel);
@@ -90,7 +93,7 @@ namespace CMiX.ViewModels
 
         public void Paste(TranslateModifierModel translatemodifiermodel)
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
 
             MessageAddress = translatemodifiermodel.MessageAddress;
 
@@ -99,19 +102,19 @@ namespace CMiX.ViewModels
             TranslateY.Paste(translatemodifiermodel.TranslateY);
             TranslateZ.Paste(translatemodifiermodel.TranslateZ);
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
 
         public void Reset()
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
 
             Translate.Reset();
             TranslateX.Reset();
             TranslateY.Reset();
             TranslateZ.Reset();
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
 
             TranslateModifierModel translatemodifiermodel = new TranslateModifierModel();
             this.Copy(translatemodifiermodel);

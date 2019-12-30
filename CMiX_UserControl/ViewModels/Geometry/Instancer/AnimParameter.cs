@@ -4,18 +4,18 @@ using System.Windows;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using Memento;
+using CMiX.MVVM.Services;
 
 namespace CMiX.ViewModels
 {
-    public class AnimParameter : SendableViewModel
+    public class AnimParameter : ViewModel, ISendable, IUndoable
     {
-        public AnimParameter(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor, Beat beat, bool isEnabled)
-            : base(serverValidations, mementor)
+        public AnimParameter(string messageaddress, MessageService messageService, Mementor mementor, Beat beat, bool isEnabled)
         {
             Mode = AnimMode.None;
             IsEnabled = isEnabled;
-            Slider = new Slider(MessageAddress, serverValidations, mementor);
-            BeatModifier = new BeatModifier(MessageAddress, beat, serverValidations, mementor);
+            Slider = new Slider(MessageAddress, messageService, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, beat, messageService, mementor);
         }
 
         #region PROPERTIES
@@ -47,6 +47,9 @@ namespace CMiX.ViewModels
 
         public Slider Slider { get; set; }
         public BeatModifier BeatModifier { get; set; }
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get; set; }
+        public Mementor Mementor { get; set; }
         #endregion
 
         #region METHODS
@@ -74,7 +77,7 @@ namespace CMiX.ViewModels
             if (data.GetDataPresent("AnimParameterModel"))
             {
                 Mementor.BeginBatch();
-                DisabledMessages();
+                MessageService.DisabledMessages();
 
                 var animparametermodel = data.GetData("AnimParameterModel") as AnimParameterModel;
                 var messageaddress = MessageAddress;
@@ -82,7 +85,7 @@ namespace CMiX.ViewModels
                 UpdateMessageAddress(messageaddress);
                 this.Copy(animparametermodel);
 
-                EnabledMessages();
+                MessageService.EnabledMessages();
                 Mementor.EndBatch();
                 //SendMessages(MessageAddress, animparametermodel);
                 //QueueObjects(animparametermodel);
@@ -110,23 +113,23 @@ namespace CMiX.ViewModels
 
         public void Paste(AnimParameterModel animparametermodel)
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
 
             MessageAddress = animparametermodel.MessageAddress;
             Slider.Paste(animparametermodel.Slider);
             BeatModifier.Paste(animparametermodel.BeatModifier);
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
 
         public void Reset()
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
 
             Slider.Reset();
             BeatModifier.Reset();
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
 
             AnimParameterModel animparametermodel = new AnimParameterModel();
             this.Copy(animparametermodel);

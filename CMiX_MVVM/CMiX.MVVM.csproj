@@ -89,6 +89,7 @@
     </Compile>
     <Compile Include="Message\CommandName.cs" />
     <Compile Include="Message\NetMQ\ByteMessage.cs" />
+    <Compile Include="Message\NetMQ\MessageService.cs" />
     <Compile Include="Message\NetMQ\NetMQClient.cs" />
     <Compile Include="Message\NetMQ\NetMQServer.cs" />
     <Compile Include="Models\BlendModeModel.cs" />
@@ -96,7 +97,6 @@
     <Compile Include="Models\EntityModel.cs" />
     <Compile Include="ViewModels\Interfaces\ISendable.cs" />
     <Compile Include="ViewModels\Interfaces\IUndoable.cs" />
-    <Compile Include="ViewModels\SendableViewModel.cs" />
     <Compile Include="ViewModels\Server.cs" />
     <Compile Include="ViewModels\ServerValidation.cs" />
     <Compile Include="Models\Geometry\Modifier\AnimParameterModel.cs" />

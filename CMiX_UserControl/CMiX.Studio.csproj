@@ -126,6 +126,9 @@
     <Compile Include="Behaviors\ClickBehavior.cs" />
     <Compile Include="Behaviors\TreeViewItemClickBehavior.cs" />
     <Compile Include="Behaviors\TextBoxFocusBehavior.cs" />
+    <Compile Include="ViewModels\Entity\EntityFactory.cs" />
+    <Compile Include="ViewModels\Entity\IEntityContext.cs" />
+    <Compile Include="ViewModels\Entity\ISendableEntityContext.cs" />
     <Compile Include="ViewModels\Layer\BlendMode.cs" />
     <Compile Include="ViewModels\Assets\DirectoryItem.cs" />
     <Compile Include="ViewModels\Assets\FileItem.cs" />

@@ -3,20 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using CMiX.MVVM.Models;
-using Memento;
-using System.Collections.ObjectModel;
 using CMiX.MVVM.ViewModels;
+using CMiX.MVVM.Services;
 
 namespace CMiX.ViewModels
 {
-    public class MasterBeat : Beat
+    public class MasterBeat : Beat, ISendable
     {
         #region CONSTRUCTORS
-        public MasterBeat(ObservableCollection<ServerValidation> serverValidations, Mementor mementor)
+        public MasterBeat(MessageService messageService)
         : this
         (
-            mementor: mementor,
-            serverValidations: serverValidations,
+            messageService: messageService,
             period: 0.0,
             multiplier: 1
         )
@@ -24,12 +22,10 @@ namespace CMiX.ViewModels
 
         public MasterBeat
             (
-                Mementor mementor,
-                ObservableCollection<ServerValidation> serverValidations,
+                MessageService messageService,
                 double period,
                 int multiplier
             )
-            : base(serverValidations, mementor)
         {
             Period = period;
             Multiplier = multiplier;
@@ -62,6 +58,9 @@ namespace CMiX.ViewModels
                 //SendMessages(MessageAddress + nameof(Period), Period);
             }
         }
+
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get; set; }
         #endregion
 
         #region METHODS
@@ -116,10 +115,10 @@ namespace CMiX.ViewModels
 
         public void Paste(MasterBeatModel masterbeatmodel)
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
             MessageAddress = masterbeatmodel.MessageAddress;
             Period = masterbeatmodel.Period;
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
         #endregion
     }

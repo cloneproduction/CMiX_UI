@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using CMiX.MVVM.Services;
 using CMiX.MVVM.Commands;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels;
@@ -7,10 +8,9 @@ using Memento;
 
 namespace CMiX.ViewModels
 {
-    public class BlendMode : SendableViewModel
+    public class BlendMode : ViewModel, ISendable, IUndoable
     {
-        public BlendMode(MasterBeat masterBeat, string messageAddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor)
-        : base(serverValidations, mementor)
+        public BlendMode(MasterBeat masterBeat, string messageAddress, MessageService messageService, Mementor mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageAddress, nameof(BlendMode));
             Mode = ((MVVM.ViewModels.BlendMode)0).ToString();
@@ -27,9 +27,13 @@ namespace CMiX.ViewModels
                 SetAndNotify(ref _mode, value);
                 BlendModeModel blendModeModel = new BlendModeModel();
                 this.Copy(blendModeModel);
-                SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, blendModeModel);
+                //MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, blendModeModel);
             }
         }
+
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get; set; }
+        public Mementor Mementor { get; set; }
 
         public void UpdateMessageAddress(string messageaddress)
         {

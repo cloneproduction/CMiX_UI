@@ -1,19 +1,18 @@
 ﻿using System;
-using CMiX.Services;
-//using CMiX.Models;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
-using System.Collections.ObjectModel;
 using Memento;
+using CMiX.MVVM.Services;
 
 namespace CMiX.ViewModels
 {
-    public class GeometryRotation : SendableViewModel
+    public class GeometryRotation : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public GeometryRotation(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) : base (serverValidations, mementor)
+        public GeometryRotation(string messageaddress, MessageService messageService, Mementor mementor)
         {
             MessageAddress = String.Format("{0}/", messageaddress);
+            MessageService = messageService;
             Mode = default;
             RotationX = true;
             RotationY = true;
@@ -80,14 +79,18 @@ namespace CMiX.ViewModels
                 //SendMessages(MessageAddress + nameof(RotationZ), RotationZ);
             }
         }
+
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get; set; }
+        public Mementor Mementor { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
         public void Reset()
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
             Mode = default;
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
 
         public void Copy(GeometryRotationModel geometryrotationmodel)
@@ -101,13 +104,13 @@ namespace CMiX.ViewModels
 
         public void Paste(GeometryRotationModel geometryrotationmodel)
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
             MessageAddress = geometryrotationmodel.MessageAddress;
             Mode = geometryrotationmodel.Mode;
             RotationX = geometryrotationmodel.RotationX;
             RotationY = geometryrotationmodel.RotationY;
             RotationZ = geometryrotationmodel.RotationZ;
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
         #endregion
     }

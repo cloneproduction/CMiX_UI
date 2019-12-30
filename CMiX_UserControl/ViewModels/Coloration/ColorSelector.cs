@@ -5,17 +5,18 @@ using System.Windows;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using Memento;
+using CMiX.MVVM.Services;
 
 namespace CMiX.ViewModels
 {
-    public class ColorSelector : SendableViewModel
+    public class ColorSelector : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public ColorSelector(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
-            : base(serverValidations, mementor)
+        public ColorSelector(string messageaddress, MessageService messageService, Mementor mementor) 
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(ColorSelector));
-            ColorPicker = new ColorPicker.ViewModels.ColorPicker(MessageAddress, serverValidations, mementor);
+            MessageService = messageService;
+            ColorPicker = new ColorPicker.ViewModels.ColorPicker(MessageAddress, messageService, mementor);
 
             CopyColorSelectorCommand = new RelayCommand(p => CopyColorSelector());
             PasteColorSelectorCommand = new RelayCommand(p => PasteColorSelector());
@@ -28,6 +29,9 @@ namespace CMiX.ViewModels
         public ICommand PasteColorSelectorCommand { get; }
         public ICommand ResetColorSelectorCommand { get; }
         public ColorPicker.ViewModels.ColorPicker ColorPicker { get; set; }
+        public string MessageAddress { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public MessageService MessageService { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Mementor Mementor { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         #endregion
 
         #region METHODS
@@ -55,18 +59,17 @@ namespace CMiX.ViewModels
             if (data.GetDataPresent("ColorSelectorModel"))
             {
                 this.Mementor.BeginBatch();
-                this.DisabledMessages();
+                MessageService.DisabledMessages();
 
                 var colorselectormodel = data.GetData("ColorSelectorModel") as ColorSelectorModel;
                 var colorselectormessageaddress = MessageAddress;
                 this.Paste(colorselectormodel);
                 this.UpdateMessageAddress(colorselectormessageaddress);
                 this.Copy(colorselectormodel);
-                this.EnabledMessages();
+
+                MessageService.EnabledMessages();
                 this.Mementor.EndBatch();
                 //SendMessages(MessageAddress, colorselectormodel);
-                //this.QueueObjects(colorselectormodel);
-                //this.SendQueues();
             }
         }
 
@@ -76,8 +79,6 @@ namespace CMiX.ViewModels
             this.Reset();
             this.Copy(colorselectormodel);
             //SendMessages(MessageAddress, colorselectormodel);
-            //QueueObjects(colorselectormodel);
-            //SendQueues();
         }
 
         public void Copy(ColorSelectorModel colorselectormodel)
@@ -88,21 +89,21 @@ namespace CMiX.ViewModels
 
         public void Paste(ColorSelectorModel colorselectormodel)
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
 
             MessageAddress = colorselectormodel.MessageAddress;
             ColorPicker.Paste(colorselectormodel.ColorPickerModel);
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
 
         public void Reset()
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
 
             ColorPicker.Reset();
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
         #endregion
     }

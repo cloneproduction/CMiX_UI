@@ -6,24 +6,25 @@ using System.Collections.ObjectModel;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using Memento;
+using CMiX.MVVM.Services;
 
 namespace CMiX.ViewModels
 {
-    public class Geometry : SendableViewModel
+    public class Geometry : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Geometry(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor, Beat beat) 
-            : base (serverValidations, mementor)
+        public Geometry(string messageaddress, MessageService messageService, Mementor mementor, Beat beat) 
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Geometry));
-            Instancer = new Instancer(MessageAddress, serverValidations, mementor, beat);
-            Transform = new Transform(MessageAddress, serverValidations, mementor);
+            MessageService = messageService;
+            Instancer = new Instancer(MessageAddress, messageService, mementor, beat);
+            Transform = new Transform(MessageAddress, messageService, mementor);
 
-            FileSelector = new FileSelector(MessageAddress, "Single", new List<string> { ".FBX", ".OBJ" }, serverValidations, mementor);
-            FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress, serverValidations, mementor) { FileIsSelected = true, FileName = "Quad (default)" });
-            FileSelector.SelectedFileNameItem = new FileNameItem(string.Empty, FileSelector.MessageAddress, serverValidations, mementor) { FileIsSelected = true, FileName = "Quad (default)" };
+            FileSelector = new FileSelector(MessageAddress, "Single", new List<string> { ".FBX", ".OBJ" }, messageService, mementor);
+            FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress, messageService) { FileIsSelected = true, FileName = "Quad (default)" });
+            FileSelector.SelectedFileNameItem = new FileNameItem(string.Empty, FileSelector.MessageAddress, messageService) { FileIsSelected = true, FileName = "Quad (default)" };
 
-            GeometryFX = new GeometryFX(MessageAddress, serverValidations, mementor);
+            GeometryFX = new GeometryFX(MessageAddress, messageService, mementor);
 
             CopyGeometryCommand = new RelayCommand(p => CopyGeometry());
             PasteGeometryCommand = new RelayCommand(p => PasteGeometry());
@@ -53,6 +54,9 @@ namespace CMiX.ViewModels
         public Transform Transform { get; }
         public Instancer Instancer { get;  }
         public GeometryFX GeometryFX { get; }
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get; set; }
+        public Mementor Mementor { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
@@ -71,7 +75,7 @@ namespace CMiX.ViewModels
             if (data.GetDataPresent("GeometryModel"))
             {
                 Mementor.BeginBatch();
-                DisabledMessages();
+                MessageService.DisabledMessages();
 
                 var geometrymodel = data.GetData("GeometryModel") as GeometryModel;
                 var geometrymessageaddress = MessageAddress;
@@ -79,7 +83,7 @@ namespace CMiX.ViewModels
                 UpdateMessageAddress(geometrymessageaddress);
                 this.Copy(geometrymodel);
 
-                EnabledMessages();
+                MessageService.EnabledMessages();
                 Mementor.EndBatch();
                 //SendMessages(MessageAddress, geometrymodel);
                 //QueueObjects(geometrymodel);
@@ -108,19 +112,19 @@ namespace CMiX.ViewModels
 
         public void Paste(GeometryModel geometrymodel)
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
 
             MessageAddress = geometrymodel.MessageAddress;
             FileSelector.Paste(geometrymodel.FileSelector);
             Transform.Paste(geometrymodel.Transform);
             GeometryFX.Paste(geometrymodel.GeometryFX);
             Instancer.Paste(geometrymodel.Instancer);
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
 
         public void Reset()
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
             //Mementor.BeginBatch();
 
             FileSelector.Reset();
@@ -128,7 +132,7 @@ namespace CMiX.ViewModels
             GeometryFX.Reset();
             Instancer.Reset();
             //Mementor.EndBatch();
-            EnabledMessages();
+            MessageService.EnabledMessages();
 
             GeometryModel geometrymodel = new GeometryModel();
             this.Copy(geometrymodel);

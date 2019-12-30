@@ -5,16 +5,18 @@ using CMiX.MVVM.ViewModels;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Ceras;
+using CMiX.MVVM.Services;
 
 namespace CMiXPlayer.ViewModels
 {
-    public class Device : SendableViewModel
+    public class Device : ViewModel, ISendable
     {
         #region CONSTRUCTORS
         public Device(CerasSerializer cerasSerializer, ObservableCollection<Playlist> playlists)
         {
             Playlists = playlists;
-            CompoSelector = new FileSelector(string.Empty,"Single", new List<string>() { ".COMPMIX" }, new ObservableCollection<ServerValidation> (), new Mementor());
+
+            CompoSelector = new FileSelector(string.Empty,"Single", new List<string>() { ".COMPMIX" }, MessageService, new Mementor());
             CompoSelector.SelectedFileNameItem = new FileNameItem();
 
             OSCMessenger = new OSCMessenger("127.0.0.1", 1111);
@@ -46,6 +48,9 @@ namespace CMiXPlayer.ViewModels
             get { return _name; }
             set { _name = value; }
         }
+
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get; set; }
         #endregion
 
         #region METHODS

@@ -1,25 +1,26 @@
-﻿
-using CMiX.Services;
-using CMiX.MVVM.ViewModels;
+﻿using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using System;
 using System.Collections.ObjectModel;
 using Memento;
+using CMiX.MVVM.Services;
 
 namespace CMiX.ViewModels
 {
-    public class BeatModifier : Beat
+    public class BeatModifier : Beat, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public BeatModifier(string messageaddress, Beat beat, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
-            : base (serverValidations, mementor)
+        public BeatModifier(string messageaddress, Beat beat, MessageService messageService, Mementor mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(BeatModifier));
+            MessageService = messageService;
 
             MasterBeat = beat;
             Multiplier = 1.0;
-            ChanceToHit = new Slider(MessageAddress + nameof(ChanceToHit), serverValidations, mementor);
-            ChanceToHit.Amount = 1.0;
+            ChanceToHit = new Slider(MessageAddress + nameof(ChanceToHit), messageService, mementor)
+            {
+                Amount = 1.0
+            };
             beat.PeriodChanged += (s, newvalue) =>
             {
                 OnPeriodChanged(Period);
@@ -62,6 +63,10 @@ namespace CMiX.ViewModels
                 //SendMessages(MessageAddress + nameof(Multiplier), Multiplier);
             }
         }
+
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get; set; }
+        public Mementor Mementor { get; set; }
         #endregion
 
         #region MULTIPLY/DIVIDE
@@ -79,13 +84,13 @@ namespace CMiX.ViewModels
         #region COPY/PASTE/RESET
         public void Reset()
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
 
             Multiplier = 1.0;
             ChanceToHit.Reset();
             ChanceToHit.Amount = 1.0;
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
 
         public void Copy(BeatModifierModel beatmodifiermodel)
@@ -97,13 +102,13 @@ namespace CMiX.ViewModels
 
         public void Paste(BeatModifierModel beatmodifiermodel)
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
 
             MessageAddress = beatmodifiermodel.MessageAddress;
             Multiplier = beatmodifiermodel.Multiplier;
             ChanceToHit.Paste(beatmodifiermodel.ChanceToHit);
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
         #endregion
     }

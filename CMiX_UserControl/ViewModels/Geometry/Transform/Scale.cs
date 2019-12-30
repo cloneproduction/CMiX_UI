@@ -1,27 +1,30 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Windows;
+﻿using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using Memento;
+using System;
+using System.Windows;
 
 namespace CMiX.ViewModels
 {
-    [Serializable]
-    public class Scale : SendableViewModel
+    public class Scale : ViewModel, ISendable, IUndoable
     {
-        public Scale(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor) 
-            : base (serverValidations, mementor)
+        public Scale(string messageaddress, MessageService messageService, Mementor mementor) 
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Scale));
-            ScaleX = new Slider(MessageAddress + nameof(ScaleX), serverValidations, mementor);
-            ScaleY = new Slider(MessageAddress + nameof(ScaleY), serverValidations, mementor);
-            ScaleZ = new Slider(MessageAddress + nameof(ScaleZ), serverValidations, mementor);
+            MessageService = messageService;
+
+            ScaleX = new Slider(MessageAddress + nameof(ScaleX), messageService, mementor);
+            ScaleY = new Slider(MessageAddress + nameof(ScaleY), messageService, mementor);
+            ScaleZ = new Slider(MessageAddress + nameof(ScaleZ), messageService, mementor);
         }
 
         public Slider ScaleX { get; set; }
         public Slider ScaleY { get; set; }
         public Slider ScaleZ { get; set; }
+        public string MessageAddress { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public MessageService MessageService { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Mementor Mementor { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public void UpdateMessageAddress(string messageaddress)
         {
@@ -47,7 +50,7 @@ namespace CMiX.ViewModels
             if (data.GetDataPresent("ScaleModel"))
             {
                 Mementor.BeginBatch();
-                DisabledMessages();
+                MessageService.DisabledMessages();
 
                 var scalemodel = data.GetData("ScaleModel") as ScaleModel;
                 var messageaddress = MessageAddress;
@@ -55,7 +58,7 @@ namespace CMiX.ViewModels
                 UpdateMessageAddress(messageaddress);
                 this.Copy(scalemodel);
 
-                EnabledMessages();
+                MessageService.EnabledMessages();
                 Mementor.EndBatch();
                 //SendMessages(nameof(ScaleModel), scalemodel);
             }
@@ -81,18 +84,18 @@ namespace CMiX.ViewModels
 
         public void Paste(ScaleModel scalemodel)
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
 
             MessageAddress = scalemodel.MessageAddress;
             ScaleX.Paste(scalemodel.ScaleX);
             ScaleY.Paste(scalemodel.ScaleY);
             ScaleZ.Paste(scalemodel.ScaleZ);
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
 
         public void Reset()
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
             //Mementor.BeginBatch();
 
             ScaleX.Reset();
@@ -100,7 +103,7 @@ namespace CMiX.ViewModels
             ScaleZ.Reset();
 
             //Mementor.EndBatch();
-            EnabledMessages();
+            MessageService.EnabledMessages();
 
             ScaleModel scalemodel = new ScaleModel();
             this.Copy(scalemodel);

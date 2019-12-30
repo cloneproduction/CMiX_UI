@@ -9,7 +9,7 @@ using Ceras;
 
 namespace CMiX.ViewModels
 {
-    public class Project : SendableViewModel
+    public class Project : ViewModel
     {
         public Project()
         {
@@ -157,7 +157,7 @@ namespace CMiX.ViewModels
 
             foreach (var compo in Compositions)
             {
-                compo.ServerValidation.Add(new ServerValidation(Server));
+                compo.MessageService.ServerValidation.Add(new ServerValidation(Server));
             }
             serverport++;
         }
@@ -171,7 +171,7 @@ namespace CMiX.ViewModels
 
             foreach (var compo in Compositions)
             {
-                compo.ServerValidation.RemoveAt(index);
+                compo.MessageService.ServerValidation.RemoveAt(index);
             }
         }
         #endregion

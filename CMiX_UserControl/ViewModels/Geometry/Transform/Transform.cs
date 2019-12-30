@@ -4,18 +4,18 @@ using System.Collections.ObjectModel;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using Memento;
+using CMiX.MVVM.Services;
 
 namespace CMiX.ViewModels
 {
-    public class Transform : SendableViewModel
+    public class Transform : ViewModel, ISendable, IUndoable
     {
-        public Transform(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor)
-            : base(serverValidations, mementor)
+        public Transform(string messageAddress, MessageService messageService, Mementor mementor)
         {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Transform));
-            Translate = new Translate(MessageAddress, serverValidations, mementor);
-            Scale = new Scale(MessageAddress, serverValidations, mementor);
-            Rotation = new Rotation(MessageAddress, serverValidations, mementor);
+            MessageAddress = String.Format("{0}{1}/", messageAddress, nameof(Transform));
+            Translate = new Translate(MessageAddress, messageService, mementor);
+            Scale = new Scale(MessageAddress, messageService, mementor);
+            Rotation = new Rotation(MessageAddress, messageService, mementor);
 
             Is3D = false;
         }
@@ -37,6 +37,10 @@ namespace CMiX.ViewModels
                 //SendMessages(MessageAddress + nameof(Is3D), Is3D.ToString());
             }
         }
+
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get; set; }
+        public Mementor Mementor { get; set; }
         #endregion
 
         #region METHODS
@@ -66,7 +70,7 @@ namespace CMiX.ViewModels
             if (data.GetDataPresent("TransformModel"))
             {
                 Mementor.BeginBatch();
-                DisabledMessages();
+                MessageService.DisabledMessages();
 
                 var transformmodel = data.GetData("TransformModel") as TransformModel;
                 var messageaddress = MessageAddress;
@@ -74,7 +78,7 @@ namespace CMiX.ViewModels
                 UpdateMessageAddress(messageaddress);
                 this.Copy(transformmodel);
 
-                EnabledMessages();
+                MessageService.EnabledMessages();
                 Mementor.EndBatch();
                 //this.SendMessages(nameof(TransformModel), transformmodel);
                 //QueueObjects(transformmodel);
@@ -103,7 +107,7 @@ namespace CMiX.ViewModels
 
         public void Paste(TransformModel transformmodel)
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
 
             MessageAddress = transformmodel.MessageAddress;
             Translate.Paste(transformmodel.Translate);
@@ -111,12 +115,12 @@ namespace CMiX.ViewModels
             Rotation.Paste(transformmodel.Rotation);
             Is3D = transformmodel.Is3D;
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
 
         public void Reset()
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
             //Mementor.BeginBatch();
 
             Translate.Reset();
@@ -124,7 +128,7 @@ namespace CMiX.ViewModels
             Rotation.Reset();
             Is3D = false;
             //Mementor.EndBatch();
-            EnabledMessages();
+            MessageService.EnabledMessages();
 
             TransformModel transformmodel = new TransformModel();
             this.Copy(transformmodel);

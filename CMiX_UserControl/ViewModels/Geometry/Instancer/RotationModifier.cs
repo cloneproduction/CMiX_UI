@@ -1,24 +1,22 @@
-﻿using System;
-using System.Windows;
-using System.Collections.ObjectModel;
-using CMiX.MVVM.ViewModels;
+﻿using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
 using Memento;
+using System;
+using System.Windows;
 
 namespace CMiX.ViewModels
 {
-    [Serializable]
-    public class RotationModifier : SendableViewModel
+    public class RotationModifier : ViewModel, ISendable, IUndoable
     {
-        public RotationModifier(string messageaddress, ObservableCollection<ServerValidation> serverValidations, Mementor mementor, Beat beat)
-            : base(serverValidations, mementor)
+        public RotationModifier(string messageaddress, MessageService messageService, Mementor mementor, Beat beat)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(RotationModifier));
-
-            Rotation = new AnimParameter(MessageAddress + nameof(Rotation), serverValidations, mementor, beat, true);
-            RotationX = new AnimParameter(MessageAddress + nameof(RotationX), serverValidations, mementor, beat, false);
-            RotationY = new AnimParameter(MessageAddress + nameof(RotationY), serverValidations, mementor, beat, false);
-            RotationZ = new AnimParameter(MessageAddress + nameof(RotationZ), serverValidations, mementor, beat, false);
+            MessageService = messageService;
+            Rotation = new AnimParameter(MessageAddress + nameof(Rotation), messageService, mementor, beat, true);
+            RotationX = new AnimParameter(MessageAddress + nameof(RotationX), messageService, mementor, beat, false);
+            RotationY = new AnimParameter(MessageAddress + nameof(RotationY), messageService, mementor, beat, false);
+            RotationZ = new AnimParameter(MessageAddress + nameof(RotationZ), messageService, mementor, beat, false);
         }
 
         #region PROPERTIES
@@ -26,6 +24,9 @@ namespace CMiX.ViewModels
         public AnimParameter RotationX { get; set; }
         public AnimParameter RotationY { get; set; }
         public AnimParameter RotationZ { get; set; }
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get; set; }
+        public Mementor Mementor { get; set; }
         #endregion
 
         #region METHODS
@@ -56,7 +57,7 @@ namespace CMiX.ViewModels
             if (data.GetDataPresent("RotationModifierModel"))
             {
                 Mementor.BeginBatch();
-                DisabledMessages();
+                MessageService.DisabledMessages();
 
                 var Rotationmodifiermodel = data.GetData("RotationModifierModel") as RotationModifierModel;
                 var messageaddress = MessageAddress;
@@ -64,7 +65,7 @@ namespace CMiX.ViewModels
                 UpdateMessageAddress(messageaddress);
                 this.Copy(Rotationmodifiermodel);
 
-                EnabledMessages();
+                MessageService.EnabledMessages();
                 Mementor.EndBatch();
                 //SendMessages(MessageAddress, Rotationmodifiermodel);
                 //QueueObjects(Rotationmodifiermodel);
@@ -93,7 +94,7 @@ namespace CMiX.ViewModels
 
         public void Paste(RotationModifierModel Rotationmodifiermodel)
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
 
             MessageAddress = Rotationmodifiermodel.MessageAddress;
 
@@ -102,19 +103,19 @@ namespace CMiX.ViewModels
             RotationY.Paste(Rotationmodifiermodel.RotationY);
             RotationZ.Paste(Rotationmodifiermodel.RotationZ);
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
         }
 
         public void Reset()
         {
-            DisabledMessages();
+            MessageService.DisabledMessages();
 
             Rotation.Reset();
             RotationX.Reset();
             RotationY.Reset();
             RotationZ.Reset();
 
-            EnabledMessages();
+            MessageService.EnabledMessages();
 
             RotationModifierModel Rotationmodifiermodel = new RotationModifierModel();
             this.Copy(Rotationmodifiermodel);
