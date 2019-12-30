@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using CMiX.MVVM.ViewModels;
+﻿using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
-using Memento;
-using CMiX.MVVM;
 using CMiX.MVVM.Services;
+using Memento;
 
 namespace CMiX.ViewModels
 {
@@ -14,6 +11,9 @@ namespace CMiX.ViewModels
         public Layer(MasterBeat masterBeat, string messageAddress,  MessageService messageService, Mementor mementor) 
         {
             MessageAddress =  messageAddress;
+            MessageService = messageService;
+            Mementor = mementor;
+
             Enabled = false;
             LayerName = messageAddress;           
 
@@ -22,28 +22,11 @@ namespace CMiX.ViewModels
 
             Content = new Content(masterBeat, MessageAddress, messageService, mementor);
             Mask = new Mask(masterBeat, MessageAddress, messageService, mementor);
-            LayerControls = new ObservableCollection<ViewModel>();
-            LayerControls.Add(Content);
-            LayerControls.Add(Mask);
-
             PostFX = new PostFX(MessageAddress, messageService, mementor);
         }
         #endregion
 
         #region PROPERTIES
-        private int _selectedLayerControlIndex;
-        public int SelectedLayerControlIndex
-        {
-            get { return _selectedLayerControlIndex; }
-            set { _selectedLayerControlIndex = value; }
-        }
-
-        private ObservableCollection<ViewModel> _layerControls;
-        public ObservableCollection<ViewModel> LayerControls
-        {
-            get => _layerControls;
-            set => SetAndNotify(ref _layerControls, value);
-        }
 
         private string _layername;
         public string LayerName
@@ -87,27 +70,15 @@ namespace CMiX.ViewModels
             }
         }
 
-        private ViewModel _selectedEntityContext;
-        public ViewModel SelectedEntityContext
-        {
-            get => _selectedEntityContext;
-            set
-            {
-                SetAndNotify(ref _selectedEntityContext, value);
-                Console.WriteLine("SelectedEntityContext " + value.GetType().ToString());
-            }
-
-        }
-
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get; set; }
+        public Mementor Mementor { get; set; }
 
         public Slider Fade { get; }
         public Content Content { get; }
         public Mask Mask { get; }
         public PostFX PostFX { get; }
         public BlendMode BlendMode { get; }
-        public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
-        public Mementor Mementor { get; set; }
         #endregion
 
         #region METHODS
@@ -120,28 +91,6 @@ namespace CMiX.ViewModels
             Content.UpdateMessageAddress($"{MessageAddress}{nameof(Content)}/");
             Mask.UpdateMessageAddress($"{MessageAddress}{nameof(Mask)}/");
             PostFX.UpdateMessageAddress($"{MessageAddress}{nameof(PostFX)}/");
-        }
-
-        public void AssignEntityToLayerControl(Entity entity)
-        {
-            var currentLayerControl = LayerControls[SelectedLayerControlIndex];
-
-            if(currentLayerControl != null)
-            {
-                if(currentLayerControl is IEntityContext)
-                {
-                    var c = currentLayerControl as IEntityContext;
-                    c.Entities.Add(entity);
-                    Console.WriteLine("entity added to " + c.GetType().ToString());
-                }
-            }
-            foreach (var layerControl in LayerControls)
-            {
-                if(layerControl is IEntityContext)
-                {
-
-                }
-            }
         }
         #endregion
 

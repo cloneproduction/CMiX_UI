@@ -17,8 +17,10 @@ namespace CMiX.ColorPicker.ViewModels
         #region CONSTRUCTORS
         public ColorPicker(string messageaddress, MessageService messageService, Mementor mementor)
         {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(ColorPicker));
+            MessageAddress = $"{messageaddress}{nameof(ColorPicker)}/";
             MessageService = messageService;
+            Mementor = mementor;
+
             SelectedColor = Color.FromArgb(255, 255, 0, 0);
             Red = SelectedColor.R;
             Green = SelectedColor.G;

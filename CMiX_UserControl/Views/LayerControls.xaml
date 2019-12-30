@@ -10,7 +10,7 @@
     mc:Ignorable="d">
 
     <Border>
-        <TabControl SelectedIndex="{Binding SelectedLayerControlIndex}">
+        <TabControl>
             <TabItem Width="100" Height="30" Header="Content">
                     <Views:Content                 
                         Grid.Column="0" 

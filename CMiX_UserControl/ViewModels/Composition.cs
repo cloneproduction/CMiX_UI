@@ -30,7 +30,6 @@ namespace CMiX.ViewModels
             Mementor = new Mementor();
 
             Transition = new Slider("/Transition", MessageService, Mementor);
-            //ContentFolderName = string.Empty;
             MasterBeat = new MasterBeat(MessageService);
             Camera = new Camera(MessageService, MasterBeat, Mementor);
 
@@ -48,6 +47,7 @@ namespace CMiX.ViewModels
             ResetLayerCommand = new RelayCommand(p => ResetLayer());
 
             AddEntityCommand = new RelayCommand(p => AddEntity(p));
+            DeleteEntityCommand = new RelayCommand(p => DeleteEntity(p));
         }
         #endregion
 
@@ -69,7 +69,7 @@ namespace CMiX.ViewModels
         public ICommand DuplicateLayerCommand { get; }
 
         public ICommand AddEntityCommand { get; set; }
-
+        public ICommand DeleteEntityCommand { get; set; }
         #endregion
 
         public EntityFactory EntityFactory { get; set; }
@@ -128,16 +128,28 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PUBLIC METHODS
-        public  void AddEntity(object layerControl)
+        public void AddEntity(object layerControl)
         {
-            Console.WriteLine("AddEntity From Composition");
             if (layerControl != null)
             {
-                var lc = layerControl as IEntityContext;
-                BeatModifier bm = new BeatModifier("testMessageAddress", this.MasterBeat, MessageService, Mementor);
-                var entity = EntityFactory.CreateEntity(bm, "testMessageAddress", MessageService, Mementor);
+                var lc = layerControl as ISendableEntityContext;
+                BeatModifier bm = new BeatModifier(lc.MessageAddress, this.MasterBeat, MessageService, Mementor);
+                var entity = EntityFactory.CreateEntity(bm, lc.MessageAddress, MessageService, Mementor);
                 lc.Entities.Add(entity);
-                Console.WriteLine("Added Entity from Composition");
+                lc.SelectedEntity = entity;
+            }
+        }
+
+        public void DeleteEntity(object layerControl)
+        {
+            if (layerControl != null)
+            {
+                var lc = layerControl as ISendableEntityContext;
+                lc.Entities.Remove(lc.SelectedEntity);
+                if (lc.Entities.Count > 0)
+                    lc.SelectedEntity = lc.Entities[lc.Entities.Count - 1];
+                else
+                    lc.SelectedEntity = null;
             }
         }
 

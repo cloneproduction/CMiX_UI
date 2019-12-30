@@ -16,6 +16,7 @@ namespace CMiX.ViewModels
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Coloration));
             MessageService = messageService;
+            Mementor = mementor;
 
             BeatModifier = new BeatModifier(MessageAddress, masterbeat, messageService, mementor);
             ColorSelector = new ColorSelector(MessageAddress, messageService, mementor);

@@ -16,15 +16,17 @@ namespace CMiX.ViewModels
         {
 
         }
-
+        //https://stackoverflow.com/questions/731294/generating-the-next-available-unique-name-in-c-sharp
         public Entity(Beat masterbeat, int id, string messageAddress, MessageService messageService, Mementor mementor)
         {
             MessageAddress = $"{messageAddress}Entity{id.ToString()}/";
+            Mementor = mementor;
 
             Enable = true;
             ID = id;
             Name = "Entity" + id;
-
+            count++;
+            Console.WriteLine(count.ToString());
             BeatModifier = new BeatModifier(MessageAddress, masterbeat, messageService, mementor);
             Geometry = new Geometry(MessageAddress, messageService, mementor, masterbeat);
             Texture = new Texture(MessageAddress, messageService, mementor);
@@ -55,6 +57,7 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
+        private static int count = 0;
         public ICommand CopyEntityCommand { get; }
         public ICommand PasteEntityCommand { get; }
         public ICommand ResetEntityCommand { get; }

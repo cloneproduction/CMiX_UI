@@ -16,6 +16,7 @@ namespace CMiX.ViewModels
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(ColorSelector));
             MessageService = messageService;
+            Mementor = mementor;
             ColorPicker = new ColorPicker.ViewModels.ColorPicker(MessageAddress, messageService, mementor);
 
             CopyColorSelectorCommand = new RelayCommand(p => CopyColorSelector());
