@@ -52,8 +52,8 @@ namespace CMiX.ViewModels
             }
         }
 
-        public string MessageAddress { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-        public MessageService MessageService { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+        public string MessageAddress { get ; set ; }
+        public MessageService MessageService { get; set; }
 
         public void UpdateMessageAddress(string messageaddress)
         {

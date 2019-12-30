@@ -22,9 +22,9 @@ namespace CMiX.ViewModels
         public Slider ScaleX { get; set; }
         public Slider ScaleY { get; set; }
         public Slider ScaleZ { get; set; }
-        public string MessageAddress { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public MessageService MessageService { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Mementor Mementor { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string MessageAddress { get ; set; }
+        public MessageService MessageService { get; set; }
+        public Mementor Mementor { get; set; }
 
         public void UpdateMessageAddress(string messageaddress)
         {

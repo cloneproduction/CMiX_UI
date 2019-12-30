@@ -25,9 +25,9 @@ namespace CMiX.ViewModels
         public AnimParameter TranslateX { get; set; }
         public AnimParameter TranslateY { get; set; }
         public AnimParameter TranslateZ { get; set; }
-        public string MessageAddress { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public MessageService MessageService { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Mementor Mementor { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get; set; }
+        public Mementor Mementor { get; set; }
         #endregion
 
         #region METHODS
