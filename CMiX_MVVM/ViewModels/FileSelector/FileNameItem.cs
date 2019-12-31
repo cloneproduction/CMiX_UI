@@ -13,7 +13,7 @@ namespace CMiX.MVVM.ViewModels
 
         }
 
-        public FileNameItem(string messageaddress, MessageService messageService)
+        public FileNameItem(string messageaddress, Messenger messenger)
         {
             MessageAddress = messageaddress + "Selected";
         }
@@ -42,7 +42,7 @@ namespace CMiX.MVVM.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
+        public Messenger Messenger { get; set; }
         #endregion
 
         public void UpdateMessageAddress(string messageaddress)
@@ -60,13 +60,13 @@ namespace CMiX.MVVM.ViewModels
 
         public void Paste(FileNameItemModel filenameitemmodel)
         {
-            MessageService.EnabledMessages();
+            Messenger.Enable();
 
             MessageAddress = filenameitemmodel.MessageAddress;
             FileName = filenameitemmodel.FileName;
             FileIsSelected = filenameitemmodel.FileIsSelected;
 
-            MessageService.EnabledMessages();
+            Messenger.Enable();
         }
         #endregion
     }

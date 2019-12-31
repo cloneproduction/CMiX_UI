@@ -1,10 +1,4 @@
-﻿using CMiX.MVVM.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CMiX.MVVM.Message;
+﻿using CMiX.MVVM.Message;
 using CMiX.MVVM.Commands;
 
 namespace CMiX.MVVM.ViewModels
@@ -18,16 +12,10 @@ namespace CMiX.MVVM.ViewModels
             Topic = topic;
             Enabled = true;
             NetMQServer = new NetMQServer(IP, Port);
-            NetMQServer.Start();
+            Start();
         }
 
         #region PROPERTIES
-        private bool _enabled;
-        public bool Enabled
-        {
-            get { return _enabled; }
-            set => SetAndNotify(ref _enabled, value);
-        }
 
         private string _name;
         public string Name
@@ -35,7 +23,6 @@ namespace CMiX.MVVM.ViewModels
             get => _name; 
             set => SetAndNotify(ref _name, value);
         }
-
 
         private string _ip;
         public string IP
@@ -50,15 +37,20 @@ namespace CMiX.MVVM.ViewModels
             get => _port;
             set => SetAndNotify(ref _port, value);
         }
-        #endregion
 
         public NetMQServer NetMQServer { get; set; }
         public string Topic { get; set; }
+        #endregion
 
         public void Send(string messageAddress, MessageCommand command, object parameter, object payload)
         {
             if(Enabled)
                 NetMQServer.SendObject(Topic, messageAddress, command, parameter, payload);
+        }
+
+        public void Start()
+        {
+            NetMQServer.Start();
         }
 
         public void Stop()

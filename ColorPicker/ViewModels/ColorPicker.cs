@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Windows.Media;
+﻿using System.Windows.Media;
+using System.Windows.Input;
+using Memento;
+using ColorMine.ColorSpaces;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
-using ColorMine.ColorSpaces;
-using Memento;
-using System.Windows.Input;
 using CMiX.MVVM.Commands;
 using CMiX.MVVM.Services;
 
@@ -15,10 +13,10 @@ namespace CMiX.ColorPicker.ViewModels
     public class ColorPicker : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public ColorPicker(string messageaddress, MessageService messageService, Mementor mementor)
+        public ColorPicker(string messageaddress, Messenger messenger, Mementor mementor)
         {
             MessageAddress = $"{messageaddress}{nameof(ColorPicker)}/";
-            MessageService = messageService;
+            Messenger = messenger;
             Mementor = mementor;
 
             SelectedColor = Color.FromArgb(255, 255, 0, 0);
@@ -62,7 +60,7 @@ namespace CMiX.ColorPicker.ViewModels
         {
             ColorPickerModel colorPickerModel = new ColorPickerModel();
             this.Copy(colorPickerModel);
-            MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, colorPickerModel);
+            Messenger.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, colorPickerModel);
         }
 
         private byte _red;
@@ -224,7 +222,7 @@ namespace CMiX.ColorPicker.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
+        public Messenger Messenger { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
@@ -265,7 +263,7 @@ namespace CMiX.ColorPicker.ViewModels
 
         public void Paste(ColorPickerModel colorpickermodel)
         {
-            MessageService.DisabledMessages();
+            Messenger.Disable();
 
             MessageAddress = colorpickermodel.MessageAddress;
             SelectedColor = Utils.HexStringToColor(colorpickermodel.SelectedColor);
@@ -273,7 +271,7 @@ namespace CMiX.ColorPicker.ViewModels
             Green = SelectedColor.G;
             Blue = SelectedColor.B;
 
-            MessageService.EnabledMessages();
+            Messenger.Enable();
         }
 
         public void Reset()

@@ -229,7 +229,7 @@
                             <Views:CompositionList Margin="0, 4, 0, 0" Grid.Row="2" DataContext="{Binding}"/>
                         </Grid>
                     </TabItem>
-                    <TabItem Header="OSC" Width="50" Height="20">
+                    <TabItem Header="SERVERS" Width="50" Height="20">
                         <Border
                             DockPanel.Dock="Right"
                             Margin="0, 4"
@@ -242,7 +242,7 @@
                                         <StackPanel Orientation="Horizontal">
                                             <Button
                                                 ToolTip="New Layer"
-                                                Command="{Binding Path=AddOSCCommand}"
+                                                Command="{Binding Path=MessageService.AddServerCommand}"
                                                 Width="15"
                                                 Height="15"
                                                 Style="{StaticResource ButtonImage}" >
@@ -258,8 +258,8 @@
                                         ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                                         Style="{StaticResource LayerListBox}"
                                         ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
-                                        ItemsSource="{Binding Servers}" 
-                                        SelectedItem="{Binding SelectedServer}"
+                                        ItemsSource="{Binding MessageService.Servers}" 
+                                        SelectedItem="{Binding MessageService.SelectedServer}"
                                         dd:DragDrop.IsDragSource="True"
                                         dd:DragDrop.IsDropTarget="True">
                                         <ListBox.ItemTemplate>
@@ -270,7 +270,7 @@
                                                             <MenuItem
                                                                 Padding="8, 4"
                                                                 Foreground="{StaticResource TextBase}"
-                                                                Command="{Binding Data.DeleteOSCCommand, Source={StaticResource proxy}}"
+                                                                Command="{Binding Data.MessageService.DeleteServerCommand, Source={StaticResource proxy}}"
                                                                 CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                                                                 <MenuItem.Header>
                                                                     <StackPanel Orientation="Horizontal">
@@ -283,7 +283,7 @@
                                                                             Margin="8, 0" 
                                                                             Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" 
                                                                             />
-                                                                        <TextBlock Text="Delete OSC"/>
+                                                                        <TextBlock Text="Delete Server"/>
                                                                     </StackPanel>
                                                                 </MenuItem.Header>
                                                             </MenuItem>

@@ -11,10 +11,10 @@ namespace CMiX.ViewModels
     public class GeometryTranslate : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public GeometryTranslate(string messageaddress, MessageService messageService, Mementor mementor) 
+        public GeometryTranslate(string messageaddress, Messenger messenger, Mementor mementor) 
         {
             MessageAddress = String.Format("{0}/", messageaddress);
-            MessageService = messageService;
+            Messenger = messenger;
         }
         #endregion
 
@@ -40,16 +40,16 @@ namespace CMiX.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
+        public Messenger Messenger { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
         public void Reset()
         {
-            MessageService.DisabledMessages();
+            Messenger.Disable();
             Mode = default;
-            MessageService.EnabledMessages();
+            Messenger.Enable();
         }
 
         public void Copy(GeometryTranslateModel geometrytranslatemodel)
@@ -60,10 +60,10 @@ namespace CMiX.ViewModels
 
         public void Paste(GeometryTranslateModel geometrytranslatemodel)
         {
-            MessageService.DisabledMessages();
+            Messenger.Disable();
             MessageAddress = geometrytranslatemodel.MessageAddress;
             Mode = geometrytranslatemodel.Mode;
-            MessageService.EnabledMessages();
+            Messenger.Enable();
         }
         #endregion
     }

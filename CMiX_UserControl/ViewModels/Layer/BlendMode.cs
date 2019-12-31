@@ -10,9 +10,10 @@ namespace CMiX.ViewModels
 {
     public class BlendMode : ViewModel, ISendable, IUndoable
     {
-        public BlendMode(MasterBeat masterBeat, string messageAddress, MessageService messageService, Mementor mementor)
+        public BlendMode(MasterBeat masterBeat, string messageAddress, Messenger messenger, Mementor mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageAddress, nameof(BlendMode));
+            Messenger = messenger;
             Mode = ((MVVM.ViewModels.BlendMode)0).ToString();
         }
 
@@ -27,12 +28,12 @@ namespace CMiX.ViewModels
                 SetAndNotify(ref _mode, value);
                 BlendModeModel blendModeModel = new BlendModeModel();
                 this.Copy(blendModeModel);
-                //MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, blendModeModel);
+                Messenger.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, blendModeModel);
             }
         }
 
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
+        public Messenger Messenger { get; set; }
         public Mementor Mementor { get; set; }
 
         public void UpdateMessageAddress(string messageaddress)

@@ -19,7 +19,7 @@ namespace CMiXPlayer.Jobs
             Name = name;
             Playlist = playlist;
             Device = device;
-            OSCMessenger = device.OSCMessenger;
+            //OSCMessenger = device.OSCMessenger;
 
             SendNextCommand = new RelayCommand(p => SendNext());
             SendPreviousCommand = new RelayCommand(p => SendPrevious());

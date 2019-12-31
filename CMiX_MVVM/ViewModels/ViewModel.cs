@@ -15,11 +15,11 @@ namespace CMiX.MVVM.ViewModels
         #endregion
 
         #region PROPERTIES
-        private bool _enable;
-        public bool Enable
+        private bool _enabled;
+        public bool Enabled
         {
-            get => _enable;
-            set => SetAndNotify(ref _enable, value);
+            get => _enabled;
+            set => SetAndNotify(ref _enabled, value);
         }
         #endregion
 

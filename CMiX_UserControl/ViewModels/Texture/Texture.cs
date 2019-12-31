@@ -2,10 +2,9 @@
 using System.Windows;
 using System.Windows.Input;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using Memento;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
-using Memento;
 using CMiX.MVVM.Services;
 
 namespace CMiX.ViewModels
@@ -13,44 +12,44 @@ namespace CMiX.ViewModels
     public class Texture : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Texture(string messageaddress, MessageService messageService, Mementor mementor)
+        public Texture(string messageaddress, Messenger messenger, Mementor mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Texture));
 
-            FileSelector = new FileSelector(MessageAddress,  "Single", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, messageService, mementor);
-            FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress, messageService) { FileIsSelected = true, FileName = "Black (default).png" });
-            FileSelector.SelectedFileNameItem = new FileNameItem(string.Empty, FileSelector.MessageAddress, messageService) { FileIsSelected = true, FileName = "Black (default).png" };
+            FileSelector = new FileSelector(MessageAddress,  "Single", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, messenger, mementor);
+            FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress, messenger) { FileIsSelected = true, FileName = "Black (default).png" });
+            FileSelector.SelectedFileNameItem = new FileNameItem(string.Empty, FileSelector.MessageAddress, messenger) { FileIsSelected = true, FileName = "Black (default).png" };
 
-            Brightness = new Slider(MessageAddress + nameof(Brightness), messageService, mementor);
+            Brightness = new Slider(MessageAddress + nameof(Brightness), messenger, mementor);
             Brightness.Minimum = -1.0;
 
-            Contrast = new Slider(MessageAddress + nameof(Contrast), messageService, mementor);
+            Contrast = new Slider(MessageAddress + nameof(Contrast), messenger, mementor);
             Contrast.Minimum = -1.0;
 
-            Invert = new Slider(MessageAddress + nameof(Invert), messageService, mementor);
+            Invert = new Slider(MessageAddress + nameof(Invert), messenger, mementor);
             InvertMode = ((TextureInvertMode)0).ToString();
 
-            Hue = new Slider(MessageAddress + nameof(Hue), messageService, mementor);
+            Hue = new Slider(MessageAddress + nameof(Hue), messenger, mementor);
             Hue.Minimum = -1.0;
 
-            Saturation = new Slider(MessageAddress + nameof(Saturation), messageService, mementor);
+            Saturation = new Slider(MessageAddress + nameof(Saturation), messenger, mementor);
             Saturation.Minimum = -1.0;
 
-            Luminosity = new Slider(MessageAddress + nameof(Luminosity), messageService, mementor);
+            Luminosity = new Slider(MessageAddress + nameof(Luminosity), messenger, mementor);
             Luminosity.Minimum = -1.0;
 
-            Keying = new Slider(MessageAddress + nameof(Keying), messageService, mementor);
+            Keying = new Slider(MessageAddress + nameof(Keying), messenger, mementor);
 
-            Scale = new Slider(MessageAddress + nameof(Scale), messageService, mementor);
+            Scale = new Slider(MessageAddress + nameof(Scale), messenger, mementor);
             Scale.Minimum = -1.0;
 
-            Rotate = new Slider(MessageAddress + nameof(Rotate), messageService, mementor);
+            Rotate = new Slider(MessageAddress + nameof(Rotate), messenger, mementor);
             Rotate.Minimum = -1.0;
 
-            Pan = new Slider(MessageAddress + nameof(Pan), messageService, mementor);
+            Pan = new Slider(MessageAddress + nameof(Pan), messenger, mementor);
             Pan.Minimum = -1.0;
 
-            Tilt = new Slider(MessageAddress + nameof(Tilt), messageService, mementor);
+            Tilt = new Slider(MessageAddress + nameof(Tilt), messenger, mementor);
             Tilt.Minimum = -1.0;
 
             CopyTextureCommand = new RelayCommand(p => CopyTexture());
@@ -111,7 +110,7 @@ namespace CMiX.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
+        public Messenger Messenger { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
@@ -136,7 +135,7 @@ namespace CMiX.ViewModels
 
         public void Paste(TextureModel texturemodel)
         {
-            MessageService.DisabledMessages();
+            Messenger.Disable();
 
             MessageAddress = texturemodel.MessageAddress;
             FileSelector.Paste(texturemodel.FileSelector);
@@ -153,13 +152,13 @@ namespace CMiX.ViewModels
             Invert.Paste(texturemodel.Invert);
             InvertMode = texturemodel.InvertMode;
 
-            MessageService.EnabledMessages();
+            Messenger.Enable();
         }
 
 
         public void Reset()
         {
-            MessageService.DisabledMessages();
+            Messenger.Disable();
 
             InvertMode = ((TextureInvertMode)0).ToString();
             FileSelector.Reset();
@@ -175,7 +174,7 @@ namespace CMiX.ViewModels
             Pan.Reset();
             Tilt.Reset();
 
-            MessageService.EnabledMessages();
+            Messenger.Enable();
         }
 
         public void CopyTexture()
@@ -193,7 +192,7 @@ namespace CMiX.ViewModels
             if (data.GetDataPresent("TextureModel"))
             {
                 Mementor.BeginBatch();
-                MessageService.DisabledMessages();
+                Messenger.Disable();
 
                 var texturemodel = data.GetData("TextureModel") as TextureModel;
                 var texturemessageaddress = MessageAddress;
@@ -201,12 +200,9 @@ namespace CMiX.ViewModels
                 UpdateMessageAddress(texturemessageaddress);
                 this.Copy(texturemodel);
 
-                MessageService.EnabledMessages();
+                Messenger.Enable();
                 Mementor.EndBatch();
-
                 //SendMessages(nameof(TextureModel), texturemodel);
-                //QueueObjects(texturemodel);
-                //SendQueues();
             }
         }
 
@@ -216,8 +212,6 @@ namespace CMiX.ViewModels
             this.Reset();
             this.Copy(texturemodel);
             //SendMessages(nameof(TextureModel), texturemodel);
-            //QueueObjects(texturemodel);
-            //SendQueues();
         }
         #endregion
     }

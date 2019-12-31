@@ -8,21 +8,21 @@ namespace CMiX.ViewModels
     public class Layer : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Layer(MasterBeat masterBeat, string messageAddress,  MessageService messageService, Mementor mementor) 
+        public Layer(MasterBeat masterBeat, string messageAddress,  Messenger messenger, Mementor mementor) 
         {
             MessageAddress =  messageAddress;
-            MessageService = messageService;
+            Messenger = messenger;
             Mementor = mementor;
 
             Enabled = false;
             LayerName = messageAddress;           
 
-            BlendMode = new BlendMode(masterBeat, MessageAddress, messageService, mementor);
-            Fade = new Slider(MessageAddress + nameof(Fade), messageService, mementor);
+            BlendMode = new BlendMode(masterBeat, MessageAddress, messenger, mementor);
+            Fade = new Slider(MessageAddress + nameof(Fade), messenger, mementor);
 
-            Content = new Content(masterBeat, MessageAddress, messageService, mementor);
-            Mask = new Mask(masterBeat, MessageAddress, messageService, mementor);
-            PostFX = new PostFX(MessageAddress, messageService, mementor);
+            Content = new Content(masterBeat, MessageAddress, messenger, mementor);
+            Mask = new Mask(masterBeat, MessageAddress, messenger, mementor);
+            PostFX = new PostFX(MessageAddress, messenger, mementor);
         }
         #endregion
 
@@ -49,13 +49,6 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _id, value);
         }
 
-        private bool _enabled;
-        public bool Enabled
-        {
-            get => _enabled;
-            set => SetAndNotify(ref _enabled, value);
-        }
-
         private bool _out;
         public bool Out
         {
@@ -71,7 +64,7 @@ namespace CMiX.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
+        public Messenger Messenger { get; set; }
         public Mementor Mementor { get; set; }
 
         public Slider Fade { get; }
@@ -111,7 +104,7 @@ namespace CMiX.ViewModels
 
         public void Paste(LayerModel layerModel)
         {
-            MessageService.DisabledMessages();
+            Messenger.Disable();
 
             MessageAddress = layerModel.MessageAddress;
             LayerName = layerModel.LayerName;
@@ -125,7 +118,7 @@ namespace CMiX.ViewModels
             Mask.Paste(layerModel.MaskModel);
             PostFX.Paste(layerModel.PostFXModel);
 
-            MessageService.EnabledMessages();
+            Messenger.Enable();
         }
 
         public void Reset()

@@ -14,13 +14,13 @@ namespace CMiX.ViewModels
     public class Content : ViewModel, ISendableEntityContext, IUndoable
     {
         #region CONSTRUCTORS
-        public Content(Beat masterbeat, string messageAddress, MessageService messageService, Mementor mementor) 
+        public Content(Beat masterbeat, string messageAddress, Messenger messenger, Mementor mementor) 
         {
             MessageAddress = String.Format($"{messageAddress}{nameof(Content)}/");
-            Enable = true;
+            Enabled = true;
 
-            BeatModifier = new BeatModifier(MessageAddress, masterbeat, messageService, mementor);
-            PostFX = new PostFX(MessageAddress, messageService, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, masterbeat, messenger, mementor);
+            PostFX = new PostFX(MessageAddress, messenger, mementor);
             Entities = new ObservableCollection<Entity>();
 
             CopyContentCommand = new RelayCommand(p => CopyContent());
@@ -30,8 +30,6 @@ namespace CMiX.ViewModels
         #endregion
 
         #region METHODS
-
-
         public void UpdateMessageAddress(string messageAddress)
         {
             MessageAddress = messageAddress;
@@ -46,7 +44,11 @@ namespace CMiX.ViewModels
         public ICommand PasteContentCommand { get; }
         public ICommand ResetContentCommand { get; }
 
-        public ObservableCollection<Entity> Entities { get; set; }
+        public BeatModifier BeatModifier { get; }
+        public PostFX PostFX { get; }
+        public string MessageAddress { get; set; }
+        public Messenger Messenger { get; set; }
+        public Mementor Mementor { get; set; }
 
         private Entity _selectedEntity;
         public Entity SelectedEntity
@@ -55,20 +57,14 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _selectedEntity, value);
         }
 
-        public BeatModifier BeatModifier { get; }
-        public PostFX PostFX { get; }
-        public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
-        public Mementor Mementor { get; set; }
-        
-
+        public ObservableCollection<Entity> Entities { get; set; }
         #endregion
 
         #region COPY/PASTE
         public void Copy(ContentModel contentModel)
         {
             contentModel.MessageAddress = MessageAddress;
-            contentModel.Enable = Enable;
+            contentModel.Enable = Enabled;
 
             foreach (Entity obj in Entities)
             {
@@ -83,26 +79,26 @@ namespace CMiX.ViewModels
 
         public void Paste(ContentModel contentModel)
         {
-            MessageService.DisabledMessages();
+            Messenger.Disable();
 
             this.MessageAddress = contentModel.MessageAddress;
-            this.Enable = contentModel.Enable;
+            this.Enabled = contentModel.Enable;
 
             this.BeatModifier.Paste(contentModel.BeatModifierModel);
             this.PostFX.Paste(contentModel.PostFXModel);
 
-            MessageService.EnabledMessages();
+            Messenger.Enable();
         }
 
         public void Reset()
         {
-            MessageService.DisabledMessages();
+            Messenger.Disable();
 
-            this.Enable = true;
+            this.Enabled = true;
             this.BeatModifier.Reset();
             this.PostFX.Reset();
 
-            MessageService.EnabledMessages();
+            Messenger.Enable();
         }
 
         #region COPYPASTE CONTENT
@@ -121,17 +117,17 @@ namespace CMiX.ViewModels
             if (data.GetDataPresent("ContentModel"))
             {
                 this.Mementor.BeginBatch();
-                MessageService.DisabledMessages();
+                Messenger.Disable();
 
                 var contentModel = data.GetData("ContentModel") as ContentModel;
                 var contentmessageaddress = MessageAddress;
                 this.Paste(contentModel);
                 this.UpdateMessageAddress(contentmessageaddress);
 
-                MessageService.EnabledMessages();
+                Messenger.Enable();
                 this.Mementor.EndBatch();
 
-                MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, contentModel);
+                Messenger.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, contentModel);
             }
         }
 
@@ -140,7 +136,7 @@ namespace CMiX.ViewModels
             ContentModel contentModel = new ContentModel();
             this.Reset();
             this.Copy(contentModel);
-            MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, contentModel);
+            Messenger.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, contentModel);
         }
         #endregion
 

@@ -12,18 +12,18 @@ namespace CMiX.ViewModels
     public class Coloration : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Coloration(string messageaddress, MessageService messageService, Mementor mementor, Beat masterbeat) 
+        public Coloration(string messageaddress, Messenger messenger, Mementor mementor, Beat masterbeat) 
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Coloration));
-            MessageService = messageService;
+            Messenger = messenger;
             Mementor = mementor;
 
-            BeatModifier = new BeatModifier(MessageAddress, masterbeat, messageService, mementor);
-            ColorSelector = new ColorSelector(MessageAddress, messageService, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, masterbeat, messenger, mementor);
+            ColorSelector = new ColorSelector(MessageAddress, messenger, mementor);
 
-            Hue = new RangeControl(MessageAddress + nameof(Hue), messageService, mementor);
-            Saturation = new RangeControl(MessageAddress + nameof(Saturation), messageService, mementor);
-            Value = new RangeControl(MessageAddress + nameof(Value), messageService, mementor);
+            Hue = new RangeControl(MessageAddress + nameof(Hue), messenger, mementor);
+            Saturation = new RangeControl(MessageAddress + nameof(Saturation), messenger, mementor);
+            Value = new RangeControl(MessageAddress + nameof(Value), messenger, mementor);
 
             CopyColorationCommand = new RelayCommand(p => CopyColoration());
             PasteColorationCommand = new RelayCommand(p => PasteColoration());
@@ -46,7 +46,7 @@ namespace CMiX.ViewModels
         public RangeControl Saturation { get; }
         public RangeControl Value { get; }
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
+        public Messenger Messenger { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
@@ -76,7 +76,7 @@ namespace CMiX.ViewModels
 
         public void Paste(ColorationModel colorationmodel)
         {
-            MessageService.DisabledMessages();
+            Messenger.Disable();
 
             MessageAddress = colorationmodel.MessageAddress;
             ColorSelector.Paste(colorationmodel.ColorSelectorModel);
@@ -85,12 +85,12 @@ namespace CMiX.ViewModels
             Saturation.Paste(colorationmodel.SatDTO);
             Value.Paste(colorationmodel.ValDTO);
 
-            MessageService.EnabledMessages();
+            Messenger.Enable();
         }
 
         public void Reset()
         {
-            MessageService.DisabledMessages();
+            Messenger.Disable();
 
             ColorSelector.Reset();
             BeatModifier.Reset();
@@ -98,7 +98,7 @@ namespace CMiX.ViewModels
             Saturation.Reset();
             Value.Reset();
 
-            MessageService.EnabledMessages();
+            Messenger.Enable();
         }
 
         public void CopyColoration()
@@ -116,7 +116,7 @@ namespace CMiX.ViewModels
             if (data.GetDataPresent("ColorationModel"))
             {
                 this.Mementor.BeginBatch();
-                this.MessageService.DisabledMessages();
+                this.Messenger.Disable();
 
                 var colorationmodel = data.GetData("ColorationModel") as ColorationModel;
                 var colorationmessageaddress = MessageAddress;
@@ -124,12 +124,10 @@ namespace CMiX.ViewModels
                 this.UpdateMessageAddress(colorationmessageaddress);
 
                 this.Copy(colorationmodel);
-                this.MessageService.EnabledMessages();
+                this.Messenger.Enable();
                 this.Mementor.EndBatch();
 
                 //SendMessages(nameof(ColorationModel), colorationmodel);
-                //this.QueueObjects(colorationmodel);
-                //this.SendQueues();
             }
         }
 
@@ -139,8 +137,6 @@ namespace CMiX.ViewModels
             this.Reset();
             this.Copy(colorationmodel);
             //SendMessages(nameof(Coloration), colorationmodel);
-            //QueueObjects(colorationmodel);
-            //SendQueues();
         }
         #endregion
     }

@@ -28,12 +28,6 @@ namespace CMiX.MVVM.ViewModels
 
         public ICommand ReloadCommand { get; }
 
-        private bool _enabled;
-        public bool Enabled
-        {
-            get { return _enabled; }
-            set => SetAndNotify(ref _enabled, value);
-        }
 
         private string _name;
         public string Name

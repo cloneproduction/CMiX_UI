@@ -6,9 +6,9 @@ using System.Windows;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Commands;
+using CMiX.MVVM.Services;
 using Memento;
 using GongSolutions.Wpf.DragDrop;
-using CMiX.MVVM.Services;
 
 namespace CMiX.ViewModels
 {
@@ -16,29 +16,27 @@ namespace CMiX.ViewModels
     {
 
         #region CONSTRUCTORS
-        public Composition(ObservableCollection<Server> servers, Assets assets)
+        public Composition(Messenger messenger, EntityFactory entityFactory, Assets assets, Mementor mementor)
         {
             Name = string.Empty;
+
             MessageAddress = "/Composition";
-            MessageService = new MessageService();
-
-            EntityFactory = new EntityFactory();
-            CreateServerValidation(servers);
-
+            Messenger = messenger;
+            EntityFactory = entityFactory;
             Assets = assets;
-            Layers = new ObservableCollection<Layer>();
-            Mementor = new Mementor();
+            Mementor = mementor;
 
-            Transition = new Slider("/Transition", MessageService, Mementor);
-            MasterBeat = new MasterBeat(MessageService);
-            Camera = new Camera(MessageService, MasterBeat, Mementor);
+            Layers = new ObservableCollection<Layer>();
+
+            Transition = new Slider("/Transition", messenger, Mementor);
+            MasterBeat = new MasterBeat(messenger);
+            Camera = new Camera(messenger, MasterBeat, Mementor);
 
             string messageAddress = CreateLayerMessageAddress();
             CreateLayer(messageAddress, LayerID);
 
             ReloadCompositionCommand = new RelayCommand(p => ReloadComposition(p));
-            ReloadAllOSCCommand = new RelayCommand(p => ReloadAllOSC());
-            ResetAllOSCCommand = new RelayCommand(p => ResetAllOSC());
+
             AddLayerCommand = new RelayCommand(p => AddLayer());
             DeleteLayerCommand = new RelayCommand(p => DeleteLayer());
             DuplicateLayerCommand = new RelayCommand(p => DuplicateLayer());
@@ -52,11 +50,7 @@ namespace CMiX.ViewModels
         #endregion
 
         #region PROPERTIES
-
-        #region COMMANDS
         public ICommand ReloadCompositionCommand { get; }
-        public ICommand ResetAllOSCCommand { get; }
-        public ICommand ReloadAllOSCCommand { get; }
 
         public ICommand AddLayerCommand { get; }
         public ICommand CopyLayerCommand { get; }
@@ -70,7 +64,7 @@ namespace CMiX.ViewModels
 
         public ICommand AddEntityCommand { get; set; }
         public ICommand DeleteEntityCommand { get; set; }
-        #endregion
+
 
         public EntityFactory EntityFactory { get; set; }
         public MasterBeat MasterBeat { get; set; }
@@ -78,6 +72,11 @@ namespace CMiX.ViewModels
         public Slider Transition { get; set; }
 
         public ObservableCollection<Layer> Layers { get; }
+
+        public string MessageAddress { get; set; }
+        public Messenger Messenger { get; set; }
+        public Mementor Mementor { get; set; }
+        public Assets Assets { get; set; }
 
         private int _LayerID = 0;
         public int LayerID
@@ -100,31 +99,12 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _name, value);
         }
 
-        private ObservableCollection<Entity> _entities;
-        public ObservableCollection<Entity> Entities
-        {
-            get { return _entities; }
-            set { _entities = value; }
-        }
-
-        private bool enabled;
-        public bool Enabled
-        {
-            get { return enabled; }
-            set { enabled = value; }
-        }
-
-        public Assets Assets { get; set; }
-
         private Layer _selectedlayer;
         public Layer SelectedLayer
         {
             get => _selectedlayer;
             set => SetAndNotify(ref _selectedlayer, value);
         }
-        public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
-        public Mementor Mementor { get; set; }
         #endregion
 
         #region PUBLIC METHODS
@@ -133,8 +113,8 @@ namespace CMiX.ViewModels
             if (layerControl != null)
             {
                 var lc = layerControl as ISendableEntityContext;
-                BeatModifier bm = new BeatModifier(lc.MessageAddress, this.MasterBeat, MessageService, Mementor);
-                var entity = EntityFactory.CreateEntity(bm, lc.MessageAddress, MessageService, Mementor);
+                BeatModifier bm = new BeatModifier(lc.MessageAddress, this.MasterBeat, Messenger, Mementor);
+                var entity = EntityFactory.CreateEntity(bm, lc.MessageAddress, Messenger, Mementor);
                 lc.Entities.Add(entity);
                 lc.SelectedEntity = entity;
             }
@@ -155,7 +135,7 @@ namespace CMiX.ViewModels
 
         public Layer CreateLayer(string messageAddress, int layerID)
         {
-            Layer layer = new Layer(MasterBeat, messageAddress, MessageService, Mementor)
+            Layer layer = new Layer(MasterBeat, messageAddress, Messenger, Mementor)
             {
                 ID = layerID,
                 DisplayName = "Layer " + layerID
@@ -187,48 +167,20 @@ namespace CMiX.ViewModels
             return LayerID;
         }
 
-        //public void UpdateLayerContentFolder(Layer layer)
-        //{
-        //    //layer.Content.Texture.FileSelector.FolderPath = ContentFolderName;
-        //    //layer.Content.Geometry.FileSelector.FolderPath = ContentFolderName;
-        //    //layer.Content.Geometry.GeometryFX.FileSelector.FolderPath = ContentFolderName;
-        //    layer.Mask.Texture.FileSelector.FolderPath = ContentFolderName;
-        //    layer.Mask.Geometry.FileSelector.FolderPath = ContentFolderName;
-        //}
         #endregion
 
         #region PRIVATE METHODS
         private string CreateLayerMessageAddress()
         {
-            return "/Layer" + LayerNameID.ToString() + "/";
-        }
-
-        private void CreateServerValidation(ObservableCollection<Server> servers)
-        {
-            foreach (var server in servers)
-            {
-                MessageService.ServerValidation.Add(new ServerValidation(server));
-            }
+            return $"/Layer{LayerNameID.ToString()}/";
         }
 
         private void ReloadComposition(object messenger)
         {
             CompositionModel compositionModel = new CompositionModel();
             this.Copy(compositionModel);
-            MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, compositionModel);
+            Messenger.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, compositionModel);
             Console.WriteLine("Composition Reloaded");
-        }
-
-        private void ReloadAllOSC()
-        {
-            foreach (var serverValidation in MessageService.ServerValidation)
-                ReloadComposition(serverValidation.Server);
-        }
-
-        private void ResetAllOSC()
-        {
-            //foreach (var serverValidation in ServerValidation)
-                //serverValidation.Server.Send("/CompositionReloaded", true);
         }
         #endregion
 
@@ -263,7 +215,7 @@ namespace CMiX.ViewModels
                 SelectedLayer.ID = selectedLayerID;
                 SelectedLayer.Copy(layerModel);
 
-                MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, layerModel);
+                Messenger.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, layerModel);
                 Mementor.EndBatch();
             }
         }
@@ -282,7 +234,7 @@ namespace CMiX.ViewModels
         public void AddLayer()
         {
             Mementor.BeginBatch();
-            MessageService.DisabledMessages();
+            Messenger.Disable();
 
             LayerID++;
             LayerNameID++;
@@ -291,12 +243,12 @@ namespace CMiX.ViewModels
             var layer = CreateLayer(messageAddress, LayerID);
 
             Mementor.ElementAdd(Layers, layer);
-            MessageService.EnabledMessages();
+            Messenger.Enable();
 
             LayerModel layerModel = new LayerModel();
             layer.Copy(layerModel);
 
-            MessageService.SendMessages(MessageAddress, MessageCommand.LAYER_ADD, null, layerModel);
+            Messenger.SendMessages(MessageAddress, MessageCommand.LAYER_ADD, null, layerModel);
 
             Mementor.EndBatch();
         }
@@ -308,7 +260,7 @@ namespace CMiX.ViewModels
             if(SelectedLayer != null)
             {
                 Mementor.BeginBatch();
-                MessageService.DisabledMessages();
+                Messenger.Disable();
 
                 var lyr = SelectedLayer;
                 LayerModel layermodel = new LayerModel();
@@ -335,10 +287,10 @@ namespace CMiX.ViewModels
                 Layers.Move(oldIndex, newIndex);
                 int[] movedIndex = new int[2] { oldIndex, newIndex };
 
-                MessageService.EnabledMessages();
+                Messenger.Enable();
                 Mementor.EndBatch();
 
-                MessageService.SendMessages(MessageAddress, MessageCommand.LAYER_DUPLICATE, movedIndex, layermodel);
+                Messenger.SendMessages(MessageAddress, MessageCommand.LAYER_DUPLICATE, movedIndex, layermodel);
             }
         }
 
@@ -347,7 +299,7 @@ namespace CMiX.ViewModels
             if(SelectedLayer != null)
             {
                 Mementor.BeginBatch();
-                MessageService.DisabledMessages();
+                Messenger.Disable();
 
                 Layer removedlayer = SelectedLayer as Layer;
                 int removedlayerindex = Layers.IndexOf(removedlayer);
@@ -367,10 +319,10 @@ namespace CMiX.ViewModels
                     LayerNameID = 0;
                 }
 
-                MessageService.EnabledMessages();
+                Messenger.Enable();
                 Mementor.EndBatch();
 
-                MessageService.SendMessages(MessageAddress, MessageCommand.LAYER_DELETE, null, removedlayerindex);
+                Messenger.SendMessages(MessageAddress, MessageCommand.LAYER_DELETE, null, removedlayerindex);
             }
         }
 
@@ -413,7 +365,7 @@ namespace CMiX.ViewModels
 
         public void Paste(CompositionModel compositionmodel)
         {
-            MessageService.DisabledMessages();
+            Messenger.Disable();
 
             MessageAddress = compositionmodel.MessageAddress;
             Name = compositionmodel.Name;
@@ -425,7 +377,7 @@ namespace CMiX.ViewModels
             Layers.Clear();
             foreach (LayerModel layermodel in compositionmodel.LayersModel)
             {
-                Layer layer = new Layer(MasterBeat, CreateLayerMessageAddress(), MessageService, Mementor);
+                Layer layer = new Layer(MasterBeat, CreateLayerMessageAddress(), Messenger, Mementor);
                 layer.Paste(layermodel);
                 Layers.Add(layer);
             }
@@ -435,7 +387,7 @@ namespace CMiX.ViewModels
             Camera.Paste(compositionmodel.CameraModel);
             Transition.Paste(compositionmodel.TransitionModel);
 
-            MessageService.EnabledMessages();
+            Messenger.Enable();
         }
         #endregion
 
@@ -473,7 +425,7 @@ namespace CMiX.ViewModels
 
                     int[] moveIndex = new int[2] { sourceindex, insertindex };
 
-                    MessageService.SendMessages(MessageAddress, MessageCommand.LAYER_MOVE, null, moveIndex);
+                    Messenger.SendMessages(MessageAddress, MessageCommand.LAYER_MOVE, null, moveIndex);
 
                     Mementor.EndBatch();
                 }

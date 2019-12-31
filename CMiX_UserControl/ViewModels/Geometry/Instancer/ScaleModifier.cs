@@ -10,14 +10,14 @@ namespace CMiX.ViewModels
     [Serializable]
     public class ScaleModifier : ViewModel, ISendable, IUndoable
     {
-        public ScaleModifier(string messageaddress, MessageService messageService, Mementor mementor, Beat beat)
+        public ScaleModifier(string messageaddress, Messenger messenger, Mementor mementor, Beat beat)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(ScaleModifier));
 
-            Scale = new AnimParameter(MessageAddress + nameof(Scale), messageService, mementor, beat, true);
-            ScaleX = new AnimParameter(MessageAddress + nameof(ScaleX), messageService, mementor, beat, false);
-            ScaleY = new AnimParameter(MessageAddress + nameof(ScaleY), messageService, mementor, beat, false);
-            ScaleZ = new AnimParameter(MessageAddress + nameof(ScaleZ), messageService, mementor, beat, false);
+            Scale = new AnimParameter(MessageAddress + nameof(Scale), messenger, mementor, beat, true);
+            ScaleX = new AnimParameter(MessageAddress + nameof(ScaleX), messenger, mementor, beat, false);
+            ScaleY = new AnimParameter(MessageAddress + nameof(ScaleY), messenger, mementor, beat, false);
+            ScaleZ = new AnimParameter(MessageAddress + nameof(ScaleZ), messenger, mementor, beat, false);
         }
 
         #region PROPERTIES
@@ -26,7 +26,7 @@ namespace CMiX.ViewModels
         public AnimParameter ScaleY { get; set; }
         public AnimParameter ScaleZ { get; set; }
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
+        public Messenger Messenger { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
@@ -58,7 +58,7 @@ namespace CMiX.ViewModels
             if (data.GetDataPresent("ScaleModifierModel"))
             {
                 Mementor.BeginBatch();
-                MessageService.DisabledMessages();
+                Messenger.Disable();
 
                 var Scalemodifiermodel = data.GetData("ScaleModifierModel") as ScaleModifierModel;
                 var messageaddress = MessageAddress;
@@ -66,7 +66,7 @@ namespace CMiX.ViewModels
                 UpdateMessageAddress(messageaddress);
                 this.Copy(Scalemodifiermodel);
 
-                MessageService.EnabledMessages();
+                Messenger.Enable();
                 Mementor.EndBatch();
                 //SendMessages(MessageAddress, Scalemodifiermodel);
                 //QueueObjects(Scalemodifiermodel);
@@ -95,7 +95,7 @@ namespace CMiX.ViewModels
 
         public void Paste(ScaleModifierModel Scalemodifiermodel)
         {
-            MessageService.DisabledMessages();
+            Messenger.Disable();
 
             MessageAddress = Scalemodifiermodel.MessageAddress;
 
@@ -104,19 +104,19 @@ namespace CMiX.ViewModels
             ScaleY.Paste(Scalemodifiermodel.ScaleY);
             ScaleZ.Paste(Scalemodifiermodel.ScaleZ);
 
-            MessageService.EnabledMessages();
+            Messenger.Enable();
         }
 
         public void Reset()
         {
-            MessageService.DisabledMessages();
+            Messenger.Disable();
 
             Scale.Reset();
             ScaleX.Reset();
             ScaleY.Reset();
             ScaleZ.Reset();
 
-            MessageService.EnabledMessages();
+            Messenger.Enable();
 
             ScaleModifierModel Scalemodifiermodel = new ScaleModifierModel();
             this.Copy(Scalemodifiermodel);

@@ -1,25 +1,24 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Windows;
-using CMiX.MVVM.ViewModels;
-using CMiX.MVVM.Models;
 using Memento;
 using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels;
+using CMiX.MVVM.Models;
 
 namespace CMiX.ViewModels
 {
     public class Translate : ViewModel, ISendable, IUndoable
     {
-        public Translate(string messageaddress, MessageService messageService, Mementor mementor)
+        public Translate(string messageaddress, Messenger messenger, Mementor mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Translate));
-            TranslateX = new Slider(MessageAddress + nameof(TranslateX), messageService, mementor);
+            TranslateX = new Slider(MessageAddress + nameof(TranslateX), messenger, mementor);
             TranslateX.Minimum = -1;
             TranslateX.Maximum = 1;
-            TranslateY = new Slider(MessageAddress + nameof(TranslateY), messageService, mementor);
+            TranslateY = new Slider(MessageAddress + nameof(TranslateY), messenger, mementor);
             TranslateY.Minimum = -1;
             TranslateY.Maximum = 1;
-            TranslateZ = new Slider(MessageAddress + nameof(TranslateZ), messageService, mementor);
+            TranslateZ = new Slider(MessageAddress + nameof(TranslateZ), messenger, mementor);
             TranslateZ.Minimum = -1;
             TranslateZ.Maximum = 1;
         }
@@ -28,15 +27,15 @@ namespace CMiX.ViewModels
         public Slider TranslateY { get; set; }
         public Slider TranslateZ { get; set; }
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
+        public Messenger Messenger { get; set; }
         public Mementor Mementor { get; set; }
 
         public void UpdateMessageAddress(string messageaddress)
         {
             MessageAddress = messageaddress;
-            TranslateX.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(TranslateX)));
-            TranslateY.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(TranslateY)));
-            TranslateZ.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(TranslateZ)));
+            TranslateX.UpdateMessageAddress($"{messageaddress}{nameof(TranslateX)}/");
+            TranslateY.UpdateMessageAddress($"{messageaddress}{nameof(TranslateY)}/");
+            TranslateZ.UpdateMessageAddress($"{messageaddress}{nameof(TranslateZ)}/");
         }
 
         #region COPY/PASTE/RESET
@@ -55,7 +54,7 @@ namespace CMiX.ViewModels
             if (data.GetDataPresent("TranslateModel"))
             {
                 Mementor.BeginBatch();
-                MessageService.DisabledMessages();
+                Messenger.Disable();
 
                 var translatemodel = data.GetData("TranslateModel") as TranslateModel;
                 var messageaddress = MessageAddress;
@@ -63,11 +62,9 @@ namespace CMiX.ViewModels
                 UpdateMessageAddress(messageaddress);
                 this.Copy(translatemodel);
 
-                MessageService.EnabledMessages();
+                Messenger.Enable();
                 Mementor.EndBatch();
                 //SendMessages(nameof(TranslateModel), translatemodel);
-                //QueueObjects(translatemodel);
-                //SendQueues();
             }
         }
 
@@ -77,8 +74,6 @@ namespace CMiX.ViewModels
             this.Reset();
             this.Copy(translatemodel);
             //this.SendMessages(nameof(TranslateModel), translatemodel);
-            //QueueObjects(translatemodel);
-            //SendQueues();
         }
 
         public void Copy(TranslateModel translatemodel)
@@ -91,18 +86,18 @@ namespace CMiX.ViewModels
 
         public void Paste(TranslateModel translatemodel)
         {
-            MessageService.DisabledMessages();
+            Messenger.Disable();
 
             MessageAddress = translatemodel.MessageAddress;
             TranslateX.Paste(translatemodel.TranslateX);
             TranslateY.Paste(translatemodel.TranslateY);
             TranslateZ.Paste(translatemodel.TranslateZ);
-            MessageService.EnabledMessages();
+            Messenger.Enable();
         }
 
         public void Reset()
         {
-            MessageService.DisabledMessages();
+            Messenger.Disable();
             //Mementor.BeginBatch();
 
             TranslateX.Reset();
@@ -110,13 +105,11 @@ namespace CMiX.ViewModels
             TranslateZ.Reset();
 
             //Mementor.EndBatch();
-            MessageService.EnabledMessages();
+            Messenger.Enable();
 
             TranslateModel translatemodel = new TranslateModel();
             this.Copy(translatemodel);
             //this.SendMessages(nameof(TranslateModel), translatemodel);
-            //QueueObjects(translatemodel);
-            //SendQueues();
         }
         #endregion
     }

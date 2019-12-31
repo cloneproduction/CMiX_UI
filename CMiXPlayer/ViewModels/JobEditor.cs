@@ -60,12 +60,13 @@ namespace CMiXPlayer.ViewModels
         #region PRIVATE METHODS
         private void CreateJob()
         {
-            if (SelectedPlaylist != null && SelectedDevice.OSCMessenger != null)
-            {
-                var j = new JobSendComposition(JobName, SelectedPlaylist, SelectedDevice);
-                RunningJobs.Add(j);
-                JobManager.AddJob(j, (s) => ToRunType.SetRunType(s.WithName(JobName)));
-            }
+            //PROBLEM WITH OSCMESSENGER !
+            //if (SelectedPlaylist != null && SelectedDevice.OSCMessenger != null)
+            //{
+            //    var j = new JobSendComposition(JobName, SelectedPlaylist, SelectedDevice);
+            //    RunningJobs.Add(j);
+            //    JobManager.AddJob(j, (s) => ToRunType.SetRunType(s.WithName(JobName)));
+            //}
         }
         #endregion
     }

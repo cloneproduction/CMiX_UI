@@ -307,19 +307,20 @@
                                         Caption="Transition"
                                         DataContext="{Binding Transition}"
                                         />
+                                    <TextBlock Margin="0, 8" DockPanel.Dock="Top" Text="MESSENGER" Height="30"/>
                                     <ListBox 
                                         Grid.Column="1"
                                         Margin="0, 8"
                                         HorizontalContentAlignment="Stretch" 
                                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                         ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
-                                        ItemsSource="{Binding OSCValidation}" 
+                                        ItemsSource="{Binding Messenger.MessageValidations}" 
                                         dd:DragDrop.IsDragSource="True"
                                         dd:DragDrop.IsDropTarget="True">
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
                                                 <StackPanel>
-                                                    <Views:OSCValidationDataTemplate Margin="2"/>
+                                                    <Views:MessageValidationDataTemplate Margin="2"/>
                                                 </StackPanel>
                                             </DataTemplate>
                                         </ListBox.ItemTemplate>

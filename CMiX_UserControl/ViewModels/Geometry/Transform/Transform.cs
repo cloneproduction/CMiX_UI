@@ -10,12 +10,12 @@ namespace CMiX.ViewModels
 {
     public class Transform : ViewModel, ISendable, IUndoable
     {
-        public Transform(string messageAddress, MessageService messageService, Mementor mementor)
+        public Transform(string messageAddress, Messenger messenger, Mementor mementor)
         {
-            MessageAddress = String.Format("{0}{1}/", messageAddress, nameof(Transform));
-            Translate = new Translate(MessageAddress, messageService, mementor);
-            Scale = new Scale(MessageAddress, messageService, mementor);
-            Rotation = new Rotation(MessageAddress, messageService, mementor);
+            MessageAddress = $"{messageAddress}{nameof(Transform)}/";
+            Translate = new Translate(MessageAddress, messenger, mementor);
+            Scale = new Scale(MessageAddress, messenger, mementor);
+            Rotation = new Rotation(MessageAddress, messenger, mementor);
 
             Is3D = false;
         }
@@ -39,7 +39,7 @@ namespace CMiX.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
+        public Messenger Messenger { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
@@ -70,7 +70,7 @@ namespace CMiX.ViewModels
             if (data.GetDataPresent("TransformModel"))
             {
                 Mementor.BeginBatch();
-                MessageService.DisabledMessages();
+                Messenger.Disable();;
 
                 var transformmodel = data.GetData("TransformModel") as TransformModel;
                 var messageaddress = MessageAddress;
@@ -78,11 +78,9 @@ namespace CMiX.ViewModels
                 UpdateMessageAddress(messageaddress);
                 this.Copy(transformmodel);
 
-                MessageService.EnabledMessages();
+                Messenger.Enable();
                 Mementor.EndBatch();
                 //this.SendMessages(nameof(TransformModel), transformmodel);
-                //QueueObjects(transformmodel);
-                //SendQueues();
             }
         }
 
@@ -92,8 +90,6 @@ namespace CMiX.ViewModels
             this.Reset();
             this.Copy(transformmodel);
             //this.SendMessages(nameof(TransformModel), transformmodel);
-            //QueueObjects(transformmodel);
-            //SendQueues();
         }
 
         public void Copy(TransformModel transformmodel)
@@ -107,7 +103,7 @@ namespace CMiX.ViewModels
 
         public void Paste(TransformModel transformmodel)
         {
-            MessageService.DisabledMessages();
+            Messenger.Disable();;
 
             MessageAddress = transformmodel.MessageAddress;
             Translate.Paste(transformmodel.Translate);
@@ -115,12 +111,12 @@ namespace CMiX.ViewModels
             Rotation.Paste(transformmodel.Rotation);
             Is3D = transformmodel.Is3D;
 
-            MessageService.EnabledMessages();
+            Messenger.Enable();
         }
 
         public void Reset()
         {
-            MessageService.DisabledMessages();
+            Messenger.Disable();;
             //Mementor.BeginBatch();
 
             Translate.Reset();
@@ -128,7 +124,7 @@ namespace CMiX.ViewModels
             Rotation.Reset();
             Is3D = false;
             //Mementor.EndBatch();
-            MessageService.EnabledMessages();
+            Messenger.Enable();
 
             TransformModel transformmodel = new TransformModel();
             this.Copy(transformmodel);

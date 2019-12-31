@@ -11,13 +11,13 @@ namespace CMiX.ViewModels
     public class GeometryFX : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public GeometryFX(string messageaddress, MessageService messageService, Mementor mementor)
+        public GeometryFX(string messageaddress, Messenger messenger, Mementor mementor)
         {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(GeometryFX));
-            MessageService = messageService;
-            Explode = new Slider(MessageAddress + nameof(Explode), messageService, mementor);
-            FileSelector = new FileSelector(MessageAddress, "Single", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, messageService, mementor);
-            FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress, messageService) { FileIsSelected = true, FileName = "Black (default).png" });
+            MessageAddress = $"{messageaddress}{nameof(GeometryFX)}/";
+            Messenger = messenger;
+            Explode = new Slider(MessageAddress + nameof(Explode), messenger, mementor);
+            FileSelector = new FileSelector(MessageAddress, "Single", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, messenger, mementor);
+            FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress, messenger) { FileIsSelected = true, FileName = "Black (default).png" });
         }
         #endregion
 
@@ -34,7 +34,7 @@ namespace CMiX.ViewModels
         public Slider Explode { get; }
         public FileSelector FileSelector { get; }
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
+        public Messenger Messenger { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
@@ -47,22 +47,22 @@ namespace CMiX.ViewModels
 
         public void Paste(GeometryFXModel geometryFXdto)
         {
-            MessageService.DisabledMessages();
+            Messenger.Disable();
 
             Explode.Paste(geometryFXdto.Explode);
             FileSelector.Paste(geometryFXdto.FileSelector);
 
-            MessageService.EnabledMessages();
+            Messenger.Enable();
         }
 
         public void Reset()
         {
-            MessageService.DisabledMessages();
+            Messenger.Disable();;
 
             Explode.Reset();
             FileSelector.Reset();
 
-            MessageService.EnabledMessages();
+            Messenger.Enable();
         }
         #endregion
     }

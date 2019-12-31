@@ -9,10 +9,10 @@ namespace CMiX.ViewModels
 {
     public class FileNameItem : ViewModel, ISendable
     {
-        public FileNameItem(string folderpath, string messageAddress, MessageService messageService)
+        public FileNameItem(string folderpath, string messageAddress, Messenger messenger)
         {
             MessageAddress = messageAddress + "Selected";
-            MessageService = messageService;
+            Messenger = messenger;
             FolderPath = folderpath;
 
         }
@@ -53,7 +53,7 @@ namespace CMiX.ViewModels
         }
 
         public string MessageAddress { get ; set ; }
-        public MessageService MessageService { get; set; }
+        public Messenger Messenger { get; set; }
 
         public void UpdateMessageAddress(string messageaddress)
         {
@@ -70,13 +70,13 @@ namespace CMiX.ViewModels
 
         public void Paste(FileNameItemModel filenameitemmodel)
         {
-            MessageService.DisabledMessages();
+            Messenger.Disable();
 
             MessageAddress = filenameitemmodel.MessageAddress;
             FileIsSelected = filenameitemmodel.FileIsSelected;
             FileName = filenameitemmodel.FileName;
 
-            MessageService.EnabledMessages();
+            Messenger.Enable();
         }
         #endregion
     }

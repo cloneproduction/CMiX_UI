@@ -17,20 +17,20 @@ namespace CMiX.ViewModels
 
         }
         //https://stackoverflow.com/questions/731294/generating-the-next-available-unique-name-in-c-sharp
-        public Entity(Beat masterbeat, int id, string messageAddress, MessageService messageService, Mementor mementor)
+        public Entity(Beat masterbeat, int id, string messageAddress, Messenger messenger, Mementor mementor)
         {
             MessageAddress = $"{messageAddress}Entity{id.ToString()}/";
             Mementor = mementor;
 
-            Enable = true;
+            Enabled = true;
             ID = id;
             Name = "Entity" + id;
             count++;
             Console.WriteLine(count.ToString());
-            BeatModifier = new BeatModifier(MessageAddress, masterbeat, messageService, mementor);
-            Geometry = new Geometry(MessageAddress, messageService, mementor, masterbeat);
-            Texture = new Texture(MessageAddress, messageService, mementor);
-            Coloration = new Coloration(MessageAddress, messageService, mementor, masterbeat);
+            BeatModifier = new BeatModifier(MessageAddress, masterbeat, messenger, mementor);
+            Geometry = new Geometry(MessageAddress, messenger, mementor, masterbeat);
+            Texture = new Texture(MessageAddress, messenger, mementor);
+            Coloration = new Coloration(MessageAddress, messenger, mementor, masterbeat);
 
             CopyEntityCommand = new RelayCommand(p => CopyEntity());
             PasteEntityCommand = new RelayCommand(p => PasteEntity());
@@ -90,28 +90,28 @@ namespace CMiX.ViewModels
         public Texture Texture { get; }
         public Coloration Coloration { get; }
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
+        public Messenger Messenger { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
         #region COPY/PASTE
         public void Reset()
         {
-            MessageService.DisabledMessages();
+            Messenger.Disable();
 
-            this.Enable = true;
+            this.Enabled = true;
             this.BeatModifier.Reset();
             this.Geometry.Reset();
             this.Texture.Reset();
             this.Coloration.Reset();
-            MessageService.EnabledMessages();
+            Messenger.Enable();
         }
 
 
         public void Copy(EntityModel entityModel)
         {
             entityModel.MessageAddress = MessageAddress;
-            entityModel.Enable = Enable;
+            entityModel.Enable = Enabled;
             entityModel.Name = Name;
 
             this.BeatModifier.Copy(entityModel.BeatModifierModel);
@@ -123,10 +123,10 @@ namespace CMiX.ViewModels
         public void Paste(EntityModel entityModel)
         {
             
-            this.MessageService.DisabledMessages();
+            this.Messenger.Disable();
 
             this.MessageAddress = entityModel.MessageAddress;
-            this.Enable = entityModel.Enable;
+            this.Enabled = entityModel.Enable;
             this.Name = entityModel.Name;
             
             this.BeatModifier.Paste(entityModel.BeatModifierModel);
@@ -134,7 +134,7 @@ namespace CMiX.ViewModels
             this.Geometry.Paste(entityModel.GeometryModel);
             this.Coloration.Paste(entityModel.ColorationModel);
 
-            this.MessageService.EnabledMessages();
+            this.Messenger.Enable();
         }
 
         public void CopyEntity()
@@ -152,7 +152,7 @@ namespace CMiX.ViewModels
             if (data.GetDataPresent("EntityModel"))
             {
                 this.Mementor.BeginBatch();
-                this.MessageService.DisabledMessages();
+                this.Messenger.Disable();
 
                 var entityModel = data.GetData("EntityModel") as EntityModel;
                 var messageAddress = MessageAddress;
@@ -160,7 +160,7 @@ namespace CMiX.ViewModels
                 this.UpdateMessageAddress(messageAddress);
 
                 this.Copy(entityModel);
-                this.MessageService.EnabledMessages();
+                this.Messenger.Enable();
                 this.Mementor.EndBatch();
                 //SendMessages(nameof(ContentModel), contentmodel);
             }

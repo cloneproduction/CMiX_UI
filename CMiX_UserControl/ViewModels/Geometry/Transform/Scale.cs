@@ -1,37 +1,36 @@
-﻿using CMiX.MVVM.Services;
+﻿using System.Windows;
+using Memento;
+using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
-using Memento;
-using System;
-using System.Windows;
 
 namespace CMiX.ViewModels
 {
     public class Scale : ViewModel, ISendable, IUndoable
     {
-        public Scale(string messageaddress, MessageService messageService, Mementor mementor) 
+        public Scale(string messageaddress, Messenger messenger, Mementor mementor) 
         {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Scale));
-            MessageService = messageService;
+            MessageAddress = $"{messageaddress}{nameof(Scale)}/";
+            Messenger = messenger;
 
-            ScaleX = new Slider(MessageAddress + nameof(ScaleX), messageService, mementor);
-            ScaleY = new Slider(MessageAddress + nameof(ScaleY), messageService, mementor);
-            ScaleZ = new Slider(MessageAddress + nameof(ScaleZ), messageService, mementor);
+            ScaleX = new Slider(MessageAddress + nameof(ScaleX), messenger, mementor);
+            ScaleY = new Slider(MessageAddress + nameof(ScaleY), messenger, mementor);
+            ScaleZ = new Slider(MessageAddress + nameof(ScaleZ), messenger, mementor);
         }
 
         public Slider ScaleX { get; set; }
         public Slider ScaleY { get; set; }
         public Slider ScaleZ { get; set; }
         public string MessageAddress { get ; set; }
-        public MessageService MessageService { get; set; }
+        public Messenger Messenger { get; set; }
         public Mementor Mementor { get; set; }
 
         public void UpdateMessageAddress(string messageaddress)
         {
             MessageAddress = messageaddress;
-            ScaleX.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(ScaleX)));
-            ScaleY.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(ScaleY)));
-            ScaleZ.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(ScaleZ)));
+            ScaleX.UpdateMessageAddress($"{messageaddress}{nameof(ScaleX)}/");
+            ScaleY.UpdateMessageAddress($"{messageaddress}{nameof(ScaleY)}/");
+            ScaleZ.UpdateMessageAddress($"{messageaddress}{nameof(ScaleZ)}/");
         }
 
         #region COPY/PASTE/RESET
@@ -50,7 +49,7 @@ namespace CMiX.ViewModels
             if (data.GetDataPresent("ScaleModel"))
             {
                 Mementor.BeginBatch();
-                MessageService.DisabledMessages();
+                Messenger.Disable();
 
                 var scalemodel = data.GetData("ScaleModel") as ScaleModel;
                 var messageaddress = MessageAddress;
@@ -58,7 +57,7 @@ namespace CMiX.ViewModels
                 UpdateMessageAddress(messageaddress);
                 this.Copy(scalemodel);
 
-                MessageService.EnabledMessages();
+                Messenger.Enable();
                 Mementor.EndBatch();
                 //SendMessages(nameof(ScaleModel), scalemodel);
             }
@@ -70,8 +69,6 @@ namespace CMiX.ViewModels
             this.Reset();
             this.Copy(scalemodel);
             //SendMessages(nameof(ScaleModel), scalemodel);
-            //QueueObjects(scalemodel);
-            //SendQueues();
         }
 
         public void Copy(ScaleModel scalemodel)
@@ -84,18 +81,18 @@ namespace CMiX.ViewModels
 
         public void Paste(ScaleModel scalemodel)
         {
-            MessageService.DisabledMessages();
+            Messenger.Disable();
 
             MessageAddress = scalemodel.MessageAddress;
             ScaleX.Paste(scalemodel.ScaleX);
             ScaleY.Paste(scalemodel.ScaleY);
             ScaleZ.Paste(scalemodel.ScaleZ);
-            MessageService.EnabledMessages();
+            Messenger.Enable();
         }
 
         public void Reset()
         {
-            MessageService.DisabledMessages();
+            Messenger.Disable();
             //Mementor.BeginBatch();
 
             ScaleX.Reset();
@@ -103,13 +100,11 @@ namespace CMiX.ViewModels
             ScaleZ.Reset();
 
             //Mementor.EndBatch();
-            MessageService.EnabledMessages();
+            Messenger.Enable();
 
             ScaleModel scalemodel = new ScaleModel();
             this.Copy(scalemodel);
             //SendMessages(nameof(ScaleModel), scalemodel);
-            //QueueObjects(scalemodel);
-            //SendQueues();
         }
         #endregion
     }

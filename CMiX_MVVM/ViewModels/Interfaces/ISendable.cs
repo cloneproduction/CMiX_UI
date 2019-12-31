@@ -5,6 +5,6 @@ namespace CMiX.MVVM.ViewModels
     public interface ISendable
     {
         string MessageAddress { get; set; }
-        MessageService MessageService { get; set; }
+        Messenger Messenger { get; set; }
     }
 }

@@ -10,14 +10,14 @@ namespace CMiX.ViewModels
     public class BeatModifier : Beat, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public BeatModifier(string messageaddress, Beat beat, MessageService messageService, Mementor mementor)
+        public BeatModifier(string messageaddress, Beat beat, Messenger messenger, Mementor mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(BeatModifier));
-            MessageService = messageService;
+            Messenger = messenger;
 
             MasterBeat = beat;
             Multiplier = 1.0;
-            ChanceToHit = new Slider(MessageAddress + nameof(ChanceToHit), messageService, mementor)
+            ChanceToHit = new Slider(MessageAddress + nameof(ChanceToHit), messenger, mementor)
             {
                 Amount = 1.0
             };
@@ -65,7 +65,7 @@ namespace CMiX.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
+        public Messenger Messenger { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
@@ -84,13 +84,13 @@ namespace CMiX.ViewModels
         #region COPY/PASTE/RESET
         public void Reset()
         {
-            MessageService.DisabledMessages();
+            Messenger.Disable();
 
             Multiplier = 1.0;
             ChanceToHit.Reset();
             ChanceToHit.Amount = 1.0;
 
-            MessageService.EnabledMessages();
+            Messenger.Enable();
         }
 
         public void Copy(BeatModifierModel beatmodifiermodel)
@@ -102,13 +102,13 @@ namespace CMiX.ViewModels
 
         public void Paste(BeatModifierModel beatmodifiermodel)
         {
-            MessageService.DisabledMessages();
+            Messenger.Disable();
 
             MessageAddress = beatmodifiermodel.MessageAddress;
             Multiplier = beatmodifiermodel.Multiplier;
             ChanceToHit.Paste(beatmodifiermodel.ChanceToHit);
 
-            MessageService.EnabledMessages();
+            Messenger.Enable();
         }
         #endregion
     }

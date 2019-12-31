@@ -11,10 +11,10 @@ namespace CMiX.ViewModels
     public class MasterBeat : Beat, ISendable
     {
         #region CONSTRUCTORS
-        public MasterBeat(MessageService messageService)
+        public MasterBeat(Messenger messenger)
         : this
         (
-            messageService: messageService,
+            messenger: messenger,
             period: 0.0,
             multiplier: 1
         )
@@ -22,7 +22,7 @@ namespace CMiX.ViewModels
 
         public MasterBeat
             (
-                MessageService messageService,
+                Messenger messenger,
                 double period,
                 int multiplier
             )
@@ -60,13 +60,13 @@ namespace CMiX.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
+        public Messenger Messenger { get; set; }
         #endregion
 
         #region METHODS
         private void Resync()
         {
-            //SendMessages(MessageAddress + nameof(Resync), CurrentTime + Period);
+            //Messenger.SendMessages(MessageAddress + nameof(Resync), CurrentTime + Period);
         }
 
         protected override void Multiply()
@@ -115,10 +115,10 @@ namespace CMiX.ViewModels
 
         public void Paste(MasterBeatModel masterbeatmodel)
         {
-            MessageService.DisabledMessages();
+            Messenger.Disable();
             MessageAddress = masterbeatmodel.MessageAddress;
             Period = masterbeatmodel.Period;
-            MessageService.EnabledMessages();
+            Messenger.Enable();
         }
         #endregion
     }
