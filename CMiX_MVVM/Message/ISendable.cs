@@ -1,6 +1,4 @@
-﻿using CMiX.MVVM.Services;
-
-namespace CMiX.MVVM.ViewModels
+﻿namespace CMiX.MVVM.Services
 {
     public interface ISendable
     {

@@ -1,22 +1,27 @@
-﻿using Ceras;
+﻿using System;
+using System.ComponentModel;
+using Ceras;
 using CMiX.MVVM.Commands;
 using CMiX.MVVM.Message;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
 
 namespace CMiX.Engine.ViewModel
 {
-    public class BlendMode : ViewModel
+    public class BlendMode : IMessageReceiver
     {
         public BlendMode(NetMQClient netMQClient, string messageAddress, CerasSerializer serializer)
-        : base(netMQClient, messageAddress, serializer)
         {
+            MessageAddress = $"{messageAddress}{nameof(BlendMode)}";
+            Serializer = serializer;
+            NetMQClient = netMQClient;
+            NetMQClient.ByteMessage.PropertyChanged += OnMessageReceived;
             Mode = ((MVVM.ViewModels.BlendMode)0).ToString();
         }
 
-        public override void ByteReceived()
+        public void OnMessageReceived(object sender, PropertyChangedEventArgs e)
         {
             string receivedAddress = NetMQClient.ByteMessage.MessageAddress;
-
             if (receivedAddress == this.MessageAddress)
             {
                 MessageCommand command = NetMQClient.ByteMessage.Command;
@@ -27,7 +32,7 @@ namespace CMiX.Engine.ViewModel
                         {
                             BlendModeModel blendModeModel = NetMQClient.ByteMessage.Payload as BlendModeModel;
                             this.PasteData(blendModeModel);
-                            System.Console.WriteLine(MessageAddress + " " + Mode);
+                            Console.WriteLine($"{MessageAddress} {Mode}");
                         }
                         break;
                 }
@@ -35,6 +40,9 @@ namespace CMiX.Engine.ViewModel
         }
 
         public string Mode { get; set; }
+        public string MessageAddress { get; set; }
+        public NetMQClient NetMQClient { get; set; }
+        public CerasSerializer Serializer { get; set; }
 
         public void PasteData(BlendModeModel blendModeModel)
         {

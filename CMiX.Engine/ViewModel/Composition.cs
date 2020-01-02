@@ -1,35 +1,57 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using Ceras;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Message;
 using CMiX.MVVM.Commands;
-using CMiX.MVVM.ViewModels;
+using CMiX.MVVM.Services;
 
 namespace CMiX.Engine.ViewModel
 {
-    public class Composition : ViewModel
+    public class Composition : IMessageReceiver
     {
         public Composition(NetMQClient netMQClient, string messageAddress, CerasSerializer serializer) 
-            : base (netMQClient, messageAddress, serializer)
         {
             MessageAddress = $"{messageAddress}{nameof(Composition)}/";
-            Name = String.Empty;
+            Serializer = serializer;
+            NetMQClient = netMQClient;
+            NetMQClient.ByteMessage.PropertyChanged += OnMessageReceived;
+
             Layers = new ObservableCollection<Layer>();
             Layers.Add(new Layer(NetMQClient, $"{MessageAddress}{nameof(Layer)}0/", Serializer));
             Camera = new Camera(NetMQClient, MessageAddress, Serializer);
         }
 
-        public event EventHandler MessageReceived;
+        public ObservableCollection<Layer> Layers { get; set; }
+        public Camera Camera { get; set; }
+        public NetMQClient NetMQClient { get; set; }
+        public string MessageAddress { get; set; }
+        public CerasSerializer Serializer { get; set; }
 
-        public override void ByteReceived()
+        private string _name;
+        public string Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
+        public void OnMessageReceived(object sender, PropertyChangedEventArgs e)
         {
             string receivedAddress = NetMQClient.ByteMessage.MessageAddress;
-            if(receivedAddress == this.MessageAddress)
+            if (receivedAddress == this.MessageAddress)
             {
                 MessageCommand command = NetMQClient.ByteMessage.Command;
                 switch (command)
                 {
+                    case MessageCommand.VIEWMODEL_UPDATE:
+                        if (NetMQClient.ByteMessage.Payload != null)
+                        {
+                            CompositionModel compositionModel = NetMQClient.ByteMessage.Payload as CompositionModel;
+                            this.PasteData(compositionModel);
+                            Console.WriteLine($"{MessageAddress} {MessageCommand.VIEWMODEL_UPDATE}");
+                        }
+                        break;
+
                     case MessageCommand.LAYER_ADD:
                         if (NetMQClient.ByteMessage.Payload != null)
                         {
@@ -85,26 +107,15 @@ namespace CMiX.Engine.ViewModel
 
         public void DeleteLayer(int index)
         {
-            Console.WriteLine("DeleteLayer : " + Layers[index].MessageAddress);
             Layers.RemoveAt(index);
             foreach (var item in Layers)
             {
                 if (item.ID > index)
                     item.ID--;
             }
+            Console.WriteLine("DeleteLayer : " + Layers[index].MessageAddress);
         }
 
-        public ObservableCollection<Layer> Layers { get; set; }
-        public Camera Camera { get; set; }
-        private string _name;
-
-        
-
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
 
         public void PasteData(CompositionModel compositionModel)
         {

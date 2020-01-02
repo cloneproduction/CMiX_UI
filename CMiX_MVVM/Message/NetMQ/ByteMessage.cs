@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using NetMQ;
 using Ceras;
 using CMiX.MVVM.Commands;
@@ -22,7 +17,7 @@ namespace CMiX.MVVM.Message
         private NetMQMessage netMQMessage;
         public NetMQMessage NetMQMessage
         {
-            get { return netMQMessage; }
+            get => netMQMessage;
             set
             {
                 netMQMessage = value;
@@ -32,26 +27,17 @@ namespace CMiX.MVVM.Message
 
         public string Topic
         {
-            get
-            {
-                return NetMQMessage[0].ConvertToString();
-            }
+            get => NetMQMessage[0].ConvertToString();
         }
 
         public string MessageAddress
         {
-            get
-            {
-                return NetMQMessage[1].ConvertToString();
-            }
+            get => NetMQMessage[1].ConvertToString();
         }
 
         public MessageCommand Command
         {
-            get
-            {
-                return Serializer.Deserialize<MessageCommand>(NetMQMessage[2].Buffer);
-            }
+            get => Serializer.Deserialize<MessageCommand>(NetMQMessage[2].Buffer);
         }
 
         public object Parameter

@@ -3,21 +3,25 @@ using Ceras;
 using CMiX.MVVM.Message;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Commands;
+using CMiX.MVVM.Services;
+using System.ComponentModel;
 
 namespace CMiX.Engine.ViewModel
 {
-    public class Slider : ViewModel
+    public class Slider : IMessageReceiver
     {
         public Slider(NetMQClient netMQClient, string messageAddress, CerasSerializer serializer)
-            : base(netMQClient, messageAddress, serializer)
         {
+            MessageAddress = messageAddress;
+            Serializer = serializer;
+            NetMQClient = netMQClient;
+            NetMQClient.ByteMessage.PropertyChanged += OnMessageReceived;
             Amount = 0.0;
         }
 
-        public override void ByteReceived()
+        public void OnMessageReceived(object sender, PropertyChangedEventArgs e)
         {
             string receivedAddress = NetMQClient.ByteMessage.MessageAddress;
-
             if (receivedAddress == this.MessageAddress)
             {
                 MessageCommand command = NetMQClient.ByteMessage.Command;
@@ -33,6 +37,10 @@ namespace CMiX.Engine.ViewModel
                 }
             }
         }
+
+        public string MessageAddress { get; set; }
+        public NetMQClient NetMQClient { get; set; }
+        public CerasSerializer Serializer { get; set; }
 
         private double _amount;
         public double Amount
