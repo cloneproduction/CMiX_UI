@@ -88,6 +88,7 @@
       <DependentUpon>EditableTextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Message\CommandName.cs" />
+    <Compile Include="Message\MessageFactory.cs" />
     <Compile Include="Message\Messenger.cs" />
     <Compile Include="Message\NetMQ\ByteMessage.cs" />
     <Compile Include="Message\MessageService.cs" />
