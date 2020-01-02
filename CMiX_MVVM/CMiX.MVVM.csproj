@@ -96,6 +96,7 @@
     <Compile Include="Models\BlendModeModel.cs" />
     <Compile Include="Models\Interfaces\IModel.cs" />
     <Compile Include="Models\EntityModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IReceiver.cs" />
     <Compile Include="ViewModels\Interfaces\ISendable.cs" />
     <Compile Include="ViewModels\Interfaces\IUndoable.cs" />
     <Compile Include="ViewModels\Server.cs" />

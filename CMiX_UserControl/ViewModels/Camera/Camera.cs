@@ -10,10 +10,11 @@ namespace CMiX.ViewModels
     public class Camera : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Camera(Messenger messenger, MasterBeat masterBeat, Mementor mementor) 
+        public Camera(Messenger messenger, string messageAddress, MasterBeat masterBeat, Mementor mementor) 
         {
-            MessageAddress = "/Camera/";
             Messenger = messenger;
+            MessageAddress = $"{messageAddress}{nameof(Camera)}/";
+            
             Rotation = ((CameraRotation)0).ToString();
             LookAt = ((CameraLookAt)0).ToString();
             View = ((CameraView)0).ToString();

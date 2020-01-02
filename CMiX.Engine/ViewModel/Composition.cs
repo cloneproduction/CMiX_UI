@@ -4,6 +4,7 @@ using Ceras;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Message;
 using CMiX.MVVM.Commands;
+using CMiX.MVVM.ViewModels;
 
 namespace CMiX.Engine.ViewModel
 {
@@ -12,17 +13,18 @@ namespace CMiX.Engine.ViewModel
         public Composition(NetMQClient netMQClient, string messageAddress, CerasSerializer serializer) 
             : base (netMQClient, messageAddress, serializer)
         {
-            MessageAddress = "/Composition";
+            MessageAddress = $"{messageAddress}{nameof(Composition)}/";
             Name = String.Empty;
             Layers = new ObservableCollection<Layer>();
-            Layers.Add(new Layer(NetMQClient, "/Layer0", Serializer));
-            Camera = new Camera(NetMQClient, "/Camera", Serializer);
+            Layers.Add(new Layer(NetMQClient, $"{MessageAddress}{nameof(Layer)}0/", Serializer));
+            Camera = new Camera(NetMQClient, MessageAddress, Serializer);
         }
+
+        public event EventHandler MessageReceived;
 
         public override void ByteReceived()
         {
             string receivedAddress = NetMQClient.ByteMessage.MessageAddress;
-
             if(receivedAddress == this.MessageAddress)
             {
                 MessageCommand command = NetMQClient.ByteMessage.Command;
@@ -95,6 +97,9 @@ namespace CMiX.Engine.ViewModel
         public ObservableCollection<Layer> Layers { get; set; }
         public Camera Camera { get; set; }
         private string _name;
+
+        
+
         public string Name
         {
             get { return _name; }

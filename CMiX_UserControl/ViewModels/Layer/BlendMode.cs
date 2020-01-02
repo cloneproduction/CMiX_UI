@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using CMiX.MVVM.Services;
+﻿using CMiX.MVVM.Services;
 using CMiX.MVVM.Commands;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels;
@@ -12,7 +10,7 @@ namespace CMiX.ViewModels
     {
         public BlendMode(MasterBeat masterBeat, string messageAddress, Messenger messenger, Mementor mementor)
         {
-            MessageAddress = String.Format("{0}{1}/", messageAddress, nameof(BlendMode));
+            MessageAddress = $"{messageAddress}{nameof(BlendMode)}";
             Messenger = messenger;
             Mode = ((MVVM.ViewModels.BlendMode)0).ToString();
         }

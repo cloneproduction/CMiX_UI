@@ -28,9 +28,7 @@ namespace CMiX.MVVM.Services
             set => SetAndNotify(ref _selectedServer, value);
         }
 
-        #region ADD/REMOVE/DELETE SERVER
-        int serverport;
-        int servernameid;
+        int servernameid = 0;
 
         public Messenger CreateMessenger()
         {
@@ -39,10 +37,10 @@ namespace CMiX.MVVM.Services
 
         public void AddServer()
         {
-            Server server = new Server("127.0.0.1", 1111 + servernameid, $"/Device{servernameid}");
-            servernameid++;
-            server.Name = "Device " + "(" + servernameid.ToString() + ")";
+            Server server = new Server($"Server({servernameid.ToString()})", "127.0.0.1", 1111 + servernameid, $"/Device{servernameid}");
+            server.Start();
             Servers.Add(server);
+            servernameid++;
         }
 
         private void DeleteServer(object server)
@@ -51,6 +49,5 @@ namespace CMiX.MVVM.Services
             serv.Stop();
             Servers.Remove(serv);
         }
-        #endregion
     }
 }

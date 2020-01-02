@@ -11,6 +11,7 @@ namespace CMiX.MVVM.Services
     {
         public Messenger(ObservableCollection<Server> servers)
         {
+            Enabled = true;
             Servers = servers;
             Servers.CollectionChanged += ServerCollectionChanged;
             MessageValidations = new ObservableCollection<MessageValidation>();
@@ -34,9 +35,10 @@ namespace CMiX.MVVM.Services
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    Server server = e.NewItems as Server;
+                    
                     for (int i = 0; i < e.NewItems.Count; i++)
                     {
+                        Server server = e.NewItems[i] as Server;
                         MessageValidations.Insert(e.NewStartingIndex + i, new MessageValidation(server));
                     }
                     break;
@@ -76,7 +78,10 @@ namespace CMiX.MVVM.Services
                 case NotifyCollectionChangedAction.Reset:
                     MessageValidations.Clear();
                     for (int i = 0; i < e.NewItems.Count; i++)
-                        MessageValidations.Add(new MessageValidation(e.NewItems[i] as Server));
+                    {
+                        Server server = e.NewItems[i] as Server;
+                        MessageValidations.Add(new MessageValidation(server));
+                    }
                     break;
 
                 default:

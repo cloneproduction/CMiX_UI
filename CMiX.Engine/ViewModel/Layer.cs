@@ -38,7 +38,7 @@ namespace CMiX.Engine.ViewModel
                         {
                             LayerModel layerModel = NetMQClient.ByteMessage.Payload as LayerModel;
                             this.PasteData(layerModel);
-                            Console.WriteLine(MessageAddress + " Layer Updated");
+                            Console.WriteLine($"{MessageAddress} {MessageCommand.LAYER_UPDATE_BLENDMODE.ToString()}");
                         }
                         break;
                 }

@@ -5,15 +5,8 @@ using System.Runtime.CompilerServices;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class ViewModel : INotifyPropertyChanged, ICloneable
+    public abstract class ViewModel : INotifyPropertyChanged, ICloneable
     {
-        #region CONSTRUCTORS
-        public ViewModel()
-        {
-
-        }
-        #endregion
-
         #region PROPERTIES
         private bool _enabled;
         public bool Enabled

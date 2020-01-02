@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
              mc:Ignorable="d" 
-             d:DesignHeight="106.667" d:DesignWidth="219.611">
+             d:DesignHeight="115" d:DesignWidth="234.611">
     <Border Style="{StaticResource BorderContainer}">
         <StackPanel HorizontalAlignment="Stretch">
             <Grid Height="20">

@@ -9,7 +9,7 @@ namespace CMiX.Engine.ViewModel
     {
         public ViewModel(NetMQClient netMQClient, string messageAddress, CerasSerializer serializer)
         {
-            MessageAddress = String.Format("{0}/", messageAddress); ;
+            MessageAddress = messageAddress;
             Serializer = serializer;
             NetMQClient = netMQClient;
             NetMQClient.ByteMessage.PropertyChanged += OnByteReceived;

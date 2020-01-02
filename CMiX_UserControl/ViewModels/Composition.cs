@@ -16,11 +16,11 @@ namespace CMiX.ViewModels
     {
 
         #region CONSTRUCTORS
-        public Composition(Messenger messenger, EntityFactory entityFactory, Assets assets, Mementor mementor)
+        public Composition(Messenger messenger, string messageAddress, EntityFactory entityFactory, Assets assets, Mementor mementor)
         {
             Name = string.Empty;
 
-            MessageAddress = "/Composition";
+            MessageAddress = $"{messageAddress}{nameof(Composition)}/";
             Messenger = messenger;
             EntityFactory = entityFactory;
             Assets = assets;
@@ -30,10 +30,10 @@ namespace CMiX.ViewModels
 
             Transition = new Slider("/Transition", messenger, Mementor);
             MasterBeat = new MasterBeat(messenger);
-            Camera = new Camera(messenger, MasterBeat, Mementor);
+            Camera = new Camera(messenger, MessageAddress, MasterBeat, Mementor);
 
-            string messageAddress = CreateLayerMessageAddress();
-            CreateLayer(messageAddress, LayerID);
+            string layerMessageAddress = CreateLayerMessageAddress();
+            CreateLayer(layerMessageAddress, LayerID);
 
             ReloadCompositionCommand = new RelayCommand(p => ReloadComposition(p));
 
@@ -172,7 +172,7 @@ namespace CMiX.ViewModels
         #region PRIVATE METHODS
         private string CreateLayerMessageAddress()
         {
-            return $"/Layer{LayerNameID.ToString()}/";
+            return $"{this.MessageAddress}Layer{LayerNameID.ToString()}/";
         }
 
         private void ReloadComposition(object messenger)
@@ -180,7 +180,6 @@ namespace CMiX.ViewModels
             CompositionModel compositionModel = new CompositionModel();
             this.Copy(compositionModel);
             Messenger.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, compositionModel);
-            Console.WriteLine("Composition Reloaded");
         }
         #endregion
 

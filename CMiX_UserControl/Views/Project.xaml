@@ -210,7 +210,7 @@
                 Padding="8, 0, 8, 8"
                 CornerRadius="4"
                 Background="{StaticResource HighDarkerColor}">
-                <TabControl>
+                <TabControl HorizontalContentAlignment="Stretch">
                     <TabItem>
                         <TabItem.Header>
                             <TextBlock 
@@ -231,6 +231,7 @@
                     </TabItem>
                     <TabItem Header="SERVERS" Width="50" Height="20">
                         <Border
+                            HorizontalAlignment="Stretch"
                             DockPanel.Dock="Right"
                             Margin="0, 4"
                             Padding="8, 0, 8, 8"

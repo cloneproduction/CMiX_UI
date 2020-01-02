@@ -12,6 +12,7 @@ namespace CMiX.Engine.ViewModel
         public Camera(NetMQClient netMQClient, string messageAddress, CerasSerializer serializer)
         : base(netMQClient, messageAddress, serializer)
         {
+            MessageAddress = $"{messageAddress}{nameof(Camera)}/";
             FOV = new Slider(this.NetMQClient, MessageAddress + nameof(FOV), this.Serializer);
             Zoom = new Slider(this.NetMQClient, MessageAddress + nameof(Zoom), this.Serializer);
         }

@@ -1,7 +1,7 @@
-﻿using Ceras;
+﻿using System;
+using Ceras;
 using NetMQ;
 using NetMQ.Sockets;
-using System;
 using CMiX.MVVM.Commands;
 
 namespace CMiX.MVVM.Message
@@ -105,6 +105,7 @@ namespace CMiX.MVVM.Message
             if (actor != null)
                 return;
             actor = NetMQActor.Create(new ShimHandler(Address));
+            Console.WriteLine($"NetMQClient Started with IP {IP}, Port {Port}");
         }
 
         public void Stop()
@@ -126,6 +127,7 @@ namespace CMiX.MVVM.Message
 
         public void SendObject(string topic, string messageAddress, MessageCommand command, object parameter, object payload)
         {
+            Console.WriteLine("NetMQServer SendObject with MessageAddress : " + messageAddress + " and Topic : " + topic);
             if (actor == null)
                 return;
 

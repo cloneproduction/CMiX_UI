@@ -1,12 +1,7 @@
-﻿
-using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using System.Windows;
-using CMiX.MVVM.ViewModels;
-using CMiX.MVVM.Models;
-
-using System.Collections.ObjectModel;
 using Memento;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.Commands;
 using CMiX.MVVM.Services;
 
@@ -15,9 +10,9 @@ namespace CMiX.MVVM.ViewModels
     public class Slider : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Slider(string messageaddress, Messenger messenger, Mementor mementor)
+        public Slider(string messageAddress, Messenger messenger, Mementor mementor)
         {
-            MessageAddress = $"{messageaddress}/";
+            MessageAddress = messageAddress;
             Messenger = messenger;
 
             AddCommand = new RelayCommand(p => Add());

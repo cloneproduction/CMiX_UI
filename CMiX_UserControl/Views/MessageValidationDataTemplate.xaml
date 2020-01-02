@@ -33,7 +33,7 @@
                     />
                 <TextBlock
                     Margin="1"
-                    Text="{Binding Server.Name}"
+                    Text="{Binding Name}"
                     Grid.Column="1"
                     Foreground="{StaticResource TextBase}"
                     />
@@ -57,7 +57,6 @@
                     Width="20"
                     Height="20" 
                     Command="{Binding Path=DataContext.ReloadCompositionCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type views:Composition}}}"
-                    CommandParameter="{Binding OSCMessenger}"
                     />
             </Grid>
             <Grid Height="20">
@@ -78,7 +77,7 @@
                     Grid.Column="1"
                     Width="20"
                     Height="20" 
-                    IsChecked="{Binding SendEnabled}"
+                    IsChecked="{Binding Enabled}"
                     />
             </Grid>
         </StackPanel>

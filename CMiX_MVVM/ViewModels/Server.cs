@@ -5,8 +5,9 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Server : ViewModel
     {
-        public Server(string ip, int port, string topic)
+        public Server(string name, string ip, int port, string topic)
         {
+            Name = name;
             IP = ip;
             Port = port;
             Topic = topic;

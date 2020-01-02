@@ -39,6 +39,7 @@ namespace CMiX.MVVM.Message
                     shim.SignalOK();
                     poller = new NetMQPoller { shim, subscriber };
                     poller.Run();
+                    
                 }
             }
 
@@ -49,6 +50,7 @@ namespace CMiX.MVVM.Message
 
             private void OnShimReady(object sender, NetMQSocketEventArgs e)
             {
+                
                 string command = e.Socket.ReceiveFrameString();
                 if (command == NetMQActor.EndShimMessage)
                 {
@@ -112,6 +114,7 @@ namespace CMiX.MVVM.Message
                 return;
            
             actor = NetMQActor.Create(new ShimHandler(ByteMessage, Address, Topic));
+            Console.WriteLine($"NetMQClient Started with IP {IP}, Port {Port} and Topic {Topic}");
         }
 
         public void Stop()

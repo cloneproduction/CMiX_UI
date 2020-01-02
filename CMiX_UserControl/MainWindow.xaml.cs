@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using CMiX.MVVM.Services;
 using CMiX.ViewModels;
+using Memento;
 
 namespace CMiX
 {
@@ -10,8 +12,11 @@ namespace CMiX
         public MainWindow()
         {
             InitializeComponent();
-            ProjectView.DataContext = new Project();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+            Mementor mementor = new Mementor();
+            MessageService messageService = new MessageService();
+            ProjectView.DataContext = new Project(messageService, mementor);
         }
 
         private void UndoCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -22,8 +27,8 @@ namespace CMiX
         private void UndoCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var proj = ProjectView.DataContext as Project;
-            if (proj.SelectedComposition.Mementor.CanUndo)
-                proj.SelectedComposition.Mementor.Undo();
+            if (proj.Mementor.CanUndo)
+                proj.Mementor.Undo();
         }
 
         private void RedoCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -34,8 +39,8 @@ namespace CMiX
         private void RedoCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var proj = ProjectView.DataContext as Project;
-            if (proj.SelectedComposition.Mementor.CanRedo)
-                proj.SelectedComposition.Mementor.Redo();
+            if (proj.Mementor.CanRedo)
+                proj.Mementor.Redo();
         }
     }
 }

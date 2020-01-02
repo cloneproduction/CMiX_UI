@@ -1,6 +1,6 @@
 ﻿using System;
-using CMiX.MVVM.Message;
 using Ceras;
+using CMiX.MVVM.Message;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Commands;
 
