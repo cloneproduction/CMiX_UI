@@ -6,100 +6,87 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Message;
 using CMiX.MVVM.Commands;
 using CMiX.MVVM.Services;
+using CMiX.MVVM;
 
 namespace CMiX.Engine.ViewModel
 {
-    public class Composition : IMessageReceiver
+    public class Composition : IEngineViewModel
     {
-        public Composition(NetMQClient netMQClient, string messageAddress, CerasSerializer serializer) 
+        public Composition(Receiver receiver, string messageAddress) 
         {
             MessageAddress = $"{messageAddress}{nameof(Composition)}/";
-            Serializer = serializer;
-            NetMQClient = netMQClient;
-            NetMQClient.ByteMessage.PropertyChanged += OnMessageReceived;
+            Receiver = receiver;
+            Receiver.MessageReceived += OnMessageReceived; ;
 
             Layers = new ObservableCollection<Layer>();
-            Layers.Add(new Layer(NetMQClient, $"{MessageAddress}{nameof(Layer)}0/", Serializer));
-            Camera = new Camera(NetMQClient, MessageAddress, Serializer);
+            Layers.Add(new Layer(receiver, $"{MessageAddress}{nameof(Layer)}0/"));
+            Camera = new Camera(receiver, MessageAddress);
         }
+
+        public void OnMessageReceived(object sender, EventArgs e)
+        {
+            if (MessageAddress == Receiver.ReceivedAddress && Receiver.ReceivedData != null)
+            {
+                object data = Receiver.ReceivedData;
+                if(MessageCommand.VIEWMODEL_UPDATE == Receiver.ReceivedCommand)
+                {
+                    this.PasteModel(data as IModel);
+                }
+                else
+                {
+                    switch (Receiver.ReceivedCommand)
+                    {
+                        case (MessageCommand.LAYER_ADD):
+                            LayerModel addLayerModel = data as LayerModel;
+                            this.AddLayer(addLayerModel);
+                            break;
+
+                        case (MessageCommand.LAYER_DUPLICATE):
+                            LayerModel layerModel = data as LayerModel;
+                            int[] movedIndex = Receiver.ReceivedParameter as int[];
+                            this.DuplicateLayer(layerModel, movedIndex);
+                            break;
+
+                        case (MessageCommand.LAYER_DELETE):
+                            int deleteIndex = (int)data;
+                            this.DeleteLayer(deleteIndex);
+                            break;
+
+                        case (MessageCommand.LAYER_MOVE):
+                            int[] moveIndexes = (int[])data;
+                            Layers.Move(moveIndexes[0], moveIndexes[1]);
+                            break;
+                    }
+                }
+            }
+        }
+
+
 
         public ObservableCollection<Layer> Layers { get; set; }
         public Camera Camera { get; set; }
-        public NetMQClient NetMQClient { get; set; }
-        public string MessageAddress { get; set; }
-        public CerasSerializer Serializer { get; set; }
 
+        public string MessageAddress { get; set; }
+        public Receiver Receiver { get; set; }
         private string _name;
         public string Name
         {
             get { return _name; }
             set { _name = value; }
         }
-        public void OnMessageReceived(object sender, PropertyChangedEventArgs e)
-        {
-            string receivedAddress = NetMQClient.ByteMessage.MessageAddress;
-            if (receivedAddress == this.MessageAddress)
-            {
-                MessageCommand command = NetMQClient.ByteMessage.Command;
-                switch (command)
-                {
-                    case MessageCommand.VIEWMODEL_UPDATE:
-                        if (NetMQClient.ByteMessage.Payload != null)
-                        {
-                            CompositionModel compositionModel = NetMQClient.ByteMessage.Payload as CompositionModel;
-                            this.PasteData(compositionModel);
-                            Console.WriteLine($"{MessageAddress} {MessageCommand.VIEWMODEL_UPDATE}");
-                        }
-                        break;
-
-                    case MessageCommand.LAYER_ADD:
-                        if (NetMQClient.ByteMessage.Payload != null)
-                        {
-                            LayerModel layerModel = NetMQClient.ByteMessage.Payload as LayerModel;
-                            this.AddLayer(layerModel);
-                        }
-                        break;
-
-                    case MessageCommand.LAYER_DUPLICATE:
-                        if (NetMQClient.ByteMessage.Payload != null)
-                        {
-                            LayerModel layerModel = NetMQClient.ByteMessage.Payload as LayerModel;
-                            int[] movedIndex = NetMQClient.ByteMessage.Parameter as int[];
-                            this.DuplicateLayer(layerModel, movedIndex);
-                        }
-                        break;
-
-                    case MessageCommand.LAYER_DELETE:
-                        if (NetMQClient.ByteMessage.Payload != null)
-                        {
-                            int index = (int)NetMQClient.ByteMessage.Payload;
-                            this.DeleteLayer(index);
-                        }
-                        break;
-
-                    case MessageCommand.LAYER_MOVE:
-                        if (NetMQClient.ByteMessage.Payload != null)
-                        {
-                            int[] index = (int[])NetMQClient.ByteMessage.Payload;
-                            Layers.Move(index[0], index[1]);
-                        }
-                        break;
-                }
-            }
-        }
 
         public void AddLayer(LayerModel layerModel)
         {
-            Layer layer = new Layer(NetMQClient, "/Layer", Serializer);
-            layer.PasteData(layerModel);
+            Layer layer = new Layer(Receiver, "/Layer");
+            layer.PasteModel(layerModel);
             Layers.Add(layer);
             Console.WriteLine("AddLayer : " + layer.MessageAddress);
         }
 
         public void DuplicateLayer(LayerModel layerModel, int[] movedIndex)
         {
-            Layer layer = new Layer(NetMQClient, "/Layer", Serializer);
-            layer.PasteData(layerModel);
+            Layer layer = new Layer(Receiver, "/Layer");
+            layer.PasteModel(layerModel);
             Layers.Add(layer);
             Layers.Move(movedIndex[0], movedIndex[1]);
             Console.WriteLine("DuplicateLayer : " + layer.MessageAddress);
@@ -116,9 +103,9 @@ namespace CMiX.Engine.ViewModel
             Console.WriteLine("DeleteLayer : " + Layers[index].MessageAddress);
         }
 
-
-        public void PasteData(CompositionModel compositionModel)
+        public void CopyModel(IModel model)
         {
+            CompositionModel compositionModel = model as CompositionModel;
             MessageAddress = compositionModel.MessageAddress;
             Name = compositionModel.Name;
 
@@ -129,14 +116,19 @@ namespace CMiX.Engine.ViewModel
             Layers.Clear();
             foreach (LayerModel layermodel in compositionModel.LayersModel)
             {
-                Layer layer = new Layer(this.NetMQClient, "/Layer", Serializer);
-                layer.PasteData(layermodel);
+                Layer layer = new Layer(Receiver, "/Layer");
+                layer.PasteModel(layermodel);
                 Layers.Add(layer);
             }
             //SelectedLayer.Paste(compositionModel.SelectedLayer);
             //MasterBeat.Paste(compositionModel.MasterBeatModel);
             //Camera.Paste(compositionModel.CameraModel);
             //Transition.Paste(compositionModel.TransitionModel);
+        }
+
+        public void PasteModel(IModel model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -12,7 +12,7 @@ namespace CMiX.Engine.ViewModel
             MessageAddress = messageAddress;
             Serializer = serializer;
             NetMQClient = netMQClient;
-            NetMQClient.ByteMessage.PropertyChanged += OnByteReceived;
+            //NetMQClient.ByteMessage.PropertyChanged += OnByteReceived;
         }
 
         private void OnByteReceived(object sender, PropertyChangedEventArgs e)

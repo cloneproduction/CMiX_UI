@@ -2,44 +2,47 @@
 using CMiX.MVVM.Commands;
 using CMiX.MVVM.Message;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
 using System;
 
 namespace CMiX.Engine.ViewModel
 {
-    public class Entity : ViewModel
+    public class Entity : IMessageReceiver
     {
-        public Entity(NetMQClient netMQClient, string messageAddress, CerasSerializer serializer)
-        : base(netMQClient, messageAddress, serializer)
+        public Entity(Receiver receiver, string messageAddress)
         {
-            Geometry = new Geometry(this.NetMQClient, this.MessageAddress + nameof(Geometry), this.Serializer);
-            Texture = new Texture(this.NetMQClient, this.MessageAddress + nameof(Texture), this.Serializer);
-            Coloration = new Coloration(this.NetMQClient, this.MessageAddress + nameof(Coloration), this.Serializer);
+            Receiver = receiver;
+            Geometry = new Geometry(Receiver, this.MessageAddress + nameof(Geometry));
+            Texture = new Texture(Receiver, this.MessageAddress + nameof(Texture));
+            Coloration = new Coloration(Receiver, this.MessageAddress + nameof(Coloration));
         }
 
-        public override void ByteReceived()
+        public void OnMessageReceived(object sender, EventArgs e)
         {
-            string receivedAddress = NetMQClient.ByteMessage.MessageAddress;
+            //string receivedAddress = NetMQClient.ByteMessage.MessageAddress;
 
-            if (receivedAddress == this.MessageAddress)
-            {
-                MessageCommand command = NetMQClient.ByteMessage.Command;
-                switch (command)
-                {
-                    case MessageCommand.VIEWMODEL_UPDATE:
-                        if (NetMQClient.ByteMessage.Payload != null)
-                        {
-                            EntityModel objectModel = NetMQClient.ByteMessage.Payload as EntityModel;
-                            this.PasteData(objectModel);
-                            //System.Console.WriteLine(MessageAddress + " " + Mode);
-                        }
-                        break;
-                }
-            }
+            //if (receivedAddress == this.MessageAddress)
+            //{
+            //    MessageCommand command = NetMQClient.ByteMessage.Command;
+            //    switch (command)
+            //    {
+            //        case MessageCommand.VIEWMODEL_UPDATE:
+            //            if (NetMQClient.ByteMessage.Payload != null)
+            //            {
+            //                EntityModel objectModel = NetMQClient.ByteMessage.Payload as EntityModel;
+            //                this.PasteData(objectModel);
+            //                //System.Console.WriteLine(MessageAddress + " " + Mode);
+            //            }
+            //            break;
+            //    }
+            //}
         }
         public string Name { get; set; }
         public Geometry Geometry { get; set; }
         public Texture Texture { get; set; }
         public Coloration Coloration { get; set; }
+        public string MessageAddress { get; set; }
+        public Receiver Receiver { get; set; }
 
         public void PasteData(EntityModel entityModel)
         {

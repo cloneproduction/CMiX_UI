@@ -2,6 +2,7 @@
 using CMiX.MVVM.Commands;
 using CMiX.MVVM.Message;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,33 +11,35 @@ using System.Threading.Tasks;
 
 namespace CMiX.Engine.ViewModel
 {
-    public class Geometry : ViewModel
+    public class Geometry : IMessageReceiver
     {
-        public Geometry(NetMQClient netMQClient, string messageAddress, CerasSerializer serializer)
-        : base(netMQClient, messageAddress, serializer)
+        public Geometry(Receiver receiver, string messageAddress)
         {
             //Geometry = new 
         }
 
-        public override void ByteReceived()
-        {
-            string receivedAddress = NetMQClient.ByteMessage.MessageAddress;
+        public string MessageAddress { get; set; }
+        public Receiver Receiver { get; set; }
 
-            if (receivedAddress == this.MessageAddress)
-            {
-                MessageCommand command = NetMQClient.ByteMessage.Command;
-                switch (command)
-                {
-                    case MessageCommand.VIEWMODEL_UPDATE:
-                        if (NetMQClient.ByteMessage.Payload != null)
-                        {
-                            GeometryModel geometryModel = NetMQClient.ByteMessage.Payload as GeometryModel;
-                            this.PasteData(geometryModel);
-                            //System.Console.WriteLine(MessageAddress + " " + Mode);
-                        }
-                        break;
-                }
-            }
+        public void OnMessageReceived(object sender, EventArgs e)
+        {
+            //string receivedAddress = NetMQClient.ByteMessage.MessageAddress;
+
+            //if (receivedAddress == this.MessageAddress)
+            //{
+            //    MessageCommand command = NetMQClient.ByteMessage.Command;
+            //    switch (command)
+            //    {
+            //        case MessageCommand.VIEWMODEL_UPDATE:
+            //            if (NetMQClient.ByteMessage.Payload != null)
+            //            {
+            //                GeometryModel geometryModel = NetMQClient.ByteMessage.Payload as GeometryModel;
+            //                this.PasteData(geometryModel);
+            //                //System.Console.WriteLine(MessageAddress + " " + Mode);
+            //            }
+            //            break;
+            //    }
+            //}
         }
 
         public void PasteData(GeometryModel geometryModel)

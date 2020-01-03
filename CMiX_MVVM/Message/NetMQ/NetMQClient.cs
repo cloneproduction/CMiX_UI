@@ -39,7 +39,6 @@ namespace CMiX.MVVM.Message
                     shim.SignalOK();
                     poller = new NetMQPoller { shim, subscriber };
                     poller.Run();
-                    
                 }
             }
 

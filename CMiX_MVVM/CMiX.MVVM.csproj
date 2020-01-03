@@ -87,20 +87,24 @@
     <Compile Include="Controls\EditableTextBox.xaml.cs">
       <DependentUpon>EditableTextBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\ICopyPasteModel.cs" />
+    <Compile Include="Message\Client.cs" />
     <Compile Include="Message\CommandName.cs" />
+    <Compile Include="Message\MessageEventArgs.cs" />
     <Compile Include="Message\MessageFactory.cs" />
     <Compile Include="Message\Messenger.cs" />
     <Compile Include="Message\NetMQ\ByteMessage.cs" />
     <Compile Include="Message\MessageService.cs" />
     <Compile Include="Message\NetMQ\NetMQClient.cs" />
     <Compile Include="Message\NetMQ\NetMQServer.cs" />
+    <Compile Include="Message\Receiver.cs" />
     <Compile Include="Models\BlendModeModel.cs" />
     <Compile Include="Models\Interfaces\IModel.cs" />
     <Compile Include="Models\EntityModel.cs" />
     <Compile Include="Message\IMessageReceiver.cs" />
     <Compile Include="Message\ISendable.cs" />
     <Compile Include="ViewModels\Interfaces\IUndoable.cs" />
-    <Compile Include="ViewModels\Server.cs" />
+    <Compile Include="Message\Server.cs" />
     <Compile Include="Message\MessageValidation.cs" />
     <Compile Include="Models\Geometry\Modifier\AnimParameterModel.cs" />
     <Compile Include="Models\Geometry\Modifier\InstancerModel.cs" />

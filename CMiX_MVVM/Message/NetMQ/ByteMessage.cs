@@ -2,10 +2,12 @@
 using NetMQ;
 using Ceras;
 using CMiX.MVVM.Commands;
+using System;
+using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.Message
 {
-    public class ByteMessage : INotifyPropertyChanged
+    public class ByteMessage
     {
         public ByteMessage()
         {
@@ -21,7 +23,7 @@ namespace CMiX.MVVM.Message
             set
             {
                 netMQMessage = value;
-                OnPropertyChanged(nameof(NetMQMessage));
+                OnMessageUpdated(this);
             }
         }
 
@@ -45,9 +47,7 @@ namespace CMiX.MVVM.Message
             get
             {
                 if (NetMQMessage[3].Buffer != null)
-                {
                     return Serializer.Deserialize<object>(NetMQMessage[3].Buffer);
-                }
                 else
                     return null;
             }
@@ -58,18 +58,17 @@ namespace CMiX.MVVM.Message
             get
             {
                 if (NetMQMessage[4].Buffer != null)
-                {
                     return Serializer.Deserialize<object>(NetMQMessage[4].Buffer);
-                }
                 else
                     return null;
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string propertyName)
+        public event EventHandler<MessageEventArgs> MessageUpdated;
+        private void OnMessageUpdated(ByteMessage byteMessage)
         {
-            if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            if (MessageUpdated != null)
+                MessageUpdated(this, new MessageEventArgs(byteMessage.MessageAddress, byteMessage.Command, byteMessage.Parameter, byteMessage.Payload));
         }
     }
 }

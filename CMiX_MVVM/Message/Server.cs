@@ -13,7 +13,6 @@ namespace CMiX.MVVM.ViewModels
             Topic = topic;
             Enabled = true;
             NetMQServer = new NetMQServer(IP, Port);
-            Start();
         }
 
         #region PROPERTIES

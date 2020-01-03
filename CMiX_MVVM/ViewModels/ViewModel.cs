@@ -7,16 +7,13 @@ namespace CMiX.MVVM.ViewModels
 {
     public abstract class ViewModel : INotifyPropertyChanged, ICloneable
     {
-        #region PROPERTIES
         private bool _enabled;
         public bool Enabled
         {
             get => _enabled;
             set => SetAndNotify(ref _enabled, value);
         }
-        #endregion
 
-        #region INOTIFYPROPERTYCHANGED
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void Notify([CallerMemberName] string propertyName = null)
@@ -34,11 +31,6 @@ namespace CMiX.MVVM.ViewModels
             backingField = newValue;
             Notify(propertyName);
         }
-
-        /*public void SetAndRecord<TRet>(Expression<Func<TRet>> backingField, TRet newValue, [CallerMemberName] string propertyName = null)
-        {
-            var action = new SetAndNotifyPropertyAction<TRet>(this, propertyName, backingField, newValue);
-        }*/
 
         public static void AssertNotNegative(double value, string parameterName)
         {
@@ -67,6 +59,10 @@ namespace CMiX.MVVM.ViewModels
         {
             return this.MemberwiseClone();
         }
-        #endregion
+
+        //public void SetAndRecord<TRet>(Expression<Func<TRet>> backingField, TRet newValue, [CallerMemberName] string propertyName = null)
+        //{
+        //    var action = new SetAndNotifyPropertyAction<TRet>(this, propertyName, backingField, newValue);
+        //}
     }
 }

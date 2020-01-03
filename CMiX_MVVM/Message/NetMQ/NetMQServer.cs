@@ -47,7 +47,10 @@ namespace CMiX.MVVM.Message
                     return;
                 }
                 else
+                {
                     publisher.SendMultipartMessage(msg);
+                }
+                    
             }
 
             private void UpdateString(string stringmessage, string propertyToUpdate)
@@ -65,13 +68,8 @@ namespace CMiX.MVVM.Message
 
         public CerasSerializer Serializer { get; set; }
         private NetMQActor actor;
+        public bool IsRunning { get; private set; }
 
-        private string _name;
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value;}
-        }
 
         private int _port;
         public int Port
@@ -80,7 +78,8 @@ namespace CMiX.MVVM.Message
             set
             {
                 _port = value;
-                ReStart();
+                if(IsRunning)
+                    ReStart();
             }
         }
 
@@ -91,13 +90,14 @@ namespace CMiX.MVVM.Message
             set
             {
                 _ip = value;
-                ReStart();
+                if(IsRunning)
+                    ReStart();
             }
         }
 
         public string Address
         {
-            get { return String.Format("tcp://{0}:{1}", IP, Port); }
+            get => String.Format("tcp://{0}:{1}", IP, Port);
         }
 
         public void Start()
@@ -105,6 +105,7 @@ namespace CMiX.MVVM.Message
             if (actor != null)
                 return;
             actor = NetMQActor.Create(new ShimHandler(Address));
+            IsRunning = true;
             Console.WriteLine($"NetMQClient Started with IP {IP}, Port {Port}");
         }
 
@@ -114,6 +115,7 @@ namespace CMiX.MVVM.Message
             {
                 actor.Dispose();
                 actor = null;
+                IsRunning = false;
             }
         }
 
@@ -127,7 +129,6 @@ namespace CMiX.MVVM.Message
 
         public void SendObject(string topic, string messageAddress, MessageCommand command, object parameter, object payload)
         {
-            Console.WriteLine("NetMQServer SendObject with MessageAddress : " + messageAddress + " and Topic : " + topic);
             if (actor == null)
                 return;
 
@@ -141,6 +142,7 @@ namespace CMiX.MVVM.Message
             msg.Append(serialParam);
             msg.Append(serialPayload);
             actor.SendMultipartMessage(msg);
+            Console.WriteLine("NetMQServer SendObject with MessageAddress : " + messageAddress + " and Topic : " + topic);
         }
     }
 }

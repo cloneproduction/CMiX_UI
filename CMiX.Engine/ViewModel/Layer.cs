@@ -8,23 +8,21 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Engine.ViewModel
 {
-    public class Layer : IMessageReceiver
+    public class Layer : IEngineViewModel
     {
-        public Layer(NetMQClient netMQClient, string messageAddress, CerasSerializer serializer)
+        public Layer(Receiver receiver, string messageAddress)
         {
             MessageAddress = messageAddress;
-            Serializer = serializer;
-            NetMQClient = netMQClient;
-            NetMQClient.ByteMessage.PropertyChanged += OnMessageReceived;
+            Receiver = receiver;
+            Receiver.MessageReceived += OnMessageReceived;
 
-            Fade = new Slider(this.NetMQClient, MessageAddress + nameof(Fade), this.Serializer);
-            BlendMode = new BlendMode(this.NetMQClient, MessageAddress, this.Serializer);
-            Content = new Content(this.NetMQClient, MessageAddress + nameof(Content), this.Serializer);
+            Fade = new Slider(receiver, MessageAddress + nameof(Fade));
+            BlendMode = new BlendMode(receiver, MessageAddress);
+            Content = new Content(receiver, MessageAddress + nameof(Content));
         }
 
         public string MessageAddress { get; set; }
-        public NetMQClient NetMQClient { get; set; }
-        public CerasSerializer Serializer { get; set; }
+        public Receiver Receiver { get; set; }
 
         public Slider Fade { get; set; }
         public BlendMode BlendMode { get; set; }
@@ -33,35 +31,34 @@ namespace CMiX.Engine.ViewModel
         public int ID { get; set; }
 
 
-        public void OnMessageReceived(object sender, PropertyChangedEventArgs e)
+
+        public void OnMessageReceived(object sender, EventArgs e)
         {
-            string receivedAddress = NetMQClient.ByteMessage.MessageAddress;
-            if (receivedAddress == this.MessageAddress)
+            if (MessageAddress == Receiver.ReceivedAddress && Receiver.ReceivedData != null)
             {
-                MessageCommand command = NetMQClient.ByteMessage.Command;
-                switch (command)
+                object data = Receiver.ReceivedData;
+                if (MessageCommand.VIEWMODEL_UPDATE == Receiver.ReceivedCommand)
                 {
-                    case MessageCommand.VIEWMODEL_UPDATE:
-                        if (NetMQClient.ByteMessage.Payload != null)
-                        {
-                            LayerModel layerModel = NetMQClient.ByteMessage.Payload as LayerModel;
-                            this.PasteData(layerModel);
-                            Console.WriteLine($"{MessageAddress} {MessageCommand.VIEWMODEL_UPDATE}");
-                        }
-                        break;
+                    this.PasteModel(data as IModel);
                 }
             }
         }
 
-        public void PasteData(LayerModel layerModel)
+        public void PasteModel(IModel model)
         {
+            LayerModel layerModel = model as LayerModel;
             this.DisplayName = layerModel.DisplayName;
             this.ID = layerModel.ID;
             this.MessageAddress = layerModel.MessageAddress;
 
             this.Content.PasteData(layerModel.ContentModel);
             this.BlendMode.PasteData(layerModel.BlendMode);
-            this.Fade.PasteData(layerModel.Fade);
+            this.Fade.PasteModel(layerModel.Fade);
+        }
+
+        public void CopyModel(IModel model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

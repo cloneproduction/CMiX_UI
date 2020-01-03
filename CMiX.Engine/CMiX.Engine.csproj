@@ -76,6 +76,7 @@
     <Compile Include="ViewModel\Composition.cs" />
     <Compile Include="ViewModel\Content.cs" />
     <Compile Include="ViewModel\Geometry.cs" />
+    <Compile Include="ViewModel\Interfaces\IEngineViewModel.cs" />
     <Compile Include="ViewModel\Layer.cs" />
     <Compile Include="ViewModel\Object.cs" />
     <Compile Include="ViewModel\Project.cs" />
