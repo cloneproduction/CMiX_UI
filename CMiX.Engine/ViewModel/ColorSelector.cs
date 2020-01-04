@@ -9,29 +9,17 @@ namespace CMiX.Engine.ViewModel
     {
         public ColorSelector(Receiver receiver, string messageAddress)
         {
-            ColorPicker = new ColorPicker(receiver, this.MessageAddress + nameof(ColorPicker));
+            MessageAddress = $"{messageAddress}{nameof(ColorSelector)}/";
+            Receiver = receiver;
+            Receiver.MessageReceived += OnMessageReceived;
+            ColorPicker = new ColorPicker(receiver, MessageAddress);
         }
 
         public void OnMessageReceived(object sender, EventArgs e)
         {
-            //string receivedAddress = NetMQClient.ByteMessage.MessageAddress;
-
-            //if (receivedAddress == this.MessageAddress)
-            //{
-            //    MessageCommand command = NetMQClient.ByteMessage.Command;
-            //    switch (command)
-            //    {
-            //        case MessageCommand.VIEWMODEL_UPDATE:
-            //            if (NetMQClient.ByteMessage.Payload != null)
-            //            {
-            //                ColorSelectorModel colorSelectorModel = NetMQClient.ByteMessage.Payload as ColorSelectorModel;
-            //                this.PasteData(colorSelectorModel);
-            //                //System.Console.WriteLine(MessageAddress + " " + Mode);
-            //            }
-            //            break;
-            //    }
-            //}
+            Receiver.UpdateViewModel(MessageAddress, this);
         }
+
         public ColorPicker ColorPicker { get; set; }
         public string MessageAddress { get; set; }
         public Receiver Receiver { get; set; }

@@ -3,18 +3,16 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows;
-
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Resources;
-
+using CMiX.MVVM.Services;
+using CMiX.MVVM;
 using GongSolutions.Wpf.DragDrop;
 using Memento;
-using CMiX.MVVM.Services;
 
 namespace CMiX.ViewModels
 {
-    public class FileSelector : ViewModel, ISendable, IUndoable, IDropTarget, IDragSource
+    public class FileSelector : ViewModel, ICopyPasteModel, ISendable, IUndoable, IDropTarget, IDragSource
     {
         #region CONSTRUCTORS
         public FileSelector(string messageaddress, string selectionmode, List<string> filemask, Messenger messenger, Mementor mementor) 
@@ -275,35 +273,37 @@ namespace CMiX.ViewModels
             Messenger.Enable();
         }
 
-        public void Copy(FileSelectorModel fileselectormodel)
+        public void CopyModel(IModel model)
         {
-            fileselectormodel.MessageAddress = MessageAddress;
-            fileselectormodel.FolderPath = FolderPath;
+            FileSelectorModel fileSelectorModel = model as FileSelectorModel;
+            fileSelectorModel.MessageAddress = MessageAddress;
+            fileSelectorModel.FolderPath = FolderPath;
             List<FileNameItemModel> FileNameItemModelList = new List<FileNameItemModel>();
             foreach (var item in FilePaths)
             {
                 var filenameitemmodel = new FileNameItemModel();
                 
-                item.Copy(filenameitemmodel);
+                item.CopyModel(filenameitemmodel);
                 
                 FileNameItemModelList.Add(filenameitemmodel);
             }
-            fileselectormodel.FilePaths = FileNameItemModelList;
+            fileSelectorModel.FilePaths = FileNameItemModelList;
         }
 
-        public void Paste(FileSelectorModel fileselectormodel)
+        public void PasteModel(IModel model)
         {
             Messenger.Disable();
 
-            MessageAddress = fileselectormodel.MessageAddress;
-            FolderPath = fileselectormodel.FolderPath;
+            FileSelectorModel fileSelectorModel = model as FileSelectorModel;
+            MessageAddress = fileSelectorModel.MessageAddress;
+            FolderPath = fileSelectorModel.FolderPath;
 
             FilePaths.Clear();
 
-            foreach (var item in fileselectormodel.FilePaths)
+            foreach (var item in fileSelectorModel.FilePaths)
             {
                 FileNameItem filenameitem = new FileNameItem(FolderPath, MessageAddress, Messenger);
-                filenameitem.Paste(item);
+                filenameitem.PasteModel(item);
                 //filenameitem.UpdateMessageAddress(MessageAddress);
                 FilePaths.Add(filenameitem);
             }

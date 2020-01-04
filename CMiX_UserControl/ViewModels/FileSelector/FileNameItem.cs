@@ -1,13 +1,14 @@
 ﻿using System.Collections.ObjectModel;
+using Memento;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
-using Memento;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.Services;
+using CMiX.MVVM;
 
 namespace CMiX.ViewModels 
 {
-    public class FileNameItem : ViewModel, ISendable
+    public class FileNameItem : ViewModel, ICopyPasteModel, ISendable
     {
         public FileNameItem(string folderpath, string messageAddress, Messenger messenger)
         {
@@ -61,17 +62,19 @@ namespace CMiX.ViewModels
         }
 
         #region COPY/PASTE
-        public void Copy(FileNameItemModel filenameitemmodel)
+        public void CopyModel(IModel model)
         {
+            FileNameItemModel filenameitemmodel = model as FileNameItemModel;
             filenameitemmodel.MessageAddress = MessageAddress;
             filenameitemmodel.FileIsSelected = FileIsSelected;
             filenameitemmodel.FileName = FileName;
         }
 
-        public void Paste(FileNameItemModel filenameitemmodel)
+        public void PasteModel(IModel model)
         {
             Messenger.Disable();
 
+            FileNameItemModel filenameitemmodel = model as FileNameItemModel;
             MessageAddress = filenameitemmodel.MessageAddress;
             FileIsSelected = filenameitemmodel.FileIsSelected;
             FileName = filenameitemmodel.FileName;

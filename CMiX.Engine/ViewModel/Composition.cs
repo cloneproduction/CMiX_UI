@@ -23,7 +23,7 @@ namespace CMiX.Engine.ViewModel
 
         public void OnMessageReceived(object sender, EventArgs e)
         {
-            Utils.UpdateViewModel(Receiver, MessageAddress, this);
+            Receiver.UpdateViewModel(MessageAddress, this);
 
             if (MessageAddress == Receiver.ReceivedAddress && Receiver.ReceivedData != null)
             {

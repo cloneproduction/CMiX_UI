@@ -1,9 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
-using Ceras;
 using CMiX.MVVM;
-using CMiX.MVVM.Commands;
-using CMiX.MVVM.Message;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 
@@ -19,7 +15,7 @@ namespace CMiX.Engine.ViewModel
 
             Fade = new Slider(receiver, MessageAddress + nameof(Fade));
             BlendMode = new BlendMode(receiver, MessageAddress);
-            Content = new Content(receiver, MessageAddress + nameof(Content));
+            Content = new Content(receiver, MessageAddress);
         }
 
         public string MessageAddress { get; set; }
@@ -33,14 +29,7 @@ namespace CMiX.Engine.ViewModel
 
         public void OnMessageReceived(object sender, EventArgs e)
         {
-            if (MessageAddress == Receiver.ReceivedAddress && Receiver.ReceivedData != null)
-            {
-                object data = Receiver.ReceivedData;
-                if (MessageCommand.VIEWMODEL_UPDATE == Receiver.ReceivedCommand)
-                {
-                    this.PasteModel(data as IModel);
-                }
-            }
+            Receiver.UpdateViewModel(MessageAddress, this);
         }
 
         public void PasteModel(IModel model)

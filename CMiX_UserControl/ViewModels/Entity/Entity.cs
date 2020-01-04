@@ -17,7 +17,7 @@ namespace CMiX.ViewModels
         {
 
         }
-        //https://stackoverflow.com/questions/731294/generating-the-next-available-unique-name-in-c-sharp
+
         public Entity(Beat masterbeat, int id, string messageAddress, Messenger messenger, Mementor mementor)
         {
             MessageAddress = $"{messageAddress}Entity{id.ToString()}/";
@@ -27,7 +27,7 @@ namespace CMiX.ViewModels
             ID = id;
             Name = "Entity" + id;
             count++;
-            Console.WriteLine(count.ToString());
+
             BeatModifier = new BeatModifier(MessageAddress, masterbeat, messenger, mementor);
             Geometry = new Geometry(MessageAddress, messenger, mementor, masterbeat);
             Texture = new Texture(MessageAddress, messenger, mementor);
@@ -47,8 +47,6 @@ namespace CMiX.ViewModels
             Geometry.UpdateMessageAddress($"{MessageAddress}{nameof(Geometry)}/");
             Texture.UpdateMessageAddress($"{MessageAddress}{nameof(Texture)}/");
             Coloration.UpdateMessageAddress($"{MessageAddress}{nameof(Coloration)}/");
-
-            Console.WriteLine("Update Entity Message Address " + MessageAddress);
         }
 
         public void UpdateMessageAddress(string messageaddress)

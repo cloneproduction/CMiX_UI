@@ -10,8 +10,8 @@
     xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
     xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX.MVVM"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
-    d:DesignHeight="90.955"
-    d:DesignWidth="392.451"
+    d:DesignHeight="268.955"
+    d:DesignWidth="418.451"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -78,6 +78,12 @@
                     DataContext="{Binding Fade}" 
                     Caption="Alpha"
                     />
+                <!--<Expander Margin="0, 4" Header="Entities" Style="{StaticResource ExpanderBase}">
+                    <ListView 
+                        ItemsSource="{Binding Content.Entities}"
+                        Style="{StaticResource LayerListBox}"/>
+                </Expander>-->
+
             </StackPanel>
         </DockPanel>
     </Border>

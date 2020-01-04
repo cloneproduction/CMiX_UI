@@ -11,13 +11,16 @@ namespace CMiX.Engine.ViewModel
     {
         public ColorPicker(Receiver receiver, string messageAddress)
         {
-            Receiver = receiver;
             MessageAddress = $"{messageAddress}{nameof(ColorPicker)}";
+            Receiver = receiver;
+            Receiver.MessageReceived += OnMessageReceived;
         }
 
         public void OnMessageReceived(object sender, EventArgs e)
         {
-            Utils.UpdateViewModel(Receiver, MessageAddress, this);
+            Receiver.UpdateViewModel(MessageAddress, this);
+            Console.WriteLine("Receiver MessageAddress : " + Receiver.ReceivedAddress);
+            Console.WriteLine("ColorPickerMessageAddress : " + MessageAddress);
         }
 
         public Color SelectedColor { get; set; }

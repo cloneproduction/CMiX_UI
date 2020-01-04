@@ -1,7 +1,6 @@
-﻿using CMiX.MVVM.Commands;
+﻿using System;
+using CMiX.MVVM.Commands;
 using CMiX.MVVM.Models;
-using System;
-using System.Collections.ObjectModel;
 
 namespace CMiX.MVVM.Services
 {
@@ -21,8 +20,17 @@ namespace CMiX.MVVM.Services
             ReceivedAddress = e.Address;
             ReceivedParameter = e.Parameter;
             ReceivedData = e.Data;
-
             MessageReceived.Invoke(sender, e);
+        }
+
+        public void UpdateViewModel(string messageAddress, ICopyPasteModel viewModel)
+        {
+            if (messageAddress == ReceivedAddress
+                && ReceivedData != null
+                && MessageCommand.VIEWMODEL_UPDATE == ReceivedCommand)
+            {
+                viewModel.PasteModel(ReceivedData as IModel);
+            }
         }
 
         public MessageCommand ReceivedCommand { get; set; }

@@ -10,38 +10,26 @@ namespace CMiX.Engine.ViewModel
         public Entity(Receiver receiver, string messageAddress)
         {
             Receiver = receiver;
-            Geometry = new Geometry(Receiver, this.MessageAddress + nameof(Geometry));
-            Texture = new Texture(Receiver, this.MessageAddress + nameof(Texture));
-            Coloration = new Coloration(Receiver, this.MessageAddress + nameof(Coloration));
+            Receiver.MessageReceived += OnMessageReceived;
+            MessageAddress = $"{messageAddress}/";
+            
+            Geometry = new Geometry(receiver, MessageAddress);
+            Texture = new Texture(receiver, MessageAddress);
+            Coloration = new Coloration(receiver, MessageAddress);
         }
 
         public void OnMessageReceived(object sender, EventArgs e)
         {
-            //string receivedAddress = NetMQClient.ByteMessage.MessageAddress;
-
-            //if (receivedAddress == this.MessageAddress)
-            //{
-            //    MessageCommand command = NetMQClient.ByteMessage.Command;
-            //    switch (command)
-            //    {
-            //        case MessageCommand.VIEWMODEL_UPDATE:
-            //            if (NetMQClient.ByteMessage.Payload != null)
-            //            {
-            //                EntityModel objectModel = NetMQClient.ByteMessage.Payload as EntityModel;
-            //                this.PasteData(objectModel);
-            //                //System.Console.WriteLine(MessageAddress + " " + Mode);
-            //            }
-            //            break;
-            //    }
-            //}
+            Receiver.UpdateViewModel(MessageAddress, this);
         }
 
-        public string Name { get; set; }
+        public Receiver Receiver { get; set; }
         public string MessageAddress { get; set; }
+        public string Name { get; set; }
         public Geometry Geometry { get; set; }
         public Texture Texture { get; set; }
         public Coloration Coloration { get; set; }
-        public Receiver Receiver { get; set; }
+        
 
         public void PasteModel(IModel model)
         {

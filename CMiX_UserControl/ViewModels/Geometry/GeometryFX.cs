@@ -42,7 +42,7 @@ namespace CMiX.ViewModels
         public void Copy(GeometryFXModel geometryFXdto)
         {
             Explode.CopyModel(geometryFXdto.Explode);
-            FileSelector.Copy(geometryFXdto.FileSelector);
+            FileSelector.CopyModel(geometryFXdto.FileSelector);
         }
 
         public void Paste(GeometryFXModel geometryFXdto)
@@ -50,7 +50,7 @@ namespace CMiX.ViewModels
             Messenger.Disable();
 
             Explode.PasteModel(geometryFXdto.Explode);
-            FileSelector.Paste(geometryFXdto.FileSelector);
+            FileSelector.PasteModel(geometryFXdto.FileSelector);
 
             Messenger.Enable();
         }

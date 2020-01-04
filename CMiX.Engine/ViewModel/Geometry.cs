@@ -11,6 +11,7 @@ namespace CMiX.Engine.ViewModel
         {
             MessageAddress = $"{messageAddress}{nameof(Geometry)}/";
             Receiver = receiver;
+            Receiver.MessageReceived += OnMessageReceived;
         }
 
         public string MessageAddress { get; set; }
@@ -18,23 +19,7 @@ namespace CMiX.Engine.ViewModel
 
         public void OnMessageReceived(object sender, EventArgs e)
         {
-            //string receivedAddress = NetMQClient.ByteMessage.MessageAddress;
-
-            //if (receivedAddress == this.MessageAddress)
-            //{
-            //    MessageCommand command = NetMQClient.ByteMessage.Command;
-            //    switch (command)
-            //    {
-            //        case MessageCommand.VIEWMODEL_UPDATE:
-            //            if (NetMQClient.ByteMessage.Payload != null)
-            //            {
-            //                GeometryModel geometryModel = NetMQClient.ByteMessage.Payload as GeometryModel;
-            //                this.PasteData(geometryModel);
-            //                //System.Console.WriteLine(MessageAddress + " " + Mode);
-            //            }
-            //            break;
-            //    }
-            //}
+            Receiver.UpdateViewModel(MessageAddress, this);
         }
 
         public void PasteModel(IModel model)

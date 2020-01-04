@@ -100,7 +100,7 @@ namespace CMiX.ViewModels
         public void Copy(GeometryModel geometrymodel)
         {
             geometrymodel.MessageAddress = MessageAddress;
-            FileSelector.Copy(geometrymodel.FileSelector);
+            FileSelector.CopyModel(geometrymodel.FileSelector);
             Transform.Copy(geometrymodel.Transform);
             GeometryFX.Copy(geometrymodel.GeometryFX);
             Instancer.Copy(geometrymodel.Instancer);
@@ -111,7 +111,7 @@ namespace CMiX.ViewModels
             Messenger.Disable();
 
             MessageAddress = geometrymodel.MessageAddress;
-            FileSelector.Paste(geometrymodel.FileSelector);
+            FileSelector.PasteModel(geometrymodel.FileSelector);
             Transform.Paste(geometrymodel.Transform);
             GeometryFX.Paste(geometrymodel.GeometryFX);
             Instancer.Paste(geometrymodel.Instancer);

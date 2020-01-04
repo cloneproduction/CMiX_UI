@@ -18,7 +18,7 @@ namespace CMiX.Engine.ViewModel
 
         public void OnMessageReceived(object sender, EventArgs e)
         {
-            Utils.UpdateViewModel(Receiver, MessageAddress, this);
+            Receiver.UpdateViewModel(MessageAddress, this);
         }
 
         public string MessageAddress { get; set; }

@@ -12,14 +12,18 @@ namespace CMiX.Engine.ViewModel
         {
             MessageAddress = $"{messageAddress}{nameof(Content)}/";
             Receiver = receiver;
+            Receiver.MessageReceived += OnMessageReceived;
+
             Entities = new List<Entity>();
-            Entity entity = new Entity(receiver, this.MessageAddress + "Entity0");
+            Entity entity = new Entity(receiver, MessageAddress + "Entity0");
+            Console.WriteLine("Content MessageAddress : " + MessageAddress);
             entity.Name = "Entity 0";
             Entities.Add(entity);
         }
 
         public void OnMessageReceived(object sender, EventArgs e)
         {
+            Receiver.UpdateViewModel(MessageAddress, this);
             //string receivedAddress = NetMQClient.ByteMessage.MessageAddress;
 
             //if (receivedAddress == this.MessageAddress)
@@ -36,7 +40,7 @@ namespace CMiX.Engine.ViewModel
             //            }
             //            break;
             //        case MessageCommand.OBJECT_ADD:
-            //            if(NetMQClient.ByteMessage.Payload != null)
+            //            if (NetMQClient.ByteMessage.Payload != null)
             //            {
             //                EntityModel objectModel = NetMQClient.ByteMessage.Payload as EntityModel;
             //                this.AddEntity(objectModel);

@@ -15,7 +15,8 @@ namespace CMiX.ColorPicker.ViewModels
         #region CONSTRUCTORS
         public ColorPicker(string messageaddress, Messenger messenger, Mementor mementor)
         {
-            MessageAddress = $"{messageaddress}{nameof(ColorPicker)}/";
+            MessageAddress = $"{messageaddress}{nameof(ColorPicker)}";
+           
             Messenger = messenger;
             Mementor = mementor;
 
@@ -56,7 +57,7 @@ namespace CMiX.ColorPicker.ViewModels
             
         }
 
-        private void SendSelectedColor()
+        private void SendModel()
         {
             ColorPickerModel colorPickerModel = new ColorPickerModel();
             this.Copy(colorPickerModel);
@@ -82,7 +83,7 @@ namespace CMiX.ColorPicker.ViewModels
 
                 this._selectedColor.R = value;
                 Notify("SelectedColor");
-                SendSelectedColor();
+                SendModel();
             }
         }
 
@@ -105,7 +106,7 @@ namespace CMiX.ColorPicker.ViewModels
 
                 this._selectedColor.G = value;
                 Notify("SelectedColor");
-                SendSelectedColor();
+                SendModel();
             }
         }
 
@@ -128,7 +129,7 @@ namespace CMiX.ColorPicker.ViewModels
 
                 this._selectedColor.B = value;
                 Notify("SelectedColor");
-                SendSelectedColor();
+                SendModel();
             }
         }
 
@@ -154,7 +155,7 @@ namespace CMiX.ColorPicker.ViewModels
 
                 SelectedColor = Color.FromRgb(_red, _green, _blue);
                 Notify("SelectedColor");
-                SendSelectedColor();
+                SendModel();
             }
         }
 
@@ -182,7 +183,7 @@ namespace CMiX.ColorPicker.ViewModels
 
                 SelectedColor = Color.FromRgb(_red, _green, _blue);
                 Notify("SelectedColor");
-                SendSelectedColor();
+                SendModel();
             }
         }
 
@@ -217,7 +218,7 @@ namespace CMiX.ColorPicker.ViewModels
                     SelectedColor = Color.FromRgb(0, 0, 0);
                 }
                 Notify("SelectedColor");
-                SendSelectedColor();
+                SendModel();
             }
         }
 

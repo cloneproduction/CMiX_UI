@@ -9,7 +9,9 @@ namespace CMiX.Engine.ViewModel
     {
         public Texture(Receiver receiver, string messageAddress)
         {
-
+            MessageAddress = $"{messageAddress}{nameof(Texture)}/";
+            Receiver = receiver;
+            Receiver.MessageReceived += OnMessageReceived;
         }
 
         public string MessageAddress { get; set; }
@@ -17,7 +19,7 @@ namespace CMiX.Engine.ViewModel
 
         public void OnMessageReceived(object sender, EventArgs e)
         {
-
+            Receiver.UpdateViewModel(MessageAddress, this);
         }
 
         public void PasteModel(IModel model)

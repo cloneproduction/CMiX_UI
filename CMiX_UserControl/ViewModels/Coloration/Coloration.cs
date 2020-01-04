@@ -12,9 +12,9 @@ namespace CMiX.ViewModels
     public class Coloration : ViewModel, ICopyPasteModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Coloration(string messageaddress, Messenger messenger, Mementor mementor, Beat masterbeat) 
+        public Coloration(string messageAddress, Messenger messenger, Mementor mementor, Beat masterbeat) 
         {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Coloration));
+            MessageAddress = $"{messageAddress}{nameof(Coloration)}/";
             Messenger = messenger;
             Mementor = mementor;
 

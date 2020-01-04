@@ -15,7 +15,7 @@ namespace CMiX.ViewModels
         #region CONSTRUCTORS
         public Texture(string messageaddress, Messenger messenger, Mementor mementor)
         {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Texture));
+            MessageAddress = $"{messageaddress}{nameof(Texture)}/";
 
             FileSelector = new FileSelector(MessageAddress,  "Single", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, messenger, mementor);
             FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress, messenger) { FileIsSelected = true, FileName = "Black (default).png" });
@@ -64,18 +64,18 @@ namespace CMiX.ViewModels
         {
             MessageAddress =  messageaddress;
 
-            FileSelector.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(FileSelector)));
-            Brightness.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Brightness)));
-            Contrast.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Contrast)));
-            Invert.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Invert)));
-            Hue.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Hue)));
-            Saturation.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Saturation)));
-            Luminosity.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Luminosity)));
-            Keying.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Keying)));
-            Scale.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Scale)));
-            Rotate.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Rotate)));
-            Pan.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Pan)));
-            Tilt.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Tilt)));
+            FileSelector.UpdateMessageAddress($"{MessageAddress}{nameof(FileSelector)}/");
+            Brightness.UpdateMessageAddress($"{MessageAddress}{nameof(Brightness)}/");
+            Contrast.UpdateMessageAddress($"{MessageAddress}{nameof(Contrast)}/");
+            Invert.UpdateMessageAddress($"{MessageAddress}{nameof(Invert)}/");
+            Hue.UpdateMessageAddress($"{MessageAddress}{nameof(Hue)}/");
+            Saturation.UpdateMessageAddress($"{MessageAddress}{nameof(Saturation)}/");
+            Luminosity.UpdateMessageAddress($"{MessageAddress}{nameof(Luminosity)}/");
+            Keying.UpdateMessageAddress($"{MessageAddress}{nameof(Keying)}/");
+            Scale.UpdateMessageAddress($"{MessageAddress}{nameof(Scale)}/");
+            Rotate.UpdateMessageAddress($"{MessageAddress}{nameof(Rotate)}/");
+            Pan.UpdateMessageAddress($"{MessageAddress}{nameof(Pan)}/");
+            Tilt.UpdateMessageAddress($"{MessageAddress}{nameof(Tilt)}/");
         }
         #endregion
 
@@ -120,7 +120,7 @@ namespace CMiX.ViewModels
         {
             TextureModel textureModel = model as TextureModel;
             textureModel.MessageAddress = MessageAddress;
-            FileSelector.Copy(textureModel.FileSelector);
+            FileSelector.CopyModel(textureModel.FileSelector);
             Brightness.CopyModel(textureModel.Brightness);
             Contrast.CopyModel(textureModel.Contrast);
             Saturation.CopyModel(textureModel.Saturation);
@@ -137,11 +137,11 @@ namespace CMiX.ViewModels
 
         public void PasteModel(IModel model)
         {
-            TextureModel textureModel = model as TextureModel;
             Messenger.Disable();
 
+            TextureModel textureModel = model as TextureModel;
             MessageAddress = textureModel.MessageAddress;
-            FileSelector.Paste(textureModel.FileSelector);
+            FileSelector.PasteModel(textureModel.FileSelector);
             Brightness.PasteModel(textureModel.Brightness);
             Contrast.PasteModel(textureModel.Contrast);
             Saturation.PasteModel(textureModel.Saturation);
