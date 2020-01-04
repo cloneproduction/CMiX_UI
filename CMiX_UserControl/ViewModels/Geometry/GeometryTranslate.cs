@@ -1,14 +1,13 @@
 ﻿using System;
-using CMiX.Services;
+using Memento;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
-using System.Collections.ObjectModel;
-using Memento;
 using CMiX.MVVM.Services;
+using CMiX.MVVM;
 
 namespace CMiX.ViewModels
 {
-    public class GeometryTranslate : ViewModel, ISendable, IUndoable
+    public class GeometryTranslate : ViewModel, ISendable, ICopyPasteModel, IUndoable
     {
         #region CONSTRUCTORS
         public GeometryTranslate(string messageaddress, Messenger messenger, Mementor mementor) 
@@ -52,17 +51,19 @@ namespace CMiX.ViewModels
             Messenger.Enable();
         }
 
-        public void Copy(GeometryTranslateModel geometrytranslatemodel)
+        public void CopyModel(IModel model)
         {
-            geometrytranslatemodel.MessageAddress = MessageAddress;
-            geometrytranslatemodel.Mode = Mode;
+            GeometryTranslateModel geometryTranslateModel = model as GeometryTranslateModel;
+            geometryTranslateModel.MessageAddress = MessageAddress;
+            geometryTranslateModel.Mode = Mode;
         }
 
-        public void Paste(GeometryTranslateModel geometrytranslatemodel)
+        public void PasteModel(IModel model)
         {
+            GeometryTranslateModel geometryTranslateModel = model as GeometryTranslateModel;
             Messenger.Disable();
-            MessageAddress = geometrytranslatemodel.MessageAddress;
-            Mode = geometrytranslatemodel.Mode;
+            MessageAddress = geometryTranslateModel.MessageAddress;
+            Mode = geometryTranslateModel.Mode;
             Messenger.Enable();
         }
         #endregion

@@ -11,7 +11,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.ViewModels
 {
-    public class Content : ViewModel, ISendableEntityContext, IUndoable
+    public class Content : ViewModel, ICopyPasteModel, ISendableEntityContext, IUndoable
     {
         #region CONSTRUCTORS
         public Content(Beat masterbeat, string messageAddress, Messenger messenger, Mementor mementor) 
@@ -61,31 +61,33 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void Copy(ContentModel contentModel)
+        public void CopyModel(IModel model)
         {
+            ContentModel contentModel = model as ContentModel;
             contentModel.MessageAddress = MessageAddress;
             contentModel.Enable = Enabled;
 
             foreach (Entity obj in Entities)
             {
                 EntityModel entityModel = new EntityModel();
-                obj.Copy(entityModel);
+                obj.CopyModel(entityModel);
                 contentModel.EntityModels.Add(entityModel);
             }
 
-            this.BeatModifier.Copy(contentModel.BeatModifierModel);
-            this.PostFX.Copy(contentModel.PostFXModel);
+            this.BeatModifier.CopyModel(contentModel.BeatModifierModel);
+            this.PostFX.CopyModel(contentModel.PostFXModel);
         }
 
-        public void Paste(ContentModel contentModel)
+        public void PasteModel(IModel model)
         {
+            ContentModel contentModel = model as ContentModel;
             Messenger.Disable();
 
             this.MessageAddress = contentModel.MessageAddress;
             this.Enabled = contentModel.Enable;
 
-            this.BeatModifier.Paste(contentModel.BeatModifierModel);
-            this.PostFX.Paste(contentModel.PostFXModel);
+            this.BeatModifier.PasteModel(contentModel.BeatModifierModel);
+            this.PostFX.PasteModel(contentModel.PostFXModel);
 
             Messenger.Enable();
         }
@@ -105,7 +107,7 @@ namespace CMiX.ViewModels
         public void CopyContent()
         {
             ContentModel contentmodel = new ContentModel();
-            this.Copy(contentmodel);
+            this.CopyModel(contentmodel);
             IDataObject data = new DataObject();
             data.SetData("ContentModel", contentmodel, false);
             Clipboard.SetDataObject(data);
@@ -121,7 +123,7 @@ namespace CMiX.ViewModels
 
                 var contentModel = data.GetData("ContentModel") as ContentModel;
                 var contentmessageaddress = MessageAddress;
-                this.Paste(contentModel);
+                this.PasteModel(contentModel);
                 this.UpdateMessageAddress(contentmessageaddress);
 
                 Messenger.Enable();
@@ -135,7 +137,7 @@ namespace CMiX.ViewModels
         {
             ContentModel contentModel = new ContentModel();
             this.Reset();
-            this.Copy(contentModel);
+            this.CopyModel(contentModel);
             Messenger.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, contentModel);
         }
         #endregion

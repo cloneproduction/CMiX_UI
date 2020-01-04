@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Windows.Input;
 using System.Windows;
-using System.Collections.ObjectModel;
+using Memento;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
-using Memento;
 using CMiX.MVVM.Services;
+using CMiX.MVVM;
 
 namespace CMiX.ViewModels
 {
-    public class Coloration : ViewModel, ISendable, IUndoable
+    public class Coloration : ViewModel, ICopyPasteModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
         public Coloration(string messageaddress, Messenger messenger, Mementor mementor, Beat masterbeat) 
@@ -64,26 +64,28 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public void Copy(ColorationModel colorationmodel)
+        public void CopyModel(IModel model)
         {
-            colorationmodel.MessageAddress = MessageAddress;
-            ColorSelector.Copy(colorationmodel.ColorSelectorModel);
-            BeatModifier.Copy(colorationmodel.BeatModifierModel);
-            Hue.Copy(colorationmodel.HueDTO);
-            Saturation.Copy(colorationmodel.SatDTO);
-            Value.Copy(colorationmodel.ValDTO);
+            ColorationModel colorationModel = model as ColorationModel;
+            colorationModel.MessageAddress = MessageAddress;
+            ColorSelector.CopyModel(colorationModel.ColorSelectorModel);
+            BeatModifier.CopyModel(colorationModel.BeatModifierModel);
+            Hue.CopyModel(colorationModel.HueDTO);
+            Saturation.CopyModel(colorationModel.SatDTO);
+            Value.CopyModel(colorationModel.ValDTO);
         }
 
-        public void Paste(ColorationModel colorationmodel)
+        public void PasteModel(IModel model)
         {
             Messenger.Disable();
 
-            MessageAddress = colorationmodel.MessageAddress;
-            ColorSelector.Paste(colorationmodel.ColorSelectorModel);
-            BeatModifier.Paste(colorationmodel.BeatModifierModel);
-            Hue.Paste(colorationmodel.HueDTO);
-            Saturation.Paste(colorationmodel.SatDTO);
-            Value.Paste(colorationmodel.ValDTO);
+            ColorationModel colorationModel = model as ColorationModel;
+            MessageAddress = colorationModel.MessageAddress;
+            ColorSelector.PasteModel(colorationModel.ColorSelectorModel);
+            BeatModifier.PasteModel(colorationModel.BeatModifierModel);
+            Hue.PasteModel(colorationModel.HueDTO);
+            Saturation.PasteModel(colorationModel.SatDTO);
+            Value.PasteModel(colorationModel.ValDTO);
 
             Messenger.Enable();
         }
@@ -104,7 +106,7 @@ namespace CMiX.ViewModels
         public void CopyColoration()
         {
             ColorationModel colorationmodel = new ColorationModel();
-            this.Copy(colorationmodel);
+            this.CopyModel(colorationmodel);
             IDataObject data = new DataObject();
             data.SetData("ColorationModel", colorationmodel, false);
             Clipboard.SetDataObject(data);
@@ -120,10 +122,10 @@ namespace CMiX.ViewModels
 
                 var colorationmodel = data.GetData("ColorationModel") as ColorationModel;
                 var colorationmessageaddress = MessageAddress;
-                this.Paste(colorationmodel);
+                this.PasteModel(colorationmodel);
                 this.UpdateMessageAddress(colorationmessageaddress);
 
-                this.Copy(colorationmodel);
+                this.CopyModel(colorationmodel);
                 this.Messenger.Enable();
                 this.Mementor.EndBatch();
 
@@ -135,7 +137,7 @@ namespace CMiX.ViewModels
         {
             ColorationModel colorationmodel = new ColorationModel();
             this.Reset();
-            this.Copy(colorationmodel);
+            this.CopyModel(colorationmodel);
             //SendMessages(nameof(Coloration), colorationmodel);
         }
         #endregion

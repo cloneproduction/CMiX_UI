@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Windows;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
@@ -107,8 +106,8 @@ namespace CMiX.ViewModels
         {
             animparametermodel.MessageAddress = MessageAddress;
 
-            Slider.Copy(animparametermodel.Slider);
-            BeatModifier.Copy(animparametermodel.BeatModifier);
+            Slider.CopyModel(animparametermodel.Slider);
+            BeatModifier.CopyModel(animparametermodel.BeatModifier);
         }
 
         public void Paste(AnimParameterModel animparametermodel)
@@ -116,8 +115,8 @@ namespace CMiX.ViewModels
             Messenger.Disable();
 
             MessageAddress = animparametermodel.MessageAddress;
-            Slider.Paste(animparametermodel.Slider);
-            BeatModifier.Paste(animparametermodel.BeatModifier);
+            Slider.PasteModel(animparametermodel.Slider);
+            BeatModifier.PasteModel(animparametermodel.BeatModifier);
 
             Messenger.Enable();
         }

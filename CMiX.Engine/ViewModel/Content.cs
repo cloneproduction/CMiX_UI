@@ -1,6 +1,4 @@
-﻿using Ceras;
-using CMiX.MVVM.Commands;
-using CMiX.MVVM.Message;
+﻿using CMiX.MVVM;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using System;
@@ -8,11 +6,11 @@ using System.Collections.Generic;
 
 namespace CMiX.Engine.ViewModel
 {
-    public class Content : IMessageReceiver
+    public class Content : IMessageReceiver, ICopyPasteModel
     {
         public Content(Receiver receiver, string messageAddress)
         {
-            MessageAddress = messageAddress;
+            MessageAddress = $"{messageAddress}{nameof(Content)}/";
             Receiver = receiver;
             Entities = new List<Entity>();
             Entity entity = new Entity(receiver, this.MessageAddress + "Entity0");
@@ -63,7 +61,7 @@ namespace CMiX.Engine.ViewModel
         public void AddEntity(EntityModel entityModel)
         {
             Entity entity = new Entity(Receiver, this.MessageAddress + nameof(Entity));
-            entity.PasteData(entityModel);
+            entity.PasteModel(entityModel);
             Entities.Add(entity);
             Console.WriteLine("AddObject messageaddress : " + entity.MessageAddress);
         }
@@ -74,16 +72,22 @@ namespace CMiX.Engine.ViewModel
             Entities.RemoveAt(index);
         }
 
-        public void PasteData(ContentModel contentModel)
+        public void PasteModel(IModel model)
         {
+            ContentModel contentModel = model as ContentModel;
             MessageAddress = contentModel.MessageAddress;
             Entities.Clear();
             foreach (EntityModel entity in contentModel.EntityModels)
             {
                 Entity newEntity = new Entity(Receiver, this.MessageAddress);
-                newEntity.PasteData(entity);
+                newEntity.PasteModel(entity);
             }
             Console.WriteLine("Content PasteData in Engine");
+        }
+
+        public void CopyModel(IModel model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

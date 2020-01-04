@@ -79,9 +79,9 @@ namespace CMiX.ViewModels
         public void Copy(TranslateModel translatemodel)
         {
             translatemodel.MessageAddress = MessageAddress;
-            TranslateX.Copy(translatemodel.TranslateX);
-            TranslateY.Copy(translatemodel.TranslateY);
-            TranslateZ.Copy(translatemodel.TranslateZ);
+            TranslateX.CopyModel(translatemodel.TranslateX);
+            TranslateY.CopyModel(translatemodel.TranslateY);
+            TranslateZ.CopyModel(translatemodel.TranslateZ);
         }
 
         public void Paste(TranslateModel translatemodel)
@@ -89,9 +89,9 @@ namespace CMiX.ViewModels
             Messenger.Disable();
 
             MessageAddress = translatemodel.MessageAddress;
-            TranslateX.Paste(translatemodel.TranslateX);
-            TranslateY.Paste(translatemodel.TranslateY);
-            TranslateZ.Paste(translatemodel.TranslateZ);
+            TranslateX.PasteModel(translatemodel.TranslateX);
+            TranslateY.PasteModel(translatemodel.TranslateY);
+            TranslateZ.PasteModel(translatemodel.TranslateZ);
             Messenger.Enable();
         }
 

@@ -1,11 +1,12 @@
 ﻿using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
-using Memento;
 using CMiX.MVVM.Services;
+using CMiX.MVVM;
+using Memento;
 
 namespace CMiX.ViewModels
 {
-    public class RangeControl : ViewModel, ISendable, IUndoable
+    public class RangeControl : ViewModel, ICopyPasteModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
         public RangeControl(string messageAddress, Messenger messenger, Mementor mementor)
@@ -46,20 +47,22 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void Copy(RangeControlModel rangecontrolmodel)
+        public void CopyModel(IModel model)
         {
-            rangecontrolmodel.MessageAddress = MessageAddress;
-            Range.Copy(rangecontrolmodel.Range);
-            rangecontrolmodel.Modifier = Modifier;
+            RangeControlModel rangeControlModel = model as RangeControlModel;
+            rangeControlModel.MessageAddress = MessageAddress;
+            Range.CopyModel(rangeControlModel.Range);
+            rangeControlModel.Modifier = Modifier;
         }
 
-        public void Paste(RangeControlModel rangecontrolmodel)
+        public void PasteModel(IModel model)
         {
             Messenger.Disable();
 
-            MessageAddress = rangecontrolmodel.MessageAddress;
-            Range.Paste(rangecontrolmodel.Range);
-            Modifier = rangecontrolmodel.Modifier;
+            RangeControlModel rangeControlModel = model as RangeControlModel;
+            MessageAddress = rangeControlModel.MessageAddress;
+            Range.PasteModel(rangeControlModel.Range);
+            Modifier = rangeControlModel.Modifier;
 
             Messenger.Enable();
         }

@@ -7,12 +7,13 @@ using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Commands;
 using CMiX.MVVM.Services;
+using CMiX.MVVM;
 using Memento;
 using GongSolutions.Wpf.DragDrop;
 
 namespace CMiX.ViewModels
 {
-    public class Composition : ViewModel, ISendable, IUndoable, IDropTarget
+    public class Composition : ViewModel, ICopyPasteModel, ISendable, IUndoable, IDropTarget
     {
 
         #region CONSTRUCTORS
@@ -178,7 +179,7 @@ namespace CMiX.ViewModels
         private void ReloadComposition(object messenger)
         {
             CompositionModel compositionModel = new CompositionModel();
-            this.Copy(compositionModel);
+            this.CopyModel(compositionModel);
             Messenger.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, compositionModel);
         }
         #endregion
@@ -187,7 +188,7 @@ namespace CMiX.ViewModels
         private void CopyLayer()
         {
             LayerModel layerModel = new LayerModel();
-            SelectedLayer.Copy(layerModel);
+            SelectedLayer.CopyModel(layerModel);
             IDataObject data = new DataObject();
             data.SetData(nameof(LayerModel), layerModel, false);
             Clipboard.SetDataObject(data);
@@ -207,12 +208,12 @@ namespace CMiX.ViewModels
 
                 var layerModel = data.GetData(nameof(LayerModel)) as LayerModel;
 
-                SelectedLayer.Paste(layerModel);
+                SelectedLayer.PasteModel(layerModel);
                 SelectedLayer.UpdateMessageAddress(selectedlayermessageaddress);
                 SelectedLayer.LayerName = selectedlayername;
                 SelectedLayer.DisplayName = selectedname;
                 SelectedLayer.ID = selectedLayerID;
-                SelectedLayer.Copy(layerModel);
+                SelectedLayer.CopyModel(layerModel);
 
                 Messenger.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, layerModel);
                 Mementor.EndBatch();
@@ -223,7 +224,7 @@ namespace CMiX.ViewModels
         {
             SelectedLayer.Reset();
             LayerModel layerModel = new LayerModel();
-            SelectedLayer.Copy(layerModel);
+            SelectedLayer.CopyModel(layerModel);
             //SendMessages("LayerModel", layerModel);
         }
         #endregion
@@ -245,7 +246,7 @@ namespace CMiX.ViewModels
             Messenger.Enable();
 
             LayerModel layerModel = new LayerModel();
-            layer.Copy(layerModel);
+            layer.CopyModel(layerModel);
 
             Messenger.SendMessages(MessageAddress, MessageCommand.LAYER_ADD, null, layerModel);
 
@@ -263,20 +264,20 @@ namespace CMiX.ViewModels
 
                 var lyr = SelectedLayer;
                 LayerModel layermodel = new LayerModel();
-                lyr.Copy(layermodel);
+                lyr.CopyModel(layermodel);
 
                 LayerID++;
                 LayerNameID++;
                 var messageAddress = CreateLayerMessageAddress();
 
                 Layer newlayer = CreateLayer(messageAddress, LayerID);
-                newlayer.Paste(layermodel);
+                newlayer.PasteModel(layermodel);
                 newlayer.LayerName = messageAddress;
                 newlayer.DisplayName += " - Copy";
                 newlayer.ID = LayerID;
                 newlayer.UpdateMessageAddress(messageAddress);
                 newlayer.Enabled = false;
-                newlayer.Copy(layermodel);
+                newlayer.CopyModel(layermodel);
 
                 SelectedLayer = newlayer;
                 Mementor.ElementAdd(Layers, newlayer);
@@ -338,53 +339,55 @@ namespace CMiX.ViewModels
 
         #region COPY/PASTE/LOAD/SAVE/OPEN COMPOSITIONS
 
-        public void Copy(CompositionModel compositionmodel)
+        public void CopyModel(IModel model)
         {
-            compositionmodel.MessageAddress = MessageAddress;
-            compositionmodel.Name = Name;
+            CompositionModel compositionModel = model as CompositionModel;
+            compositionModel.MessageAddress = MessageAddress;
+            compositionModel.Name = Name;
             //compositionmodel.ContentFolderName = ContentFolderName;
 
-            compositionmodel.LayerID = GetLayerID();
-            compositionmodel.LayerNames = GetLayerNames();
-            compositionmodel.layerID = LayerID;
-            compositionmodel.layerNameID = LayerNameID;
+            compositionModel.LayerID = GetLayerID();
+            compositionModel.LayerNames = GetLayerNames();
+            compositionModel.layerID = LayerID;
+            compositionModel.layerNameID = LayerNameID;
 
             foreach (Layer lyr in Layers)
             {
                 LayerModel layermodel = new LayerModel();
-                lyr.Copy(layermodel);
-                compositionmodel.LayersModel.Add(layermodel);
+                lyr.CopyModel(layermodel);
+                compositionModel.LayersModel.Add(layermodel);
             }
 
-            SelectedLayer.Copy(compositionmodel.SelectedLayer);
-            MasterBeat.Copy(compositionmodel.MasterBeatModel);
-            Camera.Copy(compositionmodel.CameraModel);
-            Transition.Copy(compositionmodel.TransitionModel);
+            SelectedLayer.CopyModel(compositionModel.SelectedLayer);
+            MasterBeat.CopyModel(compositionModel.MasterBeatModel);
+            Camera.CopyModel(compositionModel.CameraModel);
+            Transition.CopyModel(compositionModel.TransitionModel);
         }
 
-        public void Paste(CompositionModel compositionmodel)
+        public void PasteModel(IModel model)
         {
+            CompositionModel compositionModel = model as CompositionModel;
             Messenger.Disable();
 
-            MessageAddress = compositionmodel.MessageAddress;
-            Name = compositionmodel.Name;
+            MessageAddress = compositionModel.MessageAddress;
+            Name = compositionModel.Name;
             //ContentFolderName = compositionmodel.ContentFolderName;
 
-            LayerID = compositionmodel.layerID;
-            LayerNameID = compositionmodel.layerNameID;
+            LayerID = compositionModel.layerID;
+            LayerNameID = compositionModel.layerNameID;
 
             Layers.Clear();
-            foreach (LayerModel layermodel in compositionmodel.LayersModel)
+            foreach (LayerModel layermodel in compositionModel.LayersModel)
             {
                 Layer layer = new Layer(MasterBeat, CreateLayerMessageAddress(), Messenger, Mementor);
-                layer.Paste(layermodel);
+                layer.PasteModel(layermodel);
                 Layers.Add(layer);
             }
 
-            SelectedLayer.Paste(compositionmodel.SelectedLayer);
-            MasterBeat.Paste(compositionmodel.MasterBeatModel);
-            Camera.Paste(compositionmodel.CameraModel);
-            Transition.Paste(compositionmodel.TransitionModel);
+            SelectedLayer.PasteModel(compositionModel.SelectedLayer);
+            MasterBeat.PasteModel(compositionModel.MasterBeatModel);
+            Camera.PasteModel(compositionModel.CameraModel);
+            Transition.PasteModel(compositionModel.TransitionModel);
 
             Messenger.Enable();
         }

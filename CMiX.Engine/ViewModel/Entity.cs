@@ -1,13 +1,11 @@
-﻿using Ceras;
-using CMiX.MVVM.Commands;
-using CMiX.MVVM.Message;
+﻿using CMiX.MVVM;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using System;
 
 namespace CMiX.Engine.ViewModel
 {
-    public class Entity : IMessageReceiver
+    public class Entity : IMessageReceiver, ICopyPasteModel
     {
         public Entity(Receiver receiver, string messageAddress)
         {
@@ -37,20 +35,27 @@ namespace CMiX.Engine.ViewModel
             //    }
             //}
         }
+
         public string Name { get; set; }
+        public string MessageAddress { get; set; }
         public Geometry Geometry { get; set; }
         public Texture Texture { get; set; }
         public Coloration Coloration { get; set; }
-        public string MessageAddress { get; set; }
         public Receiver Receiver { get; set; }
 
-        public void PasteData(EntityModel entityModel)
+        public void PasteModel(IModel model)
         {
+            EntityModel entityModel = model as EntityModel;
             MessageAddress = entityModel.MessageAddress;
             this.Name = entityModel.Name;
-            Geometry.PasteData(entityModel.GeometryModel);
-            Texture.PasteData(entityModel.TextureModel);
-            Coloration.PasteData(entityModel.ColorationModel);
+            Geometry.PasteModel(entityModel.GeometryModel);
+            Texture.PasteModel(entityModel.TextureModel);
+            Coloration.PasteModel(entityModel.ColorationModel);
+        }
+
+        public void CopyModel(IModel model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

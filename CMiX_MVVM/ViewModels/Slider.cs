@@ -59,7 +59,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _amount, value);
                 SliderModel sliderModel = new SliderModel();
-                this.Copy(sliderModel);
+                this.CopyModel(sliderModel);
                 Messenger.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, sliderModel);
             }
         }
@@ -117,7 +117,7 @@ namespace CMiX.MVVM.ViewModels
         public void CopySlider()
         {
             SliderModel slidermodel = new SliderModel();
-            this.Copy(slidermodel);
+            this.CopyModel(slidermodel);
             IDataObject data = new DataObject();
             data.SetData("SliderModel", slidermodel, false);
             Clipboard.SetDataObject(data);
@@ -130,22 +130,24 @@ namespace CMiX.MVVM.ViewModels
             {
                 Mementor.BeginBatch();
                 var slidermodel = data.GetData("SliderModel") as SliderModel;
-                this.Paste(slidermodel);
+                this.PasteModel(slidermodel);
                 Mementor.EndBatch();
             }
         }
 
-        public void Copy(SliderModel slidermodel)
+        public void CopyModel(IModel model)
         {
-            slidermodel.Amount = Amount;
-            slidermodel.MessageAddress = MessageAddress;
+            SliderModel sliderModel = model as SliderModel;
+            sliderModel.Amount = Amount;
+            sliderModel.MessageAddress = MessageAddress;
         }
 
-        public void Paste(SliderModel slidermodel)
+        public void PasteModel(IModel model)
         {
+            SliderModel sliderModel = model as SliderModel;
             Messenger.Disable();
-            MessageAddress = slidermodel.MessageAddress;
-            Amount = slidermodel.Amount;
+            MessageAddress = sliderModel.MessageAddress;
+            Amount = sliderModel.Amount;
             Messenger.Enable();
         }
         #endregion

@@ -68,6 +68,7 @@
     <Compile Include="Mode\Stepper.cs" />
     <Compile Include="Mode\Stopwatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\Utils.cs" />
     <Compile Include="ViewModel\BlendMode.cs" />
     <Compile Include="ViewModel\Camera.cs" />
     <Compile Include="ViewModel\Coloration.cs" />
@@ -76,9 +77,8 @@
     <Compile Include="ViewModel\Composition.cs" />
     <Compile Include="ViewModel\Content.cs" />
     <Compile Include="ViewModel\Geometry.cs" />
-    <Compile Include="ViewModel\Interfaces\IEngineViewModel.cs" />
     <Compile Include="ViewModel\Layer.cs" />
-    <Compile Include="ViewModel\Object.cs" />
+    <Compile Include="ViewModel\Entity.cs" />
     <Compile Include="ViewModel\Project.cs" />
     <Compile Include="ViewModel\Slider.cs" />
     <Compile Include="ViewModel\Texture.cs" />
@@ -93,5 +93,6 @@
       <Name>CMiX.MVVM</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

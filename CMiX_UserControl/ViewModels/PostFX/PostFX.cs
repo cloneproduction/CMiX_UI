@@ -5,10 +5,11 @@ using Memento;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using CMiX.MVVM;
 
 namespace CMiX.ViewModels
 {
-    public class PostFX : ViewModel, ISendable, IUndoable
+    public class PostFX : ViewModel, ICopyPasteModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
         public PostFX(string messageaddress, Messenger messenger, Mementor mementor) 
@@ -32,8 +33,8 @@ namespace CMiX.ViewModels
         {
             MessageAddress = messageaddress;
 
-            Feedback.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Feedback)));
-            Blur.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Blur)));
+            Feedback.UpdateMessageAddress($"{messageaddress}{nameof(Feedback)}/");
+            Blur.UpdateMessageAddress($"{messageaddress}{nameof(Blur)}/");
         }
         #endregion
 
@@ -77,17 +78,19 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public void Copy(PostFXModel postFXmodel)
+        public void CopyModel(IModel model)
         {
-            Feedback.Copy(postFXmodel.Feedback);
-            Blur.Copy(postFXmodel.Blur);
+            PostFXModel postFXmodel = model as PostFXModel;
+            Feedback.CopyModel(postFXmodel.Feedback);
+            Blur.CopyModel(postFXmodel.Blur);
             postFXmodel.MessageAddress = MessageAddress;
             postFXmodel.Transforms = Transforms;
             postFXmodel.View = View;
         }
 
-        public void Paste(PostFXModel postFXmodel)
+        public void PasteModel(IModel model)
         {
+            PostFXModel postFXmodel = model as PostFXModel;
             Messenger.Disable();
 
             MessageAddress = postFXmodel.MessageAddress;
@@ -95,8 +98,8 @@ namespace CMiX.ViewModels
             Transforms = postFXmodel.Transforms;
             View = postFXmodel.View;
 
-            Feedback.Paste(postFXmodel.Feedback);
-            Blur.Paste(postFXmodel.Blur);
+            Feedback.PasteModel(postFXmodel.Feedback);
+            Blur.PasteModel(postFXmodel.Blur);
 
             Messenger.Enable();
         }
@@ -112,7 +115,7 @@ namespace CMiX.ViewModels
             Blur.Reset();
 
             PostFXModel postfxmodel = new PostFXModel();
-            this.Copy(postfxmodel);
+            this.CopyModel(postfxmodel);
             //this.SendMessages(nameof(PostFXModel), postfxmodel);
 
             Messenger.Enable();
@@ -121,7 +124,7 @@ namespace CMiX.ViewModels
         public void CopyPostFX()
         {
             PostFXModel postfxmodel = new PostFXModel();
-            this.Copy(postfxmodel);
+            this.CopyModel(postfxmodel);
             IDataObject data = new DataObject();
             data.SetData("PostFXModel", postfxmodel, false);
             Clipboard.SetDataObject(data);
@@ -137,9 +140,9 @@ namespace CMiX.ViewModels
 
                 var postfxmodel = data.GetData("PostFXModel") as PostFXModel;
                 var postfxmessageaddress = MessageAddress;
-                this.Paste(postfxmodel);
+                this.PasteModel(postfxmodel);
                 UpdateMessageAddress(postfxmessageaddress);
-                this.Copy(postfxmodel);
+                this.CopyModel(postfxmodel);
 
                 Mementor.EndBatch();
                 Messenger.Enable();
@@ -151,7 +154,7 @@ namespace CMiX.ViewModels
         {
             PostFXModel postfxmodel = new PostFXModel();
             this.Reset();
-            this.Copy(postfxmodel);
+            this.CopyModel(postfxmodel);
             //this.SendMessages(nameof(PostFXModel), postfxmodel);
         }
         #endregion

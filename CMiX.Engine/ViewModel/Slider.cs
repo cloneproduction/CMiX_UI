@@ -1,14 +1,12 @@
 ﻿using System;
-using Ceras;
-using CMiX.MVVM.Message;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Commands;
 using CMiX.MVVM.Services;
-using System.ComponentModel;
+using CMiX.MVVM;
 
 namespace CMiX.Engine.ViewModel
 {
-    public class Slider : IEngineViewModel
+    public class Slider : ICopyPasteModel, IMessageReceiver
     {
         public Slider(Receiver receiver, string messageAddress)
         {
@@ -20,14 +18,7 @@ namespace CMiX.Engine.ViewModel
 
         public void OnMessageReceived(object sender, EventArgs e)
         {
-            if (MessageAddress == Receiver.ReceivedAddress && Receiver.ReceivedData != null)
-            {
-                object data = Receiver.ReceivedData;
-                if (MessageCommand.VIEWMODEL_UPDATE == Receiver.ReceivedCommand)
-                {
-                    this.PasteModel(data as IModel);
-                }
-            }
+            Utils.UpdateViewModel(Receiver, MessageAddress, this);
         }
 
         public string MessageAddress { get; set; }

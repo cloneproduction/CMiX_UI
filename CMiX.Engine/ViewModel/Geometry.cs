@@ -1,21 +1,16 @@
-﻿using Ceras;
-using CMiX.MVVM.Commands;
-using CMiX.MVVM.Message;
+﻿using CMiX.MVVM;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMiX.Engine.ViewModel
 {
-    public class Geometry : IMessageReceiver
+    public class Geometry : IMessageReceiver, ICopyPasteModel
     {
         public Geometry(Receiver receiver, string messageAddress)
         {
-            //Geometry = new 
+            MessageAddress = $"{messageAddress}{nameof(Geometry)}/";
+            Receiver = receiver;
         }
 
         public string MessageAddress { get; set; }
@@ -42,9 +37,15 @@ namespace CMiX.Engine.ViewModel
             //}
         }
 
-        public void PasteData(GeometryModel geometryModel)
+        public void PasteModel(IModel model)
         {
+            GeometryModel geometryModel = model as GeometryModel;
             MessageAddress = geometryModel.MessageAddress;
+        }
+
+        public void CopyModel(IModel model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

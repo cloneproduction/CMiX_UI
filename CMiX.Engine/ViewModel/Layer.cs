@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using Ceras;
+using CMiX.MVVM;
 using CMiX.MVVM.Commands;
 using CMiX.MVVM.Message;
 using CMiX.MVVM.Models;
@@ -8,7 +9,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Engine.ViewModel
 {
-    public class Layer : IEngineViewModel
+    public class Layer : ICopyPasteModel, IMessageReceiver
     {
         public Layer(Receiver receiver, string messageAddress)
         {
@@ -30,8 +31,6 @@ namespace CMiX.Engine.ViewModel
         public string DisplayName { get; set; }
         public int ID { get; set; }
 
-
-
         public void OnMessageReceived(object sender, EventArgs e)
         {
             if (MessageAddress == Receiver.ReceivedAddress && Receiver.ReceivedData != null)
@@ -51,8 +50,8 @@ namespace CMiX.Engine.ViewModel
             this.ID = layerModel.ID;
             this.MessageAddress = layerModel.MessageAddress;
 
-            this.Content.PasteData(layerModel.ContentModel);
-            this.BlendMode.PasteData(layerModel.BlendMode);
+            this.Content.PasteModel(layerModel.ContentModel);
+            this.BlendMode.PasteModel(layerModel.BlendMode);
             this.Fade.PasteModel(layerModel.Fade);
         }
 

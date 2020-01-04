@@ -2,24 +2,24 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using Memento;
+using CMiX.MVVM;
 
 namespace CMiX.ViewModels
 {
-    public class Layer : ViewModel, ISendable, IUndoable
+    public class Layer : ViewModel, ICopyPasteModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
         public Layer(MasterBeat masterBeat, string messageAddress,  Messenger messenger, Mementor mementor) 
         {
+            Enabled = false;
             MessageAddress =  messageAddress;
             Messenger = messenger;
             Mementor = mementor;
 
-            Enabled = false;
             LayerName = messageAddress;           
 
             BlendMode = new BlendMode(masterBeat, MessageAddress, messenger, mementor);
             Fade = new Slider(MessageAddress + nameof(Fade), messenger, mementor);
-
             Content = new Content(masterBeat, MessageAddress, messenger, mementor);
             Mask = new Mask(masterBeat, MessageAddress, messenger, mementor);
             PostFX = new PostFX(MessageAddress, messenger, mementor);
@@ -88,35 +88,37 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public void Copy(LayerModel layermodel)
+        public void CopyModel(IModel model)
         {
-            layermodel.MessageAddress = MessageAddress;
-            layermodel.LayerName = LayerName;
-            layermodel.DisplayName = DisplayName;
-            layermodel.ID = ID;
+            LayerModel layerModel = model as LayerModel;
+            layerModel.MessageAddress = MessageAddress;
+            layerModel.LayerName = LayerName;
+            layerModel.DisplayName = DisplayName;
+            layerModel.ID = ID;
 
-            Fade.Copy(layermodel.Fade);
-            BlendMode.Copy(layermodel.BlendMode);
-            Content.Copy(layermodel.ContentModel);
-            Mask.Copy(layermodel.MaskModel);
-            PostFX.Copy(layermodel.PostFXModel);
+            Fade.CopyModel(layerModel.Fade);
+            BlendMode.CopyModel(layerModel.BlendMode);
+            Content.CopyModel(layerModel.ContentModel);
+            Mask.CopyModel(layerModel.MaskModel);
+            PostFX.CopyModel(layerModel.PostFXModel);
         }
 
-        public void Paste(LayerModel layerModel)
+        public void PasteModel(IModel model)
         {
             Messenger.Disable();
 
+            LayerModel layerModel = model as LayerModel;
             MessageAddress = layerModel.MessageAddress;
             LayerName = layerModel.LayerName;
             DisplayName = layerModel.DisplayName;
             Out = layerModel.Out;
             ID = layerModel.ID;
 
-            Fade.Paste(layerModel.Fade);
-            BlendMode.Paste(layerModel.BlendMode);
-            Content.Paste(layerModel.ContentModel);
-            Mask.Paste(layerModel.MaskModel);
-            PostFX.Paste(layerModel.PostFXModel);
+            Fade.PasteModel(layerModel.Fade);
+            BlendMode.PasteModel(layerModel.BlendMode);
+            Content.PasteModel(layerModel.ContentModel);
+            Mask.PasteModel(layerModel.MaskModel);
+            PostFX.PasteModel(layerModel.PostFXModel);
 
             Messenger.Enable();
         }

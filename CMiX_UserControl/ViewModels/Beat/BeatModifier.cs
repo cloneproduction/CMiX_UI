@@ -4,10 +4,11 @@ using System;
 using System.Collections.ObjectModel;
 using Memento;
 using CMiX.MVVM.Services;
+using CMiX.MVVM;
 
 namespace CMiX.ViewModels
 {
-    public class BeatModifier : Beat, ISendable, IUndoable
+    public class BeatModifier : Beat, ICopyPasteModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
         public BeatModifier(string messageaddress, Beat beat, Messenger messenger, Mementor mementor)
@@ -93,20 +94,22 @@ namespace CMiX.ViewModels
             Messenger.Enable();
         }
 
-        public void Copy(BeatModifierModel beatmodifiermodel)
+        public void CopyModel(IModel model)
         {
-            beatmodifiermodel.MessageAddress = MessageAddress;
-            ChanceToHit.Copy(beatmodifiermodel.ChanceToHit);
-            beatmodifiermodel.Multiplier = Multiplier;
+            BeatModifierModel beatModifierModel = model as BeatModifierModel;
+            beatModifierModel.MessageAddress = MessageAddress;
+            ChanceToHit.CopyModel(beatModifierModel.ChanceToHit);
+            beatModifierModel.Multiplier = Multiplier;
         }
 
-        public void Paste(BeatModifierModel beatmodifiermodel)
+        public void PasteModel(IModel model)
         {
             Messenger.Disable();
 
-            MessageAddress = beatmodifiermodel.MessageAddress;
-            Multiplier = beatmodifiermodel.Multiplier;
-            ChanceToHit.Paste(beatmodifiermodel.ChanceToHit);
+            BeatModifierModel beatModifierModel = model as BeatModifierModel;
+            MessageAddress = beatModifierModel.MessageAddress;
+            Multiplier = beatModifierModel.Multiplier;
+            ChanceToHit.PasteModel(beatModifierModel.ChanceToHit);
 
             Messenger.Enable();
         }

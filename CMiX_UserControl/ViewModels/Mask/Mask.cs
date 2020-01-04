@@ -4,12 +4,13 @@ using System.Windows.Input;
 using System.Collections.ObjectModel;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
-using Memento;
 using CMiX.MVVM.Services;
+using CMiX.MVVM;
+using Memento;
 
 namespace CMiX.ViewModels
 {
-    public class Mask : ViewModel, ISendableEntityContext, IUndoable
+    public class Mask : ViewModel, ICopyPasteModel, ISendableEntityContext, IUndoable
     {
         #region CONSTRUCTORS
         public Mask(Beat masterbeat, string messageaddress, Messenger messenger, Mementor mementor) 
@@ -86,37 +87,39 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public void Copy(MaskModel maskmodel)
+        public void CopyModel(IModel model)
         {
-            maskmodel.MessageAddress = MessageAddress;
-            maskmodel.Enable = Enabled;
-            maskmodel.MaskType = MaskType;
-            maskmodel.MaskControlType = MaskControlType;
-            BeatModifier.Copy(maskmodel.BeatModifierModel);
-            Texture.Copy(maskmodel.texturemodel);
-            Geometry.Copy(maskmodel.GeometryModel);
-            PostFX.Copy(maskmodel.PostFXModel);
+            MaskModel maskModel = model as MaskModel;
+            maskModel.MessageAddress = MessageAddress;
+            maskModel.Enable = Enabled;
+            maskModel.MaskType = MaskType;
+            maskModel.MaskControlType = MaskControlType;
+            BeatModifier.CopyModel(maskModel.BeatModifierModel);
+            Texture.CopyModel(maskModel.texturemodel);
+            Geometry.Copy(maskModel.GeometryModel);
+            PostFX.CopyModel(maskModel.PostFXModel);
         }
 
-        public void Paste(MaskModel maskmodel)
+        public void PasteModel(IModel model)
         {
-            Messenger.Disable();;
+            Messenger.Disable();
 
-            MessageAddress = maskmodel.MessageAddress;
-            Enabled = maskmodel.Enable;
-            MaskType = maskmodel.MaskType;
-            MaskControlType = maskmodel.MaskControlType;
-            BeatModifier.Paste(maskmodel.BeatModifierModel);
-            Texture.Paste(maskmodel.texturemodel);
-            Geometry.Paste(maskmodel.GeometryModel);
-            PostFX.Paste(maskmodel.PostFXModel);
+            MaskModel maskModel = model as MaskModel;
+            MessageAddress = maskModel.MessageAddress;
+            Enabled = maskModel.Enable;
+            MaskType = maskModel.MaskType;
+            MaskControlType = maskModel.MaskControlType;
+            BeatModifier.PasteModel(maskModel.BeatModifierModel);
+            Texture.PasteModel(maskModel.texturemodel);
+            Geometry.Paste(maskModel.GeometryModel);
+            PostFX.PasteModel(maskModel.PostFXModel);
 
             Messenger.Enable();
         }
 
         public void Reset()
         {
-            Messenger.Disable();;
+            Messenger.Disable();
 
             Enabled = false;
             BeatModifier.Reset();
@@ -130,7 +133,7 @@ namespace CMiX.ViewModels
         public void CopyMask()
         {
             MaskModel maskmodel = new MaskModel();
-            this.Copy(maskmodel);
+            this.CopyModel(maskmodel);
             IDataObject data = new DataObject();
             data.SetData("MaskModel", maskmodel, false);
             Clipboard.SetDataObject(data);
@@ -146,10 +149,10 @@ namespace CMiX.ViewModels
 
                 var maskmodel = data.GetData("MaskModel") as MaskModel;
                 var maskmessageaddress = MessageAddress;
-                this.Paste(maskmodel);
+                this.PasteModel(maskmodel);
                 UpdateMessageAddress(maskmessageaddress);
 
-                this.Copy(maskmodel);
+                this.CopyModel(maskmodel);
                 Messenger.Enable();
                 Mementor.EndBatch();
                 //this.SendMessages(nameof(MaskModel), maskmodel);
@@ -160,7 +163,7 @@ namespace CMiX.ViewModels
         {
             MaskModel maskmodel = new MaskModel();
             this.Reset();
-            this.Copy(maskmodel);
+            this.CopyModel(maskmodel);
             //this.SendMessages(nameof(MaskModel), maskmodel);
         }
         #endregion

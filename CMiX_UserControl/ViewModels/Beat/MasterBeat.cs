@@ -5,10 +5,11 @@ using System.Windows.Input;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Services;
+using CMiX.MVVM;
 
 namespace CMiX.ViewModels
 {
-    public class MasterBeat : Beat, ISendable
+    public class MasterBeat : Beat, ICopyPasteModel, ISendable
     {
         #region CONSTRUCTORS
         public MasterBeat(Messenger messenger)
@@ -107,17 +108,19 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void Copy(MasterBeatModel masterbeatmodel)
+        public void CopyModel(IModel model)
         {
-            masterbeatmodel.MessageAddress = MessageAddress;
-            masterbeatmodel.Period = Period;
+            MasterBeatModel masterBeatControl = model as MasterBeatModel;
+            masterBeatControl.MessageAddress = MessageAddress;
+            masterBeatControl.Period = Period;
         }
 
-        public void Paste(MasterBeatModel masterbeatmodel)
+        public void PasteModel(IModel model)
         {
             Messenger.Disable();
-            MessageAddress = masterbeatmodel.MessageAddress;
-            Period = masterbeatmodel.Period;
+            MasterBeatModel masterBeatControl = model as MasterBeatModel;
+            MessageAddress = masterBeatControl.MessageAddress;
+            Period = masterBeatControl.Period;
             Messenger.Enable();
         }
         #endregion

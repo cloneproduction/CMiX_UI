@@ -1,4 +1,5 @@
-﻿using CMiX.MVVM.Models;
+﻿using CMiX.MVVM;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using Memento;
@@ -9,7 +10,7 @@ using System.Windows.Input;
 
 namespace CMiX.ViewModels
 {
-    public class Entity : ViewModel, ISendable, IUndoable
+    public class Entity : ViewModel, ICopyPasteModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
         public Entity()
@@ -108,31 +109,32 @@ namespace CMiX.ViewModels
         }
 
 
-        public void Copy(EntityModel entityModel)
+        public void CopyModel(IModel model)
         {
+            EntityModel entityModel = model as EntityModel;
             entityModel.MessageAddress = MessageAddress;
             entityModel.Enable = Enabled;
             entityModel.Name = Name;
 
-            this.BeatModifier.Copy(entityModel.BeatModifierModel);
-            this.Texture.Copy(entityModel.TextureModel);
+            this.BeatModifier.CopyModel(entityModel.BeatModifierModel);
+            this.Texture.CopyModel(entityModel.TextureModel);
             this.Geometry.Copy(entityModel.GeometryModel);
-            this.Coloration.Copy(entityModel.ColorationModel);
+            this.Coloration.CopyModel(entityModel.ColorationModel);
         }
 
-        public void Paste(EntityModel entityModel)
+        public void PasteModel(IModel model)
         {
-            
             this.Messenger.Disable();
 
+            EntityModel entityModel = model as EntityModel;
             this.MessageAddress = entityModel.MessageAddress;
             this.Enabled = entityModel.Enable;
             this.Name = entityModel.Name;
             
-            this.BeatModifier.Paste(entityModel.BeatModifierModel);
-            this.Texture.Paste(entityModel.TextureModel);
+            this.BeatModifier.PasteModel(entityModel.BeatModifierModel);
+            this.Texture.PasteModel(entityModel.TextureModel);
             this.Geometry.Paste(entityModel.GeometryModel);
-            this.Coloration.Paste(entityModel.ColorationModel);
+            this.Coloration.PasteModel(entityModel.ColorationModel);
 
             this.Messenger.Enable();
         }
@@ -140,7 +142,7 @@ namespace CMiX.ViewModels
         public void CopyEntity()
         {
             EntityModel entityModel = new EntityModel();
-            this.Copy(entityModel);
+            this.CopyModel(entityModel);
             IDataObject data = new DataObject();
             data.SetData("EntityModel", entityModel, false);
             Clipboard.SetDataObject(data);
@@ -156,10 +158,10 @@ namespace CMiX.ViewModels
 
                 var entityModel = data.GetData("EntityModel") as EntityModel;
                 var messageAddress = MessageAddress;
-                this.Paste(entityModel);
+                this.PasteModel(entityModel);
                 this.UpdateMessageAddress(messageAddress);
 
-                this.Copy(entityModel);
+                this.CopyModel(entityModel);
                 this.Messenger.Enable();
                 this.Mementor.EndBatch();
                 //SendMessages(nameof(ContentModel), contentmodel);
@@ -170,7 +172,7 @@ namespace CMiX.ViewModels
         {
             EntityModel entityModel = new EntityModel();
             this.Reset();
-            this.Copy(entityModel);
+            this.CopyModel(entityModel);
             //SendMessages(nameof(ContentModel), contentmodel);
         }
         #endregion

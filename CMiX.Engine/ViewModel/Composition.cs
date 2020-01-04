@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using Ceras;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Message;
 using CMiX.MVVM.Commands;
 using CMiX.MVVM.Services;
 using CMiX.MVVM;
+using CMiX.Engine;
 
 namespace CMiX.Engine.ViewModel
 {
-    public class Composition : IEngineViewModel
+    public class Composition : ICopyPasteModel, IMessageReceiver
     {
         public Composition(Receiver receiver, string messageAddress) 
         {
@@ -25,49 +23,42 @@ namespace CMiX.Engine.ViewModel
 
         public void OnMessageReceived(object sender, EventArgs e)
         {
+            Utils.UpdateViewModel(Receiver, MessageAddress, this);
+
             if (MessageAddress == Receiver.ReceivedAddress && Receiver.ReceivedData != null)
             {
                 object data = Receiver.ReceivedData;
-                if(MessageCommand.VIEWMODEL_UPDATE == Receiver.ReceivedCommand)
+                switch (Receiver.ReceivedCommand)
                 {
-                    this.PasteModel(data as IModel);
-                }
-                else
-                {
-                    switch (Receiver.ReceivedCommand)
-                    {
-                        case (MessageCommand.LAYER_ADD):
-                            LayerModel addLayerModel = data as LayerModel;
-                            this.AddLayer(addLayerModel);
-                            break;
+                    case (MessageCommand.LAYER_ADD):
+                        LayerModel addLayerModel = data as LayerModel;
+                        this.AddLayer(addLayerModel);
+                        break;
 
-                        case (MessageCommand.LAYER_DUPLICATE):
-                            LayerModel layerModel = data as LayerModel;
-                            int[] movedIndex = Receiver.ReceivedParameter as int[];
-                            this.DuplicateLayer(layerModel, movedIndex);
-                            break;
+                    case (MessageCommand.LAYER_DUPLICATE):
+                        LayerModel layerModel = data as LayerModel;
+                        int[] movedIndex = Receiver.ReceivedParameter as int[];
+                        this.DuplicateLayer(layerModel, movedIndex);
+                        break;
 
-                        case (MessageCommand.LAYER_DELETE):
-                            int deleteIndex = (int)data;
-                            this.DeleteLayer(deleteIndex);
-                            break;
+                    case (MessageCommand.LAYER_DELETE):
+                        int deleteIndex = (int)data;
+                        this.DeleteLayer(deleteIndex);
+                        break;
 
-                        case (MessageCommand.LAYER_MOVE):
-                            int[] moveIndexes = (int[])data;
-                            Layers.Move(moveIndexes[0], moveIndexes[1]);
-                            break;
-                    }
+                    case (MessageCommand.LAYER_MOVE):
+                        int[] moveIndexes = (int[])data;
+                        Layers.Move(moveIndexes[0], moveIndexes[1]);
+                        break;
                 }
             }
         }
 
-
-
+        public string MessageAddress { get; set; }
+        public Receiver Receiver { get; set; }
         public ObservableCollection<Layer> Layers { get; set; }
         public Camera Camera { get; set; }
 
-        public string MessageAddress { get; set; }
-        public Receiver Receiver { get; set; }
         private string _name;
         public string Name
         {

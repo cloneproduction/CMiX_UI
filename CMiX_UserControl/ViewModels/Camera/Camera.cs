@@ -4,10 +4,11 @@ using CMiX.MVVM.Models;
 using System.Collections.ObjectModel;
 using Memento;
 using CMiX.MVVM.Services;
+using CMiX.MVVM;
 
 namespace CMiX.ViewModels
 {
-    public class Camera : ViewModel, ISendable, IUndoable
+    public class Camera : ViewModel, ICopyPasteModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
         public Camera(Messenger messenger, string messageAddress, MasterBeat masterBeat, Mementor mementor) 
@@ -75,29 +76,31 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public void Copy(CameraModel cameramodel)
+        public void CopyModel(IModel model)
         {
-            cameramodel.MessageAddress = MessageAddress;
-            cameramodel.Rotation = Rotation;
-            cameramodel.LookAt = LookAt;
-            cameramodel.View = View;
-            BeatModifier.Copy(cameramodel.BeatModifierModel);
-            FOV.Copy(cameramodel.FOV);
-            Zoom.Copy(cameramodel.Zoom);
+            CameraModel cameraModel = model as CameraModel;
+            cameraModel.MessageAddress = MessageAddress;
+            cameraModel.Rotation = Rotation;
+            cameraModel.LookAt = LookAt;
+            cameraModel.View = View;
+            BeatModifier.CopyModel(cameraModel.BeatModifierModel);
+            FOV.CopyModel(cameraModel.FOV);
+            Zoom.CopyModel(cameraModel.Zoom);
         }
 
-        public void Paste(CameraModel cameramodel)
+        public void PasteModel(IModel model)
         {
+            CameraModel cameraModel = model as CameraModel;
             Messenger.Disable();
 
-            MessageAddress = cameramodel.MessageAddress;
-            Rotation = cameramodel.Rotation;
-            LookAt = cameramodel.LookAt;
-            View = cameramodel.View;
+            MessageAddress = cameraModel.MessageAddress;
+            Rotation = cameraModel.Rotation;
+            LookAt = cameraModel.LookAt;
+            View = cameraModel.View;
 
-            BeatModifier.Paste(cameramodel.BeatModifierModel);
-            FOV.Paste(cameramodel.FOV);
-            Zoom.Paste(cameramodel.Zoom);
+            BeatModifier.PasteModel(cameraModel.BeatModifierModel);
+            FOV.PasteModel(cameraModel.FOV);
+            Zoom.PasteModel(cameraModel.Zoom);
 
             Messenger.Enable();
         }

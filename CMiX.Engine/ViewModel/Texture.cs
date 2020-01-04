@@ -1,10 +1,11 @@
-﻿using CMiX.MVVM.Models;
+﻿using CMiX.MVVM;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using System;
 
 namespace CMiX.Engine.ViewModel
 {
-    public class Texture : IMessageReceiver
+    public class Texture : IMessageReceiver, ICopyPasteModel
     {
         public Texture(Receiver receiver, string messageAddress)
         {
@@ -16,28 +17,18 @@ namespace CMiX.Engine.ViewModel
 
         public void OnMessageReceived(object sender, EventArgs e)
         {
-            //string receivedAddress = NetMQClient.ByteMessage.MessageAddress;
 
-            //if (receivedAddress == this.MessageAddress)
-            //{
-            //    MessageCommand command = NetMQClient.ByteMessage.Command;
-            //    switch (command)
-            //    {
-            //        case MessageCommand.VIEWMODEL_UPDATE:
-            //            if (NetMQClient.ByteMessage.Payload != null)
-            //            {
-            //                TextureModel textureModel = NetMQClient.ByteMessage.Payload as TextureModel;
-            //                this.PasteData(textureModel);
-            //                //System.Console.WriteLine(MessageAddress + " " + Mode);
-            //            }
-            //            break;
-            //    }
-            //}
         }
 
-        public void PasteData(TextureModel textureModel)
+        public void PasteModel(IModel model)
         {
+            TextureModel textureModel = model as TextureModel;
             MessageAddress = textureModel.MessageAddress;
+        }
+
+        public void CopyModel(IModel model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

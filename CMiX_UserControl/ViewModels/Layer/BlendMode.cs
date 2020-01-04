@@ -25,7 +25,7 @@ namespace CMiX.ViewModels
                     Mementor.PropertyChange(this, nameof(Mode));
                 SetAndNotify(ref _mode, value);
                 BlendModeModel blendModeModel = new BlendModeModel();
-                this.Copy(blendModeModel);
+                this.CopyModel(blendModeModel);
                 Messenger.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, blendModeModel);
             }
         }
@@ -39,14 +39,16 @@ namespace CMiX.ViewModels
             MessageAddress = messageaddress;
         }
 
-        public void Copy(BlendModeModel blendModeModel)
+        public void CopyModel(IModel model)
         {
+            BlendModeModel blendModeModel = model as BlendModeModel;
             blendModeModel.MessageAddress = MessageAddress;
             blendModeModel.Mode = Mode;
         }
 
-        public void Paste(BlendModeModel blendModeModel)
+        public void PasteModel(IModel model)
         {
+            BlendModeModel blendModeModel = model as BlendModeModel;
             MessageAddress = blendModeModel.MessageAddress;
             Mode = blendModeModel.Mode;
         }

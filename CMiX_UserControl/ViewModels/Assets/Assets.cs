@@ -4,23 +4,27 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
+using CMiX.MVVM;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels;
 using GongSolutions.Wpf.DragDrop;
 
 namespace CMiX.ViewModels
 {
-    public class Assets : ViewModel, IDropTarget, IDragSource
+    public class Assets : ViewModel, ICopyPasteModel, IDropTarget, IDragSource
     {
         public Assets()
         {
             GeometryItems = new ObservableCollection<GeometryItem>();
             TextureItems = new ObservableCollection<TextureItem>();
             ResourceItems = new ObservableCollection<Item>();// GetItems("C:\\Users\\BabyClone\\Google Drive");
+
             AddNewFolderCommand = new RelayCommand(p => AddNewFolder());
             RenameFolderCommand = new RelayCommand(p => RenameFolder());
             DeleteItemCommand = new RelayCommand(p => DeleteItem());
         }
 
+        #region METHODS
         private void DeleteItem()
         {
             if (SelectedItem != null)
@@ -53,7 +57,9 @@ namespace CMiX.ViewModels
                 dirItem.IsEditing = true;
             }
         }
+        #endregion
 
+        #region PROPERTIES
         public ICommand RenameFolderCommand { get; set; }
         public ICommand AddNewFolderCommand { get; set; }
         public ICommand DeleteItemCommand { get; set; }
@@ -133,7 +139,9 @@ namespace CMiX.ViewModels
             }
             return items;
         }
+        #endregion
 
+        #region DRAG DROP
         public void DragOver(IDropInfo dropInfo)
         {
             if (dropInfo.Data.GetType() == typeof(DirectoryItem))
@@ -269,5 +277,18 @@ namespace CMiX.ViewModels
         {
             throw new NotImplementedException();
         }
+        #endregion
+
+        #region COPY/PASTE
+        public void CopyModel(IModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PasteModel(IModel model)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
 }

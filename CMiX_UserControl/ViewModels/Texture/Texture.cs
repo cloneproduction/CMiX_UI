@@ -6,10 +6,11 @@ using Memento;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using CMiX.MVVM;
 
 namespace CMiX.ViewModels
 {
-    public class Texture : ViewModel, ISendable, IUndoable
+    public class Texture : ViewModel, ICopyPasteModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
         public Texture(string messageaddress, Messenger messenger, Mementor mementor)
@@ -115,42 +116,44 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public void Copy(TextureModel texturemodel)
+        public void CopyModel(IModel model)
         {
-            texturemodel.MessageAddress = MessageAddress;
-            FileSelector.Copy(texturemodel.FileSelector);
-            Brightness.Copy(texturemodel.Brightness);
-            Contrast.Copy(texturemodel.Contrast);
-            Saturation.Copy(texturemodel.Saturation);
-            Luminosity.Copy(texturemodel.Luminosity);
-            Hue.Copy(texturemodel.Hue);
-            Pan.Copy(texturemodel.Pan);
-            Tilt.Copy(texturemodel.Tilt);
-            Scale.Copy(texturemodel.Scale);
-            Rotate.Copy(texturemodel.Rotate);
-            Keying.Copy(texturemodel.Keying);
-            Invert.Copy(texturemodel.Invert);
-            texturemodel.InvertMode = InvertMode;
+            TextureModel textureModel = model as TextureModel;
+            textureModel.MessageAddress = MessageAddress;
+            FileSelector.Copy(textureModel.FileSelector);
+            Brightness.CopyModel(textureModel.Brightness);
+            Contrast.CopyModel(textureModel.Contrast);
+            Saturation.CopyModel(textureModel.Saturation);
+            Luminosity.CopyModel(textureModel.Luminosity);
+            Hue.CopyModel(textureModel.Hue);
+            Pan.CopyModel(textureModel.Pan);
+            Tilt.CopyModel(textureModel.Tilt);
+            Scale.CopyModel(textureModel.Scale);
+            Rotate.CopyModel(textureModel.Rotate);
+            Keying.CopyModel(textureModel.Keying);
+            Invert.CopyModel(textureModel.Invert);
+            textureModel.InvertMode = InvertMode;
         }
 
-        public void Paste(TextureModel texturemodel)
+        public void PasteModel(IModel model)
         {
+            TextureModel textureModel = model as TextureModel;
             Messenger.Disable();
 
-            MessageAddress = texturemodel.MessageAddress;
-            FileSelector.Paste(texturemodel.FileSelector);
-            Brightness.Paste(texturemodel.Brightness);
-            Contrast.Paste(texturemodel.Contrast);
-            Saturation.Paste(texturemodel.Saturation);
-            Luminosity.Paste(texturemodel.Luminosity);
-            Hue.Paste(texturemodel.Hue);
-            Pan.Paste(texturemodel.Pan);
-            Tilt.Paste(texturemodel.Tilt);
-            Scale.Paste(texturemodel.Scale);
-            Rotate.Paste(texturemodel.Rotate);
-            Keying.Paste(texturemodel.Keying);
-            Invert.Paste(texturemodel.Invert);
-            InvertMode = texturemodel.InvertMode;
+            MessageAddress = textureModel.MessageAddress;
+            FileSelector.Paste(textureModel.FileSelector);
+            Brightness.PasteModel(textureModel.Brightness);
+            Contrast.PasteModel(textureModel.Contrast);
+            Saturation.PasteModel(textureModel.Saturation);
+            Luminosity.PasteModel(textureModel.Luminosity);
+            Hue.PasteModel(textureModel.Hue);
+            Pan.PasteModel(textureModel.Pan);
+            Tilt.PasteModel(textureModel.Tilt);
+            Scale.PasteModel(textureModel.Scale);
+            Rotate.PasteModel(textureModel.Rotate);
+            Keying.PasteModel(textureModel.Keying);
+            Invert.PasteModel(textureModel.Invert);
+            InvertMode = textureModel.InvertMode;
 
             Messenger.Enable();
         }
@@ -179,10 +182,10 @@ namespace CMiX.ViewModels
 
         public void CopyTexture()
         {
-            TextureModel texturemodel = new TextureModel();
-            this.Copy(texturemodel);
+            TextureModel textureModel = new TextureModel();
+            this.CopyModel(textureModel);
             IDataObject data = new DataObject();
-            data.SetData("TextureModel", texturemodel, false);
+            data.SetData("TextureModel", textureModel, false);
             Clipboard.SetDataObject(data);
         }
 
@@ -196,9 +199,9 @@ namespace CMiX.ViewModels
 
                 var texturemodel = data.GetData("TextureModel") as TextureModel;
                 var texturemessageaddress = MessageAddress;
-                this.Paste(texturemodel);
+                this.PasteModel(texturemodel);
                 UpdateMessageAddress(texturemessageaddress);
-                this.Copy(texturemodel);
+                this.CopyModel(texturemodel);
 
                 Messenger.Enable();
                 Mementor.EndBatch();
@@ -210,7 +213,7 @@ namespace CMiX.ViewModels
         {
             TextureModel texturemodel = new TextureModel();
             this.Reset();
-            this.Copy(texturemodel);
+            this.CopyModel(texturemodel);
             //SendMessages(nameof(TextureModel), texturemodel);
         }
         #endregion

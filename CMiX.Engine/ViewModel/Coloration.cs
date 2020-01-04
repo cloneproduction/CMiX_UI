@@ -1,13 +1,11 @@
 ﻿using System;
-using Ceras;
-using CMiX.MVVM.Commands;
-using CMiX.MVVM.Message;
+using CMiX.MVVM;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 
 namespace CMiX.Engine.ViewModel
 {
-    public class Coloration : IMessageReceiver
+    public class Coloration : ICopyPasteModel, IMessageReceiver
     {
         public Coloration(Receiver receiver, string messageAddress)
         {
@@ -41,10 +39,16 @@ namespace CMiX.Engine.ViewModel
         public string MessageAddress { get; set; }
         public Receiver Receiver { get; set; }
 
-        public void PasteData(ColorationModel colorationModel)
+        public void PasteModel(IModel model)
         {
+            ColorationModel colorationModel = model as ColorationModel;
             MessageAddress = colorationModel.MessageAddress;
-            ColorSelector.PasteData(colorationModel.ColorSelectorModel);
+            ColorSelector.PasteModel(colorationModel.ColorSelectorModel);
+        }
+
+        public void CopyModel(IModel model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

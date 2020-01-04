@@ -41,7 +41,7 @@ namespace CMiX.ViewModels
         #region COPY/PASTE/RESET
         public void Copy(GeometryFXModel geometryFXdto)
         {
-            Explode.Copy(geometryFXdto.Explode);
+            Explode.CopyModel(geometryFXdto.Explode);
             FileSelector.Copy(geometryFXdto.FileSelector);
         }
 
@@ -49,7 +49,7 @@ namespace CMiX.ViewModels
         {
             Messenger.Disable();
 
-            Explode.Paste(geometryFXdto.Explode);
+            Explode.PasteModel(geometryFXdto.Explode);
             FileSelector.Paste(geometryFXdto.FileSelector);
 
             Messenger.Enable();

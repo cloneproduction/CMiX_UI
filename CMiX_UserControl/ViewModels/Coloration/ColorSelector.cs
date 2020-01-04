@@ -6,10 +6,11 @@ using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using Memento;
 using CMiX.MVVM.Services;
+using CMiX.MVVM;
 
 namespace CMiX.ViewModels
 {
-    public class ColorSelector : ViewModel, ISendable, IUndoable
+    public class ColorSelector : ViewModel, ICopyPasteModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
         public ColorSelector(string messageaddress, Messenger messenger, Mementor mementor) 
@@ -48,7 +49,7 @@ namespace CMiX.ViewModels
         public void CopyColorSelector()
         {
             ColorSelectorModel colorselectormodel = new ColorSelectorModel();
-            this.Copy(colorselectormodel);
+            this.CopyModel(colorselectormodel);
             IDataObject data = new DataObject();
             data.SetData("ColorSelectorModel", colorselectormodel, false);
             Clipboard.SetDataObject(data);
@@ -64,9 +65,9 @@ namespace CMiX.ViewModels
 
                 var colorselectormodel = data.GetData("ColorSelectorModel") as ColorSelectorModel;
                 var colorselectormessageaddress = MessageAddress;
-                this.Paste(colorselectormodel);
+                this.PasteModel(colorselectormodel);
                 this.UpdateMessageAddress(colorselectormessageaddress);
-                this.Copy(colorselectormodel);
+                this.CopyModel(colorselectormodel);
 
                 Messenger.Enable();
                 this.Mementor.EndBatch();
@@ -78,22 +79,24 @@ namespace CMiX.ViewModels
         {
             ColorSelectorModel colorselectormodel = new ColorSelectorModel();
             this.Reset();
-            this.Copy(colorselectormodel);
+            this.CopyModel(colorselectormodel);
             //SendMessages(MessageAddress, colorselectormodel);
         }
 
-        public void Copy(ColorSelectorModel colorselectormodel)
+        public void CopyModel(IModel model)
         {
-            colorselectormodel.MessageAddress = MessageAddress;
-            ColorPicker.Copy(colorselectormodel.ColorPickerModel);
+            ColorSelectorModel colorSelectorModel = model as ColorSelectorModel;
+            colorSelectorModel.MessageAddress = MessageAddress;
+            ColorPicker.Copy(colorSelectorModel.ColorPickerModel);
         }
 
-        public void Paste(ColorSelectorModel colorselectormodel)
+        public void PasteModel(IModel model)
         {
             Messenger.Disable();
 
-            MessageAddress = colorselectormodel.MessageAddress;
-            ColorPicker.Paste(colorselectormodel.ColorPickerModel);
+            ColorSelectorModel colorSelectorModel = model as ColorSelectorModel;
+            MessageAddress = colorSelectorModel.MessageAddress;
+            ColorPicker.Paste(colorSelectorModel.ColorPickerModel);
 
             Messenger.Enable();
         }

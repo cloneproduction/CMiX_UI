@@ -74,9 +74,9 @@ namespace CMiX.ViewModels
         public void Copy(ScaleModel scalemodel)
         {
             scalemodel.MessageAddress = MessageAddress;
-            ScaleX.Copy(scalemodel.ScaleX);
-            ScaleY.Copy(scalemodel.ScaleY);
-            ScaleZ.Copy(scalemodel.ScaleZ);
+            ScaleX.CopyModel(scalemodel.ScaleX);
+            ScaleY.CopyModel(scalemodel.ScaleY);
+            ScaleZ.CopyModel(scalemodel.ScaleZ);
         }
 
         public void Paste(ScaleModel scalemodel)
@@ -84,9 +84,9 @@ namespace CMiX.ViewModels
             Messenger.Disable();
 
             MessageAddress = scalemodel.MessageAddress;
-            ScaleX.Paste(scalemodel.ScaleX);
-            ScaleY.Paste(scalemodel.ScaleY);
-            ScaleZ.Paste(scalemodel.ScaleZ);
+            ScaleX.PasteModel(scalemodel.ScaleX);
+            ScaleY.PasteModel(scalemodel.ScaleY);
+            ScaleZ.PasteModel(scalemodel.ScaleZ);
             Messenger.Enable();
         }
 

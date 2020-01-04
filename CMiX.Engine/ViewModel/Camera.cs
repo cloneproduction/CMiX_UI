@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using Ceras;
 using CMiX.Engine.ViewModel;
+using CMiX.MVVM;
 using CMiX.MVVM.Commands;
 using CMiX.MVVM.Message;
 using CMiX.MVVM.Models;
@@ -9,7 +10,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Engine.ViewModel
 {
-    public class Camera : IMessageReceiver
+    public class Camera : ICopyPasteModel, IMessageReceiver
     {
         public Camera(Receiver receiver, string messageAddress)
         {
@@ -42,10 +43,16 @@ namespace CMiX.Engine.ViewModel
         public string MessageAddress { get; set; }
         public Receiver Receiver { get; set; }
 
-        public void PasteData(CameraModel cameraModel)
+        public void PasteModel(IModel model)
         {
+            CameraModel cameraModel = model as CameraModel;
             FOV.PasteModel(cameraModel.FOV);
             Zoom.PasteModel(cameraModel.Zoom);
+        }
+
+        public void CopyModel(IModel model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

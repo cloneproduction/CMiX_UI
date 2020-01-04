@@ -73,9 +73,9 @@ namespace CMiX.ViewModels
         public void Copy(RotationModel rotationmodel)
         {
             rotationmodel.MessageAddress = MessageAddress;
-            RotationX.Copy(rotationmodel.RotationX);
-            RotationY.Copy(rotationmodel.RotationY);
-            RotationZ.Copy(rotationmodel.RotationZ);
+            RotationX.CopyModel(rotationmodel.RotationX);
+            RotationY.CopyModel(rotationmodel.RotationY);
+            RotationZ.CopyModel(rotationmodel.RotationZ);
         }
 
         public void Paste(RotationModel rotationmodel)
@@ -83,9 +83,9 @@ namespace CMiX.ViewModels
             Messenger.Disable();
 
             MessageAddress = rotationmodel.MessageAddress;
-            RotationX.Paste(rotationmodel.RotationX);
-            RotationY.Paste(rotationmodel.RotationY);
-            RotationZ.Paste(rotationmodel.RotationZ);
+            RotationX.PasteModel(rotationmodel.RotationX);
+            RotationY.PasteModel(rotationmodel.RotationY);
+            RotationZ.PasteModel(rotationmodel.RotationZ);
             Messenger.Enable();
         }
 

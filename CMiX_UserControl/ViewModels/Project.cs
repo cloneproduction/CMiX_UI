@@ -4,13 +4,14 @@ using System.Windows;
 using System.Windows.Input;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
-using Ceras;
 using CMiX.MVVM.Services;
+using CMiX.MVVM;
 using Memento;
+using Ceras;
 
 namespace CMiX.ViewModels
 {
-    public class Project : ViewModel, ISendable, IUndoable
+    public class Project : ViewModel, ICopyPasteModel, ISendable, IUndoable
     {
         public Project(MessageService messageService, Mementor mementor)
         {
@@ -47,6 +48,7 @@ namespace CMiX.ViewModels
             AddLayerCommand = new RelayCommand(p => AddLayer());
             EditCompositionCommand = new RelayCommand(p => EditComposition());
         }
+
         #region PROPERTIES
 
         #region COMMANDS
@@ -179,9 +181,9 @@ namespace CMiX.ViewModels
             {
                 Composition comp = SelectedComposition as Composition;
                 CompositionModel compositionmodel = new CompositionModel();
-                comp.Copy(compositionmodel);
+                comp.CopyModel(compositionmodel);
                 Composition newcomp = new Composition(MessageService.CreateMessenger(), MessageAddress, EntityFactory, Assets, Mementor);
-                newcomp.Paste(compositionmodel);
+                newcomp.PasteModel(compositionmodel);
                 newcomp.Name = newcomp.Name + "- Copy";
                 Compositions.Add(newcomp);
                 if (newcomp.Layers[0] != null)
@@ -210,7 +212,7 @@ namespace CMiX.ViewModels
                     byte[] data = File.ReadAllBytes(folderPath) ;
                     ProjectModel projectmodel = serializer.Deserialize<ProjectModel>(data);
                     Compositions.Clear();
-                    Paste(projectmodel);
+                    PasteModel(projectmodel);
                     FolderPath = folderPath;
                 }
             }
@@ -222,7 +224,7 @@ namespace CMiX.ViewModels
             if(!string.IsNullOrEmpty(FolderPath))
             {
                 ProjectModel projectdto = new ProjectModel();
-                this.Copy(projectdto);
+                this.CopyModel(projectdto);
                 var serializer = new CerasSerializer();
                 var data = serializer.Serialize(projectdto);
                 File.WriteAllBytes(FolderPath, data);
@@ -243,7 +245,7 @@ namespace CMiX.ViewModels
             if (savedialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 ProjectModel projectdto = new ProjectModel();
-                this.Copy(projectdto);
+                this.CopyModel(projectdto);
                 string folderPath = savedialog.FileName;
                 var data = Serializer.Serialize(projectdto);
                 File.WriteAllBytes(folderPath, data);
@@ -276,7 +278,7 @@ namespace CMiX.ViewModels
                     byte[] data = File.ReadAllBytes(folderPath);
                     CompositionModel compositionmodel = Serializer.Deserialize<CompositionModel>(data);
                     Composition newcomp = new Composition(MessageService.CreateMessenger(), MessageAddress, EntityFactory, Assets, Mementor);
-                    newcomp.Paste(compositionmodel);
+                    newcomp.PasteModel(compositionmodel);
                     Compositions.Add(newcomp);
                     SelectedComposition = newcomp;
                 }
@@ -294,7 +296,7 @@ namespace CMiX.ViewModels
             if (savedialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 CompositionModel compositionmodel = new CompositionModel();
-                SelectedComposition.Copy(compositionmodel);
+                SelectedComposition.CopyModel(compositionmodel);
                 string folderPath = savedialog.FileName;
                 var data = Serializer.Serialize(compositionmodel);
                 File.WriteAllBytes(folderPath, data);
@@ -303,22 +305,24 @@ namespace CMiX.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void Copy(ProjectModel projectmodel)
+        public void CopyModel(IModel model)
         {
+            var projectModel = model as ProjectModel;
             foreach (var comp in Compositions)
             {
                 CompositionModel compositionmodel = new CompositionModel();
-                comp.Copy(compositionmodel);
-                projectmodel.CompositionModel.Add(compositionmodel);
+                comp.CopyModel(compositionmodel);
+                projectModel.CompositionModel.Add(compositionmodel);
             }
         }
 
-        public void Paste(ProjectModel projectmodel)
+        public void PasteModel(IModel model)
         {
-            foreach (var compositionmodel in projectmodel.CompositionModel)
+            var projectModel = model as ProjectModel;
+            foreach (var compositionmodel in projectModel.CompositionModel)
             {
                 Composition composition = new Composition(MessageService.CreateMessenger(), MessageAddress, EntityFactory, Assets, Mementor);
-                composition.Paste(compositionmodel);
+                composition.PasteModel(compositionmodel);
                 Compositions.Add(composition);
             }
         }
