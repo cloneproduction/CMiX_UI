@@ -1,14 +1,9 @@
 ﻿using System;
-using System.ComponentModel;
-using Ceras;
-using CMiX.Engine.ViewModel;
 using CMiX.MVVM;
-using CMiX.MVVM.Commands;
-using CMiX.MVVM.Message;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 
-namespace CMiX.Engine.ViewModel
+namespace CMiX.Engine.ViewModels
 {
     public class Camera : ICopyPasteModel, IMessageReceiver
     {
@@ -21,21 +16,7 @@ namespace CMiX.Engine.ViewModel
 
         public void OnMessageReceived(object sender, EventArgs e)
         {
-            //string receivedAddress = NetMQClient.ByteMessage.MessageAddress;
-            //if (receivedAddress == this.MessageAddress)
-            //{
-            //    MessageCommand command = NetMQClient.ByteMessage.Command;
-            //    switch (command)
-            //    {
-            //        case MessageCommand.VIEWMODEL_UPDATE:
-            //            if (NetMQClient.ByteMessage.Payload != null)
-            //            {
-            //                CameraModel cameraModel = NetMQClient.ByteMessage.Payload as CameraModel;
-            //                this.PasteData(cameraModel);
-            //            }
-            //            break;
-            //    }
-            //}
+            Receiver.UpdateViewModel(MessageAddress, this);
         }
 
         public Slider FOV { get; set; }

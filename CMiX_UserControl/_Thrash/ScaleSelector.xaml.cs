@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Controls;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public partial class ScaleSelector : UserControl
     {

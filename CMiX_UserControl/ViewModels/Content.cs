@@ -9,7 +9,7 @@ using CMiX.MVVM.Commands;
 using CMiX.MVVM;
 using CMiX.MVVM.Services;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public class Content : ViewModel, ICopyPasteModel, ISendableEntityContext, IUndoable
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public interface IEntityContext
     {

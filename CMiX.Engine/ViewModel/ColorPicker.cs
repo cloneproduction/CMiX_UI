@@ -5,7 +5,7 @@ using CMiX.MVVM.Services;
 using System;
 using System.Windows.Media;
 
-namespace CMiX.Engine.ViewModel
+namespace CMiX.Engine.ViewModels
 {
     public class ColorPicker : ICopyPasteModel, IMessageReceiver
     {
@@ -19,8 +19,6 @@ namespace CMiX.Engine.ViewModel
         public void OnMessageReceived(object sender, EventArgs e)
         {
             Receiver.UpdateViewModel(MessageAddress, this);
-            Console.WriteLine("Receiver MessageAddress : " + Receiver.ReceivedAddress);
-            Console.WriteLine("ColorPickerMessageAddress : " + MessageAddress);
         }
 
         public Color SelectedColor { get; set; }

@@ -3,7 +3,7 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using System;
 
-namespace CMiX.Engine.ViewModel
+namespace CMiX.Engine.ViewModels
 {
     public class Entity : IMessageReceiver, ICopyPasteModel
     {
@@ -30,7 +30,6 @@ namespace CMiX.Engine.ViewModel
         public Texture Texture { get; set; }
         public Coloration Coloration { get; set; }
         
-
         public void PasteModel(IModel model)
         {
             EntityModel entityModel = model as EntityModel;

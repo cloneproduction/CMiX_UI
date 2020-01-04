@@ -14,7 +14,7 @@ namespace CMiX.MVVM.Services
             Topic = topic;
             Enabled = true;
             NetMQClient = new NetMQClient(IP, Port, Topic);
-            NetMQClient.ByteMessage.MessageUpdated += OnNetMQMessageReceived;
+            NetMQClient.Message.MessageUpdated += OnNetMQMessageReceived;
         }
 
         public event EventHandler<MessageEventArgs> MessageReceived;

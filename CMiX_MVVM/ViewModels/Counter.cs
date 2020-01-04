@@ -5,7 +5,7 @@ using Memento;
 using System;
 using System.Windows.Input;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public class Counter : ViewModel, ISendable, IUndoable
     {

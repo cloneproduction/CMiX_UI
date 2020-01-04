@@ -1,6 +1,6 @@
 ﻿using CMiX.MVVM.Services;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public interface ISendableEntityContext : ISendable, IEntityContext
     {

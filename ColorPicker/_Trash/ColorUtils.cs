@@ -7,7 +7,7 @@
 //using System.Windows.Data;
 //using System.Windows.Media;
 
-//namespace CMiX.ViewModels
+//namespace CMiX.Studio.ViewModels
 //{
 //    [ValueConversion(typeof(Color), typeof(String))]
 

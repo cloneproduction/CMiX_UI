@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public class Entity : ViewModel, ICopyPasteModel, ISendable, IUndoable
     {

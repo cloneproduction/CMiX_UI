@@ -1,10 +1,10 @@
-﻿using CMiX.MVVM.ViewModels;
+﻿using Memento;
+using CMiX.MVVM;
+using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
-using Memento;
-using CMiX.MVVM;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public class Layer : ViewModel, ICopyPasteModel, ISendable, IUndoable
     {

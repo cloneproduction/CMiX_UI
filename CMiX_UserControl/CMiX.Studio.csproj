@@ -146,6 +146,7 @@
     <Compile Include="ViewModels\Geometry\Transform\Transform.cs" />
     <Compile Include="ViewModels\Geometry\Transform\Translate.cs" />
     <Compile Include="ViewModels\Entity\Entity.cs" />
+    <Compile Include="ViewModels\Layer\LayerFactory.cs" />
     <Compile Include="Views\ChannelOSCDataTemplate.xaml.cs">
       <DependentUpon>ChannelOSCDataTemplate.xaml</DependentUpon>
     </Compile>

@@ -2,7 +2,7 @@
 using CMiX.MVVM.ViewModels;
 using Memento;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public abstract class Beat : ViewModel
     {

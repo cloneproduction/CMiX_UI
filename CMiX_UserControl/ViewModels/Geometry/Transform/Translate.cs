@@ -5,7 +5,7 @@ using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public class Translate : ViewModel, ISendable, IUndoable
     {

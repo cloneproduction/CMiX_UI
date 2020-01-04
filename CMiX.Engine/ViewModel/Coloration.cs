@@ -3,7 +3,7 @@ using CMiX.MVVM;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 
-namespace CMiX.Engine.ViewModel
+namespace CMiX.Engine.ViewModels
 {
     public class Coloration : ICopyPasteModel, IMessageReceiver
     {

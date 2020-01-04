@@ -11,7 +11,7 @@ using CMiX.MVVM;
 using Memento;
 using GongSolutions.Wpf.DragDrop;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public class Composition : ViewModel, ICopyPasteModel, ISendable, IUndoable, IDropTarget
     {
@@ -252,8 +252,6 @@ namespace CMiX.ViewModels
 
             Mementor.EndBatch();
         }
-
-
 
         private void DuplicateLayer()
         {

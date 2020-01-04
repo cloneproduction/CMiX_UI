@@ -22,6 +22,7 @@ namespace CMiX.MVVM.Message
 
             public void Initialise(object state)
             {
+
             }
 
             public void Run(PairSocket shim)

@@ -9,7 +9,7 @@ using CMiX.MVVM;
 using Memento;
 using Ceras;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public class Project : ViewModel, ICopyPasteModel, ISendable, IUndoable
     {

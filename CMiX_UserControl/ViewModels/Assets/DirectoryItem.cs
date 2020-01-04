@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public class DirectoryItem : Item
     {

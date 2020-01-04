@@ -5,7 +5,7 @@ using Memento;
 using System;
 using System.Windows;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public class RotationModifier : ViewModel, ISendable, IUndoable
     {

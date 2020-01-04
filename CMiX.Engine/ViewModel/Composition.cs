@@ -6,7 +6,7 @@ using CMiX.MVVM.Services;
 using CMiX.MVVM;
 using CMiX.Engine;
 
-namespace CMiX.Engine.ViewModel
+namespace CMiX.Engine.ViewModels
 {
     public class Composition : ICopyPasteModel, IMessageReceiver
     {

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace CMiX.MVVM.Services
 {
-    public class Messenger : ViewModel
+    public class Messenger
     {
         public Messenger(ObservableCollection<Server> servers)
         {
@@ -20,6 +20,7 @@ namespace CMiX.MVVM.Services
 
         public ObservableCollection<MessageValidation> MessageValidations { get; set; }
         public ObservableCollection<Server> Servers { get; set; }
+        public bool Enabled { get; set; }
 
         private void CreateMessageValidation()
         {

@@ -1,7 +1,7 @@
 ﻿using System;
 using CMiX.MVVM.ViewModels;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public class Item : ViewModel
     {

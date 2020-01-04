@@ -4,7 +4,7 @@ using CMiX.MVVM.Services;
 using CMiX.MVVM;
 using Memento;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public class RangeControl : ViewModel, ICopyPasteModel, ISendable, IUndoable
     {

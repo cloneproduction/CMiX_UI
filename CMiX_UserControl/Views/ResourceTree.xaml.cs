@@ -1,4 +1,4 @@
-﻿using CMiX.ViewModels;
+﻿using CMiX.Studio.ViewModels;
 using System.Windows.Controls;
 using System.Windows.Input;
 

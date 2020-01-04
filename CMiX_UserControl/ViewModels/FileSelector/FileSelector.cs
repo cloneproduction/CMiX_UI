@@ -10,7 +10,7 @@ using CMiX.MVVM;
 using GongSolutions.Wpf.DragDrop;
 using Memento;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public class FileSelector : ViewModel, ICopyPasteModel, ISendable, IUndoable, IDropTarget, IDragSource
     {

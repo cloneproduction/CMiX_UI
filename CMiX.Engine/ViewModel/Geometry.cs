@@ -3,7 +3,7 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using System;
 
-namespace CMiX.Engine.ViewModel
+namespace CMiX.Engine.ViewModels
 {
     public class Geometry : IMessageReceiver, ICopyPasteModel
     {

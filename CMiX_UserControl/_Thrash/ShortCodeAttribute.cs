@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public class ShortCodeAttribute : Attribute
     {

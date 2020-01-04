@@ -1,5 +1,5 @@
 ﻿using System;
-using CMiX.ViewModels;
+using CMiX.Studio.ViewModels;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Collections.Generic;

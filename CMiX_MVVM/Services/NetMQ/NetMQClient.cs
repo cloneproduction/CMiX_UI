@@ -11,13 +11,13 @@ namespace CMiX.MVVM.Message
             private PairSocket shim;
             private NetMQPoller poller;
             private SubscriberSocket subscriber;
-            private ByteMessage ByteMessage;
+            private Message Message;
             private string Address;
             private string Topic;
 
-            public ShimHandler(ByteMessage byteMessage, string address, string topic)
+            public ShimHandler(Message byteMessage, string address, string topic)
             {
-                this.ByteMessage = byteMessage;
+                this.Message = byteMessage;
                 this.Address = address;
                 this.Topic = topic;
             }
@@ -44,7 +44,7 @@ namespace CMiX.MVVM.Message
 
             private void OnSubscriberReady(object sender, NetMQSocketEventArgs e)
             {
-                ByteMessage.NetMQMessage = e.Socket.ReceiveMultipartMessage();
+                Message.NetMQMessage = e.Socket.ReceiveMultipartMessage();
             }
 
             private void OnShimReady(object sender, NetMQSocketEventArgs e)
@@ -58,7 +58,7 @@ namespace CMiX.MVVM.Message
             }
         }
 
-        public ByteMessage ByteMessage { get; set; }
+        public Message Message { get; set; }
         private NetMQActor actor;
 
         private string _topic;
@@ -101,7 +101,7 @@ namespace CMiX.MVVM.Message
 
         public NetMQClient(string ip, int port, string topic)
         {
-            ByteMessage = new ByteMessage();
+            Message = new Message();
             IP = ip;
             Port = port;
             Topic = topic;
@@ -112,7 +112,7 @@ namespace CMiX.MVVM.Message
             if (actor != null)
                 return;
            
-            actor = NetMQActor.Create(new ShimHandler(ByteMessage, Address, Topic));
+            actor = NetMQActor.Create(new ShimHandler(Message, Address, Topic));
             Console.WriteLine($"NetMQClient Started with IP {IP}, Port {Port} and Topic {Topic}");
         }
 

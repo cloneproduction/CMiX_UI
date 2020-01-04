@@ -9,7 +9,7 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels;
 using GongSolutions.Wpf.DragDrop;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public class Assets : ViewModel, ICopyPasteModel, IDropTarget, IDragSource
     {

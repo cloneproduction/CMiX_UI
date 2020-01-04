@@ -1,4 +1,5 @@
-﻿using CMiX.MVVM.ViewModels;
+﻿using CMiX.MVVM.Message;
+using CMiX.MVVM.ViewModels;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -6,8 +7,10 @@ namespace CMiX.MVVM.Services
 {
     public class MessageService : ViewModel
     {
-        public MessageService()
+        public MessageService(MessageFactory messageFactory)
         {
+            MessageFactory = messageFactory;
+
             Servers = new ObservableCollection<Server>();
             AddServer();
 
@@ -18,8 +21,13 @@ namespace CMiX.MVVM.Services
         public ICommand AddServerCommand { get; set; }
         public ICommand DeleteServerCommand { get; set; }
 
+        public MessageFactory MessageFactory { get; set; }
+
         public ObservableCollection<Server> Servers { get; set; }
+        public ObservableCollection<Client> Clients { get; set; }
+
         public ObservableCollection<Messenger> Messengers { get; set; }
+        public ObservableCollection<Receiver> Receivers { get; set; }
 
         private Server _selectedServer;
         public Server SelectedServer
@@ -28,26 +36,42 @@ namespace CMiX.MVVM.Services
             set => SetAndNotify(ref _selectedServer, value);
         }
 
-        int servernameid = 0;
-
         public Messenger CreateMessenger()
         {
             return new Messenger(Servers);
         }
 
+        //public Receiver CreateReceiver()
+        //{
+        //    return new Receiver(Clients);
+        //}
+
         public void AddServer()
         {
-            Server server = new Server($"Server({servernameid.ToString()})", "127.0.0.1", 1111 + servernameid, $"/Device{servernameid}");
+            Server server = MessageFactory.CreateServer();
             server.Start();
             Servers.Add(server);
-            servernameid++;
         }
 
         private void DeleteServer(object server)
         {
-            Server serv = server as Server;
-            serv.Stop();
-            Servers.Remove(serv);
+            Server s = server as Server;
+            s.Stop();
+            Servers.Remove(s);
+        }
+
+        public void AddClient()
+        {
+            Client client = MessageFactory.CreateClient();
+            client.Start();
+            Clients.Add(client);
+        }
+
+        public void DeleteClient(object client)
+        {
+            Client c = client as Client;
+            c.Stop();
+            Clients.Remove(c);
         }
     }
 }

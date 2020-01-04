@@ -5,7 +5,7 @@ using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public class Instancer : ViewModel, ISendable, IUndoable
     {

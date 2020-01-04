@@ -7,7 +7,7 @@ using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Services;
 using CMiX.MVVM;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public class MasterBeat : Beat, ICopyPasteModel, ISendable
     {

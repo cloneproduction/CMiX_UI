@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using CMiX.MVVM.Message;
 using CMiX.MVVM.Services;
-using CMiX.ViewModels;
+using CMiX.Studio.ViewModels;
 using Memento;
 
 namespace CMiX
@@ -14,8 +15,9 @@ namespace CMiX
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
+            MessageFactory messageFactory = new MessageFactory();
+            MessageService messageService = new MessageService(messageFactory);
             Mementor mementor = new Mementor();
-            MessageService messageService = new MessageService();
             ProjectView.DataContext = new Project(messageService, mementor);
         }
 

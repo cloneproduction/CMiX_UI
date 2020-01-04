@@ -1,8 +1,7 @@
-﻿using Ceras;
-using CMiX.MVVM.Message;
+﻿using CMiX.MVVM.Message;
 using CMiX.MVVM.Services;
 
-namespace CMiX.Engine.ViewModel
+namespace CMiX.Engine.ViewModels
 {
     public class Project
     {

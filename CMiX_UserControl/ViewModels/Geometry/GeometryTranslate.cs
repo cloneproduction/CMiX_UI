@@ -5,7 +5,7 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public class GeometryTranslate : ViewModel, ISendable, ICopyPasteModel, IUndoable
     {

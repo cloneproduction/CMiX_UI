@@ -1,10 +1,9 @@
 ﻿using System;
 using CMiX.MVVM;
-using CMiX.MVVM.Commands;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 
-namespace CMiX.Engine.ViewModel
+namespace CMiX.Engine.ViewModels
 {
     public class BlendMode : IMessageReceiver, ICopyPasteModel
     {
@@ -16,30 +15,21 @@ namespace CMiX.Engine.ViewModel
             Mode = ((MVVM.ViewModels.BlendMode)0).ToString();
         }
 
-
-
         public void OnMessageReceived(object sender, EventArgs e)
         {
-            if (MessageAddress == Receiver.ReceivedAddress && Receiver.ReceivedData != null)
-            {
-                object data = Receiver.ReceivedData;
-                if (MessageCommand.VIEWMODEL_UPDATE == Receiver.ReceivedCommand)
-                {
-                    this.PasteModel(data as IModel);
-                    Console.WriteLine(this.MessageAddress + " : " + Mode);
-                }
-            }
+            Receiver.UpdateViewModel(MessageAddress, this);
         }
 
-        public string Mode { get; set; }
         public string MessageAddress { get; set; }
         public Receiver Receiver { get; set; }
+        public string Mode { get; set; }
 
         public void PasteModel(IModel model)
         {
             BlendModeModel blendModeModel = model as BlendModeModel;
             MessageAddress = blendModeModel.MessageAddress;
             Mode = blendModeModel.Mode;
+            Console.WriteLine(MessageAddress + " " + Mode);
         }
 
         public void CopyModel(IModel model)

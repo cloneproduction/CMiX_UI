@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public class EntityFactory
     {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CMiX.MVVM.ViewModels;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public class FileItem : Item
     {

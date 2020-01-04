@@ -4,7 +4,7 @@ using CMiX.MVVM.Commands;
 using CMiX.MVVM.Services;
 using CMiX.MVVM;
 
-namespace CMiX.Engine.ViewModel
+namespace CMiX.Engine.ViewModels
 {
     public class Slider : ICopyPasteModel, IMessageReceiver
     {

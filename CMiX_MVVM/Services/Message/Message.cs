@@ -7,9 +7,9 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.Message
 {
-    public class ByteMessage
+    public class Message
     {
-        public ByteMessage()
+        public Message()
         {
             Serializer = new CerasSerializer();
         }
@@ -65,10 +65,10 @@ namespace CMiX.MVVM.Message
         }
 
         public event EventHandler<MessageEventArgs> MessageUpdated;
-        private void OnMessageUpdated(ByteMessage byteMessage)
+        private void OnMessageUpdated(Message message)
         {
             if (MessageUpdated != null)
-                MessageUpdated(this, new MessageEventArgs(byteMessage.MessageAddress, byteMessage.Command, byteMessage.Parameter, byteMessage.Payload));
+                MessageUpdated(this, new MessageEventArgs(message.MessageAddress, message.Command, message.Parameter, message.Payload));
         }
     }
 }

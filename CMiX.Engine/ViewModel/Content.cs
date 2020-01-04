@@ -4,7 +4,7 @@ using CMiX.MVVM.Services;
 using System;
 using System.Collections.Generic;
 
-namespace CMiX.Engine.ViewModel
+namespace CMiX.Engine.ViewModels
 {
     public class Content : IMessageReceiver, ICopyPasteModel
     {
@@ -16,7 +16,6 @@ namespace CMiX.Engine.ViewModel
 
             Entities = new List<Entity>();
             Entity entity = new Entity(receiver, MessageAddress + "Entity0");
-            Console.WriteLine("Content MessageAddress : " + MessageAddress);
             entity.Name = "Entity 0";
             Entities.Add(entity);
         }
@@ -67,12 +66,10 @@ namespace CMiX.Engine.ViewModel
             Entity entity = new Entity(Receiver, this.MessageAddress + nameof(Entity));
             entity.PasteModel(entityModel);
             Entities.Add(entity);
-            Console.WriteLine("AddObject messageaddress : " + entity.MessageAddress);
         }
 
         public void DeleteEntity(int index)
         {
-            Console.WriteLine("DeleteLayer : " + Entities[index].MessageAddress);
             Entities.RemoveAt(index);
         }
 
@@ -86,7 +83,6 @@ namespace CMiX.Engine.ViewModel
                 Entity newEntity = new Entity(Receiver, this.MessageAddress);
                 newEntity.PasteModel(entity);
             }
-            Console.WriteLine("Content PasteData in Engine");
         }
 
         public void CopyModel(IModel model)

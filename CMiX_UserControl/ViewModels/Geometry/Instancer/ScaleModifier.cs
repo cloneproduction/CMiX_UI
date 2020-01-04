@@ -5,7 +5,7 @@ using Memento;
 using System;
 using System.Windows;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     [Serializable]
     public class ScaleModifier : ViewModel, ISendable, IUndoable

@@ -16,7 +16,6 @@ namespace CMiX.MVVM.ViewModels
         }
 
         #region PROPERTIES
-
         private string _name;
         public string Name
         {

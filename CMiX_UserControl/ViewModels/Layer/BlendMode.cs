@@ -4,7 +4,7 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels;
 using Memento;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public class BlendMode : ViewModel, ISendable, IUndoable
     {

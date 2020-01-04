@@ -3,7 +3,7 @@ using CMiX.MVVM;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 
-namespace CMiX.Engine.ViewModel
+namespace CMiX.Engine.ViewModels
 {
     public class Layer : ICopyPasteModel, IMessageReceiver
     {
@@ -35,9 +35,9 @@ namespace CMiX.Engine.ViewModel
         public void PasteModel(IModel model)
         {
             LayerModel layerModel = model as LayerModel;
+            this.MessageAddress = layerModel.MessageAddress;
             this.DisplayName = layerModel.DisplayName;
             this.ID = layerModel.ID;
-            this.MessageAddress = layerModel.MessageAddress;
 
             this.Content.PasteModel(layerModel.ContentModel);
             this.BlendMode.PasteModel(layerModel.BlendMode);

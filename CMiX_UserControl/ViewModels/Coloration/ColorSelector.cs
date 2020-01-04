@@ -8,7 +8,7 @@ using Memento;
 using CMiX.MVVM.Services;
 using CMiX.MVVM;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public class ColorSelector : ViewModel, ICopyPasteModel, ISendable, IUndoable
     {

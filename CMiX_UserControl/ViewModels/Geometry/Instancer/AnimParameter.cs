@@ -5,7 +5,7 @@ using CMiX.MVVM.Models;
 using Memento;
 using CMiX.MVVM.Services;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public class AnimParameter : ViewModel, ISendable, IUndoable
     {
