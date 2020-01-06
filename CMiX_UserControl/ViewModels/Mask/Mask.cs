@@ -10,7 +10,7 @@ using Memento;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Mask : ViewModel, ICopyPasteModel, ISendableEntityContext, IUndoable
+    public class Mask : ViewModel, IEntityContext
     {
         #region CONSTRUCTORS
         public Mask(Beat masterbeat, string messageaddress, Sender sender, Mementor mementor) 
@@ -84,6 +84,9 @@ namespace CMiX.Studio.ViewModels
         public string MessageAddress { get; set; }
         public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
+        public MasterBeat MasterBeat { get; set; }
+        public Assets Assets { get; set; }
+        public Beat Beat { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET

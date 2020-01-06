@@ -133,6 +133,7 @@
     <Compile Include="ViewModels\Entity\EntityEditor.cs" />
     <Compile Include="ViewModels\Entity\EntityFactory.cs" />
     <Compile Include="ViewModels\Entity\IEntityContext.cs" />
+    <Compile Include="ViewModels\Entity\IEntityEditor.cs" />
     <Compile Include="ViewModels\Entity\ISendableEntityContext.cs" />
     <Compile Include="ViewModels\Layer\BlendMode.cs" />
     <Compile Include="ViewModels\Assets\DirectoryItem.cs" />
@@ -184,6 +185,12 @@
     </Compile>
     <Compile Include="Views\Composition\CompositionEditor.xaml.cs">
       <DependentUpon>CompositionEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Layer\Layer.xaml.cs">
+      <DependentUpon>Layer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Layer\LayerList.xaml.cs">
+      <DependentUpon>LayerList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Server.xaml.cs">
       <DependentUpon>Server.xaml</DependentUpon>
@@ -278,7 +285,7 @@
     </Compile>
     <Compile Include="_Thrash\DragAndDropListbox.cs" />
     <Compile Include="Services\OSCListener.cs" />
-    <Compile Include="Views\ChannelLayer.xaml.cs">
+    <Compile Include="Views\Layer\ChannelLayer.xaml.cs">
       <DependentUpon>ChannelLayer.xaml</DependentUpon>
     </Compile>
     <Compile Include="_Thrash\ShiftSlider.xaml.cs">
@@ -331,6 +338,14 @@
     <Page Include="Views\Composition\CompositionEditor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Layer\Layer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Layer\LayerList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Server.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -420,7 +435,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\LayerControls.xaml">
+    <Page Include="Views\Layer\LayerEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -438,8 +453,8 @@
     <Compile Include="Views\Composition\Composition.xaml.cs">
       <DependentUpon>Composition.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LayerControls.xaml.cs">
-      <DependentUpon>LayerControls.xaml</DependentUpon>
+    <Compile Include="Views\Layer\LayerEditor.xaml.cs">
+      <DependentUpon>LayerEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -457,7 +472,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ChannelLayer.xaml">
+    <Page Include="Views\Layer\ChannelLayer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

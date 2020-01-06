@@ -29,13 +29,13 @@ namespace CMiX.Engine.ViewModels
                 MessageCommand command = Receiver.ReceivedCommand;
                 switch (command)
                 {
-                    case MessageCommand.OBJECT_ADD:
+                    case MessageCommand.ENTITY_ADD:
                         EntityModel objectModel = Receiver.ReceivedData as EntityModel;
                         this.AddEntity(objectModel);
                         Console.WriteLine("Added Object with ID : " + objectModel.Name);
                         break;
 
-                    case MessageCommand.OBJECT_DELETE:
+                    case MessageCommand.ENTITY_DELETE:
                         int index = (int)Receiver.ReceivedData;
                         Console.WriteLine("Delete Object with Index : " + index.ToString());
                         this.DeleteEntity(index);

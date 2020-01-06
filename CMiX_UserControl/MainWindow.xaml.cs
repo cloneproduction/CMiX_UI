@@ -2,7 +2,6 @@
 using System.Windows.Input;
 using CMiX.MVVM.Services;
 using CMiX.Studio.ViewModels;
-using Memento;
 
 namespace CMiX
 {
@@ -14,8 +13,8 @@ namespace CMiX
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
             MessageService messageService = new MessageService();
-            Mementor mementor = new Mementor();
-            ProjectView.DataContext = new Project(messageService, mementor);
+            Project proj = new Project(messageService);
+            ProjectView.DataContext = proj;
         }
 
         private void UndoCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)

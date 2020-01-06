@@ -11,15 +11,16 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Content : ViewModel, ICopyPasteModel, ISendableEntityContext, IUndoable
+    public class Content : ViewModel, IEntityContext
     {
         #region CONSTRUCTORS
-        public Content(Beat masterbeat, string messageAddress, Sender sender, Mementor mementor) 
+        public Content(Beat beat, string messageAddress, Sender sender, Mementor mementor) 
         {
+            Beat = beat;
             MessageAddress = $"{messageAddress}{nameof(Content)}/";
             Enabled = true;
 
-            BeatModifier = new BeatModifier(MessageAddress, masterbeat, sender, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, Beat, sender, mementor);
             PostFX = new PostFX(MessageAddress, sender, mementor);
             Entities = new ObservableCollection<Entity>();
 
@@ -58,6 +59,8 @@ namespace CMiX.Studio.ViewModels
         }
 
         public ObservableCollection<Entity> Entities { get; set; }
+        public Assets Assets { get; set; }
+        public Beat Beat { get; set; }
         #endregion
 
         #region COPY/PASTE

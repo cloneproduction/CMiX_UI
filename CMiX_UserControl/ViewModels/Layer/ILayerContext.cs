@@ -9,5 +9,6 @@ namespace CMiX.Studio.ViewModels
         MasterBeat MasterBeat { get; set; }
         Assets Assets { get; set; }
         ObservableCollection<Layer> Layers { get; set; }
+        Layer SelectedLayer { get; set; }
     }
 }

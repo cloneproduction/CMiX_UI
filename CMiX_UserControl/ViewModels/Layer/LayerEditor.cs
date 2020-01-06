@@ -16,27 +16,22 @@ namespace CMiX.Studio.ViewModels
     {
         public LayerEditor(Sender sender, string messageAddress, MasterBeat masterBeat, Assets assets, Mementor mementor)
         {
-            LayerFactory = new LayerFactory(masterBeat);
-            Layers = new ObservableCollection<Layer>();
             Mementor = mementor;
+            LayerFactory = new LayerFactory();
+            Layers = new ObservableCollection<Layer>();
+            
             Assets = assets;
             MasterBeat = masterBeat;
 
             MessageAddress = messageAddress;
             Sender = sender;
 
-            NewLayerCommand = new RelayCommand(p => NewLayer());
             DeleteSelectedLayerCommand = new RelayCommand(p => DeleteSelectedLayer());
             DuplicateSelectedLayerCommand = new RelayCommand(p => DuplicateSelectedLayer());
             AddLayerCommand = new RelayCommand(p => AddLayer());
             CopyLayerCommand = new RelayCommand(p => CopyLayer());
             PasteLayerCommand = new RelayCommand(p => PasteLayer());
             ResetLayerCommand = new RelayCommand(p => ResetLayer());
-        }
-
-        private void NewLayer()
-        {
-            LayerFactory.CreateLayer(this);
         }
 
         public ICommand NewLayerCommand { get; }
@@ -110,8 +105,8 @@ namespace CMiX.Studio.ViewModels
 
             var newLayer = LayerFactory.CreateLayer(this);
             SelectedLayer = newLayer;
-
-            Mementor.ElementAdd(Layers, layer);
+            Layers.Add(newLayer);
+            Mementor.ElementAdd(Layers, newLayer);
             Sender.Enable();
 
             LayerModel layerModel = new LayerModel();
@@ -119,20 +114,31 @@ namespace CMiX.Studio.ViewModels
             Sender.SendMessages(MessageAddress, MessageCommand.LAYER_ADD, null, layerModel);
 
             Mementor.EndBatch();
+            Console.WriteLine("Add Layer");
         }
 
         private void DuplicateSelectedLayer()
         {
             Mementor.BeginBatch();
             Sender.Disable();
-            if (SelectedLayer != null)
-                LayerFactory.DuplicateLayer(this, SelectedLayer);
 
-            Mementor.ElementAdd(Layers, newlayer);
+            var layer = LayerFactory.DuplicateLayer(this, SelectedLayer);
+            Mementor.ElementAdd(Layers, layer);
+
             Sender.Enable();
             Mementor.EndBatch();
 
-            Sender.SendMessages(MessageAddress, MessageCommand.LAYER_DUPLICATE, movedIndex, layermodel);
+            //Sender.SendMessages(MessageAddress, MessageCommand.LAYER_DUPLICATE, movedIndex, layermodel);
+        }
+
+        public void UpdateLayersIDOnDelete(Layer deletedlayer)
+        {
+            foreach (var item in Layers)
+            {
+                if (item.ID > deletedlayer.ID)
+                    item.ID--;
+            }
+            //LayerID--;
         }
 
         private void DeleteSelectedLayer()
@@ -157,7 +163,7 @@ namespace CMiX.Studio.ViewModels
                 }
                 else
                 {
-                    LayerNameID = 0;
+                    //LayerNameID = 0;
                 }
 
                 Sender.Enable();
@@ -167,15 +173,7 @@ namespace CMiX.Studio.ViewModels
             }
         }
 
-        public void UpdateLayersIDOnDelete(Layer deletedlayer)
-        {
-            foreach (var item in Layers)
-            {
-                if (item.ID > deletedlayer.ID)
-                    item.ID--;
-            }
-            LayerID--;
-        }
+
         #endregion
 
         #region DRAG DROP

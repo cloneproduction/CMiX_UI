@@ -12,17 +12,16 @@ namespace CMiX.Studio.ViewModels
 {
     public class EntityFactory
     {
-        public EntityFactory()
+        public EntityFactory(Beat beat)
         {
-
+            Beat = beat;
         }
 
         private int EntityID { get; set; } = 0;
-
-        public Entity CreateEntity(BeatModifier beatModifier, string parentMessageAddress, Sender sender, Mementor memento)
+        public Beat Beat { get; set; }
+        public Entity CreateEntity(IEntityContext context)
         {
-            BeatModifier beatModifier = new BeatModifier()
-            Entity entity = new Entity(beatModifier, EntityID, parentMessageAddress, sender, memento);
+            Entity entity = new Entity(context.Beat, EntityID, context.MessageAddress, context.Sender, context.Mementor);
             EntityID++;
             return entity;
         }

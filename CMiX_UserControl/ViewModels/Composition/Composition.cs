@@ -1,7 +1,6 @@
 ﻿using System.Windows.Input;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Commands;
 using CMiX.MVVM.Services;
 using CMiX.MVVM;
 using Memento;

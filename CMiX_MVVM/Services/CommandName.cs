@@ -17,8 +17,8 @@ namespace CMiX.MVVM.Commands
         LAYER_DUPLICATE,
         LAYER_DELETE,
         LAYER_MOVE,
-        OBJECT_ADD,
-        OBJECT_DELETE,
-        OBJECT_DUPLICATE
+        ENTITY_ADD,
+        ENTITY_DELETE,
+        ENTITY_DUPLICATE
     }
 }

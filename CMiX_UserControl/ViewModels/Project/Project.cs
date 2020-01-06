@@ -11,12 +11,12 @@ namespace CMiX.Studio.ViewModels
 {
     public class Project : ViewModel, IProject
     {
-        public Project(MessageService messageService, Mementor mementor)
+        public Project(MessageService messageService)
         {
             MessageService = messageService;
             MessageAddress = $"{nameof(Project)}/";
             Assets = new Assets();
-            Mementor = mementor;
+            Mementor = new Mementor();
 
             CompositionEditor = new CompositionEditor(messageService, MessageAddress, Assets, Mementor);
 

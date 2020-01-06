@@ -13,11 +13,6 @@ namespace CMiX.Studio.ViewModels
     public class Entity : ViewModel, ICopyPasteModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Entity()
-        {
-
-        }
-
         public Entity(Beat masterbeat, int id, string messageAddress, Sender sender, Mementor mementor)
         {
             MessageAddress = $"{messageAddress}Entity{id.ToString()}/";
@@ -62,7 +57,6 @@ namespace CMiX.Studio.ViewModels
         public ICommand ResetEntityCommand { get; }
 
         private ObservableCollection<Layer> _layers;
-
         public ObservableCollection<Layer> Layers
         {
             get => _layers;

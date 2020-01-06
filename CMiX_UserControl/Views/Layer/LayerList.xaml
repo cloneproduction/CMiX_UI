@@ -1,0 +1,146 @@
+﻿<UserControl x:Class="CMiX.Views.LayerList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Views="clr-namespace:CMiX.Views"
+             xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
+             xmlns:dd="urn:gong-wpf-dragdrop"
+             mc:Ignorable="d" 
+             d:DesignHeight="660" d:DesignWidth="306">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <DockPanel>
+        <Border 
+            DockPanel.Dock="Bottom"  
+            Style="{StaticResource BorderContainer}">
+            <DockPanel LastChildFill="False">
+                <Button
+                    DockPanel.Dock="Left"
+                    ToolTip="New Layer"
+                    Command="{Binding AddLayerCommand}"
+                    Width="25"
+                    Height="25"
+                    Style="{StaticResource ButtonImage}">
+                    <Button.Content>
+                        <Image Margin="15" Source="{StaticResource NewLayer}"/>
+                    </Button.Content>
+                </Button>
+                <Button
+                    DockPanel.Dock="Left"
+                    ToolTip="Duplicate Layer"
+                    Command="{Binding DuplicateSelectedLayerCommand}"
+                    Margin="2, 0, 0, 0"
+                    Width="25" 
+                    Height="25"
+                    Style="{StaticResource ButtonImage}">
+                    <Button.Content>
+                        <Image Margin="15" Source="{StaticResource Copy}" />
+                    </Button.Content>
+                </Button>
+                <Button
+                    DockPanel.Dock="left"
+                    ToolTip="Delete Layer"
+                    Command="{Binding Path=DeleteLayerCommand}"
+                    CommandParameter="{Binding SelectedLayer}"
+                    Margin="2, 0, 0, 0"
+                    Width="25" 
+                    Height="25"
+                    Style="{StaticResource ButtonImage}">
+                    <Button.Content>
+                        <Image Margin="15" Source="{StaticResource DeleteLayer}"/>
+                    </Button.Content>
+                </Button>
+            </DockPanel>
+        </Border>
+        <ListBox 
+            Margin="0, 8, 0, 0"
+            HorizontalContentAlignment="Stretch" 
+            ScrollViewer.HorizontalScrollBarVisibility="Auto"
+            Style="{StaticResource LayerListBox}"
+            ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
+            ItemsSource="{Binding Layers}" 
+            SelectedItem="{Binding SelectedLayer}"
+            dd:DragDrop.IsDragSource="True"
+            dd:DragDrop.IsDropTarget="True"
+            dd:DragDrop.DropHandler="{Binding}">
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem
+                        Padding="8, 4"
+                        Foreground="{StaticResource TextBase}"
+                        Command="{Binding Data.NewLayerCommand, Source={StaticResource proxy}}">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="10" Height="10" Source="{StaticResource NewLayer}" />
+                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                <TextBlock Text="New Layer"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem
+                        Padding="8, 4"
+                        Foreground="{StaticResource TextBase}"
+                        Command="{Binding Data.DuplicateLayerCommand, Source={StaticResource proxy}}">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="10" Height="10" Source="{StaticResource Copy}" />
+                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                <TextBlock Text="Duplicate Layer"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem
+                        Padding="8, 4"
+                        Foreground="{StaticResource TextBase}"
+                        Command="{Binding Data.DeleteLayerCommand, Source={StaticResource proxy}}">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
+                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                <TextBlock Text="Delete Layer"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem
+                        Padding="8, 4"
+                        Foreground="{StaticResource TextBase}"
+                        Command="{Binding Data.ResetLayerCommand, Source={StaticResource proxy}}">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="10" Height="10" Source="{StaticResource Reset}" />
+                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                <TextBlock Text="Reset Layer"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border>
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="BorderThickness" Value="1" />
+                                <Setter Property="Margin" Value="0, 1" />
+                                <Setter Property="CornerRadius" Value="4" />
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
+                                        <Setter Property="BorderBrush" Value="{StaticResource HighLightColor}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <Views:ChannelLayer/>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
+</UserControl>

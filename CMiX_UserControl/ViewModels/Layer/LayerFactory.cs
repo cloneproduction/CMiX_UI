@@ -34,17 +34,17 @@ namespace CMiX.Studio.ViewModels
             newLayer.ID = LayerID;
             newLayer.Name = newLayer.Name + "- Copy";
             context.Layers.Add(newLayer);
-
-            int oldIndex = Layers.IndexOf(SelectedLayer);
-            int newIndex = Layers.IndexOf(lyr) + 1;
-            Layers.Move(oldIndex, newIndex);
-            int[] movedIndex = new int[2] { oldIndex, newIndex };
-
-
             LayerID++;
+
+            int oldIndex = context.Layers.IndexOf(context.SelectedLayer);
+            int newIndex = context.Layers.IndexOf(newLayer) + 1;
+            context.Layers.Move(oldIndex, newIndex);
+            int[] movedIndex = new int[2] { oldIndex, newIndex };
 
             return newLayer;
         }
+
+
 
         //private string CreateLayerMessageAddress()
         //{

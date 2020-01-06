@@ -14,6 +14,7 @@ namespace CMiX.Studio.ViewModels
     {
         public CompositionEditor(MessageService messageService, string messageAddress, Assets assets, Mementor mementor)
         {
+            Mementor = mementor;
             CompositionFactory = new CompositionFactory(messageService);
             Compositions = new ObservableCollection<Composition>();
             MessageAddress = messageAddress;
