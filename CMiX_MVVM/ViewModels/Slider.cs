@@ -10,10 +10,10 @@ namespace CMiX.MVVM.ViewModels
     public class Slider : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Slider(string messageAddress, Messenger messenger, Mementor mementor)
+        public Slider(string messageAddress, Sender sender, Mementor mementor)
         {
             MessageAddress = messageAddress;
-            Messenger = messenger;
+            Sender = sender;
 
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
@@ -60,7 +60,7 @@ namespace CMiX.MVVM.ViewModels
                 SetAndNotify(ref _amount, value);
                 SliderModel sliderModel = new SliderModel();
                 this.CopyModel(sliderModel);
-                Messenger.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, sliderModel);
+                Sender.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, sliderModel);
             }
         }
 
@@ -78,7 +78,7 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _maximum, value);
         }
         public string MessageAddress { get; set; }
-        public Messenger Messenger { get; set; }
+        public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
         
         #endregion
@@ -104,9 +104,9 @@ namespace CMiX.MVVM.ViewModels
         #region COPY/PASTE/RESET
         public void Reset()
         {
-            Messenger.Disable();
+            Sender.Disable();
             Amount = 0.0;
-            Messenger.Enable();
+            Sender.Enable();
         }
 
         public void ResetSlider()
@@ -145,10 +145,10 @@ namespace CMiX.MVVM.ViewModels
         public void PasteModel(IModel model)
         {
             SliderModel sliderModel = model as SliderModel;
-            Messenger.Disable();
+            Sender.Disable();
             MessageAddress = sliderModel.MessageAddress;
             Amount = sliderModel.Amount;
-            Messenger.Enable();
+            Sender.Enable();
         }
         #endregion
     }

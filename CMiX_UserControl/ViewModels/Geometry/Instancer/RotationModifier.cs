@@ -9,14 +9,14 @@ namespace CMiX.Studio.ViewModels
 {
     public class RotationModifier : ViewModel, ISendable, IUndoable
     {
-        public RotationModifier(string messageaddress, Messenger messenger, Mementor mementor, Beat beat)
+        public RotationModifier(string messageaddress, Sender sender, Mementor mementor, Beat beat)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(RotationModifier));
-            Messenger = messenger;
-            Rotation = new AnimParameter(MessageAddress + nameof(Rotation), messenger, mementor, beat, true);
-            RotationX = new AnimParameter(MessageAddress + nameof(RotationX), messenger, mementor, beat, false);
-            RotationY = new AnimParameter(MessageAddress + nameof(RotationY), messenger, mementor, beat, false);
-            RotationZ = new AnimParameter(MessageAddress + nameof(RotationZ), messenger, mementor, beat, false);
+            Sender = sender;
+            Rotation = new AnimParameter(MessageAddress + nameof(Rotation), sender, mementor, beat, true);
+            RotationX = new AnimParameter(MessageAddress + nameof(RotationX), sender, mementor, beat, false);
+            RotationY = new AnimParameter(MessageAddress + nameof(RotationY), sender, mementor, beat, false);
+            RotationZ = new AnimParameter(MessageAddress + nameof(RotationZ), sender, mementor, beat, false);
         }
 
         #region PROPERTIES
@@ -25,7 +25,7 @@ namespace CMiX.Studio.ViewModels
         public AnimParameter RotationY { get; set; }
         public AnimParameter RotationZ { get; set; }
         public string MessageAddress { get; set; }
-        public Messenger Messenger { get; set; }
+        public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
@@ -57,7 +57,7 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("RotationModifierModel"))
             {
                 Mementor.BeginBatch();
-                Messenger.Disable();
+                Sender.Disable();
 
                 var Rotationmodifiermodel = data.GetData("RotationModifierModel") as RotationModifierModel;
                 var messageaddress = MessageAddress;
@@ -65,7 +65,7 @@ namespace CMiX.Studio.ViewModels
                 UpdateMessageAddress(messageaddress);
                 this.Copy(Rotationmodifiermodel);
 
-                Messenger.Enable();
+                Sender.Enable();
                 Mementor.EndBatch();
                 //SendMessages(MessageAddress, Rotationmodifiermodel);
                 //QueueObjects(Rotationmodifiermodel);
@@ -94,7 +94,7 @@ namespace CMiX.Studio.ViewModels
 
         public void Paste(RotationModifierModel Rotationmodifiermodel)
         {
-            Messenger.Disable();
+            Sender.Disable();
 
             MessageAddress = Rotationmodifiermodel.MessageAddress;
 
@@ -103,19 +103,19 @@ namespace CMiX.Studio.ViewModels
             RotationY.Paste(Rotationmodifiermodel.RotationY);
             RotationZ.Paste(Rotationmodifiermodel.RotationZ);
 
-            Messenger.Enable();
+            Sender.Enable();
         }
 
         public void Reset()
         {
-            Messenger.Disable();
+            Sender.Disable();
 
             Rotation.Reset();
             RotationX.Reset();
             RotationY.Reset();
             RotationZ.Reset();
 
-            Messenger.Enable();
+            Sender.Enable();
 
             RotationModifierModel Rotationmodifiermodel = new RotationModifierModel();
             this.Copy(Rotationmodifiermodel);

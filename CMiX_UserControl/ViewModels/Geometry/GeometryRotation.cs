@@ -9,10 +9,10 @@ namespace CMiX.Studio.ViewModels
     public class GeometryRotation : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public GeometryRotation(string messageaddress, Messenger messenger, Mementor mementor)
+        public GeometryRotation(string messageaddress, Sender sender, Mementor mementor)
         {
             MessageAddress = String.Format("{0}/", messageaddress);
-            Messenger = messenger;
+            Sender = sender;
             Mode = default;
             RotationX = true;
             RotationY = true;
@@ -81,16 +81,16 @@ namespace CMiX.Studio.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public Messenger Messenger { get; set; }
+        public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
         public void Reset()
         {
-            Messenger.Disable();
+            Sender.Disable();
             Mode = default;
-            Messenger.Enable();
+            Sender.Enable();
         }
 
         public void Copy(GeometryRotationModel geometryrotationmodel)
@@ -104,13 +104,13 @@ namespace CMiX.Studio.ViewModels
 
         public void Paste(GeometryRotationModel geometryrotationmodel)
         {
-            Messenger.Disable();
+            Sender.Disable();
             MessageAddress = geometryrotationmodel.MessageAddress;
             Mode = geometryrotationmodel.Mode;
             RotationX = geometryrotationmodel.RotationX;
             RotationY = geometryrotationmodel.RotationY;
             RotationZ = geometryrotationmodel.RotationZ;
-            Messenger.Enable();
+            Sender.Enable();
         }
         #endregion
     }

@@ -14,10 +14,10 @@ namespace CMiX.MVVM.ViewModels
     public class FileSelector : ViewModel, ISendable, IUndoable, IDropTarget, IDragSource
     {
         #region CONSTRUCTORS
-        public FileSelector(string messageaddress, string selectionmode, List<string> filemask, Messenger messenger, Mementor mementor) 
+        public FileSelector(string messageaddress, string selectionmode, List<string> filemask, Sender sender, Mementor mementor) 
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(FileSelector));
-            Messenger = messenger;
+            Sender = sender;
 
             SelectionMode = selectionmode;
             FileMask = filemask;
@@ -62,7 +62,7 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _folderpath, value);
         }
         public string MessageAddress { get; set; }
-        public Messenger Messenger { get; set; }
+        public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
@@ -157,7 +157,7 @@ namespace CMiX.MVVM.ViewModels
                         {
                             if (System.IO.Path.GetExtension(str).ToUpperInvariant() == fm)
                             {
-                                FileNameItem lbfn = new FileNameItem(MessageAddress, Messenger)
+                                FileNameItem lbfn = new FileNameItem(MessageAddress, Sender)
                                 {
                                     FileIsSelected = false,
                                     //if(FolderPath != null)
@@ -256,12 +256,12 @@ namespace CMiX.MVVM.ViewModels
 
         public void Reset()
         {
-            Messenger.Enable();
+            Sender.Enable();
 
             Mementor.PropertyChange(this, "FilePaths");
             FilePaths.Clear();
 
-            Messenger.Enable();
+            Sender.Enable();
         }
 
         public void Copy(FileSelectorModel fileselectormodel)
@@ -281,14 +281,14 @@ namespace CMiX.MVVM.ViewModels
 
         public void Paste(FileSelectorModel fileselectormodel)
         {
-            Messenger.Enable();
+            Sender.Enable();
 
             MessageAddress = fileselectormodel.MessageAddress;
             FilePaths.Clear();
 
             foreach (var item in fileselectormodel.FilePaths)
             {
-                FileNameItem filenameitem = new FileNameItem(MessageAddress, Messenger);
+                FileNameItem filenameitem = new FileNameItem(MessageAddress, Sender);
                 filenameitem.Paste(item);
                 if (filenameitem.FileIsSelected)
                     this.SelectedFileNameItem = filenameitem;
@@ -296,7 +296,7 @@ namespace CMiX.MVVM.ViewModels
                 FilePaths.Add(filenameitem);
             }
 
-            Messenger.Enable();
+            Sender.Enable();
         }
         #endregion
     }

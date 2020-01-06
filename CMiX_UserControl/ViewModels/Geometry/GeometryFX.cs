@@ -11,13 +11,13 @@ namespace CMiX.Studio.ViewModels
     public class GeometryFX : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public GeometryFX(string messageaddress, Messenger messenger, Mementor mementor)
+        public GeometryFX(string messageaddress, Sender sender, Mementor mementor)
         {
             MessageAddress = $"{messageaddress}{nameof(GeometryFX)}/";
-            Messenger = messenger;
-            Explode = new Slider(MessageAddress + nameof(Explode), messenger, mementor);
-            FileSelector = new FileSelector(MessageAddress, "Single", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, messenger, mementor);
-            FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress, messenger) { FileIsSelected = true, FileName = "Black (default).png" });
+            Sender = sender;
+            Explode = new Slider(MessageAddress + nameof(Explode), sender, mementor);
+            FileSelector = new FileSelector(MessageAddress, "Single", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, sender, mementor);
+            FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress, sender) { FileIsSelected = true, FileName = "Black (default).png" });
         }
         #endregion
 
@@ -34,7 +34,7 @@ namespace CMiX.Studio.ViewModels
         public Slider Explode { get; }
         public FileSelector FileSelector { get; }
         public string MessageAddress { get; set; }
-        public Messenger Messenger { get; set; }
+        public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
@@ -47,22 +47,22 @@ namespace CMiX.Studio.ViewModels
 
         public void Paste(GeometryFXModel geometryFXdto)
         {
-            Messenger.Disable();
+            Sender.Disable();
 
             Explode.PasteModel(geometryFXdto.Explode);
             FileSelector.PasteModel(geometryFXdto.FileSelector);
 
-            Messenger.Enable();
+            Sender.Enable();
         }
 
         public void Reset()
         {
-            Messenger.Disable();;
+            Sender.Disable();;
 
             Explode.Reset();
             FileSelector.Reset();
 
-            Messenger.Enable();
+            Sender.Enable();
         }
         #endregion
     }

@@ -85,7 +85,7 @@ namespace CMiX.Studio.ViewModels
 
         public string MessageAddress { get; set; }
         public MessageService MessageService { get; set; }
-        public Messenger Messenger { get; set; }
+        public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
 
         public ObservableCollection<Composition> Compositions { get; set; }
@@ -116,8 +116,8 @@ namespace CMiX.Studio.ViewModels
 
         private void AddComposition()
         {
-            var messenger = MessageService.CreateMessenger();
-            Composition comp = new Composition(messenger, MessageAddress, EntityFactory, Assets, Mementor);
+            var sender = MessageService.CreateSender();
+            Composition comp = new Composition(sender, MessageAddress, EntityFactory, Assets, Mementor);
             comp.Name = "Composition " + CompID++.ToString();
             Compositions.Add(comp);
             SelectedComposition = comp;
@@ -125,8 +125,8 @@ namespace CMiX.Studio.ViewModels
 
         private void AddEditableComposition()
         {
-            var messenger = MessageService.CreateMessenger();
-            Composition comp = new Composition(messenger, MessageAddress, EntityFactory, Assets, Mementor);
+            var sender = MessageService.CreateSender();
+            Composition comp = new Composition(sender, MessageAddress, EntityFactory, Assets, Mementor);
             comp.Name = "Composition " + CompID++.ToString();
             Compositions.Add(comp);
             SelectedComposition = comp;
@@ -182,7 +182,7 @@ namespace CMiX.Studio.ViewModels
                 Composition comp = SelectedComposition as Composition;
                 CompositionModel compositionmodel = new CompositionModel();
                 comp.CopyModel(compositionmodel);
-                Composition newcomp = new Composition(MessageService.CreateMessenger(), MessageAddress, EntityFactory, Assets, Mementor);
+                Composition newcomp = new Composition(MessageService.CreateSender(), MessageAddress, EntityFactory, Assets, Mementor);
                 newcomp.PasteModel(compositionmodel);
                 newcomp.Name = newcomp.Name + "- Copy";
                 Compositions.Add(newcomp);
@@ -277,7 +277,7 @@ namespace CMiX.Studio.ViewModels
                 {
                     byte[] data = File.ReadAllBytes(folderPath);
                     CompositionModel compositionmodel = Serializer.Deserialize<CompositionModel>(data);
-                    Composition newcomp = new Composition(MessageService.CreateMessenger(), MessageAddress, EntityFactory, Assets, Mementor);
+                    Composition newcomp = new Composition(MessageService.CreateSender(), MessageAddress, EntityFactory, Assets, Mementor);
                     newcomp.PasteModel(compositionmodel);
                     Compositions.Add(newcomp);
                     SelectedComposition = newcomp;
@@ -321,7 +321,7 @@ namespace CMiX.Studio.ViewModels
             var projectModel = model as ProjectModel;
             foreach (var compositionmodel in projectModel.CompositionModel)
             {
-                Composition composition = new Composition(MessageService.CreateMessenger(), MessageAddress, EntityFactory, Assets, Mementor);
+                Composition composition = new Composition(MessageService.CreateSender(), MessageAddress, EntityFactory, Assets, Mementor);
                 composition.PasteModel(compositionmodel);
                 Compositions.Add(composition);
             }

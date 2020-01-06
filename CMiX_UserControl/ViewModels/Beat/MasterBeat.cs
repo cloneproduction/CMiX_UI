@@ -12,10 +12,10 @@ namespace CMiX.Studio.ViewModels
     public class MasterBeat : Beat, ICopyPasteModel, ISendable
     {
         #region CONSTRUCTORS
-        public MasterBeat(Messenger messenger)
+        public MasterBeat(Sender sender)
         : this
         (
-            messenger: messenger,
+            sender: sender,
             period: 0.0,
             multiplier: 1
         )
@@ -23,7 +23,7 @@ namespace CMiX.Studio.ViewModels
 
         public MasterBeat
             (
-                Messenger messenger,
+                Sender sender,
                 double period,
                 int multiplier
             )
@@ -61,13 +61,13 @@ namespace CMiX.Studio.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public Messenger Messenger { get; set; }
+        public Sender Sender { get; set; }
         #endregion
 
         #region METHODS
         private void Resync()
         {
-            //Messenger.SendMessages(MessageAddress + nameof(Resync), CurrentTime + Period);
+            //Sender.SendMessages(MessageAddress + nameof(Resync), CurrentTime + Period);
         }
 
         protected override void Multiply()
@@ -117,11 +117,11 @@ namespace CMiX.Studio.ViewModels
 
         public void PasteModel(IModel model)
         {
-            Messenger.Disable();
+            Sender.Disable();
             MasterBeatModel masterBeatControl = model as MasterBeatModel;
             MessageAddress = masterBeatControl.MessageAddress;
             Period = masterBeatControl.Period;
-            Messenger.Enable();
+            Sender.Enable();
         }
         #endregion
     }

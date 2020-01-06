@@ -13,11 +13,11 @@ namespace CMiX.ColorPicker.ViewModels
     public class ColorPicker : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public ColorPicker(string messageaddress, Messenger messenger, Mementor mementor)
+        public ColorPicker(string messageaddress, Sender sender, Mementor mementor)
         {
             MessageAddress = $"{messageaddress}{nameof(ColorPicker)}";
            
-            Messenger = messenger;
+            Sender = sender;
             Mementor = mementor;
 
             SelectedColor = Color.FromArgb(255, 255, 0, 0);
@@ -61,7 +61,7 @@ namespace CMiX.ColorPicker.ViewModels
         {
             ColorPickerModel colorPickerModel = new ColorPickerModel();
             this.Copy(colorPickerModel);
-            Messenger.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, colorPickerModel);
+            Sender.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, colorPickerModel);
         }
 
         private byte _red;
@@ -223,7 +223,7 @@ namespace CMiX.ColorPicker.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public Messenger Messenger { get; set; }
+        public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
@@ -264,7 +264,7 @@ namespace CMiX.ColorPicker.ViewModels
 
         public void Paste(ColorPickerModel colorpickermodel)
         {
-            Messenger.Disable();
+            Sender.Disable();
 
             MessageAddress = colorpickermodel.MessageAddress;
             SelectedColor = Utils.HexStringToColor(colorpickermodel.SelectedColor);
@@ -272,7 +272,7 @@ namespace CMiX.ColorPicker.ViewModels
             Green = SelectedColor.G;
             Blue = SelectedColor.B;
 
-            Messenger.Enable();
+            Sender.Enable();
         }
 
         public void Reset()

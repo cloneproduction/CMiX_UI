@@ -10,23 +10,23 @@ namespace CMiX.Studio.ViewModels
 
     //    public OSCControl
     //    (
-    //        ObservableCollection<OSCMessenger> messengers,
+    //        ObservableCollection<OSCSender> senders,
     //        Mementor mementor
     //    )
-    //    : base(messengers, mementor)
+    //    : base(senders, mementor)
     //    {
-    //        Messengers = messengers ?? throw new ArgumentNullException(nameof(messengers));
+    //        Senders = senders ?? throw new ArgumentNullException(nameof(senders));
     //    }
     //    #endregion
 
     //    #region PROPERTIES
 
 
-    //    private OSCMessenger _oscmessenger;
-    //    public OSCMessenger OSCMessenger
+    //    private OSCSender _oscsender;
+    //    public OSCSender OSCSender
     //    {
-    //        get { return _oscmessenger; }
-    //        set => SetAndNotify(ref _oscmessenger, value);
+    //        get { return _oscsender; }
+    //        set => SetAndNotify(ref _oscsender, value);
     //    }
 
     //    #endregion

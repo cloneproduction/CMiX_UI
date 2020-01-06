@@ -9,9 +9,9 @@ using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class OSCMessenger : ViewModel
+    public class OSCSender : ViewModel
     {
-        public OSCMessenger(string address, int port)
+        public OSCSender(string address, int port)
         {
             Enabled = true;
             Address = address;

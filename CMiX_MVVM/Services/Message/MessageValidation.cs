@@ -35,11 +35,6 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public void SendMessageWithoutValidation(string topic, MessageCommand command, object parameter, object payload)
-        {
-            Server.Send(topic, command, parameter, payload);
-        }
-
         public void DisableMessageValidation()
         {
             this.Enabled = false;

@@ -9,20 +9,20 @@ namespace CMiX.Studio.ViewModels
     public class Layer : ViewModel, ICopyPasteModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Layer(MasterBeat masterBeat, string messageAddress,  Messenger messenger, Mementor mementor) 
+        public Layer(MasterBeat masterBeat, string messageAddress,  Sender sender, Mementor mementor) 
         {
             Enabled = false;
             MessageAddress =  messageAddress;
-            Messenger = messenger;
+            Sender = sender;
             Mementor = mementor;
 
             LayerName = messageAddress;           
 
-            BlendMode = new BlendMode(masterBeat, MessageAddress, messenger, mementor);
-            Fade = new Slider(MessageAddress + nameof(Fade), messenger, mementor);
-            Content = new Content(masterBeat, MessageAddress, messenger, mementor);
-            Mask = new Mask(masterBeat, MessageAddress, messenger, mementor);
-            PostFX = new PostFX(MessageAddress, messenger, mementor);
+            BlendMode = new BlendMode(masterBeat, MessageAddress, sender, mementor);
+            Fade = new Slider(MessageAddress + nameof(Fade), sender, mementor);
+            Content = new Content(masterBeat, MessageAddress, sender, mementor);
+            Mask = new Mask(masterBeat, MessageAddress, sender, mementor);
+            PostFX = new PostFX(MessageAddress, sender, mementor);
         }
         #endregion
 
@@ -64,7 +64,7 @@ namespace CMiX.Studio.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public Messenger Messenger { get; set; }
+        public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
 
         public Slider Fade { get; }
@@ -105,7 +105,7 @@ namespace CMiX.Studio.ViewModels
 
         public void PasteModel(IModel model)
         {
-            Messenger.Disable();
+            Sender.Disable();
 
             LayerModel layerModel = model as LayerModel;
             MessageAddress = layerModel.MessageAddress;
@@ -120,7 +120,7 @@ namespace CMiX.Studio.ViewModels
             Mask.PasteModel(layerModel.MaskModel);
             PostFX.PasteModel(layerModel.PostFXModel);
 
-            Messenger.Enable();
+            Sender.Enable();
         }
 
         public void Reset()

@@ -28,7 +28,7 @@ namespace CMiXPlayer.ViewModels
             PlaylistEditor = new PlaylistEditor(Serializer, Playlists);
 
             //PROBLEMS
-            //CompoSelector = new FileSelector(string.Empty, "Single", new List<string>() { ".COMPMIX" }, new CMiX.MVVM.Services.Messenger(), new Mementor());
+            //CompoSelector = new FileSelector(string.Empty, "Single", new List<string>() { ".COMPMIX" }, new CMiX.MVVM.Services.Sender(), new Mementor());
             
             AddClientCommand = new RelayCommand(p => AddClient());
             DeleteClientCommand = new RelayCommand(p => DeleteClient(p));

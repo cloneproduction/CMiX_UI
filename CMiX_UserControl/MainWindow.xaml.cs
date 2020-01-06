@@ -15,8 +15,7 @@ namespace CMiX
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-            MessageFactory messageFactory = new MessageFactory();
-            MessageService messageService = new MessageService(messageFactory);
+            MessageService messageService = new MessageService();
             Mementor mementor = new Mementor();
             ProjectView.DataContext = new Project(messageService, mementor);
         }

@@ -19,9 +19,9 @@ namespace CMiX.Studio.ViewModels
 
         private int EntityID { get; set; } = 0;
 
-        public Entity CreateEntity(BeatModifier beatModifier, string parentMessageAddress, Messenger messenger, Mementor memento)
+        public Entity CreateEntity(BeatModifier beatModifier, string parentMessageAddress, Sender sender, Mementor memento)
         {
-            Entity entity = new Entity(beatModifier, EntityID, parentMessageAddress, messenger, memento);
+            Entity entity = new Entity(beatModifier, EntityID, parentMessageAddress, sender, memento);
             EntityID++;
             return entity;
         }

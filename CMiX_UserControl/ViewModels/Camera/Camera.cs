@@ -11,18 +11,18 @@ namespace CMiX.Studio.ViewModels
     public class Camera : ViewModel, ICopyPasteModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Camera(Messenger messenger, string messageAddress, MasterBeat masterBeat, Mementor mementor) 
+        public Camera(Sender sender, string messageAddress, MasterBeat masterBeat, Mementor mementor) 
         {
-            Messenger = messenger;
+            Sender = sender;
             MessageAddress = $"{messageAddress}{nameof(Camera)}/";
             
             Rotation = ((CameraRotation)0).ToString();
             LookAt = ((CameraLookAt)0).ToString();
             View = ((CameraView)0).ToString();
 
-            BeatModifier = new BeatModifier(MessageAddress, masterBeat, messenger, mementor);
-            FOV = new Slider(MessageAddress + nameof(FOV), messenger, mementor);
-            Zoom = new Slider(MessageAddress + nameof(Zoom), messenger, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, masterBeat, sender, mementor);
+            FOV = new Slider(MessageAddress + nameof(FOV), sender, mementor);
+            Zoom = new Slider(MessageAddress + nameof(Zoom), sender, mementor);
         }
         #endregion
 
@@ -71,7 +71,7 @@ namespace CMiX.Studio.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public Messenger Messenger { get; set; }
+        public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
@@ -91,7 +91,7 @@ namespace CMiX.Studio.ViewModels
         public void PasteModel(IModel model)
         {
             CameraModel cameraModel = model as CameraModel;
-            Messenger.Disable();
+            Sender.Disable();
 
             MessageAddress = cameraModel.MessageAddress;
             Rotation = cameraModel.Rotation;
@@ -102,12 +102,12 @@ namespace CMiX.Studio.ViewModels
             FOV.PasteModel(cameraModel.FOV);
             Zoom.PasteModel(cameraModel.Zoom);
 
-            Messenger.Enable();
+            Sender.Enable();
         }
 
         public void Reset()
         {
-            Messenger.Disable();
+            Sender.Disable();
 
             Rotation = ((CameraRotation)0).ToString();
             LookAt = ((CameraLookAt)0).ToString();
@@ -116,7 +116,7 @@ namespace CMiX.Studio.ViewModels
             FOV.Reset();
             Zoom.Reset();
 
-            Messenger.Enable();
+            Sender.Enable();
         }
         #endregion
     }

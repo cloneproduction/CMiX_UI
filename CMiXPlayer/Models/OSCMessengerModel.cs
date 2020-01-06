@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace CMiXPlayer.Models
 {
-    public class OSCMessengerModel
+    public class OSCSenderModel
     {
-        public OSCMessengerModel()
+        public OSCSenderModel()
         {
 
         }

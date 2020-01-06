@@ -13,6 +13,6 @@ namespace CMiXPlayer.Models
 
         }
 
-        public List<OSCMessengerModel> OSCMessengerModels { get; set; }
+        public List<OSCSenderModel> OSCSenderModels { get; set; }
     }
 }

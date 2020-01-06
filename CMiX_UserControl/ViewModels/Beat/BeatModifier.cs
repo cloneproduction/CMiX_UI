@@ -11,14 +11,14 @@ namespace CMiX.Studio.ViewModels
     public class BeatModifier : Beat, ICopyPasteModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public BeatModifier(string messageaddress, Beat beat, Messenger messenger, Mementor mementor)
+        public BeatModifier(string messageaddress, Beat beat, Sender sender, Mementor mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(BeatModifier));
-            Messenger = messenger;
+            Sender = sender;
 
             MasterBeat = beat;
             Multiplier = 1.0;
-            ChanceToHit = new Slider(MessageAddress + nameof(ChanceToHit), messenger, mementor)
+            ChanceToHit = new Slider(MessageAddress + nameof(ChanceToHit), sender, mementor)
             {
                 Amount = 1.0
             };
@@ -66,7 +66,7 @@ namespace CMiX.Studio.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public Messenger Messenger { get; set; }
+        public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
@@ -85,13 +85,13 @@ namespace CMiX.Studio.ViewModels
         #region COPY/PASTE/RESET
         public void Reset()
         {
-            Messenger.Disable();
+            Sender.Disable();
 
             Multiplier = 1.0;
             ChanceToHit.Reset();
             ChanceToHit.Amount = 1.0;
 
-            Messenger.Enable();
+            Sender.Enable();
         }
 
         public void CopyModel(IModel model)
@@ -104,14 +104,14 @@ namespace CMiX.Studio.ViewModels
 
         public void PasteModel(IModel model)
         {
-            Messenger.Disable();
+            Sender.Disable();
 
             BeatModifierModel beatModifierModel = model as BeatModifierModel;
             MessageAddress = beatModifierModel.MessageAddress;
             Multiplier = beatModifierModel.Multiplier;
             ChanceToHit.PasteModel(beatModifierModel.ChanceToHit);
 
-            Messenger.Enable();
+            Sender.Enable();
         }
         #endregion
     }

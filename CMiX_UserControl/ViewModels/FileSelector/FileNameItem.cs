@@ -10,10 +10,10 @@ namespace CMiX.Studio.ViewModels
 {
     public class FileNameItem : ViewModel, ICopyPasteModel, ISendable
     {
-        public FileNameItem(string folderpath, string messageAddress, Messenger messenger)
+        public FileNameItem(string folderpath, string messageAddress, Sender sender)
         {
             MessageAddress = messageAddress + "Selected";
-            Messenger = messenger;
+            Sender = sender;
             FolderPath = folderpath;
 
         }
@@ -54,7 +54,7 @@ namespace CMiX.Studio.ViewModels
         }
 
         public string MessageAddress { get ; set ; }
-        public Messenger Messenger { get; set; }
+        public Sender Sender { get; set; }
 
         public void UpdateMessageAddress(string messageaddress)
         {
@@ -72,14 +72,14 @@ namespace CMiX.Studio.ViewModels
 
         public void PasteModel(IModel model)
         {
-            Messenger.Disable();
+            Sender.Disable();
 
             FileNameItemModel filenameitemmodel = model as FileNameItemModel;
             MessageAddress = filenameitemmodel.MessageAddress;
             FileIsSelected = filenameitemmodel.FileIsSelected;
             FileName = filenameitemmodel.FileName;
 
-            Messenger.Enable();
+            Sender.Enable();
         }
         #endregion
     }

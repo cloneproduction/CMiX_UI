@@ -16,10 +16,10 @@ namespace CMiXPlayer.ViewModels
         {
             Playlists = playlists;
 
-            CompoSelector = new FileSelector(string.Empty,"Single", new List<string>() { ".COMPMIX" }, Messenger, new Mementor());
+            CompoSelector = new FileSelector(string.Empty,"Single", new List<string>() { ".COMPMIX" }, Sender, new Mementor());
             CompoSelector.SelectedFileNameItem = new FileNameItem();
 
-            //OSCMessenger = new OSCMessenger("127.0.0.1", 1111);
+            //OSCSender = new OSCSender("127.0.0.1", 1111);
             Serializer = cerasSerializer;
 
             ResetClientCommand = new RelayCommand(p => ResetClient());
@@ -35,7 +35,7 @@ namespace CMiXPlayer.ViewModels
         public FileSelector CompoSelector { get; set; }
         public string MessageAddress { get; set; }
         public MessageService MessageService { get; set; }
-        public Messenger Messenger { get; set; }
+        public Sender Sender { get; set; }
 
         private Playlist _selectedplaylist;
         public Playlist SelectedPlaylist
@@ -57,7 +57,7 @@ namespace CMiXPlayer.ViewModels
         #region METHODS
         public void ResetClient()
         {
-            //OSCMessenger.SendMessage("/CompositionReloaded", true);
+            //OSCSender.SendMessage("/CompositionReloaded", true);
         }
         #endregion
     }

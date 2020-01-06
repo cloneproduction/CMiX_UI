@@ -1,5 +1,6 @@
 ﻿using CMiX.MVVM.Message;
 using CMiX.MVVM.Services;
+using System.Collections.ObjectModel;
 
 namespace CMiX.Engine.ViewModels
 {
@@ -9,13 +10,16 @@ namespace CMiX.Engine.ViewModels
         public NetMQClient NetMQClient { get; set; }
         public string MessageAddress { get; set; }
         public Receiver Receiver { get; set; }
+        public MessageService MessageService {get; set; }
 
         public Project()
         {
             MessageAddress = "Project/";
-            Receiver = new Receiver(new Client("name", "127.0.0.1", 1111, "/Device0"));
-            Receiver.Client.Start();
-            Composition = new Composition(Receiver, MessageAddress);
+            MessageService = new MessageService();
+            MessageService.AddClient();
+
+
+            Composition = new Composition(MessageService.CreateReceiver(), MessageAddress);
         }
     }
 }

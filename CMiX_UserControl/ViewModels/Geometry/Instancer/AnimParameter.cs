@@ -9,12 +9,12 @@ namespace CMiX.Studio.ViewModels
 {
     public class AnimParameter : ViewModel, ISendable, IUndoable
     {
-        public AnimParameter(string messageaddress, Messenger messenger, Mementor mementor, Beat beat, bool isEnabled)
+        public AnimParameter(string messageaddress, Sender sender, Mementor mementor, Beat beat, bool isEnabled)
         {
             Mode = AnimMode.None;
             IsEnabled = isEnabled;
-            Slider = new Slider(MessageAddress, messenger, mementor);
-            BeatModifier = new BeatModifier(MessageAddress, beat, messenger, mementor);
+            Slider = new Slider(MessageAddress, sender, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, beat, sender, mementor);
         }
 
         #region PROPERTIES
@@ -47,7 +47,7 @@ namespace CMiX.Studio.ViewModels
         public Slider Slider { get; set; }
         public BeatModifier BeatModifier { get; set; }
         public string MessageAddress { get; set; }
-        public Messenger Messenger { get; set; }
+        public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
@@ -76,7 +76,7 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("AnimParameterModel"))
             {
                 Mementor.BeginBatch();
-                Messenger.Disable();
+                Sender.Disable();
 
                 var animparametermodel = data.GetData("AnimParameterModel") as AnimParameterModel;
                 var messageaddress = MessageAddress;
@@ -84,7 +84,7 @@ namespace CMiX.Studio.ViewModels
                 UpdateMessageAddress(messageaddress);
                 this.Copy(animparametermodel);
 
-                Messenger.Enable();
+                Sender.Enable();
                 Mementor.EndBatch();
                 //SendMessages(MessageAddress, animparametermodel);
                 //QueueObjects(animparametermodel);
@@ -112,23 +112,23 @@ namespace CMiX.Studio.ViewModels
 
         public void Paste(AnimParameterModel animparametermodel)
         {
-            Messenger.Disable();
+            Sender.Disable();
 
             MessageAddress = animparametermodel.MessageAddress;
             Slider.PasteModel(animparametermodel.Slider);
             BeatModifier.PasteModel(animparametermodel.BeatModifier);
 
-            Messenger.Enable();
+            Sender.Enable();
         }
 
         public void Reset()
         {
-            Messenger.Disable();
+            Sender.Disable();
 
             Slider.Reset();
             BeatModifier.Reset();
 
-            Messenger.Enable();
+            Sender.Enable();
 
             AnimParameterModel animparametermodel = new AnimParameterModel();
             this.Copy(animparametermodel);

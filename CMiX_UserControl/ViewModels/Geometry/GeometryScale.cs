@@ -11,7 +11,7 @@ namespace CMiX.Studio.ViewModels
     public class GeometryScale : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public GeometryScale(string messageaddress, Messenger messenger, Mementor mementor) 
+        public GeometryScale(string messageaddress, Sender sender, Mementor mementor) 
         {
             MessageAddress = String.Format("{0}/", messageaddress);
             Mode = default;
@@ -40,16 +40,16 @@ namespace CMiX.Studio.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public Messenger Messenger { get; set; }
+        public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
         public void Reset()
         {
-            Messenger.Disable();
+            Sender.Disable();
             Mode = default;
-            Messenger.Enable();
+            Sender.Enable();
         }
 
         public void Copy(GeometryScaleModel geometryscalemodel)
@@ -60,12 +60,12 @@ namespace CMiX.Studio.ViewModels
 
         public void Paste(GeometryScaleModel geometryscalemodel)
         {
-            Messenger.Disable();
+            Sender.Disable();
 
             MessageAddress = geometryscalemodel.MessageAddress;
             Mode = geometryscalemodel.Mode;
 
-            Messenger.Enable();
+            Sender.Enable();
         }
         #endregion
     }

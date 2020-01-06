@@ -314,7 +314,7 @@
                                         HorizontalContentAlignment="Stretch" 
                                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                         ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
-                                        ItemsSource="{Binding Messenger.MessageValidations}" 
+                                        ItemsSource="{Binding Sender.MessageValidations}" 
                                         dd:DragDrop.IsDragSource="True"
                                         dd:DragDrop.IsDropTarget="True">
                                         <ListBox.ItemTemplate>

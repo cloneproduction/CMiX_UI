@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using CMiX.MVVM.Commands;
 using CMiX.MVVM.Models;
 
@@ -6,10 +7,10 @@ namespace CMiX.MVVM.Services
 {
     public class Receiver
     {
-        public Receiver(Client client)
+        public Receiver(ObservableCollection<Client> clients)
         {
-            Client = client;
-            Client.MessageReceived += Client_MessageReceived;
+            Clients = clients;
+            SubscribeToClientsMessageReceived();
         }
 
         public event EventHandler<MessageEventArgs> MessageReceived;
@@ -21,6 +22,14 @@ namespace CMiX.MVVM.Services
             ReceivedParameter = e.Parameter;
             ReceivedData = e.Data;
             MessageReceived.Invoke(sender, e);
+        }
+
+        public void SubscribeToClientsMessageReceived()
+        {
+            foreach (var client in Clients)
+            {
+                client.MessageReceived += Client_MessageReceived;
+            }
         }
 
         public void UpdateViewModel(string messageAddress, ICopyPasteModel viewModel)
@@ -39,7 +48,7 @@ namespace CMiX.MVVM.Services
         public object ReceivedParameter { get; set; }
 
         public bool Enabled { get; set; }
-        public Client Client { get; set; }
+        public ObservableCollection<Client> Clients { get; set; }
 
         public void Disable()
         {

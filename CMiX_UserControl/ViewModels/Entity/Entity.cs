@@ -18,7 +18,7 @@ namespace CMiX.Studio.ViewModels
 
         }
 
-        public Entity(Beat masterbeat, int id, string messageAddress, Messenger messenger, Mementor mementor)
+        public Entity(Beat masterbeat, int id, string messageAddress, Sender sender, Mementor mementor)
         {
             MessageAddress = $"{messageAddress}Entity{id.ToString()}/";
             Mementor = mementor;
@@ -28,10 +28,10 @@ namespace CMiX.Studio.ViewModels
             Name = "Entity" + id;
             count++;
 
-            BeatModifier = new BeatModifier(MessageAddress, masterbeat, messenger, mementor);
-            Geometry = new Geometry(MessageAddress, messenger, mementor, masterbeat);
-            Texture = new Texture(MessageAddress, messenger, mementor);
-            Coloration = new Coloration(MessageAddress, messenger, mementor, masterbeat);
+            BeatModifier = new BeatModifier(MessageAddress, masterbeat, sender, mementor);
+            Geometry = new Geometry(MessageAddress, sender, mementor, masterbeat);
+            Texture = new Texture(MessageAddress, sender, mementor);
+            Coloration = new Coloration(MessageAddress, sender, mementor, masterbeat);
 
             CopyEntityCommand = new RelayCommand(p => CopyEntity());
             PasteEntityCommand = new RelayCommand(p => PasteEntity());
@@ -89,21 +89,21 @@ namespace CMiX.Studio.ViewModels
         public Texture Texture { get; }
         public Coloration Coloration { get; }
         public string MessageAddress { get; set; }
-        public Messenger Messenger { get; set; }
+        public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
         #region COPY/PASTE
         public void Reset()
         {
-            Messenger.Disable();
+            Sender.Disable();
 
             this.Enabled = true;
             this.BeatModifier.Reset();
             this.Geometry.Reset();
             this.Texture.Reset();
             this.Coloration.Reset();
-            Messenger.Enable();
+            Sender.Enable();
         }
 
 
@@ -122,7 +122,7 @@ namespace CMiX.Studio.ViewModels
 
         public void PasteModel(IModel model)
         {
-            this.Messenger.Disable();
+            this.Sender.Disable();
 
             EntityModel entityModel = model as EntityModel;
             this.MessageAddress = entityModel.MessageAddress;
@@ -134,7 +134,7 @@ namespace CMiX.Studio.ViewModels
             this.Geometry.Paste(entityModel.GeometryModel);
             this.Coloration.PasteModel(entityModel.ColorationModel);
 
-            this.Messenger.Enable();
+            this.Sender.Enable();
         }
 
         public void CopyEntity()
@@ -152,7 +152,7 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("EntityModel"))
             {
                 this.Mementor.BeginBatch();
-                this.Messenger.Disable();
+                this.Sender.Disable();
 
                 var entityModel = data.GetData("EntityModel") as EntityModel;
                 var messageAddress = MessageAddress;
@@ -160,7 +160,7 @@ namespace CMiX.Studio.ViewModels
                 this.UpdateMessageAddress(messageAddress);
 
                 this.CopyModel(entityModel);
-                this.Messenger.Enable();
+                this.Sender.Enable();
                 this.Mementor.EndBatch();
                 //SendMessages(nameof(ContentModel), contentmodel);
             }

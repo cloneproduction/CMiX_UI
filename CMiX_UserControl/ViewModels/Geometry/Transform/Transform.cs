@@ -10,12 +10,12 @@ namespace CMiX.Studio.ViewModels
 {
     public class Transform : ViewModel, ISendable, IUndoable
     {
-        public Transform(string messageAddress, Messenger messenger, Mementor mementor)
+        public Transform(string messageAddress, Sender sender, Mementor mementor)
         {
             MessageAddress = $"{messageAddress}{nameof(Transform)}/";
-            Translate = new Translate(MessageAddress, messenger, mementor);
-            Scale = new Scale(MessageAddress, messenger, mementor);
-            Rotation = new Rotation(MessageAddress, messenger, mementor);
+            Translate = new Translate(MessageAddress, sender, mementor);
+            Scale = new Scale(MessageAddress, sender, mementor);
+            Rotation = new Rotation(MessageAddress, sender, mementor);
 
             Is3D = false;
         }
@@ -39,7 +39,7 @@ namespace CMiX.Studio.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public Messenger Messenger { get; set; }
+        public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
@@ -70,7 +70,7 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("TransformModel"))
             {
                 Mementor.BeginBatch();
-                Messenger.Disable();;
+                Sender.Disable();;
 
                 var transformmodel = data.GetData("TransformModel") as TransformModel;
                 var messageaddress = MessageAddress;
@@ -78,7 +78,7 @@ namespace CMiX.Studio.ViewModels
                 UpdateMessageAddress(messageaddress);
                 this.Copy(transformmodel);
 
-                Messenger.Enable();
+                Sender.Enable();
                 Mementor.EndBatch();
                 //this.SendMessages(nameof(TransformModel), transformmodel);
             }
@@ -103,7 +103,7 @@ namespace CMiX.Studio.ViewModels
 
         public void Paste(TransformModel transformmodel)
         {
-            Messenger.Disable();;
+            Sender.Disable();;
 
             MessageAddress = transformmodel.MessageAddress;
             Translate.Paste(transformmodel.Translate);
@@ -111,12 +111,12 @@ namespace CMiX.Studio.ViewModels
             Rotation.Paste(transformmodel.Rotation);
             Is3D = transformmodel.Is3D;
 
-            Messenger.Enable();
+            Sender.Enable();
         }
 
         public void Reset()
         {
-            Messenger.Disable();;
+            Sender.Disable();;
             //Mementor.BeginBatch();
 
             Translate.Reset();
@@ -124,7 +124,7 @@ namespace CMiX.Studio.ViewModels
             Rotation.Reset();
             Is3D = false;
             //Mementor.EndBatch();
-            Messenger.Enable();
+            Sender.Enable();
 
             TransformModel transformmodel = new TransformModel();
             this.Copy(transformmodel);

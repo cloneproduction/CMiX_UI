@@ -61,7 +61,7 @@ namespace CMiXPlayer.ViewModels
         private void CreateJob()
         {
             //PROBLEM WITH OSCMESSENGER !
-            //if (SelectedPlaylist != null && SelectedDevice.OSCMessenger != null)
+            //if (SelectedPlaylist != null && SelectedDevice.OSCSender != null)
             //{
             //    var j = new JobSendComposition(JobName, SelectedPlaylist, SelectedDevice);
             //    RunningJobs.Add(j);

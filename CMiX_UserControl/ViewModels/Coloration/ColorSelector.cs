@@ -13,12 +13,12 @@ namespace CMiX.Studio.ViewModels
     public class ColorSelector : ViewModel, ICopyPasteModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public ColorSelector(string messageaddress, Messenger messenger, Mementor mementor) 
+        public ColorSelector(string messageaddress, Sender sender, Mementor mementor) 
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(ColorSelector));
-            Messenger = messenger;
+            Sender = sender;
             Mementor = mementor;
-            ColorPicker = new ColorPicker.ViewModels.ColorPicker(MessageAddress, messenger, mementor);
+            ColorPicker = new ColorPicker.ViewModels.ColorPicker(MessageAddress, sender, mementor);
 
             CopyColorSelectorCommand = new RelayCommand(p => CopyColorSelector());
             PasteColorSelectorCommand = new RelayCommand(p => PasteColorSelector());
@@ -32,7 +32,7 @@ namespace CMiX.Studio.ViewModels
         public ICommand ResetColorSelectorCommand { get; }
         public ColorPicker.ViewModels.ColorPicker ColorPicker { get; set; }
         public string MessageAddress { get; set; }
-        public Messenger Messenger { get; set; }
+        public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
@@ -61,7 +61,7 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("ColorSelectorModel"))
             {
                 this.Mementor.BeginBatch();
-                Messenger.Disable();
+                Sender.Disable();
 
                 var colorselectormodel = data.GetData("ColorSelectorModel") as ColorSelectorModel;
                 var colorselectormessageaddress = MessageAddress;
@@ -69,7 +69,7 @@ namespace CMiX.Studio.ViewModels
                 this.UpdateMessageAddress(colorselectormessageaddress);
                 this.CopyModel(colorselectormodel);
 
-                Messenger.Enable();
+                Sender.Enable();
                 this.Mementor.EndBatch();
                 //SendMessages(MessageAddress, colorselectormodel);
             }
@@ -92,22 +92,22 @@ namespace CMiX.Studio.ViewModels
 
         public void PasteModel(IModel model)
         {
-            Messenger.Disable();
+            Sender.Disable();
 
             ColorSelectorModel colorSelectorModel = model as ColorSelectorModel;
             MessageAddress = colorSelectorModel.MessageAddress;
             ColorPicker.Paste(colorSelectorModel.ColorPickerModel);
 
-            Messenger.Enable();
+            Sender.Enable();
         }
 
         public void Reset()
         {
-            Messenger.Disable();
+            Sender.Disable();
 
             ColorPicker.Reset();
 
-            Messenger.Enable();
+            Sender.Enable();
         }
         #endregion
     }

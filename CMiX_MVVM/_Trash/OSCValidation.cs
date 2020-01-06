@@ -4,16 +4,16 @@ namespace CMiX.MVVM.ViewModels
 {
     public class OSCValidation : ViewModel
     {
-        public OSCValidation(OSCMessenger oscmessenger)
+        public OSCValidation(OSCSender oscsender)
         {
-            OSCMessenger = oscmessenger;
+            OSCSender = oscsender;
             SendEnabled = true;
         }
-        private OSCMessenger _oscmessenger;
-        public OSCMessenger OSCMessenger
+        private OSCSender _oscsender;
+        public OSCSender OSCSender
         {
-            get { return _oscmessenger; }
-            set => SetAndNotify(ref _oscmessenger, value);
+            get { return _oscsender; }
+            set => SetAndNotify(ref _oscsender, value);
         }
 
         private bool _sendenabled;

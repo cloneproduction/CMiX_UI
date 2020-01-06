@@ -19,13 +19,13 @@ namespace CMiXPlayer.Jobs
             Name = name;
             Playlist = playlist;
             Device = device;
-            //OSCMessenger = device.OSCMessenger;
+            //OSCSender = device.OSCSender;
 
             SendNextCommand = new RelayCommand(p => SendNext());
             SendPreviousCommand = new RelayCommand(p => SendPrevious());
         }
 
-        public OSCMessenger OSCMessenger { get; set; }
+        public OSCSender OSCSender { get; set; }
 
         public ICommand SendNextCommand { get; }
         public ICommand SendPreviousCommand { get; }
@@ -72,9 +72,9 @@ namespace CMiXPlayer.Jobs
         {
             if(CurrentComposition != null)
             {
-                OSCMessenger.QueueMessage("/CompositionReloaded", true);
-                OSCMessenger.QueueObject(CurrentComposition);
-                OSCMessenger.SendQueue();
+                OSCSender.QueueMessage("/CompositionReloaded", true);
+                OSCSender.QueueObject(CurrentComposition);
+                OSCSender.SendQueue();
             }
         }
 

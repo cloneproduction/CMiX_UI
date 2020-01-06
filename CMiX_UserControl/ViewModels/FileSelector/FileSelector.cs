@@ -15,7 +15,7 @@ namespace CMiX.Studio.ViewModels
     public class FileSelector : ViewModel, ICopyPasteModel, ISendable, IUndoable, IDropTarget, IDragSource
     {
         #region CONSTRUCTORS
-        public FileSelector(string messageaddress, string selectionmode, List<string> filemask, Messenger messenger, Mementor mementor) 
+        public FileSelector(string messageaddress, string selectionmode, List<string> filemask, Sender sender, Mementor mementor) 
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(FileSelector));
 
@@ -66,7 +66,7 @@ namespace CMiX.Studio.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public Messenger Messenger { get ; set; }
+        public Sender Sender { get ; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
@@ -176,7 +176,7 @@ namespace CMiX.Studio.ViewModels
                         {
                             if (System.IO.Path.GetExtension(str).ToUpperInvariant() == fm)
                             {
-                                FileNameItem lbfn = new FileNameItem(FolderPath, MessageAddress, Messenger) { FileIsSelected = false, FileName = str };
+                                FileNameItem lbfn = new FileNameItem(FolderPath, MessageAddress, Sender) { FileIsSelected = false, FileName = str };
                                 FilePaths.Add(lbfn);
                                 Mementor.ElementAdd(FilePaths, lbfn);
                             }
@@ -265,12 +265,12 @@ namespace CMiX.Studio.ViewModels
 
         public void Reset()
         {
-            Messenger.Disable();;
+            Sender.Disable();;
 
             Mementor.PropertyChange(this, "FilePaths");
             FilePaths.Clear();
 
-            Messenger.Enable();
+            Sender.Enable();
         }
 
         public void CopyModel(IModel model)
@@ -292,7 +292,7 @@ namespace CMiX.Studio.ViewModels
 
         public void PasteModel(IModel model)
         {
-            Messenger.Disable();
+            Sender.Disable();
 
             FileSelectorModel fileSelectorModel = model as FileSelectorModel;
             MessageAddress = fileSelectorModel.MessageAddress;
@@ -302,13 +302,13 @@ namespace CMiX.Studio.ViewModels
 
             foreach (var item in fileSelectorModel.FilePaths)
             {
-                FileNameItem filenameitem = new FileNameItem(FolderPath, MessageAddress, Messenger);
+                FileNameItem filenameitem = new FileNameItem(FolderPath, MessageAddress, Sender);
                 filenameitem.PasteModel(item);
                 //filenameitem.UpdateMessageAddress(MessageAddress);
                 FilePaths.Add(filenameitem);
             }
 
-            Messenger.Enable();
+            Sender.Enable();
         }
         #endregion
     }

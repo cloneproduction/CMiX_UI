@@ -60,7 +60,7 @@
                                 HorizontalContentAlignment="Stretch"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
-                                IPAddress="{Binding OSCMessenger.Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                IPAddress="{Binding OSCSender.Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 />
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
@@ -78,7 +78,7 @@
                                 BorderThickness="0"
                                 Background="{StaticResource HighDarkerColor}"
                                 Foreground="{StaticResource TextBase}"
-                                Text="{Binding OSCMessenger.Port, Converter={StaticResource InToString}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Text="{Binding OSCSender.Port, Converter={StaticResource InToString}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 />
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>

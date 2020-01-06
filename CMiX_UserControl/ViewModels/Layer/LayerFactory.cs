@@ -16,7 +16,7 @@ namespace CMiX.ViewModels
 
         //public Layer CreateLayer(string messageAddress, int layerID)
         //{
-        //    Layer layer = new Layer(MasterBeat, messageAddress, Messenger, Mementor)
+        //    Layer layer = new Layer(MasterBeat, messageAddress, Sender, Mementor)
         //    {
         //        ID = layerID,
         //        DisplayName = "Layer " + layerID

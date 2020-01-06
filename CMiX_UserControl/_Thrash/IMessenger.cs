@@ -1,6 +1,6 @@
 ﻿namespace CMiX.Services
 {
-    public interface IMessenger
+    public interface ISender
     {
         void SendMessage(string address, params object[] args);
 
