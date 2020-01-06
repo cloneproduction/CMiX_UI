@@ -130,6 +130,7 @@
     <Compile Include="ViewModels\Composition\CompositionFactory.cs" />
     <Compile Include="ViewModels\Composition\ICompositionContext.cs" />
     <Compile Include="ViewModels\Composition\ICompositionEditor.cs" />
+    <Compile Include="ViewModels\Entity\EntityEditor.cs" />
     <Compile Include="ViewModels\Entity\EntityFactory.cs" />
     <Compile Include="ViewModels\Entity\IEntityContext.cs" />
     <Compile Include="ViewModels\Entity\ISendableEntityContext.cs" />
