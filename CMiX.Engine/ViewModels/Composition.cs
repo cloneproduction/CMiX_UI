@@ -57,7 +57,10 @@ namespace CMiX.Engine.ViewModels
         public string MessageAddress { get; set; }
         public Receiver Receiver { get; set; }
         public ObservableCollection<Layer> Layers { get; set; }
+        public Layer SelectedLayer { get; set; }
         public Camera Camera { get; set; }
+        public MasterBeat MasterBeat { get; set; }
+        public Slider Transition { get; set; }
 
         private string _name;
         public string Name
@@ -65,6 +68,22 @@ namespace CMiX.Engine.ViewModels
             get { return _name; }
             set { _name = value; }
         }
+
+        //private int _LayerID = 0;
+        //public int LayerID
+        //{
+        //    get { return _LayerID; }
+        //    set { _LayerID = value; }
+        //}
+
+        //private int _layerNameID = 0;
+        //public int LayerNameID
+        //{
+        //    get { return _layerNameID; }
+        //    set { _layerNameID = value; }
+        //}
+
+        
 
         public void AddLayer(LayerModel layerModel)
         {
@@ -97,12 +116,8 @@ namespace CMiX.Engine.ViewModels
         public void CopyModel(IModel model)
         {
             CompositionModel compositionModel = model as CompositionModel;
-            MessageAddress = compositionModel.MessageAddress;
-            Name = compositionModel.Name;
-
-            //ContentFolderName = compositionModel.ContentFolderName;
-            //LayerID = compositionModel.layerID;
-            //layerNameID = compositionModel.layerNameID;
+            compositionModel.MessageAddress = MessageAddress;
+            compositionModel.Name = Name;
 
             Layers.Clear();
             foreach (LayerModel layermodel in compositionModel.LayersModel)
@@ -111,15 +126,17 @@ namespace CMiX.Engine.ViewModels
                 layer.PasteModel(layermodel);
                 Layers.Add(layer);
             }
-            //SelectedLayer.Paste(compositionModel.SelectedLayer);
-            //MasterBeat.Paste(compositionModel.MasterBeatModel);
-            //Camera.Paste(compositionModel.CameraModel);
-            //Transition.Paste(compositionModel.TransitionModel);
+
+            SelectedLayer.PasteModel(compositionModel.SelectedLayer);
+            MasterBeat.PasteModel(compositionModel.MasterBeatModel);
+            Camera.PasteModel(compositionModel.CameraModel);
+            Transition.PasteModel(compositionModel.TransitionModel);
         }
 
         public void PasteModel(IModel model)
         {
-            throw new NotImplementedException();
+            CompositionModel compositionModel = model as CompositionModel;
+
         }
     }
 }

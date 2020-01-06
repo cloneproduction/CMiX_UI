@@ -36,8 +36,8 @@
                 dd:DragDrop.IsDropTarget="True"
                 dd:DragDrop.DragHandler="{Binding}"
                 dd:DragDrop.DropHandler="{Binding}"
-                SelectedItem="{Binding SelectedComposition}"
-                ItemsSource="{Binding Compositions}">
+                SelectedItem="{Binding CompositionEditor.SelectedComposition}"
+                ItemsSource="{Binding CompositionEditor.Compositions}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Border 
@@ -59,19 +59,19 @@
                         <MenuItem
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.EditCompositionCommand, Source={StaticResource proxy}}">
+                            Command="{Binding Data.CompositionEditor.NewCompositionCommand, Source={StaticResource proxy}}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Source="{StaticResource Edit}" Height="10" Width="10"/>
+                                    <Image Source="{StaticResource NewLayer}" Height="10" Width="10"/>
                                     <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                    <TextBlock Text="Edit"/>
+                                    <TextBlock Text="Add new composition"/>
                                 </StackPanel>
                             </MenuItem.Header>
                         </MenuItem>
                         <MenuItem
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.DeleteSelectedCompositionCommand, Source={StaticResource proxy}}">
+                            Command="{Binding Data.CompositionEditor.DeleteSelectedCompositionCommand, Source={StaticResource proxy}}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
@@ -83,7 +83,7 @@
                         <MenuItem
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.DuplicateSelectedCompositionCommand, Source={StaticResource proxy}}">
+                            Command="{Binding Data.CompositionEditor.DuplicateSelectedCompositionCommand, Source={StaticResource proxy}}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Width="10" Height="10" Source="{StaticResource Copy}" />

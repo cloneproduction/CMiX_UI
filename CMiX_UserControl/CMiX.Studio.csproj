@@ -126,6 +126,10 @@
     <Compile Include="Behaviors\ClickBehavior.cs" />
     <Compile Include="Behaviors\TreeViewItemClickBehavior.cs" />
     <Compile Include="Behaviors\TextBoxFocusBehavior.cs" />
+    <Compile Include="ViewModels\Composition\CompositionEditor.cs" />
+    <Compile Include="ViewModels\Composition\CompositionFactory.cs" />
+    <Compile Include="ViewModels\Composition\ICompositionContext.cs" />
+    <Compile Include="ViewModels\Composition\ICompositionEditor.cs" />
     <Compile Include="ViewModels\Entity\EntityFactory.cs" />
     <Compile Include="ViewModels\Entity\IEntityContext.cs" />
     <Compile Include="ViewModels\Entity\ISendableEntityContext.cs" />
@@ -146,7 +150,11 @@
     <Compile Include="ViewModels\Geometry\Transform\Transform.cs" />
     <Compile Include="ViewModels\Geometry\Transform\Translate.cs" />
     <Compile Include="ViewModels\Entity\Entity.cs" />
+    <Compile Include="ViewModels\Layer\ILayerContext.cs" />
+    <Compile Include="ViewModels\Layer\ILayerEditor.cs" />
+    <Compile Include="ViewModels\Layer\LayerEditor.cs" />
     <Compile Include="ViewModels\Layer\LayerFactory.cs" />
+    <Compile Include="ViewModels\Project\IProject.cs" />
     <Compile Include="Views\ChannelOSCDataTemplate.xaml.cs">
       <DependentUpon>ChannelOSCDataTemplate.xaml</DependentUpon>
     </Compile>
@@ -155,7 +163,7 @@
     <Compile Include="Views\ColorSelector.xaml.cs">
       <DependentUpon>ColorSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CompositionList.xaml.cs">
+    <Compile Include="Views\Composition\CompositionList.xaml.cs">
       <DependentUpon>CompositionList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Geometry\Instancer\AnimParameter.xaml.cs">
@@ -172,6 +180,9 @@
     </Compile>
     <Compile Include="Views\Entity.xaml.cs">
       <DependentUpon>Entity.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Composition\CompositionEditor.xaml.cs">
+      <DependentUpon>CompositionEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Server.xaml.cs">
       <DependentUpon>Server.xaml</DependentUpon>
@@ -198,7 +209,7 @@
     <Compile Include="ViewModels\FileSelector\FileNameItem.cs" />
     <Compile Include="ViewModels\FileSelector\FileSelector.cs" />
     <Compile Include="_Thrash\OSCControl.cs" />
-    <Compile Include="ViewModels\Project.cs" />
+    <Compile Include="ViewModels\Project\Project.cs" />
     <Compile Include="ViewModels\Geometry\GeometryFX.cs" />
     <Compile Include="ViewModels\Geometry\GeometryRotation.cs" />
     <Compile Include="ViewModels\Geometry\GeometryScale.cs" />
@@ -220,7 +231,7 @@
     <Compile Include="ViewModels\Beat\MasterBeat.cs" />
     <Compile Include="ViewModels\Mask\Mask.cs" />
     <Compile Include="ViewModels\PostFX\PostFX.cs" />
-    <Compile Include="ViewModels\Composition.cs" />
+    <Compile Include="ViewModels\Composition\Composition.cs" />
     <Compile Include="ViewModels\Texture\Texture.cs" />
     <Compile Include="Views\Beat\BeatControls.xaml.cs">
       <DependentUpon>BeatControls.xaml</DependentUpon>
@@ -292,7 +303,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CompositionList.xaml">
+    <Page Include="Views\Composition\CompositionList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -313,6 +324,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Entity.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Composition\CompositionEditor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -408,7 +423,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Composition.xaml">
+    <Page Include="Views\Composition\Composition.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -419,7 +434,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\Composition.xaml.cs">
+    <Compile Include="Views\Composition\Composition.xaml.cs">
       <DependentUpon>Composition.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LayerControls.xaml.cs">

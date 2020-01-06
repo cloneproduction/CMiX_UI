@@ -16,7 +16,7 @@ namespace CMiX.Studio.ViewModels
         #region CONSTRUCTORS
         public Content(Beat masterbeat, string messageAddress, Sender sender, Mementor mementor) 
         {
-            MessageAddress = String.Format($"{messageAddress}{nameof(Content)}/");
+            MessageAddress = $"{messageAddress}{nameof(Content)}/";
             Enabled = true;
 
             BeatModifier = new BeatModifier(MessageAddress, masterbeat, sender, mementor);

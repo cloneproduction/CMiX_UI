@@ -21,8 +21,6 @@ namespace CMiX.MVVM.Models
         }
 
         public string Name { get; set; }
-        public int layerID { get; set; }
-        public int layerNameID { get; set; }
 
         public string ContentFolderName { get; set; }
         public string GeometryFolderName { get; set; }
@@ -30,8 +28,8 @@ namespace CMiX.MVVM.Models
 
         public List<IModel> LayersModel { get; set; }
         public LayerModel SelectedLayer { get; set; }
-        public List<int> LayerID { get; set; }
-        public List<string> LayerNames { get; set; }
+        //public List<int> LayerID { get; set; }
+        //public List<string> LayerNames { get; set; }
         public MasterBeatModel MasterBeatModel { get; set; }
         public CameraModel CameraModel { get; set; }
         public SliderModel TransitionModel { get; set; }

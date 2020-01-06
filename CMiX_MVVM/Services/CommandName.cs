@@ -9,6 +9,9 @@ namespace CMiX.MVVM.Commands
     public enum MessageCommand
     {
         VIEWMODEL_UPDATE,
+        COMPOSITION_ADD,
+        COMPOSITION_DELETE,
+        COMPOSITION_DUPLICATE,
         LAYER_UPDATE_BLENDMODE,
         LAYER_ADD,
         LAYER_DUPLICATE,

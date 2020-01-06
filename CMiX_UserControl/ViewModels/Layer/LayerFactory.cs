@@ -1,11 +1,8 @@
-﻿using CMiX.Studio.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
+using Memento;
 
-namespace CMiX.ViewModels
+namespace CMiX.Studio.ViewModels
 {
     public class LayerFactory
     {
@@ -14,17 +11,44 @@ namespace CMiX.ViewModels
 
         }
 
-        //public Layer CreateLayer(string messageAddress, int layerID)
-        //{
-        //    Layer layer = new Layer(MasterBeat, messageAddress, Sender, Mementor)
-        //    {
-        //        ID = layerID,
-        //        DisplayName = "Layer " + layerID
-        //    };
-        //    Layers.Add(layer);
-        //    SelectedLayer = layer;
+        int LayerID = 0;
 
-        //    return layer;
+        public Layer CreateLayer(ILayerContext context)
+        {
+            Layer layer = new Layer(context.MasterBeat, context.MessageAddress, context.Sender, context.Assets, context.Mementor)
+            {
+                ID = LayerID,
+                DisplayName = "Layer " + LayerID
+            };
+            LayerID++;
+            return layer;
+        }
+
+        public Layer DuplicateLayer(ILayerContext context, Layer layer)
+        {
+            LayerModel layerModel = new LayerModel();
+            layer.CopyModel(layerModel);
+
+            Layer newLayer = new Layer(context.MasterBeat, context.MessageAddress, context.Sender, context.Assets, context.Mementor);
+            newLayer.PasteModel(layerModel);
+            newLayer.ID = LayerID;
+            newLayer.Name = newLayer.Name + "- Copy";
+            context.Layers.Add(newLayer);
+
+            int oldIndex = Layers.IndexOf(SelectedLayer);
+            int newIndex = Layers.IndexOf(lyr) + 1;
+            Layers.Move(oldIndex, newIndex);
+            int[] movedIndex = new int[2] { oldIndex, newIndex };
+
+
+            LayerID++;
+
+            return newLayer;
+        }
+
+        //private string CreateLayerMessageAddress()
+        //{
+        //    //return $"{this.MessageAddress}Layer{LayerNameID.ToString()}/";
         //}
     }
 }

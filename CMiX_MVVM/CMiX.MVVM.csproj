@@ -77,6 +77,7 @@
       <DependentUpon>EditableTextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\ICopyPasteModel.cs" />
+    <Compile Include="Models\CompositionEditorModel.cs" />
     <Compile Include="Services\Client.cs" />
     <Compile Include="Services\CommandName.cs" />
     <Compile Include="Services\Message\MessageEventArgs.cs" />

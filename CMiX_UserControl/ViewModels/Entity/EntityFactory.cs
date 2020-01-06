@@ -21,6 +21,7 @@ namespace CMiX.Studio.ViewModels
 
         public Entity CreateEntity(BeatModifier beatModifier, string parentMessageAddress, Sender sender, Mementor memento)
         {
+            BeatModifier beatModifier = new BeatModifier()
             Entity entity = new Entity(beatModifier, EntityID, parentMessageAddress, sender, memento);
             EntityID++;
             return entity;

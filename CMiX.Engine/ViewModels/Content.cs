@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM;
+using CMiX.MVVM.Commands;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using System;
@@ -23,38 +24,24 @@ namespace CMiX.Engine.ViewModels
         public void OnMessageReceived(object sender, EventArgs e)
         {
             Receiver.UpdateViewModel(MessageAddress, this);
-            //string receivedAddress = NetMQClient.ByteMessage.MessageAddress;
+            if (MessageAddress == Receiver.ReceivedAddress && Receiver.ReceivedData != null)
+            {
+                MessageCommand command = Receiver.ReceivedCommand;
+                switch (command)
+                {
+                    case MessageCommand.OBJECT_ADD:
+                        EntityModel objectModel = Receiver.ReceivedData as EntityModel;
+                        this.AddEntity(objectModel);
+                        Console.WriteLine("Added Object with ID : " + objectModel.Name);
+                        break;
 
-            //if (receivedAddress == this.MessageAddress)
-            //{
-            //    MessageCommand command = NetMQClient.ByteMessage.Command;
-            //    switch (command)
-            //    {
-            //        case MessageCommand.VIEWMODEL_UPDATE:
-            //            if (NetMQClient.ByteMessage.Payload != null)
-            //            {
-            //                ContentModel contentModel = NetMQClient.ByteMessage.Payload as ContentModel;
-            //                this.PasteData(contentModel);
-            //                //System.Console.WriteLine(MessageAddress + " " + Mode);
-            //            }
-            //            break;
-            //        case MessageCommand.OBJECT_ADD:
-            //            if (NetMQClient.ByteMessage.Payload != null)
-            //            {
-            //                EntityModel objectModel = NetMQClient.ByteMessage.Payload as EntityModel;
-            //                this.AddEntity(objectModel);
-            //            }
-            //            break;
-            //        case MessageCommand.OBJECT_DELETE:
-            //            if (NetMQClient.ByteMessage.Payload != null)
-            //            {
-            //                int index = (int)NetMQClient.ByteMessage.Payload;
-            //                Console.WriteLine("Delete Object with Index : " + index.ToString());
-            //                this.DeleteEntity(index);
-            //            }
-            //            break;
-            //    }
-            //}
+                    case MessageCommand.OBJECT_DELETE:
+                        int index = (int)Receiver.ReceivedData;
+                        Console.WriteLine("Delete Object with Index : " + index.ToString());
+                        this.DeleteEntity(index);
+                        break;
+                }
+            }
         }
 
         public List<Entity> Entities { get; set; }

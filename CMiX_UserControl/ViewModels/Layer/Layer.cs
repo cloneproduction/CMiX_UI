@@ -9,12 +9,13 @@ namespace CMiX.Studio.ViewModels
     public class Layer : ViewModel, ICopyPasteModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Layer(MasterBeat masterBeat, string messageAddress,  Sender sender, Mementor mementor) 
+        public Layer(MasterBeat masterBeat, string messageAddress,  Sender sender, Assets assets, Mementor mementor) 
         {
             Enabled = false;
             MessageAddress =  messageAddress;
             Sender = sender;
             Mementor = mementor;
+            Assets = assets;
 
             LayerName = messageAddress;           
 
@@ -27,6 +28,12 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region PROPERTIES
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set => SetAndNotify(ref _name, value);
+        }
 
         private string _layername;
         public string LayerName
@@ -66,7 +73,7 @@ namespace CMiX.Studio.ViewModels
         public string MessageAddress { get; set; }
         public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
-
+        public Assets Assets { get; set; }
         public Slider Fade { get; }
         public Content Content { get; }
         public Mask Mask { get; }

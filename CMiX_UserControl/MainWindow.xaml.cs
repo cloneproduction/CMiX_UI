@@ -1,7 +1,5 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
-using CMiX.MVVM.Message;
 using CMiX.MVVM.Services;
 using CMiX.Studio.ViewModels;
 using Memento;
