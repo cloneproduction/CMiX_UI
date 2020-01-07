@@ -3,7 +3,7 @@
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class BeatModifierModel : IModel
+    public class BeatModifierModel
     {
         public BeatModifierModel()
         {
@@ -11,14 +11,7 @@ namespace CMiX.MVVM.Models
             Multiplier = 1.0;
         }
 
-        public BeatModifierModel(string messageaddress) 
-            : this()
-        {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, "BeatModifier");
-        }
-
         public double Multiplier { get; set; }
         public SliderModel ChanceToHit { get; set; }
-        public string MessageAddress { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace CMiX.Studio.ViewModels
         public LayerEditor(Sender sender, string messageAddress, MasterBeat masterBeat, Assets assets, Mementor mementor)
         {
             Mementor = mementor;
-            LayerFactory = new LayerFactory();
+            LayerFactory = new LayerFactory(sender);
             Layers = new ObservableCollection<Layer>();
             
             Assets = assets;
@@ -34,23 +34,28 @@ namespace CMiX.Studio.ViewModels
             ResetLayerCommand = new RelayCommand(p => ResetLayer());
         }
 
-        public ICommand NewLayerCommand { get; }
-        public ICommand DeleteSelectedLayerCommand { get; }
-        public ICommand DuplicateSelectedLayerCommand { get; }
-
         public ICommand AddLayerCommand { get; }
+        public ICommand DeleteSelectedLayerCommand { get; }
+        public ICommand DuplicateSelectedLayerCommand { get; } 
         public ICommand CopyLayerCommand { get; }
         public ICommand PasteLayerCommand { get; }
         public ICommand ResetLayerCommand { get; }
 
         public LayerFactory LayerFactory { get; set; }
         public ObservableCollection<Layer> Layers { get; set; }
-        public Layer SelectedLayer { get; set; }
+
         public MasterBeat MasterBeat { get; set; }
         public string MessageAddress { get; set; }
         public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
         public Assets Assets { get; set; }
+
+        private Layer _selectedLayer;
+        public Layer SelectedLayer
+        {
+            get => _selectedLayer;
+            set => SetAndNotify(ref _selectedLayer, value);
+        }
 
         #region COPY/PASTE/RESET LAYER
         private void CopyLayer()
@@ -70,18 +75,19 @@ namespace CMiX.Studio.ViewModels
                 Mementor.BeginBatch();
 
                 var selectedlayermessageaddress = SelectedLayer.MessageAddress;
-                var selectedlayername = SelectedLayer.LayerName;
+                var selectedlayername = SelectedLayer.Name;
                 var selectedname = SelectedLayer.DisplayName;
                 var selectedLayerID = SelectedLayer.ID;
 
                 var layerModel = data.GetData(nameof(LayerModel)) as LayerModel;
 
-                SelectedLayer.PasteModel(layerModel);
-                SelectedLayer.UpdateMessageAddress(selectedlayermessageaddress);
-                SelectedLayer.LayerName = selectedlayername;
+                SelectedLayer.Name = selectedlayername;
                 SelectedLayer.DisplayName = selectedname;
                 SelectedLayer.ID = selectedLayerID;
-                SelectedLayer.CopyModel(layerModel);
+                SelectedLayer.PasteModel(layerModel);
+                
+
+                //SelectedLayer.CopyModel(layerModel);
 
                 Sender.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, layerModel);
                 Mementor.EndBatch();
@@ -93,42 +99,24 @@ namespace CMiX.Studio.ViewModels
             SelectedLayer.Reset();
             LayerModel layerModel = new LayerModel();
             SelectedLayer.CopyModel(layerModel);
-            //SendMessages("LayerModel", layerModel);
+            Sender.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, layerModel);
         }
         #endregion
 
         #region ADD/DUPLICATE/DELETE LAYERS
         public void AddLayer()
         {
-            Mementor.BeginBatch();
-            Sender.Disable();
-
-            var newLayer = LayerFactory.CreateLayer(this);
-            SelectedLayer = newLayer;
-            Layers.Add(newLayer);
-            Mementor.ElementAdd(Layers, newLayer);
-            Sender.Enable();
-
-            LayerModel layerModel = new LayerModel();
-            SelectedLayer.CopyModel(layerModel);
-            Sender.SendMessages(MessageAddress, MessageCommand.LAYER_ADD, null, layerModel);
-
-            Mementor.EndBatch();
-            Console.WriteLine("Add Layer");
+            LayerFactory.CreateLayer(this);
         }
 
         private void DuplicateSelectedLayer()
         {
-            Mementor.BeginBatch();
-            Sender.Disable();
+            LayerFactory.DuplicateLayer(this);
+        }
 
-            var layer = LayerFactory.DuplicateLayer(this, SelectedLayer);
-            Mementor.ElementAdd(Layers, layer);
-
-            Sender.Enable();
-            Mementor.EndBatch();
-
-            //Sender.SendMessages(MessageAddress, MessageCommand.LAYER_DUPLICATE, movedIndex, layermodel);
+        private void DeleteSelectedLayer()
+        {
+            LayerFactory.DeleteLayer(this);
         }
 
         public void UpdateLayersIDOnDelete(Layer deletedlayer)
@@ -140,40 +128,6 @@ namespace CMiX.Studio.ViewModels
             }
             //LayerID--;
         }
-
-        private void DeleteSelectedLayer()
-        {
-            if (SelectedLayer != null)
-            {
-                Mementor.BeginBatch();
-                Sender.Disable();
-
-                Layer removedlayer = SelectedLayer as Layer;
-                int removedlayerindex = Layers.IndexOf(removedlayer);
-                UpdateLayersIDOnDelete(removedlayer);
-                Mementor.ElementRemove(Layers, removedlayer);
-                Layers.Remove(removedlayer);
-
-                if (Layers.Count > 0)
-                {
-                    if (removedlayerindex > 0)
-                        SelectedLayer = Layers[removedlayerindex - 1];
-                    else
-                        SelectedLayer = Layers[0];
-                }
-                else
-                {
-                    //LayerNameID = 0;
-                }
-
-                Sender.Enable();
-                Mementor.EndBatch();
-
-                Sender.SendMessages(MessageAddress, MessageCommand.LAYER_DELETE, null, removedlayerindex);
-            }
-        }
-
-
         #endregion
 
         #region DRAG DROP
@@ -223,7 +177,7 @@ namespace CMiX.Studio.ViewModels
             var layerNames = new List<string>();
             foreach (var layer in Layers)
             {
-                layerNames.Add(layer.LayerName);
+                layerNames.Add(layer.Name);
             }
             layerNames.Sort();
             return layerNames;

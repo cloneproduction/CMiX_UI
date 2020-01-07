@@ -24,14 +24,13 @@ namespace CMiX.Engine.ViewModels
         public string MessageAddress { get; set; }
         public Receiver Receiver { get; set; }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(CameraModel cameraModel)
         {
-            CameraModel cameraModel = model as CameraModel;
             FOV.PasteModel(cameraModel.FOV);
             Zoom.PasteModel(cameraModel.Zoom);
         }
 
-        public void CopyModel(IModel model)
+        public void CopyModel(CameraModel cameraModel)
         {
             throw new NotImplementedException();
         }

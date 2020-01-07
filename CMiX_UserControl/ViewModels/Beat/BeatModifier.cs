@@ -11,9 +11,9 @@ namespace CMiX.Studio.ViewModels
     public class BeatModifier : Beat, ICopyPasteModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public BeatModifier(string messageaddress, Beat beat, Sender sender, Mementor mementor)
+        public BeatModifier(string messageAddress, Beat beat, Sender sender, Mementor mementor)
         {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(BeatModifier));
+            MessageAddress = $"{messageAddress}{nameof(BeatModifier)}/";
             Sender = sender;
 
             MasterBeat = beat;
@@ -31,13 +31,13 @@ namespace CMiX.Studio.ViewModels
         }
         #endregion
 
-        #region METHODS
-        public void UpdateMessageAddress(string messageaddress)
-        {
-            MessageAddress = messageaddress;
-            ChanceToHit.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(ChanceToHit)));
-        }
-        #endregion
+        //#region METHODS
+        //public void UpdateMessageAddress(string messageaddress)
+        //{
+        //    MessageAddress = messageaddress;
+        //    ChanceToHit.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(ChanceToHit)));
+        //}
+        //#endregion
 
         #region PROPERTIES
         private Beat MasterBeat { get; }
@@ -94,20 +94,16 @@ namespace CMiX.Studio.ViewModels
             Sender.Enable();
         }
 
-        public void CopyModel(IModel model)
+        public void CopyModel(BeatModifierModel beatModifierModel)
         {
-            BeatModifierModel beatModifierModel = model as BeatModifierModel;
-            beatModifierModel.MessageAddress = MessageAddress;
             ChanceToHit.CopyModel(beatModifierModel.ChanceToHit);
             beatModifierModel.Multiplier = Multiplier;
         }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(BeatModifierModel beatModifierModel)
         {
             Sender.Disable();
 
-            BeatModifierModel beatModifierModel = model as BeatModifierModel;
-            MessageAddress = beatModifierModel.MessageAddress;
             Multiplier = beatModifierModel.Multiplier;
             ChanceToHit.PasteModel(beatModifierModel.ChanceToHit);
 

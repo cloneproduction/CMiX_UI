@@ -3,12 +3,12 @@
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class MaskModel : IModel
+    public class MaskModel
     {
         public MaskModel()
         {
             BeatModifierModel = new BeatModifierModel();
-            texturemodel = new TextureModel();
+            TextureModel = new TextureModel();
             GeometryModel = new GeometryModel();
             PostFXModel = new PostFXModel();
         }
@@ -20,8 +20,7 @@ namespace CMiX.MVVM.Models
 
         public BeatModifierModel BeatModifierModel { get; set; }
         public GeometryModel GeometryModel { get; set; }
-        public TextureModel texturemodel { get; set; }
+        public TextureModel TextureModel { get; set; }
         public PostFXModel PostFXModel { get; set; }
-        public string MessageAddress { get; set; }
     }
 }

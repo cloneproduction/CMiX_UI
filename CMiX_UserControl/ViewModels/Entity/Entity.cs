@@ -34,21 +34,21 @@ namespace CMiX.Studio.ViewModels
         }
         #endregion
 
-        #region METHODS
-        public void SetMessageAddress(string messageAddress)
-        {
-            MessageAddress = messageAddress;
-            BeatModifier.UpdateMessageAddress($"{MessageAddress}{nameof(BeatModifier)}/");
-            Geometry.UpdateMessageAddress($"{MessageAddress}{nameof(Geometry)}/");
-            Texture.UpdateMessageAddress($"{MessageAddress}{nameof(Texture)}/");
-            Coloration.UpdateMessageAddress($"{MessageAddress}{nameof(Coloration)}/");
-        }
+        //#region METHODS
+        //public void SetMessageAddress(string messageAddress)
+        //{
+        //    MessageAddress = messageAddress;
+        //    BeatModifier.UpdateMessageAddress($"{MessageAddress}{nameof(BeatModifier)}/");
+        //    Geometry.UpdateMessageAddress($"{MessageAddress}{nameof(Geometry)}/");
+        //    Texture.UpdateMessageAddress($"{MessageAddress}{nameof(Texture)}/");
+        //    Coloration.UpdateMessageAddress($"{MessageAddress}{nameof(Coloration)}/");
+        //}
 
-        public void UpdateMessageAddress(string messageaddress)
-        {
+        //public void UpdateMessageAddress(string messageaddress)
+        //{
 
-        }
-        #endregion
+        //}
+        //#endregion
 
         #region PROPERTIES
         private static int count = 0;
@@ -101,10 +101,8 @@ namespace CMiX.Studio.ViewModels
         }
 
 
-        public void CopyModel(IModel model)
+        public void CopyModel(EntityModel entityModel)
         {
-            EntityModel entityModel = model as EntityModel;
-            entityModel.MessageAddress = MessageAddress;
             entityModel.Enable = Enabled;
             entityModel.Name = Name;
 
@@ -114,12 +112,10 @@ namespace CMiX.Studio.ViewModels
             this.Coloration.CopyModel(entityModel.ColorationModel);
         }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(EntityModel entityModel)
         {
             this.Sender.Disable();
 
-            EntityModel entityModel = model as EntityModel;
-            this.MessageAddress = entityModel.MessageAddress;
             this.Enabled = entityModel.Enable;
             this.Name = entityModel.Name;
             
@@ -151,7 +147,7 @@ namespace CMiX.Studio.ViewModels
                 var entityModel = data.GetData("EntityModel") as EntityModel;
                 var messageAddress = MessageAddress;
                 this.PasteModel(entityModel);
-                this.UpdateMessageAddress(messageAddress);
+                //this.UpdateMessageAddress(messageAddress);
 
                 this.CopyModel(entityModel);
                 this.Sender.Enable();

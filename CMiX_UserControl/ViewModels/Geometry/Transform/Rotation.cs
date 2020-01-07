@@ -24,13 +24,13 @@ namespace CMiX.Studio.ViewModels
         public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
 
-        public void UpdateMessageAddress(string messageaddress)
-        {
-            MessageAddress = messageaddress;
-            RotationX.UpdateMessageAddress($"{messageaddress}{nameof(RotationX)}/");
-            RotationY.UpdateMessageAddress($"{messageaddress}{nameof(RotationY)}/");
-            RotationZ.UpdateMessageAddress($"{messageaddress}{nameof(RotationZ)}/");
-        }
+        //public void UpdateMessageAddress(string messageaddress)
+        //{
+        //    MessageAddress = messageaddress;
+        //    RotationX.UpdateMessageAddress($"{messageaddress}{nameof(RotationX)}/");
+        //    RotationY.UpdateMessageAddress($"{messageaddress}{nameof(RotationY)}/");
+        //    RotationZ.UpdateMessageAddress($"{messageaddress}{nameof(RotationZ)}/");
+        //}
 
         #region COPY/PASTE/RESET
         public void CopyGeometry()
@@ -53,7 +53,7 @@ namespace CMiX.Studio.ViewModels
                 var rotationmodel = data.GetData("RotationModel") as RotationModel;
                 var messageaddress = MessageAddress;
                 this.Paste(rotationmodel);
-                UpdateMessageAddress(messageaddress);
+                //UpdateMessageAddress(messageaddress);
                 this.Copy(rotationmodel);
 
                 Sender.Enable();
@@ -72,7 +72,6 @@ namespace CMiX.Studio.ViewModels
 
         public void Copy(RotationModel rotationmodel)
         {
-            rotationmodel.MessageAddress = MessageAddress;
             RotationX.CopyModel(rotationmodel.RotationX);
             RotationY.CopyModel(rotationmodel.RotationY);
             RotationZ.CopyModel(rotationmodel.RotationZ);
@@ -82,10 +81,10 @@ namespace CMiX.Studio.ViewModels
         {
             Sender.Disable();
 
-            MessageAddress = rotationmodel.MessageAddress;
             RotationX.PasteModel(rotationmodel.RotationX);
             RotationY.PasteModel(rotationmodel.RotationY);
             RotationZ.PasteModel(rotationmodel.RotationZ);
+
             Sender.Enable();
         }
 

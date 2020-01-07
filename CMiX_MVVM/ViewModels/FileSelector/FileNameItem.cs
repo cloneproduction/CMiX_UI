@@ -45,15 +45,9 @@ namespace CMiX.MVVM.ViewModels
         public Sender Sender { get; set; }
         #endregion
 
-        public void UpdateMessageAddress(string messageaddress)
-        {
-            MessageAddress = messageaddress + "Selected";
-        }
-
         #region COPY/PASTE/UPDATE
         public void Copy(FileNameItemModel filenameitemmodel)
         {
-            filenameitemmodel.MessageAddress = MessageAddress;
             filenameitemmodel.FileIsSelected = FileIsSelected;
             filenameitemmodel.FileName = FileName;
         }
@@ -62,7 +56,6 @@ namespace CMiX.MVVM.ViewModels
         {
             Sender.Enable();
 
-            MessageAddress = filenameitemmodel.MessageAddress;
             FileName = filenameitemmodel.FileName;
             FileIsSelected = filenameitemmodel.FileIsSelected;
 

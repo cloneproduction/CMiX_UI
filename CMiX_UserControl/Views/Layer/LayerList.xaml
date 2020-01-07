@@ -46,8 +46,7 @@
                 <Button
                     DockPanel.Dock="left"
                     ToolTip="Delete Layer"
-                    Command="{Binding Path=DeleteLayerCommand}"
-                    CommandParameter="{Binding SelectedLayer}"
+                    Command="{Binding DeleteSelectedLayerCommand}"
                     Margin="2, 0, 0, 0"
                     Width="25" 
                     Height="25"
@@ -86,7 +85,7 @@
                     <MenuItem
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.DuplicateLayerCommand, Source={StaticResource proxy}}">
+                        Command="{Binding Data.DuplicateSelectedLayerCommand, Source={StaticResource proxy}}">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource Copy}" />

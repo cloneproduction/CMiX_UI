@@ -9,7 +9,7 @@ namespace CMiX.MVVM
 {
     public interface ICopyPasteModel
     {
-        void CopyModel(IModel model);
-        void PasteModel(IModel model);
+        //void CopyModel(IModel model);
+        //void PasteModel(IModel model);
     }
 }

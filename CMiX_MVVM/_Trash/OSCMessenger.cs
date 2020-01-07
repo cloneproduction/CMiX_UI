@@ -164,8 +164,8 @@ namespace CMiX.MVVM.ViewModels
                             {
                                 if (item.FileIsSelected)
                                 {
-                                    string address = item.MessageAddress;
-                                    QueueMessage(address, item.FileName);
+                                    //string address = item.MessageAddress;
+                                    //QueueMessage(address, item.FileName);
                                 }
                             }
                         }

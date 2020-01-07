@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels;
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class GeometryTranslateModel : IModel
+    public class GeometryTranslateModel
     {
         public GeometryTranslateModel()
         {
@@ -12,6 +12,5 @@ namespace CMiX.MVVM.Models
         }
 
         public GeometryTranslateMode Mode { get; set; }
-        public string MessageAddress { get; set; }
     }
 }

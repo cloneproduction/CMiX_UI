@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="CMiX.Views.MessageValidationList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Views="clr-namespace:CMiX.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="676" d:DesignWidth="327.333">
+
+    <DockPanel>
+        <TextBlock Margin="0, 8" DockPanel.Dock="Top" Text="MESSENGER" Height="30"/>
+        <Grid DockPanel.Dock="Bottom" Height="25" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button
+                Command="{Binding ResetToAllCommand}"
+                Style="{StaticResource ButtonRounded}"
+                Content="Reset All"
+                Grid.Column="1"
+                Margin="2, 0"/>
+            <Button
+                Command="{Binding ReloadToAllCommand}"
+                Style="{StaticResource ButtonRounded}"
+                Content="Reload All"
+                Grid.Column="2"
+                Margin="2, 0"/>
+        </Grid>
+        <ListBox 
+            Grid.Column="1"
+            Margin="0, 8"
+            ScrollViewer.HorizontalScrollBarVisibility="Auto"
+            ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
+            ItemsSource="{Binding MessageValidations}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel DockPanel.Dock="Top">
+                        <Views:MessageValidation Margin="2"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
+</UserControl>

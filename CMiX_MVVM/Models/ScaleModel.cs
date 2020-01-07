@@ -3,7 +3,7 @@
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class ScaleModel : IModel
+    public class ScaleModel
     {
         public ScaleModel()
         {
@@ -12,18 +12,8 @@ namespace CMiX.MVVM.Models
             ScaleZ = new SliderModel();
         }
 
-        public ScaleModel(string messageaddress)
-            : this()
-        {
-            MessageAddress = messageaddress;
-            ScaleX = new SliderModel(messageaddress);
-            ScaleY = new SliderModel(messageaddress);
-            ScaleZ = new SliderModel(messageaddress);
-        }
-
         public SliderModel ScaleX { get; set; }
         public SliderModel ScaleY { get; set; }
         public SliderModel ScaleZ { get; set; }
-        public string MessageAddress { get; set; }
     }
 }

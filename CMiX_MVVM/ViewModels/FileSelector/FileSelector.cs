@@ -67,15 +67,6 @@ namespace CMiX.MVVM.ViewModels
         #endregion
 
         #region METHODS
-        public void UpdateMessageAddress(string messageaddress)
-        {
-            MessageAddress = messageaddress;
-            foreach (var item in FilePaths)
-            {
-                item.UpdateMessageAddress(messageaddress);
-            }
-        }
-
         private void ClearAll()
         {
             Mementor.PropertyChange(this, "FilePaths");
@@ -191,7 +182,7 @@ namespace CMiX.MVVM.ViewModels
                         {
                             FileNameItem newfilenameitem = filenameitem.Clone() as FileNameItem;
                             newfilenameitem.FileIsSelected = true;
-                            newfilenameitem.UpdateMessageAddress(MessageAddress);
+                            //newfilenameitem.UpdateMessageAddress(MessageAddress);
                             SelectedFileNameItem = newfilenameitem;
                             FilePaths.Insert(dropInfo.InsertIndex, newfilenameitem);
                             Mementor.ElementAdd(FilePaths, newfilenameitem);
@@ -226,7 +217,7 @@ namespace CMiX.MVVM.ViewModels
                     FileNameItem filenameitem = dropInfo.Data as FileNameItem;
                     FileNameItem newfilenameitem = filenameitem.Clone() as FileNameItem;
 
-                    newfilenameitem.UpdateMessageAddress(MessageAddress);
+                    //newfilenameitem.UpdateMessageAddress(MessageAddress);
                     FilePaths.Insert(dropInfo.InsertIndex, newfilenameitem);
                     FilePaths.Remove(filenameitem);
                     newfilenameitem.FileIsSelected = true;
@@ -266,7 +257,7 @@ namespace CMiX.MVVM.ViewModels
 
         public void Copy(FileSelectorModel fileselectormodel)
         {
-            fileselectormodel.MessageAddress = MessageAddress;
+            //fileselectormodel.MessageAddress = MessageAddress;
             List<FileNameItemModel> FileNameItemModelList = new List<FileNameItemModel>();
             foreach (var item in FilePaths)
             {
@@ -283,7 +274,7 @@ namespace CMiX.MVVM.ViewModels
         {
             Sender.Enable();
 
-            MessageAddress = fileselectormodel.MessageAddress;
+            //MessageAddress = fileselectormodel.MessageAddress;
             FilePaths.Clear();
 
             foreach (var item in fileselectormodel.FilePaths)

@@ -51,18 +51,14 @@ namespace CMiX.Studio.ViewModels
             Sender.Enable();
         }
 
-        public void CopyModel(IModel model)
+        public void CopyModel(GeometryTranslateModel geometryTranslateModel)
         {
-            GeometryTranslateModel geometryTranslateModel = model as GeometryTranslateModel;
-            geometryTranslateModel.MessageAddress = MessageAddress;
             geometryTranslateModel.Mode = Mode;
         }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(GeometryTranslateModel geometryTranslateModel)
         {
-            GeometryTranslateModel geometryTranslateModel = model as GeometryTranslateModel;
             Sender.Disable();
-            MessageAddress = geometryTranslateModel.MessageAddress;
             Mode = geometryTranslateModel.Mode;
             Sender.Enable();
         }

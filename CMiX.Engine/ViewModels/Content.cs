@@ -60,10 +60,8 @@ namespace CMiX.Engine.ViewModels
             Entities.RemoveAt(index);
         }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(ContentModel contentModel)
         {
-            ContentModel contentModel = model as ContentModel;
-            MessageAddress = contentModel.MessageAddress;
             Entities.Clear();
             foreach (EntityModel entity in contentModel.EntityModels)
             {
@@ -72,7 +70,7 @@ namespace CMiX.Engine.ViewModels
             }
         }
 
-        public void CopyModel(IModel model)
+        public void CopyModel(ContentModel contentModel)
         {
             throw new NotImplementedException();
         }

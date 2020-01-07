@@ -32,10 +32,8 @@ namespace CMiX.Engine.ViewModels
             Receiver.UpdateViewModel(MessageAddress, this);
         }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(LayerModel layerModel)
         {
-            LayerModel layerModel = model as LayerModel;
-            this.MessageAddress = layerModel.MessageAddress;
             this.DisplayName = layerModel.DisplayName;
             this.ID = layerModel.ID;
 
@@ -44,7 +42,7 @@ namespace CMiX.Engine.ViewModels
             this.Fade.PasteModel(layerModel.Fade);
         }
 
-        public void CopyModel(IModel model)
+        public void CopyModel(LayerModel layerModel)
         {
             throw new NotImplementedException();
         }

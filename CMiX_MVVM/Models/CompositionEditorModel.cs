@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace CMiX.MVVM.Models 
 {
-    public class CompositionEditorModel : IModel
+    public class CompositionEditorModel
     {
         public CompositionEditorModel()
         {
             CompositionModels = new List<CompositionModel>();
+            SelectedCompositionModel = new CompositionModel();
         }
 
         public List<CompositionModel> CompositionModels { get; set; }
         public CompositionModel SelectedCompositionModel { get; set; }
-        public string MessageAddress { get; set; }
     }
 }

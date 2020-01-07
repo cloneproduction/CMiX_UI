@@ -113,10 +113,8 @@ namespace CMiX.Engine.ViewModels
             Console.WriteLine("DeleteLayer : " + Layers[index].MessageAddress);
         }
 
-        public void CopyModel(IModel model)
+        public void CopyModel(CompositionModel compositionModel)
         {
-            CompositionModel compositionModel = model as CompositionModel;
-            compositionModel.MessageAddress = MessageAddress;
             compositionModel.Name = Name;
 
             Layers.Clear();

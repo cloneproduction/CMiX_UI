@@ -18,6 +18,7 @@ namespace CMiX.Studio.ViewModels
         {
             Beat = beat;
             MessageAddress = $"{messageAddress}{nameof(Content)}/";
+            Sender = sender;
             Enabled = true;
 
             BeatModifier = new BeatModifier(MessageAddress, Beat, sender, mementor);
@@ -30,14 +31,14 @@ namespace CMiX.Studio.ViewModels
         }
         #endregion
 
-        #region METHODS
-        public void UpdateMessageAddress(string messageAddress)
-        {
-            MessageAddress = messageAddress;
-            BeatModifier.UpdateMessageAddress($"{MessageAddress}{nameof(BeatModifier)}/");
-            PostFX.UpdateMessageAddress($"{MessageAddress}{nameof(PostFX)}/");
-        }
-        #endregion
+        //#region METHODS
+        //public void UpdateMessageAddress(string messageAddress)
+        //{
+        //    MessageAddress = messageAddress;
+        //    BeatModifier.UpdateMessageAddress($"{MessageAddress}{nameof(BeatModifier)}/");
+        //    PostFX.UpdateMessageAddress($"{MessageAddress}{nameof(PostFX)}/");
+        //}
+        //#endregion
 
         #region PROPERTIES
         public ICommand DeleteEntityCommand { get; }
@@ -64,10 +65,8 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void CopyModel(IModel model)
+        public void CopyModel(ContentModel contentModel)
         {
-            ContentModel contentModel = model as ContentModel;
-            contentModel.MessageAddress = MessageAddress;
             contentModel.Enable = Enabled;
 
             foreach (Entity obj in Entities)
@@ -81,12 +80,10 @@ namespace CMiX.Studio.ViewModels
             this.PostFX.CopyModel(contentModel.PostFXModel);
         }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(ContentModel contentModel)
         {
-            ContentModel contentModel = model as ContentModel;
             Sender.Disable();
 
-            this.MessageAddress = contentModel.MessageAddress;
             this.Enabled = contentModel.Enable;
 
             this.BeatModifier.PasteModel(contentModel.BeatModifierModel);
@@ -127,7 +124,7 @@ namespace CMiX.Studio.ViewModels
                 var contentModel = data.GetData("ContentModel") as ContentModel;
                 var contentmessageaddress = MessageAddress;
                 this.PasteModel(contentModel);
-                this.UpdateMessageAddress(contentmessageaddress);
+                //this.UpdateMessageAddress(contentmessageaddress);
 
                 Sender.Enable();
                 this.Mementor.EndBatch();

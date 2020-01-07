@@ -13,6 +13,7 @@ namespace CMiX.Studio.ViewModels
         public TranslateModifier(string messageaddress, Sender sender, Mementor mementor, Beat beat) 
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(TranslateModifier));
+            Sender = sender;
 
             Translate = new AnimParameter(MessageAddress + nameof(Translate), sender, mementor, beat, true);
             TranslateX = new AnimParameter(MessageAddress + nameof(TranslateX), sender, mementor, beat, false);
@@ -28,18 +29,6 @@ namespace CMiX.Studio.ViewModels
         public string MessageAddress { get; set; }
         public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
-        #endregion
-
-        #region METHODS
-        public void UpdateMessageAddress(string messageaddress)
-        {
-            MessageAddress = messageaddress;
-
-            Translate.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Translate)));
-            TranslateX.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(TranslateX)));
-            TranslateY.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(TranslateY)));
-            TranslateZ.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(TranslateZ)));
-        }
         #endregion
 
         #region COPY/PASTE/RESET
@@ -63,7 +52,7 @@ namespace CMiX.Studio.ViewModels
                 var translatemodifiermodel = data.GetData("TranslateModifierModel") as TranslateModifierModel;
                 var messageaddress = MessageAddress;
                 this.Paste(translatemodifiermodel);
-                UpdateMessageAddress(messageaddress);
+                //UpdateMessageAddress(messageaddress);
                 this.Copy(translatemodifiermodel);
 
                 Sender.Enable();
@@ -84,7 +73,6 @@ namespace CMiX.Studio.ViewModels
 
         public void Copy(TranslateModifierModel translatemodifiermodel)
         {
-            translatemodifiermodel.MessageAddress = MessageAddress;
             Translate.Copy(translatemodifiermodel.Translate);
             TranslateX.Copy(translatemodifiermodel.TranslateX);
             TranslateY.Copy(translatemodifiermodel.TranslateY);
@@ -94,8 +82,6 @@ namespace CMiX.Studio.ViewModels
         public void Paste(TranslateModifierModel translatemodifiermodel)
         {
             Sender.Disable();
-
-            MessageAddress = translatemodifiermodel.MessageAddress;
 
             Translate.Paste(translatemodifiermodel.Translate);
             TranslateX.Paste(translatemodifiermodel.TranslateX);

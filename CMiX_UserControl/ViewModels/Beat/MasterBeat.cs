@@ -108,18 +108,14 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void CopyModel(IModel model)
+        public void CopyModel(MasterBeatModel masterBeatControl)
         {
-            MasterBeatModel masterBeatControl = model as MasterBeatModel;
-            masterBeatControl.MessageAddress = MessageAddress;
             masterBeatControl.Period = Period;
         }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(MasterBeatModel masterBeatControl)
         {
             Sender.Disable();
-            MasterBeatModel masterBeatControl = model as MasterBeatModel;
-            MessageAddress = masterBeatControl.MessageAddress;
             Period = masterBeatControl.Period;
             Sender.Enable();
         }

@@ -38,7 +38,7 @@ namespace CMiX.MVVM.Services
                 && ReceivedData != null
                 && MessageCommand.VIEWMODEL_UPDATE == ReceivedCommand)
             {
-                viewModel.PasteModel(ReceivedData as IModel);
+                //viewModel.PasteModel(ReceivedData as IModel);
             }
         }
 

@@ -36,15 +36,6 @@ namespace CMiX.Studio.ViewModels
         public Mementor Mementor { get; set; }
         #endregion
 
-        #region METHODS
-        public void UpdateMessageAddress(string messageaddress)
-        {
-            MessageAddress = messageaddress;
-
-            ColorPicker.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(ColorPicker)));
-        }
-        #endregion
-
         #region COPY/PASTE/RESET
         public void CopyColorSelector()
         {
@@ -66,7 +57,6 @@ namespace CMiX.Studio.ViewModels
                 var colorselectormodel = data.GetData("ColorSelectorModel") as ColorSelectorModel;
                 var colorselectormessageaddress = MessageAddress;
                 this.PasteModel(colorselectormodel);
-                this.UpdateMessageAddress(colorselectormessageaddress);
                 this.CopyModel(colorselectormodel);
 
                 Sender.Enable();
@@ -83,21 +73,15 @@ namespace CMiX.Studio.ViewModels
             //SendMessages(MessageAddress, colorselectormodel);
         }
 
-        public void CopyModel(IModel model)
+        public void CopyModel(ColorSelectorModel colorSelectorModel)
         {
-            ColorSelectorModel colorSelectorModel = model as ColorSelectorModel;
-            colorSelectorModel.MessageAddress = MessageAddress;
             ColorPicker.Copy(colorSelectorModel.ColorPickerModel);
         }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(ColorSelectorModel colorSelectorModel)
         {
             Sender.Disable();
-
-            ColorSelectorModel colorSelectorModel = model as ColorSelectorModel;
-            MessageAddress = colorSelectorModel.MessageAddress;
             ColorPicker.Paste(colorSelectorModel.ColorPickerModel);
-
             Sender.Enable();
         }
 

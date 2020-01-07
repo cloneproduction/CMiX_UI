@@ -76,10 +76,8 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public void CopyModel(IModel model)
+        public void CopyModel(CameraModel cameraModel)
         {
-            CameraModel cameraModel = model as CameraModel;
-            cameraModel.MessageAddress = MessageAddress;
             cameraModel.Rotation = Rotation;
             cameraModel.LookAt = LookAt;
             cameraModel.View = View;
@@ -88,12 +86,10 @@ namespace CMiX.Studio.ViewModels
             Zoom.CopyModel(cameraModel.Zoom);
         }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(CameraModel cameraModel)
         {
-            CameraModel cameraModel = model as CameraModel;
             Sender.Disable();
 
-            MessageAddress = cameraModel.MessageAddress;
             Rotation = cameraModel.Rotation;
             LookAt = cameraModel.LookAt;
             View = cameraModel.View;

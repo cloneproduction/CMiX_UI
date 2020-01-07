@@ -4,7 +4,7 @@ using System;
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class GeometryRotationModel : IModel
+    public class GeometryRotationModel
     {
         public GeometryRotationModel()
         {
@@ -15,6 +15,5 @@ namespace CMiX.MVVM.Models
         public bool RotationX { get; set; }
         public bool RotationY { get; set; }
         public bool RotationZ { get; set; }
-        public string MessageAddress { get; set; }
     }
 }

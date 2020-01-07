@@ -49,22 +49,18 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE COMPOSITIONS
-        public void CopyModel(IModel model)
+        public void CopyModel(CompositionModel compositionModel)
         {
-            CompositionModel compositionModel = model as CompositionModel;
-            compositionModel.MessageAddress = MessageAddress;
             compositionModel.Name = Name;
             MasterBeat.CopyModel(compositionModel.MasterBeatModel);
             Camera.CopyModel(compositionModel.CameraModel);
             Transition.CopyModel(compositionModel.TransitionModel);
         }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(CompositionModel compositionModel)
         {
             Sender.Disable();
 
-            CompositionModel compositionModel = model as CompositionModel;
-            MessageAddress = compositionModel.MessageAddress;
             Name = compositionModel.Name;
 
             MasterBeat.PasteModel(compositionModel.MasterBeatModel);

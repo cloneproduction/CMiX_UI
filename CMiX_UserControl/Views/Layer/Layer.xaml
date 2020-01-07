@@ -11,19 +11,19 @@
             <Views:Content                 
                     Grid.Column="0" 
                     Margin="4, 0, 4, 0"
-                    DataContext="{Binding SelectedLayer.Content}"/>
+                    DataContext="{Binding Content}"/>
         </TabItem>
         <TabItem Width="100" Height="30" Header="Mask">
             <Views:Mask                 
                     Grid.Column="1"
                     Margin="4, 0, 4, 0" 
-                    DataContext="{Binding SelectedLayer.Mask}"/>
+                    DataContext="{Binding Mask}"/>
         </TabItem>
         <TabItem Width="100" Height="30" Header="PostFX">
             <Views:PostFX                 
                     Grid.Column="1"
                     Margin="4, 0, 4, 0" 
-                    DataContext="{Binding SelectedLayer.PostFX}"/>
+                    DataContext="{Binding PostFX}"/>
         </TabItem>
     </TabControl>
 </UserControl>

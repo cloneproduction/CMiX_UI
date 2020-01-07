@@ -12,6 +12,7 @@ namespace CMiX.Studio.ViewModels
         public Instancer(string messageaddress, Sender sender, Mementor mementor, Beat beat)
         {
             MessageAddress = $"{messageaddress}{nameof(Instancer)}/";
+            Sender = sender;
 
             Transform = new Transform(MessageAddress, sender, mementor);
             Counter = new Counter(MessageAddress, sender, mementor);
@@ -45,17 +46,17 @@ namespace CMiX.Studio.ViewModels
         public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
 
-        #region METHODS
-        public void UpdateMessageAddress(string messageaddress)
-        {
-            MessageAddress = messageaddress;
+        //#region METHODS
+        //public void UpdateMessageAddress(string messageaddress)
+        //{
+        //    MessageAddress = messageaddress;
 
-            Counter.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Counter)));
-            TranslateModifier.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(TranslateModifier)));
-            ScaleModifier.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(ScaleModifier)));
-            RotationModifier.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(RotationModifier)));
-        }
-        #endregion
+        //    Counter.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Counter)));
+        //    TranslateModifier.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(TranslateModifier)));
+        //    ScaleModifier.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(ScaleModifier)));
+        //    RotationModifier.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(RotationModifier)));
+        //}
+        //#endregion
 
         #region COPY/PASTE/RESET
         public void CopyGeometry()
@@ -78,7 +79,7 @@ namespace CMiX.Studio.ViewModels
                 var instancermodel = data.GetData("InstancerModel") as InstancerModel;
                 var geometrymessageaddress = MessageAddress;
                 this.Paste(instancermodel);
-                UpdateMessageAddress(geometrymessageaddress);
+                //UpdateMessageAddress(geometrymessageaddress);
                 this.Copy(instancermodel);
 
                 Sender.Enable();
@@ -97,7 +98,6 @@ namespace CMiX.Studio.ViewModels
 
         public void Copy(InstancerModel instancermodel)
         {
-            instancermodel.MessageAddress = MessageAddress;
             Transform.Copy(instancermodel.Transform);
             Counter.Copy(instancermodel.Counter);
             TranslateModifier.Copy(instancermodel.TranslateModifier);
@@ -110,7 +110,6 @@ namespace CMiX.Studio.ViewModels
         {
             Sender.Disable();
 
-            MessageAddress = instancermodel.MessageAddress;
             Transform.Paste(instancermodel.Transform);
             Counter.Paste(instancermodel.Counter);
             TranslateModifier.Paste(instancermodel.TranslateModifier);

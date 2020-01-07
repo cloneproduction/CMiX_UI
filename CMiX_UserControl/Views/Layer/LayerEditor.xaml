@@ -8,8 +8,5 @@
     d:DesignHeight="880.222"
     d:DesignWidth="1239.739"
     mc:Ignorable="d">
-
-
     <Views:Layer DataContext="{Binding SelectedLayer}"/>
-
 </UserControl>

@@ -3,7 +3,7 @@
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class ColorPickerModel : IModel
+    public class ColorPickerModel
     {
         public ColorPickerModel()
         {
@@ -11,6 +11,5 @@ namespace CMiX.MVVM.Models
         }
 
         public string SelectedColor { get; set; }
-        public string MessageAddress { get; set; }
     }
 }

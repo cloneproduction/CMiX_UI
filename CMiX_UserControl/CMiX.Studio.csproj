@@ -157,8 +157,8 @@
     <Compile Include="ViewModels\Layer\LayerEditor.cs" />
     <Compile Include="ViewModels\Layer\LayerFactory.cs" />
     <Compile Include="ViewModels\Project\IProject.cs" />
-    <Compile Include="Views\ChannelOSCDataTemplate.xaml.cs">
-      <DependentUpon>ChannelOSCDataTemplate.xaml</DependentUpon>
+    <Compile Include="Views\Layer\MessageValidation.xaml.cs">
+      <DependentUpon>MessageValidation.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\OSCAttribute.cs" />
     <Compile Include="ViewModels\Coloration\ColorSelector.cs" />
@@ -180,7 +180,7 @@
     <Compile Include="Views\Geometry\Instancer\TranslateModifier.xaml.cs">
       <DependentUpon>TranslateModifier.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Entity.xaml.cs">
+    <Compile Include="Views\Entity\Entity.xaml.cs">
       <DependentUpon>Entity.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Composition\CompositionEditor.xaml.cs">
@@ -191,6 +191,9 @@
     </Compile>
     <Compile Include="Views\Layer\LayerList.xaml.cs">
       <DependentUpon>LayerList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Messenger\MessageValidationList.xaml.cs">
+      <DependentUpon>MessageValidationList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Server.xaml.cs">
       <DependentUpon>Server.xaml</DependentUpon>
@@ -247,8 +250,8 @@
     <Compile Include="Views\Camera.xaml.cs">
       <DependentUpon>Camera.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MessageValidationDataTemplate.xaml.cs">
-      <DependentUpon>MessageValidationDataTemplate.xaml</DependentUpon>
+    <Compile Include="Views\Messenger\MessageValidation.xaml.cs">
+      <DependentUpon>MessageValidation.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Coloration.xaml.cs">
       <DependentUpon>Coloration.xaml</DependentUpon>
@@ -303,7 +306,7 @@
     <Compile Include="Views\Texture.xaml.cs">
       <DependentUpon>Texture.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\ChannelOSCDataTemplate.xaml">
+    <Page Include="Views\Layer\MessageValidation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -331,7 +334,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Entity.xaml">
+    <Page Include="Views\Entity\Entity.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -344,6 +347,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Layer\LayerList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Messenger\MessageValidationList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -387,7 +394,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MessageValidationDataTemplate.xaml">
+    <Page Include="Views\Messenger\MessageValidation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

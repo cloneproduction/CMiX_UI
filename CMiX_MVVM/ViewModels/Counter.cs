@@ -20,13 +20,6 @@ namespace CMiX.Studio.ViewModels
         }
         #endregion
 
-        #region METHODS
-        public void UpdateMessageAddress(string messageaddress)
-        {
-            MessageAddress = messageaddress;
-        }
-        #endregion
-
         #region PROPERTIES
         public ICommand AddCommand { get; }
         public ICommand SubCommand { get; }
@@ -72,7 +65,6 @@ namespace CMiX.Studio.ViewModels
 
         public void Copy(CounterModel countermodel)
         {
-            countermodel.MessageAddress = MessageAddress;
             countermodel.Count = Count;
         }
 
@@ -80,7 +72,6 @@ namespace CMiX.Studio.ViewModels
         {
             Sender.Enable();
 
-            MessageAddress = countermodel.MessageAddress;
             Count = countermodel.Count;
 
             Sender.Enable();

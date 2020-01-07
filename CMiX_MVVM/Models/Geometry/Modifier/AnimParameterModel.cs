@@ -3,7 +3,7 @@
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class AnimParameterModel : IModel
+    public class AnimParameterModel
     {
         public AnimParameterModel()
         {
@@ -11,14 +11,7 @@ namespace CMiX.MVVM.Models
             BeatModifier = new BeatModifierModel();
         }
 
-        public AnimParameterModel(string messageaddress) : this()
-        {
-            Slider = new SliderModel(messageaddress);
-            BeatModifier = new BeatModifierModel(messageaddress);
-        }
-
         public SliderModel Slider { get; set; }
         public BeatModifierModel BeatModifier { get; set; }
-        public string MessageAddress { get; set; }
     }
 }

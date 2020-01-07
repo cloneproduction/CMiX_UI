@@ -18,6 +18,7 @@ namespace CMiX.Studio.ViewModels
         public FileSelector(string messageaddress, string selectionmode, List<string> filemask, Sender sender, Mementor mementor) 
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(FileSelector));
+            Sender = sender;
 
             SelectionMode = selectionmode;
             FileMask = filemask;
@@ -273,10 +274,9 @@ namespace CMiX.Studio.ViewModels
             Sender.Enable();
         }
 
-        public void CopyModel(IModel model)
+        public void CopyModel(FileSelectorModel fileSelectorModel)
         {
-            FileSelectorModel fileSelectorModel = model as FileSelectorModel;
-            fileSelectorModel.MessageAddress = MessageAddress;
+
             fileSelectorModel.FolderPath = FolderPath;
             List<FileNameItemModel> FileNameItemModelList = new List<FileNameItemModel>();
             foreach (var item in FilePaths)
@@ -290,14 +290,10 @@ namespace CMiX.Studio.ViewModels
             fileSelectorModel.FilePaths = FileNameItemModelList;
         }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(FileSelectorModel fileSelectorModel)
         {
             Sender.Disable();
-
-            FileSelectorModel fileSelectorModel = model as FileSelectorModel;
-            MessageAddress = fileSelectorModel.MessageAddress;
             FolderPath = fileSelectorModel.FolderPath;
-
             FilePaths.Clear();
 
             foreach (var item in fileSelectorModel.FilePaths)

@@ -12,6 +12,7 @@ namespace CMiX.Studio.ViewModels
         public AnimParameter(string messageaddress, Sender sender, Mementor mementor, Beat beat, bool isEnabled)
         {
             Mode = AnimMode.None;
+            Sender = sender;
             IsEnabled = isEnabled;
             Slider = new Slider(MessageAddress, sender, mementor);
             BeatModifier = new BeatModifier(MessageAddress, beat, sender, mementor);
@@ -51,15 +52,6 @@ namespace CMiX.Studio.ViewModels
         public Mementor Mementor { get; set; }
         #endregion
 
-        #region METHODS
-        public void UpdateMessageAddress(string messageaddress)
-        {
-            MessageAddress = messageaddress;
-            Slider.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Slider)));
-            BeatModifier.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(BeatModifier)));
-        }
-        #endregion
-
         #region COPY/PASTE/RESET
         public void CopyGeometry()
         {
@@ -81,7 +73,7 @@ namespace CMiX.Studio.ViewModels
                 var animparametermodel = data.GetData("AnimParameterModel") as AnimParameterModel;
                 var messageaddress = MessageAddress;
                 this.Paste(animparametermodel);
-                UpdateMessageAddress(messageaddress);
+
                 this.Copy(animparametermodel);
 
                 Sender.Enable();
@@ -104,8 +96,6 @@ namespace CMiX.Studio.ViewModels
 
         public void Copy(AnimParameterModel animparametermodel)
         {
-            animparametermodel.MessageAddress = MessageAddress;
-
             Slider.CopyModel(animparametermodel.Slider);
             BeatModifier.CopyModel(animparametermodel.BeatModifier);
         }
@@ -114,7 +104,6 @@ namespace CMiX.Studio.ViewModels
         {
             Sender.Disable();
 
-            MessageAddress = animparametermodel.MessageAddress;
             Slider.PasteModel(animparametermodel.Slider);
             BeatModifier.PasteModel(animparametermodel.BeatModifier);
 

@@ -50,24 +50,9 @@ namespace CMiX.Studio.ViewModels
         public Mementor Mementor { get; set; }
         #endregion
 
-        #region METHODS
-        public void UpdateMessageAddress(string messageaddress)
-        {
-            MessageAddress = messageaddress;
-
-            ColorSelector.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(ColorSelector)));
-            BeatModifier.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(BeatModifier)));
-            Hue.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Hue)));
-            Saturation.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Saturation)));
-            Value.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Value)));
-        }
-        #endregion
-
         #region COPY/PASTE/RESET
-        public void CopyModel(IModel model)
+        public void CopyModel(ColorationModel colorationModel)
         {
-            ColorationModel colorationModel = model as ColorationModel;
-            colorationModel.MessageAddress = MessageAddress;
             ColorSelector.CopyModel(colorationModel.ColorSelectorModel);
             BeatModifier.CopyModel(colorationModel.BeatModifierModel);
             Hue.CopyModel(colorationModel.HueDTO);
@@ -75,12 +60,10 @@ namespace CMiX.Studio.ViewModels
             Value.CopyModel(colorationModel.ValDTO);
         }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(ColorationModel colorationModel)
         {
             Sender.Disable();
 
-            ColorationModel colorationModel = model as ColorationModel;
-            MessageAddress = colorationModel.MessageAddress;
             ColorSelector.PasteModel(colorationModel.ColorSelectorModel);
             BeatModifier.PasteModel(colorationModel.BeatModifierModel);
             Hue.PasteModel(colorationModel.HueDTO);
@@ -123,7 +106,7 @@ namespace CMiX.Studio.ViewModels
                 var colorationmodel = data.GetData("ColorationModel") as ColorationModel;
                 var colorationmessageaddress = MessageAddress;
                 this.PasteModel(colorationmodel);
-                this.UpdateMessageAddress(colorationmessageaddress);
+                //this.UpdateMessageAddress(colorationmessageaddress);
 
                 this.CopyModel(colorationmodel);
                 this.Sender.Enable();

@@ -39,17 +39,13 @@ namespace CMiX.Studio.ViewModels
             MessageAddress = messageaddress;
         }
 
-        public void CopyModel(IModel model)
+        public void CopyModel(BlendModeModel blendModeModel)
         {
-            BlendModeModel blendModeModel = model as BlendModeModel;
-            blendModeModel.MessageAddress = MessageAddress;
             blendModeModel.Mode = Mode;
         }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(BlendModeModel blendModeModel)
         {
-            BlendModeModel blendModeModel = model as BlendModeModel;
-            MessageAddress = blendModeModel.MessageAddress;
             Mode = blendModeModel.Mode;
         }
 

@@ -13,6 +13,8 @@ namespace CMiX.Studio.ViewModels
         public Transform(string messageAddress, Sender sender, Mementor mementor)
         {
             MessageAddress = $"{messageAddress}{nameof(Transform)}/";
+            Sender = sender;
+
             Translate = new Translate(MessageAddress, sender, mementor);
             Scale = new Scale(MessageAddress, sender, mementor);
             Rotation = new Rotation(MessageAddress, sender, mementor);
@@ -43,16 +45,16 @@ namespace CMiX.Studio.ViewModels
         public Mementor Mementor { get; set; }
         #endregion
 
-        #region METHODS
-        public void UpdateMessageAddress(string messageaddress)
-        {
-            MessageAddress = messageaddress;
+        //#region METHODS
+        //public void UpdateMessageAddress(string messageaddress)
+        //{
+        //    MessageAddress = messageaddress;
 
-            Translate.UpdateMessageAddress(messageaddress);
-            Scale.UpdateMessageAddress(messageaddress);
-            Rotation.UpdateMessageAddress(messageaddress);
-        }
-        #endregion
+        //    Translate.UpdateMessageAddress(messageaddress);
+        //    Scale.UpdateMessageAddress(messageaddress);
+        //    Rotation.UpdateMessageAddress(messageaddress);
+        //}
+        //#endregion
 
         #region COPY/PASTE/RESET
         public void CopyGeometry()
@@ -75,7 +77,7 @@ namespace CMiX.Studio.ViewModels
                 var transformmodel = data.GetData("TransformModel") as TransformModel;
                 var messageaddress = MessageAddress;
                 this.Paste(transformmodel);
-                UpdateMessageAddress(messageaddress);
+                //UpdateMessageAddress(messageaddress);
                 this.Copy(transformmodel);
 
                 Sender.Enable();
@@ -92,24 +94,22 @@ namespace CMiX.Studio.ViewModels
             //this.SendMessages(nameof(TransformModel), transformmodel);
         }
 
-        public void Copy(TransformModel transformmodel)
+        public void Copy(TransformModel transformModel)
         {
-            transformmodel.MessageAddress = MessageAddress;
-            Translate.Copy(transformmodel.Translate);
-            Scale.Copy(transformmodel.Scale);
-            Rotation.Copy(transformmodel.Rotation);
-            transformmodel.Is3D = Is3D;
+            Translate.Copy(transformModel.Translate);
+            Scale.Copy(transformModel.Scale);
+            Rotation.Copy(transformModel.Rotation);
+            transformModel.Is3D = Is3D;
         }
 
-        public void Paste(TransformModel transformmodel)
+        public void Paste(TransformModel transformModel)
         {
             Sender.Disable();;
 
-            MessageAddress = transformmodel.MessageAddress;
-            Translate.Paste(transformmodel.Translate);
-            Scale.Paste(transformmodel.Scale);
-            Rotation.Paste(transformmodel.Rotation);
-            Is3D = transformmodel.Is3D;
+            Translate.Paste(transformModel.Translate);
+            Scale.Paste(transformModel.Scale);
+            Rotation.Paste(transformModel.Rotation);
+            Is3D = transformModel.Is3D;
 
             Sender.Enable();
         }

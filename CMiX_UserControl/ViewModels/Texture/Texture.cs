@@ -16,6 +16,7 @@ namespace CMiX.Studio.ViewModels
         public Texture(string messageaddress, Sender sender, Mementor mementor)
         {
             MessageAddress = $"{messageaddress}{nameof(Texture)}/";
+            Sender = sender;
 
             FileSelector = new FileSelector(MessageAddress,  "Single", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, sender, mementor);
             FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress, sender) { FileIsSelected = true, FileName = "Black (default).png" });
@@ -59,26 +60,6 @@ namespace CMiX.Studio.ViewModels
         }
         #endregion
 
-        #region METHODS
-        public void UpdateMessageAddress(string messageaddress)
-        {
-            MessageAddress =  messageaddress;
-
-            FileSelector.UpdateMessageAddress($"{MessageAddress}{nameof(FileSelector)}/");
-            Brightness.UpdateMessageAddress($"{MessageAddress}{nameof(Brightness)}/");
-            Contrast.UpdateMessageAddress($"{MessageAddress}{nameof(Contrast)}/");
-            Invert.UpdateMessageAddress($"{MessageAddress}{nameof(Invert)}/");
-            Hue.UpdateMessageAddress($"{MessageAddress}{nameof(Hue)}/");
-            Saturation.UpdateMessageAddress($"{MessageAddress}{nameof(Saturation)}/");
-            Luminosity.UpdateMessageAddress($"{MessageAddress}{nameof(Luminosity)}/");
-            Keying.UpdateMessageAddress($"{MessageAddress}{nameof(Keying)}/");
-            Scale.UpdateMessageAddress($"{MessageAddress}{nameof(Scale)}/");
-            Rotate.UpdateMessageAddress($"{MessageAddress}{nameof(Rotate)}/");
-            Pan.UpdateMessageAddress($"{MessageAddress}{nameof(Pan)}/");
-            Tilt.UpdateMessageAddress($"{MessageAddress}{nameof(Tilt)}/");
-        }
-        #endregion
-
         #region PROPERTIES
         public ICommand CopyTextureCommand { get; }
         public ICommand PasteTextureCommand { get; }
@@ -116,10 +97,8 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public void CopyModel(IModel model)
+        public void CopyModel(TextureModel textureModel)
         {
-            TextureModel textureModel = model as TextureModel;
-            textureModel.MessageAddress = MessageAddress;
             FileSelector.CopyModel(textureModel.FileSelector);
             Brightness.CopyModel(textureModel.Brightness);
             Contrast.CopyModel(textureModel.Contrast);
@@ -135,12 +114,10 @@ namespace CMiX.Studio.ViewModels
             textureModel.InvertMode = InvertMode;
         }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(TextureModel textureModel)
         {
             Sender.Disable();
 
-            TextureModel textureModel = model as TextureModel;
-            MessageAddress = textureModel.MessageAddress;
             FileSelector.PasteModel(textureModel.FileSelector);
             Brightness.PasteModel(textureModel.Brightness);
             Contrast.PasteModel(textureModel.Contrast);
@@ -200,7 +177,7 @@ namespace CMiX.Studio.ViewModels
                 var texturemodel = data.GetData("TextureModel") as TextureModel;
                 var texturemessageaddress = MessageAddress;
                 this.PasteModel(texturemodel);
-                UpdateMessageAddress(texturemessageaddress);
+                //UpdateMessageAddress(texturemessageaddress);
                 this.CopyModel(texturemodel);
 
                 Sender.Enable();

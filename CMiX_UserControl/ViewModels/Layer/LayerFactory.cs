@@ -1,4 +1,5 @@
-﻿using CMiX.MVVM.Models;
+﻿using CMiX.MVVM.Commands;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using Memento;
 
@@ -6,45 +7,78 @@ namespace CMiX.Studio.ViewModels
 {
     public class LayerFactory
     {
-        public LayerFactory()
+        public LayerFactory(Sender sender)
         {
-
+            Sender = sender;
         }
 
         int LayerID = 0;
+        public Sender Sender { get; set; }
 
         public Layer CreateLayer(ILayerContext context)
         {
-            Layer layer = new Layer(context.MasterBeat, context.MessageAddress, context.Sender, context.Assets, context.Mementor)
-            {
-                ID = LayerID,
-                DisplayName = "Layer " + LayerID
-            };
-            LayerID++;
-            return layer;
-        }
-
-        public Layer DuplicateLayer(ILayerContext context, Layer layer)
-        {
-            LayerModel layerModel = new LayerModel();
-            layer.CopyModel(layerModel);
-
-            Layer newLayer = new Layer(context.MasterBeat, context.MessageAddress, context.Sender, context.Assets, context.Mementor);
-            newLayer.PasteModel(layerModel);
-            newLayer.ID = LayerID;
-            newLayer.Name = newLayer.Name + "- Copy";
+            Layer newLayer = new Layer(context.MasterBeat, context.MessageAddress, LayerID, context.Sender, context.Assets, context.Mementor);
             context.Layers.Add(newLayer);
+            context.SelectedLayer = newLayer;
+
+            LayerModel layerModel = new LayerModel();
+            newLayer.CopyModel(layerModel);
+            Sender.SendMessages(context.MessageAddress, MessageCommand.LAYER_ADD, null, layerModel);
+
             LayerID++;
-
-            int oldIndex = context.Layers.IndexOf(context.SelectedLayer);
-            int newIndex = context.Layers.IndexOf(newLayer) + 1;
-            context.Layers.Move(oldIndex, newIndex);
-            int[] movedIndex = new int[2] { oldIndex, newIndex };
-
             return newLayer;
         }
 
+        public Layer DuplicateLayer(ILayerContext context)
+        {
+            var SelectedLayer = context.SelectedLayer;
+            if (SelectedLayer != null)
+            {
+                LayerModel layerModel = new LayerModel();
+                context.SelectedLayer.CopyModel(layerModel);
+                layerModel.ID = LayerID;
+                layerModel.DisplayName = SelectedLayer.DisplayName + "- Copy";
+                layerModel.Name = SelectedLayer.Name + "- Copy";
 
+                Layer newLayer = new Layer(context.MasterBeat, context.MessageAddress, LayerID, context.Sender, context.Assets, context.Mementor);
+                newLayer.PasteModel(layerModel);
+                Sender.SendMessages(context.MessageAddress, MessageCommand.LAYER_DUPLICATE, null, layerModel);
+
+                int index = context.Layers.IndexOf(SelectedLayer);
+                context.Layers.Insert(index + 1, newLayer);
+                context.SelectedLayer = newLayer;
+
+                LayerID++;
+                return newLayer;
+            }
+            else
+                return null;
+        }
+
+        public void DeleteLayer(ILayerContext context)
+        {
+            var SelectedLayer = context.SelectedLayer;
+            if (SelectedLayer != null)
+            {
+                Layer removedlayer = SelectedLayer as Layer;
+                int removedLayerIndex = context.Layers.IndexOf(removedlayer);
+                context.Layers.Remove(removedlayer);
+
+                if (context.Layers.Count > 0)
+                {
+                    if (removedLayerIndex > 0)
+                        SelectedLayer = context.Layers[removedLayerIndex - 1];
+                    else
+                        SelectedLayer = context.Layers[0];
+                }
+                else
+                {
+                    SelectedLayer = null;
+                }
+
+                Sender.SendMessages(context.MessageAddress, MessageCommand.LAYER_DELETE, null, removedLayerIndex);
+            }
+        }
 
         //private string CreateLayerMessageAddress()
         //{

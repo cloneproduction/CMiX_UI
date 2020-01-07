@@ -12,7 +12,6 @@ namespace CMiX.Studio.ViewModels
         }
 
         public MessageService MessageService { get; set; }
-
         int CompID = 0;
 
         public Composition CreateComposition(ICompositionContext context)

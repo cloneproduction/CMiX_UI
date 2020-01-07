@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="CMiX.Views.ChannelOSCDataTemplate"
+﻿<UserControl x:Class="CMiX.Views.MessageValidation"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -21,14 +21,32 @@
                     Foreground="{StaticResource TextBase}"
                     HorizontalAlignment="Right"
                     Margin="0, 0, 8, 0"
-                    VerticalAlignment="Center"
-                    />
+                    VerticalAlignment="Center"/>
                 <TextBlock
                     Margin="1"
                     Text="{Binding Name}"
                     Grid.Column="1"
+                    Foreground="{StaticResource TextBase}"/>
+            </Grid>
+            <Grid Height="20" Margin="0, 4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock 
+                    Text="Send" 
                     Foreground="{StaticResource TextBase}"
-                    />
+                    Margin="0, 0, 8, 0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"/>
+                <ToggleButton 
+                    HorizontalAlignment="Left"
+                    IsChecked="{Binding Enabled}"
+                    Grid.Column="1"
+                    Width="20"
+                    Height="20" 
+                    Command="{Binding Path=DataContext.ReloadCompositionCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type views:CompositionEditor}}}"
+                    CommandParameter="{Binding}"/>
             </Grid>
             <Grid Height="20">
                 <Grid.ColumnDefinitions>
@@ -40,16 +58,14 @@
                     Foreground="{StaticResource TextBase}"
                     Margin="0, 0, 8, 0"
                     HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    />
+                    VerticalAlignment="Center"/>
                 <Button 
                     HorizontalAlignment="Left"
-                    Margin="1"
                     Grid.Column="1"
                     Width="20"
                     Height="20" 
-                    Command="{Binding Path=DataContext.ReloadCompositionCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type views:Composition}}}"
-                    />
+                    Command="{Binding Path=DataContext.ReloadCompositionCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type views:CompositionEditor}}}"
+                    CommandParameter="{Binding}"/>
             </Grid>
         </StackPanel>
     </Border>

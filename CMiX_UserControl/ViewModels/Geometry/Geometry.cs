@@ -32,18 +32,6 @@ namespace CMiX.Studio.ViewModels
         }
         #endregion
 
-        #region METHODS
-        public void UpdateMessageAddress(string messageaddress)
-        {
-            MessageAddress = messageaddress;
-
-            FileSelector.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(FileSelector)));
-            GeometryFX.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(GeometryFX)));
-            Instancer.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Instancer)));
-            Transform.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Transform)));
-        }
-        #endregion
-
         #region PROPERTIES
         public ICommand CopyGeometryCommand { get; }
         public ICommand PasteGeometryCommand { get; }
@@ -80,7 +68,7 @@ namespace CMiX.Studio.ViewModels
                 var geometrymodel = data.GetData("GeometryModel") as GeometryModel;
                 var geometrymessageaddress = MessageAddress;
                 this.Paste(geometrymodel);
-                UpdateMessageAddress(geometrymessageaddress);
+                //UpdateMessageAddress(geometrymessageaddress);
                 this.Copy(geometrymodel);
 
                 Sender.Enable();
@@ -97,24 +85,23 @@ namespace CMiX.Studio.ViewModels
             //SendMessages(MessageAddress, geometrymodel);
         }
 
-        public void Copy(GeometryModel geometrymodel)
+        public void Copy(GeometryModel geometryModel)
         {
-            geometrymodel.MessageAddress = MessageAddress;
-            FileSelector.CopyModel(geometrymodel.FileSelector);
-            Transform.Copy(geometrymodel.Transform);
-            GeometryFX.Copy(geometrymodel.GeometryFX);
-            Instancer.Copy(geometrymodel.Instancer);
+            FileSelector.CopyModel(geometryModel.FileSelector);
+            Transform.Copy(geometryModel.Transform);
+            GeometryFX.Copy(geometryModel.GeometryFX);
+            Instancer.Copy(geometryModel.Instancer);
         }
 
-        public void Paste(GeometryModel geometrymodel)
+        public void Paste(GeometryModel geometryModel)
         {
             Sender.Disable();
 
-            MessageAddress = geometrymodel.MessageAddress;
-            FileSelector.PasteModel(geometrymodel.FileSelector);
-            Transform.Paste(geometrymodel.Transform);
-            GeometryFX.Paste(geometrymodel.GeometryFX);
-            Instancer.Paste(geometrymodel.Instancer);
+            FileSelector.PasteModel(geometryModel.FileSelector);
+            Transform.Paste(geometryModel.Transform);
+            GeometryFX.Paste(geometryModel.GeometryFX);
+            Instancer.Paste(geometryModel.Instancer);
+
             Sender.Enable();
         }
 

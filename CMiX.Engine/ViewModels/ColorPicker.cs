@@ -25,15 +25,13 @@ namespace CMiX.Engine.ViewModels
         public string MessageAddress { get; set; }
         public Receiver Receiver { get; set; }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(ColorPickerModel colorPickerModel)
         {
-            ColorPickerModel colorPickerModel = model as ColorPickerModel;
-            MessageAddress = colorPickerModel.MessageAddress;
             SelectedColor = MVVM.Resources.Utils.HexStringToColor(colorPickerModel.SelectedColor);
             Console.WriteLine(this.MessageAddress + " " + SelectedColor);
         }
 
-        public void CopyModel(IModel model)
+        public void CopyModel(ColorPickerModel colorPickerModel)
         {
             throw new NotImplementedException();
         }

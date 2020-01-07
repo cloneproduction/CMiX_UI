@@ -29,17 +29,17 @@ namespace CMiX.Studio.ViewModels
         public Mementor Mementor { get; set; }
         #endregion
 
-        #region METHODS
-        public void UpdateMessageAddress(string messageaddress)
-        {
-            MessageAddress = messageaddress;
+        //#region METHODS
+        //public void UpdateMessageAddress(string messageaddress)
+        //{
+        //    MessageAddress = messageaddress;
 
-            Rotation.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Rotation)));
-            RotationX.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(RotationX)));
-            RotationY.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(RotationY)));
-            RotationZ.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(RotationZ)));
-        }
-        #endregion
+        //    Rotation.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Rotation)));
+        //    RotationX.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(RotationX)));
+        //    RotationY.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(RotationY)));
+        //    RotationZ.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(RotationZ)));
+        //}
+        //#endregion
 
         #region COPY/PASTE/RESET
         public void CopyGeometry()
@@ -62,7 +62,7 @@ namespace CMiX.Studio.ViewModels
                 var Rotationmodifiermodel = data.GetData("RotationModifierModel") as RotationModifierModel;
                 var messageaddress = MessageAddress;
                 this.Paste(Rotationmodifiermodel);
-                UpdateMessageAddress(messageaddress);
+                //UpdateMessageAddress(messageaddress);
                 this.Copy(Rotationmodifiermodel);
 
                 Sender.Enable();
@@ -85,7 +85,6 @@ namespace CMiX.Studio.ViewModels
 
         public void Copy(RotationModifierModel Rotationmodifiermodel)
         {
-            Rotationmodifiermodel.MessageAddress = MessageAddress;
             Rotation.Copy(Rotationmodifiermodel.Rotation);
             RotationX.Copy(Rotationmodifiermodel.RotationX);
             RotationY.Copy(Rotationmodifiermodel.RotationY);
@@ -95,8 +94,6 @@ namespace CMiX.Studio.ViewModels
         public void Paste(RotationModifierModel Rotationmodifiermodel)
         {
             Sender.Disable();
-
-            MessageAddress = Rotationmodifiermodel.MessageAddress;
 
             Rotation.Paste(Rotationmodifiermodel.Rotation);
             RotationX.Paste(Rotationmodifiermodel.RotationX);

@@ -9,15 +9,17 @@ namespace CMiX.Studio.ViewModels
     public class Layer : ViewModel, ICopyPasteModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Layer(MasterBeat masterBeat, string messageAddress,  Sender sender, Assets assets, Mementor mementor) 
+        public Layer(MasterBeat masterBeat, string messageAddress, int id,  Sender sender, Assets assets, Mementor mementor) 
         {
             Enabled = false;
-            MessageAddress =  messageAddress;
+            MessageAddress =  $"{messageAddress}{nameof(Layer)}/{id}/";
             Sender = sender;
             Mementor = mementor;
             Assets = assets;
 
-            LayerName = messageAddress;           
+            ID = id;
+            Name = "Layer " + id;
+            DisplayName = "Layer " + id;
 
             BlendMode = new BlendMode(masterBeat, MessageAddress, sender, mementor);
             Fade = new Slider(MessageAddress + nameof(Fade), sender, mementor);
@@ -33,13 +35,6 @@ namespace CMiX.Studio.ViewModels
         {
             get => _name;
             set => SetAndNotify(ref _name, value);
-        }
-
-        private string _layername;
-        public string LayerName
-        {
-            get => _layername;
-            set => SetAndNotify(ref _layername, value);
         }
 
         private string _displayName;
@@ -66,7 +61,7 @@ namespace CMiX.Studio.ViewModels
                     Mementor.PropertyChange(this, nameof(Out));
                 SetAndNotify(ref _out, value);
                 //if (Out)
-                //SendMessages(MessageAddress + nameof(Out), Out);
+                    //Sender.SendMessages(MessageAddress + nameof(Out), Out);
             }
         }
 
@@ -74,6 +69,7 @@ namespace CMiX.Studio.ViewModels
         public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
         public Assets Assets { get; set; }
+
         public Slider Fade { get; }
         public Content Content { get; }
         public Mask Mask { get; }
@@ -81,27 +77,13 @@ namespace CMiX.Studio.ViewModels
         public BlendMode BlendMode { get; }
         #endregion
 
-        #region METHODS
-        public void UpdateMessageAddress(string messageaddress)
-        {
-            MessageAddress = messageaddress;
-
-            BlendMode.UpdateMessageAddress($"{MessageAddress}{nameof(BlendMode)}/");
-            Fade.UpdateMessageAddress($"{MessageAddress}{nameof(Fade)}/");
-            Content.UpdateMessageAddress($"{MessageAddress}{nameof(Content)}/");
-            Mask.UpdateMessageAddress($"{MessageAddress}{nameof(Mask)}/");
-            PostFX.UpdateMessageAddress($"{MessageAddress}{nameof(PostFX)}/");
-        }
-        #endregion
-
         #region COPY/PASTE/RESET
-        public void CopyModel(IModel model)
+        public void CopyModel(LayerModel layerModel)
         {
-            LayerModel layerModel = model as LayerModel;
-            layerModel.MessageAddress = MessageAddress;
-            layerModel.LayerName = LayerName;
+            layerModel.Name = Name;
             layerModel.DisplayName = DisplayName;
             layerModel.ID = ID;
+            layerModel.Out = Out;
 
             Fade.CopyModel(layerModel.Fade);
             BlendMode.CopyModel(layerModel.BlendMode);
@@ -110,13 +92,11 @@ namespace CMiX.Studio.ViewModels
             PostFX.CopyModel(layerModel.PostFXModel);
         }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(LayerModel layerModel)
         {
             Sender.Disable();
 
-            LayerModel layerModel = model as LayerModel;
-            MessageAddress = layerModel.MessageAddress;
-            LayerName = layerModel.LayerName;
+            Name = layerModel.Name;
             DisplayName = layerModel.DisplayName;
             Out = layerModel.Out;
             ID = layerModel.ID;

@@ -93,23 +93,22 @@ namespace CMiX.Studio.ViewModels
             Sender.Enable();
         }
 
-        public void Copy(GeometryRotationModel geometryrotationmodel)
+        public void Copy(GeometryRotationModel geometryRotationModel)
         {
-            geometryrotationmodel.MessageAddress = MessageAddress;
-            geometryrotationmodel.Mode = Mode;
-            geometryrotationmodel.RotationX = RotationX;
-            geometryrotationmodel.RotationY = RotationY;
-            geometryrotationmodel.RotationZ = RotationZ;
+            geometryRotationModel.Mode = Mode;
+            geometryRotationModel.RotationX = RotationX;
+            geometryRotationModel.RotationY = RotationY;
+            geometryRotationModel.RotationZ = RotationZ;
         }
 
-        public void Paste(GeometryRotationModel geometryrotationmodel)
+        public void Paste(GeometryRotationModel geometryRotationModel)
         {
             Sender.Disable();
-            MessageAddress = geometryrotationmodel.MessageAddress;
-            Mode = geometryrotationmodel.Mode;
-            RotationX = geometryrotationmodel.RotationX;
-            RotationY = geometryrotationmodel.RotationY;
-            RotationZ = geometryrotationmodel.RotationZ;
+
+            Mode = geometryRotationModel.Mode;
+            RotationX = geometryRotationModel.RotationX;
+            RotationY = geometryRotationModel.RotationY;
+            RotationZ = geometryRotationModel.RotationZ;
             Sender.Enable();
         }
         #endregion

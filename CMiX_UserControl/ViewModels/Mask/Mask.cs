@@ -13,33 +13,23 @@ namespace CMiX.Studio.ViewModels
     public class Mask : ViewModel, IEntityContext
     {
         #region CONSTRUCTORS
-        public Mask(Beat masterbeat, string messageaddress, Sender sender, Mementor mementor) 
+        public Mask(Beat beat, string messageAddress, Sender sender, Mementor mementor) 
         {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Mask));
+            Beat = beat;
+            MessageAddress = $"{messageAddress}{nameof(Mask)}/";
+            Sender = sender;
             MaskType = ((MaskType)2).ToString();
             MaskControlType = ((MaskControlType)1).ToString();
             Enabled = false;
 
-            BeatModifier = new BeatModifier(MessageAddress, masterbeat, sender, mementor);
-            Geometry = new Geometry(MessageAddress, sender, mementor, masterbeat);
+            BeatModifier = new BeatModifier(MessageAddress, beat, sender, mementor);
+            Geometry = new Geometry(MessageAddress, sender, mementor, beat);
             Texture = new Texture(MessageAddress, sender, mementor);
             PostFX = new PostFX(MessageAddress, sender, mementor);
 
             CopyMaskCommand = new RelayCommand(p => CopyMask());
             PasteMaskCommand = new RelayCommand(p => PasteMask());
             ResetMaskCommand = new RelayCommand(p => ResetMask());
-        }
-        #endregion
-
-        #region METHODS
-        public void UpdateMessageAddress(string messageaddress)
-        {
-            MessageAddress = messageaddress;
-
-            BeatModifier.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(BeatModifier)));
-            Geometry.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Geometry)));
-            Texture.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(Texture)));
-            PostFX.UpdateMessageAddress(String.Format("{0}{1}/", MessageAddress, nameof(PostFX)));
         }
         #endregion
 
@@ -90,30 +80,26 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public void CopyModel(IModel model)
+        public void CopyModel(MaskModel maskModel)
         {
-            MaskModel maskModel = model as MaskModel;
-            maskModel.MessageAddress = MessageAddress;
             maskModel.Enable = Enabled;
             maskModel.MaskType = MaskType;
             maskModel.MaskControlType = MaskControlType;
             BeatModifier.CopyModel(maskModel.BeatModifierModel);
-            Texture.CopyModel(maskModel.texturemodel);
+            Texture.CopyModel(maskModel.TextureModel);
             Geometry.Copy(maskModel.GeometryModel);
             PostFX.CopyModel(maskModel.PostFXModel);
         }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(MaskModel maskModel)
         {
             Sender.Disable();
 
-            MaskModel maskModel = model as MaskModel;
-            MessageAddress = maskModel.MessageAddress;
             Enabled = maskModel.Enable;
             MaskType = maskModel.MaskType;
             MaskControlType = maskModel.MaskControlType;
             BeatModifier.PasteModel(maskModel.BeatModifierModel);
-            Texture.PasteModel(maskModel.texturemodel);
+            Texture.PasteModel(maskModel.TextureModel);
             Geometry.Paste(maskModel.GeometryModel);
             PostFX.PasteModel(maskModel.PostFXModel);
 
@@ -153,7 +139,6 @@ namespace CMiX.Studio.ViewModels
                 var maskmodel = data.GetData("MaskModel") as MaskModel;
                 var maskmessageaddress = MessageAddress;
                 this.PasteModel(maskmodel);
-                UpdateMessageAddress(maskmessageaddress);
 
                 this.CopyModel(maskmodel);
                 Sender.Enable();

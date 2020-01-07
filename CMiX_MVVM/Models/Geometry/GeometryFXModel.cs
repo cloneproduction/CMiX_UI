@@ -1,10 +1,9 @@
 ﻿using System;
-using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class GeometryFXModel : IModel
+    public class GeometryFXModel
     {
         public GeometryFXModel()
         {
@@ -14,6 +13,5 @@ namespace CMiX.MVVM.Models
 
         public SliderModel Explode { get; set; }
         public FileSelectorModel FileSelector { get; set; }
-        public string MessageAddress { get; set; }
     }
 }

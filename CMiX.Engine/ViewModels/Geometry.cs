@@ -22,13 +22,12 @@ namespace CMiX.Engine.ViewModels
             Receiver.UpdateViewModel(MessageAddress, this);
         }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(GeometryModel geometryModel)
         {
-            GeometryModel geometryModel = model as GeometryModel;
-            MessageAddress = geometryModel.MessageAddress;
+
         }
 
-        public void CopyModel(IModel model)
+        public void CopyModel(GeometryModel geometryModel)
         {
             throw new NotImplementedException();
         }

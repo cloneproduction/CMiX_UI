@@ -47,13 +47,12 @@ namespace CMiX.Engine.ViewModels
             Receiver.UpdateViewModel(MessageAddress, this);
         }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(TextureModel textureModel)
         {
-            TextureModel textureModel = model as TextureModel;
-            MessageAddress = textureModel.MessageAddress;
+
         }
 
-        public void CopyModel(IModel model)
+        public void CopyModel(TextureModel textureModel)
         {
             throw new NotImplementedException();
         }

@@ -3,7 +3,7 @@
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class BlendModeModel : IModel
+    public class BlendModeModel
     {
         public BlendModeModel()
         {
@@ -11,6 +11,5 @@ namespace CMiX.MVVM.Models
         }
 
         public string Mode { get; set; }
-        public string MessageAddress { get; set; }
     }
 }

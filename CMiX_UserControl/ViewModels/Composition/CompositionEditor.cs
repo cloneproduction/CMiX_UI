@@ -1,11 +1,11 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
+using CMiX.MVVM.Commands;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Input;
 using Ceras;
-using CMiX.MVVM.Commands;
 using Memento;
 
 namespace CMiX.Studio.ViewModels
@@ -47,6 +47,7 @@ namespace CMiX.Studio.ViewModels
         public CompositionFactory CompositionFactory { get; set; }
         
         public CerasSerializer Serializer { get; set; }
+
         public ObservableCollection<Composition> Compositions { get; set; }
 
         private Composition _selectedComposition;
@@ -58,27 +59,20 @@ namespace CMiX.Studio.ViewModels
 
         #endregion
 
-        private void ReloadComposition(object sender)
-        {
-            CompositionModel compositionModel = new CompositionModel();
-            this.CopyModel(compositionModel);
-            Sender.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, compositionModel);
-        }
-
         #region NEW/DELETE/DUPLICATE COMPOSITION
         private void NewComposition()
         {
             CompositionFactory.CreateSelectedComposition(this);
             CompositionModel compositionModel = new CompositionModel();
             SelectedComposition.CopyModel(compositionModel);
-            Sender.SendMessages(MessageAddress, MessageCommand.COMPOSITION_ADD, null, compositionModel);
+            Sender.SendMessages(SelectedComposition.MessageAddress, MessageCommand.COMPOSITION_ADD, null, compositionModel);
         }
 
         private void DeleteSelectedComposition()
         {
             int deleteIndex = Compositions.IndexOf(SelectedComposition);
-            Sender.SendMessages(MessageAddress, MessageCommand.COMPOSITION_DELETE, null, deleteIndex);
             CompositionFactory.DeleteComposition(this);
+            Sender.SendMessages(MessageAddress, MessageCommand.COMPOSITION_DELETE, null, deleteIndex);
         }
 
         private void DuplicateSelectedComposition()
@@ -86,9 +80,17 @@ namespace CMiX.Studio.ViewModels
             CompositionFactory.DuplicateComposition(this);
             CompositionModel compositionModel = new CompositionModel();
             SelectedComposition.CopyModel(compositionModel);
-            Sender.SendMessages(MessageAddress, MessageCommand.COMPOSITION_DUPLICATE, null, compositionModel);
+            Sender.SendMessages(SelectedComposition.MessageAddress, MessageCommand.COMPOSITION_DUPLICATE, null, compositionModel);
         }
         #endregion
+
+        private void ReloadComposition(object messageValidation)
+        {
+            MessageValidation mv = messageValidation as MessageValidation;
+            CompositionModel compositionModel = new CompositionModel();
+            SelectedComposition.CopyModel(compositionModel);
+            mv.SendMessage(SelectedComposition.MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, compositionModel);
+        }
 
         #region IMPORT/EXPORT
         private void ImportCompo()
@@ -130,9 +132,8 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE MODEL
-        public void CopyModel(IModel model)
+        public void CopyModel(CompositionEditorModel compoEditorModel)
         {
-            CompositionEditorModel compoEditorModel = model as CompositionEditorModel;
             foreach (var comp in Compositions)
             {
                 CompositionModel compositionModel = new CompositionModel();
@@ -141,9 +142,8 @@ namespace CMiX.Studio.ViewModels
             }
         }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(CompositionEditorModel compoEditorModel)
         {
-            CompositionEditorModel compoEditorModel = model as CompositionEditorModel;
             Compositions.Clear();
             foreach (var compositionModel in compoEditorModel.CompositionModels)
             {

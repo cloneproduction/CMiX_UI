@@ -8,12 +8,5 @@
              xmlns:MVVM.Views ="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
              mc:Ignorable="d"
              d:DesignHeight="770" d:DesignWidth="1345.334">
-
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <Resources:BindingProxy x:Key="proxy" Data="{Binding}"/>
-        </ResourceDictionary>
-    </UserControl.Resources>
-
     <Views:Composition DataContext="{Binding SelectedComposition}"/>
 </UserControl>

@@ -52,18 +52,16 @@ namespace CMiX.Studio.ViewModels
             Sender.Enable();
         }
 
-        public void Copy(GeometryScaleModel geometryscalemodel)
+        public void Copy(GeometryScaleModel geometryScaleModel)
         {
-            geometryscalemodel.MessageAddress = MessageAddress;
-            geometryscalemodel.Mode = Mode;
+            geometryScaleModel.Mode = Mode;
         }
 
-        public void Paste(GeometryScaleModel geometryscalemodel)
+        public void Paste(GeometryScaleModel geometryScaleModel)
         {
             Sender.Disable();
 
-            MessageAddress = geometryscalemodel.MessageAddress;
-            Mode = geometryscalemodel.Mode;
+            Mode = geometryScaleModel.Mode;
 
             Sender.Enable();
         }

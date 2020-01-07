@@ -3,27 +3,19 @@
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class EntityModel : IModel
+    public class EntityModel
     {
         public EntityModel()
         {
-            Enable = true;
             BeatModifierModel = new BeatModifierModel();
             GeometryModel = new GeometryModel();
             TextureModel = new TextureModel();
             ColorationModel = new ColorationModel();
         }
 
-        public EntityModel(string messageAddress)
-            : this()
-        {
-            MessageAddress = messageAddress;
-        }
-
         public bool Enable { get; set; }
         public string Name { get; set; }
         public int ID { get; set; }
-        public string MessageAddress { get; set; }
 
         public BeatModifierModel BeatModifierModel { get; set; }
         public GeometryModel GeometryModel { get; set; }

@@ -30,17 +30,15 @@ namespace CMiX.Engine.ViewModels
         public Texture Texture { get; set; }
         public Coloration Coloration { get; set; }
         
-        public void PasteModel(IModel model)
+        public void PasteModel(EntityModel entityModel)
         {
-            EntityModel entityModel = model as EntityModel;
-            MessageAddress = entityModel.MessageAddress;
             this.Name = entityModel.Name;
             Geometry.PasteModel(entityModel.GeometryModel);
             Texture.PasteModel(entityModel.TextureModel);
             Coloration.PasteModel(entityModel.ColorationModel);
         }
 
-        public void CopyModel(IModel model)
+        public void CopyModel(EntityModel entityModel)
         {
             throw new NotImplementedException();
         }

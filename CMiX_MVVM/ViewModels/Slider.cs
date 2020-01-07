@@ -25,13 +25,6 @@ namespace CMiX.MVVM.ViewModels
         }
         #endregion
 
-        #region METHODS
-        public void UpdateMessageAddress(string messageaddress)
-        {
-            MessageAddress = messageaddress;
-        }
-        #endregion
-
         #region PROPERTIES
         public ICommand AddCommand { get; }
         public ICommand SubCommand { get; }
@@ -135,18 +128,14 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public void CopyModel(IModel model)
+        public void CopyModel(SliderModel sliderModel)
         {
-            SliderModel sliderModel = model as SliderModel;
             sliderModel.Amount = Amount;
-            sliderModel.MessageAddress = MessageAddress;
         }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(SliderModel sliderModel)
         {
-            SliderModel sliderModel = model as SliderModel;
             Sender.Disable();
-            MessageAddress = sliderModel.MessageAddress;
             Amount = sliderModel.Amount;
             Sender.Enable();
         }

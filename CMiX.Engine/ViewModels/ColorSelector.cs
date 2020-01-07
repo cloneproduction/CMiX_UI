@@ -24,14 +24,12 @@ namespace CMiX.Engine.ViewModels
         public string MessageAddress { get; set; }
         public Receiver Receiver { get; set; }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(ColorSelectorModel colorSelectorModel)
         {
-            ColorSelectorModel colorSelectorModel = model as ColorSelectorModel;
-            MessageAddress = colorSelectorModel.MessageAddress;
             ColorPicker.PasteModel(colorSelectorModel.ColorPickerModel);
         }
 
-        public void CopyModel(IModel model)
+        public void CopyModel(ColorSelectorModel colorSelectorModel)
         {
             throw new NotImplementedException();
         }

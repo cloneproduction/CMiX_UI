@@ -35,14 +35,12 @@ namespace CMiX.Engine.ViewModels
             }
         }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(SliderModel sliderModel)
         {
-            SliderModel sliderModel = model as SliderModel;
-            this.MessageAddress = sliderModel.MessageAddress;
             this.Amount = sliderModel.Amount;
         }
 
-        public void CopyModel(IModel model)
+        public void CopyModel(SliderModel sliderModel)
         {
             throw new NotImplementedException();
         }

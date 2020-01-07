@@ -21,14 +21,14 @@ namespace CMiX.Studio.ViewModels
         }
         #endregion
 
-        #region METHODS
-        public void UpdateMessageAddress(string messageaddress)
-        {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(GeometryFX));
-            Explode.UpdateMessageAddress(MessageAddress + nameof(Explode));
-            FileSelector.UpdateMessageAddress(MessageAddress + nameof(FileSelector));
-        }
-        #endregion
+        //#region METHODS
+        //public void UpdateMessageAddress(string messageaddress)
+        //{
+        //    MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(GeometryFX));
+        //    Explode.UpdateMessageAddress(MessageAddress + nameof(Explode));
+        //    FileSelector.UpdateMessageAddress(MessageAddress + nameof(FileSelector));
+        //}
+        //#endregion
 
         #region PROPERTIES
         public Slider Explode { get; }

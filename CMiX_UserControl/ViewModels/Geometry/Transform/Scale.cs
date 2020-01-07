@@ -25,13 +25,13 @@ namespace CMiX.Studio.ViewModels
         public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
 
-        public void UpdateMessageAddress(string messageaddress)
-        {
-            MessageAddress = messageaddress;
-            ScaleX.UpdateMessageAddress($"{messageaddress}{nameof(ScaleX)}/");
-            ScaleY.UpdateMessageAddress($"{messageaddress}{nameof(ScaleY)}/");
-            ScaleZ.UpdateMessageAddress($"{messageaddress}{nameof(ScaleZ)}/");
-        }
+        //public void UpdateMessageAddress(string messageaddress)
+        //{
+        //    MessageAddress = messageaddress;
+        //    ScaleX.UpdateMessageAddress($"{messageaddress}{nameof(ScaleX)}/");
+        //    ScaleY.UpdateMessageAddress($"{messageaddress}{nameof(ScaleY)}/");
+        //    ScaleZ.UpdateMessageAddress($"{messageaddress}{nameof(ScaleZ)}/");
+        //}
 
         #region COPY/PASTE/RESET
         public void CopyGeometry()
@@ -54,7 +54,7 @@ namespace CMiX.Studio.ViewModels
                 var scalemodel = data.GetData("ScaleModel") as ScaleModel;
                 var messageaddress = MessageAddress;
                 this.Paste(scalemodel);
-                UpdateMessageAddress(messageaddress);
+                //UpdateMessageAddress(messageaddress);
                 this.Copy(scalemodel);
 
                 Sender.Enable();
@@ -73,7 +73,6 @@ namespace CMiX.Studio.ViewModels
 
         public void Copy(ScaleModel scalemodel)
         {
-            scalemodel.MessageAddress = MessageAddress;
             ScaleX.CopyModel(scalemodel.ScaleX);
             ScaleY.CopyModel(scalemodel.ScaleY);
             ScaleZ.CopyModel(scalemodel.ScaleZ);
@@ -83,7 +82,6 @@ namespace CMiX.Studio.ViewModels
         {
             Sender.Disable();
 
-            MessageAddress = scalemodel.MessageAddress;
             ScaleX.PasteModel(scalemodel.ScaleX);
             ScaleY.PasteModel(scalemodel.ScaleY);
             ScaleZ.PasteModel(scalemodel.ScaleZ);

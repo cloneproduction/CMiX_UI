@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class ContentModel : IModel
+    public class ContentModel
     {
         public ContentModel()
         {
@@ -16,14 +16,7 @@ namespace CMiX.MVVM.Models
             PostFXModel = new PostFXModel();
         }
 
-        public ContentModel(string messageAddress) 
-            : this()
-        {
-            MessageAddress = $"{messageAddress}Content/";
-        }
-
         public bool Enable { get; set; }
-        public string MessageAddress { get; set; }
 
         public List<EntityModel> EntityModels { get; set; }
         public EntityModel SelectedEntityModel { get; set; }

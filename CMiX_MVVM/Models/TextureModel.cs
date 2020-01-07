@@ -4,7 +4,7 @@ using System;
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class TextureModel : IModel
+    public class TextureModel
     {
         public TextureModel()
         {
@@ -22,12 +22,6 @@ namespace CMiX.MVVM.Models
             Rotate = new SliderModel();
         }
 
-        public TextureModel(string messageaddress)
-            : this()
-        {
-            MessageAddress = messageaddress;
-        }
-
         public FileSelectorModel FileSelector { get; set; }
         public SliderModel Brightness { get; set; }
         public SliderModel Contrast { get; set; }
@@ -41,6 +35,5 @@ namespace CMiX.MVVM.Models
         public SliderModel Scale { get; set; }
         public SliderModel Rotate { get; set; }
         public string InvertMode { get; set; }
-        public string MessageAddress { get; set; }
     }
 }

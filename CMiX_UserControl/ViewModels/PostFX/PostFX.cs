@@ -15,6 +15,7 @@ namespace CMiX.Studio.ViewModels
         public PostFX(string messageaddress, Sender sender, Mementor mementor) 
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(PostFX));
+            Sender = sender;
 
             Feedback = new Slider(MessageAddress + nameof(Feedback), sender, mementor);
             Blur = new Slider(MessageAddress + nameof(Blur), sender, mementor);
@@ -28,15 +29,15 @@ namespace CMiX.Studio.ViewModels
         }
         #endregion
 
-        #region METHODS
-        public void UpdateMessageAddress(string messageaddress)
-        {
-            MessageAddress = messageaddress;
+        //#region METHODS
+        //public void UpdateMessageAddress(string messageaddress)
+        //{
+        //    MessageAddress = messageaddress;
 
-            Feedback.UpdateMessageAddress($"{messageaddress}{nameof(Feedback)}/");
-            Blur.UpdateMessageAddress($"{messageaddress}{nameof(Blur)}/");
-        }
-        #endregion
+        //    Feedback.UpdateMessageAddress($"{messageaddress}{nameof(Feedback)}/");
+        //    Blur.UpdateMessageAddress($"{messageaddress}{nameof(Blur)}/");
+        //}
+        //#endregion
 
         #region PROPERTIES
         public ICommand CopyPostFXCommand { get; }
@@ -78,22 +79,17 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public void CopyModel(IModel model)
+        public void CopyModel(PostFXModel postFXmodel)
         {
-            PostFXModel postFXmodel = model as PostFXModel;
             Feedback.CopyModel(postFXmodel.Feedback);
             Blur.CopyModel(postFXmodel.Blur);
-            postFXmodel.MessageAddress = MessageAddress;
             postFXmodel.Transforms = Transforms;
             postFXmodel.View = View;
         }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(PostFXModel postFXmodel)
         {
-            PostFXModel postFXmodel = model as PostFXModel;
             Sender.Disable();
-
-            MessageAddress = postFXmodel.MessageAddress;
 
             Transforms = postFXmodel.Transforms;
             View = postFXmodel.View;
@@ -141,7 +137,7 @@ namespace CMiX.Studio.ViewModels
                 var postfxmodel = data.GetData("PostFXModel") as PostFXModel;
                 var postfxmessageaddress = MessageAddress;
                 this.PasteModel(postfxmodel);
-                UpdateMessageAddress(postfxmessageaddress);
+                //UpdateMessageAddress(postfxmessageaddress);
                 this.CopyModel(postfxmodel);
 
                 Mementor.EndBatch();

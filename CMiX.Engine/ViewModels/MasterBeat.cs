@@ -25,17 +25,13 @@ namespace CMiX.Engine.ViewModels
             Receiver.UpdateViewModel(MessageAddress, this);
         }
 
-        public void CopyModel(IModel model)
+        public void CopyModel(MasterBeatModel masterBeatModel)
         {
-            MasterBeatModel masterBeatModel = model as MasterBeatModel;
-            masterBeatModel.MessageAddress = MessageAddress;
             masterBeatModel.Period = Period;
         }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(MasterBeatModel masterBeatModel)
         {
-            MasterBeatModel masterBeatModel = model as MasterBeatModel;
-            MessageAddress = masterBeatModel.MessageAddress;
             Period = masterBeatModel.Period;
         }
     }

@@ -248,17 +248,11 @@ namespace CMiX.ColorPicker.ViewModels
                 Mementor.EndBatch();
             MouseDown = false;
         }
-
-        public void UpdateMessageAddress(string messageaddress)
-        {
-            MessageAddress = messageaddress;
-        }
         #endregion
 
         #region COPY/PASTE/RESET
         public void Copy(ColorPickerModel colorpickermodel)
         {
-            colorpickermodel.MessageAddress = MessageAddress;
             colorpickermodel.SelectedColor = Utils.ColorToHexString(SelectedColor);
         }
 
@@ -266,7 +260,6 @@ namespace CMiX.ColorPicker.ViewModels
         {
             Sender.Disable();
 
-            MessageAddress = colorpickermodel.MessageAddress;
             SelectedColor = Utils.HexStringToColor(colorpickermodel.SelectedColor);
             Red = SelectedColor.R;
             Green = SelectedColor.G;

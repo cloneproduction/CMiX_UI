@@ -3,7 +3,7 @@
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class InstancerModel : IModel
+    public class InstancerModel
     {
         public InstancerModel()
         {
@@ -14,23 +14,11 @@ namespace CMiX.MVVM.Models
             RotationModifier = new RotationModifierModel();
         }
 
-        public InstancerModel(string messageaddress) : this()
-        {
-            MessageAddress = messageaddress;
-
-            Transform = new TransformModel(messageaddress);
-            Counter = new CounterModel(messageaddress);
-            TranslateModifier = new TranslateModifierModel(messageaddress);
-            ScaleModifier = new ScaleModifierModel(messageaddress);
-            RotationModifier = new RotationModifierModel(messageaddress);
-        }
-
         public TransformModel Transform { get; set; }
         public CounterModel Counter { get; set; }
         public TranslateModifierModel TranslateModifier { get; set; }
         public ScaleModifierModel ScaleModifier { get; set; }
         public RotationModifierModel RotationModifier { get; set; }
         public bool NoAspectRatio { get; set; }
-        public string MessageAddress { get; set; }
     }
 }

@@ -3,7 +3,7 @@
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class ColorationModel : IModel
+    public class ColorationModel
     {
         public ColorationModel()
         {
@@ -19,6 +19,5 @@ namespace CMiX.MVVM.Models
         public RangeControlModel HueDTO { get; set; }
         public RangeControlModel SatDTO { get; set; }
         public RangeControlModel ValDTO { get; set; }
-        public string MessageAddress { get; set; }
     }
 }

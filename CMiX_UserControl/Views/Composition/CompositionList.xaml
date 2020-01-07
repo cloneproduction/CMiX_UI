@@ -45,11 +45,11 @@
                             Height="20" 
                             Background="Transparent"
                             HorizontalAlignment="Stretch">
-                            <Border.InputBindings>
+                            <!--<Border.InputBindings>
                             <MouseBinding 
                                 MouseAction="LeftDoubleClick"
                                 Command="{Binding DataContext.CompositionListDoubleClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Views:Project}}}"/>
-                        </Border.InputBindings>
+                        </Border.InputBindings>-->
                             <TextBlock IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Name}"/>
                         </Border>
                     </DataTemplate>

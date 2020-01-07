@@ -24,10 +24,8 @@ namespace CMiX.Engine.ViewModels
         public Receiver Receiver { get; set; }
         public string Mode { get; set; }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(BlendModeModel blendModeModel)
         {
-            BlendModeModel blendModeModel = model as BlendModeModel;
-            MessageAddress = blendModeModel.MessageAddress;
             Mode = blendModeModel.Mode;
             Console.WriteLine(MessageAddress + " " + Mode);
         }

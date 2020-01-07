@@ -13,6 +13,7 @@ namespace CMiX.Studio.ViewModels
         public ScaleModifier(string messageaddress, Sender sender, Mementor mementor, Beat beat)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(ScaleModifier));
+            Sender = sender;
 
             Scale = new AnimParameter(MessageAddress + nameof(Scale), sender, mementor, beat, true);
             ScaleX = new AnimParameter(MessageAddress + nameof(ScaleX), sender, mementor, beat, false);
@@ -30,17 +31,17 @@ namespace CMiX.Studio.ViewModels
         public Mementor Mementor { get; set; }
         #endregion
 
-        #region METHODS
-        public void UpdateMessageAddress(string messageaddress)
-        {
-            MessageAddress = messageaddress;
+        //#region METHODS
+        //public void UpdateMessageAddress(string messageaddress)
+        //{
+        //    MessageAddress = messageaddress;
 
-            Scale.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Scale)));
-            ScaleX.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(ScaleX)));
-            ScaleY.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(ScaleY)));
-            ScaleZ.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(ScaleZ)));
-        }
-        #endregion
+        //    Scale.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Scale)));
+        //    ScaleX.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(ScaleX)));
+        //    ScaleY.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(ScaleY)));
+        //    ScaleZ.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(ScaleZ)));
+        //}
+        //#endregion
 
         #region COPY/PASTE/RESET
         public void CopyGeometry()
@@ -63,7 +64,7 @@ namespace CMiX.Studio.ViewModels
                 var Scalemodifiermodel = data.GetData("ScaleModifierModel") as ScaleModifierModel;
                 var messageaddress = MessageAddress;
                 this.Paste(Scalemodifiermodel);
-                UpdateMessageAddress(messageaddress);
+                //UpdateMessageAddress(messageaddress);
                 this.Copy(Scalemodifiermodel);
 
                 Sender.Enable();
@@ -86,7 +87,6 @@ namespace CMiX.Studio.ViewModels
 
         public void Copy(ScaleModifierModel Scalemodifiermodel)
         {
-            Scalemodifiermodel.MessageAddress = MessageAddress;
             Scale.Copy(Scalemodifiermodel.Scale);
             ScaleX.Copy(Scalemodifiermodel.ScaleX);
             ScaleY.Copy(Scalemodifiermodel.ScaleY);
@@ -96,8 +96,6 @@ namespace CMiX.Studio.ViewModels
         public void Paste(ScaleModifierModel Scalemodifiermodel)
         {
             Sender.Disable();
-
-            MessageAddress = Scalemodifiermodel.MessageAddress;
 
             Scale.Paste(Scalemodifiermodel.Scale);
             ScaleX.Paste(Scalemodifiermodel.ScaleX);

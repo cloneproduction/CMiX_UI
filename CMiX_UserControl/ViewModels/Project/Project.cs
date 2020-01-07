@@ -116,15 +116,13 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void CopyModel(IModel model)
+        public void CopyModel(ProjectModel projectModel)
         {
-            ProjectModel projectModel = model as ProjectModel;
             CompositionEditor.CopyModel(projectModel.CompositionEditorModel);
         }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(ProjectModel projectModel)
         {
-            var projectModel = model as ProjectModel;
             CompositionEditor.PasteModel(projectModel.CompositionEditorModel);
         }
         #endregion

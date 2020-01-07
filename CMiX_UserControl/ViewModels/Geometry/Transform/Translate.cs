@@ -12,6 +12,8 @@ namespace CMiX.Studio.ViewModels
         public Translate(string messageaddress, Sender sender, Mementor mementor)
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Translate));
+            Sender = sender;
+
             TranslateX = new Slider(MessageAddress + nameof(TranslateX), sender, mementor);
             TranslateX.Minimum = -1;
             TranslateX.Maximum = 1;
@@ -30,13 +32,13 @@ namespace CMiX.Studio.ViewModels
         public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
 
-        public void UpdateMessageAddress(string messageaddress)
-        {
-            MessageAddress = messageaddress;
-            TranslateX.UpdateMessageAddress($"{messageaddress}{nameof(TranslateX)}/");
-            TranslateY.UpdateMessageAddress($"{messageaddress}{nameof(TranslateY)}/");
-            TranslateZ.UpdateMessageAddress($"{messageaddress}{nameof(TranslateZ)}/");
-        }
+        //public void UpdateMessageAddress(string messageaddress)
+        //{
+        //    MessageAddress = messageaddress;
+        //    TranslateX.UpdateMessageAddress($"{messageaddress}{nameof(TranslateX)}/");
+        //    TranslateY.UpdateMessageAddress($"{messageaddress}{nameof(TranslateY)}/");
+        //    TranslateZ.UpdateMessageAddress($"{messageaddress}{nameof(TranslateZ)}/");
+        //}
 
         #region COPY/PASTE/RESET
         public void CopyGeometry()
@@ -59,7 +61,7 @@ namespace CMiX.Studio.ViewModels
                 var translatemodel = data.GetData("TranslateModel") as TranslateModel;
                 var messageaddress = MessageAddress;
                 this.Paste(translatemodel);
-                UpdateMessageAddress(messageaddress);
+                //UpdateMessageAddress(messageaddress);
                 this.Copy(translatemodel);
 
                 Sender.Enable();
@@ -78,7 +80,6 @@ namespace CMiX.Studio.ViewModels
 
         public void Copy(TranslateModel translatemodel)
         {
-            translatemodel.MessageAddress = MessageAddress;
             TranslateX.CopyModel(translatemodel.TranslateX);
             TranslateY.CopyModel(translatemodel.TranslateY);
             TranslateZ.CopyModel(translatemodel.TranslateZ);
@@ -88,10 +89,10 @@ namespace CMiX.Studio.ViewModels
         {
             Sender.Disable();
 
-            MessageAddress = translatemodel.MessageAddress;
             TranslateX.PasteModel(translatemodel.TranslateX);
             TranslateY.PasteModel(translatemodel.TranslateY);
             TranslateZ.PasteModel(translatemodel.TranslateZ);
+
             Sender.Enable();
         }
 
