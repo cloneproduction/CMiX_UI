@@ -12,12 +12,12 @@ using Memento;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class FileSelector : ViewModel, ICopyPasteModel, ISendable, IUndoable, IDropTarget, IDragSource
+    public class FileSelector : ViewModel, ISendable, IUndoable, IDropTarget, IDragSource
     {
         #region CONSTRUCTORS
         public FileSelector(string messageaddress, string selectionmode, List<string> filemask, Sender sender, Mementor mementor) 
         {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(FileSelector));
+            MessageAddress = $"{messageaddress}{nameof(FileSelector)}/";
             Sender = sender;
 
             SelectionMode = selectionmode;
@@ -72,15 +72,6 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region METHODS
-        public void UpdateMessageAddress(string messageaddress)
-        {
-            MessageAddress = messageaddress;
-            foreach (var item in FilePaths)
-            {
-                item.UpdateMessageAddress(messageaddress);
-            }
-        }
-
         private void ClearAll()
         {
             Mementor.PropertyChange(this, "FilePaths");
@@ -200,7 +191,6 @@ namespace CMiX.Studio.ViewModels
                             {
                                 FileNameItem newfilenameitem = filenameitem.Clone() as FileNameItem;
                                 newfilenameitem.FileIsSelected = true;
-                                newfilenameitem.UpdateMessageAddress(MessageAddress);
                                 SelectedFileNameItem = newfilenameitem;
                                 FilePaths.Insert(dropInfo.InsertIndex, newfilenameitem);
                                 Mementor.ElementAdd(FilePaths, newfilenameitem);
@@ -236,7 +226,6 @@ namespace CMiX.Studio.ViewModels
                     FileNameItem filenameitem = dropInfo.Data as FileNameItem;
                     FileNameItem newfilenameitem = filenameitem.Clone() as FileNameItem;
 
-                    newfilenameitem.UpdateMessageAddress(MessageAddress);
                     FilePaths.Insert(dropInfo.InsertIndex, newfilenameitem);
                     FilePaths.Remove(filenameitem);
                     newfilenameitem.FileIsSelected = true;

@@ -5,7 +5,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Engine.ViewModels
 {
-    public class Layer : ICopyPasteModel, IMessageReceiver
+    public class Layer : ICopyPasteModel<LayerModel>, IMessageReceiver
     {
         public Layer(Receiver receiver, string messageAddress)
         {
@@ -24,7 +24,7 @@ namespace CMiX.Engine.ViewModels
         public Slider Fade { get; set; }
         public BlendMode BlendMode { get; set; }
         public Content Content { get; set; }
-        public string DisplayName { get; set; }
+        public string Name { get; set; }
         public int ID { get; set; }
 
         public void OnMessageReceived(object sender, EventArgs e)
@@ -34,8 +34,8 @@ namespace CMiX.Engine.ViewModels
 
         public void PasteModel(LayerModel layerModel)
         {
-            this.DisplayName = layerModel.DisplayName;
             this.ID = layerModel.ID;
+            this.Name = layerModel.Name;
 
             this.Content.PasteModel(layerModel.ContentModel);
             this.BlendMode.PasteModel(layerModel.BlendMode);

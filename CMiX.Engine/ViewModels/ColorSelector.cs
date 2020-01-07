@@ -5,7 +5,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Engine.ViewModels
 {
-    public class ColorSelector : ICopyPasteModel, IMessageReceiver
+    public class ColorSelector : ICopyPasteModel<ColorSelectorModel>, IMessageReceiver
     {
         public ColorSelector(Receiver receiver, string messageAddress)
         {

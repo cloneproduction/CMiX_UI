@@ -9,7 +9,7 @@ using CMiX.MVVM;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Coloration : ViewModel, ICopyPasteModel, ISendable, IUndoable
+    public class Coloration : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
         public Coloration(string messageAddress, Sender sender, Mementor mementor, Beat masterbeat) 

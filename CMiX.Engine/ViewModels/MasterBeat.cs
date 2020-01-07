@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CMiX.Engine.ViewModels
 {
-    public class MasterBeat : ICopyPasteModel, IMessageReceiver
+    public class MasterBeat : ICopyPasteModel<MasterBeatModel>, IMessageReceiver
     {
         public MasterBeat()
         {

@@ -1,12 +1,11 @@
 ﻿using Memento;
-using CMiX.MVVM;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Layer : ViewModel, ICopyPasteModel, ISendable, IUndoable
+    public class Layer : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
         public Layer(MasterBeat masterBeat, string messageAddress, int id,  Sender sender, Assets assets, Mementor mementor) 
@@ -19,7 +18,6 @@ namespace CMiX.Studio.ViewModels
 
             ID = id;
             Name = "Layer " + id;
-            DisplayName = "Layer " + id;
 
             BlendMode = new BlendMode(masterBeat, MessageAddress, sender, mementor);
             Fade = new Slider(MessageAddress + nameof(Fade), sender, mementor);
@@ -35,13 +33,6 @@ namespace CMiX.Studio.ViewModels
         {
             get => _name;
             set => SetAndNotify(ref _name, value);
-        }
-
-        private string _displayName;
-        public string DisplayName
-        {
-            get => _displayName;
-            set => SetAndNotify(ref _displayName, value);
         }
 
         private int _id;
@@ -81,7 +72,6 @@ namespace CMiX.Studio.ViewModels
         public void CopyModel(LayerModel layerModel)
         {
             layerModel.Name = Name;
-            layerModel.DisplayName = DisplayName;
             layerModel.ID = ID;
             layerModel.Out = Out;
 
@@ -97,7 +87,6 @@ namespace CMiX.Studio.ViewModels
             Sender.Disable();
 
             Name = layerModel.Name;
-            DisplayName = layerModel.DisplayName;
             Out = layerModel.Out;
             ID = layerModel.ID;
 

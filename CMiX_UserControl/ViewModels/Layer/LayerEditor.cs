@@ -76,13 +76,11 @@ namespace CMiX.Studio.ViewModels
 
                 var selectedlayermessageaddress = SelectedLayer.MessageAddress;
                 var selectedlayername = SelectedLayer.Name;
-                var selectedname = SelectedLayer.DisplayName;
                 var selectedLayerID = SelectedLayer.ID;
 
                 var layerModel = data.GetData(nameof(LayerModel)) as LayerModel;
 
                 SelectedLayer.Name = selectedlayername;
-                SelectedLayer.DisplayName = selectedname;
                 SelectedLayer.ID = selectedLayerID;
                 SelectedLayer.PasteModel(layerModel);
                 

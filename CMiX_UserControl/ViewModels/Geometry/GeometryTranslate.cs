@@ -7,20 +7,13 @@ using CMiX.MVVM;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class GeometryTranslate : ViewModel, ISendable, ICopyPasteModel, IUndoable
+    public class GeometryTranslate : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
         public GeometryTranslate(string messageaddress, Sender sender, Mementor mementor) 
         {
             MessageAddress = String.Format("{0}/", messageaddress);
             Sender = sender;
-        }
-        #endregion
-
-        #region METHODS
-        public void UpdateMessageAddress(string messageaddress)
-        {
-            MessageAddress = messageaddress;
         }
         #endregion
 

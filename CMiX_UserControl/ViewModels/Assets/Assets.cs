@@ -11,7 +11,7 @@ using GongSolutions.Wpf.DragDrop;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Assets : ViewModel, ICopyPasteModel, IDropTarget, IDragSource
+    public class Assets : ViewModel, IDropTarget, IDragSource
     {
         public Assets()
         {

@@ -6,7 +6,7 @@ using Memento;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class RangeControl : ViewModel, ICopyPasteModel, ISendable, IUndoable
+    public class RangeControl : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
         public RangeControl(string messageAddress, Sender sender, Mementor mementor)
@@ -16,14 +16,6 @@ namespace CMiX.Studio.ViewModels
             Modifier = ((RangeModifier)0).ToString();
         }
         #endregion
-
-        //#region METHODS
-        //public void UpdateMessageAddress(string messageaddress)
-        //{
-        //    MessageAddress = messageaddress;
-        //    Range.UpdateMessageAddress(messageaddress + nameof(Range) + "/");
-        //}
-        //#endregion
 
         #region PROPERTIES
         public Slider Range { get; }
@@ -47,20 +39,16 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void CopyModel(IModel model)
+        public void CopyModel(RangeControlModel rangeControlModel)
         {
-            RangeControlModel rangeControlModel = model as RangeControlModel;
-            rangeControlModel.MessageAddress = MessageAddress;
             Range.CopyModel(rangeControlModel.Range);
             rangeControlModel.Modifier = Modifier;
         }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(RangeControlModel rangeControlModel)
         {
             Sender.Disable();
 
-            RangeControlModel rangeControlModel = model as RangeControlModel;
-            MessageAddress = rangeControlModel.MessageAddress;
             Range.PasteModel(rangeControlModel.Range);
             Modifier = rangeControlModel.Modifier;
 

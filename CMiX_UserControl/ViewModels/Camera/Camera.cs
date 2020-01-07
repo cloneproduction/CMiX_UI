@@ -8,7 +8,7 @@ using CMiX.MVVM;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Camera : ViewModel, ICopyPasteModel, ISendable, IUndoable
+    public class Camera : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
         public Camera(Sender sender, string messageAddress, MasterBeat masterBeat, Mementor mementor) 

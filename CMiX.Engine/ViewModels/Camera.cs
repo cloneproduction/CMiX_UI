@@ -5,7 +5,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Engine.ViewModels
 {
-    public class Camera : ICopyPasteModel, IMessageReceiver
+    public class Camera : ICopyPasteModel<CameraModel>, IMessageReceiver
     {
         public Camera(Receiver receiver, string messageAddress)
         {

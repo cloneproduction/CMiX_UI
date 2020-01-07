@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels;
 
 namespace CMiX.Studio.ViewModels
 { 
-    public interface ICompositionEditor : ICompositionContext, ISendable, ICopyPasteModel, IUndoable
+    public interface ICompositionEditor : ICompositionContext, ISendable, IUndoable
     {
     }
 }

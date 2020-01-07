@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using CMiX.MVVM.Commands;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.ViewModels;
 
 namespace CMiX.MVVM.Services
 {
@@ -32,13 +33,13 @@ namespace CMiX.MVVM.Services
             }
         }
 
-        public void UpdateViewModel(string messageAddress, ICopyPasteModel viewModel)
+        public void UpdateViewModel<T>(string messageAddress, ICopyPasteModel<T> viewModel)
         {
             if (messageAddress == ReceivedAddress
                 && ReceivedData != null
                 && MessageCommand.VIEWMODEL_UPDATE == ReceivedCommand)
             {
-                //viewModel.PasteModel(ReceivedData as IModel);
+                viewModel.PasteModel((T)ReceivedData);
             }
         }
 

@@ -5,7 +5,7 @@ using System;
 
 namespace CMiX.Engine.ViewModels
 {
-    public class Geometry : IMessageReceiver, ICopyPasteModel
+    public class Geometry : IMessageReceiver, ICopyPasteModel<GeometryModel>
     {
         public Geometry(Receiver receiver, string messageAddress)
         {

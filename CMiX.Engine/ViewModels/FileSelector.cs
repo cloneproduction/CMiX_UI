@@ -5,7 +5,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Engine.ViewModels
 {
-    public class FileSelector : ICopyPasteModel, IMessageReceiver
+    public class FileSelector : ICopyPasteModel<FileSelectorModel>, IMessageReceiver
     {
         public FileSelector(Receiver receiver, string messageAddress)
         {
@@ -17,17 +17,17 @@ namespace CMiX.Engine.ViewModels
         public string MessageAddress { get; set; }
         public Receiver Receiver { get; set; }
 
-        public void CopyModel(IModel model)
-        {
-            throw new NotImplementedException();
-        }
-
         public void OnMessageReceived(object sender, EventArgs e)
         {
             Receiver.UpdateViewModel(MessageAddress, this);
         }
 
-        public void PasteModel(IModel model)
+        public void CopyModel(FileSelectorModel fileSelectorModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PasteModel(FileSelectorModel fileSelectorModel)
         {
             throw new NotImplementedException();
         }

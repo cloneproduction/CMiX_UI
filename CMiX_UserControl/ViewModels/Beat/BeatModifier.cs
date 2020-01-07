@@ -8,7 +8,7 @@ using CMiX.MVVM;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class BeatModifier : Beat, ICopyPasteModel, ISendable, IUndoable
+    public class BeatModifier : Beat, ISendable, IUndoable
     {
         #region CONSTRUCTORS
         public BeatModifier(string messageAddress, Beat beat, Sender sender, Mementor mementor)

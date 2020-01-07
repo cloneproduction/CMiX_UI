@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CMiX.Studio.ViewModels
 {
-    interface IEntityEditor : IEntityContext, ISendable, ICopyPasteModel, IUndoable
+    interface IEntityEditor : IEntityContext, ISendable, IUndoable
     {
     }
 }

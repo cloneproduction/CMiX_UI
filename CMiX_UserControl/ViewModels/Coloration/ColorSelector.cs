@@ -10,7 +10,7 @@ using CMiX.MVVM;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class ColorSelector : ViewModel, ICopyPasteModel, ISendable, IUndoable
+    public class ColorSelector : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
         public ColorSelector(string messageaddress, Sender sender, Mementor mementor) 

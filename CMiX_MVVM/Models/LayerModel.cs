@@ -16,7 +16,6 @@ namespace CMiX.MVVM.Models
 
         public bool Enabled { get; set; }
         public string Name { get; set; }
-        public string DisplayName { get; set; }
         public int ID { get; set; }
         public bool Out { get; set; }
 

@@ -5,7 +5,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Engine.ViewModels
 {
-    public class BlendMode : IMessageReceiver, ICopyPasteModel
+    public class BlendMode : IMessageReceiver, ICopyPasteModel<BlendModeModel>
     {
         public BlendMode(Receiver receiver, string messageAddress)
         {
@@ -30,7 +30,7 @@ namespace CMiX.Engine.ViewModels
             Console.WriteLine(MessageAddress + " " + Mode);
         }
 
-        public void CopyModel(IModel model)
+        public void CopyModel(BlendModeModel blendModeModel)
         {
             throw new NotImplementedException();
         }

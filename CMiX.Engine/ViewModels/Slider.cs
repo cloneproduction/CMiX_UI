@@ -6,7 +6,7 @@ using CMiX.MVVM;
 
 namespace CMiX.Engine.ViewModels
 {
-    public class Slider : ICopyPasteModel, IMessageReceiver
+    public class Slider : ICopyPasteModel<SliderModel>, IMessageReceiver
     {
         public Slider(Receiver receiver, string messageAddress)
         {

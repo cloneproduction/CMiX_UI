@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels;
 
 namespace CMiX.Studio.ViewModels
 {
-    interface ILayerEditor : ILayerContext, ISendable, ICopyPasteModel, IUndoable
+    interface ILayerEditor : ILayerContext, ISendable, IUndoable
     {
     }
 }

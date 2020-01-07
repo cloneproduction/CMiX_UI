@@ -9,7 +9,7 @@ using CMiX.MVVM;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class PostFX : ViewModel, ICopyPasteModel, ISendable, IUndoable
+    public class PostFX : ViewModel, ICopyPasteModel<PostFXModel>, ISendable, IUndoable
     {
         #region CONSTRUCTORS
         public PostFX(string messageaddress, Sender sender, Mementor mementor) 

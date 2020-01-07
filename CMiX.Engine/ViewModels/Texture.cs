@@ -5,7 +5,7 @@ using System;
 
 namespace CMiX.Engine.ViewModels
 {
-    public class Texture : IMessageReceiver, ICopyPasteModel
+    public class Texture : IMessageReceiver, ICopyPasteModel<TextureModel>
     {
         public Texture(Receiver receiver, string messageAddress)
         {

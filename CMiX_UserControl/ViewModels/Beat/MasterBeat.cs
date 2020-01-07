@@ -9,7 +9,7 @@ using CMiX.MVVM;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class MasterBeat : Beat, ICopyPasteModel, ISendable
+    public class MasterBeat : Beat, ISendable
     {
         #region CONSTRUCTORS
         public MasterBeat(Sender sender)

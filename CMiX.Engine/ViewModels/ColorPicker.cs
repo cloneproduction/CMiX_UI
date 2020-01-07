@@ -7,7 +7,7 @@ using System.Windows.Media;
 
 namespace CMiX.Engine.ViewModels
 {
-    public class ColorPicker : ICopyPasteModel, IMessageReceiver
+    public class ColorPicker : ICopyPasteModel<ColorPickerModel>, IMessageReceiver
     {
         public ColorPicker(Receiver receiver, string messageAddress)
         {

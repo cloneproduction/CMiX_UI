@@ -5,7 +5,7 @@ using System;
 
 namespace CMiX.Engine.ViewModels
 {
-    public class Entity : IMessageReceiver, ICopyPasteModel
+    public class Entity : IMessageReceiver, ICopyPasteModel<EntityModel>
     {
         public Entity(Receiver receiver, string messageAddress)
         {

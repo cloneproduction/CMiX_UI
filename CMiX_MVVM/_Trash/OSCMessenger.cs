@@ -171,15 +171,15 @@ namespace CMiX.MVVM.ViewModels
                         }
                         else
                         {
-                            if (propertyname != "MessageAddress")
-                            {
-                                string address = model.MessageAddress;
-                                string propdata = property.GetValue(obj, null).ToString();
-                                if (address != null)
-                                {
-                                    QueueMessage(address + propertyname, propdata);
-                                }
-                            }
+                            //if (propertyname != "MessageAddress")
+                            //{
+                            //    string address = model.MessageAddress;
+                            //    string propdata = property.GetValue(obj, null).ToString();
+                            //    if (address != null)
+                            //    {
+                            //        QueueMessage(address + propertyname, propdata);
+                            //    }
+                            //}
                         }
                     }
                 }

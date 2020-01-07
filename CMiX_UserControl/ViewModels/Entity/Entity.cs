@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Entity : ViewModel, ICopyPasteModel, ISendable, IUndoable
+    public class Entity : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
         public Entity(Beat masterbeat, int id, string messageAddress, Sender sender, Mementor mementor)
@@ -33,22 +33,6 @@ namespace CMiX.Studio.ViewModels
             ResetEntityCommand = new RelayCommand(p => ResetEntity());
         }
         #endregion
-
-        //#region METHODS
-        //public void SetMessageAddress(string messageAddress)
-        //{
-        //    MessageAddress = messageAddress;
-        //    BeatModifier.UpdateMessageAddress($"{MessageAddress}{nameof(BeatModifier)}/");
-        //    Geometry.UpdateMessageAddress($"{MessageAddress}{nameof(Geometry)}/");
-        //    Texture.UpdateMessageAddress($"{MessageAddress}{nameof(Texture)}/");
-        //    Coloration.UpdateMessageAddress($"{MessageAddress}{nameof(Coloration)}/");
-        //}
-
-        //public void UpdateMessageAddress(string messageaddress)
-        //{
-
-        //}
-        //#endregion
 
         #region PROPERTIES
         private static int count = 0;
@@ -145,9 +129,7 @@ namespace CMiX.Studio.ViewModels
                 this.Sender.Disable();
 
                 var entityModel = data.GetData("EntityModel") as EntityModel;
-                var messageAddress = MessageAddress;
                 this.PasteModel(entityModel);
-                //this.UpdateMessageAddress(messageAddress);
 
                 this.CopyModel(entityModel);
                 this.Sender.Enable();

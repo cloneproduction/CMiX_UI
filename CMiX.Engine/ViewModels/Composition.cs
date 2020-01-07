@@ -8,7 +8,7 @@ using CMiX.Engine;
 
 namespace CMiX.Engine.ViewModels
 {
-    public class Composition : ICopyPasteModel, IMessageReceiver
+    public class Composition : ICopyPasteModel<CompositionModel>, IMessageReceiver
     {
         public Composition(Receiver receiver, string messageAddress) 
         {
@@ -69,22 +69,6 @@ namespace CMiX.Engine.ViewModels
             set { _name = value; }
         }
 
-        //private int _LayerID = 0;
-        //public int LayerID
-        //{
-        //    get { return _LayerID; }
-        //    set { _LayerID = value; }
-        //}
-
-        //private int _layerNameID = 0;
-        //public int LayerNameID
-        //{
-        //    get { return _layerNameID; }
-        //    set { _layerNameID = value; }
-        //}
-
-        
-
         public void AddLayer(LayerModel layerModel)
         {
             Layer layer = new Layer(Receiver, "/Layer");
@@ -131,9 +115,8 @@ namespace CMiX.Engine.ViewModels
             Transition.PasteModel(compositionModel.TransitionModel);
         }
 
-        public void PasteModel(IModel model)
+        public void PasteModel(CompositionModel compositionModel)
         {
-            CompositionModel compositionModel = model as CompositionModel;
 
         }
     }

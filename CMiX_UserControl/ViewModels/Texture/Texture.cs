@@ -10,7 +10,7 @@ using CMiX.MVVM;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Texture : ViewModel, ICopyPasteModel, ISendable, IUndoable
+    public class Texture : ViewModel, ICopyPasteModel<TextureModel>, ISendable, IUndoable
     {
         #region CONSTRUCTORS
         public Texture(string messageaddress, Sender sender, Mementor mementor)

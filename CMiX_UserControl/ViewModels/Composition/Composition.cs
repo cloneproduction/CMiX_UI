@@ -7,7 +7,7 @@ using Memento;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Composition : ViewModel, ICopyPasteModel, ISendable, IUndoable
+    public class Composition : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
         public Composition(Sender sender, string messageAddress, Assets assets, Mementor mementor)

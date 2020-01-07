@@ -37,7 +37,6 @@ namespace CMiX.Studio.ViewModels
                 LayerModel layerModel = new LayerModel();
                 context.SelectedLayer.CopyModel(layerModel);
                 layerModel.ID = LayerID;
-                layerModel.DisplayName = SelectedLayer.DisplayName + "- Copy";
                 layerModel.Name = SelectedLayer.Name + "- Copy";
 
                 Layer newLayer = new Layer(context.MasterBeat, context.MessageAddress, LayerID, context.Sender, context.Assets, context.Mementor);

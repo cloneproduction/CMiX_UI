@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace CMiX.Engine.ViewModels
 {
-    public class Content : IMessageReceiver, ICopyPasteModel
+    public class Content : IMessageReceiver, ICopyPasteModel<ContentModel>
     {
         public Content(Receiver receiver, string messageAddress)
         {
