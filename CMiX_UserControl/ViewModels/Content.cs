@@ -11,10 +11,10 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Content : ViewModel, IEntityContext
+    public class Content : ViewModel
     {
         #region CONSTRUCTORS
-        public Content(Beat beat, string messageAddress, Sender sender, Mementor mementor) 
+        public Content(Beat beat, string messageAddress, Sender sender, Mementor mementor)
         {
             Beat = beat;
             MessageAddress = $"{messageAddress}{nameof(Content)}/";
@@ -23,22 +23,13 @@ namespace CMiX.Studio.ViewModels
 
             BeatModifier = new BeatModifier(MessageAddress, Beat, sender, mementor);
             PostFX = new PostFX(MessageAddress, sender, mementor);
-            Entities = new ObservableCollection<Entity>();
+            EntityEditor = new EntityEditor(sender, MessageAddress, Beat, Assets, mementor);
 
             CopyContentCommand = new RelayCommand(p => CopyContent());
             PasteContentCommand = new RelayCommand(p => PasteContent());
             ResetContentCommand = new RelayCommand(p => ResetContent());
         }
         #endregion
-
-        //#region METHODS
-        //public void UpdateMessageAddress(string messageAddress)
-        //{
-        //    MessageAddress = messageAddress;
-        //    BeatModifier.UpdateMessageAddress($"{MessageAddress}{nameof(BeatModifier)}/");
-        //    PostFX.UpdateMessageAddress($"{MessageAddress}{nameof(PostFX)}/");
-        //}
-        //#endregion
 
         #region PROPERTIES
         public ICommand DeleteEntityCommand { get; }
@@ -48,16 +39,10 @@ namespace CMiX.Studio.ViewModels
 
         public BeatModifier BeatModifier { get; }
         public PostFX PostFX { get; }
+        public EntityEditor EntityEditor {get; }
         public string MessageAddress { get; set; }
         public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
-
-        private Entity _selectedEntity;
-        public Entity SelectedEntity
-        {
-            get => _selectedEntity;
-            set => SetAndNotify(ref _selectedEntity, value);
-        }
 
         public ObservableCollection<Entity> Entities { get; set; }
         public Assets Assets { get; set; }
@@ -69,12 +54,7 @@ namespace CMiX.Studio.ViewModels
         {
             contentModel.Enable = Enabled;
 
-            foreach (Entity obj in Entities)
-            {
-                EntityModel entityModel = new EntityModel();
-                obj.CopyModel(entityModel);
-                contentModel.EntityModels.Add(entityModel);
-            }
+            //this.EntityEditor.CopyModel(contentModel.Entit)
 
             this.BeatModifier.CopyModel(contentModel.BeatModifierModel);
             this.PostFX.CopyModel(contentModel.PostFXModel);
@@ -85,7 +65,6 @@ namespace CMiX.Studio.ViewModels
             Sender.Disable();
 
             this.Enabled = contentModel.Enable;
-
             this.BeatModifier.PasteModel(contentModel.BeatModifierModel);
             this.PostFX.PasteModel(contentModel.PostFXModel);
 
@@ -124,7 +103,6 @@ namespace CMiX.Studio.ViewModels
                 var contentModel = data.GetData("ContentModel") as ContentModel;
                 var contentmessageaddress = MessageAddress;
                 this.PasteModel(contentModel);
-                //this.UpdateMessageAddress(contentmessageaddress);
 
                 Sender.Enable();
                 this.Mementor.EndBatch();

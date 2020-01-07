@@ -73,7 +73,7 @@
                     <MenuItem
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.NewLayerCommand, Source={StaticResource proxy}}">
+                        Command="{Binding Data.AddLayerCommand, Source={StaticResource proxy}}">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource NewLayer}" />
@@ -97,7 +97,7 @@
                     <MenuItem
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.DeleteLayerCommand, Source={StaticResource proxy}}">
+                        Command="{Binding Data.DeleteSelectedLayerCommand, Source={StaticResource proxy}}">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />

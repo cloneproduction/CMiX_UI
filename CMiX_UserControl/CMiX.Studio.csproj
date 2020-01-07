@@ -157,6 +157,12 @@
     <Compile Include="ViewModels\Layer\LayerEditor.cs" />
     <Compile Include="ViewModels\Layer\LayerFactory.cs" />
     <Compile Include="ViewModels\Project\IProject.cs" />
+    <Compile Include="Views\Entity\EntityEditor.xaml.cs">
+      <DependentUpon>EntityEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Entity\EntitySelector.xaml.cs">
+      <DependentUpon>EntitySelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Layer\MessageValidation.xaml.cs">
       <DependentUpon>MessageValidation.xaml</DependentUpon>
     </Compile>
@@ -306,6 +312,14 @@
     <Compile Include="Views\Texture.xaml.cs">
       <DependentUpon>Texture.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\Entity\EntityEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Entity\EntitySelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Layer\MessageValidation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

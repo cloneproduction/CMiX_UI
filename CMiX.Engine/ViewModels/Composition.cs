@@ -17,7 +17,7 @@ namespace CMiX.Engine.ViewModels
             Receiver.MessageReceived += OnMessageReceived; ;
 
             Layers = new ObservableCollection<Layer>();
-            Layers.Add(new Layer(receiver, $"{MessageAddress}{nameof(Layer)}0/"));
+            Layers.Add(new Layer(receiver, $"{MessageAddress}{nameof(Layer)}/0/"));
             Camera = new Camera(receiver, MessageAddress);
         }
 

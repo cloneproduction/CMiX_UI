@@ -26,15 +26,21 @@ namespace CMiX.Studio.ViewModels
             Sender = sender;
         }
 
-        public EntityFactory EntityFactory { get; set; }
-        public Beat Beat { get; set; }
-        public Assets Assets { get; set; }
-        public ObservableCollection<Entity> Entities { get; set; }
-        public Entity SelectedEntity { get; set; }
         public string MessageAddress { get; set; }
         public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
 
+        public EntityFactory EntityFactory { get; set; }
+        public Beat Beat { get; set; }
+        public Assets Assets { get; set; }
+        public ObservableCollection<Entity> Entities { get; set; }
+
+        private Entity _selectedEntity;
+        public Entity SelectedEntity
+        {
+            get => _selectedEntity;
+            set => SetAndNotify(ref _selectedEntity, value);
+        }
 
         #region METHODS
         public void AddEntity()
