@@ -12,7 +12,6 @@ namespace CMiX.MVVM.Services
         {
             Servers = new ObservableCollection<Server>();
             Clients = new ObservableCollection<Client>();
-            //AddServer();
 
             AddServerCommand = new RelayCommand(p => AddServer());
             DeleteServerCommand = new RelayCommand(p => DeleteServer(p));
@@ -41,8 +40,7 @@ namespace CMiX.MVVM.Services
 
         public Receiver CreateReceiver()
         {
-            Receiver receiver = new Receiver(Clients);
-            return receiver;
+            return new Receiver(Clients);
         }
 
         int ServerID = 0;

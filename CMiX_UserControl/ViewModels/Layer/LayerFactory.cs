@@ -7,23 +7,23 @@ namespace CMiX.Studio.ViewModels
 {
     public class LayerFactory
     {
-        public LayerFactory(Sender sender)
+        public LayerFactory(MessageService messageService)
         {
-            Sender = sender;
+            MessageService = messageService;
         }
 
         int LayerID = 0;
-        public Sender Sender { get; set; }
+        public MessageService MessageService { get; set; }
 
         public Layer CreateLayer(ILayerContext context)
         {
-            Layer newLayer = new Layer(context.MasterBeat, context.MessageAddress, LayerID, context.Sender, context.Assets, context.Mementor);
+            Layer newLayer = new Layer(context.MasterBeat, context.MessageAddress, LayerID, context.MessageService, context.Assets, context.Mementor);
             context.Layers.Add(newLayer);
             context.SelectedLayer = newLayer;
 
             LayerModel layerModel = new LayerModel();
             newLayer.CopyModel(layerModel);
-            Sender.SendMessages(context.MessageAddress, MessageCommand.LAYER_ADD, null, layerModel);
+            MessageService.SendMessages(context.MessageAddress, MessageCommand.LAYER_ADD, null, layerModel);
 
             LayerID++;
             return newLayer;
@@ -41,7 +41,7 @@ namespace CMiX.Studio.ViewModels
 
                 Layer newLayer = new Layer(context.MasterBeat, context.MessageAddress, LayerID, context.Sender, context.Assets, context.Mementor);
                 newLayer.PasteModel(layerModel);
-                Sender.SendMessages(context.MessageAddress, MessageCommand.LAYER_DUPLICATE, null, layerModel);
+                MessageService.SendMessages(context.MessageAddress, MessageCommand.LAYER_DUPLICATE, null, layerModel);
 
                 int index = context.Layers.IndexOf(SelectedLayer);
                 context.Layers.Insert(index + 1, newLayer);
@@ -75,7 +75,7 @@ namespace CMiX.Studio.ViewModels
                     SelectedLayer = null;
                 }
 
-                Sender.SendMessages(context.MessageAddress, MessageCommand.LAYER_DELETE, null, removedLayerIndex);
+                MessageService.SendMessages(context.MessageAddress, MessageCommand.LAYER_DELETE, null, removedLayerIndex);
             }
         }
 

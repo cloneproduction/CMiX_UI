@@ -10,10 +10,10 @@ namespace CMiX.Studio.ViewModels
     public class Counter : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Counter(string messageaddress, Sender sender, Mementor mementor) 
+        public Counter(string messageaddress, MessageService messageService, Mementor mementor) 
         {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Counter));
-            Sender = sender;
+            MessageAddress = $"{messageaddress}{nameof(Counter)}/";
+            MessageService = messageService;
             Count = 1;
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
@@ -38,8 +38,8 @@ namespace CMiX.Studio.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
+        public MessageService MessageService { get; set; }
         #endregion
 
         #region ADD/SUB
@@ -58,9 +58,9 @@ namespace CMiX.Studio.ViewModels
         #region COPY/PASTE/RESET
         public void Reset()
         {
-            Sender.Enable();
+            MessageService.Enable();
             Count = 1;
-            Sender.Enable();
+            MessageService.Enable();
         }
 
         public void Copy(CounterModel countermodel)
@@ -70,11 +70,11 @@ namespace CMiX.Studio.ViewModels
 
         public void Paste(CounterModel countermodel)
         {
-            Sender.Enable();
+            MessageService.Enable();
 
             Count = countermodel.Count;
 
-            Sender.Enable();
+            MessageService.Enable();
         }
         #endregion
     }

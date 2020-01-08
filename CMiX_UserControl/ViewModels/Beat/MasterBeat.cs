@@ -12,10 +12,10 @@ namespace CMiX.Studio.ViewModels
     public class MasterBeat : Beat, ISendable
     {
         #region CONSTRUCTORS
-        public MasterBeat(Sender sender)
+        public MasterBeat(MessageService messageService)
         : this
         (
-            sender: sender,
+            messageService: messageService,
             period: 0.0,
             multiplier: 1
         )
@@ -23,11 +23,12 @@ namespace CMiX.Studio.ViewModels
 
         public MasterBeat
             (
-                Sender sender,
+                MessageService messageService,
                 double period,
                 int multiplier
             )
         {
+            MessageService = messageService;
             Period = period;
             Multiplier = multiplier;
             ResyncCommand = new RelayCommand(p => Resync());
@@ -61,7 +62,7 @@ namespace CMiX.Studio.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public Sender Sender { get; set; }
+        public MessageService MessageService { get; set; }
         #endregion
 
         #region METHODS
@@ -115,9 +116,9 @@ namespace CMiX.Studio.ViewModels
 
         public void PasteModel(MasterBeatModel masterBeatControl)
         {
-            Sender.Disable();
+            MessageService.Disable();
             Period = masterBeatControl.Period;
-            Sender.Enable();
+            MessageService.Enable();
         }
         #endregion
     }

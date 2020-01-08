@@ -3,6 +3,6 @@
     public interface ISendable
     {
         string MessageAddress { get; set; }
-        Sender Sender { get; set; }
+        MessageService MessageService { get; set; }
     }
 }

@@ -13,20 +13,20 @@ namespace CMiX.Studio.ViewModels
     public class Entity : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Entity(Beat masterbeat, int id, string messageAddress, Sender sender, Mementor mementor)
+        public Entity(Beat beat, int id, string messageAddress, Sender sender, Mementor mementor)
         {
             MessageAddress = $"{messageAddress}Entity{id.ToString()}/";
             Mementor = mementor;
-
+            Sender = sender;
             Enabled = true;
             ID = id;
             Name = "Entity" + id;
             count++;
 
-            BeatModifier = new BeatModifier(MessageAddress, masterbeat, sender, mementor);
-            Geometry = new Geometry(MessageAddress, sender, mementor, masterbeat);
+            BeatModifier = new BeatModifier(MessageAddress, beat, sender, mementor);
+            Geometry = new Geometry(MessageAddress, sender, mementor, beat);
             Texture = new Texture(MessageAddress, sender, mementor);
-            Coloration = new Coloration(MessageAddress, sender, mementor, masterbeat);
+            Coloration = new Coloration(MessageAddress, sender, mementor, beat);
 
             CopyEntityCommand = new RelayCommand(p => CopyEntity());
             PasteEntityCommand = new RelayCommand(p => PasteEntity());

@@ -19,9 +19,10 @@
     </UserControl.Resources>
 
     <StackPanel>
-        <Border 
-            Background="Transparent"
-            Padding="4, 0"
+        <Border
+            Height="25"
+            Margin="0, 0, 0, 2"
+            Padding="4"
             DockPanel.Dock="Top">
             <Border.ContextMenu>
                 <ContextMenu>
@@ -63,84 +64,29 @@
                     </MenuItem>
                 </ContextMenu>
             </Border.ContextMenu>
-            <Label
-                HorizontalAlignment="Left"
-                Content="COLORATION"
-                DockPanel.Dock="Bottom"
-                FontWeight="SemiBold"
-                FontSize="12"
-                />
+            <TextBlock
+                Margin="4, 0, 0, 0"
+                Text="COLORATION"
+                Foreground="{StaticResource TextBase}"/>
         </Border>
         <Border Style="{StaticResource BorderContainer}" Margin="0, 4, 0, 8">
             <Views:BeatModifier DataContext="{Binding BeatModifier}"/>
         </Border>
-        <Border             
-            DockPanel.Dock="Bottom">
-            <Grid Margin="0, 0, 0, 0">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TabControl
-                    DockPanel.Dock="Top">
-                    <TabItem
-                        Width="40"
-                        Height="30"
-                        IsSelected="True">
-                        <TabItem.Header>
-                            <Image 
-                                Source="{StaticResource Coloration}" 
-                                Height="15"
-                                Width="auto" 
-                                Opacity="0.75"
-                                />
-                        </TabItem.Header>
-                        <Views:ColorSelector DataContext="{Binding ColorSelector}"/>
-                    </TabItem>
-                    <TabItem
-                        Width="40"
-                        Height="30"
-                        IsSelected="True">
-                        <TabItem.Header>
-                            <Image 
-                                Source="{StaticResource PostFX}" 
-                                Height="15"
-                                Width="auto" 
-                                Opacity="0.75"
-                                />
-                        </TabItem.Header>
-                        <Border             
-                            DockPanel.Dock="Bottom"
-                            Style="{StaticResource BorderContainer}">
-                            <StackPanel Grid.Row="1">
-                                <Border 
-                                    Margin="0, 0, 0 4"
-                                    Height="25">
-                                    <TextBlock
-                                        VerticalAlignment="Center"
-                                        Margin="4, 0, 0, 0"
-                                        Text="Modifiers"
-                                        Foreground="{StaticResource TextBase}"
-                                        />
-                                </Border>
-                                <Views:RangeControl 
-                                    Caption="Hue"
-                                    DataContext="{Binding Hue}"
-                                    />
-                                <Views:RangeControl 
-                                    Caption="Saturation"
-                                    Margin="0, 2"
-                                    DataContext="{Binding Saturation}"
-                                    />
-                                <Views:RangeControl 
-                                    Caption="Value"
-                                    DataContext="{Binding Value}"
-                                    />
-                            </StackPanel>
-                        </Border>
-                    </TabItem>
-                </TabControl>
-            </Grid>
-        </Border>
+        <Views:ColorSelector DataContext="{Binding ColorSelector}"/>
+        <Expander Header="Modifiers" Margin="0, 2" Style="{StaticResource ExpanderBase}">
+            <StackPanel Grid.Row="1" Margin="0, 4">
+                <Views:RangeControl 
+                        Caption="Hue"
+                        DataContext="{Binding Hue}"/>
+                <Views:RangeControl 
+                        Caption="Saturation"
+                        Margin="0, 2"
+                        DataContext="{Binding Saturation}"/>
+                <Views:RangeControl 
+                        Caption="Value"
+                        DataContext="{Binding Value}"/>
+            </StackPanel>
+        </Expander>
     </StackPanel>
+    
 </UserControl>

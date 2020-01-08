@@ -13,18 +13,18 @@ namespace CMiX.Studio.ViewModels
     public class Geometry : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Geometry(string messageaddress, Sender sender, Mementor mementor, Beat beat) 
+        public Geometry(string messageaddress, MessageService messageService, Mementor mementor, Beat beat) 
         {
             MessageAddress = $"{messageaddress}{nameof(Geometry)}/";
-            Sender = sender;
-            Instancer = new Instancer(MessageAddress, sender, mementor, beat);
-            Transform = new Transform(MessageAddress, sender, mementor);
+            MessageService = messageService;
+            Instancer = new Instancer(MessageAddress, messageService, mementor, beat);
+            Transform = new Transform(MessageAddress, messageService, mementor);
 
-            FileSelector = new FileSelector(MessageAddress, "Single", new List<string> { ".FBX", ".OBJ" }, sender, mementor);
-            FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress, sender) { FileIsSelected = true, FileName = "Quad (default)" });
-            FileSelector.SelectedFileNameItem = new FileNameItem(string.Empty, FileSelector.MessageAddress, sender) { FileIsSelected = true, FileName = "Quad (default)" };
+            FileSelector = new FileSelector(MessageAddress, "Single", new List<string> { ".FBX", ".OBJ" }, messageService, mementor);
+            FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress, messageService) { FileIsSelected = true, FileName = "Quad (default)" });
+            FileSelector.SelectedFileNameItem = new FileNameItem(string.Empty, FileSelector.MessageAddress, messageService) { FileIsSelected = true, FileName = "Quad (default)" };
 
-            GeometryFX = new GeometryFX(MessageAddress, sender, mementor);
+            GeometryFX = new GeometryFX(MessageAddress, messageService, mementor);
 
             CopyGeometryCommand = new RelayCommand(p => CopyGeometry());
             PasteGeometryCommand = new RelayCommand(p => PasteGeometry());
@@ -38,13 +38,12 @@ namespace CMiX.Studio.ViewModels
         public ICommand ResetGeometryCommand { get; }
 
         public FileSelector FileSelector { get; }
-
         public Transform Transform { get; }
         public Instancer Instancer { get;  }
         public GeometryFX GeometryFX { get; }
         public string MessageAddress { get; set; }
-        public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
+        public MessageService MessageService { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
@@ -63,15 +62,13 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("GeometryModel"))
             {
                 Mementor.BeginBatch();
-                Sender.Disable();
+                MessageService.Disable();
 
                 var geometrymodel = data.GetData("GeometryModel") as GeometryModel;
                 var geometrymessageaddress = MessageAddress;
                 this.Paste(geometrymodel);
-                //UpdateMessageAddress(geometrymessageaddress);
-                this.Copy(geometrymodel);
 
-                Sender.Enable();
+                MessageService.Enable();
                 Mementor.EndBatch();
                 //SendMessages(MessageAddress, geometrymodel);
             }
@@ -95,19 +92,19 @@ namespace CMiX.Studio.ViewModels
 
         public void Paste(GeometryModel geometryModel)
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             FileSelector.PasteModel(geometryModel.FileSelector);
             Transform.Paste(geometryModel.Transform);
             GeometryFX.Paste(geometryModel.GeometryFX);
             Instancer.Paste(geometryModel.Instancer);
 
-            Sender.Enable();
+            MessageService.Enable();
         }
 
         public void Reset()
         {
-            Sender.Disable();
+            MessageService.Disable();
             //Mementor.BeginBatch();
 
             FileSelector.Reset();
@@ -115,7 +112,7 @@ namespace CMiX.Studio.ViewModels
             GeometryFX.Reset();
             Instancer.Reset();
             //Mementor.EndBatch();
-            Sender.Enable();
+            MessageService.Enable();
 
             GeometryModel geometrymodel = new GeometryModel();
             this.Copy(geometrymodel);

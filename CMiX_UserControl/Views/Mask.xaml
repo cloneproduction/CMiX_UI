@@ -8,8 +8,8 @@
     xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
     xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX.MVVM"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
-    d:DesignHeight="16669"
-    d:DesignWidth="415"
+    d:DesignHeight="1387.667"
+    d:DesignWidth="455"
     mc:Ignorable="d">
 
     <UserControl.Resources>

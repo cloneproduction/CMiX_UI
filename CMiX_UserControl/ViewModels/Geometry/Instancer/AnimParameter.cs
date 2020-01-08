@@ -9,13 +9,13 @@ namespace CMiX.Studio.ViewModels
 {
     public class AnimParameter : ViewModel, ISendable, IUndoable
     {
-        public AnimParameter(string messageaddress, Sender sender, Mementor mementor, Beat beat, bool isEnabled)
+        public AnimParameter(string messageaddress, MessageService messageService, Mementor mementor, Beat beat, bool isEnabled)
         {
             Mode = AnimMode.None;
-            Sender = sender;
+            MessageService = messageService;
             IsEnabled = isEnabled;
-            Slider = new Slider(MessageAddress, sender, mementor);
-            BeatModifier = new BeatModifier(MessageAddress, beat, sender, mementor);
+            Slider = new Slider(MessageAddress, messageService, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, beat, messageService, mementor);
         }
 
         #region PROPERTIES
@@ -48,7 +48,7 @@ namespace CMiX.Studio.ViewModels
         public Slider Slider { get; set; }
         public BeatModifier BeatModifier { get; set; }
         public string MessageAddress { get; set; }
-        public Sender Sender { get; set; }
+        public MessageService MessageService { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
@@ -68,7 +68,7 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("AnimParameterModel"))
             {
                 Mementor.BeginBatch();
-                Sender.Disable();
+                MessageService.Disable();
 
                 var animparametermodel = data.GetData("AnimParameterModel") as AnimParameterModel;
                 var messageaddress = MessageAddress;
@@ -76,7 +76,7 @@ namespace CMiX.Studio.ViewModels
 
                 this.Copy(animparametermodel);
 
-                Sender.Enable();
+                MessageService.Enable();
                 Mementor.EndBatch();
                 //SendMessages(MessageAddress, animparametermodel);
                 //QueueObjects(animparametermodel);
@@ -102,22 +102,22 @@ namespace CMiX.Studio.ViewModels
 
         public void Paste(AnimParameterModel animparametermodel)
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             Slider.PasteModel(animparametermodel.Slider);
             BeatModifier.PasteModel(animparametermodel.BeatModifier);
 
-            Sender.Enable();
+            MessageService.Enable();
         }
 
         public void Reset()
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             Slider.Reset();
             BeatModifier.Reset();
 
-            Sender.Enable();
+            MessageService.Enable();
 
             AnimParameterModel animparametermodel = new AnimParameterModel();
             this.Copy(animparametermodel);

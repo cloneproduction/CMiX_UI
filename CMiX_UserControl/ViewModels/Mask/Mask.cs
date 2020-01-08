@@ -13,19 +13,19 @@ namespace CMiX.Studio.ViewModels
     public class Mask : ViewModel, IEntityContext
     {
         #region CONSTRUCTORS
-        public Mask(Beat beat, string messageAddress, Sender sender, Mementor mementor) 
+        public Mask(Beat beat, string messageAddress, MessageService messageService, Mementor mementor) 
         {
             Beat = beat;
             MessageAddress = $"{messageAddress}{nameof(Mask)}/";
-            Sender = sender;
+            MessageService = messageService;
             MaskType = ((MaskType)2).ToString();
             MaskControlType = ((MaskControlType)1).ToString();
             Enabled = false;
 
-            BeatModifier = new BeatModifier(MessageAddress, beat, sender, mementor);
-            Geometry = new Geometry(MessageAddress, sender, mementor, beat);
-            Texture = new Texture(MessageAddress, sender, mementor);
-            PostFX = new PostFX(MessageAddress, sender, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, beat, messageService, mementor);
+            Geometry = new Geometry(MessageAddress, messageService, mementor, beat);
+            Texture = new Texture(MessageAddress, messageService, mementor);
+            PostFX = new PostFX(MessageAddress, messageService, mementor);
 
             CopyMaskCommand = new RelayCommand(p => CopyMask());
             PasteMaskCommand = new RelayCommand(p => PasteMask());
@@ -72,11 +72,11 @@ namespace CMiX.Studio.ViewModels
         public ObservableCollection<Entity> Entities { get; set; }
         public Entity SelectedEntity { get; set; }
         public string MessageAddress { get; set; }
-        public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
         public MasterBeat MasterBeat { get; set; }
         public Assets Assets { get; set; }
         public Beat Beat { get; set; }
+        public MessageService MessageService { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
@@ -93,7 +93,7 @@ namespace CMiX.Studio.ViewModels
 
         public void PasteModel(MaskModel maskModel)
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             Enabled = maskModel.Enable;
             MaskType = maskModel.MaskType;
@@ -103,12 +103,12 @@ namespace CMiX.Studio.ViewModels
             Geometry.Paste(maskModel.GeometryModel);
             PostFX.PasteModel(maskModel.PostFXModel);
 
-            Sender.Enable();
+            MessageService.Enable();
         }
 
         public void Reset()
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             Enabled = false;
             BeatModifier.Reset();
@@ -116,7 +116,7 @@ namespace CMiX.Studio.ViewModels
             Texture.Reset();
             PostFX.Reset();
 
-            Sender.Enable();
+            MessageService.Enable();
         }
 
         public void CopyMask()
@@ -134,14 +134,14 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("MaskModel"))
             {
                 Mementor.BeginBatch();
-                Sender.Disable();;
+                MessageService.Disable();;
 
                 var maskmodel = data.GetData("MaskModel") as MaskModel;
                 var maskmessageaddress = MessageAddress;
                 this.PasteModel(maskmodel);
 
                 this.CopyModel(maskmodel);
-                Sender.Enable();
+                MessageService.Enable();
                 Mementor.EndBatch();
                 //this.SendMessages(nameof(MaskModel), maskmodel);
             }

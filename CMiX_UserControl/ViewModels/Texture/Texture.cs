@@ -13,45 +13,45 @@ namespace CMiX.Studio.ViewModels
     public class Texture : ViewModel, ICopyPasteModel<TextureModel>, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Texture(string messageaddress, Sender sender, Mementor mementor)
+        public Texture(string messageaddress, MessageService messageService, Mementor mementor)
         {
             MessageAddress = $"{messageaddress}{nameof(Texture)}/";
-            Sender = sender;
+            MessageService = messageService;
 
-            FileSelector = new FileSelector(MessageAddress,  "Single", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, sender, mementor);
-            FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress, sender) { FileIsSelected = true, FileName = "Black (default).png" });
-            FileSelector.SelectedFileNameItem = new FileNameItem(string.Empty, FileSelector.MessageAddress, sender) { FileIsSelected = true, FileName = "Black (default).png" };
+            FileSelector = new FileSelector(MessageAddress,  "Single", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, messageService, mementor);
+            FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress, messageService) { FileIsSelected = true, FileName = "Black (default).png" });
+            FileSelector.SelectedFileNameItem = new FileNameItem(string.Empty, FileSelector.MessageAddress, messageService) { FileIsSelected = true, FileName = "Black (default).png" };
 
-            Brightness = new Slider(MessageAddress + nameof(Brightness), sender, mementor);
+            Brightness = new Slider(MessageAddress + nameof(Brightness), messageService, mementor);
             Brightness.Minimum = -1.0;
 
-            Contrast = new Slider(MessageAddress + nameof(Contrast), sender, mementor);
+            Contrast = new Slider(MessageAddress + nameof(Contrast), messageService, mementor);
             Contrast.Minimum = -1.0;
 
-            Invert = new Slider(MessageAddress + nameof(Invert), sender, mementor);
+            Invert = new Slider(MessageAddress + nameof(Invert), messageService, mementor);
             InvertMode = ((TextureInvertMode)0).ToString();
 
-            Hue = new Slider(MessageAddress + nameof(Hue), sender, mementor);
+            Hue = new Slider(MessageAddress + nameof(Hue), messageService, mementor);
             Hue.Minimum = -1.0;
 
-            Saturation = new Slider(MessageAddress + nameof(Saturation), sender, mementor);
+            Saturation = new Slider(MessageAddress + nameof(Saturation), messageService, mementor);
             Saturation.Minimum = -1.0;
 
-            Luminosity = new Slider(MessageAddress + nameof(Luminosity), sender, mementor);
+            Luminosity = new Slider(MessageAddress + nameof(Luminosity), messageService, mementor);
             Luminosity.Minimum = -1.0;
 
-            Keying = new Slider(MessageAddress + nameof(Keying), sender, mementor);
+            Keying = new Slider(MessageAddress + nameof(Keying), messageService, mementor);
 
-            Scale = new Slider(MessageAddress + nameof(Scale), sender, mementor);
+            Scale = new Slider(MessageAddress + nameof(Scale), messageService, mementor);
             Scale.Minimum = -1.0;
 
-            Rotate = new Slider(MessageAddress + nameof(Rotate), sender, mementor);
+            Rotate = new Slider(MessageAddress + nameof(Rotate), messageService, mementor);
             Rotate.Minimum = -1.0;
 
-            Pan = new Slider(MessageAddress + nameof(Pan), sender, mementor);
+            Pan = new Slider(MessageAddress + nameof(Pan), messageService, mementor);
             Pan.Minimum = -1.0;
 
-            Tilt = new Slider(MessageAddress + nameof(Tilt), sender, mementor);
+            Tilt = new Slider(MessageAddress + nameof(Tilt), messageService, mementor);
             Tilt.Minimum = -1.0;
 
             CopyTextureCommand = new RelayCommand(p => CopyTexture());
@@ -92,7 +92,7 @@ namespace CMiX.Studio.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public Sender Sender { get; set; }
+        public MessageService MessageService { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 

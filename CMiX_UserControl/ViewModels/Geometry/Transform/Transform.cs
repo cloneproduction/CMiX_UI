@@ -10,14 +10,14 @@ namespace CMiX.Studio.ViewModels
 {
     public class Transform : ViewModel, ISendable, IUndoable
     {
-        public Transform(string messageAddress, Sender sender, Mementor mementor)
+        public Transform(string messageAddress, MessageService messageService, Mementor mementor)
         {
             MessageAddress = $"{messageAddress}{nameof(Transform)}/";
-            Sender = sender;
+            MessageService = messageService;
 
-            Translate = new Translate(MessageAddress, sender, mementor);
-            Scale = new Scale(MessageAddress, sender, mementor);
-            Rotation = new Rotation(MessageAddress, sender, mementor);
+            Translate = new Translate(MessageAddress, messageService, mementor);
+            Scale = new Scale(MessageAddress, messageService, mementor);
+            Rotation = new Rotation(MessageAddress, messageService, mementor);
 
             Is3D = false;
         }
@@ -43,6 +43,7 @@ namespace CMiX.Studio.ViewModels
         public string MessageAddress { get; set; }
         public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
+        public MessageService MessageService { get; set; }
         #endregion
 
         //#region METHODS

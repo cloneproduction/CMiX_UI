@@ -14,17 +14,17 @@ namespace CMiX.Studio.ViewModels
 {
     public class LayerEditor : ViewModel, ILayerEditor
     {
-        public LayerEditor(Sender sender, string messageAddress, MasterBeat masterBeat, Assets assets, Mementor mementor)
+        public LayerEditor(MessageService messageService, string messageAddress, MasterBeat masterBeat, Assets assets, Mementor mementor)
         {
             Mementor = mementor;
-            LayerFactory = new LayerFactory(sender);
+            LayerFactory = new LayerFactory(MessageService);
             Layers = new ObservableCollection<Layer>();
             
             Assets = assets;
             MasterBeat = masterBeat;
 
             MessageAddress = messageAddress;
-            Sender = sender;
+            MessageService = messageService;
 
             DeleteSelectedLayerCommand = new RelayCommand(p => DeleteSelectedLayer());
             DuplicateSelectedLayerCommand = new RelayCommand(p => DuplicateSelectedLayer());

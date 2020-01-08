@@ -10,16 +10,22 @@ namespace CMiX.Engine.ViewModels
 {
     public class Composition : ICopyPasteModel<CompositionModel>, IMessageReceiver
     {
-        public Composition(Receiver receiver, string messageAddress) 
+        public Composition(MessageService messageService, string messageAddress) 
         {
             MessageAddress = $"{messageAddress}{nameof(Composition)}/";
-            Receiver = receiver;
+            MessageService = messageService;
+            Receiver = messageService.CreateReceiver();
             Receiver.MessageReceived += OnMessageReceived; ;
 
             Layers = new ObservableCollection<Layer>();
-            Layers.Add(new Layer(receiver, $"{MessageAddress}{nameof(Layer)}/0/"));
-            Camera = new Camera(receiver, MessageAddress);
+            Layers.Add(new Layer(Receiver, $"{MessageAddress}{nameof(Layer)}/0/"));
+            Camera = new Camera(Receiver, MessageAddress);
         }
+
+        //public void SendMessage(string topic, MessageCommand command, object parameter, object data)
+        //{
+        //    MessageService.SendMessages(topic, command, parameter, data);
+        //}
 
         public void OnMessageReceived(object sender, EventArgs e)
         {
@@ -54,6 +60,7 @@ namespace CMiX.Engine.ViewModels
             }
         }
 
+        public MessageService MessageService { get; set; }
         public string MessageAddress { get; set; }
         public Receiver Receiver { get; set; }
         public ObservableCollection<Layer> Layers { get; set; }

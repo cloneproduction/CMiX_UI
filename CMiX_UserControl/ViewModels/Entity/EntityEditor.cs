@@ -4,30 +4,35 @@ using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using Memento;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels
 {
     public class EntityEditor : ViewModel, IEntityEditor
     {
-        public EntityEditor(Sender sender, string messageAddress, Beat beat, Assets assets, Mementor mementor)
+        public EntityEditor(MessageService messageService, string messageAddress, Beat beat, Assets assets, Mementor mementor)
         {
-            EntityFactory = new EntityFactory(beat);
+            EntityFactory = new EntityFactory();
             Entities = new ObservableCollection<Entity>();
             Mementor = mementor;
             Assets = assets;
             Beat = beat;
 
             MessageAddress = messageAddress;
-            Sender = sender;
+            MessageService = messageService;
+
+            AddEntityCommand = new RelayCommand(p => AddEntity());
+            DeleteEntityCommand = new RelayCommand(p => DeleteEntity());
+            DuplicateEntityCommand = new RelayCommand(p => DuplicateEntity());
         }
 
+        public ICommand AddEntityCommand { get; }
+        public ICommand DuplicateEntityCommand { get; }
+        public ICommand DeleteEntityCommand { get; }
+
         public string MessageAddress { get; set; }
-        public Sender Sender { get; set; }
+        public MessageService MessageService { get; set; }
         public Mementor Mementor { get; set; }
 
         public EntityFactory EntityFactory { get; set; }
@@ -42,16 +47,27 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _selectedEntity, value);
         }
 
-        #region METHODS
         public void AddEntity()
         {
             var entity = EntityFactory.CreateEntity(this);
-            Entities.Add(entity);
-            SelectedEntity = entity;
-
             EntityModel entityModel = new EntityModel();
             entity.CopyModel(entityModel);
-            Sender.SendMessages(MessageAddress, MessageCommand.ENTITY_ADD, null, entityModel);
+            MessageService.SendMessages(MessageAddress, MessageCommand.ENTITY_ADD, null, entityModel);
+        }
+
+        public void DeleteEntity()
+        {
+            int deleteIndex = Entities.IndexOf(SelectedEntity);
+            EntityFactory.DeleteEntity(this);
+            MessageService.SendMessages(MessageAddress, MessageCommand.ENTITY_DELETE, null, deleteIndex);
+        }
+
+        public void DuplicateEntity()
+        {
+            EntityFactory.DuplicateEntity(this);
+            EntityModel entityModel = new EntityModel();
+            SelectedEntity.CopyModel(entityModel);
+            MessageService.SendMessages(SelectedEntity.MessageAddress, MessageCommand.COMPOSITION_DUPLICATE, null, entityModel);
         }
 
         public void CopyModel(IModel model)
@@ -59,31 +75,9 @@ namespace CMiX.Studio.ViewModels
             throw new NotImplementedException();
         }
 
-        public void DeleteEntity(object entityContext)
-        {
-
-            if (entityContext != null)
-            {
-                var ec = entityContext as ISendableEntityContext;
-                if (ec.SelectedEntity != null)
-                {
-                    int index = ec.Entities.IndexOf(ec.SelectedEntity);
-                    ec.Entities.RemoveAt(index);
-                    if (ec.Entities.Count > 0)
-                        ec.SelectedEntity = ec.Entities[ec.Entities.Count - 1];
-                    else
-                        ec.SelectedEntity = null;
-
-                    EntityModel entityModel = new EntityModel();
-                    Sender.SendMessages(ec.MessageAddress, MessageCommand.ENTITY_DELETE, null, index);
-                }
-            }
-        }
-
         public void PasteModel(IModel model)
         {
             throw new NotImplementedException();
         }
-        #endregion
     }
 }

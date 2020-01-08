@@ -11,31 +11,22 @@ namespace CMiX.Studio.ViewModels
     public class GeometryFX : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public GeometryFX(string messageaddress, Sender sender, Mementor mementor)
+        public GeometryFX(string messageaddress, MessageService messageService, Mementor mementor)
         {
             MessageAddress = $"{messageaddress}{nameof(GeometryFX)}/";
-            Sender = sender;
-            Explode = new Slider(MessageAddress + nameof(Explode), sender, mementor);
-            FileSelector = new FileSelector(MessageAddress, "Single", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, sender, mementor);
-            FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress, sender) { FileIsSelected = true, FileName = "Black (default).png" });
+            MessageService = messageService;
+            Explode = new Slider(MessageAddress + nameof(Explode), messageService, mementor);
+            FileSelector = new FileSelector(MessageAddress, "Single", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, messageService, mementor);
+            FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress, messageService) { FileIsSelected = true, FileName = "Black (default).png" });
         }
         #endregion
-
-        //#region METHODS
-        //public void UpdateMessageAddress(string messageaddress)
-        //{
-        //    MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(GeometryFX));
-        //    Explode.UpdateMessageAddress(MessageAddress + nameof(Explode));
-        //    FileSelector.UpdateMessageAddress(MessageAddress + nameof(FileSelector));
-        //}
-        //#endregion
 
         #region PROPERTIES
         public Slider Explode { get; }
         public FileSelector FileSelector { get; }
         public string MessageAddress { get; set; }
-        public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
+        public MessageService MessageService { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
@@ -47,22 +38,22 @@ namespace CMiX.Studio.ViewModels
 
         public void Paste(GeometryFXModel geometryFXdto)
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             Explode.PasteModel(geometryFXdto.Explode);
             FileSelector.PasteModel(geometryFXdto.FileSelector);
 
-            Sender.Enable();
+            MessageService.Enable();
         }
 
         public void Reset()
         {
-            Sender.Disable();;
+            MessageService.Disable();;
 
             Explode.Reset();
             FileSelector.Reset();
 
-            Sender.Enable();
+            MessageService.Enable();
         }
         #endregion
     }

@@ -9,16 +9,16 @@ namespace CMiX.Studio.ViewModels
 {
     public class Instancer : ViewModel, ISendable, IUndoable
     {
-        public Instancer(string messageaddress, Sender sender, Mementor mementor, Beat beat)
+        public Instancer(string messageaddress, MessageService messageService, Mementor mementor, Beat beat)
         {
             MessageAddress = $"{messageaddress}{nameof(Instancer)}/";
-            Sender = sender;
+            MessageService = messageService;
 
-            Transform = new Transform(MessageAddress, sender, mementor);
-            Counter = new Counter(MessageAddress, sender, mementor);
-            TranslateModifier = new TranslateModifier(MessageAddress, sender, mementor, beat);
-            ScaleModifier = new ScaleModifier(MessageAddress, sender, mementor, beat);
-            RotationModifier = new RotationModifier(MessageAddress, sender, mementor, beat);
+            Transform = new Transform(MessageAddress, messageService, mementor);
+            Counter = new Counter(MessageAddress, messageService, mementor);
+            TranslateModifier = new TranslateModifier(MessageAddress, messageService, mementor, beat);
+            ScaleModifier = new ScaleModifier(MessageAddress, messageService, mementor, beat);
+            RotationModifier = new RotationModifier(MessageAddress, messageService, mementor, beat);
 
             NoAspectRatio = false;
         }
@@ -43,20 +43,8 @@ namespace CMiX.Studio.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
-
-        //#region METHODS
-        //public void UpdateMessageAddress(string messageaddress)
-        //{
-        //    MessageAddress = messageaddress;
-
-        //    Counter.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Counter)));
-        //    TranslateModifier.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(TranslateModifier)));
-        //    ScaleModifier.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(ScaleModifier)));
-        //    RotationModifier.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(RotationModifier)));
-        //}
-        //#endregion
+        public MessageService MessageService { get; set; }
 
         #region COPY/PASTE/RESET
         public void CopyGeometry()
@@ -74,7 +62,7 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("InstancerModel"))
             {
                 Mementor.BeginBatch();
-                Sender.Disable();
+                MessageService.Disable();
 
                 var instancermodel = data.GetData("InstancerModel") as InstancerModel;
                 var geometrymessageaddress = MessageAddress;
@@ -82,7 +70,7 @@ namespace CMiX.Studio.ViewModels
                 //UpdateMessageAddress(geometrymessageaddress);
                 this.Copy(instancermodel);
 
-                Sender.Enable();
+                MessageService.Enable();
                 Mementor.EndBatch();
                 //SendMessages(nameof(InstancerModel), instancermodel);
             }
@@ -108,7 +96,7 @@ namespace CMiX.Studio.ViewModels
 
         public void Paste(InstancerModel instancermodel)
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             Transform.Paste(instancermodel.Transform);
             Counter.Paste(instancermodel.Counter);
@@ -117,12 +105,12 @@ namespace CMiX.Studio.ViewModels
             RotationModifier.Paste(instancermodel.RotationModifier);
             NoAspectRatio = instancermodel.NoAspectRatio;
 
-            Sender.Enable();
+            MessageService.Enable();
         }
 
         public void Reset()
         {
-            Sender.Disable();
+            MessageService.Disable();
             //Mementor.BeginBatch();
             Counter.Reset();
             TranslateModifier.Reset();
@@ -130,7 +118,7 @@ namespace CMiX.Studio.ViewModels
             RotationModifier.Reset();
             NoAspectRatio = false;
             //Mementor.EndBatch();
-            Sender.Enable();
+            MessageService.Enable();
 
             InstancerModel instancermodel = new InstancerModel();
             this.Copy(instancermodel);

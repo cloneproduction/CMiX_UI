@@ -74,14 +74,8 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Views:BeatModifier Margin="4, 0" DataContext="{Binding BeatModifier}"/>
-                <Views:EntitySelector DataContext="{Binding}" Grid.Column="1"/>
+                <Views:EntitySelector DataContext="{Binding EntityEditor}" Grid.Column="1"/>
             </Grid>
-
-        </Border>
-        <Border DockPanel.Dock="Top">
-            <ScrollViewer>
-                <Views:Entity DataContext="{Binding SelectedEntity}" Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}"/>
-            </ScrollViewer>
         </Border>
         <TabControl 
             DockPanel.Dock="Bottom" 
@@ -99,5 +93,10 @@
                     DockPanel.Dock="Bottom" />
             </TabItem>
         </TabControl>
+        <Border DockPanel.Dock="Top">
+            <ScrollViewer>
+                <Views:EntityEditor DataContext="{Binding EntityEditor}" Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}"/>
+            </ScrollViewer>
+        </Border>
     </DockPanel>
 </UserControl>

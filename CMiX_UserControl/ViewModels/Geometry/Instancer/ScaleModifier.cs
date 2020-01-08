@@ -10,15 +10,15 @@ namespace CMiX.Studio.ViewModels
     [Serializable]
     public class ScaleModifier : ViewModel, ISendable, IUndoable
     {
-        public ScaleModifier(string messageaddress, Sender sender, Mementor mementor, Beat beat)
+        public ScaleModifier(string messageaddress, MessageService messageService, Mementor mementor, Beat beat)
         {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(ScaleModifier));
-            Sender = sender;
+            MessageAddress = $"{messageaddress}{nameof(ScaleModifier)}/";
+            MessageService = messageService;
 
-            Scale = new AnimParameter(MessageAddress + nameof(Scale), sender, mementor, beat, true);
-            ScaleX = new AnimParameter(MessageAddress + nameof(ScaleX), sender, mementor, beat, false);
-            ScaleY = new AnimParameter(MessageAddress + nameof(ScaleY), sender, mementor, beat, false);
-            ScaleZ = new AnimParameter(MessageAddress + nameof(ScaleZ), sender, mementor, beat, false);
+            Scale = new AnimParameter(MessageAddress + nameof(Scale), messageService, mementor, beat, true);
+            ScaleX = new AnimParameter(MessageAddress + nameof(ScaleX), messageService, mementor, beat, false);
+            ScaleY = new AnimParameter(MessageAddress + nameof(ScaleY), messageService, mementor, beat, false);
+            ScaleZ = new AnimParameter(MessageAddress + nameof(ScaleZ), messageService, mementor, beat, false);
         }
 
         #region PROPERTIES
@@ -27,21 +27,9 @@ namespace CMiX.Studio.ViewModels
         public AnimParameter ScaleY { get; set; }
         public AnimParameter ScaleZ { get; set; }
         public string MessageAddress { get; set; }
-        public Sender Sender { get; set; }
+        public MessageService MessageService { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
-
-        //#region METHODS
-        //public void UpdateMessageAddress(string messageaddress)
-        //{
-        //    MessageAddress = messageaddress;
-
-        //    Scale.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Scale)));
-        //    ScaleX.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(ScaleX)));
-        //    ScaleY.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(ScaleY)));
-        //    ScaleZ.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(ScaleZ)));
-        //}
-        //#endregion
 
         #region COPY/PASTE/RESET
         public void CopyGeometry()
@@ -59,7 +47,7 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("ScaleModifierModel"))
             {
                 Mementor.BeginBatch();
-                Sender.Disable();
+                MessageService.Disable();
 
                 var Scalemodifiermodel = data.GetData("ScaleModifierModel") as ScaleModifierModel;
                 var messageaddress = MessageAddress;
@@ -67,7 +55,7 @@ namespace CMiX.Studio.ViewModels
                 //UpdateMessageAddress(messageaddress);
                 this.Copy(Scalemodifiermodel);
 
-                Sender.Enable();
+                MessageService.Enable();
                 Mementor.EndBatch();
                 //SendMessages(MessageAddress, Scalemodifiermodel);
                 //QueueObjects(Scalemodifiermodel);
@@ -95,26 +83,26 @@ namespace CMiX.Studio.ViewModels
 
         public void Paste(ScaleModifierModel Scalemodifiermodel)
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             Scale.Paste(Scalemodifiermodel.Scale);
             ScaleX.Paste(Scalemodifiermodel.ScaleX);
             ScaleY.Paste(Scalemodifiermodel.ScaleY);
             ScaleZ.Paste(Scalemodifiermodel.ScaleZ);
 
-            Sender.Enable();
+            MessageService.Enable();
         }
 
         public void Reset()
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             Scale.Reset();
             ScaleX.Reset();
             ScaleY.Reset();
             ScaleZ.Reset();
 
-            Sender.Enable();
+            MessageService.Enable();
 
             ScaleModifierModel Scalemodifiermodel = new ScaleModifierModel();
             this.Copy(Scalemodifiermodel);

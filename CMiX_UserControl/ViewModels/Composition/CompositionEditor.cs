@@ -15,11 +15,11 @@ namespace CMiX.Studio.ViewModels
         public CompositionEditor(MessageService messageService, string messageAddress, Assets assets, Mementor mementor)
         {
             Mementor = mementor;
-            CompositionFactory = new CompositionFactory(messageService);
+            CompositionManager = new CompositionManager(messageService);
             Compositions = new ObservableCollection<Composition>();
             MessageAddress = messageAddress;
             MessageService = messageService;
-            Sender = messageService.CreateSender();
+            //Sender = messageService.CreateSender();
 
             NewCompositionCommand = new RelayCommand(p => NewComposition());
             DeleteSelectedCompositionCommand = new RelayCommand(p => DeleteSelectedComposition());
@@ -42,9 +42,9 @@ namespace CMiX.Studio.ViewModels
         public MessageService MessageService { get; set; }
         public Assets Assets { get; set; }
         public string MessageAddress { get; set; }
-        public Sender Sender { get; set; }
+        //public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
-        public CompositionFactory CompositionFactory { get; set; }
+        public CompositionManager CompositionManager { get; set; }
         
         public CerasSerializer Serializer { get; set; }
 
@@ -62,25 +62,25 @@ namespace CMiX.Studio.ViewModels
         #region NEW/DELETE/DUPLICATE COMPOSITION
         private void NewComposition()
         {
-            CompositionFactory.CreateSelectedComposition(this);
+            CompositionManager.CreateSelectedComposition(this);
             CompositionModel compositionModel = new CompositionModel();
             SelectedComposition.CopyModel(compositionModel);
-            Sender.SendMessages(SelectedComposition.MessageAddress, MessageCommand.COMPOSITION_ADD, null, compositionModel);
+            MessageService.SendMessages(SelectedComposition.MessageAddress, MessageCommand.COMPOSITION_ADD, null, compositionModel);
         }
 
         private void DeleteSelectedComposition()
         {
             int deleteIndex = Compositions.IndexOf(SelectedComposition);
-            CompositionFactory.DeleteComposition(this);
-            Sender.SendMessages(MessageAddress, MessageCommand.COMPOSITION_DELETE, null, deleteIndex);
+            CompositionManager.DeleteComposition(this);
+            MessageService.SendMessages(MessageAddress, MessageCommand.COMPOSITION_DELETE, null, deleteIndex);
         }
 
         private void DuplicateSelectedComposition()
         {
-            CompositionFactory.DuplicateComposition(this);
+            CompositionManager.DuplicateComposition(this);
             CompositionModel compositionModel = new CompositionModel();
             SelectedComposition.CopyModel(compositionModel);
-            Sender.SendMessages(SelectedComposition.MessageAddress, MessageCommand.COMPOSITION_DUPLICATE, null, compositionModel);
+            MessageService.SendMessages(SelectedComposition.MessageAddress, MessageCommand.COMPOSITION_DUPLICATE, null, compositionModel);
         }
         #endregion
 
@@ -106,7 +106,7 @@ namespace CMiX.Studio.ViewModels
                 {
                     byte[] data = File.ReadAllBytes(folderPath);
                     CompositionModel compositionmodel = Serializer.Deserialize<CompositionModel>(data);
-                    CompositionFactory.CreateSelectedComposition(this);
+                    CompositionManager.CreateSelectedComposition(this);
                     SelectedComposition.PasteModel(compositionmodel);
                 }
             }
@@ -147,7 +147,7 @@ namespace CMiX.Studio.ViewModels
             Compositions.Clear();
             foreach (var compositionModel in compoEditorModel.CompositionModels)
             {
-                var comp = CompositionFactory.CreateComposition(this);
+                var comp = CompositionManager.CreateComposition(this);
                 comp.PasteModel(compositionModel);
             }
         }

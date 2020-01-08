@@ -7,16 +7,16 @@ namespace CMiX.Studio.ViewModels
 {
     public class FileNameItem : ViewModel, ISendable
     {
-        public FileNameItem(string folderpath, string messageAddress, Sender sender)
+        public FileNameItem(string folderpath, string messageAddress, MessageService messageService)
         {
             MessageAddress = messageAddress + "Selected";
-            Sender = sender;
+            MessageService = messageService;
             FolderPath = folderpath;
 
         }
 
         public string MessageAddress { get; set; }
-        public Sender Sender { get; set; }
+        public MessageService MessageService { get; set; }
 
         private string _folderpath;
         public string FolderPath
@@ -52,6 +52,7 @@ namespace CMiX.Studio.ViewModels
             }
         }
 
+        
 
         #region COPY/PASTE
         public void CopyModel(FileNameItemModel filenameitemmodel)
@@ -62,12 +63,12 @@ namespace CMiX.Studio.ViewModels
 
         public void PasteModel(FileNameItemModel filenameitemmodel)
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             FileIsSelected = filenameitemmodel.FileIsSelected;
             FileName = filenameitemmodel.FileName;
 
-            Sender.Enable();
+            MessageService.Enable();
         }
         #endregion
     }

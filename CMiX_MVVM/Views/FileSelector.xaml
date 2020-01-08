@@ -16,7 +16,7 @@
     </UserControl.Resources>
 
     <DockPanel>
-        <DockPanel DockPanel.Dock="Top">
+        <DockPanel DockPanel.Dock="Top" Margin="4">
             <Menu
                 Grid.Row="0"
                 Grid.Column="1"
@@ -58,20 +58,7 @@
                         />
                 </MenuItem>
             </Menu>
-            <Border
-                Height="25"
-                Padding="4"
-                BorderBrush="{StaticResource HighDarkerColor}"
-                DockPanel.Dock="left">
-                <DockPanel 
-                    VerticalAlignment="Center" 
-                    LastChildFill="False">
-                    <TextBlock
-                        Margin="4, 0, 0, 0"
-                        Text="Files"
-                        Foreground="{StaticResource TextBase}"/>
-                </DockPanel>
-            </Border>
+
         </DockPanel>
         <ListBox
             VerticalAlignment="Stretch"

@@ -6,7 +6,6 @@ using System.Windows;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
-using CMiX.MVVM;
 using GongSolutions.Wpf.DragDrop;
 using Memento;
 
@@ -14,12 +13,11 @@ namespace CMiX.Studio.ViewModels
 {
     public class FileSelector : ViewModel, ISendable, IUndoable, IDropTarget, IDragSource
     {
-        #region CONSTRUCTORS
-        public FileSelector(string messageaddress, string selectionmode, List<string> filemask, Sender sender, Mementor mementor) 
+        public FileSelector(string messageaddress, string selectionmode, List<string> filemask, MessageService messageService, Mementor mementor) 
         {
             MessageAddress = $"{messageaddress}{nameof(FileSelector)}/";
-            Sender = sender;
-
+            MessageService = messageService;
+            Mementor = mementor;
             SelectionMode = selectionmode;
             FileMask = filemask;
             FilePaths = new ObservableCollection<FileNameItem>();
@@ -30,7 +28,6 @@ namespace CMiX.Studio.ViewModels
             ClearAllCommand = new RelayCommand(p => ClearAll());
             DeleteItemCommand = new RelayCommand(p => DeleteItem(p));
         }
-        #endregion
 
         #region PROPERTIES
         public ObservableCollection<FileNameItem> FilePaths { get; set; }
@@ -67,8 +64,8 @@ namespace CMiX.Studio.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public Sender Sender { get ; set; }
         public Mementor Mementor { get; set; }
+        public MessageService MessageService { get; set; }
         #endregion
 
         #region METHODS
@@ -125,7 +122,6 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region DRAG/DROP
-
         public void DragOver(IDropInfo dropInfo)
         {
             if (dropInfo.Data is IDataObject dataObject && dataObject.GetDataPresent(DataFormats.FileDrop))
@@ -252,15 +248,14 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-
         public void Reset()
         {
-            Sender.Disable();;
+            MessageService.Disable();;
 
             Mementor.PropertyChange(this, "FilePaths");
             FilePaths.Clear();
 
-            Sender.Enable();
+            MessageService.Enable();
         }
 
         public void CopyModel(FileSelectorModel fileSelectorModel)
@@ -281,7 +276,7 @@ namespace CMiX.Studio.ViewModels
 
         public void PasteModel(FileSelectorModel fileSelectorModel)
         {
-            Sender.Disable();
+            MessageService.Disable();
             FolderPath = fileSelectorModel.FolderPath;
             FilePaths.Clear();
 
@@ -293,7 +288,7 @@ namespace CMiX.Studio.ViewModels
                 FilePaths.Add(filenameitem);
             }
 
-            Sender.Enable();
+            MessageService.Enable();
         }
         #endregion
     }

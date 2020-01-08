@@ -17,63 +17,13 @@
     </UserControl.Resources>
 
     <StackPanel Background="{StaticResource HighDarkerColor}">
-        <Border 
-            Padding="4"
-            Background="{StaticResource DarkColor}"
-            DockPanel.Dock="Top">
-            <Border.ContextMenu>
-                <ContextMenu>
-                    <MenuItem
-                        Padding="8, 4"
-                        Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.CopyColorSelectorCommand, Source={StaticResource proxy}}">
-                        <MenuItem.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Width="10" Height="10" Source="{StaticResource Copy}" />
-                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                <TextBlock Text="Copy Color"/>
-                            </StackPanel>
-                        </MenuItem.Header>
-                    </MenuItem>
-                    <MenuItem
-                        Padding="8, 4"
-                        Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.PasteColorSelectorCommand, Source={StaticResource proxy}}">
-                        <MenuItem.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Width="10" Height="10" Source="{StaticResource Paste}" />
-                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                <TextBlock Text="Paste Color"/>
-                            </StackPanel>
-                        </MenuItem.Header>
-                    </MenuItem>
-                    <MenuItem
-                        Padding="8, 4"
-                        Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.ResetColorSelectorCommand, Source={StaticResource proxy}}">
-                        <MenuItem.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Width="10" Height="10" Source="{StaticResource Reset}" />
-                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                <TextBlock Text="Reset Color"/>
-                            </StackPanel>
-                        </MenuItem.Header>
-                    </MenuItem>
-                </ContextMenu>
-            </Border.ContextMenu>
-            <DockPanel LastChildFill="False">
-                <TextBlock
-                    Margin="4, 0, 0, 0"
-                    Text="COLOR"
-                    Foreground="{StaticResource TextBase}"
-                    />
-            </DockPanel>
-        </Border>
-        <Border 
-            Margin="0, 4" 
-            Padding="8" 
-            Style="{StaticResource BorderContainer}">
-            <ColorPicker.Views:ColorPicker DataContext="{Binding ColorPicker}"/>
-        </Border>
+        <Expander Margin="0, 2" Header="Color" Style="{StaticResource ExpanderBase}">
+            <Border 
+                Margin="0, 4" 
+                Padding="8" 
+                Style="{StaticResource BorderContainer}">
+                <ColorPicker.Views:ColorPicker DataContext="{Binding ColorPicker}"/>
+            </Border>
+        </Expander>
     </StackPanel>
 </UserControl>

@@ -9,18 +9,18 @@ namespace CMiX.Studio.ViewModels
 {
     public class Translate : ViewModel, ISendable, IUndoable
     {
-        public Translate(string messageaddress, Sender sender, Mementor mementor)
+        public Translate(string messageAddress, MessageService messageService, Mementor mementor)
         {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(Translate));
-            Sender = sender;
+            MessageAddress = $"{messageAddress}{nameof(Translate)}/";
+            MessageService = messageService;
 
-            TranslateX = new Slider(MessageAddress + nameof(TranslateX), sender, mementor);
+            TranslateX = new Slider(MessageAddress + nameof(TranslateX), messageService, mementor);
             TranslateX.Minimum = -1;
             TranslateX.Maximum = 1;
-            TranslateY = new Slider(MessageAddress + nameof(TranslateY), sender, mementor);
+            TranslateY = new Slider(MessageAddress + nameof(TranslateY), messageService, mementor);
             TranslateY.Minimum = -1;
             TranslateY.Maximum = 1;
-            TranslateZ = new Slider(MessageAddress + nameof(TranslateZ), sender, mementor);
+            TranslateZ = new Slider(MessageAddress + nameof(TranslateZ), messageService, mementor);
             TranslateZ.Minimum = -1;
             TranslateZ.Maximum = 1;
         }
@@ -29,16 +29,9 @@ namespace CMiX.Studio.ViewModels
         public Slider TranslateY { get; set; }
         public Slider TranslateZ { get; set; }
         public string MessageAddress { get; set; }
-        public Sender Sender { get; set; }
-        public Mementor Mementor { get; set; }
 
-        //public void UpdateMessageAddress(string messageaddress)
-        //{
-        //    MessageAddress = messageaddress;
-        //    TranslateX.UpdateMessageAddress($"{messageaddress}{nameof(TranslateX)}/");
-        //    TranslateY.UpdateMessageAddress($"{messageaddress}{nameof(TranslateY)}/");
-        //    TranslateZ.UpdateMessageAddress($"{messageaddress}{nameof(TranslateZ)}/");
-        //}
+        public Mementor Mementor { get; set; }
+        public MessageService MessageService { get; set; }
 
         #region COPY/PASTE/RESET
         public void CopyGeometry()
@@ -56,7 +49,7 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("TranslateModel"))
             {
                 Mementor.BeginBatch();
-                Sender.Disable();
+                MessageService.Disable();
 
                 var translatemodel = data.GetData("TranslateModel") as TranslateModel;
                 var messageaddress = MessageAddress;
@@ -64,7 +57,7 @@ namespace CMiX.Studio.ViewModels
                 //UpdateMessageAddress(messageaddress);
                 this.Copy(translatemodel);
 
-                Sender.Enable();
+                MessageService.Enable();
                 Mementor.EndBatch();
                 //SendMessages(nameof(TranslateModel), translatemodel);
             }
@@ -87,18 +80,18 @@ namespace CMiX.Studio.ViewModels
 
         public void Paste(TranslateModel translatemodel)
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             TranslateX.PasteModel(translatemodel.TranslateX);
             TranslateY.PasteModel(translatemodel.TranslateY);
             TranslateZ.PasteModel(translatemodel.TranslateZ);
 
-            Sender.Enable();
+            MessageService.Enable();
         }
 
         public void Reset()
         {
-            Sender.Disable();
+            MessageService.Disable();
             //Mementor.BeginBatch();
 
             TranslateX.Reset();
@@ -106,7 +99,7 @@ namespace CMiX.Studio.ViewModels
             TranslateZ.Reset();
 
             //Mementor.EndBatch();
-            Sender.Enable();
+            MessageService.Enable();
 
             TranslateModel translatemodel = new TranslateModel();
             this.Copy(translatemodel);

@@ -8,22 +8,22 @@ namespace CMiX.Studio.ViewModels
     public class Layer : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Layer(MasterBeat masterBeat, string messageAddress, int id,  Sender sender, Assets assets, Mementor mementor) 
+        public Layer(MasterBeat masterBeat, string messageAddress, int id, MessageService messageService, Assets assets, Mementor mementor) 
         {
             Enabled = false;
             MessageAddress =  $"{messageAddress}{nameof(Layer)}/{id}/";
-            Sender = sender;
+            MessageService = messageService;
             Mementor = mementor;
             Assets = assets;
 
             ID = id;
             Name = "Layer " + id;
 
-            BlendMode = new BlendMode(masterBeat, MessageAddress, sender, mementor);
-            Fade = new Slider(MessageAddress + nameof(Fade), sender, mementor);
-            Content = new Content(masterBeat, MessageAddress, sender, mementor);
-            Mask = new Mask(masterBeat, MessageAddress, sender, mementor);
-            PostFX = new PostFX(MessageAddress, sender, mementor);
+            BlendMode = new BlendMode(masterBeat, MessageAddress, messageService, mementor);
+            Fade = new Slider(MessageAddress + nameof(Fade), messageService, mementor);
+            Content = new Content(masterBeat, MessageAddress, messageService, mementor);
+            Mask = new Mask(masterBeat, MessageAddress, messageService, mementor);
+            PostFX = new PostFX(MessageAddress, messageService, mementor);
         }
         #endregion
 
@@ -57,7 +57,6 @@ namespace CMiX.Studio.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
         public Assets Assets { get; set; }
 
@@ -66,6 +65,7 @@ namespace CMiX.Studio.ViewModels
         public Mask Mask { get; }
         public PostFX PostFX { get; }
         public BlendMode BlendMode { get; }
+        public MessageService MessageService { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
@@ -84,7 +84,7 @@ namespace CMiX.Studio.ViewModels
 
         public void PasteModel(LayerModel layerModel)
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             Name = layerModel.Name;
             Out = layerModel.Out;
@@ -96,7 +96,7 @@ namespace CMiX.Studio.ViewModels
             Mask.PasteModel(layerModel.MaskModel);
             PostFX.PasteModel(layerModel.PostFXModel);
 
-            Sender.Enable();
+            MessageService.Enable();
         }
 
         public void Reset()

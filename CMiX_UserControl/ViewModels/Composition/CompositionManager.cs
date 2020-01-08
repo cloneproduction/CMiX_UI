@@ -4,9 +4,9 @@ using Memento;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class CompositionFactory
+    public class CompositionManager
     {
-        public CompositionFactory(MessageService messageService)
+        public CompositionManager(MessageService messageService)
         {
             MessageService = messageService;
         }
@@ -16,8 +16,7 @@ namespace CMiX.Studio.ViewModels
 
         public Composition CreateComposition(ICompositionContext context)
         {
-            var sender = MessageService.CreateSender();
-            Composition comp = new Composition(sender, context.MessageAddress, context.Assets, context.Mementor);
+            Composition comp = new Composition(context.MessageService, context.MessageAddress, context.Assets, context.Mementor);
             comp.Name = "Composition " + CompID.ToString();
             context.Compositions.Add(comp);
             CompID++;
@@ -26,8 +25,7 @@ namespace CMiX.Studio.ViewModels
 
         public Composition CreateSelectedComposition(ICompositionContext context)
         {
-            var sender = MessageService.CreateSender();
-            Composition comp = new Composition(sender, context.MessageAddress, context.Assets, context.Mementor);
+            Composition comp = new Composition(context.Sender, context.MessageAddress, context.Assets, context.Mementor);
             comp.Name = "Composition " + CompID.ToString();
             context.SelectedComposition = comp;
             context.Compositions.Add(comp);
@@ -58,8 +56,7 @@ namespace CMiX.Studio.ViewModels
                 CompositionModel compositionmodel = new CompositionModel();
                 context.SelectedComposition.CopyModel(compositionmodel);
 
-                var sender = MessageService.CreateSender();
-                Composition newCompo = new Composition(sender, context.MessageAddress, context.Assets, context.Mementor);
+                Composition newCompo = new Composition(MessageService, context.MessageAddress, context.Assets, context.Mementor);
                 newCompo.PasteModel(compositionmodel);
                 newCompo.Name = newCompo.Name + "- Copy";
                 context.SelectedComposition = newCompo;

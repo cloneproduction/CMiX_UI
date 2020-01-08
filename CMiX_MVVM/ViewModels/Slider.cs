@@ -10,10 +10,10 @@ namespace CMiX.MVVM.ViewModels
     public class Slider : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Slider(string messageAddress, Sender sender, Mementor mementor)
+        public Slider(string messageAddress, MessageService messageService, Mementor mementor)
         {
             MessageAddress = messageAddress;
-            Sender = sender;
+            MessageService = messageService;
 
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
@@ -53,7 +53,7 @@ namespace CMiX.MVVM.ViewModels
                 SetAndNotify(ref _amount, value);
                 SliderModel sliderModel = new SliderModel();
                 this.CopyModel(sliderModel);
-                Sender.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, sliderModel);
+                MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, sliderModel);
             }
         }
 
@@ -71,9 +71,9 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _maximum, value);
         }
         public string MessageAddress { get; set; }
-        public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
-        
+        public MessageService MessageService { get; set; }
+
         #endregion
 
         #region ADD/SUB
@@ -97,9 +97,9 @@ namespace CMiX.MVVM.ViewModels
         #region COPY/PASTE/RESET
         public void Reset()
         {
-            Sender.Disable();
+            MessageService.Disable();
             Amount = 0.0;
-            Sender.Enable();
+            MessageService.Enable();
         }
 
         public void ResetSlider()
@@ -135,9 +135,9 @@ namespace CMiX.MVVM.ViewModels
 
         public void PasteModel(SliderModel sliderModel)
         {
-            Sender.Disable();
+            MessageService.Disable();
             Amount = sliderModel.Amount;
-            Sender.Enable();
+            MessageService.Enable();
         }
         #endregion
     }

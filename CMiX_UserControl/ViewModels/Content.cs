@@ -11,19 +11,19 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Content : ViewModel
+    public class Content : ViewModel, ISendable
     {
         #region CONSTRUCTORS
-        public Content(Beat beat, string messageAddress, Sender sender, Mementor mementor)
+        public Content(Beat beat, string messageAddress, MessageService messageService, Mementor mementor)
         {
             Beat = beat;
             MessageAddress = $"{messageAddress}{nameof(Content)}/";
-            Sender = sender;
             Enabled = true;
+            MessageService = messageService;
 
-            BeatModifier = new BeatModifier(MessageAddress, Beat, sender, mementor);
-            PostFX = new PostFX(MessageAddress, sender, mementor);
-            EntityEditor = new EntityEditor(sender, MessageAddress, Beat, Assets, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, Beat, messageService, mementor);
+            PostFX = new PostFX(MessageAddress, messageService, mementor);
+            EntityEditor = new EntityEditor(messageService, MessageAddress, Beat, Assets, mementor);
 
             CopyContentCommand = new RelayCommand(p => CopyContent());
             PasteContentCommand = new RelayCommand(p => PasteContent());
@@ -41,9 +41,8 @@ namespace CMiX.Studio.ViewModels
         public PostFX PostFX { get; }
         public EntityEditor EntityEditor {get; }
         public string MessageAddress { get; set; }
-        public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
-
+        public MessageService MessageService { get; set; }
         public ObservableCollection<Entity> Entities { get; set; }
         public Assets Assets { get; set; }
         public Beat Beat { get; set; }
@@ -62,24 +61,24 @@ namespace CMiX.Studio.ViewModels
 
         public void PasteModel(ContentModel contentModel)
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             this.Enabled = contentModel.Enable;
             this.BeatModifier.PasteModel(contentModel.BeatModifierModel);
             this.PostFX.PasteModel(contentModel.PostFXModel);
 
-            Sender.Enable();
+            MessageService.Enable();
         }
 
         public void Reset()
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             this.Enabled = true;
             this.BeatModifier.Reset();
             this.PostFX.Reset();
 
-            Sender.Enable();
+            MessageService.Enable();
         }
 
         #region COPYPASTE CONTENT
@@ -98,16 +97,16 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("ContentModel"))
             {
                 this.Mementor.BeginBatch();
-                Sender.Disable();
+                MessageService.Disable();
 
                 var contentModel = data.GetData("ContentModel") as ContentModel;
                 var contentmessageaddress = MessageAddress;
                 this.PasteModel(contentModel);
 
-                Sender.Enable();
+                MessageService.Enable();
                 this.Mementor.EndBatch();
 
-                Sender.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, contentModel);
+                MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, contentModel);
             }
         }
 
@@ -116,7 +115,7 @@ namespace CMiX.Studio.ViewModels
             ContentModel contentModel = new ContentModel();
             this.Reset();
             this.CopyModel(contentModel);
-            Sender.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, contentModel);
+            MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, contentModel);
         }
         #endregion
 

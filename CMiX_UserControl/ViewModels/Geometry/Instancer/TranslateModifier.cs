@@ -10,15 +10,15 @@ namespace CMiX.Studio.ViewModels
 {
     public class TranslateModifier : ViewModel, ISendable, IUndoable
     {
-        public TranslateModifier(string messageaddress, Sender sender, Mementor mementor, Beat beat) 
+        public TranslateModifier(string messageaddress, MessageService messageService, Mementor mementor, Beat beat) 
         {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(TranslateModifier));
-            Sender = sender;
+            MessageAddress = $"{messageaddress}{nameof(TranslateModifier)}/";
+            MessageService = messageService;
 
-            Translate = new AnimParameter(MessageAddress + nameof(Translate), sender, mementor, beat, true);
-            TranslateX = new AnimParameter(MessageAddress + nameof(TranslateX), sender, mementor, beat, false);
-            TranslateY = new AnimParameter(MessageAddress + nameof(TranslateY), sender, mementor, beat, false);
-            TranslateZ = new AnimParameter(MessageAddress + nameof(TranslateZ), sender, mementor, beat, false);
+            Translate = new AnimParameter(MessageAddress + nameof(Translate), messageService, mementor, beat, true);
+            TranslateX = new AnimParameter(MessageAddress + nameof(TranslateX), messageService, mementor, beat, false);
+            TranslateY = new AnimParameter(MessageAddress + nameof(TranslateY), messageService, mementor, beat, false);
+            TranslateZ = new AnimParameter(MessageAddress + nameof(TranslateZ), messageService, mementor, beat, false);
         }
 
         #region PROPERTIES
@@ -27,7 +27,7 @@ namespace CMiX.Studio.ViewModels
         public AnimParameter TranslateY { get; set; }
         public AnimParameter TranslateZ { get; set; }
         public string MessageAddress { get; set; }
-        public Sender Sender { get; set; }
+        public MessageService MessageService { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
@@ -47,7 +47,7 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("TranslateModifierModel"))
             {
                 Mementor.BeginBatch();
-                Sender.Disable();
+                MessageService.Disable();
 
                 var translatemodifiermodel = data.GetData("TranslateModifierModel") as TranslateModifierModel;
                 var messageaddress = MessageAddress;
@@ -55,7 +55,7 @@ namespace CMiX.Studio.ViewModels
                 //UpdateMessageAddress(messageaddress);
                 this.Copy(translatemodifiermodel);
 
-                Sender.Enable();
+                MessageService.Enable();
                 Mementor.EndBatch();
                 //SendMessages(MessageAddress, translatemodifiermodel);
                 //QueueObjects(translatemodifiermodel);
@@ -81,26 +81,26 @@ namespace CMiX.Studio.ViewModels
 
         public void Paste(TranslateModifierModel translatemodifiermodel)
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             Translate.Paste(translatemodifiermodel.Translate);
             TranslateX.Paste(translatemodifiermodel.TranslateX);
             TranslateY.Paste(translatemodifiermodel.TranslateY);
             TranslateZ.Paste(translatemodifiermodel.TranslateZ);
 
-            Sender.Enable();
+            MessageService.Enable();
         }
 
         public void Reset()
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             Translate.Reset();
             TranslateX.Reset();
             TranslateY.Reset();
             TranslateZ.Reset();
 
-            Sender.Enable();
+            MessageService.Enable();
 
             TranslateModifierModel translatemodifiermodel = new TranslateModifierModel();
             this.Copy(translatemodifiermodel);

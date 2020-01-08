@@ -12,6 +12,7 @@ namespace CMiX.Studio.ViewModels
         public RangeControl(string messageAddress, Sender sender, Mementor mementor)
         {
             MessageAddress = messageAddress + "/";
+            Sender = sender;
             Range = new Slider(MessageAddress + nameof(Range), sender, mementor);
             Modifier = ((RangeModifier)0).ToString();
         }

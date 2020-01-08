@@ -9,14 +9,14 @@ namespace CMiX.Studio.ViewModels
 {
     public class RotationModifier : ViewModel, ISendable, IUndoable
     {
-        public RotationModifier(string messageaddress, Sender sender, Mementor mementor, Beat beat)
+        public RotationModifier(string messageaddress, MessageService messageService, Mementor mementor, Beat beat)
         {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(RotationModifier));
-            Sender = sender;
-            Rotation = new AnimParameter(MessageAddress + nameof(Rotation), sender, mementor, beat, true);
-            RotationX = new AnimParameter(MessageAddress + nameof(RotationX), sender, mementor, beat, false);
-            RotationY = new AnimParameter(MessageAddress + nameof(RotationY), sender, mementor, beat, false);
-            RotationZ = new AnimParameter(MessageAddress + nameof(RotationZ), sender, mementor, beat, false);
+            MessageAddress = $"{messageaddress}{nameof(RotationModifier)}/";
+            MessageService = messageService;
+            Rotation = new AnimParameter(MessageAddress + nameof(Rotation), messageService, mementor, beat, true);
+            RotationX = new AnimParameter(MessageAddress + nameof(RotationX), messageService, mementor, beat, false);
+            RotationY = new AnimParameter(MessageAddress + nameof(RotationY), messageService, mementor, beat, false);
+            RotationZ = new AnimParameter(MessageAddress + nameof(RotationZ), messageService, mementor, beat, false);
         }
 
         #region PROPERTIES
@@ -25,21 +25,10 @@ namespace CMiX.Studio.ViewModels
         public AnimParameter RotationY { get; set; }
         public AnimParameter RotationZ { get; set; }
         public string MessageAddress { get; set; }
-        public Sender Sender { get; set; }
+        public MessageService MessageService { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
-        //#region METHODS
-        //public void UpdateMessageAddress(string messageaddress)
-        //{
-        //    MessageAddress = messageaddress;
-
-        //    Rotation.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(Rotation)));
-        //    RotationX.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(RotationX)));
-        //    RotationY.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(RotationY)));
-        //    RotationZ.UpdateMessageAddress(String.Format("{0}{1}/", messageaddress, nameof(RotationZ)));
-        //}
-        //#endregion
 
         #region COPY/PASTE/RESET
         public void CopyGeometry()
@@ -57,7 +46,7 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("RotationModifierModel"))
             {
                 Mementor.BeginBatch();
-                Sender.Disable();
+                MessageService.Disable();
 
                 var Rotationmodifiermodel = data.GetData("RotationModifierModel") as RotationModifierModel;
                 var messageaddress = MessageAddress;
@@ -65,7 +54,7 @@ namespace CMiX.Studio.ViewModels
                 //UpdateMessageAddress(messageaddress);
                 this.Copy(Rotationmodifiermodel);
 
-                Sender.Enable();
+                MessageService.Enable();
                 Mementor.EndBatch();
                 //SendMessages(MessageAddress, Rotationmodifiermodel);
                 //QueueObjects(Rotationmodifiermodel);
@@ -93,26 +82,26 @@ namespace CMiX.Studio.ViewModels
 
         public void Paste(RotationModifierModel Rotationmodifiermodel)
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             Rotation.Paste(Rotationmodifiermodel.Rotation);
             RotationX.Paste(Rotationmodifiermodel.RotationX);
             RotationY.Paste(Rotationmodifiermodel.RotationY);
             RotationZ.Paste(Rotationmodifiermodel.RotationZ);
 
-            Sender.Enable();
+            MessageService.Enable();
         }
 
         public void Reset()
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             Rotation.Reset();
             RotationX.Reset();
             RotationY.Reset();
             RotationZ.Reset();
 
-            Sender.Enable();
+            MessageService.Enable();
 
             RotationModifierModel Rotationmodifiermodel = new RotationModifierModel();
             this.Copy(Rotationmodifiermodel);

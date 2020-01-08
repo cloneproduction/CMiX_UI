@@ -8,30 +8,23 @@ namespace CMiX.Studio.ViewModels
 {
     public class Scale : ViewModel, ISendable, IUndoable
     {
-        public Scale(string messageaddress, Sender sender, Mementor mementor) 
+        public Scale(string messageaddress, MessageService messageService, Mementor mementor) 
         {
             MessageAddress = $"{messageaddress}{nameof(Scale)}/";
-            Sender = sender;
+            MessageService = messageService;
 
-            ScaleX = new Slider(MessageAddress + nameof(ScaleX), sender, mementor);
-            ScaleY = new Slider(MessageAddress + nameof(ScaleY), sender, mementor);
-            ScaleZ = new Slider(MessageAddress + nameof(ScaleZ), sender, mementor);
+            ScaleX = new Slider(MessageAddress + nameof(ScaleX), messageService, mementor);
+            ScaleY = new Slider(MessageAddress + nameof(ScaleY), messageService, mementor);
+            ScaleZ = new Slider(MessageAddress + nameof(ScaleZ), messageService, mementor);
         }
 
         public Slider ScaleX { get; set; }
         public Slider ScaleY { get; set; }
         public Slider ScaleZ { get; set; }
         public string MessageAddress { get ; set; }
-        public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
+        public MessageService MessageService { get; set; }
 
-        //public void UpdateMessageAddress(string messageaddress)
-        //{
-        //    MessageAddress = messageaddress;
-        //    ScaleX.UpdateMessageAddress($"{messageaddress}{nameof(ScaleX)}/");
-        //    ScaleY.UpdateMessageAddress($"{messageaddress}{nameof(ScaleY)}/");
-        //    ScaleZ.UpdateMessageAddress($"{messageaddress}{nameof(ScaleZ)}/");
-        //}
 
         #region COPY/PASTE/RESET
         public void CopyGeometry()
@@ -49,15 +42,15 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("ScaleModel"))
             {
                 Mementor.BeginBatch();
-                Sender.Disable();
+                MessageService.Disable();
 
                 var scalemodel = data.GetData("ScaleModel") as ScaleModel;
                 var messageaddress = MessageAddress;
                 this.Paste(scalemodel);
-                //UpdateMessageAddress(messageaddress);
+
                 this.Copy(scalemodel);
 
-                Sender.Enable();
+                MessageService.Enable();
                 Mementor.EndBatch();
                 //SendMessages(nameof(ScaleModel), scalemodel);
             }
@@ -80,17 +73,17 @@ namespace CMiX.Studio.ViewModels
 
         public void Paste(ScaleModel scalemodel)
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             ScaleX.PasteModel(scalemodel.ScaleX);
             ScaleY.PasteModel(scalemodel.ScaleY);
             ScaleZ.PasteModel(scalemodel.ScaleZ);
-            Sender.Enable();
+            MessageService.Enable();
         }
 
         public void Reset()
         {
-            Sender.Disable();
+            MessageService.Disable();
             //Mementor.BeginBatch();
 
             ScaleX.Reset();
@@ -98,7 +91,7 @@ namespace CMiX.Studio.ViewModels
             ScaleZ.Reset();
 
             //Mementor.EndBatch();
-            Sender.Enable();
+            MessageService.Enable();
 
             ScaleModel scalemodel = new ScaleModel();
             this.Copy(scalemodel);

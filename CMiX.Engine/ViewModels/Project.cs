@@ -1,10 +1,11 @@
 ﻿using CMiX.MVVM.Message;
 using CMiX.MVVM.Services;
+using System;
 using System.Collections.ObjectModel;
 
 namespace CMiX.Engine.ViewModels
 {
-    public class Project
+    public class Project : IMessageReceiver
     {
         public Composition Composition { get; set; }
         public NetMQClient NetMQClient { get; set; }
@@ -17,9 +18,12 @@ namespace CMiX.Engine.ViewModels
             MessageAddress = "Project/";
             MessageService = new MessageService();
             MessageService.AddClient();
+            Composition = new Composition(MessageService, MessageAddress);
+        }
 
-
-            Composition = new Composition(MessageService.CreateReceiver(), MessageAddress);
+        public void OnMessageReceived(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -8,29 +8,21 @@ namespace CMiX.Studio.ViewModels
 {
     public class Rotation : ViewModel, ISendable, IUndoable
     {
-        public Rotation(string messageaddress, Sender sender, Mementor mementor)
+        public Rotation(string messageaddress, MessageService messageService, Mementor mementor)
         {
             MessageAddress = $"{messageaddress}{nameof(Rotation)}/";
-            Sender = sender;
-            RotationX = new Slider(MessageAddress + nameof(RotationX), sender, mementor);
-            RotationY = new Slider(MessageAddress + nameof(RotationY), sender, mementor);
-            RotationZ = new Slider(MessageAddress + nameof(RotationZ), sender, mementor);
+            MessageService = messageService;
+            RotationX = new Slider(MessageAddress + nameof(RotationX), messageService, mementor);
+            RotationY = new Slider(MessageAddress + nameof(RotationY), messageService, mementor);
+            RotationZ = new Slider(MessageAddress + nameof(RotationZ), messageService, mementor);
         }
 
         public Slider RotationX { get; set; }
         public Slider RotationY { get; set; }
         public Slider RotationZ { get; set; }
         public string MessageAddress { get ; set ; }
-        public Sender Sender { get; set; }
+        public MessageService MessageService { get; set; }
         public Mementor Mementor { get; set; }
-
-        //public void UpdateMessageAddress(string messageaddress)
-        //{
-        //    MessageAddress = messageaddress;
-        //    RotationX.UpdateMessageAddress($"{messageaddress}{nameof(RotationX)}/");
-        //    RotationY.UpdateMessageAddress($"{messageaddress}{nameof(RotationY)}/");
-        //    RotationZ.UpdateMessageAddress($"{messageaddress}{nameof(RotationZ)}/");
-        //}
 
         #region COPY/PASTE/RESET
         public void CopyGeometry()
@@ -48,7 +40,7 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("RotationModel"))
             {
                 Mementor.BeginBatch();
-                Sender.Disable();
+                MessageService.Disable();
 
                 var rotationmodel = data.GetData("RotationModel") as RotationModel;
                 var messageaddress = MessageAddress;
@@ -56,7 +48,7 @@ namespace CMiX.Studio.ViewModels
                 //UpdateMessageAddress(messageaddress);
                 this.Copy(rotationmodel);
 
-                Sender.Enable();
+                MessageService.Enable();
                 Mementor.EndBatch();
                 //SendMessages(nameof(RotationModel), rotationmodel);
             }
@@ -79,18 +71,18 @@ namespace CMiX.Studio.ViewModels
 
         public void Paste(RotationModel rotationmodel)
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             RotationX.PasteModel(rotationmodel.RotationX);
             RotationY.PasteModel(rotationmodel.RotationY);
             RotationZ.PasteModel(rotationmodel.RotationZ);
 
-            Sender.Enable();
+            MessageService.Enable();
         }
 
         public void Reset()
         {
-            Sender.Disable();
+            MessageService.Disable();
             //Mementor.BeginBatch();
 
             RotationX.Reset();
@@ -98,7 +90,7 @@ namespace CMiX.Studio.ViewModels
             RotationZ.Reset();
 
             //Mementor.EndBatch();
-            Sender.Enable();
+            MessageService.Enable();
 
             RotationModel rotationmodel = new RotationModel();
             this.Copy(rotationmodel);

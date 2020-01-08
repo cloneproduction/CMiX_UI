@@ -10,19 +10,20 @@ namespace CMiX.Studio.ViewModels
     public class Composition : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Composition(Sender sender, string messageAddress, Assets assets, Mementor mementor)
+        public Composition(MessageService messageService, string messageAddress, Assets assets, Mementor mementor)
         {
             Name = string.Empty;
 
             MessageAddress = $"{messageAddress}{nameof(Composition)}/";
-            Sender = sender;
+            MessageService = messageService;
+            MessageService.CreateSender();
             Assets = assets;
             Mementor = mementor;
 
-            Transition = new Slider("/Transition", sender, Mementor);
-            MasterBeat = new MasterBeat(sender);
-            Camera = new Camera(sender, MessageAddress, MasterBeat, Mementor);
-            LayerEditor = new LayerEditor(sender, MessageAddress, MasterBeat, assets, mementor);
+            Transition = new Slider("/Transition", messageService, Mementor);
+            MasterBeat = new MasterBeat(messageService);
+            Camera = new Camera(messageService, MessageAddress, MasterBeat, Mementor);
+            LayerEditor = new LayerEditor(messageService, MessageAddress, MasterBeat, assets, mementor);
         }
         #endregion
 
@@ -31,7 +32,7 @@ namespace CMiX.Studio.ViewModels
         public ICommand DeleteEntityCommand { get; set; }
 
         public string MessageAddress { get; set; }
-        public Sender Sender { get; set; }
+        public MessageService MessageService { get; set; }
         public Mementor Mementor { get; set; }
         public Assets Assets { get; set; }
 
@@ -46,6 +47,7 @@ namespace CMiX.Studio.ViewModels
             get => _name;
             set => SetAndNotify(ref _name, value);
         }
+
         #endregion
 
         #region COPY/PASTE COMPOSITIONS
@@ -59,7 +61,7 @@ namespace CMiX.Studio.ViewModels
 
         public void PasteModel(CompositionModel compositionModel)
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             Name = compositionModel.Name;
 
@@ -67,7 +69,7 @@ namespace CMiX.Studio.ViewModels
             Camera.PasteModel(compositionModel.CameraModel);
             Transition.PasteModel(compositionModel.TransitionModel);
 
-            Sender.Enable();
+            MessageService.Enable();
         }
         #endregion
     }
