@@ -15,16 +15,21 @@ namespace CMiX.MVVM.Services
 
             AddServerCommand = new RelayCommand(p => AddServer());
             DeleteServerCommand = new RelayCommand(p => DeleteServer(p));
+
         }
+
+
 
         public ICommand AddServerCommand { get; set; }
         public ICommand DeleteServerCommand { get; set; }
 
-        public ObservableCollection<Server> Servers { get; set; }
+        
         public ObservableCollection<Client> Clients { get; set; }
-
-        public ObservableCollection<Sender> Senders { get; set; }
         public ObservableCollection<Receiver> Receivers { get; set; }
+
+        public ObservableCollection<Server> Servers { get; set; }
+        public ObservableCollection<Sender> Senders { get; set; }
+        public ObservableCollection<MessageValidation> MessageValidations { get; set; }
 
         private Server _selectedServer;
         public Server SelectedServer
@@ -32,6 +37,7 @@ namespace CMiX.MVVM.Services
             get => _selectedServer;
             set => SetAndNotify(ref _selectedServer, value);
         }
+
 
         public Sender CreateSender()
         {
