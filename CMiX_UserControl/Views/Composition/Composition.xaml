@@ -161,7 +161,7 @@
                                         Caption="Transition"
                                         DataContext="{Binding Transition}"
                                         />
-                                    <Views:MessageValidationList DataContext="{Binding Sender}"/>
+                                    <Views:MessageValidationList DataContext="{Binding MessageService}"/>
                                 </DockPanel>
                             </DockPanel>
                         </TabItem>

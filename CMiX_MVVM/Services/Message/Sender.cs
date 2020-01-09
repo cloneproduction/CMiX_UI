@@ -37,7 +37,6 @@ namespace CMiX.MVVM.Services
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    
                     for (int i = 0; i < e.NewItems.Count; i++)
                     {
                         Server server = e.NewItems[i] as Server;

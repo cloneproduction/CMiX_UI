@@ -17,7 +17,7 @@ namespace CMiX.Studio.ViewModels
         public LayerEditor(MessageService messageService, string messageAddress, MasterBeat masterBeat, Assets assets, Mementor mementor)
         {
             Mementor = mementor;
-            LayerFactory = new LayerFactory(MessageService);
+            LayerFactory = new LayerFactory(messageService);
             Layers = new ObservableCollection<Layer>();
             
             Assets = assets;
@@ -46,7 +46,7 @@ namespace CMiX.Studio.ViewModels
 
         public MasterBeat MasterBeat { get; set; }
         public string MessageAddress { get; set; }
-        public Sender Sender { get; set; }
+        public MessageService MessageService { get; set; }
         public Mementor Mementor { get; set; }
         public Assets Assets { get; set; }
 
@@ -83,11 +83,11 @@ namespace CMiX.Studio.ViewModels
                 SelectedLayer.Name = selectedlayername;
                 SelectedLayer.ID = selectedLayerID;
                 SelectedLayer.PasteModel(layerModel);
-                
+
 
                 //SelectedLayer.CopyModel(layerModel);
 
-                Sender.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, layerModel);
+                MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, layerModel);
                 Mementor.EndBatch();
             }
         }
@@ -97,7 +97,7 @@ namespace CMiX.Studio.ViewModels
             SelectedLayer.Reset();
             LayerModel layerModel = new LayerModel();
             SelectedLayer.CopyModel(layerModel);
-            Sender.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, layerModel);
+            MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, layerModel);
         }
         #endregion
 
@@ -163,7 +163,7 @@ namespace CMiX.Studio.ViewModels
 
                     int[] moveIndex = new int[2] { sourceindex, insertindex };
 
-                    Sender.SendMessages(MessageAddress, MessageCommand.LAYER_MOVE, null, moveIndex); 
+                    MessageService.SendMessages(MessageAddress, MessageCommand.LAYER_MOVE, null, moveIndex); 
                 }
             }
             Mementor.EndBatch();

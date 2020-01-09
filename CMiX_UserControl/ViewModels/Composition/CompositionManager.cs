@@ -25,7 +25,7 @@ namespace CMiX.Studio.ViewModels
 
         public Composition CreateSelectedComposition(ICompositionContext context)
         {
-            Composition comp = new Composition(context.Sender, context.MessageAddress, context.Assets, context.Mementor);
+            Composition comp = new Composition(context.MessageService, context.MessageAddress, context.Assets, context.Mementor);
             comp.Name = "Composition " + CompID.ToString();
             context.SelectedComposition = comp;
             context.Compositions.Add(comp);

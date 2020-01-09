@@ -12,18 +12,18 @@ namespace CMiX.Studio.ViewModels
     public class Coloration : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Coloration(string messageAddress, Sender sender, Mementor mementor, Beat masterbeat) 
+        public Coloration(string messageAddress, MessageService messageService, Mementor mementor, Beat masterbeat) 
         {
             MessageAddress = $"{messageAddress}{nameof(Coloration)}/";
-            Sender = sender;
+            MessageService = messageService;
             Mementor = mementor;
 
-            BeatModifier = new BeatModifier(MessageAddress, masterbeat, sender, mementor);
-            ColorSelector = new ColorSelector(MessageAddress, sender, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, masterbeat, messageService, mementor);
+            ColorSelector = new ColorSelector(MessageAddress, messageService, mementor);
 
-            Hue = new RangeControl(MessageAddress + nameof(Hue), sender, mementor);
-            Saturation = new RangeControl(MessageAddress + nameof(Saturation), sender, mementor);
-            Value = new RangeControl(MessageAddress + nameof(Value), sender, mementor);
+            Hue = new RangeControl(MessageAddress + nameof(Hue), messageService, mementor);
+            Saturation = new RangeControl(MessageAddress + nameof(Saturation), messageService, mementor);
+            Value = new RangeControl(MessageAddress + nameof(Value), messageService, mementor);
 
             CopyColorationCommand = new RelayCommand(p => CopyColoration());
             PasteColorationCommand = new RelayCommand(p => PasteColoration());
@@ -46,7 +46,7 @@ namespace CMiX.Studio.ViewModels
         public RangeControl Saturation { get; }
         public RangeControl Value { get; }
         public string MessageAddress { get; set; }
-        public Sender Sender { get; set; }
+        public MessageService MessageService { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
@@ -62,7 +62,7 @@ namespace CMiX.Studio.ViewModels
 
         public void PasteModel(ColorationModel colorationModel)
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             ColorSelector.PasteModel(colorationModel.ColorSelectorModel);
             BeatModifier.PasteModel(colorationModel.BeatModifierModel);
@@ -70,12 +70,12 @@ namespace CMiX.Studio.ViewModels
             Saturation.PasteModel(colorationModel.SatDTO);
             Value.PasteModel(colorationModel.ValDTO);
 
-            Sender.Enable();
+            MessageService.Enable();
         }
 
         public void Reset()
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             ColorSelector.Reset();
             BeatModifier.Reset();
@@ -83,7 +83,7 @@ namespace CMiX.Studio.ViewModels
             Saturation.Reset();
             Value.Reset();
 
-            Sender.Enable();
+            MessageService.Enable();
         }
 
         public void CopyColoration()
@@ -101,7 +101,7 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("ColorationModel"))
             {
                 this.Mementor.BeginBatch();
-                this.Sender.Disable();
+                this.MessageService.Disable();
 
                 var colorationmodel = data.GetData("ColorationModel") as ColorationModel;
                 var colorationmessageaddress = MessageAddress;
@@ -109,7 +109,7 @@ namespace CMiX.Studio.ViewModels
                 //this.UpdateMessageAddress(colorationmessageaddress);
 
                 this.CopyModel(colorationmodel);
-                this.Sender.Enable();
+                this.MessageService.Enable();
                 this.Mementor.EndBatch();
 
                 //SendMessages(nameof(ColorationModel), colorationmodel);

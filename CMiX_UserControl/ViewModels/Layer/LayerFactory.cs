@@ -39,7 +39,7 @@ namespace CMiX.Studio.ViewModels
                 layerModel.ID = LayerID;
                 layerModel.Name = SelectedLayer.Name + "- Copy";
 
-                Layer newLayer = new Layer(context.MasterBeat, context.MessageAddress, LayerID, context.Sender, context.Assets, context.Mementor);
+                Layer newLayer = new Layer(context.MasterBeat, context.MessageAddress, LayerID, context.MessageService, context.Assets, context.Mementor);
                 newLayer.PasteModel(layerModel);
                 MessageService.SendMessages(context.MessageAddress, MessageCommand.LAYER_DUPLICATE, null, layerModel);
 

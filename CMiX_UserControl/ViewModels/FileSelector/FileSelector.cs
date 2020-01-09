@@ -164,7 +164,7 @@ namespace CMiX.Studio.ViewModels
                         {
                             if (System.IO.Path.GetExtension(str).ToUpperInvariant() == fm)
                             {
-                                FileNameItem lbfn = new FileNameItem(FolderPath, MessageAddress, Sender) { FileIsSelected = false, FileName = str };
+                                FileNameItem lbfn = new FileNameItem(FolderPath, MessageAddress, MessageService) { FileIsSelected = false, FileName = str };
                                 FilePaths.Add(lbfn);
                                 Mementor.ElementAdd(FilePaths, lbfn);
                             }
@@ -282,9 +282,8 @@ namespace CMiX.Studio.ViewModels
 
             foreach (var item in fileSelectorModel.FilePaths)
             {
-                FileNameItem filenameitem = new FileNameItem(FolderPath, MessageAddress, Sender);
+                FileNameItem filenameitem = new FileNameItem(FolderPath, MessageAddress, MessageService);
                 filenameitem.PasteModel(item);
-                //filenameitem.UpdateMessageAddress(MessageAddress);
                 FilePaths.Add(filenameitem);
             }
 

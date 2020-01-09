@@ -22,7 +22,7 @@ namespace CMiX.Studio.ViewModels
 
         public Entity CreateEntity(IEntityContext context)
         {
-            Entity entity = new Entity(context.Beat, EntityID, context.MessageAddress, context.Sender, context.Mementor);
+            Entity entity = new Entity(context.Beat, EntityID, context.MessageAddress, context.MessageService, context.Mementor);
             entity.Name = "Entity " + EntityID.ToString();
             context.SelectedEntity = entity;
             context.Entities.Add(entity);
@@ -51,7 +51,7 @@ namespace CMiX.Studio.ViewModels
                 EntityModel entityModel = new EntityModel();
                 context.SelectedEntity.CopyModel(entityModel);
 
-                Entity entity = new Entity(context.Beat, EntityID, context.MessageAddress, context.Sender, context.Mementor);
+                Entity entity = new Entity(context.Beat, EntityID, context.MessageAddress, context.MessageService, context.Mementor);
                 entity.PasteModel(entityModel);
                 entity.Name += "- Copy";
                 context.SelectedEntity = entity;

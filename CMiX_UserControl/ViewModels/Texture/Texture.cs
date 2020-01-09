@@ -116,7 +116,7 @@ namespace CMiX.Studio.ViewModels
 
         public void PasteModel(TextureModel textureModel)
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             FileSelector.PasteModel(textureModel.FileSelector);
             Brightness.PasteModel(textureModel.Brightness);
@@ -132,13 +132,13 @@ namespace CMiX.Studio.ViewModels
             Invert.PasteModel(textureModel.Invert);
             InvertMode = textureModel.InvertMode;
 
-            Sender.Enable();
+            MessageService.Enable();
         }
 
 
         public void Reset()
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             InvertMode = ((TextureInvertMode)0).ToString();
             FileSelector.Reset();
@@ -154,7 +154,7 @@ namespace CMiX.Studio.ViewModels
             Pan.Reset();
             Tilt.Reset();
 
-            Sender.Enable();
+            MessageService.Enable();
         }
 
         public void CopyTexture()
@@ -172,15 +172,14 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("TextureModel"))
             {
                 Mementor.BeginBatch();
-                Sender.Disable();
+                MessageService.Disable();
 
                 var texturemodel = data.GetData("TextureModel") as TextureModel;
                 var texturemessageaddress = MessageAddress;
                 this.PasteModel(texturemodel);
-                //UpdateMessageAddress(texturemessageaddress);
                 this.CopyModel(texturemodel);
 
-                Sender.Enable();
+                MessageService.Enable();
                 Mementor.EndBatch();
                 //SendMessages(nameof(TextureModel), texturemodel);
             }

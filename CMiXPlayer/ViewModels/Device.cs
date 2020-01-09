@@ -16,7 +16,7 @@ namespace CMiXPlayer.ViewModels
         {
             Playlists = playlists;
 
-            CompoSelector = new FileSelector(string.Empty,"Single", new List<string>() { ".COMPMIX" }, Sender, new Mementor());
+            CompoSelector = new FileSelector(string.Empty,"Single", new List<string>() { ".COMPMIX" }, MessageService, new Mementor());
             CompoSelector.SelectedFileNameItem = new FileNameItem();
 
             //OSCSender = new OSCSender("127.0.0.1", 1111);

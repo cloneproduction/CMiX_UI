@@ -9,11 +9,11 @@ namespace CMiX.Studio.ViewModels
     public class RangeControl : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public RangeControl(string messageAddress, Sender sender, Mementor mementor)
+        public RangeControl(string messageAddress, MessageService messageService, Mementor mementor)
         {
             MessageAddress = messageAddress + "/";
-            Sender = sender;
-            Range = new Slider(MessageAddress + nameof(Range), sender, mementor);
+            MessageService = messageService;
+            Range = new Slider(MessageAddress + nameof(Range), messageService, mementor);
             Modifier = ((RangeModifier)0).ToString();
         }
         #endregion
@@ -35,7 +35,7 @@ namespace CMiX.Studio.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public Sender Sender { get; set; }
+        public MessageService MessageService { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
@@ -48,20 +48,20 @@ namespace CMiX.Studio.ViewModels
 
         public void PasteModel(RangeControlModel rangeControlModel)
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             Range.PasteModel(rangeControlModel.Range);
             Modifier = rangeControlModel.Modifier;
 
-            Sender.Enable();
+            MessageService.Enable();
         }
 
         public void Reset()
         {
-            Sender.Disable();
+            MessageService.Disable();
             Modifier = ((RangeModifier)0).ToString();
             Range.Reset();
-            Sender.Enable();
+            MessageService.Enable();
         }
         #endregion
     }
