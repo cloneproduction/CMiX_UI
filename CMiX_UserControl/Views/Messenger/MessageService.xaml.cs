@@ -2,9 +2,9 @@
 
 namespace CMiX.Views
 {
-    public partial class MessageValidationList : UserControl
+    public partial class MessageService : UserControl
     {
-        public MessageValidationList()
+        public MessageService()
         {
             InitializeComponent();
         }

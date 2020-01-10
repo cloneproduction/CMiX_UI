@@ -6,19 +6,21 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using Memento;
 using Ceras;
+using System.Collections.ObjectModel;
 
 namespace CMiX.Studio.ViewModels
 {
     public class Project : ViewModel, IProject
     {
-        public Project(MessageService messageService)
+        public Project()
         {
-            MessageService = messageService;
             MessageAddress = $"{nameof(Project)}/";
             Assets = new Assets();
             Mementor = new Mementor();
+            Servers = new ObservableCollection<Server>();
 
-            CompositionEditor = new CompositionEditor(messageService, MessageAddress, Assets, Mementor);
+            CompositionEditor = new CompositionEditor(Servers, MessageAddress, Assets, Mementor);
+            ServerManager = new ServerManager();
 
             FolderPath = string.Empty;
             Serializer = new CerasSerializer();
@@ -38,11 +40,13 @@ namespace CMiX.Studio.ViewModels
         public ICommand QuitCommand { get; }
 
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
         public Mementor Mementor { get; set; }
         public Assets Assets { get; set; }
         public CerasSerializer Serializer { get; set; }
         public CompositionEditor CompositionEditor { get; set; }
+        public ServerManager ServerManager { get; set; }
+
+        public ObservableCollection<Server> Servers { get; set; }
 
         public string FolderPath { get; set; }
         #endregion

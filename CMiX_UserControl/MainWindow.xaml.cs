@@ -12,8 +12,7 @@ namespace CMiX
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-            MessageService messageService = new MessageService();
-            Project proj = new Project(messageService);
+            Project proj = new Project();
             ProjectView.DataContext = proj;
         }
 

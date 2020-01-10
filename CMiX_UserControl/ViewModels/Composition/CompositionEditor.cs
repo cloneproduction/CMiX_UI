@@ -12,14 +12,13 @@ namespace CMiX.Studio.ViewModels
 {
     public class CompositionEditor : ViewModel, ICompositionEditor
     {
-        public CompositionEditor(MessageService messageService, string messageAddress, Assets assets, Mementor mementor)
+        public CompositionEditor(ObservableCollection<Server> servers, string messageAddress, Assets assets, Mementor mementor)
         {
             Mementor = mementor;
-            CompositionManager = new CompositionManager(messageService);
+            CompositionManager = new CompositionManager(servers);
+
             Compositions = new ObservableCollection<Composition>();
             MessageAddress = messageAddress;
-            MessageService = messageService;
-            //Sender = messageService.CreateSender();
 
             NewCompositionCommand = new RelayCommand(p => NewComposition());
             DeleteSelectedCompositionCommand = new RelayCommand(p => DeleteSelectedComposition());
@@ -42,10 +41,10 @@ namespace CMiX.Studio.ViewModels
         public MessageService MessageService { get; set; }
         public Assets Assets { get; set; }
         public string MessageAddress { get; set; }
-        //public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
         public CompositionManager CompositionManager { get; set; }
-        
+        public MessageValidationManager MessageValidationManager { get; set; }
+
         public CerasSerializer Serializer { get; set; }
 
         public ObservableCollection<Composition> Compositions { get; set; }
@@ -65,14 +64,14 @@ namespace CMiX.Studio.ViewModels
             CompositionManager.CreateSelectedComposition(this);
             CompositionModel compositionModel = new CompositionModel();
             SelectedComposition.CopyModel(compositionModel);
-            MessageService.SendMessages(SelectedComposition.MessageAddress, MessageCommand.COMPOSITION_ADD, null, compositionModel);
+            //MessageService.SendMessages(SelectedComposition.MessageAddress, MessageCommand.COMPOSITION_ADD, null, compositionModel);
         }
 
         private void DeleteSelectedComposition()
         {
             int deleteIndex = Compositions.IndexOf(SelectedComposition);
             CompositionManager.DeleteComposition(this);
-            MessageService.SendMessages(MessageAddress, MessageCommand.COMPOSITION_DELETE, null, deleteIndex);
+            //MessageService.SendMessages(MessageAddress, MessageCommand.COMPOSITION_DELETE, null, deleteIndex);
         }
 
         private void DuplicateSelectedComposition()
@@ -80,7 +79,7 @@ namespace CMiX.Studio.ViewModels
             CompositionManager.DuplicateComposition(this);
             CompositionModel compositionModel = new CompositionModel();
             SelectedComposition.CopyModel(compositionModel);
-            MessageService.SendMessages(SelectedComposition.MessageAddress, MessageCommand.COMPOSITION_DUPLICATE, null, compositionModel);
+            //MessageService.SendMessages(SelectedComposition.MessageAddress, MessageCommand.COMPOSITION_DUPLICATE, null, compositionModel);
         }
         #endregion
 
@@ -89,7 +88,7 @@ namespace CMiX.Studio.ViewModels
             MessageValidation mv = messageValidation as MessageValidation;
             CompositionModel compositionModel = new CompositionModel();
             SelectedComposition.CopyModel(compositionModel);
-            mv.SendMessage(SelectedComposition.MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, compositionModel);
+            //mv.SendMessage(SelectedComposition.MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, compositionModel);
         }
 
         #region IMPORT/EXPORT

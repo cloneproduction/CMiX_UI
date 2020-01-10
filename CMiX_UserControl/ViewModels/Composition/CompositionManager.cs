@@ -1,22 +1,25 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels;
 using Memento;
+using System.Collections.ObjectModel;
 
 namespace CMiX.Studio.ViewModels
 {
     public class CompositionManager
     {
-        public CompositionManager(MessageService messageService)
+        public CompositionManager(ObservableCollection<Server> servers)
         {
-            MessageService = messageService;
+            Servers = servers;
         }
 
-        public MessageService MessageService { get; set; }
+        public ObservableCollection<Server> Servers { get; set; }
         int CompID = 0;
 
         public Composition CreateComposition(ICompositionContext context)
         {
-            Composition comp = new Composition(context.MessageService, context.MessageAddress, context.Assets, context.Mementor);
+            MessageService messageService = new MessageService(Servers);
+            Composition comp = new Composition(messageService, context.MessageAddress, context.Assets, context.Mementor);
             comp.Name = "Composition " + CompID.ToString();
             context.Compositions.Add(comp);
             CompID++;
@@ -25,7 +28,8 @@ namespace CMiX.Studio.ViewModels
 
         public Composition CreateSelectedComposition(ICompositionContext context)
         {
-            Composition comp = new Composition(context.MessageService, context.MessageAddress, context.Assets, context.Mementor);
+            MessageService messageService = new MessageService(Servers);
+            Composition comp = new Composition(messageService, context.MessageAddress, context.Assets, context.Mementor);
             comp.Name = "Composition " + CompID.ToString();
             context.SelectedComposition = comp;
             context.Compositions.Add(comp);
@@ -56,7 +60,8 @@ namespace CMiX.Studio.ViewModels
                 CompositionModel compositionmodel = new CompositionModel();
                 context.SelectedComposition.CopyModel(compositionmodel);
 
-                Composition newCompo = new Composition(MessageService, context.MessageAddress, context.Assets, context.Mementor);
+                MessageService messageService = new MessageService(Servers);
+                Composition newCompo = new Composition(messageService, context.MessageAddress, context.Assets, context.Mementor);
                 newCompo.PasteModel(compositionmodel);
                 newCompo.Name = newCompo.Name + "- Copy";
                 context.SelectedComposition = newCompo;

@@ -4,6 +4,7 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM;
 using Memento;
+using System.Collections.ObjectModel;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -16,7 +17,7 @@ namespace CMiX.Studio.ViewModels
 
             MessageAddress = $"{messageAddress}{nameof(Composition)}/";
             MessageService = messageService;
-            MessageService.CreateSender();
+            MessageValidationManager = new MessageValidationManager(messageService);
             Assets = assets;
             Mementor = mementor;
 
@@ -35,7 +36,7 @@ namespace CMiX.Studio.ViewModels
         public MessageService MessageService { get; set; }
         public Mementor Mementor { get; set; }
         public Assets Assets { get; set; }
-
+        public MessageValidationManager MessageValidationManager { get; set; }
         public MasterBeat MasterBeat { get; set; }
         public Camera Camera { get; set; }
         public Slider Transition { get; set; }

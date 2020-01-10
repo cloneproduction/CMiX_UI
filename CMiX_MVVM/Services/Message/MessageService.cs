@@ -8,87 +8,20 @@ namespace CMiX.MVVM.Services
 {
     public class MessageService : ViewModel
     {
-        public MessageService()
+        public MessageService(ObservableCollection<Server> servers)
         {
-            Servers = new ObservableCollection<Server>();
-            Clients = new ObservableCollection<Client>();
-
-            AddServerCommand = new RelayCommand(p => AddServer());
-            DeleteServerCommand = new RelayCommand(p => DeleteServer(p));
-
+            //Servers = servers;
         }
 
-
-
-        public ICommand AddServerCommand { get; set; }
-        public ICommand DeleteServerCommand { get; set; }
-
-        
-        public ObservableCollection<Client> Clients { get; set; }
-        public ObservableCollection<Receiver> Receivers { get; set; }
-
-        public ObservableCollection<Server> Servers { get; set; }
-        public ObservableCollection<Sender> Senders { get; set; }
-        public ObservableCollection<MessageValidation> MessageValidations { get; set; }
-
-        private Server _selectedServer;
-        public Server SelectedServer
-        {
-            get => _selectedServer;
-            set => SetAndNotify(ref _selectedServer, value);
-        }
-
-
-        public Sender CreateSender()
-        {
-            return new Sender(Servers);
-        }
-
-        public Receiver CreateReceiver()
-        {
-            return new Receiver(Clients);
-        }
-
-        int ServerID = 0;
-        int ClientID = 0;
-
-        public void AddServer()
-        {
-            Server server = new Server($"Server({ServerID.ToString()})", "127.0.0.1", 1111 + ServerID, $"/Device{ServerID}");
-            server.Start();
-            Servers.Add(server);
-            ServerID++;
-        }
-
-        private void DeleteServer(object server)
-        {
-            Server s = server as Server;
-            s.Stop();
-            Servers.Remove(s);
-        }
-
-        public void AddClient()
-        {
-            Client client = new Client($"Client({ClientID.ToString()})", "127.0.0.1", 1111 + ClientID, $"/Device{ClientID}");
-            client.Start();
-            Clients.Add(client);
-            ClientID++;
-        }
-
-        public void DeleteClient(object client)
-        {
-            Client c = client as Client;
-            c.Stop();
-            Clients.Remove(c);
-        }
+        public ObservableCollection<MessageValidation> MessageValidations{ get; set; }
 
         public void SendMessages(string topic, MessageCommand command, object parameter, object payload)
         {
-            if (this.Enabled)
+            if (Enabled)
             {
-                foreach (var sender in Senders)
+                foreach (var messageValidation in MessageValidations)
                 {
-                    sender.SendMessages(topic, command, parameter, payload);
+                    messageValidation.SendMessage(topic, command, parameter, payload);
                 }
             }
         }

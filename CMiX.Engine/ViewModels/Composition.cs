@@ -14,7 +14,7 @@ namespace CMiX.Engine.ViewModels
         {
             MessageAddress = $"{messageAddress}{nameof(Composition)}/";
             MessageService = messageService;
-            Receiver = messageService.CreateReceiver();
+            //Receiver = messageService.CreateReceiver();
             Receiver.MessageReceived += OnMessageReceived; ;
 
             Layers = new ObservableCollection<Layer>();

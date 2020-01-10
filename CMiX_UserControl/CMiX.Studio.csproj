@@ -166,6 +166,9 @@
     <Compile Include="Views\Layer\MessageValidation.xaml.cs">
       <DependentUpon>MessageValidation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ServerManager.xaml.cs">
+      <DependentUpon>ServerManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="_Thrash\Services\OSCAttribute.cs" />
     <Compile Include="ViewModels\Coloration\ColorSelector.cs" />
     <Compile Include="Views\ColorSelector.xaml.cs">
@@ -198,8 +201,8 @@
     <Compile Include="Views\Layer\LayerList.xaml.cs">
       <DependentUpon>LayerList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Messenger\MessageValidationList.xaml.cs">
-      <DependentUpon>MessageValidationList.xaml</DependentUpon>
+    <Compile Include="Views\Messenger\MessageService.xaml.cs">
+      <DependentUpon>MessageService.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Server.xaml.cs">
       <DependentUpon>Server.xaml</DependentUpon>
@@ -364,7 +367,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Messenger\MessageValidationList.xaml">
+    <Page Include="Views\Messenger\MessageService.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -393,6 +396,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Geometry\Transform\Transform.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ServerManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -82,6 +82,7 @@
     <Compile Include="Services\Client.cs" />
     <Compile Include="Services\CommandName.cs" />
     <Compile Include="Services\Message\MessageEventArgs.cs" />
+    <Compile Include="Services\Message\MessageValidationManager.cs" />
     <Compile Include="Services\Message\Sender.cs" />
     <Compile Include="Services\Message\Message.cs" />
     <Compile Include="Services\Message\MessageService.cs" />
@@ -93,8 +94,9 @@
     <Compile Include="Models\EntityModel.cs" />
     <Compile Include="Services\Message\IMessageReceiver.cs" />
     <Compile Include="Services\Message\ISendable.cs" />
+    <Compile Include="Services\Server\ServerManager.cs" />
     <Compile Include="ViewModels\Interfaces\IUndoable.cs" />
-    <Compile Include="Services\Server.cs" />
+    <Compile Include="Services\Server\Server.cs" />
     <Compile Include="Services\Message\MessageValidation.cs" />
     <Compile Include="Models\Geometry\Modifier\AnimParameterModel.cs" />
     <Compile Include="Models\Geometry\Modifier\InstancerModel.cs" />

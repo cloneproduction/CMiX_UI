@@ -17,7 +17,7 @@ namespace CMiX.Engine.ViewModels
         {
             MessageAddress = "Project/";
             MessageService = new MessageService();
-            MessageService.AddClient();
+            
             Composition = new Composition(MessageService, MessageAddress);
         }
 
