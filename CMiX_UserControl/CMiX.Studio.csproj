@@ -166,7 +166,7 @@
     <Compile Include="Views\Layer\MessageValidation.xaml.cs">
       <DependentUpon>MessageValidation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ServerManager.xaml.cs">
+    <Compile Include="Views\Messenger\ServerManager.xaml.cs">
       <DependentUpon>ServerManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="_Thrash\Services\OSCAttribute.cs" />
@@ -399,7 +399,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ServerManager.xaml">
+    <Page Include="Views\Messenger\ServerManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

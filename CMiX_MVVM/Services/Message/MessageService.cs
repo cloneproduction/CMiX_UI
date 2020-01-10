@@ -1,16 +1,14 @@
 ﻿using CMiX.MVVM.Commands;
-using CMiX.MVVM.Message;
 using CMiX.MVVM.ViewModels;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 
 namespace CMiX.MVVM.Services
 {
     public class MessageService : ViewModel
     {
-        public MessageService(ObservableCollection<Server> servers)
+        public MessageService()
         {
-            //Servers = servers;
+            MessageValidations = new ObservableCollection<MessageValidation>();
         }
 
         public ObservableCollection<MessageValidation> MessageValidations{ get; set; }

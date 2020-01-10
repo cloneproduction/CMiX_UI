@@ -28,7 +28,7 @@
                     <StackPanel Orientation="Horizontal">
                         <Button
                             ToolTip="New Layer"
-                            Command="{Binding Path=MessageService.AddServerCommand}"
+                            Command="{Binding AddServerCommand}"
                             Width="15"
                             Height="15"
                             Style="{StaticResource ButtonImage}" >
@@ -44,8 +44,8 @@
                     ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                     Style="{StaticResource LayerListBox}"
                     ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
-                    ItemsSource="{Binding MessageService.Servers}" 
-                    SelectedItem="{Binding MessageService.SelectedServer}"
+                    ItemsSource="{Binding Servers}" 
+                    SelectedItem="{Binding SelectedServer}"
                     dd:DragDrop.IsDragSource="True"
                     dd:DragDrop.IsDropTarget="True">
                     <ListBox.ItemTemplate>
@@ -56,7 +56,7 @@
                                         <MenuItem
                                             Padding="8, 4"
                                             Foreground="{StaticResource TextBase}"
-                                            Command="{Binding Data.MessageService.DeleteServerCommand, Source={StaticResource proxy}}"
+                                            Command="{Binding Data.DeleteServerCommand, Source={StaticResource proxy}}"
                                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                                             <MenuItem.Header>
                                                 <StackPanel Orientation="Horizontal">

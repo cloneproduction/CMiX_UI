@@ -1,7 +1,6 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
-using Memento;
 using System.Collections.ObjectModel;
 
 namespace CMiX.Studio.ViewModels
@@ -18,7 +17,7 @@ namespace CMiX.Studio.ViewModels
 
         public Composition CreateComposition(ICompositionContext context)
         {
-            MessageService messageService = new MessageService(Servers);
+            MessageService messageService = new MessageService();
             Composition comp = new Composition(messageService, context.MessageAddress, context.Assets, context.Mementor);
             comp.Name = "Composition " + CompID.ToString();
             context.Compositions.Add(comp);
@@ -28,7 +27,7 @@ namespace CMiX.Studio.ViewModels
 
         public Composition CreateSelectedComposition(ICompositionContext context)
         {
-            MessageService messageService = new MessageService(Servers);
+            MessageService messageService = new MessageService();
             Composition comp = new Composition(messageService, context.MessageAddress, context.Assets, context.Mementor);
             comp.Name = "Composition " + CompID.ToString();
             context.SelectedComposition = comp;
@@ -60,7 +59,7 @@ namespace CMiX.Studio.ViewModels
                 CompositionModel compositionmodel = new CompositionModel();
                 context.SelectedComposition.CopyModel(compositionmodel);
 
-                MessageService messageService = new MessageService(Servers);
+                MessageService messageService = new MessageService();
                 Composition newCompo = new Composition(messageService, context.MessageAddress, context.Assets, context.Mementor);
                 newCompo.PasteModel(compositionmodel);
                 newCompo.Name = newCompo.Name + "- Copy";

@@ -1,6 +1,7 @@
 ﻿using CMiX.MVVM.ViewModels;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using System.Linq;
 
 namespace CMiX.MVVM.Services
 {
@@ -8,6 +9,7 @@ namespace CMiX.MVVM.Services
     {
         public MessageValidationManager(MessageService messageService)
         {
+            MessageService = messageService;
             AddMessageValidationCommand = new RelayCommand(p => AddMessageValidation());
             RemoveMessageValidationCommand = new RelayCommand(p => RemoveMessageValidation());
         }
@@ -35,15 +37,21 @@ namespace CMiX.MVVM.Services
         {
             if (SelectedServer != null)
             {
-                MessageValidation mv = new MessageValidation(SelectedServer);
-                MessageService.MessageValidations.Add(mv);
+                if (!MessageService.MessageValidations.Any(p => p.Server == SelectedServer))
+                {
+                    MessageValidation mv = new MessageValidation(SelectedServer);
+                    MessageService.MessageValidations.Add(mv);
+                }
             }
         }
 
         public void RemoveMessageValidation()
         {
-            if (SelectedMessageValidation != null) { }
-            MessageService.MessageValidations.Remove(SelectedMessageValidation);
+            if (SelectedMessageValidation != null)
+            {
+                MessageService.MessageValidations.Remove(SelectedMessageValidation);
+            }
+            
         }
     }
 }

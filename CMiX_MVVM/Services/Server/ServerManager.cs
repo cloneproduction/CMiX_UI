@@ -5,23 +5,29 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace CMiX.MVVM.Services
 {
-    public class ServerManager
+    public class ServerManager : ViewModel
     {
         public ServerManager()
         {
-
+            Servers = new ObservableCollection<Server>();
+            AddServerCommand = new RelayCommand(p => AddServer());
+            DeleteServerCommand = new RelayCommand(p => DeleteServer());
         }
+
+        public ICommand AddServerCommand { get; set; }
+        public ICommand DeleteServerCommand { get; set; }
 
         public ObservableCollection<Server> Servers { get; set; }
 
         private Server _selectedServer;
         public Server SelectedServer
         {
-            get { return _selectedServer; }
-            set { _selectedServer = value; }
+            get => _selectedServer;
+            set => SetAndNotify(ref _selectedServer, value);
         }
 
         int ServerID = 0;
