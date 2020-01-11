@@ -62,7 +62,7 @@
 
             <Border
                 Grid.Column="2"
-                Margin="8, 4, 4, 4"
+                Margin="4, 4, 4, 4"
                 Padding="8"
                 CornerRadius="4"
                 Background="{StaticResource HighDarkerColor}">
@@ -168,7 +168,7 @@
                     </TabControl>
                 </DockPanel>
             </Border>
-            <GridSplitter Grid.Column="1" Style="{StaticResource GridSplitter}" Width="3" HorizontalAlignment="Stretch" />
+            <GridSplitter Grid.Column="1" Style="{StaticResource GridSplitter}" Width="3" Margin="4, 0" HorizontalAlignment="Stretch" />
         </Grid>
     </DockPanel>
 </UserControl>

@@ -5,21 +5,21 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Views="clr-namespace:CMiX.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="513" d:DesignWidth="389">
-    <TabControl>
-        <TabItem Width="100" Height="30" Header="Content">
+             d:DesignHeight="529" d:DesignWidth="821">
+    <TabControl TabStripPlacement="Right">
+        <TabItem  Width="30" Height="100"  Header="Content">
             <Views:Content                 
                     Grid.Column="0" 
                     Margin="4, 0, 4, 0"
                     DataContext="{Binding Content}"/>
         </TabItem>
-        <TabItem Width="100" Height="30" Header="Mask">
+        <TabItem Width="30" Height="100" Header="Mask">
             <Views:Mask                 
                     Grid.Column="1"
                     Margin="4, 0, 4, 0" 
                     DataContext="{Binding Mask}"/>
         </TabItem>
-        <TabItem Width="100" Height="30" Header="PostFX">
+        <TabItem Width="30" Height="100" Header="PostFX">
             <Views:PostFX                 
                     Grid.Column="1"
                     Margin="4, 0, 4, 0" 
