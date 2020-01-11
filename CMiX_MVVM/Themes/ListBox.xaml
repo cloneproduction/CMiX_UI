@@ -10,7 +10,7 @@
                 <ControlTemplate  TargetType="{x:Type ListBox}">
                     <Border
                         x:Name="Bd"
-                        Background="{StaticResource HighHighDarkerColor}"
+                        Background="{StaticResource HighDarkerColor}"
                         SnapsToDevicePixels="True">
                         <ScrollViewer Padding="{TemplateBinding Padding}" Focusable="False">
                             <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />

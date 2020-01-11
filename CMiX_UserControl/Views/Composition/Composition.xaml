@@ -62,9 +62,7 @@
 
             <Border
                 Grid.Column="2"
-                Margin="4, 4, 4, 4"
                 Padding="8"
-                CornerRadius="4"
                 Background="{StaticResource HighDarkerColor}">
                 <DockPanel>
                     <Border DockPanel.Dock="Top" Style="{StaticResource BorderContainer}">

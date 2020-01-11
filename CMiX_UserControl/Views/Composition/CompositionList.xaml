@@ -16,11 +16,10 @@
         </ResourceDictionary>
     </UserControl.Resources>
     
-    <Border Style="{StaticResource BorderContainer}">
+    <Border Background="{StaticResource DarkerColor}">
         <DockPanel>
             <Border 
                 DockPanel.Dock="Top"
-                Margin="0, 0, 0 4"
                 Height="25">
                 <TextBlock
                     VerticalAlignment="Center"
@@ -30,7 +29,6 @@
                     />
             </Border>
             <ListBox 
-                Margin="4"
                 AllowDrop="True"
                 dd:DragDrop.IsDragSource="True"
                 dd:DragDrop.IsDropTarget="True"

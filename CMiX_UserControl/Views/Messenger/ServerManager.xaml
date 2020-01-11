@@ -14,16 +14,12 @@
             <Resources:BindingProxy x:Key="proxy" Data="{Binding}"/>
         </ResourceDictionary>
     </UserControl.Resources>
-    
+
     <Border
         HorizontalAlignment="Stretch"
         DockPanel.Dock="Right"
-        Margin="0, 4"
-        Padding="8, 0, 8, 8"
-        CornerRadius="2"
         Background="{StaticResource HighDarkerColor}">
-        <TabControl>
-            <DockPanel>
+        <DockPanel>
                 <Border DockPanel.Dock="Top"  Style="{StaticResource BorderContainer}">
                     <StackPanel Orientation="Horizontal">
                         <Button
@@ -33,7 +29,7 @@
                             Height="15"
                             Style="{StaticResource ButtonImage}" >
                             <Button.Content>
-                                <Image Source="{StaticResource NewLayer}"/>
+                                <Image Source="{StaticResource Add}"/>
                             </Button.Content>
                         </Button>
                     </StackPanel>
@@ -78,7 +74,6 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </DockPanel>
-        </TabControl>
 
     </Border>
 </UserControl>

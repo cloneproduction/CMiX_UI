@@ -41,11 +41,13 @@
     </UserControl.Resources>
 
     <DockPanel Background="{StaticResource SuperHighDarkerColor}">
+        <Border DockPanel.Dock="Bottom" Background="{StaticResource Color}" Height="15">
+            <TextBlock Margin="0, 0, 8, 0" HorizontalAlignment="Right"/>
+        </Border>
         <Border 
-            Padding="4"
+            Padding="2"
             DockPanel.Dock="Top"
-            Margin="0, 0, 0, 8"
-            Background="{StaticResource HighDarkerColor}" >
+            Background="{StaticResource DarkColor}" >
             <Menu
                 Grid.Row="0"
 
@@ -153,37 +155,31 @@
                     Margin="0">
                 <Views:CompositionEditor DataContext="{Binding CompositionEditor}"/>
             </Border>
-            <GridSplitter Style="{StaticResource GridSplitter}" Grid.Column="1" Width="3" HorizontalAlignment="Stretch" />
-            <Border
-                DockPanel.Dock="Right"
-                Margin="8, 0, 4, 8"
-                Padding="8, 0, 8, 8"
-                CornerRadius="4"
-                Background="{StaticResource HighDarkerColor}">
-                <TabControl HorizontalContentAlignment="Stretch">
-                    <TabItem>
+            <GridSplitter Style="{StaticResource GridSplitter}" Background="{StaticResource HighDarkerColor}" Grid.Column="1" Width="3" HorizontalAlignment="Stretch" />
+            <Border>
+                <TabControl Background="{StaticResource DarkerColor}" Style="{StaticResource TabControlVerticalPanel}" >
+                    <TabItem Margin="8, 8, 8, 4" Width="25" Height="25">
                         <TabItem.Header>
-                            <TextBlock 
-                                Text="RESOURCES" 
-                                Margin="8"
-                                />
+                            <Image Source="{StaticResource Copy}" Opacity="0.5"/>
                         </TabItem.Header>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition Height="3"/>
-                                <RowDefinition Height="0.5*"/>
-                            </Grid.RowDefinitions>
-                            <Views:TreeView Margin="0, 4"  DataContext="{Binding Assets}"/>
-                            <GridSplitter Style="{StaticResource GridSplitter}" Height="3" Grid.Row="1" />
-                            <Views:CompositionList Margin="0, 4, 0, 0" Grid.Row="2" DataContext="{Binding}"/>
-                        </Grid>
+                        <Views:CompositionList  DataContext="{Binding}"/>
                     </TabItem>
-                    <TabItem Header="SERVERS" Width="50" Height="20">
+                    <TabItem Margin="8, 8, 8, 4" Width="25" Height="25" >
+                        <TabItem.Header>
+                            <Image Source="{StaticResource Resources}" Opacity="0.5"/>
+                        </TabItem.Header>
+                        <Views:TreeView  DataContext="{Binding Assets}" Grid.RowSpan="2"/>
+                    </TabItem>
+                    <TabItem Margin="8, 4"  Width="25" Height="25">
+                        <TabItem.Header>
+                            <Image Source="{StaticResource Network}" Opacity="0.5"/>
+                        </TabItem.Header>
                         <Views:ServerManager DataContext="{Binding ServerManager}"/>
                     </TabItem>
+
                 </TabControl>
             </Border>
         </Grid>
+
     </DockPanel>
 </UserControl>

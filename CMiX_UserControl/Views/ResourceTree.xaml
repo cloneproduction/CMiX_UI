@@ -153,7 +153,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Border Style="{StaticResource BorderContainer}">
+    <Border Background="{StaticResource DarkColor}">
         <DockPanel>
             <Border 
                 DockPanel.Dock="Top"

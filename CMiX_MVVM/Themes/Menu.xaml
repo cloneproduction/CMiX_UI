@@ -35,7 +35,7 @@
                 <ControlTemplate TargetType="{x:Type MenuItem}">
                     <Border
                         x:Name="templateRoot"
-                        Background="{StaticResource HighDarkerColor}"
+                        Background="{StaticResource DarkColor}"
                         Padding="2"
 
                         SnapsToDevicePixels="True">

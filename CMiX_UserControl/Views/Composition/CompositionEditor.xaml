@@ -8,5 +8,8 @@
              xmlns:MVVM.Views ="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
              mc:Ignorable="d"
              d:DesignHeight="770" d:DesignWidth="1345.334">
-    <Views:Composition DataContext="{Binding SelectedComposition}"/>
+    <DockPanel>
+        <Views:Composition DataContext="{Binding SelectedComposition}"/>
+    </DockPanel>
+    
 </UserControl>

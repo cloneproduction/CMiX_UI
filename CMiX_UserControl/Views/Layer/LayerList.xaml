@@ -16,22 +16,19 @@
     </UserControl.Resources>
 
     <DockPanel>
-        <Border 
-            DockPanel.Dock="Bottom"  
-            Style="{StaticResource BorderContainer}">
-            <DockPanel LastChildFill="False">
-                <Button
+        <DockPanel DockPanel.Dock="Bottom" LastChildFill="False">
+            <Button
                     DockPanel.Dock="Left"
                     ToolTip="New Layer"
                     Command="{Binding AddLayerCommand}"
                     Width="25"
                     Height="25"
                     Style="{StaticResource ButtonImage}">
-                    <Button.Content>
-                        <Image Margin="15" Source="{StaticResource NewLayer}"/>
-                    </Button.Content>
-                </Button>
-                <Button
+                <Button.Content>
+                    <Image Margin="15" Source="{StaticResource NewLayer}"/>
+                </Button.Content>
+            </Button>
+            <Button
                     DockPanel.Dock="Left"
                     ToolTip="Duplicate Layer"
                     Command="{Binding DuplicateSelectedLayerCommand}"
@@ -39,11 +36,11 @@
                     Width="25" 
                     Height="25"
                     Style="{StaticResource ButtonImage}">
-                    <Button.Content>
-                        <Image Margin="15" Source="{StaticResource Copy}" />
-                    </Button.Content>
-                </Button>
-                <Button
+                <Button.Content>
+                    <Image Margin="15" Source="{StaticResource Copy}" />
+                </Button.Content>
+            </Button>
+            <Button
                     DockPanel.Dock="left"
                     ToolTip="Delete Layer"
                     Command="{Binding DeleteSelectedLayerCommand}"
@@ -51,14 +48,13 @@
                     Width="25" 
                     Height="25"
                     Style="{StaticResource ButtonImage}">
-                    <Button.Content>
-                        <Image Margin="15" Source="{StaticResource DeleteLayer}"/>
-                    </Button.Content>
-                </Button>
-            </DockPanel>
-        </Border>
+                <Button.Content>
+                    <Image Margin="15" Source="{StaticResource DeleteLayer}"/>
+                </Button.Content>
+            </Button>
+        </DockPanel>
         <ListBox 
-            Margin="0, 8, 0, 0"
+            Margin="0, 4"
             HorizontalContentAlignment="Stretch" 
             ScrollViewer.HorizontalScrollBarVisibility="Auto"
             Style="{StaticResource LayerListBox}"
@@ -125,10 +121,11 @@
                     <Border>
                         <Border.Style>
                             <Style TargetType="Border">
-                                <Setter Property="BorderThickness" Value="1" />
-                                <Setter Property="Margin" Value="0, 1" />
-                                <Setter Property="CornerRadius" Value="4" />
+                                <Setter Property="BorderThickness" Value="2, 0, 0, 0" />
+                                <Setter Property="Margin" Value="0, 2, 4, 2" />
+                                <Setter Property="CornerRadius" Value="0, 4, 4, 0" />
                                 <Setter Property="BorderBrush" Value="Transparent" />
+                                <Setter Property="Background" Value="{StaticResource DarkerColor}"/>
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
                                         <Setter Property="BorderBrush" Value="{StaticResource HighLightColor}" />
