@@ -17,10 +17,16 @@
 
     <Border
         HorizontalAlignment="Stretch"
-        DockPanel.Dock="Right"
         Background="{StaticResource HighDarkerColor}">
         <DockPanel>
-                <Border DockPanel.Dock="Top"  Style="{StaticResource BorderContainer}">
+            <Border 
+                VerticalAlignment="Center"
+                Padding="8"
+                DockPanel.Dock="Top"
+                Height="40">
+                <TextBlock Text="NETWORK" VerticalAlignment="Center"/>
+            </Border>
+            <Border DockPanel.Dock="Top"  Style="{StaticResource BorderContainer}">
                     <StackPanel Orientation="Horizontal">
                         <Button
                             ToolTip="New Layer"

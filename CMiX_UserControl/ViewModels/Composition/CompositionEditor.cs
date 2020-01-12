@@ -23,6 +23,7 @@ namespace CMiX.Studio.ViewModels
             NewCompositionCommand = new RelayCommand(p => NewComposition());
             DeleteSelectedCompositionCommand = new RelayCommand(p => DeleteSelectedComposition());
             DuplicateSelectedCompositionCommand = new RelayCommand(p => DuplicateSelectedComposition());
+            RenameSelectedCompositionCommand = new RelayCommand(p => RenameSelectedComposition());
             ImportCompoCommand = new RelayCommand(p => ImportCompo());
             ExportCompoCommand = new RelayCommand(p => ExportCompo());
             ReloadCompositionCommand = new RelayCommand(p => ReloadComposition(p));
@@ -32,6 +33,7 @@ namespace CMiX.Studio.ViewModels
         public ICommand NewCompositionCommand { get; }
         public ICommand DeleteSelectedCompositionCommand { get; }
         public ICommand DuplicateSelectedCompositionCommand { get; }
+        public ICommand RenameSelectedCompositionCommand { get; }
         public ICommand ImportCompoCommand { get; }
         public ICommand ExportCompoCommand { get; }
         public ICommand SaveCompositionCommand { get; }
@@ -56,6 +58,12 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _selectedComposition, value);
         }
 
+        private bool _isRenamingSelected;
+        public bool IsRenamingSelected
+        {
+            get => _isRenamingSelected;
+            set => SetAndNotify(ref _isRenamingSelected, value);
+        }
         #endregion
 
         #region NEW/DELETE/DUPLICATE COMPOSITION
@@ -71,6 +79,7 @@ namespace CMiX.Studio.ViewModels
         {
             int deleteIndex = Compositions.IndexOf(SelectedComposition);
             CompositionManager.DeleteComposition(this);
+
             //MessageService.SendMessages(MessageAddress, MessageCommand.COMPOSITION_DELETE, null, deleteIndex);
         }
 
@@ -80,6 +89,16 @@ namespace CMiX.Studio.ViewModels
             CompositionModel compositionModel = new CompositionModel();
             SelectedComposition.CopyModel(compositionModel);
             //MessageService.SendMessages(SelectedComposition.MessageAddress, MessageCommand.COMPOSITION_DUPLICATE, null, compositionModel);
+        }
+
+        private void RenameSelectedComposition()
+        {
+            if (SelectedComposition != null)
+            {
+                SelectedComposition.IsEditingName = true;
+                IsRenamingSelected = true;
+                //System.Console.WriteLine("IsRenaming : " + SelectedComposition.Name);
+            }
         }
         #endregion
 

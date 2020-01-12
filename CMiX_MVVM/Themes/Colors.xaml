@@ -22,5 +22,5 @@
 
     <Color x:Key="Text">#FFB4B4B4</Color>
     <Color x:Key="OverText">Gainsboro</Color>
-    <Color x:Key="ActiveText">White</Color>
+    <Color x:Key="ActiveText">#FFE6E6E6</Color>
 </ResourceDictionary>

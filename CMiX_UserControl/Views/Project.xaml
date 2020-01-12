@@ -41,20 +41,18 @@
     </UserControl.Resources>
 
     <DockPanel Background="{StaticResource SuperHighDarkerColor}">
-        <Border DockPanel.Dock="Bottom" Background="{StaticResource Color}" Height="15">
-            <TextBlock Margin="0, 0, 8, 0" HorizontalAlignment="Right"/>
-        </Border>
+        <Border DockPanel.Dock="Bottom" VerticalAlignment="Center" Background="{StaticResource Color}" Height="25"/>
         <Border 
             Padding="2"
             DockPanel.Dock="Top"
             Background="{StaticResource DarkColor}" >
             <Menu
-                Grid.Row="0"
 
+                Margin="16, 0, 0, 0"
                 HorizontalAlignment="Left"
                 VerticalContentAlignment="Center">
                 <MenuItem
-                    Padding="16,0"
+                    Padding="8,0"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="center"
                     Header="File">
@@ -86,7 +84,7 @@
                         />
                 </MenuItem>
                 <MenuItem
-                    Padding="16,0"
+                    Padding="8,0"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="center"
                     Header="Edit">
@@ -102,7 +100,7 @@
                         />
                 </MenuItem>
                 <MenuItem
-                    Padding="16,0"
+                    Padding="8,0"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="center"
                     Header="Compo">
@@ -145,34 +143,32 @@
         <Grid Background="{StaticResource SuperHighDarkerColor}" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.2*"/>
-                <ColumnDefinition Width="3" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Border 
                     Grid.Column="2"
-                    BorderThickness="1, 0, 0, 0"
-                    BorderBrush="{StaticResource HighDarkerColor}"
                     Margin="0">
                 <Views:CompositionEditor DataContext="{Binding CompositionEditor}"/>
             </Border>
-            <GridSplitter Style="{StaticResource GridSplitter}" Background="{StaticResource HighDarkerColor}" Grid.Column="1" Width="3" HorizontalAlignment="Stretch" />
+            <GridSplitter Style="{StaticResource GridSplitter}" Background="{StaticResource SuperHighDarkerColor}" Grid.Column="1" Width="3" HorizontalAlignment="Stretch" />
             <Border>
-                <TabControl Background="{StaticResource DarkerColor}" Style="{StaticResource TabControlVerticalPanel}" >
-                    <TabItem Margin="8, 8, 8, 4" Width="25" Height="25">
+                <TabControl TabStripPlacement="Left" Background="{StaticResource DarkerColor}" Style="{StaticResource TabControlVerticalPanel}" >
+                    <TabItem Margin="8, 8, 8, 4" Background="Red" Width="25" Height="25" Style="{StaticResource TabItemVerticalPanel}">
                         <TabItem.Header>
-                            <Image Source="{StaticResource Copy}" Opacity="0.5"/>
+                            <Image Source="{StaticResource Copy}" />
                         </TabItem.Header>
                         <Views:CompositionList  DataContext="{Binding}"/>
                     </TabItem>
-                    <TabItem Margin="8, 8, 8, 4" Width="25" Height="25" >
+                    <TabItem Margin="8, 8, 8, 4" Width="25" Height="25" Style="{StaticResource TabItemVerticalPanel}">
                         <TabItem.Header>
-                            <Image Source="{StaticResource Resources}" Opacity="0.5"/>
+                            <Image Source="{StaticResource Resources}" />
                         </TabItem.Header>
                         <Views:TreeView  DataContext="{Binding Assets}" Grid.RowSpan="2"/>
                     </TabItem>
-                    <TabItem Margin="8, 4"  Width="25" Height="25">
+                    <TabItem Margin="8, 4"  Width="25" Height="25" Style="{StaticResource TabItemVerticalPanel}">
                         <TabItem.Header>
-                            <Image Source="{StaticResource Network}" Opacity="0.5"/>
+                            <Image Source="{StaticResource Network}"/>
                         </TabItem.Header>
                         <Views:ServerManager DataContext="{Binding ServerManager}"/>
                     </TabItem>

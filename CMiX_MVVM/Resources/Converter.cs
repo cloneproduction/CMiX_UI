@@ -836,7 +836,12 @@ namespace CMiX.MVVM.Resources
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value == null ? Visibility.Hidden : Visibility.Visible;
+            if (parameter is Visibility.Collapsed)
+            {
+                return value == null ? Visibility.Collapsed : Visibility.Visible;
+            }
+            else
+                return value == null ? Visibility.Hidden : Visibility.Visible; ;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

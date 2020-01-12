@@ -16,7 +16,8 @@ namespace CMiX.MVVM.Trash
 
         #region Dependency Properties
         public static readonly DependencyProperty IsEditingProperty =
-        DependencyProperty.Register("IsEditing", typeof(bool), typeof(EditableTextBox), new UIPropertyMetadata(false));
+        DependencyProperty.Register("IsEditing", typeof(bool), typeof(EditableTextBox), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
         public bool IsEditing
         {
             get { return (bool)GetValue(IsEditingProperty); }
@@ -45,7 +46,7 @@ namespace CMiX.MVVM.Trash
             {
                 HookItemsControlEvents();
                 IsEditing = true;
-                Console.WriteLine("Is On Editing Mode");
+                //Console.WriteLine("Is On Editing Mode");
             }
         }
 
@@ -54,7 +55,7 @@ namespace CMiX.MVVM.Trash
             //if(IsEditing)
             //{
                 IsEditing = false;
-                Console.WriteLine("Is On Normal Mode");
+                //Console.WriteLine("Is On Normal Mode");
                 Mouse.RemovePreviewMouseDownOutsideCapturedElementHandler(this, OnMouseDownOutsideElement);
             //}
 

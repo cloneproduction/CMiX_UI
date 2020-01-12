@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ColorPicker="clr-namespace:ColorPicker;assembly=ColorPicker"
-    Title="C-MiX"
+    Title="C-MiX Studio"
     Width="1200"
     Height="800"
     Background="Black"

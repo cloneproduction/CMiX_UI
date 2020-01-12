@@ -5,28 +5,29 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Views="clr-namespace:CMiX.Views"
              xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
+             xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
              xmlns:dd="urn:gong-wpf-dragdrop"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="525" d:DesignWidth="293">
 
     <UserControl.Resources>
         <ResourceDictionary>
             <Resources:BindingProxy x:Key="proxy" Data="{Binding}"/>
+            <Resources:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
-    
-    <Border Background="{StaticResource DarkerColor}">
+
+    <Border Background="{StaticResource HighDarkerColor}">
         <DockPanel>
             <Border 
+                Padding="8"
                 DockPanel.Dock="Top"
-                Height="25">
+                Height="40">
                 <TextBlock
                     VerticalAlignment="Center"
-                    Margin="4, 0, 0, 0"
-                    Text="Compositions"
-                    Foreground="{StaticResource TextBase}"
-                    />
+                    Text="COMPOSITIONS"
+                    Foreground="{StaticResource TextBase}"/>
             </Border>
             <ListBox 
                 AllowDrop="True"
@@ -36,22 +37,6 @@
                 dd:DragDrop.DropHandler="{Binding}"
                 SelectedItem="{Binding CompositionEditor.SelectedComposition}"
                 ItemsSource="{Binding CompositionEditor.Compositions}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Border 
-                            IsHitTestVisible="True"
-                            Height="20" 
-                            Background="Transparent"
-                            HorizontalAlignment="Stretch">
-                            <!--<Border.InputBindings>
-                            <MouseBinding 
-                                MouseAction="LeftDoubleClick"
-                                Command="{Binding DataContext.CompositionListDoubleClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Views:Project}}}"/>
-                        </Border.InputBindings>-->
-                            <TextBlock IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Name}"/>
-                        </Border>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
                 <ListBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem
@@ -67,6 +52,20 @@
                             </MenuItem.Header>
                         </MenuItem>
                         <MenuItem
+                            Visibility="{Binding Data.CompositionEditor.SelectedComposition, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
+                            Padding="8, 4"
+                            Foreground="{StaticResource TextBase}"
+                            Command="{Binding Data.CompositionEditor.RenameSelectedCompositionCommand, Source={StaticResource proxy}}">
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="10" Height="10" Source="{StaticResource Copy}" />
+                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                    <TextBlock Text="Rename"/>
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                        <MenuItem
+                            Visibility="{Binding Data.CompositionEditor.SelectedComposition, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
                             Command="{Binding Data.CompositionEditor.DeleteSelectedCompositionCommand, Source={StaticResource proxy}}">
@@ -79,6 +78,7 @@
                             </MenuItem.Header>
                         </MenuItem>
                         <MenuItem
+                            Visibility="{Binding Data.CompositionEditor.SelectedComposition, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
                             Command="{Binding Data.CompositionEditor.DuplicateSelectedCompositionCommand, Source={StaticResource proxy}}">
@@ -92,6 +92,22 @@
                         </MenuItem>
                     </ContextMenu>
                 </ListBox.ContextMenu>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border 
+                            IsHitTestVisible="True"
+                            Padding="2"
+                            VerticalAlignment="Center"
+                            Height="25"
+                            Background="Transparent"
+                            HorizontalAlignment="Stretch">
+                            <Controls:EditableTextBox 
+                                HorizontalAlignment="Stretch"
+                                Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                IsEditing="{Binding IsEditingName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
         </DockPanel>
     </Border>

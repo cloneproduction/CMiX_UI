@@ -65,31 +65,12 @@
                 Padding="8"
                 Background="{StaticResource HighDarkerColor}">
                 <DockPanel>
-                    <Border DockPanel.Dock="Top" Style="{StaticResource BorderContainer}">
-                        <DockPanel  >
-                            <TextBlock 
-                            Margin="0, 0, 8, 0"
-                            Text="Name" 
-                            Foreground="{StaticResource TextBase}"
-                            VerticalAlignment="Center"/>
-                            <Border 
-                            Background="{StaticResource HighDarkerColor}"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center"
-                            Height="25">
-                                <TextBox 
+                    <TextBlock 
+                            DockPanel.Dock="Top"
                             Padding="4"
-                            Background="{StaticResource SuperHighDarkerColor}" 
-                            VerticalContentAlignment="Center"
+                            VerticalAlignment="Center"
                             Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                            Foreground="{StaticResource TextBase}"
-                            BorderThickness="0"
-                            />
-                            </Border>
-                        </DockPanel>
-                    </Border>
-
-
+                            Foreground="{StaticResource TextBase}"/>
                     <Separator Margin="0, 8" DockPanel.Dock="Top" Background="{StaticResource DarkColor}" HorizontalAlignment="Stretch"/>
                     <TabControl>
                         <TabItem>
@@ -116,12 +97,12 @@
                         <TabItem>
                             <TabItem.Header>
                                 <TextBlock 
-                                Text="SETTINGS" 
+                                Text="MESSENGER" 
                                 Margin="8"
                                 />
                             </TabItem.Header>
                             <DockPanel>
-                                <StackPanel DockPanel.Dock="Top">
+                                <!--<StackPanel DockPanel.Dock="Top">
                                     <DockPanel Margin="4">
                                         <TextBlock Text="Content Folder" VerticalAlignment="Center" />
                                         <Button Height="25" Content="..." Width="25" HorizontalAlignment="Right" Margin="2">
@@ -137,11 +118,11 @@
                                         Background="{StaticResource HighDarkerColor}" 
                                         Text="{Binding ContentFolderName}"
                                         />
-                                </StackPanel>
+                                </StackPanel>-->
                                 <DockPanel Grid.Row="2" DockPanel.Dock="Bottom">
                                     
-                                    <Separator Margin="0, 8" DockPanel.Dock="Top" Background="{StaticResource DarkColor}" HorizontalAlignment="Stretch"/>
-                                    <Border 
+                                    <!--<Separator Margin="0, 8" DockPanel.Dock="Top" Background="{StaticResource DarkColor}" HorizontalAlignment="Stretch"/>-->
+                                    <!--<Border 
                                         DockPanel.Dock="Top"
                                         Margin="0, 0, 0 4"
                                         Height="25">
@@ -150,7 +131,7 @@
                                             Margin="4, 0, 0, 0"
                                             Text="Assets"
                                             Foreground="{StaticResource TextBase}"/>
-                                    </Border>
+                                    </Border>-->
                                     <MVVM.Views:Slider
                                         DockPanel.Dock="Top"
                                         Margin="0, 8, 0, 0"

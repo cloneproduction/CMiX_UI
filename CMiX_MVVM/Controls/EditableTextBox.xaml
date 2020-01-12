@@ -7,7 +7,21 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid >
-        <TextBlock x:Name="TextDisplay" Background="Transparent" Foreground="{StaticResource TextBase}" Text="{Binding Path=Text, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:EditableTextBox}}}" />
-        <TextBox x:Name="TextInput" Background="Transparent" Foreground="{StaticResource TextBase}" Text="{Binding Path=Text, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:EditableTextBox}}}" />
+        <TextBlock 
+            x:Name="TextDisplay" 
+            VerticalAlignment="Center"
+            Background="Transparent" 
+            Foreground="{StaticResource TextBase}"
+            Text="{Binding Path=Text, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:EditableTextBox}}}" />
+        <TextBox
+            x:Name="TextInput" 
+            Padding="2"
+            SelectionBrush="Transparent"
+            CaretBrush="{StaticResource SuperHighLightColor}"
+            BorderThickness="0"
+            VerticalAlignment="Center"
+            Background="{StaticResource DarkerColor}" 
+            Foreground="{StaticResource ActiveTextBase}" 
+            Text="{Binding Path=Text, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:EditableTextBox}}}" />
     </Grid>
 </UserControl>

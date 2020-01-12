@@ -48,7 +48,11 @@ namespace CMiX.Studio.ViewModels
                 if (context.Compositions.Count > 0)
                     selectedComposition = context.Compositions[0];
                 else if (context.Compositions.Count == 0)
+                {
+                    context.SelectedComposition = null;
                     CompID = 0;
+                }
+                    
             }
         }
 

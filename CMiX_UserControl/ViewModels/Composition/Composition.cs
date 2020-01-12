@@ -50,6 +50,13 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _name, value);
         }
 
+        private bool _isEditingName;
+        public bool IsEditingName
+        {
+            get => _isEditingName;
+            set => SetAndNotify(ref _isEditingName, value);
+        }
+
         #endregion
 
         #region COPY/PASTE COMPOSITIONS
