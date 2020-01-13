@@ -25,16 +25,10 @@
                 <DockPanel Height="40">
                     <TextBlock
                         Padding="8"
-                    VerticalAlignment="Center"
-                    Text="COMPOSITIONS"
-                    Foreground="{StaticResource TextBase}"/>
-                    <!--<Button Width="40">
-                        <Button.Content>
-                            <Image Margin="4" Source="{StaticResource Add}"/>
-                        </Button.Content>
-                    </Button>-->
+                        VerticalAlignment="Center"
+                        Text="COMPOSITIONS"
+                        Foreground="{StaticResource TextBase}"/>
                 </DockPanel>
-
             </Border>
             <ListBox 
                 AllowDrop="True"

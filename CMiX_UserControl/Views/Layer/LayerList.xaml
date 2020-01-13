@@ -54,7 +54,7 @@
                 Height="25"
                 Style="{StaticResource ButtonImage}">
                 <Button.Content>
-                    <Image Margin="15" Source="{StaticResource NewLayer}"/>
+                    <Image Margin="15" Source="{StaticResource Add}"/>
                 </Button.Content>
             </Button>
             <Button
@@ -163,38 +163,7 @@
             </ListBox.ContextMenu>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border>
-                        <Border.Style>
-                            <Style TargetType="Border">
-                                <Setter Property="BorderThickness" Value="2, 0, 0, 0" />
-                                <Setter Property="Margin" Value="0, 2" />
-                                <Setter Property="CornerRadius" Value="0" />
-                                <Setter Property="BorderBrush" Value="Transparent" />
-                                <Setter Property="Background" Value="{StaticResource DarkerColor}"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
-                                        <Setter Property="BorderBrush" Value="{StaticResource HighLightColor}" />
-                                        <Setter Property="Background" Value="{StaticResource Color}"/>
-                                    </DataTrigger>
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True"/>
-                                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsMouseOver}" Value="true" />
-                                        </MultiDataTrigger.Conditions>
-                                        <Setter Property="Background" Value="{StaticResource Color}" />
-                                    </MultiDataTrigger>
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="False"/>
-                                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsMouseOver}" Value="true" />
-                                        </MultiDataTrigger.Conditions>
-                                        <Setter Property="Background" Value="{StaticResource DarkColor}" />
-                                    </MultiDataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
-                        <Views:ChannelLayer/>
-                    </Border>
+                    <Views:ChannelLayer/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

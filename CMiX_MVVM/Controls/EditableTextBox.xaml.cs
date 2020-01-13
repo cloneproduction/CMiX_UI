@@ -26,6 +26,14 @@ namespace CMiX.MVVM.Controls
             set { SetValue(IsEditingProperty, value); }
         }
 
+        public static readonly DependencyProperty IsSelectedProperty =
+        DependencyProperty.Register("IsSelected", typeof(bool), typeof(EditableTextBox));
+        public bool IsSelected
+        {
+            get { return (bool)GetValue(IsSelectedProperty); }
+            set { SetValue(IsSelectedProperty, value); }
+        }
+
         private static void IsEditing_PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             EditableTextBox textbox = d as EditableTextBox;

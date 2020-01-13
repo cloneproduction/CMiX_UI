@@ -24,6 +24,35 @@
     </UserControl.Resources>
 
     <Border Padding="8">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Setter Property="BorderThickness" Value="2, 0, 0, 0" />
+                <Setter Property="Margin" Value="0, 2" />
+                <Setter Property="CornerRadius" Value="0" />
+                <Setter Property="BorderBrush" Value="Transparent" />
+                <Setter Property="Background" Value="{StaticResource DarkerColor}"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
+                        <Setter Property="BorderBrush" Value="{StaticResource HighLightColor}" />
+                        <Setter Property="Background" Value="{StaticResource Color}"/>
+                    </DataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True"/>
+                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsMouseOver}" Value="true" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Background" Value="{StaticResource Color}" />
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="False"/>
+                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsMouseOver}" Value="true" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Background" Value="{StaticResource DarkColor}" />
+                    </MultiDataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
         <DockPanel>
             <ToggleButton 
                 IsChecked="{Binding IsVisible}"
@@ -33,12 +62,11 @@
                 Width="20"
                 Height="20">
             </ToggleButton>
-                <Controls:EditableTextBox 
+            <Controls:EditableTextBox
                 Margin="8, 0, 0, 0"
                 DockPanel.Dock="Right"
                 IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Height="30" Text="{Binding Name}"/>
         </DockPanel>
     </Border>
-
 </UserControl>

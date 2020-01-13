@@ -70,21 +70,26 @@
         </Border>
 
 
-        <TextBox 
+        <Border
             DockPanel.Dock="Right"
-            Width="35"
             Grid.Column="2"
-            Background="{StaticResource SuperHighDarkerColor}" 
-            BorderBrush="{StaticResource DarkColor}" 
-            BorderThickness="0" 
+            Background="{StaticResource HighHighDarkerColor}" 
             Padding="4, 0, 0, 0" 
-            Text="{Binding Amount, StringFormat=N2}" 
-            FontSize="10" 
-            HorizontalContentAlignment="Center"
-            VerticalContentAlignment="Center"
-            HorizontalAlignment="Stretch" 
-            VerticalAlignment="Stretch" 
-            Foreground="{StaticResource TextBase}"/>
+            CornerRadius="0, 4, 4, 0"
+            HorizontalAlignment="Stretch"
+            Width="35">
+            <TextBox 
+                BorderThickness="0"
+                Background="Transparent"
+                Text="{Binding Amount, StringFormat=N2}" 
+                FontSize="11" 
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                HorizontalAlignment="Stretch" 
+                VerticalAlignment="Stretch" 
+                Foreground="{StaticResource TextBase}"/>
+        </Border>
+
         <DockPanel Margin="1, 0" DockPanel.Dock="Right">
             <Button
                     Margin="0, 0, 0, 1"

@@ -129,8 +129,43 @@
         </Setter>
     </Style>
 
+    <Style x:Key="ButtonCircleImage" TargetType="{x:Type Button}"
+           BasedOn="{StaticResource {x:Type Button}}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border
+                        x:Name="border"
+                        Margin="0"
+                        CornerRadius="40"
+                        Padding="4"
+                        Background="{StaticResource Color}"
+                        SnapsToDevicePixels="True">
+                        <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
+                            <ContentPresenter
+                                x:Name="ContentPresenter"
+                                Opacity="0.5"
+                                ContentTemplate="{TemplateBinding Content}"/>
+                        </Viewbox>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ContentPresenter" Property="Opacity" Value="0.75"/>
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource LightColor}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="ContentPresenter" Property="Opacity" Value="0.9"/>
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource HighLightColor}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Opacity" Value="0.5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-    
     <Style x:Key="ButtonRounded" TargetType="{x:Type Button}">
         <Setter Property="FocusVisualStyle">
             <Setter.Value>
