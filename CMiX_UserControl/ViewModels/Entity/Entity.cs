@@ -47,6 +47,12 @@ namespace CMiX.Studio.ViewModels
             set => _layers = value;
         }
 
+        private bool _isRenaming;
+        public bool IsRenaming
+        {
+            get { return _isRenaming; }
+            set { _isRenaming = value; }
+        }
 
         private int _id;
         public int ID

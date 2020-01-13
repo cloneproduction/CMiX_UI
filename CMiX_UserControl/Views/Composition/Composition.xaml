@@ -50,28 +50,27 @@
             <DockPanel>
                 <CMiX:MasterBeatControl
                     DockPanel.Dock="Bottom"
-                    Margin="4, 4, 0, 4"
-                    DataContext="{Binding MasterBeat}"
-                    Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}"/>
-                <Border DockPanel.Dock="Top" Grid.Column="0" Margin="4, 4, 0, 4">
-                    <Views:LayerEditor 
-                        DataContext="{Binding LayerEditor}" 
-                        Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}"/>
-                </Border>
+                    DataContext="{Binding MasterBeat}"/>
+                <Views:LayerEditor 
+                    DockPanel.Dock="Top"
+                    DataContext="{Binding LayerEditor}" />
             </DockPanel>
 
             <Border
                 Grid.Column="2"
-                Padding="8"
+                Padding="0"
                 Background="{StaticResource HighDarkerColor}">
                 <DockPanel>
-                    <TextBlock 
-                            DockPanel.Dock="Top"
-                            Padding="4"
+
+                    <Border Height="40" VerticalAlignment="Center" DockPanel.Dock="Top">
+                        <TextBlock 
+                            Padding="8"
                             VerticalAlignment="Center"
-                            Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                            Foreground="{StaticResource TextBase}"/>
-                    <Separator Margin="0, 8" DockPanel.Dock="Top" Background="{StaticResource DarkColor}" HorizontalAlignment="Stretch"/>
+                            Text="{Binding Name}" 
+                            Foreground="{StaticResource ActiveTextBase}"/>
+                    </Border>
+
+                    <Separator  DockPanel.Dock="Top" Background="{StaticResource SuperHighDarkerColor}" Height="4" HorizontalAlignment="Stretch"/>
                     <TabControl>
                         <TabItem>
                             <TabItem.Header>
@@ -80,7 +79,7 @@
                                     Margin="8"
                                     />
                             </TabItem.Header>
-                            <Views:LayerList DataContext="{Binding LayerEditor}"/>
+                            <Views:LayerList Margin="0, 8" DataContext="{Binding LayerEditor}"/>
                         </TabItem>
                         <TabItem>
                             <TabItem.Header>

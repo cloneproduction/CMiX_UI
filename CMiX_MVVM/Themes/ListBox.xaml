@@ -79,7 +79,7 @@
                                 <Condition Property="Selector.IsSelectionActive" Value="False" />
                                 <Condition Property="IsSelected" Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="Bd" Property="TextBlock.Foreground" Value="{StaticResource TextBase}" />
+                            <Setter TargetName="Bd" Property="TextBlock.Foreground" Value="{StaticResource ActiveTextBase}" />
                             <Setter TargetName="Bd" Property="Background" Value="{StaticResource LightColor}" />
                         </MultiTrigger>
                         <MultiTrigger>
@@ -87,8 +87,17 @@
                                 <Condition Property="Selector.IsSelectionActive" Value="True" />
                                 <Condition Property="IsSelected" Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="Bd" Property="TextBlock.Foreground" Value="{StaticResource TextBase}" />
+                            <Setter TargetName="Bd" Property="TextBlock.Foreground" Value="{StaticResource ActiveTextBase}" />
                             <Setter TargetName="Bd" Property="Background" Value="{StaticResource LightColor}" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <!--<Condition Property="Selector.IsSelectionActive" Value="True" />-->
+                                <Condition Property="IsSelected" Value="False" />
+                                <Condition Property="IsMouseOver" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="Bd" Property="TextBlock.Foreground" Value="{StaticResource ActiveTextBase}" />
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource DarkColor}" />
                         </MultiTrigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="Bd" Property="TextElement.Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />

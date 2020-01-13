@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="CMiX.Views.OSCControl"
+﻿<UserControl x:Class="CMiX.Views.Server"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,31 +6,14 @@
              xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
              mc:Ignorable="d" 
              d:DesignHeight="115" d:DesignWidth="234.611">
-    <Border Style="{StaticResource BorderContainer}">
+    <Border Background="{StaticResource HighHighDarkerColor}">
         <StackPanel HorizontalAlignment="Stretch">
-            <Grid Height="20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.4*"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <TextBlock 
-                    Text="Name" 
-                    Foreground="{StaticResource TextBase}"
-                    HorizontalAlignment="Right"
-                    Margin="0, 0, 8, 0"
-                    VerticalAlignment="Center"
-                    />
-                <TextBox
-                    Margin="1"
-                    Text="{Binding Name}"
-                    Grid.Column="1"
-                    BorderThickness="1"
-                    BorderBrush="{StaticResource DarkColor}"
-                    Foreground="{StaticResource TextBase}"
-                    Background="{StaticResource HighDarkerColor}"
-                    />
-            </Grid>
-            <Grid Height="20">
+            <Controls:EditableTextBox 
+                Margin="0, 0, 0, 2"
+                HorizontalAlignment="Stretch"
+                Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Grid Height="20" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.4*"/>
                     <ColumnDefinition/>
@@ -47,7 +30,7 @@
                     Grid.Column="1" 
                     IPAddress="{Binding IP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
-            <Grid Height="20">
+            <Grid Height="20" Margin="0, 2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.4*"/>
                     <ColumnDefinition/>
@@ -63,12 +46,32 @@
                     Margin="1"
                     Text="{Binding Port}"
                     Grid.Column="1"
-                    BorderThickness="1"
+                    BorderThickness="0"
                     BorderBrush="{StaticResource DarkColor}"
                     Foreground="{StaticResource TextBase}"
                     Background="{StaticResource HighDarkerColor}"
                     />
 
+            </Grid>
+            <Grid Height="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock 
+                        Text="Topic" 
+                        Margin="0, 0, 8, 0"
+                        Foreground="{StaticResource TextBase}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"/>
+                <TextBox
+                        Margin="1"
+                        Text="{Binding Topic}"
+                        Grid.Column="1"
+                        BorderThickness="0"
+                        BorderBrush="{StaticResource DarkColor}"
+                        Foreground="{StaticResource TextBase}"
+                        Background="{StaticResource HighDarkerColor}"/>
             </Grid>
         </StackPanel>
     </Border>

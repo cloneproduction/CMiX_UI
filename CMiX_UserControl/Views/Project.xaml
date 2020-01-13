@@ -151,7 +151,6 @@
                     Margin="0">
                 <Views:CompositionEditor DataContext="{Binding CompositionEditor}"/>
             </Border>
-            <GridSplitter Style="{StaticResource GridSplitter}" Background="{StaticResource SuperHighDarkerColor}" Grid.Column="1" Width="3" HorizontalAlignment="Stretch" />
             <Border>
                 <TabControl TabStripPlacement="Left" Background="{StaticResource DarkerColor}" Style="{StaticResource TabControlVerticalPanel}" >
                     <TabItem Margin="8, 8, 8, 4" Background="Red" Width="25" Height="25" Style="{StaticResource TabItemVerticalPanel}">

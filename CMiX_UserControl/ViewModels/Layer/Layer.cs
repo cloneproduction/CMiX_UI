@@ -35,6 +35,20 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _name, value);
         }
 
+        private bool _isVisible = true;
+        public bool IsVisible
+        {
+            get => _isVisible;
+            set => SetAndNotify(ref _isVisible, value);
+        }
+
+        private bool _isRenaming;
+        public bool IsRenaming
+        {
+            get => _isRenaming;
+            set => SetAndNotify(ref _isRenaming, value);
+        }
+
         private int _id;
         public int ID
         {

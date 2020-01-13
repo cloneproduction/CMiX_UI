@@ -3,9 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
              xmlns:Views="clr-namespace:CMiX.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="572.667" d:DesignWidth="773.333">
 
-    <Views:Entity DataContext="{Binding SelectedEntity}"/>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Resources:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Views:Entity 
+        Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}"
+        DataContext="{Binding SelectedEntity}"/>
 </UserControl>

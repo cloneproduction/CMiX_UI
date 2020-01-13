@@ -28,6 +28,7 @@ namespace CMiX.Studio.ViewModels
 
             DeleteSelectedLayerCommand = new RelayCommand(p => DeleteSelectedLayer());
             DuplicateSelectedLayerCommand = new RelayCommand(p => DuplicateSelectedLayer());
+            RenameSelectedLayerCommand = new RelayCommand(p => RenameSelectedLayer());
             AddLayerCommand = new RelayCommand(p => AddLayer());
             CopyLayerCommand = new RelayCommand(p => CopyLayer());
             PasteLayerCommand = new RelayCommand(p => PasteLayer());
@@ -36,7 +37,8 @@ namespace CMiX.Studio.ViewModels
 
         public ICommand AddLayerCommand { get; }
         public ICommand DeleteSelectedLayerCommand { get; }
-        public ICommand DuplicateSelectedLayerCommand { get; } 
+        public ICommand DuplicateSelectedLayerCommand { get; }
+        public ICommand RenameSelectedLayerCommand { get; }
         public ICommand CopyLayerCommand { get; }
         public ICommand PasteLayerCommand { get; }
         public ICommand ResetLayerCommand { get; }
@@ -102,6 +104,12 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region ADD/DUPLICATE/DELETE LAYERS
+        public void RenameSelectedLayer()
+        {
+            if(SelectedLayer != null)
+                SelectedLayer.IsRenaming = true;
+        }
+
         public void AddLayer()
         {
             LayerFactory.CreateLayer(this);
@@ -150,8 +158,6 @@ namespace CMiX.Studio.ViewModels
 
                 if (sourceindex != insertindex)
                 {
-                    
-
                     if (insertindex >= Layers.Count - 1)
                     {
                         insertindex -= 1;

@@ -6,24 +6,16 @@
              xmlns:Views="clr-namespace:CMiX.Views"
              mc:Ignorable="d" 
              d:DesignHeight="529" d:DesignWidth="821">
+    
     <TabControl TabStripPlacement="Right">
         <TabItem  Width="30" Height="100"  Header="Content">
-            <Views:Content                 
-                    Grid.Column="0" 
-                    Margin="4, 0, 4, 0"
-                    DataContext="{Binding Content}"/>
+            <Views:Content DataContext="{Binding Content}"/>
         </TabItem>
         <TabItem Width="30" Height="100" Header="Mask">
-            <Views:Mask                 
-                    Grid.Column="1"
-                    Margin="4, 0, 4, 0" 
-                    DataContext="{Binding Mask}"/>
+            <Views:Mask DataContext="{Binding Mask}"/>
         </TabItem>
         <TabItem Width="30" Height="100" Header="PostFX">
-            <Views:PostFX                 
-                    Grid.Column="1"
-                    Margin="4, 0, 4, 0" 
-                    DataContext="{Binding PostFX}"/>
+            <Views:PostFX DataContext="{Binding PostFX}"/>
         </TabItem>
     </TabControl>
 </UserControl>

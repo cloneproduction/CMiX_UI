@@ -204,7 +204,7 @@
     <Compile Include="Views\Messenger\MessageService.xaml.cs">
       <DependentUpon>MessageService.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Server.xaml.cs">
+    <Compile Include="Views\Messenger\Server.xaml.cs">
       <DependentUpon>Server.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ResourceTree.xaml.cs">
@@ -267,9 +267,6 @@
     </Compile>
     <Compile Include="Views\Content.xaml.cs">
       <DependentUpon>Content.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\OSCControl.xaml.cs">
-      <DependentUpon>OSCControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Project.xaml.cs">
       <DependentUpon>Project.xaml</DependentUpon>
@@ -371,7 +368,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Server.xaml">
+    <Page Include="Views\Messenger\Server.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -424,10 +421,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Content.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\OSCControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

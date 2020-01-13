@@ -4,44 +4,111 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Views="clr-namespace:CMiX.Views"
+             xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
+             xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
+             xmlns:dd="urn:gong-wpf-dragdrop"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel Grid.Column="1" Margin="4, 0">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Button Margin="0, 0, 2, 0"  
-                    Content="Add Object" 
-                    Grid.Column="0" 
-                    Height="25" 
-                    Command="{Binding AddEntityCommand}"/>
-            <Button Margin="2, 0, 0, 0"  
-                    Content="Delete Object" 
-                    Grid.Column="1" 
-                    Height="25" 
-                    Command="{Binding DeleteEntityCommand}"/>
-            <Button Margin="2, 0, 0, 0"  
-                    Content="Duplicate Object" 
-                    Grid.Column="2" 
-                    Height="25" 
-                    Command="{Binding DuplicateEntityCommand}"/>
-        </Grid>
+             d:DesignHeight="519.333" d:DesignWidth="369.333">
 
-        <ComboBox 
-            Height="25" 
-            Margin="0, 4" 
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Resources:BindingProxy x:Key="proxy" Data="{Binding}"/>
+            <Resources:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <DockPanel>
+        <Border 
+            DockPanel.Dock="Top">
+            <DockPanel Height="40">
+                <TextBlock
+                        Padding="8"
+                    VerticalAlignment="Center"
+                    Text="ENTITIES"
+                    Foreground="{StaticResource TextBase}"/>
+            </DockPanel>
+
+        </Border>
+        <ListBox 
+            AllowDrop="True"
+            dd:DragDrop.IsDragSource="True"
+            dd:DragDrop.IsDropTarget="True"
+            dd:DragDrop.DragHandler="{Binding}"
+            dd:DragDrop.DropHandler="{Binding}"
             ItemsSource="{Binding Entities}" 
             SelectedItem="{Binding SelectedEntity}">
-            <ComboBox.ItemTemplate>
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem
+                        Padding="8, 4"
+                        Foreground="{StaticResource TextBase}"
+                        Command="{Binding Data.AddEntityCommand, Source={StaticResource proxy}}">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource Add}" Height="10" Width="10"/>
+                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                <TextBlock Text="Add Entity"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem
+                        Visibility="{Binding Data.SelectedEntity, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
+                        Padding="8, 4"
+                        Foreground="{StaticResource TextBase}"
+                        Command="{Binding Data.RenameSelectedEntityCommand, Source={StaticResource proxy}}">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="10" Height="10" Source="{StaticResource Rename}" />
+                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                <TextBlock Text="Rename"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem
+                        Visibility="{Binding Data.SelectedEntity, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
+                        Padding="8, 4"
+                        Foreground="{StaticResource TextBase}"
+                        Command="{Binding Data.DeleteSelectedEntityCommand, Source={StaticResource proxy}}">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
+                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                <TextBlock Text="Delete"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem
+                            Visibility="{Binding Data.SelectedEntity, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
+                            Padding="8, 4"
+                            Foreground="{StaticResource TextBase}"
+                            Command="{Binding Data.DuplicateSelectedEntityCommand, Source={StaticResource proxy}}">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="10" Height="10" Source="{StaticResource Copy}" />
+                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                <TextBlock Text="Duplicate"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+            <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Name}"></TextBlock>
-                    </StackPanel>
+                    <Border 
+                        IsHitTestVisible="True"
+                        Padding="2"
+                        VerticalAlignment="Center"
+                        Height="25"
+                        Background="Transparent"
+                        HorizontalAlignment="Stretch">
+                        <Controls:EditableTextBox 
+                            HorizontalAlignment="Stretch"
+                            Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Border>
                 </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-    </StackPanel>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+    </DockPanel>
 </UserControl>

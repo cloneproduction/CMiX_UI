@@ -23,13 +23,15 @@ namespace CMiX.Studio.ViewModels
             MessageService = messageService;
 
             AddEntityCommand = new RelayCommand(p => AddEntity());
-            DeleteEntityCommand = new RelayCommand(p => DeleteEntity());
-            DuplicateEntityCommand = new RelayCommand(p => DuplicateEntity());
+            DeleteSelectedEntityCommand = new RelayCommand(p => DeleteEntity());
+            DuplicateSelectedEntityCommand = new RelayCommand(p => DuplicateEntity());
+            RenameSelectedEntityCommand = new RelayCommand(p => RenameEntity());
         }
 
         public ICommand AddEntityCommand { get; }
-        public ICommand DuplicateEntityCommand { get; }
-        public ICommand DeleteEntityCommand { get; }
+        public ICommand DuplicateSelectedEntityCommand { get; }
+        public ICommand DeleteSelectedEntityCommand { get; }
+        public ICommand RenameSelectedEntityCommand { get; }
 
         public string MessageAddress { get; set; }
         public MessageService MessageService { get; set; }
@@ -47,6 +49,12 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _selectedEntity, value);
         }
 
+        public void RenameEntity()
+        {
+            if(SelectedEntity != null)
+                SelectedEntity.IsRenaming = true;
+        }
+
         public void AddEntity()
         {
             var entity = EntityFactory.CreateEntity(this);
@@ -57,17 +65,23 @@ namespace CMiX.Studio.ViewModels
 
         public void DeleteEntity()
         {
-            int deleteIndex = Entities.IndexOf(SelectedEntity);
-            EntityFactory.DeleteEntity(this);
-            MessageService.SendMessages(MessageAddress, MessageCommand.ENTITY_DELETE, null, deleteIndex);
+            if(SelectedEntity != null)
+            {
+                int deleteIndex = Entities.IndexOf(SelectedEntity);
+                EntityFactory.DeleteEntity(this);
+                MessageService.SendMessages(MessageAddress, MessageCommand.ENTITY_DELETE, null, deleteIndex);
+            }
         }
 
         public void DuplicateEntity()
         {
-            EntityFactory.DuplicateEntity(this);
-            EntityModel entityModel = new EntityModel();
-            SelectedEntity.CopyModel(entityModel);
-            MessageService.SendMessages(SelectedEntity.MessageAddress, MessageCommand.COMPOSITION_DUPLICATE, null, entityModel);
+            if(SelectedEntity != null)
+            {
+                EntityFactory.DuplicateEntity(this);
+                EntityModel entityModel = new EntityModel();
+                SelectedEntity.CopyModel(entityModel);
+                MessageService.SendMessages(SelectedEntity.MessageAddress, MessageCommand.COMPOSITION_DUPLICATE, null, entityModel);
+            }
         }
 
         public void CopyModel(IModel model)

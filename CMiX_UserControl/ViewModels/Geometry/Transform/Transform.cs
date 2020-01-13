@@ -46,17 +46,6 @@ namespace CMiX.Studio.ViewModels
         public MessageService MessageService { get; set; }
         #endregion
 
-        //#region METHODS
-        //public void UpdateMessageAddress(string messageaddress)
-        //{
-        //    MessageAddress = messageaddress;
-
-        //    Translate.UpdateMessageAddress(messageaddress);
-        //    Scale.UpdateMessageAddress(messageaddress);
-        //    Rotation.UpdateMessageAddress(messageaddress);
-        //}
-        //#endregion
-
         #region COPY/PASTE/RESET
         public void CopyGeometry()
         {
@@ -105,7 +94,7 @@ namespace CMiX.Studio.ViewModels
 
         public void Paste(TransformModel transformModel)
         {
-            Sender.Disable();;
+            Sender.Disable();
 
             Translate.Paste(transformModel.Translate);
             Scale.Paste(transformModel.Scale);

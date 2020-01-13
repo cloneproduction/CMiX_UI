@@ -1,10 +1,5 @@
 ﻿using CMiX.MVVM.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace CMiX.MVVM.Services
@@ -16,10 +11,12 @@ namespace CMiX.MVVM.Services
             Servers = new ObservableCollection<Server>();
             AddServerCommand = new RelayCommand(p => AddServer());
             DeleteServerCommand = new RelayCommand(p => DeleteServer());
+            RenameServerCommand = new RelayCommand(p => RenameServer(p));
         }
 
         public ICommand AddServerCommand { get; set; }
         public ICommand DeleteServerCommand { get; set; }
+        public ICommand RenameServerCommand { get; set; }
 
         public ObservableCollection<Server> Servers { get; set; }
 
@@ -50,6 +47,14 @@ namespace CMiX.MVVM.Services
             }
         }
 
+        private void RenameServer(object server)
+        {
+            if (server != null)
+            {
+                Server serv = server as Server;
+                serv.IsRenaming = true;
+            }
+        }
         //public void AddClient()
         //{
         //    Client client = new Client($"Client({ClientID.ToString()})", "127.0.0.1", 1111 + ClientID, $"/Device{ClientID}");

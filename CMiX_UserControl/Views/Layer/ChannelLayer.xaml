@@ -10,6 +10,7 @@
     xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
     xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX.MVVM"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
     d:DesignHeight="268.955"
     d:DesignWidth="418.451"
     mc:Ignorable="d">
@@ -22,68 +23,22 @@
         </ObjectDataProvider>
     </UserControl.Resources>
 
-    <Border
-        DockPanel.Dock="Bottom"
-        Background="Transparent"
-        Padding="8">
+    <Border Padding="8">
         <DockPanel>
-            <!--<RadioButton
-                Width="50"
-                Margin="0,0,2,0"
-                AllowDrop="True"
-                GroupName="SelectLayer"
-                IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}},Path=IsSelected}"
-                Style="{StaticResource RadioButtonLayer}">
-                <RadioButton.Background>
-                    <SolidColorBrush Color="{Binding Coloration.ColorSelector.ColorPicker.SelectedColor}"/>
-                </RadioButton.Background>
-            </RadioButton>-->
-            <StackPanel 
-                Grid.Column="1" 
-                Margin="4, 0, 0, 0">
-                <TextBox
-                    Text="{Binding Name}"
-                    Padding="1"
-                    Margin="2"
-                    VerticalAlignment="Center"
-                    BorderThickness="0"
-                    Foreground="{StaticResource TextBase}"
-                    Background="{StaticResource HighDarkerColor}"
-
-                    Height="20"
-                    />
-                <DockPanel Margin="2">
-                    <ToggleButton 
-                        Margin="0, 0, 2, 0"
-                        Width="20"
-                        />
-                    <RadioButton 
-                        DockPanel.Dock="Right" 
-                        IsChecked="{Binding Out}"
-                        Margin="2, 0, 0, 0" 
-                        Content="OUT" 
-                        GroupName="Output" 
-                        Width="40" 
-                        />
-                    <ComboBox 
-                        Height="20"
-                        Margin="2,0"
-                        SelectedItem="{Binding BlendMode.Mode}"
-                        ItemsSource="{Binding Source={StaticResource BlendMode}}"
-                        />
-                </DockPanel>
-                <MVVM.Views:Slider
-                    Margin="2"
-                    DataContext="{Binding Fade}" 
-                    Caption="Alpha"
-                    />
-                <!--<Expander Margin="0, 4" Header="Entities" Style="{StaticResource ExpanderBase}">
-                    <ListView 
-                        ItemsSource="{Binding Content.Entities}"
-                        Style="{StaticResource LayerListBox}"/>
-                </Expander>-->
-
-            </StackPanel>
+            <ToggleButton 
+                IsChecked="{Binding IsVisible}"
+                Style="{StaticResource ToggleVisibility}"
+                DockPanel.Dock="Left"
+                Margin="0, 0, 2, 0"
+                Width="20"
+                Height="20">
+            </ToggleButton>
+                <Controls:EditableTextBox 
+                Margin="8, 0, 0, 0"
+                DockPanel.Dock="Right"
+                IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Height="30" Text="{Binding Name}"/>
         </DockPanel>
     </Border>
+
 </UserControl>

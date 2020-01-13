@@ -390,5 +390,12 @@
   <ItemGroup>
     <Resource Include="Assets\Add.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Rename.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\NotVisible.png" />
+    <Resource Include="Assets\Visible.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

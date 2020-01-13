@@ -6,8 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
-    d:DesignHeight="1561.001"
-    d:DesignWidth="1413.4"
+    d:DesignHeight="1075.668"
+    d:DesignWidth="1434.733"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -17,86 +17,72 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <DockPanel>
-        <Border 
-            Background="Transparent"
-            Padding="4, 0"
-            DockPanel.Dock="Top">
-            <Border.ContextMenu>
-                <ContextMenu>
-                    <MenuItem
+    <Border>
+        <Border.ContextMenu>
+            <ContextMenu>
+                <MenuItem
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
                         Command="{Binding Data.CopyContentCommand, Source={StaticResource proxy}}">
-                        <MenuItem.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Width="10" Height="10" Source="{StaticResource Copy}" />
-                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                <TextBlock Text="Copy Content"/>
-                            </StackPanel>
-                        </MenuItem.Header>
-                    </MenuItem>
-                    <MenuItem
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="10" Height="10" Source="{StaticResource Copy}" />
+                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                            <TextBlock Text="Copy Content"/>
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+                <MenuItem
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
                         Command="{Binding Data.PasteContentCommand, Source={StaticResource proxy}}">
-                        <MenuItem.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Width="10" Height="10" Source="{StaticResource Paste}" />
-                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                <TextBlock Text="Paste Content"/>
-                            </StackPanel>
-                        </MenuItem.Header>
-                    </MenuItem>
-                    <MenuItem
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="10" Height="10" Source="{StaticResource Paste}" />
+                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                            <TextBlock Text="Paste Content"/>
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+                <MenuItem
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
                         Command="{Binding Data.ResetContentCommand, Source={StaticResource proxy}}">
-                        <MenuItem.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Width="10" Height="10" Source="{StaticResource Reset}" />
-                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                <TextBlock Text="Reset Content"/>
-                            </StackPanel>
-                        </MenuItem.Header>
-                    </MenuItem>
-                </ContextMenu>
-            </Border.ContextMenu>
-        </Border>
-
-        <Border 
-            Margin="0, 8" 
-            DockPanel.Dock="Top" 
-            Style="{StaticResource BorderContainer}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Views:BeatModifier Margin="4, 0" DataContext="{Binding BeatModifier}"/>
-                <Views:EntitySelector DataContext="{Binding EntityEditor}" Grid.Column="1"/>
-            </Grid>
-        </Border>
-        <TabControl 
-            DockPanel.Dock="Bottom" 
-            AllowDrop="True">
-            <TabItem 
-                Width="40"
-                Height="30"
-                HorizontalAlignment="Left"
-                DragOver="TabItem_DragOver">
-                <TabItem.Header>
-                    <Image Source="{StaticResource PostFX}" ToolTip="PostFX" Height="15" Width="auto" Opacity="0.75"/>
-                </TabItem.Header>
-                <Views:PostFX
-                    DataContext="{Binding PostFX}"
-                    DockPanel.Dock="Bottom" />
-            </TabItem>
-        </TabControl>
-        <Border DockPanel.Dock="Top">
-            <ScrollViewer>
-                <Views:EntityEditor DataContext="{Binding EntityEditor}" Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}"/>
-            </ScrollViewer>
-        </Border>
-    </DockPanel>
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="10" Height="10" Source="{StaticResource Reset}" />
+                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                            <TextBlock Text="Reset Content"/>
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+            </ContextMenu>
+        </Border.ContextMenu>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2.0*"/>
+                <ColumnDefinition Width="1.0*"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" Padding="8">
+                <Views:EntityEditor 
+                        Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}"
+                        DataContext="{Binding EntityEditor}"/>
+            </Border>
+            <Border Background="{StaticResource DarkerColor}" Grid.Column="1">
+                <DockPanel>
+                    <Views:BeatModifier 
+                        Padding="8"
+                        DockPanel.Dock="Top"
+                        DataContext="{Binding BeatModifier}"/>
+                    <Views:PostFX
+                    DockPanel.Dock="Bottom"
+                    DataContext="{Binding PostFX}"/>
+                    <Views:EntitySelector
+                    Grid.Column="1"
+                    Margin="0, 4"
+                    DataContext="{Binding EntityEditor}" />
+                </DockPanel>
+            </Border>
+        </Grid>
+    </Border>
 </UserControl>

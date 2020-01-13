@@ -18,75 +18,79 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <StackPanel>
-        <Border
+    <Border Background="{StaticResource HighDarkerColor}"
+            CornerRadius="4" Padding="8">
+        <StackPanel>
+            <Border
             Height="25"
             Margin="0, 0, 0, 2"
             Padding="4"
             DockPanel.Dock="Top">
-            <Border.ContextMenu>
-                <ContextMenu>
-                    <MenuItem
+                <Border.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
                         Command="{Binding Data.CopyColorationCommand, Source={StaticResource proxy}}">
-                        <MenuItem.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Width="10" Height="10" Source="{StaticResource Copy}" />
-                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                <TextBlock Text="Copy Coloration"/>
-                            </StackPanel>
-                        </MenuItem.Header>
-                    </MenuItem>
-                    <MenuItem
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="10" Height="10" Source="{StaticResource Copy}" />
+                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                    <TextBlock Text="Copy Coloration"/>
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                        <MenuItem
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
                         Command="{Binding Data.PasteColorationCommand, Source={StaticResource proxy}}">
-                        <MenuItem.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Width="10" Height="10" Source="{StaticResource Paste}" />
-                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                <TextBlock Text="Paste Coloration"/>
-                            </StackPanel>
-                        </MenuItem.Header>
-                    </MenuItem>
-                    <MenuItem
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="10" Height="10" Source="{StaticResource Paste}" />
+                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                    <TextBlock Text="Paste Coloration"/>
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                        <MenuItem
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
                         Command="{Binding Data.ResetColorationCommand, Source={StaticResource proxy}}">
-                        <MenuItem.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Width="10" Height="10" Source="{StaticResource Reset}" />
-                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                <TextBlock Text="Reset Coloration"/>
-                            </StackPanel>
-                        </MenuItem.Header>
-                    </MenuItem>
-                </ContextMenu>
-            </Border.ContextMenu>
-            <TextBlock
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="10" Height="10" Source="{StaticResource Reset}" />
+                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                    <TextBlock Text="Reset Coloration"/>
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                    </ContextMenu>
+                </Border.ContextMenu>
+                <TextBlock
                 Margin="4, 0, 0, 0"
                 Text="COLORATION"
                 Foreground="{StaticResource TextBase}"/>
-        </Border>
-        <Border Style="{StaticResource BorderContainer}" Margin="0, 4, 0, 8">
-            <Views:BeatModifier DataContext="{Binding BeatModifier}"/>
-        </Border>
-        <Views:ColorSelector DataContext="{Binding ColorSelector}"/>
-        <Expander Header="Modifiers" Margin="0, 2" Style="{StaticResource ExpanderBase}">
-            <StackPanel Grid.Row="1" Margin="0, 4">
-                <Views:RangeControl 
+            </Border>
+            
+            <Views:ColorSelector DataContext="{Binding ColorSelector}"/>
+            <Expander Header="Modifiers" Margin="0, 2" Style="{StaticResource ExpanderBase}">
+
+                <StackPanel Grid.Row="1" Margin="0, 4">
+                    <Border Style="{StaticResource BorderContainer}" Margin="0, 4, 0, 8">
+                        <Views:BeatModifier DataContext="{Binding BeatModifier}"/>
+                    </Border>
+                    <Views:RangeControl 
                         Caption="Hue"
                         DataContext="{Binding Hue}"/>
-                <Views:RangeControl 
+                    <Views:RangeControl 
                         Caption="Saturation"
                         Margin="0, 2"
                         DataContext="{Binding Saturation}"/>
-                <Views:RangeControl 
+                    <Views:RangeControl 
                         Caption="Value"
                         DataContext="{Binding Value}"/>
-            </StackPanel>
-        </Expander>
-    </StackPanel>
-    
+                </StackPanel>
+            </Expander>
+        </StackPanel>
+    </Border>
 </UserControl>

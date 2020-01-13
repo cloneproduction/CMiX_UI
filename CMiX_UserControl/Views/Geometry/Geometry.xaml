@@ -27,53 +27,55 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Border>
-        <StackPanel>
-            <Border
-                Height="25"
-                Margin="0, 0, 0, 2"
-                Padding="4"
-                DockPanel.Dock="Top">
-                <Border.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem
+    <Border Background="{StaticResource HighDarkerColor}"
+            CornerRadius="4" Padding="8">
+        <Border.ContextMenu>
+            <ContextMenu>
+                <MenuItem
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
                             Command="{Binding Data.CopyGeometryCommand, Source={StaticResource proxy}}">
-                            <MenuItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Width="10" Height="10" Source="{StaticResource Copy}" />
-                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                    <TextBlock Text="Copy Geometry"/>
-                                </StackPanel>
-                            </MenuItem.Header>
-                        </MenuItem>
-                        <MenuItem
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="10" Height="10" Source="{StaticResource Copy}" />
+                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                            <TextBlock Text="Copy Geometry"/>
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+                <MenuItem
                     Padding="8, 4"
                     Foreground="{StaticResource TextBase}"
                     Command="{Binding Data.PasteGeometryCommand, Source={StaticResource proxy}}">
-                            <MenuItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Width="10" Height="10" Source="{StaticResource Paste}" />
-                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                    <TextBlock Text="Paste Geometry"/>
-                                </StackPanel>
-                            </MenuItem.Header>
-                        </MenuItem>
-                        <MenuItem
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="10" Height="10" Source="{StaticResource Paste}" />
+                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                            <TextBlock Text="Paste Geometry"/>
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+                <MenuItem
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
                         Command="{Binding Data.ResetGeometryCommand, Source={StaticResource proxy}}">
-                            <MenuItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Width="10" Height="10" Source="{StaticResource Reset}" />
-                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                    <TextBlock Text="Reset Geometry"/>
-                                </StackPanel>
-                            </MenuItem.Header>
-                        </MenuItem>
-                    </ContextMenu>
-                </Border.ContextMenu>
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="10" Height="10" Source="{StaticResource Reset}" />
+                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                            <TextBlock Text="Reset Geometry"/>
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+            </ContextMenu>
+        </Border.ContextMenu>
+        <StackPanel>
+            <Border
+                        Height="25"
+                        Margin="0, 0, 0, 2"
+                        Padding="4"
+                        DockPanel.Dock="Top">
+
                 <DockPanel 
                 VerticalAlignment="Center" 
                 LastChildFill="False">
@@ -113,5 +115,5 @@
                 DataContext="{Binding GeometryFX}"/>
         </StackPanel>
     </Border>
-
+    
 </UserControl>

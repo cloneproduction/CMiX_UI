@@ -21,13 +21,20 @@
     <Border Background="{StaticResource HighDarkerColor}">
         <DockPanel>
             <Border 
-                Padding="8"
-                DockPanel.Dock="Top"
-                Height="40">
-                <TextBlock
+                DockPanel.Dock="Top">
+                <DockPanel Height="40">
+                    <TextBlock
+                        Padding="8"
                     VerticalAlignment="Center"
                     Text="COMPOSITIONS"
                     Foreground="{StaticResource TextBase}"/>
+                    <!--<Button Width="40">
+                        <Button.Content>
+                            <Image Margin="4" Source="{StaticResource Add}"/>
+                        </Button.Content>
+                    </Button>-->
+                </DockPanel>
+
             </Border>
             <ListBox 
                 AllowDrop="True"
@@ -58,7 +65,7 @@
                             Command="{Binding Data.CompositionEditor.RenameSelectedCompositionCommand, Source={StaticResource proxy}}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Width="10" Height="10" Source="{StaticResource Copy}" />
+                                    <Image Width="10" Height="10" Source="{StaticResource Rename}" />
                                     <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                                     <TextBlock Text="Rename"/>
                                 </StackPanel>

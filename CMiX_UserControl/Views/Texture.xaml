@@ -23,7 +23,8 @@
         </ObjectDataProvider>
     </UserControl.Resources>
 
-    <Border>
+    <Border Background="{StaticResource HighDarkerColor}"
+            CornerRadius="4" Padding="8">
         <StackPanel>
             <Border
                 Height="25"
