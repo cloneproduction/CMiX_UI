@@ -90,6 +90,7 @@ namespace CMiX.Studio.ViewModels
             layerModel.ID = ID;
             layerModel.Out = Out;
             layerModel.Fade = Fade.GetModel();
+
             return layerModel;
         }
 
