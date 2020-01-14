@@ -29,10 +29,8 @@ namespace CMiX.Studio.ViewModels
         #region COPY/PASTE/RESET
         public void CopyGeometry()
         {
-            ScaleModel scalemodel = new ScaleModel();
-            this.Copy(scalemodel);
             IDataObject data = new DataObject();
-            data.SetData("ScaleModel", scalemodel, false);
+            data.SetData("ScaleModel", GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 
@@ -48,27 +46,26 @@ namespace CMiX.Studio.ViewModels
                 var messageaddress = MessageAddress;
                 this.Paste(scalemodel);
 
-                this.Copy(scalemodel);
-
                 MessageService.Enable();
                 Mementor.EndBatch();
-                //SendMessages(nameof(ScaleModel), scalemodel);
+                //SendMessages(nameof(ScaleModel), GetModel());
             }
         }
 
         public void ResetGeometry()
         {
-            ScaleModel scalemodel = new ScaleModel();
+            ScaleModel scalemodel = GetModel();
             this.Reset();
-            this.Copy(scalemodel);
             //SendMessages(nameof(ScaleModel), scalemodel);
         }
 
-        public void Copy(ScaleModel scalemodel)
+        public ScaleModel GetModel()
         {
-            ScaleX.CopyModel(scalemodel.ScaleX);
-            ScaleY.CopyModel(scalemodel.ScaleY);
-            ScaleZ.CopyModel(scalemodel.ScaleZ);
+            ScaleModel scaleModel = new ScaleModel();
+            scaleModel.ScaleX = ScaleX.GetModel();
+            scaleModel.ScaleY = ScaleY.GetModel();
+            scaleModel.ScaleZ = ScaleZ.GetModel();
+            return scaleModel;
         }
 
         public void Paste(ScaleModel scalemodel)
@@ -93,8 +90,7 @@ namespace CMiX.Studio.ViewModels
             //Mementor.EndBatch();
             MessageService.Enable();
 
-            ScaleModel scalemodel = new ScaleModel();
-            this.Copy(scalemodel);
+            ScaleModel scalemodel = GetModel();
             //SendMessages(nameof(ScaleModel), scalemodel);
         }
         #endregion

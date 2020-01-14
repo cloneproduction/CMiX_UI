@@ -36,10 +36,8 @@ namespace CMiX.Studio.ViewModels
         #region COPY/PASTE/RESET
         public void CopyGeometry()
         {
-            TranslateModel translatemodel = new TranslateModel();
-            this.Copy(translatemodel);
             IDataObject data = new DataObject();
-            data.SetData("TranslateModel", translatemodel, false);
+            data.SetData("TranslateModel", GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 
@@ -52,31 +50,30 @@ namespace CMiX.Studio.ViewModels
                 MessageService.Disable();
 
                 var translatemodel = data.GetData("TranslateModel") as TranslateModel;
-                var messageaddress = MessageAddress;
                 this.Paste(translatemodel);
-                //UpdateMessageAddress(messageaddress);
-                this.Copy(translatemodel);
 
                 MessageService.Enable();
                 Mementor.EndBatch();
-                //SendMessages(nameof(TranslateModel), translatemodel);
+                //SendMessages(nameof(TranslateModel), GetModel());
             }
         }
 
         public void ResetGeometry()
         {
-            TranslateModel translatemodel = new TranslateModel();
+            TranslateModel translatemodel = GetModel();
             this.Reset();
-            this.Copy(translatemodel);
             //this.SendMessages(nameof(TranslateModel), translatemodel);
         }
 
-        public void Copy(TranslateModel translatemodel)
+        public TranslateModel GetModel()
         {
-            TranslateX.CopyModel(translatemodel.TranslateX);
-            TranslateY.CopyModel(translatemodel.TranslateY);
-            TranslateZ.CopyModel(translatemodel.TranslateZ);
+            TranslateModel translateModel = new TranslateModel();
+            translateModel.TranslateX = TranslateX.GetModel();
+            translateModel.TranslateY = TranslateY.GetModel();
+            translateModel.TranslateZ = TranslateZ.GetModel();
+            return translateModel;
         }
+
 
         public void Paste(TranslateModel translatemodel)
         {
@@ -101,9 +98,7 @@ namespace CMiX.Studio.ViewModels
             //Mementor.EndBatch();
             MessageService.Enable();
 
-            TranslateModel translatemodel = new TranslateModel();
-            this.Copy(translatemodel);
-            //this.SendMessages(nameof(TranslateModel), translatemodel);
+            //this.SendMessages(nameof(TranslateModel), GetModel());
         }
         #endregion
     }

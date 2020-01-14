@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels;
 
 namespace CMiX.Studio.ViewModels
 {
-    public interface IProject : ICopyPasteModel<ProjectModel>, IUndoable
+    public interface IProject :  IUndoable
     {
     }
 }

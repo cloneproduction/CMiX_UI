@@ -80,16 +80,19 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public void CopyModel(MaskModel maskModel)
+        public MaskModel GetModel()
         {
+            MaskModel maskModel = new MaskModel();
             maskModel.Enable = Enabled;
             maskModel.MaskType = MaskType;
             maskModel.MaskControlType = MaskControlType;
-            BeatModifier.CopyModel(maskModel.BeatModifierModel);
-            Texture.CopyModel(maskModel.TextureModel);
-            Geometry.Copy(maskModel.GeometryModel);
-            PostFX.CopyModel(maskModel.PostFXModel);
+            maskModel.BeatModifierModel = BeatModifier.GetModel();
+            maskModel.TextureModel = Texture.GetModel();
+            maskModel.GeometryModel = Geometry.GetModel();
+            maskModel.PostFXModel = PostFX.GetModel();
+            return maskModel;
         }
+
 
         public void PasteModel(MaskModel maskModel)
         {
@@ -121,10 +124,8 @@ namespace CMiX.Studio.ViewModels
 
         public void CopyMask()
         {
-            MaskModel maskmodel = new MaskModel();
-            this.CopyModel(maskmodel);
             IDataObject data = new DataObject();
-            data.SetData("MaskModel", maskmodel, false);
+            data.SetData("MaskModel", GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 
@@ -137,22 +138,17 @@ namespace CMiX.Studio.ViewModels
                 MessageService.Disable();;
 
                 var maskmodel = data.GetData("MaskModel") as MaskModel;
-                var maskmessageaddress = MessageAddress;
                 this.PasteModel(maskmodel);
-
-                this.CopyModel(maskmodel);
                 MessageService.Enable();
                 Mementor.EndBatch();
-                //this.SendMessages(nameof(MaskModel), maskmodel);
+                //this.SendMessages(nameof(MaskModel), GetModel());
             }
         }
 
         public void ResetMask()
         {
-            MaskModel maskmodel = new MaskModel();
             this.Reset();
-            this.CopyModel(maskmodel);
-            //this.SendMessages(nameof(MaskModel), maskmodel);
+            //this.SendMessages(nameof(MaskModel), GetModel());
         }
         #endregion
     }

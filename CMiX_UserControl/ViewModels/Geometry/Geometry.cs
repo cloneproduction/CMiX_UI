@@ -49,10 +49,8 @@ namespace CMiX.Studio.ViewModels
         #region COPY/PASTE/RESET
         public void CopyGeometry()
         {
-            GeometryModel geometrymodel = new GeometryModel();
-            this.Copy(geometrymodel);
             IDataObject data = new DataObject();
-            data.SetData("GeometryModel", geometrymodel, false);
+            data.SetData("GeometryModel", GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 
@@ -76,19 +74,28 @@ namespace CMiX.Studio.ViewModels
 
         public void ResetGeometry()
         {
-            GeometryModel geometrymodel = new GeometryModel();
+            GeometryModel geometrymodel = GetModel();
             this.Reset();
-            this.Copy(geometrymodel);
             //SendMessages(MessageAddress, geometrymodel);
         }
 
-        public void Copy(GeometryModel geometryModel)
+        public GeometryModel GetModel()
         {
-            FileSelector.CopyModel(geometryModel.FileSelector);
-            Transform.Copy(geometryModel.Transform);
-            GeometryFX.Copy(geometryModel.GeometryFX);
-            Instancer.Copy(geometryModel.Instancer);
+            GeometryModel geometryModel = new GeometryModel();
+            geometryModel.FileSelector = FileSelector.GetModel();
+            geometryModel.Transform = Transform.GetModel();
+            geometryModel.GeometryFX = GeometryFX.GetModel();
+            geometryModel.Instancer = Instancer.GetModel();
+            return geometryModel;
         }
+
+        //public void Copy(GeometryModel geometryModel)
+        //{
+        //    FileSelector.CopyModel(geometryModel.FileSelector);
+        //    Transform.Copy(geometryModel.Transform);
+        //    GeometryFX.Copy(geometryModel.GeometryFX);
+        //    Instancer.Copy(geometryModel.Instancer);
+        //}
 
         public void Paste(GeometryModel geometryModel)
         {
@@ -114,9 +121,7 @@ namespace CMiX.Studio.ViewModels
             //Mementor.EndBatch();
             MessageService.Enable();
 
-            GeometryModel geometrymodel = new GeometryModel();
-            this.Copy(geometrymodel);
-            //SendMessages(MessageAddress, geometrymodel);
+            //SendMessages(MessageAddress, GetModel());
         }
         #endregion
     }

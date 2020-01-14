@@ -7,22 +7,22 @@ namespace CMiX.MVVM.Models
     {
         public TransformModel()
         {
-            GeometryTranslate = new GeometryTranslateModel();
-            GeometryScale = new GeometryScaleModel();
-            GeometryRotation = new GeometryRotationModel();
+            GeometryTranslateModel = new GeometryTranslateModel();
+            GeometryScaleModel = new GeometryScaleModel();
+            GeometryRotationModel = new GeometryRotationModel();
 
-            Translate = new TranslateModel();
-            Scale = new ScaleModel();
-            Rotation = new RotationModel();
+            TranslateModel = new TranslateModel();
+            ScaleModel = new ScaleModel();
+            RotationModel = new RotationModel();
         }
 
-        public TranslateModel Translate { get; set; }
-        public ScaleModel Scale { get; set; }
-        public RotationModel Rotation { get; set; }
+        public TranslateModel TranslateModel { get; set; }
+        public ScaleModel ScaleModel { get; set; }
+        public RotationModel RotationModel { get; set; }
 
-        public GeometryTranslateModel GeometryTranslate { get; set; }
-        public GeometryScaleModel GeometryScale { get; set; }
-        public GeometryRotationModel GeometryRotation { get; set; }
+        public GeometryTranslateModel GeometryTranslateModel { get; set; }
+        public GeometryScaleModel GeometryScaleModel { get; set; }
+        public GeometryRotationModel GeometryRotationModel { get; set; }
 
         public bool Is3D { get; set; }
     }

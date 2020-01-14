@@ -33,10 +33,8 @@ namespace CMiX.Studio.ViewModels
         #region COPY/PASTE/RESET
         public void CopyGeometry()
         {
-            RotationModifierModel Rotationmodifiermodel = new RotationModifierModel();
-            this.Copy(Rotationmodifiermodel);
             IDataObject data = new DataObject();
-            data.SetData("RotationModifierModel", Rotationmodifiermodel, false);
+            data.SetData("RotationModifierModel", GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 
@@ -49,14 +47,11 @@ namespace CMiX.Studio.ViewModels
                 MessageService.Disable();
 
                 var Rotationmodifiermodel = data.GetData("RotationModifierModel") as RotationModifierModel;
-                var messageaddress = MessageAddress;
                 this.Paste(Rotationmodifiermodel);
-                //UpdateMessageAddress(messageaddress);
-                this.Copy(Rotationmodifiermodel);
 
                 MessageService.Enable();
                 Mementor.EndBatch();
-                //SendMessages(MessageAddress, Rotationmodifiermodel);
+                //SendMessages(MessageAddress, GetModel());
                 //QueueObjects(Rotationmodifiermodel);
                 //SendQueues();
             }
@@ -64,20 +59,20 @@ namespace CMiX.Studio.ViewModels
 
         public void ResetGeometry()
         {
-            RotationModifierModel Rotationmodifiermodel = new RotationModifierModel();
             this.Reset();
-            this.Copy(Rotationmodifiermodel);
-            //SendMessages(MessageAddress, Rotationmodifiermodel);
+            //SendMessages(MessageAddress, GetModel());
             //QueueObjects(Rotationmodifiermodel);
             //SendQueues();
         }
 
-        public void Copy(RotationModifierModel Rotationmodifiermodel)
+        public RotationModifierModel GetModel()
         {
-            Rotation.Copy(Rotationmodifiermodel.Rotation);
-            RotationX.Copy(Rotationmodifiermodel.RotationX);
-            RotationY.Copy(Rotationmodifiermodel.RotationY);
-            RotationZ.Copy(Rotationmodifiermodel.RotationZ);
+            RotationModifierModel rotationModifierModel = new RotationModifierModel();
+            rotationModifierModel.Rotation = Rotation.GetModel();
+            rotationModifierModel.RotationX = RotationX.GetModel();
+            rotationModifierModel.RotationY = RotationY.GetModel();
+            rotationModifierModel.RotationZ = RotationZ.GetModel();
+            return rotationModifierModel;
         }
 
         public void Paste(RotationModifierModel Rotationmodifiermodel)
@@ -104,7 +99,7 @@ namespace CMiX.Studio.ViewModels
             MessageService.Enable();
 
             RotationModifierModel Rotationmodifiermodel = new RotationModifierModel();
-            this.Copy(Rotationmodifiermodel);
+            //this.Copy(Rotationmodifiermodel);
             //SendMessages(MessageAddress, Rotationmodifiermodel);
             //QueueObjects(Rotationmodifiermodel);
             //SendQueues();

@@ -48,10 +48,8 @@ namespace CMiX.Studio.ViewModels
         #region COPY/PASTE/RESET
         public void CopyGeometry()
         {
-            TransformModel transformmodel = new TransformModel();
-            this.Copy(transformmodel);
             IDataObject data = new DataObject();
-            data.SetData("TransformModel", transformmodel, false);
+            data.SetData("TransformModel", GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 
@@ -66,38 +64,44 @@ namespace CMiX.Studio.ViewModels
                 var transformmodel = data.GetData("TransformModel") as TransformModel;
                 var messageaddress = MessageAddress;
                 this.Paste(transformmodel);
-                //UpdateMessageAddress(messageaddress);
-                this.Copy(transformmodel);
 
                 MessageService.Enable();
                 Mementor.EndBatch();
-                //this.SendMessages(nameof(TransformModel), transformmodel);
+                //this.SendMessages(nameof(TransformModel), GetModel());
             }
         }
 
         public void ResetGeometry()
         {
-            TransformModel transformmodel = new TransformModel();
             this.Reset();
-            this.Copy(transformmodel);
-            //this.SendMessages(nameof(TransformModel), transformmodel);
+            //this.SendMessages(nameof(TransformModel), GetModel());
         }
 
-        public void Copy(TransformModel transformModel)
+        public TransformModel GetModel()
         {
-            Translate.Copy(transformModel.Translate);
-            Scale.Copy(transformModel.Scale);
-            Rotation.Copy(transformModel.Rotation);
+            TransformModel transformModel = new TransformModel();
+            transformModel.TranslateModel = Translate.GetModel();
+            transformModel.ScaleModel = Scale.GetModel();
+            transformModel.RotationModel = Rotation.GetModel();
             transformModel.Is3D = Is3D;
+            return transformModel;
         }
+
+        //public void Copy(TransformModel transformModel)
+        //{
+        //    Translate.Copy(transformModel.Translate);
+        //    Scale.Copy(transformModel.Scale);
+        //    Rotation.Copy(transformModel.Rotation);
+        //    transformModel.Is3D = Is3D;
+        //}
 
         public void Paste(TransformModel transformModel)
         {
             MessageService.Disable();
 
-            Translate.Paste(transformModel.Translate);
-            Scale.Paste(transformModel.Scale);
-            Rotation.Paste(transformModel.Rotation);
+            Translate.Paste(transformModel.TranslateModel);
+            Scale.Paste(transformModel.ScaleModel);
+            Rotation.Paste(transformModel.RotationModel);
             Is3D = transformModel.Is3D;
 
             MessageService.Enable();
@@ -115,8 +119,7 @@ namespace CMiX.Studio.ViewModels
             //Mementor.EndBatch();
             MessageService.Enable();
 
-            TransformModel transformmodel = new TransformModel();
-            this.Copy(transformmodel);
+            TransformModel transformmodel = GetModel();
             //this.SendMessages(nameof(TransformModel), transformmodel);
             //QueueObjects(transformmodel);
             //SendQueues();

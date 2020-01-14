@@ -10,7 +10,7 @@ using CMiX.MVVM;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Texture : ViewModel, ICopyPasteModel<TextureModel>, ISendable, IUndoable
+    public class Texture : ViewModel, ISendable, IUndoable // ICopyPasteModel<TextureModel>
     {
         #region CONSTRUCTORS
         public Texture(string messageaddress, MessageService messageService, Mementor mementor)
@@ -97,22 +97,41 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public void CopyModel(TextureModel textureModel)
+        public TextureModel GetModel()
         {
-            FileSelector.CopyModel(textureModel.FileSelector);
-            Brightness.CopyModel(textureModel.Brightness);
-            Contrast.CopyModel(textureModel.Contrast);
-            Saturation.CopyModel(textureModel.Saturation);
-            Luminosity.CopyModel(textureModel.Luminosity);
-            Hue.CopyModel(textureModel.Hue);
-            Pan.CopyModel(textureModel.Pan);
-            Tilt.CopyModel(textureModel.Tilt);
-            Scale.CopyModel(textureModel.Scale);
-            Rotate.CopyModel(textureModel.Rotate);
-            Keying.CopyModel(textureModel.Keying);
-            Invert.CopyModel(textureModel.Invert);
+            TextureModel textureModel = new TextureModel();
+            textureModel.FileSelector = FileSelector.GetModel();
+            textureModel.Brightness = Brightness.GetModel();
+            textureModel.Contrast = Contrast.GetModel();
+            textureModel.Saturation = Saturation.GetModel();
+            textureModel.Luminosity = Luminosity.GetModel();
+            textureModel.Hue = Hue.GetModel();
+            textureModel.Pan = Pan.GetModel();
+            textureModel.Tilt = Tilt.GetModel();
+            textureModel.Scale = Scale.GetModel();
+            textureModel.Rotate = Rotate.GetModel();
+            textureModel.Keying = Keying.GetModel();
+            textureModel.Invert = Invert.GetModel();
             textureModel.InvertMode = InvertMode;
+            return textureModel;
         }
+
+        //public void CopyModel(TextureModel textureModel)
+        //{
+        //    FileSelector.CopyModel(textureModel.FileSelector);
+        //    Brightness.CopyModel(textureModel.Brightness);
+        //    Contrast.CopyModel(textureModel.Contrast);
+        //    Saturation.CopyModel(textureModel.Saturation);
+        //    Luminosity.CopyModel(textureModel.Luminosity);
+        //    Hue.CopyModel(textureModel.Hue);
+        //    Pan.CopyModel(textureModel.Pan);
+        //    Tilt.CopyModel(textureModel.Tilt);
+        //    Scale.CopyModel(textureModel.Scale);
+        //    Rotate.CopyModel(textureModel.Rotate);
+        //    Keying.CopyModel(textureModel.Keying);
+        //    Invert.CopyModel(textureModel.Invert);
+        //    textureModel.InvertMode = InvertMode;
+        //}
 
         public void PasteModel(TextureModel textureModel)
         {
@@ -159,10 +178,8 @@ namespace CMiX.Studio.ViewModels
 
         public void CopyTexture()
         {
-            TextureModel textureModel = new TextureModel();
-            this.CopyModel(textureModel);
             IDataObject data = new DataObject();
-            data.SetData("TextureModel", textureModel, false);
+            data.SetData("TextureModel", GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 
@@ -175,22 +192,18 @@ namespace CMiX.Studio.ViewModels
                 MessageService.Disable();
 
                 var texturemodel = data.GetData("TextureModel") as TextureModel;
-                var texturemessageaddress = MessageAddress;
                 this.PasteModel(texturemodel);
-                this.CopyModel(texturemodel);
 
                 MessageService.Enable();
                 Mementor.EndBatch();
-                //SendMessages(nameof(TextureModel), texturemodel);
+                //SendMessages(nameof(TextureModel), GetModel());
             }
         }
 
         public void ResetTexture()
         {
-            TextureModel texturemodel = new TextureModel();
             this.Reset();
-            this.CopyModel(texturemodel);
-            //SendMessages(nameof(TextureModel), texturemodel);
+            //SendMessages(nameof(TextureModel), GetModel());
         }
         #endregion
     }

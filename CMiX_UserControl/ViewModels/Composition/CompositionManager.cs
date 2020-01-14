@@ -60,8 +60,7 @@ namespace CMiX.Studio.ViewModels
         {
             if (context.SelectedComposition != null)
             {
-                CompositionModel compositionmodel = new CompositionModel();
-                context.SelectedComposition.CopyModel(compositionmodel);
+                CompositionModel compositionmodel = context.SelectedComposition.GetModel();
 
                 MessageService messageService = new MessageService();
                 Composition newCompo = new Composition(messageService, context.MessageAddress, context.Assets, context.Mementor);

@@ -9,7 +9,7 @@ using CMiX.MVVM;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class PostFX : ViewModel, ICopyPasteModel<PostFXModel>, ISendable, IUndoable
+    public class PostFX : ViewModel,  ISendable, IUndoable  //, ICopyPasteModel<PostFXModel>,
     {
         #region CONSTRUCTORS
         public PostFX(string messageaddress, MessageService messageService, Mementor mementor) 
@@ -69,13 +69,23 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public void CopyModel(PostFXModel postFXmodel)
+        public PostFXModel GetModel()
         {
-            Feedback.CopyModel(postFXmodel.Feedback);
-            Blur.CopyModel(postFXmodel.Blur);
-            postFXmodel.Transforms = Transforms;
-            postFXmodel.View = View;
+            PostFXModel postFXModel = new PostFXModel();
+            postFXModel.Feedback = Feedback.GetModel();
+            postFXModel.Blur = Blur.GetModel();
+            postFXModel.Transforms = Transforms;
+            postFXModel.View = View;
+            return postFXModel;
         }
+
+        //public void CopyModel(PostFXModel postFXmodel)
+        //{
+        //    Feedback.CopyModel(postFXmodel.Feedback);
+        //    Blur.CopyModel(postFXmodel.Blur);
+        //    postFXmodel.Transforms = Transforms;
+        //    postFXmodel.View = View;
+        //}
 
         public void PasteModel(PostFXModel postFXmodel)
         {
@@ -100,8 +110,7 @@ namespace CMiX.Studio.ViewModels
             Feedback.Reset();
             Blur.Reset();
 
-            PostFXModel postfxmodel = new PostFXModel();
-            this.CopyModel(postfxmodel);
+            PostFXModel postfxmodel = GetModel();
             //this.SendMessages(nameof(PostFXModel), postfxmodel);
 
             MessageService.Enable();
@@ -109,8 +118,7 @@ namespace CMiX.Studio.ViewModels
 
         public void CopyPostFX()
         {
-            PostFXModel postfxmodel = new PostFXModel();
-            this.CopyModel(postfxmodel);
+            PostFXModel postfxmodel = GetModel();
             IDataObject data = new DataObject();
             data.SetData("PostFXModel", postfxmodel, false);
             Clipboard.SetDataObject(data);
@@ -124,24 +132,20 @@ namespace CMiX.Studio.ViewModels
                 Mementor.BeginBatch();
                 MessageService.Disable();
 
-                var postfxmodel = data.GetData("PostFXModel") as PostFXModel;
-                var postfxmessageaddress = MessageAddress;
-                this.PasteModel(postfxmodel);
-                //UpdateMessageAddress(postfxmessageaddress);
-                this.CopyModel(postfxmodel);
+                var postFXModel = data.GetData("PostFXModel") as PostFXModel;
+                this.PasteModel(postFXModel);
 
                 Mementor.EndBatch();
                 MessageService.Enable();
-                //this.SendMessages(nameof(PostFXModel), postfxmodel);
+                //this.SendMessages(nameof(PostFXModel), postFXModel);
             }
         }
 
         public void ResetPostFX()
         {
-            PostFXModel postfxmodel = new PostFXModel();
+            PostFXModel postFXModel = GetModel();
             this.Reset();
-            this.CopyModel(postfxmodel);
-            //this.SendMessages(nameof(PostFXModel), postfxmodel);
+            //this.SendMessages(nameof(PostFXModel), postFXModel);
         }
         #endregion
     }

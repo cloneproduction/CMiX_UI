@@ -258,21 +258,33 @@ namespace CMiX.Studio.ViewModels
             MessageService.Enable();
         }
 
-        public void CopyModel(FileSelectorModel fileSelectorModel)
+        public FileSelectorModel GetModel()
         {
-
+            FileSelectorModel fileSelectorModel = new FileSelectorModel();
             fileSelectorModel.FolderPath = FolderPath;
-            List<FileNameItemModel> FileNameItemModelList = new List<FileNameItemModel>();
-            foreach (var item in FilePaths)
+            foreach (var filePath in FilePaths)
             {
-                var filenameitemmodel = new FileNameItemModel();
-                
-                item.CopyModel(filenameitemmodel);
-                
-                FileNameItemModelList.Add(filenameitemmodel);
+                var fileNameItemModel = filePath.GetModel();
+                fileSelectorModel.FilePaths.Add(fileNameItemModel);
             }
-            fileSelectorModel.FilePaths = FileNameItemModelList;
+            return fileSelectorModel;
         }
+
+        //public void CopyModel(FileSelectorModel fileSelectorModel)
+        //{
+
+        //    fileSelectorModel.FolderPath = FolderPath;
+        //    List<FileNameItemModel> FileNameItemModelList = new List<FileNameItemModel>();
+        //    foreach (var item in FilePaths)
+        //    {
+        //        var filenameitemmodel = new FileNameItemModel();
+                
+        //        item.CopyModel(filenameitemmodel);
+                
+        //        FileNameItemModelList.Add(filenameitemmodel);
+        //    }
+        //    fileSelectorModel.FilePaths = FileNameItemModelList;
+        //}
 
         public void PasteModel(FileSelectorModel fileSelectorModel)
         {

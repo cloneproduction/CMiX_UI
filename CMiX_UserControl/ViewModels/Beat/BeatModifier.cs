@@ -75,6 +75,14 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
+        public BeatModifierModel GetModel()
+        {
+            BeatModifierModel beatModifierModel = new BeatModifierModel();
+            beatModifierModel.ChanceToHit = ChanceToHit.GetModel();
+            beatModifierModel.Multiplier = Multiplier;
+            return beatModifierModel;
+        }
+
         public void Reset()
         {
             MessageService.Disable();
@@ -86,11 +94,11 @@ namespace CMiX.Studio.ViewModels
             MessageService.Enable();
         }
 
-        public void CopyModel(BeatModifierModel beatModifierModel)
-        {
-            ChanceToHit.CopyModel(beatModifierModel.ChanceToHit);
-            beatModifierModel.Multiplier = Multiplier;
-        }
+        //public void CopyModel(BeatModifierModel beatModifierModel)
+        //{
+        //    ChanceToHit.CopyModel(beatModifierModel.ChanceToHit);
+        //    beatModifierModel.Multiplier = Multiplier;
+        //}
 
         public void PasteModel(BeatModifierModel beatModifierModel)
         {

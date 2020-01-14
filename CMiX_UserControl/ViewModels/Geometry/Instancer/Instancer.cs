@@ -49,10 +49,8 @@ namespace CMiX.Studio.ViewModels
         #region COPY/PASTE/RESET
         public void CopyGeometry()
         {
-            InstancerModel instancermodel = new InstancerModel();
-            this.Copy(instancermodel);
             IDataObject data = new DataObject();
-            data.SetData("InstancerModel", instancermodel, false);
+            data.SetData("InstancerModel", GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 
@@ -65,34 +63,42 @@ namespace CMiX.Studio.ViewModels
                 MessageService.Disable();
 
                 var instancermodel = data.GetData("InstancerModel") as InstancerModel;
-                var geometrymessageaddress = MessageAddress;
                 this.Paste(instancermodel);
-                //UpdateMessageAddress(geometrymessageaddress);
-                this.Copy(instancermodel);
 
                 MessageService.Enable();
                 Mementor.EndBatch();
-                //SendMessages(nameof(InstancerModel), instancermodel);
+                //SendMessages(nameof(InstancerModel), GetModel());
             }
         }
 
         public void ResetGeometry()
         {
-            InstancerModel instancermodel = new InstancerModel();
             this.Reset();
-            this.Copy(instancermodel);
-            //SendMessages(nameof(InstancerModel), instancermodel);
+            //SendMessages(nameof(InstancerModel), GetModel());
         }
 
-        public void Copy(InstancerModel instancermodel)
+        public InstancerModel GetModel()
         {
-            Transform.Copy(instancermodel.Transform);
-            Counter.Copy(instancermodel.Counter);
-            TranslateModifier.Copy(instancermodel.TranslateModifier);
-            ScaleModifier.Copy(instancermodel.ScaleModifier);
-            RotationModifier.Copy(instancermodel.RotationModifier);
-            instancermodel.NoAspectRatio = NoAspectRatio;
+            InstancerModel instancerModel = new InstancerModel();
+            instancerModel.Transform = Transform.GetModel();
+            instancerModel.Counter = Counter.GetModel();
+            instancerModel.TranslateModifier = TranslateModifier.GetModel();
+            instancerModel.ScaleModifier = ScaleModifier.GetModel();
+            instancerModel.RotationModifier = RotationModifier.GetModel();
+            instancerModel.NoAspectRatio = NoAspectRatio;
+            return instancerModel;
         }
+
+
+        //public void Copy(InstancerModel instancermodel)
+        //{
+        //    Transform.Copy(instancermodel.Transform);
+        //    Counter.Copy(instancermodel.Counter);
+        //    TranslateModifier.Copy(instancermodel.TranslateModifier);
+        //    ScaleModifier.Copy(instancermodel.ScaleModifier);
+        //    RotationModifier.Copy(instancermodel.RotationModifier);
+        //    instancermodel.NoAspectRatio = NoAspectRatio;
+        //}
 
         public void Paste(InstancerModel instancermodel)
         {
@@ -121,7 +127,7 @@ namespace CMiX.Studio.ViewModels
             MessageService.Enable();
 
             InstancerModel instancermodel = new InstancerModel();
-            this.Copy(instancermodel);
+            //this.Copy(instancermodel);
             //SendMessages(nameof(InstancerModel), instancermodel);
         }
         #endregion

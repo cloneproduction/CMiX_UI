@@ -39,10 +39,8 @@ namespace CMiX.Studio.ViewModels
         #region COPY/PASTE/RESET
         public void CopyColorSelector()
         {
-            ColorSelectorModel colorselectormodel = new ColorSelectorModel();
-            this.CopyModel(colorselectormodel);
             IDataObject data = new DataObject();
-            data.SetData("ColorSelectorModel", colorselectormodel, false);
+            data.SetData("ColorSelectorModel", GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 
@@ -57,26 +55,25 @@ namespace CMiX.Studio.ViewModels
                 var colorselectormodel = data.GetData("ColorSelectorModel") as ColorSelectorModel;
                 var colorselectormessageaddress = MessageAddress;
                 this.PasteModel(colorselectormodel);
-                this.CopyModel(colorselectormodel);
-
                 MessageService.Enable();
                 this.Mementor.EndBatch();
-                //SendMessages(MessageAddress, colorselectormodel);
+                //SendMessages(MessageAddress, GetModel());
             }
         }
 
         public void ResetColorSelector()
         {
-            ColorSelectorModel colorselectormodel = new ColorSelectorModel();
             this.Reset();
-            this.CopyModel(colorselectormodel);
-            //SendMessages(MessageAddress, colorselectormodel);
+            //SendMessages(MessageAddress, GetModel());
         }
 
-        public void CopyModel(ColorSelectorModel colorSelectorModel)
+        public ColorSelectorModel GetModel()
         {
-            ColorPicker.Copy(colorSelectorModel.ColorPickerModel);
+            ColorSelectorModel colorSelectorModel = new ColorSelectorModel();
+            colorSelectorModel.ColorPickerModel = ColorPicker.GetModel();
+            return colorSelectorModel;
         }
+
 
         public void PasteModel(ColorSelectorModel colorSelectorModel)
         {

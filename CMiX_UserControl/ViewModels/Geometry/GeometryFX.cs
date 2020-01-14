@@ -30,11 +30,19 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public void Copy(GeometryFXModel geometryFXdto)
+        public GeometryFXModel GetModel()
         {
-            Explode.CopyModel(geometryFXdto.Explode);
-            FileSelector.CopyModel(geometryFXdto.FileSelector);
+            GeometryFXModel geometryFXModel = new GeometryFXModel();
+            geometryFXModel.Explode = Explode.GetModel();
+            geometryFXModel.FileSelector = FileSelector.GetModel();
+            return geometryFXModel;
         }
+
+        //public void Copy(GeometryFXModel geometryFXdto)
+        //{
+        //    Explode.CopyModel(geometryFXdto.Explode);
+        //    FileSelector.CopyModel(geometryFXdto.FileSelector);
+        //}
 
         public void Paste(GeometryFXModel geometryFXdto)
         {

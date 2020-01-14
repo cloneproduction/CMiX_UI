@@ -7,6 +7,7 @@ using CMiX.MVVM.Services;
 using Memento;
 using Ceras;
 using System.Collections.ObjectModel;
+using System;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -54,8 +55,7 @@ namespace CMiX.Studio.ViewModels
         #region MENU METHODS
         private void NewProject()
         {
-            ProjectModel projectModel = new ProjectModel();
-            this.CopyModel(projectModel);
+            throw new NotImplementedException();
         }
 
         private void OpenProject()
@@ -82,10 +82,8 @@ namespace CMiX.Studio.ViewModels
             System.Windows.Forms.SaveFileDialog savedialog = new System.Windows.Forms.SaveFileDialog();
             if(!string.IsNullOrEmpty(FolderPath))
             {
-                ProjectModel projectdto = new ProjectModel();
-                this.CopyModel(projectdto);
-                var serializer = new CerasSerializer();
-                var data = serializer.Serialize(projectdto);
+                var projectModel = GetModel();
+                var data = Serializer.Serialize(projectModel);
                 File.WriteAllBytes(FolderPath, data);
             }
             else
@@ -103,10 +101,9 @@ namespace CMiX.Studio.ViewModels
 
             if (savedialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                ProjectModel projectdto = new ProjectModel();
-                this.CopyModel(projectdto);
+                ProjectModel projectModel = GetModel();
                 string folderPath = savedialog.FileName;
-                var data = Serializer.Serialize(projectdto);
+                var data = Serializer.Serialize(projectModel);
                 File.WriteAllBytes(folderPath, data);
                 FolderPath = folderPath;
             }
@@ -120,10 +117,17 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void CopyModel(ProjectModel projectModel)
+        public ProjectModel GetModel()
         {
-            CompositionEditor.CopyModel(projectModel.CompositionEditorModel);
+            ProjectModel projectModel = new ProjectModel();
+            projectModel.CompositionEditorModel = CompositionEditor.GetModel();
+            return projectModel;
         }
+
+        //public void CopyModel(ProjectModel projectModel)
+        //{
+        //    CompositionEditor.CopyModel(projectModel.CompositionEditorModel);
+        //}
 
         public void PasteModel(ProjectModel projectModel)
         {

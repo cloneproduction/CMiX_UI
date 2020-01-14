@@ -55,11 +55,19 @@ namespace CMiX.Studio.ViewModels
         
 
         #region COPY/PASTE
-        public void CopyModel(FileNameItemModel filenameitemmodel)
+        public FileNameItemModel GetModel()
         {
-            filenameitemmodel.FileIsSelected = FileIsSelected;
-            filenameitemmodel.FileName = FileName;
+            FileNameItemModel fileNameItemModel = new FileNameItemModel();
+            fileNameItemModel.FileIsSelected = FileIsSelected;
+            fileNameItemModel.FileName = FileName;
+            return fileNameItemModel;
         }
+
+        //public void CopyModel(FileNameItemModel filenameitemmodel)
+        //{
+        //    filenameitemmodel.FileIsSelected = FileIsSelected;
+        //    filenameitemmodel.FileName = FileName;
+        //}
 
         public void PasteModel(FileNameItemModel filenameitemmodel)
         {

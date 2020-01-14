@@ -13,7 +13,7 @@ namespace CMiX.MVVM.Models
             ColorationModel = new ColorationModel();
         }
 
-        public bool Enable { get; set; }
+        public bool Enabled { get; set; }
         public string Name { get; set; }
         public int ID { get; set; }
 

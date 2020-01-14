@@ -49,21 +49,31 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void CopyModel(ContentModel contentModel)
+        public ContentModel GetModel()
         {
-            contentModel.Enable = Enabled;
-
-            //this.EntityEditor.CopyModel(contentModel.Entit)
-
-            this.BeatModifier.CopyModel(contentModel.BeatModifierModel);
-            this.PostFX.CopyModel(contentModel.PostFXModel);
+            ContentModel contentModel = new ContentModel();
+            contentModel.Enabled = Enabled;
+            contentModel.EntityEditorModel = EntityEditor.GetModel();
+            contentModel.BeatModifierModel = BeatModifier.GetModel();
+            contentModel.PostFXModel = PostFX.GetModel();
+            return contentModel;
         }
+
+        //public void CopyModel(ContentModel contentModel)
+        //{
+        //    contentModel.Enabled = Enabled;
+
+        //    //this.EntityEditor.CopyModel(contentModel.Entit)
+
+        //    this.BeatModifier.CopyModel(contentModel.BeatModifierModel);
+        //    this.PostFX.CopyModel(contentModel.PostFXModel);
+        //}
 
         public void PasteModel(ContentModel contentModel)
         {
             MessageService.Disable();
 
-            this.Enabled = contentModel.Enable;
+            this.Enabled = contentModel.Enabled;
             this.BeatModifier.PasteModel(contentModel.BeatModifierModel);
             this.PostFX.PasteModel(contentModel.PostFXModel);
 
@@ -84,8 +94,7 @@ namespace CMiX.Studio.ViewModels
         #region COPYPASTE CONTENT
         public void CopyContent()
         {
-            ContentModel contentmodel = new ContentModel();
-            this.CopyModel(contentmodel);
+            ContentModel contentmodel = GetModel();
             IDataObject data = new DataObject();
             data.SetData("ContentModel", contentmodel, false);
             Clipboard.SetDataObject(data);
@@ -112,9 +121,8 @@ namespace CMiX.Studio.ViewModels
 
         public void ResetContent()
         {
-            ContentModel contentModel = new ContentModel();
             this.Reset();
-            this.CopyModel(contentModel);
+            ContentModel contentModel = GetModel();
             MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, contentModel);
         }
         #endregion

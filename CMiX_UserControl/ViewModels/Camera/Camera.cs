@@ -86,15 +86,15 @@ namespace CMiX.Studio.ViewModels
             return cameraModel;
         }
 
-        public void CopyModel(CameraModel cameraModel)
-        {
-            cameraModel.Rotation = Rotation;
-            cameraModel.LookAt = LookAt;
-            cameraModel.View = View;
-            BeatModifier.CopyModel(cameraModel.BeatModifierModel);
-            FOV.CopyModel(cameraModel.FOV);
-            Zoom.CopyModel(cameraModel.Zoom);
-        }
+        //public void CopyModel(CameraModel cameraModel)
+        //{
+        //    cameraModel.Rotation = Rotation;
+        //    cameraModel.LookAt = LookAt;
+        //    cameraModel.View = View;
+        //    BeatModifier.CopyModel(cameraModel.BeatModifierModel);
+        //    FOV.CopyModel(cameraModel.FOV);
+        //    Zoom.CopyModel(cameraModel.Zoom);
+        //}
 
         public void PasteModel(CameraModel cameraModel)
         {

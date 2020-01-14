@@ -34,10 +34,8 @@ namespace CMiX.Studio.ViewModels
         #region COPY/PASTE/RESET
         public void CopyGeometry()
         {
-            TranslateModifierModel translatemodifiermodel = new TranslateModifierModel();
-            this.Copy(translatemodifiermodel);
             IDataObject data = new DataObject();
-            data.SetData("TranslateModifierModel", translatemodifiermodel, false);
+            data.SetData("TranslateModifierModel", GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 
@@ -52,12 +50,10 @@ namespace CMiX.Studio.ViewModels
                 var translatemodifiermodel = data.GetData("TranslateModifierModel") as TranslateModifierModel;
                 var messageaddress = MessageAddress;
                 this.Paste(translatemodifiermodel);
-                //UpdateMessageAddress(messageaddress);
-                this.Copy(translatemodifiermodel);
 
                 MessageService.Enable();
                 Mementor.EndBatch();
-                //SendMessages(MessageAddress, translatemodifiermodel);
+                //SendMessages(MessageAddress, GetModel());
                 //QueueObjects(translatemodifiermodel);
                 //SendQueues();
             }
@@ -65,18 +61,18 @@ namespace CMiX.Studio.ViewModels
 
         public void ResetGeometry()
         {
-            TranslateModifierModel translatemodifiermodel = new TranslateModifierModel();
             this.Reset();
-            this.Copy(translatemodifiermodel);
-            //SendMessages(MessageAddress, translatemodifiermodel);
+            //SendMessages(MessageAddress, GetModel());
         }
 
-        public void Copy(TranslateModifierModel translatemodifiermodel)
+        public TranslateModifierModel GetModel()
         {
-            Translate.Copy(translatemodifiermodel.Translate);
-            TranslateX.Copy(translatemodifiermodel.TranslateX);
-            TranslateY.Copy(translatemodifiermodel.TranslateY);
-            TranslateZ.Copy(translatemodifiermodel.TranslateZ);
+            TranslateModifierModel translateModifierModel = new TranslateModifierModel();
+            translateModifierModel.Translate = Translate.GetModel();
+            translateModifierModel.TranslateX = TranslateX.GetModel();
+            translateModifierModel.TranslateY = TranslateY.GetModel();
+            translateModifierModel.TranslateZ = TranslateZ.GetModel();
+            return translateModifierModel;
         }
 
         public void Paste(TranslateModifierModel translatemodifiermodel)
@@ -102,9 +98,7 @@ namespace CMiX.Studio.ViewModels
 
             MessageService.Enable();
 
-            TranslateModifierModel translatemodifiermodel = new TranslateModifierModel();
-            this.Copy(translatemodifiermodel);
-            //SendMessages(MessageAddress, translatemodifiermodel);
+            //SendMessages(MessageAddress, GetModel());
             //QueueObjects(translatemodifiermodel);
             //SendQueues();
         }

@@ -40,11 +40,19 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public void CopyModel(RangeControlModel rangeControlModel)
+        public RangeControlModel GetModel()
         {
-            Range.CopyModel(rangeControlModel.Range);
+            RangeControlModel rangeControlModel = new RangeControlModel();
+            rangeControlModel.Range = Range.GetModel();
             rangeControlModel.Modifier = Modifier;
+            return rangeControlModel;
         }
+
+        //public void CopyModel(RangeControlModel rangeControlModel)
+        //{
+        //    Range.CopyModel(rangeControlModel.Range);
+        //    rangeControlModel.Modifier = Modifier;
+        //}
 
         public void PasteModel(RangeControlModel rangeControlModel)
         {

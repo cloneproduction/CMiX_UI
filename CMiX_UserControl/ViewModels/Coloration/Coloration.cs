@@ -51,14 +51,25 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public void CopyModel(ColorationModel colorationModel)
+        public ColorationModel GetModel()
         {
-            ColorSelector.CopyModel(colorationModel.ColorSelectorModel);
-            BeatModifier.CopyModel(colorationModel.BeatModifierModel);
-            Hue.CopyModel(colorationModel.HueDTO);
-            Saturation.CopyModel(colorationModel.SatDTO);
-            Value.CopyModel(colorationModel.ValDTO);
+            ColorationModel colorationModel = new ColorationModel();
+            colorationModel.ColorSelectorModel = ColorSelector.GetModel();
+            colorationModel.BeatModifierModel = BeatModifier.GetModel();
+            colorationModel.HueModel = Hue.GetModel();
+            colorationModel.SatModel = Saturation.GetModel();
+            colorationModel.ValModel = Value.GetModel();
+            return colorationModel;
         }
+
+        //public void CopyModel(ColorationModel colorationModel)
+        //{
+        //    ColorSelector.CopyModel(colorationModel.ColorSelectorModel);
+        //    BeatModifier.CopyModel(colorationModel.BeatModifierModel);
+        //    Hue.CopyModel(colorationModel.HueDTO);
+        //    Saturation.CopyModel(colorationModel.SatDTO);
+        //    Value.CopyModel(colorationModel.ValDTO);
+        //}
 
         public void PasteModel(ColorationModel colorationModel)
         {
@@ -66,9 +77,9 @@ namespace CMiX.Studio.ViewModels
 
             ColorSelector.PasteModel(colorationModel.ColorSelectorModel);
             BeatModifier.PasteModel(colorationModel.BeatModifierModel);
-            Hue.PasteModel(colorationModel.HueDTO);
-            Saturation.PasteModel(colorationModel.SatDTO);
-            Value.PasteModel(colorationModel.ValDTO);
+            Hue.PasteModel(colorationModel.HueModel);
+            Saturation.PasteModel(colorationModel.SatModel);
+            Value.PasteModel(colorationModel.ValModel);
 
             MessageService.Enable();
         }
@@ -88,10 +99,8 @@ namespace CMiX.Studio.ViewModels
 
         public void CopyColoration()
         {
-            ColorationModel colorationmodel = new ColorationModel();
-            this.CopyModel(colorationmodel);
             IDataObject data = new DataObject();
-            data.SetData("ColorationModel", colorationmodel, false);
+            data.SetData("ColorationModel", GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 
@@ -104,24 +113,19 @@ namespace CMiX.Studio.ViewModels
                 this.MessageService.Disable();
 
                 var colorationmodel = data.GetData("ColorationModel") as ColorationModel;
-                var colorationmessageaddress = MessageAddress;
                 this.PasteModel(colorationmodel);
-                //this.UpdateMessageAddress(colorationmessageaddress);
 
-                this.CopyModel(colorationmodel);
                 this.MessageService.Enable();
                 this.Mementor.EndBatch();
 
-                //SendMessages(nameof(ColorationModel), colorationmodel);
+                //SendMessages(nameof(ColorationModel), GetModel());
             }
         }
 
         public void ResetColoration()
         {
-            ColorationModel colorationmodel = new ColorationModel();
             this.Reset();
-            this.CopyModel(colorationmodel);
-            //SendMessages(nameof(Coloration), colorationmodel);
+            //SendMessages(nameof(Coloration), GetModel());
         }
         #endregion
     }

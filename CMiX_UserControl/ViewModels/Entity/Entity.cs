@@ -90,23 +90,34 @@ namespace CMiX.Studio.ViewModels
             MessageService.Enable();
         }
 
-
-        public void CopyModel(EntityModel entityModel)
+        public EntityModel GetModel()
         {
-            entityModel.Enable = Enabled;
+            EntityModel entityModel = new EntityModel();
+            entityModel.Enabled = Enabled;
             entityModel.Name = Name;
-
-            this.BeatModifier.CopyModel(entityModel.BeatModifierModel);
-            this.Texture.CopyModel(entityModel.TextureModel);
-            this.Geometry.Copy(entityModel.GeometryModel);
-            this.Coloration.CopyModel(entityModel.ColorationModel);
+            entityModel.BeatModifierModel = BeatModifier.GetModel();
+            entityModel.TextureModel = Texture.GetModel();
+            entityModel.GeometryModel = Geometry.GetModel();
+            entityModel.ColorationModel = Coloration.GetModel();
+            return entityModel;
         }
+
+        //public void CopyModel(EntityModel entityModel)
+        //{
+        //    entityModel.Enabled = Enabled;
+        //    entityModel.Name = Name;
+
+        //    this.BeatModifier.CopyModel(entityModel.BeatModifierModel);
+        //    this.Texture.CopyModel(entityModel.TextureModel);
+        //    this.Geometry.Copy(entityModel.GeometryModel);
+        //    this.Coloration.CopyModel(entityModel.ColorationModel);
+        //}
 
         public void PasteModel(EntityModel entityModel)
         {
             this.MessageService.Disable();
 
-            this.Enabled = entityModel.Enable;
+            this.Enabled = entityModel.Enabled;
             this.Name = entityModel.Name;
             
             this.BeatModifier.PasteModel(entityModel.BeatModifierModel);
@@ -119,8 +130,7 @@ namespace CMiX.Studio.ViewModels
 
         public void CopyEntity()
         {
-            EntityModel entityModel = new EntityModel();
-            this.CopyModel(entityModel);
+            EntityModel entityModel = GetModel();
             IDataObject data = new DataObject();
             data.SetData("EntityModel", entityModel, false);
             Clipboard.SetDataObject(data);
@@ -136,8 +146,6 @@ namespace CMiX.Studio.ViewModels
 
                 var entityModel = data.GetData("EntityModel") as EntityModel;
                 this.PasteModel(entityModel);
-
-                this.CopyModel(entityModel);
                 this.MessageService.Enable();
                 this.Mementor.EndBatch();
                 //SendMessages(nameof(ContentModel), contentmodel);
@@ -146,10 +154,9 @@ namespace CMiX.Studio.ViewModels
 
         public void ResetEntity()
         {
-            EntityModel entityModel = new EntityModel();
+            EntityModel entityModel = GetModel();
             this.Reset();
-            this.CopyModel(entityModel);
-            //SendMessages(nameof(ContentModel), contentmodel);
+            //SendMessages(nameof(ContentModel), entityModel);
         }
         #endregion
     }

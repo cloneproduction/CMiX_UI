@@ -70,25 +70,22 @@ namespace CMiX.Studio.ViewModels
         private void NewComposition()
         {
             CompositionManager.CreateSelectedComposition(this);
-            CompositionModel compositionModel = new CompositionModel();
-            SelectedComposition.CopyModel(compositionModel);
-            //MessageService.SendMessages(SelectedComposition.MessageAddress, MessageCommand.COMPOSITION_ADD, null, compositionModel);
+            CompositionModel compositionModel = SelectedComposition.GetModel();
+            MessageService.SendMessages(SelectedComposition.MessageAddress, MessageCommand.COMPOSITION_ADD, null, compositionModel);
         }
 
         private void DeleteSelectedComposition()
         {
             int deleteIndex = Compositions.IndexOf(SelectedComposition);
             CompositionManager.DeleteComposition(this);
-
-            //MessageService.SendMessages(MessageAddress, MessageCommand.COMPOSITION_DELETE, null, deleteIndex);
+            MessageService.SendMessages(MessageAddress, MessageCommand.COMPOSITION_DELETE, null, deleteIndex);
         }
 
         private void DuplicateSelectedComposition()
         {
             CompositionManager.DuplicateComposition(this);
-            CompositionModel compositionModel = new CompositionModel();
-            SelectedComposition.CopyModel(compositionModel);
-            //MessageService.SendMessages(SelectedComposition.MessageAddress, MessageCommand.COMPOSITION_DUPLICATE, null, compositionModel);
+            CompositionModel compositionModel = SelectedComposition.GetModel();
+            MessageService.SendMessages(SelectedComposition.MessageAddress, MessageCommand.COMPOSITION_DUPLICATE, null, compositionModel);
         }
 
         private void RenameSelectedComposition()
@@ -105,8 +102,7 @@ namespace CMiX.Studio.ViewModels
         private void ReloadComposition(object messageValidation)
         {
             MessageValidation mv = messageValidation as MessageValidation;
-            CompositionModel compositionModel = new CompositionModel();
-            SelectedComposition.CopyModel(compositionModel);
+            CompositionModel compositionModel = SelectedComposition.GetModel();
             //mv.SendMessage(SelectedComposition.MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, compositionModel);
         }
 
@@ -140,8 +136,7 @@ namespace CMiX.Studio.ViewModels
 
             if (savedialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                CompositionModel compositionmodel = new CompositionModel();
-                SelectedComposition.CopyModel(compositionmodel);
+                CompositionModel compositionmodel = SelectedComposition.GetModel();
                 string folderPath = savedialog.FileName;
                 var data = Serializer.Serialize(compositionmodel);
                 File.WriteAllBytes(folderPath, data);
@@ -150,18 +145,31 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE MODEL
-        public void CopyModel(CompositionEditorModel compoEditorModel)
+        public CompositionEditorModel GetModel()
         {
-            if (SelectedComposition != null)
-                SelectedComposition.CopyModel(compoEditorModel.SelectedCompositionModel);
+            CompositionEditorModel compositionEditorModel = new CompositionEditorModel();
+            compositionEditorModel.SelectedCompositionModel = SelectedComposition.GetModel();
 
-            foreach (var comp in Compositions)
+            foreach (var composition in Compositions)
             {
-                CompositionModel compositionModel = new CompositionModel();
-                comp.CopyModel(compositionModel);
-                compoEditorModel.CompositionModels.Add(compositionModel);
+                var compositionModel = composition.GetModel();
+                compositionEditorModel.CompositionModels.Add(compositionModel);
             }
+            return compositionEditorModel;
         }
+
+        //public void CopyModel(CompositionEditorModel compoEditorModel)
+        //{
+        //    if (SelectedComposition != null)
+        //        SelectedComposition.CopyModel(compoEditorModel.SelectedCompositionModel);
+
+        //    foreach (var comp in Compositions)
+        //    {
+        //        CompositionModel compositionModel = new CompositionModel();
+        //        comp.CopyModel(compositionModel);
+        //        compoEditorModel.CompositionModels.Add(compositionModel);
+        //    }
+        //}
 
         public void PasteModel(CompositionEditorModel compoEditorModel)
         {

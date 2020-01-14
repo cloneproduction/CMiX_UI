@@ -62,8 +62,7 @@ namespace CMiX.Studio.ViewModels
         #region COPY/PASTE/RESET LAYER
         private void CopyLayer()
         {
-            LayerModel layerModel = new LayerModel();
-            SelectedLayer.CopyModel(layerModel);
+            LayerModel layerModel = SelectedLayer.GetModel();
             IDataObject data = new DataObject();
             data.SetData(nameof(LayerModel), layerModel, false);
             Clipboard.SetDataObject(data);
@@ -97,8 +96,7 @@ namespace CMiX.Studio.ViewModels
         public void ResetLayer()
         {
             SelectedLayer.Reset();
-            LayerModel layerModel = new LayerModel();
-            SelectedLayer.CopyModel(layerModel);
+            LayerModel layerModel = SelectedLayer.GetModel();
             MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, layerModel);
         }
         #endregion
@@ -198,18 +196,18 @@ namespace CMiX.Studio.ViewModels
             return layerEditorModel;
         }
 
-        public void CopyModel(LayerEditorModel layerEditorModel)
-        {
-            if(SelectedLayer != null)
-                SelectedLayer.CopyModel(layerEditorModel.SelectedLayerModel);
+        //public void CopyModel(LayerEditorModel layerEditorModel)
+        //{
+        //    if(SelectedLayer != null)
+        //        SelectedLayer.CopyModel(layerEditorModel.SelectedLayerModel);
 
-            foreach (var layer in Layers)
-            {
-                LayerModel layerModel = new LayerModel();
-                layer.CopyModel(layerModel);
-                layerEditorModel.LayerModels.Add(layerModel);
-            }
-        }
+        //    foreach (var layer in Layers)
+        //    {
+        //        LayerModel layerModel = new LayerModel();
+        //        layer.CopyModel(layerModel);
+        //        layerEditorModel.LayerModels.Add(layerModel);
+        //    }
+        //}
 
         public void PasteModel(LayerEditorModel layerEditorModel)
         {
@@ -219,7 +217,7 @@ namespace CMiX.Studio.ViewModels
             Layers.Clear();
             foreach (var layerModel in layerEditorModel.LayerModels)
             {
-                LayerFactory.CreateLayer(this).CopyModel(layerModel);
+                LayerFactory.CreateLayer(this).GetModel();
             }
         }
     }

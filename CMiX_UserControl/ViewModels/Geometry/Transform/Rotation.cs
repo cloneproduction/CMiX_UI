@@ -62,6 +62,15 @@ namespace CMiX.Studio.ViewModels
             //SendMessages(nameof(RotationModel), rotationmodel);
         }
 
+        public RotationModel GetModel()
+        {
+            RotationModel rotationModel = new RotationModel();
+            rotationModel.RotationX = RotationX.GetModel();
+            rotationModel.RotationY = RotationY.GetModel();
+            rotationModel.RotationZ = RotationZ.GetModel();
+            return rotationModel;
+        }
+
         public void Copy(RotationModel rotationmodel)
         {
             RotationX.CopyModel(rotationmodel.RotationX);

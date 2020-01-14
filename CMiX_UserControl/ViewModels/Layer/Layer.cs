@@ -90,22 +90,27 @@ namespace CMiX.Studio.ViewModels
             layerModel.ID = ID;
             layerModel.Out = Out;
             layerModel.Fade = Fade.GetModel();
+            layerModel.BlendMode = BlendMode.GetModel();
+            layerModel.ContentModel = Content.GetModel();
+            //Content.CopyModel(layerModel.ContentModel);
+            //Mask.CopyModel(layerModel.MaskModel);
+            //PostFX.CopyModel(layerModel.PostFXModel);
 
             return layerModel;
         }
 
-        public void CopyModel(LayerModel layerModel)
-        {
-            layerModel.Name = Name;
-            layerModel.ID = ID;
-            layerModel.Out = Out;
+        //public void CopyModel(LayerModel layerModel)
+        //{
+        //    layerModel.Name = Name;
+        //    layerModel.ID = ID;
+        //    layerModel.Out = Out;
 
-            Fade.CopyModel(layerModel.Fade);
-            BlendMode.CopyModel(layerModel.BlendMode);
-            Content.CopyModel(layerModel.ContentModel);
-            Mask.CopyModel(layerModel.MaskModel);
-            PostFX.CopyModel(layerModel.PostFXModel);
-        }
+        //    Fade.CopyModel(layerModel.Fade);
+        //    BlendMode.CopyModel(layerModel.BlendMode);
+        //    Content.CopyModel(layerModel.ContentModel);
+        //    Mask.CopyModel(layerModel.MaskModel);
+        //    PostFX.CopyModel(layerModel.PostFXModel);
+        //}
 
         public void PasteModel(LayerModel layerModel)
         {

@@ -16,10 +16,12 @@ namespace CMiX.MVVM.Models
             PostFXModel = new PostFXModel();
         }
 
-        public bool Enable { get; set; }
+        public bool Enabled { get; set; }
 
         public List<EntityModel> EntityModels { get; set; }
         public EntityModel SelectedEntityModel { get; set; }
+
+        public EntityEditorModel EntityEditorModel { get; set; }
         public BeatModifierModel BeatModifierModel { get; set; }
         public TextureModel TextureModel { get; set; }
         public GeometryModel GeometryModel { get; set; }

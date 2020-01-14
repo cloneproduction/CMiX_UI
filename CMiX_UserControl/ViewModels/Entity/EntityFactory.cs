@@ -48,8 +48,8 @@ namespace CMiX.Studio.ViewModels
         {
             if (context.SelectedEntity != null)
             {
-                EntityModel entityModel = new EntityModel();
-                context.SelectedEntity.CopyModel(entityModel);
+                EntityModel entityModel = context.SelectedEntity.GetModel();
+
 
                 Entity entity = new Entity(context.Beat, EntityID, context.MessageAddress, context.MessageService, context.Mementor);
                 entity.PasteModel(entityModel);

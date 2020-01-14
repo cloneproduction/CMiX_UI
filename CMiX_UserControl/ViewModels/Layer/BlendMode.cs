@@ -24,8 +24,7 @@ namespace CMiX.Studio.ViewModels
                 if (Mementor != null)
                     Mementor.PropertyChange(this, nameof(Mode));
                 SetAndNotify(ref _mode, value);
-                BlendModeModel blendModeModel = new BlendModeModel();
-                this.CopyModel(blendModeModel);
+                var blendModeModel = GetModel();
                 MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, blendModeModel);
             }
         }
@@ -34,11 +33,17 @@ namespace CMiX.Studio.ViewModels
         public Mementor Mementor { get; set; }
         public MessageService MessageService { get; set; }
 
-
-        public void CopyModel(BlendModeModel blendModeModel)
+        public BlendModeModel GetModel()
         {
+            BlendModeModel blendModeModel = new BlendModeModel();
             blendModeModel.Mode = Mode;
+            return blendModeModel;
         }
+
+        //public void CopyModel(BlendModeModel blendModeModel)
+        //{
+        //    blendModeModel.Mode = Mode;
+        //}
 
         public void PasteModel(BlendModeModel blendModeModel)
         {

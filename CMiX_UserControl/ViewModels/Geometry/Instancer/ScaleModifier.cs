@@ -34,10 +34,8 @@ namespace CMiX.Studio.ViewModels
         #region COPY/PASTE/RESET
         public void CopyGeometry()
         {
-            ScaleModifierModel Scalemodifiermodel = new ScaleModifierModel();
-            this.Copy(Scalemodifiermodel);
             IDataObject data = new DataObject();
-            data.SetData("ScaleModifierModel", Scalemodifiermodel, false);
+            data.SetData("ScaleModifierModel", GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 
@@ -52,12 +50,9 @@ namespace CMiX.Studio.ViewModels
                 var Scalemodifiermodel = data.GetData("ScaleModifierModel") as ScaleModifierModel;
                 var messageaddress = MessageAddress;
                 this.Paste(Scalemodifiermodel);
-                //UpdateMessageAddress(messageaddress);
-                this.Copy(Scalemodifiermodel);
-
                 MessageService.Enable();
                 Mementor.EndBatch();
-                //SendMessages(MessageAddress, Scalemodifiermodel);
+                //SendMessages(MessageAddress, GetModel());
                 //QueueObjects(Scalemodifiermodel);
                 //SendQueues();
             }
@@ -65,21 +60,30 @@ namespace CMiX.Studio.ViewModels
 
         public void ResetGeometry()
         {
-            ScaleModifierModel Scalemodifiermodel = new ScaleModifierModel();
             this.Reset();
-            this.Copy(Scalemodifiermodel);
-            //SendMessages(MessageAddress, Scalemodifiermodel);
+            //SendMessages(MessageAddress, GetModel());
             //QueueObjects(Scalemodifiermodel);
             //SendQueues();
         }
 
-        public void Copy(ScaleModifierModel Scalemodifiermodel)
+        public ScaleModifierModel GetModel()
         {
-            Scale.Copy(Scalemodifiermodel.Scale);
-            ScaleX.Copy(Scalemodifiermodel.ScaleX);
-            ScaleY.Copy(Scalemodifiermodel.ScaleY);
-            ScaleZ.Copy(Scalemodifiermodel.ScaleZ);
+            ScaleModifierModel scaleModifierModel = new ScaleModifierModel();
+            scaleModifierModel.Scale = Scale.GetModel();
+            scaleModifierModel.ScaleX = ScaleX.GetModel();
+            scaleModifierModel.ScaleY = ScaleY.GetModel();
+            scaleModifierModel.ScaleZ = ScaleZ.GetModel();
+            return scaleModifierModel;
         }
+
+
+        //public void Copy(ScaleModifierModel Scalemodifiermodel)
+        //{
+        //    Scale.Copy(Scalemodifiermodel.Scale);
+        //    ScaleX.Copy(Scalemodifiermodel.ScaleX);
+        //    ScaleY.Copy(Scalemodifiermodel.ScaleY);
+        //    ScaleZ.Copy(Scalemodifiermodel.ScaleZ);
+        //}
 
         public void Paste(ScaleModifierModel Scalemodifiermodel)
         {
@@ -103,10 +107,7 @@ namespace CMiX.Studio.ViewModels
             ScaleZ.Reset();
 
             MessageService.Enable();
-
-            ScaleModifierModel Scalemodifiermodel = new ScaleModifierModel();
-            this.Copy(Scalemodifiermodel);
-            //SendMessages(MessageAddress, Scalemodifiermodel);
+            //SendMessages(MessageAddress, GetModel());
             //QueueObjects(Scalemodifiermodel);
             //SendQueues();
         }

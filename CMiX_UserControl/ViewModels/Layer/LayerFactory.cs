@@ -20,10 +20,7 @@ namespace CMiX.Studio.ViewModels
             Layer newLayer = new Layer(context.MasterBeat, context.MessageAddress, LayerID, context.MessageService, context.Assets, context.Mementor);
             context.Layers.Add(newLayer);
             context.SelectedLayer = newLayer;
-
-            LayerModel layerModel = new LayerModel();
-            newLayer.CopyModel(layerModel);
-            MessageService.SendMessages(context.MessageAddress, MessageCommand.LAYER_ADD, null, layerModel);
+            MessageService.SendMessages(context.MessageAddress, MessageCommand.LAYER_ADD, null, newLayer.GetModel());
 
             LayerID++;
             return newLayer;
@@ -34,8 +31,8 @@ namespace CMiX.Studio.ViewModels
             var SelectedLayer = context.SelectedLayer;
             if (SelectedLayer != null)
             {
-                LayerModel layerModel = new LayerModel();
-                context.SelectedLayer.CopyModel(layerModel);
+                LayerModel layerModel = context.SelectedLayer.GetModel();
+
                 layerModel.ID = LayerID;
                 layerModel.Name = SelectedLayer.Name + "- Copy";
 

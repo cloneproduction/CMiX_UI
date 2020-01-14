@@ -55,10 +55,8 @@ namespace CMiX.Studio.ViewModels
         #region COPY/PASTE/RESET
         public void CopyGeometry()
         {
-            AnimParameterModel animparametermodel = new AnimParameterModel();
-            this.Copy(animparametermodel);
             IDataObject data = new DataObject();
-            data.SetData("AnimParameterModel", animparametermodel, false);
+            data.SetData("AnimParameterModel", GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 
@@ -71,14 +69,11 @@ namespace CMiX.Studio.ViewModels
                 MessageService.Disable();
 
                 var animparametermodel = data.GetData("AnimParameterModel") as AnimParameterModel;
-                var messageaddress = MessageAddress;
                 this.Paste(animparametermodel);
-
-                this.Copy(animparametermodel);
 
                 MessageService.Enable();
                 Mementor.EndBatch();
-                //SendMessages(MessageAddress, animparametermodel);
+                //SendMessages(MessageAddress, GetModel());
                 //QueueObjects(animparametermodel);
                 //SendQueues();
             }
@@ -86,19 +81,25 @@ namespace CMiX.Studio.ViewModels
 
         public void ResetGeometry()
         {
-            AnimParameterModel animparametermodel = new AnimParameterModel();
             this.Reset();
-            this.Copy(animparametermodel);
-            //SendMessages(MessageAddress, animparametermodel);
+            //SendMessages(MessageAddress, GetModel());
             //QueueObjects(animparametermodel);
             //SendQueues();
         }
 
-        public void Copy(AnimParameterModel animparametermodel)
+        public AnimParameterModel GetModel()
         {
-            Slider.CopyModel(animparametermodel.Slider);
-            BeatModifier.CopyModel(animparametermodel.BeatModifier);
+            AnimParameterModel animParameterModel = new AnimParameterModel();
+            animParameterModel.Slider = Slider.GetModel();
+            animParameterModel.BeatModifier = BeatModifier.GetModel();
+            return animParameterModel;
         }
+
+        //public void Copy(AnimParameterModel animparametermodel)
+        //{
+        //    Slider.CopyModel(animparametermodel.Slider);
+        //    BeatModifier.CopyModel(animparametermodel.BeatModifier);
+        //}
 
         public void Paste(AnimParameterModel animparametermodel)
         {
@@ -119,9 +120,9 @@ namespace CMiX.Studio.ViewModels
 
             MessageService.Enable();
 
-            AnimParameterModel animparametermodel = new AnimParameterModel();
-            this.Copy(animparametermodel);
-            //SendMessages(MessageAddress, animparametermodel);
+            AnimParameterModel animparametermodel = GetModel();
+            //this.Copy(animparametermodel);
+            //SendMessages(MessageAddress, GetModel());
             //QueueObjects(animparametermodel);
             //SendQueues();
         }

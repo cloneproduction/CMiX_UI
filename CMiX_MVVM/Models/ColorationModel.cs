@@ -9,15 +9,15 @@ namespace CMiX.MVVM.Models
         {
             BeatModifierModel = new BeatModifierModel();
             ColorSelectorModel = new ColorSelectorModel();
-            HueDTO = new RangeControlModel();
-            SatDTO = new RangeControlModel();
-            ValDTO = new RangeControlModel();
+            HueModel = new RangeControlModel();
+            SatModel = new RangeControlModel();
+            ValModel = new RangeControlModel();
         }
 
         public ColorSelectorModel ColorSelectorModel { get; set; }
         public BeatModifierModel BeatModifierModel { get; set; }
-        public RangeControlModel HueDTO { get; set; }
-        public RangeControlModel SatDTO { get; set; }
-        public RangeControlModel ValDTO { get; set; }
+        public RangeControlModel HueModel { get; set; }
+        public RangeControlModel SatModel { get; set; }
+        public RangeControlModel ValModel { get; set; }
     }
 }

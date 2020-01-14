@@ -76,14 +76,14 @@ namespace CMiX.Studio.ViewModels
             return compositionModel;
         }
 
-        public void CopyModel(CompositionModel compositionModel)
-        {
-            compositionModel.Name = Name;
-            MasterBeat.CopyModel(compositionModel.MasterBeatModel);
-            Camera.CopyModel(compositionModel.CameraModel);
-            Transition.CopyModel(compositionModel.TransitionModel);
-            LayerEditor.CopyModel(compositionModel.LayerEditorModel);
-        }
+        //public void CopyModel(CompositionModel compositionModel)
+        //{
+        //    compositionModel.Name = Name;
+        //    MasterBeat.CopyModel(compositionModel.MasterBeatModel);
+        //    Camera.CopyModel(compositionModel.CameraModel);
+        //    Transition.CopyModel(compositionModel.TransitionModel);
+        //    LayerEditor.CopyModel(compositionModel.LayerEditorModel);
+        //}
 
         public void PasteModel(CompositionModel compositionModel)
         {

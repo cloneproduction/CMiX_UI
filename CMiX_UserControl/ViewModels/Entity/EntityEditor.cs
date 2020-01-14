@@ -58,9 +58,9 @@ namespace CMiX.Studio.ViewModels
         public void AddEntity()
         {
             var entity = EntityFactory.CreateEntity(this);
-            EntityModel entityModel = new EntityModel();
-            entity.CopyModel(entityModel);
-            MessageService.SendMessages(MessageAddress, MessageCommand.ENTITY_ADD, null, entityModel);
+            //EntityModel entityModel = GetModel();
+            //entity.CopyModel(entityModel);
+            //MessageService.SendMessages(MessageAddress, MessageCommand.ENTITY_ADD, null, entityModel);
         }
 
         public void DeleteEntity()
@@ -78,15 +78,25 @@ namespace CMiX.Studio.ViewModels
             if(SelectedEntity != null)
             {
                 EntityFactory.DuplicateEntity(this);
-                EntityModel entityModel = new EntityModel();
-                SelectedEntity.CopyModel(entityModel);
+                EntityModel entityModel = SelectedEntity.GetModel();
                 MessageService.SendMessages(SelectedEntity.MessageAddress, MessageCommand.COMPOSITION_DUPLICATE, null, entityModel);
             }
         }
 
-        public void CopyModel(IModel model)
+        //public void CopyModel(IModel model)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        public EntityEditorModel GetModel()
         {
-            throw new NotImplementedException();
+            EntityEditorModel entityEditorModel = new EntityEditorModel();
+            foreach (var entity in Entities)
+            {
+                var entityModel = entity.GetModel();
+                entityEditorModel.EntityModels.Add(entityModel);
+            }
+            return entityEditorModel;
         }
 
         public void PasteModel(IModel model)
