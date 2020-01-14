@@ -64,14 +64,15 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE COMPOSITIONS
+
         public CompositionModel GetModel()
         {
             CompositionModel compositionModel = new CompositionModel();
+            compositionModel.Name = Name;
             compositionModel.CameraModel = Camera.GetModel();
             compositionModel.MasterBeatModel = MasterBeat.GetModel();
             compositionModel.TransitionModel = Transition.GetModel();
-            compositionModel.Name = Name;
-
+            compositionModel.LayerEditorModel = LayerEditor.GetModel();
             return compositionModel;
         }
 
