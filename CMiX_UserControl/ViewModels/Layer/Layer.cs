@@ -83,6 +83,16 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
+        public LayerModel GetModel()
+        {
+            LayerModel layerModel = new LayerModel();
+            layerModel.Name = Name;
+            layerModel.ID = ID;
+            layerModel.Out = Out;
+            layerModel.Fade = Fade.GetModel();
+            return layerModel;
+        }
+
         public void CopyModel(LayerModel layerModel)
         {
             layerModel.Name = Name;

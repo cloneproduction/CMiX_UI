@@ -128,6 +128,13 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
+        public SliderModel GetModel()
+        {
+            SliderModel sliderModel = new SliderModel();
+            sliderModel.Amount = Amount;
+            return sliderModel;
+        }
+
         public void CopyModel(SliderModel sliderModel)
         {
             sliderModel.Amount = Amount;

@@ -13,18 +13,14 @@ namespace CMiX.MVVM.Models
             CameraModel = new CameraModel();
             TransitionModel = new SliderModel();
             SelectedLayer = new LayerModel();
+            LayerEditorModel = new LayerEditorModel();
         }
 
         public string Name { get; set; }
 
-        public string ContentFolderName { get; set; }
-        public string GeometryFolderName { get; set; }
-        public string VideoFolderName { get; set; }
-
         public List<LayerModel> LayersModel { get; set; }
         public LayerModel SelectedLayer { get; set; }
-        //public List<int> LayerID { get; set; }
-        //public List<string> LayerNames { get; set; }
+        public LayerEditorModel LayerEditorModel { get; set; }
         public MasterBeatModel MasterBeatModel { get; set; }
         public CameraModel CameraModel { get; set; }
         public SliderModel TransitionModel { get; set; }

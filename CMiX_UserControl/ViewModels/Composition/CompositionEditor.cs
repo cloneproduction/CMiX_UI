@@ -152,6 +152,9 @@ namespace CMiX.Studio.ViewModels
         #region COPY/PASTE MODEL
         public void CopyModel(CompositionEditorModel compoEditorModel)
         {
+            if (SelectedComposition != null)
+                SelectedComposition.CopyModel(compoEditorModel.SelectedCompositionModel);
+
             foreach (var comp in Compositions)
             {
                 CompositionModel compositionModel = new CompositionModel();
@@ -162,6 +165,9 @@ namespace CMiX.Studio.ViewModels
 
         public void PasteModel(CompositionEditorModel compoEditorModel)
         {
+            if (SelectedComposition != null)
+                SelectedComposition.PasteModel(compoEditorModel.SelectedCompositionModel);
+
             Compositions.Clear();
             foreach (var compositionModel in compoEditorModel.CompositionModels)
             {

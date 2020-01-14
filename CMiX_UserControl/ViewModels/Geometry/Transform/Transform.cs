@@ -41,7 +41,6 @@ namespace CMiX.Studio.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public Sender Sender { get; set; }
         public Mementor Mementor { get; set; }
         public MessageService MessageService { get; set; }
         #endregion
@@ -62,7 +61,7 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("TransformModel"))
             {
                 Mementor.BeginBatch();
-                Sender.Disable();;
+                MessageService.Disable();;
 
                 var transformmodel = data.GetData("TransformModel") as TransformModel;
                 var messageaddress = MessageAddress;
@@ -70,7 +69,7 @@ namespace CMiX.Studio.ViewModels
                 //UpdateMessageAddress(messageaddress);
                 this.Copy(transformmodel);
 
-                Sender.Enable();
+                MessageService.Enable();
                 Mementor.EndBatch();
                 //this.SendMessages(nameof(TransformModel), transformmodel);
             }
@@ -94,19 +93,19 @@ namespace CMiX.Studio.ViewModels
 
         public void Paste(TransformModel transformModel)
         {
-            Sender.Disable();
+            MessageService.Disable();
 
             Translate.Paste(transformModel.Translate);
             Scale.Paste(transformModel.Scale);
             Rotation.Paste(transformModel.Rotation);
             Is3D = transformModel.Is3D;
 
-            Sender.Enable();
+            MessageService.Enable();
         }
 
         public void Reset()
         {
-            Sender.Disable();;
+            MessageService.Disable();;
             //Mementor.BeginBatch();
 
             Translate.Reset();
@@ -114,7 +113,7 @@ namespace CMiX.Studio.ViewModels
             Rotation.Reset();
             Is3D = false;
             //Mementor.EndBatch();
-            Sender.Enable();
+            MessageService.Enable();
 
             TransformModel transformmodel = new TransformModel();
             this.Copy(transformmodel);

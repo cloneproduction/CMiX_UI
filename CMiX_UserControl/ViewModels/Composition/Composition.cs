@@ -24,7 +24,9 @@ namespace CMiX.Studio.ViewModels
             Transition = new Slider("/Transition", messageService, Mementor);
             MasterBeat = new MasterBeat(messageService);
             Camera = new Camera(messageService, MessageAddress, MasterBeat, Mementor);
-            LayerEditor = new LayerEditor(messageService, MessageAddress, MasterBeat, assets, mementor);
+
+            Layers = new ObservableCollection<Layer>();
+            LayerEditor = new LayerEditor(Layers, messageService, MessageAddress, MasterBeat, assets, mementor);
         }
         #endregion
 
@@ -37,11 +39,13 @@ namespace CMiX.Studio.ViewModels
         public Mementor Mementor { get; set; }
         public Assets Assets { get; set; }
 
+       
         public MessageValidationManager MessageValidationManager { get; set; }
         public MasterBeat MasterBeat { get; set; }
         public Camera Camera { get; set; }
         public Slider Transition { get; set; }
         public LayerEditor LayerEditor { get; set; }
+        public ObservableCollection<Layer> Layers { get; set; }
 
         private string _name;
         public string Name
@@ -60,12 +64,24 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE COMPOSITIONS
+        public CompositionModel GetModel()
+        {
+            CompositionModel compositionModel = new CompositionModel();
+            compositionModel.CameraModel = Camera.GetModel();
+            compositionModel.MasterBeatModel = MasterBeat.GetModel();
+            compositionModel.TransitionModel = Transition.GetModel();
+            compositionModel.Name = Name;
+
+            return compositionModel;
+        }
+
         public void CopyModel(CompositionModel compositionModel)
         {
             compositionModel.Name = Name;
             MasterBeat.CopyModel(compositionModel.MasterBeatModel);
             Camera.CopyModel(compositionModel.CameraModel);
             Transition.CopyModel(compositionModel.TransitionModel);
+            LayerEditor.CopyModel(compositionModel.LayerEditorModel);
         }
 
         public void PasteModel(CompositionModel compositionModel)
@@ -73,10 +89,10 @@ namespace CMiX.Studio.ViewModels
             MessageService.Disable();
 
             Name = compositionModel.Name;
-
             MasterBeat.PasteModel(compositionModel.MasterBeatModel);
             Camera.PasteModel(compositionModel.CameraModel);
             Transition.PasteModel(compositionModel.TransitionModel);
+            LayerEditor.PasteModel(compositionModel.LayerEditorModel);
 
             MessageService.Enable();
         }

@@ -12,13 +12,13 @@ using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class LayerEditor : ViewModel, ILayerEditor
+    public class LayerEditor : ViewModel, ILayerEditor, IDropTarget
     {
-        public LayerEditor(MessageService messageService, string messageAddress, MasterBeat masterBeat, Assets assets, Mementor mementor)
+        public LayerEditor(ObservableCollection<Layer> layers, MessageService messageService, string messageAddress, MasterBeat masterBeat, Assets assets, Mementor mementor)
         {
             Mementor = mementor;
             LayerFactory = new LayerFactory(messageService);
-            Layers = new ObservableCollection<Layer>();
+            Layers = layers;
             
             Assets = assets;
             MasterBeat = masterBeat;
@@ -124,16 +124,6 @@ namespace CMiX.Studio.ViewModels
         {
             LayerFactory.DeleteLayer(this);
         }
-
-        public void UpdateLayersIDOnDelete(Layer deletedlayer)
-        {
-            foreach (var item in Layers)
-            {
-                if (item.ID > deletedlayer.ID)
-                    item.ID--;
-            }
-            //LayerID--;
-        }
         #endregion
 
         #region DRAG DROP
@@ -155,20 +145,17 @@ namespace CMiX.Studio.ViewModels
             {
                 int sourceindex = dropInfo.DragInfo.SourceIndex;
                 int insertindex = dropInfo.InsertIndex;
-
+                
                 if (sourceindex != insertindex)
                 {
                     if (insertindex >= Layers.Count - 1)
-                    {
                         insertindex -= 1;
-                    }
 
                     Layers.Move(sourceindex, insertindex);
                     Mementor.ElementIndexChange(Layers, Layers[insertindex], sourceindex);
                     SelectedLayer = Layers[insertindex];
 
                     int[] moveIndex = new int[2] { sourceindex, insertindex };
-
                     MessageService.SendMessages(MessageAddress, MessageCommand.LAYER_MOVE, null, moveIndex); 
                 }
             }
@@ -197,14 +184,43 @@ namespace CMiX.Studio.ViewModels
             return LayerID;
         }
 
-        public void CopyModel(IModel model)
+        public LayerEditorModel GetModel()
         {
-            throw new NotImplementedException();
+            LayerEditorModel layerEditorModel = new LayerEditorModel();
+            if(SelectedLayer != null)
+                layerEditorModel.SelectedLayerModel = SelectedLayer.GetModel();
+
+            foreach (var layer in Layers)
+            {
+                var layerModel = layer.GetModel();
+                layerEditorModel.LayerModels.Add(layerModel);
+            }
+            return layerEditorModel;
         }
 
-        public void PasteModel(IModel model)
+        public void CopyModel(LayerEditorModel layerEditorModel)
         {
-            throw new NotImplementedException();
+            if(SelectedLayer != null)
+                SelectedLayer.CopyModel(layerEditorModel.SelectedLayerModel);
+
+            foreach (var layer in Layers)
+            {
+                LayerModel layerModel = new LayerModel();
+                layer.CopyModel(layerModel);
+                layerEditorModel.LayerModels.Add(layerModel);
+            }
+        }
+
+        public void PasteModel(LayerEditorModel layerEditorModel)
+        {
+            if(SelectedLayer != null)
+                SelectedLayer.PasteModel(layerEditorModel.SelectedLayerModel);
+            
+            Layers.Clear();
+            foreach (var layerModel in layerEditorModel.LayerModels)
+            {
+                LayerFactory.CreateLayer(this).CopyModel(layerModel);
+            }
         }
     }
 }

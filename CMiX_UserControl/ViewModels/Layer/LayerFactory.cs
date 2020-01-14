@@ -79,6 +79,12 @@ namespace CMiX.Studio.ViewModels
             }
         }
 
+
+        public void PasteLayer(ILayerContext context)
+        {
+
+        }
+
         //private string CreateLayerMessageAddress()
         //{
         //    //return $"{this.MessageAddress}Layer{LayerNameID.ToString()}/";
