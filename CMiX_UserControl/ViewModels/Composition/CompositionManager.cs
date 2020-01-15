@@ -64,7 +64,7 @@ namespace CMiX.Studio.ViewModels
 
                 MessageService messageService = new MessageService();
                 Composition newCompo = new Composition(messageService, context.MessageAddress, context.Assets, context.Mementor);
-                newCompo.PasteModel(compositionmodel);
+                newCompo.SetViewModel(compositionmodel);
                 newCompo.Name = newCompo.Name + "- Copy";
                 context.SelectedComposition = newCompo;
                 context.Compositions.Add(newCompo);

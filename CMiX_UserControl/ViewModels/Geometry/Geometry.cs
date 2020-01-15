@@ -101,7 +101,7 @@ namespace CMiX.Studio.ViewModels
         {
             MessageService.Disable();
 
-            FileSelector.PasteModel(geometryModel.FileSelector);
+            FileSelector.SetViewModel(geometryModel.FileSelector);
             Transform.Paste(geometryModel.Transform);
             GeometryFX.Paste(geometryModel.GeometryFX);
             Instancer.Paste(geometryModel.Instancer);

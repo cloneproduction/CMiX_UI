@@ -27,10 +27,8 @@ namespace CMiX.Studio.ViewModels
         #region COPY/PASTE/RESET
         public void CopyGeometry()
         {
-            RotationModel rotationmodel = new RotationModel();
-            this.Copy(rotationmodel);
             IDataObject data = new DataObject();
-            data.SetData("RotationModel", rotationmodel, false);
+            data.SetData("RotationModel", GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 
@@ -45,21 +43,17 @@ namespace CMiX.Studio.ViewModels
                 var rotationmodel = data.GetData("RotationModel") as RotationModel;
                 var messageaddress = MessageAddress;
                 this.Paste(rotationmodel);
-                //UpdateMessageAddress(messageaddress);
-                this.Copy(rotationmodel);
 
                 MessageService.Enable();
                 Mementor.EndBatch();
-                //SendMessages(nameof(RotationModel), rotationmodel);
+                //SendMessages(nameof(RotationModel), GetModel());
             }
         }
 
         public void ResetGeometry()
         {
-            RotationModel rotationmodel = new RotationModel();
             this.Reset();
-            this.Copy(rotationmodel);
-            //SendMessages(nameof(RotationModel), rotationmodel);
+            //SendMessages(nameof(RotationModel), GetModel());
         }
 
         public RotationModel GetModel()
@@ -71,20 +65,14 @@ namespace CMiX.Studio.ViewModels
             return rotationModel;
         }
 
-        public void Copy(RotationModel rotationmodel)
-        {
-            RotationX.CopyModel(rotationmodel.RotationX);
-            RotationY.CopyModel(rotationmodel.RotationY);
-            RotationZ.CopyModel(rotationmodel.RotationZ);
-        }
 
         public void Paste(RotationModel rotationmodel)
         {
             MessageService.Disable();
 
-            RotationX.PasteModel(rotationmodel.RotationX);
-            RotationY.PasteModel(rotationmodel.RotationY);
-            RotationZ.PasteModel(rotationmodel.RotationZ);
+            RotationX.SetViewModel(rotationmodel.RotationX);
+            RotationY.SetViewModel(rotationmodel.RotationY);
+            RotationZ.SetViewModel(rotationmodel.RotationZ);
 
             MessageService.Enable();
         }
@@ -101,9 +89,7 @@ namespace CMiX.Studio.ViewModels
             //Mementor.EndBatch();
             MessageService.Enable();
 
-            RotationModel rotationmodel = new RotationModel();
-            this.Copy(rotationmodel);
-            //SendMessages(nameof(RotationModel), rotationmodel);
+            //SendMessages(nameof(RotationModel), GetModel());
         }
         #endregion
     }

@@ -9,7 +9,7 @@ using CMiX.MVVM;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class PostFX : ViewModel,  ISendable, IUndoable  //, ICopyPasteModel<PostFXModel>,
+    public class PostFX : ViewModel,  ISendable, IUndoable  //, ICopySetViewModel<PostFXModel>,
     {
         #region CONSTRUCTORS
         public PostFX(string messageaddress, MessageService messageService, Mementor mementor) 
@@ -87,15 +87,15 @@ namespace CMiX.Studio.ViewModels
         //    postFXmodel.View = View;
         //}
 
-        public void PasteModel(PostFXModel postFXmodel)
+        public void SetViewModel(PostFXModel postFXmodel)
         {
             MessageService.Disable();
 
             Transforms = postFXmodel.Transforms;
             View = postFXmodel.View;
 
-            Feedback.PasteModel(postFXmodel.Feedback);
-            Blur.PasteModel(postFXmodel.Blur);
+            Feedback.SetViewModel(postFXmodel.Feedback);
+            Blur.SetViewModel(postFXmodel.Blur);
 
             MessageService.Enable();
         }
@@ -133,7 +133,7 @@ namespace CMiX.Studio.ViewModels
                 MessageService.Disable();
 
                 var postFXModel = data.GetData("PostFXModel") as PostFXModel;
-                this.PasteModel(postFXModel);
+                this.SetViewModel(postFXModel);
 
                 Mementor.EndBatch();
                 MessageService.Enable();

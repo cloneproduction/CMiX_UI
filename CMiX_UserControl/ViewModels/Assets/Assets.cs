@@ -285,7 +285,7 @@ namespace CMiX.Studio.ViewModels
             throw new NotImplementedException();
         }
 
-        public void PasteModel(IModel model)
+        public void SetViewModel(IModel model)
         {
             throw new NotImplementedException();
         }

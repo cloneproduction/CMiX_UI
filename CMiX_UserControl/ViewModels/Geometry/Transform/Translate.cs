@@ -79,9 +79,9 @@ namespace CMiX.Studio.ViewModels
         {
             MessageService.Disable();
 
-            TranslateX.PasteModel(translatemodel.TranslateX);
-            TranslateY.PasteModel(translatemodel.TranslateY);
-            TranslateZ.PasteModel(translatemodel.TranslateZ);
+            TranslateX.SetViewModel(translatemodel.TranslateX);
+            TranslateY.SetViewModel(translatemodel.TranslateY);
+            TranslateZ.SetViewModel(translatemodel.TranslateZ);
 
             MessageService.Enable();
         }

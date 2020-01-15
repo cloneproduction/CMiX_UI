@@ -2,6 +2,7 @@
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using System.Collections.ObjectModel;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -18,7 +19,9 @@ namespace CMiX.Studio.ViewModels
 
             ID = id;
             Name = "Layer " + id;
+            Entities = new ObservableCollection<Entity>();
 
+            EntityEditor = new EntityEditor(Entities, messageService, MessageAddress, masterBeat, Assets, mementor);
             BlendMode = new BlendMode(masterBeat, MessageAddress, messageService, mementor);
             Fade = new Slider(MessageAddress + nameof(Fade), messageService, mementor);
             Content = new Content(masterBeat, MessageAddress, messageService, mementor);
@@ -70,16 +73,18 @@ namespace CMiX.Studio.ViewModels
             }
         }
 
+        public MessageService MessageService { get; set; }
         public string MessageAddress { get; set; }
         public Mementor Mementor { get; set; }
         public Assets Assets { get; set; }
 
-        public Slider Fade { get; }
-        public Content Content { get; }
-        public Mask Mask { get; }
-        public PostFX PostFX { get; }
-        public BlendMode BlendMode { get; }
-        public MessageService MessageService { get; set; }
+        public Slider Fade { get; set; }
+        public Content Content { get; set; }
+        public Mask Mask { get; set; }
+        public PostFX PostFX { get; set; }
+        public BlendMode BlendMode { get; set; }
+        public EntityEditor EntityEditor { get; set; }
+        public ObservableCollection<Entity> Entities { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
@@ -89,30 +94,16 @@ namespace CMiX.Studio.ViewModels
             layerModel.Name = Name;
             layerModel.ID = ID;
             layerModel.Out = Out;
+            layerModel.EntityEditorModel = EntityEditor.GetModel();
             layerModel.Fade = Fade.GetModel();
             layerModel.BlendMode = BlendMode.GetModel();
             layerModel.ContentModel = Content.GetModel();
-            //Content.CopyModel(layerModel.ContentModel);
-            //Mask.CopyModel(layerModel.MaskModel);
-            //PostFX.CopyModel(layerModel.PostFXModel);
-
+            layerModel.MaskModel = Mask.GetModel();
+            layerModel.PostFXModel = PostFX.GetModel();
             return layerModel;
         }
 
-        //public void CopyModel(LayerModel layerModel)
-        //{
-        //    layerModel.Name = Name;
-        //    layerModel.ID = ID;
-        //    layerModel.Out = Out;
-
-        //    Fade.CopyModel(layerModel.Fade);
-        //    BlendMode.CopyModel(layerModel.BlendMode);
-        //    Content.CopyModel(layerModel.ContentModel);
-        //    Mask.CopyModel(layerModel.MaskModel);
-        //    PostFX.CopyModel(layerModel.PostFXModel);
-        //}
-
-        public void PasteModel(LayerModel layerModel)
+        public void SetViewModel(LayerModel layerModel)
         {
             MessageService.Disable();
 
@@ -120,11 +111,12 @@ namespace CMiX.Studio.ViewModels
             Out = layerModel.Out;
             ID = layerModel.ID;
 
-            Fade.PasteModel(layerModel.Fade);
-            BlendMode.PasteModel(layerModel.BlendMode);
-            Content.PasteModel(layerModel.ContentModel);
-            Mask.PasteModel(layerModel.MaskModel);
-            PostFX.PasteModel(layerModel.PostFXModel);
+            EntityEditor.SetViewModel(layerModel.EntityEditorModel);
+            Fade.SetViewModel(layerModel.Fade);
+            BlendMode.SetViewModel(layerModel.BlendMode);
+            Content.SetViewModel(layerModel.ContentModel);
+            Mask.SetViewModel(layerModel.MaskModel);
+            PostFX.SetViewModel(layerModel.PostFXModel);
 
             MessageService.Enable();
         }

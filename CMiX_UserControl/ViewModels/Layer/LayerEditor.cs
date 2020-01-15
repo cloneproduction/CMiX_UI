@@ -46,18 +46,18 @@ namespace CMiX.Studio.ViewModels
         public LayerFactory LayerFactory { get; set; }
         public ObservableCollection<Layer> Layers { get; set; }
 
-        public MasterBeat MasterBeat { get; set; }
-        public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
-        public Mementor Mementor { get; set; }
-        public Assets Assets { get; set; }
-
         private Layer _selectedLayer;
         public Layer SelectedLayer
         {
             get => _selectedLayer;
             set => SetAndNotify(ref _selectedLayer, value);
         }
+
+        public MasterBeat MasterBeat { get; set; }
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get; set; }
+        public Mementor Mementor { get; set; }
+        public Assets Assets { get; set; }
 
         #region COPY/PASTE/RESET LAYER
         private void CopyLayer()
@@ -83,7 +83,7 @@ namespace CMiX.Studio.ViewModels
 
                 SelectedLayer.Name = selectedlayername;
                 SelectedLayer.ID = selectedLayerID;
-                SelectedLayer.PasteModel(layerModel);
+                SelectedLayer.SetViewModel(layerModel);
 
 
                 //SelectedLayer.CopyModel(layerModel);
@@ -196,23 +196,10 @@ namespace CMiX.Studio.ViewModels
             return layerEditorModel;
         }
 
-        //public void CopyModel(LayerEditorModel layerEditorModel)
-        //{
-        //    if(SelectedLayer != null)
-        //        SelectedLayer.CopyModel(layerEditorModel.SelectedLayerModel);
-
-        //    foreach (var layer in Layers)
-        //    {
-        //        LayerModel layerModel = new LayerModel();
-        //        layer.CopyModel(layerModel);
-        //        layerEditorModel.LayerModels.Add(layerModel);
-        //    }
-        //}
-
-        public void PasteModel(LayerEditorModel layerEditorModel)
+        public void SetViewModel(LayerEditorModel layerEditorModel)
         {
             if(SelectedLayer != null)
-                SelectedLayer.PasteModel(layerEditorModel.SelectedLayerModel);
+                SelectedLayer.SetViewModel(layerEditorModel.SelectedLayerModel);
             
             Layers.Clear();
             foreach (var layerModel in layerEditorModel.LayerModels)

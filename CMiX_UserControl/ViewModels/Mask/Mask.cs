@@ -94,17 +94,17 @@ namespace CMiX.Studio.ViewModels
         }
 
 
-        public void PasteModel(MaskModel maskModel)
+        public void SetViewModel(MaskModel maskModel)
         {
             MessageService.Disable();
 
             Enabled = maskModel.Enable;
             MaskType = maskModel.MaskType;
             MaskControlType = maskModel.MaskControlType;
-            BeatModifier.PasteModel(maskModel.BeatModifierModel);
-            Texture.PasteModel(maskModel.TextureModel);
+            BeatModifier.SetViewModel(maskModel.BeatModifierModel);
+            Texture.SetViewModel(maskModel.TextureModel);
             Geometry.Paste(maskModel.GeometryModel);
-            PostFX.PasteModel(maskModel.PostFXModel);
+            PostFX.SetViewModel(maskModel.PostFXModel);
 
             MessageService.Enable();
         }
@@ -138,7 +138,7 @@ namespace CMiX.Studio.ViewModels
                 MessageService.Disable();;
 
                 var maskmodel = data.GetData("MaskModel") as MaskModel;
-                this.PasteModel(maskmodel);
+                this.SetViewModel(maskmodel);
                 MessageService.Enable();
                 Mementor.EndBatch();
                 //this.SendMessages(nameof(MaskModel), GetModel());

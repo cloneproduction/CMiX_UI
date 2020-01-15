@@ -72,9 +72,9 @@ namespace CMiX.Studio.ViewModels
         {
             MessageService.Disable();
 
-            ScaleX.PasteModel(scalemodel.ScaleX);
-            ScaleY.PasteModel(scalemodel.ScaleY);
-            ScaleZ.PasteModel(scalemodel.ScaleZ);
+            ScaleX.SetViewModel(scalemodel.ScaleX);
+            ScaleY.SetViewModel(scalemodel.ScaleY);
+            ScaleZ.SetViewModel(scalemodel.ScaleZ);
             MessageService.Enable();
         }
 

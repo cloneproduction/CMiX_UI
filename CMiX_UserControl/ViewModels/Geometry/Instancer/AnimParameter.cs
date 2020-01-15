@@ -105,8 +105,8 @@ namespace CMiX.Studio.ViewModels
         {
             MessageService.Disable();
 
-            Slider.PasteModel(animparametermodel.Slider);
-            BeatModifier.PasteModel(animparametermodel.BeatModifier);
+            Slider.SetViewModel(animparametermodel.Slider);
+            BeatModifier.SetViewModel(animparametermodel.BeatModifier);
 
             MessageService.Enable();
         }

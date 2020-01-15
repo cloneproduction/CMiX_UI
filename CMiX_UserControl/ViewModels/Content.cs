@@ -69,13 +69,13 @@ namespace CMiX.Studio.ViewModels
         //    this.PostFX.CopyModel(contentModel.PostFXModel);
         //}
 
-        public void PasteModel(ContentModel contentModel)
+        public void SetViewModel(ContentModel contentModel)
         {
             MessageService.Disable();
 
             this.Enabled = contentModel.Enabled;
-            this.BeatModifier.PasteModel(contentModel.BeatModifierModel);
-            this.PostFX.PasteModel(contentModel.PostFXModel);
+            this.BeatModifier.SetViewModel(contentModel.BeatModifierModel);
+            this.PostFX.SetViewModel(contentModel.PostFXModel);
 
             MessageService.Enable();
         }
@@ -110,7 +110,7 @@ namespace CMiX.Studio.ViewModels
 
                 var contentModel = data.GetData("ContentModel") as ContentModel;
                 var contentmessageaddress = MessageAddress;
-                this.PasteModel(contentModel);
+                this.SetViewModel(contentModel);
 
                 MessageService.Enable();
                 this.Mementor.EndBatch();

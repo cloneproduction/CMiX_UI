@@ -71,15 +71,15 @@ namespace CMiX.Studio.ViewModels
         //    Value.CopyModel(colorationModel.ValDTO);
         //}
 
-        public void PasteModel(ColorationModel colorationModel)
+        public void SetViewModel(ColorationModel colorationModel)
         {
             MessageService.Disable();
 
-            ColorSelector.PasteModel(colorationModel.ColorSelectorModel);
-            BeatModifier.PasteModel(colorationModel.BeatModifierModel);
-            Hue.PasteModel(colorationModel.HueModel);
-            Saturation.PasteModel(colorationModel.SatModel);
-            Value.PasteModel(colorationModel.ValModel);
+            ColorSelector.SetViewModel(colorationModel.ColorSelectorModel);
+            BeatModifier.SetViewModel(colorationModel.BeatModifierModel);
+            Hue.SetViewModel(colorationModel.HueModel);
+            Saturation.SetViewModel(colorationModel.SatModel);
+            Value.SetViewModel(colorationModel.ValModel);
 
             MessageService.Enable();
         }
@@ -113,7 +113,7 @@ namespace CMiX.Studio.ViewModels
                 this.MessageService.Disable();
 
                 var colorationmodel = data.GetData("ColorationModel") as ColorationModel;
-                this.PasteModel(colorationmodel);
+                this.SetViewModel(colorationmodel);
 
                 this.MessageService.Enable();
                 this.Mementor.EndBatch();

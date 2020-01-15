@@ -12,6 +12,7 @@ namespace CMiX.MVVM.Models
             PostFXModel = new PostFXModel();
             Fade = new SliderModel();
             ContentModel = new ContentModel();
+            EntityEditorModel = new EntityEditorModel();
         }
 
         public bool Enabled { get; set; }
@@ -24,5 +25,6 @@ namespace CMiX.MVVM.Models
         public ContentModel ContentModel { get; set; }
         public MaskModel MaskModel { get; set; }
         public PostFXModel PostFXModel{ get; set; }
+        public EntityEditorModel EntityEditorModel { get; set; }
     }
 }

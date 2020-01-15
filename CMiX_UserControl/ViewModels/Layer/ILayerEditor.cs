@@ -5,7 +5,7 @@ using CMiX.MVVM.ViewModels;
 
 namespace CMiX.Studio.ViewModels
 {
-    interface ILayerEditor : ILayerContext, IUndoable //ICopyPasteModel<LayerEditorModel>
+    interface ILayerEditor : ILayerContext, IUndoable //ICopySetViewModel<LayerEditorModel>
     {
     }
 }

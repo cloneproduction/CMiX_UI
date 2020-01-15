@@ -52,7 +52,7 @@ namespace CMiX.Studio.ViewModels
 
 
                 Entity entity = new Entity(context.Beat, EntityID, context.MessageAddress, context.MessageService, context.Mementor);
-                entity.PasteModel(entityModel);
+                entity.SetViewModel(entityModel);
                 entity.Name += "- Copy";
                 context.SelectedEntity = entity;
                 context.Entities.Add(entity);

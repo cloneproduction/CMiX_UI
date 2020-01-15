@@ -71,7 +71,7 @@ namespace CMiX.Studio.ViewModels
                     CerasSerializer serializer = new CerasSerializer();
                     byte[] data = File.ReadAllBytes(folderPath) ;
                     ProjectModel projectmodel = serializer.Deserialize<ProjectModel>(data);
-                    PasteModel(projectmodel);
+                    SetViewModel(projectmodel);
                     FolderPath = folderPath;
                 }
             }
@@ -124,14 +124,9 @@ namespace CMiX.Studio.ViewModels
             return projectModel;
         }
 
-        //public void CopyModel(ProjectModel projectModel)
-        //{
-        //    CompositionEditor.CopyModel(projectModel.CompositionEditorModel);
-        //}
-
-        public void PasteModel(ProjectModel projectModel)
+        public void SetViewModel(ProjectModel projectModel)
         {
-            CompositionEditor.PasteModel(projectModel.CompositionEditorModel);
+            CompositionEditor.SetViewModel(projectModel.CompositionEditorModel);
         }
         #endregion
     }

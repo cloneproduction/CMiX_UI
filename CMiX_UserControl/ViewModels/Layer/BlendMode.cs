@@ -45,7 +45,7 @@ namespace CMiX.Studio.ViewModels
         //    blendModeModel.Mode = Mode;
         //}
 
-        public void PasteModel(BlendModeModel blendModeModel)
+        public void SetViewModel(BlendModeModel blendModeModel)
         {
             Mode = blendModeModel.Mode;
         }

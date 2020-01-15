@@ -1,12 +1,12 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
-using CMiX.MVVM.Commands;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Input;
 using Ceras;
 using Memento;
+using CMiX.MVVM.Commands;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -19,7 +19,7 @@ namespace CMiX.Studio.ViewModels
 
             Compositions = new ObservableCollection<Composition>();
             MessageAddress = messageAddress;
-
+            MessageService = new MessageService();
             NewCompositionCommand = new RelayCommand(p => NewComposition());
             DeleteSelectedCompositionCommand = new RelayCommand(p => DeleteSelectedComposition());
             DuplicateSelectedCompositionCommand = new RelayCommand(p => DuplicateSelectedComposition());
@@ -71,7 +71,7 @@ namespace CMiX.Studio.ViewModels
         {
             CompositionManager.CreateSelectedComposition(this);
             CompositionModel compositionModel = SelectedComposition.GetModel();
-            MessageService.SendMessages(SelectedComposition.MessageAddress, MessageCommand.COMPOSITION_ADD, null, compositionModel);
+            MessageService.SendMessages(SelectedComposition.MessageAddress, MessageCommand.COMPOSITION_ADD, null, GetModel());
         }
 
         private void DeleteSelectedComposition()
@@ -84,8 +84,7 @@ namespace CMiX.Studio.ViewModels
         private void DuplicateSelectedComposition()
         {
             CompositionManager.DuplicateComposition(this);
-            CompositionModel compositionModel = SelectedComposition.GetModel();
-            MessageService.SendMessages(SelectedComposition.MessageAddress, MessageCommand.COMPOSITION_DUPLICATE, null, compositionModel);
+            MessageService.SendMessages(SelectedComposition.MessageAddress, MessageCommand.COMPOSITION_DUPLICATE, null, SelectedComposition.GetModel());
         }
 
         private void RenameSelectedComposition()
@@ -94,7 +93,6 @@ namespace CMiX.Studio.ViewModels
             {
                 SelectedComposition.IsEditingName = true;
                 IsRenamingSelected = true;
-                //System.Console.WriteLine("IsRenaming : " + SelectedComposition.Name);
             }
         }
         #endregion
@@ -102,8 +100,7 @@ namespace CMiX.Studio.ViewModels
         private void ReloadComposition(object messageValidation)
         {
             MessageValidation mv = messageValidation as MessageValidation;
-            CompositionModel compositionModel = SelectedComposition.GetModel();
-            //mv.SendMessage(SelectedComposition.MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, compositionModel);
+            mv.SendMessage(SelectedComposition.MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, GetModel());
         }
 
         #region IMPORT/EXPORT
@@ -121,7 +118,7 @@ namespace CMiX.Studio.ViewModels
                     byte[] data = File.ReadAllBytes(folderPath);
                     CompositionModel compositionmodel = Serializer.Deserialize<CompositionModel>(data);
                     CompositionManager.CreateSelectedComposition(this);
-                    SelectedComposition.PasteModel(compositionmodel);
+                    SelectedComposition.SetViewModel(compositionmodel);
                 }
             }
         }
@@ -158,29 +155,16 @@ namespace CMiX.Studio.ViewModels
             return compositionEditorModel;
         }
 
-        //public void CopyModel(CompositionEditorModel compoEditorModel)
-        //{
-        //    if (SelectedComposition != null)
-        //        SelectedComposition.CopyModel(compoEditorModel.SelectedCompositionModel);
-
-        //    foreach (var comp in Compositions)
-        //    {
-        //        CompositionModel compositionModel = new CompositionModel();
-        //        comp.CopyModel(compositionModel);
-        //        compoEditorModel.CompositionModels.Add(compositionModel);
-        //    }
-        //}
-
-        public void PasteModel(CompositionEditorModel compoEditorModel)
+        public void SetViewModel(CompositionEditorModel compoEditorModel)
         {
             if (SelectedComposition != null)
-                SelectedComposition.PasteModel(compoEditorModel.SelectedCompositionModel);
+                SelectedComposition.SetViewModel(compoEditorModel.SelectedCompositionModel);
 
             Compositions.Clear();
             foreach (var compositionModel in compoEditorModel.CompositionModels)
             {
                 var comp = CompositionManager.CreateComposition(this);
-                comp.PasteModel(compositionModel);
+                comp.SetViewModel(compositionModel);
             }
         }
         #endregion

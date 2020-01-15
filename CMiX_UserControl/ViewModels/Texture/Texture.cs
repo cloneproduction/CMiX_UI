@@ -10,7 +10,7 @@ using CMiX.MVVM;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Texture : ViewModel, ISendable, IUndoable // ICopyPasteModel<TextureModel>
+    public class Texture : ViewModel, ISendable, IUndoable // ICopySetViewModel<TextureModel>
     {
         #region CONSTRUCTORS
         public Texture(string messageaddress, MessageService messageService, Mementor mementor)
@@ -116,39 +116,22 @@ namespace CMiX.Studio.ViewModels
             return textureModel;
         }
 
-        //public void CopyModel(TextureModel textureModel)
-        //{
-        //    FileSelector.CopyModel(textureModel.FileSelector);
-        //    Brightness.CopyModel(textureModel.Brightness);
-        //    Contrast.CopyModel(textureModel.Contrast);
-        //    Saturation.CopyModel(textureModel.Saturation);
-        //    Luminosity.CopyModel(textureModel.Luminosity);
-        //    Hue.CopyModel(textureModel.Hue);
-        //    Pan.CopyModel(textureModel.Pan);
-        //    Tilt.CopyModel(textureModel.Tilt);
-        //    Scale.CopyModel(textureModel.Scale);
-        //    Rotate.CopyModel(textureModel.Rotate);
-        //    Keying.CopyModel(textureModel.Keying);
-        //    Invert.CopyModel(textureModel.Invert);
-        //    textureModel.InvertMode = InvertMode;
-        //}
-
-        public void PasteModel(TextureModel textureModel)
+        public void SetViewModel(TextureModel textureModel)
         {
             MessageService.Disable();
 
-            FileSelector.PasteModel(textureModel.FileSelector);
-            Brightness.PasteModel(textureModel.Brightness);
-            Contrast.PasteModel(textureModel.Contrast);
-            Saturation.PasteModel(textureModel.Saturation);
-            Luminosity.PasteModel(textureModel.Luminosity);
-            Hue.PasteModel(textureModel.Hue);
-            Pan.PasteModel(textureModel.Pan);
-            Tilt.PasteModel(textureModel.Tilt);
-            Scale.PasteModel(textureModel.Scale);
-            Rotate.PasteModel(textureModel.Rotate);
-            Keying.PasteModel(textureModel.Keying);
-            Invert.PasteModel(textureModel.Invert);
+            FileSelector.SetViewModel(textureModel.FileSelector);
+            Brightness.SetViewModel(textureModel.Brightness);
+            Contrast.SetViewModel(textureModel.Contrast);
+            Saturation.SetViewModel(textureModel.Saturation);
+            Luminosity.SetViewModel(textureModel.Luminosity);
+            Hue.SetViewModel(textureModel.Hue);
+            Pan.SetViewModel(textureModel.Pan);
+            Tilt.SetViewModel(textureModel.Tilt);
+            Scale.SetViewModel(textureModel.Scale);
+            Rotate.SetViewModel(textureModel.Rotate);
+            Keying.SetViewModel(textureModel.Keying);
+            Invert.SetViewModel(textureModel.Invert);
             InvertMode = textureModel.InvertMode;
 
             MessageService.Enable();
@@ -192,7 +175,7 @@ namespace CMiX.Studio.ViewModels
                 MessageService.Disable();
 
                 var texturemodel = data.GetData("TextureModel") as TextureModel;
-                this.PasteModel(texturemodel);
+                this.SetViewModel(texturemodel);
 
                 MessageService.Enable();
                 Mementor.EndBatch();

@@ -48,8 +48,8 @@ namespace CMiX.Studio.ViewModels
         {
             MessageService.Disable();
 
-            Explode.PasteModel(geometryFXdto.Explode);
-            FileSelector.PasteModel(geometryFXdto.FileSelector);
+            Explode.SetViewModel(geometryFXdto.Explode);
+            FileSelector.SetViewModel(geometryFXdto.FileSelector);
 
             MessageService.Enable();
         }

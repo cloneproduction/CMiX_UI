@@ -86,17 +86,7 @@ namespace CMiX.Studio.ViewModels
             return cameraModel;
         }
 
-        //public void CopyModel(CameraModel cameraModel)
-        //{
-        //    cameraModel.Rotation = Rotation;
-        //    cameraModel.LookAt = LookAt;
-        //    cameraModel.View = View;
-        //    BeatModifier.CopyModel(cameraModel.BeatModifierModel);
-        //    FOV.CopyModel(cameraModel.FOV);
-        //    Zoom.CopyModel(cameraModel.Zoom);
-        //}
-
-        public void PasteModel(CameraModel cameraModel)
+        public void SetViewModel(CameraModel cameraModel)
         {
             MessageService.Disable();
 
@@ -104,9 +94,9 @@ namespace CMiX.Studio.ViewModels
             LookAt = cameraModel.LookAt;
             View = cameraModel.View;
 
-            BeatModifier.PasteModel(cameraModel.BeatModifierModel);
-            FOV.PasteModel(cameraModel.FOV);
-            Zoom.PasteModel(cameraModel.Zoom);
+            BeatModifier.SetViewModel(cameraModel.BeatModifierModel);
+            FOV.SetViewModel(cameraModel.FOV);
+            Zoom.SetViewModel(cameraModel.Zoom);
 
             MessageService.Enable();
         }

@@ -54,11 +54,11 @@ namespace CMiX.Studio.ViewModels
         //    rangeControlModel.Modifier = Modifier;
         //}
 
-        public void PasteModel(RangeControlModel rangeControlModel)
+        public void SetViewModel(RangeControlModel rangeControlModel)
         {
             MessageService.Disable();
 
-            Range.PasteModel(rangeControlModel.Range);
+            Range.SetViewModel(rangeControlModel.Range);
             Modifier = rangeControlModel.Modifier;
 
             MessageService.Enable();

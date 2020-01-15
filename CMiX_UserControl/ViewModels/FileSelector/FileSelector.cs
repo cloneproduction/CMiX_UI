@@ -286,7 +286,7 @@ namespace CMiX.Studio.ViewModels
         //    fileSelectorModel.FilePaths = FileNameItemModelList;
         //}
 
-        public void PasteModel(FileSelectorModel fileSelectorModel)
+        public void SetViewModel(FileSelectorModel fileSelectorModel)
         {
             MessageService.Disable();
             FolderPath = fileSelectorModel.FolderPath;
@@ -295,7 +295,7 @@ namespace CMiX.Studio.ViewModels
             foreach (var item in fileSelectorModel.FilePaths)
             {
                 FileNameItem filenameitem = new FileNameItem(FolderPath, MessageAddress, MessageService);
-                filenameitem.PasteModel(item);
+                filenameitem.SetViewModel(item);
                 FilePaths.Add(filenameitem);
             }
 

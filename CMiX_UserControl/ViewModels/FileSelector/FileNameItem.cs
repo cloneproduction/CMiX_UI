@@ -69,7 +69,7 @@ namespace CMiX.Studio.ViewModels
         //    filenameitemmodel.FileName = FileName;
         //}
 
-        public void PasteModel(FileNameItemModel filenameitemmodel)
+        public void SetViewModel(FileNameItemModel filenameitemmodel)
         {
             MessageService.Disable();
 

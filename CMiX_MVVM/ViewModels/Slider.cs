@@ -51,9 +51,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _amount, value);
-                SliderModel sliderModel = new SliderModel();
-                this.CopyModel(sliderModel);
-                MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, sliderModel);
+                MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, GetModel());
             }
         }
 
@@ -109,10 +107,8 @@ namespace CMiX.MVVM.ViewModels
 
         public void CopySlider()
         {
-            SliderModel slidermodel = new SliderModel();
-            this.CopyModel(slidermodel);
             IDataObject data = new DataObject();
-            data.SetData("SliderModel", slidermodel, false);
+            data.SetData("SliderModel", GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 
@@ -123,7 +119,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 Mementor.BeginBatch();
                 var slidermodel = data.GetData("SliderModel") as SliderModel;
-                this.PasteModel(slidermodel);
+                this.SetViewModel(slidermodel);
                 Mementor.EndBatch();
             }
         }
@@ -135,12 +131,7 @@ namespace CMiX.MVVM.ViewModels
             return sliderModel;
         }
 
-        public void CopyModel(SliderModel sliderModel)
-        {
-            sliderModel.Amount = Amount;
-        }
-
-        public void PasteModel(SliderModel sliderModel)
+        public void SetViewModel(SliderModel sliderModel)
         {
             MessageService.Disable();
             Amount = sliderModel.Amount;

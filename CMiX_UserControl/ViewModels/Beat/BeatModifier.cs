@@ -100,12 +100,12 @@ namespace CMiX.Studio.ViewModels
         //    beatModifierModel.Multiplier = Multiplier;
         //}
 
-        public void PasteModel(BeatModifierModel beatModifierModel)
+        public void SetViewModel(BeatModifierModel beatModifierModel)
         {
             MessageService.Disable();
 
             Multiplier = beatModifierModel.Multiplier;
-            ChanceToHit.PasteModel(beatModifierModel.ChanceToHit);
+            ChanceToHit.SetViewModel(beatModifierModel.ChanceToHit);
 
             MessageService.Enable();
         }

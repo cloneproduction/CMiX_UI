@@ -31,13 +31,14 @@ namespace CMiX.Studio.ViewModels
             var SelectedLayer = context.SelectedLayer;
             if (SelectedLayer != null)
             {
+                System.Console.WriteLine("DuplicateSelectedLayer");
                 LayerModel layerModel = context.SelectedLayer.GetModel();
-
                 layerModel.ID = LayerID;
                 layerModel.Name = SelectedLayer.Name + "- Copy";
+                System.Console.WriteLine("DuplicateSelectedLayer EntityCount " + layerModel.EntityEditorModel.EntityModels.Count);
 
                 Layer newLayer = new Layer(context.MasterBeat, context.MessageAddress, LayerID, context.MessageService, context.Assets, context.Mementor);
-                newLayer.PasteModel(layerModel);
+                newLayer.SetViewModel(layerModel);
                 MessageService.SendMessages(context.MessageAddress, MessageCommand.LAYER_DUPLICATE, null, layerModel);
 
                 int index = context.Layers.IndexOf(SelectedLayer);
@@ -81,10 +82,5 @@ namespace CMiX.Studio.ViewModels
         {
 
         }
-
-        //private string CreateLayerMessageAddress()
-        //{
-        //    //return $"{this.MessageAddress}Layer{LayerNameID.ToString()}/";
-        //}
     }
 }

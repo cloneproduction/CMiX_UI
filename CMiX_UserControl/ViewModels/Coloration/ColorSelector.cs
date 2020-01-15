@@ -54,7 +54,7 @@ namespace CMiX.Studio.ViewModels
 
                 var colorselectormodel = data.GetData("ColorSelectorModel") as ColorSelectorModel;
                 var colorselectormessageaddress = MessageAddress;
-                this.PasteModel(colorselectormodel);
+                this.SetViewModel(colorselectormodel);
                 MessageService.Enable();
                 this.Mementor.EndBatch();
                 //SendMessages(MessageAddress, GetModel());
@@ -75,7 +75,7 @@ namespace CMiX.Studio.ViewModels
         }
 
 
-        public void PasteModel(ColorSelectorModel colorSelectorModel)
+        public void SetViewModel(ColorSelectorModel colorSelectorModel)
         {
             MessageService.Disable();
             ColorPicker.Paste(colorSelectorModel.ColorPickerModel);

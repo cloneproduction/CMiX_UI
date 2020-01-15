@@ -121,7 +121,7 @@ namespace CMiX.Studio.ViewModels
             masterBeatControl.Period = Period;
         }
 
-        public void PasteModel(MasterBeatModel masterBeatControl)
+        public void SetViewModel(MasterBeatModel masterBeatControl)
         {
             MessageService.Disable();
             Period = masterBeatControl.Period;

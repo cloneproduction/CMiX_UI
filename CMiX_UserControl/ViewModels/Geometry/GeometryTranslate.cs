@@ -49,7 +49,7 @@ namespace CMiX.Studio.ViewModels
             geometryTranslateModel.Mode = Mode;
         }
 
-        public void PasteModel(GeometryTranslateModel geometryTranslateModel)
+        public void SetViewModel(GeometryTranslateModel geometryTranslateModel)
         {
             MessageService.Disable();
             Mode = geometryTranslateModel.Mode;

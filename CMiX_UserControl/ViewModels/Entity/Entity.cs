@@ -40,13 +40,6 @@ namespace CMiX.Studio.ViewModels
         public ICommand PasteEntityCommand { get; }
         public ICommand ResetEntityCommand { get; }
 
-        private ObservableCollection<Layer> _layers;
-        public ObservableCollection<Layer> Layers
-        {
-            get => _layers;
-            set => _layers = value;
-        }
-
         private bool _isRenaming;
         public bool IsRenaming
         {
@@ -102,50 +95,37 @@ namespace CMiX.Studio.ViewModels
             return entityModel;
         }
 
-        //public void CopyModel(EntityModel entityModel)
-        //{
-        //    entityModel.Enabled = Enabled;
-        //    entityModel.Name = Name;
-
-        //    this.BeatModifier.CopyModel(entityModel.BeatModifierModel);
-        //    this.Texture.CopyModel(entityModel.TextureModel);
-        //    this.Geometry.Copy(entityModel.GeometryModel);
-        //    this.Coloration.CopyModel(entityModel.ColorationModel);
-        //}
-
-        public void PasteModel(EntityModel entityModel)
+        public void SetViewModel(EntityModel entityModel)
         {
             this.MessageService.Disable();
 
             this.Enabled = entityModel.Enabled;
             this.Name = entityModel.Name;
-            
-            this.BeatModifier.PasteModel(entityModel.BeatModifierModel);
-            this.Texture.PasteModel(entityModel.TextureModel);
+            this.BeatModifier.SetViewModel(entityModel.BeatModifierModel);
+            this.Texture.SetViewModel(entityModel.TextureModel);
             this.Geometry.Paste(entityModel.GeometryModel);
-            this.Coloration.PasteModel(entityModel.ColorationModel);
+            this.Coloration.SetViewModel(entityModel.ColorationModel);
 
             this.MessageService.Enable();
         }
 
         public void CopyEntity()
         {
-            EntityModel entityModel = GetModel();
             IDataObject data = new DataObject();
-            data.SetData("EntityModel", entityModel, false);
+            data.SetData(nameof(EntityModel), GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 
         public void PasteEntity()
         {
             IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent("EntityModel"))
+            if (data.GetDataPresent(nameof(EntityModel)))
             {
                 this.Mementor.BeginBatch();
                 this.MessageService.Disable();
 
-                var entityModel = data.GetData("EntityModel") as EntityModel;
-                this.PasteModel(entityModel);
+                var entityModel = data.GetData(nameof(EntityModel)) as EntityModel;
+                this.SetViewModel(entityModel);
                 this.MessageService.Enable();
                 this.Mementor.EndBatch();
                 //SendMessages(nameof(ContentModel), contentmodel);

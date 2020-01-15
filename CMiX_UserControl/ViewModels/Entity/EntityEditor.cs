@@ -11,13 +11,14 @@ namespace CMiX.Studio.ViewModels
 {
     public class EntityEditor : ViewModel, IEntityEditor
     {
-        public EntityEditor(MessageService messageService, string messageAddress, Beat beat, Assets assets, Mementor mementor)
+        public EntityEditor(ObservableCollection<Entity> entities, MessageService messageService, string messageAddress, Beat beat, Assets assets, Mementor mementor)
         {
             EntityFactory = new EntityFactory();
             Entities = new ObservableCollection<Entity>();
             Mementor = mementor;
             Assets = assets;
             Beat = beat;
+            Entities = entities;
 
             MessageAddress = messageAddress;
             MessageService = messageService;
@@ -58,9 +59,7 @@ namespace CMiX.Studio.ViewModels
         public void AddEntity()
         {
             var entity = EntityFactory.CreateEntity(this);
-            //EntityModel entityModel = GetModel();
-            //entity.CopyModel(entityModel);
-            //MessageService.SendMessages(MessageAddress, MessageCommand.ENTITY_ADD, null, entityModel);
+            MessageService.SendMessages(MessageAddress, MessageCommand.ENTITY_ADD, null, entity.GetModel());
         }
 
         public void DeleteEntity()
@@ -75,33 +74,41 @@ namespace CMiX.Studio.ViewModels
 
         public void DuplicateEntity()
         {
-            if(SelectedEntity != null)
-            {
-                EntityFactory.DuplicateEntity(this);
-                EntityModel entityModel = SelectedEntity.GetModel();
-                MessageService.SendMessages(SelectedEntity.MessageAddress, MessageCommand.COMPOSITION_DUPLICATE, null, entityModel);
-            }
+            EntityFactory.DuplicateEntity(this);
+            MessageService.SendMessages(SelectedEntity.MessageAddress, MessageCommand.COMPOSITION_DUPLICATE, null, SelectedEntity.GetModel());
         }
-
-        //public void CopyModel(IModel model)
-        //{
-        //    throw new NotImplementedException();
-        //}
 
         public EntityEditorModel GetModel()
         {
+            Console.WriteLine("GetModel Entities Count : " + Entities.Count);
             EntityEditorModel entityEditorModel = new EntityEditorModel();
+            if(SelectedEntity != null)
+                entityEditorModel.SelectedEntityModel = SelectedEntity.GetModel();
+
             foreach (var entity in Entities)
             {
+                Console.WriteLine("ForEach GetEntity");
                 var entityModel = entity.GetModel();
                 entityEditorModel.EntityModels.Add(entityModel);
             }
+            Console.WriteLine("entityEditorModel.EntityModels.Count = " + entityEditorModel.EntityModels.Count);
             return entityEditorModel;
         }
 
-        public void PasteModel(IModel model)
+        public void SetViewModel(EntityEditorModel entityEditorModel)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("SetViewModel EntityEditor");
+            Console.WriteLine("entityEditorModel.EntityModels.Count" + entityEditorModel.EntityModels.Count);
+            if (SelectedEntity != null)
+                SelectedEntity.SetViewModel(entityEditorModel.SelectedEntityModel);
+
+            Entities.Clear();
+            foreach (var entityModel in entityEditorModel.EntityModels)
+            {
+                Console.WriteLine("ForEach SetEntity");
+                var entity = EntityFactory.CreateEntity(this);
+                entity.SetViewModel(entityModel);
+            }
         }
     }
 }
