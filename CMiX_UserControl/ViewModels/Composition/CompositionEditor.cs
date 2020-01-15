@@ -12,14 +12,15 @@ namespace CMiX.Studio.ViewModels
 {
     public class CompositionEditor : ViewModel, ICompositionEditor
     {
-        public CompositionEditor(ObservableCollection<Server> servers, string messageAddress, Assets assets, Mementor mementor)
+        public CompositionEditor(ObservableCollection<Composition> compositions, ObservableCollection<Server> servers, string messageAddress, Assets assets, Mementor mementor)
         {
             Mementor = mementor;
             CompositionManager = new CompositionManager(servers);
 
-            Compositions = new ObservableCollection<Composition>();
+            Compositions = compositions;
             MessageAddress = messageAddress;
             MessageService = new MessageService();
+
             NewCompositionCommand = new RelayCommand(p => NewComposition());
             DeleteSelectedCompositionCommand = new RelayCommand(p => DeleteSelectedComposition());
             DuplicateSelectedCompositionCommand = new RelayCommand(p => DuplicateSelectedComposition());

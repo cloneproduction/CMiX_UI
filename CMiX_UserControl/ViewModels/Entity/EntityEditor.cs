@@ -14,7 +14,6 @@ namespace CMiX.Studio.ViewModels
         public EntityEditor(ObservableCollection<Entity> entities, MessageService messageService, string messageAddress, Beat beat, Assets assets, Mementor mementor)
         {
             EntityFactory = new EntityFactory();
-            Entities = new ObservableCollection<Entity>();
             Mementor = mementor;
             Assets = assets;
             Beat = beat;
@@ -64,12 +63,9 @@ namespace CMiX.Studio.ViewModels
 
         public void DeleteEntity()
         {
-            if(SelectedEntity != null)
-            {
-                int deleteIndex = Entities.IndexOf(SelectedEntity);
-                EntityFactory.DeleteEntity(this);
-                MessageService.SendMessages(MessageAddress, MessageCommand.ENTITY_DELETE, null, deleteIndex);
-            }
+            int deleteIndex = Entities.IndexOf(SelectedEntity);
+            EntityFactory.DeleteEntity(this);
+            MessageService.SendMessages(MessageAddress, MessageCommand.ENTITY_DELETE, null, deleteIndex);
         }
 
         public void DuplicateEntity()

@@ -20,7 +20,8 @@ namespace CMiX.Studio.ViewModels
             Mementor = new Mementor();
             Servers = new ObservableCollection<Server>();
 
-            CompositionEditor = new CompositionEditor(Servers, MessageAddress, Assets, Mementor);
+            Compositions = new ObservableCollection<Composition>();
+            CompositionEditor = new CompositionEditor(Compositions, Servers, MessageAddress, Assets, Mementor);
             ServerManager = new ServerManager();
 
             FolderPath = string.Empty;
@@ -48,6 +49,8 @@ namespace CMiX.Studio.ViewModels
         public ServerManager ServerManager { get; set; }
 
         public ObservableCollection<Server> Servers { get; set; }
+
+        public ObservableCollection<Composition> Compositions { get; set; }
 
         public string FolderPath { get; set; }
         #endregion

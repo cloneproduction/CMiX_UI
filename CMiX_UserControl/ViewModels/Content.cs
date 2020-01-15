@@ -6,7 +6,6 @@ using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using Memento;
 using CMiX.MVVM.Commands;
-using CMiX.MVVM;
 using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
@@ -20,10 +19,11 @@ namespace CMiX.Studio.ViewModels
             MessageAddress = $"{messageAddress}{nameof(Content)}/";
             Enabled = true;
             MessageService = messageService;
+            Entities = new ObservableCollection<Entity>();
 
             BeatModifier = new BeatModifier(MessageAddress, Beat, messageService, mementor);
             PostFX = new PostFX(MessageAddress, messageService, mementor);
-            EntityEditor = new EntityEditor(messageService, MessageAddress, Beat, Assets, mementor);
+            EntityEditor = new EntityEditor(Entities, messageService, MessageAddress, Beat, Assets, mementor);
 
             CopyContentCommand = new RelayCommand(p => CopyContent());
             PasteContentCommand = new RelayCommand(p => PasteContent());
@@ -37,14 +37,15 @@ namespace CMiX.Studio.ViewModels
         public ICommand PasteContentCommand { get; }
         public ICommand ResetContentCommand { get; }
 
-        public BeatModifier BeatModifier { get; }
-        public PostFX PostFX { get; }
-        public EntityEditor EntityEditor {get; }
         public string MessageAddress { get; set; }
         public Mementor Mementor { get; set; }
         public MessageService MessageService { get; set; }
-        public ObservableCollection<Entity> Entities { get; set; }
         public Assets Assets { get; set; }
+
+        public BeatModifier BeatModifier { get; }
+        public PostFX PostFX { get; }
+        public EntityEditor EntityEditor {get; }
+        public ObservableCollection<Entity> Entities { get; set; }
         public Beat Beat { get; set; }
         #endregion
 
@@ -59,23 +60,14 @@ namespace CMiX.Studio.ViewModels
             return contentModel;
         }
 
-        //public void CopyModel(ContentModel contentModel)
-        //{
-        //    contentModel.Enabled = Enabled;
-
-        //    //this.EntityEditor.CopyModel(contentModel.Entit)
-
-        //    this.BeatModifier.CopyModel(contentModel.BeatModifierModel);
-        //    this.PostFX.CopyModel(contentModel.PostFXModel);
-        //}
-
         public void SetViewModel(ContentModel contentModel)
         {
             MessageService.Disable();
 
-            this.Enabled = contentModel.Enabled;
-            this.BeatModifier.SetViewModel(contentModel.BeatModifierModel);
-            this.PostFX.SetViewModel(contentModel.PostFXModel);
+            Enabled = contentModel.Enabled;
+            EntityEditor.SetViewModel(contentModel.EntityEditorModel);
+            BeatModifier.SetViewModel(contentModel.BeatModifierModel);
+            PostFX.SetViewModel(contentModel.PostFXModel);
 
             MessageService.Enable();
         }
