@@ -39,7 +39,6 @@ namespace CMiX.Studio.ViewModels
         public Mementor Mementor { get; set; }
         public Assets Assets { get; set; }
 
-       
         public MessageValidationManager MessageValidationManager { get; set; }
         public MasterBeat MasterBeat { get; set; }
         public Camera Camera { get; set; }
