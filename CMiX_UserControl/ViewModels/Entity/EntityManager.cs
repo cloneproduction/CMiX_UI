@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class EntityFactory
+    public class EntityManager
     {
-        public EntityFactory()
+        public EntityManager()
         {
 
         }
@@ -50,12 +50,39 @@ namespace CMiX.Studio.ViewModels
             {
                 EntityModel entityModel = context.SelectedEntity.GetModel();
 
-
                 Entity entity = new Entity(context.Beat, EntityID, context.MessageAddress, context.MessageService, context.Mementor);
                 entity.SetViewModel(entityModel);
                 entity.Name += "- Copy";
                 context.SelectedEntity = entity;
                 context.Entities.Add(entity);
+            }
+        }
+
+        public void MoveEntity(IEntityContext currentContext, IEntityContext newContext)
+        {
+            if(currentContext.SelectedEntity != null)
+            {
+                Entity entity = currentContext.SelectedEntity;
+                currentContext.Entities.Remove(entity);
+                currentContext.SelectedEntity = null;
+
+                newContext.SelectedEntity = entity;
+                newContext.Entities.Add(entity);
+            }
+        }
+
+        public void CopyEntity(IEntityContext currentContext, IEntityContext newContext)
+        {
+            if (currentContext.SelectedEntity != null)
+            {
+                EntityModel currentEntityModel = currentContext.SelectedEntity.GetModel();
+
+                Entity entity = new Entity(newContext.Beat, EntityID, newContext.MessageAddress, newContext.MessageService, newContext.Mementor);
+                entity.SetViewModel(currentEntityModel);
+                entity.Name = "Entity " + EntityID.ToString();
+                newContext.SelectedEntity = entity;
+                newContext.Entities.Add(entity);
+                EntityID++;
             }
         }
     }

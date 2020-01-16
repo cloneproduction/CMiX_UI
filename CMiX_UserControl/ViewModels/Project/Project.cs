@@ -20,9 +20,12 @@ namespace CMiX.Studio.ViewModels
             Mementor = new Mementor();
             Servers = new ObservableCollection<Server>();
 
-            Compositions = new ObservableCollection<Composition>();
-            CompositionEditor = new CompositionEditor(Compositions, Servers, MessageAddress, Assets, Mementor);
             ServerManager = new ServerManager();
+            Compositions = new ObservableCollection<Composition>();
+            Layers = new ObservableCollection<Layer>();
+            Entities = new ObservableCollection<Entity>();
+
+            CompositionEditor = new CompositionEditor(Compositions, Layers, Entities, MessageAddress, Assets, Mementor);
 
             FolderPath = string.Empty;
             Serializer = new CerasSerializer();
@@ -46,11 +49,16 @@ namespace CMiX.Studio.ViewModels
         public Assets Assets { get; set; }
         public CerasSerializer Serializer { get; set; }
         public CompositionEditor CompositionEditor { get; set; }
+
+
         public ServerManager ServerManager { get; set; }
+        public CompositionManager CompositionManager { get; set; }
 
         public ObservableCollection<Server> Servers { get; set; }
 
         public ObservableCollection<Composition> Compositions { get; set; }
+        public ObservableCollection<Layer> Layers { get; set; }
+        public ObservableCollection<Entity> Entities { get; set; }
 
         public string FolderPath { get; set; }
         #endregion

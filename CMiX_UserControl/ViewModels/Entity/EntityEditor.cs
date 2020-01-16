@@ -3,7 +3,6 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using Memento;
-using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -11,13 +10,13 @@ namespace CMiX.Studio.ViewModels
 {
     public class EntityEditor : ViewModel, IEntityEditor
     {
-        public EntityEditor(ObservableCollection<Entity> entities, MessageService messageService, string messageAddress, Beat beat, Assets assets, Mementor mementor)
+        public EntityEditor(MessageService messageService, string messageAddress, Beat beat, Assets assets, Mementor mementor)
         {
-            EntityFactory = new EntityFactory();
+            EntityManager = new EntityManager();
             Mementor = mementor;
             Assets = assets;
             Beat = beat;
-            Entities = entities;
+            Entities = new ObservableCollection<Entity>();
 
             MessageAddress = messageAddress;
             MessageService = messageService;
@@ -37,7 +36,7 @@ namespace CMiX.Studio.ViewModels
         public MessageService MessageService { get; set; }
         public Mementor Mementor { get; set; }
 
-        public EntityFactory EntityFactory { get; set; }
+        public EntityManager EntityManager { get; set; }
         public Beat Beat { get; set; }
         public Assets Assets { get; set; }
         public ObservableCollection<Entity> Entities { get; set; }
@@ -57,52 +56,46 @@ namespace CMiX.Studio.ViewModels
 
         public void AddEntity()
         {
-            var entity = EntityFactory.CreateEntity(this);
+            var entity = EntityManager.CreateEntity(this);
             MessageService.SendMessages(MessageAddress, MessageCommand.ENTITY_ADD, null, entity.GetModel());
         }
 
         public void DeleteEntity()
         {
             int deleteIndex = Entities.IndexOf(SelectedEntity);
-            EntityFactory.DeleteEntity(this);
+            EntityManager.DeleteEntity(this);
             MessageService.SendMessages(MessageAddress, MessageCommand.ENTITY_DELETE, null, deleteIndex);
         }
 
         public void DuplicateEntity()
         {
-            EntityFactory.DuplicateEntity(this);
-            MessageService.SendMessages(SelectedEntity.MessageAddress, MessageCommand.COMPOSITION_DUPLICATE, null, SelectedEntity.GetModel());
+            EntityManager.DuplicateEntity(this);
+            MessageService.SendMessages(SelectedEntity.MessageAddress, MessageCommand.ENTITY_DUPLICATE, null, SelectedEntity.GetModel());
         }
 
         public EntityEditorModel GetModel()
         {
-            Console.WriteLine("GetModel Entities Count : " + Entities.Count);
             EntityEditorModel entityEditorModel = new EntityEditorModel();
             if(SelectedEntity != null)
                 entityEditorModel.SelectedEntityModel = SelectedEntity.GetModel();
 
             foreach (var entity in Entities)
             {
-                Console.WriteLine("ForEach GetEntity");
                 var entityModel = entity.GetModel();
                 entityEditorModel.EntityModels.Add(entityModel);
             }
-            Console.WriteLine("entityEditorModel.EntityModels.Count = " + entityEditorModel.EntityModels.Count);
             return entityEditorModel;
         }
 
         public void SetViewModel(EntityEditorModel entityEditorModel)
         {
-            Console.WriteLine("SetViewModel EntityEditor");
-            Console.WriteLine("entityEditorModel.EntityModels.Count" + entityEditorModel.EntityModels.Count);
             if (SelectedEntity != null)
                 SelectedEntity.SetViewModel(entityEditorModel.SelectedEntityModel);
 
             Entities.Clear();
             foreach (var entityModel in entityEditorModel.EntityModels)
             {
-                Console.WriteLine("ForEach SetEntity");
-                var entity = EntityFactory.CreateEntity(this);
+                var entity = EntityManager.CreateEntity(this);
                 entity.SetViewModel(entityModel);
             }
         }

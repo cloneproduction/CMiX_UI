@@ -9,7 +9,7 @@ namespace CMiX.Studio.ViewModels
     public class Layer : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Layer(MasterBeat masterBeat, string messageAddress, int id, MessageService messageService, Assets assets, Mementor mementor) 
+        public Layer(EntityManager entityManager, MasterBeat masterBeat, string messageAddress, int id, MessageService messageService, Assets assets, Mementor mementor) 
         {
             Enabled = false;
             MessageAddress =  $"{messageAddress}{nameof(Layer)}/{id}/";
@@ -19,14 +19,13 @@ namespace CMiX.Studio.ViewModels
 
             ID = id;
             Name = "Layer " + id;
-            Entities = new ObservableCollection<Entity>();
 
-            EntityEditor = new EntityEditor(Entities, messageService, MessageAddress, masterBeat, Assets, mementor);
-            BlendMode = new BlendMode(masterBeat, MessageAddress, messageService, mementor);
-            Fade = new Slider(MessageAddress + nameof(Fade), messageService, mementor);
-            Content = new Content(masterBeat, MessageAddress, messageService, mementor);
+            Content = new Content(entityManager, masterBeat, MessageAddress, messageService, mementor);
             Mask = new Mask(masterBeat, MessageAddress, messageService, mementor);
             PostFX = new PostFX(MessageAddress, messageService, mementor);
+
+            BlendMode = new BlendMode(masterBeat, MessageAddress, messageService, mementor);
+            Fade = new Slider(MessageAddress + nameof(Fade), messageService, mementor);
         }
         #endregion
 
@@ -83,8 +82,6 @@ namespace CMiX.Studio.ViewModels
         public Mask Mask { get; set; }
         public PostFX PostFX { get; set; }
         public BlendMode BlendMode { get; set; }
-        public EntityEditor EntityEditor { get; set; }
-        public ObservableCollection<Entity> Entities { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
@@ -94,7 +91,6 @@ namespace CMiX.Studio.ViewModels
             layerModel.Name = Name;
             layerModel.ID = ID;
             layerModel.Out = Out;
-            layerModel.EntityEditorModel = EntityEditor.GetModel();
             layerModel.Fade = Fade.GetModel();
             layerModel.BlendMode = BlendMode.GetModel();
             layerModel.ContentModel = Content.GetModel();
@@ -111,7 +107,6 @@ namespace CMiX.Studio.ViewModels
             Out = layerModel.Out;
             ID = layerModel.ID;
 
-            EntityEditor.SetViewModel(layerModel.EntityEditorModel);
             Fade.SetViewModel(layerModel.Fade);
             BlendMode.SetViewModel(layerModel.BlendMode);
             Content.SetViewModel(layerModel.ContentModel);

@@ -17,7 +17,7 @@ namespace CMiX.Studio.ViewModels
         public LayerEditor(ObservableCollection<Layer> layers, MessageService messageService, string messageAddress, MasterBeat masterBeat, Assets assets, Mementor mementor)
         {
             Mementor = mementor;
-            LayerFactory = new LayerFactory(messageService);
+            //LayerManager = new LayerManager(messageService);
             Layers = layers;
             
             Assets = assets;
@@ -43,7 +43,7 @@ namespace CMiX.Studio.ViewModels
         public ICommand PasteLayerCommand { get; }
         public ICommand ResetLayerCommand { get; }
 
-        public LayerFactory LayerFactory { get; set; }
+        public LayerManager LayerManager { get; set; }
         public ObservableCollection<Layer> Layers { get; set; }
 
         private Layer _selectedLayer;
@@ -110,17 +110,17 @@ namespace CMiX.Studio.ViewModels
 
         public void AddLayer()
         {
-            LayerFactory.CreateLayer(this);
+            LayerManager.CreateLayer(this);
         }
 
         private void DuplicateSelectedLayer()
         {
-            LayerFactory.DuplicateLayer(this);
+            LayerManager.DuplicateLayer(this);
         }
 
         private void DeleteSelectedLayer()
         {
-            LayerFactory.DeleteLayer(this);
+            LayerManager.DeleteLayer(this);
         }
         #endregion
 
@@ -204,7 +204,7 @@ namespace CMiX.Studio.ViewModels
             Layers.Clear();
             foreach (var layerModel in layerEditorModel.LayerModels)
             {
-                LayerFactory.CreateLayer(this).GetModel();
+                LayerManager.CreateLayer(this).GetModel();
             }
         }
     }

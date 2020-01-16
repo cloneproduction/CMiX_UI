@@ -37,13 +37,13 @@
                 dd:DragDrop.DragHandler="{Binding}"
                 dd:DragDrop.DropHandler="{Binding}"
                 SelectedItem="{Binding CompositionEditor.SelectedComposition}"
-                ItemsSource="{Binding CompositionEditor.Compositions}">
+                ItemsSource="{Binding Compositions}">
                 <ListBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.CompositionEditor.NewCompositionCommand, Source={StaticResource proxy}}">
+                            Command="{Binding Data.CreateCompositionCommand, Source={StaticResource proxy}}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="{StaticResource NewLayer}" Height="10" Width="10"/>

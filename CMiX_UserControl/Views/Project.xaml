@@ -157,7 +157,7 @@
                         <TabItem.Header>
                             <Image Source="{StaticResource Copy}" />
                         </TabItem.Header>
-                        <Views:CompositionList  DataContext="{Binding}"/>
+                        <Views:CompositionList  DataContext="{Binding CompositionManager}"/>
                     </TabItem>
                     <TabItem Margin="8, 8, 8, 4" Width="25" Height="25" Style="{StaticResource TabItemVerticalPanel}">
                         <TabItem.Header>

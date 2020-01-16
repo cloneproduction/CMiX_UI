@@ -5,19 +5,21 @@ using Memento;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class LayerFactory
+    public class LayerManager
     {
-        public LayerFactory(MessageService messageService)
+        public LayerManager(MessageService messageService)
         {
             MessageService = messageService;
+            EntityManager = new EntityManager();
         }
 
         int LayerID = 0;
         public MessageService MessageService { get; set; }
+        public EntityManager EntityManager { get; set; }
 
         public Layer CreateLayer(ILayerContext context)
         {
-            Layer newLayer = new Layer(context.MasterBeat, context.MessageAddress, LayerID, context.MessageService, context.Assets, context.Mementor);
+            Layer newLayer = new Layer(EntityManager, context.MasterBeat, context.MessageAddress, LayerID, context.MessageService, context.Assets, context.Mementor);
             context.Layers.Add(newLayer);
             context.SelectedLayer = newLayer;
             MessageService.SendMessages(context.MessageAddress, MessageCommand.LAYER_ADD, null, newLayer.GetModel());
@@ -37,7 +39,7 @@ namespace CMiX.Studio.ViewModels
                 layerModel.Name = SelectedLayer.Name + "- Copy";
                 System.Console.WriteLine("DuplicateSelectedLayer EntityCount " + layerModel.EntityEditorModel.EntityModels.Count);
 
-                Layer newLayer = new Layer(context.MasterBeat, context.MessageAddress, LayerID, context.MessageService, context.Assets, context.Mementor);
+                Layer newLayer = new Layer(EntityManager, context.MasterBeat, context.MessageAddress, LayerID, context.MessageService, context.Assets, context.Mementor);
                 newLayer.SetViewModel(layerModel);
                 MessageService.SendMessages(context.MessageAddress, MessageCommand.LAYER_DUPLICATE, null, layerModel);
 

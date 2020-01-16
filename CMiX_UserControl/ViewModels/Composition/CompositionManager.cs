@@ -2,25 +2,38 @@
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class CompositionManager
+    public class CompositionManager : ViewModel
     {
-        public CompositionManager(ObservableCollection<Server> servers)
+        public CompositionManager(ObservableCollection<Composition> compositions, ObservableCollection<Layer> layers, ObservableCollection<Entity> entities)
         {
-            Servers = servers;
+            Compositions = compositions;
+            LayerManager = new LayerManager(new MessageService());
+
+            CreateCompositionCommand = new RelayCommand(p => CreateComposition(p as ICompositionContext));
+            CreateSelectedCompositionCommand = new RelayCommand(p => CreateSelectedComposition(p as ICompositionContext));
+            DeleteCompositionCommand = new RelayCommand(p => DeleteComposition(p as ICompositionContext));
         }
 
-        public ObservableCollection<Server> Servers { get; set; }
+        public ObservableCollection<Composition> Compositions { get; set; }
+        public LayerManager LayerManager { get; set; }
         int CompID = 0;
+
+        public ICommand CreateCompositionCommand { get; set; }
+        public ICommand CreateSelectedCompositionCommand { get; set; }
+        public ICommand DeleteCompositionCommand { get; set; }
+        public ICommand DuplicateCompositionCommand { get; set; }
 
         public Composition CreateComposition(ICompositionContext context)
         {
+            System.Console.WriteLine("CompositionManager CreateComposition");
             MessageService messageService = new MessageService();
             Composition comp = new Composition(messageService, context.MessageAddress, context.Assets, context.Mementor);
             comp.Name = "Composition " + CompID.ToString();
-            context.Compositions.Add(comp);
+            Compositions.Add(comp);
             CompID++;
             return comp;
         }
@@ -31,7 +44,7 @@ namespace CMiX.Studio.ViewModels
             Composition comp = new Composition(messageService, context.MessageAddress, context.Assets, context.Mementor);
             comp.Name = "Composition " + CompID.ToString();
             context.SelectedComposition = comp;
-            context.Compositions.Add(comp);
+            Compositions.Add(comp);
             CompID++;
             return comp;
         }
@@ -42,14 +55,14 @@ namespace CMiX.Studio.ViewModels
             if (selectedComposition != null)
             {
                 var deletedcompo = selectedComposition as Composition;
-                context.Compositions.Remove(deletedcompo);
+                Compositions.Remove(deletedcompo);
                 //EditableCompositions.Remove(deletedcompo);
 
-                if (context.Compositions.Count > 0)
-                    selectedComposition = context.Compositions[0];
-                else if (context.Compositions.Count == 0)
+                if (Compositions.Count > 0)
+                    selectedComposition = Compositions[0];
+                else if (Compositions.Count == 0)
                 {
-                    context.SelectedComposition = null;
+                    selectedComposition = null;
                     CompID = 0;
                 }
                     
@@ -67,7 +80,7 @@ namespace CMiX.Studio.ViewModels
                 newCompo.SetViewModel(compositionmodel);
                 newCompo.Name = newCompo.Name + "- Copy";
                 context.SelectedComposition = newCompo;
-                context.Compositions.Add(newCompo);
+                Compositions.Add(newCompo);
             }
         }
     }

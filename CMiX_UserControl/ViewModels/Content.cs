@@ -10,20 +10,20 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Content : ViewModel, ISendable
+    public class Content : ViewModel, IEntityContext, ISendable
     {
         #region CONSTRUCTORS
-        public Content(Beat beat, string messageAddress, MessageService messageService, Mementor mementor)
+        public Content(EntityManager entityManager, Beat beat, string messageAddress, MessageService messageService, Mementor mementor)
         {
+            Enabled = true;
             Beat = beat;
             MessageAddress = $"{messageAddress}{nameof(Content)}/";
-            Enabled = true;
             MessageService = messageService;
+            EntityManager = entityManager;
             Entities = new ObservableCollection<Entity>();
 
             BeatModifier = new BeatModifier(MessageAddress, Beat, messageService, mementor);
             PostFX = new PostFX(MessageAddress, messageService, mementor);
-            EntityEditor = new EntityEditor(Entities, messageService, MessageAddress, Beat, Assets, mementor);
 
             CopyContentCommand = new RelayCommand(p => CopyContent());
             PasteContentCommand = new RelayCommand(p => PasteContent());
@@ -44,9 +44,11 @@ namespace CMiX.Studio.ViewModels
 
         public BeatModifier BeatModifier { get; }
         public PostFX PostFX { get; }
-        public EntityEditor EntityEditor {get; }
-        public ObservableCollection<Entity> Entities { get; set; }
         public Beat Beat { get; set; }
+
+        public EntityManager EntityManager{ get; set; }
+        public ObservableCollection<Entity> Entities { get; set; }
+        public Entity SelectedEntity { get; set; }
         #endregion
 
         #region COPY/PASTE
@@ -54,7 +56,6 @@ namespace CMiX.Studio.ViewModels
         {
             ContentModel contentModel = new ContentModel();
             contentModel.Enabled = Enabled;
-            contentModel.EntityEditorModel = EntityEditor.GetModel();
             contentModel.BeatModifierModel = BeatModifier.GetModel();
             contentModel.PostFXModel = PostFX.GetModel();
             return contentModel;
@@ -65,9 +66,18 @@ namespace CMiX.Studio.ViewModels
             MessageService.Disable();
 
             Enabled = contentModel.Enabled;
-            EntityEditor.SetViewModel(contentModel.EntityEditorModel);
             BeatModifier.SetViewModel(contentModel.BeatModifierModel);
             PostFX.SetViewModel(contentModel.PostFXModel);
+
+            if (SelectedEntity != null)
+                SelectedEntity.SetViewModel(contentModel.SelectedEntityModel);
+
+            Entities.Clear();
+            foreach (var entityModel in contentModel.EntityModels)
+            {
+                var entity = EntityManager.CreateEntity(this);
+                entity.SetViewModel(entityModel);
+            }
 
             MessageService.Enable();
         }
