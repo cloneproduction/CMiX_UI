@@ -22,6 +22,8 @@ namespace CMiX.Studio.ViewModels
 
             Entities = new ObservableCollection<Entity>();
             EntityManager = new EntityManager(Entities);
+
+            
             Content = new Content(masterBeat, MessageAddress, messageService, mementor);
             Mask = new Mask(masterBeat, MessageAddress, messageService, mementor);
             PostFX = new PostFX(MessageAddress, messageService, mementor);
@@ -32,6 +34,7 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         public EntityManager EntityManager { get; set; }
+        public EntityEditor EntityEditor { get; set; }
         public ObservableCollection<Entity> Entities { get; set; }
         #region PROPERTIES
         private string _name;

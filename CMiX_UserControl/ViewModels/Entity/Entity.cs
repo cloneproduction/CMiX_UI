@@ -65,6 +65,7 @@ namespace CMiX.Studio.ViewModels
         public Geometry Geometry { get; }
         public Texture Texture { get; }
         public Coloration Coloration { get; }
+
         public string MessageAddress { get; set; }
         public MessageService MessageService { get; set; }
         public Mementor Mementor { get; set; }
