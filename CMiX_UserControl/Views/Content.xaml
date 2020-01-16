@@ -75,12 +75,12 @@
                         DockPanel.Dock="Top"
                         DataContext="{Binding BeatModifier}"/>
                     <Views:PostFX
-                    DockPanel.Dock="Bottom"
-                    DataContext="{Binding PostFX}"/>
+                        DockPanel.Dock="Bottom"
+                        DataContext="{Binding PostFX}"/>
                     <Views:EntitySelector
-                    Grid.Column="1"
-                    Margin="0, 4"
-                    DataContext="{Binding EntityEditor}" />
+                        Grid.Column="1"
+                        Margin="0, 4"
+                        DataContext="{Binding}" />
                 </DockPanel>
             </Border>
         </Grid>

@@ -1,13 +1,14 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using Memento;
 using Ceras;
-using System.Collections.ObjectModel;
-using System;
+
 
 namespace CMiX.Studio.ViewModels
 {
@@ -21,11 +22,9 @@ namespace CMiX.Studio.ViewModels
             Servers = new ObservableCollection<Server>();
 
             ServerManager = new ServerManager();
-            Compositions = new ObservableCollection<Composition>();
-            Layers = new ObservableCollection<Layer>();
-            Entities = new ObservableCollection<Entity>();
 
-            CompositionEditor = new CompositionEditor(Compositions, Layers, Entities, MessageAddress, Assets, Mementor);
+            Compositions = new ObservableCollection<Composition>();
+            CompositionEditor = new CompositionEditor(Compositions, MessageAddress, Assets, Mementor);
 
             FolderPath = string.Empty;
             Serializer = new CerasSerializer();
@@ -50,15 +49,11 @@ namespace CMiX.Studio.ViewModels
         public CerasSerializer Serializer { get; set; }
         public CompositionEditor CompositionEditor { get; set; }
 
-
         public ServerManager ServerManager { get; set; }
         public CompositionManager CompositionManager { get; set; }
 
         public ObservableCollection<Server> Servers { get; set; }
-
         public ObservableCollection<Composition> Compositions { get; set; }
-        public ObservableCollection<Layer> Layers { get; set; }
-        public ObservableCollection<Entity> Entities { get; set; }
 
         public string FolderPath { get; set; }
         #endregion

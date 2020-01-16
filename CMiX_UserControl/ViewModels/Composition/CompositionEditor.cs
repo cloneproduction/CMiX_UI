@@ -1,32 +1,24 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
+using CMiX.MVVM.Commands;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Input;
 using Ceras;
 using Memento;
-using CMiX.MVVM.Commands;
 
 namespace CMiX.Studio.ViewModels
 {
     public class CompositionEditor : ViewModel, ICompositionEditor
     {
-        public CompositionEditor
-            (
-            ObservableCollection<Composition> compositions, 
-            ObservableCollection<Layer> layers, 
-            ObservableCollection<Entity> entities, 
-            string messageAddress, 
-            Assets assets, 
-            Mementor mementor
-            )
+        public CompositionEditor(ObservableCollection<Composition> compositions, string messageAddress, Assets assets, Mementor mementor)
         {
             Mementor = mementor;
 
-            CompositionManager = new CompositionManager(compositions, layers, entities);
+            CompositionManager = new CompositionManager(compositions);
 
-            //Compositions = compositions;
+            Compositions = compositions;
             MessageAddress = messageAddress;
             MessageService = new MessageService();
 
@@ -59,7 +51,7 @@ namespace CMiX.Studio.ViewModels
 
         public CerasSerializer Serializer { get; set; }
 
-        //public ObservableCollection<Composition> Compositions { get; set; }
+        public ObservableCollection<Composition> Compositions { get; set; }
 
         private Composition _selectedComposition;
         public Composition SelectedComposition

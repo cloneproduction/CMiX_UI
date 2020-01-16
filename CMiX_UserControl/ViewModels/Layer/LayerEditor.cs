@@ -17,7 +17,7 @@ namespace CMiX.Studio.ViewModels
         public LayerEditor(ObservableCollection<Layer> layers, MessageService messageService, string messageAddress, MasterBeat masterBeat, Assets assets, Mementor mementor)
         {
             Mementor = mementor;
-            //LayerManager = new LayerManager(messageService);
+            LayerManager = new LayerManager(layers, messageService);
             Layers = layers;
             
             Assets = assets;

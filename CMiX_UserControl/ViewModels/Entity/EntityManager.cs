@@ -13,12 +13,13 @@ namespace CMiX.Studio.ViewModels
 {
     public class EntityManager
     {
-        public EntityManager()
+        public EntityManager(ObservableCollection<Entity> entities)
         {
-
+            Entities = entities;
         }
 
         private int EntityID { get; set; } = 0;
+        public ObservableCollection<Entity> Entities { get; set; }
 
         public Entity CreateEntity(IEntityContext context)
         {

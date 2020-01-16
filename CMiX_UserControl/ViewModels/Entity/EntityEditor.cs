@@ -10,9 +10,9 @@ namespace CMiX.Studio.ViewModels
 {
     public class EntityEditor : ViewModel, IEntityEditor
     {
-        public EntityEditor(MessageService messageService, string messageAddress, Beat beat, Assets assets, Mementor mementor)
+        public EntityEditor(ObservableCollection<Entity> entities, MessageService messageService, string messageAddress, Beat beat, Assets assets, Mementor mementor)
         {
-            EntityManager = new EntityManager();
+            EntityManager = new EntityManager(entities);
             Mementor = mementor;
             Assets = assets;
             Beat = beat;

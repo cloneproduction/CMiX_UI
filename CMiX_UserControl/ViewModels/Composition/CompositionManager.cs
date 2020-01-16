@@ -8,10 +8,9 @@ namespace CMiX.Studio.ViewModels
 {
     public class CompositionManager : ViewModel
     {
-        public CompositionManager(ObservableCollection<Composition> compositions, ObservableCollection<Layer> layers, ObservableCollection<Entity> entities)
+        public CompositionManager(ObservableCollection<Composition> compositions)
         {
             Compositions = compositions;
-            LayerManager = new LayerManager(new MessageService());
 
             CreateCompositionCommand = new RelayCommand(p => CreateComposition(p as ICompositionContext));
             CreateSelectedCompositionCommand = new RelayCommand(p => CreateSelectedComposition(p as ICompositionContext));

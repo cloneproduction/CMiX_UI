@@ -13,13 +13,12 @@ namespace CMiX.Studio.ViewModels
     public class Content : ViewModel, IEntityContext, ISendable
     {
         #region CONSTRUCTORS
-        public Content(EntityManager entityManager, Beat beat, string messageAddress, MessageService messageService, Mementor mementor)
+        public Content(Beat beat, string messageAddress, MessageService messageService, Mementor mementor)
         {
             Enabled = true;
             Beat = beat;
             MessageAddress = $"{messageAddress}{nameof(Content)}/";
             MessageService = messageService;
-            EntityManager = entityManager;
             Entities = new ObservableCollection<Entity>();
 
             BeatModifier = new BeatModifier(MessageAddress, Beat, messageService, mementor);
@@ -46,7 +45,6 @@ namespace CMiX.Studio.ViewModels
         public PostFX PostFX { get; }
         public Beat Beat { get; set; }
 
-        public EntityManager EntityManager{ get; set; }
         public ObservableCollection<Entity> Entities { get; set; }
         public Entity SelectedEntity { get; set; }
         #endregion
@@ -75,8 +73,8 @@ namespace CMiX.Studio.ViewModels
             Entities.Clear();
             foreach (var entityModel in contentModel.EntityModels)
             {
-                var entity = EntityManager.CreateEntity(this);
-                entity.SetViewModel(entityModel);
+                //var entity = EntityManager.CreateEntity(this);
+                //entity.SetViewModel(entityModel);
             }
 
             MessageService.Enable();

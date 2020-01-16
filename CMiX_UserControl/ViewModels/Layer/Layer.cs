@@ -9,7 +9,7 @@ namespace CMiX.Studio.ViewModels
     public class Layer : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Layer(EntityManager entityManager, MasterBeat masterBeat, string messageAddress, int id, MessageService messageService, Assets assets, Mementor mementor) 
+        public Layer(MasterBeat masterBeat, string messageAddress, int id, MessageService messageService, Assets assets, Mementor mementor) 
         {
             Enabled = false;
             MessageAddress =  $"{messageAddress}{nameof(Layer)}/{id}/";
@@ -20,7 +20,9 @@ namespace CMiX.Studio.ViewModels
             ID = id;
             Name = "Layer " + id;
 
-            Content = new Content(entityManager, masterBeat, MessageAddress, messageService, mementor);
+            Entities = new ObservableCollection<Entity>();
+            EntityManager = new EntityManager(Entities);
+            Content = new Content(masterBeat, MessageAddress, messageService, mementor);
             Mask = new Mask(masterBeat, MessageAddress, messageService, mementor);
             PostFX = new PostFX(MessageAddress, messageService, mementor);
 
@@ -29,6 +31,8 @@ namespace CMiX.Studio.ViewModels
         }
         #endregion
 
+        public EntityManager EntityManager { get; set; }
+        public ObservableCollection<Entity> Entities { get; set; }
         #region PROPERTIES
         private string _name;
         public string Name

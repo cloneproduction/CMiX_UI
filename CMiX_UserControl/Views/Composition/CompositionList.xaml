@@ -36,14 +36,14 @@
                 dd:DragDrop.IsDropTarget="True"
                 dd:DragDrop.DragHandler="{Binding}"
                 dd:DragDrop.DropHandler="{Binding}"
-                SelectedItem="{Binding CompositionEditor.SelectedComposition}"
+                SelectedItem="{Binding SelectedComposition}"
                 ItemsSource="{Binding Compositions}">
                 <ListBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.CreateCompositionCommand, Source={StaticResource proxy}}">
+                            Command="{Binding Data.NewCompositionCommand, Source={StaticResource proxy}}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="{StaticResource NewLayer}" Height="10" Width="10"/>
@@ -53,10 +53,10 @@
                             </MenuItem.Header>
                         </MenuItem>
                         <MenuItem
-                            Visibility="{Binding Data.CompositionEditor.SelectedComposition, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
+                            Visibility="{Binding Data.SelectedComposition, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.CompositionEditor.RenameSelectedCompositionCommand, Source={StaticResource proxy}}">
+                            Command="{Binding Data.RenameSelectedCompositionCommand, Source={StaticResource proxy}}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Width="10" Height="10" Source="{StaticResource Rename}" />
@@ -66,10 +66,10 @@
                             </MenuItem.Header>
                         </MenuItem>
                         <MenuItem
-                            Visibility="{Binding Data.CompositionEditor.SelectedComposition, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
+                            Visibility="{Binding Data.SelectedComposition, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.CompositionEditor.DeleteSelectedCompositionCommand, Source={StaticResource proxy}}">
+                            Command="{Binding Data.DeleteSelectedCompositionCommand, Source={StaticResource proxy}}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
@@ -79,10 +79,10 @@
                             </MenuItem.Header>
                         </MenuItem>
                         <MenuItem
-                            Visibility="{Binding Data.CompositionEditor.SelectedComposition, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
+                            Visibility="{Binding Data.SelectedComposition, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.CompositionEditor.DuplicateSelectedCompositionCommand, Source={StaticResource proxy}}">
+                            Command="{Binding Data.DuplicateSelectedCompositionCommand, Source={StaticResource proxy}}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Width="10" Height="10" Source="{StaticResource Copy}" />
