@@ -16,7 +16,7 @@ namespace CMiX.Studio.ViewModels
             Mementor = mementor;
             Assets = assets;
             Beat = beat;
-            Entities = new ObservableCollection<Entity>();
+            Entities = entities;
 
             MessageAddress = messageAddress;
             MessageService = messageService;
@@ -25,12 +25,14 @@ namespace CMiX.Studio.ViewModels
             DeleteSelectedEntityCommand = new RelayCommand(p => DeleteEntity());
             DuplicateSelectedEntityCommand = new RelayCommand(p => DuplicateEntity());
             RenameSelectedEntityCommand = new RelayCommand(p => RenameEntity());
+            MoveEntityToLayerCommand = new RelayCommand(p => MoveEntityToLayer(p));
         }
 
         public ICommand AddEntityCommand { get; }
         public ICommand DuplicateSelectedEntityCommand { get; }
         public ICommand DeleteSelectedEntityCommand { get; }
         public ICommand RenameSelectedEntityCommand { get; }
+        public ICommand MoveEntityToLayerCommand { get; }
 
         public string MessageAddress { get; set; }
         public MessageService MessageService { get; set; }
@@ -39,6 +41,7 @@ namespace CMiX.Studio.ViewModels
         public EntityManager EntityManager { get; set; }
         public Beat Beat { get; set; }
         public Assets Assets { get; set; }
+
         public ObservableCollection<Entity> Entities { get; set; }
 
         private Entity _selectedEntity;
@@ -46,6 +49,18 @@ namespace CMiX.Studio.ViewModels
         {
             get => _selectedEntity;
             set => SetAndNotify(ref _selectedEntity, value);
+        }
+
+        public void MoveEntityToLayer(object obj)
+        {
+            if(obj is Layer)
+            {
+                var layer = obj as Layer;
+                layer.Entities.Add(this.SelectedEntity);
+                layer.EntityEditor.SelectedEntity = this.SelectedEntity;
+                Entities.Remove(this.SelectedEntity);
+                this.SelectedEntity = null;
+            }
         }
 
         public void RenameEntity()

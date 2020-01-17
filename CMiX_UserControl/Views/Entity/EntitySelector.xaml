@@ -13,22 +13,11 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <Resources:BindingProxy x:Key="proxy" Data="{Binding}"/>
+            <Resources:BindingProxy x:Key="CompositionProxy" Data="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type Views:Composition}}}"/>
             <Resources:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <DockPanel>
-        <Border 
-            DockPanel.Dock="Top">
-            <DockPanel Height="40">
-                <TextBlock
-                        Padding="8"
-                    VerticalAlignment="Center"
-                    Text="ENTITIES"
-                    Foreground="{StaticResource TextBase}"/>
-            </DockPanel>
-
-        </Border>
         <ListBox 
             AllowDrop="True"
             dd:DragDrop.IsDragSource="True"
@@ -78,10 +67,10 @@
                         </MenuItem.Header>
                     </MenuItem>
                     <MenuItem
-                            Visibility="{Binding Data.SelectedEntity, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
-                            Padding="8, 4"
-                            Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.DuplicateSelectedEntityCommand, Source={StaticResource proxy}}">
+                        Visibility="{Binding Data.SelectedEntity, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
+                        Padding="8, 4"
+                        Foreground="{StaticResource TextBase}"
+                        Command="{Binding Data.DuplicateSelectedEntityCommand, Source={StaticResource proxy}}">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource Copy}" />
@@ -89,6 +78,28 @@
                                 <TextBlock Text="Duplicate"/>
                             </StackPanel>
                         </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem 
+                        Visibility="{Binding Data.SelectedEntity, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
+                        Style="{StaticResource ContextMenuSubItem}"
+                        Padding="8, 4"
+                        ItemsSource="{Binding Data.Layers, Source={StaticResource CompositionProxy}}">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
+                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                <TextBlock Text="Move To"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                        <MenuItem.ItemTemplate>
+                            <DataTemplate>
+                                <MenuItem 
+                                    Padding="8, 4" 
+                                    Header="{Binding Name}" 
+                                    Command="{Binding Data.MoveEntityToLayerCommand, Source={StaticResource proxy}}"
+                                    CommandParameter="{Binding}"/>
+                            </DataTemplate>
+                        </MenuItem.ItemTemplate>
                     </MenuItem>
                 </ContextMenu>
             </ListBox.ContextMenu>
@@ -109,6 +120,4 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-
-    </DockPanel>
 </UserControl>

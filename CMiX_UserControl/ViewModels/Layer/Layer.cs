@@ -21,21 +21,20 @@ namespace CMiX.Studio.ViewModels
             Name = "Layer " + id;
 
             Entities = new ObservableCollection<Entity>();
-            EntityManager = new EntityManager(Entities);
-
-            
-            Content = new Content(masterBeat, MessageAddress, messageService, mementor);
-            Mask = new Mask(masterBeat, MessageAddress, messageService, mementor);
+            EntityEditor = new EntityEditor(Entities, messageService, messageAddress, masterBeat, assets, mementor);
             PostFX = new PostFX(MessageAddress, messageService, mementor);
+
+            //Content = new Content(masterBeat, MessageAddress, messageService, mementor);
+            Mask = new Mask(masterBeat, MessageAddress, messageService, mementor);
 
             BlendMode = new BlendMode(masterBeat, MessageAddress, messageService, mementor);
             Fade = new Slider(MessageAddress + nameof(Fade), messageService, mementor);
         }
         #endregion
 
-        public EntityManager EntityManager { get; set; }
         public EntityEditor EntityEditor { get; set; }
         public ObservableCollection<Entity> Entities { get; set; }
+
         #region PROPERTIES
         private string _name;
         public string Name
@@ -85,7 +84,7 @@ namespace CMiX.Studio.ViewModels
         public Assets Assets { get; set; }
 
         public Slider Fade { get; set; }
-        public Content Content { get; set; }
+        //public Content Content { get; set; }
         public Mask Mask { get; set; }
         public PostFX PostFX { get; set; }
         public BlendMode BlendMode { get; set; }
@@ -100,7 +99,7 @@ namespace CMiX.Studio.ViewModels
             layerModel.Out = Out;
             layerModel.Fade = Fade.GetModel();
             layerModel.BlendMode = BlendMode.GetModel();
-            layerModel.ContentModel = Content.GetModel();
+            //layerModel.ContentModel = Content.GetModel();
             layerModel.MaskModel = Mask.GetModel();
             layerModel.PostFXModel = PostFX.GetModel();
             return layerModel;
@@ -116,7 +115,7 @@ namespace CMiX.Studio.ViewModels
 
             Fade.SetViewModel(layerModel.Fade);
             BlendMode.SetViewModel(layerModel.BlendMode);
-            Content.SetViewModel(layerModel.ContentModel);
+            //Content.SetViewModel(layerModel.ContentModel);
             Mask.SetViewModel(layerModel.MaskModel);
             PostFX.SetViewModel(layerModel.PostFXModel);
 
@@ -129,7 +128,7 @@ namespace CMiX.Studio.ViewModels
 
             BlendMode.Reset();
             Fade.Reset();
-            Content.Reset();
+            //Content.Reset();
             Mask.Reset();
             PostFX.Reset();
         }

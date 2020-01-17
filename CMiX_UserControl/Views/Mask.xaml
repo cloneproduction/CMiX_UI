@@ -78,8 +78,7 @@
                     Content="MASK"
                     DockPanel.Dock="Left"
                     FontWeight="SemiBold"
-                    FontSize="12"
-                    />
+                    FontSize="12"/>
                 <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
                     <ToggleButton
                         ToolTip="Enable"
@@ -90,57 +89,10 @@
                         Margin="2, 0, 4, 0"
                         HorizontalAlignment="Right"
                         HorizontalContentAlignment="Center"
-                        IsChecked="{Binding Enable, Mode=TwoWay}"
-                        />
+                        IsChecked="{Binding Enable, Mode=TwoWay}"/>
                 </StackPanel>
             </DockPanel>
         </Border>
-        <Border 
-            Margin="0 ,4, 0, 8" 
-            DockPanel.Dock="Top" 
-            Style="{StaticResource BorderContainer}">
-            <Views:BeatModifier DataContext="{Binding BeatModifier}"/>
-        </Border>
-        <TabControl 
-            DockPanel.Dock="Top"
-            AllowDrop="True">
-            <TabItem 
-                Width="40"
-                Height="30"
-                HorizontalAlignment="Left"
-                DragOver="TabItem_DragOver">
-                <TabItem.Header>
-                    <Image Source="{StaticResource Geometry}"  ToolTip="Geometry" Height="15" Width="auto" Opacity="0.75"/>
-                </TabItem.Header>
-                <Views:Geometry DataContext="{Binding Geometry}" DockPanel.Dock="Bottom" />
-            </TabItem>
-            <TabItem 
-                Width="40"
-                Height="30"
-                HorizontalAlignment="Left"
-                DragOver="TabItem_DragOver">
-                <TabItem.Header>
-                    <Image Source="{StaticResource Texture}" ToolTip="Texture" Height="15" Width="auto" Opacity="0.75"/>
-                </TabItem.Header>
-                <Views:Texture
-                    DataContext="{Binding Texture}"
-                    DockPanel.Dock="Top" 
-                    />
-            </TabItem>
-            <TabItem 
-                Width="40"
-                Height="30"
-                HorizontalAlignment="Left"
-                DragOver="TabItem_DragOver">
-                <TabItem.Header>
-                    <Image Source="{StaticResource PostFX}" ToolTip="PostFX" Height="15" Width="auto" Opacity="0.75"/>
-                </TabItem.Header>
-                <Views:PostFX
-                    DataContext="{Binding PostFX}"
-                    DockPanel.Dock="Bottom" 
-                    />
-            </TabItem>
-        </TabControl>
         <Expander
             Margin="0, 1"
             DockPanel.Dock="Top"
@@ -158,40 +110,39 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <TextBlock 
-                        Grid.ColumnSpan="2"
-                        Foreground="{StaticResource TextBase}"
-                        Text="Use"/>
+                            Grid.ColumnSpan="2"
+                            Foreground="{StaticResource TextBase}"
+                            Text="Use"/>
                         <ComboBox 
-                        Grid.Column="2"
-                        Height="20"
-                        SelectedItem="{Binding MaskType}"
-                        ItemsSource="{Binding Source={StaticResource MaskType}}"
-                        />
+                            Grid.Column="2"
+                            Height="20"
+                            SelectedItem="{Binding MaskType}"
+                            ItemsSource="{Binding Source={StaticResource MaskType}}"/>
                     </Grid>
                     <Grid 
-                    Margin="2, 4"
-                    DockPanel.Dock="Bottom"
-                    Height="20" >
+                        Margin="2, 4"
+                        DockPanel.Dock="Bottom"
+                        Height="20" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0.2*"/>
                             <ColumnDefinition Width="35"/>
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <TextBlock 
-                        Grid.ColumnSpan="2"
-                        Foreground="{StaticResource TextBase}"
-                        Text="To Control"/>
+                            Grid.ColumnSpan="2"
+                            Foreground="{StaticResource TextBase}"
+                            Text="To Control"/>
                         <ComboBox 
-                        Grid.Column="2"
-                        DockPanel.Dock="Bottom"
-                        Height="20"
-                        SelectedItem="{Binding MaskControlType}"
-                        ItemsSource="{Binding Source={StaticResource MaskControlType}}"
-                        />
+                            Grid.Column="2"
+                            DockPanel.Dock="Bottom"
+                            Height="20"
+                            SelectedItem="{Binding MaskControlType}"
+                            ItemsSource="{Binding Source={StaticResource MaskControlType}}"/>
                     </Grid>
                 </StackPanel>
             </Border>
         </Expander>
+
         <Border/>
     </DockPanel>
 </UserControl>

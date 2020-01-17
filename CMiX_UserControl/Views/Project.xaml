@@ -15,23 +15,19 @@
         <KeyBinding 
             Modifiers="Control"
             Key="T"
-            Command="{Binding AddCompoCommand}" 
-            />
+            Command="{Binding AddCompoCommand}" />
         <KeyBinding 
             Modifiers="Control"
             Key="N" 
-            Command="{Binding AddLayerCommand}" 
-            />
+            Command="{Binding AddLayerCommand}" />
         <KeyBinding 
             Modifiers="Control"
             Key="E" 
-            Command="{Binding ExportCompoCommand}" 
-            />
+            Command="{Binding ExportCompoCommand}" />
         <KeyBinding 
             Modifiers="Control"
             Key="I" 
-            Command="{Binding ImportCompoCommand}" 
-            />
+            Command="{Binding ImportCompoCommand}" />
     </UserControl.InputBindings>
 
     <UserControl.Resources>
@@ -41,13 +37,12 @@
     </UserControl.Resources>
 
     <DockPanel Background="{StaticResource SuperHighDarkerColor}">
-        <Border DockPanel.Dock="Bottom" VerticalAlignment="Center" Background="{StaticResource Color}" Height="25"/>
+        <Border DockPanel.Dock="Bottom" VerticalAlignment="Center" Background="{StaticResource DarkColor}" Height="25"/>
         <Border 
             Padding="2"
             DockPanel.Dock="Top"
             Background="{StaticResource DarkColor}" >
             <Menu
-
                 Margin="16, 0, 0, 0"
                 HorizontalAlignment="Left"
                 VerticalContentAlignment="Center">
@@ -59,29 +54,24 @@
                     <MenuItem
                         Header="New"
                         Command="{Binding NewProjectCommand}"
-                        Template="{StaticResource SubMenuItemBase}" 
-                        />
+                        Template="{StaticResource SubMenuItemBase}" />
                     <MenuItem
                         Header="Open"
                         Command="{Binding OpenProjectCommand}"
-                        Template="{StaticResource SubMenuItemBase}" 
-                        />
+                        Template="{StaticResource SubMenuItemBase}" />
                     <MenuItem
                         Header="Save"
                         Command="{Binding SaveProjectCommand}"
-                        Template="{StaticResource SubMenuItemBase}" 
-                        />
+                        Template="{StaticResource SubMenuItemBase}" />
                     <MenuItem
                         Header="Save As"
                         Command="{Binding SaveAsProjectCommand}"
-                        Template="{StaticResource SubMenuItemBase}" 
-                        />
+                        Template="{StaticResource SubMenuItemBase}" />
                     <MenuItem
                         Header="Quit"
                         Command="{Binding QuitCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-                        Template="{StaticResource SubMenuItemBase}" 
-                        />
+                        Template="{StaticResource SubMenuItemBase}" />
                 </MenuItem>
                 <MenuItem
                     Padding="8,0"
@@ -91,13 +81,11 @@
                     <MenuItem
                         Header="Undo    Ctrl + Z"
                         Template="{StaticResource SubMenuItemBase}"
-                        Command="{Binding UndoCommand}"
-                        />
+                        Command="{Binding UndoCommand}"/>
                     <MenuItem
                         Header="Redo    Ctrl + Y"
                         Template="{StaticResource SubMenuItemBase}" 
-                        Command="{Binding RedoCommand}"
-                        />
+                        Command="{Binding RedoCommand}"/>
                 </MenuItem>
                 <MenuItem
                     Padding="8,0"
@@ -107,36 +95,26 @@
                     <MenuItem
                         Header="Add"
                         Command="{Binding CompositionEditor.NewCompositionCommand}"
-                        Template="{StaticResource SubMenuItemBase}" 
-                        />
+                        Template="{StaticResource SubMenuItemBase}" />
                     <MenuItem
                         Header="Delete"
                         Command="{Binding DeleteCompoCommand}"
                         CommandParameter="{Binding SelectedComposition}"
-                        Template="{StaticResource SubMenuItemBase}" 
-                        />
+                        Template="{StaticResource SubMenuItemBase}" />
                     <MenuItem
                         Header="Duplicate"
                         Command="{Binding DuplicateSelectedCompositionCommand}"
                         CommandParameter="{Binding SelectedComposition}"
-                        Template="{StaticResource SubMenuItemBase}" 
-                        />
+                        Template="{StaticResource SubMenuItemBase}" />
                     <Separator BorderThickness="0.5" Margin="0, 8, 8, 8" BorderBrush="{StaticResource DarkColor}"/>
                     <MenuItem
                         Header="Import"
                         Command="{Binding ImportCompoCommand}"
-                        Template="{StaticResource SubMenuItemBase}" 
-                        />
+                        Template="{StaticResource SubMenuItemBase}" />
                     <MenuItem
                         Header="Export"
                         Command="{Binding ExportCompoCommand}"
-                        Template="{StaticResource SubMenuItemBase}" 
-                        />
-                    <MenuItem
-                        Header="SendTest"
-                        Command="{Binding SendCerasMessageCommand}"
-                        Template="{StaticResource SubMenuItemBase}" 
-                        />
+                        Template="{StaticResource SubMenuItemBase}" />
                 </MenuItem>
             </Menu>
         </Border>
@@ -147,8 +125,8 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Border 
-                    Grid.Column="2"
-                    Margin="0">
+                Grid.Column="2"
+                Margin="0">
                 <Views:CompositionEditor DataContext="{Binding CompositionEditor}"/>
             </Border>
             <Border>
@@ -171,10 +149,8 @@
                         </TabItem.Header>
                         <Views:ServerManager DataContext="{Binding ServerManager}"/>
                     </TabItem>
-
                 </TabControl>
             </Border>
         </Grid>
-
     </DockPanel>
 </UserControl>

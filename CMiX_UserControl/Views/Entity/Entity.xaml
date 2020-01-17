@@ -17,7 +17,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
         <StackPanel>
             <Views:Geometry  DataContext="{Binding Geometry}" Grid.Column="0"/>
             <Views:Texture Margin="0, 8" DataContext="{Binding Texture}" Grid.Column="1"/>

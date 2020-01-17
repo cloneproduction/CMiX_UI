@@ -1,10 +1,9 @@
 ﻿using System.Windows.Input;
+using System.Collections.ObjectModel;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
-using CMiX.MVVM;
 using Memento;
-using System.Collections.ObjectModel;
 
 namespace CMiX.Studio.ViewModels
 {

@@ -13,8 +13,12 @@
             <Resources:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
-    
-    <Views:Entity 
-        Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}"
-        DataContext="{Binding SelectedEntity}"/>
+
+    <StackPanel>
+        <Views:Entity 
+            Margin="8"
+            Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}"
+            DataContext="{Binding SelectedEntity}"/>
+    </StackPanel>
+
 </UserControl>

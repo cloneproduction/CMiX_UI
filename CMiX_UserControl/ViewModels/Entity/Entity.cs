@@ -43,8 +43,15 @@ namespace CMiX.Studio.ViewModels
         private bool _isRenaming;
         public bool IsRenaming
         {
-            get { return _isRenaming; }
-            set { _isRenaming = value; }
+            get => _isRenaming;
+            set => SetAndNotify(ref _isRenaming, value);
+        }
+
+        private bool _isMask;
+        public bool IsMask
+        {
+            get => _isMask;
+            set => SetAndNotify(ref _isMask, value);
         }
 
         private int _id;
@@ -57,8 +64,8 @@ namespace CMiX.Studio.ViewModels
         private string _name;
         public string Name
         {
-            get { return _name; }
-            set { _name = value; }
+            get => _name;
+            set => SetAndNotify(ref _name, value);
         }
 
         public BeatModifier BeatModifier { get; }
