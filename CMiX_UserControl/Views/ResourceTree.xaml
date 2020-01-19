@@ -133,7 +133,6 @@
                             </Controls:EditableTextBox>
                         </DockPanel>
                     </StackPanel>
-                    
                 </Border>
             </HierarchicalDataTemplate>
 

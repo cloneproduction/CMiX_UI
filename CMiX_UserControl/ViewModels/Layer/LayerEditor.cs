@@ -33,6 +33,7 @@ namespace CMiX.Studio.ViewModels
             CopyLayerCommand = new RelayCommand(p => CopyLayer());
             PasteLayerCommand = new RelayCommand(p => PasteLayer());
             ResetLayerCommand = new RelayCommand(p => ResetLayer());
+            SelectLayerCommand = new RelayCommand(p => SelectLayer(p));
         }
 
         public ICommand AddLayerCommand { get; }
@@ -42,6 +43,7 @@ namespace CMiX.Studio.ViewModels
         public ICommand CopyLayerCommand { get; }
         public ICommand PasteLayerCommand { get; }
         public ICommand ResetLayerCommand { get; }
+        public ICommand SelectLayerCommand { get; }
 
         public LayerManager LayerManager { get; set; }
         public ObservableCollection<Layer> Layers { get; set; }
@@ -58,6 +60,16 @@ namespace CMiX.Studio.ViewModels
         public MessageService MessageService { get; set; }
         public Mementor Mementor { get; set; }
         public Assets Assets { get; set; }
+
+        public void SelectLayer(object obj)
+        {
+            if(obj is Layer)
+            {
+                var layer = obj as Layer;
+                SelectedLayer = layer;
+                layer.IsSelected = true;
+            }
+        }
 
         #region COPY/PASTE/RESET LAYER
         private void CopyLayer()

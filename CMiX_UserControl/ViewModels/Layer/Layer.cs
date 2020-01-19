@@ -3,6 +3,7 @@ using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -29,6 +30,7 @@ namespace CMiX.Studio.ViewModels
 
             BlendMode = new BlendMode(masterBeat, MessageAddress, messageService, mementor);
             Fade = new Slider(MessageAddress + nameof(Fade), messageService, mementor);
+            
         }
         #endregion
 
@@ -48,6 +50,13 @@ namespace CMiX.Studio.ViewModels
         {
             get => _isVisible;
             set => SetAndNotify(ref _isVisible, value);
+        }
+
+        private bool _isSelected = false;
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set => SetAndNotify(ref _isSelected, value);
         }
 
         private bool _isRenaming;

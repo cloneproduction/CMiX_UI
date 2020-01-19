@@ -31,20 +31,34 @@ namespace CMiX.Studio.ViewModels
             CopyEntityCommand = new RelayCommand(p => CopyEntity());
             PasteEntityCommand = new RelayCommand(p => PasteEntity());
             ResetEntityCommand = new RelayCommand(p => ResetEntity());
+            DoubleClickCommand = new RelayCommand(p => DoubleClick());
         }
         #endregion
+
+        public void DoubleClick()
+        {
+            System.Console.WriteLine("DoubleClick");
+        }
 
         #region PROPERTIES
         private static int count = 0;
         public ICommand CopyEntityCommand { get; }
         public ICommand PasteEntityCommand { get; }
         public ICommand ResetEntityCommand { get; }
+        public ICommand DoubleClickCommand { get; }
 
         private bool _isRenaming;
         public bool IsRenaming
         {
             get => _isRenaming;
             set => SetAndNotify(ref _isRenaming, value);
+        }
+
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set => SetAndNotify(ref _isSelected, value);
         }
 
         private bool _isMask;

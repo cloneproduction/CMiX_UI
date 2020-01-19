@@ -132,7 +132,7 @@
                         x:Name="border"
                         Background="{TemplateBinding Background}"
                         SnapsToDevicePixels="True">
-                        <Image x:Name="ImageIcon" Opacity="0.75" Margin="2" Source="{StaticResource NotVisible}"/>
+                        <Image x:Name="ImageIcon" Opacity="0.75" Margin="4" Source="{StaticResource NotVisible}"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <MultiTrigger>

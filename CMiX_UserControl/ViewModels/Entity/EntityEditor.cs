@@ -26,6 +26,7 @@ namespace CMiX.Studio.ViewModels
             DuplicateSelectedEntityCommand = new RelayCommand(p => DuplicateEntity());
             RenameSelectedEntityCommand = new RelayCommand(p => RenameEntity());
             MoveEntityToLayerCommand = new RelayCommand(p => MoveEntityToLayer(p));
+            EditEntityCommand = new RelayCommand(p => EditEntity(p));
         }
 
         public ICommand AddEntityCommand { get; }
@@ -33,6 +34,7 @@ namespace CMiX.Studio.ViewModels
         public ICommand DeleteSelectedEntityCommand { get; }
         public ICommand RenameSelectedEntityCommand { get; }
         public ICommand MoveEntityToLayerCommand { get; }
+        public ICommand EditEntityCommand { get; set; }
 
         public string MessageAddress { get; set; }
         public MessageService MessageService { get; set; }
@@ -49,6 +51,16 @@ namespace CMiX.Studio.ViewModels
         {
             get => _selectedEntity;
             set => SetAndNotify(ref _selectedEntity, value);
+        }
+
+        public void EditEntity(object obj)
+        {
+            if(obj is Entity)
+            {
+                var entity = obj as Entity;
+                this.SelectedEntity = entity;
+                System.Console.WriteLine("EditEntity");
+            }
         }
 
         public void MoveEntityToLayer(object obj)

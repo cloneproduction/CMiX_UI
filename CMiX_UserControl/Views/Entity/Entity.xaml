@@ -9,7 +9,7 @@
              xmlns:MVVM.Views ="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
              xmlns:dd="urn:gong-wpf-dragdrop"
              mc:Ignorable="d"
-             d:DesignHeight="895.087" d:DesignWidth="379.502">
+             d:DesignHeight="793.087" d:DesignWidth="979.502">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -18,10 +18,15 @@
     </UserControl.Resources>
 
     <ScrollViewer VerticalScrollBarVisibility="Hidden">
-        <StackPanel>
-            <Views:Geometry  DataContext="{Binding Geometry}" Grid.Column="0"/>
-            <Views:Texture Margin="0, 8" DataContext="{Binding Texture}" Grid.Column="1"/>
-            <Views:Coloration  DataContext="{Binding Coloration}" Grid.Column="2"/>
-        </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Views:Geometry DataContext="{Binding Geometry}" Grid.Column="0"/>
+            <Views:Texture DataContext="{Binding Texture}" Grid.Column="1"/>
+            <Views:Coloration DataContext="{Binding Coloration}" Grid.Column="2"/>
+        </Grid>
     </ScrollViewer>
 </UserControl>
