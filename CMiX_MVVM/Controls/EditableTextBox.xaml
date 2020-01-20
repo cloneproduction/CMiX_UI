@@ -20,7 +20,7 @@
             CaretBrush="{StaticResource SuperHighLightColor}"
             BorderThickness="0"
             VerticalAlignment="Center"
-            Background="{StaticResource DarkerColor}" 
+            Background="Transparent" 
             Foreground="{StaticResource ActiveTextBase}" 
             Text="{Binding Path=Text, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:EditableTextBox}}}" />
     </Grid>

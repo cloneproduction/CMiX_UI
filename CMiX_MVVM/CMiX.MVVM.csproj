@@ -76,6 +76,7 @@
     <Compile Include="Controls\EditableTextBox.xaml.cs">
       <DependentUpon>EditableTextBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ExpanderLayerList.cs" />
     <Compile Include="Interfaces\ICopyPasteModel.cs" />
     <Compile Include="Models\CompositionEditorModel.cs" />
     <Compile Include="Models\EntityEditorModel.cs" />

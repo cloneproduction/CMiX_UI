@@ -15,7 +15,7 @@
                 </Border>
                 <Separator  DockPanel.Dock="Top"  Background="{StaticResource DarkColor}" Height="4" HorizontalAlignment="Stretch"/>
                 <Grid VerticalAlignment="Stretch">
-                    <Views:Entity Margin="8" DataContext="{Binding EntityEditor.SelectedEntity}"/>
+                    <Views:Entity Margin="8" DataContext="{Binding Path=DataContext.EntityEditor.SelectedEntity, RelativeSource={RelativeSource AncestorType={x:Type Views:Composition}}}"/>
                     <!--<Views:EntitySelector DataContext="{Binding EntityEditor}" Grid.Column="1"/>-->
                 </Grid>
             </DockPanel>

@@ -27,6 +27,7 @@ namespace CMiX.Studio.ViewModels
             Layers = new ObservableCollection<Layer>();
             Entities = new ObservableCollection<Entity>();
 
+            EntityEditor = new EntityEditor(Entities, messageService, MasterBeat, Assets, Mementor);
             LayerEditor = new LayerEditor(Layers, messageService, MessageAddress, MasterBeat, assets, mementor);
         }
         #endregion
@@ -47,7 +48,7 @@ namespace CMiX.Studio.ViewModels
         public LayerEditor LayerEditor { get; set; }
         public ObservableCollection<Layer> Layers { get; set; }
         public ObservableCollection<Entity> Entities { get; set; }
-
+        public EntityEditor EntityEditor { get; set; }
         private string _name;
         public string Name
         {

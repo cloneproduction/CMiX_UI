@@ -10,15 +10,13 @@ namespace CMiX.Studio.ViewModels
 {
     public class EntityEditor : ViewModel, IEntityEditor
     {
-        public EntityEditor(ObservableCollection<Entity> entities, MessageService messageService, string messageAddress, Beat beat, Assets assets, Mementor mementor)
+        public EntityEditor(ObservableCollection<Entity> entities, MessageService messageService, Beat beat, Assets assets, Mementor mementor)
         {
             EntityManager = new EntityManager(entities);
             Mementor = mementor;
             Assets = assets;
             Beat = beat;
             Entities = entities;
-
-            MessageAddress = messageAddress;
             MessageService = messageService;
 
             AddEntityCommand = new RelayCommand(p => AddEntity());
@@ -69,7 +67,6 @@ namespace CMiX.Studio.ViewModels
             {
                 var layer = obj as Layer;
                 layer.Entities.Add(this.SelectedEntity);
-                layer.EntityEditor.SelectedEntity = this.SelectedEntity;
                 Entities.Remove(this.SelectedEntity);
                 this.SelectedEntity = null;
             }

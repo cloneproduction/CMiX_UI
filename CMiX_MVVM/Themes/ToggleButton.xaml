@@ -130,6 +130,7 @@
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                     <Border
                         x:Name="border"
+                        Padding="{TemplateBinding Padding}"
                         Background="{TemplateBinding Background}"
                         SnapsToDevicePixels="True">
                         <Image x:Name="ImageIcon" Opacity="0.75" Margin="4" Source="{StaticResource NotVisible}"/>

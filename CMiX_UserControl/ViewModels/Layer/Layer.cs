@@ -22,7 +22,6 @@ namespace CMiX.Studio.ViewModels
             Name = "Layer " + id;
 
             Entities = new ObservableCollection<Entity>();
-            EntityEditor = new EntityEditor(Entities, messageService, messageAddress, masterBeat, assets, mementor);
             PostFX = new PostFX(MessageAddress, messageService, mementor);
 
             //Content = new Content(masterBeat, MessageAddress, messageService, mementor);
@@ -33,8 +32,6 @@ namespace CMiX.Studio.ViewModels
             
         }
         #endregion
-
-        public EntityEditor EntityEditor { get; set; }
         public ObservableCollection<Entity> Entities { get; set; }
 
         #region PROPERTIES
