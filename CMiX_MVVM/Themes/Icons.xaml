@@ -29,4 +29,5 @@
     <BitmapImage x:Key="Rename" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Rename.png"/>
     <BitmapImage x:Key="Visible" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Visible.png"/>
     <BitmapImage x:Key="NotVisible" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/NotVisible.png"/>
+    <BitmapImage x:Key="Close" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Close.png"/>
 </ResourceDictionary>

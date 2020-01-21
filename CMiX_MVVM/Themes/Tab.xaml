@@ -406,46 +406,53 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TabItem}">
-                    <Grid
-                        x:Name="templateRoot"
-                        Width="150"
-                        SnapsToDevicePixels="True">
-                        <Border
-                            x:Name="mainBorder"
-                            BorderBrush="{StaticResource Color}"
-                            BorderThickness="1, 0"
-                            Background="{StaticResource DarkColor}">
-                        </Border>
-                        <ContentPresenter
-                            x:Name="contentPresenter"
-                            TextBlock.Foreground="{StaticResource HighLightColor}"
-                            Margin="5"
-                            HorizontalAlignment="Stretch"
-                            Content="{TemplateBinding Header}"
-                            ContentSource="Header"
-                            ContentStringFormat="{TemplateBinding HeaderStringFormat}"
-                            ContentTemplate="{TemplateBinding HeaderTemplate}"
-                            Focusable="False"
-                            RecognizesAccessKey="True"
-                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
-                            />
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="contentPresenter" Property="TextBlock.Foreground" Value="{StaticResource TextBase}"/>
+                    <Border
+                        x:Name="MainBorder"
+                        Width="120"
+                        Height="40"
+                        Padding="8"
+                        VerticalAlignment="Center"
+                        BorderBrush="{StaticResource Color}"
+                        Background="Transparent">
+                        <Border.InputBindings>
+                            <MouseBinding MouseAction="MiddleClick"
+                              Command="{Binding DataContext.RemoveEntityFromEditingCommand, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"
+                              CommandParameter="{Binding}"/>
+                        </Border.InputBindings>
+                        <DockPanel>
+                            <Button 
+                                x:Name="DeleteTabButton"
+                                Style="{StaticResource CloseTabButton}"
+                                Visibility="Collapsed"
+                                Command="{Binding DataContext.RemoveEntityFromEditingCommand, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"
+                                CommandParameter="{Binding}"
+                                DockPanel.Dock="Right" Width="15" Height="15">
+
+                            </Button>
+                            <TextBlock 
+                                x:Name="TabText"
+                                Text="{Binding Name}" 
+                                Foreground="{StaticResource TextBase}"
+                                VerticalAlignment="Center"/>
+                            </DockPanel>
+                    </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="DeleteTabButton" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource DarkerColor }"/>
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter TargetName="contentPresenter" Property="Opacity" Value="0.56" />
+
                         </Trigger>
 
                         <Trigger Property="IsSelected" Value="false">
-                            <Setter Property="Foreground" Value="{StaticResource TextBase}"/>
-                            <Setter TargetName="mainBorder" Property="Background" Value="{StaticResource HighDarkerColor}"/>
+                            
                         </Trigger>
-
                         <Trigger Property="IsSelected" Value="true">
-                            <Setter TargetName="contentPresenter" Property="TextBlock.Foreground" Value="{StaticResource TextBase}"/>
+                            <Setter TargetName="TabText" Property="Foreground" Value="{StaticResource ActiveTextBase}"/>
+                            <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource Color}"/>
+                            <Setter TargetName="TabText" Property="Foreground" Value="{StaticResource TextBase}"/>
                             <Setter Property="Panel.ZIndex" Value="1" />
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -475,37 +482,23 @@
                             <RowDefinition x:Name="RowDefinition0" Height="Auto"/>
                             <RowDefinition x:Name="RowDefinition1" Height="*"/>
                         </Grid.RowDefinitions>
-                        <StackPanel 
+                        <Border 
                             Height="30" 
-                            Orientation="Horizontal" 
-                            Grid.Column="0">
-                            <TabPanel 
-                                x:Name="headerPanel" 
-                                Background="Transparent" 
-                                IsItemsHost="true" 
-                                Grid.Row="0" 
-                                KeyboardNavigation.TabIndex="1" 
-                                Panel.ZIndex="1"
-                                />
-                            <Button 
-                                Style="{DynamicResource ButtonTabDynamic}"
-                                MinWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" 
-                                MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
-                                Command="{Binding AddTabCommand}">
-                                <Button.Content>
-                                    <Image  
-                                        Opacity="0.5"
-                                        Width="12" 
-                                        Height="12"
-                                        Stretch="Uniform" Source="{DynamicResource AddTab}"/>
-                                </Button.Content>
-                            </Button>
-                        </StackPanel>
-
+                            Grid.Column="0"
+                            BorderThickness="0, 0, 0, 2"
+                            BorderBrush="{StaticResource Color}">
+                            <StackPanel  Orientation="Horizontal">
+                                <TabPanel 
+                                    x:Name="headerPanel" 
+                                    Background="Transparent" 
+                                    IsItemsHost="true" 
+                                    Grid.Row="0" 
+                                    KeyboardNavigation.TabIndex="1" 
+                                    Panel.ZIndex="1"/>
+                            </StackPanel>
+                        </Border>
                         <Border 
                             x:Name="contentPanel" 
-                            BorderThickness="0, 1, 0, 0"
-                            BorderBrush="{StaticResource DarkerColor}"
                             Grid.Column="0" 
                             KeyboardNavigation.DirectionalNavigation="Contained" 
                             Grid.Row="1" 
@@ -515,8 +508,7 @@
                                 x:Name="PART_SelectedContentHost" 
                                 ContentSource="SelectedContent" 
                                 Margin="{TemplateBinding Padding}" 
-                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                />
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -529,6 +521,37 @@
         </Setter>
     </Style>
 
+    <Style x:Key="CloseTabButton" BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border
+                        x:Name="border"
+                        Background="Transparent"
+                        SnapsToDevicePixels="True">
+                        <Grid   
+                            MinWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" 
+                            MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}">
+                            <Ellipse x:Name="circle" Fill="Transparent"/>
+                            <Image x:Name="closeIcon" Opacity="0.5" Margin="4" Source="{StaticResource Close}"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="{StaticResource TextBase}" />
+                            <Setter TargetName="circle" Property="Fill" Value="{StaticResource LightColor}"/>
+                            <Setter TargetName="closeIcon" Property="Opacity" Value="0.75"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Foreground" Value="{StaticResource TextBase}" />
+                            <Setter TargetName="circle" Property="Fill" Value="{StaticResource HighLightColor}"/>
+                            <Setter TargetName="closeIcon" Property="Opacity" Value="0.9"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 
     <Style x:Key="TabControlVerticalPanel" TargetType="{x:Type TabControl}">

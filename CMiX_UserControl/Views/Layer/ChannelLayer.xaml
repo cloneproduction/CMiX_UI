@@ -21,7 +21,7 @@
                 <x:Type TypeName="ViewModels:BlendMode"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
-        <Resources:BindingProxy x:Key="proxy" Data="{Binding}"/>
+        <Resources:BindingProxy x:Key="LayerProxy" Data="{Binding}"/>
         <Resources:BindingProxy x:Key="CompositionProxy" Data="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type Views:Composition}}}"/>
         <Resources:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
     </UserControl.Resources>
@@ -32,7 +32,8 @@
                 <MenuItem
                     Padding="8, 4"
                     Foreground="{StaticResource TextBase}"
-                    Command="{Binding Data.EntityEditor.AddEntityCommand, Source={StaticResource proxy}}">
+                    Command="{Binding Data.EntityEditor.AddEntityCommand, Source={StaticResource CompositionProxy}}"
+                    CommandParameter="{Binding Data, Source={StaticResource LayerProxy}}">
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="{StaticResource Add}" Height="10" Width="10"/>
@@ -55,10 +56,10 @@
                     </MenuItem.Header>
                 </MenuItem>
                 <MenuItem
-                        Visibility="{Binding Data.LayerEditor.SelectedLayer, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
-                        Padding="8, 4"
-                        Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.LayerEditor.RenameSelectedLayerCommand, Source={StaticResource proxy}}">
+                    Visibility="{Binding Data.LayerEditor.SelectedLayer, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource LayerProxy}}"
+                    Padding="8, 4"
+                    Foreground="{StaticResource TextBase}"
+                    Command="{Binding Data.LayerEditor.RenameSelectedLayerCommand, Source={StaticResource LayerProxy}}">
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Image Width="10" Height="10" Source="{StaticResource Rename}" />
@@ -68,10 +69,10 @@
                     </MenuItem.Header>
                 </MenuItem>
                 <MenuItem
-                        Visibility="{Binding Data.LayerEditor.SelectedLayer, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
+                        Visibility="{Binding Data.LayerEditor.SelectedLayer, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource LayerProxy}}"
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.LayerEditor.DeleteSelectedLayerCommand, Source={StaticResource proxy}}">
+                        Command="{Binding Data.LayerEditor.DeleteSelectedLayerCommand, Source={StaticResource LayerProxy}}">
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
@@ -81,10 +82,10 @@
                     </MenuItem.Header>
                 </MenuItem>
                 <MenuItem
-                        Visibility="{Binding Data.LayerEditor.SelectedLayer, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
+                        Visibility="{Binding Data.LayerEditor.SelectedLayer, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource LayerProxy}}"
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.LayerEditor.ResetLayerCommand, Source={StaticResource proxy}}">
+                        Command="{Binding Data.LayerEditor.ResetLayerCommand, Source={StaticResource LayerProxy}}">
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Image Width="10" Height="10" Source="{StaticResource Reset}" />
@@ -97,77 +98,79 @@
         </Border.ContextMenu>
         <Controls:ExpanderLayerList>
             <ListBox 
+                SelectedItem="{Binding SelectedEntity}"
                 ItemsSource="{Binding Entities}"
                 ItemContainerStyle="{StaticResource LayerInnerListBoxItemStyle}"
                 Style="{StaticResource LayerInnerListBox}">
-                <ListBox.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem
-                            Visibility="{Binding Data.EntityEditor.SelectedEntity, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
-                            Padding="8, 4"
-                            Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.EntityEditor.RenameSelectedEntityCommand, Source={StaticResource proxy}}">
-                            <MenuItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Width="10" Height="10" Source="{StaticResource Rename}" />
-                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                    <TextBlock Text="Rename"/>
-                                </StackPanel>
-                            </MenuItem.Header>
-                        </MenuItem>
-                        <MenuItem
-                        Visibility="{Binding Data.EntityEditor.SelectedEntity, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
-                        Padding="8, 4"
-                        Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.EntityEditor.DeleteSelectedEntityCommand, Source={StaticResource proxy}}">
-                            <MenuItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
-                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                    <TextBlock Text="Delete"/>
-                                </StackPanel>
-                            </MenuItem.Header>
-                        </MenuItem>
-                        <MenuItem
-                        Visibility="{Binding Data.EntityEditor.SelectedEntity, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
-                        Padding="8, 4"
-                        Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.EntityEditor.DuplicateSelectedEntityCommand, Source={StaticResource proxy}}">
-                            <MenuItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Width="10" Height="10" Source="{StaticResource Copy}" />
-                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                    <TextBlock Text="Duplicate"/>
-                                </StackPanel>
-                            </MenuItem.Header>
-                        </MenuItem>
-                        <MenuItem 
-                            Visibility="{Binding Data.EntityEditor.SelectedEntity, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
-                            Style="{StaticResource ContextMenuSubItem}"
-                            Padding="8, 4"
-                            ItemsSource="{Binding Data.Layers, Source={StaticResource CompositionProxy}}">
-                            <MenuItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
-                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                    <TextBlock Text="Move To"/>
-                                </StackPanel>
-                            </MenuItem.Header>
-                            <MenuItem.ItemTemplate>
-                                <DataTemplate>
-                                    <MenuItem 
-                                    Padding="8, 4" 
-                                    Header="{Binding Name}" 
-                                    Command="{Binding Data.EntityEditor.MoveEntityToLayerCommand, Source={StaticResource proxy}}"
-                                    CommandParameter="{Binding}"/>
-                                </DataTemplate>
-                            </MenuItem.ItemTemplate>
-                        </MenuItem>
-                    </ContextMenu>
-                </ListBox.ContextMenu>
                 <ListBox.ItemTemplate>
-                    <DataTemplate DataType="{}">
+                    <DataTemplate>
                         <Grid>
+                            <Grid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem
+                                        Padding="8, 4"
+                                        Foreground="{StaticResource TextBase}"
+                                        Command="{Binding Data.EntityEditor.RenameEntityCommand, Source={StaticResource CompositionProxy}}"
+                                        CommandParameter="{Binding}">
+                                        <MenuItem.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Width="10" Height="10" Source="{StaticResource Rename}" />
+                                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                                <TextBlock Text="Rename"/>
+                                            </StackPanel>
+                                        </MenuItem.Header>
+                                    </MenuItem>
+                                    <MenuItem
+                                        Visibility="{Binding Data.EntityEditor.SelectedEntity, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource CompositionProxy}}"
+                                        Padding="8, 4"
+                                        Foreground="{StaticResource TextBase}"
+                                        Command="{Binding Data.EntityEditor.DeleteSelectedEntityCommand, Source={StaticResource CompositionProxy}}"
+                                        CommandParameter="{Binding Data, Source={StaticResource LayerProxy}}">
+                                        <MenuItem.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
+                                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                                <TextBlock Text="Delete"/>
+                                            </StackPanel>
+                                        </MenuItem.Header>
+                                    </MenuItem>
+                                    <MenuItem
+                                        Visibility="{Binding Data.EntityEditor.SelectedEntity, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource CompositionProxy}}"
+                                        Padding="8, 4"
+                                        Foreground="{StaticResource TextBase}"
+                                        Command="{Binding Data.EntityEditor.DuplicateSelectedEntityCommand, Source={StaticResource CompositionProxy}}">
+                                        <MenuItem.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Width="10" Height="10" Source="{StaticResource Copy}" />
+                                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                                <TextBlock Text="Duplicate"/>
+                                            </StackPanel>
+                                        </MenuItem.Header>
+                                    </MenuItem>
+                                    <MenuItem 
+                                        Visibility="{Binding Data.EntityEditor.SelectedEntity, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource CompositionProxy}}"
+                                        Style="{StaticResource ContextMenuSubItem}"
+                                        Padding="8, 4"
+                                        ItemsSource="{Binding Data.Layers, Source={StaticResource CompositionProxy}}">
+                                        <MenuItem.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
+                                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                                <TextBlock Text="Move To"/>
+                                            </StackPanel>
+                                        </MenuItem.Header>
+                                        <MenuItem.ItemTemplate>
+                                            <DataTemplate>
+                                                <MenuItem 
+                                                    Padding="8, 4" 
+                                                    Header="{Binding Name}" 
+                                                    Command="{Binding Data.EntityEditor.MoveEntityToLayerCommand, Source={StaticResource CompositionProxy}}"
+                                                    CommandParameter="{Binding}"/>
+                                            </DataTemplate>
+                                        </MenuItem.ItemTemplate>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </Grid.ContextMenu>
                             <Grid.InputBindings>
                                 <MouseBinding 
                                     Gesture="LeftDoubleClick" 
@@ -176,7 +179,12 @@
                             </Grid.InputBindings>
                             <DockPanel Height="25">
                                 <ToggleButton Padding="2" Style="{StaticResource ToggleVisibility}"/>
-                                <Controls:EditableTextBox Margin="16, 0, 0, 0" Padding="4" Grid.Row="1" Text="{Binding Name}" />
+                                <Controls:EditableTextBox 
+                                    Margin="16, 0, 0, 0" 
+                                    Padding="4" 
+                                    Grid.Row="1" 
+                                    IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </DockPanel>
                         </Grid>
                     </DataTemplate>

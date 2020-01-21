@@ -13,35 +13,32 @@ namespace CMiX.Studio.ViewModels
 {
     public class EntityManager
     {
-        public EntityManager(ObservableCollection<Entity> entities)
+        public EntityManager()
         {
-            Entities = entities;
         }
 
         private int EntityID { get; set; } = 0;
-        public ObservableCollection<Entity> Entities { get; set; }
 
-        public Entity CreateEntity(IEntityContext context)
+        public Entity CreateEntity(Layer layer)
         {
-            Entity entity = new Entity(context.Beat, EntityID, context.MessageAddress, context.MessageService, context.Mementor);
-            entity.Name = "Entity " + EntityID.ToString();
-            context.SelectedEntity = entity;
-            context.Entities.Add(entity);
+            Entity entity = new Entity(layer.MasterBeat, EntityID, layer.MessageAddress, layer.MessageService, layer.Mementor);
+            layer.Entities.Add(entity);
             EntityID++;
-
             return entity;
         }
 
-        public void DeleteEntity(IEntityContext context)
+
+
+        public void DeleteEntity(Layer layer)
         {
-            if (context.SelectedEntity != null)
+            if (layer.SelectedEntity != null)
             {
-                int index = context.Entities.IndexOf(context.SelectedEntity);
-                context.Entities.RemoveAt(index);
-                if (context.Entities.Count > 0)
-                    context.SelectedEntity = context.Entities[context.Entities.Count - 1];
+                int index = layer.Entities.IndexOf(layer.SelectedEntity);
+                layer.Entities.RemoveAt(index);
+                if (layer.Entities.Count > 0)
+                    layer.SelectedEntity = layer.Entities[layer.Entities.Count - 1];
                 else
-                    context.SelectedEntity = null;
+                    layer.SelectedEntity = null;
             }
         }
 

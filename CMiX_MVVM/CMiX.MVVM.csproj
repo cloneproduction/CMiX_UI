@@ -403,5 +403,8 @@
     <Resource Include="Assets\NotVisible.png" />
     <Resource Include="Assets\Visible.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Close.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

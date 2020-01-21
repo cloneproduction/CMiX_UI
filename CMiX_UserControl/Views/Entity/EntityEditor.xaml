@@ -5,20 +5,21 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
              xmlns:Views="clr-namespace:CMiX.Views"
+             xmlns:dd="urn:gong-wpf-dragdrop"
              mc:Ignorable="d" 
              d:DesignHeight="572.667" d:DesignWidth="773.333">
 
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <Resources:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
-        </ResourceDictionary>
-    </UserControl.Resources>
-
-    <StackPanel>
-        <Views:Entity 
-            Margin="8"
-            Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}"
-            DataContext="{Binding SelectedEntity}"/>
-    </StackPanel>
-
+    <TabControl 
+        Style="{StaticResource TabControlDynamic}"
+        ItemContainerStyle="{StaticResource TabItemDynamic}"
+        ItemsSource="{Binding EditingEntities}"
+        SelectedItem="{Binding SelectedEntity}" 
+        dd:DragDrop.IsDragSource="True"
+        dd:DragDrop.IsDropTarget="True">
+        <TabControl.ContentTemplate>
+            <DataTemplate>
+                <Views:Entity DataContext="{Binding}"/>
+            </DataTemplate>
+        </TabControl.ContentTemplate>
+    </TabControl>
 </UserControl>

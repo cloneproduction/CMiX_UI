@@ -72,7 +72,6 @@ namespace CMiX.MVVM.Trash
 
             e.Handled = true;
             OnSwitchToNormalMode();
-            Console.WriteLine(" -- OnMouseDownOutsideElement");
         }
 
         protected override void OnPreviewMouseLeftButtonUp(MouseButtonEventArgs e)
@@ -86,17 +85,13 @@ namespace CMiX.MVVM.Trash
         {
             base.OnLostFocus(e);
             OnSwitchToNormalMode();
-            Console.WriteLine(" -- OnLostFocus");
         }
 
         protected override void OnLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
         {
             base.OnLostKeyboardFocus(e);
             OnSwitchToNormalMode();
-            Console.WriteLine(" -- OnLostKeyboardFocus");
         }
-
-
 
         private DependencyObject GetDpObjectFromVisualTree(DependencyObject startObject, Type type)
         {

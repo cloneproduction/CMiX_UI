@@ -4,35 +4,40 @@ using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using Memento;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels
 {
     public class EntityEditor : ViewModel, IEntityEditor
     {
-        public EntityEditor(ObservableCollection<Entity> entities, MessageService messageService, Beat beat, Assets assets, Mementor mementor)
+        public EntityEditor(MessageService messageService, Beat beat, Assets assets, Mementor mementor)
         {
-            EntityManager = new EntityManager(entities);
-            Mementor = mementor;
+            MessageService = messageService;
             Assets = assets;
             Beat = beat;
-            Entities = entities;
-            MessageService = messageService;
+            Mementor = mementor;
 
-            AddEntityCommand = new RelayCommand(p => AddEntity());
-            DeleteSelectedEntityCommand = new RelayCommand(p => DeleteEntity());
+            Entities = new ObservableCollection<Entity>();
+            EntityManager = new EntityManager();
+            EditingEntities = new ObservableCollection<Entity>();
+
+            AddEntityCommand = new RelayCommand(p => AddEntity(p));
+            DeleteSelectedEntityCommand = new RelayCommand(p => DeleteEntity(p));
             DuplicateSelectedEntityCommand = new RelayCommand(p => DuplicateEntity());
-            RenameSelectedEntityCommand = new RelayCommand(p => RenameEntity());
+            RenameEntityCommand = new RelayCommand(p => RenameEntity(p));
             MoveEntityToLayerCommand = new RelayCommand(p => MoveEntityToLayer(p));
             EditEntityCommand = new RelayCommand(p => EditEntity(p));
+            RemoveEntityFromEditingCommand = new RelayCommand(p => RemoveEntityFromEditing(p));
         }
 
         public ICommand AddEntityCommand { get; }
         public ICommand DuplicateSelectedEntityCommand { get; }
         public ICommand DeleteSelectedEntityCommand { get; }
-        public ICommand RenameSelectedEntityCommand { get; }
+        public ICommand RenameEntityCommand { get; }
         public ICommand MoveEntityToLayerCommand { get; }
         public ICommand EditEntityCommand { get; set; }
+        public ICommand RemoveEntityFromEditingCommand { get; set; }
 
         public string MessageAddress { get; set; }
         public MessageService MessageService { get; set; }
@@ -43,6 +48,7 @@ namespace CMiX.Studio.ViewModels
         public Assets Assets { get; set; }
 
         public ObservableCollection<Entity> Entities { get; set; }
+        public ObservableCollection<Entity> EditingEntities { get; set; }
 
         private Entity _selectedEntity;
         public Entity SelectedEntity
@@ -51,13 +57,34 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _selectedEntity, value);
         }
 
-        public void EditEntity(object obj)
+        public void RemoveEntityFromEditing(object obj)
         {
-            if(obj is Entity)
+            if (obj is Entity)
             {
                 var entity = obj as Entity;
-                this.SelectedEntity = entity;
-                System.Console.WriteLine("EditEntity");
+                EditingEntities.Remove(entity);
+            }
+        }
+
+        public void EditEntity(object obj)
+        {
+            if (obj is Entity)
+            {
+                var entity = obj as Entity;
+                if (!EditingEntities.Contains(entity))
+                {
+                    this.EditingEntities.Add(entity);
+                    this.SelectedEntity = entity;
+                }
+            }
+        }
+
+        public void RenameEntity(object obj)
+        {
+            if (obj is Entity)
+            {
+                var entity = obj as Entity;
+                entity.IsRenaming = true;
             }
         }
 
@@ -72,23 +99,35 @@ namespace CMiX.Studio.ViewModels
             }
         }
 
-        public void RenameEntity()
+        public void AddEntity(object obj)
         {
-            if(SelectedEntity != null)
-                SelectedEntity.IsRenaming = true;
+            if(obj is Layer)
+            {
+                var layer = obj as Layer;
+                EntityManager.CreateEntity(layer);
+                MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, layer.GetModel());
+            }
         }
 
-        public void AddEntity()
+        public void DeleteEntity(object obj)
         {
-            var entity = EntityManager.CreateEntity(this);
-            MessageService.SendMessages(MessageAddress, MessageCommand.ENTITY_ADD, null, entity.GetModel());
-        }
-
-        public void DeleteEntity()
-        {
-            int deleteIndex = Entities.IndexOf(SelectedEntity);
-            EntityManager.DeleteEntity(this);
-            MessageService.SendMessages(MessageAddress, MessageCommand.ENTITY_DELETE, null, deleteIndex);
+            System.Console.WriteLine("DeleteEntity Reached");
+            if(obj is Layer)
+            {
+                System.Console.WriteLine("Received a Layer");
+                var layer = obj as Layer;
+                var entityToDelete = layer.SelectedEntity;
+                if (EditingEntities.Contains(entityToDelete))
+                {
+                    
+                    EditingEntities.Remove(entityToDelete);
+                    System.Console.WriteLine("EditingEntities delete");
+                }
+                int deleteIndex = Entities.IndexOf(entityToDelete);
+                EntityManager.DeleteEntity(layer);
+                
+                MessageService.SendMessages(MessageAddress, MessageCommand.ENTITY_DELETE, null, deleteIndex);
+            }
         }
 
         public void DuplicateEntity()
@@ -119,8 +158,8 @@ namespace CMiX.Studio.ViewModels
             Entities.Clear();
             foreach (var entityModel in entityEditorModel.EntityModels)
             {
-                var entity = EntityManager.CreateEntity(this);
-                entity.SetViewModel(entityModel);
+                //var entity = EntityManager.CreateEntity(this);
+                //entity.SetViewModel(entityModel);
             }
         }
     }

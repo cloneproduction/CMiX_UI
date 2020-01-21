@@ -261,6 +261,9 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="Bd" Property="Background" Value="{StaticResource HighDarkerColor}"/>
                         </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <!--<Setter TargetName="Bd" Property="Background" Value="{StaticResource DarkerColor}"/>-->
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

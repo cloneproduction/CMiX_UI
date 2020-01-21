@@ -17,7 +17,7 @@ namespace CMiX.Studio.ViewModels
             MessageService = messageService;
             Mementor = mementor;
             Assets = assets;
-
+            MasterBeat = masterBeat;
             ID = id;
             Name = "Layer " + id;
 
@@ -32,7 +32,16 @@ namespace CMiX.Studio.ViewModels
             
         }
         #endregion
+
         public ObservableCollection<Entity> Entities { get; set; }
+
+        private Entity _selectedEntity;
+        public Entity SelectedEntity
+        {
+            get => _selectedEntity;
+            set => SetAndNotify(ref _selectedEntity, value);
+        }
+
 
         #region PROPERTIES
         private string _name;
@@ -41,6 +50,8 @@ namespace CMiX.Studio.ViewModels
             get => _name;
             set => SetAndNotify(ref _name, value);
         }
+
+
 
         private bool _isVisible = true;
         public bool IsVisible
@@ -68,6 +79,13 @@ namespace CMiX.Studio.ViewModels
         {
             get => _id;
             set => SetAndNotify(ref _id, value);
+        }
+
+        private Beat _masterBeat;
+        public Beat MasterBeat
+        {
+            get => _masterBeat;
+            set => SetAndNotify(ref _masterBeat, value);
         }
 
         private bool _out;

@@ -60,41 +60,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="ButtonTabDynamic" BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}">
-        <Setter Property="Control.Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border
-                        x:Name="border"
-                        Background="Transparent"
-                        SnapsToDevicePixels="True">
-                        <Grid   
-                            Margin="4"
-                            MinWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" 
-                            MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}">
-                            <Ellipse 
-                                x:Name="circle"       
-                                Fill="Transparent"
-                                />
-                            <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
-                                <ContentPresenter ContentTemplate="{TemplateBinding Content}"/>
-                            </Viewbox>
-                        </Grid>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Foreground" Value="{StaticResource TextBase}" />
-                            <Setter TargetName="circle" Property="Fill" Value="{StaticResource DarkColor}"/>
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Foreground" Value="{StaticResource TextBase}" />
-                            <Setter TargetName="circle" Property="Fill" Value="{StaticResource LightColor}"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
+
 
     <Style x:Key="ButtonImage" TargetType="{x:Type Button}"
            BasedOn="{StaticResource {x:Type Button}}">
