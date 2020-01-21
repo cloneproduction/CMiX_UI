@@ -163,8 +163,8 @@
     <Compile Include="Views\Entity\EntityEditor.xaml.cs">
       <DependentUpon>EntityEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Entity\EntitySelector.xaml.cs">
-      <DependentUpon>EntitySelector.xaml</DependentUpon>
+    <Compile Include="Views\Entity\EntityPanel.xaml.cs">
+      <DependentUpon>EntityPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Layer\MessageValidation.xaml.cs">
       <DependentUpon>MessageValidation.xaml</DependentUpon>
@@ -201,8 +201,8 @@
     <Compile Include="Views\Layer\Layer.xaml.cs">
       <DependentUpon>Layer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Layer\LayerList.xaml.cs">
-      <DependentUpon>LayerList.xaml</DependentUpon>
+    <Compile Include="Views\Layer\LayerPanel.xaml.cs">
+      <DependentUpon>LayerPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Messenger\MessageService.xaml.cs">
       <DependentUpon>MessageService.xaml</DependentUpon>
@@ -319,7 +319,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Entity\EntitySelector.xaml">
+    <Page Include="Views\Entity\EntityPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -363,7 +363,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Layer\LayerList.xaml">
+    <Page Include="Views\Layer\LayerPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

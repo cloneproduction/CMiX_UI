@@ -77,7 +77,7 @@
                     <Views:PostFX
                         DockPanel.Dock="Bottom"
                         DataContext="{Binding PostFX}"/>
-                    <Views:EntitySelector
+                    <Views:EntityPanel
                         Grid.Column="1"
                         Margin="0, 4"
                         DataContext="{Binding}" />

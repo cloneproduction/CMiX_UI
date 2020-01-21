@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="CMiX.Views.LayerList"
+﻿<UserControl x:Class="CMiX.Views.LayerPanel"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -270,7 +270,24 @@
             </ListBox.ContextMenu>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Views:ChannelLayer/>
+                    <Border 
+                        SnapsToDevicePixels="true">
+                        <DockPanel Height="30" DockPanel.Dock="Top">
+                            <ToggleButton 
+                                DockPanel.Dock="Left"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                IsChecked="{Binding IsVisible}"
+                                Style="{StaticResource ToggleVisibility}"
+                                Margin="0"
+                                Padding="4"/>
+                            <Controls:EditableTextBox 
+                                    VerticalAlignment="Center" 
+                                    Text="{Binding Name}" 
+                                    IsEditing="{Binding IsRenaming}"/>
+                        </DockPanel>
+                    </Border>
+                    <!--<Views:ChannelLayer/>-->
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

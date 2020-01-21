@@ -2,9 +2,9 @@
 
 namespace CMiX.Views
 {
-    public partial class LayerList : UserControl
+    public partial class LayerPanel : UserControl
     {
-        public LayerList()
+        public LayerPanel()
         {
             InitializeComponent();
         }

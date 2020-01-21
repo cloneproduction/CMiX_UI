@@ -2,9 +2,9 @@
 
 namespace CMiX.Views
 {
-    public partial class EntitySelector : UserControl
+    public partial class EntityPanel : UserControl
     {
-        public EntitySelector()
+        public EntityPanel()
         {
             InitializeComponent();
         }

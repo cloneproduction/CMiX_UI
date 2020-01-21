@@ -61,6 +61,13 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _isMask, value);
         }
 
+        private bool _isVisible;
+        public bool IsVisible
+        {
+            get => _isVisible;
+            set => SetAndNotify(ref _isVisible, value);
+        }
+
         private int _id;
         public int ID
         {

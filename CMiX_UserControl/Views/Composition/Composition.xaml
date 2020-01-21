@@ -80,7 +80,18 @@
                                     Margin="8"
                                     />
                             </TabItem.Header>
-                            <Views:LayerList Margin="0, 8" DataContext="{Binding LayerEditor}"/>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    
+                                </Grid.RowDefinitions>
+                                <Views:LayerPanel Margin="0, 8" DataContext="{Binding LayerEditor}"/>
+                                <GridSplitter Grid.Row="1" Background="{StaticResource DarkColor}" Style="{StaticResource GridSplitter}" Height="2" Margin="4, 0" HorizontalAlignment="Stretch" />
+                                <Views:EntityPanel Grid.Row="2" DataContext="{Binding LayerEditor.SelectedLayer}"/>
+                            </Grid>
+                           
                         </TabItem>
                         <TabItem>
                             <TabItem.Header>

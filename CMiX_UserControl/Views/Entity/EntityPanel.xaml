@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="CMiX.Views.EntitySelector"
+﻿<UserControl x:Class="CMiX.Views.EntityPanel"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -24,6 +24,8 @@
             dd:DragDrop.IsDropTarget="True"
             dd:DragDrop.DragHandler="{Binding}"
             dd:DragDrop.DropHandler="{Binding}"
+            Style="{StaticResource LayerListBox}"
+            ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
             ItemsSource="{Binding Entities}" 
             SelectedItem="{Binding SelectedEntity}">
             <ListBox.ContextMenu>
@@ -31,7 +33,8 @@
                     <MenuItem
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.AddEntityCommand, Source={StaticResource proxy}}">
+                        Command="{Binding Data.EntityEditor.AddEntityCommand, Source={StaticResource CompositionProxy}}"
+                        CommandParameter="{Binding Data.LayerEditor.SelectedLayer, Source={StaticResource CompositionProxy}}">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource Add}" Height="10" Width="10"/>
@@ -107,16 +110,33 @@
                 <DataTemplate>
                     <Border 
                         IsHitTestVisible="True"
-                        Padding="2"
+                        Padding="4"
                         VerticalAlignment="Center"
-                        Height="25"
+                        Height="30"
                         Background="Transparent"
                         HorizontalAlignment="Stretch">
+                        
+                    <Border.InputBindings>
+                        <MouseBinding
+                            Gesture="LeftDoubleClick" 
+                            Command="{Binding DataContext.EntityEditor.EditEntityCommand, RelativeSource={RelativeSource AncestorType={x:Type Views:Composition}}}"
+                            CommandParameter="{Binding}"/>
+                    </Border.InputBindings>
+                    <DockPanel VerticalAlignment="Center" Height="30" DockPanel.Dock="Top">
+                        <ToggleButton 
+                            DockPanel.Dock="Left"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            IsChecked="{Binding IsVisible}"
+                            Style="{StaticResource ToggleVisibility}"
+                            Margin="0"
+                            Padding="4"/>
                         <Controls:EditableTextBox 
                             HorizontalAlignment="Stretch"
                             Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                    </Border>
+                    </DockPanel>
+                </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
