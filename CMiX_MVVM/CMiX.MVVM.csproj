@@ -406,5 +406,11 @@
   <ItemGroup>
     <Resource Include="Assets\Close.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Mask.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\IsChecked.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

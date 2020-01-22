@@ -28,6 +28,7 @@ namespace CMiX.Studio.ViewModels
 
             DeleteSelectedLayerCommand = new RelayCommand(p => DeleteSelectedLayer());
             DuplicateSelectedLayerCommand = new RelayCommand(p => DuplicateSelectedLayer());
+            DuplicateSelectedLayerLinkCommand = new RelayCommand(p => DuplicateSelectedLayerLink(p));
             RenameSelectedLayerCommand = new RelayCommand(p => RenameSelectedLayer());
             AddLayerCommand = new RelayCommand(p => AddLayer());
             CopyLayerCommand = new RelayCommand(p => CopyLayer());
@@ -39,6 +40,8 @@ namespace CMiX.Studio.ViewModels
         public ICommand AddLayerCommand { get; }
         public ICommand DeleteSelectedLayerCommand { get; }
         public ICommand DuplicateSelectedLayerCommand { get; }
+        public ICommand DuplicateSelectedLayerLinkCommand { get; }
+
         public ICommand RenameSelectedLayerCommand { get; }
         public ICommand CopyLayerCommand { get; }
         public ICommand PasteLayerCommand { get; }
@@ -128,6 +131,15 @@ namespace CMiX.Studio.ViewModels
         private void DuplicateSelectedLayer()
         {
             LayerManager.DuplicateLayer(this);
+        }
+
+        private void DuplicateSelectedLayerLink(object obj)
+        {
+            if (obj is Composition)
+            {
+                var composition = obj as Composition;
+                LayerManager.DuplicateLayerLink(composition);
+            }
         }
 
         private void DeleteSelectedLayer()

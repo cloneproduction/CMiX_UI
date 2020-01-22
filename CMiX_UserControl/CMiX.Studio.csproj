@@ -133,6 +133,7 @@
     <Compile Include="ViewModels\Composition\CompositionManager.cs" />
     <Compile Include="ViewModels\Composition\ICompositionContext.cs" />
     <Compile Include="ViewModels\Composition\ICompositionEditor.cs" />
+    <Compile Include="ViewModels\EditorTemplateSelector.cs" />
     <Compile Include="ViewModels\Entity\EntityEditor.cs" />
     <Compile Include="ViewModels\Entity\EntityManager.cs" />
     <Compile Include="ViewModels\Entity\IEntityContext.cs" />

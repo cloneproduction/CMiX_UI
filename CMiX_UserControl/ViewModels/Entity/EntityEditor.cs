@@ -24,7 +24,7 @@ namespace CMiX.Studio.ViewModels
 
             AddEntityCommand = new RelayCommand(p => AddEntity(p));
             DeleteSelectedEntityCommand = new RelayCommand(p => DeleteEntity(p));
-            DuplicateSelectedEntityCommand = new RelayCommand(p => DuplicateEntity());
+            DuplicateSelectedEntityCommand = new RelayCommand(p => DuplicateEntity(p));
             RenameEntityCommand = new RelayCommand(p => RenameEntity(p));
             MoveEntityToLayerCommand = new RelayCommand(p => MoveEntityToLayer(p));
             EditEntityCommand = new RelayCommand(p => EditEntity(p));
@@ -74,8 +74,8 @@ namespace CMiX.Studio.ViewModels
                 if (!EditingEntities.Contains(entity))
                 {
                     this.EditingEntities.Add(entity);
-                    this.SelectedEntity = entity;
                 }
+                this.SelectedEntity = entity;
             }
         }
 
@@ -104,24 +104,22 @@ namespace CMiX.Studio.ViewModels
             if(obj is Layer)
             {
                 var layer = obj as Layer;
-                EntityManager.CreateEntity(layer);
+                var entity = EntityManager.CreateEntity(layer);
                 MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, layer.GetModel());
+                this.EditingEntities.Add(entity);
+                this.SelectedEntity = entity;
             }
         }
 
         public void DeleteEntity(object obj)
         {
-            System.Console.WriteLine("DeleteEntity Reached");
             if(obj is Layer)
             {
-                System.Console.WriteLine("Received a Layer");
                 var layer = obj as Layer;
                 var entityToDelete = layer.SelectedEntity;
                 if (EditingEntities.Contains(entityToDelete))
                 {
-                    
                     EditingEntities.Remove(entityToDelete);
-                    System.Console.WriteLine("EditingEntities delete");
                 }
                 int deleteIndex = Entities.IndexOf(entityToDelete);
                 EntityManager.DeleteEntity(layer);
@@ -130,10 +128,14 @@ namespace CMiX.Studio.ViewModels
             }
         }
 
-        public void DuplicateEntity()
+        public void DuplicateEntity(object obj)
         {
-            EntityManager.DuplicateEntity(this);
-            MessageService.SendMessages(SelectedEntity.MessageAddress, MessageCommand.ENTITY_DUPLICATE, null, SelectedEntity.GetModel());
+            if(obj is Layer)
+            {
+                var layer = obj as Layer;
+                EntityManager.DuplicateEntity(layer);
+                MessageService.SendMessages(layer.MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, layer.GetModel());
+            }
         }
 
         public EntityEditorModel GetModel()

@@ -34,11 +34,9 @@ namespace CMiX.Studio.ViewModels
             var SelectedLayer = context.SelectedLayer;
             if (SelectedLayer != null)
             {
-                System.Console.WriteLine("DuplicateSelectedLayer");
                 LayerModel layerModel = context.SelectedLayer.GetModel();
                 layerModel.ID = LayerID;
                 layerModel.Name = SelectedLayer.Name + "- Copy";
-                System.Console.WriteLine("DuplicateSelectedLayer EntityCount " + layerModel.EntityEditorModel.EntityModels.Count);
 
                 Layer newLayer = new Layer(context.MasterBeat, context.MessageAddress, LayerID, context.MessageService, context.Assets, context.Mementor);
                 newLayer.SetViewModel(layerModel);
@@ -48,6 +46,38 @@ namespace CMiX.Studio.ViewModels
                 context.Layers.Insert(index + 1, newLayer);
                 context.SelectedLayer = newLayer;
 
+                LayerID++;
+                return newLayer;
+            }
+            else
+                return null;
+        }
+
+        public Layer DuplicateLayerLink(Composition composition)
+        {
+            var SelectedLayer = composition.LayerEditor.SelectedLayer;
+            if (SelectedLayer != null)
+            {
+                LayerModel layerModel = SelectedLayer.GetModel();
+                layerModel.ID = LayerID;
+                layerModel.Name = SelectedLayer.Name + "- Link";
+
+                Layer newLayer = new Layer(composition.MasterBeat, composition.MessageAddress, LayerID, composition.MessageService, composition.Assets, composition.Mementor);
+                newLayer.SetViewModel(layerModel);
+
+                newLayer.Entities.Clear();
+                foreach (var item in SelectedLayer.Entities)
+                {
+                    newLayer.Entities.Add(item);
+                }
+
+                
+
+                int index = composition.Layers.IndexOf(SelectedLayer);
+                composition.Layers.Insert(index + 1, newLayer);
+                composition.LayerEditor.SelectedLayer = newLayer;
+
+                MessageService.SendMessages(composition.MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, composition.GetModel());
                 LayerID++;
                 return newLayer;
             }

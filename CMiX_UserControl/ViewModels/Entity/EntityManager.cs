@@ -23,6 +23,7 @@ namespace CMiX.Studio.ViewModels
         {
             Entity entity = new Entity(layer.MasterBeat, EntityID, layer.MessageAddress, layer.MessageService, layer.Mementor);
             layer.Entities.Add(entity);
+            layer.SelectedEntity = entity;
             EntityID++;
             return entity;
         }
@@ -42,17 +43,17 @@ namespace CMiX.Studio.ViewModels
             }
         }
 
-        public void DuplicateEntity(IEntityContext context)
+        public void DuplicateEntity(Layer layer)
         {
-            if (context.SelectedEntity != null)
+            if (layer.SelectedEntity != null)
             {
-                EntityModel entityModel = context.SelectedEntity.GetModel();
+                EntityModel entityModel = layer.SelectedEntity.GetModel();
 
-                Entity entity = new Entity(context.Beat, EntityID, context.MessageAddress, context.MessageService, context.Mementor);
+                Entity entity = new Entity(layer.MasterBeat, EntityID, layer.MessageAddress, layer.MessageService, layer.Mementor);
                 entity.SetViewModel(entityModel);
                 entity.Name += "- Copy";
-                context.SelectedEntity = entity;
-                context.Entities.Add(entity);
+                layer.SelectedEntity = entity;
+                layer.Entities.Add(entity);
             }
         }
 

@@ -51,7 +51,12 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _name, value);
         }
 
-
+        private bool _isMask = false;
+        public bool IsMask
+        {
+            get => _isMask;
+            set => SetAndNotify(ref _isMask, value);
+        }
 
         private bool _isVisible = true;
         public bool IsVisible
@@ -120,10 +125,10 @@ namespace CMiX.Studio.ViewModels
             LayerModel layerModel = new LayerModel();
             layerModel.Name = Name;
             layerModel.ID = ID;
+            layerModel.IsMask = IsMask;
             layerModel.Out = Out;
             layerModel.Fade = Fade.GetModel();
             layerModel.BlendMode = BlendMode.GetModel();
-            //layerModel.ContentModel = Content.GetModel();
             layerModel.MaskModel = Mask.GetModel();
             layerModel.PostFXModel = PostFX.GetModel();
             return layerModel;
@@ -136,10 +141,9 @@ namespace CMiX.Studio.ViewModels
             Name = layerModel.Name;
             Out = layerModel.Out;
             ID = layerModel.ID;
-
+            IsMask = layerModel.IsMask;
             Fade.SetViewModel(layerModel.Fade);
             BlendMode.SetViewModel(layerModel.BlendMode);
-            //Content.SetViewModel(layerModel.ContentModel);
             Mask.SetViewModel(layerModel.MaskModel);
             PostFX.SetViewModel(layerModel.PostFXModel);
 
@@ -152,7 +156,6 @@ namespace CMiX.Studio.ViewModels
 
             BlendMode.Reset();
             Fade.Reset();
-            //Content.Reset();
             Mask.Reset();
             PostFX.Reset();
         }

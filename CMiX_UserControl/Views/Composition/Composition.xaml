@@ -87,7 +87,7 @@
                                     <RowDefinition Height="*"/>
                                     
                                 </Grid.RowDefinitions>
-                                <Views:LayerPanel Margin="0, 8" DataContext="{Binding LayerEditor}"/>
+                                <Views:LayerPanel Margin="0, 8" DataContext="{Binding}"/>
                                 <GridSplitter Grid.Row="1" Background="{StaticResource DarkColor}" Style="{StaticResource GridSplitter}" Height="2" Margin="4, 0" HorizontalAlignment="Stretch" />
                                 <Views:EntityPanel Grid.Row="2" DataContext="{Binding LayerEditor.SelectedLayer}"/>
                             </Grid>

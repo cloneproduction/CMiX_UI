@@ -47,7 +47,9 @@ namespace CMiX.Studio.ViewModels
         public Slider Transition { get; set; }
         public LayerEditor LayerEditor { get; set; }
         public ObservableCollection<Layer> Layers { get; set; }
-        //public ObservableCollection<Entity> Entities { get; set; }
+
+        public ObservableCollection<ViewModel> EditableViewModel { get; set; }
+
         public EntityEditor EntityEditor { get; set; }
 
         private string _name;
@@ -62,6 +64,13 @@ namespace CMiX.Studio.ViewModels
         {
             get => _isEditingName;
             set => SetAndNotify(ref _isEditingName, value);
+        }
+
+        private Layer _selectedLayer;
+        public Layer SelectedLayer
+        {
+            get => _selectedLayer;
+            set => SetAndNotify(ref _selectedLayer, value);
         }
 
         #endregion

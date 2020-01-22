@@ -3,11 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
              xmlns:Views="clr-namespace:CMiX.Views"
+             xmlns:ViewModels="clr-namespace:CMiX.Studio.ViewModels"
              xmlns:dd="urn:gong-wpf-dragdrop"
              mc:Ignorable="d" 
-             d:DesignHeight="572.667" d:DesignWidth="773.333">
+             d:DesignHeight="572.667" 
+             d:DesignWidth="773.333">
+
+    <UserControl.Resources>
+        <DataTemplate x:Key="EntityTemplate" DataType="{x:Type ViewModels:Entity}">
+            <Views:Entity DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Key="LayerTemplate" DataType="{x:Type ViewModels:Layer}">
+            <Views:Layer DataContext="{Binding}"/>
+        </DataTemplate>
+        <ViewModels:EditorTemplateSelector 
+            x:Key="TemplateSelector" 
+            EntityTemplate="{StaticResource EntityTemplate}"
+            LayerTemplate="{StaticResource LayerTemplate}" />
+    </UserControl.Resources>
 
     <TabControl 
         Style="{StaticResource TabControlDynamic}"
@@ -15,11 +29,8 @@
         ItemsSource="{Binding EditingEntities}"
         SelectedItem="{Binding SelectedEntity}" 
         dd:DragDrop.IsDragSource="True"
-        dd:DragDrop.IsDropTarget="True">
-        <TabControl.ContentTemplate>
-            <DataTemplate>
-                <Views:Entity DataContext="{Binding}"/>
-            </DataTemplate>
-        </TabControl.ContentTemplate>
+        dd:DragDrop.IsDropTarget="True"
+        ContentTemplateSelector="{StaticResource TemplateSelector}">
     </TabControl>
+    
 </UserControl>
