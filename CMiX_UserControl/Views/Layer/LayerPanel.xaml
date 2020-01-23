@@ -157,7 +157,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TextBlock HorizontalAlignment="Right" Padding="4, 0" VerticalAlignment="Center" Text="Mask"/>
-                <ToggleButton Grid.Column="1" Height="20" Width="20" HorizontalAlignment="Left" IsChecked="{Binding LayerEditor.SelectedLayer.IsMask}"/>
+                <ToggleButton Grid.Column="1" Height="20" Width="20" HorizontalAlignment="Left" IsChecked="{Binding SelectedLayer.IsMask}"/>
             </Grid>
         </DockPanel>
 
@@ -208,8 +208,8 @@
             ScrollViewer.HorizontalScrollBarVisibility="Auto"
             Style="{StaticResource LayerListBox}"
             ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
-            ItemsSource="{Binding LayerEditor.Layers}" 
-            SelectedItem="{Binding LayerEditor.SelectedLayer}"
+            ItemsSource="{Binding Layers}" 
+            SelectedItem="{Binding SelectedLayer}"
             dd:DragDrop.IsDragSource="True"
             dd:DragDrop.IsDropTarget="True"
             dd:DragDrop.DropHandler="{Binding}">

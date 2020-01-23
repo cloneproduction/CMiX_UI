@@ -8,9 +8,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="529" d:DesignWidth="821">
 
-    <UserControl.Resources>
-        <Resources:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-    </UserControl.Resources>
     
     <Grid>
         <Grid.ColumnDefinitions>
@@ -24,7 +21,7 @@
         <Views:Mask 
             Grid.Column="1" 
             Margin="4, 0, 0, 0" 
-            Visibility="{Binding IsMask, Converter={StaticResource BoolToVisibilityConverter}}"
+            Visibility="{Binding DataContext.IsMask, Converter={StaticResource BoolToVisibility}, RelativeSource={RelativeSource AncestorType={x:Type Views:Layer}}}"
             DataContext="{Binding Mask}"/>
     </Grid>
 </UserControl>
