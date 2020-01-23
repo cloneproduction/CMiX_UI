@@ -31,6 +31,7 @@ namespace CMiX.Studio.ViewModels
 
             AddLayerCommand = new RelayCommand(p => AddLayer());
             DeleteSelectedLayerCommand = new RelayCommand(p => DeleteSelectedLayer());
+            DuplicateSelectedLayerCommand = new RelayCommand(p => DuplicateSelectedLayer());
         }
         #endregion
 
@@ -39,6 +40,7 @@ namespace CMiX.Studio.ViewModels
         public ICommand DeleteEntityCommand { get; set; }
 
         public ICommand AddLayerCommand { get; set; }
+        public ICommand DuplicateSelectedLayerCommand { get; set; }
         public ICommand DeleteSelectedLayerCommand { get; set; }
 
         public string MessageAddress { get; set; }
