@@ -379,7 +379,7 @@
     
     
     
-    <Style x:Key="TabItemDynamic" TargetType="{x:Type TabItem}">
+    <Style x:Key="TabItemEditor" TargetType="{x:Type TabItem}">
         <Setter Property="FocusVisualStyle">
             <Setter.Value>
                 <Style>
@@ -416,7 +416,7 @@
                         Background="Transparent">
                         <Border.InputBindings>
                             <MouseBinding MouseAction="MiddleClick"
-                              Command="{Binding DataContext.RemoveEntityFromEditingCommand, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"
+                              Command="{Binding DataContext.RemoveEditableCommand, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"
                               CommandParameter="{Binding}"/>
                         </Border.InputBindings>
                         <DockPanel>
@@ -424,7 +424,7 @@
                                 x:Name="DeleteTabButton"
                                 Style="{StaticResource CloseTabButton}"
                                 Visibility="Collapsed"
-                                Command="{Binding DataContext.RemoveEntityFromEditingCommand, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"
+                                Command="{Binding DataContext.RemoveEditableCommand, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"
                                 CommandParameter="{Binding}"
                                 DockPanel.Dock="Right" Width="15" Height="15">
 
@@ -437,17 +437,9 @@
                             </DockPanel>
                     </Border>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="true">
+                        <Trigger Property="IsMouseOver" Value="true">
                             <Setter TargetName="DeleteTabButton" Property="Visibility" Value="Visible"/>
                             <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource DarkerColor }"/>
-                        </Trigger>
-
-                        <Trigger Property="IsEnabled" Value="false">
-
-                        </Trigger>
-
-                        <Trigger Property="IsSelected" Value="false">
-                            
                         </Trigger>
                         <Trigger Property="IsSelected" Value="true">
                             <Setter TargetName="TabText" Property="Foreground" Value="{StaticResource ActiveTextBase}"/>
@@ -461,7 +453,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="TabControlDynamic" TargetType="{x:Type TabControl}">
+    <Style x:Key="TabControlEditor" TargetType="{x:Type TabControl}">
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />

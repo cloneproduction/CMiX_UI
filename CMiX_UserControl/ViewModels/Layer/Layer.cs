@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Layer : ViewModel, ISendable, IUndoable
+    public class Layer : ViewModel, ISendable, IUndoable, IEditable
     {
         #region CONSTRUCTORS
         public Layer(MasterBeat masterBeat, string messageAddress, int id, MessageService messageService, Assets assets, Mementor mementor) 
@@ -41,7 +41,6 @@ namespace CMiX.Studio.ViewModels
             get => _selectedEntity;
             set => SetAndNotify(ref _selectedEntity, value);
         }
-
 
         #region PROPERTIES
         private string _name;
@@ -113,7 +112,6 @@ namespace CMiX.Studio.ViewModels
         public Assets Assets { get; set; }
 
         public Slider Fade { get; set; }
-        //public Content Content { get; set; }
         public Mask Mask { get; set; }
         public PostFX PostFX { get; set; }
         public BlendMode BlendMode { get; set; }

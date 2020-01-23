@@ -3,14 +3,12 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using Memento;
-using System;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Entity : ViewModel, ISendable, IUndoable
+    public class Entity : ViewModel, ISendable, IUndoable, IEditable
     {
         #region CONSTRUCTORS
         public Entity(Beat beat, int id, string messageAddress, MessageService messageService, Mementor mementor)

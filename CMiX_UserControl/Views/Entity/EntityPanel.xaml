@@ -158,7 +158,7 @@
                         <Border.InputBindings>
                             <MouseBinding
                                 Gesture="LeftDoubleClick" 
-                                Command="{Binding DataContext.EntityEditor.EditEntityCommand, RelativeSource={RelativeSource AncestorType={x:Type Views:Composition}}}"
+                                Command="{Binding DataContext.ObjectEditor.AddEditableCommand, RelativeSource={RelativeSource AncestorType={x:Type Views:Composition}}}"
                                 CommandParameter="{Binding}"/>
                         </Border.InputBindings>
                         <DockPanel VerticalAlignment="Center" Height="30" DockPanel.Dock="Top">
@@ -171,9 +171,9 @@
                                 Margin="0"
                                 Padding="4"/>
                             <Controls:EditableTextBox 
-                            HorizontalAlignment="Stretch"
-                            Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                HorizontalAlignment="Stretch"
+                                Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </DockPanel>
                     </Border>
                 </DataTemplate>

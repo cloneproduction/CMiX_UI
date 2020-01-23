@@ -4,24 +4,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Views="clr-namespace:CMiX.Views"
+             xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
              mc:Ignorable="d" 
              d:DesignHeight="529" d:DesignWidth="821">
 
-    <TabControl TabStripPlacement="Right">
-        <TabItem  Width="30" Height="100"  Header="Entities">
-            <DockPanel Background="{StaticResource HighHighDarkerColor}">
-                <Border DockPanel.Dock="Top" Height="40">
-                    <TextBlock VerticalAlignment="Center" Foreground="{StaticResource ActiveTextBase}" Padding="8" Text="{Binding EntityEditor.SelectedEntity.Name}"/>
-                </Border>
-                <Separator  DockPanel.Dock="Top"  Background="{StaticResource DarkColor}" Height="4" HorizontalAlignment="Stretch"/>
-                <Views:Entity Margin="8" DataContext="{Binding Path=DataContext.EntityEditor.SelectedEntity, RelativeSource={RelativeSource AncestorType={x:Type Views:Composition}}}"/>
-            </DockPanel>
-        </TabItem>
-        <TabItem Width="30" Height="100" Header="Mask">
-            <Views:PostFX DataContext="{Binding PostFX}"/>
-        </TabItem>
-        <TabItem Width="30" Height="100" Header="PostFX">
-            <Views:Mask DataContext="{Binding Mask}"/>
-        </TabItem>
-    </TabControl>
+    <UserControl.Resources>
+        <Resources:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Views:PostFX 
+            Grid.Column="0" 
+            Margin="0, 0, 4, 0" 
+            DataContext="{Binding PostFX}"/>
+        <Views:Mask 
+            Grid.Column="1" 
+            Margin="4, 0, 0, 0" 
+            Visibility="{Binding IsMask, Converter={StaticResource BoolToVisibilityConverter}}"
+            DataContext="{Binding Mask}"/>
+    </Grid>
 </UserControl>

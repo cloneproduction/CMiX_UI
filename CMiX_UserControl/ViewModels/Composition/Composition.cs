@@ -7,7 +7,7 @@ using Memento;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Composition : ViewModel, ISendable, IUndoable
+    public class Composition : ViewModel, ISendable, IUndoable, IEditable
     {
         #region CONSTRUCTORS
         public Composition(MessageService messageService, string messageAddress, Assets assets, Mementor mementor)
@@ -19,6 +19,8 @@ namespace CMiX.Studio.ViewModels
             MessageValidationManager = new MessageValidationManager(messageService);
             Assets = assets;
             Mementor = mementor;
+
+            ObjectEditor = new ObjectEditor();
 
             Transition = new Slider("/Transition", messageService, Mementor);
             MasterBeat = new MasterBeat(messageService);
@@ -41,6 +43,8 @@ namespace CMiX.Studio.ViewModels
         public Mementor Mementor { get; set; }
         public Assets Assets { get; set; }
 
+        
+
         public MessageValidationManager MessageValidationManager { get; set; }
         public MasterBeat MasterBeat { get; set; }
         public Camera Camera { get; set; }
@@ -48,9 +52,10 @@ namespace CMiX.Studio.ViewModels
         public LayerEditor LayerEditor { get; set; }
         public ObservableCollection<Layer> Layers { get; set; }
 
-        public ObservableCollection<ViewModel> EditableViewModel { get; set; }
+        public ObservableCollection<IEditable> EditableObject { get; set; }
 
         public EntityEditor EntityEditor { get; set; }
+        public ObjectEditor ObjectEditor { get; set; }
 
         private string _name;
         public string Name
@@ -59,11 +64,11 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _name, value);
         }
 
-        private bool _isEditingName;
-        public bool IsEditingName
+        private bool _isRenaming;
+        public bool IsRenaming
         {
-            get => _isEditingName;
-            set => SetAndNotify(ref _isEditingName, value);
+            get => _isRenaming;
+            set => SetAndNotify(ref _isRenaming, value);
         }
 
         private Layer _selectedLayer;

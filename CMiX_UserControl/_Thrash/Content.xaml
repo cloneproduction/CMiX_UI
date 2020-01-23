@@ -64,9 +64,6 @@
                 <ColumnDefinition Width="1.0*"/>
             </Grid.ColumnDefinitions>
             <Border Grid.Column="0" Padding="8">
-                <Views:EntityEditor 
-                        Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}"
-                        DataContext="{Binding EntityEditor}"/>
             </Border>
             <Border Background="{StaticResource DarkerColor}" Grid.Column="1">
                 <DockPanel>

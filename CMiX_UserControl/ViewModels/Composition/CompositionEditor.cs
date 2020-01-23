@@ -93,7 +93,7 @@ namespace CMiX.Studio.ViewModels
         {
             if (SelectedComposition != null)
             {
-                SelectedComposition.IsEditingName = true;
+                SelectedComposition.IsRenaming = true;
                 IsRenamingSelected = true;
             }
         }

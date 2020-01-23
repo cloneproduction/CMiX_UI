@@ -300,6 +300,12 @@
                 <DataTemplate>
                     <Border 
                         SnapsToDevicePixels="true">
+                        <Border.InputBindings>
+                            <MouseBinding
+                                Gesture="LeftDoubleClick" 
+                                Command="{Binding DataContext.ObjectEditor.AddEditableCommand, RelativeSource={RelativeSource AncestorType={x:Type Views:Composition}}}"
+                                CommandParameter="{Binding}"/>
+                        </Border.InputBindings>
                         <DockPanel Height="30" DockPanel.Dock="Top">
                             <ToggleButton 
                                 DockPanel.Dock="Left"

@@ -27,80 +27,64 @@
         </ObjectDataProvider>
     </UserControl.Resources>
 
-    <Border             
-        DockPanel.Dock="Bottom">
-        <StackPanel>
-            <Border
-                DockPanel.Dock="Top"
-                Height="25"
-                Padding="4"
-                Background="{StaticResource DarkColor}"
-                BorderBrush="{StaticResource HighDarkerColor}">
-                <Border.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem
+    <Expander
+            Margin="0, 1"
+            DockPanel.Dock="Top"
+            Style="{StaticResource ExpanderBase}"
+            Header="FX">
+            <Expander.ContextMenu>
+                <ContextMenu>
+                    <MenuItem
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
                             Command="{Binding Data.CopyPostFXCommand, Source={StaticResource proxy}}">
-                            <MenuItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Width="10" Height="10" Source="{StaticResource Copy}" />
-                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                    <TextBlock Text="Copy PostFX"/>
-                                </StackPanel>
-                            </MenuItem.Header>
-                        </MenuItem>
-                        <MenuItem
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="10" Height="10" Source="{StaticResource Copy}" />
+                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                <TextBlock Text="Copy PostFX"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
                             Command="{Binding Data.PastePostFXCommand, Source={StaticResource proxy}}">
-                            <MenuItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Width="10" Height="10" Source="{StaticResource Paste}" />
-                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                    <TextBlock Text="Paste PostFX"/>
-                                </StackPanel>
-                            </MenuItem.Header>
-                        </MenuItem>
-                        <MenuItem
-                                Padding="8, 4"
-                                Foreground="{StaticResource TextBase}"
-                                Command="{Binding Data.ResetPostFXCommand, Source={StaticResource proxy}}">
-                            <MenuItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Width="10" Height="10" Source="{StaticResource Reset}" />
-                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                    <TextBlock Text="Reset PostFX"/>
-                                </StackPanel>
-                            </MenuItem.Header>
-                        </MenuItem>
-                    </ContextMenu>
-                </Border.ContextMenu>
-                <DockPanel 
-                    VerticalAlignment="Center" 
-                    LastChildFill="False">
-                    <TextBlock
-                        Margin="4, 0, 0, 0"
-                        Text="FX"
-                        Foreground="{StaticResource TextBase}"
-                        />
-                </DockPanel>
-            </Border>
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="10" Height="10" Source="{StaticResource Paste}" />
+                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                <TextBlock Text="Paste PostFX"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem
+                            Padding="8, 4"
+                            Foreground="{StaticResource TextBase}"
+                            Command="{Binding Data.ResetPostFXCommand, Source={StaticResource proxy}}">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="10" Height="10" Source="{StaticResource Reset}" />
+                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                <TextBlock Text="Reset PostFX"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                </ContextMenu>
+            </Expander.ContextMenu>
             <StackPanel>
                 <Border Margin="0, 4" DockPanel.Dock="Bottom" Style="{StaticResource BorderContainer}">
                     <StackPanel x:Name="TexFXControl">
                         <MVVM.Views:Slider
-                            Height="20"
-                            Margin="0,0,0,2"
-                            Caption="Feedback"
-                            DataContext="{Binding Feedback}"
-                            />
+                                Height="20"
+                                Margin="0,0,0,2"
+                                Caption="Feedback"
+                                DataContext="{Binding Feedback}"/>
                         <MVVM.Views:Slider
-                            Height="20"
-                            Margin="0"
-                            Caption="Blur"
-                            DataContext="{Binding Blur}"
-                            />
+                                Height="20"
+                                Margin="0"
+                                Caption="Blur"
+                                DataContext="{Binding Blur}"/>
                     </StackPanel>
                 </Border>
                 <Border DockPanel.Dock="Bottom" Style="{StaticResource BorderContainer}">
@@ -110,24 +94,22 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <ComboBox
-                            Grid.Column="0"
-                            Height="20"
-                            Margin="0, 0, 2, 0"
-                            ItemsSource="{Binding Source={StaticResource PostFXTransforms}}"
-                            SelectedItem="{Binding Transforms}"
-                            SelectedIndex="0"
-                            />
+                                Grid.Column="0"
+                                Height="20"
+                                Margin="0, 0, 2, 0"
+                                ItemsSource="{Binding Source={StaticResource PostFXTransforms}}"
+                                SelectedItem="{Binding Transforms}"
+                                SelectedIndex="0"/>
                         <ComboBox
-                            Grid.Column="1"
-                            Height="20"
-                            Margin="2, 0, 0, 0"
-                            ItemsSource="{Binding Source={StaticResource PostFXView}}"
-                            SelectedItem="{Binding View}"
-                            SelectedIndex="0"
-                            />
+                                Grid.Column="1"
+                                Height="20"
+                                Margin="2, 0, 0, 0"
+                                ItemsSource="{Binding Source={StaticResource PostFXView}}"
+                                SelectedItem="{Binding View}"
+                                SelectedIndex="0"/>
                     </Grid>
                 </Border>
             </StackPanel>
-        </StackPanel>
-    </Border>
+        </Expander>
+    
 </UserControl>

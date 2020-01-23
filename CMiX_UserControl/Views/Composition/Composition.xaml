@@ -51,7 +51,8 @@
                 <CMiX:MasterBeatControl
                     DockPanel.Dock="Bottom"
                     DataContext="{Binding MasterBeat}"/>
-                <Views:EntityEditor DataContext="{Binding EntityEditor}"/>
+                <Views:ObjectEditor DataContext="{Binding ObjectEditor}"/>
+                <!--<Views:EntityEditor DataContext="{Binding EntityEditor}"/>-->
                 <!--<Views:LayerEditor 
                     DockPanel.Dock="Top"
                     DataContext="{Binding LayerEditor}" />-->

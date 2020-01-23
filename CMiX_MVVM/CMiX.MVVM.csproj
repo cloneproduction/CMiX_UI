@@ -97,6 +97,7 @@
     <Compile Include="Services\Message\IMessageReceiver.cs" />
     <Compile Include="Services\Message\ISendable.cs" />
     <Compile Include="Services\Server\ServerManager.cs" />
+    <Compile Include="ViewModels\Interfaces\IEditable.cs" />
     <Compile Include="ViewModels\Interfaces\IUndoable.cs" />
     <Compile Include="Services\Server\Server.cs" />
     <Compile Include="Services\Message\MessageValidation.cs" />

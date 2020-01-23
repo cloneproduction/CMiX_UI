@@ -160,10 +160,8 @@
     <Compile Include="ViewModels\Layer\ILayerEditor.cs" />
     <Compile Include="ViewModels\Layer\LayerEditor.cs" />
     <Compile Include="ViewModels\Layer\LayerManager.cs" />
+    <Compile Include="ViewModels\ObjectEditor.cs" />
     <Compile Include="ViewModels\Project\IProject.cs" />
-    <Compile Include="Views\Entity\EntityEditor.xaml.cs">
-      <DependentUpon>EntityEditor.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Entity\EntityPanel.xaml.cs">
       <DependentUpon>EntityPanel.xaml</DependentUpon>
     </Compile>
@@ -172,6 +170,9 @@
     </Compile>
     <Compile Include="Views\Messenger\ServerManager.xaml.cs">
       <DependentUpon>ServerManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Composition\ObjectEditor.xaml.cs">
+      <DependentUpon>ObjectEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="_Thrash\Services\OSCAttribute.cs" />
     <Compile Include="ViewModels\Coloration\ColorSelector.cs" />
@@ -269,7 +270,7 @@
     <Compile Include="Views\Coloration.xaml.cs">
       <DependentUpon>Coloration.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Content.xaml.cs">
+    <Compile Include="_Thrash\Content.xaml.cs">
       <DependentUpon>Content.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Project.xaml.cs">
@@ -316,10 +317,6 @@
     <Compile Include="Views\Texture.xaml.cs">
       <DependentUpon>Texture.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\Entity\EntityEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Entity\EntityPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -376,6 +373,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Composition\ObjectEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ResourceTree.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -424,7 +425,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Content.xaml">
+    <Page Include="_Thrash\Content.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -460,10 +461,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Layer\LayerEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Composition\Composition.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -477,9 +474,6 @@
     </Compile>
     <Compile Include="Views\Composition\Composition.xaml.cs">
       <DependentUpon>Composition.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Layer\LayerEditor.xaml.cs">
-      <DependentUpon>LayerEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

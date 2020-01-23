@@ -26,6 +26,8 @@ namespace CMiX.Studio.ViewModels
             Compositions = new ObservableCollection<Composition>();
             CompositionEditor = new CompositionEditor(Compositions, MessageAddress, Assets, Mementor);
 
+            
+
             FolderPath = string.Empty;
             Serializer = new CerasSerializer();
 
