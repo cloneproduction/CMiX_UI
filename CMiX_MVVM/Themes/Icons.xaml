@@ -32,4 +32,5 @@
     <BitmapImage x:Key="Close" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Close.png"/>
     <BitmapImage x:Key="Mask" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Mask.png"/>
     <BitmapImage x:Key="IsChecked" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/IsChecked.png"/>
+    <BitmapImage x:Key="Composition" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Composition.png"/>
 </ResourceDictionary>

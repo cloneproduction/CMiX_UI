@@ -413,5 +413,8 @@
   <ItemGroup>
     <Resource Include="Assets\IsChecked.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Composition.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -26,11 +26,11 @@ namespace CMiX.Studio.ViewModels
             MasterBeat = new MasterBeat(messageService);
             Camera = new Camera(messageService, MessageAddress, MasterBeat, Mementor);
 
+            LayerManager = new LayerManager(MessageService);
             Layers = new ObservableCollection<Layer>();
-            //Entities = new ObservableCollection<Entity>();
 
-            EntityEditor = new EntityEditor(messageService, MasterBeat, Assets, Mementor);
-            LayerEditor = new LayerEditor(Layers, messageService, MessageAddress, MasterBeat, assets, mementor);
+            AddLayerCommand = new RelayCommand(p => AddLayer());
+            DeleteSelectedLayerCommand = new RelayCommand(p => DeleteSelectedLayer());
         }
         #endregion
 
@@ -38,23 +38,19 @@ namespace CMiX.Studio.ViewModels
         public ICommand AddEntityCommand { get; set; }
         public ICommand DeleteEntityCommand { get; set; }
 
+        public ICommand AddLayerCommand { get; set; }
+        public ICommand DeleteSelectedLayerCommand { get; set; }
+
         public string MessageAddress { get; set; }
         public MessageService MessageService { get; set; }
         public Mementor Mementor { get; set; }
         public Assets Assets { get; set; }
 
-        
-
         public MessageValidationManager MessageValidationManager { get; set; }
         public MasterBeat MasterBeat { get; set; }
         public Camera Camera { get; set; }
         public Slider Transition { get; set; }
-        public LayerEditor LayerEditor { get; set; }
-        public ObservableCollection<Layer> Layers { get; set; }
 
-        public ObservableCollection<IEditable> EditableObject { get; set; }
-
-        public EntityEditor EntityEditor { get; set; }
         public ObjectEditor ObjectEditor { get; set; }
 
         private string _name;
@@ -71,6 +67,9 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _isRenaming, value);
         }
 
+        public LayerManager LayerManager { get; set; }
+        public ObservableCollection<Layer> Layers { get; set; }
+
         private Layer _selectedLayer;
         public Layer SelectedLayer
         {
@@ -78,6 +77,38 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _selectedLayer, value);
         }
 
+        #endregion
+
+        #region ADD/DUPLICATE/DELETE LAYERS
+        public void RenameSelectedLayer()
+        {
+            if (SelectedLayer != null)
+                SelectedLayer.IsRenaming = true;
+        }
+
+        public void AddLayer()
+        {
+            LayerManager.CreateLayer(this);
+        }
+
+        private void DuplicateSelectedLayer()
+        {
+            LayerManager.DuplicateLayer(this);
+        }
+
+        private void DuplicateSelectedLayerLink(object obj)
+        {
+            if (obj is Composition)
+            {
+                var composition = obj as Composition;
+                LayerManager.DuplicateLayerLink(composition);
+            }
+        }
+
+        private void DeleteSelectedLayer()
+        {
+            LayerManager.DeleteLayer(this);
+        }
         #endregion
 
         #region COPY/PASTE COMPOSITIONS
@@ -89,7 +120,7 @@ namespace CMiX.Studio.ViewModels
             compositionModel.CameraModel = Camera.GetModel();
             compositionModel.MasterBeatModel = MasterBeat.GetModel();
             compositionModel.TransitionModel = Transition.GetModel();
-            compositionModel.LayerEditorModel = LayerEditor.GetModel();
+            //compositionModel.LayerEditorModel = LayerEditor.GetModel();
             return compositionModel;
         }
 
@@ -101,7 +132,7 @@ namespace CMiX.Studio.ViewModels
             MasterBeat.SetViewModel(compositionModel.MasterBeatModel);
             Camera.SetViewModel(compositionModel.CameraModel);
             Transition.SetViewModel(compositionModel.TransitionModel);
-            LayerEditor.SetViewModel(compositionModel.LayerEditorModel);
+            //LayerEditor.SetViewModel(compositionModel.LayerEditorModel);
 
             MessageService.Enable();
         }

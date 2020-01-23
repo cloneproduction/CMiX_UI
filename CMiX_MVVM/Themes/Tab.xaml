@@ -426,9 +426,7 @@
                                 Visibility="Collapsed"
                                 Command="{Binding DataContext.RemoveEditableCommand, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"
                                 CommandParameter="{Binding}"
-                                DockPanel.Dock="Right" Width="15" Height="15">
-
-                            </Button>
+                                DockPanel.Dock="Right" Width="15" Height="15"/>
                             <TextBlock 
                                 x:Name="TabText"
                                 Text="{Binding Name}" 

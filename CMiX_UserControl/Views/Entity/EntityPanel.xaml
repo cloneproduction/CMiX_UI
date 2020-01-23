@@ -19,6 +19,10 @@
     </UserControl.Resources>
 
     <DockPanel>
+        <Border Background="{StaticResource HighDarkerColor}" DockPanel.Dock="top" Height="25">
+            <TextBlock Text="Objects" VerticalAlignment="Center" Padding="4"/>
+        </Border>
+        <Separator  DockPanel.Dock="Top" Background="{StaticResource HighHighDarkerColor}"  HorizontalAlignment="Stretch"/>
         <DockPanel Margin="8" DockPanel.Dock="Bottom" LastChildFill="False">
             <Button
                 DockPanel.Dock="Left"
@@ -87,7 +91,8 @@
                         Visibility="{Binding Data.SelectedEntity, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.RenameSelectedEntityCommand, Source={StaticResource proxy}}">
+                        Command="{Binding Data.ObjectEditor.RenameCommand, Source={StaticResource CompositionProxy}}"
+                        CommandParameter="{Binding Data.SelectedEntity, Source={StaticResource proxy}}">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource Rename}" />

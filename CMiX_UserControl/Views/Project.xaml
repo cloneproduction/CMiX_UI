@@ -133,9 +133,9 @@
                 <TabControl TabStripPlacement="Left" Background="{StaticResource DarkerColor}" Style="{StaticResource TabControlVerticalPanel}" >
                     <TabItem Margin="8, 8, 8, 4" Background="Red" Width="25" Height="25" Style="{StaticResource TabItemVerticalPanel}">
                         <TabItem.Header>
-                            <Image Source="{StaticResource Copy}" />
+                            <Image Source="{StaticResource Composition}" />
                         </TabItem.Header>
-                        <Views:CompositionList  DataContext="{Binding CompositionEditor}"/>
+                        <Views:CompositionPanel  DataContext="{Binding CompositionEditor}"/>
                     </TabItem>
                     <TabItem Margin="8, 8, 8, 4" Width="25" Height="25" Style="{StaticResource TabItemVerticalPanel}">
                         <TabItem.Header>

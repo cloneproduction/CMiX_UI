@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace CMiX.Views
 {
     /// <summary>
-    /// Interaction logic for CompositionList.xaml
+    /// Interaction logic for CompositionPanel.xaml
     /// </summary>
-    public partial class CompositionList : UserControl
+    public partial class CompositionPanel : UserControl
     {
-        public CompositionList()
+        public CompositionPanel()
         {
             InitializeComponent();
         }

@@ -17,7 +17,7 @@ namespace CMiX.Studio.ViewModels
         public LayerEditor(ObservableCollection<Layer> layers, MessageService messageService, string messageAddress, MasterBeat masterBeat, Assets assets, Mementor mementor)
         {
             Mementor = mementor;
-            LayerManager = new LayerManager(layers, messageService);
+            LayerManager = new LayerManager(messageService);
             Layers = layers;
             
             Assets = assets;
@@ -125,12 +125,12 @@ namespace CMiX.Studio.ViewModels
 
         public void AddLayer()
         {
-            LayerManager.CreateLayer(this);
+            //LayerManager.CreateLayer(this);
         }
 
         private void DuplicateSelectedLayer()
         {
-            LayerManager.DuplicateLayer(this);
+            //LayerManager.DuplicateLayer(this);
         }
 
         private void DuplicateSelectedLayerLink(object obj)
@@ -144,7 +144,7 @@ namespace CMiX.Studio.ViewModels
 
         private void DeleteSelectedLayer()
         {
-            LayerManager.DeleteLayer(this);
+            //LayerManager.DeleteLayer(this);
         }
         #endregion
 
@@ -228,7 +228,7 @@ namespace CMiX.Studio.ViewModels
             Layers.Clear();
             foreach (var layerModel in layerEditorModel.LayerModels)
             {
-                LayerManager.CreateLayer(this).GetModel();
+                //LayerManager.CreateLayer(this).GetModel();
             }
         }
     }

@@ -11,11 +11,12 @@ namespace CMiX.Studio.ViewModels
             Editables = new ObservableCollection<IEditable>();
             AddEditableCommand = new RelayCommand(p => AddEditable(p));
             RemoveEditableCommand = new RelayCommand(p => RemoveEditable(p));
+            RenameCommand = new RelayCommand(p => Rename(p));
         }
 
         public ICommand AddEditableCommand { get; set; }
         public ICommand RemoveEditableCommand { get; set; }
-
+        public ICommand RenameCommand { get; set; }
         public ObservableCollection<IEditable> Editables { get; set; }
 
         private IEditable _selectedEditable;
@@ -27,6 +28,7 @@ namespace CMiX.Studio.ViewModels
 
         public void RemoveEditable(object obj)
         {
+            System.Console.WriteLine("RemoveEditableReached");
             var editable = obj as IEditable;
             Editables.Remove(editable);
         }
@@ -37,6 +39,12 @@ namespace CMiX.Studio.ViewModels
             SelectedEditable = editable;
             if (!Editables.Contains(editable))
                 Editables.Add(editable);
+        }
+
+        public void Rename(object obj)
+        {
+            var editable = obj as IEditable;
+            editable.IsRenaming = true;
         }
     }
 }

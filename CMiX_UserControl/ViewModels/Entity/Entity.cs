@@ -42,7 +42,11 @@ namespace CMiX.Studio.ViewModels
         public bool IsRenaming
         {
             get => _isRenaming;
-            set => SetAndNotify(ref _isRenaming, value);
+            set
+            {
+                System.Console.WriteLine("IsRenaming");
+                SetAndNotify(ref _isRenaming, value);
+            }
         }
 
         private bool _isSelected;

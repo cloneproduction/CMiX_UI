@@ -129,6 +129,9 @@
     <Compile Include="Behaviors\ClickBehavior.cs" />
     <Compile Include="Behaviors\TreeViewItemClickBehavior.cs" />
     <Compile Include="Behaviors\TextBoxFocusBehavior.cs" />
+    <Compile Include="Views\SliderBeat.xaml.cs">
+      <DependentUpon>SliderBeat.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\Composition\CompositionEditor.cs" />
     <Compile Include="ViewModels\Composition\CompositionManager.cs" />
     <Compile Include="ViewModels\Composition\ICompositionContext.cs" />
@@ -317,6 +320,10 @@
     <Compile Include="Views\Texture.xaml.cs">
       <DependentUpon>Texture.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\SliderBeat.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Entity\EntityPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -8,17 +8,16 @@ namespace CMiX.Studio.ViewModels
 {
     public class LayerManager
     {
-        public LayerManager(ObservableCollection<Layer> layers, MessageService messageService)
+        public LayerManager(MessageService messageService)
         {
             MessageService = messageService;
-            Layers = layers;
         }
 
         int LayerID = 0;
         public MessageService MessageService { get; set; }
-        public ObservableCollection<Layer> Layers { get; set; }
+        //public ObservableCollection<Layer> Layers { get; set; }
 
-        public Layer CreateLayer(ILayerContext context)
+        public Layer CreateLayer(Composition context)
         {
             Layer newLayer = new Layer(context.MasterBeat, context.MessageAddress, LayerID, context.MessageService, context.Assets, context.Mementor);
             context.Layers.Add(newLayer);
@@ -29,7 +28,7 @@ namespace CMiX.Studio.ViewModels
             return newLayer;
         }
 
-        public Layer DuplicateLayer(ILayerContext context)
+        public Layer DuplicateLayer(Composition context)
         {
             var SelectedLayer = context.SelectedLayer;
             if (SelectedLayer != null)
@@ -55,7 +54,7 @@ namespace CMiX.Studio.ViewModels
 
         public Layer DuplicateLayerLink(Composition composition)
         {
-            var SelectedLayer = composition.LayerEditor.SelectedLayer;
+            var SelectedLayer = composition.SelectedLayer;
             if (SelectedLayer != null)
             {
                 LayerModel layerModel = SelectedLayer.GetModel();
@@ -75,7 +74,7 @@ namespace CMiX.Studio.ViewModels
 
                 int index = composition.Layers.IndexOf(SelectedLayer);
                 composition.Layers.Insert(index + 1, newLayer);
-                composition.LayerEditor.SelectedLayer = newLayer;
+                composition.SelectedLayer = newLayer;
 
                 MessageService.SendMessages(composition.MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, composition.GetModel());
                 LayerID++;
@@ -85,7 +84,7 @@ namespace CMiX.Studio.ViewModels
                 return null;
         }
 
-        public void DeleteLayer(ILayerContext context)
+        public void DeleteLayer(Composition context)
         {
             var SelectedLayer = context.SelectedLayer;
             if (SelectedLayer != null)
@@ -111,7 +110,7 @@ namespace CMiX.Studio.ViewModels
         }
 
 
-        public void PasteLayer(ILayerContext context)
+        public void PasteLayer(Composition context)
         {
 
         }
