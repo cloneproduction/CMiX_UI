@@ -129,13 +129,26 @@
     <Compile Include="Behaviors\ClickBehavior.cs" />
     <Compile Include="Behaviors\TreeViewItemClickBehavior.cs" />
     <Compile Include="Behaviors\TextBoxFocusBehavior.cs" />
+    <Compile Include="ViewModels\Assets\EnumFileType.cs" />
+    <Compile Include="ViewModels\Component\Component.cs" />
+    <Compile Include="ViewModels\Component\ComponentManager.cs" />
+    <Compile Include="ViewModels\Component\ComponentPanelTemplateSelector.cs" />
+    <Compile Include="ViewModels\Component\IComponent.cs" />
+    <Compile Include="ViewModels\Root.cs" />
+    <Compile Include="Views\Component\ComponentPanel.xaml.cs">
+      <DependentUpon>ComponentPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Outliner.xaml.cs">
+      <DependentUpon>Outliner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Root.xaml.cs">
+      <DependentUpon>Root.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SliderBeat.xaml.cs">
       <DependentUpon>SliderBeat.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Composition\CompositionEditor.cs" />
+    <Compile Include="_Thrash\CompositionEditor.cs" />
     <Compile Include="ViewModels\Composition\CompositionManager.cs" />
-    <Compile Include="ViewModels\Composition\ICompositionContext.cs" />
-    <Compile Include="ViewModels\Composition\ICompositionEditor.cs" />
     <Compile Include="ViewModels\EditorTemplateSelector.cs" />
     <Compile Include="ViewModels\Entity\EntityEditor.cs" />
     <Compile Include="ViewModels\Entity\EntityManager.cs" />
@@ -163,7 +176,7 @@
     <Compile Include="ViewModels\Layer\ILayerEditor.cs" />
     <Compile Include="ViewModels\Layer\LayerEditor.cs" />
     <Compile Include="ViewModels\Layer\LayerManager.cs" />
-    <Compile Include="ViewModels\ObjectEditor.cs" />
+    <Compile Include="ViewModels\Component\ComponentEditor.cs" />
     <Compile Include="ViewModels\Project\IProject.cs" />
     <Compile Include="Views\Entity\EntityPanel.xaml.cs">
       <DependentUpon>EntityPanel.xaml</DependentUpon>
@@ -174,16 +187,16 @@
     <Compile Include="Views\Messenger\ServerManager.xaml.cs">
       <DependentUpon>ServerManager.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Composition\ObjectEditor.xaml.cs">
-      <DependentUpon>ObjectEditor.xaml</DependentUpon>
+    <Compile Include="Views\Component\ComponentEditor.xaml.cs">
+      <DependentUpon>ComponentEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="_Thrash\Services\OSCAttribute.cs" />
     <Compile Include="ViewModels\Coloration\ColorSelector.cs" />
     <Compile Include="Views\ColorSelector.xaml.cs">
       <DependentUpon>ColorSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Composition\CompositionList.xaml.cs">
-      <DependentUpon>CompositionList.xaml</DependentUpon>
+    <Compile Include="Views\Composition\CompositionPanel.xaml.cs">
+      <DependentUpon>CompositionPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Geometry\Instancer\AnimParameter.xaml.cs">
       <DependentUpon>AnimParameter.xaml</DependentUpon>
@@ -320,6 +333,18 @@
     <Compile Include="Views\Texture.xaml.cs">
       <DependentUpon>Texture.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\Component\ComponentPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Outliner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Root.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SliderBeat.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -336,7 +361,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Composition\CompositionList.xaml">
+    <Page Include="Views\Composition\CompositionPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -380,7 +405,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Composition\ObjectEditor.xaml">
+    <Page Include="Views\Component\ComponentEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

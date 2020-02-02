@@ -8,7 +8,7 @@ namespace CMiX.Studio.ViewModels
 {
     public class BlendMode : ViewModel, ISendable, IUndoable
     {
-        public BlendMode(MasterBeat masterBeat, string messageAddress, MessageService messageService, Mementor mementor)
+        public BlendMode(Beat masterBeat, string messageAddress, MessageService messageService, Mementor mementor)
         {
             MessageAddress = $"{messageAddress}{nameof(BlendMode)}";
             MessageService = messageService;

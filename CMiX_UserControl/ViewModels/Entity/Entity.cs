@@ -8,24 +8,26 @@ using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Entity : ViewModel, ISendable, IUndoable, IEditable
+    public class Entity : ViewModel, ISendable, IUndoable, IComponent
     {
         #region CONSTRUCTORS
-        public Entity(Beat beat, int id, string messageAddress, MessageService messageService, Mementor mementor)
+        public Entity(int id, Beat beat, string messageAddress, MessageService messageService, Assets assets, Mementor mementor)
         {
             MessageAddress = $"{messageAddress}Entity{id.ToString()}/";
             Mementor = mementor;
             MessageService = messageService;
+            Assets = assets;
+
             Enabled = true;
             ID = id;
             Name = "Entity" + id;
-            count++;
 
             BeatModifier = new BeatModifier(MessageAddress, beat, messageService, mementor);
             Geometry = new Geometry(MessageAddress, messageService, mementor, beat);
-            Texture = new Texture(MessageAddress, messageService, mementor);
+            Texture = new Texture(MessageAddress, messageService, assets, mementor);
             Coloration = new Coloration(MessageAddress, messageService, mementor, beat);
 
+            RenameCommand = new RelayCommand(p => Rename());
             CopyEntityCommand = new RelayCommand(p => CopyEntity());
             PasteEntityCommand = new RelayCommand(p => PasteEntity());
             ResetEntityCommand = new RelayCommand(p => ResetEntity());
@@ -33,20 +35,26 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region PROPERTIES
-        private static int count = 0;
         public ICommand CopyEntityCommand { get; }
         public ICommand PasteEntityCommand { get; }
         public ICommand ResetEntityCommand { get; }
+        public ICommand RenameCommand { get; }
+
 
         private bool _isRenaming;
         public bool IsRenaming
         {
             get => _isRenaming;
-            set
-            {
-                System.Console.WriteLine("IsRenaming");
-                SetAndNotify(ref _isRenaming, value);
-            }
+            set => SetAndNotify(ref _isRenaming, value);
+        }
+
+        public int IDCounter { get; set; }
+
+        private IComponent _selectedComponent;
+        public IComponent SelectedComponent
+        {
+            get => _selectedComponent;
+            set => SetAndNotify(ref _selectedComponent, value);
         }
 
         private bool _isSelected;
@@ -56,6 +64,13 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _isSelected, value);
         }
 
+        private bool _isExpanded;
+        public bool IsExpanded
+        {
+            get => _isExpanded;
+            set => SetAndNotify(ref _isExpanded, value);
+        }
+
         private bool _isMask;
         public bool IsMask
         {
@@ -63,11 +78,15 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _isMask, value);
         }
 
-        private bool _isVisible;
+        private bool _isVisible = true;
         public bool IsVisible
         {
             get => _isVisible;
-            set => SetAndNotify(ref _isVisible, value);
+            set
+            {
+                SetAndNotify(ref _isVisible, value);
+                System.Console.WriteLine("Entity Is Visible " + IsVisible);
+            }
         }
 
         private int _id;
@@ -84,6 +103,7 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _name, value);
         }
 
+        public Beat Beat { get; set; }
         public BeatModifier BeatModifier { get; }
         public Geometry Geometry { get; }
         public Texture Texture { get; }
@@ -92,6 +112,7 @@ namespace CMiX.Studio.ViewModels
         public string MessageAddress { get; set; }
         public MessageService MessageService { get; set; }
         public Mementor Mementor { get; set; }
+        public Assets Assets { get; set; }
         #endregion
 
         #region COPY/PASTE
@@ -162,6 +183,22 @@ namespace CMiX.Studio.ViewModels
             this.Reset();
             //SendMessages(nameof(ContentModel), entityModel);
         }
+
+
         #endregion
+        public void Rename()
+        {
+            IsRenaming = true;
+        }
+
+        public void AddComponent(IComponent component)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void RemoveComponent(IComponent component)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

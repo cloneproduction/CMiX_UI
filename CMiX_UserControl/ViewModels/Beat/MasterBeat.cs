@@ -108,7 +108,6 @@ namespace CMiX.Studio.ViewModels
         }
         #endregion
 
-        #region COPY/PASTE
         public MasterBeatModel GetModel()
         {
             MasterBeatModel masterBeatModel = new MasterBeatModel();
@@ -116,17 +115,16 @@ namespace CMiX.Studio.ViewModels
             return masterBeatModel;
         }
 
-        public void CopyModel(MasterBeatModel masterBeatControl)
-        {
-            masterBeatControl.Period = Period;
-        }
+        //public void CopyModel(MasterBeatModel masterBeatControl)
+        //{
+        //    masterBeatControl.Period = Period;
+        //}
 
-        public void SetViewModel(MasterBeatModel masterBeatControl)
-        {
-            MessageService.Disable();
-            Period = masterBeatControl.Period;
-            MessageService.Enable();
-        }
-        #endregion
+        //public void SetViewModel(MasterBeatModel masterBeatControl)
+        //{
+        //    MessageService.Disable();
+        //    Period = masterBeatControl.Period;
+        //    MessageService.Enable();
+        //}
     }
 }

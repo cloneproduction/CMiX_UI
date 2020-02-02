@@ -12,7 +12,7 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <Resources:BindingProxy x:Key="proxy" Data="{Binding}"/>
+            <Resources:BindingProxy x:Key="ProjectProxy" Data="{Binding}"/>
             <Resources:BindingProxy x:Key="CompositionProxy" Data="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type Views:Composition}}}"/>
             <Resources:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
         </ResourceDictionary>
@@ -88,11 +88,11 @@
                         </MenuItem.Header>
                     </MenuItem>
                     <MenuItem
-                        Visibility="{Binding Data.SelectedEntity, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
+                        Visibility="{Binding Data.SelectedEntity, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource ProjectProxy}}"
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.ObjectEditor.RenameCommand, Source={StaticResource CompositionProxy}}"
-                        CommandParameter="{Binding Data.SelectedEntity, Source={StaticResource proxy}}">
+                        Command="{Binding Data.ComponentEditor.RenameCommand, Source={StaticResource CompositionProxy}}"
+                        CommandParameter="{Binding Data.SelectedEntity, Source={StaticResource ProjectProxy}}">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource Rename}" />
@@ -102,10 +102,10 @@
                         </MenuItem.Header>
                     </MenuItem>
                     <MenuItem
-                        Visibility="{Binding Data.SelectedEntity, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
+                        Visibility="{Binding Data.SelectedEntity, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource ProjectProxy}}"
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.DeleteSelectedEntityCommand, Source={StaticResource proxy}}">
+                        Command="{Binding Data.DeleteSelectedEntityCommand, Source={StaticResource ProjectProxy}}">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
@@ -115,10 +115,10 @@
                         </MenuItem.Header>
                     </MenuItem>
                     <MenuItem
-                                Visibility="{Binding Data.SelectedEntity, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
+                                Visibility="{Binding Data.SelectedEntity, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource ProjectProxy}}"
                                 Padding="8, 4"
                                 Foreground="{StaticResource TextBase}"
-                                Command="{Binding Data.DuplicateSelectedEntityCommand, Source={StaticResource proxy}}">
+                                Command="{Binding Data.DuplicateSelectedEntityCommand, Source={StaticResource ProjectProxy}}">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource Copy}" />
@@ -128,7 +128,7 @@
                         </MenuItem.Header>
                     </MenuItem>
                     <MenuItem 
-                        Visibility="{Binding Data.SelectedEntity, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
+                        Visibility="{Binding Data.SelectedEntity, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource ProjectProxy}}"
                         Style="{StaticResource ContextMenuSubItem}"
                         Padding="8, 4"
                         ItemsSource="{Binding Data.Layers, Source={StaticResource CompositionProxy}}">
@@ -144,7 +144,7 @@
                                 <MenuItem 
                                     Padding="8, 4" 
                                     Header="{Binding Name}" 
-                                    Command="{Binding Data.MoveEntityToLayerCommand, Source={StaticResource proxy}}"
+                                    Command="{Binding Data.MoveEntityToLayerCommand, Source={StaticResource ProjectProxy}}"
                                     CommandParameter="{Binding}"/>
                             </DataTemplate>
                         </MenuItem.ItemTemplate>
@@ -163,7 +163,7 @@
                         <Border.InputBindings>
                             <MouseBinding
                                 Gesture="LeftDoubleClick" 
-                                Command="{Binding DataContext.ObjectEditor.AddEditableCommand, RelativeSource={RelativeSource AncestorType={x:Type Views:Composition}}}"
+                                Command="{Binding DataContext.ComponentEditor.AddEditableCommand, RelativeSource={RelativeSource AncestorType={x:Type Views:Composition}}}"
                                 CommandParameter="{Binding}"/>
                         </Border.InputBindings>
                         <DockPanel VerticalAlignment="Center" Height="30" DockPanel.Dock="Top">

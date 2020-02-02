@@ -15,10 +15,6 @@
         <CommandBinding Command="ApplicationCommands.Undo" Executed="UndoCommand_Executed" CanExecute="UndoCommand_CanExecute" />
         <CommandBinding Command="ApplicationCommands.Redo" Executed="RedoCommand_Executed" CanExecute="RedoCommand_CanExecute" />
     </Window.CommandBindings>
-    <Grid >
-        <Button x:Name="WindowMainGrid"/>
-        <Views:Project x:Name="ProjectView" Background="Black"/>
-    </Grid>
-    
-    <!--<Views:Coloration x:Name="ProjectView" Background="Black"/>-->
+    <!--<Button x:Name="WindowMainGrid"/>-->
+        <Views:Root x:Name="RootView" Background="Black"/>
 </Window>

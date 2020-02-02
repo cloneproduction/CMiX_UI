@@ -23,8 +23,8 @@ namespace CMiX.Studio.ViewModels
             Enabled = false;
 
             BeatModifier = new BeatModifier(MessageAddress, beat, messageService, mementor);
-            Geometry = new Geometry(MessageAddress, messageService, mementor, beat);
-            Texture = new Texture(MessageAddress, messageService, mementor);
+            //Geometry = new Geometry(MessageAddress, messageService, mementor, beat);
+            //Texture = new Texture(MessageAddress, messageService, assets, mementor);
             PostFX = new PostFX(MessageAddress, messageService, mementor);
 
             CopyMaskCommand = new RelayCommand(p => CopyMask());

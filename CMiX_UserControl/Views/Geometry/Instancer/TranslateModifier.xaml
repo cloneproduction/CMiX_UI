@@ -14,7 +14,7 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
+            <Resources:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
             <ObjectDataProvider x:Key="AnimMode" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
                 <ObjectDataProvider.MethodParameters>
                     <x:Type TypeName="ViewModels:AnimMode"/>

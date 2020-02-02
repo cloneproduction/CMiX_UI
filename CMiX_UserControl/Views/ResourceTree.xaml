@@ -16,34 +16,10 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
-            
-            <!--<DataTemplate x:Key="NormalTemplate">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding Path=Name}" Margin="3">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PreviewMouseDown" >
-                                <i:InvokeCommandAction Command="{Binding PreviewMouseDownCommand}" CommandParameter="{Binding}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </TextBlock>
-                </StackPanel>
-            </DataTemplate>
-
-            <DataTemplate x:Key="EditTemplate">
-                <StackPanel>
-                    <TextBox Text="{Binding Path=Name}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="LostKeyboardFocus " >
-                                <i:InvokeCommandAction Command="{Binding LostFocusCommand}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </TextBox>
-                </StackPanel>
-            </DataTemplate>-->
+            <Resources:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
 
             <HierarchicalDataTemplate DataType="{x:Type ViewModels:DirectoryItem}" ItemsSource="{Binding Items}">
-                <Border HorizontalAlignment="Stretch">
+                <Border Height="30" HorizontalAlignment="Stretch">
                     <Border.Style>
                         <Style TargetType="{x:Type Border}">
                             <Style.Triggers>
@@ -53,13 +29,13 @@
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
-                    <StackPanel>
-                        <StackPanel.ContextMenu>
+                    <Border>
+                        <Border.ContextMenu>
                             <ContextMenu>
                                 <MenuItem
                                     Padding="8, 4"
                                     Foreground="{StaticResource TextBase}"
-                                    Command="{Binding Data.RenameCommand, Source={StaticResource proxy}}">
+                                    Command="{Binding Data.RenameCommand, Source={StaticResource ProjectProxy}}">
                                     <MenuItem.Header>
                                         <StackPanel Orientation="Horizontal">
                                             <Image Width="10" Height="10" Source="{StaticResource Copy}" />
@@ -69,9 +45,9 @@
                                     </MenuItem.Header>
                                 </MenuItem>
                             </ContextMenu>
-                        </StackPanel.ContextMenu>
-                        <DockPanel Margin="0, 1">
-                            <Image Margin="4, 0" Width="15" Height="15" DockPanel.Dock="Left">
+                        </Border.ContextMenu>
+                        <DockPanel >
+                            <Image Margin="6" Opacity="0.75" DockPanel.Dock="Left">
                                 <Image.Style>
                                     <Style TargetType="Image">
                                         <Setter Property="Source" Value="{Binding Source={StaticResource Folder}, Mode=OneTime}"/>
@@ -83,71 +59,34 @@
                                     </Style>
                                 </Image.Style>
                             </Image>
-                            <!--<Image Margin="4, 0" Width="10" Height="10" DockPanel.Dock="Left" Source="{StaticResource Folder}"/>-->
                             <Controls:EditableTextBox 
                                 HorizontalAlignment="Stretch" 
                                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 CanEdit="{Binding CanEdit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                IsEditing="{Binding IsEditing, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                <Controls:EditableTextBox.ContextMenu>
-                                    <ContextMenu>
-                                        <MenuItem
-                                            Padding="8, 4"
-                                            Foreground="{StaticResource TextBase}"
-                                            Command="{Binding Data.AddNewFolderCommand, Source={StaticResource proxy}}">
-                                            <MenuItem.Header>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Image Width="10" Height="10" Source="{StaticResource Copy}" />
-                                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                                    <TextBlock Text="Add"/>
-                                                </StackPanel>
-                                            </MenuItem.Header>
-                                        </MenuItem>
-                                        <MenuItem
-                                            Padding="8, 4"
-                                            Foreground="{StaticResource TextBase}"
-                                            Command="{Binding Data.RenameFolderCommand, Source={StaticResource proxy}}">
-                                            <MenuItem.Header>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Image Width="10" Height="10" Source="{StaticResource Copy}" />
-                                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                                    <TextBlock Text="Rename"/>
-                                                </StackPanel>
-                                            </MenuItem.Header>
-                                        </MenuItem>
-
-                                        <MenuItem
-                                            Padding="8, 4"
-                                            Foreground="{StaticResource TextBase}"
-                                            Command="{Binding Data.DeleteItemCommand, Source={StaticResource proxy}}">
-                                            <MenuItem.Header>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Image Width="10" Height="10" Source="{StaticResource Copy}" />
-                                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                                    <TextBlock Text="Delete"/>
-                                                </StackPanel>
-                                            </MenuItem.Header>
-                                        </MenuItem>
-                                    </ContextMenu>
-                                </Controls:EditableTextBox.ContextMenu>
-                            </Controls:EditableTextBox>
+                                IsEditing="{Binding IsEditing, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </DockPanel>
-                    </StackPanel>
+                    </Border>
                 </Border>
             </HierarchicalDataTemplate>
 
             <DataTemplate DataType="{x:Type ViewModels:TextureItem}">
-                <DockPanel Margin="0, 1">
-                    <Image Margin="4, 0" Width="10" Height="10" DockPanel.Dock="Left" Source="{StaticResource Texture}"/>
-                    <TextBlock Text="{Binding Path=Name}" ToolTip="{Binding Path=Path}" />
-                </DockPanel>
+                <Border Margin="0, 1" Height="30">
+                    <DockPanel>
+                        <Border>
+                            <Image Margin="8" DockPanel.Dock="Left" Source="{StaticResource Texture}"/>
+                        </Border>
+                        <TextBlock Text="{Binding Path=Name}" ToolTip="{Binding Path=Path}" />
+                    </DockPanel>
+                </Border>
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type ViewModels:GeometryItem}">
-                <DockPanel Margin="0, 1">
-                    <Image Margin="4, 0" Width="10" Height="10" DockPanel.Dock="Left" Source="{StaticResource Geometry}"/>
-                    <TextBlock Text="{Binding Path=Name}" ToolTip="{Binding Path=Path}" />
-                </DockPanel>
+            <DataTemplate  DataType="{x:Type ViewModels:GeometryItem}">
+                <Border Margin="0, 1" Height="30">
+                    <DockPanel Margin="0, 1">
+                        <Image Margin="8" Opacity="0.9" DockPanel.Dock="Left" Source="{StaticResource Geometry}"/>
+                        <TextBlock Text="{Binding Path=Name}" ToolTip="{Binding Path=Path}" />
+                    </DockPanel>
+                </Border>
             </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -158,8 +97,10 @@
                 VerticalAlignment="Center"
                 Padding="8"
                 DockPanel.Dock="Top"
+                BorderBrush="{StaticResource SuperHighDarkerColor}"
+                BorderThickness="0, 0, 0, 1"
                 Height="40">
-                <TextBlock Text="RESOURCES" VerticalAlignment="Center"/>
+                <TextBlock Text="RESOURCES" FontWeight="SemiBold" VerticalAlignment="Center"/>
             </Border>
 
             <Border 
@@ -171,12 +112,12 @@
                     Margin="4, 0, 0, 0"
                     Content="New Folder"
                     Command="{Binding AddNewFolderCommand}"
-                    Foreground="{StaticResource TextBase}"
-                    />
+                    Foreground="{StaticResource TextBase}"/>
             </Border>
             <TreeView 
                 Background="Transparent"
                 AllowDrop="True"
+                dd:DragDrop.SelectDroppedItems="True"
                 dd:DragDrop.IsDragSource="True"
                 dd:DragDrop.IsDropTarget="True"
                 dd:DragDrop.DragHandler="{Binding}"
@@ -185,22 +126,6 @@
                 <i:Interaction.Behaviors>
                     <Behaviors:BindableSelectedItemBehavior SelectedItem="{Binding SelectedItem, Mode=TwoWay}"/>
                 </i:Interaction.Behaviors>
-                
-                <TreeView.ItemContainerStyle>
-                    <Style TargetType="{x:Type TreeViewItem}">
-                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <EventSetter Event="PreviewMouseRightButtonDown" Handler="treeView_PreviewMouseRightButtonDown" />
-
-                        <!--<Setter Property="Behaviors:TreeViewItemClickBehavior.SingleClickCommand" Value="{Binding SingleClickCommand}"/>
-                        <Setter Property="Behaviors:TreeViewItemClickBehavior.SingleClickCommandParameter" Value="{Binding}"/>
-                        <Setter Property="Behaviors:TreeViewItemClickBehavior.DoubleClickCommand" Value="{Binding DoubleClickCommand}"/>
-                        <Setter Property="Behaviors:TreeViewItemClickBehavior.DoubleClickCommandParameter" Value="{Binding}"/>
-                        <Setter Property="Behaviors:TreeViewItemClickBehavior.PreviewMouseUpCommand" Value="{Binding PreviewMouseUpCommand}"/>-->
-                        <!--<Setter Property="commandBehaviors:MouseDoubleClick.CommandParameter"
-                    Value="{Binding}"/>-->
-                    </Style>
-                </TreeView.ItemContainerStyle>
             </TreeView>
         </DockPanel>
     </Border>

@@ -13,7 +13,7 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
+            <Resources:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
         </ResourceDictionary>
     </UserControl.Resources>
     
@@ -23,7 +23,7 @@
                 <MenuItem
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.ResetCommand, Source={StaticResource proxy}}">
+                        Command="{Binding Data.ResetCommand, Source={StaticResource ProjectProxy}}">
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Image Width="10" Height="10" Source="{StaticResource Reset}" />

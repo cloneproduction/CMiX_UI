@@ -4,6 +4,7 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -337,44 +338,6 @@ namespace CMiX.MVVM.Resources
         }
     }
 
-    //public class ColorToHSVConverter : IValueConverter
-    //{
-    //    double hue, sat, val;
-
-    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        Color colorIn = (Color)value;
-    //        ColorUtils.ColorToHSV(colorIn, out hue, out sat, out val);
-    //        double valueout = 0.0;
-
-    //        if ((string)parameter == "Hue")
-    //        {
-    //            valueout = hue / 360;
-    //        }
-
-
-    //        if ((string)parameter == "Sat")
-    //        {
-    //            valueout = sat;
-    //            //Console.WriteLine("Sat : " + sat.ToString() + "  Val : " + val.ToString());
-    //        }
-
-
-    //        if ((string)parameter == "Val")
-    //        {
-    //            valueout = val;
-    //        }
-
-    //        return valueout;
-    //    }
-
-    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        double newval = (double)value;
-    //        return ColorUtils.ColorFromHSV(hue, sat, newval);
-    //    }
-    //}
-
     public class ColorHueToDoubleConverter : IValueConverter
     {
         double hue, sat, val;
@@ -450,72 +413,6 @@ namespace CMiX.MVVM.Resources
             return colorOut;
         }
     }
-
-    //public class ColorSatToDoubleConverter : IValueConverter
-    //{
-    //    double hue, sat, val;
-
-    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        Color colorIn = (Color)value;
-    //        ColorUtils.ColorToHSV(colorIn, out hue, out sat, out val);
-    //        return sat;
-    //    }
-
-    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        double newsat = (double)value;
-    //        return ColorUtils.ColorFromHSV(hue, newsat, val); ;
-    //    }
-    //}
-
-    //public class ColorValToDoubleConverter : IValueConverter
-    //{
-    //    double hue, sat, val;
-
-    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        Color colorIn = (Color)value;
-    //        ColorUtils.ColorToHSV(colorIn, out hue, out sat, out val);
-    //        return val;
-    //    }
-
-    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        double newval = (double)value;
-    //        return ColorUtils.ColorFromHSV(hue, sat, newval); ;
-    //    }
-    //}
-
-    //public class ColorValToDoubleInvertedConverter : IValueConverter
-    //{
-    //    public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
-    //    {
-    //        Color color = (Color)value;
-    //        Hsv hsv = new Rgb() { R = color.ScR, G = color.ScG, B = color.ScB }.To<Hsv>();
-
-    //        return 1.0 - (hsv.V*255);
-    //    }
-    //    public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-    //}
-
-
-
-    //public class ColorToRGBHSVComponentConverter : IMultiValueConverter
-    //{
-    //    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-
-    //    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-    //}
 
     public class ColorToColorComponentConverter : IValueConverter
     {
@@ -617,6 +514,7 @@ namespace CMiX.MVVM.Resources
             throw new NotImplementedException();
         }
     }
+
     #region COLOR CONVERTERS
 
 
@@ -913,6 +811,77 @@ namespace CMiX.MVVM.Resources
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
         {
             throw new NotImplementedException();
+        }
+    }
+
+
+    //EXTENSION AND CONVERTER FOR TREEVIEW STYLE
+    public static class TreeViewItemExtensions
+    {
+        public static int GetDepth(this TreeViewItem item)
+        {
+            TreeViewItem parent;
+            while ((parent = GetParent(item)) != null)
+            {
+                return GetDepth(parent) + 1;
+            }
+            return 0;
+        }
+
+        private static TreeViewItem GetParent(TreeViewItem item)
+        {
+            var parent = VisualTreeHelper.GetParent(item);
+            while (!(parent is TreeViewItem || parent is TreeView))
+            {
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+            return parent as TreeViewItem;
+        }
+    }
+
+    public class LeftMarginMultiplierConverter : IValueConverter
+    {
+        public double Length { get; set; }
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var item = value as TreeViewItem;
+            if (item == null)
+                return new Thickness(0);
+
+            return new Thickness(Length * item.GetDepth(), 0, 0, 0);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+
+    public class EntityVisibilityConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            bool grandParentVisibility = (bool)values[0];
+            bool parentVisibility = (bool)values[1];
+           // bool visibility;// = (bool)values[2];
+
+            if (!grandParentVisibility)
+                return false;
+            else if (!parentVisibility)
+                return false;
+            else
+                return true;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            bool visibility = (bool)value;
+            object[] ret = new object[2];
+
+            ret[0] = visibility;
+            ret[1] = visibility;
+            return ret;
         }
     }
 }

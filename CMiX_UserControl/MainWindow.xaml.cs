@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using CMiX.MVVM.Services;
 using CMiX.Studio.ViewModels;
+using CMiX.ViewModels;
 
 namespace CMiX
 {
@@ -11,10 +12,20 @@ namespace CMiX
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-
-            Project proj = new Project();
-            ProjectView.DataContext = proj;
+            ComponentManager = new ComponentManager();
+            RootView.DataContext = new Root();
         }
+
+        public static readonly DependencyProperty ComponentManagerProperty =
+         DependencyProperty.Register("ComponentManager", typeof(ComponentManager),
+         typeof(MainWindow), new FrameworkPropertyMetadata());
+
+        public ComponentManager ComponentManager
+        {
+            get { return (ComponentManager)GetValue(ComponentManagerProperty); }
+            set { SetValue(ComponentManagerProperty, value); }
+        }
+
 
         private void UndoCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
@@ -23,9 +34,9 @@ namespace CMiX
 
         private void UndoCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var proj = ProjectView.DataContext as Project;
-            if (proj.Mementor.CanUndo)
-                proj.Mementor.Undo();
+            var root = RootView.DataContext as Root;
+            if (root.Mementor.CanUndo)
+                root.Mementor.Undo();
         }
 
         private void RedoCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -35,9 +46,9 @@ namespace CMiX
 
         private void RedoCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var proj = ProjectView.DataContext as Project;
-            if (proj.Mementor.CanRedo)
-                proj.Mementor.Redo();
+            var root = RootView.DataContext as Root;
+            if (root.Mementor.CanRedo)
+                root.Mementor.Redo();
         }
     }
 }

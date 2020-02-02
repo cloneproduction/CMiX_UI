@@ -12,130 +12,116 @@ using Ceras;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Project : ViewModel, IProject
+    public class Project : Component, IProject
     {
         public Project()
         {
             MessageAddress = $"{nameof(Project)}/";
+            Name = MessageAddress;
             Assets = new Assets();
             Mementor = new Mementor();
+            MessageService = new MessageService();
+            Beat = new MasterBeat(MessageService);
+
             Servers = new ObservableCollection<Server>();
 
             ServerManager = new ServerManager();
 
             Compositions = new ObservableCollection<Composition>();
-            CompositionEditor = new CompositionEditor(Compositions, MessageAddress, Assets, Mementor);
-
-            
 
             FolderPath = string.Empty;
             Serializer = new CerasSerializer();
 
-            NewProjectCommand = new RelayCommand(p => NewProject());
-            OpenProjectCommand = new RelayCommand(p => OpenProject());
-            SaveProjectCommand = new RelayCommand(p => SaveProject());
-            SaveAsProjectCommand = new RelayCommand(p => SaveAsProject());
-            QuitCommand = new RelayCommand(p => Quit(p));
+            RenameCommand = new RelayCommand(p => Rename());
+            RemoveComponentCommand = new RelayCommand(p => RemoveComponent(p as IComponent));
         }
 
         #region PROPERTIES
-        public ICommand NewProjectCommand { get; }
-        public ICommand SaveProjectCommand { get; }
-        public ICommand SaveAsProjectCommand { get; }
-        public ICommand OpenProjectCommand { get; }
-        public ICommand QuitCommand { get; }
+        public ICommand RemoveComponentCommand { get; }
+        public ICommand RenameCommand { get; }
 
         public string MessageAddress { get; set; }
         public Mementor Mementor { get; set; }
         public Assets Assets { get; set; }
-        public CerasSerializer Serializer { get; set; }
-        public CompositionEditor CompositionEditor { get; set; }
+        public Beat Beat { get; set; }
+        public MessageService MessageService { get; set; }
 
+        public CerasSerializer Serializer { get; set; }
         public ServerManager ServerManager { get; set; }
-        public CompositionManager CompositionManager { get; set; }
 
         public ObservableCollection<Server> Servers { get; set; }
+        public string FolderPath { get; set; }
+
         public ObservableCollection<Composition> Compositions { get; set; }
 
-        public string FolderPath { get; set; }
+        public int ID { get; set; }
+
+        private string name;
+        public string Name
+        {
+            get => name;
+            set => SetAndNotify(ref name, value);
+        }
+
+        private bool _isRenaming;
+        public bool IsRenaming
+        {
+            get => _isRenaming;
+            set => SetAndNotify(ref _isRenaming, value);
+        }
+
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set => SetAndNotify(ref _isSelected, value);
+        }
+
+        private bool _isExpanded;
+        public bool IsExpanded
+        {
+            get => _isExpanded;
+            set => SetAndNotify(ref _isExpanded, value);
+        }
+
+        private Composition _selectedComposition;
+        public Composition SelectedComposition
+        {
+            get { return _selectedComposition; }
+            set { _selectedComposition = value; }
+        }
+
         #endregion
 
-        #region MENU METHODS
-        private void NewProject()
-        {
-            throw new NotImplementedException();
-        }
 
-        private void OpenProject()
-        {
-            System.Windows.Forms.OpenFileDialog opendialog = new System.Windows.Forms.OpenFileDialog();
-            opendialog.Filter = "Project (*.cmix)|*.cmix";
 
-            if (opendialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                string folderPath = opendialog.FileName;
-                if (opendialog.FileName.Trim() != string.Empty) // Check if you really have a file name 
-                {
-                    CerasSerializer serializer = new CerasSerializer();
-                    byte[] data = File.ReadAllBytes(folderPath) ;
-                    ProjectModel projectmodel = serializer.Deserialize<ProjectModel>(data);
-                    SetViewModel(projectmodel);
-                    FolderPath = folderPath;
-                }
-            }
-        }
-
-        private void SaveProject()
-        {
-            System.Windows.Forms.SaveFileDialog savedialog = new System.Windows.Forms.SaveFileDialog();
-            if(!string.IsNullOrEmpty(FolderPath))
-            {
-                var projectModel = GetModel();
-                var data = Serializer.Serialize(projectModel);
-                File.WriteAllBytes(FolderPath, data);
-            }
-            else
-            {
-                SaveAsProject();
-            }
-        }
-
-        private void SaveAsProject()
-        {
-            System.Windows.Forms.SaveFileDialog savedialog = new System.Windows.Forms.SaveFileDialog();
-            savedialog.Filter = "Project (*.cmix)|*.cmix";
-            savedialog.DefaultExt = "cmix";
-            savedialog.AddExtension = true;
-
-            if (savedialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                ProjectModel projectModel = GetModel();
-                string folderPath = savedialog.FileName;
-                var data = Serializer.Serialize(projectModel);
-                File.WriteAllBytes(folderPath, data);
-                FolderPath = folderPath;
-            }
-        }
-
-        private void Quit(object p)
-        {
-            var window = p as Window;
-            window.Close();
-        }
-        #endregion
-
-        #region COPY/PASTE
         public ProjectModel GetModel()
         {
             ProjectModel projectModel = new ProjectModel();
-            projectModel.CompositionEditorModel = CompositionEditor.GetModel();
+            //projectModel.CompositionEditorModel = CompositionEditor.GetModel();
             return projectModel;
         }
 
         public void SetViewModel(ProjectModel projectModel)
         {
-            CompositionEditor.SetViewModel(projectModel.CompositionEditorModel);
+            //CompositionEditor.SetViewModel(projectModel.CompositionEditorModel);
         }
-        #endregion
+
+        public void Rename()
+        {
+            Console.WriteLine("RenameReached");
+            IsRenaming = true;
+        }
+
+        public void AddComponent(IComponent component)
+        {
+            Compositions.Add(component as Composition);
+            IsExpanded = true;
+        }
+
+        public void RemoveComponent(IComponent component)
+        {
+            Compositions.Remove(component as Composition);
+        }
     }
 }

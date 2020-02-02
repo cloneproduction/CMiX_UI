@@ -14,7 +14,7 @@
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
+        <Resources:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
         <ObjectDataProvider x:Key="PostFXTransforms" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="ViewModels:PostFXTransforms"/>
@@ -37,7 +37,7 @@
                     <MenuItem
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.CopyPostFXCommand, Source={StaticResource proxy}}">
+                            Command="{Binding Data.CopyPostFXCommand, Source={StaticResource ProjectProxy}}">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource Copy}" />
@@ -49,7 +49,7 @@
                     <MenuItem
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.PastePostFXCommand, Source={StaticResource proxy}}">
+                            Command="{Binding Data.PastePostFXCommand, Source={StaticResource ProjectProxy}}">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource Paste}" />
@@ -61,7 +61,7 @@
                     <MenuItem
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.ResetPostFXCommand, Source={StaticResource proxy}}">
+                            Command="{Binding Data.ResetPostFXCommand, Source={StaticResource ProjectProxy}}">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource Reset}" />

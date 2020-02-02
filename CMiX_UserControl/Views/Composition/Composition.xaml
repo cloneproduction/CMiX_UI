@@ -17,7 +17,7 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
+            <Resources:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
             <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
             <Resources:AlwaysVisibleConverter x:Key="AlwaysVisibleConverter"/>
             <Resources:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
@@ -43,123 +43,31 @@
         LastChildFill="True">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3.0*"/>
-                <ColumnDefinition Width="3"/>
+                <ColumnDefinition />
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <DockPanel>
+            <DockPanel Grid.Column="0">
+                <Views:MessageService 
+                    Margin="4"
+                    DockPanel.Dock="Top"
+                    DataContext="{Binding MessageValidationManager}"/>
                 <CMiX:MasterBeatControl
                     DockPanel.Dock="Bottom"
                     DataContext="{Binding MasterBeat}"/>
-                <Views:ObjectEditor DataContext="{Binding ObjectEditor}"/>
-                <!--<Views:EntityEditor DataContext="{Binding EntityEditor}"/>-->
-                <!--<Views:LayerEditor 
+                <MVVM.Views:Slider
                     DockPanel.Dock="Top"
-                    DataContext="{Binding LayerEditor}" />-->
+                    Margin="0, 8, 0, 0"
+                    Grid.Column="1"
+                    Height="20"
+                    Caption="Transition"
+                    DataContext="{Binding Transition}"/>
             </DockPanel>
-
-            <Border
-                Grid.Column="2"
-                Padding="0"
-                Background="{StaticResource HighDarkerColor}">
-                <DockPanel>
-
-                    <Border Height="40" VerticalAlignment="Center" DockPanel.Dock="Top">
-                        <TextBlock 
-                            Padding="8"
-                            VerticalAlignment="Center"
-                            Text="{Binding Name}" 
-                            Foreground="{StaticResource ActiveTextBase}"/>
-                    </Border>
-
-                    <Separator  DockPanel.Dock="Top" Background="{StaticResource SuperHighDarkerColor}" Height="4" HorizontalAlignment="Stretch"/>
-                    <TabControl>
-                        <TabItem>
-                            <TabItem.Header>
-                                <TextBlock 
-                                    Text="LAYERS" 
-                                    Margin="8"
-                                    />
-                            </TabItem.Header>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="*"/>
-                                    
-                                </Grid.RowDefinitions>
-                                <Views:LayerPanel Margin="0, 8" DataContext="{Binding}"/>
-                                <GridSplitter Grid.Row="1" Background="{StaticResource DarkColor}" Style="{StaticResource GridSplitter}" Height="2" Margin="4, 0" HorizontalAlignment="Stretch" />
-                                <Views:EntityPanel Grid.Row="2" DataContext="{Binding SelectedLayer.Entities}"/>
-                            </Grid>
-                           
-                        </TabItem>
-                        <TabItem>
-                            <TabItem.Header>
-                                <TextBlock 
-                                Text="CAMERA" 
-                                Margin="8"
-                                />
-                            </TabItem.Header>
-                            <CMiX:Camera
-                            Margin="0, 8, 0, 0"
-                            DataContext="{Binding Camera}"
-                            />
-                        </TabItem>
-                        <TabItem>
-                            <TabItem.Header>
-                                <TextBlock 
-                                Text="MESSENGER" 
-                                Margin="8"
-                                />
-                            </TabItem.Header>
-                            <DockPanel>
-                                <!--<StackPanel DockPanel.Dock="Top">
-                                    <DockPanel Margin="4">
-                                        <TextBlock Text="Content Folder" VerticalAlignment="Center" />
-                                        <Button Height="25" Content="..." Width="25" HorizontalAlignment="Right" Margin="2">
-                                            <i:Interaction.Behaviors>
-                                                <Behavior:FolderDialogBehavior SetterName="ContentFolderName"/>
-                                            </i:Interaction.Behaviors>
-                                        </Button>
-                                    </DockPanel>
-                                    <TextBox 
-                                        Height="20" 
-                                        Margin="4" 
-                                        Foreground="{StaticResource TextBase}" 
-                                        Background="{StaticResource HighDarkerColor}" 
-                                        Text="{Binding ContentFolderName}"
-                                        />
-                                </StackPanel>-->
-                                <DockPanel Grid.Row="2" DockPanel.Dock="Bottom">
-                                    
-                                    <!--<Separator Margin="0, 8" DockPanel.Dock="Top" Background="{StaticResource DarkColor}" HorizontalAlignment="Stretch"/>-->
-                                    <!--<Border 
-                                        DockPanel.Dock="Top"
-                                        Margin="0, 0, 0 4"
-                                        Height="25">
-                                        <TextBlock
-                                            VerticalAlignment="Center"
-                                            Margin="4, 0, 0, 0"
-                                            Text="Assets"
-                                            Foreground="{StaticResource TextBase}"/>
-                                    </Border>-->
-                                    <MVVM.Views:Slider
-                                        DockPanel.Dock="Top"
-                                        Margin="0, 8, 0, 0"
-                                        Grid.Column="1"
-                                        Height="20"
-                                        Caption="Transition"
-                                        DataContext="{Binding Transition}"
-                                        />
-                                    <Views:MessageService DataContext="{Binding MessageValidationManager}"/>
-                                </DockPanel>
-                            </DockPanel>
-                        </TabItem>
-                    </TabControl>
-                </DockPanel>
-            </Border>
-            <GridSplitter Grid.Column="1" Style="{StaticResource GridSplitter}" Width="3" Margin="4, 0" HorizontalAlignment="Stretch" />
+            <DockPanel Grid.Column="1">
+                <CMiX:Camera 
+                    DockPanel.Dock="Top"
+                    Margin="4" 
+                    DataContext="{Binding Camera}"/>
+            </DockPanel>
         </Grid>
     </DockPanel>
 </UserControl>

@@ -3,20 +3,20 @@ using System.Windows.Controls;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class EditorTemplateSelector : DataTemplateSelector
+    public class ComponentPanelTemplateSelector : DataTemplateSelector
     {
-        public DataTemplate LayerTemplate { get; set; }
-        public DataTemplate EntityTemplate { get; set; }
-        public DataTemplate CompositionTemplate { get; set; }
+        public DataTemplate LayerPanelTemplate { get; set; }
+        public DataTemplate EntityPanelTemplate { get; set; }
+        public DataTemplate CompositionPanelTemplate { get; set; }
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             if (item != null && item is Composition)
-                return CompositionTemplate;
+                return CompositionPanelTemplate;
             else if (item != null && item is Layer)
-                return LayerTemplate;
+                return LayerPanelTemplate;
             else if (item != null && item is Entity)
-                return EntityTemplate;
+                return EntityPanelTemplate;
             else
                 return null;
         }

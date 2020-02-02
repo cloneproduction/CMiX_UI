@@ -23,7 +23,7 @@
                     <x:Type TypeName="ViewModels:BlendMode"/>
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
-            <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
+            <Resources:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
             <Resources:BindingProxy x:Key="CompositionProxy" Data="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type Views:Composition}}}"/>
             <Resources:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
             <Resources:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
@@ -34,7 +34,7 @@
                     <Grid.InputBindings>
                         <MouseBinding 
                             Gesture="LeftDoubleClick" 
-                            Command="{Binding Data.SelectedLayer.EntityEditor.EditEntityCommand, Source={StaticResource proxy}}"
+                            Command="{Binding Data.SelectedLayer.EntityEditor.EditEntityCommand, Source={StaticResource ProjectProxy}}"
                             CommandParameter="{Binding}"/>
                     </Grid.InputBindings>
                     <Controls:EditableTextBox IsEditing="{Binding IsRenaming}" Text="{Binding Path=Name}" />
@@ -48,8 +48,8 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <DockPanel>
-        <DockPanel Margin="0, 8" DockPanel.Dock="Top">
+    <Border Background="{StaticResource HighDarkerColor}">
+        <StackPanel Margin="0, 8" DockPanel.Dock="Top">
             <Grid Margin="2" DockPanel.Dock="Top" Height="20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -60,13 +60,13 @@
                 Grid.Column="1"
                 DockPanel.Dock="Top"
                 Height="20"
-                SelectedItem="{Binding SelectedLayer.BlendMode.Mode}"
+                SelectedItem="{Binding BlendMode.Mode}"
                 ItemsSource="{Binding Source={StaticResource BlendMode}}"/>
             </Grid>
             <MVVM.Views:Slider
                 DockPanel.Dock="Top"
-                Margin="2, 0, 2, 0"
-                DataContext="{Binding SelectedLayer.Fade}" 
+                Margin="2, 4"
+                DataContext="{Binding Fade}" 
                 Caption="Alpha"/>
             <Grid Margin="2" DockPanel.Dock="Top" Height="20">
                 <Grid.ColumnDefinitions>
@@ -74,14 +74,13 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TextBlock HorizontalAlignment="Right" Padding="4, 0" VerticalAlignment="Center" Text="Mask"/>
-                <ToggleButton Grid.Column="1" Height="20" Width="20" HorizontalAlignment="Left" IsChecked="{Binding SelectedLayer.IsMask}"/>
+                <ToggleButton Grid.Column="1" Height="20" Width="20" HorizontalAlignment="Left" IsChecked="{Binding IsMask}"/>
             </Grid>
-        </DockPanel>
-
-
-
-        <Separator DockPanel.Dock="Top" Margin="0" Background="{StaticResource HighHighDarkerColor}" Height="4" HorizontalAlignment="Stretch"/>
-        <DockPanel Margin="8" DockPanel.Dock="Bottom" LastChildFill="False">
+        </StackPanel>
+    </Border>
+    
+    <!--<Separator DockPanel.Dock="Top" Margin="0" Background="{StaticResource HighHighDarkerColor}" Height="4" HorizontalAlignment="Stretch"/>-->
+        <!--<DockPanel Margin="8" DockPanel.Dock="Bottom" LastChildFill="False">
             <Button
                 DockPanel.Dock="Left"
                 ToolTip="New Layer"
@@ -118,8 +117,8 @@
                 </Button.Content>
             </Button>
         </DockPanel>
-        <Separator  DockPanel.Dock="Bottom" Margin="0" Background="{StaticResource HighHighDarkerColor}" Height="4" HorizontalAlignment="Stretch"/>
-        <ListBox 
+        <Separator  DockPanel.Dock="Bottom" Margin="0" Background="{StaticResource HighHighDarkerColor}" Height="4" HorizontalAlignment="Stretch"/>-->
+        <!--<ListBox 
             Margin="0, 8"
             HorizontalContentAlignment="Stretch" 
             ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -135,7 +134,7 @@
                     <MenuItem
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.AddLayerCommand, Source={StaticResource proxy}}">
+                        Command="{Binding Data.AddLayerCommand, Source={StaticResource ProjectProxy}}">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource NewLayer}" />
@@ -145,10 +144,10 @@
                         </MenuItem.Header>
                     </MenuItem>
                     <MenuItem
-                        Visibility="{Binding Data.SelectedLayer, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
+                        Visibility="{Binding Data.SelectedLayer, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource ProjectProxy}}"
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.DuplicateSelectedLayerCommand, Source={StaticResource proxy}}">
+                        Command="{Binding Data.DuplicateSelectedLayerCommand, Source={StaticResource ProjectProxy}}">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource Copy}" />
@@ -158,10 +157,10 @@
                         </MenuItem.Header>
                     </MenuItem>
                     <MenuItem
-                        Visibility="{Binding Data.SelectedLayer, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
+                        Visibility="{Binding Data.SelectedLayer, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource ProjectProxy}}"
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.DuplicateSelectedLayerLinkCommand, Source={StaticResource proxy}}"
+                        Command="{Binding Data.DuplicateSelectedLayerLinkCommand, Source={StaticResource ProjectProxy}}"
                         CommandParameter="{Binding}">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
@@ -172,11 +171,11 @@
                         </MenuItem.Header>
                     </MenuItem>
                     <MenuItem
-                        Visibility="{Binding Data.SelectedLayer, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
+                        Visibility="{Binding Data.SelectedLayer, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource ProjectProxy}}"
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.ObjectEditor.RenameCommand, Source={StaticResource CompositionProxy}}"
-                        CommandParameter="{Binding Data.SelectedLayer, Source={StaticResource proxy}}">
+                        Command="{Binding Data.ComponentEditor.RenameCommand, Source={StaticResource CompositionProxy}}"
+                        CommandParameter="{Binding Data.SelectedLayer, Source={StaticResource ProjectProxy}}">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource Rename}" />
@@ -186,10 +185,10 @@
                         </MenuItem.Header>
                     </MenuItem>
                     <MenuItem
-                        Visibility="{Binding Data.SelectedLayer, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
+                        Visibility="{Binding Data.SelectedLayer, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource ProjectProxy}}"
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.DeleteSelectedLayerCommand, Source={StaticResource proxy}}">
+                        Command="{Binding Data.DeleteSelectedLayerCommand, Source={StaticResource ProjectProxy}}">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
@@ -199,10 +198,10 @@
                         </MenuItem.Header>
                     </MenuItem>
                     <MenuItem
-                        Visibility="{Binding Data.SelectedLayer, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
+                        Visibility="{Binding Data.SelectedLayer, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource ProjectProxy}}"
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.ResetLayerCommand, Source={StaticResource proxy}}">
+                        Command="{Binding Data.ResetLayerCommand, Source={StaticResource ProjectProxy}}">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource Reset}" />
@@ -220,7 +219,7 @@
                         <Border.InputBindings>
                             <MouseBinding
                                 Gesture="LeftDoubleClick" 
-                                Command="{Binding DataContext.ObjectEditor.AddEditableCommand, RelativeSource={RelativeSource AncestorType={x:Type Views:Composition}}}"
+                                Command="{Binding DataContext.ComponentEditor.AddEditableCommand, RelativeSource={RelativeSource AncestorType={x:Type Views:Composition}}}"
                                 CommandParameter="{Binding}"/>
                         </Border.InputBindings>
                         <DockPanel Height="30" DockPanel.Dock="Top">
@@ -241,11 +240,10 @@
                                 IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </DockPanel>
                     </Border>
-                    <!--<Views:ChannelLayer/>-->
+                    --><!--<Views:ChannelLayer/>--><!--
                 </DataTemplate>
             </ListBox.ItemTemplate>
-        </ListBox>
-    </DockPanel>
+        </ListBox>-->
 </UserControl>
 
 

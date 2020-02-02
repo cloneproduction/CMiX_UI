@@ -16,7 +16,7 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
+            <Resources:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
             <ObjectDataProvider x:Key="FileMask" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
                 <ObjectDataProvider.MethodParameters>
                     <x:Type TypeName="MVVM.ViewModels:GeometryFileMask"/>
@@ -34,7 +34,7 @@
                 <MenuItem
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.CopyGeometryCommand, Source={StaticResource proxy}}">
+                            Command="{Binding Data.CopyGeometryCommand, Source={StaticResource ProjectProxy}}">
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Image Width="10" Height="10" Source="{StaticResource Copy}" />
@@ -46,7 +46,7 @@
                 <MenuItem
                     Padding="8, 4"
                     Foreground="{StaticResource TextBase}"
-                    Command="{Binding Data.PasteGeometryCommand, Source={StaticResource proxy}}">
+                    Command="{Binding Data.PasteGeometryCommand, Source={StaticResource ProjectProxy}}">
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Image Width="10" Height="10" Source="{StaticResource Paste}" />
@@ -58,7 +58,7 @@
                 <MenuItem
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.ResetGeometryCommand, Source={StaticResource proxy}}">
+                        Command="{Binding Data.ResetGeometryCommand, Source={StaticResource ProjectProxy}}">
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Image Width="10" Height="10" Source="{StaticResource Reset}" />

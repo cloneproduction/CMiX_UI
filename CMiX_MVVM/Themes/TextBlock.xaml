@@ -11,7 +11,8 @@
                 <Setter Property="Opacity" Value="0.5"/>
             </Trigger>
         </Style.Triggers>
-        
+        <Setter Property="Foreground" Value="{StaticResource TextBase}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="FocusVisualStyle">
             <Setter.Value>
                 <Style>
@@ -30,6 +31,5 @@
                 </Style>
             </Setter.Value>
         </Setter>
-        <Setter Property="Foreground" Value="{StaticResource TextBase}" />
     </Style>
 </ResourceDictionary>

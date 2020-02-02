@@ -9,9 +9,10 @@ namespace CMiX.Studio.ViewModels
 {
     public class TextureItem : Item
     {
-        public TextureItem()
+        public TextureItem(string name, string path)
         {
-
+            Name = name;
+            Path = path;
         }
     }
 }

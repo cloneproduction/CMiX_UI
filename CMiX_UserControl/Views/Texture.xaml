@@ -15,7 +15,7 @@
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
+        <Resources:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
         <ObjectDataProvider x:Key="InvertMode" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="ViewModels:TextureInvertMode"/>
@@ -36,7 +36,7 @@
                         <MenuItem
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.CopyTextureCommand, Source={StaticResource proxy}}">
+                            Command="{Binding Data.CopyTextureCommand, Source={StaticResource ProjectProxy}}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Width="10" Height="10" Source="{StaticResource Copy}" />
@@ -48,7 +48,7 @@
                         <MenuItem
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.PasteTextureCommand, Source={StaticResource proxy}}">
+                            Command="{Binding Data.PasteTextureCommand, Source={StaticResource ProjectProxy}}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Width="10" Height="10" Source="{StaticResource Paste}" />
@@ -60,7 +60,7 @@
                         <MenuItem
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.ResetTextureCommand, Source={StaticResource proxy}}">
+                            Command="{Binding Data.ResetTextureCommand, Source={StaticResource ProjectProxy}}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Width="10" Height="10" Source="{StaticResource Reset}" />
@@ -80,10 +80,22 @@
                         Foreground="{StaticResource TextBase}"/>
                 </DockPanel>
             </Border>
-            <Expander Margin="0, 2" Header="Files" Style="{StaticResource ExpanderBase}">
-                <MVVM.Views:FileSelector
+            <Expander IsExpanded="True" Margin="0, 2" Header="Files" Style="{StaticResource ExpanderBase}">
+                <ComboBox 
+                    Margin="4" 
+                    Height="20" 
+                    ItemsSource="{Binding Assets.TextureItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding TextureItem}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+
+                </ComboBox>
+                <!--<MVVM.Views:FileSelector
                     Height="300"
-                    DataContext="{Binding FileSelector}"/>
+                    DataContext="{Binding FileSelector}"/>-->
             </Expander>
             <Expander Margin="0, 2" Header="Transform" Style="{StaticResource ExpanderBase}">
                 <StackPanel>

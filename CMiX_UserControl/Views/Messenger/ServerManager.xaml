@@ -11,7 +11,7 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <Resources:BindingProxy x:Key="proxy" Data="{Binding}"/>
+            <Resources:BindingProxy x:Key="ProjectProxy" Data="{Binding}"/>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -24,7 +24,7 @@
                 Padding="8"
                 DockPanel.Dock="Top"
                 Height="40">
-                <TextBlock Text="NETWORK" VerticalAlignment="Center"/>
+                <TextBlock Text="NETWORK" FontWeight="SemiBold" VerticalAlignment="Center"/>
             </Border>
             <ListBox 
                 HorizontalContentAlignment="Stretch" 
@@ -45,7 +45,7 @@
                         <MenuItem
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.AddServerCommand, Source={StaticResource proxy}}"
+                            Command="{Binding Data.AddServerCommand, Source={StaticResource ProjectProxy}}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
@@ -63,7 +63,7 @@
                         <MenuItem
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.RenameServerCommand, Source={StaticResource proxy}}"
+                            Command="{Binding Data.RenameServerCommand, Source={StaticResource ProjectProxy}}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext.SelectedServer}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
@@ -81,7 +81,7 @@
                         <MenuItem
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.DeleteServerCommand, Source={StaticResource proxy}}"
+                            Command="{Binding Data.DeleteServerCommand, Source={StaticResource ProjectProxy}}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">

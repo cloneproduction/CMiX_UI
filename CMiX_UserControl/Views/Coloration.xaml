@@ -14,7 +14,7 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
+            <Resources:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -22,16 +22,16 @@
             CornerRadius="4" Padding="8">
         <StackPanel>
             <Border
-            Height="25"
-            Margin="0, 0, 0, 2"
-            Padding="4"
-            DockPanel.Dock="Top">
+                Height="25"
+                Margin="0, 0, 0, 2"
+                Padding="4"
+                DockPanel.Dock="Top">
                 <Border.ContextMenu>
                     <ContextMenu>
                         <MenuItem
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.CopyColorationCommand, Source={StaticResource proxy}}">
+                        Command="{Binding Data.CopyColorationCommand, Source={StaticResource ProjectProxy}}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Width="10" Height="10" Source="{StaticResource Copy}" />
@@ -43,7 +43,7 @@
                         <MenuItem
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.PasteColorationCommand, Source={StaticResource proxy}}">
+                        Command="{Binding Data.PasteColorationCommand, Source={StaticResource ProjectProxy}}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Width="10" Height="10" Source="{StaticResource Paste}" />
@@ -55,7 +55,7 @@
                         <MenuItem
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.ResetColorationCommand, Source={StaticResource proxy}}">
+                        Command="{Binding Data.ResetColorationCommand, Source={StaticResource ProjectProxy}}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Width="10" Height="10" Source="{StaticResource Reset}" />

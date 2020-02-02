@@ -172,4 +172,6 @@ namespace CMiX.ColorPicker
                 return angle;
         }
     }
+
+
 }

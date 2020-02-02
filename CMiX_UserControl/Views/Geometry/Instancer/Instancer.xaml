@@ -17,7 +17,7 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
+            <Resources:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
             <Resources:BoolInverterConverter x:Key="BoolInverter" />
             <Resources:EnumToStringConverter x:Key="EnumToString" />
         </ResourceDictionary>

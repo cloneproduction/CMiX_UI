@@ -12,7 +12,7 @@
     
     <UserControl.Resources>
         <ResourceDictionary>
-            <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
+            <Resources:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
         </ResourceDictionary>
     </UserControl.Resources>
     
@@ -21,7 +21,7 @@
             <MenuItem
                 Padding="8, 4"
                 Foreground="{StaticResource TextBase}"
-                Command="{Binding Data.ResetSliderCommand, Source={StaticResource proxy}}">
+                Command="{Binding Data.ResetSliderCommand, Source={StaticResource ProjectProxy}}">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Width="10" Height="10" Source="{StaticResource Reset}" />
@@ -33,7 +33,7 @@
             <MenuItem
                 Padding="8, 4"
                 Foreground="{StaticResource TextBase}"
-                Command="{Binding Data.CopySliderCommand, Source={StaticResource proxy}}">
+                Command="{Binding Data.CopySliderCommand, Source={StaticResource ProjectProxy}}">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Width="10" Height="10" Source="{StaticResource Copy}" />
@@ -45,7 +45,7 @@
             <MenuItem
                 Padding="8, 4"
                 Foreground="{StaticResource TextBase}"
-                Command="{Binding Data.PasteSliderCommand, Source={StaticResource proxy}}">
+                Command="{Binding Data.PasteSliderCommand, Source={StaticResource ProjectProxy}}">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Width="10" Height="10" Source="{StaticResource Paste}" />

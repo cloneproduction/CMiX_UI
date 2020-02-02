@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class CompositionModel
+    public class CompositionModel : IModel
     {
         public CompositionModel()
         {

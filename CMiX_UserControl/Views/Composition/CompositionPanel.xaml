@@ -13,7 +13,12 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <Resources:BindingProxy x:Key="proxy" Data="{Binding}"/>
+            <Resources:BindingProxy 
+                x:Key="ProjectProxy" 
+                Data="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Project}}}"/>
+            <Resources:BindingProxy 
+                x:Key="RootProxy" 
+                Data="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Root}}}"/>
             <Resources:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -43,7 +48,8 @@
                         <MenuItem
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.NewCompositionCommand, Source={StaticResource proxy}}">
+                            Command="{Binding Data.ComponentManager.CreateComponentCommand, Source={StaticResource RootProxy}}"
+                            CommandParameter="{Binding}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="{StaticResource NewLayer}" Height="10" Width="10"/>
@@ -53,10 +59,10 @@
                             </MenuItem.Header>
                         </MenuItem>
                         <MenuItem
-                            Visibility="{Binding Data.SelectedComposition, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
+                            Visibility="{Binding Data.SelectedComposition, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource ProjectProxy}}"
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.RenameSelectedCompositionCommand, Source={StaticResource proxy}}">
+                            Command="{Binding Data.RenameSelectedCompositionCommand, Source={StaticResource ProjectProxy}}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Width="10" Height="10" Source="{StaticResource Rename}" />
@@ -66,10 +72,10 @@
                             </MenuItem.Header>
                         </MenuItem>
                         <MenuItem
-                            Visibility="{Binding Data.SelectedComposition, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
+                            Visibility="{Binding Data.SelectedComposition, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource ProjectProxy}}"
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.DeleteSelectedCompositionCommand, Source={StaticResource proxy}}">
+                            Command="{Binding Data.DeleteSelectedCompositionCommand, Source={StaticResource ProjectProxy}}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
@@ -79,10 +85,11 @@
                             </MenuItem.Header>
                         </MenuItem>
                         <MenuItem
-                            Visibility="{Binding Data.SelectedComposition, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource proxy}}"
+                            Visibility="{Binding Data.SelectedComposition, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource ProjectProxy}}"
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.DuplicateSelectedCompositionCommand, Source={StaticResource proxy}}">
+                            Command="{Binding Data.ComponentManager.DuplicateComponentCommand, Source={StaticResource RootProxy}}"
+                            CommandParameter="{Binding Data, Source={StaticResource ProjectProxy}}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Width="10" Height="10" Source="{StaticResource Copy}" />
@@ -102,12 +109,12 @@
                             Height="25"
                             Background="Transparent"
                             HorizontalAlignment="Stretch">
-                            <!--<Border.InputBindings>
+                            <Border.InputBindings>
                                 <MouseBinding
-                                Gesture="LeftDoubleClick" 
-                                Command="{Binding ObjectEditor.AddEditableCommand}"
-                                CommandParameter="{Binding}"/>
-                            </Border.InputBindings>-->
+                                    Gesture="LeftDoubleClick" 
+                                    Command="{Binding Data.ComponentEditor.EditComponentCommand, Source={StaticResource RootProxy}}"
+                                    CommandParameter="{Binding}"/>
+                            </Border.InputBindings>
                             <Controls:EditableTextBox 
                                 HorizontalAlignment="Stretch"
                                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

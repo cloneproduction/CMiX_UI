@@ -6,12 +6,13 @@ namespace CMiX.Studio.ViewModels
 {
     public class DirectoryItem : Item
     {
-        public DirectoryItem()
+        public DirectoryItem(string name, string path)
         {
             Items = new ObservableCollection<Item>();
             ParentDirectory = new ObservableCollection<Item>();
             IsExpanded = false;
-
+            Name = name;
+            Path = path;
             DoubleClickCommand = new RelayCommand(p => DoubleClick(p));
             SingleClickCommand = new RelayCommand(p => SingleClick(p));
             PreviewMouseUpCommand = new RelayCommand(p => PreviewMouseUp());

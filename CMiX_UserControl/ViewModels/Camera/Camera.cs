@@ -11,7 +11,7 @@ namespace CMiX.Studio.ViewModels
     public class Camera : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Camera(MessageService messageService, string messageAddress, MasterBeat masterBeat, Mementor mementor) 
+        public Camera(MessageService messageService, string messageAddress, Beat masterBeat, Mementor mementor) 
         {
             MessageService = messageService;
             MessageAddress = $"{messageAddress}{nameof(Camera)}/";

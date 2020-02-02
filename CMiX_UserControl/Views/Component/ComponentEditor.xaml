@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="CMiX.Views.ObjectEditor"
+﻿<UserControl x:Class="CMiX.Views.ComponentEditor"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -11,6 +11,9 @@
              d:DesignWidth="773.333">
 
     <UserControl.Resources>
+        <DataTemplate x:Key="CompositionTemplate" DataType="{x:Type ViewModels:Composition}">
+            <Views:Composition DataContext="{Binding}"/>
+        </DataTemplate>
         <DataTemplate x:Key="EntityTemplate" DataType="{x:Type ViewModels:Entity}">
             <Views:Entity DataContext="{Binding}"/>
         </DataTemplate>
@@ -20,7 +23,8 @@
         <ViewModels:EditorTemplateSelector 
             x:Key="TemplateSelector" 
             EntityTemplate="{StaticResource EntityTemplate}"
-            LayerTemplate="{StaticResource LayerTemplate}" />
+            LayerTemplate="{StaticResource LayerTemplate}" 
+            CompositionTemplate="{StaticResource CompositionTemplate}"/>
     </UserControl.Resources>
 
     <TabControl 

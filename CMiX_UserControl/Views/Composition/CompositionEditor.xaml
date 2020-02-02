@@ -17,5 +17,5 @@
     
     <Views:Composition 
         Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}"
-        DataContext="{Binding SelectedComposition}"/>
+        DataContext="{Binding EditableComposition}"/>
 </UserControl>

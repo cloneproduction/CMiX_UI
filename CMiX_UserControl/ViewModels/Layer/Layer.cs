@@ -7,31 +7,35 @@ using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Layer : ViewModel, ISendable, IUndoable, IEditable
+    public class Layer : ViewModel, ISendable, IUndoable, IComponent
     {
         #region CONSTRUCTORS
-        public Layer(MasterBeat masterBeat, string messageAddress, int id, MessageService messageService, Assets assets, Mementor mementor) 
+        public Layer(int id, Beat beat, string messageAddress, MessageService messageService, Assets assets, Mementor mementor) 
         {
+            ID = id;
+            Name = "Layer " + id;
+
             Enabled = false;
             MessageAddress =  $"{messageAddress}{nameof(Layer)}/{id}/";
             MessageService = messageService;
             Mementor = mementor;
             Assets = assets;
-            MasterBeat = masterBeat;
+            Beat = beat;
             ID = id;
-            Name = "Layer " + id;
 
             Entities = new ObservableCollection<Entity>();
             PostFX = new PostFX(MessageAddress, messageService, mementor);
 
-            //Content = new Content(masterBeat, MessageAddress, messageService, mementor);
-            Mask = new Mask(masterBeat, MessageAddress, messageService, mementor);
-
-            BlendMode = new BlendMode(masterBeat, MessageAddress, messageService, mementor);
+            Mask = new Mask(beat, MessageAddress, messageService, mementor);
+            BlendMode = new BlendMode(beat, MessageAddress, messageService, mementor);
             Fade = new Slider(MessageAddress + nameof(Fade), messageService, mementor);
-            
+
+            RenameCommand = new RelayCommand(p => Rename());
+            RemoveComponentCommand = new RelayCommand(p => RemoveComponent(p as IComponent));
         }
         #endregion
+        public ICommand RenameCommand { get;  }
+        public ICommand RemoveComponentCommand { get; }
 
         public ObservableCollection<Entity> Entities { get; set; }
 
@@ -61,14 +65,25 @@ namespace CMiX.Studio.ViewModels
         public bool IsVisible
         {
             get => _isVisible;
-            set => SetAndNotify(ref _isVisible, value);
+            set
+            {
+                SetAndNotify(ref _isVisible, value);
+                System.Console.WriteLine("Layer Is Visible " + IsVisible);
+            }
         }
 
-        private bool _isSelected = false;
+        private bool _isSelected;
         public bool IsSelected
         {
             get => _isSelected;
             set => SetAndNotify(ref _isSelected, value);
+        }
+
+        private bool _isExpanded;
+        public bool IsExpanded
+        {
+            get => _isExpanded;
+            set => SetAndNotify(ref _isExpanded, value);
         }
 
         private bool _isRenaming;
@@ -85,11 +100,11 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _id, value);
         }
 
-        private Beat _masterBeat;
-        public Beat MasterBeat
+        private Beat _beat;
+        public Beat Beat
         {
-            get => _masterBeat;
-            set => SetAndNotify(ref _masterBeat, value);
+            get => _beat;
+            set => SetAndNotify(ref _beat, value);
         }
 
         private bool _out;
@@ -105,6 +120,14 @@ namespace CMiX.Studio.ViewModels
                     //Sender.SendMessages(MessageAddress + nameof(Out), Out);
             }
         }
+
+        private IComponent _selectedComponent;
+        public IComponent SelectedComponent
+        {
+            get => _selectedComponent;
+            set => SetAndNotify(ref _selectedComponent, value);
+        }
+
 
         public MessageService MessageService { get; set; }
         public string MessageAddress { get; set; }
@@ -156,6 +179,22 @@ namespace CMiX.Studio.ViewModels
             Fade.Reset();
             Mask.Reset();
             PostFX.Reset();
+        }
+
+        public void AddComponent(IComponent component)
+        {
+            Entities.Add(component as Entity);
+            IsExpanded = true;
+        }
+
+        public void RemoveComponent(IComponent component)
+        {
+            Entities.Remove(component as Entity);
+        }
+
+        public void Rename()
+        {
+            IsRenaming = true;
         }
         #endregion
     }

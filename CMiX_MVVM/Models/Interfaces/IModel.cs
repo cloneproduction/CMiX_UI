@@ -8,6 +8,6 @@ namespace CMiX.MVVM.Models
 {
     public interface IModel
     {
-        string MessageAddress { get; set; }
+        
     }
 }

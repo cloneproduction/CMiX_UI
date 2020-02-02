@@ -13,10 +13,11 @@ namespace CMiX.Studio.ViewModels
     public class Texture : ViewModel, ISendable, IUndoable // ICopySetViewModel<TextureModel>
     {
         #region CONSTRUCTORS
-        public Texture(string messageaddress, MessageService messageService, Mementor mementor)
+        public Texture(string messageaddress, MessageService messageService, Assets assets, Mementor mementor)
         {
             MessageAddress = $"{messageaddress}{nameof(Texture)}/";
             MessageService = messageService;
+            Assets = assets;
 
             FileSelector = new FileSelector(MessageAddress,  "Single", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, messageService, mementor);
             FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress, messageService) { FileIsSelected = true, FileName = "Black (default).png" });
@@ -65,6 +66,8 @@ namespace CMiX.Studio.ViewModels
         public ICommand PasteTextureCommand { get; }
         public ICommand ResetTextureCommand { get; }
 
+        public TextureItem TextureItem { get; set; }
+        public Assets Assets { get; set; }
         public FileSelector FileSelector { get;  }
         public Slider Brightness { get; }
         public Slider Contrast { get; }

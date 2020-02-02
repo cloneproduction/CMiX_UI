@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace CMiX.Views
 {
     /// <summary>
-    /// Interaction logic for ObjectEditor.xaml
+    /// Interaction logic for ComponentEditor.xaml
     /// </summary>
-    public partial class ObjectEditor : UserControl
+    public partial class ComponentEditor : UserControl
     {
-        public ObjectEditor()
+        public ComponentEditor()
         {
             InitializeComponent();
         }

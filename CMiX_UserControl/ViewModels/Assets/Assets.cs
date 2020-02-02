@@ -17,7 +17,7 @@ namespace CMiX.Studio.ViewModels
         {
             GeometryItems = new ObservableCollection<GeometryItem>();
             TextureItems = new ObservableCollection<TextureItem>();
-            ResourceItems = new ObservableCollection<Item>();// GetItems("C:\\Users\\BabyClone\\Google Drive");
+            ResourceItems = new ObservableCollection<Item>();
 
             AddNewFolderCommand = new RelayCommand(p => AddNewFolder());
             RenameFolderCommand = new RelayCommand(p => RenameFolder());
@@ -28,14 +28,17 @@ namespace CMiX.Studio.ViewModels
         private void DeleteItem()
         {
             if (SelectedItem != null)
+            {
                 ResourceItems.Remove(SelectedItem);
+                UpdateTextureItem(ResourceItems);
+            }
+                
         }
 
         public void AddNewFolder()
         {
-            var item = new DirectoryItem
+            var item = new DirectoryItem("NewFolder", null)
             {
-                Name = "NewFolder",
                 ParentDirectory = ResourceItems,
                 //Path = directory.FullName,
                 //Items = GetItems(directory.FullName)
@@ -92,131 +95,80 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _textureItems, value);
         }
 
-        public ObservableCollection<Item> GetItems(string path)
+        private void UpdateTextureItem(ObservableCollection<Item> items)
         {
-            var items = new ObservableCollection<Item>();
-
-            var dirInfo = new DirectoryInfo(path);
-
-            foreach (var directory in dirInfo.GetDirectories())
+            foreach (var item in items)
             {
-                var item = new DirectoryItem
+                if (item is TextureItem)
+                    TextureItems.Add(item as TextureItem);
+                else if (item is DirectoryItem)
                 {
-                    Name = directory.Name,
-                    Path = directory.FullName,
-                    Items = GetItems(directory.FullName),
-                    ParentDirectory = items
-                };
-                items.Add(item);
-            }
-
-            foreach (var file in dirInfo.GetFiles())
-            {
-                var filetype = file.Extension.ToUpper();
-
-                if(filetype == ".PNG" || filetype == ".JPG" || filetype == ".MOV")
-                {
-                    var texture = new TextureItem
-                    {
-                        Name = file.Name,
-                        Path = file.FullName
-                    };
-                    if (!TextureItems.Contains(texture))
-                        TextureItems.Add(texture);
-                    items.Add(texture);
-                }
-                else if(filetype == ".FBX" || filetype == ".OBJ")
-                {
-                    var geometry = new GeometryItem
-                    {
-                        Name = file.Name,
-                        Path = file.FullName
-                    };
-                    if(!GeometryItems.Contains(geometry))
-                        GeometryItems.Add(geometry);
-                    items.Add(geometry);
+                    var directoryItems = item as DirectoryItem;
+                    UpdateTextureItem(directoryItems.Items);
                 }
             }
-            return items;
+        }
+
+        private Item GetItemFromDirectory(DirectoryInfo directoryInfo)
+        {
+            var directoryItem = new DirectoryItem(directoryInfo.Name, directoryInfo.FullName);
+            foreach (var directory in directoryInfo.GetDirectories())
+            {
+                directoryItem.Items.Add(GetItemFromDirectory(directory));
+            }
+
+            foreach (var file in directoryInfo.GetFiles())
+            {
+                var filetype = file.Extension.ToUpper().TrimStart('.');
+                if (filetype == TextureFileType.PNG.ToString() || filetype == TextureFileType.JPG.ToString() || filetype == TextureFileType.MOV.ToString())
+                {
+                    var texture = new TextureItem(file.Name, file.FullName);
+                    directoryItem.Items.Add(texture);
+                }
+                else if (filetype == GeometryFileType.FBX.ToString() || filetype == GeometryFileType.OBJ.ToString())
+                {
+                    var geometry = new GeometryItem(file.Name, file.FullName);
+                    directoryItem.Items.Add(geometry);
+                }
+            }
+            return directoryItem;
         }
         #endregion
 
         #region DRAG DROP
         public void DragOver(IDropInfo dropInfo)
         {
-            if (dropInfo.Data.GetType() == typeof(DirectoryItem))
-            {
-                dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
+            if(dropInfo.Data.GetType() != typeof(Item))
                 dropInfo.Effects = DragDropEffects.Copy;
-                return;
-            }
-
-
-            dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
-            var dataObject = dropInfo.Data as IDataObject;
-            var filedrop = dataObject.GetData(DataFormats.FileDrop, true);
-            var filesOrDirectories = filedrop as String[];
-
-            if (filesOrDirectories != null && filesOrDirectories.Length > 0)
-            {
-                foreach (string fullPath in filesOrDirectories)
-                {
-                    if (Directory.Exists(fullPath))
-                    {
-                        dropInfo.Effects = DragDropEffects.Copy;
-                    }
-                    else if (File.Exists(fullPath))
-                    {
-                        dropInfo.Effects = DragDropEffects.Copy;
-                    }
-                }
-            }
         }
 
         public void Drop(IDropInfo dropInfo)
         {
-            if(dropInfo.Data is DirectoryItem)
+            if(dropInfo.Data is Item && dropInfo.TargetItem is DirectoryItem)
             {
-                var targetdirectoryitem = dropInfo.TargetItem as DirectoryItem;
-                DirectoryItem droppedDirectoryItem = dropInfo.Data as DirectoryItem;
+                var droppedDirectoryItem = dropInfo.Data as Item;
+                var targetDirectoryItem = dropInfo.TargetItem as DirectoryItem;
+                var sourceCollection = dropInfo.DragInfo.SourceCollection as ObservableCollection<Item>;
 
-                if(targetdirectoryitem != droppedDirectoryItem)
-                {
-                    if (!targetdirectoryitem.Items.Contains(droppedDirectoryItem))
-                    {
-                        targetdirectoryitem.Items.Add(droppedDirectoryItem);
-                        droppedDirectoryItem.ParentDirectory.Remove(droppedDirectoryItem);
-                        droppedDirectoryItem.ParentDirectory = targetdirectoryitem.Items;
-                        droppedDirectoryItem.IsSelected = false;
-                    }
-                }
+                sourceCollection.Remove(droppedDirectoryItem);
+                targetDirectoryItem.Items.Add(droppedDirectoryItem);;
             }
 
             var dataObject = dropInfo.Data as DataObject;
+
             if (dataObject != null)
             {
                 if (dataObject.ContainsFileDropList())
                 {
-                    //Mementor.BeginBatch();
-                    var filedrop = dataObject.GetFileDropList();
-
-                    foreach (string str in filedrop)
+                    var fileDrop = dataObject.GetFileDropList();
+                    foreach (string str in fileDrop)
                     {
-                        if (Directory.Exists(str))
-                        {
-                            ResourceItems.Clear();
-                            GeometryItems.Clear();
-                            TextureItems.Clear();
-                            this.ResourceItems = GetItems(str);
-                        }
-                        else if (File.Exists(str))
-                        {
-                        }
+                        var dirInfo = new DirectoryInfo(str);
+                        ResourceItems.Add(GetItemFromDirectory(dirInfo));
                     }
-                    //Mementor.EndBatch();
+                    UpdateTextureItem(ResourceItems);
                 }
             }
-
         }
 
         public void StartDrag(IDragInfo dragInfo)

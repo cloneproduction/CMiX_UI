@@ -122,6 +122,7 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Padding" Value="3"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
@@ -137,10 +138,12 @@
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsChecked" Value="true" />
                             </MultiTrigger.Conditions>
-                            <MultiTrigger.Setters>
+                            <Setter TargetName="ImageIcon" Property="Source" Value="{StaticResource Visible}"/>
+                            <!--<MultiTrigger.Setters>
                                 <Setter TargetName="ImageIcon" Property="Source" Value="{StaticResource Visible}"/>
-                            </MultiTrigger.Setters>
+                            </MultiTrigger.Setters>-->
                         </MultiTrigger>
+                        
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsChecked" Value="false" />
@@ -149,6 +152,16 @@
                                 <Setter TargetName="ImageIcon" Property="Source" Value="{StaticResource NotVisible}"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
+                        
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsEnabled" Value="false" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="ImageIcon" Property="Source" Value="{StaticResource NotVisible}"/>
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsChecked" Value="true" />
@@ -159,6 +172,7 @@
                                 <Setter TargetName="ImageIcon" Property="Opacity" Value="0.9"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
+                        
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsChecked" Value="false" />
@@ -169,6 +183,7 @@
                                 <Setter TargetName="ImageIcon" Property="Opacity" Value="0.9"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
+                        
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

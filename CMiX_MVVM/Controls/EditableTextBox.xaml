@@ -6,22 +6,23 @@
              xmlns:local="clr-namespace:CMiX.MVVM.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid >
+
+    <Grid>
         <TextBlock 
             x:Name="TextDisplay" 
             VerticalAlignment="Center"
-            Background="Transparent" 
-            Foreground="{StaticResource TextBase}"
             Text="{Binding Path=Text, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:EditableTextBox}}}" />
+            
         <TextBox
             x:Name="TextInput" 
-            Padding="2"
-            SelectionBrush="Transparent"
+            SelectionBrush="{StaticResource SuperHighLightColor}"
             CaretBrush="{StaticResource SuperHighLightColor}"
+            Padding="2"
             BorderThickness="0"
             VerticalAlignment="Center"
-            Background="Transparent" 
+            Background="{StaticResource HighDarkerColor}" 
             Foreground="{StaticResource ActiveTextBase}" 
             Text="{Binding Path=Text, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:EditableTextBox}}}" />
     </Grid>
+
 </UserControl>

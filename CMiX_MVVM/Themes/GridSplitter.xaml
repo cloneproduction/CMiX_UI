@@ -19,7 +19,7 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="border" Property="Background" Value="{StaticResource Color}" />
-                            <Setter Property="Foreground" Value="{StaticResource TextBase}" />
+                            <!--<Setter Property="Foreground" Value="{StaticResource TextBase}" />-->
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

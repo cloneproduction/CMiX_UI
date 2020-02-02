@@ -14,7 +14,7 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
+            <Resources:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
             <ObjectDataProvider x:Key="MaskType" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
                 <ObjectDataProvider.MethodParameters>
                     <x:Type TypeName="ViewModels:MaskType"/>
@@ -38,7 +38,7 @@
                     <MenuItem
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.CopyMaskCommand, Source={StaticResource proxy}}">
+                        Command="{Binding Data.CopyMaskCommand, Source={StaticResource ProjectProxy}}">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource Copy}" />
@@ -50,7 +50,7 @@
                     <MenuItem
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.PasteMaskCommand, Source={StaticResource proxy}}">
+                        Command="{Binding Data.PasteMaskCommand, Source={StaticResource ProjectProxy}}">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource Paste}" />
@@ -62,7 +62,7 @@
                     <MenuItem
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.ResetMaskCommand, Source={StaticResource proxy}}">
+                        Command="{Binding Data.ResetMaskCommand, Source={StaticResource ProjectProxy}}">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource Reset}" />
@@ -73,14 +73,11 @@
                     </MenuItem>
                 </ContextMenu>
             </Border.ContextMenu>
-            <DockPanel>
-                <Label
-                    Content="MASK"
-                    HorizontalAlignment="Left"
-                    DockPanel.Dock="Left"
-                    FontWeight="SemiBold"
-                    FontSize="12"/>
-            </DockPanel>
+            <Label
+                Content="MASK"
+                HorizontalAlignment="Left"
+                DockPanel.Dock="Left"
+                FontWeight="SemiBold"/>
         </Border>
         <Expander
             Margin="0, 1"

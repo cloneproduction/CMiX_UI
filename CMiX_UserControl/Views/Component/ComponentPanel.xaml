@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="CMiX.Views.ComponentPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Views="clr-namespace:CMiX.Views"
+             xmlns:ViewModels="clr-namespace:CMiX.Studio.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="429.545" d:DesignWidth="322.727">
+
+
+    <UserControl.Resources>
+        <DataTemplate x:Key="CompositionPanelTemplate" DataType="{x:Type ViewModels:Composition}">
+            <Views:ComponentPanel DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Key="EntityPanelTemplate" DataType="{x:Type ViewModels:Entity}">
+            <Views:EntityPanel DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Key="LayerPanelTemplate" DataType="{x:Type ViewModels:Layer}">
+            <Views:LayerPanel DataContext="{Binding}"/>
+        </DataTemplate>
+        <ViewModels:ComponentPanelTemplateSelector 
+            x:Key="TemplateSelector" 
+            EntityPanelTemplate="{StaticResource EntityPanelTemplate}"
+            LayerPanelTemplate="{StaticResource LayerPanelTemplate}" 
+            CompositionPanelTemplate="{StaticResource CompositionPanelTemplate}"/>
+    </UserControl.Resources>
+
+    <ContentPresenter 
+        DataContext="{Binding ComponentManager.SelectedComponent}"
+        Content="{Binding ComponentManager.SelectedComponent}"
+        ContentTemplateSelector="{StaticResource TemplateSelector}">
+    </ContentPresenter>
+</UserControl>

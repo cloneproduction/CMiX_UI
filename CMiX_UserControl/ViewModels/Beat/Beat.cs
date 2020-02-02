@@ -1,4 +1,6 @@
 ﻿using System.Windows.Input;
+using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using Memento;
 
@@ -20,6 +22,7 @@ namespace CMiX.Studio.ViewModels
         public ICommand MultiplyCommand { get; }
         public ICommand DivideCommand { get; }
 
+        //public MessageService MessageService { get; set; }
         public abstract double Period { get; set; }
 
         private double _bpm;
@@ -60,5 +63,20 @@ namespace CMiX.Studio.ViewModels
 
         protected void OnPeriodChanged(double newPeriod) => PeriodChanged?.Invoke(this, newPeriod);
         #endregion
+
+        public MasterBeatModel GetModel()
+        {
+            MasterBeatModel masterBeatModel = new MasterBeatModel();
+            masterBeatModel.Period = Period;
+            return masterBeatModel;
+            
+        }
+
+        public void SetViewModel(MasterBeatModel masterBeatControl)
+        {
+            //MessageService.Disable();
+            Period = masterBeatControl.Period;
+            //MessageService.Enable();
+        }
     }
 }

@@ -15,11 +15,10 @@ namespace CMiX.Studio.ViewModels
 
         int LayerID = 0;
         public MessageService MessageService { get; set; }
-        //public ObservableCollection<Layer> Layers { get; set; }
 
         public Layer CreateLayer(Composition context)
         {
-            Layer newLayer = new Layer(context.MasterBeat, context.MessageAddress, LayerID, context.MessageService, context.Assets, context.Mementor);
+            Layer newLayer = new Layer(LayerID, context.Beat, context.MessageAddress,  context.MessageService, context.Assets, context.Mementor);
             context.Layers.Add(newLayer);
             context.SelectedLayer = newLayer;
             MessageService.SendMessages(context.MessageAddress, MessageCommand.LAYER_ADD, null, newLayer.GetModel());
@@ -37,7 +36,7 @@ namespace CMiX.Studio.ViewModels
                 layerModel.ID = LayerID;
                 layerModel.Name = SelectedLayer.Name + "- Copy";
 
-                Layer newLayer = new Layer(context.MasterBeat, context.MessageAddress, LayerID, context.MessageService, context.Assets, context.Mementor);
+                Layer newLayer = new Layer(LayerID, context.Beat, context.MessageAddress, context.MessageService, context.Assets, context.Mementor);
                 newLayer.SetViewModel(layerModel);
                 MessageService.SendMessages(context.MessageAddress, MessageCommand.LAYER_DUPLICATE, null, layerModel);
 
@@ -61,7 +60,7 @@ namespace CMiX.Studio.ViewModels
                 layerModel.ID = LayerID;
                 layerModel.Name = SelectedLayer.Name + "- Link";
 
-                Layer newLayer = new Layer(composition.MasterBeat, composition.MessageAddress, LayerID, composition.MessageService, composition.Assets, composition.Mementor);
+                Layer newLayer = new Layer(LayerID, composition.Beat, composition.MessageAddress, composition.MessageService, composition.Assets, composition.Mementor);
                 newLayer.SetViewModel(layerModel);
 
                 newLayer.Entities.Clear();

@@ -21,7 +21,7 @@ namespace CMiX.Studio.ViewModels
 
         public Entity CreateEntity(Layer layer)
         {
-            Entity entity = new Entity(layer.MasterBeat, EntityID, layer.MessageAddress, layer.MessageService, layer.Mementor);
+            Entity entity = new Entity(EntityID, layer.Beat, layer.MessageAddress, layer.MessageService, layer.Assets, layer.Mementor);
             layer.Entities.Add(entity);
             layer.SelectedEntity = entity;
             EntityID++;
@@ -49,7 +49,7 @@ namespace CMiX.Studio.ViewModels
             {
                 EntityModel entityModel = layer.SelectedEntity.GetModel();
 
-                Entity entity = new Entity(layer.MasterBeat, EntityID, layer.MessageAddress, layer.MessageService, layer.Mementor);
+                Entity entity = new Entity(EntityID, layer.Beat,  layer.MessageAddress, layer.MessageService, layer.Assets, layer.Mementor);
                 entity.SetViewModel(entityModel);
                 entity.Name += "- Copy";
                 layer.SelectedEntity = entity;
@@ -76,7 +76,7 @@ namespace CMiX.Studio.ViewModels
             {
                 EntityModel currentEntityModel = currentContext.SelectedEntity.GetModel();
 
-                Entity entity = new Entity(newContext.Beat, EntityID, newContext.MessageAddress, newContext.MessageService, newContext.Mementor);
+                Entity entity = new Entity(EntityID, newContext.Beat, newContext.MessageAddress, newContext.MessageService, newContext.Assets, newContext.Mementor);
                 entity.SetViewModel(currentEntityModel);
                 entity.Name = "Entity " + EntityID.ToString();
                 newContext.SelectedEntity = entity;

@@ -12,7 +12,7 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
+            <Resources:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
             <Resources:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -23,7 +23,7 @@
                 <MenuItem
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.CopyContentCommand, Source={StaticResource proxy}}">
+                        Command="{Binding Data.CopyContentCommand, Source={StaticResource ProjectProxy}}">
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Image Width="10" Height="10" Source="{StaticResource Copy}" />
@@ -35,7 +35,7 @@
                 <MenuItem
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.PasteContentCommand, Source={StaticResource proxy}}">
+                        Command="{Binding Data.PasteContentCommand, Source={StaticResource ProjectProxy}}">
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Image Width="10" Height="10" Source="{StaticResource Paste}" />
@@ -47,7 +47,7 @@
                 <MenuItem
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.ResetContentCommand, Source={StaticResource proxy}}">
+                        Command="{Binding Data.ResetContentCommand, Source={StaticResource ProjectProxy}}">
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Image Width="10" Height="10" Source="{StaticResource Reset}" />

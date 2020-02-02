@@ -10,13 +10,13 @@ using Memento;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class CompositionEditor : ViewModel, ICompositionEditor
+    public class CompositionEditor : ViewModel
     {
-        public CompositionEditor(ObservableCollection<Composition> compositions, string messageAddress, Assets assets, Mementor mementor)
+        public CompositionEditor(ObservableCollection<IComponent> compositions, string messageAddress, Assets assets, Mementor mementor)
         {
             Mementor = mementor;
 
-            CompositionManager = new CompositionManager(compositions);
+            CompositionManager = new CompositionManager();
 
             Compositions = compositions;
             MessageAddress = messageAddress;
@@ -26,8 +26,7 @@ namespace CMiX.Studio.ViewModels
             DeleteSelectedCompositionCommand = new RelayCommand(p => DeleteSelectedComposition());
             DuplicateSelectedCompositionCommand = new RelayCommand(p => DuplicateSelectedComposition());
             RenameSelectedCompositionCommand = new RelayCommand(p => RenameSelectedComposition());
-            ImportCompoCommand = new RelayCommand(p => ImportCompo());
-            ExportCompoCommand = new RelayCommand(p => ExportCompo());
+
             ReloadCompositionCommand = new RelayCommand(p => ReloadComposition(p));
         }
 
@@ -51,7 +50,7 @@ namespace CMiX.Studio.ViewModels
 
         public CerasSerializer Serializer { get; set; }
 
-        public ObservableCollection<Composition> Compositions { get; set; }
+        public ObservableCollection<IComponent> Compositions { get; set; }
 
         private Composition _selectedComposition;
         public Composition SelectedComposition
@@ -71,22 +70,22 @@ namespace CMiX.Studio.ViewModels
         #region NEW/DELETE/DUPLICATE COMPOSITION
         private void NewComposition()
         {
-            CompositionManager.CreateSelectedComposition(this);
-            CompositionModel compositionModel = SelectedComposition.GetModel();
-            MessageService.SendMessages(SelectedComposition.MessageAddress, MessageCommand.COMPOSITION_ADD, null, compositionModel);
+            //CompositionManager.CreateSelectedComposition(this);
+            //CompositionModel compositionModel = SelectedComposition.GetModel();
+            //MessageService.SendMessages(SelectedComposition.MessageAddress, MessageCommand.COMPOSITION_ADD, null, compositionModel);
         }
 
         private void DeleteSelectedComposition()
         {
-            CompositionModel compositionModel = SelectedComposition.GetModel();
-            CompositionManager.DeleteComposition(this);
-            MessageService.SendMessages(MessageAddress, MessageCommand.COMPOSITION_DELETE, null, compositionModel);
+            //CompositionModel compositionModel = SelectedComposition.GetModel();
+            //CompositionManager.DeleteComposition(this);
+            //MessageService.SendMessages(MessageAddress, MessageCommand.COMPOSITION_DELETE, null, compositionModel);
         }
 
         private void DuplicateSelectedComposition()
         {
-            CompositionManager.DuplicateComposition(this);
-            MessageService.SendMessages(SelectedComposition.MessageAddress, MessageCommand.COMPOSITION_DUPLICATE, null, SelectedComposition.GetModel());
+            //CompositionManager.DuplicateComposition(this);
+            //MessageService.SendMessages(SelectedComposition.MessageAddress, MessageCommand.COMPOSITION_DUPLICATE, null, SelectedComposition.GetModel());
         }
 
         private void RenameSelectedComposition()
@@ -106,41 +105,41 @@ namespace CMiX.Studio.ViewModels
         }
 
         #region IMPORT/EXPORT
-        private void ImportCompo()
-        {
-            System.Windows.Forms.OpenFileDialog opendialog = new System.Windows.Forms.OpenFileDialog();
-            opendialog.Filter = "Compo (*.compmix)|*.compmix";
-            opendialog.DefaultExt = "compmix";
+        //private void ImportCompo()
+        //{
+        //    System.Windows.Forms.OpenFileDialog opendialog = new System.Windows.Forms.OpenFileDialog();
+        //    opendialog.Filter = "Compo (*.compmix)|*.compmix";
+        //    opendialog.DefaultExt = "compmix";
 
-            if (opendialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                string folderPath = opendialog.FileName;
-                if (opendialog.FileName.Trim() != string.Empty) // Check if you really have a file name 
-                {
-                    byte[] data = File.ReadAllBytes(folderPath);
-                    CompositionModel compositionmodel = Serializer.Deserialize<CompositionModel>(data);
-                    CompositionManager.CreateSelectedComposition(this);
-                    SelectedComposition.SetViewModel(compositionmodel);
-                }
-            }
-        }
+        //    if (opendialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+        //    {
+        //        string folderPath = opendialog.FileName;
+        //        if (opendialog.FileName.Trim() != string.Empty) // Check if you really have a file name 
+        //        {
+        //            byte[] data = File.ReadAllBytes(folderPath);
+        //            CompositionModel compositionmodel = Serializer.Deserialize<CompositionModel>(data);
+        //            CompositionManager.CreateSelectedComposition(this);
+        //            SelectedComposition.SetViewModel(compositionmodel);
+        //        }
+        //    }
+        //}
 
-        private void ExportCompo()
-        {
-            System.Windows.Forms.SaveFileDialog savedialog = new System.Windows.Forms.SaveFileDialog();
-            savedialog.Filter = "Compo (*.compmix)|*.compmix";
-            savedialog.DefaultExt = "compmix";
-            savedialog.FileName = SelectedComposition.Name;
-            savedialog.AddExtension = true;
+        //private void ExportCompo()
+        //{
+        //    System.Windows.Forms.SaveFileDialog savedialog = new System.Windows.Forms.SaveFileDialog();
+        //    savedialog.Filter = "Compo (*.compmix)|*.compmix";
+        //    savedialog.DefaultExt = "compmix";
+        //    savedialog.FileName = SelectedComposition.Name;
+        //    savedialog.AddExtension = true;
 
-            if (savedialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                CompositionModel compositionmodel = SelectedComposition.GetModel();
-                string folderPath = savedialog.FileName;
-                var data = Serializer.Serialize(compositionmodel);
-                File.WriteAllBytes(folderPath, data);
-            }
-        }
+        //    if (savedialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+        //    {
+        //        CompositionModel compositionmodel = SelectedComposition.GetModel();
+        //        string folderPath = savedialog.FileName;
+        //        var data = Serializer.Serialize(compositionmodel);
+        //        File.WriteAllBytes(folderPath, data);
+        //    }
+        //}
         #endregion
 
         #region COPY/PASTE MODEL
