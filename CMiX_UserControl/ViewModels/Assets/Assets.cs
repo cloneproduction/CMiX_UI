@@ -112,26 +112,35 @@ namespace CMiX.Studio.ViewModels
         private Item GetItemFromDirectory(DirectoryInfo directoryInfo)
         {
             var directoryItem = new DirectoryItem(directoryInfo.Name, directoryInfo.FullName);
-            foreach (var directory in directoryInfo.GetDirectories())
-            {
-                directoryItem.Items.Add(GetItemFromDirectory(directory));
-            }
 
-            foreach (var file in directoryInfo.GetFiles())
+            if (directoryInfo.Exists)
             {
-                var filetype = file.Extension.ToUpper().TrimStart('.');
-                if (filetype == TextureFileType.PNG.ToString() || filetype == TextureFileType.JPG.ToString() || filetype == TextureFileType.MOV.ToString())
+                foreach (var directory in directoryInfo.GetDirectories())
+                    directoryItem.Items.Add(GetItemFromDirectory(directory));
+
+                foreach (var file in directoryInfo.GetFiles())
                 {
-                    var texture = new TextureItem(file.Name, file.FullName);
-                    directoryItem.Items.Add(texture);
-                }
-                else if (filetype == GeometryFileType.FBX.ToString() || filetype == GeometryFileType.OBJ.ToString())
-                {
-                    var geometry = new GeometryItem(file.Name, file.FullName);
-                    directoryItem.Items.Add(geometry);
+                    var item = GetFileItem(file.FullName);
+                    if (item != null)
+                    {
+                        directoryItem.Items.Add(item);
+                    }
                 }
             }
             return directoryItem;
+        }
+
+        private Item GetFileItem(string filePath)
+        {
+            string fileType = Path.GetExtension(filePath).ToUpper().TrimStart('.');
+            string fileName = Path.GetFileName(filePath);
+
+            if (fileType == TextureFileType.PNG.ToString() || fileType == TextureFileType.JPG.ToString() || fileType == TextureFileType.MOV.ToString())
+                return new TextureItem(fileName, filePath);
+            else if (fileType == GeometryFileType.FBX.ToString() || fileType == GeometryFileType.OBJ.ToString())
+                return new GeometryItem(fileName, filePath);
+            else
+                return null;
         }
         #endregion
 
@@ -144,30 +153,56 @@ namespace CMiX.Studio.ViewModels
 
         public void Drop(IDropInfo dropInfo)
         {
-            if(dropInfo.Data is Item && dropInfo.TargetItem is DirectoryItem)
+            var dataObject = dropInfo.Data as DataObject;
+            if (dataObject != null && dataObject.ContainsFileDropList())
+            {
+                foreach (string str in dataObject.GetFileDropList())
+                {
+                    var dirInfo = new DirectoryInfo(str);
+
+                    if (File.Exists(str))
+                    {
+                        Item item = GetFileItem(str);
+                        if (item != null)
+                        {
+                            if (dropInfo.TargetItem is DirectoryItem)
+                            {
+                                var directoryItem = dropInfo.TargetItem as DirectoryItem;
+                                directoryItem.Items.Add(item);
+                            }
+                            else
+                            {
+                                ResourceItems.Add(item);
+                            }
+                        }
+                    }
+                    else if (Directory.Exists(str))
+                    {
+                        Item item = GetItemFromDirectory(dirInfo);
+                        if(item != null)
+                        {
+                            if (dropInfo.TargetItem is DirectoryItem)
+                            {
+                                var directoryItem = dropInfo.TargetItem as DirectoryItem;
+                                directoryItem.Items.Add(item);
+                            }
+                            else
+                            {
+                                ResourceItems.Add(item);
+                            }
+                        }
+                    }
+                }
+                UpdateTextureItem(ResourceItems);
+            }
+            else if (dropInfo.Data is Item && dropInfo.TargetItem is DirectoryItem)
             {
                 var droppedDirectoryItem = dropInfo.Data as Item;
                 var targetDirectoryItem = dropInfo.TargetItem as DirectoryItem;
                 var sourceCollection = dropInfo.DragInfo.SourceCollection as ObservableCollection<Item>;
 
                 sourceCollection.Remove(droppedDirectoryItem);
-                targetDirectoryItem.Items.Add(droppedDirectoryItem);;
-            }
-
-            var dataObject = dropInfo.Data as DataObject;
-
-            if (dataObject != null)
-            {
-                if (dataObject.ContainsFileDropList())
-                {
-                    var fileDrop = dataObject.GetFileDropList();
-                    foreach (string str in fileDrop)
-                    {
-                        var dirInfo = new DirectoryInfo(str);
-                        ResourceItems.Add(GetItemFromDirectory(dirInfo));
-                    }
-                    UpdateTextureItem(ResourceItems);
-                }
+                targetDirectoryItem.Items.Add(droppedDirectoryItem); ;
             }
         }
 
