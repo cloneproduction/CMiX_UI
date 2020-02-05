@@ -122,9 +122,7 @@ namespace CMiX.Studio.ViewModels
                 {
                     var item = GetFileItem(file.FullName);
                     if (item != null)
-                    {
                         directoryItem.Items.Add(item);
-                    }
                 }
             }
             return directoryItem;
