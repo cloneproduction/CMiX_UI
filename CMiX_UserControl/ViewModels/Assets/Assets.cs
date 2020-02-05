@@ -113,17 +113,14 @@ namespace CMiX.Studio.ViewModels
         {
             var directoryItem = new DirectoryItem(directoryInfo.Name, directoryInfo.FullName);
 
-            if (directoryInfo.Exists)
-            {
-                foreach (var directory in directoryInfo.GetDirectories())
-                    directoryItem.Items.Add(GetItemFromDirectory(directory));
+            foreach (var directory in directoryInfo.GetDirectories())
+                directoryItem.Items.Add(GetItemFromDirectory(directory));
 
-                foreach (var file in directoryInfo.GetFiles())
-                {
-                    var item = GetFileItem(file.FullName);
-                    if (item != null)
-                        directoryItem.Items.Add(item);
-                }
+            foreach (var file in directoryInfo.GetFiles())
+            {
+                var item = GetFileItem(file.FullName);
+                if (item != null)
+                    directoryItem.Items.Add(item);
             }
             return directoryItem;
         }
