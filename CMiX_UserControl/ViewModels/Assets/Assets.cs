@@ -19,12 +19,21 @@ namespace CMiX.Studio.ViewModels
             TextureItems = new ObservableCollection<TextureItem>();
             ResourceItems = new ObservableCollection<Item>();
 
-            AddNewFolderCommand = new RelayCommand(p => AddNewFolder());
-            RenameFolderCommand = new RelayCommand(p => RenameFolder());
+            AddDirectoryItemCommand = new RelayCommand(p => AddDirectoryItem());
             DeleteItemCommand = new RelayCommand(p => DeleteItem());
+            RenameSelectedItemCommand = new RelayCommand(p => RenameSelectedItem());
         }
 
         #region METHODS
+        public ICommand RenameSelectedItemCommand { get; set; }
+        public ICommand AddDirectoryItemCommand { get; set; }
+
+        public void RenameSelectedItem()
+        {
+            if(SelectedItem != null)
+                SelectedItem.IsRenaming = true;
+        }
+
         private void DeleteItem()
         {
             if (SelectedItem != null)
@@ -32,38 +41,18 @@ namespace CMiX.Studio.ViewModels
                 ResourceItems.Remove(SelectedItem);
                 UpdateTextureItem(ResourceItems);
             }
-                
         }
 
-        public void AddNewFolder()
+        public void AddDirectoryItem()
         {
-            var item = new DirectoryItem("NewFolder", null)
-            {
-                ParentDirectory = ResourceItems,
-                //Path = directory.FullName,
-                //Items = GetItems(directory.FullName)
-            };
-
-            if (SelectedItem != null)
-            {
-                ResourceItems.Insert(ResourceItems.IndexOf(SelectedItem), item);
-            }
-            else
-                ResourceItems.Add(item);
+            var directoryItem = new DirectoryItem("NewFolder", null);
+            ResourceItems.Add(directoryItem);
         }
 
-        private void RenameFolder()
-        {
-            if(SelectedItem is DirectoryItem)
-            {
-                DirectoryItem dirItem = SelectedItem as DirectoryItem;
-                dirItem.IsEditing = true;
-            }
-        }
+
         #endregion
 
         #region PROPERTIES
-        public ICommand RenameFolderCommand { get; set; }
         public ICommand AddNewFolderCommand { get; set; }
         public ICommand DeleteItemCommand { get; set; }
 

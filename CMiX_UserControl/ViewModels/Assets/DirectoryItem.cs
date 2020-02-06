@@ -9,64 +9,14 @@ namespace CMiX.Studio.ViewModels
         public DirectoryItem(string name, string path)
         {
             Items = new ObservableCollection<Item>();
-            ParentDirectory = new ObservableCollection<Item>();
             IsExpanded = false;
             Name = name;
             Path = path;
-            DoubleClickCommand = new RelayCommand(p => DoubleClick(p));
-            SingleClickCommand = new RelayCommand(p => SingleClick(p));
-            PreviewMouseUpCommand = new RelayCommand(p => PreviewMouseUp());
+
+            AddNewDirectoryItemCommand = new RelayCommand(p => AddNewDirectoryItem());
         }
 
-        public ICommand DoubleClickCommand { get; set; }
-        public ICommand SingleClickCommand { get; set; }
-        public ICommand PreviewMouseUpCommand { get; set; }
-
-        private void PreviewMouseUp()
-        {
-
-        }
-
-        private void DoubleClick(object obj)
-        {
-
-        }
-
-        private void SingleClick(object obj)
-        {
-
-        }
-
-        private bool _canEdit;
-        public bool CanEdit
-        {
-            get => _canEdit;
-            set
-            {
-                SetAndNotify(ref _canEdit, value);
-            }
-        }
-
-        private bool _isEditing;
-        public bool IsEditing
-        {
-            get => _isEditing;
-            set
-            {
-                SetAndNotify(ref _isEditing, value);
-            }
-        }
-
-        private bool _isExpanded;
-        public bool IsExpanded
-        {
-            get => _isExpanded;
-            set
-            {
-                SetAndNotify(ref _isExpanded, value);
-            }
-        }
-
+        public ICommand AddNewDirectoryItemCommand { get; set; }
 
 
         private ObservableCollection<Item> _items;
@@ -76,12 +26,10 @@ namespace CMiX.Studio.ViewModels
             set { _items = value; }
         }
 
-        private ObservableCollection<Item> _parentDirectory;
-        public ObservableCollection<Item> ParentDirectory
+        public void AddNewDirectoryItem()
         {
-            get { return _parentDirectory; }
-            set { _parentDirectory = value; }
+            DirectoryItem directoryItem = new DirectoryItem("NewFolder", null);
+            Items.Add(directoryItem);
         }
-
     }
 }

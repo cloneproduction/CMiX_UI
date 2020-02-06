@@ -121,10 +121,10 @@
                         <Border.ContextMenu>
                             <ContextMenu>
                                 <MenuItem
-                                Padding="8, 4"
-                                Foreground="{StaticResource TextBase}"
-                                Command="{Binding Data.ComponentManager.CreateComponentCommand, Source={StaticResource RootProxy}}"
-                                CommandParameter="{Binding}">
+                                    Padding="8, 4"
+                                    Foreground="{StaticResource TextBase}"
+                                    Command="{Binding Data.ComponentManager.CreateComponentCommand, Source={StaticResource RootProxy}}"
+                                    CommandParameter="{Binding}">
                                     <MenuItem.Header>
                                         <StackPanel Orientation="Horizontal">
                                             <Image Width="10" Height="10" Source="{StaticResource Copy}" />
@@ -134,9 +134,9 @@
                                     </MenuItem.Header>
                                 </MenuItem>
                                 <MenuItem
-                                Padding="8, 4"
-                                Foreground="{StaticResource TextBase}"
-                                Command="{Binding RenameCommand}">
+                                    Padding="8, 4"
+                                    Foreground="{StaticResource TextBase}"
+                                    Command="{Binding RenameCommand}">
                                     <MenuItem.Header>
                                         <StackPanel Orientation="Horizontal">
                                             <Image Width="10" Height="10" Source="{StaticResource Rename}" />
@@ -157,11 +157,11 @@
 
                 <HierarchicalDataTemplate DataType="{x:Type ViewModels:Composition}" ItemsSource="{Binding Layers}">
                     <Border 
-                    Background="Transparent"
-                    Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=2, AncestorType={x:Type TreeViewItem}}}"
-                    Height="30" 
-                    VerticalAlignment="Center"
-                    ContextMenu="{StaticResource OutlineContextMenu}">
+                        Background="Transparent"
+                        Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=2, AncestorType={x:Type TreeViewItem}}}"
+                        Height="30" 
+                        VerticalAlignment="Center"
+                        ContextMenu="{StaticResource OutlineContextMenu}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="PreviewMouseRightButtonDown">
                                 <ei:ChangePropertyAction PropertyName="IsSelected" Value="true" TargetObject="{Binding}"/>
@@ -178,10 +178,10 @@
                                 Style="{StaticResource ToggleVisibility}"/>
                             </Border>
                             <Controls:EditableTextBox 
-                            Padding="0, 4" 
-                            VerticalAlignment="Center" 
-                            IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                            Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                Padding="0, 4" 
+                                VerticalAlignment="Center" 
+                                IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </DockPanel>
                     </Border>
                 </HierarchicalDataTemplate>
