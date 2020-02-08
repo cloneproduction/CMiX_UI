@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CMiX.MVVM.ViewModels;
 
@@ -9,6 +10,9 @@ namespace CMiX.Studio.ViewModels
         public Item()
         {
             RenameCommand = new RelayCommand(p => Rename());
+            RemoveItemCommand = new RelayCommand(p => RemoveItem(p as Item));
+            AddDirectoryItemCommand = new RelayCommand(p => AddDirectoryItem());
+            Items = new ObservableCollection<Item>();
         }
 
         private void Rename()
@@ -17,6 +21,8 @@ namespace CMiX.Studio.ViewModels
         }
 
         public ICommand RenameCommand { get; set; }
+        public ICommand RemoveItemCommand { get; set; }
+        public ICommand AddDirectoryItemCommand { get; set; }
 
         private string _path;
         public string Path
@@ -51,6 +57,25 @@ namespace CMiX.Studio.ViewModels
         {
             get => _isExpanded;
             set => SetAndNotify(ref _isExpanded, value);
+        }
+
+        private ObservableCollection<Item> _items;
+        public ObservableCollection<Item> Items
+        {
+            get { return _items; }
+            set { _items = value; }
+        }
+
+        public void RemoveItem(Item item)
+        {
+            if (Items.Contains(item))
+                Items.Remove(item);
+        }
+
+        public void AddDirectoryItem()
+        {
+            DirectoryItem directoryItem = new DirectoryItem("New Folder", null);
+            Items.Add(directoryItem);
         }
     }
 }

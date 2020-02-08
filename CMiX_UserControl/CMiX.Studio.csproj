@@ -130,6 +130,7 @@
     <Compile Include="Behaviors\TreeViewItemClickBehavior.cs" />
     <Compile Include="Behaviors\TextBoxFocusBehavior.cs" />
     <Compile Include="ViewModels\Assets\EnumFileType.cs" />
+    <Compile Include="ViewModels\Assets\RootItem.cs" />
     <Compile Include="ViewModels\Component\Component.cs" />
     <Compile Include="ViewModels\Component\ComponentManager.cs" />
     <Compile Include="ViewModels\Component\ComponentPanelTemplateSelector.cs" />

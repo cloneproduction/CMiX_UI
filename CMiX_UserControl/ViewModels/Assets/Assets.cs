@@ -19,6 +19,8 @@ namespace CMiX.Studio.ViewModels
             TextureItems = new ObservableCollection<TextureItem>();
             ResourceItems = new ObservableCollection<Item>();
 
+            ResourceItems.Add(new RootItem("Resources"));
+
             AddDirectoryItemCommand = new RelayCommand(p => AddDirectoryItem());
             DeleteItemCommand = new RelayCommand(p => DeleteItem());
             RenameSelectedItemCommand = new RelayCommand(p => RenameSelectedItem());
@@ -46,7 +48,15 @@ namespace CMiX.Studio.ViewModels
         public void AddDirectoryItem()
         {
             var directoryItem = new DirectoryItem("NewFolder", null);
-            ResourceItems.Add(directoryItem);
+            if(SelectedItem is DirectoryItem)
+            {
+                var dir = SelectedItem as DirectoryItem;
+                dir.Items.Add(directoryItem);
+            }
+            else if (SelectedItem is null && ResourceItems.Count > 0)
+            {
+                ResourceItems[0].Items.Add(directoryItem);
+            }
         }
 
 
@@ -156,7 +166,7 @@ namespace CMiX.Studio.ViewModels
                             }
                             else
                             {
-                                ResourceItems.Add(item);
+                                ResourceItems[0].Items.Add(item);
                             }
                         }
                     }
@@ -172,21 +182,25 @@ namespace CMiX.Studio.ViewModels
                             }
                             else
                             {
-                                ResourceItems.Add(item);
+                                ResourceItems[0].Items.Add(item);
                             }
                         }
                     }
                 }
                 UpdateTextureItem(ResourceItems);
             }
+
             else if (dropInfo.Data is Item && dropInfo.TargetItem is DirectoryItem)
             {
                 var droppedDirectoryItem = dropInfo.Data as Item;
                 var targetDirectoryItem = dropInfo.TargetItem as DirectoryItem;
                 var sourceCollection = dropInfo.DragInfo.SourceCollection as ObservableCollection<Item>;
 
-                sourceCollection.Remove(droppedDirectoryItem);
-                targetDirectoryItem.Items.Add(droppedDirectoryItem); ;
+                if(sourceCollection != targetDirectoryItem.Items)
+                {
+                    sourceCollection.Remove(droppedDirectoryItem);
+                    targetDirectoryItem.Items.Add(droppedDirectoryItem);
+                }
             }
         }
 
@@ -216,22 +230,7 @@ namespace CMiX.Studio.ViewModels
 
         public void Dropped(IDropInfo dropInfo)
         {
-            if (dropInfo.DragInfo != null)
-            {
-                if (dropInfo.DragInfo.VisualSource == dropInfo.VisualTarget && dropInfo.Data is Item)
-                {
-                    Item item = dropInfo.Data as Item;
-                    if(dropInfo.VisualTarget.GetType() == typeof(DirectoryItem))
-                    {
-                        Console.WriteLine("DropOnDirectoryItem");
-                    }
-                    //FilePaths.Insert(dropInfo.InsertIndex, newfilenameitem);
-                    //FilePaths.Remove(filenameitem);
-                    //newfilenameitem.FileIsSelected = true;
-                    //SelectedFileNameItem = newfilenameitem;
-                    //Mementor.ElementAdd(FilePaths, newfilenameitem);
-                }
-            }
+            //throw new NotImplementedException();
         }
 
         public void DragDropOperationFinished(DragDropEffects operationResult, IDragInfo dragInfo)

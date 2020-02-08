@@ -17,44 +17,107 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <Resources:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
-            <Resources:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
+            <Resources:BindingProxy x:Key="AssetsProxy" Data="{Binding}" />
 
-            <HierarchicalDataTemplate DataType="{x:Type ViewModels:DirectoryItem}" ItemsSource="{Binding Items}">
+            <ContextMenu x:Key="RootItemContextMenu">
+                <MenuItem
+                    Padding="8, 4"
+                    Foreground="{StaticResource TextBase}"
+                    Command="{Binding AddDirectoryItemCommand}">
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
+                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                            <TextBlock Text="Add Folder"/>
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+            </ContextMenu>
+            
+            <ContextMenu x:Key="DirectoryItemContextMenu">
+                <MenuItem
+                    Padding="8, 4"
+                    Foreground="{StaticResource TextBase}"
+                    Command="{Binding AddDirectoryItemCommand}">
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
+                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                            <TextBlock Text="Add Folder"/>
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+                <MenuItem
+                    Padding="8, 4"
+                    Foreground="{StaticResource TextBase}"
+                    Command="{Binding RenameCommand}">
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="10" Height="10" Source="{StaticResource Copy}" />
+                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                            <TextBlock Text="Rename"/>
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+                <MenuItem
+                    Padding="8, 4"
+                    Foreground="{StaticResource TextBase}"
+                    Command="{Binding Path=PlacementTarget.Tag.RemoveItemCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"
+                    CommandParameter="{Binding}">
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
+                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                            <TextBlock Text="Delete"/>
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+            </ContextMenu>
+
+            <ContextMenu x:Key="ItemContextMenu">
+                <MenuItem
+                    Padding="8, 4"
+                    Foreground="{StaticResource TextBase}"
+                    Command="{Binding Path=PlacementTarget.Tag.RemoveItemCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"
+                    CommandParameter="{Binding}">
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
+                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                            <TextBlock Text="Delete"/>
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+            </ContextMenu>
+
+            <HierarchicalDataTemplate DataType="{x:Type ViewModels:RootItem}" ItemsSource="{Binding Items}">
                 <Border 
                     Height="30" 
                     HorizontalAlignment="Stretch"
-                    Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=2, AncestorType={x:Type TreeViewItem}}}">
+                    Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=2, AncestorType={x:Type TreeViewItem}}}"
+                    ContextMenu="{StaticResource RootItemContextMenu}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="PreviewMouseRightButtonDown">
                             <ei:ChangePropertyAction PropertyName="IsSelected" Value="true" TargetObject="{Binding}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                    <Border.Style>
-                        <Style TargetType="{x:Type Border}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                    <Setter Property="Background" Value="{StaticResource LightColor}"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Border.Style>
-                    <Border>
-                        <Border.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem
-                                    Padding="8, 4"
-                                    Foreground="{StaticResource TextBase}"
-                                    Command="{Binding RenameCommand}">
-                                    <MenuItem.Header>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Image Width="10" Height="10" Source="{StaticResource Copy}" />
-                                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                            <TextBlock Text="Rename"/>
-                                        </StackPanel>
-                                    </MenuItem.Header>
-                                </MenuItem>
-                            </ContextMenu>
-                        </Border.ContextMenu>
+                    <TextBlock Text="{Binding Name}"/>
+                </Border>
+            </HierarchicalDataTemplate>
+            
+            <HierarchicalDataTemplate DataType="{x:Type ViewModels:DirectoryItem}" ItemsSource="{Binding Items}">
+                <Border 
+                    Height="30" 
+                    HorizontalAlignment="Stretch"
+                    Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=2, AncestorType={x:Type TreeViewItem}}}"
+                    ContextMenu="{StaticResource DirectoryItemContextMenu}">
+                    
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PreviewMouseRightButtonDown">
+                            <ei:ChangePropertyAction PropertyName="IsSelected" Value="true" TargetObject="{Binding}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
                         <DockPanel >
                             <Image Margin="6" Opacity="0.75" DockPanel.Dock="Left">
                                 <Image.Style>
@@ -74,11 +137,13 @@
                                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </DockPanel>
                     </Border>
-                </Border>
             </HierarchicalDataTemplate>
 
             <DataTemplate DataType="{x:Type ViewModels:TextureItem}">
-                <Border Margin="0, 1" Height="30">
+                <Border 
+                    Margin="0, 1" 
+                    Height="30"
+                    ContextMenu="{StaticResource ItemContextMenu}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="PreviewMouseRightButtonDown">
                             <ei:ChangePropertyAction PropertyName="IsSelected" Value="true" TargetObject="{Binding}"/>
@@ -94,7 +159,10 @@
             </DataTemplate>
 
             <DataTemplate  DataType="{x:Type ViewModels:GeometryItem}">
-                <Border Margin="0, 1" Height="30">
+                <Border 
+                    ContextMenu="{StaticResource ItemContextMenu}"
+                    Margin="0, 1" 
+                    Height="30">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="PreviewMouseRightButtonDown">
                             <ei:ChangePropertyAction PropertyName="IsSelected" Value="true" TargetObject="{Binding}"/>
@@ -110,18 +178,7 @@
     </UserControl.Resources>
 
     <Border Background="{StaticResource HighDarkerColor}">
-        <DockPanel>
-            <Border 
-                VerticalAlignment="Center"
-                Padding="8"
-                DockPanel.Dock="Top"
-                BorderBrush="{StaticResource SuperHighDarkerColor}"
-                BorderThickness="0, 0, 0, 1"
-                Height="40">
-                <TextBlock Text="RESOURCES" FontWeight="SemiBold" VerticalAlignment="Center"/>
-            </Border>
-
-            <TreeView 
+        <TreeView 
                 Background="Transparent"
                 AllowDrop="True"
                 dd:DragDrop.SelectDroppedItems="True"
@@ -134,8 +191,10 @@
                     <Behaviors:BindableSelectedItemBehavior SelectedItem="{Binding SelectedItem, Mode=TwoWay}"/>
                 </i:Interaction.Behaviors>
                 <TreeView.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem
+                    <ContextMenu 
+                        ItemsSource="{Binding SelectedItem}">
+                        
+                        <!--<MenuItem
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
                             Command="{Binding AddDirectoryItemCommand}">
@@ -148,7 +207,7 @@
                             </MenuItem.Header>
                         </MenuItem>
                         <MenuItem
-                            Visibility="{Binding SelectedItem, Converter={StaticResource NullToVisibilityConverter}}"
+                            Visibility="{Binding SelectedItem, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}}"
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
                             Command="{Binding RenameSelectedItemCommand}">
@@ -159,10 +218,15 @@
                                     <TextBlock Text="Rename"/>
                                 </StackPanel>
                             </MenuItem.Header>
-                        </MenuItem>
+                        </MenuItem>-->
                     </ContextMenu>
                 </TreeView.ContextMenu>
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="TreeViewItem" BasedOn="{StaticResource {x:Type TreeViewItem}}">
+                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+                        <Setter Property="IsExpanded" Value="{Binding IsExpanded}"/>
+                    </Style>
+                </TreeView.ItemContainerStyle>
             </TreeView>
-        </DockPanel>
     </Border>
 </UserControl>

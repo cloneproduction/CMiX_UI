@@ -188,11 +188,11 @@
 
                 <HierarchicalDataTemplate DataType="{x:Type ViewModels:Layer}" ItemsSource="{Binding Entities}">
                     <Border 
-                    Background="Transparent"
-                    Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=2, AncestorType={x:Type TreeViewItem}}}"
-                    Height="30" 
-                    VerticalAlignment="Center"
-                    ContextMenu="{StaticResource OutlineContextMenu}">
+                        Background="Transparent"
+                        Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=2, AncestorType={x:Type TreeViewItem}}}"
+                        Height="30" 
+                        VerticalAlignment="Center"
+                        ContextMenu="{StaticResource OutlineContextMenu}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="PreviewMouseRightButtonDown">
                                 <ei:ChangePropertyAction PropertyName="IsSelected" Value="true" TargetObject="{Binding}"/>

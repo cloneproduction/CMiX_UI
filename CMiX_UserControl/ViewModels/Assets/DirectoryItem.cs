@@ -19,12 +19,7 @@ namespace CMiX.Studio.ViewModels
         public ICommand AddNewDirectoryItemCommand { get; set; }
 
 
-        private ObservableCollection<Item> _items;
-        public ObservableCollection<Item> Items
-        {
-            get { return _items; }
-            set { _items = value; }
-        }
+
 
         public void AddNewDirectoryItem()
         {
