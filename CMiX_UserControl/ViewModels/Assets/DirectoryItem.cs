@@ -4,27 +4,75 @@ using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class DirectoryItem : Item
+    public class DirectoryItem : ViewModel, IAssets
     {
         public DirectoryItem(string name, string path)
         {
-            Items = new ObservableCollection<Item>();
+            Assets = new ObservableCollection<IAssets>();
             IsExpanded = false;
             Name = name;
             Path = path;
 
-            AddNewDirectoryItemCommand = new RelayCommand(p => AddNewDirectoryItem());
+            AddAssetCommand = new RelayCommand(p => AddAsset());
+            RenameCommand = new RelayCommand(p => Rename());
         }
 
-        public ICommand AddNewDirectoryItemCommand { get; set; }
+        public ICommand AddAssetCommand { get; set; }
+        public ICommand RenameCommand { get; set; }
+        public ICommand RemoveAssetCommand { get; set; }
 
+        public ObservableCollection<IAssets> Assets { get; set; }
 
-
-
-        public void AddNewDirectoryItem()
+        private string _path;
+        public string Path
         {
-            DirectoryItem directoryItem = new DirectoryItem("NewFolder", null);
-            Items.Add(directoryItem);
+            get => _path;
+            set => SetAndNotify(ref _path, value);
+        }
+
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set => SetAndNotify(ref _name, value);
+        }
+
+        private bool _isRenaming;
+        public bool IsRenaming
+        {
+            get => _isRenaming;
+            set => SetAndNotify(ref _isRenaming, value);
+        }
+
+        private bool _isExpanded;
+        public bool IsExpanded
+        {
+            get => _isExpanded;
+            set => SetAndNotify(ref _isExpanded, value);
+        }
+
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set => SetAndNotify(ref _isSelected, value);
+        }
+        
+
+        public void AddAsset()
+        {
+            IAssets directoryItem = new DirectoryItem("NewFolder", null);
+            Assets.Add(directoryItem);
+        }
+
+        public void RemoveAsset()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Rename()
+        {
+            this.IsRenaming = true;
         }
     }
 }

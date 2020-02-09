@@ -130,6 +130,7 @@
     <Compile Include="Behaviors\TreeViewItemClickBehavior.cs" />
     <Compile Include="Behaviors\TextBoxFocusBehavior.cs" />
     <Compile Include="ViewModels\Assets\EnumFileType.cs" />
+    <Compile Include="ViewModels\Assets\IAssets.cs" />
     <Compile Include="ViewModels\Assets\RootItem.cs" />
     <Compile Include="ViewModels\Component\Component.cs" />
     <Compile Include="ViewModels\Component\ComponentManager.cs" />
@@ -158,10 +159,8 @@
     <Compile Include="ViewModels\Entity\ISendableEntityContext.cs" />
     <Compile Include="ViewModels\Layer\BlendMode.cs" />
     <Compile Include="ViewModels\Assets\DirectoryItem.cs" />
-    <Compile Include="ViewModels\Assets\FileItem.cs" />
     <Compile Include="ViewModels\Assets\TextureItem.cs" />
     <Compile Include="ViewModels\Assets\GeometryItem.cs" />
-    <Compile Include="ViewModels\Assets\Item.cs" />
     <Compile Include="ViewModels\Assets\Assets.cs" />
     <Compile Include="ViewModels\Geometry\Instancer\AnimParameter.cs" />
     <Compile Include="ViewModels\Geometry\Instancer\ScaleModifier.cs" />

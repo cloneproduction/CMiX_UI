@@ -136,7 +136,7 @@ namespace CMiX.Studio.ViewModels
                 dropInfo.Effects = DragDropEffects.Copy;
             }
 
-            if(dropInfo.Data is Item)
+            if(dropInfo.Data is IAssets)
             {
                 dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
                 dropInfo.Effects = DragDropEffects.Copy;
