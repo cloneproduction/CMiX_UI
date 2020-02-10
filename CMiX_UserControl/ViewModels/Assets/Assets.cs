@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using CMiX.MVVM;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.Resources;
 using CMiX.MVVM.ViewModels;
 using GongSolutions.Wpf.DragDrop;
+using System.Linq;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -58,10 +61,7 @@ namespace CMiX.Studio.ViewModels
             {
                 foreach (var asset in assets)
                 {
-                    if(asset is DirectoryItem)
-                    {
-                        DeleteItem(asset.Assets);
-                    }
+                    DeleteItem(asset.Assets);
                 }
             }
         }
@@ -122,14 +122,12 @@ namespace CMiX.Studio.ViewModels
         {
             foreach (var asset in assets)
             {
-                if (asset is TextureItem)
+                if (asset is TextureItem && !assets.Contains(asset))
                     TextureItems.Add(asset as TextureItem);
                 else if (asset is DirectoryItem)
-                {
-                    var directoryItems = asset as DirectoryItem;
-                    UpdateTextureItem(directoryItems.Assets);
-                }
+                    UpdateTextureItem(((DirectoryItem)asset).Assets);
             }
+            Console.WriteLine("UpdateTextureItem");
         }
 
         private IAssets GetItemFromDirectory(DirectoryInfo directoryInfo)
@@ -165,7 +163,6 @@ namespace CMiX.Studio.ViewModels
         #region DRAG DROP
         public void DragOver(IDropInfo dropInfo)
         {
-            var droppedAssets = dropInfo.Data as IAssets;
             var dataObject = dropInfo.Data as DataObject;
 
             if (dataObject != null && dataObject.ContainsFileDropList())
@@ -173,140 +170,70 @@ namespace CMiX.Studio.ViewModels
 
             if (dropInfo.DragInfo != null)
             {
-                if (dropInfo.TargetItem == dropInfo.DragInfo.SourceItem)
+                var vSourceItem = dropInfo.DragInfo.VisualSourceItem as TreeViewItem;
+                var vSourceChild = Utils.FindVisualChildren<TreeViewItem>(vSourceItem);
+                var vTargetItem = dropInfo.VisualTargetItem as TreeViewItem;
+
+                if (vSourceItem == vTargetItem || vSourceChild.ToList().Contains(vTargetItem) || vTargetItem == null)
                     dropInfo.Effects = DragDropEffects.None;
                 else
                     dropInfo.Effects = DragDropEffects.Copy;
             }
-
-            if(dropInfo.VisualTarget == dropInfo.DragInfo.VisualSource)
-            {
-                Console.WriteLine("EPOUETPOUETPOEUT");
-                dropInfo.Effects = DragDropEffects.None;
-            }
-                
-            //if (dropInfo.TargetItem is DirectoryItem)
-            //{
-            //    //Console.WriteLine("Target is DirectoryItem");
-            //    var targetDirectoryItem = dropInfo.TargetItem as DirectoryItem;
-
-            //    //Console.WriteLine("ContainsTarget " + ContainsTarget(droppedAssets, targetDirectoryItem).ToString());
-            //    if (ContainsTarget(droppedAssets, targetDirectoryItem))  
-            //        dropInfo.Effects = DragDropEffects.None;
-            //}
-
-            //if(dropInfo.TargetItem is RootItem)
-            //{
-            //    dropInfo.Effects = DragDropEffects.Copy;
-            //}
-
         }
 
         public void Drop(IDropInfo dropInfo)
         {
             var dataObject = dropInfo.Data as DataObject;
-            var droppedAssets = dropInfo.Data as IAssets;
-            var sourceCollection = dropInfo.DragInfo.SourceCollection as ObservableCollection<IAssets>;
 
             if (dataObject != null && dataObject.ContainsFileDropList())
             {
                 foreach (string str in dataObject.GetFileDropList())
                 {
-                    var dirInfo = new DirectoryInfo(str);
+                    IAssets item = null;
 
                     if (File.Exists(str))
+                        item = GetFileItem(str);
+
+                    if(Directory.Exists(str))
+                        item = GetItemFromDirectory(new DirectoryInfo(str));
+
+                    if (item != null)
                     {
-                        IAssets item = GetFileItem(str);
-                        if (item != null)
+                        if (dropInfo.TargetItem is DirectoryItem)
                         {
-                            if (dropInfo.TargetItem is DirectoryItem)
-                            {
-                                var directoryItem = dropInfo.TargetItem as DirectoryItem;
-                                directoryItem.Assets.Add(item);
-                            }
-                            else
-                            {
-                                ResourceItems[0].Assets.Add(item);
-                            }
+                            var directoryItem = dropInfo.TargetItem as DirectoryItem;
+                            directoryItem.Assets.Add(item);
                         }
-                    }
-                    else if (Directory.Exists(str))
-                    {
-                        IAssets item = GetItemFromDirectory(dirInfo);
-                        if(item != null)
+                        else
                         {
-                            if (dropInfo.TargetItem is DirectoryItem)
-                            {
-                                var directoryItem = dropInfo.TargetItem as DirectoryItem;
-                                directoryItem.Assets.Add(item);
-                            }
-                            else
-                            {
-                                ResourceItems[0].Assets.Add(item);
-                            }
+                            ResourceItems[0].Assets.Add(item);
                         }
                     }
                 }
-                UpdateTextureItem(ResourceItems);
                 return;
             }
-
-            else if (dropInfo.Data is IAssets && dropInfo.TargetItem != dropInfo.DragInfo.SourceItem)
+            else if (dropInfo.DragInfo.Data is IAssets)
             {
-                if(dropInfo.TargetItem is DirectoryItem)
+                if (dropInfo.TargetItem is DirectoryItem || dropInfo.TargetItem is RootItem)
                 {
-                    var targetDirectoryItem = dropInfo.TargetItem as DirectoryItem;
-                    sourceCollection.Remove(droppedAssets);
-                    targetDirectoryItem.Assets.Add(droppedAssets);
-                    targetDirectoryItem.IsExpanded = true;
-                    SelectedItem = droppedAssets;
-                }
-                else if(dropInfo.TargetItem is RootItem)
-                {
-                    var targetDirectoryItem = dropInfo.TargetItem as RootItem;
+                    var sourceCollection = dropInfo.DragInfo.SourceCollection as ObservableCollection<IAssets>;
+                    var targetDirectoryItem = dropInfo.TargetItem as IAssets;
+                    var droppedAssets = dropInfo.Data as IAssets;
                     sourceCollection.Remove(droppedAssets);
                     targetDirectoryItem.Assets.Add(droppedAssets);
                     targetDirectoryItem.IsExpanded = true;
                     SelectedItem = droppedAssets;
                 }
             }
+
+            UpdateTextureItem(ResourceItems);
         }
 
-        public bool TargetIsSourceParent(IAssets droppedAsset, IAssets targetDirectory)
-        {
-            bool IsSourceParent = false;
-
-            foreach (var item in targetDirectory.Assets)
-            {
-                if (item == droppedAsset)
-                    IsSourceParent = true;
-            }
-
-            return IsSourceParent;
-        }
-
-
-        public bool ContainsTarget(IAssets droppedAsset, IAssets target)
-        {
-            bool containsTarget = false;
-
-            foreach (IAssets item in droppedAsset.Assets)
-            {
-                if (item == target)
-                    containsTarget = true;
-                else
-                    containsTarget = ContainsTarget(item, target);
-                    
-            }
-            return containsTarget;
-        }
 
         public void StartDrag(IDragInfo dragInfo)
         {
-            Console.WriteLine("StartDrag");
             if (dragInfo.SourceItem is IAssets )
             {
-                Console.WriteLine("Dragging IAssets");
                 IAssets item = (IAssets)dragInfo.SourceItem;
                 dragInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
                 dragInfo.Data = item;

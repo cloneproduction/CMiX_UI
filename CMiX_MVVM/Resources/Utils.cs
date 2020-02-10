@@ -101,15 +101,20 @@ namespace CMiX.MVVM.Resources
 
         public static T FindParent<T>(DependencyObject child) where T : DependencyObject
         {
-            var parent = VisualTreeHelper.GetParent(child);
+            if (child != null)
+            {
+                var parent = VisualTreeHelper.GetParent(child);
 
-            if (parent == null)
-                return null;
+                if (parent == null)
+                    return null;
 
-            if (parent is T)
-                return parent as T;
+                if (parent is T)
+                    return parent as T;
+                else
+                    return FindParent<T>(parent);
+            }
             else
-                return FindParent<T>(parent);
+                return null;
         }
 
         public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject

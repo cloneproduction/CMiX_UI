@@ -33,10 +33,7 @@
             </HierarchicalDataTemplate>
             
             <HierarchicalDataTemplate DataType="{x:Type ViewModels:DirectoryItem}" ItemsSource="{Binding Assets}">
-                <Border 
-                    Height="30" 
-                    HorizontalAlignment="Stretch">
-                    
+                <Border Height="30" HorizontalAlignment="Stretch">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="PreviewMouseRightButtonDown">
                             <ei:ChangePropertyAction PropertyName="IsSelected" Value="true" TargetObject="{Binding}"/>
@@ -139,9 +136,9 @@
                             <DataTemplate DataType="{x:Type ViewModels:DirectoryItem}">
                                 <StackPanel>
                                     <MenuItem
-                                    Padding="8, 4"
-                                    Foreground="{StaticResource TextBase}"
-                                    Command="{Binding AddAssetCommand}">
+                                        Padding="8, 4"
+                                        Foreground="{StaticResource TextBase}"
+                                        Command="{Binding AddAssetCommand}">
                                         <MenuItem.Header>
                                             <StackPanel Orientation="Horizontal">
                                                 <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
