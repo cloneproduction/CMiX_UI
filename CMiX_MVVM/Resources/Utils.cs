@@ -137,6 +137,43 @@ namespace CMiX.MVVM.Resources
             }
         }
 
+        public static T FindVisualAncestor<T>(this DependencyObject obj)
+            where T : DependencyObject
+        {
+            var parent = VisualTreeHelper.GetParent(obj.FindVisualTreeRoot());
+
+            while (parent != null)
+            {
+                if (parent is T)
+                {
+                    return (T)parent;
+                }
+
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+
+            return null;
+        }
+
+        public static DependencyObject FindVisualTreeRoot(this DependencyObject obj)
+        {
+            var current = obj;
+            var result = obj;
+
+            while (current != null)
+            {
+                result = current;
+                if (current is Visual)//|| current is Visual3D)
+                {
+                    break;
+                }
+
+                // If the current item is not a visual, try to walk up the logical tree.
+                current = LogicalTreeHelper.GetParent(current);
+            }
+
+            return result;
+        }
 
         #region COLOR UTILS
         public static void ConvertRgbToHsv(Color color, out double hue, out double saturation, out double value)

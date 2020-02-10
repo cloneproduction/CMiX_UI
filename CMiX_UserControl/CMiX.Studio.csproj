@@ -102,6 +102,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
@@ -129,6 +132,8 @@
     <Compile Include="Behaviors\ClickBehavior.cs" />
     <Compile Include="Behaviors\TreeViewItemClickBehavior.cs" />
     <Compile Include="Behaviors\TextBoxFocusBehavior.cs" />
+    <Compile Include="Behaviors\TreeViewMultiSelectionBehavior.cs" />
+    <Compile Include="ViewModels\Assets\ItemPonderation.cs" />
     <Compile Include="ViewModels\Assets\EnumFileType.cs" />
     <Compile Include="ViewModels\Assets\IAssets.cs" />
     <Compile Include="ViewModels\Assets\RootItem.cs" />

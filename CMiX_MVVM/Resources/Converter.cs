@@ -1,6 +1,8 @@
 ﻿using CMiX.MVVM.Resources;
 using ColorMine.ColorSpaces;
 using System;
+using System.Collections;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Windows;
@@ -898,6 +900,26 @@ namespace CMiX.MVVM.Resources
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new System.NotImplementedException();
+        }
+    }
+
+    public class SortTreeViewItemConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            IList collection = value as IList;
+            ListCollectionView view = new ListCollectionView(collection);
+            SortDescription ponderation = new SortDescription("Ponderation", ListSortDirection.Ascending);
+            SortDescription sort = new SortDescription(parameter.ToString(), ListSortDirection.Ascending);
+            view.SortDescriptions.Add(ponderation);
+            view.SortDescriptions.Add(sort);
+            
+            return view;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
         }
     }
 }

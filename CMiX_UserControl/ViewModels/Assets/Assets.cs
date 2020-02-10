@@ -11,7 +11,7 @@ using CMiX.MVVM.Resources;
 using CMiX.MVVM.ViewModels;
 using GongSolutions.Wpf.DragDrop;
 using System.Linq;
-
+using System.Linq.Dynamic;
 namespace CMiX.Studio.ViewModels
 {
     public class Assets : ViewModel, IDropTarget, IDragSource
@@ -36,7 +36,7 @@ namespace CMiX.Studio.ViewModels
 
         public void RenameSelectedItem()
         {
-            if(SelectedItem != null)
+            if (SelectedItem != null)
                 SelectedItem.IsRenaming = true;
         }
 
@@ -69,15 +69,17 @@ namespace CMiX.Studio.ViewModels
         public void AddDirectoryItem()
         {
             var directoryItem = new DirectoryItem("NewFolder", null);
-            if(SelectedItem is DirectoryItem)
+            Console.WriteLine("AddDirectoryItem");
+            if (SelectedItem is DirectoryItem)
             {
-                var dir = SelectedItem as DirectoryItem;
-                dir.Assets.Add(directoryItem);
+                var selectedItem = SelectedItem as DirectoryItem;
+                selectedItem.Assets.Add(directoryItem);
+                //OrderThoseGroups(selectedItem.Assets);
             }
-            else if (SelectedItem is null && ResourceItems.Count > 0)
-            {
+
+
+            else if (SelectedItem is null && ResourceItems != null)
                 ResourceItems[0].Assets.Add(directoryItem);
-            }
         }
 
 
@@ -104,19 +106,8 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _resourceItems, value);
         }
 
-        private ObservableCollection<GeometryItem> _geometryItems;
-        public ObservableCollection<GeometryItem> GeometryItems
-        {
-            get => _geometryItems;
-            set => SetAndNotify(ref _geometryItems, value);
-        }
-
-        private ObservableCollection<TextureItem> _textureItems;
-        public ObservableCollection<TextureItem> TextureItems
-        {
-            get => _textureItems;
-            set => SetAndNotify(ref _textureItems, value);
-        }
+        public ObservableCollection<GeometryItem> GeometryItems;
+        public ObservableCollection<TextureItem> TextureItems;
 
         private void UpdateTextureItem(ObservableCollection<IAssets> assets)
         {
@@ -165,19 +156,24 @@ namespace CMiX.Studio.ViewModels
         {
             var dataObject = dropInfo.Data as DataObject;
 
+
             if (dataObject != null && dataObject.ContainsFileDropList())
-                dropInfo.Effects = DragDropEffects.Copy;
+                dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
 
             if (dropInfo.DragInfo != null)
             {
+                var targetItem = dropInfo.TargetItem;
                 var vSourceItem = dropInfo.DragInfo.VisualSourceItem as TreeViewItem;
                 var vSourceChild = Utils.FindVisualChildren<TreeViewItem>(vSourceItem);
                 var vTargetItem = dropInfo.VisualTargetItem as TreeViewItem;
 
+                if (targetItem is DirectoryItem)
+                    dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
+
                 if (vSourceItem == vTargetItem || vSourceChild.ToList().Contains(vTargetItem) || vTargetItem == null)
                     dropInfo.Effects = DragDropEffects.None;
                 else
-                    dropInfo.Effects = DragDropEffects.Copy;
+                    dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
             }
         }
 
@@ -194,41 +190,55 @@ namespace CMiX.Studio.ViewModels
                     if (File.Exists(str))
                         item = GetFileItem(str);
 
-                    if(Directory.Exists(str))
+                    if (Directory.Exists(str))
                         item = GetItemFromDirectory(new DirectoryInfo(str));
 
                     if (item != null)
                     {
                         if (dropInfo.TargetItem is DirectoryItem)
                         {
-                            var directoryItem = dropInfo.TargetItem as DirectoryItem;
+                            var directoryItem = (DirectoryItem)dropInfo.TargetItem;
                             directoryItem.Assets.Add(item);
+                            //OrderThoseGroups(directoryItem.Assets);
                         }
+
                         else
-                        {
                             ResourceItems[0].Assets.Add(item);
-                        }
                     }
                 }
-                return;
             }
+
             else if (dropInfo.DragInfo.Data is IAssets)
             {
-                if (dropInfo.TargetItem is DirectoryItem || dropInfo.TargetItem is RootItem)
+                var targetItem = dropInfo.TargetItem;
+                if (targetItem is DirectoryItem || targetItem is RootItem)
                 {
                     var sourceCollection = dropInfo.DragInfo.SourceCollection as ObservableCollection<IAssets>;
-                    var targetDirectoryItem = dropInfo.TargetItem as IAssets;
+                    var targetCollection = dropInfo.TargetCollection as ObservableCollection<IAssets>;
                     var droppedAssets = dropInfo.Data as IAssets;
-                    sourceCollection.Remove(droppedAssets);
-                    targetDirectoryItem.Assets.Add(droppedAssets);
-                    targetDirectoryItem.IsExpanded = true;
-                    SelectedItem = droppedAssets;
+
+                    if (sourceCollection != null && targetCollection != null)
+                    {
+                        sourceCollection.Remove(droppedAssets);
+                        targetCollection.Add(droppedAssets);
+                       // targetCollection = OrderThoseGroups(targetCollection);
+                        ((IAssets)targetItem).IsExpanded = true;
+                        SelectedItem = droppedAssets;
+                    }
                 }
             }
 
             UpdateTextureItem(ResourceItems);
         }
 
+        public ObservableCollection<IAssets> OrderThoseGroups(ObservableCollection<IAssets> orderThoseGroups)
+        {
+            ObservableCollection<IAssets> temp;
+            temp = new ObservableCollection<IAssets>(orderThoseGroups.OrderBy($"{nameof(IAssets.Ponderation)}, {nameof(IAssets.Name)}"));
+            orderThoseGroups.Clear();
+            foreach (IAssets j in temp) orderThoseGroups.Add(j);
+            return orderThoseGroups;
+        }
 
         public void StartDrag(IDragInfo dragInfo)
         {

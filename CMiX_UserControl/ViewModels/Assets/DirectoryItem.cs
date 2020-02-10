@@ -1,5 +1,7 @@
 ﻿using CMiX.MVVM.ViewModels;
+using System;
 using System.Collections.ObjectModel;
+using System.Linq.Dynamic;
 using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels
@@ -12,6 +14,7 @@ namespace CMiX.Studio.ViewModels
             IsExpanded = false;
             Name = name;
             Path = path;
+            Ponderation = ItemPonderation.DirectoryPonderation;
 
             AddAssetCommand = new RelayCommand(p => AddAsset());
             RenameCommand = new RelayCommand(p => Rename());
@@ -22,6 +25,8 @@ namespace CMiX.Studio.ViewModels
         public ICommand RemoveAssetCommand { get; set; }
 
         public ObservableCollection<IAssets> Assets { get; set; }
+
+
 
         private string _path;
         public string Path
@@ -36,6 +41,8 @@ namespace CMiX.Studio.ViewModels
             get => _name;
             set => SetAndNotify(ref _name, value);
         }
+
+        public Enum Ponderation { get; set; }
 
         private bool _isRenaming;
         public bool IsRenaming
@@ -57,12 +64,23 @@ namespace CMiX.Studio.ViewModels
             get => _isSelected;
             set => SetAndNotify(ref _isSelected, value);
         }
-        
+
+        public ObservableCollection<IAssets> OrderThoseGroups(ObservableCollection<IAssets> orderThoseGroups)
+        {
+            ObservableCollection<IAssets> temp;
+            temp = new ObservableCollection<IAssets>(orderThoseGroups.OrderBy($"{nameof(IAssets.Ponderation)}, {nameof(IAssets.Name)}"));
+            orderThoseGroups.Clear();
+            foreach (IAssets j in temp) orderThoseGroups.Add(j);
+            Console.WriteLine("ORDER!");
+            return orderThoseGroups;
+        }
 
         public void AddAsset()
         {
+            Console.WriteLine("AddAsset");
             IAssets directoryItem = new DirectoryItem("NewFolder", null);
             Assets.Add(directoryItem);
+            OrderThoseGroups(Assets);
         }
 
         public void RemoveAsset()

@@ -13,6 +13,8 @@ namespace CMiX.Studio.ViewModels
     {
         public RootItem()
         {
+            Ponderation = ItemPonderation.AssetsPonderation;
+
             Assets = new ObservableCollection<IAssets>();
             AddAssetCommand = new RelayCommand(p => AddAsset());
         }
@@ -22,6 +24,8 @@ namespace CMiX.Studio.ViewModels
         public ICommand RemoveAssetCommand { get; set; }
 
         public ObservableCollection<IAssets> Assets { get; set; }
+
+        public Enum Ponderation { get; set; }
 
         private string _path;
         public string Path
@@ -44,7 +48,7 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _isRenaming, value);
         }
 
-        private bool _isExpanded;
+        private bool _isExpanded = true;
         public bool IsExpanded
         {
             get => _isExpanded;

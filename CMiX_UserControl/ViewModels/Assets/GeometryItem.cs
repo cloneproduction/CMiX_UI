@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CMiX.MVVM.ViewModels;
 
@@ -10,6 +11,7 @@ namespace CMiX.Studio.ViewModels
         {
             Name = name;
             Path = path;
+            Ponderation = ItemPonderation.AssetsPonderation;
         }
 
         public ICommand AddAssetCommand { get; set; }
@@ -17,6 +19,8 @@ namespace CMiX.Studio.ViewModels
         public ICommand RemoveAssetCommand { get; set; }
 
         public ObservableCollection<IAssets> Assets { get; set; }
+
+        public Enum Ponderation { get; set; }
 
         private string _path;
         public string Path

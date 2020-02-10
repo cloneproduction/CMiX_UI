@@ -17,6 +17,8 @@ namespace CMiX.Studio.ViewModels
         ICommand RenameCommand { get; set; }
         ICommand RemoveAssetCommand { get; set; }
         ICommand AddAssetCommand { get; set; }
+
+        Enum Ponderation { get; set; }
         string Path { get; set; }
         string Name { get; set; }
         bool IsRenaming { get; set; }
