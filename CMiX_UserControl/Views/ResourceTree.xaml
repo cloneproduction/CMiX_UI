@@ -91,7 +91,7 @@
 
     <Border Background="{StaticResource HighDarkerColor}">
         <Controls:MultiSelectTreeView 
-            SelectedItems="{Binding SelectedItems}"
+            SelectedItems="{Binding SelectedItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             Background="Transparent"
             AllowDrop="True"
             dd:DragDrop.IsDragSource="True"
