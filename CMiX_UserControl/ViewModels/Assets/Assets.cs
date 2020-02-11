@@ -12,6 +12,8 @@ using CMiX.MVVM.ViewModels;
 using GongSolutions.Wpf.DragDrop;
 using System.Linq;
 using System.Linq.Dynamic;
+using System.Windows.Data;
+
 namespace CMiX.Studio.ViewModels
 {
     public class Assets : ViewModel, IDropTarget, IDragSource
@@ -37,7 +39,11 @@ namespace CMiX.Studio.ViewModels
         public void RenameSelectedItem()
         {
             if (SelectedItem != null && ResourceItems != null)
+            {
+                Console.WriteLine("POUET");
                 SelectedItem.IsRenaming = true;
+                OrderThoseGroups(SelectedItem.Assets);
+            }
         }
 
         private void DeleteSelectedItem()
@@ -61,10 +67,12 @@ namespace CMiX.Studio.ViewModels
 
         public void AddDirectoryItem()
         {
-            var directoryItem = new DirectoryItem("NewFolder", null);
 
+            var directoryItem = new DirectoryItem("NewFolder", null, SelectedItem);
             if (SelectedItem is DirectoryItem)
+            {
                 ((DirectoryItem)SelectedItem).Assets.Add(directoryItem);
+            } 
             else if (SelectedItem is null && ResourceItems != null)
                 ResourceItems[0].Assets.Add(directoryItem);
         }
@@ -109,7 +117,7 @@ namespace CMiX.Studio.ViewModels
 
         private IAssets GetItemFromDirectory(DirectoryInfo directoryInfo)
         {
-            var directoryItem = new DirectoryItem(directoryInfo.Name, directoryInfo.FullName);
+            var directoryItem = new DirectoryItem(directoryInfo.Name, directoryInfo.FullName, SelectedItem);
 
             foreach (var directory in directoryInfo.GetDirectories())
                 directoryItem.Assets.Add(GetItemFromDirectory(directory));
@@ -163,6 +171,9 @@ namespace CMiX.Studio.ViewModels
             }
         }
 
+
+
+
         public void Drop(IDropInfo dropInfo)
         {
             var dataObject = dropInfo.Data as DataObject;
@@ -196,26 +207,45 @@ namespace CMiX.Studio.ViewModels
 
             else if (dropInfo.DragInfo.Data is IAssets)
             {
-                var targetItem = dropInfo.TargetItem;
-                if (targetItem is DirectoryItem || targetItem is RootItem)
+                if (dropInfo.DragInfo.SourceCollection is ListCollectionView && dropInfo.TargetCollection is ListCollectionView)
                 {
-                    var sourceCollection = dropInfo.DragInfo.SourceCollection as ObservableCollection<IAssets>;
-                    var targetCollection = dropInfo.TargetCollection as ObservableCollection<IAssets>;
-                    var droppedAssets = dropInfo.Data as IAssets;
+                    var sourceViewCollection = (dropInfo.DragInfo.SourceCollection as ListCollectionView).SourceCollection;
+                    var targetViewCollection = (dropInfo.TargetCollection as ListCollectionView).SourceCollection;
 
-                    if (sourceCollection != null && targetCollection != null)
+                    if (sourceViewCollection is ObservableCollection<IAssets> && targetViewCollection is ObservableCollection<IAssets>)
                     {
-                        sourceCollection.Remove(droppedAssets);
-                        targetCollection.Add(droppedAssets);
-                        OrderThoseGroups(targetCollection);
-                        ((IAssets)targetItem).IsExpanded = true;
-                        SelectedItem = droppedAssets;
+                        var targetItem = dropInfo.TargetItem;
+
+                        if (targetItem is DirectoryItem || targetItem is RootItem)
+                        {
+                            var sourceCollection = sourceViewCollection as ObservableCollection<IAssets>;
+                            var targetCollection = targetViewCollection as ObservableCollection<IAssets>;
+
+                            if (sourceCollection != null && targetCollection != null)
+                            {
+                                var droppedAssets = dropInfo.Data as IAssets;
+                                sourceCollection.Remove(droppedAssets);
+                                targetCollection.Add(droppedAssets);
+                                OrderThoseGroups(targetCollection);
+                                ((IAssets)targetItem).IsExpanded = true;
+                                SelectedItem = droppedAssets;
+                            }
+                        }
                     }
                 }
             }
 
             UpdateTextureItem(ResourceItems);
         }
+
+
+
+
+
+
+
+
+
 
         public ObservableCollection<IAssets> OrderThoseGroups(ObservableCollection<IAssets> orderThoseGroups)
         {

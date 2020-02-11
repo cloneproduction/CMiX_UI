@@ -32,7 +32,6 @@ namespace CMiX.Behaviors
         protected override void OnAttached()
         {
             base.OnAttached();
-
             this.AssociatedObject.SelectedItemChanged += OnTreeViewSelectedItemChanged;
         }
 

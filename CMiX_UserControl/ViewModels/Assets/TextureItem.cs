@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CMiX.MVVM.ViewModels;
+using System.Linq.Dynamic;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -71,6 +72,16 @@ namespace CMiX.Studio.ViewModels
         public void Rename()
         {
             this.IsRenaming = true;
+        }
+
+        public ObservableCollection<IAssets> ReorderAssets(ObservableCollection<IAssets> parentAsset)
+        {
+            Console.WriteLine("ReorderAssets");
+            ObservableCollection<IAssets> temp;
+            temp = new ObservableCollection<IAssets>(parentAsset.OrderBy($"{nameof(IAssets.Ponderation)}, {nameof(IAssets.Name)}"));
+            parentAsset.Clear();
+            foreach (IAssets j in temp) parentAsset.Add(j);
+            return parentAsset;
         }
     }
 }

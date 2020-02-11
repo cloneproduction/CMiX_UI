@@ -1,6 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:Resources="clr-namespace:CMiX.MVVM.Resources">
+                    xmlns:Resources="clr-namespace:CMiX.MVVM.Resources"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+                    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Brushes.xaml" />
@@ -104,8 +106,14 @@
                     </ControlTemplate.Resources>
                     <StackPanel>
                         <Border Name="Bd"
+                                Background="Transparent"
                                 BorderBrush="{StaticResource SuperHighDarkerColor}"
                                 BorderThickness="0, 0, 0, 1">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="PreviewMouseRightButtonDown">
+                                    <ei:ChangePropertyAction PropertyName="IsSelected" Value="true" TargetObject="{Binding}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                             <Border.Style>
                                 <Style TargetType="{x:Type Border}">
                                     <Setter Property="Background" Value="Transparent"/>
@@ -116,9 +124,7 @@
                                     </Style.Triggers>
                                 </Style>
                             </Border.Style>
-                            <Grid 
-                                Background="Transparent" 
-                                Margin="{Binding Converter={StaticResource lengthConverter}, RelativeSource={RelativeSource TemplatedParent}}">
+                            <Grid Margin="{Binding Converter={StaticResource lengthConverter}, RelativeSource={RelativeSource TemplatedParent}}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="19" />
                                     <ColumnDefinition />
@@ -133,13 +139,13 @@
                                 <ContentPresenter x:Name="PART_Header"
                                     Grid.Column="1"
                                     ContentSource="Header"
+                                    VerticalAlignment="Stretch"
                                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
                             </Grid>
                         </Border>
                         <Border x:Name="presenterBg" Background="Transparent">
                             <ItemsPresenter x:Name="ItemsHost" />
                         </Border>
-                        
                     </StackPanel>
 
                     <ControlTemplate.Triggers>

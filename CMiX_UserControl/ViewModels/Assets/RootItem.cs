@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
@@ -62,10 +63,19 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _isSelected, value);
         }
 
+        public ObservableCollection<IAssets> ReorderAssets(ObservableCollection<IAssets> parentAsset)
+        {
+            Console.WriteLine("ReorderAssets");
+            ObservableCollection<IAssets> temp;
+            temp = new ObservableCollection<IAssets>(parentAsset.OrderBy($"{nameof(IAssets.Ponderation)}, {nameof(IAssets.Name)}"));
+            parentAsset.Clear();
+            foreach (IAssets j in temp) parentAsset.Add(j);
+            return parentAsset;
+        }
 
         public void AddAsset()
         {
-            Assets.Add(new DirectoryItem("NewFolder", null));
+            Assets.Add(new DirectoryItem("NewFolder", null, this));
         }
 
         public void RemoveAsset()

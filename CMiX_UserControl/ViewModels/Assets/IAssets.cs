@@ -13,6 +13,7 @@ namespace CMiX.Studio.ViewModels
         void Rename();
         void AddAsset();
         void RemoveAsset();
+        ObservableCollection<IAssets> ReorderAssets(ObservableCollection<IAssets> parentAssets);
 
         ICommand RenameCommand { get; set; }
         ICommand RemoveAssetCommand { get; set; }

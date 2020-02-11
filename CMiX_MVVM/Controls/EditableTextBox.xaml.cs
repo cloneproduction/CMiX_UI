@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMiX.MVVM.Resources;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
@@ -17,13 +18,31 @@ namespace CMiX.MVVM.Controls
             TextDisplay.Visibility = Visibility.Visible;
         }
 
+        public event EventHandler MyCustomClickEvent;
+
+
+        //This method is used to raise the event, when the event should be raised, 
+        //this method will check to see if there are any subscribers, if there are, 
+        //it raises the event
+        protected virtual void OnMyCustomClickEvent(EventArgs e)
+        {
+            // Here, you use the "this" so it's your own control. You can also
+            // customize the EventArgs to pass something you'd like.
+
+            if (MyCustomClickEvent != null)
+                MyCustomClickEvent(this, e);
+        }
+
         #region PROPERTIES
         public static readonly DependencyProperty IsEditingProperty =
         DependencyProperty.Register("IsEditing", typeof(bool), typeof(EditableTextBox), new UIPropertyMetadata(false, new PropertyChangedCallback(IsEditing_PropertyChanged)));
         public bool IsEditing
         {
             get { return (bool)GetValue(IsEditingProperty); }
-            set { SetValue(IsEditingProperty, value); }
+            set
+            {
+                SetValue(IsEditingProperty, value);
+            }
         }
 
         public static readonly DependencyProperty IsSelectedProperty =
@@ -94,7 +113,7 @@ namespace CMiX.MVVM.Controls
             OnSwitchToNormalMode();
         }
 
-        private void OnMouseDownOutsideElement(object sender, MouseButtonEventArgs e)
+        public void OnMouseDownOutsideElement(object sender, MouseButtonEventArgs e)
         {
             e.Handled = true;
             OnSwitchToNormalMode();
