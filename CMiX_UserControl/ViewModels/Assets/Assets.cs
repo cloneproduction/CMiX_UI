@@ -13,6 +13,8 @@ using GongSolutions.Wpf.DragDrop;
 using System.Linq;
 using System.Linq.Dynamic;
 using System.Windows.Data;
+using System.ComponentModel;
+using System.Collections.Specialized;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -23,6 +25,8 @@ namespace CMiX.Studio.ViewModels
             GeometryItems = new ObservableCollection<GeometryItem>();
             TextureItems = new ObservableCollection<TextureItem>();
             ResourceItems = new ObservableCollection<IAssets>();
+            
+            InitializeCollectionView();
 
             var directoryItem = new RootItem() { IsSelected = true };
             ResourceItems.Add(directoryItem);
@@ -34,16 +38,22 @@ namespace CMiX.Studio.ViewModels
         }
 
         #region METHODS
+        private ObservableCollection<IAssets> _selectedItems;
+        public ObservableCollection<IAssets> SelectedItems
+        {
+            get { return _selectedItems; }
+            set 
+            { 
+                _selectedItems = value;
+                Console.WriteLine("SelectedItems " + SelectedItems.Count);
+            }
+        }
 
 
         public void RenameSelectedItem()
         {
             if (SelectedItem != null && ResourceItems != null)
-            {
-                Console.WriteLine("POUET");
                 SelectedItem.IsRenaming = true;
-                OrderThoseGroups(SelectedItem.Assets);
-            }
         }
 
         private void DeleteSelectedItem()
@@ -145,6 +155,18 @@ namespace CMiX.Studio.ViewModels
         }
         #endregion
 
+        public CollectionViewSource  AssetsCollectionView { get; set; }
+
+        private void InitializeCollectionView()
+        {
+            AssetsCollectionView = new CollectionViewSource();
+            AssetsCollectionView.Source = ResourceItems;
+            SortDescription ponderation = new SortDescription("Ponderation", ListSortDirection.Ascending);
+            SortDescription sort = new SortDescription("Name", ListSortDirection.Ascending);
+            AssetsCollectionView.SortDescriptions.Add(ponderation);
+            AssetsCollectionView.SortDescriptions.Add(sort);
+        }
+
         #region DRAG DROP
         public void DragOver(IDropInfo dropInfo)
         {
@@ -196,7 +218,6 @@ namespace CMiX.Studio.ViewModels
                         {
                             var directoryItem = (DirectoryItem)dropInfo.TargetItem;
                             directoryItem.Assets.Add(item);
-                            OrderThoseGroups(directoryItem.Assets);
                         }
 
                         else
@@ -226,7 +247,6 @@ namespace CMiX.Studio.ViewModels
                                 var droppedAssets = dropInfo.Data as IAssets;
                                 sourceCollection.Remove(droppedAssets);
                                 targetCollection.Add(droppedAssets);
-                                OrderThoseGroups(targetCollection);
                                 ((IAssets)targetItem).IsExpanded = true;
                                 SelectedItem = droppedAssets;
                             }
@@ -236,24 +256,6 @@ namespace CMiX.Studio.ViewModels
             }
 
             UpdateTextureItem(ResourceItems);
-        }
-
-
-
-
-
-
-
-
-
-
-        public ObservableCollection<IAssets> OrderThoseGroups(ObservableCollection<IAssets> orderThoseGroups)
-        {
-            ObservableCollection<IAssets> temp;
-            temp = new ObservableCollection<IAssets>(orderThoseGroups.OrderBy($"{nameof(IAssets.Ponderation)}, {nameof(IAssets.Name)}"));
-            orderThoseGroups.Clear();
-            foreach (IAssets j in temp) orderThoseGroups.Add(j);
-            return orderThoseGroups;
         }
 
         public void StartDrag(IDragInfo dragInfo)

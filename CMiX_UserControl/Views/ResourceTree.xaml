@@ -38,7 +38,7 @@
             
             <HierarchicalDataTemplate 
                 DataType="{x:Type ViewModels:DirectoryItem}" 
-                ItemsSource="{Binding Assets, Converter={StaticResource SortTreeViewItemConverter}, ConverterParameter=Name}">
+                ItemsSource="{Binding AssetsCollectionView}">
                 <Border Height="30" HorizontalAlignment="Stretch">
                     <DockPanel >
                             <Image Margin="6" Opacity="0.75" DockPanel.Dock="Left">
@@ -90,7 +90,8 @@
     </UserControl.Resources>
 
     <Border Background="{StaticResource HighDarkerColor}">
-        <TreeView 
+        <Controls:MultiSelectTreeView 
+            SelectedItems="{Binding SelectedItems}"
             Background="Transparent"
             AllowDrop="True"
             dd:DragDrop.IsDragSource="True"
@@ -199,13 +200,24 @@
                 </ContextMenu>
             </TreeView.ContextMenu>
 
-            <TreeView.ItemContainerStyle>
+            <!--<TreeView.ItemContainerStyle>
                 <Style TargetType="TreeViewItem" BasedOn="{StaticResource {x:Type TreeViewItem}}">
                     <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded}"/>
                 </Style>
+            </TreeView.ItemContainerStyle>-->
+
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}" >
+                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                    <Setter Property="Controls:MultiSelectTreeView.IsItemSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                    <Style.Triggers>
+                        <Trigger Property="Controls:MultiSelectTreeView.IsItemSelected" Value="True">
+                            <Setter Property="Background" Value="SkyBlue" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
             </TreeView.ItemContainerStyle>
-            
-        </TreeView>
+        </Controls:MultiSelectTreeView>
     </Border>
 </UserControl>

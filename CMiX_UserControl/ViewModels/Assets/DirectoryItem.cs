@@ -1,8 +1,11 @@
 ﻿using CMiX.MVVM.ViewModels;
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Linq.Dynamic;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels
@@ -12,14 +15,14 @@ namespace CMiX.Studio.ViewModels
         public DirectoryItem(string name, string path, IAssets parentAsset)
         {
             Assets = new ObservableCollection<IAssets>();
+            Assets.CollectionChanged += CollectionChanged;
+            InitializeCollectionView();
+
             ParentAsset = parentAsset;
             IsExpanded = false;
             Name = name;
             Path = path;
             Ponderation = ItemPonderation.DirectoryPonderation;
-            if(parentAsset is DirectoryItem)
-                ((DirectoryItem)parentAsset).ChildRenamed += this.DirectoryRenamed;
-
 
             AddAssetCommand = new RelayCommand(p => AddAsset());
             RenameCommand = new RelayCommand(p => Rename());
@@ -35,6 +38,18 @@ namespace CMiX.Studio.ViewModels
             get { return _assets; }
             set { _assets = value; }
         }
+
+        public ListCollectionView AssetsCollectionView { get; set; }
+
+        private void InitializeCollectionView()
+        {
+            AssetsCollectionView = new ListCollectionView(Assets);
+            SortDescription ponderation = new SortDescription("Ponderation", ListSortDirection.Ascending);
+            SortDescription sort = new SortDescription("Name", ListSortDirection.Ascending);
+            AssetsCollectionView.SortDescriptions.Add(ponderation);
+            AssetsCollectionView.SortDescriptions.Add(sort);
+        }
+
 
         public IAssets ParentAsset { get; set; }
 
@@ -58,21 +73,7 @@ namespace CMiX.Studio.ViewModels
         public bool IsRenaming
         {
             get => _isRenaming;
-            set
-            {
-                
-                
-                SetAndNotify(ref _isRenaming, value);
-                if (!IsRenaming && ParentAsset != null)
-                {
-                    Console.WriteLine("RenameChanged false");
-                    OnChildRenamed(new EventArgs());
-                    //ParentAsset.ReorderAssets(ParentAsset.Assets);
-                    //DirectoryRenamed;
-                    //ParentAsset.Assets = ReorderAssets(ParentAsset.Assets);
-                }
-                    
-            }
+            set => SetAndNotify(ref _isRenaming, value);
         }
 
         private bool _isExpanded;
@@ -89,22 +90,10 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _isSelected, value);
         }
 
-        public ObservableCollection<IAssets> ReorderAssets(ObservableCollection<IAssets> assets)
-        {
-            Console.WriteLine("ReorderAssets");
-            ObservableCollection<IAssets> temp;
-            temp = new ObservableCollection<IAssets>(assets.OrderBy($"{nameof(IAssets.Ponderation)}, {nameof(IAssets.Name)}"));
-            assets.Clear();
-            foreach (IAssets j in temp) assets.Add(j);
-            return new ObservableCollection<IAssets>(assets.OrderBy($"{nameof(IAssets.Ponderation)}, {nameof(IAssets.Name)}")); ;
-        }
-
         public void AddAsset()
         {
             var directoryItem = new DirectoryItem("NewFolder", null, this);
-            directoryItem.ChildRenamed += this.DirectoryRenamed;
             Assets.Add(directoryItem);
-            ///ReorderAssets(ParentAsset.Assets);
         }
 
         public void RemoveAsset()
@@ -114,22 +103,27 @@ namespace CMiX.Studio.ViewModels
 
         public void Rename()
         {
-            this.IsRenaming = true;
+            IsRenaming = true;
         }
 
-        //directoryItem.ChildRenamed += this.DirectoryRenamed;
-        //this.ChildRenamed += directoryItem.DirectoryRenamed;
-
-        public event EventHandler ChildRenamed;
-        protected virtual void OnChildRenamed(EventArgs e)
+        public void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            EventHandler handler = ChildRenamed;
-            handler?.Invoke(this, e);
+            if (e.OldItems != null)
+            {
+                foreach (INotifyPropertyChanged item in e.OldItems)
+                    item.PropertyChanged -= item_PropertyChanged;
+            }
+            if (e.NewItems != null)
+            {
+                foreach (INotifyPropertyChanged item in e.NewItems)
+                    item.PropertyChanged += item_PropertyChanged;
+            }
         }
 
-        public void DirectoryRenamed(object sender, EventArgs e)
+        public void item_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            Console.WriteLine("Renamed " + this.Name);
+            if(e.PropertyName == nameof(Name))
+                this.AssetsCollectionView.Refresh();
         }
     }
 }

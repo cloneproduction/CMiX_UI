@@ -80,6 +80,7 @@
       <DependentUpon>EditableTextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ExpanderLayerList.cs" />
+    <Compile Include="Controls\TreeViewMultiSelect.cs" />
     <Compile Include="Interfaces\ICopyPasteModel.cs" />
     <Compile Include="Models\CompositionEditorModel.cs" />
     <Compile Include="Models\EntityEditorModel.cs" />
