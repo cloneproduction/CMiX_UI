@@ -36,13 +36,13 @@ namespace CMiX.Studio.ViewModels
 
         public void RenameSelectedItem()
         {
-            if (SelectedItem != null)
+            if (SelectedItem != null && ResourceItems != null)
                 SelectedItem.IsRenaming = true;
         }
 
         private void DeleteSelectedItem()
         {
-            if (SelectedItem != null)
+            if (SelectedItem != null && ResourceItems != null)
             {
                 DeleteItem(ResourceItems);
                 UpdateTextureItem(ResourceItems);
@@ -53,31 +53,18 @@ namespace CMiX.Studio.ViewModels
         public void DeleteItem(ObservableCollection<IAssets> assets)
         {
             if (assets.Contains(SelectedItem))
-            {
                 assets.Remove(SelectedItem);
-                return;
-            }
             else
-            {
                 foreach (var asset in assets)
-                {
                     DeleteItem(asset.Assets);
-                }
-            }
         }
 
         public void AddDirectoryItem()
         {
             var directoryItem = new DirectoryItem("NewFolder", null);
-            Console.WriteLine("AddDirectoryItem");
+
             if (SelectedItem is DirectoryItem)
-            {
-                var selectedItem = SelectedItem as DirectoryItem;
-                selectedItem.Assets.Add(directoryItem);
-                //OrderThoseGroups(selectedItem.Assets);
-            }
-
-
+                ((DirectoryItem)SelectedItem).Assets.Add(directoryItem);
             else if (SelectedItem is null && ResourceItems != null)
                 ResourceItems[0].Assets.Add(directoryItem);
         }
@@ -118,7 +105,6 @@ namespace CMiX.Studio.ViewModels
                 else if (asset is DirectoryItem)
                     UpdateTextureItem(((DirectoryItem)asset).Assets);
             }
-            Console.WriteLine("UpdateTextureItem");
         }
 
         private IAssets GetItemFromDirectory(DirectoryInfo directoryInfo)
@@ -199,7 +185,7 @@ namespace CMiX.Studio.ViewModels
                         {
                             var directoryItem = (DirectoryItem)dropInfo.TargetItem;
                             directoryItem.Assets.Add(item);
-                            //OrderThoseGroups(directoryItem.Assets);
+                            OrderThoseGroups(directoryItem.Assets);
                         }
 
                         else
@@ -221,7 +207,7 @@ namespace CMiX.Studio.ViewModels
                     {
                         sourceCollection.Remove(droppedAssets);
                         targetCollection.Add(droppedAssets);
-                       // targetCollection = OrderThoseGroups(targetCollection);
+                        OrderThoseGroups(targetCollection);
                         ((IAssets)targetItem).IsExpanded = true;
                         SelectedItem = droppedAssets;
                     }

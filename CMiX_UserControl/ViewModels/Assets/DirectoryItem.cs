@@ -80,7 +80,7 @@ namespace CMiX.Studio.ViewModels
             Console.WriteLine("AddAsset");
             IAssets directoryItem = new DirectoryItem("NewFolder", null);
             Assets.Add(directoryItem);
-            OrderThoseGroups(Assets);
+            OrderThoseGroups(this.Assets);
         }
 
         public void RemoveAsset()
