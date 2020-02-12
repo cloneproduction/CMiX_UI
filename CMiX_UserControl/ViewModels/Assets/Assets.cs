@@ -28,37 +28,46 @@ namespace CMiX.Studio.ViewModels
             
             
             SelectedItems = new ObservableCollection<IAssets>();
-
-            var directoryItem = new RootItem() { IsSelected = true };
+            SelectedItems.CollectionChanged += CollectionChanged;
+            var directoryItem = new RootItem();
             ResourceItems.Add(directoryItem);
             //SelectedItem = directoryItem;
             InitializeCollectionView();
 
-            AddDirectoryItemCommand = new RelayCommand(p => AddDirectoryItem());
-            DeleteSelectedItemCommand = new RelayCommand(p => DeleteSelectedItem());
-            RenameSelectedItemCommand = new RelayCommand(p => RenameSelectedItem());
+            AddAssetCommand = new RelayCommand(p => AddAsset());
+            DeleteAssetsCommand = new RelayCommand(p => DeleteAssets());
+            RenameAssetCommand = new RelayCommand(p => RenameAsset());
         }
 
         #region METHODS
+
         private ObservableCollection<IAssets> _selectedItems;
         public ObservableCollection<IAssets> SelectedItems
         {
-            get { return _selectedItems; }
-            set 
-            { 
-                _selectedItems = value;
-                Console.WriteLine("SelectedItems " + SelectedItems.Count);
-            }
+            get => _selectedItems;
+            set => SetAndNotify(ref _selectedItems, value);
         }
 
-
-        public void RenameSelectedItem()
+        private bool _canAddAsset;
+        public bool CanAddAsset
         {
-            //if (SelectedItem != null && ResourceItems != null)
-            //    SelectedItem.IsRenaming = true;
+            get => _canAddAsset;
+            set => SetAndNotify(ref _canAddAsset, value);
         }
 
-        private void DeleteSelectedItem()
+        private bool _canRenameAsset;
+        public bool CanRenameAsset
+        {
+            get => _canRenameAsset;
+            set => SetAndNotify(ref _canRenameAsset, value);
+        }
+
+        public void RenameAsset()
+        {
+            SelectedItems[0].IsRenaming = true;
+        }
+
+        private void DeleteAssets()
         {
 
             if (SelectedItems != null && ResourceItems != null)
@@ -83,33 +92,21 @@ namespace CMiX.Studio.ViewModels
             SelectedItems.Clear();
         }
 
-        public void AddDirectoryItem()
+        public void AddAsset()
         {
             var directoryItem = new DirectoryItem("NewFolder", null, null);
-            if (SelectedItems.Count == 1 && SelectedItems[0] is DirectoryItem)
-            {
-                ((DirectoryItem)SelectedItems[0]).Assets.Add(directoryItem);
-            } 
-            else if (ResourceItems != null)
-                ResourceItems[0].Assets.Add(directoryItem);
+            SelectedItems[0].Assets.Add(directoryItem);
         }
 
 
         #endregion
 
         #region PROPERTIES
-        public ICommand RenameSelectedItemCommand { get; set; }
-        public ICommand AddDirectoryItemCommand { get; set; }
+        public ICommand RenameAssetCommand { get; set; }
+        public ICommand AddAssetCommand { get; set; }
         public ICommand AddNewFolderCommand { get; set; }
-        public ICommand DeleteItemCommand { get; set; }
+        public ICommand DeleteAssetsCommand { get; set; }
         public ICommand DeleteSelectedItemCommand { get; set; }
-
-        //private IAssets _selectedItem;
-        //public IAssets SelectedItem
-        //{
-        //    get => _selectedItem;
-        //    set => SetAndNotify(ref _selectedItem, value);
-        //}
 
         private ObservableCollection<IAssets> _resourceItems;
         public ObservableCollection<IAssets> ResourceItems
@@ -326,6 +323,21 @@ namespace CMiX.Studio.ViewModels
 
         public void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            Console.WriteLine("SelectedItems Count " + SelectedItems.Count);
+            if(SelectedItems.Count > 0 )
+            {
+                if(SelectedItems[0] is RootItem || SelectedItems[0] is DirectoryItem)
+                {
+                    CanAddAsset = true;
+                    CanRenameAsset = true;
+                }
+            }
+            else
+            {
+                CanAddAsset = false;
+                CanRenameAsset = false;
+            }
+                
             //if(SelectedItems != null)
             //{
             //    foreach (var item in SelectedItems)
@@ -336,16 +348,16 @@ namespace CMiX.Studio.ViewModels
             //}
 
 
-            //if (e.OldItems != null)
-            //{
-            //    foreach (INotifyPropertyChanged item in e.OldItems)
-            //        item.PropertyChanged -= item_PropertyChanged;
-            //}
-            //if (e.NewItems != null)
-            //{
-            //    foreach (INotifyPropertyChanged item in e.NewItems)
-            //        item.PropertyChanged += item_PropertyChanged;
-            //}
+                //if (e.OldItems != null)
+                //{
+                //    foreach (INotifyPropertyChanged item in e.OldItems)
+                //        item.PropertyChanged -= item_PropertyChanged;
+                //}
+                //if (e.NewItems != null)
+                //{
+                //    foreach (INotifyPropertyChanged item in e.NewItems)
+                //        item.PropertyChanged += item_PropertyChanged;
+                //}
         }
 
         #region COPY/PASTE

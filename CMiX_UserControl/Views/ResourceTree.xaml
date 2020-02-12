@@ -107,7 +107,45 @@
             
             <TreeView.ContextMenu>
                 <ContextMenu>
-                    <ContentPresenter Content="{Binding Path=PlacementTarget.SelectedItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" >
+                    <MenuItem
+                        Visibility="{Binding CanAddAsset, Converter={StaticResource BoolToVisibility}}"
+                        Padding="8, 4"
+                        Foreground="{StaticResource TextBase}"
+                        Command="{Binding AddAssetCommand}">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
+                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                <TextBlock Text="Add Folder"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem
+                        Visibility="{Binding CanRenameAsset, Converter={StaticResource BoolToVisibility}}"
+                        Padding="8, 4"
+                        Foreground="{StaticResource TextBase}"
+                        Command="{Binding RenameAssetCommand}">
+                    <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="10" Height="10" Source="{StaticResource Copy}" />
+                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                <TextBlock Text="Rename"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem
+                        Padding="8, 4"
+                        Foreground="{StaticResource TextBase}"
+                        Command="{Binding DeleteAssetsCommand}">
+                    <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
+                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                <TextBlock Text="Delete"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <!--<ContentPresenter Content="{Binding Path=PlacementTarget.SelectedItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" >
                         <ContentPresenter.Resources>
 
                             <DataTemplate DataType="{x:Type ViewModels:RootItem}">
@@ -197,7 +235,7 @@
                             </DataTemplate>
 
                         </ContentPresenter.Resources>
-                    </ContentPresenter>
+                    </ContentPresenter>-->
                 </ContextMenu>
             </TreeView.ContextMenu>
 
