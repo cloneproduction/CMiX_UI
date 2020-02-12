@@ -87,7 +87,11 @@ namespace CMiX.Studio.ViewModels
         public bool IsSelected
         {
             get => _isSelected;
-            set => SetAndNotify(ref _isSelected, value);
+            set
+            {
+                SetAndNotify(ref _isSelected, value);
+                //Console.WriteLine(Name + " IsSelected " + IsSelected);
+            }
         }
 
         public void AddAsset()

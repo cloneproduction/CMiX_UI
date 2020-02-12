@@ -57,6 +57,9 @@ namespace CMiX.MVVM.Controls
             }
         }
 
+        public static readonly DependencyProperty SelectedItemsSourcesProperty =
+            DependencyProperty.RegisterAttached("SelectedItemsSources", typeof(IList), typeof(MultiSelectTreeView));
+
         public static readonly DependencyProperty SelectedItemsProperty = 
             DependencyProperty.RegisterAttached("SelectedItems", typeof(IList), typeof(MultiSelectTreeView));
 

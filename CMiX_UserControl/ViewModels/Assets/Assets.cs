@@ -26,11 +26,13 @@ namespace CMiX.Studio.ViewModels
             TextureItems = new ObservableCollection<TextureItem>();
             ResourceItems = new ObservableCollection<IAssets>();
             
-            InitializeCollectionView();
+            
+            SelectedItems = new ObservableCollection<IAssets>();
 
             var directoryItem = new RootItem() { IsSelected = true };
             ResourceItems.Add(directoryItem);
-            SelectedItem = directoryItem;
+            //SelectedItem = directoryItem;
+            InitializeCollectionView();
 
             AddDirectoryItemCommand = new RelayCommand(p => AddDirectoryItem());
             DeleteSelectedItemCommand = new RelayCommand(p => DeleteSelectedItem());
@@ -52,38 +54,43 @@ namespace CMiX.Studio.ViewModels
 
         public void RenameSelectedItem()
         {
-            if (SelectedItem != null && ResourceItems != null)
-                SelectedItem.IsRenaming = true;
+            //if (SelectedItem != null && ResourceItems != null)
+            //    SelectedItem.IsRenaming = true;
         }
 
         private void DeleteSelectedItem()
         {
-            if (SelectedItem != null && ResourceItems != null)
-            {
-                DeleteItem(ResourceItems);
-                UpdateTextureItem(ResourceItems);
-            }
+
+            if (SelectedItems != null && ResourceItems != null)
+                DeleteItems(ResourceItems);
         }
 
-
-        public void DeleteItem(ObservableCollection<IAssets> assets)
+        public void DeleteItems(ObservableCollection<IAssets> assets)
         {
-            if (assets.Contains(SelectedItem))
-                assets.Remove(SelectedItem);
-            else
-                foreach (var asset in assets)
-                    DeleteItem(asset.Assets);
+            var toBeRemoved = new List<IAssets>();
+
+            foreach (var asset in assets)
+            {
+                if (asset.IsSelected)
+                    toBeRemoved.Add(asset);
+                else
+                    DeleteItems(asset.Assets);
+            }
+
+            foreach (var item in toBeRemoved)
+                assets.Remove(item);
+
+            SelectedItems.Clear();
         }
 
         public void AddDirectoryItem()
         {
-
-            var directoryItem = new DirectoryItem("NewFolder", null, SelectedItem);
-            if (SelectedItem is DirectoryItem)
+            var directoryItem = new DirectoryItem("NewFolder", null, null);
+            if (SelectedItems.Count == 1 && SelectedItems[0] is DirectoryItem)
             {
-                ((DirectoryItem)SelectedItem).Assets.Add(directoryItem);
+                ((DirectoryItem)SelectedItems[0]).Assets.Add(directoryItem);
             } 
-            else if (SelectedItem is null && ResourceItems != null)
+            else if (ResourceItems != null)
                 ResourceItems[0].Assets.Add(directoryItem);
         }
 
@@ -97,12 +104,12 @@ namespace CMiX.Studio.ViewModels
         public ICommand DeleteItemCommand { get; set; }
         public ICommand DeleteSelectedItemCommand { get; set; }
 
-        private IAssets _selectedItem;
-        public IAssets SelectedItem
-        {
-            get => _selectedItem;
-            set => SetAndNotify(ref _selectedItem, value);
-        }
+        //private IAssets _selectedItem;
+        //public IAssets SelectedItem
+        //{
+        //    get => _selectedItem;
+        //    set => SetAndNotify(ref _selectedItem, value);
+        //}
 
         private ObservableCollection<IAssets> _resourceItems;
         public ObservableCollection<IAssets> ResourceItems
@@ -127,7 +134,7 @@ namespace CMiX.Studio.ViewModels
 
         private IAssets GetItemFromDirectory(DirectoryInfo directoryInfo)
         {
-            var directoryItem = new DirectoryItem(directoryInfo.Name, directoryInfo.FullName, SelectedItem);
+            var directoryItem = new DirectoryItem(directoryInfo.Name, directoryInfo.FullName, null);
 
             foreach (var directory in directoryInfo.GetDirectories())
                 directoryItem.Assets.Add(GetItemFromDirectory(directory));
@@ -219,52 +226,69 @@ namespace CMiX.Studio.ViewModels
                             var directoryItem = (DirectoryItem)dropInfo.TargetItem;
                             directoryItem.Assets.Add(item);
                         }
-
                         else
                             ResourceItems[0].Assets.Add(item);
                     }
                 }
             }
-
-            else if (dropInfo.DragInfo.Data is IAssets)
+            else if (dropInfo.DragInfo.Data is List<DragDropObject> && dropInfo.TargetCollection is ListCollectionView)
             {
-                if (dropInfo.DragInfo.SourceCollection is ListCollectionView && dropInfo.TargetCollection is ListCollectionView)
-                {
-                    var sourceViewCollection = (dropInfo.DragInfo.SourceCollection as ListCollectionView).SourceCollection;
-                    var targetViewCollection = (dropInfo.TargetCollection as ListCollectionView).SourceCollection;
-
-                    if (sourceViewCollection is ObservableCollection<IAssets> && targetViewCollection is ObservableCollection<IAssets>)
+                var targetViewCollection = (dropInfo.TargetCollection as ListCollectionView).SourceCollection;
+                if (targetViewCollection is ObservableCollection<IAssets>)
+                { 
+                    var targetItem = dropInfo.TargetItem;
+                    if (targetItem is DirectoryItem || targetItem is RootItem)
                     {
-                        var targetItem = dropInfo.TargetItem;
-
-                        if (targetItem is DirectoryItem || targetItem is RootItem)
+                        var targetCollection = targetViewCollection as ObservableCollection<IAssets>;
+                        if (targetCollection != null)
                         {
-                            var sourceCollection = sourceViewCollection as ObservableCollection<IAssets>;
-                            var targetCollection = targetViewCollection as ObservableCollection<IAssets>;
-
-                            if (sourceCollection != null && targetCollection != null)
+                            var data = dropInfo.DragInfo.Data as List<DragDropObject>;
+                            foreach (DragDropObject item in data)
                             {
-                                var droppedAssets = dropInfo.Data as IAssets;
-                                sourceCollection.Remove(droppedAssets);
-                                targetCollection.Add(droppedAssets);
-                                ((IAssets)targetItem).IsExpanded = true;
-                                SelectedItem = droppedAssets;
+                                targetCollection.Add(item.DragObject);
+                                item.SourceCollection.Remove(item.DragObject);
                             }
                         }
                     }
                 }
             }
-
             UpdateTextureItem(ResourceItems);
+        }
+
+        public void RemoveAssets(List<IAssets> assetsToRemove, List<IAssets> assets)
+        {
+            assets.RemoveAll(item => assetsToRemove.Contains(item));
+        }
+
+        //var movies = _db.Movies.Where(p => p.Genres.Intersect(listOfGenres).Any());
+
+        public void GetDragDropObjects(List<DragDropObject> dragList, ObservableCollection<IAssets> assets)
+        {
+            foreach (var asset in assets)
+            {
+                if (asset.IsSelected)
+                {
+                    DragDropObject dragDropObject = new DragDropObject();
+                    dragDropObject.DragObject = asset;
+                    dragDropObject.SourceCollection = assets;
+                    dragList.Add(dragDropObject);
+                }
+                else
+                {
+                    GetDragDropObjects(dragList, asset.Assets);
+                }
+            }
         }
 
         public void StartDrag(IDragInfo dragInfo)
         {
-            if (dragInfo.SourceItem is IAssets )
+            List<DragDropObject> dragList = new List<DragDropObject>();
+            GetDragDropObjects(dragList, ResourceItems);
+            
+            if(dragList.Count > 0)
             {
-                IAssets item = (IAssets)dragInfo.SourceItem;
                 dragInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
-                dragInfo.Data = item;
+                dragInfo.Data = dragList;
             }
         }
 
@@ -278,16 +302,19 @@ namespace CMiX.Studio.ViewModels
 
         public void Dropped(IDropInfo dropInfo)
         {
+            //Console.WriteLine("Dropped");
             //throw new NotImplementedException();
         }
 
         public void DragDropOperationFinished(DragDropEffects operationResult, IDragInfo dragInfo)
         {
+            //Console.WriteLine("DragDropOperationFinished");
             //throw new NotImplementedException();
         }
 
         public void DragCancelled()
         {
+            Console.WriteLine("DragCancelled");
             //throw new NotImplementedException();
         }
 
@@ -296,6 +323,30 @@ namespace CMiX.Studio.ViewModels
             throw new NotImplementedException();
         }
         #endregion
+
+        public void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            //if(SelectedItems != null)
+            //{
+            //    foreach (var item in SelectedItems)
+            //    {
+            //        if(item != null)
+            //            Console.WriteLine(item.Name);
+            //    }
+            //}
+
+
+            //if (e.OldItems != null)
+            //{
+            //    foreach (INotifyPropertyChanged item in e.OldItems)
+            //        item.PropertyChanged -= item_PropertyChanged;
+            //}
+            //if (e.NewItems != null)
+            //{
+            //    foreach (INotifyPropertyChanged item in e.NewItems)
+            //        item.PropertyChanged += item_PropertyChanged;
+            //}
+        }
 
         #region COPY/PASTE
         public void CopyModel(IModel model)

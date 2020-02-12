@@ -85,13 +85,13 @@
                 </Border>
             </DataTemplate>
 
-
         </ResourceDictionary>
     </UserControl.Resources>
 
     <Border Background="{StaticResource HighDarkerColor}">
         <Controls:MultiSelectTreeView 
             SelectedItems="{Binding SelectedItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            ItemContainerStyle="{StaticResource TreeViewMultiSelectItem}"
             Background="Transparent"
             AllowDrop="True"
             dd:DragDrop.IsDragSource="True"
@@ -102,13 +102,14 @@
 
             <i:Interaction.Behaviors>
                 <!--<Behaviors:TreeViewMultipleSelectionBehavior SelectedItems="{Binding SelectedItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
-                <Behaviors:BindableSelectedItemBehavior SelectedItem="{Binding SelectedItem, Mode=TwoWay}"/>
+                <!--<Behaviors:BindableSelectedItemBehavior SelectedItem="{Binding SelectedItem, Mode=TwoWay}"/>-->
             </i:Interaction.Behaviors>
             
             <TreeView.ContextMenu>
                 <ContextMenu>
                     <ContentPresenter Content="{Binding Path=PlacementTarget.SelectedItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" >
                         <ContentPresenter.Resources>
+
                             <DataTemplate DataType="{x:Type ViewModels:RootItem}">
                                 <MenuItem
                                     Padding="8, 4"
@@ -123,7 +124,7 @@
                                     </MenuItem.Header>
                                 </MenuItem>
                             </DataTemplate>
-                            
+
                             <DataTemplate DataType="{x:Type ViewModels:DirectoryItem}">
                                 <StackPanel>
                                     <MenuItem
@@ -151,9 +152,9 @@
                                         </MenuItem.Header>
                                     </MenuItem>
                                     <MenuItem
-                                    Padding="8, 4"
-                                    Foreground="{StaticResource TextBase}"
-                                    Command="{Binding Path=PlacementTarget.DataContext.DeleteSelectedItemCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                                        Padding="8, 4"
+                                        Foreground="{StaticResource TextBase}"
+                                        Command="{Binding Path=PlacementTarget.DataContext.DeleteSelectedItemCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
                                         <MenuItem.Header>
                                             <StackPanel Orientation="Horizontal">
                                                 <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
@@ -194,7 +195,7 @@
                                     </MenuItem.Header>
                                 </MenuItem>
                             </DataTemplate>
-                            
+
                         </ContentPresenter.Resources>
                     </ContentPresenter>
                 </ContextMenu>
@@ -207,17 +208,18 @@
                 </Style>
             </TreeView.ItemContainerStyle>-->
 
-            <TreeView.ItemContainerStyle>
-                <Style TargetType="{x:Type TreeViewItem}" >
+            <!--<TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource {x:Type TreeViewItem}}">
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
                     <Setter Property="Controls:MultiSelectTreeView.IsItemSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
-                    <Style.Triggers>
+                    --><!--<Style.Triggers>
                         <Trigger Property="Controls:MultiSelectTreeView.IsItemSelected" Value="True">
                             <Setter Property="Background" Value="SkyBlue" />
                         </Trigger>
-                    </Style.Triggers>
+                    </Style.Triggers>--><!--
                 </Style>
-            </TreeView.ItemContainerStyle>
+            </TreeView.ItemContainerStyle>-->
+            
         </Controls:MultiSelectTreeView>
     </Border>
 </UserControl>
