@@ -16,7 +16,9 @@ namespace CMiX.MVVM.Controls
         {
             GotFocus += OnTreeViewItemGotFocus;
             PreviewMouseLeftButtonDown += OnTreeViewItemPreviewMouseDown;
-            PreviewMouseLeftButtonUp += OnTreeViewItemPreviewMouseUp;
+            //PreviewMouseLeftButtonUp += OnTreeViewItemPreviewMouseUp;
+            MouseLeftButtonDown += OnTreeViewItemMouseDown;
+            MouseRightButtonDown += OnTreeViewItemMouseRightDown;
         }
 
         private static TreeViewItem _selectTreeViewItemOnMouseUp;
@@ -136,13 +138,44 @@ namespace CMiX.MVVM.Controls
 
         private static void OnTreeViewItemPreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
+            //var treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
             var treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
+            var treeView = sender as TreeView;
+            SelectSingleItem(treeView, treeViewItem);
+            //if (treeViewItem == _selectTreeViewItemOnMouseUp)
+            //{
+            //    SelectItems(treeViewItem, sender as TreeView);
+            //}
+        }
+
+        private static void OnTreeViewItemMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
+            var treeView = sender as TreeView;
+            var list = GetSelectedItems(sender as TreeView);
+
+            //if (list.Count > 1)
+            //    SelectSingleItem(treeView, treeViewItem);
 
             if (treeViewItem == _selectTreeViewItemOnMouseUp)
             {
                 SelectItems(treeViewItem, sender as TreeView);
             }
         }
+
+        private static void OnTreeViewItemMouseRightDown(object sender, MouseButtonEventArgs e)
+        {
+            TreeViewItem treeViewItem =
+                          FindTreeViewItem(e.OriginalSource as DependencyObject);
+
+            var list = GetSelectedItems(sender as TreeView);
+            if (treeViewItem != null && (list.Count > 1) == false)
+            {
+                treeViewItem.IsSelected = true;
+                //e.Handled = true;
+            }
+        }
+
 
         private static TreeViewItem FindTreeViewItem(DependencyObject dependencyObject)
         {
