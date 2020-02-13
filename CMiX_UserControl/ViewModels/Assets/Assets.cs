@@ -31,7 +31,7 @@ namespace CMiX.Studio.ViewModels
             SelectedItems.CollectionChanged += CollectionChanged;
             var directoryItem = new RootItem();
             ResourceItems.Add(directoryItem);
-            //SelectedItem = directoryItem;
+
             InitializeCollectionView();
 
             AddAssetCommand = new RelayCommand(p => AddAsset());
@@ -46,6 +46,13 @@ namespace CMiX.Studio.ViewModels
         {
             get => _selectedItems;
             set => SetAndNotify(ref _selectedItems, value);
+        }
+
+        private IAssets _selectedItem;
+        public IAssets SelectedItem
+        {
+            get => _selectedItem;
+            set => SetAndNotify(ref _selectedItem, value);
         }
 
         private bool _canAddAsset;
@@ -66,6 +73,7 @@ namespace CMiX.Studio.ViewModels
         {
             SelectedItems[0].IsRenaming = true;
         }
+
 
         private void DeleteAssets()
         {
@@ -95,7 +103,12 @@ namespace CMiX.Studio.ViewModels
         public void AddAsset()
         {
             var directoryItem = new DirectoryItem("NewFolder", null, null);
-            SelectedItems[0].Assets.Add(directoryItem);
+            if(SelectedItems != null && SelectedItems.Count == 1)
+            {
+                SelectedItems[0].Assets.Add(directoryItem);
+                SelectedItems[0].SortAssets();
+            }
+                
         }
 
 
@@ -222,17 +235,20 @@ namespace CMiX.Studio.ViewModels
                         {
                             var directoryItem = (DirectoryItem)dropInfo.TargetItem;
                             directoryItem.Assets.Add(item);
+                            //directoryItem.IsExpanded = true;
                         }
                         else
                             ResourceItems[0].Assets.Add(item);
                     }
                 }
             }
-            else if (dropInfo.DragInfo.Data is List<DragDropObject> && dropInfo.TargetCollection is ListCollectionView)
+            else if (dropInfo.DragInfo.Data is List<DragDropObject> && dropInfo.TargetCollection is ObservableCollection<IAssets>)
             {
-                var targetViewCollection = (dropInfo.TargetCollection as ListCollectionView).SourceCollection;
+                //var targetViewCollection = (dropInfo.TargetCollection as ListCollectionView).SourceCollection;
+                var targetViewCollection = dropInfo.TargetCollection as ObservableCollection<IAssets>;
                 if (targetViewCollection is ObservableCollection<IAssets>)
-                { 
+                {
+                    Console.WriteLine("targetViewCollection is ObservableCollection<IAssets>");
                     var targetItem = dropInfo.TargetItem;
                     if (targetItem is DirectoryItem || targetItem is RootItem)
                     {
@@ -242,9 +258,11 @@ namespace CMiX.Studio.ViewModels
                             var data = dropInfo.DragInfo.Data as List<DragDropObject>;
                             foreach (DragDropObject item in data)
                             {
+                                item.DragObject.IsSelected = false;
                                 targetCollection.Add(item.DragObject);
                                 item.SourceCollection.Remove(item.DragObject);
                             }
+                            Console.WriteLine("SelectedItems " + SelectedItems.Count);
                         }
                     }
                 }
@@ -256,8 +274,6 @@ namespace CMiX.Studio.ViewModels
         {
             assets.RemoveAll(item => assetsToRemove.Contains(item));
         }
-
-        //var movies = _db.Movies.Where(p => p.Genres.Intersect(listOfGenres).Any());
 
         public void GetDragDropObjects(List<DragDropObject> dragList, ObservableCollection<IAssets> assets)
         {
@@ -323,10 +339,20 @@ namespace CMiX.Studio.ViewModels
 
         public void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            Console.WriteLine("SelectedItems Count " + SelectedItems.Count);
-            if(SelectedItems.Count > 0 )
+            foreach (var item in SelectedItems)
             {
-                if(SelectedItems[0] is RootItem || SelectedItems[0] is DirectoryItem)
+                if(item != null)
+                    Console.WriteLine(item.Name);
+            }
+
+
+            if(SelectedItems.Count == 1 )
+            {
+                if(SelectedItems[0] is RootItem)
+                {
+                    CanAddAsset = true;
+                }
+                else if (SelectedItems[0] is DirectoryItem)
                 {
                     CanAddAsset = true;
                     CanRenameAsset = true;
@@ -337,7 +363,7 @@ namespace CMiX.Studio.ViewModels
                 CanAddAsset = false;
                 CanRenameAsset = false;
             }
-                
+            Console.WriteLine("CanRenameAsset false because SelectedItems.Count = " + SelectedItems.Count);
             //if(SelectedItems != null)
             //{
             //    foreach (var item in SelectedItems)
@@ -348,16 +374,16 @@ namespace CMiX.Studio.ViewModels
             //}
 
 
-                //if (e.OldItems != null)
-                //{
-                //    foreach (INotifyPropertyChanged item in e.OldItems)
-                //        item.PropertyChanged -= item_PropertyChanged;
-                //}
-                //if (e.NewItems != null)
-                //{
-                //    foreach (INotifyPropertyChanged item in e.NewItems)
-                //        item.PropertyChanged += item_PropertyChanged;
-                //}
+            //if (e.OldItems != null)
+            //{
+            //    foreach (INotifyPropertyChanged item in e.OldItems)
+            //        item.PropertyChanged -= item_PropertyChanged;
+            //}
+            //if (e.NewItems != null)
+            //{
+            //    foreach (INotifyPropertyChanged item in e.NewItems)
+            //        item.PropertyChanged += item_PropertyChanged;
+            //}
         }
 
         #region COPY/PASTE

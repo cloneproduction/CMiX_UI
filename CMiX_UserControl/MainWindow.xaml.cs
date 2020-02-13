@@ -1,5 +1,7 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using CMiX.MVVM.Controls;
 using CMiX.MVVM.Services;
 using CMiX.Studio.ViewModels;
 using CMiX.ViewModels;

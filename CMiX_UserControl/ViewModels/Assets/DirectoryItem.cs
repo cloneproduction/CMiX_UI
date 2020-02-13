@@ -1,4 +1,5 @@
-﻿using CMiX.MVVM.ViewModels;
+﻿using CMiX.MVVM.Resources;
+using CMiX.MVVM.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -14,15 +15,13 @@ namespace CMiX.Studio.ViewModels
     {
         public DirectoryItem(string name, string path, IAssets parentAsset)
         {
-            Assets = new ObservableCollection<IAssets>();
+            Assets = new SortableObservableCollection<IAssets>();
             Assets.CollectionChanged += CollectionChanged;
-            InitializeCollectionView();
 
             ParentAsset = parentAsset;
             IsExpanded = false;
             Name = name;
             Path = path;
-            Ponderation = ItemPonderation.DirectoryPonderation;
 
             AddAssetCommand = new RelayCommand(p => AddAsset());
             RenameCommand = new RelayCommand(p => Rename());
@@ -32,24 +31,7 @@ namespace CMiX.Studio.ViewModels
         public ICommand RenameCommand { get; set; }
         public ICommand RemoveAssetCommand { get; set; }
 
-        private ObservableCollection<IAssets> _assets;
-        public ObservableCollection<IAssets> Assets
-        {
-            get { return _assets; }
-            set { _assets = value; }
-        }
-
-        public ListCollectionView AssetsCollectionView { get; set; }
-
-        private void InitializeCollectionView()
-        {
-            AssetsCollectionView = new ListCollectionView(Assets);
-            SortDescription ponderation = new SortDescription("Ponderation", ListSortDirection.Ascending);
-            SortDescription sort = new SortDescription("Name", ListSortDirection.Ascending);
-            AssetsCollectionView.SortDescriptions.Add(ponderation);
-            AssetsCollectionView.SortDescriptions.Add(sort);
-        }
-
+        public SortableObservableCollection<IAssets> Assets { get; set; }
 
         public IAssets ParentAsset { get; set; }
 
@@ -67,7 +49,14 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _name, value);
         }
 
-        public Enum Ponderation { get; set; }
+        private string _ponderation = "a";
+        public string Ponderation
+        {
+            get => _ponderation;
+            set => _ponderation = value;
+        }
+
+        //public Enum Ponderation { get; set; }
 
         private bool _isRenaming;
         public bool IsRenaming
@@ -87,11 +76,7 @@ namespace CMiX.Studio.ViewModels
         public bool IsSelected
         {
             get => _isSelected;
-            set
-            {
-                SetAndNotify(ref _isSelected, value);
-                //Console.WriteLine(Name + " IsSelected " + IsSelected);
-            }
+            set => SetAndNotify(ref _isSelected, value);
         }
 
         public void AddAsset()
@@ -110,6 +95,12 @@ namespace CMiX.Studio.ViewModels
             IsRenaming = true;
         }
 
+        public void SortAssets()
+        {
+            Assets.Sort(c => c.Name);
+            Assets.Sort(c => c.Ponderation.ToString());
+        }
+
         public void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.OldItems != null)
@@ -126,8 +117,10 @@ namespace CMiX.Studio.ViewModels
 
         public void item_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if(e.PropertyName == nameof(Name))
-                this.AssetsCollectionView.Refresh();
+            if (e.PropertyName == nameof(Name))
+            {
+                SortAssets();
+            }
         }
     }
 }

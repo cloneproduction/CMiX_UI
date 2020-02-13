@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Collections.ObjectModel;
 
 namespace CMiX.MVVM.Controls
 {
@@ -15,16 +16,128 @@ namespace CMiX.MVVM.Controls
         public MultiSelectTreeView()
         {
             GotFocus += OnTreeViewItemGotFocus;
-            PreviewMouseLeftButtonDown += OnTreeViewItemPreviewMouseDown;
-            //PreviewMouseLeftButtonUp += OnTreeViewItemPreviewMouseUp;
-            MouseLeftButtonDown += OnTreeViewItemMouseDown;
-            MouseRightButtonDown += OnTreeViewItemMouseRightDown;
+
+            //MouseLeftButtonDown += OnMouseLeftButtonDown;
+            PreviewMouseLeftButtonDown += OnPreviewMouseLeftButtonDown;
+
+            //MouseRightButtonDown += OnMouseRightButtonDown;
+            //PreviewMouseRightButtonDown += OnPreviewMouseRightButtonDown;
+
+            PreviewMouseLeftButtonUp += OnPreviewMouseLeftButtonUp;
         }
+
+        protected override void OnMouseRightButtonDown(MouseButtonEventArgs e)
+        {
+            Keyboard.ClearFocus();
+            TreeViewItem treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
+            var treeView = FindTreeView(e.OriginalSource as DependencyObject);
+            var list = GetSelectedItems(treeView);
+
+            if (treeViewItem != null && list.Count <= 1)
+            {
+                _selectTreeViewItemOnMouseUp = treeViewItem;
+                SelectSingleItem(treeView, treeViewItem);
+            }
+                
+
+            base.OnMouseRightButtonDown(e);
+            e.Handled = true;
+        }
+
+        private static void OnTreeViewItemGotFocus(object sender, RoutedEventArgs e)
+        {
+            _selectTreeViewItemOnMouseUp = null;
+
+            if (e.OriginalSource is TreeView) return;
+
+            var treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
+
+            if (Mouse.LeftButton == MouseButtonState.Pressed && GetIsItemSelected(treeViewItem) && Keyboard.Modifiers != ModifierKeys.Control)
+            {
+                _selectTreeViewItemOnMouseUp = treeViewItem;
+                return;
+            }
+
+            if (Mouse.RightButton == MouseButtonState.Pressed && GetIsItemSelected(treeViewItem) && Keyboard.Modifiers != ModifierKeys.Control)
+            {
+                _selectTreeViewItemOnMouseUp = treeViewItem;
+                return;
+            }
+
+            SelectItems(treeViewItem, sender as TreeView);
+        }
+
+        private static void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
+            var treeView = sender as TreeView;
+
+            if (treeViewItem == _selectTreeViewItemOnMouseUp)
+            {
+                SelectItems(treeViewItem, sender as TreeView);
+            }
+        }
+
+        private static void OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
+
+            if (treeViewItem != null && treeViewItem.IsFocused)
+                OnTreeViewItemGotFocus(sender, e);
+        }
+
+        private static void OnMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
+            var treeView = sender as TreeView;
+
+            if (treeViewItem == _selectTreeViewItemOnMouseUp)
+            {
+                SelectItems(treeViewItem, sender as TreeView);
+            }
+        }
+
+        private static void OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
+            var treeView = sender as TreeView;
+            var list = GetSelectedItems(sender as TreeView);
+            if (list.Count > 1)
+            {
+                if ((Keyboard.Modifiers & (ModifierKeys.Control | ModifierKeys.Shift)) == (ModifierKeys.Control | ModifierKeys.Shift)
+                    || (Keyboard.Modifiers == ModifierKeys.Control)
+                    || (Keyboard.Modifiers == ModifierKeys.Shift))
+                {
+                    return;
+                }
+                else
+                {
+                    SelectSingleItem(treeView, treeViewItem);
+                }
+            }
+        }
+
+
+
+
+
+    
 
         private static TreeViewItem _selectTreeViewItemOnMouseUp;
 
+        public static readonly DependencyProperty IsItemSelectedProperty =
+            DependencyProperty.RegisterAttached("IsItemSelected", typeof(Boolean), typeof(MultiSelectTreeView), new PropertyMetadata(false, OnIsItemSelectedPropertyChanged));
 
-        public static readonly DependencyProperty IsItemSelectedProperty = DependencyProperty.RegisterAttached("IsItemSelected", typeof(Boolean), typeof(MultiSelectTreeView), new PropertyMetadata(false, OnIsItemSelectedPropertyChanged));
+        private static readonly DependencyProperty StartItemProperty =
+            DependencyProperty.RegisterAttached("StartItem", typeof(TreeViewItem), typeof(MultiSelectTreeView));
+
+        //public static readonly DependencyProperty SelectedItemsSourcesProperty =
+        //    DependencyProperty.RegisterAttached("SelectedItemsSources", typeof(IList), typeof(MultiSelectTreeView));
+
+        public static readonly DependencyProperty SelectedItemsProperty =
+            DependencyProperty.RegisterAttached("SelectedItems", typeof(IList), typeof(MultiSelectTreeView));
+
+
 
         public static bool GetIsItemSelected(TreeViewItem element)
         {
@@ -59,11 +172,7 @@ namespace CMiX.MVVM.Controls
             }
         }
 
-        //public static readonly DependencyProperty SelectedItemsSourcesProperty =
-        //    DependencyProperty.RegisterAttached("SelectedItemsSources", typeof(IList), typeof(MultiSelectTreeView));
 
-        public static readonly DependencyProperty SelectedItemsProperty = 
-            DependencyProperty.RegisterAttached("SelectedItems", typeof(IList), typeof(MultiSelectTreeView));
 
         public static IList GetSelectedItems(TreeView element)
         {
@@ -75,8 +184,7 @@ namespace CMiX.MVVM.Controls
             element.SetValue(SelectedItemsProperty, value);
         }
 
-        private static readonly DependencyProperty StartItemProperty = 
-            DependencyProperty.RegisterAttached("StartItem", typeof(TreeViewItem), typeof(MultiSelectTreeView));
+
 
 
         private static TreeViewItem GetStartItem(TreeView element)
@@ -90,21 +198,11 @@ namespace CMiX.MVVM.Controls
         }
 
 
-        private static void OnTreeViewItemGotFocus(object sender, RoutedEventArgs e)
-        {
-            _selectTreeViewItemOnMouseUp = null;
 
-            if (e.OriginalSource is TreeView) return;
 
-            var treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
-            if (Mouse.LeftButton == MouseButtonState.Pressed && GetIsItemSelected(treeViewItem) && Keyboard.Modifiers != ModifierKeys.Control)
-            {
-                _selectTreeViewItemOnMouseUp = treeViewItem;
-                return;
-            }
 
-            SelectItems(treeViewItem, sender as TreeView);
-        }
+
+
 
         private static void SelectItems(TreeViewItem treeViewItem, TreeView treeView)
         {
@@ -127,68 +225,6 @@ namespace CMiX.MVVM.Controls
                     SelectSingleItem(treeView, treeViewItem);
                 }
             }
-        }
-
-        private static void OnTreeViewItemPreviewMouseDown(object sender, MouseEventArgs e)
-        {
-            var treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
-
-            if (treeViewItem != null && treeViewItem.IsFocused)
-                OnTreeViewItemGotFocus(sender, e);
-        }
-
-        private static void OnTreeViewItemMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            var treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
-            var treeView = sender as TreeView;
-            var list = GetSelectedItems(sender as TreeView);
-
-            //if (list.Count > 1)
-            //    SelectSingleItem(treeView, treeViewItem);
-
-            if (treeViewItem == _selectTreeViewItemOnMouseUp)
-            {
-                SelectItems(treeViewItem, sender as TreeView);
-            }
-        }
-
-        private static void OnTreeViewItemPreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            var treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
-            var treeView = sender as TreeView;
-            var list = GetSelectedItems(sender as TreeView);
-            if(list.Count > 1)
-                SelectSingleItem(treeView, treeViewItem);
-        }
-
-        private static void OnTreeViewItemMouseRightDown(object sender, MouseButtonEventArgs e)
-        {
-            TreeViewItem treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
-            TreeView treeView = sender as TreeView;
-
-            var list = GetSelectedItems(sender as TreeView);
-
-            if (list.Count <= 1)
-                SelectSingleItem(treeView, treeViewItem);
-            else
-                return;
-            //if (treeViewItem != null)
-                
-        }
-
-
-        private static TreeViewItem FindTreeViewItem(DependencyObject dependencyObject)
-        {
-            if (!(dependencyObject is Visual))// || dependencyObject is Visual3D))
-                return null;
-
-            var treeViewItem = dependencyObject as TreeViewItem;
-            if (treeViewItem != null)
-            {
-                return treeViewItem;
-            }
-
-            return FindTreeViewItem(VisualTreeHelper.GetParent(dependencyObject));
         }
 
         private static void SelectSingleItem(TreeView treeView, TreeViewItem treeViewItem)
@@ -225,18 +261,6 @@ namespace CMiX.MVVM.Controls
                     }
                 }
             }
-        }
-
-        private static TreeView FindTreeView(DependencyObject dependencyObject)
-        {
-            if (dependencyObject == null)
-            {
-                return null;
-            }
-
-            var treeView = dependencyObject as TreeView;
-
-            return treeView ?? FindTreeView(VisualTreeHelper.GetParent(dependencyObject));
         }
 
         private static void SelectMultipleItemsRandomly(TreeView treeView, TreeViewItem treeViewItem)
@@ -324,6 +348,33 @@ namespace CMiX.MVVM.Controls
                     }
                 }
             }
+        }
+
+
+        private static TreeView FindTreeView(DependencyObject dependencyObject)
+        {
+            if (dependencyObject == null)
+            {
+                return null;
+            }
+
+            var treeView = dependencyObject as TreeView;
+
+            return treeView ?? FindTreeView(VisualTreeHelper.GetParent(dependencyObject));
+        }
+
+        private static TreeViewItem FindTreeViewItem(DependencyObject dependencyObject)
+        {
+            if (!(dependencyObject is Visual))// || dependencyObject is Visual3D))
+                return null;
+
+            var treeViewItem = dependencyObject as TreeViewItem;
+            if (treeViewItem != null)
+            {
+                return treeViewItem;
+            }
+
+            return FindTreeViewItem(VisualTreeHelper.GetParent(dependencyObject));
         }
     }
 }

@@ -89,7 +89,7 @@ namespace CMiX.MVVM.Controls
         }
 
 
-        public ItemsControl _ParentItemsControl { get; set; }
+        public Window _ParentItemsControl { get; set; }
         #endregion
 
         #region EVENTS
@@ -97,6 +97,7 @@ namespace CMiX.MVVM.Controls
         {
             if (e.Key == Key.Escape || e.Key == Key.Enter)
             {
+                Console.WriteLine("KeyDown");
                 OnSwitchToNormalMode();
                 e.Handled = true;
                 return;
@@ -105,26 +106,29 @@ namespace CMiX.MVVM.Controls
 
         protected override void OnLostFocus(RoutedEventArgs e)
         {
+            base.OnLostFocus(e);
             OnSwitchToNormalMode();
         }
 
         protected override void OnLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
         {
+            base.OnLostKeyboardFocus(e);
             OnSwitchToNormalMode();
         }
 
         public void OnMouseDownOutsideElement(object sender, MouseButtonEventArgs e)
-        {
-            e.Handled = true;
+        { 
             OnSwitchToNormalMode();
+            e.Handled = true;
         }
         #endregion
 
         #region PRIVATE METHODS
         private void OnSwitchToEditingMode()
         {
-            Mouse.Capture(this);
-            AddHandler();
+            Mouse.Capture(this, CaptureMode.SubTree);
+            //AddHandler();
+            
             TextDisplay.Visibility = Visibility.Hidden;
             TextInput.Visibility = Visibility.Visible;
             HookItemsControlEvents();
@@ -138,14 +142,14 @@ namespace CMiX.MVVM.Controls
             TextDisplay.Visibility = Visibility.Visible;
             TextInput.Visibility = Visibility.Hidden;
             Mouse.RemovePreviewMouseDownOutsideCapturedElementHandler(this, OnMouseDownOutsideElement);
-            ReleaseMouseCapture();
+            Mouse.Capture(null);
         }
 
         private void HookItemsControlEvents()
         {
-
+            //CaptureMouse();
             Mouse.AddPreviewMouseDownOutsideCapturedElementHandler(this, OnMouseDownOutsideElement);
-
+            _ParentItemsControl = this.GetDpObjectFromVisualTree(this, typeof(Window)) as Window;
             if (_ParentItemsControl != null)
             {
                 // Handle events on parent control and determine whether to switch to Normal mode or stay in editing mode

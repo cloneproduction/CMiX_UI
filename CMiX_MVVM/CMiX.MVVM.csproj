@@ -86,6 +86,7 @@
     <Compile Include="Models\EntityEditorModel.cs" />
     <Compile Include="Models\LayerEditorModel.cs" />
     <Compile Include="Resources\ExtensionMethods.cs" />
+    <Compile Include="Resources\SortableObservableCollection.cs" />
     <Compile Include="Services\Client.cs" />
     <Compile Include="Services\CommandName.cs" />
     <Compile Include="Services\Message\MessageEventArgs.cs" />

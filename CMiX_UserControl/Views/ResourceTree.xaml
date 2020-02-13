@@ -19,7 +19,6 @@
         <ResourceDictionary>
             <Resources:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
             <Resources:BindingProxy x:Key="AssetsProxy" Data="{Binding}" />
-            <Resources:SortTreeViewItemConverter x:Key="SortTreeViewItemConverter"/>
 
             <CollectionViewSource x:Key="SortedAssets" IsLiveFilteringRequested="True" IsLiveSortingRequested="True" Source="{Binding ResourceItems}">
                 <CollectionViewSource.SortDescriptions>
@@ -38,7 +37,7 @@
             
             <HierarchicalDataTemplate 
                 DataType="{x:Type ViewModels:DirectoryItem}" 
-                ItemsSource="{Binding AssetsCollectionView}">
+                ItemsSource="{Binding Assets}">
                 <Border Height="30" HorizontalAlignment="Stretch">
                     <DockPanel >
                             <Image Margin="6" Opacity="0.75" DockPanel.Dock="Left">
@@ -90,6 +89,7 @@
 
     <Border Background="{StaticResource HighDarkerColor}">
         <Controls:MultiSelectTreeView 
+            BorderThickness="0"
             SelectedItems="{Binding SelectedItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             ItemContainerStyle="{StaticResource TreeViewMultiSelectItem}"
             Background="Transparent"
@@ -102,7 +102,7 @@
 
             <i:Interaction.Behaviors>
                 <!--<Behaviors:TreeViewMultipleSelectionBehavior SelectedItems="{Binding SelectedItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
-                <!--<Behaviors:BindableSelectedItemBehavior SelectedItem="{Binding SelectedItem, Mode=TwoWay}"/>-->
+                <Behaviors:BindableSelectedItemBehavior SelectedItem="{Binding SelectedItem, Mode=TwoWay}"/>
             </i:Interaction.Behaviors>
             
             <TreeView.ContextMenu>
@@ -125,6 +125,7 @@
                         Padding="8, 4"
                         Foreground="{StaticResource TextBase}"
                         Command="{Binding RenameAssetCommand}">
+                        <!--CommandParameter="{Binding Path=PlacementTarget.SelectedItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}">-->
                     <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="10" Height="10" Source="{StaticResource Copy}" />

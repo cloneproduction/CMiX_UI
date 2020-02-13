@@ -69,7 +69,6 @@ namespace CMiX.MVVM.Trash
 
         private void OnMouseDownOutsideElement(object sender, MouseButtonEventArgs e)
         {
-
             e.Handled = true;
             OnSwitchToNormalMode();
         }
@@ -78,8 +77,6 @@ namespace CMiX.MVVM.Trash
         {
             base.OnPreviewMouseLeftButtonUp(e);
         }
-
-
 
         protected override void OnLostFocus(RoutedEventArgs e)
         {

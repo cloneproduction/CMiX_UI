@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CMiX.MVVM.ViewModels;
 using System.Linq.Dynamic;
+using CMiX.MVVM.Resources;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -12,7 +13,7 @@ namespace CMiX.Studio.ViewModels
         {
             Name = name;
             Path = path;
-            Ponderation = ItemPonderation.AssetsPonderation;
+            Assets = new SortableObservableCollection<IAssets>();
         }
 
         public ICommand AddAssetCommand { get; set; }
@@ -20,8 +21,13 @@ namespace CMiX.Studio.ViewModels
         public ICommand RemoveAssetCommand { get; set; }
 
 
-        public Enum Ponderation { get; set; }
-        public ObservableCollection<IAssets> Assets { get; set; }
+        private string _ponderation = "aa";
+        public string Ponderation
+        {
+            get => _ponderation;
+            set => _ponderation = value;
+        }
+        public SortableObservableCollection<IAssets> Assets { get; set; }
 
         private string _path;
         public string Path
@@ -72,6 +78,11 @@ namespace CMiX.Studio.ViewModels
         public void Rename()
         {
             this.IsRenaming = true;
+        }
+
+        public void SortAssets()
+        {
+            throw new System.NotImplementedException();
         }
 
         public ObservableCollection<IAssets> ReorderAssets(ObservableCollection<IAssets> parentAsset)

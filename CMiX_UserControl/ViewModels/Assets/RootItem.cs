@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CMiX.MVVM.ViewModels;
+using CMiX.MVVM.Resources;
+using System.Collections.Specialized;
+using System.ComponentModel;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -14,9 +17,8 @@ namespace CMiX.Studio.ViewModels
     {
         public RootItem()
         {
-            Ponderation = ItemPonderation.AssetsPonderation;
-
-            Assets = new ObservableCollection<IAssets>();
+            Assets = new SortableObservableCollection<IAssets>();
+            Assets.CollectionChanged += CollectionChanged;
             AddAssetCommand = new RelayCommand(p => AddAsset());
         }
 
@@ -24,9 +26,14 @@ namespace CMiX.Studio.ViewModels
         public ICommand RenameCommand { get; set; }
         public ICommand RemoveAssetCommand { get; set; }
 
-        public ObservableCollection<IAssets> Assets { get; set; }
+        public SortableObservableCollection<IAssets> Assets { get; set; }
 
-        public Enum Ponderation { get; set; }
+        private string _ponderation = "_";
+        public string Ponderation
+        {
+            get => _ponderation;
+            set => _ponderation = value;
+        }
 
         private string _path;
         public string Path
@@ -86,6 +93,32 @@ namespace CMiX.Studio.ViewModels
         public void Rename()
         {
             throw new System.NotImplementedException();
+        }
+
+        public void SortAssets()
+        {
+            this.Assets.Sort(c => c.Name);
+            this.Assets.Sort(c => c.Ponderation);
+        }
+
+        public void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.OldItems != null)
+            {
+                foreach (INotifyPropertyChanged item in e.OldItems)
+                    item.PropertyChanged -= item_PropertyChanged;
+            }
+            if (e.NewItems != null)
+            {
+                foreach (INotifyPropertyChanged item in e.NewItems)
+                    item.PropertyChanged += item_PropertyChanged;
+            }
+        }
+
+        public void item_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Name))
+                SortAssets();
         }
     }
 }
