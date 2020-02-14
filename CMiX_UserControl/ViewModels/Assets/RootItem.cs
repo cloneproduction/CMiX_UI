@@ -13,16 +13,16 @@ using System.ComponentModel;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class RootItem : ViewModel, IAssets
+    public class RootItem : ViewModel, IDirectory
     {
         public RootItem()
         {
             Assets = new SortableObservableCollection<IAssets>();
             Assets.CollectionChanged += CollectionChanged;
-            AddAssetCommand = new RelayCommand(p => AddAsset());
+            AddNewDirectoryCommand = new RelayCommand(p => AddNewDirectory());
         }
 
-        public ICommand AddAssetCommand { get; set; }
+        public ICommand AddNewDirectoryCommand { get; set; }
         public ICommand RenameCommand { get; set; }
         public ICommand RemoveAssetCommand { get; set; }
 
@@ -35,18 +35,18 @@ namespace CMiX.Studio.ViewModels
             set => _ponderation = value;
         }
 
-        private string _path;
-        public string Path
-        {
-            get => _path;
-            set => SetAndNotify(ref _path, value);
-        }
-
         private string _name;
         public string Name
         {
             get => _name;
             set => SetAndNotify(ref _name, value);
+        }
+
+        private bool _isRoot = false;
+        public bool IsRoot
+        {
+            get => _isRoot;
+            set => SetAndNotify(ref _isRoot, value);
         }
 
         private bool _isRenaming;
@@ -70,24 +70,22 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _isSelected, value);
         }
 
-        public ObservableCollection<IAssets> ReorderAssets(ObservableCollection<IAssets> parentAsset)
+        public void AddNewDirectory()
         {
-            Console.WriteLine("ReorderAssets");
-            ObservableCollection<IAssets> temp;
-            temp = new ObservableCollection<IAssets>(parentAsset.OrderBy($"{nameof(IAssets.Ponderation)}, {nameof(IAssets.Name)}"));
-            parentAsset.Clear();
-            foreach (IAssets j in temp) parentAsset.Add(j);
-            return parentAsset;
+            var dir = new DirectoryItem("NewFolder");
+            AddAsset(dir);
         }
 
-        public void AddAsset()
+        public void AddAsset(IAssets asset)
         {
-            Assets.Add(new DirectoryItem("NewFolder", null, this));
+            Assets.Add(asset);
+            SortAssets();
         }
 
-        public void RemoveAsset()
+        public void RemoveAsset(IAssets asset)
         {
-            throw new System.NotImplementedException();
+            if (Assets.Contains(asset))
+                Assets.Remove(asset);
         }
 
         public void Rename()

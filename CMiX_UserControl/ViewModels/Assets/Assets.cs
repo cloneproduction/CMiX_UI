@@ -25,14 +25,13 @@ namespace CMiX.Studio.ViewModels
             GeometryItems = new ObservableCollection<GeometryItem>();
             TextureItems = new ObservableCollection<TextureItem>();
             ResourceItems = new ObservableCollection<IAssets>();
-            
-            
-            SelectedItems = new ObservableCollection<IAssets>();
-            SelectedItems.CollectionChanged += CollectionChanged;
-            var directoryItem = new RootItem();
+
+            var directoryItem = new DirectoryItem("RESOURCES");
+            directoryItem.IsRoot = true;
             ResourceItems.Add(directoryItem);
 
-            InitializeCollectionView();
+            SelectedItems = new ObservableCollection<IAssets>();
+            SelectedItems.CollectionChanged += CollectionChanged;
 
             AddAssetCommand = new RelayCommand(p => AddAsset());
             DeleteAssetsCommand = new RelayCommand(p => DeleteAssets());
@@ -48,41 +47,41 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _selectedItems, value);
         }
 
-        private IAssets _selectedItem;
-        public IAssets SelectedItem
-        {
-            get => _selectedItem;
-            set => SetAndNotify(ref _selectedItem, value);
-        }
 
-        private bool _canAddAsset;
+        private bool _canAddAsset = false;
         public bool CanAddAsset
         {
             get => _canAddAsset;
             set => SetAndNotify(ref _canAddAsset, value);
         }
 
-        private bool _canRenameAsset;
+        private bool _canRenameAsset = false;
         public bool CanRenameAsset
         {
             get => _canRenameAsset;
             set => SetAndNotify(ref _canRenameAsset, value);
         }
 
-        public void RenameAsset()
+        private bool _canDeleteAsset = false;
+        public bool CanDeleteAsset
         {
-            SelectedItems[0].IsRenaming = true;
+            get => _canDeleteAsset;
+            set => SetAndNotify(ref _canDeleteAsset, value);
         }
 
+        public void RenameAsset()
+        {
+            if(SelectedItems[0] is IDirectory)
+                ((IDirectory)SelectedItems[0]).Rename();
+        }
 
         private void DeleteAssets()
         {
-
             if (SelectedItems != null && ResourceItems != null)
-                DeleteItems(ResourceItems);
+                DeleteSelectedAssets(ResourceItems);
         }
 
-        public void DeleteItems(ObservableCollection<IAssets> assets)
+        public void DeleteSelectedAssets(ObservableCollection<IAssets> assets)
         {
             var toBeRemoved = new List<IAssets>();
 
@@ -90,25 +89,25 @@ namespace CMiX.Studio.ViewModels
             {
                 if (asset.IsSelected)
                     toBeRemoved.Add(asset);
-                else
-                    DeleteItems(asset.Assets);
+                else if (!asset.IsSelected && asset is IDirectory)
+                    DeleteSelectedAssets(((IDirectory)asset).Assets);
             }
 
             foreach (var item in toBeRemoved)
                 assets.Remove(item);
 
             SelectedItems.Clear();
+            Console.WriteLine("SelectedItemsDeleted now count is " + SelectedItems.Count);
         }
 
         public void AddAsset()
         {
-            var directoryItem = new DirectoryItem("NewFolder", null, null);
-            if(SelectedItems != null && SelectedItems.Count == 1)
+            if(SelectedItems != null && SelectedItems.Count == 1 && SelectedItems[0] is IDirectory)
             {
-                SelectedItems[0].Assets.Add(directoryItem);
-                SelectedItems[0].SortAssets();
-            }
-                
+                IDirectory selectedItem = (IDirectory)SelectedItems[0];
+                selectedItem.IsExpanded = true;
+                selectedItem.AddAsset(new DirectoryItem("New Folder"));
+            } 
         }
 
 
@@ -117,7 +116,6 @@ namespace CMiX.Studio.ViewModels
         #region PROPERTIES
         public ICommand RenameAssetCommand { get; set; }
         public ICommand AddAssetCommand { get; set; }
-        public ICommand AddNewFolderCommand { get; set; }
         public ICommand DeleteAssetsCommand { get; set; }
         public ICommand DeleteSelectedItemCommand { get; set; }
 
@@ -144,7 +142,7 @@ namespace CMiX.Studio.ViewModels
 
         private IAssets GetItemFromDirectory(DirectoryInfo directoryInfo)
         {
-            var directoryItem = new DirectoryItem(directoryInfo.Name, directoryInfo.FullName, null);
+            var directoryItem = new DirectoryItem(directoryInfo.Name);
 
             foreach (var directory in directoryInfo.GetDirectories())
                 directoryItem.Assets.Add(GetItemFromDirectory(directory));
@@ -172,17 +170,6 @@ namespace CMiX.Studio.ViewModels
         }
         #endregion
 
-        public CollectionViewSource  AssetsCollectionView { get; set; }
-
-        private void InitializeCollectionView()
-        {
-            AssetsCollectionView = new CollectionViewSource();
-            AssetsCollectionView.Source = ResourceItems;
-            SortDescription ponderation = new SortDescription("Ponderation", ListSortDirection.Ascending);
-            SortDescription sort = new SortDescription("Name", ListSortDirection.Ascending);
-            AssetsCollectionView.SortDescriptions.Add(ponderation);
-            AssetsCollectionView.SortDescriptions.Add(sort);
-        }
 
         #region DRAG DROP
         public void DragOver(IDropInfo dropInfo)
@@ -210,9 +197,6 @@ namespace CMiX.Studio.ViewModels
             }
         }
 
-
-
-
         public void Drop(IDropInfo dropInfo)
         {
             var dataObject = dropInfo.Data as DataObject;
@@ -231,43 +215,36 @@ namespace CMiX.Studio.ViewModels
 
                     if (item != null)
                     {
-                        if (dropInfo.TargetItem is DirectoryItem)
+                        if (dropInfo.TargetItem is IDirectory)
                         {
-                            var directoryItem = (DirectoryItem)dropInfo.TargetItem;
+                            var directoryItem = (IDirectory)dropInfo.TargetItem;
                             directoryItem.Assets.Add(item);
-                            //directoryItem.IsExpanded = true;
+                            directoryItem.IsExpanded = true;
                         }
-                        else
-                            ResourceItems[0].Assets.Add(item);
+                        else if(ResourceItems[0] is IDirectory)
+                            ((IDirectory)ResourceItems[0]).Assets.Add(item);
                     }
                 }
             }
             else if (dropInfo.DragInfo.Data is List<DragDropObject> && dropInfo.TargetCollection is ObservableCollection<IAssets>)
             {
-                //var targetViewCollection = (dropInfo.TargetCollection as ListCollectionView).SourceCollection;
-                var targetViewCollection = dropInfo.TargetCollection as ObservableCollection<IAssets>;
-                if (targetViewCollection is ObservableCollection<IAssets>)
+                var targetCollection = dropInfo.TargetCollection as ObservableCollection<IAssets>;
+                if (targetCollection is ObservableCollection<IAssets>)
                 {
-                    Console.WriteLine("targetViewCollection is ObservableCollection<IAssets>");
                     var targetItem = dropInfo.TargetItem;
-                    if (targetItem is DirectoryItem || targetItem is RootItem)
+                    if (targetItem is IDirectory)
                     {
-                        var targetCollection = targetViewCollection as ObservableCollection<IAssets>;
-                        if (targetCollection != null)
+                        var data = dropInfo.DragInfo.Data as List<DragDropObject>;
+                        ((IDirectory)targetItem).IsExpanded = true;
+                        foreach (DragDropObject item in data)
                         {
-                            var data = dropInfo.DragInfo.Data as List<DragDropObject>;
-                            foreach (DragDropObject item in data)
-                            {
-                                item.DragObject.IsSelected = false;
-                                targetCollection.Add(item.DragObject);
-                                item.SourceCollection.Remove(item.DragObject);
-                            }
-                            Console.WriteLine("SelectedItems " + SelectedItems.Count);
+                            item.DragObject.IsSelected = false;
+                            targetCollection.Add(item.DragObject);
+                            item.SourceCollection.Remove(item.DragObject);
                         }
                     }
                 }
             }
-            UpdateTextureItem(ResourceItems);
         }
 
         public void RemoveAssets(List<IAssets> assetsToRemove, List<IAssets> assets)
@@ -281,14 +258,15 @@ namespace CMiX.Studio.ViewModels
             {
                 if (asset.IsSelected)
                 {
+                    Console.WriteLine("asset.IsSelected" + asset.Name);
                     DragDropObject dragDropObject = new DragDropObject();
                     dragDropObject.DragObject = asset;
                     dragDropObject.SourceCollection = assets;
                     dragList.Add(dragDropObject);
                 }
-                else
+                else if (!asset.IsSelected && asset is IDirectory)
                 {
-                    GetDragDropObjects(dragList, asset.Assets);
+                    GetDragDropObjects(dragList, ((IDirectory)asset).Assets);
                 }
             }
         }
@@ -327,8 +305,7 @@ namespace CMiX.Studio.ViewModels
 
         public void DragCancelled()
         {
-            Console.WriteLine("DragCancelled");
-            //throw new NotImplementedException();
+
         }
 
         public bool TryCatchOccurredException(Exception exception)
@@ -339,51 +316,16 @@ namespace CMiX.Studio.ViewModels
 
         public void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            foreach (var item in SelectedItems)
-            {
-                if(item != null)
-                    Console.WriteLine(item.Name);
-            }
+            CanRenameAsset = (SelectedItems.Count == 1 && SelectedItems.OfType<DirectoryItem>().Any() && !SelectedItems.OfType<DirectoryItem>().Any(c => c.IsRoot == true));
+            CanAddAsset = (SelectedItems.Count == 1 && SelectedItems.OfType<DirectoryItem>().Any());
+            CanDeleteAsset = !SelectedItems.OfType<DirectoryItem>().Any(c => c.IsRoot == true);
 
-
-            if(SelectedItems.Count == 1 )
-            {
-                if(SelectedItems[0] is RootItem)
-                {
-                    CanAddAsset = true;
-                }
-                else if (SelectedItems[0] is DirectoryItem)
-                {
-                    CanAddAsset = true;
-                    CanRenameAsset = true;
-                }
-            }
-            else
+            if (SelectedItems.Count == 0)
             {
                 CanAddAsset = false;
                 CanRenameAsset = false;
+                CanDeleteAsset = false;
             }
-            Console.WriteLine("CanRenameAsset false because SelectedItems.Count = " + SelectedItems.Count);
-            //if(SelectedItems != null)
-            //{
-            //    foreach (var item in SelectedItems)
-            //    {
-            //        if(item != null)
-            //            Console.WriteLine(item.Name);
-            //    }
-            //}
-
-
-            //if (e.OldItems != null)
-            //{
-            //    foreach (INotifyPropertyChanged item in e.OldItems)
-            //        item.PropertyChanged -= item_PropertyChanged;
-            //}
-            //if (e.NewItems != null)
-            //{
-            //    foreach (INotifyPropertyChanged item in e.NewItems)
-            //        item.PropertyChanged += item_PropertyChanged;
-            //}
         }
 
         #region COPY/PASTE

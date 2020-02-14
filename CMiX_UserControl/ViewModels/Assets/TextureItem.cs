@@ -13,13 +13,7 @@ namespace CMiX.Studio.ViewModels
         {
             Name = name;
             Path = path;
-            Assets = new SortableObservableCollection<IAssets>();
         }
-
-        public ICommand AddAssetCommand { get; set; }
-        public ICommand RenameCommand { get; set; }
-        public ICommand RemoveAssetCommand { get; set; }
-
 
         private string _ponderation = "aa";
         public string Ponderation
@@ -27,7 +21,6 @@ namespace CMiX.Studio.ViewModels
             get => _ponderation;
             set => _ponderation = value;
         }
-        public SortableObservableCollection<IAssets> Assets { get; set; }
 
         private string _path;
         public string Path
@@ -43,56 +36,11 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _name, value);
         }
 
-        private bool _isRenaming;
-        public bool IsRenaming
-        {
-            get => _isRenaming;
-            set => SetAndNotify(ref _isRenaming, value);
-        }
-
-        private bool _isExpanded;
-        public bool IsExpanded
-        {
-            get => _isExpanded;
-            set => SetAndNotify(ref _isExpanded, value);
-        }
-
         private bool _isSelected;
         public bool IsSelected
         {
             get => _isSelected;
             set => SetAndNotify(ref _isSelected, value);
-        }
-
-
-        public void AddAsset()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void RemoveAsset()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Rename()
-        {
-            this.IsRenaming = true;
-        }
-
-        public void SortAssets()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public ObservableCollection<IAssets> ReorderAssets(ObservableCollection<IAssets> parentAsset)
-        {
-            Console.WriteLine("ReorderAssets");
-            ObservableCollection<IAssets> temp;
-            temp = new ObservableCollection<IAssets>(parentAsset.OrderBy($"{nameof(IAssets.Ponderation)}, {nameof(IAssets.Name)}"));
-            parentAsset.Clear();
-            foreach (IAssets j in temp) parentAsset.Add(j);
-            return parentAsset;
         }
     }
 }

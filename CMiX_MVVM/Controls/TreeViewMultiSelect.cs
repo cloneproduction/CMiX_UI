@@ -28,20 +28,25 @@ namespace CMiX.MVVM.Controls
 
         protected override void OnMouseRightButtonDown(MouseButtonEventArgs e)
         {
+            base.OnPreviewMouseRightButtonDown(e);
             Keyboard.ClearFocus();
             TreeViewItem treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
             var treeView = FindTreeView(e.OriginalSource as DependencyObject);
             var list = GetSelectedItems(treeView);
 
-            if (treeViewItem != null && list.Count <= 1)
+            if(treeViewItem != null)
             {
-                _selectTreeViewItemOnMouseUp = treeViewItem;
-                SelectSingleItem(treeView, treeViewItem);
+                if (list.Count > 1)
+                {
+                    if (!(bool)treeViewItem.GetValue(IsItemSelectedProperty))
+                        SelectItems(treeViewItem, treeView);
+                }
+                else if (list.Count <= 1)
+                {
+                    SelectItems(treeViewItem, treeView);
+                }
             }
-                
-
-            base.OnMouseRightButtonDown(e);
-            e.Handled = true;
+            //e.Handled = true;
         }
 
         private static void OnTreeViewItemGotFocus(object sender, RoutedEventArgs e)

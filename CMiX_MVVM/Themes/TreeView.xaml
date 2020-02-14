@@ -223,7 +223,7 @@
         <Setter Property="Padding" Value="1,0,0,0" />
         <Setter Property="Foreground" Value="{StaticResource TextBase}" />
         <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-        <Setter Property="Controls:MultiSelectTreeView.IsItemSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+        <Setter Property="Controls:MultiSelectTreeView.IsItemSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         <Setter Property="FocusVisualStyle" Value="{StaticResource TreeViewItemFocusVisual}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -231,18 +231,12 @@
                     <ControlTemplate.Resources>
                         <Resources:LeftMarginMultiplierConverter Length="19" x:Key="lengthConverter" />
                     </ControlTemplate.Resources>
-                    <StackPanel>
-                        <Border Name="Bd"
-                                Background="Transparent"
-                                BorderBrush="{StaticResource SuperHighDarkerColor}"
-                                BorderThickness="0, 0, 0, 1">
-                            <!--<i:Interaction.Triggers>
-                                <i:EventTrigger EventName="PreviewMouseRightButtonDown">
-                                    <ei:ChangePropertyAction PropertyName="IsSelected" Value="true" TargetObject="{Binding}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>-->
+                    <StackPanel MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ContentPresenter, AncestorLevel=1}}">
+                        <Border Name="Bd">
                             <Border.Style>
                                 <Style TargetType="{x:Type Border}">
+                                    <Setter Property="BorderThickness" Value="0, 0, 0, 1"/>
+                                    <Setter Property="BorderBrush" Value="{StaticResource SuperHighDarkerColor}"/>
                                     <Setter Property="Background" Value="Transparent"/>
                                     <Style.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">
@@ -322,16 +316,17 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <!--<Style.Triggers>
-                <Trigger Property="VirtualizingPanel.IsVirtualizing" Value="true">
-                    <Setter Property="ItemsPanel">
-                        <Setter.Value>
-                            <ItemsPanelTemplate>
-                                <VirtualizingStackPanel/>
-                            </ItemsPanelTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>-->
+        <Style.Triggers>
+            <Trigger Property="VirtualizingPanel.IsVirtualizing" Value="true">
+                <Setter Property="ItemsPanel">
+                    <Setter.Value>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
     </Style>
+    
 </ResourceDictionary>

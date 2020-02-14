@@ -37,7 +37,6 @@
                         x:Name="templateRoot"
                         Background="{StaticResource DarkColor}"
                         Padding="2"
-
                         SnapsToDevicePixels="True">
                         <Grid VerticalAlignment="Center">
                             <Grid.ColumnDefinitions>
@@ -82,7 +81,7 @@
                                 VerticalOffset="2"
                                 IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}"
                                 Placement="Bottom"
-                                PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}">
+                                PopupAnimation="None">
                                 <Border
                                     x:Name="SubMenuBorder"
                                     CornerRadius="0, 0, 4, 4"
@@ -119,9 +118,9 @@
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsSuspendingPopupAnimation" Value="True">
+                        <!--<Trigger Property="IsSuspendingPopupAnimation" Value="True">
                             <Setter TargetName="PART_Popup" Property="PopupAnimation" Value="None" />
-                        </Trigger>
+                        </Trigger>-->
                         <Trigger Property="Icon" Value="{x:Null}">
                             <Setter TargetName="Icon" Property="Visibility" Value="Collapsed" />
                         </Trigger>
@@ -133,7 +132,7 @@
                             <Setter TargetName="templateRoot" Property="Background" Value="{StaticResource DarkerColor}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="templateRoot" Property="TextElement.Foreground" Value="#FF707070" />
+                            <Setter TargetName="templateRoot" Property="Opacity" Value="0.5" />
                             <Setter TargetName="GlyphPanel" Property="Fill" Value="#FF707070" />
                         </Trigger>
                         <Trigger SourceName="SubMenuScrollViewer" Property="CanContentScroll" Value="False">
@@ -188,7 +187,8 @@
                                 HorizontalOffset="0"
                                 VerticalOffset="0"
                                 IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}"
-                                Placement="Right">
+                                Placement="Right"
+                                PopupAnimation="None">
                                 <Border
                                     x:Name="SubMenuBorder"
                                     CornerRadius="0"

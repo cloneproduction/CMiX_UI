@@ -134,6 +134,7 @@
     <Compile Include="Behaviors\TextBoxFocusBehavior.cs" />
     <Compile Include="Behaviors\TreeViewMultiSelectionBehavior.cs" />
     <Compile Include="ViewModels\Assets\DragDropObject.cs" />
+    <Compile Include="ViewModels\Assets\IDirectory.cs" />
     <Compile Include="ViewModels\Assets\ItemPonderation.cs" />
     <Compile Include="ViewModels\Assets\EnumFileType.cs" />
     <Compile Include="ViewModels\Assets\IAssets.cs" />
@@ -594,12 +595,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="TEST\1.0\" />
-    <Folder Include="TEST\2.0\1.1\" />
-    <Folder Include="TEST\2.0\1.2\" />
-    <Folder Include="TEST\3.0\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

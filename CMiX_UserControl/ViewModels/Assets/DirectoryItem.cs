@@ -1,46 +1,22 @@
 ﻿using CMiX.MVVM.Resources;
 using CMiX.MVVM.ViewModels;
-using System;
-using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
-using System.Linq.Dynamic;
-using System.Windows.Data;
-using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class DirectoryItem : ViewModel, IAssets
+    public class DirectoryItem : ViewModel, IDirectory
     {
-        public DirectoryItem(string name, string path, IAssets parentAsset)
+        public DirectoryItem(string name)
         {
+            Name = name;
             Assets = new SortableObservableCollection<IAssets>();
             Assets.CollectionChanged += CollectionChanged;
-
-            ParentAsset = parentAsset;
             IsExpanded = false;
-            Name = name;
-            Path = path;
-
-            AddAssetCommand = new RelayCommand(p => AddAsset());
-            RenameCommand = new RelayCommand(p => Rename());
+            IsSelected = false;
         }
-
-        public ICommand AddAssetCommand { get; set; }
-        public ICommand RenameCommand { get; set; }
-        public ICommand RemoveAssetCommand { get; set; }
 
         public SortableObservableCollection<IAssets> Assets { get; set; }
-
-        public IAssets ParentAsset { get; set; }
-
-        private string _path;
-        public string Path
-        {
-            get => _path;
-            set => SetAndNotify(ref _path, value);
-        }
 
         private string _name;
         public string Name
@@ -56,13 +32,18 @@ namespace CMiX.Studio.ViewModels
             set => _ponderation = value;
         }
 
-        //public Enum Ponderation { get; set; }
-
         private bool _isRenaming;
         public bool IsRenaming
         {
             get => _isRenaming;
             set => SetAndNotify(ref _isRenaming, value);
+        }
+
+        private bool _isRoot = false;
+        public bool IsRoot
+        {
+            get => _isRoot;
+            set => SetAndNotify(ref _isRoot, value);
         }
 
         private bool _isExpanded;
@@ -79,15 +60,16 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _isSelected, value);
         }
 
-        public void AddAsset()
+        public void AddAsset(IAssets asset)
         {
-            var directoryItem = new DirectoryItem("NewFolder", null, this);
-            Assets.Add(directoryItem);
+            Assets.Add(asset);
+            SortAssets();
         }
 
-        public void RemoveAsset()
+        public void RemoveAsset(IAssets asset)
         {
-            throw new System.NotImplementedException();
+            if (Assets.Contains(asset))
+                Assets.Remove(asset);
         }
 
         public void Rename()
@@ -118,9 +100,7 @@ namespace CMiX.Studio.ViewModels
         public void item_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(Name))
-            {
                 SortAssets();
-            }
         }
     }
 }
