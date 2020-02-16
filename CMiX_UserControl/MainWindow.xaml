@@ -5,18 +5,17 @@
     xmlns:Views="clr-namespace:CMiX.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:ColorPicker="clr-namespace:ColorPicker;assembly=ColorPicker"
     Title="C-MiX Studio"
     Width="1200"
     Height="800"
+    Style="{StaticResource WindowStyle}"
     mc:Ignorable="d">
+
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Undo" Executed="UndoCommand_Executed" CanExecute="UndoCommand_CanExecute" />
         <CommandBinding Command="ApplicationCommands.Redo" Executed="RedoCommand_Executed" CanExecute="RedoCommand_CanExecute" />
     </Window.CommandBindings>
-    <!--<Button x:Name="WindowMainGrid"/>-->
-    <Grid Background="Transparent">
-        <Views:Root x:Name="RootView" Background="Black"/>
-    </Grid>
-        
+
+    <Views:Root x:Name="RootView" Background="Black"/>
+
 </Window>

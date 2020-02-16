@@ -19,9 +19,7 @@ namespace CMiX.Studio.ViewModels
             MessageService = messageService;
             Assets = assets;
 
-            FileSelector = new FileSelector(MessageAddress,  "Single", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, messageService, mementor);
-            FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress, messageService) { FileIsSelected = true, FileName = "Black (default).png" });
-            FileSelector.SelectedFileNameItem = new FileNameItem(string.Empty, FileSelector.MessageAddress, messageService) { FileIsSelected = true, FileName = "Black (default).png" };
+            AssetSelector = new AssetSelector<TextureItem>(MessageAddress, assets, messageService, mementor);
 
             Brightness = new Slider(MessageAddress + nameof(Brightness), messageService, mementor);
             Brightness.Minimum = -1.0;
@@ -66,6 +64,7 @@ namespace CMiX.Studio.ViewModels
         public ICommand PasteTextureCommand { get; }
         public ICommand ResetTextureCommand { get; }
 
+        public AssetSelector<TextureItem> AssetSelector { get; set; }
         public TextureItem TextureItem { get; set; }
         public Assets Assets { get; set; }
         public FileSelector FileSelector { get;  }

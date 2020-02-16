@@ -82,6 +82,7 @@
     <Compile Include="Controls\ExpanderLayerList.cs" />
     <Compile Include="Controls\TreeViewMultiSelect.cs" />
     <Compile Include="Interfaces\ICopyPasteModel.cs" />
+    <Compile Include="Models\TextureFileModel.cs" />
     <Compile Include="Models\CompositionEditorModel.cs" />
     <Compile Include="Models\EntityEditorModel.cs" />
     <Compile Include="Models\LayerEditorModel.cs" />
@@ -193,6 +194,18 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <Resource Include="Themes\Fonts\Roboto-Black.ttf" />
+    <Resource Include="Themes\Fonts\Roboto-BlackItalic.ttf" />
+    <Resource Include="Themes\Fonts\Roboto-Bold.ttf" />
+    <Resource Include="Themes\Fonts\Roboto-BoldItalic.ttf" />
+    <Resource Include="Themes\Fonts\Roboto-Italic.ttf" />
+    <Resource Include="Themes\Fonts\Roboto-Light.ttf" />
+    <Resource Include="Themes\Fonts\Roboto-LightItalic.ttf" />
+    <Resource Include="Themes\Fonts\Roboto-Medium.ttf" />
+    <Resource Include="Themes\Fonts\Roboto-MediumItalic.ttf" />
+    <Resource Include="Themes\Fonts\Roboto-Regular.ttf" />
+    <Resource Include="Themes\Fonts\Roboto-Thin.ttf" />
+    <Resource Include="Themes\Fonts\Roboto-ThinItalic.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\CMiXRangeSlider.xaml">
@@ -206,6 +219,10 @@
     <Page Include="Controls\EditableTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Window.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\TextBlock.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -421,6 +438,8 @@
   <ItemGroup>
     <Resource Include="Assets\Composition.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Themes\Fonts\LICENSE.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

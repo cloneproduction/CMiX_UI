@@ -5,16 +5,14 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using CMiX.MVVM;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.ViewModels;
 using GongSolutions.Wpf.DragDrop;
 using System.Linq;
 using System.Linq.Dynamic;
-using System.Windows.Data;
-using System.ComponentModel;
 using System.Collections.Specialized;
+using System.Windows.Data;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -22,23 +20,26 @@ namespace CMiX.Studio.ViewModels
     {
         public Assets()
         {
-            GeometryItems = new ObservableCollection<GeometryItem>();
-            TextureItems = new ObservableCollection<TextureItem>();
-            ResourceItems = new ObservableCollection<IAssets>();
+            AssetsViewSource = new CollectionViewSource();
 
+            ResourceItems = new ObservableCollection<IAssets>();
             var directoryItem = new DirectoryItem("RESOURCES");
             directoryItem.IsRoot = true;
             ResourceItems.Add(directoryItem);
 
+            AvailableResources = new ObservableCollection<IAssets>();
+
             SelectedItems = new ObservableCollection<IAssets>();
             SelectedItems.CollectionChanged += CollectionChanged;
 
+            AssetsViewSource.Source = AvailableResources;
             AddAssetCommand = new RelayCommand(p => AddAsset());
             DeleteAssetsCommand = new RelayCommand(p => DeleteAssets());
             RenameAssetCommand = new RelayCommand(p => RenameAsset());
         }
 
         #region METHODS
+        public CollectionViewSource AssetsViewSource { get; set; }
 
         private ObservableCollection<IAssets> _selectedItems;
         public ObservableCollection<IAssets> SelectedItems
@@ -46,7 +47,6 @@ namespace CMiX.Studio.ViewModels
             get => _selectedItems;
             set => SetAndNotify(ref _selectedItems, value);
         }
-
 
         private bool _canAddAsset = false;
         public bool CanAddAsset
@@ -94,10 +94,12 @@ namespace CMiX.Studio.ViewModels
             }
 
             foreach (var item in toBeRemoved)
+            {
                 assets.Remove(item);
+                AvailableResources.Remove(item);
+            }
 
             SelectedItems.Clear();
-            Console.WriteLine("SelectedItemsDeleted now count is " + SelectedItems.Count);
         }
 
         public void AddAsset()
@@ -126,18 +128,11 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _resourceItems, value);
         }
 
-        public ObservableCollection<GeometryItem> GeometryItems;
-        public ObservableCollection<TextureItem> TextureItems;
-
-        private void UpdateTextureItem(ObservableCollection<IAssets> assets)
+        private ObservableCollection<IAssets> _availableResources;
+        public ObservableCollection<IAssets> AvailableResources
         {
-            foreach (var asset in assets)
-            {
-                if (asset is TextureItem && !assets.Contains(asset))
-                    TextureItems.Add(asset as TextureItem);
-                else if (asset is DirectoryItem)
-                    UpdateTextureItem(((DirectoryItem)asset).Assets);
-            }
+            get => _availableResources;
+            set => SetAndNotify(ref _availableResources, value);
         }
 
         private IAssets GetItemFromDirectory(DirectoryInfo directoryInfo)
@@ -151,7 +146,10 @@ namespace CMiX.Studio.ViewModels
             {
                 var item = GetFileItem(file.FullName);
                 if (item != null)
+                {
                     directoryItem.Assets.Add(item);
+                }
+                    
             }
             return directoryItem;
         }
@@ -160,13 +158,17 @@ namespace CMiX.Studio.ViewModels
         {
             string fileType = Path.GetExtension(filePath).ToUpper().TrimStart('.');
             string fileName = Path.GetFileName(filePath);
+            IAssets item = null;
 
             if (fileType == TextureFileType.PNG.ToString() || fileType == TextureFileType.JPG.ToString() || fileType == TextureFileType.MOV.ToString())
-                return new TextureItem(fileName, filePath);
+                item = new TextureItem(fileName, filePath);
             else if (fileType == GeometryFileType.FBX.ToString() || fileType == GeometryFileType.OBJ.ToString())
-                return new GeometryItem(fileName, filePath);
-            else
-                return null;
+                item = new GeometryItem(fileName, filePath);
+
+            if(item != null)
+                AvailableResources.Add(item);
+
+            return item;
         }
         #endregion
 
@@ -176,9 +178,12 @@ namespace CMiX.Studio.ViewModels
         {
             var dataObject = dropInfo.Data as DataObject;
 
-
             if (dataObject != null && dataObject.ContainsFileDropList())
+            {
                 dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
+                dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
+            }
+                
 
             if (dropInfo.DragInfo != null)
             {
@@ -223,6 +228,8 @@ namespace CMiX.Studio.ViewModels
                         }
                         else if(ResourceItems[0] is IDirectory)
                             ((IDirectory)ResourceItems[0]).Assets.Add(item);
+
+                        AvailableResources.Add(item);
                     }
                 }
             }
@@ -285,7 +292,7 @@ namespace CMiX.Studio.ViewModels
 
         public bool CanStartDrag(IDragInfo dragInfo)
         {
-            if (dragInfo.SourceItem is IAssets && !(dragInfo.SourceItem is RootItem))
+            if (dragInfo.SourceItem is IAssets)
                 return true;
             else
                 return false;

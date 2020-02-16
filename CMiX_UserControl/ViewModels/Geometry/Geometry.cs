@@ -13,17 +13,14 @@ namespace CMiX.Studio.ViewModels
     public class Geometry : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Geometry(string messageaddress, MessageService messageService, Mementor mementor, Beat beat) 
+        public Geometry(string messageaddress, MessageService messageService, Mementor mementor, Assets assets, Beat beat) 
         {
             MessageAddress = $"{messageaddress}{nameof(Geometry)}/";
             MessageService = messageService;
             Instancer = new Instancer(MessageAddress, messageService, mementor, beat);
             Transform = new Transform(MessageAddress, messageService, mementor);
 
-            FileSelector = new FileSelector(MessageAddress, "Single", new List<string> { ".FBX", ".OBJ" }, messageService, mementor);
-            FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress, messageService) { FileIsSelected = true, FileName = "Quad (default)" });
-            FileSelector.SelectedFileNameItem = new FileNameItem(string.Empty, FileSelector.MessageAddress, messageService) { FileIsSelected = true, FileName = "Quad (default)" };
-
+            AssetSelector = new AssetSelector<GeometryItem>(MessageAddress, assets, messageService, mementor);
             GeometryFX = new GeometryFX(MessageAddress, messageService, mementor);
 
             CopyGeometryCommand = new RelayCommand(p => CopyGeometry());
@@ -37,6 +34,7 @@ namespace CMiX.Studio.ViewModels
         public ICommand PasteGeometryCommand { get; }
         public ICommand ResetGeometryCommand { get; }
 
+        public AssetSelector<GeometryItem> AssetSelector { get; set; }
         public FileSelector FileSelector { get; }
         public Transform Transform { get; }
         public Instancer Instancer { get;  }

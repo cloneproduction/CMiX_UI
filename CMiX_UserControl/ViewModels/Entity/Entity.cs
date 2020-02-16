@@ -23,7 +23,7 @@ namespace CMiX.Studio.ViewModels
             Name = "Entity" + id;
 
             BeatModifier = new BeatModifier(MessageAddress, beat, messageService, mementor);
-            Geometry = new Geometry(MessageAddress, messageService, mementor, beat);
+            Geometry = new Geometry(MessageAddress, messageService, mementor, assets, beat);
             Texture = new Texture(MessageAddress, messageService, assets, mementor);
             Coloration = new Coloration(MessageAddress, messageService, mementor, beat);
 

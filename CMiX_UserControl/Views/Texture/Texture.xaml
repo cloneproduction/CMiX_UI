@@ -3,13 +3,14 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Views="clr-namespace:CMiX.Views"
-    xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX.MVVM"
+    xmlns:MVVM.ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX.MVVM"
     xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
     xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
     xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ViewModels="clr-namespace:CMiX.Studio.ViewModels"
     d:DesignHeight="636.667"
     d:DesignWidth="316.667"
     mc:Ignorable="d">
@@ -18,7 +19,7 @@
         <Resources:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
         <ObjectDataProvider x:Key="InvertMode" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="ViewModels:TextureInvertMode"/>
+                <x:Type TypeName="MVVM.ViewModels:TextureInvertMode"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </UserControl.Resources>
@@ -80,23 +81,8 @@
                         Foreground="{StaticResource TextBase}"/>
                 </DockPanel>
             </Border>
-            <Expander IsExpanded="True" Margin="0, 2" Header="Files" Style="{StaticResource ExpanderBase}">
-                <ComboBox 
-                    Margin="4" 
-                    Height="20" 
-                    ItemsSource="{Binding Assets.TextureItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedItem="{Binding TextureItem}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
 
-                </ComboBox>
-                <!--<MVVM.Views:FileSelector
-                    Height="300"
-                    DataContext="{Binding FileSelector}"/>-->
-            </Expander>
+            <Views:ImageSelector DataContext="{Binding AssetSelector}"/>
             <Expander Margin="0, 2" Header="Transform" Style="{StaticResource ExpanderBase}">
                 <StackPanel>
                     <Border Margin="0, 4" Style="{StaticResource BorderContainer}">

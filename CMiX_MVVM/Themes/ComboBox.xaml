@@ -20,24 +20,22 @@
                             x:Name="PART_Popup"
                             MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}}"
                             MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}}"
-                            MinHeight="200"
-                            MaxHeight="200"
+
+                            MaxHeight="204"
                             Grid.ColumnSpan="2"
                             AllowsTransparency="True"
                             IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                             Placement="Bottom"
-                            VerticalOffset="0"
-                            PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
+                            VerticalOffset="2"
+                            PopupAnimation="None">
                             <Border 
                                 x:Name="DropDownBorder"
                                 Padding="0, 4"
                                 CornerRadius="4"
-                                BorderBrush="{StaticResource Color}"
-                                BorderThickness="1"
                                 Background="{StaticResource DarkerColor}">
                                 <ScrollViewer 
                                     x:Name="DropDownScrollViewer"
-                                    VerticalScrollBarVisibility="Hidden">
+                                    VerticalScrollBarVisibility="Auto">
                                     <Grid x:Name="grid" 
                                           RenderOptions.ClearTypeHint="Enabled">
                                         <Canvas
@@ -65,8 +63,6 @@
                             x:Name="toggleButton"
                             Grid.ColumnSpan="2"
                             Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
                             IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
                             <ToggleButton.Style>
                                 <Style TargetType="{x:Type ToggleButton}">
@@ -98,7 +94,7 @@
                                                     CornerRadius="2"
                                                     x:Name="templateRoot"
                                                     Margin="0"
-                                                    Background="{StaticResource Color}"
+                                                    Background="{StaticResource DarkColor}"
                                                     SnapsToDevicePixels="True">
                                                     <Path
                                                         x:Name="Arrow"
@@ -106,8 +102,7 @@
                                                         HorizontalAlignment="Right"
                                                         VerticalAlignment="Center"
                                                         Data="F1M0,0L2.667,2.66665 5.3334,0 5.3334,-1.78168 2.6667,0.88501 0,-1.78168 0,0z"
-                                                        Fill="{StaticResource HighLightColor}"
-                                                        />
+                                                        Fill="{StaticResource HighLightColor}"/>
                                                 </Border>
                                                 <ControlTemplate.Triggers>
                                                     <MultiDataTrigger>
@@ -128,7 +123,7 @@
                                                             <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true" />
                                                             <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ComboBox}}}" Value="false" />
                                                         </MultiDataTrigger.Conditions>
-                                                        <Setter TargetName="templateRoot" Property="Background" Value="{StaticResource LightColor}"/>
+                                                        <Setter TargetName="templateRoot" Property="Background" Value="{StaticResource Color}"/>
                                                     </MultiDataTrigger>
                                                     <Trigger Property="IsPressed" Value="True">
                                                         <Setter TargetName="Arrow" Property="Fill" Value="White" />
@@ -179,11 +174,11 @@
                             </ToggleButton.Style>
                         </ToggleButton>
 
-                        <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
+                        <!--<Viewbox Stretch="Uniform" StretchDirection="DownOnly">-->
+                        <Border Padding="8, 0">
                             <ContentPresenter
                                 x:Name="contentPresenter"
-                                Margin="4"
-                                HorizontalAlignment="Center"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="{TemplateBinding SelectionBoxItem}"
                                 ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"
@@ -191,7 +186,9 @@
                                 IsHitTestVisible="False"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                 TextElement.Foreground="{StaticResource TextBase}" />
-                        </Viewbox>
+                        </Border>
+
+                        <!--</Viewbox>-->
                     </Grid>
 
                     <ControlTemplate.Triggers>
@@ -215,6 +212,7 @@
     </Style>
 
     <Style TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="Height" Value="25"/>
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Padding" Value="4" />
         <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}" />
@@ -242,20 +240,20 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBoxItem}">
-                    <Border
-                        x:Name="Bd"
-                        Padding="8, 4"
-                        Background="Transparent"
-                        SnapsToDevicePixels="True">
+                    <Border x:Name="Bd"
+                            Padding="8, 4"
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            SnapsToDevicePixels="True">
                         <ContentPresenter
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                             Content="{TemplateBinding Content}"
                             ContentStringFormat="{TemplateBinding ContentStringFormat}"
                             ContentTemplate="{TemplateBinding ContentTemplate}"
-                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
-                            />
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                     </Border>
+                    
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="Bd" Property="TextElement.Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
@@ -291,7 +289,6 @@
                             </MultiTrigger.Conditions>
                             <Setter TargetName="Bd" Property="Background" Value="{StaticResource LightColor}" />
                         </MultiTrigger>
-
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsSelected" Value="False" />

@@ -2,8 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
-    
-    <FontFamily x:Key="DefaultFont">Microsoft Sans Serif</FontFamily>
     <system:Double x:Key="DefaultFontSize">11</system:Double>
 
     <Color x:Key="SuperHighDarker">#FF0f0f0f</Color>
@@ -23,4 +21,5 @@
     <Color x:Key="Text">#FFB4B4B4</Color>
     <Color x:Key="OverText">Gainsboro</Color>
     <Color x:Key="ActiveText">#FFE6E6E6</Color>
+    
 </ResourceDictionary>

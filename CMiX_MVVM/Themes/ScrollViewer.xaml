@@ -95,13 +95,8 @@
     </Style>
 
     <ControlTemplate x:Key="VerticalScrollBar" TargetType="{x:Type ScrollBar}">
-        <Grid>
-            <Grid.RowDefinitions>
-                <!--<RowDefinition MaxHeight="12" />-->
-                <RowDefinition Height="0.00001*" />
-                <!--<RowDefinition MaxHeight="12" />-->
-            </Grid.RowDefinitions>
-            <Border Grid.RowSpan="3" Background="Transparent" />
+        <Grid Margin="4, 0">
+            <Border Background="{StaticResource DarkerColor}" />
             <Track
                 Name="PART_Track"
                 Grid.Row="1"
@@ -172,7 +167,7 @@
                 <Setter Property="Template" Value="{StaticResource HorizontalScrollBar}" />
             </Trigger>
             <Trigger Property="Orientation" Value="Vertical">
-                <Setter Property="Width" Value="6" />
+                <Setter Property="Width" Value="12" />
                 <Setter Property="Height" Value="Auto" />
                 <Setter Property="Template" Value="{StaticResource VerticalScrollBar}" />
             </Trigger>
