@@ -35,7 +35,6 @@ namespace CMiX.Studio.ViewModels
         public ICommand ResetGeometryCommand { get; }
 
         public AssetSelector<GeometryItem> AssetSelector { get; set; }
-        public FileSelector FileSelector { get; }
         public Transform Transform { get; }
         public Instancer Instancer { get;  }
         public GeometryFX GeometryFX { get; }
@@ -80,26 +79,18 @@ namespace CMiX.Studio.ViewModels
         public GeometryModel GetModel()
         {
             GeometryModel geometryModel = new GeometryModel();
-            geometryModel.FileSelector = FileSelector.GetModel();
+
             geometryModel.Transform = Transform.GetModel();
             geometryModel.GeometryFX = GeometryFX.GetModel();
             geometryModel.Instancer = Instancer.GetModel();
             return geometryModel;
         }
 
-        //public void Copy(GeometryModel geometryModel)
-        //{
-        //    FileSelector.CopyModel(geometryModel.FileSelector);
-        //    Transform.Copy(geometryModel.Transform);
-        //    GeometryFX.Copy(geometryModel.GeometryFX);
-        //    Instancer.Copy(geometryModel.Instancer);
-        //}
 
         public void Paste(GeometryModel geometryModel)
         {
             MessageService.Disable();
 
-            FileSelector.SetViewModel(geometryModel.FileSelector);
             Transform.Paste(geometryModel.Transform);
             GeometryFX.Paste(geometryModel.GeometryFX);
             Instancer.Paste(geometryModel.Instancer);
@@ -111,8 +102,6 @@ namespace CMiX.Studio.ViewModels
         {
             MessageService.Disable();
             //Mementor.BeginBatch();
-
-            FileSelector.Reset();
             Transform.Reset();
             GeometryFX.Reset();
             Instancer.Reset();

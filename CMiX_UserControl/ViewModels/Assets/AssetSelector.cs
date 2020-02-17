@@ -59,18 +59,18 @@ namespace CMiX.Studio.ViewModels
         public MessageService MessageService { get; set; }
 
 
-        public TextureFileModel GetModel()
+        public AssetSelectorModel GetModel()
         {
-            TextureFileModel model = new TextureFileModel();
-            model.Name = SelectedAsset.Name;
+            AssetSelectorModel model = new AssetSelectorModel();
+            //model.Name = SelectedAsset.Name;
             //model.Path = SelectedAsset.Path;
             return model;
         }
 
-        public void SetViewModel(TextureFileModel model)
+        public void SetViewModel(AssetSelectorModel model)
         {
             MessageService.Disable();
-            SelectedAsset.Name = model.Name;
+            //SelectedAsset.Name = model.Name;
             //SelectedAsset.Path = model.Path;
             MessageService.Enable();
         }

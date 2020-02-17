@@ -4,11 +4,11 @@ using System;
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class TextureModel
+    public class TextureModel : Model
     {
         public TextureModel()
         {
-            FileSelector = new FileSelectorModel();
+            AssetSelectorModel = new AssetSelectorModel();
             Brightness = new SliderModel();
             Contrast = new SliderModel();
             Invert = new SliderModel();
@@ -22,7 +22,7 @@ namespace CMiX.MVVM.Models
             Rotate = new SliderModel();
         }
 
-        public FileSelectorModel FileSelector { get; set; }
+        public AssetSelectorModel AssetSelectorModel { get; set; }
         public SliderModel Brightness { get; set; }
         public SliderModel Contrast { get; set; }
         public SliderModel Invert { get; set; }

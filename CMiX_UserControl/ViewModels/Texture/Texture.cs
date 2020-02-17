@@ -102,7 +102,8 @@ namespace CMiX.Studio.ViewModels
         public TextureModel GetModel()
         {
             TextureModel textureModel = new TextureModel();
-            textureModel.FileSelector = FileSelector.GetModel();
+
+            textureModel.AssetSelectorModel = AssetSelector.GetModel();
             textureModel.Brightness = Brightness.GetModel();
             textureModel.Contrast = Contrast.GetModel();
             textureModel.Saturation = Saturation.GetModel();
@@ -122,7 +123,7 @@ namespace CMiX.Studio.ViewModels
         {
             MessageService.Disable();
 
-            FileSelector.SetViewModel(textureModel.FileSelector);
+            AssetSelector.SetViewModel(textureModel.AssetSelectorModel);
             Brightness.SetViewModel(textureModel.Brightness);
             Contrast.SetViewModel(textureModel.Contrast);
             Saturation.SetViewModel(textureModel.Saturation);

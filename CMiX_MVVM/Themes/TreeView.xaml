@@ -106,17 +106,12 @@
                         <Resources:LeftMarginMultiplierConverter Length="19" x:Key="lengthConverter" />
                     </ControlTemplate.Resources>
                     <StackPanel>
-                        <Border Name="Bd"
-                                Background="Transparent"
-                                BorderBrush="{StaticResource SuperHighDarkerColor}"
-                                BorderThickness="0, 0, 0, 1">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="PreviewMouseRightButtonDown">
-                                    <ei:ChangePropertyAction PropertyName="IsSelected" Value="true" TargetObject="{Binding}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                        
+                        <Border Name="Bd">
                             <Border.Style>
                                 <Style TargetType="{x:Type Border}">
+                                    <Setter Property="BorderThickness" Value="0, 0, 0, 1"/>
+                                    <Setter Property="BorderBrush" Value="{StaticResource SuperHighDarkerColor}"/>
                                     <Setter Property="Background" Value="Transparent"/>
                                     <Style.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">
@@ -125,6 +120,12 @@
                                     </Style.Triggers>
                                 </Style>
                             </Border.Style>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="PreviewMouseRightButtonDown">
+                                    <ei:ChangePropertyAction PropertyName="IsSelected" Value="true" TargetObject="{Binding}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+
                             <Grid Margin="{Binding Converter={StaticResource lengthConverter}, RelativeSource={RelativeSource TemplatedParent}}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="19" />
@@ -170,10 +171,10 @@
                             </MultiTrigger.Conditions>
                             <Setter TargetName="PART_Header" Property="MinHeight" Value="19"/>
                         </MultiTrigger>
-                        <!--<Trigger Property="IsSelected" Value="true">
+                        <Trigger Property="IsSelected" Value="true">
                             <Setter TargetName="Bd" Property="Background" Value="{DynamicResource Color}"/>
                             <Setter TargetName="PART_Header" Property="TextBlock.Foreground" Value="{StaticResource ActiveTextBase}"/>
-                        </Trigger>-->
+                        </Trigger>
                         <!--<MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsSelected" Value="true"/>
@@ -216,6 +217,9 @@
             </Style.Triggers>-->
     </Style>
 
+    
+    
+    
     <Style x:Key="TreeViewMultiSelectItem" TargetType="{x:Type TreeViewItem}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
