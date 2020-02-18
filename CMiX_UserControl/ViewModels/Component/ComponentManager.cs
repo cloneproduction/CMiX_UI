@@ -15,23 +15,20 @@ namespace CMiX.ViewModels
 
         public ICommand CreateComponentCommand { get; }
         public ICommand DuplicateComponentCommand { get; }
+        public ICommand DeleteComponentCommand { get; }
 
         private IComponent _SelectedComponent;
         public IComponent SelectedComponent
         {
             get => _SelectedComponent;
-            set
-            {
-                SetAndNotify(ref _SelectedComponent, value);
-                System.Console.WriteLine("SelectedComponent Changed");
-            }
+            set => SetAndNotify(ref _SelectedComponent, value);
         }
-
 
         public IComponent CreateComponent(IComponent component)
         {
-            IComponent result;
 
+            IComponent result = null;
+            
             if (component is Project)
                 result = CreateComposition(component as Project);
             else if (component is Composition)
@@ -58,10 +55,23 @@ namespace CMiX.ViewModels
             return result;
         }
 
+        public void DeleteComponent(IComponent component)
+        {
+            component.RemoveComponent(SelectedComponent);
+        }
+
+        public void FindParent(Project project)
+        {
+            foreach (var item in project.Components)
+            {
+
+            }
+        }
 
         int CompositionID = 0;
         private Composition CreateComposition(Project project)
         {
+            System.Console.WriteLine("CreateComposition");
             var newCompo = new Composition(CompositionID, project.MessageAddress, project.Beat, new MessageService(), project.Assets, project.Mementor);
             project.AddComponent(newCompo);
             CompositionID++;
@@ -85,6 +95,7 @@ namespace CMiX.ViewModels
         int LayerID = 0;
         private Layer CreateLayer(Composition compo)
         {
+            System.Console.WriteLine("CreateLayer");
             Layer newLayer = new Layer(LayerID, compo.Beat, compo.MessageAddress, compo.MessageService, compo.Assets, compo.Mementor);
             compo.AddComponent(newLayer);
             LayerID++;
@@ -103,10 +114,10 @@ namespace CMiX.ViewModels
         }
 
 
-
         int EntityID = 0;
-        private  Entity CreateEntity(Layer layer)
+        private Entity CreateEntity(Layer layer)
         {
+            System.Console.WriteLine("CreateEntity");
             var newEntity = new Entity(EntityID, layer.Beat, layer.MessageAddress, layer.MessageService, layer.Assets, layer.Mementor);
             layer.AddComponent(newEntity);
             EntityID++;
@@ -123,10 +134,5 @@ namespace CMiX.ViewModels
             EntityID++;
             return newEntity;
         }
-
-        //public T CreateInstance<T>(params object[] constructorArguments) where T : class, IComponent
-        //{
-        //    return (T)Activator.CreateInstance(typeof(T), constructorArguments);
-        //}
     }
 }

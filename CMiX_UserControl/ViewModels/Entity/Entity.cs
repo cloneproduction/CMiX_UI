@@ -3,6 +3,7 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using Memento;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 
@@ -113,6 +114,7 @@ namespace CMiX.Studio.ViewModels
         public MessageService MessageService { get; set; }
         public Mementor Mementor { get; set; }
         public Assets Assets { get; set; }
+        public ObservableCollection<IComponent> Components { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
         #endregion
 
         #region COPY/PASTE

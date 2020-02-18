@@ -20,6 +20,8 @@ namespace CMiX.Studio.ViewModels
             Projects = new ObservableCollection<Project>();
             Projects.Add(CurrentProject);
             ComponentEditor = new ComponentEditor();
+            Outliner = new Outliner(Projects, ComponentManager);
+
 
             NewProjectCommand = new RelayCommand(p => NewProject());
             OpenProjectCommand = new RelayCommand(p => OpenProject());
@@ -36,8 +38,10 @@ namespace CMiX.Studio.ViewModels
 
         public Mementor Mementor { get; set; }
         public CerasSerializer Serializer { get; set; }
-        
+
+        public Outliner Outliner { get; set; }
         public ComponentEditor ComponentEditor { get; set; }
+        public ComponentManager ComponentManager { get; set; }
 
         public Assets Assets { get; set; }
         public string FolderPath { get; set; }
@@ -51,8 +55,6 @@ namespace CMiX.Studio.ViewModels
             get => _currentProject;
             set => SetAndNotify(ref _currentProject, value);
         }
-
-        public ComponentManager ComponentManager { get; set; }
 
         #region MENU METHODS
         private void NewProject()

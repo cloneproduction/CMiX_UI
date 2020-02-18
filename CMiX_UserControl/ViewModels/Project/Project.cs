@@ -12,7 +12,7 @@ using Ceras;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Project : Component, IProject
+    public class Project : ViewModel, IProject
     {
         public Project()
         {
@@ -27,7 +27,7 @@ namespace CMiX.Studio.ViewModels
 
             ServerManager = new ServerManager();
 
-            Compositions = new ObservableCollection<Composition>();
+            Components = new ObservableCollection<IComponent>();
 
             FolderPath = string.Empty;
             Serializer = new CerasSerializer();
@@ -52,7 +52,7 @@ namespace CMiX.Studio.ViewModels
         public ObservableCollection<Server> Servers { get; set; }
         public string FolderPath { get; set; }
 
-        public ObservableCollection<Composition> Compositions { get; set; }
+        public ObservableCollection<IComponent> Components { get; set; }
 
         public int ID { get; set; }
 
@@ -83,14 +83,6 @@ namespace CMiX.Studio.ViewModels
             get => _isExpanded;
             set => SetAndNotify(ref _isExpanded, value);
         }
-
-        private Composition _selectedComposition;
-        public Composition SelectedComposition
-        {
-            get { return _selectedComposition; }
-            set { _selectedComposition = value; }
-        }
-
         #endregion
 
 
@@ -115,13 +107,13 @@ namespace CMiX.Studio.ViewModels
 
         public void AddComponent(IComponent component)
         {
-            Compositions.Add(component as Composition);
+            Components.Add(component as Composition);
             IsExpanded = true;
         }
 
         public void RemoveComponent(IComponent component)
         {
-            Compositions.Remove(component as Composition);
+            Components.Remove(component as Composition);
         }
     }
 }

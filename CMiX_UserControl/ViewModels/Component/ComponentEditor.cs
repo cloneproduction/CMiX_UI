@@ -37,6 +37,7 @@ namespace CMiX.Studio.ViewModels
         public void EditComponent(object obj)
         {
             var editable = obj as IComponent;
+            
             if (!Editables.Contains(editable))
             {
                 Editables.Add(editable);

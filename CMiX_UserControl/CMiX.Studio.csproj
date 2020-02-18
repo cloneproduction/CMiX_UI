@@ -126,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewModels\Assets\AssetSelector.cs" />
+    <Compile Include="ViewModels\Component\Outliner.cs" />
     <Compile Include="Views\Assets\GeometrySelector.xaml.cs">
       <DependentUpon>GeometrySelector.xaml</DependentUpon>
     </Compile>
@@ -163,13 +164,8 @@
     <Compile Include="Views\SliderBeat.xaml.cs">
       <DependentUpon>SliderBeat.xaml</DependentUpon>
     </Compile>
-    <Compile Include="_Thrash\CompositionEditor.cs" />
-    <Compile Include="ViewModels\Composition\CompositionManager.cs" />
     <Compile Include="ViewModels\Component\EditorTemplateSelector.cs" />
-    <Compile Include="ViewModels\Entity\EntityEditor.cs" />
-    <Compile Include="ViewModels\Entity\EntityManager.cs" />
     <Compile Include="ViewModels\Entity\IEntityContext.cs" />
-    <Compile Include="ViewModels\Entity\IEntityEditor.cs" />
     <Compile Include="ViewModels\Entity\ISendableEntityContext.cs" />
     <Compile Include="ViewModels\Layer\BlendMode.cs" />
     <Compile Include="ViewModels\Assets\DirectoryItem.cs" />
@@ -188,8 +184,6 @@
     <Compile Include="ViewModels\Entity\Entity.cs" />
     <Compile Include="ViewModels\Layer\ILayerContext.cs" />
     <Compile Include="ViewModels\Layer\ILayerEditor.cs" />
-    <Compile Include="ViewModels\Layer\LayerEditor.cs" />
-    <Compile Include="ViewModels\Layer\LayerManager.cs" />
     <Compile Include="ViewModels\Component\ComponentEditor.cs" />
     <Compile Include="ViewModels\Project\IProject.cs" />
     <Compile Include="Views\Entity\EntityPanel.xaml.cs">

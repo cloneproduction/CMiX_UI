@@ -1,6 +1,7 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using Memento;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels
@@ -18,6 +19,8 @@ namespace CMiX.Studio.ViewModels
         Beat Beat { get; set; }
         MessageService MessageService { get; set; }
         ICommand RenameCommand { get; }
+
+        ObservableCollection<IComponent> Components { get; set; }
 
         void AddComponent(IComponent component);
         void RemoveComponent(IComponent component);

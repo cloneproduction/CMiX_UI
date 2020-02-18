@@ -114,7 +114,7 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
 
-                <Views:Outliner Grid.Row="0" DataContext="{Binding}"/>
+                <Views:Outliner Grid.Row="0" DataContext="{Binding Outliner}"/>
                 <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Background="Transparent" Height="2"/>
                 <Views:ComponentPanel Background="{StaticResource HighDarkerColor}" Grid.Row="2" DataContext="{Binding}"/>
             </Grid>

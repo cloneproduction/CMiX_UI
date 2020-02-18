@@ -23,7 +23,7 @@ namespace CMiX.Studio.ViewModels
             Beat = beat;
             ID = id;
 
-            Entities = new ObservableCollection<Entity>();
+            Components = new ObservableCollection<IComponent>();
             PostFX = new PostFX(MessageAddress, messageService, mementor);
 
             Mask = new Mask(beat, MessageAddress, messageService, mementor);
@@ -37,7 +37,7 @@ namespace CMiX.Studio.ViewModels
         public ICommand RenameCommand { get;  }
         public ICommand RemoveComponentCommand { get; }
 
-        public ObservableCollection<Entity> Entities { get; set; }
+        public ObservableCollection<IComponent> Components { get; set; }
 
         private Entity _selectedEntity;
         public Entity SelectedEntity
@@ -183,13 +183,13 @@ namespace CMiX.Studio.ViewModels
 
         public void AddComponent(IComponent component)
         {
-            Entities.Add(component as Entity);
+            Components.Add(component);
             IsExpanded = true;
         }
 
         public void RemoveComponent(IComponent component)
         {
-            Entities.Remove(component as Entity);
+            Components.Remove(component);
         }
 
         public void Rename()
