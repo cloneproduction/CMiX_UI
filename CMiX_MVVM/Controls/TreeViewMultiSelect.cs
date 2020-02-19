@@ -16,13 +16,7 @@ namespace CMiX.MVVM.Controls
         public MultiSelectTreeView()
         {
             GotFocus += OnTreeViewItemGotFocus;
-
-            //MouseLeftButtonDown += OnMouseLeftButtonDown;
             PreviewMouseLeftButtonDown += OnPreviewMouseLeftButtonDown;
-
-            //MouseRightButtonDown += OnMouseRightButtonDown;
-            //PreviewMouseRightButtonDown += OnPreviewMouseRightButtonDown;
-
             PreviewMouseLeftButtonUp += OnPreviewMouseLeftButtonUp;
         }
 
@@ -203,12 +197,6 @@ namespace CMiX.MVVM.Controls
         }
 
 
-
-
-
-
-
-
         private static void SelectItems(TreeViewItem treeViewItem, TreeView treeView)
         {
             if (treeViewItem != null && treeView != null)
@@ -232,6 +220,7 @@ namespace CMiX.MVVM.Controls
             }
         }
 
+
         private static void SelectSingleItem(TreeView treeView, TreeViewItem treeViewItem)
         {
             // first deselect all items
@@ -239,6 +228,7 @@ namespace CMiX.MVVM.Controls
             SetIsItemSelected(treeViewItem, true);
             SetStartItem(treeView, treeViewItem);
         }
+
 
         private static void DeSelectAllItems(TreeView treeView, TreeViewItem treeViewItem)
         {
@@ -268,6 +258,7 @@ namespace CMiX.MVVM.Controls
             }
         }
 
+
         private static void SelectMultipleItemsRandomly(TreeView treeView, TreeViewItem treeViewItem)
         {
             SetIsItemSelected(treeViewItem, !GetIsItemSelected(treeViewItem));
@@ -286,6 +277,7 @@ namespace CMiX.MVVM.Controls
                 }
             }
         }
+
 
         private static void SelectMultipleItemsContinuously(TreeView treeView, TreeViewItem treeViewItem, bool shiftControl = false)
         {

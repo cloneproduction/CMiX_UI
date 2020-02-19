@@ -74,7 +74,11 @@ namespace CMiX.Studio.ViewModels
         public bool IsSelected
         {
             get => _isSelected;
-            set => SetAndNotify(ref _isSelected, value);
+            set
+            {
+                System.Console.WriteLine("CompositionIsSelected");
+                SetAndNotify(ref _isSelected, value);
+            }
         }
 
         private bool _isExpanded;

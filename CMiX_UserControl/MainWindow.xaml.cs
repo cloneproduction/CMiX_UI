@@ -14,19 +14,12 @@ namespace CMiX
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            ComponentManager = new ComponentManager();
             RootView.DataContext = new Root();
         }
 
         public static readonly DependencyProperty ComponentManagerProperty =
          DependencyProperty.Register("ComponentManager", typeof(ComponentManager),
          typeof(MainWindow), new FrameworkPropertyMetadata());
-
-        public ComponentManager ComponentManager
-        {
-            get { return (ComponentManager)GetValue(ComponentManagerProperty); }
-            set { SetValue(ComponentManagerProperty, value); }
-        }
 
 
         private void UndoCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)

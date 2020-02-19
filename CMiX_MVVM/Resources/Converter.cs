@@ -891,9 +891,6 @@ namespace CMiX.MVVM.Resources
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var item = value as TreeViewItem;
-     
-
             return VisualTreeHelper.GetParent(value as TreeViewItem);
         }
 

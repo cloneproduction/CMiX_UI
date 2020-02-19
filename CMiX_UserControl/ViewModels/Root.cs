@@ -15,13 +15,13 @@ namespace CMiX.Studio.ViewModels
         public Root()
         {
             Mementor = new Mementor();
-            ComponentManager = new ComponentManager();
+            
             CurrentProject = new Project();
-            Projects = new ObservableCollection<Project>();
+            Projects = new ObservableCollection<IComponent>();
             Projects.Add(CurrentProject);
             ComponentEditor = new ComponentEditor();
-            Outliner = new Outliner(Projects, ComponentManager);
-
+            Outliner = new Outliner(Projects);
+            ComponentManager = new ComponentManager(Projects);
 
             NewProjectCommand = new RelayCommand(p => NewProject());
             OpenProjectCommand = new RelayCommand(p => OpenProject());
@@ -47,7 +47,14 @@ namespace CMiX.Studio.ViewModels
         public string FolderPath { get; set; }
         public string MessageAddress { get; set; }
 
-        public ObservableCollection<Project> Projects { get; set; }
+
+        private ObservableCollection<IComponent> _projects;
+        public ObservableCollection<IComponent> Projects
+        {
+            get => _projects;
+            set => SetAndNotify(ref _projects, value);
+        }
+
 
         private Project _currentProject;
         public Project CurrentProject

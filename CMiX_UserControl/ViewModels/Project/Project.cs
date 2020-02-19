@@ -113,7 +113,8 @@ namespace CMiX.Studio.ViewModels
 
         public void RemoveComponent(IComponent component)
         {
-            Components.Remove(component as Composition);
+            Console.WriteLine(" RemoveComponent from Projet");
+            Components.Remove(component);
         }
     }
 }

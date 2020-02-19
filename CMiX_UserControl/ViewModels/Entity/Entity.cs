@@ -195,12 +195,12 @@ namespace CMiX.Studio.ViewModels
 
         public void AddComponent(IComponent component)
         {
-            throw new System.NotImplementedException();
+
         }
 
         public void RemoveComponent(IComponent component)
         {
-            throw new System.NotImplementedException();
+
         }
     }
 }

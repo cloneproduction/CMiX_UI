@@ -1,21 +1,30 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using CMiX.Studio.ViewModels;
+using System.Linq;
 
 namespace CMiX.ViewModels
 {
     public class ComponentManager : ViewModel
     {
-        public ComponentManager()
+        public ComponentManager(ObservableCollection<IComponent> projects)
         {
+            Projects = projects;
+
             CreateComponentCommand = new RelayCommand(p => CreateComponent(p as IComponent));
             DuplicateComponentCommand = new RelayCommand(p => DuplicateComponent(p as IComponent));
+            DeleteComponentCommand = new RelayCommand(p => DeleteComponent());
+            RenameComponentCommand = new RelayCommand(p => RenameComponent(p as IComponent));
         }
+
+        public ObservableCollection<IComponent> Projects{ get; set; }
 
         public ICommand CreateComponentCommand { get; }
         public ICommand DuplicateComponentCommand { get; }
         public ICommand DeleteComponentCommand { get; }
+        public ICommand RenameComponentCommand { get; }
 
         private IComponent _SelectedComponent;
         public IComponent SelectedComponent
@@ -24,9 +33,15 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _SelectedComponent, value);
         }
 
+        public void RenameComponent(IComponent component)
+        {
+            System.Console.WriteLine("RenameComponent");
+            component.IsRenaming = true;
+        }
+
         public IComponent CreateComponent(IComponent component)
         {
-
+            System.Console.WriteLine("CreateComponent");
             IComponent result = null;
             
             if (component is Project)
@@ -55,18 +70,70 @@ namespace CMiX.ViewModels
             return result;
         }
 
-        public void DeleteComponent(IComponent component)
+        public void DeleteComponent()
         {
-            component.RemoveComponent(SelectedComponent);
+            System.Console.WriteLine("DeleteComponent");
+            DeleteSelectedComponent(Projects);
         }
 
-        public void FindParent(Project project)
+        public void DeleteSelectedComponent(ObservableCollection<IComponent> components)
         {
-            foreach (var item in project.Components)
+            //IComponent toDelete = null;
+            foreach (var component in components)
             {
-
+                if (component.IsSelected)
+                {
+                    components.Remove(component);
+                    break;
+                }
+                    
+                else
+                    DeleteSelectedComponent(component.Components);
             }
+
+                //if (components.Any(x => x.IsSelected))
+                //{
+                //    var toDelete = components.Where(x => x.IsSelected).First();
+                //    components.Remove(toDelete);
+                //}
+                //else
+                //{
+                //    foreach (var component in components)
+                //    {
+
+                //    }
+                //}
+                //    DeleteSelectedComponent(component.Components);
         }
+
+
+        //public IComponent FindSelectedComponent(ObservableCollection<IComponent> components)
+        //{
+        //    IComponent item = null;
+        //    foreach (var component in components)
+        //    {
+        //        if (component.IsSelected)
+        //            item = component;
+        //        else
+        //            FindSelectedComponent(component.Components);
+        //    }
+        //    return item;
+        //}
+
+        //public IComponent FindSelectedParent(ObservableCollection<IComponent> components)
+        //{
+        //    IComponent parent = null;
+        //    foreach (var component in components)
+        //    {
+        //        if (component.Components.Any(x => x.IsSelected))
+        //        {
+        //            parent = component;
+        //            break;
+        //        }
+        //    }
+        //    return parent;
+        //}
+
 
         int CompositionID = 0;
         private Composition CreateComposition(Project project)

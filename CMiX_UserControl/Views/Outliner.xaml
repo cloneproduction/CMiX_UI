@@ -17,88 +17,62 @@
         <ResourceDictionary>
             <Resources:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
             <Resources:EntityVisibilityConverter x:Key="EntityVisibilityConverter"/>
-            
-            <Resources:BindingProxy 
-                x:Key="LayerProxy" 
-                Data="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Layer}}}"/>
-            <Resources:BindingProxy 
-                x:Key="ProjectProxy" 
-                Data="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Project}}}"/>
-            <Resources:BindingProxy 
-                x:Key="RootProxy" 
+            <Resources:ItemToParentConverter x:Key="ItemToParentConverter"/>
+
+            <Resources:BindingProxy x:Key="RootProxy" 
                 Data="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Root}}}"/>
 
-            <ContextMenu x:Key="OutlineContextMenu">
-                
+            <ContextMenu x:Key="OutlinerContextMenu" Width="175">
+
                 <MenuItem
-                    Padding="8, 4"
-                    Foreground="{StaticResource TextBase}"
-                    Command="{Binding ComponentManager.CreateComponentCommand}"
-                    CommandParameter="{Binding SelectedComponent}">
-                    <MenuItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Width="10" Height="10" Source="{StaticResource Copy}" />
-                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                            <TextBlock Text="Add"/>
-                        </StackPanel>
-                    </MenuItem.Header>
-                </MenuItem>
-                
-                <MenuItem
-                    Padding="8, 4"
-                    Foreground="{StaticResource TextBase}"
-                    Command="{Binding Data.ComponentEditor.EditComponentCommand, Source={StaticResource RootProxy}}"
-                    CommandParameter="{Binding SelectedComponent}">
-                    <MenuItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="{StaticResource NewLayer}" Height="10" Width="10"/>
-                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                            <TextBlock Text="Edit"/>
-                        </StackPanel>
-                    </MenuItem.Header>
-                </MenuItem>
-                
-                <MenuItem
-                    Padding="8, 4"
-                    Foreground="{StaticResource TextBase}"
-                    Command="{Binding ComponentManager.DuplicateComponentCommand, Source={StaticResource RootProxy}}"
-                    CommandParameter="{Binding SelectedComponent}">
-                    <MenuItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Width="10" Height="10" Source="{StaticResource Copy}" />
-                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                            <TextBlock Text="Duplicate"/>
-                        </StackPanel>
-                    </MenuItem.Header>
-                </MenuItem>
-                
-                <MenuItem
-                    Padding="8, 4"
-                    Foreground="{StaticResource TextBase}"
-                    Command="{Binding RenameCommand}">
-                    <MenuItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Width="10" Height="10" Source="{StaticResource Rename}" />
-                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                            <TextBlock Text="Rename"/>
-                        </StackPanel>
-                    </MenuItem.Header>
+                    Visibility="{Binding CanAdd, Converter={StaticResource BoolToVisibility}}"
+                    Command="{Binding Data.ComponentManager.CreateComponentCommand, Source={StaticResource RootProxy}}"
+                    CommandParameter="{Binding SelectedComponent}"
+                    Header="{Binding AddContentText}">
+                    <MenuItem.Icon>
+                        <Image Source="{StaticResource Add}"/>
+                    </MenuItem.Icon>
                 </MenuItem>
 
                 <MenuItem
-                    Padding="8, 4"
-                    Foreground="{StaticResource TextBase}"
-                    Command="{Binding ComponentManager.DeleteComponentCommand, Source={StaticResource RootProxy}}"
-                    CommandParameter="{Binding SelectedComponent}">
-                    <MenuItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
-                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                            <TextBlock Text="Delete"/>
-                        </StackPanel>
-                    </MenuItem.Header>
+                    Visibility="{Binding CanEdit, Converter={StaticResource BoolToVisibility}}"
+                    Command="{Binding Data.ComponentEditor.EditComponentCommand, Source={StaticResource RootProxy}}"
+                    CommandParameter="{Binding SelectedComponent}"
+                    Header="Edit">
+                    <MenuItem.Icon>
+                        <Image Source="{StaticResource NewLayer}"/>
+                    </MenuItem.Icon>
                 </MenuItem>
-                
+
+                <MenuItem
+                    Visibility="{Binding CanDuplicate, Converter={StaticResource BoolToVisibility}}"
+                    Command="{Binding Data.ComponentManager.DuplicateComponentCommand, Source={StaticResource RootProxy}}"
+                    CommandParameter="{Binding SelectedComponent}"
+                    Header="Duplicate">
+                    <MenuItem.Icon>
+                        <Image Source="{StaticResource Copy}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+
+                <MenuItem
+                    Visibility="{Binding CanRename, Converter={StaticResource BoolToVisibility}}"
+                    Command="{Binding Data.ComponentManager.RenameComponentCommand, Source={StaticResource RootProxy}}"
+                    CommandParameter="{Binding SelectedComponent}"
+                    Header="Rename">
+                    <MenuItem.Icon>
+                        <Image Source="{StaticResource Rename}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+
+                <MenuItem
+                    Visibility="{Binding CanRename, Converter={StaticResource BoolToVisibility}}"
+                    Command="{Binding Data.ComponentManager.DeleteComponentCommand, Source={StaticResource RootProxy}}"
+                    Header="Delete">
+                    <MenuItem.Icon>
+                        <Image Source="{StaticResource DeleteLayer}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+
             </ContextMenu>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -113,12 +87,15 @@
             Height="40">
             <TextBlock Text="OUTLINER" FontWeight="SemiBold" VerticalAlignment="Center"/>
         </Border>
-        <TreeView 
-            ContextMenu="{StaticResource OutlineContextMenu}"
-            ItemsSource="{Binding Projects}">
+        <Controls:TreeViewSelect 
+            Style="{StaticResource {x:Type TreeView}}"
+            ContextMenu="{StaticResource OutlinerContextMenu}"
+            ItemsSource="{Binding Components}">
+            
             <i:Interaction.Behaviors>
                 <Behaviors:BindableSelectedItemBehavior SelectedItem="{Binding SelectedComponent, Mode=TwoWay}"/>
             </i:Interaction.Behaviors>
+            
             <TreeView.Resources>
                 
                 <HierarchicalDataTemplate DataType="{x:Type ViewModels:Project}" ItemsSource="{Binding Components}">
@@ -231,7 +208,7 @@
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded}"/>
                 </Style>
             </TreeView.ItemContainerStyle>
-        </TreeView>
+        </Controls:TreeViewSelect>
     </DockPanel>
    
 
