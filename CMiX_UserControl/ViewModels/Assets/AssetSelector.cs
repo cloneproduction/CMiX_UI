@@ -23,9 +23,16 @@ namespace CMiX.Studio.ViewModels
             CollectionViewSource = new CollectionViewSource();
             CollectionViewSource.Source = Assets.AvailableResources;
 
+            Assets.AvailableResources.CollectionChanged += AvailableResources_CollectionChanged;
             AssetsView = CollectionViewSource.View;
             AssetsView.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
             AssetsView.Filter = FilterAssets;
+        }
+
+        private void AvailableResources_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            Console.WriteLine("AvailableResources_CollectionChanged");
+            AssetsView.Refresh();
         }
 
         public bool FilterAssets(object item)

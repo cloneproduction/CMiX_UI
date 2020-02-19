@@ -28,7 +28,7 @@ namespace CMiX.Studio.ViewModels
             ResourceItems.Add(directoryItem);
 
             AvailableResources = new ObservableCollection<IAssets>();
-
+            AvailableResources.CollectionChanged += AvailableResources_CollectionChanged;
             SelectedItems = new ObservableCollection<IAssets>();
             SelectedItems.CollectionChanged += CollectionChanged;
 
@@ -36,6 +36,12 @@ namespace CMiX.Studio.ViewModels
             AddAssetCommand = new RelayCommand(p => AddAsset());
             DeleteAssetsCommand = new RelayCommand(p => DeleteAssets());
             RenameAssetCommand = new RelayCommand(p => RenameAsset());
+        }
+
+        private void AvailableResources_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            AssetsViewSource.DeferRefresh();
+            Console.WriteLine("AvailableResources_CollectionChanged from Assets");
         }
 
         #region METHODS
@@ -81,6 +87,25 @@ namespace CMiX.Studio.ViewModels
                 DeleteSelectedAssets(ResourceItems);
         }
 
+
+        public void RemoveItemFromDirectory(IDirectory directory)
+        {
+            var toBeRemoved = new List<IAssets>();
+            foreach (var asset in directory.Assets)
+            {
+                if(asset is IDirectory)
+                    RemoveItemFromDirectory(asset as IDirectory);
+
+                toBeRemoved.Add(asset);
+            }
+            
+            foreach (var item in toBeRemoved)
+            {
+                directory.Assets.Remove(item);
+                AvailableResources.Remove(item);
+            }
+        }
+
         public void DeleteSelectedAssets(ObservableCollection<IAssets> assets)
         {
             var toBeRemoved = new List<IAssets>();
@@ -88,7 +113,11 @@ namespace CMiX.Studio.ViewModels
             foreach (var asset in assets)
             {
                 if (asset.IsSelected)
+                {
                     toBeRemoved.Add(asset);
+                    if (asset is IDirectory)
+                        RemoveItemFromDirectory(asset as IDirectory);
+                }
                 else if (!asset.IsSelected && asset is IDirectory)
                     DeleteSelectedAssets(((IDirectory)asset).Assets);
             }
@@ -111,8 +140,6 @@ namespace CMiX.Studio.ViewModels
                 selectedItem.AddAsset(new DirectoryItem("New Folder"));
             } 
         }
-
-
         #endregion
 
         #region PROPERTIES
@@ -146,10 +173,7 @@ namespace CMiX.Studio.ViewModels
             {
                 var item = GetFileItem(file.FullName);
                 if (item != null)
-                {
-                    directoryItem.Assets.Add(item);
-                }
-                    
+                    directoryItem.Assets.Add(item);   
             }
             return directoryItem;
         }
@@ -165,7 +189,7 @@ namespace CMiX.Studio.ViewModels
             else if (fileType == GeometryFileType.FBX.ToString() || fileType == GeometryFileType.OBJ.ToString())
                 item = new GeometryItem(fileName, filePath);
 
-            if(item != null)
+            if (item != null)
                 AvailableResources.Add(item);
 
             return item;
@@ -228,8 +252,6 @@ namespace CMiX.Studio.ViewModels
                         }
                         else if(ResourceItems[0] is IDirectory)
                             ((IDirectory)ResourceItems[0]).Assets.Add(item);
-
-                        AvailableResources.Add(item);
                     }
                 }
             }
