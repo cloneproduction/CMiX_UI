@@ -19,9 +19,13 @@ namespace CMiX.Studio.ViewModels
             CurrentProject = new Project();
             Projects = new ObservableCollection<IComponent>();
             Projects.Add(CurrentProject);
-            ComponentEditor = new ComponentEditor();
-            Outliner = new Outliner(Projects);
             ComponentManager = new ComponentManager(Projects);
+
+            ComponentEditor = new ComponentEditor();
+            ComponentManager.ComponentDeleted += ComponentEditor.ComponentManager_ComponentDeleted;
+
+            Outliner = new Outliner(Projects);
+            
 
             NewProjectCommand = new RelayCommand(p => NewProject());
             OpenProjectCommand = new RelayCommand(p => OpenProject());
@@ -29,6 +33,8 @@ namespace CMiX.Studio.ViewModels
             SaveAsProjectCommand = new RelayCommand(p => SaveAsProject());
             QuitCommand = new RelayCommand(p => Quit(p));
         }
+
+
 
         public ICommand NewProjectCommand { get; }
         public ICommand SaveProjectCommand { get; }

@@ -4,6 +4,7 @@ using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using CMiX.Studio.ViewModels;
 using System.Linq;
+using System;
 
 namespace CMiX.ViewModels
 {
@@ -19,12 +20,19 @@ namespace CMiX.ViewModels
             RenameComponentCommand = new RelayCommand(p => RenameComponent(p as IComponent));
         }
 
-        public ObservableCollection<IComponent> Projects{ get; set; }
-
         public ICommand CreateComponentCommand { get; }
         public ICommand DuplicateComponentCommand { get; }
         public ICommand DeleteComponentCommand { get; }
         public ICommand RenameComponentCommand { get; }
+
+        public ObservableCollection<IComponent> Projects { get; set; }
+
+        public event EventHandler<ComponentEventArgs> ComponentDeleted;
+        private void OnComponentDeleted(IComponent deletedComponent)
+        {
+            if (ComponentDeleted != null)
+                ComponentDeleted(this, new ComponentEventArgs(deletedComponent));
+        }
 
         private IComponent _SelectedComponent;
         public IComponent SelectedComponent
@@ -35,13 +43,11 @@ namespace CMiX.ViewModels
 
         public void RenameComponent(IComponent component)
         {
-            System.Console.WriteLine("RenameComponent");
             component.IsRenaming = true;
         }
 
         public IComponent CreateComponent(IComponent component)
         {
-            System.Console.WriteLine("CreateComponent");
             IComponent result = null;
             
             if (component is Project)
@@ -70,80 +76,38 @@ namespace CMiX.ViewModels
             return result;
         }
 
+
         public void DeleteComponent()
         {
-            System.Console.WriteLine("DeleteComponent");
             DeleteSelectedComponent(Projects);
         }
 
+
         public void DeleteSelectedComponent(ObservableCollection<IComponent> components)
         {
-            //IComponent toDelete = null;
             foreach (var component in components)
             {
                 if (component.IsSelected)
                 {
                     components.Remove(component);
+                    OnComponentDeleted(component);
                     break;
                 }
-                    
                 else
                     DeleteSelectedComponent(component.Components);
             }
-
-                //if (components.Any(x => x.IsSelected))
-                //{
-                //    var toDelete = components.Where(x => x.IsSelected).First();
-                //    components.Remove(toDelete);
-                //}
-                //else
-                //{
-                //    foreach (var component in components)
-                //    {
-
-                //    }
-                //}
-                //    DeleteSelectedComponent(component.Components);
         }
-
-
-        //public IComponent FindSelectedComponent(ObservableCollection<IComponent> components)
-        //{
-        //    IComponent item = null;
-        //    foreach (var component in components)
-        //    {
-        //        if (component.IsSelected)
-        //            item = component;
-        //        else
-        //            FindSelectedComponent(component.Components);
-        //    }
-        //    return item;
-        //}
-
-        //public IComponent FindSelectedParent(ObservableCollection<IComponent> components)
-        //{
-        //    IComponent parent = null;
-        //    foreach (var component in components)
-        //    {
-        //        if (component.Components.Any(x => x.IsSelected))
-        //        {
-        //            parent = component;
-        //            break;
-        //        }
-        //    }
-        //    return parent;
-        //}
 
 
         int CompositionID = 0;
         private Composition CreateComposition(Project project)
         {
-            System.Console.WriteLine("CreateComposition");
             var newCompo = new Composition(CompositionID, project.MessageAddress, project.Beat, new MessageService(), project.Assets, project.Mementor);
             project.AddComponent(newCompo);
             CompositionID++;
             return newCompo;
         }
+
 
         private Composition DuplicateComposition(Project project)
         {
@@ -162,12 +126,12 @@ namespace CMiX.ViewModels
         int LayerID = 0;
         private Layer CreateLayer(Composition compo)
         {
-            System.Console.WriteLine("CreateLayer");
             Layer newLayer = new Layer(LayerID, compo.Beat, compo.MessageAddress, compo.MessageService, compo.Assets, compo.Mementor);
             compo.AddComponent(newLayer);
             LayerID++;
             return newLayer;
         }
+
 
         private Layer DuplicateLayer(Composition compo)
         {
@@ -184,12 +148,12 @@ namespace CMiX.ViewModels
         int EntityID = 0;
         private Entity CreateEntity(Layer layer)
         {
-            System.Console.WriteLine("CreateEntity");
             var newEntity = new Entity(EntityID, layer.Beat, layer.MessageAddress, layer.MessageService, layer.Assets, layer.Mementor);
             layer.AddComponent(newEntity);
             EntityID++;
             return newEntity;
         }
+
 
         private Entity DuplicateEntity(Layer layer)
         {

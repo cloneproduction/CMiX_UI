@@ -9,6 +9,7 @@
              xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
              xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:dd="urn:gong-wpf-dragdrop"
              xmlns:Behaviors="clr-namespace:CMiX.Behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="450.191" d:DesignWidth="300.596">
@@ -25,7 +26,7 @@
             <ContextMenu x:Key="OutlinerContextMenu" Width="175">
 
                 <MenuItem
-                    Visibility="{Binding CanAdd, Converter={StaticResource BoolToVisibility}}"
+                    IsEnabled="{Binding CanAdd}"
                     Command="{Binding Data.ComponentManager.CreateComponentCommand, Source={StaticResource RootProxy}}"
                     CommandParameter="{Binding SelectedComponent}"
                     Header="{Binding AddContentText}">
@@ -35,7 +36,7 @@
                 </MenuItem>
 
                 <MenuItem
-                    Visibility="{Binding CanEdit, Converter={StaticResource BoolToVisibility}}"
+                    IsEnabled="{Binding CanEdit}"
                     Command="{Binding Data.ComponentEditor.EditComponentCommand, Source={StaticResource RootProxy}}"
                     CommandParameter="{Binding SelectedComponent}"
                     Header="Edit">
@@ -45,7 +46,7 @@
                 </MenuItem>
 
                 <MenuItem
-                    Visibility="{Binding CanDuplicate, Converter={StaticResource BoolToVisibility}}"
+                    IsEnabled="{Binding CanDuplicate}"
                     Command="{Binding Data.ComponentManager.DuplicateComponentCommand, Source={StaticResource RootProxy}}"
                     CommandParameter="{Binding SelectedComponent}"
                     Header="Duplicate">
@@ -55,7 +56,7 @@
                 </MenuItem>
 
                 <MenuItem
-                    Visibility="{Binding CanRename, Converter={StaticResource BoolToVisibility}}"
+                    IsEnabled="{Binding CanRename}"
                     Command="{Binding Data.ComponentManager.RenameComponentCommand, Source={StaticResource RootProxy}}"
                     CommandParameter="{Binding SelectedComponent}"
                     Header="Rename">
@@ -65,7 +66,7 @@
                 </MenuItem>
 
                 <MenuItem
-                    Visibility="{Binding CanRename, Converter={StaticResource BoolToVisibility}}"
+                    IsEnabled="{Binding CanDelete}"
                     Command="{Binding Data.ComponentManager.DeleteComponentCommand, Source={StaticResource RootProxy}}"
                     Header="Delete">
                     <MenuItem.Icon>
@@ -89,6 +90,11 @@
         </Border>
         <Controls:TreeViewSelect 
             Style="{StaticResource {x:Type TreeView}}"
+            AllowDrop="True"
+            dd:DragDrop.IsDragSource="True"
+            dd:DragDrop.IsDropTarget="True"
+            dd:DragDrop.DragHandler="{Binding}"
+            dd:DragDrop.DropHandler="{Binding}"
             ContextMenu="{StaticResource OutlinerContextMenu}"
             ItemsSource="{Binding Components}">
             

@@ -1,15 +1,19 @@
-﻿using CMiX.MVVM.ViewModels;
+﻿using CMiX.MVVM.Resources;
+using CMiX.MVVM.ViewModels;
 using CMiX.ViewModels;
+using GongSolutions.Wpf.DragDrop;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Outliner : ViewModel
+    public class Outliner : ViewModel, IDropTarget, IDragSource
     {
         public Outliner(ObservableCollection<IComponent> components)
         {
@@ -36,6 +40,13 @@ namespace CMiX.Studio.ViewModels
                 CanDuplicateComponent();
                 CanDeleteComponent();
             }
+        }
+
+        private string _isEnabled;
+        public string IsEnalbed
+        {
+            get => _isEnabled;
+            set => SetAndNotify(ref _isEnabled, value);
         }
 
         private string _addContentText;
@@ -89,18 +100,22 @@ namespace CMiX.Studio.ViewModels
                 AddContentText = "Add Entity";
                 CanAdd = true;
             }
-            else if(SelectedComponent is Composition)
+            else if (SelectedComponent is Composition)
             {
                 AddContentText = "Add Layer";
                 CanAdd = true;
             }
-            else if(SelectedComponent is Project)
+            else if (SelectedComponent is Project)
             {
                 AddContentText = "Add Composition";
                 CanAdd = true;
             }
-            else
+            else if (SelectedComponent is Entity)
+            {
+                AddContentText = "Add";
                 CanAdd = false;
+            }
+
         }
 
         public void CanDuplicateComponent()
@@ -130,6 +145,133 @@ namespace CMiX.Studio.ViewModels
                 CanDelete = false;
             else
                 CanDelete = true;
+        }
+
+        public bool CanDropOnSameParent(IDropInfo dropInfo)
+        {
+            var dataObject = dropInfo.Data as IComponent;
+            var dropTarget = dropInfo.TargetItem as IComponent;
+            var targetIndex = dropInfo.InsertIndex;
+            var sourceIndex = dropInfo.DragInfo.SourceIndex;
+
+            var visualTarget = dropInfo.VisualTargetItem;
+            var visualSource = dropInfo.DragInfo.VisualSourceItem;
+
+            var parentSourceItem = Utils.FindParent<TreeViewItem>(visualSource);
+            var parentTargetItem = Utils.FindParent<TreeViewItem>(visualTarget);
+
+            bool canDrop = false;
+
+            if (dataObject != null)
+            {
+                dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
+                if ((dataObject is Entity && dropTarget is Entity) )
+                    if (!dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter))
+                        if (sourceIndex != targetIndex && sourceIndex != targetIndex - 1)
+                        {
+                            if (parentSourceItem == parentTargetItem)
+                            {
+                                canDrop = true;
+                            }
+                        }
+            }
+            return canDrop;
+        }
+
+        public bool CanDropWithinDifferentParent(IDropInfo dropInfo)
+        {
+            var dataObject = dropInfo.Data as IComponent;
+            var dropTarget = dropInfo.TargetItem as IComponent;
+            var targetIndex = dropInfo.InsertIndex;
+            var sourceIndex = dropInfo.DragInfo.SourceIndex;
+
+            var visualTarget = dropInfo.VisualTargetItem;
+            var visualSource = dropInfo.DragInfo.VisualSourceItem;
+
+            var parentSourceItem = Utils.FindParent<TreeViewItem>(visualSource);
+            var parentTargetItem = Utils.FindParent<TreeViewItem>(visualTarget);
+
+            bool canDrop = false;
+
+            if (dataObject != null)
+            {
+                dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
+                if (!dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter))
+                {
+                    if (parentSourceItem != parentTargetItem)
+                    {
+                        if (dataObject is Entity && dropTarget is Entity)
+                        {
+                            canDrop = true;
+                        }
+                    }
+                }
+            }
+            return canDrop;
+        }
+
+
+        public void DragOver(IDropInfo dropInfo)
+        {
+            if (CanDropOnSameParent(dropInfo) || CanDropWithinDifferentParent(dropInfo))
+            {
+                dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+            }
+        }
+
+        public void Drop(IDropInfo dropInfo)
+        {
+            var targetCollection = dropInfo.TargetCollection as ObservableCollection<IComponent>;
+            var sourceCollection = dropInfo.DragInfo.SourceCollection as ObservableCollection<IComponent>;
+
+            if (CanDropOnSameParent(dropInfo))
+            {
+                if (dropInfo.DragInfo.SourceIndex < dropInfo.InsertIndex)
+                    targetCollection.Move(dropInfo.DragInfo.SourceIndex, dropInfo.InsertIndex - 1);
+                else
+                    targetCollection.Move(dropInfo.DragInfo.SourceIndex, dropInfo.InsertIndex);
+            }
+            else if(CanDropWithinDifferentParent(dropInfo))
+            {
+                targetCollection.Insert(dropInfo.InsertIndex, dropInfo.DragInfo.SourceItem as IComponent);
+                sourceCollection.Remove(dropInfo.DragInfo.SourceItem as IComponent);
+            }
+        }
+
+
+        public void StartDrag(IDragInfo dragInfo)
+        {
+            dragInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
+            dragInfo.Data = dragInfo.SourceItem;
+        }
+
+        public bool CanStartDrag(IDragInfo dragInfo)
+        {
+            var dragged = dragInfo.SourceItem;
+            if (dragged is Entity || dragged is Layer)
+                return true;
+            else
+                return false;
+        }
+
+        public void Dropped(IDropInfo dropInfo)
+        {
+            //throw new NotImplementedException();
+        }
+
+        public void DragDropOperationFinished(DragDropEffects operationResult, IDragInfo dragInfo)
+        {
+            //throw new NotImplementedException();
+        }
+
+        public void DragCancelled()
+        {
+            //throw new NotImplementedException();
+        }
+
+        public bool TryCatchOccurredException(Exception exception)
+        {
+            throw new NotImplementedException();
         }
     }
 }

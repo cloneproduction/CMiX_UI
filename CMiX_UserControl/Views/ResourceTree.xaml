@@ -67,6 +67,32 @@
                 </Border>
             </DataTemplate>
 
+            <ContextMenu x:Key="ResourceContextMenu" Width="175">
+                <MenuItem
+                        IsEnabled="{Binding CanAddAsset}"
+                        Command="{Binding AddAssetCommand}"
+                        Header="New Folder">
+                    <MenuItem.Icon>
+                        <Image Source="{StaticResource Add}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem
+                        IsEnabled="{Binding CanRenameAsset}"
+                        Command="{Binding RenameAssetCommand}"
+                        Header="Rename">
+                    <MenuItem.Icon>
+                        <Image Width="10" Height="10" Source="{StaticResource Rename}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem
+                        IsEnabled="{Binding CanDeleteAsset}"
+                        Command="{Binding DeleteAssetsCommand}"
+                    Header="Delete">
+                    <MenuItem.Icon>
+                        <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </ContextMenu>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -82,51 +108,13 @@
             dd:DragDrop.IsDropTarget="True"
             dd:DragDrop.DragHandler="{Binding}"
             dd:DragDrop.DropHandler="{Binding}"
-            ItemsSource="{Binding ResourceItems}">
-
-            <TreeView.ContextMenu>
-                <ContextMenu>
-                    <MenuItem
-                        Visibility="{Binding CanAddAsset, Converter={StaticResource BoolToVisibility}}"
-                        Padding="8, 4"
-                        Foreground="{StaticResource TextBase}"
-                        Command="{Binding AddAssetCommand}">
-                        <MenuItem.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Width="10" Height="10" Source="{StaticResource Add}" />
-                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                <TextBlock Text="Add Folder"/>
-                            </StackPanel>
-                        </MenuItem.Header>
-                    </MenuItem>
-                    <MenuItem
-                        Visibility="{Binding CanRenameAsset, Converter={StaticResource BoolToVisibility}}"
-                        Padding="8, 4"
-                        Foreground="{StaticResource TextBase}"
-                        Command="{Binding RenameAssetCommand}">
-                        <MenuItem.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Width="10" Height="10" Source="{StaticResource Rename}" />
-                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                <TextBlock Text="Rename"/>
-                            </StackPanel>
-                        </MenuItem.Header>
-                    </MenuItem>
-                    <MenuItem
-                        Visibility="{Binding CanDeleteAsset, Converter={StaticResource BoolToVisibility}}"
-                        Padding="8, 4"
-                        Foreground="{StaticResource TextBase}"
-                        Command="{Binding DeleteAssetsCommand}">
-                        <MenuItem.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
-                                <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                <TextBlock Text="Delete"/>
-                            </StackPanel>
-                        </MenuItem.Header>
-                    </MenuItem>
-                </ContextMenu>
-            </TreeView.ContextMenu>
+            ItemsSource="{Binding ResourceItems}"
+            ContextMenu="{StaticResource ResourceContextMenu}">
+            <!--<Controls:MultiSelectTreeView.InputBindings>
+                <KeyBinding 
+                    Key="Delete" 
+                    Command="{Binding DeleteAssetsCommand}"/>
+            </Controls:MultiSelectTreeView.InputBindings>-->
         </Controls:MultiSelectTreeView>
     </Border>
 </UserControl>

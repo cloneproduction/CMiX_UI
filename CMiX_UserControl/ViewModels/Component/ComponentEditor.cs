@@ -14,6 +14,11 @@ namespace CMiX.Studio.ViewModels
             RenameComponentCommand = new RelayCommand(p => Rename(p));
         }
 
+        public void ComponentManager_ComponentDeleted(object sender, ComponentEventArgs e)
+        {
+            Editables.Remove(e.Component);
+        }
+
         public ICommand EditComponentCommand { get; set; }
         public ICommand RemoveComponentCommand { get; set; }
         public ICommand RenameComponentCommand { get; set; }
@@ -27,11 +32,9 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _selectedEditable, value);
         }
 
-
         public void RemoveComponent(object obj)
         {
-            var editable = obj as IComponent;
-            Editables.Remove(editable);
+            Editables.Remove(obj as IComponent);
         }
 
         public void EditComponent(object obj)
@@ -47,8 +50,7 @@ namespace CMiX.Studio.ViewModels
 
         public void Rename(object obj)
         {
-            var editable = obj as IComponent;
-            editable.IsRenaming = true;
+            ((IComponent)obj).IsRenaming = true;
         }
     }
 }

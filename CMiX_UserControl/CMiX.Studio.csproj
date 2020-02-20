@@ -126,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewModels\Assets\AssetSelector.cs" />
+    <Compile Include="ViewModels\Component\ComponentEventArgs.cs" />
     <Compile Include="ViewModels\Component\Outliner.cs" />
     <Compile Include="Views\Assets\GeometrySelector.xaml.cs">
       <DependentUpon>GeometrySelector.xaml</DependentUpon>
