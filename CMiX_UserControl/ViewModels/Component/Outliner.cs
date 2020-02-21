@@ -253,23 +253,44 @@ namespace CMiX.Studio.ViewModels
 
             var grandParentTargetItem = Utils.FindParent<TreeViewItem>(parentTargetItem);
 
+            var parentCollectionSource = (ObservableCollection<IComponent>)parentTargetItem.ItemsSource;
+            var grandParentCollectionSource = (ObservableCollection<IComponent>)grandParentTargetItem.ItemsSource;
+
+            var parentTargetItemIndex = parentCollectionSource.IndexOf(targetItem);
+
+            bool InsertPositionAfterTargetItem = dropInfo.InsertPosition == RelativeInsertPosition.AfterTargetItem;
+            bool InsertPositionBeforeTargetItem = dropInfo.InsertPosition == RelativeInsertPosition.BeforeTargetItem;
+
+            //bool InsertJustBefore = InsertPositionIsBefore && visualSource == visualTarget;
+            //bool InsertJustAfter = InsertPositionIsAfter && visualSource == visualTarget;
+
             if (dataObject != null)
                 dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
 
-            if(targetItem != null)
-                if(parentSourceItem != targetItem) // can't drop on its parent
-                    if (!(targetItem == sourceItem)) // can't drop on itself
-                        if (!dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter)) // can't drop on itself
-                            if (!(dropInfo.InsertPosition == RelativeInsertPosition.AfterTargetItem && targetIndex == sourceIndex)) // can't drop just next after
-                                if (!(dropInfo.InsertPosition == RelativeInsertPosition.BeforeTargetItem && targetIndex == sourceIndex + 1))// can't drop just next before
-                                    if (dataObject.GetType() == targetItem.GetType())
-                                            dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+            if (targetItem != null)
+            {
+                if (sourceItem != targetItem)//IS  Not OVER ITSELF
+                {
+                    if (!dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter))// NOT OVERRING THE CENTER PART
+                    {
+                        if (!(InsertPositionAfterTargetItem && targetIndex == sourceIndex) && !(InsertPositionBeforeTargetItem && targetIndex == sourceIndex + 1))// can't drop just next after
+                        {
+                            if (parentSourceItem != targetItem) // can't drop on it's own parent
+                            {
+                                if (dataObject.GetType() == targetItem.GetType()) //can drop on same type
+                                {
+                                    dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                                }     
+                                else if (parentTargetItemIndex == parentCollectionSource.Count - 1 && dropInfo.InsertPosition == RelativeInsertPosition.AfterTargetItem)
+                                {
+                                    dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                                }
+                            }
+                        }
+                    }
+                }
 
-
-            //Console.WriteLine("grandParentTargetItem.Items.IndexOf(parentTargetItem) " + ((ObservableCollection<IComponent>)grandParentTargetItem.ItemsSource).IndexOf(parentTargetItem.ItemsSource));
-            //if (grandParentTargetItem.Items.IndexOf(parentTargetItem) == grandParentTargetItem.Items.Count -1)
-                
-
+            }
             if (dataObject is Entity && targetItem is Layer)
             {
                 if (parentSourceItem != visualTarget)
