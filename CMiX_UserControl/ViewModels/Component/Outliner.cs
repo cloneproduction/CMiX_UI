@@ -269,15 +269,20 @@ namespace CMiX.Studio.ViewModels
 
             if (targetItem != null)
             {
-                if (sourceItem != targetItem)//IS  Not OVER ITSELF
+                //IS  Not OVER ITSELF
+                if (sourceItem != targetItem)
                 {
-                    if (!dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter))// NOT OVERRING THE CENTER PART
+                    // NOT OVERRING THE CENTER PART
+                    if (!dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter))
                     {
-                        if (!(InsertPositionAfterTargetItem && targetIndex == sourceIndex) && !(InsertPositionBeforeTargetItem && targetIndex == sourceIndex + 1))// can't drop just next after
+                        // can't drop just next after
+                        if (!(InsertPositionAfterTargetItem && targetIndex == sourceIndex) && !(InsertPositionBeforeTargetItem && targetIndex == sourceIndex + 1))
                         {
-                            if (parentSourceItem != targetItem) // can't drop on it's own parent
+                            // can't drop on it's own parent
+                            if (parentSourceItem != targetItem) 
                             {
-                                if (dataObject.GetType() == targetItem.GetType()) //can drop on same type
+                                //drop only on same type
+                                if (dataObject.GetType() == targetItem.GetType()) 
                                 {
                                     dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
                                 }     
@@ -289,8 +294,8 @@ namespace CMiX.Studio.ViewModels
                         }
                     }
                 }
-
             }
+
             if (dataObject is Entity && targetItem is Layer)
             {
                 if (parentSourceItem != visualTarget)
