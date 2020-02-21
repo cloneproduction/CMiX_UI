@@ -27,6 +27,7 @@ namespace CMiX.Studio.ViewModels
             Geometry = new Geometry(MessageAddress, messageService, mementor, assets, beat);
             Texture = new Texture(MessageAddress, messageService, assets, mementor);
             Coloration = new Coloration(MessageAddress, messageService, mementor, beat);
+            Components = new ObservableCollection<IComponent>();
 
             RenameCommand = new RelayCommand(p => Rename());
             CopyEntityCommand = new RelayCommand(p => CopyEntity());
@@ -114,7 +115,7 @@ namespace CMiX.Studio.ViewModels
         public MessageService MessageService { get; set; }
         public Mementor Mementor { get; set; }
         public Assets Assets { get; set; }
-        public ObservableCollection<IComponent> Components { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+        public ObservableCollection<IComponent> Components { get; set; }
         #endregion
 
         #region COPY/PASTE
