@@ -150,37 +150,55 @@ namespace CMiX.Studio.ViewModels
         public bool CanDropOnSameParent(IDropInfo dropInfo)
         {
             var dataObject = dropInfo.Data as IComponent;
-            var dropTarget = dropInfo.TargetItem as IComponent;
+            var targetItem = dropInfo.TargetItem as IComponent;
+            var sourceItem = dropInfo.DragInfo.SourceItem as IComponent;
             var targetIndex = dropInfo.InsertIndex;
             var sourceIndex = dropInfo.DragInfo.SourceIndex;
 
             var visualTarget = dropInfo.VisualTargetItem;
             var visualSource = dropInfo.DragInfo.VisualSourceItem;
 
-            var parentSourceItem = Utils.FindParent<TreeViewItem>(visualSource);
+            var parentVisualSource = Utils.FindParent<TreeViewItem>(visualSource);
             var parentTargetItem = Utils.FindParent<TreeViewItem>(visualTarget);
+
+            var parentCollectionSource = (ObservableCollection<IComponent>)parentTargetItem.ItemsSource;
+
+            var parentTargetItemIndex = parentCollectionSource.IndexOf(targetItem);
+
+            bool InsertPositionAfterTargetItem = dropInfo.InsertPosition == RelativeInsertPosition.AfterTargetItem && targetIndex == sourceIndex;
+            bool InsertPositionBeforeTargetItem = dropInfo.InsertPosition == RelativeInsertPosition.BeforeTargetItem && targetIndex == sourceIndex + 1;
+
 
             bool canDrop = false;
 
-                
-
-            if (dataObject != null && dropTarget != null)
+            if (targetItem != null)
             {
-                if (!dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter))
-                    if (sourceIndex >= 0 && targetIndex >= 0)
+                //IS  Not OVER ITSELF
+                if (sourceItem != targetItem)
+                {
+                    // NOT OVERRING THE CENTER PART
+                    if (!dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter))
                     {
-                    
-                        if (visualTarget != visualSource)
-                            if (dataObject.GetType() == dropTarget.GetType())
-                                if (sourceIndex != targetIndex && sourceIndex != targetIndex - 1)
+                        // can't drop just next after
+                        if (!InsertPositionAfterTargetItem && !InsertPositionBeforeTargetItem)
+                        {
+                            // parent can't be the target
+                            if (parentVisualSource != targetItem)
+                            {
+                                // parent source is parent target so it drop within
+                                if (parentVisualSource == parentTargetItem)
                                 {
-                                    if (parentSourceItem == parentTargetItem)
+                                    //drop only on same type
+                                    if (dataObject.GetType() == targetItem.GetType())
                                     {
                                         canDrop = true;
+                                        Console.WriteLine("CanDropOnSameParent");
                                     }
                                 }
+                            }
+                        }
+                    }
                 }
-
             }
             return canDrop;
         }
@@ -188,25 +206,32 @@ namespace CMiX.Studio.ViewModels
         public bool CanDropWithinDifferentParent(IDropInfo dropInfo)
         {
             var dataObject = dropInfo.Data as IComponent;
-            var dropTarget = dropInfo.TargetItem as IComponent;
-            var targetIndex = dropInfo.InsertIndex;
-            var sourceIndex = dropInfo.DragInfo.SourceIndex;
+            var targetItem = dropInfo.TargetItem as IComponent;
+            //var targetIndex = dropInfo.InsertIndex;
+            //var sourceIndex = dropInfo.DragInfo.SourceIndex;
 
             var visualTarget = dropInfo.VisualTargetItem;
             var visualSource = dropInfo.DragInfo.VisualSourceItem;
 
-            var parentSourceItem = Utils.FindParent<TreeViewItem>(visualSource);
-            var parentTargetItem = Utils.FindParent<TreeViewItem>(visualTarget);
+            var parentVisualSource = Utils.FindParent<TreeViewItem>(visualSource);
+            var parentVisualTarget = Utils.FindParent<TreeViewItem>(visualTarget);
 
             bool canDrop = false;
 
             if (dataObject != null)
             {
-                if (parentSourceItem != parentTargetItem)
+                // drop on a different parent
+                if (parentVisualSource != parentVisualTarget)
                 {
-                    if (dataObject is Entity && dropTarget is Entity)
+                    //dropping on a same type
+                    if (dataObject.GetType() == targetItem.GetType())
                     {
-                        canDrop = true;
+                        if (parentVisualTarget != parentVisualSource)
+                        {
+                            Console.WriteLine("CanDropWithinDifferentParent");
+                            canDrop = true;
+                            //dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                        }
                     }
                 }
             }
@@ -231,6 +256,42 @@ namespace CMiX.Studio.ViewModels
                 if (dataObject is Entity && dropTarget is Layer)
                 {
                     canDrop = true;
+                    Console.WriteLine("CanDropEntityOnLayer");
+                }
+            }
+            return canDrop;
+        }
+
+        public bool CanDropOnLastItem(IDropInfo dropInfo)
+        {
+            var targetItem = dropInfo.TargetItem as IComponent;
+            var sourceItem = dropInfo.DragInfo.SourceItem as IComponent;
+            var visualTarget = dropInfo.VisualTargetItem;
+            var parentTargetItem = Utils.FindParent<TreeViewItem>(visualTarget);
+
+            bool canDrop = false;
+
+            if (targetItem != null)
+            {
+                //IS  Not OVER ITSELF
+                if (sourceItem != targetItem)
+                {
+                    // NOT OVERRING THE CENTER PART
+                    if (!dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter))
+                    {
+                        // can't drop just next after
+                        if (!sourceItem.Components.Contains(targetItem))
+                        {
+                            if (targetItem == ((IComponent)parentTargetItem.DataContext).Components.Last())
+                            {
+                                if (dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.AfterTargetItem))
+                                {
+                                    canDrop = true;
+                                    Console.WriteLine("CanDropOnLastItem");
+                                }
+                            }
+                        }
+                    }
                 }
             }
             return canDrop;
@@ -245,64 +306,79 @@ namespace CMiX.Studio.ViewModels
             var targetIndex = dropInfo.InsertIndex;
             var sourceIndex = dropInfo.DragInfo.SourceIndex;
 
-            var visualTarget = dropInfo.VisualTargetItem;
             var visualSource = dropInfo.DragInfo.VisualSourceItem;
 
-            var parentSourceItem = Utils.FindParent<TreeViewItem>(visualSource);
-            var parentTargetItem = Utils.FindParent<TreeViewItem>(visualTarget);
+            var parentVisualSource = Utils.FindParent<TreeViewItem>(visualSource);
+            var visualTarget = dropInfo.VisualTargetItem;
+            var parentVisualTarget = Utils.FindParent<TreeViewItem>(visualTarget);
+            var grandParentVisualTarget = Utils.FindParent<TreeViewItem>(parentVisualTarget);
 
-            var grandParentTargetItem = Utils.FindParent<TreeViewItem>(parentTargetItem);
-
-            var parentCollectionSource = (ObservableCollection<IComponent>)parentTargetItem.ItemsSource;
-            var grandParentCollectionSource = (ObservableCollection<IComponent>)grandParentTargetItem.ItemsSource;
-
-            var parentTargetItemIndex = parentCollectionSource.IndexOf(targetItem);
-
-            bool InsertPositionAfterTargetItem = dropInfo.InsertPosition == RelativeInsertPosition.AfterTargetItem;
-            bool InsertPositionBeforeTargetItem = dropInfo.InsertPosition == RelativeInsertPosition.BeforeTargetItem;
-
-            //bool InsertJustBefore = InsertPositionIsBefore && visualSource == visualTarget;
-            //bool InsertJustAfter = InsertPositionIsAfter && visualSource == visualTarget;
-
-            if (dataObject != null)
-                dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
-
-            if (targetItem != null)
+            if (parentVisualTarget != null)
             {
-                //IS  Not OVER ITSELF
-                if (sourceItem != targetItem)
+                if (dataObject != null)
+                    dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
+
+                if (targetItem != null)
                 {
-                    // NOT OVERRING THE CENTER PART
-                    if (!dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter))
+                    //IS  Not OVER ITSELF
+                    if (sourceItem != targetItem)
                     {
-                        // can't drop just next after
-                        if (!(InsertPositionAfterTargetItem && targetIndex == sourceIndex) && !(InsertPositionBeforeTargetItem && targetIndex == sourceIndex + 1))
+                        //Console.WriteLine("SourceIsDifferentFromTarget");
+                        if (!dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter))
                         {
-                            // can't drop on it's own parent
-                            if (parentSourceItem != targetItem) 
+                            //Console.WriteLine("NotOverringTheCenterPart");
+                            if (parentVisualSource != targetItem)
                             {
-                                //drop only on same type
-                                if (dataObject.GetType() == targetItem.GetType()) 
+                                //Console.WriteLine("ParentVisualSource is different from Target");
+                                if (dataObject.GetType() == targetItem.GetType())
                                 {
-                                    dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
-                                }     
-                                else if (parentTargetItemIndex == parentCollectionSource.Count - 1 && dropInfo.InsertPosition == RelativeInsertPosition.AfterTargetItem)
+                                    bool InsertPositionAfterTargetItem = dropInfo.InsertPosition == RelativeInsertPosition.AfterTargetItem && targetIndex == sourceIndex;
+                                    bool InsertPositionBeforeTargetItem = dropInfo.InsertPosition == RelativeInsertPosition.BeforeTargetItem && targetIndex == sourceIndex + 1;
+                                    if ((!InsertPositionAfterTargetItem && !InsertPositionBeforeTargetItem) || (parentVisualTarget != parentVisualSource))
+                                    {
+                                        dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                                    }
+                                }
+                                else
                                 {
-                                    dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                                    //Console.WriteLine("Target and source are different type");
+                                    if(grandParentVisualTarget != null)
+                                    {
+                                        var parentIndex = ((ObservableCollection<IComponent>)grandParentVisualTarget.ItemsSource).IndexOf((IComponent)parentVisualTarget.DataContext);
+
+                                        if (parentIndex != sourceIndex - 1)
+                                        {
+                                            Console.WriteLine("parentIndex " + parentIndex);
+                                            if (!sourceItem.Components.Contains(targetItem))
+                                            {
+                                                //Console.WriteLine("Source doesnt contains targets");
+                                                if (targetItem == ((IComponent)parentVisualTarget.DataContext).Components.Last())
+                                                {
+                                                    //Console.WriteLine("targetItem is last element of collection");
+                                                    if (dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.AfterTargetItem))
+                                                    {
+                                                        //Console.WriteLine("dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.AfterTargetItem)");
+                                                        dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
 
-            if (dataObject is Entity && targetItem is Layer)
-            {
-                if (parentSourceItem != visualTarget)
+                if (dataObject is Entity && targetItem is Layer)
                 {
-                    dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
+                    if (parentVisualSource != visualTarget)
+                    {
+                        dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
+                    }
                 }
             }
+
         }
 
         public void Drop(IDropInfo dropInfo)
@@ -312,14 +388,11 @@ namespace CMiX.Studio.ViewModels
             var insertIndex = dropInfo.InsertIndex;
             var sourceIndex = dropInfo.DragInfo.SourceIndex;
 
-
-
             if (targetCollection == null)
                 return;
 
             if (CanDropOnSameParent(dropInfo))
             {
-                Console.WriteLine("CanDropOnSameParent");
                 if (sourceIndex < insertIndex)
                 {
                     targetCollection.Move(sourceIndex, insertIndex - 1);
@@ -328,25 +401,69 @@ namespace CMiX.Studio.ViewModels
                 {
                     targetCollection.Move(sourceIndex, insertIndex);
                 }
-                    
+                return;
             }
             else if(CanDropWithinDifferentParent(dropInfo))
             {
-                Console.WriteLine("CanDropWithinDifferentParent");
                 targetCollection.Insert(insertIndex, dropInfo.DragInfo.SourceItem as IComponent);
                 sourceCollection.Remove(dropInfo.DragInfo.SourceItem as IComponent);
+                return;
             }
             else if (CanDropEntityOnLayer(dropInfo))
             {
-                Console.WriteLine("CanDropEntityOnLayer");
                 var targetItem = dropInfo.TargetItem as Layer;
                 var sourceItem = dropInfo.DragInfo.SourceItem as IComponent;
                 targetItem.Components.Insert(0, sourceItem);
-                targetItem.IsExpanded = true;
                 sourceCollection.Remove(sourceItem);
+                targetItem.IsExpanded = true;
+                
+                return;
+            }
+            else if (CanDropOnLastItem(dropInfo))
+            {
+                var sourceItem = dropInfo.DragInfo.SourceItem as IComponent;
+                var visualTarget = dropInfo.VisualTargetItem;
+
+                var parentVisualTarget = Utils.FindParent<TreeViewItem>(visualTarget);
+                var grandParentVisualTarget = Utils.FindParent<TreeViewItem>(parentVisualTarget);
+
+                var parentTargetDataContext = parentVisualTarget.DataContext as IComponent;
+                var grandParentTargetDataContext = grandParentVisualTarget.DataContext as IComponent;
+
+                var parentIndex = grandParentTargetDataContext.Components.IndexOf(parentTargetDataContext);
+
+                var grandParentCollectionSource = (ObservableCollection<IComponent>)grandParentVisualTarget.ItemsSource;
+
+                if (sourceIndex < parentIndex)
+                {
+                    grandParentCollectionSource.Move(sourceIndex, parentIndex);
+                }
+                else
+                {
+                    grandParentCollectionSource.Move(sourceIndex, parentIndex + 1);
+                }
             }
         }
 
+
+        public int FindItemParentIndex(ObservableCollection<IComponent> components, IComponent componentToFind)
+        {
+            int index = -1;
+
+            if (components.Contains(componentToFind))
+            {
+                index = components.IndexOf(componentToFind);
+            }
+            else
+            {
+                foreach (var item in components)
+                {
+                    FindItemParentIndex(item.Components, componentToFind);
+                }
+            }
+            Console.WriteLine("index " + index);
+            return index;
+        }
 
         public void StartDrag(IDragInfo dragInfo)
         {
