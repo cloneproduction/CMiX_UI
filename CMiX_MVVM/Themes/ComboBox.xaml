@@ -118,6 +118,7 @@
                                                     <Trigger Property="IsMouseOver" Value="True">
                                                         <Setter TargetName="Arrow" Property="Fill" Value="{DynamicResource TextBase}" />
                                                     </Trigger>
+
                                                     <MultiDataTrigger>
                                                         <MultiDataTrigger.Conditions>
                                                             <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true" />
@@ -125,6 +126,7 @@
                                                         </MultiDataTrigger.Conditions>
                                                         <Setter TargetName="templateRoot" Property="Background" Value="{StaticResource Color}"/>
                                                     </MultiDataTrigger>
+
                                                     <Trigger Property="IsPressed" Value="True">
                                                         <Setter TargetName="Arrow" Property="Fill" Value="White" />
                                                         <Setter TargetName="templateRoot" Property="Background" Value="{StaticResource HighLightColor}"/>

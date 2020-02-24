@@ -87,9 +87,9 @@ namespace CMiX.Studio.ViewModels
             maskModel.MaskType = MaskType;
             maskModel.MaskControlType = MaskControlType;
             maskModel.BeatModifierModel = BeatModifier.GetModel();
-            maskModel.TextureModel = Texture.GetModel();
-            maskModel.GeometryModel = Geometry.GetModel();
-            maskModel.PostFXModel = PostFX.GetModel();
+            //maskModel.TextureModel = Texture.GetModel();
+            //maskModel.GeometryModel = Geometry.GetModel();
+            //maskModel.PostFXModel = PostFX.GetModel();
             return maskModel;
         }
 

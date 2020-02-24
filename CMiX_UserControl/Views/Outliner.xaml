@@ -79,6 +79,7 @@
     </UserControl.Resources>
 
     <DockPanel Background="{StaticResource HighDarkerColor}">
+        
         <Border 
             VerticalAlignment="Center"
             Padding="8"
@@ -88,6 +89,7 @@
             Height="40">
             <TextBlock Text="OUTLINER" FontWeight="SemiBold" VerticalAlignment="Center"/>
         </Border>
+        
         <Controls:TreeViewSelect 
             Style="{StaticResource {x:Type TreeView}}"
             AllowDrop="True"

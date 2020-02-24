@@ -63,19 +63,40 @@ namespace CMiX.ViewModels
 
         public IComponent DuplicateComponent(IComponent component)
         {
-            IComponent result;
+            IComponent result = null;
 
-            if (component is Project)
-                result = DuplicateComposition(component as Project);
-            else if (component is Composition)
-                result = DuplicateLayer(component as Composition);
+            if (component is Composition)
+                result = DuplicateComposition(component as Composition);
             else if (component is Layer)
-                result = DuplicateEntity(component as Layer);
+                result = DuplicateLayer(component as Layer);
+            else if (component is Entity)
+                result = DuplicateEntity(component as Entity);
             result = null;
 
             return result;
         }
 
+       
+
+        public IComponent GetSelectedParent(ObservableCollection<IComponent> components)
+        {
+            IComponent result = null;
+
+            foreach (var component in components)
+            {
+                if(component.Components.Any(c => c.IsSelected))
+                {
+                    result = component;
+                    break;
+                }
+                else
+                {
+                    result = GetSelectedParent(component.Components);
+                }
+            }
+
+            return result;
+        }
 
         public void DeleteComponent()
         {
@@ -109,7 +130,7 @@ namespace CMiX.ViewModels
         }
 
 
-        private Composition DuplicateComposition(Project project)
+        private Composition DuplicateComposition(Composition project)
         {
             var newCompo = new Composition(CompositionID, project.MessageAddress, project.Beat, new MessageService(), project.Assets, project.Mementor);
             var selectedCompo = SelectedComponent as Composition;
@@ -133,13 +154,13 @@ namespace CMiX.ViewModels
         }
 
 
-        private Layer DuplicateLayer(Composition compo)
+        private Layer DuplicateLayer(Layer layer)
         {
-            Layer newLayer = new Layer(LayerID, compo.Beat, compo.MessageAddress, compo.MessageService, compo.Assets, compo.Mementor);
-            var selectedLayer = SelectedComponent as Layer;
-            newLayer.SetViewModel(selectedLayer.GetModel());
+            var parent = GetSelectedParent(Projects);
+            Layer newLayer = new Layer(LayerID, parent.Beat, parent.MessageAddress, parent.MessageService, parent.Assets, parent.Mementor);
+            newLayer.SetViewModel(layer.GetModel());
             newLayer.Name += " -Copy";
-            compo.AddComponent(newLayer);
+            parent.Components.Insert(parent.Components.IndexOf(layer) + 1, newLayer);
             LayerID++;
             return newLayer;
         }
@@ -155,15 +176,15 @@ namespace CMiX.ViewModels
         }
 
 
-        private Entity DuplicateEntity(Layer layer)
+        private Entity DuplicateEntity(Entity entity)
         {
-            var newEntity = new Entity(EntityID, layer.Beat, layer.MessageAddress, layer.MessageService, layer.Assets, layer.Mementor);
-            var selectedEntity = SelectedComponent as Entity;
-            newEntity.SetViewModel(selectedEntity.GetModel());
-            newEntity.Name += " -Copy";
-            layer.AddComponent(newEntity);
+            var parent = GetSelectedParent(Projects);
+            var component = new Entity(EntityID, parent.Beat, parent.MessageAddress, parent.MessageService, parent.Assets, parent.Mementor);
+            component.SetViewModel(entity.GetModel());
+            component.Name += " -Copy";
+            parent.Components.Insert(parent.Components.IndexOf(entity) + 1, component);
             EntityID++;
-            return newEntity;
+            return component;
         }
     }
 }
