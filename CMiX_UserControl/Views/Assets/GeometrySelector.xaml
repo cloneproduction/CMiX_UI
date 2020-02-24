@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ViewModels="clr-namespace:CMiX.Studio.ViewModels"
              xmlns:Views="clr-namespace:CMiX.Views"
+             xmlns:dd="urn:gong-wpf-dragdrop"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -12,13 +13,10 @@
         Margin="0, 2"
         Height="25" 
         ItemsSource="{Binding AssetsView}"
-        SelectedItem="{Binding SelectedAsset}">
-
-        <!--<ComboBox.ItemContainerStyle>
-            <Style TargetType="ComboBoxItem" BasedOn="{StaticResource Default}">
-                <Setter Property="IsSelected" Value="{Binding IsInUse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            </Style>
-        </ComboBox.ItemContainerStyle>-->
+        SelectedItem="{Binding SelectedAsset}"
+        AllowDrop="True"
+        dd:DragDrop.DropHandler="{Binding}"
+        dd:DragDrop.IsDropTarget="True">
 
         <ComboBox.ItemTemplate>
             <DataTemplate>

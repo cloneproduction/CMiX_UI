@@ -8,10 +8,12 @@ using System.Collections.ObjectModel;
 using System.Windows.Data;
 using System.ComponentModel;
 using System.Collections.Specialized;
+using GongSolutions.Wpf.DragDrop;
+using System.Windows;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class AssetSelector<T> : ViewModel, ISendable, IUndoable
+    public class AssetSelector<T> : ViewModel, ISendable, IUndoable, IDropTarget
     {
         public AssetSelector(string messageAddress, Assets assets, MessageService messageService, Mementor mementor)
         {
@@ -80,6 +82,20 @@ namespace CMiX.Studio.ViewModels
             //SelectedAsset.Name = model.Name;
             //SelectedAsset.Path = model.Path;
             MessageService.Enable();
+        }
+
+        public void DragOver(IDropInfo dropInfo)
+        {
+            var sourceItem = dropInfo.DragInfo.SourceItem;
+            if (sourceItem.GetType() == typeof(T))
+            {
+                dropInfo.Effects = DragDropEffects.Copy;
+            }
+        }
+
+        public void Drop(IDropInfo dropInfo)
+        {
+            SelectedAsset = dropInfo.DragInfo.SourceItem as IAssets;
         }
     }
 }
