@@ -75,7 +75,7 @@
                         Template="{StaticResource SubMenuItemBase}" />
                     <MenuItem
                         Header="Duplicate"
-                        Command="{Binding DuplicateSelectedCompositionCommand}"
+
                         CommandParameter="{Binding SelectedComposition}"
                         Template="{StaticResource SubMenuItemBase}" />
                     <Separator BorderThickness="0.5" Margin="0, 8, 8, 8" BorderBrush="{StaticResource DarkColor}"/>
@@ -116,7 +116,7 @@
 
                 <Views:Outliner Grid.Row="0" DataContext="{Binding Outliner}"/>
                 <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Background="Transparent" Height="2"/>
-                <Views:ComponentPanel Background="{StaticResource HighDarkerColor}" Grid.Row="2" DataContext="{Binding}"/>
+                <Views:ComponentPanel Background="{StaticResource HighDarkerColor}" Grid.Row="2" DataContext="{Binding Outliner}"/>
             </Grid>
         </Grid>
     </DockPanel>

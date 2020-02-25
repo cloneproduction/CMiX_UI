@@ -27,8 +27,8 @@
     </UserControl.Resources>
 
     <ContentPresenter 
-        DataContext="{Binding ComponentManager.SelectedComponent}"
-        Content="{Binding ComponentManager.SelectedComponent}"
+        DataContext="{Binding SelectedComponent}"
+        Content="{Binding SelectedComponent}"
         ContentTemplateSelector="{StaticResource TemplateSelector}">
     </ContentPresenter>
 </UserControl>

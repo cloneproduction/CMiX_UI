@@ -19,7 +19,6 @@ namespace CMiX.MVVM.Models
         public string Name { get; set; }
         public int ID { get; set; }
         public bool Out { get; set; }
-        public bool IsMask { get; set; }
 
         public BlendModeModel BlendMode { get; set; }
         public SliderModel Fade { get; set; }

@@ -148,18 +148,18 @@
                         VerticalAlignment="Center">
                         <DockPanel>
                             <Border Padding="8">
-                                <Image DockPanel.Dock="Left" Opacity="0.75" >
-                                    <Image.Style>
-                                        <Style TargetType="{x:Type Image}">
-                                            <Setter Property="Source" Value="{StaticResource Copy}"/>
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Path=IsMask}" Value="true">
-                                                    <Setter Property="Source" Value="{StaticResource Mask}"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Image.Style>
-                                </Image>
+                                <Image DockPanel.Dock="Left" Opacity="0.75" Source="{StaticResource Copy}"/>
+                                <!--<Image.Style>
+                                    <Style TargetType="{x:Type Image}">
+                                        <Setter Property="Source" Value="{StaticResource Copy}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=IsMask}" Value="true">
+                                                <Setter Property="Source" Value="{StaticResource Mask}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>-->
+
                             </Border>
                             <Border DockPanel.Dock="Right">
                                 <ToggleButton 
@@ -188,9 +188,9 @@
                         <DockPanel>
                             <Border DockPanel.Dock="Right">
                                 <ToggleButton 
-                                IsChecked="{Binding IsVisible}"
-                                Style="{StaticResource ToggleVisibility}"
-                                VerticalAlignment="Center">
+                                    IsChecked="{Binding IsVisible}"
+                                    Style="{StaticResource ToggleVisibility}"
+                                    VerticalAlignment="Center">
                                     <ToggleButton.IsEnabled>
                                         <MultiBinding Converter="{StaticResource EntityVisibilityConverter}">
                                             <Binding Path="DataContext.IsVisible" Mode="OneWay" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorLevel=3, AncestorType={x:Type TreeViewItem}}"/>
@@ -198,6 +198,9 @@
                                         </MultiBinding>
                                     </ToggleButton.IsEnabled>
                                 </ToggleButton>
+                            </Border>
+                            <Border Padding="8">
+                                <Image DockPanel.Dock="Left" Opacity="0.75" Visibility="{Binding IsMask, Converter={StaticResource BoolToVisibility}}" Source="{StaticResource Mask}"/>
                             </Border>
                             <Controls:EditableTextBox 
                             Padding="4" 
