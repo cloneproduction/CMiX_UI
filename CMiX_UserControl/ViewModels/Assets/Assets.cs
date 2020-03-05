@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.IO;
+using System.Linq;
+using System.Linq.Dynamic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.ViewModels;
 using GongSolutions.Wpf.DragDrop;
-using System.Linq;
-using System.Linq.Dynamic;
-using System.Collections.Specialized;
-using System.Windows.Data;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -29,10 +29,11 @@ namespace CMiX.Studio.ViewModels
 
             AvailableResources = new ObservableCollection<IAssets>();
             AvailableResources.CollectionChanged += AvailableResources_CollectionChanged;
+            AssetsViewSource.Source = AvailableResources;
+
             SelectedItems = new ObservableCollection<IAssets>();
             SelectedItems.CollectionChanged += CollectionChanged;
 
-            AssetsViewSource.Source = AvailableResources;
             AddAssetCommand = new RelayCommand(p => AddAsset());
             DeleteAssetsCommand = new RelayCommand(p => DeleteAssets());
             RenameAssetCommand = new RelayCommand(p => RenameAsset());
@@ -41,7 +42,6 @@ namespace CMiX.Studio.ViewModels
         private void AvailableResources_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             AssetsViewSource.DeferRefresh();
-            Console.WriteLine("AvailableResources_CollectionChanged from Assets");
         }
 
         #region METHODS
@@ -87,7 +87,6 @@ namespace CMiX.Studio.ViewModels
                 DeleteSelectedAssets(ResourceItems);
         }
 
-
         public void RemoveItemFromDirectory(IDirectory directory)
         {
             var toBeRemoved = new List<IAssets>();
@@ -95,7 +94,6 @@ namespace CMiX.Studio.ViewModels
             {
                 if(asset is IDirectory)
                     RemoveItemFromDirectory(asset as IDirectory);
-
                 toBeRemoved.Add(asset);
             }
             
@@ -248,10 +246,14 @@ namespace CMiX.Studio.ViewModels
                         {
                             var directoryItem = (IDirectory)dropInfo.TargetItem;
                             directoryItem.Assets.Add(item);
+                            directoryItem.SortAssets();
                             directoryItem.IsExpanded = true;
                         }
                         else if(ResourceItems[0] is IDirectory)
+                        {
                             ((IDirectory)ResourceItems[0]).Assets.Add(item);
+                            ((IDirectory)ResourceItems[0]).SortAssets();
+                        }
                     }
                 }
             }
@@ -264,13 +266,14 @@ namespace CMiX.Studio.ViewModels
                     if (targetItem is IDirectory)
                     {
                         var data = dropInfo.DragInfo.Data as List<DragDropObject>;
-                        ((IDirectory)targetItem).IsExpanded = true;
                         foreach (DragDropObject item in data)
                         {
                             item.DragObject.IsSelected = false;
                             targetCollection.Add(item.DragObject);
                             item.SourceCollection.Remove(item.DragObject);
                         }
+                        ((IDirectory)targetItem).IsExpanded = true;
+                        ((IDirectory)targetItem).SortAssets();
                     }
                 }
             }
@@ -356,6 +359,7 @@ namespace CMiX.Studio.ViewModels
                 CanDeleteAsset = false;
             }
         }
+
 
         #region COPY/PASTE
         public void CopyModel(IModel model)

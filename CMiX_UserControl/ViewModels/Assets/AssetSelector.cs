@@ -1,15 +1,12 @@
-﻿using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels;
-using Memento;
-using System.Linq;
-using System;
-using System.Collections.ObjectModel;
+﻿using System.Windows;
 using System.Windows.Data;
 using System.ComponentModel;
 using System.Collections.Specialized;
+using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels;
+using Memento;
 using GongSolutions.Wpf.DragDrop;
-using System.Windows;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -17,7 +14,7 @@ namespace CMiX.Studio.ViewModels
     {
         public AssetSelector(string messageAddress, Assets assets, MessageService messageService, Mementor mementor)
         {
-            MessageAddress = $"{messageAddress}{nameof(AssetSelector<T>)}/"; ;
+            MessageAddress = $"{messageAddress}{nameof(AssetSelector<T>)}/";
             Assets = assets;
             MessageService = messageService;
             Mementor = mementor;
@@ -33,7 +30,6 @@ namespace CMiX.Studio.ViewModels
 
         private void AvailableResources_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            Console.WriteLine("AvailableResources_CollectionChanged");
             AssetsView.Refresh();
         }
 

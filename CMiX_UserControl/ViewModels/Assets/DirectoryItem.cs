@@ -1,7 +1,7 @@
-﻿using CMiX.MVVM.Resources;
-using CMiX.MVVM.ViewModels;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.ComponentModel;
+using CMiX.MVVM.Resources;
+using CMiX.MVVM.ViewModels;
 
 namespace CMiX.Studio.ViewModels
 {
