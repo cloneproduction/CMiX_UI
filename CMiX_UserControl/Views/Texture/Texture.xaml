@@ -83,7 +83,7 @@
             </Border>
 
             <Views:ImageSelector DataContext="{Binding AssetSelector}"/>
-            <Expander Margin="0, 2" Header="Transform" Style="{StaticResource ExpanderBase}">
+            <Expander IsExpanded="True" Margin="0, 2" Header="Transform" Style="{StaticResource ExpanderBase}">
                 <StackPanel>
                     <Border Margin="0, 4" Style="{StaticResource BorderContainer}">
                         <StackPanel>
@@ -145,7 +145,7 @@
                     </Border>
                 </StackPanel>
             </Expander>
-            <Expander Margin="0, 2" Header="Color" Style="{StaticResource ExpanderBase}">
+            <Expander IsExpanded="True" Margin="0, 2" Header="Color" Style="{StaticResource ExpanderBase}">
                 <StackPanel>
                     <MVVM.Views:SliderCentered
                         Margin="0, 8, 0, 1"

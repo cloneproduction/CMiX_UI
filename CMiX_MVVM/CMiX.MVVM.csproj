@@ -441,6 +441,7 @@
     <Resource Include="Assets\Composition.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\Entity.png" />
     <Content Include="Themes\Fonts\LICENSE.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

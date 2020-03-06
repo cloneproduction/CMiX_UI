@@ -73,7 +73,7 @@
             </Border>
             
             <Views:ColorSelector DataContext="{Binding ColorSelector}"/>
-            <Expander Header="Modifiers" Margin="0, 2" Style="{StaticResource ExpanderBase}">
+            <Expander IsExpanded="True" Header="Modifiers" Margin="0, 2" Style="{StaticResource ExpanderBase}">
 
                 <StackPanel Grid.Row="1" Margin="0, 4">
                     <Border Style="{StaticResource BorderContainer}" Margin="0, 4, 0, 8">

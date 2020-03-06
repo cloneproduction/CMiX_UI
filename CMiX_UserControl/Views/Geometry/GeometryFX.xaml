@@ -10,7 +10,11 @@
     d:DesignHeight="123.175" 
     d:DesignWidth="332.003">
 
-    <Expander Style="{StaticResource ExpanderBase}" Foreground="{StaticResource TextBase}" Header="GSFX">
+    <Expander 
+        IsExpanded="True"
+        Style="{StaticResource ExpanderBase}" 
+        Foreground="{StaticResource TextBase}" 
+        Header="GSFX">
         <StackPanel>
             <MVVM.Views:Slider
                 Margin="0, 4, 0, 0"

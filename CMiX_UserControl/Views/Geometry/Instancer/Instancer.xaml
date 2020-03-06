@@ -23,7 +23,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Expander Header="Instancer" Style="{StaticResource ExpanderBase}">
+    <Expander Header="Instancer" IsExpanded="True" Style="{StaticResource ExpanderBase}">
         <StackPanel>
             <Border
                 Margin="0, 4, 0, 2"

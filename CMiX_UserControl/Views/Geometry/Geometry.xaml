@@ -88,7 +88,7 @@
             
             <Views:GeometrySelector DataContext="{Binding AssetSelector}"/>
 
-            <Expander Margin="0, 2" Header="Transform" Style="{StaticResource ExpanderBase}">
+            <Expander Margin="0, 2" IsExpanded="True" Header="Transform" Style="{StaticResource ExpanderBase}">
                 <Views:Transform 
                     Margin="0, 2" 
                     DockPanel.Dock="Bottom" 
