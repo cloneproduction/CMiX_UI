@@ -10,7 +10,7 @@ using Memento;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Mask : ViewModel, IEntityContext
+    public class Mask : ViewModel, ISendable, IUndoable, IComponent
     {
         #region CONSTRUCTORS
         public Mask(Beat beat, string messageAddress, MessageService messageService, Mementor mementor) 
@@ -77,6 +77,14 @@ namespace CMiX.Studio.ViewModels
         public Assets Assets { get; set; }
         public Beat Beat { get; set; }
         public MessageService MessageService { get; set; }
+        public bool IsRenaming { get ; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public bool IsSelected { get; set; }
+
+        public ICommand RenameCommand { get; }
+
+        public ObservableCollection<IComponent> Components { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
@@ -149,6 +157,16 @@ namespace CMiX.Studio.ViewModels
         {
             this.Reset();
             //this.SendMessages(nameof(MaskModel), GetModel());
+        }
+
+        public void AddComponent(IComponent component)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveComponent(IComponent component)
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

@@ -2,8 +2,12 @@
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
-using System.Collections.ObjectModel;
+using CMiX.MVVM.Resources;
+using System.Collections.Specialized;
 using System.Windows.Input;
+using System.ComponentModel;
+using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -24,6 +28,7 @@ namespace CMiX.Studio.ViewModels
             ID = id;
 
             Components = new ObservableCollection<IComponent>();
+            Components.CollectionChanged += Components_CollectionChanged;
             PostFX = new PostFX(MessageAddress, messageService, mementor);
 
             Mask = new Mask(beat, MessageAddress, messageService, mementor);
@@ -33,7 +38,31 @@ namespace CMiX.Studio.ViewModels
             RenameCommand = new RelayCommand(p => Rename());
             RemoveComponentCommand = new RelayCommand(p => RemoveComponent(p as IComponent));
         }
+
+        private void Components_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                foreach (Entity entity in e.OldItems)
+                    entity.PropertyChanged -= EntityViewModelPropertyChanged;
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                foreach (Entity entity in e.NewItems)
+                    entity.PropertyChanged += EntityViewModelPropertyChanged;
+            }
+        }
+
+        public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if(Components.Any(c => ((Entity)c).IsMask == true))
+                IsMask = true;
+            else
+                IsMask = false;
+        }
+
         #endregion
+
         public ICommand RenameCommand { get;  }
         public ICommand RemoveComponentCommand { get; }
 
@@ -59,11 +88,14 @@ namespace CMiX.Studio.ViewModels
         public bool IsVisible
         {
             get => _isVisible;
-            set
-            {
-                SetAndNotify(ref _isVisible, value);
-                System.Console.WriteLine("Layer Is Visible " + IsVisible);
-            }
+            set => SetAndNotify(ref _isVisible, value);
+        }
+
+        private bool _isMask;
+        public bool IsMask
+        {
+            get => _isMask;
+            set => SetAndNotify(ref _isMask, value);
         }
 
         private bool _isSelected;

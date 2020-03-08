@@ -275,11 +275,11 @@
     </Compile>
     <Compile Include="ViewModels\Camera\Camera.cs" />
     <Compile Include="ViewModels\Coloration\Coloration.cs" />
-    <Compile Include="ViewModels\Content.cs" />
+    <Compile Include="ViewModels\Layer\Content\Content.cs" />
     <Compile Include="ViewModels\Geometry\Geometry.cs" />
     <Compile Include="ViewModels\Layer\Layer.cs" />
     <Compile Include="ViewModels\Beat\MasterBeat.cs" />
-    <Compile Include="ViewModels\Mask\Mask.cs" />
+    <Compile Include="ViewModels\Layer\Mask\Mask.cs" />
     <Compile Include="ViewModels\PostFX\PostFX.cs" />
     <Compile Include="ViewModels\Composition\Composition.cs" />
     <Compile Include="ViewModels\Texture\Texture.cs" />

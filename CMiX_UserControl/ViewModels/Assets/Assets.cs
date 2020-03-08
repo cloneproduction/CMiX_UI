@@ -194,7 +194,6 @@ namespace CMiX.Studio.ViewModels
         }
         #endregion
 
-
         #region DRAG DROP
         public void DragOver(IDropInfo dropInfo)
         {

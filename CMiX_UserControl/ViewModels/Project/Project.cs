@@ -1,14 +1,12 @@
 ﻿using System;
-using System.IO;
-using System.Windows;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
+using Memento;
+using Ceras;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
-using Memento;
-using Ceras;
-
+using CMiX.MVVM.Resources;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -24,9 +22,7 @@ namespace CMiX.Studio.ViewModels
             Beat = new MasterBeat(MessageService);
 
             Servers = new ObservableCollection<Server>();
-
             ServerManager = new ServerManager();
-
             Components = new ObservableCollection<IComponent>();
 
             FolderPath = string.Empty;

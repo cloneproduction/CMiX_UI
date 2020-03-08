@@ -1,11 +1,11 @@
-﻿using CMiX.MVVM;
+﻿using System.Windows;
+using System.Windows.Input;
+using Memento;
+using CMiX.MVVM.Resources;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
-using Memento;
 using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -42,6 +42,17 @@ namespace CMiX.Studio.ViewModels
         public ICommand ResetEntityCommand { get; }
         public ICommand RenameCommand { get; }
 
+        public Beat Beat { get; set; }
+        public BeatModifier BeatModifier { get; }
+        public Geometry Geometry { get; }
+        public Texture Texture { get; }
+        public Coloration Coloration { get; }
+
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get; set; }
+        public Mementor Mementor { get; set; }
+        public Assets Assets { get; set; }
+        public ObservableCollection<IComponent> Components { get; set; }
 
         private bool _isRenaming;
         public bool IsRenaming
@@ -50,7 +61,6 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _isRenaming, value);
         }
 
-        public int IDCounter { get; set; }
 
         private IComponent _selectedComponent;
         public IComponent SelectedComponent
@@ -84,11 +94,7 @@ namespace CMiX.Studio.ViewModels
         public bool IsVisible
         {
             get => _isVisible;
-            set
-            {
-                SetAndNotify(ref _isVisible, value);
-                System.Console.WriteLine("Entity Is Visible " + IsVisible);
-            }
+            set => SetAndNotify(ref _isVisible, value);
         }
 
         private int _id;
@@ -104,18 +110,6 @@ namespace CMiX.Studio.ViewModels
             get => _name;
             set => SetAndNotify(ref _name, value);
         }
-
-        public Beat Beat { get; set; }
-        public BeatModifier BeatModifier { get; }
-        public Geometry Geometry { get; }
-        public Texture Texture { get; }
-        public Coloration Coloration { get; }
-
-        public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
-        public Mementor Mementor { get; set; }
-        public Assets Assets { get; set; }
-        public ObservableCollection<IComponent> Components { get; set; }
         #endregion
 
         #region COPY/PASTE
@@ -189,10 +183,12 @@ namespace CMiX.Studio.ViewModels
 
 
         #endregion
+
         public void Rename()
         {
             IsRenaming = true;
         }
+
 
         public void AddComponent(IComponent component)
         {

@@ -3,6 +3,7 @@ using CMiX.MVVM.Services;
 using Memento;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using CMiX.MVVM.Resources;
 
 namespace CMiX.Studio.ViewModels
 {

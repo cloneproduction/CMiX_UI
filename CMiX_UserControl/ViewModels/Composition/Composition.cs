@@ -1,9 +1,9 @@
 ﻿using System.Windows.Input;
-using System.Collections.ObjectModel;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using Memento;
+using System.Collections.ObjectModel;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -74,11 +74,7 @@ namespace CMiX.Studio.ViewModels
         public bool IsSelected
         {
             get => _isSelected;
-            set
-            {
-                System.Console.WriteLine("CompositionIsSelected");
-                SetAndNotify(ref _isSelected, value);
-            }
+            set => SetAndNotify(ref _isSelected, value);
         }
 
         private bool _isExpanded;
