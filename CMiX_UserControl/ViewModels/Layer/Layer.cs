@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.ComponentModel;
 using System.Linq;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -83,12 +84,25 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _name, value);
         }
 
-
         private bool _isVisible = true;
         public bool IsVisible
         {
             get => _isVisible;
             set => SetAndNotify(ref _isVisible, value);
+        }
+
+        private bool _maskChecked = false;
+        public bool MaskChecked
+        {
+            get => _maskChecked;
+            set => SetAndNotify(ref _maskChecked, value);
+        }
+
+        private bool _contentChecked = true;
+        public bool ContentChecked
+        {
+            get => _contentChecked;
+            set => SetAndNotify(ref _contentChecked, value);
         }
 
         private bool _isMask;

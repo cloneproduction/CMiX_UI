@@ -61,6 +61,13 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _isRenaming, value);
         }
 
+        //private Visibility visibility = Visibility.Visible;
+        //public Visibility Visibility
+        //{
+        //    get => visibility;
+        //    set => SetAndNotify(ref visibility, value);
+        //}
+
 
         private IComponent _selectedComponent;
         public IComponent SelectedComponent

@@ -141,18 +141,25 @@
                 </HierarchicalDataTemplate>
 
                 <HierarchicalDataTemplate DataType="{x:Type ViewModels:Layer}" ItemsSource="{Binding Components}">
+
                     <Border 
                         Background="Transparent"
                         Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=2, AncestorType={x:Type TreeViewItem}}}"
                         Height="30" 
                         VerticalAlignment="Center">
                         <DockPanel>
-                            <Border Padding="8">
+                            <RadioButton IsChecked="{Binding ContentChecked}" Margin="4" Content="C"/>
+                            <RadioButton IsChecked="{Binding MaskChecked}" Margin="4" Content="M"/>
+                            <!--<Border Padding="8">
                                 <Image DockPanel.Dock="Left" Opacity="0.75" Source="{StaticResource Copy}"/>
                             </Border>
                             <Border Padding="0, 8, 8, 8">
-                                <Image DockPanel.Dock="Left" Opacity="0.75" Source="{StaticResource Mask}" Visibility="{Binding IsMask, Converter={StaticResource BoolToVisibility}}"/>
-                            </Border>
+                                <RadioButton GroupName="{Binding ID}" Background="Red">
+                                    <RadioButton.Content>
+                                        <Image DockPanel.Dock="Left" Opacity="0.75" Source="{StaticResource Mask}" Visibility="{Binding IsMask, Converter={StaticResource BoolToVisibility}}"/>
+                                    </RadioButton.Content>
+                                </RadioButton>
+                            </Border>-->
                             <Border DockPanel.Dock="Right">
                                 <ToggleButton 
                                     IsEnabled="{Binding Path=DataContext.IsVisible, RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=2, AncestorType={x:Type TreeViewItem}}}"
@@ -174,9 +181,35 @@
                 <DataTemplate DataType="{x:Type ViewModels:Entity}">
                     <Border 
                         Background="Transparent"
-                        Height="30" 
                         VerticalAlignment="Center"
                         Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=2, AncestorType={x:Type TreeViewItem}}}">
+                        <Border.Style>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Setter Property="Height" Value="0"/>
+                                <Style.Triggers>
+                                    
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding IsMask}" Value="True"/>
+                                            <Condition Binding="{Binding Path=DataContext.MaskChecked, RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=2, AncestorType={x:Type TreeViewItem}}}" Value="True"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Visibility" Value="Visible" />
+                                        <Setter Property="Height" Value="30"/>
+                                    </MultiDataTrigger>
+                                    
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding IsMask}" Value="False"/>
+                                            <Condition Binding="{Binding Path=DataContext.ContentChecked, RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=2, AncestorType={x:Type TreeViewItem}}}" Value="True"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Visibility" Value="Visible" />
+                                        <Setter Property="Height" Value="30"/>
+                                    </MultiDataTrigger>
+                                    
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
                         <DockPanel>
                             <Border DockPanel.Dock="Right">
                                 <ToggleButton 
