@@ -7,6 +7,7 @@ using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.Resources;
+using System.Windows;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -78,6 +79,13 @@ namespace CMiX.Studio.ViewModels
         {
             get => _isExpanded;
             set => SetAndNotify(ref _isExpanded, value);
+        }
+
+        private Visibility visibility = Visibility.Visible;
+        public Visibility Visibility
+        {
+            get => visibility;
+            set => SetAndNotify(ref visibility, value);
         }
         #endregion
 

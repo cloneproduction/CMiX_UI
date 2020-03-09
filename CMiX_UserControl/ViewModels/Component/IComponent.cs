@@ -4,6 +4,7 @@ using Memento;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CMiX.MVVM.Resources;
+using System.Windows;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -20,6 +21,7 @@ namespace CMiX.Studio.ViewModels
         Beat Beat { get; set; }
         MessageService MessageService { get; set; }
         ICommand RenameCommand { get; }
+        Visibility Visibility { get; set; }
 
         ObservableCollection<IComponent> Components { get; set; }
 

@@ -84,6 +84,15 @@ namespace CMiX.Studio.ViewModels
 
         public ICommand RenameCommand { get; }
 
+
+        private Visibility visibility = Visibility.Visible;
+        public Visibility Visibility
+        {
+            get => visibility;
+            set => SetAndNotify(ref visibility, value);
+        }
+
+
         public ObservableCollection<IComponent> Components { get; set; }
         #endregion
 

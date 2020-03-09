@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -18,7 +19,21 @@ namespace CMiX.Studio.ViewModels
         public Outliner(ObservableCollection<IComponent> components)
         {
             Components = components;
+            RightClickCommand = new RelayCommand(p => RightClick());
         }
+
+        private void RightClick()
+        {
+            CanAddComponent();
+            CanRenameComponent();
+            CanEditComponent();
+            CanDuplicateComponent();
+            CanDeleteComponent();
+            CanAddMaskComponent();
+            CanDeleteMaskComponent();
+        }
+
+        public ICommand RightClickCommand { get; }
 
         private ObservableCollection<IComponent> _components;
         public ObservableCollection<IComponent> Components
@@ -31,15 +46,7 @@ namespace CMiX.Studio.ViewModels
         public IComponent SelectedComponent
         {
             get => _selectedComponent;
-            set
-            {
-                SetAndNotify(ref _selectedComponent, value);
-                CanAddComponent();
-                CanRenameComponent();
-                CanEditComponent();
-                CanDuplicateComponent();
-                CanDeleteComponent();
-            }
+            set => SetAndNotify(ref _selectedComponent, value);
         }
 
         private string _isEnabled;
@@ -92,6 +99,20 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _canDelete, value);
         }
 
+        private bool _canAddMask = false;
+        public bool CanAddMask
+        {
+            get => _canAddMask;
+            set => SetAndNotify(ref _canAddMask, value);
+        }
+
+        private bool _canDeleteMask = false;
+        public bool CanDeleteMask
+        {
+            get => _canDeleteMask;
+            set => SetAndNotify(ref _canDeleteMask, value);
+        }
+
 
         public void CanAddComponent()
         {
@@ -115,6 +136,42 @@ namespace CMiX.Studio.ViewModels
                 AddContentText = "Add";
                 CanAdd = false;
             }
+        }
+
+        public void CanAddMaskComponent()
+        {
+            if (SelectedComponent is Layer)
+            {
+                Console.WriteLine("SelectedComponent is Layer");
+                if (!((Layer)SelectedComponent).IsMask)
+                {
+                    CanAddMask = true;
+                    CanDeleteMask = false;
+                }
+                else
+                {
+                    CanAddMask = false;
+                    CanDeleteMask = true;
+                }
+            }
+
+        }
+
+        public void CanDeleteMaskComponent()
+        {
+            //if (SelectedComponent is Layer)
+            //{
+            //    if (((Layer)SelectedComponent).IsMask)
+            //    {
+            //        CanAddMask = false;
+            //        CanDeleteMask = true;
+            //    }
+            //    else
+            //    {
+            //        CanAddMask = true;
+            //        CanDeleteMask = false;
+            //    }
+            //}
 
         }
 

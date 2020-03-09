@@ -18,12 +18,18 @@ namespace CMiX.ViewModels
             DuplicateComponentCommand = new RelayCommand(p => DuplicateComponent(p as IComponent));
             DeleteComponentCommand = new RelayCommand(p => DeleteComponent());
             RenameComponentCommand = new RelayCommand(p => RenameComponent(p as IComponent));
+
+            CreateLayerMaskCommand = new RelayCommand(p => CreateLayerMask(p as IComponent));
+            DeleteLayerMaskCommand = new RelayCommand(p => DeleteLayerMask(p as IComponent));
         }
 
         public ICommand CreateComponentCommand { get; }
         public ICommand DuplicateComponentCommand { get; }
         public ICommand DeleteComponentCommand { get; }
         public ICommand RenameComponentCommand { get; }
+
+        public ICommand CreateLayerMaskCommand { get; }
+        public ICommand DeleteLayerMaskCommand { get; }
 
         public ObservableCollection<IComponent> Projects { get; set; }
 
@@ -44,6 +50,18 @@ namespace CMiX.ViewModels
         public void RenameComponent(IComponent component)
         {
             component.IsRenaming = true;
+        }
+
+        public void CreateLayerMask(IComponent component)
+        {
+            if(component is Layer)
+                ((Layer)component).AddLayerMask();
+        }
+
+        public void DeleteLayerMask(IComponent component)
+        {
+            if (component is Layer)
+                ((Layer)component).DeleteLayerMask();
         }
 
         public IComponent CreateComponent(IComponent component)
@@ -170,7 +188,14 @@ namespace CMiX.ViewModels
         private Entity CreateEntity(Layer layer)
         {
             var newEntity = new Entity(EntityID, layer.Beat, layer.MessageAddress, layer.MessageService, layer.Assets, layer.Mementor);
-            layer.AddComponent(newEntity);
+            if (layer.MaskChecked)
+            {
+                layer.MaskComponents.Add(newEntity);
+            }
+            else
+            {
+                layer.AddComponent(newEntity);
+            }
             EntityID++;
             return newEntity;
         }

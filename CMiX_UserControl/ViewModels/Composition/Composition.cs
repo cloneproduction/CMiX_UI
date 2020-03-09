@@ -4,6 +4,7 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using Memento;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -89,6 +90,13 @@ namespace CMiX.Studio.ViewModels
         {
             get => _id;
             set => SetAndNotify(ref _id, value);
+        }
+
+        private Visibility visibility = Visibility.Visible;
+        public Visibility Visibility
+        {
+            get => visibility;
+            set => SetAndNotify(ref visibility, value);
         }
 
         public ObservableCollection<IComponent> Components { get; set; }

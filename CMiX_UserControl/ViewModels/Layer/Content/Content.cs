@@ -55,8 +55,13 @@ namespace CMiX.Studio.ViewModels
         public string Name { get; set; }
         public bool IsSelected { get; set; }
 
-        
 
+        private Visibility visibility = Visibility.Visible;
+        public Visibility Visibility
+        {
+            get => visibility;
+            set => SetAndNotify(ref visibility, value);
+        }
 
         #endregion
 

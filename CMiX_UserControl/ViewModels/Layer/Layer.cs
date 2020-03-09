@@ -29,7 +29,9 @@ namespace CMiX.Studio.ViewModels
             ID = id;
 
             Components = new ObservableCollection<IComponent>();
-            Components.CollectionChanged += Components_CollectionChanged;
+            MaskComponents = new ObservableCollection<IComponent>();
+
+            //Components.CollectionChanged += Components_CollectionChanged;
             PostFX = new PostFX(MessageAddress, messageService, mementor);
 
             Mask = new Mask(beat, MessageAddress, messageService, mementor);
@@ -38,36 +40,54 @@ namespace CMiX.Studio.ViewModels
 
             RenameCommand = new RelayCommand(p => Rename());
             RemoveComponentCommand = new RelayCommand(p => RemoveComponent(p as IComponent));
+            AddLayerMaskCommand = new RelayCommand(p => AddLayerMask());
         }
 
-        private void Components_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        //private void Components_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        //{
+        //    if (e.Action == NotifyCollectionChangedAction.Remove)
+        //    {
+        //        foreach (Entity entity in e.OldItems)
+        //            entity.PropertyChanged -= EntityViewModelPropertyChanged;
+        //    }
+        //    else if (e.Action == NotifyCollectionChangedAction.Add)
+        //    {
+        //        foreach (Entity entity in e.NewItems)
+        //            entity.PropertyChanged += EntityViewModelPropertyChanged;
+        //    }
+        //}
+
+        //public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        //{
+        //    //if(Components.Any(c => ((Entity)c).IsMask == true))
+        //    //    IsMask = true;
+        //    //else
+        //    //    IsMask = false;
+        //    //DisplayEntity();
+        //}
+
+        public void AddLayerMask()
         {
-            if (e.Action == NotifyCollectionChangedAction.Remove)
-            {
-                foreach (Entity entity in e.OldItems)
-                    entity.PropertyChanged -= EntityViewModelPropertyChanged;
-            }
-            else if (e.Action == NotifyCollectionChangedAction.Add)
-            {
-                foreach (Entity entity in e.NewItems)
-                    entity.PropertyChanged += EntityViewModelPropertyChanged;
-            }
+            IsMask = true;
+            System.Console.WriteLine("AddLayerMask");
         }
 
-        public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        public void DeleteLayerMask()
         {
-            if(Components.Any(c => ((Entity)c).IsMask == true))
-                IsMask = true;
-            else
-                IsMask = false;
+            IsMask = false;
+            MaskComponents.Clear();
+            System.Console.WriteLine("DeleteLayerMask");
         }
-
         #endregion
 
+        public ICommand AddLayerMaskCommand { get; set; }
         public ICommand RenameCommand { get;  }
         public ICommand RemoveComponentCommand { get; }
 
         public ObservableCollection<IComponent> Components { get; set; }
+
+        public ObservableCollection<IComponent> ContentComponents { get; set; }
+        public ObservableCollection<IComponent> MaskComponents { get; set; }
 
         private Entity _selectedEntity;
         public Entity SelectedEntity
@@ -91,18 +111,35 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _isVisible, value);
         }
 
+        private Visibility visibility = Visibility.Visible;
+        public Visibility Visibility
+        {
+            get => visibility;
+            set => SetAndNotify(ref visibility, value);
+        }
+
         private bool _maskChecked = false;
         public bool MaskChecked
         {
             get => _maskChecked;
-            set => SetAndNotify(ref _maskChecked, value);
+            set
+            {
+                SetAndNotify(ref _maskChecked, value);
+                if (value == true)
+                    Components = MaskComponents;
+            }
         }
 
         private bool _contentChecked = true;
         public bool ContentChecked
         {
             get => _contentChecked;
-            set => SetAndNotify(ref _contentChecked, value);
+            set
+            {
+                SetAndNotify(ref _contentChecked, value);
+                if (value == true)
+                    Components = ContentComponents;
+            }
         }
 
         private bool _isMask;
@@ -179,6 +216,19 @@ namespace CMiX.Studio.ViewModels
         public PostFX PostFX { get; set; }
         public BlendMode BlendMode { get; set; }
         #endregion
+
+        public void DisplayEntity()
+        {
+            foreach (Entity component in Components)
+            {
+                if (component.IsMask && MaskChecked)
+                    component.Visibility = Visibility.Visible;
+                else if (!component.IsMask && ContentChecked)
+                    component.Visibility = Visibility.Visible;
+                else
+                    component.Visibility = Visibility.Collapsed;
+            }
+        }
 
         #region COPY/PASTE/RESET
         public LayerModel GetModel()
