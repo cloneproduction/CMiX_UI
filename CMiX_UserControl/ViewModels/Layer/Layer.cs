@@ -86,7 +86,6 @@ namespace CMiX.Studio.ViewModels
 
         public ObservableCollection<IComponent> Components { get; set; }
 
-        public ObservableCollection<IComponent> ContentComponents { get; set; }
         public ObservableCollection<IComponent> MaskComponents { get; set; }
 
         private Entity _selectedEntity;
@@ -122,24 +121,14 @@ namespace CMiX.Studio.ViewModels
         public bool MaskChecked
         {
             get => _maskChecked;
-            set
-            {
-                SetAndNotify(ref _maskChecked, value);
-                if (value == true)
-                    Components = MaskComponents;
-            }
+            set => SetAndNotify(ref _maskChecked, value);
         }
 
         private bool _contentChecked = true;
         public bool ContentChecked
         {
             get => _contentChecked;
-            set
-            {
-                SetAndNotify(ref _contentChecked, value);
-                if (value == true)
-                    Components = ContentComponents;
-            }
+            set => SetAndNotify(ref _contentChecked, value);
         }
 
         private bool _isMask;

@@ -94,8 +94,9 @@
                         <Image Source="{StaticResource DeleteLayer}"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                
+
             </ContextMenu>
+
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -110,7 +111,7 @@
             Height="40">
             <TextBlock Text="OUTLINER" FontWeight="SemiBold" VerticalAlignment="Center"/>
         </Border>
-        
+
         <Controls:TreeViewSelect 
             Style="{StaticResource {x:Type TreeView}}"
             AllowDrop="True"
@@ -120,17 +121,8 @@
             dd:DragDrop.DropHandler="{Binding}"
             ContextMenu="{StaticResource OutlinerContextMenu}"
             ItemsSource="{Binding Components}">
-            
-            <i:Interaction.Behaviors>
-                <Behaviors:BindableSelectedItemBehavior SelectedItem="{Binding SelectedComponent, Mode=TwoWay}"/>
-            </i:Interaction.Behaviors>
+            <Controls:TreeViewSelect.Resources>
 
-            <TreeView.InputBindings>
-                <MouseBinding Gesture="RightClick" Command="{Binding RightClickCommand}" />
-            </TreeView.InputBindings>
-
-            <TreeView.Resources>
-                
                 <HierarchicalDataTemplate DataType="{x:Type ViewModels:Project}" ItemsSource="{Binding Components}">
                     <Border Height="30" Background="Transparent">
                         <Controls:EditableTextBox 
@@ -194,9 +186,9 @@
                     </Border>
                 </HierarchicalDataTemplate>
 
-                <HierarchicalDataTemplate DataType="{x:Type ViewModels:Layer}" ItemsSource="{Binding MaskComponents}">
+                <HierarchicalDataTemplate x:Key="MaskTemplate" DataType="{x:Type ViewModels:Layer}" ItemsSource="{Binding MaskComponents}">
                     <Border 
-                        Background="Transparent"
+                        Background="Red"
                         Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=2, AncestorType={x:Type TreeViewItem}}}"
                         Height="30" 
                         VerticalAlignment="Center">
@@ -222,7 +214,7 @@
                         </DockPanel>
                     </Border>
                 </HierarchicalDataTemplate>
-                
+
                 <DataTemplate DataType="{x:Type ViewModels:Entity}">
                     <Border 
                         Height="30"
@@ -267,8 +259,21 @@
                         </DockPanel>
                     </Border>
                 </DataTemplate>
-                
-            </TreeView.Resources>
+
+            </Controls:TreeViewSelect.Resources>
+            
+            <!--<Controls:TreeViewSelect.ItemTemplateSelector>
+                <Views:LayerComponentDataTemplateSelector MaskTemplate="{StaticResource MaskTemplate}"/>
+            </Controls:TreeViewSelect.ItemTemplateSelector>-->
+
+            
+            <i:Interaction.Behaviors>
+                <Behaviors:BindableSelectedItemBehavior SelectedItem="{Binding SelectedComponent, Mode=TwoWay}"/>
+            </i:Interaction.Behaviors>
+
+            <TreeView.InputBindings>
+                <MouseBinding Gesture="RightClick" Command="{Binding RightClickCommand}" />
+            </TreeView.InputBindings>
 
             <TreeView.ItemContainerStyle>
                 <Style TargetType="TreeViewItem" BasedOn="{StaticResource {x:Type TreeViewItem}}">
