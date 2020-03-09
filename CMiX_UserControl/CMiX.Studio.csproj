@@ -156,7 +156,8 @@
     <Compile Include="Views\Component\ComponentPanel.xaml.cs">
       <DependentUpon>ComponentPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Outliner.xaml.cs">
+    <Compile Include="Views\Outliner\LayerComponentDataTemplateSelector.cs" />
+    <Compile Include="Views\Outliner\Outliner.xaml.cs">
       <DependentUpon>Outliner.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Root.xaml.cs">
@@ -354,7 +355,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Outliner.xaml">
+    <Page Include="Views\Outliner\Outliner.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
