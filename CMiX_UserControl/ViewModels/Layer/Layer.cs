@@ -29,9 +29,11 @@ namespace CMiX.Studio.ViewModels
             ID = id;
 
             Components = new ObservableCollection<IComponent>();
+            ContentComponents = new ObservableCollection<IComponent>();
             MaskComponents = new ObservableCollection<IComponent>();
 
-            //Components.CollectionChanged += Components_CollectionChanged;
+            Components = ContentComponents;
+
             PostFX = new PostFX(MessageAddress, messageService, mementor);
 
             Mask = new Mask(beat, MessageAddress, messageService, mementor);
@@ -43,40 +45,16 @@ namespace CMiX.Studio.ViewModels
             AddLayerMaskCommand = new RelayCommand(p => AddLayerMask());
         }
 
-        //private void Components_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        //{
-        //    if (e.Action == NotifyCollectionChangedAction.Remove)
-        //    {
-        //        foreach (Entity entity in e.OldItems)
-        //            entity.PropertyChanged -= EntityViewModelPropertyChanged;
-        //    }
-        //    else if (e.Action == NotifyCollectionChangedAction.Add)
-        //    {
-        //        foreach (Entity entity in e.NewItems)
-        //            entity.PropertyChanged += EntityViewModelPropertyChanged;
-        //    }
-        //}
-
-        //public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-        //{
-        //    //if(Components.Any(c => ((Entity)c).IsMask == true))
-        //    //    IsMask = true;
-        //    //else
-        //    //    IsMask = false;
-        //    //DisplayEntity();
-        //}
-
         public void AddLayerMask()
         {
             IsMask = true;
-            System.Console.WriteLine("AddLayerMask");
         }
 
         public void DeleteLayerMask()
         {
             IsMask = false;
+            ContentChecked = true;
             MaskComponents.Clear();
-            System.Console.WriteLine("DeleteLayerMask");
         }
         #endregion
 
@@ -86,6 +64,7 @@ namespace CMiX.Studio.ViewModels
 
         public ObservableCollection<IComponent> Components { get; set; }
 
+        public ObservableCollection<IComponent> ContentComponents { get; set; }
         public ObservableCollection<IComponent> MaskComponents { get; set; }
 
         private Entity _selectedEntity;
@@ -121,14 +100,30 @@ namespace CMiX.Studio.ViewModels
         public bool MaskChecked
         {
             get => _maskChecked;
-            set => SetAndNotify(ref _maskChecked, value);
+            set
+            {
+                SetAndNotify(ref _maskChecked, value);
+                if (value)
+                {
+                    Components = MaskComponents;
+                    Notify("Components");
+                }
+            }
         }
 
         private bool _contentChecked = true;
         public bool ContentChecked
         {
             get => _contentChecked;
-            set => SetAndNotify(ref _contentChecked, value);
+            set
+            {
+                SetAndNotify(ref _contentChecked, value);
+                if (value)
+                {
+                    Components = ContentComponents;
+                    Notify("Components");
+                }
+            }
         }
 
         private bool _isMask;

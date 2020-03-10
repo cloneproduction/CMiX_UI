@@ -137,6 +137,34 @@ namespace CMiX.ViewModels
             }
         }
 
+        public void MoveToMask(ObservableCollection<IComponent> components)
+        {
+            foreach (var component in components)
+            {
+                if(component is Layer)
+                {
+                    foreach (var item in ((Layer)component).ContentComponents)
+                    {
+                        if (item.IsSelected)
+                        {
+                            
+                        }
+                    }
+                }
+                else
+                {
+                    MoveToMask(component.Components);
+                }
+                //if (component.IsSelected)
+                //{
+                //    components.Remove(component);
+                //    OnComponentDeleted(component);
+                //    break;
+                //}
+                //else
+                    
+            }
+        }
 
         int CompositionID = 0;
         private Composition CreateComposition(Project project)

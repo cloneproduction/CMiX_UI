@@ -84,20 +84,81 @@
 
     <Style x:Key="RadioButtonLayer" TargetType="{x:Type RadioButton}">
         <!--<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>-->
-        <Setter Property="Background" Value="{StaticResource Color}" />
-        <Setter Property="BorderBrush" Value="Red" />
-        <Setter Property="Foreground" Value="{StaticResource TextBase}" />
-        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RadioButton}">
-                    <Border x:Name="radioButtonBorder" Background="{TemplateBinding Background}">
-                        <Grid>
-                            <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
-                                <TextBlock HorizontalAlignment="Center" Text="{TemplateBinding Content}" />
-                            </Viewbox>
-                        </Grid>
+                    <Border 
+                        x:Name="radioButtonBorder" 
+                        BorderBrush="Transparent"
+                        BorderThickness="1"
+                        Background="{TemplateBinding Background}">
+                        <ContentPresenter 
+                            x:Name="presenter"
+                            Opacity="1.0"
+                            HorizontalAlignment="Center" />
                     </Border>
+
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsChecked" Value="true" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="radioButtonBorder" Property="BorderBrush" Value="{StaticResource HighLightColor}" />
+                                <Setter TargetName="presenter" Property="Opacity" Value="1.0" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsChecked" Value="false" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="radioButtonBorder" Property="BorderBrush" Value="{StaticResource HighLightColor}" />
+                                <Setter TargetName="presenter" Property="Opacity" Value="0.9" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsChecked" Value="true" />
+                                <Condition Property="IsMouseOver" Value="false" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="presenter" Property="Opacity" Value="0.9" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsChecked" Value="false" />
+                                <Condition Property="IsMouseOver" Value="false" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="presenter" Property="Opacity" Value="0.5" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        
+                        <!--<Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="radioButtonBorder" Property="BorderBrush" Value="Red" />
+                            <Setter TargetName="radioButtonBorder" Property="Opacity" Value="1.0" />
+                        </Trigger>-->
+
+                        <!--<Trigger Property="IsChecked" Value="true">
+                            <Setter TargetName="radioButtonBorder" Property="Opacity" Value="1.0" />
+                        </Trigger>-->
+
+                        
+                        <!--<Trigger Property="IsChecked" Value="{x:Null}">
+                            <Setter TargetName="radioButtonBorder" Property="Opacity" Value="0.56" />
+                            <Setter TargetName="radioButtonBorder" Property="BorderBrush" Value="Red"/>
+                        </Trigger>-->
+                        
+                    </ControlTemplate.Triggers>
+                    
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

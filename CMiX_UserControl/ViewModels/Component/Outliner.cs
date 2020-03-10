@@ -31,6 +31,7 @@ namespace CMiX.Studio.ViewModels
             CanDeleteComponent();
             CanAddMaskComponent();
             CanDeleteMaskComponent();
+            CanMoveEntityToMask();
         }
 
         public ICommand RightClickCommand { get; }
@@ -113,6 +114,24 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _canDeleteMask, value);
         }
 
+        private bool _canMoveToMask = false;
+        public bool CanMoveToMask
+        {
+            get => _canMoveToMask;
+            set => SetAndNotify(ref _canMoveToMask, value);
+        }
+
+        public void CanMoveEntityToMask()
+        {
+            if(SelectedComponent is Entity)
+            {
+                CanMoveToMask = true;
+            }
+            else
+            {
+                CanMoveToMask = false;
+            }
+        }
 
         public void CanAddComponent()
         {
@@ -380,13 +399,10 @@ namespace CMiX.Studio.ViewModels
                     //IS  Not OVER ITSELF
                     if (sourceItem != targetItem)
                     {
-                        //Console.WriteLine("SourceIsDifferentFromTarget");
                         if (!dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter))
                         {
-                            //Console.WriteLine("NotOverringTheCenterPart");
                             if (parentVisualSource != targetItem)
                             {
-                                //Console.WriteLine("ParentVisualSource is different from Target");
                                 if (dataObject.GetType() == targetItem.GetType())
                                 {
                                     bool InsertPositionAfterTargetItem = dropInfo.InsertPosition == RelativeInsertPosition.AfterTargetItem && targetIndex == sourceIndex;
@@ -398,23 +414,18 @@ namespace CMiX.Studio.ViewModels
                                 }
                                 else
                                 {
-                                    //Console.WriteLine("Target and source are different type");
                                     if(grandParentVisualTarget != null)
                                     {
                                         var parentIndex = ((ObservableCollection<IComponent>)grandParentVisualTarget.ItemsSource).IndexOf((IComponent)parentVisualTarget.DataContext);
 
                                         if (parentIndex != sourceIndex - 1)
                                         {
-                                            Console.WriteLine("parentIndex " + parentIndex);
                                             if (!sourceItem.Components.Contains(targetItem))
                                             {
-                                                //Console.WriteLine("Source doesnt contains targets");
                                                 if (targetItem == ((IComponent)parentVisualTarget.DataContext).Components.Last())
                                                 {
-                                                    //Console.WriteLine("targetItem is last element of collection");
                                                     if (dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.AfterTargetItem))
                                                     {
-                                                        //Console.WriteLine("dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.AfterTargetItem)");
                                                         dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
                                                     }
                                                 }
