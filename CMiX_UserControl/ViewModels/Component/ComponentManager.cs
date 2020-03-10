@@ -21,6 +21,7 @@ namespace CMiX.ViewModels
 
             CreateLayerMaskCommand = new RelayCommand(p => CreateLayerMask(p as IComponent));
             DeleteLayerMaskCommand = new RelayCommand(p => DeleteLayerMask(p as IComponent));
+            MoveComponentToCommand = new RelayCommand(p => MoveComponentTo());
         }
 
         public ICommand CreateComponentCommand { get; }
@@ -30,7 +31,7 @@ namespace CMiX.ViewModels
 
         public ICommand CreateLayerMaskCommand { get; }
         public ICommand DeleteLayerMaskCommand { get; }
-
+        public ICommand MoveComponentToCommand { get;  }
         public ObservableCollection<IComponent> Projects { get; set; }
 
         public event EventHandler<ComponentEventArgs> ComponentDeleted;
@@ -137,32 +138,35 @@ namespace CMiX.ViewModels
             }
         }
 
-        public void MoveToMask(ObservableCollection<IComponent> components)
+        public void MoveComponentTo()
+        {
+            MoveTo(Projects);
+        }
+
+        public void MoveTo(ObservableCollection<IComponent> components)
         {
             foreach (var component in components)
             {
                 if(component is Layer)
                 {
-                    foreach (var item in ((Layer)component).ContentComponents)
+                    var layer = component as Layer;
+                    if(layer.ContentComponents.Any(c => c.IsSelected))
                     {
-                        if (item.IsSelected)
-                        {
-                            
-                        }
+                        var selected = layer.ContentComponents.Where(c => c.IsSelected).First();
+                        layer.ContentComponents.Remove(selected);
+                        layer.MaskComponents.Add(selected);
+                    }
+                    else if(layer.MaskComponents.Any(c => c.IsSelected))
+                    {
+                        var selected = layer.MaskComponents.Where(c => c.IsSelected).First();
+                        layer.MaskComponents.Remove(selected);
+                        layer.ContentComponents.Add(selected);
                     }
                 }
                 else
                 {
-                    MoveToMask(component.Components);
-                }
-                //if (component.IsSelected)
-                //{
-                //    components.Remove(component);
-                //    OnComponentDeleted(component);
-                //    break;
-                //}
-                //else
-                    
+                    MoveTo(component.Components);
+                }  
             }
         }
 
@@ -218,11 +222,13 @@ namespace CMiX.ViewModels
             var newEntity = new Entity(EntityID, layer.Beat, layer.MessageAddress, layer.MessageService, layer.Assets, layer.Mementor);
             if (layer.MaskChecked)
             {
+                newEntity.IsMask = true;
                 layer.MaskComponents.Add(newEntity);
             }
             else
             {
-                layer.AddComponent(newEntity);
+                newEntity.IsMask = false;
+                layer.ContentComponents.Add(newEntity);
             }
             EntityID++;
             return newEntity;

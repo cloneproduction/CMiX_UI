@@ -31,7 +31,7 @@ namespace CMiX.Studio.ViewModels
             CanDeleteComponent();
             CanAddMaskComponent();
             CanDeleteMaskComponent();
-            CanMoveEntityToMask();
+            CanMoveEntityTo();
         }
 
         public ICommand RightClickCommand { get; }
@@ -114,22 +114,34 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _canDeleteMask, value);
         }
 
-        private bool _canMoveToMask = false;
-        public bool CanMoveToMask
+        private bool _canMoveTo = false;
+        public bool CanMoveTo
         {
-            get => _canMoveToMask;
-            set => SetAndNotify(ref _canMoveToMask, value);
+            get => _canMoveTo;
+            set => SetAndNotify(ref _canMoveTo, value);
         }
 
-        public void CanMoveEntityToMask()
+        private string _canMoveToText;
+        public string CanMoveToText
+        {
+            get => _canMoveToText;
+            set => SetAndNotify(ref _canMoveToText, value);
+        }
+
+        public void CanMoveEntityTo()
         {
             if(SelectedComponent is Entity)
             {
-                CanMoveToMask = true;
+                CanMoveTo = true;
+                var entity = SelectedComponent as Entity;
+                if (entity.IsMask)
+                    CanMoveToText = "Move To Content";
+                else
+                    CanMoveToText = "Move To Mask";
             }
             else
             {
-                CanMoveToMask = false;
+                CanMoveTo = false;
             }
         }
 

@@ -97,9 +97,9 @@
 
                 <MenuItem
                     IsEnabled="{Binding CanMoveToMask}"
-                    Command="{Binding Data.ComponentManager.MoveToMaskCommand, Source={StaticResource RootProxy}}"
+                    Command="{Binding Data.ComponentManager.MoveComponentTo, Source={StaticResource RootProxy}}"
                     CommandParameter="{Binding SelectedComponent}"
-                    Header="Move To Mask">
+                    Header="{Binding CanMoveToText}">
                     <MenuItem.Icon>
                         <Image Source="{StaticResource DeleteLayer}"/>
                     </MenuItem.Icon>
