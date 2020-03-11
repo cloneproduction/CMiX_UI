@@ -11,14 +11,16 @@ using CMiX.MVVM.Resources;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Content : ViewModel, ISendable, IUndoable, IComponent
+    public class Scene : ViewModel, ISendable, IUndoable, IComponent
     {
         #region CONSTRUCTORS
-        public Content(Beat beat, string messageAddress, MessageService messageService, Mementor mementor)
+        public Scene(Beat beat, string messageAddress, MessageService messageService, Assets assets, Mementor mementor)
         {
             Enabled = true;
             Beat = beat;
-            MessageAddress = $"{messageAddress}{nameof(Content)}/";
+            Assets = assets;
+            Name = "Scene";
+            MessageAddress = $"{messageAddress}{nameof(Scene)}/";
             MessageService = messageService;
             Components = new ObservableCollection<IComponent>();
 

@@ -18,9 +18,6 @@ namespace CMiX.ViewModels
             DuplicateComponentCommand = new RelayCommand(p => DuplicateComponent(p as IComponent));
             DeleteComponentCommand = new RelayCommand(p => DeleteComponent());
             RenameComponentCommand = new RelayCommand(p => RenameComponent(p as IComponent));
-
-            CreateLayerMaskCommand = new RelayCommand(p => CreateLayerMask(p as IComponent));
-            DeleteLayerMaskCommand = new RelayCommand(p => DeleteLayerMask(p as IComponent));
         }
 
         public ICommand CreateComponentCommand { get; }
@@ -51,18 +48,6 @@ namespace CMiX.ViewModels
         public void RenameComponent(IComponent component)
         {
             component.IsRenaming = true;
-        }
-
-        public void CreateLayerMask(IComponent component)
-        {
-            if (component is Layer)
-                this.CreateMask(component as Layer);
-        }
-
-        public void DeleteLayerMask(IComponent component)
-        {
-            if (component is Layer)
-                ((Layer)component).DeleteLayerMask();
         }
 
         public IComponent CreateComponent(IComponent component)

@@ -168,6 +168,31 @@
                     </Border>
                 </HierarchicalDataTemplate>
 
+                <HierarchicalDataTemplate DataType="{x:Type ViewModels:Scene}" ItemsSource="{Binding Components}">
+                    <Border 
+                        Background="Transparent"
+                        Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=2, AncestorType={x:Type TreeViewItem}}}"
+                        Height="30" 
+                        VerticalAlignment="Center">
+                        <DockPanel>
+                            <Border DockPanel.Dock="Left" Padding="8">
+                                <Image Opacity="0.75" Source="{StaticResource NewLayer}"/>
+                            </Border>
+                            <Border DockPanel.Dock="Right">
+                                <ToggleButton 
+                                    VerticalAlignment="Center"
+                                    IsChecked="{Binding IsVisible}"
+                                    Style="{StaticResource ToggleVisibility}"/>
+                            </Border>
+                            <Controls:EditableTextBox 
+                                DockPanel.Dock="Left"
+                                Padding="0, 4" 
+                                VerticalAlignment="Center" 
+                                Text="{Binding Name}"/>
+                        </DockPanel>
+                    </Border>
+                </HierarchicalDataTemplate>
+                
                 <HierarchicalDataTemplate DataType="{x:Type ViewModels:Mask}" ItemsSource="{Binding Components}">
                     <Border 
                         Background="Transparent"

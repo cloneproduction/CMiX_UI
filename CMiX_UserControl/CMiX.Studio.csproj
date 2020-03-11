@@ -276,7 +276,7 @@
     </Compile>
     <Compile Include="ViewModels\Camera\Camera.cs" />
     <Compile Include="ViewModels\Coloration\Coloration.cs" />
-    <Compile Include="ViewModels\Layer\Content\Content.cs" />
+    <Compile Include="ViewModels\Layer\Scene\Scene.cs" />
     <Compile Include="ViewModels\Geometry\Geometry.cs" />
     <Compile Include="ViewModels\Layer\Layer.cs" />
     <Compile Include="ViewModels\Beat\MasterBeat.cs" />
