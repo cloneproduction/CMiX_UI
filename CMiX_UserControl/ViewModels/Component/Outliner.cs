@@ -147,7 +147,7 @@ namespace CMiX.Studio.ViewModels
 
         public void CanAddComponent()
         {
-            if (SelectedComponent is Layer)
+            if (SelectedComponent is Layer || SelectedComponent is Mask)
             {
                 AddContentText = "Add Entity";
                 CanAdd = true;
@@ -185,7 +185,6 @@ namespace CMiX.Studio.ViewModels
                     CanDeleteMask = true;
                 }
             }
-
         }
 
         public void CanDeleteMaskComponent()
@@ -208,7 +207,7 @@ namespace CMiX.Studio.ViewModels
 
         public void CanDuplicateComponent()
         {
-            if (SelectedComponent is Project)
+            if (SelectedComponent is Project || SelectedComponent is Mask)
                 CanDuplicate = false;
             else
                 CanDuplicate = true;
@@ -216,7 +215,7 @@ namespace CMiX.Studio.ViewModels
 
         public void CanRenameComponent()
         {
-            if (SelectedComponent is Project)
+            if (SelectedComponent is Project || SelectedComponent is Mask)
                 CanRename = false;
             else
                 CanRename = true;
@@ -339,13 +338,29 @@ namespace CMiX.Studio.ViewModels
             var parentTargetItem = Utils.FindParent<TreeViewItem>(visualTarget);
 
             bool canDrop = false;
-            if (parentSourceItem != visualTarget)
+            if (parentSourceItem != visualTarget && dataObject is Entity && dropTarget is Layer)
             {
-                if (dataObject is Entity && dropTarget is Layer)
-                {
-                    canDrop = true;
-                    Console.WriteLine("CanDropEntityOnLayer");
-                }
+                canDrop = true;
+            }
+            return canDrop;
+        }
+
+        public bool CanDropEntityOnMask(IDropInfo dropInfo)
+        {
+            var dataObject = dropInfo.Data as IComponent;
+            var dropTarget = dropInfo.TargetItem as IComponent;
+            var targetItem = dropInfo.TargetItem as IComponent;
+
+            var visualTarget = dropInfo.VisualTargetItem;
+            var visualSource = dropInfo.DragInfo.VisualSourceItem;
+
+            var parentSourceItem = Utils.FindParent<TreeViewItem>(visualSource);
+            var parentTargetItem = Utils.FindParent<TreeViewItem>(visualTarget);
+
+            bool canDrop = false;
+            if (parentSourceItem != visualTarget && dataObject is Entity && dropTarget is Mask)
+            {
+                canDrop = true;
             }
             return canDrop;
         }
@@ -361,13 +376,10 @@ namespace CMiX.Studio.ViewModels
 
             if (targetItem != null)
             {
-                //IS  Not OVER ITSELF
                 if (sourceItem != targetItem)
                 {
-                    // NOT OVERRING THE CENTER PART
                     if (!dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter))
                     {
-                        // can't drop just next after
                         if (!sourceItem.Components.Contains(targetItem))
                         {
                             if (targetItem == ((IComponent)parentTargetItem.DataContext).Components.Last())
@@ -375,7 +387,6 @@ namespace CMiX.Studio.ViewModels
                                 if (dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.AfterTargetItem))
                                 {
                                     canDrop = true;
-                                    Console.WriteLine("CanDropOnLastItem");
                                 }
                             }
                         }
@@ -450,7 +461,7 @@ namespace CMiX.Studio.ViewModels
                     }
                 }
 
-                if (dataObject is Entity && targetItem is Layer)
+                if (dataObject is Entity && (targetItem is Layer || targetItem is Mask))
                 {
                     if (parentVisualSource != visualTarget)
                     {
@@ -458,7 +469,6 @@ namespace CMiX.Studio.ViewModels
                     }
                 }
             }
-
         }
 
         public void Drop(IDropInfo dropInfo)
@@ -496,7 +506,15 @@ namespace CMiX.Studio.ViewModels
                 targetItem.Components.Insert(0, sourceItem);
                 sourceCollection.Remove(sourceItem);
                 targetItem.IsExpanded = true;
-                
+                return;
+            }
+            else if (CanDropEntityOnMask(dropInfo))
+            {
+                var targetItem = dropInfo.TargetItem as Mask;
+                var sourceItem = dropInfo.DragInfo.SourceItem as IComponent;
+                targetItem.Components.Insert(0, sourceItem);
+                sourceCollection.Remove(sourceItem);
+                targetItem.IsExpanded = true;
                 return;
             }
             else if (CanDropOnLastItem(dropInfo))
@@ -506,25 +524,36 @@ namespace CMiX.Studio.ViewModels
 
                 var parentVisualTarget = Utils.FindParent<TreeViewItem>(visualTarget);
                 var grandParentVisualTarget = Utils.FindParent<TreeViewItem>(parentVisualTarget);
+                var grandGrandParentVisualTarget = Utils.FindParent<TreeViewItem>(grandParentVisualTarget);
 
                 var parentTargetDataContext = parentVisualTarget.DataContext as IComponent;
                 var grandParentTargetDataContext = grandParentVisualTarget.DataContext as IComponent;
+                var grandGrandParentTargetDataContext = grandGrandParentVisualTarget.DataContext as IComponent;
 
                 var parentIndex = grandParentTargetDataContext.Components.IndexOf(parentTargetDataContext);
+                var grandParentIndex = grandGrandParentTargetDataContext.Components.IndexOf(grandParentTargetDataContext);
 
                 var grandParentCollectionSource = (ObservableCollection<IComponent>)grandParentVisualTarget.ItemsSource;
+                var grandGrandParentCollectionSource = (ObservableCollection<IComponent>)grandGrandParentVisualTarget.ItemsSource;
 
-                if (sourceIndex < parentIndex)
+                Console.WriteLine("grandParentTargetDataContext TYPE " + grandParentTargetDataContext.GetType());
+
+                if (grandParentTargetDataContext.GetType() == typeof(Composition))
                 {
-                    grandParentCollectionSource.Move(sourceIndex, parentIndex);
+                    if (sourceIndex < parentIndex)
+                        grandParentCollectionSource.Move(sourceIndex, parentIndex);
+                    else
+                        grandParentCollectionSource.Move(sourceIndex, parentIndex + 1);
                 }
-                else
+                else if (grandParentTargetDataContext.GetType() == typeof(Layer))
                 {
-                    grandParentCollectionSource.Move(sourceIndex, parentIndex + 1);
+                    if (sourceIndex < grandParentIndex)
+                        grandGrandParentCollectionSource.Move(sourceIndex, grandParentIndex);
+                    else
+                        grandGrandParentCollectionSource.Move(sourceIndex, grandParentIndex + 1);
                 }
             }
         }
-
 
         public int FindItemParentIndex(ObservableCollection<IComponent> components, IComponent componentToFind)
         {

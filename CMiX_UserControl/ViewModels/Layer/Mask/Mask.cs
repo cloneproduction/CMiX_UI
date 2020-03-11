@@ -13,15 +13,17 @@ namespace CMiX.Studio.ViewModels
     public class Mask : ViewModel, ISendable, IUndoable, IComponent
     {
         #region CONSTRUCTORS
-        public Mask(Beat beat, string messageAddress, MessageService messageService, Mementor mementor) 
+        public Mask(Beat beat, string messageAddress, MessageService messageService, Assets assets, Mementor mementor) 
         {
             Beat = beat;
+            Assets = assets;
             MessageAddress = $"{messageAddress}{nameof(Mask)}/";
             MessageService = messageService;
             MaskType = ((MaskType)2).ToString();
             MaskControlType = ((MaskControlType)1).ToString();
             Enabled = false;
-
+            Name = "Mask";
+            Components = new ObservableCollection<IComponent>();
             BeatModifier = new BeatModifier(MessageAddress, beat, messageService, mementor);
             //Geometry = new Geometry(MessageAddress, messageService, mementor, beat);
             //Texture = new Texture(MessageAddress, messageService, assets, mementor);
@@ -42,6 +44,17 @@ namespace CMiX.Studio.ViewModels
         public Geometry Geometry { get; }
         public Texture Texture { get; }
         public PostFX PostFX { get; }
+
+        public string MessageAddress { get; set; }
+        public Mementor Mementor { get; set; }
+        public MasterBeat MasterBeat { get; set; }
+        public Assets Assets { get; set; }
+        public Beat Beat { get; set; }
+        public MessageService MessageService { get; set; }
+        public bool IsRenaming { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
+
 
         private string _masktype;
         public string MaskType
@@ -69,18 +82,26 @@ namespace CMiX.Studio.ViewModels
             }
         }
 
-        public ObservableCollection<Entity> Entities { get; set; }
-        public Entity SelectedEntity { get; set; }
-        public string MessageAddress { get; set; }
-        public Mementor Mementor { get; set; }
-        public MasterBeat MasterBeat { get; set; }
-        public Assets Assets { get; set; }
-        public Beat Beat { get; set; }
-        public MessageService MessageService { get; set; }
-        public bool IsRenaming { get ; set; }
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public bool IsSelected { get; set; }
+        private bool _isVisible = true;
+        public bool IsVisible
+        {
+            get => _isVisible;
+            set => SetAndNotify(ref _isVisible, value);
+        }
+
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set => SetAndNotify(ref _isSelected, value);
+        }
+
+        private bool _isExpanded;
+        public bool IsExpanded
+        {
+            get => _isExpanded;
+            set => SetAndNotify(ref _isExpanded, value);
+        }
 
         public ICommand RenameCommand { get; }
 

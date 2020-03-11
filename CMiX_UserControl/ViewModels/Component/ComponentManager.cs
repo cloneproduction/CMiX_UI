@@ -21,7 +21,6 @@ namespace CMiX.ViewModels
 
             CreateLayerMaskCommand = new RelayCommand(p => CreateLayerMask(p as IComponent));
             DeleteLayerMaskCommand = new RelayCommand(p => DeleteLayerMask(p as IComponent));
-            MoveComponentToCommand = new RelayCommand(p => MoveComponentTo());
         }
 
         public ICommand CreateComponentCommand { get; }
@@ -32,6 +31,7 @@ namespace CMiX.ViewModels
         public ICommand CreateLayerMaskCommand { get; }
         public ICommand DeleteLayerMaskCommand { get; }
         public ICommand MoveComponentToCommand { get;  }
+
         public ObservableCollection<IComponent> Projects { get; set; }
 
         public event EventHandler<ComponentEventArgs> ComponentDeleted;
@@ -55,8 +55,8 @@ namespace CMiX.ViewModels
 
         public void CreateLayerMask(IComponent component)
         {
-            if(component is Layer)
-                ((Layer)component).AddLayerMask();
+            if (component is Layer)
+                this.CreateMask(component as Layer);
         }
 
         public void DeleteLayerMask(IComponent component)
@@ -75,6 +75,8 @@ namespace CMiX.ViewModels
                 result = CreateLayer(component as Composition);
             else if (component is Layer)
                 result = CreateEntity(component as Layer);
+            else if (component is Mask)
+                result = CreateEntityInMask(component as Mask);
             else result = null;
 
             return result;
@@ -138,38 +140,6 @@ namespace CMiX.ViewModels
             }
         }
 
-        public void MoveComponentTo()
-        {
-            MoveTo(Projects);
-        }
-
-        public void MoveTo(ObservableCollection<IComponent> components)
-        {
-            foreach (var component in components)
-            {
-                if(component is Layer)
-                {
-                    var layer = component as Layer;
-                    if(layer.ContentComponents.Any(c => c.IsSelected))
-                    {
-                        var selected = layer.ContentComponents.Where(c => c.IsSelected).First();
-                        layer.ContentComponents.Remove(selected);
-                        layer.MaskComponents.Add(selected);
-                    }
-                    else if(layer.MaskComponents.Any(c => c.IsSelected))
-                    {
-                        var selected = layer.MaskComponents.Where(c => c.IsSelected).First();
-                        layer.MaskComponents.Remove(selected);
-                        layer.ContentComponents.Add(selected);
-                    }
-                }
-                else
-                {
-                    MoveTo(component.Components);
-                }  
-            }
-        }
-
         int CompositionID = 0;
         private Composition CreateComposition(Project project)
         {
@@ -220,20 +190,31 @@ namespace CMiX.ViewModels
         private Entity CreateEntity(Layer layer)
         {
             var newEntity = new Entity(EntityID, layer.Beat, layer.MessageAddress, layer.MessageService, layer.Assets, layer.Mementor);
-            if (layer.MaskChecked)
-            {
-                newEntity.IsMask = true;
-                layer.MaskComponents.Add(newEntity);
-            }
-            else
-            {
-                newEntity.IsMask = false;
-                layer.ContentComponents.Add(newEntity);
-            }
+            layer.Components.Add(newEntity);
+            layer.IsExpanded = true;
             EntityID++;
             return newEntity;
         }
 
+        private Entity CreateEntityInMask(Mask mask)
+        {
+            var newEntity = new Entity(EntityID, mask.Beat, mask.MessageAddress, mask.MessageService, mask.Assets, mask.Mementor);
+            mask.Components.Add(newEntity);
+            EntityID++;
+            return newEntity;
+        }
+
+        private Mask CreateMask(Layer layer)
+        {
+            if (layer.IsMask)
+                return null;
+
+            var newMask = new Mask(layer.Beat, layer.MessageAddress, layer.MessageService, layer.Assets, layer.Mementor);
+            layer.Components.Add(newMask);
+            layer.IsMask = true;
+            EntityID++;
+            return newMask;
+        }
 
         private Entity DuplicateEntity(Entity entity)
         {

@@ -75,6 +75,7 @@
                 </MenuItem>
 
                 <Separator Style="{StaticResource MenuItemSeparator}"/>
+                
                 <MenuItem
                     IsEnabled="{Binding CanAddMask}"
                     Command="{Binding Data.ComponentManager.CreateLayerMaskCommand, Source={StaticResource RootProxy}}"
@@ -96,8 +97,8 @@
                 </MenuItem>
 
                 <MenuItem
-                    IsEnabled="{Binding CanMoveToMask}"
-                    Command="{Binding Data.ComponentManager.MoveComponentTo, Source={StaticResource RootProxy}}"
+                    IsEnabled="{Binding CanMoveTo}"
+                    Command="{Binding Data.ComponentManager.MoveComponentToCommand, Source={StaticResource RootProxy}}"
                     CommandParameter="{Binding SelectedComponent}"
                     Header="{Binding CanMoveToText}">
                     <MenuItem.Icon>
@@ -167,6 +168,31 @@
                     </Border>
                 </HierarchicalDataTemplate>
 
+                <HierarchicalDataTemplate DataType="{x:Type ViewModels:Mask}" ItemsSource="{Binding Components}">
+                    <Border 
+                        Background="Transparent"
+                        Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=2, AncestorType={x:Type TreeViewItem}}}"
+                        Height="30" 
+                        VerticalAlignment="Center">
+                        <DockPanel>
+                            <Border DockPanel.Dock="Left" Padding="8">
+                                <Image Opacity="0.75" Source="{StaticResource Mask}"/>
+                            </Border>
+                            <Border DockPanel.Dock="Right">
+                                <ToggleButton 
+                                    VerticalAlignment="Center"
+                                    IsChecked="{Binding IsVisible}"
+                                    Style="{StaticResource ToggleVisibility}"/>
+                            </Border>
+                            <Controls:EditableTextBox 
+                                DockPanel.Dock="Left"
+                                Padding="0, 4" 
+                                VerticalAlignment="Center" 
+                                Text="{Binding Name}"/>
+                        </DockPanel>
+                    </Border>
+                </HierarchicalDataTemplate>
+
                 <HierarchicalDataTemplate DataType="{x:Type ViewModels:Layer}" ItemsSource="{Binding Components}">
                     <Border 
                         Background="Transparent"
@@ -175,27 +201,12 @@
                         VerticalAlignment="Center">
                         <DockPanel>
                             <DockPanel DockPanel.Dock="Top">
-                                <RadioButton 
-                                    AllowDrop="True"
-                                    Style="{StaticResource RadioButtonLayer}"
-                                    IsChecked="{Binding ContentChecked}" 
-                                    GroupName="{Binding ID}" 
-                                    Margin="0, 2">
-                                    <RadioButton.Content>
-                                        <Image Margin="4" Source="{StaticResource NewLayer}"/>
-                                    </RadioButton.Content>
-                                </RadioButton>
-                                <RadioButton 
-                                    AllowDrop="True"
-                                    Style="{StaticResource RadioButtonLayer}"
-                                    IsChecked="{Binding MaskChecked}" 
-                                    Visibility="{Binding IsMask, Converter={StaticResource BoolToVisibility}}" 
-                                    GroupName="{Binding ID}" 
-                                    Margin="0, 2, 4, 0">
-                                    <RadioButton.Content>
-                                        <Image Margin="6" Source="{StaticResource Mask}"/>
-                                    </RadioButton.Content>
-                                </RadioButton>
+                                <Border Margin="4">
+                                    <Image Margin="4" Opacity="0.75" Source="{StaticResource NewLayer}"/>
+                                </Border>
+                                <!--<Border Margin="0, 2, 4, 0" Visibility="{Binding IsMask, Converter={StaticResource BoolToVisibility}}">
+                                    <Image Margin="6" Source="{StaticResource Mask}"/>
+                                </Border>-->
 
                                 <Border DockPanel.Dock="Right">
                                     <ToggleButton 
@@ -213,10 +224,6 @@
                                     IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                     Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             </DockPanel>
-                            <StackPanel>
-                                <TextBlock Height="20" Text="POUETPOUET"/>
-                                <TextBlock Height="20" Text="PROUTPROUT"/>
-                            </StackPanel>
                         </DockPanel>
                     </Border>
                 </HierarchicalDataTemplate>
@@ -228,7 +235,7 @@
                         VerticalAlignment="Center"
                         Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=2, AncestorType={x:Type TreeViewItem}}}">
                         <DockPanel>
-                            
+
                             <Border DockPanel.Dock="Right">
                                 <ToggleButton 
                                     IsChecked="{Binding IsVisible}"
@@ -242,7 +249,7 @@
                                     </ToggleButton.IsEnabled>
                                 </ToggleButton>
                             </Border>
-                            
+
                             <Border Padding="8">
                                 <Image DockPanel.Dock="Left" Opacity="0.75">
                                     <Image.Style>
@@ -259,62 +266,18 @@
                                     </Image.Style>
                                 </Image>
                             </Border>
-                            
+
                             <Controls:EditableTextBox 
                                 Padding="4" 
                                 VerticalAlignment="Center" 
                                 IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            
                         </DockPanel>
                     </Border>
                 </DataTemplate>
-                            
-                <!--<DataTemplate DataType="{x:Type ViewModels:Layer}">
-                    <Border>
-                        <Expander>
-                            <Expander.Header>
-                                <DockPanel Height="30" DockPanel.Dock="Top">
-                                    <RadioButton IsChecked="{Binding ContentChecked}" GroupName="{Binding ID}" Margin="4" Content="C"/>
-                                    <RadioButton IsChecked="{Binding MaskChecked}" Visibility="{Binding IsMask, Converter={StaticResource BoolToVisibility}}" GroupName="{Binding ID}" Margin="4" Content="M"/>
-
-                                    <Border DockPanel.Dock="Right">
-                                        <ToggleButton 
-                                            IsEnabled="{Binding Path=DataContext.IsVisible, RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=2, AncestorType={x:Type TreeViewItem}}}"
-                                            IsChecked="{Binding IsVisible}"
-                                            Style="{StaticResource ToggleVisibility}"
-                                            VerticalAlignment="Center">
-                                        </ToggleButton>
-                                    </Border>
-
-                                    <Controls:EditableTextBox 
-                                        DockPanel.Dock="Left"
-                                        Padding="0, 4" 
-                                        VerticalAlignment="Center" 
-                                        IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                        Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                </DockPanel>
-                            </Expander.Header>
-                            <ListView ItemsSource="{Binding Components}">
-                                <ListView.ItemTemplate>
-
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </Expander>
-                        
-                    </Border>
-                </DataTemplate>-->
-                
-                
-
 
             </Controls:TreeViewSelect.Resources>
-            
-            <!--<Controls:TreeViewSelect.ItemTemplateSelector>
-                <Views:LayerComponentDataTemplateSelector MaskTemplate="{StaticResource MaskTemplate}"/>
-            </Controls:TreeViewSelect.ItemTemplateSelector>-->
 
-            
             <i:Interaction.Behaviors>
                 <Behaviors:BindableSelectedItemBehavior SelectedItem="{Binding SelectedComponent, Mode=TwoWay}"/>
             </i:Interaction.Behaviors>
@@ -332,6 +295,5 @@
             </TreeView.ItemContainerStyle>
         </Controls:TreeViewSelect>
     </DockPanel>
-   
 
 </UserControl>

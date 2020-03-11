@@ -82,10 +82,12 @@ namespace CMiX.Studio.ViewModels
 
         public void DragOver(IDropInfo dropInfo)
         {
-            var sourceItem = dropInfo.DragInfo.SourceItem;
-            if (sourceItem.GetType() == typeof(T))
+            if(dropInfo.DragInfo.SourceItem != null)
             {
-                dropInfo.Effects = DragDropEffects.Copy;
+                if (dropInfo.DragInfo.SourceItem.GetType() == typeof(T))
+                {
+                    dropInfo.Effects = DragDropEffects.Copy;
+                }
             }
         }
 

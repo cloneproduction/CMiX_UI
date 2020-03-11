@@ -36,7 +36,6 @@ namespace CMiX.Studio.ViewModels
 
             PostFX = new PostFX(MessageAddress, messageService, mementor);
 
-            Mask = new Mask(beat, MessageAddress, messageService, mementor);
             BlendMode = new BlendMode(beat, MessageAddress, messageService, mementor);
             Fade = new Slider(MessageAddress + nameof(Fade), messageService, mementor);
 
