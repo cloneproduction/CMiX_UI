@@ -61,13 +61,6 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _isRenaming, value);
         }
 
-        private Visibility visibility = Visibility.Visible;
-        public Visibility Visibility
-        {
-            get => visibility;
-            set => SetAndNotify(ref visibility, value);
-        }
-
         private IComponent _selectedComponent;
         public IComponent SelectedComponent
         {
@@ -87,13 +80,6 @@ namespace CMiX.Studio.ViewModels
         {
             get => _isExpanded;
             set => SetAndNotify(ref _isExpanded, value);
-        }
-
-        private bool _isMask;
-        public bool IsMask
-        {
-            get => _isMask;
-            set => SetAndNotify(ref _isMask, value);
         }
 
         private bool _isVisible = true;

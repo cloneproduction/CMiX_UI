@@ -21,7 +21,6 @@ namespace CMiX.Studio.ViewModels
         Beat Beat { get; set; }
         MessageService MessageService { get; set; }
         ICommand RenameCommand { get; }
-        Visibility Visibility { get; set; }
 
         ObservableCollection<IComponent> Components { get; set; }
 

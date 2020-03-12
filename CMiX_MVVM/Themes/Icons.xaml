@@ -34,4 +34,5 @@
     <BitmapImage x:Key="Entity" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Entity.png"/>
     <BitmapImage x:Key="IsChecked" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/IsChecked.png"/>
     <BitmapImage x:Key="Composition" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Composition.png"/>
+    <BitmapImage x:Key="Scene" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Scene.png"/>
 </ResourceDictionary>

@@ -58,10 +58,10 @@ namespace CMiX.ViewModels
                 result = CreateComposition(component as Project);
             else if (component is Composition)
                 result = CreateLayer(component as Composition);
-            else if (component is Layer)
-                result = CreateEntity(component as Layer);
+            else if (component is Scene)
+                result = CreateEntity(component as Scene);
             else if (component is Mask)
-                result = CreateEntityInMask(component as Mask);
+                result = CreateEntity(component as Mask);
             else result = null;
 
             return result;
@@ -153,6 +153,7 @@ namespace CMiX.ViewModels
         private Layer CreateLayer(Composition compo)
         {
             Layer newLayer = new Layer(LayerID, compo.Beat, compo.MessageAddress, compo.MessageService, compo.Assets, compo.Mementor);
+            newLayer.IsExpanded = true;
             compo.AddComponent(newLayer);
             LayerID++;
             return newLayer;
@@ -172,33 +173,22 @@ namespace CMiX.ViewModels
 
 
         int EntityID = 0;
-        private Entity CreateEntity(Layer layer)
+        private Entity CreateEntity(Scene scene)
         {
-            var newEntity = new Entity(EntityID, layer.Beat, layer.MessageAddress, layer.MessageService, layer.Assets, layer.Mementor);
-            layer.Components.Add(newEntity);
-            layer.IsExpanded = true;
+            var newEntity = new Entity(EntityID, scene.Beat, scene.MessageAddress, scene.MessageService, scene.Assets, scene.Mementor);
+            scene.Components.Add(newEntity);
+            scene.IsExpanded = true;
             EntityID++;
             return newEntity;
         }
 
-        private Entity CreateEntityInMask(Mask mask)
+        private Entity CreateEntity(Mask mask)
         {
             var newEntity = new Entity(EntityID, mask.Beat, mask.MessageAddress, mask.MessageService, mask.Assets, mask.Mementor);
             mask.Components.Add(newEntity);
+            mask.IsExpanded = true;
             EntityID++;
             return newEntity;
-        }
-
-        private Mask CreateMask(Layer layer)
-        {
-            if (layer.IsMask)
-                return null;
-
-            var newMask = new Mask(layer.Beat, layer.MessageAddress, layer.MessageService, layer.Assets, layer.Mementor);
-            layer.Components.Add(newMask);
-            layer.IsMask = true;
-            EntityID++;
-            return newMask;
         }
 
         private Entity DuplicateEntity(Entity entity)

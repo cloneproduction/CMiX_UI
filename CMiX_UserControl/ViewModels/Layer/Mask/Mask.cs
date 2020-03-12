@@ -17,6 +17,7 @@ namespace CMiX.Studio.ViewModels
         {
             Beat = beat;
             Assets = assets;
+            Mementor = mementor;
             MessageAddress = $"{messageAddress}{nameof(Mask)}/";
             MessageService = messageService;
             MaskType = ((MaskType)2).ToString();
@@ -105,13 +106,6 @@ namespace CMiX.Studio.ViewModels
 
         public ICommand RenameCommand { get; }
 
-
-        private Visibility visibility = Visibility.Visible;
-        public Visibility Visibility
-        {
-            get => visibility;
-            set => SetAndNotify(ref visibility, value);
-        }
 
 
         public ObservableCollection<IComponent> Components { get; set; }

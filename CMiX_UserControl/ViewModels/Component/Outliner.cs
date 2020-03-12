@@ -29,9 +29,6 @@ namespace CMiX.Studio.ViewModels
             CanEditComponent();
             CanDuplicateComponent();
             CanDeleteComponent();
-            CanAddMaskComponent();
-            CanDeleteMaskComponent();
-            CanMoveEntityTo();
         }
 
         public ICommand RightClickCommand { get; }
@@ -100,13 +97,6 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _canDelete, value);
         }
 
-        private bool _canAddMask = false;
-        public bool CanAddMask
-        {
-            get => _canAddMask;
-            set => SetAndNotify(ref _canAddMask, value);
-        }
-
         private bool _canDeleteMask = false;
         public bool CanDeleteMask
         {
@@ -114,40 +104,9 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _canDeleteMask, value);
         }
 
-        private bool _canMoveTo = false;
-        public bool CanMoveTo
-        {
-            get => _canMoveTo;
-            set => SetAndNotify(ref _canMoveTo, value);
-        }
-
-        private string _canMoveToText;
-        public string CanMoveToText
-        {
-            get => _canMoveToText;
-            set => SetAndNotify(ref _canMoveToText, value);
-        }
-
-        public void CanMoveEntityTo()
-        {
-            if(SelectedComponent is Entity)
-            {
-                CanMoveTo = true;
-                var entity = SelectedComponent as Entity;
-                if (entity.IsMask)
-                    CanMoveToText = "Move To Content";
-                else
-                    CanMoveToText = "Move To Mask";
-            }
-            else
-            {
-                CanMoveTo = false;
-            }
-        }
-
         public void CanAddComponent()
         {
-            if (SelectedComponent is Layer || SelectedComponent is Mask)
+            if (SelectedComponent is Scene || SelectedComponent is Mask)
             {
                 AddContentText = "Add Entity";
                 CanAdd = true;
@@ -162,52 +121,16 @@ namespace CMiX.Studio.ViewModels
                 AddContentText = "Add Composition";
                 CanAdd = true;
             }
-            else if (SelectedComponent is Entity)
+            else
             {
                 AddContentText = "Add";
                 CanAdd = false;
             }
         }
 
-        public void CanAddMaskComponent()
-        {
-            if (SelectedComponent is Layer)
-            {
-                Console.WriteLine("SelectedComponent is Layer");
-                if (!((Layer)SelectedComponent).IsMask)
-                {
-                    CanAddMask = true;
-                    CanDeleteMask = false;
-                }
-                else
-                {
-                    CanAddMask = false;
-                    CanDeleteMask = true;
-                }
-            }
-        }
-
-        public void CanDeleteMaskComponent()
-        {
-            //if (SelectedComponent is Layer)
-            //{
-            //    if (((Layer)SelectedComponent).IsMask)
-            //    {
-            //        CanAddMask = false;
-            //        CanDeleteMask = true;
-            //    }
-            //    else
-            //    {
-            //        CanAddMask = true;
-            //        CanDeleteMask = false;
-            //    }
-            //}
-
-        }
-
         public void CanDuplicateComponent()
         {
-            if (SelectedComponent is Project || SelectedComponent is Mask)
+            if (SelectedComponent is Project || SelectedComponent is Mask || SelectedComponent is Scene)
                 CanDuplicate = false;
             else
                 CanDuplicate = true;
@@ -215,10 +138,10 @@ namespace CMiX.Studio.ViewModels
 
         public void CanRenameComponent()
         {
-            if (SelectedComponent is Project || SelectedComponent is Mask)
-                CanRename = false;
-            else
+            if (SelectedComponent is Composition || SelectedComponent is Layer || SelectedComponent is Entity)
                 CanRename = true;
+            else
+                CanRename = false;
         }
 
         public void CanEditComponent()
@@ -325,25 +248,25 @@ namespace CMiX.Studio.ViewModels
             return canDrop;
         }
 
-        public bool CanDropEntityOnLayer(IDropInfo dropInfo)
-        {
-            var dataObject = dropInfo.Data as IComponent;
-            var dropTarget = dropInfo.TargetItem as IComponent;
-            var targetItem = dropInfo.TargetItem as IComponent;
+        //public bool CanDropEntityOnLayer(IDropInfo dropInfo)
+        //{
+        //    var dataObject = dropInfo.Data as IComponent;
+        //    var dropTarget = dropInfo.TargetItem as IComponent;
+        //    var targetItem = dropInfo.TargetItem as IComponent;
            
-            var visualTarget = dropInfo.VisualTargetItem;
-            var visualSource = dropInfo.DragInfo.VisualSourceItem;
+        //    var visualTarget = dropInfo.VisualTargetItem;
+        //    var visualSource = dropInfo.DragInfo.VisualSourceItem;
 
-            var parentSourceItem = Utils.FindParent<TreeViewItem>(visualSource);
-            var parentTargetItem = Utils.FindParent<TreeViewItem>(visualTarget);
+        //    var parentSourceItem = Utils.FindParent<TreeViewItem>(visualSource);
+        //    var parentTargetItem = Utils.FindParent<TreeViewItem>(visualTarget);
 
-            bool canDrop = false;
-            if (parentSourceItem != visualTarget && dataObject is Entity && dropTarget is Layer)
-            {
-                canDrop = true;
-            }
-            return canDrop;
-        }
+        //    bool canDrop = false;
+        //    if (parentSourceItem != visualTarget && dataObject is Entity && dropTarget is Layer)
+        //    {
+        //        canDrop = true;
+        //    }
+        //    return canDrop;
+        //}
 
         public bool CanDropEntityOnMask(IDropInfo dropInfo)
         {
@@ -358,7 +281,7 @@ namespace CMiX.Studio.ViewModels
             var parentTargetItem = Utils.FindParent<TreeViewItem>(visualTarget);
 
             bool canDrop = false;
-            if (parentSourceItem != visualTarget && dataObject is Entity && dropTarget is Mask)
+            if (parentSourceItem != visualTarget && dataObject is Entity && (dropTarget is Mask || dropTarget is Scene))
             {
                 canDrop = true;
             }
@@ -461,7 +384,7 @@ namespace CMiX.Studio.ViewModels
                     }
                 }
 
-                if (dataObject is Entity && (targetItem is Layer || targetItem is Mask))
+                if (dataObject is Entity && (targetItem is Mask || targetItem is Scene))
                 {
                     if (parentVisualSource != visualTarget)
                     {
@@ -499,22 +422,31 @@ namespace CMiX.Studio.ViewModels
                 sourceCollection.Remove(dropInfo.DragInfo.SourceItem as IComponent);
                 return;
             }
-            else if (CanDropEntityOnLayer(dropInfo))
-            {
-                var targetItem = dropInfo.TargetItem as Layer;
-                var sourceItem = dropInfo.DragInfo.SourceItem as IComponent;
-                targetItem.Components.Insert(0, sourceItem);
-                sourceCollection.Remove(sourceItem);
-                targetItem.IsExpanded = true;
-                return;
-            }
+            //else if (CanDropEntityOnLayer(dropInfo))
+            //{
+            //    var targetItem = dropInfo.TargetItem as Layer;
+            //    var sourceItem = dropInfo.DragInfo.SourceItem as IComponent;
+            //    targetItem.Components.Insert(0, sourceItem);
+            //    sourceCollection.Remove(sourceItem);
+            //    targetItem.IsExpanded = true;
+            //    return;
+            //}
             else if (CanDropEntityOnMask(dropInfo))
             {
-                var targetItem = dropInfo.TargetItem as Mask;
                 var sourceItem = dropInfo.DragInfo.SourceItem as IComponent;
-                targetItem.Components.Insert(0, sourceItem);
+                if (dropInfo.TargetItem is Mask)
+                {
+                    var targetItem = dropInfo.TargetItem as Mask;
+                    targetItem.Components.Insert(0, sourceItem);
+                    targetItem.IsExpanded = true;
+                }
+                else if (dropInfo.TargetItem is Scene)
+                {
+                    var targetItem = dropInfo.TargetItem as Scene;
+                    targetItem.Components.Insert(0, sourceItem);
+                    targetItem.IsExpanded = true;
+                }
                 sourceCollection.Remove(sourceItem);
-                targetItem.IsExpanded = true;
                 return;
             }
             else if (CanDropOnLastItem(dropInfo))

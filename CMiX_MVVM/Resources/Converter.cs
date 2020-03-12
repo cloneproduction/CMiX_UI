@@ -864,9 +864,20 @@ namespace CMiX.MVVM.Resources
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            bool grandParentVisibility = (bool)values[0];
-            bool parentVisibility = (bool)values[1];
-           // bool visibility;// = (bool)values[2];
+            bool grandParentVisibility = true;
+            bool parentVisibility = true;
+
+            if (values[0] is bool)
+                grandParentVisibility = (bool)values[0];
+
+            if (values[1] is bool)
+                parentVisibility = (bool)values[1];
+
+            //if (values.Length == 2)
+            //{
+
+            //}
+
 
             if (!grandParentVisibility)
                 return false;

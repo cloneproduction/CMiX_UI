@@ -35,7 +35,6 @@ namespace CMiX.Studio.ViewModels
             Components.Add(mask);
 
             PostFX = new PostFX(MessageAddress, messageService, mementor);
-
             BlendMode = new BlendMode(beat, MessageAddress, messageService, mementor);
             Fade = new Slider(MessageAddress + nameof(Fade), messageService, mementor);
 
@@ -44,17 +43,10 @@ namespace CMiX.Studio.ViewModels
         }
         #endregion
 
-        public void InitLayer()
-        {
-
-        }
-
         public ICommand RenameCommand { get;  }
         public ICommand RemoveComponentCommand { get; }
 
         public ObservableCollection<IComponent> Components { get; set; }
-
-
 
         private Entity _selectedEntity;
         public Entity SelectedEntity
@@ -76,13 +68,6 @@ namespace CMiX.Studio.ViewModels
         {
             get => _isVisible;
             set => SetAndNotify(ref _isVisible, value);
-        }
-
-        private Visibility visibility = Visibility.Visible;
-        public Visibility Visibility
-        {
-            get => visibility;
-            set => SetAndNotify(ref visibility, value);
         }
 
         private bool _isMask;
@@ -159,19 +144,6 @@ namespace CMiX.Studio.ViewModels
         public PostFX PostFX { get; set; }
         public BlendMode BlendMode { get; set; }
         #endregion
-
-        //public void DisplayEntity()
-        //{
-        //    foreach (Entity component in Components)
-        //    {
-        //        if (component.IsMask && MaskChecked)
-        //            component.Visibility = Visibility.Visible;
-        //        else if (!component.IsMask && ContentChecked)
-        //            component.Visibility = Visibility.Visible;
-        //        else
-        //            component.Visibility = Visibility.Collapsed;
-        //    }
-        //}
 
         #region COPY/PASTE/RESET
         public LayerModel GetModel()

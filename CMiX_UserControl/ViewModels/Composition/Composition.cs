@@ -92,13 +92,6 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _id, value);
         }
 
-        private Visibility visibility = Visibility.Visible;
-        public Visibility Visibility
-        {
-            get => visibility;
-            set => SetAndNotify(ref visibility, value);
-        }
-
         public ObservableCollection<IComponent> Components { get; set; }
 
         #endregion

@@ -19,6 +19,7 @@ namespace CMiX.Studio.ViewModels
             Enabled = true;
             Beat = beat;
             Assets = assets;
+            Mementor = mementor;
             Name = "Scene";
             MessageAddress = $"{messageAddress}{nameof(Scene)}/";
             MessageService = messageService;
@@ -51,18 +52,29 @@ namespace CMiX.Studio.ViewModels
 
         public ObservableCollection<IComponent> Components { get; set; }
 
-        public Entity SelectedEntity { get; set; }
         public bool IsRenaming { get; set; }
         public int ID { get; set; }
         public string Name { get; set; }
-        public bool IsSelected { get; set; }
 
-
-        private Visibility visibility = Visibility.Visible;
-        public Visibility Visibility
+        private bool _isVisible = true;
+        public bool IsVisible
         {
-            get => visibility;
-            set => SetAndNotify(ref visibility, value);
+            get => _isVisible;
+            set => SetAndNotify(ref _isVisible, value);
+        }
+
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set => SetAndNotify(ref _isSelected, value);
+        }
+
+        private bool _isExpanded;
+        public bool IsExpanded
+        {
+            get => _isExpanded;
+            set => SetAndNotify(ref _isExpanded, value);
         }
 
         #endregion
@@ -84,9 +96,6 @@ namespace CMiX.Studio.ViewModels
             Enabled = contentModel.Enabled;
             BeatModifier.SetViewModel(contentModel.BeatModifierModel);
             PostFX.SetViewModel(contentModel.PostFXModel);
-
-            if (SelectedEntity != null)
-                SelectedEntity.SetViewModel(contentModel.SelectedEntityModel);
 
             Components.Clear();
             foreach (var entityModel in contentModel.EntityModels)

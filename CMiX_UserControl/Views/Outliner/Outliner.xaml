@@ -74,38 +74,8 @@
                     </MenuItem.Icon>
                 </MenuItem>
 
-                <Separator Style="{StaticResource MenuItemSeparator}"/>
-                
-                <MenuItem
-                    IsEnabled="{Binding CanAddMask}"
-                    Command="{Binding Data.ComponentManager.CreateLayerMaskCommand, Source={StaticResource RootProxy}}"
-                    CommandParameter="{Binding SelectedComponent}"
-                    Header="Add Mask">
-                    <MenuItem.Icon>
-                        <Image Source="{StaticResource Add}"/>
-                    </MenuItem.Icon>
-                </MenuItem>
+                <!--<Separator Style="{StaticResource MenuItemSeparator}"/>-->
 
-                <MenuItem
-                    IsEnabled="{Binding CanDeleteMask}"
-                    Command="{Binding Data.ComponentManager.DeleteLayerMaskCommand, Source={StaticResource RootProxy}}"
-                    CommandParameter="{Binding SelectedComponent}"
-                    Header="Delete Mask">
-                    <MenuItem.Icon>
-                        <Image Source="{StaticResource DeleteLayer}"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-
-                <MenuItem
-                    IsEnabled="{Binding CanMoveTo}"
-                    Command="{Binding Data.ComponentManager.MoveComponentToCommand, Source={StaticResource RootProxy}}"
-                    CommandParameter="{Binding SelectedComponent}"
-                    Header="{Binding CanMoveToText}">
-                    <MenuItem.Icon>
-                        <Image Source="{StaticResource DeleteLayer}"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                
             </ContextMenu>
 
         </ResourceDictionary>
@@ -153,12 +123,12 @@
                             <Border DockPanel.Dock="Left" Padding="8">
                                 <Image Opacity="0.75" Source="{StaticResource Composition}"/>
                             </Border>
-                            <Border DockPanel.Dock="Right">
+                            <!--<Border DockPanel.Dock="Right">
                                 <ToggleButton 
                                     VerticalAlignment="Center"
                                     IsChecked="{Binding IsVisible}"
                                     Style="{StaticResource ToggleVisibility}"/>
-                            </Border>
+                            </Border>-->
                             <Controls:EditableTextBox 
                                 Padding="0, 4" 
                                 VerticalAlignment="Center" 
@@ -176,14 +146,21 @@
                         VerticalAlignment="Center">
                         <DockPanel>
                             <Border DockPanel.Dock="Left" Padding="8">
-                                <Image Opacity="0.75" Source="{StaticResource NewLayer}"/>
+                                <Image Opacity="0.75" Source="{StaticResource Scene}"/>
                             </Border>
-                            <Border DockPanel.Dock="Right">
+                            <!--<Border DockPanel.Dock="Right">
                                 <ToggleButton 
-                                    VerticalAlignment="Center"
                                     IsChecked="{Binding IsVisible}"
-                                    Style="{StaticResource ToggleVisibility}"/>
-                            </Border>
+                                    Style="{StaticResource ToggleVisibility}"
+                                    VerticalAlignment="Center">
+                                    <ToggleButton.IsEnabled>
+                                        <MultiBinding Converter="{StaticResource EntityVisibilityConverter}">
+                                            <Binding Path="DataContext.IsVisible" Mode="OneWay" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorLevel=3, AncestorType={x:Type TreeViewItem}}"/>
+                                            <Binding Path="DataContext.IsVisible" Mode="OneWay" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorLevel=2, AncestorType={x:Type TreeViewItem}}"/>
+                                        </MultiBinding>
+                                    </ToggleButton.IsEnabled>
+                                </ToggleButton>
+                            </Border>-->
                             <Controls:EditableTextBox 
                                 DockPanel.Dock="Left"
                                 Padding="0, 4" 
@@ -203,12 +180,19 @@
                             <Border DockPanel.Dock="Left" Padding="8">
                                 <Image Opacity="0.75" Source="{StaticResource Mask}"/>
                             </Border>
-                            <Border DockPanel.Dock="Right">
+                            <!--<Border DockPanel.Dock="Right">
                                 <ToggleButton 
-                                    VerticalAlignment="Center"
                                     IsChecked="{Binding IsVisible}"
-                                    Style="{StaticResource ToggleVisibility}"/>
-                            </Border>
+                                    Style="{StaticResource ToggleVisibility}"
+                                    VerticalAlignment="Center">
+                                    <ToggleButton.IsEnabled>
+                                        <MultiBinding Converter="{StaticResource EntityVisibilityConverter}">
+                                            <Binding Path="DataContext.IsVisible" Mode="OneWay" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorLevel=3, AncestorType={x:Type TreeViewItem}}"/>
+                                            <Binding Path="DataContext.IsVisible" Mode="OneWay" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorLevel=2, AncestorType={x:Type TreeViewItem}}"/>
+                                        </MultiBinding>
+                                    </ToggleButton.IsEnabled>
+                                </ToggleButton>
+                            </Border>-->
                             <Controls:EditableTextBox 
                                 DockPanel.Dock="Left"
                                 Padding="0, 4" 
@@ -227,20 +211,17 @@
                         <DockPanel>
                             <DockPanel DockPanel.Dock="Top">
                                 <Border Margin="4">
-                                    <Image Margin="4" Opacity="0.75" Source="{StaticResource NewLayer}"/>
+                                    <Image Margin="4" Opacity="0.75" Source="{StaticResource Copy}"/>
                                 </Border>
-                                <!--<Border Margin="0, 2, 4, 0" Visibility="{Binding IsMask, Converter={StaticResource BoolToVisibility}}">
-                                    <Image Margin="6" Source="{StaticResource Mask}"/>
-                                </Border>-->
-
-                                <Border DockPanel.Dock="Right">
+                                
+                                <!--<Border DockPanel.Dock="Right">
                                     <ToggleButton 
                                         IsEnabled="{Binding Path=DataContext.IsVisible, RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=2, AncestorType={x:Type TreeViewItem}}}"
                                         IsChecked="{Binding IsVisible}"
                                         Style="{StaticResource ToggleVisibility}"
                                         VerticalAlignment="Center">
                                     </ToggleButton>
-                                </Border>
+                                </Border>-->
 
                                 <Controls:EditableTextBox 
                                     DockPanel.Dock="Left"
@@ -261,7 +242,7 @@
                         Tag="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=2, AncestorType={x:Type TreeViewItem}}}">
                         <DockPanel>
 
-                            <Border DockPanel.Dock="Right">
+                            <!--<Border DockPanel.Dock="Right">
                                 <ToggleButton 
                                     IsChecked="{Binding IsVisible}"
                                     Style="{StaticResource ToggleVisibility}"
@@ -273,23 +254,10 @@
                                         </MultiBinding>
                                     </ToggleButton.IsEnabled>
                                 </ToggleButton>
-                            </Border>
+                            </Border>-->
 
                             <Border Padding="8">
-                                <Image DockPanel.Dock="Left" Opacity="0.75">
-                                    <Image.Style>
-                                        <Style TargetType="{x:Type Image}">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding IsMask}" Value="False">
-                                                    <Setter Property="Source" Value="{StaticResource Entity}"/>
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding IsMask}" Value="True">
-                                                    <Setter Property="Source" Value="{StaticResource Mask}"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Image.Style>
-                                </Image>
+                                <Image DockPanel.Dock="Left" Opacity="0.75" Source="{StaticResource Entity}"/>
                             </Border>
 
                             <Controls:EditableTextBox 

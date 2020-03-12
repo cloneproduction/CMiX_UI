@@ -80,13 +80,6 @@ namespace CMiX.Studio.ViewModels
             get => _isExpanded;
             set => SetAndNotify(ref _isExpanded, value);
         }
-
-        private Visibility visibility = Visibility.Visible;
-        public Visibility Visibility
-        {
-            get => visibility;
-            set => SetAndNotify(ref visibility, value);
-        }
         #endregion
 
 

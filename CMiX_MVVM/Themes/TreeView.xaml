@@ -7,8 +7,10 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Brushes.xaml" />
+        
     </ResourceDictionary.MergedDictionaries>
 
+    <Resources:EntityVisibilityConverter x:Key="EntityVisibilityConverter"/>
     <PathGeometry x:Key="TreeArrow" Figures="M0,0 L0,6 L6,0 z"/>
     
     <Style x:Key="{x:Type TreeView}" TargetType="TreeView">
@@ -126,27 +128,43 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
 
-                            <Grid Margin="{Binding Converter={StaticResource lengthConverter}, RelativeSource={RelativeSource TemplatedParent}}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="19" />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Border x:Name="toggleBorder">
-                                    <ToggleButton x:Name="Expander"
+                            <DockPanel>
+                                <Border DockPanel.Dock="Left" Height="30" Width="30" BorderBrush="{StaticResource SuperHighDarkerColor}" BorderThickness="0, 0, 1, 0">
+                                    <ToggleButton 
+                                        IsChecked="{Binding IsVisible}"
+                                        Style="{StaticResource ToggleVisibility}"
+                                        VerticalAlignment="Center">
+                                        <ToggleButton.IsEnabled>
+                                            <MultiBinding Converter="{StaticResource EntityVisibilityConverter}">
+                                                <Binding Path="DataContext.IsVisible" Mode="OneWay" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorLevel=3, AncestorType={x:Type TreeViewItem}}"/>
+                                                <Binding Path="DataContext.IsVisible" Mode="OneWay" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorLevel=2, AncestorType={x:Type TreeViewItem}}"/>
+                                            </MultiBinding>
+                                        </ToggleButton.IsEnabled>
+                                    </ToggleButton>
+                                </Border>
+                                <Grid Grid.Column="1" Margin="{Binding Converter={StaticResource lengthConverter}, RelativeSource={RelativeSource TemplatedParent}}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="19" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Border x:Name="toggleBorder">
+                                        <ToggleButton x:Name="Expander"
                                         Style="{StaticResource ExpandCollapseToggleStyle}"
                                         IsChecked="{Binding Path=IsExpanded,
                                         RelativeSource={RelativeSource TemplatedParent}}"
                                         ClickMode="Press"/>
-                                </Border>
-                                <ContentPresenter x:Name="PART_Header"
+                                    </Border>
+                                    <ContentPresenter x:Name="PART_Header"
                                     Grid.Column="1"
                                     ContentSource="Header"
                                     VerticalAlignment="Stretch"
                                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
-                            </Grid>
+                                </Grid>
+                            </DockPanel>
+                           
                         </Border>
                         <Border x:Name="presenterBg" Background="Transparent">
-                            <ItemsPresenter x:Name="ItemsHost" />
+                            <ItemsPresenter Grid.Column="1" x:Name="ItemsHost" />
                         </Border>
                     </StackPanel>
 
