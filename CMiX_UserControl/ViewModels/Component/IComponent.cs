@@ -1,10 +1,9 @@
-﻿using CMiX.MVVM.Models;
+﻿
 using CMiX.MVVM.Services;
 using Memento;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using CMiX.MVVM.Resources;
-using System.Windows;
+
 
 namespace CMiX.Studio.ViewModels
 {
@@ -26,5 +25,6 @@ namespace CMiX.Studio.ViewModels
 
         void AddComponent(IComponent component);
         void RemoveComponent(IComponent component);
+
     }
 }

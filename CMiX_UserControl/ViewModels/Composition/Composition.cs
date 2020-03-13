@@ -8,9 +8,14 @@ using System.Windows;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Composition : ViewModel, ISendable, IUndoable, IComponent
+    public class Composition : ViewModel, ISendable, IUndoable, IComponent, IGetSet<CompositionModel>
     {
         #region CONSTRUCTORS
+        public Composition()
+        {
+
+        }
+
         public Composition(int id, string messageAddress, Beat masterBeat, MessageService messageService, Assets assets, Mementor mementor)
         {
             ID = id;
@@ -126,17 +131,18 @@ namespace CMiX.Studio.ViewModels
             return compositionModel;
         }
 
-        public void SetViewModel(IModel model)
+        public void SetViewModel(CompositionModel model)
         {
-            MessageService.Disable();
+            //MessageService.Disable();
 
-            var compositionModel = model as CompositionModel;
-            Name = compositionModel.Name;
-            Beat.SetViewModel(compositionModel.MasterBeatModel);
-            Camera.SetViewModel(compositionModel.CameraModel);
-            Transition.SetViewModel(compositionModel.TransitionModel);
+            //var compositionModel = model as CompositionModel;
+            Name = model.Name;
+            System.Console.WriteLine("NAME " + Name);
+            //Beat.SetViewModel(compositionModel.MasterBeatModel);
+            //Camera.SetViewModel(compositionModel.CameraModel);
+            //Transition.SetViewModel(compositionModel.TransitionModel);
 
-            MessageService.Enable();
+            //MessageService.Enable();
         }
         #endregion
     }

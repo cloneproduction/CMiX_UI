@@ -68,14 +68,6 @@
                 Margin="2, 4"
                 DataContext="{Binding Fade}" 
                 Caption="Alpha"/>
-            <Grid Margin="2" DockPanel.Dock="Top" Height="20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <TextBlock HorizontalAlignment="Right" Padding="4, 0" VerticalAlignment="Center" Text="Mask"/>
-                <ToggleButton Grid.Column="1" Height="20" Width="20" HorizontalAlignment="Left" IsChecked="{Binding IsMask}"/>
-            </Grid>
         </StackPanel>
     </Border>
     

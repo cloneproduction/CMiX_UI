@@ -361,12 +361,12 @@ namespace CMiX.Studio.ViewModels
 
 
         #region COPY/PASTE
-        public void CopyModel(IModel model)
+        public void CopyModel(IComponentModel model)
         {
             throw new NotImplementedException();
         }
 
-        public void SetViewModel(IModel model)
+        public void SetViewModel(IComponentModel model)
         {
             throw new NotImplementedException();
         }

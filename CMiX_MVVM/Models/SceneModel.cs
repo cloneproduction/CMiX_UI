@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class ContentModel
+    public class SceneModel : IComponentModel
     {
-        public ContentModel()
+        public SceneModel()
         {
             EntityModels = new List<EntityModel>();
             SelectedEntityModel = new EntityModel();
@@ -26,5 +27,10 @@ namespace CMiX.MVVM.Models
         public TextureModel TextureModel { get; set; }
         public GeometryModel GeometryModel { get; set; }
         public PostFXModel PostFXModel { get; set; }
+
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string MessageAddress { get; set; }
+        public ObservableCollection<IComponentModel> ComponentModels { get; set; }
     }
 }

@@ -11,20 +11,25 @@
              d:DesignWidth="773.333">
 
     <UserControl.Resources>
+        
         <DataTemplate x:Key="CompositionTemplate" DataType="{x:Type ViewModels:Composition}">
             <Views:Composition DataContext="{Binding}"/>
         </DataTemplate>
+        
         <DataTemplate x:Key="EntityTemplate" DataType="{x:Type ViewModels:Entity}">
             <Views:Entity DataContext="{Binding}"/>
         </DataTemplate>
+        
         <DataTemplate x:Key="LayerTemplate" DataType="{x:Type ViewModels:Layer}">
             <Views:Layer DataContext="{Binding}"/>
         </DataTemplate>
+        
         <ViewModels:EditorTemplateSelector 
             x:Key="TemplateSelector" 
             EntityTemplate="{StaticResource EntityTemplate}"
             LayerTemplate="{StaticResource LayerTemplate}" 
             CompositionTemplate="{StaticResource CompositionTemplate}"/>
+        
     </UserControl.Resources>
 
     <TabControl 

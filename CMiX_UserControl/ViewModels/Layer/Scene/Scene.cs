@@ -11,7 +11,7 @@ using CMiX.MVVM.Resources;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Scene : ViewModel, ISendable, IUndoable, IComponent
+    public class Scene : ViewModel, ISendable, IUndoable, IComponent, IGetSet<SceneModel>
     {
         #region CONSTRUCTORS
         public Scene(Beat beat, string messageAddress, MessageService messageService, Assets assets, Mementor mementor)
@@ -80,16 +80,16 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public ContentModel GetModel()
+        public SceneModel GetModel()
         {
-            ContentModel contentModel = new ContentModel();
+            SceneModel contentModel = new SceneModel();
             contentModel.Enabled = Enabled;
             contentModel.BeatModifierModel = BeatModifier.GetModel();
             contentModel.PostFXModel = PostFX.GetModel();
             return contentModel;
         }
 
-        public void SetViewModel(ContentModel contentModel)
+        public void SetViewModel(SceneModel contentModel)
         {
             MessageService.Disable();
 
@@ -121,7 +121,7 @@ namespace CMiX.Studio.ViewModels
         #region COPYPASTE CONTENT
         public void CopyContent()
         {
-            ContentModel contentmodel = GetModel();
+            SceneModel contentmodel = GetModel();
             IDataObject data = new DataObject();
             data.SetData("ContentModel", contentmodel, false);
             Clipboard.SetDataObject(data);
@@ -135,7 +135,7 @@ namespace CMiX.Studio.ViewModels
                 this.Mementor.BeginBatch();
                 MessageService.Disable();
 
-                var contentModel = data.GetData("ContentModel") as ContentModel;
+                var contentModel = data.GetData("ContentModel") as SceneModel;
                 var contentmessageaddress = MessageAddress;
                 this.SetViewModel(contentModel);
 
@@ -149,7 +149,7 @@ namespace CMiX.Studio.ViewModels
         public void ResetContent()
         {
             this.Reset();
-            ContentModel contentModel = GetModel();
+            SceneModel contentModel = GetModel();
             MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, contentModel);
         }
 

@@ -8,22 +8,31 @@
              mc:Ignorable="d" 
              d:DesignHeight="429.545" d:DesignWidth="322.727">
 
-
     <UserControl.Resources>
+        
         <DataTemplate x:Key="CompositionPanelTemplate" DataType="{x:Type ViewModels:Composition}">
-            <Views:ComponentPanel DataContext="{Binding}"/>
+            <Views:CompositionPanel DataContext="{Binding}"/>
         </DataTemplate>
+        
         <DataTemplate x:Key="EntityPanelTemplate" DataType="{x:Type ViewModels:Entity}">
             <Views:EntityPanel DataContext="{Binding}"/>
         </DataTemplate>
+        
         <DataTemplate x:Key="LayerPanelTemplate" DataType="{x:Type ViewModels:Layer}">
             <Views:LayerPanel DataContext="{Binding}"/>
         </DataTemplate>
+        
+        <DataTemplate x:Key="MaskPanelTemplate" DataType="{x:Type ViewModels:Mask}">
+            <Views:MaskPanel DataContext="{Binding}"/>
+        </DataTemplate>
+        
         <ViewModels:ComponentPanelTemplateSelector 
             x:Key="TemplateSelector" 
+            MaskPanelTemplate="{StaticResource MaskPanelTemplate}"
             EntityPanelTemplate="{StaticResource EntityPanelTemplate}"
             LayerPanelTemplate="{StaticResource LayerPanelTemplate}" 
             CompositionPanelTemplate="{StaticResource CompositionPanelTemplate}"/>
+        
     </UserControl.Resources>
 
     <ContentPresenter 
@@ -31,4 +40,5 @@
         Content="{Binding SelectedComponent}"
         ContentTemplateSelector="{StaticResource TemplateSelector}">
     </ContentPresenter>
+    
 </UserControl>

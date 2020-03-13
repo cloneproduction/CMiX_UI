@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Views="clr-namespace:CMiX.Views"
+             xmlns:CMiX="clr-namespace:CMiX"
              xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
              xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
              xmlns:dd="urn:gong-wpf-dragdrop"
@@ -23,106 +24,8 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Border Background="{StaticResource HighDarkerColor}">
-        <DockPanel>
-            <Border 
-                DockPanel.Dock="Top">
-                <DockPanel Height="40">
-                    <TextBlock
-                        Padding="8"
-                        VerticalAlignment="Center"
-                        Text="COMPOSITIONS"
-                        Foreground="{StaticResource TextBase}"/>
-                </DockPanel>
-            </Border>
-            <ListBox 
-                AllowDrop="True"
-                dd:DragDrop.IsDragSource="True"
-                dd:DragDrop.IsDropTarget="True"
-                dd:DragDrop.DragHandler="{Binding}"
-                dd:DragDrop.DropHandler="{Binding}"
-                SelectedItem="{Binding SelectedComposition}"
-                ItemsSource="{Binding Compositions}">
-                <ListBox.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem
-                            Padding="8, 4"
-                            Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.ComponentManager.CreateComponentCommand, Source={StaticResource RootProxy}}"
-                            CommandParameter="{Binding}">
-                            <MenuItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="{StaticResource NewLayer}" Height="10" Width="10"/>
-                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                    <TextBlock Text="Add new composition"/>
-                                </StackPanel>
-                            </MenuItem.Header>
-                        </MenuItem>
-                        <MenuItem
-                            Visibility="{Binding Data.SelectedComposition, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource ProjectProxy}}"
-                            Padding="8, 4"
-                            Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.RenameSelectedCompositionCommand, Source={StaticResource ProjectProxy}}">
-                            <MenuItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Width="10" Height="10" Source="{StaticResource Rename}" />
-                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                    <TextBlock Text="Rename"/>
-                                </StackPanel>
-                            </MenuItem.Header>
-                        </MenuItem>
-                        <MenuItem
-                            Visibility="{Binding Data.SelectedComposition, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource ProjectProxy}}"
-                            Padding="8, 4"
-                            Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.DeleteSelectedCompositionCommand, Source={StaticResource ProjectProxy}}">
-                            <MenuItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Width="10" Height="10" Source="{StaticResource DeleteLayer}" />
-                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                    <TextBlock Text="Delete"/>
-                                </StackPanel>
-                            </MenuItem.Header>
-                        </MenuItem>
-                        <MenuItem
-                            Visibility="{Binding Data.SelectedComposition, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter={x:Static Visibility.Collapsed}, FallbackValue=Collapsed, Source={StaticResource ProjectProxy}}"
-                            Padding="8, 4"
-                            Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.ComponentManager.DuplicateComponentCommand, Source={StaticResource RootProxy}}"
-                            CommandParameter="{Binding Data, Source={StaticResource ProjectProxy}}">
-                            <MenuItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Width="10" Height="10" Source="{StaticResource Copy}" />
-                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                    <TextBlock Text="Duplicate"/>
-                                </StackPanel>
-                            </MenuItem.Header>
-                        </MenuItem>
-                    </ContextMenu>
-                </ListBox.ContextMenu>
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Border 
-                            SnapsToDevicePixels="true"
-                            IsHitTestVisible="True"
-                            VerticalAlignment="Center"
-                            Height="25"
-                            Background="Transparent"
-                            HorizontalAlignment="Stretch">
-                            <Border.InputBindings>
-                                <MouseBinding
-                                    Gesture="LeftDoubleClick" 
-                                    Command="{Binding Data.ComponentEditor.EditComponentCommand, Source={StaticResource RootProxy}}"
-                                    CommandParameter="{Binding}"/>
-                            </Border.InputBindings>
-                            <Controls:EditableTextBox 
-                                HorizontalAlignment="Stretch"
-                                Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        </Border>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </DockPanel>
-    </Border>
+
+    <CMiX:MasterBeatControl DockPanel.Dock="Bottom" DataContext="{Binding Beat}"/>
+
+
 </UserControl>

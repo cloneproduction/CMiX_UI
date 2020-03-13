@@ -6,72 +6,65 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:CMiX.Studio.ViewModels"
     d:DataContext="{d:DesignInstance Type={x:Type viewModels:MasterBeat}, IsDesignTimeCreatable=False}"
-    d:DesignHeight="144.444"
-    d:DesignWidth="714"
+    d:DesignHeight="289.777"
+    d:DesignWidth="252.667"
     mc:Ignorable="d">
 
+
+    <Border 
+        Padding="8"
+        Background="{StaticResource HighDarkerColor}">
         <StackPanel>
-            <Border 
-                Padding="8"
-                DockPanel.Dock="Bottom"
-                Background="{StaticResource HighDarkerColor}"
-                CornerRadius="4">
-                <StackPanel>
-                <DockPanel
-                    Grid.Row="0"
-                    Height="50"
-                    Margin="0,0,0,1"
-                    LastChildFill="True">
+                <DockPanel Height="30">
                     <Button
+                        Grid.Column="3"
                         Style="{StaticResource ButtonRounded}"
                         Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
                         Command="{Binding Path=ResyncCommand}"
                         Content="Rc"
-                        DockPanel.Dock="Right"
-                        />
+                        DockPanel.Dock="Right"/>
                     <Button
+                        Grid.Column="2"
                         Style="{StaticResource ButtonRounded}"
                         Margin="4, 0"
                         Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
                         Command="{Binding Path=MultiplyCommand}"
                         Content="+"
-                        DockPanel.Dock="Right"
-                        />
+                        DockPanel.Dock="Right"/>
                     <Button
+                        Grid.Column="1"
                         Style="{StaticResource ButtonRounded}"
-                        Grid.Column="2"
                         Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
                         Command="{Binding Path=DivideCommand}"
                         Content="-"
-                        DockPanel.Dock="Right"
-                        />
+                        DockPanel.Dock="Right"/>
                     <Border 
-                            Background="{StaticResource HighDarkerColor}" 
-                            Margin="4, 0" DockPanel.Dock="Right" 
-                            Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}">
+                        Background="{StaticResource HighDarkerColor}" 
+                        Margin="0, 0, 4, 0" DockPanel.Dock="Right" >
                         <TextBox 
                             Foreground="{StaticResource TextBase}" 
-                            Background="{StaticResource HighDarkerColor}"
-                            BorderThickness="1"
-                            BorderBrush="{StaticResource DarkColor}"
+                            Background="{StaticResource SuperHighDarkerColor}"
+                            BorderThickness="0"
+                            BorderBrush="{StaticResource SuperHighDarkerColor}"
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
                             VerticalAlignment="Stretch"
                             HorizontalAlignment="Stretch"
-                            Text="{Binding Path=BPM, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F0}" 
-                            />
-                        </Border>
-                        <Button
-                            Style="{StaticResource ButtonRounded}"
-                            VerticalAlignment="Stretch"
-                            HorizontalAlignment="Stretch"
-                            Grid.Row="2"
-                            Command="{Binding Path=TapCommand}"
-                            Content="TAP"
-                            />
-                    </DockPanel>
-                </StackPanel>
-            </Border>
-        </StackPanel>
+                            Text="{Binding Path=BPM, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F0}" />
+                    </Border>
+                </DockPanel>
+
+                <Button
+                    Height="30"
+                    Margin="0, 4, 0, 0"
+                    Style="{StaticResource ButtonRounded}"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch"
+                    Command="{Binding Path=TapCommand}"
+                    Content="TAP"/>
+            </StackPanel>
+
+        </Border>
+
 
 </UserControl>

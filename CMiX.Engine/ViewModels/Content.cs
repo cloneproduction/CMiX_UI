@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace CMiX.Engine.ViewModels
 {
-    public class Content : IMessageReceiver, ICopyPasteModel<ContentModel>
+    public class Content : IMessageReceiver, ICopyPasteModel<SceneModel>
     {
         public Content(Receiver receiver, string messageAddress)
         {
@@ -60,7 +60,7 @@ namespace CMiX.Engine.ViewModels
             Entities.RemoveAt(index);
         }
 
-        public void PasteModel(ContentModel contentModel)
+        public void PasteModel(SceneModel contentModel)
         {
             Entities.Clear();
             foreach (EntityModel entity in contentModel.EntityModels)
@@ -70,7 +70,7 @@ namespace CMiX.Engine.ViewModels
             }
         }
 
-        public void CopyModel(ContentModel contentModel)
+        public void CopyModel(SceneModel contentModel)
         {
             throw new NotImplementedException();
         }

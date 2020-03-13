@@ -24,7 +24,6 @@ namespace CMiX.ViewModels
         public ICommand DuplicateComponentCommand { get; }
         public ICommand DeleteComponentCommand { get; }
         public ICommand RenameComponentCommand { get; }
-
         public ICommand CreateLayerMaskCommand { get; }
         public ICommand DeleteLayerMaskCommand { get; }
         public ICommand MoveComponentToCommand { get;  }
@@ -82,7 +81,6 @@ namespace CMiX.ViewModels
             return result;
         }
 
-       
 
         public IComponent GetSelectedParent(ObservableCollection<IComponent> components)
         {
@@ -129,8 +127,10 @@ namespace CMiX.ViewModels
         private Composition CreateComposition(Project project)
         {
             var newCompo = new Composition(CompositionID, project.MessageAddress, project.Beat, new MessageService(), project.Assets, project.Mementor);
+
             project.AddComponent(newCompo);
             CompositionID++;
+
             return newCompo;
         }
 
@@ -138,6 +138,7 @@ namespace CMiX.ViewModels
         private Composition DuplicateComposition(Composition project)
         {
             var newCompo = new Composition(CompositionID, project.MessageAddress, project.Beat, new MessageService(), project.Assets, project.Mementor);
+
             var selectedCompo = SelectedComponent as Composition;
             newCompo.SetViewModel(selectedCompo.GetModel());
             newCompo.ID = CompositionID;
@@ -153,9 +154,11 @@ namespace CMiX.ViewModels
         private Layer CreateLayer(Composition compo)
         {
             Layer newLayer = new Layer(LayerID, compo.Beat, compo.MessageAddress, compo.MessageService, compo.Assets, compo.Mementor);
+
             newLayer.IsExpanded = true;
             compo.AddComponent(newLayer);
             LayerID++;
+
             return newLayer;
         }
 

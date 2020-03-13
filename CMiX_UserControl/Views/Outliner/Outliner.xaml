@@ -19,9 +19,7 @@
             <Resources:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
             <Resources:EntityVisibilityConverter x:Key="EntityVisibilityConverter"/>
             <Resources:ItemToParentConverter x:Key="ItemToParentConverter"/>
-
-            <Resources:BindingProxy x:Key="RootProxy" 
-                Data="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Root}}}"/>
+            <Resources:BindingProxy x:Key="RootProxy" Data="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Root}}}"/>
 
             <ContextMenu x:Key="OutlinerContextMenu" Width="175">
 
@@ -77,7 +75,7 @@
                 <!--<Separator Style="{StaticResource MenuItemSeparator}"/>-->
 
             </ContextMenu>
-
+            
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -101,7 +99,7 @@
             dd:DragDrop.DragHandler="{Binding}"
             dd:DragDrop.DropHandler="{Binding}"
             ContextMenu="{StaticResource OutlinerContextMenu}"
-            ItemsSource="{Binding Components}">
+            ItemsSource="{Binding Components, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
             <Controls:TreeViewSelect.Resources>
 
                 <HierarchicalDataTemplate DataType="{x:Type ViewModels:Project}" ItemsSource="{Binding Components}">

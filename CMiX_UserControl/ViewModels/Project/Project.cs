@@ -6,8 +6,6 @@ using Ceras;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
-using CMiX.MVVM.Resources;
-using System.Windows;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -37,19 +35,26 @@ namespace CMiX.Studio.ViewModels
         public ICommand RemoveComponentCommand { get; }
         public ICommand RenameCommand { get; }
 
+        public CerasSerializer Serializer { get; set; }
+
         public string MessageAddress { get; set; }
         public Mementor Mementor { get; set; }
         public Assets Assets { get; set; }
         public Beat Beat { get; set; }
         public MessageService MessageService { get; set; }
 
-        public CerasSerializer Serializer { get; set; }
         public ServerManager ServerManager { get; set; }
 
         public ObservableCollection<Server> Servers { get; set; }
+
         public string FolderPath { get; set; }
 
-        public ObservableCollection<IComponent> Components { get; set; }
+        private ObservableCollection<IComponent> _components;
+        public ObservableCollection<IComponent> Components
+        {
+            get => _components;
+            set => SetAndNotify(ref _components, value);
+        }
 
         public int ID { get; set; }
 
@@ -82,35 +87,49 @@ namespace CMiX.Studio.ViewModels
         }
         #endregion
 
-
-
         public ProjectModel GetModel()
         {
             ProjectModel projectModel = new ProjectModel();
-            //projectModel.CompositionEditorModel = CompositionEditor.GetModel();
+            projectModel.ID = ID;
+            projectModel.MessageAddress = MessageAddress;
+            projectModel.Name = Name;
+
+            foreach (IGetSet<CompositionModel> item in Components)
+            {
+                projectModel.ComponentModels.Add(item.GetModel());
+            }
+
             return projectModel;
         }
 
         public void SetViewModel(ProjectModel projectModel)
         {
-            //CompositionEditor.SetViewModel(projectModel.CompositionEditorModel);
+            ID = projectModel.ID;
+            Name = projectModel.Name;
+            MessageAddress = projectModel.MessageAddress;
+            //Components.Clear();
+            foreach (CompositionModel componentModel in projectModel.ComponentModels)
+            {
+                Composition composition = new Composition(0, this.MessageAddress, this.Beat, new MessageService(), this.Assets, this.Mementor);
+                composition.Name = "POUETPOUETPOUET";
+                composition.SetViewModel(componentModel);
+                this.AddComponent(new Composition());
+            }
         }
 
         public void Rename()
         {
-            Console.WriteLine("RenameReached");
             IsRenaming = true;
         }
 
         public void AddComponent(IComponent component)
         {
-            Components.Add(component as Composition);
+            Components.Add(component);
             IsExpanded = true;
         }
 
         public void RemoveComponent(IComponent component)
         {
-            Console.WriteLine(" RemoveComponent from Projet");
             Components.Remove(component);
         }
     }

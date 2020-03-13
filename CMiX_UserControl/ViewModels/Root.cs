@@ -1,12 +1,13 @@
 ﻿using Ceras;
-using CMiX.MVVM.Models;
-using CMiX.MVVM.ViewModels;
-using CMiX.ViewModels;
+
 using Memento;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
+using CMiX.MVVM.Models;
+using CMiX.MVVM.ViewModels;
+using CMiX.ViewModels;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -15,10 +16,10 @@ namespace CMiX.Studio.ViewModels
         public Root()
         {
             Mementor = new Mementor();
-            
+            Serializer = new CerasSerializer();
+
             CurrentProject = new Project();
-            Projects = new ObservableCollection<IComponent>();
-            Projects.Add(CurrentProject);
+            Projects = new ObservableCollection<IComponent> { CurrentProject };
             ComponentManager = new ComponentManager(Projects);
 
             ComponentEditor = new ComponentEditor();
@@ -26,15 +27,12 @@ namespace CMiX.Studio.ViewModels
 
             Outliner = new Outliner(Projects);
             
-
             NewProjectCommand = new RelayCommand(p => NewProject());
             OpenProjectCommand = new RelayCommand(p => OpenProject());
             SaveProjectCommand = new RelayCommand(p => SaveProject());
             SaveAsProjectCommand = new RelayCommand(p => SaveAsProject());
             QuitCommand = new RelayCommand(p => Quit(p));
         }
-
-
 
         public ICommand NewProjectCommand { get; }
         public ICommand SaveProjectCommand { get; }
@@ -53,14 +51,12 @@ namespace CMiX.Studio.ViewModels
         public string FolderPath { get; set; }
         public string MessageAddress { get; set; }
 
-
         private ObservableCollection<IComponent> _projects;
         public ObservableCollection<IComponent> Projects
         {
             get => _projects;
             set => SetAndNotify(ref _projects, value);
         }
-
 
         private Project _currentProject;
         public Project CurrentProject
@@ -88,7 +84,6 @@ namespace CMiX.Studio.ViewModels
                     CerasSerializer serializer = new CerasSerializer();
                     byte[] data = File.ReadAllBytes(folderPath);
                     ProjectModel projectmodel = serializer.Deserialize<ProjectModel>(data);
-                    CurrentProject = new Project();
                     CurrentProject.SetViewModel(projectmodel);
                     FolderPath = folderPath;
                 }
@@ -119,7 +114,7 @@ namespace CMiX.Studio.ViewModels
 
             if (savedialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                ProjectModel projectModel = CurrentProject.GetModel();
+                IComponentModel projectModel = CurrentProject.GetModel();
                 string folderPath = savedialog.FileName;
                 var data = Serializer.Serialize(projectModel);
                 File.WriteAllBytes(folderPath, data);

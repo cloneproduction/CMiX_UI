@@ -1,16 +1,12 @@
-﻿using CMiX.MVVM.Resources;
-using CMiX.MVVM.ViewModels;
-using CMiX.ViewModels;
-using GongSolutions.Wpf.DragDrop;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using GongSolutions.Wpf.DragDrop;
+using CMiX.MVVM.Resources;
+using CMiX.MVVM.ViewModels;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -60,7 +56,6 @@ namespace CMiX.Studio.ViewModels
             get => _addContentText;
             set => SetAndNotify(ref _addContentText, value);
         }
-
 
         private bool _canAdd;
         public bool CanAdd
@@ -151,10 +146,29 @@ namespace CMiX.Studio.ViewModels
 
         public void CanDeleteComponent()
         {
-            if (SelectedComponent is Project)
+            if (SelectedComponent is Project || SelectedComponent is Mask || SelectedComponent is Scene)
                 CanDelete = false;
             else
                 CanDelete = true;
+        }
+
+        public int FindItemParentIndex(ObservableCollection<IComponent> components, IComponent componentToFind)
+        {
+            int index = -1;
+
+            if (components.Contains(componentToFind))
+            {
+                index = components.IndexOf(componentToFind);
+            }
+            else
+            {
+                foreach (var item in components)
+                {
+                    FindItemParentIndex(item.Components, componentToFind);
+                }
+            }
+            Console.WriteLine("index " + index);
+            return index;
         }
 
         public bool CanDropOnSameParent(IDropInfo dropInfo)
@@ -247,26 +261,6 @@ namespace CMiX.Studio.ViewModels
             }
             return canDrop;
         }
-
-        //public bool CanDropEntityOnLayer(IDropInfo dropInfo)
-        //{
-        //    var dataObject = dropInfo.Data as IComponent;
-        //    var dropTarget = dropInfo.TargetItem as IComponent;
-        //    var targetItem = dropInfo.TargetItem as IComponent;
-           
-        //    var visualTarget = dropInfo.VisualTargetItem;
-        //    var visualSource = dropInfo.DragInfo.VisualSourceItem;
-
-        //    var parentSourceItem = Utils.FindParent<TreeViewItem>(visualSource);
-        //    var parentTargetItem = Utils.FindParent<TreeViewItem>(visualTarget);
-
-        //    bool canDrop = false;
-        //    if (parentSourceItem != visualTarget && dataObject is Entity && dropTarget is Layer)
-        //    {
-        //        canDrop = true;
-        //    }
-        //    return canDrop;
-        //}
 
         public bool CanDropEntityOnMask(IDropInfo dropInfo)
         {
@@ -422,15 +416,6 @@ namespace CMiX.Studio.ViewModels
                 sourceCollection.Remove(dropInfo.DragInfo.SourceItem as IComponent);
                 return;
             }
-            //else if (CanDropEntityOnLayer(dropInfo))
-            //{
-            //    var targetItem = dropInfo.TargetItem as Layer;
-            //    var sourceItem = dropInfo.DragInfo.SourceItem as IComponent;
-            //    targetItem.Components.Insert(0, sourceItem);
-            //    sourceCollection.Remove(sourceItem);
-            //    targetItem.IsExpanded = true;
-            //    return;
-            //}
             else if (CanDropEntityOnMask(dropInfo))
             {
                 var sourceItem = dropInfo.DragInfo.SourceItem as IComponent;
@@ -487,24 +472,6 @@ namespace CMiX.Studio.ViewModels
             }
         }
 
-        public int FindItemParentIndex(ObservableCollection<IComponent> components, IComponent componentToFind)
-        {
-            int index = -1;
-
-            if (components.Contains(componentToFind))
-            {
-                index = components.IndexOf(componentToFind);
-            }
-            else
-            {
-                foreach (var item in components)
-                {
-                    FindItemParentIndex(item.Components, componentToFind);
-                }
-            }
-            Console.WriteLine("index " + index);
-            return index;
-        }
 
         public void StartDrag(IDragInfo dragInfo)
         {

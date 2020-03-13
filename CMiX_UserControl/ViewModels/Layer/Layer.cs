@@ -12,7 +12,7 @@ using System.Windows;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Layer : ViewModel, ISendable, IUndoable, IComponent
+    public class Layer : ViewModel, ISendable, IUndoable, IComponent, IGetSet<LayerModel>
     {
         #region CONSTRUCTORS
         public Layer(int id, Beat beat, string messageAddress, MessageService messageService, Assets assets, Mementor mementor) 

@@ -49,9 +49,7 @@
                     Margin="4"
                     DockPanel.Dock="Top"
                     DataContext="{Binding MessageValidationManager}"/>
-                <CMiX:MasterBeatControl
-                    DockPanel.Dock="Bottom"
-                    DataContext="{Binding MasterBeat}"/>
+
                 <MVVM.Views:Slider
                     DockPanel.Dock="Top"
                     Margin="0, 8, 0, 0"

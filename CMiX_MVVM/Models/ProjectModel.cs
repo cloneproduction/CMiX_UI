@@ -1,13 +1,17 @@
-﻿namespace CMiX.MVVM.Models
+﻿using System.Collections.ObjectModel;
+
+namespace CMiX.MVVM.Models
 {
-    public class ProjectModel : IModel
+    public class ProjectModel : IComponentModel
     {
         public ProjectModel()
         {
-            CompositionEditorModel = new CompositionEditorModel();
+            ComponentModels = new ObservableCollection<IComponentModel>();
         }
 
         public string MessageAddress { get; set; }
-        public CompositionEditorModel CompositionEditorModel { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public ObservableCollection<IComponentModel> ComponentModels { get; set; }
     }
 }

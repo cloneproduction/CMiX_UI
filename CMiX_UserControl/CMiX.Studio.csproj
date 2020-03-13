@@ -156,6 +156,9 @@
     <Compile Include="Views\Component\ComponentPanel.xaml.cs">
       <DependentUpon>ComponentPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Mask\MaskPanel.xaml.cs">
+      <DependentUpon>MaskPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Outliner\Outliner.xaml.cs">
       <DependentUpon>Outliner.xaml</DependentUpon>
     </Compile>
@@ -301,7 +304,7 @@
     <Compile Include="Views\Project.xaml.cs">
       <DependentUpon>Project.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Mask.xaml.cs">
+    <Compile Include="Views\Mask\Mask.xaml.cs">
       <DependentUpon>Mask.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PostFX.xaml.cs">
@@ -351,6 +354,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Component\ComponentPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Mask\MaskPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -482,7 +489,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Mask.xaml">
+    <Page Include="Views\Mask\Mask.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

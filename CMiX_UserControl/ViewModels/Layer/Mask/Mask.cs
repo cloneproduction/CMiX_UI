@@ -10,7 +10,7 @@ using Memento;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Mask : ViewModel, ISendable, IUndoable, IComponent
+    public class Mask : ViewModel, ISendable, IUndoable, IComponent, IGetSet<MaskModel>
     {
         #region CONSTRUCTORS
         public Mask(Beat beat, string messageAddress, MessageService messageService, Assets assets, Mementor mementor) 

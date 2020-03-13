@@ -84,8 +84,8 @@
     <Compile Include="Controls\TreeViewSelect.cs" />
     <Compile Include="Interfaces\ICopyPasteModel.cs" />
     <Compile Include="Models\AssetSelectorModel.cs" />
+    <Compile Include="Models\Interfaces\IComponentModel.cs" />
     <Compile Include="Models\TextureFileModel.cs" />
-    <Compile Include="Models\CompositionEditorModel.cs" />
     <Compile Include="Models\EntityEditorModel.cs" />
     <Compile Include="Models\LayerEditorModel.cs" />
     <Compile Include="Resources\ExtensionMethods.cs" />
@@ -106,6 +106,7 @@
     <Compile Include="Services\Message\IMessageReceiver.cs" />
     <Compile Include="Services\Message\ISendable.cs" />
     <Compile Include="Services\Server\ServerManager.cs" />
+    <Compile Include="ViewModels\Interfaces\IGetSet.cs" />
     <Compile Include="ViewModels\Interfaces\IUndoable.cs" />
     <Compile Include="Services\Server\Server.cs" />
     <Compile Include="Services\Message\MessageValidation.cs" />
@@ -131,7 +132,7 @@
     <Compile Include="Models\ColorPickerModel.cs" />
     <Compile Include="Models\ColorSelectorModel.cs" />
     <Compile Include="Models\CompositionModel.cs" />
-    <Compile Include="Models\ContentModel.cs" />
+    <Compile Include="Models\SceneModel.cs" />
     <Compile Include="Models\CounterModel.cs" />
     <Compile Include="Models\FileNameItemModel.cs" />
     <Compile Include="Models\FileSelectorModel.cs" />

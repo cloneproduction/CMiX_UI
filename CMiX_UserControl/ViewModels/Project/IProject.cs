@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels;
 
 namespace CMiX.Studio.ViewModels
 {
-    public interface IProject :  IUndoable, IComponent
+    public interface IProject :  IUndoable, IComponent, IGetSet<ProjectModel>
     {
     }
 }

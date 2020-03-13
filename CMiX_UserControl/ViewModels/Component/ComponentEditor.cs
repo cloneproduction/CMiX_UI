@@ -1,6 +1,6 @@
-﻿using CMiX.MVVM.ViewModels;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using CMiX.MVVM.ViewModels;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -9,7 +9,7 @@ namespace CMiX.Studio.ViewModels
         public ComponentEditor()
         {
             Editables = new ObservableCollection<IComponent>();
-            EditComponentCommand = new RelayCommand(p => EditComponent(p));
+            EditComponentCommand = new RelayCommand(p => EditComponent(p as IComponent));
             RemoveComponentCommand = new RelayCommand(p => RemoveComponent(p));
             RenameComponentCommand = new RelayCommand(p => Rename(p));
         }
@@ -37,15 +37,14 @@ namespace CMiX.Studio.ViewModels
             Editables.Remove(obj as IComponent);
         }
 
-        public void EditComponent(object obj)
+        public void EditComponent(IComponent component)
         {
-            var editable = obj as IComponent;
-            
-            if (!Editables.Contains(editable))
-            {
-                Editables.Add(editable);
-                SelectedEditable = editable;
-            }
+            if (!Editables.Contains(component))
+                Editables.Insert(0, component);
+            else
+                Editables.Move(Editables.IndexOf(component), 0);
+
+            SelectedEditable = component;
         }
 
         public void Rename(object obj)
