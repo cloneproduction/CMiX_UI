@@ -2,11 +2,16 @@
 using System.ComponentModel;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.ViewModels;
+using CMiX.MVVM.Models;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class DirectoryItem : ViewModel, IDirectory
+    public class DirectoryItem : ViewModel, IDirectory, IGetSet<DirectoryAssetModel>
     {
+        public DirectoryItem()
+        {
+
+        }
         public DirectoryItem(string name)
         {
             Name = name;
@@ -101,6 +106,50 @@ namespace CMiX.Studio.ViewModels
         {
             if (e.PropertyName == nameof(Name))
                 SortAssets();
+        }
+
+        public DirectoryAssetModel GetModel()
+        {
+            DirectoryAssetModel directoryAssetModel = new DirectoryAssetModel();
+            directoryAssetModel.Name = Name;
+            foreach (var asset in Assets)
+            {
+                if(asset is DirectoryItem)
+                    directoryAssetModel.AssetModels.Add(((DirectoryItem)asset).GetModel());
+
+                if (asset is GeometryItem)
+                    directoryAssetModel.AssetModels.Add(((GeometryItem)asset).GetModel());
+
+                if (asset is TextureItem)
+                    directoryAssetModel.AssetModels.Add(((TextureItem)asset).GetModel());
+            }
+            return directoryAssetModel;
+        }
+
+        public void SetViewModel(DirectoryAssetModel model)
+        {
+            Name = model.Name;
+            foreach (var assetModel in model.AssetModels)
+            {
+                if(assetModel is DirectoryAssetModel)
+                {
+                    DirectoryItem directoryItem = new DirectoryItem();
+                    directoryItem.SetViewModel((DirectoryAssetModel)assetModel);
+                    Assets.Add(directoryItem);
+                }
+                else if(assetModel is GeometryAssetModel)
+                {
+                    GeometryItem geometryAsset = new GeometryItem();
+                    geometryAsset.SetViewModel((GeometryAssetModel)assetModel);
+                    Assets.Add(geometryAsset);
+                }
+                else if(assetModel is TextureAssetModel)
+                {
+                    TextureItem textureItem = new TextureItem();
+                    textureItem.SetViewModel((TextureAssetModel)assetModel);
+                    Assets.Add(textureItem);
+                }
+            }
         }
     }
 }

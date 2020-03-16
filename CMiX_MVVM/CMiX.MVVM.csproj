@@ -83,8 +83,13 @@
     <Compile Include="Controls\TreeViewMultiSelect.cs" />
     <Compile Include="Controls\TreeViewSelect.cs" />
     <Compile Include="Interfaces\ICopyPasteModel.cs" />
-    <Compile Include="Models\AssetSelectorModel.cs" />
-    <Compile Include="Models\AssetsModel.cs" />
+    <Compile Include="Models\Assets\AssetSelectorModel.cs" />
+    <Compile Include="Models\Assets\AssetsModel.cs" />
+    <Compile Include="Models\Assets\DirectoryAssetModel.cs" />
+    <Compile Include="Models\Assets\GeometryAssetModel.cs" />
+    <Compile Include="Models\Assets\IAsset.cs" />
+    <Compile Include="Models\Assets\IAssetModel.cs" />
+    <Compile Include="Models\Assets\TextureAssetModel.cs" />
     <Compile Include="Models\Interfaces\IComponentModel.cs" />
     <Compile Include="Models\TextureFileModel.cs" />
     <Compile Include="Models\LayerEditorModel.cs" />

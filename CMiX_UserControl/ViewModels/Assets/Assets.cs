@@ -373,7 +373,11 @@ namespace CMiX.Studio.ViewModels
 
         public AssetsModel GetModel()
         {
+            AssetsModel assetsModel = new AssetsModel();
+
+
             
+            return assetsModel;
         }
 
         public void SetViewModel(AssetsModel model)

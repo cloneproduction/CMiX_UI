@@ -4,11 +4,16 @@ using System.Windows.Input;
 using CMiX.MVVM.ViewModels;
 using System.Linq.Dynamic;
 using CMiX.MVVM.Resources;
+using CMiX.MVVM.Models;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class TextureItem : ViewModel, IAssets
+    public class TextureItem : ViewModel, IAssets, IGetSet<TextureAssetModel>
     {
+        public TextureItem()
+        {
+
+        }
         public TextureItem(string name, string path)
         {
             Name = name;
@@ -41,6 +46,22 @@ namespace CMiX.Studio.ViewModels
         {
             get => _isSelected;
             set => SetAndNotify(ref _isSelected, value);
+        }
+
+        public TextureAssetModel GetModel()
+        {
+            TextureAssetModel textureAssetModel = new TextureAssetModel();
+
+            textureAssetModel.Name = Name;
+            textureAssetModel.Path = Path;
+
+            return textureAssetModel;
+        }
+
+        public void SetViewModel(TextureAssetModel model)
+        {
+            Name = model.Name;
+            Path = model.Path;
         }
     }
 }
