@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class EntityModel
+    public class EntityModel : IComponentModel
     {
         public EntityModel()
         {
@@ -21,5 +22,10 @@ namespace CMiX.MVVM.Models
         public GeometryModel GeometryModel { get; set; }
         public TextureModel TextureModel { get; set; }
         public ColorationModel ColorationModel { get; set; }
+
+        public string MessageAddress { get; set; }
+        public bool IsVisible { get; set; }
+
+        public ObservableCollection<IComponentModel> ComponentModels { get; set; }
     }
 }

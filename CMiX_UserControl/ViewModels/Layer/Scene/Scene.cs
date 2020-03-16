@@ -82,26 +82,31 @@ namespace CMiX.Studio.ViewModels
         #region COPY/PASTE
         public SceneModel GetModel()
         {
-            SceneModel contentModel = new SceneModel();
-            contentModel.Enabled = Enabled;
-            contentModel.BeatModifierModel = BeatModifier.GetModel();
-            contentModel.PostFXModel = PostFX.GetModel();
-            return contentModel;
+            SceneModel sceneModel = new SceneModel();
+            sceneModel.Enabled = Enabled;
+            sceneModel.BeatModifierModel = BeatModifier.GetModel();
+            sceneModel.PostFXModel = PostFX.GetModel();
+
+            foreach (IGetSet<EntityModel> item in Components)
+                sceneModel.ComponentModels.Add(item.GetModel());
+
+            return sceneModel;
         }
 
-        public void SetViewModel(SceneModel contentModel)
+        public void SetViewModel(SceneModel sceneModel)
         {
             MessageService.Disable();
 
-            Enabled = contentModel.Enabled;
-            BeatModifier.SetViewModel(contentModel.BeatModifierModel);
-            PostFX.SetViewModel(contentModel.PostFXModel);
+            Enabled = sceneModel.Enabled;
+            BeatModifier.SetViewModel(sceneModel.BeatModifierModel);
+            PostFX.SetViewModel(sceneModel.PostFXModel);
 
             Components.Clear();
-            foreach (var entityModel in contentModel.EntityModels)
+            foreach (EntityModel componentModel in sceneModel.ComponentModels)
             {
-                //var entity = EntityManager.CreateEntity(this);
-                //entity.SetViewModel(entityModel);
+                Entity entity = new Entity(0, this.Beat, this.MessageAddress, this.MessageService, this.Assets, this.Mementor);
+                entity.SetViewModel(componentModel);
+                this.AddComponent(entity);
             }
 
             MessageService.Enable();
@@ -149,18 +154,18 @@ namespace CMiX.Studio.ViewModels
         public void ResetContent()
         {
             this.Reset();
-            SceneModel contentModel = GetModel();
-            MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, contentModel);
+            MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, GetModel());
         }
 
         public void AddComponent(IComponent component)
         {
-            
+            Components.Add(component);
+            IsExpanded = true;
         }
 
         public void RemoveComponent(IComponent component)
         {
-            
+            Components.Remove(component);
         }
         #endregion
 

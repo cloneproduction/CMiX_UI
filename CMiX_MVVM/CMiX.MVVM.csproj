@@ -84,9 +84,9 @@
     <Compile Include="Controls\TreeViewSelect.cs" />
     <Compile Include="Interfaces\ICopyPasteModel.cs" />
     <Compile Include="Models\AssetSelectorModel.cs" />
+    <Compile Include="Models\AssetsModel.cs" />
     <Compile Include="Models\Interfaces\IComponentModel.cs" />
     <Compile Include="Models\TextureFileModel.cs" />
-    <Compile Include="Models\EntityEditorModel.cs" />
     <Compile Include="Models\LayerEditorModel.cs" />
     <Compile Include="Resources\ExtensionMethods.cs" />
     <Compile Include="Resources\SortableObservableCollection.cs" />

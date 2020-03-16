@@ -16,7 +16,7 @@ using GongSolutions.Wpf.DragDrop;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Assets : ViewModel, IDropTarget, IDragSource
+    public class Assets : ViewModel, IDropTarget, IDragSource, IGetSet<AssetsModel>
     {
         public Assets()
         {
@@ -369,6 +369,16 @@ namespace CMiX.Studio.ViewModels
         public void SetViewModel(IComponentModel model)
         {
             throw new NotImplementedException();
+        }
+
+        public AssetsModel GetModel()
+        {
+            
+        }
+
+        public void SetViewModel(AssetsModel model)
+        {
+            
         }
         #endregion
     }

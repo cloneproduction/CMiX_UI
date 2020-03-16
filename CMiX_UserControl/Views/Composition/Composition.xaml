@@ -49,7 +49,6 @@
                     Margin="4"
                     DockPanel.Dock="Top"
                     DataContext="{Binding MessageValidationManager}"/>
-
                 <MVVM.Views:Slider
                     DockPanel.Dock="Top"
                     Margin="0, 8, 0, 0"

@@ -70,12 +70,12 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _isVisible, value);
         }
 
-        private bool _isMask;
-        public bool IsMask
-        {
-            get => _isMask;
-            set => SetAndNotify(ref _isMask, value);
-        }
+        //private bool _isMask;
+        //public bool IsMask
+        //{
+        //    get => _isMask;
+        //    set => SetAndNotify(ref _isMask, value);
+        //}
 
         private bool _isSelected;
         public bool IsSelected
@@ -149,27 +149,56 @@ namespace CMiX.Studio.ViewModels
         public LayerModel GetModel()
         {
             LayerModel layerModel = new LayerModel();
+
             layerModel.Name = Name;
             layerModel.ID = ID;
             layerModel.Out = Out;
+
             layerModel.Fade = Fade.GetModel();
             layerModel.BlendMode = BlendMode.GetModel();
-            layerModel.MaskModel = Mask.GetModel();
             layerModel.PostFXModel = PostFX.GetModel();
+
+            foreach (var item in Components)
+            {
+                if (item is IGetSet<SceneModel>)
+                    layerModel.ComponentModels.Add(((IGetSet<SceneModel>)item).GetModel());
+
+                if (item is IGetSet<MaskModel>)
+                    layerModel.ComponentModels.Add(((IGetSet<MaskModel>)item).GetModel());
+            }
+
             return layerModel;
         }
 
-        public void SetViewModel(LayerModel layerModel)
+        public void SetViewModel(LayerModel model)
         {
             MessageService.Disable();
 
-            Name = layerModel.Name;
-            Out = layerModel.Out;
-            ID = layerModel.ID;
-            Fade.SetViewModel(layerModel.Fade);
-            BlendMode.SetViewModel(layerModel.BlendMode);
-            Mask.SetViewModel(layerModel.MaskModel);
-            PostFX.SetViewModel(layerModel.PostFXModel);
+            Name = model.Name;
+            Out = model.Out;
+            ID = model.ID;
+
+            Fade.SetViewModel(model.Fade);
+            BlendMode.SetViewModel(model.BlendMode);
+            PostFX.SetViewModel(model.PostFXModel);
+
+            Components.Clear();
+            foreach (IComponentModel componentModel in model.ComponentModels)
+            {
+                if(componentModel is SceneModel)
+                {
+                    Scene scene = new Scene(this.Beat, this.MessageAddress, this.MessageService, this.Assets, this.Mementor);
+                    scene.SetViewModel(componentModel as SceneModel);
+                    this.AddComponent(scene);
+                }
+
+                if (componentModel is MaskModel)
+                {
+                    Mask mask = new Mask(this.Beat, this.MessageAddress, this.MessageService, this.Assets, this.Mementor);
+                    mask.SetViewModel(componentModel as MaskModel);
+                    this.AddComponent(mask);
+                }
+            }
 
             MessageService.Enable();
         }

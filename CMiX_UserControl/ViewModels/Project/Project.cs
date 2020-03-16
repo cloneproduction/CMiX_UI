@@ -65,6 +65,13 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref name, value);
         }
 
+        private bool _isVisible = true;
+        public bool IsVisible
+        {
+            get => _isVisible;
+            set => SetAndNotify(ref _isVisible, value);
+        }
+
         private bool _isRenaming;
         public bool IsRenaming
         {
@@ -93,6 +100,7 @@ namespace CMiX.Studio.ViewModels
             projectModel.ID = ID;
             projectModel.MessageAddress = MessageAddress;
             projectModel.Name = Name;
+            projectModel.IsVisible = IsVisible;
 
             foreach (IGetSet<CompositionModel> item in Components)
             {
@@ -106,14 +114,15 @@ namespace CMiX.Studio.ViewModels
         {
             ID = projectModel.ID;
             Name = projectModel.Name;
+            IsVisible = projectModel.IsVisible;
             MessageAddress = projectModel.MessageAddress;
-            //Components.Clear();
+
+            Components.Clear();
             foreach (CompositionModel componentModel in projectModel.ComponentModels)
             {
                 Composition composition = new Composition(0, this.MessageAddress, this.Beat, new MessageService(), this.Assets, this.Mementor);
-                composition.Name = "POUETPOUETPOUET";
                 composition.SetViewModel(componentModel);
-                this.AddComponent(new Composition());
+                this.AddComponent(composition);
             }
         }
 

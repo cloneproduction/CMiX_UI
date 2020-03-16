@@ -66,26 +66,24 @@
                     Header="Compo">
                     <MenuItem
                         Header="Add"
-                        Command="{Binding CompositionEditor.NewCompositionCommand}"
+
                         Template="{StaticResource SubMenuItemBase}" />
                     <MenuItem
                         Header="Delete"
-                        Command="{Binding DeleteCompoCommand}"
-                        CommandParameter="{Binding SelectedComposition}"
+
                         Template="{StaticResource SubMenuItemBase}" />
                     <MenuItem
                         Header="Duplicate"
 
-                        CommandParameter="{Binding SelectedComposition}"
                         Template="{StaticResource SubMenuItemBase}" />
                     <Separator BorderThickness="0.5" Margin="0, 8, 8, 8" BorderBrush="{StaticResource DarkColor}"/>
                     <MenuItem
                         Header="Import"
-                        Command="{Binding ImportCompoCommand}"
+
                         Template="{StaticResource SubMenuItemBase}" />
                     <MenuItem
                         Header="Export"
-                        Command="{Binding ExportCompoCommand}"
+
                         Template="{StaticResource SubMenuItemBase}" />
                 </MenuItem>
             </Menu>

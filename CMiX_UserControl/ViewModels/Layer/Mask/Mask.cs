@@ -26,8 +26,9 @@ namespace CMiX.Studio.ViewModels
             Name = "Mask";
             Components = new ObservableCollection<IComponent>();
             BeatModifier = new BeatModifier(MessageAddress, beat, messageService, mementor);
-            //Geometry = new Geometry(MessageAddress, messageService, mementor, beat);
-            //Texture = new Texture(MessageAddress, messageService, assets, mementor);
+
+            Geometry = new Geometry(MessageAddress, messageService, mementor, assets, beat);
+            Texture = new Texture(MessageAddress, messageService, assets, mementor);
             PostFX = new PostFX(MessageAddress, messageService, mementor);
 
             CopyMaskCommand = new RelayCommand(p => CopyMask());
@@ -53,6 +54,7 @@ namespace CMiX.Studio.ViewModels
         public Beat Beat { get; set; }
         public MessageService MessageService { get; set; }
         public bool IsRenaming { get; set; }
+
         public int ID { get; set; }
         public string Name { get; set; }
 
@@ -106,8 +108,6 @@ namespace CMiX.Studio.ViewModels
 
         public ICommand RenameCommand { get; }
 
-
-
         public ObservableCollection<IComponent> Components { get; set; }
         #endregion
 
@@ -115,16 +115,21 @@ namespace CMiX.Studio.ViewModels
         public MaskModel GetModel()
         {
             MaskModel maskModel = new MaskModel();
+
             maskModel.Enable = Enabled;
             maskModel.MaskType = MaskType;
             maskModel.MaskControlType = MaskControlType;
+
             maskModel.BeatModifierModel = BeatModifier.GetModel();
-            //maskModel.TextureModel = Texture.GetModel();
-            //maskModel.GeometryModel = Geometry.GetModel();
-            //maskModel.PostFXModel = PostFX.GetModel();
+            maskModel.TextureModel = Texture.GetModel();
+            maskModel.GeometryModel = Geometry.GetModel();
+            maskModel.PostFXModel = PostFX.GetModel();
+
+            foreach (IGetSet<EntityModel> item in Components)
+                maskModel.ComponentModels.Add(item.GetModel());
+
             return maskModel;
         }
-
 
         public void SetViewModel(MaskModel maskModel)
         {
@@ -133,6 +138,7 @@ namespace CMiX.Studio.ViewModels
             Enabled = maskModel.Enable;
             MaskType = maskModel.MaskType;
             MaskControlType = maskModel.MaskControlType;
+
             BeatModifier.SetViewModel(maskModel.BeatModifierModel);
             Texture.SetViewModel(maskModel.TextureModel);
             Geometry.Paste(maskModel.GeometryModel);
@@ -185,12 +191,13 @@ namespace CMiX.Studio.ViewModels
 
         public void AddComponent(IComponent component)
         {
-            throw new NotImplementedException();
+            Components.Add(component);
+            IsExpanded = true;
         }
 
         public void RemoveComponent(IComponent component)
         {
-            throw new NotImplementedException();
+            Components.Remove(component);
         }
         #endregion
     }

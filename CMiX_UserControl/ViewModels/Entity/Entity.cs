@@ -120,12 +120,14 @@ namespace CMiX.Studio.ViewModels
         public EntityModel GetModel()
         {
             EntityModel entityModel = new EntityModel();
+
             entityModel.Enabled = Enabled;
             entityModel.Name = Name;
             entityModel.BeatModifierModel = BeatModifier.GetModel();
             entityModel.TextureModel = Texture.GetModel();
             entityModel.GeometryModel = Geometry.GetModel();
             entityModel.ColorationModel = Coloration.GetModel();
+
             return entityModel;
         }
 

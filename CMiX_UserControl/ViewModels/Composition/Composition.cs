@@ -11,11 +11,6 @@ namespace CMiX.Studio.ViewModels
     public class Composition : ViewModel, ISendable, IUndoable, IComponent, IGetSet<CompositionModel>
     {
         #region CONSTRUCTORS
-        public Composition()
-        {
-
-        }
-
         public Composition(int id, string messageAddress, Beat masterBeat, MessageService messageService, Assets assets, Mementor mementor)
         {
             ID = id;
@@ -125,9 +120,18 @@ namespace CMiX.Studio.ViewModels
         {
             CompositionModel compositionModel = new CompositionModel();
             compositionModel.Name = Name;
+            compositionModel.IsVisible = IsVisible;
+            compositionModel.ID = ID;
+
             compositionModel.CameraModel = Camera.GetModel();
             compositionModel.MasterBeatModel = Beat.GetModel();
             compositionModel.TransitionModel = Transition.GetModel();
+
+            foreach (IGetSet<LayerModel> item in Components)
+            {
+                compositionModel.ComponentModels.Add(item.GetModel());
+            }
+
             return compositionModel;
         }
 
@@ -135,13 +139,21 @@ namespace CMiX.Studio.ViewModels
         {
             //MessageService.Disable();
 
-            //var compositionModel = model as CompositionModel;
             Name = model.Name;
-            System.Console.WriteLine("NAME " + Name);
-            //Beat.SetViewModel(compositionModel.MasterBeatModel);
-            //Camera.SetViewModel(compositionModel.CameraModel);
-            //Transition.SetViewModel(compositionModel.TransitionModel);
+            IsVisible = model.IsVisible;
+            ID = model.ID;
 
+            Beat.SetViewModel(model.MasterBeatModel);
+            Camera.SetViewModel(model.CameraModel);
+            Transition.SetViewModel(model.TransitionModel);
+
+            Components.Clear();
+            foreach (LayerModel componentModel in model.ComponentModels)
+            {
+                Layer layer = new Layer(0, this.Beat, this.MessageAddress, this.MessageService, this.Assets, this.Mementor);
+                layer.SetViewModel(componentModel);
+                this.AddComponent(layer);
+            }
             //MessageService.Enable();
         }
         #endregion

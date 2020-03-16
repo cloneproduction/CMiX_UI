@@ -9,7 +9,7 @@ namespace CMiX.MVVM.Models
     {
         public SceneModel()
         {
-            EntityModels = new List<EntityModel>();
+            ComponentModels = new ObservableCollection<IComponentModel>();
             SelectedEntityModel = new EntityModel();
             BeatModifierModel = new BeatModifierModel();
             TextureModel = new TextureModel();
@@ -18,11 +18,11 @@ namespace CMiX.MVVM.Models
         }
 
         public bool Enabled { get; set; }
+        public bool IsVisible { get; set; }
 
-        public List<EntityModel> EntityModels { get; set; }
         public EntityModel SelectedEntityModel { get; set; }
 
-        public EntityEditorModel EntityEditorModel { get; set; }
+
         public BeatModifierModel BeatModifierModel { get; set; }
         public TextureModel TextureModel { get; set; }
         public GeometryModel GeometryModel { get; set; }
