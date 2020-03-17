@@ -70,7 +70,6 @@
     <Compile Include="ViewModels\ColorPicker.cs" />
     <Compile Include="ViewModels\ColorSelector.cs" />
     <Compile Include="ViewModels\Composition.cs" />
-    <Compile Include="ViewModels\Content.cs" />
     <Compile Include="ViewModels\FileSelector.cs" />
     <Compile Include="ViewModels\Geometry.cs" />
     <Compile Include="ViewModels\Layer.cs" />

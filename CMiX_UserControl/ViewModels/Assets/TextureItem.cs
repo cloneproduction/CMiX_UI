@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-using CMiX.MVVM.ViewModels;
-using System.Linq.Dynamic;
-using CMiX.MVVM.Resources;
+﻿using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class TextureItem : ViewModel, IAssets, IGetSet<TextureAssetModel>
+    public class TextureItem : ViewModel, IAssets
     {
+
+        #region CONSTRUCTORS
         public TextureItem()
         {
 
@@ -19,6 +16,7 @@ namespace CMiX.Studio.ViewModels
             Name = name;
             Path = path;
         }
+        #endregion
 
         private string _ponderation = "aa";
         public string Ponderation
@@ -48,7 +46,7 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _isSelected, value);
         }
 
-        public TextureAssetModel GetModel()
+        public IAssetModel GetModel()
         {
             TextureAssetModel textureAssetModel = new TextureAssetModel();
 
@@ -58,7 +56,7 @@ namespace CMiX.Studio.ViewModels
             return textureAssetModel;
         }
 
-        public void SetViewModel(TextureAssetModel model)
+        public void SetViewModel(IAssetModel model)
         {
             Name = model.Name;
             Path = model.Path;

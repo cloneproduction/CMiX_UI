@@ -44,6 +44,10 @@
                         Command="{Binding QuitCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                         Template="{StaticResource SubMenuItemBase}" />
+                    <MenuItem
+                        Header="ShowDialog"
+                        Command="{Binding ShowDialogCommand}"
+                        Template="{StaticResource SubMenuItemBase}" />
                 </MenuItem>
                 <MenuItem
                     Padding="8,0"

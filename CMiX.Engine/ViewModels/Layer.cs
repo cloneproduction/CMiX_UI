@@ -15,7 +15,6 @@ namespace CMiX.Engine.ViewModels
 
             Fade = new Slider(receiver, MessageAddress + nameof(Fade));
             BlendMode = new BlendMode(receiver, MessageAddress);
-            Content = new Content(receiver, MessageAddress);
         }
 
         public string MessageAddress { get; set; }
@@ -23,7 +22,7 @@ namespace CMiX.Engine.ViewModels
 
         public Slider Fade { get; set; }
         public BlendMode BlendMode { get; set; }
-        public Content Content { get; set; }
+
         public string Name { get; set; }
         public int ID { get; set; }
 
@@ -37,7 +36,6 @@ namespace CMiX.Engine.ViewModels
             this.ID = layerModel.ID;
             this.Name = layerModel.Name;
 
-            this.Content.PasteModel(layerModel.ContentModel);
             this.BlendMode.PasteModel(layerModel.BlendMode);
             this.Fade.PasteModel(layerModel.Fade);
         }

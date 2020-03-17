@@ -101,6 +101,7 @@ namespace CMiX.Studio.ViewModels
             projectModel.MessageAddress = MessageAddress;
             projectModel.Name = Name;
             projectModel.IsVisible = IsVisible;
+            projectModel.AssetsModel = Assets.GetModel();
 
             foreach (IGetSet<CompositionModel> item in Components)
             {
@@ -116,6 +117,7 @@ namespace CMiX.Studio.ViewModels
             Name = projectModel.Name;
             IsVisible = projectModel.IsVisible;
             MessageAddress = projectModel.MessageAddress;
+            Assets.SetViewModel(projectModel.AssetsModel);
 
             Components.Clear();
             foreach (CompositionModel componentModel in projectModel.ComponentModels)

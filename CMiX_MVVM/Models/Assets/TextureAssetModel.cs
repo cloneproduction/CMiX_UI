@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 
 namespace CMiX.MVVM.Models
 {
@@ -17,5 +13,6 @@ namespace CMiX.MVVM.Models
         public string Name { get; set; }
         public bool IsSelected { get; set; }
         public string Ponderation { get; set; }
+        public ObservableCollection<IAssetModel> AssetModels { get; set; }
     }
 }

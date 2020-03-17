@@ -3,12 +3,13 @@ using CMiX.MVVM.ViewModels;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class GeometryItem : ViewModel, IAssets, IGetSet<GeometryAssetModel>
+    public class GeometryItem : ViewModel, IAssets
     {
         public GeometryItem()
         {
 
         }
+
         public GeometryItem(string name, string path)
         {
             Name = name;
@@ -43,7 +44,7 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _isSelected, value);
         }
 
-        public GeometryAssetModel GetModel()
+        public IAssetModel GetModel()
         {
             GeometryAssetModel geometryAssetModel = new GeometryAssetModel();
             geometryAssetModel.Name = Name;
@@ -51,7 +52,7 @@ namespace CMiX.Studio.ViewModels
             return geometryAssetModel;
         }
 
-        public void SetViewModel(GeometryAssetModel model)
+        public void SetViewModel(IAssetModel model)
         {
             Name = model.Name;
             Path = model.Path;

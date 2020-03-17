@@ -11,7 +11,7 @@ namespace CMiX.MVVM.Models
     {
         public DirectoryAssetModel()
         {
-
+            AssetModels = new ObservableCollection<IAssetModel>();
         }
 
         public ObservableCollection<IAssetModel> AssetModels { get; set; }

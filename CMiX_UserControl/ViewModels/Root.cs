@@ -8,6 +8,7 @@ using System.Windows.Input;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels;
 using CMiX.ViewModels;
+using MvvmDialogs;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -26,13 +27,42 @@ namespace CMiX.Studio.ViewModels
             ComponentManager.ComponentDeleted += ComponentEditor.ComponentManager_ComponentDeleted;
 
             Outliner = new Outliner(Projects);
-            
+
+            this.dialogService = new DialogService(null, new DialogTypeLocator());
+
+            ShowDialogCommand = new RelayCommand(p => ShowDialog());
+
             NewProjectCommand = new RelayCommand(p => NewProject());
             OpenProjectCommand = new RelayCommand(p => OpenProject());
             SaveProjectCommand = new RelayCommand(p => SaveProject());
             SaveAsProjectCommand = new RelayCommand(p => SaveAsProject());
             QuitCommand = new RelayCommand(p => Quit(p));
         }
+
+        public ICommand ShowDialogCommand { get; }
+
+        private readonly IDialogService dialogService;
+
+        public Root(IDialogService dialogService)
+        {
+            this.dialogService = dialogService;
+        }
+
+
+        private void ShowDialog()
+        {
+            var dialogViewModel = new AddTextDialog();
+
+            bool? success = dialogService.ShowDialog(this, dialogViewModel);
+            if (success == true)
+            {
+                //Texts.Add(dialogViewModel.Text);
+            }
+            System.Console.WriteLine("SHOWDIALOG");
+        }
+
+
+
 
         public ICommand NewProjectCommand { get; }
         public ICommand SaveProjectCommand { get; }

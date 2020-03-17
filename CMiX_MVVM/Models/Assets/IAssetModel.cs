@@ -1,4 +1,6 @@
-﻿namespace CMiX.MVVM.Models
+﻿using System.Collections.ObjectModel;
+
+namespace CMiX.MVVM.Models
 {
     public interface IAssetModel
     {
@@ -6,5 +8,6 @@
         string Name { get; set; }
         bool IsSelected { get; set; }
         string Ponderation { get; set; }
+        ObservableCollection<IAssetModel> AssetModels { get; set; }
     }
 }

@@ -6,11 +6,16 @@ using CMiX.MVVM.Models;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class DirectoryItem : ViewModel, IDirectory, IGetSet<DirectoryAssetModel>
+    public class DirectoryItem : ViewModel, IDirectory
     {
+
+        #region CONSTRUCTORS
         public DirectoryItem()
         {
-
+            Assets = new SortableObservableCollection<IAssets>();
+            Assets.CollectionChanged += CollectionChanged;
+            IsExpanded = false;
+            IsSelected = false;
         }
         public DirectoryItem(string name)
         {
@@ -20,6 +25,7 @@ namespace CMiX.Studio.ViewModels
             IsExpanded = false;
             IsSelected = false;
         }
+        #endregion
 
         public SortableObservableCollection<IAssets> Assets { get; set; }
 
@@ -108,48 +114,36 @@ namespace CMiX.Studio.ViewModels
                 SortAssets();
         }
 
-        public DirectoryAssetModel GetModel()
+        public IAssetModel GetModel()
         {
             DirectoryAssetModel directoryAssetModel = new DirectoryAssetModel();
             directoryAssetModel.Name = Name;
             foreach (var asset in Assets)
             {
-                if(asset is DirectoryItem)
-                    directoryAssetModel.AssetModels.Add(((DirectoryItem)asset).GetModel());
-
-                if (asset is GeometryItem)
-                    directoryAssetModel.AssetModels.Add(((GeometryItem)asset).GetModel());
-
-                if (asset is TextureItem)
-                    directoryAssetModel.AssetModels.Add(((TextureItem)asset).GetModel());
+                directoryAssetModel.AssetModels.Add(asset.GetModel());
             }
             return directoryAssetModel;
         }
 
-        public void SetViewModel(DirectoryAssetModel model)
+        public void SetViewModel(IAssetModel model)
         {
             Name = model.Name;
+            Assets.Clear();
             foreach (var assetModel in model.AssetModels)
             {
+                IAssets asset = null;
+
                 if(assetModel is DirectoryAssetModel)
-                {
-                    DirectoryItem directoryItem = new DirectoryItem();
-                    directoryItem.SetViewModel((DirectoryAssetModel)assetModel);
-                    Assets.Add(directoryItem);
-                }
+                    asset = new DirectoryItem();
                 else if(assetModel is GeometryAssetModel)
-                {
-                    GeometryItem geometryAsset = new GeometryItem();
-                    geometryAsset.SetViewModel((GeometryAssetModel)assetModel);
-                    Assets.Add(geometryAsset);
-                }
+                    asset = new GeometryItem();
                 else if(assetModel is TextureAssetModel)
-                {
-                    TextureItem textureItem = new TextureItem();
-                    textureItem.SetViewModel((TextureAssetModel)assetModel);
-                    Assets.Add(textureItem);
-                }
+                    asset = new TextureItem();
+
+                asset.SetViewModel(assetModel);
+                Assets.Add(asset);
             }
+            SortAssets();
         }
     }
 }

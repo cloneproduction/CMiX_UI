@@ -359,31 +359,34 @@ namespace CMiX.Studio.ViewModels
             }
         }
 
-
-        #region COPY/PASTE
-        public void CopyModel(IComponentModel model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetViewModel(IComponentModel model)
-        {
-            throw new NotImplementedException();
-        }
-
         public AssetsModel GetModel()
         {
             AssetsModel assetsModel = new AssetsModel();
-
-
-            
+            foreach (var asset in ResourceItems)
+            {
+                assetsModel.AssetModels.Add(asset.GetModel());
+            }
             return assetsModel;
         }
 
         public void SetViewModel(AssetsModel model)
         {
-            
+            ResourceItems.Clear();
+            foreach (var assetModel in model.AssetModels)
+            {
+                IAssets asset = null;
+
+                if(assetModel is DirectoryAssetModel)
+                    asset = new DirectoryItem();
+                else if (assetModel is GeometryAssetModel)
+                    asset = new GeometryItem();
+                else if (assetModel is TextureAssetModel)
+                    asset = new TextureItem();
+
+                asset.SetViewModel(assetModel);
+                ResourceItems.Add(asset);
+            }
         }
-        #endregion
+
     }
 }
