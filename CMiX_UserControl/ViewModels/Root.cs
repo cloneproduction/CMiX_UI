@@ -9,6 +9,7 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels;
 using CMiX.ViewModels;
 using MvvmDialogs;
+using CMiX.Views;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -28,7 +29,9 @@ namespace CMiX.Studio.ViewModels
 
             Outliner = new Outliner(Projects);
 
-            this.dialogService = new DialogService(null, new DialogTypeLocator());
+            var frameworkDialogFactory = new CustomFrameworkDialogFactory();
+            dialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
+
 
             ShowDialogCommand = new RelayCommand(p => ShowDialog());
 
@@ -51,17 +54,17 @@ namespace CMiX.Studio.ViewModels
 
         private void ShowDialog()
         {
-            var dialogViewModel = new AddTextDialog();
+            System.Console.WriteLine("ShowDialog");
+            var dialogViewModel = new MessageText(dialogService);
+            //dialogService.ShowCustom<CustomMessageBox>(this, dialogViewModel);
+            dialogService.ShowMessageBox(this, "POUETPOUET");
 
-            bool? success = dialogService.ShowDialog(this, dialogViewModel);
-            if (success == true)
-            {
-                //Texts.Add(dialogViewModel.Text);
-            }
-            System.Console.WriteLine("SHOWDIALOG");
+            //bool? success = 
+            //if (success == true)
+            //{
+            //    //DoSomething();
+            //}
         }
-
-
 
 
         public ICommand NewProjectCommand { get; }

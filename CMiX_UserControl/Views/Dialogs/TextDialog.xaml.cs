@@ -2,9 +2,9 @@
 
 namespace CMiX.Views
 {
-    public partial class AddTextDialog : Window
+    public partial class TextDialog : Window
     {
-        public AddTextDialog()
+        public TextDialog()
         {
             InitializeComponent();
         }

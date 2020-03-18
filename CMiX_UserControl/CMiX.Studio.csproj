@@ -131,9 +131,10 @@
     <Compile Include="ViewModels\Assets\AssetSelector.cs" />
     <Compile Include="ViewModels\Component\ComponentEventArgs.cs" />
     <Compile Include="ViewModels\Component\Outliner.cs" />
-    <Compile Include="ViewModels\Dialogs\AddTextDialog.cs" />
-    <Compile Include="ViewModels\Dialogs\DialogTest.cs" />
-    <Compile Include="ViewModels\Dialogs\DialogTypeLocator.cs" />
+    <Compile Include="ViewModels\Dialogs\CustomFrameworkDialogFactory.cs" />
+    <Compile Include="ViewModels\Dialogs\CustomMessageBox.cs" />
+    <Compile Include="ViewModels\Dialogs\CustomTypeLocator.cs" />
+    <Compile Include="ViewModels\Dialogs\MessageText.cs" />
     <Compile Include="Views\Assets\GeometrySelector.xaml.cs">
       <DependentUpon>GeometrySelector.xaml</DependentUpon>
     </Compile>
@@ -162,8 +163,8 @@
     <Compile Include="Views\Component\ComponentPanel.xaml.cs">
       <DependentUpon>ComponentPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Dialogs\AddTextDialog.xaml.cs">
-      <DependentUpon>AddTextDialog.xaml</DependentUpon>
+    <Compile Include="Views\Dialogs\TextDialog.xaml.cs">
+      <DependentUpon>TextDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Mask\MaskPanel.xaml.cs">
       <DependentUpon>MaskPanel.xaml</DependentUpon>
@@ -366,7 +367,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Dialogs\AddTextDialog.xaml">
+    <Page Include="Views\Dialogs\TextDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
