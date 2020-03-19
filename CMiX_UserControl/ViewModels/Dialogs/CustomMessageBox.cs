@@ -1,4 +1,5 @@
-﻿using MvvmDialogs;
+﻿using CMiX.MVVM.ViewModels;
+using MvvmDialogs;
 using MvvmDialogs.FrameworkDialogs.MessageBox;
 using System;
 using System.Collections.Generic;
@@ -10,30 +11,18 @@ using System.Windows.Controls;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class CustomMessageBox : IWindow
+    public class CustomMessageBox : ViewModel
     {
         public CustomMessageBox()
         {
-
+            Text = "Custom POUET POUET";
         }
 
-        public object DataContext { get; set; }
-        public bool? DialogResult { get; set; }
-        public ContentControl Owner { get; set; }
-
-        public void Show()
+        private string _text;
+        public string Text
         {
-            throw new NotImplementedException();
+            get { return _text; }
+            set { _text = value; }
         }
-
-        public bool? ShowDialog()
-        {
-            throw new NotImplementedException();
-        }
-
-        //public MessageBoxResult Show(Window owner)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

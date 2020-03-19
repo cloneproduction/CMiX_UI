@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CMiX.Views
+namespace CMiX.Studio.Views
 {
     /// <summary>
     /// Interaction logic for ComponentEditor.xaml

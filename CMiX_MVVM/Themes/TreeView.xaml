@@ -193,6 +193,7 @@
                             <Setter TargetName="Bd" Property="Background" Value="{DynamicResource Color}"/>
                             <Setter TargetName="PART_Header" Property="TextBlock.Foreground" Value="{StaticResource ActiveTextBase}"/>
                         </Trigger>
+                        
                         <!--<MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsSelected" Value="true"/>
@@ -260,11 +261,7 @@
                                     <Setter Property="BorderThickness" Value="0, 0, 0, 1"/>
                                     <Setter Property="BorderBrush" Value="{StaticResource SuperHighDarkerColor}"/>
                                     <Setter Property="Background" Value="Transparent"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="{StaticResource DarkerColor}" />
-                                        </Trigger>
-                                    </Style.Triggers>
+
                                 </Style>
                             </Border.Style>
                             <Grid Margin="{Binding Converter={StaticResource lengthConverter}, RelativeSource={RelativeSource TemplatedParent}}">
@@ -321,15 +318,43 @@
                             <Setter TargetName="Bd" Property="Background" Value="{DynamicResource Color}"/>
                             <Setter TargetName="PART_Header" Property="TextBlock.Foreground" Value="{StaticResource ActiveTextBase}"/>
                         </Trigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <!--<Condition Property="Controls:MultiSelectTreeView.IsItemSelected" Value="false"/>-->
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsSelected}" Value="false"/>
+                                <Condition Binding="{Binding FileExist}" Value="false"/>
+                                <!--<Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True"/>-->
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter TargetName="Bd" Property="Background" Value="Maroon" />
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <!--<Condition Property="Controls:MultiSelectTreeView.IsItemSelected" Value="false"/>-->
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsSelected}" Value="true"/>
+                                <Condition Binding="{Binding FileExist}" Value="false"/>
+                                <!--<Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True"/>-->
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter TargetName="Bd" Property="Background" Value="Maroon" />
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
                         
-                        <MultiTrigger>
+                        <DataTrigger Binding="{Binding FileExist}" Value="false">
+                            <Setter Property="Background" Value="Maroon" />
+                        </DataTrigger>
+
+                        <!--<MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="Controls:MultiSelectTreeView.IsItemSelected" Value="true"/>
                                 <Condition Property="IsSelectionActive" Value="false"/>
                             </MultiTrigger.Conditions>
                             <Setter TargetName="Bd" Property="Background" Value="{DynamicResource Color}"/>
                             <Setter TargetName="PART_Header" Property="TextBlock.Foreground" Value="{StaticResource ActiveTextBase}"/>
-                        </MultiTrigger>
+                        </MultiTrigger>-->
 
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>

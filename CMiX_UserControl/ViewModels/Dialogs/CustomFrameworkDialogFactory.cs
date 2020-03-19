@@ -1,4 +1,6 @@
 ﻿using CMiX.Studio.ViewModels;
+using CMiX.ViewModels;
+using CMiX.Views;
 using MvvmDialogs;
 using MvvmDialogs.DialogFactories;
 using MvvmDialogs.FrameworkDialogs;
@@ -15,13 +17,12 @@ namespace CMiX.Studio.ViewModels
     {
         public IWindow Create(Type dialogType)
         {
-            Console.WriteLine("Create IWindow");
-            return new CustomMessageBox();
+            return new CustomDialog();
         }
 
         //public override IMessageBox CreateMessageBox(MessageBoxSettings settings)
         //{
-        //    return new CustomMessageBox(settings);
+        //    return new CustomMessageBox();
         //}
     }
 }

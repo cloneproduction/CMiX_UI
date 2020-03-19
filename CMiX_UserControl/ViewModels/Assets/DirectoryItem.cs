@@ -70,6 +70,7 @@ namespace CMiX.Studio.ViewModels
             get => _isSelected;
             set => SetAndNotify(ref _isSelected, value);
         }
+        public string Path { get; set; }
 
         public void AddAsset(IAssets asset)
         {

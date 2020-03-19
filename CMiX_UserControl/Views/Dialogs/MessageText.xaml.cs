@@ -2,9 +2,9 @@
 
 namespace CMiX.Studio.Views
 {
-    public partial class LayerPanel : UserControl
+    public partial class MessageText : UserControl
     {
-        public LayerPanel()
+        public MessageText()
         {
             InitializeComponent();
         }

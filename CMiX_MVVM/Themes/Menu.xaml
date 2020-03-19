@@ -24,6 +24,7 @@
                         SnapsToDevicePixels="True">
                         <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                     </Border>
+                    
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -57,14 +58,13 @@
                             <ContentPresenter
                                 x:Name="Icon"
                                 Width="16"
-                                Height="25"
+                                Height="30"
                                 Margin="3"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Content="{TemplateBinding Icon}"
                                 ContentSource="Icon"
-                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
-                                />
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                             <Path
                                 x:Name="GlyphPanel"
                                 Margin="3"
@@ -72,8 +72,7 @@
                                 Data="F1M10,1.2L4.7,9.1 4.5,9.1 0,5.2 1.3,3.5 4.3,6.1 8.3,0 10,1.2z"
                                 Fill="{TemplateBinding Foreground}"
                                 FlowDirection="LeftToRight"
-                                Visibility="Collapsed" 
-                                />
+                                Visibility="Collapsed" />
                             <ContentPresenter
                                 Grid.Column="1"
                                 Margin="{TemplateBinding Padding}"
@@ -82,8 +81,7 @@
                                 ContentStringFormat="{TemplateBinding HeaderStringFormat}"
                                 ContentTemplate="{TemplateBinding HeaderTemplate}"
                                 RecognizesAccessKey="True"
-                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
-                                />
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                             <Popup
                                 x:Name="PART_Popup"
                                 AllowsTransparency="True"
@@ -97,7 +95,11 @@
                                     x:Name="SubMenuBorder"
                                     CornerRadius="0, 0, 4, 4"
                                     Padding="0, 4"
+                                    Margin="4, 0, 4, 4"
                                     Background="{StaticResource DarkerColor}">
+                                    <Border.Effect>
+                                        <DropShadowEffect BlurRadius="15" Direction="-90" Opacity="0.5" RenderingBias="Performance" ShadowDepth="2"/>
+                                    </Border.Effect>
                                     <ScrollViewer 
                                         x:Name="SubMenuScrollViewer" 
                                         Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}}">
@@ -183,7 +185,7 @@
 
                     x:Name="Icon"
                     Width="16"
-                    Height="16"
+                    Height="30"
                     Margin="3"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
@@ -194,7 +196,7 @@
                 <Border
                     x:Name="GlyphPanel"
                     Width="22"
-                    Height="22"
+                    Height="30"
                     Margin="-1,0,0,0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"

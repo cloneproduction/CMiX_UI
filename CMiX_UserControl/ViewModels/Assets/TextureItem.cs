@@ -1,5 +1,6 @@
 ﻿using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
+using System.IO;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -29,14 +30,25 @@ namespace CMiX.Studio.ViewModels
         public string Path
         {
             get => _path;
-            set => SetAndNotify(ref _path, value);
+            set
+            {
+                SetAndNotify(ref _path, value);
+                Notify(nameof(FileExist));
+            }
         }
 
         private string _name;
         public string Name
         {
-            get => _name;
+            get => System.IO.Path.GetFileName(Path);
             set => SetAndNotify(ref _name, value);
+        }
+
+        private bool _fileExist;
+        public bool FileExist
+        {
+            get => File.Exists(Path);
+            set => SetAndNotify(ref _fileExist, value);
         }
 
         private bool _isSelected;

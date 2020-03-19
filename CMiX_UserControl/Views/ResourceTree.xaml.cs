@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace CMiX.Views
+namespace CMiX.Studio.Views
 {
     public partial class TreeView : UserControl
     {

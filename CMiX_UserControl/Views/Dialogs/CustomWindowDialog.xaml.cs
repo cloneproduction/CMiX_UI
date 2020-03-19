@@ -10,17 +10,13 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CMiX.Studio.Views
+namespace CMiX.Views
 {
-    /// <summary>
-    /// Interaction logic for ServerManager.xaml
-    /// </summary>
-    public partial class ServerManager : UserControl
+    public partial class CustomWindowDialog : Window
     {
-        public ServerManager()
+        public CustomWindowDialog()
         {
             InitializeComponent();
         }

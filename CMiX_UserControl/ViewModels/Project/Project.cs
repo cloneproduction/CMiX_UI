@@ -6,16 +6,18 @@ using Ceras;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using MvvmDialogs;
 
 namespace CMiX.Studio.ViewModels
 {
     public class Project : ViewModel, IProject
     {
-        public Project()
+        public Project(IDialogService dialogService)
         {
+            DialogService = dialogService;
             MessageAddress = $"{nameof(Project)}/";
             Name = MessageAddress;
-            Assets = new Assets();
+            Assets = new Assets(dialogService);
             Mementor = new Mementor();
             MessageService = new MessageService();
             Beat = new MasterBeat(MessageService);
@@ -30,6 +32,8 @@ namespace CMiX.Studio.ViewModels
             RenameCommand = new RelayCommand(p => Rename());
             RemoveComponentCommand = new RelayCommand(p => RemoveComponent(p as IComponent));
         }
+
+        private readonly IDialogService DialogService;
 
         #region PROPERTIES
         public ICommand RemoveComponentCommand { get; }

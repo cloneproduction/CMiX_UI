@@ -1,8 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.IO;
 using System.Linq;
 using System.Linq.Dynamic;
 using System.Windows;
@@ -13,13 +13,16 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.ViewModels;
 using GongSolutions.Wpf.DragDrop;
+using MvvmDialogs;
+using MvvmDialogs.FrameworkDialogs.OpenFile;
 
 namespace CMiX.Studio.ViewModels
 {
     public class Assets : ViewModel, IDropTarget, IDragSource, IGetSet<AssetsModel>
     {
-        public Assets()
+        public Assets(IDialogService dialogService)
         {
+            DialogService = dialogService;
             AssetsViewSource = new CollectionViewSource();
 
             ResourceItems = new ObservableCollection<IAssets>();
@@ -37,12 +40,15 @@ namespace CMiX.Studio.ViewModels
             AddAssetCommand = new RelayCommand(p => AddAsset());
             DeleteAssetsCommand = new RelayCommand(p => DeleteAssets());
             RenameAssetCommand = new RelayCommand(p => RenameAsset());
+            RelinkAssetsCommand = new RelayCommand(p => RelinkAssets());
         }
 
         private void AvailableResources_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             AssetsViewSource.DeferRefresh();
         }
+
+        public IDialogService DialogService { get; set; }
 
         #region METHODS
         public CollectionViewSource AssetsViewSource { get; set; }
@@ -75,10 +81,38 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _canDeleteAsset, value);
         }
 
+        private bool _canRelinkAsset = false;
+        public bool CanRelinkAsset
+        {
+            get => _canRelinkAsset;
+            set => SetAndNotify(ref _canRelinkAsset, value);
+        }
+
         public void RenameAsset()
         {
-            if(SelectedItems[0] is IDirectory)
+            if (SelectedItems[0] is IDirectory)
                 ((IDirectory)SelectedItems[0]).Rename();
+        }
+
+        public void RelinkAssets()
+        {
+            if(SelectedItems.Count > 0)
+            {
+                IAssets asset = SelectedItems[0];
+                OpenFileDialogSettings settings = new OpenFileDialogSettings();
+
+                if (asset is TextureItem)
+                    settings.Filter = "Image |*.jpg;*.jpeg;*.png;*.dds";
+                else if (asset is GeometryItem)
+                    settings.Filter = "Geometry |*.fbx; *.obj";
+
+                bool? success = DialogService.ShowOpenFileDialog(this, settings);
+                if (success == true)
+                {
+                    asset.Path = settings.FileName;
+                    asset.Name = Path.GetFileName(settings.FileName);
+                }
+            }
         }
 
         private void DeleteAssets()
@@ -145,6 +179,7 @@ namespace CMiX.Studio.ViewModels
         public ICommand AddAssetCommand { get; set; }
         public ICommand DeleteAssetsCommand { get; set; }
         public ICommand DeleteSelectedItemCommand { get; set; }
+        public ICommand RelinkAssetsCommand { get; set; }
 
         private ObservableCollection<IAssets> _resourceItems;
         public ObservableCollection<IAssets> ResourceItems
@@ -350,12 +385,14 @@ namespace CMiX.Studio.ViewModels
             CanRenameAsset = (SelectedItems.Count == 1 && SelectedItems.OfType<DirectoryItem>().Any() && !SelectedItems.OfType<DirectoryItem>().Any(c => c.IsRoot == true));
             CanAddAsset = (SelectedItems.Count == 1 && SelectedItems.OfType<DirectoryItem>().Any());
             CanDeleteAsset = !SelectedItems.OfType<DirectoryItem>().Any(c => c.IsRoot == true);
+            CanRelinkAsset = (SelectedItems.Count == 1 && !SelectedItems.OfType<DirectoryItem>().Any() && !SelectedItems.OfType<DirectoryItem>().Any(c => c.IsRoot == true));
 
             if (SelectedItems.Count == 0)
             {
                 CanAddAsset = false;
                 CanRenameAsset = false;
                 CanDeleteAsset = false;
+                CanRelinkAsset = false;
             }
         }
 
@@ -387,6 +424,5 @@ namespace CMiX.Studio.ViewModels
                 ResourceItems.Add(asset);
             }
         }
-
     }
 }

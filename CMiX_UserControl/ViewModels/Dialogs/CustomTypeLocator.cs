@@ -1,4 +1,6 @@
-﻿using MvvmDialogs.DialogTypeLocators;
+﻿using CMiX.Studio.Views;
+using CMiX.Views;
+using MvvmDialogs.DialogTypeLocators;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,15 +14,10 @@ namespace CMiX.Studio.ViewModels
     {
         public Type Locate(INotifyPropertyChanged viewModel)
         {
-            Type viewModelType = viewModel.GetType();
-            string viewModelTypeName = viewModelType.FullName;
-            Console.WriteLine("viewModelTypeName " + viewModelTypeName);
-            // Get dialog type name by removing the 'VM' suffix
-            //string dialogTypeName = viewModelTypeName.Substring(0, viewModelTypeName.Length - "VM".Length);
-
-
-            return viewModelType.Assembly.GetType(viewModelTypeName);
-            //return viewModelType.Assembly.GetType(dialogTypeName);
+            if (viewModel is CustomMessageBox)
+                return typeof(CustomWindowDialog);
+            else
+                throw new Exception("Dialog type is not defined.");
         }
     }
 }

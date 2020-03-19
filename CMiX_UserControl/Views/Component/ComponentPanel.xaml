@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="CMiX.Views.ComponentPanel"
+﻿<UserControl x:Class="CMiX.Studio.Views.ComponentPanel"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:Views="clr-namespace:CMiX.Views"
+             xmlns:Views="clr-namespace:CMiX.Studio.Views"
              xmlns:ViewModels="clr-namespace:CMiX.Studio.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="429.545" d:DesignWidth="322.727">

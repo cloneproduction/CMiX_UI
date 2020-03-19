@@ -9,7 +9,10 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels;
 using CMiX.ViewModels;
 using MvvmDialogs;
-using CMiX.Views;
+using CMiX.Studio.Views;
+using MvvmDialogs.FrameworkDialogs.MessageBox;
+using MvvmDialogs.FrameworkDialogs;
+using MvvmDialogs.FrameworkDialogs.OpenFile;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -17,10 +20,14 @@ namespace CMiX.Studio.ViewModels
     {
         public Root()
         {
+            var frameworkDialogFactory = new CustomFrameworkDialogFactory();
+            var customTypeLocator = new CustomTypeLocator();
+            dialogService = new DialogService(frameworkDialogFactory, customTypeLocator);
+
             Mementor = new Mementor();
             Serializer = new CerasSerializer();
 
-            CurrentProject = new Project();
+            CurrentProject = new Project(dialogService);
             Projects = new ObservableCollection<IComponent> { CurrentProject };
             ComponentManager = new ComponentManager(Projects);
 
@@ -28,10 +35,6 @@ namespace CMiX.Studio.ViewModels
             ComponentManager.ComponentDeleted += ComponentEditor.ComponentManager_ComponentDeleted;
 
             Outliner = new Outliner(Projects);
-
-            var frameworkDialogFactory = new CustomFrameworkDialogFactory();
-            dialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
-
 
             ShowDialogCommand = new RelayCommand(p => ShowDialog());
 
@@ -46,24 +49,21 @@ namespace CMiX.Studio.ViewModels
 
         private readonly IDialogService dialogService;
 
-        public Root(IDialogService dialogService)
-        {
-            this.dialogService = dialogService;
-        }
+        //public Root(IDialogService dialogService)
+        //{
+        //    this.dialogService = dialogService;
+        //}
 
 
         private void ShowDialog()
         {
             System.Console.WriteLine("ShowDialog");
-            var dialogViewModel = new MessageText(dialogService);
-            //dialogService.ShowCustom<CustomMessageBox>(this, dialogViewModel);
-            dialogService.ShowMessageBox(this, "POUETPOUET");
 
-            //bool? success = 
-            //if (success == true)
-            //{
-            //    //DoSomething();
-            //}
+            //dialogService.Show(this, new CustomMessageBox());
+
+            OpenFileDialogSettings fileDialogSettings = new OpenFileDialogSettings();
+         
+            dialogService.ShowOpenFileDialog(this, fileDialogSettings);
         }
 
 
@@ -101,7 +101,7 @@ namespace CMiX.Studio.ViewModels
         #region MENU METHODS
         private void NewProject()
         {
-            CurrentProject = new Project();
+            CurrentProject = new Project(this.dialogService);
         }
 
         private void OpenProject()

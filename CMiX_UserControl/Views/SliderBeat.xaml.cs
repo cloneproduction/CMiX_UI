@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
-namespace CMiX.Views
+namespace CMiX.Studio.Views
 {
     public partial class SliderBeat : UserControl
     {

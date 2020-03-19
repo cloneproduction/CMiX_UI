@@ -131,10 +131,11 @@
     <Compile Include="ViewModels\Assets\AssetSelector.cs" />
     <Compile Include="ViewModels\Component\ComponentEventArgs.cs" />
     <Compile Include="ViewModels\Component\Outliner.cs" />
+    <Compile Include="ViewModels\Dialogs\CustomDialog.cs" />
     <Compile Include="ViewModels\Dialogs\CustomFrameworkDialogFactory.cs" />
     <Compile Include="ViewModels\Dialogs\CustomMessageBox.cs" />
     <Compile Include="ViewModels\Dialogs\CustomTypeLocator.cs" />
-    <Compile Include="ViewModels\Dialogs\MessageText.cs" />
+    <Compile Include="ViewModels\Dialogs\MessageTextViewModel.cs" />
     <Compile Include="Views\Assets\GeometrySelector.xaml.cs">
       <DependentUpon>GeometrySelector.xaml</DependentUpon>
     </Compile>
@@ -163,8 +164,11 @@
     <Compile Include="Views\Component\ComponentPanel.xaml.cs">
       <DependentUpon>ComponentPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Dialogs\TextDialog.xaml.cs">
-      <DependentUpon>TextDialog.xaml</DependentUpon>
+    <Compile Include="Views\Dialogs\CustomWindowDialog.xaml.cs">
+      <DependentUpon>CustomWindowDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\MessageText.xaml.cs">
+      <DependentUpon>MessageText.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Mask\MaskPanel.xaml.cs">
       <DependentUpon>MaskPanel.xaml</DependentUpon>
@@ -367,7 +371,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Dialogs\TextDialog.xaml">
+    <Page Include="Views\Dialogs\CustomWindowDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\MessageText.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
