@@ -35,4 +35,6 @@
     <BitmapImage x:Key="IsChecked" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/IsChecked.png"/>
     <BitmapImage x:Key="Composition" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Composition.png"/>
     <BitmapImage x:Key="Scene" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Scene.png"/>
+    <BitmapImage x:Key="Maximize" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Maximize.png"/>
+    <BitmapImage x:Key="Minimize" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Minimize.png"/>
 </ResourceDictionary>

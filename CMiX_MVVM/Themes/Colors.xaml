@@ -18,8 +18,8 @@
     <Color x:Key="Over">#FF4D4D4D</Color>
     <Color x:Key="Active">#FF7D00FF</Color>
 
-    <Color x:Key="Text">#FFB4B4B4</Color>
-    <Color x:Key="OverText">Gainsboro</Color>
+    <Color x:Key="Text">#FFDEDEDE</Color>
+    <Color x:Key="OverText">#FFFFFFFF</Color>
     <Color x:Key="ActiveText">#FFE6E6E6</Color>
-    
+
 </ResourceDictionary>

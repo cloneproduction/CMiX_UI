@@ -13,6 +13,7 @@ using CMiX.Studio.Views;
 using MvvmDialogs.FrameworkDialogs.MessageBox;
 using MvvmDialogs.FrameworkDialogs;
 using MvvmDialogs.FrameworkDialogs.OpenFile;
+using MvvmDialogs.FrameworkDialogs.SaveFile;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -22,12 +23,12 @@ namespace CMiX.Studio.ViewModels
         {
             var frameworkDialogFactory = new CustomFrameworkDialogFactory();
             var customTypeLocator = new CustomTypeLocator();
-            dialogService = new DialogService(frameworkDialogFactory, customTypeLocator);
+            DialogService = new DialogService(frameworkDialogFactory, customTypeLocator);
 
             Mementor = new Mementor();
             Serializer = new CerasSerializer();
 
-            CurrentProject = new Project(dialogService);
+            CurrentProject = new Project(DialogService);
             Projects = new ObservableCollection<IComponent> { CurrentProject };
             ComponentManager = new ComponentManager(Projects);
 
@@ -47,7 +48,7 @@ namespace CMiX.Studio.ViewModels
 
         public ICommand ShowDialogCommand { get; }
 
-        private readonly IDialogService dialogService;
+        private readonly IDialogService DialogService;
 
         //public Root(IDialogService dialogService)
         //{
@@ -63,7 +64,7 @@ namespace CMiX.Studio.ViewModels
 
             OpenFileDialogSettings fileDialogSettings = new OpenFileDialogSettings();
          
-            dialogService.ShowOpenFileDialog(this, fileDialogSettings);
+            DialogService.ShowOpenFileDialog(this, fileDialogSettings);
         }
 
 
@@ -101,22 +102,22 @@ namespace CMiX.Studio.ViewModels
         #region MENU METHODS
         private void NewProject()
         {
-            CurrentProject = new Project(this.dialogService);
+            CurrentProject = new Project(this.DialogService);
         }
 
         private void OpenProject()
         {
-            System.Windows.Forms.OpenFileDialog opendialog = new System.Windows.Forms.OpenFileDialog();
-            opendialog.Filter = "Project (*.cmix)|*.cmix";
+            OpenFileDialogSettings settings = new OpenFileDialogSettings();
+            settings.Filter = "Project (*.cmix)|*.cmix";
 
-            if (opendialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            bool? success = DialogService.ShowOpenFileDialog(this, settings);
+            if (success == true)
             {
-                string folderPath = opendialog.FileName;
-                if (opendialog.FileName.Trim() != string.Empty) // Check if you really have a file name 
+                string folderPath = settings.FileName;
+                if (settings.FileName.Trim() != string.Empty) // Check if you really have a file name 
                 {
-                    CerasSerializer serializer = new CerasSerializer();
                     byte[] data = File.ReadAllBytes(folderPath);
-                    ProjectModel projectmodel = serializer.Deserialize<ProjectModel>(data);
+                    ProjectModel projectmodel = Serializer.Deserialize<ProjectModel>(data);
                     CurrentProject.SetViewModel(projectmodel);
                     FolderPath = folderPath;
                 }
@@ -140,15 +141,16 @@ namespace CMiX.Studio.ViewModels
 
         private void SaveAsProject()
         {
-            System.Windows.Forms.SaveFileDialog savedialog = new System.Windows.Forms.SaveFileDialog();
-            savedialog.Filter = "Project (*.cmix)|*.cmix";
-            savedialog.DefaultExt = "cmix";
-            savedialog.AddExtension = true;
+            SaveFileDialogSettings settings = new SaveFileDialogSettings();
+            settings.Filter = "Project (*.cmix)|*.cmix";
+            settings.DefaultExt = "cmix";
+            settings.AddExtension = true;
 
-            if (savedialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            bool? success = DialogService.ShowSaveFileDialog(this, settings);
+            if (success == true)
             {
                 IComponentModel projectModel = CurrentProject.GetModel();
-                string folderPath = savedialog.FileName;
+                string folderPath = settings.FileName;
                 var data = Serializer.Serialize(projectModel);
                 File.WriteAllBytes(folderPath, data);
                 FolderPath = folderPath;

@@ -8,7 +8,7 @@
     Title="C-MiX Studio"
     Width="1200"
     Height="800"
-    Style="{StaticResource WindowStyle}"
+    Style="{StaticResource MainWindowStyle}"
     mc:Ignorable="d">
 
     <Window.CommandBindings>

@@ -26,5 +26,6 @@
         <ResourceDictionary Source="TreeView.xaml"/>
         <ResourceDictionary Source="TextBlock.xaml"/>
         <ResourceDictionary Source="Window.xaml"/>
+        <ResourceDictionary Source="MainWindow.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

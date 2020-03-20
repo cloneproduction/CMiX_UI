@@ -111,6 +111,7 @@
     <Compile Include="Services\Message\IMessageReceiver.cs" />
     <Compile Include="Services\Message\ISendable.cs" />
     <Compile Include="Services\Server\ServerManager.cs" />
+    <Compile Include="Themes\MainWindow.xaml.cs" />
     <Compile Include="ViewModels\Interfaces\IGetSet.cs" />
     <Compile Include="ViewModels\Interfaces\IUndoable.cs" />
     <Compile Include="Services\Server\Server.cs" />
@@ -336,6 +337,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Counter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -449,7 +454,12 @@
   <ItemGroup>
     <Resource Include="Assets\Entity.png" />
     <Resource Include="Assets\Scene.png" />
+    <Resource Include="Assets\Maximize.png" />
+    <Resource Include="Assets\Minimize.png" />
     <Content Include="Themes\Fonts\LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Themes\Windows\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
