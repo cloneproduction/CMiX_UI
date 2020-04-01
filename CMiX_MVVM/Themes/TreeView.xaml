@@ -129,7 +129,12 @@
                             </i:Interaction.Triggers>
 
                             <DockPanel>
-                                <Border DockPanel.Dock="Left" Height="30" Width="30" BorderBrush="{StaticResource SuperHighDarkerColor}" BorderThickness="0, 0, 1, 0">
+                                <Border 
+                                    DockPanel.Dock="Left" 
+                                    Height="30" 
+                                    Width="30" 
+                                    BorderBrush="{StaticResource SuperHighDarkerColor}" 
+                                    BorderThickness="0, 0, 1, 0">
                                     <ToggleButton 
                                         IsChecked="{Binding IsVisible}"
                                         Style="{StaticResource ToggleVisibility}"
@@ -149,16 +154,16 @@
                                     </Grid.ColumnDefinitions>
                                     <Border x:Name="toggleBorder">
                                         <ToggleButton x:Name="Expander"
-                                        Style="{StaticResource ExpandCollapseToggleStyle}"
-                                        IsChecked="{Binding Path=IsExpanded,
-                                        RelativeSource={RelativeSource TemplatedParent}}"
-                                        ClickMode="Press"/>
+                                            Style="{StaticResource ExpandCollapseToggleStyle}"
+                                            IsChecked="{Binding Path=IsExpanded,
+                                            RelativeSource={RelativeSource TemplatedParent}}"
+                                            ClickMode="Press"/>
                                     </Border>
                                     <ContentPresenter x:Name="PART_Header"
-                                    Grid.Column="1"
-                                    ContentSource="Header"
-                                    VerticalAlignment="Stretch"
-                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                                        Grid.Column="1"
+                                        ContentSource="Header"
+                                        VerticalAlignment="Stretch"
+                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
                                 </Grid>
                             </DockPanel>
                            

@@ -873,12 +873,6 @@ namespace CMiX.MVVM.Resources
             if (values[1] is bool)
                 parentVisibility = (bool)values[1];
 
-            //if (values.Length == 2)
-            //{
-
-            //}
-
-
             if (!grandParentVisibility)
                 return false;
             else if (!parentVisibility)
