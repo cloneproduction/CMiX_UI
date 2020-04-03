@@ -139,12 +139,6 @@
                                         IsChecked="{Binding IsVisible}"
                                         Style="{StaticResource ToggleVisibility}"
                                         VerticalAlignment="Center">
-                                        <ToggleButton.IsEnabled>
-                                            <MultiBinding Converter="{StaticResource EntityVisibilityConverter}">
-                                                <Binding Path="DataContext.IsVisible" Mode="OneWay" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorLevel=3, AncestorType={x:Type TreeViewItem}}"/>
-                                                <Binding Path="DataContext.IsVisible" Mode="OneWay" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorLevel=2, AncestorType={x:Type TreeViewItem}}"/>
-                                            </MultiBinding>
-                                        </ToggleButton.IsEnabled>
                                     </ToggleButton>
                                 </Border>
                                 <Grid Grid.Column="1" Margin="{Binding Converter={StaticResource lengthConverter}, RelativeSource={RelativeSource TemplatedParent}}">
@@ -166,7 +160,6 @@
                                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
                                 </Grid>
                             </DockPanel>
-                           
                         </Border>
                         <Border x:Name="presenterBg" Background="Transparent">
                             <ItemsPresenter Grid.Column="1" x:Name="ItemsHost" />
@@ -221,9 +214,9 @@
                             <Setter TargetName="PART_Header" Property="TextBlock.Foreground" Value="{StaticResource ActiveTextBase}"/>
                         </MultiTrigger>
                         
-                        <Trigger Property="IsEnabled" Value="false">
+                        <!--<Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-                        </Trigger>
+                        </Trigger>-->
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

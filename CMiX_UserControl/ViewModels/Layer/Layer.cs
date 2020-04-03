@@ -67,15 +67,25 @@ namespace CMiX.Studio.ViewModels
         public bool IsVisible
         {
             get => _isVisible;
-            set => SetAndNotify(ref _isVisible, value);
+            set
+            {
+                SetVisibility();
+                SetAndNotify(ref _isVisible, value);
+            }
         }
 
-        //private bool _isMask;
-        //public bool IsMask
-        //{
-        //    get => _isMask;
-        //    set => SetAndNotify(ref _isMask, value);
-        //}
+        private bool _parentIsVisible;
+        public bool ParentIsVisible
+        {
+            get { return _parentIsVisible; }
+            set { _parentIsVisible = value; }
+        }
+
+        public void SetVisibility()
+        {
+            foreach (var item in this.Components)
+                item.ParentIsVisible = IsVisible;
+        }
 
         private bool _isSelected;
         public bool IsSelected

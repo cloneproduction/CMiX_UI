@@ -60,7 +60,24 @@ namespace CMiX.Studio.ViewModels
         public bool IsVisible
         {
             get => _isVisible;
-            set => SetAndNotify(ref _isVisible, value);
+            set
+            {
+                SetVisibility();
+                SetAndNotify(ref _isVisible, value);
+            }
+        }
+
+        private bool _parentIsVisible;
+        public bool ParentIsVisible
+        {
+            get => _parentIsVisible;
+            set => _parentIsVisible = value;
+        }
+
+        public void SetVisibility()
+        {
+            foreach (var item in this.Components)
+                item.ParentIsVisible = IsVisible;
         }
 
         private bool _isSelected;
@@ -76,6 +93,8 @@ namespace CMiX.Studio.ViewModels
             get => _isExpanded;
             set => SetAndNotify(ref _isExpanded, value);
         }
+
+        
 
         #endregion
 

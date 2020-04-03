@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
-using CMiX.MVVM;
 using Memento;
 
 namespace CMiX.Studio.ViewModels
@@ -15,6 +14,8 @@ namespace CMiX.Studio.ViewModels
         #region CONSTRUCTORS
         public Mask(Beat beat, string messageAddress, MessageService messageService, Assets assets, Mementor mementor) 
         {
+            Enabled = false;
+
             Beat = beat;
             Assets = assets;
             Mementor = mementor;
@@ -22,7 +23,7 @@ namespace CMiX.Studio.ViewModels
             MessageService = messageService;
             MaskType = ((MaskType)2).ToString();
             MaskControlType = ((MaskControlType)1).ToString();
-            Enabled = false;
+            
             Name = "Mask";
             Components = new ObservableCollection<IComponent>();
             BeatModifier = new BeatModifier(MessageAddress, beat, messageService, mementor);
@@ -41,6 +42,8 @@ namespace CMiX.Studio.ViewModels
         public ICommand CopyMaskCommand { get; }
         public ICommand PasteMaskCommand { get; }
         public ICommand ResetMaskCommand { get; }
+        public ICommand VisibilityCommand { get; }
+
 
         public BeatModifier BeatModifier { get; }
         public Geometry Geometry { get; }
@@ -90,6 +93,20 @@ namespace CMiX.Studio.ViewModels
         {
             get => _isVisible;
             set => SetAndNotify(ref _isVisible, value);
+        }
+
+        private bool _parentIsVisible;
+        public bool ParentIsVisible
+        {
+            get { return _parentIsVisible; }
+            set { _parentIsVisible = value; }
+        }
+
+
+        public void SetVisibility()
+        {
+            foreach (var item in this.Components)
+                item.ParentIsVisible = IsVisible;
         }
 
         private bool _isSelected;

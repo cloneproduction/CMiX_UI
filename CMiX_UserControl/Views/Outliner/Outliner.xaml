@@ -156,19 +156,6 @@
                             <Border DockPanel.Dock="Left" Padding="8">
                                 <Image Opacity="0.75" Source="{StaticResource Mask}"/>
                             </Border>
-                            <!--<Border DockPanel.Dock="Right">
-                                <ToggleButton 
-                                    IsChecked="{Binding IsVisible}"
-                                    Style="{StaticResource ToggleVisibility}"
-                                    VerticalAlignment="Center">
-                                    <ToggleButton.IsEnabled>
-                                        <MultiBinding Converter="{StaticResource EntityVisibilityConverter}">
-                                            <Binding Path="DataContext.IsVisible" Mode="OneWay" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorLevel=3, AncestorType={x:Type TreeViewItem}}"/>
-                                            <Binding Path="DataContext.IsVisible" Mode="OneWay" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorLevel=2, AncestorType={x:Type TreeViewItem}}"/>
-                                        </MultiBinding>
-                                    </ToggleButton.IsEnabled>
-                                </ToggleButton>
-                            </Border>-->
                             <Controls:EditableTextBox 
                                 DockPanel.Dock="Left"
                                 Padding="0, 4" 

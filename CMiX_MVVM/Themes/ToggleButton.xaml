@@ -138,7 +138,7 @@
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsChecked" Value="true" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="ImageIcon" Property="Source" Value="{StaticResource Visible}"/>
+                            <Setter TargetName="ImageIcon" Property="Source" Value="{StaticResource NotVisible}"/>
                             <!--<MultiTrigger.Setters>
                                 <Setter TargetName="ImageIcon" Property="Source" Value="{StaticResource Visible}"/>
                             </MultiTrigger.Setters>-->
@@ -149,18 +149,18 @@
                                 <Condition Property="IsChecked" Value="false" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter TargetName="ImageIcon" Property="Source" Value="{StaticResource NotVisible}"/>
+                                <Setter TargetName="ImageIcon" Property="Source" Value="{StaticResource Visible}"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
                         
-                        <MultiTrigger>
+                        <!--<MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsEnabled" Value="false" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
                                 <Setter TargetName="ImageIcon" Property="Source" Value="{StaticResource NotVisible}"/>
                             </MultiTrigger.Setters>
-                        </MultiTrigger>
+                        </MultiTrigger>-->
                         
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -168,7 +168,7 @@
                                 <Condition Property="IsMouseOver" Value="true" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter TargetName="ImageIcon" Property="Source" Value="{StaticResource Visible}"/>
+                                <Setter TargetName="ImageIcon" Property="Source" Value="{StaticResource NotVisible}"/>
                                 <Setter TargetName="ImageIcon" Property="Opacity" Value="0.9"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
@@ -179,7 +179,7 @@
                                 <Condition Property="IsMouseOver" Value="true" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter TargetName="ImageIcon" Property="Source" Value="{StaticResource NotVisible}"/>
+                                <Setter TargetName="ImageIcon" Property="Source" Value="{StaticResource Visible}"/>
                                 <Setter TargetName="ImageIcon" Property="Opacity" Value="0.9"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>

@@ -14,17 +14,20 @@ namespace CMiX.Studio.ViewModels
         string Name { get; set; }
         string MessageAddress { get; set; }
         bool IsSelected { get; set; }
+        bool IsVisible { get; set; }
+        bool ParentIsVisible { get; set; }
 
         Assets Assets { get; set; }
         Mementor Mementor { get; set; }
         Beat Beat { get; set; }
         MessageService MessageService { get; set; }
+
         ICommand RenameCommand { get; }
 
         ObservableCollection<IComponent> Components { get; set; }
 
         void AddComponent(IComponent component);
         void RemoveComponent(IComponent component);
-
+        void SetVisibility();
     }
 }

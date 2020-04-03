@@ -73,8 +73,20 @@ namespace CMiX.Studio.ViewModels
         public bool IsVisible
         {
             get => _isVisible;
-            set => SetAndNotify(ref _isVisible, value);
+            set
+            {
+                SetVisibility();
+                SetAndNotify(ref _isVisible, value);
+            }
         }
+
+        private bool _parentIsVisible = true;
+        public bool ParentIsVisible
+        {
+            get { return _parentIsVisible; }
+            set { _parentIsVisible = value; }
+        }
+
 
         private bool _isRenaming;
         public bool IsRenaming
@@ -146,6 +158,12 @@ namespace CMiX.Studio.ViewModels
         public void RemoveComponent(IComponent component)
         {
             Components.Remove(component);
+        }
+
+        public void SetVisibility()
+        {
+            foreach (var item in this.Components)
+                item.ParentIsVisible = IsVisible;
         }
     }
 }

@@ -5,6 +5,7 @@ using CMiX.MVVM.Services;
 using Memento;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -57,12 +58,41 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _name, value);
         }
 
-        private bool _isVisible = true;
+        private bool _isVisible = false;
         public bool IsVisible
         {
-            get => _isVisible;
-            set => SetAndNotify(ref _isVisible, value);
+            get
+            {
+                if (!ParentIsVisible)
+                    return true;
+                else
+                    return _isVisible;
+            }
+            set
+            {
+                if(ParentIsVisible)
+                    SetAndNotify(ref _isVisible, value);
+                SetVisibility();
+            }
         }
+
+        private bool _parentIsVisible;
+        public bool ParentIsVisible
+        {
+            get => _parentIsVisible;
+            set
+            {
+                SetAndNotify(ref _parentIsVisible, value);
+                Notify(nameof(IsVisible));
+            }
+        }
+
+        public void SetVisibility()
+        {
+            foreach (var item in this.Components)
+                item.ParentIsVisible = IsVisible;
+        }
+
 
         private bool _isRenaming;
         public bool IsRenaming
@@ -112,6 +142,8 @@ namespace CMiX.Studio.ViewModels
         {
             Components.Remove(component);
         }
+
+
         #endregion
 
         #region COPY/PASTE COMPOSITIONS
