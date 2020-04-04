@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Entity : Component, ISendable, IUndoable, IGetSet<EntityModel>
+    public class Entity : Component, IGetSet<EntityModel>
     {
         #region CONSTRUCTORS
         public Entity(int id, Beat beat, string messageAddress, MessageService messageService, Assets assets, Mementor mementor)

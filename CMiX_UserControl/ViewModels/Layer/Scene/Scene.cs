@@ -11,7 +11,7 @@ using CMiX.MVVM.Resources;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Scene : Component, ISendable, IUndoable, IGetSet<SceneModel>
+    public class Scene : Component, IGetSet<SceneModel>
     {
         #region CONSTRUCTORS
         public Scene(Beat beat, string messageAddress, MessageService messageService, Assets assets, Mementor mementor)

@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 
 namespace CMiX.Studio.ViewModels
 {
-    public abstract class Component : ViewModel
+    public abstract class Component : ViewModel, IUndoable, ISendable
     {
         public int ID { get; set; }
         public string MessageAddress { get; set; }

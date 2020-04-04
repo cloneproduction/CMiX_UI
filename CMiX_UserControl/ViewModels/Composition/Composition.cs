@@ -6,17 +6,17 @@ using System.Collections.ObjectModel;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Composition : Component, ISendable, IUndoable, IGetSet<CompositionModel>
+    public class Composition : Component, IGetSet<CompositionModel>
     {
         #region CONSTRUCTORS
-        public Composition(int id, string messageAddress, Beat masterBeat, MessageService messageService, Assets assets, Mementor mementor)
+        public Composition(int id, string messageAddress, Beat beat, MessageService messageService, Assets assets, Mementor mementor)
         {
             ID = id;
             Name = "Composition " + id.ToString();
 
             MessageAddress = $"{messageAddress}{nameof(Composition)}/";
             MessageService = messageService;
-            Beat = masterBeat; 
+            Beat = beat; 
 
             MessageValidationManager = new MessageValidationManager(MessageService);
             Assets = assets;

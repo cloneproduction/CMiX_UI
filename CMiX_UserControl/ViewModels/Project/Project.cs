@@ -8,7 +8,7 @@ using MvvmDialogs;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Project : Component, IProject
+    public class Project : Component, IGetSet<ProjectModel>
     {
         public Project(IDialogService dialogService)
         {

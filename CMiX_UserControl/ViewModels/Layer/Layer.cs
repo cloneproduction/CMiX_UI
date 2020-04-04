@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Layer : Component, ISendable, IUndoable, IGetSet<LayerModel>
+    public class Layer : Component, IGetSet<LayerModel>
     {
         #region CONSTRUCTORS
         public Layer(int id, Beat beat, string messageAddress, MessageService messageService, Assets assets, Mementor mementor) 
