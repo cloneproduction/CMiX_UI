@@ -9,7 +9,7 @@ using Memento;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Mask : ViewModel, ISendable, IUndoable, IComponent, IGetSet<MaskModel>
+    public class Mask : Component, ISendable, IUndoable, IGetSet<MaskModel>
     {
         #region CONSTRUCTORS
         public Mask(Beat beat, string messageAddress, MessageService messageService, Assets assets, Mementor mementor) 
@@ -25,7 +25,7 @@ namespace CMiX.Studio.ViewModels
             MaskControlType = ((MaskControlType)1).ToString();
             
             Name = "Mask";
-            Components = new ObservableCollection<IComponent>();
+            Components = new ObservableCollection<Component>();
             BeatModifier = new BeatModifier(MessageAddress, beat, messageService, mementor);
 
             Geometry = new Geometry(MessageAddress, messageService, mementor, assets, beat);
@@ -49,18 +49,6 @@ namespace CMiX.Studio.ViewModels
         public Geometry Geometry { get; }
         public Texture Texture { get; }
         public PostFX PostFX { get; }
-
-        public string MessageAddress { get; set; }
-        public Mementor Mementor { get; set; }
-        public MasterBeat MasterBeat { get; set; }
-        public Assets Assets { get; set; }
-        public Beat Beat { get; set; }
-        public MessageService MessageService { get; set; }
-        public bool IsRenaming { get; set; }
-
-        public int ID { get; set; }
-        public string Name { get; set; }
-
 
         private string _masktype;
         public string MaskType
@@ -87,45 +75,6 @@ namespace CMiX.Studio.ViewModels
                 //SendMessages(MessageAddress + nameof(MaskControlType), MaskControlType);
             }
         }
-
-        private bool _isVisible = true;
-        public bool IsVisible
-        {
-            get => _isVisible;
-            set => SetAndNotify(ref _isVisible, value);
-        }
-
-        private bool _parentIsVisible;
-        public bool ParentIsVisible
-        {
-            get { return _parentIsVisible; }
-            set { _parentIsVisible = value; }
-        }
-
-
-        public void SetVisibility()
-        {
-            foreach (var item in this.Components)
-                item.ParentIsVisible = IsVisible;
-        }
-
-        private bool _isSelected;
-        public bool IsSelected
-        {
-            get => _isSelected;
-            set => SetAndNotify(ref _isSelected, value);
-        }
-
-        private bool _isExpanded;
-        public bool IsExpanded
-        {
-            get => _isExpanded;
-            set => SetAndNotify(ref _isExpanded, value);
-        }
-
-        public ICommand RenameCommand { get; }
-
-        public ObservableCollection<IComponent> Components { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
@@ -204,17 +153,6 @@ namespace CMiX.Studio.ViewModels
         {
             this.Reset();
             //this.SendMessages(nameof(MaskModel), GetModel());
-        }
-
-        public void AddComponent(IComponent component)
-        {
-            Components.Add(component);
-            IsExpanded = true;
-        }
-
-        public void RemoveComponent(IComponent component)
-        {
-            Components.Remove(component);
         }
         #endregion
     }

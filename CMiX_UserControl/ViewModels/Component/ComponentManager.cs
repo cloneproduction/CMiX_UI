@@ -10,14 +10,14 @@ namespace CMiX.ViewModels
 {
     public class ComponentManager : ViewModel
     {
-        public ComponentManager(ObservableCollection<IComponent> projects)
+        public ComponentManager(ObservableCollection<Component> projects)
         {
             Projects = projects;
 
-            CreateComponentCommand = new RelayCommand(p => CreateComponent(p as IComponent));
-            DuplicateComponentCommand = new RelayCommand(p => DuplicateComponent(p as IComponent));
+            CreateComponentCommand = new RelayCommand(p => CreateComponent(p as Component));
+            DuplicateComponentCommand = new RelayCommand(p => DuplicateComponent(p as Component));
             DeleteComponentCommand = new RelayCommand(p => DeleteComponent());
-            RenameComponentCommand = new RelayCommand(p => RenameComponent(p as IComponent));
+            RenameComponentCommand = new RelayCommand(p => RenameComponent(p as Component));
         }
 
         public ICommand CreateComponentCommand { get; }
@@ -28,30 +28,30 @@ namespace CMiX.ViewModels
         public ICommand DeleteLayerMaskCommand { get; }
         public ICommand MoveComponentToCommand { get;  }
 
-        public ObservableCollection<IComponent> Projects { get; set; }
+        public ObservableCollection<Component> Projects { get; set; }
 
         public event EventHandler<ComponentEventArgs> ComponentDeleted;
-        private void OnComponentDeleted(IComponent deletedComponent)
+        private void OnComponentDeleted(Component deletedComponent)
         {
             if (ComponentDeleted != null)
                 ComponentDeleted(this, new ComponentEventArgs(deletedComponent));
         }
 
-        private IComponent _SelectedComponent;
-        public IComponent SelectedComponent
+        private Component _SelectedComponent;
+        public Component SelectedComponent
         {
             get => _SelectedComponent;
             set => SetAndNotify(ref _SelectedComponent, value);
         }
 
-        public void RenameComponent(IComponent component)
+        public void RenameComponent(Component component)
         {
             component.IsRenaming = true;
         }
 
-        public IComponent CreateComponent(IComponent component)
+        public Component CreateComponent(Component component)
         {
-            IComponent result = null;
+            Component result = null;
             
             if (component is Project)
                 result = CreateComposition(component as Project);
@@ -66,9 +66,9 @@ namespace CMiX.ViewModels
             return result;
         }
 
-        public IComponent DuplicateComponent(IComponent component)
+        public Component DuplicateComponent(Component component)
         {
-            IComponent result = null;
+            Component result = null;
 
             if (component is Composition)
                 result = DuplicateComposition(component as Composition);
@@ -82,9 +82,9 @@ namespace CMiX.ViewModels
         }
 
 
-        public IComponent GetSelectedParent(ObservableCollection<IComponent> components)
+        public Component GetSelectedParent(ObservableCollection<Component> components)
         {
-            IComponent result = null;
+            Component result = null;
 
             foreach (var component in components)
             {
@@ -108,7 +108,7 @@ namespace CMiX.ViewModels
         }
 
 
-        public void DeleteSelectedComponent(ObservableCollection<IComponent> components)
+        public void DeleteSelectedComponent(ObservableCollection<Component> components)
         {
             foreach (var component in components)
             {

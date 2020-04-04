@@ -8,11 +8,11 @@ namespace CMiX.Studio.ViewModels
 {
     public class ComponentEventArgs : EventArgs
     {
-        public ComponentEventArgs(IComponent component)
+        public ComponentEventArgs(Component component)
         {
             Component = component;
         }
 
-        public IComponent Component { get; set; }
+        public Component Component { get; set; }
     }
 }

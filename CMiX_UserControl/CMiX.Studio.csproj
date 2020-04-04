@@ -159,7 +159,6 @@
     <Compile Include="ViewModels\Component\Component.cs" />
     <Compile Include="ViewModels\Component\ComponentManager.cs" />
     <Compile Include="ViewModels\Component\ComponentPanelTemplateSelector.cs" />
-    <Compile Include="ViewModels\Component\IComponent.cs" />
     <Compile Include="ViewModels\Root.cs" />
     <Compile Include="Views\Component\ComponentPanel.xaml.cs">
       <DependentUpon>ComponentPanel.xaml</DependentUpon>

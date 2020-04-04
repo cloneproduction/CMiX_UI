@@ -10,13 +10,13 @@ using MvvmDialogs;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Project : ViewModel, IProject
+    public class Project : Component, IProject
     {
         public Project(IDialogService dialogService)
         {
             DialogService = dialogService;
             MessageAddress = $"{nameof(Project)}/";
-            Name = MessageAddress;
+            Name = "Project";
             Assets = new Assets(dialogService);
             Mementor = new Mementor();
             MessageService = new MessageService();
@@ -24,90 +24,18 @@ namespace CMiX.Studio.ViewModels
 
             Servers = new ObservableCollection<Server>();
             ServerManager = new ServerManager();
-            Components = new ObservableCollection<IComponent>();
+            Components = new ObservableCollection<Component>();
 
             FolderPath = string.Empty;
             Serializer = new CerasSerializer();
-
-            RenameCommand = new RelayCommand(p => Rename());
-            RemoveComponentCommand = new RelayCommand(p => RemoveComponent(p as IComponent));
         }
-
-        private readonly IDialogService DialogService;
 
         #region PROPERTIES
-        public ICommand RemoveComponentCommand { get; }
-        public ICommand RenameCommand { get; }
-
+        private readonly IDialogService DialogService;
         public CerasSerializer Serializer { get; set; }
-
-        public string MessageAddress { get; set; }
-        public Mementor Mementor { get; set; }
-        public Assets Assets { get; set; }
-        public Beat Beat { get; set; }
-        public MessageService MessageService { get; set; }
-
         public ServerManager ServerManager { get; set; }
-
         public ObservableCollection<Server> Servers { get; set; }
-
         public string FolderPath { get; set; }
-
-        private ObservableCollection<IComponent> _components;
-        public ObservableCollection<IComponent> Components
-        {
-            get => _components;
-            set => SetAndNotify(ref _components, value);
-        }
-
-        public int ID { get; set; }
-
-        private string name;
-        public string Name
-        {
-            get => name;
-            set => SetAndNotify(ref name, value);
-        }
-
-        private bool _isVisible = true;
-        public bool IsVisible
-        {
-            get => _isVisible;
-            set
-            {
-                SetVisibility();
-                SetAndNotify(ref _isVisible, value);
-            }
-        }
-
-        private bool _parentIsVisible = true;
-        public bool ParentIsVisible
-        {
-            get { return _parentIsVisible; }
-            set { _parentIsVisible = value; }
-        }
-
-
-        private bool _isRenaming;
-        public bool IsRenaming
-        {
-            get => _isRenaming;
-            set => SetAndNotify(ref _isRenaming, value);
-        }
-
-        private bool _isSelected;
-        public bool IsSelected
-        {
-            get => _isSelected;
-            set => SetAndNotify(ref _isSelected, value);
-        }
-
-        private bool _isExpanded;
-        public bool IsExpanded
-        {
-            get => _isExpanded;
-            set => SetAndNotify(ref _isExpanded, value);
-        }
         #endregion
 
         public ProjectModel GetModel()
@@ -142,28 +70,6 @@ namespace CMiX.Studio.ViewModels
                 composition.SetViewModel(componentModel);
                 this.AddComponent(composition);
             }
-        }
-
-        public void Rename()
-        {
-            IsRenaming = true;
-        }
-
-        public void AddComponent(IComponent component)
-        {
-            Components.Add(component);
-            IsExpanded = true;
-        }
-
-        public void RemoveComponent(IComponent component)
-        {
-            Components.Remove(component);
-        }
-
-        public void SetVisibility()
-        {
-            foreach (var item in this.Components)
-                item.ParentIsVisible = IsVisible;
         }
     }
 }

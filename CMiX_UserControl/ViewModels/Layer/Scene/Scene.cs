@@ -11,7 +11,7 @@ using CMiX.MVVM.Resources;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Scene : ViewModel, ISendable, IUndoable, IComponent, IGetSet<SceneModel>
+    public class Scene : Component, ISendable, IUndoable, IGetSet<SceneModel>
     {
         #region CONSTRUCTORS
         public Scene(Beat beat, string messageAddress, MessageService messageService, Assets assets, Mementor mementor)
@@ -23,7 +23,7 @@ namespace CMiX.Studio.ViewModels
             Name = "Scene";
             MessageAddress = $"{messageAddress}{nameof(Scene)}/";
             MessageService = messageService;
-            Components = new ObservableCollection<IComponent>();
+            Components = new ObservableCollection<Component>();
 
             BeatModifier = new BeatModifier(MessageAddress, Beat, messageService, mementor);
             PostFX = new PostFX(MessageAddress, messageService, mementor);
@@ -39,63 +39,10 @@ namespace CMiX.Studio.ViewModels
         public ICommand CopyContentCommand { get; }
         public ICommand PasteContentCommand { get; }
         public ICommand ResetContentCommand { get; }
-        public ICommand RenameCommand { get; }
 
-        public string MessageAddress { get; set; }
-        public Mementor Mementor { get; set; }
-        public MessageService MessageService { get; set; }
-        public Assets Assets { get; set; }
 
         public BeatModifier BeatModifier { get; }
         public PostFX PostFX { get; }
-        public Beat Beat { get; set; }
-
-        public ObservableCollection<IComponent> Components { get; set; }
-
-        public bool IsRenaming { get; set; }
-        public int ID { get; set; }
-        public string Name { get; set; }
-
-        private bool _isVisible = true;
-        public bool IsVisible
-        {
-            get => _isVisible;
-            set
-            {
-                SetVisibility();
-                SetAndNotify(ref _isVisible, value);
-            }
-        }
-
-        private bool _parentIsVisible;
-        public bool ParentIsVisible
-        {
-            get => _parentIsVisible;
-            set => _parentIsVisible = value;
-        }
-
-        public void SetVisibility()
-        {
-            foreach (var item in this.Components)
-                item.ParentIsVisible = IsVisible;
-        }
-
-        private bool _isSelected;
-        public bool IsSelected
-        {
-            get => _isSelected;
-            set => SetAndNotify(ref _isSelected, value);
-        }
-
-        private bool _isExpanded;
-        public bool IsExpanded
-        {
-            get => _isExpanded;
-            set => SetAndNotify(ref _isExpanded, value);
-        }
-
-        
-
         #endregion
 
         #region COPY/PASTE
@@ -174,17 +121,6 @@ namespace CMiX.Studio.ViewModels
         {
             this.Reset();
             MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, GetModel());
-        }
-
-        public void AddComponent(IComponent component)
-        {
-            Components.Add(component);
-            IsExpanded = true;
-        }
-
-        public void RemoveComponent(IComponent component)
-        {
-            Components.Remove(component);
         }
         #endregion
 

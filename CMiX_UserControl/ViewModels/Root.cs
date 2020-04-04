@@ -29,10 +29,10 @@ namespace CMiX.Studio.ViewModels
             Serializer = new CerasSerializer();
 
             CurrentProject = new Project(DialogService);
-            Projects = new ObservableCollection<IComponent> { CurrentProject };
-            ComponentManager = new ComponentManager(Projects);
-
+            Projects = new ObservableCollection<Component> { CurrentProject };
             ComponentEditor = new ComponentEditor();
+
+            ComponentManager = new ComponentManager(Projects);
             ComponentManager.ComponentDeleted += ComponentEditor.ComponentManager_ComponentDeleted;
 
             Outliner = new Outliner(Projects);
@@ -85,8 +85,8 @@ namespace CMiX.Studio.ViewModels
         public string FolderPath { get; set; }
         public string MessageAddress { get; set; }
 
-        private ObservableCollection<IComponent> _projects;
-        public ObservableCollection<IComponent> Projects
+        private ObservableCollection<Component> _projects;
+        public ObservableCollection<Component> Projects
         {
             get => _projects;
             set => SetAndNotify(ref _projects, value);

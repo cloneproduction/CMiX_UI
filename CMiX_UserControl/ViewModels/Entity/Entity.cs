@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using Memento;
-using CMiX.MVVM.Resources;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
@@ -9,7 +8,7 @@ using System.Collections.ObjectModel;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Entity : ViewModel, ISendable, IUndoable, IComponent, IGetSet<EntityModel>
+    public class Entity : Component, ISendable, IUndoable, IGetSet<EntityModel>
     {
         #region CONSTRUCTORS
         public Entity(int id, Beat beat, string messageAddress, MessageService messageService, Assets assets, Mementor mementor)
@@ -27,7 +26,8 @@ namespace CMiX.Studio.ViewModels
             Geometry = new Geometry(MessageAddress, messageService, mementor, assets, beat);
             Texture = new Texture(MessageAddress, messageService, assets, mementor);
             Coloration = new Coloration(MessageAddress, messageService, mementor, beat);
-            Components = new ObservableCollection<IComponent>();
+
+            Components = new ObservableCollection<Component>();
 
             RenameCommand = new RelayCommand(p => Rename());
             CopyEntityCommand = new RelayCommand(p => CopyEntity());
@@ -42,84 +42,10 @@ namespace CMiX.Studio.ViewModels
         public ICommand ResetEntityCommand { get; }
         public ICommand RenameCommand { get; }
 
-        public Beat Beat { get; set; }
         public BeatModifier BeatModifier { get; }
         public Geometry Geometry { get; }
         public Texture Texture { get; }
         public Coloration Coloration { get; }
-
-        public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
-        public Mementor Mementor { get; set; }
-        public Assets Assets { get; set; }
-        public ObservableCollection<IComponent> Components { get; set; }
-
-        private bool _isRenaming;
-        public bool IsRenaming
-        {
-            get => _isRenaming;
-            set => SetAndNotify(ref _isRenaming, value);
-        }
-
-        private IComponent _selectedComponent;
-        public IComponent SelectedComponent
-        {
-            get => _selectedComponent;
-            set => SetAndNotify(ref _selectedComponent, value);
-        }
-
-        private bool _isSelected;
-        public bool IsSelected
-        {
-            get => _isSelected;
-            set => SetAndNotify(ref _isSelected, value);
-        }
-
-        private bool _isExpanded;
-        public bool IsExpanded
-        {
-            get => _isExpanded;
-            set => SetAndNotify(ref _isExpanded, value);
-        }
-
-        private bool _isVisible = true;
-        public bool IsVisible
-        {
-            get => _isVisible;
-            set
-            {
-                SetVisibility();
-                SetAndNotify(ref _isVisible, value);
-            }
-        }
-
-        private bool _parentIsVisible;
-        public bool ParentIsVisible
-        {
-            get { return _parentIsVisible; }
-            set { _parentIsVisible = value; }
-        }
-
-
-        public void SetVisibility()
-        {
-            foreach (var item in this.Components)
-                item.ParentIsVisible = IsVisible;
-        }
-
-        private int _id;
-        public int ID
-        {
-            get { return _id; }
-            set { _id = value; }
-        }
-
-        private string _name;
-        public string Name
-        {
-            get => _name;
-            set => SetAndNotify(ref _name, value);
-        }
         #endregion
 
         #region COPY/PASTE
@@ -192,24 +118,6 @@ namespace CMiX.Studio.ViewModels
             this.Reset();
             //SendMessages(nameof(ContentModel), entityModel);
         }
-
-
         #endregion
-
-        public void Rename()
-        {
-            IsRenaming = true;
-        }
-
-
-        public void AddComponent(IComponent component)
-        {
-
-        }
-
-        public void RemoveComponent(IComponent component)
-        {
-
-        }
     }
 }

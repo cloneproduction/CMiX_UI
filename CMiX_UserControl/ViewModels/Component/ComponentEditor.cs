@@ -8,8 +8,8 @@ namespace CMiX.Studio.ViewModels
     {
         public ComponentEditor()
         {
-            Editables = new ObservableCollection<IComponent>();
-            EditComponentCommand = new RelayCommand(p => EditComponent(p as IComponent));
+            Editables = new ObservableCollection<Component>();
+            EditComponentCommand = new RelayCommand(p => EditComponent(p as Component));
             RemoveComponentCommand = new RelayCommand(p => RemoveComponent(p));
             RenameComponentCommand = new RelayCommand(p => Rename(p));
         }
@@ -23,10 +23,10 @@ namespace CMiX.Studio.ViewModels
         public ICommand RemoveComponentCommand { get; set; }
         public ICommand RenameComponentCommand { get; set; }
 
-        public ObservableCollection<IComponent> Editables { get; set; }
+        public ObservableCollection<Component> Editables { get; set; }
 
-        private IComponent _selectedEditable;
-        public IComponent SelectedEditable
+        private Component _selectedEditable;
+        public Component SelectedEditable
         {
             get => _selectedEditable;
             set => SetAndNotify(ref _selectedEditable, value);
@@ -34,10 +34,10 @@ namespace CMiX.Studio.ViewModels
 
         public void RemoveComponent(object obj)
         {
-            Editables.Remove(obj as IComponent);
+            Editables.Remove(obj as Component);
         }
 
-        public void EditComponent(IComponent component)
+        public void EditComponent(Component component)
         {
             if (!Editables.Contains(component))
                 Editables.Insert(0, component);
@@ -49,7 +49,7 @@ namespace CMiX.Studio.ViewModels
 
         public void Rename(object obj)
         {
-            ((IComponent)obj).IsRenaming = true;
+            ((Component)obj).IsRenaming = true;
         }
     }
 }
