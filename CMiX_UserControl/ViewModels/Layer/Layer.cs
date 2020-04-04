@@ -2,13 +2,7 @@
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
-using CMiX.MVVM.Resources;
-using System.Collections.Specialized;
-using System.Windows.Input;
-using System.ComponentModel;
-using System.Linq;
 using System.Collections.ObjectModel;
-using System.Windows;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -37,15 +31,8 @@ namespace CMiX.Studio.ViewModels
             PostFX = new PostFX(MessageAddress, messageService, mementor);
             BlendMode = new BlendMode(beat, MessageAddress, messageService, mementor);
             Fade = new Slider(MessageAddress + nameof(Fade), messageService, mementor);
-
-            //RenameCommand = new RelayCommand(p => Rename());
-            //RemoveComponentCommand = new RelayCommand(p => RemoveComponent(p as IComponent));
         }
         #endregion
-
-        //public ICommand RenameCommand { get;  }
-        //public ICommand RemoveComponentCommand { get; }
-
         private Entity _selectedEntity;
         public Entity SelectedEntity
         {

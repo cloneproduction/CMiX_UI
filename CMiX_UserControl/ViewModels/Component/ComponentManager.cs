@@ -33,8 +33,7 @@ namespace CMiX.ViewModels
         public event EventHandler<ComponentEventArgs> ComponentDeleted;
         private void OnComponentDeleted(Component deletedComponent)
         {
-            if (ComponentDeleted != null)
-                ComponentDeleted(this, new ComponentEventArgs(deletedComponent));
+            ComponentDeleted?.Invoke(this, new ComponentEventArgs(deletedComponent));
         }
 
         private Component _SelectedComponent;

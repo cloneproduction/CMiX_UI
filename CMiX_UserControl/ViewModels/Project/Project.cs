@@ -1,6 +1,4 @@
-﻿using System;
-using System.Windows.Input;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using Memento;
 using Ceras;
 using CMiX.MVVM.ViewModels;
