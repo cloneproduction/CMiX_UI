@@ -1,4 +1,5 @@
-﻿using CMiX.MVVM.Services;
+﻿using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using Memento;
 using System.Collections.ObjectModel;
@@ -111,5 +112,38 @@ namespace CMiX.Studio.ViewModels
         {
             IsRenaming = true;
         }
+
+        //public ComponentModel GetModel()
+        //{
+        //    ComponentModel componentModel = new ComponentModel();
+
+        //    componentModel.IsExpanded = IsExpanded;
+        //    componentModel.IsSelected = IsSelected;
+        //    componentModel.Name = Name;
+        //    componentModel.ParentIsVisible = ParentIsVisible;
+        //    componentModel.SelectedComponent = SelectedComponent.GetModel();
+
+        //    foreach (var component in Components)
+        //    {
+        //        componentModel.ComponentModels.Add(component.GetModel());
+        //    }
+            
+        //    return componentModel;
+        //}
+
+        //public void SetViewModel(ComponentModel model)
+        //{
+        //    IsExpanded = model.IsExpanded;
+        //    IsSelected = model.IsSelected;
+        //    Name = model.Name;
+        //    ParentIsVisible = model.ParentIsVisible;
+        //    SelectedComponent.SetViewModel(model.SelectedComponent);;
+
+        //    Components.Clear();
+        //    foreach (var componentModel in model.ComponentModels)
+        //    {
+        //        Components.Add()
+        //    }
+        //}
     }
 }

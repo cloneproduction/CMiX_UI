@@ -182,8 +182,6 @@
       <DependentUpon>SliderBeat.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Component\EditorTemplateSelector.cs" />
-    <Compile Include="ViewModels\Entity\IEntityContext.cs" />
-    <Compile Include="ViewModels\Entity\ISendableEntityContext.cs" />
     <Compile Include="ViewModels\Layer\BlendMode.cs" />
     <Compile Include="ViewModels\Assets\DirectoryItem.cs" />
     <Compile Include="ViewModels\Assets\TextureItem.cs" />

@@ -43,13 +43,6 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _selectedComponent, value);
         }
 
-        private string _isEnabled;
-        public string IsEnalbed
-        {
-            get => _isEnabled;
-            set => SetAndNotify(ref _isEnabled, value);
-        }
-
         private string _addContentText;
         public string AddContentText
         {
@@ -151,6 +144,7 @@ namespace CMiX.Studio.ViewModels
             else
                 CanDelete = true;
         }
+
 
         public int FindItemParentIndex(ObservableCollection<Component> components, Component componentToFind)
         {
@@ -312,7 +306,6 @@ namespace CMiX.Studio.ViewModels
             return canDrop;
         }
 
-
         public void DragOver(IDropInfo dropInfo)
         {
             var dataObject = dropInfo.Data as Component;
@@ -333,7 +326,7 @@ namespace CMiX.Studio.ViewModels
                 if (dataObject != null)
                     dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
 
-                if (targetItem != null)
+                if (targetItem != null && sourceItem is Component)
                 {
                     //IS  Not OVER ITSELF
                     if (sourceItem != targetItem)
@@ -467,7 +460,6 @@ namespace CMiX.Studio.ViewModels
                 }
             }
         }
-
 
         public void StartDrag(IDragInfo dragInfo)
         {

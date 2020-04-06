@@ -7,15 +7,17 @@ namespace CMiX.MVVM.Models
     {
         public GeometryModel()
         {
-            FileSelector = new FileSelectorModel();
-            GeometryFX = new GeometryFXModel();
-            Transform = new TransformModel();
-            Instancer = new InstancerModel();
+            //FileSelector = new FileSelectorModel();
+            GeometryFXModel = new GeometryFXModel();
+            TransformModel = new TransformModel();
+            InstancerModel = new InstancerModel();
+            AssetSelectorModel = new AssetSelectorModel();
         }
 
-        public TransformModel Transform { get; set; }
-        public FileSelectorModel FileSelector { get; set; }
-        public InstancerModel Instancer { get; set; }
-        public GeometryFXModel GeometryFX { get; set; }
+        //public FileSelectorModel FileSelectorModel { get; set; }
+        public TransformModel TransformModel { get; set; }
+        public InstancerModel InstancerModel { get; set; }
+        public GeometryFXModel GeometryFXModel{ get; set; }
+        public AssetSelectorModel AssetSelectorModel { get; set; }
     }
 }

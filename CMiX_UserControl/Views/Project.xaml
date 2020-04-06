@@ -52,7 +52,7 @@
                         <TabItem.Header>
                             <Image Margin="4" Source="{StaticResource Resources}" />
                         </TabItem.Header>
-                        <Views:TreeView  DataContext="{Binding Assets}" Grid.RowSpan="2"/>
+                        <Views:TreeView DataContext="{Binding Assets}" Grid.RowSpan="2"/>
                     </TabItem>
                     <TabItem Margin="8, 4"  Width="25" Height="25" Style="{StaticResource TabItemVerticalPanel}">
                         <TabItem.Header>

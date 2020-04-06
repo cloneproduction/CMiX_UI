@@ -131,7 +131,7 @@
             dd:DragDrop.IsDropTarget="True"
             dd:DragDrop.DragHandler="{Binding}"
             dd:DragDrop.DropHandler="{Binding}"
-            ItemsSource="{Binding ResourceItems}"
+            ItemsSource="{Binding AvailableResources}"
             ContextMenu="{StaticResource ResourceContextMenu}">
             <!--<Controls:MultiSelectTreeView.InputBindings>
                 <KeyBinding 

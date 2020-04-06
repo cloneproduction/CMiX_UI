@@ -8,7 +8,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Transform : ViewModel, ISendable, IUndoable
+    public class Transform : ViewModel, ISendable, IUndoable, IGetSet<TransformModel>
     {
         public Transform(string messageAddress, MessageService messageService, Mementor mementor)
         {
@@ -77,15 +77,7 @@ namespace CMiX.Studio.ViewModels
             //this.SendMessages(nameof(TransformModel), GetModel());
         }
 
-        public TransformModel GetModel()
-        {
-            TransformModel transformModel = new TransformModel();
-            transformModel.TranslateModel = Translate.GetModel();
-            transformModel.ScaleModel = Scale.GetModel();
-            transformModel.RotationModel = Rotation.GetModel();
-            transformModel.Is3D = Is3D;
-            return transformModel;
-        }
+
 
         //public void Copy(TransformModel transformModel)
         //{
@@ -123,6 +115,22 @@ namespace CMiX.Studio.ViewModels
             //this.SendMessages(nameof(TransformModel), transformmodel);
             //QueueObjects(transformmodel);
             //SendQueues();
+        }
+
+
+        public TransformModel GetModel()
+        {
+            TransformModel transformModel = new TransformModel();
+            transformModel.TranslateModel = Translate.GetModel();
+            transformModel.ScaleModel = Scale.GetModel();
+            transformModel.RotationModel = Rotation.GetModel();
+            transformModel.Is3D = Is3D;
+            return transformModel;
+        }
+
+        public void SetViewModel(TransformModel model)
+        {
+            
         }
         #endregion
     }

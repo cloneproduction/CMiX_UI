@@ -8,7 +8,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class GeometryFX : ViewModel, ISendable, IUndoable
+    public class GeometryFX : ViewModel, ISendable, IUndoable, IGetSet<GeometryFXModel>
     {
         #region CONSTRUCTORS
         public GeometryFX(string messageaddress, MessageService messageService, Mementor mementor)
@@ -38,6 +38,11 @@ namespace CMiX.Studio.ViewModels
             return geometryFXModel;
         }
 
+        public void SetViewModel(GeometryFXModel model)
+        {
+           
+        }
+
         //public void Copy(GeometryFXModel geometryFXdto)
         //{
         //    Explode.CopyModel(geometryFXdto.Explode);
@@ -63,6 +68,8 @@ namespace CMiX.Studio.ViewModels
 
             MessageService.Enable();
         }
+
+
         #endregion
     }
 }

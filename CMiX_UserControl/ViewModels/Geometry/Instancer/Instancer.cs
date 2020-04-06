@@ -7,7 +7,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Instancer : ViewModel, ISendable, IUndoable
+    public class Instancer : ViewModel, ISendable, IUndoable, IGetSet<InstancerModel>
     {
         public Instancer(string messageaddress, MessageService messageService, Mementor mementor, Beat beat)
         {
@@ -89,7 +89,10 @@ namespace CMiX.Studio.ViewModels
             return instancerModel;
         }
 
+        public void SetViewModel(InstancerModel model)
+        {
 
+        }
         //public void Copy(InstancerModel instancermodel)
         //{
         //    Transform.Copy(instancermodel.Transform);
@@ -130,6 +133,8 @@ namespace CMiX.Studio.ViewModels
             //this.Copy(instancermodel);
             //SendMessages(nameof(InstancerModel), instancermodel);
         }
+
+
         #endregion
     }
 }

@@ -10,19 +10,21 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Geometry : ViewModel, ISendable, IUndoable
+    public class Geometry : ViewModel, ISendable, IUndoable, IGetSet<GeometryModel>
     {
         #region CONSTRUCTORS
         public Geometry(string messageaddress, MessageService messageService, Mementor mementor, Assets assets, Beat beat) 
         {
             MessageAddress = $"{messageaddress}{nameof(Geometry)}/";
             MessageService = messageService;
+            Mementor = mementor;
+            Assets = assets;
+
             Instancer = new Instancer(MessageAddress, messageService, mementor, beat);
             Transform = new Transform(MessageAddress, messageService, mementor);
-
-            AssetSelector = new AssetSelector<GeometryItem>(MessageAddress, assets, messageService, mementor);
             GeometryFX = new GeometryFX(MessageAddress, messageService, mementor);
-
+            AssetSelector = new AssetSelector<GeometryItem>(MessageAddress, assets, messageService, mementor);
+           
             CopyGeometryCommand = new RelayCommand(p => CopyGeometry());
             PasteGeometryCommand = new RelayCommand(p => PasteGeometry());
             ResetGeometryCommand = new RelayCommand(p => ResetGeometry());
@@ -34,13 +36,16 @@ namespace CMiX.Studio.ViewModels
         public ICommand PasteGeometryCommand { get; }
         public ICommand ResetGeometryCommand { get; }
 
+        public Assets Assets { get; set; }
+        public string MessageAddress { get; set; }
+        public Mementor Mementor { get; set; }
+        public MessageService MessageService { get; set; }
+
         public AssetSelector<GeometryItem> AssetSelector { get; set; }
         public Transform Transform { get; }
         public Instancer Instancer { get;  }
         public GeometryFX GeometryFX { get; }
-        public string MessageAddress { get; set; }
-        public Mementor Mementor { get; set; }
-        public MessageService MessageService { get; set; }
+
         #endregion
 
         #region COPY/PASTE/RESET
@@ -76,24 +81,13 @@ namespace CMiX.Studio.ViewModels
             //SendMessages(MessageAddress, geometrymodel);
         }
 
-        public GeometryModel GetModel()
-        {
-            GeometryModel geometryModel = new GeometryModel();
-
-            geometryModel.Transform = Transform.GetModel();
-            geometryModel.GeometryFX = GeometryFX.GetModel();
-            geometryModel.Instancer = Instancer.GetModel();
-            return geometryModel;
-        }
-
-
         public void Paste(GeometryModel geometryModel)
         {
             MessageService.Disable();
 
-            Transform.Paste(geometryModel.Transform);
-            GeometryFX.Paste(geometryModel.GeometryFX);
-            Instancer.Paste(geometryModel.Instancer);
+            Transform.Paste(geometryModel.TransformModel);
+            GeometryFX.Paste(geometryModel.GeometryFXModel);
+            Instancer.Paste(geometryModel.InstancerModel);
 
             MessageService.Enable();
         }
@@ -109,6 +103,26 @@ namespace CMiX.Studio.ViewModels
             MessageService.Enable();
 
             //SendMessages(MessageAddress, GetModel());
+        }
+
+        public GeometryModel GetModel()
+        {
+            GeometryModel model = new GeometryModel();
+
+            model.TransformModel = Transform.GetModel();
+            model.GeometryFXModel = GeometryFX.GetModel();
+            model.InstancerModel = Instancer.GetModel();
+            model.AssetSelectorModel = AssetSelector.GetModel();
+
+            return model;
+        }
+
+        public void SetViewModel(GeometryModel model)
+        {
+            Transform.SetViewModel(model.TransformModel);
+            GeometryFX.SetViewModel(model.GeometryFXModel);
+            Instancer.SetViewModel(model.InstancerModel);
+            AssetSelector.SetViewModel(model.AssetSelectorModel);
         }
         #endregion
     }

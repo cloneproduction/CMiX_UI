@@ -19,9 +19,13 @@ namespace CMiX.Studio.ViewModels
             MessageService = messageService;
             Mementor = mementor;
 
+            InitCollectionView();
+        }
+
+        public void InitCollectionView()
+        {
             CollectionViewSource = new CollectionViewSource();
             CollectionViewSource.Source = Assets.AvailableResources;
-
             Assets.AvailableResources.CollectionChanged += AvailableResources_CollectionChanged;
             AssetsView = CollectionViewSource.View;
             AssetsView.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
@@ -41,6 +45,13 @@ namespace CMiX.Studio.ViewModels
                 return false;
         }
 
+
+        public Assets Assets { get; set; }
+        public Mementor Mementor { get; set; }
+        public string MessageAddress { get; set; }
+        public MessageService MessageService { get; set; }
+
+
         private IAssets _selectedAsset;
         public IAssets SelectedAsset
         {
@@ -58,15 +69,13 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _assetsView, value);
         }
 
-        public Assets Assets { get; set; }
-        public Mementor Mementor { get; set; }
-        public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
+
 
 
         public AssetSelectorModel GetModel()
         {
             AssetSelectorModel model = new AssetSelectorModel();
+            
             //model.Name = SelectedAsset.Name;
             //model.Path = SelectedAsset.Path;
             return model;

@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace CMiX.MVVM.Models
 {
+    [Serializable]
     public class AssetSelectorModel : Model
     {
         public AssetSelectorModel()
         {
 
         }
-
-
     }
 }
