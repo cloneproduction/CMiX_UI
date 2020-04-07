@@ -83,6 +83,7 @@
     <Compile Include="Controls\TreeViewMultiSelect.cs" />
     <Compile Include="Controls\TreeViewSelect.cs" />
     <Compile Include="Interfaces\ICopyPasteModel.cs" />
+    <Compile Include="Models\Assets\AssetModel.cs" />
     <Compile Include="Models\Assets\AssetSelectorModel.cs" />
     <Compile Include="Models\Assets\AssetsModel.cs" />
     <Compile Include="Models\Assets\DirectoryAssetModel.cs" />
@@ -456,6 +457,7 @@
     <Resource Include="Assets\Scene.png" />
     <Resource Include="Assets\Maximize.png" />
     <Resource Include="Assets\Minimize.png" />
+    <Resource Include="Assets\Warning.png" />
     <Content Include="Themes\Fonts\LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>

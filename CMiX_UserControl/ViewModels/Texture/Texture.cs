@@ -1,25 +1,21 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Collections.Generic;
 using Memento;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
-using CMiX.MVVM;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Texture : ViewModel, ISendable, IUndoable // ICopySetViewModel<TextureModel>
+    public class Texture : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Texture(string messageaddress, MessageService messageService, Assets assets, Mementor mementor)
+        public Texture(string messageaddress, MessageService messageService, Mementor mementor)
         {
             MessageAddress = $"{messageaddress}{nameof(Texture)}/";
             MessageService = messageService;
-            Assets = assets;
 
-            AssetSelector = new AssetSelector<TextureItem>(MessageAddress, assets, messageService, mementor);
+            AssetSelector = new AssetSelector(MessageAddress, messageService, mementor);
 
             Brightness = new Slider(MessageAddress + nameof(Brightness), messageService, mementor);
             Brightness.Minimum = -1.0;
@@ -64,10 +60,9 @@ namespace CMiX.Studio.ViewModels
         public ICommand PasteTextureCommand { get; }
         public ICommand ResetTextureCommand { get; }
 
-        public AssetSelector<TextureItem> AssetSelector { get; set; }
+        public AssetSelector AssetSelector { get; set; }
         public TextureItem TextureItem { get; set; }
-        public Assets Assets { get; set; }
-        public FileSelector FileSelector { get;  }
+
         public Slider Brightness { get; }
         public Slider Contrast { get; }
         public Slider Invert { get; }
@@ -146,7 +141,6 @@ namespace CMiX.Studio.ViewModels
             MessageService.Disable();
 
             InvertMode = ((TextureInvertMode)0).ToString();
-            FileSelector.Reset();
             Brightness.Reset();
             Contrast.Reset();
             Invert.Reset();

@@ -9,7 +9,7 @@ namespace CMiX.Studio.ViewModels
     public class Layer : Component, IGetSet<LayerModel>
     {
         #region CONSTRUCTORS
-        public Layer(int id, Beat beat, string messageAddress, MessageService messageService, Assets assets, Mementor mementor) 
+        public Layer(int id, Beat beat, string messageAddress, MessageService messageService, Mementor mementor) 
         {
             ID = id;
             Name = "Layer " + id;
@@ -18,13 +18,12 @@ namespace CMiX.Studio.ViewModels
             MessageAddress =  $"{messageAddress}{nameof(Layer)}/{id}/";
             MessageService = messageService;
             Mementor = mementor;
-            Assets = assets;
             Beat = beat;
             ID = id;
 
             Components = new ObservableCollection<Component>();
-            Scene scene = new Scene(this.Beat, this.MessageAddress, this.MessageService, this.Assets, this.Mementor);
-            Mask mask = new Mask(this.Beat, this.MessageAddress, this.MessageService, this.Assets, this.Mementor);
+            Scene scene = new Scene(this.Beat, this.MessageAddress, this.MessageService, this.Mementor);
+            Mask mask = new Mask(this.Beat, this.MessageAddress, this.MessageService, this.Mementor);
             Components.Add(scene);
             Components.Add(mask);
 
@@ -103,14 +102,14 @@ namespace CMiX.Studio.ViewModels
             {
                 if(componentModel is SceneModel)
                 {
-                    Scene scene = new Scene(this.Beat, this.MessageAddress, this.MessageService, this.Assets, this.Mementor);
+                    Scene scene = new Scene(this.Beat, this.MessageAddress, this.MessageService, this.Mementor);
                     scene.SetViewModel(componentModel as SceneModel);
                     this.AddComponent(scene);
                 }
 
                 if (componentModel is MaskModel)
                 {
-                    Mask mask = new Mask(this.Beat, this.MessageAddress, this.MessageService, this.Assets, this.Mementor);
+                    Mask mask = new Mask(this.Beat, this.MessageAddress, this.MessageService, this.Mementor);
                     mask.SetViewModel(componentModel as MaskModel);
                     this.AddComponent(mask);
                 }

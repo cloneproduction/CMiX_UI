@@ -6,18 +6,18 @@ using CMiX.MVVM.Models;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class DirectoryItem : ViewModel, IDirectory
+    public class AssetDirectory : ViewModel, IDirectory
     {
-
         #region CONSTRUCTORS
-        public DirectoryItem()
+        public AssetDirectory()
         {
             Assets = new SortableObservableCollection<IAssets>();
             Assets.CollectionChanged += CollectionChanged;
             IsExpanded = false;
             IsSelected = false;
         }
-        public DirectoryItem(string name)
+
+        public AssetDirectory(string name)
         {
             Name = name;
             Assets = new SortableObservableCollection<IAssets>();
@@ -36,18 +36,32 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _name, value);
         }
 
+        private string _path;
+        public string Path
+        {
+            get => _path;
+            set => SetAndNotify(ref _path, value);
+        }
+
         private string _ponderation = "a";
         public string Ponderation
         {
             get => _ponderation;
-            set => _ponderation = value;
+            set => SetAndNotify(ref _ponderation, value);
         }
 
-        private bool _isRenaming;
-        public bool IsRenaming
+        private bool _isSelected = false;
+        public bool IsSelected
         {
-            get => _isRenaming;
-            set => SetAndNotify(ref _isRenaming, value);
+            get => _isSelected;
+            set => SetAndNotify(ref _isSelected, value);
+        }
+
+        private bool _isExpanded = false;
+        public bool IsExpanded
+        {
+            get => _isExpanded;
+            set => SetAndNotify(ref _isExpanded, value);
         }
 
         private bool _isRoot = false;
@@ -57,20 +71,12 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _isRoot, value);
         }
 
-        private bool _isExpanded;
-        public bool IsExpanded
+        private bool _isRenaming = false;
+        public bool IsRenaming
         {
-            get => _isExpanded;
-            set => SetAndNotify(ref _isExpanded, value);
+            get => _isRenaming;
+            set => SetAndNotify(ref _isRenaming, value);
         }
-
-        private bool _isSelected;
-        public bool IsSelected
-        {
-            get => _isSelected;
-            set => SetAndNotify(ref _isSelected, value);
-        }
-        public string Path { get; set; }
 
         public void AddAsset(IAssets asset)
         {
@@ -135,14 +141,17 @@ namespace CMiX.Studio.ViewModels
                 IAssets asset = null;
 
                 if(assetModel is DirectoryAssetModel)
-                    asset = new DirectoryItem();
+                    asset = new AssetDirectory();
                 else if(assetModel is GeometryAssetModel)
                     asset = new GeometryItem();
                 else if(assetModel is TextureAssetModel)
                     asset = new TextureItem();
 
-                asset.SetViewModel(assetModel);
-                Assets.Add(asset);
+                if(asset != null)
+                {
+                    asset.SetViewModel(assetModel);
+                    Assets.Add(asset);
+                }
             }
             SortAssets();
         }

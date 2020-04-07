@@ -19,7 +19,7 @@
             <Resources:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
             <Resources:EntityVisibilityConverter x:Key="EntityVisibilityConverter"/>
             <Resources:ItemToParentConverter x:Key="ItemToParentConverter"/>
-            <Resources:BindingProxy x:Key="RootProxy" Data="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Root}}}"/>
+            <Resources:BindingProxy x:Key="RootProxy" Data="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
 
             <ContextMenu x:Key="OutlinerContextMenu" Width="175">
 

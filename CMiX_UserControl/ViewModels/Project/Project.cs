@@ -15,7 +15,7 @@ namespace CMiX.Studio.ViewModels
             DialogService = dialogService;
             MessageAddress = $"{nameof(Project)}/";
             Name = "Project";
-            Assets = new Assets(dialogService);
+            
             Mementor = new Mementor();
             MessageService = new MessageService();
             Beat = new MasterBeat(MessageService);
@@ -23,19 +23,22 @@ namespace CMiX.Studio.ViewModels
             Servers = new ObservableCollection<Server>();
             ServerManager = new ServerManager();
             Components = new ObservableCollection<Component>();
-
-            FolderPath = string.Empty;
-            Serializer = new CerasSerializer();
+            Assets = new ObservableCollection<IAssets>();
+            AssetManager = new AssetManager(dialogService, Assets);
         }
 
         #region PROPERTIES
         private readonly IDialogService DialogService;
-        public CerasSerializer Serializer { get; set; }
-        public ServerManager ServerManager { get; set; }
+
         public ObservableCollection<Server> Servers { get; set; }
-        public string FolderPath { get; set; }
+        public ServerManager ServerManager { get; set; }
+        
+        public ObservableCollection<IAssets> Assets { get; set; }
+        public AssetManager AssetManager { get; set; }
         #endregion
 
+
+        #region GETSETMODEL
         public ProjectModel GetModel()
         {
             ProjectModel projectModel = new ProjectModel();
@@ -43,7 +46,7 @@ namespace CMiX.Studio.ViewModels
             projectModel.MessageAddress = MessageAddress;
             projectModel.Name = Name;
             projectModel.IsVisible = IsVisible;
-            projectModel.AssetsModel = Assets.GetModel();
+            projectModel.AssetsModel = AssetManager.GetModel();
 
             foreach (IGetSet<CompositionModel> item in Components)
             {
@@ -59,15 +62,16 @@ namespace CMiX.Studio.ViewModels
             Name = projectModel.Name;
             IsVisible = projectModel.IsVisible;
             MessageAddress = projectModel.MessageAddress;
-            Assets.SetViewModel(projectModel.AssetsModel);
+            AssetManager.SetViewModel(projectModel.AssetsModel);
 
             Components.Clear();
             foreach (CompositionModel componentModel in projectModel.ComponentModels)
             {
-                Composition composition = new Composition(0, this.MessageAddress, this.Beat, new MessageService(), this.Assets, this.Mementor);
+                Composition composition = new Composition(0, this.MessageAddress, this.Beat, new MessageService(), this.Mementor);
                 composition.SetViewModel(componentModel);
                 this.AddComponent(composition);
             }
         }
+        #endregion
     }
 }

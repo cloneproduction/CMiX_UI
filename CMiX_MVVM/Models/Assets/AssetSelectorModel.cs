@@ -13,5 +13,7 @@ namespace CMiX.MVVM.Models
         {
 
         }
+
+        public IAssetModel SelectedAssetModel { get; set; }
     }
 }

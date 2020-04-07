@@ -16,6 +16,8 @@ namespace CMiX.Studio.ViewModels
         {
             if (viewModel is CustomMessageBox)
                 return typeof(CustomWindowDialog);
+            else if (viewModel is ModalDialog)
+                return typeof(CustomWindowDialog);
             else
                 throw new Exception("Dialog type is not defined.");
         }

@@ -1,5 +1,4 @@
 ﻿using Ceras;
-
 using Memento;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -9,9 +8,6 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels;
 using CMiX.ViewModels;
 using MvvmDialogs;
-using CMiX.Studio.Views;
-using MvvmDialogs.FrameworkDialogs.MessageBox;
-using MvvmDialogs.FrameworkDialogs;
 using MvvmDialogs.FrameworkDialogs.OpenFile;
 using MvvmDialogs.FrameworkDialogs.SaveFile;
 
@@ -29,6 +25,7 @@ namespace CMiX.Studio.ViewModels
             Serializer = new CerasSerializer();
 
             CurrentProject = new Project(DialogService);
+            CurrentProject.PropertyChanged += CurrentProject_PropertyChanged;
             Projects = new ObservableCollection<Component> { CurrentProject };
             ComponentEditor = new ComponentEditor();
 
@@ -37,36 +34,59 @@ namespace CMiX.Studio.ViewModels
 
             Outliner = new Outliner(Projects);
 
-            ShowDialogCommand = new RelayCommand(p => ShowDialog());
-
             NewProjectCommand = new RelayCommand(p => NewProject());
             OpenProjectCommand = new RelayCommand(p => OpenProject());
             SaveProjectCommand = new RelayCommand(p => SaveProject());
             SaveAsProjectCommand = new RelayCommand(p => SaveAsProject());
             QuitCommand = new RelayCommand(p => Quit(p));
+
+            CloseWindowCommand = new RelayCommand(p => CloseWindow(p));
+            MinimizeWindowCommand = new RelayCommand(p => MinimizeWindow(p));
+            MaximizeWindowCommand = new RelayCommand(p => MaximizeWindow(p));
         }
 
-        public ICommand ShowDialogCommand { get; }
+        public void OpenSplashScreen()
+        {
+
+        }
+
+        public void MaximizeWindow(object obj)
+        {
+            if(obj is Window)
+            {
+                var window = obj as Window;
+                if (window.WindowState == WindowState.Normal)
+                    window.WindowState = WindowState.Maximized;
+                else
+                    window.WindowState = WindowState.Normal;
+            }
+        }
+
+        public void MinimizeWindow(object obj)
+        {
+            if (obj is Window)
+                ((Window)obj).WindowState = WindowState.Minimized;
+        }
+
+        public void CloseWindow(object obj)
+        {
+            if(obj is Window)
+            {
+                var window = obj as Window;
+
+                bool? success = DialogService.ShowDialog(this, new ModalDialog());
+                if (success == true)
+                {
+                    window.Close();
+                }
+            }
+        }
+
+        public ICommand CloseWindowCommand { get; }
+        public ICommand MinimizeWindowCommand { get; }
+        public ICommand MaximizeWindowCommand { get; }
 
         private readonly IDialogService DialogService;
-
-        //public Root(IDialogService dialogService)
-        //{
-        //    this.dialogService = dialogService;
-        //}
-
-
-        private void ShowDialog()
-        {
-            System.Console.WriteLine("ShowDialog");
-
-            //dialogService.Show(this, new CustomMessageBox());
-
-            OpenFileDialogSettings fileDialogSettings = new OpenFileDialogSettings();
-         
-            DialogService.ShowOpenFileDialog(this, fileDialogSettings);
-        }
-
 
         public ICommand NewProjectCommand { get; }
         public ICommand SaveProjectCommand { get; }
@@ -78,10 +98,11 @@ namespace CMiX.Studio.ViewModels
         public CerasSerializer Serializer { get; set; }
 
         public Outliner Outliner { get; set; }
+
         public ComponentEditor ComponentEditor { get; set; }
         public ComponentManager ComponentManager { get; set; }
+        public AssetManager AssetManager { get; set; }
 
-        public Assets Assets { get; set; }
         public string FolderPath { get; set; }
         public string MessageAddress { get; set; }
 
@@ -99,10 +120,23 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _currentProject, value);
         }
 
+        private bool _projectChanged;
+        public bool ProjectChanged
+        {
+            get { return _projectChanged; }
+            set { _projectChanged = value; }
+        }
+
+        private void CurrentProject_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            System.Console.WriteLine("CURRENT PROJECT CHANGED");
+        }
+
         #region MENU METHODS
         private void NewProject()
         {
             CurrentProject = new Project(this.DialogService);
+            CurrentProject.PropertyChanged += CurrentProject_PropertyChanged;
         }
 
         private void OpenProject()

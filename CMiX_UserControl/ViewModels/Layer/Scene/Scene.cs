@@ -14,11 +14,10 @@ namespace CMiX.Studio.ViewModels
     public class Scene : Component, IGetSet<SceneModel>
     {
         #region CONSTRUCTORS
-        public Scene(Beat beat, string messageAddress, MessageService messageService, Assets assets, Mementor mementor)
+        public Scene(Beat beat, string messageAddress, MessageService messageService, Mementor mementor)
         {
             Enabled = true;
             Beat = beat;
-            Assets = assets;
             Mementor = mementor;
             Name = "Scene";
             MessageAddress = $"{messageAddress}{nameof(Scene)}/";
@@ -70,7 +69,7 @@ namespace CMiX.Studio.ViewModels
             Components.Clear();
             foreach (EntityModel componentModel in sceneModel.ComponentModels)
             {
-                Entity entity = new Entity(0, this.Beat, this.MessageAddress, this.MessageService, this.Assets, this.Mementor);
+                Entity entity = new Entity(0, this.Beat, this.MessageAddress, this.MessageService, this.Mementor);
                 entity.SetViewModel(componentModel);
                 this.AddComponent(entity);
             }

@@ -13,17 +13,11 @@
     <ComboBox 
         Margin="0, 2"
         Height="25" 
-        ItemsSource="{Binding AssetsView}"
+        ItemsSource="{Binding Path=DataContext.CurrentProject.AssetManager.ImageCollectionView, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
         SelectedItem="{Binding SelectedAsset}"
         AllowDrop="True"
         dd:DragDrop.DropHandler="{Binding}"
         dd:DragDrop.IsDropTarget="True">
-
-        <!--<ComboBox.ItemContainerStyle>
-            <Style TargetType="ComboBoxItem" BasedOn="{StaticResource Default}">
-                <Setter Property="IsSelected" Value="{Binding IsInUse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            </Style>
-        </ComboBox.ItemContainerStyle>-->
 
         <ComboBox.ItemTemplate>
             <DataTemplate>

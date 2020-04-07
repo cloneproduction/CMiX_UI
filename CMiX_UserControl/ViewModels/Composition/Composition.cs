@@ -9,7 +9,7 @@ namespace CMiX.Studio.ViewModels
     public class Composition : Component, IGetSet<CompositionModel>
     {
         #region CONSTRUCTORS
-        public Composition(int id, string messageAddress, Beat beat, MessageService messageService, Assets assets, Mementor mementor)
+        public Composition(int id, string messageAddress, Beat beat, MessageService messageService, Mementor mementor)
         {
             ID = id;
             Name = "Composition " + id.ToString();
@@ -19,7 +19,6 @@ namespace CMiX.Studio.ViewModels
             Beat = beat; 
 
             MessageValidationManager = new MessageValidationManager(MessageService);
-            Assets = assets;
             Mementor = mementor;
 
             Transition = new Slider("/Transition", MessageService, Mementor);
@@ -71,7 +70,7 @@ namespace CMiX.Studio.ViewModels
             Components.Clear();
             foreach (LayerModel componentModel in model.ComponentModels)
             {
-                Layer layer = new Layer(0, this.Beat, this.MessageAddress, this.MessageService, this.Assets, this.Mementor);
+                Layer layer = new Layer(0, this.Beat, this.MessageAddress, this.MessageService, this.Mementor);
                 layer.SetViewModel(componentModel);
                 this.AddComponent(layer);
             }

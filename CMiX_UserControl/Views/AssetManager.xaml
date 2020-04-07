@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="CMiX.Studio.Views.TreeView"
+﻿<UserControl x:Class="CMiX.Studio.Views.AssetManager"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -17,7 +17,7 @@
             <Resources:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
 
             <HierarchicalDataTemplate 
-                DataType="{x:Type ViewModels:DirectoryItem}" 
+                DataType="{x:Type ViewModels:AssetDirectory}" 
                 ItemsSource="{Binding Assets}">
                 <Border Height="30" HorizontalAlignment="Stretch">
                     <DockPanel >
@@ -49,19 +49,6 @@
                 <Border 
                     Margin="0, 1" 
                     Height="30">
-                    <!--<Border.Style>
-                        <Style TargetType="Border">
-                            <Setter Property="Background" Value="Transparent"/>
-                            <Setter Property="BorderBrush" Value="Transparent"/>
-                            <Setter Property="BorderThickness" Value="1"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding FileExist}" Value="false">
-                                    <Setter Property="BorderBrush" Value="Red" />
-                                    <Setter Property="Background" Value="Maroon" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Border.Style>-->
                     <DockPanel>
                         <Border>
                             <Image Margin="8" DockPanel.Dock="Left" Source="{StaticResource Texture}"/>
@@ -131,7 +118,7 @@
             dd:DragDrop.IsDropTarget="True"
             dd:DragDrop.DragHandler="{Binding}"
             dd:DragDrop.DropHandler="{Binding}"
-            ItemsSource="{Binding AvailableResources}"
+            ItemsSource="{Binding Assets}"
             ContextMenu="{StaticResource ResourceContextMenu}">
             <!--<Controls:MultiSelectTreeView.InputBindings>
                 <KeyBinding 

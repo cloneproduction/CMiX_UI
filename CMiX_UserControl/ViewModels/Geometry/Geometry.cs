@@ -1,29 +1,26 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
-using Memento;
 using CMiX.MVVM.Services;
+using Memento;
 
 namespace CMiX.Studio.ViewModels
 {
     public class Geometry : ViewModel, ISendable, IUndoable, IGetSet<GeometryModel>
     {
         #region CONSTRUCTORS
-        public Geometry(string messageaddress, MessageService messageService, Mementor mementor, Assets assets, Beat beat) 
+        public Geometry(string messageaddress, MessageService messageService, Mementor mementor, Beat beat) 
         {
             MessageAddress = $"{messageaddress}{nameof(Geometry)}/";
             MessageService = messageService;
             Mementor = mementor;
-            Assets = assets;
 
             Instancer = new Instancer(MessageAddress, messageService, mementor, beat);
             Transform = new Transform(MessageAddress, messageService, mementor);
             GeometryFX = new GeometryFX(MessageAddress, messageService, mementor);
-            AssetSelector = new AssetSelector<GeometryItem>(MessageAddress, assets, messageService, mementor);
+            AssetSelector = new AssetSelector(MessageAddress, messageService, mementor);
            
             CopyGeometryCommand = new RelayCommand(p => CopyGeometry());
             PasteGeometryCommand = new RelayCommand(p => PasteGeometry());
@@ -36,12 +33,11 @@ namespace CMiX.Studio.ViewModels
         public ICommand PasteGeometryCommand { get; }
         public ICommand ResetGeometryCommand { get; }
 
-        public Assets Assets { get; set; }
         public string MessageAddress { get; set; }
         public Mementor Mementor { get; set; }
         public MessageService MessageService { get; set; }
 
-        public AssetSelector<GeometryItem> AssetSelector { get; set; }
+        public AssetSelector AssetSelector { get; set; }
         public Transform Transform { get; }
         public Instancer Instancer { get;  }
         public GeometryFX GeometryFX { get; }

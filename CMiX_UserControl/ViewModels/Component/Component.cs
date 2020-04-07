@@ -11,7 +11,6 @@ namespace CMiX.Studio.ViewModels
         public int ID { get; set; }
         public string MessageAddress { get; set; }
 
-        public Assets Assets { get; set; }
         public Mementor Mementor { get; set; }
         public Beat Beat { get; set; }
         public MessageService MessageService { get; set; }

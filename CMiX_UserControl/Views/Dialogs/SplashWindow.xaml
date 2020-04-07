@@ -1,5 +1,5 @@
-﻿<Window x:Class="CMiX.Views.CustomWindowDialog"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Window x:Class="CMiX.Views.Dialogs.SplashWindow"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -28,7 +28,7 @@
                 <Image Margin="4" Source="{StaticResource Warning}" Opacity="0.90" />
                 <TextBlock Padding="4" VerticalAlignment="Center" Foreground="{StaticResource TextBase}" Text="Save change before closing ?"/>
             </DockPanel>
-            
+
             <Grid  Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>

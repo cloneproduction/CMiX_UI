@@ -10,9 +10,9 @@ namespace CMiX.ViewModels
 {
     public class ComponentManager : ViewModel
     {
-        public ComponentManager(ObservableCollection<Component> projects)
+        public ComponentManager(ObservableCollection<Component> components)
         {
-            Projects = projects;
+            Projects = components;
 
             CreateComponentCommand = new RelayCommand(p => CreateComponent(p as Component));
             DuplicateComponentCommand = new RelayCommand(p => DuplicateComponent(p as Component));
@@ -125,7 +125,7 @@ namespace CMiX.ViewModels
         int CompositionID = 0;
         private Composition CreateComposition(Project project)
         {
-            var newCompo = new Composition(CompositionID, project.MessageAddress, project.Beat, new MessageService(), project.Assets, project.Mementor);
+            var newCompo = new Composition(CompositionID, project.MessageAddress, project.Beat, new MessageService(), project.Mementor);
 
             project.AddComponent(newCompo);
             CompositionID++;
@@ -136,7 +136,7 @@ namespace CMiX.ViewModels
 
         private Composition DuplicateComposition(Composition project)
         {
-            var newCompo = new Composition(CompositionID, project.MessageAddress, project.Beat, new MessageService(), project.Assets, project.Mementor);
+            var newCompo = new Composition(CompositionID, project.MessageAddress, project.Beat, new MessageService(), project.Mementor);
 
             var selectedCompo = SelectedComponent as Composition;
             newCompo.SetViewModel(selectedCompo.GetModel());
@@ -152,7 +152,7 @@ namespace CMiX.ViewModels
         int LayerID = 0;
         private Layer CreateLayer(Composition compo)
         {
-            Layer newLayer = new Layer(LayerID, compo.Beat, compo.MessageAddress, compo.MessageService, compo.Assets, compo.Mementor);
+            Layer newLayer = new Layer(LayerID, compo.Beat, compo.MessageAddress, compo.MessageService, compo.Mementor);
 
             newLayer.IsExpanded = true;
             compo.AddComponent(newLayer);
@@ -165,7 +165,7 @@ namespace CMiX.ViewModels
         private Layer DuplicateLayer(Layer layer)
         {
             var parent = GetSelectedParent(Projects);
-            Layer newLayer = new Layer(LayerID, parent.Beat, parent.MessageAddress, parent.MessageService, parent.Assets, parent.Mementor);
+            Layer newLayer = new Layer(LayerID, parent.Beat, parent.MessageAddress, parent.MessageService, parent.Mementor);
             newLayer.SetViewModel(layer.GetModel());
             newLayer.Name += " -Copy";
             parent.Components.Insert(parent.Components.IndexOf(layer) + 1, newLayer);
@@ -177,7 +177,7 @@ namespace CMiX.ViewModels
         int EntityID = 0;
         private Entity CreateEntity(Scene scene)
         {
-            var newEntity = new Entity(EntityID, scene.Beat, scene.MessageAddress, scene.MessageService, scene.Assets, scene.Mementor);
+            var newEntity = new Entity(EntityID, scene.Beat, scene.MessageAddress, scene.MessageService, scene.Mementor);
             scene.Components.Add(newEntity);
             scene.IsExpanded = true;
             EntityID++;
@@ -186,7 +186,7 @@ namespace CMiX.ViewModels
 
         private Entity CreateEntity(Mask mask)
         {
-            var newEntity = new Entity(EntityID, mask.Beat, mask.MessageAddress, mask.MessageService, mask.Assets, mask.Mementor);
+            var newEntity = new Entity(EntityID, mask.Beat, mask.MessageAddress, mask.MessageService, mask.Mementor);
             mask.Components.Add(newEntity);
             mask.IsExpanded = true;
             EntityID++;
@@ -196,7 +196,7 @@ namespace CMiX.ViewModels
         private Entity DuplicateEntity(Entity entity)
         {
             var parent = GetSelectedParent(Projects);
-            var component = new Entity(EntityID, parent.Beat, parent.MessageAddress, parent.MessageService, parent.Assets, parent.Mementor);
+            var component = new Entity(EntityID, parent.Beat, parent.MessageAddress, parent.MessageService, parent.Mementor);
             component.SetViewModel(entity.GetModel());
             component.Name += " -Copy";
             parent.Components.Insert(parent.Components.IndexOf(entity) + 1, component);

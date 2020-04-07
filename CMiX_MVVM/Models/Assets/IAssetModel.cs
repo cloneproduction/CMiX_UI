@@ -6,8 +6,9 @@ namespace CMiX.MVVM.Models
     {
         string Path { get; set; }
         string Name { get; set; }
-        bool IsSelected { get; set; }
+        //bool IsSelected { get; set; }
         string Ponderation { get; set; }
+
         ObservableCollection<IAssetModel> AssetModels { get; set; }
     }
 }

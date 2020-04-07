@@ -12,12 +12,11 @@ namespace CMiX.Studio.ViewModels
     public class Mask : Component, ISendable, IUndoable, IGetSet<MaskModel>
     {
         #region CONSTRUCTORS
-        public Mask(Beat beat, string messageAddress, MessageService messageService, Assets assets, Mementor mementor) 
+        public Mask(Beat beat, string messageAddress, MessageService messageService, Mementor mementor) 
         {
             Enabled = false;
 
             Beat = beat;
-            Assets = assets;
             Mementor = mementor;
             MessageAddress = $"{messageAddress}{nameof(Mask)}/";
             MessageService = messageService;
@@ -28,8 +27,8 @@ namespace CMiX.Studio.ViewModels
             Components = new ObservableCollection<Component>();
             BeatModifier = new BeatModifier(MessageAddress, beat, messageService, mementor);
 
-            Geometry = new Geometry(MessageAddress, messageService, mementor, assets, beat);
-            Texture = new Texture(MessageAddress, messageService, assets, mementor);
+            Geometry = new Geometry(MessageAddress, messageService, mementor, beat);
+            Texture = new Texture(MessageAddress, messageService, mementor);
             PostFX = new PostFX(MessageAddress, messageService, mementor);
 
             CopyMaskCommand = new RelayCommand(p => CopyMask());

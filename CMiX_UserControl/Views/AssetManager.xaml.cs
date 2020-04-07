@@ -2,9 +2,9 @@
 
 namespace CMiX.Studio.Views
 {
-    public partial class TreeView : UserControl
+    public partial class AssetManager : UserControl
     {
-        public TreeView()
+        public AssetManager()
         {
             InitializeComponent();
         }

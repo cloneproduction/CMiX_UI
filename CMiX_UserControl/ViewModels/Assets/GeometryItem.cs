@@ -1,9 +1,8 @@
 ﻿using CMiX.MVVM.Models;
-using CMiX.MVVM.ViewModels;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class GeometryItem : ViewModel, IAssets
+    public class GeometryItem : Asset, IAssets
     {
         public GeometryItem()
         {
@@ -16,46 +15,22 @@ namespace CMiX.Studio.ViewModels
             Path = path;
         }
 
-        private string _ponderation = "aa";
-        public string Ponderation
+        public override IAssetModel GetModel()
         {
-            get => _ponderation;
-            set => _ponderation = value;
+            IAssetModel assetModel = new AssetModel();
+
+            assetModel.Name = Name;
+            assetModel.Path = Path;
+            assetModel.Ponderation = Ponderation;
+
+            return assetModel;
         }
 
-        private string _path;
-        public string Path
+        public override void SetViewModel(IAssetModel assetModel)
         {
-            get => _path;
-            set => SetAndNotify(ref _path, value);
-        }
-
-        private string _name;
-        public string Name
-        {
-            get => _name;
-            set => SetAndNotify(ref _name, value);
-        }
-
-        private bool _isSelected;
-        public bool IsSelected
-        {
-            get => _isSelected;
-            set => SetAndNotify(ref _isSelected, value);
-        }
-
-        public IAssetModel GetModel()
-        {
-            GeometryAssetModel geometryAssetModel = new GeometryAssetModel();
-            geometryAssetModel.Name = Name;
-            geometryAssetModel.Path = Path;
-            return geometryAssetModel;
-        }
-
-        public void SetViewModel(IAssetModel model)
-        {
-            Name = model.Name;
-            Path = model.Path;
+            Name = assetModel.Name;
+            Path = assetModel.Path;
+            Ponderation = assetModel.Ponderation;
         }
     }
 }

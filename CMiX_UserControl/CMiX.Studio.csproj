@@ -128,6 +128,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ViewModels\Assets\Asset.cs" />
     <Compile Include="ViewModels\Assets\AssetSelector.cs" />
     <Compile Include="ViewModels\Component\ComponentEventArgs.cs" />
     <Compile Include="ViewModels\Component\Outliner.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="ViewModels\Dialogs\CustomMessageBox.cs" />
     <Compile Include="ViewModels\Dialogs\CustomTypeLocator.cs" />
     <Compile Include="ViewModels\Dialogs\MessageTextViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\ModalDialog.cs" />
     <Compile Include="Views\Assets\GeometrySelector.xaml.cs">
       <DependentUpon>GeometrySelector.xaml</DependentUpon>
     </Compile>
@@ -169,6 +171,9 @@
     <Compile Include="Views\Dialogs\MessageText.xaml.cs">
       <DependentUpon>MessageText.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Dialogs\SplashWindow.xaml.cs">
+      <DependentUpon>SplashWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Mask\MaskPanel.xaml.cs">
       <DependentUpon>MaskPanel.xaml</DependentUpon>
     </Compile>
@@ -186,7 +191,7 @@
     <Compile Include="ViewModels\Assets\DirectoryItem.cs" />
     <Compile Include="ViewModels\Assets\TextureItem.cs" />
     <Compile Include="ViewModels\Assets\GeometryItem.cs" />
-    <Compile Include="ViewModels\Assets\Assets.cs" />
+    <Compile Include="ViewModels\Assets\AssetManager.cs" />
     <Compile Include="ViewModels\Geometry\Instancer\AnimParameter.cs" />
     <Compile Include="ViewModels\Geometry\Instancer\ScaleModifier.cs" />
     <Compile Include="ViewModels\Geometry\Instancer\RotationModifier.cs" />
@@ -197,8 +202,6 @@
     <Compile Include="ViewModels\Geometry\Transform\Transform.cs" />
     <Compile Include="ViewModels\Geometry\Transform\Translate.cs" />
     <Compile Include="ViewModels\Entity\Entity.cs" />
-    <Compile Include="ViewModels\Layer\ILayerContext.cs" />
-    <Compile Include="ViewModels\Layer\ILayerEditor.cs" />
     <Compile Include="ViewModels\Component\ComponentEditor.cs" />
     <Compile Include="ViewModels\Project\IProject.cs" />
     <Compile Include="Views\Entity\EntityPanel.xaml.cs">
@@ -251,8 +254,8 @@
     <Compile Include="Views\Messenger\Server.xaml.cs">
       <DependentUpon>Server.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ResourceTree.xaml.cs">
-      <DependentUpon>ResourceTree.xaml</DependentUpon>
+    <Compile Include="Views\AssetManager.xaml.cs">
+      <DependentUpon>AssetManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Geometry\Instancer\Instancer.xaml.cs">
       <DependentUpon>Instancer.xaml</DependentUpon>
@@ -376,6 +379,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Dialogs\SplashWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Mask\MaskPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -452,7 +459,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ResourceTree.xaml">
+    <Page Include="Views\AssetManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

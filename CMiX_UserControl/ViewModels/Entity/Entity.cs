@@ -11,20 +11,19 @@ namespace CMiX.Studio.ViewModels
     public class Entity : Component, IGetSet<EntityModel>
     {
         #region CONSTRUCTORS
-        public Entity(int id, Beat beat, string messageAddress, MessageService messageService, Assets assets, Mementor mementor)
+        public Entity(int id, Beat beat, string messageAddress, MessageService messageService, Mementor mementor)
         {
             MessageAddress = $"{messageAddress}Entity{id.ToString()}/";
             Mementor = mementor;
             MessageService = messageService;
-            Assets = assets;
 
             Enabled = true;
             ID = id;
             Name = "Entity" + id;
 
             BeatModifier = new BeatModifier(MessageAddress, beat, messageService, mementor);
-            Geometry = new Geometry(MessageAddress, messageService, mementor, assets, beat);
-            Texture = new Texture(MessageAddress, messageService, assets, mementor);
+            Geometry = new Geometry(MessageAddress, messageService, mementor, beat);
+            Texture = new Texture(MessageAddress, messageService, mementor);
             Coloration = new Coloration(MessageAddress, messageService, mementor, beat);
 
             Components = new ObservableCollection<Component>();
@@ -67,6 +66,7 @@ namespace CMiX.Studio.ViewModels
 
             entityModel.Enabled = Enabled;
             entityModel.Name = Name;
+
             entityModel.BeatModifierModel = BeatModifier.GetModel();
             entityModel.TextureModel = Texture.GetModel();
             entityModel.GeometryModel = Geometry.GetModel();
@@ -81,9 +81,10 @@ namespace CMiX.Studio.ViewModels
 
             this.Enabled = entityModel.Enabled;
             this.Name = entityModel.Name;
+
             this.BeatModifier.SetViewModel(entityModel.BeatModifierModel);
             this.Texture.SetViewModel(entityModel.TextureModel);
-            this.Geometry.Paste(entityModel.GeometryModel);
+            this.Geometry.SetViewModel(entityModel.GeometryModel);
             this.Coloration.SetViewModel(entityModel.ColorationModel);
 
             this.MessageService.Enable();

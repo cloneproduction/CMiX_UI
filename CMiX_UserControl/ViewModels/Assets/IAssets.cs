@@ -1,5 +1,6 @@
 ﻿using CMiX.MVVM.Models;
 
+
 namespace CMiX.Studio.ViewModels
 {
     public interface IAssets

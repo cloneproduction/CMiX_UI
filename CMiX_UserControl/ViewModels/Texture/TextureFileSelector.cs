@@ -7,10 +7,9 @@ namespace CMiX.Studio.ViewModels
 {
     public class TextureFileSelector : ViewModel, ISendable, IUndoable
     {
-        public TextureFileSelector(string messageAddress, Assets assets, MessageService messageService, Mementor mementor)
+        public TextureFileSelector(string messageAddress, MessageService messageService, Mementor mementor)
         {
-            MessageAddress = $"{messageAddress}{nameof(TextureFileSelector)}/"; ;
-            Assets = assets;
+            MessageAddress = $"{messageAddress}{nameof(TextureFileSelector)}/";
             MessageService = messageService;
             Mementor = mementor;
         }
@@ -22,7 +21,6 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _selectedTextureItem, value);
         }
 
-        public Assets Assets { get; set; }
         public Mementor Mementor { get; set; }
         public string MessageAddress { get; set; }
         public MessageService MessageService { get; set; }
