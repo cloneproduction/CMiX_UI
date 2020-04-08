@@ -129,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewModels\Assets\Asset.cs" />
+    <Compile Include="ViewModels\Assets\AssetPathSelector.cs" />
     <Compile Include="ViewModels\Assets\AssetSelector.cs" />
     <Compile Include="ViewModels\Component\ComponentEventArgs.cs" />
     <Compile Include="ViewModels\Component\Outliner.cs" />
@@ -138,11 +139,11 @@
     <Compile Include="ViewModels\Dialogs\CustomTypeLocator.cs" />
     <Compile Include="ViewModels\Dialogs\MessageTextViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\ModalDialog.cs" />
-    <Compile Include="Views\Assets\GeometrySelector.xaml.cs">
-      <DependentUpon>GeometrySelector.xaml</DependentUpon>
+    <Compile Include="Views\Assets\TexturePathSelector.xaml.cs">
+      <DependentUpon>TexturePathSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Assets\ImageSelector.xaml.cs">
-      <DependentUpon>ImageSelector.xaml</DependentUpon>
+    <Compile Include="Views\Assets\AssetPathSelector.xaml.cs">
+      <DependentUpon>AssetPathSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Behaviors\BindableTreeViewSelectedItemBehavior.cs" />
     <Compile Include="Behaviors\FolderDialogBehavior.cs" />
@@ -152,7 +153,6 @@
     <Compile Include="Behaviors\TreeViewItemClickBehavior.cs" />
     <Compile Include="Behaviors\TextBoxFocusBehavior.cs" />
     <Compile Include="Behaviors\TreeViewMultiSelectionBehavior.cs" />
-    <Compile Include="ViewModels\Texture\TextureFileSelector.cs" />
     <Compile Include="ViewModels\Assets\DragDropObject.cs" />
     <Compile Include="ViewModels\Assets\IDirectory.cs" />
     <Compile Include="ViewModels\Assets\ItemPonderation.cs" />
@@ -188,7 +188,7 @@
     </Compile>
     <Compile Include="ViewModels\Component\EditorTemplateSelector.cs" />
     <Compile Include="ViewModels\Layer\BlendMode.cs" />
-    <Compile Include="ViewModels\Assets\DirectoryItem.cs" />
+    <Compile Include="ViewModels\Assets\AssetDirectory.cs" />
     <Compile Include="ViewModels\Assets\TextureItem.cs" />
     <Compile Include="ViewModels\Assets\GeometryItem.cs" />
     <Compile Include="ViewModels\Assets\AssetManager.cs" />
@@ -359,11 +359,11 @@
     <Compile Include="Views\Texture\Texture.xaml.cs">
       <DependentUpon>Texture.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\Assets\GeometrySelector.xaml">
+    <Page Include="Views\Assets\TexturePathSelector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Assets\ImageSelector.xaml">
+    <Page Include="Views\Assets\AssetPathSelector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

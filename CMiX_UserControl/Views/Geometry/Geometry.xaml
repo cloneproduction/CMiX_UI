@@ -86,7 +86,7 @@
                 </DockPanel>
             </Border>
             
-            <Views:GeometrySelector DataContext="{Binding AssetSelector}"/>
+            <Views:AssetPathSelector DataContext="{Binding AssetPathSelector}"/>
 
             <Expander Margin="0, 2" IsExpanded="True" Header="Transform" Style="{StaticResource ExpanderBase}">
                 <Views:Transform 

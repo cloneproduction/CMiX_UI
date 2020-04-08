@@ -19,7 +19,7 @@ using MvvmDialogs.FrameworkDialogs.OpenFile;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class AssetManager : ViewModel, IDropTarget, IDragSource, IGetSet<AssetsModel>
+    public class AssetManager : ViewModel, IDropTarget, IDragSource, IGetSet<AssetManagerModel>
     {
         public AssetManager(IDialogService dialogService, ObservableCollection<IAssets> assets)
         {
@@ -451,19 +451,23 @@ namespace CMiX.Studio.ViewModels
         }
 
         #region GETSETMODEL
-        public AssetsModel GetModel()
+        public AssetManagerModel GetModel()
         {
-            AssetsModel assetsModel = new AssetsModel();
+            AssetManagerModel assetsModel = new AssetManagerModel();
+
             foreach (var asset in Assets)
-            {
                 assetsModel.AssetModels.Add(asset.GetModel());
-            }
+
+            foreach (var asset in FlattenAssets)
+                assetsModel.FlattenAssetModels.Add(asset.GetModel());
+
             return assetsModel;
         }
 
-        public void SetViewModel(AssetsModel model)
+        public void SetViewModel(AssetManagerModel model)
         {
             Assets.Clear();
+
             foreach (var assetModel in model.AssetModels)
             {
                 IAssets asset = null;
@@ -472,7 +476,6 @@ namespace CMiX.Studio.ViewModels
                 {
                     Console.WriteLine("assetModel is DirectoryAssetModel");
                     asset = new AssetDirectory();
-                    Console.WriteLine("Directory Asset Count " + assetModel.AssetModels.Count);
                 }
                     
                 else if (assetModel is GeometryAssetModel)
@@ -487,8 +490,36 @@ namespace CMiX.Studio.ViewModels
                     asset = new TextureItem();
                 }
 
-                asset.SetViewModel(assetModel);
-                Assets.Add(asset);
+                if(asset != null)
+                {
+                    asset.SetViewModel(assetModel);
+                    Assets.Add(asset);
+                }
+
+            }
+
+            FlattenAssets.Clear();
+            foreach (var assetModel in model.FlattenAssetModels)
+            {
+                IAssets asset = null;
+
+                if (assetModel is GeometryAssetModel)
+                {
+                    Console.WriteLine("assetModel is GeometryAssetModel");
+                    asset = new GeometryItem();
+                }
+
+                else if (assetModel is TextureAssetModel)
+                {
+                    Console.WriteLine("assetModel is TextureAssetModel");
+                    asset = new TextureItem();
+                }
+
+                if (asset != null)
+                {
+                    asset.SetViewModel(assetModel);
+                    FlattenAssets.Add(asset);
+                }
             }
         }
         #endregion

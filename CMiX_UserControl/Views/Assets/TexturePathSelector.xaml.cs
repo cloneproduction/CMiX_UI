@@ -5,9 +5,9 @@ using System.Windows.Input;
 
 namespace CMiX.Studio.Views
 {
-    public partial class ImageSelector : UserControl
+    public partial class TexturePathSelector : UserControl
     {
-        public ImageSelector()
+        public TexturePathSelector()
         {
             InitializeComponent();
         }

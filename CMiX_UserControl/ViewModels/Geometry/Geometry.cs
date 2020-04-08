@@ -20,8 +20,9 @@ namespace CMiX.Studio.ViewModels
             Instancer = new Instancer(MessageAddress, messageService, mementor, beat);
             Transform = new Transform(MessageAddress, messageService, mementor);
             GeometryFX = new GeometryFX(MessageAddress, messageService, mementor);
-            AssetSelector = new AssetSelector(MessageAddress, messageService, mementor);
-           
+
+            AssetPathSelector = new AssetPathSelector(MessageAddress, messageService, mementor);
+
             CopyGeometryCommand = new RelayCommand(p => CopyGeometry());
             PasteGeometryCommand = new RelayCommand(p => PasteGeometry());
             ResetGeometryCommand = new RelayCommand(p => ResetGeometry());
@@ -37,10 +38,11 @@ namespace CMiX.Studio.ViewModels
         public Mementor Mementor { get; set; }
         public MessageService MessageService { get; set; }
 
-        public AssetSelector AssetSelector { get; set; }
-        public Transform Transform { get; }
-        public Instancer Instancer { get;  }
-        public GeometryFX GeometryFX { get; }
+        public AssetPathSelector AssetPathSelector { get; set; }
+
+        public Transform Transform { get; set; }
+        public Instancer Instancer { get; set; }
+        public GeometryFX GeometryFX { get; set; }
 
         #endregion
 
@@ -108,7 +110,7 @@ namespace CMiX.Studio.ViewModels
             model.TransformModel = Transform.GetModel();
             model.GeometryFXModel = GeometryFX.GetModel();
             model.InstancerModel = Instancer.GetModel();
-            model.AssetSelectorModel = AssetSelector.GetModel();
+            model.AssetPathSelectorModel = AssetPathSelector.GetModel();
 
             return model;
         }
@@ -118,7 +120,7 @@ namespace CMiX.Studio.ViewModels
             Transform.SetViewModel(model.TransformModel);
             GeometryFX.SetViewModel(model.GeometryFXModel);
             Instancer.SetViewModel(model.InstancerModel);
-            AssetSelector.SetViewModel(model.AssetSelectorModel);
+            AssetPathSelector.SetViewModel(model.AssetPathSelectorModel);
         }
         #endregion
     }

@@ -82,7 +82,7 @@
                 </DockPanel>
             </Border>
 
-            <Views:ImageSelector DataContext="{Binding AssetSelector}"/>
+            <Views:TexturePathSelector DataContext="{Binding AssetPathSelector}"/>
             <Expander IsExpanded="True" Margin="0, 2" Header="Transform" Style="{StaticResource ExpanderBase}">
                 <StackPanel>
                     <Border Margin="0, 4" Style="{StaticResource BorderContainer}">
@@ -90,25 +90,21 @@
                             <MVVM.Views:SliderCentered
                                         Caption="Pan"
                                         DockPanel.Dock="Bottom"
-                                        DataContext="{Binding Pan}"
-                                        />
+                                        DataContext="{Binding Pan}"/>
                             <MVVM.Views:SliderCentered
                                         Margin="0, 2, 0, 2"
                                         Caption="Tilt"
                                         DockPanel.Dock="Bottom"
-                                        DataContext="{Binding Tilt}"
-                                        />
+                                        DataContext="{Binding Tilt}"/>
                             <MVVM.Views:SliderCentered
                                         Caption="Scale"
                                         DockPanel.Dock="Bottom"
-                                        DataContext="{Binding Scale}"
-                                        />
+                                        DataContext="{Binding Scale}"/>
                             <MVVM.Views:SliderCentered
                                         Margin="0, 2, 0, 0"
                                         Caption="Rotate"
                                         DockPanel.Dock="Bottom"
-                                        DataContext="{Binding Rotate}"
-                                        />
+                                        DataContext="{Binding Rotate}"/>
                         </StackPanel>
                     </Border>
 
@@ -132,14 +128,12 @@
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock 
-                                            Text="V" 
-                                            HorizontalAlignment="Center" 
-                                            VerticalAlignment="Center"
-                                            />
+                                    Text="V" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center"/>
                                 <ComboBox 
-                                            Grid.Column="1" 
-                                            Margin="2, 0, 0, 0"
-                                            />
+                                    Grid.Column="1" 
+                                    Margin="2, 0, 0, 0"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -156,9 +150,7 @@
                         Margin="0, 1, 0, 8"
                         Caption="Contrast"
                         DockPanel.Dock="Bottom"
-                        DataContext="{Binding Contrast}"
-                        />
-
+                        DataContext="{Binding Contrast}"/>
                     <MVVM.Views:Slider
                         Margin="0, 1"
                         Grid.Column="0"
@@ -173,8 +165,7 @@
                             Grid.Column="1"
                             ItemsSource="{Binding Source={StaticResource InvertMode}}"
                             SelectedItem="{Binding InvertMode}"
-                            SelectedIndex="0"
-                            />
+                            SelectedIndex="0"/>
                         <TextBlock 
                             VerticalAlignment="Center" 
                             HorizontalAlignment="Right" 

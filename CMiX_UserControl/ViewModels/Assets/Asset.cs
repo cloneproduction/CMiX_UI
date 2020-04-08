@@ -1,18 +1,11 @@
-﻿
-using CMiX.MVVM.Models;
+﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels;
-using System;
 using System.IO;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Asset : ViewModel, IAssets
+    public abstract class Asset : ViewModel, IAssets
     {
-        public Asset()
-        {
-
-        }
-
         private string _name;
         public string Name
         {
@@ -66,14 +59,8 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _fileExist, value);
         }
 
-        public virtual IAssetModel GetModel()
-        {
-            return new AssetModel();
-        }
+        public abstract IAssetModel GetModel();
 
-        public virtual void SetViewModel(IAssetModel assetModel)
-        {
-
-        }
+        public abstract void SetViewModel(IAssetModel assetModel);
     }
 }

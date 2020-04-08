@@ -7,13 +7,15 @@ using System.Threading.Tasks;
 
 namespace CMiX.MVVM.Models
 {
-    public class AssetsModel : Model
+    public class AssetManagerModel : Model
     {
-        public AssetsModel()
+        public AssetManagerModel()
         {
             AssetModels = new ObservableCollection<IAssetModel>();
+            FlattenAssetModels = new ObservableCollection<IAssetModel>();
         }
 
         public ObservableCollection<IAssetModel> AssetModels { get; set; }
+        public ObservableCollection<IAssetModel> FlattenAssetModels { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace CMiX.Studio.ViewModels
             MessageAddress = $"{messageaddress}{nameof(Texture)}/";
             MessageService = messageService;
 
-            AssetSelector = new AssetSelector(MessageAddress, messageService, mementor);
+            AssetPathSelector = new AssetPathSelector(MessageAddress, messageService, mementor);
 
             Brightness = new Slider(MessageAddress + nameof(Brightness), messageService, mementor);
             Brightness.Minimum = -1.0;
@@ -60,7 +60,7 @@ namespace CMiX.Studio.ViewModels
         public ICommand PasteTextureCommand { get; }
         public ICommand ResetTextureCommand { get; }
 
-        public AssetSelector AssetSelector { get; set; }
+        public AssetPathSelector AssetPathSelector { get; set; }
         public TextureItem TextureItem { get; set; }
 
         public Slider Brightness { get; }
@@ -96,41 +96,41 @@ namespace CMiX.Studio.ViewModels
         #region COPY/PASTE/RESET
         public TextureModel GetModel()
         {
-            TextureModel textureModel = new TextureModel();
+            TextureModel model = new TextureModel();
 
-            textureModel.AssetSelectorModel = AssetSelector.GetModel();
-            textureModel.Brightness = Brightness.GetModel();
-            textureModel.Contrast = Contrast.GetModel();
-            textureModel.Saturation = Saturation.GetModel();
-            textureModel.Luminosity = Luminosity.GetModel();
-            textureModel.Hue = Hue.GetModel();
-            textureModel.Pan = Pan.GetModel();
-            textureModel.Tilt = Tilt.GetModel();
-            textureModel.Scale = Scale.GetModel();
-            textureModel.Rotate = Rotate.GetModel();
-            textureModel.Keying = Keying.GetModel();
-            textureModel.Invert = Invert.GetModel();
-            textureModel.InvertMode = InvertMode;
-            return textureModel;
+            model.AssetPathSelectorModel = AssetPathSelector.GetModel();
+            model.Brightness = Brightness.GetModel();
+            model.Contrast = Contrast.GetModel();
+            model.Saturation = Saturation.GetModel();
+            model.Luminosity = Luminosity.GetModel();
+            model.Hue = Hue.GetModel();
+            model.Pan = Pan.GetModel();
+            model.Tilt = Tilt.GetModel();
+            model.Scale = Scale.GetModel();
+            model.Rotate = Rotate.GetModel();
+            model.Keying = Keying.GetModel();
+            model.Invert = Invert.GetModel();
+            model.InvertMode = InvertMode;
+            return model;
         }
 
-        public void SetViewModel(TextureModel textureModel)
+        public void SetViewModel(TextureModel model)
         {
             MessageService.Disable();
 
-            AssetSelector.SetViewModel(textureModel.AssetSelectorModel);
-            Brightness.SetViewModel(textureModel.Brightness);
-            Contrast.SetViewModel(textureModel.Contrast);
-            Saturation.SetViewModel(textureModel.Saturation);
-            Luminosity.SetViewModel(textureModel.Luminosity);
-            Hue.SetViewModel(textureModel.Hue);
-            Pan.SetViewModel(textureModel.Pan);
-            Tilt.SetViewModel(textureModel.Tilt);
-            Scale.SetViewModel(textureModel.Scale);
-            Rotate.SetViewModel(textureModel.Rotate);
-            Keying.SetViewModel(textureModel.Keying);
-            Invert.SetViewModel(textureModel.Invert);
-            InvertMode = textureModel.InvertMode;
+            AssetPathSelector.SetViewModel(model.AssetPathSelectorModel);
+            Brightness.SetViewModel(model.Brightness);
+            Contrast.SetViewModel(model.Contrast);
+            Saturation.SetViewModel(model.Saturation);
+            Luminosity.SetViewModel(model.Luminosity);
+            Hue.SetViewModel(model.Hue);
+            Pan.SetViewModel(model.Pan);
+            Tilt.SetViewModel(model.Tilt);
+            Scale.SetViewModel(model.Scale);
+            Rotate.SetViewModel(model.Rotate);
+            Keying.SetViewModel(model.Keying);
+            Invert.SetViewModel(model.Invert);
+            InvertMode = model.InvertMode;
 
             MessageService.Enable();
         }

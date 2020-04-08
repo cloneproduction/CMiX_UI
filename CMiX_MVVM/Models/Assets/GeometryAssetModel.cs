@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CMiX.MVVM.Models
 {
-    public class GeometryAssetModel : IAssetModel
+    public class GeometryAssetModel : Model, IAssetModel
     {
         public GeometryAssetModel()
         {
@@ -18,6 +18,7 @@ namespace CMiX.MVVM.Models
         public string Name { get; set; }
         public bool IsSelected { get; set; }
         public string Ponderation { get; set; }
+
         public ObservableCollection<IAssetModel> AssetModels { get; set; }
     }
 }

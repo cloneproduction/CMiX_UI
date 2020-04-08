@@ -19,7 +19,7 @@ namespace CMiX.Studio.ViewModels
 
         public override IAssetModel GetModel()
         {
-            IAssetModel assetModel = new AssetModel();
+            TextureAssetModel assetModel = new TextureAssetModel();
 
             assetModel.Name = Name;
             assetModel.Path = Path;

@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace CMiX.MVVM.Models
 {
-    public interface IAssetSelectorModel
+    public class AssetPathSelectorModel : Model
     {
-        IAssetModel SelectedAssetModel { get; set; }
+        public AssetPathSelectorModel()
+        {
+
+        }
+
+        public string SelectedPath { get; set; }
     }
 }
