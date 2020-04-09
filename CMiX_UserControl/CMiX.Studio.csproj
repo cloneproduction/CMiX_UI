@@ -130,7 +130,6 @@
   <ItemGroup>
     <Compile Include="ViewModels\Assets\Asset.cs" />
     <Compile Include="ViewModels\Assets\AssetPathSelector.cs" />
-    <Compile Include="ViewModels\Assets\AssetSelector.cs" />
     <Compile Include="ViewModels\Component\ComponentEventArgs.cs" />
     <Compile Include="ViewModels\Component\Outliner.cs" />
     <Compile Include="ViewModels\Dialogs\CustomDialog.cs" />
@@ -189,8 +188,8 @@
     <Compile Include="ViewModels\Component\EditorTemplateSelector.cs" />
     <Compile Include="ViewModels\Layer\BlendMode.cs" />
     <Compile Include="ViewModels\Assets\AssetDirectory.cs" />
-    <Compile Include="ViewModels\Assets\TextureItem.cs" />
-    <Compile Include="ViewModels\Assets\GeometryItem.cs" />
+    <Compile Include="ViewModels\Assets\AssetTexture.cs" />
+    <Compile Include="ViewModels\Assets\AssetGeometry.cs" />
     <Compile Include="ViewModels\Assets\AssetManager.cs" />
     <Compile Include="ViewModels\Geometry\Instancer\AnimParameter.cs" />
     <Compile Include="ViewModels\Geometry\Instancer\ScaleModifier.cs" />

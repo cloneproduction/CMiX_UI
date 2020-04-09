@@ -1,17 +1,15 @@
-﻿using CMiX.MVVM.ViewModels;
-using CMiX.MVVM.Models;
-using System.IO;
+﻿using CMiX.MVVM.Models;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class TextureItem : Asset, IAssets
+    public class AssetTexture : Asset, IAssets
     {
-        public TextureItem()
+        public AssetTexture()
         {
 
         }
 
-        public TextureItem(string name, string path)
+        public AssetTexture(string name, string path)
         {
             Name = name;
             Path = path;
@@ -19,7 +17,7 @@ namespace CMiX.Studio.ViewModels
 
         public override IAssetModel GetModel()
         {
-            TextureAssetModel assetModel = new TextureAssetModel();
+            IAssetModel assetModel = new AssetTextureModel();
 
             assetModel.Name = Name;
             assetModel.Path = Path;

@@ -8,7 +8,7 @@ using CMiX.MVVM.Models;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class AssetPathSelector : ViewModel, ISendable, IUndoable, IDropTarget
+    public class AssetPathSelector<T> : ViewModel, ISendable, IUndoable, IDropTarget
     {
         public AssetPathSelector(string messageAddress, MessageService messageService, Mementor mementor)
         {
@@ -25,18 +25,14 @@ namespace CMiX.Studio.ViewModels
         public string SelectedPath
         {
             get => _selectedPath;
-            set
-            {
-                SetAndNotify(ref _selectedPath, value);
-                Console.WriteLine("SelectedPath is " + value);
-            }
+            set => SetAndNotify(ref _selectedPath, value);
         }
 
         public void DragOver(IDropInfo dropInfo)
         {
             if (dropInfo.DragInfo != null)
             {
-                if (dropInfo.DragInfo.SourceItem != null && dropInfo.DragInfo.SourceItem is IAssets)
+                if (dropInfo.DragInfo.SourceItem != null && dropInfo.DragInfo.SourceItem is T)
                 {
                     dropInfo.Effects = DragDropEffects.Copy;
                 }

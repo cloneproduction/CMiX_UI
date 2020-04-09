@@ -2,14 +2,14 @@
 
 namespace CMiX.Studio.ViewModels
 {
-    public class GeometryItem : Asset, IAssets
+    public class AssetGeometry : Asset, IAssets
     {
-        public GeometryItem()
+        public AssetGeometry()
         {
 
         }
 
-        public GeometryItem(string name, string path)
+        public AssetGeometry(string name, string path)
         {
             Name = name;
             Path = path;
@@ -17,7 +17,7 @@ namespace CMiX.Studio.ViewModels
 
         public override IAssetModel GetModel()
         {
-            GeometryAssetModel assetModel = new GeometryAssetModel();
+            IAssetModel assetModel = new AssetGeometryModel();
 
             assetModel.Name = Name;
             assetModel.Path = Path;

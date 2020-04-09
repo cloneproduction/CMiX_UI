@@ -142,10 +142,10 @@ namespace CMiX.Studio.ViewModels
 
                 if(assetModel is DirectoryAssetModel)
                     asset = new AssetDirectory();
-                else if(assetModel is GeometryAssetModel)
-                    asset = new GeometryItem();
-                else if(assetModel is TextureAssetModel)
-                    asset = new TextureItem();
+                else if(assetModel is AssetGeometryModel)
+                    asset = new AssetGeometry();
+                else if(assetModel is AssetTextureModel)
+                    asset = new AssetTexture();
 
                 if(asset != null)
                 {

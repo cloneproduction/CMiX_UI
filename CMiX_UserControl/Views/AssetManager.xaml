@@ -45,7 +45,7 @@
                     </Border>
             </HierarchicalDataTemplate>
 
-            <DataTemplate DataType="{x:Type ViewModels:TextureItem}">
+            <DataTemplate DataType="{x:Type ViewModels:AssetTexture}">
                 <Border 
                     Margin="0, 1" 
                     Height="30">
@@ -58,7 +58,7 @@
                 </Border>
             </DataTemplate>
 
-            <DataTemplate  DataType="{x:Type ViewModels:GeometryItem}">
+            <DataTemplate  DataType="{x:Type ViewModels:AssetGeometry}">
                 <Border 
                     Margin="0, 1" 
                     Height="30">

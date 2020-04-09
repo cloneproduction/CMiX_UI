@@ -88,9 +88,9 @@
     <Compile Include="Models\Assets\AssetSelectorModel.cs" />
     <Compile Include="Models\Assets\AssetManagerModel.cs" />
     <Compile Include="Models\Assets\DirectoryAssetModel.cs" />
-    <Compile Include="Models\Assets\GeometryAssetModel.cs" />
+    <Compile Include="Models\Assets\AssetGeometryModel.cs" />
     <Compile Include="Models\Assets\IAssetModel.cs" />
-    <Compile Include="Models\Assets\TextureAssetModel.cs" />
+    <Compile Include="Models\Assets\AssetTextureModel.cs" />
     <Compile Include="Models\Component\ComponentModel.cs" />
     <Compile Include="Models\Interfaces\IComponentModel.cs" />
     <Compile Include="Models\TextureFileModel.cs" />

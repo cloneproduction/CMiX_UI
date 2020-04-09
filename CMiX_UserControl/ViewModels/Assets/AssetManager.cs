@@ -71,7 +71,7 @@ namespace CMiX.Studio.ViewModels
 
         public bool FilterGeometry(object item)
         {
-            if (item is GeometryItem)
+            if (item is AssetGeometry)
                 return true;
             else
                 return false;
@@ -79,7 +79,7 @@ namespace CMiX.Studio.ViewModels
 
         public bool FilterImage(object item)
         {
-            if (item is TextureItem)
+            if (item is AssetTexture)
                 return true;
             else
                 return false;
@@ -116,9 +116,9 @@ namespace CMiX.Studio.ViewModels
                 IAssets asset = SelectedItems[0];
                 OpenFileDialogSettings settings = new OpenFileDialogSettings();
 
-                if (asset is TextureItem)
+                if (asset is AssetTexture)
                     settings.Filter = "Image |*.jpg;*.jpeg;*.png;*.dds";
-                else if (asset is GeometryItem)
+                else if (asset is AssetGeometry)
                     settings.Filter = "Geometry |*.fbx; *.obj";
 
                 bool? success = DialogService.ShowOpenFileDialog(this, settings);
@@ -213,9 +213,9 @@ namespace CMiX.Studio.ViewModels
             IAssets item = null;
 
             if (fileType == TextureFileType.PNG.ToString() || fileType == TextureFileType.JPG.ToString() || fileType == TextureFileType.MOV.ToString())
-                item = new TextureItem(fileName, filePath);
+                item = new AssetTexture(fileName, filePath);
             else if (fileType == GeometryFileType.FBX.ToString() || fileType == GeometryFileType.OBJ.ToString())
-                item = new GeometryItem(fileName, filePath);
+                item = new AssetGeometry(fileName, filePath);
 
             if (item != null)
                 FlattenAssets.Add(item);
@@ -473,22 +473,13 @@ namespace CMiX.Studio.ViewModels
                 IAssets asset = null;
 
                 if(assetModel is DirectoryAssetModel)
-                {
-                    Console.WriteLine("assetModel is DirectoryAssetModel");
                     asset = new AssetDirectory();
-                }
                     
-                else if (assetModel is GeometryAssetModel)
-                {
-                    Console.WriteLine("assetModel is GeometryAssetModel");
-                    asset = new GeometryItem();
-                }
+                else if (assetModel is AssetGeometryModel)
+                    asset = new AssetGeometry();
                     
-                else if (assetModel is TextureAssetModel)
-                {
-                    Console.WriteLine("assetModel is TextureAssetModel");
-                    asset = new TextureItem();
-                }
+                else if (assetModel is AssetTextureModel)
+                    asset = new AssetTexture();
 
                 if(asset != null)
                 {
@@ -503,17 +494,11 @@ namespace CMiX.Studio.ViewModels
             {
                 IAssets asset = null;
 
-                if (assetModel is GeometryAssetModel)
-                {
-                    Console.WriteLine("assetModel is GeometryAssetModel");
-                    asset = new GeometryItem();
-                }
+                if (assetModel is AssetGeometryModel)
+                    asset = new AssetGeometry();
 
-                else if (assetModel is TextureAssetModel)
-                {
-                    Console.WriteLine("assetModel is TextureAssetModel");
-                    asset = new TextureItem();
-                }
+                else if (assetModel is AssetTextureModel)
+                    asset = new AssetTexture();
 
                 if (asset != null)
                 {

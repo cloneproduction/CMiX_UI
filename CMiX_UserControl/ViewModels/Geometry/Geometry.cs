@@ -21,7 +21,7 @@ namespace CMiX.Studio.ViewModels
             Transform = new Transform(MessageAddress, messageService, mementor);
             GeometryFX = new GeometryFX(MessageAddress, messageService, mementor);
 
-            AssetPathSelector = new AssetPathSelector(MessageAddress, messageService, mementor);
+            AssetPathSelector = new AssetPathSelector<AssetGeometry>(MessageAddress, messageService, mementor);
 
             CopyGeometryCommand = new RelayCommand(p => CopyGeometry());
             PasteGeometryCommand = new RelayCommand(p => PasteGeometry());
@@ -38,7 +38,7 @@ namespace CMiX.Studio.ViewModels
         public Mementor Mementor { get; set; }
         public MessageService MessageService { get; set; }
 
-        public AssetPathSelector AssetPathSelector { get; set; }
+        public AssetPathSelector<AssetGeometry> AssetPathSelector { get; set; }
 
         public Transform Transform { get; set; }
         public Instancer Instancer { get; set; }

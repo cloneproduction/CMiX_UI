@@ -15,7 +15,7 @@ namespace CMiX.Studio.ViewModels
             MessageAddress = $"{messageaddress}{nameof(Texture)}/";
             MessageService = messageService;
 
-            AssetPathSelector = new AssetPathSelector(MessageAddress, messageService, mementor);
+            AssetPathSelector = new AssetPathSelector<AssetTexture>(MessageAddress, messageService, mementor);
 
             Brightness = new Slider(MessageAddress + nameof(Brightness), messageService, mementor);
             Brightness.Minimum = -1.0;
@@ -60,8 +60,8 @@ namespace CMiX.Studio.ViewModels
         public ICommand PasteTextureCommand { get; }
         public ICommand ResetTextureCommand { get; }
 
-        public AssetPathSelector AssetPathSelector { get; set; }
-        public TextureItem TextureItem { get; set; }
+        public AssetPathSelector<AssetTexture> AssetPathSelector { get; set; }
+        public AssetTexture AssetTexture { get; set; }
 
         public Slider Brightness { get; }
         public Slider Contrast { get; }

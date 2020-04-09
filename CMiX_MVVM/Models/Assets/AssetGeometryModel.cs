@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace CMiX.MVVM.Models
 {
-    public class GeometryAssetModel : Model, IAssetModel
+    public class AssetGeometryModel : Model, IAssetModel
     {
-        public GeometryAssetModel()
+        public AssetGeometryModel()
         {
 
         }

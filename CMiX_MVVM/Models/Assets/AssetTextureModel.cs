@@ -2,9 +2,9 @@
 
 namespace CMiX.MVVM.Models
 {
-    public class TextureAssetModel : IAssetModel
+    public class AssetTextureModel : IAssetModel
     {
-        public TextureAssetModel()
+        public AssetTextureModel()
         {
 
         }
