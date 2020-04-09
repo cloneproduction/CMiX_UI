@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace CMiX.MVVM.Models
 {
-    public class DirectoryAssetModel : IAssetModel
+    public class AssetDirectoryModel : IAssetModel
     {
-        public DirectoryAssetModel()
+        public AssetDirectoryModel()
         {
             AssetModels = new ObservableCollection<IAssetModel>();
         }

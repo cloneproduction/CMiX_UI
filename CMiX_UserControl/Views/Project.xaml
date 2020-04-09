@@ -38,14 +38,7 @@
 
     <Border Background="{StaticResource SuperHighDarkerColor}">
         <Grid Background="{StaticResource SuperHighDarkerColor}" >
-            <!--<Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.2*"/>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>-->
-            <!--<Border Grid.Column="2" Margin="0">
-                <Views:CompositionEditor DataContext="{Binding ComponentEditor}"/>
-            </Border>-->
+
             <Border>
                 <TabControl TabStripPlacement="Left" Background="{StaticResource DarkerColor}" Style="{StaticResource TabControlVerticalPanel}" >
                     <TabItem Margin="8, 8, 8, 4" Width="25" Height="25" Style="{StaticResource TabItemVerticalPanel}">

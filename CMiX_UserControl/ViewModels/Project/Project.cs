@@ -20,9 +20,11 @@ namespace CMiX.Studio.ViewModels
             MessageService = new MessageService();
             Beat = new MasterBeat(MessageService);
 
-            Servers = new ObservableCollection<Server>();
-            ServerManager = new ServerManager();
             Components = new ObservableCollection<Component>();
+
+            Servers = new ObservableCollection<Server>();
+            ServerManager = new ServerManager(Servers);
+
             Assets = new ObservableCollection<IAssets>();
             AssetManager = new AssetManager(dialogService, Assets);
         }
@@ -62,8 +64,6 @@ namespace CMiX.Studio.ViewModels
             Name = projectModel.Name;
             IsVisible = projectModel.IsVisible;
             MessageAddress = projectModel.MessageAddress;
-
-            
 
             Components.Clear();
             foreach (CompositionModel componentModel in projectModel.ComponentModels)

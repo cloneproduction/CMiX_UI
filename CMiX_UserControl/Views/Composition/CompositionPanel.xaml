@@ -5,27 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Views="clr-namespace:CMiX.Studio.Views"
              xmlns:CMiX="clr-namespace:CMiX"
-             xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
-             xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
-             xmlns:dd="urn:gong-wpf-dragdrop"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="525" d:DesignWidth="293">
 
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <Resources:BindingProxy 
-                x:Key="ProjectProxy" 
-                Data="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Project}}}"/>
-            <Resources:BindingProxy 
-                x:Key="RootProxy" 
-                Data="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Root}}}"/>
-            <Resources:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
-        </ResourceDictionary>
-    </UserControl.Resources>
-
-
     <CMiX:MasterBeatControl DockPanel.Dock="Bottom" DataContext="{Binding Beat}"/>
-
-
+    
 </UserControl>

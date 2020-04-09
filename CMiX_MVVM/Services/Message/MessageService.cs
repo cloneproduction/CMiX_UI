@@ -9,14 +9,17 @@ namespace CMiX.MVVM.Services
         public MessageService()
         {
             MessageValidations = new ObservableCollection<MessageValidation>();
+            Enabled = true;
         }
 
         public ObservableCollection<MessageValidation> MessageValidations{ get; set; }
 
         public void SendMessages(string topic, MessageCommand command, object parameter, object payload)
         {
+            
             if (Enabled)
             {
+                System.Console.WriteLine("SendMessage from MessageService");
                 foreach (var messageValidation in MessageValidations)
                 {
                     messageValidation.SendMessage(topic, command, parameter, payload);

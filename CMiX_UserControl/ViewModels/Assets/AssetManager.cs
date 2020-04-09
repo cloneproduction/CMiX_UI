@@ -472,7 +472,7 @@ namespace CMiX.Studio.ViewModels
             {
                 IAssets asset = null;
 
-                if(assetModel is DirectoryAssetModel)
+                if(assetModel is AssetDirectoryModel)
                     asset = new AssetDirectory();
                     
                 else if (assetModel is AssetGeometryModel)
@@ -486,7 +486,6 @@ namespace CMiX.Studio.ViewModels
                     asset.SetViewModel(assetModel);
                     Assets.Add(asset);
                 }
-
             }
 
             FlattenAssets.Clear();

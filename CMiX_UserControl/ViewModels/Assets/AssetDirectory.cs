@@ -123,7 +123,7 @@ namespace CMiX.Studio.ViewModels
 
         public IAssetModel GetModel()
         {
-            DirectoryAssetModel directoryAssetModel = new DirectoryAssetModel();
+            IAssetModel directoryAssetModel = new AssetDirectoryModel();
             directoryAssetModel.Name = Name;
             foreach (var asset in Assets)
             {
@@ -140,7 +140,7 @@ namespace CMiX.Studio.ViewModels
             {
                 IAssets asset = null;
 
-                if(assetModel is DirectoryAssetModel)
+                if(assetModel is AssetDirectoryModel)
                     asset = new AssetDirectory();
                 else if(assetModel is AssetGeometryModel)
                     asset = new AssetGeometry();

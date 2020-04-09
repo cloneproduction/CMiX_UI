@@ -179,9 +179,6 @@
     <Compile Include="Views\Outliner\Outliner.xaml.cs">
       <DependentUpon>Outliner.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Root.xaml.cs">
-      <DependentUpon>Root.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\SliderBeat.xaml.cs">
       <DependentUpon>SliderBeat.xaml</DependentUpon>
     </Compile>
@@ -217,7 +214,7 @@
     </Compile>
     <Compile Include="_Thrash\Services\OSCAttribute.cs" />
     <Compile Include="ViewModels\Coloration\ColorSelector.cs" />
-    <Compile Include="Views\ColorSelector.xaml.cs">
+    <Compile Include="Views\Coloration\ColorSelector.xaml.cs">
       <DependentUpon>ColorSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Composition\CompositionPanel.xaml.cs">
@@ -253,7 +250,7 @@
     <Compile Include="Views\Messenger\Server.xaml.cs">
       <DependentUpon>Server.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AssetManager.xaml.cs">
+    <Compile Include="Views\Assets\AssetManager.xaml.cs">
       <DependentUpon>AssetManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Geometry\Instancer\Instancer.xaml.cs">
@@ -308,7 +305,7 @@
     <Compile Include="Views\Messenger\MessageValidation.xaml.cs">
       <DependentUpon>MessageValidation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Coloration.xaml.cs">
+    <Compile Include="Views\Coloration\Coloration.xaml.cs">
       <DependentUpon>Coloration.xaml</DependentUpon>
     </Compile>
     <Compile Include="_Thrash\Content.xaml.cs">
@@ -390,10 +387,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Root.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\SliderBeat.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -406,7 +399,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ColorSelector.xaml">
+    <Page Include="Views\Coloration\ColorSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -458,7 +451,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AssetManager.xaml">
+    <Page Include="Views\Assets\AssetManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -502,7 +495,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Coloration.xaml">
+    <Page Include="Views\Coloration\Coloration.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

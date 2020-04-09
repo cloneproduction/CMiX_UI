@@ -24,10 +24,10 @@
             <Border Padding="4">
                 <DockPanel>
                     <ComboBox 
-                    ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Project}}, Path=DataContext.ServerManager.Servers}"
-                    SelectedItem="{Binding SelectedServer}"
-                    DockPanel.Dock="Top" 
-                    Height="20">
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Project}}, Path=DataContext.Servers}"
+                        SelectedItem="{Binding SelectedServer}"
+                        DockPanel.Dock="Top" 
+                        Height="20">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Grid.Column="1" Margin="2, 1" Text="{Binding Name}"/>

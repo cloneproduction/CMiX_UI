@@ -6,9 +6,9 @@ namespace CMiX.MVVM.Services
 {
     public class ServerManager : ViewModel
     {
-        public ServerManager()
+        public ServerManager(ObservableCollection<Server> servers)
         {
-            Servers = new ObservableCollection<Server>();
+            Servers = servers;
             AddServerCommand = new RelayCommand(p => AddServer());
             DeleteServerCommand = new RelayCommand(p => DeleteServer());
             RenameServerCommand = new RelayCommand(p => RenameServer(p));
@@ -55,19 +55,5 @@ namespace CMiX.MVVM.Services
                 serv.IsRenaming = true;
             }
         }
-        //public void AddClient()
-        //{
-        //    Client client = new Client($"Client({ClientID.ToString()})", "127.0.0.1", 1111 + ClientID, $"/Device{ClientID}");
-        //    client.Start();
-        //    Clients.Add(client);
-        //    ClientID++;
-        //}
-
-        //public void DeleteClient(object client)
-        //{
-        //    Client c = client as Client;
-        //    c.Stop();
-        //    Clients.Remove(c);
-        //}
     }
 }

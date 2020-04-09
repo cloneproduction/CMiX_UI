@@ -85,9 +85,8 @@
     <Compile Include="Interfaces\ICopyPasteModel.cs" />
     <Compile Include="Models\Assets\AssetModel.cs" />
     <Compile Include="Models\Assets\AssetPathSelectorModel.cs" />
-    <Compile Include="Models\Assets\AssetSelectorModel.cs" />
     <Compile Include="Models\Assets\AssetManagerModel.cs" />
-    <Compile Include="Models\Assets\DirectoryAssetModel.cs" />
+    <Compile Include="Models\Assets\AssetDirectoryModel.cs" />
     <Compile Include="Models\Assets\AssetGeometryModel.cs" />
     <Compile Include="Models\Assets\IAssetModel.cs" />
     <Compile Include="Models\Assets\AssetTextureModel.cs" />

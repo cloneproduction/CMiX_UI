@@ -52,6 +52,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _amount, value);
                 MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, GetModel());
+                System.Console.WriteLine("Slider Amount is " + Amount);
             }
         }
 
