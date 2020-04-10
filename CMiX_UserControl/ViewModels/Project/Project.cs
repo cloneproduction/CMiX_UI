@@ -8,9 +8,10 @@ using MvvmDialogs;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Project : Component, IGetSet<ProjectModel>
+    public class Project : Component, IUndoable
     {
-        public Project(IDialogService dialogService)
+        public Project( int id, string messageAddress, Beat beat, MessageService messageService, Mementor mementor, IDialogService dialogService)
+            : base(id, beat, messageAddress, messageService, mementor)
         {
             DialogService = dialogService;
             MessageAddress = $"{nameof(Project)}/";
@@ -19,8 +20,6 @@ namespace CMiX.Studio.ViewModels
             Mementor = new Mementor();
             MessageService = new MessageService();
             Beat = new MasterBeat(MessageService);
-
-            Components = new ObservableCollection<Component>();
 
             Servers = new ObservableCollection<Server>();
             ServerManager = new ServerManager(Servers);
@@ -41,7 +40,7 @@ namespace CMiX.Studio.ViewModels
 
 
         #region GETSETMODEL
-        public ProjectModel GetModel()
+        public override IComponentModel GetModel()
         {
             ProjectModel projectModel = new ProjectModel();
             projectModel.ID = ID;
@@ -50,26 +49,26 @@ namespace CMiX.Studio.ViewModels
             projectModel.IsVisible = IsVisible;
             projectModel.AssetManagerModel = AssetManager.GetModel();
 
-            foreach (IGetSet<CompositionModel> item in Components)
-            {
-                projectModel.ComponentModels.Add(item.GetModel());
-            }
+            foreach (Component component in Components)
+                projectModel.ComponentModels.Add(component.GetModel());
 
             return projectModel;
         }
 
-        public void SetViewModel(ProjectModel projectModel)
+        public override void SetViewModel(IComponentModel componentModel)
         {
+            var projectModel = componentModel as ProjectModel;
+
             ID = projectModel.ID;
             Name = projectModel.Name;
             IsVisible = projectModel.IsVisible;
             MessageAddress = projectModel.MessageAddress;
 
             Components.Clear();
-            foreach (CompositionModel componentModel in projectModel.ComponentModels)
+            foreach (CompositionModel compositionModel in projectModel.ComponentModels)
             {
                 Composition composition = new Composition(0, this.MessageAddress, this.Beat, new MessageService(), this.Mementor);
-                composition.SetViewModel(componentModel);
+                composition.SetViewModel(compositionModel);
                 this.AddComponent(composition);
             }
 

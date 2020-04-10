@@ -16,6 +16,6 @@ namespace CMiX.MVVM.Models
         //BeatModel BeatModel { get; set; }
         //MessageServiceModel MessageServiceModel { get; set; }
 
-        ObservableCollection<IComponentModel> ComponentModels { get; set; }
+        ObservableCollection<ComponentModel> ComponentModels { get; set; }
     }
 }

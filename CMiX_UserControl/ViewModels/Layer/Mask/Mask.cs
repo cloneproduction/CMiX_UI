@@ -9,31 +9,25 @@ using Memento;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Mask : Component, ISendable, IUndoable, IGetSet<MaskModel>
+    public class Mask : Component, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Mask(Beat beat, string messageAddress, MessageService messageService, Mementor mementor) 
+        public Mask(int id, Beat beat, string messageAddress, MessageService messageService, Mementor mementor)
+            : base(id, beat, messageAddress, messageService, mementor)
         {
-            Enabled = false;
-
-            Beat = beat;
-            Mementor = mementor;
-            MessageAddress = $"{messageAddress}{nameof(Mask)}/";
-            MessageService = messageService;
             MaskType = ((MaskType)2).ToString();
             MaskControlType = ((MaskControlType)1).ToString();
             
             Name = "Mask";
-            Components = new ObservableCollection<Component>();
-            BeatModifier = new BeatModifier(MessageAddress, beat, messageService, mementor);
 
+            BeatModifier = new BeatModifier(MessageAddress, beat, messageService, mementor);
             Geometry = new Geometry(MessageAddress, messageService, mementor, beat);
             Texture = new Texture(MessageAddress, messageService, mementor);
             PostFX = new PostFX(MessageAddress, messageService, mementor);
 
-            CopyMaskCommand = new RelayCommand(p => CopyMask());
-            PasteMaskCommand = new RelayCommand(p => PasteMask());
-            ResetMaskCommand = new RelayCommand(p => ResetMask());
+            //CopyMaskCommand = new RelayCommand(p => CopyMask());
+            //PasteMaskCommand = new RelayCommand(p => PasteMask());
+            //ResetMaskCommand = new RelayCommand(p => ResetMask());
         }
         #endregion
 
@@ -42,7 +36,6 @@ namespace CMiX.Studio.ViewModels
         public ICommand PasteMaskCommand { get; }
         public ICommand ResetMaskCommand { get; }
         public ICommand VisibilityCommand { get; }
-
 
         public BeatModifier BeatModifier { get; }
         public Geometry Geometry { get; }
@@ -77,7 +70,7 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public MaskModel GetModel()
+        public override IComponentModel GetModel()
         {
             MaskModel maskModel = new MaskModel();
 
@@ -90,14 +83,15 @@ namespace CMiX.Studio.ViewModels
             maskModel.GeometryModel = Geometry.GetModel();
             maskModel.PostFXModel = PostFX.GetModel();
 
-            foreach (IGetSet<EntityModel> item in Components)
+            foreach (Component item in Components)
                 maskModel.ComponentModels.Add(item.GetModel());
 
             return maskModel;
         }
 
-        public void SetViewModel(MaskModel maskModel)
+        public override void SetViewModel(IComponentModel model)
         {
+            var maskModel = model as MaskModel;
             MessageService.Disable();
 
             Enabled = maskModel.Enable;
@@ -112,47 +106,47 @@ namespace CMiX.Studio.ViewModels
             MessageService.Enable();
         }
 
-        public void Reset()
-        {
-            MessageService.Disable();
+        //public void Reset()
+        //{
+        //    MessageService.Disable();
 
-            Enabled = false;
-            BeatModifier.Reset();
-            Geometry.Reset();
-            Texture.Reset();
-            PostFX.Reset();
+        //    Enabled = false;
+        //    BeatModifier.Reset();
+        //    Geometry.Reset();
+        //    Texture.Reset();
+        //    PostFX.Reset();
 
-            MessageService.Enable();
-        }
+        //    MessageService.Enable();
+        //}
 
-        public void CopyMask()
-        {
-            IDataObject data = new DataObject();
-            data.SetData("MaskModel", GetModel(), false);
-            Clipboard.SetDataObject(data);
-        }
+        //public void CopyMask()
+        //{
+        //    IDataObject data = new DataObject();
+        //    data.SetData("MaskModel", GetModel(), false);
+        //    Clipboard.SetDataObject(data);
+        //}
 
-        public void PasteMask()
-        {
-            IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent("MaskModel"))
-            {
-                Mementor.BeginBatch();
-                MessageService.Disable();;
+        //public void PasteMask()
+        //{
+        //    IDataObject data = Clipboard.GetDataObject();
+        //    if (data.GetDataPresent("MaskModel"))
+        //    {
+        //        Mementor.BeginBatch();
+        //        MessageService.Disable();;
 
-                var maskmodel = data.GetData("MaskModel") as MaskModel;
-                this.SetViewModel(maskmodel);
-                MessageService.Enable();
-                Mementor.EndBatch();
-                //this.SendMessages(nameof(MaskModel), GetModel());
-            }
-        }
+        //        var maskmodel = data.GetData("MaskModel") as MaskModel;
+        //        this.SetViewModel(maskmodel);
+        //        MessageService.Enable();
+        //        Mementor.EndBatch();
+        //        //this.SendMessages(nameof(MaskModel), GetModel());
+        //    }
+        //}
 
-        public void ResetMask()
-        {
-            this.Reset();
-            //this.SendMessages(nameof(MaskModel), GetModel());
-        }
+        //public void ResetMask()
+        //{
+        //    this.Reset();
+        //    //this.SendMessages(nameof(MaskModel), GetModel());
+        //}
         #endregion
     }
 }

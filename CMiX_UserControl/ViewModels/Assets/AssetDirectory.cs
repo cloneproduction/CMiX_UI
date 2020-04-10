@@ -27,6 +27,7 @@ namespace CMiX.Studio.ViewModels
         }
         #endregion
 
+        #region PROPERTIES
         public SortableObservableCollection<IAssets> Assets { get; set; }
 
         private string _name;
@@ -83,7 +84,9 @@ namespace CMiX.Studio.ViewModels
             Assets.Add(asset);
             SortAssets();
         }
+        #endregion
 
+        #region METHODS
         public void RemoveAsset(IAssets asset)
         {
             if (Assets.Contains(asset))
@@ -120,7 +123,9 @@ namespace CMiX.Studio.ViewModels
             if (e.PropertyName == nameof(Name))
                 SortAssets();
         }
+        #endregion
 
+        #region GETSETMODEL
         public IAssetModel GetModel()
         {
             IAssetModel directoryAssetModel = new AssetDirectoryModel();
@@ -155,5 +160,6 @@ namespace CMiX.Studio.ViewModels
             }
             SortAssets();
         }
+        #endregion
     }
 }

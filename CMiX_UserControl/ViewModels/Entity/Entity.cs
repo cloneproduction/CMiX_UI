@@ -4,34 +4,23 @@ using Memento;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
-using System.Collections.ObjectModel;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Entity : Component, IGetSet<EntityModel>
+    public class Entity : Component
     {
         #region CONSTRUCTORS
         public Entity(int id, Beat beat, string messageAddress, MessageService messageService, Mementor mementor)
+            : base(id, beat, messageAddress, messageService, mementor)
         {
-            MessageAddress = $"{messageAddress}Entity{id.ToString()}/";
-            Mementor = mementor;
-            MessageService = messageService;
-
-            Enabled = true;
-            ID = id;
-            Name = "Entity" + id;
-
             BeatModifier = new BeatModifier(MessageAddress, beat, messageService, mementor);
             Geometry = new Geometry(MessageAddress, messageService, mementor, beat);
             Texture = new Texture(MessageAddress, messageService, mementor);
             Coloration = new Coloration(MessageAddress, messageService, mementor, beat);
 
-            Components = new ObservableCollection<Component>();
-
-            RenameCommand = new RelayCommand(p => Rename());
             CopyEntityCommand = new RelayCommand(p => CopyEntity());
             PasteEntityCommand = new RelayCommand(p => PasteEntity());
-            ResetEntityCommand = new RelayCommand(p => ResetEntity());
+            //ResetEntityCommand = new RelayCommand(p => ResetEntity());
         }
         #endregion
 
@@ -39,8 +28,7 @@ namespace CMiX.Studio.ViewModels
         public ICommand CopyEntityCommand { get; }
         public ICommand PasteEntityCommand { get; }
         public ICommand ResetEntityCommand { get; }
-        public ICommand RenameCommand { get; }
-
+        
         public BeatModifier BeatModifier { get; }
         public Geometry Geometry { get; }
         public Texture Texture { get; }
@@ -57,10 +45,11 @@ namespace CMiX.Studio.ViewModels
             this.Geometry.Reset();
             this.Texture.Reset();
             this.Coloration.Reset();
+
             MessageService.Enable();
         }
 
-        public EntityModel GetModel()
+        public override IComponentModel GetModel()
         {
             EntityModel entityModel = new EntityModel();
 
@@ -75,10 +64,11 @@ namespace CMiX.Studio.ViewModels
             return entityModel;
         }
 
-        public void SetViewModel(EntityModel entityModel)
+        public override void SetViewModel(IComponentModel componentModel)
         {
             this.MessageService.Disable();
 
+            var entityModel = componentModel as EntityModel;
             this.Enabled = entityModel.Enabled;
             this.Name = entityModel.Name;
 
@@ -113,12 +103,12 @@ namespace CMiX.Studio.ViewModels
             }
         }
 
-        public void ResetEntity()
-        {
-            EntityModel entityModel = GetModel();
-            this.Reset();
-            //SendMessages(nameof(ContentModel), entityModel);
-        }
+        //public void ResetEntity()
+        //{
+        //    EntityModel entityModel = GetModel();
+        //    this.Reset();
+        //    //SendMessages(nameof(ContentModel), entityModel);
+        //}
         #endregion
     }
 }

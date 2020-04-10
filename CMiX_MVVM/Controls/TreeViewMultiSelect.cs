@@ -101,7 +101,7 @@ namespace CMiX.MVVM.Controls
             var treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
             var treeView = sender as TreeView;
             var list = GetSelectedItems(sender as TreeView);
-            if (list.Count > 1)
+            if (list != null && list.Count > 1)
             {
                 if ((Keyboard.Modifiers & (ModifierKeys.Control | ModifierKeys.Shift)) == (ModifierKeys.Control | ModifierKeys.Shift)
                     || (Keyboard.Modifiers == ModifierKeys.Control)
@@ -116,11 +116,6 @@ namespace CMiX.MVVM.Controls
             }
         }
 
-
-
-
-
-    
 
         private static TreeViewItem _selectTreeViewItemOnMouseUp;
 

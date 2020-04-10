@@ -345,7 +345,7 @@ namespace CMiX.Studio.ViewModels
                     }
                 }
             }
-            else if (dropInfo.DragInfo.Data is List<DragDropObject> && dropInfo.TargetCollection is ObservableCollection<IAssets>)
+            else if (dropInfo.DragInfo.Data is List<AssetDragDrop> && dropInfo.TargetCollection is ObservableCollection<IAssets>)
             {
                 var targetCollection = dropInfo.TargetCollection as ObservableCollection<IAssets>;
                 if (targetCollection is ObservableCollection<IAssets>)
@@ -353,8 +353,8 @@ namespace CMiX.Studio.ViewModels
                     var targetItem = dropInfo.TargetItem;
                     if (targetItem is IDirectory)
                     {
-                        var data = dropInfo.DragInfo.Data as List<DragDropObject>;
-                        foreach (DragDropObject item in data)
+                        var data = dropInfo.DragInfo.Data as List<AssetDragDrop>;
+                        foreach (AssetDragDrop item in data)
                         {
                             item.DragObject.IsSelected = false;
                             targetCollection.Add(item.DragObject);
@@ -372,14 +372,14 @@ namespace CMiX.Studio.ViewModels
             assets.RemoveAll(item => assetsToRemove.Contains(item));
         }
 
-        public void GetDragDropObjects(List<DragDropObject> dragList, ObservableCollection<IAssets> assets)
+        public void GetDragDropObjects(List<AssetDragDrop> dragList, ObservableCollection<IAssets> assets)
         {
             foreach (var asset in assets)
             {
                 if (asset.IsSelected)
                 {
                     Console.WriteLine("asset.IsSelected" + asset.Name);
-                    DragDropObject dragDropObject = new DragDropObject();
+                    AssetDragDrop dragDropObject = new AssetDragDrop();
                     dragDropObject.DragObject = asset;
                     dragDropObject.SourceCollection = assets;
                     dragList.Add(dragDropObject);
@@ -393,7 +393,7 @@ namespace CMiX.Studio.ViewModels
 
         public void StartDrag(IDragInfo dragInfo)
         {
-            List<DragDropObject> dragList = new List<DragDropObject>();
+            List<AssetDragDrop> dragList = new List<AssetDragDrop>();
             GetDragDropObjects(dragList, Assets);
             
             if(dragList.Count > 0)

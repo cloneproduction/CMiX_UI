@@ -7,14 +7,12 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Slider : ViewModel, ISendable, IUndoable
+    public class Slider : Sendable, IUndoable
     {
         #region CONSTRUCTORS
         public Slider(string messageAddress, MessageService messageService, Mementor mementor)
+            : base (messageAddress, messageService)
         {
-            MessageAddress = messageAddress;
-            MessageService = messageService;
-
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
 
@@ -52,7 +50,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _amount, value);
                 MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, GetModel());
-                System.Console.WriteLine("Slider Amount is " + Amount);
+                System.Console.WriteLine(MessageAddress + " " + Amount);
             }
         }
 
@@ -69,9 +67,8 @@ namespace CMiX.MVVM.ViewModels
             get => _maximum; 
             set => SetAndNotify(ref _maximum, value);
         }
-        public string MessageAddress { get; set; }
+
         public Mementor Mementor { get; set; }
-        public MessageService MessageService { get; set; }
 
         #endregion
 

@@ -126,6 +126,7 @@
     <Compile Include="Models\Geometry\Transform\TransformModel.cs" />
     <Compile Include="Models\TranslateModel.cs" />
     <Compile Include="Models\Geometry\Modifier\TranslateModifierModel.cs" />
+    <Compile Include="ViewModels\Sendable.cs" />
     <Compile Include="ViewModels\_Enums\AnimMode.cs" />
     <Compile Include="ViewModels\_Enums\EasingTypes.cs" />
     <Compile Include="_Trash\HueWheel.cs" />

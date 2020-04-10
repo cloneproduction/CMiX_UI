@@ -5,6 +5,8 @@ using CMiX.MVVM.ViewModels;
 using CMiX.Studio.ViewModels;
 using System.Linq;
 using System;
+using MvvmDialogs;
+using Memento;
 
 namespace CMiX.ViewModels
 {
@@ -12,7 +14,7 @@ namespace CMiX.ViewModels
     {
         public ComponentManager(ObservableCollection<Component> components)
         {
-            Projects = components;
+            Components = components;
 
             CreateComponentCommand = new RelayCommand(p => CreateComponent(p as Component));
             DuplicateComponentCommand = new RelayCommand(p => DuplicateComponent(p as Component));
@@ -28,7 +30,7 @@ namespace CMiX.ViewModels
         public ICommand DeleteLayerMaskCommand { get; }
         public ICommand MoveComponentToCommand { get;  }
 
-        public ObservableCollection<Component> Projects { get; set; }
+        public ObservableCollection<Component> Components { get; set; }
 
         public event EventHandler<ComponentEventArgs> ComponentDeleted;
         private void OnComponentDeleted(Component deletedComponent)
@@ -103,7 +105,7 @@ namespace CMiX.ViewModels
 
         public void DeleteComponent()
         {
-            DeleteSelectedComponent(Projects);
+            DeleteSelectedComponent(Components);
         }
 
 
@@ -120,6 +122,15 @@ namespace CMiX.ViewModels
                 else
                     DeleteSelectedComponent(component.Components);
             }
+        }
+
+        int ProjectID = 0;
+        public Project CreateProject(IDialogService dialogService)
+        {
+            var newProject = new Project(ProjectID, string.Empty, null, new MessageService(), new Mementor(), dialogService);
+            Components.Add(newProject);
+            ProjectID++;
+            return newProject;
         }
 
         int CompositionID = 0;
@@ -164,7 +175,7 @@ namespace CMiX.ViewModels
 
         private Layer DuplicateLayer(Layer layer)
         {
-            var parent = GetSelectedParent(Projects);
+            var parent = GetSelectedParent(Components);
             Layer newLayer = new Layer(LayerID, parent.Beat, parent.MessageAddress, parent.MessageService, parent.Mementor);
             newLayer.SetViewModel(layer.GetModel());
             newLayer.Name += " -Copy";
@@ -181,6 +192,7 @@ namespace CMiX.ViewModels
             scene.Components.Add(newEntity);
             scene.IsExpanded = true;
             EntityID++;
+            Console.WriteLine("NEW ENTITY ID = " + newEntity.ID );
             return newEntity;
         }
 
@@ -195,7 +207,7 @@ namespace CMiX.ViewModels
 
         private Entity DuplicateEntity(Entity entity)
         {
-            var parent = GetSelectedParent(Projects);
+            var parent = GetSelectedParent(Components);
             var component = new Entity(EntityID, parent.Beat, parent.MessageAddress, parent.MessageService, parent.Mementor);
             component.SetViewModel(entity.GetModel());
             component.Name += " -Copy";

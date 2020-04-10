@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMiX.MVVM.Models;
+using System;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
@@ -7,6 +8,11 @@ namespace CMiX.MVVM.ViewModels
 {
     public abstract class ViewModel : INotifyPropertyChanged, ICloneable
     {
+        public ViewModel()
+        {
+            Enabled = true;
+        }
+
         private bool _enabled;
         public bool Enabled
         {
@@ -63,6 +69,18 @@ namespace CMiX.MVVM.ViewModels
         //public void SetAndRecord<TRet>(Expression<Func<TRet>> backingField, TRet newValue, [CallerMemberName] string propertyName = null)
         //{
         //    var action = new SetAndNotifyPropertyAction<TRet>(this, propertyName, backingField, newValue);
+        //}
+
+        //public virtual Model GetModel()
+        //{
+        //    Model model = new Model();
+        //    model.Enabled = Enabled;
+        //    return model;
+        //}
+
+        //public virtual void SetViewModel(Model model)
+        //{
+        //    Enabled = model.Enabled;
         //}
     }
 }

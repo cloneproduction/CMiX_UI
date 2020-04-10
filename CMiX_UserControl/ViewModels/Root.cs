@@ -10,6 +10,7 @@ using CMiX.ViewModels;
 using MvvmDialogs;
 using MvvmDialogs.FrameworkDialogs.OpenFile;
 using MvvmDialogs.FrameworkDialogs.SaveFile;
+using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -24,15 +25,16 @@ namespace CMiX.Studio.ViewModels
             Mementor = new Mementor();
             Serializer = new CerasSerializer();
 
-            CurrentProject = new Project(DialogService);
-            CurrentProject.PropertyChanged += CurrentProject_PropertyChanged;
-            Projects = new ObservableCollection<Component> { CurrentProject };
+            Components = new ObservableCollection<Component>();
             ComponentEditor = new ComponentEditor();
 
-            ComponentManager = new ComponentManager(Projects);
+            ComponentManager = new ComponentManager(Components);
             ComponentManager.ComponentDeleted += ComponentEditor.ComponentManager_ComponentDeleted;
 
-            Outliner = new Outliner(Projects);
+            Servers = new ObservableCollection<Server>();
+            ServerManager = new ServerManager(Servers);
+
+            Outliner = new Outliner(Components);
 
             NewProjectCommand = new RelayCommand(p => NewProject());
             OpenProjectCommand = new RelayCommand(p => OpenProject());
@@ -45,10 +47,8 @@ namespace CMiX.Studio.ViewModels
             MaximizeWindowCommand = new RelayCommand(p => MaximizeWindow(p));
         }
 
-        public void OpenSplashScreen()
-        {
-
-        }
+        public ObservableCollection<Server> Servers { get; set; }
+        public ServerManager ServerManager { get; set; }
 
         public void MaximizeWindow(object obj)
         {
@@ -106,37 +106,25 @@ namespace CMiX.Studio.ViewModels
         public string FolderPath { get; set; }
         public string MessageAddress { get; set; }
 
-        private ObservableCollection<Component> _projects;
-        public ObservableCollection<Component> Projects
+        private ObservableCollection<Component> _components;
+        public ObservableCollection<Component> Components
         {
-            get => _projects;
-            set => SetAndNotify(ref _projects, value);
+            get => _components;
+            set => SetAndNotify(ref _components, value);
         }
 
-        private Project _currentProject;
-        public Project CurrentProject
+        private Component _currentProject;
+        public Component CurrentProject
         {
             get => _currentProject;
             set => SetAndNotify(ref _currentProject, value);
         }
 
-        private bool _projectChanged;
-        public bool ProjectChanged
-        {
-            get { return _projectChanged; }
-            set { _projectChanged = value; }
-        }
-
-        private void CurrentProject_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            System.Console.WriteLine("CURRENT PROJECT CHANGED");
-        }
-
         #region MENU METHODS
         private void NewProject()
         {
-            CurrentProject = new Project(this.DialogService);
-            CurrentProject.PropertyChanged += CurrentProject_PropertyChanged;
+            Components.Clear();
+            CurrentProject = ComponentManager.CreateProject(this.DialogService);
         }
 
         private void OpenProject()
@@ -152,6 +140,8 @@ namespace CMiX.Studio.ViewModels
                 {
                     byte[] data = File.ReadAllBytes(folderPath);
                     ProjectModel projectmodel = Serializer.Deserialize<ProjectModel>(data);
+                    Components.Clear();
+                    CurrentProject = ComponentManager.CreateProject(this.DialogService);
                     CurrentProject.SetViewModel(projectmodel);
                     FolderPath = folderPath;
                 }
@@ -161,9 +151,9 @@ namespace CMiX.Studio.ViewModels
         private void SaveProject()
         {
             System.Windows.Forms.SaveFileDialog savedialog = new System.Windows.Forms.SaveFileDialog();
-            if (!string.IsNullOrEmpty(FolderPath))
+            if (!string.IsNullOrEmpty(FolderPath) && this.Components.Count > 0)
             {
-                var projectModel = CurrentProject.GetModel();
+                var projectModel = Components[0].GetModel();
                 var data = Serializer.Serialize(projectModel);
                 File.WriteAllBytes(FolderPath, data);
             }
@@ -183,11 +173,14 @@ namespace CMiX.Studio.ViewModels
             bool? success = DialogService.ShowSaveFileDialog(this, settings);
             if (success == true)
             {
-                IComponentModel projectModel = CurrentProject.GetModel();
-                string folderPath = settings.FileName;
-                var data = Serializer.Serialize(projectModel);
-                File.WriteAllBytes(folderPath, data);
-                FolderPath = folderPath;
+                if(this.Components.Count > 0)
+                {
+                    IComponentModel projectModel = Components[0].GetModel();
+                    string folderPath = settings.FileName;
+                    var data = Serializer.Serialize(projectModel);
+                    File.WriteAllBytes(folderPath, data);
+                    FolderPath = folderPath;
+                }
             }
         }
 

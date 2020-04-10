@@ -2,42 +2,26 @@
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
-using System.Collections.ObjectModel;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Layer : Component, IGetSet<LayerModel>
+    public class Layer : Component
     {
         #region CONSTRUCTORS
-        public Layer(int id, Beat beat, string messageAddress, MessageService messageService, Mementor mementor) 
+        public Layer(int id, Beat beat, string messageAddress, MessageService messageService, Mementor mementor)
+            : base(id, beat, messageAddress, messageService, mementor)
         {
-            ID = id;
-            Name = "Layer " + id;
-
-            Enabled = false;
-            MessageAddress =  $"{messageAddress}{nameof(Layer)}/{id}/";
-            MessageService = messageService;
-            Mementor = mementor;
-            Beat = beat;
-            ID = id;
-
-            Components = new ObservableCollection<Component>();
-            Scene scene = new Scene(this.Beat, this.MessageAddress, this.MessageService, this.Mementor);
-            Mask mask = new Mask(this.Beat, this.MessageAddress, this.MessageService, this.Mementor);
+            Scene scene = new Scene(0, beat, messageAddress, messageService, mementor);
             Components.Add(scene);
+
+            Mask mask = new Mask(0, beat, messageAddress, messageService, mementor);
             Components.Add(mask);
 
-            PostFX = new PostFX(MessageAddress, messageService, mementor);
-            BlendMode = new BlendMode(beat, MessageAddress, messageService, mementor);
-            Fade = new Slider(MessageAddress + nameof(Fade), messageService, mementor);
+            PostFX = new PostFX(messageAddress, messageService, mementor);
+            BlendMode = new BlendMode(beat, messageAddress, messageService, mementor);
+            Fade = new Slider(messageAddress + nameof(Fade), messageService, mementor);
         }
         #endregion
-        private Entity _selectedEntity;
-        public Entity SelectedEntity
-        {
-            get => _selectedEntity;
-            set => SetAndNotify(ref _selectedEntity, value);
-        }
 
         #region PROPERTIES
         private bool _out;
@@ -61,7 +45,7 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public LayerModel GetModel()
+        public override IComponentModel GetModel()
         {
             LayerModel layerModel = new LayerModel();
 
@@ -74,44 +58,40 @@ namespace CMiX.Studio.ViewModels
             layerModel.PostFXModel = PostFX.GetModel();
 
             foreach (var item in Components)
-            {
-                if (item is IGetSet<SceneModel>)
-                    layerModel.ComponentModels.Add(((IGetSet<SceneModel>)item).GetModel());
-
-                if (item is IGetSet<MaskModel>)
-                    layerModel.ComponentModels.Add(((IGetSet<MaskModel>)item).GetModel());
-            }
+                layerModel.ComponentModels.Add(item.GetModel());
 
             return layerModel;
         }
 
-        public void SetViewModel(LayerModel model)
+        public override void SetViewModel(IComponentModel model)
         {
             MessageService.Disable();
 
-            Name = model.Name;
-            Out = model.Out;
-            ID = model.ID;
+            var layerModel = model as LayerModel;
 
-            Fade.SetViewModel(model.Fade);
-            BlendMode.SetViewModel(model.BlendMode);
-            PostFX.SetViewModel(model.PostFXModel);
+            Name = layerModel.Name;
+            Out = layerModel.Out;
+            ID = layerModel.ID;
+
+            Fade.SetViewModel(layerModel.Fade);
+            BlendMode.SetViewModel(layerModel.BlendMode);
+            PostFX.SetViewModel(layerModel.PostFXModel);
 
             Components.Clear();
-            foreach (IComponentModel componentModel in model.ComponentModels)
+            foreach (var componentModel in layerModel.ComponentModels)
             {
-                if(componentModel is SceneModel)
-                {
-                    Scene scene = new Scene(this.Beat, this.MessageAddress, this.MessageService, this.Mementor);
-                    scene.SetViewModel(componentModel as SceneModel);
-                    this.AddComponent(scene);
-                }
+                Component component = null;
 
-                if (componentModel is MaskModel)
+                if(componentModel is SceneModel)
+                    component = new Scene(0, this.Beat, this.MessageAddress, this.MessageService, this.Mementor);
+
+                else if (componentModel is MaskModel)
+                    component = new Mask(0, this.Beat, this.MessageAddress, this.MessageService, this.Mementor);
+
+                if(component != null)
                 {
-                    Mask mask = new Mask(this.Beat, this.MessageAddress, this.MessageService, this.Mementor);
-                    mask.SetViewModel(componentModel as MaskModel);
-                    this.AddComponent(mask);
+                    component.SetViewModel(componentModel);
+                    AddComponent(component);
                 }
             }
 
@@ -124,7 +104,7 @@ namespace CMiX.Studio.ViewModels
 
             BlendMode.Reset();
             Fade.Reset();
-            Mask.Reset();
+            //Mask.Reset();
             PostFX.Reset();
         }
         #endregion

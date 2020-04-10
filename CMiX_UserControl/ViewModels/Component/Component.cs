@@ -3,17 +3,30 @@ using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using Memento;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels
 {
-    public abstract class Component : ViewModel, IUndoable, ISendable
+    public abstract class Component : Sendable, IUndoable
     {
-        public int ID { get; set; }
-        public string MessageAddress { get; set; }
+        public Component(int id, Beat beat, string messageAddress, MessageService messageService, Mementor mementor)
+            : base(messageAddress, messageService)
+        {
+            ID = id;
+            Mementor = mementor;
+            Beat = beat;
+            Name = GetType().Name + " " + id;
+            MessageAddress += $"{id}/";
 
+            Components = new ObservableCollection<Component>();
+            RenameCommand = new RelayCommand(p => Rename());
+        }
+
+        public int ID { get; set; }
         public Mementor Mementor { get; set; }
         public Beat Beat { get; set; }
-        public MessageService MessageService { get; set; }
+
+        public ICommand RenameCommand { get; }
 
         private string _name;
         public string Name
@@ -112,37 +125,8 @@ namespace CMiX.Studio.ViewModels
             IsRenaming = true;
         }
 
-        //public ComponentModel GetModel()
-        //{
-        //    ComponentModel componentModel = new ComponentModel();
+        public abstract IComponentModel GetModel();
 
-        //    componentModel.IsExpanded = IsExpanded;
-        //    componentModel.IsSelected = IsSelected;
-        //    componentModel.Name = Name;
-        //    componentModel.ParentIsVisible = ParentIsVisible;
-        //    componentModel.SelectedComponent = SelectedComponent.GetModel();
-
-        //    foreach (var component in Components)
-        //    {
-        //        componentModel.ComponentModels.Add(component.GetModel());
-        //    }
-            
-        //    return componentModel;
-        //}
-
-        //public void SetViewModel(ComponentModel model)
-        //{
-        //    IsExpanded = model.IsExpanded;
-        //    IsSelected = model.IsSelected;
-        //    Name = model.Name;
-        //    ParentIsVisible = model.ParentIsVisible;
-        //    SelectedComponent.SetViewModel(model.SelectedComponent);;
-
-        //    Components.Clear();
-        //    foreach (var componentModel in model.ComponentModels)
-        //    {
-        //        Components.Add()
-        //    }
-        //}
+        public abstract void SetViewModel(IComponentModel model);
     }
 }

@@ -1,16 +1,10 @@
-﻿using CMiX.Studio.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class DragDropObject
+    public class AssetDragDrop
     {
-        public DragDropObject()
+        public AssetDragDrop()
         {
             SourceCollection = new ObservableCollection<IAssets>();
         }

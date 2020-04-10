@@ -10,6 +10,7 @@ namespace CMiX.MVVM.Services
         public MessageValidationManager(MessageService messageService)
         {
             MessageService = messageService;
+
             AddMessageValidationCommand = new RelayCommand(p => AddMessageValidation());
             RemoveMessageValidationCommand = new RelayCommand(p => RemoveMessageValidation());
         }
@@ -35,13 +36,10 @@ namespace CMiX.MVVM.Services
 
         public void AddMessageValidation()
         {
-            if (SelectedServer != null)
+            if (SelectedServer != null && !MessageService.MessageValidations.Any(p => p.Server == SelectedServer))
             {
-                if (!MessageService.MessageValidations.Any(p => p.Server == SelectedServer))
-                {
-                    MessageValidation mv = new MessageValidation(SelectedServer);
-                    MessageService.MessageValidations.Add(mv);
-                }
+                MessageValidation mv = new MessageValidation(SelectedServer);
+                MessageService.MessageValidations.Add(mv);
             }
         }
 

@@ -6,25 +6,16 @@ using System.Collections.ObjectModel;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Composition : Component, IGetSet<CompositionModel>
+    public class Composition : Component
     {
         #region CONSTRUCTORS
-        public Composition(int id, string messageAddress, Beat beat, MessageService messageService, Mementor mementor)
+        public Composition(int id, string messageAddress, Beat beat, MessageService messageService, Mementor mementor) 
+            : base (id, beat, messageAddress, messageService, mementor)
         {
-            ID = id;
-            Name = "Composition " + id.ToString();
-
-            MessageAddress = $"{messageAddress}{nameof(Composition)}/";
-            MessageService = messageService;
-            Beat = beat; 
-
             MessageValidationManager = new MessageValidationManager(MessageService);
-            Mementor = mementor;
 
             Transition = new Slider("/Transition", MessageService, Mementor);
             Camera = new Camera(MessageService, MessageAddress, Beat, Mementor);
-
-            Components = new ObservableCollection<Component>();
         }
         #endregion
 
@@ -36,7 +27,7 @@ namespace CMiX.Studio.ViewModels
 
 
         #region COPY/PASTE COMPOSITIONS
-        public CompositionModel GetModel()
+        public override IComponentModel GetModel()
         {
             CompositionModel compositionModel = new CompositionModel();
             compositionModel.Name = Name;
@@ -47,25 +38,24 @@ namespace CMiX.Studio.ViewModels
             compositionModel.MasterBeatModel = Beat.GetModel();
             compositionModel.TransitionModel = Transition.GetModel();
 
-            foreach (IGetSet<LayerModel> item in Components)
-            {
-                compositionModel.ComponentModels.Add(item.GetModel());
-            }
+            foreach (Component component in Components)
+                compositionModel.ComponentModels.Add(component.GetModel());
 
             return compositionModel;
         }
 
-        public void SetViewModel(CompositionModel model)
+        public override void SetViewModel(IComponentModel model)
         {
             //MessageService.Disable();
+            var compositionModel = model as CompositionModel;
 
-            Name = model.Name;
-            IsVisible = model.IsVisible;
-            ID = model.ID;
+            Name = compositionModel.Name;
+            IsVisible = compositionModel.IsVisible;
+            ID = compositionModel.ID;
 
-            Beat.SetViewModel(model.MasterBeatModel);
-            Camera.SetViewModel(model.CameraModel);
-            Transition.SetViewModel(model.TransitionModel);
+            Beat.SetViewModel(compositionModel.MasterBeatModel);
+            Camera.SetViewModel(compositionModel.CameraModel);
+            Transition.SetViewModel(compositionModel.TransitionModel);
 
             Components.Clear();
             foreach (LayerModel componentModel in model.ComponentModels)

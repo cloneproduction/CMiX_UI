@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class Model
+    public class Model : IModel
     {
-        //public string MessageAddress { get; set; }
+        public bool Enabled { get; set; }
     }
 }

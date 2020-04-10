@@ -2,7 +2,7 @@
 
 namespace CMiX.MVVM.Models
 {
-    public class ComponentModel : Model
+    public class ComponentModel : Model, IComponentModel
     {
         public ComponentModel()
         {
@@ -17,5 +17,8 @@ namespace CMiX.MVVM.Models
 
         public ObservableCollection<ComponentModel> ComponentModels { get; set; }
         public ComponentModel SelectedComponent { get; set; }
+        public int ID { get; set; }
+        public string MessageAddress { get; set; }
+        ObservableCollection<ComponentModel> ComponentModels { get; set; }
     }
 }
