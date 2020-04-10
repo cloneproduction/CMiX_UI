@@ -56,7 +56,7 @@ namespace CMiX.Studio.ViewModels
         public void CopyGeometry()
         {
             IDataObject data = new DataObject();
-            data.SetData("AnimParameterModel", GetModel(), false);
+            data.SetData("AnimParameterModel", this.GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 
@@ -87,13 +87,7 @@ namespace CMiX.Studio.ViewModels
             //SendQueues();
         }
 
-        public AnimParameterModel GetModel()
-        {
-            AnimParameterModel animParameterModel = new AnimParameterModel();
-            animParameterModel.Slider = Slider.GetModel();
-            animParameterModel.BeatModifier = BeatModifier.GetModel();
-            return animParameterModel;
-        }
+
 
         //public void Copy(AnimParameterModel animparametermodel)
         //{
@@ -120,7 +114,7 @@ namespace CMiX.Studio.ViewModels
 
             MessageService.Enable();
 
-            AnimParameterModel animparametermodel = GetModel();
+            AnimParameterModel animparametermodel = this.GetModel();
             //this.Copy(animparametermodel);
             //SendMessages(MessageAddress, GetModel());
             //QueueObjects(animparametermodel);

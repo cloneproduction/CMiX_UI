@@ -63,12 +63,6 @@ namespace CMiX.Studio.ViewModels
             MessageService.Enable();
         }
 
-        public CounterModel GetModel()
-        {
-            CounterModel counterModel = new CounterModel();
-            counterModel.Count = Count;
-            return counterModel;
-        }
 
         //public void Copy(CounterModel countermodel)
         //{

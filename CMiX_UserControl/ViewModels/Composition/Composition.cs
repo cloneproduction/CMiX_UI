@@ -25,24 +25,9 @@ namespace CMiX.Studio.ViewModels
         public Slider Transition { get; set; }
         #endregion
 
-
         #region COPY/PASTE COMPOSITIONS
-        public override IComponentModel GetModel()
-        {
-            CompositionModel compositionModel = new CompositionModel();
-            compositionModel.Name = Name;
-            compositionModel.IsVisible = IsVisible;
-            compositionModel.ID = ID;
 
-            compositionModel.CameraModel = Camera.GetModel();
-            compositionModel.MasterBeatModel = Beat.GetModel();
-            compositionModel.TransitionModel = Transition.GetModel();
 
-            foreach (Component component in Components)
-                compositionModel.ComponentModels.Add(component.GetModel());
-
-            return compositionModel;
-        }
 
         public override void SetViewModel(IComponentModel model)
         {

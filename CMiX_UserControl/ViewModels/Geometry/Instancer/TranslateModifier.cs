@@ -65,15 +65,12 @@ namespace CMiX.Studio.ViewModels
             //SendMessages(MessageAddress, GetModel());
         }
 
-        public TranslateModifierModel GetModel()
-        {
-            TranslateModifierModel translateModifierModel = new TranslateModifierModel();
-            translateModifierModel.Translate = Translate.GetModel();
-            translateModifierModel.TranslateX = TranslateX.GetModel();
-            translateModifierModel.TranslateY = TranslateY.GetModel();
-            translateModifierModel.TranslateZ = TranslateZ.GetModel();
-            return translateModifierModel;
-        }
+        //public TranslateModifierModel GetModel()
+        //{
+        //    TranslateModifierModel translateModifierModel = new TranslateModifierModel();
+
+        //    return translateModifierModel;
+        //}
 
         public void Paste(TranslateModifierModel translatemodifiermodel)
         {

@@ -65,15 +65,6 @@ namespace CMiX.Studio.ViewModels
             //SendQueues();
         }
 
-        public RotationModifierModel GetModel()
-        {
-            RotationModifierModel rotationModifierModel = new RotationModifierModel();
-            rotationModifierModel.Rotation = Rotation.GetModel();
-            rotationModifierModel.RotationX = RotationX.GetModel();
-            rotationModifierModel.RotationY = RotationY.GetModel();
-            rotationModifierModel.RotationZ = RotationZ.GetModel();
-            return rotationModifierModel;
-        }
 
         public void Paste(RotationModifierModel Rotationmodifiermodel)
         {

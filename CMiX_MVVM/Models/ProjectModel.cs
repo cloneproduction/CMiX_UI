@@ -10,6 +10,7 @@ namespace CMiX.MVVM.Models
             AssetManagerModel = new AssetManagerModel();
         }
 
+        public bool Enabled { get; set; }
         public string MessageAddress { get; set; }
         public int ID { get; set; }
         public string Name { get; set; }

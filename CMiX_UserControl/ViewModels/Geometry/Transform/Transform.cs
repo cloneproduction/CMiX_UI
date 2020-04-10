@@ -111,22 +111,19 @@ namespace CMiX.Studio.ViewModels
             //Mementor.EndBatch();
             MessageService.Enable();
 
-            TransformModel transformmodel = GetModel();
+            //TransformModel transformmodel = GetModel();
             //this.SendMessages(nameof(TransformModel), transformmodel);
             //QueueObjects(transformmodel);
             //SendQueues();
         }
 
 
-        public TransformModel GetModel()
-        {
-            TransformModel transformModel = new TransformModel();
-            transformModel.TranslateModel = Translate.GetModel();
-            transformModel.ScaleModel = Scale.GetModel();
-            transformModel.RotationModel = Rotation.GetModel();
-            transformModel.Is3D = Is3D;
-            return transformModel;
-        }
+        //public TransformModel GetModel()
+        //{
+        //    TransformModel transformModel = new TransformModel();
+
+        //    return transformModel;
+        //}
 
         public void SetViewModel(TransformModel model)
         {

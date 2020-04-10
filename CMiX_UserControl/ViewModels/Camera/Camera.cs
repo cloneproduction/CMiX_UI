@@ -76,15 +76,6 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public CameraModel GetModel()
-        {
-            CameraModel cameraModel = new CameraModel();
-            cameraModel.Rotation = Rotation;
-            cameraModel.LookAt = LookAt;
-            cameraModel.View = View;
-
-            return cameraModel;
-        }
 
         public void SetViewModel(CameraModel cameraModel)
         {

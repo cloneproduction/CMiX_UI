@@ -60,18 +60,10 @@ namespace CMiX.Studio.ViewModels
 
         public void ResetGeometry()
         {
-            TranslateModel translatemodel = GetModel();
+            
+            TranslateModel translatemodel = this.GetModel();
             this.Reset();
             //this.SendMessages(nameof(TranslateModel), translatemodel);
-        }
-
-        public TranslateModel GetModel()
-        {
-            TranslateModel translateModel = new TranslateModel();
-            translateModel.TranslateX = TranslateX.GetModel();
-            translateModel.TranslateY = TranslateY.GetModel();
-            translateModel.TranslateZ = TranslateZ.GetModel();
-            return translateModel;
         }
 
 

@@ -66,15 +66,6 @@ namespace CMiX.Studio.ViewModels
             //SendQueues();
         }
 
-        public ScaleModifierModel GetModel()
-        {
-            ScaleModifierModel scaleModifierModel = new ScaleModifierModel();
-            scaleModifierModel.Scale = Scale.GetModel();
-            scaleModifierModel.ScaleX = ScaleX.GetModel();
-            scaleModifierModel.ScaleY = ScaleY.GetModel();
-            scaleModifierModel.ScaleZ = ScaleZ.GetModel();
-            return scaleModifierModel;
-        }
 
 
         //public void Copy(ScaleModifierModel Scalemodifiermodel)

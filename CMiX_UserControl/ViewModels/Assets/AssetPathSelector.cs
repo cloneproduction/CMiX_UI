@@ -44,15 +44,6 @@ namespace CMiX.Studio.ViewModels
             SelectedPath = ((IAssets)dropInfo.DragInfo.SourceItem).Path;
         }
 
-        public AssetPathSelectorModel GetModel()
-        {
-            AssetPathSelectorModel model = new AssetPathSelectorModel();
-
-            if (SelectedPath != null)
-                model.SelectedPath = this.SelectedPath;
-
-            return model;
-        }
 
         public void SetViewModel(AssetPathSelectorModel model)
         {

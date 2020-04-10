@@ -77,17 +77,17 @@ namespace CMiX.Studio.ViewModels
             //SendMessages(nameof(InstancerModel), GetModel());
         }
 
-        public InstancerModel GetModel()
-        {
-            InstancerModel instancerModel = new InstancerModel();
-            instancerModel.Transform = Transform.GetModel();
-            instancerModel.Counter = Counter.GetModel();
-            instancerModel.TranslateModifier = TranslateModifier.GetModel();
-            instancerModel.ScaleModifier = ScaleModifier.GetModel();
-            instancerModel.RotationModifier = RotationModifier.GetModel();
-            instancerModel.NoAspectRatio = NoAspectRatio;
-            return instancerModel;
-        }
+        //public InstancerModel GetModel()
+        //{
+        //    InstancerModel instancerModel = new InstancerModel();
+        //    instancerModel.Transform = Transform.GetModel();
+        //    instancerModel.Counter = Counter.GetModel();
+        //    instancerModel.TranslateModifier = TranslateModifier.GetModel();
+        //    instancerModel.ScaleModifier = ScaleModifier.GetModel();
+        //    instancerModel.RotationModifier = RotationModifier.GetModel();
+        //    instancerModel.NoAspectRatio = NoAspectRatio;
+        //    return instancerModel;
+        //}
 
         public void SetViewModel(InstancerModel model)
         {

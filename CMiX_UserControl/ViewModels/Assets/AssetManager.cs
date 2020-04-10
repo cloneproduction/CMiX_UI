@@ -451,18 +451,6 @@ namespace CMiX.Studio.ViewModels
         }
 
         #region GETSETMODEL
-        public AssetManagerModel GetModel()
-        {
-            AssetManagerModel assetsModel = new AssetManagerModel();
-
-            foreach (var asset in Assets)
-                assetsModel.AssetModels.Add(asset.GetModel());
-
-            foreach (var asset in FlattenAssets)
-                assetsModel.FlattenAssetModels.Add(asset.GetModel());
-
-            return assetsModel;
-        }
 
         public void SetViewModel(AssetManagerModel model)
         {

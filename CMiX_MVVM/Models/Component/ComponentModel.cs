@@ -19,6 +19,5 @@ namespace CMiX.MVVM.Models
         public ComponentModel SelectedComponent { get; set; }
         public int ID { get; set; }
         public string MessageAddress { get; set; }
-        ObservableCollection<ComponentModel> ComponentModels { get; set; }
     }
 }
