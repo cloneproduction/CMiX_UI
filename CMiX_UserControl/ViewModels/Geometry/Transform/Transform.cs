@@ -8,7 +8,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Transform : ViewModel, ISendable, IUndoable, IGetSet<TransformModel>
+    public class Transform : ViewModel, ISendable, IUndoable
     {
         public Transform(string messageAddress, MessageService messageService, Mementor mementor)
         {
@@ -49,7 +49,7 @@ namespace CMiX.Studio.ViewModels
         public void CopyGeometry()
         {
             IDataObject data = new DataObject();
-            data.SetData("TransformModel", GetModel(), false);
+            data.SetData("TransformModel", this.GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 

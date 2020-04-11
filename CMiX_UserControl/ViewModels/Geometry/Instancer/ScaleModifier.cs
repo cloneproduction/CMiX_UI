@@ -35,7 +35,7 @@ namespace CMiX.Studio.ViewModels
         public void CopyGeometry()
         {
             IDataObject data = new DataObject();
-            data.SetData("ScaleModifierModel", GetModel(), false);
+            data.SetData("ScaleModifierModel", this.GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 

@@ -10,7 +10,7 @@ namespace CMiX.Studio.ViewModels
         bool IsSelected { get; set; }
         string Ponderation { get; set; }
 
-        IAssetModel GetModel();
+        //IAssetModel GetModel();
         void SetViewModel(IAssetModel assetModel);
     }
 }

@@ -64,18 +64,11 @@ namespace CMiX.Studio.ViewModels
         protected void OnPeriodChanged(double newPeriod) => PeriodChanged?.Invoke(this, newPeriod);
         #endregion
 
-        public MasterBeatModel GetModel()
-        {
-            MasterBeatModel masterBeatModel = new MasterBeatModel();
-            masterBeatModel.Period = Period;
-            return masterBeatModel;
-            
-        }
 
-        public void SetViewModel(MasterBeatModel masterBeatControl)
+        public void SetViewModel(BeatModel beatModel)
         {
             //MessageService.Disable();
-            Period = masterBeatControl.Period;
+            Period = beatModel.Period;
             //MessageService.Enable();
         }
     }

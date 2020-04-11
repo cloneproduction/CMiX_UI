@@ -45,23 +45,6 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public override IComponentModel GetModel()
-        {
-            LayerModel layerModel = new LayerModel();
-
-            layerModel.Name = Name;
-            layerModel.ID = ID;
-            layerModel.Out = Out;
-
-            layerModel.Fade = Fade.GetModel();
-            layerModel.BlendMode = BlendMode.GetModel();
-            layerModel.PostFXModel = PostFX.GetModel();
-
-            foreach (var item in Components)
-                layerModel.ComponentModels.Add(item.GetModel());
-
-            return layerModel;
-        }
 
         public override void SetViewModel(IComponentModel model)
         {

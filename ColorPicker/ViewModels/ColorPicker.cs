@@ -59,7 +59,7 @@ namespace CMiX.ColorPicker.ViewModels
 
         private void SendModel()
         {
-            MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, GetModel());
+            MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, this.GetModel());
         }
 
         private byte _red;
@@ -249,12 +249,6 @@ namespace CMiX.ColorPicker.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public ColorPickerModel GetModel()
-        {
-            ColorPickerModel colorPickerModel = new ColorPickerModel();
-            colorPickerModel.SelectedColor = Utils.ColorToHexString(SelectedColor);
-            return colorPickerModel;
-        }
 
         public void Paste(ColorPickerModel colorpickermodel)
         {

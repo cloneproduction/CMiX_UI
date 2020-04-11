@@ -49,20 +49,6 @@ namespace CMiX.Studio.ViewModels
             MessageService.Enable();
         }
 
-        public override IComponentModel GetModel()
-        {
-            EntityModel entityModel = new EntityModel();
-
-            entityModel.Enabled = Enabled;
-            entityModel.Name = Name;
-
-            entityModel.BeatModifierModel = BeatModifier.GetModel();
-            entityModel.TextureModel = Texture.GetModel();
-            entityModel.GeometryModel = Geometry.GetModel();
-            entityModel.ColorationModel = Coloration.GetModel();
-
-            return entityModel;
-        }
 
         public override void SetViewModel(IComponentModel componentModel)
         {
@@ -83,7 +69,7 @@ namespace CMiX.Studio.ViewModels
         public void CopyEntity()
         {
             IDataObject data = new DataObject();
-            data.SetData(nameof(EntityModel), GetModel(), false);
+            data.SetData(nameof(EntityModel), this.GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 

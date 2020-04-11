@@ -38,7 +38,7 @@ namespace CMiX.Studio.ViewModels
             IsVisible = compositionModel.IsVisible;
             ID = compositionModel.ID;
 
-            Beat.SetViewModel(compositionModel.MasterBeatModel);
+            Beat.SetViewModel(compositionModel.BeatModel);
             Camera.SetViewModel(compositionModel.CameraModel);
             Transition.SetViewModel(compositionModel.TransitionModel);
 

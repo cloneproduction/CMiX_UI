@@ -107,6 +107,7 @@
     <None Include="Effects\RGBShaderControl.cs" />
     <Compile Include="Resources\GlobalUri.cs" />
     <Compile Include="ViewModels\ColorPicker.cs" />
+    <Compile Include="ViewModels\ModelFactory.cs" />
     <Compile Include="Views\ColorPicker.xaml.cs">
       <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>

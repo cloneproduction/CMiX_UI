@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CMiX.Engine.ViewModels
 {
-    public class MasterBeat : ICopyPasteModel<MasterBeatModel>, IMessageReceiver
+    public class MasterBeat : ICopyPasteModel<BeatModel>, IMessageReceiver
     {
         public MasterBeat()
         {
@@ -25,12 +25,12 @@ namespace CMiX.Engine.ViewModels
             Receiver.UpdateViewModel(MessageAddress, this);
         }
 
-        public void CopyModel(MasterBeatModel masterBeatModel)
+        public void CopyModel(BeatModel masterBeatModel)
         {
             masterBeatModel.Period = Period;
         }
 
-        public void PasteModel(MasterBeatModel masterBeatModel)
+        public void PasteModel(BeatModel masterBeatModel)
         {
             Period = masterBeatModel.Period;
         }

@@ -28,7 +28,7 @@ namespace CMiX.Studio.ViewModels
         public void CopyGeometry()
         {
             IDataObject data = new DataObject();
-            data.SetData("RotationModel", GetModel(), false);
+            data.SetData("RotationModel", this.GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 
@@ -56,14 +56,7 @@ namespace CMiX.Studio.ViewModels
             //SendMessages(nameof(RotationModel), GetModel());
         }
 
-        public RotationModel GetModel()
-        {
-            RotationModel rotationModel = new RotationModel();
-            rotationModel.RotationX = RotationX.GetModel();
-            rotationModel.RotationY = RotationY.GetModel();
-            rotationModel.RotationZ = RotationZ.GetModel();
-            return rotationModel;
-        }
+
 
 
         public void Paste(RotationModel rotationmodel)

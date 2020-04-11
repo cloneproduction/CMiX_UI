@@ -10,7 +10,7 @@ namespace CMiX.MVVM.Models
         public CompositionModel()
         {
             ComponentModels = new ObservableCollection<IComponentModel>();
-            MasterBeatModel = new MasterBeatModel();
+            BeatModel = new BeatModel();
             LayersModel = new List<LayerModel>();
             CameraModel = new CameraModel();
             TransitionModel = new SliderModel();
@@ -21,7 +21,7 @@ namespace CMiX.MVVM.Models
         public List<LayerModel> LayersModel { get; set; }
         public LayerModel SelectedLayer { get; set; }
         public LayerEditorModel LayerEditorModel { get; set; }
-        public MasterBeatModel MasterBeatModel { get; set; }
+        public BeatModel BeatModel { get; set; }
         public CameraModel CameraModel { get; set; }
         public SliderModel TransitionModel { get; set; }
 
@@ -30,5 +30,6 @@ namespace CMiX.MVVM.Models
         public bool IsVisible { get; set; }
         public string MessageAddress { get; set; }
         public ObservableCollection<IComponentModel> ComponentModels { get; set; }
+        public bool Enabled { get; set; }
     }
 }

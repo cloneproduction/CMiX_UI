@@ -75,13 +75,6 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public BeatModifierModel GetModel()
-        {
-            BeatModifierModel beatModifierModel = new BeatModifierModel();
-            beatModifierModel.ChanceToHit = ChanceToHit.GetModel();
-            beatModifierModel.Multiplier = Multiplier;
-            return beatModifierModel;
-        }
 
         public void Reset()
         {

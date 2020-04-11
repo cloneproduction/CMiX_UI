@@ -120,12 +120,14 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _currentProject, value);
         }
 
+
         #region MENU METHODS
         private void NewProject()
         {
             Components.Clear();
             CurrentProject = ComponentManager.CreateProject(this.DialogService);
         }
+
 
         private void OpenProject()
         {
@@ -148,12 +150,13 @@ namespace CMiX.Studio.ViewModels
             }
         }
 
+
         private void SaveProject()
         {
             System.Windows.Forms.SaveFileDialog savedialog = new System.Windows.Forms.SaveFileDialog();
             if (!string.IsNullOrEmpty(FolderPath) && this.Components.Count > 0)
             {
-                var projectModel = Components[0].GetModel();
+                var projectModel = CurrentProject.GetModel();
                 var data = Serializer.Serialize(projectModel);
                 File.WriteAllBytes(FolderPath, data);
             }
@@ -162,6 +165,7 @@ namespace CMiX.Studio.ViewModels
                 SaveAsProject();
             }
         }
+
 
         private void SaveAsProject()
         {
@@ -183,6 +187,7 @@ namespace CMiX.Studio.ViewModels
                 }
             }
         }
+
 
         private void Quit(object p)
         {

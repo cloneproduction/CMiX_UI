@@ -107,13 +107,6 @@ namespace CMiX.Studio.ViewModels
         }
         #endregion
 
-        public MasterBeatModel GetModel()
-        {
-            MasterBeatModel masterBeatModel = new MasterBeatModel();
-            masterBeatModel.Period = Period;
-            return masterBeatModel;
-        }
-
         //public void CopyModel(MasterBeatModel masterBeatControl)
         //{
         //    masterBeatControl.Period = Period;

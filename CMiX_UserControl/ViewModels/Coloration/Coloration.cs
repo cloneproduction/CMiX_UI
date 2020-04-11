@@ -51,16 +51,6 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public ColorationModel GetModel()
-        {
-            ColorationModel colorationModel = new ColorationModel();
-            colorationModel.ColorSelectorModel = ColorSelector.GetModel();
-            colorationModel.BeatModifierModel = BeatModifier.GetModel();
-            colorationModel.HueModel = Hue.GetModel();
-            colorationModel.SatModel = Saturation.GetModel();
-            colorationModel.ValModel = Value.GetModel();
-            return colorationModel;
-        }
 
         //public void CopyModel(ColorationModel colorationModel)
         //{
@@ -100,7 +90,7 @@ namespace CMiX.Studio.ViewModels
         public void CopyColoration()
         {
             IDataObject data = new DataObject();
-            data.SetData("ColorationModel", GetModel(), false);
+            data.SetData("ColorationModel", this.GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 

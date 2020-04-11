@@ -40,20 +40,6 @@ namespace CMiX.Studio.ViewModels
 
 
         #region GETSETMODEL
-        public override IComponentModel GetModel()
-        {
-            ProjectModel projectModel = new ProjectModel();
-            projectModel.ID = ID;
-            projectModel.MessageAddress = MessageAddress;
-            projectModel.Name = Name;
-            projectModel.IsVisible = IsVisible;
-            projectModel.AssetManagerModel = AssetManager.GetModel();
-
-            foreach (Component component in Components)
-                projectModel.ComponentModels.Add(component.GetModel());
-
-            return projectModel;
-        }
 
         public override void SetViewModel(IComponentModel componentModel)
         {

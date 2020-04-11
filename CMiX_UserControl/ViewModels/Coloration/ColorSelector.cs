@@ -40,7 +40,7 @@ namespace CMiX.Studio.ViewModels
         public void CopyColorSelector()
         {
             IDataObject data = new DataObject();
-            data.SetData("ColorSelectorModel", GetModel(), false);
+            data.SetData("ColorSelectorModel", this.GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 
@@ -67,12 +67,6 @@ namespace CMiX.Studio.ViewModels
             //SendMessages(MessageAddress, GetModel());
         }
 
-        public ColorSelectorModel GetModel()
-        {
-            ColorSelectorModel colorSelectorModel = new ColorSelectorModel();
-            colorSelectorModel.ColorPickerModel = ColorPicker.GetModel();
-            return colorSelectorModel;
-        }
 
 
         public void SetViewModel(ColorSelectorModel colorSelectorModel)

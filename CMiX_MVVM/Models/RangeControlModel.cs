@@ -16,5 +16,6 @@ namespace CMiX.MVVM.Models
         public SliderModel Range { get; set; }
         public string Modifier { get; set; }
         public string MessageAddress { get; set; }
+        public bool Enabled { get; set; }
     }
 }

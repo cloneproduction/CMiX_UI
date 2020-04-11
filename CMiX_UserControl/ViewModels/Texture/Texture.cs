@@ -94,26 +94,6 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public TextureModel GetModel()
-        {
-            TextureModel model = new TextureModel();
-
-            model.AssetPathSelectorModel = AssetPathSelector.GetModel();
-            model.Brightness = Brightness.GetModel();
-            model.Contrast = Contrast.GetModel();
-            model.Saturation = Saturation.GetModel();
-            model.Luminosity = Luminosity.GetModel();
-            model.Hue = Hue.GetModel();
-            model.Pan = Pan.GetModel();
-            model.Tilt = Tilt.GetModel();
-            model.Scale = Scale.GetModel();
-            model.Rotate = Rotate.GetModel();
-            model.Keying = Keying.GetModel();
-            model.Invert = Invert.GetModel();
-            model.InvertMode = InvertMode;
-            return model;
-        }
-
         public void SetViewModel(TextureModel model)
         {
             MessageService.Disable();
@@ -159,7 +139,7 @@ namespace CMiX.Studio.ViewModels
         public void CopyTexture()
         {
             IDataObject data = new DataObject();
-            data.SetData("TextureModel", GetModel(), false);
+            data.SetData("TextureModel", this.GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 

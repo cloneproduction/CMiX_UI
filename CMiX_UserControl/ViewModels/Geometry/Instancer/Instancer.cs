@@ -7,7 +7,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Instancer : ViewModel, ISendable, IUndoable, IGetSet<InstancerModel>
+    public class Instancer : ViewModel, ISendable, IUndoable
     {
         public Instancer(string messageaddress, MessageService messageService, Mementor mementor, Beat beat)
         {
@@ -50,7 +50,7 @@ namespace CMiX.Studio.ViewModels
         public void CopyGeometry()
         {
             IDataObject data = new DataObject();
-            data.SetData("InstancerModel", GetModel(), false);
+            data.SetData("InstancerModel", this.GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 

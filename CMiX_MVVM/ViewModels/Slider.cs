@@ -49,7 +49,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _amount, value);
-                MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, GetModel());
+                //MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, this.GetModel());
                 System.Console.WriteLine(MessageAddress + " " + Amount);
             }
         }
@@ -106,7 +106,7 @@ namespace CMiX.MVVM.ViewModels
         public void CopySlider()
         {
             IDataObject data = new DataObject();
-            data.SetData("SliderModel", GetModel(), false);
+            //data.SetData("SliderModel", this.GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 
@@ -120,13 +120,6 @@ namespace CMiX.MVVM.ViewModels
                 this.SetViewModel(slidermodel);
                 Mementor.EndBatch();
             }
-        }
-
-        public SliderModel GetModel()
-        {
-            SliderModel sliderModel = new SliderModel();
-            sliderModel.Amount = Amount;
-            return sliderModel;
         }
 
         public void SetViewModel(SliderModel sliderModel)

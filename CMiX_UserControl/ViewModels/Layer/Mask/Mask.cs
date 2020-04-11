@@ -70,24 +70,6 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public override IComponentModel GetModel()
-        {
-            MaskModel maskModel = new MaskModel();
-
-            maskModel.Enable = Enabled;
-            maskModel.MaskType = MaskType;
-            maskModel.MaskControlType = MaskControlType;
-
-            maskModel.BeatModifierModel = BeatModifier.GetModel();
-            maskModel.TextureModel = Texture.GetModel();
-            maskModel.GeometryModel = Geometry.GetModel();
-            maskModel.PostFXModel = PostFX.GetModel();
-
-            foreach (Component item in Components)
-                maskModel.ComponentModels.Add(item.GetModel());
-
-            return maskModel;
-        }
 
         public override void SetViewModel(IComponentModel model)
         {

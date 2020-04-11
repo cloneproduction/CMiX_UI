@@ -69,15 +69,6 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public PostFXModel GetModel()
-        {
-            PostFXModel postFXModel = new PostFXModel();
-            postFXModel.Feedback = Feedback.GetModel();
-            postFXModel.Blur = Blur.GetModel();
-            postFXModel.Transforms = Transforms;
-            postFXModel.View = View;
-            return postFXModel;
-        }
 
         //public void CopyModel(PostFXModel postFXmodel)
         //{
@@ -110,7 +101,7 @@ namespace CMiX.Studio.ViewModels
             Feedback.Reset();
             Blur.Reset();
 
-            PostFXModel postfxmodel = GetModel();
+            PostFXModel postfxmodel = this.GetModel();
             //this.SendMessages(nameof(PostFXModel), postfxmodel);
 
             MessageService.Enable();
@@ -118,7 +109,7 @@ namespace CMiX.Studio.ViewModels
 
         public void CopyPostFX()
         {
-            PostFXModel postfxmodel = GetModel();
+            PostFXModel postfxmodel = this.GetModel();
             IDataObject data = new DataObject();
             data.SetData("PostFXModel", postfxmodel, false);
             Clipboard.SetDataObject(data);
@@ -143,7 +134,7 @@ namespace CMiX.Studio.ViewModels
 
         public void ResetPostFX()
         {
-            PostFXModel postFXModel = GetModel();
+            PostFXModel postFXModel = this.GetModel();
             this.Reset();
             //this.SendMessages(nameof(PostFXModel), postFXModel);
         }

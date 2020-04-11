@@ -33,18 +33,6 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public override IComponentModel GetModel()
-        {
-            SceneModel sceneModel = new SceneModel();
-            sceneModel.Enabled = Enabled;
-            sceneModel.BeatModifierModel = BeatModifier.GetModel();
-            sceneModel.PostFXModel = PostFX.GetModel();
-
-            foreach (Component item in Components)
-                sceneModel.ComponentModels.Add(item.GetModel());
-
-            return sceneModel;
-        }
 
         public override void SetViewModel(IComponentModel componentModel)
         {

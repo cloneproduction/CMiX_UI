@@ -113,7 +113,6 @@
     <Compile Include="Services\Message\ISendable.cs" />
     <Compile Include="Services\Server\ServerManager.cs" />
     <Compile Include="Themes\MainWindow.xaml.cs" />
-    <Compile Include="ViewModels\Interfaces\IGetSet.cs" />
     <Compile Include="ViewModels\Interfaces\IUndoable.cs" />
     <Compile Include="Services\Server\Server.cs" />
     <Compile Include="Services\Message\MessageValidation.cs" />
@@ -151,7 +150,7 @@
     <Compile Include="Models\Geometry\Transform\GeometryTranslateModel.cs" />
     <Compile Include="Models\LayerModel.cs" />
     <Compile Include="Models\MaskModel.cs" />
-    <Compile Include="Models\MasterBeatModel.cs" />
+    <Compile Include="Models\BeatModel.cs" />
     <Compile Include="Models\Model.cs" />
     <Compile Include="Models\PostFXModel.cs" />
     <Compile Include="Models\ProjectModel.cs" />

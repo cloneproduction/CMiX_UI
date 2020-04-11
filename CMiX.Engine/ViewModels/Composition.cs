@@ -117,7 +117,7 @@ namespace CMiX.Engine.ViewModels
             }
 
             SelectedLayer.PasteModel(compositionModel.SelectedLayer);
-            MasterBeat.PasteModel(compositionModel.MasterBeatModel);
+            MasterBeat.PasteModel(compositionModel.BeatModel);
             Camera.PasteModel(compositionModel.CameraModel);
             Transition.PasteModel(compositionModel.TransitionModel);
         }

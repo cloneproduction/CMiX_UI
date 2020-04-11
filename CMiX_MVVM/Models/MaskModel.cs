@@ -30,5 +30,6 @@ namespace CMiX.MVVM.Models
         public string MessageAddress { get; set; }
         public bool IsVisible { get; set; }
         public ObservableCollection<IComponentModel> ComponentModels { get; set; }
+        public bool Enabled { get; set; }
     }
 }

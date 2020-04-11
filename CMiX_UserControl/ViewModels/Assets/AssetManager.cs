@@ -19,7 +19,7 @@ using MvvmDialogs.FrameworkDialogs.OpenFile;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class AssetManager : ViewModel, IDropTarget, IDragSource, IGetSet<AssetManagerModel>
+    public class AssetManager : ViewModel, IDropTarget, IDragSource
     {
         public AssetManager(IDialogService dialogService, ObservableCollection<IAssets> assets)
         {

@@ -40,13 +40,7 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE
-        public RangeControlModel GetModel()
-        {
-            RangeControlModel rangeControlModel = new RangeControlModel();
-            rangeControlModel.Range = Range.GetModel();
-            rangeControlModel.Modifier = Modifier;
-            return rangeControlModel;
-        }
+
 
         //public void CopyModel(RangeControlModel rangeControlModel)
         //{

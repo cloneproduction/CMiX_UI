@@ -126,16 +126,7 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region GETSETMODEL
-        public IAssetModel GetModel()
-        {
-            IAssetModel directoryAssetModel = new AssetDirectoryModel();
-            directoryAssetModel.Name = Name;
-            foreach (var asset in Assets)
-            {
-                directoryAssetModel.AssetModels.Add(asset.GetModel());
-            }
-            return directoryAssetModel;
-        }
+
 
         public void SetViewModel(IAssetModel model)
         {

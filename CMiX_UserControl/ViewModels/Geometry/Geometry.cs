@@ -8,7 +8,7 @@ using Memento;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Geometry : ViewModel, ISendable, IUndoable, IGetSet<GeometryModel>
+    public class Geometry : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
         public Geometry(string messageaddress, MessageService messageService, Mementor mementor, Beat beat) 
@@ -50,7 +50,7 @@ namespace CMiX.Studio.ViewModels
         public void CopyGeometry()
         {
             IDataObject data = new DataObject();
-            data.SetData("GeometryModel", GetModel(), false);
+            data.SetData("GeometryModel", this.GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 
@@ -74,7 +74,7 @@ namespace CMiX.Studio.ViewModels
 
         public void ResetGeometry()
         {
-            GeometryModel geometrymodel = GetModel();
+            GeometryModel geometrymodel = this.GetModel();
             this.Reset();
             //SendMessages(MessageAddress, geometrymodel);
         }
@@ -101,18 +101,6 @@ namespace CMiX.Studio.ViewModels
             MessageService.Enable();
 
             //SendMessages(MessageAddress, GetModel());
-        }
-
-        public GeometryModel GetModel()
-        {
-            GeometryModel model = new GeometryModel();
-
-            model.TransformModel = Transform.GetModel();
-            model.GeometryFXModel = GeometryFX.GetModel();
-            model.InstancerModel = Instancer.GetModel();
-            model.AssetPathSelectorModel = AssetPathSelector.GetModel();
-
-            return model;
         }
 
         public void SetViewModel(GeometryModel model)

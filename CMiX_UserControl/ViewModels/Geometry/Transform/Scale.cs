@@ -30,7 +30,7 @@ namespace CMiX.Studio.ViewModels
         public void CopyGeometry()
         {
             IDataObject data = new DataObject();
-            data.SetData("ScaleModel", GetModel(), false);
+            data.SetData("ScaleModel", this.GetModel(), false);
             Clipboard.SetDataObject(data);
         }
 
@@ -54,18 +54,9 @@ namespace CMiX.Studio.ViewModels
 
         public void ResetGeometry()
         {
-            ScaleModel scalemodel = GetModel();
+            ScaleModel scalemodel = this.GetModel();
             this.Reset();
             //SendMessages(nameof(ScaleModel), scalemodel);
-        }
-
-        public ScaleModel GetModel()
-        {
-            ScaleModel scaleModel = new ScaleModel();
-            scaleModel.ScaleX = ScaleX.GetModel();
-            scaleModel.ScaleY = ScaleY.GetModel();
-            scaleModel.ScaleZ = ScaleZ.GetModel();
-            return scaleModel;
         }
 
         public void Paste(ScaleModel scalemodel)
@@ -90,7 +81,7 @@ namespace CMiX.Studio.ViewModels
             //Mementor.EndBatch();
             MessageService.Enable();
 
-            ScaleModel scalemodel = GetModel();
+            ScaleModel scalemodel = this.GetModel();
             //SendMessages(nameof(ScaleModel), scalemodel);
         }
         #endregion

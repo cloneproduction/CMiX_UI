@@ -258,17 +258,17 @@ namespace CMiX.Studio.ViewModels
             MessageService.Enable();
         }
 
-        public FileSelectorModel GetModel()
-        {
-            FileSelectorModel fileSelectorModel = new FileSelectorModel();
-            fileSelectorModel.FolderPath = FolderPath;
-            foreach (var filePath in FilePaths)
-            {
-                var fileNameItemModel = filePath.GetModel();
-                fileSelectorModel.FilePaths.Add(fileNameItemModel);
-            }
-            return fileSelectorModel;
-        }
+        //public FileSelectorModel GetModel()
+        //{
+        //    FileSelectorModel fileSelectorModel = new FileSelectorModel();
+        //    fileSelectorModel.FolderPath = FolderPath;
+        //    foreach (var filePath in FilePaths)
+        //    {
+        //        var fileNameItemModel = filePath.GetModel();
+        //        fileSelectorModel.FilePaths.Add(fileNameItemModel);
+        //    }
+        //    return fileSelectorModel;
+        //}
 
         //public void CopyModel(FileSelectorModel fileSelectorModel)
         //{
