@@ -63,13 +63,5 @@ namespace CMiX.Studio.ViewModels
 
         protected void OnPeriodChanged(double newPeriod) => PeriodChanged?.Invoke(this, newPeriod);
         #endregion
-
-
-        public void SetViewModel(BeatModel beatModel)
-        {
-            //MessageService.Disable();
-            Period = beatModel.Period;
-            //MessageService.Enable();
-        }
     }
 }

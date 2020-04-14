@@ -7,13 +7,13 @@ namespace CMiX.MVVM.Models
     {
         public TranslateModel()
         {
-            TranslateX = new SliderModel();
-            TranslateY = new SliderModel();
-            TranslateZ = new SliderModel();
+            X = new SliderModel();
+            Y = new SliderModel();
+            Z = new SliderModel();
         }
 
-        public SliderModel TranslateX { get; set; }
-        public SliderModel TranslateY { get; set; }
-        public SliderModel TranslateZ { get; set; }
+        public SliderModel X { get; set; }
+        public SliderModel Y { get; set; }
+        public SliderModel Z { get; set; }
     }
 }

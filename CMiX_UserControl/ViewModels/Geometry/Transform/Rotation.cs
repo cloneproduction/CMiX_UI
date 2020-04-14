@@ -12,14 +12,15 @@ namespace CMiX.Studio.ViewModels
         {
             MessageAddress = $"{messageaddress}{nameof(Rotation)}/";
             MessageService = messageService;
-            RotationX = new Slider(MessageAddress + nameof(RotationX), messageService, mementor);
-            RotationY = new Slider(MessageAddress + nameof(RotationY), messageService, mementor);
-            RotationZ = new Slider(MessageAddress + nameof(RotationZ), messageService, mementor);
+            X = new Slider(MessageAddress + nameof(X), messageService, mementor);
+            Y = new Slider(MessageAddress + nameof(Y), messageService, mementor);
+            Z = new Slider(MessageAddress + nameof(Z), messageService, mementor);
         }
 
-        public Slider RotationX { get; set; }
-        public Slider RotationY { get; set; }
-        public Slider RotationZ { get; set; }
+        public Slider X { get; set; }
+        public Slider Y { get; set; }
+        public Slider Z { get; set; }
+
         public string MessageAddress { get ; set ; }
         public MessageService MessageService { get; set; }
         public Mementor Mementor { get; set; }
@@ -63,9 +64,9 @@ namespace CMiX.Studio.ViewModels
         {
             MessageService.Disable();
 
-            RotationX.SetViewModel(rotationmodel.RotationX);
-            RotationY.SetViewModel(rotationmodel.RotationY);
-            RotationZ.SetViewModel(rotationmodel.RotationZ);
+            X.SetViewModel(rotationmodel.X);
+            Y.SetViewModel(rotationmodel.Y);
+            Z.SetViewModel(rotationmodel.Z);
 
             MessageService.Enable();
         }
@@ -75,9 +76,9 @@ namespace CMiX.Studio.ViewModels
             MessageService.Disable();
             //Mementor.BeginBatch();
 
-            RotationX.Reset();
-            RotationY.Reset();
-            RotationZ.Reset();
+            X.Reset();
+            Y.Reset();
+            Z.Reset();
 
             //Mementor.EndBatch();
             MessageService.Enable();

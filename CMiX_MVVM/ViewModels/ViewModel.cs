@@ -78,10 +78,10 @@ namespace CMiX.MVVM.ViewModels
         //    return model;
         //}
 
-        public virtual void SetViewModel(Model model)
-        {
-            Enabled = model.Enabled;
-        }
+        //public virtual void SetViewModel(Model model)
+        //{
+        //    Enabled = model.Enabled;
+        //}
 
 
     }

@@ -64,7 +64,7 @@ namespace CMiX.Studio.ViewModels
 
                 var geometrymodel = data.GetData("GeometryModel") as GeometryModel;
                 var geometrymessageaddress = MessageAddress;
-                this.Paste(geometrymodel);
+                this.SetViewModel(geometrymodel);
 
                 MessageService.Enable();
                 Mementor.EndBatch();
@@ -79,16 +79,6 @@ namespace CMiX.Studio.ViewModels
             //SendMessages(MessageAddress, geometrymodel);
         }
 
-        public void Paste(GeometryModel geometryModel)
-        {
-            MessageService.Disable();
-
-            Transform.Paste(geometryModel.TransformModel);
-            GeometryFX.Paste(geometryModel.GeometryFXModel);
-            Instancer.Paste(geometryModel.InstancerModel);
-
-            MessageService.Enable();
-        }
 
         public void Reset()
         {

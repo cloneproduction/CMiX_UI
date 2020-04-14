@@ -58,7 +58,5 @@ namespace CMiX.Studio.ViewModels
             get => File.Exists(Path);
             set => SetAndNotify(ref _fileExist, value);
         }
-
-        public abstract void SetViewModel(IAssetModel assetModel);
     }
 }

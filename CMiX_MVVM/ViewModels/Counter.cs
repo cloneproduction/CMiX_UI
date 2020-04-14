@@ -63,20 +63,6 @@ namespace CMiX.Studio.ViewModels
             MessageService.Enable();
         }
 
-
-        //public void Copy(CounterModel countermodel)
-        //{
-        //    countermodel.Count = Count;
-        //}
-
-        public void Paste(CounterModel countermodel)
-        {
-            MessageService.Enable();
-
-            Count = countermodel.Count;
-
-            MessageService.Enable();
-        }
         #endregion
     }
 }

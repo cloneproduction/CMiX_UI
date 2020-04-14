@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using Memento;
 using CMiX.MVVM.Services;
-using CMiX.MVVM;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -67,14 +65,6 @@ namespace CMiX.Studio.ViewModels
             //SendMessages(MessageAddress, GetModel());
         }
 
-
-
-        public void SetViewModel(ColorSelectorModel colorSelectorModel)
-        {
-            MessageService.Disable();
-            ColorPicker.Paste(colorSelectorModel.ColorPickerModel);
-            MessageService.Enable();
-        }
 
         public void Reset()
         {

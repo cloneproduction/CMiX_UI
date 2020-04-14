@@ -14,20 +14,20 @@ namespace CMiX.Studio.ViewModels
             MessageAddress = $"{messageAddress}{nameof(Translate)}/";
             MessageService = messageService;
 
-            TranslateX = new Slider(MessageAddress + nameof(TranslateX), messageService, mementor);
-            TranslateX.Minimum = -1;
-            TranslateX.Maximum = 1;
-            TranslateY = new Slider(MessageAddress + nameof(TranslateY), messageService, mementor);
-            TranslateY.Minimum = -1;
-            TranslateY.Maximum = 1;
-            TranslateZ = new Slider(MessageAddress + nameof(TranslateZ), messageService, mementor);
-            TranslateZ.Minimum = -1;
-            TranslateZ.Maximum = 1;
+            X = new Slider(MessageAddress + nameof(X), messageService, mementor);
+            X.Minimum = -1;
+            X.Maximum = 1;
+            Y = new Slider(MessageAddress + nameof(Y), messageService, mementor);
+            Y.Minimum = -1;
+            Y.Maximum = 1;
+            Z = new Slider(MessageAddress + nameof(Z), messageService, mementor);
+            Z.Minimum = -1;
+            Z.Maximum = 1;
         }
 
-        public Slider TranslateX { get; set; }
-        public Slider TranslateY { get; set; }
-        public Slider TranslateZ { get; set; }
+        public Slider X { get; set; }
+        public Slider Y { get; set; }
+        public Slider Z { get; set; }
         public string MessageAddress { get; set; }
 
         public Mementor Mementor { get; set; }
@@ -71,9 +71,9 @@ namespace CMiX.Studio.ViewModels
         {
             MessageService.Disable();
 
-            TranslateX.SetViewModel(translatemodel.TranslateX);
-            TranslateY.SetViewModel(translatemodel.TranslateY);
-            TranslateZ.SetViewModel(translatemodel.TranslateZ);
+            X.SetViewModel(translatemodel.X);
+            Y.SetViewModel(translatemodel.Y);
+            Z.SetViewModel(translatemodel.Z);
 
             MessageService.Enable();
         }
@@ -83,9 +83,9 @@ namespace CMiX.Studio.ViewModels
             MessageService.Disable();
             //Mementor.BeginBatch();
 
-            TranslateX.Reset();
-            TranslateY.Reset();
-            TranslateZ.Reset();
+            X.Reset();
+            Y.Reset();
+            Z.Reset();
 
             //Mementor.EndBatch();
             MessageService.Enable();

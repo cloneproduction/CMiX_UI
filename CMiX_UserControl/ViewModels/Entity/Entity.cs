@@ -50,22 +50,6 @@ namespace CMiX.Studio.ViewModels
         }
 
 
-        public override void SetViewModel(IComponentModel componentModel)
-        {
-            this.MessageService.Disable();
-
-            var entityModel = componentModel as EntityModel;
-            this.Enabled = entityModel.Enabled;
-            this.Name = entityModel.Name;
-
-            this.BeatModifier.SetViewModel(entityModel.BeatModifierModel);
-            this.Texture.SetViewModel(entityModel.TextureModel);
-            this.Geometry.SetViewModel(entityModel.GeometryModel);
-            this.Coloration.SetViewModel(entityModel.ColorationModel);
-
-            this.MessageService.Enable();
-        }
-
         public void CopyEntity()
         {
             IDataObject data = new DataObject();

@@ -13,14 +13,14 @@ namespace CMiX.Studio.ViewModels
             MessageAddress = $"{messageaddress}{nameof(Scale)}/";
             MessageService = messageService;
 
-            ScaleX = new Slider(MessageAddress + nameof(ScaleX), messageService, mementor);
-            ScaleY = new Slider(MessageAddress + nameof(ScaleY), messageService, mementor);
-            ScaleZ = new Slider(MessageAddress + nameof(ScaleZ), messageService, mementor);
+            X = new Slider(MessageAddress + nameof(X), messageService, mementor);
+            Y = new Slider(MessageAddress + nameof(Y), messageService, mementor);
+            Z = new Slider(MessageAddress + nameof(Z), messageService, mementor);
         }
 
-        public Slider ScaleX { get; set; }
-        public Slider ScaleY { get; set; }
-        public Slider ScaleZ { get; set; }
+        public Slider X { get; set; }
+        public Slider Y { get; set; }
+        public Slider Z { get; set; }
         public string MessageAddress { get ; set; }
         public Mementor Mementor { get; set; }
         public MessageService MessageService { get; set; }
@@ -63,9 +63,9 @@ namespace CMiX.Studio.ViewModels
         {
             MessageService.Disable();
 
-            ScaleX.SetViewModel(scalemodel.ScaleX);
-            ScaleY.SetViewModel(scalemodel.ScaleY);
-            ScaleZ.SetViewModel(scalemodel.ScaleZ);
+            X.SetViewModel(scalemodel.X);
+            Y.SetViewModel(scalemodel.Y);
+            Z.SetViewModel(scalemodel.Z);
             MessageService.Enable();
         }
 
@@ -74,9 +74,9 @@ namespace CMiX.Studio.ViewModels
             MessageService.Disable();
             //Mementor.BeginBatch();
 
-            ScaleX.Reset();
-            ScaleY.Reset();
-            ScaleZ.Reset();
+            X.Reset();
+            Y.Reset();
+            Z.Reset();
 
             //Mementor.EndBatch();
             MessageService.Enable();

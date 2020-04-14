@@ -117,16 +117,9 @@ namespace CMiX.MVVM.ViewModels
             {
                 Mementor.BeginBatch();
                 var slidermodel = data.GetData("SliderModel") as SliderModel;
-                this.SetViewModel(slidermodel);
+                //this.SetViewModel(slidermodel);
                 Mementor.EndBatch();
             }
-        }
-
-        public void SetViewModel(SliderModel sliderModel)
-        {
-            MessageService.Disable();
-            Amount = sliderModel.Amount;
-            MessageService.Enable();
         }
         #endregion
     }

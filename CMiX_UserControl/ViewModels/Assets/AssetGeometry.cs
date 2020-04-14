@@ -15,11 +15,5 @@ namespace CMiX.Studio.ViewModels
             Path = path;
         }
 
-        public override void SetViewModel(IAssetModel assetModel)
-        {
-            Name = assetModel.Name;
-            Path = assetModel.Path;
-            Ponderation = assetModel.Ponderation;
-        }
     }
 }

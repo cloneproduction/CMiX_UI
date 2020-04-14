@@ -124,7 +124,5 @@ namespace CMiX.Studio.ViewModels
         {
             IsRenaming = true;
         }
-
-        public abstract void SetViewModel(IComponentModel model);
     }
 }

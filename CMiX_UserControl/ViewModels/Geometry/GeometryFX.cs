@@ -31,17 +31,6 @@ namespace CMiX.Studio.ViewModels
 
         #region COPY/PASTE/RESET
 
-        public void SetViewModel(GeometryFXModel model)
-        {
-           
-        }
-
-        //public void Copy(GeometryFXModel geometryFXdto)
-        //{
-        //    Explode.CopyModel(geometryFXdto.Explode);
-        //    FileSelector.CopyModel(geometryFXdto.FileSelector);
-        //}
-
         public void Paste(GeometryFXModel geometryFXdto)
         {
             MessageService.Disable();

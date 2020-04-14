@@ -449,51 +449,5 @@ namespace CMiX.Studio.ViewModels
                 CanRelinkAsset = false;
             }
         }
-
-        #region GETSETMODEL
-
-        public void SetViewModel(AssetManagerModel model)
-        {
-            Assets.Clear();
-
-            foreach (var assetModel in model.AssetModels)
-            {
-                IAssets asset = null;
-
-                if(assetModel is AssetDirectoryModel)
-                    asset = new AssetDirectory();
-                    
-                else if (assetModel is AssetGeometryModel)
-                    asset = new AssetGeometry();
-                    
-                else if (assetModel is AssetTextureModel)
-                    asset = new AssetTexture();
-
-                if(asset != null)
-                {
-                    asset.SetViewModel(assetModel);
-                    Assets.Add(asset);
-                }
-            }
-
-            FlattenAssets.Clear();
-            foreach (var assetModel in model.FlattenAssetModels)
-            {
-                IAssets asset = null;
-
-                if (assetModel is AssetGeometryModel)
-                    asset = new AssetGeometry();
-
-                else if (assetModel is AssetTextureModel)
-                    asset = new AssetTexture();
-
-                if (asset != null)
-                {
-                    asset.SetViewModel(assetModel);
-                    FlattenAssets.Add(asset);
-                }
-            }
-        }
-        #endregion
     }
 }

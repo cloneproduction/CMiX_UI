@@ -34,26 +34,6 @@ namespace CMiX.Studio.ViewModels
 
         #region COPY/PASTE
 
-        public override void SetViewModel(IComponentModel componentModel)
-        {
-            var sceneModel = componentModel as SceneModel;
-            MessageService.Disable();
-
-            Enabled = sceneModel.Enabled;
-            BeatModifier.SetViewModel(sceneModel.BeatModifierModel);
-            PostFX.SetViewModel(sceneModel.PostFXModel);
-
-            Components.Clear();
-            foreach (EntityModel entityModel in sceneModel.ComponentModels)
-            {
-                Entity entity = new Entity(0, this.Beat, this.MessageAddress, this.MessageService, this.Mementor);
-                entity.SetViewModel(entityModel);
-                this.AddComponent(entity);
-            }
-
-            MessageService.Enable();
-        }
-
         public void Reset()
         {
             MessageService.Disable();

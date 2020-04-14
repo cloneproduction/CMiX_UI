@@ -49,7 +49,7 @@ namespace CMiX.Studio.ViewModels
 
                 var translatemodifiermodel = data.GetData("TranslateModifierModel") as TranslateModifierModel;
                 var messageaddress = MessageAddress;
-                this.Paste(translatemodifiermodel);
+                this.SetViewModel(translatemodifiermodel);
 
                 MessageService.Enable();
                 Mementor.EndBatch();
@@ -71,18 +71,6 @@ namespace CMiX.Studio.ViewModels
 
         //    return translateModifierModel;
         //}
-
-        public void Paste(TranslateModifierModel translatemodifiermodel)
-        {
-            MessageService.Disable();
-
-            Translate.Paste(translatemodifiermodel.Translate);
-            TranslateX.Paste(translatemodifiermodel.TranslateX);
-            TranslateY.Paste(translatemodifiermodel.TranslateY);
-            TranslateZ.Paste(translatemodifiermodel.TranslateZ);
-
-            MessageService.Enable();
-        }
 
         public void Reset()
         {

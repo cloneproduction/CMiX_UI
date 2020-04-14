@@ -69,28 +69,6 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-
-        //public void CopyModel(PostFXModel postFXmodel)
-        //{
-        //    Feedback.CopyModel(postFXmodel.Feedback);
-        //    Blur.CopyModel(postFXmodel.Blur);
-        //    postFXmodel.Transforms = Transforms;
-        //    postFXmodel.View = View;
-        //}
-
-        public void SetViewModel(PostFXModel postFXmodel)
-        {
-            MessageService.Disable();
-
-            Transforms = postFXmodel.Transforms;
-            View = postFXmodel.View;
-
-            Feedback.SetViewModel(postFXmodel.Feedback);
-            Blur.SetViewModel(postFXmodel.Blur);
-
-            MessageService.Enable();
-        }
-
         public void Reset()
         {
             MessageService.Disable();

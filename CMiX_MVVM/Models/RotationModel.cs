@@ -11,13 +11,13 @@ namespace CMiX.MVVM.Models
     {
         public RotationModel()
         {
-            RotationX = new SliderModel();
-            RotationY = new SliderModel();
-            RotationZ = new SliderModel();
+            X = new SliderModel();
+            Y = new SliderModel();
+            Z = new SliderModel();
         }
 
-        public SliderModel RotationX { get; set; }
-        public SliderModel RotationY { get; set; }
-        public SliderModel RotationZ { get; set; }
+        public SliderModel X { get; set; }
+        public SliderModel Y { get; set; }
+        public SliderModel Z { get; set; }
     }
 }

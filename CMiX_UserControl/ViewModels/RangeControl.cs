@@ -48,16 +48,6 @@ namespace CMiX.Studio.ViewModels
         //    rangeControlModel.Modifier = Modifier;
         //}
 
-        public void SetViewModel(RangeControlModel rangeControlModel)
-        {
-            MessageService.Disable();
-
-            Range.SetViewModel(rangeControlModel.Range);
-            Modifier = rangeControlModel.Modifier;
-
-            MessageService.Enable();
-        }
-
         public void Reset()
         {
             MessageService.Disable();

@@ -49,7 +49,7 @@ namespace CMiX.Studio.ViewModels
 
                 var Scalemodifiermodel = data.GetData("ScaleModifierModel") as ScaleModifierModel;
                 var messageaddress = MessageAddress;
-                this.Paste(Scalemodifiermodel);
+                //this.Paste(Scalemodifiermodel);
                 MessageService.Enable();
                 Mementor.EndBatch();
                 //SendMessages(MessageAddress, GetModel());
@@ -64,28 +64,6 @@ namespace CMiX.Studio.ViewModels
             //SendMessages(MessageAddress, GetModel());
             //QueueObjects(Scalemodifiermodel);
             //SendQueues();
-        }
-
-
-
-        //public void Copy(ScaleModifierModel Scalemodifiermodel)
-        //{
-        //    Scale.Copy(Scalemodifiermodel.Scale);
-        //    ScaleX.Copy(Scalemodifiermodel.ScaleX);
-        //    ScaleY.Copy(Scalemodifiermodel.ScaleY);
-        //    ScaleZ.Copy(Scalemodifiermodel.ScaleZ);
-        //}
-
-        public void Paste(ScaleModifierModel Scalemodifiermodel)
-        {
-            MessageService.Disable();
-
-            Scale.Paste(Scalemodifiermodel.Scale);
-            ScaleX.Paste(Scalemodifiermodel.ScaleX);
-            ScaleY.Paste(Scalemodifiermodel.ScaleY);
-            ScaleZ.Paste(Scalemodifiermodel.ScaleZ);
-
-            MessageService.Enable();
         }
 
         public void Reset()

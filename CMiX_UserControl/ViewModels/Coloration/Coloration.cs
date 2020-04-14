@@ -52,27 +52,7 @@ namespace CMiX.Studio.ViewModels
 
         #region COPY/PASTE/RESET
 
-        //public void CopyModel(ColorationModel colorationModel)
-        //{
-        //    ColorSelector.CopyModel(colorationModel.ColorSelectorModel);
-        //    BeatModifier.CopyModel(colorationModel.BeatModifierModel);
-        //    Hue.CopyModel(colorationModel.HueDTO);
-        //    Saturation.CopyModel(colorationModel.SatDTO);
-        //    Value.CopyModel(colorationModel.ValDTO);
-        //}
 
-        public void SetViewModel(ColorationModel colorationModel)
-        {
-            MessageService.Disable();
-
-            ColorSelector.SetViewModel(colorationModel.ColorSelectorModel);
-            BeatModifier.SetViewModel(colorationModel.BeatModifierModel);
-            Hue.SetViewModel(colorationModel.HueModel);
-            Saturation.SetViewModel(colorationModel.SatModel);
-            Value.SetViewModel(colorationModel.ValModel);
-
-            MessageService.Enable();
-        }
 
         public void Reset()
         {

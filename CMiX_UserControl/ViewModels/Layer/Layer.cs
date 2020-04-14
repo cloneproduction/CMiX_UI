@@ -46,41 +46,6 @@ namespace CMiX.Studio.ViewModels
 
         #region COPY/PASTE/RESET
 
-        public override void SetViewModel(IComponentModel model)
-        {
-            MessageService.Disable();
-
-            var layerModel = model as LayerModel;
-
-            Name = layerModel.Name;
-            Out = layerModel.Out;
-            ID = layerModel.ID;
-
-            Fade.SetViewModel(layerModel.Fade);
-            BlendMode.SetViewModel(layerModel.BlendMode);
-            PostFX.SetViewModel(layerModel.PostFXModel);
-
-            Components.Clear();
-            foreach (var componentModel in layerModel.ComponentModels)
-            {
-                Component component = null;
-
-                if(componentModel is SceneModel)
-                    component = new Scene(0, this.Beat, this.MessageAddress, this.MessageService, this.Mementor);
-
-                else if (componentModel is MaskModel)
-                    component = new Mask(0, this.Beat, this.MessageAddress, this.MessageService, this.Mementor);
-
-                if(component != null)
-                {
-                    component.SetViewModel(componentModel);
-                    AddComponent(component);
-                }
-            }
-
-            MessageService.Enable();
-        }
-
         public void Reset()
         {
             Enabled = true;

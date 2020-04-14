@@ -7,13 +7,13 @@ namespace CMiX.MVVM.Models
     {
         public ScaleModel()
         {
-            ScaleX = new SliderModel();
-            ScaleY = new SliderModel();
-            ScaleZ = new SliderModel();
+            X = new SliderModel();
+            Y = new SliderModel();
+            Z = new SliderModel();
         }
 
-        public SliderModel ScaleX { get; set; }
-        public SliderModel ScaleY { get; set; }
-        public SliderModel ScaleZ { get; set; }
+        public SliderModel X { get; set; }
+        public SliderModel Y { get; set; }
+        public SliderModel Z { get; set; }
     }
 }

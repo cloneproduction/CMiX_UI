@@ -24,33 +24,5 @@ namespace CMiX.Studio.ViewModels
         public Camera Camera { get; set; }
         public Slider Transition { get; set; }
         #endregion
-
-        #region COPY/PASTE COMPOSITIONS
-
-
-
-        public override void SetViewModel(IComponentModel model)
-        {
-            //MessageService.Disable();
-            var compositionModel = model as CompositionModel;
-
-            Name = compositionModel.Name;
-            IsVisible = compositionModel.IsVisible;
-            ID = compositionModel.ID;
-
-            Beat.SetViewModel(compositionModel.BeatModel);
-            Camera.SetViewModel(compositionModel.CameraModel);
-            Transition.SetViewModel(compositionModel.TransitionModel);
-
-            Components.Clear();
-            foreach (LayerModel componentModel in model.ComponentModels)
-            {
-                Layer layer = new Layer(0, this.Beat, this.MessageAddress, this.MessageService, this.Mementor);
-                layer.SetViewModel(componentModel);
-                this.AddComponent(layer);
-            }
-            //MessageService.Enable();
-        }
-        #endregion
     }
 }

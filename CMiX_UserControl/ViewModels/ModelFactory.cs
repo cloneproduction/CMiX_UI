@@ -1,155 +1,13 @@
 ﻿using CMiX.MVVM.Models;
-using CMiX.MVVM.Resources;
 using CMiX.MVVM.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CMiX.ColorPicker.ViewModels;
+using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
     public static class ModelFactory
     {
-        public static IAssetModel GetModel(this IAssets instance)
-        {
-            if (instance is AssetDirectory)
-                return ((AssetDirectory)instance).GetModel();
-            else if (instance is AssetTexture)
-                return ((AssetTexture)instance).GetModel();
-            else if (instance is AssetGeometry)
-                return ((AssetGeometry)instance).GetModel();
-            else return null;
-        }
-
-        public static IAssetModel GetModel(this AssetDirectory instance)
-        {
-            IAssetModel directoryAssetModel = new AssetDirectoryModel();
-
-            directoryAssetModel.Name = instance.Name;
-            foreach (var asset in instance.Assets)
-            {
-                directoryAssetModel.AssetModels.Add(asset.GetModel());
-            }
-            return directoryAssetModel;
-        }
-
-
-        public static IAssetModel GetModel(this AssetGeometry instance)
-        {
-            IAssetModel assetModel = new AssetGeometryModel();
-
-            assetModel.Name = instance.Name;
-            assetModel.Path = instance.Path;
-            assetModel.Ponderation = instance.Ponderation;
-
-            return assetModel;
-        }
-
-
-        public static IAssetModel GetModel(this AssetTexture instance)
-        {
-            IAssetModel assetModel = new AssetTextureModel();
-
-            assetModel.Name = instance.Name;
-            assetModel.Path = instance.Path;
-            assetModel.Ponderation = instance.Ponderation;
-
-            return assetModel;
-        }
-
-        public static RangeControlModel GetModel(this RangeControl instance)
-        {
-            RangeControlModel rangeControlModel = new RangeControlModel();
-
-            rangeControlModel.Range = instance.Range.GetModel();
-            rangeControlModel.Modifier = instance.Modifier;
-
-            return rangeControlModel;
-        }
-
-        public static CameraModel GetModel(this Camera instance)
-        {
-            CameraModel cameraModel = new CameraModel();
-
-            cameraModel.Rotation = instance.Rotation;
-            cameraModel.LookAt = instance.LookAt;
-            cameraModel.View = instance.View;
-
-            return cameraModel;
-        }
-
-        public static RotationModel GetModel(this Rotation instance)
-        {
-            RotationModel rotationModel = new RotationModel();
-
-            rotationModel.RotationX = instance.RotationX.GetModel();
-            rotationModel.RotationY = instance.RotationY.GetModel();
-            rotationModel.RotationZ = instance.RotationZ.GetModel();
-
-            return rotationModel;
-        }
-
-
-        public static EntityModel GetModel(this Entity instance)
-        {
-            EntityModel entityModel = new EntityModel();
-
-            entityModel.Enabled = instance.Enabled;
-            entityModel.Name = instance.Name;
-
-            entityModel.BeatModifierModel = instance.BeatModifier.GetModel();
-            entityModel.TextureModel = instance.Texture.GetModel();
-            entityModel.GeometryModel = instance.Geometry.GetModel();
-            entityModel.ColorationModel = instance.Coloration.GetModel();
-
-            return entityModel;
-        }
-
-
-        public static SceneModel GetModel(this Scene instance)
-        {
-            SceneModel sceneModel = new SceneModel();
-
-            sceneModel.Enabled = instance.Enabled;
-            sceneModel.BeatModifierModel = instance.BeatModifier.GetModel();
-            sceneModel.PostFXModel = instance.PostFX.GetModel();
-
-            foreach (Entity item in instance.Components)
-                sceneModel.ComponentModels.Add(item.GetModel());
-
-            return sceneModel;
-        }
-
-        public static BlendModeModel GetModel(this BlendMode instance)
-        {
-            BlendModeModel blendModeModel = new BlendModeModel();
-
-            blendModeModel.Mode = instance.Mode;
-
-            return blendModeModel;
-        }
-
-        public static IComponentModel GetModel(this Mask instance)
-        {
-            MaskModel maskModel = new MaskModel();
-
-            maskModel.Enable = instance.Enabled;
-            maskModel.MaskType = instance.MaskType;
-            maskModel.MaskControlType = instance.MaskControlType;
-
-            maskModel.BeatModifierModel = instance.BeatModifier.GetModel();
-            maskModel.TextureModel = instance.Texture.GetModel();
-            maskModel.GeometryModel = instance.Geometry.GetModel();
-            maskModel.PostFXModel = instance.PostFX.GetModel();
-
-            foreach (Entity item in instance.Components)
-                maskModel.ComponentModels.Add(item.GetModel());
-
-            return maskModel;
-        }
-
         public static IComponentModel GetModel(this Component instance)
         {
             if (instance is Project)
@@ -173,80 +31,63 @@ namespace CMiX.Studio.ViewModels
             else return null;
         }
 
-
-        public static ColorationModel GetModel(this Coloration instance)
+        public static void SetViewModel(this Component instance, IComponentModel componentModel)
         {
-            ColorationModel colorationModel = new ColorationModel();
+            if (instance is Project)
+                ((Project)instance).SetViewModel(componentModel);
 
-            colorationModel.ColorSelectorModel = instance.ColorSelector.GetModel();
-            colorationModel.BeatModifierModel = instance.BeatModifier.GetModel();
-            colorationModel.HueModel = instance.Hue.GetModel();
-            colorationModel.SatModel = instance.Saturation.GetModel();
-            colorationModel.ValModel = instance.Value.GetModel();
+            else if (instance is Composition)
+                ((Composition)instance).SetViewModel(componentModel);
 
-            return colorationModel;
+            else if (instance is Layer)
+                ((Layer)instance).SetViewModel(componentModel);
+
+            else if (instance is Mask)
+                ((Mask)instance).SetViewModel(componentModel);
+
+            else if (instance is Scene)
+                ((Scene)instance).SetViewModel(componentModel);
+
+            else if (instance is Entity)
+                ((Entity)instance).SetViewModel(componentModel);
         }
 
 
-        public static ColorSelectorModel GetModel(this ColorSelector instance)
+        public static ProjectModel GetModel(this Project instance)
         {
-            ColorSelectorModel colorSelectorModel = new ColorSelectorModel();
+            ProjectModel projectModel = new ProjectModel();
 
-            colorSelectorModel.ColorPickerModel = instance.ColorPicker.GetModel();
+            projectModel.ID = instance.ID;
+            projectModel.MessageAddress = instance.MessageAddress;
+            projectModel.Name = instance.Name;
+            projectModel.IsVisible = instance.IsVisible;
+            projectModel.AssetManagerModel = instance.AssetManager.GetModel();
 
-            return colorSelectorModel;
+
+            Console.WriteLine("GetProject Model");
+            foreach (Component component in instance.Components)
+                projectModel.ComponentModels.Add(component.GetModel());
+
+            return projectModel;
         }
 
-
-        public static PostFXModel GetModel(this PostFX instance)
+        public static void SetViewModel(this Project instance, IComponentModel componentModel)
         {
-            PostFXModel postFXModel = new PostFXModel();
+            var projectModel = componentModel as ProjectModel;
 
-            postFXModel.Feedback = instance.Feedback.GetModel();
-            postFXModel.Blur = instance.Blur.GetModel();
-            postFXModel.Transforms = instance.Transforms;
-            postFXModel.View = instance.View;
+            instance.ID = projectModel.ID;
+            instance.Name = projectModel.Name;
+            instance.IsVisible = projectModel.IsVisible;
 
-            return postFXModel;
-        }
+            instance.Components.Clear();
+            foreach (CompositionModel compositionModel in projectModel.ComponentModels)
+            {
+                Composition composition = new Composition(0, instance.MessageAddress, instance.Beat, new MessageService(), instance.Mementor);
+                composition.SetViewModel(compositionModel);
+                instance.AddComponent(composition);
+            }
 
-
-        public static LayerModel GetModel(this Layer instance)
-        {
-            LayerModel layerModel = new LayerModel();
-
-            layerModel.Name = instance.Name;
-            layerModel.ID = instance.ID;
-            layerModel.Out = instance.Out;
-
-            layerModel.Fade = instance.Fade.GetModel();
-            layerModel.BlendMode = instance.BlendMode.GetModel();
-            layerModel.PostFXModel = instance.PostFX.GetModel();
-
-            foreach (var item in instance.Components)
-                layerModel.ComponentModels.Add(item.GetModel());
-
-            return layerModel;
-        }
-
-
-        public static BeatModel GetModel(this Beat instance)
-        {
-            BeatModel beatModel = new BeatModel();
-
-            beatModel.Period = instance.Period;
-
-            return beatModel;
-        }
-
-        public static BeatModifierModel GetModel(this BeatModifier instance)
-        {
-            BeatModifierModel beatModifierModel = new BeatModifierModel();
-
-            beatModifierModel.ChanceToHit = instance.ChanceToHit.GetModel();
-            beatModifierModel.Multiplier = instance.Multiplier;
-
-            return beatModifierModel;
+            instance.AssetManager.SetViewModel(projectModel.AssetManagerModel);
         }
 
 
@@ -269,6 +110,610 @@ namespace CMiX.Studio.ViewModels
             return compositionModel;
         }
 
+        public static void SetViewModel(this Composition instance, IComponentModel model)
+        {
+            instance.MessageService.Disable();
+            var compositionModel = model as CompositionModel;
+
+            instance.Name = compositionModel.Name;
+            instance.IsVisible = compositionModel.IsVisible;
+            instance.ID = compositionModel.ID;
+
+            instance.Beat.SetViewModel(compositionModel.BeatModel);
+            instance.Camera.SetViewModel(compositionModel.CameraModel);
+            instance.Transition.SetViewModel(compositionModel.TransitionModel);
+
+            instance.Components.Clear();
+            foreach (LayerModel componentModel in model.ComponentModels)
+            {
+                Layer layer = new Layer(0, instance.Beat, instance.MessageAddress, instance.MessageService, instance.Mementor);
+                layer.SetViewModel(componentModel);
+                instance.AddComponent(layer);
+            }
+            instance.MessageService.Enable();
+        }
+
+
+        public static LayerModel GetModel(this Layer instance)
+        {
+            LayerModel layerModel = new LayerModel();
+
+            layerModel.Name = instance.Name;
+            layerModel.ID = instance.ID;
+            layerModel.Out = instance.Out;
+
+            layerModel.Fade = instance.Fade.GetModel();
+            layerModel.BlendMode = instance.BlendMode.GetModel();
+            layerModel.PostFXModel = instance.PostFX.GetModel();
+
+            foreach (var item in instance.Components)
+                layerModel.ComponentModels.Add(item.GetModel());
+
+            return layerModel;
+        }
+
+        public static void SetViewModel(this Layer instance, IComponentModel model)
+        {
+            instance.MessageService.Disable();
+
+            var layerModel = model as LayerModel;
+
+            instance.Name = layerModel.Name;
+            instance.Out = layerModel.Out;
+            instance.ID = layerModel.ID;
+
+            instance.Fade.SetViewModel(layerModel.Fade);
+            instance.BlendMode.SetViewModel(layerModel.BlendMode);
+            instance.PostFX.SetViewModel(layerModel.PostFXModel);
+
+            instance.Components.Clear();
+            foreach (var componentModel in layerModel.ComponentModels)
+            {
+                Component component = null;
+
+                if (componentModel is SceneModel)
+                    component = new Scene(0, instance.Beat, instance.MessageAddress, instance.MessageService, instance.Mementor);
+
+                else if (componentModel is MaskModel)
+                    component = new Mask(0, instance.Beat, instance.MessageAddress, instance.MessageService, instance.Mementor);
+
+                if (component != null)
+                {
+                    component.SetViewModel(componentModel);
+                    instance.AddComponent(component);
+                }
+            }
+
+            instance.MessageService.Enable();
+        }
+
+
+        public static SceneModel GetModel(this Scene instance)
+        {
+            SceneModel sceneModel = new SceneModel();
+
+            sceneModel.Enabled = instance.Enabled;
+            sceneModel.BeatModifierModel = instance.BeatModifier.GetModel();
+            sceneModel.PostFXModel = instance.PostFX.GetModel();
+
+            foreach (Entity item in instance.Components)
+                sceneModel.ComponentModels.Add(item.GetModel());
+
+            return sceneModel;
+        }
+
+        public static void SetViewModel(this Scene instance, IComponentModel componentModel)
+        {
+            var sceneModel = componentModel as SceneModel;
+            instance.MessageService.Disable();
+
+            instance.Enabled = sceneModel.Enabled;
+            instance.BeatModifier.SetViewModel(sceneModel.BeatModifierModel);
+            instance.PostFX.SetViewModel(sceneModel.PostFXModel);
+
+            instance.Components.Clear();
+            foreach (EntityModel entityModel in sceneModel.ComponentModels)
+            {
+                Entity entity = new Entity(0, instance.Beat, instance.MessageAddress, instance.MessageService, instance.Mementor);
+                entity.SetViewModel(entityModel);
+                instance.AddComponent(entity);
+            }
+
+            instance.MessageService.Enable();
+        }
+
+
+        public static MaskModel GetModel(this Mask instance)
+        {
+            MaskModel maskModel = new MaskModel();
+
+            maskModel.Enable = instance.Enabled;
+            maskModel.MaskType = instance.MaskType;
+            maskModel.MaskControlType = instance.MaskControlType;
+
+            maskModel.BeatModifierModel = instance.BeatModifier.GetModel();
+            maskModel.TextureModel = instance.Texture.GetModel();
+            maskModel.GeometryModel = instance.Geometry.GetModel();
+            maskModel.PostFXModel = instance.PostFX.GetModel();
+
+            foreach (Entity item in instance.Components)
+                maskModel.ComponentModels.Add(item.GetModel());
+
+            return maskModel;
+        }
+
+        public static void SetViewModel(this Mask instance, IComponentModel model)
+        {
+            var maskModel = model as MaskModel;
+            instance.MessageService.Disable();
+
+            instance.Enabled = maskModel.Enable;
+            instance.MaskType = maskModel.MaskType;
+            instance.MaskControlType = maskModel.MaskControlType;
+
+            instance.BeatModifier.SetViewModel(maskModel.BeatModifierModel);
+            instance.Texture.SetViewModel(maskModel.TextureModel);
+            instance.Geometry.SetViewModel(maskModel.GeometryModel);
+            instance.PostFX.SetViewModel(maskModel.PostFXModel);
+
+            instance.MessageService.Enable();
+        }
+
+
+        public static EntityModel GetModel(this Entity instance)
+        {
+            EntityModel entityModel = new EntityModel();
+
+            entityModel.Enabled = instance.Enabled;
+            entityModel.Name = instance.Name;
+
+            entityModel.BeatModifierModel = instance.BeatModifier.GetModel();
+            entityModel.TextureModel = instance.Texture.GetModel();
+            entityModel.GeometryModel = instance.Geometry.GetModel();
+            entityModel.ColorationModel = instance.Coloration.GetModel();
+
+            return entityModel;
+        }
+
+        public static void SetViewModel(this Entity instance, IComponentModel componentModel)
+        {
+            instance.MessageService.Disable();
+
+            var entityModel = componentModel as EntityModel;
+            instance.Enabled = entityModel.Enabled;
+            instance.Name = entityModel.Name;
+
+            instance.BeatModifier.SetViewModel(entityModel.BeatModifierModel);
+            instance.Texture.SetViewModel(entityModel.TextureModel);
+            instance.Geometry.SetViewModel(entityModel.GeometryModel);
+            instance.Coloration.SetViewModel(entityModel.ColorationModel);
+
+            instance.MessageService.Enable();
+        }
+
+
+
+
+        public static AssetPathSelectorModel GetModel(this AssetPathSelector<AssetTexture> instance)
+        {
+            AssetPathSelectorModel model = new AssetPathSelectorModel();
+
+            if (instance.SelectedPath != null)
+                model.SelectedPath = instance.SelectedPath;
+
+            return model;
+        }
+
+        public static void SetViewModel(this AssetPathSelector<AssetTexture> instance, AssetPathSelectorModel model)
+        {
+            if (model.SelectedPath != null)
+                instance.SelectedPath = model.SelectedPath;
+        }
+
+
+        public static AssetPathSelectorModel GetModel(this AssetPathSelector<AssetGeometry> instance)
+        {
+            AssetPathSelectorModel model = new AssetPathSelectorModel();
+
+            if (instance.SelectedPath != null)
+                model.SelectedPath = instance.SelectedPath;
+
+            return model;
+        }
+
+        public static void SetViewModel(this AssetPathSelector<AssetGeometry> instance, AssetPathSelectorModel model)
+        {
+            if (model.SelectedPath != null)
+                instance.SelectedPath = model.SelectedPath;
+        }
+
+
+        public static AssetManagerModel GetModel(this AssetManager instance)
+        {
+            AssetManagerModel assetsModel = new AssetManagerModel();
+
+            foreach (var asset in instance.Assets)
+                assetsModel.AssetModels.Add(asset.GetModel());
+
+            foreach (var asset in instance.FlattenAssets)
+                assetsModel.FlattenAssetModels.Add(asset.GetModel());
+
+            return assetsModel;
+        }
+
+        public static void SetViewModel(this AssetManager instance, AssetManagerModel model)
+        {
+            instance.Assets.Clear();
+
+            foreach (var assetModel in model.AssetModels)
+            {
+                IAssets asset = null;
+
+                if (assetModel is AssetDirectoryModel)
+                    asset = new AssetDirectory();
+
+                else if (assetModel is AssetGeometryModel)
+                    asset = new AssetGeometry();
+
+                else if (assetModel is AssetTextureModel)
+                    asset = new AssetTexture();
+
+                if (asset != null)
+                {
+                    asset.SetViewModel(assetModel);
+                    instance.Assets.Add(asset);
+                }
+            }
+
+            instance.FlattenAssets.Clear();
+            foreach (var assetModel in model.FlattenAssetModels)
+            {
+                IAssets asset = null;
+
+                if (assetModel is AssetGeometryModel)
+                    asset = new AssetGeometry();
+
+                else if (assetModel is AssetTextureModel)
+                    asset = new AssetTexture();
+
+                if (asset != null)
+                {
+                    asset.SetViewModel(assetModel);
+                    instance.FlattenAssets.Add(asset);
+                }
+            }
+        }
+
+
+
+
+        public static IAssetModel GetModel(this IAssets instance)
+        {
+            if (instance is AssetDirectory)
+                return ((AssetDirectory)instance).GetModel();
+            else if (instance is AssetTexture)
+                return ((AssetTexture)instance).GetModel();
+            else if (instance is AssetGeometry)
+                return ((AssetGeometry)instance).GetModel();
+            else return null;
+        }
+
+        public static void SetViewModel(this IAssets instance, IAssetModel model)
+        {
+            if (instance is AssetDirectory)
+                ((AssetDirectory)instance).SetViewModel(model);
+            else if (instance is AssetTexture)
+                ((AssetTexture)instance).SetViewModel(model);
+            else if (instance is AssetGeometry)
+                ((AssetGeometry)instance).SetViewModel(model);
+        }
+
+
+        public static IAssetModel GetModel(this AssetDirectory instance)
+        {
+            IAssetModel directoryAssetModel = new AssetDirectoryModel();
+
+            directoryAssetModel.Name = instance.Name;
+            foreach (var asset in instance.Assets)
+            {
+                directoryAssetModel.AssetModels.Add(asset.GetModel());
+            }
+            return directoryAssetModel;
+        }
+
+        public static void SetViewModel(this AssetDirectory instance, IAssetModel model)
+        {
+            instance.Name = model.Name;
+            instance.Assets.Clear();
+            foreach (var assetModel in model.AssetModels)
+            {
+                IAssets asset = null;
+
+                if (assetModel is AssetDirectoryModel)
+                    asset = new AssetDirectory();
+                else if (assetModel is AssetGeometryModel)
+                    asset = new AssetGeometry();
+                else if (assetModel is AssetTextureModel)
+                    asset = new AssetTexture();
+
+                if (asset != null)
+                {
+                    asset.SetViewModel(assetModel);
+                    instance.Assets.Add(asset);
+                }
+            }
+            instance.SortAssets();
+        }
+
+
+        public static IAssetModel GetModel(this AssetGeometry instance)
+        {
+            IAssetModel assetModel = new AssetGeometryModel();
+
+            assetModel.Name = instance.Name;
+            assetModel.Path = instance.Path;
+            assetModel.Ponderation = instance.Ponderation;
+
+            return assetModel;
+        }
+
+        public static void SetViewModel(this AssetGeometry instance, IAssetModel assetModel)
+        {
+            instance.Name = assetModel.Name;
+            instance.Path = assetModel.Path;
+            instance.Ponderation = assetModel.Ponderation;
+        }
+
+
+        public static IAssetModel GetModel(this AssetTexture instance)
+        {
+            IAssetModel assetModel = new AssetTextureModel();
+
+            assetModel.Name = instance.Name;
+            assetModel.Path = instance.Path;
+            assetModel.Ponderation = instance.Ponderation;
+
+            return assetModel;
+        }
+
+        public static void SetViewModel(this AssetTexture instance, IAssetModel assetModel)
+        {
+            instance.Name = assetModel.Name;
+            instance.Path = assetModel.Path;
+            instance.Ponderation = assetModel.Ponderation;
+        }
+
+
+
+        public static TransformModel GetModel(this Transform instance)
+        {
+            TransformModel model = new TransformModel();
+
+            model.TranslateModel = instance.Translate.GetModel();
+            model.ScaleModel = instance.Scale.GetModel();
+            model.RotationModel = instance.Rotation.GetModel();
+            model.Is3D = instance.Is3D;
+
+            return model;
+        }
+
+        public static void SetViewModel(this Transform instance, TransformModel model)
+        {
+            instance.Translate.SetViewModel(model.TranslateModel);
+            instance.Scale.SetViewModel(model.ScaleModel);
+            instance.Rotation.SetViewModel(model.RotationModel);
+        }
+
+
+        public static RotationModel GetModel(this Rotation instance)
+        {
+            RotationModel rotationModel = new RotationModel();
+
+            rotationModel.X = instance.X.GetModel();
+            rotationModel.Y = instance.Y.GetModel();
+            rotationModel.Y = instance.Y.GetModel();
+
+            return rotationModel;
+        }
+
+        public static void SetViewModel(this Rotation instance, RotationModel model)
+        {
+            instance.X.SetViewModel(model.X);
+            instance.Y.SetViewModel(model.Y);
+            instance.Z.SetViewModel(model.Z);
+        }
+
+
+        public static ScaleModel GetModel(this Scale instance)
+        {
+            ScaleModel scaleModel = new ScaleModel();
+
+            scaleModel.X = instance.X.GetModel();
+            scaleModel.Y = instance.Y.GetModel();
+            scaleModel.Z = instance.Z.GetModel();
+
+            return scaleModel;
+        }
+
+        public static void SetViewModel(this Scale instance, ScaleModel model)
+        {
+            instance.X.SetViewModel(model.X);
+            instance.Y.SetViewModel(model.Y);
+            instance.Z.SetViewModel(model.Z);
+        }
+
+
+        public static TranslateModel GetModel(this Translate instance)
+        {
+            TranslateModel model = new TranslateModel();
+            model.X = instance.X.GetModel();
+            model.Y = instance.Y.GetModel();
+            model.Z = instance.Z.GetModel();
+            return model;
+        }
+
+        public static void SetViewModel(this Translate instance, TranslateModel model)
+        {
+            instance.X.SetViewModel(model.X);
+            instance.Y.SetViewModel(model.Y);
+            instance.Z.SetViewModel(model.Z);
+        }
+
+
+        public static CameraModel GetModel(this Camera instance)
+        {
+            CameraModel cameraModel = new CameraModel();
+
+            cameraModel.Rotation = instance.Rotation;
+            cameraModel.LookAt = instance.LookAt;
+            cameraModel.View = instance.View;
+
+            return cameraModel;
+        }
+
+        public static void SetViewModel(this Camera instance, CameraModel cameraModel)
+        {
+            instance.MessageService.Disable();
+
+            instance.Rotation = cameraModel.Rotation;
+            instance.LookAt = cameraModel.LookAt;
+            instance.View = cameraModel.View;
+
+            instance.BeatModifier.SetViewModel(cameraModel.BeatModifierModel);
+            instance.FOV.SetViewModel(cameraModel.FOV);
+            instance.Zoom.SetViewModel(cameraModel.Zoom);
+
+            instance.MessageService.Enable();
+        }
+
+
+        public static RangeControlModel GetModel(this RangeControl instance)
+        {
+            RangeControlModel rangeControlModel = new RangeControlModel();
+
+            rangeControlModel.Range = instance.Range.GetModel();
+            rangeControlModel.Modifier = instance.Modifier;
+
+            return rangeControlModel;
+        }
+
+        public static void SetViewModel(this RangeControl instance, RangeControlModel rangeControlModel)
+        {
+            instance.MessageService.Disable();
+
+            instance.Range.SetViewModel(rangeControlModel.Range);
+            instance.Modifier = rangeControlModel.Modifier;
+
+            instance.MessageService.Enable();
+        }
+
+
+        public static BlendModeModel GetModel(this BlendMode instance)
+        {
+            BlendModeModel blendModeModel = new BlendModeModel();
+
+            blendModeModel.Mode = instance.Mode;
+
+            return blendModeModel;
+        }
+
+        public static void SetViewModel(this BlendMode instance, BlendModeModel blendModeModel)
+        {
+            instance.Mode = blendModeModel.Mode;
+        }
+
+
+        public static ColorationModel GetModel(this Coloration instance)
+        {
+            ColorationModel colorationModel = new ColorationModel();
+
+            colorationModel.ColorSelectorModel = instance.ColorSelector.GetModel();
+            colorationModel.BeatModifierModel = instance.BeatModifier.GetModel();
+            colorationModel.HueModel = instance.Hue.GetModel();
+            colorationModel.SatModel = instance.Saturation.GetModel();
+            colorationModel.ValModel = instance.Value.GetModel();
+
+            return colorationModel;
+        }
+
+        public static void SetViewModel(this Coloration instance, ColorationModel colorationModel)
+        {
+            instance.ColorSelector.SetViewModel(colorationModel.ColorSelectorModel);
+            instance.BeatModifier.SetViewModel(colorationModel.BeatModifierModel);
+            instance.Hue.SetViewModel(colorationModel.HueModel);
+            instance.Saturation.SetViewModel(colorationModel.SatModel);
+            instance.Value.SetViewModel(colorationModel.ValModel);
+        }
+
+
+        public static ColorSelectorModel GetModel(this ColorSelector instance)
+        {
+            ColorSelectorModel colorSelectorModel = new ColorSelectorModel();
+
+            colorSelectorModel.ColorPickerModel = instance.ColorPicker.GetModel();
+
+            return colorSelectorModel;
+        }
+
+        public static void SetViewModel(this ColorSelector instance, ColorSelectorModel colorSelectorModel)
+        {
+            instance.MessageService.Disable();
+            instance.ColorPicker.Paste(colorSelectorModel.ColorPickerModel);
+            instance.MessageService.Enable();
+        }
+
+
+        public static PostFXModel GetModel(this PostFX instance)
+        {
+            PostFXModel postFXModel = new PostFXModel();
+
+            postFXModel.Feedback = instance.Feedback.GetModel();
+            postFXModel.Blur = instance.Blur.GetModel();
+            postFXModel.Transforms = instance.Transforms;
+            postFXModel.View = instance.View;
+
+            return postFXModel;
+        }
+
+        public static void SetViewModel(this PostFX instance, PostFXModel postFXmodel)
+        {
+            instance.Transforms = postFXmodel.Transforms;
+            instance.View = postFXmodel.View;
+
+            instance.Feedback.SetViewModel(postFXmodel.Feedback);
+            instance.Blur.SetViewModel(postFXmodel.Blur);
+        }
+
+
+        public static BeatModel GetModel(this Beat instance)
+        {
+            BeatModel beatModel = new BeatModel();
+            beatModel.Period = instance.Period;
+            return beatModel;
+        }
+
+        public static void SetViewModel(this Beat instance, BeatModel beatModel)
+        {
+            instance.Period = beatModel.Period;
+        }
+
+
+        public static BeatModifierModel GetModel(this BeatModifier instance)
+        {
+            BeatModifierModel beatModifierModel = new BeatModifierModel();
+
+            beatModifierModel.ChanceToHit = instance.ChanceToHit.GetModel();
+            beatModifierModel.Multiplier = instance.Multiplier;
+
+            return beatModifierModel;
+        }
+
+        public static void SetViewModel(this BeatModifier instance, BeatModifierModel beatModifierModel)
+        {
+            instance.Multiplier = beatModifierModel.Multiplier;
+            instance.ChanceToHit.SetViewModel(beatModifierModel.ChanceToHit);
+        }
+
 
         public static GeometryModel GetModel(this Geometry instance)
         {
@@ -282,14 +727,25 @@ namespace CMiX.Studio.ViewModels
             return model;
         }
 
+        public static void SetViewModel(this Geometry instance, GeometryModel model)
+        {
+            instance.Transform.SetViewModel(model.TransformModel);
+            instance.GeometryFX.SetViewModel(model.GeometryFXModel);
+            instance.Instancer.SetViewModel(model.InstancerModel);
+            instance.AssetPathSelector.SetViewModel(model.AssetPathSelectorModel);
+        }
+
 
         public static GeometryFXModel GetModel(this GeometryFX instance)
         {
             GeometryFXModel geometryFXModel = new GeometryFXModel();
-
             geometryFXModel.Explode = instance.Explode.GetModel();
-
             return geometryFXModel;
+        }
+
+        public static void SetViewModel(this GeometryFX instance, GeometryFXModel model)
+        {
+            instance.Explode.SetViewModel(model.Explode);
         }
 
 
@@ -307,45 +763,31 @@ namespace CMiX.Studio.ViewModels
             return model;
         }
 
-
-        public static ScaleModel GetModel(this Scale instance)
+        public static void SetViewModel(this Instancer instance, InstancerModel model)
         {
-            ScaleModel scaleModel = new ScaleModel();
-
-            scaleModel.ScaleX = instance.ScaleX.GetModel();
-            scaleModel.ScaleY = instance.ScaleY.GetModel();
-            scaleModel.ScaleZ = instance.ScaleZ.GetModel();
-
-            return scaleModel;
+            instance.Transform.SetViewModel(model.Transform);
+            instance.Counter.SetViewModel(model.Counter);
+            instance.TranslateModifier.SetViewModel(model.TranslateModifier);
+            instance.ScaleModifier.SetViewModel(model.ScaleModifier);
+            instance.RotationModifier.SetViewModel(model.RotationModifier);
+            instance.NoAspectRatio = model.NoAspectRatio;
         }
 
 
         public static SliderModel GetModel(this Slider instance)
         {
-            SliderModel sliderModel = new SliderModel();
-
-            sliderModel.Amount = instance.Amount;
-
-            return sliderModel;
+            SliderModel model = new SliderModel();
+            model.Amount = instance.Amount;
+            return model;
         }
 
-        public static ProjectModel GetModel(this Project instance)
+        public static void SetViewModel(this Slider instance, SliderModel model)
         {
-            ProjectModel projectModel = new ProjectModel();
-
-            projectModel.ID = instance.ID;
-            projectModel.MessageAddress = instance.MessageAddress;
-            projectModel.Name = instance.Name;
-            projectModel.IsVisible = instance.IsVisible;
-            projectModel.AssetManagerModel = instance.AssetManager.GetModel();
-
-
-            Console.WriteLine("GetProject Model");
-            foreach (Component component in instance.Components)
-                projectModel.ComponentModels.Add(component.GetModel());
-
-            return projectModel;
+            instance.MessageService.Disable();
+            instance.Amount = model.Amount;
+            instance.MessageService.Enable();
         }
+
 
         public static TextureModel GetModel(this Texture instance)
         {
@@ -368,6 +810,24 @@ namespace CMiX.Studio.ViewModels
             return model;
         }
 
+        public static void SetViewModel(this Texture instance, TextureModel model)
+        {
+            instance.AssetPathSelector.SetViewModel(model.AssetPathSelectorModel);
+            instance.Brightness.SetViewModel(model.Brightness);
+            instance.Contrast.SetViewModel(model.Contrast);
+            instance.Saturation.SetViewModel(model.Saturation);
+            instance.Luminosity.SetViewModel(model.Luminosity);
+            instance.Hue.SetViewModel(model.Hue);
+            instance.Pan.SetViewModel(model.Pan);
+            instance.Tilt.SetViewModel(model.Tilt);
+            instance.Scale.SetViewModel(model.Scale);
+            instance.Rotate.SetViewModel(model.Rotate);
+            instance.Keying.SetViewModel(model.Keying);
+            instance.Invert.SetViewModel(model.Invert);
+            instance.InvertMode = model.InvertMode;
+        }
+
+
         public static RotationModifierModel GetModel(this RotationModifier instance)
         {
             RotationModifierModel rotationModifierModel = new RotationModifierModel();
@@ -378,6 +838,18 @@ namespace CMiX.Studio.ViewModels
             rotationModifierModel.RotationZ = instance.RotationZ.GetModel();
 
             return rotationModifierModel;
+        }
+
+        public static void SetViewModel(this RotationModifier instance, RotationModifierModel model)
+        {
+            instance.MessageService.Disable();
+
+            //instance.Rotation.Paste(model.Rotation);
+            //instance.Translate.Sa(model.RotationX);
+            //instance.Paste(model.RotationY);
+            //instance.RotationZ.Paste(model.RotationZ);
+
+            instance.MessageService.Enable();
         }
 
 
@@ -393,6 +865,18 @@ namespace CMiX.Studio.ViewModels
             return scaleModifierModel;
         }
 
+        public static void SetViewModel(this ScaleModifier instance, ScaleModifierModel model)
+        {
+            instance.MessageService.Disable();
+
+            instance.Scale.Paste(model.Scale);
+            instance.ScaleX.Paste(model.ScaleX);
+            instance.ScaleY.Paste(model.ScaleY);
+            instance.ScaleZ.Paste(model.ScaleZ);
+
+            instance.MessageService.Enable();
+        }
+
 
         public static TranslateModifierModel GetModel(this TranslateModifier instance)
         {
@@ -406,6 +890,18 @@ namespace CMiX.Studio.ViewModels
             return model;
         }
 
+        public static void SetViewModel(this TranslateModifier instance, TranslateModifierModel model)
+        {
+            instance.MessageService.Disable();
+
+            instance.Translate.Paste(model.Translate);
+            instance.TranslateX.Paste(model.TranslateX);
+            instance.TranslateY.Paste(model.TranslateY);
+            instance.TranslateZ.Paste(model.TranslateZ);
+
+            instance.MessageService.Enable();
+        }
+
 
         public static AnimParameterModel GetModel(this AnimParameter instance)
         {
@@ -417,49 +913,14 @@ namespace CMiX.Studio.ViewModels
             return model;
         }
 
-
-        public static AssetPathSelectorModel GetModel(this AssetPathSelector<AssetTexture> instance)
+        public static void SetViewModel(this AnimParameter instance, AnimParameterModel model)
         {
-            AssetPathSelectorModel model = new AssetPathSelectorModel();
+            instance.MessageService.Disable();
 
-            if (instance.SelectedPath != null)
-                model.SelectedPath = instance.SelectedPath;
+            instance.Slider.SetViewModel(model.Slider);
+            instance.BeatModifier.SetViewModel(model.BeatModifier);
 
-            return model;
-        }
-
-
-        public static AssetPathSelectorModel GetModel(this AssetPathSelector<AssetGeometry> instance)
-        {
-            AssetPathSelectorModel model = new AssetPathSelectorModel();
-
-            if (instance.SelectedPath != null)
-                model.SelectedPath = instance.SelectedPath;
-
-            return model;
-        }
-
-        public static AssetManagerModel GetModel(this AssetManager instance)
-        {
-            AssetManagerModel assetsModel = new AssetManagerModel();
-
-            foreach (var asset in instance.Assets)
-                assetsModel.AssetModels.Add(asset.GetModel());
-
-            foreach (var asset in instance.FlattenAssets)
-                assetsModel.FlattenAssetModels.Add(asset.GetModel());
-
-            return assetsModel;
-        }
-
-
-        public static TranslateModel GetModel(this Translate instance)
-        {
-            TranslateModel model = new TranslateModel();
-            model.TranslateX = instance.TranslateX.GetModel();
-            model.TranslateY = instance.TranslateY.GetModel();
-            model.TranslateZ = instance.TranslateZ.GetModel();
-            return model;
+            instance.MessageService.Enable();
         }
 
 
@@ -470,17 +931,11 @@ namespace CMiX.Studio.ViewModels
             return model;
         }
 
-
-        public static TransformModel GetModel(this Transform instance)
+        public static void SetViewModel(this Counter instance, CounterModel model)
         {
-            TransformModel model = new TransformModel();
-
-            model.TranslateModel = instance.Translate.GetModel();
-            model.ScaleModel = instance.Scale.GetModel();
-            model.RotationModel = instance.Rotation.GetModel();
-            model.Is3D = instance.Is3D;
-
-            return model;
+            instance.MessageService.Enable();
+            instance.Count = model.Count;
+            instance.MessageService.Enable();
         }
     }
 }

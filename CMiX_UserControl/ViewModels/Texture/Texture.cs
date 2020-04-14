@@ -94,28 +94,6 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region COPY/PASTE/RESET
-        public void SetViewModel(TextureModel model)
-        {
-            MessageService.Disable();
-
-            AssetPathSelector.SetViewModel(model.AssetPathSelectorModel);
-            Brightness.SetViewModel(model.Brightness);
-            Contrast.SetViewModel(model.Contrast);
-            Saturation.SetViewModel(model.Saturation);
-            Luminosity.SetViewModel(model.Luminosity);
-            Hue.SetViewModel(model.Hue);
-            Pan.SetViewModel(model.Pan);
-            Tilt.SetViewModel(model.Tilt);
-            Scale.SetViewModel(model.Scale);
-            Rotate.SetViewModel(model.Rotate);
-            Keying.SetViewModel(model.Keying);
-            Invert.SetViewModel(model.Invert);
-            InvertMode = model.InvertMode;
-
-            MessageService.Enable();
-        }
-
-
         public void Reset()
         {
             MessageService.Disable();

@@ -63,7 +63,7 @@ namespace CMiX.Studio.ViewModels
                 MessageService.Disable();
 
                 var instancermodel = data.GetData("InstancerModel") as InstancerModel;
-                this.Paste(instancermodel);
+                this.SetViewModel(instancermodel);
 
                 MessageService.Enable();
                 Mementor.EndBatch();
@@ -102,20 +102,6 @@ namespace CMiX.Studio.ViewModels
         //    RotationModifier.Copy(instancermodel.RotationModifier);
         //    instancermodel.NoAspectRatio = NoAspectRatio;
         //}
-
-        public void Paste(InstancerModel instancermodel)
-        {
-            MessageService.Disable();
-
-            Transform.Paste(instancermodel.Transform);
-            Counter.Paste(instancermodel.Counter);
-            TranslateModifier.Paste(instancermodel.TranslateModifier);
-            ScaleModifier.Paste(instancermodel.ScaleModifier);
-            RotationModifier.Paste(instancermodel.RotationModifier);
-            NoAspectRatio = instancermodel.NoAspectRatio;
-
-            MessageService.Enable();
-        }
 
         public void Reset()
         {

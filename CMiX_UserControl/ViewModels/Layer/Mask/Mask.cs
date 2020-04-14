@@ -71,23 +71,6 @@ namespace CMiX.Studio.ViewModels
 
         #region COPY/PASTE/RESET
 
-        public override void SetViewModel(IComponentModel model)
-        {
-            var maskModel = model as MaskModel;
-            MessageService.Disable();
-
-            Enabled = maskModel.Enable;
-            MaskType = maskModel.MaskType;
-            MaskControlType = maskModel.MaskControlType;
-
-            BeatModifier.SetViewModel(maskModel.BeatModifierModel);
-            Texture.SetViewModel(maskModel.TextureModel);
-            Geometry.Paste(maskModel.GeometryModel);
-            PostFX.SetViewModel(maskModel.PostFXModel);
-
-            MessageService.Enable();
-        }
-
         //public void Reset()
         //{
         //    MessageService.Disable();

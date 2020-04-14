@@ -38,10 +38,6 @@ namespace CMiX.Studio.ViewModels
         //    blendModeModel.Mode = Mode;
         //}
 
-        public void SetViewModel(BlendModeModel blendModeModel)
-        {
-            Mode = blendModeModel.Mode;
-        }
 
         public void Reset()
         {

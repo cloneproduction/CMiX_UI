@@ -86,22 +86,6 @@ namespace CMiX.Studio.ViewModels
 
             MessageService.Enable();
         }
-
-        //public void CopyModel(BeatModifierModel beatModifierModel)
-        //{
-        //    ChanceToHit.CopyModel(beatModifierModel.ChanceToHit);
-        //    beatModifierModel.Multiplier = Multiplier;
-        //}
-
-        public void SetViewModel(BeatModifierModel beatModifierModel)
-        {
-            MessageService.Disable();
-
-            Multiplier = beatModifierModel.Multiplier;
-            ChanceToHit.SetViewModel(beatModifierModel.ChanceToHit);
-
-            MessageService.Enable();
-        }
         #endregion
     }
 }

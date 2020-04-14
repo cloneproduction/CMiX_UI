@@ -41,25 +41,25 @@ namespace CMiX.Studio.ViewModels
 
         #region GETSETMODEL
 
-        public override void SetViewModel(IComponentModel componentModel)
-        {
-            var projectModel = componentModel as ProjectModel;
+        //public override void SetViewModel(IComponentModel componentModel)
+        //{
+        //    var projectModel = componentModel as ProjectModel;
 
-            ID = projectModel.ID;
-            Name = projectModel.Name;
-            IsVisible = projectModel.IsVisible;
-            MessageAddress = projectModel.MessageAddress;
+        //    ID = projectModel.ID;
+        //    Name = projectModel.Name;
+        //    IsVisible = projectModel.IsVisible;
+        //    MessageAddress = projectModel.MessageAddress;
 
-            Components.Clear();
-            foreach (CompositionModel compositionModel in projectModel.ComponentModels)
-            {
-                Composition composition = new Composition(0, this.MessageAddress, this.Beat, new MessageService(), this.Mementor);
-                composition.SetViewModel(compositionModel);
-                this.AddComponent(composition);
-            }
+        //    Components.Clear();
+        //    foreach (CompositionModel compositionModel in projectModel.ComponentModels)
+        //    {
+        //        Composition composition = new Composition(0, this.MessageAddress, this.Beat, new MessageService(), this.Mementor);
+        //        composition.SetViewModel(compositionModel);
+        //        this.AddComponent(composition);
+        //    }
 
-            AssetManager.SetViewModel(projectModel.AssetManagerModel);
-        }
+        //    AssetManager.SetViewModel(projectModel.AssetManagerModel);
+        //}
         #endregion
     }
 }

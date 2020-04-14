@@ -47,7 +47,7 @@ namespace CMiX.Studio.ViewModels
                 MessageService.Disable();
 
                 var Rotationmodifiermodel = data.GetData("RotationModifierModel") as RotationModifierModel;
-                this.Paste(Rotationmodifiermodel);
+                //this.Paste(Rotationmodifiermodel);
 
                 MessageService.Enable();
                 Mementor.EndBatch();
@@ -63,19 +63,6 @@ namespace CMiX.Studio.ViewModels
             //SendMessages(MessageAddress, GetModel());
             //QueueObjects(Rotationmodifiermodel);
             //SendQueues();
-        }
-
-
-        public void Paste(RotationModifierModel Rotationmodifiermodel)
-        {
-            MessageService.Disable();
-
-            Rotation.Paste(Rotationmodifiermodel.Rotation);
-            RotationX.Paste(Rotationmodifiermodel.RotationX);
-            RotationY.Paste(Rotationmodifiermodel.RotationY);
-            RotationZ.Paste(Rotationmodifiermodel.RotationZ);
-
-            MessageService.Enable();
         }
 
         public void Reset()

@@ -77,20 +77,6 @@ namespace CMiX.Studio.ViewModels
 
         #region COPY/PASTE/RESET
 
-        public void SetViewModel(CameraModel cameraModel)
-        {
-            MessageService.Disable();
-
-            Rotation = cameraModel.Rotation;
-            LookAt = cameraModel.LookAt;
-            View = cameraModel.View;
-
-            BeatModifier.SetViewModel(cameraModel.BeatModifierModel);
-            FOV.SetViewModel(cameraModel.FOV);
-            Zoom.SetViewModel(cameraModel.Zoom);
-
-            MessageService.Enable();
-        }
 
         public void Reset()
         {
