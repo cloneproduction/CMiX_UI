@@ -8,11 +8,11 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Transform : ViewModel, ISendable, IUndoable
+    public class Transform : Sendable, ISendable, IUndoable
     {
         public Transform(string messageAddress, MessageService messageService, Mementor mementor)
+            : base(messageAddress, messageService)
         {
-            MessageAddress = $"{messageAddress}{nameof(Transform)}/";
             MessageService = messageService;
 
             Translate = new Translate(MessageAddress, messageService, mementor);
@@ -40,9 +40,7 @@ namespace CMiX.Studio.ViewModels
             }
         }
 
-        public string MessageAddress { get; set; }
         public Mementor Mementor { get; set; }
-        public MessageService MessageService { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET

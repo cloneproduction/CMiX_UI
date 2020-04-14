@@ -68,11 +68,7 @@ namespace CMiX.Studio.ViewModels
 
         public void Reset()
         {
-            MessageService.Disable();
-
             ColorPicker.Reset();
-
-            MessageService.Enable();
         }
         #endregion
     }

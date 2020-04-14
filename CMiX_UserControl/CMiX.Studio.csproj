@@ -183,20 +183,20 @@
       <DependentUpon>SliderBeat.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Component\EditorTemplateSelector.cs" />
-    <Compile Include="ViewModels\Layer\BlendMode.cs" />
+    <Compile Include="ViewModels\Project\Composition\Layer\BlendMode.cs" />
     <Compile Include="ViewModels\Assets\AssetDirectory.cs" />
     <Compile Include="ViewModels\Assets\AssetTexture.cs" />
     <Compile Include="ViewModels\Assets\AssetGeometry.cs" />
     <Compile Include="ViewModels\Assets\AssetManager.cs" />
-    <Compile Include="ViewModels\Geometry\Instancer\AnimParameter.cs" />
-    <Compile Include="ViewModels\Geometry\Instancer\ScaleModifier.cs" />
-    <Compile Include="ViewModels\Geometry\Instancer\RotationModifier.cs" />
-    <Compile Include="ViewModels\Geometry\Instancer\TranslateModifier.cs" />
-    <Compile Include="ViewModels\Geometry\Instancer\Instancer.cs" />
-    <Compile Include="ViewModels\Geometry\Transform\Rotation.cs" />
-    <Compile Include="ViewModels\Geometry\Transform\Scale.cs" />
-    <Compile Include="ViewModels\Geometry\Transform\Transform.cs" />
-    <Compile Include="ViewModels\Geometry\Transform\Translate.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Instancer\AnimParameter.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Instancer\ScaleModifier.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Instancer\RotationModifier.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Instancer\TranslateModifier.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Instancer\Instancer.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Transform\Rotation.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Transform\Scale.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Transform\Transform.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Transform\Translate.cs" />
     <Compile Include="ViewModels\Entity\Entity.cs" />
     <Compile Include="ViewModels\Component\ComponentEditor.cs" />
     <Compile Include="Views\Entity\EntityPanel.xaml.cs">
@@ -272,14 +272,14 @@
     <Compile Include="ViewModels\FileSelector\FileSelector.cs" />
     <Compile Include="_Thrash\OSCControl.cs" />
     <Compile Include="ViewModels\Project\Project.cs" />
-    <Compile Include="ViewModels\Geometry\GeometryFX.cs" />
-    <Compile Include="ViewModels\Geometry\GeometryRotation.cs" />
-    <Compile Include="ViewModels\Geometry\GeometryScale.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\GeometryFX.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\GeometryRotation.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\GeometryScale.cs" />
     <None Include="packages.config" />
     <None Include="_Thrash\IMessenger.cs" />
     <Compile Include="ViewModels\Beat\Beat.cs" />
     <Compile Include="ViewModels\Beat\BeatModifier.cs" />
-    <Compile Include="ViewModels\Geometry\GeometryTranslate.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\GeometryTranslate.cs" />
     <Compile Include="ViewModels\RangeControl.cs" />
     <Compile Include="_Thrash\ShortCodeAttribute.cs" />
     <Compile Include="Views\Beat\BeatModifier.xaml.cs">
@@ -287,14 +287,14 @@
     </Compile>
     <Compile Include="ViewModels\Camera\Camera.cs" />
     <Compile Include="ViewModels\Coloration\Coloration.cs" />
-    <Compile Include="ViewModels\Layer\Scene\Scene.cs" />
-    <Compile Include="ViewModels\Geometry\Geometry.cs" />
-    <Compile Include="ViewModels\Layer\Layer.cs" />
+    <Compile Include="ViewModels\Project\Composition\Layer\Scene\Scene.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Geometry.cs" />
+    <Compile Include="ViewModels\Project\Composition\Layer\Layer.cs" />
     <Compile Include="ViewModels\Beat\MasterBeat.cs" />
-    <Compile Include="ViewModels\Layer\Mask\Mask.cs" />
+    <Compile Include="ViewModels\Project\Composition\Layer\Mask\Mask.cs" />
     <Compile Include="ViewModels\PostFX\PostFX.cs" />
-    <Compile Include="ViewModels\Composition\Composition.cs" />
-    <Compile Include="ViewModels\Texture\Texture.cs" />
+    <Compile Include="ViewModels\Project\Composition\Composition.cs" />
+    <Compile Include="ViewModels\Entity\Texture\Texture.cs" />
     <Compile Include="Views\Beat\BeatControls.xaml.cs">
       <DependentUpon>BeatControls.xaml</DependentUpon>
     </Compile>

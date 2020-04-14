@@ -93,9 +93,7 @@ namespace CMiX.MVVM.ViewModels
         #region COPY/PASTE/RESET
         public void Reset()
         {
-            MessageService.Disable();
             Amount = 0.0;
-            MessageService.Enable();
         }
 
         public void ResetSlider()

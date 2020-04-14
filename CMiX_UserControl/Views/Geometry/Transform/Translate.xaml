@@ -13,18 +13,18 @@
                 Grid.Column="0"
                 Margin="1"
                 Caption="Translate X"
-                DataContext="{Binding TranslateX}"/>
+                DataContext="{Binding X}"/>
         <MVVM.Views:SliderCentered
                 Height="20"
                 Grid.Column="0"
                 Margin="1"
                 Caption="Y"
-                DataContext="{Binding TranslateY}"/>
+                DataContext="{Binding Y}"/>
         <MVVM.Views:SliderCentered
                 Height="20"
                 Grid.Column="0"
                 Margin="1"
                 Caption="Z"
-                DataContext="{Binding TranslateZ}"/>
+                DataContext="{Binding Z}"/>
     </StackPanel>
 </UserControl>

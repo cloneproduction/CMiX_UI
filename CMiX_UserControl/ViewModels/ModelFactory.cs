@@ -63,8 +63,6 @@ namespace CMiX.Studio.ViewModels
             projectModel.IsVisible = instance.IsVisible;
             projectModel.AssetManagerModel = instance.AssetManager.GetModel();
 
-
-            Console.WriteLine("GetProject Model");
             foreach (Component component in instance.Components)
                 projectModel.ComponentModels.Add(component.GetModel());
 
@@ -773,20 +771,6 @@ namespace CMiX.Studio.ViewModels
             instance.NoAspectRatio = model.NoAspectRatio;
         }
 
-
-        public static SliderModel GetModel(this Slider instance)
-        {
-            SliderModel model = new SliderModel();
-            model.Amount = instance.Amount;
-            return model;
-        }
-
-        public static void SetViewModel(this Slider instance, SliderModel model)
-        {
-            instance.MessageService.Disable();
-            instance.Amount = model.Amount;
-            instance.MessageService.Enable();
-        }
 
 
         public static TextureModel GetModel(this Texture instance)
