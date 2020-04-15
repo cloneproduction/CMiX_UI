@@ -6,13 +6,8 @@ using Memento;
 using MvvmDialogs;
 using MvvmDialogs.FrameworkDialogs.OpenFile;
 using MvvmDialogs.FrameworkDialogs.SaveFile;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -124,7 +119,6 @@ namespace CMiX.Studio.ViewModels
             RootComponent.Components.Add(ComponentManager.CreateProject(component));
         }
 
-
         private void OpenProject()
         {
             OpenFileDialogSettings settings = new OpenFileDialogSettings();
@@ -147,7 +141,6 @@ namespace CMiX.Studio.ViewModels
             }
         }
 
-
         private void SaveProject()
         {
             System.Windows.Forms.SaveFileDialog savedialog = new System.Windows.Forms.SaveFileDialog();
@@ -161,7 +154,6 @@ namespace CMiX.Studio.ViewModels
                 SaveAsProject();
             }
         }
-
 
         private void SaveAsProject()
         {
@@ -182,7 +174,6 @@ namespace CMiX.Studio.ViewModels
                 }
             }
         }
-
 
         private void Quit(object p)
         {
