@@ -4,7 +4,6 @@ using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using CMiX.Studio.ViewModels;
 using System.Linq;
-using System;
 using MvvmDialogs;
 using Memento;
 
@@ -12,9 +11,10 @@ namespace CMiX.ViewModels
 {
     public class ComponentManager : ViewModel
     {
-        public ComponentManager(ObservableCollection<Component> components)
+        public ComponentManager(ObservableCollection<Component> components, ObservableCollection<Component> componentsInEditing)
         {
             Components = components;
+            ComponentsInEditing = componentsInEditing;
 
             CreateComponentCommand = new RelayCommand(p => CreateComponent(p as Component));
             DuplicateComponentCommand = new RelayCommand(p => DuplicateComponent(p as Component));
@@ -26,17 +26,9 @@ namespace CMiX.ViewModels
         public ICommand DuplicateComponentCommand { get; }
         public ICommand DeleteComponentCommand { get; }
         public ICommand RenameComponentCommand { get; }
-        public ICommand CreateLayerMaskCommand { get; }
-        public ICommand DeleteLayerMaskCommand { get; }
-        public ICommand MoveComponentToCommand { get;  }
 
         public ObservableCollection<Component> Components { get; set; }
-
-        public event EventHandler<ComponentEventArgs> ComponentDeleted;
-        private void OnComponentDeleted(Component deletedComponent)
-        {
-            ComponentDeleted?.Invoke(this, new ComponentEventArgs(deletedComponent));
-        }
+        public ObservableCollection<Component> ComponentsInEditing { get; set; }
 
         private Component _SelectedComponent;
         public Component SelectedComponent
@@ -45,32 +37,36 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _SelectedComponent, value);
         }
 
+
         public void RenameComponent(Component component)
         {
             component.IsRenaming = true;
         }
 
-        public Component CreateComponent(Component component)
+
+        public void CreateComponent(Component component)
         {
             Component result = null;
-            
-            if (component is Project)
-                result = CreateComposition(component as Project);
-            else if (component is Composition)
-                result = CreateLayer(component as Composition);
-            else if (component is Scene)
-                result = CreateEntity(component as Scene);
-            else if (component is Mask)
-                result = CreateEntity(component as Mask);
-            else result = null;
 
-            return result;
+            if (component is Project)
+                result = CreateComposition(component);
+            else if (component is Composition)
+                result = CreateLayer(component);
+            else if (component is Scene || component is Mask)
+                result = CreateEntity(component);
+
+            if (result != null)
+            {
+                component.AddComponent(result);
+                component.IsExpanded = true;
+            }
         }
+
 
         public Component DuplicateComponent(Component component)
         {
             Component result = null;
-
+            var parent = GetSelectedParent(Components);
             if (component is Composition)
                 result = DuplicateComposition(component as Composition);
             else if (component is Layer)
@@ -82,6 +78,35 @@ namespace CMiX.ViewModels
             return result;
         }
 
+        public void DeleteComponent()
+        {
+            DeleteSelectedComponent(Components);
+        }
+
+        public void DeleteSelectedComponent(ObservableCollection<Component> components)
+        {
+            foreach (var component in components)
+            {
+                if (component.IsSelected)
+                {
+                    components.Remove(component);
+                    DeleteComponentFromEditing(component);
+                    break;
+                }
+                else
+                    DeleteSelectedComponent(component.Components);
+            }
+        }
+
+        public void DeleteComponentFromEditing(Component component)
+        {
+            ComponentsInEditing.Remove(component);
+            foreach (var item in component.Components)
+            {
+                ComponentsInEditing.Remove(item);
+                DeleteComponentFromEditing(item);
+            }
+        }
 
         public Component GetSelectedParent(ObservableCollection<Component> components)
         {
@@ -103,26 +128,9 @@ namespace CMiX.ViewModels
             return result;
         }
 
-        public void DeleteComponent()
-        {
-            DeleteSelectedComponent(Components);
-        }
 
 
-        public void DeleteSelectedComponent(ObservableCollection<Component> components)
-        {
-            foreach (var component in components)
-            {
-                if (component.IsSelected)
-                {
-                    components.Remove(component);
-                    OnComponentDeleted(component);
-                    break;
-                }
-                else
-                    DeleteSelectedComponent(component.Components);
-            }
-        }
+
 
         int ProjectID = 0;
         public Project CreateProject(IDialogService dialogService)
@@ -134,42 +142,46 @@ namespace CMiX.ViewModels
         }
 
         int CompositionID = 0;
-        private Composition CreateComposition(Project project)
+        private Composition CreateComposition(Component component)
         {
-            var newCompo = new Composition(CompositionID, project.MessageAddress, project.Beat, new MessageService(), project.Mementor);
-
-            project.AddComponent(newCompo);
+            var newCompo = new Composition(CompositionID, component.MessageAddress, component.Beat, new MessageService(), component.Mementor);
             CompositionID++;
-
             return newCompo;
         }
 
-
-        private Composition DuplicateComposition(Composition project)
+        int LayerID = 0;
+        private Layer CreateLayer(Component component)
         {
-            var newCompo = new Composition(CompositionID, project.MessageAddress, project.Beat, new MessageService(), project.Mementor);
+            Layer newLayer = new Layer(LayerID, component.Beat, component.MessageAddress, component.MessageService, component.Mementor);
+            LayerID++;
+            return newLayer;
+        }
+
+        int EntityID = 0;
+        private Entity CreateEntity(Component component)
+        {
+            var newEntity = new Entity(EntityID, component.Beat, component.MessageAddress, component.MessageService, component.Mementor);
+            EntityID++;
+            return newEntity;
+        }
+
+
+
+
+
+        private Composition DuplicateComposition(Composition composition)
+        {
+            var parent = GetSelectedParent(Components);
+            var newCompo = new Composition(CompositionID, composition.MessageAddress, composition.Beat, new MessageService(), composition.Mementor);
 
             var selectedCompo = SelectedComponent as Composition;
             newCompo.SetViewModel(selectedCompo.GetModel());
             newCompo.ID = CompositionID;
             newCompo.Name += " -Copy";
-            project.AddComponent(newCompo);
+            parent.Components.Insert(parent.Components.IndexOf(composition) + 1, newCompo);
             CompositionID++;
             
             return newCompo;
-        }
-
-
-        int LayerID = 0;
-        private Layer CreateLayer(Composition compo)
-        {
-            Layer newLayer = new Layer(LayerID, compo.Beat, compo.MessageAddress, compo.MessageService, compo.Mementor);
-
-            newLayer.IsExpanded = true;
-            compo.AddComponent(newLayer);
-            LayerID++;
-
-            return newLayer;
         }
 
 
@@ -184,26 +196,6 @@ namespace CMiX.ViewModels
             return newLayer;
         }
 
-
-        int EntityID = 0;
-        private Entity CreateEntity(Scene scene)
-        {
-            var newEntity = new Entity(EntityID, scene.Beat, scene.MessageAddress, scene.MessageService, scene.Mementor);
-            scene.Components.Add(newEntity);
-            scene.IsExpanded = true;
-            EntityID++;
-            Console.WriteLine("NEW ENTITY ID = " + newEntity.ID );
-            return newEntity;
-        }
-
-        private Entity CreateEntity(Mask mask)
-        {
-            var newEntity = new Entity(EntityID, mask.Beat, mask.MessageAddress, mask.MessageService, mask.Mementor);
-            mask.Components.Add(newEntity);
-            mask.IsExpanded = true;
-            EntityID++;
-            return newEntity;
-        }
 
         private Entity DuplicateEntity(Entity entity)
         {

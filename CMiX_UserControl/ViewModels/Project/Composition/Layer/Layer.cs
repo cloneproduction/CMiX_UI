@@ -20,6 +20,8 @@ namespace CMiX.Studio.ViewModels
             PostFX = new PostFX(messageAddress, messageService, mementor);
             BlendMode = new BlendMode(beat, messageAddress, messageService, mementor);
             Fade = new Slider(messageAddress + nameof(Fade), messageService, mementor);
+
+            IsExpanded = true;
         }
         #endregion
 

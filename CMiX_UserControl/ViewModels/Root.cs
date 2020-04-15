@@ -26,10 +26,12 @@ namespace CMiX.Studio.ViewModels
             Serializer = new CerasSerializer();
 
             Components = new ObservableCollection<Component>();
-            ComponentEditor = new ComponentEditor();
+            ComponentsInEditing = new ObservableCollection<Component>();
 
-            ComponentManager = new ComponentManager(Components);
-            ComponentManager.ComponentDeleted += ComponentEditor.ComponentManager_ComponentDeleted;
+            ComponentManager = new ComponentManager(Components, ComponentsInEditing);
+            ComponentEditor = new ComponentEditor(ComponentsInEditing);
+
+            //ComponentManager.ComponentDeleted += ComponentEditor.ComponentManager_ComponentDeleted;
 
             Servers = new ObservableCollection<Server>();
             ServerManager = new ServerManager(Servers);
@@ -106,11 +108,20 @@ namespace CMiX.Studio.ViewModels
         public string FolderPath { get; set; }
         public string MessageAddress { get; set; }
 
+
         private ObservableCollection<Component> _components;
         public ObservableCollection<Component> Components
         {
             get => _components;
             set => SetAndNotify(ref _components, value);
+        }
+
+
+        private ObservableCollection<Component> _componentsInEditing;
+        public ObservableCollection<Component> ComponentsInEditing
+        {
+            get => _componentsInEditing;
+            set => SetAndNotify(ref _componentsInEditing, value);
         }
 
         private Component _currentProject;

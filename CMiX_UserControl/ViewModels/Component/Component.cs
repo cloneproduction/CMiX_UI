@@ -42,6 +42,13 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _isRenaming, value);
         }
 
+        private bool _isEditing;
+        public bool IsEditing
+        {
+            get => _isEditing;
+            set => SetAndNotify(ref _isEditing, value);
+        }
+
         private bool _isSelected;
         public bool IsSelected
         {
