@@ -11,50 +11,6 @@
              mc:Ignorable="d"
              d:DesignHeight="770" d:DesignWidth="1345.334">
 
-    <UserControl.InputBindings>
-        <KeyBinding 
-            Modifiers="Control"
-            Key="T"
-            Command="{Binding AddCompoCommand}" />
-        <KeyBinding 
-            Modifiers="Control"
-            Key="N" 
-            Command="{Binding AddLayerCommand}" />
-        <KeyBinding 
-            Modifiers="Control"
-            Key="E" 
-            Command="{Binding ExportCompoCommand}" />
-        <KeyBinding 
-            Modifiers="Control"
-            Key="I" 
-            Command="{Binding ImportCompoCommand}" />
-    </UserControl.InputBindings>
 
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <Resources:BindingProxy x:Key="ProjectProxy" Data="{Binding}"/>
-        </ResourceDictionary>
-    </UserControl.Resources>
 
-    <Border Background="{StaticResource SuperHighDarkerColor}">
-        <Grid Background="{StaticResource SuperHighDarkerColor}" >
-
-            <Border>
-                <TabControl TabStripPlacement="Left" Background="{StaticResource DarkerColor}" Style="{StaticResource TabControlVerticalPanel}" >
-                    <TabItem Margin="8, 8, 8, 4" Width="25" Height="25" Style="{StaticResource TabItemVerticalPanel}">
-                        <TabItem.Header>
-                            <Image Margin="4" Source="{StaticResource Resources}" />
-                        </TabItem.Header>
-                        <Views:AssetManager DataContext="{Binding AssetManager}" Grid.RowSpan="2"/>
-                    </TabItem>
-                    <TabItem Margin="8, 4"  Width="25" Height="25" Style="{StaticResource TabItemVerticalPanel}">
-                        <TabItem.Header>
-                            <Image Margin="2" Source="{StaticResource Network}"/>
-                        </TabItem.Header>
-                        <Views:ServerManager DataContext="{Binding ServerManager}"/>
-                    </TabItem>
-                </TabControl>
-            </Border>
-        </Grid>
-    </Border>
 </UserControl>

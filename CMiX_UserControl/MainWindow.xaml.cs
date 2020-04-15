@@ -10,7 +10,7 @@ namespace CMiX
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            DataContext = new Root();
+            DataContext = new MainViewModel();
         }
 
         private void UndoCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)

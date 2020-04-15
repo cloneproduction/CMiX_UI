@@ -4,7 +4,6 @@ using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using CMiX.Studio.ViewModels;
 using System.Linq;
-using MvvmDialogs;
 using Memento;
 
 namespace CMiX.ViewModels
@@ -30,6 +29,7 @@ namespace CMiX.ViewModels
         public ObservableCollection<Component> Components { get; set; }
         public ObservableCollection<Component> ComponentsInEditing { get; set; }
 
+
         private Component _SelectedComponent;
         public Component SelectedComponent
         {
@@ -48,7 +48,9 @@ namespace CMiX.ViewModels
         {
             Component result = null;
 
-            if (component is Project)
+            if (component is Root)
+                result = CreateProject(component);
+            else if (component is Project)
                 result = CreateComposition(component);
             else if (component is Composition)
                 result = CreateLayer(component);
@@ -78,10 +80,12 @@ namespace CMiX.ViewModels
             return result;
         }
 
+
         public void DeleteComponent()
         {
             DeleteSelectedComponent(Components);
         }
+
 
         public void DeleteSelectedComponent(ObservableCollection<Component> components)
         {
@@ -98,6 +102,7 @@ namespace CMiX.ViewModels
             }
         }
 
+
         public void DeleteComponentFromEditing(Component component)
         {
             ComponentsInEditing.Remove(component);
@@ -108,10 +113,10 @@ namespace CMiX.ViewModels
             }
         }
 
+
         public Component GetSelectedParent(ObservableCollection<Component> components)
         {
             Component result = null;
-
             foreach (var component in components)
             {
                 if(component.Components.Any(c => c.IsSelected))
@@ -124,19 +129,14 @@ namespace CMiX.ViewModels
                     result = GetSelectedParent(component.Components);
                 }
             }
-
             return result;
         }
 
 
-
-
-
         int ProjectID = 0;
-        public Project CreateProject(IDialogService dialogService)
+        public Project CreateProject(Component component)
         {
-            var newProject = new Project(ProjectID, string.Empty, null, new MessageService(), new Mementor(), dialogService);
-            Components.Add(newProject);
+            var newProject = new Project(ProjectID, string.Empty, null, new MessageService(), new Mementor(), null);
             ProjectID++;
             return newProject;
         }
