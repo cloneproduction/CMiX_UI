@@ -34,9 +34,9 @@
 
     <TabControl 
         Style="{StaticResource TabControlEditor}"
-        ItemsSource="{Binding ComponentsInEditing}"
+        ItemsSource="{Binding Components}"
         ItemContainerStyle="{StaticResource TabItemEditor}"
-        SelectedItem="{Binding SelectedEditable}" 
+        SelectedItem="{Binding SelectedComponent}" 
         dd:DragDrop.IsDragSource="True"
         dd:DragDrop.IsDropTarget="True"
         ContentTemplateSelector="{StaticResource TemplateSelector}">

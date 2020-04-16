@@ -29,12 +29,7 @@ namespace CMiX.Studio.ViewModels
 
         public ICommand RightClickCommand { get; }
 
-        private ObservableCollection<Component> _components;
-        public ObservableCollection<Component> Components
-        {
-            get => _components;
-            set => SetAndNotify(ref _components, value);
-        }
+        public ObservableCollection<Component> Components { get; set; }
 
         private Component _selectedComponent;
         public Component SelectedComponent
@@ -85,12 +80,6 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _canDelete, value);
         }
 
-        private bool _canDeleteMask = false;
-        public bool CanDeleteMask
-        {
-            get => _canDeleteMask;
-            set => SetAndNotify(ref _canDeleteMask, value);
-        }
 
         public void CanAddComponent()
         {
@@ -104,29 +93,24 @@ namespace CMiX.Studio.ViewModels
                 AddContentText = "Add Layer";
                 CanAdd = true;
             }
-            else if (SelectedComponent is Project)
+            else
             {
                 AddContentText = "Add Composition";
                 CanAdd = true;
-            }
-            else
-            {
-                AddContentText = "Add";
-                CanAdd = false;
             }
         }
 
         public void CanDuplicateComponent()
         {
-            if (SelectedComponent is Project || SelectedComponent is Mask || SelectedComponent is Scene)
-                CanDuplicate = false;
-            else
+            if (SelectedComponent is Composition || SelectedComponent is Layer || SelectedComponent is Entity)
                 CanDuplicate = true;
+            else
+                CanDuplicate = false;
         }
 
         public void CanRenameComponent()
         {
-            if (SelectedComponent is Composition || SelectedComponent is Layer || SelectedComponent is Entity)
+            if (SelectedComponent is Project || SelectedComponent is Composition || SelectedComponent is Layer || SelectedComponent is Entity)
                 CanRename = true;
             else
                 CanRename = false;
@@ -134,15 +118,18 @@ namespace CMiX.Studio.ViewModels
 
         public void CanEditComponent()
         {
-            CanEdit = true;
+            if (SelectedComponent != null)
+                CanEdit = true;
+            else
+                CanEdit = false;
         }
 
         public void CanDeleteComponent()
         {
-            if (SelectedComponent is Project || SelectedComponent is Mask || SelectedComponent is Scene)
-                CanDelete = false;
-            else
+            if (SelectedComponent is Composition || SelectedComponent is Layer || SelectedComponent is Entity)
                 CanDelete = true;
+            else
+                CanDelete = false;
         }
 
 

@@ -1,5 +1,6 @@
 ﻿using Ceras;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using CMiX.ViewModels;
 using Memento;
@@ -20,40 +21,36 @@ namespace CMiX.Studio.ViewModels
             Mementor = new Mementor();
             Serializer = new CerasSerializer();
 
-            var frameworkDialogFactory = new CustomFrameworkDialogFactory();
-            var customTypeLocator = new CustomTypeLocator();
-            DialogService = new DialogService(frameworkDialogFactory, customTypeLocator);
-            
+            DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
 
-            RootComponent = new Root(0, string.Empty, null, null, Mementor);
-            RootDirectory = new AssetDirectory();
+            Projects = new ObservableCollection<Component>();
+            CurrentProject = new Project(0, string.Empty, null, new MessageService(), Mementor, DialogService);
+            Projects.Add(CurrentProject);
 
-            ComponentsInEditing = new ObservableCollection<Component>();
-            AssetManager = new AssetManager(DialogService, RootDirectory.Assets);
+            ComponentEditor = new ComponentEditor(CurrentProject);
+            ComponentManager = new ComponentManager(CurrentProject);
+            ComponentManager.ComponentDeletedEvent += ComponentEditor.ComponentDeletedEvent;
 
-            ComponentManager = new ComponentManager(RootComponent.Components, ComponentsInEditing);
-            ComponentEditor = new ComponentEditor(ComponentsInEditing);
-
-            Outliner = new Outliner(RootComponent.Components);
-
-            NewProjectCommand = new RelayCommand(p => NewProject(p as Component));
-            OpenProjectCommand = new RelayCommand(p => OpenProject());
-            SaveProjectCommand = new RelayCommand(p => SaveProject());
-            SaveAsProjectCommand = new RelayCommand(p => SaveAsProject());
-            QuitCommand = new RelayCommand(p => Quit(p));
+            Outliner = new Outliner(Projects);
 
             CloseWindowCommand = new RelayCommand(p => CloseWindow(p));
             MinimizeWindowCommand = new RelayCommand(p => MinimizeWindow(p));
             MaximizeWindowCommand = new RelayCommand(p => MaximizeWindow(p));
+
+            NewProjectCommand = new RelayCommand(p => NewProject());
+            OpenProjectCommand = new RelayCommand(p => OpenProject());
+            SaveProjectCommand = new RelayCommand(p => SaveProject());
+            SaveAsProjectCommand = new RelayCommand(p => SaveAsProject());
         }
 
+        #region PROPERTIES
         public ICommand NewProjectCommand { get; }
         public ICommand SaveProjectCommand { get; }
         public ICommand SaveAsProjectCommand { get; }
         public ICommand OpenProjectCommand { get; }
-        public ICommand QuitCommand { get; }
 
         public ICommand CloseWindowCommand { get; }
+
         public ICommand MinimizeWindowCommand { get; }
         public ICommand MaximizeWindowCommand { get; }
 
@@ -63,18 +60,17 @@ namespace CMiX.Studio.ViewModels
         public CerasSerializer Serializer { get; set; }
         public ComponentEditor ComponentEditor { get; set; }
         public ComponentManager ComponentManager { get; set; }
-        public AssetManager AssetManager { get; set; }
-        public Root RootComponent { get; set; }
-        public AssetDirectory RootDirectory { get; set; }
         public Outliner Outliner { get; set; }
 
         public string FolderPath { get; set; }
 
-        private ObservableCollection<Component> _componentsInEditing;
-        public ObservableCollection<Component> ComponentsInEditing
+        public ObservableCollection<Component> Projects { get; set; }
+
+        private Project _currentProject;
+        public Project CurrentProject
         {
-            get => _componentsInEditing;
-            set => SetAndNotify(ref _componentsInEditing, value);
+            get { return _currentProject; }
+            set { _currentProject = value; }
         }
 
 
@@ -102,21 +98,29 @@ namespace CMiX.Studio.ViewModels
             {
                 var window = obj as Window;
 
-                bool? success = DialogService.ShowDialog(this, new ModalDialog());
+                var modalDialog = new ModalDialog();
+                bool? success = DialogService.ShowDialog(this, modalDialog);
                 if (success == true)
                 {
-                    window.Close();
+                    if (modalDialog.SaveProject)
+                    {
+                        var projectSaved = SaveAsProject();
+                        if (projectSaved)
+                            window.Close();
+                    }
+                    else
+                        window.Close();
                 }
             }
         }
-
+        #endregion
 
         #region MENU METHODS
-        private void NewProject(Component component)
+        private void NewProject()
         {
-            RootComponent.Components.Clear();
-            ComponentsInEditing.Clear();
-            RootComponent.Components.Add(ComponentManager.CreateProject(component));
+            CurrentProject.ComponentsInEditing.Clear();
+            Projects.Clear();
+            Projects.Add(ComponentManager.CreateProject());
         }
 
         private void OpenProject()
@@ -130,12 +134,14 @@ namespace CMiX.Studio.ViewModels
                 string folderPath = settings.FileName;
                 if (settings.FileName.Trim() != string.Empty) // Check if you really have a file name 
                 {
-                    RootComponent.Components.Clear();
-                    ComponentsInEditing.Clear();
-                    var newProject = ComponentManager.CreateProject(RootComponent);
+                    CurrentProject.ComponentsInEditing.Clear();
+                    Projects.Clear();
 
                     byte[] data = File.ReadAllBytes(folderPath);
+                    var newProject = ComponentManager.CreateProject();
                     newProject.SetViewModel(Serializer.Deserialize<ProjectModel>(data));
+                    Projects.Add(newProject);
+                    CurrentProject = newProject;
                     FolderPath = folderPath;
                 }
             }
@@ -144,9 +150,9 @@ namespace CMiX.Studio.ViewModels
         private void SaveProject()
         {
             System.Windows.Forms.SaveFileDialog savedialog = new System.Windows.Forms.SaveFileDialog();
-            if (!string.IsNullOrEmpty(FolderPath) && RootComponent.Components.Count > 0)
+            if (!string.IsNullOrEmpty(FolderPath))
             {
-                var data = Serializer.Serialize(RootComponent.Components[0].GetModel());
+                var data = Serializer.Serialize(CurrentProject.GetModel());
                 File.WriteAllBytes(FolderPath, data);
             }
             else
@@ -155,7 +161,7 @@ namespace CMiX.Studio.ViewModels
             }
         }
 
-        private void SaveAsProject()
+        private bool SaveAsProject()
         {
             SaveFileDialogSettings settings = new SaveFileDialogSettings();
             settings.Filter = "Project (*.cmix)|*.cmix";
@@ -163,16 +169,16 @@ namespace CMiX.Studio.ViewModels
             settings.AddExtension = true;
 
             bool? success = DialogService.ShowSaveFileDialog(this, settings);
-            if (success == true)
+            if (success == true && CurrentProject != null)
             {
-                if (RootComponent.Components.Count > 0)
-                {
-                    var data = Serializer.Serialize(RootComponent.Components[0].GetModel());
-                    string folderPath = settings.FileName;
-                    File.WriteAllBytes(folderPath, data);
-                    FolderPath = folderPath;
-                }
+                var data = Serializer.Serialize(CurrentProject.GetModel());
+                string folderPath = settings.FileName;
+                File.WriteAllBytes(folderPath, data);
+                FolderPath = folderPath;
+                return true;
             }
+            else
+                return false;
         }
 
         private void Quit(object p)

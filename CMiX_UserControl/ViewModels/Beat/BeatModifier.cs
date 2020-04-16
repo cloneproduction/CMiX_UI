@@ -1,10 +1,7 @@
 ﻿using CMiX.MVVM.ViewModels;
-using CMiX.MVVM.Models;
 using System;
-using System.Collections.ObjectModel;
 using Memento;
 using CMiX.MVVM.Services;
-using CMiX.MVVM;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -16,7 +13,7 @@ namespace CMiX.Studio.ViewModels
             MessageAddress = $"{messageAddress}{nameof(BeatModifier)}/";
             MessageService = messageService;
 
-            MasterBeat = beat;
+            Beat = beat;
             Multiplier = 1.0;
             ChanceToHit = new Slider(MessageAddress + nameof(ChanceToHit), messageService, mementor)
             {
@@ -32,12 +29,12 @@ namespace CMiX.Studio.ViewModels
         #endregion
 
         #region PROPERTIES
-        private Beat MasterBeat { get; }
+        private Beat Beat { get; }
         public Slider ChanceToHit { get; }
 
         public override double Period
         {
-            get => MasterBeat.Period * Multiplier;
+            get => Beat.Period * Multiplier;
             set => throw new InvalidOperationException("Property is readonly. When binding, use Mode=OneWay.");
         }
 

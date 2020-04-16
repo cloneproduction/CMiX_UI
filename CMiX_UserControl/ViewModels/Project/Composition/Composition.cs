@@ -1,8 +1,6 @@
 ﻿using CMiX.MVVM.ViewModels;
-using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using Memento;
-using System.Collections.ObjectModel;
 
 namespace CMiX.Studio.ViewModels
 {

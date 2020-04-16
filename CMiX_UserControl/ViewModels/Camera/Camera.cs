@@ -11,7 +11,7 @@ namespace CMiX.Studio.ViewModels
     public class Camera : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Camera(MessageService messageService, string messageAddress, Beat masterBeat, Mementor mementor) 
+        public Camera(MessageService messageService, string messageAddress, Beat beat, Mementor mementor) 
         {
             MessageService = messageService;
             MessageAddress = $"{messageAddress}{nameof(Camera)}/";
@@ -20,7 +20,7 @@ namespace CMiX.Studio.ViewModels
             LookAt = ((CameraLookAt)0).ToString();
             View = ((CameraView)0).ToString();
 
-            BeatModifier = new BeatModifier(MessageAddress, masterBeat, messageService, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, beat, messageService, mementor);
             FOV = new Slider(MessageAddress + nameof(FOV), messageService, mementor);
             Zoom = new Slider(MessageAddress + nameof(Zoom), messageService, mementor);
         }

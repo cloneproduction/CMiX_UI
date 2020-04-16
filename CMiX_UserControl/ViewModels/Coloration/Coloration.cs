@@ -12,13 +12,13 @@ namespace CMiX.Studio.ViewModels
     public class Coloration : ViewModel, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Coloration(string messageAddress, MessageService messageService, Mementor mementor, Beat masterbeat) 
+        public Coloration(string messageAddress, MessageService messageService, Mementor mementor, Beat beat) 
         {
             MessageAddress = $"{messageAddress}{nameof(Coloration)}/";
             MessageService = messageService;
             Mementor = mementor;
 
-            BeatModifier = new BeatModifier(MessageAddress, masterbeat, messageService, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, beat, messageService, mementor);
             ColorSelector = new ColorSelector(MessageAddress, messageService, mementor);
 
             Hue = new RangeControl(MessageAddress + nameof(Hue), messageService, mementor);

@@ -5,15 +5,16 @@ using CMiX.MVVM.ViewModels;
 using CMiX.Studio.ViewModels;
 using System.Linq;
 using Memento;
+using System;
 
 namespace CMiX.ViewModels
 {
     public class ComponentManager : ViewModel
     {
-        public ComponentManager(ObservableCollection<Component> components, ObservableCollection<Component> componentsInEditing)
+        public ComponentManager(Project project)
         {
-            Components = components;
-            ComponentsInEditing = componentsInEditing;
+            Components = project.Components;
+            Mementor = project.Mementor;
 
             CreateComponentCommand = new RelayCommand(p => CreateComponent(p as Component));
             DuplicateComponentCommand = new RelayCommand(p => DuplicateComponent(p as Component));
@@ -26,9 +27,9 @@ namespace CMiX.ViewModels
         public ICommand DeleteComponentCommand { get; }
         public ICommand RenameComponentCommand { get; }
 
-        public ObservableCollection<Component> Components { get; set; }
-        public ObservableCollection<Component> ComponentsInEditing { get; set; }
+        public Mementor Mementor { get; set; }
 
+        public ObservableCollection<Component> Components { get; set; }
 
         private Component _SelectedComponent;
         public Component SelectedComponent
@@ -37,7 +38,7 @@ namespace CMiX.ViewModels
             set => SetAndNotify(ref _SelectedComponent, value);
         }
 
-
+        
         public void RenameComponent(Component component)
         {
             component.IsRenaming = true;
@@ -46,22 +47,14 @@ namespace CMiX.ViewModels
 
         public void CreateComponent(Component component)
         {
-            Component result = null;
-
-            if (component is Root)
-                result = CreateProject(component);
-            else if (component is Project)
-                result = CreateComposition(component);
-            else if (component is Composition)
-                result = CreateLayer(component);
+            if (component is Composition)
+                component.AddComponent(CreateLayer(component));
+                
             else if (component is Scene || component is Mask)
-                result = CreateEntity(component);
+                component.AddComponent(CreateEntity(component));
 
-            if (result != null)
-            {
-                component.AddComponent(result);
-                component.IsExpanded = true;
-            }
+            else if (component is Project)
+                component.AddComponent(CreateComposition(component));
         }
 
 
@@ -86,6 +79,13 @@ namespace CMiX.ViewModels
             DeleteSelectedComponent(Components);
         }
 
+        public event EventHandler<ComponentEventArgs> ComponentDeletedEvent;
+
+        public void OnComponentDeleted(Component component)
+        {
+            ComponentDeletedEvent?.Invoke(this, new ComponentEventArgs(component));
+        }
+
 
         public void DeleteSelectedComponent(ObservableCollection<Component> components)
         {
@@ -94,7 +94,7 @@ namespace CMiX.ViewModels
                 if (component.IsSelected)
                 {
                     components.Remove(component);
-                    DeleteComponentFromEditing(component);
+                    OnComponentDeleted(component);
                     break;
                 }
                 else
@@ -103,15 +103,7 @@ namespace CMiX.ViewModels
         }
 
 
-        public void DeleteComponentFromEditing(Component component)
-        {
-            ComponentsInEditing.Remove(component);
-            foreach (var item in component.Components)
-            {
-                ComponentsInEditing.Remove(item);
-                DeleteComponentFromEditing(item);
-            }
-        }
+
 
 
         public Component GetSelectedParent(ObservableCollection<Component> components)
@@ -134,17 +126,20 @@ namespace CMiX.ViewModels
 
 
         int ProjectID = 0;
-        public Project CreateProject(Component component)
+        public Project CreateProject()
         {
-            var newProject = new Project(ProjectID, string.Empty, null, new MessageService(), new Mementor(), null);
+            var messageService = new MessageService();
+            var masterBeat = new MasterBeat(messageService);
+            var newProject = new Project(ProjectID, string.Empty, new MasterBeat(messageService), messageService, Mementor, null);
             ProjectID++;
+            System.Console.WriteLine("Create Project");
             return newProject;
         }
 
         int CompositionID = 0;
         private Composition CreateComposition(Component component)
         {
-            var newCompo = new Composition(CompositionID, component.MessageAddress, component.Beat, new MessageService(), component.Mementor);
+            var newCompo = new Composition(CompositionID, component.MessageAddress, new MasterBeat(null), new MessageService(), component.Mementor);
             CompositionID++;
             return newCompo;
         }

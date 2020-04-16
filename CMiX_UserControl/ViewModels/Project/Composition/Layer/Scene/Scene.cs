@@ -13,7 +13,7 @@ namespace CMiX.Studio.ViewModels
             : base(id, beat, messageAddress, messageService, mementor)
         {
             Name = "Scene";
-            BeatModifier = new BeatModifier(MessageAddress, Beat, messageService, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, beat, messageService, mementor);
             PostFX = new PostFX(MessageAddress, messageService, mementor);
 
             //CopyContentCommand = new RelayCommand(p => CopyContent());

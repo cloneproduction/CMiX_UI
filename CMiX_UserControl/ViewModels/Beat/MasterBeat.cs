@@ -24,7 +24,7 @@ namespace CMiX.Studio.ViewModels
             (
                 MessageService messageService,
                 double period,
-                int multiplier
+                double multiplier
             )
         {
             MessageService = messageService;
