@@ -21,14 +21,14 @@ namespace CMiX.Studio.ViewModels
 {
     public class AssetManager : ViewModel, IDropTarget, IDragSource
     {
-        public AssetManager(IDialogService dialogService, ObservableCollection<IAssets> assets)
+        public AssetManager(IDialogService dialogService, Project project)
         {
             DialogService = dialogService;
 
             var directoryItem = new AssetDirectory("RESOURCES");
             directoryItem.IsRoot = true;
 
-            Assets = assets;
+            Assets = project.Assets;
             FlattenAssets = new ObservableCollection<IAssets>();
 
             Assets.Add(directoryItem);
@@ -65,6 +65,7 @@ namespace CMiX.Studio.ViewModels
 
         private void FlattenAssets_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            Console.WriteLine("FlattenAssetsChanged");
             GeometryCollectionView.Refresh();
             ImageCollectionView.Refresh();
         }
@@ -85,22 +86,7 @@ namespace CMiX.Studio.ViewModels
                 return false;
         }
 
-        public CollectionViewSource GeometryViewSource { get; set; }
 
-        private ICollectionView _geometryCollectionView;
-        public ICollectionView GeometryCollectionView
-        {
-            get => _geometryCollectionView;
-            set => SetAndNotify(ref _geometryCollectionView, value);
-        }
-
-        public CollectionViewSource ImageViewSource { get; set; }
-        private ICollectionView _imageCollectionView;
-        public ICollectionView ImageCollectionView
-        {
-            get => _imageCollectionView;
-            set => SetAndNotify(ref _imageCollectionView, value);
-        }
 
         #region METHODS
         public void RenameAsset()
@@ -160,6 +146,7 @@ namespace CMiX.Studio.ViewModels
             {
                 directory.Assets.Remove(item);
                 Assets.Remove(item);
+                FlattenAssets.Remove(item);
             }
         }
 
@@ -183,6 +170,7 @@ namespace CMiX.Studio.ViewModels
             {
                 assets.Remove(item);
                 Assets.Remove(item);
+                FlattenAssets.Remove(item);
             }
 
             SelectedItems.Clear();
@@ -230,6 +218,23 @@ namespace CMiX.Studio.ViewModels
         public ICommand DeleteAssetsCommand { get; set; }
         public ICommand DeleteSelectedItemCommand { get; set; }
         public ICommand RelinkAssetsCommand { get; set; }
+
+
+        public CollectionViewSource GeometryViewSource { get; set; }
+        private ICollectionView _geometryCollectionView;
+        public ICollectionView GeometryCollectionView
+        {
+            get => _geometryCollectionView;
+            set => SetAndNotify(ref _geometryCollectionView, value);
+        }
+
+        public CollectionViewSource ImageViewSource { get; set; }
+        private ICollectionView _imageCollectionView;
+        public ICollectionView ImageCollectionView
+        {
+            get => _imageCollectionView;
+            set => SetAndNotify(ref _imageCollectionView, value);
+        }
 
         private ObservableCollection<IAssets> _assets;
         public ObservableCollection<IAssets> Assets

@@ -5,9 +5,9 @@ using System.Windows.Input;
 
 namespace CMiX.Studio.Views
 {
-    public partial class AssetPathSelector : UserControl
+    public partial class GeometryPathSelector : UserControl
     {
-        public AssetPathSelector()
+        public GeometryPathSelector()
         {
             InitializeComponent();
         }

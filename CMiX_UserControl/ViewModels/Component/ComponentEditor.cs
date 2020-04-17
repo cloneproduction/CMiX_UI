@@ -14,6 +14,7 @@ namespace CMiX.Studio.ViewModels
             RemoveComponentCommand = new RelayCommand(p => RemoveComponentFromEditing(p as Component));
         }
 
+
         public void ComponentDeletedEvent(object sender, ComponentEventArgs e)
         {
             DeleteComponentFromEditing(e.Component);
@@ -22,7 +23,13 @@ namespace CMiX.Studio.ViewModels
         public ICommand EditComponentCommand { get; set; }
         public ICommand RemoveComponentCommand { get; set; }
 
-        public ObservableCollection<Component> Components { get; set; }
+
+        private ObservableCollection<Component> _components;
+        public ObservableCollection<Component> Components
+        {
+            get => _components;
+            set => SetAndNotify(ref _components, value);
+        }
 
         private Component _selectedComponent;
         public Component SelectedComponent

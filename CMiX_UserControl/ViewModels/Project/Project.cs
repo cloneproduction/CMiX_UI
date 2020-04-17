@@ -3,7 +3,6 @@ using Memento;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Services;
 using MvvmDialogs;
-using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -20,18 +19,36 @@ namespace CMiX.Studio.ViewModels
             ServerManager = new ServerManager(Servers);
 
             Assets = new ObservableCollection<IAssets>();
-            AssetManager = new AssetManager(dialogService, Assets);
+            //AssetManager = new AssetManager(dialogService, Assets);
         }
 
-
+        #region PROPERTIES
         private readonly IDialogService DialogService;
 
         public ObservableCollection<Server> Servers { get; set; }
         public ServerManager ServerManager { get; set; }
 
-        public ObservableCollection<Component> ComponentsInEditing { get; set; }
 
-        public ObservableCollection<IAssets> Assets { get; set; }
-        public AssetManager AssetManager { get; set; }
+        private ObservableCollection<Component> _componentsInEditing;
+        public ObservableCollection<Component> ComponentsInEditing
+        {
+            get => _componentsInEditing;
+            set => SetAndNotify(ref _componentsInEditing, value);
+        }
+
+        private ObservableCollection<IAssets> _assets;
+        public ObservableCollection<IAssets> Assets
+        {
+            get => _assets;
+            set => SetAndNotify(ref _assets, value);
+        }
+
+        //private AssetManager _assetManager;
+        //public AssetManager AssetManager
+        //{
+        //    get => _assetManager;
+        //    set => SetAndNotify(ref _assetManager, value);
+        //}
+        #endregion
     }
 }

@@ -1,11 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using System.Linq;
+using System;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using CMiX.Studio.ViewModels;
-using System.Linq;
 using Memento;
-using System;
 
 namespace CMiX.ViewModels
 {
@@ -101,8 +101,6 @@ namespace CMiX.ViewModels
                     DeleteSelectedComponent(component.Components);
             }
         }
-
-
 
 
 

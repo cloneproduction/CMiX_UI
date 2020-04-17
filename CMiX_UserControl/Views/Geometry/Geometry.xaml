@@ -32,9 +32,9 @@
         <Border.ContextMenu>
             <ContextMenu>
                 <MenuItem
-                            Padding="8, 4"
-                            Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.CopyGeometryCommand, Source={StaticResource ProjectProxy}}">
+                    Padding="8, 4"
+                    Foreground="{StaticResource TextBase}"
+                    Command="{Binding Data.CopyGeometryCommand, Source={StaticResource ProjectProxy}}">
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Image Width="10" Height="10" Source="{StaticResource Copy}" />
@@ -56,9 +56,9 @@
                     </MenuItem.Header>
                 </MenuItem>
                 <MenuItem
-                        Padding="8, 4"
-                        Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.ResetGeometryCommand, Source={StaticResource ProjectProxy}}">
+                    Padding="8, 4"
+                    Foreground="{StaticResource TextBase}"
+                    Command="{Binding Data.ResetGeometryCommand, Source={StaticResource ProjectProxy}}">
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Image Width="10" Height="10" Source="{StaticResource Reset}" />
@@ -71,22 +71,21 @@
         </Border.ContextMenu>
         <StackPanel>
             <Border
-                        Height="25"
-                        Margin="0, 0, 0, 2"
-                        Padding="4"
-                        DockPanel.Dock="Top">
-
+                Height="25"
+                Margin="0, 0, 0, 2"
+                Padding="4"
+                DockPanel.Dock="Top">
                 <DockPanel 
-                VerticalAlignment="Center" 
-                LastChildFill="False">
+                    VerticalAlignment="Center" 
+                    LastChildFill="False">
                     <TextBlock
-                Margin="4, 0, 0, 0"
-                Text="GEOMETRY"
-                Foreground="{StaticResource TextBase}"/>
+                        Margin="4, 0, 0, 0"
+                        Text="GEOMETRY"
+                        Foreground="{StaticResource TextBase}"/>
                 </DockPanel>
             </Border>
-            
-            <Views:AssetPathSelector DataContext="{Binding AssetPathSelector}"/>
+
+            <Views:GeometryPathSelector DataContext="{Binding Path=DataContext.AssetManager, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
 
             <Expander Margin="0, 2" IsExpanded="True" Header="Transform" Style="{StaticResource ExpanderBase}">
                 <Views:Transform 

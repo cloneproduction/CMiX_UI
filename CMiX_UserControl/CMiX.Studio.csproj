@@ -144,8 +144,8 @@
     <Compile Include="Views\Assets\TexturePathSelector.xaml.cs">
       <DependentUpon>TexturePathSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Assets\AssetPathSelector.xaml.cs">
-      <DependentUpon>AssetPathSelector.xaml</DependentUpon>
+    <Compile Include="Views\Assets\GeometryPathSelector.xaml.cs">
+      <DependentUpon>GeometryPathSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Behaviors\BindableTreeViewSelectedItemBehavior.cs" />
     <Compile Include="Behaviors\FolderDialogBehavior.cs" />
@@ -359,7 +359,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Assets\AssetPathSelector.xaml">
+    <Page Include="Views\Assets\GeometryPathSelector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

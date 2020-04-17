@@ -11,7 +11,6 @@ namespace CMiX.Studio.ViewModels
             : base (id, beat, messageAddress, messageService, mementor)
         {
             MessageValidationManager = new MessageValidationManager(MessageService);
-
             Transition = new Slider("/Transition", MessageService, Mementor);
             Camera = new Camera(MessageService, MessageAddress, Beat, Mementor);
         }

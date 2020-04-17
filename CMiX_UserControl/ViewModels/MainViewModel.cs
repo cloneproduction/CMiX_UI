@@ -23,13 +23,15 @@ namespace CMiX.Studio.ViewModels
 
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
 
-            Projects = new ObservableCollection<Component>();
             CurrentProject = new Project(0, string.Empty, null, new MessageService(), Mementor, DialogService);
-            Projects.Add(CurrentProject);
 
+            AssetManager = new AssetManager(DialogService, CurrentProject);
             ComponentEditor = new ComponentEditor(CurrentProject);
             ComponentManager = new ComponentManager(CurrentProject);
             ComponentManager.ComponentDeletedEvent += ComponentEditor.ComponentDeletedEvent;
+
+            Projects = new ObservableCollection<Component>();
+            Projects.Add(CurrentProject);
 
             Outliner = new Outliner(Projects);
 
@@ -58,19 +60,41 @@ namespace CMiX.Studio.ViewModels
 
         public Mementor Mementor { get; set; }
         public CerasSerializer Serializer { get; set; }
-        public ComponentEditor ComponentEditor { get; set; }
-        public ComponentManager ComponentManager { get; set; }
+        
+        
         public Outliner Outliner { get; set; }
 
         public string FolderPath { get; set; }
 
         public ObservableCollection<Component> Projects { get; set; }
 
+        private AssetManager assetManager;
+        public AssetManager AssetManager
+        {
+            get => assetManager;
+            set => SetAndNotify(ref assetManager, value);
+        }
+
+        private ComponentManager _componentManager;
+        public ComponentManager ComponentManager
+        {
+            get => _componentManager;
+            set => SetAndNotify(ref _componentManager, value);
+        }
+
+        private ComponentEditor _componentEditor;
+        public ComponentEditor ComponentEditor
+        {
+            get => _componentEditor;
+            set => SetAndNotify(ref _componentEditor, value);
+        }
+
+
         private Project _currentProject;
         public Project CurrentProject
         {
-            get { return _currentProject; }
-            set { _currentProject = value; }
+            get => _currentProject;
+            set => SetAndNotify(ref _currentProject, value);
         }
 
 
@@ -118,9 +142,14 @@ namespace CMiX.Studio.ViewModels
         #region MENU METHODS
         private void NewProject()
         {
-            CurrentProject.ComponentsInEditing.Clear();
+            Project project = ComponentManager.CreateProject();
             Projects.Clear();
-            Projects.Add(ComponentManager.CreateProject());
+            Projects.Add(project);
+            CurrentProject = project;
+            AssetManager = new AssetManager(DialogService, project);
+            ComponentEditor = new ComponentEditor(project);
+            ComponentManager = new ComponentManager(project);
+            ComponentManager.ComponentDeletedEvent += ComponentEditor.ComponentDeletedEvent;
         }
 
         private void OpenProject()
@@ -138,10 +167,8 @@ namespace CMiX.Studio.ViewModels
                     Projects.Clear();
 
                     byte[] data = File.ReadAllBytes(folderPath);
-                    var newProject = ComponentManager.CreateProject();
-                    newProject.SetViewModel(Serializer.Deserialize<ProjectModel>(data));
-                    Projects.Add(newProject);
-                    CurrentProject = newProject;
+                    NewProject();
+                    CurrentProject.SetViewModel(Serializer.Deserialize<ProjectModel>(data));
                     FolderPath = folderPath;
                 }
             }

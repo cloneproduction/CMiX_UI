@@ -30,6 +30,19 @@
             Modifiers="Control"
             Key="I" 
             Command="{Binding ImportCompoCommand}" />
+        
+        <KeyBinding 
+            Modifiers="Ctrl"
+            Key="O" 
+            Command="{Binding OpenProjectCommand}" />
+        <KeyBinding 
+            Modifiers="Ctrl"
+            Key="S" 
+            Command="{Binding SaveProjectCommand}" />
+        <KeyBinding 
+            Modifiers="Ctrl+Shift"
+            Key="S" 
+            Command="{Binding SaveAsProjectCommand}" />
     </Window.InputBindings>
     
     <Window.CommandBindings>
@@ -54,26 +67,27 @@
                         VerticalContentAlignment="center"
                         Header="File">
                     <MenuItem
-                            Header="New"
-                            Command="{Binding NewProjectCommand}"
-                            Template="{StaticResource SubMenuItemBase}" />
+                        Header="New"
+                        Command="{Binding NewProjectCommand}"
+                        Template="{StaticResource SubMenuItemBase}" >
+                    </MenuItem>
                     <MenuItem
-                            Header="Open"
-                            Command="{Binding OpenProjectCommand}"
-                            Template="{StaticResource SubMenuItemBase}" />
+                        Header="Open"
+                        Command="{Binding OpenProjectCommand}"
+                        Template="{StaticResource SubMenuItemBase}" />
                     <MenuItem
-                            Header="Save"
-                            Command="{Binding SaveProjectCommand}"
-                            Template="{StaticResource SubMenuItemBase}" />
+                        Header="Save"
+                        Command="{Binding SaveProjectCommand}"
+                        Template="{StaticResource SubMenuItemBase}" />
                     <MenuItem
-                            Header="Save As"
-                            Command="{Binding SaveAsProjectCommand}"
-                            Template="{StaticResource SubMenuItemBase}" />
+                        Header="Save As"
+                        Command="{Binding SaveAsProjectCommand}"
+                        Template="{StaticResource SubMenuItemBase}" />
                     <MenuItem
-                            Header="Quit"
-                            Command="{Binding CloseWindowCommand}"
-                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-                            Template="{StaticResource SubMenuItemBase}" />
+                        Header="Quit"
+                        Command="{Binding CloseWindowCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                        Template="{StaticResource SubMenuItemBase}" />
                 </MenuItem>
                 <MenuItem
                         Padding="8,0"
@@ -81,13 +95,13 @@
                         VerticalContentAlignment="center"
                         Header="Edit">
                     <MenuItem
-                            Header="Undo    Ctrl + Z"
-                            Template="{StaticResource SubMenuItemBase}"
-                            Command="{Binding UndoCommand}"/>
+                        Header="Undo    Ctrl + Z"
+                        Template="{StaticResource SubMenuItemBase}"
+                        Command="{Binding UndoCommand}"/>
                     <MenuItem
-                            Header="Redo    Ctrl + Y"
-                            Template="{StaticResource SubMenuItemBase}" 
-                            Command="{Binding RedoCommand}"/>
+                        Header="Redo    Ctrl + Y"
+                        Template="{StaticResource SubMenuItemBase}" 
+                        Command="{Binding RedoCommand}"/>
                 </MenuItem>
                 <MenuItem
                         Padding="8,0"
@@ -117,7 +131,6 @@
                         Template="{StaticResource SubMenuItemBase}" />
                 </MenuItem>
             </Menu>
-
         </Border>
         <Border 
             DockPanel.Dock="Bottom" 
@@ -139,7 +152,7 @@
                             <TabItem.Header>
                                 <Image Margin="4" Source="{StaticResource Resources}" />
                             </TabItem.Header>
-                            <Views:AssetManager DataContext="{Binding CurrentProject.AssetManager}" Grid.RowSpan="2"/>
+                            <Views:AssetManager DataContext="{Binding AssetManager}" Grid.RowSpan="2"/>
                         </TabItem>
                         <TabItem Margin="8, 4"  Width="25" Height="25" Style="{StaticResource TabItemVerticalPanel}">
                             <TabItem.Header>

@@ -33,12 +33,6 @@ namespace CMiX.Studio.ViewModels
         public Mementor Mementor { get; set; }
         public MessageService MessageService { get; set; }
 
-        //public void CopyModel(BlendModeModel blendModeModel)
-        //{
-        //    blendModeModel.Mode = Mode;
-        //}
-
-
         public void Reset()
         {
             Mode = ((MVVM.ViewModels.BlendMode)0).ToString();

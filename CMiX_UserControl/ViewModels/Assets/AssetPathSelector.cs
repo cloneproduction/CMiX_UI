@@ -1,10 +1,9 @@
-﻿using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels;
-using Memento;
-using System;
+﻿using Memento;
 using GongSolutions.Wpf.DragDrop;
 using System.Windows;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -43,7 +42,6 @@ namespace CMiX.Studio.ViewModels
         {
             SelectedPath = ((IAssets)dropInfo.DragInfo.SourceItem).Path;
         }
-
 
         public void SetViewModel(AssetPathSelectorModel model)
         {

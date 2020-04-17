@@ -61,7 +61,7 @@ namespace CMiX.Studio.ViewModels
             projectModel.MessageAddress = instance.MessageAddress;
             projectModel.Name = instance.Name;
             projectModel.IsVisible = instance.IsVisible;
-            projectModel.AssetManagerModel = instance.AssetManager.GetModel();
+            //projectModel.AssetManagerModel = instance.AssetManager.GetModel();
 
             foreach (Component component in instance.Components)
                 projectModel.ComponentModels.Add(component.GetModel());
@@ -85,7 +85,7 @@ namespace CMiX.Studio.ViewModels
                 instance.AddComponent(composition);
             }
 
-            instance.AssetManager.SetViewModel(projectModel.AssetManagerModel);
+            //instance.AssetManager.SetViewModel(projectModel.AssetManagerModel);
         }
 
 

@@ -118,13 +118,9 @@
             dd:DragDrop.IsDropTarget="True"
             dd:DragDrop.DragHandler="{Binding}"
             dd:DragDrop.DropHandler="{Binding}"
-            ItemsSource="{Binding Assets}"
+            ItemsSource="{Binding Assets, Mode=TwoWay}"
             ContextMenu="{StaticResource ResourceContextMenu}">
-            <!--<Controls:MultiSelectTreeView.InputBindings>
-                <KeyBinding 
-                    Key="Delete" 
-                    Command="{Binding DeleteAssetsCommand}"/>
-            </Controls:MultiSelectTreeView.InputBindings>-->
+
         </Controls:MultiSelectTreeView>
     </Border>
 </UserControl>
