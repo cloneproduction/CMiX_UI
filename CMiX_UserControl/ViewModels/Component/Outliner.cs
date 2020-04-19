@@ -93,10 +93,15 @@ namespace CMiX.Studio.ViewModels
                 AddContentText = "Add Layer";
                 CanAdd = true;
             }
-            else
+            else if(SelectedComponent is Project)
             {
                 AddContentText = "Add Composition";
                 CanAdd = true;
+            }
+            else
+            {
+                AddContentText = "Add";
+                CanAdd = false;
             }
         }
 

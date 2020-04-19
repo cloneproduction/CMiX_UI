@@ -13,18 +13,18 @@
                 Grid.Column="0"
                 Margin="1"
                 Caption="Scale X"
-                DataContext="{Binding ScaleX}"/>
+                DataContext="{Binding X}"/>
         <MVVM.Views:Slider
                 Height="20"
                 Grid.Column="0"
                 Margin="1"
                 Caption="Y"
-                DataContext="{Binding ScaleY}"/>
+                DataContext="{Binding Y}"/>
         <MVVM.Views:Slider
                 Height="20"
                 Grid.Column="0"
                 Margin="1"
                 Caption="Z"
-                DataContext="{Binding ScaleZ}"/>
+                DataContext="{Binding Z}"/>
     </StackPanel>
 </UserControl>

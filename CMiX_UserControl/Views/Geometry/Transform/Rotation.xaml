@@ -13,18 +13,18 @@
                 Grid.Column="0"
                 Margin="1"
                 Caption="Rotation X"
-                DataContext="{Binding RotationX}"/>
+                DataContext="{Binding X}"/>
         <MVVM.Views:Slider
                 Height="20"
                 Grid.Column="0"
                 Margin="1"
                 Caption="Y"
-                DataContext="{Binding RotationY}"/>
+                DataContext="{Binding Y}"/>
         <MVVM.Views:Slider
                 Height="20"
                 Grid.Column="0"
                 Margin="1"
                 Caption="Z"
-                DataContext="{Binding RotationZ}"/>
+                DataContext="{Binding Z}"/>
     </StackPanel>
 </UserControl>

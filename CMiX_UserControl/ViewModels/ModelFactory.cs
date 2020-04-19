@@ -104,29 +104,12 @@ namespace CMiX.Studio.ViewModels
                 asset.SetViewModel(assetModel);
                 instance.Assets.Add(asset);
             }
-
             instance.BuildAssetFlattenCollection(instance.Assets);
-            //instance.AssetsFlatten.Clear();
-            //foreach (IAssetModel assetModel in projectModel.AssetModels)
-            //{
-            //    IAssets asset = null;
-            //    if (assetModel is AssetTextureModel)
-            //        asset = new AssetTexture();
-            //    else if (assetModel is AssetGeometryModel)
-            //        asset = new AssetGeometry();
-
-            //    asset.SetViewModel(assetModel);
-            //    instance.AssetsFlatten.Add(asset);
-            //    Console.WriteLine("instance.AssetsFlatten.Add(asset)");
-            //}
-            //instance.build
-            //instance.AssetManager.SetViewModel(projectModel.AssetManagerModel);
         }
 
 
         public static CompositionModel GetModel(this Composition instance)
         {
-            Console.WriteLine("GET COMPOSITION MODEL");
             CompositionModel compositionModel = new CompositionModel();
 
             compositionModel.Name = instance.Name;
@@ -238,7 +221,6 @@ namespace CMiX.Studio.ViewModels
         public static void SetViewModel(this Scene instance, IComponentModel componentModel)
         {
             var sceneModel = componentModel as SceneModel;
-            instance.MessageService.Disable();
 
             instance.Enabled = sceneModel.Enabled;
             instance.BeatModifier.SetViewModel(sceneModel.BeatModifierModel);
@@ -251,8 +233,6 @@ namespace CMiX.Studio.ViewModels
                 entity.SetViewModel(entityModel);
                 instance.AddComponent(entity);
             }
-
-            instance.MessageService.Enable();
         }
 
 
@@ -278,7 +258,6 @@ namespace CMiX.Studio.ViewModels
         public static void SetViewModel(this Mask instance, IComponentModel model)
         {
             var maskModel = model as MaskModel;
-            instance.MessageService.Disable();
 
             instance.Enabled = maskModel.Enable;
             instance.MaskType = maskModel.MaskType;
@@ -288,8 +267,14 @@ namespace CMiX.Studio.ViewModels
             instance.Texture.SetViewModel(maskModel.TextureModel);
             instance.Geometry.SetViewModel(maskModel.GeometryModel);
             instance.PostFX.SetViewModel(maskModel.PostFXModel);
+            instance.Components.Clear();
 
-            instance.MessageService.Enable();
+            foreach (EntityModel entityModel in maskModel.ComponentModels)
+            {
+                Entity entity = new Entity(0, instance.Beat, instance.MessageAddress, instance.MessageService, instance.Mementor);
+                entity.SetViewModel(entityModel);
+                instance.AddComponent(entity);
+            }
         }
 
 
@@ -359,64 +344,6 @@ namespace CMiX.Studio.ViewModels
             if (model.SelectedPath != null)
                 instance.SelectedPath = model.SelectedPath;
         }
-
-
-        //public static AssetManagerModel GetModel(this AssetManager instance)
-        //{
-        //    AssetManagerModel assetsModel = new AssetManagerModel();
-
-        //    foreach (var asset in instance.Assets)
-        //        assetsModel.AssetModels.Add(asset.GetModel());
-
-        //    foreach (var asset in instance.FlattenAssets)
-        //        assetsModel.FlattenAssetModels.Add(asset.GetModel());
-
-        //    return assetsModel;
-        //}
-
-        //public static void SetViewModel(this AssetManager instance, AssetManagerModel model)
-        //{
-        //    instance.Assets.Clear();
-
-        //    foreach (var assetModel in model.AssetModels)
-        //    {
-        //        IAssets asset = null;
-
-        //        if (assetModel is AssetDirectoryModel)
-        //            asset = new AssetDirectory();
-
-        //        else if (assetModel is AssetGeometryModel)
-        //            asset = new AssetGeometry();
-
-        //        else if (assetModel is AssetTextureModel)
-        //            asset = new AssetTexture();
-
-        //        if (asset != null)
-        //        {
-        //            asset.SetViewModel(assetModel);
-        //            instance.Assets.Add(asset);
-        //        }
-        //    }
-
-        //    instance.FlattenAssets.Clear();
-        //    foreach (var assetModel in model.FlattenAssetModels)
-        //    {
-        //        IAssets asset = null;
-
-        //        if (assetModel is AssetGeometryModel)
-        //            asset = new AssetGeometry();
-
-        //        else if (assetModel is AssetTextureModel)
-        //            asset = new AssetTexture();
-
-        //        if (asset != null)
-        //        {
-        //            asset.SetViewModel(assetModel);
-        //            instance.FlattenAssets.Add(asset);
-        //        }
-        //    }
-        //}
-
 
 
 
