@@ -28,7 +28,7 @@ namespace CMiX.Studio.ViewModels
         }
 
         #region PROPERTIES
-        private readonly IDialogService DialogService;
+        public IDialogService DialogService { get; set; }
 
         public ObservableCollection<Server> Servers { get; set; }
         public ServerManager ServerManager { get; set; }
