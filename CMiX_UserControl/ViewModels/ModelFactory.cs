@@ -61,10 +61,15 @@ namespace CMiX.Studio.ViewModels
             projectModel.MessageAddress = instance.MessageAddress;
             projectModel.Name = instance.Name;
             projectModel.IsVisible = instance.IsVisible;
-            //projectModel.AssetManagerModel = instance.AssetManager.GetModel();
 
             foreach (Component component in instance.Components)
                 projectModel.ComponentModels.Add(component.GetModel());
+
+            foreach (IAssets asset in instance.Assets)
+                projectModel.AssetModels.Add(asset.GetModel());
+
+            foreach (IAssets asset in instance.AssetsFlatten)
+                projectModel.AssetModelsFlatten.Add(asset.GetModel());
 
             return projectModel;
         }
@@ -85,6 +90,36 @@ namespace CMiX.Studio.ViewModels
                 instance.AddComponent(composition);
             }
 
+            instance.Assets.Clear();
+            foreach (IAssetModel assetModel in projectModel.AssetModels)
+            {
+                IAssets asset = null;
+                if (assetModel is AssetDirectoryModel)
+                    asset = new AssetDirectory();
+                else if (assetModel is AssetTextureModel)
+                    asset = new AssetTexture();
+                else if (assetModel is AssetGeometryModel)
+                    asset = new AssetGeometry();
+
+                asset.SetViewModel(assetModel);
+                instance.Assets.Add(asset);
+            }
+
+            instance.BuildAssetFlattenCollection(instance.Assets);
+            //instance.AssetsFlatten.Clear();
+            //foreach (IAssetModel assetModel in projectModel.AssetModels)
+            //{
+            //    IAssets asset = null;
+            //    if (assetModel is AssetTextureModel)
+            //        asset = new AssetTexture();
+            //    else if (assetModel is AssetGeometryModel)
+            //        asset = new AssetGeometry();
+
+            //    asset.SetViewModel(assetModel);
+            //    instance.AssetsFlatten.Add(asset);
+            //    Console.WriteLine("instance.AssetsFlatten.Add(asset)");
+            //}
+            //instance.build
             //instance.AssetManager.SetViewModel(projectModel.AssetManagerModel);
         }
 
@@ -326,61 +361,61 @@ namespace CMiX.Studio.ViewModels
         }
 
 
-        public static AssetManagerModel GetModel(this AssetManager instance)
-        {
-            AssetManagerModel assetsModel = new AssetManagerModel();
+        //public static AssetManagerModel GetModel(this AssetManager instance)
+        //{
+        //    AssetManagerModel assetsModel = new AssetManagerModel();
 
-            foreach (var asset in instance.Assets)
-                assetsModel.AssetModels.Add(asset.GetModel());
+        //    foreach (var asset in instance.Assets)
+        //        assetsModel.AssetModels.Add(asset.GetModel());
 
-            foreach (var asset in instance.FlattenAssets)
-                assetsModel.FlattenAssetModels.Add(asset.GetModel());
+        //    foreach (var asset in instance.FlattenAssets)
+        //        assetsModel.FlattenAssetModels.Add(asset.GetModel());
 
-            return assetsModel;
-        }
+        //    return assetsModel;
+        //}
 
-        public static void SetViewModel(this AssetManager instance, AssetManagerModel model)
-        {
-            instance.Assets.Clear();
+        //public static void SetViewModel(this AssetManager instance, AssetManagerModel model)
+        //{
+        //    instance.Assets.Clear();
 
-            foreach (var assetModel in model.AssetModels)
-            {
-                IAssets asset = null;
+        //    foreach (var assetModel in model.AssetModels)
+        //    {
+        //        IAssets asset = null;
 
-                if (assetModel is AssetDirectoryModel)
-                    asset = new AssetDirectory();
+        //        if (assetModel is AssetDirectoryModel)
+        //            asset = new AssetDirectory();
 
-                else if (assetModel is AssetGeometryModel)
-                    asset = new AssetGeometry();
+        //        else if (assetModel is AssetGeometryModel)
+        //            asset = new AssetGeometry();
 
-                else if (assetModel is AssetTextureModel)
-                    asset = new AssetTexture();
+        //        else if (assetModel is AssetTextureModel)
+        //            asset = new AssetTexture();
 
-                if (asset != null)
-                {
-                    asset.SetViewModel(assetModel);
-                    instance.Assets.Add(asset);
-                }
-            }
+        //        if (asset != null)
+        //        {
+        //            asset.SetViewModel(assetModel);
+        //            instance.Assets.Add(asset);
+        //        }
+        //    }
 
-            instance.FlattenAssets.Clear();
-            foreach (var assetModel in model.FlattenAssetModels)
-            {
-                IAssets asset = null;
+        //    instance.FlattenAssets.Clear();
+        //    foreach (var assetModel in model.FlattenAssetModels)
+        //    {
+        //        IAssets asset = null;
 
-                if (assetModel is AssetGeometryModel)
-                    asset = new AssetGeometry();
+        //        if (assetModel is AssetGeometryModel)
+        //            asset = new AssetGeometry();
 
-                else if (assetModel is AssetTextureModel)
-                    asset = new AssetTexture();
+        //        else if (assetModel is AssetTextureModel)
+        //            asset = new AssetTexture();
 
-                if (asset != null)
-                {
-                    asset.SetViewModel(assetModel);
-                    instance.FlattenAssets.Add(asset);
-                }
-            }
-        }
+        //        if (asset != null)
+        //        {
+        //            asset.SetViewModel(assetModel);
+        //            instance.FlattenAssets.Add(asset);
+        //        }
+        //    }
+        //}
 
 
 

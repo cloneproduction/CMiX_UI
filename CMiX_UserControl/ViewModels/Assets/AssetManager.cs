@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -8,9 +7,7 @@ using System.Linq;
 using System.Linq.Dynamic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
-using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.ViewModels;
 using GongSolutions.Wpf.DragDrop;
@@ -24,14 +21,12 @@ namespace CMiX.Studio.ViewModels
         public AssetManager(IDialogService dialogService, Project project)
         {
             DialogService = dialogService;
+            Project = project;
 
             var directoryItem = new AssetDirectory("RESOURCES");
             directoryItem.IsRoot = true;
 
-            Assets = project.Assets;
-            FlattenAssets = new ObservableCollection<IAssets>();
-
-            Assets.Add(directoryItem);
+            Project.Assets.Add(directoryItem);
 
             SelectedItems = new ObservableCollection<IAssets>();
             SelectedItems.CollectionChanged += CollectionChanged;
@@ -40,52 +35,7 @@ namespace CMiX.Studio.ViewModels
             DeleteAssetsCommand = new RelayCommand(p => DeleteAssets());
             RenameAssetCommand = new RelayCommand(p => RenameAsset());
             RelinkAssetsCommand = new RelayCommand(p => RelinkAssets());
-
-            InitCollectionView();
         }
-
-
-        public void InitCollectionView()
-        {
-
-            this.FlattenAssets.CollectionChanged += FlattenAssets_CollectionChanged;
-
-            GeometryViewSource = new CollectionViewSource();
-            GeometryViewSource.Source = this.FlattenAssets;
-            GeometryCollectionView = GeometryViewSource.View;
-            GeometryCollectionView.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-            GeometryCollectionView.Filter = FilterGeometry;
-
-            ImageViewSource = new CollectionViewSource();
-            ImageViewSource.Source = this.FlattenAssets;
-            ImageCollectionView = ImageViewSource.View;
-            ImageCollectionView.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-            ImageCollectionView.Filter = FilterImage;
-        }
-
-        private void FlattenAssets_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            Console.WriteLine("FlattenAssetsChanged");
-            GeometryCollectionView.Refresh();
-            ImageCollectionView.Refresh();
-        }
-
-        public bool FilterGeometry(object item)
-        {
-            if (item is AssetGeometry)
-                return true;
-            else
-                return false;
-        }
-
-        public bool FilterImage(object item)
-        {
-            if (item is AssetTexture)
-                return true;
-            else
-                return false;
-        }
-
 
 
         #region METHODS
@@ -128,8 +78,8 @@ namespace CMiX.Studio.ViewModels
 
         private void DeleteAssets()
         {
-            if (SelectedItems != null && Assets != null)
-                DeleteSelectedAssets(Assets);
+            if (SelectedItems != null && Project.Assets != null)
+                DeleteSelectedAssets(Project.Assets);
         }
 
         public void RemoveItemFromDirectory(IDirectory directory)
@@ -145,8 +95,8 @@ namespace CMiX.Studio.ViewModels
             foreach (var item in toBeRemoved)
             {
                 directory.Assets.Remove(item);
-                Assets.Remove(item);
-                FlattenAssets.Remove(item);
+                Project.Assets.Remove(item);
+                Project.AssetsFlatten.Remove(item);
             }
         }
 
@@ -169,8 +119,8 @@ namespace CMiX.Studio.ViewModels
             foreach (var item in toBeRemoved)
             {
                 assets.Remove(item);
-                Assets.Remove(item);
-                FlattenAssets.Remove(item);
+                Project.Assets.Remove(item);
+                Project.AssetsFlatten.Remove(item);
             }
 
             SelectedItems.Clear();
@@ -206,7 +156,7 @@ namespace CMiX.Studio.ViewModels
                 item = new AssetGeometry(fileName, filePath);
 
             if (item != null)
-                FlattenAssets.Add(item);
+                Project.AssetsFlatten.Add(item);
 
             return item;
         }
@@ -219,38 +169,14 @@ namespace CMiX.Studio.ViewModels
         public ICommand DeleteSelectedItemCommand { get; set; }
         public ICommand RelinkAssetsCommand { get; set; }
 
-
-        public CollectionViewSource GeometryViewSource { get; set; }
-        private ICollectionView _geometryCollectionView;
-        public ICollectionView GeometryCollectionView
-        {
-            get => _geometryCollectionView;
-            set => SetAndNotify(ref _geometryCollectionView, value);
-        }
-
-        public CollectionViewSource ImageViewSource { get; set; }
-        private ICollectionView _imageCollectionView;
-        public ICollectionView ImageCollectionView
-        {
-            get => _imageCollectionView;
-            set => SetAndNotify(ref _imageCollectionView, value);
-        }
-
-        private ObservableCollection<IAssets> _assets;
-        public ObservableCollection<IAssets> Assets
-        {
-            get => _assets;
-            set => SetAndNotify(ref _assets, value);
-        }
-
-        private ObservableCollection<IAssets> _flattenAssets;
-        public ObservableCollection<IAssets> FlattenAssets
-        {
-            get => _flattenAssets;
-            set => SetAndNotify(ref _flattenAssets, value);
-        }
-
         public IDialogService DialogService { get; set; }
+
+        private Project _project;
+        public Project Project
+        {
+            get => _project;
+            set => SetAndNotify(ref _project, value);
+        }
 
         private ObservableCollection<IAssets> _selectedItems;
         public ObservableCollection<IAssets> SelectedItems
@@ -341,11 +267,12 @@ namespace CMiX.Studio.ViewModels
                             directoryItem.SortAssets();
                             directoryItem.IsExpanded = true;
                         }
-                        else if (Assets[0] is IDirectory)
+                        else if (Project.Assets[0] is IDirectory)
                         {
-                            FlattenAssets.Add(item);
-                            ((IDirectory)Assets[0]).Assets.Add(item);
-                            ((IDirectory)Assets[0]).SortAssets();
+                            Project.AssetsFlatten.Add(item);
+                            ((IDirectory)Project.Assets[0]).Assets.Add(item);
+                            ((IDirectory)Project.Assets[0]).SortAssets();
+                            ((IDirectory)Project.Assets[0]).IsExpanded = true;
                         }
                     }
                 }
@@ -399,7 +326,7 @@ namespace CMiX.Studio.ViewModels
         public void StartDrag(IDragInfo dragInfo)
         {
             List<AssetDragDrop> dragList = new List<AssetDragDrop>();
-            GetDragDropObjects(dragList, Assets);
+            GetDragDropObjects(dragList, Project.Assets);
             
             if(dragList.Count > 0)
             {
@@ -418,14 +345,12 @@ namespace CMiX.Studio.ViewModels
 
         public void Dropped(IDropInfo dropInfo)
         {
-            //Console.WriteLine("Dropped");
-            //throw new NotImplementedException();
+
         }
 
         public void DragDropOperationFinished(DragDropEffects operationResult, IDragInfo dragInfo)
         {
-            //Console.WriteLine("DragDropOperationFinished");
-            //throw new NotImplementedException();
+
         }
 
         public void DragCancelled()

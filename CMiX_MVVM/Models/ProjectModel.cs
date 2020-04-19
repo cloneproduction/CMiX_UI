@@ -7,7 +7,8 @@ namespace CMiX.MVVM.Models
         public ProjectModel()
         {
             ComponentModels = new ObservableCollection<IComponentModel>();
-            AssetManagerModel = new AssetManagerModel();
+            AssetModels = new ObservableCollection<IAssetModel>();
+            AssetModelsFlatten = new ObservableCollection<IAssetModel>();
         }
 
         public bool Enabled { get; set; }
@@ -17,6 +18,7 @@ namespace CMiX.MVVM.Models
         public bool IsVisible { get; set; }
 
         public ObservableCollection<IComponentModel> ComponentModels { get; set; }
-        public AssetManagerModel AssetManagerModel { get; set; }
+        public ObservableCollection<IAssetModel> AssetModels { get; set; }
+        public ObservableCollection<IAssetModel> AssetModelsFlatten { get; set; }
     }
 }

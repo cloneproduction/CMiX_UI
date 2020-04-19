@@ -118,7 +118,7 @@
             dd:DragDrop.IsDropTarget="True"
             dd:DragDrop.DragHandler="{Binding}"
             dd:DragDrop.DropHandler="{Binding}"
-            ItemsSource="{Binding Assets, Mode=TwoWay}"
+            ItemsSource="{Binding Project.Assets, Mode=TwoWay}"
             ContextMenu="{StaticResource ResourceContextMenu}">
 
         </Controls:MultiSelectTreeView>

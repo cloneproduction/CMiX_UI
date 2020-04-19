@@ -82,7 +82,7 @@
                 </DockPanel>
             </Border>
 
-            <Views:TexturePathSelector DataContext="{Binding AssetPathSelector}"/>
+            <Views:TexturePathSelector DataContext="{Binding Path=DataContext.CurrentProject, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Expander IsExpanded="True" Margin="0, 2" Header="Transform" Style="{StaticResource ExpanderBase}">
                 <StackPanel>
                     <Border Margin="0, 4" Style="{StaticResource BorderContainer}">
