@@ -132,6 +132,8 @@
     <Compile Include="ViewModels\Assets\AssetDragDrop.cs" />
     <Compile Include="ViewModels\Assets\AssetPathSelector.cs" />
     <Compile Include="ViewModels\Component\ComponentEventArgs.cs" />
+    <Compile Include="ViewModels\Component\ComponentFactory.cs" />
+    <Compile Include="ViewModels\Component\ComponentModelFactory.cs" />
     <Compile Include="ViewModels\Component\Outliner.cs" />
     <Compile Include="ViewModels\Dialogs\CustomDialog.cs" />
     <Compile Include="ViewModels\Dialogs\CustomFrameworkDialogFactory.cs" />
@@ -161,7 +163,6 @@
     <Compile Include="ViewModels\Component\Component.cs" />
     <Compile Include="ViewModels\Component\ComponentManager.cs" />
     <Compile Include="ViewModels\Component\ComponentPanelTemplateSelector.cs" />
-    <Compile Include="ViewModels\Root.cs" />
     <Compile Include="Views\Component\ComponentPanel.xaml.cs">
       <DependentUpon>ComponentPanel.xaml</DependentUpon>
     </Compile>

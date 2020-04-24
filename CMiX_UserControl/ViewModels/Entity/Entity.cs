@@ -10,8 +10,8 @@ namespace CMiX.Studio.ViewModels
     public class Entity : Component
     {
         #region CONSTRUCTORS
-        public Entity(int id, Beat beat, string messageAddress, MessageService messageService, Mementor mementor)
-            : base(id, beat, messageAddress, messageService, mementor)
+        public Entity(int id, Beat beat, MessageService messageService, Mementor mementor)
+            : base(id, beat, messageService, mementor)
         {
             BeatModifier = new BeatModifier(MessageAddress, beat, messageService, mementor);
             Geometry = new Geometry(MessageAddress, messageService, mementor, beat);

@@ -1,5 +1,4 @@
-﻿using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
+﻿using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using Memento;
 using System.Collections.ObjectModel;
@@ -7,26 +6,31 @@ using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels
 {
-    public abstract class Component : Sendable, IUndoable
+    public abstract class Component : ViewModel, IUndoable
     {
-        public Component(int id, Beat beat, string messageAddress, MessageService messageService, Mementor mementor)
-            : base(messageAddress, messageService)
+        public Component(int id, Beat beat, MessageService messageService, Mementor mementor)
         {
             ID = id;
             Mementor = mementor;
             Beat = beat;
             Name = GetType().Name + " " + id;
-            MessageAddress += $"{id}/";
+            MessageService = messageService;
 
             Components = new ObservableCollection<Component>();
-            RenameCommand = new RelayCommand(p => Rename());
         }
 
-        public int ID { get; set; }
+        public MessageService MessageService { get; set; }
         public Mementor Mementor { get; set; }
         public Beat Beat { get; set; }
 
-        public ICommand RenameCommand { get; }
+        private string _messageAddress;
+        public string MessageAddress
+        {
+            get { return $"{this.GetType().Name}/{ID}/"; }
+            set { _messageAddress = value; }
+        }
+
+        public int ID { get; set; }
 
         private string _name;
         public string Name
@@ -118,18 +122,13 @@ namespace CMiX.Studio.ViewModels
             Components.Remove(component);
         }
 
-        public void SetVisibility()
+        private void SetVisibility()
         {
             foreach (var item in Components)
             {
                 item.ParentIsVisible = IsVisible;
                 item.SetVisibility();
             } 
-        }
-
-        public void Rename()
-        {
-            IsRenaming = true;
         }
     }
 }

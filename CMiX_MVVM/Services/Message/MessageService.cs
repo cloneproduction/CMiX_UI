@@ -19,7 +19,7 @@ namespace CMiX.MVVM.Services
             
             if (Enabled)
             {
-                System.Console.WriteLine("SendMessage from MessageService");
+                System.Console.WriteLine("SendMessage from MessageService " + topic);
                 foreach (var messageValidation in MessageValidations)
                 {
                     messageValidation.SendMessage(topic, command, parameter, payload);

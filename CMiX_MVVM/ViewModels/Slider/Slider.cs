@@ -49,7 +49,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _amount, value);
-                //MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, this.GetModel());
+                MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, this.GetModel());
             }
         }
 

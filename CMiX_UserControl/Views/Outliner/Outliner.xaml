@@ -24,32 +24,12 @@
             <ContextMenu x:Key="OutlinerContextMenu" Width="175">
 
                 <MenuItem
-                    IsEnabled="{Binding CanAdd}"
-                    Command="{Binding Data.ComponentManager.CreateComponentCommand, Source={StaticResource RootProxy}}"
-                    CommandParameter="{Binding SelectedComponent}"
-                    Header="{Binding AddContentText}">
-                    <MenuItem.Icon>
-                        <Image Source="{StaticResource Add}"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-
-                <MenuItem
                     IsEnabled="{Binding CanEdit}"
                     Command="{Binding Data.ComponentEditor.EditComponentCommand, Source={StaticResource RootProxy}}"
                     CommandParameter="{Binding SelectedComponent}"
                     Header="Edit">
                     <MenuItem.Icon>
                         <Image Source="{StaticResource NewLayer}"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-
-                <MenuItem
-                    IsEnabled="{Binding CanDuplicate}"
-                    Command="{Binding Data.ComponentManager.DuplicateComponentCommand, Source={StaticResource RootProxy}}"
-                    CommandParameter="{Binding SelectedComponent}"
-                    Header="Duplicate">
-                    <MenuItem.Icon>
-                        <Image Source="{StaticResource Copy}"/>
                     </MenuItem.Icon>
                 </MenuItem>
 
@@ -62,6 +42,30 @@
                         <Image Source="{StaticResource Rename}"/>
                     </MenuItem.Icon>
                 </MenuItem>
+                
+                <MenuItem
+                    IsEnabled="{Binding CanAdd}"
+                    Command="{Binding Data.ComponentManager.CreateComponentCommand, Source={StaticResource RootProxy}}"
+                    CommandParameter="{Binding SelectedComponent}"
+                    Header="{Binding AddContentText}">
+                    <MenuItem.Icon>
+                        <Image Source="{StaticResource Add}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+
+
+
+                <MenuItem
+                    IsEnabled="{Binding CanDuplicate}"
+                    Command="{Binding Data.ComponentManager.DuplicateComponentCommand, Source={StaticResource RootProxy}}"
+                    CommandParameter="{Binding SelectedComponent}"
+                    Header="Duplicate">
+                    <MenuItem.Icon>
+                        <Image Source="{StaticResource Copy}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+
+
 
                 <MenuItem
                     IsEnabled="{Binding CanDelete}"

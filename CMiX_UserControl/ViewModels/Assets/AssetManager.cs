@@ -18,9 +18,9 @@ namespace CMiX.Studio.ViewModels
 {
     public class AssetManager : ViewModel, IDropTarget, IDragSource
     {
-        public AssetManager(IDialogService dialogService, Project project)
+        public AssetManager(Project project)
         {
-            DialogService = dialogService;
+            DialogService = project.DialogService;
             Project = project;
 
             var directoryItem = new AssetDirectory("RESOURCES");

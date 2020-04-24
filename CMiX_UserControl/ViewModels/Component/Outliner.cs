@@ -380,6 +380,8 @@ namespace CMiX.Studio.ViewModels
             var sourceCollection = dropInfo.DragInfo.SourceCollection as ObservableCollection<Component>;
             var insertIndex = dropInfo.InsertIndex;
             var sourceIndex = dropInfo.DragInfo.SourceIndex;
+            var sourceItem = dropInfo.DragInfo.SourceItem as Component;
+            var targetItem = dropInfo.TargetItem as Component;
 
             if (targetCollection == null)
                 return;
@@ -387,13 +389,9 @@ namespace CMiX.Studio.ViewModels
             if (CanDropOnSameParent(dropInfo))
             {
                 if (sourceIndex < insertIndex)
-                {
                     targetCollection.Move(sourceIndex, insertIndex - 1);
-                }
                 else
-                {
                     targetCollection.Move(sourceIndex, insertIndex);
-                }
                 return;
             }
             else if(CanDropWithinDifferentParent(dropInfo))
@@ -404,16 +402,8 @@ namespace CMiX.Studio.ViewModels
             }
             else if (CanDropEntityOnMask(dropInfo))
             {
-                var sourceItem = dropInfo.DragInfo.SourceItem as Component;
-                if (dropInfo.TargetItem is Mask)
+                if (dropInfo.TargetItem is Mask || dropInfo.TargetItem is Scene)
                 {
-                    var targetItem = dropInfo.TargetItem as Mask;
-                    targetItem.Components.Insert(0, sourceItem);
-                    targetItem.IsExpanded = true;
-                }
-                else if (dropInfo.TargetItem is Scene)
-                {
-                    var targetItem = dropInfo.TargetItem as Scene;
                     targetItem.Components.Insert(0, sourceItem);
                     targetItem.IsExpanded = true;
                 }
@@ -422,7 +412,6 @@ namespace CMiX.Studio.ViewModels
             }
             else if (CanDropOnLastItem(dropInfo))
             {
-                var sourceItem = dropInfo.DragInfo.SourceItem as Component;
                 var visualTarget = dropInfo.VisualTargetItem;
 
                 var parentVisualTarget = Utils.FindParent<TreeViewItem>(visualTarget);
@@ -438,8 +427,6 @@ namespace CMiX.Studio.ViewModels
 
                 var grandParentCollectionSource = (ObservableCollection<Component>)grandParentVisualTarget.ItemsSource;
                 var grandGrandParentCollectionSource = (ObservableCollection<Component>)grandGrandParentVisualTarget.ItemsSource;
-
-                Console.WriteLine("grandParentTargetDataContext TYPE " + grandParentTargetDataContext.GetType());
 
                 if (grandParentTargetDataContext.GetType() == typeof(Composition))
                 {

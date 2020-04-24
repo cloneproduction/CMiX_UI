@@ -9,8 +9,8 @@ namespace CMiX.Studio.ViewModels
     public class Scene : Component
     {
         #region CONSTRUCTORS
-        public Scene(int id, Beat beat, string messageAddress, MessageService messageService, Mementor mementor)
-            : base(id, beat, messageAddress, messageService, mementor)
+        public Scene(int id, Beat beat, MessageService messageService, Mementor mementor)
+            : base(id, beat, messageService, mementor)
         {
             Name = "Scene";
             BeatModifier = new BeatModifier(MessageAddress, beat, messageService, mementor);

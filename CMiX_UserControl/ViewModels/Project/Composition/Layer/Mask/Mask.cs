@@ -12,8 +12,8 @@ namespace CMiX.Studio.ViewModels
     public class Mask : Component, ISendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Mask(int id, Beat beat, string messageAddress, MessageService messageService, Mementor mementor)
-            : base(id, beat, messageAddress, messageService, mementor)
+        public Mask(int id, Beat beat, MessageService messageService, Mementor mementor)
+            : base(id, beat, messageService, mementor)
         {
             MaskType = ((MaskType)2).ToString();
             MaskControlType = ((MaskControlType)1).ToString();

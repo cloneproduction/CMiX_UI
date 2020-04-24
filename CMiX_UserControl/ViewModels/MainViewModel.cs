@@ -23,15 +23,16 @@ namespace CMiX.Studio.ViewModels
 
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
 
-            CurrentProject = new Project(0, string.Empty, null, new MessageService(), Mementor, DialogService);
-
-            AssetManager = new AssetManager(DialogService, CurrentProject);
-            ComponentEditor = new ComponentEditor(CurrentProject);
-            ComponentManager = new ComponentManager(CurrentProject);
-            ComponentManager.ComponentDeletedEvent += ComponentEditor.ComponentDeletedEvent;
+            CurrentProject = ComponentFactory.CreateProject();// new Project(0, string.Empty, null, new MessageService(), Mementor, DialogService);
 
             Projects = new ObservableCollection<Component>();
             Projects.Add(CurrentProject);
+
+            AssetManager = new AssetManager(CurrentProject);
+            ComponentEditor = new ComponentEditor(CurrentProject);
+            ComponentManager = new ComponentManager(Projects);
+            ComponentManager.ComponentDeletedEvent += ComponentEditor.ComponentDeletedEvent;
+
 
             Outliner = new Outliner(Projects);
 
@@ -142,14 +143,12 @@ namespace CMiX.Studio.ViewModels
         #region MENU METHODS
         private void NewProject()
         {
-            Project project = ComponentManager.CreateProject();
+            Project project = ComponentFactory.CreateProject();
             Projects.Clear();
             Projects.Add(project);
             CurrentProject = project;
-            AssetManager = new AssetManager(DialogService, project);
+            AssetManager = new AssetManager(project);
             ComponentEditor = new ComponentEditor(project);
-            ComponentManager = new ComponentManager(project);
-            ComponentManager.ComponentDeletedEvent += ComponentEditor.ComponentDeletedEvent;
         }
 
         private void OpenProject()
@@ -168,8 +167,10 @@ namespace CMiX.Studio.ViewModels
 
                     byte[] data = File.ReadAllBytes(folderPath);
                     NewProject();
+                    CurrentProject.MessageService.Disable();
                     CurrentProject.SetViewModel(Serializer.Deserialize<ProjectModel>(data));
                     FolderPath = folderPath;
+                    CurrentProject.MessageService.Enable();
                 }
             }
         }

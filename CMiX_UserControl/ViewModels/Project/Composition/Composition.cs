@@ -7,8 +7,8 @@ namespace CMiX.Studio.ViewModels
     public class Composition : Component
     {
         #region CONSTRUCTORS
-        public Composition(int id, string messageAddress, Beat beat, MessageService messageService, Mementor mementor) 
-            : base (id, beat, messageAddress, messageService, mementor)
+        public Composition(int id,  Beat beat, MessageService messageService, Mementor mementor) 
+            : base (id, beat, messageService, mementor)
         {
             MessageValidationManager = new MessageValidationManager(MessageService);
             Transition = new Slider("/Transition", MessageService, Mementor);

@@ -12,7 +12,7 @@ namespace CMiX.Studio.ViewModels
     public class Project : Component, IUndoable
     {
         public Project(int id, string messageAddress, Beat beat, MessageService messageService, Mementor mementor, IDialogService dialogService)
-            : base(id, beat, messageAddress, messageService, mementor)
+            : base(id, beat, messageService, mementor)
         {
             ComponentsInEditing = new ObservableCollection<Component>();
 
@@ -94,7 +94,6 @@ namespace CMiX.Studio.ViewModels
         {
             GeometryCollectionView.Refresh();
             ImageCollectionView.Refresh();
-            System.Console.WriteLine("FlattenAssets_CollectionChanged");
         }
 
         public void BuildAssetFlattenCollection(ObservableCollection<IAssets> assets)

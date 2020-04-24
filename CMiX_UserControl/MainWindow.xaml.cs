@@ -20,7 +20,7 @@ namespace CMiX
 
         private void UndoCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var root = DataContext as Root;
+            var root = DataContext as MainViewModel;
             if (root.Mementor.CanUndo)
                 root.Mementor.Undo();
         }
@@ -32,7 +32,7 @@ namespace CMiX
 
         private void RedoCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var root = DataContext as Root;
+            var root = DataContext as MainViewModel;
             if (root.Mementor.CanRedo)
                 root.Mementor.Redo();
         }
