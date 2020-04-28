@@ -23,7 +23,7 @@ namespace CMiX.Studio.ViewModels
 
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
 
-            CurrentProject = ComponentFactory.CreateProject();// new Project(0, string.Empty, null, new MessageService(), Mementor, DialogService);
+            CurrentProject = ComponentFactory.CreateProject();
 
             Projects = new ObservableCollection<Component>();
             Projects.Add(CurrentProject);
@@ -44,6 +44,11 @@ namespace CMiX.Studio.ViewModels
             OpenProjectCommand = new RelayCommand(p => OpenProject());
             SaveProjectCommand = new RelayCommand(p => SaveProject());
             SaveAsProjectCommand = new RelayCommand(p => SaveAsProject());
+
+            UndoCommand = new RelayCommand(p => Undo());
+            RedoCommand = new RelayCommand(p => Redo());
+
+            AddCompositionCommand = new RelayCommand(p => AddComposition());
         }
 
         #region PROPERTIES
@@ -56,6 +61,10 @@ namespace CMiX.Studio.ViewModels
 
         public ICommand MinimizeWindowCommand { get; }
         public ICommand MaximizeWindowCommand { get; }
+
+        public ICommand UndoCommand { get; }
+        public ICommand RedoCommand { get; }
+        public ICommand AddCompositionCommand { get; }
 
         private readonly IDialogService DialogService;
 
@@ -139,6 +148,23 @@ namespace CMiX.Studio.ViewModels
             }
         }
         #endregion
+
+        public void AddComposition()
+        {
+            var composition = ComponentFactory.CreateComposition(CurrentProject);
+            CurrentProject.AddComponent(composition);
+        }
+        public void Undo()
+        {
+            System.Console.WriteLine("Mementor Undo");
+            //Mementor.Undo();
+        }
+
+        public void Redo()
+        {
+            System.Console.WriteLine("Mementor Redo");
+            //Mementor.Redo();
+        }
 
         #region MENU METHODS
         private void NewProject()

@@ -29,7 +29,6 @@ namespace CMiX.Engine.ViewModels
         public string MessageAddress { get; set; }
         public Receiver Receiver { get; set; }
 
-        public FileSelector FileSelector { get; set; }
         public Slider Brightness { get; set; }
         public Slider Contrast { get; set; }
         public Slider Invert { get; set; }

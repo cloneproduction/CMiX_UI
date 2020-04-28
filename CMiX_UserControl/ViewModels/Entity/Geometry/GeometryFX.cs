@@ -16,14 +16,11 @@ namespace CMiX.Studio.ViewModels
             MessageAddress = $"{messageaddress}{nameof(GeometryFX)}/";
             MessageService = messageService;
             Explode = new Slider(MessageAddress + nameof(Explode), messageService, mementor);
-            FileSelector = new FileSelector(MessageAddress, "Single", new List<string> { ".PNG", ".JPG", ".MOV", ".TXT" }, messageService, mementor);
-            FileSelector.FilePaths.Add(new FileNameItem(string.Empty, FileSelector.MessageAddress, messageService) { FileIsSelected = true, FileName = "Black (default).png" });
         }
         #endregion
 
         #region PROPERTIES
         public Slider Explode { get; }
-        public FileSelector FileSelector { get; }
         public string MessageAddress { get; set; }
         public Mementor Mementor { get; set; }
         public MessageService MessageService { get; set; }
@@ -36,7 +33,7 @@ namespace CMiX.Studio.ViewModels
             MessageService.Disable();
 
             Explode.SetViewModel(geometryFXdto.Explode);
-            FileSelector.SetViewModel(geometryFXdto.FileSelector);
+            
 
             MessageService.Enable();
         }
@@ -46,7 +43,6 @@ namespace CMiX.Studio.ViewModels
             MessageService.Disable();;
 
             Explode.Reset();
-            FileSelector.Reset();
 
             MessageService.Enable();
         }

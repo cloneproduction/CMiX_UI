@@ -37,6 +37,13 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _name, value);
         }
 
+        private bool _fileExist = true;
+        public bool FileExist
+        {
+            get => _fileExist;
+            set => SetAndNotify(ref _fileExist, value);
+        }
+
         private string _path;
         public string Path
         {

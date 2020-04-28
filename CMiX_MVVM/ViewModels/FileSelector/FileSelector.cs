@@ -255,40 +255,40 @@ namespace CMiX.MVVM.ViewModels
             MessageService.Enable();
         }
 
-        public void Copy(FileSelectorModel fileselectormodel)
-        {
-            //fileselectormodel.MessageAddress = MessageAddress;
-            List<FileNameItemModel> FileNameItemModelList = new List<FileNameItemModel>();
-            foreach (var item in FilePaths)
-            {
-                var filenameitemmodel = new FileNameItemModel();
+        //public void Copy(FileSelectorModel fileselectormodel)
+        //{
+        //    //fileselectormodel.MessageAddress = MessageAddress;
+        //    List<FileNameItemModel> FileNameItemModelList = new List<FileNameItemModel>();
+        //    foreach (var item in FilePaths)
+        //    {
+        //        var filenameitemmodel = new FileNameItemModel();
                 
-                item.Copy(filenameitemmodel);
+        //        item.Copy(filenameitemmodel);
                 
-                FileNameItemModelList.Add(filenameitemmodel);
-            }
-            fileselectormodel.FilePaths = FileNameItemModelList;
-        }
+        //        FileNameItemModelList.Add(filenameitemmodel);
+        //    }
+        //    fileselectormodel.FilePaths = FileNameItemModelList;
+        //}
 
-        public void Paste(FileSelectorModel fileselectormodel)
-        {
-            MessageService.Enable();
+        //public void Paste(FileSelectorModel fileselectormodel)
+        //{
+        //    MessageService.Enable();
 
-            //MessageAddress = fileselectormodel.MessageAddress;
-            FilePaths.Clear();
+        //    //MessageAddress = fileselectormodel.MessageAddress;
+        //    FilePaths.Clear();
 
-            foreach (var item in fileselectormodel.FilePaths)
-            {
-                FileNameItem filenameitem = new FileNameItem(MessageAddress, MessageService);
-                filenameitem.Paste(item);
-                if (filenameitem.FileIsSelected)
-                    this.SelectedFileNameItem = filenameitem;
-                //filenameitem.UpdateMessageAddress(MessageAddress);
-                FilePaths.Add(filenameitem);
-            }
+        //    foreach (var item in fileselectormodel.FilePaths)
+        //    {
+        //        FileNameItem filenameitem = new FileNameItem(MessageAddress, MessageService);
+        //        filenameitem.Paste(item);
+        //        if (filenameitem.FileIsSelected)
+        //            this.SelectedFileNameItem = filenameitem;
+        //        //filenameitem.UpdateMessageAddress(MessageAddress);
+        //        FilePaths.Add(filenameitem);
+        //    }
 
-            MessageService.Enable();
-        }
+        //    MessageService.Enable();
+        //}
         #endregion
     }
 }

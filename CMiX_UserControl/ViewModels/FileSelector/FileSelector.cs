@@ -286,21 +286,21 @@ namespace CMiX.Studio.ViewModels
         //    fileSelectorModel.FilePaths = FileNameItemModelList;
         //}
 
-        public void SetViewModel(FileSelectorModel fileSelectorModel)
-        {
-            MessageService.Disable();
-            FolderPath = fileSelectorModel.FolderPath;
-            FilePaths.Clear();
+        //public void SetViewModel(FileSelectorModel fileSelectorModel)
+        //{
+        //    MessageService.Disable();
+        //    FolderPath = fileSelectorModel.FolderPath;
+        //    FilePaths.Clear();
 
-            foreach (var item in fileSelectorModel.FilePaths)
-            {
-                FileNameItem filenameitem = new FileNameItem(FolderPath, MessageAddress, MessageService);
-                filenameitem.SetViewModel(item);
-                FilePaths.Add(filenameitem);
-            }
+        //    foreach (var item in fileSelectorModel.FilePaths)
+        //    {
+        //        FileNameItem filenameitem = new FileNameItem(FolderPath, MessageAddress, MessageService);
+        //        filenameitem.SetViewModel(item);
+        //        FilePaths.Add(filenameitem);
+        //    }
 
-            MessageService.Enable();
-        }
+        //    MessageService.Enable();
+        //}
         #endregion
     }
 }

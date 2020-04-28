@@ -143,7 +143,6 @@
     <Compile Include="Models\SceneModel.cs" />
     <Compile Include="Models\CounterModel.cs" />
     <Compile Include="Models\FileNameItemModel.cs" />
-    <Compile Include="Models\FileSelectorModel.cs" />
     <Compile Include="Models\Geometry\GeometryFXModel.cs" />
     <Compile Include="Models\Geometry\GeometryModel.cs" />
     <Compile Include="Models\Geometry\Transform\GeometryRotationModel.cs" />

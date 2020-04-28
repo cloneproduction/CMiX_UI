@@ -14,7 +14,7 @@
     md:DialogServiceViews.IsRegistered="True">
 
     <Window.InputBindings>
-        <KeyBinding 
+        <!--<KeyBinding 
             Modifiers="Control"
             Key="T"
             Command="{Binding AddCompoCommand}" />
@@ -29,7 +29,7 @@
         <KeyBinding 
             Modifiers="Control"
             Key="I" 
-            Command="{Binding ImportCompoCommand}" />
+            Command="{Binding ImportCompoCommand}" />-->
         
         <KeyBinding 
             Modifiers="Ctrl"
@@ -109,8 +109,8 @@
                         VerticalContentAlignment="center"
                         Header="Compo">
                     <MenuItem
-                        Header="Add"
-
+                        Header="Add Composition"
+                        Command="{Binding AddCompositionCommand}"
                         Template="{StaticResource SubMenuItemBase}" />
                     <MenuItem
                         Header="Delete"
