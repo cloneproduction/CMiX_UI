@@ -111,7 +111,6 @@
     <Compile Include="Models\EntityModel.cs" />
     <Compile Include="Services\Message\IMessageReceiver.cs" />
     <Compile Include="Services\Message\ISendable.cs" />
-    <Compile Include="Services\Server\ServerManager.cs" />
     <Compile Include="Themes\MainWindow.xaml.cs" />
     <Compile Include="ViewModels\Interfaces\IUndoable.cs" />
     <Compile Include="Services\Server\Server.cs" />

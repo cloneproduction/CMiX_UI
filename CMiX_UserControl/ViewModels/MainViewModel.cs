@@ -2,6 +2,7 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
+using CMiX.Studio.Services;
 using CMiX.ViewModels;
 using Memento;
 using MvvmDialogs;
@@ -29,6 +30,7 @@ namespace CMiX.Studio.ViewModels
             Projects.Add(CurrentProject);
 
             AssetManager = new AssetManager(CurrentProject);
+            ServerManager = new ServerManager(CurrentProject);
             ComponentEditor = new ComponentEditor(CurrentProject);
             ComponentManager = new ComponentManager(Projects);
             ComponentManager.ComponentDeletedEvent += ComponentEditor.ComponentDeletedEvent;
@@ -56,9 +58,7 @@ namespace CMiX.Studio.ViewModels
         public ICommand SaveProjectCommand { get; }
         public ICommand SaveAsProjectCommand { get; }
         public ICommand OpenProjectCommand { get; }
-
         public ICommand CloseWindowCommand { get; }
-
         public ICommand MinimizeWindowCommand { get; }
         public ICommand MaximizeWindowCommand { get; }
 
@@ -77,6 +77,14 @@ namespace CMiX.Studio.ViewModels
         public string FolderPath { get; set; }
 
         public ObservableCollection<Component> Projects { get; set; }
+
+        private ServerManager _serverManager;
+        public ServerManager ServerManager
+        {
+            get => _serverManager;
+            set => SetAndNotify(ref _serverManager, value);
+        }
+
 
         private AssetManager assetManager;
         public AssetManager AssetManager

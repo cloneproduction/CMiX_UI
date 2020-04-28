@@ -1,14 +1,15 @@
 ﻿using CMiX.MVVM.ViewModels;
+using CMiX.Studio.ViewModels;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
-namespace CMiX.MVVM.Services
+namespace CMiX.Studio.Services
 {
     public class ServerManager : ViewModel
     {
-        public ServerManager(ObservableCollection<Server> servers)
+        public ServerManager(Project project)
         {
-            Servers = servers;
+            Servers = project.Servers;
             AddServerCommand = new RelayCommand(p => AddServer());
             DeleteServerCommand = new RelayCommand(p => DeleteServer());
             RenameServerCommand = new RelayCommand(p => RenameServer(p));
@@ -19,6 +20,8 @@ namespace CMiX.MVVM.Services
         public ICommand RenameServerCommand { get; set; }
 
         public ObservableCollection<Server> Servers { get; set; }
+
+        public Project Project { get; set; }
 
         private Server _selectedServer;
         public Server SelectedServer

@@ -37,7 +37,7 @@
                 dd:DragDrop.IsDropTarget="True">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Views:Server Margin="2"/>
+                        <Views:Server Margin="4"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
                 <ListBox.ContextMenu>

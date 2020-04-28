@@ -19,7 +19,6 @@ namespace CMiX.Studio.ViewModels
             DialogService = dialogService;
 
             Servers = new ObservableCollection<Server>();
-            ServerManager = new ServerManager(Servers);
 
             Assets = new ObservableCollection<IAssets>();
             AssetsFlatten = new ObservableCollection<IAssets>();
@@ -30,9 +29,12 @@ namespace CMiX.Studio.ViewModels
         #region PROPERTIES
         public IDialogService DialogService { get; set; }
 
-        public ObservableCollection<Server> Servers { get; set; }
-        public ServerManager ServerManager { get; set; }
-
+        private ObservableCollection<Server> _servers;
+        public ObservableCollection<Server> Servers
+        {
+            get => _servers;
+            set => SetAndNotify(ref _servers, value);
+        }
 
         private ObservableCollection<Component> _componentsInEditing;
         public ObservableCollection<Component> ComponentsInEditing
