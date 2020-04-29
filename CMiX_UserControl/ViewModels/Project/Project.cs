@@ -11,30 +11,20 @@ namespace CMiX.Studio.ViewModels
 {
     public class Project : Component, IUndoable
     {
-        public Project(int id, string messageAddress, Beat beat, MessageService messageService, Mementor mementor, IDialogService dialogService)
-            : base(id, beat, messageService, mementor)
+        public Project(int id, string messageAddress, Beat beat, MessengerService messengerService, Mementor mementor, IDialogService dialogService)
+            : base(id, beat, messengerService, mementor)
         {
-            ComponentsInEditing = new ObservableCollection<Component>();
-
             DialogService = dialogService;
-
-            Servers = new ObservableCollection<Server>();
 
             Assets = new ObservableCollection<IAssets>();
             AssetsFlatten = new ObservableCollection<IAssets>();
+            ComponentsInEditing = new ObservableCollection<Component>();
 
             InitCollectionView();
         }
 
         #region PROPERTIES
         public IDialogService DialogService { get; set; }
-
-        private ObservableCollection<Server> _servers;
-        public ObservableCollection<Server> Servers
-        {
-            get => _servers;
-            set => SetAndNotify(ref _servers, value);
-        }
 
         private ObservableCollection<Component> _componentsInEditing;
         public ObservableCollection<Component> ComponentsInEditing
@@ -57,7 +47,6 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _assetsFlatten, value);
         }
 
-
         public CollectionViewSource GeometryViewSource { get; set; }
         private ICollectionView _geometryCollectionView;
         public ICollectionView GeometryCollectionView
@@ -73,7 +62,6 @@ namespace CMiX.Studio.ViewModels
             get => _imageCollectionView;
             set => SetAndNotify(ref _imageCollectionView, value);
         }
-
 
         public void InitCollectionView()
         {

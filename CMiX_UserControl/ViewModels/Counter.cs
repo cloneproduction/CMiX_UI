@@ -1,19 +1,16 @@
 ﻿using CMiX.MVVM.ViewModels;
-using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
 using Memento;
-using System;
 using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Counter : ViewModel, ISendable, IUndoable
+    public class Counter : ViewModel, IUndoable
     {
         #region CONSTRUCTORS
-        public Counter(string messageaddress, MessageService messageService, Mementor mementor) 
+        public Counter(string messageaddress, MessengerService messengerService, Mementor mementor) 
         {
             MessageAddress = $"{messageaddress}{nameof(Counter)}/";
-            MessageService = messageService;
+            MessengerService = messengerService;
             Count = 1;
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
@@ -37,9 +34,10 @@ namespace CMiX.Studio.ViewModels
             }
         }
 
+
         public string MessageAddress { get; set; }
         public Mementor Mementor { get; set; }
-        public MessageService MessageService { get; set; }
+        public MessengerService MessengerService { get; set; }
         #endregion
 
         #region ADD/SUB
@@ -58,9 +56,9 @@ namespace CMiX.Studio.ViewModels
         #region COPY/PASTE/RESET
         public void Reset()
         {
-            MessageService.Enable();
+            MessengerService.Enable();
             Count = 1;
-            MessageService.Enable();
+            MessengerService.Disable();
         }
 
         #endregion

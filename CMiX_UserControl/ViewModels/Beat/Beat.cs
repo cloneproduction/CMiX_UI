@@ -22,7 +22,7 @@ namespace CMiX.Studio.ViewModels
         public ICommand MultiplyCommand { get; }
         public ICommand DivideCommand { get; }
 
-        //public MessageService MessageService { get; set; }
+        //public MessengerService MessengerService { get; set; }
         public abstract double Period { get; set; }
 
         private double _bpm;

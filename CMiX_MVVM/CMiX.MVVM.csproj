@@ -99,10 +99,11 @@
     <Compile Include="Services\Client.cs" />
     <Compile Include="Services\CommandName.cs" />
     <Compile Include="Services\Message\MessageEventArgs.cs" />
+    <Compile Include="Services\Message\MessageService.cs" />
     <Compile Include="Services\Message\MessageValidationManager.cs" />
     <Compile Include="Services\Message\Sender.cs" />
     <Compile Include="Services\Message\Message.cs" />
-    <Compile Include="Services\Message\MessageService.cs" />
+    <None Include="_Trash\MessageService.cs" />
     <Compile Include="Services\NetMQ\NetMQClient.cs" />
     <Compile Include="Services\NetMQ\NetMQServer.cs" />
     <Compile Include="Services\Message\Receiver.cs" />
@@ -110,7 +111,6 @@
     <Compile Include="Models\Interfaces\IModel.cs" />
     <Compile Include="Models\EntityModel.cs" />
     <Compile Include="Services\Message\IMessageReceiver.cs" />
-    <Compile Include="Services\Message\ISendable.cs" />
     <Compile Include="Themes\MainWindow.xaml.cs" />
     <Compile Include="ViewModels\Interfaces\IUndoable.cs" />
     <Compile Include="Services\Server\Server.cs" />
@@ -162,7 +162,6 @@
     <Compile Include="Resources\Converter.cs" />
     <Compile Include="Resources\MyHelper.cs" />
     <Compile Include="Resources\Utils.cs" />
-    <Compile Include="ViewModels\Counter.cs" />
     <Compile Include="ViewModels\FileSelector\FileNameItem.cs" />
     <Compile Include="ViewModels\FileSelector\FileSelector.cs" />
     <Compile Include="_Trash\OSCMessenger.cs" />

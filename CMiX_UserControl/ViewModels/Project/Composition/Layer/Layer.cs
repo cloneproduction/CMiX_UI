@@ -8,24 +8,25 @@ namespace CMiX.Studio.ViewModels
     public class Layer : Component
     {
         #region CONSTRUCTORS
-        public Layer(int id, Beat beat, MessageService messageService, Mementor mementor)
-            : base(id, beat, messageService, mementor)
+        public Layer(int id, Beat beat, MessengerService messengerService, Mementor mementor)
+            : base(id, beat, messengerService, mementor)
         {
-            Scene scene = ComponentFactory.CreateScene(this);// new Scene(0, Beat, MessageAddress, MessageService, Mementor);
+            Scene scene = ComponentFactory.CreateScene(this);// new Scene(0, Beat, MessageAddress, MessengerService, Mementor);
             Components.Add(scene);
 
-            Mask mask = ComponentFactory.CreateMask(this);// new Mask(0, Beat, MessageAddress, MessageService, Mementor);
+            Mask mask = ComponentFactory.CreateMask(this);// new Mask(0, Beat, MessageAddress, MessengerService, Mementor);
             Components.Add(mask);
 
-            PostFX = new PostFX(MessageAddress, messageService, mementor);
-            BlendMode = new BlendMode(beat, MessageAddress, messageService, mementor);
-            Fade = new Slider(MessageAddress + nameof(Fade), messageService, mementor);
+            PostFX = new PostFX(MessageAddress, messengerService, mementor);
+            BlendMode = new BlendMode(beat, MessageAddress, messengerService, mementor);
+            Fade = new Slider(MessageAddress + nameof(Fade), messengerService, mementor);
 
             IsExpanded = true;
         }
         #endregion
 
         #region PROPERTIES
+
         private bool _out;
         public bool Out
         {

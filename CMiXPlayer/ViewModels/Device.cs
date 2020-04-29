@@ -9,7 +9,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiXPlayer.ViewModels
 {
-    public class Device : ViewModel, ISendable
+    public class Device : ViewModel
     {
         #region CONSTRUCTORS
         public Device(CerasSerializer cerasSerializer, ObservableCollection<Playlist> playlists)

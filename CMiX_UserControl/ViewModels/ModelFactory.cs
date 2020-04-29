@@ -234,7 +234,7 @@ namespace CMiX.Studio.ViewModels
 
         public static void SetViewModel(this Camera instance, CameraModel cameraModel)
         {
-            instance.MessageService.Disable();
+            instance.MessengerService.Disable();
 
             instance.Rotation = cameraModel.Rotation;
             instance.LookAt = cameraModel.LookAt;
@@ -244,7 +244,7 @@ namespace CMiX.Studio.ViewModels
             instance.FOV.SetViewModel(cameraModel.FOV);
             instance.Zoom.SetViewModel(cameraModel.Zoom);
 
-            instance.MessageService.Enable();
+            instance.MessengerService.Enable();
         }
 
 
@@ -260,12 +260,12 @@ namespace CMiX.Studio.ViewModels
 
         public static void SetViewModel(this RangeControl instance, RangeControlModel rangeControlModel)
         {
-            instance.MessageService.Disable();
+            instance.MessengerService.Disable();
 
             instance.Range.SetViewModel(rangeControlModel.Range);
             instance.Modifier = rangeControlModel.Modifier;
 
-            instance.MessageService.Enable();
+            instance.MessengerService.Enable();
         }
 
 
@@ -318,9 +318,9 @@ namespace CMiX.Studio.ViewModels
 
         public static void SetViewModel(this ColorSelector instance, ColorSelectorModel colorSelectorModel)
         {
-            instance.MessageService.Disable();
+            instance.MessengerService.Disable();
             instance.ColorPicker.Paste(colorSelectorModel.ColorPickerModel);
-            instance.MessageService.Enable();
+            instance.MessengerService.Enable();
         }
 
 
@@ -489,14 +489,14 @@ namespace CMiX.Studio.ViewModels
 
         public static void SetViewModel(this RotationModifier instance, RotationModifierModel model)
         {
-            instance.MessageService.Disable();
+            instance.MessengerService.Disable();
 
             //instance.Rotation.Paste(model.Rotation);
             //instance.Translate.Sa(model.RotationX);
             //instance.Paste(model.RotationY);
             //instance.RotationZ.Paste(model.RotationZ);
 
-            instance.MessageService.Enable();
+            instance.MessengerService.Enable();
         }
 
 
@@ -514,14 +514,14 @@ namespace CMiX.Studio.ViewModels
 
         public static void SetViewModel(this ScaleModifier instance, ScaleModifierModel model)
         {
-            instance.MessageService.Disable();
+            instance.MessengerService.Disable();
 
             instance.Scale.Paste(model.Scale);
             instance.ScaleX.Paste(model.ScaleX);
             instance.ScaleY.Paste(model.ScaleY);
             instance.ScaleZ.Paste(model.ScaleZ);
 
-            instance.MessageService.Enable();
+            instance.MessengerService.Enable();
         }
 
 
@@ -539,14 +539,14 @@ namespace CMiX.Studio.ViewModels
 
         public static void SetViewModel(this TranslateModifier instance, TranslateModifierModel model)
         {
-            instance.MessageService.Disable();
+            instance.MessengerService.Disable();
 
             instance.Translate.Paste(model.Translate);
             instance.TranslateX.Paste(model.TranslateX);
             instance.TranslateY.Paste(model.TranslateY);
             instance.TranslateZ.Paste(model.TranslateZ);
 
-            instance.MessageService.Enable();
+            instance.MessengerService.Enable();
         }
 
 
@@ -562,12 +562,12 @@ namespace CMiX.Studio.ViewModels
 
         public static void SetViewModel(this AnimParameter instance, AnimParameterModel model)
         {
-            instance.MessageService.Disable();
+            instance.MessengerService.Disable();
 
             instance.Slider.SetViewModel(model.Slider);
             instance.BeatModifier.SetViewModel(model.BeatModifier);
 
-            instance.MessageService.Enable();
+            instance.MessengerService.Enable();
         }
 
 
@@ -580,9 +580,9 @@ namespace CMiX.Studio.ViewModels
 
         public static void SetViewModel(this Counter instance, CounterModel model)
         {
-            instance.MessageService.Enable();
+            instance.MessengerService.Enable();
             instance.Count = model.Count;
-            instance.MessageService.Enable();
+            instance.MessengerService.Enable();
         }
     }
 }

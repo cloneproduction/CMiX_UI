@@ -45,7 +45,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <DockPanel Grid.Column="0">
-                <Views:MessageService 
+                <Views:MessengerService 
                     Margin="4"
                     DockPanel.Dock="Top"
                     DataContext="{Binding MessageValidationManager}"/>

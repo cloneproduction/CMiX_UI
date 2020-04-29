@@ -6,13 +6,13 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class GeometryRotation : ViewModel, ISendable, IUndoable
+    public class GeometryRotation : ViewModel, IUndoable
     {
         #region CONSTRUCTORS
-        public GeometryRotation(string messageaddress, MessageService messageService, Mementor mementor)
+        public GeometryRotation(string messageaddress, MessengerService messengerService, Mementor mementor)
         {
             MessageAddress = String.Format("{0}/", messageaddress);
-            MessageService = messageService;
+            MessengerService = messengerService;
             Mode = default;
             RotationX = true;
             RotationY = true;
@@ -74,16 +74,16 @@ namespace CMiX.Studio.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
+        public MessengerService MessengerService { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
         public void Reset()
         {
-            MessageService.Disable();
+            MessengerService.Disable();
             Mode = default;
-            MessageService.Enable();
+            MessengerService.Enable();
         }
 
         public void Copy(GeometryRotationModel geometryRotationModel)
@@ -96,13 +96,13 @@ namespace CMiX.Studio.ViewModels
 
         public void Paste(GeometryRotationModel geometryRotationModel)
         {
-            MessageService.Disable();
+            MessengerService.Disable();
 
             Mode = geometryRotationModel.Mode;
             RotationX = geometryRotationModel.RotationX;
             RotationY = geometryRotationModel.RotationY;
             RotationZ = geometryRotationModel.RotationZ;
-            MessageService.Enable();
+            MessengerService.Enable();
         }
         #endregion
     }

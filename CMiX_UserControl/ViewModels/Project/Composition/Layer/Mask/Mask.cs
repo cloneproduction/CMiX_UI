@@ -9,21 +9,21 @@ using Memento;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Mask : Component, ISendable, IUndoable
+    public class Mask : Component, IUndoable
     {
         #region CONSTRUCTORS
-        public Mask(int id, Beat beat, MessageService messageService, Mementor mementor)
-            : base(id, beat, messageService, mementor)
+        public Mask(int id, Beat beat, MessengerService messengerService, Mementor mementor)
+            : base(id, beat, messengerService, mementor)
         {
             MaskType = ((MaskType)2).ToString();
             MaskControlType = ((MaskControlType)1).ToString();
             
             Name = "Mask";
 
-            BeatModifier = new BeatModifier(MessageAddress, beat, messageService, mementor);
-            Geometry = new Geometry(MessageAddress, messageService, mementor, beat);
-            Texture = new Texture(MessageAddress, messageService, mementor);
-            PostFX = new PostFX(MessageAddress, messageService, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, beat, messengerService, mementor);
+            Geometry = new Geometry(MessageAddress, messengerService, mementor, beat);
+            Texture = new Texture(MessageAddress, messengerService, mementor);
+            PostFX = new PostFX(MessageAddress, messengerService, mementor);
 
             //CopyMaskCommand = new RelayCommand(p => CopyMask());
             //PasteMaskCommand = new RelayCommand(p => PasteMask());
@@ -73,7 +73,7 @@ namespace CMiX.Studio.ViewModels
 
         //public void Reset()
         //{
-        //    MessageService.Disable();
+        //    MessengerService.Disable();
 
         //    Enabled = false;
         //    BeatModifier.Reset();
@@ -81,7 +81,7 @@ namespace CMiX.Studio.ViewModels
         //    Texture.Reset();
         //    PostFX.Reset();
 
-        //    MessageService.Enable();
+        //    MessengerService.Enable();
         //}
 
         //public void CopyMask()
@@ -97,11 +97,11 @@ namespace CMiX.Studio.ViewModels
         //    if (data.GetDataPresent("MaskModel"))
         //    {
         //        Mementor.BeginBatch();
-        //        MessageService.Disable();;
+        //        MessengerService.Disable();;
 
         //        var maskmodel = data.GetData("MaskModel") as MaskModel;
         //        this.SetViewModel(maskmodel);
-        //        MessageService.Enable();
+        //        MessengerService.Enable();
         //        Mementor.EndBatch();
         //        //this.SendMessages(nameof(MaskModel), GetModel());
         //    }

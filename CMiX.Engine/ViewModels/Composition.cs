@@ -10,10 +10,10 @@ namespace CMiX.Engine.ViewModels
 {
     public class Composition : ICopyPasteModel<CompositionModel>, IMessageReceiver
     {
-        public Composition(MessageService messageService, string messageAddress) 
+        public Composition(string messageAddress) 
         {
             MessageAddress = $"{messageAddress}{nameof(Composition)}/";
-            MessageService = messageService;
+            //MessageService = messageService;
             //Receiver = messageService.CreateReceiver();
             Receiver.MessageReceived += OnMessageReceived; ;
 
@@ -60,7 +60,7 @@ namespace CMiX.Engine.ViewModels
             }
         }
 
-        public MessageService MessageService { get; set; }
+        //public MessageService MessageService { get; set; }
         public string MessageAddress { get; set; }
         public Receiver Receiver { get; set; }
         public ObservableCollection<Layer> Layers { get; set; }

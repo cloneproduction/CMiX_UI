@@ -10,13 +10,13 @@ namespace CMiX.Studio.ViewModels
     public class Entity : Component
     {
         #region CONSTRUCTORS
-        public Entity(int id, Beat beat, MessageService messageService, Mementor mementor)
-            : base(id, beat, messageService, mementor)
+        public Entity(int id, Beat beat, MessengerService messengerService, Mementor mementor)
+            : base(id, beat, messengerService, mementor)
         {
-            BeatModifier = new BeatModifier(MessageAddress, beat, messageService, mementor);
-            Geometry = new Geometry(MessageAddress, messageService, mementor, beat);
-            Texture = new Texture(MessageAddress, messageService, mementor);
-            Coloration = new Coloration(MessageAddress, messageService, mementor, beat);
+            BeatModifier = new BeatModifier(MessageAddress, beat, messengerService, mementor);
+            Geometry = new Geometry(MessageAddress, messengerService, mementor, beat);
+            Texture = new Texture(MessageAddress, messengerService, mementor);
+            Coloration = new Coloration(MessageAddress, messengerService, mementor, beat);
 
             CopyEntityCommand = new RelayCommand(p => CopyEntity());
             PasteEntityCommand = new RelayCommand(p => PasteEntity());
@@ -38,7 +38,7 @@ namespace CMiX.Studio.ViewModels
         #region COPY/PASTE
         public void Reset()
         {
-            MessageService.Disable();
+            MessengerService.Disable();
 
             this.Enabled = true;
             this.BeatModifier.Reset();
@@ -46,7 +46,7 @@ namespace CMiX.Studio.ViewModels
             this.Texture.Reset();
             this.Coloration.Reset();
 
-            MessageService.Enable();
+            MessengerService.Enable();
         }
 
 
@@ -63,11 +63,11 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent(nameof(EntityModel)))
             {
                 this.Mementor.BeginBatch();
-                this.MessageService.Disable();
+                this.MessengerService.Disable();
 
                 var entityModel = data.GetData(nameof(EntityModel)) as EntityModel;
                 this.SetViewModel(entityModel);
-                this.MessageService.Enable();
+                this.MessengerService.Enable();
                 this.Mementor.EndBatch();
                 //SendMessages(nameof(ContentModel), contentmodel);
             }

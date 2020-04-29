@@ -7,13 +7,13 @@ using CMiX.MVVM;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class GeometryTranslate : ViewModel, ISendable, IUndoable
+    public class GeometryTranslate : ViewModel, IUndoable
     {
         #region CONSTRUCTORS
-        public GeometryTranslate(string messageAddress, MessageService messageService, Mementor mementor) 
+        public GeometryTranslate(string messageAddress, MessengerService messengerService, Mementor mementor) 
         {
             MessageAddress = $"{messageAddress}/";
-            MessageService = messageService;
+            MessengerService = messengerService;
         }
         #endregion
 
@@ -32,16 +32,16 @@ namespace CMiX.Studio.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
+        public MessengerService MessengerService { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
         public void Reset()
         {
-            MessageService.Disable();
+            MessengerService.Disable();
             Mode = default;
-            MessageService.Enable();
+            MessengerService.Enable();
         }
 
         public void CopyModel(GeometryTranslateModel geometryTranslateModel)
@@ -51,9 +51,9 @@ namespace CMiX.Studio.ViewModels
 
         public void SetViewModel(GeometryTranslateModel geometryTranslateModel)
         {
-            MessageService.Disable();
+            MessengerService.Disable();
             Mode = geometryTranslateModel.Mode;
-            MessageService.Enable();
+            MessengerService.Enable();
         }
         #endregion
     }

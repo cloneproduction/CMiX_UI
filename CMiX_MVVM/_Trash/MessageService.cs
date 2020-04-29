@@ -2,7 +2,7 @@
 using CMiX.MVVM.ViewModels;
 using System.Collections.ObjectModel;
 
-namespace CMiX.MVVM.ViewModels
+namespace CMiX.MVVM.Services
 {
     public class MessageService : ViewModel
     {
@@ -13,6 +13,7 @@ namespace CMiX.MVVM.ViewModels
         }
 
         public ObservableCollection<MessageValidation> MessageValidations{ get; set; }
+
 
         public void SendMessages(string topic, MessageCommand command, object parameter, object payload)
         {

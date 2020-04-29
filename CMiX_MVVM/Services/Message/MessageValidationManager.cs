@@ -1,5 +1,4 @@
 ﻿using CMiX.MVVM.ViewModels;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Linq;
 
@@ -49,7 +48,6 @@ namespace CMiX.MVVM.Services
             {
                 MessageService.MessageValidations.Remove(SelectedMessageValidation);
             }
-            
         }
     }
 }

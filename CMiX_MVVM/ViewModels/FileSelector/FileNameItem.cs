@@ -5,7 +5,7 @@ using Memento;
 
 namespace CMiX.MVVM.ViewModels 
 {
-    public class FileNameItem : ViewModel, ISendable
+    public class FileNameItem : ViewModel
     {
         #region CONSTRUCTORS
         public FileNameItem()

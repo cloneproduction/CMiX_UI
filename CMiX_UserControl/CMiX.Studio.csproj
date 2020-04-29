@@ -135,6 +135,7 @@
     <Compile Include="ViewModels\Component\ComponentFactory.cs" />
     <Compile Include="ViewModels\Component\ComponentModelFactory.cs" />
     <Compile Include="ViewModels\Component\Outliner.cs" />
+    <Compile Include="ViewModels\Counter.cs" />
     <Compile Include="ViewModels\Dialogs\CustomDialog.cs" />
     <Compile Include="ViewModels\Dialogs\CustomFrameworkDialogFactory.cs" />
     <Compile Include="ViewModels\Dialogs\CustomMessageBox.cs" />
@@ -143,7 +144,14 @@
     <Compile Include="ViewModels\Dialogs\ModalDialog.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ModelFactory.cs" />
+    <Compile Include="ViewModels\Sendable.cs" />
+    <Compile Include="ViewModels\Services\Messenger.cs" />
+    <Compile Include="ViewModels\Services\MessengerFactory.cs" />
+    <Compile Include="ViewModels\Services\MessengerManager.cs" />
+    <Compile Include="ViewModels\Services\MessengerService.cs" />
     <Compile Include="ViewModels\Services\ServerManager.cs" />
+    <Compile Include="ViewModels\Slider\Slider.cs" />
+    <Compile Include="ViewModels\Slider\SliderModelFactory.cs" />
     <Compile Include="Views\Assets\TexturePathSelector.xaml.cs">
       <DependentUpon>TexturePathSelector.xaml</DependentUpon>
     </Compile>
@@ -236,9 +244,6 @@
     </Compile>
     <Compile Include="Views\Entity\Entity.xaml.cs">
       <DependentUpon>Entity.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Composition\CompositionEditor.xaml.cs">
-      <DependentUpon>CompositionEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Layer\Layer.xaml.cs">
       <DependentUpon>Layer.xaml</DependentUpon>
@@ -426,10 +431,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Entity\Entity.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Composition\CompositionEditor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

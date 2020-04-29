@@ -6,14 +6,14 @@ using Memento;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class RangeControl : ViewModel, ISendable, IUndoable
+    public class RangeControl : ViewModel, IUndoable
     {
         #region CONSTRUCTORS
-        public RangeControl(string messageAddress, MessageService messageService, Mementor mementor)
+        public RangeControl(string messageAddress, MessengerService messengerService, Mementor mementor)
         {
             MessageAddress = messageAddress + "/";
-            MessageService = messageService;
-            Range = new Slider(MessageAddress + nameof(Range), messageService, mementor);
+            MessengerService = messengerService;
+            Range = new Slider(MessageAddress + nameof(Range), messengerService, mementor);
             Modifier = ((RangeModifier)0).ToString();
         }
         #endregion
@@ -35,7 +35,7 @@ namespace CMiX.Studio.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
+        public MessengerService MessengerService { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
@@ -50,10 +50,10 @@ namespace CMiX.Studio.ViewModels
 
         public void Reset()
         {
-            MessageService.Disable();
+            MessengerService.Disable();
             Modifier = ((RangeModifier)0).ToString();
             Range.Reset();
-            MessageService.Enable();
+            MessengerService.Enable();
         }
         #endregion
     }

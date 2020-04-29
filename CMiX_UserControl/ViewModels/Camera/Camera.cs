@@ -8,21 +8,21 @@ using CMiX.MVVM;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Camera : ViewModel, ISendable, IUndoable
+    public class Camera : ViewModel, IUndoable
     {
         #region CONSTRUCTORS
-        public Camera(MessageService messageService, string messageAddress, Beat beat, Mementor mementor) 
+        public Camera(MessengerService messengerService, string messageAddress, Beat beat, Mementor mementor) 
         {
-            MessageService = messageService;
+            MessengerService = messengerService;
             MessageAddress = $"{messageAddress}{nameof(Camera)}/";
             
             Rotation = ((CameraRotation)0).ToString();
             LookAt = ((CameraLookAt)0).ToString();
             View = ((CameraView)0).ToString();
 
-            BeatModifier = new BeatModifier(MessageAddress, beat, messageService, mementor);
-            FOV = new Slider(MessageAddress + nameof(FOV), messageService, mementor);
-            Zoom = new Slider(MessageAddress + nameof(Zoom), messageService, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, beat, messengerService, mementor);
+            FOV = new Slider(MessageAddress + nameof(FOV), messengerService, mementor);
+            Zoom = new Slider(MessageAddress + nameof(Zoom), messengerService, mementor);
         }
         #endregion
 
@@ -72,7 +72,7 @@ namespace CMiX.Studio.ViewModels
 
         public string MessageAddress { get; set; }
         public Mementor Mementor { get; set; }
-        public MessageService MessageService { get; set; }
+        public MessengerService MessengerService { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
@@ -80,7 +80,7 @@ namespace CMiX.Studio.ViewModels
 
         public void Reset()
         {
-            MessageService.Disable();
+            MessengerService.Disable();
 
             Rotation = ((CameraRotation)0).ToString();
             LookAt = ((CameraLookAt)0).ToString();
@@ -89,7 +89,7 @@ namespace CMiX.Studio.ViewModels
             FOV.Reset();
             Zoom.Reset();
 
-            MessageService.Enable();
+            MessengerService.Enable();
         }
         #endregion
     }

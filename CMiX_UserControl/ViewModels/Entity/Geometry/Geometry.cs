@@ -8,20 +8,20 @@ using Memento;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Geometry : ViewModel, ISendable, IUndoable
+    public class Geometry : ViewModel, IUndoable
     {
         #region CONSTRUCTORS
-        public Geometry(string messageaddress, MessageService messageService, Mementor mementor, Beat beat) 
+        public Geometry(string messageaddress, MessengerService messengerService, Mementor mementor, Beat beat) 
         {
             MessageAddress = $"{messageaddress}{nameof(Geometry)}/";
-            MessageService = messageService;
+            MessengerService = messengerService;
             Mementor = mementor;
 
-            Instancer = new Instancer(MessageAddress, messageService, mementor, beat);
-            Transform = new Transform(MessageAddress, messageService, mementor);
-            GeometryFX = new GeometryFX(MessageAddress, messageService, mementor);
+            Instancer = new Instancer(MessageAddress, messengerService, mementor, beat);
+            Transform = new Transform(MessageAddress, messengerService, mementor);
+            GeometryFX = new GeometryFX(MessageAddress, messengerService, mementor);
 
-            AssetPathSelector = new AssetPathSelector<AssetGeometry>(MessageAddress, messageService, mementor);
+            AssetPathSelector = new AssetPathSelector<AssetGeometry>(MessageAddress, messengerService, mementor);
 
             CopyGeometryCommand = new RelayCommand(p => CopyGeometry());
             PasteGeometryCommand = new RelayCommand(p => PasteGeometry());
@@ -36,7 +36,7 @@ namespace CMiX.Studio.ViewModels
 
         public string MessageAddress { get; set; }
         public Mementor Mementor { get; set; }
-        public MessageService MessageService { get; set; }
+        public MessengerService MessengerService { get; set; }
 
         public AssetPathSelector<AssetGeometry> AssetPathSelector { get; set; }
 
@@ -60,13 +60,13 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("GeometryModel"))
             {
                 Mementor.BeginBatch();
-                MessageService.Disable();
+                MessengerService.Disable();
 
                 var geometrymodel = data.GetData("GeometryModel") as GeometryModel;
                 var geometrymessageaddress = MessageAddress;
                 this.SetViewModel(geometrymodel);
 
-                MessageService.Enable();
+                MessengerService.Enable();
                 Mementor.EndBatch();
                 //SendMessages(MessageAddress, geometrymodel);
             }
@@ -82,13 +82,13 @@ namespace CMiX.Studio.ViewModels
 
         public void Reset()
         {
-            MessageService.Disable();
+            MessengerService.Disable();
             //Mementor.BeginBatch();
             Transform.Reset();
             GeometryFX.Reset();
             Instancer.Reset();
             //Mementor.EndBatch();
-            MessageService.Enable();
+            MessengerService.Enable();
 
             //SendMessages(MessageAddress, GetModel());
         }

@@ -5,18 +5,18 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class FileNameItem : ViewModel, ISendable
+    public class FileNameItem : ViewModel
     {
-        public FileNameItem(string folderpath, string messageAddress, MessageService messageService)
+        public FileNameItem(string folderpath, string messageAddress, MessengerService messengerService)
         {
             MessageAddress = messageAddress + "Selected";
-            MessageService = messageService;
+            MessengerService = messengerService;
             FolderPath = folderpath;
 
         }
 
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
+        public MessengerService MessengerService { get; set; }
 
         private string _folderpath;
         public string FolderPath
@@ -71,12 +71,12 @@ namespace CMiX.Studio.ViewModels
 
         public void SetViewModel(FileNameItemModel filenameitemmodel)
         {
-            MessageService.Disable();
+            MessengerService.Disable();
 
             FileIsSelected = filenameitemmodel.FileIsSelected;
             FileName = filenameitemmodel.FileName;
 
-            MessageService.Enable();
+            MessengerService.Enable();
         }
         #endregion
     }

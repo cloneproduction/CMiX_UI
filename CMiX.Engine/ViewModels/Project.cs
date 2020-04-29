@@ -11,14 +11,14 @@ namespace CMiX.Engine.ViewModels
         public NetMQClient NetMQClient { get; set; }
         public string MessageAddress { get; set; }
         public Receiver Receiver { get; set; }
-        public MessageService MessageService {get; set; }
+        //public MessageService MessageService {get; set; }
 
         public Project()
         {
             MessageAddress = "Project/";
-            MessageService = new MessageService();
+            //MessageService = new MessageService();
             
-            Composition = new Composition(MessageService, MessageAddress);
+            //Composition = new Composition(MessageService, MessageAddress);
         }
 
         public void OnMessageReceived(object sender, EventArgs e)

@@ -11,12 +11,12 @@ using Memento;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class FileSelector : ViewModel, ISendable, IUndoable, IDropTarget, IDragSource
+    public class FileSelector : ViewModel, IUndoable, IDropTarget, IDragSource
     {
-        public FileSelector(string messageaddress, string selectionmode, List<string> filemask, MessageService messageService, Mementor mementor) 
+        public FileSelector(string messageaddress, string selectionmode, List<string> filemask, MessengerService messengerService, Mementor mementor) 
         {
             MessageAddress = $"{messageaddress}{nameof(FileSelector)}/";
-            MessageService = messageService;
+            MessengerService = messengerService;
             Mementor = mementor;
             SelectionMode = selectionmode;
             FileMask = filemask;
@@ -65,7 +65,7 @@ namespace CMiX.Studio.ViewModels
 
         public string MessageAddress { get; set; }
         public Mementor Mementor { get; set; }
-        public MessageService MessageService { get; set; }
+        public MessengerService MessengerService { get; set; }
         #endregion
 
         #region METHODS
@@ -164,7 +164,7 @@ namespace CMiX.Studio.ViewModels
                         {
                             if (System.IO.Path.GetExtension(str).ToUpperInvariant() == fm)
                             {
-                                FileNameItem lbfn = new FileNameItem(FolderPath, MessageAddress, MessageService) { FileIsSelected = false, FileName = str };
+                                FileNameItem lbfn = new FileNameItem(FolderPath, MessageAddress, MessengerService) { FileIsSelected = false, FileName = str };
                                 FilePaths.Add(lbfn);
                                 Mementor.ElementAdd(FilePaths, lbfn);
                             }
@@ -250,12 +250,12 @@ namespace CMiX.Studio.ViewModels
         #region COPY/PASTE/RESET
         public void Reset()
         {
-            MessageService.Disable();;
+            MessengerService.Disable();;
 
             Mementor.PropertyChange(this, "FilePaths");
             FilePaths.Clear();
 
-            MessageService.Enable();
+            MessengerService.Enable();
         }
 
         //public FileSelectorModel GetModel()
@@ -288,18 +288,18 @@ namespace CMiX.Studio.ViewModels
 
         //public void SetViewModel(FileSelectorModel fileSelectorModel)
         //{
-        //    MessageService.Disable();
+        //    MessengerService.Disable();
         //    FolderPath = fileSelectorModel.FolderPath;
         //    FilePaths.Clear();
 
         //    foreach (var item in fileSelectorModel.FilePaths)
         //    {
-        //        FileNameItem filenameitem = new FileNameItem(FolderPath, MessageAddress, MessageService);
+        //        FileNameItem filenameitem = new FileNameItem(FolderPath, MessageAddress, MessengerService);
         //        filenameitem.SetViewModel(item);
         //        FilePaths.Add(filenameitem);
         //    }
 
-        //    MessageService.Enable();
+        //    MessengerService.Enable();
         //}
         #endregion
     }

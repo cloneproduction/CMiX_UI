@@ -1,6 +1,5 @@
 ﻿using CMiX.MVVM.Message;
 using CMiX.MVVM.Commands;
-using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -14,11 +13,9 @@ namespace CMiX.MVVM.ViewModels
             Topic = topic;
             Enabled = true;
             NetMQServer = new NetMQServer(IP, Port);
-            
         }
 
         #region PROPERTIES
-        
 
         private string _name;
         public string Name

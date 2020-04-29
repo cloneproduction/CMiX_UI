@@ -7,46 +7,46 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Texture : ViewModel, ISendable, IUndoable
+    public class Texture : ViewModel, IUndoable
     {
         #region CONSTRUCTORS
-        public Texture(string messageaddress, MessageService messageService, Mementor mementor)
+        public Texture(string messageaddress, MessengerService messengerService, Mementor mementor)
         {
             MessageAddress = $"{messageaddress}{nameof(Texture)}/";
-            MessageService = messageService;
+            MessengerService = messengerService;
 
-            AssetPathSelector = new AssetPathSelector<AssetTexture>(MessageAddress, messageService, mementor);
+            AssetPathSelector = new AssetPathSelector<AssetTexture>(MessageAddress, messengerService, mementor);
 
-            Brightness = new Slider(MessageAddress + nameof(Brightness), messageService, mementor);
+            Brightness = new Slider(MessageAddress + nameof(Brightness), messengerService, mementor);
             Brightness.Minimum = -1.0;
 
-            Contrast = new Slider(MessageAddress + nameof(Contrast), messageService, mementor);
+            Contrast = new Slider(MessageAddress + nameof(Contrast), messengerService, mementor);
             Contrast.Minimum = -1.0;
 
-            Invert = new Slider(MessageAddress + nameof(Invert), messageService, mementor);
+            Invert = new Slider(MessageAddress + nameof(Invert), messengerService, mementor);
             InvertMode = ((TextureInvertMode)0).ToString();
 
-            Hue = new Slider(MessageAddress + nameof(Hue), messageService, mementor);
+            Hue = new Slider(MessageAddress + nameof(Hue), messengerService, mementor);
             Hue.Minimum = -1.0;
 
-            Saturation = new Slider(MessageAddress + nameof(Saturation), messageService, mementor);
+            Saturation = new Slider(MessageAddress + nameof(Saturation), messengerService, mementor);
             Saturation.Minimum = -1.0;
 
-            Luminosity = new Slider(MessageAddress + nameof(Luminosity), messageService, mementor);
+            Luminosity = new Slider(MessageAddress + nameof(Luminosity), messengerService, mementor);
             Luminosity.Minimum = -1.0;
 
-            Keying = new Slider(MessageAddress + nameof(Keying), messageService, mementor);
+            Keying = new Slider(MessageAddress + nameof(Keying), messengerService, mementor);
 
-            Scale = new Slider(MessageAddress + nameof(Scale), messageService, mementor);
+            Scale = new Slider(MessageAddress + nameof(Scale), messengerService, mementor);
             Scale.Minimum = -1.0;
 
-            Rotate = new Slider(MessageAddress + nameof(Rotate), messageService, mementor);
+            Rotate = new Slider(MessageAddress + nameof(Rotate), messengerService, mementor);
             Rotate.Minimum = -1.0;
 
-            Pan = new Slider(MessageAddress + nameof(Pan), messageService, mementor);
+            Pan = new Slider(MessageAddress + nameof(Pan), messengerService, mementor);
             Pan.Minimum = -1.0;
 
-            Tilt = new Slider(MessageAddress + nameof(Tilt), messageService, mementor);
+            Tilt = new Slider(MessageAddress + nameof(Tilt), messengerService, mementor);
             Tilt.Minimum = -1.0;
 
             CopyTextureCommand = new RelayCommand(p => CopyTexture());
@@ -89,14 +89,14 @@ namespace CMiX.Studio.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
+        public MessengerService MessengerService { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
         public void Reset()
         {
-            MessageService.Disable();
+            MessengerService.Disable();
 
             InvertMode = ((TextureInvertMode)0).ToString();
             Brightness.Reset();
@@ -111,7 +111,7 @@ namespace CMiX.Studio.ViewModels
             Pan.Reset();
             Tilt.Reset();
 
-            MessageService.Enable();
+            MessengerService.Enable();
         }
 
         public void CopyTexture()
@@ -127,12 +127,12 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("TextureModel"))
             {
                 Mementor.BeginBatch();
-                MessageService.Disable();
+                MessengerService.Disable();
 
                 var texturemodel = data.GetData("TextureModel") as TextureModel;
                 this.SetViewModel(texturemodel);
 
-                MessageService.Enable();
+                MessengerService.Enable();
                 Mementor.EndBatch();
                 //SendMessages(nameof(TextureModel), GetModel());
             }

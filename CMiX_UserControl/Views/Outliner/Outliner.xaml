@@ -16,6 +16,7 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
+            
             <Resources:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
             <Resources:EntityVisibilityConverter x:Key="EntityVisibilityConverter"/>
             <Resources:ItemToParentConverter x:Key="ItemToParentConverter"/>
@@ -23,6 +24,16 @@
 
             <ContextMenu x:Key="OutlinerContextMenu" Width="175">
 
+                <MenuItem
+                    IsEnabled="{Binding CanAdd}"
+                    Command="{Binding Data.ComponentManager.CreateComponentCommand, Source={StaticResource RootProxy}}"
+                    CommandParameter="{Binding SelectedComponent}"
+                    Header="{Binding AddContentText}">
+                    <MenuItem.Icon>
+                        <Image Source="{StaticResource Add}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                
                 <MenuItem
                     IsEnabled="{Binding CanEdit}"
                     Command="{Binding Data.ComponentEditor.EditComponentCommand, Source={StaticResource RootProxy}}"
@@ -42,18 +53,6 @@
                         <Image Source="{StaticResource Rename}"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                
-                <MenuItem
-                    IsEnabled="{Binding CanAdd}"
-                    Command="{Binding Data.ComponentManager.CreateComponentCommand, Source={StaticResource RootProxy}}"
-                    CommandParameter="{Binding SelectedComponent}"
-                    Header="{Binding AddContentText}">
-                    <MenuItem.Icon>
-                        <Image Source="{StaticResource Add}"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-
-
 
                 <MenuItem
                     IsEnabled="{Binding CanDuplicate}"
@@ -65,8 +64,6 @@
                     </MenuItem.Icon>
                 </MenuItem>
 
-
-
                 <MenuItem
                     IsEnabled="{Binding CanDelete}"
                     Command="{Binding Data.ComponentManager.DeleteComponentCommand, Source={StaticResource RootProxy}}"
@@ -75,8 +72,6 @@
                         <Image Source="{StaticResource DeleteLayer}"/>
                     </MenuItem.Icon>
                 </MenuItem>
-
-                <!--<Separator Style="{StaticResource MenuItemSeparator}"/>-->
 
             </ContextMenu>
             

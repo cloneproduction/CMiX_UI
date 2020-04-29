@@ -5,19 +5,17 @@ using ColorMine.ColorSpaces;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
-using CMiX.MVVM.Commands;
-using CMiX.MVVM.Services;
 
 namespace CMiX.ColorPicker.ViewModels
 {
-    public class ColorPicker : ViewModel, ISendable, IUndoable
+    public class ColorPicker : ViewModel, IUndoable
     {
         #region CONSTRUCTORS
-        public ColorPicker(string messageaddress, MessageService messageService, Mementor mementor)
+        public ColorPicker(string messageaddress,  Mementor mementor)
         {
             MessageAddress = $"{messageaddress}{nameof(ColorPicker)}";
 
-            MessageService = messageService;
+            //MessageService = messageService;
             Mementor = mementor;
 
             SelectedColor = Color.FromArgb(255, 255, 0, 0);
@@ -59,7 +57,7 @@ namespace CMiX.ColorPicker.ViewModels
 
         private void SendModel()
         {
-            MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, this.GetModel());
+            //MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, this.GetModel());
         }
 
         private byte _red;

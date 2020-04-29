@@ -7,12 +7,12 @@ namespace CMiX.Studio.ViewModels
     public class Composition : Component
     {
         #region CONSTRUCTORS
-        public Composition(int id,  Beat beat, MessageService messageService, Mementor mementor) 
-            : base (id, beat, messageService, mementor)
+        public Composition(int id,  Beat beat, MessengerService messengerService, Mementor mementor) 
+            : base (id, beat, messengerService, mementor)
         {
-            MessageValidationManager = new MessageValidationManager(MessageService);
-            Transition = new Slider("/Transition", MessageService, Mementor);
-            Camera = new Camera(MessageService, MessageAddress, Beat, Mementor);
+            //MessageValidationManager = new MessageValidationManager(MessengerService);
+            Transition = new Slider("/Transition", MessengerService, Mementor);
+            Camera = new Camera(MessengerService, MessageAddress, Beat, Mementor);
         }
         #endregion
 

@@ -8,14 +8,14 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class GeometryFX : ViewModel, ISendable, IUndoable
+    public class GeometryFX : ViewModel, IUndoable
     {
         #region CONSTRUCTORS
-        public GeometryFX(string messageaddress, MessageService messageService, Mementor mementor)
+        public GeometryFX(string messageaddress, MessengerService messengerService, Mementor mementor)
         {
             MessageAddress = $"{messageaddress}{nameof(GeometryFX)}/";
-            MessageService = messageService;
-            Explode = new Slider(MessageAddress + nameof(Explode), messageService, mementor);
+            MessengerService = messengerService;
+            Explode = new Slider(MessageAddress + nameof(Explode), messengerService, mementor);
         }
         #endregion
 
@@ -23,28 +23,28 @@ namespace CMiX.Studio.ViewModels
         public Slider Explode { get; }
         public string MessageAddress { get; set; }
         public Mementor Mementor { get; set; }
-        public MessageService MessageService { get; set; }
+        public MessengerService MessengerService { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
 
         public void Paste(GeometryFXModel geometryFXdto)
         {
-            MessageService.Disable();
+            MessengerService.Disable();
 
             Explode.SetViewModel(geometryFXdto.Explode);
             
 
-            MessageService.Enable();
+            MessengerService.Enable();
         }
 
         public void Reset()
         {
-            MessageService.Disable();;
+            MessengerService.Disable();;
 
             Explode.Reset();
 
-            MessageService.Enable();
+            MessengerService.Enable();
         }
 
 

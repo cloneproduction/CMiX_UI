@@ -7,18 +7,18 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Instancer : ViewModel, ISendable, IUndoable
+    public class Instancer : ViewModel, IUndoable
     {
-        public Instancer(string messageaddress, MessageService messageService, Mementor mementor, Beat beat)
+        public Instancer(string messageaddress, MessengerService messengerService, Mementor mementor, Beat beat)
         {
             MessageAddress = $"{messageaddress}{nameof(Instancer)}/";
-            MessageService = messageService;
+            MessengerService = messengerService;
 
-            Transform = new Transform(MessageAddress, messageService, mementor);
-            Counter = new Counter(MessageAddress, messageService, mementor);
-            TranslateModifier = new TranslateModifier(MessageAddress, messageService, mementor, beat);
-            ScaleModifier = new ScaleModifier(MessageAddress, messageService, mementor, beat);
-            RotationModifier = new RotationModifier(MessageAddress, messageService, mementor, beat);
+            Transform = new Transform(MessageAddress, messengerService, mementor);
+            Counter = new Counter(MessageAddress, messengerService, mementor);
+            TranslateModifier = new TranslateModifier(MessageAddress, messengerService, mementor, beat);
+            ScaleModifier = new ScaleModifier(MessageAddress, messengerService, mementor, beat);
+            RotationModifier = new RotationModifier(MessageAddress, messengerService, mementor, beat);
 
             NoAspectRatio = false;
         }
@@ -44,7 +44,7 @@ namespace CMiX.Studio.ViewModels
 
         public string MessageAddress { get; set; }
         public Mementor Mementor { get; set; }
-        public MessageService MessageService { get; set; }
+        public MessengerService MessengerService { get; set; }
 
         #region COPY/PASTE/RESET
         public void CopyGeometry()
@@ -60,12 +60,12 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("InstancerModel"))
             {
                 Mementor.BeginBatch();
-                MessageService.Disable();
+                MessengerService.Disable();
 
                 var instancermodel = data.GetData("InstancerModel") as InstancerModel;
                 this.SetViewModel(instancermodel);
 
-                MessageService.Enable();
+                MessengerService.Enable();
                 Mementor.EndBatch();
                 //SendMessages(nameof(InstancerModel), GetModel());
             }
@@ -105,7 +105,7 @@ namespace CMiX.Studio.ViewModels
 
         public void Reset()
         {
-            MessageService.Disable();
+            MessengerService.Disable();
             //Mementor.BeginBatch();
             Counter.Reset();
             TranslateModifier.Reset();
@@ -113,7 +113,7 @@ namespace CMiX.Studio.ViewModels
             RotationModifier.Reset();
             NoAspectRatio = false;
             //Mementor.EndBatch();
-            MessageService.Enable();
+            MessengerService.Enable();
 
             InstancerModel instancermodel = new InstancerModel();
             //this.Copy(instancermodel);

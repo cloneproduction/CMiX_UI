@@ -9,12 +9,12 @@ namespace CMiX.Studio.ViewModels
     public class Scene : Component
     {
         #region CONSTRUCTORS
-        public Scene(int id, Beat beat, MessageService messageService, Mementor mementor)
-            : base(id, beat, messageService, mementor)
+        public Scene(int id, Beat beat, MessengerService messengerService, Mementor mementor)
+            : base(id, beat, messengerService, mementor)
         {
             Name = "Scene";
-            BeatModifier = new BeatModifier(MessageAddress, beat, messageService, mementor);
-            PostFX = new PostFX(MessageAddress, messageService, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, beat, messengerService, mementor);
+            PostFX = new PostFX(MessageAddress, messengerService, mementor);
 
             //CopyContentCommand = new RelayCommand(p => CopyContent());
             //PasteContentCommand = new RelayCommand(p => PasteContent());
@@ -36,13 +36,13 @@ namespace CMiX.Studio.ViewModels
 
         public void Reset()
         {
-            MessageService.Disable();
+            MessengerService.Disable();
 
             this.Enabled = true;
             this.BeatModifier.Reset();
             this.PostFX.Reset();
 
-            MessageService.Enable();
+            MessengerService.Enable();
         }
 
         #region COPYPASTE CONTENT
@@ -60,23 +60,23 @@ namespace CMiX.Studio.ViewModels
         //    if (data.GetDataPresent("ContentModel"))
         //    {
         //        this.Mementor.BeginBatch();
-        //        MessageService.Disable();
+        //        MessengerService.Disable();
 
         //        var contentModel = data.GetData("ContentModel") as SceneModel;
         //        var contentmessageaddress = MessageAddress;
         //        this.SetViewModel(contentModel);
 
-        //        MessageService.Enable();
+        //        MessengerService.Enable();
         //        this.Mementor.EndBatch();
 
-        //        MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, contentModel);
+        //        MessengerService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, contentModel);
         //    }
         //}
 
         //public void ResetContent()
         //{
         //    this.Reset();
-        //    MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, GetModel());
+        //    MessengerService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, GetModel());
         //}
         #endregion
 

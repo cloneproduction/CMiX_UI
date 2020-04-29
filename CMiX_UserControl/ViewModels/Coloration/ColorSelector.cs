@@ -8,15 +8,15 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class ColorSelector : ViewModel, ISendable, IUndoable
+    public class ColorSelector : ViewModel, IUndoable
     {
         #region CONSTRUCTORS
-        public ColorSelector(string messageaddress, MessageService messageService, Mementor mementor) 
+        public ColorSelector(string messageaddress, MessengerService messengerService, Mementor mementor) 
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(ColorSelector));
-            MessageService = messageService;
+            MessengerService = messengerService;
             Mementor = mementor;
-            ColorPicker = new ColorPicker.ViewModels.ColorPicker(MessageAddress, messageService, mementor);
+            ColorPicker = new ColorPicker.ViewModels.ColorPicker(MessageAddress, mementor);
 
             CopyColorSelectorCommand = new RelayCommand(p => CopyColorSelector());
             PasteColorSelectorCommand = new RelayCommand(p => PasteColorSelector());
@@ -30,7 +30,7 @@ namespace CMiX.Studio.ViewModels
         public ICommand ResetColorSelectorCommand { get; }
         public ColorPicker.ViewModels.ColorPicker ColorPicker { get; set; }
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
+        public MessengerService MessengerService { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
@@ -48,12 +48,12 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("ColorSelectorModel"))
             {
                 this.Mementor.BeginBatch();
-                MessageService.Disable();
+                MessengerService.Disable();
 
                 var colorselectormodel = data.GetData("ColorSelectorModel") as ColorSelectorModel;
                 var colorselectormessageaddress = MessageAddress;
                 this.SetViewModel(colorselectormodel);
-                MessageService.Enable();
+                MessengerService.Enable();
                 this.Mementor.EndBatch();
                 //SendMessages(MessageAddress, GetModel());
             }

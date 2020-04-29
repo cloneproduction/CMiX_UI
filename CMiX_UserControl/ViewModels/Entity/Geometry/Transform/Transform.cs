@@ -8,16 +8,16 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Transform : Sendable, ISendable, IUndoable
+    public class Transform : Sendable, IUndoable
     {
-        public Transform(string messageAddress, MessageService messageService, Mementor mementor)
-            : base(messageAddress, messageService)
+        public Transform(string messageAddress, MessengerService messengerService, Mementor mementor)
+            : base(messageAddress, messengerService)
         {
-            MessageService = messageService;
+            MessengerService = messengerService;
 
-            Translate = new Translate(MessageAddress, messageService, mementor);
-            Scale = new Scale(MessageAddress, messageService, mementor);
-            Rotation = new Rotation(MessageAddress, messageService, mementor);
+            Translate = new Translate(MessageAddress, messengerService, mementor);
+            Scale = new Scale(MessageAddress, messengerService, mementor);
+            Rotation = new Rotation(MessageAddress, messengerService, mementor);
 
             Is3D = false;
         }
@@ -57,13 +57,13 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("TransformModel"))
             {
                 Mementor.BeginBatch();
-                MessageService.Disable();;
+                MessengerService.Disable();;
 
                 var transformmodel = data.GetData("TransformModel") as TransformModel;
                 var messageaddress = MessageAddress;
                 this.Paste(transformmodel);
 
-                MessageService.Enable();
+                MessengerService.Enable();
                 Mementor.EndBatch();
                 //this.SendMessages(nameof(TransformModel), GetModel());
             }
@@ -87,19 +87,19 @@ namespace CMiX.Studio.ViewModels
 
         public void Paste(TransformModel transformModel)
         {
-            MessageService.Disable();
+            MessengerService.Disable();
 
             Translate.Paste(transformModel.TranslateModel);
             Scale.Paste(transformModel.ScaleModel);
             Rotation.Paste(transformModel.RotationModel);
             Is3D = transformModel.Is3D;
 
-            MessageService.Enable();
+            MessengerService.Enable();
         }
 
         public void Reset()
         {
-            MessageService.Disable();;
+            MessengerService.Disable();;
             //Mementor.BeginBatch();
 
             Translate.Reset();
@@ -107,7 +107,7 @@ namespace CMiX.Studio.ViewModels
             Rotation.Reset();
             Is3D = false;
             //Mementor.EndBatch();
-            MessageService.Enable();
+            MessengerService.Enable();
 
             //TransformModel transformmodel = GetModel();
             //this.SendMessages(nameof(TransformModel), transformmodel);

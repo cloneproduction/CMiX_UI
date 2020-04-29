@@ -23,14 +23,15 @@ namespace CMiX.Studio.ViewModels
             Serializer = new CerasSerializer();
 
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
+            MessengerService = new MessengerService();
 
-            CurrentProject = ComponentFactory.CreateProject();
+            CurrentProject = ComponentFactory.CreateProject(MessengerService, Mementor);
 
             Projects = new ObservableCollection<Component>();
             Projects.Add(CurrentProject);
 
             AssetManager = new AssetManager(CurrentProject);
-            ServerManager = new ServerManager(CurrentProject);
+            MessengerManager = new MessengerManager(CurrentProject);
             ComponentEditor = new ComponentEditor(CurrentProject);
             ComponentManager = new ComponentManager(Projects);
             ComponentManager.ComponentDeletedEvent += ComponentEditor.ComponentDeletedEvent;
@@ -68,23 +69,23 @@ namespace CMiX.Studio.ViewModels
 
         private readonly IDialogService DialogService;
 
+        
         public Mementor Mementor { get; set; }
         public CerasSerializer Serializer { get; set; }
         
-        
         public Outliner Outliner { get; set; }
-
         public string FolderPath { get; set; }
-
         public ObservableCollection<Component> Projects { get; set; }
 
-        private ServerManager _serverManager;
-        public ServerManager ServerManager
-        {
-            get => _serverManager;
-            set => SetAndNotify(ref _serverManager, value);
-        }
 
+        public MessengerService MessengerService { get; set; }
+
+        private MessengerManager _messengerManager;
+        public MessengerManager MessengerManager
+        {
+            get => _messengerManager;
+            set => SetAndNotify(ref _messengerManager, value);
+        }
 
         private AssetManager assetManager;
         public AssetManager AssetManager
@@ -106,7 +107,6 @@ namespace CMiX.Studio.ViewModels
             get => _componentEditor;
             set => SetAndNotify(ref _componentEditor, value);
         }
-
 
         private Project _currentProject;
         public Project CurrentProject
@@ -177,11 +177,12 @@ namespace CMiX.Studio.ViewModels
         #region MENU METHODS
         private void NewProject()
         {
-            Project project = ComponentFactory.CreateProject();
+            Project project = ComponentFactory.CreateProject(MessengerService, Mementor);
             Projects.Clear();
             Projects.Add(project);
             CurrentProject = project;
             AssetManager = new AssetManager(project);
+            MessengerManager = new MessengerManager(project);
             ComponentEditor = new ComponentEditor(project);
         }
 
@@ -201,10 +202,8 @@ namespace CMiX.Studio.ViewModels
 
                     byte[] data = File.ReadAllBytes(folderPath);
                     NewProject();
-                    CurrentProject.MessageService.Disable();
                     CurrentProject.SetViewModel(Serializer.Deserialize<ProjectModel>(data));
                     FolderPath = folderPath;
-                    CurrentProject.MessageService.Enable();
                 }
             }
         }

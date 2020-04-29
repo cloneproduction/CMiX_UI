@@ -8,17 +8,17 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class TranslateModifier : ViewModel, ISendable, IUndoable
+    public class TranslateModifier : ViewModel, IUndoable
     {
-        public TranslateModifier(string messageaddress, MessageService messageService, Mementor mementor, Beat beat) 
+        public TranslateModifier(string messageaddress, MessengerService messengerService, Mementor mementor, Beat beat) 
         {
             MessageAddress = $"{messageaddress}{nameof(TranslateModifier)}/";
-            MessageService = messageService;
+            MessengerService = messengerService;
 
-            Translate = new AnimParameter(MessageAddress + nameof(Translate), messageService, mementor, beat, true);
-            TranslateX = new AnimParameter(MessageAddress + nameof(TranslateX), messageService, mementor, beat, false);
-            TranslateY = new AnimParameter(MessageAddress + nameof(TranslateY), messageService, mementor, beat, false);
-            TranslateZ = new AnimParameter(MessageAddress + nameof(TranslateZ), messageService, mementor, beat, false);
+            Translate = new AnimParameter(MessageAddress + nameof(Translate), messengerService, mementor, beat, true);
+            TranslateX = new AnimParameter(MessageAddress + nameof(TranslateX), messengerService, mementor, beat, false);
+            TranslateY = new AnimParameter(MessageAddress + nameof(TranslateY), messengerService, mementor, beat, false);
+            TranslateZ = new AnimParameter(MessageAddress + nameof(TranslateZ), messengerService, mementor, beat, false);
         }
 
         #region PROPERTIES
@@ -27,7 +27,7 @@ namespace CMiX.Studio.ViewModels
         public AnimParameter TranslateY { get; set; }
         public AnimParameter TranslateZ { get; set; }
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
+        public MessengerService MessengerService { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
@@ -45,13 +45,13 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("TranslateModifierModel"))
             {
                 Mementor.BeginBatch();
-                MessageService.Disable();
+                MessengerService.Disable();
 
                 var translatemodifiermodel = data.GetData("TranslateModifierModel") as TranslateModifierModel;
                 var messageaddress = MessageAddress;
                 this.SetViewModel(translatemodifiermodel);
 
-                MessageService.Enable();
+                MessengerService.Enable();
                 Mementor.EndBatch();
                 //SendMessages(MessageAddress, GetModel());
                 //QueueObjects(translatemodifiermodel);
@@ -74,14 +74,14 @@ namespace CMiX.Studio.ViewModels
 
         public void Reset()
         {
-            MessageService.Disable();
+            MessengerService.Disable();
 
             Translate.Reset();
             TranslateX.Reset();
             TranslateY.Reset();
             TranslateZ.Reset();
 
-            MessageService.Enable();
+            MessengerService.Enable();
 
             //SendMessages(MessageAddress, GetModel());
             //QueueObjects(translatemodifiermodel);

@@ -9,21 +9,21 @@ using CMiX.MVVM;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Coloration : ViewModel, ISendable, IUndoable
+    public class Coloration : ViewModel, IUndoable
     {
         #region CONSTRUCTORS
-        public Coloration(string messageAddress, MessageService messageService, Mementor mementor, Beat beat) 
+        public Coloration(string messageAddress, MessengerService messengerService, Mementor mementor, Beat beat) 
         {
             MessageAddress = $"{messageAddress}{nameof(Coloration)}/";
-            MessageService = messageService;
+            MessengerService = messengerService;
             Mementor = mementor;
 
-            BeatModifier = new BeatModifier(MessageAddress, beat, messageService, mementor);
-            ColorSelector = new ColorSelector(MessageAddress, messageService, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, beat, messengerService, mementor);
+            ColorSelector = new ColorSelector(MessageAddress, messengerService, mementor);
 
-            Hue = new RangeControl(MessageAddress + nameof(Hue), messageService, mementor);
-            Saturation = new RangeControl(MessageAddress + nameof(Saturation), messageService, mementor);
-            Value = new RangeControl(MessageAddress + nameof(Value), messageService, mementor);
+            Hue = new RangeControl(MessageAddress + nameof(Hue), messengerService, mementor);
+            Saturation = new RangeControl(MessageAddress + nameof(Saturation), messengerService, mementor);
+            Value = new RangeControl(MessageAddress + nameof(Value), messengerService, mementor);
 
             CopyColorationCommand = new RelayCommand(p => CopyColoration());
             PasteColorationCommand = new RelayCommand(p => PasteColoration());
@@ -46,7 +46,7 @@ namespace CMiX.Studio.ViewModels
         public RangeControl Saturation { get; }
         public RangeControl Value { get; }
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
+        public MessengerService MessengerService { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
@@ -56,7 +56,7 @@ namespace CMiX.Studio.ViewModels
 
         public void Reset()
         {
-            MessageService.Disable();
+            MessengerService.Disable();
 
             ColorSelector.Reset();
             BeatModifier.Reset();
@@ -64,7 +64,7 @@ namespace CMiX.Studio.ViewModels
             Saturation.Reset();
             Value.Reset();
 
-            MessageService.Enable();
+            MessengerService.Enable();
         }
 
         public void CopyColoration()
@@ -80,12 +80,12 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("ColorationModel"))
             {
                 this.Mementor.BeginBatch();
-                this.MessageService.Disable();
+                this.MessengerService.Disable();
 
                 var colorationmodel = data.GetData("ColorationModel") as ColorationModel;
                 this.SetViewModel(colorationmodel);
 
-                this.MessageService.Enable();
+                this.MessengerService.Enable();
                 this.Mementor.EndBatch();
 
                 //SendMessages(nameof(ColorationModel), GetModel());

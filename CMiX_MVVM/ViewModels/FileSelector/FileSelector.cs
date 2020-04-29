@@ -11,7 +11,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class FileSelector : ViewModel, ISendable, IUndoable, IDropTarget, IDragSource
+    public class FileSelector : ViewModel, IUndoable, IDropTarget, IDragSource
     {
         #region CONSTRUCTORS
         public FileSelector(string messageaddress, string selectionmode, List<string> filemask, MessageService messageService, Mementor mementor) 

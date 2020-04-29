@@ -9,7 +9,7 @@ namespace CMiX.Studio.Services
     {
         public ServerManager(Project project)
         {
-            Servers = project.Servers;
+            Project = project;
             AddServerCommand = new RelayCommand(p => AddServer());
             DeleteServerCommand = new RelayCommand(p => DeleteServer());
             RenameServerCommand = new RelayCommand(p => RenameServer(p));
@@ -18,8 +18,6 @@ namespace CMiX.Studio.Services
         public ICommand AddServerCommand { get; set; }
         public ICommand DeleteServerCommand { get; set; }
         public ICommand RenameServerCommand { get; set; }
-
-        public ObservableCollection<Server> Servers { get; set; }
 
         public Project Project { get; set; }
 
@@ -31,13 +29,12 @@ namespace CMiX.Studio.Services
         }
 
         int ServerID = 0;
-        //int ClientID = 0;
 
         public void AddServer()
         {
             Server server = new Server($"Server({ServerID.ToString()})", "127.0.0.1", 1111 + ServerID, $"/Device{ServerID}");
             server.Start();
-            Servers.Add(server);
+            //Project.Servers.Add(server);
             ServerID++;
         }
 
@@ -46,17 +43,14 @@ namespace CMiX.Studio.Services
             if(SelectedServer != null)
             {
                 SelectedServer.Stop();
-                Servers.Remove(SelectedServer);
+                //Project.Servers.Remove(SelectedServer);
             }
         }
 
-        private void RenameServer(object server)
+        private void RenameServer(object obj)
         {
-            if (server != null)
-            {
-                Server serv = server as Server;
-                serv.IsRenaming = true;
-            }
+            if (obj != null)
+                ((Server)obj).IsRenaming = true;
         }
     }
 }

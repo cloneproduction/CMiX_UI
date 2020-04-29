@@ -7,16 +7,16 @@ using System.Windows;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class RotationModifier : ViewModel, ISendable, IUndoable
+    public class RotationModifier : ViewModel, IUndoable
     {
-        public RotationModifier(string messageaddress, MessageService messageService, Mementor mementor, Beat beat)
+        public RotationModifier(string messageaddress, MessengerService messengerService, Mementor mementor, Beat beat)
         {
             MessageAddress = $"{messageaddress}{nameof(RotationModifier)}/";
-            MessageService = messageService;
-            Rotation = new AnimParameter(MessageAddress + nameof(Rotation), messageService, mementor, beat, true);
-            RotationX = new AnimParameter(MessageAddress + nameof(RotationX), messageService, mementor, beat, false);
-            RotationY = new AnimParameter(MessageAddress + nameof(RotationY), messageService, mementor, beat, false);
-            RotationZ = new AnimParameter(MessageAddress + nameof(RotationZ), messageService, mementor, beat, false);
+            MessengerService = messengerService;
+            Rotation = new AnimParameter(MessageAddress + nameof(Rotation), messengerService, mementor, beat, true);
+            RotationX = new AnimParameter(MessageAddress + nameof(RotationX), messengerService, mementor, beat, false);
+            RotationY = new AnimParameter(MessageAddress + nameof(RotationY), messengerService, mementor, beat, false);
+            RotationZ = new AnimParameter(MessageAddress + nameof(RotationZ), messengerService, mementor, beat, false);
         }
 
         #region PROPERTIES
@@ -25,7 +25,7 @@ namespace CMiX.Studio.ViewModels
         public AnimParameter RotationY { get; set; }
         public AnimParameter RotationZ { get; set; }
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
+        public MessengerService MessengerService { get; set; }
         public Mementor Mementor { get; set; }
         #endregion
 
@@ -44,12 +44,12 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("RotationModifierModel"))
             {
                 Mementor.BeginBatch();
-                MessageService.Disable();
+                MessengerService.Disable();
 
                 var Rotationmodifiermodel = data.GetData("RotationModifierModel") as RotationModifierModel;
                 //this.Paste(Rotationmodifiermodel);
 
-                MessageService.Enable();
+                MessengerService.Enable();
                 Mementor.EndBatch();
                 //SendMessages(MessageAddress, GetModel());
                 //QueueObjects(Rotationmodifiermodel);
@@ -67,14 +67,14 @@ namespace CMiX.Studio.ViewModels
 
         public void Reset()
         {
-            MessageService.Disable();
+            MessengerService.Disable();
 
             Rotation.Reset();
             RotationX.Reset();
             RotationY.Reset();
             RotationZ.Reset();
 
-            MessageService.Enable();
+            MessengerService.Enable();
 
             RotationModifierModel Rotationmodifiermodel = new RotationModifierModel();
             //this.Copy(Rotationmodifiermodel);

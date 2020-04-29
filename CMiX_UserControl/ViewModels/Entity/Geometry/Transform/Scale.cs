@@ -6,16 +6,16 @@ using CMiX.MVVM.Models;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Scale : ViewModel, ISendable, IUndoable
+    public class Scale : ViewModel, IUndoable
     {
-        public Scale(string messageaddress, MessageService messageService, Mementor mementor) 
+        public Scale(string messageaddress, MessengerService messengerService, Mementor mementor) 
         {
             MessageAddress = $"{messageaddress}{nameof(Scale)}/";
-            MessageService = messageService;
+            MessengerService = messengerService;
 
-            X = new Slider(MessageAddress + nameof(X), messageService, mementor);
-            Y = new Slider(MessageAddress + nameof(Y), messageService, mementor);
-            Z = new Slider(MessageAddress + nameof(Z), messageService, mementor);
+            X = new Slider(MessageAddress + nameof(X), messengerService, mementor);
+            Y = new Slider(MessageAddress + nameof(Y), messengerService, mementor);
+            Z = new Slider(MessageAddress + nameof(Z), messengerService, mementor);
         }
 
         public Slider X { get; set; }
@@ -23,7 +23,7 @@ namespace CMiX.Studio.ViewModels
         public Slider Z { get; set; }
         public string MessageAddress { get ; set; }
         public Mementor Mementor { get; set; }
-        public MessageService MessageService { get; set; }
+        public MessengerService MessengerService { get; set; }
 
 
         #region COPY/PASTE/RESET
@@ -40,13 +40,13 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("ScaleModel"))
             {
                 Mementor.BeginBatch();
-                MessageService.Disable();
+                MessengerService.Disable();
 
                 var scalemodel = data.GetData("ScaleModel") as ScaleModel;
                 var messageaddress = MessageAddress;
                 this.Paste(scalemodel);
 
-                MessageService.Enable();
+                MessengerService.Enable();
                 Mementor.EndBatch();
                 //SendMessages(nameof(ScaleModel), GetModel());
             }
@@ -61,17 +61,17 @@ namespace CMiX.Studio.ViewModels
 
         public void Paste(ScaleModel scalemodel)
         {
-            MessageService.Disable();
+            MessengerService.Disable();
 
             X.SetViewModel(scalemodel.X);
             Y.SetViewModel(scalemodel.Y);
             Z.SetViewModel(scalemodel.Z);
-            MessageService.Enable();
+            MessengerService.Enable();
         }
 
         public void Reset()
         {
-            MessageService.Disable();
+            MessengerService.Disable();
             //Mementor.BeginBatch();
 
             X.Reset();
@@ -79,7 +79,7 @@ namespace CMiX.Studio.ViewModels
             Z.Reset();
 
             //Mementor.EndBatch();
-            MessageService.Enable();
+            MessengerService.Enable();
 
             ScaleModel scalemodel = this.GetModel();
             //SendMessages(nameof(ScaleModel), scalemodel);

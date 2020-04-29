@@ -31,8 +31,8 @@
                 ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                 Style="{StaticResource LayerListBox}"
                 ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
-                ItemsSource="{Binding Servers}" 
-                SelectedItem="{Binding SelectedServer}"
+                ItemsSource="{Binding Project.MessengerService.Messengers}" 
+                SelectedItem="{Binding SelectedMessenger}"
                 dd:DragDrop.IsDragSource="True"
                 dd:DragDrop.IsDropTarget="True">
                 <ListBox.ItemTemplate>
@@ -45,7 +45,7 @@
                         <MenuItem
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.AddServerCommand, Source={StaticResource ProjectProxy}}"
+                            Command="{Binding Data.AddMessengerCommand, Source={StaticResource ProjectProxy}}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
@@ -63,7 +63,7 @@
                         <MenuItem
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.RenameServerCommand, Source={StaticResource ProjectProxy}}"
+                            Command="{Binding Data.RenameMessengerCommand, Source={StaticResource ProjectProxy}}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext.SelectedServer}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
@@ -81,7 +81,7 @@
                         <MenuItem
                             Padding="8, 4"
                             Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.DeleteServerCommand, Source={StaticResource ProjectProxy}}"
+                            Command="{Binding Data.DeleteMessengerCommand, Source={StaticResource ProjectProxy}}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">

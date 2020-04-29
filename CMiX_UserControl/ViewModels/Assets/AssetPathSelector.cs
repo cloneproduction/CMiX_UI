@@ -7,18 +7,18 @@ using CMiX.MVVM.ViewModels;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class AssetPathSelector<T> : ViewModel, ISendable, IUndoable, IDropTarget
+    public class AssetPathSelector<T> : ViewModel, IUndoable, IDropTarget
     {
-        public AssetPathSelector(string messageAddress, MessageService messageService, Mementor mementor)
+        public AssetPathSelector(string messageAddress, MessengerService messengerService, Mementor mementor)
         {
             MessageAddress = $"{messageAddress}/";
-            MessageService = messageService;
+            MessengerService = messengerService;
             Mementor = mementor;
         }
 
         public Mementor Mementor { get; set; }
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
+        public MessengerService MessengerService { get; set; }
 
         private string _selectedPath;
         public string SelectedPath
@@ -45,12 +45,12 @@ namespace CMiX.Studio.ViewModels
 
         public void SetViewModel(AssetPathSelectorModel model)
         {
-            MessageService.Disable();
+            MessengerService.Disable();
 
             if (model.SelectedPath != null)
                 SelectedPath = model.SelectedPath;
 
-            MessageService.Enable();
+            MessengerService.Enable();
         }
     }
 }

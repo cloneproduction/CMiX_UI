@@ -8,13 +8,13 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class MasterBeat : Beat, ISendable
+    public class MasterBeat : Beat
     {
         #region CONSTRUCTORS
-        public MasterBeat(MessageService messageService)
+        public MasterBeat(MessengerService messengerService)
         : this
         (
-            messageService: messageService,
+            messengerService: messengerService,
             period: 0.0,
             multiplier: 1
         )
@@ -22,12 +22,12 @@ namespace CMiX.Studio.ViewModels
 
         public MasterBeat
             (
-                MessageService messageService,
+                MessengerService messengerService,
                 double period,
                 double multiplier
             )
         {
-            MessageService = messageService;
+            MessengerService = messengerService;
             Period = period;
             Multiplier = multiplier;
             ResyncCommand = new RelayCommand(p => Resync());
@@ -61,7 +61,7 @@ namespace CMiX.Studio.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
+        public MessengerService MessengerService { get; set; }
         #endregion
 
         #region METHODS
@@ -106,17 +106,5 @@ namespace CMiX.Studio.ViewModels
             return tapPeriods.Sum() / tapPeriods.Count;
         }
         #endregion
-
-        //public void CopyModel(MasterBeatModel masterBeatControl)
-        //{
-        //    masterBeatControl.Period = Period;
-        //}
-
-        //public void SetViewModel(MasterBeatModel masterBeatControl)
-        //{
-        //    MessageService.Disable();
-        //    Period = masterBeatControl.Period;
-        //    MessageService.Enable();
-        //}
     }
 }

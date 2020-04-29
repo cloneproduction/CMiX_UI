@@ -5,17 +5,17 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class BeatModifier : Beat, ISendable, IUndoable
+    public class BeatModifier : Beat, IUndoable
     {
         #region CONSTRUCTORS
-        public BeatModifier(string messageAddress, Beat beat, MessageService messageService, Mementor mementor)
+        public BeatModifier(string messageAddress, Beat beat, MessengerService messengerService, Mementor mementor)
         {
             MessageAddress = $"{messageAddress}{nameof(BeatModifier)}/";
-            MessageService = messageService;
+            MessengerService = messengerService;
 
             Beat = beat;
             Multiplier = 1.0;
-            ChanceToHit = new Slider(MessageAddress + nameof(ChanceToHit), messageService, mementor)
+            ChanceToHit = new Slider(MessageAddress + nameof(ChanceToHit), messengerService, mementor)
             {
                 Amount = 1.0
             };
@@ -56,7 +56,7 @@ namespace CMiX.Studio.ViewModels
 
         public string MessageAddress { get; set; }
         public Mementor Mementor { get; set; }
-        public MessageService MessageService { get; set; }
+        public MessengerService MessengerService { get; set; }
         #endregion
 
         #region MULTIPLY/DIVIDE
@@ -75,13 +75,13 @@ namespace CMiX.Studio.ViewModels
 
         public void Reset()
         {
-            MessageService.Disable();
+            MessengerService.Disable();
 
             Multiplier = 1.0;
             ChanceToHit.Reset();
             ChanceToHit.Amount = 1.0;
 
-            MessageService.Enable();
+            MessengerService.Enable();
         }
         #endregion
     }
