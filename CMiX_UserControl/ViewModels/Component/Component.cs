@@ -8,18 +8,18 @@ namespace CMiX.Studio.ViewModels
 {
     public abstract class Component : ViewModel, IUndoable
     {
-        public Component(int id, Beat beat, MessengerService messengerService, Mementor mementor)
+        public Component(int id, Beat beat, Mementor mementor)
         {
             ID = id;
             Mementor = mementor;
             Beat = beat;
             Name = GetType().Name + " " + id;
-            MessengerService = messengerService;
+            //MessengerService = messengerService;
 
             Components = new ObservableCollection<Component>();
         }
 
-        public MessengerService MessengerService { get; set; }
+        //public MessengerService MessengerService { get; set; }
         public Mementor Mementor { get; set; }
         public Beat Beat { get; set; }
 

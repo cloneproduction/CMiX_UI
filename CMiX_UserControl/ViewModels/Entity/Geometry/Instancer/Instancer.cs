@@ -9,16 +9,16 @@ namespace CMiX.Studio.ViewModels
 {
     public class Instancer : ViewModel, IUndoable
     {
-        public Instancer(string messageaddress, MessengerService messengerService, Mementor mementor, Beat beat)
+        public Instancer(string messageaddress, Mementor mementor, Beat beat)
         {
             MessageAddress = $"{messageaddress}{nameof(Instancer)}/";
-            MessengerService = messengerService;
+            //MessengerService = messengerService;
 
-            Transform = new Transform(MessageAddress, messengerService, mementor);
-            Counter = new Counter(MessageAddress, messengerService, mementor);
-            TranslateModifier = new TranslateModifier(MessageAddress, messengerService, mementor, beat);
-            ScaleModifier = new ScaleModifier(MessageAddress, messengerService, mementor, beat);
-            RotationModifier = new RotationModifier(MessageAddress, messengerService, mementor, beat);
+            Transform = new Transform(MessageAddress, mementor);
+            Counter = new Counter(MessageAddress, mementor);
+            TranslateModifier = new TranslateModifier(MessageAddress, mementor, beat);
+            ScaleModifier = new ScaleModifier(MessageAddress, mementor, beat);
+            RotationModifier = new RotationModifier(MessageAddress, mementor, beat);
 
             NoAspectRatio = false;
         }

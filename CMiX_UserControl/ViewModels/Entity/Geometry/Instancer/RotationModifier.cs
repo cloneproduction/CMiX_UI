@@ -9,14 +9,14 @@ namespace CMiX.Studio.ViewModels
 {
     public class RotationModifier : ViewModel, IUndoable
     {
-        public RotationModifier(string messageaddress, MessengerService messengerService, Mementor mementor, Beat beat)
+        public RotationModifier(string messageaddress, Mementor mementor, Beat beat)
         {
             MessageAddress = $"{messageaddress}{nameof(RotationModifier)}/";
-            MessengerService = messengerService;
-            Rotation = new AnimParameter(MessageAddress + nameof(Rotation), messengerService, mementor, beat, true);
-            RotationX = new AnimParameter(MessageAddress + nameof(RotationX), messengerService, mementor, beat, false);
-            RotationY = new AnimParameter(MessageAddress + nameof(RotationY), messengerService, mementor, beat, false);
-            RotationZ = new AnimParameter(MessageAddress + nameof(RotationZ), messengerService, mementor, beat, false);
+
+            Rotation = new AnimParameter(MessageAddress + nameof(Rotation), mementor, beat, true);
+            RotationX = new AnimParameter(MessageAddress + nameof(RotationX), mementor, beat, false);
+            RotationY = new AnimParameter(MessageAddress + nameof(RotationY), mementor, beat, false);
+            RotationZ = new AnimParameter(MessageAddress + nameof(RotationZ), mementor, beat, false);
         }
 
         #region PROPERTIES

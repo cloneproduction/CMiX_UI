@@ -11,18 +11,17 @@ namespace CMiX.Studio.ViewModels
     public class Camera : ViewModel, IUndoable
     {
         #region CONSTRUCTORS
-        public Camera(MessengerService messengerService, string messageAddress, Beat beat, Mementor mementor) 
+        public Camera(string messageAddress, Beat beat, Mementor mementor) 
         {
-            MessengerService = messengerService;
             MessageAddress = $"{messageAddress}{nameof(Camera)}/";
             
             Rotation = ((CameraRotation)0).ToString();
             LookAt = ((CameraLookAt)0).ToString();
             View = ((CameraView)0).ToString();
 
-            BeatModifier = new BeatModifier(MessageAddress, beat, messengerService, mementor);
-            FOV = new Slider(MessageAddress + nameof(FOV), messengerService, mementor);
-            Zoom = new Slider(MessageAddress + nameof(Zoom), messengerService, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, beat, mementor);
+            FOV = new Slider(MessageAddress + nameof(FOV), mementor);
+            Zoom = new Slider(MessageAddress + nameof(Zoom), mementor);
         }
         #endregion
 

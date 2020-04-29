@@ -10,13 +10,13 @@ namespace CMiX.Studio.ViewModels
     public class Entity : Component
     {
         #region CONSTRUCTORS
-        public Entity(int id, Beat beat, MessengerService messengerService, Mementor mementor)
-            : base(id, beat, messengerService, mementor)
+        public Entity(int id, Beat beat, Mementor mementor)
+            : base(id, beat, mementor)
         {
-            BeatModifier = new BeatModifier(MessageAddress, beat, messengerService, mementor);
-            Geometry = new Geometry(MessageAddress, messengerService, mementor, beat);
-            Texture = new Texture(MessageAddress, messengerService, mementor);
-            Coloration = new Coloration(MessageAddress, messengerService, mementor, beat);
+            BeatModifier = new BeatModifier(MessageAddress, beat, mementor);
+            Geometry = new Geometry(MessageAddress, mementor, beat);
+            Texture = new Texture(MessageAddress, mementor);
+            Coloration = new Coloration(MessageAddress, mementor, beat);
 
             CopyEntityCommand = new RelayCommand(p => CopyEntity());
             PasteEntityCommand = new RelayCommand(p => PasteEntity());
@@ -29,6 +29,7 @@ namespace CMiX.Studio.ViewModels
         public ICommand PasteEntityCommand { get; }
         public ICommand ResetEntityCommand { get; }
         
+        public MessengerService MessengerService { get; set; }
         public BeatModifier BeatModifier { get; }
         public Geometry Geometry { get; }
         public Texture Texture { get; }

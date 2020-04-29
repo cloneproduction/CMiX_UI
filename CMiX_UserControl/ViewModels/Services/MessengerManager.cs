@@ -27,15 +27,12 @@ namespace CMiX.Studio.ViewModels
             set => SetAndNotify(ref _selectedMessenger, value);
         }
 
-        int ServerID = 0;
-
         public void AddMessenger()
         {
             //$"Server({ServerID.ToString()})", "127.0.0.1", 1111 + ServerID, $"/Device{ServerID}"
             //server.Start();
             Messenger messenger = MessengerFactory.CreateMessenger();
-            Project.MessengerService.Messengers.Add(messenger);
-            ServerID++;
+            //Project.MessengerService.Messengers.Add(messenger);
         }
 
         private void DeleteServer()
@@ -43,7 +40,7 @@ namespace CMiX.Studio.ViewModels
             if (SelectedMessenger != null)
             {
                 //SelectedMessenger.Stop();
-                Project.MessengerService.Messengers.Remove(SelectedMessenger);
+                //Project.MessengerService.Messengers.Remove(SelectedMessenger);
             }
         }
 

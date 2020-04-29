@@ -12,18 +12,18 @@ namespace CMiX.Studio.ViewModels
     public class Mask : Component, IUndoable
     {
         #region CONSTRUCTORS
-        public Mask(int id, Beat beat, MessengerService messengerService, Mementor mementor)
-            : base(id, beat, messengerService, mementor)
+        public Mask(int id, Beat beat, Mementor mementor)
+            : base(id, beat, mementor)
         {
             MaskType = ((MaskType)2).ToString();
             MaskControlType = ((MaskControlType)1).ToString();
             
             Name = "Mask";
 
-            BeatModifier = new BeatModifier(MessageAddress, beat, messengerService, mementor);
-            Geometry = new Geometry(MessageAddress, messengerService, mementor, beat);
-            Texture = new Texture(MessageAddress, messengerService, mementor);
-            PostFX = new PostFX(MessageAddress, messengerService, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, beat, mementor);
+            Geometry = new Geometry(MessageAddress, mementor, beat);
+            Texture = new Texture(MessageAddress, mementor);
+            PostFX = new PostFX(MessageAddress, mementor);
 
             //CopyMaskCommand = new RelayCommand(p => CopyMask());
             //PasteMaskCommand = new RelayCommand(p => PasteMask());

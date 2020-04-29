@@ -12,18 +12,17 @@ namespace CMiX.Studio.ViewModels
     public class Coloration : ViewModel, IUndoable
     {
         #region CONSTRUCTORS
-        public Coloration(string messageAddress, MessengerService messengerService, Mementor mementor, Beat beat) 
+        public Coloration(string messageAddress, Mementor mementor, Beat beat) 
         {
             MessageAddress = $"{messageAddress}{nameof(Coloration)}/";
-            MessengerService = messengerService;
             Mementor = mementor;
 
-            BeatModifier = new BeatModifier(MessageAddress, beat, messengerService, mementor);
-            ColorSelector = new ColorSelector(MessageAddress, messengerService, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, beat, mementor);
+            ColorSelector = new ColorSelector(MessageAddress, mementor);
 
-            Hue = new RangeControl(MessageAddress + nameof(Hue), messengerService, mementor);
-            Saturation = new RangeControl(MessageAddress + nameof(Saturation), messengerService, mementor);
-            Value = new RangeControl(MessageAddress + nameof(Value), messengerService, mementor);
+            Hue = new RangeControl(MessageAddress + nameof(Hue), mementor);
+            Saturation = new RangeControl(MessageAddress + nameof(Saturation), mementor);
+            Value = new RangeControl(MessageAddress + nameof(Value), mementor);
 
             CopyColorationCommand = new RelayCommand(p => CopyColoration());
             PasteColorationCommand = new RelayCommand(p => PasteColoration());

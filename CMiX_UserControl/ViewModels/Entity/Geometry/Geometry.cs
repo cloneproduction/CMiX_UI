@@ -11,17 +11,17 @@ namespace CMiX.Studio.ViewModels
     public class Geometry : ViewModel, IUndoable
     {
         #region CONSTRUCTORS
-        public Geometry(string messageaddress, MessengerService messengerService, Mementor mementor, Beat beat) 
+        public Geometry(string messageaddress, Mementor mementor, Beat beat) 
         {
             MessageAddress = $"{messageaddress}{nameof(Geometry)}/";
-            MessengerService = messengerService;
+            //MessengerService = messengerService;
             Mementor = mementor;
 
-            Instancer = new Instancer(MessageAddress, messengerService, mementor, beat);
-            Transform = new Transform(MessageAddress, messengerService, mementor);
-            GeometryFX = new GeometryFX(MessageAddress, messengerService, mementor);
+            Instancer = new Instancer(MessageAddress, mementor, beat);
+            Transform = new Transform(MessageAddress, mementor);
+            GeometryFX = new GeometryFX(MessageAddress, mementor);
 
-            AssetPathSelector = new AssetPathSelector<AssetGeometry>(MessageAddress, messengerService, mementor);
+            AssetPathSelector = new AssetPathSelector<AssetGeometry>(MessageAddress, mementor);
 
             CopyGeometryCommand = new RelayCommand(p => CopyGeometry());
             PasteGeometryCommand = new RelayCommand(p => PasteGeometry());

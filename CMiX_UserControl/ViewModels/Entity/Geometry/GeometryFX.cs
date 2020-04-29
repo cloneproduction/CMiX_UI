@@ -11,11 +11,10 @@ namespace CMiX.Studio.ViewModels
     public class GeometryFX : ViewModel, IUndoable
     {
         #region CONSTRUCTORS
-        public GeometryFX(string messageaddress, MessengerService messengerService, Mementor mementor)
+        public GeometryFX(string messageaddress, Mementor mementor)
         {
             MessageAddress = $"{messageaddress}{nameof(GeometryFX)}/";
-            MessengerService = messengerService;
-            Explode = new Slider(MessageAddress + nameof(Explode), messengerService, mementor);
+            Explode = new Slider(MessageAddress + nameof(Explode), mementor);
         }
         #endregion
 

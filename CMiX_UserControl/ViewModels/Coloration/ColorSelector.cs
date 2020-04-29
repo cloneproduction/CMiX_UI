@@ -4,17 +4,15 @@ using System.Windows;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using Memento;
-using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
     public class ColorSelector : ViewModel, IUndoable
     {
         #region CONSTRUCTORS
-        public ColorSelector(string messageaddress, MessengerService messengerService, Mementor mementor) 
+        public ColorSelector(string messageaddress, Mementor mementor) 
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(ColorSelector));
-            MessengerService = messengerService;
             Mementor = mementor;
             ColorPicker = new ColorPicker.ViewModels.ColorPicker(MessageAddress, mementor);
 

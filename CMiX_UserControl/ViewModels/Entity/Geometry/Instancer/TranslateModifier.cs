@@ -10,15 +10,14 @@ namespace CMiX.Studio.ViewModels
 {
     public class TranslateModifier : ViewModel, IUndoable
     {
-        public TranslateModifier(string messageaddress, MessengerService messengerService, Mementor mementor, Beat beat) 
+        public TranslateModifier(string messageaddress, Mementor mementor, Beat beat) 
         {
             MessageAddress = $"{messageaddress}{nameof(TranslateModifier)}/";
-            MessengerService = messengerService;
 
-            Translate = new AnimParameter(MessageAddress + nameof(Translate), messengerService, mementor, beat, true);
-            TranslateX = new AnimParameter(MessageAddress + nameof(TranslateX), messengerService, mementor, beat, false);
-            TranslateY = new AnimParameter(MessageAddress + nameof(TranslateY), messengerService, mementor, beat, false);
-            TranslateZ = new AnimParameter(MessageAddress + nameof(TranslateZ), messengerService, mementor, beat, false);
+            Translate = new AnimParameter(MessageAddress + nameof(Translate), mementor, beat, true);
+            TranslateX = new AnimParameter(MessageAddress + nameof(TranslateX), mementor, beat, false);
+            TranslateY = new AnimParameter(MessageAddress + nameof(TranslateY), mementor, beat, false);
+            TranslateZ = new AnimParameter(MessageAddress + nameof(TranslateZ), mementor, beat, false);
         }
 
         #region PROPERTIES

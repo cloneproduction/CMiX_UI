@@ -4,21 +4,19 @@ using System.Windows.Input;
 using Memento;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
-using CMiX.MVVM;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class PostFX : ViewModel, IUndoable  //, ICopySetViewModel<PostFXModel>,
+    public class PostFX : ViewModel, IUndoable
     {
         #region CONSTRUCTORS
-        public PostFX(string messageaddress, MessengerService messengerService, Mementor mementor) 
+        public PostFX(string messageaddress, Mementor mementor) 
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(PostFX));
-            MessengerService = messengerService;
+            //MessengerService = messengerService;
 
-            Feedback = new Slider(MessageAddress + nameof(Feedback), messengerService, mementor);
-            Blur = new Slider(MessageAddress + nameof(Blur), messengerService, mementor);
+            Feedback = new Slider(MessageAddress + nameof(Feedback), mementor);
+            Blur = new Slider(MessageAddress + nameof(Blur), mementor);
 
             Transforms = ((PostFXTransforms)0).ToString();
             View = ((PostFXView)0).ToString();

@@ -10,15 +10,14 @@ namespace CMiX.Studio.ViewModels
     [Serializable]
     public class ScaleModifier : ViewModel, IUndoable
     {
-        public ScaleModifier(string messageaddress, MessengerService messengerService, Mementor mementor, Beat beat)
+        public ScaleModifier(string messageaddress, Mementor mementor, Beat beat)
         {
             MessageAddress = $"{messageaddress}{nameof(ScaleModifier)}/";
-            MessengerService = messengerService;
 
-            Scale = new AnimParameter(MessageAddress + nameof(Scale), messengerService, mementor, beat, true);
-            ScaleX = new AnimParameter(MessageAddress + nameof(ScaleX), messengerService, mementor, beat, false);
-            ScaleY = new AnimParameter(MessageAddress + nameof(ScaleY), messengerService, mementor, beat, false);
-            ScaleZ = new AnimParameter(MessageAddress + nameof(ScaleZ), messengerService, mementor, beat, false);
+            Scale = new AnimParameter(MessageAddress + nameof(Scale), mementor, beat, true);
+            ScaleX = new AnimParameter(MessageAddress + nameof(ScaleX), mementor, beat, false);
+            ScaleY = new AnimParameter(MessageAddress + nameof(ScaleY), mementor, beat, false);
+            ScaleZ = new AnimParameter(MessageAddress + nameof(ScaleZ), mementor, beat, false);
         }
 
         #region PROPERTIES

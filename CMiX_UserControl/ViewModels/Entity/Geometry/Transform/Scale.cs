@@ -8,14 +8,13 @@ namespace CMiX.Studio.ViewModels
 {
     public class Scale : ViewModel, IUndoable
     {
-        public Scale(string messageaddress, MessengerService messengerService, Mementor mementor) 
+        public Scale(string messageaddress, Mementor mementor) 
         {
             MessageAddress = $"{messageaddress}{nameof(Scale)}/";
-            MessengerService = messengerService;
 
-            X = new Slider(MessageAddress + nameof(X), messengerService, mementor);
-            Y = new Slider(MessageAddress + nameof(Y), messengerService, mementor);
-            Z = new Slider(MessageAddress + nameof(Z), messengerService, mementor);
+            X = new Slider(MessageAddress + nameof(X), mementor);
+            Y = new Slider(MessageAddress + nameof(Y), mementor);
+            Z = new Slider(MessageAddress + nameof(Z), mementor);
         }
 
         public Slider X { get; set; }

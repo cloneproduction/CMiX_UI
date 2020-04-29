@@ -9,18 +9,17 @@ namespace CMiX.Studio.ViewModels
 {
     public class Translate : ViewModel, IUndoable
     {
-        public Translate(string messageAddress, MessengerService messengerService, Mementor mementor)
+        public Translate(string messageAddress, Mementor mementor)
         {
             MessageAddress = $"{messageAddress}{nameof(Translate)}/";
-            MessengerService = messengerService;
 
-            X = new Slider(MessageAddress + nameof(X), messengerService, mementor);
+            X = new Slider(MessageAddress + nameof(X), mementor);
             X.Minimum = -1;
             X.Maximum = 1;
-            Y = new Slider(MessageAddress + nameof(Y), messengerService, mementor);
+            Y = new Slider(MessageAddress + nameof(Y), mementor);
             Y.Minimum = -1;
             Y.Maximum = 1;
-            Z = new Slider(MessageAddress + nameof(Z), messengerService, mementor);
+            Z = new Slider(MessageAddress + nameof(Z), mementor);
             Z.Minimum = -1;
             Z.Maximum = 1;
         }

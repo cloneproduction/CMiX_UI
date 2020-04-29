@@ -10,8 +10,8 @@ namespace CMiX.Studio.ViewModels
     public class Slider : Sendable, IUndoable
     {
         #region CONSTRUCTORS
-        public Slider(string messageAddress, MessengerService messengerService, Mementor mementor)
-            : base (messageAddress, messengerService)
+        public Slider(string messageAddress, Mementor mementor)
+            : base (messageAddress)
         {
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
@@ -49,7 +49,7 @@ namespace CMiX.Studio.ViewModels
             set
             {
                 SetAndNotify(ref _amount, value);
-                MessengerService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, this.GetModel());
+                //MessengerService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, this.GetModel());
             }
         }
 

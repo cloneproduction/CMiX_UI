@@ -36,7 +36,6 @@ namespace CMiX.Studio.ViewModels
             ComponentManager = new ComponentManager(Projects);
             ComponentManager.ComponentDeletedEvent += ComponentEditor.ComponentDeletedEvent;
 
-
             Outliner = new Outliner(Projects);
 
             CloseWindowCommand = new RelayCommand(p => CloseWindow(p));

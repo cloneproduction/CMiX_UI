@@ -10,14 +10,14 @@ namespace CMiX.Studio.ViewModels
 {
     public class Transform : Sendable, IUndoable
     {
-        public Transform(string messageAddress, MessengerService messengerService, Mementor mementor)
-            : base(messageAddress, messengerService)
+        public Transform(string messageAddress, Mementor mementor)
+            : base(messageAddress)
         {
-            MessengerService = messengerService;
+            //MessengerService = messengerService;
 
-            Translate = new Translate(MessageAddress, messengerService, mementor);
-            Scale = new Scale(MessageAddress, messengerService, mementor);
-            Rotation = new Rotation(MessageAddress, messengerService, mementor);
+            Translate = new Translate(MessageAddress, mementor);
+            Scale = new Scale(MessageAddress, mementor);
+            Rotation = new Rotation(MessageAddress, mementor);
 
             Is3D = false;
         }

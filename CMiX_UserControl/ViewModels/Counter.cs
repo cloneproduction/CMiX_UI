@@ -7,10 +7,9 @@ namespace CMiX.Studio.ViewModels
     public class Counter : ViewModel, IUndoable
     {
         #region CONSTRUCTORS
-        public Counter(string messageaddress, MessengerService messengerService, Mementor mementor) 
+        public Counter(string messageaddress, Mementor mementor) 
         {
             MessageAddress = $"{messageaddress}{nameof(Counter)}/";
-            MessengerService = messengerService;
             Count = 1;
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());

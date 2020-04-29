@@ -8,14 +8,13 @@ namespace CMiX.Studio.ViewModels
     public class BeatModifier : Beat, IUndoable
     {
         #region CONSTRUCTORS
-        public BeatModifier(string messageAddress, Beat beat, MessengerService messengerService, Mementor mementor)
+        public BeatModifier(string messageAddress, Beat beat, Mementor mementor)
         {
             MessageAddress = $"{messageAddress}{nameof(BeatModifier)}/";
-            MessengerService = messengerService;
 
             Beat = beat;
             Multiplier = 1.0;
-            ChanceToHit = new Slider(MessageAddress + nameof(ChanceToHit), messengerService, mementor)
+            ChanceToHit = new Slider(MessageAddress + nameof(ChanceToHit), mementor)
             {
                 Amount = 1.0
             };

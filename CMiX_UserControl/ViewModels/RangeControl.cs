@@ -9,11 +9,10 @@ namespace CMiX.Studio.ViewModels
     public class RangeControl : ViewModel, IUndoable
     {
         #region CONSTRUCTORS
-        public RangeControl(string messageAddress, MessengerService messengerService, Mementor mementor)
+        public RangeControl(string messageAddress, Mementor mementor)
         {
             MessageAddress = messageAddress + "/";
-            MessengerService = messengerService;
-            Range = new Slider(MessageAddress + nameof(Range), messengerService, mementor);
+            Range = new Slider(MessageAddress + nameof(Range), mementor);
             Modifier = ((RangeModifier)0).ToString();
         }
         #endregion

@@ -11,8 +11,8 @@ namespace CMiX.Studio.ViewModels
 {
     public class Project : Component, IUndoable
     {
-        public Project(int id, string messageAddress, Beat beat, MessengerService messengerService, Mementor mementor, IDialogService dialogService)
-            : base(id, beat, messengerService, mementor)
+        public Project(int id, string messageAddress, Beat beat, Mementor mementor, IDialogService dialogService)
+            : base(id, beat, mementor)
         {
             DialogService = dialogService;
 

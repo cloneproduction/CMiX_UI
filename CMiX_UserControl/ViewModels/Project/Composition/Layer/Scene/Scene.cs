@@ -9,12 +9,12 @@ namespace CMiX.Studio.ViewModels
     public class Scene : Component
     {
         #region CONSTRUCTORS
-        public Scene(int id, Beat beat, MessengerService messengerService, Mementor mementor)
-            : base(id, beat, messengerService, mementor)
+        public Scene(int id, Beat beat, Mementor mementor)
+            : base(id, beat, mementor)
         {
             Name = "Scene";
-            BeatModifier = new BeatModifier(MessageAddress, beat, messengerService, mementor);
-            PostFX = new PostFX(MessageAddress, messengerService, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, beat, mementor);
+            PostFX = new PostFX(MessageAddress, mementor);
 
             //CopyContentCommand = new RelayCommand(p => CopyContent());
             //PasteContentCommand = new RelayCommand(p => PasteContent());
@@ -36,13 +36,9 @@ namespace CMiX.Studio.ViewModels
 
         public void Reset()
         {
-            MessengerService.Disable();
-
             this.Enabled = true;
             this.BeatModifier.Reset();
             this.PostFX.Reset();
-
-            MessengerService.Enable();
         }
 
         #region COPYPASTE CONTENT

@@ -9,13 +9,12 @@ namespace CMiX.Studio.ViewModels
 {
     public class AnimParameter : ViewModel, IUndoable
     {
-        public AnimParameter(string messageaddress, MessengerService messengerService, Mementor mementor, Beat beat, bool isEnabled)
+        public AnimParameter(string messageaddress, Mementor mementor, Beat beat, bool isEnabled)
         {
             Mode = AnimMode.None;
-            MessengerService = messengerService;
             IsEnabled = isEnabled;
-            Slider = new Slider(MessageAddress, messengerService, mementor);
-            BeatModifier = new BeatModifier(MessageAddress, beat, messengerService, mementor);
+            Slider = new Slider(MessageAddress, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, beat, mementor);
         }
 
         #region PROPERTIES

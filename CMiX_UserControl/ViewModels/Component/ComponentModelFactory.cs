@@ -126,7 +126,6 @@ namespace CMiX.Studio.ViewModels
 
         public static void SetViewModel(this Composition instance, IComponentModel model)
         {
-            instance.MessengerService.Disable();
             var compositionModel = model as CompositionModel;
 
             instance.Name = compositionModel.Name;
@@ -144,7 +143,6 @@ namespace CMiX.Studio.ViewModels
                 layer.SetViewModel(componentModel);
                 instance.AddComponent(layer);
             }
-            instance.MessengerService.Enable();
         }
 
 
@@ -168,8 +166,6 @@ namespace CMiX.Studio.ViewModels
 
         public static void SetViewModel(this Layer instance, IComponentModel model)
         {
-            instance.MessengerService.Disable();
-
             var layerModel = model as LayerModel;
 
             instance.Name = layerModel.Name;
@@ -197,8 +193,6 @@ namespace CMiX.Studio.ViewModels
                     instance.AddComponent(component);
                 }
             }
-
-            instance.MessengerService.Enable();
         }
 
 
