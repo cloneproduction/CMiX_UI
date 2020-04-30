@@ -1,4 +1,7 @@
-﻿using CMiX.MVVM.ViewModels;
+﻿using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels;
+using System;
 using System.Collections.ObjectModel;
 
 namespace CMiX.Studio.ViewModels
@@ -14,19 +17,25 @@ namespace CMiX.Studio.ViewModels
             Components = new ObservableCollection<Component>();
         }
 
-        public Beat Beat { get; set; }
 
-        private ObservableCollection<Messenger> _messengers;
-        public ObservableCollection<Messenger> Messengers
+
+        public event EventHandler<ModelEventArgs> SendChangeEvent;
+        public void OnSendChange(IModel model, string messageAddress)
         {
-            get { return _messengers; }
-            set
-            {
-                SetAndNotify(ref _messengers, value);
-                System.Console.WriteLine("Messenger Changed on " + this.GetType().Name);
-                System.Console.WriteLine("Messenger Count Is " + Messengers.Count);
-            }
+            ModelEventArgs modelEventArgs = new ModelEventArgs(model, messageAddress);
+            SendChangeEvent?.Invoke(this, modelEventArgs);
         }
+
+        public void OnChildPropertyToSendChange(object sender, ModelEventArgs e)
+        {
+            //Console.WriteLine("OnChildPropertyToSendChange " + e.MessageAddress);
+            //Console.WriteLine("ChildTypeIs " + e.Model.GetType().Name);
+            OnSendChange(e.Model, this.MessageAddress + e.MessageAddress);
+        }
+
+
+
+        public Beat Beat { get; set; }
 
         private string _messageAddress;
         public string MessageAddress
@@ -62,7 +71,11 @@ namespace CMiX.Studio.ViewModels
         public bool IsSelected
         {
             get => _isSelected;
-            set => SetAndNotify(ref _isSelected, value);
+            set
+            {
+                SetAndNotify(ref _isSelected, value);
+                OnSendChange(this.GetModel(), this.MessageAddress);
+            }
         }
 
         private bool _isVisible = false;

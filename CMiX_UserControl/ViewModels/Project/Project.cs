@@ -1,7 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using Memento;
-using CMiX.MVVM.ViewModels;
-using CMiX.MVVM.Services;
 using MvvmDialogs;
 using System.Windows.Data;
 using System.ComponentModel;
@@ -11,21 +8,28 @@ namespace CMiX.Studio.ViewModels
 {
     public class Project : Component
     {
-        public Project(int id, string messageAddress, Beat beat, IDialogService dialogService)
+        public Project(int id, Beat beat, IDialogService dialogService)
             : base(id, beat)
         {
             DialogService = dialogService;
 
-            Messengers = new ObservableCollection<Messenger>();
             Assets = new ObservableCollection<IAssets>();
             AssetsFlatten = new ObservableCollection<IAssets>();
             ComponentsInEditing = new ObservableCollection<Component>();
+            Messengers = new ObservableCollection<Messenger>();
 
             InitCollectionView();
         }
 
         #region PROPERTIES
         public IDialogService DialogService { get; set; }
+
+        private ObservableCollection<Messenger> _messengers;
+        public ObservableCollection<Messenger> Messengers
+        {
+            get => _messengers;
+            set => SetAndNotify(ref _messengers, value);
+        }
 
         private ObservableCollection<Component> _componentsInEditing;
         public ObservableCollection<Component> ComponentsInEditing

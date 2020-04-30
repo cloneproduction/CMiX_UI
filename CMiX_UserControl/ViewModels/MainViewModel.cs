@@ -68,7 +68,6 @@ namespace CMiX.Studio.ViewModels
 
         private readonly IDialogService DialogService;
 
-        
         public Mementor Mementor { get; set; }
         public CerasSerializer Serializer { get; set; }
         

@@ -9,11 +9,9 @@ namespace CMiX.Studio.ViewModels
     public class Layer : Component
     {
         #region CONSTRUCTORS
-        public Layer(int id, ObservableCollection<Messenger> messengers, Beat beat)
+        public Layer(int id, Beat beat)
             : base(id, beat)
         {
-            Messengers = messengers;
-
             Scene scene = ComponentFactory.CreateScene(this);
             Components.Add(scene);
 

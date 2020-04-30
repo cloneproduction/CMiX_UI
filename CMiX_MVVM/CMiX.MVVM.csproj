@@ -104,6 +104,7 @@
     <Compile Include="Services\Message\Sender.cs" />
     <Compile Include="Services\Message\Message.cs" />
     <None Include="_Trash\MessageService.cs" />
+    <Compile Include="Services\ModelEventArgs.cs" />
     <Compile Include="Services\NetMQ\NetMQClient.cs" />
     <Compile Include="Services\NetMQ\NetMQServer.cs" />
     <Compile Include="Services\Message\Receiver.cs" />

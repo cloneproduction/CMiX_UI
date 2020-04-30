@@ -223,22 +223,22 @@ namespace CMiX.ColorPicker.ViewModels
         #region METHODS
         public void PreviewMouseDown()
         {
-            if(!Mementor.IsInBatch)
-                Mementor.BeginBatch();
+            //if(!Mementor.IsInBatch)
+            //    Mementor.BeginBatch();
             MouseDown = true;
         }
 
         public void PreviewMouseUp()
         {
-            if(Mementor.IsInBatch)
-                Mementor.EndBatch();
+            //if(Mementor.IsInBatch)
+            //    Mementor.EndBatch();
             MouseDown = false;
         }
 
         public void PreviewMouseLeave()
         {
-            if(Mementor.IsInBatch)
-                Mementor.EndBatch();
+            //if(Mementor.IsInBatch)
+            //    Mementor.EndBatch();
             MouseDown = false;
         }
         #endregion
@@ -247,14 +247,10 @@ namespace CMiX.ColorPicker.ViewModels
 
         public void Paste(ColorPickerModel colorpickermodel)
         {
-            MessageService.Disable();
-
             SelectedColor = Utils.HexStringToColor(colorpickermodel.SelectedColor);
             Red = SelectedColor.R;
             Green = SelectedColor.G;
             Blue = SelectedColor.B;
-
-            MessageService.Enable();
         }
 
         public void Reset()

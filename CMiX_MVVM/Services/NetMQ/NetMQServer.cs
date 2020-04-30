@@ -2,7 +2,6 @@
 using Ceras;
 using NetMQ;
 using NetMQ.Sockets;
-using CMiX.MVVM.Commands;
 
 namespace CMiX.MVVM.Message
 {
@@ -128,19 +127,21 @@ namespace CMiX.MVVM.Message
             Start();
         }
 
-        public void SendObject(string topic, string messageAddress, MessageCommand command, object parameter, object payload)
+        public void SendObject(string topic, string messageAddress, object payload)
         {
+            System.Console.WriteLine("NetMQServer Send Model");
             if (actor == null)
                 return;
 
-            byte[] serialParam = Serializer.Serialize(parameter);
+            //byte[] serialParam = Serializer.Serialize(parameter);
             byte[] serialPayload = Serializer.Serialize(payload);
-            byte[] serialCommand = Serializer.Serialize(command);
+            Console.WriteLine("Data Size = " + serialPayload.Length); 
+            //byte[] serialCommand = Serializer.Serialize(command);
             var msg = new NetMQMessage(4);
             msg.Append(topic);
             msg.Append(messageAddress);
-            msg.Append(serialCommand);
-            msg.Append(serialParam);
+            //msg.Append(serialCommand);
+            //msg.Append(serialParam);
             msg.Append(serialPayload);
             actor.SendMultipartMessage(msg);
             Console.WriteLine("NetMQServer SendObject with MessageAddress : " + messageAddress + " and Topic : " + topic);

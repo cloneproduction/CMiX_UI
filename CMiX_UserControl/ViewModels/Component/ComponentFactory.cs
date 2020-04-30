@@ -12,15 +12,6 @@ namespace CMiX.Studio.ViewModels
         private static int MaskID { get; set; }
         private static int SceneID { get; set; }
 
-        //public static Component CreateComponent(Component component = null)
-        //{
-        //    Component newComponent = null;
-        //    if (component == null)
-        //        newComponent = CreateProject();
-        //    else if (component is Project)
-        //        newComponent = CreateComposition(component);
-        //    return newComponent;
-        //}
 
         public static Project CreateProject()
         {
@@ -30,43 +21,48 @@ namespace CMiX.Studio.ViewModels
             MaskID = 0;
             SceneID = 0;
             var masterBeat = new MasterBeat();
-            var newProject = new Project(0, string.Empty, masterBeat, null);
+            var newProject = new Project(0, masterBeat, null);
             return newProject;
         }
 
         public static Composition CreateComposition(Component parentComponent)
         {
-            var newCompo = new Composition(CompositionID, parentComponent.Beat);
+            var component = new Composition(CompositionID, parentComponent.Beat);
+            component.SendChangeEvent += parentComponent.OnChildPropertyToSendChange;
             CompositionID++;
-            return newCompo;
+            return component;
         }
 
         public static Layer CreateLayer(Component parentComponent)
         {
-            Layer newLayer = new Layer(LayerID, parentComponent.Messengers, parentComponent.Beat);
+            var component = new Layer(LayerID, parentComponent.Beat);
+            component.SendChangeEvent += parentComponent.OnChildPropertyToSendChange;
             LayerID++;
-            return newLayer;
+            return component;
         }
 
         public static Scene CreateScene(Component parentComponent)
         {
-            Scene newScene = new Scene(SceneID, parentComponent.Beat);
+            var component = new Scene(SceneID, parentComponent.Beat);
+            component.SendChangeEvent += parentComponent.OnChildPropertyToSendChange;
             SceneID++;
-            return newScene;
+            return component;
         }
 
         public static Mask CreateMask(Component parentComponent)
         {
-            Mask newMask = new Mask(MaskID, parentComponent.Beat);
+            var component = new Mask(MaskID, parentComponent.Beat);
+            component.SendChangeEvent += parentComponent.OnChildPropertyToSendChange;
             MaskID++;
-            return newMask;
+            return component;
         }
 
         public static Entity CreateEntity(Component parentComponent)
         {
-            var newEntity = new Entity(EntityID, parentComponent.Beat);
+            var component = new Entity(EntityID, parentComponent.Beat);
+            component.SendChangeEvent += parentComponent.OnChildPropertyToSendChange;
             EntityID++;
-            return newEntity;
+            return component;
         }
     }
 }

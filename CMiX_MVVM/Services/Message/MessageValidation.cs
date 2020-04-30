@@ -31,7 +31,7 @@ namespace CMiX.MVVM.ViewModels
         {
             if (this.Enabled)
             {
-                Server.Send(topic, command, parameter, payload);
+                Server.Send(topic, payload);
             }
         }
 

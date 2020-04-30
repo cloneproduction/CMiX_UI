@@ -70,19 +70,5 @@ namespace CMiX.MVVM.ViewModels
         //{
         //    var action = new SetAndNotifyPropertyAction<TRet>(this, propertyName, backingField, newValue);
         //}
-
-        //public virtual Model GetModel()
-        //{
-        //    Model model = new Model();
-        //    model.Enabled = Enabled;
-        //    return model;
-        //}
-
-        //public virtual void SetViewModel(Model model)
-        //{
-        //    Enabled = model.Enabled;
-        //}
-
-
     }
 }

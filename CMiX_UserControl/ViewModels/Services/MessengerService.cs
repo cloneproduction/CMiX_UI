@@ -12,6 +12,7 @@ namespace CMiX.Studio.ViewModels
         }
 
         public bool Enabled { get; set; }
+
         public ObservableCollection<Messenger> Messengers { get; set; }
 
         public void SendMessages(string topic, MessageCommand command, object parameter, object payload)
@@ -20,7 +21,7 @@ namespace CMiX.Studio.ViewModels
             {
                 foreach (var messenger in Messengers)
                 {
-                    messenger.SendMessage(topic);
+                    //messenger.SendMessage(topic);
                 }
             }
         }

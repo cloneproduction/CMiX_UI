@@ -7,7 +7,8 @@ namespace CMiX.Studio.ViewModels
     {
         public Messenger()
         {
-
+            Server = new Server("Server Name", "localhost", 1111, "Device0");
+            Server.Start();
         }
 
         private Server _server;
@@ -23,20 +24,19 @@ namespace CMiX.Studio.ViewModels
             get => _selectedComponent;
             set
             {
-                if(SelectedComponent != null)
-                    SelectedComponent.Messengers.Remove(this);
+                if(_selectedComponent != null)
+                    _selectedComponent.SendChangeEvent -= Value_SendChangeEvent;
+
                 SetAndNotify(ref _selectedComponent, value);
+
                 if (SelectedComponent != null)
-                {
-                    SelectedComponent.Messengers.Add(this);
-                    System.Console.WriteLine("Selected Component Is " + SelectedComponent.Name);
-                }
+                    SelectedComponent.SendChangeEvent += Value_SendChangeEvent;
             }
         }
 
-        public void SendMessage(string messageAddress)//, MessageCommand command, object parameter, object payload)
+        private void Value_SendChangeEvent(object sender, MVVM.Services.ModelEventArgs e)
         {
-            System.Console.WriteLine("Send message with address : " + messageAddress);
+            Server.Send(e.MessageAddress, e.Model);
         }
     }
 }
