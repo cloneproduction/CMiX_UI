@@ -9,13 +9,14 @@ using System.Collections.Specialized;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Project : Component, IUndoable
+    public class Project : Component
     {
-        public Project(int id, string messageAddress, Beat beat, Mementor mementor, IDialogService dialogService)
-            : base(id, beat, mementor)
+        public Project(int id, string messageAddress, Beat beat, IDialogService dialogService)
+            : base(id, beat)
         {
             DialogService = dialogService;
 
+            Messengers = new ObservableCollection<Messenger>();
             Assets = new ObservableCollection<IAssets>();
             AssetsFlatten = new ObservableCollection<IAssets>();
             ComponentsInEditing = new ObservableCollection<Component>();

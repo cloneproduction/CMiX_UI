@@ -9,12 +9,12 @@ namespace CMiX.Studio.ViewModels
     public class Scene : Component
     {
         #region CONSTRUCTORS
-        public Scene(int id, Beat beat, Mementor mementor)
-            : base(id, beat, mementor)
+        public Scene(int id, Beat beat)
+            : base(id, beat)
         {
             Name = "Scene";
-            BeatModifier = new BeatModifier(MessageAddress, beat, mementor);
-            PostFX = new PostFX(MessageAddress, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, beat);
+            PostFX = new PostFX(MessageAddress);
 
             //CopyContentCommand = new RelayCommand(p => CopyContent());
             //PasteContentCommand = new RelayCommand(p => PasteContent());

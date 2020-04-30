@@ -8,20 +8,19 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class GeometryFX : ViewModel, IUndoable
+    public class GeometryFX : ViewModel
     {
         #region CONSTRUCTORS
-        public GeometryFX(string messageaddress, Mementor mementor)
+        public GeometryFX(string messageaddress)
         {
             MessageAddress = $"{messageaddress}{nameof(GeometryFX)}/";
-            Explode = new Slider(MessageAddress + nameof(Explode), mementor);
+            Explode = new Slider(MessageAddress + nameof(Explode));
         }
         #endregion
 
         #region PROPERTIES
         public Slider Explode { get; }
         public string MessageAddress { get; set; }
-        public Mementor Mementor { get; set; }
         public MessengerService MessengerService { get; set; }
         #endregion
 

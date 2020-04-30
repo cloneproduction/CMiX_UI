@@ -1,27 +1,32 @@
-﻿using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels;
-using Memento;
+﻿using CMiX.MVVM.ViewModels;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels
 {
-    public abstract class Component : ViewModel, IUndoable
+    public abstract class Component : ViewModel
     {
-        public Component(int id, Beat beat, Mementor mementor)
+        public Component(int id, Beat beat)
         {
             ID = id;
-            Mementor = mementor;
             Beat = beat;
             Name = GetType().Name + " " + id;
-            //MessengerService = messengerService;
 
             Components = new ObservableCollection<Component>();
         }
 
-        //public MessengerService MessengerService { get; set; }
-        public Mementor Mementor { get; set; }
         public Beat Beat { get; set; }
+
+        private ObservableCollection<Messenger> _messengers;
+        public ObservableCollection<Messenger> Messengers
+        {
+            get { return _messengers; }
+            set
+            {
+                SetAndNotify(ref _messengers, value);
+                System.Console.WriteLine("Messenger Changed on " + this.GetType().Name);
+                System.Console.WriteLine("Messenger Count Is " + Messengers.Count);
+            }
+        }
 
         private string _messageAddress;
         public string MessageAddress

@@ -9,21 +9,21 @@ using Memento;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Mask : Component, IUndoable
+    public class Mask : Component
     {
         #region CONSTRUCTORS
-        public Mask(int id, Beat beat, Mementor mementor)
-            : base(id, beat, mementor)
+        public Mask(int id, Beat beat)
+            : base(id, beat)
         {
             MaskType = ((MaskType)2).ToString();
             MaskControlType = ((MaskControlType)1).ToString();
             
             Name = "Mask";
 
-            BeatModifier = new BeatModifier(MessageAddress, beat, mementor);
-            Geometry = new Geometry(MessageAddress, mementor, beat);
-            Texture = new Texture(MessageAddress, mementor);
-            PostFX = new PostFX(MessageAddress, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, beat);
+            Geometry = new Geometry(MessageAddress, beat);
+            Texture = new Texture(MessageAddress);
+            PostFX = new PostFX(MessageAddress);
 
             //CopyMaskCommand = new RelayCommand(p => CopyMask());
             //PasteMaskCommand = new RelayCommand(p => PasteMask());
@@ -48,8 +48,8 @@ namespace CMiX.Studio.ViewModels
             get => _masktype;
             set
             {
-                if (Mementor != null)
-                    Mementor.PropertyChange(this, nameof(MaskType));
+                //if (Mementor != null)
+                //    Mementor.PropertyChange(this, nameof(MaskType));
                 SetAndNotify(ref _masktype, value);
                 //SendMessages(MessageAddress + nameof(MaskType), MaskType);
             }
@@ -61,8 +61,8 @@ namespace CMiX.Studio.ViewModels
             get => _maskcontroltype;
             set
             {
-                if (Mementor != null)
-                    Mementor.PropertyChange(this, nameof(MaskControlType));
+                //if (Mementor != null)
+                //    Mementor.PropertyChange(this, nameof(MaskControlType));
                 SetAndNotify(ref _maskcontroltype, value);
                 //SendMessages(MessageAddress + nameof(MaskControlType), MaskControlType);
             }

@@ -8,16 +8,14 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Transform : Sendable, IUndoable
+    public class Transform : Sendable
     {
-        public Transform(string messageAddress, Mementor mementor)
+        public Transform(string messageAddress)
             : base(messageAddress)
         {
-            //MessengerService = messengerService;
-
-            Translate = new Translate(MessageAddress, mementor);
-            Scale = new Scale(MessageAddress, mementor);
-            Rotation = new Rotation(MessageAddress, mementor);
+            Translate = new Translate(MessageAddress);
+            Scale = new Scale(MessageAddress);
+            Rotation = new Rotation(MessageAddress);
 
             Is3D = false;
         }
@@ -33,14 +31,12 @@ namespace CMiX.Studio.ViewModels
             get => _is3D;
             set
             {
-                if (Mementor != null)
-                    Mementor.PropertyChange(this, "Is3D");
+                //if (Mementor != null)
+                //    Mementor.PropertyChange(this, "Is3D");
                 SetAndNotify(ref _is3D, value);
                 //SendMessages(MessageAddress + nameof(Is3D), Is3D.ToString());
             }
         }
-
-        public Mementor Mementor { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
@@ -56,15 +52,13 @@ namespace CMiX.Studio.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("TransformModel"))
             {
-                Mementor.BeginBatch();
-                MessengerService.Disable();;
+                //Mementor.BeginBatch();
 
                 var transformmodel = data.GetData("TransformModel") as TransformModel;
                 var messageaddress = MessageAddress;
                 this.Paste(transformmodel);
 
-                MessengerService.Enable();
-                Mementor.EndBatch();
+                //Mementor.EndBatch();
                 //this.SendMessages(nameof(TransformModel), GetModel());
             }
         }

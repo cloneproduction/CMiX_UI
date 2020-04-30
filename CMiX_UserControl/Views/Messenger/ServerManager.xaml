@@ -31,7 +31,7 @@
                 ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                 Style="{StaticResource LayerListBox}"
                 ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
-                ItemsSource="{Binding Project.MessengerService.Messengers}" 
+                ItemsSource="{Binding Project.Messengers}" 
                 SelectedItem="{Binding SelectedMessenger}"
                 dd:DragDrop.IsDragSource="True"
                 dd:DragDrop.IsDropTarget="True">

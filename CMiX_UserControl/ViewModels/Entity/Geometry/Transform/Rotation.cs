@@ -6,15 +6,15 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Rotation : ViewModel, IUndoable
+    public class Rotation : ViewModel
     {
-        public Rotation(string messageaddress, Mementor mementor)
+        public Rotation(string messageaddress)
         {
             MessageAddress = $"{messageaddress}{nameof(Rotation)}/";
 
-            X = new Slider(MessageAddress + nameof(X), mementor);
-            Y = new Slider(MessageAddress + nameof(Y), mementor);
-            Z = new Slider(MessageAddress + nameof(Z), mementor);
+            X = new Slider(MessageAddress + nameof(X));
+            Y = new Slider(MessageAddress + nameof(Y));
+            Z = new Slider(MessageAddress + nameof(Z));
         }
 
         public Slider X { get; set; }
@@ -22,8 +22,6 @@ namespace CMiX.Studio.ViewModels
         public Slider Z { get; set; }
 
         public string MessageAddress { get ; set ; }
-        public MessengerService MessengerService { get; set; }
-        public Mementor Mementor { get; set; }
 
         #region COPY/PASTE/RESET
         public void CopyGeometry()
@@ -38,15 +36,11 @@ namespace CMiX.Studio.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("RotationModel"))
             {
-                Mementor.BeginBatch();
-                MessengerService.Disable();
-
+                //Mementor.BeginBatch();
                 var rotationmodel = data.GetData("RotationModel") as RotationModel;
                 var messageaddress = MessageAddress;
                 this.Paste(rotationmodel);
-
-                MessengerService.Enable();
-                Mementor.EndBatch();
+                //Mementor.EndBatch();
                 //SendMessages(nameof(RotationModel), GetModel());
             }
         }
@@ -62,18 +56,13 @@ namespace CMiX.Studio.ViewModels
 
         public void Paste(RotationModel rotationmodel)
         {
-            MessengerService.Disable();
-
             X.SetViewModel(rotationmodel.X);
             Y.SetViewModel(rotationmodel.Y);
             Z.SetViewModel(rotationmodel.Z);
-
-            MessengerService.Enable();
         }
 
         public void Reset()
         {
-            MessengerService.Disable();
             //Mementor.BeginBatch();
 
             X.Reset();
@@ -81,7 +70,6 @@ namespace CMiX.Studio.ViewModels
             Z.Reset();
 
             //Mementor.EndBatch();
-            MessengerService.Enable();
 
             //SendMessages(nameof(RotationModel), GetModel());
         }

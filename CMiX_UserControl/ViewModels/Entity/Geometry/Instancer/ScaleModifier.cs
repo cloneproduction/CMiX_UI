@@ -8,16 +8,16 @@ using System.Windows;
 namespace CMiX.Studio.ViewModels
 {
     [Serializable]
-    public class ScaleModifier : ViewModel, IUndoable
+    public class ScaleModifier : ViewModel
     {
-        public ScaleModifier(string messageaddress, Mementor mementor, Beat beat)
+        public ScaleModifier(string messageaddress, Beat beat)
         {
             MessageAddress = $"{messageaddress}{nameof(ScaleModifier)}/";
 
-            Scale = new AnimParameter(MessageAddress + nameof(Scale), mementor, beat, true);
-            ScaleX = new AnimParameter(MessageAddress + nameof(ScaleX), mementor, beat, false);
-            ScaleY = new AnimParameter(MessageAddress + nameof(ScaleY), mementor, beat, false);
-            ScaleZ = new AnimParameter(MessageAddress + nameof(ScaleZ), mementor, beat, false);
+            Scale = new AnimParameter(MessageAddress + nameof(Scale), beat, true);
+            ScaleX = new AnimParameter(MessageAddress + nameof(ScaleX), beat, false);
+            ScaleY = new AnimParameter(MessageAddress + nameof(ScaleY), beat, false);
+            ScaleZ = new AnimParameter(MessageAddress + nameof(ScaleZ), beat, false);
         }
 
         #region PROPERTIES
@@ -27,7 +27,6 @@ namespace CMiX.Studio.ViewModels
         public AnimParameter ScaleZ { get; set; }
         public string MessageAddress { get; set; }
         public MessengerService MessengerService { get; set; }
-        public Mementor Mementor { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
@@ -43,14 +42,14 @@ namespace CMiX.Studio.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("ScaleModifierModel"))
             {
-                Mementor.BeginBatch();
-                MessengerService.Disable();
+                //Mementor.BeginBatch();
+
 
                 var Scalemodifiermodel = data.GetData("ScaleModifierModel") as ScaleModifierModel;
                 var messageaddress = MessageAddress;
                 //this.Paste(Scalemodifiermodel);
-                MessengerService.Enable();
-                Mementor.EndBatch();
+
+                //Mementor.EndBatch();
                 //SendMessages(MessageAddress, GetModel());
                 //QueueObjects(Scalemodifiermodel);
                 //SendQueues();

@@ -1,8 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using Memento;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 
 namespace CMiX.Studio.ViewModels
@@ -10,13 +8,13 @@ namespace CMiX.Studio.ViewModels
     public class Entity : Component
     {
         #region CONSTRUCTORS
-        public Entity(int id, Beat beat, Mementor mementor)
-            : base(id, beat, mementor)
+        public Entity(int id, Beat beat)
+            : base(id, beat)
         {
-            BeatModifier = new BeatModifier(MessageAddress, beat, mementor);
-            Geometry = new Geometry(MessageAddress, mementor, beat);
-            Texture = new Texture(MessageAddress, mementor);
-            Coloration = new Coloration(MessageAddress, mementor, beat);
+            BeatModifier = new BeatModifier(MessageAddress, beat);
+            Geometry = new Geometry(MessageAddress, beat);
+            Texture = new Texture(MessageAddress);
+            Coloration = new Coloration(MessageAddress, beat);
 
             CopyEntityCommand = new RelayCommand(p => CopyEntity());
             PasteEntityCommand = new RelayCommand(p => PasteEntity());
@@ -63,13 +61,13 @@ namespace CMiX.Studio.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent(nameof(EntityModel)))
             {
-                this.Mementor.BeginBatch();
+                //this.Mementor.BeginBatch();
                 this.MessengerService.Disable();
 
                 var entityModel = data.GetData(nameof(EntityModel)) as EntityModel;
                 this.SetViewModel(entityModel);
                 this.MessengerService.Enable();
-                this.Mementor.EndBatch();
+                //this.Mementor.EndBatch();
                 //SendMessages(nameof(ContentModel), contentmodel);
             }
         }

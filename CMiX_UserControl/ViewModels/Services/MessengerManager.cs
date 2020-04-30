@@ -32,7 +32,7 @@ namespace CMiX.Studio.ViewModels
             //$"Server({ServerID.ToString()})", "127.0.0.1", 1111 + ServerID, $"/Device{ServerID}"
             //server.Start();
             Messenger messenger = MessengerFactory.CreateMessenger();
-            //Project.MessengerService.Messengers.Add(messenger);
+            Project.Messengers.Add(messenger);
         }
 
         private void DeleteServer()
@@ -40,7 +40,7 @@ namespace CMiX.Studio.ViewModels
             if (SelectedMessenger != null)
             {
                 //SelectedMessenger.Stop();
-                //Project.MessengerService.Messengers.Remove(SelectedMessenger);
+                Project.Messengers.Remove(SelectedMessenger);
             }
         }
 

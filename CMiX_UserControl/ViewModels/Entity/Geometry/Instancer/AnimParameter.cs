@@ -7,14 +7,14 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class AnimParameter : ViewModel, IUndoable
+    public class AnimParameter : ViewModel
     {
-        public AnimParameter(string messageaddress, Mementor mementor, Beat beat, bool isEnabled)
+        public AnimParameter(string messageaddress, Beat beat, bool isEnabled)
         {
             Mode = AnimMode.None;
             IsEnabled = isEnabled;
-            Slider = new Slider(MessageAddress, mementor);
-            BeatModifier = new BeatModifier(MessageAddress, beat, mementor);
+            Slider = new Slider(MessageAddress);
+            BeatModifier = new BeatModifier(MessageAddress, beat);
         }
 
         #region PROPERTIES
@@ -24,8 +24,8 @@ namespace CMiX.Studio.ViewModels
             get => _IsEnabled;
             set
             {
-                if (Mementor != null)
-                    Mementor.PropertyChange(this, nameof(IsEnabled));
+                //if (Mementor != null)
+                //    Mementor.PropertyChange(this, nameof(IsEnabled));
                 SetAndNotify(ref _IsEnabled, value);
                 //SendMessages(MessageAddress + nameof(Mode), IsEnabled);
             }
@@ -37,8 +37,8 @@ namespace CMiX.Studio.ViewModels
             get => _Mode;
             set
             {
-                if (Mementor != null)
-                    Mementor.PropertyChange(this, nameof(Mode));
+                //if (Mementor != null)
+                //    Mementor.PropertyChange(this, nameof(Mode));
                 SetAndNotify(ref _Mode, value);
                 //SendMessages(MessageAddress + nameof(Mode), Mode);
             }
@@ -48,7 +48,6 @@ namespace CMiX.Studio.ViewModels
         public BeatModifier BeatModifier { get; set; }
         public string MessageAddress { get; set; }
         public MessengerService MessengerService { get; set; }
-        public Mementor Mementor { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
@@ -64,14 +63,11 @@ namespace CMiX.Studio.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("AnimParameterModel"))
             {
-                Mementor.BeginBatch();
-                MessengerService.Disable();
-
+                //Mementor.BeginBatch();
                 var animparametermodel = data.GetData("AnimParameterModel") as AnimParameterModel;
                 this.Paste(animparametermodel);
 
-                MessengerService.Enable();
-                Mementor.EndBatch();
+                //Mementor.EndBatch();
                 //SendMessages(MessageAddress, GetModel());
                 //QueueObjects(animparametermodel);
                 //SendQueues();
@@ -96,22 +92,15 @@ namespace CMiX.Studio.ViewModels
 
         public void Paste(AnimParameterModel animparametermodel)
         {
-            MessengerService.Disable();
-
             Slider.SetViewModel(animparametermodel.Slider);
             BeatModifier.SetViewModel(animparametermodel.BeatModifier);
-
-            MessengerService.Enable();
         }
 
         public void Reset()
         {
-            MessengerService.Disable();
-
             Slider.Reset();
             BeatModifier.Reset();
 
-            MessengerService.Enable();
 
             AnimParameterModel animparametermodel = this.GetModel();
             //this.Copy(animparametermodel);

@@ -8,20 +8,18 @@ using Memento;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Geometry : ViewModel, IUndoable
+    public class Geometry : ViewModel
     {
         #region CONSTRUCTORS
-        public Geometry(string messageaddress, Mementor mementor, Beat beat) 
+        public Geometry(string messageaddress, Beat beat) 
         {
             MessageAddress = $"{messageaddress}{nameof(Geometry)}/";
-            //MessengerService = messengerService;
-            Mementor = mementor;
 
-            Instancer = new Instancer(MessageAddress, mementor, beat);
-            Transform = new Transform(MessageAddress, mementor);
-            GeometryFX = new GeometryFX(MessageAddress, mementor);
+            Instancer = new Instancer(MessageAddress, beat);
+            Transform = new Transform(MessageAddress);
+            GeometryFX = new GeometryFX(MessageAddress);
 
-            AssetPathSelector = new AssetPathSelector<AssetGeometry>(MessageAddress, mementor);
+            AssetPathSelector = new AssetPathSelector<AssetGeometry>(MessageAddress);
 
             CopyGeometryCommand = new RelayCommand(p => CopyGeometry());
             PasteGeometryCommand = new RelayCommand(p => PasteGeometry());
@@ -35,7 +33,6 @@ namespace CMiX.Studio.ViewModels
         public ICommand ResetGeometryCommand { get; }
 
         public string MessageAddress { get; set; }
-        public Mementor Mementor { get; set; }
         public MessengerService MessengerService { get; set; }
 
         public AssetPathSelector<AssetGeometry> AssetPathSelector { get; set; }
@@ -59,7 +56,7 @@ namespace CMiX.Studio.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("GeometryModel"))
             {
-                Mementor.BeginBatch();
+                //Mementor.BeginBatch();
                 MessengerService.Disable();
 
                 var geometrymodel = data.GetData("GeometryModel") as GeometryModel;
@@ -67,7 +64,7 @@ namespace CMiX.Studio.ViewModels
                 this.SetViewModel(geometrymodel);
 
                 MessengerService.Enable();
-                Mementor.EndBatch();
+                //Mementor.EndBatch();
                 //SendMessages(MessageAddress, geometrymodel);
             }
         }

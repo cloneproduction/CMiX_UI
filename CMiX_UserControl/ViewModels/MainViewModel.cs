@@ -25,7 +25,7 @@ namespace CMiX.Studio.ViewModels
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             MessengerService = new MessengerService();
 
-            CurrentProject = ComponentFactory.CreateProject(MessengerService, Mementor);
+            CurrentProject = ComponentFactory.CreateProject();
 
             Projects = new ObservableCollection<Component>();
             Projects.Add(CurrentProject);
@@ -176,7 +176,7 @@ namespace CMiX.Studio.ViewModels
         #region MENU METHODS
         private void NewProject()
         {
-            Project project = ComponentFactory.CreateProject(MessengerService, Mementor);
+            Project project = ComponentFactory.CreateProject();
             Projects.Clear();
             Projects.Add(project);
             CurrentProject = project;

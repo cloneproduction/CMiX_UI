@@ -10,42 +10,42 @@ namespace CMiX.Studio.ViewModels
     public class Texture : ViewModel, IUndoable
     {
         #region CONSTRUCTORS
-        public Texture(string messageaddress, Mementor mementor)
+        public Texture(string messageaddress)
         {
             MessageAddress = $"{messageaddress}{nameof(Texture)}/";
 
-            AssetPathSelector = new AssetPathSelector<AssetTexture>(MessageAddress, mementor);
+            AssetPathSelector = new AssetPathSelector<AssetTexture>(MessageAddress);
 
-            Brightness = new Slider(MessageAddress + nameof(Brightness), mementor);
+            Brightness = new Slider(MessageAddress + nameof(Brightness));
             Brightness.Minimum = -1.0;
 
-            Contrast = new Slider(MessageAddress + nameof(Contrast), mementor);
+            Contrast = new Slider(MessageAddress + nameof(Contrast));
             Contrast.Minimum = -1.0;
 
-            Invert = new Slider(MessageAddress + nameof(Invert), mementor);
+            Invert = new Slider(MessageAddress + nameof(Invert));
             InvertMode = ((TextureInvertMode)0).ToString();
 
-            Hue = new Slider(MessageAddress + nameof(Hue), mementor);
+            Hue = new Slider(MessageAddress + nameof(Hue));
             Hue.Minimum = -1.0;
 
-            Saturation = new Slider(MessageAddress + nameof(Saturation), mementor);
+            Saturation = new Slider(MessageAddress + nameof(Saturation));
             Saturation.Minimum = -1.0;
 
-            Luminosity = new Slider(MessageAddress + nameof(Luminosity), mementor);
+            Luminosity = new Slider(MessageAddress + nameof(Luminosity));
             Luminosity.Minimum = -1.0;
 
-            Keying = new Slider(MessageAddress + nameof(Keying), mementor);
+            Keying = new Slider(MessageAddress + nameof(Keying));
 
-            Scale = new Slider(MessageAddress + nameof(Scale), mementor);
+            Scale = new Slider(MessageAddress + nameof(Scale));
             Scale.Minimum = -1.0;
 
-            Rotate = new Slider(MessageAddress + nameof(Rotate), mementor);
+            Rotate = new Slider(MessageAddress + nameof(Rotate));
             Rotate.Minimum = -1.0;
 
-            Pan = new Slider(MessageAddress + nameof(Pan), mementor);
+            Pan = new Slider(MessageAddress + nameof(Pan));
             Pan.Minimum = -1.0;
 
-            Tilt = new Slider(MessageAddress + nameof(Tilt), mementor);
+            Tilt = new Slider(MessageAddress + nameof(Tilt));
             Tilt.Minimum = -1.0;
 
             CopyTextureCommand = new RelayCommand(p => CopyTexture());

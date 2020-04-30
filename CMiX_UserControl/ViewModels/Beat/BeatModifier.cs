@@ -5,16 +5,16 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class BeatModifier : Beat, IUndoable
+    public class BeatModifier : Beat
     {
         #region CONSTRUCTORS
-        public BeatModifier(string messageAddress, Beat beat, Mementor mementor)
+        public BeatModifier(string messageAddress, Beat beat)
         {
             MessageAddress = $"{messageAddress}{nameof(BeatModifier)}/";
 
             Beat = beat;
             Multiplier = 1.0;
-            ChanceToHit = new Slider(MessageAddress + nameof(ChanceToHit), mementor)
+            ChanceToHit = new Slider(MessageAddress + nameof(ChanceToHit))
             {
                 Amount = 1.0
             };
@@ -43,8 +43,8 @@ namespace CMiX.Studio.ViewModels
             set
             {
                 
-                if (Mementor != null)
-                    Mementor.PropertyChange(this, "Multiplier");                   
+                //if (Mementor != null)
+                //    Mementor.PropertyChange(this, "Multiplier");                   
                 base.Multiplier = value;
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
@@ -54,7 +54,7 @@ namespace CMiX.Studio.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public Mementor Mementor { get; set; }
+
         public MessengerService MessengerService { get; set; }
         #endregion
 
@@ -74,13 +74,9 @@ namespace CMiX.Studio.ViewModels
 
         public void Reset()
         {
-            MessengerService.Disable();
-
             Multiplier = 1.0;
             ChanceToHit.Reset();
             ChanceToHit.Amount = 1.0;
-
-            MessengerService.Enable();
         }
         #endregion
     }

@@ -7,18 +7,18 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Instancer : ViewModel, IUndoable
+    public class Instancer : ViewModel
     {
-        public Instancer(string messageaddress, Mementor mementor, Beat beat)
+        public Instancer(string messageaddress, Beat beat)
         {
             MessageAddress = $"{messageaddress}{nameof(Instancer)}/";
             //MessengerService = messengerService;
 
-            Transform = new Transform(MessageAddress, mementor);
-            Counter = new Counter(MessageAddress, mementor);
-            TranslateModifier = new TranslateModifier(MessageAddress, mementor, beat);
-            ScaleModifier = new ScaleModifier(MessageAddress, mementor, beat);
-            RotationModifier = new RotationModifier(MessageAddress, mementor, beat);
+            Transform = new Transform(MessageAddress);
+            Counter = new Counter(MessageAddress);
+            TranslateModifier = new TranslateModifier(MessageAddress, beat);
+            ScaleModifier = new ScaleModifier(MessageAddress, beat);
+            RotationModifier = new RotationModifier(MessageAddress, beat);
 
             NoAspectRatio = false;
         }
@@ -35,15 +35,14 @@ namespace CMiX.Studio.ViewModels
             get => _noAspectRatio;
             set
             {
-                if (Mementor != null)
-                    Mementor.PropertyChange(this, "NoAspectRatio");
+                //if (Mementor != null)
+                //    Mementor.PropertyChange(this, "NoAspectRatio");
                 SetAndNotify(ref _noAspectRatio, value);
                 //SendMessages(MessageAddress + nameof(NoAspectRatio), NoAspectRatio.ToString());
             }
         }
 
         public string MessageAddress { get; set; }
-        public Mementor Mementor { get; set; }
         public MessengerService MessengerService { get; set; }
 
         #region COPY/PASTE/RESET
@@ -59,14 +58,14 @@ namespace CMiX.Studio.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("InstancerModel"))
             {
-                Mementor.BeginBatch();
+                //Mementor.BeginBatch();
                 MessengerService.Disable();
 
                 var instancermodel = data.GetData("InstancerModel") as InstancerModel;
                 this.SetViewModel(instancermodel);
 
                 MessengerService.Enable();
-                Mementor.EndBatch();
+                //Mementor.EndBatch();
                 //SendMessages(nameof(InstancerModel), GetModel());
             }
         }
@@ -76,32 +75,6 @@ namespace CMiX.Studio.ViewModels
             this.Reset();
             //SendMessages(nameof(InstancerModel), GetModel());
         }
-
-        //public InstancerModel GetModel()
-        //{
-        //    InstancerModel instancerModel = new InstancerModel();
-        //    instancerModel.Transform = Transform.GetModel();
-        //    instancerModel.Counter = Counter.GetModel();
-        //    instancerModel.TranslateModifier = TranslateModifier.GetModel();
-        //    instancerModel.ScaleModifier = ScaleModifier.GetModel();
-        //    instancerModel.RotationModifier = RotationModifier.GetModel();
-        //    instancerModel.NoAspectRatio = NoAspectRatio;
-        //    return instancerModel;
-        //}
-
-        public void SetViewModel(InstancerModel model)
-        {
-
-        }
-        //public void Copy(InstancerModel instancermodel)
-        //{
-        //    Transform.Copy(instancermodel.Transform);
-        //    Counter.Copy(instancermodel.Counter);
-        //    TranslateModifier.Copy(instancermodel.TranslateModifier);
-        //    ScaleModifier.Copy(instancermodel.ScaleModifier);
-        //    RotationModifier.Copy(instancermodel.RotationModifier);
-        //    instancermodel.NoAspectRatio = NoAspectRatio;
-        //}
 
         public void Reset()
         {

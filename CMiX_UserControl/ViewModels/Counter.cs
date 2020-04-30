@@ -4,10 +4,10 @@ using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Counter : ViewModel, IUndoable
+    public class Counter : ViewModel
     {
         #region CONSTRUCTORS
-        public Counter(string messageaddress, Mementor mementor) 
+        public Counter(string messageaddress) 
         {
             MessageAddress = $"{messageaddress}{nameof(Counter)}/";
             Count = 1;
@@ -26,8 +26,8 @@ namespace CMiX.Studio.ViewModels
             get { return _count; }
             set
             {
-                if(Mementor != null)
-                    Mementor.PropertyChange(this, "Count");
+                //if(Mementor != null)
+                //    Mementor.PropertyChange(this, "Count");
                 SetAndNotify(ref _count, value);
                 //SendMessages(MessageAddress + nameof(Count), Count);
             }
@@ -35,7 +35,7 @@ namespace CMiX.Studio.ViewModels
 
 
         public string MessageAddress { get; set; }
-        public Mementor Mementor { get; set; }
+
         public MessengerService MessengerService { get; set; }
         #endregion
 
@@ -55,9 +55,7 @@ namespace CMiX.Studio.ViewModels
         #region COPY/PASTE/RESET
         public void Reset()
         {
-            MessengerService.Enable();
             Count = 1;
-            MessengerService.Disable();
         }
 
         #endregion

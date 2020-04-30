@@ -7,14 +7,13 @@ using Memento;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class ColorSelector : ViewModel, IUndoable
+    public class ColorSelector : ViewModel
     {
         #region CONSTRUCTORS
-        public ColorSelector(string messageaddress, Mementor mementor) 
+        public ColorSelector(string messageaddress) 
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(ColorSelector));
-            Mementor = mementor;
-            ColorPicker = new ColorPicker.ViewModels.ColorPicker(MessageAddress, mementor);
+            ColorPicker = new ColorPicker.ViewModels.ColorPicker(MessageAddress);
 
             CopyColorSelectorCommand = new RelayCommand(p => CopyColorSelector());
             PasteColorSelectorCommand = new RelayCommand(p => PasteColorSelector());
@@ -29,7 +28,6 @@ namespace CMiX.Studio.ViewModels
         public ColorPicker.ViewModels.ColorPicker ColorPicker { get; set; }
         public string MessageAddress { get; set; }
         public MessengerService MessengerService { get; set; }
-        public Mementor Mementor { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
@@ -45,14 +43,12 @@ namespace CMiX.Studio.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("ColorSelectorModel"))
             {
-                this.Mementor.BeginBatch();
-                MessengerService.Disable();
+                //this.Mementor.BeginBatch();
 
                 var colorselectormodel = data.GetData("ColorSelectorModel") as ColorSelectorModel;
                 var colorselectormessageaddress = MessageAddress;
                 this.SetViewModel(colorselectormodel);
-                MessengerService.Enable();
-                this.Mementor.EndBatch();
+                //this.Mementor.EndBatch();
                 //SendMessages(MessageAddress, GetModel());
             }
         }

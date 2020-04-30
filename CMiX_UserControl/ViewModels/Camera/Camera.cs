@@ -8,10 +8,10 @@ using CMiX.MVVM;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Camera : ViewModel, IUndoable
+    public class Camera : ViewModel
     {
         #region CONSTRUCTORS
-        public Camera(string messageAddress, Beat beat, Mementor mementor) 
+        public Camera(string messageAddress, Beat beat) 
         {
             MessageAddress = $"{messageAddress}{nameof(Camera)}/";
             
@@ -19,9 +19,9 @@ namespace CMiX.Studio.ViewModels
             LookAt = ((CameraLookAt)0).ToString();
             View = ((CameraView)0).ToString();
 
-            BeatModifier = new BeatModifier(MessageAddress, beat, mementor);
-            FOV = new Slider(MessageAddress + nameof(FOV), mementor);
-            Zoom = new Slider(MessageAddress + nameof(Zoom), mementor);
+            BeatModifier = new BeatModifier(MessageAddress, beat);
+            FOV = new Slider(MessageAddress + nameof(FOV));
+            Zoom = new Slider(MessageAddress + nameof(Zoom));
         }
         #endregion
 
@@ -36,8 +36,8 @@ namespace CMiX.Studio.ViewModels
             get => _rotation;
             set
             {
-                if(Mementor != null)
-                    Mementor.PropertyChange(this, nameof(Rotation));
+                //if(Mementor != null)
+                //    Mementor.PropertyChange(this, nameof(Rotation));
                 SetAndNotify(ref _rotation, value);
                 //SendMessages(MessageAddress + nameof(Rotation), Rotation);
             }
@@ -49,8 +49,8 @@ namespace CMiX.Studio.ViewModels
             get => _lookAt;
             set
             {
-                if (Mementor != null)
-                    Mementor.PropertyChange(this, nameof(LookAt));
+                //if (Mementor != null)
+                //    Mementor.PropertyChange(this, nameof(LookAt));
                 SetAndNotify(ref _lookAt, value);
                 //SendMessages(MessageAddress + nameof(LookAt), LookAt);
             }
@@ -62,15 +62,14 @@ namespace CMiX.Studio.ViewModels
             get => _view;
             set
             {
-                if (Mementor != null)
-                    Mementor.PropertyChange(this, nameof(View));
+                //if (Mementor != null)
+                //    Mementor.PropertyChange(this, nameof(View));
                 SetAndNotify(ref _view, value);
                 //SendMessages(MessageAddress + nameof(View), View);
             }
         }
 
         public string MessageAddress { get; set; }
-        public Mementor Mementor { get; set; }
         public MessengerService MessengerService { get; set; }
         #endregion
 

@@ -2,39 +2,41 @@
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using System.Collections.ObjectModel;
 
 namespace CMiX.Studio.ViewModels
 {
     public class Layer : Component
     {
         #region CONSTRUCTORS
-        public Layer(int id, Beat beat, Mementor mementor)
-            : base(id, beat, mementor)
+        public Layer(int id, ObservableCollection<Messenger> messengers, Beat beat)
+            : base(id, beat)
         {
+            Messengers = messengers;
+
             Scene scene = ComponentFactory.CreateScene(this);
             Components.Add(scene);
 
             Mask mask = ComponentFactory.CreateMask(this);
             Components.Add(mask);
 
-            PostFX = new PostFX(MessageAddress, mementor);
-            BlendMode = new BlendMode(beat, MessageAddress, mementor);
-            Fade = new Slider(MessageAddress + nameof(Fade), mementor);
+            PostFX = new PostFX(MessageAddress);
+            BlendMode = new BlendMode(beat, MessageAddress);
+            Fade = new Slider(MessageAddress + nameof(Fade));
 
             IsExpanded = true;
         }
         #endregion
 
         #region PROPERTIES
-
         private bool _out;
         public bool Out
         {
             get => _out;
             set
             {
-                if (Mementor != null)
-                    Mementor.PropertyChange(this, nameof(Out));
+                //if (Mementor != null)
+                //    Mementor.PropertyChange(this, nameof(Out));
                 SetAndNotify(ref _out, value);
                 //if (Out)
                     //Sender.SendMessages(MessageAddress + nameof(Out), Out);

@@ -1,16 +1,15 @@
 ﻿using System.Windows.Input;
 using System.Windows;
-using Memento;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Commands;
 using CMiX.MVVM.ViewModels;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Slider : Sendable, IUndoable
+    public class Slider : Sendable
     {
         #region CONSTRUCTORS
-        public Slider(string messageAddress, Mementor mementor)
+        public Slider(string messageAddress)
             : base (messageAddress)
         {
             AddCommand = new RelayCommand(p => Add());
@@ -38,8 +37,8 @@ namespace CMiX.Studio.ViewModels
 
         private void MouseDown()
         {
-            if(Mementor != null)
-                Mementor.PropertyChange(this, "Amount");     
+            //if(Mementor != null)
+            //    Mementor.PropertyChange(this, "Amount");     
         }
 
         private double _amount = 0.0;
@@ -66,9 +65,6 @@ namespace CMiX.Studio.ViewModels
             get => _maximum; 
             set => SetAndNotify(ref _maximum, value);
         }
-
-        public Mementor Mementor { get; set; }
-
         #endregion
 
         #region ADD/SUB
@@ -112,10 +108,10 @@ namespace CMiX.Studio.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("SliderModel"))
             {
-                Mementor.BeginBatch();
+                //Mementor.BeginBatch();
                 var slidermodel = data.GetData("SliderModel") as SliderModel;
                 //this.SetViewModel(slidermodel);
-                Mementor.EndBatch();
+                //Mementor.EndBatch();
             }
         }
         #endregion

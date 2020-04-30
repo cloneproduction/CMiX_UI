@@ -9,20 +9,19 @@ using CMiX.MVVM;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Coloration : ViewModel, IUndoable
+    public class Coloration : ViewModel
     {
         #region CONSTRUCTORS
-        public Coloration(string messageAddress, Mementor mementor, Beat beat) 
+        public Coloration(string messageAddress, Beat beat) 
         {
             MessageAddress = $"{messageAddress}{nameof(Coloration)}/";
-            Mementor = mementor;
 
-            BeatModifier = new BeatModifier(MessageAddress, beat, mementor);
-            ColorSelector = new ColorSelector(MessageAddress, mementor);
+            BeatModifier = new BeatModifier(MessageAddress, beat);
+            ColorSelector = new ColorSelector(MessageAddress);
 
-            Hue = new RangeControl(MessageAddress + nameof(Hue), mementor);
-            Saturation = new RangeControl(MessageAddress + nameof(Saturation), mementor);
-            Value = new RangeControl(MessageAddress + nameof(Value), mementor);
+            Hue = new RangeControl(MessageAddress + nameof(Hue));
+            Saturation = new RangeControl(MessageAddress + nameof(Saturation));
+            Value = new RangeControl(MessageAddress + nameof(Value));
 
             CopyColorationCommand = new RelayCommand(p => CopyColoration());
             PasteColorationCommand = new RelayCommand(p => PasteColoration());
@@ -46,7 +45,6 @@ namespace CMiX.Studio.ViewModels
         public RangeControl Value { get; }
         public string MessageAddress { get; set; }
         public MessengerService MessengerService { get; set; }
-        public Mementor Mementor { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
@@ -78,14 +76,13 @@ namespace CMiX.Studio.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("ColorationModel"))
             {
-                this.Mementor.BeginBatch();
-                this.MessengerService.Disable();
+                //this.Mementor.BeginBatch();
 
                 var colorationmodel = data.GetData("ColorationModel") as ColorationModel;
                 this.SetViewModel(colorationmodel);
 
-                this.MessengerService.Enable();
-                this.Mementor.EndBatch();
+
+                //this.Mementor.EndBatch();
 
                 //SendMessages(nameof(ColorationModel), GetModel());
             }

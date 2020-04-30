@@ -23,14 +23,20 @@ namespace CMiX.Studio.ViewModels
             get => _selectedComponent;
             set
             {
+                if(SelectedComponent != null)
+                    SelectedComponent.Messengers.Remove(this);
                 SetAndNotify(ref _selectedComponent, value);
-                System.Console.WriteLine(SelectedComponent.Name);
+                if (SelectedComponent != null)
+                {
+                    SelectedComponent.Messengers.Add(this);
+                    System.Console.WriteLine("Selected Component Is " + SelectedComponent.Name);
+                }
             }
         }
 
-        public void SendMessage(string messageAddress, MessageCommand command, object parameter, object payload)
+        public void SendMessage(string messageAddress)//, MessageCommand command, object parameter, object payload)
         {
-            
+            System.Console.WriteLine("Send message with address : " + messageAddress);
         }
     }
 }

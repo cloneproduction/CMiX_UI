@@ -7,15 +7,13 @@ using CMiX.MVVM.ViewModels;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class AssetPathSelector<T> : ViewModel, IUndoable, IDropTarget
+    public class AssetPathSelector<T> : ViewModel, IDropTarget
     {
-        public AssetPathSelector(string messageAddress, Mementor mementor)
+        public AssetPathSelector(string messageAddress)
         {
             MessageAddress = $"{messageAddress}/";
-            Mementor = mementor;
         }
 
-        public Mementor Mementor { get; set; }
         public string MessageAddress { get; set; }
 
         private string _selectedPath;

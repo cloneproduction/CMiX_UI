@@ -6,9 +6,9 @@ using Memento;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class BlendMode : ViewModel, IUndoable
+    public class BlendMode : ViewModel
     {
-        public BlendMode(Beat masterBeat, string messageAddress, Mementor mementor)
+        public BlendMode(Beat masterBeat, string messageAddress)
         {
             MessageAddress = $"{messageAddress}{nameof(BlendMode)}";
             Mode = ((MVVM.ViewModels.BlendMode)0).ToString();
@@ -20,8 +20,8 @@ namespace CMiX.Studio.ViewModels
             get { return _mode; }
             set
             {
-                if (Mementor != null)
-                    Mementor.PropertyChange(this, nameof(Mode));
+                //if (Mementor != null)
+                //    Mementor.PropertyChange(this, nameof(Mode));
                 SetAndNotify(ref _mode, value);
                 //var blendModeModel = this.GetModel();
                 //MessengerService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, blendModeModel);
@@ -29,7 +29,6 @@ namespace CMiX.Studio.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public Mementor Mementor { get; set; }
         public MessengerService MessengerService { get; set; }
 
         public void Reset()

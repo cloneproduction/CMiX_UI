@@ -7,16 +7,16 @@ using CMiX.MVVM.Models;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class PostFX : ViewModel, IUndoable
+    public class PostFX : ViewModel
     {
         #region CONSTRUCTORS
-        public PostFX(string messageaddress, Mementor mementor) 
+        public PostFX(string messageaddress) 
         {
             MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(PostFX));
             //MessengerService = messengerService;
 
-            Feedback = new Slider(MessageAddress + nameof(Feedback), mementor);
-            Blur = new Slider(MessageAddress + nameof(Blur), mementor);
+            Feedback = new Slider(MessageAddress + nameof(Feedback));
+            Blur = new Slider(MessageAddress + nameof(Blur));
 
             Transforms = ((PostFXTransforms)0).ToString();
             View = ((PostFXView)0).ToString();
@@ -41,8 +41,8 @@ namespace CMiX.Studio.ViewModels
             get => _transforms;
             set
             {
-                if (Mementor != null)
-                    Mementor.PropertyChange(this, "Transforms");
+                //if (Mementor != null)
+                //    Mementor.PropertyChange(this, "Transforms");
                 SetAndNotify(ref _transforms, value);
                 //SendMessages(MessageAddress + nameof(Transforms), Transforms);
             }
@@ -54,15 +54,14 @@ namespace CMiX.Studio.ViewModels
             get => _view;
             set
             {
-                if (Mementor != null)
-                    Mementor.PropertyChange(this, "View");
+                //if (Mementor != null)
+                //    Mementor.PropertyChange(this, "View");
                 SetAndNotify(ref _view, value);
                 //SendMessages(MessageAddress + nameof(View), View);
             }
         }
 
         public string MessageAddress { get; set; }
-        public Mementor Mementor { get; set; }
         public MessengerService MessengerService { get; set; }
         #endregion
 
@@ -96,14 +95,13 @@ namespace CMiX.Studio.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("PostFXModel"))
             {
-                Mementor.BeginBatch();
-                MessengerService.Disable();
+                //Mementor.BeginBatch();
 
                 var postFXModel = data.GetData("PostFXModel") as PostFXModel;
                 this.SetViewModel(postFXModel);
 
-                Mementor.EndBatch();
-                MessengerService.Enable();
+                //Mementor.EndBatch();
+
                 //this.SendMessages(nameof(PostFXModel), postFXModel);
             }
         }

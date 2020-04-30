@@ -6,22 +6,21 @@ using CMiX.MVVM.Models;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Scale : ViewModel, IUndoable
+    public class Scale : ViewModel
     {
-        public Scale(string messageaddress, Mementor mementor) 
+        public Scale(string messageaddress) 
         {
             MessageAddress = $"{messageaddress}{nameof(Scale)}/";
 
-            X = new Slider(MessageAddress + nameof(X), mementor);
-            Y = new Slider(MessageAddress + nameof(Y), mementor);
-            Z = new Slider(MessageAddress + nameof(Z), mementor);
+            X = new Slider(MessageAddress + nameof(X));
+            Y = new Slider(MessageAddress + nameof(Y));
+            Z = new Slider(MessageAddress + nameof(Z));
         }
 
         public Slider X { get; set; }
         public Slider Y { get; set; }
         public Slider Z { get; set; }
         public string MessageAddress { get ; set; }
-        public Mementor Mementor { get; set; }
         public MessengerService MessengerService { get; set; }
 
 
@@ -38,7 +37,7 @@ namespace CMiX.Studio.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("ScaleModel"))
             {
-                Mementor.BeginBatch();
+                //Mementor.BeginBatch();
                 MessengerService.Disable();
 
                 var scalemodel = data.GetData("ScaleModel") as ScaleModel;
@@ -46,7 +45,7 @@ namespace CMiX.Studio.ViewModels
                 this.Paste(scalemodel);
 
                 MessengerService.Enable();
-                Mementor.EndBatch();
+                //Mementor.EndBatch();
                 //SendMessages(nameof(ScaleModel), GetModel());
             }
         }

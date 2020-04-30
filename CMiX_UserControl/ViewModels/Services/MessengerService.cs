@@ -20,7 +20,7 @@ namespace CMiX.Studio.ViewModels
             {
                 foreach (var messenger in Messengers)
                 {
-                    messenger.SendMessage(topic, command, parameter, payload);
+                    messenger.SendMessage(topic);
                 }
             }
         }

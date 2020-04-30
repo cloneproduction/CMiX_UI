@@ -11,10 +11,9 @@ namespace CMiX.Studio.ViewModels
     public class MasterBeat : Beat
     {
         #region CONSTRUCTORS
-        public MasterBeat(MessengerService messengerService)
+        public MasterBeat()
         : this
         (
-            messengerService: messengerService,
             period: 0.0,
             multiplier: 1
         )
@@ -22,12 +21,10 @@ namespace CMiX.Studio.ViewModels
 
         public MasterBeat
             (
-                MessengerService messengerService,
                 double period,
                 double multiplier
             )
         {
-            MessengerService = messengerService;
             Period = period;
             Multiplier = multiplier;
             ResyncCommand = new RelayCommand(p => Resync());
@@ -61,7 +58,6 @@ namespace CMiX.Studio.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public MessengerService MessengerService { get; set; }
         #endregion
 
         #region METHODS

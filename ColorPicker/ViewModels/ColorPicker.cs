@@ -8,15 +8,12 @@ using CMiX.MVVM.Resources;
 
 namespace CMiX.ColorPicker.ViewModels
 {
-    public class ColorPicker : ViewModel, IUndoable
+    public class ColorPicker : ViewModel
     {
         #region CONSTRUCTORS
-        public ColorPicker(string messageaddress,  Mementor mementor)
+        public ColorPicker(string messageaddress)
         {
             MessageAddress = $"{messageaddress}{nameof(ColorPicker)}";
-
-            //MessageService = messageService;
-            Mementor = mementor;
 
             SelectedColor = Color.FromArgb(255, 255, 0, 0);
             Red = SelectedColor.R;
@@ -50,8 +47,8 @@ namespace CMiX.ColorPicker.ViewModels
 
         private void UpdateMementor(string propertyname)
         {
-            if (MouseDown)
-                Mementor.PropertyChange(this, propertyname);
+            //if (MouseDown)
+               // Mementor.PropertyChange(this, propertyname);
             
         }
 
