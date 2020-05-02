@@ -1,8 +1,7 @@
-﻿
+﻿using System;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
-using System;
 
 namespace CMiX.Studio.ViewModels
 {

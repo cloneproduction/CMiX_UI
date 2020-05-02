@@ -6,98 +6,98 @@
              xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
              xmlns:Views="clr-namespace:CMiX.Studio.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="115" d:DesignWidth="234.611">
-    
-    <Border Background="{StaticResource HighHighDarkerColor}">
-        <StackPanel HorizontalAlignment="Stretch">
-            <Controls:EditableTextBox 
+             d:DesignHeight="147.674" d:DesignWidth="252.229">
+
+
+    <Expander Style="{StaticResource ExpanderBase}">
+        <Border Padding="4">
+            <StackPanel HorizontalAlignment="Stretch">
+                <!--<Controls:EditableTextBox 
                 Margin="0, 0, 0, 2"
                 HorizontalAlignment="Stretch"
                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <Grid Height="20" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.4*"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <TextBlock 
-                    Text="IP" 
-                    Foreground="{StaticResource TextBase}"
-                    HorizontalAlignment="Right"
-                    Margin="0, 0, 8, 0"
-                    VerticalAlignment="Center"
-                    />
-                <Controls:IPBox 
-                    Margin="1"
-                    Grid.Column="1" 
-                    IPAddress="{Binding IP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            </Grid>
-            <Grid Height="20" Margin="0, 2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.4*"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <TextBlock 
+                IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
+                <Grid Height="25" Margin="0, 1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.4*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock 
+                        Text="IP" 
+                        Foreground="{StaticResource TextBase}"
+                        HorizontalAlignment="Right"
+                        Margin="0, 0, 8, 0"
+                        VerticalAlignment="Center"/>
+                    <Controls:IPBox 
+                        Grid.Column="1" 
+                        IPAddress="{Binding Server.IP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+                <Grid Height="25" Margin="0, 1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.4*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock 
                     Text="Port" 
                     Margin="0, 0, 8, 0"
                     Foreground="{StaticResource TextBase}"
                     HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    />
-                <TextBox
-                    Margin="1"
-                    Text="{Binding Port}"
+                    VerticalAlignment="Center"/>
+                    <TextBox
+                    Padding="4"
+                    Text="{Binding Server.Port}"
                     Grid.Column="1"
                     BorderThickness="0"
                     BorderBrush="{StaticResource DarkColor}"
                     Foreground="{StaticResource TextBase}"
-                    Background="{StaticResource HighDarkerColor}"
-                    />
-
-            </Grid>
-            <Grid Height="20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.4*"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <TextBlock 
+                    Background="{StaticResource HighHighDarkerColor}"/>
+                </Grid>
+                <Grid Height="25" Margin="0, 1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.4*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock 
                     Text="Device" 
                     Margin="0, 0, 8, 0"
                     Foreground="{StaticResource TextBase}"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"/>
-                <TextBox
-                    Margin="1"
-                    Text="{Binding Topic}"
+                    <TextBox
+                    Padding="4"
+                    Text="{Binding Server.Topic}"
                     Grid.Column="1"
                     BorderThickness="0"
                     BorderBrush="{StaticResource DarkColor}"
                     Foreground="{StaticResource TextBase}"
-                    Background="{StaticResource HighDarkerColor}"/>
-            </Grid>
-            <Grid Height="20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.4*"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <TextBlock 
-                    Text="Compo" 
-                    Margin="0, 0, 8, 0"
-                    Foreground="{StaticResource TextBase}"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"/>
-                <ComboBox 
-                    Grid.Column="1"
-                    SelectedItem="{Binding SelectedComponent}"
-                    ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:ServerManager}}, Path=DataContext.Project.Components}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Margin="2, 1" Text="{Binding Name}"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            </Grid>
-        </StackPanel>
-    </Border>
-    
+                    Background="{StaticResource HighHighDarkerColor}"/>
+                </Grid>
+                <Grid Margin="0, 1" Height="25">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.4*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock 
+                        Text="Compo" 
+                        Margin="0, 0, 8, 0"
+                        Foreground="{StaticResource TextBase}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"/>
+                    <ComboBox 
+                        Grid.Column="1"
+                        SelectedItem="{Binding SelectedComponent}"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:ServerManager}}, Path=DataContext.Project.Components}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="2, 1" Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        </Expander>
+
+
 </UserControl>

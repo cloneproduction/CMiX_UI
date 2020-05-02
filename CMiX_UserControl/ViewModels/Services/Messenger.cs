@@ -5,9 +5,9 @@ namespace CMiX.Studio.ViewModels
 {
     public class Messenger : ViewModel
     {
-        public Messenger()
+        public Messenger(int id)
         {
-            Server = new Server("Server Name", "localhost", 1111, "Device0");
+            Server = new Server("Server Name", "127.0.0.1", 1111 + id, "Device" + id);
             Server.Start();
         }
 

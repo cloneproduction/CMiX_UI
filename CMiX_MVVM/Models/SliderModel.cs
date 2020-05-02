@@ -7,7 +7,8 @@ namespace CMiX.MVVM.Models
     {
         public SliderModel()
         {
-
+            Amount = 0.0;
+            Enabled = true;
         }
 
         public double Amount { get; set; }

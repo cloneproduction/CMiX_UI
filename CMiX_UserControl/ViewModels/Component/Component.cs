@@ -1,8 +1,4 @@
-﻿using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels;
-using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 
 namespace CMiX.Studio.ViewModels
 {

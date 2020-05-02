@@ -1,8 +1,4 @@
-﻿using Memento;
-using CMiX.MVVM.ViewModels;
-using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
-using System.Collections.ObjectModel;
+﻿
 
 namespace CMiX.Studio.ViewModels
 {
@@ -19,8 +15,11 @@ namespace CMiX.Studio.ViewModels
             Components.Add(mask);
 
             PostFX = new PostFX();
+            PostFX.SendChangeEvent += this.OnChildPropertyToSendChange;
+
             BlendMode = new BlendMode(beat);
             BlendMode.SendChangeEvent += this.OnChildPropertyToSendChange;
+
             Fade = new Slider(nameof(Fade));
             Fade.SendChangeEvent += this.OnChildPropertyToSendChange;
 

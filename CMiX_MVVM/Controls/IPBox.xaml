@@ -27,7 +27,7 @@
             BorderThickness="0"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
-            Background="{StaticResource HighDarkerColor}"
+            Background="{StaticResource HighHighDarkerColor}"
             Foreground="{StaticResource TextBase}"
             />
         <Label 
@@ -37,7 +37,7 @@
             BorderThickness="0"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
-            Background="{StaticResource HighDarkerColor}"
+            Background="{StaticResource HighHighDarkerColor}"
             Foreground="{StaticResource TextBase}"
             />
         <TextBox 
@@ -52,7 +52,7 @@
             BorderThickness="0"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
-            Background="{StaticResource HighDarkerColor}"
+            Background="{StaticResource HighHighDarkerColor}"
             Foreground="{StaticResource TextBase}"
             />
         <Label 
@@ -62,7 +62,7 @@
             BorderThickness="0"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
-            Background="{StaticResource HighDarkerColor}"
+            Background="{StaticResource HighHighDarkerColor}"
             Foreground="{StaticResource TextBase}"
             />
         <TextBox  
@@ -77,7 +77,7 @@
             BorderThickness="0"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
-            Background="{StaticResource HighDarkerColor}"
+            Background="{StaticResource HighHighDarkerColor}"
             Foreground="{StaticResource TextBase}"
             />
         <Label 
@@ -87,7 +87,7 @@
             BorderThickness="0"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
-            Background="{StaticResource HighDarkerColor}"
+            Background="{StaticResource HighHighDarkerColor}"
             Foreground="{StaticResource TextBase}"
             />
         <TextBox 
@@ -101,7 +101,7 @@
             BorderThickness="0"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
-            Background="{StaticResource HighDarkerColor}"
+            Background="{StaticResource HighHighDarkerColor}"
             Foreground="{StaticResource TextBase}" 
             />
     </Grid>
