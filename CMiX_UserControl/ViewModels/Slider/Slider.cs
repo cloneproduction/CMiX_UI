@@ -15,7 +15,7 @@ namespace CMiX.Studio.ViewModels
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
 
-            ResetSliderCommand = new RelayCommand(p => ResetSlider());
+            ResetCommand = new RelayCommand(p => Reset());
             CopySliderCommand = new RelayCommand(p => CopySlider());
             PasteSliderCommand = new RelayCommand(p => PasteSlider());
             MouseDownCommand = new RelayCommand(p => MouseDown());
@@ -29,7 +29,6 @@ namespace CMiX.Studio.ViewModels
 
         public ICommand CopySliderCommand { get; }
         public ICommand PasteSliderCommand { get; }
-        public ICommand ResetSliderCommand { get; }
 
         public ICommand MouseDownCommand { get; }
         public ICommand DragCompletedCommand { get; }
@@ -43,7 +42,7 @@ namespace CMiX.Studio.ViewModels
 
         public override string GetMessageAddress()
         {
-            return $"{this.GetType().Name}/{Name}";
+            return $"{Name}/";
         }
 
         private string _name;
@@ -100,11 +99,6 @@ namespace CMiX.Studio.ViewModels
 
         #region COPY/PASTE/RESET
         public void Reset()
-        {
-            Amount = 0.0;
-        }
-
-        public void ResetSlider()
         {
             Amount = 0.0;
         }

@@ -20,7 +20,7 @@ namespace CMiX.Studio.ViewModels
 
             PostFX = new PostFX();
             BlendMode = new BlendMode(beat);
-
+            BlendMode.SendChangeEvent += this.OnChildPropertyToSendChange;
             Fade = new Slider(nameof(Fade));
             Fade.SendChangeEvent += this.OnChildPropertyToSendChange;
 

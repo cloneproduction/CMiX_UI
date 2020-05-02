@@ -1,16 +1,11 @@
-﻿using CMiX.MVVM.Services;
-using CMiX.MVVM.Commands;
-using CMiX.MVVM.Models;
-using CMiX.MVVM.ViewModels;
-using Memento;
+﻿using CMiX.MVVM.ViewModels;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class BlendMode : ViewModel
+    public class BlendMode : Sendable
     {
         public BlendMode(Beat masterBeat)
         {
-            //MessageAddress = $"{messageAddress}{nameof(BlendMode)}";
             Mode = ((MVVM.ViewModels.BlendMode)0).ToString();
         }
 
@@ -20,16 +15,11 @@ namespace CMiX.Studio.ViewModels
             get { return _mode; }
             set
             {
-                //if (Mementor != null)
-                //    Mementor.PropertyChange(this, nameof(Mode));
+                //Mementor.PropertyChange(this, nameof(Mode));
                 SetAndNotify(ref _mode, value);
-                //var blendModeModel = this.GetModel();
-                //MessengerService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, blendModeModel);
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
-
-        public string MessageAddress { get; set; }
-        public MessengerService MessengerService { get; set; }
 
         public void Reset()
         {
