@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
 using System;
 using System.ComponentModel;
 using System.Linq.Expressions;
@@ -65,6 +66,8 @@ namespace CMiX.MVVM.ViewModels
         {
             return this.MemberwiseClone();
         }
+
+
 
         //public void SetAndRecord<TRet>(Expression<Func<TRet>> backingField, TRet newValue, [CallerMemberName] string propertyName = null)
         //{

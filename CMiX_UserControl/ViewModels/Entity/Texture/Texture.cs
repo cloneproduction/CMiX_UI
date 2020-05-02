@@ -10,9 +10,9 @@ namespace CMiX.Studio.ViewModels
     public class Texture : ViewModel, IUndoable
     {
         #region CONSTRUCTORS
-        public Texture(string messageaddress)
+        public Texture()
         {
-            MessageAddress = $"{messageaddress}{nameof(Texture)}/";
+            //MessageAddress = $"{messageaddress}{nameof(Texture)}/";
 
             AssetPathSelector = new AssetPathSelector<AssetTexture>(MessageAddress);
 

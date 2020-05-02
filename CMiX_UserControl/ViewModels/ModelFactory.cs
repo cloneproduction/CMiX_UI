@@ -234,8 +234,6 @@ namespace CMiX.Studio.ViewModels
 
         public static void SetViewModel(this Camera instance, CameraModel cameraModel)
         {
-            instance.MessengerService.Disable();
-
             instance.Rotation = cameraModel.Rotation;
             instance.LookAt = cameraModel.LookAt;
             instance.View = cameraModel.View;
@@ -243,8 +241,6 @@ namespace CMiX.Studio.ViewModels
             instance.BeatModifier.SetViewModel(cameraModel.BeatModifierModel);
             instance.FOV.SetViewModel(cameraModel.FOV);
             instance.Zoom.SetViewModel(cameraModel.Zoom);
-
-            instance.MessengerService.Enable();
         }
 
 
@@ -318,9 +314,7 @@ namespace CMiX.Studio.ViewModels
 
         public static void SetViewModel(this ColorSelector instance, ColorSelectorModel colorSelectorModel)
         {
-            instance.MessengerService.Disable();
             instance.ColorPicker.Paste(colorSelectorModel.ColorPickerModel);
-            instance.MessengerService.Enable();
         }
 
 
@@ -489,14 +483,10 @@ namespace CMiX.Studio.ViewModels
 
         public static void SetViewModel(this RotationModifier instance, RotationModifierModel model)
         {
-            instance.MessengerService.Disable();
-
             //instance.Rotation.Paste(model.Rotation);
             //instance.Translate.Sa(model.RotationX);
             //instance.Paste(model.RotationY);
             //instance.RotationZ.Paste(model.RotationZ);
-
-            instance.MessengerService.Enable();
         }
 
 
@@ -514,14 +504,10 @@ namespace CMiX.Studio.ViewModels
 
         public static void SetViewModel(this ScaleModifier instance, ScaleModifierModel model)
         {
-            instance.MessengerService.Disable();
-
             instance.Scale.Paste(model.Scale);
             instance.ScaleX.Paste(model.ScaleX);
             instance.ScaleY.Paste(model.ScaleY);
             instance.ScaleZ.Paste(model.ScaleZ);
-
-            instance.MessengerService.Enable();
         }
 
 
@@ -539,14 +525,10 @@ namespace CMiX.Studio.ViewModels
 
         public static void SetViewModel(this TranslateModifier instance, TranslateModifierModel model)
         {
-            instance.MessengerService.Disable();
-
             instance.Translate.Paste(model.Translate);
             instance.TranslateX.Paste(model.TranslateX);
             instance.TranslateY.Paste(model.TranslateY);
             instance.TranslateZ.Paste(model.TranslateZ);
-
-            instance.MessengerService.Enable();
         }
 
 
@@ -562,12 +544,8 @@ namespace CMiX.Studio.ViewModels
 
         public static void SetViewModel(this AnimParameter instance, AnimParameterModel model)
         {
-            instance.MessengerService.Disable();
-
             instance.Slider.SetViewModel(model.Slider);
             instance.BeatModifier.SetViewModel(model.BeatModifier);
-
-            instance.MessengerService.Enable();
         }
 
 
@@ -580,9 +558,7 @@ namespace CMiX.Studio.ViewModels
 
         public static void SetViewModel(this Counter instance, CounterModel model)
         {
-            instance.MessengerService.Enable();
             instance.Count = model.Count;
-            instance.MessengerService.Enable();
         }
     }
 }

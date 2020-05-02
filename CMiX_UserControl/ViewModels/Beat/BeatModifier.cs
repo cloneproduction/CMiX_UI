@@ -8,9 +8,9 @@ namespace CMiX.Studio.ViewModels
     public class BeatModifier : Beat
     {
         #region CONSTRUCTORS
-        public BeatModifier(string messageAddress, Beat beat)
+        public BeatModifier(Beat beat)
         {
-            MessageAddress = $"{messageAddress}{nameof(BeatModifier)}/";
+            //MessageAddress = $"{messageAddress}{nameof(BeatModifier)}/";
 
             Beat = beat;
             Multiplier = 1.0;

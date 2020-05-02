@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 
 namespace CMiX.Studio.ViewModels
 {
-    public abstract class Component : ViewModel
+    public abstract class Component : Sendable
     {
         public Component(int id, Beat beat)
         {
@@ -18,31 +18,13 @@ namespace CMiX.Studio.ViewModels
         }
 
 
-
-        public event EventHandler<ModelEventArgs> SendChangeEvent;
-        public void OnSendChange(IModel model, string messageAddress)
-        {
-            ModelEventArgs modelEventArgs = new ModelEventArgs(model, messageAddress);
-            SendChangeEvent?.Invoke(this, modelEventArgs);
-        }
-
-        public void OnChildPropertyToSendChange(object sender, ModelEventArgs e)
-        {
-            //Console.WriteLine("OnChildPropertyToSendChange " + e.MessageAddress);
-            //Console.WriteLine("ChildTypeIs " + e.Model.GetType().Name);
-            OnSendChange(e.Model, this.MessageAddress + e.MessageAddress);
-        }
-
-
-
         public Beat Beat { get; set; }
 
-        private string _messageAddress;
-        public string MessageAddress
+        public override string GetMessageAddress()
         {
-            get { return $"{this.GetType().Name}/{ID}/"; }
-            set { _messageAddress = value; }
+            return $"{this.GetType().Name}/{ID}/";
         }
+
 
         public int ID { get; set; }
 
@@ -74,7 +56,7 @@ namespace CMiX.Studio.ViewModels
             set
             {
                 SetAndNotify(ref _isSelected, value);
-                OnSendChange(this.GetModel(), this.MessageAddress);
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 

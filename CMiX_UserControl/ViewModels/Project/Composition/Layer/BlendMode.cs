@@ -8,9 +8,9 @@ namespace CMiX.Studio.ViewModels
 {
     public class BlendMode : ViewModel
     {
-        public BlendMode(Beat masterBeat, string messageAddress)
+        public BlendMode(Beat masterBeat)
         {
-            MessageAddress = $"{messageAddress}{nameof(BlendMode)}";
+            //MessageAddress = $"{messageAddress}{nameof(BlendMode)}";
             Mode = ((MVVM.ViewModels.BlendMode)0).ToString();
         }
 

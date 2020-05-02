@@ -18,9 +18,11 @@ namespace CMiX.Studio.ViewModels
             Mask mask = ComponentFactory.CreateMask(this);
             Components.Add(mask);
 
-            PostFX = new PostFX(MessageAddress);
-            BlendMode = new BlendMode(beat, MessageAddress);
-            Fade = new Slider(MessageAddress + nameof(Fade));
+            PostFX = new PostFX();
+            BlendMode = new BlendMode(beat);
+
+            Fade = new Slider(nameof(Fade));
+            Fade.SendChangeEvent += this.OnChildPropertyToSendChange;
 
             IsExpanded = true;
         }

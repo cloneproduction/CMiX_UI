@@ -3,7 +3,7 @@
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class SliderModel
+    public class SliderModel : IModel
     {
         public SliderModel()
         {
@@ -11,5 +11,6 @@ namespace CMiX.MVVM.Models
         }
 
         public double Amount { get; set; }
+        public bool Enabled { get; set; }
     }
 }

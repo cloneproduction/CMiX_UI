@@ -11,9 +11,9 @@ namespace CMiX.ColorPicker.ViewModels
     public class ColorPicker : ViewModel
     {
         #region CONSTRUCTORS
-        public ColorPicker(string messageaddress)
+        public ColorPicker()
         {
-            MessageAddress = $"{messageaddress}{nameof(ColorPicker)}";
+            //MessageAddress = $"{messageaddress}{nameof(ColorPicker)}";
 
             SelectedColor = Color.FromArgb(255, 255, 0, 0);
             Red = SelectedColor.R;
@@ -216,8 +216,6 @@ namespace CMiX.ColorPicker.ViewModels
         }
 
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
-        public Mementor Mementor { get; set; }
         #endregion
 
         #region METHODS

@@ -1,21 +1,15 @@
-﻿using System;
-using System.Windows;
-using System.Collections.ObjectModel;
-using CMiX.MVVM.ViewModels;
+﻿using System.Windows;
 using CMiX.MVVM.Models;
-using Memento;
-using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
     public class Transform : Sendable
     {
-        public Transform(string messageAddress)
-            : base(messageAddress)
+        public Transform()
         {
-            Translate = new Translate(MessageAddress);
-            Scale = new Scale(MessageAddress);
-            Rotation = new Rotation(MessageAddress);
+            Translate = new Translate();
+            Scale = new Scale();
+            Rotation = new Rotation();
 
             Is3D = false;
         }
@@ -34,7 +28,6 @@ namespace CMiX.Studio.ViewModels
                 //if (Mementor != null)
                 //    Mementor.PropertyChange(this, "Is3D");
                 SetAndNotify(ref _is3D, value);
-                //SendMessages(MessageAddress + nameof(Is3D), Is3D.ToString());
             }
         }
         #endregion
@@ -52,74 +45,30 @@ namespace CMiX.Studio.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("TransformModel"))
             {
-                //Mementor.BeginBatch();
-
                 var transformmodel = data.GetData("TransformModel") as TransformModel;
-                var messageaddress = MessageAddress;
                 this.Paste(transformmodel);
-
-                //Mementor.EndBatch();
-                //this.SendMessages(nameof(TransformModel), GetModel());
             }
         }
 
         public void ResetGeometry()
         {
             this.Reset();
-            //this.SendMessages(nameof(TransformModel), GetModel());
         }
-
-
-
-        //public void Copy(TransformModel transformModel)
-        //{
-        //    Translate.Copy(transformModel.Translate);
-        //    Scale.Copy(transformModel.Scale);
-        //    Rotation.Copy(transformModel.Rotation);
-        //    transformModel.Is3D = Is3D;
-        //}
 
         public void Paste(TransformModel transformModel)
         {
-            MessengerService.Disable();
-
             Translate.Paste(transformModel.TranslateModel);
             Scale.Paste(transformModel.ScaleModel);
             Rotation.Paste(transformModel.RotationModel);
-            Is3D = transformModel.Is3D;
-
-            MessengerService.Enable();
+            Is3D = transformModel.Is3D;  
         }
 
         public void Reset()
         {
-            MessengerService.Disable();;
-            //Mementor.BeginBatch();
-
             Translate.Reset();
             Scale.Reset();
             Rotation.Reset();
             Is3D = false;
-            //Mementor.EndBatch();
-            MessengerService.Enable();
-
-            //TransformModel transformmodel = GetModel();
-            //this.SendMessages(nameof(TransformModel), transformmodel);
-            //QueueObjects(transformmodel);
-            //SendQueues();
-        }
-
-
-        //public TransformModel GetModel()
-        //{
-        //    TransformModel transformModel = new TransformModel();
-
-        //    return transformModel;
-        //}
-
-        public void SetViewModel(TransformModel model)
-        {
-            
         }
         #endregion
     }

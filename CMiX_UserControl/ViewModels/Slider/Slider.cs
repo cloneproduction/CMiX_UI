@@ -1,7 +1,6 @@
 ﻿using System.Windows.Input;
 using System.Windows;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Commands;
 using CMiX.MVVM.ViewModels;
 
 namespace CMiX.Studio.ViewModels
@@ -9,9 +8,10 @@ namespace CMiX.Studio.ViewModels
     public class Slider : Sendable
     {
         #region CONSTRUCTORS
-        public Slider(string messageAddress)
-            : base (messageAddress)
+        public Slider(string name)
         {
+            Name = name;
+
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
 
@@ -41,6 +41,19 @@ namespace CMiX.Studio.ViewModels
             //    Mementor.PropertyChange(this, "Amount");     
         }
 
+        public override string GetMessageAddress()
+        {
+            return $"{this.GetType().Name}/{Name}";
+        }
+
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set => SetAndNotify(ref _name, value);
+        }
+
+
         private double _amount = 0.0;
         public double Amount
         {
@@ -48,7 +61,7 @@ namespace CMiX.Studio.ViewModels
             set
             {
                 SetAndNotify(ref _amount, value);
-                //MessengerService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, this.GetModel());
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 

@@ -9,17 +9,17 @@ namespace CMiX.Studio.ViewModels
 {
     public class Translate : ViewModel
     {
-        public Translate(string messageAddress)
+        public Translate()
         {
-            MessageAddress = $"{messageAddress}{nameof(Translate)}/";
+            //MessageAddress = $"{messageAddress}{nameof(Translate)}/";
 
-            X = new Slider(MessageAddress + nameof(X));
+            X = new Slider(nameof(X));
             X.Minimum = -1;
             X.Maximum = 1;
-            Y = new Slider(MessageAddress + nameof(Y));
+            Y = new Slider(nameof(Y));
             Y.Minimum = -1;
             Y.Maximum = 1;
-            Z = new Slider(MessageAddress + nameof(Z));
+            Z = new Slider(nameof(Z));
             Z.Minimum = -1;
             Z.Maximum = 1;
         }
@@ -27,7 +27,7 @@ namespace CMiX.Studio.ViewModels
         public Slider X { get; set; }
         public Slider Y { get; set; }
         public Slider Z { get; set; }
-        public string MessageAddress { get; set; }
+        //public string MessageAddress { get; set; }
 
         public MessengerService MessengerService { get; set; }
 

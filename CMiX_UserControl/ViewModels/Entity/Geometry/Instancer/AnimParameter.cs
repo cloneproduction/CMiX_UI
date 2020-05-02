@@ -9,12 +9,12 @@ namespace CMiX.Studio.ViewModels
 {
     public class AnimParameter : ViewModel
     {
-        public AnimParameter(string messageaddress, Beat beat, bool isEnabled)
+        public AnimParameter(string name, Beat beat, bool isEnabled)
         {
             Mode = AnimMode.None;
             IsEnabled = isEnabled;
-            Slider = new Slider(MessageAddress);
-            BeatModifier = new BeatModifier(MessageAddress, beat);
+            Slider = new Slider(nameof(Slider));
+            BeatModifier = new BeatModifier(beat);
         }
 
         #region PROPERTIES
@@ -46,8 +46,6 @@ namespace CMiX.Studio.ViewModels
 
         public Slider Slider { get; set; }
         public BeatModifier BeatModifier { get; set; }
-        public string MessageAddress { get; set; }
-        public MessengerService MessengerService { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET

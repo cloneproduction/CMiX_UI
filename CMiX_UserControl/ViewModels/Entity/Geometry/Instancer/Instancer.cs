@@ -1,24 +1,18 @@
-﻿using System;
-using System.Windows;
-using Memento;
+﻿using System.Windows;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
     public class Instancer : ViewModel
     {
-        public Instancer(string messageaddress, Beat beat)
+        public Instancer(Beat beat)
         {
-            MessageAddress = $"{messageaddress}{nameof(Instancer)}/";
-            //MessengerService = messengerService;
-
-            Transform = new Transform(MessageAddress);
-            Counter = new Counter(MessageAddress);
-            TranslateModifier = new TranslateModifier(MessageAddress, beat);
-            ScaleModifier = new ScaleModifier(MessageAddress, beat);
-            RotationModifier = new RotationModifier(MessageAddress, beat);
+            Transform = new Transform();
+            Counter = new Counter();
+            TranslateModifier = new TranslateModifier(beat);
+            ScaleModifier = new ScaleModifier(beat);
+            RotationModifier = new RotationModifier(beat);
 
             NoAspectRatio = false;
         }

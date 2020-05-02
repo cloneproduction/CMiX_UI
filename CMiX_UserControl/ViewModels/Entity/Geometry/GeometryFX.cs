@@ -1,51 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using CMiX.MVVM.ViewModels;
+﻿using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
-using Memento;
-using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
     public class GeometryFX : ViewModel
     {
         #region CONSTRUCTORS
-        public GeometryFX(string messageaddress)
+        public GeometryFX()
         {
-            MessageAddress = $"{messageaddress}{nameof(GeometryFX)}/";
-            Explode = new Slider(MessageAddress + nameof(Explode));
+            Explode = new Slider(nameof(Explode));
         }
         #endregion
 
         #region PROPERTIES
         public Slider Explode { get; }
-        public string MessageAddress { get; set; }
-        public MessengerService MessengerService { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
 
         public void Paste(GeometryFXModel geometryFXdto)
         {
-            MessengerService.Disable();
-
             Explode.SetViewModel(geometryFXdto.Explode);
-            
-
-            MessengerService.Enable();
         }
 
         public void Reset()
         {
-            MessengerService.Disable();;
-
             Explode.Reset();
-
-            MessengerService.Enable();
         }
-
-
         #endregion
     }
 }

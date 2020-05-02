@@ -11,17 +11,15 @@ namespace CMiX.Studio.ViewModels
     public class Camera : ViewModel
     {
         #region CONSTRUCTORS
-        public Camera(string messageAddress, Beat beat) 
+        public Camera(Beat beat) 
         {
-            MessageAddress = $"{messageAddress}{nameof(Camera)}/";
-            
             Rotation = ((CameraRotation)0).ToString();
             LookAt = ((CameraLookAt)0).ToString();
             View = ((CameraView)0).ToString();
 
-            BeatModifier = new BeatModifier(MessageAddress, beat);
-            FOV = new Slider(MessageAddress + nameof(FOV));
-            Zoom = new Slider(MessageAddress + nameof(Zoom));
+            BeatModifier = new BeatModifier(beat);
+            FOV = new Slider(nameof(FOV));
+            Zoom = new Slider(nameof(Zoom));
         }
         #endregion
 
@@ -68,9 +66,6 @@ namespace CMiX.Studio.ViewModels
                 //SendMessages(MessageAddress + nameof(View), View);
             }
         }
-
-        public string MessageAddress { get; set; }
-        public MessengerService MessengerService { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
@@ -78,16 +73,12 @@ namespace CMiX.Studio.ViewModels
 
         public void Reset()
         {
-            MessengerService.Disable();
-
             Rotation = ((CameraRotation)0).ToString();
             LookAt = ((CameraLookAt)0).ToString();
             View = ((CameraView)0).ToString();
             BeatModifier.Reset();
             FOV.Reset();
             Zoom.Reset();
-
-            MessengerService.Enable();
         }
         #endregion
     }

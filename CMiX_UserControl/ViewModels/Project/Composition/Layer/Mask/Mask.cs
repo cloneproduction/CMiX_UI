@@ -20,10 +20,10 @@ namespace CMiX.Studio.ViewModels
             
             Name = "Mask";
 
-            BeatModifier = new BeatModifier(MessageAddress, beat);
-            Geometry = new Geometry(MessageAddress, beat);
-            Texture = new Texture(MessageAddress);
-            PostFX = new PostFX(MessageAddress);
+            BeatModifier = new BeatModifier(beat);
+            Geometry = new Geometry(beat);
+            Texture = new Texture();
+            PostFX = new PostFX();
 
             //CopyMaskCommand = new RelayCommand(p => CopyMask());
             //PasteMaskCommand = new RelayCommand(p => PasteMask());

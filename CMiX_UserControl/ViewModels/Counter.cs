@@ -1,5 +1,4 @@
 ﻿using CMiX.MVVM.ViewModels;
-using Memento;
 using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels
@@ -7,9 +6,8 @@ namespace CMiX.Studio.ViewModels
     public class Counter : ViewModel
     {
         #region CONSTRUCTORS
-        public Counter(string messageaddress) 
+        public Counter() 
         {
-            MessageAddress = $"{messageaddress}{nameof(Counter)}/";
             Count = 1;
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
@@ -32,11 +30,6 @@ namespace CMiX.Studio.ViewModels
                 //SendMessages(MessageAddress + nameof(Count), Count);
             }
         }
-
-
-        public string MessageAddress { get; set; }
-
-        public MessengerService MessengerService { get; set; }
         #endregion
 
         #region ADD/SUB

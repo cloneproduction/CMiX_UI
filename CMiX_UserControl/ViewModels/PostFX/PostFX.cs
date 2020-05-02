@@ -1,7 +1,5 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
-using Memento;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 
@@ -10,13 +8,10 @@ namespace CMiX.Studio.ViewModels
     public class PostFX : ViewModel
     {
         #region CONSTRUCTORS
-        public PostFX(string messageaddress) 
+        public PostFX() 
         {
-            MessageAddress = String.Format("{0}{1}/", messageaddress, nameof(PostFX));
-            //MessengerService = messengerService;
-
-            Feedback = new Slider(MessageAddress + nameof(Feedback));
-            Blur = new Slider(MessageAddress + nameof(Blur));
+            Feedback = new Slider(nameof(Feedback));
+            Blur = new Slider(nameof(Blur));
 
             Transforms = ((PostFXTransforms)0).ToString();
             View = ((PostFXView)0).ToString();
@@ -60,16 +55,11 @@ namespace CMiX.Studio.ViewModels
                 //SendMessages(MessageAddress + nameof(View), View);
             }
         }
-
-        public string MessageAddress { get; set; }
-        public MessengerService MessengerService { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
         public void Reset()
         {
-            MessengerService.Disable();
-
             Transforms = ((PostFXTransforms)0).ToString();
             View = ((PostFXView)0).ToString();
 
@@ -77,9 +67,6 @@ namespace CMiX.Studio.ViewModels
             Blur.Reset();
 
             PostFXModel postfxmodel = this.GetModel();
-            //this.SendMessages(nameof(PostFXModel), postfxmodel);
-
-            MessengerService.Enable();
         }
 
         public void CopyPostFX()
@@ -95,14 +82,8 @@ namespace CMiX.Studio.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("PostFXModel"))
             {
-                //Mementor.BeginBatch();
-
                 var postFXModel = data.GetData("PostFXModel") as PostFXModel;
                 this.SetViewModel(postFXModel);
-
-                //Mementor.EndBatch();
-
-                //this.SendMessages(nameof(PostFXModel), postFXModel);
             }
         }
 
@@ -110,7 +91,6 @@ namespace CMiX.Studio.ViewModels
         {
             PostFXModel postFXModel = this.GetModel();
             this.Reset();
-            //this.SendMessages(nameof(PostFXModel), postFXModel);
         }
         #endregion
     }

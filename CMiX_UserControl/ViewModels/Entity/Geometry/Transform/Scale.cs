@@ -8,19 +8,16 @@ namespace CMiX.Studio.ViewModels
 {
     public class Scale : ViewModel
     {
-        public Scale(string messageaddress) 
+        public Scale() 
         {
-            MessageAddress = $"{messageaddress}{nameof(Scale)}/";
-
-            X = new Slider(MessageAddress + nameof(X));
-            Y = new Slider(MessageAddress + nameof(Y));
-            Z = new Slider(MessageAddress + nameof(Z));
+            X = new Slider(nameof(X));
+            Y = new Slider(nameof(Y));
+            Z = new Slider(nameof(Z));
         }
 
         public Slider X { get; set; }
         public Slider Y { get; set; }
         public Slider Z { get; set; }
-        public string MessageAddress { get ; set; }
         public MessengerService MessengerService { get; set; }
 
 
@@ -37,14 +34,10 @@ namespace CMiX.Studio.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("ScaleModel"))
             {
-                //Mementor.BeginBatch();
                 MessengerService.Disable();
 
                 var scalemodel = data.GetData("ScaleModel") as ScaleModel;
-                var messageaddress = MessageAddress;
                 this.Paste(scalemodel);
-
-                MessengerService.Enable();
                 //Mementor.EndBatch();
                 //SendMessages(nameof(ScaleModel), GetModel());
             }

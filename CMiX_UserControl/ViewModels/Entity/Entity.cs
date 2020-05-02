@@ -11,10 +11,10 @@ namespace CMiX.Studio.ViewModels
         public Entity(int id, Beat beat)
             : base(id, beat)
         {
-            BeatModifier = new BeatModifier(MessageAddress, beat);
-            Geometry = new Geometry(MessageAddress, beat);
-            Texture = new Texture(MessageAddress);
-            Coloration = new Coloration(MessageAddress, beat);
+            BeatModifier = new BeatModifier(beat);
+            Geometry = new Geometry(beat);
+            Texture = new Texture();
+            Coloration = new Coloration(beat);
 
             CopyEntityCommand = new RelayCommand(p => CopyEntity());
             PasteEntityCommand = new RelayCommand(p => PasteEntity());

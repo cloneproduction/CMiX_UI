@@ -12,12 +12,12 @@ namespace CMiX.Studio.ViewModels
     public class Coloration : ViewModel
     {
         #region CONSTRUCTORS
-        public Coloration(string messageAddress, Beat beat) 
+        public Coloration(Beat beat) 
         {
-            MessageAddress = $"{messageAddress}{nameof(Coloration)}/";
+            //MessageAddress = $"{messageAddress}{nameof(Coloration)}/";
 
-            BeatModifier = new BeatModifier(MessageAddress, beat);
-            ColorSelector = new ColorSelector(MessageAddress);
+            BeatModifier = new BeatModifier(beat);
+            ColorSelector = new ColorSelector();
 
             Hue = new RangeControl(MessageAddress + nameof(Hue));
             Saturation = new RangeControl(MessageAddress + nameof(Saturation));

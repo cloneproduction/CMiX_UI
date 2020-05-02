@@ -8,13 +8,13 @@ namespace CMiX.Studio.ViewModels
 {
     public class Rotation : ViewModel
     {
-        public Rotation(string messageaddress)
+        public Rotation()
         {
-            MessageAddress = $"{messageaddress}{nameof(Rotation)}/";
+            //MessageAddress = $"{messageaddress}{nameof(Rotation)}/";
 
-            X = new Slider(MessageAddress + nameof(X));
-            Y = new Slider(MessageAddress + nameof(Y));
-            Z = new Slider(MessageAddress + nameof(Z));
+            X = new Slider(nameof(X));
+            Y = new Slider(nameof(Y));
+            Z = new Slider(nameof(Z));
         }
 
         public Slider X { get; set; }

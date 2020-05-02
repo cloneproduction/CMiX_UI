@@ -11,13 +11,13 @@ namespace CMiX.Studio.ViewModels
     public class Geometry : ViewModel
     {
         #region CONSTRUCTORS
-        public Geometry(string messageaddress, Beat beat) 
+        public Geometry(Beat beat) 
         {
-            MessageAddress = $"{messageaddress}{nameof(Geometry)}/";
+            //MessageAddress = $"{messageaddress}{nameof(Geometry)}/";
 
-            Instancer = new Instancer(MessageAddress, beat);
-            Transform = new Transform(MessageAddress);
-            GeometryFX = new GeometryFX(MessageAddress);
+            Instancer = new Instancer(beat);
+            Transform = new Transform();
+            GeometryFX = new GeometryFX();
 
             AssetPathSelector = new AssetPathSelector<AssetGeometry>(MessageAddress);
 

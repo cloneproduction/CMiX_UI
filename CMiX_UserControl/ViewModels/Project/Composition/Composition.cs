@@ -9,7 +9,7 @@ namespace CMiX.Studio.ViewModels
             : base (id, beat)
         {
             Transition = new Slider("/Transition");
-            Camera = new Camera(MessageAddress, Beat);
+            Camera = new Camera(Beat);
         }
 
 
