@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace CMiX.Studio.Views
+namespace CMiX.Views
 {
     public partial class MessengerSettingsWindow : Window
     {

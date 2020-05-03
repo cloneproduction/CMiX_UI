@@ -10,14 +10,15 @@ namespace CMiX.Studio.ViewModels
     {
         public Type Locate(INotifyPropertyChanged viewModel)
         {
-            if (viewModel is CustomMessageBox)
-                return typeof(CustomWindowDialog);
+            
+            //if (viewModel is ModalDialog)
+            //    return typeof(CustomWindowDialog);
 
-            else if (viewModel is ModalDialog)
-                return typeof(CustomWindowDialog);
-
-            else if (viewModel is MessengerSettings)
-                return typeof(MessengerSettingsWindow); 
+            if (viewModel is MessengerSettings)
+            {
+                Console.WriteLine("MessengerSettings");
+                return typeof(MessengerSettingsWindow);
+            }
 
             else
                 throw new Exception("Dialog type is not defined.");

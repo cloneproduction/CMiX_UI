@@ -10,8 +10,7 @@
         ResizeMode="NoResize"
         mc:Ignorable="d"
         Style="{StaticResource QuitModalWindow}"
-        xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
-        md:DialogServiceViews.IsRegistered="True" d:DesignWidth="412.445" d:DesignHeight="94.222">
+         d:DesignWidth="412.445" d:DesignHeight="94.222">
 
     <Border
         Padding="8"

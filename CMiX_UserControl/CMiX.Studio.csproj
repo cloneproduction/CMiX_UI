@@ -140,7 +140,7 @@
     <Compile Include="ViewModels\Dialogs\CustomFrameworkDialogFactory.cs" />
     <Compile Include="ViewModels\Dialogs\CustomMessageBox.cs" />
     <Compile Include="ViewModels\Dialogs\CustomTypeLocator.cs" />
-    <Compile Include="ViewModels\Dialogs\MessageTextViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\MessengerSettingsDialog.cs" />
     <Compile Include="ViewModels\Dialogs\ModalDialog.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ModelFactory.cs" />
@@ -179,17 +179,8 @@
     <Compile Include="Views\Dialogs\CustomWindowDialog.xaml.cs">
       <DependentUpon>CustomWindowDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Dialogs\MessageText.xaml.cs">
-      <DependentUpon>MessageText.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Dialogs\SplashWindow.xaml.cs">
-      <DependentUpon>SplashWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Mask\MaskPanel.xaml.cs">
       <DependentUpon>MaskPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Messenger\MessengerSettingsDialog.xaml.cs">
-      <DependentUpon>MessengerSettingsDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Messenger\MessengerSettingsWindow.xaml.cs">
       <DependentUpon>MessengerSettingsWindow.xaml</DependentUpon>
@@ -385,19 +376,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Dialogs\MessageText.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Dialogs\SplashWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Mask\MaskPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Messenger\MessengerSettingsDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

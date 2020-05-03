@@ -3,6 +3,7 @@ using System.Windows.Input;
 using System.Collections.Generic;
 using MvvmDialogs;
 using CMiX.Studio.Views;
+using CMiX.Views;
 
 namespace CMiX.Studio.ViewModels
 {
@@ -14,7 +15,7 @@ namespace CMiX.Studio.ViewModels
         {
             Project = project;
             Addresses = new List<string>();
-            DialogService = dialogService;
+            DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             AddMessengerCommand = new RelayCommand(p => AddMessenger());
             DeleteMessengerCommand = new RelayCommand(p => DeleteServer());
             RenameMessengerCommand = new RelayCommand(p => RenameServer(p));
@@ -25,7 +26,14 @@ namespace CMiX.Studio.ViewModels
 
         public void OpenSettings()
         {
-            DialogService.ShowDialog<MessengerSettingsWindow>(this, new MessengerSettings());
+            System.Console.WriteLine("OpenSettings");
+            var messengerSettings = new MessengerSettings();
+            bool? success = DialogService.ShowDialog<MessengerSettingsWindow>(this, messengerSettings);
+            //if (success == true)
+            //{
+
+            //}
+            //DialogService.ShowDialog<MessengerSettingsWindow>(this, new MessengerSettings());
         }
 
 
