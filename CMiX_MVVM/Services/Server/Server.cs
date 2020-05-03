@@ -1,5 +1,6 @@
 ﻿using CMiX.MVVM.Message;
 using CMiX.MVVM.Commands;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -12,10 +13,18 @@ namespace CMiX.MVVM.ViewModels
             Port = port;
             Topic = topic;
             Enabled = true;
-            NetMQServer = new NetMQServer(ip, port);
+            IsRunning = false;
+
+            Start();
         }
 
         #region PROPERTIES
+        private string Address
+        {
+            get { return String.Format("tcp://{0}:{1}", IP, Port); }
+        }
+
+        public bool IsRunning { get; set; }
 
         private string _name;
         public string Name
@@ -27,15 +36,25 @@ namespace CMiX.MVVM.ViewModels
         private string _ip;
         public string IP
         {
-            get => _ip; 
-            set => SetAndNotify(ref _ip, value);
+            get => _ip;
+            set 
+            { 
+                SetAndNotify(ref _ip, value);
+                if (IsRunning)
+                    Restart();
+            }
         }
 
         private int _port;
         public int Port
         {
             get => _port;
-            set => SetAndNotify(ref _port, value);
+            set 
+            { 
+                SetAndNotify(ref _port, value);
+                if (IsRunning)
+                    Restart();
+            }
         }
 
         private bool _isRenaming;
@@ -50,21 +69,31 @@ namespace CMiX.MVVM.ViewModels
         #endregion
 
 
-        public void Send(string messageAddress, object model)
+        public void Send(string messageAddress, byte[] message)
         {
-            
             if(Enabled)
-                NetMQServer.SendObject(Topic, messageAddress, model);
+                NetMQServer.SendObject(Topic, messageAddress, message);
         }
 
         public void Start()
         {
+            NetMQServer = new NetMQServer(Address);
             NetMQServer.Start();
+            IsRunning = true;
         }
 
         public void Stop()
         {
             NetMQServer.Stop();
+            IsRunning = false;
+        }
+
+        public void Restart()
+        {
+            Stop();
+            Start();
+            //NetMQServer.ReStart();
+            Console.WriteLine("Restart Server");
         }
     }
 }

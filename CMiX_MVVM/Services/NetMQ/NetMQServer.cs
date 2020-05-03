@@ -59,54 +59,24 @@ namespace CMiX.MVVM.Message
             }
         }
 
-        public NetMQServer(string ip, int port)
+        public NetMQServer(string address)
         {
-            IP = ip;
-            Port = port;
-            Serializer = new CerasSerializer();
+            Address = address;
         }
 
-        public CerasSerializer Serializer { get; set; }
         private NetMQActor actor;
-        public bool IsRunning { get; private set; }
+        //public bool IsRunning { get; private set; }
 
 
-        private int _port;
-        public int Port
-        {
-            get { return _port; }
-            set
-            {
-                _port = value;
-                if(IsRunning)
-                    ReStart();
-            }
-        }
-
-        private string _ip;
-        public string IP
-        {
-            get { return _ip; }
-            set
-            {
-                _ip = value;
-                if(IsRunning)
-                    ReStart();
-            }
-        }
-
-        public string Address
-        {
-            get => String.Format("tcp://{0}:{1}", IP, Port);
-        }
+        public string Address { get; set; }
 
         public void Start()
         {
             if (actor != null)
                 return;
             actor = NetMQActor.Create(new ShimHandler(Address));
-            IsRunning = true;
-            Console.WriteLine($"NetMQClient Started with IP {IP}, Port {Port}");
+            //IsRunning = true;
+            Console.WriteLine($"NetMQClient Started with Address : {Address}");
         }
 
         public void Stop()
@@ -115,7 +85,7 @@ namespace CMiX.MVVM.Message
             {
                 actor.Dispose();
                 actor = null;
-                IsRunning = false;
+                //IsRunning = false;
             }
         }
 
@@ -127,23 +97,17 @@ namespace CMiX.MVVM.Message
             Start();
         }
 
-        public void SendObject(string topic, string messageAddress, object payload)
+        public void SendObject(string topic, string messageAddress, byte[] message)
         {
-            System.Console.WriteLine("NetMQServer Send Model");
             if (actor == null)
                 return;
 
-            //byte[] serialParam = Serializer.Serialize(parameter);
-            byte[] serialPayload = Serializer.Serialize(payload);
-            Console.WriteLine("Data Size = " + serialPayload.Length); 
-            //byte[] serialCommand = Serializer.Serialize(command);
             var msg = new NetMQMessage(4);
             msg.Append(topic);
             msg.Append(messageAddress);
-            //msg.Append(serialCommand);
-            //msg.Append(serialParam);
-            msg.Append(serialPayload);
+            msg.Append(message);
             actor.SendMultipartMessage(msg);
+            Console.WriteLine("Data Size = " + message.Length);
             Console.WriteLine("NetMQServer SendObject with MessageAddress : " + messageAddress + " and Topic : " + topic);
         }
     }

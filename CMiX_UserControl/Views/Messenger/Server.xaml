@@ -10,6 +10,19 @@
 
 
     <Expander Style="{StaticResource ExpanderBase}">
+        <Expander.Header>
+            <Border HorizontalAlignment="Stretch">
+                <DockPanel>
+                    <TextBlock Text="Messenger" DockPanel.Dock="Right"/>
+                    <Button 
+                        DockPanel.Dock="Right" 
+                        Width="20"
+                                
+                        Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:ServerManager}}, Path=DataContext.OpenSettingsCommand}"/>
+                </DockPanel>
+            </Border>
+
+        </Expander.Header>
         <Border Padding="4">
             <StackPanel HorizontalAlignment="Stretch">
                 <!--<Controls:EditableTextBox 

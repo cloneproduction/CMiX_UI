@@ -8,11 +8,10 @@ namespace CMiX.MVVM.ViewModels
     {
         public MessageService()
         {
-            MessageValidations = new ObservableCollection<MessageValidation>();
+           // MessageValidations = new ObservableCollection<MessageValidation>();
             Enabled = true;
         }
 
-        public ObservableCollection<MessageValidation> MessageValidations{ get; set; }
 
         public void SendMessages(string topic, MessageCommand command, object parameter, object payload)
         {
@@ -20,10 +19,10 @@ namespace CMiX.MVVM.ViewModels
             if (Enabled)
             {
                 System.Console.WriteLine("SendMessage from MessageService " + topic);
-                foreach (var messageValidation in MessageValidations)
-                {
-                    messageValidation.SendMessage(topic, command, parameter, payload);
-                }
+                //foreach (var messageValidation in MessageValidations)
+                //{
+                //    messageValidation.SendMessage(topic, command, parameter, payload);
+                //}
             }
         }
 

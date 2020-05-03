@@ -149,6 +149,7 @@
     <Compile Include="ViewModels\Services\MessengerFactory.cs" />
     <Compile Include="ViewModels\Services\MessengerManager.cs" />
     <Compile Include="ViewModels\Services\MessengerService.cs" />
+    <Compile Include="ViewModels\Services\MessengerSettings.cs" />
     <Compile Include="ViewModels\Services\ServerManager.cs" />
     <Compile Include="ViewModels\Slider\Slider.cs" />
     <Compile Include="ViewModels\Slider\SliderModelFactory.cs" />
@@ -186,6 +187,12 @@
     </Compile>
     <Compile Include="Views\Mask\MaskPanel.xaml.cs">
       <DependentUpon>MaskPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Messenger\MessengerSettingsDialog.xaml.cs">
+      <DependentUpon>MessengerSettingsDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Messenger\MessengerSettingsWindow.xaml.cs">
+      <DependentUpon>MessengerSettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Outliner\Outliner.xaml.cs">
       <DependentUpon>Outliner.xaml</DependentUpon>
@@ -387,6 +394,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Mask\MaskPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Messenger\MessengerSettingsDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Messenger\MessengerSettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -100,7 +100,6 @@
     <Compile Include="Services\CommandName.cs" />
     <Compile Include="Services\Message\MessageEventArgs.cs" />
     <Compile Include="Services\Message\MessageService.cs" />
-    <Compile Include="Services\Message\MessageValidationManager.cs" />
     <Compile Include="Services\Message\Sender.cs" />
     <Compile Include="Services\Message\Message.cs" />
     <None Include="_Trash\MessageService.cs" />
@@ -115,7 +114,6 @@
     <Compile Include="Themes\MainWindow.xaml.cs" />
     <Compile Include="ViewModels\Interfaces\IUndoable.cs" />
     <Compile Include="Services\Server\Server.cs" />
-    <Compile Include="Services\Message\MessageValidation.cs" />
     <Compile Include="Models\Geometry\Modifier\AnimParameterModel.cs" />
     <Compile Include="Models\Geometry\Modifier\InstancerModel.cs" />
     <Compile Include="Models\Geometry\Modifier\ScaleModifierModel.cs" />

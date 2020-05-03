@@ -1,18 +1,36 @@
 ﻿using CMiX.MVVM.ViewModels;
 using System.Windows.Input;
+using System.Collections.Generic;
+using MvvmDialogs;
+using CMiX.Studio.Views;
 
 namespace CMiX.Studio.ViewModels
 {
     public class MessengerManager : ViewModel
     {
-        public MessengerManager(Project project)
+
+        
+        public MessengerManager(Project project, IDialogService dialogService)
         {
             Project = project;
-
+            Addresses = new List<string>();
+            DialogService = dialogService;
             AddMessengerCommand = new RelayCommand(p => AddMessenger());
             DeleteMessengerCommand = new RelayCommand(p => DeleteServer());
             RenameMessengerCommand = new RelayCommand(p => RenameServer(p));
+            OpenSettingsCommand = new RelayCommand(p => OpenSettings());
         }
+
+        public IDialogService DialogService { get; set; }
+
+        public void OpenSettings()
+        {
+            DialogService.ShowDialog<MessengerSettingsWindow>(this, new MessengerSettings());
+        }
+
+
+        public ICommand OpenSettingsCommand { get; }
+
 
         public ICommand AddMessengerCommand { get; set; }
         public ICommand DeleteMessengerCommand { get; set; }
@@ -20,18 +38,18 @@ namespace CMiX.Studio.ViewModels
 
         public Project Project { get; set; }
 
+        public List<string> Addresses { get; set; }
+
         private Messenger _selectedMessenger;
         public Messenger SelectedMessenger
         {
             get => _selectedMessenger;
             set => SetAndNotify(ref _selectedMessenger, value);
         }
-
+        
         public void AddMessenger()
         {
-            //$"Server({ServerID.ToString()})", "127.0.0.1", 1111 + ServerID, $"/Device{ServerID}"
-            //server.Start();
-            Messenger messenger = MessengerFactory.CreateMessenger();
+            Messenger messenger = MessengerFactory.CreateMessenger(Addresses);
             Project.Messengers.Add(messenger);
         }
 
@@ -47,7 +65,7 @@ namespace CMiX.Studio.ViewModels
         private void RenameServer(object obj)
         {
             if (obj != null)
-                ((Server)obj).IsRenaming = true;
+                ((MVVM.ViewModels.Server)obj).IsRenaming = true;
         }
     }
 }

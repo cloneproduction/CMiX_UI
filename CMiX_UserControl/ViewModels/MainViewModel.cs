@@ -23,7 +23,7 @@ namespace CMiX.Studio.ViewModels
             Serializer = new CerasSerializer();
 
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
-            MessengerService = new MessengerService();
+            //MessengerService = new MessengerService();
 
             CurrentProject = ComponentFactory.CreateProject();
 
@@ -31,7 +31,7 @@ namespace CMiX.Studio.ViewModels
             Projects.Add(CurrentProject);
 
             AssetManager = new AssetManager(CurrentProject);
-            MessengerManager = new MessengerManager(CurrentProject);
+            MessengerManager = new MessengerManager(CurrentProject, DialogService);
             ComponentEditor = new ComponentEditor(CurrentProject);
             ComponentManager = new ComponentManager(Projects);
             ComponentManager.ComponentDeletedEvent += ComponentEditor.ComponentDeletedEvent;
@@ -180,7 +180,7 @@ namespace CMiX.Studio.ViewModels
             Projects.Add(project);
             CurrentProject = project;
             AssetManager = new AssetManager(project);
-            MessengerManager = new MessengerManager(project);
+            MessengerManager = new MessengerManager(project, DialogService);
             ComponentEditor = new ComponentEditor(project);
         }
 
