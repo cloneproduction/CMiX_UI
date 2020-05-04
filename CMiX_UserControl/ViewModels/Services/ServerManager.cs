@@ -1,6 +1,5 @@
 ﻿using CMiX.MVVM.ViewModels;
 using CMiX.Studio.ViewModels;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace CMiX.Studio.Services

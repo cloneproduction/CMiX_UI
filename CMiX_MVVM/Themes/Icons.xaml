@@ -38,4 +38,5 @@
     <BitmapImage x:Key="Maximize" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Maximize.png"/>
     <BitmapImage x:Key="Minimize" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Minimize.png"/>
     <BitmapImage x:Key="Warning" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Warning.png"/>
+    <BitmapImage x:Key="Settings" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Settings.png"/>
 </ResourceDictionary>

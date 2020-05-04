@@ -455,6 +455,7 @@
     <Resource Include="Assets\Maximize.png" />
     <Resource Include="Assets\Minimize.png" />
     <Resource Include="Assets\Warning.png" />
+    <Resource Include="Assets\Settings.png" />
     <Content Include="Themes\Fonts\LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>

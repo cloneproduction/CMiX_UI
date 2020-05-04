@@ -3,17 +3,16 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using CMiX.Views;
-using MvvmDialogs;
 
-namespace CMiX.ViewModels.Dialogs
+namespace CMiX.Studio.ViewModels
 {
     public class MessageSettingsDialog : IWindow
         {
-            private readonly MessageSettingsWindw dialog;
+            private readonly MessengerSettingsWindow dialog;
 
             public MessageSettingsDialog()
             {
-                dialog = new MessageSettingsWindow();
+                dialog = new MessengerSettingsWindow();
             }
 
             object IWindow.DataContext

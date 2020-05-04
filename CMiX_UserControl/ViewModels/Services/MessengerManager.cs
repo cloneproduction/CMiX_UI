@@ -19,20 +19,20 @@ namespace CMiX.Studio.ViewModels
             AddMessengerCommand = new RelayCommand(p => AddMessenger());
             DeleteMessengerCommand = new RelayCommand(p => DeleteServer());
             RenameMessengerCommand = new RelayCommand(p => RenameServer(p));
-            OpenSettingsCommand = new RelayCommand(p => OpenSettings());
+            OpenSettingsCommand = new RelayCommand(p => OpenSettings(p as Messenger));
         }
 
         public IDialogService DialogService { get; set; }
 
-        public void OpenSettings()
+        public void OpenSettings(Messenger messenger)
         {
             System.Console.WriteLine("OpenSettings");
-            var messengerSettings = new MessengerSettings();
+            var messengerSettings = new MessengerSettings(messenger);
             bool? success = DialogService.ShowDialog<MessengerSettingsWindow>(this, messengerSettings);
-            //if (success == true)
-            //{
-
-            //}
+            if (success == true)
+            {
+                System.Console.WriteLine("POUETPOUET");
+            }
             //DialogService.ShowDialog<MessengerSettingsWindow>(this, new MessengerSettings());
         }
 

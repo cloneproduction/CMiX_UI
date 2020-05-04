@@ -138,7 +138,6 @@
     <Compile Include="ViewModels\Counter.cs" />
     <Compile Include="ViewModels\Dialogs\CustomDialog.cs" />
     <Compile Include="ViewModels\Dialogs\CustomFrameworkDialogFactory.cs" />
-    <Compile Include="ViewModels\Dialogs\CustomMessageBox.cs" />
     <Compile Include="ViewModels\Dialogs\CustomTypeLocator.cs" />
     <Compile Include="ViewModels\Dialogs\MessengerSettingsDialog.cs" />
     <Compile Include="ViewModels\Dialogs\ModalDialog.cs" />

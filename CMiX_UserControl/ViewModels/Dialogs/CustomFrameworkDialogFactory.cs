@@ -11,8 +11,8 @@ namespace CMiX.Studio.ViewModels
     {
         public IWindow Create(Type dialogType)
         {
-            if (dialogType is MessengerSettingsWindow)
-                return new MessengerSettingsWindow();
+            if (dialogType == typeof(MessengerSettingsWindow))
+                return new MessageSettingsDialog();
             else
                 return new CustomDialog();
 

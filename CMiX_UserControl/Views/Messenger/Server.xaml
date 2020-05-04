@@ -9,63 +9,65 @@
              d:DesignHeight="147.674" d:DesignWidth="252.229">
 
 
-    <Expander Style="{StaticResource ExpanderBase}">
-        <Expander.Header>
-            <Border HorizontalAlignment="Stretch">
+
+    <Border Background="{StaticResource HighDarkerColor}">
+        <StackPanel>
+            <Border Height="25" HorizontalAlignment="Stretch" >
                 <DockPanel>
-                    <TextBlock Text="Messenger" DockPanel.Dock="Right"/>
                     <Button 
-                        DockPanel.Dock="Right" 
-                        Width="20"
-                                
-                        Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:ServerManager}}, Path=DataContext.OpenSettingsCommand}"/>
+                        Background="Transparent"
+                    Style="{StaticResource ButtonImage}"
+                    DockPanel.Dock="Right"     
+                    Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:ServerManager}}, Path=DataContext.OpenSettingsCommand}"
+                    CommandParameter="{Binding Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:Server}}}">
+                        <Button.Content>
+                            <Image Margin="16" Source="{StaticResource Settings}"/>
+                        </Button.Content>
+                    </Button>
+                    <TextBlock Padding="8, 0" Text="{Binding Server.Topic}" DockPanel.Dock="Left"/>
                 </DockPanel>
             </Border>
-
-        </Expander.Header>
-        <Border Padding="4">
-            <StackPanel HorizontalAlignment="Stretch">
-                <!--<Controls:EditableTextBox 
+            <Border Padding="4">
+                <StackPanel HorizontalAlignment="Stretch">
+                    <!--<Controls:EditableTextBox 
                 Margin="0, 0, 0, 2"
                 HorizontalAlignment="Stretch"
                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 IsEditing="{Binding IsRenaming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
-                <Grid Height="25" Margin="0, 1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.4*"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock 
+                    <Grid Height="25" Margin="0, 1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.4*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock 
                         Text="IP" 
                         Foreground="{StaticResource TextBase}"
                         HorizontalAlignment="Right"
                         Margin="0, 0, 8, 0"
                         VerticalAlignment="Center"/>
-                    <Controls:IPBox 
+                        <TextBlock Padding="4" Grid.Column="1" Text="{Binding Server.IP}"/>
+                        <!--<Controls:IPBox 
                         Grid.Column="1" 
-                        IPAddress="{Binding Server.IP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                </Grid>
-                <Grid Height="25" Margin="0, 1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.4*"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock 
+                        IPAddress="{Binding Server.IP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
+                    </Grid>
+                    <Grid Height="25" Margin="0, 1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.4*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock 
                     Text="Port" 
                     Margin="0, 0, 8, 0"
                     Foreground="{StaticResource TextBase}"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"/>
-                    <TextBox
-                    Padding="4"
-                    Text="{Binding Server.Port}"
-                    Grid.Column="1"
-                    BorderThickness="0"
-                    BorderBrush="{StaticResource DarkColor}"
-                    Foreground="{StaticResource TextBase}"
-                    Background="{StaticResource HighHighDarkerColor}"/>
-                </Grid>
-                <Grid Height="25" Margin="0, 1">
+                        <TextBlock
+                        Padding="4"
+                        Text="{Binding Server.Port}"
+                        Grid.Column="1"
+                        Foreground="{StaticResource TextBase}"/>
+                    </Grid>
+                    <!--<Grid Height="25" Margin="0, 1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.4*"/>
                         <ColumnDefinition/>
@@ -77,40 +79,42 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"/>
                     <TextBox
-                    Padding="4"
-                    Text="{Binding Server.Topic}"
-                    Grid.Column="1"
-                    BorderThickness="0"
-                    BorderBrush="{StaticResource DarkColor}"
-                    Foreground="{StaticResource TextBase}"
-                    Background="{StaticResource HighHighDarkerColor}"/>
-                </Grid>
-                <Grid Margin="0, 1" Height="25">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.4*"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock 
+                        Padding="4"
+                        Text="{Binding Server.Topic}"
+                        Grid.Column="1"
+                        BorderThickness="0"
+                        BorderBrush="{StaticResource DarkColor}"
+                        Foreground="{StaticResource TextBase}"
+                        Background="{StaticResource HighHighDarkerColor}"/>
+                </Grid>-->
+                    <Grid Margin="0, 1" Height="25">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.4*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock 
                         Text="Compo" 
                         Margin="0, 0, 8, 0"
                         Foreground="{StaticResource TextBase}"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"/>
-                    <ComboBox 
+                        <ComboBox 
                         Grid.Column="1"
                         SelectedItem="{Binding SelectedComponent}"
                         ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:ServerManager}}, Path=DataContext.Project.Components}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Margin="2, 1" Text="{Binding Name}"/>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                </Grid>
-            </StackPanel>
-        </Border>
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Margin="2, 1" Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Border>
+    
 
-        </Expander>
-
+   
 
 </UserControl>

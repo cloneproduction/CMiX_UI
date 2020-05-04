@@ -121,6 +121,7 @@
                     <Border
                         x:Name="border"
                         Background="Transparent"
+                        CornerRadius="0, 4, 0, 0"
                         SnapsToDevicePixels="True" Padding="8">
                         <Image x:Name="image" Source="{StaticResource CloseTab}" Opacity="0.75"/>
                     </Border>
@@ -212,7 +213,7 @@
                 <WindowChrome 
                     CaptionHeight="0"
                     GlassFrameThickness="0"
-                    CornerRadius="4"
+                    CornerRadius="8"
                     NonClientFrameEdges="None"
                     ResizeBorderThickness="0"
                     UseAeroCaptionButtons="False" />
@@ -221,7 +222,6 @@
         <Setter Property="BorderBrush" Value="Red" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Template">
-
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Window}">
                     <Border>
@@ -229,46 +229,76 @@
                             <AdornerDecorator>
                                 <ContentPresenter />
                             </AdornerDecorator>
-                            <!--<Border 
-                                Margin="8"
-                                Background="Red"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="0,0,0,0">
-                                --><!--<Border.Style>
-                                    <Style TargetType="{x:Type Border}">
-                                        <Style.Triggers>
-                                            --><!-- Add to avoid border disappearing when window is maximised --><!--
-                                            <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}}" Value="Maximized">
-                                                <Setter Property="Margin" Value="7"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}}" Value="Normal">
-                                                <Setter Property="Margin" Value="0"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Border.Style>--><!--
-
-                            </Border>-->
-                            <!--<Border>
-                                <Border.Style>
-                                    <Style TargetType="{x:Type Border}">
-                                        <Style.Triggers>
-                                            --><!-- Add to avoid border disappearing when window is maximised --><!--
-                                            <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}}" Value="Maximized">
-                                                <Setter Property="Margin" Value="7"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}}" Value="Normal">
-                                                <Setter Property="Margin" Value="0"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Border.Style>
-
-                            </Border>-->
                         </Grid>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
+
+
+    <Style x:Key="MessengerSettingsWindowStyle" TargetType="{x:Type Window}">
+        <Setter Property="AllowsTransparency" Value="True"/>
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome 
+                    CaptionHeight="30"
+                    GlassFrameThickness="0"
+                    CornerRadius="8"
+                    NonClientFrameEdges="None"
+                    ResizeBorderThickness="10"
+                    UseAeroCaptionButtons="False" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderBrush" Value="{StaticResource DarkerColor}" />
+        <Setter Property="Background" Value="Red" />
+        <Setter Property="Template">
+
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Window}">
+                    <Border Padding="16" Background="Transparent">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="15" ShadowDepth="0" Opacity="0.75" Color="Black"/>
+                        </Border.Effect>
+
+                            <Grid >
+                                <Border 
+                                    CornerRadius="4"
+                                    Background="{StaticResource DarkColor}"
+                                    Padding="0, 30, 0, 0">
+                                    <AdornerDecorator>
+                                        <ContentPresenter />
+                                    </AdornerDecorator>
+                                </Border>
+                                <Border>
+                                    <DockPanel 
+                                        Height="30"
+                                        VerticalAlignment="Top"
+                                        LastChildFill="False">
+                                        <TextBlock 
+                                        Margin="10,0,0,0"
+                                        VerticalAlignment="Center"
+                                        DockPanel.Dock="Left"
+                                        FontSize="12"
+                                        Opacity="1.0"
+                                        Foreground="{StaticResource TextBase}"
+                                        Text="{TemplateBinding Title}" />
+                                        <Button x:Name="btnClose"
+                                        Command="{Binding CloseWindowCommand}"
+                                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                                        Style="{DynamicResource ButtonCloseWindowStyle}"
+                                        DockPanel.Dock="Right"
+                                        WindowChrome.IsHitTestVisibleInChrome="True" >
+                                        </Button>
+                                    </DockPanel>
+                                </Border>
+                            </Grid>
+
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

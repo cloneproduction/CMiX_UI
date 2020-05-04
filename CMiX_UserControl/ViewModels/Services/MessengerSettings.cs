@@ -1,27 +1,103 @@
 ﻿using CMiX.MVVM.ViewModels;
 using MvvmDialogs;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels
 {
     public class MessengerSettings : ViewModel, IModalDialogViewModel
     {
-        public MessengerSettings()
+        public MessengerSettings(Messenger messenger)
         {
+            Messenger = messenger;
+            DeviceName = messenger.Server.Topic;
+            Port = messenger.Server.Port;
+            IP = messenger.Server.IP;
 
+            CanApply = false;
+
+            OkCommand = new RelayCommand(p => Ok(p as Window));
+            CancelCommand = new RelayCommand(p => Cancel(p as Window));
+            ApplyCommand = new RelayCommand(p => Apply());
+            CloseWindowCommand = new RelayCommand(p => Cancel(p as Window));
+        }
+
+        public bool? DialogResult { get; set; }
+
+        public void Ok(Window window)
+        {
+            DialogResult = true;
+            window.Close();
+        }
+
+        public void Cancel(Window window)
+        {
+            DialogResult = false;
+            window.Close();
+        }
+
+        public void Apply()
+        {
+            Messenger.Server.IP = IP;
+            Messenger.Server.Port = Port;
+            Messenger.Server.Topic = DeviceName;
+            CanApply = false;
+        }
+
+        public ICommand OkCommand { get; set; }
+        public ICommand CancelCommand { get; set; }
+        public ICommand ApplyCommand { get; set; }
+        public ICommand CloseWindowCommand { get; set; }
+
+        public Messenger Messenger { get; set; }
+
+        private bool _canApply;
+        public bool CanApply
+        {
+            get => _canApply;
+            set => SetAndNotify(ref _canApply, value);
+        }
+
+
+        private string _deviceName;
+        public string DeviceName
+        {
+            get => _deviceName;
+            set
+            {
+                SetAndNotify(ref _deviceName, value);
+                CanApply = true;
+            }
+        }
+
+        private string _ip;
+        public string IP
+        {
+            get => _ip;
+            set
+            {
+                SetAndNotify(ref _ip, value);
+                CanApply = true;
+            }
         }
 
         private int _port;
         public int Port
         {
-            get { return _port; }
-            set { _port = value; }
+            get => _port;
+            set
+            {
+                SetAndNotify(ref _port, value);
+                CanApply = true;
+            }
         }
 
-        public bool? DialogResult => throw new NotImplementedException();
+        private string _address;
+        public string Address
+        {
+            get => _address;
+            set => SetAndNotify(ref _address, value);
+        }
     }
 }

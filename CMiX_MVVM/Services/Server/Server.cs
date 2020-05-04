@@ -37,24 +37,14 @@ namespace CMiX.MVVM.ViewModels
         public string IP
         {
             get => _ip;
-            set 
-            { 
-                SetAndNotify(ref _ip, value);
-                if (IsRunning)
-                    Restart();
-            }
+            set => SetAndNotify(ref _ip, value);
         }
 
         private int _port;
         public int Port
         {
             get => _port;
-            set 
-            { 
-                SetAndNotify(ref _port, value);
-                if (IsRunning)
-                    Restart();
-            }
+            set => SetAndNotify(ref _port, value);
         }
 
         private bool _isRenaming;
