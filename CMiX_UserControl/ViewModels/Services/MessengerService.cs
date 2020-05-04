@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Commands;
+using CMiX.Studio.ViewModels.MessageService;
 using System.Collections.ObjectModel;
 
 namespace CMiX.Studio.ViewModels

@@ -2,7 +2,7 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
-using CMiX.Studio.Services;
+using CMiX.Studio.ViewModels.MessageService;
 using CMiX.ViewModels;
 using Memento;
 using MvvmDialogs;

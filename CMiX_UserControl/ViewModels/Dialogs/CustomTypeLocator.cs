@@ -9,7 +9,7 @@ namespace CMiX.Studio.ViewModels
     {
         public Type Locate(INotifyPropertyChanged viewModel)
         {
-            if (viewModel is MessengerSettings)
+            if (viewModel is MessageService.Settings)
                 return typeof(MessengerSettingsWindow);
 
             else if (viewModel is ModalDialog)

@@ -1,0 +1,87 @@
+﻿<UserControl x:Class="CMiX.Studio.Views.Messenger"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
+             xmlns:Views="clr-namespace:CMiX.Studio.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="147.674" d:DesignWidth="252.229">
+
+    <Border Background="{StaticResource HighDarkerColor}">
+        <StackPanel>
+            <Border Height="25" HorizontalAlignment="Stretch" >
+                <DockPanel>
+                    <Button 
+                        Background="Transparent"
+                        Style="{StaticResource ButtonImage}"
+                        DockPanel.Dock="Right"     
+                        Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:MessengerManager}}, Path=DataContext.OpenSettingsCommand}"
+                        CommandParameter="{Binding Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:Messenger}}}">
+                        <Button.Content>
+                            <Image Margin="16" Source="{StaticResource Settings}"/>
+                        </Button.Content>
+                    </Button>
+                    <TextBlock Padding="8, 0" Text="{Binding Server.Topic}" DockPanel.Dock="Left"/>
+                </DockPanel>
+            </Border>
+            <Border Padding="4">
+                <StackPanel HorizontalAlignment="Stretch">
+                    <Grid Height="25" Margin="0, 1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.4*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock 
+                            Text="IP" 
+                            Foreground="{StaticResource TextBase}"
+                            HorizontalAlignment="Right"
+                            Margin="0, 0, 8, 0"
+                            VerticalAlignment="Center"/>
+                        <TextBlock Padding="4" Grid.Column="1" Text="{Binding Server.IP}"/>
+                    </Grid>
+                    <Grid Height="25" Margin="0, 1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.4*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock 
+                            Text="Port" 
+                            Margin="0, 0, 8, 0"
+                            Foreground="{StaticResource TextBase}"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"/>
+                        <TextBlock
+                            Padding="4"
+                            Text="{Binding Server.Port}"
+                            Grid.Column="1"
+                            Foreground="{StaticResource TextBase}"/>
+                    </Grid>
+                    <Grid Margin="0, 1" Height="25">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.4*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock 
+                            Text="Compo" 
+                            Margin="0, 0, 8, 0"
+                            Foreground="{StaticResource TextBase}"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"/>
+                        <ComboBox 
+                            Grid.Column="1"
+                            SelectedItem="{Binding SelectedComponent}"
+                            ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:MessengerManager}}, Path=DataContext.Project.Components}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Margin="2, 1" Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Border>
+    
+</UserControl>

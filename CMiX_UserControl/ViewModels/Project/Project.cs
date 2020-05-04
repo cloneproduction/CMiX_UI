@@ -3,6 +3,7 @@ using MvvmDialogs;
 using System.Windows.Data;
 using System.ComponentModel;
 using System.Collections.Specialized;
+using CMiX.Studio.ViewModels.MessageService;
 
 namespace CMiX.Studio.ViewModels
 {

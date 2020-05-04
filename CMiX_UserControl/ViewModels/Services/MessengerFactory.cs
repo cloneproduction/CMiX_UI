@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CMiX.Studio.ViewModels
+namespace CMiX.Studio.ViewModels.MessageService
 {
     public static class MessengerFactory
     {

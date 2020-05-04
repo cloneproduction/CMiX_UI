@@ -4,16 +4,16 @@ using System;
 using System.Windows;
 using System.Windows.Input;
 
-namespace CMiX.Studio.ViewModels
+namespace CMiX.Studio.ViewModels.MessageService
 {
-    public class MessengerSettings : ViewModel, IModalDialogViewModel
+    public class Settings : ViewModel, IModalDialogViewModel
     {
-        public MessengerSettings(Messenger messenger)
+        public Settings()
         {
-            Messenger = messenger;
-            DeviceName = messenger.Server.Topic;
-            Port = messenger.Server.Port;
-            IP = messenger.Server.IP;
+            //Messenger = messenger;
+            //DeviceName = messenger.Server.Topic;
+            //Port = messenger.Server.Port;
+            //IP = messenger.Server.IP;
 
             CanApply = false;
 
@@ -39,12 +39,23 @@ namespace CMiX.Studio.ViewModels
 
         public void Apply()
         {
-            Messenger.Server.IP = IP;
-            Messenger.Server.Port = Port;
-            Messenger.Server.Topic = DeviceName;
+            Address = String.Format("tcp://{0}:{1}", IP, Port);
+
+            //if (Messenger.CheckAddresses(Address))
+            //{
+            //    Messenger.Server.IP = IP;
+            //    Messenger.Server.Port = Port;
+            //    Messenger.Server.Topic = DeviceName;
+            //    Messenger.Addresses.Add(Address);
+            //}
+                
             CanApply = false;
         }
 
+        //private string Address
+        //{
+        //    get { return String.Format("tcp://{0}:{1}", IP, Port); }
+        //}
         public ICommand OkCommand { get; set; }
         public ICommand CancelCommand { get; set; }
         public ICommand ApplyCommand { get; set; }

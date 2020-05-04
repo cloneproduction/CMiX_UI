@@ -40,6 +40,13 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _ip, value);
         }
 
+        private string _topic;
+        public string Topic
+        {
+            get => _topic;
+            set => SetAndNotify(ref _topic, value);
+        }
+
         private int _port;
         public int Port
         {
@@ -55,7 +62,6 @@ namespace CMiX.MVVM.ViewModels
         }
 
         public NetMQServer NetMQServer { get; set; }
-        public string Topic { get; set; }
         #endregion
 
 

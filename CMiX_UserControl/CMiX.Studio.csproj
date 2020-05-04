@@ -149,7 +149,6 @@
     <Compile Include="ViewModels\Services\MessengerManager.cs" />
     <Compile Include="ViewModels\Services\MessengerService.cs" />
     <Compile Include="ViewModels\Services\MessengerSettings.cs" />
-    <Compile Include="ViewModels\Services\ServerManager.cs" />
     <Compile Include="ViewModels\Slider\Slider.cs" />
     <Compile Include="ViewModels\Slider\SliderModelFactory.cs" />
     <Compile Include="Views\Assets\TexturePathSelector.xaml.cs">
@@ -213,8 +212,8 @@
     <Compile Include="Views\Layer\MessageValidation.xaml.cs">
       <DependentUpon>MessageValidation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Messenger\ServerManager.xaml.cs">
-      <DependentUpon>ServerManager.xaml</DependentUpon>
+    <Compile Include="Views\Messenger\MessengerManager.xaml.cs">
+      <DependentUpon>MessengerManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Component\ComponentEditor.xaml.cs">
       <DependentUpon>ComponentEditor.xaml</DependentUpon>
@@ -251,8 +250,8 @@
     <Compile Include="Views\Messenger\MessageService.xaml.cs">
       <DependentUpon>MessageService.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Messenger\Server.xaml.cs">
-      <DependentUpon>Server.xaml</DependentUpon>
+    <Compile Include="Views\Messenger\Messenger.xaml.cs">
+      <DependentUpon>Messenger.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Assets\AssetManager.xaml.cs">
       <DependentUpon>AssetManager.xaml</DependentUpon>
@@ -439,7 +438,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Messenger\Server.xaml">
+    <Page Include="Views\Messenger\Messenger.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -471,7 +470,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Messenger\ServerManager.xaml">
+    <Page Include="Views\Messenger\MessengerManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
