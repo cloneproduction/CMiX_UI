@@ -151,6 +151,7 @@
                 </Style>
             </Setter.Value>
         </Setter>
+        <Setter Property="IsEnabled" Value="True"/>
         <Setter Property="Background" Value="{StaticResource DarkColor}"/>
         <Setter Property="Foreground" Value="{StaticResource TextBase}"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>

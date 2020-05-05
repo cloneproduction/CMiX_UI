@@ -26,10 +26,12 @@ namespace CMiX.Studio.ViewModels.MessageService
 
         public void EditMessengerSettings(Messenger messenger)
         {
-            bool? success = DialogService.ShowDialog<MessengerSettingsWindow>(this, messenger);
+            Settings settings = messenger.GetSettings();
+            bool? success = DialogService.ShowDialog<MessengerSettingsWindow>(this, settings);
             if (success == true)
             {
-                System.Console.WriteLine("POUETPOUET");
+                messenger.SetSettings(settings);
+                System.Console.WriteLine("SetSettings");
             }
         }
 
@@ -56,21 +58,6 @@ namespace CMiX.Studio.ViewModels.MessageService
         {
             Project.Messengers.Add(MessengerFactory.CreateMessenger());
         }
-
-        //private void Messenger_SettingAppliedEvent(object sender, SettingsEventArgs e)
-        //{
-        //    foreach (var messenger in Project.Messengers)
-        //    {
-        //        if (messenger == (Messenger)sender && messenger.Server.Address != e.Address)
-        //        {
-        //            System.Console.WriteLine("CanApplySettingToServer");
-        //        }
-        //        else
-        //        {
-        //            System.Console.WriteLine("CannotApply Setting to server");
-        //        }
-        //    }
-        //}
 
         private void DeleteServer()
         {

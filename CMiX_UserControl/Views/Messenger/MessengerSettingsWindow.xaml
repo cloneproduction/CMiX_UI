@@ -42,12 +42,12 @@
                     Command="{Binding CancelCommand}"
                     CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
                 <Button 
-                    IsEnabled="{Binding CanApplySettings}"
+                    Command="{Binding ApplyCommand}"
+                    IsEnabled="{Binding CanApply}"
                     Margin="2"
                     Grid.Column="2" 
                     Content="Apply"
-                    Style="{StaticResource ButtonRounded}" 
-                    Command="{Binding ApplyCommand}"/>
+                    Style="{StaticResource ButtonRounded}" />
             </Grid>
             <StackPanel DockPanel.Dock="Top">
                 <Grid Height="25" Margin="0, 1">
@@ -56,14 +56,14 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <TextBlock 
-                    Text="Device" 
-                    Margin="0, 0, 8, 0"
-                    Foreground="{StaticResource TextBase}"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"/>
+                        Text="Engine" 
+                        Margin="0, 0, 8, 0"
+                        Foreground="{StaticResource TextBase}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"/>
                     <TextBox
                         Padding="4"
-                        Text="{Binding DeviceName, UpdateSourceTrigger=PropertyChanged}"
+                        Text="{Binding Topic, UpdateSourceTrigger=PropertyChanged}"
                         Grid.Column="1"
                         BorderThickness="0"
                         BorderBrush="{StaticResource DarkColor}"
