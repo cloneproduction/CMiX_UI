@@ -7,45 +7,43 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class Texture : ViewModel, IUndoable
+    public class Texture : ViewModel
     {
         #region CONSTRUCTORS
         public Texture()
         {
-            //MessageAddress = $"{messageaddress}{nameof(Texture)}/";
+            AssetPathSelector = new AssetPathSelector<AssetTexture>();
 
-            AssetPathSelector = new AssetPathSelector<AssetTexture>(MessageAddress);
-
-            Brightness = new Slider(MessageAddress + nameof(Brightness));
+            Brightness = new Slider(nameof(Brightness));
             Brightness.Minimum = -1.0;
 
-            Contrast = new Slider(MessageAddress + nameof(Contrast));
+            Contrast = new Slider(nameof(Contrast));
             Contrast.Minimum = -1.0;
 
-            Invert = new Slider(MessageAddress + nameof(Invert));
+            Invert = new Slider(nameof(Invert));
             InvertMode = ((TextureInvertMode)0).ToString();
 
-            Hue = new Slider(MessageAddress + nameof(Hue));
+            Hue = new Slider(nameof(Hue));
             Hue.Minimum = -1.0;
 
-            Saturation = new Slider(MessageAddress + nameof(Saturation));
+            Saturation = new Slider(nameof(Saturation));
             Saturation.Minimum = -1.0;
 
-            Luminosity = new Slider(MessageAddress + nameof(Luminosity));
+            Luminosity = new Slider(nameof(Luminosity));
             Luminosity.Minimum = -1.0;
 
-            Keying = new Slider(MessageAddress + nameof(Keying));
+            Keying = new Slider(nameof(Keying));
 
-            Scale = new Slider(MessageAddress + nameof(Scale));
+            Scale = new Slider(nameof(Scale));
             Scale.Minimum = -1.0;
 
-            Rotate = new Slider(MessageAddress + nameof(Rotate));
+            Rotate = new Slider(nameof(Rotate));
             Rotate.Minimum = -1.0;
 
-            Pan = new Slider(MessageAddress + nameof(Pan));
+            Pan = new Slider(nameof(Pan));
             Pan.Minimum = -1.0;
 
-            Tilt = new Slider(MessageAddress + nameof(Tilt));
+            Tilt = new Slider(nameof(Tilt));
             Tilt.Minimum = -1.0;
 
             CopyTextureCommand = new RelayCommand(p => CopyTexture());
@@ -80,23 +78,17 @@ namespace CMiX.Studio.ViewModels
             get => _invertMode;
             set
             {
-                if(Mementor != null)
-                    Mementor.PropertyChange(this, nameof(InvertMode));
+                //if(Mementor != null)
+                //    Mementor.PropertyChange(this, nameof(InvertMode));
                 SetAndNotify(ref _invertMode, value);
                 //SendMessages(MessageAddress + nameof(InvertMode), InvertMode);
             }
         }
-
-        public string MessageAddress { get; set; }
-        public MessengerService MessengerService { get; set; }
-        public Mementor Mementor { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
         public void Reset()
         {
-            MessengerService.Disable();
-
             InvertMode = ((TextureInvertMode)0).ToString();
             Brightness.Reset();
             Contrast.Reset();
@@ -109,8 +101,6 @@ namespace CMiX.Studio.ViewModels
             Rotate.Reset();
             Pan.Reset();
             Tilt.Reset();
-
-            MessengerService.Enable();
         }
 
         public void CopyTexture()
@@ -125,14 +115,12 @@ namespace CMiX.Studio.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("TextureModel"))
             {
-                Mementor.BeginBatch();
-                MessengerService.Disable();
+                //Mementor.BeginBatch();
 
                 var texturemodel = data.GetData("TextureModel") as TextureModel;
                 this.SetViewModel(texturemodel);
 
-                MessengerService.Enable();
-                Mementor.EndBatch();
+                //Mementor.EndBatch();
                 //SendMessages(nameof(TextureModel), GetModel());
             }
         }

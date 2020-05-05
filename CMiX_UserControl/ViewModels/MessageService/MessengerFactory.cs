@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace CMiX.Studio.ViewModels.MessageService
 {
@@ -6,9 +7,9 @@ namespace CMiX.Studio.ViewModels.MessageService
     {
         static int ID = 0;
 
-        public static Messenger CreateMessenger(List<string> addresses)
+        public static Messenger CreateMessenger()
         {
-            var messenger = new Messenger(ID, addresses);
+            var messenger = new Messenger(ID);
             ID++;
             return messenger;
         }

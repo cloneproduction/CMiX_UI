@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows;
-using Memento;
-using CMiX.MVVM.Services;
+﻿using System.Windows;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 
@@ -27,9 +24,6 @@ namespace CMiX.Studio.ViewModels
         public Slider X { get; set; }
         public Slider Y { get; set; }
         public Slider Z { get; set; }
-        //public string MessageAddress { get; set; }
-
-        public MessengerService MessengerService { get; set; }
 
         #region COPY/PASTE/RESET
         public void CopyGeometry()
@@ -45,12 +39,8 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("TranslateModel"))
             {
                 //Mementor.BeginBatch();
-                MessengerService.Disable();
-
                 var translatemodel = data.GetData("TranslateModel") as TranslateModel;
                 this.Paste(translatemodel);
-
-                MessengerService.Enable();
                 //Mementor.EndBatch();
                 //SendMessages(nameof(TranslateModel), GetModel());
             }

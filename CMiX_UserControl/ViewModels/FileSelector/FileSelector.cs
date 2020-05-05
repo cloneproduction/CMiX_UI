@@ -11,13 +11,10 @@ using Memento;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class FileSelector : ViewModel, IUndoable, IDropTarget, IDragSource
+    public class FileSelector : ViewModel, IDropTarget, IDragSource
     {
-        public FileSelector(string messageaddress, string selectionmode, List<string> filemask, MessengerService messengerService, Mementor mementor) 
+        public FileSelector(string selectionmode, List<string> filemask) 
         {
-            MessageAddress = $"{messageaddress}{nameof(FileSelector)}/";
-            MessengerService = messengerService;
-            Mementor = mementor;
             SelectionMode = selectionmode;
             FileMask = filemask;
             FilePaths = new ObservableCollection<FileNameItem>();
@@ -47,8 +44,8 @@ namespace CMiX.Studio.ViewModels
             set
             {
                 SetAndNotify(ref selectedfilenameitem, value);
-                if (Mementor != null)
-                    Mementor.PropertyChange(this, nameof(SelectedFileNameItem));
+                //if (Mementor != null)
+                //    Mementor.PropertyChange(this, nameof(SelectedFileNameItem));
             }
         }
 
@@ -62,53 +59,49 @@ namespace CMiX.Studio.ViewModels
                 UpdateFileNameItemFolderName();
             }
         }
-
-        public string MessageAddress { get; set; }
-        public Mementor Mementor { get; set; }
-        public MessengerService MessengerService { get; set; }
         #endregion
 
         #region METHODS
         private void ClearAll()
         {
-            Mementor.PropertyChange(this, "FilePaths");
+            //Mementor.PropertyChange(this, "FilePaths");
             FilePaths.Clear();
         }
 
         private void ClearUnselected()
         {
-            Mementor.Batch(() =>
-            {
-                for (int i = FilePaths.Count - 1; i >= 0; i--)
-                {
-                    if (!FilePaths[i].FileIsSelected)
-                    {
-                        Mementor.ElementRemove(FilePaths, FilePaths[i]);
-                        FilePaths.Remove(FilePaths[i]);
-                    }
-                }
-            });
+            //Mementor.Batch(() =>
+            //{
+            //    for (int i = FilePaths.Count - 1; i >= 0; i--)
+            //    {
+            //        if (!FilePaths[i].FileIsSelected)
+            //        {
+            //            //Mementor.ElementRemove(FilePaths, FilePaths[i]);
+            //            FilePaths.Remove(FilePaths[i]);
+            //        }
+            //    }
+            //});
         }
 
         private void ClearSelected()
         {
-            Mementor.Batch(() =>
-            {
-                for (int i = FilePaths.Count - 1; i >= 0; i--)
-                {
-                    if (FilePaths[i].FileIsSelected)
-                    {
-                        Mementor.ElementRemove(FilePaths, FilePaths[i]);
-                        FilePaths.Remove(FilePaths[i]);
-                    }
-                }
-            });
+            //Mementor.Batch(() =>
+            //{
+            //    for (int i = FilePaths.Count - 1; i >= 0; i--)
+            //    {
+            //        if (FilePaths[i].FileIsSelected)
+            //        {
+            //            //Mementor.ElementRemove(FilePaths, FilePaths[i]);
+            //            FilePaths.Remove(FilePaths[i]);
+            //        }
+            //    }
+            //});
         }
 
         private void DeleteItem(object filenameitem)
         {
             FileNameItem fni = filenameitem as FileNameItem;
-            Mementor.ElementRemove(FilePaths, fni);
+            //Mementor.ElementRemove(FilePaths, fni);
             FilePaths.Remove(fni);
         }
 
@@ -142,10 +135,10 @@ namespace CMiX.Studio.ViewModels
                 dropInfo.Effects = DragDropEffects.Copy;
             }
 
-            if (Mementor.IsInBatch)
-            {
-                Mementor.EndBatch();
-            }
+            //if (Mementor.IsInBatch)
+            //{
+            //    Mementor.EndBatch();
+            //}
         }
 
         public void Drop(IDropInfo dropInfo)
@@ -155,7 +148,7 @@ namespace CMiX.Studio.ViewModels
             {
                 if (dataObject.ContainsFileDropList())
                 {
-                    Mementor.BeginBatch();
+                    //Mementor.BeginBatch();
                     var filedrop = dataObject.GetFileDropList();
 
                     foreach (string str in filedrop)
@@ -164,13 +157,13 @@ namespace CMiX.Studio.ViewModels
                         {
                             if (System.IO.Path.GetExtension(str).ToUpperInvariant() == fm)
                             {
-                                FileNameItem lbfn = new FileNameItem(FolderPath, MessageAddress, MessengerService) { FileIsSelected = false, FileName = str };
-                                FilePaths.Add(lbfn);
-                                Mementor.ElementAdd(FilePaths, lbfn);
+                                //FileNameItem lbfn = new FileNameItem(FolderPath, MessageAddress, MessengerService) { FileIsSelected = false, FileName = str };
+                                //FilePaths.Add(lbfn);
+                                //Mementor.ElementAdd(FilePaths, lbfn);
                             }
                         }
                     }
-                    Mementor.EndBatch();
+                    //Mementor.EndBatch();
                 }
             }
 
@@ -189,7 +182,7 @@ namespace CMiX.Studio.ViewModels
                                 newfilenameitem.FileIsSelected = true;
                                 SelectedFileNameItem = newfilenameitem;
                                 FilePaths.Insert(dropInfo.InsertIndex, newfilenameitem);
-                                Mementor.ElementAdd(FilePaths, newfilenameitem);
+                                //Mementor.ElementAdd(FilePaths, newfilenameitem);
                             }
                         }
                     }
@@ -226,7 +219,7 @@ namespace CMiX.Studio.ViewModels
                     FilePaths.Remove(filenameitem);
                     newfilenameitem.FileIsSelected = true;
                     SelectedFileNameItem = newfilenameitem;
-                    Mementor.ElementAdd(FilePaths, newfilenameitem);
+                    //Mementor.ElementAdd(FilePaths, newfilenameitem);
                 }
             }
         }
@@ -250,57 +243,9 @@ namespace CMiX.Studio.ViewModels
         #region COPY/PASTE/RESET
         public void Reset()
         {
-            MessengerService.Disable();;
-
-            Mementor.PropertyChange(this, "FilePaths");
+            //Mementor.PropertyChange(this, "FilePaths");
             FilePaths.Clear();
-
-            MessengerService.Enable();
         }
-
-        //public FileSelectorModel GetModel()
-        //{
-        //    FileSelectorModel fileSelectorModel = new FileSelectorModel();
-        //    fileSelectorModel.FolderPath = FolderPath;
-        //    foreach (var filePath in FilePaths)
-        //    {
-        //        var fileNameItemModel = filePath.GetModel();
-        //        fileSelectorModel.FilePaths.Add(fileNameItemModel);
-        //    }
-        //    return fileSelectorModel;
-        //}
-
-        //public void CopyModel(FileSelectorModel fileSelectorModel)
-        //{
-
-        //    fileSelectorModel.FolderPath = FolderPath;
-        //    List<FileNameItemModel> FileNameItemModelList = new List<FileNameItemModel>();
-        //    foreach (var item in FilePaths)
-        //    {
-        //        var filenameitemmodel = new FileNameItemModel();
-                
-        //        item.CopyModel(filenameitemmodel);
-                
-        //        FileNameItemModelList.Add(filenameitemmodel);
-        //    }
-        //    fileSelectorModel.FilePaths = FileNameItemModelList;
-        //}
-
-        //public void SetViewModel(FileSelectorModel fileSelectorModel)
-        //{
-        //    MessengerService.Disable();
-        //    FolderPath = fileSelectorModel.FolderPath;
-        //    FilePaths.Clear();
-
-        //    foreach (var item in fileSelectorModel.FilePaths)
-        //    {
-        //        FileNameItem filenameitem = new FileNameItem(FolderPath, MessageAddress, MessengerService);
-        //        filenameitem.SetViewModel(item);
-        //        FilePaths.Add(filenameitem);
-        //    }
-
-        //    MessengerService.Enable();
-        //}
         #endregion
     }
 }

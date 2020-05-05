@@ -1,6 +1,4 @@
 ﻿using System.Windows;
-using Memento;
-using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 
@@ -18,8 +16,6 @@ namespace CMiX.Studio.ViewModels
         public Slider X { get; set; }
         public Slider Y { get; set; }
         public Slider Z { get; set; }
-        public MessengerService MessengerService { get; set; }
-
 
         #region COPY/PASTE/RESET
         public void CopyGeometry()
@@ -34,8 +30,6 @@ namespace CMiX.Studio.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("ScaleModel"))
             {
-                MessengerService.Disable();
-
                 var scalemodel = data.GetData("ScaleModel") as ScaleModel;
                 this.Paste(scalemodel);
                 //Mementor.EndBatch();
@@ -52,17 +46,13 @@ namespace CMiX.Studio.ViewModels
 
         public void Paste(ScaleModel scalemodel)
         {
-            MessengerService.Disable();
-
             X.SetViewModel(scalemodel.X);
             Y.SetViewModel(scalemodel.Y);
             Z.SetViewModel(scalemodel.Z);
-            MessengerService.Enable();
         }
 
         public void Reset()
         {
-            MessengerService.Disable();
             //Mementor.BeginBatch();
 
             X.Reset();
@@ -70,7 +60,6 @@ namespace CMiX.Studio.ViewModels
             Z.Reset();
 
             //Mementor.EndBatch();
-            MessengerService.Enable();
 
             ScaleModel scalemodel = this.GetModel();
             //SendMessages(nameof(ScaleModel), scalemodel);

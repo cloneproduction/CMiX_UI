@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using MvvmDialogs;
 using CMiX.Views;
 using CMiX.MVVM.ViewModels;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace CMiX.Studio.ViewModels.MessageService
 {
@@ -17,14 +19,14 @@ namespace CMiX.Studio.ViewModels.MessageService
             AddMessengerCommand = new RelayCommand(p => AddMessenger());
             DeleteMessengerCommand = new RelayCommand(p => DeleteServer());
             RenameMessengerCommand = new RelayCommand(p => RenameServer(p));
-            OpenSettingsCommand = new RelayCommand(p => OpenSettings(p as Messenger));
+            EditMessengerSettingsCommand = new RelayCommand(p => EditMessengerSettings(p as Messenger));
         }
 
         public IDialogService DialogService { get; set; }
 
-        public void OpenSettings(Messenger messenger)
+        public void EditMessengerSettings(Messenger messenger)
         {
-            bool? success = DialogService.ShowDialog<MessengerSettingsWindow>(this, messenger.Settings);
+            bool? success = DialogService.ShowDialog<MessengerSettingsWindow>(this, messenger);
             if (success == true)
             {
                 System.Console.WriteLine("POUETPOUET");
@@ -32,7 +34,7 @@ namespace CMiX.Studio.ViewModels.MessageService
         }
 
 
-        public ICommand OpenSettingsCommand { get; }
+        public ICommand EditMessengerSettingsCommand { get; }
         public ICommand AddMessengerCommand { get; set; }
         public ICommand DeleteMessengerCommand { get; set; }
         public ICommand RenameMessengerCommand { get; set; }
@@ -40,6 +42,8 @@ namespace CMiX.Studio.ViewModels.MessageService
         public Project Project { get; set; }
 
         public List<string> Addresses { get; set; }
+
+        public ObservableCollection<Settings> SettingsCollection { get; set; }
 
         private Messenger _selectedMessenger;
         public Messenger SelectedMessenger
@@ -50,9 +54,23 @@ namespace CMiX.Studio.ViewModels.MessageService
         
         public void AddMessenger()
         {
-            Messenger messenger = MessengerFactory.CreateMessenger(Addresses);
-            Project.Messengers.Add(messenger);
+            Project.Messengers.Add(MessengerFactory.CreateMessenger());
         }
+
+        //private void Messenger_SettingAppliedEvent(object sender, SettingsEventArgs e)
+        //{
+        //    foreach (var messenger in Project.Messengers)
+        //    {
+        //        if (messenger == (Messenger)sender && messenger.Server.Address != e.Address)
+        //        {
+        //            System.Console.WriteLine("CanApplySettingToServer");
+        //        }
+        //        else
+        //        {
+        //            System.Console.WriteLine("CannotApply Setting to server");
+        //        }
+        //    }
+        //}
 
         private void DeleteServer()
         {
@@ -60,7 +78,7 @@ namespace CMiX.Studio.ViewModels.MessageService
             {
                 //SelectedMessenger.Stop();
                 Project.Messengers.Remove(SelectedMessenger);
-                Addresses.Remove(SelectedMessenger.Settings.Address);
+                //Addresses.Remove(SelectedMessenger.Settings.Address);
             }
         }
 

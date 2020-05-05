@@ -9,12 +9,10 @@ namespace CMiX.Studio.ViewModels
 {
     public class AssetPathSelector<T> : ViewModel, IDropTarget
     {
-        public AssetPathSelector(string messageAddress)
+        public AssetPathSelector()
         {
-            MessageAddress = $"{messageAddress}/";
+            
         }
-
-        public string MessageAddress { get; set; }
 
         private string _selectedPath;
         public string SelectedPath

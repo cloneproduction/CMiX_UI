@@ -256,12 +256,8 @@ namespace CMiX.Studio.ViewModels
 
         public static void SetViewModel(this RangeControl instance, RangeControlModel rangeControlModel)
         {
-            instance.MessengerService.Disable();
-
             instance.Range.SetViewModel(rangeControlModel.Range);
             instance.Modifier = rangeControlModel.Modifier;
-
-            instance.MessengerService.Enable();
         }
 
 

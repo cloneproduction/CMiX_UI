@@ -1,6 +1,5 @@
 ﻿using Ceras;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using CMiX.Studio.ViewModels.MessageService;
 using CMiX.ViewModels;
@@ -23,7 +22,6 @@ namespace CMiX.Studio.ViewModels
             Serializer = new CerasSerializer();
 
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
-            //MessengerService = new MessengerService();
 
             CurrentProject = ComponentFactory.CreateProject();
 
@@ -74,9 +72,6 @@ namespace CMiX.Studio.ViewModels
         public Outliner Outliner { get; set; }
         public string FolderPath { get; set; }
         public ObservableCollection<Component> Projects { get; set; }
-
-
-        public MessengerService MessengerService { get; set; }
 
         private MessengerManager _messengerManager;
         public MessengerManager MessengerManager

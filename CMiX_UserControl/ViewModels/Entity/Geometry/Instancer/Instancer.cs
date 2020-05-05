@@ -36,9 +36,6 @@ namespace CMiX.Studio.ViewModels
             }
         }
 
-        public string MessageAddress { get; set; }
-        public MessengerService MessengerService { get; set; }
-
         #region COPY/PASTE/RESET
         public void CopyGeometry()
         {
@@ -53,12 +50,10 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent("InstancerModel"))
             {
                 //Mementor.BeginBatch();
-                MessengerService.Disable();
 
                 var instancermodel = data.GetData("InstancerModel") as InstancerModel;
                 this.SetViewModel(instancermodel);
 
-                MessengerService.Enable();
                 //Mementor.EndBatch();
                 //SendMessages(nameof(InstancerModel), GetModel());
             }
@@ -72,7 +67,6 @@ namespace CMiX.Studio.ViewModels
 
         public void Reset()
         {
-            MessengerService.Disable();
             //Mementor.BeginBatch();
             Counter.Reset();
             TranslateModifier.Reset();
@@ -80,7 +74,6 @@ namespace CMiX.Studio.ViewModels
             RotationModifier.Reset();
             NoAspectRatio = false;
             //Mementor.EndBatch();
-            MessengerService.Enable();
 
             InstancerModel instancermodel = new InstancerModel();
             //this.Copy(instancermodel);

@@ -287,8 +287,6 @@ namespace CMiX.Studio.ViewModels
 
         public static void SetViewModel(this Entity instance, IComponentModel componentModel)
         {
-            instance.MessengerService.Disable();
-
             var entityModel = componentModel as EntityModel;
             instance.Enabled = entityModel.Enabled;
             instance.Name = entityModel.Name;
@@ -297,8 +295,6 @@ namespace CMiX.Studio.ViewModels
             instance.Texture.SetViewModel(entityModel.TextureModel);
             instance.Geometry.SetViewModel(entityModel.GeometryModel);
             instance.Coloration.SetViewModel(entityModel.ColorationModel);
-
-            instance.MessengerService.Enable();
         }
     }
 }

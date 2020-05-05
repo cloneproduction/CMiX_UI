@@ -1,4 +1,5 @@
-﻿using CMiX.Views;
+﻿using CMiX.Studio.ViewModels.MessageService;
+using CMiX.Views;
 using MvvmDialogs.DialogTypeLocators;
 using System;
 using System.ComponentModel;
@@ -9,7 +10,7 @@ namespace CMiX.Studio.ViewModels
     {
         public Type Locate(INotifyPropertyChanged viewModel)
         {
-            if (viewModel is MessageService.Settings)
+            if (viewModel is Messenger)
                 return typeof(MessengerSettingsWindow);
 
             else if (viewModel is ModalDialog)

@@ -7,16 +7,11 @@ namespace CMiX.Studio.ViewModels
 {
     public class FileNameItem : ViewModel
     {
-        public FileNameItem(string folderpath, string messageAddress, MessengerService messengerService)
+        public FileNameItem(string folderpath)
         {
-            MessageAddress = messageAddress + "Selected";
-            MessengerService = messengerService;
             FolderPath = folderpath;
-
         }
 
-        public string MessageAddress { get; set; }
-        public MessengerService MessengerService { get; set; }
 
         private string _folderpath;
         public string FolderPath
@@ -51,33 +46,5 @@ namespace CMiX.Studio.ViewModels
                 }
             }
         }
-
-        
-
-        #region COPY/PASTE
-        //public FileNameItemModel GetModel()
-        //{
-        //    FileNameItemModel fileNameItemModel = new FileNameItemModel();
-        //    fileNameItemModel.FileIsSelected = FileIsSelected;
-        //    fileNameItemModel.FileName = FileName;
-        //    return fileNameItemModel;
-        //}
-
-        //public void CopyModel(FileNameItemModel filenameitemmodel)
-        //{
-        //    filenameitemmodel.FileIsSelected = FileIsSelected;
-        //    filenameitemmodel.FileName = FileName;
-        //}
-
-        public void SetViewModel(FileNameItemModel filenameitemmodel)
-        {
-            MessengerService.Disable();
-
-            FileIsSelected = filenameitemmodel.FileIsSelected;
-            FileName = filenameitemmodel.FileName;
-
-            MessengerService.Enable();
-        }
-        #endregion
     }
 }

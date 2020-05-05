@@ -107,8 +107,6 @@ namespace CMiX.MVVM.Message
             msg.Append(messageAddress);
             msg.Append(message);
             actor.SendMultipartMessage(msg);
-            Console.WriteLine("Data Size = " + message.Length);
-            Console.WriteLine("NetMQServer SendObject with MessageAddress : " + messageAddress + " and Topic : " + topic);
         }
     }
 }

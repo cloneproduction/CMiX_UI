@@ -8,13 +8,11 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels
 {
-    public class GeometryScale : ViewModel, IUndoable
+    public class GeometryScale : ViewModel
     {
         #region CONSTRUCTORS
-        public GeometryScale(string messageAddress, MessengerService messengerService, Mementor mementor) 
+        public GeometryScale() 
         {
-            MessageAddress = $"{messageAddress}/";
-            MessengerService = messengerService;
             Mode = default;
         }
         #endregion
@@ -26,24 +24,18 @@ namespace CMiX.Studio.ViewModels
             get => _Mode;
             set
             {
-                if(Mementor != null)
-                    Mementor.PropertyChange(this, nameof(Mode));
+                //if(Mementor != null)
+                //    Mementor.PropertyChange(this, nameof(Mode));
                 SetAndNotify(ref _Mode, value);
                 //SendMessages(MessageAddress + nameof(Mode), Mode);
             }
         }
-
-        public string MessageAddress { get; set; }
-        public MessengerService MessengerService { get; set; }
-        public Mementor Mementor { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
         public void Reset()
         {
-            MessengerService.Disable();
             Mode = default;
-            MessengerService.Enable();
         }
 
         public void Copy(GeometryScaleModel geometryScaleModel)
@@ -53,11 +45,7 @@ namespace CMiX.Studio.ViewModels
 
         public void Paste(GeometryScaleModel geometryScaleModel)
         {
-            MessengerService.Disable();
-
             Mode = geometryScaleModel.Mode;
-
-            MessengerService.Enable();
         }
         #endregion
     }

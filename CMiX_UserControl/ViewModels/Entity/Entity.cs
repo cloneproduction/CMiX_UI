@@ -27,7 +27,6 @@ namespace CMiX.Studio.ViewModels
         public ICommand PasteEntityCommand { get; }
         public ICommand ResetEntityCommand { get; }
         
-        public MessengerService MessengerService { get; set; }
         public BeatModifier BeatModifier { get; }
         public Geometry Geometry { get; }
         public Texture Texture { get; }
@@ -37,15 +36,11 @@ namespace CMiX.Studio.ViewModels
         #region COPY/PASTE
         public void Reset()
         {
-            MessengerService.Disable();
-
             this.Enabled = true;
             this.BeatModifier.Reset();
             this.Geometry.Reset();
             this.Texture.Reset();
             this.Coloration.Reset();
-
-            MessengerService.Enable();
         }
 
 
@@ -62,11 +57,8 @@ namespace CMiX.Studio.ViewModels
             if (data.GetDataPresent(nameof(EntityModel)))
             {
                 //this.Mementor.BeginBatch();
-                this.MessengerService.Disable();
-
                 var entityModel = data.GetData(nameof(EntityModel)) as EntityModel;
                 this.SetViewModel(entityModel);
-                this.MessengerService.Enable();
                 //this.Mementor.EndBatch();
                 //SendMessages(nameof(ContentModel), contentmodel);
             }

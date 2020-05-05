@@ -10,11 +10,9 @@ namespace CMiX.Studio.ViewModels
         #region CONSTRUCTORS
         public BeatModifier(Beat beat)
         {
-            //MessageAddress = $"{messageAddress}{nameof(BeatModifier)}/";
-
             Beat = beat;
             Multiplier = 1.0;
-            ChanceToHit = new Slider(MessageAddress + nameof(ChanceToHit))
+            ChanceToHit = new Slider(nameof(ChanceToHit))
             {
                 Amount = 1.0
             };
@@ -52,10 +50,6 @@ namespace CMiX.Studio.ViewModels
                 //SendMessages(MessageAddress + nameof(Multiplier), Multiplier);
             }
         }
-
-        public string MessageAddress { get; set; }
-
-        public MessengerService MessengerService { get; set; }
         #endregion
 
         #region MULTIPLY/DIVIDE

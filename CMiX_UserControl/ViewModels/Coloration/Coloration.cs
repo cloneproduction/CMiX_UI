@@ -14,14 +14,12 @@ namespace CMiX.Studio.ViewModels
         #region CONSTRUCTORS
         public Coloration(Beat beat) 
         {
-            //MessageAddress = $"{messageAddress}{nameof(Coloration)}/";
-
             BeatModifier = new BeatModifier(beat);
             ColorSelector = new ColorSelector();
 
-            Hue = new RangeControl(MessageAddress + nameof(Hue));
-            Saturation = new RangeControl(MessageAddress + nameof(Saturation));
-            Value = new RangeControl(MessageAddress + nameof(Value));
+            Hue = new RangeControl(nameof(Hue));
+            Saturation = new RangeControl(nameof(Saturation));
+            Value = new RangeControl(nameof(Value));
 
             CopyColorationCommand = new RelayCommand(p => CopyColoration());
             PasteColorationCommand = new RelayCommand(p => PasteColoration());
@@ -43,8 +41,6 @@ namespace CMiX.Studio.ViewModels
         public RangeControl Hue { get; }
         public RangeControl Saturation { get; }
         public RangeControl Value { get; }
-        public string MessageAddress { get; set; }
-        public MessengerService MessengerService { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
@@ -53,15 +49,11 @@ namespace CMiX.Studio.ViewModels
 
         public void Reset()
         {
-            MessengerService.Disable();
-
             ColorSelector.Reset();
             BeatModifier.Reset();
             Hue.Reset();
             Saturation.Reset();
             Value.Reset();
-
-            MessengerService.Enable();
         }
 
         public void CopyColoration()

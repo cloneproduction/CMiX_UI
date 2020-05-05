@@ -9,7 +9,8 @@
         WindowStyle="None"
         Style="{StaticResource MessengerSettingsWindowStyle}"
         WindowStartupLocation="CenterOwner"
-        Title="Messenger Settings" Width="300" Height="200" >
+        SizeToContent="Height"
+        Title="Messenger Settings" Width="300" >
     
     <Window.InputBindings>
         <KeyBinding 
@@ -41,7 +42,7 @@
                     Command="{Binding CancelCommand}"
                     CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
                 <Button 
-                    IsEnabled="{Binding CanApply}"
+                    IsEnabled="{Binding CanApplySettings}"
                     Margin="2"
                     Grid.Column="2" 
                     Content="Apply"
@@ -104,6 +105,9 @@
                         Foreground="{StaticResource TextBase}"
                         Background="{StaticResource HighHighDarkerColor}"/>
                 </Grid>
+                <Border Height="50" VerticalAlignment="Center" Margin="0, 8">
+                    <TextBlock TextWrapping="WrapWithOverflow"  Padding="8, 0" VerticalAlignment="Center" Text="{Binding ErrorMessage}" Foreground="{StaticResource TextBase}"/>
+                </Border>
             </StackPanel>
             
         </DockPanel>
