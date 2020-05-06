@@ -1,7 +1,6 @@
 ﻿using Ceras;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
-using System.Collections.Generic;
 using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels.MessageService
@@ -12,7 +11,7 @@ namespace CMiX.Studio.ViewModels.MessageService
         {
             Serializer = new CerasSerializer();
             Server = new Server();
-            Settings = new Settings();
+
             Name = $"Messenger ({id})";
 
             StartServerCommand = new RelayCommand(p => StartServer());
@@ -40,28 +39,21 @@ namespace CMiX.Studio.ViewModels.MessageService
         public ICommand StopServerCommand { get; }
         public ICommand RestartServerCommand { get; }
 
-
-        public List<string> Addresses { get; set; }
         public CerasSerializer Serializer { get; set; }
-
-        public Settings Settings {get; set;}
 
         public Settings GetSettings()
         {
-            Settings settings = new Settings();
-
-            settings.Topic = Server.Topic;
-            settings.IP = Server.IP;
-            settings.Port = Server.Port;
-
-            return settings;
+            return new Settings(Name, Server.Topic, Server.IP, Server.Port);
         }
 
         public void SetSettings(Settings settings)
         {
+            Server.Stop();
+            Name = settings.Name;
             Server.Topic = settings.Topic;
             Server.IP = settings.IP;
             Server.Port = settings.Port;
+            Server.Start();
         }
 
 

@@ -11,22 +11,28 @@ namespace CMiX.Studio.ViewModels.MessageService
 {
     public class Settings : ViewModel, IModalDialogViewModel
     {
-        public Settings()
+        public Settings(string messengerName, string topic, string ip, int port)
         {
+            Name = messengerName;
+            Topic = topic;
+            IP = ip;
+            Port = port;
+
+            CanApply = false;
+            ApplyCommand = new RelayCommand(p => Apply());
 
             OkCommand = new RelayCommand(p => Ok(p as Window));
             CancelCommand = new RelayCommand(p => Cancel(p as Window));
-            ApplyCommand = new RelayCommand(p => Apply(), x => CanApplySettings());
+            
             CloseWindowCommand = new RelayCommand(p => Cancel(p as Window));
         }
 
         private bool CanApplySettings()
         {
-            if (CanApply)
-                return true;
-            else
-                return false;
+            Console.WriteLine("CanApply = " + CanApply);
+            return CanApply;
         }
+
 
         public ICommand OkCommand { get; set; }
         public ICommand CancelCommand { get; set; }
@@ -42,6 +48,17 @@ namespace CMiX.Studio.ViewModels.MessageService
             set => SetAndNotify(ref _canApply, value);
         }
 
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                SetAndNotify(ref _name, value);
+                CanApply = true;
+            }
+        }
+
         private string _topic;
         public string Topic
         {
@@ -49,7 +66,6 @@ namespace CMiX.Studio.ViewModels.MessageService
             set
             {
                 SetAndNotify(ref _topic, value);
-                CommandManager.InvalidateRequerySuggested();
                 CanApply = true;
             }
         }
@@ -96,7 +112,6 @@ namespace CMiX.Studio.ViewModels.MessageService
 
         public void Apply()
         {
-            CanApply = true;
             if (ValidateIPv4(IP) && ValidatePort(IP, Port))
             {
                 ErrorMessage = "Settings applied succefully !";

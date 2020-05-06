@@ -1,5 +1,4 @@
 ﻿using CMiX.MVVM.Message;
-using CMiX.MVVM.Commands;
 using System;
 using CMiX.MVVM.ViewModels;
 
@@ -14,13 +13,34 @@ namespace CMiX.Studio.ViewModels.MessageService
         }
 
         #region PROPERTIES
-        public bool IsRunning { get; set; }
+        private bool _isRunning;
+        public bool IsRunning
+        {
+            get => _isRunning;
+            set
+            {
+                SetAndNotify(ref _isRunning, value);
+                Notify(nameof(Status));
+            }
+        }
 
         private string _name;
         public string Name
         {
             get => _name;
             set => SetAndNotify(ref _name, value);
+        }
+
+        public string Status
+        {
+            get
+            {
+                if (IsRunning)
+                    return "Running...";
+                else
+                    return "Stopped";
+            }
+            //set => SetAndNotify(ref _status, value);
         }
 
         private string _ip;

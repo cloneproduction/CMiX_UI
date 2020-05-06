@@ -39,4 +39,7 @@
     <BitmapImage x:Key="Minimize" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Minimize.png"/>
     <BitmapImage x:Key="Warning" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Warning.png"/>
     <BitmapImage x:Key="Settings" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Settings.png"/>
+    <BitmapImage x:Key="Menu" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Menu.png"/>
+    <BitmapImage x:Key="Play" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Play.png"/>
+    <BitmapImage x:Key="Stop" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Stop.png"/>
 </ResourceDictionary>

@@ -8,24 +8,58 @@
              mc:Ignorable="d" 
              d:DesignHeight="179.674" d:DesignWidth="267.34">
 
-    <Border Background="{StaticResource HighDarkerColor}">
+    <Border >
         <StackPanel>
-            <Border Height="25" HorizontalAlignment="Stretch" >
+            <Border Height="30" CornerRadius="4, 4, 0, 0" HorizontalAlignment="Stretch" Background="{StaticResource DarkColor}">
                 <DockPanel>
-                    <Button 
-                        Background="Transparent"
-                        Style="{StaticResource ButtonImage}"
-                        DockPanel.Dock="Right"     
-                        Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:MessengerManager}}, Path=DataContext.EditMessengerSettingsCommand}"
-                        CommandParameter="{Binding Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:Messenger}}}">
-                        <Button.Content>
-                            <Image Margin="16" Source="{StaticResource Settings}"/>
-                        </Button.Content>
-                    </Button>
-                    <Controls:EditableTextBox Padding="8, 0" Text="{Binding Name}" DockPanel.Dock="Left"/>
+                    <Menu>
+                        <MenuItem Width="30">
+                            <MenuItem.Icon>
+                                <Image Source="{StaticResource Menu}"/>
+                            </MenuItem.Icon>
+                            <MenuItem 
+                                Command="{Binding StartServerCommand}"
+                                Template="{StaticResource SubMenuItemBase}"
+                                Header="Start">
+                                <MenuItem.Icon>
+                                    <Image Margin="1" Opacity="0.75" Source="{StaticResource Play}"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Template="{StaticResource SubMenuItemBase}" Command="{Binding StopServerCommand}" Header="Stop">
+                                <MenuItem.Icon>
+                                    <Image Margin="3" Opacity="0.75" Source="{StaticResource Stop}"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Template="{StaticResource SubMenuItemBase}" Command="{Binding RestartServerCommand}" Header="Restart">
+                                <MenuItem.Icon>
+                                    <Image Opacity="0.75" Margin="2" Source="{StaticResource Reset}"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem 
+                                Template="{StaticResource SubMenuItemBase}"
+                                Header="Settings"
+                                Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:MessengerManager}}, Path=DataContext.EditMessengerSettingsCommand}"
+                                CommandParameter="{Binding Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:Messenger}}}">
+                                <MenuItem.Icon>
+                                    <Image Opacity="0.75" Margin="2" Source="{StaticResource Settings}"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <Separator BorderThickness="0.5" Margin="4" BorderBrush="{StaticResource DarkColor}"/>
+                            <MenuItem 
+                                Template="{StaticResource SubMenuItemBase}"
+                                Header="Delete"
+                                Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:MessengerManager}}, Path=DataContext.DeleteMessengerCommand}"
+                                CommandParameter="{Binding Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:Messenger}}}">
+                                <MenuItem.Icon>
+                                    <Image Opacity="0.75" Margin="2" Source="{StaticResource DeleteLayer}"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </MenuItem>
+                    </Menu>
+                    <TextBlock Padding="8, 0" Text="{Binding Name}" DockPanel.Dock="Left"/>
                 </DockPanel>
             </Border>
-            <Border Padding="4">
+            <Border CornerRadius="0, 0, 4, 4" Background="{StaticResource DarkerColor}" Padding="8">
                 <StackPanel HorizontalAlignment="Stretch">
                     <Grid Height="25" Margin="0, 1">
                         <Grid.ColumnDefinitions>
@@ -74,6 +108,23 @@
                             Grid.Column="1"
                             Foreground="{StaticResource TextBase}"/>
                     </Grid>
+                    <Grid Height="25" Margin="0, 1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.4*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock 
+                            Text="Status" 
+                            Margin="0, 0, 8, 0"
+                            Foreground="{StaticResource TextBase}"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"/>
+                        <TextBlock
+                            Padding="4"
+                            Text="{Binding Server.Status}"
+                            Grid.Column="1"
+                            Foreground="{StaticResource TextBase}"/>
+                    </Grid>
                     <Grid Margin="0, 1" Height="25">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0.4*"/>
@@ -95,31 +146,6 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                    </Grid>
-                    <Grid Margin="0, 8" Height="25">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Button 
-                            Grid.Column="0" 
-                            Content="Start" 
-                            Margin="0, 0, 2, 0" 
-                            Style="{StaticResource ButtonRounded}"
-                            Command="{Binding StartServerCommand}"/>
-                        <Button 
-                            Grid.Column="1" 
-                            Content="Stop" 
-                            Margin="2, 0" 
-                            Style="{StaticResource ButtonRounded}"
-                            Command="{Binding StopServerCommand}"/>
-                        <Button 
-                            Grid.Column="2" 
-                            Content="Restart" 
-                            Margin="2, 0, 0, 0" 
-                            Style="{StaticResource ButtonRounded}"
-                            Command="{Binding RestartServerCommand}"/>
                     </Grid>
                 </StackPanel>
             </Border>

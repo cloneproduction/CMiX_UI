@@ -17,7 +17,7 @@ namespace CMiX.Studio.ViewModels.MessageService
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
 
             AddMessengerCommand = new RelayCommand(p => AddMessenger());
-            DeleteMessengerCommand = new RelayCommand(p => DeleteServer());
+            DeleteMessengerCommand = new RelayCommand(p => DeleteMessenger(p as Messenger));
             RenameMessengerCommand = new RelayCommand(p => RenameServer(p));
             EditMessengerSettingsCommand = new RelayCommand(p => EditMessengerSettings(p as Messenger));
         }
@@ -31,7 +31,6 @@ namespace CMiX.Studio.ViewModels.MessageService
             if (success == true)
             {
                 messenger.SetSettings(settings);
-                System.Console.WriteLine("SetSettings");
             }
         }
 
@@ -59,12 +58,12 @@ namespace CMiX.Studio.ViewModels.MessageService
             Project.Messengers.Add(MessengerFactory.CreateMessenger());
         }
 
-        private void DeleteServer()
+        private void DeleteMessenger(Messenger messenger)
         {
-            if (SelectedMessenger != null)
+            if (messenger != null)
             {
                 //SelectedMessenger.Stop();
-                Project.Messengers.Remove(SelectedMessenger);
+                Project.Messengers.Remove(messenger);
                 //Addresses.Remove(SelectedMessenger.Settings.Address);
             }
         }

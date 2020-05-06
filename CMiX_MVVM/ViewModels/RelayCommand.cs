@@ -8,11 +8,18 @@ namespace CMiX.MVVM.ViewModels
         private Action<object> CommandFunc { get; }
         private Predicate<object> CanExecuteFunc { get; }
 
-        public event EventHandler CanExecuteChanged
+        //public event EventHandler CanExecuteChanged;
+        //{
+        //    add => CommandManager.RequerySuggested += value;
+        //    remove => CommandManager.RequerySuggested -= value;
+        //}
+
+        public event EventHandler CanExecuteChanged;
+        public void OnCanExecuteChanged()
         {
-            add => CommandManager.RequerySuggested += value;
-            remove => CommandManager.RequerySuggested -= value;
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
+
 
         public RelayCommand(Action<object> command)
             : this(command, p => true)

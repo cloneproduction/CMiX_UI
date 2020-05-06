@@ -6,7 +6,7 @@
     </ResourceDictionary.MergedDictionaries>
     
     <Style TargetType="{x:Type Menu}">
-        <Setter Property="Background" Value="{StaticResource Color}" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="FontFamily" Value="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" />
         <Setter Property="FontSize" Value="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}" />
         <Setter Property="FontStyle" Value="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" />
@@ -24,7 +24,6 @@
                         SnapsToDevicePixels="True">
                         <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                     </Border>
-                    
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -40,14 +39,14 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style TargetType="{x:Type MenuItem}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type MenuItem}">
                     <Border
                         x:Name="templateRoot"
-                        Background="{StaticResource DarkColor}"
+                        Background="Transparent"
                         Padding="2"
                         SnapsToDevicePixels="True">
                         <Grid VerticalAlignment="Center">
@@ -57,6 +56,7 @@
                             </Grid.ColumnDefinitions>
                             <ContentPresenter
                                 x:Name="Icon"
+                                Opacity="0.75"
                                 Width="16"
                                 Height="30"
                                 Margin="3"
@@ -94,11 +94,11 @@
                                 <Border
                                     x:Name="SubMenuBorder"
                                     CornerRadius="0, 0, 4, 4"
-                                    Padding="0, 4"
+                                    Padding="0, 0, 8, 8"
                                     Margin="4, 0, 4, 4"
                                     Background="{StaticResource DarkerColor}">
                                     <Border.Effect>
-                                        <DropShadowEffect BlurRadius="15" Direction="-90" Opacity="0.5" RenderingBias="Performance" ShadowDepth="2"/>
+                                        <DropShadowEffect BlurRadius="8" Direction="-90" Opacity="1.0" RenderingBias="Performance" ShadowDepth="0"/>
                                     </Border.Effect>
                                     <ScrollViewer 
                                         x:Name="SubMenuScrollViewer" 
@@ -143,6 +143,7 @@
                         </Trigger>
                         <Trigger Property="IsHighlighted" Value="True">
                             <Setter TargetName="templateRoot" Property="Background" Value="{StaticResource DarkerColor}" />
+                            <Setter TargetName="Icon" Property="Opacity" Value="1.0"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="templateRoot" Property="Opacity" Value="0.5" />
@@ -157,9 +158,10 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-
     
+    
+
+
     <ControlTemplate x:Key="SubMenuItemBase" TargetType="{x:Type MenuItem}">
         <Border
             Height="30"

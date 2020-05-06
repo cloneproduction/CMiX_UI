@@ -667,7 +667,7 @@
                                 <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="true" />
                                 <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type TabControl}}}" Value="Left" />
                             </MultiDataTrigger.Conditions>
-                            <Setter TargetName="contentPresenter" Property="Opacity" Value="0.75" />
+                            <Setter TargetName="contentPresenter" Property="Opacity" Value="0.9" />
                             <Setter Property="Panel.ZIndex" Value="1" />
                         </MultiDataTrigger>
                         

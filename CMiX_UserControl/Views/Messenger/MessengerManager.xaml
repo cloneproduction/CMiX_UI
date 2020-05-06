@@ -26,81 +26,31 @@
                 Padding="8"
                 DockPanel.Dock="Top"
                 Height="40">
-                <TextBlock Text="NETWORK" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                <DockPanel>
+                    <Button 
+                        Command="{Binding AddMessengerCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"
+                        DockPanel.Dock="Right" 
+                        Style="{StaticResource ButtonImage}">
+                        <Button.Content>
+                            <Image Margin="16" Source="{StaticResource Add}"/>
+                        </Button.Content>
+                    </Button>
+                    <TextBlock DockPanel.Dock="Left" Text="NETWORK" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                </DockPanel>
             </Border>
-            <ListBox 
+            <ItemsControl 
                 HorizontalContentAlignment="Stretch" 
                 ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                Style="{StaticResource LayerListBox}"
-                ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
                 ItemsSource="{Binding Project.Messengers}" 
-                SelectedItem="{Binding SelectedMessenger}"
                 dd:DragDrop.IsDragSource="True"
                 dd:DragDrop.IsDropTarget="True">
-                <ListBox.ItemTemplate>
+                <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Views:Messenger Margin="4"/>
                     </DataTemplate>
-                </ListBox.ItemTemplate>
-                <ListBox.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem
-                            Padding="8, 4"
-                            Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.AddMessengerCommand, Source={StaticResource ProjectProxy}}"
-                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
-                            <MenuItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image 
-                                        Width="10" 
-                                        Height="10" 
-                                        Source="{StaticResource Add}"/>
-                                    <Separator 
-                                        Margin="8, 0" 
-                                        Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
-                                    <TextBlock Text="Add Server"/>
-                                </StackPanel>
-                            </MenuItem.Header>
-                        </MenuItem>
-                        <MenuItem
-                            Padding="8, 4"
-                            Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.RenameMessengerCommand, Source={StaticResource ProjectProxy}}"
-                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext.SelectedServer}">
-                            <MenuItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image 
-                                        Width="10" 
-                                        Height="10" 
-                                        Source="{StaticResource Rename}"/>
-                                    <Separator 
-                                        Margin="8, 0" 
-                                        Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
-                                    <TextBlock Text="Rename"/>
-                                </StackPanel>
-                            </MenuItem.Header>
-                        </MenuItem>
-                        <MenuItem
-                            Padding="8, 4"
-                            Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.DeleteMessengerCommand, Source={StaticResource ProjectProxy}}"
-                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
-                            <MenuItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image 
-                                        Width="10" 
-                                        Height="10" 
-                                        Source="{StaticResource DeleteLayer}"/>
-                                    <Separator 
-                                        Margin="8, 0" 
-                                        Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
-                                    <TextBlock Text="Delete Server"/>
-                                </StackPanel>
-                            </MenuItem.Header>
-                        </MenuItem>
-                    </ContextMenu>
-                </ListBox.ContextMenu>
-            </ListBox>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </DockPanel>
     </Border>
 </UserControl>
