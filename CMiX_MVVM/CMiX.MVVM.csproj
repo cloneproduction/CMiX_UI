@@ -75,6 +75,7 @@
     <Compile Include="Controls\CMiXRangeSlider.xaml.cs">
       <DependentUpon>CMiXRangeSlider.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\DistanceSlider.cs" />
     <Compile Include="Controls\EditableTextBox.cs" />
     <Compile Include="Controls\EditableTextBox.xaml.cs">
       <DependentUpon>EditableTextBox.xaml</DependentUpon>

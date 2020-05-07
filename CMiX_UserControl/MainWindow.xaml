@@ -5,6 +5,7 @@
     xmlns:Views="clr-namespace:CMiX.Studio.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
     Title="C-MiX Studio"
     Width="1200"
     Height="800"
@@ -51,6 +52,7 @@
     </Window.CommandBindings>
 
     <DockPanel>
+        <Controls:DistanceSlider Style="{StaticResource DistanceSlider}" Height="30" DockPanel.Dock="top" Width="100"/>
         <Border 
             Padding="2"
             DockPanel.Dock="Top"
