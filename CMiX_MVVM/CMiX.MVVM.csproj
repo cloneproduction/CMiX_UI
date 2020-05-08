@@ -75,10 +75,13 @@
     <Compile Include="Controls\CMiXRangeSlider.xaml.cs">
       <DependentUpon>CMiXRangeSlider.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\DistanceSlider.cs" />
-    <Compile Include="Controls\EditableTextBox.cs" />
+    <Compile Include="Controls\DistanceSlider\DistanceSlider.cs" />
     <Compile Include="Controls\EditableTextBox.xaml.cs">
       <DependentUpon>EditableTextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EditableTextBox.cs" />
+    <Compile Include="Controls\DistanceSlider\EditableValue.xaml.cs">
+      <DependentUpon>EditableValue.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ExpanderLayerList.cs" />
     <Compile Include="Controls\TreeViewMultiSelect.cs" />
@@ -220,11 +223,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\EditableTextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\IPBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\EditableTextBox.xaml">
+    <Page Include="Controls\DistanceSlider\EditableValue.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -219,11 +219,12 @@
                         Height="25"
                         x:Name="mainBorder"
                         CornerRadius="4" 
+                        Padding="4"
                         Background="{StaticResource DarkColor}">
                         <Grid 
                             SnapsToDevicePixels="False">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="19"/>
+                                <ColumnDefinition Width="16"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Path 
@@ -233,15 +234,14 @@
                                 SnapsToDevicePixels="false" 
                                 Stroke="{StaticResource TextBase}" 
                                 StrokeThickness="2" 
-                                VerticalAlignment="Center"
-                                />
+                                VerticalAlignment="Center"/>
                             <ContentPresenter 
+                                Margin="4, 0"
                                 Grid.Column="1" 
                                 HorizontalAlignment="Left" 
                                 RecognizesAccessKey="True" 
                                 SnapsToDevicePixels="True" 
-                                VerticalAlignment="Center"
-                                />
+                                VerticalAlignment="Center"/>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -285,15 +285,13 @@
                                 SnapsToDevicePixels="false" 
                                 Stroke="{StaticResource TextBase}" 
                                 StrokeThickness="2" 
-                                VerticalAlignment="Center"
-                                />
+                                VerticalAlignment="Center"/>
                             <ContentPresenter 
                                 Grid.Column="1" 
                                 HorizontalAlignment="Left" 
                                 RecognizesAccessKey="True" 
                                 SnapsToDevicePixels="True" 
-                                VerticalAlignment="Center"
-                                />
+                                VerticalAlignment="Center"/>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -382,7 +380,7 @@
                                 IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" 
                                 MinWidth="0" 
                                 MinHeight="0" 
-                                Padding="{TemplateBinding Padding}" 
+                                Padding="4, 0" 
                                 Style="{StaticResource ExpanderDownHeaderStyle}" 
                                 VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                 />

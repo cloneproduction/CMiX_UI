@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -9,9 +10,9 @@ using System.Windows.Media;
 
 namespace CMiX.MVVM.Controls
 {
-    public partial class EditableTextBox : UserControl
+    public partial class EditableValue : UserControl
     {
-        public EditableTextBox()
+        public EditableValue()
         {
             InitializeComponent();
             TextInput.Visibility = Visibility.Hidden;
@@ -35,7 +36,7 @@ namespace CMiX.MVVM.Controls
 
         #region PROPERTIES
         public static readonly DependencyProperty IsEditingProperty =
-        DependencyProperty.Register("IsEditing", typeof(bool), typeof(EditableTextBox), new UIPropertyMetadata(false, new PropertyChangedCallback(IsEditing_PropertyChanged)));
+        DependencyProperty.Register("IsEditing", typeof(bool), typeof(EditableValue), new UIPropertyMetadata(false, new PropertyChangedCallback(IsEditing_PropertyChanged)));
         public bool IsEditing
         {
             get { return (bool)GetValue(IsEditingProperty); }
@@ -46,7 +47,7 @@ namespace CMiX.MVVM.Controls
         }
 
         public static readonly DependencyProperty IsSelectedProperty =
-        DependencyProperty.Register("IsSelected", typeof(bool), typeof(EditableTextBox));
+        DependencyProperty.Register("IsSelected", typeof(bool), typeof(EditableValue));
         public bool IsSelected
         {
             get { return (bool)GetValue(IsSelectedProperty); }
@@ -55,25 +56,16 @@ namespace CMiX.MVVM.Controls
 
         private static void IsEditing_PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            EditableTextBox textbox = d as EditableTextBox;
+            var textbox = d as EditableValue;
             textbox.OnSwitchToEditingMode();
             textbox.TextInput.Focus();
             textbox.TextInput.SelectAll();
+            
         }
-
-
-        public static readonly DependencyProperty CanEditProperty =
-        DependencyProperty.Register("CanEdit", typeof(bool), typeof(EditableTextBox), new UIPropertyMetadata(false));
-        public bool CanEdit
-        {
-            get { return (bool)GetValue(CanEditProperty); }
-            set { SetValue(CanEditProperty, value); }
-        }
-
 
         [Bindable(true)]
         public static readonly DependencyProperty TextProperty =
-        DependencyProperty.Register("Text", typeof(string), typeof(EditableTextBox), new UIPropertyMetadata(new PropertyChangedCallback(TextProperty_PropertyChanged)));
+        DependencyProperty.Register("Text", typeof(string), typeof(EditableValue), new UIPropertyMetadata(new PropertyChangedCallback(TextProperty_PropertyChanged)));
         public string Text
         {
             get { return (string)GetValue(TextProperty); }
@@ -82,7 +74,7 @@ namespace CMiX.MVVM.Controls
 
         private static void TextProperty_PropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            EditableTextBox textbox = obj as EditableTextBox;
+            EditableValue textbox = obj as EditableValue;
             var newtext = (string)e.NewValue;
             textbox.TextDisplay.Text = newtext;
             textbox.TextInput.Text = newtext;
@@ -126,9 +118,8 @@ namespace CMiX.MVVM.Controls
         #region PRIVATE METHODS
         private void OnSwitchToEditingMode()
         {
-            Mouse.Capture(this, CaptureMode.SubTree);
+            //Mouse.Capture(this, CaptureMode.SubTree);
             //AddHandler();
-            
             TextDisplay.Visibility = Visibility.Hidden;
             TextInput.Visibility = Visibility.Visible;
             HookItemsControlEvents();
@@ -142,7 +133,7 @@ namespace CMiX.MVVM.Controls
             TextDisplay.Visibility = Visibility.Visible;
             TextInput.Visibility = Visibility.Hidden;
             Mouse.RemovePreviewMouseDownOutsideCapturedElementHandler(this, OnMouseDownOutsideElement);
-            Mouse.Capture(null);
+            //Mouse.Capture(null);
             Keyboard.ClearFocus();
         }
 
@@ -190,6 +181,17 @@ namespace CMiX.MVVM.Controls
             }
             return parent;
         }
+
+        private static readonly Regex _regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
+        private static bool IsTextAllowed(string text)
+        {
+            return !_regex.IsMatch(text);
+        }
         #endregion
+
+        private void TextInput_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
     }
 }

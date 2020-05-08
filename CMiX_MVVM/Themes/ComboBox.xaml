@@ -33,6 +33,9 @@
                                 Padding="0, 4"
                                 CornerRadius="4"
                                 Background="{StaticResource DarkerColor}">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="8" Direction="-90" Opacity="1.0" RenderingBias="Performance" ShadowDepth="0"/>
+                                </Border.Effect>
                                 <ScrollViewer 
                                     x:Name="DropDownScrollViewer"
                                     VerticalScrollBarVisibility="Auto">

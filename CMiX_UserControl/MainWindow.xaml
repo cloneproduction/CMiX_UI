@@ -52,7 +52,6 @@
     </Window.CommandBindings>
 
     <DockPanel>
-        <Controls:DistanceSlider Style="{StaticResource DistanceSlider}" Height="30" DockPanel.Dock="top" Width="100"/>
         <Border 
             Padding="2"
             DockPanel.Dock="Top"

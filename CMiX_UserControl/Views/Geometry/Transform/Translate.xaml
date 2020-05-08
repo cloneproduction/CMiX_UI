@@ -4,17 +4,42 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
+             xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
              mc:Ignorable="d" 
              d:DesignHeight="150.801" d:DesignWidth="415.252">
 
     <StackPanel>
-        <MVVM.Views:SliderCentered
+        <Grid Height="25" Margin="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.7*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Controls:DistanceSlider Style="{StaticResource DistanceSliderTop}" Grid.Column="1" DataContext="{Binding X}"/>
+            <TextBlock Grid.Column="0" Padding="8, 0" HorizontalAlignment="Right" Text="Translate X" Foreground="{StaticResource TextBase}"/>
+        </Grid>
+        <Grid Height="25" Margin="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.7*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Controls:DistanceSlider Style="{StaticResource DistanceSliderMiddle}" Grid.Column="1" DataContext="{Binding Y}"/>
+            <TextBlock Grid.Column="0" Padding="8, 0" HorizontalAlignment="Right" Text="Y" Foreground="{StaticResource TextBase}"/>
+        </Grid>
+        <Grid Height="25" Margin="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.7*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Controls:DistanceSlider Style="{StaticResource DistanceSliderBottom}" Grid.Column="1" DataContext="{Binding Z}"/>
+            <TextBlock Grid.Column="0" Padding="8, 0" HorizontalAlignment="Right" Text="Z" Foreground="{StaticResource TextBase}"/>
+        </Grid>
+        <!--<MVVM.Views:SliderCentered
                 Height="20"
                 Grid.Column="0"
                 Margin="1"
                 Caption="Translate X"
-                DataContext="{Binding X}"/>
-        <MVVM.Views:SliderCentered
+                DataContext="{Binding X}"/>-->
+        <!--<MVVM.Views:SliderCentered
                 Height="20"
                 Grid.Column="0"
                 Margin="1"
@@ -25,6 +50,6 @@
                 Grid.Column="0"
                 Margin="1"
                 Caption="Z"
-                DataContext="{Binding Z}"/>
+                DataContext="{Binding Z}"/>-->
     </StackPanel>
 </UserControl>
