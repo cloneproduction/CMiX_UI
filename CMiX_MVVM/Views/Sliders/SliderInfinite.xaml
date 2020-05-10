@@ -17,12 +17,12 @@
             <Button.Style>
                 <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundedLeft}">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsEditing, ElementName=distanceSlider}" Value="True">
+                        <DataTrigger Binding="{Binding IsEditing, Mode=TwoWay, ElementName=distanceSlider}" Value="True">
                             <Setter Property="Visibility" Value="Hidden" />
                         </DataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding IsEditing, ElementName=distanceSlider}" Value="False"/>
+                                <Condition Binding="{Binding IsEditing, Mode=TwoWay, ElementName=distanceSlider}" Value="False"/>
                                 <Condition Binding="{Binding IsMouseOver, ElementName=mainBorder}" Value="True"/>
                             </MultiDataTrigger.Conditions>
                             <MultiDataTrigger.Setters>
@@ -31,7 +31,7 @@
                         </MultiDataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding IsEditing, ElementName=distanceSlider}" Value="False"/>
+                                <Condition Binding="{Binding IsEditing, Mode=TwoWay,ElementName=distanceSlider}" Value="False"/>
                                 <Condition Binding="{Binding IsMouseOver, ElementName=mainBorder}" Value="False"/>
                             </MultiDataTrigger.Conditions>
                             <MultiDataTrigger.Setters>
