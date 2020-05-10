@@ -46,14 +46,6 @@ namespace CMiX.MVVM.Controls
             }
         }
 
-        public static readonly DependencyProperty IsSelectedProperty =
-        DependencyProperty.Register("IsSelected", typeof(bool), typeof(EditableValue));
-        public bool IsSelected
-        {
-            get { return (bool)GetValue(IsSelectedProperty); }
-            set { SetValue(IsSelectedProperty, value); }
-        }
-
         private static void IsEditing_PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var textbox = d as EditableValue;
@@ -89,7 +81,6 @@ namespace CMiX.MVVM.Controls
         {
             if (e.Key == Key.Escape || e.Key == Key.Enter)
             {
-                Console.WriteLine("KeyDown");
                 OnSwitchToNormalMode();
                 e.Handled = true;
                 return;
@@ -118,8 +109,9 @@ namespace CMiX.MVVM.Controls
         #region PRIVATE METHODS
         private void OnSwitchToEditingMode()
         {
-            //Mouse.Capture(this, CaptureMode.SubTree);
-            //AddHandler();
+            Mouse.Capture(this, CaptureMode.SubTree);
+            AddHandler();
+
             TextDisplay.Visibility = Visibility.Hidden;
             TextInput.Visibility = Visibility.Visible;
             HookItemsControlEvents();
@@ -133,7 +125,7 @@ namespace CMiX.MVVM.Controls
             TextDisplay.Visibility = Visibility.Visible;
             TextInput.Visibility = Visibility.Hidden;
             Mouse.RemovePreviewMouseDownOutsideCapturedElementHandler(this, OnMouseDownOutsideElement);
-            //Mouse.Capture(null);
+            Mouse.Capture(null);
             Keyboard.ClearFocus();
         }
 

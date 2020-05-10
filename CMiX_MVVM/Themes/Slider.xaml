@@ -181,19 +181,97 @@
                         <Border.Style>
                             <Style TargetType="Border">
                                 <Setter Property="Background" Value="{StaticResource DarkColor}"/>
+                                <Setter Property="Controls:MouseDownHelper.IsEnabled" Value="True"/>
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter Property="Background" Value="{StaticResource Color}"/>
+                                        <Setter Property="Cursor" Value="SizeWE"/>
+                                    </Trigger>
+                                    <Trigger Property="Controls:MouseDownHelper.IsMouseLeftButtonDown" Value="True">
+                                        <Setter Property="Cursor" Value="None"/>
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
                         </Border.Style>
                         <DockPanel>
-
                             <Grid x:Name="Pouet" Background="Transparent">
                                 <Controls:EditableValue x:Name="editableValue" 
                                                         IsEditing="{Binding Path=IsEditing, RelativeSource={RelativeSource TemplatedParent}}" 
-                                                        Text="{Binding Path=Value, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                                        Text="{Binding Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                <Button x:Name="SubButton" 
+                                    Command="{Binding SubCommand}"
+                                    DockPanel.Dock="Left" 
+                                    Content="-" 
+                                    HorizontalAlignment="Left"
+                                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}">
+                                    <Button.Style>
+                                        <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundedLeft}">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Cursor" Value="Arrow"/>
+                                                </Trigger>
+                                                <DataTrigger Binding="{Binding IsEditing, Mode=TwoWay, ElementName=editableValue}" Value="True">
+                                                    <Setter Property="Visibility" Value="Hidden" />
+                                                </DataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding IsEditing, Mode=TwoWay, ElementName=editableValue}" Value="False"/>
+                                                        <Condition Binding="{Binding IsMouseOver, ElementName=mainBorder}" Value="True"/>
+                                                    </MultiDataTrigger.Conditions>
+                                                    <MultiDataTrigger.Setters>
+                                                        <Setter Property="Visibility" Value="Visible" />
+                                                    </MultiDataTrigger.Setters>
+                                                </MultiDataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding IsEditing, Mode=TwoWay,ElementName=editableValue}" Value="False"/>
+                                                        <Condition Binding="{Binding IsMouseOver, ElementName=mainBorder}" Value="False"/>
+                                                    </MultiDataTrigger.Conditions>
+                                                    <MultiDataTrigger.Setters>
+                                                        <Setter Property="Visibility" Value="Hidden" />
+                                                    </MultiDataTrigger.Setters>
+                                                </MultiDataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                                <Button x:Name="AddButton" 
+                                        Command="{Binding AddCommand}"
+                                        HorizontalAlignment="Right"
+                                        DockPanel.Dock="Right" 
+                                        Content="+" 
+                                        Width="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}">
+                                    <Button.Style>
+                                        <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundedRight}">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Cursor" Value="Arrow"/>
+                                                </Trigger>
+                                                <DataTrigger Binding="{Binding IsEditing, Mode=TwoWay, ElementName=editableValue}" Value="True">
+                                                    <Setter Property="Visibility" Value="Hidden" />
+                                                </DataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding IsEditing, Mode=TwoWay, ElementName=editableValue}" Value="False"/>
+                                                        <Condition Binding="{Binding IsMouseOver, ElementName=mainBorder}" Value="True"/>
+                                                    </MultiDataTrigger.Conditions>
+                                                    <MultiDataTrigger.Setters>
+                                                        <Setter Property="Visibility" Value="Visible" />
+                                                    </MultiDataTrigger.Setters>
+                                                </MultiDataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding IsEditing, Mode=TwoWay, ElementName=editableValue}" Value="False"/>
+                                                        <Condition Binding="{Binding IsMouseOver, ElementName=mainBorder}" Value="False"/>
+                                                    </MultiDataTrigger.Conditions>
+                                                    <MultiDataTrigger.Setters>
+                                                        <Setter Property="Visibility" Value="Hidden" />
+                                                    </MultiDataTrigger.Setters>
+                                                </MultiDataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
                             </Grid>
                         </DockPanel>
                     </Border>

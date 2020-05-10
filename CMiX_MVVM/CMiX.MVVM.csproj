@@ -76,6 +76,7 @@
       <DependentUpon>CMiXRangeSlider.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\DistanceSlider\DistanceSlider.cs" />
+    <Compile Include="Controls\DistanceSlider\MouseDownAttachedProperty.cs" />
     <Compile Include="Controls\EditableTextBox.xaml.cs">
       <DependentUpon>EditableTextBox.xaml</DependentUpon>
     </Compile>

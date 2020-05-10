@@ -11,7 +11,7 @@
     <StackPanel>
         <Grid Height="25" Margin="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.7*"/>
+                <ColumnDefinition Width="0.9*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <MVVM.Views:SliderInfinite Grid.Column="1" DataContext="{Binding X}"/>
@@ -19,7 +19,7 @@
         </Grid>
         <Grid Height="25" Margin="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.7*"/>
+                <ColumnDefinition Width="0.9*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Controls:DistanceSlider Style="{StaticResource DistanceSliderMiddle}" Grid.Column="1" DataContext="{Binding Y}"/>
@@ -27,7 +27,7 @@
         </Grid>
         <Grid Height="25" Margin="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.7*"/>
+                <ColumnDefinition Width="0.9*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Controls:DistanceSlider Style="{StaticResource DistanceSliderBottom}" Grid.Column="1" DataContext="{Binding Z}"/>

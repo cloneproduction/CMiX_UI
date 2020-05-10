@@ -6,75 +6,7 @@
              xmlns:Controls="clr-namespace:CMiX.MVVM.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Height="30">
-        <Controls:DistanceSlider x:Name="distanceSlider" Value="{Binding Amount}" />
-        <Button x:Name="SubButton" 
-                Command="{Binding SubCommand}"
-                DockPanel.Dock="Left" 
-                Content="-" 
-                HorizontalAlignment="Left"
-                Width="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}">
-            <Button.Style>
-                <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundedLeft}">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsEditing, Mode=TwoWay, ElementName=distanceSlider}" Value="True">
-                            <Setter Property="Visibility" Value="Hidden" />
-                        </DataTrigger>
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding IsEditing, Mode=TwoWay, ElementName=distanceSlider}" Value="False"/>
-                                <Condition Binding="{Binding IsMouseOver, ElementName=mainBorder}" Value="True"/>
-                            </MultiDataTrigger.Conditions>
-                            <MultiDataTrigger.Setters>
-                                <Setter Property="Visibility" Value="Visible" />
-                            </MultiDataTrigger.Setters>
-                        </MultiDataTrigger>
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding IsEditing, Mode=TwoWay,ElementName=distanceSlider}" Value="False"/>
-                                <Condition Binding="{Binding IsMouseOver, ElementName=mainBorder}" Value="False"/>
-                            </MultiDataTrigger.Conditions>
-                            <MultiDataTrigger.Setters>
-                                <Setter Property="Visibility" Value="Hidden" />
-                            </MultiDataTrigger.Setters>
-                        </MultiDataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
-        <Button x:Name="AddButton" 
-                Command="{Binding AddCommand}"
-                HorizontalAlignment="Right"
-                DockPanel.Dock="Right" 
-                Content="+" 
-                Width="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}">
-            <Button.Style>
-                <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundedRight}">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsEditing, ElementName=distanceSlider}" Value="True">
-                            <Setter Property="Visibility" Value="Hidden" />
-                        </DataTrigger>
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding IsEditing, ElementName=distanceSlider}" Value="False"/>
-                                <Condition Binding="{Binding IsMouseOver, ElementName=mainBorder}" Value="True"/>
-                            </MultiDataTrigger.Conditions>
-                            <MultiDataTrigger.Setters>
-                                <Setter Property="Visibility" Value="Visible" />
-                            </MultiDataTrigger.Setters>
-                        </MultiDataTrigger>
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding IsEditing, ElementName=distanceSlider}" Value="False"/>
-                                <Condition Binding="{Binding IsMouseOver, ElementName=mainBorder}" Value="False"/>
-                            </MultiDataTrigger.Conditions>
-                            <MultiDataTrigger.Setters>
-                                <Setter Property="Visibility" Value="Hidden" />
-                            </MultiDataTrigger.Setters>
-                        </MultiDataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
-    </Grid>
+
+    <Controls:DistanceSlider Height="30" Value="{Binding Amount}" />
+    
 </UserControl>
