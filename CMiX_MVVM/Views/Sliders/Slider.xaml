@@ -19,8 +19,7 @@
         <ContextMenu>
             <MenuItem
                 Padding="8, 4"
-                Foreground="{StaticResource TextBase}"
-                Command="{Binding Data.ResetSliderCommand, Source={StaticResource proxy}}">
+                Foreground="{StaticResource TextBase}">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Width="10" Height="10" Source="{StaticResource Reset}" />

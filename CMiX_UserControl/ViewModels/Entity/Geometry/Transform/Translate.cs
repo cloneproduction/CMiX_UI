@@ -8,17 +8,9 @@ namespace CMiX.Studio.ViewModels
     {
         public Translate()
         {
-            //MessageAddress = $"{messageAddress}{nameof(Translate)}/";
-
             X = new Slider(nameof(X));
-            X.Minimum = -1;
-            X.Maximum = 1;
             Y = new Slider(nameof(Y));
-            Y.Minimum = -1;
-            Y.Maximum = 1;
             Z = new Slider(nameof(Z));
-            Z.Minimum = -1;
-            Z.Maximum = 1;
         }
 
         public Slider X { get; set; }

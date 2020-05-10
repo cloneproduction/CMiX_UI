@@ -14,7 +14,7 @@
                 <ColumnDefinition Width="0.7*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Controls:DistanceSlider Style="{StaticResource DistanceSliderTop}" Grid.Column="1" DataContext="{Binding X}"/>
+            <MVVM.Views:SliderInfinite Grid.Column="1" DataContext="{Binding X}"/>
             <TextBlock Grid.Column="0" Padding="8, 0" HorizontalAlignment="Right" Text="Translate X" Foreground="{StaticResource TextBase}"/>
         </Grid>
         <Grid Height="25" Margin="1">
@@ -33,23 +33,5 @@
             <Controls:DistanceSlider Style="{StaticResource DistanceSliderBottom}" Grid.Column="1" DataContext="{Binding Z}"/>
             <TextBlock Grid.Column="0" Padding="8, 0" HorizontalAlignment="Right" Text="Z" Foreground="{StaticResource TextBase}"/>
         </Grid>
-        <!--<MVVM.Views:SliderCentered
-                Height="20"
-                Grid.Column="0"
-                Margin="1"
-                Caption="Translate X"
-                DataContext="{Binding X}"/>-->
-        <!--<MVVM.Views:SliderCentered
-                Height="20"
-                Grid.Column="0"
-                Margin="1"
-                Caption="Y"
-                DataContext="{Binding Y}"/>
-        <MVVM.Views:SliderCentered
-                Height="20"
-                Grid.Column="0"
-                Margin="1"
-                Caption="Z"
-                DataContext="{Binding Z}"/>-->
     </StackPanel>
 </UserControl>

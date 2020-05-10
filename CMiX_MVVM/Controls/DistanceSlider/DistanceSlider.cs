@@ -23,13 +23,13 @@ namespace CMiX.MVVM.Controls
 
         private EditableValue EditableValue { get; set; }
         private Grid Grid { get; set; }
-        //private Button ButtonAdd { get; set; }
-        //private Button ButtonSub { get; set; }
+        private Button ButtonAdd { get; set; }
+        private Button ButtonSub { get; set; }
 
         public override void OnApplyTemplate()
         {
-            //ButtonAdd = GetTemplateChild("AddButton") as Button;
-            //ButtonSub = GetTemplateChild("SubButton") as Button;
+            ButtonAdd = GetTemplateChild("AddButton") as Button;
+            ButtonSub = GetTemplateChild("SubButton") as Button;
 
             Grid = GetTemplateChild("Pouet") as Grid;
             EditableValue = GetTemplateChild("editableValue") as EditableValue;
@@ -51,6 +51,21 @@ namespace CMiX.MVVM.Controls
             base.OnApplyTemplate();
         }
 
+        public static readonly DependencyProperty IsEditingProperty =
+        DependencyProperty.Register("IsEditing", typeof(bool), typeof(DistanceSlider), new UIPropertyMetadata(false, new PropertyChangedCallback(IsEditing_PropertyChanged)));
+        public bool IsEditing
+        {
+            get { return (bool)GetValue(IsEditingProperty); }
+            set
+            {
+                SetValue(IsEditingProperty, value);
+            }
+        }
+
+        private static void IsEditing_PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+
+        }
 
         private int ScreenHeight;
         private int ScreenWidth;
@@ -138,7 +153,8 @@ namespace CMiX.MVVM.Controls
 
             if (_mouseDownPos == mouseUpPos)
             {
-                EditableValue.IsEditing = true;
+                IsEditing = true;
+                //EditableValue.IsEditing = true;
                 Mouse.OverrideCursor = Cursors.IBeam;
                 //ButtonAdd.Visibility = Visibility.Hidden;
                 //ButtonSub.Visibility = Visibility.Hidden;

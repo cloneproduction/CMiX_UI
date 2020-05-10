@@ -61,6 +61,7 @@ namespace CMiX.Studio.ViewModels
             {
                 SetAndNotify(ref _amount, value);
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
+                System.Console.WriteLine("SliderAmount = " + Amount);
             }
         }
 

@@ -131,6 +131,9 @@
     <Compile Include="ViewModels\Slider\SliderModelFactory.cs" />
     <Compile Include="ViewModels\_Enums\AnimMode.cs" />
     <Compile Include="ViewModels\_Enums\EasingTypes.cs" />
+    <Compile Include="Views\Sliders\SliderInfinite.xaml.cs">
+      <DependentUpon>SliderInfinite.xaml</DependentUpon>
+    </Compile>
     <Compile Include="_Trash\HueWheel.cs" />
     <Compile Include="Controls\IPBox.xaml.cs">
       <DependentUpon>IPBox.xaml</DependentUpon>
@@ -366,6 +369,10 @@
     <Page Include="Views\Sliders\SliderCentered.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Sliders\SliderInfinite.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

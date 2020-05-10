@@ -189,72 +189,11 @@
                             </Style>
                         </Border.Style>
                         <DockPanel>
-                            <Button x:Name="SubButton" 
-                                    DockPanel.Dock="Left" 
-                                    Content="-" 
-                                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Border}}}">
-                                <Button.Style>
-                                    <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundedLeft}">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsEditing, ElementName=editableValue}" Value="True">
-                                                <Setter Property="Visibility" Value="Hidden" />
-                                            </DataTrigger>
-                                            <MultiDataTrigger>
-                                                <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding IsEditing, ElementName=editableValue}" Value="False"/>
-                                                    <Condition Binding="{Binding IsMouseOver, ElementName=mainBorder}" Value="True"/>
-                                                </MultiDataTrigger.Conditions>
-                                                <MultiDataTrigger.Setters>
-                                                    <Setter Property="Visibility" Value="Visible" />
-                                                </MultiDataTrigger.Setters>
-                                            </MultiDataTrigger>
-                                            <MultiDataTrigger>
-                                                <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding IsEditing, ElementName=editableValue}" Value="False"/>
-                                                    <Condition Binding="{Binding IsMouseOver, ElementName=mainBorder}" Value="False"/>
-                                                </MultiDataTrigger.Conditions>
-                                                <MultiDataTrigger.Setters>
-                                                    <Setter Property="Visibility" Value="Hidden" />
-                                                </MultiDataTrigger.Setters>
-                                            </MultiDataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
-                            <Button x:Name="AddButton" 
-                                    DockPanel.Dock="Right" 
-                                    Content="+" 
-                                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Border}}}">
-                                <Button.Style>
-                                    <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundedRight}">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsEditing, ElementName=editableValue}" Value="True">
-                                                <Setter Property="Visibility" Value="Hidden" />
-                                            </DataTrigger>
-                                            <MultiDataTrigger>
-                                                <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding IsEditing, ElementName=editableValue}" Value="False"/>
-                                                    <Condition Binding="{Binding IsMouseOver, ElementName=mainBorder}" Value="True"/>
-                                                </MultiDataTrigger.Conditions>
-                                                <MultiDataTrigger.Setters>
-                                                    <Setter Property="Visibility" Value="Visible" />
-                                                </MultiDataTrigger.Setters>
-                                            </MultiDataTrigger>
-                                            <MultiDataTrigger>
-                                                <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding IsEditing, ElementName=editableValue}" Value="False"/>
-                                                    <Condition Binding="{Binding IsMouseOver, ElementName=mainBorder}" Value="False"/>
-                                                </MultiDataTrigger.Conditions>
-                                                <MultiDataTrigger.Setters>
-                                                    <Setter Property="Visibility" Value="Hidden" />
-                                                </MultiDataTrigger.Setters>
-                                            </MultiDataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
+
                             <Grid x:Name="Pouet" Background="Transparent">
-                                <Controls:EditableValue x:Name="editableValue"/>
+                                <Controls:EditableValue x:Name="editableValue" 
+                                                        IsEditing="{Binding Path=IsEditing, RelativeSource={RelativeSource TemplatedParent}}" 
+                                                        Text="{Binding Path=Value, RelativeSource={RelativeSource TemplatedParent}}"/>
                             </Grid>
                         </DockPanel>
                     </Border>
