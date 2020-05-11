@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMiX.MVVM.Controls;
+using System;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,14 +15,13 @@ namespace CMiX.MVVM.Views
             InitializeComponent();
             CMiXSlider.ApplyTemplate();
 
-            Thumb = (CMiXSlider.Template.FindName("PART_Track", CMiXSlider) as Track).Thumb;
-            Thumb.MouseEnter += new MouseEventHandler(thumb_MouseEnter);
             CMiXSlider.PreviewMouseUp += CMiXSlider_PreviewMouseUp;
+            CMiXSlider.PreviewMouseMove += CMiXSlider_MouseMove;
+            CMiXSlider.PreviewMouseDown += CMiXSlider_MouseDown;
+            EditableValue = editableValue;
         }
 
-
-
-        private Thumb Thumb { get; set; }
+        EditableValue EditableValue { get; set; }
 
         [DllImport("User32.dll")]
         private static extern bool SetCursorPos(int X, int Y);
@@ -44,13 +44,38 @@ namespace CMiX.MVVM.Views
         }
 
         private Point? _mouseDownPos;
+        private Point? _lastPoint;
+        private double newValue;
+
+        private void CMiXSlider_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            _lastPoint = GetMousePosition();
+            _mouseDownPos = e.GetPosition(this);
+            CMiXSlider.CaptureMouse();
+        }
+
+        private void CMiXSlider_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (_lastPoint != null)
+            {
+                var currentPoint = GetMousePosition();
+                var offset = currentPoint - _lastPoint.Value;
+
+                newValue = CMiXSlider.Value + offset.X * ((Math.Abs(CMiXSlider.Minimum) + Math.Abs(CMiXSlider.Maximum)) / ActualWidth);
+
+                if (newValue >= CMiXSlider.Maximum)
+                    newValue = CMiXSlider.Maximum;
+                else if (newValue <= CMiXSlider.Minimum)
+                    newValue = CMiXSlider.Minimum;
+                    
+                CMiXSlider.Value = newValue;
+                _lastPoint = GetMousePosition();
+            }
+        }
 
         private void CMiXSlider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             var mouseUpPos = e.GetPosition(this);
-            
-
-            Console.WriteLine("CMiXSlider_PreviewMouseUp");
 
             if(_mouseDownPos != null)
             {
@@ -69,20 +94,19 @@ namespace CMiX.MVVM.Views
                 }
                 SetCursorPos(Convert.ToInt32(pointToScreen.X), Convert.ToInt32(pointToScreen.Y));
             }
-        }
 
-
-        private void thumb_MouseEnter(object sender, MouseEventArgs e)
-        {
-            
-            if (e.LeftButton == MouseButtonState.Pressed && e.MouseDevice.Captured == null)
+            if (_mouseDownPos == mouseUpPos)
             {
-                _mouseDownPos = e.GetPosition(this);
-                MouseButtonEventArgs args = new MouseButtonEventArgs(e.MouseDevice, e.Timestamp, MouseButton.Left);
-                args.RoutedEvent = MouseLeftButtonDownEvent;
-                (sender as Thumb).RaiseEvent(args);
+                EditableValue.IsEditing = true;
+                Console.WriteLine("EditableValue.IsEditing " + EditableValue.IsEditing);
             }
+                
+
+            CMiXSlider.ReleaseMouseCapture();
+            _lastPoint = null;
         }
+
+
 
         public static readonly DependencyProperty CaptionProperty =
         DependencyProperty.Register("Caption", typeof(string), typeof(Slider), new PropertyMetadata(""));

@@ -5,14 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                    xmlns:Controls="clr-namespace:CMiX.MVVM.Controls"
-                    xmlns:Resources="clr-namespace:CMiX.MVVM.Resources"
+             xmlns:Controls="clr-namespace:CMiX.MVVM.Controls"
+             xmlns:Resources="clr-namespace:CMiX.MVVM.Resources"
              mc:Ignorable="d" 
              d:DesignHeight="27.833" d:DesignWidth="387.167">
     
     <UserControl.Resources>
         <ResourceDictionary>
             <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
+            <Resources:BoolToVisibilityConverter x:Key="BoolToVisibility"/>
         </ResourceDictionary>
     </UserControl.Resources>
     
@@ -73,14 +74,22 @@
                     </Style.Triggers>
                 </Style>
             </Border.Style>
-            <Slider
-                x:Name="CMiXSlider"
-                IsMoveToPointEnabled="True"
-                LargeChange="0.1"
-                Maximum="1.0"
-                Minimum="0.0"
-                SmallChange="0.01"
-                Value="{Binding Amount, Mode=TwoWay}"/>
+            <Grid>
+                <Slider
+                    x:Name="CMiXSlider"
+                    Maximum="1.0"
+                    Minimum="0.0"
+                    Value="{Binding Amount, Mode=TwoWay}">
+                </Slider>
+                <Border HorizontalAlignment="Stretch">
+                    <Controls:EditableValue x:Name="editableValue" 
+                                        HorizontalAlignment="Right" 
+                                        Text="{Binding Value, Mode=TwoWay, ElementName=CMiXSlider, Converter={StaticResource DoubleToString}}" 
+                                        IsHitTestVisible="False"/>
+                </Border>
+
+            </Grid>
+
         </Border>
     </DockPanel>
 </UserControl>

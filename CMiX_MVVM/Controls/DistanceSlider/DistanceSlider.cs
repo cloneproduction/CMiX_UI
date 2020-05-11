@@ -95,7 +95,6 @@ namespace CMiX.MVVM.Controls
 
         private Point? _lastPoint;
         private Point? _mouseDownPos;
-
         private double newValue;
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)

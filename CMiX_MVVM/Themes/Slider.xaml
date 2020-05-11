@@ -155,7 +155,7 @@
                     </Track.Thumb>
                 </Track>
                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding Name}" Padding="8, 0" IsHitTestVisible="False"/>
-                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Text="{Binding Amount, Converter={StaticResource DoubleToString}}" Padding="8, 0" IsHitTestVisible="False"/>
+   
             </Grid>
 
         </Border>
