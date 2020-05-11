@@ -195,21 +195,21 @@ namespace CMiX.MVVM.Resources
 
             double b = (double)value;
             
-            return String.Format("{0:0.00}", b) ;
+            return String.Format("{0:0.000}", b) ;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var st = (string)value;
-            var max = double.Parse((string)parameter, System.Globalization.CultureInfo.InvariantCulture);
+            //var max = double.Parse((string)parameter, CultureInfo.InvariantCulture);
 
             if (!string.IsNullOrEmpty(st))
             {
                 double b = System.Convert.ToDouble(value);
-                if (b < 0)
-                    b = 0.0;
-                else if (b > max)
-                    b = max;
+                //if (b < 0)
+                //    b = 0.0;
+                //else if (b > max)
+                //    b = max;
                 return b;
             }
             else

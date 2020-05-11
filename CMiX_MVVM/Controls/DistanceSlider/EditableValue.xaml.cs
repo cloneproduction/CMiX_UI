@@ -64,7 +64,7 @@ namespace CMiX.MVVM.Controls
             set { SetValue(TextProperty, value); }
         }
 
-        private static void TextProperty_PropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+        public static void TextProperty_PropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
             EditableValue textbox = obj as EditableValue;
             var newtext = (string)e.NewValue;

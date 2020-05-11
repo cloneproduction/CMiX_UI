@@ -86,25 +86,6 @@
             VerticalAlignment="Stretch" 
             Foreground="{StaticResource TextBase}"
             />
-        <DockPanel Margin="1, 0" DockPanel.Dock="Right">
-            <Button
-                Margin="0, 0, 0, 1"
-                DockPanel.Dock="Top"
-                Grid.Row="0"
-                Height="10"
-                Width="10"
-                Content="+"
-                Focusable="False"
-                Command="{Binding AddCommand}"/>
-            <Button
-                DockPanel.Dock="Bottom"
-                Grid.Row="1"
-                Height="10"
-                Width="10"
-                Content="-"
-                Focusable="False"
-                Command="{Binding SubCommand}"/>
-        </DockPanel>
         <Border Background="Transparent">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="PreviewMouseDown">

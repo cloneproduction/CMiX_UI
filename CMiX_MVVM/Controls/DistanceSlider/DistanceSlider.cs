@@ -1,12 +1,14 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace CMiX.MVVM.Controls
 {
-    public class DistanceSlider : Slider
+    public class DistanceSlider : UserControl
     {
         public DistanceSlider()
         {
@@ -15,11 +17,15 @@ namespace CMiX.MVVM.Controls
 
         private EditableValue EditableValue { get; set; }
         private Grid Grid { get; set; }
+        private Button SubButton { get; set; }
+        private Button AddButton {get; set;}
 
         public override void OnApplyTemplate()
         {
             Grid = GetTemplateChild("Pouet") as Grid;
             EditableValue = GetTemplateChild("editableValue") as EditableValue;
+            SubButton = GetTemplateChild("SubButton") as Button;
+            AddButton = GetTemplateChild("AddButton") as Button;
 
             if (Grid != null)
             {
@@ -28,12 +34,40 @@ namespace CMiX.MVVM.Controls
                 Grid.MouseUp += Grid_MouseUp;
             }
 
+            if(SubButton != null)
+            {
+                AddButton.Click += AddButton_Click;
+                SubButton.Click += SubButton_Click;
+            }
+
             ScreenHeight = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
             ScreenWidth = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
 
             base.OnApplyTemplate();
         }
 
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Value += 0.001;
+        }
+
+        private void SubButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Value -= 0.001;
+        }
+
+        [Bindable(true)]
+        public static readonly DependencyProperty ValueProperty =
+        DependencyProperty.Register("Value", typeof(double), typeof(DistanceSlider), new FrameworkPropertyMetadata
+        {
+            BindsTwoWayByDefault = true,
+            DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+        });
+        public double Value
+        {
+            get { return (double)GetValue(ValueProperty); }
+            set { SetValue(ValueProperty, value); }
+        }
 
         private int ScreenHeight;
         private int ScreenWidth;
@@ -63,7 +97,6 @@ namespace CMiX.MVVM.Controls
         private Point? _mouseDownPos;
 
         private double newValue;
-        private double oldValue;
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -85,14 +118,12 @@ namespace CMiX.MVVM.Controls
                     SetCursorPos(ScreenWidth - 1, Convert.ToInt32(currentPoint.Y));
 
                 if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
-                    newValue = oldValue + offset.X * 0.001;
+                    newValue = this.Value + offset.X * 0.001;
                 else
-                    newValue = oldValue + offset.X * 0.01;
+                    newValue = this.Value + offset.X * 0.01;
 
-                EditableValue.Text = newValue.ToString("0.##0");
 
                 this.Value = newValue;
-                oldValue = newValue;
                 _lastPoint = GetMousePosition();
             }
         }
