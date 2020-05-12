@@ -83,9 +83,9 @@
                 </Slider>
                 <Border HorizontalAlignment="Stretch">
                     <Controls:EditableValue x:Name="editableValue" 
-                                        HorizontalAlignment="Right" 
-                                        Text="{Binding Value, Mode=TwoWay, ElementName=CMiXSlider, Converter={StaticResource DoubleToString}}" 
-                                        IsHitTestVisible="False"/>
+                                            HorizontalAlignment="Right" 
+                                            Text="{Binding Value, Mode=TwoWay, ElementName=CMiXSlider, Converter={StaticResource DoubleToString}}" 
+                                            IsHitTestVisible="False"/>
                 </Border>
 
             </Grid>

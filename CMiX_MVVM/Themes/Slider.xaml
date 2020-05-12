@@ -171,12 +171,18 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+
+    
     <Style TargetType="{x:Type Slider}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Template" Value="{StaticResource Slider}" />
     </Style>
-    
-    
+
+    <!--<Style x:Key="CMiXSliderStyle" TargetType="{x:Type Controls:CMiXSlider}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Template" Value="{StaticResource CMiXSliderTemplate}" />
+    </Style>-->
+
     <!-- SLIDER CENTERED -->
     <ControlTemplate x:Key="SliderCenteredTemplate" TargetType="{x:Type Slider}">
         <Border
@@ -199,9 +205,56 @@
         </Border>
     </ControlTemplate>
 
-    <Style x:Key="SliderCentered" TargetType="{x:Type Slider}">
+    <Style x:Key="CMiXSliderStyle" TargetType="{x:Type Slider}">
         <Setter Property="Focusable" Value="False" />
-        <Setter Property="Template" Value="{StaticResource SliderCenteredTemplate}" />
+        <Setter Property="Controls:MouseDownHelper.IsEnabled" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Slider}">
+                    <Border
+                        x:Name="mainBorder"
+                        SnapsToDevicePixels="True">
+                        <Grid>
+                            <Track x:Name="PART_Track" Grid.Row="1">
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton
+                                        x:Name="RBD"
+                                        Command="{x:Static Slider.DecreaseLarge}"
+                                        Style="{StaticResource RepeatButtonDecrease}" />
+                                </Track.DecreaseRepeatButton>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton
+                                        x:Name="RBI"
+                                        Command="{x:Static Slider.IncreaseLarge}"
+                                        Style="{StaticResource RepeatButtonIncrease}" />
+                                </Track.IncreaseRepeatButton>
+                            </Track>
+                            <TextBlock 
+                                VerticalAlignment="Center" 
+                                HorizontalAlignment="Left"
+                                Text="{Binding Path=Caption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}" 
+                                Padding="8, 0" 
+                                IsHitTestVisible="False"/>
+                            <Controls:EditableValue x:Name="editableValue" 
+                                        HorizontalAlignment="Right"
+                                        Text="{Binding Path=Value, Mode=TwoWay, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="RBD" Property="Style" Value="{DynamicResource RepeatButtonDecreaseOver}" />
+                            <Setter TargetName="RBI" Property="Style" Value="{DynamicResource RepeatButtonIncreaseOver}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="mainBorder" Property="Opacity" Value="0.5" />
+                        </Trigger>
+                        <Trigger Property="Controls:MouseDownHelper.IsMouseLeftButtonDown" Value="True">
+                            <Setter Property="Cursor" Value="None"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
 

@@ -48,7 +48,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Border Background="{StaticResource HighDarkerColor}">
+    <Border>
         <StackPanel Margin="0, 8" DockPanel.Dock="Top">
             <Grid Margin="2" DockPanel.Dock="Top" Height="20">
                 <Grid.ColumnDefinitions>
@@ -57,16 +57,17 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock HorizontalAlignment="Right" Padding="4, 0" VerticalAlignment="Center" Text="BlendMode"/>
                 <ComboBox 
-                Grid.Column="1"
-                DockPanel.Dock="Top"
-                Height="20"
-                SelectedItem="{Binding BlendMode.Mode}"
-                ItemsSource="{Binding Source={StaticResource BlendMode}}"/>
+                    Grid.Column="1"
+                    DockPanel.Dock="Top"
+                    Height="20"
+                    SelectedItem="{Binding BlendMode.Mode}"
+                    ItemsSource="{Binding Source={StaticResource BlendMode}}"/>
             </Grid>
-            <MVVM.Views:Slider
+            <Controls:CMiXSlider
+                Style="{StaticResource CMiXSliderStyle}"
                 DockPanel.Dock="Top"
                 Margin="2, 4"
-                DataContext="{Binding Fade}" 
+                Value="{Binding Fade.Amount}" 
                 Caption="Alpha"/>
         </StackPanel>
     </Border>
