@@ -73,7 +73,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
-                    <Border Background="{StaticResource DarkColor}" />
+                    <Border CornerRadius="0, 4, 4, 0" Background="{StaticResource DarkColor}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -84,7 +84,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
-                    <Border Background="{StaticResource Color}" />
+                    <Border CornerRadius="0, 4, 4, 0" Background="{StaticResource Color}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -172,16 +172,10 @@
     </ControlTemplate>
 
 
-    
     <Style TargetType="{x:Type Slider}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Template" Value="{StaticResource Slider}" />
     </Style>
-
-    <!--<Style x:Key="CMiXSliderStyle" TargetType="{x:Type Controls:CMiXSlider}">
-        <Setter Property="Focusable" Value="False" />
-        <Setter Property="Template" Value="{StaticResource CMiXSliderTemplate}" />
-    </Style>-->
 
     <!-- SLIDER CENTERED -->
     <ControlTemplate x:Key="SliderCenteredTemplate" TargetType="{x:Type Slider}">
@@ -205,6 +199,11 @@
         </Border>
     </ControlTemplate>
 
+    <Style x:Key="SliderCentered" TargetType="{x:Type Slider}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Template" Value="{StaticResource SliderCenteredTemplate}" />
+    </Style>
+    
     <Style x:Key="CMiXSliderStyle" TargetType="{x:Type Slider}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Controls:MouseDownHelper.IsEnabled" Value="True"/>
@@ -230,17 +229,26 @@
                                 </Track.IncreaseRepeatButton>
                             </Track>
                             <TextBlock 
+                                x:Name="sliderName"
                                 VerticalAlignment="Center" 
                                 HorizontalAlignment="Left"
                                 Text="{Binding Path=Caption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}" 
                                 Padding="8, 0" 
                                 IsHitTestVisible="False"/>
+                            <!--<TextBox x:Name="valueTextBox" 
+                                     Text="{Binding Path=Value, Mode=TwoWay, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <TextBlock x:Name="valueTextBlock" 
+                                       Text="{Binding Path=Value, Mode=TwoWay, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}"/>-->
                             <Controls:EditableValue x:Name="editableValue" 
                                         HorizontalAlignment="Right"
                                         Text="{Binding Path=Value, Mode=TwoWay, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}"/>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
+                        <DataTrigger  Binding="{Binding IsEditing, ElementName=editableValue}" Value="True">
+                            <Setter TargetName="PART_Track" Property="Visibility" Value="Hidden" />
+                            <Setter TargetName="sliderName" Property="Visibility" Value="Hidden"/>
+                        </DataTrigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="RBD" Property="Style" Value="{DynamicResource RepeatButtonDecreaseOver}" />
                             <Setter TargetName="RBI" Property="Style" Value="{DynamicResource RepeatButtonIncreaseOver}" />

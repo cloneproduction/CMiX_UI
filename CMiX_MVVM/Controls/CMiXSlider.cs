@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMiX.MVVM.Resources;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -21,15 +22,15 @@ namespace CMiX.MVVM.Controls
 
         public override void OnApplyTemplate()
         {
-            if(EditableValue != null)
-                EditableValue = GetTemplateChild("editableValue") as EditableValue;
+
+            EditableValue = GetTemplateChild("editableValue") as EditableValue;
 
             base.OnApplyTemplate();
         }
 
         protected override void OnPreviewMouseMove(MouseEventArgs e)
         {
-            if (_lastPoint != null)
+            if (_mouseDownPos != null)
             {
                 var currentPoint = GetMousePosition();
                 var offset = currentPoint - _lastPoint.Value;
@@ -43,36 +44,42 @@ namespace CMiX.MVVM.Controls
 
                 this.Value = newValue;
                 _lastPoint = GetMousePosition();
+                Console.WriteLine("OnPreviewMouseMove");
             }
             base.OnPreviewMouseMove(e);
         }
 
         protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
         {
+            Console.WriteLine("OnPreviewMouseUp");
             var mouseUpPos = e.GetPosition(this);
 
             if (_mouseDownPos != null)
             {
                 Point pointToScreen;
+                double YPos = ActualHeight / 2;
+                double XPos = 0;
 
                 if (mouseUpPos.X > this.ActualWidth)
-                    pointToScreen = this.PointToScreen(new Point() { X = ActualWidth, Y = ActualHeight / 2 });
+                    XPos = ActualWidth;
                 else if (mouseUpPos.X < 0)
-                    pointToScreen = this.PointToScreen(new Point() { X = 0, Y = ActualHeight / 2 });
+                    XPos = 0;
                 else
-                    pointToScreen = this.PointToScreen(new Point() { X = mouseUpPos.X, Y = ActualHeight / 2 });
+                    XPos = Utils.Map(this.Value, this.Minimum, this.Maximum, 0, ActualWidth);
+
+                pointToScreen = this.PointToScreen(new Point(XPos, YPos));
 
                 SetCursorPos(Convert.ToInt32(pointToScreen.X), Convert.ToInt32(pointToScreen.Y));
+                
             }
 
             if (_mouseDownPos == mouseUpPos)
             {
-                //EditableValue.IsEditing = true;
-                //Console.WriteLine("EditableValue.IsEditing " + EditableValue.IsEditing);
+                EditableValue.IsEditing = true;
             }
 
+            _mouseDownPos = null;
             this.ReleaseMouseCapture();
-            _lastPoint = null;
             base.OnPreviewMouseUp(e);
         }
 
@@ -82,6 +89,7 @@ namespace CMiX.MVVM.Controls
             _mouseDownPos = e.GetPosition(this);
             this.CaptureMouse();
             base.OnPreviewMouseDown(e);
+            Console.WriteLine("OnPreviewMouseDown");
         }
 
 
@@ -116,5 +124,18 @@ namespace CMiX.MVVM.Controls
             get { return (string)GetValue(CaptionProperty); }
             set { SetValue(CaptionProperty, value); }
         }
+
+        //public static readonly DependencyProperty IsEditingProperty =
+        //DependencyProperty.Register("IsEditing", typeof(bool), typeof(EditableValue), new UIPropertyMetadata(false, new PropertyChangedCallback(IsEditing_PropertyChanged)));
+        //public bool IsEditing
+        //{
+        //    get { return (bool)GetValue(IsEditingProperty); }
+        //    set{ SetValue(IsEditingProperty, value); }
+        //}
+
+        //private static void IsEditing_PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

@@ -19,20 +19,20 @@ namespace CMiX.MVVM.Controls
             TextDisplay.Visibility = Visibility.Visible;
         }
 
-        public event EventHandler MyCustomClickEvent;
+        //public event EventHandler MyCustomClickEvent;
 
 
-        //This method is used to raise the event, when the event should be raised, 
-        //this method will check to see if there are any subscribers, if there are, 
-        //it raises the event
-        protected virtual void OnMyCustomClickEvent(EventArgs e)
-        {
-            // Here, you use the "this" so it's your own control. You can also
-            // customize the EventArgs to pass something you'd like.
+        ////This method is used to raise the event, when the event should be raised, 
+        ////this method will check to see if there are any subscribers, if there are, 
+        ////it raises the event
+        //protected virtual void OnMyCustomClickEvent(EventArgs e)
+        //{
+        //    // Here, you use the "this" so it's your own control. You can also
+        //    // customize the EventArgs to pass something you'd like.
 
-            if (MyCustomClickEvent != null)
-                MyCustomClickEvent(this, e);
-        }
+        //    if (MyCustomClickEvent != null)
+        //        MyCustomClickEvent(this, e);
+        //}
 
         #region PROPERTIES
         public static readonly DependencyProperty IsEditingProperty =
@@ -50,8 +50,7 @@ namespace CMiX.MVVM.Controls
         {
             var textbox = d as EditableValue;
             textbox.OnSwitchToEditingMode();
-            textbox.TextInput.Focus();
-            textbox.TextInput.SelectAll();
+
             
         }
 
@@ -89,13 +88,13 @@ namespace CMiX.MVVM.Controls
 
         protected override void OnLostFocus(RoutedEventArgs e)
         {
-            base.OnLostFocus(e);
+            e.Handled = true;
             OnSwitchToNormalMode();
         }
 
         protected override void OnLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
         {
-            base.OnLostKeyboardFocus(e);
+            e.Handled = true;
             OnSwitchToNormalMode();
         }
 
@@ -109,11 +108,13 @@ namespace CMiX.MVVM.Controls
         #region PRIVATE METHODS
         private void OnSwitchToEditingMode()
         {
-            Mouse.Capture(this, CaptureMode.SubTree);
+            this.CaptureMouse();
             AddHandler();
 
             TextDisplay.Visibility = Visibility.Hidden;
             TextInput.Visibility = Visibility.Visible;
+            TextInput.Focus();
+            TextInput.SelectAll();
             HookItemsControlEvents();
             Text = TextInput.Text;
         }
@@ -125,7 +126,7 @@ namespace CMiX.MVVM.Controls
             TextDisplay.Visibility = Visibility.Visible;
             TextInput.Visibility = Visibility.Hidden;
             Mouse.RemovePreviewMouseDownOutsideCapturedElementHandler(this, OnMouseDownOutsideElement);
-            Mouse.Capture(null);
+            this.ReleaseMouseCapture();
             Keyboard.ClearFocus();
         }
 
@@ -133,27 +134,27 @@ namespace CMiX.MVVM.Controls
         {
             //CaptureMouse();
             Mouse.AddPreviewMouseDownOutsideCapturedElementHandler(this, OnMouseDownOutsideElement);
-            _ParentItemsControl = this.GetDpObjectFromVisualTree(this, typeof(Window)) as Window;
-            if (_ParentItemsControl != null)
-            {
-                // Handle events on parent control and determine whether to switch to Normal mode or stay in editing mode
-                //_ParentItemsControl.AddHandler(ScrollViewer.ScrollChangedEvent, new RoutedEventHandler(this.OnScrollViewerChanged));
-                _ParentItemsControl.AddHandler(ScrollViewer.MouseWheelEvent, new RoutedEventHandler((s, e) => this.OnSwitchToNormalMode()), true);
+            //_ParentItemsControl = this.GetDpObjectFromVisualTree(this, typeof(Window)) as Window;
+            //if (_ParentItemsControl != null)
+            //{
+            //    // Handle events on parent control and determine whether to switch to Normal mode or stay in editing mode
+            //    //_ParentItemsControl.AddHandler(ScrollViewer.ScrollChangedEvent, new RoutedEventHandler(this.OnScrollViewerChanged));
+            //    _ParentItemsControl.AddHandler(ScrollViewer.MouseWheelEvent, new RoutedEventHandler((s, e) => this.OnSwitchToNormalMode()), true);
 
-                _ParentItemsControl.MouseDown += new MouseButtonEventHandler((s, e) => this.OnSwitchToNormalMode());
-                _ParentItemsControl.SizeChanged += new SizeChangedEventHandler((s, e) => this.OnSwitchToNormalMode());
+            //    _ParentItemsControl.MouseDown += new MouseButtonEventHandler((s, e) => this.OnSwitchToNormalMode());
+            //    _ParentItemsControl.SizeChanged += new SizeChangedEventHandler((s, e) => this.OnSwitchToNormalMode());
 
-                // Restrict text box to visible area of scrollviewer
-                //this.ParentScrollViewer = this.GetDpObjectFromVisualTree(_ParentItemsControl, typeof(ScrollViewer)) as ScrollViewer;
+            //    // Restrict text box to visible area of scrollviewer
+            //    //this.ParentScrollViewer = this.GetDpObjectFromVisualTree(_ParentItemsControl, typeof(ScrollViewer)) as ScrollViewer;
 
-                //if (this.ParentScrollViewer == null)
-                //    this.ParentScrollViewer = FindVisualChild<ScrollViewer>(_ParentItemsControl);
+            //    //if (this.ParentScrollViewer == null)
+            //    //    this.ParentScrollViewer = FindVisualChild<ScrollViewer>(_ParentItemsControl);
 
-                //Debug.Assert(this.ParentScrollViewer != null, "DEBUG ISSUE: No ScrollViewer found.");
+            //    //Debug.Assert(this.ParentScrollViewer != null, "DEBUG ISSUE: No ScrollViewer found.");
 
-                //if (this.ParentScrollViewer != null)
-                //    _TextBox.MaxWidth = this.ParentScrollViewer.ViewportWidth;
-            }
+            //    //if (this.ParentScrollViewer != null)
+            //    //    _TextBox.MaxWidth = this.ParentScrollViewer.ViewportWidth;
+            //}
         }
 
         private void AddHandler()
@@ -161,18 +162,18 @@ namespace CMiX.MVVM.Controls
             AddHandler(Mouse.PreviewMouseDownOutsideCapturedElementEvent, new MouseButtonEventHandler(OnMouseDownOutsideElement), true);
         }
 
-        private DependencyObject GetDpObjectFromVisualTree(DependencyObject startObject, Type type)
-        {
-            DependencyObject parent = startObject;
-            while (parent != null)
-            {
-                if (type.IsInstanceOfType(parent))
-                    break;
-                else
-                    parent = VisualTreeHelper.GetParent(parent);
-            }
-            return parent;
-        }
+        //private DependencyObject GetDpObjectFromVisualTree(DependencyObject startObject, Type type)
+        //{
+        //    DependencyObject parent = startObject;
+        //    while (parent != null)
+        //    {
+        //        if (type.IsInstanceOfType(parent))
+        //            break;
+        //        else
+        //            parent = VisualTreeHelper.GetParent(parent);
+        //    }
+        //    return parent;
+        //}
 
         private static readonly Regex _regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
         private static bool IsTextAllowed(string text)

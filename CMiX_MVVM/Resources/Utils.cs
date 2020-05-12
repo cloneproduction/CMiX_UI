@@ -243,6 +243,11 @@ namespace CMiX.MVVM.Resources
                 (byte)((green + m) * 255 + 0.5),
                 (byte)((blue + m) * 255 + 0.5));
         }
+
+        public static double Map(double value, double fromLow, double fromHigh, double toLow, double toHigh)
+        {
+            return (value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow;
+        }
         #endregion
     }
 
