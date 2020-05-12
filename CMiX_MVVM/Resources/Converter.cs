@@ -201,11 +201,11 @@ namespace CMiX.MVVM.Resources
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var st = (string)value;
-            //var max = double.Parse((string)parameter, CultureInfo.InvariantCulture);
+            var newValue = double.Parse((string)value, CultureInfo.InvariantCulture);
 
             if (!string.IsNullOrEmpty(st))
             {
-                double b = System.Convert.ToDouble(value);
+                double b = newValue;
                 //if (b < 0)
                 //    b = 0.0;
                 //else if (b > max)

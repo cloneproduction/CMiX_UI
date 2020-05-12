@@ -1,10 +1,7 @@
 ﻿using CMiX.MVVM.Resources;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -18,12 +15,14 @@ namespace CMiX.MVVM.Controls
             OnApplyTemplate();
         }
 
-        EditableValue EditableValue { get; set; }
+        TextBox TextInput { get; set; }
 
         public override void OnApplyTemplate()
         {
+            TextInput = GetTemplateChild("textInput") as TextBox;
 
-            EditableValue = GetTemplateChild("editableValue") as EditableValue;
+            if(TextInput != null)
+                TextInput.Visibility = Visibility.Hidden;
 
             base.OnApplyTemplate();
         }
@@ -46,7 +45,7 @@ namespace CMiX.MVVM.Controls
                 _lastPoint = GetMousePosition();
                 Console.WriteLine("OnPreviewMouseMove");
             }
-            base.OnPreviewMouseMove(e);
+            //base.OnPreviewMouseMove(e);
         }
 
         protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
@@ -61,34 +60,36 @@ namespace CMiX.MVVM.Controls
                 double XPos = 0;
 
                 if (mouseUpPos.X > this.ActualWidth)
-                    XPos = ActualWidth;
+                    XPos = ActualWidth - 1;
                 else if (mouseUpPos.X < 0)
                     XPos = 0;
                 else
                     XPos = Utils.Map(this.Value, this.Minimum, this.Maximum, 0, ActualWidth);
 
                 pointToScreen = this.PointToScreen(new Point(XPos, YPos));
-
                 SetCursorPos(Convert.ToInt32(pointToScreen.X), Convert.ToInt32(pointToScreen.Y));
-                
             }
+
+            this.ReleaseMouseCapture();
 
             if (_mouseDownPos == mouseUpPos)
             {
-                EditableValue.IsEditing = true;
+                OnSwitchToEditingMode();// = true;
             }
-
             _mouseDownPos = null;
-            this.ReleaseMouseCapture();
-            base.OnPreviewMouseUp(e);
+            //base.OnPreviewMouseUp(e);
         }
 
         protected override void OnPreviewMouseDown(MouseButtonEventArgs e)
         {
-            _lastPoint = GetMousePosition();
-            _mouseDownPos = e.GetPosition(this);
-            this.CaptureMouse();
-            base.OnPreviewMouseDown(e);
+            if(TextInput.IsVisible == false)
+            {
+                _lastPoint = GetMousePosition();
+                _mouseDownPos = e.GetPosition(this);
+                this.CaptureMouse();
+                //base.OnPreviewMouseDown(e);
+            }
+            
             Console.WriteLine("OnPreviewMouseDown");
         }
 
@@ -125,17 +126,85 @@ namespace CMiX.MVVM.Controls
             set { SetValue(CaptionProperty, value); }
         }
 
+        #region EVENTS
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape || e.Key == Key.Enter)
+            {
+                OnSwitchToNormalMode();
+                e.Handled = true;
+                return;
+            }
+        }
+
+        protected override void OnLostFocus(RoutedEventArgs e)
+        {
+            e.Handled = true;
+            OnSwitchToNormalMode();
+        }
+
+        protected override void OnLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
+        {
+            e.Handled = true;
+            OnSwitchToNormalMode();
+        }
+
+        public void OnMouseDownOutsideElement(object sender, MouseButtonEventArgs e)
+        {
+            Console.WriteLine("OnMouseDownOutsideElement");
+            OnSwitchToNormalMode();
+            e.Handled = true;
+        }
+        #endregion
+
+        #region PRIVATE METHODS
+        private void OnSwitchToEditingMode()
+        {
+            //AddHandler(Mouse.PreviewMouseDownOutsideCapturedElementEvent, new MouseButtonEventHandler(OnMouseDownOutsideElement), true);
+
+            TextInput.Visibility = Visibility.Visible;
+            TextInput.Focus();
+            TextInput.SelectAll();
+            //this.ReleaseMouseCapture();
+            this.CaptureMouse();
+            Mouse.AddPreviewMouseDownOutsideCapturedElementHandler(this, OnMouseDownOutsideElement);
+        }
+
+        private void OnSwitchToNormalMode(bool bCancelEdit = true)
+        {
+            Mouse.RemovePreviewMouseDownOutsideCapturedElementHandler(this, OnMouseDownOutsideElement);
+            this.ReleaseMouseCapture();
+            TextInput.Visibility = Visibility.Hidden;
+            
+            //this.ReleaseMouseCapture();
+            Keyboard.ClearFocus();
+            this.Focus();
+        }
+
+        private readonly Regex _regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
+        private bool IsTextAllowed(string text)
+        {
+            return !_regex.IsMatch(text);
+        }
+        #endregion
+
+        private void TextInput_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
+
         //public static readonly DependencyProperty IsEditingProperty =
-        //DependencyProperty.Register("IsEditing", typeof(bool), typeof(EditableValue), new UIPropertyMetadata(false, new PropertyChangedCallback(IsEditing_PropertyChanged)));
+        //DependencyProperty.Register("IsEditing", typeof(bool), typeof(CMiXSlider), new UIPropertyMetadata(false, new PropertyChangedCallback(IsEditing_PropertyChanged)));
         //public bool IsEditing
         //{
         //    get { return (bool)GetValue(IsEditingProperty); }
-        //    set{ SetValue(IsEditingProperty, value); }
+        //    set { SetValue(IsEditingProperty, value); }
         //}
 
         //private static void IsEditing_PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         //{
-        //    throw new NotImplementedException();
+        //    //var textbox = d as EditableValue;
+        //    //this.OnSwitchToEditingMode();
         //}
     }
 }

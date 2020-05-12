@@ -40,18 +40,13 @@ namespace CMiX.MVVM.Controls
         public bool IsEditing
         {
             get { return (bool)GetValue(IsEditingProperty); }
-            set
-            {
-                SetValue(IsEditingProperty, value);
-            }
+            set { SetValue(IsEditingProperty, value); }
         }
 
         private static void IsEditing_PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var textbox = d as EditableValue;
             textbox.OnSwitchToEditingMode();
-
-            
         }
 
         [Bindable(true)]

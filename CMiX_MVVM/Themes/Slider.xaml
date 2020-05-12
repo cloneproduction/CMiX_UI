@@ -235,20 +235,35 @@
                                 Text="{Binding Path=Caption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}" 
                                 Padding="8, 0" 
                                 IsHitTestVisible="False"/>
-                            <!--<TextBox x:Name="valueTextBox" 
+                            <TextBlock x:Name="textDisplay" 
+                                       Padding="0, 0, 8, 0"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Right"
+                                       Text="{Binding Path=Value, Mode=TwoWay, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}"/>
+
+                            <TextBox x:Name="textInput" 
+                                     Padding="2, 0, 0, 0"
+                                     BorderThickness="0"
+                                     VerticalAlignment="Center"
+                                     CaretBrush="{StaticResource TextBase}"
+                                     SelectionBrush="{StaticResource TextBase}"
+                                     Background="{StaticResource HighHighDarkerColor}"
+                                     Foreground="{StaticResource TextBase}"
                                      Text="{Binding Path=Value, Mode=TwoWay, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}"/>
-                            <TextBlock x:Name="valueTextBlock" 
-                                       Text="{Binding Path=Value, Mode=TwoWay, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}"/>-->
-                            <Controls:EditableValue x:Name="editableValue" 
+                             <!--<Controls:EditableValue x:Name="editableValue" 
                                         HorizontalAlignment="Right"
-                                        Text="{Binding Path=Value, Mode=TwoWay, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                        Text="{Binding Path=Value, Mode=TwoWay, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}"/>-->
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <DataTrigger  Binding="{Binding IsEditing, ElementName=editableValue}" Value="True">
+                        <DataTrigger  Binding="{Binding Visibility, ElementName=textInput}" Value="Visible">
                             <Setter TargetName="PART_Track" Property="Visibility" Value="Hidden" />
                             <Setter TargetName="sliderName" Property="Visibility" Value="Hidden"/>
                         </DataTrigger>
+                        <!--<DataTrigger  Binding="{Binding IsEditing, ElementName=editableValue}" Value="True">
+                            <Setter TargetName="PART_Track" Property="Visibility" Value="Hidden" />
+                            <Setter TargetName="sliderName" Property="Visibility" Value="Hidden"/>
+                        </DataTrigger>-->
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="RBD" Property="Style" Value="{DynamicResource RepeatButtonDecreaseOver}" />
                             <Setter TargetName="RBI" Property="Style" Value="{DynamicResource RepeatButtonIncreaseOver}" />
