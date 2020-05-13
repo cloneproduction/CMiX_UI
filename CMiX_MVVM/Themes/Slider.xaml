@@ -204,6 +204,8 @@
         <Setter Property="Template" Value="{StaticResource SliderCenteredTemplate}" />
     </Style>
     
+    
+    
     <Style x:Key="CMiXSliderStyle" TargetType="{x:Type Slider}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Controls:MouseDownHelper.IsEnabled" Value="True"/>
@@ -255,25 +257,26 @@
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
+                        
                         <DataTrigger  Binding="{Binding Visibility, ElementName=textInput}" Value="Visible">
-                            <Setter TargetName="PART_Track" Property="Visibility" Value="Hidden" />
+                            <Setter TargetName="PART_Track" Property="IsEnabled" Value="Hidden" />
                             <Setter TargetName="sliderName" Property="Visibility" Value="Hidden"/>
                             <Setter Property="Cursor" Value="IBeam"/>
                         </DataTrigger>
-                        <!--<DataTrigger  Binding="{Binding IsEditing, ElementName=editableValue}" Value="True">
-                            <Setter TargetName="PART_Track" Property="Visibility" Value="Hidden" />
-                            <Setter TargetName="sliderName" Property="Visibility" Value="Hidden"/>
-                        </DataTrigger>-->
+
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="RBD" Property="Style" Value="{DynamicResource RepeatButtonDecreaseOver}" />
                             <Setter TargetName="RBI" Property="Style" Value="{DynamicResource RepeatButtonIncreaseOver}" />
                         </Trigger>
+                        
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="mainBorder" Property="Opacity" Value="0.5" />
                         </Trigger>
+                        
                         <Trigger Property="Controls:MouseDownHelper.IsMouseLeftButtonDown" Value="True">
                             <Setter Property="Cursor" Value="None"/>
                         </Trigger>
+                        
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

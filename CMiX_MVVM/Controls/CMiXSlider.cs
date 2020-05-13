@@ -16,6 +16,8 @@ namespace CMiX.MVVM.Controls
         }
 
         TextBox TextInput { get; set; }
+        public bool IsEditing { get; set; }
+
 
         public override void OnApplyTemplate()
         {
@@ -24,21 +26,34 @@ namespace CMiX.MVVM.Controls
             if(TextInput != null)
             {
                 TextInput.Visibility = Visibility.Hidden;
-                TextInput.PreviewMouseDown += TextInput_PreviewMouseDown;
             }
                 
 
             base.OnApplyTemplate();
         }
 
-        private void TextInput_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+
+        protected override void OnPreviewMouseDown(MouseButtonEventArgs e)
         {
-            Console.WriteLine("TextInput_PreviewMouseDown");
+            //Console.WriteLine("OnPreviewMouseDown");
+            if (IsEditing == false)
+            {
+                _lastPoint = GetMousePosition();
+                _mouseDownPos = e.GetPosition(this);
+                this.CaptureMouse();
+            }
+
+            if (this.IsMouseCaptured)
+                Console.WriteLine("OnPreviewMouseDown Mouse is currently captured by MainSlider and IsEditing is " + IsEditing);
+
+            if (TextInput.IsMouseCaptured)
+                Console.WriteLine("OnPreviewMouseDown Mouse is currently captured by TextInputand IsEditing is " + IsEditing);
         }
 
         protected override void OnPreviewMouseMove(MouseEventArgs e)
         {
-            if (_mouseDownPos != null & IsEditing == false)
+            //Console.WriteLine("OnPreviewMouseMove");
+            if (_mouseDownPos != null && IsEditing == false)
             {
                 var currentPoint = GetMousePosition();
                 var offset = currentPoint - _lastPoint.Value;
@@ -52,15 +67,23 @@ namespace CMiX.MVVM.Controls
 
                 this.Value = newValue;
                 _lastPoint = GetMousePosition();
-                Console.WriteLine("OnPreviewMouseMove");
             }
-            //base.OnPreviewMouseMove(e);
+
+            //if (this.IsMouseCaptured)
+            //    Console.WriteLine("OnPreviewMouseMove Mouse is currently captured by MainSlider and IsEditing is " + IsEditing);
+
+            //if (TextInput.IsMouseCaptured)
+            //    Console.WriteLine("OnPreviewMouseMove Mouse is currently captured by TextInput and IsEditing is " + IsEditing);
         }
 
         protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
         {
-            Console.WriteLine("OnPreviewMouseUp");
+
+
             var mouseUpPos = e.GetPosition(this);
+            //this.ReleaseMouseCapture();
+
+
 
             if (_mouseDownPos != null && IsEditing == false)
             {
@@ -75,36 +98,39 @@ namespace CMiX.MVVM.Controls
                 else
                     XPos = Utils.Map(this.Value, this.Minimum, this.Maximum, 0, ActualWidth);
 
+
+
                 pointToScreen = this.PointToScreen(new Point(XPos, YPos));
                 SetCursorPos(Convert.ToInt32(pointToScreen.X), Convert.ToInt32(pointToScreen.Y));
+
+                if (this.IsMouseCaptured)
+                    Console.WriteLine("OnPreviewMouseMove Mouse is currently captured by MainSlider and IsEditing is " + IsEditing);
+
+                if (TextInput.IsMouseCaptured)
+                    Console.WriteLine("OnPreviewMouseMove Mouse is currently captured by TextInput and IsEditing is " + IsEditing);
             }
 
-            
 
             if (_mouseDownPos == mouseUpPos)
             {
-                OnSwitchToEditingMode();// = true;
+                IsEditing = true;
+                TextInput.Visibility = Visibility.Visible;
+                TextInput.Focus();
+                TextInput.SelectAll();
+                Mouse.Capture(this, CaptureMode.SubTree);
+                Mouse.AddPreviewMouseDownOutsideCapturedElementHandler(this, OnMouseDownOutsideElement);
             }
+
             _mouseDownPos = null;
-            if(!IsEditing)
-                this.ReleaseMouseCapture();
-            //base.OnPreviewMouseUp(e);
+
+            if (this.IsMouseCaptured)
+                Console.WriteLine("OnPreviewMouseUp Mouse is currently captured by MainSlider");
+
+            if (TextInput.IsMouseCaptured)
+                Console.WriteLine("OnPreviewMouseUp Mouse is currently captured by TextInput");
         }
 
-        public bool IsEditing { get; set; }
 
-        protected override void OnPreviewMouseDown(MouseButtonEventArgs e)
-        {
-            if(IsEditing == false)
-            {
-                _lastPoint = GetMousePosition();
-                _mouseDownPos = e.GetPosition(this);
-                this.CaptureMouse();
-                //base.OnPreviewMouseDown(e);
-            }
-            
-            Console.WriteLine("OnPreviewMouseDown");
-        }
 
 
         [DllImport("User32.dll")]
@@ -154,7 +180,6 @@ namespace CMiX.MVVM.Controls
         {
             e.Handled = true;
             OnSwitchToNormalMode();
-            Console.WriteLine("OnLostFocus");
         }
 
         protected override void OnLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
@@ -166,43 +191,29 @@ namespace CMiX.MVVM.Controls
         public void OnMouseDownOutsideElement(object sender, MouseButtonEventArgs e)
         {
             Console.WriteLine("OnMouseDownOutsideElement");
-            OnSwitchToNormalMode();
             e.Handled = true;
+            if (IsEditing)
+                OnSwitchToNormalMode();
+            
         }
         #endregion
 
         private void OnSwitchToEditingMode()
         {
-            //AddHandler(Mouse.PreviewMouseDownOutsideCapturedElementEvent, new MouseButtonEventHandler(OnMouseDownOutsideElement), true);
             IsEditing = true;
             TextInput.Visibility = Visibility.Visible;
             TextInput.Focus();
             TextInput.SelectAll();
-            this.ReleaseMouseCapture();
-            if (!TextInput.IsMouseCaptured)
-            {
-                TextInput.CaptureMouse();
-                Console.WriteLine("TextInput.CaptureMouse();");
-                //this.ReleaseMouseCapture();
-                //TextInput.CaptureMouse();
-                //Mouse.Capture(TextInput);
-                //Mouse.AddPreviewMouseDownOutsideCapturedElementHandler(this, OnMouseDownOutsideElement);
-            }
-            if(TextInput.IsMouseCaptured)
-                Console.WriteLine("TextInput MouseCaptured");
-
+            TextInput.CaptureMouse();
         }
 
         private void OnSwitchToNormalMode(bool bCancelEdit = true)
         {
             IsEditing = false;
+            Mouse.Capture(this, CaptureMode.SubTree);
+            Mouse.RemovePreviewMouseDownOutsideCapturedElementHandler(this, OnMouseDownOutsideElement);
+            //TextInput.ReleaseMouseCapture();
             TextInput.Visibility = Visibility.Hidden;
-
-            if (TextInput.IsMouseCaptured)
-            {
-                TextInput.ReleaseMouseCapture();
-                Mouse.RemovePreviewMouseDownOutsideCapturedElementHandler(this, OnMouseDownOutsideElement);
-            }
 
             Keyboard.ClearFocus();
             //this.Focus();
@@ -218,19 +229,5 @@ namespace CMiX.MVVM.Controls
         {
             e.Handled = !IsTextAllowed(e.Text);
         }
-
-        //public static readonly DependencyProperty IsEditingProperty =
-        //DependencyProperty.Register("IsEditing", typeof(bool), typeof(CMiXSlider), new UIPropertyMetadata(false, new PropertyChangedCallback(IsEditing_PropertyChanged)));
-        //public bool IsEditing
-        //{
-        //    get { return (bool)GetValue(IsEditingProperty); }
-        //    set { SetValue(IsEditingProperty, value); }
-        //}
-
-        //private static void IsEditing_PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        //{
-        //    //var textbox = d as EditableValue;
-        //    //this.OnSwitchToEditingMode();
-        //}
     }
 }
