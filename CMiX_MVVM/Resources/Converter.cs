@@ -200,20 +200,15 @@ namespace CMiX.MVVM.Resources
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var st = (string)value;
-            var newValue = double.Parse((string)value, CultureInfo.InvariantCulture);
-
-            if (!string.IsNullOrEmpty(st))
+            string strValue = value as string;
+            double resultDouble;
+            if (double.TryParse(strValue, out resultDouble))
             {
-                double b = newValue;
-                //if (b < 0)
-                //    b = 0.0;
-                //else if (b > max)
-                //    b = max;
-                return b;
+                Console.WriteLine("double.TryParse(strValue, out resultDouble)");
+                return resultDouble;
             }
-            else
-                return (double)value;
+            Console.WriteLine(" return DependencyProperty.UnsetValue");
+            return DependencyProperty.UnsetValue;
         }
     }
 

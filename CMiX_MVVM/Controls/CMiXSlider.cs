@@ -22,14 +22,23 @@ namespace CMiX.MVVM.Controls
             TextInput = GetTemplateChild("textInput") as TextBox;
 
             if(TextInput != null)
+            {
                 TextInput.Visibility = Visibility.Hidden;
+                TextInput.PreviewMouseDown += TextInput_PreviewMouseDown;
+            }
+                
 
             base.OnApplyTemplate();
         }
 
+        private void TextInput_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Console.WriteLine("TextInput_PreviewMouseDown");
+        }
+
         protected override void OnPreviewMouseMove(MouseEventArgs e)
         {
-            if (_mouseDownPos != null)
+            if (_mouseDownPos != null & IsEditing == false)
             {
                 var currentPoint = GetMousePosition();
                 var offset = currentPoint - _lastPoint.Value;
@@ -53,7 +62,7 @@ namespace CMiX.MVVM.Controls
             Console.WriteLine("OnPreviewMouseUp");
             var mouseUpPos = e.GetPosition(this);
 
-            if (_mouseDownPos != null)
+            if (_mouseDownPos != null && IsEditing == false)
             {
                 Point pointToScreen;
                 double YPos = ActualHeight / 2;
@@ -70,19 +79,23 @@ namespace CMiX.MVVM.Controls
                 SetCursorPos(Convert.ToInt32(pointToScreen.X), Convert.ToInt32(pointToScreen.Y));
             }
 
-            this.ReleaseMouseCapture();
+            
 
             if (_mouseDownPos == mouseUpPos)
             {
                 OnSwitchToEditingMode();// = true;
             }
             _mouseDownPos = null;
+            if(!IsEditing)
+                this.ReleaseMouseCapture();
             //base.OnPreviewMouseUp(e);
         }
 
+        public bool IsEditing { get; set; }
+
         protected override void OnPreviewMouseDown(MouseButtonEventArgs e)
         {
-            if(TextInput.IsVisible == false)
+            if(IsEditing == false)
             {
                 _lastPoint = GetMousePosition();
                 _mouseDownPos = e.GetPosition(this);
@@ -141,6 +154,7 @@ namespace CMiX.MVVM.Controls
         {
             e.Handled = true;
             OnSwitchToNormalMode();
+            Console.WriteLine("OnLostFocus");
         }
 
         protected override void OnLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
@@ -157,28 +171,41 @@ namespace CMiX.MVVM.Controls
         }
         #endregion
 
-        #region PRIVATE METHODS
         private void OnSwitchToEditingMode()
         {
             //AddHandler(Mouse.PreviewMouseDownOutsideCapturedElementEvent, new MouseButtonEventHandler(OnMouseDownOutsideElement), true);
-
+            IsEditing = true;
             TextInput.Visibility = Visibility.Visible;
             TextInput.Focus();
             TextInput.SelectAll();
-            //this.ReleaseMouseCapture();
-            this.CaptureMouse();
-            Mouse.AddPreviewMouseDownOutsideCapturedElementHandler(this, OnMouseDownOutsideElement);
+            this.ReleaseMouseCapture();
+            if (!TextInput.IsMouseCaptured)
+            {
+                TextInput.CaptureMouse();
+                Console.WriteLine("TextInput.CaptureMouse();");
+                //this.ReleaseMouseCapture();
+                //TextInput.CaptureMouse();
+                //Mouse.Capture(TextInput);
+                //Mouse.AddPreviewMouseDownOutsideCapturedElementHandler(this, OnMouseDownOutsideElement);
+            }
+            if(TextInput.IsMouseCaptured)
+                Console.WriteLine("TextInput MouseCaptured");
+
         }
 
         private void OnSwitchToNormalMode(bool bCancelEdit = true)
         {
-            Mouse.RemovePreviewMouseDownOutsideCapturedElementHandler(this, OnMouseDownOutsideElement);
-            this.ReleaseMouseCapture();
+            IsEditing = false;
             TextInput.Visibility = Visibility.Hidden;
-            
-            //this.ReleaseMouseCapture();
+
+            if (TextInput.IsMouseCaptured)
+            {
+                TextInput.ReleaseMouseCapture();
+                Mouse.RemovePreviewMouseDownOutsideCapturedElementHandler(this, OnMouseDownOutsideElement);
+            }
+
             Keyboard.ClearFocus();
-            this.Focus();
+            //this.Focus();
         }
 
         private readonly Regex _regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
@@ -186,7 +213,6 @@ namespace CMiX.MVVM.Controls
         {
             return !_regex.IsMatch(text);
         }
-        #endregion
 
         private void TextInput_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
