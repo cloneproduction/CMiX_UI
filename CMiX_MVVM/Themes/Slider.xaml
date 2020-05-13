@@ -216,20 +216,33 @@
                         x:Name="mainBorder"
                         SnapsToDevicePixels="True">
                         <Grid>
-                            <Track x:Name="PART_Track" Grid.Row="1">
-                                <Track.DecreaseRepeatButton>
-                                    <RepeatButton
+                            <Border x:Name="sliderBorder" Background="Transparent">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                        <Style.Triggers>
+                                            <DataTrigger  Binding="{Binding Path=IsEditing, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
+                                                <Setter Property="Visibility" Value="Hidden"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <Track>
+                                    <Track.DecreaseRepeatButton>
+                                        <RepeatButton
                                         x:Name="RBD"
                                         Command="{x:Static Slider.DecreaseLarge}"
                                         Style="{StaticResource RepeatButtonDecrease}" />
-                                </Track.DecreaseRepeatButton>
-                                <Track.IncreaseRepeatButton>
-                                    <RepeatButton
+                                    </Track.DecreaseRepeatButton>
+                                    <Track.IncreaseRepeatButton>
+                                        <RepeatButton
                                         x:Name="RBI"
                                         Command="{x:Static Slider.IncreaseLarge}"
                                         Style="{StaticResource RepeatButtonIncrease}" />
-                                </Track.IncreaseRepeatButton>
-                            </Track>
+                                    </Track.IncreaseRepeatButton>
+                                </Track>
+                            </Border>
+                            
                             <TextBlock 
                                 x:Name="sliderName"
                                 VerticalAlignment="Center" 
@@ -244,22 +257,36 @@
                                        Text="{Binding Path=Value, Mode=TwoWay, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}"/>
                             <TextBox x:Name="textInput" 
                                      Padding="2, 0, 0, 0"
-                                     BorderThickness="0"
+                                     BorderThickness="2"
                                      VerticalAlignment="Center"
                                      CaretBrush="{StaticResource TextBase}"
                                      SelectionBrush="{StaticResource TextBase}"
                                      Background="{StaticResource HighHighDarkerColor}"
                                      Foreground="{StaticResource TextBase}"
-                                     Text="{Binding Path=Value, Mode=TwoWay, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}"/>
-                             <!--<Controls:EditableValue x:Name="editableValue" 
+                                     Text="{Binding Path=Value, Mode=TwoWay, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}">
+                                <TextBox.Style>
+                                    <Style TargetType="TextBox">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                        <Style.Triggers>
+                                            <DataTrigger  Binding="{Binding Path=IsEditing, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+                            <!--<Controls:EditableValue x:Name="editableValue" 
                                         HorizontalAlignment="Right"
                                         Text="{Binding Path=Value, Mode=TwoWay, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}"/>-->
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
-                        
-                        <DataTrigger  Binding="{Binding Visibility, ElementName=textInput}" Value="Visible">
-                            <Setter TargetName="PART_Track" Property="IsEnabled" Value="Hidden" />
+
+                        <DataTrigger  Binding="{Binding Path=IsEditing, RelativeSource={RelativeSource TemplatedParent}}" Value="False">
+                            <Setter TargetName="sliderName" Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+
+                        <DataTrigger  Binding="{Binding Path=IsEditing, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
                             <Setter TargetName="sliderName" Property="Visibility" Value="Hidden"/>
                             <Setter Property="Cursor" Value="IBeam"/>
                         </DataTrigger>

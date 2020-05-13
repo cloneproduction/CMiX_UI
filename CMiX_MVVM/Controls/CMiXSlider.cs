@@ -16,18 +16,13 @@ namespace CMiX.MVVM.Controls
         }
 
         TextBox TextInput { get; set; }
-        public bool IsEditing { get; set; }
+        Border Border { get; set; }
 
 
         public override void OnApplyTemplate()
         {
             TextInput = GetTemplateChild("textInput") as TextBox;
-
-            if(TextInput != null)
-            {
-                TextInput.Visibility = Visibility.Hidden;
-            }
-                
+            Border = GetTemplateChild("sliderBorder") as Border;
 
             base.OnApplyTemplate();
         }
@@ -40,14 +35,8 @@ namespace CMiX.MVVM.Controls
             {
                 _lastPoint = GetMousePosition();
                 _mouseDownPos = e.GetPosition(this);
-                this.CaptureMouse();
+                Border.CaptureMouse();
             }
-
-            if (this.IsMouseCaptured)
-                Console.WriteLine("OnPreviewMouseDown Mouse is currently captured by MainSlider and IsEditing is " + IsEditing);
-
-            if (TextInput.IsMouseCaptured)
-                Console.WriteLine("OnPreviewMouseDown Mouse is currently captured by TextInputand IsEditing is " + IsEditing);
         }
 
         protected override void OnPreviewMouseMove(MouseEventArgs e)
@@ -68,24 +57,17 @@ namespace CMiX.MVVM.Controls
                 this.Value = newValue;
                 _lastPoint = GetMousePosition();
             }
-
-            //if (this.IsMouseCaptured)
-            //    Console.WriteLine("OnPreviewMouseMove Mouse is currently captured by MainSlider and IsEditing is " + IsEditing);
-
-            //if (TextInput.IsMouseCaptured)
-            //    Console.WriteLine("OnPreviewMouseMove Mouse is currently captured by TextInput and IsEditing is " + IsEditing);
         }
 
         protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
         {
-
-
             var mouseUpPos = e.GetPosition(this);
             //this.ReleaseMouseCapture();
 
+            if (_mouseDownPos == mouseUpPos)
+                IsEditing = true;
 
-
-            if (_mouseDownPos != null && IsEditing == false)
+            if (_mouseDownPos != null)
             {
                 Point pointToScreen;
                 double YPos = ActualHeight / 2;
@@ -98,36 +80,17 @@ namespace CMiX.MVVM.Controls
                 else
                     XPos = Utils.Map(this.Value, this.Minimum, this.Maximum, 0, ActualWidth);
 
-
-
                 pointToScreen = this.PointToScreen(new Point(XPos, YPos));
                 SetCursorPos(Convert.ToInt32(pointToScreen.X), Convert.ToInt32(pointToScreen.Y));
 
-                if (this.IsMouseCaptured)
-                    Console.WriteLine("OnPreviewMouseMove Mouse is currently captured by MainSlider and IsEditing is " + IsEditing);
+                //if (Border.IsMouseCaptured)
+                //    Console.WriteLine("OnPreviewMouseMove Mouse is currently captured by MainSlider and IsEditing is " + IsEditing);
 
-                if (TextInput.IsMouseCaptured)
-                    Console.WriteLine("OnPreviewMouseMove Mouse is currently captured by TextInput and IsEditing is " + IsEditing);
-            }
-
-
-            if (_mouseDownPos == mouseUpPos)
-            {
-                IsEditing = true;
-                TextInput.Visibility = Visibility.Visible;
-                TextInput.Focus();
-                TextInput.SelectAll();
-                Mouse.Capture(this, CaptureMode.SubTree);
-                Mouse.AddPreviewMouseDownOutsideCapturedElementHandler(this, OnMouseDownOutsideElement);
+                //if (TextInput.IsMouseCaptured)
+                //    Console.WriteLine("OnPreviewMouseMove Mouse is currently captured by TextInput and IsEditing is " + IsEditing);
             }
 
             _mouseDownPos = null;
-
-            if (this.IsMouseCaptured)
-                Console.WriteLine("OnPreviewMouseUp Mouse is currently captured by MainSlider");
-
-            if (TextInput.IsMouseCaptured)
-                Console.WriteLine("OnPreviewMouseUp Mouse is currently captured by TextInput");
         }
 
 
@@ -191,6 +154,7 @@ namespace CMiX.MVVM.Controls
         public void OnMouseDownOutsideElement(object sender, MouseButtonEventArgs e)
         {
             Console.WriteLine("OnMouseDownOutsideElement");
+            Console.WriteLine("Type " + sender.GetType().Name);
             e.Handled = true;
             if (IsEditing)
                 OnSwitchToNormalMode();
@@ -200,21 +164,19 @@ namespace CMiX.MVVM.Controls
 
         private void OnSwitchToEditingMode()
         {
-            IsEditing = true;
-            TextInput.Visibility = Visibility.Visible;
+            Console.WriteLine("OnSwitchToEditingMode");
+            this.CaptureMouse();
+            AddHandler(Mouse.PreviewMouseDownOutsideCapturedElementEvent, new MouseButtonEventHandler(OnMouseDownOutsideElement), true);
             TextInput.Focus();
             TextInput.SelectAll();
-            TextInput.CaptureMouse();
+            Mouse.AddPreviewMouseDownOutsideCapturedElementHandler(this, OnMouseDownOutsideElement);
         }
 
         private void OnSwitchToNormalMode(bool bCancelEdit = true)
         {
             IsEditing = false;
-            Mouse.Capture(this, CaptureMode.SubTree);
             Mouse.RemovePreviewMouseDownOutsideCapturedElementHandler(this, OnMouseDownOutsideElement);
-            //TextInput.ReleaseMouseCapture();
-            TextInput.Visibility = Visibility.Hidden;
-
+            this.ReleaseMouseCapture();
             Keyboard.ClearFocus();
             //this.Focus();
         }
@@ -228,6 +190,20 @@ namespace CMiX.MVVM.Controls
         private void TextInput_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !IsTextAllowed(e.Text);
+        }
+
+        public static readonly DependencyProperty IsEditingProperty =
+        DependencyProperty.Register("IsEditing", typeof(bool), typeof(CMiXSlider), new UIPropertyMetadata(false, new PropertyChangedCallback(IsEditing_PropertyChanged)));
+        public bool IsEditing
+        {
+            get { return (bool)GetValue(IsEditingProperty); }
+            set { SetValue(IsEditingProperty, value); }
+        }
+
+        private static void IsEditing_PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var slider = d as CMiXSlider;
+            slider.OnSwitchToEditingMode();
         }
     }
 }
