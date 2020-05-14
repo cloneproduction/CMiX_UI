@@ -256,8 +256,8 @@
                                        HorizontalAlignment="Right"
                                        Text="{Binding Path=Value, Mode=TwoWay, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}"/>
                             <TextBox x:Name="textInput" 
+                                     Focusable="True"
                                      Padding="2, 0, 0, 0"
-                                     BorderThickness="2"
                                      VerticalAlignment="Center"
                                      CaretBrush="{StaticResource TextBase}"
                                      SelectionBrush="{StaticResource TextBase}"
@@ -265,8 +265,9 @@
                                      Foreground="{StaticResource TextBase}"
                                      Text="{Binding Path=Value, Mode=TwoWay, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}">
                                 <TextBox.Style>
-                                    <Style TargetType="TextBox">
+                                    <Style TargetType="{x:Type TextBox}">
                                         <Setter Property="Visibility" Value="Hidden"/>
+                                        <Setter Property="BorderBrush" Value="Red"/>
                                         <Style.Triggers>
                                             <DataTrigger  Binding="{Binding Path=IsEditing, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
                                                 <Setter Property="Visibility" Value="Visible"/>
@@ -275,9 +276,6 @@
                                     </Style>
                                 </TextBox.Style>
                             </TextBox>
-                            <!--<Controls:EditableValue x:Name="editableValue" 
-                                        HorizontalAlignment="Right"
-                                        Text="{Binding Path=Value, Mode=TwoWay, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}"/>-->
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -288,7 +286,6 @@
 
                         <DataTrigger  Binding="{Binding Path=IsEditing, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
                             <Setter TargetName="sliderName" Property="Visibility" Value="Hidden"/>
-                            <Setter Property="Cursor" Value="IBeam"/>
                         </DataTrigger>
 
                         <Trigger Property="IsMouseOver" Value="True">
