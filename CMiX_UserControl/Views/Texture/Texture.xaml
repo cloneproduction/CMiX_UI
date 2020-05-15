@@ -87,24 +87,49 @@
                 <StackPanel>
                     <Border Margin="0, 4" Style="{StaticResource BorderContainer}">
                         <StackPanel>
-                            <MVVM.Views:SliderCentered
-                                        Caption="Pan"
-                                        DockPanel.Dock="Bottom"
-                                        DataContext="{Binding Pan}"/>
-                            <MVVM.Views:SliderCentered
-                                        Margin="0, 2, 0, 2"
-                                        Caption="Tilt"
-                                        DockPanel.Dock="Bottom"
-                                        DataContext="{Binding Tilt}"/>
-                            <MVVM.Views:SliderCentered
-                                        Caption="Scale"
-                                        DockPanel.Dock="Bottom"
-                                        DataContext="{Binding Scale}"/>
-                            <MVVM.Views:SliderCentered
-                                        Margin="0, 2, 0, 0"
-                                        Caption="Rotate"
-                                        DockPanel.Dock="Bottom"
-                                        DataContext="{Binding Rotate}"/>
+                            <Grid Height="25" Margin="0, 4, 0 ,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.9*"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Controls:DistanceSlider Grid.Column="1" Position="Top" Style="{StaticResource DistanceSliderStyle}" Value="{Binding Path=Pan.Amount}" />
+                                <TextBlock Grid.Column="0" Padding="8, 0" HorizontalAlignment="Right" Text="Translate U" Foreground="{StaticResource TextBase}"/>
+                            </Grid>
+                            <Grid Height="25" Margin="0, 1, 0, 4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.9*"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Controls:DistanceSlider Grid.Column="1" Position="Bottom" Style="{StaticResource DistanceSliderStyle}" Value="{Binding Path=Tilt.Amount}" />
+                                <TextBlock Grid.Column="0" Padding="8, 0" HorizontalAlignment="Right" Text="V" Foreground="{StaticResource TextBase}"/>
+                            </Grid>
+
+                            <Grid Height="25" Margin="0, 4, 0 ,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.9*"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Controls:DistanceSlider Grid.Column="1" Position="Top" Style="{StaticResource DistanceSliderStyle}" Value="{Binding Path=Scale.Amount}" />
+                                <TextBlock Grid.Column="0" Padding="8, 0" HorizontalAlignment="Right" Text="Scale U" Foreground="{StaticResource TextBase}"/>
+                            </Grid>
+                            <Grid Height="25" Margin="0, 1, 0, 4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.9*"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Controls:DistanceSlider Grid.Column="1" Position="Bottom" Style="{StaticResource DistanceSliderStyle}" Value="{Binding Path=Scale.Amount}" />
+                                <TextBlock Grid.Column="0" Padding="8, 0" HorizontalAlignment="Right" Text="V" Foreground="{StaticResource TextBase}"/>
+                            </Grid>
+
+                            <Grid Height="25" Margin="0, 4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.9*"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Controls:DistanceSlider Grid.Column="1" Style="{StaticResource DistanceSliderStyle}" Value="{Binding Path=Rotate.Amount}" />
+                                <TextBlock Grid.Column="0" Padding="8, 0" HorizontalAlignment="Right" Text="Rotate" Foreground="{StaticResource TextBase}"/>
+                            </Grid>
+
                         </StackPanel>
                     </Border>
 
@@ -139,23 +164,33 @@
                     </Border>
                 </StackPanel>
             </Expander>
-            <Expander IsExpanded="True" Margin="0, 2" Header="Color" Style="{StaticResource ExpanderBase}">
-                <StackPanel>
-                    <MVVM.Views:SliderCentered
+            <Expander IsExpanded="True" Margin="0, 2" Padding="8" Header="Color" Style="{StaticResource ExpanderBase}">
+                <StackPanel >
+                    <Controls:CMiXSlider
+                        Style="{StaticResource CMiXSliderStyle}"
+                        Minimum="0"
+                        Maximum="1"
                         Margin="0, 8, 0, 1"
                         Caption="Brightness"
                         DockPanel.Dock="Bottom"
-                        DataContext="{Binding Brightness}"/>
-                    <MVVM.Views:SliderCentered
+                        Value="{Binding Brightness.Amount}"/>
+                    <Controls:CMiXSlider
+                        Style="{StaticResource CMiXSliderStyle}"
+                        Minimum="0"
+                        Maximum="1"
                         Margin="0, 1, 0, 8"
                         Caption="Contrast"
                         DockPanel.Dock="Bottom"
                         DataContext="{Binding Contrast}"/>
-                    <MVVM.Views:Slider
+                    <Controls:CMiXSlider
+                        Style="{StaticResource CMiXSliderStyle}"
+                        Minimum="0"
+                        Maximum="1"
+                        Height="20"
                         Margin="0, 1"
                         Grid.Column="0"
                         Caption="Invert"
-                        DataContext="{Binding Invert}"/>
+                        Value="{Binding Invert.Amount}"/>
                     <Grid Margin="0, 1, 0, 8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -173,26 +208,39 @@
                             Foreground="{StaticResource TextBase}" 
                             Text="Invert Mode" Grid.Column="0"/>
                     </Grid>
-                    <MVVM.Views:SliderCentered
+                    <Controls:CMiXSlider
+                        Style="{StaticResource CMiXSliderStyle}"
+                        Minimum="-1.0"
+                        Maximum="1.0"
                         Margin="0, 1"
                         Caption="Hue"
                         DockPanel.Dock="Bottom"
-                        DataContext="{Binding Hue}"/>
-                    <MVVM.Views:SliderCentered
+                        Value="{Binding Hue.Amount}"/>
+                    <Controls:CMiXSlider
+                        Style="{StaticResource CMiXSliderStyle}"
+                        Minimum="-1.0"
+                        Maximum="1.0"
                         Margin="0, 1"
                         Caption="Saturation"
                         DockPanel.Dock="Bottom"
-                        DataContext="{Binding Saturation}"/>
-                    <MVVM.Views:SliderCentered
+                        Value="{Binding Saturation.Amount}"/>
+                    <Controls:CMiXSlider
+                        Style="{StaticResource CMiXSliderStyle}"
+                        Minimum="-1.0"
+                        Maximum="1.0"
                         Margin="0, 1, 0, 8"
                         Caption="Luminosity"
                         DockPanel.Dock="Bottom"
-                        DataContext="{Binding Luminosity}"/>
-                    <MVVM.Views:Slider
+                        Value="{Binding Luminosity.Amount}"/>
+                    <Controls:CMiXSlider
+                        Style="{StaticResource CMiXSliderStyle}"
+                        Minimum="0"
+                        Maximum="1.0"
+                        Height="20"
                         Margin="0, 1, 0, 8"
                         Caption="Keying"
                         DockPanel.Dock="Bottom"
-                        DataContext="{Binding Keying}"/>
+                        Value="{Binding Keying.Amount}"/>
                 </StackPanel>
             </Expander>
         </StackPanel>

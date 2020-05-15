@@ -18,7 +18,6 @@ namespace CMiX.MVVM.Controls
         TextBox TextInput { get; set; }
         Border Border { get; set; }
 
-
         public override void OnApplyTemplate()
         {
             TextInput = GetTemplateChild("textInput") as TextBox;
@@ -36,31 +35,22 @@ namespace CMiX.MVVM.Controls
         private void View_OnMouseLeave(object sender, MouseEventArgs e)
         {
             Window parentWindow = Window.GetWindow(this);
-
             if (parentWindow != null)
-            {
                 Mouse.AddPreviewMouseDownHandler(parentWindow, ParentWindow_OnMouseDown);
-            }
         }
 
         private void View_OnMouseEnter(object sender, MouseEventArgs e)
         {
             Window parentWindow = Window.GetWindow(this);
-
             if (parentWindow != null)
-            {
                 Mouse.RemovePreviewMouseDownHandler(parentWindow, ParentWindow_OnMouseDown);
-            }
         }
 
         private void ParentWindow_OnMouseDown(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
             Window parentWindow = Window.GetWindow(this);
-
             if (parentWindow != null)
-            {
                 Mouse.RemovePreviewMouseDownHandler(parentWindow, ParentWindow_OnMouseDown);
-            }
             OnSwitchToNormalMode();
         }
 
@@ -77,7 +67,7 @@ namespace CMiX.MVVM.Controls
             TextInput.MouseEnter -= View_OnMouseEnter;
         }
 
-        protected override void OnPreviewMouseDown(MouseButtonEventArgs e)
+        protected override void OnPreviewMouseLeftButtonDown (MouseButtonEventArgs e)
         {
             if (IsEditing == false)
             {
@@ -85,6 +75,11 @@ namespace CMiX.MVVM.Controls
                 _mouseDownPos = e.GetPosition(this);
                 Border.CaptureMouse();
             }
+        }
+
+        protected override void OnPreviewMouseRightButtonDown(MouseButtonEventArgs e)
+        {
+            OnSwitchToNormalMode();
         }
 
         protected override void OnPreviewMouseMove(MouseEventArgs e)
@@ -113,7 +108,7 @@ namespace CMiX.MVVM.Controls
 
             if (_mouseDownPos == mouseUpPos)
                 OnSwitchToEditingMode();
-
+                
             if (_mouseDownPos != null && IsEditing == false)
             {
                 Point pointToScreen;
@@ -132,6 +127,7 @@ namespace CMiX.MVVM.Controls
             }
             _mouseDownPos = null;
         }
+
 
 
         [DllImport("User32.dll")]
@@ -182,18 +178,6 @@ namespace CMiX.MVVM.Controls
             e.Handled = true;
             OnSwitchToNormalMode();
         }
-
-        protected override void OnLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
-        {
-            e.Handled = true;
-            OnSwitchToNormalMode();
-        }
-
-        public void OnMouseDownOutsideElement(object sender, MouseButtonEventArgs e)
-        {
-            e.Handled = true;
-            OnSwitchToNormalMode();
-        }
         #endregion
 
         private void OnSwitchToEditingMode()
@@ -220,6 +204,7 @@ namespace CMiX.MVVM.Controls
         {
             e.Handled = !IsTextAllowed(e.Text);
         }
+
 
         public static readonly DependencyProperty IsEditingProperty =
         DependencyProperty.Register("IsEditing", typeof(bool), typeof(CMiXSlider), new UIPropertyMetadata(false));

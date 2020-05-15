@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMiX.MVVM.Resources;
+using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -8,30 +9,40 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.Controls
 {
-    public class DistanceSlider : UserControl
+    public class DistanceSlider : Control
     {
         public DistanceSlider()
         {
             OnApplyTemplate();
         }
-
-        private EditableValue EditableValue { get; set; }
-        private Grid Grid { get; set; }
+        
+        //private EditableValue EditableValue { get; set; }
+        private Border Border { get; set; }
         private Button SubButton { get; set; }
         private Button AddButton {get; set;}
+        private TextBox ValueInput { get; set; }
 
         public override void OnApplyTemplate()
         {
-            Grid = GetTemplateChild("Pouet") as Grid;
-            EditableValue = GetTemplateChild("editableValue") as EditableValue;
+            Border = GetTemplateChild("borderValueDisplay") as Border;
+            //EditableValue = GetTemplateChild("editableValue") as EditableValue;
+            ValueInput = GetTemplateChild("valueInput") as TextBox;
+
             SubButton = GetTemplateChild("SubButton") as Button;
             AddButton = GetTemplateChild("AddButton") as Button;
 
-            if (Grid != null)
+            if (ValueInput != null)
             {
-                Grid.MouseDown += Grid_MouseDown;
-                Grid.MouseMove += Grid_MouseMove;
-                Grid.MouseUp += Grid_MouseUp;
+                ValueInput.MouseLeave += View_OnMouseLeave;
+                ValueInput.MouseEnter += View_OnMouseEnter;
+            }
+
+            if (Border != null)
+            {
+                Border.PreviewMouseLeftButtonDown += Border_MouseDown;
+                Border.MouseMove += Border_MouseMove;
+                Border.PreviewMouseLeftButtonUp += Border_MouseUp;
+                Border.PreviewMouseRightButtonDown += Border_MouseRightButtonDown;
             }
 
             if(SubButton != null)
@@ -46,27 +57,55 @@ namespace CMiX.MVVM.Controls
             base.OnApplyTemplate();
         }
 
+        private void Border_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            OnSwitchToNormalMode();
+        }
+
+        private void View_OnMouseLeave(object sender, MouseEventArgs e)
+        {
+            Window parentWindow = Window.GetWindow(this);
+            if (parentWindow != null)
+                Mouse.AddPreviewMouseDownHandler(parentWindow, ParentWindow_OnMouseDown);
+        }
+
+        private void View_OnMouseEnter(object sender, MouseEventArgs e)
+        {
+            Window parentWindow = Window.GetWindow(this);
+            if (parentWindow != null)
+                Mouse.RemovePreviewMouseDownHandler(parentWindow, ParentWindow_OnMouseDown);
+        }
+
+        private void ParentWindow_OnMouseDown(object sender, MouseButtonEventArgs mouseButtonEventArgs)
+        {
+            Window parentWindow = Window.GetWindow(this);
+            if (parentWindow != null)
+                Mouse.RemovePreviewMouseDownHandler(parentWindow, ParentWindow_OnMouseDown);
+            OnSwitchToNormalMode();
+        }
+
+        private void TextInput_GotFocus(object sender, RoutedEventArgs e)
+        {
+            ValueInput.MouseLeave += View_OnMouseLeave;
+            ValueInput.MouseEnter += View_OnMouseEnter;
+        }
+
+        private void Text_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            ValueInput.MouseLeave -= View_OnMouseLeave;
+            ValueInput.MouseEnter -= View_OnMouseEnter;
+        }
+
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             this.Value += 0.001;
+            e.Handled = true;
         }
 
         private void SubButton_Click(object sender, RoutedEventArgs e)
         {
             this.Value -= 0.001;
-        }
-
-        [Bindable(true)]
-        public static readonly DependencyProperty ValueProperty =
-        DependencyProperty.Register("Value", typeof(double), typeof(DistanceSlider), new FrameworkPropertyMetadata
-        {
-            BindsTwoWayByDefault = true,
-            DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
-        });
-        public double Value
-        {
-            get { return (double)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
+            e.Handled = true;
         }
 
         private int ScreenHeight;
@@ -86,6 +125,7 @@ namespace CMiX.MVVM.Controls
             public Int32 X;
             public Int32 Y;
         };
+
         public static Point GetMousePosition()
         {
             Win32Point w32Mouse = new Win32Point();
@@ -97,16 +137,20 @@ namespace CMiX.MVVM.Controls
         private Point? _mouseDownPos;
         private double newValue;
 
-        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            _lastPoint = GetMousePosition();
-            _mouseDownPos = GetMousePosition();
-            Grid.CaptureMouse();
+            if (IsEditing == false)
+            {
+                _lastPoint = GetMousePosition();
+                _mouseDownPos = e.GetPosition(this);
+                Border.CaptureMouse();
+            }
         }
 
-        private void Grid_MouseMove(object sender, MouseEventArgs e)
+        private void Border_MouseMove(object sender, MouseEventArgs e)
         {
-            if (_lastPoint != null)
+            if (_mouseDownPos != null)
             {
                 var currentPoint = GetMousePosition();
                 var offset = currentPoint - _lastPoint.Value;
@@ -127,18 +171,74 @@ namespace CMiX.MVVM.Controls
             }
         }
 
-        private void Grid_MouseUp(object sender, MouseButtonEventArgs e)
+        private void Border_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            var mouseUpPos = GetMousePosition();
-
-            if (_mouseDownPos != null)
-                SetCursorPos(Convert.ToInt32(_mouseDownPos.Value.X), Convert.ToInt32(_mouseDownPos.Value.Y));
+            var mouseUpPos = e.GetPosition(this);
+            Border.ReleaseMouseCapture();
 
             if (_mouseDownPos == mouseUpPos)
-                EditableValue.IsEditing = true;
+                OnSwitchToEditingMode();
 
-            Grid.ReleaseMouseCapture();
-            _lastPoint = null;
+            if (_mouseDownPos != null && IsEditing == false)
+            {
+                Point pointToScreen = this.PointToScreen(new Point(ActualWidth / 2, ActualHeight / 2));
+                SetCursorPos(Convert.ToInt32(pointToScreen.X), Convert.ToInt32(pointToScreen.Y));
+            }
+            _mouseDownPos = null;
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape || e.Key == Key.Enter)
+            {
+                OnSwitchToNormalMode();
+                e.Handled = true;
+                return;
+            }
+        }
+
+        protected override void OnLostFocus(RoutedEventArgs e)
+        {
+            e.Handled = true;
+            OnSwitchToNormalMode();
+        }
+
+        private void OnSwitchToEditingMode()
+        {
+            IsEditing = true;
+            ValueInput.Focus();
+            ValueInput.SelectAll();
+        }
+
+        private void OnSwitchToNormalMode(bool bCancelEdit = true)
+        {
+            IsEditing = false;
+            Keyboard.ClearFocus();
+            _mouseDownPos = null;
+        }
+
+        public static readonly DependencyProperty IsEditingProperty =
+        DependencyProperty.Register("IsEditing", typeof(bool), typeof(DistanceSlider), new UIPropertyMetadata(false));
+        public bool IsEditing
+        {
+            get { return (bool)GetValue(IsEditingProperty); }
+            set { SetValue(IsEditingProperty, value); }
+        }
+
+        public static readonly DependencyProperty ValueProperty =
+        DependencyProperty.Register("Value", typeof(double), typeof(DistanceSlider), new UIPropertyMetadata(0.0));
+        public double Value
+        {
+            get { return (double)GetValue(ValueProperty); }
+            set { SetValue(ValueProperty, value); }
+        }
+
+        public static readonly DependencyProperty PositionProperty =
+        DependencyProperty.Register("Position", typeof(ControlPosition), typeof(DistanceSlider), new UIPropertyMetadata(ControlPosition.Default));
+        public ControlPosition Position
+        {
+            get { return (ControlPosition)GetValue(PositionProperty); }
+            set { SetValue(PositionProperty, value); }
         }
     }
 }

@@ -117,6 +117,7 @@
     <Compile Include="Models\Interfaces\IModel.cs" />
     <Compile Include="Models\EntityModel.cs" />
     <Compile Include="Services\Message\IMessageReceiver.cs" />
+    <Compile Include="Controls\DistanceSlider\ControlPositionEnum.cs" />
     <Compile Include="Themes\MainWindow.xaml.cs" />
     <Compile Include="ViewModels\Interfaces\IUndoable.cs" />
     <Compile Include="Services\Server\Server.cs" />
