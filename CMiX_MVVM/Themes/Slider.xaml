@@ -46,7 +46,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
-                    <Border CornerRadius="4, 0, 0, 4" Background="{StaticResource LightColor}" />
+                    <Border Background="{StaticResource LightColor}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -57,9 +57,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
-                    <Border 
-                        CornerRadius="4, 0, 0, 4" 
-                        Background="{StaticResource HighLightColor}"/>
+                    <Border  Background="{StaticResource HighLightColor}"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -73,7 +71,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
-                    <Border CornerRadius="0, 4, 4, 0" Background="{StaticResource DarkColor}" />
+                    <Border Background="{StaticResource DarkColor}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -84,12 +82,33 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
-                    <Border CornerRadius="0, 4, 4, 0" Background="{StaticResource Color}" />
+                    <Border Background="{StaticResource Color}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
+    <Style x:Key="borderMask" TargetType="{x:Type Border}">
+        <Setter Property="Background" Value="{StaticResource DarkerColor}"/>
+        <Setter Property="CornerRadius" Value="0"/>
+        <Style.Triggers>
+            <DataTrigger  Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Top">
+                <Setter Property="CornerRadius" Value="4, 4, 0, 0"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Bottom">
+                <Setter Property="CornerRadius" Value="0, 0, 4, 4"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Middle">
+                <Setter Property="CornerRadius" Value="0"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Default">
+                <Setter Property="CornerRadius" Value="4"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
  
     <Style x:Key="CMiXSliderStyle" TargetType="{x:Type Controls:CMiXSlider}">
         <Setter Property="Height" Value="20"/>
@@ -98,9 +117,14 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Slider}">
+
                     <Border x:Name="mainBorder" SnapsToDevicePixels="True">
                         <Grid>
+                            <Border x:Name="borderMask" Style="{StaticResource borderMask}"/>
                             <Border x:Name="sliderBorder" Background="Transparent">
+                                <Border.OpacityMask>
+                                    <VisualBrush Visual="{Binding ElementName=borderMask}"/>
+                                </Border.OpacityMask>
                                 <Border.Style>
                                     <Style TargetType="Border">
                                         <Setter Property="Visibility" Value="Visible"/>
@@ -139,11 +163,15 @@
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Right"
                                     Content="{Binding Path=Value, Mode=TwoWay, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}"/>
-                            
+
                             <TextBox x:Name="textInput" 
                                      Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource TemplatedParent}}"
                                      Style="{StaticResource SliderTextBox}"
-                                     Text="{Binding Path=Value, Mode=TwoWay, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                     Text="{Binding Path=Value, Mode=TwoWay, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}">
+                                <TextBox.OpacityMask>
+                                    <VisualBrush Visual="{Binding ElementName=borderMask}"/>
+                                </TextBox.OpacityMask>
+                            </TextBox>
 
                         </Grid>
                     </Border>
@@ -191,7 +219,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
-                    <Border x:Name="border" Background="{StaticResource SuperHighDarkerColor}">
+                    <Border x:Name="border" CornerRadius="0" Background="{StaticResource SuperHighDarkerColor}">
                         <ScrollViewer x:Name="PART_ContentHost"
                                     Focusable="False"
                                     VerticalAlignment="Center"

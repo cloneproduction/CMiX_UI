@@ -213,5 +213,13 @@ namespace CMiX.MVVM.Controls
             get { return (bool)GetValue(IsEditingProperty); }
             set { SetValue(IsEditingProperty, value); }
         }
+
+        public static readonly DependencyProperty PositionProperty =
+        DependencyProperty.Register("Position", typeof(ControlPosition), typeof(CMiXSlider), new UIPropertyMetadata(ControlPosition.Default));
+        public ControlPosition Position
+        {
+            get { return (ControlPosition)GetValue(PositionProperty); }
+            set { SetValue(PositionProperty, value); }
+        }
     }
 }

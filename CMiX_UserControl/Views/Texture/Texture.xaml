@@ -168,14 +168,15 @@
                 <StackPanel >
                     <Controls:CMiXSlider
                         Style="{StaticResource CMiXSliderStyle}"
+                        Position="Top"
                         Minimum="0"
                         Maximum="1"
                         Margin="0, 8, 0, 1"
                         Caption="Brightness"
-                        DockPanel.Dock="Bottom"
                         Value="{Binding Brightness.Amount}"/>
                     <Controls:CMiXSlider
                         Style="{StaticResource CMiXSliderStyle}"
+                        Position="Bottom"
                         Minimum="0"
                         Maximum="1"
                         Margin="0, 1, 0, 8"
@@ -214,7 +215,7 @@
                         Maximum="1.0"
                         Margin="0, 1"
                         Caption="Hue"
-                        DockPanel.Dock="Bottom"
+                        Position="Top"
                         Value="{Binding Hue.Amount}"/>
                     <Controls:CMiXSlider
                         Style="{StaticResource CMiXSliderStyle}"
@@ -222,7 +223,7 @@
                         Maximum="1.0"
                         Margin="0, 1"
                         Caption="Saturation"
-                        DockPanel.Dock="Bottom"
+                        Position="Middle"
                         Value="{Binding Saturation.Amount}"/>
                     <Controls:CMiXSlider
                         Style="{StaticResource CMiXSliderStyle}"
@@ -230,7 +231,7 @@
                         Maximum="1.0"
                         Margin="0, 1, 0, 8"
                         Caption="Luminosity"
-                        DockPanel.Dock="Bottom"
+                        Position="Bottom"
                         Value="{Binding Luminosity.Amount}"/>
                     <Controls:CMiXSlider
                         Style="{StaticResource CMiXSliderStyle}"
@@ -239,7 +240,6 @@
                         Height="20"
                         Margin="0, 1, 0, 8"
                         Caption="Keying"
-                        DockPanel.Dock="Bottom"
                         Value="{Binding Keying.Amount}"/>
                 </StackPanel>
             </Expander>
