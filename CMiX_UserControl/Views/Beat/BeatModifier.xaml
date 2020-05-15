@@ -7,6 +7,7 @@
     xmlns:viewModels="clr-namespace:CMiX.Studio.ViewModels"
     xmlns:Views="clr-namespace:CMiX.Studio.Views"
     xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
+    xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
     d:DataContext="{d:DesignInstance Type={x:Type viewModels:BeatModifier}, IsDesignTimeCreatable=False}"
     d:DesignHeight="58.826"
     d:DesignWidth="324.414"
@@ -15,11 +16,8 @@
     <StackPanel>
         <Views:BeatControls 
             Height="20"
-            Margin="0, 1" 
+            Margin="0, 0, 0 2" 
             DockPanel.Dock="Right" />
-        <MVVM.Views:Slider
-            Caption="ToHit" 
-            Margin="0, 1" 
-            DataContext="{Binding ChanceToHit}" />
+        <Controls:CMiXSlider Minimum="0" Maximum="1" Style="{StaticResource CMiXSliderStyle}" Caption="ToHit" Value="{Binding ChanceToHit.Amount}"/>
     </StackPanel>
 </UserControl>

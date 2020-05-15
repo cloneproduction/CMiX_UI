@@ -171,7 +171,7 @@
                         Position="Top"
                         Minimum="0"
                         Maximum="1"
-                        Margin="0, 8, 0, 1"
+                        Margin="0, 0, 0, 1"
                         Caption="Brightness"
                         Value="{Binding Brightness.Amount}"/>
                     <Controls:CMiXSlider
@@ -179,7 +179,7 @@
                         Position="Bottom"
                         Minimum="0"
                         Maximum="1"
-                        Margin="0, 1, 0, 8"
+                        Margin="0, 1, 0, 16"
                         Caption="Contrast"
                         DockPanel.Dock="Bottom"
                         DataContext="{Binding Contrast}"/>
@@ -192,7 +192,7 @@
                         Grid.Column="0"
                         Caption="Invert"
                         Value="{Binding Invert.Amount}"/>
-                    <Grid Margin="0, 1, 0, 8">
+                    <Grid Height="20" Margin="0, 4, 0, 16">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -229,7 +229,7 @@
                         Style="{StaticResource CMiXSliderStyle}"
                         Minimum="-1.0"
                         Maximum="1.0"
-                        Margin="0, 1, 0, 8"
+                        Margin="0, 1, 0, 16"
                         Caption="Luminosity"
                         Position="Bottom"
                         Value="{Binding Luminosity.Amount}"/>
@@ -238,7 +238,7 @@
                         Minimum="0"
                         Maximum="1.0"
                         Height="20"
-                        Margin="0, 1, 0, 8"
+                        Margin="0"
                         Caption="Keying"
                         Value="{Binding Keying.Amount}"/>
                 </StackPanel>

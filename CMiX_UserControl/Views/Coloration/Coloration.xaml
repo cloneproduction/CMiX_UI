@@ -8,8 +8,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
-    d:DesignHeight="738.333"
-    d:DesignWidth="230.667"
+    xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
+    d:DesignHeight="1870.805"
+    d:DesignWidth="349.875"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -71,7 +72,7 @@
                 Text="COLORATION"
                 Foreground="{StaticResource TextBase}"/>
             </Border>
-            
+
             <Views:ColorSelector DataContext="{Binding ColorSelector}"/>
             <Expander IsExpanded="True" Header="Modifiers" Margin="0, 2" Style="{StaticResource ExpanderBase}">
 

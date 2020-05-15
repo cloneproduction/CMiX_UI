@@ -6,9 +6,10 @@
              xmlns:Views="clr-namespace:CMiX.Studio.Views"
              xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX.MVVM"
              xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
+             xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
-             d:DesignHeight="31.333" d:DesignWidth="354.223">
+             d:DesignHeight="108.416" d:DesignWidth="380.64">
 
     <UserControl.Resources>
         <ObjectDataProvider x:Key="RangeModifier" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
@@ -18,23 +19,38 @@
         </ObjectDataProvider>
     </UserControl.Resources>
 
-    <Grid Height="20">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition  />
-            <ColumnDefinition Width="0.3*"/>
-        </Grid.ColumnDefinitions>
-        <ComboBox
+    <StackPanel>
+        <Grid Height="20" Margin="0,0, 0, 2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition  Width="0.9*"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label Content="Type" HorizontalAlignment="Right" Padding="8, 0" Foreground="{StaticResource TextBase}"/>
+            <ComboBox
             Grid.Column="1"
             Margin="1, 0, 0, 0"
             SelectedItem="{Binding Modifier}"
             SelectedIndex="0"
             ItemsSource="{Binding Source={StaticResource RangeModifier}}"
             />
-        <MVVM.Views:Slider 
-            Grid.Column="0" 
-            Margin="0, 0, 1, 0"
-            DataContext="{Binding Range}"
-            Caption="{Binding Caption, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:RangeControl}}}" 
-            />
-    </Grid>
+        </Grid>
+
+        <Grid Margin="0, 0, 0, 1" Height="25">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.9*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Controls:DistanceSlider Position="Top"  Grid.Column="1" Style="{StaticResource DistanceSliderStyle}" Value="{Binding MinimumRange}" />
+            <TextBlock Grid.Column="0" Padding="8, 0" HorizontalAlignment="Right" Text="Min" Foreground="{StaticResource TextBase}"/>
+        </Grid>
+        <Grid Height="25">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.9*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Controls:DistanceSlider Position="Bottom" Grid.Column="1" Style="{StaticResource DistanceSliderStyle}" Value="{Binding MaximumRange}" />
+            <TextBlock Grid.Column="0" Padding="8, 0" HorizontalAlignment="Right" Text="Max" Foreground="{StaticResource TextBase}"/>
+        </Grid>
+
+    </StackPanel>
 </UserControl>

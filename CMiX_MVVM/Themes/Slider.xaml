@@ -46,7 +46,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
-                    <Border Background="{StaticResource LightColor}" />
+                    <Border Background="{StaticResource Color}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
