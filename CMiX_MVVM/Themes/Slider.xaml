@@ -6,6 +6,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Brushes.xaml" />
+        <ResourceDictionary Source="Values.xaml"/>
         <ResourceDictionary>
             <Resources:DoubleToStringConverter x:Key="DoubleToString" />
 
@@ -93,11 +94,11 @@
         <Setter Property="CornerRadius" Value="0"/>
         <Style.Triggers>
             <DataTrigger  Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Top">
-                <Setter Property="CornerRadius" Value="4, 4, 0, 0"/>
+                <Setter Property="CornerRadius" Value="{StaticResource CornerRadiusTop}"/>
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Bottom">
-                <Setter Property="CornerRadius" Value="0, 0, 4, 4"/>
+                <Setter Property="CornerRadius" Value="{StaticResource CornerRadiusBottom}"/>
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Middle">
@@ -105,7 +106,7 @@
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Default">
-                <Setter Property="CornerRadius" Value="4"/>
+                <Setter Property="CornerRadius" Value="{StaticResource CornerRadiusDefault}"/>
             </DataTrigger>
         </Style.Triggers>
     </Style>
@@ -238,11 +239,11 @@
                         </DataTrigger>
 
                         <DataTrigger  Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Top">
-                            <Setter TargetName="border" Property="CornerRadius" Value="4, 4, 0, 0"/>
+                            <Setter TargetName="border" Property="CornerRadius" Value="{StaticResource CornerRadiusTop}"/>
                         </DataTrigger>
 
                         <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Bottom">
-                            <Setter TargetName="border" Property="CornerRadius" Value="0, 0, 4, 4"/>
+                            <Setter TargetName="border" Property="CornerRadius" Value="{StaticResource CornerRadiusBottom}"/>
                         </DataTrigger>
 
                         <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Middle">
@@ -250,7 +251,7 @@
                         </DataTrigger>
 
                         <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Default">
-                            <Setter TargetName="border" Property="CornerRadius" Value="4"/>
+                            <Setter TargetName="border" Property="CornerRadius" Value="{StaticResource CornerRadiusDefault}"/>
                         </DataTrigger>
                         
                     </ControlTemplate.Triggers>
@@ -316,7 +317,6 @@
 
     <Style x:Key="distanceSliderBorder" TargetType="Border">
         <Setter Property="Background" Value="{StaticResource DarkColor}"/>
-        <Setter Property="CornerRadius" Value="4"/>
         <Setter Property="Controls:MouseDownHelper.IsEnabled" Value="True"/>
         <Style.Triggers>
             
@@ -330,11 +330,11 @@
             </Trigger>
 
             <DataTrigger  Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Top">
-                <Setter Property="CornerRadius" Value="4, 4, 0, 0"/>
+                <Setter Property="CornerRadius" Value="{StaticResource CornerRadiusTop}"/>
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Bottom">
-                <Setter Property="CornerRadius" Value="0, 0, 4, 4"/>
+                <Setter Property="CornerRadius" Value="{StaticResource CornerRadiusBottom}"/>
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Middle">
@@ -342,7 +342,7 @@
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Default">
-                <Setter Property="CornerRadius" Value="4"/>
+                <Setter Property="CornerRadius" Value="{StaticResource CornerRadiusDefault}"/>
             </DataTrigger>
             
         </Style.Triggers>

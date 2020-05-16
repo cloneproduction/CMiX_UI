@@ -207,7 +207,7 @@
                             HorizontalAlignment="Right" 
                             Padding="8, 0" 
                             Foreground="{StaticResource TextBase}" 
-                            Text="Invert Mode" Grid.Column="0"/>
+                            Text="Mode" Grid.Column="0"/>
                     </Grid>
                     <Controls:CMiXSlider
                         Style="{StaticResource CMiXSliderStyle}"

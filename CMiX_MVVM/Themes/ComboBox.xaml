@@ -3,6 +3,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Brushes.xaml" />
+        <ResourceDictionary Source="Values.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type ComboBox}">
@@ -20,7 +21,6 @@
                             x:Name="PART_Popup"
                             MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}}"
                             MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}}"
-
                             MaxHeight="204"
                             Grid.ColumnSpan="2"
                             AllowsTransparency="True"
@@ -31,7 +31,7 @@
                             <Border 
                                 x:Name="DropDownBorder"
                                 Padding="0, 4"
-                                CornerRadius="4"
+                                CornerRadius="{StaticResource CornerRadiusDefault}"
                                 Background="{StaticResource DarkerColor}">
                                 <Border.Effect>
                                     <DropShadowEffect BlurRadius="8" Direction="-90" Opacity="1.0" RenderingBias="Performance" ShadowDepth="0"/>
@@ -94,7 +94,7 @@
                                         <Setter.Value>
                                             <ControlTemplate TargetType="{x:Type ToggleButton}">
                                                 <Border
-                                                    CornerRadius="2"
+                                                    CornerRadius="{StaticResource CornerRadiusDefault}"
                                                     x:Name="templateRoot"
                                                     Margin="0"
                                                     Background="{StaticResource DarkColor}"

@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
     <PopupAnimation x:Key="{x:Static SystemParameters.MenuPopupAnimationKey}">None</PopupAnimation>
     <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Values.xaml"/>
         <ResourceDictionary Source="Brushes.xaml"/>
         <ResourceDictionary Source="Expander.xaml"/>
         <ResourceDictionary Source="Button.xaml"/>

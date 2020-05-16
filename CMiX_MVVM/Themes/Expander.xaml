@@ -218,7 +218,7 @@
                     <Border 
                         Height="25"
                         x:Name="mainBorder"
-                        CornerRadius="4" 
+                        CornerRadius="{StaticResource CornerRadiusDefault}" 
                         Padding="4"
                         Background="{StaticResource DarkColor}">
                         <Grid 
@@ -247,7 +247,7 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="true">
                             <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
-                            <Setter Property="CornerRadius" TargetName="mainBorder" Value="4, 4, 0, 0"/>
+                            <Setter Property="CornerRadius" TargetName="mainBorder" Value="{StaticResource CornerRadiusTop}"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource Color}"/>
@@ -297,7 +297,7 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="true">
                             <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
-                            <Setter Property="CornerRadius" TargetName="mainBorder" Value="4, 4, 0, 0"/>
+                            <Setter Property="CornerRadius" TargetName="mainBorder" Value="{StaticResource CornerRadiusTop}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -340,7 +340,7 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="true">
                             <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
-                            <Setter Property="CornerRadius" TargetName="mainBorder" Value="4, 4, 0, 0"/>
+                            <Setter Property="CornerRadius" TargetName="mainBorder" Value="{StaticResource CornerRadiusTop}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -359,7 +359,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Expander}">
                     <Border 
-                        CornerRadius="4"
+                        CornerRadius="{StaticResource CornerRadiusDefault}"
                         Background="{StaticResource DarkerColor}"
                         SnapsToDevicePixels="true">
                         <DockPanel>
