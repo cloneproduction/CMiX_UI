@@ -224,7 +224,13 @@ namespace CMiX.MVVM.Controls
         private readonly Regex _regex = new Regex(@"[^0-9.-]+"); //regex that matches disallowed text
         private bool IsTextAllowed(string text)
         {
-            return !_regex.IsMatch(text);
+            double num;
+            if (double.TryParse(text, out num))
+            {
+                return !_regex.IsMatch(text);
+            }
+            else
+                return false;
         }
 
         public void UpdateValue()

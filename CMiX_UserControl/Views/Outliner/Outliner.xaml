@@ -23,7 +23,6 @@
             <Resources:BindingProxy x:Key="RootProxy" Data="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
 
             <ContextMenu x:Key="OutlinerContextMenu" Width="175">
-
                 <MenuItem
                     IsEnabled="{Binding CanAdd}"
                     Command="{Binding Data.ComponentManager.CreateComponentCommand, Source={StaticResource RootProxy}}"

@@ -4,6 +4,11 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Brushes.xaml" />
     </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="contextMenuMask" TargetType="{x:Type Border}">
+        <Setter Property="Background" Value="{StaticResource DarkerColor}"/>
+        <Setter Property="CornerRadius" Value="{StaticResource CornerRadiusDefault}"/>
+    </Style>
     
     <Style x:Name="ContextMenuDefault" TargetType="{x:Type ContextMenu}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -16,13 +21,19 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ContextMenu}">
-                    <Border 
-                        Margin="8" 
-                        Background="{StaticResource DarkerColor}">
+                    <Border Margin="8" Background="Transparent">
                         <Border.Effect>
-                            <DropShadowEffect BlurRadius="15" Direction="-90" Opacity="0.5" RenderingBias="Performance" ShadowDepth="2"/>
+                            <DropShadowEffect BlurRadius="8" Direction="-90" Opacity="0.5" RenderingBias="Performance" ShadowDepth="0"/>
                         </Border.Effect>
-                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+                        <Grid>
+                            <Border x:Name="borderMask" Style="{StaticResource contextMenuMask}"/>
+                            <Border Background="Transparent">
+                                <Border.OpacityMask>
+                                    <VisualBrush Visual="{Binding ElementName=borderMask}"/>
+                                </Border.OpacityMask>
+                                <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+                            </Border>
+                        </Grid>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
