@@ -10,10 +10,21 @@
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:Behaviors="clr-namespace:CMiX.Behaviors"
     d:DesignHeight="1507.577"
     d:DesignWidth="415.712"
     mc:Ignorable="d">
 
+    <!--<i:Interaction.Behaviors>
+        <Behaviors:ContextMenuMouseDownBehavior/>
+    </i:Interaction.Behaviors>
+    <UserControl.ContextMenu>
+        <ContextMenu>
+            <TextBlock Text="POUET POEUT POEUT" Height="50"/>
+        </ContextMenu>
+    </UserControl.ContextMenu>-->
+    
     <UserControl.Resources>
         <ResourceDictionary>
             <Resources:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
@@ -29,7 +40,7 @@
 
     <Border Background="{StaticResource HighDarkerColor}"
             CornerRadius="4" Padding="8">
-        <Border.ContextMenu>
+        <!--<Border.ContextMenu>
             <ContextMenu>
                 <MenuItem
                     Padding="8, 4"
@@ -68,7 +79,7 @@
                     </MenuItem.Header>
                 </MenuItem>
             </ContextMenu>
-        </Border.ContextMenu>
+        </Border.ContextMenu>-->
         <StackPanel>
             <Border
                 Height="25"

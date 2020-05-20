@@ -1,10 +1,8 @@
-﻿using CMiX.MVVM.Resources;
-using System;
-using System.ComponentModel;
+﻿using System;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 
 namespace CMiX.MVVM.Controls
@@ -16,7 +14,6 @@ namespace CMiX.MVVM.Controls
             OnApplyTemplate();
         }
         
-        //private EditableValue EditableValue { get; set; }
         private Border Border { get; set; }
         private Button SubButton { get; set; }
         private Button AddButton {get; set;}
@@ -25,7 +22,6 @@ namespace CMiX.MVVM.Controls
         public override void OnApplyTemplate()
         {
             Border = GetTemplateChild("borderValueDisplay") as Border;
-            //EditableValue = GetTemplateChild("editableValue") as EditableValue;
             ValueInput = GetTemplateChild("valueInput") as TextBox;
 
             SubButton = GetTemplateChild("SubButton") as Button;
@@ -35,14 +31,6 @@ namespace CMiX.MVVM.Controls
             {
                 ValueInput.MouseLeave += View_OnMouseLeave;
                 ValueInput.MouseEnter += View_OnMouseEnter;
-            }
-
-            if (Border != null)
-            {
-                Border.PreviewMouseLeftButtonDown += Border_MouseDown;
-                Border.MouseMove += Border_MouseMove;
-                Border.PreviewMouseLeftButtonUp += Border_MouseUp;
-                Border.PreviewMouseRightButtonDown += Border_MouseRightButtonDown;
             }
 
             if(SubButton != null)
@@ -57,9 +45,10 @@ namespace CMiX.MVVM.Controls
             base.OnApplyTemplate();
         }
 
-        private void Border_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        protected override void OnPreviewMouseRightButtonDown(MouseButtonEventArgs e)
         {
             OnSwitchToNormalMode();
+            CancelUpdateValue();
         }
 
         private void View_OnMouseLeave(object sender, MouseEventArgs e)
@@ -81,7 +70,20 @@ namespace CMiX.MVVM.Controls
             Window parentWindow = Window.GetWindow(this);
             if (parentWindow != null)
                 Mouse.RemovePreviewMouseDownHandler(parentWindow, ParentWindow_OnMouseDown);
-            OnSwitchToNormalMode();
+
+            if (IsEditing == true)
+            {
+                if (mouseButtonEventArgs.ChangedButton == MouseButton.Left)
+                {
+                    UpdateValue();
+                    OnSwitchToNormalMode();
+                }
+                else if (mouseButtonEventArgs.ChangedButton == MouseButton.Right)
+                {
+                    CancelUpdateValue();
+                    OnSwitchToNormalMode();
+                }
+            }
         }
 
         private void TextInput_GotFocus(object sender, RoutedEventArgs e)
@@ -137,18 +139,7 @@ namespace CMiX.MVVM.Controls
         private Point? _mouseDownPos;
         private double newValue;
 
-
-        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (IsEditing == false)
-            {
-                _lastPoint = GetMousePosition();
-                _mouseDownPos = e.GetPosition(this);
-                Border.CaptureMouse();
-            }
-        }
-
-        private void Border_MouseMove(object sender, MouseEventArgs e)
+        protected override void OnPreviewMouseMove(MouseEventArgs e)
         {
             if (_mouseDownPos != null)
             {
@@ -165,13 +156,12 @@ namespace CMiX.MVVM.Controls
                 else
                     newValue = this.Value + offset.X * 0.01;
 
-
                 this.Value = newValue;
                 _lastPoint = GetMousePosition();
             }
         }
 
-        private void Border_MouseUp(object sender, MouseButtonEventArgs e)
+        protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
         {
             var mouseUpPos = e.GetPosition(this);
             Border.ReleaseMouseCapture();
@@ -187,20 +177,34 @@ namespace CMiX.MVVM.Controls
             _mouseDownPos = null;
         }
 
+        protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            if (IsEditing == false)
+            {
+                _lastPoint = GetMousePosition();
+                _mouseDownPos = e.GetPosition(this);
+                Border.CaptureMouse();
+            }
+        }
+
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            if (e.Key == Key.Escape || e.Key == Key.Enter)
+            if (e.Key == Key.Enter)
             {
+                UpdateValue();
                 OnSwitchToNormalMode();
-                e.Handled = true;
-                return;
+            } 
+            else if (e.Key == Key.Escape)
+            {
+                CancelUpdateValue();
+                OnSwitchToNormalMode();
             }
+            e.Handled = !IsTextAllowed(ValueInput.Text);
         }
 
         protected override void OnLostFocus(RoutedEventArgs e)
         {
-            e.Handled = true;
-            OnSwitchToNormalMode();
+            e.Handled = !IsTextAllowed(ValueInput.Text);
         }
 
         private void OnSwitchToEditingMode()
@@ -215,6 +219,28 @@ namespace CMiX.MVVM.Controls
             IsEditing = false;
             Keyboard.ClearFocus();
             _mouseDownPos = null;
+        }
+
+        private readonly Regex _regex = new Regex(@"[^0-9.-]+"); //regex that matches disallowed text
+        private bool IsTextAllowed(string text)
+        {
+            return !_regex.IsMatch(text);
+        }
+
+        public void UpdateValue()
+        {
+            var result = IsTextAllowed(ValueInput.Text);
+            if (IsTextAllowed(ValueInput.Text))
+                this.Value = Double.Parse(ValueInput.Text);
+        }
+
+        public void CancelUpdateValue()
+        {
+            double oldValue = this.Value;
+            var result = IsTextAllowed(ValueInput.Text);
+            if (IsTextAllowed(ValueInput.Text))
+                this.Value = oldValue;
+            ValueInput.Text = oldValue.ToString();
         }
 
         public static readonly DependencyProperty IsEditingProperty =

@@ -194,7 +194,7 @@ namespace CMiX.MVVM.Resources
         {
 
             double b = (double)value;
-            
+            //return b.ToString();
             return String.Format("{0:0.000}", b) ;
         }
 
@@ -203,12 +203,37 @@ namespace CMiX.MVVM.Resources
             string strValue = value as string;
             double resultDouble;
             if (double.TryParse(strValue, out resultDouble))
-            {
-                Console.WriteLine("double.TryParse(strValue, out resultDouble)");
                 return resultDouble;
+            else
+                return DependencyProperty.UnsetValue;
+        }
+    }
+
+    public class DoubleToPersistantStringConverter : IValueConverter
+    {
+        private string lastConvertBackString;
+
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (!(value is double)) return null;
+
+            var stringValue = lastConvertBackString ?? value.ToString();
+            lastConvertBackString = null;
+
+            return stringValue;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (!(value is string)) return null;
+            double result;
+            if (double.TryParse((string)value, out result))
+            {
+                lastConvertBackString = (string)value;
+                return result;
             }
-            Console.WriteLine(" return DependencyProperty.UnsetValue");
-            return DependencyProperty.UnsetValue;
+
+            return null;
         }
     }
 

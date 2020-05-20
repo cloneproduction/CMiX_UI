@@ -32,6 +32,8 @@ namespace CMiX.MVVM.Controls
             base.OnApplyTemplate();
         }
 
+
+
         private void View_OnMouseLeave(object sender, MouseEventArgs e)
         {
             Window parentWindow = Window.GetWindow(this);
@@ -51,7 +53,21 @@ namespace CMiX.MVVM.Controls
             Window parentWindow = Window.GetWindow(this);
             if (parentWindow != null)
                 Mouse.RemovePreviewMouseDownHandler(parentWindow, ParentWindow_OnMouseDown);
-            OnSwitchToNormalMode();
+
+            if(IsEditing == true)
+            {
+                if (mouseButtonEventArgs.ChangedButton == MouseButton.Left)
+                {
+                    UpdateValue();
+                    OnSwitchToNormalMode();
+                }
+                else if (mouseButtonEventArgs.ChangedButton == MouseButton.Right)
+                {
+                    CancelUpdateValue();
+                    OnSwitchToNormalMode();
+                }
+            }
+
         }
 
 
@@ -80,6 +96,7 @@ namespace CMiX.MVVM.Controls
         protected override void OnPreviewMouseRightButtonDown(MouseButtonEventArgs e)
         {
             OnSwitchToNormalMode();
+            CancelUpdateValue();
         }
 
         protected override void OnPreviewMouseMove(MouseEventArgs e)
@@ -154,29 +171,27 @@ namespace CMiX.MVVM.Controls
         private Point? _lastPoint;
         private double newValue;
 
-        public static readonly DependencyProperty CaptionProperty =
-        DependencyProperty.Register("Caption", typeof(string), typeof(Slider), new PropertyMetadata(""));
-        public string Caption
-        {
-            get { return (string)GetValue(CaptionProperty); }
-            set { SetValue(CaptionProperty, value); }
-        }
+
 
         #region EVENTS
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            if (e.Key == Key.Escape || e.Key == Key.Enter)
+            if (e.Key == Key.Enter)
             {
+                UpdateValue();
                 OnSwitchToNormalMode();
-                e.Handled = true;
-                return;
             }
+            else if (e.Key == Key.Escape)
+            {
+                CancelUpdateValue();
+                OnSwitchToNormalMode();
+            }
+            e.Handled = !IsTextAllowed(TextInput.Text);
         }
 
         protected override void OnLostFocus(RoutedEventArgs e)
         {
-            e.Handled = true;
-            OnSwitchToNormalMode();
+            e.Handled = !IsTextAllowed(TextInput.Text);
         }
         #endregion
 
@@ -194,15 +209,42 @@ namespace CMiX.MVVM.Controls
             _mouseDownPos = null;
         }
 
-        private readonly Regex _regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
+        private readonly Regex _regex = new Regex(@"[^0-9.-]+"); //regex that matches disallowed text
         private bool IsTextAllowed(string text)
         {
             return !_regex.IsMatch(text);
         }
 
-        private void TextInput_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void TextInput_LostFocus(object sender, RoutedEventArgs e)
         {
-            e.Handled = !IsTextAllowed(e.Text);
+            e.Handled = !IsTextAllowed(TextInput.Text);
+        }
+
+        private void TextInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                UpdateValue();
+            else if (e.Key == Key.Escape)
+                CancelUpdateValue();
+
+            e.Handled = !IsTextAllowed(TextInput.Text);
+        }
+
+
+        public void UpdateValue()
+        {
+            var result = IsTextAllowed(TextInput.Text);
+            if (IsTextAllowed(TextInput.Text))
+                this.Value = Double.Parse(TextInput.Text);
+        }
+
+        public void CancelUpdateValue()
+        {
+            double oldValue = this.Value;
+            var result = IsTextAllowed(TextInput.Text);
+            if (IsTextAllowed(TextInput.Text))
+                this.Value = oldValue;
+            TextInput.Text = oldValue.ToString();
         }
 
 
@@ -220,6 +262,14 @@ namespace CMiX.MVVM.Controls
         {
             get { return (ControlPosition)GetValue(PositionProperty); }
             set { SetValue(PositionProperty, value); }
+        }
+
+        public static readonly DependencyProperty CaptionProperty =
+        DependencyProperty.Register("Caption", typeof(string), typeof(Slider), new PropertyMetadata(""));
+        public string Caption
+        {
+            get { return (string)GetValue(CaptionProperty); }
+            set { SetValue(CaptionProperty, value); }
         }
     }
 }

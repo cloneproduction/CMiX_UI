@@ -9,7 +9,7 @@
         <ResourceDictionary Source="Values.xaml"/>
         <ResourceDictionary>
             <Resources:DoubleToStringConverter x:Key="DoubleToString" />
-
+            <Resources:DoubleToPersistantStringConverter x:Key="DoubleToPersistantString" />
             <Trigger x:Key="Trigger0" Property="FrameworkElement.IsMouseOver" Value="True">
                 <Setter Property="FrameworkElement.Cursor" Value="Arrow"/>
             </Trigger>
@@ -168,7 +168,7 @@
                             <TextBox x:Name="textInput" 
                                      Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource TemplatedParent}}"
                                      Style="{StaticResource SliderTextBox}"
-                                     Text="{Binding Path=Value, Mode=TwoWay, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}">
+                                     Text="{Binding Path=Value, Mode=TwoWay, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=LostFocus, RelativeSource={RelativeSource TemplatedParent}}">
                                 <TextBox.OpacityMask>
                                     <VisualBrush Visual="{Binding ElementName=borderMask}"/>
                                 </TextBox.OpacityMask>
@@ -272,7 +272,7 @@
                             <TextBox x:Name="valueInput" 
                                         Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource TemplatedParent}}"
                                         Style="{StaticResource SliderTextBox}"
-                                        Text="{Binding Path=Value, Mode=TwoWay, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                        Text="{Binding Path=Value, Mode=TwoWay, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=LostFocus, RelativeSource={RelativeSource TemplatedParent}}"/>
                             <DockPanel>
                                 <Button x:Name="SubButton" 
                                         Content="-" 
@@ -301,6 +301,7 @@
                                     </Border.Style>
                                     <Label x:Name="valueDisplay" 
                                         Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource TemplatedParent}}"
+                                        Padding="0"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         Content="{Binding Path=Value, Mode=TwoWay, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}">
@@ -314,6 +315,9 @@
         </Setter>
     </Style>
 
+    <Border x:Key="BorderMask">
+
+    </Border>
 
     <Style x:Key="distanceSliderBorder" TargetType="Border">
         <Setter Property="Background" Value="{StaticResource DarkColor}"/>
