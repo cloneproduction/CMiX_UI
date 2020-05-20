@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
              xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Behaviors="clr-namespace:CMiX.Behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="150.801" d:DesignWidth="415.252">
 
@@ -14,7 +16,17 @@
                 <ColumnDefinition Width="0.9*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Controls:DistanceSlider Grid.Column="1" Position="Top" Style="{StaticResource DistanceSliderStyle}" Value="{Binding Path=X.Amount}" />
+            <Controls:DistanceSlider Grid.Column="1" Position="Top" Style="{StaticResource DistanceSliderStyle}" Value="{Binding Path=X.Amount}" >
+                <i:Interaction.Behaviors>
+                    <Behaviors:ContextMenuMouseDownBehavior/>
+                </i:Interaction.Behaviors>
+                <Controls:DistanceSlider.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Background="Red" Header="POUET POUET" Height="50"/>
+                        <MenuItem Background="Red" Header="PROUT PROUT" Height="50"/>
+                    </ContextMenu>
+                </Controls:DistanceSlider.ContextMenu>
+            </Controls:DistanceSlider>
             <TextBlock Grid.Column="0" Padding="8, 0" HorizontalAlignment="Right" Text="Translate X" Foreground="{StaticResource TextBase}"/>
         </Grid>
         <Grid Height="20" Margin="0, 1">
