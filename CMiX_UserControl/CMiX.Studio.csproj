@@ -132,10 +132,10 @@
     <Compile Include="ViewModels\Assets\Asset.cs" />
     <Compile Include="ViewModels\Assets\AssetDragDrop.cs" />
     <Compile Include="ViewModels\Assets\AssetPathSelector.cs" />
-    <Compile Include="ViewModels\Component\ComponentEventArgs.cs" />
-    <Compile Include="ViewModels\Component\ComponentFactory.cs" />
-    <Compile Include="ViewModels\Component\ComponentModelFactory.cs" />
-    <Compile Include="ViewModels\Component\Outliner.cs" />
+    <Compile Include="ViewModels\Components\ComponentEventArgs.cs" />
+    <Compile Include="ViewModels\Components\ComponentFactory.cs" />
+    <Compile Include="ViewModels\Components\ComponentModelFactory.cs" />
+    <Compile Include="ViewModels\Components\Outliner.cs" />
     <Compile Include="ViewModels\Counter.cs" />
     <Compile Include="ViewModels\Dialogs\CustomDialog.cs" />
     <Compile Include="ViewModels\Dialogs\CustomFrameworkDialogFactory.cs" />
@@ -143,6 +143,7 @@
     <Compile Include="ViewModels\Dialogs\MessengerSettingsDialog.cs" />
     <Compile Include="ViewModels\Dialogs\ModalDialog.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\MessageService\Receiver.cs" />
     <Compile Include="ViewModels\MessageService\Server.cs" />
     <Compile Include="ViewModels\MessageService\SettingsEventArgs.cs" />
     <Compile Include="ViewModels\ModelFactory.cs" />
@@ -170,9 +171,9 @@
     <Compile Include="ViewModels\Assets\IDirectory.cs" />
     <Compile Include="ViewModels\Assets\EnumFileType.cs" />
     <Compile Include="ViewModels\Assets\IAssets.cs" />
-    <Compile Include="ViewModels\Component\Component.cs" />
-    <Compile Include="ViewModels\Component\ComponentManager.cs" />
-    <Compile Include="ViewModels\Component\ComponentPanelTemplateSelector.cs" />
+    <Compile Include="ViewModels\Components\Component.cs" />
+    <Compile Include="ViewModels\Components\ComponentManager.cs" />
+    <Compile Include="ViewModels\Components\ComponentPanelTemplateSelector.cs" />
     <Compile Include="Views\Component\ComponentPanel.xaml.cs">
       <DependentUpon>ComponentPanel.xaml</DependentUpon>
     </Compile>
@@ -191,8 +192,8 @@
     <Compile Include="Views\SliderBeat.xaml.cs">
       <DependentUpon>SliderBeat.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Component\EditorTemplateSelector.cs" />
-    <Compile Include="ViewModels\Project\Composition\Layer\BlendMode.cs" />
+    <Compile Include="ViewModels\Components\EditorTemplateSelector.cs" />
+    <Compile Include="ViewModels\BlendMode.cs" />
     <Compile Include="ViewModels\Assets\AssetDirectory.cs" />
     <Compile Include="ViewModels\Assets\AssetTexture.cs" />
     <Compile Include="ViewModels\Assets\AssetGeometry.cs" />
@@ -206,8 +207,8 @@
     <Compile Include="ViewModels\Entity\Geometry\Transform\Scale.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Transform.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Translate.cs" />
-    <Compile Include="ViewModels\Entity\Entity.cs" />
-    <Compile Include="ViewModels\Component\ComponentEditor.cs" />
+    <Compile Include="ViewModels\Components\Entity.cs" />
+    <Compile Include="ViewModels\Components\ComponentEditor.cs" />
     <Compile Include="Views\Entity\EntityPanel.xaml.cs">
       <DependentUpon>EntityPanel.xaml</DependentUpon>
     </Compile>
@@ -277,7 +278,7 @@
     <Compile Include="ViewModels\FileSelector\FileNameItem.cs" />
     <Compile Include="ViewModels\FileSelector\FileSelector.cs" />
     <Compile Include="_Thrash\OSCControl.cs" />
-    <Compile Include="ViewModels\Project\Project.cs" />
+    <Compile Include="ViewModels\Components\Project.cs" />
     <Compile Include="ViewModels\Entity\Geometry\GeometryFX.cs" />
     <Compile Include="ViewModels\Entity\Geometry\GeometryRotation.cs" />
     <Compile Include="ViewModels\Entity\Geometry\GeometryScale.cs" />
@@ -293,13 +294,13 @@
     </Compile>
     <Compile Include="ViewModels\Camera\Camera.cs" />
     <Compile Include="ViewModels\Coloration\Coloration.cs" />
-    <Compile Include="ViewModels\Project\Composition\Layer\Scene\Scene.cs" />
+    <Compile Include="ViewModels\Components\Scene.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Geometry.cs" />
-    <Compile Include="ViewModels\Project\Composition\Layer\Layer.cs" />
+    <Compile Include="ViewModels\Components\Layer.cs" />
     <Compile Include="ViewModels\Beat\MasterBeat.cs" />
-    <Compile Include="ViewModels\Project\Composition\Layer\Mask\Mask.cs" />
+    <Compile Include="ViewModels\Components\Mask.cs" />
     <Compile Include="ViewModels\PostFX\PostFX.cs" />
-    <Compile Include="ViewModels\Project\Composition\Composition.cs" />
+    <Compile Include="ViewModels\Components\Composition.cs" />
     <Compile Include="ViewModels\Entity\Texture\Texture.cs" />
     <Compile Include="Views\Beat\BeatControls.xaml.cs">
       <DependentUpon>BeatControls.xaml</DependentUpon>

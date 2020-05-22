@@ -12,11 +12,23 @@ namespace CMiX.Studio.ViewModels
             return $"{this.GetType().Name}/";
         }
 
+        public event EventHandler<ModelEventArgs> ReceiveChangeEvent;
+
         public event EventHandler<ModelEventArgs> SendChangeEvent;
+
+        public void OnReceiveChange(IModel model, string messageAddress)
+        {
+            ReceiveChangeEvent?.Invoke(this, new ModelEventArgs(model, messageAddress));
+        }
 
         public void OnSendChange(IModel model, string messageAddress)
         {
             SendChangeEvent?.Invoke(this, new ModelEventArgs(model, messageAddress));
+        }
+
+        public void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            OnReceiveChange(e.Model, GetMessageAddress() + e.MessageAddress);
         }
 
         public void OnChildPropertyToSendChange(object sender, ModelEventArgs e)

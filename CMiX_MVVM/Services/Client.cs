@@ -6,8 +6,15 @@ namespace CMiX.MVVM.Services
 {
     public class Client
     {
+        public Client()
+        {
+
+        }
         public Client(string name, string ip, int port, string topic)
         {
+            Enabled = true;
+            IsRunning = false;
+
             Name = name;
             IP = ip;
             Port = port;

@@ -76,13 +76,13 @@ namespace CMiX.Studio.ViewModels
             GeometryViewSource = new CollectionViewSource();
             GeometryViewSource.Source = this.AssetsFlatten;
             GeometryCollectionView = GeometryViewSource.View;
-            GeometryCollectionView.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+            GeometryCollectionView.SortDescriptions.Add(new SortDescription(nameof(Name), ListSortDirection.Ascending));
             GeometryCollectionView.Filter = FilterGeometry;
 
             ImageViewSource = new CollectionViewSource();
             ImageViewSource.Source = this.AssetsFlatten;
             ImageCollectionView = ImageViewSource.View;
-            ImageCollectionView.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+            ImageCollectionView.SortDescriptions.Add(new SortDescription(nameof(Name), ListSortDirection.Ascending));
             ImageCollectionView.Filter = FilterImage;
         }
 

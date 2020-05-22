@@ -48,11 +48,14 @@ namespace CMiX.Studio.ViewModels.MessageService
 
         public void SetSettings(Settings settings)
         {
-            Server.Stop();
+            if (Server.IsRunning)
+                Server.Stop();
+
             Name = settings.Name;
             Server.Topic = settings.Topic;
             Server.IP = settings.IP;
             Server.Port = settings.Port;
+
             Server.Start();
         }
 

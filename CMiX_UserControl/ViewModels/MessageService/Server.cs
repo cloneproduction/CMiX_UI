@@ -1,6 +1,6 @@
-﻿using CMiX.MVVM.Message;
-using System;
+﻿using System;
 using CMiX.MVVM.ViewModels;
+using CMiX.MVVM.Message;
 
 namespace CMiX.Studio.ViewModels.MessageService
 {
@@ -40,7 +40,6 @@ namespace CMiX.Studio.ViewModels.MessageService
                 else
                     return "Stopped";
             }
-            //set => SetAndNotify(ref _status, value);
         }
 
         private string _ip;
@@ -91,7 +90,9 @@ namespace CMiX.Studio.ViewModels.MessageService
 
         public void Start()
         {
-            NetMQServer = new NetMQServer(Address);
+            if(NetMQServer == null)
+                NetMQServer = new NetMQServer(Address);
+
             NetMQServer.Start();
             IsRunning = true;
         }

@@ -27,6 +27,7 @@ namespace CMiX.Studio.ViewModels
         {
             var component = new Composition(CompositionID, parentComponent.Beat);
             component.SendChangeEvent += parentComponent.OnChildPropertyToSendChange;
+            parentComponent.ReceiveChangeEvent += component.OnParentReceiveChange;
             CompositionID++;
             return component;
         }
