@@ -63,12 +63,12 @@ namespace CMiX.Studio.ViewModels.MessageService
 
         public void StartClient()
         {
-
+            Client.Start();
         }
 
         public void StopClient()
         {
-
+            Client.Stop();
         }
     }
 }

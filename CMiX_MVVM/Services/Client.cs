@@ -10,17 +10,14 @@ namespace CMiX.MVVM.Services
         {
 
         }
-        public Client(string name, string ip, int port, string topic)
+        public Client(string topic)
         {
             Enabled = true;
             IsRunning = false;
 
-            Name = name;
-            IP = ip;
-            Port = port;
             Topic = topic;
             Enabled = true;
-            NetMQClient = new NetMQClient(IP, Port, Topic);
+            NetMQClient = new NetMQClient(Address, topic);
             NetMQClient.Message.MessageUpdated += OnNetMQMessageReceived;
         }
 
@@ -41,8 +38,16 @@ namespace CMiX.MVVM.Services
 
         public bool IsRunning { get; private set; }
 
+        public string Address
+        {
+            get { return String.Format("tcp://{0}:{1}", IP, Port); }
+        }
+
         public void Start()
         {
+            if (NetMQClient == null)
+                NetMQClient = new NetMQClient(Address, Topic);
+
             NetMQClient.Start();
             IsRunning = true;
         }

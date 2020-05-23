@@ -1,5 +1,4 @@
 ﻿using System;
-using Ceras;
 using NetMQ;
 using NetMQ.Sockets;
 
@@ -65,8 +64,6 @@ namespace CMiX.MVVM.Message
         }
 
         private NetMQActor actor;
-        //public bool IsRunning { get; private set; }
-
 
         public string Address { get; set; }
 
@@ -75,7 +72,6 @@ namespace CMiX.MVVM.Message
             if (actor != null)
                 return;
             actor = NetMQActor.Create(new ShimHandler(Address));
-            //IsRunning = true;
             Console.WriteLine($"NetMQClient Started with Address : {Address}");
         }
 
@@ -85,7 +81,6 @@ namespace CMiX.MVVM.Message
             {
                 actor.Dispose();
                 actor = null;
-                //IsRunning = false;
             }
         }
 

@@ -72,38 +72,12 @@ namespace CMiX.MVVM.Message
             }
         }
 
-        private int _port;
-        public int Port
-        {
-            get { return _port; }
-            set
-            {
-                _port = value;
-                ReStart();
-            }
-        }
+        public string Address { get; set; }
 
-        private string _ip;
-        public string IP
+        public NetMQClient(string address, string topic)
         {
-            get { return _ip; }
-            set
-            {
-                _ip = value;
-                ReStart();
-            }
-        }
-
-        public string Address
-        {
-            get { return String.Format("tcp://{0}:{1}", IP, Port); }
-        }
-
-        public NetMQClient(string ip, int port, string topic)
-        {
+            this.Address = address;
             Message = new Message();
-            IP = ip;
-            Port = port;
             Topic = topic;
         }
 
@@ -113,7 +87,7 @@ namespace CMiX.MVVM.Message
                 return;
            
             actor = NetMQActor.Create(new ShimHandler(Message, Address, Topic));
-            Console.WriteLine($"NetMQClient Started with IP {IP}, Port {Port} and Topic {Topic}");
+            Console.WriteLine($"NetMQClient Started with Address " + Address);
         }
 
         public void Stop()
