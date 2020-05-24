@@ -49,12 +49,9 @@ namespace CMiX.MVVM.Message
 
             private void OnShimReady(object sender, NetMQSocketEventArgs e)
             {
-                
                 string command = e.Socket.ReceiveFrameString();
                 if (command == NetMQActor.EndShimMessage)
-                {
                     poller.Stop();
-                }
             }
         }
 

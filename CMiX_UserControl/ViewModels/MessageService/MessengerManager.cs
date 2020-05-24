@@ -62,10 +62,8 @@ namespace CMiX.Studio.ViewModels.MessageService
         {
             if (messenger != null)
             {
-                //SelectedMessenger.Stop();
                 messenger.StopServer();
                 Project.Messengers.Remove(messenger);
-                //Addresses.Remove(SelectedMessenger.Settings.Address);
             }
         }
 

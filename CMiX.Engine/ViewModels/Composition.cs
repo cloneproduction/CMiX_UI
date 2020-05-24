@@ -41,11 +41,11 @@ namespace CMiX.Engine.ViewModels
                         this.AddLayer(addLayerModel);
                         break;
 
-                    case (MessageCommand.LAYER_DUPLICATE):
-                        LayerModel layerModel = data as LayerModel;
-                        int[] movedIndex = Receiver.ReceivedParameter as int[];
-                        this.DuplicateLayer(layerModel, movedIndex);
-                        break;
+                    //case (MessageCommand.LAYER_DUPLICATE):
+                    //    LayerModel layerModel = data as LayerModel;
+                    //    int[] movedIndex = Receiver.ReceivedParameter as int[];
+                    //    this.DuplicateLayer(layerModel, movedIndex);
+                    //    break;
 
                     case (MessageCommand.LAYER_DELETE):
                         int deleteIndex = (int)data;

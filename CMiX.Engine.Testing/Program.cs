@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CMiX.Engine.ViewModels;
 using CMiX.MVVM.Message;
-using CMiX.MVVM.Services;
+using CMiX.Studio.ViewModels;
+using CMiX.Studio.ViewModels.MessageService;
 
 namespace CMiX.Engine.Testing
 {
@@ -13,7 +13,14 @@ namespace CMiX.Engine.Testing
     {
         static void Main(string[] args)
         {
-            Project projet = new Project();
+            var project = ComponentFactory.CreateProject();
+            var receiver = new Receiver();
+
+            Settings settings = new Settings("Pouet", "Pouet", "192.168.1.4", 2222);
+            receiver.SetSettings(settings);
+            receiver.StartClient();
+            project.Receiver = receiver;
+
             Console.ReadLine();
         }
     }

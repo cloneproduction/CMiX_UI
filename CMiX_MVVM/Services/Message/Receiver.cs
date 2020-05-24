@@ -18,9 +18,7 @@ namespace CMiX.MVVM.Services
 
         private void Client_MessageReceived(object sender, MessageEventArgs e)
         {
-            ReceivedCommand = e.Command;
             ReceivedAddress = e.Address;
-            ReceivedParameter = e.Parameter;
             ReceivedData = e.Data;
             MessageReceived.Invoke(sender, e);
         }
@@ -46,7 +44,7 @@ namespace CMiX.MVVM.Services
         public MessageCommand ReceivedCommand { get; set; }
         public string ReceivedAddress { get; set; }
         public object ReceivedData { get; set; }
-        public object ReceivedParameter { get; set; }
+        //public object ReceivedParameter { get; set; }
 
         public bool Enabled { get; set; }
         public ObservableCollection<Client> Clients { get; set; }

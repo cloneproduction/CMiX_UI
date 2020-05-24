@@ -27,6 +27,13 @@ namespace CMiX.MVVM.Controls
             SubButton = GetTemplateChild("SubButton") as Button;
             AddButton = GetTemplateChild("AddButton") as Button;
 
+            if(Border != null)
+            {
+                Border.PreviewMouseLeftButtonDown += Border_PreviewMouseLeftButtonDown;
+                Border.PreviewMouseUp += Border_PreviewMouseUp;
+                Border.PreviewMouseMove += Border_PreviewMouseMove;
+            }
+
             if (ValueInput != null)
             {
                 ValueInput.MouseLeave += View_OnMouseLeave;
@@ -43,6 +50,54 @@ namespace CMiX.MVVM.Controls
             ScreenWidth = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
 
             base.OnApplyTemplate();
+        }
+
+        private void Border_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (IsEditing == false)
+            {
+                _lastPoint = GetMousePosition();
+                _mouseDownPos = e.GetPosition(this);
+                Border.CaptureMouse();
+            }
+        }
+
+        private void Border_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            if (_mouseDownPos != null)
+            {
+                var currentPoint = GetMousePosition();
+                var offset = currentPoint - _lastPoint.Value;
+
+                if (currentPoint.X >= ScreenWidth - 1)
+                    SetCursorPos(0, Convert.ToInt32(currentPoint.Y));
+                else if (currentPoint.X <= 0)
+                    SetCursorPos(ScreenWidth - 1, Convert.ToInt32(currentPoint.Y));
+
+                if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
+                    newValue = this.Value + offset.X * 0.001;
+                else
+                    newValue = this.Value + offset.X * 0.01;
+
+                this.Value = newValue;
+                _lastPoint = GetMousePosition();
+            }
+        }
+
+        private void Border_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var mouseUpPos = e.GetPosition(this);
+            Border.ReleaseMouseCapture();
+
+            if (_mouseDownPos == mouseUpPos)
+                OnSwitchToEditingMode();
+
+            if (_mouseDownPos != null && IsEditing == false)
+            {
+                Point pointToScreen = this.PointToScreen(new Point(ActualWidth / 2, ActualHeight / 2));
+                SetCursorPos(Convert.ToInt32(pointToScreen.X), Convert.ToInt32(pointToScreen.Y));
+            }
+            _mouseDownPos = null;
         }
 
         protected override void OnPreviewMouseRightButtonDown(MouseButtonEventArgs e)
@@ -74,15 +129,11 @@ namespace CMiX.MVVM.Controls
             if (IsEditing == true)
             {
                 if (mouseButtonEventArgs.ChangedButton == MouseButton.Left)
-                {
                     UpdateValue();
-                    OnSwitchToNormalMode();
-                }
                 else if (mouseButtonEventArgs.ChangedButton == MouseButton.Right)
-                {
                     CancelUpdateValue();
-                    OnSwitchToNormalMode();
-                }
+
+                OnSwitchToNormalMode();
             }
         }
 
@@ -139,53 +190,7 @@ namespace CMiX.MVVM.Controls
         private Point? _mouseDownPos;
         private double newValue;
 
-        protected override void OnPreviewMouseMove(MouseEventArgs e)
-        {
-            if (_mouseDownPos != null)
-            {
-                var currentPoint = GetMousePosition();
-                var offset = currentPoint - _lastPoint.Value;
 
-                if (currentPoint.X >= ScreenWidth - 1)
-                    SetCursorPos(0, Convert.ToInt32(currentPoint.Y));
-                else if (currentPoint.X <= 0)
-                    SetCursorPos(ScreenWidth - 1, Convert.ToInt32(currentPoint.Y));
-
-                if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
-                    newValue = this.Value + offset.X * 0.001;
-                else
-                    newValue = this.Value + offset.X * 0.01;
-
-                this.Value = newValue;
-                _lastPoint = GetMousePosition();
-            }
-        }
-
-        protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
-        {
-            var mouseUpPos = e.GetPosition(this);
-            Border.ReleaseMouseCapture();
-
-            if (_mouseDownPos == mouseUpPos)
-                OnSwitchToEditingMode();
-
-            if (_mouseDownPos != null && IsEditing == false)
-            {
-                Point pointToScreen = this.PointToScreen(new Point(ActualWidth / 2, ActualHeight / 2));
-                SetCursorPos(Convert.ToInt32(pointToScreen.X), Convert.ToInt32(pointToScreen.Y));
-            }
-            _mouseDownPos = null;
-        }
-
-        protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
-        {
-            if (IsEditing == false)
-            {
-                _lastPoint = GetMousePosition();
-                _mouseDownPos = e.GetPosition(this);
-                Border.CaptureMouse();
-            }
-        }
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
@@ -218,6 +223,7 @@ namespace CMiX.MVVM.Controls
         {
             IsEditing = false;
             Keyboard.ClearFocus();
+            this.Focus();
             _mouseDownPos = null;
         }
 

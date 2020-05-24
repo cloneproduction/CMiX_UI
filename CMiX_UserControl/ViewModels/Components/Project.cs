@@ -9,6 +9,7 @@ namespace CMiX.Studio.ViewModels
 {
     public class Project : Component
     {
+        public Project(int id, Beat beat) : base(id, beat) { } 
         public Project(int id, Beat beat, IDialogService dialogService)
             : base(id, beat)
         {
@@ -24,6 +25,15 @@ namespace CMiX.Studio.ViewModels
 
         #region PROPERTIES
         public IDialogService DialogService { get; set; }
+
+
+        private Receiver _receiver;
+        public Receiver Receiver
+        {
+            get => _receiver;
+            set => SetAndNotify(ref _receiver, value);
+        }
+
 
         private ObservableCollection<Messenger> _messengers;
         public ObservableCollection<Messenger> Messengers

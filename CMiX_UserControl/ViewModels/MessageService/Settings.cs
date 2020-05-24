@@ -11,9 +11,9 @@ namespace CMiX.Studio.ViewModels.MessageService
 {
     public class Settings : ViewModel, IModalDialogViewModel
     {
-        public Settings(string messengerName, string topic, string ip, int port)
+        public Settings(string name, string topic, string ip, int port)
         {
-            Name = messengerName;
+            Name = name;
             Topic = topic;
             IP = ip;
             Port = port;

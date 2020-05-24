@@ -1,10 +1,6 @@
 ﻿using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMiX.Studio.ViewModels.MessageService
 {
@@ -18,7 +14,9 @@ namespace CMiX.Studio.ViewModels.MessageService
 
         private void Client_MessageReceived(object sender, MessageEventArgs e)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("MessageReceived");
+            Console.WriteLine("Address " + e.Address + " Data " + e.Data.GetType().Name);
+
         }
 
         public string Address
@@ -59,6 +57,22 @@ namespace CMiX.Studio.ViewModels.MessageService
         {
             get => _client;
             set => SetAndNotify(ref _client, value);
+        }
+
+        public Settings GetSettings()
+        {
+            return new Settings(Name, Client.Topic, Client.IP, Client.Port);
+        }
+
+        public void SetSettings(Settings settings)
+        {
+            if (Client.IsRunning)
+                Client.Stop();
+
+            Name = settings.Name;
+            Client.Topic = settings.Topic;
+            Client.IP = settings.IP;
+            Client.Port = settings.Port;
         }
 
         public void StartClient()

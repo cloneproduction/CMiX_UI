@@ -17,14 +17,15 @@ namespace CMiX.MVVM.Services
 
             Topic = topic;
             Enabled = true;
-            NetMQClient = new NetMQClient(Address, topic);
-            NetMQClient.Message.MessageUpdated += OnNetMQMessageReceived;
+
+            
         }
 
         public event EventHandler<MessageEventArgs> MessageReceived;
 
         private void OnNetMQMessageReceived(object sender, MessageEventArgs e)
         {
+            Console.WriteLine("Message Received");
             MessageReceived.Invoke(sender, e);
         }
 
@@ -46,7 +47,10 @@ namespace CMiX.MVVM.Services
         public void Start()
         {
             if (NetMQClient == null)
+            {
                 NetMQClient = new NetMQClient(Address, Topic);
+                NetMQClient.Message.MessageUpdated += OnNetMQMessageReceived;
+            }
 
             NetMQClient.Start();
             IsRunning = true;
@@ -54,8 +58,12 @@ namespace CMiX.MVVM.Services
 
         public void Stop()
         {
-            NetMQClient.Stop();
-            IsRunning = false;
+            if(NetMQClient != null)
+            {
+                NetMQClient.Stop();
+                NetMQClient.Message.MessageUpdated -= OnNetMQMessageReceived;
+                IsRunning = false;
+            }
         }
     }
 }

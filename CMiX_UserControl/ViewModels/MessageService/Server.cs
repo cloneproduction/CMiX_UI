@@ -83,9 +83,9 @@ namespace CMiX.Studio.ViewModels.MessageService
             if (Enabled && NetMQServer != null)
             {
                 NetMQServer.SendObject(Topic, messageAddress, message);
+                Console.WriteLine("Data Size = " + message.Length);
+                Console.WriteLine("NetMQServer SendObject with MessageAddress : " + messageAddress + " and Topic : " + this.Topic);
             }
-            Console.WriteLine("Data Size = " + message.Length);
-            Console.WriteLine("NetMQServer SendObject with MessageAddress : " + messageAddress + " and Topic : " + this.Topic);
         }
 
         public void Start()
@@ -99,7 +99,8 @@ namespace CMiX.Studio.ViewModels.MessageService
 
         public void Stop()
         {
-            NetMQServer.Stop();
+            if(NetMQServer != null)
+                NetMQServer.Stop();
             IsRunning = false;
         }
 
@@ -107,8 +108,6 @@ namespace CMiX.Studio.ViewModels.MessageService
         {
             Stop();
             Start();
-            //NetMQServer.ReStart();
-            Console.WriteLine("Restart Server");
         }
     }
 }

@@ -52,7 +52,7 @@ namespace CMiX.Studio.ViewModels
             set
             {
                 SetAndNotify(ref _isSelected, value);
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
+                //OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 

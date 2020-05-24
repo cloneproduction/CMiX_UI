@@ -37,38 +37,21 @@ namespace CMiX.MVVM.Message
             get => NetMQMessage[1].ConvertToString();
         }
 
-        public MessageCommand Command
-        {
-            get => Serializer.Deserialize<MessageCommand>(NetMQMessage[2].Buffer);
-        }
-
-        public object Parameter
-        {
-            get
-            {
-                if (NetMQMessage[3].Buffer != null)
-                    return Serializer.Deserialize<object>(NetMQMessage[3].Buffer);
-                else
-                    return null;
-            }
-        }
+        //public MessageCommand Command
+        //{
+        //    get => Serializer.Deserialize<MessageCommand>(NetMQMessage[2].Buffer);
+        //}
 
         public object Payload
         {
-            get
-            {
-                if (NetMQMessage[4].Buffer != null)
-                    return Serializer.Deserialize<object>(NetMQMessage[4].Buffer);
-                else
-                    return null;
-            }
+            get => Serializer.Deserialize<object>(NetMQMessage[2].Buffer);
         }
 
         public event EventHandler<MessageEventArgs> MessageUpdated;
         private void OnMessageUpdated(Message message)
         {
             if (MessageUpdated != null)
-                MessageUpdated(this, new MessageEventArgs(message.MessageAddress, message.Command, message.Parameter, message.Payload));
+                MessageUpdated(this, new MessageEventArgs(message.MessageAddress, message.Payload));
         }
     }
 }
