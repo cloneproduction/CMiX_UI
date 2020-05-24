@@ -97,6 +97,7 @@ namespace CMiX.MVVM.Controls
                 Point pointToScreen = this.PointToScreen(new Point(ActualWidth / 2, ActualHeight / 2));
                 SetCursorPos(Convert.ToInt32(pointToScreen.X), Convert.ToInt32(pointToScreen.Y));
             }
+
             _mouseDownPos = null;
         }
 
@@ -190,8 +191,6 @@ namespace CMiX.MVVM.Controls
         private Point? _mouseDownPos;
         private double newValue;
 
-
-
         protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -232,16 +231,13 @@ namespace CMiX.MVVM.Controls
         {
             double num;
             if (double.TryParse(text, out num))
-            {
                 return !_regex.IsMatch(text);
-            }
             else
                 return false;
         }
 
         public void UpdateValue()
         {
-            var result = IsTextAllowed(ValueInput.Text);
             if (IsTextAllowed(ValueInput.Text))
                 this.Value = Double.Parse(ValueInput.Text);
         }
@@ -249,7 +245,6 @@ namespace CMiX.MVVM.Controls
         public void CancelUpdateValue()
         {
             double oldValue = this.Value;
-            var result = IsTextAllowed(ValueInput.Text);
             if (IsTextAllowed(ValueInput.Text))
                 this.Value = oldValue;
             ValueInput.Text = oldValue.ToString();
