@@ -7,11 +7,7 @@
         <ResourceDictionary Source="Values.xaml"/>
         <ResourceDictionary Source="Brushes.xaml"/>
         <ResourceDictionary Source="Icons.xaml"/>
-        
-        <ResourceDictionary Source="Expander.xaml"/>
-        <ResourceDictionary Source="Button.xaml"/>
-        <ResourceDictionary Source="Label.xaml"/>
-        
+
         <!--SLIDERS-->
         <ResourceDictionary Source="Sliders/Slider.xaml"/>
         <ResourceDictionary Source="Sliders/HSVSlider.xaml"/>
@@ -20,6 +16,10 @@
         <ResourceDictionary Source="Sliders/SliderThumb.xaml"/>
         <ResourceDictionary Source="Sliders/XYController.xaml"/>
 
+        <ResourceDictionary Source="Expander.xaml"/>
+        <ResourceDictionary Source="Button.xaml"/>
+        <ResourceDictionary Source="Label.xaml"/>
+        <ResourceDictionary Source="ContextMenu.xaml"/>
         
         <ResourceDictionary Source="RadioButton.xaml"/>
         <ResourceDictionary Source="ToggleButton.xaml"/>
@@ -30,13 +30,14 @@
         <ResourceDictionary Source="ScrollViewer.xaml"/>
         
         <ResourceDictionary Source="ToolTip.xaml"/>
-        <ResourceDictionary Source="ContextMenu.xaml"/>
+        
         <ResourceDictionary Source="ComboBox.xaml"/>
         <ResourceDictionary Source="DataGrid.xaml"/>
         <ResourceDictionary Source="TextBox.xaml"/>
         <ResourceDictionary Source="GridSplitter.xaml"/>
-        <ResourceDictionary Source="TreeView.xaml"/>
+        
         <ResourceDictionary Source="TextBlock.xaml"/>
+        <ResourceDictionary Source="TreeView.xaml"/>
         <ResourceDictionary Source="Window.xaml"/>
         <ResourceDictionary Source="MainWindow.xaml"/>
         
