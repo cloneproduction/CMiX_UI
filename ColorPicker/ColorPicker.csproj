@@ -126,9 +126,6 @@
     <Compile Include="Controls\ColorHex.cs" />
     <Compile Include="Controls\HsvSlider.cs" />
     <Compile Include="Controls\XYController.cs" />
-    <Compile Include="_Trash\ColorText.cs" />
-    <Compile Include="_Trash\ColorUtils.cs" />
-    <None Include="_Trash\ColorPicker.cs" />
     <Compile Include="Controls\ColorSlider.cs" />
     <Compile Include="Controls\HueWheel.cs" />
     <Compile Include="Controls\HueSlider.cs" />
@@ -145,17 +142,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="_Trash\Images.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Themes\XYController.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="_Trash\HSVControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\HSVSlider.xaml">
       <SubType>Designer</SubType>
@@ -211,12 +200,6 @@
     <Resource Include="Assets\HueCircle.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CMiX_MVVM\CMiX.MVVM.csproj">
-      <Project>{b49435ef-ef33-47b4-a92d-267566db96d8}</Project>
-      <Name>CMiX.MVVM</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Effects\RGBColorControl.fx" />

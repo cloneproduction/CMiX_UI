@@ -7,10 +7,8 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Brushes.xaml" />
-        
     </ResourceDictionary.MergedDictionaries>
 
-    <Resources:EntityVisibilityConverter x:Key="EntityVisibilityConverter"/>
     <PathGeometry x:Key="TreeArrow" Figures="M0,0 L0,6 L6,0 z"/>
     
     <Style x:Key="{x:Type TreeView}" TargetType="TreeView">
@@ -137,7 +135,7 @@
                                     BorderThickness="0, 0, 1, 0">
                                     <ToggleButton 
                                         IsChecked="{Binding IsVisible}"
-                                        Style="{StaticResource ToggleVisibility}"
+                                        Style="{DynamicResource ToggleVisibility}"
                                         VerticalAlignment="Center">
                                     </ToggleButton>
                                 </Border>

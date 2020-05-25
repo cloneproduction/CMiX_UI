@@ -51,6 +51,9 @@
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MicrosoftExpressionInteractions.3.0.40218.0\lib\net45\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
+    <Reference Include="MvvmDialogs, Version=7.0.0.0, Culture=neutral, PublicKeyToken=3d3b9708589bc73e, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmDialogs.7.0.0\lib\net462\MvvmDialogs.dll</HintPath>
+    </Reference>
     <Reference Include="NetMQ, Version=4.0.0.272, Culture=neutral, PublicKeyToken=a6decef4ddc58b3a, processorArchitecture=MSIL">
       <HintPath>..\packages\NetMQ.4.0.0.272-pre\lib\net47\NetMQ.dll</HintPath>
     </Reference>
@@ -72,17 +75,38 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\BindableTreeViewSelectedItemBehavior.cs" />
+    <Compile Include="Behaviors\ClickBehavior.cs" />
+    <Compile Include="Behaviors\ContextMenuMouseDownBehavior.cs" />
+    <Compile Include="Behaviors\FolderDialogBehavior.cs" />
+    <Compile Include="Behaviors\ListBoxSelectionBehavior.cs" />
+    <Compile Include="Behaviors\SliderBehavior.cs" />
+    <Compile Include="Behaviors\TextBoxFocusBehavior.cs" />
+    <Compile Include="Behaviors\TreeViewItemClickBehavior.cs" />
+    <Compile Include="Behaviors\TreeViewMultiSelectionBehavior.cs" />
     <Compile Include="Controls\CMiXRangeSlider.xaml.cs">
       <DependentUpon>CMiXRangeSlider.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\CMiXSlider.cs" />
+    <Compile Include="Controls\ColorPicker\Controls\ColorHex.cs" />
+    <Compile Include="Controls\ColorPicker\Controls\ColorSlider.cs" />
+    <Compile Include="Controls\ColorPicker\Controls\HsvSlider.cs" />
+    <Compile Include="Controls\ColorPicker\Controls\HueSlider.cs" />
+    <Compile Include="Controls\ColorPicker\Controls\HueWheel.cs" />
+    <Compile Include="Controls\ColorPicker\Controls\XYColorControl.cs" />
+    <Compile Include="Controls\ColorPicker\Controls\XYController.cs" />
+    <Compile Include="ViewModels\ColorPicker\ColorPicker.cs" />
+    <Compile Include="ViewModels\ColorPicker\ColorPickerModelFactory.cs" />
+    <Compile Include="Views\ColorPicker.xaml.cs">
+      <DependentUpon>ColorPicker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\DistanceSlider\DistanceSlider.cs" />
     <Compile Include="Controls\DistanceSlider\MouseDownAttachedProperty.cs" />
     <Compile Include="Controls\EditableTextBox.xaml.cs">
       <DependentUpon>EditableTextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\EditableTextBox.cs" />
-    <Compile Include="Controls\DistanceSlider\EditableValue.xaml.cs">
+    <Compile Include="Controls\EditableValue.xaml.cs">
       <DependentUpon>EditableValue.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ExpanderLayerList.cs" />
@@ -105,20 +129,68 @@
     <Compile Include="Services\Client.cs" />
     <Compile Include="Services\CommandName.cs" />
     <Compile Include="Services\Message\MessageEventArgs.cs" />
-    <Compile Include="Services\Message\MessageService.cs" />
-    <Compile Include="Services\Message\Sender.cs" />
     <Compile Include="Services\Message\Message.cs" />
-    <None Include="_Trash\MessageService.cs" />
     <Compile Include="Services\ModelEventArgs.cs" />
     <Compile Include="Services\NetMQ\NetMQClient.cs" />
     <Compile Include="Services\NetMQ\NetMQServer.cs" />
-    <Compile Include="Services\Message\Receiver.cs" />
     <Compile Include="Models\BlendModeModel.cs" />
     <Compile Include="Models\Interfaces\IModel.cs" />
     <Compile Include="Models\EntityModel.cs" />
-    <Compile Include="Services\Message\IMessageReceiver.cs" />
     <Compile Include="Controls\DistanceSlider\ControlPositionEnum.cs" />
     <Compile Include="Themes\MainWindow.xaml.cs" />
+    <Compile Include="ViewModels\Assets\Asset.cs" />
+    <Compile Include="ViewModels\Assets\AssetDirectory.cs" />
+    <Compile Include="ViewModels\Assets\AssetDragDrop.cs" />
+    <Compile Include="ViewModels\Assets\AssetGeometry.cs" />
+    <Compile Include="ViewModels\Assets\AssetManager.cs" />
+    <Compile Include="ViewModels\Assets\AssetPathSelector.cs" />
+    <Compile Include="ViewModels\Assets\AssetTexture.cs" />
+    <Compile Include="ViewModels\Assets\EnumFileType.cs" />
+    <Compile Include="ViewModels\Assets\IAssets.cs" />
+    <Compile Include="ViewModels\Assets\IDirectory.cs" />
+    <Compile Include="ViewModels\Beat\Beat.cs" />
+    <Compile Include="ViewModels\Beat\BeatModifier.cs" />
+    <Compile Include="ViewModels\Beat\MasterBeat.cs" />
+    <Compile Include="ViewModels\BlendMode\BlendMode.cs" />
+    <Compile Include="ViewModels\Camera\Camera.cs" />
+    <Compile Include="ViewModels\Coloration\Coloration.cs" />
+    <Compile Include="ViewModels\Coloration\ColorSelector.cs" />
+    <Compile Include="ViewModels\Components\Component.cs" />
+    <Compile Include="ViewModels\Components\ComponentEditor.cs" />
+    <Compile Include="ViewModels\Components\ComponentEventArgs.cs" />
+    <Compile Include="ViewModels\Components\ComponentFactory.cs" />
+    <Compile Include="ViewModels\Components\ComponentManager.cs" />
+    <Compile Include="ViewModels\Components\ComponentModelFactory.cs" />
+    <Compile Include="ViewModels\Components\ComponentPanelTemplateSelector.cs" />
+    <Compile Include="ViewModels\Components\Composition.cs" />
+    <Compile Include="ViewModels\Components\EditorTemplateSelector.cs" />
+    <Compile Include="ViewModels\Components\Entity.cs" />
+    <Compile Include="ViewModels\Components\Layer.cs" />
+    <Compile Include="ViewModels\Components\Mask.cs" />
+    <Compile Include="ViewModels\Components\Outliner.cs" />
+    <Compile Include="ViewModels\Components\Project.cs" />
+    <Compile Include="ViewModels\Components\Scene.cs" />
+    <Compile Include="ViewModels\Counter\Counter.cs" />
+    <Compile Include="ViewModels\Dialogs\CustomDialog.cs" />
+    <Compile Include="ViewModels\Dialogs\CustomFrameworkDialogFactory.cs" />
+    <Compile Include="ViewModels\Dialogs\CustomTypeLocator.cs" />
+    <Compile Include="ViewModels\Dialogs\MessengerSettingsDialog.cs" />
+    <Compile Include="ViewModels\Dialogs\ModalDialog.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Geometry.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\GeometryFX.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\GeometryRotation.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\GeometryScale.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\GeometryTranslate.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Instancer\AnimParameter.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Instancer\Instancer.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Instancer\RotationModifier.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Instancer\ScaleModifier.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Instancer\TranslateModifier.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Transform\Rotation.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Transform\Scale.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Transform\Transform.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Transform\Translate.cs" />
+    <Compile Include="ViewModels\Entity\Texture\Texture.cs" />
     <Compile Include="ViewModels\Interfaces\IUndoable.cs" />
     <Compile Include="Services\Server\Server.cs" />
     <Compile Include="Models\Geometry\Modifier\AnimParameterModel.cs" />
@@ -130,14 +202,31 @@
     <Compile Include="Models\Geometry\Transform\TransformModel.cs" />
     <Compile Include="Models\TranslateModel.cs" />
     <Compile Include="Models\Geometry\Modifier\TranslateModifierModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\MessageService\Messenger.cs" />
+    <Compile Include="ViewModels\MessageService\MessengerFactory.cs" />
+    <Compile Include="ViewModels\MessageService\MessengerManager.cs" />
+    <Compile Include="ViewModels\MessageService\Receiver.cs" />
+    <Compile Include="ViewModels\MessageService\Server.cs" />
+    <Compile Include="ViewModels\MessageService\Settings.cs" />
+    <Compile Include="ViewModels\MessageService\SettingsEventArgs.cs" />
+    <Compile Include="ViewModels\ModelFactory.cs" />
+    <Compile Include="ViewModels\PostFX\PostFX.cs" />
+    <Compile Include="ViewModels\RangeControl.cs" />
     <Compile Include="ViewModels\Sendable.cs" />
+    <Compile Include="ViewModels\Slider\Slider.cs" />
     <Compile Include="ViewModels\Slider\SliderModelFactory.cs" />
     <Compile Include="ViewModels\_Enums\AnimMode.cs" />
     <Compile Include="ViewModels\_Enums\EasingTypes.cs" />
+    <Compile Include="Views\Dialogs\CustomWindowDialog.xaml.cs">
+      <DependentUpon>CustomWindowDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\MessengerSettingsWindow.xaml.cs">
+      <DependentUpon>MessengerSettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Sliders\SliderInfinite.xaml.cs">
       <DependentUpon>SliderInfinite.xaml</DependentUpon>
     </Compile>
-    <Compile Include="_Trash\HueWheel.cs" />
     <Compile Include="Controls\IPBox.xaml.cs">
       <DependentUpon>IPBox.xaml</DependentUpon>
     </Compile>
@@ -171,12 +260,7 @@
     <Compile Include="Resources\Converter.cs" />
     <Compile Include="Resources\MyHelper.cs" />
     <Compile Include="Resources\Utils.cs" />
-    <Compile Include="ViewModels\FileSelector\FileNameItem.cs" />
-    <Compile Include="ViewModels\FileSelector\FileSelector.cs" />
-    <Compile Include="_Trash\OSCMessenger.cs" />
-    <Compile Include="_Trash\OSCValidation.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
-    <Compile Include="ViewModels\Slider\Slider.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="ViewModels\_Enums\MaskControlType.cs" />
     <Compile Include="ViewModels\_Enums\MaskType.cs" />
@@ -195,7 +279,7 @@
     <Compile Include="Views\Sliders\SliderCentered.xaml.cs">
       <DependentUpon>SliderCentered.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\_Enums\BlendMode.cs" />
+    <Compile Include="ViewModels\BlendMode\BlendModeEnum.cs" />
     <Compile Include="ViewModels\_Enums\CameraLookAt.cs" />
     <Compile Include="ViewModels\_Enums\CameraRotation.cs" />
     <Compile Include="ViewModels\_Enums\CameraView.cs" />
@@ -229,6 +313,30 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\Sliders\HSVSlider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Sliders\HueWheel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Sliders\RGBSlider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Sliders\SliderThumb.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Sliders\XYController.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ColorPicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\EditableTextBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -237,7 +345,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\DistanceSlider\EditableValue.xaml">
+    <Page Include="Controls\EditableValue.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -301,10 +409,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\HueWheel.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Themes\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -333,7 +437,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Slider.xaml">
+    <Page Include="Themes\Sliders\Slider.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -358,6 +462,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Counter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dialogs\CustomWindowDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dialogs\MessengerSettingsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -481,9 +593,14 @@
     <Resource Include="Assets\Menu.png" />
     <Resource Include="Assets\Play.png" />
     <Resource Include="Assets\Stop.png" />
+    <Resource Include="Controls\ColorPicker\Assets\HueCircle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Controls\ColorPicker\Assets\RedControllerBg.png" />
     <Content Include="Themes\Fonts\LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Converters\" />
     <Folder Include="Themes\Windows\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

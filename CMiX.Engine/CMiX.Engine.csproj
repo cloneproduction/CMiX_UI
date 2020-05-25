@@ -64,20 +64,6 @@
     <Compile Include="Mode\Stepper.cs" />
     <Compile Include="Mode\Stopwatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\BlendMode.cs" />
-    <Compile Include="ViewModels\Camera.cs" />
-    <Compile Include="ViewModels\Coloration.cs" />
-    <Compile Include="ViewModels\ColorPicker.cs" />
-    <Compile Include="ViewModels\ColorSelector.cs" />
-    <Compile Include="ViewModels\Composition.cs" />
-    <Compile Include="ViewModels\Geometry.cs" />
-    <Compile Include="ViewModels\Layer.cs" />
-    <Compile Include="ViewModels\Entity.cs" />
-    <Compile Include="ViewModels\MasterBeat.cs" />
-    <Compile Include="ViewModels\Project.cs" />
-    <Compile Include="ViewModels\Slider.cs" />
-    <Compile Include="ViewModels\Texture.cs" />
-    <Compile Include="ViewModels\ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -89,6 +75,8 @@
       <Name>CMiX.MVVM</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

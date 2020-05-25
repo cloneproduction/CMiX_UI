@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Views="clr-namespace:CMiX.Studio.Views"
-             xmlns:ViewModels="clr-namespace:CMiX.Studio.ViewModels"
+             xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX.MVVM"
              xmlns:dd="urn:gong-wpf-dragdrop"
              mc:Ignorable="d" 
              d:DesignHeight="572.667" 

@@ -88,7 +88,6 @@ namespace CMiX.ColorPicker
                 this.Value = (this.Maximum - this.Minimum) * angle / (2 * Math.PI);
                 Hue = this.Value;
             }
-
         }
 
         private void AddHandler()

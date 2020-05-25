@@ -123,7 +123,7 @@
                         Background="Transparent"
                         CornerRadius="0, 4, 0, 0"
                         SnapsToDevicePixels="True" Padding="8">
-                        <Image x:Name="image" Source="{StaticResource CloseTab}" Opacity="0.75"/>
+                        <Image x:Name="image" Source="{DynamicResource CloseTab}" Opacity="0.75"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -141,7 +141,6 @@
     </Style>
 
     <Style x:Key="ButtonMaximizeWindowStyle" TargetType="{x:Type Button}">
-        <!--<EventSetter Event="Click" Handler="MaximizeRestoreClick"/>-->
         <Setter Property="Height" Value="30"/>
         <Setter Property="Width" Value="30"/>
         <Setter Property="Background" Value="{StaticResource DarkColor}" />
@@ -155,7 +154,7 @@
                         x:Name="border"
                         Background="Transparent"
                         SnapsToDevicePixels="True" Padding="10">
-                        <Image x:Name="image" Source="{StaticResource Maximize}" Opacity="0.75"/>
+                        <Image x:Name="image" Source="{DynamicResource Maximize}" Opacity="0.75"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -187,7 +186,7 @@
                         x:Name="border"
                         Background="Transparent"
                         SnapsToDevicePixels="True" Padding="8">
-                        <Image x:Name="image" Source="{StaticResource Minimize}" Opacity="0.75"/>
+                        <Image x:Name="image" Source="{DynamicResource Minimize}" Opacity="0.75"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">

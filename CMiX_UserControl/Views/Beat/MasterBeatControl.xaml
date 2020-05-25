@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewModels="clr-namespace:CMiX.Studio.ViewModels"
+    xmlns:viewModels="clr-namespace:CMiX.MVVM.ViewModels"
     d:DataContext="{d:DesignInstance Type={x:Type viewModels:MasterBeat}, IsDesignTimeCreatable=False}"
     d:DesignHeight="289.777"
     d:DesignWidth="252.667"

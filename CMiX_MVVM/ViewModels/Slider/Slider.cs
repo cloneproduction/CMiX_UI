@@ -1,22 +1,21 @@
 ﻿using System.Windows.Input;
 using System.Windows;
-using Memento;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Commands;
-using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Slider : Sendable, IUndoable
+    public class Slider : Sendable
     {
         #region CONSTRUCTORS
-        public Slider(string messageAddress, MessageService messageService, Mementor mementor)
-            : base (messageAddress, messageService)
+        public Slider(string name)
         {
+            Name = name;
+
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
 
-            ResetSliderCommand = new RelayCommand(p => ResetSlider());
+            ResetCommand = new RelayCommand(p => Reset());
             CopySliderCommand = new RelayCommand(p => CopySlider());
             PasteSliderCommand = new RelayCommand(p => PasteSlider());
             MouseDownCommand = new RelayCommand(p => MouseDown());
@@ -30,7 +29,6 @@ namespace CMiX.MVVM.ViewModels
 
         public ICommand CopySliderCommand { get; }
         public ICommand PasteSliderCommand { get; }
-        public ICommand ResetSliderCommand { get; }
 
         public ICommand MouseDownCommand { get; }
         public ICommand DragCompletedCommand { get; }
@@ -38,9 +36,22 @@ namespace CMiX.MVVM.ViewModels
 
         private void MouseDown()
         {
-            if(Mementor != null)
-                Mementor.PropertyChange(this, "Amount");     
+            //if(Mementor != null)
+            //    Mementor.PropertyChange(this, "Amount");     
         }
+
+        public override string GetMessageAddress()
+        {
+            return $"{Name}/";
+        }
+
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set => SetAndNotify(ref _name, value);
+        }
+
 
         private double _amount = 0.0;
         public double Amount
@@ -49,8 +60,8 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _amount, value);
-                MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, this.GetModel());
-                //System.Console.WriteLine("Slider Amount = " + Amount);
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
+                //System.Console.WriteLine("SliderAmount = " + Amount);
             }
         }
 
@@ -67,9 +78,6 @@ namespace CMiX.MVVM.ViewModels
             get => _maximum; 
             set => SetAndNotify(ref _maximum, value);
         }
-
-        public Mementor Mementor { get; set; }
-
         #endregion
 
         #region ADD/SUB
@@ -96,11 +104,6 @@ namespace CMiX.MVVM.ViewModels
             Amount = 0.0;
         }
 
-        public void ResetSlider()
-        {
-            Amount = 0.0;
-        }
-
         public void CopySlider()
         {
             IDataObject data = new DataObject();
@@ -113,10 +116,10 @@ namespace CMiX.MVVM.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("SliderModel"))
             {
-                Mementor.BeginBatch();
+                //Mementor.BeginBatch();
                 var slidermodel = data.GetData("SliderModel") as SliderModel;
                 //this.SetViewModel(slidermodel);
-                Mementor.EndBatch();
+                //Mementor.EndBatch();
             }
         }
         #endregion

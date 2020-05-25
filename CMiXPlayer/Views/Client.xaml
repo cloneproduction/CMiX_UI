@@ -12,7 +12,7 @@
     d:DesignHeight="372.823" d:DesignWidth="915.427">
 
     <UserControl.Resources>
-        <Resources:IntToStringConverter x:Key="InToString"/>
+        <!--<Resources:IntToStringConverter x:Key="InToString"/>-->
     </UserControl.Resources>
 
     <DataGrid
@@ -56,12 +56,12 @@
             <DataGridTemplateColumn Header="IP" Width="150">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
-                        <Controls:IPBox 
+                        <!--<Controls:IPBox 
                                 HorizontalContentAlignment="Stretch"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
                                 IPAddress="{Binding OSCSender.Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                />
+                                />-->
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
@@ -69,7 +69,7 @@
             <DataGridTemplateColumn Header="Port" Width="150" >
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
-                        <TextBox
+                        <!--<TextBox
                                 Padding="4"
                                 Cursor="IBeam"
                                 CaretBrush="{StaticResource TextBase}"
@@ -79,7 +79,7 @@
                                 Background="{StaticResource HighDarkerColor}"
                                 Foreground="{StaticResource TextBase}"
                                 Text="{Binding OSCSender.Port, Converter={StaticResource InToString}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                />
+                                />-->
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>

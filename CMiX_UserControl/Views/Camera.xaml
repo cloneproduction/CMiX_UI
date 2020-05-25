@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Views="clr-namespace:CMiX.Studio.Views"
+    xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
     xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
     xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX.MVVM"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
@@ -31,7 +32,6 @@
         </ObjectDataProvider>
     </UserControl.Resources>
 
-
     <StackPanel>
         <Border
             Height="25"
@@ -46,14 +46,12 @@
         <Border             
             Grid.Column="1"
             Style="{StaticResource BorderContainer}">
-            <Views:BeatModifier 
-                    DataContext="{Binding BeatModifier}"
-                    />
+            <Views:BeatModifier DataContext="{Binding BeatModifier}"/>
         </Border>
         <Border             
-                Grid.Column="1"
-                Margin="0, 8"
-                Style="{StaticResource BorderContainer}">
+            Grid.Column="1"
+            Margin="0, 8"
+            Style="{StaticResource BorderContainer}">
             <StackPanel DockPanel.Dock="Top">
                 <Grid Height="20">
                     <Grid.ColumnDefinitions>
@@ -61,15 +59,14 @@
                         <ColumnDefinition Width="0.5*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock 
-                            Padding="2"
-                            Foreground="{StaticResource TextBase}"
-                            VerticalAlignment="Center"
-                            Text="Rotation"/>
+                        Padding="2"
+                        Foreground="{StaticResource TextBase}"
+                        VerticalAlignment="Center"
+                        Text="Rotation"/>
                     <ComboBox
-                            Grid.Column="1"
-                            ItemsSource="{Binding Source={StaticResource CameraRotation}}"
-                            SelectedItem="{Binding Rotation}"
-                            />
+                        Grid.Column="1"
+                        ItemsSource="{Binding Source={StaticResource CameraRotation}}"
+                        SelectedItem="{Binding Rotation}"/>
                 </Grid>
                 <Grid Margin="0, 2" Height="20">
                     <Grid.ColumnDefinitions>
@@ -77,15 +74,14 @@
                         <ColumnDefinition Width="0.5*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock 
-                            Padding="2"
-                            Foreground="{StaticResource TextBase}"
-                            VerticalAlignment="Center"
-                            Text="View"/>
+                        Padding="2"
+                        Foreground="{StaticResource TextBase}"
+                        VerticalAlignment="Center"
+                        Text="View"/>
                     <ComboBox
-                            Grid.Column="1"
-                            ItemsSource="{Binding Source={StaticResource CameraView}}"
-                            SelectedItem="{Binding View}"
-                            />
+                        Grid.Column="1"
+                        ItemsSource="{Binding Source={StaticResource CameraView}}"
+                        SelectedItem="{Binding View}"/>
                 </Grid>
                 <Grid Height="20">
                     <Grid.ColumnDefinitions>
@@ -93,15 +89,14 @@
                         <ColumnDefinition Width="0.5*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock 
-                            Padding="2"
-                            Foreground="{StaticResource TextBase}"
-                            VerticalAlignment="Center"
-                            Text="LookAt"/>
+                        Padding="2"
+                        Foreground="{StaticResource TextBase}"
+                        VerticalAlignment="Center"
+                        Text="LookAt"/>
                     <ComboBox
-                            Grid.Column="2"
-                            ItemsSource="{Binding Source={StaticResource CameraLookAt}}"
-                            SelectedItem="{Binding LookAt}"
-                            />
+                        Grid.Column="2"
+                        ItemsSource="{Binding Source={StaticResource CameraLookAt}}"
+                        SelectedItem="{Binding LookAt}"/>
                 </Grid>
             </StackPanel>
         </Border>
@@ -109,18 +104,16 @@
             Grid.Column="1"
             Style="{StaticResource BorderContainer}">
             <StackPanel>
-                <MVVM.Views:Slider
+                <Controls:CMiXSlider
                     Margin="0, 0, 0, 1"
                     Caption="FOV"
                     DockPanel.Dock="Top"
-                    DataContext="{Binding FOV}" 
-                    />
-                <MVVM.Views:Slider
+                    DataContext="{Binding FOV}"/>
+                <Controls:CMiXSlider
                     Margin="0, 1, 0, 0"
                     Caption="Zoom"
                     DockPanel.Dock="Top"
-                    DataContext="{Binding Zoom}" 
-                    />
+                    DataContext="{Binding Zoom}"/>
             </StackPanel>
         </Border>
     </StackPanel>

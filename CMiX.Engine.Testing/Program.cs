@@ -1,6 +1,6 @@
 ﻿using System;
-using CMiX.Studio.ViewModels;
-using CMiX.Studio.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels;
+
 
 namespace CMiX.Engine.Testing
 {
@@ -8,15 +8,16 @@ namespace CMiX.Engine.Testing
     {
         static void Main(string[] args)
         {
-            var project = ComponentFactory.CreateProject();
-            var receiver = new Receiver();
+            //var project = ComponentFactory.CreateProject();
+            //var receiver = new Receiver();
 
-            Settings settings = new Settings("Pouet", "Pouet", "192.168.1.4", 2222);
-            receiver.SetSettings(settings);
-            receiver.StartClient();
-            project.Receiver = receiver;
+            //Settings settings = new Settings("Pouet", "Pouet", "192.168.0.192", 2222);
+            //receiver.SetSettings(settings);
+            //receiver.StartClient();
+            //receiver.DataReceivedEvent += project.OnParentReceiveChange;
 
             Console.ReadLine();
         }
+
     }
 }

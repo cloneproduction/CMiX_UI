@@ -46,7 +46,7 @@ namespace CMiXPlayer.ViewModels
         public Scheduler Scheduler { get; set; }
         public JobEditor JobEditor { get; set; }
 
-        public FileSelector CompoSelector { get; set; }
+        //public FileSelector CompoSelector { get; set; }
         public PlaylistEditor PlaylistEditor { get; set; }
 
         public ObservableCollection<IJob> RunningJobs { get; set; }

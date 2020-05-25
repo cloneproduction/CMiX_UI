@@ -16,8 +16,8 @@ namespace CMiXPlayer.ViewModels
         {
             Playlists = playlists;
 
-            CompoSelector = new FileSelector(string.Empty,"Single", new List<string>() { ".COMPMIX" }, MessageService, new Mementor());
-            CompoSelector.SelectedFileNameItem = new FileNameItem();
+            //CompoSelector = new FileSelector(string.Empty,"Single", new List<string>() { ".COMPMIX" }, MessageService, new Mementor());
+            //CompoSelector.SelectedFileNameItem = new FileNameItem();
 
             //OSCSender = new OSCSender("127.0.0.1", 1111);
             Serializer = cerasSerializer;
@@ -32,10 +32,10 @@ namespace CMiXPlayer.ViewModels
 
         public ObservableCollection<Playlist> Playlists { get; set; }
         public CerasSerializer Serializer { get; set; }
-        public FileSelector CompoSelector { get; set; }
+        //public FileSelector CompoSelector { get; set; }
         public string MessageAddress { get; set; }
-        public MessageService MessageService { get; set; }
-        public Sender Sender { get; set; }
+        //public MessageService MessageService { get; set; }
+        //public Sender Sender { get; set; }
 
         private Playlist _selectedplaylist;
         public Playlist SelectedPlaylist

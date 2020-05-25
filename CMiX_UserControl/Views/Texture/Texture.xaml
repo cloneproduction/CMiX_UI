@@ -10,7 +10,7 @@
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:ViewModels="clr-namespace:CMiX.Studio.ViewModels"
+    xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels"
     d:DesignHeight="636.667"
     d:DesignWidth="316.667"
     mc:Ignorable="d">

@@ -25,7 +25,7 @@ namespace CMiXPlayer.Jobs
             SendPreviousCommand = new RelayCommand(p => SendPrevious());
         }
 
-        public OSCSender OSCSender { get; set; }
+        //public OSCSender OSCSender { get; set; }
 
         public ICommand SendNextCommand { get; }
         public ICommand SendPreviousCommand { get; }
@@ -72,9 +72,9 @@ namespace CMiXPlayer.Jobs
         {
             if(CurrentComposition != null)
             {
-                OSCSender.QueueMessage("/CompositionReloaded", true);
-                OSCSender.QueueObject(CurrentComposition);
-                OSCSender.SendQueue();
+                //OSCSender.QueueMessage("/CompositionReloaded", true);
+                //OSCSender.QueueObject(CurrentComposition);
+                //OSCSender.SendQueue();
             }
         }
 

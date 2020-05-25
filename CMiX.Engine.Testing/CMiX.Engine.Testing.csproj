@@ -58,17 +58,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CMiX.Engine\CMiX.Engine.csproj">
-      <Project>{ad0b09dc-c08d-4402-9927-fad2b5e444b8}</Project>
-      <Name>CMiX.Engine</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CMiX_MVVM\CMiX.MVVM.csproj">
       <Project>{b49435ef-ef33-47b4-a92d-267566db96d8}</Project>
       <Name>CMiX.MVVM</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CMiX_UserControl\CMiX.Studio.csproj">
-      <Project>{53dc5124-81fa-4a26-88b4-26d755a6267f}</Project>
-      <Name>CMiX.Studio</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

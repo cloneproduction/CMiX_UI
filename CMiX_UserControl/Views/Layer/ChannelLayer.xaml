@@ -178,7 +178,7 @@
                                     CommandParameter="{Binding}"/>
                             </Grid.InputBindings>
                             <DockPanel Height="25">
-                                <ToggleButton Padding="2" Style="{StaticResource ToggleVisibility}"/>
+                                <ToggleButton Padding="2" Style="{DynamicResource ToggleVisibility}"/>
                                 <Controls:EditableTextBox 
                                     Margin="16, 0, 0, 0" 
                                     Padding="4" 

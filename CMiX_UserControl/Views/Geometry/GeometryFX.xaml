@@ -16,11 +16,11 @@
         Foreground="{StaticResource TextBase}" 
         Header="GSFX">
         <StackPanel>
-            <MVVM.Views:Slider
+            <!--<MVVM.Views:Slider
                 Margin="0, 4, 0, 0"
                 Height="25"
                 Caption="Explode"
-                DataContext="{Binding Explode}"/>
+                DataContext="{Binding Explode}"/>-->
         </StackPanel>
     </Expander>
 </UserControl>

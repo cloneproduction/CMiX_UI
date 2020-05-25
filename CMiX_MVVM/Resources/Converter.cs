@@ -1,8 +1,5 @@
-﻿using CMiX.MVVM.Resources;
-using ColorMine.ColorSpaces;
+﻿using ColorMine.ColorSpaces;
 using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Windows;
@@ -679,7 +676,6 @@ namespace CMiX.MVVM.Resources
 
     public class BoolToVisibilityConverter : IValueConverter
     {
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (!(value is bool))

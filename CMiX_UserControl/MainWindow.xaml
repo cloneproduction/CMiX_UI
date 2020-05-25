@@ -63,10 +63,10 @@
                 HorizontalAlignment="Left"
                 VerticalContentAlignment="Center">
                 <MenuItem
-                        Padding="8,0"
-                        HorizontalContentAlignment="Stretch"
-                        VerticalContentAlignment="center"
-                        Header="File">
+                    Padding="8,0"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="center"
+                    Header="File">
                     <MenuItem
                         Header="New"
                         Command="{Binding NewProjectCommand}"
@@ -140,7 +140,7 @@
             BorderThickness="1"
             Background="{StaticResource DarkColor}" 
             Height="25"/>
-        <Grid>
+        <!--<Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="3*"/>
@@ -177,7 +177,7 @@
                 <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Background="Transparent" Height="2"/>
                 <Views:ComponentPanel Background="{StaticResource HighDarkerColor}" Grid.Row="2" DataContext="{Binding Outliner}"/>
             </Grid>
-        </Grid>
+        </Grid>-->
     </DockPanel>
 
 </Window>

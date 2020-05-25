@@ -6,7 +6,7 @@
              xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
              xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:Behaviors="clr-namespace:CMiX.Behaviors"
+             xmlns:Behaviors="clr-namespace:CMiX.MVVM.Behaviors;assembly=CMiX.MVVM"
              mc:Ignorable="d" 
              d:DesignHeight="150.801" d:DesignWidth="415.252">
 

@@ -6,7 +6,7 @@
     xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
-    xmlns:ViewModels="clr-namespace:CMiX.Studio.ViewModels"
+    xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels"
     xmlns:MVVM.ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX.MVVM"
     xmlns:Views = "clr-namespace:CMiX.Studio.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"

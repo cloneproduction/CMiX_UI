@@ -1,9 +1,4 @@
 ﻿using CMiX.MVVM.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -12,7 +7,7 @@ namespace CMiX.MVVM.ViewModels
         public static SliderModel GetModel(this Slider instance)
         {
             SliderModel model = new SliderModel();
-            model.Amount = instance.Amount;
+            //model.Amount = instance.Amount;
             return model;
         }
 

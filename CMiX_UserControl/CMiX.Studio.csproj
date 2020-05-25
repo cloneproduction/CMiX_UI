@@ -100,9 +100,6 @@
     <Reference Include="MvvmDialogs, Version=7.0.0.0, Culture=neutral, PublicKeyToken=3d3b9708589bc73e, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmDialogs.7.0.0\lib\net462\MvvmDialogs.dll</HintPath>
     </Reference>
-    <Reference Include="SharpOSC">
-      <HintPath>..\lib\SharpOSC.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
@@ -128,63 +125,17 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviors\ContextMenuMouseDownBehavior.cs" />
-    <Compile Include="ViewModels\Assets\Asset.cs" />
-    <Compile Include="ViewModels\Assets\AssetDragDrop.cs" />
-    <Compile Include="ViewModels\Assets\AssetPathSelector.cs" />
-    <Compile Include="ViewModels\Components\ComponentEventArgs.cs" />
-    <Compile Include="ViewModels\Components\ComponentFactory.cs" />
-    <Compile Include="ViewModels\Components\ComponentModelFactory.cs" />
-    <Compile Include="ViewModels\Components\Outliner.cs" />
-    <Compile Include="ViewModels\Counter.cs" />
-    <Compile Include="ViewModels\Dialogs\CustomDialog.cs" />
-    <Compile Include="ViewModels\Dialogs\CustomFrameworkDialogFactory.cs" />
-    <Compile Include="ViewModels\Dialogs\CustomTypeLocator.cs" />
-    <Compile Include="ViewModels\Dialogs\MessengerSettingsDialog.cs" />
-    <Compile Include="ViewModels\Dialogs\ModalDialog.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\MessageService\Receiver.cs" />
-    <Compile Include="ViewModels\MessageService\Server.cs" />
-    <Compile Include="ViewModels\MessageService\SettingsEventArgs.cs" />
-    <Compile Include="ViewModels\ModelFactory.cs" />
-    <Compile Include="ViewModels\Sendable.cs" />
-    <Compile Include="ViewModels\MessageService\Messenger.cs" />
-    <Compile Include="ViewModels\MessageService\MessengerFactory.cs" />
-    <Compile Include="ViewModels\MessageService\MessengerManager.cs" />
-    <Compile Include="ViewModels\MessageService\Settings.cs" />
-    <Compile Include="ViewModels\Slider\Slider.cs" />
-    <Compile Include="ViewModels\Slider\SliderModelFactory.cs" />
     <Compile Include="Views\Assets\TexturePathSelector.xaml.cs">
       <DependentUpon>TexturePathSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Assets\GeometryPathSelector.xaml.cs">
       <DependentUpon>GeometryPathSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Behaviors\BindableTreeViewSelectedItemBehavior.cs" />
-    <Compile Include="Behaviors\FolderDialogBehavior.cs" />
-    <Compile Include="Behaviors\ListBoxSelectionBehavior.cs" />
-    <Compile Include="Behaviors\SliderBehavior.cs" />
-    <Compile Include="Behaviors\ClickBehavior.cs" />
-    <Compile Include="Behaviors\TreeViewItemClickBehavior.cs" />
-    <Compile Include="Behaviors\TextBoxFocusBehavior.cs" />
-    <Compile Include="Behaviors\TreeViewMultiSelectionBehavior.cs" />
-    <Compile Include="ViewModels\Assets\IDirectory.cs" />
-    <Compile Include="ViewModels\Assets\EnumFileType.cs" />
-    <Compile Include="ViewModels\Assets\IAssets.cs" />
-    <Compile Include="ViewModels\Components\Component.cs" />
-    <Compile Include="ViewModels\Components\ComponentManager.cs" />
-    <Compile Include="ViewModels\Components\ComponentPanelTemplateSelector.cs" />
     <Compile Include="Views\Component\ComponentPanel.xaml.cs">
       <DependentUpon>ComponentPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Dialogs\CustomWindowDialog.xaml.cs">
-      <DependentUpon>CustomWindowDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Mask\MaskPanel.xaml.cs">
       <DependentUpon>MaskPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Messenger\MessengerSettingsWindow.xaml.cs">
-      <DependentUpon>MessengerSettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Outliner\Outliner.xaml.cs">
       <DependentUpon>Outliner.xaml</DependentUpon>
@@ -192,23 +143,6 @@
     <Compile Include="Views\SliderBeat.xaml.cs">
       <DependentUpon>SliderBeat.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Components\EditorTemplateSelector.cs" />
-    <Compile Include="ViewModels\BlendMode.cs" />
-    <Compile Include="ViewModels\Assets\AssetDirectory.cs" />
-    <Compile Include="ViewModels\Assets\AssetTexture.cs" />
-    <Compile Include="ViewModels\Assets\AssetGeometry.cs" />
-    <Compile Include="ViewModels\Assets\AssetManager.cs" />
-    <Compile Include="ViewModels\Entity\Geometry\Instancer\AnimParameter.cs" />
-    <Compile Include="ViewModels\Entity\Geometry\Instancer\ScaleModifier.cs" />
-    <Compile Include="ViewModels\Entity\Geometry\Instancer\RotationModifier.cs" />
-    <Compile Include="ViewModels\Entity\Geometry\Instancer\TranslateModifier.cs" />
-    <Compile Include="ViewModels\Entity\Geometry\Instancer\Instancer.cs" />
-    <Compile Include="ViewModels\Entity\Geometry\Transform\Rotation.cs" />
-    <Compile Include="ViewModels\Entity\Geometry\Transform\Scale.cs" />
-    <Compile Include="ViewModels\Entity\Geometry\Transform\Transform.cs" />
-    <Compile Include="ViewModels\Entity\Geometry\Transform\Translate.cs" />
-    <Compile Include="ViewModels\Components\Entity.cs" />
-    <Compile Include="ViewModels\Components\ComponentEditor.cs" />
     <Compile Include="Views\Entity\EntityPanel.xaml.cs">
       <DependentUpon>EntityPanel.xaml</DependentUpon>
     </Compile>
@@ -221,8 +155,6 @@
     <Compile Include="Views\Component\ComponentEditor.xaml.cs">
       <DependentUpon>ComponentEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="_Thrash\Services\OSCAttribute.cs" />
-    <Compile Include="ViewModels\Coloration\ColorSelector.cs" />
     <Compile Include="Views\Coloration\ColorSelector.xaml.cs">
       <DependentUpon>ColorSelector.xaml</DependentUpon>
     </Compile>
@@ -274,48 +206,18 @@
     <Compile Include="Views\Geometry\Transform\Transform.xaml.cs">
       <DependentUpon>Transform.xaml</DependentUpon>
     </Compile>
-    <Compile Include="_Thrash\SetAndNotifyPropertyAction.cs" />
-    <Compile Include="ViewModels\FileSelector\FileNameItem.cs" />
-    <Compile Include="ViewModels\FileSelector\FileSelector.cs" />
-    <Compile Include="_Thrash\OSCControl.cs" />
-    <Compile Include="ViewModels\Components\Project.cs" />
-    <Compile Include="ViewModels\Entity\Geometry\GeometryFX.cs" />
-    <Compile Include="ViewModels\Entity\Geometry\GeometryRotation.cs" />
-    <Compile Include="ViewModels\Entity\Geometry\GeometryScale.cs" />
     <None Include="packages.config" />
-    <None Include="_Thrash\IMessenger.cs" />
-    <Compile Include="ViewModels\Beat\Beat.cs" />
-    <Compile Include="ViewModels\Beat\BeatModifier.cs" />
-    <Compile Include="ViewModels\Entity\Geometry\GeometryTranslate.cs" />
-    <Compile Include="ViewModels\RangeControl.cs" />
-    <Compile Include="_Thrash\ShortCodeAttribute.cs" />
     <Compile Include="Views\Beat\BeatModifier.xaml.cs">
       <DependentUpon>BeatModifier.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Camera\Camera.cs" />
-    <Compile Include="ViewModels\Coloration\Coloration.cs" />
-    <Compile Include="ViewModels\Components\Scene.cs" />
-    <Compile Include="ViewModels\Entity\Geometry\Geometry.cs" />
-    <Compile Include="ViewModels\Components\Layer.cs" />
-    <Compile Include="ViewModels\Beat\MasterBeat.cs" />
-    <Compile Include="ViewModels\Components\Mask.cs" />
-    <Compile Include="ViewModels\PostFX\PostFX.cs" />
-    <Compile Include="ViewModels\Components\Composition.cs" />
-    <Compile Include="ViewModels\Entity\Texture\Texture.cs" />
     <Compile Include="Views\Beat\BeatControls.xaml.cs">
       <DependentUpon>BeatControls.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Camera.xaml.cs">
       <DependentUpon>Camera.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Messenger\MessageValidation.xaml.cs">
-      <DependentUpon>MessageValidation.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Coloration\Coloration.xaml.cs">
       <DependentUpon>Coloration.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="_Thrash\Content.xaml.cs">
-      <DependentUpon>Content.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Project.xaml.cs">
       <DependentUpon>Project.xaml</DependentUpon>
@@ -329,25 +231,11 @@
     <Compile Include="Views\RangeControl.xaml.cs">
       <DependentUpon>RangeControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="_Thrash\ScaleSelector.xaml.cs">
-      <DependentUpon>ScaleSelector.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="_Thrash\RotationSelector.xaml.cs">
-      <DependentUpon>RotationSelector.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="_Thrash\TranslateSelector.xaml.cs">
-      <DependentUpon>TranslateSelector.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Geometry\GeometryFX.xaml.cs">
       <DependentUpon>GeometryFX.xaml</DependentUpon>
     </Compile>
-    <Compile Include="_Thrash\DragAndDropListbox.cs" />
-    <Compile Include="_Thrash\Services\OSCListener.cs" />
     <Compile Include="Views\Layer\ChannelLayer.xaml.cs">
       <DependentUpon>ChannelLayer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="_Thrash\ShiftSlider.xaml.cs">
-      <DependentUpon>ShiftSlider.xaml</DependentUpon>
     </Compile>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -373,15 +261,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Dialogs\CustomWindowDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Mask\MaskPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Messenger\MessengerSettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -477,10 +357,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="_Thrash\SliderCentered.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Beat\BeatModifier.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -489,15 +365,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Messenger\MessageValidation.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Coloration\Coloration.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="_Thrash\Content.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -514,18 +382,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RangeControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="_Thrash\ScaleSelector.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="_Thrash\RotationSelector.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="_Thrash\TranslateSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -552,10 +408,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\Geometry\GeometryFX.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="_Thrash\ShiftSlider.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -610,10 +462,6 @@
     <ProjectReference Include="..\CMiX_MVVM\CMiX.MVVM.csproj">
       <Project>{b49435ef-ef33-47b4-a92d-267566db96d8}</Project>
       <Name>CMiX.MVVM</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ColorPicker\ColorPicker.csproj">
-      <Project>{89b6207c-9c60-4c00-8f0e-36854692b65b}</Project>
-      <Name>ColorPicker</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

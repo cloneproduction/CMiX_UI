@@ -7,7 +7,7 @@
 
     <BitmapImage x:Key="NewLayer" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/NewLayer.png"/>
     <BitmapImage x:Key="DeleteLayer" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/DeleteLayer.png"/>
-    <!--Source="pack://application:,,,/CMiX.MVVM;component/Themes/Generic.xaml"/>-->
+
     <BitmapImage x:Key="AddTab" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/AddTab.png"/>
     <BitmapImage x:Key="CloseTab" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/CloseTab.png"/>
 
