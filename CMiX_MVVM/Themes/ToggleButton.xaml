@@ -4,6 +4,7 @@
     
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Brushes.xaml" />
+        <!--<ResourceDictionary Source="Icons.xaml" />-->
     </ResourceDictionary.MergedDictionaries>
     
     <Style TargetType="{x:Type ToggleButton}">
@@ -37,7 +38,7 @@
                         Padding="4"
                         Background="{TemplateBinding Background}"
                         SnapsToDevicePixels="True">
-                        <Image x:Name="Path" Opacity="0.9" Source="{StaticResource IsChecked}"/>
+                        <Image x:Name="Path" Opacity="0.9" Source="{DynamicResource IsChecked}"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <MultiTrigger>
@@ -131,14 +132,14 @@
                         Padding="{TemplateBinding Padding}"
                         Background="{TemplateBinding Background}"
                         SnapsToDevicePixels="True">
-                        <Image x:Name="ImageIcon" Opacity="0.75" Margin="4" Source="{StaticResource NotVisible}"/>
+                        <Image x:Name="ImageIcon" Opacity="0.75" Margin="4" Source="{DynamicResource NotVisible}"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsChecked" Value="true" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="ImageIcon" Property="Source" Value="{StaticResource NotVisible}"/>
+                            <Setter TargetName="ImageIcon" Property="Source" Value="{DynamicResource NotVisible}"/>
                             <!--<MultiTrigger.Setters>
                                 <Setter TargetName="ImageIcon" Property="Source" Value="{StaticResource Visible}"/>
                             </MultiTrigger.Setters>-->
@@ -149,7 +150,7 @@
                                 <Condition Property="IsChecked" Value="false" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter TargetName="ImageIcon" Property="Source" Value="{StaticResource Visible}"/>
+                                <Setter TargetName="ImageIcon" Property="Source" Value="{DynamicResource Visible}"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
                         
@@ -168,7 +169,7 @@
                                 <Condition Property="IsMouseOver" Value="true" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter TargetName="ImageIcon" Property="Source" Value="{StaticResource NotVisible}"/>
+                                <Setter TargetName="ImageIcon" Property="Source" Value="{DynamicResource NotVisible}"/>
                                 <Setter TargetName="ImageIcon" Property="Opacity" Value="0.9"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
@@ -179,7 +180,7 @@
                                 <Condition Property="IsMouseOver" Value="true" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter TargetName="ImageIcon" Property="Source" Value="{StaticResource Visible}"/>
+                                <Setter TargetName="ImageIcon" Property="Source" Value="{DynamicResource Visible}"/>
                                 <Setter TargetName="ImageIcon" Property="Opacity" Value="0.9"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>

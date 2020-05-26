@@ -1,7 +1,8 @@
-﻿<ResourceDictionary 
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+    
     <PopupAnimation x:Key="{x:Static SystemParameters.MenuPopupAnimationKey}">None</PopupAnimation>
+    
     <ResourceDictionary.MergedDictionaries>
         
         <ResourceDictionary Source="Values.xaml"/>
@@ -17,14 +18,16 @@
         <ResourceDictionary Source="Sliders/XYController.xaml"/>
 
         <ResourceDictionary Source="Expander.xaml"/>
+        <ResourceDictionary Source="ToggleButton.xaml"/>
         <ResourceDictionary Source="Button.xaml"/>
         <ResourceDictionary Source="Label.xaml"/>
+        <ResourceDictionary Source="Menu.xaml"/>
         <ResourceDictionary Source="ContextMenu.xaml"/>
         
         <ResourceDictionary Source="RadioButton.xaml"/>
-        <ResourceDictionary Source="ToggleButton.xaml"/>
+        
         <ResourceDictionary Source="ListBox.xaml"/>
-        <ResourceDictionary Source="Menu.xaml"/>
+        
         <ResourceDictionary Source="Tab.xaml"/>
         <ResourceDictionary Source="BorderContainer.xaml"/>
         <ResourceDictionary Source="ScrollViewer.xaml"/>
@@ -38,6 +41,7 @@
         
         <ResourceDictionary Source="TextBlock.xaml"/>
         <ResourceDictionary Source="TreeView.xaml"/>
+        <ResourceDictionary Source="TreeViewMultiSelect.xaml"/>
         <ResourceDictionary Source="Window.xaml"/>
         <ResourceDictionary Source="MainWindow.xaml"/>
         

@@ -21,8 +21,10 @@
             <Resources:EntityVisibilityConverter x:Key="EntityVisibilityConverter"/>
             <Resources:ItemToParentConverter x:Key="ItemToParentConverter"/>
             <Resources:BindingProxy x:Key="RootProxy" Data="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
-
-            <ContextMenu x:Key="OutlinerContextMenu" Width="175">
+            
+            <ContextMenu x:Key="OutlinerContextMenu" 
+                         Style="{StaticResource ContextMenuDefault}" 
+                         Width="175">
                 
                 <MenuItem
                     IsEnabled="{Binding CanAdd}"
@@ -91,7 +93,7 @@
         </Border>
 
         <Controls:TreeViewSelect 
-            Style="{StaticResource {x:Type TreeView}}"
+            Style="{StaticResource TreeViewDefault}"
             AllowDrop="True"
             dd:DragDrop.IsDragSource="True"
             dd:DragDrop.IsDropTarget="True"
@@ -211,7 +213,7 @@
                 <MouseBinding Gesture="RightClick" Command="{Binding RightClickCommand}" />
             </TreeView.InputBindings>
             <TreeView.ItemContainerStyle>
-                <Style TargetType="TreeViewItem" BasedOn="{StaticResource {x:Type TreeViewItem}}">
+                <Style TargetType="TreeViewItem" BasedOn="{StaticResource TreeViewItemDefault}">
                     <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded}"/>
                 </Style>

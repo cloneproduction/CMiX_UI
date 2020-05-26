@@ -71,7 +71,7 @@
                 </Border>
             </DataTemplate>
 
-            <ContextMenu x:Key="ResourceContextMenu" Width="175">
+            <ContextMenu x:Key="ResourceContextMenu" Style="{StaticResource ContextMenuDefault}" Width="175">
                 <MenuItem
                         IsEnabled="{Binding CanAddAsset}"
                         Command="{Binding AddAssetCommand}"
