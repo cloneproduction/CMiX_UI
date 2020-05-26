@@ -1,9 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Brushes.xaml" />
-    </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type TabControl}">
         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -126,7 +122,7 @@
                 </Style>
             </Setter.Value>
         </Setter>
-        <Setter Property="Background" Value="{StaticResource HighHighDarkerColor}" />
+        <Setter Property="Background" Value="{DynamicResource HighHighDarkerColor}" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -305,7 +301,7 @@
                                 <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type TabControl}}}" Value="Top" />
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Panel.ZIndex" Value="1" />
-                            <Setter TargetName="contentPresenter"   Property="TextBlock.Foreground" Value="{StaticResource ActiveTextBase}"/>
+                            <Setter TargetName="contentPresenter"   Property="TextBlock.Foreground" Value="{DynamicResource ActiveTextBase}"/>
                             <Setter TargetName="innerBorder" Property="BorderThickness" Value="0, 0, 0, 1"/>
                             <Setter TargetName="innerBorder" Property="BorderBrush" Value="{DynamicResource HighLightColor}"/>
                             <Setter TargetName="innerBorder" Property="Background" Value="{DynamicResource HighDarkerColor}" />
@@ -398,8 +394,8 @@
                 </Style>
             </Setter.Value>
         </Setter>
-        <Setter Property="Foreground" Value="{StaticResource TextBase}" />
-        <Setter Property="Background" Value="{StaticResource HighDarkerColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextBase}" />
+        <Setter Property="Background" Value="{DynamicResource HighDarkerColor}"/>
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
@@ -413,7 +409,7 @@
                         Height="40"
                         Padding="8"
                         VerticalAlignment="Center"
-                        BorderBrush="{StaticResource Color}"
+                        BorderBrush="{DynamicResource Color}"
                         Background="Transparent">
                         <Border.InputBindings>
                             <MouseBinding MouseAction="MiddleClick"
@@ -423,7 +419,7 @@
                         <DockPanel>
                             <Button 
                                 x:Name="DeleteTabButton"
-                                Style="{StaticResource CloseTabButton}"
+                                Style="{DynamicResource CloseTabButton}"
                                 Visibility="Collapsed"
                                 Command="{Binding DataContext.RemoveComponentCommand, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"
                                 CommandParameter="{Binding}"
@@ -431,19 +427,19 @@
                             <TextBlock 
                                 x:Name="TabText"
                                 Text="{Binding Name}" 
-                                Foreground="{StaticResource TextBase}"
+                                Foreground="{DynamicResource TextBase}"
                                 VerticalAlignment="Center"/>
                             </DockPanel>
                     </Border>
                         <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter TargetName="DeleteTabButton" Property="Visibility" Value="Visible"/>
-                            <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource DarkerColor }"/>
+                            <Setter TargetName="MainBorder" Property="Background" Value="{DynamicResource DarkerColor }"/>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="true">
-                            <Setter TargetName="TabText" Property="Foreground" Value="{StaticResource ActiveTextBase}"/>
-                            <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource Color}"/>
-                            <Setter TargetName="TabText" Property="Foreground" Value="{StaticResource TextBase}"/>
+                            <Setter TargetName="TabText" Property="Foreground" Value="{DynamicResource ActiveTextBase}"/>
+                            <Setter TargetName="MainBorder" Property="Background" Value="{DynamicResource Color}"/>
+                            <Setter TargetName="TabText" Property="Foreground" Value="{DynamicResource TextBase}"/>
                             <Setter Property="Panel.ZIndex" Value="1" />
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -456,7 +452,7 @@
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Background" Value="{StaticResource HighDarkerColor}" />
+        <Setter Property="Background" Value="{DynamicResource HighDarkerColor}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TabControl}">
@@ -477,7 +473,7 @@
                             Height="30" 
                             Grid.Column="0"
                             BorderThickness="0, 0, 0, 2"
-                            BorderBrush="{StaticResource Color}">
+                            BorderBrush="{DynamicResource Color}">
                             <StackPanel  Orientation="Horizontal">
                                 <TabPanel 
                                     x:Name="headerPanel" 
@@ -524,18 +520,18 @@
                             MinWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" 
                             MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}">
                             <Ellipse x:Name="circle" Fill="Transparent"/>
-                            <Image x:Name="closeIcon" Opacity="0.5" Margin="4" Source="{StaticResource Close}"/>
+                            <Image x:Name="closeIcon" Opacity="0.5" Margin="4" Source="{DynamicResource Close}"/>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Foreground" Value="{StaticResource TextBase}" />
-                            <Setter TargetName="circle" Property="Fill" Value="{StaticResource LightColor}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource TextBase}" />
+                            <Setter TargetName="circle" Property="Fill" Value="{DynamicResource LightColor}"/>
                             <Setter TargetName="closeIcon" Property="Opacity" Value="0.75"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Foreground" Value="{StaticResource TextBase}" />
-                            <Setter TargetName="circle" Property="Fill" Value="{StaticResource HighLightColor}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource TextBase}" />
+                            <Setter TargetName="circle" Property="Fill" Value="{DynamicResource HighLightColor}"/>
                             <Setter TargetName="closeIcon" Property="Opacity" Value="0.9"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -550,7 +546,7 @@
         <Setter Property="Margin" Value="0"/>
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
-        <Setter Property="Background" Value="{StaticResource HighDarkerColor}" />
+        <Setter Property="Background" Value="{DynamicResource HighDarkerColor}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TabControl}">
@@ -615,7 +611,7 @@
                 </Style>
             </Setter.Value>
         </Setter>
-        <Setter Property="Foreground" Value="{StaticResource TextBase}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextBase}" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />

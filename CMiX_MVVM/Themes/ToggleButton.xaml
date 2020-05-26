@@ -1,12 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Brushes.xaml" />
-        <!--<ResourceDictionary Source="Icons.xaml" />-->
-    </ResourceDictionary.MergedDictionaries>
-    
+
     <Style TargetType="{x:Type ToggleButton}">
         <Setter Property="FocusVisualStyle">
             <Setter.Value>
@@ -24,7 +19,7 @@
                 </Style>
             </Setter.Value>
         </Setter>
-        <Setter Property="Background" Value="{StaticResource Color}" />
+        <Setter Property="Background" Value="{DynamicResource Color}" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -46,7 +41,7 @@
                                 <Condition Property="IsChecked" Value="true" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter Property="Background" Value="{StaticResource Color}" />
+                                <Setter Property="Background" Value="{DynamicResource Color}" />
                                 <Setter TargetName="Path" Property="Visibility" Value="Visible"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
@@ -55,7 +50,7 @@
                                 <Condition Property="IsChecked" Value="false" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter Property="Background" Value="{StaticResource DarkColor}" />
+                                <Setter Property="Background" Value="{DynamicResource DarkColor}" />
                                 <Setter TargetName="Path" Property="Visibility" Value="Hidden"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
@@ -66,7 +61,7 @@
                                 <Condition Property="IsMouseOver" Value="true" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter Property="Background" Value="{StaticResource LightColor}" />
+                                <Setter Property="Background" Value="{DynamicResource LightColor}" />
                             </MultiTrigger.Setters>
                         </MultiTrigger>
                         <MultiTrigger>
@@ -75,7 +70,7 @@
                                 <Condition Property="IsMouseOver" Value="true" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter Property="Background" Value="{StaticResource Color}" />
+                                <Setter Property="Background" Value="{DynamicResource Color}" />
                             </MultiTrigger.Setters>
                         </MultiTrigger>
 
@@ -85,7 +80,7 @@
                                 <Condition Property="IsChecked" Value="true" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter Property="Background" Value="{StaticResource HighLightColor}" />
+                                <Setter Property="Background" Value="{DynamicResource HighLightColor}" />
                             </MultiTrigger.Setters>
                         </MultiTrigger>
                         <MultiTrigger>
@@ -94,7 +89,7 @@
                                 <Condition Property="IsChecked" Value="false" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter Property="Background" Value="{StaticResource HighLightColor}" />
+                                <Setter Property="Background" Value="{DynamicResource HighLightColor}" />
                             </MultiTrigger.Setters>
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
@@ -141,7 +136,7 @@
                             </MultiTrigger.Conditions>
                             <Setter TargetName="ImageIcon" Property="Source" Value="{DynamicResource NotVisible}"/>
                             <!--<MultiTrigger.Setters>
-                                <Setter TargetName="ImageIcon" Property="Source" Value="{StaticResource Visible}"/>
+                                <Setter TargetName="ImageIcon" Property="Source" Value="{DynamicResource Visible}"/>
                             </MultiTrigger.Setters>-->
                         </MultiTrigger>
                         
@@ -159,7 +154,7 @@
                                 <Condition Property="IsEnabled" Value="false" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter TargetName="ImageIcon" Property="Source" Value="{StaticResource NotVisible}"/>
+                                <Setter TargetName="ImageIcon" Property="Source" Value="{DynamicResource NotVisible}"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>-->
                         

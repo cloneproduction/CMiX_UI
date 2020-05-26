@@ -1,16 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Brushes.xaml" />
-    </ResourceDictionary.MergedDictionaries>
-    
+
     <Style TargetType="{x:Type ListBox}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate  TargetType="{x:Type ListBox}">
                     <Border
                         x:Name="Bd"
-                        Background="{StaticResource HighDarkerColor}"
+                        Background="{DynamicResource HighDarkerColor}"
                         SnapsToDevicePixels="True">
                         <ScrollViewer Padding="{TemplateBinding Padding}" Focusable="False">
                             <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
@@ -64,7 +61,7 @@
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         SnapsToDevicePixels="True"
-                        TextBlock.Foreground="{StaticResource TextBase}">
+                        TextBlock.Foreground="{DynamicResource TextBase}">
                         <ContentPresenter
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -79,16 +76,16 @@
                                 <Condition Property="Selector.IsSelectionActive" Value="False" />
                                 <Condition Property="IsSelected" Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="Bd" Property="TextBlock.Foreground" Value="{StaticResource ActiveTextBase}" />
-                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource LightColor}" />
+                            <Setter TargetName="Bd" Property="TextBlock.Foreground" Value="{DynamicResource ActiveTextBase}" />
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightColor}" />
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="Selector.IsSelectionActive" Value="True" />
                                 <Condition Property="IsSelected" Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="Bd" Property="TextBlock.Foreground" Value="{StaticResource ActiveTextBase}" />
-                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource LightColor}" />
+                            <Setter TargetName="Bd" Property="TextBlock.Foreground" Value="{DynamicResource ActiveTextBase}" />
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightColor}" />
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -96,8 +93,8 @@
                                 <Condition Property="IsSelected" Value="False" />
                                 <Condition Property="IsMouseOver" Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="Bd" Property="TextBlock.Foreground" Value="{StaticResource ActiveTextBase}" />
-                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource DarkColor}" />
+                            <Setter TargetName="Bd" Property="TextBlock.Foreground" Value="{DynamicResource ActiveTextBase}" />
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource DarkColor}" />
                         </MultiTrigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="Bd" Property="TextElement.Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
@@ -114,7 +111,7 @@
                 <ControlTemplate  TargetType="{x:Type ListBox}">
                     <Border
                         x:Name="Bd"
-                        Background="{StaticResource HighDarkerColor}"
+                        Background="{DynamicResource HighDarkerColor}"
                         SnapsToDevicePixels="True">
                         <ScrollViewer Padding="{TemplateBinding Padding}" Focusable="False">
                             <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
@@ -165,8 +162,8 @@
                         x:Name="Bd"
                         SnapsToDevicePixels="True"
                         BorderThickness="0, 0, 0, 1"
-                        BorderBrush="{StaticResource SuperHighDarkerColor}"
-                        TextBlock.Foreground="{StaticResource TextBase}">
+                        BorderBrush="{DynamicResource SuperHighDarkerColor}"
+                        TextBlock.Foreground="{DynamicResource TextBase}">
                         <ContentPresenter
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -180,10 +177,10 @@
                             <Setter TargetName="Bd" Property="TextElement.Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource DarkColor}"/>
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource DarkColor}"/>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource Color}"/>
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource Color}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -197,7 +194,7 @@
                 <ControlTemplate  TargetType="{x:Type ListBox}">
                     <Border
                         x:Name="Bd"
-                        Background="{StaticResource HighDarkerColor}"
+                        Background="{DynamicResource HighDarkerColor}"
                         SnapsToDevicePixels="True">
                         <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                     </Border>
@@ -242,10 +239,10 @@
                     <Border
                         x:Name="Bd"
                         SnapsToDevicePixels="True"
-                        Background="{StaticResource SuperHighDarkerColor}"
+                        Background="{DynamicResource SuperHighDarkerColor}"
                         BorderThickness="0, 0, 0, 1"
-                        BorderBrush="{StaticResource HighDarkerColor}"
-                        TextBlock.Foreground="{StaticResource TextBase}">
+                        BorderBrush="{DynamicResource HighDarkerColor}"
+                        TextBlock.Foreground="{DynamicResource TextBase}">
                         <ContentPresenter
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -259,10 +256,10 @@
                             <Setter TargetName="Bd" Property="TextElement.Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource HighDarkerColor}"/>
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource HighDarkerColor}"/>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
-                            <!--<Setter TargetName="Bd" Property="Background" Value="{StaticResource DarkerColor}"/>-->
+                            <!--<Setter TargetName="Bd" Property="Background" Value="{DynamicResource DarkerColor}"/>-->
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

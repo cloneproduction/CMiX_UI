@@ -4,10 +4,15 @@
     <PopupAnimation x:Key="{x:Static SystemParameters.MenuPopupAnimationKey}">None</PopupAnimation>
     
     <ResourceDictionary.MergedDictionaries>
-        
-        <ResourceDictionary Source="Values.xaml"/>
+        <ResourceDictionary Source="Colors.xaml"/>
         <ResourceDictionary Source="Brushes.xaml"/>
         <ResourceDictionary Source="Icons.xaml"/>
+
+        <ResourceDictionary Source="Values.xaml"/>
+        <ResourceDictionary Source="BorderContainer.xaml"/>
+        <ResourceDictionary Source="TextBlock.xaml"/>
+        <ResourceDictionary Source="GridSplitter.xaml"/>
+        <ResourceDictionary Source="Button.xaml"/>
 
         <!--SLIDERS-->
         <ResourceDictionary Source="Sliders/Slider.xaml"/>
@@ -19,7 +24,7 @@
 
         <ResourceDictionary Source="Expander.xaml"/>
         <ResourceDictionary Source="ToggleButton.xaml"/>
-        <ResourceDictionary Source="Button.xaml"/>
+        
         <ResourceDictionary Source="Label.xaml"/>
         <ResourceDictionary Source="Menu.xaml"/>
         <ResourceDictionary Source="ContextMenu.xaml"/>
@@ -29,7 +34,7 @@
         <ResourceDictionary Source="ListBox.xaml"/>
         
         <ResourceDictionary Source="Tab.xaml"/>
-        <ResourceDictionary Source="BorderContainer.xaml"/>
+        
         <ResourceDictionary Source="ScrollViewer.xaml"/>
         
         <ResourceDictionary Source="ToolTip.xaml"/>
@@ -37,9 +42,9 @@
         <ResourceDictionary Source="ComboBox.xaml"/>
         <ResourceDictionary Source="DataGrid.xaml"/>
         <ResourceDictionary Source="TextBox.xaml"/>
-        <ResourceDictionary Source="GridSplitter.xaml"/>
         
-        <ResourceDictionary Source="TextBlock.xaml"/>
+        
+        
         <ResourceDictionary Source="TreeView.xaml"/>
         <ResourceDictionary Source="TreeViewMultiSelect.xaml"/>
         <ResourceDictionary Source="Window.xaml"/>

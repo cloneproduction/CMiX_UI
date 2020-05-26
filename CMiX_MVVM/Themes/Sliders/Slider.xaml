@@ -40,6 +40,88 @@
         </ResourceDictionary>
 
     </ResourceDictionary.MergedDictionaries>
+
+
+    <!--<Style x:Key="AddButton" TargetType="Button" BasedOn="{StaticResource ButtonRoundedRight}">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Style.Triggers>
+            <StaticResource ResourceKey="Trigger0" />
+            <StaticResource ResourceKey="Trigger1" />
+            <StaticResource ResourceKey="Trigger2" />
+            <StaticResource ResourceKey="Trigger3" />
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="SubButton" TargetType="Button" BasedOn="{StaticResource ButtonRoundedLeft}">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Style.Triggers>
+            <StaticResource ResourceKey="Trigger0" />
+            <StaticResource ResourceKey="Trigger1" />
+            <StaticResource ResourceKey="Trigger2" />
+            <StaticResource ResourceKey="Trigger3" />
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="AddButtonBottom" TargetType="Button" BasedOn="{StaticResource ButtonRoundedBottomRight}">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Style.Triggers>
+            <StaticResource ResourceKey="Trigger0" />
+            <StaticResource ResourceKey="Trigger1" />
+            <StaticResource ResourceKey="Trigger2" />
+            <StaticResource ResourceKey="Trigger3" />
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="SubButtonBottom" TargetType="Button" BasedOn="{StaticResource ButtonRoundedBottomLeft}">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Style.Triggers>
+            <StaticResource ResourceKey="Trigger0" />
+            <StaticResource ResourceKey="Trigger1" />
+            <StaticResource ResourceKey="Trigger2" />
+            <StaticResource ResourceKey="Trigger3" />
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="SubButtonTop" TargetType="Button" BasedOn="{StaticResource ButtonRoundedTopLeft}">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Style.Triggers>
+            <StaticResource ResourceKey="Trigger0" />
+            <StaticResource ResourceKey="Trigger1" />
+            <StaticResource ResourceKey="Trigger2" />
+            <StaticResource ResourceKey="Trigger3" />
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="AddButtonTop" TargetType="Button" BasedOn="{StaticResource ButtonRoundedTopRight}">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Style.Triggers>
+            <StaticResource ResourceKey="Trigger0" />
+            <StaticResource ResourceKey="Trigger1" />
+            <StaticResource ResourceKey="Trigger2" />
+            <StaticResource ResourceKey="Trigger3" />
+        </Style.Triggers>
+    </Style>-->
+
+    <Style x:Key="SubButton" TargetType="Button">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Style.Triggers>
+            <StaticResource ResourceKey="Trigger0" />
+            <StaticResource ResourceKey="Trigger1" />
+            <StaticResource ResourceKey="Trigger2" />
+            <StaticResource ResourceKey="Trigger3" />
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="AddButton" TargetType="Button">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Style.Triggers>
+            <StaticResource ResourceKey="Trigger0" />
+            <StaticResource ResourceKey="Trigger1" />
+            <StaticResource ResourceKey="Trigger2" />
+            <StaticResource ResourceKey="Trigger3" />
+        </Style.Triggers>
+    </Style>
+    
     
     <Style x:Key="RepeatButtonDecrease" TargetType="{x:Type RepeatButton}">
         <Setter Property="OverridesDefaultStyle" Value="true" />
@@ -49,7 +131,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
-                    <Border Background="{StaticResource Color}" />
+                    <Border Background="{DynamicResource Color}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -60,7 +142,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
-                    <Border  Background="{StaticResource HighLightColor}"/>
+                    <Border  Background="{DynamicResource HighLightColor}"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -74,7 +156,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
-                    <Border Background="{StaticResource DarkColor}" />
+                    <Border Background="{DynamicResource DarkColor}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -85,22 +167,74 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
-                    <Border Background="{StaticResource Color}" />
+                    <Border Background="{DynamicResource Color}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
+    <Style x:Key="SliderTextBox" TargetType="{x:Type TextBox}">
+        <Setter Property="Visibility" Value="Hidden"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Padding" Value="8, 0"/>
+        <Setter Property="Focusable" Value="True"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextBase}"/>
+        <Setter Property="SelectionBrush" Value="{DynamicResource SuperHighLightColor}"/>
+        <Setter Property="CaretBrush" Value="{DynamicResource TextBase}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border x:Name="border" CornerRadius="0" Background="{DynamicResource SuperHighDarkerColor}">
+                        <ScrollViewer x:Name="PART_ContentHost"
+                                    Focusable="False"
+                                    VerticalAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    HorizontalScrollBarVisibility="Hidden"
+                                    VerticalScrollBarVisibility="Hidden" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource SuperHighDarkerColor}" />
+                        </Trigger>
+
+                        <DataTrigger  Binding="{Binding Path=IsEditing, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+
+                        <DataTrigger  Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Top">
+                            <Setter TargetName="border" Property="CornerRadius" Value="{DynamicResource CornerRadiusTop}"/>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Bottom">
+                            <Setter TargetName="border" Property="CornerRadius" Value="{DynamicResource CornerRadiusBottom}"/>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Middle">
+                            <Setter TargetName="border" Property="CornerRadius" Value="0"/>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Default">
+                            <Setter TargetName="border" Property="CornerRadius" Value="{DynamicResource CornerRadiusDefault}"/>
+                        </DataTrigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
     <Style x:Key="borderMask" TargetType="{x:Type Border}">
-        <Setter Property="Background" Value="{StaticResource DarkerColor}"/>
+        <Setter Property="Background" Value="{DynamicResource DarkerColor}"/>
         <Setter Property="CornerRadius" Value="0"/>
         <Style.Triggers>
             <DataTrigger  Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Top">
-                <Setter Property="CornerRadius" Value="{StaticResource CornerRadiusTop}"/>
+                <Setter Property="CornerRadius" Value="{DynamicResource CornerRadiusTop}"/>
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Bottom">
-                <Setter Property="CornerRadius" Value="{StaticResource CornerRadiusBottom}"/>
+                <Setter Property="CornerRadius" Value="{DynamicResource CornerRadiusBottom}"/>
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Middle">
@@ -108,11 +242,44 @@
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Default">
-                <Setter Property="CornerRadius" Value="{StaticResource CornerRadiusDefault}"/>
+                <Setter Property="CornerRadius" Value="{DynamicResource CornerRadiusDefault}"/>
             </DataTrigger>
         </Style.Triggers>
     </Style>
- 
+
+    <Style x:Key="distanceSliderBorder" TargetType="Border">
+        <Setter Property="Background" Value="{DynamicResource DarkColor}"/>
+        <Setter Property="Controls:MouseDownHelper.IsEnabled" Value="True"/>
+        <Style.Triggers>
+
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Color}"/>
+                <Setter Property="Cursor" Value="SizeWE"/>
+            </Trigger>
+
+            <Trigger Property="Controls:MouseDownHelper.IsMouseLeftButtonDown" Value="True">
+                <Setter Property="Cursor" Value="None"/>
+            </Trigger>
+
+            <DataTrigger  Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Top">
+                <Setter Property="CornerRadius" Value="{DynamicResource CornerRadiusTop}"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Bottom">
+                <Setter Property="CornerRadius" Value="{DynamicResource CornerRadiusBottom}"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Middle">
+                <Setter Property="CornerRadius" Value="0"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Default">
+                <Setter Property="CornerRadius" Value="{DynamicResource CornerRadiusDefault}"/>
+            </DataTrigger>
+
+        </Style.Triggers>
+    </Style>
+    
     <Style x:Key="CMiXSliderStyle" TargetType="{x:Type Controls:CMiXSlider}">
         <Setter Property="Height" Value="20"/>
         <Setter Property="Focusable" Value="False" />
@@ -207,69 +374,12 @@
         </Setter>
     </Style>
 
-
-    
-    
-    <Style x:Key="SliderTextBox" TargetType="{x:Type TextBox}">
-        <Setter Property="Visibility" Value="Hidden"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Margin" Value="0"/>
-        <Setter Property="Padding" Value="8, 0"/>
-        <Setter Property="Focusable" Value="True"/>
-        <Setter Property="Foreground" Value="{StaticResource TextBase}"/>
-        <Setter Property="SelectionBrush" Value="{StaticResource SuperHighLightColor}"/>
-        <Setter Property="CaretBrush" Value="{StaticResource TextBase}"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type TextBox}">
-                    <Border x:Name="border" CornerRadius="0" Background="{StaticResource SuperHighDarkerColor}">
-                        <ScrollViewer x:Name="PART_ContentHost"
-                                    Focusable="False"
-                                    VerticalAlignment="Center"
-                                    VerticalContentAlignment="Center"
-                                    HorizontalScrollBarVisibility="Hidden"
-                                    VerticalScrollBarVisibility="Hidden" />
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        
-                        <Trigger Property="IsFocused" Value="True">
-                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource SuperHighDarkerColor}" />
-                        </Trigger>
-                        
-                        <DataTrigger  Binding="{Binding Path=IsEditing, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-
-                        <DataTrigger  Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Top">
-                            <Setter TargetName="border" Property="CornerRadius" Value="{StaticResource CornerRadiusTop}"/>
-                        </DataTrigger>
-
-                        <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Bottom">
-                            <Setter TargetName="border" Property="CornerRadius" Value="{StaticResource CornerRadiusBottom}"/>
-                        </DataTrigger>
-
-                        <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Middle">
-                            <Setter TargetName="border" Property="CornerRadius" Value="0"/>
-                        </DataTrigger>
-
-                        <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Default">
-                            <Setter TargetName="border" Property="CornerRadius" Value="{StaticResource CornerRadiusDefault}"/>
-                        </DataTrigger>
-                        
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-    
-
     <Style x:Key="DistanceSliderStyle" TargetType="{x:Type Controls:DistanceSlider}">
         <Setter Property="Focusable" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Controls:DistanceSlider}">
-                    <Border x:Name="mainBorder"
-                            Style="{StaticResource distanceSliderBorder}">
+                    <Border x:Name="mainBorder" Style="{StaticResource distanceSliderBorder}">
                         <Grid>
                             <TextBox x:Name="valueInput" 
                                         Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource TemplatedParent}}"
@@ -321,119 +431,10 @@
 
     </Border>
 
-    <Style x:Key="distanceSliderBorder" TargetType="Border">
-        <Setter Property="Background" Value="{StaticResource DarkColor}"/>
-        <Setter Property="Controls:MouseDownHelper.IsEnabled" Value="True"/>
-        <Style.Triggers>
-            
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource Color}"/>
-                <Setter Property="Cursor" Value="SizeWE"/>
-            </Trigger>
-            
-            <Trigger Property="Controls:MouseDownHelper.IsMouseLeftButtonDown" Value="True">
-                <Setter Property="Cursor" Value="None"/>
-            </Trigger>
-
-            <DataTrigger  Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Top">
-                <Setter Property="CornerRadius" Value="{StaticResource CornerRadiusTop}"/>
-            </DataTrigger>
-
-            <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Bottom">
-                <Setter Property="CornerRadius" Value="{StaticResource CornerRadiusBottom}"/>
-            </DataTrigger>
-
-            <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Middle">
-                <Setter Property="CornerRadius" Value="0"/>
-            </DataTrigger>
-
-            <DataTrigger Binding="{Binding Path=Position, RelativeSource={RelativeSource TemplatedParent}}" Value="Default">
-                <Setter Property="CornerRadius" Value="{StaticResource CornerRadiusDefault}"/>
-            </DataTrigger>
-            
-        </Style.Triggers>
-    </Style>
+   
 
 
-    <Style x:Key="AddButton" TargetType="Button" BasedOn="{StaticResource ButtonRoundedRight}">
-        <Setter Property="HorizontalAlignment" Value="Right"/>
-        <Style.Triggers>
-            <StaticResource ResourceKey="Trigger0" />
-            <StaticResource ResourceKey="Trigger1" />
-            <StaticResource ResourceKey="Trigger2" />
-            <StaticResource ResourceKey="Trigger3" />
-        </Style.Triggers>
-    </Style>
 
-    <Style x:Key="SubButton" TargetType="Button" BasedOn="{StaticResource ButtonRoundedLeft}">
-        <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Style.Triggers>
-            <StaticResource ResourceKey="Trigger0" />
-            <StaticResource ResourceKey="Trigger1" />
-            <StaticResource ResourceKey="Trigger2" />
-            <StaticResource ResourceKey="Trigger3" />
-        </Style.Triggers>
-    </Style>
-
-    <Style x:Key="AddButtonBottom" TargetType="Button" BasedOn="{StaticResource ButtonRoundedBottomRight}">
-        <Setter Property="HorizontalAlignment" Value="Right"/>
-        <Style.Triggers>
-            <StaticResource ResourceKey="Trigger0" />
-            <StaticResource ResourceKey="Trigger1" />
-            <StaticResource ResourceKey="Trigger2" />
-            <StaticResource ResourceKey="Trigger3" />
-        </Style.Triggers>
-    </Style>
-
-    <Style x:Key="SubButtonBottom" TargetType="Button" BasedOn="{StaticResource ButtonRoundedBottomLeft}">
-        <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Style.Triggers>
-            <StaticResource ResourceKey="Trigger0" />
-            <StaticResource ResourceKey="Trigger1" />
-            <StaticResource ResourceKey="Trigger2" />
-            <StaticResource ResourceKey="Trigger3" />
-        </Style.Triggers>
-    </Style>
-
-    <Style x:Key="SubButtonTop" TargetType="Button" BasedOn="{StaticResource ButtonRoundedTopLeft}">
-        <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Style.Triggers>
-            <StaticResource ResourceKey="Trigger0" />
-            <StaticResource ResourceKey="Trigger1" />
-            <StaticResource ResourceKey="Trigger2" />
-            <StaticResource ResourceKey="Trigger3" />
-        </Style.Triggers>
-    </Style>
-
-    <Style x:Key="AddButtonTop" TargetType="Button" BasedOn="{StaticResource ButtonRoundedTopRight}">
-        <Setter Property="HorizontalAlignment" Value="Right"/>
-        <Style.Triggers>
-            <StaticResource ResourceKey="Trigger0" />
-            <StaticResource ResourceKey="Trigger1" />
-            <StaticResource ResourceKey="Trigger2" />
-            <StaticResource ResourceKey="Trigger3" />
-        </Style.Triggers>
-    </Style>
-
-    <Style x:Key="SubButtonMiddle" TargetType="Button" BasedOn="{StaticResource ButtonSquare}">
-        <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Style.Triggers>
-            <StaticResource ResourceKey="Trigger0" />
-            <StaticResource ResourceKey="Trigger1" />
-            <StaticResource ResourceKey="Trigger2" />
-            <StaticResource ResourceKey="Trigger3" />
-        </Style.Triggers>
-    </Style>
-
-    <Style x:Key="AddButtonMiddle" TargetType="Button" BasedOn="{StaticResource ButtonSquare}">
-        <Setter Property="HorizontalAlignment" Value="Right"/>
-        <Style.Triggers>
-            <StaticResource ResourceKey="Trigger0" />
-            <StaticResource ResourceKey="Trigger1" />
-            <StaticResource ResourceKey="Trigger2" />
-            <StaticResource ResourceKey="Trigger3" />
-        </Style.Triggers>
-    </Style>
     
     
 </ResourceDictionary>

@@ -1,9 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Controls="clr-namespace:CMiX.MVVM.Controls">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Brushes.xaml" />
-    </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type TextBlock}">
         <Style.Triggers>
@@ -11,7 +8,7 @@
                 <Setter Property="Opacity" Value="0.5"/>
             </Trigger>
         </Style.Triggers>
-        <Setter Property="Foreground" Value="{StaticResource TextBase}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextBase}"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="FocusVisualStyle">
             <Setter.Value>

@@ -2,10 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Controls="clr-namespace:CMiX.MVVM.Controls">
 
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Brushes.xaml" />
-    </ResourceDictionary.MergedDictionaries>
-    
     <ControlTemplate x:Key="RangeSliderThumb" TargetType="{x:Type Thumb}">
         <Grid
             HorizontalAlignment="Stretch"
@@ -15,7 +11,7 @@
                 x:Name="grip"
                 Width="10"
                 VerticalAlignment="Stretch"
-                Fill="{StaticResource LightColor}"
+                Fill="{DynamicResource LightColor}"
                 SnapsToDevicePixels="True"
                 Stretch="Fill"
                 UseLayoutRounding="True" />
@@ -30,10 +26,10 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
-                <Setter TargetName="grip" Property="Fill" Value="{StaticResource HighLightColor}" />
+                <Setter TargetName="grip" Property="Fill" Value="{DynamicResource HighLightColor}" />
             </Trigger>
             <Trigger Property="IsDragging" Value="true">
-                <Setter TargetName="grip" Property="Fill" Value="{StaticResource HighLightColor}" />
+                <Setter TargetName="grip" Property="Fill" Value="{DynamicResource HighLightColor}" />
             </Trigger>
 
         </ControlTemplate.Triggers>
@@ -47,7 +43,7 @@
             <Rectangle
                 x:Name="grip"
                 VerticalAlignment="Stretch"
-                Fill="{StaticResource LightColor}"
+                Fill="{DynamicResource LightColor}"
                 SnapsToDevicePixels="True"
                 Stretch="Fill"
                 UseLayoutRounding="True" 
@@ -55,10 +51,10 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
-                <Setter TargetName="grip" Property="Fill" Value="{StaticResource HighLightColor}" />
+                <Setter TargetName="grip" Property="Fill" Value="{DynamicResource HighLightColor}" />
             </Trigger>
             <Trigger Property="IsDragging" Value="true">
-                <Setter TargetName="grip" Property="Fill" Value="{StaticResource HighLightColor}" />
+                <Setter TargetName="grip" Property="Fill" Value="{DynamicResource HighLightColor}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -74,7 +70,7 @@
                     <Rectangle
                         Width="{TemplateBinding Width}"
                         Height="{TemplateBinding Height}"
-                        Fill="{StaticResource BaseDarkColor}" />
+                        Fill="{DynamicResource BaseDarkColor}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -91,7 +87,7 @@
                     <Rectangle
                         Width="{TemplateBinding Width}"
                         Height="{TemplateBinding Height}"
-                        Fill="{StaticResource Color}" />
+                        Fill="{DynamicResource Color}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -104,21 +100,21 @@
                 <ControlTemplate TargetType="{x:Type Controls:RangeSlider}">
                     <Grid Background="Transparent">
                         <StackPanel Name="PART_RangeSliderContainer" Orientation="Horizontal">
-                            <RepeatButton Name="PART_LeftEdge" Style="{StaticResource RepeatButtonDecrease}" />
+                            <RepeatButton Name="PART_LeftEdge" Style="{DynamicResource RepeatButtonDecrease}" />
                             <Thumb
                                 Name="PART_LeftThumb"
                                 Cursor="SizeWE"
-                                Template="{StaticResource RangeSliderThumb}" />
+                                Template="{DynamicResource RangeSliderThumb}" />
                             <Thumb
                                 Name="PART_MiddleThumb"
                                 MinWidth="0"
                                 Cursor="ScrollAll"
-                                Template="{StaticResource RangeSliderMiddleThumb}" />
+                                Template="{DynamicResource RangeSliderMiddleThumb}" />
                             <Thumb
                                 Name="PART_RightThumb"
                                 Cursor="SizeWE"
-                                Template="{StaticResource RangeSliderThumb}" />
-                            <RepeatButton Name="PART_RightEdge" Style="{StaticResource RepeatButtonDecrease}" />
+                                Template="{DynamicResource RangeSliderThumb}" />
+                            <RepeatButton Name="PART_RightEdge" Style="{DynamicResource RepeatButtonDecrease}" />
                         </StackPanel>
                     </Grid>
                     <ControlTemplate.Triggers>

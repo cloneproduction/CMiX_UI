@@ -64,7 +64,7 @@
                 DockPanel.Dock="Top"
                 Height="20"
                 SelectedItem="{Binding BlendMode.Mode}"
-                ItemsSource="{Binding Source={DynamicResource BlendMode}}"/>
+                ItemsSource="{Binding Source={StaticResource BlendMode}}"/>
         </Grid>
         <Controls:CMiXSlider
             Style="{StaticResource CMiXSliderStyle}"

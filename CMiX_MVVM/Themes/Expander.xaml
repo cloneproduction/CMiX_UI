@@ -1,23 +1,19 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Controls="clr-namespace:CMiX.MVVM.Controls">
-    
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Brushes.xaml" />
-    </ResourceDictionary.MergedDictionaries>
-    
-    <SolidColorBrush x:Key="Expander.MouseOver.Circle.Stroke" Color="{StaticResource Normal}"/>
-    <SolidColorBrush x:Key="Expander.MouseOver.Circle.Fill" Color="{StaticResource Normal}"/>
-    <SolidColorBrush x:Key="Expander.MouseOver.Arrow.Stroke" Color="{StaticResource HighLight}"/>
-    <SolidColorBrush x:Key="Expander.Pressed.Circle.Stroke" Color="{StaticResource Light}"/>
-    <SolidColorBrush x:Key="Expander.Pressed.Circle.Fill" Color="{StaticResource Light}"/>
-    <SolidColorBrush x:Key="Expander.Pressed.Arrow.Stroke" Color="{StaticResource HighLight}"/>
-    <SolidColorBrush x:Key="Expander.Disabled.Circle.Stroke" Color="{StaticResource Dark}"/>
-    <SolidColorBrush x:Key="Expander.Disabled.Circle.Fill" Color="{StaticResource Dark}"/>
-    <SolidColorBrush x:Key="Expander.Disabled.Arrow.Stroke" Color="{StaticResource Dark}"/>
-    <SolidColorBrush x:Key="Expander.Static.Circle.Fill" Color="{StaticResource HighDarker}"/>
-    <SolidColorBrush x:Key="Expander.Static.Circle.Stroke" Color="{StaticResource HighDarker}"/>
-    <SolidColorBrush x:Key="Expander.Static.Arrow.Stroke" Color="{StaticResource Light}"/>
+
+    <SolidColorBrush x:Key="Expander.MouseOver.Circle.Stroke" Color="{DynamicResource Normal}"/>
+    <SolidColorBrush x:Key="Expander.MouseOver.Circle.Fill" Color="{DynamicResource Normal}"/>
+    <SolidColorBrush x:Key="Expander.MouseOver.Arrow.Stroke" Color="{DynamicResource HighLight}"/>
+    <SolidColorBrush x:Key="Expander.Pressed.Circle.Stroke" Color="{DynamicResource Light}"/>
+    <SolidColorBrush x:Key="Expander.Pressed.Circle.Fill" Color="{DynamicResource Light}"/>
+    <SolidColorBrush x:Key="Expander.Pressed.Arrow.Stroke" Color="{DynamicResource HighLight}"/>
+    <SolidColorBrush x:Key="Expander.Disabled.Circle.Stroke" Color="{DynamicResource Dark}"/>
+    <SolidColorBrush x:Key="Expander.Disabled.Circle.Fill" Color="{DynamicResource Dark}"/>
+    <SolidColorBrush x:Key="Expander.Disabled.Arrow.Stroke" Color="{DynamicResource Dark}"/>
+    <SolidColorBrush x:Key="Expander.Static.Circle.Fill" Color="{DynamicResource HighDarker}"/>
+    <SolidColorBrush x:Key="Expander.Static.Circle.Stroke" Color="{DynamicResource HighDarker}"/>
+    <SolidColorBrush x:Key="Expander.Static.Arrow.Stroke" Color="{DynamicResource Light}"/>
 
     <Style x:Key="ExpanderHeaderFocusVisual">
         <Setter Property="Control.Template">
@@ -62,7 +58,7 @@
                                     Data="M 1,1.5 L 4.5,5 L 8,1.5" 
                                     HorizontalAlignment="Center" 
                                     SnapsToDevicePixels="false" 
-                                    Stroke="{StaticResource Expander.Static.Arrow.Stroke}" 
+                                    Stroke="{DynamicResource Expander.Static.Arrow.Stroke}" 
                                     StrokeThickness="2" 
                                     VerticalAlignment="Center"
                                     />
@@ -79,13 +75,13 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.MouseOver.Arrow.Stroke}"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource Expander.MouseOver.Arrow.Stroke}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Pressed.Arrow.Stroke}"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource Expander.Pressed.Arrow.Stroke}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Disabled.Arrow.Stroke}"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource Expander.Disabled.Arrow.Stroke}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -118,7 +114,7 @@
                                     Data="M 1,1.5 L 4.5,5 L 8,1.5" 
                                     HorizontalAlignment="Center" 
                                     SnapsToDevicePixels="false" 
-                                    Stroke="{StaticResource Expander.Static.Arrow.Stroke}" 
+                                    Stroke="{DynamicResource Expander.Static.Arrow.Stroke}" 
                                     StrokeThickness="2" 
                                     VerticalAlignment="Center"
                                     />
@@ -138,13 +134,13 @@
                             <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.MouseOver.Arrow.Stroke}"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource Expander.MouseOver.Arrow.Stroke}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Pressed.Arrow.Stroke}"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource Expander.Pressed.Arrow.Stroke}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Disabled.Arrow.Stroke}"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource Expander.Disabled.Arrow.Stroke}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -177,7 +173,7 @@
                                     Data="M 1,1.5 L 4.5,5 L 8,1.5" 
                                     HorizontalAlignment="Center" 
                                     SnapsToDevicePixels="false" 
-                                    Stroke="{StaticResource Expander.Static.Arrow.Stroke}" 
+                                    Stroke="{DynamicResource Expander.Static.Arrow.Stroke}" 
                                     StrokeThickness="2" 
                                     VerticalAlignment="Center"
                                     />
@@ -197,13 +193,13 @@
                             <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.MouseOver.Arrow.Stroke}"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource Expander.MouseOver.Arrow.Stroke}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Pressed.Arrow.Stroke}"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource Expander.Pressed.Arrow.Stroke}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Disabled.Arrow.Stroke}"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource Expander.Disabled.Arrow.Stroke}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -218,9 +214,9 @@
                     <Border 
                         Height="25"
                         x:Name="mainBorder"
-                        CornerRadius="{StaticResource CornerRadiusDefault}" 
+                        CornerRadius="{DynamicResource CornerRadiusDefault}" 
                         Padding="4"
-                        Background="{StaticResource DarkColor}">
+                        Background="{DynamicResource DarkColor}">
                         <Grid 
                             SnapsToDevicePixels="False">
                             <Grid.ColumnDefinitions>
@@ -232,7 +228,7 @@
                                 Data="M 1,1.5 L 4.5,5 L 8,1.5" 
                                 HorizontalAlignment="Center" 
                                 SnapsToDevicePixels="false" 
-                                Stroke="{StaticResource TextBase}" 
+                                Stroke="{DynamicResource TextBase}" 
                                 StrokeThickness="2" 
                                 VerticalAlignment="Center"/>
                             <ContentPresenter 
@@ -247,16 +243,16 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="true">
                             <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
-                            <Setter Property="CornerRadius" TargetName="mainBorder" Value="{StaticResource CornerRadiusTop}"/>
+                            <Setter Property="CornerRadius" TargetName="mainBorder" Value="{DynamicResource CornerRadiusTop}"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource Color}"/>
+                            <Setter Property="Background" TargetName="mainBorder" Value="{DynamicResource Color}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Pressed.Arrow.Stroke}"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource Expander.Pressed.Arrow.Stroke}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Disabled.Arrow.Stroke}"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource Expander.Disabled.Arrow.Stroke}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -271,7 +267,7 @@
                     <Border 
                         x:Name="mainBorder"
                         Height="25"
-                        Background="{StaticResource DarkerColor}" >
+                        Background="{DynamicResource DarkerColor}" >
                         <Grid 
                             SnapsToDevicePixels="False">
                             <Grid.ColumnDefinitions>
@@ -283,7 +279,7 @@
                                 Data="M 1,1.5 L 4.5,5 L 8,1.5" 
                                 HorizontalAlignment="Center" 
                                 SnapsToDevicePixels="false" 
-                                Stroke="{StaticResource TextBase}" 
+                                Stroke="{DynamicResource TextBase}" 
                                 StrokeThickness="2" 
                                 VerticalAlignment="Center"/>
                             <ContentPresenter 
@@ -297,7 +293,7 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="true">
                             <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
-                            <Setter Property="CornerRadius" TargetName="mainBorder" Value="{StaticResource CornerRadiusTop}"/>
+                            <Setter Property="CornerRadius" TargetName="mainBorder" Value="{DynamicResource CornerRadiusTop}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -312,7 +308,7 @@
                     <Border 
                         x:Name="mainBorder"
                         Height="25"
-                        Background="{StaticResource HighDarkerColor}" >
+                        Background="{DynamicResource HighDarkerColor}" >
                         <Grid 
                             SnapsToDevicePixels="False">
                             <Grid.ColumnDefinitions>
@@ -324,7 +320,7 @@
                                 Data="M 1,1.5 L 4.5,5 L 8,1.5" 
                                 HorizontalAlignment="Center" 
                                 SnapsToDevicePixels="false" 
-                                Stroke="{StaticResource TextBase}" 
+                                Stroke="{DynamicResource TextBase}" 
                                 StrokeThickness="2" 
                                 VerticalAlignment="Center"
                                 />
@@ -340,7 +336,7 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="true">
                             <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
-                            <Setter Property="CornerRadius" TargetName="mainBorder" Value="{StaticResource CornerRadiusTop}"/>
+                            <Setter Property="CornerRadius" TargetName="mainBorder" Value="{DynamicResource CornerRadiusTop}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -359,8 +355,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Expander}">
                     <Border 
-                        CornerRadius="{StaticResource CornerRadiusDefault}"
-                        Background="{StaticResource DarkerColor}"
+                        CornerRadius="{DynamicResource CornerRadiusDefault}"
+                        Background="{DynamicResource DarkerColor}"
                         SnapsToDevicePixels="true">
                         <DockPanel>
                             <ToggleButton 
@@ -369,9 +365,9 @@
                                 ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" 
                                 Content="{TemplateBinding Header}" 
                                 DockPanel.Dock="Top" 
-                                Foreground="{StaticResource TextBase}"
+                                Foreground="{DynamicResource TextBase}"
                                 FontWeight="{TemplateBinding FontWeight}" 
-                                FocusVisualStyle="{StaticResource ExpanderHeaderFocusVisual}" 
+                                FocusVisualStyle="{DynamicResource ExpanderHeaderFocusVisual}" 
                                 FontStyle="{TemplateBinding FontStyle}" 
                                 FontStretch="{TemplateBinding FontStretch}" 
                                 FontSize="{TemplateBinding FontSize}" 
@@ -381,7 +377,7 @@
                                 MinWidth="0" 
                                 MinHeight="0" 
                                 Padding="4, 0" 
-                                Style="{StaticResource ExpanderDownHeaderStyle}" 
+                                Style="{DynamicResource ExpanderDownHeaderStyle}" 
                                 VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                 />
                             <ContentPresenter 
@@ -423,7 +419,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Expander}">
                     <Border 
-                        Background="{StaticResource HighDarkerColor}"
+                        Background="{DynamicResource HighDarkerColor}"
                         SnapsToDevicePixels="true">
                         <DockPanel>
                             <ToggleButton 
@@ -432,9 +428,9 @@
                                 ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" 
                                 Content="{TemplateBinding Header}" 
                                 DockPanel.Dock="Top" 
-                                Foreground="{StaticResource TextBase}"
+                                Foreground="{DynamicResource TextBase}"
                                 FontWeight="{TemplateBinding FontWeight}" 
-                                FocusVisualStyle="{StaticResource ExpanderHeaderFocusVisual}" 
+                                FocusVisualStyle="{DynamicResource ExpanderHeaderFocusVisual}" 
                                 FontStyle="{TemplateBinding FontStyle}" 
                                 FontStretch="{TemplateBinding FontStretch}" 
                                 FontSize="{TemplateBinding FontSize}" 
@@ -444,7 +440,7 @@
                                 MinWidth="0" 
                                 MinHeight="0" 
                                 Padding="{TemplateBinding Padding}" 
-                                Style="{StaticResource InnerExpanderDownHeaderStyle}" 
+                                Style="{DynamicResource InnerExpanderDownHeaderStyle}" 
                                 VerticalContentAlignment="Center"
                                 />
                             <ContentPresenter 
@@ -482,7 +478,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Expander}">
                     <Border 
-                        Background="{StaticResource HighHighDarkerColor}"
+                        Background="{DynamicResource HighHighDarkerColor}"
                         SnapsToDevicePixels="true">
                         <DockPanel>
                             <ToggleButton 
@@ -491,9 +487,9 @@
                                 ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" 
                                 Content="{TemplateBinding Header}" 
                                 DockPanel.Dock="Top" 
-                                Foreground="{StaticResource TextBase}"
+                                Foreground="{DynamicResource TextBase}"
                                 FontWeight="{TemplateBinding FontWeight}" 
-                                FocusVisualStyle="{StaticResource ExpanderHeaderFocusVisual}" 
+                                FocusVisualStyle="{DynamicResource ExpanderHeaderFocusVisual}" 
                                 FontStyle="{TemplateBinding FontStyle}" 
                                 FontStretch="{TemplateBinding FontStretch}" 
                                 FontSize="{TemplateBinding FontSize}" 
@@ -503,7 +499,7 @@
                                 MinWidth="0" 
                                 MinHeight="0" 
                                 Padding="{TemplateBinding Padding}" 
-                                Style="{StaticResource InnerExpanderLevel1DownHeaderStyle}" 
+                                Style="{DynamicResource InnerExpanderLevel1DownHeaderStyle}" 
                                 VerticalContentAlignment="Center"
                                 />
                             <ContentPresenter 
@@ -556,14 +552,14 @@
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
                                     IsChecked="{Binding IsVisible}"
-                                    Style="{StaticResource ToggleVisibility}"
+                                    Style="{DynamicResource ToggleVisibility}"
                                     Margin="0"
                                     Padding="4"/>
 
                                 <ContentControl
                                     x:Name="HeaderSite"
                                     Grid.Column="1"
-                                    Background="{StaticResource DarkColor}"
+                                    Background="{DynamicResource DarkColor}"
                                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                     Margin="{TemplateBinding Padding}"
                                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
@@ -584,7 +580,7 @@
                                                     Data="M 1,1.5 L 4.5,5 L 8,1.5" 
                                                     HorizontalAlignment="Left" 
                                                     SnapsToDevicePixels="false" 
-                                                    Stroke="{StaticResource LightColor}" 
+                                                    Stroke="{DynamicResource LightColor}" 
                                                     StrokeThickness="2" 
                                                     VerticalAlignment="Center"/>
                                             </Grid>
@@ -610,7 +606,7 @@
                             <Setter Property="IsExpanded" Value="True"/>
                         </Trigger>
                         <Trigger Property="IsExpanded" Value="True">
-                            <Setter TargetName="arrow" Property="Stroke" Value="{StaticResource SuperHighLightColor}"/>
+                            <Setter TargetName="arrow" Property="Stroke" Value="{DynamicResource SuperHighLightColor}"/>
                             <Setter TargetName="arrow" Property="LayoutTransform" >
                                 <Setter.Value>
                                     <RotateTransform Angle="90" />
