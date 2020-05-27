@@ -7,9 +7,13 @@
         <ResourceDictionary Source="Colors.xaml"/>
         <ResourceDictionary Source="Brushes.xaml"/>
         <ResourceDictionary Source="Icons.xaml"/>
-
         <ResourceDictionary Source="Values.xaml"/>
-        <ResourceDictionary Source="BorderContainer.xaml"/>
+
+
+        <ResourceDictionary Source="Borders/BorderMask.xaml"/>
+        <ResourceDictionary Source="Borders/BorderContainer.xaml"/>
+        
+        
         <ResourceDictionary Source="TextBlock.xaml"/>
         <ResourceDictionary Source="GridSplitter.xaml"/>
         <ResourceDictionary Source="Button.xaml"/>

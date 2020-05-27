@@ -54,7 +54,6 @@ namespace CMiX.MVVM.ViewModels
             ProjectModel projectModel = new ProjectModel();
 
             projectModel.ID = instance.ID;
-            //projectModel.MessageAddress = instance.MessageAddress;
             projectModel.Name = instance.Name;
             projectModel.IsVisible = instance.IsVisible;
 

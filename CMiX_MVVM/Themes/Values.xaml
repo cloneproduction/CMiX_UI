@@ -3,7 +3,7 @@
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
     <system:Double x:Key="DefaultFontSize">10</system:Double>
-    <system:Double x:Key="CR">2</system:Double>
+    <system:Double x:Key="CR">4</system:Double>
     
     <CornerRadius x:Key="CornerRadiusDefault" 
        TopLeft="{StaticResource CR}" 

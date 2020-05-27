@@ -44,6 +44,8 @@ namespace CMiX.ViewModels
 
             else if (component is Project)
                 component.AddComponent(ComponentFactory.CreateComposition(component));
+
+            component.OnSendChange(component.GetModel(), component.GetMessageAddress());
         }
 
 
@@ -65,7 +67,9 @@ namespace CMiX.ViewModels
 
         public void DeleteComponent()
         {
+            var selectedParent = GetSelectedParent(Components);
             DeleteSelectedComponent(Components);
+            selectedParent.OnSendChange(selectedParent.GetModel(), selectedParent.GetMessageAddress());
         }
 
         public event EventHandler<ComponentEventArgs> ComponentDeletedEvent;

@@ -13,7 +13,6 @@ namespace CMiX.MVVM.ViewModels
             Components = new ObservableCollection<Component>();
         }
 
-
         public Beat Beat { get; set; }
 
         public override string GetMessageAddress()
@@ -101,7 +100,6 @@ namespace CMiX.MVVM.ViewModels
             get => _selectedComponent;
             set => SetAndNotify(ref _selectedComponent, value);
         }
-
 
         public void AddComponent(Component component)
         {

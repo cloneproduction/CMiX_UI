@@ -4,13 +4,13 @@ using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Translate : ViewModel
+    public class Translate : Sendable
     {
         public Translate()
         {
-            X = new Slider(nameof(X));
-            Y = new Slider(nameof(Y));
-            Z = new Slider(nameof(Z));
+            X = new Slider(nameof(X), this);
+            Y = new Slider(nameof(Y), this);
+            Z = new Slider(nameof(Z), this);
         }
 
         public Slider X { get; set; }

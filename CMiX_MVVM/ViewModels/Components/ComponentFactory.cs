@@ -11,6 +11,11 @@ namespace CMiX.MVVM.ViewModels
         private static int SceneID { get; set; }
 
 
+        public static void CreateComponent(Component parentComponent)
+        {
+
+        }
+
         public static Project CreateProject()
         {
             CompositionID = 0;

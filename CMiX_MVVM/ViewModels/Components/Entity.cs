@@ -13,6 +13,8 @@ namespace CMiX.MVVM.ViewModels
         {
             BeatModifier = new BeatModifier(beat);
             Geometry = new Geometry(beat);
+            Geometry.SendChangeEvent += this.OnChildPropertyToSendChange;
+
             Texture = new Texture();
             Coloration = new Coloration(beat);
 

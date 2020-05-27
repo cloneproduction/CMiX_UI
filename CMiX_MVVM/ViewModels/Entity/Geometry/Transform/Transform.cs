@@ -8,6 +8,8 @@ namespace CMiX.MVVM.ViewModels
         public Transform()
         {
             Translate = new Translate();
+            Translate.SendChangeEvent += this.OnChildPropertyToSendChange;
+
             Scale = new Scale();
             Rotation = new Rotation();
 

@@ -5,13 +5,15 @@ using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Geometry : ViewModel
+    public class Geometry : Sendable
     {
         #region CONSTRUCTORS
         public Geometry(Beat beat) 
         {
             Instancer = new Instancer(beat);
             Transform = new Transform();
+            Transform.SendChangeEvent += this.OnChildPropertyToSendChange;
+
             GeometryFX = new GeometryFX();
 
             AssetPathSelector = new AssetPathSelector<AssetGeometry>();

@@ -8,9 +8,12 @@ namespace CMiX.MVVM.ViewModels
     public class Slider : Sendable
     {
         #region CONSTRUCTORS
-        public Slider(string name)
+        public Slider(string name, Sendable parent = null)
         {
             Name = name;
+            if(parent != null)
+                this.SendChangeEvent += parent.OnChildPropertyToSendChange;
+
 
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
@@ -61,7 +64,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _amount, value);
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
-                //System.Console.WriteLine("SliderAmount = " + Amount);
+                System.Console.WriteLine("Slider Amount = " + Amount);
             }
         }
 
