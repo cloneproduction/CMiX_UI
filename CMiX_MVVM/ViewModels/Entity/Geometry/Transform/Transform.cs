@@ -9,7 +9,7 @@ namespace CMiX.MVVM.ViewModels
     {
         public Transform()
         {
-            Translate = new Translate();
+            Translate = new Translate(this);
             Translate.SendChangeEvent += this.OnChildPropertyToSendChange;
 
             Scale = new Scale();
@@ -18,6 +18,10 @@ namespace CMiX.MVVM.ViewModels
             Is3D = false;
         }
 
+        public Transform(Sendable parentSendable) : this()
+        {
+            SubscribeToEvent(parentSendable);
+        }
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
             if (this.GetMessageAddress() == e.MessageAddress)

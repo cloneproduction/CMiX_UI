@@ -12,7 +12,7 @@ namespace CMiX.MVVM.ViewModels
         public Geometry(Beat beat) 
         {
             Instancer = new Instancer(beat);
-            Transform = new Transform();
+            Transform = new Transform(this);
             Transform.SendChangeEvent += this.OnChildPropertyToSendChange;
 
             GeometryFX = new GeometryFX();
@@ -22,6 +22,11 @@ namespace CMiX.MVVM.ViewModels
             CopyGeometryCommand = new RelayCommand(p => CopyGeometry());
             PasteGeometryCommand = new RelayCommand(p => PasteGeometry());
             ResetGeometryCommand = new RelayCommand(p => ResetGeometry());
+        }
+
+        public Geometry(Beat beat, Sendable parentSendable) : this(beat)
+        {
+            SubscribeToEvent(parentSendable);
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)

@@ -15,6 +15,11 @@ namespace CMiX.MVVM.ViewModels
             Z = new Slider(nameof(Z), this);
         }
 
+        public Translate(Sendable parentSendable) : this()
+        {
+            SubscribeToEvent(parentSendable);
+        }
+
         public Slider X { get; set; }
         public Slider Y { get; set; }
         public Slider Z { get; set; }
@@ -24,7 +29,7 @@ namespace CMiX.MVVM.ViewModels
             if (this.GetMessageAddress() == e.MessageAddress)
             {
                 this.SetViewModel(e.Model as TranslateModel);
-                Console.WriteLine("Project Updated");
+                Console.WriteLine("Translate Updated");
             }
         }
 

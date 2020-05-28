@@ -20,21 +20,6 @@ namespace CMiX.MVVM.ViewModels
 
         public abstract void OnParentReceiveChange(object sender, ModelEventArgs e);
 
-        //public void OnParentReceiveChange(object sender, ModelEventArgs e)
-        //{
-        //    Console.WriteLine("OnParentReceiveChange" + " Address " + e.MessageAddress + " Data " + e.Model.GetType().Name);
-            
-        //    if(this.GetMessageAddress() == e.MessageAddress)
-        //    {
-        //        Console.WriteLine(this.GetMessageAddress() + "==" + e.MessageAddress);
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine(this.GetMessageAddress() + "==" + e.MessageAddress);
-        //        OnReceiveChange(e.Model, GetMessageAddress() + e.MessageAddress);
-        //    }
-        //}
-
 
         public event EventHandler<ModelEventArgs> SendChangeEvent;
         public void OnSendChange(IModel model, string messageAddress)
@@ -45,6 +30,19 @@ namespace CMiX.MVVM.ViewModels
         public void OnChildPropertyToSendChange(object sender, ModelEventArgs e)
         {
             OnSendChange(e.Model, GetMessageAddress() + e.MessageAddress);
+        }
+
+        public void SubscribeToEvent(Sendable sendableParent)
+        {
+            this.SendChangeEvent += sendableParent.OnChildPropertyToSendChange;
+            sendableParent.ReceiveChangeEvent += this.OnParentReceiveChange;
+            Console.WriteLine(sendableParent.GetType() + " SubscribedToEvent");
+        }
+
+        public void UnSubscribeToEvent(Sendable sendableParent)
+        {
+            this.SendChangeEvent -= sendableParent.OnChildPropertyToSendChange;
+            sendableParent.ReceiveChangeEvent -= this.OnParentReceiveChange;
         }
     }
 }

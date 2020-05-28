@@ -26,9 +26,7 @@ namespace CMiX.MVVM.ViewModels
             InitCollectionView();
         }
 
-        #region PROPERTIES
         public IDialogService DialogService { get; set; }
-
 
         private Receiver _receiver;
         public Receiver Receiver
@@ -142,6 +140,5 @@ namespace CMiX.MVVM.ViewModels
             else
                 OnReceiveChange(e.Model, e.MessageAddress, this.GetMessageAddress());
         }
-        #endregion
     }
 }

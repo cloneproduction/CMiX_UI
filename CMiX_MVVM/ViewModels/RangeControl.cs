@@ -1,13 +1,15 @@
-﻿using CMiX.MVVM.ViewModels;
+﻿using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class RangeControl : ViewModel
+    public class RangeControl : Sendable
     {
         #region CONSTRUCTORS
         public RangeControl(string messageAddress)
         {
             Modifier = ((RangeModifier)0).ToString();
+            Range = new Slider("Range", this);
         }
         #endregion
 
@@ -34,6 +36,11 @@ namespace CMiX.MVVM.ViewModels
         {
             Modifier = ((RangeModifier)0).ToString();
             Range.Reset();
+        }
+
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            
         }
         #endregion
     }

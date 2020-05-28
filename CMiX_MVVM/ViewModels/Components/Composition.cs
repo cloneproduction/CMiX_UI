@@ -7,7 +7,6 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Composition : Component
     {
-        #region CONSTRUCTORS
         public Composition(int id, Beat beat) 
             : base (id, beat)
         {
@@ -18,12 +17,10 @@ namespace CMiX.MVVM.ViewModels
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
             if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-            {
                 this.SetViewModel(e.Model as CompositionModel);
-                Console.WriteLine("Composition Updated");
-            }
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
-        #endregion
 
         #region PROPERTIES
         public Camera Camera { get; set; }

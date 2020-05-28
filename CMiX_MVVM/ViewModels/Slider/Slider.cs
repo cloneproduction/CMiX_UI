@@ -9,13 +9,9 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Slider : Sendable
     {
-        #region CONSTRUCTORS
-        public Slider(string name, Sendable parent = null)
+        public Slider(string name)
         {
             Name = name;
-            if(parent != null)
-                this.SendChangeEvent += parent.OnChildPropertyToSendChange;
-
 
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
@@ -25,7 +21,21 @@ namespace CMiX.MVVM.ViewModels
             PasteSliderCommand = new RelayCommand(p => PasteSlider());
             MouseDownCommand = new RelayCommand(p => MouseDown());
         }
-        #endregion
+
+        public Slider(string name, Sendable parentSendable)// : this(name)
+        {
+            Name = name;
+
+            AddCommand = new RelayCommand(p => Add());
+            SubCommand = new RelayCommand(p => Sub());
+
+            ResetCommand = new RelayCommand(p => Reset());
+            CopySliderCommand = new RelayCommand(p => CopySlider());
+            PasteSliderCommand = new RelayCommand(p => PasteSlider());
+            MouseDownCommand = new RelayCommand(p => MouseDown());
+
+            SubscribeToEvent(parentSendable);
+        }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
@@ -67,7 +77,7 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        private double _amount = 0.0;
+        private double _amount;
         public double Amount
         {
             get => _amount;
@@ -94,7 +104,6 @@ namespace CMiX.MVVM.ViewModels
         }
         #endregion
 
-        #region ADD/SUB
         private void Add()
         {
             if (Amount >= Maximum)
@@ -110,9 +119,8 @@ namespace CMiX.MVVM.ViewModels
             else
                 Amount -= 0.01;
         }
-        #endregion
 
-        #region COPY/PASTE/RESET
+
         public void Reset()
         {
             Amount = 0.0;
@@ -136,6 +144,5 @@ namespace CMiX.MVVM.ViewModels
                 //Mementor.EndBatch();
             }
         }
-        #endregion
     }
 }

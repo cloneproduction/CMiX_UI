@@ -25,7 +25,6 @@ namespace CMiX.MVVM.Services
 
         private void OnNetMQMessageReceived(object sender, MessageEventArgs e)
         {
-            Console.WriteLine("Message Received");
             MessageReceived.Invoke(sender, e);
         }
 

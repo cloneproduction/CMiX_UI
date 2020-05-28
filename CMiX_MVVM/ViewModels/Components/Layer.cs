@@ -23,9 +23,7 @@ namespace CMiX.MVVM.ViewModels
             BlendMode = new BlendMode(beat);
             BlendMode.SendChangeEvent += this.OnChildPropertyToSendChange;
             
-            Fade = new Slider(nameof(Fade));
-            Fade.SendChangeEvent += this.OnChildPropertyToSendChange;
-            this.ReceiveChangeEvent += Fade.OnParentReceiveChange;
+            Fade = new Slider(nameof(Fade), this);
 
             IsExpanded = true;
         }
@@ -33,10 +31,9 @@ namespace CMiX.MVVM.ViewModels
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
             if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-            {
                 this.SetViewModel(e.Model as LayerModel);
-                Console.WriteLine("Layer Updated");
-            }
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
         #region PROPERTIES

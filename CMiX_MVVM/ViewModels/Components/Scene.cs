@@ -24,7 +24,7 @@ namespace CMiX.MVVM.ViewModels
         #endregion
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
-            if (this.GetMessageAddress() == e.MessageAddress)
+            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
             {
                 this.SetViewModel(e.Model as SceneModel);
                 Console.WriteLine("Scene Updated");

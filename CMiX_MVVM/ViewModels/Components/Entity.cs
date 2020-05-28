@@ -13,8 +13,7 @@ namespace CMiX.MVVM.ViewModels
             : base(id, beat)
         {
             BeatModifier = new BeatModifier(beat);
-            Geometry = new Geometry(beat);
-            Geometry.SendChangeEvent += this.OnChildPropertyToSendChange;
+            Geometry = new Geometry(beat, this);
 
             Texture = new Texture();
             Coloration = new Coloration(beat);
@@ -26,11 +25,10 @@ namespace CMiX.MVVM.ViewModels
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
-            if (this.GetMessageAddress() == e.MessageAddress)
-            {
-                this.SetViewModel(e.Model as EntityModel);
-                Console.WriteLine("Entity Updated");
-            }
+            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
+                this.SetViewModel(e.Model as LayerModel);
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
         #region PROPERTIES
