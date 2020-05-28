@@ -55,7 +55,9 @@ namespace CMiX.Studio.ViewModels.MessageService
         
         public void AddMessenger()
         {
-            Project.Messengers.Add(MessengerFactory.CreateMessenger());
+            var messenger = MessengerFactory.CreateMessenger();
+            Project.SendChangeEvent += messenger.Value_SendChangeEvent;
+            Project.Messengers.Add(messenger);
         }
 
         private void DeleteMessenger(Messenger messenger)

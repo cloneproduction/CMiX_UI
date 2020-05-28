@@ -5,6 +5,9 @@ using System.ComponentModel;
 using System.Collections.Specialized;
 //using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.Studio.ViewModels.MessageService;
+using CMiX.MVVM.Services;
+using CMiX.MVVM.Models;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -127,6 +130,17 @@ namespace CMiX.MVVM.ViewModels
                 return true;
             else
                 return false;
+        }
+
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            if (this.GetMessageAddress() == e.MessageAddress)
+            {
+                this.SetViewModel(e.Model as ProjectModel);
+                Console.WriteLine("Project Updated");
+            }
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, this.GetMessageAddress());
         }
         #endregion
     }

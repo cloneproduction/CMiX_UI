@@ -13,16 +13,27 @@ namespace CMiX.MVVM.ViewModels
         }
 
         public event EventHandler<ModelEventArgs> ReceiveChangeEvent;
-        public void OnReceiveChange(IModel model, string messageAddress)
+        public void OnReceiveChange(IModel model, string messageAddress, string parentMessageAddress)
         {
-            ReceiveChangeEvent?.Invoke(this, new ModelEventArgs(model, messageAddress));
+            ReceiveChangeEvent?.Invoke(this, new ModelEventArgs(model, messageAddress, parentMessageAddress));
         }
 
-        public void OnParentReceiveChange(object sender, ModelEventArgs e)
-        {
-            Console.WriteLine("OnParentReceiveChange" + " Address " + e.MessageAddress + " Data " + e.Model.GetType().Name);
-            OnReceiveChange(e.Model, GetMessageAddress() + e.MessageAddress);
-        }
+        public abstract void OnParentReceiveChange(object sender, ModelEventArgs e);
+
+        //public void OnParentReceiveChange(object sender, ModelEventArgs e)
+        //{
+        //    Console.WriteLine("OnParentReceiveChange" + " Address " + e.MessageAddress + " Data " + e.Model.GetType().Name);
+            
+        //    if(this.GetMessageAddress() == e.MessageAddress)
+        //    {
+        //        Console.WriteLine(this.GetMessageAddress() + "==" + e.MessageAddress);
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine(this.GetMessageAddress() + "==" + e.MessageAddress);
+        //        OnReceiveChange(e.Model, GetMessageAddress() + e.MessageAddress);
+        //    }
+        //}
 
 
         public event EventHandler<ModelEventArgs> SendChangeEvent;

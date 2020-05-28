@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -16,6 +18,14 @@ namespace CMiX.MVVM.ViewModels
             Is3D = false;
         }
 
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            if (this.GetMessageAddress() == e.MessageAddress)
+            {
+                this.SetViewModel(e.Model as TransformModel);
+                Console.WriteLine("Project Updated");
+            }
+        }
         #region PROPERTY
         public Translate Translate { get; }
         public Scale Scale { get; }

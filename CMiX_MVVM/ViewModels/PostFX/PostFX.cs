@@ -2,12 +2,13 @@
 using System.Windows.Input;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class PostFX : Sendable
     {
-        #region CONSTRUCTORS
         public PostFX() 
         {
             Feedback = new Slider(nameof(Feedback));
@@ -23,7 +24,15 @@ namespace CMiX.MVVM.ViewModels
             PastePostFXCommand = new RelayCommand(p => PastePostFX());
             ResetPostFXCommand = new RelayCommand(p => Reset());
         }
-        #endregion
+
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            if (this.GetMessageAddress() == e.MessageAddress)
+            {
+                this.SetViewModel(e.Model as PostFXModel);
+                Console.WriteLine("PostFX Updated");
+            }
+        }
 
         #region PROPERTIES
         public ICommand CopyPostFXCommand { get; }

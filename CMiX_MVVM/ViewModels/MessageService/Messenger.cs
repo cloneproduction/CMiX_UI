@@ -19,7 +19,6 @@ namespace CMiX.Studio.ViewModels.MessageService
             RestartServerCommand = new RelayCommand(p => RestartServer());
         }
 
-
         public void StartServer()
         {
             Server.Start();
@@ -80,17 +79,17 @@ namespace CMiX.Studio.ViewModels.MessageService
             get => _selectedComponent;
             set
             {
-                if(_selectedComponent != null)
-                    _selectedComponent.SendChangeEvent -= Value_SendChangeEvent;
+                //if(_selectedComponent != null)
+                //    _selectedComponent.SendChangeEvent -= Value_SendChangeEvent;
 
                 SetAndNotify(ref _selectedComponent, value);
 
-                if (SelectedComponent != null)
-                    SelectedComponent.SendChangeEvent += Value_SendChangeEvent;
+                //if (SelectedComponent != null)
+                //    SelectedComponent.SendChangeEvent += Value_SendChangeEvent;
             }
         }
 
-        private void Value_SendChangeEvent(object sender, ModelEventArgs e)
+        public void Value_SendChangeEvent(object sender, ModelEventArgs e)
         {
             Server.Send(e.MessageAddress, Serializer.Serialize(e.Model));
         }

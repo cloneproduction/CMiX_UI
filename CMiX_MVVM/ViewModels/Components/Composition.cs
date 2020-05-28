@@ -1,4 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
+using System;
+using System.Collections.ObjectModel;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -12,7 +15,14 @@ namespace CMiX.MVVM.ViewModels
             Camera = new Camera(Beat);
         }
 
-
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
+            {
+                this.SetViewModel(e.Model as CompositionModel);
+                Console.WriteLine("Composition Updated");
+            }
+        }
         #endregion
 
         #region PROPERTIES

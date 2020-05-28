@@ -14,6 +14,7 @@ namespace CMiX.Engine.Testing
             Settings settings = new Settings("Pouet", "Pouet", "192.168.0.192", 2222);
             receiver.SetSettings(settings);
             receiver.StartClient();
+            receiver.DataReceivedEvent += Project.OnParentReceiveChange;
             Console.ReadLine();
         }
 

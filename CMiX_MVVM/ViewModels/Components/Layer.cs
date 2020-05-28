@@ -1,10 +1,13 @@
 ﻿
 
+using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
+using System;
+
 namespace CMiX.MVVM.ViewModels
 {
     public class Layer : Component
     {
-        #region CONSTRUCTORS
         public Layer(int id, Beat beat)
             : base(id, beat)
         {
@@ -19,13 +22,22 @@ namespace CMiX.MVVM.ViewModels
 
             BlendMode = new BlendMode(beat);
             BlendMode.SendChangeEvent += this.OnChildPropertyToSendChange;
-
+            
             Fade = new Slider(nameof(Fade));
             Fade.SendChangeEvent += this.OnChildPropertyToSendChange;
+            this.ReceiveChangeEvent += Fade.OnParentReceiveChange;
 
             IsExpanded = true;
         }
-        #endregion
+
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
+            {
+                this.SetViewModel(e.Model as LayerModel);
+                Console.WriteLine("Layer Updated");
+            }
+        }
 
         #region PROPERTIES
         private bool _out;

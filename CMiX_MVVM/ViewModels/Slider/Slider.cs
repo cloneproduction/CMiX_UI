@@ -2,6 +2,8 @@
 using System.Windows;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels;
+using CMiX.MVVM.Services;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -24,6 +26,15 @@ namespace CMiX.MVVM.ViewModels
             MouseDownCommand = new RelayCommand(p => MouseDown());
         }
         #endregion
+
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
+            {
+                this.SetViewModel(e.Model as SliderModel);
+                Console.WriteLine("Slider Updated");
+            }
+        }
 
         #region PROPERTIES
         public ICommand AddCommand { get; }
@@ -64,7 +75,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _amount, value);
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
-                System.Console.WriteLine("Slider Amount = " + Amount);
+                //System.Console.WriteLine("Slider Amount = " + Amount);
             }
         }
 

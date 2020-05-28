@@ -11,7 +11,6 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Mask : Component
     {
-        #region CONSTRUCTORS
         public Mask(int id, Beat beat)
             : base(id, beat)
         {
@@ -29,7 +28,15 @@ namespace CMiX.MVVM.ViewModels
             //PasteMaskCommand = new RelayCommand(p => PasteMask());
             //ResetMaskCommand = new RelayCommand(p => ResetMask());
         }
-        #endregion
+
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            if (this.GetMessageAddress() == e.MessageAddress)
+            {
+                this.SetViewModel(e.Model as MaskModel);
+                Console.WriteLine("Mask Updated");
+            }
+        }
 
         #region PROPERTIES
         public ICommand CopyMaskCommand { get; }

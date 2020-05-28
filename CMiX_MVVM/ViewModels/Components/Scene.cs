@@ -3,6 +3,7 @@ using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using Memento;
 using CMiX.MVVM.Services;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -21,6 +22,14 @@ namespace CMiX.MVVM.ViewModels
             //ResetContentCommand = new RelayCommand(p => ResetContent());
         }
         #endregion
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            if (this.GetMessageAddress() == e.MessageAddress)
+            {
+                this.SetViewModel(e.Model as SceneModel);
+                Console.WriteLine("Scene Updated");
+            }
+        }
 
         #region PROPERTIES
         public ICommand CopyContentCommand { get; }

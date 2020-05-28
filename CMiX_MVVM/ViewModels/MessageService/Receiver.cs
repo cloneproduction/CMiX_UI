@@ -23,9 +23,13 @@ namespace CMiX.Studio.ViewModels.MessageService
 
         private void Client_MessageReceived(object sender, MessageEventArgs e)
         {
-            Console.WriteLine("Client_MessageReceived " + e.Address);
-            if(e.Data is SliderModel)
-                Console.WriteLine("Received a SliderModel with Amount = " + ((SliderModel)e.Data).Amount);
+            //Console.WriteLine("Client_MessageReceived " + e.Address);
+            //if(e.Data is SliderModel)
+            //    Console.WriteLine("Received a SliderModel with Amount = " + ((SliderModel)e.Data).Amount);
+
+            //if(e.Data is ProjectModel)
+            //    Console.WriteLine("Composition Count = " + ((ProjectModel)e.Data).ComponentModels.Count);
+
             OnDataReceivedChange(e.Data as IModel, e.Address);
         }
 

@@ -2,12 +2,13 @@
 using System.Windows.Input;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class Geometry : Sendable
     {
-        #region CONSTRUCTORS
         public Geometry(Beat beat) 
         {
             Instancer = new Instancer(beat);
@@ -22,7 +23,15 @@ namespace CMiX.MVVM.ViewModels
             PasteGeometryCommand = new RelayCommand(p => PasteGeometry());
             ResetGeometryCommand = new RelayCommand(p => ResetGeometry());
         }
-        #endregion
+
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            if (this.GetMessageAddress() == e.MessageAddress)
+            {
+                this.SetViewModel(e.Model as GeometryModel);
+                Console.WriteLine("Project Updated");
+            }
+        }
 
         #region PROPERTIES
         public ICommand CopyGeometryCommand { get; }

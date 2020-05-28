@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -16,6 +18,15 @@ namespace CMiX.MVVM.ViewModels
         public Slider X { get; set; }
         public Slider Y { get; set; }
         public Slider Z { get; set; }
+
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            if (this.GetMessageAddress() == e.MessageAddress)
+            {
+                this.SetViewModel(e.Model as TranslateModel);
+                Console.WriteLine("Project Updated");
+            }
+        }
 
         #region COPY/PASTE/RESET
         public void CopyGeometry()

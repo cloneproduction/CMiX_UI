@@ -1,13 +1,14 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class Entity : Component
     {
-        #region CONSTRUCTORS
         public Entity(int id, Beat beat)
             : base(id, beat)
         {
@@ -22,7 +23,15 @@ namespace CMiX.MVVM.ViewModels
             PasteEntityCommand = new RelayCommand(p => PasteEntity());
             //ResetEntityCommand = new RelayCommand(p => ResetEntity());
         }
-        #endregion
+
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            if (this.GetMessageAddress() == e.MessageAddress)
+            {
+                this.SetViewModel(e.Model as EntityModel);
+                Console.WriteLine("Entity Updated");
+            }
+        }
 
         #region PROPERTIES
         public ICommand CopyEntityCommand { get; }
