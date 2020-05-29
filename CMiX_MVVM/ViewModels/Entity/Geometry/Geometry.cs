@@ -13,7 +13,6 @@ namespace CMiX.MVVM.ViewModels
         {
             Instancer = new Instancer(beat);
             Transform = new Transform(this);
-            Transform.SendChangeEvent += this.OnChildPropertyToSendChange;
 
             GeometryFX = new GeometryFX();
 
@@ -31,11 +30,10 @@ namespace CMiX.MVVM.ViewModels
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
-            if (this.GetMessageAddress() == e.MessageAddress)
-            {
+            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
                 this.SetViewModel(e.Model as GeometryModel);
-                Console.WriteLine("Project Updated");
-            }
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
         #region PROPERTIES

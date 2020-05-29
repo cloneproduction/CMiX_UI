@@ -25,7 +25,7 @@ namespace CMiX.MVVM.ViewModels
         public static Composition CreateComposition(Component parentComponent)
         {
             var component = new Composition(CompositionID, parentComponent.Beat);
-            SubscriveToEvent(parentComponent, component);
+            SubscribeToEvent(parentComponent, component);
             CompositionID++;
             return component;
         }
@@ -33,7 +33,7 @@ namespace CMiX.MVVM.ViewModels
         public static Layer CreateLayer(Component parentComponent)
         {
             var component = new Layer(LayerID, parentComponent.Beat);
-            SubscriveToEvent(parentComponent, component);
+            SubscribeToEvent(parentComponent, component);
             LayerID++;
             return component;
         }
@@ -41,7 +41,7 @@ namespace CMiX.MVVM.ViewModels
         public static Scene CreateScene(Component parentComponent)
         {
             var component = new Scene(SceneID, parentComponent.Beat);
-            SubscriveToEvent(parentComponent, component);
+            SubscribeToEvent(parentComponent, component);
             SceneID++;
             return component;
         }
@@ -49,7 +49,7 @@ namespace CMiX.MVVM.ViewModels
         public static Mask CreateMask(Component parentComponent)
         {
             var component = new Mask(MaskID, parentComponent.Beat);
-            SubscriveToEvent(parentComponent, component);
+            SubscribeToEvent(parentComponent, component);
             MaskID++;
             return component;
         }
@@ -57,12 +57,12 @@ namespace CMiX.MVVM.ViewModels
         public static Entity CreateEntity(Component parentComponent)
         {
             var component = new Entity(EntityID, parentComponent.Beat);
-            SubscriveToEvent(parentComponent, component);
+            SubscribeToEvent(parentComponent, component);
             EntityID++;
             return component;
         }
 
-        private static void SubscriveToEvent(Component parentComponent, Component childComponent)
+        private static void SubscribeToEvent(Component parentComponent, Component childComponent)
         {
             childComponent.SendChangeEvent += parentComponent.OnChildPropertyToSendChange;
             parentComponent.ReceiveChangeEvent += childComponent.OnParentReceiveChange;

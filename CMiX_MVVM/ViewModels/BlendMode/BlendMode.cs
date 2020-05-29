@@ -7,18 +7,22 @@ namespace CMiX.MVVM.ViewModels
 {
     public class BlendMode : Sendable
     {
-        public BlendMode(Beat masterBeat)
+        public BlendMode()
         {
             Mode = ((BlendModeEnum)0).ToString();
         }
 
+        public BlendMode(Sendable parentSendable) : this()
+        {
+            SubscribeToEvent(parentSendable);
+        }
+
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
-            if (this.GetMessageAddress() == e.MessageAddress)
-            {
+            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
                 this.SetViewModel(e.Model as BlendModeModel);
-                Console.WriteLine("BlendMode Updated");
-            }
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
         private string _mode;

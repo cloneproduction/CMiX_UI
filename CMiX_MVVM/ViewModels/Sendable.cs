@@ -24,7 +24,7 @@ namespace CMiX.MVVM.ViewModels
         public event EventHandler<ModelEventArgs> SendChangeEvent;
         public void OnSendChange(IModel model, string messageAddress)
         {
-            SendChangeEvent?.Invoke(this, new ModelEventArgs(model, messageAddress));
+            SendChangeEvent?.Invoke(this, new ModelEventArgs(model, messageAddress, string.Empty));
         }
 
         public void OnChildPropertyToSendChange(object sender, ModelEventArgs e)
@@ -36,7 +36,6 @@ namespace CMiX.MVVM.ViewModels
         {
             this.SendChangeEvent += sendableParent.OnChildPropertyToSendChange;
             sendableParent.ReceiveChangeEvent += this.OnParentReceiveChange;
-            Console.WriteLine(sendableParent.GetType() + " SubscribedToEvent");
         }
 
         public void UnSubscribeToEvent(Sendable sendableParent)

@@ -251,7 +251,7 @@ namespace CMiX.MVVM.Controls
         }
 
         public static readonly DependencyProperty IsEditingProperty =
-        DependencyProperty.Register("IsEditing", typeof(bool), typeof(DistanceSlider), new UIPropertyMetadata(false));
+        DependencyProperty.Register("IsEditing", typeof(bool), typeof(DistanceSlider), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         public bool IsEditing
         {
             get { return (bool)GetValue(IsEditingProperty); }
@@ -259,7 +259,7 @@ namespace CMiX.MVVM.Controls
         }
 
         public static readonly DependencyProperty ValueProperty =
-        DependencyProperty.Register("Value", typeof(double), typeof(DistanceSlider), new UIPropertyMetadata(0.0));
+        DependencyProperty.Register("Value", typeof(double), typeof(DistanceSlider), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         public double Value
         {
             get { return (double)GetValue(ValueProperty); }
@@ -267,7 +267,7 @@ namespace CMiX.MVVM.Controls
         }
 
         public static readonly DependencyProperty PositionProperty =
-        DependencyProperty.Register("Position", typeof(ControlPosition), typeof(DistanceSlider), new UIPropertyMetadata(ControlPosition.Default));
+        DependencyProperty.Register("Position", typeof(ControlPosition), typeof(DistanceSlider), new FrameworkPropertyMetadata(ControlPosition.Default, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         public ControlPosition Position
         {
             get { return (ControlPosition)GetValue(PositionProperty); }

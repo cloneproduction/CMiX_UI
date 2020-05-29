@@ -20,7 +20,7 @@
                 Grid.Column="1" 
                 Position="Top" 
                 Style="{StaticResource DistanceSliderStyle}" 
-                Value="{Binding Path=X.Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                Value="{Binding Path=X.Amount}" >
                 <i:Interaction.Behaviors>
                     <Behaviors:ContextMenuMouseDownBehavior/>
                 </i:Interaction.Behaviors>

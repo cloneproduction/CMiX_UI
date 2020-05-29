@@ -5,12 +5,6 @@ namespace CMiX.MVVM.Services
 {
     public class ModelEventArgs : EventArgs
     {
-        public ModelEventArgs(IModel model, string messageAddress)
-        {
-            Model = model;
-            MessageAddress = messageAddress;
-        }
-
         public ModelEventArgs(IModel model, string messageAddress, string parentMessageAddress)
         {
             Model = model;

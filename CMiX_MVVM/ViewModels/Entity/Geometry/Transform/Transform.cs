@@ -10,8 +10,6 @@ namespace CMiX.MVVM.ViewModels
         public Transform()
         {
             Translate = new Translate(this);
-            Translate.SendChangeEvent += this.OnChildPropertyToSendChange;
-
             Scale = new Scale();
             Rotation = new Rotation();
 
@@ -24,12 +22,12 @@ namespace CMiX.MVVM.ViewModels
         }
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
-            if (this.GetMessageAddress() == e.MessageAddress)
-            {
+            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
                 this.SetViewModel(e.Model as TransformModel);
-                Console.WriteLine("Project Updated");
-            }
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
+
         #region PROPERTY
         public Translate Translate { get; }
         public Scale Scale { get; }

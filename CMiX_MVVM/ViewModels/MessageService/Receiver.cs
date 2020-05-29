@@ -15,9 +15,9 @@ namespace CMiX.Studio.ViewModels.MessageService
 
 
         public event EventHandler<ModelEventArgs> DataReceivedEvent;
-        public void OnDataReceivedChange(IModel model, string messageAddress)
+        public void OnDataReceivedChange(IModel model, string messageAddress, string parentMessageAddress)
         {
-            DataReceivedEvent?.Invoke(this, new ModelEventArgs(model, messageAddress));
+            DataReceivedEvent?.Invoke(this, new ModelEventArgs(model, messageAddress, parentMessageAddress));
         }
 
 
@@ -30,7 +30,7 @@ namespace CMiX.Studio.ViewModels.MessageService
             //if(e.Data is ProjectModel)
             //    Console.WriteLine("Composition Count = " + ((ProjectModel)e.Data).ComponentModels.Count);
             Console.WriteLine("MessageReceived" + e.Address);
-            OnDataReceivedChange(e.Data as IModel, e.Address);
+            OnDataReceivedChange(e.Data as IModel, e.Address, String.Empty);
         }
 
         public string Address

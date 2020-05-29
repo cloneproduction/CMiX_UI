@@ -8,8 +8,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Layer : Component
     {
-        public Layer(int id, Beat beat)
-            : base(id, beat)
+        public Layer(int id, Beat beat) : base(id, beat)
         {
             Scene scene = ComponentFactory.CreateScene(this);
             Components.Add(scene);
@@ -18,10 +17,8 @@ namespace CMiX.MVVM.ViewModels
             Components.Add(mask);
 
             PostFX = new PostFX();
-            PostFX.SendChangeEvent += this.OnChildPropertyToSendChange;
 
-            BlendMode = new BlendMode(beat);
-            BlendMode.SendChangeEvent += this.OnChildPropertyToSendChange;
+            BlendMode = new BlendMode(this);
             
             Fade = new Slider(nameof(Fade), this);
 
@@ -31,7 +28,10 @@ namespace CMiX.MVVM.ViewModels
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
             if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
+            {
                 this.SetViewModel(e.Model as LayerModel);
+                Console.WriteLine("Layer Updated");
+            }
             else
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }

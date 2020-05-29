@@ -15,8 +15,12 @@ namespace CMiX.MVVM.ViewModels
             Z = new Slider(nameof(Z), this);
         }
 
-        public Translate(Sendable parentSendable) : this()
+        public Translate(Sendable parentSendable)
         {
+            X = new Slider(nameof(X), this);
+            Y = new Slider(nameof(Y), this);
+            Z = new Slider(nameof(Z), this);
+
             SubscribeToEvent(parentSendable);
         }
 
@@ -26,11 +30,10 @@ namespace CMiX.MVVM.ViewModels
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
-            if (this.GetMessageAddress() == e.MessageAddress)
-            {
+            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
                 this.SetViewModel(e.Model as TranslateModel);
-                Console.WriteLine("Translate Updated");
-            }
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
         #region COPY/PASTE/RESET

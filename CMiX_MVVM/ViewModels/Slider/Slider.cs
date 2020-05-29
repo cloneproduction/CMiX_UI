@@ -1,7 +1,6 @@
 ﻿using System.Windows.Input;
 using System.Windows;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Services;
 using System;
 
@@ -22,18 +21,8 @@ namespace CMiX.MVVM.ViewModels
             MouseDownCommand = new RelayCommand(p => MouseDown());
         }
 
-        public Slider(string name, Sendable parentSendable)// : this(name)
+        public Slider(string name, Sendable parentSendable) : this(name)
         {
-            Name = name;
-
-            AddCommand = new RelayCommand(p => Add());
-            SubCommand = new RelayCommand(p => Sub());
-
-            ResetCommand = new RelayCommand(p => Reset());
-            CopySliderCommand = new RelayCommand(p => CopySlider());
-            PasteSliderCommand = new RelayCommand(p => PasteSlider());
-            MouseDownCommand = new RelayCommand(p => MouseDown());
-
             SubscribeToEvent(parentSendable);
         }
 
@@ -42,8 +31,14 @@ namespace CMiX.MVVM.ViewModels
             if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
             {
                 this.SetViewModel(e.Model as SliderModel);
-                Console.WriteLine("Slider Updated");
+                Console.WriteLine(this.Name + " ViewModelUpdated");
+                Console.WriteLine("Amount = " + this.Amount);
             }
+                
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
+
+            Console.WriteLine("----------------------------");
         }
 
         #region PROPERTIES
@@ -85,7 +80,6 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _amount, value);
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
-                //System.Console.WriteLine("Slider Amount = " + Amount);
             }
         }
 

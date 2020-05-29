@@ -9,9 +9,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Scene : Component
     {
-        #region CONSTRUCTORS
-        public Scene(int id, Beat beat)
-            : base(id, beat)
+        public Scene(int id, Beat beat) : base(id, beat)
         {
             Name = "Scene";
             BeatModifier = new BeatModifier(beat);
@@ -21,14 +19,17 @@ namespace CMiX.MVVM.ViewModels
             //PasteContentCommand = new RelayCommand(p => PasteContent());
             //ResetContentCommand = new RelayCommand(p => ResetContent());
         }
-        #endregion
+
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
             if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
             {
                 this.SetViewModel(e.Model as SceneModel);
-                Console.WriteLine("Scene Updated");
+                Console.WriteLine("Scene Entity Count = " + this.Components.Count);
             }
+                
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
         #region PROPERTIES
