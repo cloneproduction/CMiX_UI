@@ -209,15 +209,17 @@
             <i:Interaction.Behaviors>
                 <Behaviors:BindableSelectedItemBehavior SelectedItem="{Binding SelectedComponent, Mode=TwoWay}"/>
             </i:Interaction.Behaviors>
-            <TreeView.InputBindings>
-                <MouseBinding Gesture="RightClick" Command="{Binding RightClickCommand}" />
-            </TreeView.InputBindings>
+
             <TreeView.ItemContainerStyle>
                 <Style TargetType="TreeViewItem" BasedOn="{StaticResource TreeViewItemDefault}">
                     <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded}"/>
                 </Style>
             </TreeView.ItemContainerStyle>
+
+            <TreeView.InputBindings>
+                <MouseBinding Gesture="RightClick" Command="{Binding RightClickCommand}" />
+            </TreeView.InputBindings>
         </Controls:TreeViewSelect>
         
     </DockPanel>

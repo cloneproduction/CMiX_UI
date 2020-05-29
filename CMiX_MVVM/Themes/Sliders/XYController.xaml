@@ -95,7 +95,7 @@
                             </Canvas.LayoutTransform>
                             <Thumb
                                 x:Name="PART_Thumb"
-                                Style="{StaticResource XYControllerThumbStyle}">
+                                Style="{DynamicResource XYControllerThumbStyle}">
                             </Thumb>
                         </Canvas>
                     </Grid>
@@ -144,7 +144,7 @@
                             </Canvas.LayoutTransform>
                             <Thumb
                                 x:Name="PART_Thumb"
-                                Style="{StaticResource XYControllerThumbStyle}">
+                                Style="{DynamicResource XYControllerThumbStyle}">
                             </Thumb>
                         </Canvas>
                     </Grid>
@@ -193,7 +193,7 @@
                             </Canvas.LayoutTransform>
                             <Thumb
                                 x:Name="PART_Thumb"
-                                Style="{StaticResource XYControllerThumbStyle}">
+                                Style="{DynamicResource XYControllerThumbStyle}">
                             </Thumb>
                         </Canvas>
                     </Grid>
@@ -269,7 +269,7 @@
                             </Canvas.LayoutTransform>
                             <Thumb
                                 x:Name="PART_Thumb"
-                                Style="{StaticResource XYControllerThumbStyle}">
+                                Style="{DynamicResource XYControllerThumbStyle}">
                             </Thumb>
                         </Canvas>
                     </Grid>
@@ -345,7 +345,7 @@
                             </Canvas.LayoutTransform>
                             <Thumb
                                 x:Name="PART_Thumb"
-                                Style="{StaticResource XYControllerThumbStyle}">
+                                Style="{DynamicResource XYControllerThumbStyle}">
                             </Thumb>
                         </Canvas>
                     </Grid>
@@ -421,7 +421,7 @@
                             </Canvas.LayoutTransform>
                             <Thumb
                                 x:Name="PART_Thumb"
-                                Style="{StaticResource XYControllerThumbStyle}">
+                                Style="{DynamicResource XYControllerThumbStyle}">
                             </Thumb>
                         </Canvas>
                     </Grid>

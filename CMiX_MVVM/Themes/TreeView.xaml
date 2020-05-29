@@ -116,6 +116,7 @@
                                     </Style.Triggers>
                                 </Style>
                             </Border.Style>
+                            
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="PreviewMouseRightButtonDown">
                                     <ei:ChangePropertyAction PropertyName="IsSelected" Value="true" TargetObject="{Binding}"/>
@@ -159,7 +160,7 @@
                         </Border>
                     </StackPanel>
 
-                    <!--<ControlTemplate.Triggers>
+                    <ControlTemplate.Triggers>
                         
                         <Trigger Property="IsExpanded" Value="false">
                             <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed"/>
@@ -204,7 +205,7 @@
                             <Setter TargetName="PART_Header" Property="TextBlock.Foreground" Value="{DynamicResource ActiveTextBase}"/>
                         </MultiTrigger>
 
-                    </ControlTemplate.Triggers>-->
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

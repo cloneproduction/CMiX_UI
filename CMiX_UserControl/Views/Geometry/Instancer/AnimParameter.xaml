@@ -6,6 +6,7 @@
              xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX.MVVM"
              xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
              xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
+             xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="636.667"
@@ -23,9 +24,9 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Border Padding="8" IsEnabled="{Binding IsEnabled}">
+    <Border Padding="4" IsEnabled="{Binding IsEnabled}">
         <StackPanel >
-            <Grid Height="20" Margin="0,1">
+            <Grid Height="20" Margin="0,4, 0, 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -54,10 +55,19 @@
                     </Style>
                 </Border.Style>
                 <StackPanel>
-                    <MVVM.Views:Slider
+                    <Controls:CMiXSlider
+                        Style="{StaticResource CMiXSliderStyle}"
+                        Minimum="0"
+                        Maximum="1"
+                        DockPanel.Dock="Top"
+                        Margin="0, 8"
+                        Height="20"
+                        Value="{Binding Slider}" 
+                        Caption="Influence"/>
+                    <!--<MVVM.Views:Slider
                         Margin="0, 8"
                         Caption="Influence"
-                        DataContext="{Binding Slider}"/>
+                        DataContext="{Binding Slider}"/>-->
                     <Views:BeatModifier 
                         Margin="0, 1"
                         DataContext="{Binding BeatModifier}"/>

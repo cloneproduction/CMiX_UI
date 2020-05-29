@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -11,8 +13,15 @@ namespace CMiX.MVVM.ViewModels
             Name = GetType().Name + " " + id;
 
             Components = new ObservableCollection<Component>();
+            TreeViewItemRigthClickCommand = new RelayCommand(p => RightClick());
         }
 
+        private void RightClick()
+        {
+            this.IsSelected = true;
+        }
+
+        ICommand TreeViewItemRigthClickCommand { get; set; }
         public Beat Beat { get; set; }
 
         public override string GetMessageAddress()

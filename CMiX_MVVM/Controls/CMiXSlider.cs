@@ -67,7 +67,6 @@ namespace CMiX.MVVM.Controls
                     OnSwitchToNormalMode();
                 }
             }
-
         }
 
 

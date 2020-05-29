@@ -21,7 +21,7 @@
                 Margin="0, 4" 
                 Padding="8" 
                 Style="{StaticResource BorderContainer}">
-                <!--<MVVM.Views:ColorPicker DataContext="{Binding ColorPicker}"/>-->
+                <MVVM.Views:ColorPicker DataContext="{Binding ColorPicker}"/>
             </Border>
         </Expander>
     </StackPanel>

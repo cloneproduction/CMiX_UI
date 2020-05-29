@@ -6,8 +6,6 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!--<ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Brushes.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/ColorPicker;component/Themes/Slider.xaml"/>-->
                 <ResourceDictionary>
                     <Resources:ColorToHSVControledConverter x:Key="ColorToHSVControled"/>
                 </ResourceDictionary>
@@ -87,13 +85,13 @@
                         </Rectangle>
                         <Track x:Name="PART_Track" Margin="0">
                             <Track.DecreaseRepeatButton>
-                                <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource SliderRepeatButtonStyle}" />
+                                <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{DynamicResource SliderRepeatButtonStyle}" />
                             </Track.DecreaseRepeatButton>
                             <Track.IncreaseRepeatButton>
-                                <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource SliderRepeatButtonStyle}" />
+                                <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{DynamicResource SliderRepeatButtonStyle}" />
                             </Track.IncreaseRepeatButton>
                             <Track.Thumb>
-                                <Thumb x:Name="Thumb" Style="{StaticResource SliderHorizontalThumbStyle}" />
+                                <Thumb x:Name="Thumb" Style="{DynamicResource SliderHorizontalThumbStyle}" />
                             </Track.Thumb>
                         </Track>
                     </Grid>
@@ -115,18 +113,15 @@
                                 <GradientStop Offset="1" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=RightColor}" />
                             </LinearGradientBrush>
                         </Border.Background>
-                        <Track
-                            x:Name="PART_Track"
-                            Grid.Row="1"
-                            Margin="0">
+                        <Track x:Name="PART_Track" Grid.Row="1" Margin="0">
                             <Track.DecreaseRepeatButton>
-                                <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource SliderRepeatButtonStyle}" />
+                                <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{DynamicResource SliderRepeatButtonStyle}" />
                             </Track.DecreaseRepeatButton>
                             <Track.IncreaseRepeatButton>
-                                <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource SliderRepeatButtonStyle}" />
+                                <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{DynamicResource SliderRepeatButtonStyle}" />
                             </Track.IncreaseRepeatButton>
                             <Track.Thumb>
-                                <Thumb x:Name="Part_Thumb" Style="{StaticResource SliderHorizontalThumbStyle}" />
+                                <Thumb x:Name="Part_Thumb" Style="{DynamicResource SliderHorizontalThumbStyle}" />
                             </Track.Thumb>
                         </Track>
                     </Border>
@@ -157,13 +152,13 @@
                         </Rectangle>
                         <Track x:Name="PART_Track" Margin="0">
                             <Track.DecreaseRepeatButton>
-                                <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource SliderRepeatButtonStyle}" />
+                                <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{DynamicResource SliderRepeatButtonStyle}" />
                             </Track.DecreaseRepeatButton>
                             <Track.IncreaseRepeatButton>
-                                <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource SliderRepeatButtonStyle}" />
+                                <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{DynamicResource SliderRepeatButtonStyle}" />
                             </Track.IncreaseRepeatButton>
                             <Track.Thumb>
-                                <Thumb x:Name="Thumb" Style="{StaticResource SliderVerticalThumbStyle}" />
+                                <Thumb x:Name="Thumb" Style="{DynamicResource SliderVerticalThumbStyle}" />
                             </Track.Thumb>
                         </Track>
                     </Grid>
@@ -185,18 +180,15 @@
                                 <GradientStop Offset="1" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=RightColor}" />
                             </LinearGradientBrush>
                         </Border.Background>
-                        <Track
-                            x:Name="PART_Track"
-                            Grid.Row="1"
-                            Margin="0">
+                        <Track x:Name="PART_Track" Grid.Row="1" Margin="0">
                             <Track.DecreaseRepeatButton>
-                                <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource SliderRepeatButtonStyle}" />
+                                <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{DynamicResource SliderRepeatButtonStyle}" />
                             </Track.DecreaseRepeatButton>
                             <Track.IncreaseRepeatButton>
-                                <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource SliderRepeatButtonStyle}" />
+                                <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{DynamicResource SliderRepeatButtonStyle}" />
                             </Track.IncreaseRepeatButton>
                             <Track.Thumb>
-                                <Thumb x:Name="Part_Thumb" Style="{StaticResource SliderVerticalThumbStyle}" />
+                                <Thumb x:Name="Part_Thumb" Style="{DynamicResource SliderVerticalThumbStyle}" />
                             </Track.Thumb>
                         </Track>
                     </Border>

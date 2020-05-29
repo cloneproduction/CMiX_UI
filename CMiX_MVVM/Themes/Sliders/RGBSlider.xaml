@@ -4,15 +4,6 @@
                     xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM">
 
 
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary>
-            <!--<ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Brushes.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/ColorPicker;component/Themes/Slider.xaml"/>
-            </ResourceDictionary.MergedDictionaries>-->
-        </ResourceDictionary>
-    </ResourceDictionary.MergedDictionaries>
-
     <Style TargetType="{x:Type local:ColorSlider}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Template">
@@ -27,13 +18,13 @@
                         </Border.Background>
                         <Track x:Name="PART_Track" Margin="0">
                             <Track.DecreaseRepeatButton>
-                                <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource SliderRepeatButtonStyle}" />
+                                <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{DynamicResource SliderRepeatButtonStyle}" />
                             </Track.DecreaseRepeatButton>
                             <Track.IncreaseRepeatButton>
-                                <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource SliderRepeatButtonStyle}" />
+                                <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{DynamicResource SliderRepeatButtonStyle}" />
                             </Track.IncreaseRepeatButton>
                             <Track.Thumb>
-                                <Thumb x:Name="Part_Thumb" Style="{StaticResource SliderHorizontalThumbStyle}">
+                                <Thumb x:Name="Part_Thumb" Style="{DynamicResource SliderHorizontalThumbStyle}">
                                     <Thumb.RenderTransform>
                                         <TranslateTransform Y="0" />
                                     </Thumb.RenderTransform>

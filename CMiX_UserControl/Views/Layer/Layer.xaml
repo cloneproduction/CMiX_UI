@@ -9,7 +9,7 @@
              d:DesignHeight="529" d:DesignWidth="821">
 
     
-    <Grid Background="{StaticResource HighDarkerColor}">
+    <Grid Background="{DynamicResource HighDarkerColor}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
