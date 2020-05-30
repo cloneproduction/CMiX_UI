@@ -24,8 +24,7 @@
         </ObjectDataProvider>
     </UserControl.Resources>
 
-    <Border Background="{StaticResource HighDarkerColor}"
-            CornerRadius="4" Padding="8">
+    <Border Padding="8">
         <StackPanel>
             <Border
                 Height="25"
@@ -171,7 +170,6 @@
                         Position="Top"
                         Minimum="0"
                         Maximum="1"
-                        Margin="0, 0, 0, 1"
                         Caption="Brightness"
                         Value="{Binding Brightness.Amount}"/>
                     <Controls:CMiXSlider
@@ -188,7 +186,6 @@
                         Minimum="0"
                         Maximum="1"
                         Height="20"
-                        Margin="0, 1"
                         Grid.Column="0"
                         Caption="Invert"
                         Value="{Binding Invert.Amount}"/>
@@ -213,7 +210,6 @@
                         Style="{StaticResource CMiXSliderStyle}"
                         Minimum="-1.0"
                         Maximum="1.0"
-                        Margin="0, 1"
                         Caption="Hue"
                         Position="Top"
                         Value="{Binding Hue.Amount}"/>
@@ -229,7 +225,6 @@
                         Style="{StaticResource CMiXSliderStyle}"
                         Minimum="-1.0"
                         Maximum="1.0"
-                        Margin="0, 1, 0, 16"
                         Caption="Luminosity"
                         Position="Bottom"
                         Value="{Binding Luminosity.Amount}"/>
@@ -238,7 +233,7 @@
                         Minimum="0"
                         Maximum="1.0"
                         Height="20"
-                        Margin="0"
+                        Margin="0, 8, 0, 0"
                         Caption="Keying"
                         Value="{Binding Keying.Amount}"/>
                 </StackPanel>

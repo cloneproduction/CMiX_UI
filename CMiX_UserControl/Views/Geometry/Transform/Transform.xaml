@@ -4,28 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
+             xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
              xmlns:Views="clr-namespace:CMiX.Studio.Views"
              mc:Ignorable="d" 
              d:DesignHeight="409" d:DesignWidth="415.666">
 
 
     <StackPanel>
-        <DockPanel Height="25" Margin="0, 2">
-            <ToggleButton
-                            DockPanel.Dock="Right"
-                                HorizontalAlignment="left"
-                                Height="15"
-                                Width="15"
-                                Margin="4"
-                                IsChecked="{Binding Is3D, Mode=TwoWay}"/>
-            <TextBlock 
-                        DockPanel.Dock="Right"
-                        Text="3D Space" 
-                        Margin="4, 0" 
-                        Foreground="{StaticResource TextBase}" 
-                        VerticalAlignment="Center" 
-                        HorizontalAlignment="Right"/>
-        </DockPanel>
+        <Controls:CMiXToggleButton
+            Style="{DynamicResource CMiXToggleButtonStyle}"
+            Dock="Right"
+            HorizontalAlignment="Right"
+            Height="15"
+            Margin="4"
+            Grid.Column="0"
+            Caption="3D Space"
+            IsChecked="{Binding Is3D}"/>
         <Views:Translate Padding="4" Margin="0, 2" DataContext="{Binding Translate}"/>
         <Views:Scale Padding="4" Margin="0, 2" DataContext="{Binding Scale}"/>
         <Views:Rotation Padding="4" Margin="0, 2, 0, 8" DataContext="{Binding Rotation}"/>

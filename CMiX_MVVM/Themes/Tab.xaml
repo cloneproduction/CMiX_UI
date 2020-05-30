@@ -376,7 +376,7 @@
     
     
     <Style x:Key="TabItemEditor" TargetType="{x:Type TabItem}">
-        <Setter Property="FocusVisualStyle">
+        <!--<Setter Property="FocusVisualStyle">
             <Setter.Value>
                 <Style>
                     <Setter Property="Control.Template">
@@ -393,7 +393,7 @@
                     </Setter>
                 </Style>
             </Setter.Value>
-        </Setter>
+        </Setter>-->
         <Setter Property="Foreground" Value="{DynamicResource TextBase}" />
         <Setter Property="Background" Value="{DynamicResource HighDarkerColor}"/>
         <Setter Property="BorderBrush" Value="Transparent" />
@@ -406,39 +406,45 @@
                     <Border
                         x:Name="MainBorder"
                         Width="120"
-                        Height="40"
-                        Padding="8"
+                        Height="30"
                         VerticalAlignment="Center"
-                        BorderBrush="{DynamicResource Color}"
+                        Padding="8, 0"
+                        CornerRadius="{DynamicResource CornerRadiusTop}"
                         Background="Transparent">
                         <Border.InputBindings>
                             <MouseBinding MouseAction="MiddleClick"
                               Command="{Binding DataContext.RemoveComponentCommand, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"
                               CommandParameter="{Binding}"/>
                         </Border.InputBindings>
-                        <DockPanel>
-                            <Button 
-                                x:Name="DeleteTabButton"
-                                Style="{DynamicResource CloseTabButton}"
-                                Visibility="Collapsed"
-                                Command="{Binding DataContext.RemoveComponentCommand, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"
-                                CommandParameter="{Binding}"
-                                DockPanel.Dock="Right" Width="15" Height="15"/>
-                            <TextBlock 
-                                x:Name="TabText"
-                                Text="{Binding Name}" 
-                                Foreground="{DynamicResource TextBase}"
-                                VerticalAlignment="Center"/>
+                        <Border >
+                            <DockPanel>
+                                <Button 
+                                    x:Name="DeleteTabButton"
+                                    Style="{DynamicResource CloseTabButton}"
+                                    Visibility="Collapsed"
+                                    Command="{Binding DataContext.RemoveComponentCommand, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"
+                                    CommandParameter="{Binding}"
+                                    DockPanel.Dock="Right" 
+                                    Width="15" 
+                                    Height="15"/>
+                                <TextBlock 
+                                    x:Name="TabText"
+                                    Text="{Binding Name}" 
+                                    Opacity="0.75"
+                                    Foreground="{DynamicResource TextBase}"
+                                    VerticalAlignment="Center"/>
                             </DockPanel>
+                        </Border>
+
                     </Border>
                         <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter TargetName="DeleteTabButton" Property="Visibility" Value="Visible"/>
-                            <Setter TargetName="MainBorder" Property="Background" Value="{DynamicResource DarkerColor }"/>
+                            <Setter TargetName="MainBorder" Property="Background" Value="{DynamicResource HighDarkerColor }"/>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="true">
-                            <Setter TargetName="TabText" Property="Foreground" Value="{DynamicResource ActiveTextBase}"/>
-                            <Setter TargetName="MainBorder" Property="Background" Value="{DynamicResource Color}"/>
+                            <Setter TargetName="TabText" Property="Opacity" Value="1.0"/>
+                            <Setter TargetName="MainBorder" Property="Background" Value="{DynamicResource DarkColor}"/>
                             <Setter TargetName="TabText" Property="Foreground" Value="{DynamicResource TextBase}"/>
                             <Setter Property="Panel.ZIndex" Value="1" />
                         </Trigger>
@@ -449,7 +455,7 @@
     </Style>
 
     <Style x:Key="TabControlEditor" TargetType="{x:Type TabControl}">
-        <Setter Property="BorderThickness" Value="0"/>
+
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Background" Value="{DynamicResource HighDarkerColor}" />
@@ -470,10 +476,9 @@
                             <RowDefinition x:Name="RowDefinition1" Height="*"/>
                         </Grid.RowDefinitions>
                         <Border 
-                            Height="30" 
                             Grid.Column="0"
-                            BorderThickness="0, 0, 0, 2"
-                            BorderBrush="{DynamicResource Color}">
+                            BorderThickness="0, 0, 0, 1"
+                            BorderBrush="{DynamicResource DarkColor}">
                             <StackPanel  Orientation="Horizontal">
                                 <TabPanel 
                                     x:Name="headerPanel" 
@@ -489,6 +494,7 @@
                             Grid.Column="0" 
                             KeyboardNavigation.DirectionalNavigation="Contained" 
                             Grid.Row="1" 
+                            Background="{DynamicResource HighDarkerColor}"
                             KeyboardNavigation.TabIndex="2" 
                             KeyboardNavigation.TabNavigation="Local">
                             <ContentPresenter 

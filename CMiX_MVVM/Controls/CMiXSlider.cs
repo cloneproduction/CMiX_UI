@@ -18,6 +18,9 @@ namespace CMiX.MVVM.Controls
         TextBox TextInput { get; set; }
         Border Border { get; set; }
 
+        private int ScreenHeight;
+        private int ScreenWidth;
+
         public override void OnApplyTemplate()
         {
             TextInput = GetTemplateChild("textInput") as TextBox;
@@ -28,7 +31,8 @@ namespace CMiX.MVVM.Controls
                 TextInput.MouseLeave += View_OnMouseLeave;
                 TextInput.MouseEnter += View_OnMouseEnter;
             }
-
+            ScreenHeight = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
+            ScreenWidth = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
             base.OnApplyTemplate();
         }
 
@@ -105,12 +109,24 @@ namespace CMiX.MVVM.Controls
                 var currentPoint = GetMousePosition();
                 var offset = currentPoint - _lastPoint.Value;
 
-                newValue = this.Value + offset.X * ((Math.Abs(this.Minimum) + Math.Abs(this.Maximum)) / ActualWidth);
+                if (currentPoint.X >= ScreenWidth - 1)
+                    SetCursorPos(0, Convert.ToInt32(currentPoint.Y));
+                else if (currentPoint.X <= 0)
+                    SetCursorPos(ScreenWidth - 1, Convert.ToInt32(currentPoint.Y));
+
+                if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
+                    newValue = this.Value + offset.X * ((Math.Abs(this.Minimum) + Math.Abs(this.Maximum)) / ActualWidth) * 0.01;
+                else
+                    newValue = this.Value + offset.X * ((Math.Abs(this.Minimum) + Math.Abs(this.Maximum)) / ActualWidth);
+
+
 
                 if (newValue >= this.Maximum)
                     newValue = this.Maximum;
                 else if (newValue <= this.Minimum)
                     newValue = this.Minimum;
+
+
 
                 this.Value = newValue;
                 _lastPoint = GetMousePosition();
@@ -127,16 +143,13 @@ namespace CMiX.MVVM.Controls
                 
             if (_mouseDownPos != null && IsEditing == false)
             {
+                
                 Point pointToScreen;
-                double YPos = ActualHeight / 2;
-                double XPos = 0;
 
-                if (mouseUpPos.X > this.ActualWidth)
-                    XPos = ActualWidth - 1;
-                else if (mouseUpPos.X < 0)
-                    XPos = 0;
-                else
-                    XPos = Utils.Map(this.Value, this.Minimum, this.Maximum, 0, ActualWidth);
+                double YPos = ActualHeight / 2;
+                double XPos = Utils.Map(this.Value, this.Minimum, this.Maximum, 0, ActualWidth);
+                if (XPos >= ActualWidth)
+                    XPos -= 1;
 
                 pointToScreen = this.PointToScreen(new Point(XPos, YPos));
                 SetCursorPos(Convert.ToInt32(pointToScreen.X), Convert.ToInt32(pointToScreen.Y));

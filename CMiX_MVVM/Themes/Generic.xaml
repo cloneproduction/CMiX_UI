@@ -26,6 +26,8 @@
         <ResourceDictionary Source="Sliders/SliderThumb.xaml"/>
         <ResourceDictionary Source="Sliders/XYController.xaml"/>
 
+        <ResourceDictionary Source="Counter.xaml"/>
+        
         <ResourceDictionary Source="Expander.xaml"/>
         <ResourceDictionary Source="ToggleButton.xaml"/>
         

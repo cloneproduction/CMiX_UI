@@ -25,7 +25,10 @@
     <BitmapImage x:Key="Folder_Opened" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Folder_Opened.png"/>
     <BitmapImage x:Key="Network" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Network.png"/>
     <BitmapImage x:Key="Resources" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Resource.png"/>
+    
     <BitmapImage x:Key="Add" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Add.png"/>
+    <BitmapImage x:Key="Sub" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Sub.png"/>
+    
     <BitmapImage x:Key="Rename" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Rename.png"/>
     <BitmapImage x:Key="Visible" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/Visible.png"/>
     <BitmapImage x:Key="NotVisible" UriSource="pack://application:,,,/CMiX.MVVM;component/Assets/NotVisible.png"/>

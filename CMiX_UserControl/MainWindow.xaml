@@ -55,9 +55,9 @@
         <Border 
             Padding="2"
             DockPanel.Dock="Top"
-            BorderBrush="{StaticResource SuperHighDarkerColor}"
-            BorderThickness="0, 0, 0, 1"
-            Background="{StaticResource DarkColor}" >
+            BorderBrush="{DynamicResource SuperHighDarkerColor}"
+            BorderThickness="0, 0, 0, 2"
+            Background="{DynamicResource HighHighDarkerColor}" >
             <Menu
                 Margin="16, 0, 0, 0"
                 HorizontalAlignment="Left"
@@ -137,25 +137,29 @@
             DockPanel.Dock="Bottom" 
             VerticalAlignment="Center" 
             BorderBrush="{StaticResource SuperHighDarkerColor}"
-            BorderThickness="1"
-            Background="{StaticResource DarkColor}" 
-            Height="25"/>
+            BorderThickness="0, 2, 0, 0"
+            Background="{StaticResource DarkerColor}" 
+            Height="20"/>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Border Grid.Column="0" Background="{StaticResource SuperHighDarkerColor}">
-                <Border Background="{StaticResource SuperHighDarkerColor}">
-                    <TabControl TabStripPlacement="Left" Background="{StaticResource DarkerColor}" Style="{StaticResource TabControlVerticalPanel}" >
-                        <TabItem Margin="8, 8, 8, 4" Width="25" Height="25" Style="{StaticResource TabItemVerticalPanel}">
+            <Border x:Name="borderMaskGridColumn0" Background="{DynamicResource HighDarkerColor}" CornerRadius="{DynamicResource CornerRadiusRightLarge}"/>
+            <Border Grid.Column="0" >
+                <Border Background="Transparent">
+                    <Border.OpacityMask>
+                        <VisualBrush Visual="{Binding ElementName=borderMaskGridColumn0}"/>
+                    </Border.OpacityMask>
+                    <TabControl TabStripPlacement="Left" Background="{DynamicResource HighHighDarkerColor}" Style="{StaticResource TabControlVerticalPanel}" >
+                        <TabItem Margin="4" Width="25" Height="25" Style="{StaticResource TabItemVerticalPanel}">
                             <TabItem.Header>
                                 <Image Margin="4" Source="{StaticResource Resources}" />
                             </TabItem.Header>
                             <Views:AssetManager DataContext="{Binding AssetManager}" Grid.RowSpan="2"/>
                         </TabItem>
-                        <TabItem Margin="8, 4"  Width="25" Height="25" Style="{StaticResource TabItemVerticalPanel}">
+                        <TabItem Margin="4"  Width="25" Height="25" Style="{StaticResource TabItemVerticalPanel}">
                             <TabItem.Header>
                                 <Image Margin="2" Source="{StaticResource Network}"/>
                             </TabItem.Header>
@@ -165,18 +169,35 @@
                 </Border>
             </Border>
             <GridSplitter Grid.Column="0" Background="Transparent" Width="4"/>
-            <Views:ComponentEditor Grid.Column="1" DataContext="{Binding ComponentEditor}"/>
+
+            <Border Grid.Column="1" Margin="4, 0" x:Name="borderMaskGridColumn1" Background="{DynamicResource SuperHighDarkerColor}" CornerRadius="{DynamicResource CornerRadiusDefaultLarge}"/>
+            <Border Grid.Column="1" Margin="4, 0">
+                <Border.OpacityMask>
+                    <VisualBrush Visual="{Binding ElementName=borderMaskGridColumn1}"/>
+                </Border.OpacityMask>
+                <Views:ComponentEditor DataContext="{Binding ComponentEditor}"/>
+            </Border>
+
             <GridSplitter Grid.Column="1" Background="Transparent" Width="4"/>
-            <Grid Grid.Column="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
-                <Views:Outliner Grid.Row="0" DataContext="{Binding Outliner}"/>
-                <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Background="Transparent" Height="2"/>
-                <Views:ComponentPanel Background="{StaticResource HighDarkerColor}" Grid.Row="2" DataContext="{Binding Outliner}"/>
-            </Grid>
+
+
+            <Border Grid.Column="2" x:Name="borderMaskGridColumn2" Background="{DynamicResource HighDarkerColor}" CornerRadius="{DynamicResource CornerRadiusLeftLarge}"/>
+            <Border Grid.Column="2">
+                <Border.OpacityMask>
+                    <VisualBrush Visual="{Binding ElementName=borderMaskGridColumn2}"/>
+                </Border.OpacityMask>
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Views:Outliner Grid.Row="0" DataContext="{Binding Outliner}"/>
+                    <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Background="Transparent" Height="2"/>
+                    <Views:ComponentPanel Background="{StaticResource HighDarkerColor}" Grid.Row="2" DataContext="{Binding Outliner}"/>
+                </Grid>
+            </Border>
+            
         </Grid>
     </DockPanel>
 

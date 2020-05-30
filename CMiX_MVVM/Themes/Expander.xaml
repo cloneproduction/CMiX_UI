@@ -33,7 +33,7 @@
         </Setter>
     </Style>
     
-    <Style x:Key="ExpanderRightHeaderStyle" TargetType="{x:Type ToggleButton}">
+    <Style x:Key="ExpanderRightHeaderStyle" TargetType="{x:Type ToggleButton}" >
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">

@@ -16,7 +16,7 @@
                     UseAeroCaptionButtons="False" />
             </Setter.Value>
         </Setter>
-        <Setter Property="BorderBrush" Value="{DynamicResource DarkerColor}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SuperHighDarkerColor}" />
         <Setter Property="Background" Value="Red" />
         <Setter Property="Template">
 

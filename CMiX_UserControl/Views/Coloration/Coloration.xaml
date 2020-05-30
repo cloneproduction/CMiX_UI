@@ -18,8 +18,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Border Background="{StaticResource HighDarkerColor}"
-            CornerRadius="4" Padding="8">
+    <Border Background="{StaticResource HighDarkerColor}" Padding="8">
         <StackPanel>
             <Border
                 Height="25"

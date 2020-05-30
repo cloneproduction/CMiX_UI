@@ -80,7 +80,6 @@
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="border" Property="Opacity" Value="1.0"/>
-                            <!--<Setter TargetName="border" Property="Background" Value="{DynamicResource HighLightColor}" />-->
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="border" Property="Opacity" Value="0.5" />

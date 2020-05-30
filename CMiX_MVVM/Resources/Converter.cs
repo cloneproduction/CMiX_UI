@@ -89,9 +89,7 @@ namespace CMiX.MVVM.Resources
         {
             string result = null;
             if (value != null)
-            {
                 result = value.ToString();
-            }
             return result;
         }
 
@@ -192,7 +190,7 @@ namespace CMiX.MVVM.Resources
 
             double b = (double)value;
             //return b.ToString();
-            return String.Format("{0:0.000}", b) ;
+            return String.Format("{0:0.000}", b);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -205,6 +203,27 @@ namespace CMiX.MVVM.Resources
                 return DependencyProperty.UnsetValue;
         }
     }
+
+    //public class IntToStringConverter : IValueConverter
+    //{
+    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+
+    //        int b = (int)value;
+    //        //return b.ToString();
+    //        return String.Format("{0:0}", b) ;
+    //    }
+
+    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        string strValue = value as string;
+    //        int resultDouble;
+    //        if (Int32.TryParse(strValue, out resultDouble))
+    //            return  resultDouble;
+    //        else
+    //            return DependencyProperty.UnsetValue;
+    //    }
+    //}
 
     public class DoubleToPersistantStringConverter : IValueConverter
     {

@@ -18,12 +18,7 @@
 
     <!--<i:Interaction.Behaviors>
         <Behaviors:ContextMenuMouseDownBehavior/>
-    </i:Interaction.Behaviors>
-    <UserControl.ContextMenu>
-        <ContextMenu>
-            <TextBlock Text="POUET POEUT POEUT" Height="50"/>
-        </ContextMenu>
-    </UserControl.ContextMenu>-->
+    </i:Interaction.Behaviors>-->
     
     <UserControl.Resources>
         <ResourceDictionary>
@@ -38,8 +33,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Border Background="{StaticResource HighDarkerColor}"
-            CornerRadius="4" Padding="8">
+    <Border Padding="8">
         <!--<Border.ContextMenu>
             <ContextMenu>
                 <MenuItem

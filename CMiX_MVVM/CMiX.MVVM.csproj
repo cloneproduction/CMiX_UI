@@ -102,6 +102,9 @@
     <Compile Include="Controls\ColorPicker\Controls\HueWheel.cs" />
     <Compile Include="Controls\ColorPicker\Controls\XYColorControl.cs" />
     <Compile Include="Controls\ColorPicker\Controls\XYController.cs" />
+    <Compile Include="Controls\Counter\Counter.cs" />
+    <Compile Include="Controls\ToggleButton\CMiXToggleButton.cs" />
+    <Compile Include="Controls\ToggleButton\ToggleDockPosition.cs" />
     <Compile Include="ViewModels\ColorPicker\ColorPicker.cs" />
     <Compile Include="ViewModels\ColorPicker\ColorPickerModelFactory.cs" />
     <Compile Include="Views\ColorPicker.xaml.cs">
@@ -321,6 +324,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Borders\BorderMask.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Counter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -612,6 +619,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Controls\ColorPicker\Assets\RedControllerBg.png" />
+    <Resource Include="Assets\Sub.png" />
     <Content Include="Themes\Fonts\LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>

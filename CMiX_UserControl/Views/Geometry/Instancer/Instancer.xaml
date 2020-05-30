@@ -6,7 +6,7 @@
     xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
-    xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels"
+    xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX.MVVM"
     xmlns:MVVM.ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX.MVVM"
     xmlns:Views = "clr-namespace:CMiX.Studio.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -40,30 +40,24 @@
                         Foreground="{StaticResource TextBase}" 
                         VerticalAlignment="Center" 
                         HorizontalAlignment="Right"/>
-                    <MVVM.Views:Counter
+                    <Controls:Counter
+                        Style="{DynamicResource CMiXCounterStyle}"
+                        StepValue="1"
                         Grid.Column="1"
                         Height="20"
                         HorizontalAlignment="Stretch"
-                        DataContext="{Binding Counter}"/>
+                        Value="{Binding Counter.Count}"/>
                 </Grid>
             </Border>
-            <DockPanel Margin="0, 2">
-                <ToggleButton
-                        DockPanel.Dock="Right"
-                        HorizontalAlignment="Right"
-                        Height="15"
-                        Width="15"
-                        Margin="4"
-                        Grid.Column="0"
-                        IsChecked="{Binding NoAspectRatio}"/>
-                <TextBlock 
-                        DockPanel.Dock="Right"
-                        Text="No Aspect Ratio" 
-                        Margin="4, 0" 
-                        Foreground="{StaticResource TextBase}" 
-                        VerticalAlignment="Center" 
-                        HorizontalAlignment="Right"/>
-            </DockPanel>
+
+            <Controls:CMiXToggleButton
+                Style="{DynamicResource CMiXToggleButtonStyle}"
+                Dock="Right"
+                HorizontalAlignment="Right"
+                Height="15"
+                Margin="4"
+                Caption="No Aspect Ratio"
+                IsChecked="{Binding NoAspectRatio}"/>
             <Views:Transform DataContext="{Binding Transform}"/>
             <Views:TranslateModifier DataContext="{Binding TranslateModifier}"/>
             <Views:ScaleModifier DataContext="{Binding ScaleModifier}"/>
