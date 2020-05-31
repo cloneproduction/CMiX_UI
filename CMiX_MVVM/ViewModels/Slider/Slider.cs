@@ -33,12 +33,10 @@ namespace CMiX.MVVM.ViewModels
                 this.SetViewModel(e.Model as SliderModel);
                 Console.WriteLine(this.Name + " ViewModelUpdated");
                 Console.WriteLine("Amount = " + this.Amount);
+                Console.WriteLine("----------------------------");
             }
-                
             else
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
-
-            Console.WriteLine("----------------------------");
         }
 
         #region PROPERTIES

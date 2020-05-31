@@ -99,7 +99,9 @@
                                     <ColumnDefinition Width="0.9*"/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Controls:DistanceSlider Grid.Column="1" Position="Bottom" Style="{StaticResource DistanceSliderStyle}" Value="{Binding Path=Tilt.Amount}" />
+                                <Border  Grid.Column="1" Style="{DynamicResource BorderShadow}">
+                                    <Controls:DistanceSlider Position="Bottom" Style="{StaticResource DistanceSliderStyle}" Value="{Binding Path=Tilt.Amount}" />
+                                </Border>
                                 <TextBlock Grid.Column="0" Padding="8, 0" HorizontalAlignment="Right" Text="V" Foreground="{StaticResource TextBase}"/>
                             </Grid>
 
@@ -116,7 +118,9 @@
                                     <ColumnDefinition Width="0.9*"/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Controls:DistanceSlider Grid.Column="1" Position="Bottom" Style="{StaticResource DistanceSliderStyle}" Value="{Binding Path=Scale.Amount}" />
+                                <Border  Grid.Column="1" Style="{DynamicResource BorderShadow}">
+                                    <Controls:DistanceSlider Grid.Column="1" Position="Bottom" Style="{StaticResource DistanceSliderStyle}" Value="{Binding Path=Scale.Amount}" />
+                                </Border>
                                 <TextBlock Grid.Column="0" Padding="8, 0" HorizontalAlignment="Right" Text="V" Foreground="{StaticResource TextBase}"/>
                             </Grid>
 
@@ -125,7 +129,9 @@
                                     <ColumnDefinition Width="0.9*"/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Controls:DistanceSlider Grid.Column="1" Style="{StaticResource DistanceSliderStyle}" Value="{Binding Path=Rotate.Amount}" />
+                                <Border  Grid.Column="1" Style="{DynamicResource BorderShadow}">
+                                    <Controls:DistanceSlider Grid.Column="1" Style="{StaticResource DistanceSliderStyle}" Value="{Binding Path=Rotate.Amount}" />
+                                </Border>
                                 <TextBlock Grid.Column="0" Padding="8, 0" HorizontalAlignment="Right" Text="Rotate" Foreground="{StaticResource TextBase}"/>
                             </Grid>
 
@@ -144,8 +150,10 @@
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="U" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                <ComboBox Margin="0, 0, 2, 0" Grid.Column="1"/>
-                            </Grid>
+                            <Border Grid.Column="1" Style="{DynamicResource BorderShadow}">
+                                <ComboBox  Grid.Column="1"/>
+                            </Border>
+                        </Grid>
                             <Grid Grid.Column="1">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="0.3*"/>
@@ -155,87 +163,82 @@
                                     Text="V" 
                                     HorizontalAlignment="Center" 
                                     VerticalAlignment="Center"/>
-                                <ComboBox 
-                                    Grid.Column="1" 
-                                    Margin="2, 0, 0, 0"/>
-                            </Grid>
+                            <Border Grid.Column="1" Style="{DynamicResource BorderShadow}">
+                                <ComboBox />
+                            </Border>
+                        </Grid>
                         </Grid>
 
                 </StackPanel>
             </Expander>
             <Expander IsExpanded="True" Margin="0, 2" Padding="8" Header="Color" Style="{StaticResource ExpanderBase}">
-                <StackPanel >
-                    <Controls:CMiXSlider
-                        Style="{StaticResource CMiXSliderStyle}"
-                        Position="Top"
-                        Minimum="0"
-                        Maximum="1"
-                        Caption="Brightness"
-                        Value="{Binding Brightness.Amount}"/>
-                    <Controls:CMiXSlider
-                        Style="{StaticResource CMiXSliderStyle}"
-                        Position="Bottom"
-                        Minimum="0"
-                        Maximum="1"
-                        Margin="0, 1, 0, 16"
-                        Caption="Contrast"
-                        DockPanel.Dock="Bottom"
-                        Value="{Binding Contrast.Amount}"/>
-                    <Controls:CMiXSlider
-                        Style="{StaticResource CMiXSliderStyle}"
-                        Minimum="0"
-                        Maximum="1"
-                        Height="20"
-                        Grid.Column="0"
-                        Caption="Invert"
-                        Value="{Binding Invert.Amount}"/>
-                    <Grid Height="20" Margin="0, 4, 0, 16">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <ComboBox
-                            Grid.Column="1"
-                            ItemsSource="{Binding Source={StaticResource InvertMode}}"
-                            SelectedItem="{Binding InvertMode}"
-                            SelectedIndex="0"/>
-                        <TextBlock 
-                            VerticalAlignment="Center" 
-                            HorizontalAlignment="Right" 
-                            Padding="8, 0" 
-                            Foreground="{StaticResource TextBase}" 
-                            Text="Mode" Grid.Column="0"/>
-                    </Grid>
-                    <Controls:CMiXSlider
-                        Style="{StaticResource CMiXSliderStyle}"
-                        Minimum="-1.0"
-                        Maximum="1.0"
-                        Caption="Hue"
-                        Position="Top"
-                        Value="{Binding Hue.Amount}"/>
-                    <Controls:CMiXSlider
-                        Style="{StaticResource CMiXSliderStyle}"
-                        Minimum="-1.0"
-                        Maximum="1.0"
-                        Margin="0, 1"
-                        Caption="Saturation"
-                        Position="Middle"
-                        Value="{Binding Saturation.Amount}"/>
-                    <Controls:CMiXSlider
-                        Style="{StaticResource CMiXSliderStyle}"
-                        Minimum="-1.0"
-                        Maximum="1.0"
-                        Caption="Luminosity"
-                        Position="Bottom"
-                        Value="{Binding Luminosity.Amount}"/>
-                    <Controls:CMiXSlider
-                        Style="{StaticResource CMiXSliderStyle}"
-                        Minimum="0"
-                        Maximum="1.0"
-                        Height="20"
-                        Margin="0, 8, 0, 0"
-                        Caption="Keying"
-                        Value="{Binding Keying.Amount}"/>
+                <StackPanel>
+
+                    <Border
+                        Margin="0, 1, 0, 16" 
+                        Style="{DynamicResource BorderShadow}">
+                        <StackPanel>
+                            <Controls:CMiXSlider
+                                Style="{StaticResource CMiXSliderStyle}"
+                                Position="Top"
+                                Minimum="0"
+                                Maximum="1"
+                                Caption="Brightness"
+                                Value="{Binding Brightness.Amount}"/>
+                            <Controls:CMiXSlider
+                                Style="{StaticResource CMiXSliderStyle}"
+                                Position="Bottom"
+                                Minimum="0"
+                                Maximum="1"
+                                Margin="0, 1, 0, 0"
+                                Caption="Contrast"
+                                DockPanel.Dock="Bottom"
+                                Value="{Binding Contrast.Amount}"/>
+                        </StackPanel>
+                    </Border>
+
+
+
+                    <Views:Inverter DataContext="{Binding Inverter}"/>
+
+                    <Border Style="{DynamicResource BorderShadow}">
+                        <StackPanel>
+                            <Controls:CMiXSlider
+                                Style="{StaticResource CMiXSliderStyle}"
+                                Minimum="-1.0"
+                                Maximum="1.0"
+                                Caption="Hue"
+                                Position="Top"
+                                Value="{Binding Hue.Amount}"/>
+                            <Controls:CMiXSlider
+                                Style="{StaticResource CMiXSliderStyle}"
+                                Minimum="-1.0"
+                                Maximum="1.0"
+                                Margin="0, 1"
+                                Caption="Saturation"
+                                Position="Middle"
+                                Value="{Binding Saturation.Amount}"/>
+                            <Controls:CMiXSlider
+                                Style="{StaticResource CMiXSliderStyle}"
+                                Minimum="-1.0"
+                                Maximum="1.0"
+                                Caption="Luminosity"
+                                Position="Bottom"
+                                Value="{Binding Luminosity.Amount}"/>
+                        </StackPanel>
+                    </Border>
+
+
+                    <Border Style="{DynamicResource BorderShadow}">
+                        <Controls:CMiXSlider
+                            Style="{StaticResource CMiXSliderStyle}"
+                            Minimum="0"
+                            Maximum="1.0"
+                            Height="20"
+                            Margin="0, 8, 0, 0"
+                            Caption="Keying"
+                            Value="{Binding Keying.Amount}"/>
+                    </Border>
                 </StackPanel>
             </Expander>
         </StackPanel>

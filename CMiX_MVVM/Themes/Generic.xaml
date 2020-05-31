@@ -12,7 +12,7 @@
 
         <ResourceDictionary Source="Borders/BorderMask.xaml"/>
         <ResourceDictionary Source="Borders/BorderContainer.xaml"/>
-        
+        <ResourceDictionary Source="Borders/BorderShadow.xaml"/>
         
         <ResourceDictionary Source="TextBlock.xaml"/>
         <ResourceDictionary Source="GridSplitter.xaml"/>

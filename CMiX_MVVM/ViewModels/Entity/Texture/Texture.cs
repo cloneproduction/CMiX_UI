@@ -12,14 +12,13 @@ namespace CMiX.MVVM.ViewModels
         {
             AssetPathSelector = new AssetPathSelector<AssetTexture>();
 
+            Inverter = new Inverter(this);
+
             Brightness = new Slider(nameof(Brightness), this);
             Brightness.Minimum = -1.0;
 
             Contrast = new Slider(nameof(Contrast), this);
             Contrast.Minimum = -1.0;
-
-            Invert = new Slider(nameof(Invert), this);
-            InvertMode = ((TextureInvertMode)0).ToString();
 
             Hue = new Slider(nameof(Hue), this);
             Hue.Minimum = -1.0;
@@ -73,7 +72,6 @@ namespace CMiX.MVVM.ViewModels
 
         public Slider Brightness { get; }
         public Slider Contrast { get; }
-        public Slider Invert { get; }
         public Slider Hue { get; }
         public Slider Saturation { get; }
         public Slider Luminosity { get; }
@@ -83,27 +81,14 @@ namespace CMiX.MVVM.ViewModels
         public Slider Scale { get; }
         public Slider Rotate { get; }
 
-        private string _invertMode;
-        public string InvertMode
-        {
-            get => _invertMode;
-            set
-            {
-                //if(Mementor != null)
-                //    Mementor.PropertyChange(this, nameof(InvertMode));
-                SetAndNotify(ref _invertMode, value);
-                //SendMessages(MessageAddress + nameof(InvertMode), InvertMode);
-            }
-        }
+        public Inverter Inverter { get; set; }
         #endregion
 
         #region COPY/PASTE/RESET
         public void Reset()
         {
-            InvertMode = ((TextureInvertMode)0).ToString();
             Brightness.Reset();
             Contrast.Reset();
-            Invert.Reset();
             Hue.Reset();
             Saturation.Reset();
             Luminosity.Reset();

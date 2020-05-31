@@ -3,12 +3,9 @@ using MvvmDialogs;
 using System.Windows.Data;
 using System.ComponentModel;
 using System.Collections.Specialized;
-//using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.Studio.ViewModels.MessageService;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.Models;
-using System;
-using System.Windows;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -133,14 +130,8 @@ namespace CMiX.MVVM.ViewModels
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
-            Console.WriteLine("Project OnParentReceiveChange");
-            Console.WriteLine("e.ParentMessageAddress + this.GetMessageAddress() " + e.ParentMessageAddress + this.GetMessageAddress());
-            Console.WriteLine("e.MessageAddress " + e.MessageAddress);
-           
             if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-            {
                 this.SetViewModel(e.Model as ProjectModel);
-            }
             else
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }

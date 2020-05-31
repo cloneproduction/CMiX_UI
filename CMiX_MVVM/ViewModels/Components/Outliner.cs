@@ -216,8 +216,6 @@ namespace CMiX.MVVM.ViewModels
         {
             var dataObject = dropInfo.Data as Component;
             var targetItem = dropInfo.TargetItem as Component;
-            //var targetIndex = dropInfo.InsertIndex;
-            //var sourceIndex = dropInfo.DragInfo.SourceIndex;
 
             var visualTarget = dropInfo.VisualTargetItem;
             var visualSource = dropInfo.DragInfo.VisualSourceItem;
@@ -269,22 +267,17 @@ namespace CMiX.MVVM.ViewModels
 
         public bool CanDropOnLastItem(IDropInfo dropInfo)
         {
-            var targetItem = dropInfo.TargetItem as Component;
-            var sourceItem = dropInfo.DragInfo.SourceItem as Component;
-            var visualTarget = dropInfo.VisualTargetItem;
-            var parentTargetItem = Utils.FindParent<TreeViewItem>(visualTarget);
-
             bool canDrop = false;
 
-            if (targetItem != null)
+            if (TargetComponent != null)
             {
-                if (sourceItem != targetItem)
+                if (SourceComponent != TargetComponent)
                 {
                     if (!dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter))
                     {
-                        if (!sourceItem.Components.Contains(targetItem))
+                        if (!SourceComponent.Components.Contains(TargetComponent))
                         {
-                            if (targetItem == ((Component)parentTargetItem.DataContext).Components.Last())
+                            if (TargetComponent == TargetComponentParent.Components.Last())
                             {
                                 if (dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.AfterTargetItem))
                                 {
@@ -300,54 +293,42 @@ namespace CMiX.MVVM.ViewModels
 
         public void DragOver(IDropInfo dropInfo)
         {
+            GetInfo(dropInfo);
+
             if(dropInfo.DragInfo != null && dropInfo.DragInfo.SourceItem is Component)
             {
                 var dataObject = dropInfo.Data as Component;
-                var targetItem = dropInfo.TargetItem as Component;
-                var sourceItem = dropInfo.DragInfo.SourceItem as Component;
 
-                var targetIndex = dropInfo.InsertIndex;
-                var sourceIndex = dropInfo.DragInfo.SourceIndex;
-
-                var visualSource = dropInfo.DragInfo.VisualSourceItem;
-                var visualTarget = dropInfo.VisualTargetItem;
-
-                var parentVisualSource = Utils.FindParent<TreeViewItem>(visualSource);
-                var parentVisualTarget = Utils.FindParent<TreeViewItem>(visualTarget);
-                var grandParentVisualTarget = Utils.FindParent<TreeViewItem>(parentVisualTarget);
-
-                if (parentVisualTarget != null)
+                if (ParentVisualTarget != null)
                 {
                     if (dataObject != null)
                         dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
 
-                    if (targetItem != null && sourceItem is Component)
+                    if (TargetComponent != null && SourceComponent is Component)
                     {
                         //IS  Not OVER ITSELF
-                        if (sourceItem != targetItem)
+                        if (SourceComponent != TargetComponent)
                         {
                             if (!dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter))
                             {
-                                if (parentVisualSource.DataContext != targetItem)
+                                if (ParentVisualSource.DataContext != TargetComponent)
                                 {
-                                    if (dataObject.GetType() == targetItem.GetType())
+                                    if (dataObject.GetType() == TargetComponent.GetType())
                                     {
-                                        bool InsertPositionAfterTargetItem = dropInfo.InsertPosition == RelativeInsertPosition.AfterTargetItem && targetIndex == sourceIndex;
-                                        bool InsertPositionBeforeTargetItem = dropInfo.InsertPosition == RelativeInsertPosition.BeforeTargetItem && targetIndex == sourceIndex + 1;
-                                        if ((!InsertPositionAfterTargetItem && !InsertPositionBeforeTargetItem) || (parentVisualTarget != parentVisualSource))
+                                        bool InsertPositionAfterTargetItem = dropInfo.InsertPosition == RelativeInsertPosition.AfterTargetItem && TargetIndex == SourceIndex;
+                                        bool InsertPositionBeforeTargetItem = dropInfo.InsertPosition == RelativeInsertPosition.BeforeTargetItem && TargetIndex == SourceIndex + 1;
+                                        if ((!InsertPositionAfterTargetItem && !InsertPositionBeforeTargetItem) || (ParentVisualTarget != ParentVisualSource))
                                         {
                                             dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
                                         }
                                     }
-                                    else if (grandParentVisualTarget != null)
+                                    else if (GrandParentVisualTarget != null)
                                     {
-                                        var parentIndex = ((ObservableCollection<Component>)grandParentVisualTarget.ItemsSource).IndexOf((Component)parentVisualTarget.DataContext);
-
-                                        if (parentIndex != sourceIndex - 1)
+                                        if (ParentComponentIndex != SourceIndex - 1)
                                         {
-                                            if (!sourceItem.Components.Contains(targetItem))
+                                            if (!SourceComponent.Components.Contains(TargetComponent))
                                             {
-                                                if (targetItem == ((Component)parentVisualTarget.DataContext).Components.Last())
+                                                if (TargetComponent == TargetComponentParent.Components.Last())
                                                 {
                                                     if (dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.AfterTargetItem))
                                                     {
@@ -362,87 +343,152 @@ namespace CMiX.MVVM.ViewModels
                         }
                     }
 
-                    if (dataObject is Entity && (targetItem is Mask || targetItem is Scene))
+                    if (dataObject is Entity && (TargetComponent is Mask || TargetComponent is Scene))
                     {
-                        if (parentVisualSource != visualTarget)
+                        if (ParentVisualSource != VisualTarget)
                         {
                             dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
                         }
                     }
                 }
             }
-
         }
 
         public void Drop(IDropInfo dropInfo)
         {
-            var targetCollection = dropInfo.TargetCollection as ObservableCollection<Component>;
-            var sourceCollection = dropInfo.DragInfo.SourceCollection as ObservableCollection<Component>;
-            var insertIndex = dropInfo.InsertIndex;
-            var sourceIndex = dropInfo.DragInfo.SourceIndex;
-            var sourceItem = dropInfo.DragInfo.SourceItem as Component;
-            var targetItem = dropInfo.TargetItem as Component;
 
-            if (targetCollection == null)
+
+            var insertIndex = dropInfo.InsertIndex;
+
+            if (TargetCollection == null)
                 return;
 
             if (CanDropOnSameParent(dropInfo))
             {
-                if (sourceIndex < insertIndex)
-                    targetCollection.Move(sourceIndex, insertIndex - 1);
-                else
-                    targetCollection.Move(sourceIndex, insertIndex);
-                return;
+                if (SourceIndex < insertIndex)
+                    insertIndex -= 1;
+
+                TargetCollection.Move(SourceIndex, insertIndex);
             }
             else if(CanDropWithinDifferentParent(dropInfo))
             {
-                targetCollection.Insert(insertIndex, dropInfo.DragInfo.SourceItem as Component);
-                sourceCollection.Remove(dropInfo.DragInfo.SourceItem as Component);
-                return;
+                TargetCollection.Insert(insertIndex, SourceComponent);
+                SourceCollection.Remove(SourceComponent);
             }
             else if (CanDropEntityOnMask(dropInfo))
             {
                 if (dropInfo.TargetItem is Mask || dropInfo.TargetItem is Scene)
                 {
-                    targetItem.Components.Insert(0, sourceItem);
-                    targetItem.IsExpanded = true;
+                    TargetComponent.Components.Insert(0, SourceComponent);
+                    TargetComponent.IsExpanded = true;
                 }
-                sourceCollection.Remove(sourceItem);
+                SourceCollection.Remove(SourceComponent);
                 return;
             }
             else if (CanDropOnLastItem(dropInfo))
             {
-                var visualTarget = dropInfo.VisualTargetItem;
-
-                var parentVisualTarget = Utils.FindParent<TreeViewItem>(visualTarget);
-                var grandParentVisualTarget = Utils.FindParent<TreeViewItem>(parentVisualTarget);
-                var grandGrandParentVisualTarget = Utils.FindParent<TreeViewItem>(grandParentVisualTarget);
-
-                var parentTargetDataContext = parentVisualTarget.DataContext as Component;
-                var grandParentTargetDataContext = grandParentVisualTarget.DataContext as Component;
-                var grandGrandParentTargetDataContext = grandGrandParentVisualTarget.DataContext as Component;
-
-                var parentIndex = grandParentTargetDataContext.Components.IndexOf(parentTargetDataContext);
-                var grandParentIndex = grandGrandParentTargetDataContext.Components.IndexOf(grandParentTargetDataContext);
-
-                var grandParentCollectionSource = (ObservableCollection<Component>)grandParentVisualTarget.ItemsSource;
-                var grandGrandParentCollectionSource = (ObservableCollection<Component>)grandGrandParentVisualTarget.ItemsSource;
-
-                if (grandParentTargetDataContext.GetType() == typeof(Composition))
+                if (TargetComponentGrandParent.GetType() == typeof(Composition))
                 {
-                    if (sourceIndex < parentIndex)
-                        grandParentCollectionSource.Move(sourceIndex, parentIndex);
-                    else
-                        grandParentCollectionSource.Move(sourceIndex, parentIndex + 1);
+                    if (SourceIndex > ParentComponentIndex)
+                        ParentComponentIndex += 1;
+
+                    GrandParentCollectionSource.Move(SourceIndex, ParentComponentIndex);
                 }
-                else if (grandParentTargetDataContext.GetType() == typeof(Layer))
+                else if (TargetComponentGrandParent.GetType() == typeof(Layer))
                 {
-                    if (sourceIndex < grandParentIndex)
-                        grandGrandParentCollectionSource.Move(sourceIndex, grandParentIndex);
-                    else
-                        grandGrandParentCollectionSource.Move(sourceIndex, grandParentIndex + 1);
+                    if (SourceIndex > GrandParentComponentIndex)
+                        GrandParentComponentIndex += 1;
+
+                    GrandGrandParentCollectionSource.Move(SourceIndex, GrandParentComponentIndex);
                 }
             }
+        }
+
+        private TreeViewItem ParentVisualSource;
+
+        private TreeViewItem VisualTarget;
+        private TreeViewItem VisualSource;
+
+        private TreeViewItem ParentVisualTarget;
+        private TreeViewItem GrandParentVisualTarget;
+        private TreeViewItem GrandGrandParentVisualTarget;
+
+        private Component SourceComponent;
+        private Component SourceComponentParent;
+        private Component SourceComponentGrandParent;
+        private Component SourceComponentGrandGrandParent;
+
+        private Component TargetComponent;
+        private Component TargetComponentParent;
+        private Component TargetComponentGrandParent;
+        private Component TargetComponentGrandGrandParent;
+
+
+        private int ParentComponentIndex = -1;
+        private int GrandParentComponentIndex = -1;
+
+        private ObservableCollection<Component> GrandParentCollectionSource;
+        private ObservableCollection<Component> GrandGrandParentCollectionSource;
+
+        private ObservableCollection<Component> TargetCollection;
+        private ObservableCollection<Component> SourceCollection;
+
+        private int TargetIndex = -1;
+        private int SourceIndex = -1;
+
+        private void GetInfo(IDropInfo dropInfo)
+        {
+            TargetIndex = dropInfo.InsertIndex;
+            SourceIndex = dropInfo.DragInfo.SourceIndex;
+
+            VisualTarget = dropInfo.VisualTargetItem as TreeViewItem;
+            VisualSource = dropInfo.DragInfo.VisualSourceItem as TreeViewItem; ;
+
+            SourceComponent = dropInfo.DragInfo.SourceItem as Component;
+            TargetComponent = dropInfo.TargetItem as Component;
+
+            VisualTarget = dropInfo.VisualTargetItem as TreeViewItem;
+            VisualSource = dropInfo.DragInfo.VisualSourceItem as TreeViewItem;
+
+            TargetCollection = dropInfo.TargetCollection as ObservableCollection<Component>;
+            SourceCollection = dropInfo.DragInfo.SourceCollection as ObservableCollection<Component>;
+
+            ParentVisualSource = Utils.FindParent<TreeViewItem>(VisualSource);
+            ParentVisualTarget = Utils.FindParent<TreeViewItem>(VisualTarget);
+            if(ParentVisualTarget != null)
+            {
+                TargetComponentParent = ParentVisualTarget.DataContext as Component;
+
+                GrandParentVisualTarget = Utils.FindParent<TreeViewItem>(ParentVisualTarget);
+                if (GrandParentVisualTarget != null)
+                {
+                    TargetComponentGrandParent = GrandParentVisualTarget.DataContext as Component;
+                    ParentComponentIndex = TargetComponentGrandParent.Components.IndexOf(TargetComponentParent);
+                    GrandParentCollectionSource = (ObservableCollection<Component>)GrandParentVisualTarget.ItemsSource;
+
+                    GrandGrandParentVisualTarget = Utils.FindParent<TreeViewItem>(GrandParentVisualTarget);
+                    if (GrandGrandParentVisualTarget != null)
+                    {
+                        TargetComponentGrandGrandParent = GrandGrandParentVisualTarget.DataContext as Component;
+                        GrandParentComponentIndex = TargetComponentGrandGrandParent.Components.IndexOf(TargetComponentGrandParent);
+                        GrandGrandParentCollectionSource = (ObservableCollection<Component>)GrandGrandParentVisualTarget.ItemsSource;
+                    }
+                }
+            }
+        }
+
+        private void NullInfo()
+        {
+            ParentVisualTarget = null;
+            GrandParentVisualTarget = null;
+            GrandGrandParentVisualTarget = null;
+
+            TargetComponentParent = null;
+            TargetComponentGrandParent = null;
+            TargetComponentGrandGrandParent = null;
+
+            GrandParentCollectionSource = null;
+            GrandGrandParentCollectionSource = null;
         }
 
         public void StartDrag(IDragInfo dragInfo)
@@ -467,12 +513,12 @@ namespace CMiX.MVVM.ViewModels
 
         public void DragDropOperationFinished(DragDropEffects operationResult, IDragInfo dragInfo)
         {
-            //throw new NotImplementedException();
+            NullInfo();
         }
 
         public void DragCancelled()
         {
-            //throw new NotImplementedException();
+            NullInfo();
         }
 
         public bool TryCatchOccurredException(Exception exception)

@@ -3,7 +3,7 @@
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class ColorPickerModel
+    public class ColorPickerModel : Model
     {
         public ColorPickerModel()
         {

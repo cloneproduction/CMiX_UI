@@ -630,17 +630,19 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TabItem}">
-                    <Border Padding="0, 2">
+                    <Border Padding="0, 1">
                         <Border
                             x:Name="mainBorder"
                             Width="25"
                             Height="25"
                             CornerRadius="4, 0, 0, 4"
                             Padding="1"
-                            Background="{DynamicResource HighDarkerColor}">
-                            <Border.Effect>
+                            Background="{DynamicResource HighDarkerColor}"
+                            BorderThickness="0, 0, 0, 2"
+                            BorderBrush="Black">
+                            <!--<Border.Effect>
                                 <DropShadowEffect BlurRadius="2" ShadowDepth="2" Direction="-90" Color="Black" RenderingBias="Performance" />
-                            </Border.Effect>
+                            </Border.Effect>-->
                             <ContentPresenter
                                 x:Name="contentPresenter"
                                 Margin="0"

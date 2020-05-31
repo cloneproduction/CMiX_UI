@@ -111,6 +111,7 @@
     <Border Background="{StaticResource HighDarkerColor}">
         <Controls:MultiSelectTreeView 
             BorderThickness="0"
+            Style="{DynamicResource TreeViewDefault}"
             ItemContainerStyle="{StaticResource TreeViewMultiSelectItem}"
             SelectedItems="{Binding SelectedItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             ScrollViewer.HorizontalScrollBarVisibility="Hidden"

@@ -16,7 +16,7 @@
     <Color x:Key="Over">#FF4D4D4D</Color>
     <Color x:Key="Active">#FF7D00FF</Color>
 
-    <Color x:Key="Text">#FFe6e6e6</Color>
+    <Color x:Key="Text">#FFcccccc</Color>
     <Color x:Key="OverText">#FFFFFFFF</Color>
     <Color x:Key="ActiveText">#FFE6E6E6</Color>
 

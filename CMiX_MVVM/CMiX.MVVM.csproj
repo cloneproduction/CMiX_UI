@@ -105,9 +105,13 @@
     <Compile Include="Controls\Counter\Counter.cs" />
     <Compile Include="Controls\ToggleButton\CMiXToggleButton.cs" />
     <Compile Include="Controls\ToggleButton\ToggleDockPosition.cs" />
+    <Compile Include="Models\InverterModel.cs" />
     <Compile Include="ViewModels\ColorPicker\ColorPicker.cs" />
     <Compile Include="ViewModels\ColorPicker\ColorPickerModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\TransformModelFactory.cs" />
+    <Compile Include="ViewModels\Entity\Texture\Inverter.cs" />
+    <Compile Include="ViewModels\Entity\Texture\InverterModelFactory.cs" />
+    <Compile Include="ViewModels\Entity\Texture\TextureModelFactory.cs" />
     <Compile Include="Views\ColorPicker.xaml.cs">
       <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
@@ -321,6 +325,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\CMiXRangeSlider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Borders\BorderShadow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

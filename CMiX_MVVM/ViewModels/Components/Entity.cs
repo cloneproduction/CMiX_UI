@@ -1,9 +1,7 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -13,10 +11,10 @@ namespace CMiX.MVVM.ViewModels
             : base(id, beat)
         {
             BeatModifier = new BeatModifier(beat);
-            Geometry = new Geometry(beat, this);
 
+            Geometry = new Geometry(beat, this);
             Texture = new Texture(this);
-            Coloration = new Coloration(beat);
+            Coloration = new Coloration(beat, this);
 
             CopyEntityCommand = new RelayCommand(p => CopyEntity());
             PasteEntityCommand = new RelayCommand(p => PasteEntity());

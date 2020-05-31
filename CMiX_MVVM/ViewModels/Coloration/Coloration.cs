@@ -9,13 +9,13 @@ using CMiX.MVVM;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Coloration : ViewModel
+    public class Coloration : Sendable
     {
         #region CONSTRUCTORS
         public Coloration(Beat beat) 
         {
             BeatModifier = new BeatModifier(beat);
-            ColorSelector = new ColorSelector();
+            ColorSelector = new ColorSelector(this);
 
             Hue = new RangeControl(nameof(Hue));
             Saturation = new RangeControl(nameof(Saturation));
@@ -26,7 +26,22 @@ namespace CMiX.MVVM.ViewModels
             ResetColorationCommand = new RelayCommand(p => ResetColoration());
             ResetCommand = new RelayCommand(p => Reset());
         }
+
+
         #endregion
+        public Coloration(Beat beat, Sendable parentSendable) : this(beat)
+        {
+            SubscribeToEvent(parentSendable);
+        }
+
+
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
+                this.SetViewModel(e.Model as ColorationModel);
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
+        }
 
         #region PROPERTIES
         public ICommand CopySelfCommand { get; }

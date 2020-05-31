@@ -1,29 +1,36 @@
 ﻿using System.Windows.Input;
 using System.Windows;
-using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class ColorSelector : ViewModel
+    public class ColorSelector : Sendable
     {
-        #region CONSTRUCTORS
         public ColorSelector() 
         {
-            ColorPicker = new ColorPicker();
-
-            CopyColorSelectorCommand = new RelayCommand(p => CopyColorSelector());
-            PasteColorSelectorCommand = new RelayCommand(p => PasteColorSelector());
-            ResetColorSelectorCommand = new RelayCommand(p => ResetColorSelector());
+            ColorPicker = new ColorPicker(this);
         }
-        #endregion
 
-        #region PROPERTIES
+        public ColorSelector(Sendable parentSendable) : this()
+        {
+            SubscribeToEvent(parentSendable);
+        }
+
+
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
+                this.SetViewModel(e.Model as ColorSelectorModel);
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
+        }
+
         public ICommand CopyColorSelectorCommand { get; }
         public ICommand PasteColorSelectorCommand { get; }
         public ICommand ResetColorSelectorCommand { get; }
         public ColorPicker ColorPicker { get; set; }
-        #endregion
+
 
         #region COPY/PASTE/RESET
         public void CopyColorSelector()
@@ -53,6 +60,8 @@ namespace CMiX.MVVM.ViewModels
         {
             //ColorPicker.Reset();
         }
+
+
         #endregion
     }
 }

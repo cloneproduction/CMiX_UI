@@ -226,7 +226,8 @@
                 <ControlTemplate TargetType="{x:Type Slider}">
                     <Border x:Name="mainBorder" SnapsToDevicePixels="True">
                         <Grid>
-                            <Border x:Name="borderMask" Style="{DynamicResource BorderMask}"/>
+                            <Border x:Name="borderMask" 
+                                    Style="{DynamicResource BorderMask}"/>
                             <Border x:Name="sliderBorder" Background="Transparent">
                                 <Border.OpacityMask>
                                     <VisualBrush Visual="{Binding ElementName=borderMask}"/>
@@ -234,6 +235,8 @@
                                 <Border.Style>
                                     <Style TargetType="Border">
                                         <Setter Property="Visibility" Value="Visible"/>
+                                        <!--<Setter Property="BorderThickness" Value="0, 0, 0, 1"/>
+                                        <Setter Property="BorderBrush" Value="{DynamicResource HighHighDarkerColor}"/>-->
                                         <Style.Triggers>
                                             <DataTrigger  Binding="{Binding Path=IsEditing, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
                                                 <Setter Property="Visibility" Value="Hidden"/>

@@ -1,20 +1,16 @@
 ﻿using System.Windows.Media;
 using System.Windows.Input;
-using Memento;
 using ColorMine.ColorSpaces;
-using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
+using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class ColorPicker : ViewModel
+    public class ColorPicker : Sendable
     {
-        #region CONSTRUCTORS
         public ColorPicker()
         {
-            //MessageAddress = $"{messageaddress}{nameof(ColorPicker)}";
-
             SelectedColor = Color.FromArgb(255, 255, 0, 0);
             Red = SelectedColor.R;
             Green = SelectedColor.G;
@@ -25,7 +21,20 @@ namespace CMiX.MVVM.ViewModels
             PreviewMouseUpCommand = new RelayCommand(p => PreviewMouseUp());
             PreviewMouseLeaveCommand = new RelayCommand(p => PreviewMouseLeave());
         }
-        #endregion
+
+        public ColorPicker(Sendable parentSendable) : this()
+        {
+            SubscribeToEvent(parentSendable);
+        }
+
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
+                this.SetViewModel(e.Model as ColorPickerModel);
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
+        }
+
 
         #region PROPERTIES
         public ICommand PreviewMouseDownCommand { get; }
@@ -38,11 +47,7 @@ namespace CMiX.MVVM.ViewModels
         public Color SelectedColor
         {
             get => _selectedColor;
-            set
-            {
-                SetAndNotify(ref _selectedColor, value);
-                //UpdateMementor(nameof(SelectedColor));
-            }
+            set => SetAndNotify(ref _selectedColor, value);
         }
 
         private void UpdateMementor(string propertyname)
@@ -52,10 +57,10 @@ namespace CMiX.MVVM.ViewModels
             
         }
 
-        private void SendModel()
-        {
-            //MessageService.SendMessages(MessageAddress, MessageCommand.VIEWMODEL_UPDATE, null, this.GetModel());
-        }
+        //private void SendModel()
+        //{
+            
+        //}
 
         private byte _red;
         public byte Red
@@ -68,15 +73,15 @@ namespace CMiX.MVVM.ViewModels
 
                 var hsv = new Rgb() { R = _selectedColor.R, G = _selectedColor.G, B = _selectedColor.B }.To<Hsv>();
                 _hue = hsv.H;
-                Notify("Hue");
+                Notify(nameof(Hue));
                 _sat = hsv.S;
-                Notify("Sat");
+                Notify(nameof(Sat));
                 _val = hsv.V;
-                Notify("Val");
+                Notify(nameof(Val));
 
                 this._selectedColor.R = value;
-                Notify("SelectedColor");
-                SendModel();
+                Notify(nameof(SelectedColor));
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 
@@ -91,15 +96,15 @@ namespace CMiX.MVVM.ViewModels
 
                 var hsv = new Rgb() { R = _selectedColor.R, G = _selectedColor.G, B = _selectedColor.B }.To<Hsv>();
                 _hue = hsv.H;
-                Notify("Hue");
+                Notify(nameof(Hue));
                 _sat = hsv.S;
-                Notify("Sat");
+                Notify(nameof(Sat));
                 _val = hsv.V;
-                Notify("Val");
+                Notify(nameof(Val));
 
                 this._selectedColor.G = value;
-                Notify("SelectedColor");
-                SendModel();
+                Notify(nameof(SelectedColor));
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 
@@ -114,15 +119,15 @@ namespace CMiX.MVVM.ViewModels
 
                 var hsv = new Rgb() { R = _selectedColor.R, G = _selectedColor.G, B = _selectedColor.B }.To<Hsv>();
                 _hue = hsv.H;
-                Notify("Hue");
+                Notify(nameof(Hue));
                 _sat = hsv.S;
-                Notify("Sat");
+                Notify(nameof(Sat));
                 _val = hsv.V;
-                Notify("Val");
+                Notify(nameof(Val));
 
                 this._selectedColor.B = value;
-                Notify("SelectedColor");
-                SendModel();
+                Notify(nameof(SelectedColor));
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 
@@ -140,15 +145,15 @@ namespace CMiX.MVVM.ViewModels
 
                 var rgb = hsv.To<Rgb>();
                 _red = (byte)rgb.R;
-                Notify("Red");
+                Notify(nameof(Red));
                 _green = (byte)rgb.G;
-                Notify("Green");
+                Notify(nameof(Green));
                 _blue = (byte)rgb.B;
-                Notify("Blue");
+                Notify(nameof(Blue));
 
                 SelectedColor = Color.FromRgb(_red, _green, _blue);
-                Notify("SelectedColor");
-                SendModel();
+                Notify(nameof(SelectedColor));
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 
@@ -168,15 +173,15 @@ namespace CMiX.MVVM.ViewModels
                 
                 var rgb = hsv.To<Rgb>();
                 _red = (byte)rgb.R;
-                Notify("Red");
+                Notify(nameof(Red));
                 _green = (byte)rgb.G;
-                Notify("Green");
+                Notify(nameof(Green));
                 _blue = (byte)rgb.B;
-                Notify("Blue");
+                Notify(nameof(Blue));
 
                 SelectedColor = Color.FromRgb(_red, _green, _blue);
-                Notify("SelectedColor");
-                SendModel();
+                Notify(nameof(SelectedColor));
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 
@@ -198,11 +203,11 @@ namespace CMiX.MVVM.ViewModels
                 {
                     var rgb = hsv.To<Rgb>();
                     _red = (byte)rgb.R;
-                    Notify("Red");
+                    Notify(nameof(Red));
                     _green = (byte)rgb.G;
-                    Notify("Green");
+                    Notify(nameof(Green));
                     _blue = (byte)rgb.B;
-                    Notify("Blue");
+                    Notify(nameof(Blue));
 
                     SelectedColor = Color.FromRgb(_red, _green, _blue);
                 }
@@ -210,8 +215,8 @@ namespace CMiX.MVVM.ViewModels
                 {
                     SelectedColor = Color.FromRgb(0, 0, 0);
                 }
-                Notify("SelectedColor");
-                SendModel();
+                Notify(nameof(SelectedColor));
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 
@@ -258,6 +263,8 @@ namespace CMiX.MVVM.ViewModels
             Green = SelectedColor.G;
             Blue = SelectedColor.B;
         }
+
+
         #endregion
     }
 }

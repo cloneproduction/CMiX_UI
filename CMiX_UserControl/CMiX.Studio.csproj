@@ -266,6 +266,9 @@
     <Compile Include="Views\Geometry\Geometry.xaml.cs">
       <DependentUpon>Geometry.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Texture\Inverter.xaml.cs">
+      <DependentUpon>Inverter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Texture\Texture.xaml.cs">
       <DependentUpon>Texture.xaml</DependentUpon>
     </Compile>
@@ -442,6 +445,10 @@
     <Page Include="Views\Geometry\Geometry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Texture\Inverter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Texture\Texture.xaml">
       <SubType>Designer</SubType>
