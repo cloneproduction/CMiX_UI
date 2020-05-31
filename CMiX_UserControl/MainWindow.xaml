@@ -146,8 +146,9 @@
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Border x:Name="borderMaskGridColumn0" Background="{DynamicResource HighDarkerColor}" CornerRadius="{DynamicResource CornerRadiusRightLarge}"/>
-            <Border Grid.Column="0" >
+            
+            <Border Margin="0, 2" x:Name="borderMaskGridColumn0" Background="{DynamicResource HighDarkerColor}" CornerRadius="{DynamicResource CornerRadiusRightLarge}"/>
+            <Border Margin="0, 2" Grid.Column="0" >
                 <Border Background="Transparent">
                     <Border.OpacityMask>
                         <VisualBrush Visual="{Binding ElementName=borderMaskGridColumn0}"/>
@@ -170,8 +171,8 @@
             </Border>
             <GridSplitter Grid.Column="0" Background="Transparent" Width="4"/>
 
-            <Border Grid.Column="1" Margin="4, 0" x:Name="borderMaskGridColumn1" Background="{DynamicResource SuperHighDarkerColor}" CornerRadius="{DynamicResource CornerRadiusDefaultLarge}"/>
-            <Border Grid.Column="1" Margin="4, 0">
+            <Border Grid.Column="1" Margin="4, 2" x:Name="borderMaskGridColumn1" Background="{DynamicResource SuperHighDarkerColor}" CornerRadius="{DynamicResource CornerRadiusDefaultLarge}"/>
+            <Border Grid.Column="1" Margin="4, 2">
                 <Border.OpacityMask>
                     <VisualBrush Visual="{Binding ElementName=borderMaskGridColumn1}"/>
                 </Border.OpacityMask>
@@ -181,12 +182,12 @@
             <GridSplitter Grid.Column="1" Background="Transparent" Width="4"/>
 
 
-            <Border Grid.Column="2" x:Name="borderMaskGridColumn2" Background="{DynamicResource HighDarkerColor}" CornerRadius="{DynamicResource CornerRadiusLeftLarge}"/>
-            <Border Grid.Column="2">
+            <Border Margin="0, 2" Grid.Column="2" x:Name="borderMaskGridColumn2" Background="{DynamicResource HighDarkerColor}" CornerRadius="{DynamicResource CornerRadiusLeftLarge}"/>
+            <Border Margin="0, 2" Grid.Column="2">
                 <Border.OpacityMask>
                     <VisualBrush Visual="{Binding ElementName=borderMaskGridColumn2}"/>
                 </Border.OpacityMask>
-                <Grid >
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="3*"/>
                         <RowDefinition Height="Auto"/>

@@ -491,6 +491,7 @@
                         </Border>
                         <Border 
                             x:Name="contentPanel" 
+                            Padding="4"
                             Grid.Column="0" 
                             KeyboardNavigation.DirectionalNavigation="Contained" 
                             Grid.Row="1" 

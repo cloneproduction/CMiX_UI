@@ -6,7 +6,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using GongSolutions.Wpf.DragDrop;
 using CMiX.MVVM.Resources;
-using CMiX.MVVM.ViewModels;
 
 namespace CMiX.MVVM.ViewModels
 {
