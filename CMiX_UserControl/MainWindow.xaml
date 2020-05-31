@@ -153,13 +153,13 @@
                         <VisualBrush Visual="{Binding ElementName=borderMaskGridColumn0}"/>
                     </Border.OpacityMask>
                     <TabControl TabStripPlacement="Left" Background="{DynamicResource HighHighDarkerColor}" Style="{StaticResource TabControlVerticalPanel}" >
-                        <TabItem Margin="4" Width="25" Height="25" Style="{StaticResource TabItemVerticalPanel}">
+                        <TabItem Style="{StaticResource TabItemVerticalPanel}">
                             <TabItem.Header>
                                 <Image Margin="4" Source="{StaticResource Resources}" />
                             </TabItem.Header>
                             <Views:AssetManager DataContext="{Binding AssetManager}" Grid.RowSpan="2"/>
                         </TabItem>
-                        <TabItem Margin="4"  Width="25" Height="25" Style="{StaticResource TabItemVerticalPanel}">
+                        <TabItem Style="{StaticResource TabItemVerticalPanel}">
                             <TabItem.Header>
                                 <Image Margin="2" Source="{StaticResource Network}"/>
                             </TabItem.Header>

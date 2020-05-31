@@ -24,7 +24,7 @@
         </ObjectDataProvider>
     </UserControl.Resources>
 
-    <Border Padding="8">
+    <Border>
         <StackPanel>
             <Border
                 Height="25"

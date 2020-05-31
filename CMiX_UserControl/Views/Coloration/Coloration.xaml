@@ -18,7 +18,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Border Background="{StaticResource HighDarkerColor}" Padding="8">
+    <Border>
         <StackPanel>
             <Border
                 Height="25"
@@ -28,9 +28,9 @@
                 <Border.ContextMenu>
                     <ContextMenu>
                         <MenuItem
-                        Padding="8, 4"
-                        Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.CopyColorationCommand, Source={StaticResource ProjectProxy}}">
+                            Padding="8, 4"
+                            Foreground="{StaticResource TextBase}"
+                            Command="{Binding Data.CopyColorationCommand, Source={StaticResource ProjectProxy}}">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Width="10" Height="10" Source="{StaticResource Copy}" />
