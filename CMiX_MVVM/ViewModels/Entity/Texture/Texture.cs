@@ -1,49 +1,47 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using Memento;
-using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Texture : ViewModel
+    public class Texture : Sendable
     {
         #region CONSTRUCTORS
         public Texture()
         {
             AssetPathSelector = new AssetPathSelector<AssetTexture>();
 
-            Brightness = new Slider(nameof(Brightness));
+            Brightness = new Slider(nameof(Brightness), this);
             Brightness.Minimum = -1.0;
 
-            Contrast = new Slider(nameof(Contrast));
+            Contrast = new Slider(nameof(Contrast), this);
             Contrast.Minimum = -1.0;
 
-            Invert = new Slider(nameof(Invert));
+            Invert = new Slider(nameof(Invert), this);
             InvertMode = ((TextureInvertMode)0).ToString();
 
-            Hue = new Slider(nameof(Hue));
+            Hue = new Slider(nameof(Hue), this);
             Hue.Minimum = -1.0;
 
-            Saturation = new Slider(nameof(Saturation));
+            Saturation = new Slider(nameof(Saturation), this);
             Saturation.Minimum = -1.0;
 
-            Luminosity = new Slider(nameof(Luminosity));
+            Luminosity = new Slider(nameof(Luminosity), this);
             Luminosity.Minimum = -1.0;
 
-            Keying = new Slider(nameof(Keying));
+            Keying = new Slider(nameof(Keying), this);
 
-            Scale = new Slider(nameof(Scale));
+            Scale = new Slider(nameof(Scale), this);
             Scale.Minimum = -1.0;
 
-            Rotate = new Slider(nameof(Rotate));
+            Rotate = new Slider(nameof(Rotate), this);
             Rotate.Minimum = -1.0;
 
-            Pan = new Slider(nameof(Pan));
+            Pan = new Slider(nameof(Pan), this);
             Pan.Minimum = -1.0;
 
-            Tilt = new Slider(nameof(Tilt));
+            Tilt = new Slider(nameof(Tilt), this);
             Tilt.Minimum = -1.0;
 
             CopyTextureCommand = new RelayCommand(p => CopyTexture());
@@ -51,6 +49,19 @@ namespace CMiX.MVVM.ViewModels
             ResetTextureCommand = new RelayCommand(p => ResetTexture());
         }
         #endregion
+
+        public Texture(Sendable parentSendable) : this()
+        {
+            SubscribeToEvent(parentSendable);
+        }
+
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
+                this.SetViewModel(e.Model as TextureModel);
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
+        }
 
         #region PROPERTIES
         public ICommand CopyTextureCommand { get; }

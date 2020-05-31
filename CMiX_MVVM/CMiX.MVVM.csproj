@@ -107,6 +107,7 @@
     <Compile Include="Controls\ToggleButton\ToggleDockPosition.cs" />
     <Compile Include="ViewModels\ColorPicker\ColorPicker.cs" />
     <Compile Include="ViewModels\ColorPicker\ColorPickerModelFactory.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Transform\TransformModelFactory.cs" />
     <Compile Include="Views\ColorPicker.xaml.cs">
       <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>

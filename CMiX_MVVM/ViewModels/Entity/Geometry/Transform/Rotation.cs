@@ -1,29 +1,36 @@
 ﻿using System.Windows;
-using Memento;
-using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Rotation : ViewModel
+    public class Rotation : Sendable
     {
         public Rotation()
         {
-            //MessageAddress = $"{messageaddress}{nameof(Rotation)}/";
+            X = new Slider(nameof(X), this);
+            Y = new Slider(nameof(Y), this);
+            Z = new Slider(nameof(Z), this);
+        }
 
-            X = new Slider(nameof(X));
-            Y = new Slider(nameof(Y));
-            Z = new Slider(nameof(Z));
+        public Rotation(Sendable parentSendable) : this()
+        {
+            SubscribeToEvent(parentSendable);
         }
 
         public Slider X { get; set; }
         public Slider Y { get; set; }
         public Slider Z { get; set; }
 
-        public string MessageAddress { get ; set ; }
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
+                this.SetViewModel(e.Model as RotationModel);
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
+        }
 
-        #region COPY/PASTE/RESET
+
         public void CopyGeometry()
         {
             IDataObject data = new DataObject();
@@ -38,8 +45,8 @@ namespace CMiX.MVVM.ViewModels
             {
                 //Mementor.BeginBatch();
                 var rotationmodel = data.GetData("RotationModel") as RotationModel;
-                var messageaddress = MessageAddress;
-                this.Paste(rotationmodel);
+                //var messageaddress = MessageAddress;
+                this.SetViewModel(rotationmodel);
                 //Mementor.EndBatch();
                 //SendMessages(nameof(RotationModel), GetModel());
             }
@@ -51,15 +58,6 @@ namespace CMiX.MVVM.ViewModels
             //SendMessages(nameof(RotationModel), GetModel());
         }
 
-
-
-
-        public void Paste(RotationModel rotationmodel)
-        {
-            X.SetViewModel(rotationmodel.X);
-            Y.SetViewModel(rotationmodel.Y);
-            Z.SetViewModel(rotationmodel.Z);
-        }
 
         public void Reset()
         {
@@ -73,6 +71,5 @@ namespace CMiX.MVVM.ViewModels
 
             //SendMessages(nameof(RotationModel), GetModel());
         }
-        #endregion
     }
 }

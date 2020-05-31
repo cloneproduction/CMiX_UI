@@ -15,7 +15,7 @@ namespace CMiX.MVVM.ViewModels
             BeatModifier = new BeatModifier(beat);
             Geometry = new Geometry(beat, this);
 
-            Texture = new Texture();
+            Texture = new Texture(this);
             Coloration = new Coloration(beat);
 
             CopyEntityCommand = new RelayCommand(p => CopyEntity());

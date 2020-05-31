@@ -639,7 +639,7 @@
                             Padding="1"
                             Background="{DynamicResource HighDarkerColor}">
                             <Border.Effect>
-                                <DropShadowEffect BlurRadius="2" ShadowDepth="2" Direction="-90" Color="Black"/>
+                                <DropShadowEffect BlurRadius="2" ShadowDepth="2" Direction="-90" Color="Black" RenderingBias="Performance" />
                             </Border.Effect>
                             <ContentPresenter
                                 x:Name="contentPresenter"

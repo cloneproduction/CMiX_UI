@@ -25,8 +25,7 @@
                             SnapsToDevicePixels="true" 
                             Stroke="Black" 
                             StrokeThickness="1" 
-                            StrokeDashArray="1 2"
-                            />
+                            StrokeDashArray="1 2"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -60,8 +59,7 @@
                                     SnapsToDevicePixels="false" 
                                     Stroke="{DynamicResource Expander.Static.Arrow.Stroke}" 
                                     StrokeThickness="2" 
-                                    VerticalAlignment="Center"
-                                    />
+                                    VerticalAlignment="Center"/>
                             </Grid>
                             <ContentPresenter 
                                 HorizontalAlignment="Center" 
@@ -69,8 +67,7 @@
                                 Grid.Row="1" 
                                 RecognizesAccessKey="True" 
                                 SnapsToDevicePixels="True"
-                                VerticalAlignment="Top"
-                                />
+                                VerticalAlignment="Top"/>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -116,8 +113,7 @@
                                     SnapsToDevicePixels="false" 
                                     Stroke="{DynamicResource Expander.Static.Arrow.Stroke}" 
                                     StrokeThickness="2" 
-                                    VerticalAlignment="Center"
-                                    />
+                                    VerticalAlignment="Center"/>
                             </Grid>
                             <ContentPresenter 
                                 Grid.Column="1" 
@@ -125,8 +121,7 @@
                                 Margin="4,0,0,0" 
                                 RecognizesAccessKey="True" 
                                 SnapsToDevicePixels="True" 
-                                VerticalAlignment="Center"
-                                />
+                                VerticalAlignment="Center"/>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -175,8 +170,7 @@
                                     SnapsToDevicePixels="false" 
                                     Stroke="{DynamicResource Expander.Static.Arrow.Stroke}" 
                                     StrokeThickness="2" 
-                                    VerticalAlignment="Center"
-                                    />
+                                    VerticalAlignment="Center"/>
                             </Grid>
                             <ContentPresenter 
                                 HorizontalAlignment="Center" 
@@ -184,8 +178,7 @@
                                 Grid.Row="1" 
                                 RecognizesAccessKey="True" 
                                 SnapsToDevicePixels="True" 
-                                VerticalAlignment="Top"
-                                />
+                                VerticalAlignment="Top"/>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -322,15 +315,13 @@
                                 SnapsToDevicePixels="false" 
                                 Stroke="{DynamicResource TextBase}" 
                                 StrokeThickness="2" 
-                                VerticalAlignment="Center"
-                                />
+                                VerticalAlignment="Center"/>
                             <ContentPresenter 
                                 Grid.Column="1" 
                                 HorizontalAlignment="Left" 
                                 RecognizesAccessKey="True" 
                                 SnapsToDevicePixels="True" 
-                                VerticalAlignment="Center"
-                                />
+                                VerticalAlignment="Center"/>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>

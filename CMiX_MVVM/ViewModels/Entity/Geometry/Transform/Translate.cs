@@ -1,8 +1,6 @@
 ﻿using System.Windows;
-using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
-using System;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -15,12 +13,8 @@ namespace CMiX.MVVM.ViewModels
             Z = new Slider(nameof(Z), this);
         }
 
-        public Translate(Sendable parentSendable)
+        public Translate(Sendable parentSendable) : this()
         {
-            X = new Slider(nameof(X), this);
-            Y = new Slider(nameof(Y), this);
-            Z = new Slider(nameof(Z), this);
-
             SubscribeToEvent(parentSendable);
         }
 
@@ -36,7 +30,6 @@ namespace CMiX.MVVM.ViewModels
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
-        #region COPY/PASTE/RESET
         public void CopyGeometry()
         {
             IDataObject data = new DataObject();
@@ -51,26 +44,10 @@ namespace CMiX.MVVM.ViewModels
             {
                 //Mementor.BeginBatch();
                 var translatemodel = data.GetData("TranslateModel") as TranslateModel;
-                this.Paste(translatemodel);
+                this.SetViewModel(translatemodel);
                 //Mementor.EndBatch();
                 //SendMessages(nameof(TranslateModel), GetModel());
             }
-        }
-
-        public void ResetGeometry()
-        {
-            
-            TranslateModel translatemodel = this.GetModel();
-            this.Reset();
-            //this.SendMessages(nameof(TranslateModel), translatemodel);
-        }
-
-
-        public void Paste(TranslateModel translatemodel)
-        {
-            X.SetViewModel(translatemodel.X);
-            Y.SetViewModel(translatemodel.Y);
-            Z.SetViewModel(translatemodel.Z);
         }
 
         public void Reset()
@@ -85,6 +62,5 @@ namespace CMiX.MVVM.ViewModels
 
             //this.SendMessages(nameof(TranslateModel), GetModel());
         }
-        #endregion
     }
 }

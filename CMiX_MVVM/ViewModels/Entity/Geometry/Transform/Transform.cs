@@ -10,8 +10,8 @@ namespace CMiX.MVVM.ViewModels
         public Transform()
         {
             Translate = new Translate(this);
-            Scale = new Scale();
-            Rotation = new Rotation();
+            Scale = new Scale(this);
+            Rotation = new Rotation(this);
 
             Is3D = false;
         }
@@ -29,9 +29,9 @@ namespace CMiX.MVVM.ViewModels
         }
 
         #region PROPERTY
-        public Translate Translate { get; }
-        public Scale Scale { get; }
-        public Rotation Rotation { get; }
+        public Translate Translate { get; set; }
+        public Scale Scale { get; set; }
+        public Rotation Rotation { get; set; }
 
         private bool _is3D;
         public bool Is3D
@@ -60,21 +60,13 @@ namespace CMiX.MVVM.ViewModels
             if (data.GetDataPresent("TransformModel"))
             {
                 var transformmodel = data.GetData("TransformModel") as TransformModel;
-                this.Paste(transformmodel);
+                this.SetViewModel(transformmodel);
             }
         }
 
         public void ResetGeometry()
         {
             this.Reset();
-        }
-
-        public void Paste(TransformModel transformModel)
-        {
-            Translate.Paste(transformModel.TranslateModel);
-            Scale.Paste(transformModel.ScaleModel);
-            Rotation.Paste(transformModel.RotationModel);
-            Is3D = transformModel.Is3D;  
         }
 
         public void Reset()
