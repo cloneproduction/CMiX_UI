@@ -7,8 +7,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Entity : Component
     {
-        public Entity(int id, Beat beat)
-            : base(id, beat)
+        public Entity(int id, Beat beat) : base(id, beat)
         {
             BeatModifier = new BeatModifier(beat);
 
@@ -47,7 +46,7 @@ namespace CMiX.MVVM.ViewModels
             this.BeatModifier.Reset();
             this.Geometry.Reset();
             this.Texture.Reset();
-            this.Coloration.Reset();
+            //this.Coloration.Reset();
         }
 
 
@@ -70,13 +69,6 @@ namespace CMiX.MVVM.ViewModels
                 //SendMessages(nameof(ContentModel), contentmodel);
             }
         }
-
-        //public void ResetEntity()
-        //{
-        //    EntityModel entityModel = GetModel();
-        //    this.Reset();
-        //    //SendMessages(nameof(ContentModel), entityModel);
-        //}
         #endregion
     }
 }

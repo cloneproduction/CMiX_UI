@@ -17,19 +17,12 @@ namespace CMiX.MVVM.ViewModels
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
             if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-            {
                 this.SetViewModel(e.Model as CompositionModel);
-                Console.WriteLine("Composition Updated");
-                Console.WriteLine("Layer Count = " + this.Components.Count);
-            }
-                
             else
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
-        #region PROPERTIES
         public Camera Camera { get; set; }
         public Slider Transition { get; set; }
-        #endregion
     }
 }

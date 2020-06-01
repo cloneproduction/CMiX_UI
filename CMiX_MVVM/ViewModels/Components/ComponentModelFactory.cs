@@ -173,23 +173,30 @@ namespace CMiX.MVVM.ViewModels
             instance.BlendMode.SetViewModel(layerModel.BlendMode);
             instance.PostFX.SetViewModel(layerModel.PostFXModel);
 
-            instance.Components.Clear();
-            foreach (var componentModel in layerModel.ComponentModels)
-            {
-                Component component = null;
+            //instance.Components.Clear();
+            //foreach (var componentModel in layerModel.ComponentModels)
+            //{
+            //    //Component component = null;
 
-                if (componentModel is SceneModel)
-                    component = ComponentFactory.CreateScene(instance);
+            //    if (componentModel is SceneModel)
+            //    {
+            //        Scene scene = ComponentFactory.CreateScene(instance);
+            //        scene.SetViewModel(componentModel);
+            //        instance.Components.Add(scene);
+            //    }
+            //    //else if (componentModel is MaskModel)
+            //    //{
+            //    //    Mask mask = ComponentFactory.CreateMask(instance);
+            //    //    mask.SetViewModel(componentModel);
+            //    //    instance.Components.Add(mask);
+            //    //}
 
-                else if (componentModel is MaskModel)
-                    component = ComponentFactory.CreateMask(instance);
-
-                if (component != null)
-                {
-                    component.SetViewModel(componentModel);
-                    instance.AddComponent(component);
-                }
-            }
+            //    //if (component != null)
+            //    //{
+            //    //    component.SetViewModel(componentModel);
+            //    //    instance.AddComponent(component);
+            //    //}
+            //}
         }
 
 

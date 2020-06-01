@@ -160,29 +160,25 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public static RangeControlModel GetModel(this RangeControl instance)
-        {
-            RangeControlModel rangeControlModel = new RangeControlModel();
+        //public static RangeControlModel GetModel(this RangeControl instance)
+        //{
+        //    RangeControlModel rangeControlModel = new RangeControlModel();
+        //    //rangeControlModel.Range = instance.Range.GetModel();
+        //    //rangeControlModel.Modifier = instance.Modifier;
+        //    return rangeControlModel;
+        //}
 
-            rangeControlModel.Range = instance.Range.GetModel();
-            rangeControlModel.Modifier = instance.Modifier;
-
-            return rangeControlModel;
-        }
-
-        public static void SetViewModel(this RangeControl instance, RangeControlModel rangeControlModel)
-        {
-            instance.Range.SetViewModel(rangeControlModel.Range);
-            instance.Modifier = rangeControlModel.Modifier;
-        }
+        //public static void SetViewModel(this RangeControl instance, RangeControlModel rangeControlModel)
+        //{
+        //    //instance.Range.SetViewModel(rangeControlModel.Range);
+        //    //instance.Modifier = rangeControlModel.Modifier;
+        //}
 
 
         public static BlendModeModel GetModel(this BlendMode instance)
         {
             BlendModeModel blendModeModel = new BlendModeModel();
-
             blendModeModel.Mode = instance.Mode;
-
             return blendModeModel;
         }
 
@@ -195,32 +191,28 @@ namespace CMiX.MVVM.ViewModels
         public static ColorationModel GetModel(this Coloration instance)
         {
             ColorationModel colorationModel = new ColorationModel();
-
-            colorationModel.ColorSelectorModel = instance.ColorSelector.GetModel();
-            colorationModel.BeatModifierModel = instance.BeatModifier.GetModel();
-            colorationModel.HueModel = instance.Hue.GetModel();
-            colorationModel.SatModel = instance.Saturation.GetModel();
-            colorationModel.ValModel = instance.Value.GetModel();
-
+            //colorationModel.ColorSelectorModel = instance.ColorSelector.GetModel();
+            //colorationModel.BeatModifierModel = instance.BeatModifier.GetModel();
+            //colorationModel.HueModel = instance.Hue.GetModel();
+            //colorationModel.SatModel = instance.Saturation.GetModel();
+            //colorationModel.ValModel = instance.Value.GetModel();
             return colorationModel;
         }
 
         public static void SetViewModel(this Coloration instance, ColorationModel colorationModel)
         {
-            instance.ColorSelector.SetViewModel(colorationModel.ColorSelectorModel);
-            instance.BeatModifier.SetViewModel(colorationModel.BeatModifierModel);
-            instance.Hue.SetViewModel(colorationModel.HueModel);
-            instance.Saturation.SetViewModel(colorationModel.SatModel);
-            instance.Value.SetViewModel(colorationModel.ValModel);
+            //instance.ColorSelector.SetViewModel(colorationModel.ColorSelectorModel);
+            //instance.BeatModifier.SetViewModel(colorationModel.BeatModifierModel);
+            //instance.Hue.SetViewModel(colorationModel.HueModel);
+            //instance.Saturation.SetViewModel(colorationModel.SatModel);
+            //instance.Value.SetViewModel(colorationModel.ValModel);
         }
 
 
         public static ColorSelectorModel GetModel(this ColorSelector instance)
         {
             ColorSelectorModel colorSelectorModel = new ColorSelectorModel();
-
             colorSelectorModel.ColorPickerModel = instance.ColorPicker.GetModel();
-
             return colorSelectorModel;
         }
 
@@ -233,12 +225,10 @@ namespace CMiX.MVVM.ViewModels
         public static PostFXModel GetModel(this PostFX instance)
         {
             PostFXModel postFXModel = new PostFXModel();
-
             postFXModel.Feedback = instance.Feedback.GetModel();
             postFXModel.Blur = instance.Blur.GetModel();
             postFXModel.Transforms = instance.Transforms;
             postFXModel.View = instance.View;
-
             return postFXModel;
         }
 
@@ -246,7 +236,6 @@ namespace CMiX.MVVM.ViewModels
         {
             instance.Transforms = postFXmodel.Transforms;
             instance.View = postFXmodel.View;
-
             instance.Feedback.SetViewModel(postFXmodel.Feedback);
             instance.Blur.SetViewModel(postFXmodel.Blur);
         }
@@ -268,10 +257,8 @@ namespace CMiX.MVVM.ViewModels
         public static BeatModifierModel GetModel(this BeatModifier instance)
         {
             BeatModifierModel beatModifierModel = new BeatModifierModel();
-
             beatModifierModel.ChanceToHit = instance.ChanceToHit.GetModel();
             beatModifierModel.Multiplier = instance.Multiplier;
-
             return beatModifierModel;
         }
 
@@ -285,12 +272,10 @@ namespace CMiX.MVVM.ViewModels
         public static GeometryModel GetModel(this Geometry instance)
         {
             GeometryModel model = new GeometryModel();
-
             model.TransformModel = instance.Transform.GetModel();
             model.GeometryFXModel = instance.GeometryFX.GetModel();
             model.InstancerModel = instance.Instancer.GetModel();
             model.AssetPathSelectorModel = instance.AssetPathSelector.GetModel();
-
             return model;
         }
 
@@ -319,14 +304,12 @@ namespace CMiX.MVVM.ViewModels
         public static InstancerModel GetModel(this Instancer instance)
         {
             InstancerModel model = new InstancerModel();
-
             model.Transform = instance.Transform.GetModel();
             model.Counter = instance.Counter.GetModel();
             model.TranslateModifier = instance.TranslateModifier.GetModel();
             model.ScaleModifier = instance.ScaleModifier.GetModel();
             model.RotationModifier = instance.RotationModifier.GetModel();
             model.NoAspectRatio = instance.NoAspectRatio;
-
             return model;
         }
 
@@ -347,21 +330,19 @@ namespace CMiX.MVVM.ViewModels
         public static RotationModifierModel GetModel(this RotationModifier instance)
         {
             RotationModifierModel rotationModifierModel = new RotationModifierModel();
-
             rotationModifierModel.Rotation = instance.Rotation.GetModel();
             rotationModifierModel.RotationX = instance.RotationX.GetModel();
             rotationModifierModel.RotationY = instance.RotationY.GetModel();
             rotationModifierModel.RotationZ = instance.RotationZ.GetModel();
-
             return rotationModifierModel;
         }
 
         public static void SetViewModel(this RotationModifier instance, RotationModifierModel model)
         {
-            //instance.Rotation.Paste(model.Rotation);
-            //instance.Translate.Sa(model.RotationX);
-            //instance.Paste(model.RotationY);
-            //instance.RotationZ.Paste(model.RotationZ);
+            instance.Rotation.SetViewModel(model.Rotation);
+            instance.RotationX.SetViewModel(model.RotationX);
+            instance.RotationY.SetViewModel(model.RotationY);
+            instance.RotationZ.SetViewModel(model.RotationZ);
         }
 
 

@@ -13,7 +13,6 @@ namespace CMiX.MVVM.ViewModels
         {
             Instancer = new Instancer(beat);
             Transform = new Transform(this);
-
             GeometryFX = new GeometryFX();
 
             AssetPathSelector = new AssetPathSelector<AssetGeometry>();

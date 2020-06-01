@@ -1,47 +1,33 @@
 ﻿using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class RangeControl : Sendable
+    public class Pouet : Sendable
     {
-        #region CONSTRUCTORS
-        public RangeControl(string messageAddress)
+        public Pouet()
         {
             Modifier = ((RangeModifier)0).ToString();
-            Range = new Slider("Range", this);
+            Range = new Slider(nameof(Range), this);
         }
-        #endregion
 
-        #region PROPERTIES
         public Slider Range { get; }
 
         private string _modifier;
         public string Modifier
         {
             get => _modifier;
-            set
-            {
-                //if(Mementor != null)
-                //    Mementor.PropertyChange(this, nameof(Modifier));
-                SetAndNotify(ref _modifier, value);
-                //SendMessages(MessageAddress + nameof(Modifier), Modifier);
-            }
+            set => SetAndNotify(ref _modifier, value);
         }
-        #endregion
 
-        #region COPY/PASTE
-
-        public void Reset()
-        {
-            Modifier = ((RangeModifier)0).ToString();
-            Range.Reset();
-        }
+        //public void Reset()
+        //{
+        //    Modifier = ((RangeModifier)0).ToString();
+        //    Range.Reset();
+        //}
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
             
         }
-        #endregion
     }
 }
