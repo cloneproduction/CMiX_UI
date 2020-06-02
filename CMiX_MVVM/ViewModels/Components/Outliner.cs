@@ -82,31 +82,24 @@ namespace CMiX.MVVM.ViewModels
 
         public void CanAddComponent()
         {
-            if (SelectedComponent is Scene || SelectedComponent is Mask)
-            {
+            CanAdd = true;
+            AddContentText = "Add";
+
+            if (SelectedComponent is Scene)
                 AddContentText = "Add Entity";
-                CanAdd = true;
-            }
+            else if (SelectedComponent is Layer)
+                AddContentText = "Add Scene";
             else if (SelectedComponent is Composition)
-            {
                 AddContentText = "Add Layer";
-                CanAdd = true;
-            }
             else if(SelectedComponent is Project)
-            {
                 AddContentText = "Add Composition";
-                CanAdd = true;
-            }
             else
-            {
-                AddContentText = "Add";
                 CanAdd = false;
-            }
         }
 
         public void CanDuplicateComponent()
         {
-            if (SelectedComponent is Composition || SelectedComponent is Layer || SelectedComponent is Entity)
+            if (SelectedComponent is Composition || SelectedComponent is Layer || SelectedComponent is Scene || SelectedComponent is Entity)
                 CanDuplicate = true;
             else
                 CanDuplicate = false;
@@ -114,7 +107,7 @@ namespace CMiX.MVVM.ViewModels
 
         public void CanRenameComponent()
         {
-            if (SelectedComponent is Project || SelectedComponent is Composition || SelectedComponent is Layer || SelectedComponent is Entity)
+            if (SelectedComponent is Project || SelectedComponent is Composition || SelectedComponent is Layer || SelectedComponent is Scene || SelectedComponent is Entity)
                 CanRename = true;
             else
                 CanRename = false;
@@ -130,7 +123,7 @@ namespace CMiX.MVVM.ViewModels
 
         public void CanDeleteComponent()
         {
-            if (SelectedComponent is Composition || SelectedComponent is Layer || SelectedComponent is Entity)
+            if (SelectedComponent is Project || SelectedComponent is Composition || SelectedComponent is Layer || SelectedComponent is Scene || SelectedComponent is Entity)
                 CanDelete = true;
             else
                 CanDelete = false;

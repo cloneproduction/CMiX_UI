@@ -2,9 +2,7 @@
 using System.Windows.Input;
 using System.Linq;
 using System;
-using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
-using Memento;
 
 namespace CMiX.ViewModels
 {
@@ -36,15 +34,7 @@ namespace CMiX.ViewModels
 
         public void CreateComponent(Component component)
         {
-            if (component is Composition)
-                component.AddComponent(ComponentFactory.CreateLayer(component));
-                
-            else if (component is Scene || component is Mask)
-                component.AddComponent(ComponentFactory.CreateEntity(component));
-
-            else if (component is Project)
-                component.AddComponent(ComponentFactory.CreateComposition(component));
-
+            ComponentFactory.CreateComponent(component);
             component.OnSendChange(component.GetModel(), component.GetMessageAddress());
         }
 

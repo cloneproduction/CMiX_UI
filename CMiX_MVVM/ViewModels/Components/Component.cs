@@ -12,6 +12,7 @@ namespace CMiX.MVVM.ViewModels
             Beat = beat;
             Name = GetType().Name + " " + id;
 
+            IsExpanded = true;
             Components = new ObservableCollection<Component>();
             TreeViewItemRigthClickCommand = new RelayCommand(p => RightClick());
         }

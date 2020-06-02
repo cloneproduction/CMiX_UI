@@ -4,29 +4,37 @@ namespace CMiX.MVVM.ViewModels
 {
     public static class ComponentFactory
     {
-        private static int ID { get; set; }
-        //private static int CompositionID { get; set; }
-        //private static int LayerID { get; set; }
-        //private static int EntityID { get; set; }
-        //private static int MaskID { get; set; }
-        //private static int SceneID { get; set; }
+        private static int _id = 0;
+        public static int ID
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
+        public static void CreateComponent(Component component)
+        {
+            if (component is Project)
+                CreateComposition(component);
+            else if (component is Composition)
+                CreateLayer(component);
+            else if (component is Layer)
+                CreateScene(component);
+            else if (component is Scene)
+                CreateEntity(component);
+        }
 
         public static Project CreateProject()
         {
-            ID = 0;
-            //CompositionID = 0;
-            //LayerID = 0;
-            //EntityID = 0;
-            //MaskID = 0;
-            //SceneID = 0;
             var masterBeat = new MasterBeat();
-            var newProject = new Project(0, masterBeat, null);
+            var newProject = new Project(ID, masterBeat, null);
+            ID++;
             return newProject;
         }
 
         public static Composition CreateComposition(Component parentComponent)
         {
             var component = new Composition(ID, parentComponent.Beat);
+            parentComponent.AddComponent(component);
             SubscribeToEvent(parentComponent, component);
             ID++;
             return component;
@@ -35,6 +43,7 @@ namespace CMiX.MVVM.ViewModels
         public static Layer CreateLayer(Component parentComponent)
         {
             var component = new Layer(ID, parentComponent.Beat);
+            parentComponent.AddComponent(component);
             SubscribeToEvent(parentComponent, component);
             ID++;
             return component;
@@ -42,8 +51,8 @@ namespace CMiX.MVVM.ViewModels
 
         public static Scene CreateScene(Component parentComponent)
         {
-            Console.WriteLine("CreateScene");
             var component = new Scene(ID, parentComponent.Beat);
+            parentComponent.AddComponent(component);
             SubscribeToEvent(parentComponent, component);
             ID++;
             return component;
@@ -52,6 +61,7 @@ namespace CMiX.MVVM.ViewModels
         public static Mask CreateMask(Component parentComponent)
         {
             var component = new Mask(ID, parentComponent.Beat);
+            parentComponent.AddComponent(component);
             SubscribeToEvent(parentComponent, component);
             ID++;
             return component;
@@ -60,6 +70,7 @@ namespace CMiX.MVVM.ViewModels
         public static Entity CreateEntity(Component parentComponent)
         {
             var component = new Entity(ID, parentComponent.Beat);
+            parentComponent.AddComponent(component);
             SubscribeToEvent(parentComponent, component);
             ID++;
             return component;

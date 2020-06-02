@@ -20,12 +20,10 @@ namespace CMiX.MVVM.ViewModels
         {
             Console.WriteLine("MessageReceive on Scene " +  this.Name + this.ID);
             Console.WriteLine("SetViewModel " + (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress).ToString());
+            Console.WriteLine("e.ParentMessageAddress + this.GetMessageAddress() " + e.ParentMessageAddress + this.GetMessageAddress());
+            Console.WriteLine("------------------");
             if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-            {
                 this.SetViewModel(e.Model as SceneModel);
-                //Console.WriteLine("Scene Entity Count = " + this.Components.Count);
-            }
-                
             else
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }

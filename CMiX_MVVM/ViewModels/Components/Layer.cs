@@ -10,16 +10,15 @@ namespace CMiX.MVVM.ViewModels
     {
         public Layer(int id, Beat beat) : base(id, beat)
         {
-            Scene scene = ComponentFactory.CreateScene(this);
-            AddComponent(scene);
-
+            //Scene scene = ComponentFactory.CreateScene(this);
+            //AddComponent(scene);
+            //System.Console.WriteLine("Layer Constructor CreateScene");
             //Mask mask = ComponentFactory.CreateMask(this);
             //AddComponent(mask);
-            Console.WriteLine("Constructor Layer");
+
             PostFX = new PostFX();
             BlendMode = new BlendMode(this);
             Fade = new Slider(nameof(Fade), this);
-            IsExpanded = true;
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
@@ -34,7 +33,6 @@ namespace CMiX.MVVM.ViewModels
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
-        #region PROPERTIES
         private bool _out;
         public bool Out
         {
@@ -46,18 +44,5 @@ namespace CMiX.MVVM.ViewModels
         public Mask Mask { get; set; }
         public PostFX PostFX { get; set; }
         public BlendMode BlendMode { get; set; }
-        #endregion
-
-        //#region COPY/PASTE/RESET
-        //public void Reset()
-        //{
-        //    Enabled = true;
-
-        //    BlendMode.Reset();
-        //    Fade.Reset();
-        //    //Mask.Reset();
-        //    PostFX.Reset();
-        //}
-        //#endregion
     }
 }
