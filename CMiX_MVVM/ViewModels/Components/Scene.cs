@@ -19,6 +19,7 @@ namespace CMiX.MVVM.ViewModels
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
             Console.WriteLine("MessageReceive on Scene " +  this.Name + this.ID);
+            Console.WriteLine("SetViewModel " + (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress).ToString());
             if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
             {
                 this.SetViewModel(e.Model as SceneModel);

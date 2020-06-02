@@ -13,9 +13,9 @@ namespace CMiX.MVVM.ViewModels
             Scene scene = ComponentFactory.CreateScene(this);
             AddComponent(scene);
 
-            Mask mask = ComponentFactory.CreateMask(this);
-            AddComponent(mask);
-
+            //Mask mask = ComponentFactory.CreateMask(this);
+            //AddComponent(mask);
+            Console.WriteLine("Constructor Layer");
             PostFX = new PostFX();
             BlendMode = new BlendMode(this);
             Fade = new Slider(nameof(Fade), this);
@@ -25,7 +25,11 @@ namespace CMiX.MVVM.ViewModels
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
             if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
+            {
                 this.SetViewModel(e.Model as LayerModel);
+                Console.WriteLine("Layer SetViewModel");
+            }
+                
             else
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }

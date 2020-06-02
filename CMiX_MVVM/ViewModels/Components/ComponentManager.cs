@@ -110,6 +110,7 @@ namespace CMiX.ViewModels
                 else
                 {
                     result = GetSelectedParent(component.Components);
+                    break;
                 }
             }
             return result;
