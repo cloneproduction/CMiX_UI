@@ -11,16 +11,20 @@ namespace CMiX.MVVM.ViewModels
             set { _id = value; }
         }
 
-        public static void CreateComponent(Component component)
+        public static Component CreateComponent(Component component = null)
         {
-            if (component is Project)
-                CreateComposition(component);
+            if (component == null)
+                return CreateProject();
+            else if (component is Project)
+                return CreateComposition(component);
             else if (component is Composition)
-                CreateLayer(component);
+                return CreateLayer(component);
             else if (component is Layer)
-                CreateScene(component);
+                return CreateScene(component);
             else if (component is Scene)
-                CreateEntity(component);
+                return CreateEntity(component);
+            else
+                return null;
         }
 
         public static Project CreateProject()

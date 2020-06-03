@@ -151,8 +151,7 @@ namespace CMiX.MVVM.ViewModels
 
         public void AddComposition()
         {
-            var composition = ComponentFactory.CreateComposition(CurrentProject);
-            CurrentProject.AddComponent(composition);
+            ComponentFactory.CreateComposition(CurrentProject);
         }
         public void Undo()
         {

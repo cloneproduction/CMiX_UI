@@ -83,7 +83,6 @@ namespace CMiX.MVVM.ViewModels
             {
                 Composition composition = ComponentFactory.CreateComposition(instance);
                 composition.SetViewModel(compositionModel);
-                instance.AddComponent(composition);
             }
 
             instance.Assets.Clear();
@@ -142,7 +141,6 @@ namespace CMiX.MVVM.ViewModels
             {
                 Layer layer = ComponentFactory.CreateLayer(instance);
                 layer.SetViewModel(componentModel);
-                instance.AddComponent(layer);
             }
         }
 
@@ -188,13 +186,11 @@ namespace CMiX.MVVM.ViewModels
                 {
                     Scene scene = ComponentFactory.CreateScene(instance);
                     scene.SetViewModel(componentModel);
-                    instance.Components.Add(scene);
                 }
                 else if (componentModel is MaskModel)
                 {
                     Mask mask = ComponentFactory.CreateMask(instance);
                     mask.SetViewModel(componentModel);
-                    instance.Components.Add(mask);
                 }
             }
         }
@@ -234,7 +230,6 @@ namespace CMiX.MVVM.ViewModels
             {
                 Entity entity = ComponentFactory.CreateEntity(instance);
                 entity.SetViewModel(entityModel);
-                instance.AddComponent(entity);
             }
         }
 
@@ -283,7 +278,6 @@ namespace CMiX.MVVM.ViewModels
             {
                 Entity entity = ComponentFactory.CreateEntity(instance);
                 entity.SetViewModel(entityModel);
-                instance.AddComponent(entity);
             }
         }
 
