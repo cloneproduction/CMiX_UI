@@ -62,14 +62,6 @@ namespace CMiX.MVVM.ViewModels
             return component;
         }
 
-        public static Mask CreateMask(Component parentComponent)
-        {
-            var component = new Mask(ID, parentComponent.Beat);
-            parentComponent.AddComponent(component);
-            SubscribeToEvent(parentComponent, component);
-            ID++;
-            return component;
-        }
 
         public static Entity CreateEntity(Component parentComponent)
         {

@@ -6,9 +6,9 @@
              xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
              xmlns:Views="clr-namespace:CMiX.Studio.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="179.674" d:DesignWidth="267.34">
+             d:DesignHeight="179.799" d:DesignWidth="264.465">
 
-    <Border >
+    <Border Style="{DynamicResource BorderShadow}">
         <StackPanel>
             <Border Height="30" CornerRadius="4, 4, 0, 0" HorizontalAlignment="Stretch" Background="{StaticResource DarkColor}">
                 <DockPanel>

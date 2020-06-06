@@ -15,6 +15,7 @@ namespace CMiX.MVVM.Models
             TextureModel = new TextureModel();
             GeometryModel = new GeometryModel();
             PostFXModel = new PostFXModel();
+            MaskModel = new MaskModel();
         }
 
         public bool Enabled { get; set; }
@@ -22,7 +23,7 @@ namespace CMiX.MVVM.Models
 
         public EntityModel SelectedEntityModel { get; set; }
 
-
+        public MaskModel MaskModel { get; set; }
         public BeatModifierModel BeatModifierModel { get; set; }
         public TextureModel TextureModel { get; set; }
         public GeometryModel GeometryModel { get; set; }

@@ -181,7 +181,7 @@
     <Compile Include="ViewModels\Components\EditorTemplateSelector.cs" />
     <Compile Include="ViewModels\Components\Entity.cs" />
     <Compile Include="ViewModels\Components\Layer.cs" />
-    <Compile Include="ViewModels\Components\Mask.cs" />
+    <Compile Include="ViewModels\Mask\Mask.cs" />
     <Compile Include="ViewModels\Components\Outliner.cs" />
     <Compile Include="ViewModels\Components\Project.cs" />
     <Compile Include="ViewModels\Components\Scene.cs" />

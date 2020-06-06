@@ -15,9 +15,6 @@ namespace CMiX.MVVM.ViewModels
             else if (instance is Layer)
                 return ((Layer)instance).GetModel();
 
-            else if (instance is Mask)
-                return ((Mask)instance).GetModel();
-
             else if (instance is Scene)
                 return ((Scene)instance).GetModel();
 
@@ -37,9 +34,6 @@ namespace CMiX.MVVM.ViewModels
 
             else if (instance is Layer)
                 ((Layer)instance).SetViewModel(componentModel);
-
-            else if (instance is Mask)
-                ((Mask)instance).SetViewModel(componentModel);
 
             else if (instance is Scene)
                 ((Scene)instance).SetViewModel(componentModel);
@@ -182,16 +176,8 @@ namespace CMiX.MVVM.ViewModels
             instance.Components.Clear();
             foreach (var componentModel in layerModel.ComponentModels)
             {
-                if (componentModel is SceneModel)
-                {
-                    Scene scene = ComponentFactory.CreateScene(instance);
-                    scene.SetViewModel(componentModel);
-                }
-                else if (componentModel is MaskModel)
-                {
-                    Mask mask = ComponentFactory.CreateMask(instance);
-                    mask.SetViewModel(componentModel);
-                }
+                Scene scene = ComponentFactory.CreateScene(instance);
+                scene.SetViewModel(componentModel);
             }
         }
 
@@ -206,7 +192,8 @@ namespace CMiX.MVVM.ViewModels
 
             sceneModel.BeatModifierModel = instance.BeatModifier.GetModel();
             sceneModel.PostFXModel = instance.PostFX.GetModel();
-            
+            sceneModel.MaskModel = instance.Mask.GetModel();
+
             foreach (Entity item in instance.Components)
                 sceneModel.ComponentModels.Add(item.GetModel());
 
@@ -224,7 +211,8 @@ namespace CMiX.MVVM.ViewModels
 
             instance.BeatModifier.SetViewModel(sceneModel.BeatModifierModel);
             instance.PostFX.SetViewModel(sceneModel.PostFXModel);
-            
+            instance.Mask.SetViewModel(sceneModel.MaskModel);
+
             instance.Components.Clear();
             foreach (EntityModel entityModel in sceneModel.ComponentModels)
             {
@@ -239,19 +227,9 @@ namespace CMiX.MVVM.ViewModels
             MaskModel maskModel = new MaskModel();
 
             maskModel.Enable = instance.Enabled;
-            maskModel.ID = instance.ID;
-            maskModel.Name = instance.Name;
-
+            maskModel.IsMask = instance.IsMask;
             maskModel.MaskType = instance.MaskType;
             maskModel.MaskControlType = instance.MaskControlType;
-            
-            maskModel.BeatModifierModel = instance.BeatModifier.GetModel();
-            maskModel.TextureModel = instance.Texture.GetModel();
-            maskModel.GeometryModel = instance.Geometry.GetModel();
-            maskModel.PostFXModel = instance.PostFX.GetModel();
-
-            foreach (Entity item in instance.Components)
-                maskModel.ComponentModels.Add(item.GetModel());
 
             return maskModel;
         }
@@ -262,23 +240,9 @@ namespace CMiX.MVVM.ViewModels
             var maskModel = model as MaskModel;
 
             instance.Enabled = maskModel.Enable;
-            instance.ID = maskModel.ID;
-            instance.Name = maskModel.Name;
-
+            instance.IsMask = maskModel.IsMask;
             instance.MaskType = maskModel.MaskType;
             instance.MaskControlType = maskModel.MaskControlType;
-            
-            instance.BeatModifier.SetViewModel(maskModel.BeatModifierModel);
-            instance.Texture.SetViewModel(maskModel.TextureModel);
-            instance.Geometry.SetViewModel(maskModel.GeometryModel);
-            instance.PostFX.SetViewModel(maskModel.PostFXModel);
-            instance.Components.Clear();
-
-            foreach (EntityModel entityModel in maskModel.ComponentModels)
-            {
-                Entity entity = ComponentFactory.CreateEntity(instance);
-                entity.SetViewModel(entityModel);
-            }
         }
 
 

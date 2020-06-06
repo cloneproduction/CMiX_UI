@@ -154,11 +154,14 @@
     <Compile Include="Views\Component\ComponentPanel.xaml.cs">
       <DependentUpon>ComponentPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Mask\MaskPanel.xaml.cs">
-      <DependentUpon>MaskPanel.xaml</DependentUpon>
+    <Compile Include="Views\Mask\Mask.xaml.cs">
+      <DependentUpon>Mask.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Outliner\Outliner.xaml.cs">
       <DependentUpon>Outliner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Scene\ScenePanel.xaml.cs">
+      <DependentUpon>ScenePanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SliderBeat.xaml.cs">
       <DependentUpon>SliderBeat.xaml</DependentUpon>
@@ -242,9 +245,6 @@
     <Compile Include="Views\Project.xaml.cs">
       <DependentUpon>Project.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Mask\Mask.xaml.cs">
-      <DependentUpon>Mask.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\PostFX.xaml.cs">
       <DependentUpon>PostFX.xaml</DependentUpon>
     </Compile>
@@ -284,13 +284,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Mask\MaskPanel.xaml">
+    <Page Include="Views\Mask\Mask.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Outliner\Outliner.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Scene\ScenePanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SliderBeat.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -393,10 +397,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Project.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Mask\Mask.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

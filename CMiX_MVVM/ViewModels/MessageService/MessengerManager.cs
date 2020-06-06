@@ -18,7 +18,7 @@ namespace CMiX.Studio.ViewModels.MessageService
 
             AddMessengerCommand = new RelayCommand(p => AddMessenger());
             DeleteMessengerCommand = new RelayCommand(p => DeleteMessenger(p as Messenger));
-            RenameMessengerCommand = new RelayCommand(p => RenameServer(p));
+            RenameMessengerCommand = new RelayCommand(p => RenameServer(p as Server));
             EditMessengerSettingsCommand = new RelayCommand(p => EditMessengerSettings(p as Messenger));
         }
 
@@ -69,10 +69,10 @@ namespace CMiX.Studio.ViewModels.MessageService
             }
         }
 
-        private void RenameServer(object obj)
+        private void RenameServer(Server obj)
         {
             if (obj != null)
-                ((Server)obj).IsRenaming = true;
+                obj.IsRenaming = true;
         }
     }
 }

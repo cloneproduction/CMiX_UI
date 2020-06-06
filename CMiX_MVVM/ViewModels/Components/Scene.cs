@@ -13,9 +13,11 @@ namespace CMiX.MVVM.ViewModels
         {
             BeatModifier = new BeatModifier(beat);
             PostFX = new PostFX();
+            Mask = new Mask(this);
         }
 
-        public BeatModifier BeatModifier { get; }
-        public PostFX PostFX { get; }
+        public Mask Mask { get; set; }
+        public BeatModifier BeatModifier { get; set; }
+        public PostFX PostFX { get; set; }
     }
 }

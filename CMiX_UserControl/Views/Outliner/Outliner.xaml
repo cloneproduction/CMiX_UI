@@ -137,7 +137,20 @@
                         VerticalAlignment="Center">
                         <DockPanel>
                             <Border DockPanel.Dock="Left" Padding="8">
-                                <Image Opacity="0.75" Source="{StaticResource Scene}"/>
+                                <Image Opacity="0.75">
+                                    <Image.Style>
+                                        <Style TargetType="{x:Type Image}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Mask.Enabled}" Value="False">
+                                                    <Setter Property="Source" Value="{DynamicResource Scene}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Mask.Enabled}" Value="True">
+                                                    <Setter Property="Source" Value="{DynamicResource Mask}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
                             </Border>
                             <Controls:EditableTextBox 
                                 DockPanel.Dock="Left"

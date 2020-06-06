@@ -2,9 +2,9 @@
 
 namespace CMiX.Studio.Views
 {
-    public partial class MaskPanel : UserControl
+    public partial class ScenePanel : UserControl
     {
-        public MaskPanel()
+        public ScenePanel()
         {
             InitializeComponent();
         }

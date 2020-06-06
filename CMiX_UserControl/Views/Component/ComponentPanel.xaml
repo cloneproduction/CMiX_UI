@@ -21,16 +21,16 @@
         <DataTemplate x:Key="LayerPanelTemplate" DataType="{x:Type ViewModels:Layer}">
             <Views:LayerPanel DataContext="{Binding}"/>
         </DataTemplate>
-        
-        <DataTemplate x:Key="MaskPanelTemplate" DataType="{x:Type ViewModels:Mask}">
-            <Views:MaskPanel DataContext="{Binding}"/>
+
+        <DataTemplate x:Key="ScenePanelTemplate" DataType="{x:Type ViewModels:Scene}">
+            <Views:ScenePanel DataContext="{Binding}"/>
         </DataTemplate>
-        
+
         <ViewModels:ComponentPanelTemplateSelector 
             x:Key="TemplateSelector" 
-            MaskPanelTemplate="{StaticResource MaskPanelTemplate}"
             EntityPanelTemplate="{StaticResource EntityPanelTemplate}"
             LayerPanelTemplate="{StaticResource LayerPanelTemplate}" 
+            ScenePanelTemplate="{StaticResource ScenePanelTemplate}"
             CompositionPanelTemplate="{StaticResource CompositionPanelTemplate}"/>
         
     </UserControl.Resources>
