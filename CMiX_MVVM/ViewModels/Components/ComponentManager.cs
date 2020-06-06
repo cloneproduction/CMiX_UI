@@ -8,9 +8,9 @@ namespace CMiX.ViewModels
 {
     public class ComponentManager : ViewModel
     {
-        public ComponentManager(ObservableCollection<Component> components)
+        public ComponentManager(Project project)
         {
-            Components = components;
+            Components = project.Components;
 
             CreateComponentCommand = new RelayCommand(p => CreateComponent(p as Component));
             DuplicateComponentCommand = new RelayCommand(p => DuplicateComponent(p as Component));
@@ -58,8 +58,9 @@ namespace CMiX.ViewModels
         public void DeleteComponent()
         {
             var selectedParent = GetSelectedParent(Components);
+            if(selectedParent != null)
+                selectedParent.OnSendChange(selectedParent.GetModel(), selectedParent.GetMessageAddress());
             DeleteSelectedComponent(Components);
-            selectedParent.OnSendChange(selectedParent.GetModel(), selectedParent.GetMessageAddress());
         }
 
         public event EventHandler<ComponentEventArgs> ComponentDeletedEvent;
@@ -100,7 +101,6 @@ namespace CMiX.ViewModels
                 else
                 {
                     result = GetSelectedParent(component.Components);
-                    break;
                 }
             }
             return result;

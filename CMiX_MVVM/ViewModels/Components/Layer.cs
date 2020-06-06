@@ -10,27 +10,9 @@ namespace CMiX.MVVM.ViewModels
     {
         public Layer(int id, Beat beat) : base(id, beat)
         {
-            //Scene scene = ComponentFactory.CreateScene(this);
-            //AddComponent(scene);
-            //System.Console.WriteLine("Layer Constructor CreateScene");
-            //Mask mask = ComponentFactory.CreateMask(this);
-            //AddComponent(mask);
-
             PostFX = new PostFX();
             BlendMode = new BlendMode(this);
             Fade = new Slider(nameof(Fade), this);
-        }
-
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        {
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-            {
-                this.SetViewModel(e.Model as LayerModel);
-                Console.WriteLine("Layer SetViewModel");
-            }
-                
-            else
-                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
         private bool _out;

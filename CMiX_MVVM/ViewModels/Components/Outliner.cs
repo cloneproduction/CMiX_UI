@@ -123,7 +123,7 @@ namespace CMiX.MVVM.ViewModels
 
         public void CanDeleteComponent()
         {
-            if (SelectedComponent is Project || SelectedComponent is Composition || SelectedComponent is Layer || SelectedComponent is Scene || SelectedComponent is Entity)
+            if (SelectedComponent is Composition || SelectedComponent is Layer || SelectedComponent is Scene || SelectedComponent is Entity)
                 CanDelete = true;
             else
                 CanDelete = false;

@@ -24,18 +24,6 @@ namespace CMiX.MVVM.ViewModels
             InitCollectionView();
         }
 
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        {
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-            {
-                this.SetViewModel(e.Model as ProjectModel);
-                System.Console.WriteLine(this.Components.Count);
-            }
-                
-            else
-                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
-        }
-
         public IDialogService DialogService { get; set; }
 
         private Receiver _receiver;

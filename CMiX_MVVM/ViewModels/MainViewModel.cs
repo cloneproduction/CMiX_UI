@@ -30,7 +30,7 @@ namespace CMiX.MVVM.ViewModels
             AssetManager = new AssetManager(CurrentProject);
             MessengerManager = new MessengerManager(CurrentProject, DialogService);
             ComponentEditor = new ComponentEditor(CurrentProject);
-            ComponentManager = new ComponentManager(Projects);
+            ComponentManager = new ComponentManager(CurrentProject);
             ComponentManager.ComponentDeletedEvent += ComponentEditor.ComponentDeletedEvent;
 
             Outliner = new Outliner(Projects);

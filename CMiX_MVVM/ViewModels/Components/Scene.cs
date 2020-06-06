@@ -11,21 +11,8 @@ namespace CMiX.MVVM.ViewModels
     {
         public Scene(int id, Beat beat) : base(id, beat)
         {
-            Name = "Scene";
             BeatModifier = new BeatModifier(beat);
             PostFX = new PostFX();
-        }
-
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        {
-            Console.WriteLine("MessageReceive on Scene " +  this.Name + this.ID);
-            Console.WriteLine("SetViewModel " + (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress).ToString());
-            Console.WriteLine("e.ParentMessageAddress + this.GetMessageAddress() " + e.ParentMessageAddress + this.GetMessageAddress());
-            Console.WriteLine("------------------");
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-                this.SetViewModel(e.Model as SceneModel);
-            else
-                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
         public BeatModifier BeatModifier { get; }

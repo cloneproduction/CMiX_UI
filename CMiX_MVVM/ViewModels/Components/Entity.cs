@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -17,18 +16,8 @@ namespace CMiX.MVVM.ViewModels
 
             CopyEntityCommand = new RelayCommand(p => CopyEntity());
             PasteEntityCommand = new RelayCommand(p => PasteEntity());
-            //ResetEntityCommand = new RelayCommand(p => ResetEntity());
         }
 
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        {
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-                this.SetViewModel(e.Model as EntityModel);
-            else
-                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
-        }
-
-        #region PROPERTIES
         public ICommand CopyEntityCommand { get; }
         public ICommand PasteEntityCommand { get; }
         public ICommand ResetEntityCommand { get; }
@@ -37,17 +26,6 @@ namespace CMiX.MVVM.ViewModels
         public Geometry Geometry { get; }
         public Texture Texture { get; }
         public Coloration Coloration { get; }
-        #endregion
-
-        #region COPY/PASTE
-        public void Reset()
-        {
-            this.Enabled = true;
-            this.BeatModifier.Reset();
-            this.Geometry.Reset();
-            this.Texture.Reset();
-            //this.Coloration.Reset();
-        }
 
 
         public void CopyEntity()
@@ -69,6 +47,6 @@ namespace CMiX.MVVM.ViewModels
                 //SendMessages(nameof(ContentModel), contentmodel);
             }
         }
-        #endregion
+
     }
 }

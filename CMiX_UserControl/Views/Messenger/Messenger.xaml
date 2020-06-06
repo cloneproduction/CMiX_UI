@@ -12,7 +12,7 @@
         <StackPanel>
             <Border Height="30" CornerRadius="4, 4, 0, 0" HorizontalAlignment="Stretch" Background="{StaticResource DarkColor}">
                 <DockPanel>
-                    <Menu>
+                    <Menu DockPanel.Dock="Right">
                         <MenuItem Width="30">
                             <MenuItem.Icon>
                                 <Image Source="{StaticResource Menu}"/>

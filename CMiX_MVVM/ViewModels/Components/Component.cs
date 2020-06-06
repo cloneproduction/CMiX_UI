@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -20,6 +22,18 @@ namespace CMiX.MVVM.ViewModels
         private void RightClick()
         {
             this.IsSelected = true;
+        }
+
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
+            {
+                this.SetViewModel(e.Model as IComponentModel);
+                Console.WriteLine("OnParentReceiveChange " + e.Model.GetType());
+            }
+                
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
         ICommand TreeViewItemRigthClickCommand { get; set; }
