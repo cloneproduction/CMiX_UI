@@ -141,10 +141,10 @@
                                     <Image.Style>
                                         <Style TargetType="{x:Type Image}">
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Mask.Enabled}" Value="False">
+                                                <DataTrigger Binding="{Binding Mask.IsMask}" Value="False">
                                                     <Setter Property="Source" Value="{DynamicResource Scene}"/>
                                                 </DataTrigger>
-                                                <DataTrigger Binding="{Binding Mask.Enabled}" Value="True">
+                                                <DataTrigger Binding="{Binding Mask.IsMask}" Value="True">
                                                     <Setter Property="Source" Value="{DynamicResource Mask}"/>
                                                 </DataTrigger>
                                             </Style.Triggers>

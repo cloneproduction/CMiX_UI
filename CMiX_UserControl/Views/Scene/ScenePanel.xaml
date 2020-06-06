@@ -9,7 +9,7 @@
              xmlns:Resources ="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="224" d:DesignWidth="245">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -26,21 +26,30 @@
             <Resources:BoolToVisibilityConverter x:Key="BoolToVisibility" />
         </ResourceDictionary>
     </UserControl.Resources>
-    
+
     <Border Padding="8">
         <StackPanel>
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Margin="0, 0, 2, 0" HorizontalAlignment="Right" Grid.Column="0" Content="ID"/>
+                <TextBlock Margin="2, 0, 0, 0" HorizontalAlignment="Right" Grid.Column="1" Text="{Binding ID}"/>
+            </Grid>
+            <Border  Margin="0, 4"  Background="{DynamicResource HighHighDarkerColor}" Height="1"/>
             <Controls:CMiXToggleButton 
+                Margin="0, 4"
                 IsChecked="{Binding Mask.IsMask}"
                 HorizontalAlignment="Right"  
                 Grid.Column="2" 
                 Caption="Mask" 
                 Style="{DynamicResource CMiXToggleButtonStyle}" />
-            
+
             <Border Visibility="{Binding Mask.IsMask, Converter={StaticResource BoolToVisibility}}">
                 <Views:Mask DataContext="{Binding Mask}" />
             </Border>
             
-
         </StackPanel>
     </Border>
 </UserControl>

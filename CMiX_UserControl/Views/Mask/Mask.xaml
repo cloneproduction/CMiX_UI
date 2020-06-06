@@ -26,45 +26,45 @@
     
 
     <StackPanel>
-                <Grid 
-                    Margin="2, 4"
-                    DockPanel.Dock="Bottom"
-                    Height="20" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.2*"/>
-                        <ColumnDefinition Width="35"/>
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock 
-                        Grid.ColumnSpan="2"
-                        Foreground="{StaticResource TextBase}"
-                        Text="Use"/>
-                    <ComboBox 
-                        Grid.Column="2"
-                        Height="20"
-                        SelectedItem="{Binding MaskType}"
-                        ItemsSource="{Binding Source={StaticResource MaskType}}"/>
-                </Grid>
-                <Grid 
-                    Margin="2, 4"
-                    DockPanel.Dock="Bottom"
-                    Height="20" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.2*"/>
-                        <ColumnDefinition Width="35"/>
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock 
-                        Grid.ColumnSpan="2"
-                        Foreground="{StaticResource TextBase}"
-                        Text="To Control"/>
-                    <ComboBox 
-                        Grid.Column="2"
-                        DockPanel.Dock="Bottom"
-                        Height="20"
-                        SelectedItem="{Binding MaskControlType}"
-                        ItemsSource="{Binding Source={StaticResource MaskControlType}}"/>
-                </Grid>
-            </StackPanel>
+        <Grid 
+            Margin="0, 4"
+            DockPanel.Dock="Bottom"
+            Height="20" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="35"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock 
+                Grid.ColumnSpan="2"
+                Foreground="{StaticResource TextBase}"
+                Text="Use"/>
+            <ComboBox 
+                Grid.Column="2"
+                Height="20"
+                SelectedItem="{Binding MaskType}"
+                ItemsSource="{Binding Source={StaticResource MaskType}}"/>
+        </Grid>
+        <Grid 
+            Margin="0, 4"
+            DockPanel.Dock="Bottom"
+            Height="20" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="35"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock 
+                Grid.ColumnSpan="2"
+                Foreground="{StaticResource TextBase}"
+                Text="To Control"/>
+            <ComboBox 
+                Grid.Column="2"
+                DockPanel.Dock="Bottom"
+                Height="20"
+                SelectedItem="{Binding MaskControlType}"
+                ItemsSource="{Binding Source={StaticResource MaskControlType}}"/>
+        </Grid>
+    </StackPanel>
 
 </UserControl>
