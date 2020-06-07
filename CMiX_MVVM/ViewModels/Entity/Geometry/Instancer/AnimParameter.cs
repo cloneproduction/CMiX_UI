@@ -17,7 +17,6 @@ namespace CMiX.MVVM.ViewModels
             BeatModifier = new BeatModifier(beat);
         }
 
-        #region PROPERTIES
         private bool _IsEnabled;
         public bool IsEnabled
         {
@@ -46,9 +45,7 @@ namespace CMiX.MVVM.ViewModels
 
         public Slider Slider { get; set; }
         public BeatModifier BeatModifier { get; set; }
-        #endregion
 
-        #region COPY/PASTE/RESET
         public void CopyGeometry()
         {
             IDataObject data = new DataObject();
@@ -61,51 +58,16 @@ namespace CMiX.MVVM.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("AnimParameterModel"))
             {
-                //Mementor.BeginBatch();
                 var animparametermodel = data.GetData("AnimParameterModel") as AnimParameterModel;
-                this.Paste(animparametermodel);
-
-                //Mementor.EndBatch();
-                //SendMessages(MessageAddress, GetModel());
-                //QueueObjects(animparametermodel);
-                //SendQueues();
+                this.SetViewModel(animparametermodel);
             }
         }
 
-        public void ResetGeometry()
-        {
-            this.Reset();
-            //SendMessages(MessageAddress, GetModel());
-            //QueueObjects(animparametermodel);
-            //SendQueues();
-        }
-
-
-
-        //public void Copy(AnimParameterModel animparametermodel)
-        //{
-        //    Slider.CopyModel(animparametermodel.Slider);
-        //    BeatModifier.CopyModel(animparametermodel.BeatModifier);
-        //}
 
         public void Paste(AnimParameterModel animparametermodel)
         {
             Slider.SetViewModel(animparametermodel.Slider);
             BeatModifier.SetViewModel(animparametermodel.BeatModifier);
         }
-
-        public void Reset()
-        {
-            Slider.Reset();
-            BeatModifier.Reset();
-
-
-            AnimParameterModel animparametermodel = this.GetModel();
-            //this.Copy(animparametermodel);
-            //SendMessages(MessageAddress, GetModel());
-            //QueueObjects(animparametermodel);
-            //SendQueues();
-        }
-        #endregion
     }
 }

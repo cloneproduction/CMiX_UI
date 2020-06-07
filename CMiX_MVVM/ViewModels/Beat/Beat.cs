@@ -1,28 +1,20 @@
 ﻿using System.Windows.Input;
-using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels;
-using Memento;
 
 namespace CMiX.MVVM.ViewModels
 {
     public abstract class Beat : ViewModel
     {
-        #region CONSTRUCTOR
         public Beat()
         {
             ResetCommand = new RelayCommand(p => Reset());
             MultiplyCommand = new RelayCommand(p => Multiply());
             DivideCommand = new RelayCommand(p => Divide());
         }
-        #endregion
 
-        #region PROPERTIES
         public ICommand ResetCommand { get; }
         public ICommand MultiplyCommand { get; }
         public ICommand DivideCommand { get; }
 
-        //public MessengerService MessengerService { get; set; }
         public abstract double Period { get; set; }
 
         private double _bpm;
@@ -54,14 +46,11 @@ namespace CMiX.MVVM.ViewModels
 
         protected abstract void Multiply();
         protected abstract void Divide();
-        #endregion
 
-        #region EVENTS
         public delegate void PeriodChangedEventHandler(Beat sender, double newValue);
 
         public event PeriodChangedEventHandler PeriodChanged;
 
         protected void OnPeriodChanged(double newPeriod) => PeriodChanged?.Invoke(this, newPeriod);
-        #endregion
     }
 }

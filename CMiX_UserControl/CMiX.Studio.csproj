@@ -160,16 +160,16 @@
     <Compile Include="Views\Outliner\Outliner.xaml.cs">
       <DependentUpon>Outliner.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Scene\ScenePanel.xaml.cs">
+    <Compile Include="Views\Component\Scene\ScenePanel.xaml.cs">
       <DependentUpon>ScenePanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SliderBeat.xaml.cs">
       <DependentUpon>SliderBeat.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Entity\EntityPanel.xaml.cs">
+    <Compile Include="Views\Component\Entity\EntityPanel.xaml.cs">
       <DependentUpon>EntityPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Layer\MessageValidation.xaml.cs">
+    <Compile Include="Views\Component\Layer\MessageValidation.xaml.cs">
       <DependentUpon>MessageValidation.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Messenger\MessengerManager.xaml.cs">
@@ -181,7 +181,7 @@
     <Compile Include="Views\Coloration\ColorSelector.xaml.cs">
       <DependentUpon>ColorSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Composition\CompositionPanel.xaml.cs">
+    <Compile Include="Views\Component\Composition\CompositionPanel.xaml.cs">
       <DependentUpon>CompositionPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Geometry\Instancer\AnimParameter.xaml.cs">
@@ -196,13 +196,13 @@
     <Compile Include="Views\Geometry\Instancer\TranslateModifier.xaml.cs">
       <DependentUpon>TranslateModifier.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Entity\Entity.xaml.cs">
+    <Compile Include="Views\Component\Entity\Entity.xaml.cs">
       <DependentUpon>Entity.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Layer\Layer.xaml.cs">
+    <Compile Include="Views\Component\Layer\Layer.xaml.cs">
       <DependentUpon>Layer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Layer\LayerPanel.xaml.cs">
+    <Compile Include="Views\Component\Layer\LayerPanel.xaml.cs">
       <DependentUpon>LayerPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Messenger\MessageService.xaml.cs">
@@ -236,16 +236,16 @@
     <Compile Include="Views\Beat\BeatControls.xaml.cs">
       <DependentUpon>BeatControls.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Camera.xaml.cs">
+    <Compile Include="Views\Camera\Camera.xaml.cs">
       <DependentUpon>Camera.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Coloration\Coloration.xaml.cs">
       <DependentUpon>Coloration.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Project.xaml.cs">
+    <Compile Include="Views\Component\Project\Project.xaml.cs">
       <DependentUpon>Project.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PostFX.xaml.cs">
+    <Compile Include="Views\PostFX\PostFX.xaml.cs">
       <DependentUpon>PostFX.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RangeControl.xaml.cs">
@@ -254,7 +254,7 @@
     <Compile Include="Views\Geometry\GeometryFX.xaml.cs">
       <DependentUpon>GeometryFX.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Layer\ChannelLayer.xaml.cs">
+    <Compile Include="Views\Component\Layer\ChannelLayer.xaml.cs">
       <DependentUpon>ChannelLayer.xaml</DependentUpon>
     </Compile>
     <ApplicationDefinition Include="App.xaml">
@@ -292,7 +292,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Scene\ScenePanel.xaml">
+    <Page Include="Views\Component\Scene\ScenePanel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -300,11 +300,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Entity\EntityPanel.xaml">
+    <Page Include="Views\Component\Entity\EntityPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Layer\MessageValidation.xaml">
+    <Page Include="Views\Component\Layer\MessageValidation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -312,7 +312,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Composition\CompositionPanel.xaml">
+    <Page Include="Views\Component\Composition\CompositionPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -332,15 +332,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Entity\Entity.xaml">
+    <Page Include="Views\Component\Entity\Entity.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Layer\Layer.xaml">
+    <Page Include="Views\Component\Layer\Layer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Layer\LayerPanel.xaml">
+    <Page Include="Views\Component\Layer\LayerPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -388,7 +388,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Camera.xaml">
+    <Page Include="Views\Camera\Camera.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -396,11 +396,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Project.xaml">
+    <Page Include="Views\Component\Project\Project.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\PostFX.xaml">
+    <Page Include="Views\PostFX\PostFX.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -412,7 +412,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Composition\Composition.xaml">
+    <Page Include="Views\Component\Composition\Composition.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -423,7 +423,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\Composition\Composition.xaml.cs">
+    <Compile Include="Views\Component\Composition\Composition.xaml.cs">
       <DependentUpon>Composition.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
@@ -438,7 +438,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Layer\ChannelLayer.xaml">
+    <Page Include="Views\Component\Layer\ChannelLayer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

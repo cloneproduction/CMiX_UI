@@ -1,13 +1,9 @@
-﻿using CMiX.MVVM.ViewModels;
-using System;
-using Memento;
-using CMiX.MVVM.Services;
+﻿using System;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class BeatModifier : Beat
     {
-        #region CONSTRUCTORS
         public BeatModifier(Beat beat)
         {
             Beat = beat;
@@ -23,9 +19,7 @@ namespace CMiX.MVVM.ViewModels
                 Notify(nameof(BPM));
             };
         }
-        #endregion
 
-        #region PROPERTIES
         private Beat Beat { get; }
         public Slider ChanceToHit { get; }
 
@@ -39,10 +33,7 @@ namespace CMiX.MVVM.ViewModels
         {
             get => base.Multiplier;
             set
-            {
-                
-                //if (Mementor != null)
-                //    Mementor.PropertyChange(this, "Multiplier");                   
+            {              
                 base.Multiplier = value;
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
@@ -50,9 +41,7 @@ namespace CMiX.MVVM.ViewModels
                 //SendMessages(MessageAddress + nameof(Multiplier), Multiplier);
             }
         }
-        #endregion
 
-        #region MULTIPLY/DIVIDE
         protected override void Multiply()
         {
             Multiplier /= 2;
@@ -62,16 +51,5 @@ namespace CMiX.MVVM.ViewModels
         {
             Multiplier *= 2;
         }
-        #endregion
-
-        #region COPY/PASTE/RESET
-
-        public void Reset()
-        {
-            Multiplier = 1.0;
-            ChanceToHit.Reset();
-            ChanceToHit.Amount = 1.0;
-        }
-        #endregion
     }
 }

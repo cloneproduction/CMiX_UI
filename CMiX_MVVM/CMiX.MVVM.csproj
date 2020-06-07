@@ -106,6 +106,7 @@
     <Compile Include="Controls\ToggleButton\CMiXToggleButton.cs" />
     <Compile Include="Controls\ToggleButton\ToggleDockPosition.cs" />
     <Compile Include="Models\InverterModel.cs" />
+    <Compile Include="ViewModels\BlendMode\BlendModelModelFactory.cs" />
     <Compile Include="ViewModels\ColorPicker\ColorPicker.cs" />
     <Compile Include="ViewModels\ColorPicker\ColorPickerModelFactory.cs" />
     <Compile Include="ViewModels\Counter\CounterModelFactory.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="ViewModels\Entity\Texture\Inverter.cs" />
     <Compile Include="ViewModels\Entity\Texture\InverterModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Texture\TextureModelFactory.cs" />
+    <Compile Include="ViewModels\Mask\MaskModelFactory.cs" />
     <Compile Include="Views\ColorPicker.xaml.cs">
       <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
@@ -208,7 +210,6 @@
     <Compile Include="ViewModels\Entity\Geometry\Transform\Transform.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Translate.cs" />
     <Compile Include="ViewModels\Entity\Texture\Texture.cs" />
-    <Compile Include="ViewModels\Interfaces\IUndoable.cs" />
     <Compile Include="Services\Server\Server.cs" />
     <Compile Include="Models\Geometry\Modifier\AnimParameterModel.cs" />
     <Compile Include="Models\Geometry\Modifier\InstancerModel.cs" />
@@ -636,6 +637,7 @@
   <ItemGroup>
     <Folder Include="Converters\" />
     <Folder Include="Themes\Windows\" />
+    <Folder Include="ViewModels\Interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

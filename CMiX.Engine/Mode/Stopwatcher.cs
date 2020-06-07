@@ -24,17 +24,6 @@ namespace CMiX.Engine
             set { _period = value; }
         }
 
-        //public double LFO
-        //{
-        //    get
-        //    {
-        //        if (Inverse)
-        //            return VMath.Map(Stopwatch.ElapsedMilliseconds, 0, Period * 1000, 1, 0, TMapMode.Float);
-        //        else
-        //            return VMath.Map(Stopwatch.ElapsedMilliseconds, 0, Period * 1000, 0, 1, TMapMode.Float);
-        //    }
-        //}
-
         public void Reset()
         {
             Stopwatch.Reset();

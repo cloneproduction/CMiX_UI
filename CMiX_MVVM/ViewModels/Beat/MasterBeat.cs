@@ -1,43 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Timers;
 using System.Windows.Input;
-using CMiX.MVVM.Models;
-using CMiX.MVVM.ViewModels;
-using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class MasterBeat : Beat
     {
-        #region CONSTRUCTORS
-        public MasterBeat()
-        : this
-        (
-            period: 0.0,
-            multiplier: 1
-        )
-        { }
-
-        public MasterBeat
-            (
-                double period,
-                double multiplier
-            )
+        public MasterBeat(double period, double multiplier)
         {
+            Timer = new Timer();
+            Timer.Elapsed += Timer_Elapsed;
+            //Timer.Interval = 1000;
+            Timer.Start();
             Period = period;
             Multiplier = multiplier;
             ResyncCommand = new RelayCommand(p => Resync());
             TapCommand = new RelayCommand(p => Tap());
-            MessageAddress = "/MasterBeat/";
             tapPeriods = new List<double>();
             tapTime = new List<double>();
-        }
-        #endregion
 
-        #region PROPERTIES
+            BeatTaped = false;
+        }
+
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            if (BeatTaped == false)
+                BeatTaped = true;
+            else
+                BeatTaped = false;
+        }
+
+        public MasterBeat() : this (period: 0.0, multiplier: 1)
+        {
+        
+        }
+
         public ICommand ResyncCommand { get; }
         public ICommand TapCommand { get; }
+        public Timer Timer { get; set; }
+
+        private bool _beatTaped;
+        public bool BeatTaped
+        {
+            get => _beatTaped;
+            set => SetAndNotify(ref _beatTaped, value);
+        }
+
 
         private readonly List<double> tapPeriods;
         private readonly List<double> tapTime;
@@ -53,12 +64,11 @@ namespace CMiX.MVVM.ViewModels
                 SetAndNotify(ref _period, value);
                 OnPeriodChanged(Period);
                 Notify(nameof(BPM));
+                if (Period > 0)
+                    Timer.Interval = Period / 2;
                 //SendMessages(MessageAddress + nameof(Period), Period);
             }
         }
-
-        public string MessageAddress { get; set; }
-        #endregion
 
         #region METHODS
         private void Resync()
@@ -79,6 +89,7 @@ namespace CMiX.MVVM.ViewModels
         private void Tap()
         {
             Period = GetMasterPeriod();
+            Console.WriteLine("Period " + Period);
         }
 
         private double GetMasterPeriod()

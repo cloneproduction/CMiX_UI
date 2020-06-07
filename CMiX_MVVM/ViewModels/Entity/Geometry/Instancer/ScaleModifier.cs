@@ -1,7 +1,4 @@
-﻿using CMiX.MVVM.ViewModels;
-using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
-using Memento;
+﻿using CMiX.MVVM.Models;
 using System;
 using System.Windows;
 
@@ -18,14 +15,12 @@ namespace CMiX.MVVM.ViewModels
             ScaleZ = new AnimParameter(nameof(ScaleZ), beat, false);
         }
 
-        #region PROPERTIES
         public AnimParameter Scale { get; set; }
         public AnimParameter ScaleX { get; set; }
         public AnimParameter ScaleY { get; set; }
         public AnimParameter ScaleZ { get; set; }
-        #endregion
 
-        #region COPY/PASTE/RESET
+
         public void CopyGeometry()
         {
             IDataObject data = new DataObject();
@@ -41,19 +36,5 @@ namespace CMiX.MVVM.ViewModels
                 var Scalemodifiermodel = data.GetData("ScaleModifierModel") as ScaleModifierModel;
             }
         }
-
-        public void ResetGeometry()
-        {
-            this.Reset();
-        }
-
-        public void Reset()
-        {
-            Scale.Reset();
-            ScaleX.Reset();
-            ScaleY.Reset();
-            ScaleZ.Reset();
-        }
-        #endregion
     }
 }

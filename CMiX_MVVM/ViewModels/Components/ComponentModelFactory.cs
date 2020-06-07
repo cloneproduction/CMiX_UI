@@ -222,30 +222,6 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public static MaskModel GetModel(this Mask instance)
-        {
-            MaskModel maskModel = new MaskModel();
-
-            maskModel.Enable = instance.Enabled;
-            maskModel.IsMask = instance.IsMask;
-            maskModel.MaskType = instance.MaskType;
-            maskModel.MaskControlType = instance.MaskControlType;
-
-            return maskModel;
-        }
-
-
-        public static void SetViewModel(this Mask instance, IComponentModel model)
-        {
-            var maskModel = model as MaskModel;
-
-            instance.Enabled = maskModel.Enable;
-            instance.IsMask = maskModel.IsMask;
-            instance.MaskType = maskModel.MaskType;
-            instance.MaskControlType = maskModel.MaskControlType;
-        }
-
-
         public static EntityModel GetModel(this Entity instance)
         {
             EntityModel entityModel = new EntityModel();

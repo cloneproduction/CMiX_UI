@@ -1,7 +1,5 @@
 ﻿using System.Windows;
-using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
-using Memento;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -15,14 +13,13 @@ namespace CMiX.MVVM.ViewModels
             TranslateZ = new AnimParameter(nameof(TranslateZ), beat, false);
         }
 
-        #region PROPERTIES
+
         public AnimParameter Translate { get; set; }
         public AnimParameter TranslateX { get; set; }
         public AnimParameter TranslateY { get; set; }
         public AnimParameter TranslateZ { get; set; }
-        #endregion
 
-        #region COPY/PASTE/RESET
+
         public void CopyGeometry()
         {
             IDataObject data = new DataObject();
@@ -40,20 +37,5 @@ namespace CMiX.MVVM.ViewModels
 
             }
         }
-
-        public void ResetGeometry()
-        {
-            this.Reset();
-            //SendMessages(MessageAddress, GetModel());
-        }
-
-        public void Reset()
-        {
-            Translate.Reset();
-            TranslateX.Reset();
-            TranslateY.Reset();
-            TranslateZ.Reset();
-        }
-        #endregion
     }
 }

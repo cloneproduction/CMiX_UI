@@ -335,7 +335,7 @@ namespace CMiX.MVVM.ViewModels
                         }
                     }
 
-                    if (dataObject is Entity && (TargetComponent is Mask || TargetComponent is Scene))
+                    if (dataObject is Entity && TargetComponent is Scene)
                     {
                         if (ParentVisualSource != VisualTarget)
                         {
