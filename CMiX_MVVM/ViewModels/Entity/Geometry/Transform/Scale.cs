@@ -1,8 +1,6 @@
 ﻿using System.Windows;
-using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
-using System;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -11,8 +9,11 @@ namespace CMiX.MVVM.ViewModels
         public Scale() 
         {
             X = new Slider(nameof(X), this);
+            X.Amount = 1.0;
             Y = new Slider(nameof(Y), this);
+            Y.Amount = 1.0;
             Z = new Slider(nameof(Z), this);
+            Z.Amount = 1.0;
         }
 
         public Scale(Sendable parentSendable) : this()
@@ -33,8 +34,6 @@ namespace CMiX.MVVM.ViewModels
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
-
-        #region COPY/PASTE/RESET
         public void CopyGeometry()
         {
             IDataObject data = new DataObject();
@@ -48,41 +47,10 @@ namespace CMiX.MVVM.ViewModels
             if (data.GetDataPresent("ScaleModel"))
             {
                 var scalemodel = data.GetData("ScaleModel") as ScaleModel;
-                this.Paste(scalemodel);
+                this.SetViewModel(scalemodel);
                 //Mementor.EndBatch();
                 //SendMessages(nameof(ScaleModel), GetModel());
             }
         }
-
-        public void ResetGeometry()
-        {
-            ScaleModel scalemodel = this.GetModel();
-            this.Reset();
-            //SendMessages(nameof(ScaleModel), scalemodel);
-        }
-
-        public void Paste(ScaleModel scalemodel)
-        {
-            X.SetViewModel(scalemodel.X);
-            Y.SetViewModel(scalemodel.Y);
-            Z.SetViewModel(scalemodel.Z);
-        }
-
-        public void Reset()
-        {
-            //Mementor.BeginBatch();
-
-            X.Reset();
-            Y.Reset();
-            Z.Reset();
-
-            //Mementor.EndBatch();
-
-            ScaleModel scalemodel = this.GetModel();
-            //SendMessages(nameof(ScaleModel), scalemodel);
-        }
-
-
-        #endregion
     }
 }

@@ -7,7 +7,7 @@ namespace CMiX.MVVM.Models
     {
         public ColorPickerModel()
         {
-            SelectedColor = "#FFFF00FF";
+
         }
 
         public string SelectedColor { get; set; }

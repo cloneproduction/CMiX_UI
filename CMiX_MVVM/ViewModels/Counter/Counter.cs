@@ -1,20 +1,31 @@
-﻿using CMiX.MVVM.ViewModels;
+﻿using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
 using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Counter : ViewModel
+    public class Counter : Sendable
     {
-        #region CONSTRUCTORS
         public Counter() 
         {
             Count = 1;
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
         }
-        #endregion
 
-        #region PROPERTIES
+        public Counter(Sendable parentSendable) : this()
+        {
+            SubscribeToEvent(parentSendable);
+        }
+
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
+                this.SetViewModel(e.Model as CounterModel);
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
+        }
+
         public ICommand AddCommand { get; }
         public ICommand SubCommand { get; }
 
@@ -24,15 +35,11 @@ namespace CMiX.MVVM.ViewModels
             get { return _count; }
             set
             {
-                //if(Mementor != null)
-                //    Mementor.PropertyChange(this, "Count");
                 SetAndNotify(ref _count, value);
-                //SendMessages(MessageAddress + nameof(Count), Count);
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
-        #endregion
 
-        #region ADD/SUB
         private void Add()
         {
             Count += 1;
@@ -43,14 +50,5 @@ namespace CMiX.MVVM.ViewModels
             if (Count > 1)
                 Count -= 1;
         }
-        #endregion
-
-        #region COPY/PASTE/RESET
-        public void Reset()
-        {
-            Count = 1;
-        }
-
-        #endregion
     }
 }

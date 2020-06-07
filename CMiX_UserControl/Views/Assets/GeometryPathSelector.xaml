@@ -13,12 +13,12 @@
     <ComboBox 
         Margin="0, 2"
         Height="25" 
-        ItemsSource="{Binding GeometryCollectionView}"
+        ItemsSource="{Binding Path=DataContext.AssetManager.GeometryCollectionView, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
         Focusable="False"
         AllowDrop="True"
         SelectedValuePath="Path" 
-        SelectedValue="{Binding Path=DataContext.AssetPathSelector.SelectedPath, Mode=TwoWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Geometry}}}" 
-        dd:DragDrop.DropHandler="{Binding Path=DataContext.AssetPathSelector, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:Geometry}}}"
+        SelectedValue="{Binding SelectedPath}" 
+        dd:DragDrop.DropHandler="{Binding}"
         dd:DragDrop.IsDropTarget="True">
 
         <ComboBox.ItemTemplate>

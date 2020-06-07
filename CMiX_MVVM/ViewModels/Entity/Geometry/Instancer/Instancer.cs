@@ -1,20 +1,33 @@
 ﻿using System.Windows;
-using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Instancer : ViewModel
+    public class Instancer : Sendable
     {
         public Instancer(Beat beat)
         {
-            Transform = new Transform();
-            Counter = new Counter();
+            Transform = new Transform(this);
+            Counter = new Counter(this);
             TranslateModifier = new TranslateModifier(beat);
             ScaleModifier = new ScaleModifier(beat);
             RotationModifier = new RotationModifier(beat);
 
             NoAspectRatio = false;
+        }
+
+        public Instancer(Beat beat, Sendable parentSendable) : this(beat)
+        {
+            SubscribeToEvent(parentSendable);
+        }
+
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
+                this.SetViewModel(e.Model as InstancerModel);
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
         public Transform Transform { get; set; }
@@ -36,7 +49,6 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        #region COPY/PASTE/RESET
         public void CopyGeometry()
         {
             IDataObject data = new DataObject();
@@ -49,38 +61,9 @@ namespace CMiX.MVVM.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("InstancerModel"))
             {
-                //Mementor.BeginBatch();
-
-                var instancermodel = data.GetData("InstancerModel") as InstancerModel;
+                var instancermodel = data.GetData(nameof(InstancerModel)) as InstancerModel;
                 this.SetViewModel(instancermodel);
-
-                //Mementor.EndBatch();
-                //SendMessages(nameof(InstancerModel), GetModel());
             }
         }
-
-        public void ResetGeometry()
-        {
-            this.Reset();
-            //SendMessages(nameof(InstancerModel), GetModel());
-        }
-
-        public void Reset()
-        {
-            //Mementor.BeginBatch();
-            Counter.Reset();
-            TranslateModifier.Reset();
-            ScaleModifier.Reset();
-            RotationModifier.Reset();
-            NoAspectRatio = false;
-            //Mementor.EndBatch();
-
-            InstancerModel instancermodel = new InstancerModel();
-            //this.Copy(instancermodel);
-            //SendMessages(nameof(InstancerModel), instancermodel);
-        }
-
-
-        #endregion
     }
 }

@@ -3,7 +3,7 @@
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class CounterModel
+    public class CounterModel : Model
     {
         public CounterModel()
         {

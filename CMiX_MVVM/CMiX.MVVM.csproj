@@ -108,6 +108,8 @@
     <Compile Include="Models\InverterModel.cs" />
     <Compile Include="ViewModels\ColorPicker\ColorPicker.cs" />
     <Compile Include="ViewModels\ColorPicker\ColorPickerModelFactory.cs" />
+    <Compile Include="ViewModels\Counter\CounterModelFactory.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Instancer\InstancerModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\TransformModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Texture\Inverter.cs" />
     <Compile Include="ViewModels\Entity\Texture\InverterModelFactory.cs" />

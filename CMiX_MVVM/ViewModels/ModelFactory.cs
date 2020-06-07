@@ -159,22 +159,6 @@ namespace CMiX.MVVM.ViewModels
             instance.Zoom.SetViewModel(cameraModel.Zoom);
         }
 
-
-        //public static RangeControlModel GetModel(this RangeControl instance)
-        //{
-        //    RangeControlModel rangeControlModel = new RangeControlModel();
-        //    //rangeControlModel.Range = instance.Range.GetModel();
-        //    //rangeControlModel.Modifier = instance.Modifier;
-        //    return rangeControlModel;
-        //}
-
-        //public static void SetViewModel(this RangeControl instance, RangeControlModel rangeControlModel)
-        //{
-        //    //instance.Range.SetViewModel(rangeControlModel.Range);
-        //    //instance.Modifier = rangeControlModel.Modifier;
-        //}
-
-
         public static BlendModeModel GetModel(this BlendMode instance)
         {
             BlendModeModel blendModeModel = new BlendModeModel();
@@ -191,7 +175,7 @@ namespace CMiX.MVVM.ViewModels
         public static ColorationModel GetModel(this Coloration instance)
         {
             ColorationModel colorationModel = new ColorationModel();
-            //colorationModel.ColorSelectorModel = instance.ColorSelector.GetModel();
+            colorationModel.ColorSelectorModel = instance.ColorSelector.GetModel();
             //colorationModel.BeatModifierModel = instance.BeatModifier.GetModel();
             //colorationModel.HueModel = instance.Hue.GetModel();
             //colorationModel.SatModel = instance.Saturation.GetModel();
@@ -201,7 +185,7 @@ namespace CMiX.MVVM.ViewModels
 
         public static void SetViewModel(this Coloration instance, ColorationModel colorationModel)
         {
-            //instance.ColorSelector.SetViewModel(colorationModel.ColorSelectorModel);
+            instance.ColorSelector.SetViewModel(colorationModel.ColorSelectorModel);
             //instance.BeatModifier.SetViewModel(colorationModel.BeatModifierModel);
             //instance.Hue.SetViewModel(colorationModel.HueModel);
             //instance.Saturation.SetViewModel(colorationModel.SatModel);
@@ -218,7 +202,7 @@ namespace CMiX.MVVM.ViewModels
 
         public static void SetViewModel(this ColorSelector instance, ColorSelectorModel colorSelectorModel)
         {
-            instance.ColorPicker.Paste(colorSelectorModel.ColorPickerModel);
+            instance.ColorPicker.SetViewModel(colorSelectorModel.ColorPickerModel);
         }
 
 
@@ -300,33 +284,6 @@ namespace CMiX.MVVM.ViewModels
             instance.Explode.SetViewModel(model.Explode);
         }
 
-
-        public static InstancerModel GetModel(this Instancer instance)
-        {
-            InstancerModel model = new InstancerModel();
-            model.Transform = instance.Transform.GetModel();
-            model.Counter = instance.Counter.GetModel();
-            model.TranslateModifier = instance.TranslateModifier.GetModel();
-            model.ScaleModifier = instance.ScaleModifier.GetModel();
-            model.RotationModifier = instance.RotationModifier.GetModel();
-            model.NoAspectRatio = instance.NoAspectRatio;
-            return model;
-        }
-
-        public static void SetViewModel(this Instancer instance, InstancerModel model)
-        {
-            instance.Transform.SetViewModel(model.Transform);
-            instance.Counter.SetViewModel(model.Counter);
-            instance.TranslateModifier.SetViewModel(model.TranslateModifier);
-            instance.ScaleModifier.SetViewModel(model.ScaleModifier);
-            instance.RotationModifier.SetViewModel(model.RotationModifier);
-            instance.NoAspectRatio = model.NoAspectRatio;
-        }
-
-
-
-
-
         public static RotationModifierModel GetModel(this RotationModifier instance)
         {
             RotationModifierModel rotationModifierModel = new RotationModifierModel();
@@ -405,16 +362,6 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public static CounterModel GetModel(this Counter instance)
-        {
-            CounterModel model = new CounterModel();
-            model.Count = instance.Count;
-            return model;
-        }
 
-        public static void SetViewModel(this Counter instance, CounterModel model)
-        {
-            instance.Count = model.Count;
-        }
     }
 }

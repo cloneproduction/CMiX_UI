@@ -1,9 +1,4 @@
 ﻿using CMiX.MVVM.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -29,11 +24,11 @@ namespace CMiX.MVVM.ViewModels
 
         public static RotationModel GetModel(this Rotation instance)
         {
-            RotationModel rotationModel = new RotationModel();
-            rotationModel.X = instance.X.GetModel();
-            rotationModel.Y = instance.Y.GetModel();
-            rotationModel.Y = instance.Y.GetModel();
-            return rotationModel;
+            RotationModel model = new RotationModel();
+            model.X = instance.X.GetModel();
+            model.Y = instance.Y.GetModel();
+            model.Y = instance.Y.GetModel();
+            return model;
         }
 
         public static void SetViewModel(this Rotation instance, RotationModel model)
@@ -46,11 +41,11 @@ namespace CMiX.MVVM.ViewModels
 
         public static ScaleModel GetModel(this Scale instance)
         {
-            ScaleModel scaleModel = new ScaleModel();
-            scaleModel.X = instance.X.GetModel();
-            scaleModel.Y = instance.Y.GetModel();
-            scaleModel.Z = instance.Z.GetModel();
-            return scaleModel;
+            ScaleModel model = new ScaleModel();
+            model.X = instance.X.GetModel();
+            model.Y = instance.Y.GetModel();
+            model.Z = instance.Z.GetModel();
+            return model;
         }
 
         public static void SetViewModel(this Scale instance, ScaleModel model)

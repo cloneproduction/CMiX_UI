@@ -1,9 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
-using System;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -11,15 +9,11 @@ namespace CMiX.MVVM.ViewModels
     {
         public Geometry(Beat beat) 
         {
-            Instancer = new Instancer(beat);
+            Instancer = new Instancer(beat, this);
             Transform = new Transform(this);
             GeometryFX = new GeometryFX();
 
-            AssetPathSelector = new AssetPathSelector<AssetGeometry>();
-
-            CopyGeometryCommand = new RelayCommand(p => CopyGeometry());
-            PasteGeometryCommand = new RelayCommand(p => PasteGeometry());
-            ResetGeometryCommand = new RelayCommand(p => ResetGeometry());
+            AssetPathSelector = new AssetPathSelector<AssetGeometry>(this);
         }
 
         public Geometry(Beat beat, Sendable parentSendable) : this(beat)
@@ -67,24 +61,6 @@ namespace CMiX.MVVM.ViewModels
                 //Mementor.EndBatch();
                 //SendMessages(MessageAddress, geometrymodel);
             }
-        }
-
-        public void ResetGeometry()
-        {
-            GeometryModel geometrymodel = this.GetModel();
-            this.Reset();
-            //SendMessages(MessageAddress, geometrymodel);
-        }
-
-
-        public void Reset()
-        {
-            //Mementor.BeginBatch();
-            Transform.Reset();
-            GeometryFX.Reset();
-            Instancer.Reset();
-            //Mementor.EndBatch();
-            //SendMessages(MessageAddress, GetModel());
         }
         #endregion
     }

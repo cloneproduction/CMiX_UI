@@ -28,7 +28,6 @@ namespace CMiX.MVVM.ViewModels
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
-        #region PROPERTY
         public Translate Translate { get; set; }
         public Scale Scale { get; set; }
         public Rotation Rotation { get; set; }
@@ -44,7 +43,6 @@ namespace CMiX.MVVM.ViewModels
                 SetAndNotify(ref _is3D, value);
             }
         }
-        #endregion
 
         #region COPY/PASTE/RESET
         public void CopyGeometry()
@@ -62,19 +60,6 @@ namespace CMiX.MVVM.ViewModels
                 var transformmodel = data.GetData("TransformModel") as TransformModel;
                 this.SetViewModel(transformmodel);
             }
-        }
-
-        public void ResetGeometry()
-        {
-            this.Reset();
-        }
-
-        public void Reset()
-        {
-            Translate.Reset();
-            Scale.Reset();
-            Rotation.Reset();
-            Is3D = false;
         }
         #endregion
     }

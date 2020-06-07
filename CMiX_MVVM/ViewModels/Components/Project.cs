@@ -1,11 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using MvvmDialogs;
-using System.Windows.Data;
-using System.ComponentModel;
-using System.Collections.Specialized;
 using CMiX.Studio.ViewModels.MessageService;
-using CMiX.MVVM.Services;
-using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -17,11 +12,9 @@ namespace CMiX.MVVM.ViewModels
             DialogService = dialogService;
 
             Assets = new ObservableCollection<IAssets>();
-            AssetsFlatten = new ObservableCollection<IAssets>();
+
             ComponentsInEditing = new ObservableCollection<Component>();
             Messengers = new ObservableCollection<Messenger>();
-
-            InitCollectionView();
         }
 
         public IDialogService DialogService { get; set; }
@@ -54,80 +47,5 @@ namespace CMiX.MVVM.ViewModels
             get => _assets;
             set => SetAndNotify(ref _assets, value);
         }
-
-        private ObservableCollection<IAssets> _assetsFlatten;
-        public ObservableCollection<IAssets> AssetsFlatten
-        {
-            get => _assetsFlatten;
-            set => SetAndNotify(ref _assetsFlatten, value);
-        }
-
-        public CollectionViewSource GeometryViewSource { get; set; }
-        private ICollectionView _geometryCollectionView;
-        public ICollectionView GeometryCollectionView
-        {
-            get => _geometryCollectionView;
-            set => SetAndNotify(ref _geometryCollectionView, value);
-        }
-
-        public CollectionViewSource ImageViewSource { get; set; }
-        private ICollectionView _imageCollectionView;
-        public ICollectionView ImageCollectionView
-        {
-            get => _imageCollectionView;
-            set => SetAndNotify(ref _imageCollectionView, value);
-        }
-
-        public void InitCollectionView()
-        {
-            this.AssetsFlatten.CollectionChanged += FlattenAssets_CollectionChanged;
-
-            GeometryViewSource = new CollectionViewSource();
-            GeometryViewSource.Source = this.AssetsFlatten;
-            GeometryCollectionView = GeometryViewSource.View;
-            GeometryCollectionView.SortDescriptions.Add(new SortDescription(nameof(Name), ListSortDirection.Ascending));
-            GeometryCollectionView.Filter = FilterGeometry;
-
-            ImageViewSource = new CollectionViewSource();
-            ImageViewSource.Source = this.AssetsFlatten;
-            ImageCollectionView = ImageViewSource.View;
-            ImageCollectionView.SortDescriptions.Add(new SortDescription(nameof(Name), ListSortDirection.Ascending));
-            ImageCollectionView.Filter = FilterImage;
-        }
-
-        private void FlattenAssets_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            GeometryCollectionView.Refresh();
-            ImageCollectionView.Refresh();
-        }
-
-        public void BuildAssetFlattenCollection(ObservableCollection<IAssets> assets)
-        {
-            foreach (IAssets asset in assets)
-            {
-                if (asset is AssetTexture || asset is AssetGeometry)
-                    AssetsFlatten.Add(asset);
-                else if (asset is AssetDirectory)
-                    BuildAssetFlattenCollection(((AssetDirectory)asset).Assets);
-            }
-        }
-
-        public bool FilterGeometry(object item)
-        {
-            if (item is AssetGeometry)
-                return true;
-            else
-                return false;
-        }
-
-        public bool FilterImage(object item)
-        {
-            if (item is AssetTexture)
-                return true;
-            else
-                return false;
-        }
-
-
     }
 }

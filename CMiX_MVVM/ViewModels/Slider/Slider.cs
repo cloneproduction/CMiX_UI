@@ -29,12 +29,7 @@ namespace CMiX.MVVM.ViewModels
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
             if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-            {
                 this.SetViewModel(e.Model as SliderModel);
-                Console.WriteLine(this.Name + " ViewModelUpdated");
-                Console.WriteLine("Amount = " + this.Amount);
-                Console.WriteLine("----------------------------");
-            }
             else
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }

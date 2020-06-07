@@ -1,24 +1,39 @@
-﻿using Memento;
-using GongSolutions.Wpf.DragDrop;
+﻿using GongSolutions.Wpf.DragDrop;
 using System.Windows;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class AssetPathSelector<T> : ViewModel, IDropTarget
+    public class AssetPathSelector<T> : Sendable, IDropTarget
     {
         public AssetPathSelector()
         {
             
         }
 
+        public AssetPathSelector(Sendable parentSendable) : this()
+        {
+            SubscribeToEvent(parentSendable);
+        }
+
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
+                this.SetViewModel(e.Model as AssetPathSelectorModel);
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
+        }
+
         private string _selectedPath;
         public string SelectedPath
         {
             get => _selectedPath;
-            set => SetAndNotify(ref _selectedPath, value);
+            set
+            {
+                SetAndNotify(ref _selectedPath, value);
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
+            }
         }
 
         public void DragOver(IDropInfo dropInfo)
@@ -37,10 +52,18 @@ namespace CMiX.MVVM.ViewModels
             SelectedPath = ((IAssets)dropInfo.DragInfo.SourceItem).Path;
         }
 
+        public AssetPathSelectorModel GetModel()
+        {
+            AssetPathSelectorModel model = new AssetPathSelectorModel();
+            model.SelectedPath = this.SelectedPath;
+            return model;
+        }
+
         public void SetViewModel(AssetPathSelectorModel model)
         {
-            if (model.SelectedPath != null)
-                SelectedPath = model.SelectedPath;
+            this.SelectedPath = model.SelectedPath;
+            //if (model.SelectedPath != null)
+            //    SelectedPath = model.SelectedPath;
         }
     }
 }

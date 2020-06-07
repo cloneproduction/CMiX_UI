@@ -2,7 +2,6 @@
 using System.Windows.Input;
 using ColorMine.ColorSpaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Resources;
 using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
@@ -11,7 +10,7 @@ namespace CMiX.MVVM.ViewModels
     {
         public ColorPicker()
         {
-            SelectedColor = Color.FromArgb(255, 255, 0, 0);
+            SelectedColor = Color.FromArgb(255, 0, 255, 0);
             Red = SelectedColor.R;
             Green = SelectedColor.G;
             Blue = SelectedColor.B;
@@ -56,11 +55,6 @@ namespace CMiX.MVVM.ViewModels
                // Mementor.PropertyChange(this, propertyname);
             
         }
-
-        //private void SendModel()
-        //{
-            
-        //}
 
         private byte _red;
         public byte Red
@@ -244,27 +238,6 @@ namespace CMiX.MVVM.ViewModels
             //    Mementor.EndBatch();
             MouseDown = false;
         }
-        #endregion
-
-        #region COPY/PASTE/RESET
-
-        public void Paste(ColorPickerModel colorpickermodel)
-        {
-            SelectedColor = Utils.HexStringToColor(colorpickermodel.SelectedColor);
-            Red = SelectedColor.R;
-            Green = SelectedColor.G;
-            Blue = SelectedColor.B;
-        }
-
-        public void Reset()
-        {
-            SelectedColor = Color.FromArgb(255, 255, 0, 0);
-            Red = SelectedColor.R;
-            Green = SelectedColor.G;
-            Blue = SelectedColor.B;
-        }
-
-
         #endregion
     }
 }

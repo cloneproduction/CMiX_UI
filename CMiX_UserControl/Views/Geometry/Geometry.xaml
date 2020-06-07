@@ -89,7 +89,7 @@
                 </DockPanel>
             </Border>
 
-            <Views:GeometryPathSelector DataContext="{Binding Path=DataContext.CurrentProject, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+            <Views:GeometryPathSelector DataContext="{Binding AssetPathSelector}"/>
 
             <Expander Margin="0, 2" IsExpanded="True" Header="Transform" Style="{StaticResource ExpanderBase}">
                 <Views:Transform 

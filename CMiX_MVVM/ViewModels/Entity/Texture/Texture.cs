@@ -10,7 +10,7 @@ namespace CMiX.MVVM.ViewModels
         #region CONSTRUCTORS
         public Texture()
         {
-            AssetPathSelector = new AssetPathSelector<AssetTexture>();
+            AssetPathSelector = new AssetPathSelector<AssetTexture>(this);
 
             Inverter = new Inverter(this);
 

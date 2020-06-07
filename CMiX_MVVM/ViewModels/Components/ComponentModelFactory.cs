@@ -58,8 +58,8 @@ namespace CMiX.MVVM.ViewModels
             foreach (IAssets asset in instance.Assets)
                 projectModel.AssetModels.Add(asset.GetModel());
 
-            foreach (IAssets asset in instance.AssetsFlatten)
-                projectModel.AssetModelsFlatten.Add(asset.GetModel());
+            //foreach (IAssets asset in instance.AssetsFlatten)
+            //    projectModel.AssetModelsFlatten.Add(asset.GetModel());
 
             return projectModel;
         }
@@ -93,7 +93,7 @@ namespace CMiX.MVVM.ViewModels
                 asset.SetViewModel(assetModel);
                 instance.Assets.Add(asset);
             }
-            instance.BuildAssetFlattenCollection(instance.Assets);
+            //instance.BuildAssetFlattenCollection(instance.Assets);
         }
 
 

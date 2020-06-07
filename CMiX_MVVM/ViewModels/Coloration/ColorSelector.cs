@@ -26,42 +26,6 @@ namespace CMiX.MVVM.ViewModels
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
-        public ICommand CopyColorSelectorCommand { get; }
-        public ICommand PasteColorSelectorCommand { get; }
-        public ICommand ResetColorSelectorCommand { get; }
         public ColorPicker ColorPicker { get; set; }
-
-
-        #region COPY/PASTE/RESET
-        public void CopyColorSelector()
-        {
-            IDataObject data = new DataObject();
-            data.SetData("ColorSelectorModel", this.GetModel(), false);
-            Clipboard.SetDataObject(data);
-        }
-
-        public void PasteColorSelector()
-        {
-            IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent("ColorSelectorModel"))
-            {
-                var colorselectormodel = data.GetData("ColorSelectorModel") as ColorSelectorModel;
-                this.SetViewModel(colorselectormodel);
-            }
-        }
-
-        public void ResetColorSelector()
-        {
-            this.Reset();
-        }
-
-
-        public void Reset()
-        {
-            //ColorPicker.Reset();
-        }
-
-
-        #endregion
     }
 }

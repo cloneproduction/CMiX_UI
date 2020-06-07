@@ -43,33 +43,9 @@ namespace CMiX.MVVM.ViewModels
             IDataObject data = Clipboard.GetDataObject();
             if (data.GetDataPresent("RotationModel"))
             {
-                //Mementor.BeginBatch();
                 var rotationmodel = data.GetData("RotationModel") as RotationModel;
-                //var messageaddress = MessageAddress;
                 this.SetViewModel(rotationmodel);
-                //Mementor.EndBatch();
-                //SendMessages(nameof(RotationModel), GetModel());
             }
-        }
-
-        public void ResetGeometry()
-        {
-            this.Reset();
-            //SendMessages(nameof(RotationModel), GetModel());
-        }
-
-
-        public void Reset()
-        {
-            //Mementor.BeginBatch();
-
-            X.Reset();
-            Y.Reset();
-            Z.Reset();
-
-            //Mementor.EndBatch();
-
-            //SendMessages(nameof(RotationModel), GetModel());
         }
     }
 }

@@ -49,18 +49,5 @@ namespace CMiX.MVVM.ViewModels
                 //SendMessages(nameof(TranslateModel), GetModel());
             }
         }
-
-        public void Reset()
-        {
-            //Mementor.BeginBatch();
-
-            X.Reset();
-            Y.Reset();
-            Z.Reset();
-
-            //Mementor.EndBatch();
-
-            //this.SendMessages(nameof(TranslateModel), GetModel());
-        }
     }
 }
