@@ -91,6 +91,7 @@
     <Compile Include="Behaviors\TextBoxFocusBehavior.cs" />
     <Compile Include="Behaviors\TreeViewItemClickBehavior.cs" />
     <Compile Include="Behaviors\TreeViewMultiSelectionBehavior.cs" />
+    <Compile Include="Clock.cs" />
     <Compile Include="Controls\CMiXRangeSlider.xaml.cs">
       <DependentUpon>CMiXRangeSlider.xaml</DependentUpon>
     </Compile>
