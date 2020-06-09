@@ -31,7 +31,8 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 Period = 60000 / value;
-                _bpm = value;
+                //_bpm = value;
+                SetAndNotify(ref _bpm, value);
             }
         }
 

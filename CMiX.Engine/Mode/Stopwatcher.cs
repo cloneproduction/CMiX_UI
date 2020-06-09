@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-//using VVVV.Utils.VMath;
 
 namespace CMiX.Engine
 {
@@ -10,6 +9,7 @@ namespace CMiX.Engine
         {
             Stopwatch = new Stopwatch();
             Stopwatch.Start();
+
             Inverse = false;
             Period = period;
         }

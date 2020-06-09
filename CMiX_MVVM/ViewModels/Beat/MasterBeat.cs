@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 
@@ -13,11 +14,11 @@ namespace CMiX.MVVM.ViewModels
     {
         public MasterBeat(double period, double multiplier)
         {
-            Clock = new Clock();
-            Clock.OnTick += Clock_OnTick;
             Period = period;
             BeatTick = 0;
-
+            CompositionTarget.Rendering += CompositionTarget_Rendering;
+            Stopwatch = new Stopwatch();
+            Stopwatch.Start();
             Multiplier = multiplier;
             ResyncCommand = new RelayCommand(p => Resync());
             TapCommand = new RelayCommand(p => Tap());
@@ -25,17 +26,28 @@ namespace CMiX.MVVM.ViewModels
             tapTime = new List<double>();
         }
 
-        private void Clock_OnTick(object sender, EventArgs e)
+        private void CompositionTarget_Rendering(object sender, EventArgs e)
         {
-            BeatTick++;
-            if (BeatTick >= 4)
-                BeatTick = 0;
+            if (Stopwatch.ElapsedMilliseconds > Math.Floor(Period))
+            {
+                BeatTick++;
+                if (BeatTick >= 4)
+                    BeatTick = 0;
+                Reset();
+            }
+        }
+
+        public void Reset()
+        {
+            Stopwatch.Reset();
+            Stopwatch.Start();
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
 
         }
+
 
         public MasterBeat() : this (period: 0.0, multiplier: 1)
         {
@@ -44,7 +56,6 @@ namespace CMiX.MVVM.ViewModels
 
         public ICommand ResyncCommand { get; }
         public ICommand TapCommand { get; }
-        public Clock Clock { get; set; }
         public DispatcherTimer Timer { get; set; }
         public Stopwatch Stopwatch { get; set; }
 
@@ -59,7 +70,7 @@ namespace CMiX.MVVM.ViewModels
         private readonly List<double> tapPeriods;
         private readonly List<double> tapTime;
 
-        private double CurrentTime => (DateTime.Now - DateTime.MinValue).TotalMilliseconds;
+        private double CurrentTime => (DateTime.UtcNow - DateTime.MinValue).TotalMilliseconds;
 
         private double _period;
         public override double Period
@@ -72,12 +83,11 @@ namespace CMiX.MVVM.ViewModels
                 Notify(nameof(BPM));
                 if (Period > 0)
                 {
-                    Clock.Stop();
-                    Clock.Interval = Convert.ToInt32(Period);
-                    Clock.Start();
+
+                    BeatTick = 0;
                 }
-                    
-                //    Timer.Interval = new TimeSpan(Convert.ToInt64(Period) * Convert.ToInt64(10000));
+
+
             }
         }
 
@@ -85,12 +95,8 @@ namespace CMiX.MVVM.ViewModels
         private void Resync()
         {
             BeatTick = 0;
-            Clock.Stop();
-            Clock.Start();
-            //Timer.Stop();
-            //Timer.Interval = new TimeSpan(Convert.ToInt64(Period * 10000));
-            //Timer.Start();
-            
+            Reset();
+
         }
 
         protected override void Multiply()
