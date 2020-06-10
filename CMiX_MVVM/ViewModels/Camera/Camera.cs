@@ -1,12 +1,4 @@
-﻿using System;
-using CMiX.MVVM.ViewModels;
-using CMiX.MVVM.Models;
-using System.Collections.ObjectModel;
-using Memento;
-using CMiX.MVVM.Services;
-using CMiX.MVVM;
-
-namespace CMiX.MVVM.ViewModels
+﻿namespace CMiX.MVVM.ViewModels
 {
     public class Camera : ViewModel
     {

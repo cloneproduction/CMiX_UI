@@ -1,9 +1,10 @@
 ﻿using System.Windows;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class TranslateModifier : ViewModel
+    public class TranslateModifier : Sendable
     {
         public TranslateModifier(Beat beat) 
         {
@@ -11,6 +12,15 @@ namespace CMiX.MVVM.ViewModels
             TranslateX = new AnimParameter(nameof(TranslateX), beat, false);
             TranslateY = new AnimParameter(nameof(TranslateY), beat, false);
             TranslateZ = new AnimParameter(nameof(TranslateZ), beat, false);
+        }
+
+
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
+                this.SetViewModel(e.Model as TranslateModifierModel);
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
 
@@ -23,18 +33,18 @@ namespace CMiX.MVVM.ViewModels
         public void CopyGeometry()
         {
             IDataObject data = new DataObject();
-            data.SetData("TranslateModifierModel", this.GetModel(), false);
+            data.SetData(nameof(TranslateModifierModel), this.GetModel(), false);
             Clipboard.SetDataObject(data);
         }
+
 
         public void PasteGeometry()
         {
             IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent("TranslateModifierModel"))
+            if (data.GetDataPresent(nameof(TranslateModifierModel)))
             {
-                var translatemodifiermodel = data.GetData("TranslateModifierModel") as TranslateModifierModel;
+                var translatemodifiermodel = data.GetData(nameof(TranslateModifierModel)) as TranslateModifierModel;
                 this.SetViewModel(translatemodifiermodel);
-
             }
         }
     }

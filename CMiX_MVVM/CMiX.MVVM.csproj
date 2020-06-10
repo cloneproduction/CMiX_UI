@@ -91,7 +91,6 @@
     <Compile Include="Behaviors\TextBoxFocusBehavior.cs" />
     <Compile Include="Behaviors\TreeViewItemClickBehavior.cs" />
     <Compile Include="Behaviors\TreeViewMultiSelectionBehavior.cs" />
-    <Compile Include="Clock.cs" />
     <Compile Include="Controls\CMiXRangeSlider.xaml.cs">
       <DependentUpon>CMiXRangeSlider.xaml</DependentUpon>
     </Compile>
@@ -106,17 +105,28 @@
     <Compile Include="Controls\Counter\Counter.cs" />
     <Compile Include="Controls\ToggleButton\CMiXToggleButton.cs" />
     <Compile Include="Controls\ToggleButton\ToggleDockPosition.cs" />
+    <Compile Include="Models\ComboBoxModel.cs" />
     <Compile Include="Models\InverterModel.cs" />
+    <Compile Include="ViewModels\Assets\AssetModelFactory.cs" />
+    <Compile Include="ViewModels\Beat\BeatModelFactory.cs" />
+    <Compile Include="ViewModels\Beat\BeatModifierModelFactory.cs" />
     <Compile Include="ViewModels\BlendMode\BlendModelModelFactory.cs" />
+    <Compile Include="ViewModels\Camera\CameraModelFactory.cs" />
+    <Compile Include="ViewModels\Coloration\ColorationModelFactory.cs" />
+    <Compile Include="ViewModels\Coloration\ColorSelectorModelFactory.cs" />
     <Compile Include="ViewModels\ColorPicker\ColorPicker.cs" />
     <Compile Include="ViewModels\ColorPicker\ColorPickerModelFactory.cs" />
+    <Compile Include="ViewModels\Combobox\ComboBox.cs" />
     <Compile Include="ViewModels\Counter\CounterModelFactory.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\GeometryModelFactory.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Instancer\AnimParameterModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Instancer\InstancerModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\TransformModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Texture\Inverter.cs" />
     <Compile Include="ViewModels\Entity\Texture\InverterModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Texture\TextureModelFactory.cs" />
     <Compile Include="ViewModels\Mask\MaskModelFactory.cs" />
+    <Compile Include="ViewModels\PostFX\PostFXModelFactory.cs" />
     <Compile Include="Views\ColorPicker.xaml.cs">
       <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
@@ -638,7 +648,6 @@
   <ItemGroup>
     <Folder Include="Converters\" />
     <Folder Include="Themes\Windows\" />
-    <Folder Include="ViewModels\Interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

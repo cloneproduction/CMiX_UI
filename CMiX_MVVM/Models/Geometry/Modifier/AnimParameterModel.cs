@@ -3,7 +3,7 @@
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class AnimParameterModel
+    public class AnimParameterModel : Model
     {
         public AnimParameterModel()
         {

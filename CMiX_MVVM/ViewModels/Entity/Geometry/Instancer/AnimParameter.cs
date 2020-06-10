@@ -1,13 +1,10 @@
-﻿using System;
-using System.Windows;
-using CMiX.MVVM.ViewModels;
-using CMiX.MVVM.Models;
-using Memento;
+﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using System.Windows;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class AnimParameter : ViewModel
+    public class AnimParameter : Sendable
     {
         public AnimParameter(string name, Beat beat, bool isEnabled)
         {
@@ -17,16 +14,22 @@ namespace CMiX.MVVM.ViewModels
             BeatModifier = new BeatModifier(beat);
         }
 
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
+                this.SetViewModel(e.Model as AnimParameterModel);
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
+        }
+
         private bool _IsEnabled;
         public bool IsEnabled
         {
             get => _IsEnabled;
             set
             {
-                //if (Mementor != null)
-                //    Mementor.PropertyChange(this, nameof(IsEnabled));
                 SetAndNotify(ref _IsEnabled, value);
-                //SendMessages(MessageAddress + nameof(Mode), IsEnabled);
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 
@@ -36,10 +39,8 @@ namespace CMiX.MVVM.ViewModels
             get => _Mode;
             set
             {
-                //if (Mementor != null)
-                //    Mementor.PropertyChange(this, nameof(Mode));
                 SetAndNotify(ref _Mode, value);
-                //SendMessages(MessageAddress + nameof(Mode), Mode);
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 
@@ -51,23 +52,6 @@ namespace CMiX.MVVM.ViewModels
             IDataObject data = new DataObject();
             data.SetData("AnimParameterModel", this.GetModel(), false);
             Clipboard.SetDataObject(data);
-        }
-
-        public void PasteGeometry()
-        {
-            IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent("AnimParameterModel"))
-            {
-                var animparametermodel = data.GetData("AnimParameterModel") as AnimParameterModel;
-                this.SetViewModel(animparametermodel);
-            }
-        }
-
-
-        public void Paste(AnimParameterModel animparametermodel)
-        {
-            Slider.SetViewModel(animparametermodel.Slider);
-            BeatModifier.SetViewModel(animparametermodel.BeatModifier);
         }
     }
 }
