@@ -11,6 +11,10 @@ namespace CMiX.MVVM.ViewModels
 {
     public class MasterBeat : Beat
     {
+        public MasterBeat() : this(period: 0.0, multiplier: 1)
+        {
+
+        }
         public MasterBeat(double period, double multiplier)
         {
             Period = period;
@@ -42,16 +46,6 @@ namespace CMiX.MVVM.ViewModels
             Stopwatch.Start();
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-
-        }
-
-
-        public MasterBeat() : this (period: 0.0, multiplier: 1)
-        {
-        
-        }
 
         public ICommand ResyncCommand { get; }
         public ICommand TapCommand { get; }
@@ -81,12 +75,7 @@ namespace CMiX.MVVM.ViewModels
                 OnPeriodChanged(Period);
                 Notify(nameof(BPM));
                 if (Period > 0)
-                {
-
                     BeatTick = 0;
-                }
-
-
             }
         }
 
@@ -95,7 +84,6 @@ namespace CMiX.MVVM.ViewModels
         {
             BeatTick = 0;
             Reset();
-
         }
 
         protected override void Multiply()
@@ -111,7 +99,6 @@ namespace CMiX.MVVM.ViewModels
         private void Tap()
         {
             Period = GetMasterPeriod();
-            Console.WriteLine("Period " + Period);
         }
 
         private double GetMasterPeriod()
@@ -128,8 +115,8 @@ namespace CMiX.MVVM.ViewModels
                 tapPeriods.Clear();
                 for (int i = 1; i < tapTime.Count; i++)
                 {
-                    double average = tapTime[i] - tapTime[i - 1];
-                    tapPeriods.Add(average);
+                    //double average = ;
+                    tapPeriods.Add(tapTime[i] - tapTime[i - 1]);
                 }
             }
             return tapPeriods.Sum() / tapPeriods.Count;

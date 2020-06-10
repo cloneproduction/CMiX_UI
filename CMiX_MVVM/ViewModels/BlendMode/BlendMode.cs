@@ -1,7 +1,5 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels;
-using System;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -37,9 +35,6 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public void Reset()
-        {
-            Mode = ((BlendModeEnum)0).ToString();
-        }
+        public void Reset() => Mode = ((BlendModeEnum)0).ToString();
     }
 }

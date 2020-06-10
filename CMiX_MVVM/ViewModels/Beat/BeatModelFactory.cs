@@ -1,6 +1,6 @@
 ﻿using CMiX.MVVM.Models;
 
-namespace CMiX.MVVM.ViewModels.Beat
+namespace CMiX.MVVM.ViewModels
 {
     public static class BeatModelFactory
     {

@@ -40,10 +40,7 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        private void Add()
-        {
-            Count += 1;
-        }
+        private void Add() => Count += 1;
 
         private void Sub()
         {

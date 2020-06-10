@@ -1,14 +1,12 @@
 ﻿using System.Collections.Specialized;
 using System.ComponentModel;
 using CMiX.MVVM.Resources;
-using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class AssetDirectory : ViewModel, IDirectory
     {
-        #region CONSTRUCTORS
         public AssetDirectory()
         {
             Assets = new SortableObservableCollection<IAssets>();
@@ -25,7 +23,6 @@ namespace CMiX.MVVM.ViewModels
             IsExpanded = false;
             IsSelected = false;
         }
-        #endregion
 
         #region PROPERTIES
         public SortableObservableCollection<IAssets> Assets { get; set; }
@@ -93,17 +90,14 @@ namespace CMiX.MVVM.ViewModels
         }
         #endregion
 
-        #region METHODS
+
         public void RemoveAsset(IAssets asset)
         {
             if (Assets.Contains(asset))
                 Assets.Remove(asset);
         }
 
-        public void Rename()
-        {
-            IsRenaming = true;
-        }
+        public void Rename() => IsRenaming = true;
 
         public void SortAssets()
         {
@@ -130,9 +124,6 @@ namespace CMiX.MVVM.ViewModels
             if (e.PropertyName == nameof(Name))
                 SortAssets();
         }
-        #endregion
-
-        #region GETSETMODEL
 
 
         public void SetViewModel(IAssetModel model)
@@ -158,6 +149,5 @@ namespace CMiX.MVVM.ViewModels
             }
             SortAssets();
         }
-        #endregion
     }
 }

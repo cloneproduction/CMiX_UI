@@ -1,6 +1,4 @@
-﻿using CMiX.MVVM.Models;
-using CMiX.MVVM.ViewModels;
-using System.IO;
+﻿using System.IO;
 
 namespace CMiX.MVVM.ViewModels
 {

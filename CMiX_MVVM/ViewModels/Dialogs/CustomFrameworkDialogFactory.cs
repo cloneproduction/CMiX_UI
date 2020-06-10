@@ -1,5 +1,4 @@
-﻿using CMiX.ViewModels;
-using CMiX.MVVM.Views;
+﻿using CMiX.MVVM.Views;
 using MvvmDialogs;
 using MvvmDialogs.DialogFactories;
 using MvvmDialogs.FrameworkDialogs;
@@ -17,10 +16,5 @@ namespace CMiX.MVVM.ViewModels
                 return new CustomDialog();
 
         }
-
-        //public override IMessageBox CreateMessageBox(MessageBoxSettings settings)
-        //{
-        //    return new CustomMessageBox();
-        //}
     }
 }

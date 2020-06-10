@@ -8,10 +8,11 @@ namespace CMiX.MVVM.ViewModels
     {
         public AnimParameter(string name, Beat beat, bool isEnabled)
         {
-            Mode = AnimMode.None;
-            IsEnabled = isEnabled;
             Slider = new Slider(nameof(Slider));
             BeatModifier = new BeatModifier(beat);
+
+            Mode = AnimMode.None;
+            IsEnabled = isEnabled;
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)

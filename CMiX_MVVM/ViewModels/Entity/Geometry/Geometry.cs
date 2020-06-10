@@ -12,7 +12,6 @@ namespace CMiX.MVVM.ViewModels
             Instancer = new Instancer(beat, this);
             Transform = new Transform(this);
             GeometryFX = new GeometryFX();
-
             AssetPathSelector = new AssetPathSelector<AssetGeometry>(this);
         }
 
@@ -29,7 +28,6 @@ namespace CMiX.MVVM.ViewModels
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
-        #region PROPERTIES
         public ICommand CopyGeometryCommand { get; }
         public ICommand PasteGeometryCommand { get; }
         public ICommand ResetGeometryCommand { get; }
@@ -40,9 +38,6 @@ namespace CMiX.MVVM.ViewModels
         public Instancer Instancer { get; set; }
         public GeometryFX GeometryFX { get; set; }
 
-        #endregion
-
-        #region COPY/PASTE/RESET
         public void CopyGeometry()
         {
             IDataObject data = new DataObject();
@@ -62,6 +57,5 @@ namespace CMiX.MVVM.ViewModels
                 //SendMessages(MessageAddress, geometrymodel);
             }
         }
-        #endregion
     }
 }
