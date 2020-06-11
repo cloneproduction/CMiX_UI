@@ -38,8 +38,6 @@ namespace CMiX.MVVM.ViewModels
             get => _is3D;
             set
             {
-                //if (Mementor != null)
-                //    Mementor.PropertyChange(this, "Is3D");
                 SetAndNotify(ref _is3D, value);
             }
         }

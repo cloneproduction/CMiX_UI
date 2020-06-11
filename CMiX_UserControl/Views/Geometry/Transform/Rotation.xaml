@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
+             xmlns:Studio.Views="clr-namespace:CMiX.Studio.Views"
              xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
              mc:Ignorable="d" 
              d:DesignHeight="145.023" d:DesignWidth="357.03">
@@ -22,6 +23,19 @@
                 <ColumnDefinition Width="0.9*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
+            <Grid.Style>
+                <Style TargetType="{x:Type Grid}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                                         AncestorType={x:Type Studio.Views:Transform}},
+                                                         Path=DataContext.Is3D}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
             <Controls:DistanceSlider Grid.Column="1" Position="Middle" Style="{StaticResource DistanceSliderStyle}" Value="{Binding Path=Y.Amount}"/>
             <TextBlock Grid.Column="0" Padding="8, 0" HorizontalAlignment="Right" Text="Y" Foreground="{StaticResource TextBase}"/>
         </Grid>
@@ -30,6 +44,19 @@
                 <ColumnDefinition Width="0.9*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
+            <Grid.Style>
+                <Style TargetType="{x:Type Grid}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                                         AncestorType={x:Type Studio.Views:Transform}},
+                                                         Path=DataContext.Is3D}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
             <Controls:DistanceSlider Grid.Column="2" Position="Bottom" Style="{StaticResource DistanceSliderStyle}" Value="{Binding Path=Z.Amount}"/>
             <TextBlock Grid.Column="0" Padding="8, 0" HorizontalAlignment="Right" Text="Z" Foreground="{StaticResource TextBase}"/>
         </Grid>
