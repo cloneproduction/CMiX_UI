@@ -135,40 +135,31 @@
                                 <TextBlock Grid.Column="0" Padding="8, 0" HorizontalAlignment="Right" Text="Rotate" Foreground="{StaticResource TextBase}"/>
                             </Grid>
 
-                        </StackPanel>
-                    </Border>
-
-
-                    <Grid Margin="4" Height="20">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.3*"/>
+                                    <ColumnDefinition Width="0.9*"/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="U" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <Border Grid.Column="1" Style="{DynamicResource BorderShadow}">
-                                <ComboBox  Grid.Column="1"/>
-                            </Border>
-                        </Grid>
-                            <Grid Grid.Column="1">
+                                <TextBlock Text="U" HorizontalAlignment="Right" Padding="4, 0" VerticalAlignment="Center"/>
+                                <Border Grid.Column="1" Style="{DynamicResource BorderShadow}">
+                                    <ComboBox  Grid.Column="1"/>
+                                </Border>
+                            </Grid>
+                            <Grid Grid.Column="1" Margin="0, 4">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.3*"/>
+                                    <ColumnDefinition Width="0.9*"/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock 
                                     Text="V" 
-                                    HorizontalAlignment="Center" 
+                                    HorizontalAlignment="Right" Padding="4, 0"
                                     VerticalAlignment="Center"/>
-                            <Border Grid.Column="1" Style="{DynamicResource BorderShadow}">
-                                <ComboBox />
-                            </Border>
-                        </Grid>
-                        </Grid>
-
+                                <Border Grid.Column="1" Style="{DynamicResource BorderShadow}">
+                                    <ComboBox />
+                                </Border>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
             </Expander>
             <Expander IsExpanded="True" Margin="0, 2" Padding="8" Header="Color" Style="{StaticResource ExpanderBase}">

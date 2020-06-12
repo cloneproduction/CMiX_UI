@@ -96,10 +96,11 @@
                         <DataTrigger Binding="{Binding IsChecked, ElementName=Uniform}" Value="True">
                             <Setter Property="Visibility" Value="Collapsed"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
-                                                         AncestorType={x:Type Studio.Views:Transform}},
-                                                         Path=DataContext.Is3D}" Value="True">
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Studio.Views:Transform}}, Path=DataContext.Is3D}" Value="True">
                             <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Studio.Views:Scale}}, Path=DataContext.IsUniform}" Value="True">
+                            <Setter Property="Visibility" Value="Collapsed"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>

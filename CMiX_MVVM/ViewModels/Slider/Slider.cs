@@ -1,8 +1,6 @@
 ﻿using System.Windows.Input;
-using System.Windows;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
-using System;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -16,15 +14,13 @@ namespace CMiX.MVVM.ViewModels
             SubCommand = new RelayCommand(p => Sub());
 
             ResetCommand = new RelayCommand(p => Reset());
-            CopySliderCommand = new RelayCommand(p => CopySlider());
-            PasteSliderCommand = new RelayCommand(p => PasteSlider());
-            MouseDownCommand = new RelayCommand(p => MouseDown());
         }
 
         public Slider(string name, Sendable parentSendable) : this(name)
         {
             SubscribeToEvent(parentSendable);
         }
+
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
@@ -34,23 +30,12 @@ namespace CMiX.MVVM.ViewModels
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
-        #region PROPERTIES
+
         public ICommand AddCommand { get; }
         public ICommand SubCommand { get; }
         public ICommand ResetCommand { get; }
-
-        public ICommand CopySliderCommand { get; }
-        public ICommand PasteSliderCommand { get; }
-
         public ICommand MouseDownCommand { get; }
-        public ICommand DragCompletedCommand { get; }
-        public ICommand ValueChangedCommand { get; }
 
-        private void MouseDown()
-        {
-            //if(Mementor != null)
-            //    Mementor.PropertyChange(this, "Amount");     
-        }
 
         public override string GetMessageAddress()
         {
@@ -89,7 +74,6 @@ namespace CMiX.MVVM.ViewModels
             get => _maximum; 
             set => SetAndNotify(ref _maximum, value);
         }
-        #endregion
 
         private void Add()
         {
@@ -107,29 +91,9 @@ namespace CMiX.MVVM.ViewModels
                 Amount -= 0.01;
         }
 
-
         public void Reset()
         {
             Amount = 0.0;
-        }
-
-        public void CopySlider()
-        {
-            IDataObject data = new DataObject();
-            //data.SetData("SliderModel", this.GetModel(), false);
-            Clipboard.SetDataObject(data);
-        }
-
-        public void PasteSlider()
-        {
-            IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent("SliderModel"))
-            {
-                //Mementor.BeginBatch();
-                var slidermodel = data.GetData("SliderModel") as SliderModel;
-                //this.SetViewModel(slidermodel);
-                //Mementor.EndBatch();
-            }
         }
     }
 }
