@@ -69,6 +69,7 @@
                 <MenuItem
                     IsEnabled="{Binding CanDelete}"
                     Command="{Binding Data.ComponentManager.DeleteComponentCommand, Source={StaticResource RootProxy}}"
+                    CommandParameter="{Binding SelectedComponent}"
                     Header="Delete">
                     <MenuItem.Icon>
                         <Image Source="{StaticResource DeleteLayer}"/>

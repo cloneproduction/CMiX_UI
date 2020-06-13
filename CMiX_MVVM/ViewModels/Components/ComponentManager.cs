@@ -14,7 +14,7 @@ namespace CMiX.ViewModels
 
             CreateComponentCommand = new RelayCommand(p => CreateComponent(p as Component));
             DuplicateComponentCommand = new RelayCommand(p => DuplicateComponent(p as Component));
-            DeleteComponentCommand = new RelayCommand(p => DeleteComponent());
+            DeleteComponentCommand = new RelayCommand(p => DeleteComponent(p as Component));
             RenameComponentCommand = new RelayCommand(p => RenameComponent(p as Component));
         }
 
@@ -26,16 +26,12 @@ namespace CMiX.ViewModels
         public ObservableCollection<Component> Components { get; set; }
 
 
-        public void RenameComponent(Component component)
-        {
-            component.IsRenaming = true;
-        }
-
+        public void RenameComponent(Component component) => component.IsRenaming = true;
 
         public void CreateComponent(Component component)
         {
             ComponentFactory.CreateComponent(component);
-            component.OnSendChange(component.GetModel(), component.GetMessageAddress());
+            
         }
 
 
@@ -55,12 +51,12 @@ namespace CMiX.ViewModels
         }
 
 
-        public void DeleteComponent()
+        public void DeleteComponent(Component component)
         {
             var selectedParent = GetSelectedParent(Components);
-            if(selectedParent != null)
-                selectedParent.OnSendChange(selectedParent.GetModel(), selectedParent.GetMessageAddress());
             DeleteSelectedComponent(Components);
+            if (selectedParent != null)
+                selectedParent.OnSendChange(selectedParent.GetModel(), selectedParent.GetMessageAddress());
         }
 
         public event EventHandler<ComponentEventArgs> ComponentDeletedEvent;

@@ -129,11 +129,13 @@ namespace CMiX.MVVM.ViewModels
         {
             Components.Add(component);
             IsExpanded = true;
+            OnSendChange(this.GetModel(), this.GetMessageAddress());
         }
 
         public void RemoveComponent(Component component)
         {
             Components.Remove(component);
+            OnSendChange(this.GetModel(), this.GetMessageAddress());
         }
 
         private void SetVisibility()
