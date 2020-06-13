@@ -10,7 +10,7 @@ namespace CMiX.MVVM.ViewModels
         {
             Uniform = new Slider(nameof(Uniform), this);
             Uniform.Amount = 1.0;
-            //Uniform.SendChangeEvent += Uniform_SendChangeEvent;
+
             X = new Slider(nameof(X), this);
             X.Amount = 1.0;
 
@@ -22,14 +22,6 @@ namespace CMiX.MVVM.ViewModels
 
             IsUniform = true;
         }
-
-        //private void Uniform_SendChangeEvent(object sender, ModelEventArgs e)
-        //{
-        //    var uniformSlider = sender as Slider;
-        //    X.Amount = uniformSlider.Amount;
-        //    Y.Amount = uniformSlider.Amount;
-        //    Z.Amount = uniformSlider.Amount;
-        //}
 
         public Scale(Sendable parentSendable) : this()
         {

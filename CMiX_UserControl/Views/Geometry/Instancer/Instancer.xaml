@@ -40,13 +40,15 @@
                         Foreground="{StaticResource TextBase}" 
                         VerticalAlignment="Center" 
                         HorizontalAlignment="Right"/>
-                    <Controls:Counter
-                        Style="{DynamicResource CMiXCounterStyle}"
-                        StepValue="1"
-                        Grid.Column="1"
-                        Height="20"
-                        HorizontalAlignment="Stretch"
-                        Value="{Binding Counter.Count}"/>
+                    <Border Grid.Column="1" Style="{StaticResource BorderShadow}">
+                        <Controls:Counter
+                            Style="{DynamicResource CMiXCounterStyle}"
+                            StepValue="1"
+                            Grid.Column="1"
+                            Height="20"
+                            HorizontalAlignment="Stretch"
+                            Value="{Binding Counter.Count}"/>
+                    </Border>
                 </Grid>
             </Border>
 

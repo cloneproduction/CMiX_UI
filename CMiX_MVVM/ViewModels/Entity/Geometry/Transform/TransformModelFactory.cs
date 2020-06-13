@@ -45,6 +45,7 @@ namespace CMiX.MVVM.ViewModels
             model.X = instance.X.GetModel();
             model.Y = instance.Y.GetModel();
             model.Z = instance.Z.GetModel();
+            model.Uniform = instance.Uniform.GetModel();
             return model;
         }
 
@@ -53,6 +54,7 @@ namespace CMiX.MVVM.ViewModels
             instance.X.SetViewModel(model.X);
             instance.Y.SetViewModel(model.Y);
             instance.Z.SetViewModel(model.Z);
+            instance.Uniform.SetViewModel(model.Uniform);
         }
 
 

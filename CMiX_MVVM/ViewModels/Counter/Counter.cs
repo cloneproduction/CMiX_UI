@@ -32,7 +32,7 @@ namespace CMiX.MVVM.ViewModels
         private int _count;
         public int Count
         {
-            get { return _count; }
+            get => _count;
             set
             {
                 SetAndNotify(ref _count, value);

@@ -3,7 +3,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:CMiX.MVVM.Controls">
 
-
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Borders/BorderMask.xaml"/>
+        <ResourceDictionary Source="Borders/BorderContainer.xaml"/>
+        <ResourceDictionary Source="Borders/BorderShadow.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    
     <ControlTemplate x:Key="DefaultToggleButtonTemplate" TargetType="{x:Type ToggleButton}">
         <DockPanel>
             <Border
@@ -80,16 +85,9 @@
 
     <ControlTemplate x:Key="CMiXToggleButtonTemplate" TargetType="{x:Type Controls:CMiXToggleButton}">
         <DockPanel>
-            <Border
-                x:Name="border"
-                CornerRadius="2"
-                Padding="2"
-                Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource TemplatedParent}}"
-                Background="{TemplateBinding Background}"
-                SnapsToDevicePixels="True">
-                <Image x:Name="Path" Opacity="0.75" Source="{DynamicResource IsChecked}"/>
+            <Border x:Name="border" Grid.Column="1">
                 <Border.Style>
-                    <Style TargetType="{x:Type Border}">
+                    <Style BasedOn="{StaticResource BorderShadow}" TargetType="{x:Type Border}">
                         <Setter Property="DockPanel.Dock" Value="Right"/>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Path=Dock, RelativeSource={RelativeSource TemplatedParent}}" Value="Left">
@@ -102,7 +100,16 @@
                         </Style.Triggers>
                     </Style>
                 </Border.Style>
+                <Border
+                    CornerRadius="2"
+                    Padding="2"
+                    Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource TemplatedParent}}"
+                    Background="{TemplateBinding Background}"
+                    SnapsToDevicePixels="True">
+                    <Image x:Name="Path" Opacity="0.75" Source="{DynamicResource IsChecked}"/>
+                </Border>
             </Border>
+
             <TextBlock x:Name="textBlock"
                        Foreground="{DynamicResource TextBase}" 
                        Padding="8, 0" 
