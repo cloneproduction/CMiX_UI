@@ -27,7 +27,7 @@ namespace CMiX.MVVM.ViewModels
             RotationModel model = new RotationModel();
             model.X = instance.X.GetModel();
             model.Y = instance.Y.GetModel();
-            model.Y = instance.Y.GetModel();
+            model.Z = instance.Z.GetModel();
             return model;
         }
 

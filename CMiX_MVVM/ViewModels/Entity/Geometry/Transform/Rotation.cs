@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using CMiX.MVVM.Models;
+﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
@@ -28,24 +27,6 @@ namespace CMiX.MVVM.ViewModels
                 this.SetViewModel(e.Model as RotationModel);
             else
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
-        }
-
-
-        public void CopyGeometry()
-        {
-            IDataObject data = new DataObject();
-            data.SetData("RotationModel", this.GetModel(), false);
-            Clipboard.SetDataObject(data);
-        }
-
-        public void PasteGeometry()
-        {
-            IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent("RotationModel"))
-            {
-                var rotationmodel = data.GetData("RotationModel") as RotationModel;
-                this.SetViewModel(rotationmodel);
-            }
         }
     }
 }

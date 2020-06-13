@@ -99,7 +99,7 @@
                                     <ColumnDefinition Width="0.9*"/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Border  Grid.Column="1" Style="{DynamicResource BorderShadow}">
+                                <Border Grid.Column="1" Style="{DynamicResource BorderShadow}">
                                     <Controls:DistanceSlider Position="Bottom" Style="{StaticResource DistanceSliderStyle}" Value="{Binding Path=Tilt.Amount}" />
                                 </Border>
                                 <TextBlock Grid.Column="0" Padding="8, 0" HorizontalAlignment="Right" Text="V" Foreground="{StaticResource TextBase}"/>

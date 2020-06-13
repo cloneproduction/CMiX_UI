@@ -1,6 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Borders/BorderShadow.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    
     <Style TargetType="{x:Type ComboBox}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -23,38 +27,44 @@
                             Placement="Bottom"
                             VerticalOffset="2"
                             PopupAnimation="None">
-                            <Border 
-                                x:Name="DropDownBorder"
-                                Padding="0, 4"
-                                CornerRadius="{DynamicResource CornerRadiusDefault}"
-                                Background="{DynamicResource DarkerColor}">
-                                <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8" Direction="-90" Opacity="1.0" RenderingBias="Performance" ShadowDepth="0"/>
-                                </Border.Effect>
-                                <ScrollViewer 
+
+                            <Border Style="{StaticResource BorderShadow}">
+                                <Border 
+                                    x:Name="DropDownBorder"
+                                    Padding="0, 4"
+                                    CornerRadius="{DynamicResource CornerRadiusDefault}"
+                                    Background="{DynamicResource DarkerColor}">
+                                    <Border.Effect>
+                                        <DropShadowEffect BlurRadius="8" Direction="-90" Opacity="1.0" RenderingBias="Performance" ShadowDepth="0"/>
+                                    </Border.Effect>
+                                    <ScrollViewer 
                                     x:Name="DropDownScrollViewer"
                                     VerticalScrollBarVisibility="Auto">
-                                    <Grid x:Name="grid" 
+                                        <Grid x:Name="grid" 
                                           RenderOptions.ClearTypeHint="Enabled">
-                                        <Canvas
+                                            <Canvas
                                             x:Name="canvas"
                                             Width="0"
                                             Height="0"
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Top">
-                                            <Rectangle
+                                                <Rectangle
                                                 x:Name="OpaqueRect"
                                                 Width="{Binding ActualWidth, ElementName=DropDownBorder}"
                                                 Height="{Binding ActualHeight, ElementName=DropDownBorder}"
                                                 Fill="{Binding Background, ElementName=DropDownBorder}"/>
-                                        </Canvas>
-                                        <ItemsPresenter
+                                            </Canvas>
+                                            <ItemsPresenter
                                             x:Name="ItemsPresenter"
                                             KeyboardNavigation.DirectionalNavigation="Contained"
                                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                                    </Grid>
-                                </ScrollViewer>
+                                        </Grid>
+                                    </ScrollViewer>
+                                </Border>
                             </Border>
+
+
+
                         </Popup>
 
                         <ToggleButton
@@ -228,7 +238,7 @@
                                 <Rectangle
                                     Margin="2"
                                     SnapsToDevicePixels="True"
-                                    Stroke="{DynamicResource HighLightColor}"
+                                    Stroke="{DynamicResource LightColor}"
                                     StrokeDashArray="1 2"
                                     StrokeThickness="1" />
                             </ControlTemplate>
@@ -264,7 +274,7 @@
                                 <Condition Property="IsMouseOver" Value="True" />
                                 <Condition Property="IsKeyboardFocused" Value="False" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource DarkColor}" />
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource Color}" />
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -303,7 +313,7 @@
                                 <Condition Property="IsMouseOver" Value="True" />
                                 <Condition Property="IsKeyboardFocused" Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource DarkColor}" />
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource Color}" />
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

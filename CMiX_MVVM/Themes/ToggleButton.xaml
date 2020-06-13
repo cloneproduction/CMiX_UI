@@ -11,14 +11,13 @@
     
     <ControlTemplate x:Key="DefaultToggleButtonTemplate" TargetType="{x:Type ToggleButton}">
         <DockPanel>
-            <Border
-                x:Name="border"
-                DockPanel.Dock="Right"
-                CornerRadius="2"
-                Padding="2"
-                Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource TemplatedParent}}"
-                Background="{TemplateBinding Background}"
-                SnapsToDevicePixels="True">
+            <Border x:Name="border"
+                    DockPanel.Dock="Right"
+                    CornerRadius="2"
+                    Padding="2"
+                    Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource TemplatedParent}}"
+                    Background="{TemplateBinding Background}"
+                    SnapsToDevicePixels="True">
                 <Image x:Name="Path" Opacity="0.75" Source="{DynamicResource IsChecked}"/>
             </Border>
         </DockPanel>
@@ -119,7 +118,6 @@
 
         <ControlTemplate.Triggers>
 
-            
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsChecked" Value="true" />
@@ -129,6 +127,7 @@
                     <Setter TargetName="Path" Property="Visibility" Value="Visible"/>
                 </MultiTrigger.Setters>
             </MultiTrigger>
+            
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsChecked" Value="false" />
@@ -148,6 +147,7 @@
                     <Setter Property="Background" Value="{DynamicResource LightColor}" />
                 </MultiTrigger.Setters>
             </MultiTrigger>
+            
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsChecked" Value="false" />
@@ -167,6 +167,7 @@
                     <Setter Property="Background" Value="{DynamicResource HighLightColor}" />
                 </MultiTrigger.Setters>
             </MultiTrigger>
+            
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsPressed" Value="true" />
@@ -176,12 +177,12 @@
                     <Setter Property="Background" Value="{DynamicResource HighLightColor}" />
                 </MultiTrigger.Setters>
             </MultiTrigger>
+            
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     
     <Style TargetType="{x:Type ToggleButton}">
-        
         <Setter Property="FocusVisualStyle">
             <Setter.Value>
                 <Style>
@@ -198,41 +199,36 @@
                 </Style>
             </Setter.Value>
         </Setter>
-        
-            <Setter Property="Background" Value="{DynamicResource Color}" />
-            <Setter Property="BorderBrush" Value="Transparent" />
-            <!--<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />-->
-            <Setter Property="HorizontalContentAlignment" Value="Center" />
-            <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Setter Property="Template" Value="{StaticResource DefaultToggleButtonTemplate }">
-        </Setter>
-    </Style>
-
-    <Style x:Key="CMiXToggleButtonStyle" TargetType="{x:Type ToggleButton}">
-        <Setter Property="FocusVisualStyle">
-            <Setter.Value>
-                <Style>
-                    <Setter Property="Control.Template">
-                        <Setter.Value>
-                            <ControlTemplate>
-                                <Rectangle
-                                    SnapsToDevicePixels="True"
-                                    Stroke="White"
-                                    StrokeThickness="1" />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </Setter.Value>
-        </Setter>
-
         <Setter Property="Background" Value="{DynamicResource Color}" />
         <Setter Property="BorderBrush" Value="Transparent" />
-        <!--<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />-->
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Template" Value="{StaticResource CMiXToggleButtonTemplate }">
+        <Setter Property="Template" Value="{StaticResource DefaultToggleButtonTemplate }"/>
+    </Style>
+
+    
+    <Style x:Key="CMiXToggleButtonStyle" TargetType="{x:Type Controls:CMiXToggleButton}">
+        <Setter Property="FocusVisualStyle">
+            <Setter.Value>
+                <Style>
+                    <Setter Property="Control.Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <Rectangle
+                                    SnapsToDevicePixels="True"
+                                    Stroke="White"
+                                    StrokeThickness="1" />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
         </Setter>
+        <Setter Property="Background" Value="{DynamicResource Color}" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template" Value="{StaticResource CMiXToggleButtonTemplate }"/>
     </Style>
 
 
@@ -273,9 +269,6 @@
                                 <Condition Property="IsChecked" Value="true" />
                             </MultiTrigger.Conditions>
                             <Setter TargetName="ImageIcon" Property="Source" Value="{DynamicResource NotVisible}"/>
-                            <!--<MultiTrigger.Setters>
-                                <Setter TargetName="ImageIcon" Property="Source" Value="{DynamicResource Visible}"/>
-                            </MultiTrigger.Setters>-->
                         </MultiTrigger>
                         
                         <MultiTrigger>
@@ -286,16 +279,7 @@
                                 <Setter TargetName="ImageIcon" Property="Source" Value="{DynamicResource Visible}"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
-                        
-                        <!--<MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsEnabled" Value="false" />
-                            </MultiTrigger.Conditions>
-                            <MultiTrigger.Setters>
-                                <Setter TargetName="ImageIcon" Property="Source" Value="{DynamicResource NotVisible}"/>
-                            </MultiTrigger.Setters>
-                        </MultiTrigger>-->
-                        
+
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsChecked" Value="true" />

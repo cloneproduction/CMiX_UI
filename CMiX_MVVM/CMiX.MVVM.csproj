@@ -645,9 +645,6 @@
     <Resource Include="Assets\Sub.png" />
     <Content Include="Themes\Fonts\LICENSE.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Converters\" />
-    <Folder Include="Themes\Windows\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
