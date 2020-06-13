@@ -54,57 +54,74 @@
                         VerticalAlignment="Center" 
                         Foreground="{StaticResource TextBase}"/>
                 </Border>
-                <Grid Grid.Column="1">
-                    <Border
-                        HorizontalAlignment="Stretch"
-                        Background="{StaticResource DarkColor}">
-                        <TextBlock 
-                            HorizontalAlignment="Center" 
-                            VerticalAlignment="Center"
-                            Foreground="{StaticResource TextBase}" 
-                            Text="{Binding BPM, Mode=OneWay, StringFormat=F0}" />
+                <Border x:Name="borderMask" 
+                        Grid.Column="1" 
+                        Background="{DynamicResource DarkColor}" 
+                        CornerRadius="{DynamicResource CornerRadiusDefault}"/>
+
+                <Border Grid.Column="1" Style="{StaticResource BorderShadow}">
+                    <Border HorizontalAlignment="Stretch" 
+                        CornerRadius="{DynamicResource CornerRadiusDefault}">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="{DynamicResource DarkColor}"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="{StaticResource Color}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <Border.OpacityMask>
+                            <VisualBrush Visual="{Binding ElementName=borderMask}"/>
+                        </Border.OpacityMask>
+                        <Grid Grid.Column="1">
+                            <TextBlock 
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center"
+                                Foreground="{StaticResource TextBase}" 
+                                Text="{Binding BPM, Mode=OneWay, StringFormat=F0}" />
+                            <Button
+                                HorizontalAlignment="Left"
+                                DockPanel.Dock="Left"
+                                Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+                                Command="{Binding Path=DivideCommand}"
+                                Content="-"
+                                IsDefault="True">
+                                <Button.Style>
+                                    <Style BasedOn="{StaticResource ButtonRoundedLeft}" TargetType="{x:Type Button}">
+                                        <Setter Property="Visibility" Value="Hidden" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsMouseOver, ElementName=CounterBorder}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <Button
+                            HorizontalAlignment="Right"
+                            Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+                            Command="{Binding Path=MultiplyCommand}"
+                            Content="+"
+                            DockPanel.Dock="Right"
+                            IsDefault="True">
+                                <Button.Style>
+                                    <Style BasedOn="{StaticResource ButtonRoundedBottomRight}" TargetType="{x:Type Button}">
+                                        <Setter Property="Visibility" Value="Hidden" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsMouseOver, ElementName=CounterBorder}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </Grid>
                     </Border>
-                    <Button
-                        HorizontalAlignment="Left"
-                        DockPanel.Dock="Left"
-                        Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
-                        Command="{Binding Path=DivideCommand}"
-                        Content="-"
-                        IsDefault="True">
-                        <Button.Style>
-                            <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}">
-                                <Setter Property="Visibility" Value="Hidden" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsMouseOver, ElementName=CounterBorder}" Value="True">
-                                        <Setter Property="Visibility" Value="Visible" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                    </Button>
-                    <Button
-                        HorizontalAlignment="Right"
-                        Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
-                        Command="{Binding Path=MultiplyCommand}"
-                        Content="+"
-                        DockPanel.Dock="Right"
-                        IsDefault="True">
-                        <Button.Style>
-                            <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}">
-                                <Setter Property="Visibility" Value="Hidden" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsMouseOver, ElementName=CounterBorder}" Value="True">
-                                        <Setter Property="Visibility" Value="Visible" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                    </Button>
-                </Grid>
-
-
+                </Border>
+                
             </Grid>
         </Border>
-
     </Border>
 </UserControl>
