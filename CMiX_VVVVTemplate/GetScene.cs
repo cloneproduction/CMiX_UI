@@ -27,21 +27,9 @@ namespace CMiX.Nodes
                     if (FComponentIn.SliceCount > 0)
                     {
                         FSceneOut.SliceCount = FComponentIn.SliceCount;
-                        //FFade.SliceCount = FComponentIn.SliceCount;
-                        //FBlendMode.SliceCount = FComponentIn.SliceCount;
-
                         for (int i = 0; i < FComponentIn.SliceCount; i++)
                         {
                             FSceneOut[i].AssignFrom(FComponentIn[i].Components.Cast<Scene>());
-
-                            //FFade[i].SliceCount = FLayerOut[i].SliceCount;
-                            //FBlendMode[i].SliceCount = FLayerOut[i].SliceCount;
-
-                            for (int j = 0; j < FSceneOut[i].SliceCount; j++)
-                            {
-                                //FFade[i][j] = FLayerOut[i][j].Fade.Amount;
-                                //FBlendMode[i][j] = FLayerOut[i][j].BlendMode.Mode;
-                            }
                         }
                     }
                 }

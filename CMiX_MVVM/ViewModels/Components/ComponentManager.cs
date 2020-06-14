@@ -69,6 +69,17 @@ namespace CMiX.ViewModels
 
         public void DeleteSelectedComponent(ObservableCollection<Component> components)
         {
+            //var selected = components.First(s => s.IsSelected == true);
+
+            //if(selected != null)
+            //{
+
+            //}
+
+            //if (components.Any(c => c.IsSelected == true))
+            //{
+            //    var result = components.First(s => s.IsSelected == true);
+            //}
             foreach (var component in components)
             {
                 if (component.IsSelected)
