@@ -1,5 +1,4 @@
 using CMiX.MVVM.ViewModels;
-using System.Collections.Generic;
 using System.Linq;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Core.Logging;
@@ -21,18 +20,15 @@ namespace CMiX.Nodes
 
         public void Evaluate(int SpreadMax)
         {
-            if (FComponentIn.IsChanged)
+            FEntityOut.SliceCount = FComponentIn.SliceCount;
+            if (FComponentIn.SliceCount > 0)
             {
-                if (FComponentIn != null)
+                for (int i = 0; i < FComponentIn.SliceCount; i++)
                 {
-                    if (FComponentIn.SliceCount > 0)
-                    {
-                        FEntityOut.SliceCount = FComponentIn.SliceCount;
-                        for (int i = 0; i < FComponentIn.SliceCount; i++)
-                        {
-                            FEntityOut[i].AssignFrom(FComponentIn[i].Components.Cast<Entity>());
-                        }
-                    }
+                    if (FComponentIn[i] != null)
+                        FEntityOut[i].AssignFrom(FComponentIn[i].Components.Cast<Entity>());
+                    else
+                        FEntityOut[i].SliceCount = 0;
                 }
             }
         }

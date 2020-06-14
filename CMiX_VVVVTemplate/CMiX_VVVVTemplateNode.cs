@@ -8,7 +8,7 @@ using CMiX.Studio.ViewModels.MessageService;
 namespace CMiX.Nodes
 {
     [PluginInfo(Name = "CMiX", Category = "CMiX_VVVV", AutoEvaluate = false),]
-	public class CMiX_VVVVTemplateNode : IPluginEvaluate
+	public class CMiX_VVVVTemplateNode : IPluginEvaluate, IPartImportsSatisfiedNotification
 	{
 		[Import()]
 		public ILogger FLogger;
@@ -30,21 +30,29 @@ namespace CMiX.Nodes
 
         public Project Project { get; set; }
         public string DataType { get; set; }
+
+
         public CMiX_VVVVTemplateNode()
         {
 			Project = ComponentFactory.CreateProject();
             var receiver = new Receiver();
 			Project.Receiver = receiver;
-            Settings settings = new Settings("Pouet", "Pouet", "192.168.1.4", 2222);
+            Settings settings = new Settings("Pouet", "Pouet", "192.168.0.192", 2222);
             receiver.SetSettings(settings);
             receiver.DataReceivedEvent += Receiver_DataReceivedEvent;
 			receiver.DataReceivedEvent += Project.OnParentReceiveChange;
 		}
 
-        private void Receiver_DataReceivedEvent(object sender, CMiX.MVVM.Services.ModelEventArgs e)
+		public void OnImportsSatisfied()
+		{
+			FProjectOut[0] = this.Project;
+		}
+
+		private void Receiver_DataReceivedEvent(object sender, CMiX.MVVM.Services.ModelEventArgs e)
         {
 			FProjectOut[0] = this.Project;
 			FDataType[0] = e.Model.GetType().Name;
+			FLogger.Log(LogType.Debug, "Receiver_DataReceivedEvent");
 		}
 
         public void Evaluate(int SpreadMax)
@@ -64,5 +72,7 @@ namespace CMiX.Nodes
 			else
 				FReceiverIsRunning[0] = false;
 		}
-	}
+
+
+    }
 }

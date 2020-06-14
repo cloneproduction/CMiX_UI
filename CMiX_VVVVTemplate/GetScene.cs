@@ -20,18 +20,15 @@ namespace CMiX.Nodes
 
         public void Evaluate(int SpreadMax)
         {
-            if (FComponentIn.IsChanged)
+            FSceneOut.SliceCount = FComponentIn.SliceCount;
+            if (FComponentIn.SliceCount > 0)
             {
-                if (FComponentIn != null)
+                for (int i = 0; i < FComponentIn.SliceCount; i++)
                 {
-                    if (FComponentIn.SliceCount > 0)
-                    {
-                        FSceneOut.SliceCount = FComponentIn.SliceCount;
-                        for (int i = 0; i < FComponentIn.SliceCount; i++)
-                        {
-                            FSceneOut[i].AssignFrom(FComponentIn[i].Components.Cast<Scene>());
-                        }
-                    }
+                    if (FComponentIn[i] != null)
+                        FSceneOut[i].AssignFrom(FComponentIn[i].Components.Cast<Scene>());
+                    else
+                        FSceneOut[i].SliceCount = 0;
                 }
             }
         }

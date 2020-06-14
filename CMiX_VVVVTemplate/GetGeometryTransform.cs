@@ -20,48 +20,49 @@ namespace CMiX.Nodes
 
         public void Evaluate(int SpreadMax)
         {
-            if (FGeometryIn.IsChanged)
+            if (FGeometryIn.SliceCount > 0)
             {
-                if (FGeometryIn != null)
+                FTransform.SliceCount = FGeometryIn.SliceCount;
+
+                for (int i = 0; i < FGeometryIn.SliceCount; i++)
                 {
-                    if (FGeometryIn.SliceCount > 0)
+                    if(FGeometryIn[i] != null)
                     {
-                        FTransform.SliceCount = FGeometryIn.SliceCount;
+                        var transform = FGeometryIn[i].Transform;
 
-                        for (int i = 0; i < FGeometryIn.SliceCount; i++)
-                        {
-                            var transform = FGeometryIn[i].Transform;
+                        var uniform = VMath.Scale
+                        (
+                            transform.Scale.Uniform.Amount,
+                            transform.Scale.Uniform.Amount,
+                            transform.Scale.Uniform.Amount
+                        );
 
-                            var uniform = VMath.Scale
-                            (
-                                transform.Scale.Uniform.Amount,
-                                transform.Scale.Uniform.Amount,
-                                transform.Scale.Uniform.Amount
-                            );
+                        var translate = VMath.Translate
+                        (
+                            transform.Translate.X.Amount,
+                            transform.Translate.Y.Amount,
+                            transform.Translate.Z.Amount
+                        );
 
-                            var translate = VMath.Translate
-                            (
-                                transform.Translate.X.Amount,
-                                transform.Translate.Y.Amount,
-                                transform.Translate.Z.Amount
-                            );
+                        var scale = VMath.Scale
+                        (
+                            transform.Scale.X.Amount,
+                            transform.Scale.Y.Amount,
+                            transform.Scale.Z.Amount
+                        );
 
-                            var scale = VMath.Scale
-                            (
-                                transform.Scale.X.Amount,
-                                transform.Scale.Y.Amount,
-                                transform.Scale.Z.Amount
-                            );
+                        var rotation = VMath.Rotate
+                        (
+                            transform.Rotation.X.Amount,
+                            transform.Rotation.Y.Amount,
+                            transform.Rotation.Z.Amount
+                        );
 
-                            var rotation = VMath.Rotate
-                            (
-                                transform.Rotation.X.Amount,
-                                transform.Rotation.Y.Amount,
-                                transform.Rotation.Z.Amount
-                            );
-
-                            FTransform[i] = scale * uniform * rotation * translate;
-                        }
+                        FTransform[i] = scale * uniform * rotation * translate;
+                    }
+                    else
+                    {
+                        FTransform.SliceCount = 0;
                     }
                 }
             }

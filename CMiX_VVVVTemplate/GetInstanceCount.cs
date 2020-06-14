@@ -15,19 +15,17 @@ namespace VVVV.Nodes
 
         public void Evaluate(int SpreadMax)
         {
-            if (FInstancerIn.IsChanged)
-            {
-                if (FInstancerIn != null)
-                {
-                    if (FInstancerIn.SliceCount > 0)
-                    {
-                        FInstanceCount.SliceCount = FInstancerIn.SliceCount;
 
-                        for (int i = 0; i < FInstancerIn.SliceCount; i++)
-                        {
-                            FInstanceCount[i] = FInstancerIn[i].Counter.Count;
-                        }
-                    }
+            if (FInstancerIn.SliceCount > 0)
+            {
+                FInstanceCount.SliceCount = FInstancerIn.SliceCount;
+
+                for (int i = 0; i < FInstancerIn.SliceCount; i++)
+                {
+                    if (FInstancerIn[i] != null)
+                        FInstanceCount[i] = FInstancerIn[i].Counter.Count;
+                    else
+                        FInstanceCount.SliceCount = 0;
                 }
             }
         }

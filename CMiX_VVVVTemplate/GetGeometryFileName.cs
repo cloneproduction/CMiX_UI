@@ -19,20 +19,15 @@ namespace CMiX.Nodes
 
         public void Evaluate(int SpreadMax)
         {
-            if (FGeometryIn.IsChanged)
+            FName.SliceCount = FGeometryIn.SliceCount;
+            if (FGeometryIn.SliceCount > 0)
             {
-                if (FGeometryIn != null)
+                for (int i = 0; i < FGeometryIn.SliceCount; i++)
                 {
-                    if (FGeometryIn.SliceCount > 0)
-                    {
-                        FName.SliceCount = FGeometryIn.SliceCount;
-
-                        for (int i = 0; i < FGeometryIn.SliceCount; i++)
-                        {
-                            FName[i] = FGeometryIn[i].AssetPathSelector.SelectedPath;
-                            FLogger.Log(LogType.Debug, "GeometrySelectedPath " +  FGeometryIn[i].AssetPathSelector.SelectedPath);
-                        }
-                    }
+                    if (FGeometryIn[i] != null)
+                        FName[i] = FGeometryIn[i].AssetPathSelector.SelectedPath;
+                    else
+                        FGeometryIn.SliceCount = 0;
                 }
             }
         }

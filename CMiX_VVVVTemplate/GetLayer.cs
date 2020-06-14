@@ -27,29 +27,30 @@ namespace CMiX.Nodes
 
         public void Evaluate(int SpreadMax)
         {
-            if (FComponentIn.IsChanged)
+            FLayerOut.SliceCount = FComponentIn.SliceCount;
+            FFade.SliceCount = FComponentIn.SliceCount;
+            FBlendMode.SliceCount = FComponentIn.SliceCount;
+
+            if (FComponentIn.SliceCount > 0)
             {
-                if (FComponentIn != null)
+                for (int i = 0; i < FComponentIn.SliceCount; i++)
                 {
-                    if (FComponentIn.SliceCount > 0)
+                    if(FComponentIn[i] != null)
                     {
-                        FLayerOut.SliceCount = FComponentIn.SliceCount;
-                        FFade.SliceCount = FComponentIn.SliceCount;
-                        FBlendMode.SliceCount = FComponentIn.SliceCount;
-
-                        for (int i = 0; i < FComponentIn.SliceCount; i++)
+                        FLayerOut[i].AssignFrom(FComponentIn[i].Components.Cast<Layer>());
+                        FFade[i].SliceCount = FLayerOut[i].SliceCount;
+                        FBlendMode[i].SliceCount = FLayerOut[i].SliceCount;
+                        for (int j = 0; j < FLayerOut[i].SliceCount; j++)
                         {
-                            FLayerOut[i].AssignFrom(FComponentIn[i].Components.Cast<Layer>());
-
-                            FFade[i].SliceCount = FLayerOut[i].SliceCount;
-                            FBlendMode[i].SliceCount = FLayerOut[i].SliceCount;
-
-                            for (int j = 0; j < FLayerOut[i].SliceCount; j++)
-                            {
-                                FFade[i][j] = FLayerOut[i][j].Fade.Amount;
-                                FBlendMode[i][j] = FLayerOut[i][j].BlendMode.Mode;
-                            }
+                            FFade[i][j] = FLayerOut[i][j].Fade.Amount;
+                            FBlendMode[i][j] = FLayerOut[i][j].BlendMode.Mode;
                         }
+                    }
+                    else
+                    {
+                        FLayerOut[i].SliceCount = 0;
+                        FFade[i].SliceCount = 0;
+                        FBlendMode[i].SliceCount = 0;
                     }
                 }
             }

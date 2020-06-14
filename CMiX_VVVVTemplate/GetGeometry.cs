@@ -19,19 +19,15 @@ namespace CMiX.Nodes
 
         public void Evaluate(int SpreadMax)
         {
-            if (FComponentIn.IsChanged)
+            FGeometry.SliceCount = FComponentIn.SliceCount;
+            if (FComponentIn.SliceCount > 0)
             {
-                if (FComponentIn != null)
+                for (int i = 0; i < FComponentIn.SliceCount; i++)
                 {
-                    if (FComponentIn.SliceCount > 0)
-                    {
-                        FGeometry.SliceCount = FComponentIn.SliceCount;
-
-                        for (int i = 0; i < FComponentIn.SliceCount; i++)
-                        {
-                            FGeometry[i] = FComponentIn[i].Geometry;
-                        }
-                    }
+                    if (FComponentIn[i] != null)
+                        FGeometry[i] = FComponentIn[i].Geometry;
+                    else
+                        FGeometry.SliceCount = 0;
                 }
             }
         }

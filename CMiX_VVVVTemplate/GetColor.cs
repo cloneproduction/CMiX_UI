@@ -19,20 +19,18 @@ namespace CMiX.Nodes
         public ISpread<RGBAColor> FColor;
         public void Evaluate(int SpreadMax)
         {
-            if (FComponentIn.IsChanged)
+            FColor.SliceCount = FComponentIn.SliceCount;
+            if (FComponentIn.SliceCount > 0)
             {
-                if (FComponentIn != null)
+                for (int i = 0; i < FComponentIn.SliceCount; i++)
                 {
-                    if (FComponentIn.SliceCount > 0)
+                    if (FComponentIn[i] != null)
                     {
-                        FColor.SliceCount = FComponentIn.SliceCount;
-
-                        for (int i = 0; i < FComponentIn.SliceCount; i++)
-                        {
-                            var c = FComponentIn[i].Coloration.ColorSelector.ColorPicker.SelectedColor;
-                            FColor[i] = System.Drawing.Color.FromArgb((int)c.A , (int)c.R, (int)c.G , (int)c.B );
-                        }
+                        var c = FComponentIn[i].Coloration.ColorSelector.ColorPicker.SelectedColor;
+                        FColor[i] = System.Drawing.Color.FromArgb((int)c.A, (int)c.R, (int)c.G, (int)c.B);
                     }
+                    else
+                        FColor.SliceCount = 0;
                 }
             }
         }

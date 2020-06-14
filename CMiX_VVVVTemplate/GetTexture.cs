@@ -1,9 +1,4 @@
 ﻿using CMiX.MVVM.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VVVV.PluginInterfaces.V2;
 
 namespace CMiX.Nodes
@@ -19,18 +14,17 @@ namespace CMiX.Nodes
 
         public void Evaluate(int SpreadMax)
         {
+            FTexture.SliceCount = FComponentIn.SliceCount;
             if (FComponentIn.IsChanged)
             {
-                if (FComponentIn != null)
+                if (FComponentIn.SliceCount > 0)
                 {
-                    if (FComponentIn.SliceCount > 0)
+                    for (int i = 0; i < FComponentIn.SliceCount; i++)
                     {
-                        FTexture.SliceCount = FComponentIn.SliceCount;
-
-                        for (int i = 0; i < FComponentIn.SliceCount; i++)
-                        {
+                        if (FComponentIn[i] != null)
                             FTexture[i] = FComponentIn[i].Texture;
-                        }
+                        else
+                            FTexture.SliceCount = 0;
                     }
                 }
             }

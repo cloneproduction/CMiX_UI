@@ -1,11 +1,6 @@
 using CMiX.MVVM.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VVVV.Core.Logging;
 using VVVV.PluginInterfaces.V2;
 
@@ -25,18 +20,15 @@ namespace CMiX.Nodes
 
         public void Evaluate(int SpreadMax)
         {
-            if (FProjectIn.IsChanged)
+            FCompositionOut.SliceCount = FProjectIn.SliceCount;
+            if (FProjectIn.SliceCount > 0)
             {
-                if (FProjectIn != null)
+                for (int i = 0; i < FProjectIn.SliceCount; i++)
                 {
-                    if (FProjectIn.SliceCount > 0)
-                    {
-                        FCompositionOut.SliceCount = FProjectIn.SliceCount;
-                        for (int i = 0; i < FProjectIn.SliceCount; i++)
-                        {
-                            FCompositionOut[i].AssignFrom(FProjectIn[i].Components.Cast<Composition>());
-                        }
-                    }
+                    if (FProjectIn[i] != null)
+                        FCompositionOut[i].AssignFrom(FProjectIn[i].Components.Cast<Composition>());
+                    else
+                        FCompositionOut[i].SliceCount = 0;
                 }
             }
         }
