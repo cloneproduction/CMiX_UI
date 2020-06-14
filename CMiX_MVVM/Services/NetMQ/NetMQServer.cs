@@ -28,7 +28,7 @@ namespace CMiX.MVVM.Message
                 using (publisher = new PublisherSocket())
                 {
                     publisher.Bind(Address);
-                    publisher.Options.SendHighWatermark = 10000;
+                    publisher.Options.SendHighWatermark = 1000;
                     this.shim = shim;
                     shim.ReceiveReady += OnShimReady;
                     shim.SignalOK();

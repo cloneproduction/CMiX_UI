@@ -32,7 +32,7 @@ namespace CMiX.MVVM.Message
                 {
                     subscriber.Connect(Address);
                     subscriber.Subscribe(Topic);
-                    subscriber.Options.ReceiveHighWatermark = 10000;
+                    subscriber.Options.ReceiveHighWatermark = 1000;
                     subscriber.ReceiveReady += OnSubscriberReady;
                     this.shim = shim;
                     shim.ReceiveReady += OnShimReady;
