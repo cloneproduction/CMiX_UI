@@ -118,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CMiX_VVVVTemplateNode.cs" />
+    <Compile Include="ColorCorrection.cs" />
     <Compile Include="GetInstanceCount.cs" />
     <Compile Include="GetInstancerTransform.cs" />
     <Compile Include="GetGeometryFileName.cs" />
