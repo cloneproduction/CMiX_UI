@@ -7,7 +7,7 @@ namespace CMiX.Nodes
     public class GetInstancer : IPluginEvaluate
     {
         [Input("Geometry")]
-        public IDiffSpread<Geometry> FGeometryIn;
+        public ISpread<Geometry> FGeometryIn;
 
         [Output("Instancer")]
         public ISpread<Instancer> FInstancer;

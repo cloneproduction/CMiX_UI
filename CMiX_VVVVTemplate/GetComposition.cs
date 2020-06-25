@@ -13,7 +13,7 @@ namespace CMiX.Nodes
         public ILogger FLogger;
 
         [Input("Project", IsSingle = true)]
-        public IDiffSpread<Project> FProjectIn;
+        public ISpread<Project> FProjectIn;
 
         [Output("Composition")]
         public ISpread<ISpread<Composition>> FCompositionOut;

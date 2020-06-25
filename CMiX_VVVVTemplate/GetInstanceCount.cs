@@ -8,18 +8,16 @@ namespace VVVV.Nodes
     public class GetInstanceCount : IPluginEvaluate
     {
         [Input("Instancer")]
-        public IDiffSpread<Instancer> FInstancerIn;
+        public ISpread<Instancer> FInstancerIn;
 
         [Output("Instance Count")]
         public ISpread<int> FInstanceCount;
 
         public void Evaluate(int SpreadMax)
         {
-
+            FInstanceCount.SliceCount = FInstancerIn.SliceCount;
             if (FInstancerIn.SliceCount > 0)
             {
-                FInstanceCount.SliceCount = FInstancerIn.SliceCount;
-
                 for (int i = 0; i < FInstancerIn.SliceCount; i++)
                 {
                     if (FInstancerIn[i] != null)

@@ -20,9 +20,10 @@ namespace CMiX.Nodes
 
         public void Evaluate(int SpreadMax)
         {
+            FTransform.SliceCount = FGeometryIn.SliceCount;
             if (FGeometryIn.SliceCount > 0)
             {
-                FTransform.SliceCount = FGeometryIn.SliceCount;
+                
 
                 for (int i = 0; i < FGeometryIn.SliceCount; i++)
                 {
