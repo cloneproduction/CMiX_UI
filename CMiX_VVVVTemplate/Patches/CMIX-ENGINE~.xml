@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" scrollx="8295" scrolly="8130">
-   <BOUNDS type="Window" left="16095" top="1500" width="14670" height="11460">
+   <PATCH nodename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" scrollx="8130" scrolly="10455">
+   <BOUNDS type="Window" left="14625" top="1410" width="14670" height="11460">
    </BOUNDS>
    <NODE systemname="CMiX (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="CMiX (CMiX_VVVV)" componentmode="Hidden" id="1">
    <BOUNDS type="Node" left="2730" top="3105" width="100" height="100">
@@ -1093,29 +1093,27 @@
    </PIN>
    <PIN pinname="TranslateZ" visible="1">
    </PIN>
-   <PIN pinname="TranslateInfluence" visible="1">
+   </NODE>
+   <NODE systemname="GetAnimParameter (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetAnimParameter (CMiX_VVVV)" componentmode="Hidden" id="156">
+   <BOUNDS type="Node" left="10320" top="11895" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="10320" top="11895" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="AnimParameter" visible="1">
    </PIN>
-   <PIN pinname="TranslateMode" visible="1">
+   <PIN pinname="ChanceToHit" visible="1">
    </PIN>
-   <PIN pinname="TranslateXInfluence" visible="1">
+   <PIN pinname="Mode" visible="1">
    </PIN>
-   <PIN pinname="TranslateXMode" visible="1">
-   </PIN>
-   <PIN pinname="TranslateYInfluence" visible="1">
-   </PIN>
-   <PIN pinname="TranslateYMode" visible="1">
-   </PIN>
-   <PIN pinname="TranslateZInfluence" visible="1">
-   </PIN>
-   <PIN pinname="TranslateZMode" visible="1">
+   <PIN pinname="Influence" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="16" srcpinname="Instancer" dstnodeid="155" dstpinname="Instancer">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="158">
-   <BOUNDS type="Box" left="11355" top="12450" width="795" height="240">
+   <BOUNDS type="Box" left="11640" top="12540" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="11355" top="12450" width="0" height="0">
+   <BOUNDS type="Node" left="11640" top="12540" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -1123,9 +1121,9 @@
    </PIN>
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
    </PIN>
-   <PIN pinname="Input String" visible="1">
-   </PIN>
    </NODE>
+   <LINK srcnodeid="156" srcpinname="Mode" dstnodeid="158" dstpinname="Input String">
+   </LINK>
    <NODE nodename="IOBox (Color)" componentmode="InABox" id="159">
    <BOUNDS type="Box" left="8295" top="13485" width="2250" height="480">
    </BOUNDS>
@@ -1143,7 +1141,23 @@
    </PIN>
    <PIN pinname="Precision" slicecount="1" values="4">
    </PIN>
-   <PIN pinname="Y Input Value" visible="1">
+   </NODE>
+   <LINK srcnodeid="156" srcpinname="Influence" dstnodeid="160" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="155" srcpinname="Translate" dstnodeid="156" dstpinname="AnimParameter">
+   </LINK>
+   <NODE systemname="GetAnimParameter (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetAnimParameter (CMiX_VVVV)" componentmode="Hidden" id="163">
+   <BOUNDS type="Node" left="14640" top="11775" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="14640" top="11775" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="AnimParameter" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="ChanceToHit" visible="1">
+   </PIN>
+   <PIN pinname="Mode" visible="1">
+   </PIN>
+   <PIN pinname="Influence" visible="1">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="162">
@@ -1157,9 +1171,9 @@
    </PIN>
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
    </PIN>
-   <PIN pinname="Input String" visible="1">
-   </PIN>
    </NODE>
+   <LINK srcnodeid="163" srcpinname="Mode" dstnodeid="162" dstpinname="Input String">
+   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="161">
    <BOUNDS type="Box" left="14640" top="12360" width="795" height="240">
    </BOUNDS>
@@ -1169,7 +1183,23 @@
    </PIN>
    <PIN pinname="Precision" slicecount="1" values="4">
    </PIN>
-   <PIN pinname="Y Input Value" visible="1">
+   </NODE>
+   <LINK srcnodeid="163" srcpinname="Influence" dstnodeid="161" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="155" srcpinname="TranslateY" dstnodeid="163" dstpinname="AnimParameter">
+   </LINK>
+   <NODE systemname="GetAnimParameter (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetAnimParameter (CMiX_VVVV)" componentmode="Hidden" id="166">
+   <BOUNDS type="Node" left="12615" top="11910" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="12615" top="11910" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="AnimParameter" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="ChanceToHit" visible="1">
+   </PIN>
+   <PIN pinname="Mode" visible="1">
+   </PIN>
+   <PIN pinname="Influence" visible="1">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="165">
@@ -1183,9 +1213,9 @@
    </PIN>
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
    </PIN>
-   <PIN pinname="Input String" visible="1">
-   </PIN>
    </NODE>
+   <LINK srcnodeid="166" srcpinname="Mode" dstnodeid="165" dstpinname="Input String">
+   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="164">
    <BOUNDS type="Box" left="12615" top="12495" width="795" height="240">
    </BOUNDS>
@@ -1195,7 +1225,23 @@
    </PIN>
    <PIN pinname="Precision" slicecount="1" values="4">
    </PIN>
-   <PIN pinname="Y Input Value" visible="1">
+   </NODE>
+   <LINK srcnodeid="166" srcpinname="Influence" dstnodeid="164" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="155" srcpinname="TranslateX" dstnodeid="166" dstpinname="AnimParameter">
+   </LINK>
+   <NODE systemname="GetAnimParameter (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetAnimParameter (CMiX_VVVV)" componentmode="Hidden" id="169">
+   <BOUNDS type="Node" left="17265" top="11820" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="17265" top="11820" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="AnimParameter" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="ChanceToHit" visible="1">
+   </PIN>
+   <PIN pinname="Mode" visible="1">
+   </PIN>
+   <PIN pinname="Influence" visible="1">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="168">
@@ -1209,9 +1255,9 @@
    </PIN>
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
    </PIN>
-   <PIN pinname="Input String" visible="1">
-   </PIN>
    </NODE>
+   <LINK srcnodeid="169" srcpinname="Mode" dstnodeid="168" dstpinname="Input String">
+   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="167">
    <BOUNDS type="Box" left="17265" top="12405" width="795" height="240">
    </BOUNDS>
@@ -1221,23 +1267,9 @@
    </PIN>
    <PIN pinname="Precision" slicecount="1" values="4">
    </PIN>
-   <PIN pinname="Y Input Value" visible="1">
-   </PIN>
    </NODE>
-   <LINK srcnodeid="155" srcpinname="TranslateInfluence" dstnodeid="160" dstpinname="Y Input Value">
+   <LINK srcnodeid="169" srcpinname="Influence" dstnodeid="167" dstpinname="Y Input Value">
    </LINK>
-   <LINK srcnodeid="155" srcpinname="TranslateMode" dstnodeid="158" dstpinname="Input String">
-   </LINK>
-   <LINK srcnodeid="155" srcpinname="TranslateXInfluence" dstnodeid="164" dstpinname="Y Input Value">
-   </LINK>
-   <LINK srcnodeid="155" srcpinname="TranslateXMode" dstnodeid="165" dstpinname="Input String">
-   </LINK>
-   <LINK srcnodeid="155" srcpinname="TranslateYInfluence" dstnodeid="161" dstpinname="Y Input Value">
-   </LINK>
-   <LINK srcnodeid="155" srcpinname="TranslateYMode" dstnodeid="162" dstpinname="Input String">
-   </LINK>
-   <LINK srcnodeid="155" srcpinname="TranslateZInfluence" dstnodeid="167" dstpinname="Y Input Value">
-   </LINK>
-   <LINK srcnodeid="155" srcpinname="TranslateZMode" dstnodeid="168" dstpinname="Input String">
+   <LINK srcnodeid="155" srcpinname="TranslateZ" dstnodeid="169" dstpinname="AnimParameter">
    </LINK>
    </PATCH>

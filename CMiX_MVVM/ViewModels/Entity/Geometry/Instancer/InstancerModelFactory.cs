@@ -9,7 +9,7 @@ namespace CMiX.MVVM.ViewModels
             InstancerModel model = new InstancerModel();
             model.Transform = instance.Transform.GetModel();
             model.Counter = instance.Counter.GetModel();
-            //model.TranslateModifier = instance.TranslateModifier.GetModel();
+            model.TranslateModifier = instance.TranslateModifier.GetModel();
             //model.ScaleModifier = instance.ScaleModifier.GetModel();
             //model.RotationModifier = instance.RotationModifier.GetModel();
             //model.NoAspectRatio = instance.NoAspectRatio;
@@ -20,7 +20,7 @@ namespace CMiX.MVVM.ViewModels
         {
             instance.Transform.SetViewModel(model.Transform);
             instance.Counter.SetViewModel(model.Counter);
-            //instance.TranslateModifier.SetViewModel(model.TranslateModifier);
+            instance.TranslateModifier.SetViewModel(model.TranslateModifier);
             //instance.ScaleModifier.SetViewModel(model.ScaleModifier);
             //instance.RotationModifier.SetViewModel(model.RotationModifier);
             //instance.NoAspectRatio = model.NoAspectRatio;

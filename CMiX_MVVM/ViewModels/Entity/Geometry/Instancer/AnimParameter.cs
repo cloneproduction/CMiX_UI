@@ -1,6 +1,5 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
-using System.Windows;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -8,11 +7,23 @@ namespace CMiX.MVVM.ViewModels
     {
         public AnimParameter(string name, Beat beat, bool isEnabled)
         {
-            Slider = new Slider(nameof(Slider));
+            Name = name;
+            Influence = new Slider(nameof(Influence), this);
             BeatModifier = new BeatModifier(beat);
-
+          
             Mode = AnimMode.None;
             IsEnabled = isEnabled;
+
+
+        }
+        public override string GetMessageAddress()
+        {
+            return $"{this.GetType().Name}/{Name}/";
+        }
+
+        public AnimParameter(string name, Beat beat, bool isEnabled, Sendable parentSendable) : this(name, beat, isEnabled)
+        {
+            SubscribeToEvent(parentSendable);
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
@@ -21,6 +32,13 @@ namespace CMiX.MVVM.ViewModels
                 this.SetViewModel(e.Model as AnimParameterModel);
             else
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
+        }
+
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set => SetAndNotify(ref _name, value);
         }
 
         private bool _IsEnabled;
@@ -45,14 +63,7 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public Slider Slider { get; set; }
+        public Slider Influence { get; set; }
         public BeatModifier BeatModifier { get; set; }
-
-        public void CopyGeometry()
-        {
-            IDataObject data = new DataObject();
-            data.SetData("AnimParameterModel", this.GetModel(), false);
-            Clipboard.SetDataObject(data);
-        }
     }
 }

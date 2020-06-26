@@ -10,9 +10,9 @@ namespace CMiX.MVVM.ViewModels
         {
             Transform = new Transform(this);
             Counter = new Counter(this);
-            TranslateModifier = new TranslateModifier(beat);
-            ScaleModifier = new ScaleModifier(beat);
-            RotationModifier = new RotationModifier(beat);
+            TranslateModifier = new TranslateModifier(beat, this);
+            ScaleModifier = new ScaleModifier(beat, this);
+            RotationModifier = new RotationModifier(beat, this);
 
             NoAspectRatio = false;
         }

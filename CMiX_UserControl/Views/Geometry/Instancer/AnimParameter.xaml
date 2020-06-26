@@ -62,12 +62,8 @@
                         DockPanel.Dock="Top"
                         Margin="0, 8"
                         Height="20"
-                        Value="{Binding Slider}" 
+                        Value="{Binding Influence.Amount}" 
                         Caption="Influence"/>
-                    <!--<MVVM.Views:Slider
-                        Margin="0, 8"
-                        Caption="Influence"
-                        DataContext="{Binding Slider}"/>-->
                     <Views:BeatModifier 
                         Margin="0, 1"
                         DataContext="{Binding BeatModifier}"/>

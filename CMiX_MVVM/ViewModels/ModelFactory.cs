@@ -49,10 +49,10 @@ namespace CMiX.MVVM.ViewModels
 
         public static void SetViewModel(this ScaleModifier instance, ScaleModifierModel model)
         {
-            //instance.Scale.Paste(model.Scale);
-            //instance.ScaleX.Paste(model.ScaleX);
-            //instance.ScaleY.Paste(model.ScaleY);
-            //instance.ScaleZ.Paste(model.ScaleZ);
+            instance.Scale.SetViewModel(model.Scale);
+            instance.ScaleX.SetViewModel(model.ScaleX);
+            instance.ScaleY.SetViewModel(model.ScaleY);
+            instance.ScaleZ.SetViewModel(model.ScaleZ);
         }
 
 
@@ -70,10 +70,10 @@ namespace CMiX.MVVM.ViewModels
 
         public static void SetViewModel(this TranslateModifier instance, TranslateModifierModel model)
         {
-            //instance.Translate.Paste(model.Translate);
-            //instance.TranslateX.Paste(model.TranslateX);
-            //instance.TranslateY.Paste(model.TranslateY);
-            //instance.TranslateZ.Paste(model.TranslateZ);
+            instance.Translate.SetViewModel(model.Translate);
+            instance.TranslateX.SetViewModel(model.TranslateX);
+            instance.TranslateY.SetViewModel(model.TranslateY);
+            instance.TranslateZ.SetViewModel(model.TranslateZ);
         }
     }
 }

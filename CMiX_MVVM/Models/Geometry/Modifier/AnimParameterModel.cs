@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMiX.MVVM.ViewModels;
+using System;
 
 namespace CMiX.MVVM.Models
 {
@@ -7,11 +8,12 @@ namespace CMiX.MVVM.Models
     {
         public AnimParameterModel()
         {
-            Slider = new SliderModel();
+            Influence = new SliderModel();
             BeatModifier = new BeatModifierModel();
         }
 
-        public SliderModel Slider { get; set; }
+        public AnimMode Mode { get; set; }
+        public SliderModel Influence { get; set; }
         public BeatModifierModel BeatModifier { get; set; }
     }
 }

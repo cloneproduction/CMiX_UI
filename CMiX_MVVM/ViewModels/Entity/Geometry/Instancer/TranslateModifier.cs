@@ -8,12 +8,16 @@ namespace CMiX.MVVM.ViewModels
     {
         public TranslateModifier(Beat beat) 
         {
-            Translate = new AnimParameter(nameof(Translate), beat, true);
-            TranslateX = new AnimParameter(nameof(TranslateX), beat, false);
-            TranslateY = new AnimParameter(nameof(TranslateY), beat, false);
-            TranslateZ = new AnimParameter(nameof(TranslateZ), beat, false);
+            Translate = new AnimParameter(nameof(Translate), beat, true, this);
+            TranslateX = new AnimParameter(nameof(TranslateX), beat, false, this);
+            TranslateY = new AnimParameter(nameof(TranslateY), beat, false, this);
+            TranslateZ = new AnimParameter(nameof(TranslateZ), beat, false, this);
         }
 
+        public TranslateModifier(Beat beat, Sendable parentSendable) : this(beat)
+        {
+            SubscribeToEvent(parentSendable);
+        }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
@@ -30,22 +34,22 @@ namespace CMiX.MVVM.ViewModels
         public AnimParameter TranslateZ { get; set; }
 
 
-        public void CopyGeometry()
-        {
-            IDataObject data = new DataObject();
-            data.SetData(nameof(TranslateModifierModel), this.GetModel(), false);
-            Clipboard.SetDataObject(data);
-        }
+        //public void CopyGeometry()
+        //{
+        //    IDataObject data = new DataObject();
+        //    data.SetData(nameof(TranslateModifierModel), this.GetModel(), false);
+        //    Clipboard.SetDataObject(data);
+        //}
 
 
-        public void PasteGeometry()
-        {
-            IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent(nameof(TranslateModifierModel)))
-            {
-                var translatemodifiermodel = data.GetData(nameof(TranslateModifierModel)) as TranslateModifierModel;
-                this.SetViewModel(translatemodifiermodel);
-            }
-        }
+        //public void PasteGeometry()
+        //{
+        //    IDataObject data = Clipboard.GetDataObject();
+        //    if (data.GetDataPresent(nameof(TranslateModifierModel)))
+        //    {
+        //        var translatemodifiermodel = data.GetData(nameof(TranslateModifierModel)) as TranslateModifierModel;
+        //        this.SetViewModel(translatemodifiermodel);
+        //    }
+        //}
     }
 }

@@ -58,6 +58,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _amount, value);
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
+                System.Console.WriteLine(Amount);
             }
         }
 

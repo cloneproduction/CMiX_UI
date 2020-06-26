@@ -43,6 +43,7 @@
                             <Expander.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <ToggleButton 
+                                        x:Name="TranslateXEnabled"
                                         IsChecked="{Binding ElementName=TranslateX, Path=DataContext.IsEnabled}"
                                         Margin="4, 0" 
                                         Width="15" 
@@ -53,8 +54,9 @@
                                         Foreground="{StaticResource TextBase}" />
                                 </StackPanel>
                             </Expander.Header>
-                            <Views:AnimParameter
+                            <Views:AnimParameter 
                                 x:Name="TranslateX"
+                                IsEnabled="{Binding ElementName=TranslateXEnabled, Path=IsChecked}"
                                 DataContext="{Binding TranslateX}"/>
                         </Expander>
                         <Expander Style="{StaticResource InnerExpanderLevel1}">
