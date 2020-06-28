@@ -1,10 +1,11 @@
 ﻿using System.Windows;
+using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Instancer : Sendable
+    public class Instancer : Sendable, ITransform
     {
         public Instancer(Beat beat)
         {

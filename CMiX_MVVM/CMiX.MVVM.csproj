@@ -123,6 +123,7 @@
     <Compile Include="ViewModels\Entity\Geometry\GeometryModelFactory.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimParameterModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Instancer\InstancerModelFactory.cs" />
+    <Compile Include="Models\Interfaces\ITransform.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\TransformModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Texture\Inverter.cs" />
     <Compile Include="ViewModels\Entity\Texture\InverterModelFactory.cs" />
@@ -646,8 +647,6 @@
     <Resource Include="Assets\Sub.png" />
     <Content Include="Themes\Fonts\LICENSE.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

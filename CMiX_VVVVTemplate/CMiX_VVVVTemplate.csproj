@@ -122,7 +122,6 @@
     <Compile Include="ColorCorrection.cs" />
     <Compile Include="GetBeat.cs" />
     <Compile Include="GetInstanceCount.cs" />
-    <Compile Include="GetInstancerTransform.cs" />
     <Compile Include="GetGeometryFileName.cs" />
     <Compile Include="GetTextureFileName.cs" />
     <Compile Include="GetColor.cs" />

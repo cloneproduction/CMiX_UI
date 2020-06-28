@@ -1,11 +1,12 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Geometry : Sendable
+    public class Geometry : Sendable, ITransform
     {
         public Geometry(Beat beat) 
         {

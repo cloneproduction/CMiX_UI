@@ -1,3 +1,4 @@
+using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.ViewModels;
 using System.ComponentModel.Composition;
 using VVVV.Core.Logging;
@@ -6,30 +7,30 @@ using VVVV.Utils.VMath;
 
 namespace CMiX.Nodes
 {
-    [PluginInfo(Name = "GetGeometryTransform", Category = "CMiX_VVVV")]
-    public class GetGeometryTransform : IPluginEvaluate
+    [PluginInfo(Name = "GetTransform", Category = "CMiX_VVVV")]
+    public class GetTransform : IPluginEvaluate
     {
         [Import()]
         public ILogger FLogger;
 
         [Input("Entity")]
-        public IDiffSpread<Geometry> FGeometryIn;
+        public IDiffSpread<ITransform> ITransformIn;
 
         [Output("Transform")]
         public ISpread<Matrix4x4> FTransform;
 
         public void Evaluate(int SpreadMax)
         {
-            FTransform.SliceCount = FGeometryIn.SliceCount;
-            if (FGeometryIn.SliceCount > 0)
+            FTransform.SliceCount = ITransformIn.SliceCount;
+            if (ITransformIn.SliceCount > 0)
             {
                 
 
-                for (int i = 0; i < FGeometryIn.SliceCount; i++)
+                for (int i = 0; i < ITransformIn.SliceCount; i++)
                 {
-                    if(FGeometryIn[i] != null)
+                    if(ITransformIn[i] != null)
                     {
-                        var transform = FGeometryIn[i].Transform;
+                        var transform = ITransformIn[i].Transform;
 
                         var uniform = VMath.Scale
                         (
