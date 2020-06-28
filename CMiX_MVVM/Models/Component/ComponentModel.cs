@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using CMiX.MVVM.Interfaces;
+using System.Collections.ObjectModel;
 
 namespace CMiX.MVVM.Models
 {

@@ -31,6 +31,13 @@ namespace CMiX.Nodes
                     {
                         var transform = FInstancerIn[i].Transform;
 
+                        var uniform = VMath.Scale
+                        (
+                            transform.Scale.Uniform.Amount,
+                            transform.Scale.Uniform.Amount,
+                            transform.Scale.Uniform.Amount
+                        );
+
                         var translate = VMath.Translate
                         (
                             transform.Translate.X.Amount,
@@ -52,7 +59,7 @@ namespace CMiX.Nodes
                             transform.Rotation.Z.Amount
                         );
 
-                        FTransform[i] = scale * rotation * translate;
+                        FTransform[i] = scale * uniform * rotation * translate;
                     }
                     else
                         FTransform.SliceCount = 0;

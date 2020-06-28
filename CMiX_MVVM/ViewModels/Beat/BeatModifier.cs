@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -20,6 +22,14 @@ namespace CMiX.MVVM.ViewModels
             };
         }
 
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
+                this.SetViewModel(e.Model as BeatModifierModel);
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
+        }
+
         private Beat Beat { get; }
         public Slider ChanceToHit { get; }
 
@@ -38,6 +48,7 @@ namespace CMiX.MVVM.ViewModels
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
                 //SendMessages(MessageAddress + nameof(Multiplier), Multiplier);
             }
         }

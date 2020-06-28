@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -11,10 +13,10 @@ namespace CMiX.MVVM.ViewModels
 {
     public class MasterBeat : Beat
     {
-        public MasterBeat() : this(period: 0.0, multiplier: 1)
-        {
+        //public MasterBeat() : this(period: 0.0, multiplier: 1)
+        //{
 
-        }
+        //}
         public MasterBeat(double period, double multiplier)
         {
             Period = period;
@@ -29,6 +31,27 @@ namespace CMiX.MVVM.ViewModels
             tapTime = new List<double>();
         }
 
+        public MasterBeat(double period, double multiplier, Sendable parentSendable) : this(period, multiplier)
+        {
+            SubscribeToEvent(parentSendable);
+        }
+
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
+                this.SetViewModel(e.Model as BeatModel);
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
+        }
+
+
+        public event EventHandler BeatTap;
+        public void OnBeatTap()
+        {
+            EventHandler handler = BeatTap;
+            if (null != handler) handler(this, EventArgs.Empty);
+        }
+
         private void CompositionTarget_Rendering(object sender, EventArgs e)
         {
             if (Stopwatch.ElapsedMilliseconds > Math.Floor(Period))
@@ -37,6 +60,7 @@ namespace CMiX.MVVM.ViewModels
                 if (BeatTick >= 4)
                     BeatTick = 0;
                 Reset();
+                OnBeatTap();
             }
         }
 
@@ -76,30 +100,22 @@ namespace CMiX.MVVM.ViewModels
                 Notify(nameof(BPM));
                 if (Period > 0)
                     BeatTick = 0;
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 
-        #region METHODS
         private void Resync()
         {
             BeatTick = 0;
             Reset();
         }
 
-        protected override void Multiply()
-        {
-            Period /= 2.0;
-        }
+        protected override void Multiply() => Period /= 2.0;
 
-        protected override void Divide()
-        {
-            Period *= 2.0;
-        }
+        protected override void Divide() => Period *= 2.0;
 
-        private void Tap()
-        {
-            Period = GetMasterPeriod();
-        }
+        private void Tap() => Period = GetMasterPeriod();
+
 
         private double GetMasterPeriod()
         {
@@ -121,6 +137,5 @@ namespace CMiX.MVVM.ViewModels
             }
             return tapPeriods.Sum() / tapPeriods.Count;
         }
-        #endregion
     }
 }

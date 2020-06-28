@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMiX.MVVM.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 

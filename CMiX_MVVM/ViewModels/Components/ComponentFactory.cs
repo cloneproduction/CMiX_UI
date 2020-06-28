@@ -29,8 +29,9 @@ namespace CMiX.MVVM.ViewModels
 
         public static Project CreateProject()
         {
-            var masterBeat = new MasterBeat();
+            var masterBeat = new MasterBeat(1000, 0);
             var newProject = new Project(ID, masterBeat, null);
+            masterBeat.SubscribeToEvent(newProject);
             ID++;
             return newProject;
         }
@@ -41,7 +42,7 @@ namespace CMiX.MVVM.ViewModels
             parentComponent.AddComponent(component);
             SubscribeToEvent(parentComponent, component);
             ID++;
-            return component;
+            return null;
         }
 
         public static Layer CreateLayer(Component parentComponent)

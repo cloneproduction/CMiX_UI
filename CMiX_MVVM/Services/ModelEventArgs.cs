@@ -1,4 +1,4 @@
-﻿using CMiX.MVVM.Models;
+﻿using CMiX.MVVM.Interfaces;
 using System;
 
 namespace CMiX.MVVM.Services

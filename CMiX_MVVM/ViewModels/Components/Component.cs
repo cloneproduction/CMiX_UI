@@ -1,17 +1,17 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using CMiX.MVVM.Models;
+using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Component : Sendable
+    public abstract class Component : Sendable, IBeat
     {
         public Component(int id, Beat beat)
         {
             ID = id;
             Beat = beat;
-            Name = $"{GetType().Name}  {ID}";
+            Name = $"{GetType().Name}{ID}";
 
             IsExpanded = true;
             Components = new ObservableCollection<Component>();

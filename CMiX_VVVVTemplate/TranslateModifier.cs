@@ -9,15 +9,12 @@ namespace CMiX.Nodes
         [Input("Instancer")]
         public ISpread<Instancer> FInstancerIn;
 
-        //[Output("Translate")]
-        //public ISpread<AnimParameter> FTranslate;
 
         [Output("TranslateInfluence")]
         public ISpread<double> TranslateInfluence;
 
         [Output("TranslateMode")]
         public ISpread<string> TranslateMode;
-
 
 
         [Output("TranslateXInfluence")]

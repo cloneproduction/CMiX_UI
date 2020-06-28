@@ -1,4 +1,5 @@
-﻿using CMiX.MVVM.Models;
+﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -52,6 +53,8 @@ namespace CMiX.MVVM.ViewModels
             projectModel.Name = instance.Name;
             projectModel.IsVisible = instance.IsVisible;
 
+            projectModel.Beat = instance.Beat.GetModel();
+
             foreach (Component component in instance.Components)
                 projectModel.ComponentModels.Add(component.GetModel());
 
@@ -71,6 +74,8 @@ namespace CMiX.MVVM.ViewModels
             instance.ID = projectModel.ID;
             instance.Name = projectModel.Name;
             instance.IsVisible = projectModel.IsVisible;
+
+            //instance.Beat.SetViewModel(projectModel.Beat);
 
             instance.Components.Clear();
             foreach (CompositionModel compositionModel in projectModel.ComponentModels)
@@ -105,9 +110,9 @@ namespace CMiX.MVVM.ViewModels
             compositionModel.IsVisible = instance.IsVisible;
             compositionModel.ID = instance.ID;
 
-            compositionModel.CameraModel = instance.Camera.GetModel();
-            compositionModel.BeatModel = instance.Beat.GetModel();
-            compositionModel.TransitionModel = instance.Transition.GetModel();
+            //compositionModel.BeatModel = instance.Beat.GetModel();
+            //compositionModel.CameraModel = instance.Camera.GetModel();
+            //compositionModel.TransitionModel = instance.Transition.GetModel();
 
             foreach (Layer component in instance.Components)
                 compositionModel.ComponentModels.Add(component.GetModel());
@@ -126,9 +131,9 @@ namespace CMiX.MVVM.ViewModels
             instance.IsVisible = compositionModel.IsVisible;
             
 
-            instance.Beat.SetViewModel(compositionModel.BeatModel);
-            instance.Camera.SetViewModel(compositionModel.CameraModel);
-            instance.Transition.SetViewModel(compositionModel.TransitionModel);
+            //instance.Beat.SetViewModel(compositionModel.BeatModel);
+            //instance.Camera.SetViewModel(compositionModel.CameraModel);
+            //instance.Transition.SetViewModel(compositionModel.TransitionModel);
 
             instance.Components.Clear();
             foreach (LayerModel componentModel in model.ComponentModels)

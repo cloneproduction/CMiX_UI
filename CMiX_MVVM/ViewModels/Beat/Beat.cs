@@ -2,7 +2,7 @@
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Beat : ViewModel
+    public abstract class Beat : Sendable
     {
         public Beat()
         {
@@ -39,7 +39,11 @@ namespace CMiX.MVVM.ViewModels
         public virtual double Multiplier
         {
             get => _multiplier;
-            set => SetAndNotify(ref _multiplier, value);
+            set
+            {
+                SetAndNotify(ref _multiplier, value);
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
+            }
         }
 
         private void Reset() => Multiplier = 1;

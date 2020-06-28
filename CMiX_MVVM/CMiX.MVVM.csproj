@@ -106,7 +106,9 @@
     <Compile Include="Controls\ToggleButton\CMiXToggleButton.cs" />
     <Compile Include="Controls\ToggleButton\ToggleDockPosition.cs" />
     <Compile Include="Models\ComboBoxModel.cs" />
+    <Compile Include="Models\Interfaces\IBeat.cs" />
     <Compile Include="Models\InverterModel.cs" />
+    <Compile Include="Resources\Easing.cs" />
     <Compile Include="ViewModels\Assets\AssetModelFactory.cs" />
     <Compile Include="ViewModels\Beat\BeatModelFactory.cs" />
     <Compile Include="ViewModels\Beat\BeatModifierModelFactory.cs" />
@@ -119,7 +121,7 @@
     <Compile Include="ViewModels\Combobox\ComboBox.cs" />
     <Compile Include="ViewModels\Counter\CounterModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Geometry\GeometryModelFactory.cs" />
-    <Compile Include="ViewModels\Entity\Geometry\Instancer\AnimParameterModelFactory.cs" />
+    <Compile Include="ViewModels\AnimParameter\AnimParameterModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Instancer\InstancerModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\TransformModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Texture\Inverter.cs" />
@@ -142,7 +144,6 @@
     <Compile Include="Controls\ExpanderLayerList.cs" />
     <Compile Include="Controls\TreeViewMultiSelect.cs" />
     <Compile Include="Controls\TreeViewSelect.cs" />
-    <Compile Include="Interfaces\ICopyPasteModel.cs" />
     <Compile Include="Models\Assets\AssetModel.cs" />
     <Compile Include="Models\Assets\AssetPathSelectorModel.cs" />
     <Compile Include="Models\Assets\AssetManagerModel.cs" />
@@ -165,7 +166,7 @@
     <Compile Include="Services\NetMQ\NetMQServer.cs" />
     <Compile Include="Models\BlendModeModel.cs" />
     <Compile Include="Models\Interfaces\IModel.cs" />
-    <Compile Include="Models\EntityModel.cs" />
+    <Compile Include="Models\Component\EntityModel.cs" />
     <Compile Include="Controls\DistanceSlider\ControlPositionEnum.cs" />
     <Compile Include="Themes\MainWindow.xaml.cs" />
     <Compile Include="ViewModels\Assets\Asset.cs" />
@@ -211,7 +212,7 @@
     <Compile Include="ViewModels\Entity\Geometry\GeometryRotation.cs" />
     <Compile Include="ViewModels\Entity\Geometry\GeometryScale.cs" />
     <Compile Include="ViewModels\Entity\Geometry\GeometryTranslate.cs" />
-    <Compile Include="ViewModels\Entity\Geometry\Instancer\AnimParameter.cs" />
+    <Compile Include="ViewModels\AnimParameter\AnimParameter.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Instancer\Instancer.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Instancer\RotationModifier.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Instancer\ScaleModifier.cs" />
@@ -260,13 +261,13 @@
       <DependentUpon>IPBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\RangeSlider.cs" />
-    <Compile Include="Models\BeatModifierModel.cs" />
+    <Compile Include="Models\Beat\BeatModifierModel.cs" />
     <Compile Include="Models\CameraModel.cs" />
     <Compile Include="Models\ColorationModel.cs" />
     <Compile Include="Models\ColorPickerModel.cs" />
     <Compile Include="Models\ColorSelectorModel.cs" />
-    <Compile Include="Models\CompositionModel.cs" />
-    <Compile Include="Models\SceneModel.cs" />
+    <Compile Include="Models\Component\CompositionModel.cs" />
+    <Compile Include="Models\Component\SceneModel.cs" />
     <Compile Include="Models\CounterModel.cs" />
     <Compile Include="Models\FileNameItemModel.cs" />
     <Compile Include="Models\Geometry\GeometryFXModel.cs" />
@@ -274,12 +275,12 @@
     <Compile Include="Models\Geometry\Transform\GeometryRotationModel.cs" />
     <Compile Include="Models\Geometry\Transform\GeometryScaleModel.cs" />
     <Compile Include="Models\Geometry\Transform\GeometryTranslateModel.cs" />
-    <Compile Include="Models\LayerModel.cs" />
+    <Compile Include="Models\Component\LayerModel.cs" />
     <Compile Include="Models\MaskModel.cs" />
-    <Compile Include="Models\BeatModel.cs" />
+    <Compile Include="Models\Beat\BeatModel.cs" />
     <Compile Include="Models\Model.cs" />
     <Compile Include="Models\PostFXModel.cs" />
-    <Compile Include="Models\ProjectModel.cs" />
+    <Compile Include="Models\Component\ProjectModel.cs" />
     <Compile Include="Models\RangeControlModel.cs" />
     <Compile Include="Models\SliderModel.cs" />
     <Compile Include="Models\TextureModel.cs" />
@@ -645,6 +646,8 @@
     <Resource Include="Assets\Sub.png" />
     <Content Include="Themes\Fonts\LICENSE.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -13,9 +13,8 @@ namespace CMiX.MVVM.ViewModels
           
             Mode = AnimMode.None;
             IsEnabled = isEnabled;
-
-
         }
+
         public override string GetMessageAddress()
         {
             return $"{this.GetType().Name}/{Name}/";

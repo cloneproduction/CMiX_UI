@@ -8,12 +8,14 @@ namespace CMiX.MVVM.ViewModels
         {
             BeatModel beatModel = new BeatModel();
             beatModel.Period = instance.Period;
+            beatModel.Multiplier = instance.Multiplier;
             return beatModel;
         }
 
         public static void SetViewModel(this Beat instance, BeatModel beatModel)
         {
             instance.Period = beatModel.Period;
+            instance.Multiplier = beatModel.Multiplier;
         }
     }
 }

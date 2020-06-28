@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using CMiX.MVVM.Interfaces;
 
 namespace CMiX.MVVM.Models
 {
@@ -25,11 +26,11 @@ namespace CMiX.MVVM.Models
         public CameraModel CameraModel { get; set; }
         public SliderModel TransitionModel { get; set; }
 
+        public bool Enabled { get; set; }
         public string Name { get; set; }
         public int ID { get; set; }
         public bool IsVisible { get; set; }
         public string MessageAddress { get; set; }
         public ObservableCollection<IComponentModel> ComponentModels { get; set; }
-        public bool Enabled { get; set; }
     }
 }
