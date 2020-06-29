@@ -44,7 +44,7 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public static ProjectModel GetModel(this Project instance)
+        private static ProjectModel GetModel(this Project instance)
         {
             ProjectModel projectModel = new ProjectModel();
 
@@ -57,7 +57,7 @@ namespace CMiX.MVVM.ViewModels
 
             foreach (Component component in instance.Components)
                 projectModel.ComponentModels.Add(component.GetModel());
-
+                
             foreach (IAssets asset in instance.Assets)
                 projectModel.AssetModels.Add(asset.GetModel());
 
@@ -67,7 +67,7 @@ namespace CMiX.MVVM.ViewModels
             return projectModel;
         }
 
-        public static void SetViewModel(this Project instance, IComponentModel componentModel)
+        private static void SetViewModel(this Project instance, IComponentModel componentModel)
         {
             var projectModel = componentModel as ProjectModel;
 
@@ -102,7 +102,7 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public static CompositionModel GetModel(this Composition instance)
+        private static CompositionModel GetModel(this Composition instance)
         {
             CompositionModel compositionModel = new CompositionModel();
 
@@ -121,7 +121,7 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public static void SetViewModel(this Composition instance, IComponentModel model)
+        private static void SetViewModel(this Composition instance, IComponentModel model)
         {
             var compositionModel = model as CompositionModel;
 
@@ -129,7 +129,6 @@ namespace CMiX.MVVM.ViewModels
             instance.Name = compositionModel.Name;
             instance.ID = compositionModel.ID;
             instance.IsVisible = compositionModel.IsVisible;
-
 
             instance.Beat.SetViewModel(compositionModel.BeatModel);
             instance.Camera.SetViewModel(compositionModel.CameraModel);
@@ -144,7 +143,7 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public static LayerModel GetModel(this Layer instance)
+        private static LayerModel GetModel(this Layer instance)
         {
             LayerModel layerModel = new LayerModel();
 
@@ -164,7 +163,7 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public static void SetViewModel(this Layer instance, IComponentModel model)
+        private static void SetViewModel(this Layer instance, IComponentModel model)
         {
             var layerModel = model as LayerModel;
 
@@ -173,7 +172,6 @@ namespace CMiX.MVVM.ViewModels
             instance.ID = layerModel.ID;
             instance.Out = layerModel.Out;
             
-
             instance.Fade.SetViewModel(layerModel.Fade);
             instance.BlendMode.SetViewModel(layerModel.BlendMode);
             instance.PostFX.SetViewModel(layerModel.PostFXModel);
@@ -187,7 +185,7 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public static SceneModel GetModel(this Scene instance)
+        private static SceneModel GetModel(this Scene instance)
         {
             SceneModel sceneModel = new SceneModel();
 
@@ -206,7 +204,7 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public static void SetViewModel(this Scene instance, IComponentModel componentModel)
+        private static void SetViewModel(this Scene instance, IComponentModel componentModel)
         {
             var sceneModel = componentModel as SceneModel;
 
@@ -227,7 +225,7 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public static EntityModel GetModel(this Entity instance)
+        private static EntityModel GetModel(this Entity instance)
         {
             EntityModel entityModel = new EntityModel();
 
@@ -243,7 +241,7 @@ namespace CMiX.MVVM.ViewModels
             return entityModel;
         }
 
-        public static void SetViewModel(this Entity instance, IComponentModel componentModel)
+        private static void SetViewModel(this Entity instance, IComponentModel componentModel)
         {
             var entityModel = componentModel as EntityModel;
 

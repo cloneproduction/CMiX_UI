@@ -17,10 +17,6 @@ namespace CMiX.MVVM.ViewModels
             SubscribeToEvent(parentSendable);
         }
 
-        public Slider X { get; set; }
-        public Slider Y { get; set; }
-        public Slider Z { get; set; }
-
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
             if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
@@ -28,5 +24,9 @@ namespace CMiX.MVVM.ViewModels
             else
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
+
+        public Slider X { get; set; }
+        public Slider Y { get; set; }
+        public Slider Z { get; set; }
     }
 }

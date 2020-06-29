@@ -31,7 +31,6 @@ namespace CMiX.Nodes
         public Project Project { get; set; }
         public string DataType { get; set; }
 
-
         public CMiX_VVVVTemplateNode()
         {
 			Project = ComponentFactory.CreateProject();
@@ -72,7 +71,5 @@ namespace CMiX.Nodes
 			else
 				FReceiverIsRunning[0] = false;
 		}
-
-
     }
 }

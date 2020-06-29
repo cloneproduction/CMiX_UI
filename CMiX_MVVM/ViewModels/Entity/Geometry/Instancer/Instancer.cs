@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using CMiX.MVVM.Interfaces;
+﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 
@@ -41,30 +40,7 @@ namespace CMiX.MVVM.ViewModels
         public bool NoAspectRatio
         {
             get => _noAspectRatio;
-            set
-            {
-                //if (Mementor != null)
-                //    Mementor.PropertyChange(this, "NoAspectRatio");
-                SetAndNotify(ref _noAspectRatio, value);
-                //SendMessages(MessageAddress + nameof(NoAspectRatio), NoAspectRatio.ToString());
-            }
-        }
-
-        public void CopyGeometry()
-        {
-            IDataObject data = new DataObject();
-            data.SetData("InstancerModel", this.GetModel(), false);
-            Clipboard.SetDataObject(data);
-        }
-
-        public void PasteGeometry()
-        {
-            IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent("InstancerModel"))
-            {
-                var instancermodel = data.GetData(nameof(InstancerModel)) as InstancerModel;
-                this.SetViewModel(instancermodel);
-            }
+            set => SetAndNotify(ref _noAspectRatio, value);
         }
     }
 }

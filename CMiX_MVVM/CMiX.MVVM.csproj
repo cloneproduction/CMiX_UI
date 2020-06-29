@@ -123,7 +123,7 @@
     <Compile Include="ViewModels\Entity\Geometry\GeometryModelFactory.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimParameterModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Instancer\InstancerModelFactory.cs" />
-    <Compile Include="Models\Interfaces\ITransform.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Transform\ITransform.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\TransformModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Texture\Inverter.cs" />
     <Compile Include="ViewModels\Entity\Texture\InverterModelFactory.cs" />

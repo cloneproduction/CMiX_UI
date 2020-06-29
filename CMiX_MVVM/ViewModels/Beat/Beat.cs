@@ -1,4 +1,6 @@
-﻿using System.Windows.Input;
+﻿using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
+using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -9,6 +11,14 @@ namespace CMiX.MVVM.ViewModels
             ResetCommand = new RelayCommand(p => Reset());
             MultiplyCommand = new RelayCommand(p => Multiply());
             DivideCommand = new RelayCommand(p => Divide());
+        }
+
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
+                this.SetViewModel(e.Model as BeatModel);
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
         public ICommand ResetCommand { get; }
@@ -32,6 +42,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 Period = 60000 / value;
                 SetAndNotify(ref _bpm, value);
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 

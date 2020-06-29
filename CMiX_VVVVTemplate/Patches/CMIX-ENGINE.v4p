@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="C:\Users\BabyClone\Documents\GitHub\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" scrollx="0" scrolly="8120">
+   <PATCH nodename="C:\Users\BabyClone\Documents\GitHub\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" scrollx="950" scrolly="1100">
    <BOUNDS type="Window" left="14130" top="500" width="14670" height="11460">
    </BOUNDS>
    <NODE systemname="CMiX (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="CMiX (CMiX_VVVV)" componentmode="Hidden" id="1">
@@ -106,28 +106,6 @@
    </NODE>
    <LINK srcnodeid="1" srcpinname="Data Type" dstnodeid="7" dstpinname="Input String">
    </LINK>
-   <NODE id="8" systemname="GetInstancerTransform (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetInstancerTransform (CMiX_VVVV)" componentmode="Hidden" hiddenwhenlocked="0" managers="">
-   <BOUNDS type="Node" left="8275" top="15890" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="8275" top="15890" width="3000" height="3000">
-   </BOUNDS>
-   <BOUNDS type="Window" left="0" top="0" width="6000" height="4500">
-   </BOUNDS>
-   <PIN pinname="Descriptive Name" pintype="Configuration" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Tag" pintype="Configuration" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Entity" pintype="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Evaluate" pintype="Input" visible="-1" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="Window Handle" pintype="Output">
-   </PIN>
-   <PIN pinname="Transform" pintype="Output" visible="1">
-   </PIN>
-   <PIN pinname="ID" pintype="Output" visible="-1">
-   </PIN>
-   </NODE>
    <NODE systemname="GetTextureFileName (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetTextureFileName (CMiX_VVVV)" componentmode="Hidden" id="11" hiddenwhenlocked="0">
    <BOUNDS type="Node" left="12165" top="9625" width="100" height="100">
    </BOUNDS>
@@ -148,8 +126,6 @@
    <PIN pinname="Instancer" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="16" srcpinname="Instancer" dstnodeid="8" dstpinname="Entity">
-   </LINK>
    <NODE systemname="Quad (DX11.Geometry)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Quad (DX11.Geometry)" componentmode="Hidden" id="24">
    <BOUNDS type="Node" left="1170" top="17895" width="100" height="100">
    </BOUNDS>
@@ -239,16 +215,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="32" srcpinname="Scene" dstnodeid="31" dstpinname="Component">
-   </LINK>
-   <NODE systemname="GetGeometryTransform (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetGeometryTransform (CMiX_VVVV)" componentmode="Hidden" id="33">
-   <BOUNDS type="Node" left="2295" top="17550" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="2295" top="17550" width="3000" height="3000">
-   </BOUNDS>
-   <PIN pinname="Transform" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="30" srcpinname="Geometry" dstnodeid="33" dstpinname="Entity">
    </LINK>
    <NODE systemname="GetGeometryFileName (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetGeometryFileName (CMiX_VVVV)" componentmode="Hidden" id="34">
    <BOUNDS type="Node" left="1935" top="10590" width="100" height="100">
@@ -1176,8 +1142,6 @@
    </LINK>
    <LINK srcnodeid="60" srcpinname="Texture Out" dstnodeid="180" dstpinname="texture2d">
    </LINK>
-   <LINK srcnodeid="33" srcpinname="Transform" dstnodeid="180" dstpinname="Transform In">
-   </LINK>
    <NODE systemname="Renderer (DX11 TextureSpread)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11 TextureSpread)" componentmode="Hidden" id="181">
    <BOUNDS type="Node" left="8025" top="20990" width="100" height="100">
    </BOUNDS>
@@ -1324,18 +1288,6 @@
    </LINK>
    <LINK srcnodeid="188" srcpinname="Position Out" dstnodeid="187" dstpinname="Input">
    </LINK>
-   <NODE systemname="Beat (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="Beat (CMiX_VVVV)" componentmode="Hidden" id="194">
-   <BOUNDS type="Node" left="8310" top="6480" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="8310" top="6480" width="2000" height="2000">
-   </BOUNDS>
-   <PIN pinname="IBeat" visible="1">
-   </PIN>
-   <PIN pinname="Period" visible="1">
-   </PIN>
-   <PIN pinname="Multiplier" visible="1">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="195">
    <BOUNDS type="Box" left="8320" top="7430" width="800" height="240">
    </BOUNDS>
@@ -1346,8 +1298,6 @@
    <PIN pinname="Precision" slicecount="1" values="4">
    </PIN>
    </NODE>
-   <LINK srcnodeid="194" srcpinname="Period" dstnodeid="195" dstpinname="Y Input Value">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="196">
    <BOUNDS type="Box" left="8690" top="7030" width="800" height="240">
    </BOUNDS>
@@ -1358,14 +1308,10 @@
    <PIN pinname="Precision" slicecount="1" values="4">
    </PIN>
    </NODE>
-   <LINK srcnodeid="194" srcpinname="Multiplier" dstnodeid="196" dstpinname="Y Input Value">
-   </LINK>
-   <LINK srcnodeid="43" srcpinname="Composition" dstnodeid="194" dstpinname="IBeat">
-   </LINK>
    <NODE systemname="GetTransform (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetTransform (CMiX_VVVV)" componentmode="Hidden" id="197">
-   <BOUNDS type="Node" left="7730" top="14200" width="100" height="100">
+   <BOUNDS type="Node" left="8270" top="15850" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="7730" top="14200" width="2000" height="2000">
+   <BOUNDS type="Box" left="8270" top="15850" width="2000" height="2000">
    </BOUNDS>
    <PIN pinname="Entity" visible="1">
    </PIN>
@@ -1389,5 +1335,17 @@
    <LINK srcnodeid="30" srcpinname="Geometry" dstnodeid="198" dstpinname="Entity">
    </LINK>
    <LINK srcnodeid="198" srcpinname="Transform" dstnodeid="180" dstpinname="GroupTransform">
+   </LINK>
+   <NODE systemname="Beat (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="Beat (CMiX_VVVV)" componentmode="Hidden" id="199">
+   <BOUNDS type="Node" left="8310" top="6480" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="8310" top="6480" width="2000" height="2000">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="199" srcpinname="Period" dstnodeid="195" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="199" srcpinname="Multiplier" dstnodeid="196" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="43" srcpinname="Composition" dstnodeid="199" dstpinname="IBeat">
    </LINK>
    </PATCH>

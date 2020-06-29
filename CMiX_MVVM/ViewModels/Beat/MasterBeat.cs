@@ -13,10 +13,10 @@ namespace CMiX.MVVM.ViewModels
 {
     public class MasterBeat : Beat
     {
-        //public MasterBeat() : this(period: 0.0, multiplier: 1)
-        //{
+        public MasterBeat() : this(period: 0.0, multiplier: 1)
+        {
 
-        //}
+        }
         public MasterBeat(double period, double multiplier)
         {
             Period = period;
@@ -36,13 +36,7 @@ namespace CMiX.MVVM.ViewModels
             SubscribeToEvent(parentSendable);
         }
 
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        {
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-                this.SetViewModel(e.Model as BeatModel);
-            else
-                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
-        }
+
 
 
         public event EventHandler BeatTap;
@@ -100,7 +94,7 @@ namespace CMiX.MVVM.ViewModels
                 Notify(nameof(BPM));
                 if (Period > 0)
                     BeatTick = 0;
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
+                //OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 

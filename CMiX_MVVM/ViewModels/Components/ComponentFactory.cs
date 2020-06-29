@@ -42,7 +42,7 @@ namespace CMiX.MVVM.ViewModels
             parentComponent.AddComponent(component);
             SubscribeToEvent(parentComponent, component);
             ID++;
-            return null;
+            return component;
         }
 
         public static Layer CreateLayer(Component parentComponent)

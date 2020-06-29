@@ -1,5 +1,4 @@
 using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.ViewModels;
 using System.ComponentModel.Composition;
 using VVVV.Core.Logging;
 using VVVV.PluginInterfaces.V2;
@@ -24,8 +23,6 @@ namespace CMiX.Nodes
             FTransform.SliceCount = ITransformIn.SliceCount;
             if (ITransformIn.SliceCount > 0)
             {
-                
-
                 for (int i = 0; i < ITransformIn.SliceCount; i++)
                 {
                     if(ITransformIn[i] != null)
