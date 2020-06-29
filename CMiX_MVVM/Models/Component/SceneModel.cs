@@ -12,11 +12,12 @@ namespace CMiX.MVVM.Models
         {
             ComponentModels = new ObservableCollection<IComponentModel>();
             SelectedEntityModel = new EntityModel();
-            BeatModifierModel = new BeatModifierModel();
+            
             TextureModel = new TextureModel();
             GeometryModel = new GeometryModel();
             PostFXModel = new PostFXModel();
             MaskModel = new MaskModel();
+            BeatModifierModel = new BeatModifierModel();
         }
 
         public bool Enabled { get; set; }
