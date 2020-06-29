@@ -44,7 +44,6 @@ namespace CMiX.MVVM.ViewModels
                 var entityModel = data.GetData(nameof(EntityModel)) as EntityModel;
                 this.SetViewModel(entityModel);
                 //this.Mementor.EndBatch();
-                //SendMessages(nameof(ContentModel), contentmodel);
             }
         }
 

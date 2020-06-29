@@ -13,14 +13,12 @@ namespace CMiX.MVVM.ViewModels
             Beat = beat;
             Multiplier = 1.0;
             
-
             beat.PeriodChanged += (s, newvalue) =>
             {
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
             };
-            
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
@@ -56,6 +54,5 @@ namespace CMiX.MVVM.ViewModels
         protected override void Multiply() => Multiplier /= 2;
 
         protected override void Divide() => Multiplier *= 2;
-
     }
 }

@@ -7,11 +7,11 @@ namespace CMiX.MVVM.ViewModels
     {
         public Composition(int id, Beat beat) : base (id, beat)
         {
-            //Transition = new Slider(nameof(Transition));
-            //Camera = new Camera(Beat);
+            Transition = new Slider(nameof(Transition));
+            Camera = new Camera(Beat);
         }
 
-        //public Camera Camera { get; set; }
-        //public Slider Transition { get; set; }
+        public Camera Camera { get; set; }
+        public Slider Transition { get; set; }
     }
 }
