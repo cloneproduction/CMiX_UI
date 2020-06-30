@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="C:\Users\BabyClone\Documents\GitHub\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" scrollx="950" scrolly="1100">
-   <BOUNDS type="Window" left="14130" top="500" width="14670" height="11460">
+   <PATCH nodename="C:\Users\BabyClone\Documents\GitHub\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" scrollx="950" scrolly="740">
+   <BOUNDS type="Window" left="15630" top="560" width="14670" height="11460">
    </BOUNDS>
    <NODE systemname="CMiX (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="CMiX (CMiX_VVVV)" componentmode="Hidden" id="1">
    <BOUNDS type="Node" left="2730" top="3105" width="100" height="100">
@@ -1288,26 +1288,6 @@
    </LINK>
    <LINK srcnodeid="188" srcpinname="Position Out" dstnodeid="187" dstpinname="Input">
    </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="195">
-   <BOUNDS type="Box" left="8320" top="7430" width="800" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="8320" top="7430" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="196">
-   <BOUNDS type="Box" left="8690" top="7030" width="800" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="8690" top="7030" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   </NODE>
    <NODE systemname="GetTransform (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetTransform (CMiX_VVVV)" componentmode="Hidden" id="197">
    <BOUNDS type="Node" left="8270" top="15850" width="100" height="100">
    </BOUNDS>
@@ -1337,15 +1317,131 @@
    <LINK srcnodeid="198" srcpinname="Transform" dstnodeid="180" dstpinname="GroupTransform">
    </LINK>
    <NODE systemname="Beat (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="Beat (CMiX_VVVV)" componentmode="Hidden" id="199">
-   <BOUNDS type="Node" left="8310" top="6480" width="100" height="100">
+   <BOUNDS type="Node" left="8430" top="5150" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="8310" top="6480" width="2000" height="2000">
+   <BOUNDS type="Box" left="8430" top="5150" width="2000" height="2000">
    </BOUNDS>
+   <PIN pinname="Period" visible="1">
+   </PIN>
+   <PIN pinname="IBeat" visible="1">
+   </PIN>
    </NODE>
-   <LINK srcnodeid="199" srcpinname="Period" dstnodeid="195" dstpinname="Y Input Value">
+   <NODE systemname="LFO (Animation)" nodename="LFO (Animation)" componentmode="Hidden" id="200">
+   <BOUNDS type="Node" left="8430" top="7020" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Period" visible="1">
+   </PIN>
+   <PIN pinname="Change" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Divide (Value)" nodename="Divide (Value)" componentmode="Hidden" id="201">
+   <BOUNDS type="Node" left="8430" top="6510" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Input 2" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="199" srcpinname="Period" dstnodeid="201" dstpinname="Input">
    </LINK>
-   <LINK srcnodeid="199" srcpinname="Multiplier" dstnodeid="196" dstpinname="Y Input Value">
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="202">
+   <BOUNDS type="Box" left="8620" top="6020" width="800" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="8620" top="6020" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1000">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="202" srcpinname="Y Output Value" dstnodeid="201" dstpinname="Input 2">
    </LINK>
-   <LINK srcnodeid="43" srcpinname="Composition" dstnodeid="199" dstpinname="IBeat">
+   <LINK srcnodeid="201" srcpinname="Output" dstnodeid="200" dstpinname="Period">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="203">
+   <BOUNDS type="Box" left="8770" top="7650" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="8770" top="7650" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Bang">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="200" srcpinname="Change" dstnodeid="203" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="1" srcpinname="Project" dstnodeid="199" dstpinname="IBeat">
+   </LINK>
+   <NODE systemname="Beat (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="Beat (CMiX_VVVV)" componentmode="Hidden" id="208">
+   <BOUNDS type="Node" left="6720" top="5070" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6720" top="5070" width="2000" height="2000">
+   </BOUNDS>
+   <PIN pinname="Period" visible="1">
+   </PIN>
+   <PIN pinname="IBeat" visible="1" slicecount="1" values="||">
+   </PIN>
+   </NODE>
+   <NODE systemname="LFO (Animation)" nodename="LFO (Animation)" componentmode="Hidden" id="207">
+   <BOUNDS type="Node" left="6730" top="6920" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Period" visible="1">
+   </PIN>
+   <PIN pinname="Change" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Divide (Value)" nodename="Divide (Value)" componentmode="Hidden" id="206">
+   <BOUNDS type="Node" left="6730" top="6410" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Input 2" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="208" srcpinname="Period" dstnodeid="206" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="205">
+   <BOUNDS type="Box" left="6920" top="5920" width="800" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="6920" top="5920" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1000">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="205" srcpinname="Y Output Value" dstnodeid="206" dstpinname="Input 2">
+   </LINK>
+   <LINK srcnodeid="206" srcpinname="Output" dstnodeid="207" dstpinname="Period">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="204">
+   <BOUNDS type="Box" left="7070" top="7550" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="7070" top="7550" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Bang">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="207" srcpinname="Change" dstnodeid="204" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="43" srcpinname="Composition" dstnodeid="208" dstpinname="IBeat">
    </LINK>
    </PATCH>

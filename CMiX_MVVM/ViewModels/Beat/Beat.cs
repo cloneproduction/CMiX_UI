@@ -42,7 +42,6 @@ namespace CMiX.MVVM.ViewModels
             {
                 Period = 60000 / value;
                 SetAndNotify(ref _bpm, value);
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 
@@ -50,11 +49,7 @@ namespace CMiX.MVVM.ViewModels
         public virtual double Multiplier
         {
             get => _multiplier;
-            set
-            {
-                SetAndNotify(ref _multiplier, value);
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
-            }
+            set =>  SetAndNotify(ref _multiplier, value);
         }
 
         private void Reset() => Multiplier = 1;

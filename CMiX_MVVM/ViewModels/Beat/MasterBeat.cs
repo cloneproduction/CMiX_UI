@@ -36,9 +36,6 @@ namespace CMiX.MVVM.ViewModels
             SubscribeToEvent(parentSendable);
         }
 
-
-
-
         public event EventHandler BeatTap;
         public void OnBeatTap()
         {
@@ -67,7 +64,7 @@ namespace CMiX.MVVM.ViewModels
 
         public ICommand ResyncCommand { get; }
         public ICommand TapCommand { get; }
-        public DispatcherTimer Timer { get; set; }
+        //public DispatcherTimer Timer { get; set; }
         public Stopwatch Stopwatch { get; set; }
 
 
@@ -94,7 +91,7 @@ namespace CMiX.MVVM.ViewModels
                 Notify(nameof(BPM));
                 if (Period > 0)
                     BeatTick = 0;
-                //OnSendChange(this.GetModel(), this.GetMessageAddress());
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 

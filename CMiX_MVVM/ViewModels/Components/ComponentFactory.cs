@@ -31,7 +31,6 @@ namespace CMiX.MVVM.ViewModels
         {
             var masterBeat = new MasterBeat(1000, 0);
             var newProject = new Project(ID, masterBeat, null);
-            masterBeat.SubscribeToEvent(newProject);
             ID++;
             return newProject;
         }

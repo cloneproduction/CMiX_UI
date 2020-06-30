@@ -6,11 +6,10 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Project : Component
     {
-        public Project(int id, Beat beat) : base(id, beat) { } 
         public Project(int id, Beat beat, IDialogService dialogService) : base(id, beat)
         {
             DialogService = dialogService;
-
+            beat.SubscribeToEvent(this);
             Assets = new ObservableCollection<IAssets>();
 
             ComponentsInEditing = new ObservableCollection<Component>();
