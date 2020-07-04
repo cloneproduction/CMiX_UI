@@ -1,10 +1,11 @@
-﻿using CMiX.MVVM.Models;
+﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class BeatModifier : Beat
+    public class BeatModifier : Beat, IBeat
     {
         public BeatModifier(Beat beat)
         {
@@ -29,7 +30,7 @@ namespace CMiX.MVVM.ViewModels
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
-        private Beat Beat { get; }
+        public Beat Beat { get; set; }
         public Slider ChanceToHit { get; }
 
         public override double Period

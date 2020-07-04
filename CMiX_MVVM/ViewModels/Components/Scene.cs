@@ -2,7 +2,7 @@
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Scene : Component, ITransform
+    public class Scene : Component, ITransform, IBeatModifier
     {
         public Scene(int id, Beat beat) : base(id, beat)
         {
