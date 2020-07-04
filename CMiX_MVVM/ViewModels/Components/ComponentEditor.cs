@@ -7,9 +7,10 @@ namespace CMiX.MVVM.ViewModels
 {
     public class ComponentEditor : ViewModel
     {
-        public ComponentEditor(Project project)
+        public ComponentEditor(Component component)
         {
-            Components = project.ComponentsInEditing;
+            //Components = project.ComponentsInEditing;
+            SelectedComponent = component;
             EditComponentCommand = new RelayCommand(p => EditComponent(p as Component));
             RemoveComponentCommand = new RelayCommand(p => RemoveComponentFromEditing(p as Component));
         }
@@ -35,7 +36,12 @@ namespace CMiX.MVVM.ViewModels
         public Component SelectedComponent
         {
             get => _selectedComponent;
-            set => SetAndNotify(ref _selectedComponent, value);
+            set
+            {
+                SetAndNotify(ref _selectedComponent, value);
+                if(SelectedComponent != null)
+                    System.Console.WriteLine(SelectedComponent.GetType()); 
+            }
         }
 
         public void RemoveComponentFromEditing(Component component)

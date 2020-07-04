@@ -30,12 +30,14 @@ namespace CMiX.MVVM.ViewModels
 
         public ObservableCollection<Component> Components { get; set; }
 
+
         private Component _selectedComponent;
         public Component SelectedComponent
         {
             get => _selectedComponent;
             set => SetAndNotify(ref _selectedComponent, value);
         }
+
 
         private string _addContentText;
         public string AddContentText

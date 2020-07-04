@@ -11,6 +11,7 @@ namespace CMiX.MVVM.ViewModels
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
+            ////System.Console.WriteLine("DataTemplateSelector is " + item.GetType()); ;
             if (item != null && item is Composition)
                 return CompositionTemplate;
             else if (item != null && item is Layer)

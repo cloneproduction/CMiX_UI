@@ -29,11 +29,12 @@ namespace CMiX.MVVM.ViewModels
 
             AssetManager = new AssetManager(CurrentProject);
             MessengerManager = new MessengerManager(CurrentProject, DialogService);
-            ComponentEditor = new ComponentEditor(CurrentProject);
+            
             ComponentManager = new ComponentManager(CurrentProject);
-            ComponentManager.ComponentDeletedEvent += ComponentEditor.ComponentDeletedEvent;
+            //ComponentManager.ComponentDeletedEvent += ComponentEditor.ComponentDeletedEvent;
 
             Outliner = new Outliner(Projects);
+            ComponentEditor = new ComponentEditor(Outliner.SelectedComponent);
 
             CloseWindowCommand = new RelayCommand(p => CloseWindow(p));
             MinimizeWindowCommand = new RelayCommand(p => MinimizeWindow(p));
