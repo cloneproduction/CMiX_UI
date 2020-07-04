@@ -64,7 +64,6 @@ namespace CMiX.MVVM.ViewModels
 
         public ICommand ResyncCommand { get; }
         public ICommand TapCommand { get; }
-        //public DispatcherTimer Timer { get; set; }
         public Stopwatch Stopwatch { get; set; }
 
 

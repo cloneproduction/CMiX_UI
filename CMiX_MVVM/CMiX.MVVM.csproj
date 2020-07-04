@@ -106,7 +106,7 @@
     <Compile Include="Controls\ToggleButton\CMiXToggleButton.cs" />
     <Compile Include="Controls\ToggleButton\ToggleDockPosition.cs" />
     <Compile Include="Models\ComboBoxModel.cs" />
-    <Compile Include="Models\Interfaces\IBeat.cs" />
+    <Compile Include="ViewModels\Beat\IBeat.cs" />
     <Compile Include="Models\InverterModel.cs" />
     <Compile Include="Resources\Easing.cs" />
     <Compile Include="ViewModels\Assets\AssetModelFactory.cs" />

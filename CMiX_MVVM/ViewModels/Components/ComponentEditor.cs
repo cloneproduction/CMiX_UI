@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using CMiX.MVVM.ViewModels;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -9,7 +7,6 @@ namespace CMiX.MVVM.ViewModels
     {
         public ComponentEditor(Component component)
         {
-            //Components = project.ComponentsInEditing;
             SelectedComponent = component;
             EditComponentCommand = new RelayCommand(p => EditComponent(p as Component));
             RemoveComponentCommand = new RelayCommand(p => RemoveComponentFromEditing(p as Component));

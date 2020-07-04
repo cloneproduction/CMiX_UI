@@ -15,10 +15,6 @@
     d:DesignWidth="415.712"
     mc:Ignorable="d">
 
-    <!--<i:Interaction.Behaviors>
-        <Behaviors:ContextMenuMouseDownBehavior/>
-    </i:Interaction.Behaviors>-->
-    
     <UserControl.Resources>
         <ResourceDictionary>
             <Resources:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
@@ -33,46 +29,6 @@
     </UserControl.Resources>
 
     <Border>
-        <!--<Border.ContextMenu>
-            <ContextMenu>
-                <MenuItem
-                    Padding="8, 4"
-                    Foreground="{StaticResource TextBase}"
-                    Command="{Binding Data.CopyGeometryCommand, Source={StaticResource ProjectProxy}}">
-                    <MenuItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Width="10" Height="10" Source="{StaticResource Copy}" />
-                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                            <TextBlock Text="Copy Geometry"/>
-                        </StackPanel>
-                    </MenuItem.Header>
-                </MenuItem>
-                <MenuItem
-                    Padding="8, 4"
-                    Foreground="{StaticResource TextBase}"
-                    Command="{Binding Data.PasteGeometryCommand, Source={StaticResource ProjectProxy}}">
-                    <MenuItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Width="10" Height="10" Source="{StaticResource Paste}" />
-                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                            <TextBlock Text="Paste Geometry"/>
-                        </StackPanel>
-                    </MenuItem.Header>
-                </MenuItem>
-                <MenuItem
-                    Padding="8, 4"
-                    Foreground="{StaticResource TextBase}"
-                    Command="{Binding Data.ResetGeometryCommand, Source={StaticResource ProjectProxy}}">
-                    <MenuItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Width="10" Height="10" Source="{StaticResource Reset}" />
-                            <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                            <TextBlock Text="Reset Geometry"/>
-                        </StackPanel>
-                    </MenuItem.Header>
-                </MenuItem>
-            </ContextMenu>
-        </Border.ContextMenu>-->
         <StackPanel>
             <Border
                 Height="25"
@@ -97,14 +53,17 @@
                     DockPanel.Dock="Bottom" 
                     DataContext="{Binding Transform}"/>
             </Expander>
+            
             <Views:Instancer 
                 DockPanel.Dock="Bottom" 
                 Margin="0, 2" 
                 DataContext="{Binding Instancer}"/>
+            
             <Views:GeometryFX  
                 Margin="0, 2"
                 DockPanel.Dock="Bottom" 
                 DataContext="{Binding GeometryFX}"/>
+            
         </StackPanel>
     </Border>
     

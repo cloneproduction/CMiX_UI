@@ -36,7 +36,7 @@ namespace CMiX.Nodes
 			Project = ComponentFactory.CreateProject();
             var receiver = new Receiver();
 			Project.Receiver = receiver;
-            Settings settings = new Settings("Pouet", "Pouet", "192.168.0.192", 2222);
+            Settings settings = new Settings("Pouet", "Pouet", "192.168.1.4", 2222);
             receiver.SetSettings(settings);
             receiver.DataReceivedEvent += Receiver_DataReceivedEvent;
 			receiver.DataReceivedEvent += Project.OnParentReceiveChange;
@@ -47,7 +47,7 @@ namespace CMiX.Nodes
 			FProjectOut[0] = this.Project;
 		}
 
-		private void Receiver_DataReceivedEvent(object sender, CMiX.MVVM.Services.ModelEventArgs e)
+		private void Receiver_DataReceivedEvent(object sender, MVVM.Services.ModelEventArgs e)
         {
 			FProjectOut[0] = this.Project;
 			FDataType[0] = e.Model.GetType().Name;

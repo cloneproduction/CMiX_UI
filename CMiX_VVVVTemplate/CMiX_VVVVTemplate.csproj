@@ -132,7 +132,7 @@
     <Compile Include="GetLayer.cs" />
     <Compile Include="GetScene.cs" />
     <Compile Include="GetTexture.cs" />
-    <Compile Include="GetGeometryTransform.cs" />
+    <Compile Include="GetTransform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TranslateModifier.cs" />
   </ItemGroup>

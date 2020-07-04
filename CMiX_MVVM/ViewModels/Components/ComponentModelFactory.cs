@@ -196,6 +196,7 @@ namespace CMiX.MVVM.ViewModels
             sceneModel.BeatModifierModel = instance.BeatModifier.GetModel();
             sceneModel.PostFXModel = instance.PostFX.GetModel();
             sceneModel.MaskModel = instance.Mask.GetModel();
+            sceneModel.TransformModel = instance.Transform.GetModel();
 
             foreach (Entity item in instance.Components)
                 sceneModel.ComponentModels.Add(item.GetModel());
@@ -215,6 +216,7 @@ namespace CMiX.MVVM.ViewModels
             instance.BeatModifier.SetViewModel(sceneModel.BeatModifierModel);
             instance.PostFX.SetViewModel(sceneModel.PostFXModel);
             instance.Mask.SetViewModel(sceneModel.MaskModel);
+            instance.Transform.SetViewModel(sceneModel.TransformModel);
 
             instance.Components.Clear();
             foreach (EntityModel entityModel in sceneModel.ComponentModels)

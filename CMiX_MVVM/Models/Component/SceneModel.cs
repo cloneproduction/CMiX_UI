@@ -1,6 +1,6 @@
-﻿using CMiX.MVVM.Interfaces;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
+using CMiX.MVVM.Interfaces;
 
 namespace CMiX.MVVM.Models
 {
@@ -10,8 +10,8 @@ namespace CMiX.MVVM.Models
         public SceneModel()
         {
             ComponentModels = new ObservableCollection<IComponentModel>();
-            SelectedEntityModel = new EntityModel();
-            
+
+            TransformModel = new TransformModel();
             TextureModel = new TextureModel();
             GeometryModel = new GeometryModel();
             PostFXModel = new PostFXModel();
@@ -22,8 +22,7 @@ namespace CMiX.MVVM.Models
         public bool Enabled { get; set; }
         public bool IsVisible { get; set; }
 
-        public EntityModel SelectedEntityModel { get; set; }
-
+        public TransformModel TransformModel { get; set; }
         public MaskModel MaskModel { get; set; }
         public BeatModifierModel BeatModifierModel { get; set; }
         public TextureModel TextureModel { get; set; }
