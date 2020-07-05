@@ -15,9 +15,9 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <Resources:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
-            <ObjectDataProvider x:Key="AnimMode" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider x:Key="Mode" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
                 <ObjectDataProvider.MethodParameters>
-                    <x:Type TypeName="ViewModels:AnimMode"/>
+                    <x:Type TypeName="ViewModels:AnimModeEnum"/>
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
         </ResourceDictionary>
@@ -32,7 +32,7 @@
                         <Style TargetType="Border">
                             <Setter Property="Visibility" Value="Visible"/>
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding ElementName=Translate, Path=DataContext.Mode}"  Value="{x:Static ViewModels:AnimMode.None}">
+                                <DataTrigger Binding="{Binding ElementName=Translate, Path=DataContext.Mode}"  Value="{x:Static ViewModels:AnimModeEnum.None}">
                                     <Setter Property="Visibility" Value="Collapsed"/>
                                 </DataTrigger>
                             </Style.Triggers>

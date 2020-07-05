@@ -130,7 +130,7 @@ namespace CMiX.ViewModels
         private Layer DuplicateLayer(Layer layer)
         {
             var parent = GetSelectedParent(Components);
-            Layer newLayer = ComponentFactory.CreateLayer(parent);
+            Layer newLayer = ComponentFactory.CreateLayer(parent as Composition);
             newLayer.SetViewModel(layer.GetModel());
             newLayer.Name += " -Copy";
             parent.Components.Insert(parent.Components.IndexOf(layer) + 1, newLayer);
@@ -141,7 +141,7 @@ namespace CMiX.ViewModels
         private Entity DuplicateEntity(Entity entity)
         {
             var parent = GetSelectedParent(Components);
-            var component = ComponentFactory.CreateEntity(parent);
+            var component = ComponentFactory.CreateEntity(parent as Scene);
             component.SetViewModel(entity.GetModel());
             component.Name += " -Copy";
             parent.Components.Insert(parent.Components.IndexOf(entity) + 1, component);

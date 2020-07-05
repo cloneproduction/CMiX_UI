@@ -5,12 +5,11 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Component : Sendable, IBeat
+    public abstract class Component : Sendable
     {
-        public Component(int id, Beat beat)
+        public Component(int id)
         {
             ID = id;
-            Beat = beat;
             Name = $"{GetType().Name}{ID}";
 
             IsExpanded = true;
@@ -32,7 +31,6 @@ namespace CMiX.MVVM.ViewModels
         }
 
         ICommand TreeViewItemRigthClickCommand { get; set; }
-        public Beat Beat { get; set; }
 
         public override string GetMessageAddress()
         {

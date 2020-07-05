@@ -1,6 +1,6 @@
 ﻿namespace CMiX.MVVM.ViewModels
 {
-    public enum AnimMode
+    public enum AnimModeEnum
     {
         None,
         Flash,

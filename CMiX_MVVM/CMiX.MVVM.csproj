@@ -106,6 +106,9 @@
     <Compile Include="Controls\ToggleButton\CMiXToggleButton.cs" />
     <Compile Include="Controls\ToggleButton\ToggleDockPosition.cs" />
     <Compile Include="Models\ComboBoxModel.cs" />
+    <Compile Include="Models\Geometry\Modifier\AnimModeModel.cs" />
+    <Compile Include="ViewModels\AnimParameter\AnimMode.cs" />
+    <Compile Include="ViewModels\AnimParameter\AnimModeModelFactory.cs" />
     <Compile Include="ViewModels\Beat\IBeatModifier.cs" />
     <Compile Include="ViewModels\Beat\IBeat.cs" />
     <Compile Include="Models\InverterModel.cs" />
@@ -248,7 +251,7 @@
     <Compile Include="ViewModels\Sendable.cs" />
     <Compile Include="ViewModels\Slider\Slider.cs" />
     <Compile Include="ViewModels\Slider\SliderModelFactory.cs" />
-    <Compile Include="ViewModels\_Enums\AnimMode.cs" />
+    <Compile Include="ViewModels\_Enums\AnimModeEnum.cs" />
     <Compile Include="ViewModels\_Enums\EasingTypes.cs" />
     <Compile Include="Views\Dialogs\CustomWindowDialog.xaml.cs">
       <DependentUpon>CustomWindowDialog.xaml</DependentUpon>

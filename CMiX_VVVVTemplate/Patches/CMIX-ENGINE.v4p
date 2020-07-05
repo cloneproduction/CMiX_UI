@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" scrollx="2955" scrolly="6360">
-   <BOUNDS type="Window" left="12270" top="1545" width="15825" height="12690">
+   <PATCH nodename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" scrollx="7125" scrolly="8910">
+   <BOUNDS type="Window" left="8400" top="1080" width="15825" height="12690">
    </BOUNDS>
    <NODE systemname="CMiX (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="CMiX (CMiX_VVVV)" componentmode="Hidden" id="1">
    <BOUNDS type="Node" left="2730" top="3105" width="100" height="100">
@@ -861,9 +861,9 @@
    <LINK srcnodeid="154" srcpinname="Enum" dstnodeid="153" dstpinname="Input Enum">
    </LINK>
    <NODE systemname="TranslateModifier (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="TranslateModifier (CMiX_VVVV)" componentmode="Hidden" id="155">
-   <BOUNDS type="Node" left="16360" top="15545" width="6480" height="270">
+   <BOUNDS type="Node" left="15860" top="15280" width="3675" height="270">
    </BOUNDS>
-   <BOUNDS type="Box" left="16360" top="15545" width="3000" height="3000">
+   <BOUNDS type="Box" left="15860" top="15280" width="3000" height="3000">
    </BOUNDS>
    <PIN pinname="Instancer" visible="1" slicecount="1" values="||">
    </PIN>
@@ -891,128 +891,14 @@
    </PIN>
    <PIN pinname="TranslateZMode" visible="1">
    </PIN>
+   <PIN pinname="TranslatePeriod" visible="1">
+   </PIN>
+   <PIN pinname="TranslateChanceToHit" visible="1">
+   </PIN>
+   <PIN pinname="TranslateMultiplier" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="16" srcpinname="Instancer" dstnodeid="155" dstpinname="Instancer">
-   </LINK>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="158">
-   <BOUNDS type="Box" left="17285" top="16910" width="795" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="17285" top="16910" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Default" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="File Mask" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
-   </PIN>
-   <PIN pinname="Input String" visible="1">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="160">
-   <BOUNDS type="Box" left="16360" top="16910" width="795" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="16360" top="16910" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Y Input Value" visible="1">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="162">
-   <BOUNDS type="Box" left="22060" top="17015" width="795" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="22060" top="17015" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Default" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="File Mask" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
-   </PIN>
-   <PIN pinname="Input String" visible="1">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="161">
-   <BOUNDS type="Box" left="20680" top="16790" width="795" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="20680" top="16790" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Y Input Value" visible="1">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="165">
-   <BOUNDS type="Box" left="20035" top="17150" width="795" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="20035" top="17150" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Default" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="File Mask" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
-   </PIN>
-   <PIN pinname="Input String" visible="1">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="164">
-   <BOUNDS type="Box" left="18215" top="16915" width="795" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="18215" top="16915" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Y Input Value" visible="1">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="168">
-   <BOUNDS type="Box" left="24685" top="17060" width="795" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="24685" top="17060" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Default" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="File Mask" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
-   </PIN>
-   <PIN pinname="Input String" visible="1">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="167">
-   <BOUNDS type="Box" left="23305" top="16835" width="795" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="23305" top="16835" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Y Input Value" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="155" srcpinname="TranslateInfluence" dstnodeid="160" dstpinname="Y Input Value">
-   </LINK>
-   <LINK srcnodeid="155" srcpinname="TranslateMode" dstnodeid="158" dstpinname="Input String">
-   </LINK>
-   <LINK srcnodeid="155" srcpinname="TranslateXInfluence" dstnodeid="164" dstpinname="Y Input Value">
-   </LINK>
-   <LINK srcnodeid="155" srcpinname="TranslateXMode" dstnodeid="165" dstpinname="Input String">
-   </LINK>
-   <LINK srcnodeid="155" srcpinname="TranslateYInfluence" dstnodeid="161" dstpinname="Y Input Value">
-   </LINK>
-   <LINK srcnodeid="155" srcpinname="TranslateYMode" dstnodeid="162" dstpinname="Input String">
-   </LINK>
-   <LINK srcnodeid="155" srcpinname="TranslateZInfluence" dstnodeid="167" dstpinname="Y Input Value">
-   </LINK>
-   <LINK srcnodeid="155" srcpinname="TranslateZMode" dstnodeid="168" dstpinname="Input String">
    </LINK>
    <NODE systemname="I (Spreads)" nodename="I (Spreads)" componentmode="Hidden" id="170">
    <BOUNDS type="Node" left="3900" top="15000" width="100" height="100">
@@ -1191,7 +1077,7 @@
    <NODE systemname="Sift (String)" nodename="Sift (String)" componentmode="Hidden" id="191">
    <BOUNDS type="Node" left="12280" top="14805" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Filter" visible="1">
+   <PIN pinname="Filter" visible="1" slicecount="1" values="text">
    </PIN>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -1267,7 +1153,7 @@
    </BOUNDS>
    <PIN pinname="Period" visible="1">
    </PIN>
-   <PIN pinname="IBeat" visible="1">
+   <PIN pinname="IBeat" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
    <NODE systemname="LFO (Animation)" nodename="LFO (Animation)" componentmode="Hidden" id="200">
@@ -1321,8 +1207,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="200" srcpinname="Change" dstnodeid="203" dstpinname="Y Input Value">
-   </LINK>
-   <LINK srcnodeid="1" srcpinname="Project" dstnodeid="199" dstpinname="IBeat">
    </LINK>
    <NODE systemname="Beat (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="Beat (CMiX_VVVV)" componentmode="Hidden" id="208">
    <BOUNDS type="Node" left="6740" top="5530" width="100" height="100">
@@ -1467,5 +1351,301 @@
    <LINK srcnodeid="180" srcpinname="Layer" dstnodeid="219" dstpinname="Layer">
    </LINK>
    <LINK srcnodeid="216" srcpinname="Output" dstnodeid="219" dstpinname="Texture Count">
+   </LINK>
+   <NODE systemname="GetAnimParameter (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetAnimParameter (CMiX_VVVV)" componentmode="Hidden" id="222">
+   <BOUNDS type="Node" left="15840" top="16545" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="15840" top="16545" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="AnimParameter" visible="1">
+   </PIN>
+   <PIN pinname="Influence" visible="1">
+   </PIN>
+   <PIN pinname="Mode" visible="1">
+   </PIN>
+   <PIN pinname="Multiplier" visible="1">
+   </PIN>
+   <PIN pinname="ChanceToHit" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="155" srcpinname="Translate" dstnodeid="222" dstpinname="AnimParameter">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="223">
+   <BOUNDS type="Box" left="15855" top="17310" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="15855" top="17310" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Influence">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="222" srcpinname="Influence" dstnodeid="223" dstpinname="Y Input Value">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="224">
+   <BOUNDS type="Box" left="16275" top="17955" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="16275" top="17955" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Mode">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="222" srcpinname="Mode" dstnodeid="224" dstpinname="Input String">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="225">
+   <BOUNDS type="Box" left="16695" top="18495" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="16695" top="18495" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Multiplier">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="222" srcpinname="Multiplier" dstnodeid="225" dstpinname="Y Input Value">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="226">
+   <BOUNDS type="Box" left="17160" top="19350" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="17160" top="19350" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="222" srcpinname="ChanceToHit" dstnodeid="226" dstpinname="Y Input Value">
+   </LINK>
+   <NODE systemname="GetAnimParameter (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetAnimParameter (CMiX_VVVV)" componentmode="Hidden" id="231">
+   <BOUNDS type="Node" left="18555" top="16500" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="18555" top="16500" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="AnimParameter" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Influence" visible="1">
+   </PIN>
+   <PIN pinname="Mode" visible="1">
+   </PIN>
+   <PIN pinname="Multiplier" visible="1">
+   </PIN>
+   <PIN pinname="ChanceToHit" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="230">
+   <BOUNDS type="Box" left="18570" top="17265" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="18570" top="17265" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Influence">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="231" srcpinname="Influence" dstnodeid="230" dstpinname="Y Input Value">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="229">
+   <BOUNDS type="Box" left="18990" top="17910" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="18990" top="17910" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Mode">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="231" srcpinname="Mode" dstnodeid="229" dstpinname="Input String">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="228">
+   <BOUNDS type="Box" left="19410" top="18450" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="19410" top="18450" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Multiplier">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="231" srcpinname="Multiplier" dstnodeid="228" dstpinname="Y Input Value">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="227">
+   <BOUNDS type="Box" left="19875" top="19305" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="19875" top="19305" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="231" srcpinname="ChanceToHit" dstnodeid="227" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="155" srcpinname="TranslateX" dstnodeid="231" dstpinname="AnimParameter">
+   </LINK>
+   <NODE systemname="GetAnimParameter (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetAnimParameter (CMiX_VVVV)" componentmode="Hidden" id="236">
+   <BOUNDS type="Node" left="21225" top="16470" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="21225" top="16470" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="AnimParameter" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Influence" visible="1">
+   </PIN>
+   <PIN pinname="Mode" visible="1">
+   </PIN>
+   <PIN pinname="Multiplier" visible="1">
+   </PIN>
+   <PIN pinname="ChanceToHit" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="235">
+   <BOUNDS type="Box" left="21240" top="17235" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="21240" top="17235" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Influence">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="236" srcpinname="Influence" dstnodeid="235" dstpinname="Y Input Value">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="234">
+   <BOUNDS type="Box" left="21660" top="17880" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="21660" top="17880" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Mode">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="236" srcpinname="Mode" dstnodeid="234" dstpinname="Input String">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="233">
+   <BOUNDS type="Box" left="22080" top="18420" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="22080" top="18420" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Multiplier">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="236" srcpinname="Multiplier" dstnodeid="233" dstpinname="Y Input Value">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="232">
+   <BOUNDS type="Box" left="22545" top="19275" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="22545" top="19275" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="236" srcpinname="ChanceToHit" dstnodeid="232" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="155" srcpinname="TranslateY" dstnodeid="236" dstpinname="AnimParameter">
+   </LINK>
+   <NODE systemname="GetAnimParameter (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetAnimParameter (CMiX_VVVV)" componentmode="Hidden" id="241">
+   <BOUNDS type="Node" left="23595" top="16425" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="23595" top="16425" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="AnimParameter" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Influence" visible="1">
+   </PIN>
+   <PIN pinname="Mode" visible="1">
+   </PIN>
+   <PIN pinname="Multiplier" visible="1">
+   </PIN>
+   <PIN pinname="ChanceToHit" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="240">
+   <BOUNDS type="Box" left="23610" top="17190" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="23610" top="17190" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Influence">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="241" srcpinname="Influence" dstnodeid="240" dstpinname="Y Input Value">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="239">
+   <BOUNDS type="Box" left="24030" top="17835" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="24030" top="17835" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Mode">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="241" srcpinname="Mode" dstnodeid="239" dstpinname="Input String">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="238">
+   <BOUNDS type="Box" left="24450" top="18375" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="24450" top="18375" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Multiplier">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="241" srcpinname="Multiplier" dstnodeid="238" dstpinname="Y Input Value">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="237">
+   <BOUNDS type="Box" left="24915" top="19230" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="24915" top="19230" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="241" srcpinname="ChanceToHit" dstnodeid="237" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="155" srcpinname="TranslateZ" dstnodeid="241" dstpinname="AnimParameter">
    </LINK>
    </PATCH>

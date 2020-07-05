@@ -9,7 +9,7 @@ namespace CMiX.MVVM.ViewModels
     {
         public BeatModifier(Beat beat)
         {
-            ChanceToHit = new Slider(nameof(ChanceToHit)) { Amount = 1.0 };
+            ChanceToHit = new Slider(nameof(ChanceToHit), this) { Amount = 1.0 };
 
             Beat = beat;
             Multiplier = 1.0;
@@ -20,6 +20,11 @@ namespace CMiX.MVVM.ViewModels
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
             };
+        }
+
+        public BeatModifier(Beat beat, Sendable parentSendable) : this(beat)
+        {
+            SubscribeToEvent(parentSendable);
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)

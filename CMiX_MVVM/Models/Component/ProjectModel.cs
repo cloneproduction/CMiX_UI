@@ -10,7 +10,6 @@ namespace CMiX.MVVM.Models
             ComponentModels = new ObservableCollection<IComponentModel>();
             AssetModels = new ObservableCollection<IAssetModel>();
             AssetModelsFlatten = new ObservableCollection<IAssetModel>();
-            Beat = new BeatModel();
         }
 
         public bool Enabled { get; set; }
@@ -19,7 +18,6 @@ namespace CMiX.MVVM.Models
         public string Name { get; set; }
         public bool IsVisible { get; set; }
 
-        public BeatModel Beat { get; set; }
         public ObservableCollection<IComponentModel> ComponentModels { get; set; }
         public ObservableCollection<IAssetModel> AssetModels { get; set; }
         public ObservableCollection<IAssetModel> AssetModelsFlatten { get; set; }

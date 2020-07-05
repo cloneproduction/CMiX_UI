@@ -53,8 +53,6 @@ namespace CMiX.MVVM.ViewModels
             projectModel.Name = instance.Name;
             projectModel.IsVisible = instance.IsVisible;
 
-            projectModel.Beat = instance.Beat.GetModel();
-
             foreach (Component component in instance.Components)
                 projectModel.ComponentModels.Add(component.GetModel());
                 
@@ -74,8 +72,6 @@ namespace CMiX.MVVM.ViewModels
             instance.ID = projectModel.ID;
             instance.Name = projectModel.Name;
             instance.IsVisible = projectModel.IsVisible;
-
-            instance.Beat.SetViewModel(projectModel.Beat);
 
             instance.Components.Clear();
             foreach (CompositionModel compositionModel in projectModel.ComponentModels)

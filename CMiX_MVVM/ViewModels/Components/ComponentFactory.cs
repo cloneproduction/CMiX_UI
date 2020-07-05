@@ -18,33 +18,34 @@ namespace CMiX.MVVM.ViewModels
             else if (component is Project)
                 return CreateComposition(component);
             else if (component is Composition)
-                return CreateLayer(component);
+                return CreateLayer(component as Composition);
             else if (component is Layer)
-                return CreateScene(component);
+                return CreateScene(component as Layer);
             else if (component is Scene)
-                return CreateEntity(component);
+                return CreateEntity(component as Scene);
             else
                 return null;
         }
 
         public static Project CreateProject()
         {
-            var masterBeat = new MasterBeat(1000, 0);
-            var newProject = new Project(ID, masterBeat, null);
+            
+            var newProject = new Project(ID, null);
             ID++;
             return newProject;
         }
 
         public static Composition CreateComposition(Component parentComponent)
         {
-            var component = new Composition(ID, parentComponent.Beat);
+            var masterBeat = new MasterBeat(1000, 0);
+            var component = new Composition(ID, masterBeat);
             parentComponent.AddComponent(component);
             SubscribeToEvent(parentComponent, component);
             ID++;
             return component;
         }
 
-        public static Layer CreateLayer(Component parentComponent)
+        public static Layer CreateLayer(Composition parentComponent)
         {
             var component = new Layer(ID, parentComponent.Beat);
             parentComponent.AddComponent(component);
@@ -53,7 +54,7 @@ namespace CMiX.MVVM.ViewModels
             return component;
         }
 
-        public static Scene CreateScene(Component parentComponent)
+        public static Scene CreateScene(Layer parentComponent)
         {
             var component = new Scene(ID, parentComponent.Beat);
             parentComponent.AddComponent(component);
@@ -63,7 +64,7 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public static Entity CreateEntity(Component parentComponent)
+        public static Entity CreateEntity(Scene parentComponent)
         {
             var component = new Entity(ID, parentComponent.Beat);
             parentComponent.AddComponent(component);

@@ -5,14 +5,13 @@ namespace CMiX.MVVM.ViewModels
 {
     public class AnimParameter : Sendable
     {
-        public AnimParameter(string name, Beat beat, bool isEnabled)
+        public AnimParameter(string name, Beat beat, bool isEnabled = true)
         {
-            Name = name;
+            Mode = new AnimMode(this);
             Influence = new Slider(nameof(Influence), this);
-            BeatModifier = new BeatModifier(beat);
-          
-            Mode = AnimMode.None;
+            BeatModifier = new BeatModifier(beat, this);
             IsEnabled = isEnabled;
+            Name = name;
         }
 
         public override string GetMessageAddress()
@@ -51,17 +50,7 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        private AnimMode _Mode;
-        public AnimMode Mode
-        {
-            get => _Mode;
-            set
-            {
-                SetAndNotify(ref _Mode, value);
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
-            }
-        }
-
+        public AnimMode Mode { get; set; }
         public Slider Influence { get; set; }
         public BeatModifier BeatModifier { get; set; }
     }

@@ -13,17 +13,6 @@
              d:DesignWidth="316.667"
              mc:Ignorable="d">
 
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <Resources:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
-            <ObjectDataProvider x:Key="AnimMode" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
-                <ObjectDataProvider.MethodParameters>
-                    <x:Type TypeName="ViewModels:AnimMode"/>
-                </ObjectDataProvider.MethodParameters>
-            </ObjectDataProvider>
-        </ResourceDictionary>
-    </UserControl.Resources>
-
     <Border Padding="4" IsEnabled="{Binding IsEnabled}">
         <StackPanel >
             <Grid Height="20" Margin="0,4, 0, 0">
@@ -39,16 +28,15 @@
                     Foreground="{StaticResource TextBase}"/>
                 <ComboBox
                     Grid.Column="1"
-                    ItemsSource="{Binding Source={StaticResource AnimMode}}"
-                    SelectedItem="{Binding Mode}"
-                    SelectedIndex="0"/>
+                    ItemsSource="{Binding Mode.AnimModeSource}"
+                    SelectedItem="{Binding Mode.Mode}"/>
             </Grid>
             <Border>
                 <Border.Style>
                     <Style TargetType="Border">
                         <Setter Property="Visibility" Value="Visible"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding Mode}"  Value="{x:Static ViewModels:AnimMode.None}">
+                            <DataTrigger Binding="{Binding Mode}"  Value="{x:Static ViewModels:AnimModeEnum.None}">
                                 <Setter Property="Visibility" Value="Collapsed"/>
                             </DataTrigger>
                         </Style.Triggers>

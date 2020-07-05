@@ -120,6 +120,7 @@
   <ItemGroup>
     <Compile Include="CMiX_VVVVTemplateNode.cs" />
     <Compile Include="ColorCorrection.cs" />
+    <Compile Include="GetAnimParameter.cs" />
     <Compile Include="GetBeat.cs" />
     <Compile Include="GetInstanceCount.cs" />
     <Compile Include="GetGeometryFileName.cs" />

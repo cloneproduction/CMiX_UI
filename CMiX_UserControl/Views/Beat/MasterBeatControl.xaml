@@ -121,7 +121,7 @@
                     </Border>
                 </DockPanel>
 
-                <Button
+            <Button
                     Height="30"
                     Margin="0, 4, 0, 0"
                     Style="{StaticResource ButtonRounded}"
@@ -129,8 +129,6 @@
                     HorizontalAlignment="Stretch"
                     Command="{Binding Path=TapCommand}"
                     Content="TAP"/>
-
-                
         </StackPanel>
 
         </Border>
