@@ -7,11 +7,12 @@ namespace CMiX.MVVM.ViewModels
     {
         public AnimParameter(string name, Beat beat, bool isEnabled = true)
         {
+            Name = name;
             Mode = new AnimMode(this);
             Influence = new Slider(nameof(Influence), this);
+
             BeatModifier = new BeatModifier(beat, this);
             IsEnabled = isEnabled;
-            Name = name;
         }
 
         public override string GetMessageAddress()

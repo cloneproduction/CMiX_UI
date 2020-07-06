@@ -8,10 +8,8 @@ namespace CMiX.MVVM.ViewModels
     {
         public Project(int id, IDialogService dialogService) : base(id)
         {
-            DialogService = dialogService;
-            
+            DialogService = dialogService;    
             Assets = new ObservableCollection<IAssets>();
-
             ComponentsInEditing = new ObservableCollection<Component>();
             Messengers = new ObservableCollection<Messenger>();
         }
@@ -24,7 +22,6 @@ namespace CMiX.MVVM.ViewModels
             get => _receiver;
             set => SetAndNotify(ref _receiver, value);
         }
-
 
         private ObservableCollection<Messenger> _messengers;
         public ObservableCollection<Messenger> Messengers

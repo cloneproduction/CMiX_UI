@@ -2,9 +2,9 @@
 
 namespace CMiX.Studio.Views
 {
-    public partial class RotationModifier : UserControl
+    public partial class XYZModifier : UserControl
     {
-        public RotationModifier()
+        public XYZModifier()
         {
             InitializeComponent();
         }

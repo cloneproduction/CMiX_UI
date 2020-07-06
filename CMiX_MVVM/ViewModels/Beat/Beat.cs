@@ -1,6 +1,9 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using System;
+using System.Diagnostics;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -8,6 +11,11 @@ namespace CMiX.MVVM.ViewModels
     {
         public Beat()
         {
+            Stopwatch = new Stopwatch();
+            Stopwatch.Start();
+
+            CompositionTarget.Rendering += CompositionTarget_Rendering;
+
             ResetCommand = new RelayCommand(p => Reset());
             MultiplyCommand = new RelayCommand(p => Multiply());
             DivideCommand = new RelayCommand(p => Divide());
@@ -62,5 +70,34 @@ namespace CMiX.MVVM.ViewModels
         public event PeriodChangedEventHandler PeriodChanged;
 
         protected void OnPeriodChanged(double newPeriod) => PeriodChanged?.Invoke(this, newPeriod);
+
+
+        public event EventHandler BeatTap;
+        public void OnBeatTap()
+        {
+            EventHandler handler = BeatTap;
+            if (null != handler) handler(this, EventArgs.Empty);
+        }
+
+
+        public Stopwatch Stopwatch { get; set; }
+        private void CompositionTarget_Rendering(object sender, EventArgs e)
+        {
+            if (Stopwatch.ElapsedMilliseconds > Math.Floor(Period))
+            {
+                BeatTick++;
+                if (BeatTick >= 4)
+                    BeatTick = 0;
+                Reset();
+                OnBeatTap();
+            }
+        }
+
+        private int _beatTick;
+        public int BeatTick
+        {
+            get => _beatTick;
+            set => SetAndNotify(ref _beatTick, value);
+        }
     }
 }

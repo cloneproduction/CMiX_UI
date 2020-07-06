@@ -1,6 +1,4 @@
-﻿using System;
-using System.Windows;
-using CMiX.MVVM.Models;
+﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
@@ -41,24 +39,5 @@ namespace CMiX.MVVM.ViewModels
                 SetAndNotify(ref _is3D, value);
             }
         }
-
-        #region COPY/PASTE/RESET
-        public void CopyGeometry()
-        {
-            IDataObject data = new DataObject();
-            data.SetData("TransformModel", this.GetModel(), false);
-            Clipboard.SetDataObject(data);
-        }
-
-        public void PasteGeometry()
-        {
-            IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent("TransformModel"))
-            {
-                var transformmodel = data.GetData("TransformModel") as TransformModel;
-                this.SetViewModel(transformmodel);
-            }
-        }
-        #endregion
     }
 }

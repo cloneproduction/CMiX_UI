@@ -65,14 +65,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnimParameter.cs" />
-    <Compile Include="Enums\ModeType.cs" />
-    <Compile Include="Mode\LFO.cs" />
-    <Compile Include="Mode\Mode.cs" />
-    <Compile Include="Mode\Randomized.cs" />
-    <Compile Include="Mode\Steady.cs" />
-    <Compile Include="Mode\Stepper.cs" />
-    <Compile Include="Mode\Stopwatcher.cs" />
+    <Compile Include="AnimParameter\AnimParameter.cs" />
+    <Compile Include="AnimParameter\Enums\ModeType.cs" />
+    <Compile Include="AnimParameter\Mode\LFO.cs" />
+    <Compile Include="AnimParameter\Mode\Mode.cs" />
+    <Compile Include="AnimParameter\Mode\Randomized.cs" />
+    <Compile Include="AnimParameter\Mode\Steady.cs" />
+    <Compile Include="AnimParameter\Mode\Stepper.cs" />
+    <Compile Include="AnimParameter\Mode\Stopwatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -85,8 +85,6 @@
       <Name>CMiX.MVVM</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

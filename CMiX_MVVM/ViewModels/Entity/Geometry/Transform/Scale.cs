@@ -47,24 +47,5 @@ namespace CMiX.MVVM.ViewModels
             else
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
-
-        public void CopyGeometry()
-        {
-            IDataObject data = new DataObject();
-            data.SetData("ScaleModel", this.GetModel(), false);
-            Clipboard.SetDataObject(data);
-        }
-
-        public void PasteGeometry()
-        {
-            IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent("ScaleModel"))
-            {
-                var scalemodel = data.GetData("ScaleModel") as ScaleModel;
-                this.SetViewModel(scalemodel);
-                //Mementor.EndBatch();
-                //SendMessages(nameof(ScaleModel), GetModel());
-            }
-        }
     }
 }

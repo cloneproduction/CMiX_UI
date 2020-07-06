@@ -61,9 +61,9 @@
                 Caption="No Aspect Ratio"
                 IsChecked="{Binding NoAspectRatio}"/>
             <Views:Transform DataContext="{Binding Transform}"/>
-            <Views:TranslateModifier DataContext="{Binding TranslateModifier}"/>
-            <Views:ScaleModifier DataContext="{Binding ScaleModifier}"/>
-            <Views:RotationModifier DataContext="{Binding RotationModifier}"/>
+            <Views:XYZModifier DataContext="{Binding TranslateModifier}"/>
+            <Views:XYZModifier DataContext="{Binding ScaleModifier}"/>
+            <Views:XYZModifier DataContext="{Binding RotationModifier}"/>
         </StackPanel>
     </Expander>
 </UserControl>

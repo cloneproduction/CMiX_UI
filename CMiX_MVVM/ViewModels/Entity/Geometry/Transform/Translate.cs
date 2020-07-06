@@ -29,25 +29,5 @@ namespace CMiX.MVVM.ViewModels
             else
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
-
-        public void CopyGeometry()
-        {
-            IDataObject data = new DataObject();
-            data.SetData("TranslateModel", this.GetModel(), false);
-            Clipboard.SetDataObject(data);
-        }
-
-        public void PasteGeometry()
-        {
-            IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent("TranslateModel"))
-            {
-                //Mementor.BeginBatch();
-                var translatemodel = data.GetData("TranslateModel") as TranslateModel;
-                this.SetViewModel(translatemodel);
-                //Mementor.EndBatch();
-                //SendMessages(nameof(TranslateModel), GetModel());
-            }
-        }
     }
 }

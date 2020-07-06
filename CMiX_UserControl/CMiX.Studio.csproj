@@ -154,6 +154,9 @@
     <Compile Include="Views\Component\ComponentPanel.xaml.cs">
       <DependentUpon>ComponentPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Geometry\Instancer\XYZModifier.xaml.cs">
+      <DependentUpon>XYZModifier.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Mask\Mask.xaml.cs">
       <DependentUpon>Mask.xaml</DependentUpon>
     </Compile>
@@ -186,15 +189,6 @@
     </Compile>
     <Compile Include="Views\Geometry\Instancer\AnimParameter.xaml.cs">
       <DependentUpon>AnimParameter.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Geometry\Instancer\ScaleModifier.xaml.cs">
-      <DependentUpon>ScaleModifier.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Geometry\Instancer\RotationModifier.xaml.cs">
-      <DependentUpon>RotationModifier.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Geometry\Instancer\TranslateModifier.xaml.cs">
-      <DependentUpon>TranslateModifier.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Component\Entity\Entity.xaml.cs">
       <DependentUpon>Entity.xaml</DependentUpon>
@@ -284,6 +278,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Geometry\Instancer\XYZModifier.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Mask\Mask.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -317,18 +315,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Geometry\Instancer\AnimParameter.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Geometry\Instancer\ScaleModifier.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Geometry\Instancer\RotationModifier.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Geometry\Instancer\TranslateModifier.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -1,13 +1,8 @@
-﻿using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Threading;
-
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -20,39 +15,22 @@ namespace CMiX.MVVM.ViewModels
         public MasterBeat(double period, double multiplier)
         {
             Period = period;
-            BeatTick = 0;
-            CompositionTarget.Rendering += CompositionTarget_Rendering;
-            Stopwatch = new Stopwatch();
-            Stopwatch.Start();
             Multiplier = multiplier;
-            ResyncCommand = new RelayCommand(p => Resync());
-            TapCommand = new RelayCommand(p => Tap());
+            BeatTick = 0;
+
+            
+
+           
             tapPeriods = new List<double>();
             tapTime = new List<double>();
+
+            ResyncCommand = new RelayCommand(p => Resync());
+            TapCommand = new RelayCommand(p => Tap());
         }
 
         public MasterBeat(double period, double multiplier, Sendable parentSendable) : this(period, multiplier)
         {
             SubscribeToEvent(parentSendable);
-        }
-
-        public event EventHandler BeatTap;
-        public void OnBeatTap()
-        {
-            EventHandler handler = BeatTap;
-            if (null != handler) handler(this, EventArgs.Empty);
-        }
-
-        private void CompositionTarget_Rendering(object sender, EventArgs e)
-        {
-            if (Stopwatch.ElapsedMilliseconds > Math.Floor(Period))
-            {
-                BeatTick++;
-                if (BeatTick >= 4)
-                    BeatTick = 0;
-                Reset();
-                OnBeatTap();
-            }
         }
 
         public void Reset()
@@ -64,15 +42,6 @@ namespace CMiX.MVVM.ViewModels
 
         public ICommand ResyncCommand { get; }
         public ICommand TapCommand { get; }
-        public Stopwatch Stopwatch { get; set; }
-
-
-        private int _beatTick;
-        public int BeatTick
-        {
-            get => _beatTick;
-            set => SetAndNotify(ref _beatTick, value);
-        }
 
         private readonly List<double> tapPeriods;
         private readonly List<double> tapTime;
