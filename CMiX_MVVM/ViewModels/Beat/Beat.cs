@@ -13,6 +13,7 @@ namespace CMiX.MVVM.ViewModels
         {
             Stopwatch = new Stopwatch();
             Stopwatch.Start();
+            BeatTick = 0;
 
             CompositionTarget.Rendering += CompositionTarget_Rendering;
 
@@ -79,16 +80,29 @@ namespace CMiX.MVVM.ViewModels
             if (null != handler) handler(this, EventArgs.Empty);
         }
 
+        public event EventHandler StopWatchReset;
+        public void OnStopWatchReset()
+        {
+            EventHandler handler = StopWatchReset;
+            if (null != handler) handler(this, EventArgs.Empty);
+        }
 
         public Stopwatch Stopwatch { get; set; }
-        private void CompositionTarget_Rendering(object sender, EventArgs e)
+
+        public void ResetStopWatch()
+        {
+            Stopwatch.Reset();
+            Stopwatch.Start();
+        }
+
+        public virtual void CompositionTarget_Rendering(object sender, EventArgs e)
         {
             if (Stopwatch.ElapsedMilliseconds > Math.Floor(Period))
             {
                 BeatTick++;
                 if (BeatTick >= 4)
                     BeatTick = 0;
-                Reset();
+                ResetStopWatch();
                 OnBeatTap();
             }
         }

@@ -2,6 +2,7 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using System;
+using System.Windows.Media;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -12,14 +13,29 @@ namespace CMiX.MVVM.ViewModels
             ChanceToHit = new Slider(nameof(ChanceToHit), this) { Amount = 1.0 };
 
             Beat = beat;
+            beat.StopWatchReset += Beat_StopWatchReset;
             Multiplier = 1.0;
-            
             beat.PeriodChanged += (s, newvalue) =>
             {
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
             };
+        }
+
+        private void Beat_StopWatchReset(object sender, EventArgs e)
+        {
+            this.ResetStopWatch();
+        }
+
+        public override void CompositionTarget_Rendering(object sender, EventArgs e)
+        {
+            if (Stopwatch.ElapsedMilliseconds > Math.Floor(this.Period))
+            {
+                this.ResetStopWatch();
+                this.OnBeatTap();
+                Console.WriteLine("Beat Modifier TAP : " + Period);
+            }
         }
 
         public BeatModifier(Beat beat, Sendable parentSendable) : this(beat)

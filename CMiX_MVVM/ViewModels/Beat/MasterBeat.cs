@@ -8,7 +8,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class MasterBeat : Beat
     {
-        public MasterBeat() : this(period: 0.0, multiplier: 1)
+        public MasterBeat() : this(period: 1000.0, multiplier: 1)
         {
 
         }
@@ -16,11 +16,7 @@ namespace CMiX.MVVM.ViewModels
         {
             Period = period;
             Multiplier = multiplier;
-            BeatTick = 0;
 
-            
-
-           
             tapPeriods = new List<double>();
             tapTime = new List<double>();
 
@@ -32,13 +28,6 @@ namespace CMiX.MVVM.ViewModels
         {
             SubscribeToEvent(parentSendable);
         }
-
-        public void Reset()
-        {
-            Stopwatch.Reset();
-            Stopwatch.Start();
-        }
-
 
         public ICommand ResyncCommand { get; }
         public ICommand TapCommand { get; }
@@ -66,7 +55,7 @@ namespace CMiX.MVVM.ViewModels
         private void Resync()
         {
             BeatTick = 0;
-            Reset();
+            this.ResetStopWatch();
         }
 
         protected override void Multiply() => Period /= 2.0;

@@ -12,7 +12,13 @@ namespace CMiX.MVVM.ViewModels
             Influence = new Slider(nameof(Influence), this);
 
             BeatModifier = new BeatModifier(beat, this);
+            BeatModifier.BeatTap += BeatModifier_BeatTap;
             IsEnabled = isEnabled;
+        }
+
+        private void BeatModifier_BeatTap(object sender, System.EventArgs e)
+        {
+            System.Console.WriteLine("BeatModifier " + this.Name + " TAP");
         }
 
         public override string GetMessageAddress()
@@ -49,6 +55,20 @@ namespace CMiX.MVVM.ViewModels
                 SetAndNotify(ref _IsEnabled, value);
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
+        }
+
+        private double _minimum;
+        public double Minimum
+        {
+            get => _minimum;
+            set => SetAndNotify(ref _minimum, value);
+        }
+
+        private double _maximum;
+        public double Maximum
+        {
+            get => _maximum;
+            set => SetAndNotify(ref _maximum, value);
         }
 
         public AnimMode Mode { get; set; }

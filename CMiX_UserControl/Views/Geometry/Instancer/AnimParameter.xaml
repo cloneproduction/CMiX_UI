@@ -52,9 +52,25 @@
                         Height="20"
                         Value="{Binding Influence.Amount}" 
                         Caption="Influence"/>
-                    <Views:BeatModifier 
-                        Margin="0, 1"
-                        DataContext="{Binding BeatModifier}"/>
+
+                    <Views:BeatModifier Grid.Column="1" Margin="0, 2, 0, 8" DataContext="{Binding BeatModifier}"/>
+
+                    <Grid Height="20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Controls:DistanceSlider Grid.Column="2" Position="Top" Style="{StaticResource DistanceSliderStyle}" Value="{Binding Path=Minimum}"/>
+                        <TextBlock Grid.Column="0" Padding="8, 0" HorizontalAlignment="Right" Text="Min" Foreground="{StaticResource TextBase}"/>
+                    </Grid>
+                    <Grid Height="20" Margin="0, 1, 0, 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Controls:DistanceSlider Grid.Column="2" Position="Bottom" Style="{StaticResource DistanceSliderStyle}" Value="{Binding Path=Maximum}"/>
+                        <TextBlock Grid.Column="0" Padding="8, 0" HorizontalAlignment="Right" Text="Max" Foreground="{StaticResource TextBase}"/>
+                    </Grid>
                 </StackPanel>
             </Border>
         </StackPanel>
