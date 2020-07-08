@@ -77,9 +77,12 @@ namespace CMiX.MVVM.ViewModels
         }
 
         public IAnimMode AnimMode { get; set; }
-        public Range Range { get; set; }
+        
         public AnimMode Mode { get; set; }
         public Slider Influence { get; set; }
         public BeatModifier BeatModifier { get; set; }
+
+        public Range Range { get; set; }
+        public EasingType EasingType { get; set; }
     }
 }
