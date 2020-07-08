@@ -10,8 +10,9 @@ namespace CMiX.MVVM.ViewModels
     {
         public AnimMode()
         {
-            Mode = AnimModeEnum.None;
+            ModeType = ModeType.Steady;
         }
+
         public AnimMode(Sendable parentSendable) : this()
         {
             SubscribeToEvent(parentSendable);
@@ -25,20 +26,20 @@ namespace CMiX.MVVM.ViewModels
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
-        private AnimModeEnum _Mode;
-        public AnimModeEnum Mode
+        private ModeType _ModeType;
+        public ModeType ModeType
         {
-            get => _Mode;
+            get => _ModeType;
             set
             {
-                SetAndNotify(ref _Mode, value);
+                SetAndNotify(ref _ModeType, value);
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 
-        public IEnumerable<AnimModeEnum> AnimModeSource
+        public IEnumerable<ModeType> ModeTypeSource
         {
-            get => Enum.GetValues(typeof(AnimModeEnum)).Cast<AnimModeEnum>();
+            get => Enum.GetValues(typeof(ModeType)).Cast<ModeType>();
         }
     }
 }

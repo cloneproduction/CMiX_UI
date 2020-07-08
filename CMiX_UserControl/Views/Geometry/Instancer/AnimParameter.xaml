@@ -28,15 +28,15 @@
                     Foreground="{StaticResource TextBase}"/>
                 <ComboBox
                     Grid.Column="1"
-                    ItemsSource="{Binding Mode.AnimModeSource}"
-                    SelectedItem="{Binding Mode.Mode}"/>
+                    ItemsSource="{Binding Mode.ModeTypeSource}"
+                    SelectedItem="{Binding SelectedModeType}"/>
             </Grid>
             <Border>
                 <Border.Style>
                     <Style TargetType="Border">
                         <Setter Property="Visibility" Value="Visible"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding Mode}"  Value="{x:Static ViewModels:AnimModeEnum.None}">
+                            <DataTrigger Binding="{Binding Mode.ModeType}"  Value="{x:Static ViewModels:ModeType.Steady}">
                                 <Setter Property="Visibility" Value="Collapsed"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -52,25 +52,8 @@
                         Height="20"
                         Value="{Binding Influence.Amount}" 
                         Caption="Influence"/>
-
                     <Views:BeatModifier Grid.Column="1" Margin="0, 2, 0, 8" DataContext="{Binding BeatModifier}"/>
-
-                    <Grid Height="20">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Controls:DistanceSlider Grid.Column="2" Position="Top" Style="{StaticResource DistanceSliderStyle}" Value="{Binding Path=Minimum}"/>
-                        <TextBlock Grid.Column="0" Padding="8, 0" HorizontalAlignment="Right" Text="Min" Foreground="{StaticResource TextBase}"/>
-                    </Grid>
-                    <Grid Height="20" Margin="0, 1, 0, 0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Controls:DistanceSlider Grid.Column="2" Position="Bottom" Style="{StaticResource DistanceSliderStyle}" Value="{Binding Path=Maximum}"/>
-                        <TextBlock Grid.Column="0" Padding="8, 0" HorizontalAlignment="Right" Text="Max" Foreground="{StaticResource TextBase}"/>
-                    </Grid>
+                    <Views:Range DataContext="{Binding Range}"/>
                 </StackPanel>
             </Border>
         </StackPanel>

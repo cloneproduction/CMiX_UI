@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CMiX.Studio.ViewModels
+namespace CMiX.MVVM.ViewModels
 {
     public class Mode
     {

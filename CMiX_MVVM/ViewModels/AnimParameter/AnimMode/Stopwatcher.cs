@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace CMiX.Studio.ViewModels
+namespace CMiX.MVVM.ViewModels
 {
     public class Stopwatcher
     {

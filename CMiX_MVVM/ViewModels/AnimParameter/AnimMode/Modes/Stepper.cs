@@ -4,10 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CMiX.Studio.ViewModels
+namespace CMiX.MVVM.ViewModels
 {
-    public class Stepper : Mode
+    public class Stepper : Mode, IAnimMode 
     {
+        public Stepper()
+        {
+
+        }
         public Stepper(Stopwatcher stopwatcher)
         {
             Stopwatcher = stopwatcher;
@@ -20,6 +24,7 @@ namespace CMiX.Studio.ViewModels
         public int Step { get; set; }
 
         public double CurrentStepPos { get; set; }
+        public Range Range { get; set; }
 
         private void MovePosition(object sender, EventArgs e)
         {

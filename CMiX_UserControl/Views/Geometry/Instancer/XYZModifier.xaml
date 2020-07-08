@@ -31,16 +31,16 @@
             <StackPanel Margin="0, 0, 0, 8">
                 <Views:AnimParameter x:Name="Uniform" DataContext="{Binding Uniform}"/>
                 <Border>
-                    <Border.Style>
-                        <Style TargetType="Border">
+                    <!--<Border.Style>
+                        <Style TargetType="{x:Type Border}">
                             <Setter Property="Visibility" Value="Visible"/>
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding ElementName=Uniform, Path=DataContext.Mode}"  Value="{x:Static ViewModels:AnimModeEnum.None}">
+                                <DataTrigger Binding="{Binding Uniform.Mode.Mode}"  Value="{x:Static ViewModels:AnimModeEnum.None}">
                                     <Setter Property="Visibility" Value="Collapsed"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
-                    </Border.Style>
+                    </Border.Style>-->
                     <StackPanel>
                         <Expander Style="{StaticResource InnerExpanderLevel1}">
                             <Expander.Header>

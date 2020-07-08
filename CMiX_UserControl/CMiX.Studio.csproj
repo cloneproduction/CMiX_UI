@@ -154,6 +154,9 @@
     <Compile Include="Views\Component\ComponentPanel.xaml.cs">
       <DependentUpon>ComponentPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Geometry\Instancer\Range.xaml.cs">
+      <DependentUpon>Range.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Geometry\Instancer\XYZModifier.xaml.cs">
       <DependentUpon>XYZModifier.xaml</DependentUpon>
     </Compile>
@@ -277,6 +280,10 @@
     <Page Include="Views\Component\ComponentPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Geometry\Instancer\Range.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Geometry\Instancer\XYZModifier.xaml">
       <Generator>MSBuild:Compile</Generator>

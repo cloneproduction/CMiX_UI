@@ -34,7 +34,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 this.ResetStopWatch();
                 this.OnBeatTap();
-                Console.WriteLine("Beat Modifier TAP : " + Period);
+                //Console.WriteLine("Beat Modifier TAP : " + Period);
             }
         }
 

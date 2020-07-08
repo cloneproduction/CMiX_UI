@@ -11,8 +11,10 @@ namespace CMiX.MVVM.Models
             Mode = new AnimModeModel();
             Influence = new SliderModel();
             BeatModifier = new BeatModifierModel();
+            RangeModel = new RangeModel();
         }
 
+        public RangeModel RangeModel { get; set; }
         public AnimModeModel Mode { get; set; }
         public SliderModel Influence { get; set; }
         public BeatModifierModel BeatModifier { get; set; }

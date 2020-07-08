@@ -7,13 +7,13 @@ namespace CMiX.MVVM.ViewModels
         public static AnimModeModel GetModel(this AnimMode instance)
         {
             AnimModeModel model = new AnimModeModel();
-            model.Mode = instance.Mode ;
+            model.ModeType = instance.ModeType ;
             return model;
         }
 
         public static void SetViewModel(this AnimMode instance, AnimModeModel model)
         {
-            instance.Mode = model.Mode;
+            instance.ModeType = model.ModeType;
         }
     }
 }

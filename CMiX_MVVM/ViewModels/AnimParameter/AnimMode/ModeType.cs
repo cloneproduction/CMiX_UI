@@ -4,25 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CMiX.Studio.ViewModels
+namespace CMiX.MVVM.ViewModels
 {
     public enum ModeType
     {
-        STEADY,
+        Steady,
         LFO,
-        RANDOM,
-        STEPPER
+        Random,
+        Stepper
     }
 
     public enum RandomType
     {
-        JUMP,
-        LINEAR
+        Jump,
+        Linear
     }
 
     public enum SteadyType
     {
-        LINEAR,
-        RANDOM
+        Linear,
+        Random
     }
 }

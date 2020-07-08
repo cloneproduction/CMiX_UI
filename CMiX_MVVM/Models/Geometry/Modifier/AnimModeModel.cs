@@ -1,5 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.ViewModels;
+using CMiX.Studio.ViewModels;
 
 namespace CMiX.MVVM.Models
 {
@@ -10,7 +11,7 @@ namespace CMiX.MVVM.Models
 
         }
 
-        public AnimModeEnum Mode { get; set; }
+        public ModeType ModeType { get; set; }
         public bool Enabled { get; set; }
     }
 }

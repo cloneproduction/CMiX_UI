@@ -8,22 +8,13 @@ namespace CMiX.MVVM.ViewModels
         public AnimParameter(string name, Beat beat, bool isEnabled = true)
         {
             Name = name;
+            IsEnabled = isEnabled;
             Mode = new AnimMode(this);
             Influence = new Slider(nameof(Influence), this);
-
-            BeatModifier = new BeatModifier(beat, this);
+            Range = new Range(this);
+;           BeatModifier = new BeatModifier(beat, this);
             BeatModifier.BeatTap += BeatModifier_BeatTap;
-            IsEnabled = isEnabled;
-        }
-
-        private void BeatModifier_BeatTap(object sender, System.EventArgs e)
-        {
-            System.Console.WriteLine("BeatModifier " + this.Name + " TAP");
-        }
-
-        public override string GetMessageAddress()
-        {
-            return $"{this.GetType().Name}/{Name}/";
+            //AnimMode = ModesFactory.CreateMode(ModeType.Steady);
         }
 
         public AnimParameter(string name, Beat beat, bool isEnabled, Sendable parentSendable) : this(name, beat, isEnabled)
@@ -37,6 +28,16 @@ namespace CMiX.MVVM.ViewModels
                 this.SetViewModel(e.Model as AnimParameterModel);
             else
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
+        }
+
+        private void BeatModifier_BeatTap(object sender, System.EventArgs e)
+        {
+            //System.Console.WriteLine("BeatModifier " + this.Name + " TAP");
+        }
+
+        public override string GetMessageAddress()
+        {
+            return $"{this.GetType().Name}/{Name}/";
         }
 
         private string _name;
@@ -57,20 +58,26 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        private double _minimum;
-        public double Minimum
+        private ModeType _selectedModeType;
+        public ModeType SelectedModeType
         {
-            get => _minimum;
-            set => SetAndNotify(ref _minimum, value);
+            get => _selectedModeType;
+            set
+            {
+                SetAndNotify(ref _selectedModeType, value);
+                SetAnimMode();
+                System.Console.WriteLine(AnimMode.GetType().Name);
+                //OnSendChange(this.GetModel(), this.GetMessageAddress());
+            }
         }
 
-        private double _maximum;
-        public double Maximum
+        private void SetAnimMode()
         {
-            get => _maximum;
-            set => SetAndNotify(ref _maximum, value);
+            AnimMode = ModesFactory.CreateMode(SelectedModeType);
         }
 
+        public IAnimMode AnimMode { get; set; }
+        public Range Range { get; set; }
         public AnimMode Mode { get; set; }
         public Slider Influence { get; set; }
         public BeatModifier BeatModifier { get; set; }

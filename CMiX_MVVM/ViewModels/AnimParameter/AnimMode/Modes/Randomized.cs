@@ -1,16 +1,20 @@
 ﻿using System;
 
-namespace CMiX.Studio.ViewModels
+namespace CMiX.MVVM.ViewModels
 {
-    public class Randomized : Mode
+    public class Randomized : Mode, IAnimMode
     {
+        public Randomized()
+        {
+            
+        }
         public Randomized(Stopwatcher stopwatcher)
         {
             Stopwatcher = stopwatcher;
             Random = new Random();
             Stopwatcher.Change += new EventHandler(GenerateValue);
             UpdateValue = new Action(Update);
-            RandomType = RandomType.JUMP;
+            RandomType = RandomType.Jump;
         }
 
         public RandomType RandomType { get; set; }
@@ -18,6 +22,7 @@ namespace CMiX.Studio.ViewModels
 
         public double newValue { get; set; }
         public double oldValue { get; set; }
+        public Range Range { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         private void GenerateValue(object sender, EventArgs e)
         {
@@ -29,12 +34,12 @@ namespace CMiX.Studio.ViewModels
         {
             switch (this.RandomType)
             {
-                case RandomType.JUMP:
+                case RandomType.Jump:
                     {
                         ParameterValue = newValue;
                         break;
                     }
-                case RandomType.LINEAR:
+                case RandomType.Linear:
                     {
                         //ParameterValue = VMath.Lerp(oldValue, newValue, Stopwatcher.LFO);
                         break;
