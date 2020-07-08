@@ -33,7 +33,7 @@ namespace CMiX.MVVM.ViewModels
 
         private void BeatModifier_BeatTap(object sender, System.EventArgs e)
         {
-            //System.Console.WriteLine("BeatModifier " + this.Name + " TAP");
+            AnimMode.Update();
         }
 
         public override string GetMessageAddress()

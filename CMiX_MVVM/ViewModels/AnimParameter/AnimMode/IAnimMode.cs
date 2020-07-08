@@ -9,5 +9,7 @@ namespace CMiX.MVVM.ViewModels
     public interface IAnimMode
     {
         Range Range { get; set; }
+        EasingType EasingType { get; set; }
+        void Update();
     }
 }
