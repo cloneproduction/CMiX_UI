@@ -7,14 +7,15 @@ namespace CMiX.MVVM.ViewModels
     {
         public AnimParameter(string name, Beat beat, bool isEnabled = true)
         {
-            Name = name;
-            IsEnabled = isEnabled;
             Mode = new AnimMode(this);
             Influence = new Slider(nameof(Influence), this);
             Range = new Range(this);
 ;           BeatModifier = new BeatModifier(beat, this);
             BeatModifier.BeatTap += BeatModifier_BeatTap;
-            //AnimMode = ModesFactory.CreateMode(ModeType.Steady);
+            SelectedModeType = ModeType.Steady;
+
+            Name = name;
+            IsEnabled = isEnabled;
         }
 
         public AnimParameter(string name, Beat beat, bool isEnabled, Sendable parentSendable) : this(name, beat, isEnabled)
@@ -66,7 +67,6 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _selectedModeType, value);
                 SetAnimMode();
-                System.Console.WriteLine(AnimMode.GetType().Name);
                 //OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
