@@ -8,6 +8,6 @@ namespace CMiX.MVVM.ViewModels
 {
     public interface IAnimMode
     {
-        Range Range { get; set; }
+
     }
 }

@@ -120,6 +120,7 @@
     <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\Steady.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\Stepper.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\Stopwatcher.cs" />
+    <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\ModeTypeTemplateSelector.cs" />
     <Compile Include="ViewModels\AnimParameter\Range\Range.cs" />
     <Compile Include="ViewModels\AnimParameter\Range\RangeModelFactory.cs" />
     <Compile Include="ViewModels\Beat\IBeatModifier.cs" />
