@@ -14,20 +14,20 @@
              mc:Ignorable="d">
 
     <UserControl.Resources>
-        <DataTemplate x:Key="LFOTemplate" DataType="{x:Type ViewModels:Composition}">
-            <Views:CompositionPanel DataContext="{Binding}"/>
+        <DataTemplate x:Key="LFOTemplate" DataType="{x:Type ViewModels:LFO}">
+            <Views:LFO DataContext="{Binding}"/>
         </DataTemplate>
 
-        <DataTemplate x:Key="SteadyTemplate" DataType="{x:Type ViewModels:Entity}">
-            <Views:EntityPanel DataContext="{Binding}"/>
+        <DataTemplate x:Key="SteadyTemplate" DataType="{x:Type ViewModels:Steady}">
+            <Views:Steady DataContext="{Binding}"/>
         </DataTemplate>
 
-        <DataTemplate x:Key="StepperTemplate" DataType="{x:Type ViewModels:Layer}">
-            <Views:LayerPanel DataContext="{Binding}"/>
+        <DataTemplate x:Key="StepperTemplate" DataType="{x:Type ViewModels:Stepper}">
+            <Views:Stepper DataContext="{Binding}"/>
         </DataTemplate>
 
-        <DataTemplate x:Key="RandomizedTemplate" DataType="{x:Type ViewModels:Scene}">
-            <Views:ScenePanel DataContext="{Binding}"/>
+        <DataTemplate x:Key="RandomizedTemplate" DataType="{x:Type ViewModels:Randomized}">
+            <Views:Randomized DataContext="{Binding}"/>
         </DataTemplate>
 
         <ViewModels:ModeTypeTemplateSelector 
@@ -44,7 +44,6 @@
                 DataContext="{Binding AnimMode}"
                 Content="{Binding AnimMode}"
                 ContentTemplateSelector="{StaticResource TemplateSelector}">
-                
             </ContentPresenter>
             <Grid Height="20" Margin="0,4, 0, 0">
                 <Grid.ColumnDefinitions>

@@ -145,6 +145,18 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Views\AnimParameter\Steady.xaml.cs">
+      <DependentUpon>Steady.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AnimParameter\Randomized.xaml.cs">
+      <DependentUpon>Randomized.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AnimParameter\Stepper.xaml.cs">
+      <DependentUpon>Stepper.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AnimParameter\LFO.xaml.cs">
+      <DependentUpon>LFO.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Assets\TexturePathSelector.xaml.cs">
       <DependentUpon>TexturePathSelector.xaml</DependentUpon>
     </Compile>
@@ -190,7 +202,7 @@
     <Compile Include="Views\Component\Composition\CompositionPanel.xaml.cs">
       <DependentUpon>CompositionPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Geometry\Instancer\AnimParameter.xaml.cs">
+    <Compile Include="Views\AnimParameter\AnimParameter.xaml.cs">
       <DependentUpon>AnimParameter.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Component\Entity\Entity.xaml.cs">
@@ -269,6 +281,22 @@
     <Compile Include="Views\Texture\Texture.xaml.cs">
       <DependentUpon>Texture.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\AnimParameter\Steady.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AnimParameter\Randomized.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AnimParameter\Stepper.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AnimParameter\LFO.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Assets\TexturePathSelector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -321,7 +349,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Geometry\Instancer\AnimParameter.xaml">
+    <Page Include="Views\AnimParameter\AnimParameter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
