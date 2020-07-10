@@ -33,7 +33,7 @@ namespace CMiX.MVVM.ViewModels
 
         private void BeatModifier_BeatTap(object sender, System.EventArgs e)
         {
-            //System.Console.WriteLine("BeatModifier " + this.Name + " TAP");
+            AnimMode.Update();
         }
 
         public override string GetMessageAddress()
@@ -77,9 +77,12 @@ namespace CMiX.MVVM.ViewModels
         }
 
         public IAnimMode AnimMode { get; set; }
-        public Range Range { get; set; }
+        
         public AnimMode Mode { get; set; }
         public Slider Influence { get; set; }
         public BeatModifier BeatModifier { get; set; }
+
+        public Range Range { get; set; }
+        public EasingType EasingType { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace CMiX.MVVM.ViewModels
             Stopwatcher = stopwatcher;
             Random = new Random();
             Stopwatcher.Change += new EventHandler(GenerateValue);
-            UpdateValue = new Action(Update);
+            //UpdateValue = new Action(Update);
             RandomType = RandomType.Jump;
         }
 
@@ -22,7 +22,15 @@ namespace CMiX.MVVM.ViewModels
 
         public double newValue { get; set; }
         public double oldValue { get; set; }
-        public Range Range { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+
+        public Range Range { get; set; }
+        public EasingType EasingType { get; set; }
+
+        public void Update()
+        {
+            Console.WriteLine("Randomized Update");
+        }
 
         private void GenerateValue(object sender, EventArgs e)
         {
@@ -30,22 +38,22 @@ namespace CMiX.MVVM.ViewModels
             newValue = Random.NextDouble();
         }
 
-        public void Update()
-        {
-            switch (this.RandomType)
-            {
-                case RandomType.Jump:
-                    {
-                        ParameterValue = newValue;
-                        break;
-                    }
-                case RandomType.Linear:
-                    {
-                        //ParameterValue = VMath.Lerp(oldValue, newValue, Stopwatcher.LFO);
-                        break;
-                    }
-                default: break;
-            }
-        }
+        //public void Update()
+        //{
+        //    switch (this.RandomType)
+        //    {
+        //        case RandomType.Jump:
+        //            {
+        //                ParameterValue = newValue;
+        //                break;
+        //            }
+        //        case RandomType.Linear:
+        //            {
+        //                //ParameterValue = VMath.Lerp(oldValue, newValue, Stopwatcher.LFO);
+        //                break;
+        //            }
+        //        default: break;
+        //    }
+        //}
     }
 }

@@ -266,7 +266,7 @@
     <Compile Include="ViewModels\Slider\Slider.cs" />
     <Compile Include="ViewModels\Slider\SliderModelFactory.cs" />
     <Compile Include="ViewModels\_Enums\AnimModeEnum.cs" />
-    <Compile Include="ViewModels\_Enums\EasingTypes.cs" />
+    <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\EasingTypes.cs" />
     <Compile Include="Views\Dialogs\CustomWindowDialog.xaml.cs">
       <DependentUpon>CustomWindowDialog.xaml</DependentUpon>
     </Compile>

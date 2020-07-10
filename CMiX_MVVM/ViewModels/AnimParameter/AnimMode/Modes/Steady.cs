@@ -14,7 +14,12 @@ namespace CMiX.MVVM.ViewModels
             //UpdateValue = new Action(Update);
             ParameterValue = 0.0;
         }
+        public void Update()
+        {
+            Console.WriteLine("Steady Update");
+        }
 
         public Range Range { get; set; }
+        public EasingType EasingType { get; set; }
     }
 }
