@@ -76,7 +76,13 @@ namespace CMiX.MVVM.ViewModels
             AnimMode = ModesFactory.CreateMode(SelectedModeType);
         }
 
-        public IAnimMode AnimMode { get; set; }
+        private IAnimMode _animMode;
+
+        public IAnimMode AnimMode
+        {
+            get => _animMode;
+            set => SetAndNotify(ref _animMode, value);
+        }
         
         public AnimMode Mode { get; set; }
         public Slider Influence { get; set; }
