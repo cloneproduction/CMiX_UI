@@ -40,11 +40,7 @@
     
     <Border Padding="4" IsEnabled="{Binding IsEnabled}">
         <StackPanel >
-            <ContentPresenter 
-                DataContext="{Binding AnimMode}"
-                Content="{Binding AnimMode}"
-                ContentTemplateSelector="{StaticResource TemplateSelector}">
-            </ContentPresenter>
+
             <Grid Height="20" Margin="0,4, 0, 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -61,7 +57,12 @@
                     ItemsSource="{Binding Mode.ModeTypeSource}"
                     SelectedItem="{Binding SelectedModeType}"/>
             </Grid>
-            <Border>
+            <ContentPresenter 
+                DataContext="{Binding AnimMode}"
+                Content="{Binding AnimMode}"
+                ContentTemplateSelector="{StaticResource TemplateSelector}">
+            </ContentPresenter>
+            <!--<Border>
                 <Border.Style>
                     <Style TargetType="Border">
                         <Setter Property="Visibility" Value="Visible"/>
@@ -85,7 +86,7 @@
                     <Views:BeatModifier Grid.Column="1" Margin="0, 2, 0, 8" DataContext="{Binding BeatModifier}"/>
                     <Views:Range DataContext="{Binding Range}"/>
                 </StackPanel>
-            </Border>
+            </Border>-->
         </StackPanel>
     </Border>
 </UserControl>

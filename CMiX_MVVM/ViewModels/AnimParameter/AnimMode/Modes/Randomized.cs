@@ -29,7 +29,7 @@ namespace CMiX.MVVM.ViewModels
 
         public void Update()
         {
-            Console.WriteLine("Randomized Update");
+            //Console.WriteLine("Randomized Update");
         }
 
         private void GenerateValue(object sender, EventArgs e)

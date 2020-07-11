@@ -18,7 +18,7 @@ namespace CMiX.MVVM.ViewModels
 
         public void Update()
         {
-            Console.WriteLine("LFO Update");
+            //Console.WriteLine("LFO Update");
         }
 
         public EasingType EasingType { get; set; }

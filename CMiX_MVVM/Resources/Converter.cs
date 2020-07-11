@@ -10,6 +10,7 @@ using System.Windows.Media;
 
 namespace CMiX.MVVM.Resources
 {
+
     public class RadioButtonSelectionConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -180,6 +181,19 @@ namespace CMiX.MVVM.Resources
             }
             else
                 return System.Convert.ToByte(0);
+        }
+    }
+
+    public class DoubleToStringPercentConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return String.Format("{0:0.}%", (double)value);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
         }
     }
 

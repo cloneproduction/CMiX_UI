@@ -37,7 +37,7 @@ namespace CMiX.MVVM.ViewModels
 
         public void Update()
         {
-            Console.WriteLine("Stepper Update");
+            //Console.WriteLine("Stepper Update");
         }
     }
 }

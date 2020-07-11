@@ -14,6 +14,6 @@
              mc:Ignorable="d">
 
     <Border Padding="4" IsEnabled="{Binding IsEnabled}">
-        <TextBlock Text="Randomized" Foreground="Red" Height="20"/>
+        <TextBlock Text="Steady" Foreground="Red" Height="20"/>
     </Border>
 </UserControl>

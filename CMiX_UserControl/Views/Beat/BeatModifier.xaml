@@ -8,6 +8,7 @@
     xmlns:Views="clr-namespace:CMiX.Studio.Views"
     xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
     xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
+    xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
     d:DataContext="{d:DesignInstance Type={x:Type viewModels:BeatModifier}, IsDesignTimeCreatable=False}"
     d:DesignHeight="58.826"
     d:DesignWidth="324.414"
@@ -25,14 +26,22 @@
             </Border>
         </Grid>
 
-        <Border Height="21" Grid.Column="0" Margin="0, 1, 0, 0" Style="{StaticResource BorderShadow}">
-            <Controls:CMiXSlider 
+        
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+            <TextBlock Text="Chance To Hit" Margin="2, 0" Padding="4" VerticalAlignment="Center" HorizontalAlignment="Right" />
+            <Border  Height="21" Grid.Column="1" Margin="0, 1, 0, 0" Style="{StaticResource BorderShadow}">
+                <Controls:CMiXSlider 
                 Minimum="0" 
-                Maximum="1" 
-                Style="{StaticResource CMiXSliderStyle}" 
-                Caption="To Hit" 
+                Maximum="100" 
+                Style="{StaticResource CMiXSliderPercentStyle}" 
                 Value="{Binding ChanceToHit.Amount}"/>
-        </Border>
+            </Border>
+        </Grid>
+        
     </StackPanel>
    
 </UserControl>

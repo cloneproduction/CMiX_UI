@@ -16,7 +16,7 @@ namespace CMiX.MVVM.ViewModels
         }
         public void Update()
         {
-            Console.WriteLine("Steady Update");
+            //Console.WriteLine("Steady Update");
         }
 
         public Range Range { get; set; }

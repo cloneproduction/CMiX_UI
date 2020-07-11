@@ -276,6 +276,14 @@ namespace CMiX.MVVM.Controls
             set { SetValue(PositionProperty, value); }
         }
 
+        public static readonly DependencyProperty DislayAsPercentProperty =
+        DependencyProperty.Register("DislayAsPercent", typeof(bool), typeof(CMiXSlider), new UIPropertyMetadata(false));
+        public bool DislayAsPercent
+        {
+            get { return (bool)GetValue(DislayAsPercentProperty); }
+            set { SetValue(DislayAsPercentProperty, value); }
+        }
+
         public static readonly DependencyProperty CaptionProperty =
         DependencyProperty.Register("Caption", typeof(string), typeof(Slider), new PropertyMetadata(""));
         public string Caption
