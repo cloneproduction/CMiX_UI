@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CMiX.MVVM.ViewModels
+﻿namespace CMiX.MVVM.ViewModels
 {
     public static class ModesFactory
     {
@@ -20,8 +14,15 @@ namespace CMiX.MVVM.ViewModels
                 animMode = CreateRandomized();
             else if (modeType == ModeType.Stepper)
                 animMode = CreateStepper();
+            else if (modeType == ModeType.None)
+                animMode = CreateNone();
 
             return animMode;
+        }
+
+        private static None CreateNone()
+        {
+            return new None();
         }
 
         private static LFO CreateLFO()

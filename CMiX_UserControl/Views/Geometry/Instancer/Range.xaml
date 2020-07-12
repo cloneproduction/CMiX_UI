@@ -26,7 +26,7 @@
                 Value="{Binding Path=Minimum}"/>
             <TextBlock 
                 Grid.Column="0" 
-                Padding="8, 0" 
+                Padding="4" 
                 HorizontalAlignment="Right" 
                 Text="Range Min" 
                 Foreground="{StaticResource TextBase}"/>
@@ -43,7 +43,7 @@
                 Value="{Binding Path=Maximum}"/>
             <TextBlock 
                 Grid.Column="0" 
-                Padding="8, 0" 
+                Padding="4" 
                 HorizontalAlignment="Right" 
                 Text="Max" 
                 Foreground="{StaticResource TextBase}"/>

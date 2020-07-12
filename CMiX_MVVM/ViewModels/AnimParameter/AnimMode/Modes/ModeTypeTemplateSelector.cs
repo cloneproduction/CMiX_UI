@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace CMiX.MVVM.ViewModels
@@ -14,7 +9,7 @@ namespace CMiX.MVVM.ViewModels
         public DataTemplate StepperTemplate { get; set; }
         public DataTemplate SteadyTemplate { get; set; }
         public DataTemplate RandomizedTemplate { get; set; }
-
+        public DataTemplate NoneTemplate { get; set; }
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             DataTemplate dataTemplate = null;
@@ -29,6 +24,8 @@ namespace CMiX.MVVM.ViewModels
                     dataTemplate = SteadyTemplate;
                 else if (item is Randomized)
                     dataTemplate = RandomizedTemplate;
+                else if (item is None)
+                    dataTemplate = NoneTemplate;
             }
 
             return dataTemplate;

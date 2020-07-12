@@ -39,10 +39,6 @@
     </ResourceDictionary.MergedDictionaries>
 
 
-    
-    
-    
-    
     <Style x:Key="RepeatButtonDecrease" TargetType="{x:Type RepeatButton}">
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Background" Value="Transparent" />

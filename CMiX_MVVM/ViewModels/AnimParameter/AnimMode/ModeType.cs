@@ -8,17 +8,18 @@ namespace CMiX.MVVM.ViewModels
 {
     public enum ModeType
     {
+        None,
         Steady,
         LFO,
         Random,
         Stepper
     }
 
-    public enum RandomType
-    {
-        Jump,
-        Linear
-    }
+    //public enum RandomType
+    //{
+    //    Jump,
+    //    Linear
+    //}
 
     public enum SteadyType
     {

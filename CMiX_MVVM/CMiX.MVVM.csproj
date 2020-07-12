@@ -112,6 +112,7 @@
     <Compile Include="ViewModels\AnimParameter\AnimMode\AnimMode.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\AnimModeModelFactory.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\IAnimMode.cs" />
+    <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\None.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\ModesFactory.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\ModeType.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\LFO.cs" />

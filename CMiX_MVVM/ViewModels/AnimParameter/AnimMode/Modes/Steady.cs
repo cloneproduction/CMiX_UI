@@ -1,8 +1,8 @@
-﻿using System;
+﻿using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Steady : Mode, IAnimMode
+    public class Steady : Sendable, IAnimMode
     {
         public Steady()
         {
@@ -10,16 +10,28 @@ namespace CMiX.MVVM.ViewModels
         }
         public Steady(Stopwatcher stopwatcher)
         {
-            Stopwatcher = stopwatcher;
+            //Stopwatcher = stopwatcher;
             //UpdateValue = new Action(Update);
-            ParameterValue = 0.0;
+            //ParameterValue = 0.0;
         }
         public void Update()
         {
             //Console.WriteLine("Steady Update");
         }
 
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            //throw new NotImplementedException();
+        }
+
+        public SteadyType SteadyType {get; set;}
         public Range Range { get; set; }
-        public EasingType EasingType { get; set; }
+
+        private EasingType _selectedEasingType;
+        public EasingType SelectedEasingType
+        {
+            get => _selectedEasingType;
+            set => SetAndNotify(ref _selectedEasingType, value);
+        }
     }
 }

@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using CMiX.MVVM.Services;
+﻿using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class LFO : Sendable, IAnimMode
+    public class None : Sendable, IAnimMode
     {
-        public LFO()
+        public None()
         {
 
         }
-        public LFO(Stopwatcher stopwatcher)
+        public None(Stopwatcher stopwatcher)
         {
-
+            //Stopwatcher = stopwatcher;
             SelectedEasingType = EasingType.Linear;
             //UpdateValue = new Action(Update);
         }
@@ -25,7 +22,7 @@ namespace CMiX.MVVM.ViewModels
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
-            
+            //throw new NotImplementedException();
         }
 
         private EasingType _selectedEasingType;
@@ -34,19 +31,11 @@ namespace CMiX.MVVM.ViewModels
             get => _selectedEasingType;
             set => SetAndNotify(ref _selectedEasingType, value);
         }
-
-        public IEnumerable<EasingType> ModeTypeSource
-        {
-            get => Enum.GetValues(typeof(EasingType)).Cast<EasingType>();
-        }
-
         public Range Range { get; set; }
 
-        private bool _invert;
-        public bool Invert
-        {
-            get => _invert;
-            set => SetAndNotify(ref _invert, value);
-        }
+        //public void Update()
+        //{
+        //    //ParameterValue = Easing.Interpolate(Stopwatcher.LFO, EasingType);
+        //}
     }
 }

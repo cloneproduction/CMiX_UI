@@ -14,6 +14,10 @@
              mc:Ignorable="d">
 
     <UserControl.Resources>
+        <DataTemplate x:Key="NoneTemplate" DataType="{x:Type ViewModels:None}">
+            <Views:None DataContext="{Binding}"/>
+        </DataTemplate>
+        
         <DataTemplate x:Key="LFOTemplate" DataType="{x:Type ViewModels:LFO}">
             <Views:LFO DataContext="{Binding}"/>
         </DataTemplate>
@@ -32,6 +36,7 @@
 
         <ViewModels:ModeTypeTemplateSelector 
             x:Key="TemplateSelector" 
+            NoneTemplate="{StaticResource NoneTemplate}"
             SteadyTemplate="{StaticResource SteadyTemplate}"
             StepperTemplate="{StaticResource StepperTemplate}" 
             RandomizedTemplate="{StaticResource RandomizedTemplate}"
@@ -57,36 +62,14 @@
                     ItemsSource="{Binding Mode.ModeTypeSource}"
                     SelectedItem="{Binding SelectedModeType}"/>
             </Grid>
+            
             <ContentPresenter 
+                Margin="0, 8"
                 DataContext="{Binding AnimMode}"
                 Content="{Binding AnimMode}"
                 ContentTemplateSelector="{StaticResource TemplateSelector}">
             </ContentPresenter>
-            <!--<Border>
-                <Border.Style>
-                    <Style TargetType="Border">
-                        <Setter Property="Visibility" Value="Visible"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Mode.ModeType}"  Value="{x:Static ViewModels:ModeType.Steady}">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Border.Style>
-                <StackPanel>
-                    <Controls:CMiXSlider
-                        Style="{StaticResource CMiXSliderStyle}"
-                        Minimum="0"
-                        Maximum="1"
-                        DockPanel.Dock="Top"
-                        Margin="0, 8"
-                        Height="20"
-                        Value="{Binding Influence.Amount}" 
-                        Caption="Influence"/>
-                    <Views:BeatModifier Grid.Column="1" Margin="0, 2, 0, 8" DataContext="{Binding BeatModifier}"/>
-                    <Views:Range DataContext="{Binding Range}"/>
-                </StackPanel>
-            </Border>-->
+
         </StackPanel>
     </Border>
 </UserControl>

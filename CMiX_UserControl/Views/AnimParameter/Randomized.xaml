@@ -13,7 +13,48 @@
              d:DesignWidth="316.667"
              mc:Ignorable="d">
 
-    <Border Padding="4" IsEnabled="{Binding IsEnabled}">
-        <TextBlock Text="Randomized" Foreground="Red" Height="20"/>
+    <Border IsEnabled="{Binding IsEnabled}">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Setter Property="Visibility" Value="Visible"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Mode.ModeType}"  Value="{x:Static ViewModels:ModeType.Steady}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+        <StackPanel>
+            <!--<Controls:CMiXSlider
+                        Style="{StaticResource CMiXSliderStyle}"
+                        Minimum="0"
+                        Maximum="1"
+                        DockPanel.Dock="Top"
+                        Margin="0, 8"
+                        Height="20"
+                        Value="{Binding Influence.Amount}" 
+                        Caption="Influence"/>-->
+            <Views:BeatModifier Grid.Column="1" Margin="0, 4" DataContext="{Binding BeatModifier}"/>
+            <Border Height="21" Margin="0,8">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock 
+                        VerticalAlignment="Center" 
+                        HorizontalAlignment="Right" 
+                        Text="Easing" 
+                        Padding="4, 0" 
+                        Foreground="{StaticResource TextBase}"/>
+                    <Border Grid.Column="1" Style="{StaticResource BorderShadow}">
+                        <ComboBox
+                            ItemsSource="{Binding ModeTypeSource}"
+                            SelectedItem="{Binding SelectedModeType}"/>
+                    </Border>
+                </Grid>
+            </Border>
+            <Views:Range Margin="0, 2" DataContext="{Binding Range}"/>
+        </StackPanel>
     </Border>
 </UserControl>

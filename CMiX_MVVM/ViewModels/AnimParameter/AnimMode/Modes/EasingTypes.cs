@@ -24,6 +24,7 @@
 
     public enum EasingType
     {
+        None,
         Linear,
 
         QuadraticEaseIn,

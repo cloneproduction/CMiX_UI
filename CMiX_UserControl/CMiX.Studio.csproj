@@ -145,6 +145,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Views\AnimParameter\None.xaml.cs">
+      <DependentUpon>None.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AnimParameter\Steady.xaml.cs">
       <DependentUpon>Steady.xaml</DependentUpon>
     </Compile>
@@ -281,6 +284,10 @@
     <Compile Include="Views\Texture\Texture.xaml.cs">
       <DependentUpon>Texture.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\AnimParameter\None.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\AnimParameter\Steady.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
