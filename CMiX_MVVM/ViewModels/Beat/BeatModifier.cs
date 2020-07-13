@@ -1,5 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.Resources;
 using CMiX.MVVM.Services;
 using System;
 using System.Windows.Media;
@@ -51,6 +52,7 @@ namespace CMiX.MVVM.ViewModels
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
+
         public Beat Beat { get; set; }
         public Slider ChanceToHit { get; }
 
@@ -71,6 +73,16 @@ namespace CMiX.MVVM.ViewModels
                 Notify(nameof(BPM));
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
+        }
+
+        public override double NormalizedTime
+        {
+            get
+            {
+                Console.WriteLine("NormalizedTime " + Utils.Map(Stopwatch.ElapsedMilliseconds, 0, Period, 0, 1));
+                return Utils.Map(Stopwatch.ElapsedMilliseconds, 0, Period, 0, 1);
+            }
+            set => throw new InvalidOperationException("Property is readonly. When binding, use Mode=OneWay.");
         }
 
         protected override void Multiply() => Multiplier /= 2;

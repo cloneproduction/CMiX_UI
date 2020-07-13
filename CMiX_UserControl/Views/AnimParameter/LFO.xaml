@@ -34,7 +34,12 @@
                         Height="20"
                         Value="{Binding Influence.Amount}" 
                         Caption="Influence"/>-->
-            <Views:BeatModifier Grid.Column="1" Margin="0, 4" DataContext="{Binding BeatModifier}"/>
+            <ProgressBar 
+                Height="20" 
+                Minimum="0" 
+                Maximum="1" 
+                Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:AnimParameter}}, Path=DataContext.BeatModifier.NormalizedTime, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Height="20" Margin="0, 8" Foreground="White"  Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:AnimParameter}}, Path=DataContext.BeatModifier.NormalizedTime, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
             <Border Height="21" Margin="0,8">
                 <Grid >
                     <Grid.ColumnDefinitions>

@@ -34,7 +34,6 @@
                         Height="20"
                         Value="{Binding Influence.Amount}" 
                         Caption="Influence"/>-->
-            <Views:BeatModifier Grid.Column="1" Margin="0, 4" DataContext="{Binding BeatModifier}"/>
             <Border Height="21" Margin="0,8">
                 <Grid >
                     <Grid.ColumnDefinitions>

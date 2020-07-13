@@ -44,9 +44,8 @@
     </UserControl.Resources>
     
     <Border Padding="4" IsEnabled="{Binding IsEnabled}">
-        <StackPanel >
-
-            <Grid Height="20" Margin="0,4, 0, 0">
+        <StackPanel>
+            <Grid Height="20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -59,17 +58,25 @@
                     Foreground="{StaticResource TextBase}"/>
                 <ComboBox
                     Grid.Column="1"
-                    ItemsSource="{Binding Mode.ModeTypeSource}"
+                    ItemsSource="{Binding ModeTypeSource}"
                     SelectedItem="{Binding SelectedModeType}"/>
+                
             </Grid>
-            
+
+            <Views:BeatModifier Grid.Column="1" Margin="0, 8" DataContext="{Binding BeatModifier}"/>
+            <TextBlock Height="20" Foreground="White" Text="{Binding BeatModifier.NormalizedTime, Converter={StaticResource DoubleToString}}"/>
+            <ProgressBar 
+                Height="20" 
+                Minimum="0" 
+                Maximum="1" 
+                Value="{Binding BeatModifier.NormalizedTime, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+
             <ContentPresenter 
                 Margin="0, 8"
                 DataContext="{Binding AnimMode}"
                 Content="{Binding AnimMode}"
                 ContentTemplateSelector="{StaticResource TemplateSelector}">
             </ContentPresenter>
-
         </StackPanel>
     </Border>
 </UserControl>

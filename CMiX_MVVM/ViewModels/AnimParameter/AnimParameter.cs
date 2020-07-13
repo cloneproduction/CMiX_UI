@@ -1,5 +1,8 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -7,13 +10,10 @@ namespace CMiX.MVVM.ViewModels
     {
         public AnimParameter(string name, Beat beat, bool isEnabled = true)
         {
-            Mode = new AnimMode(this);
-            Influence = new Slider(nameof(Influence), this);
-            Range = new Range(this);
 ;           BeatModifier = new BeatModifier(beat, this);
             BeatModifier.BeatTap += BeatModifier_BeatTap;
+            
             SelectedModeType = ModeType.Steady;
-
             Name = name;
             IsEnabled = isEnabled;
         }
@@ -71,24 +71,24 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
+        public IEnumerable<ModeType> ModeTypeSource
+        {
+            get => Enum.GetValues(typeof(ModeType)).Cast<ModeType>();
+        }
+
         private void SetAnimMode()
         {
             AnimMode = ModesFactory.CreateMode(SelectedModeType);
         }
 
         private IAnimMode _animMode;
-
         public IAnimMode AnimMode
         {
             get => _animMode;
             set => SetAndNotify(ref _animMode, value);
         }
-        
-        public AnimMode Mode { get; set; }
-        public Slider Influence { get; set; }
-        public BeatModifier BeatModifier { get; set; }
 
-        public Range Range { get; set; }
+        public BeatModifier BeatModifier { get; set; }
         public EasingType EasingType { get; set; }
     }
 }

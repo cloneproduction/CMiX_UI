@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Models;
+using CMiX.MVVM.Resources;
 using CMiX.MVVM.Services;
 using System;
 using System.Diagnostics;
@@ -54,6 +55,8 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
+        public abstract double NormalizedTime {get; set;}
+
         private double _multiplier;
         public virtual double Multiplier
         {
@@ -97,6 +100,9 @@ namespace CMiX.MVVM.ViewModels
 
         public virtual void CompositionTarget_Rendering(object sender, EventArgs e)
         {
+            //Console.WriteLine("Stopwatch.ElapsedMilliseconds " + Stopwatch.ElapsedMilliseconds);
+            //Console.WriteLine("NormalizedTime " + NormalizedTime);
+            NormalizedTime = Utils.Map(Stopwatch.ElapsedMilliseconds, 0, Period, 0, 1);
             if (Stopwatch.ElapsedMilliseconds > Math.Floor(Period))
             {
                 BeatTick++;

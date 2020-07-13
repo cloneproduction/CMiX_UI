@@ -32,10 +32,5 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _selectedEasingType, value);
         }
         public Range Range { get; set; }
-
-        //public void Update()
-        //{
-        //    //ParameterValue = Easing.Interpolate(Stopwatcher.LFO, EasingType);
-        //}
     }
 }
