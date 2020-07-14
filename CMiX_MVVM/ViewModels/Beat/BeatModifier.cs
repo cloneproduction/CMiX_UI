@@ -1,6 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Resources;
 using CMiX.MVVM.Services;
 using System;
 using System.Windows.Media;
@@ -12,7 +11,7 @@ namespace CMiX.MVVM.ViewModels
         public BeatModifier(Beat beat)
         {
             ChanceToHit = new Slider(nameof(ChanceToHit), this) { Amount = 1.0 };
-
+            step = 0;
             Beat = beat;
             beat.StopWatchReset += Beat_StopWatchReset;
             Multiplier = 1.0;
@@ -29,14 +28,24 @@ namespace CMiX.MVVM.ViewModels
             this.ResetStopWatch();
         }
 
+        private double _progressMax;
+        public double ProgressMax
+        {
+            get => Period;
+            set => SetAndNotify(ref _progressMax, value);
+        }
+
+        public int step { get; set; }
         public override void CompositionTarget_Rendering(object sender, EventArgs e)
         {
-            if (Stopwatch.ElapsedMilliseconds > Math.Floor(this.Period))
-            {
-                this.ResetStopWatch();
-                this.OnBeatTap();
-                //Console.WriteLine("Beat Modifier TAP : " + Period);
-            }
+            var RenderTime = e as RenderingEventArgs;
+
+            var step = Period / RenderTime.RenderingTime.Milliseconds;
+            Progress += step ;
+            
+            base.CompositionTarget_Rendering(sender, e);
+            if (Progress >= ProgressMax)
+                Progress = 0;
         }
 
         public BeatModifier(Beat beat, Sendable parentSendable) : this(beat)
@@ -73,16 +82,6 @@ namespace CMiX.MVVM.ViewModels
                 Notify(nameof(BPM));
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
-        }
-
-        public override double NormalizedTime
-        {
-            get
-            {
-                Console.WriteLine("NormalizedTime " + Utils.Map(Stopwatch.ElapsedMilliseconds, 0, Period, 0, 1));
-                return Utils.Map(Stopwatch.ElapsedMilliseconds, 0, Period, 0, 1);
-            }
-            set => throw new InvalidOperationException("Property is readonly. When binding, use Mode=OneWay.");
         }
 
         protected override void Multiply() => Multiplier /= 2;

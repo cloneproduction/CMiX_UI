@@ -18,6 +18,7 @@ namespace CMiX.MVVM.ViewModels
 
             CompositionTarget.Rendering += CompositionTarget_Rendering;
 
+
             ResetCommand = new RelayCommand(p => Reset());
             MultiplyCommand = new RelayCommand(p => Multiply());
             DivideCommand = new RelayCommand(p => Divide());
@@ -55,7 +56,7 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public abstract double NormalizedTime {get; set;}
+
 
         private double _multiplier;
         public virtual double Multiplier
@@ -98,11 +99,21 @@ namespace CMiX.MVVM.ViewModels
             Stopwatch.Start();
         }
 
+
+        private double _progress = 0;
+        public double Progress
+        {
+            get => _progress ; 
+            set => SetAndNotify(ref _progress, value);
+        }
+
+
+
         public virtual void CompositionTarget_Rendering(object sender, EventArgs e)
         {
             //Console.WriteLine("Stopwatch.ElapsedMilliseconds " + Stopwatch.ElapsedMilliseconds);
             //Console.WriteLine("NormalizedTime " + NormalizedTime);
-            NormalizedTime = Utils.Map(Stopwatch.ElapsedMilliseconds, 0, Period, 0, 1);
+
             if (Stopwatch.ElapsedMilliseconds > Math.Floor(Period))
             {
                 BeatTick++;

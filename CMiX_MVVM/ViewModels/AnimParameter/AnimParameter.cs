@@ -12,7 +12,6 @@ namespace CMiX.MVVM.ViewModels
         {
 ;           BeatModifier = new BeatModifier(beat, this);
             BeatModifier.BeatTap += BeatModifier_BeatTap;
-            
             SelectedModeType = ModeType.Steady;
             Name = name;
             IsEnabled = isEnabled;
@@ -21,6 +20,7 @@ namespace CMiX.MVVM.ViewModels
         public AnimParameter(string name, Beat beat, bool isEnabled, Sendable parentSendable) : this(name, beat, isEnabled)
         {
             SubscribeToEvent(parentSendable);
+            
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
@@ -31,10 +31,12 @@ namespace CMiX.MVVM.ViewModels
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
-        private void BeatModifier_BeatTap(object sender, System.EventArgs e)
+        private void BeatModifier_BeatTap(object sender, EventArgs e)
         {
             AnimMode.Update();
         }
+
+
 
         public override string GetMessageAddress()
         {

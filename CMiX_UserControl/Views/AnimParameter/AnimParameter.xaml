@@ -43,7 +43,7 @@
             LFOTemplate="{StaticResource LFOTemplate}"/>
     </UserControl.Resources>
     
-    <Border Padding="4" IsEnabled="{Binding IsEnabled}">
+    <Border Padding="4, 8" IsEnabled="{Binding IsEnabled}">
         <StackPanel>
             <Grid Height="20">
                 <Grid.ColumnDefinitions>
@@ -60,17 +60,15 @@
                     Grid.Column="1"
                     ItemsSource="{Binding ModeTypeSource}"
                     SelectedItem="{Binding SelectedModeType}"/>
-                
             </Grid>
 
             <Views:BeatModifier Grid.Column="1" Margin="0, 8" DataContext="{Binding BeatModifier}"/>
-            <TextBlock Height="20" Foreground="White" Text="{Binding BeatModifier.NormalizedTime, Converter={StaticResource DoubleToString}}"/>
+            <!--<TextBlock Height="20" Foreground="White" Text="{Binding BeatModifier.NormalizedTime, Mode=OneWay, Converter={StaticResource DoubleToString}}"/>-->
             <ProgressBar 
                 Height="20" 
                 Minimum="0" 
-                Maximum="1" 
-                Value="{Binding BeatModifier.NormalizedTime, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-
+                Maximum="{Binding BeatModifier.ProgressMax}" 
+                Value="{Binding BeatModifier.Progress}" />
             <ContentPresenter 
                 Margin="0, 8"
                 DataContext="{Binding AnimMode}"

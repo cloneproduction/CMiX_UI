@@ -52,7 +52,7 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public override double NormalizedTime { get; set; }
+        //public override double NormalizedTime { get; set; }
 
         private void Resync()
         {
