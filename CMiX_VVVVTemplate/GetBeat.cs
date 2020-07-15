@@ -20,10 +20,14 @@ namespace CMiX.Nodes
         [Output("Multiplier")]
         public ISpread<double> FMultiplier;
 
+        [Output("BeatTick")]
+        public ISpread<int> FBeatTick;
+
         public void Evaluate(int SpreadMax)
         {
             FPeriod.SliceCount = FBeat.SliceCount;
             FMultiplier.SliceCount = FBeat.SliceCount;
+            FBeatTick.SliceCount = FBeat.SliceCount;
 
             if (FBeat.SliceCount > 0)
             {
@@ -31,11 +35,13 @@ namespace CMiX.Nodes
                 {
                     if (FBeat[i] != null)
                     {
+                        FBeatTick[i] = FBeat[i].Beat.BeatTick;
                         FPeriod[i] = FBeat[i].Beat.Period;
                         FMultiplier[i] = FBeat[i].Beat.Multiplier;
                     }
                     else
                     {
+                        FBeatTick.SliceCount = 0;
                         FPeriod.SliceCount = 0;
                         FMultiplier.SliceCount = 0;
                     }

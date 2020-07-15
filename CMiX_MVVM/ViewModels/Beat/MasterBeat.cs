@@ -57,14 +57,19 @@ namespace CMiX.MVVM.ViewModels
         private void Resync()
         {
             BeatTick = 0;
-            this.ResetStopWatch();
+            //this.ResetStopWatch();
         }
 
         protected override void Multiply() => Period /= 2.0;
 
         protected override void Divide() => Period *= 2.0;
 
-        private void Tap() => Period = GetMasterPeriod();
+        private void Tap()
+        {
+            Period = GetMasterPeriod();
+            if (Period > 0)
+                Timer.Interval = (float)Period;
+        }
 
 
         private double GetMasterPeriod()

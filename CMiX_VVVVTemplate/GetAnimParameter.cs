@@ -40,8 +40,8 @@ namespace CMiX.Nodes
                 {
                     if (AnimParameter[i] != null)
                     {
-                        Influence[i] = AnimParameter[i].Influence.Amount;
-                        Mode[i] = AnimParameter[i].Mode.Mode.ToString();
+                        //Influence[i] = AnimParameter[i].Influence.Amount;
+                        //Mode[i] = AnimParameter[i].Mode.Mode.ToString();
                         Multiplier[i] = AnimParameter[i].BeatModifier.Multiplier;
                         ChanceToHit[i] = AnimParameter[i].BeatModifier.ChanceToHit.Amount;
                     }

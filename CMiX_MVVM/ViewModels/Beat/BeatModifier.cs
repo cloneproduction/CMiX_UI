@@ -25,7 +25,7 @@ namespace CMiX.MVVM.ViewModels
 
         private void Beat_StopWatchReset(object sender, EventArgs e)
         {
-            this.ResetStopWatch();
+            //this.ResetStopWatch();
         }
 
         private double _progressMax;

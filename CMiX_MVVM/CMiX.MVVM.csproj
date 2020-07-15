@@ -109,6 +109,7 @@
     <Compile Include="Models\Geometry\Modifier\AnimModeModel.cs" />
     <Compile Include="Models\Geometry\Modifier\ModifierModel.cs" />
     <Compile Include="Models\RangeModel.cs" />
+    <Compile Include="Services\HighResolutionTimer.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\AnimMode.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\AnimModeModelFactory.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\IAnimMode.cs" />
