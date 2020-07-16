@@ -13,7 +13,7 @@
         Padding="8"
         Background="{StaticResource HighDarkerColor}">
         <StackPanel>
-            <Grid DockPanel.Dock="Right" Margin="0, 8" Height="20">
+            <Grid DockPanel.Dock="Right" Margin="0, 4" Height="20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -21,71 +21,114 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <Border Margin="0, 4" Height="25" Grid.Column="0" Grid.Row="0">
+                <Border Margin="1,4" Background="{DynamicResource DarkerColor}" Grid.Column="0"/>
+                <Border Margin="1,4" Background="{DynamicResource DarkerColor}" Grid.Column="1"/>
+                <Border Margin="1,4" Background="{DynamicResource DarkerColor}" Grid.Column="2"/>
+                <Border Margin="1,4" Background="{DynamicResource DarkerColor}" Grid.Column="3"/>
+                <Border Margin="1, 4" Background="{DynamicResource HighLightColor}" Grid.Column="0">
                     <Border.Style>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="Background" Value="Red"/>
-                            <Setter Property="Visibility" Value="Hidden"/>
+                        <Style TargetType="Border">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding BeatTick}" Value="0">
-                                    <Setter Property="Visibility" Value="Visible" />
+                                <DataTrigger Binding="{Binding BeatTickCount}" Value="0">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0:0:0.0" To="1" Storyboard.TargetProperty="Opacity" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0:0:0.0" To="0" Storyboard.TargetProperty="Opacity" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.ExitActions>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
                 </Border>
 
-
-                <Border Margin="0, 4" Height="25" Grid.Column="1" Grid.Row="0">
+                <Border Margin="1, 4" Background="{DynamicResource HighLightColor}" Grid.Column="1">
                     <Border.Style>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="Background" Value="Red"/>
-                            <Setter Property="Visibility" Value="Hidden"/>
+                        <Style TargetType="Border">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding BeatTick}" Value="1">
-                                    <Setter Property="Visibility" Value="Visible" />
+                                <DataTrigger Binding="{Binding BeatTickCount}" Value="1">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0:0:0.0" To="1" Storyboard.TargetProperty="Opacity" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0:0:0.0" To="0" Storyboard.TargetProperty="Opacity" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.ExitActions>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
                 </Border>
-
-                <Border Margin="0, 4" Height="25" Grid.Column="2">
+                <Border Margin="1, 4" Background="{DynamicResource HighLightColor}" Grid.Column="2">
                     <Border.Style>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="Background" Value="Red"/>
-                            <Setter Property="Visibility" Value="Hidden"/>
+                        <Style TargetType="Border">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding BeatTick}" Value="2">
-                                    <Setter Property="Visibility" Value="Visible" />
+                                <DataTrigger Binding="{Binding BeatTickCount}" Value="2">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0:0:0.0" To="1" Storyboard.TargetProperty="Opacity" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0:0:0.0" To="0" Storyboard.TargetProperty="Opacity" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.ExitActions>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
                 </Border>
-
-                <Border Margin="0, 4" Height="25" Grid.Column="3">
+                <Border Margin="1, 4" Background="{DynamicResource HighLightColor}" Grid.Column="3">
                     <Border.Style>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="Background" Value="Red"/>
-                            <Setter Property="Visibility" Value="Hidden"/>
+                        <Style TargetType="Border">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding BeatTick}" Value="3">
-                                    <Setter Property="Visibility" Value="Visible" />
+                                <DataTrigger Binding="{Binding BeatTickCount}" Value="3">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0:0:0.0" To="1" Storyboard.TargetProperty="Opacity" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0:0:0.0" To="0" Storyboard.TargetProperty="Opacity" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.ExitActions>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
                 </Border>
-
-
             </Grid>
-                <DockPanel Height="30">
+            <DockPanel Height="30">
                     <Button
                         Grid.Column="3"
                         Style="{StaticResource ButtonRounded}"
                         Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
-                        Command="{Binding Path=ResyncCommand}"
+                        Command="{Binding ResyncCommand}"
                         Content="Rc"
                         DockPanel.Dock="Right"/>
                     <Button
@@ -126,7 +169,7 @@
                     Style="{StaticResource ButtonRounded}"
                     VerticalAlignment="Stretch"
                     HorizontalAlignment="Stretch"
-                    Command="{Binding Path=TapCommand}"
+                    Command="{Binding TapCommand}"
                     Content="TAP"/>
         </StackPanel>
 

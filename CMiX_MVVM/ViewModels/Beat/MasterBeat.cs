@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMiX.MVVM.Services;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -14,14 +15,31 @@ namespace CMiX.MVVM.ViewModels
         }
         public MasterBeat(double period, double multiplier)
         {
+            BeatTickCount = 0;
+
+
+
             Period = period;
             Multiplier = multiplier;
+
+            Timer = new HighResolutionTimer((float)Period);
+            Timer.Elapsed += Timer_Elapsed; ;
+            Timer.Start();
 
             tapPeriods = new List<double>();
             tapTime = new List<double>();
 
             ResyncCommand = new RelayCommand(p => Resync());
             TapCommand = new RelayCommand(p => Tap());
+        }
+
+        private void Timer_Elapsed(object sender, HighResolutionTimerElapsedEventArgs e)
+        {
+            OnBeatTap();
+            BeatTickCount++;
+            if (BeatTickCount > 3)
+                BeatTickCount = 0;
+            //Console.WriteLine("Master BeatTickCount = " + BeatTickCount);
         }
 
         public MasterBeat(double period, double multiplier, Sendable parentSendable) : this(period, multiplier)
@@ -46,18 +64,31 @@ namespace CMiX.MVVM.ViewModels
                 SetAndNotify(ref _period, value);
                 OnPeriodChanged(Period);
                 Notify(nameof(BPM));
-                if (Period > 0)
-                    BeatTick = 0;
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
+                if (Period > 0 && Timer != null)
+                    Timer.Interval = (float)Period;
             }
         }
 
-        //public override double NormalizedTime { get; set; }
-
-        private void Resync()
+        private int _beatTickCount;
+        public override int BeatTickCount
         {
-            BeatTick = 0;
-            //this.ResetStopWatch();
+            get => _beatTickCount;
+            set => SetAndNotify(ref _beatTickCount, value);
+        }
+
+        public override HighResolutionTimer Timer { get; set; }
+
+
+        protected override void Resync()
+        {
+            BeatTickCount = 0;
+            if (!Timer.IsRunning) 
+                return;
+
+            Timer.Stop();
+            Timer.Start();
+            OnBeatResync();
         }
 
         protected override void Multiply() => Period /= 2.0;

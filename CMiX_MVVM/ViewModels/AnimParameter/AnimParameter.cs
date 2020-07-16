@@ -8,7 +8,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class AnimParameter : Sendable
     {
-        public AnimParameter(string name, Beat beat, bool isEnabled = true)
+        public AnimParameter(string name, MasterBeat beat, bool isEnabled = true)
         {
 ;           BeatModifier = new BeatModifier(beat, this);
             BeatModifier.BeatTap += BeatModifier_BeatTap;
@@ -17,7 +17,7 @@ namespace CMiX.MVVM.ViewModels
             IsEnabled = isEnabled;
         }
 
-        public AnimParameter(string name, Beat beat, bool isEnabled, Sendable parentSendable) : this(name, beat, isEnabled)
+        public AnimParameter(string name, MasterBeat beat, bool isEnabled, Sendable parentSendable) : this(name, beat, isEnabled)
         {
             SubscribeToEvent(parentSendable);
             

@@ -45,10 +45,10 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <DockPanel Grid.Column="0">
-                <Views:MessengerService 
+                <!--<Views:MessengerService 
                     Margin="4"
                     DockPanel.Dock="Top"
-                    DataContext="{Binding MessageValidationManager}"/>
+                    DataContext="{Binding MessageValidationManager}"/>-->
                 <MVVM.Views:Slider
                     DockPanel.Dock="Top"
                     Margin="0, 8, 0, 0"

@@ -1,10 +1,7 @@
 ﻿using CMiX.MVVM.Models;
-using CMiX.MVVM.Resources;
 using CMiX.MVVM.Services;
 using System;
-using System.Diagnostics;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -12,29 +9,11 @@ namespace CMiX.MVVM.ViewModels
     {
         public Beat()
         {
-            //Stopwatch = new Stopwatch();
-            //Stopwatch.Start();
-            BeatTick = 0;
-
-            Timer = new HighResolutionTimer(1000);
-            Timer.Elapsed += Timer_Elapsed;
-            Timer.Start();
-            CompositionTarget.Rendering += CompositionTarget_Rendering;
-
-
+            BeatTickCount = 0;
+            
             ResetCommand = new RelayCommand(p => Reset());
             MultiplyCommand = new RelayCommand(p => Multiply());
             DivideCommand = new RelayCommand(p => Divide());
-        }
-
-        private void Timer_Elapsed(object sender, HighResolutionTimerElapsedEventArgs e)
-        {
-            //Console.WriteLine("Delay" + e.Delay);
-            BeatTick++;
-            if (BeatTick >= 4)
-                BeatTick = 0;
-            //ResetStopWatch();
-            OnBeatTap();
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
@@ -54,7 +33,9 @@ namespace CMiX.MVVM.ViewModels
         public ICommand MultiplyCommand { get; }
         public ICommand DivideCommand { get; }
 
+        public abstract HighResolutionTimer Timer { get; set; }
         public abstract double Period { get; set; }
+        public abstract int BeatTickCount { get; set; }
 
         private double _bpm;
         public double BPM
@@ -74,8 +55,6 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-
-
         private double _multiplier;
         public virtual double Multiplier
         {
@@ -83,16 +62,12 @@ namespace CMiX.MVVM.ViewModels
             set =>  SetAndNotify(ref _multiplier, value);
         }
 
-        private HighResolutionTimer _timer;
-        public HighResolutionTimer Timer
-        {
-            get => _timer;
-            set => _timer = value;
-        }
+
 
 
         private void Reset() => Multiplier = 1;
 
+        protected abstract void Resync();
         protected abstract void Multiply();
         protected abstract void Divide();
 
@@ -110,51 +85,11 @@ namespace CMiX.MVVM.ViewModels
             if (null != handler) handler(this, EventArgs.Empty);
         }
 
-        public event EventHandler StopWatchReset;
-        public void OnStopWatchReset()
+        public event EventHandler BeatResync;
+        public void OnBeatResync()
         {
-            EventHandler handler = StopWatchReset;
+            EventHandler handler = BeatResync;
             if (null != handler) handler(this, EventArgs.Empty);
-        }
-
-        //public Stopwatch Stopwatch { get; set; }
-
-        //public void ResetStopWatch()
-        //{
-        //    Stopwatch.Reset();
-        //    Stopwatch.Start();
-        //}
-
-
-        private double _progress = 0;
-        public double Progress
-        {
-            get => _progress ; 
-            set => SetAndNotify(ref _progress, value);
-        }
-
-
-
-        public virtual void CompositionTarget_Rendering(object sender, EventArgs e)
-        {
-            //Console.WriteLine("Stopwatch.ElapsedMilliseconds " + Stopwatch.ElapsedMilliseconds);
-            //Console.WriteLine("NormalizedTime " + NormalizedTime);
-
-            //if (Stopwatch.ElapsedMilliseconds > Math.Floor(Period))
-            //{
-            //    BeatTick++;
-            //    if (BeatTick >= 4)
-            //        BeatTick = 0;
-            //    ResetStopWatch();
-            //    OnBeatTap();
-            //}
-        }
-
-        private int _beatTick;
-        public int BeatTick
-        {
-            get => _beatTick;
-            set => SetAndNotify(ref _beatTick, value);
         }
     }
 }

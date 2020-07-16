@@ -6,7 +6,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Composition : Component, IBeat
     {
-        public Composition(int id, Beat beat) : base (id)
+        public Composition(int id, MasterBeat beat) : base (id)
         {
             Transition = new Slider(nameof(Transition));
             Beat = beat;
@@ -16,6 +16,6 @@ namespace CMiX.MVVM.ViewModels
 
         public Camera Camera { get; set; }
         public Slider Transition { get; set; }
-        public Beat Beat { get; set; }
+        public MasterBeat Beat { get; set; }
     }
 }

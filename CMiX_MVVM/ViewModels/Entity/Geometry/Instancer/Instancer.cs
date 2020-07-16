@@ -6,7 +6,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Instancer : Sendable, ITransform
     {
-        public Instancer(Beat beat)
+        public Instancer(MasterBeat beat)
         {
             Transform = new Transform(this);
             Counter = new Counter(this);
@@ -18,7 +18,7 @@ namespace CMiX.MVVM.ViewModels
             NoAspectRatio = false;
         }
 
-        public Instancer(Beat beat, Sendable parentSendable) : this(beat)
+        public Instancer(MasterBeat beat, Sendable parentSendable) : this(beat)
         {
             SubscribeToEvent(parentSendable);
         }

@@ -7,7 +7,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class XYZModifier : Sendable, IModifier
     {
-        public XYZModifier(string name, Beat beat) 
+        public XYZModifier(string name, MasterBeat beat) 
         {
             Name = name;
             Uniform = new AnimParameter(nameof(Uniform), beat, true, this);
@@ -16,7 +16,7 @@ namespace CMiX.MVVM.ViewModels
             Z = new AnimParameter(nameof(Z), beat, false, this);
         }
 
-        public XYZModifier(string name, Beat beat, Sendable parentSendable) : this(name, beat)
+        public XYZModifier(string name, MasterBeat beat, Sendable parentSendable) : this(name, beat)
         {
             SubscribeToEvent(parentSendable);
         }

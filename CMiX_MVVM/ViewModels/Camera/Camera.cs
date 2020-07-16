@@ -2,7 +2,7 @@
 {
     public class Camera : ViewModel
     {
-        public Camera(Beat beat) 
+        public Camera(MasterBeat beat) 
         {
             Rotation = ((CameraRotation)0).ToString();
             LookAt = ((CameraLookAt)0).ToString();

@@ -8,7 +8,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Geometry : Sendable, ITransform
     {
-        public Geometry(Beat beat) 
+        public Geometry(MasterBeat beat) 
         {
             Instancer = new Instancer(beat, this);
             Transform = new Transform(this);
@@ -16,7 +16,7 @@ namespace CMiX.MVVM.ViewModels
             AssetPathSelector = new AssetPathSelector<AssetGeometry>(this);
         }
 
-        public Geometry(Beat beat, Sendable parentSendable) : this(beat)
+        public Geometry(MasterBeat beat, Sendable parentSendable) : this(beat)
         {
             SubscribeToEvent(parentSendable);
         }

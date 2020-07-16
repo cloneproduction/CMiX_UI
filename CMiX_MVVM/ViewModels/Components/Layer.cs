@@ -9,7 +9,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Layer : Component, IBeat
     {
-        public Layer(int id, Beat beat) : base(id)
+        public Layer(int id, MasterBeat beat) : base(id)
         {
             Beat = beat;
             PostFX = new PostFX();
@@ -28,6 +28,6 @@ namespace CMiX.MVVM.ViewModels
         public Mask Mask { get; set; }
         public PostFX PostFX { get; set; }
         public BlendMode BlendMode { get; set; }
-        public Beat Beat { get; set; }
+        public MasterBeat Beat { get; set; }
     }
 }

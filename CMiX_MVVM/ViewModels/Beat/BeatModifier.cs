@@ -2,56 +2,71 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using System;
-using System.Windows.Media;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class BeatModifier : Beat, IBeat
     {
-        public BeatModifier(Beat beat)
+        public BeatModifier(MasterBeat beat)
         {
             ChanceToHit = new Slider(nameof(ChanceToHit), this) { Amount = 1.0 };
             step = 0;
             Beat = beat;
-            beat.StopWatchReset += Beat_StopWatchReset;
-            Multiplier = 1.0;
+
+            Timer = new HighResolutionTimer((float)Period);
+            Timer.Elapsed += Timer_Elapsed; ;
+            Timer.Start();
+
+            
+            beat.BeatTap += Beat_BeatTap;
+            beat.BeatResync += Beat_BeatResync;
             beat.PeriodChanged += (s, newvalue) =>
             {
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
+                Timer.Interval = (float)Period;
             };
+
+
+
+            Multiplier = 1.0;
+            BeatTickCount = beat.BeatTickCount;
         }
 
-        private void Beat_StopWatchReset(object sender, EventArgs e)
+        private void Timer_Elapsed(object sender, HighResolutionTimerElapsedEventArgs e)
         {
-            //this.ResetStopWatch();
+            BeatTickCount++;
+            if (BeatTickCount >= 4)
+                BeatTickCount = 0;
         }
 
-        private double _progressMax;
-        public double ProgressMax
-        {
-            get => Period;
-            set => SetAndNotify(ref _progressMax, value);
-        }
-
-        public int step { get; set; }
-        public override void CompositionTarget_Rendering(object sender, EventArgs e)
-        {
-            var RenderTime = e as RenderingEventArgs;
-
-            var step = Period / RenderTime.RenderingTime.Milliseconds;
-            Progress += step ;
-            
-            base.CompositionTarget_Rendering(sender, e);
-            if (Progress >= ProgressMax)
-                Progress = 0;
-        }
-
-        public BeatModifier(Beat beat, Sendable parentSendable) : this(beat)
+        public BeatModifier(MasterBeat beat, Sendable parentSendable) : this(beat)
         {
             SubscribeToEvent(parentSendable);
         }
+
+        private void Beat_BeatTap(object sender, EventArgs e)
+        {
+
+        }
+
+        protected override void Resync()
+        {
+            BeatTickCount = 0;
+            if (!Timer.IsRunning)
+                return;
+
+            Timer.Stop();
+            Timer.Start();
+        }
+
+        private void Beat_BeatResync(object sender, EventArgs e)
+        {
+            Resync();
+        }
+
+        public int step { get; set; }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
@@ -61,9 +76,18 @@ namespace CMiX.MVVM.ViewModels
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
-
-        public Beat Beat { get; set; }
+        public MasterBeat Beat { get; set; }
         public Slider ChanceToHit { get; }
+
+        public override HighResolutionTimer Timer { get; set; }
+
+        private int _beatTickCount;
+        public override int BeatTickCount
+        {
+            get => _beatTickCount; 
+            set => SetAndNotify(ref _beatTickCount, value);
+        }
+
 
         public override double Period
         {
@@ -81,6 +105,7 @@ namespace CMiX.MVVM.ViewModels
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
+                Timer.Interval = (float)Period;
             }
         }
 

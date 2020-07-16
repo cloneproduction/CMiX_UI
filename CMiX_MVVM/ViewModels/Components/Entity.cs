@@ -7,7 +7,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Entity : Component, IBeat
     {
-        public Entity(int id, Beat beat) : base(id)
+        public Entity(int id, MasterBeat beat) : base(id)
         {
             BeatModifier = new BeatModifier(beat);
             Geometry = new Geometry(beat, this);
@@ -23,6 +23,6 @@ namespace CMiX.MVVM.ViewModels
         public Geometry Geometry { get; }
         public Texture Texture { get; }
         public Coloration Coloration { get; }
-        public Beat Beat { get; set; }
+        public MasterBeat Beat { get; set; }
     }
 }

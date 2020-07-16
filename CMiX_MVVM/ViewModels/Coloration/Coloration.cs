@@ -7,7 +7,7 @@ namespace CMiX.MVVM.ViewModels
     public class Coloration : Sendable
     {
         #region CONSTRUCTORS
-        public Coloration(Beat beat) 
+        public Coloration(MasterBeat beat) 
         {
             BeatModifier = new BeatModifier(beat);
             ColorSelector = new ColorSelector(this);
@@ -19,7 +19,7 @@ namespace CMiX.MVVM.ViewModels
 
 
         #endregion
-        public Coloration(Beat beat, Sendable parentSendable) : this(beat)
+        public Coloration(MasterBeat beat, Sendable parentSendable) : this(beat)
         {
             SubscribeToEvent(parentSendable);
         }
