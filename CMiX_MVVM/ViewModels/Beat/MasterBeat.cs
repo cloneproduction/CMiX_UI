@@ -17,8 +17,6 @@ namespace CMiX.MVVM.ViewModels
         {
             BeatTickCount = 0;
 
-
-
             Period = period;
             Multiplier = multiplier;
 
@@ -39,7 +37,7 @@ namespace CMiX.MVVM.ViewModels
             BeatTickCount++;
             if (BeatTickCount > 3)
                 BeatTickCount = 0;
-            //Console.WriteLine("Master BeatTickCount = " + BeatTickCount);
+            Console.WriteLine("Tick " + BeatTickCount + " Delay " + e.Delay);
         }
 
         public MasterBeat(double period, double multiplier, Sendable parentSendable) : this(period, multiplier)

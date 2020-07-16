@@ -16,8 +16,8 @@ namespace CMiX.MVVM.ViewModels
             Timer = new HighResolutionTimer((float)Period);
             Timer.Elapsed += Timer_Elapsed; ;
             Timer.Start();
+            //CompositionTarget.Rendering check again
 
-            
             beat.BeatTap += Beat_BeatTap;
             beat.BeatResync += Beat_BeatResync;
             beat.PeriodChanged += (s, newvalue) =>
@@ -25,7 +25,8 @@ namespace CMiX.MVVM.ViewModels
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
-                Timer.Interval = (float)Period;
+                if (Period > 0 && Timer != null)
+                    Timer.Interval = (float)Period;
             };
 
 

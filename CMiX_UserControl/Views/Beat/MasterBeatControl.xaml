@@ -25,9 +25,10 @@
                 <Border Margin="1,4" Background="{DynamicResource DarkerColor}" Grid.Column="1"/>
                 <Border Margin="1,4" Background="{DynamicResource DarkerColor}" Grid.Column="2"/>
                 <Border Margin="1,4" Background="{DynamicResource DarkerColor}" Grid.Column="3"/>
-                <Border Margin="1, 4" Background="{DynamicResource HighLightColor}" Grid.Column="0">
-                    <Border.Style>
-                        <Style TargetType="Border">
+                
+                <Rectangle Margin="1, 4" Fill="{DynamicResource HighLightColor}" Grid.Column="0">
+                    <Rectangle.Style>
+                        <Style TargetType="Rectangle">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding BeatTickCount}" Value="0">
                                     <DataTrigger.EnterActions>
@@ -47,12 +48,11 @@
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
-                    </Border.Style>
-                </Border>
-
-                <Border Margin="1, 4" Background="{DynamicResource HighLightColor}" Grid.Column="1">
-                    <Border.Style>
-                        <Style TargetType="Border">
+                    </Rectangle.Style>
+                </Rectangle>
+                <Rectangle Margin="1, 4" Fill="{DynamicResource HighLightColor}" Grid.Column="1">
+                    <Rectangle.Style>
+                        <Style TargetType="Rectangle">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding BeatTickCount}" Value="1">
                                     <DataTrigger.EnterActions>
@@ -72,11 +72,11 @@
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
-                    </Border.Style>
-                </Border>
-                <Border Margin="1, 4" Background="{DynamicResource HighLightColor}" Grid.Column="2">
-                    <Border.Style>
-                        <Style TargetType="Border">
+                    </Rectangle.Style>
+                </Rectangle>
+                <Rectangle Margin="1, 4" Fill="{DynamicResource HighLightColor}" Grid.Column="2">
+                    <Rectangle.Style>
+                        <Style TargetType="Rectangle">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding BeatTickCount}" Value="2">
                                     <DataTrigger.EnterActions>
@@ -96,11 +96,11 @@
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
-                    </Border.Style>
-                </Border>
-                <Border Margin="1, 4" Background="{DynamicResource HighLightColor}" Grid.Column="3">
-                    <Border.Style>
-                        <Style TargetType="Border">
+                    </Rectangle.Style>
+                </Rectangle>
+                <Rectangle Margin="1, 4" Fill="{DynamicResource HighLightColor}" Grid.Column="3">
+                    <Rectangle.Style>
+                        <Style TargetType="Rectangle">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding BeatTickCount}" Value="3">
                                     <DataTrigger.EnterActions>
@@ -120,8 +120,8 @@
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
-                    </Border.Style>
-                </Border>
+                    </Rectangle.Style>
+                </Rectangle>
             </Grid>
             <DockPanel Height="30">
                     <Button
