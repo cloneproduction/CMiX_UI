@@ -91,6 +91,7 @@
     <Compile Include="Behaviors\TextBoxFocusBehavior.cs" />
     <Compile Include="Behaviors\TreeViewItemClickBehavior.cs" />
     <Compile Include="Behaviors\TreeViewMultiSelectionBehavior.cs" />
+    <Compile Include="Controls\Beat\BeatMasterController.cs" />
     <Compile Include="Controls\CMiXRangeSlider.xaml.cs">
       <DependentUpon>CMiXRangeSlider.xaml</DependentUpon>
     </Compile>
@@ -361,6 +362,14 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\CMiXRangeSlider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\BeatController\BeatTapButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\BeatController\MasterBeatController.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

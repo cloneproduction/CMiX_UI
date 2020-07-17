@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
     d:DesignHeight="289.777"
     d:DesignWidth="252.667"
     mc:Ignorable="d">
@@ -13,6 +14,7 @@
         Padding="8"
         Background="{StaticResource HighDarkerColor}">
         <StackPanel>
+            <Controls:MasterBeatController Style="{StaticResource MasterBeatControllerStyle }"/>
             <Grid DockPanel.Dock="Right" Margin="0, 4" Height="20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -25,7 +27,9 @@
                 <Border Margin="1,4" Background="{DynamicResource DarkerColor}" Grid.Column="1"/>
                 <Border Margin="1,4" Background="{DynamicResource DarkerColor}" Grid.Column="2"/>
                 <Border Margin="1,4" Background="{DynamicResource DarkerColor}" Grid.Column="3"/>
+
                 
+
                 <Rectangle Margin="1, 4" Fill="{DynamicResource HighLightColor}" Grid.Column="0">
                     <Rectangle.Style>
                         <Style TargetType="Rectangle">

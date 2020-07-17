@@ -18,6 +18,10 @@
         <ResourceDictionary Source="GridSplitter.xaml"/>
         <ResourceDictionary Source="Button.xaml"/>
 
+        <!--BeatController-->
+        <ResourceDictionary Source="BeatController/BeatTapButton.xaml"/>
+        <ResourceDictionary Source="BeatController/MasterBeatController.xaml"/>
+        
         <!--SLIDERS-->
         <ResourceDictionary Source="Sliders/Slider.xaml"/>
         <ResourceDictionary Source="Sliders/HSVSlider.xaml"/>
