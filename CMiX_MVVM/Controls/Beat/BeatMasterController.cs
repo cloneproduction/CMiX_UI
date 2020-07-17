@@ -60,15 +60,10 @@ namespace CMiX.MVVM.Controls
             base.OnApplyTemplate();
         }
 
-        //private void BeatDisplayCanvas_Loaded(object sender, RoutedEventArgs e)
-        //{
-        //    BeatDisplay.Width = BeatDisplayCanvasActualWidth / 4;
-        //}
-
         private void ResetTimerButton_Click(object sender, RoutedEventArgs e)
         {
-            Timer.Stop();
-            Timer.Start();
+            //Timer.Stop();
+            //Timer.Start();
             BeatTick = 0;
             Application.Current.Dispatcher.Invoke((Action)delegate
             {
@@ -78,37 +73,19 @@ namespace CMiX.MVVM.Controls
 
         private void Animate()
         {
+            BeatTick++;
+            if (BeatTick > 3)
+                BeatTick = 0;
             BeatDisplay.Width = BeatDisplayCanvas.ActualWidth / 4;
-            
-            //var T = new TranslateTransform(0, 0);
-            DoubleAnimation anim = new DoubleAnimation(BeatDisplayCanvas.ActualWidth/4 * BeatTick, TimeSpan.Zero);
-            BeatDisplayTranslate.BeginAnimation(TranslateTransform.XProperty, anim);
-            //BeatDisplay.RenderTransform = T;
-
-            //Console.WriteLine("BeatDisplay.Width " + BeatDisplay.Width);
-            //if (BeatTick == 0 || BeatTick == 2)
-            //{
-            //    DoubleAnimation animation0 = new DoubleAnimation(1.0, TimeSpan.Zero);
-            //    BeatDisplay.BeginAnimation(Border.OpacityProperty, animation0);
-            //}
-            //else
-            //{
-            //    DoubleAnimation animation1 = new DoubleAnimation(0.0, TimeSpan.Zero);
-            //    BeatDisplay.BeginAnimation(Border.OpacityProperty, animation1);
-            //}
-
+            BeatDisplayTranslate.X = BeatDisplayCanvas.ActualWidth / 4 * BeatTick;
         }
 
         private void Timer_Elapsed(object sender, HighResolutionTimerElapsedEventArgs e)
         {
-            BeatTick++;
-            if (BeatTick > 3)
-                BeatTick = 0;
             Application.Current.Dispatcher.Invoke((Action)delegate
             {
                 Animate();
             });
-            
         }
 
         private void BeatTapButton_Click(object sender, RoutedEventArgs e)
@@ -160,12 +137,48 @@ namespace CMiX.MVVM.Controls
         private Border BeatDisplay { get; set; }
         private int BeatTick { get; set; }
 
+
+
         public static readonly DependencyProperty PeriodProperty =
-        DependencyProperty.Register("Period", typeof(double), typeof(MasterBeatController), new FrameworkPropertyMetadata(1000.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        DependencyProperty.Register("Period", typeof(double), typeof(MasterBeatController), new FrameworkPropertyMetadata(1000.0, new PropertyChangedCallback(OnPeriodChanged)));
         public double Period
         {
             get { return (double)GetValue(PeriodProperty); }
             set { SetValue(PeriodProperty, value); }
+        }
+
+        private static void OnPeriodChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            double val = (double)e.NewValue;// as double;
+            if(val != double.NaN && val > 0)
+            {
+                ((MasterBeatController)d).Timer.Interval = (float)val;
+            }
+            
+            //Console.WriteLine(e.NewValue.GetType().Name);
+            //
+            //Application.Current.Dispatcher.Invoke((Action)delegate
+            //{
+
+            //});
+        }
+
+
+        public static readonly DependencyProperty BeatTickOnResetProperty =
+        DependencyProperty.Register("BeatTickOnReset", typeof(int), typeof(MasterBeatController), new FrameworkPropertyMetadata(0, new PropertyChangedCallback(OnBeatTickCount)));
+        public int BeatTickOnReset
+        {
+            get { return (int)GetValue(BeatTickOnResetProperty); }
+            set { SetValue(BeatTickOnResetProperty, value); }
+        }
+
+        private static void OnBeatTickCount(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ((MasterBeatController)d).BeatTick = (int)e.NewValue;
+            //Application.Current.Dispatcher.Invoke((Action)delegate
+            //{
+               
+            //});
         }
     }
 }

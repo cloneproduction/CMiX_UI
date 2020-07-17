@@ -14,7 +14,10 @@
         Padding="8"
         Background="{StaticResource HighDarkerColor}">
         <StackPanel>
-            <Controls:MasterBeatController Style="{StaticResource MasterBeatControllerStyle }"/>
+            <Controls:MasterBeatController 
+                Period="{Binding Period}"
+                BeatTickOnReset="{Binding BeatTickOnReset, Mode=OneWay}" 
+                Style="{StaticResource MasterBeatControllerStyle }"/>
             <Grid DockPanel.Dock="Right" Margin="0, 4" Height="20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -27,8 +30,6 @@
                 <Border Margin="1,4" Background="{DynamicResource DarkerColor}" Grid.Column="1"/>
                 <Border Margin="1,4" Background="{DynamicResource DarkerColor}" Grid.Column="2"/>
                 <Border Margin="1,4" Background="{DynamicResource DarkerColor}" Grid.Column="3"/>
-
-                
 
                 <Rectangle Margin="1, 4" Fill="{DynamicResource HighLightColor}" Grid.Column="0">
                     <Rectangle.Style>
@@ -175,6 +176,7 @@
                     HorizontalAlignment="Stretch"
                     Command="{Binding TapCommand}"
                     Content="TAP"/>
+            <TextBlock Text="{Binding BeatTick}" Height="20"/>
         </StackPanel>
 
         </Border>

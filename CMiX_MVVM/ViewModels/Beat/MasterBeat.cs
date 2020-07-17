@@ -31,13 +31,17 @@ namespace CMiX.MVVM.ViewModels
             TapCommand = new RelayCommand(p => Tap());
         }
 
+        public Stopwatch Stopwatcher{ get; set; }
+        public long CurrentTimeTick { get; set; }
+        public long NextTimeTick { get; set; }
+
+
         private void Timer_Elapsed(object sender, HighResolutionTimerElapsedEventArgs e)
         {
             OnBeatTap();
-            BeatTickCount++;
-            if (BeatTickCount > 3)
-                BeatTickCount = 0;
-            Console.WriteLine("Tick " + BeatTickCount + " Delay " + e.Delay);
+            BeatTick++;
+            if (BeatTick > 3)
+                BeatTick = 0;
         }
 
         public MasterBeat(double period, double multiplier, Sendable parentSendable) : this(period, multiplier)
@@ -68,6 +72,13 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
+        private int _beatTick;
+        public int BeatTick
+        {
+            get => _beatTick;
+            set => SetAndNotify(ref _beatTick, value);
+        }
+
         private int _beatTickCount;
         public override int BeatTickCount
         {
@@ -77,10 +88,11 @@ namespace CMiX.MVVM.ViewModels
 
         public override HighResolutionTimer Timer { get; set; }
 
-
         protected override void Resync()
         {
-            BeatTickCount = 0;
+            BeatTick = 0;
+
+            Notify(nameof(BeatTick));
             if (!Timer.IsRunning) 
                 return;
 
@@ -114,10 +126,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 tapPeriods.Clear();
                 for (int i = 1; i < tapTime.Count; i++)
-                {
-                    //double average = ;
                     tapPeriods.Add(tapTime[i] - tapTime[i - 1]);
-                }
             }
             return tapPeriods.Sum() / tapPeriods.Count;
         }

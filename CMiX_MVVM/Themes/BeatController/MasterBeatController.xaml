@@ -15,9 +15,9 @@
                             <Grid Height="20">
                                 <Canvas x:Name="BeatDisplayCanvas" Background="Green" HorizontalAlignment="Stretch" >
                                     <Border x:Name="BeatDisplay" 
-                                    Background="Red"
-                                       Margin="0, 1" 
-                                       Height="20"/>
+                                        Background="Red"
+                                           Margin="0, 1" 
+                                           Height="20"/>
                                 </Canvas>
                             </Grid>
 
