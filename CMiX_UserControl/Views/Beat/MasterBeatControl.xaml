@@ -16,7 +16,7 @@
         <StackPanel>
             <Controls:MasterBeatController 
                 Period="{Binding Period}"
-                BeatTick="{Binding BeatTick, Mode=TwoWay}"
+                
                 Style="{StaticResource MasterBeatControllerStyle }"/>
 
             <DockPanel Height="30">
