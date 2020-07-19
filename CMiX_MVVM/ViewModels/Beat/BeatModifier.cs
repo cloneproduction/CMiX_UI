@@ -32,14 +32,14 @@ namespace CMiX.MVVM.ViewModels
 
 
             Multiplier = 1.0;
-            BeatTickCount = beat.BeatTickCount;
+            //BeatTickCount = beat.BeatTickCount;
         }
 
         private void Timer_Elapsed(object sender, HighResolutionTimerElapsedEventArgs e)
         {
-            BeatTickCount++;
-            if (BeatTickCount >= 4)
-                BeatTickCount = 0;
+            //BeatTickCount++;
+            //if (BeatTickCount >= 4)
+            //    BeatTickCount = 0;
         }
 
         public BeatModifier(MasterBeat beat, Sendable parentSendable) : this(beat)
@@ -54,7 +54,7 @@ namespace CMiX.MVVM.ViewModels
 
         protected override void Resync()
         {
-            BeatTickCount = 0;
+            //BeatTickCount = 0;
             if (!Timer.IsRunning)
                 return;
 
@@ -82,12 +82,12 @@ namespace CMiX.MVVM.ViewModels
 
         public override HighResolutionTimer Timer { get; set; }
 
-        private int _beatTickCount;
-        public override int BeatTickCount
-        {
-            get => _beatTickCount; 
-            set => SetAndNotify(ref _beatTickCount, value);
-        }
+        //private int _beatTickCount;
+        //public override int BeatTickCount
+        //{
+        //    get => _beatTickCount; 
+        //    set => SetAndNotify(ref _beatTickCount, value);
+        //}
 
 
         public override double Period

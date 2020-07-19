@@ -9,8 +9,6 @@ namespace CMiX.MVVM.ViewModels
     {
         public Beat()
         {
-            BeatTickCount = 0;
-            
             ResetCommand = new RelayCommand(p => Reset());
             MultiplyCommand = new RelayCommand(p => Multiply());
             DivideCommand = new RelayCommand(p => Divide());
@@ -35,7 +33,6 @@ namespace CMiX.MVVM.ViewModels
 
         public abstract HighResolutionTimer Timer { get; set; }
         public abstract double Period { get; set; }
-        public abstract int BeatTickCount { get; set; }
 
         private double _bpm;
         public double BPM

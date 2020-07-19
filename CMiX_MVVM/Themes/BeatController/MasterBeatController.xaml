@@ -20,17 +20,6 @@
                                            Height="20"/>
                                 </Canvas>
                             </Grid>
-
-                            <TextBlock x:Name="BPMDisplay" 
-                                       Margin="0, 1" 
-                                       Height="20"/>
-                            <Button x:Name="BeatTapButton" 
-                                    Content="TAP"
-                                    Margin="0, 1" 
-                                    Height="20" 
-                                    ClickMode="Release" 
-                                    Style="{DynamicResource BeatTapButton}"/>
-                            <Button x:Name="ResetTimerButton" Content="Reset" Height="20"/>
                         </StackPanel>
                     </Border>
                 </ControlTemplate>
