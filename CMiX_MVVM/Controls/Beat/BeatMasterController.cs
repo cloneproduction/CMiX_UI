@@ -131,7 +131,7 @@ namespace CMiX.MVVM.Controls
             if(val != double.NaN && val > 0)
             {
                 mbc.sb.Stop();
-                mbc.SetStoryBoard(new TimeSpan(0, 0, 0, 0, Convert.ToInt32(PeriodProperty)));
+                mbc.SetStoryBoard(new TimeSpan(0, 0, 0, 0, Convert.ToInt32(val)));
                 mbc.sb.Begin();
             }
                 
