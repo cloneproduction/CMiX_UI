@@ -16,6 +16,7 @@ namespace CMiX.MVVM.Controls
 
             Stopwatch = new Stopwatch();
             Stopwatch.Start();
+            
         }
 
 
@@ -34,7 +35,13 @@ namespace CMiX.MVVM.Controls
                 BeatDisplayTranslate = new TranslateTransform(0, 0);
                 BeatDisplay.RenderTransform = BeatDisplayTranslate;
                 sb = new Storyboard();
-                StartAnimation();
+                da = new DoubleAnimation();
+                Storyboard.SetTarget(da, BeatDisplay);
+                Storyboard.SetTargetProperty(da, new PropertyPath("RenderTransform.X"));
+                sb.Children.Add(da);
+                sb.RepeatBehavior = RepeatBehavior.Forever;
+                da.IsAdditive = false;
+                SetStoryBoard(new TimeSpan(0, 0, 0, 0, Convert.ToInt32(Period)));
             }
             base.OnApplyTemplate();
            
@@ -73,14 +80,19 @@ namespace CMiX.MVVM.Controls
             //BeatDisplayTranslate.X = BeatDisplayCanvas.ActualWidth / 4 * BeatTick;
         }
         private Storyboard sb { get; set; }
+        private DoubleAnimation da { get; set; }
         private void SetStoryBoard(TimeSpan timeSpan)
         {
-            double toValue = 10;// BeatDisplayCanvas.ActualWidth / 4;
-            Duration duration = new Duration(timeSpan);
-            var animation0 = new DoubleAnimation(toValue, duration);
-            Storyboard.SetTarget(animation0, BeatDisplay);
-            Storyboard.SetTargetProperty(animation0, new PropertyPath("RenderTransform.X"));
-            sb.Children.Add(animation0);
+            if(sb != null)
+            {
+                sb.Stop();
+                da.To = 20;
+                da.Duration = new Duration(timeSpan);
+
+                Console.WriteLine("SetStoryBoard");
+                sb.Begin();
+            }
+
         }
 
         private void RestartAnimation()
@@ -90,23 +102,8 @@ namespace CMiX.MVVM.Controls
 
         public void StartAnimation()
         {
-            //var moveTopUpDuration = TimeSpan.FromSeconds(1);
-            //sb.RepeatBehavior = RepeatBehavior.Forever;
-
-
-
-
-
-            //var moveTopDown = new ThicknessAnimation(new Thickness(0, 0, 0, 0), TimeSpan.FromSeconds(1));
-            //Storyboard.SetTarget(moveTopDown, BeatDisplay);
-            //Storyboard.SetTargetProperty(moveTopDown, new PropertyPath(Border.MarginProperty));
-            //moveTopDown.BeginTime = moveTopUpDuration;
-
-
-            //storyboard.Children.Add(moveTopDown);
-            //moveTopUp.Completed += MoveTopUpCompleted;
             SetStoryBoard(new TimeSpan(0, 0, 0, 0, Convert.ToInt32(Period)));
-            sb.Begin();
+
         }
 
         private void Reset()
@@ -119,6 +116,7 @@ namespace CMiX.MVVM.Controls
         private double BeatDisplayCanvasActualWidth { get; set; }
         private Border BeatDisplay { get; set; }
         private Stopwatch Stopwatch { get; set; }
+
         private int BeatTick;
 
         public static readonly DependencyProperty PeriodProperty =
@@ -130,9 +128,21 @@ namespace CMiX.MVVM.Controls
             var val = (double)e.NewValue;
             if(val != double.NaN && val > 0)
             {
+
+
+                //mbc.sb.Stop();
+                
+                
+                
+                //mbc.sb.Begin();
+                Console.WriteLine(mbc.da.Duration +"   " + mbc.sb.Children[0].Duration);
+                //mbc.sb.Children.Clear();
+                //mbc.sb.Begin();
+                mbc.sb.Seek(TimeSpan.Zero, TimeSeekOrigin.BeginTime);
                 mbc.sb.Stop();
-                mbc.SetStoryBoard(new TimeSpan(0, 0, 0, 0, Convert.ToInt32(val)));
+                mbc.da.Duration = new Duration(TimeSpan.FromMilliseconds(Convert.ToInt32(val)));
                 mbc.sb.Begin();
+                //mbc.SetStoryBoard(new TimeSpan(0, 0, 0, 0, Convert.ToInt32(val)));
             }
                 
         }
