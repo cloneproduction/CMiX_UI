@@ -31,7 +31,7 @@ namespace CMiX.MVVM.Controls
 
             if (BeatDisplay != null)
             {
-                BeatDisplay.Width = 10;// BeatDisplayCanvas.ActualWidth / 4;
+                BeatDisplay.Width = 10;
                 BeatDisplayTranslate = new TranslateTransform(0, 0);
                 BeatDisplay.RenderTransform = BeatDisplayTranslate;
                 sb = new Storyboard();
@@ -86,10 +86,10 @@ namespace CMiX.MVVM.Controls
             if(sb != null)
             {
                 sb.Stop();
-                da.To = 20;
+                //da.From = 0;
+                da.To = 100;
                 da.Duration = new Duration(timeSpan);
-
-                Console.WriteLine("SetStoryBoard");
+                da.IsCumulative = false;
                 sb.Begin();
             }
 
@@ -128,23 +128,10 @@ namespace CMiX.MVVM.Controls
             var val = (double)e.NewValue;
             if(val != double.NaN && val > 0)
             {
-
-
-                //mbc.sb.Stop();
-                
-                
-                
-                //mbc.sb.Begin();
-                Console.WriteLine(mbc.da.Duration +"   " + mbc.sb.Children[0].Duration);
-                //mbc.sb.Children.Clear();
-                //mbc.sb.Begin();
-                mbc.sb.Seek(TimeSpan.Zero, TimeSeekOrigin.BeginTime);
                 mbc.sb.Stop();
                 mbc.da.Duration = new Duration(TimeSpan.FromMilliseconds(Convert.ToInt32(val)));
                 mbc.sb.Begin();
-                //mbc.SetStoryBoard(new TimeSpan(0, 0, 0, 0, Convert.ToInt32(val)));
             }
-                
         }
 
         public double Period
