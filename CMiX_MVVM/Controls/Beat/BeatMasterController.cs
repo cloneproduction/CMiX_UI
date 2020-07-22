@@ -16,9 +16,7 @@ namespace CMiX.MVVM.Controls
 
             Stopwatch = new Stopwatch();
             Stopwatch.Start();
-            
         }
-
 
 
         public override void OnApplyTemplate()
@@ -44,7 +42,6 @@ namespace CMiX.MVVM.Controls
                 SetStoryBoard(new TimeSpan(0, 0, 0, 0, Convert.ToInt32(Period)));
             }
             base.OnApplyTemplate();
-           
         }
 
 
@@ -79,6 +76,7 @@ namespace CMiX.MVVM.Controls
             //BeatDisplay.Width = BeatDisplayCanvas.ActualWidth / 4;
             //BeatDisplayTranslate.X = BeatDisplayCanvas.ActualWidth / 4 * BeatTick;
         }
+
         private Storyboard sb { get; set; }
         private DoubleAnimation da { get; set; }
         private void SetStoryBoard(TimeSpan timeSpan)
@@ -86,13 +84,11 @@ namespace CMiX.MVVM.Controls
             if(sb != null)
             {
                 sb.Stop();
-                //da.From = 0;
+                da.From = 0;
                 da.To = 100;
                 da.Duration = new Duration(timeSpan);
-                da.IsCumulative = false;
                 sb.Begin();
             }
-
         }
 
         private void RestartAnimation()
