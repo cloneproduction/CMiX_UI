@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
@@ -10,14 +11,34 @@ namespace CMiX.MVVM.Controls
         public BeatDependencyObject()
         {
             sb = new Storyboard();
-            da = new DoubleAnimation();
-            Storyboard.SetTarget(da, this);
-            Storyboard.SetTargetProperty(da, new PropertyPath("AnimationPosition"));
-            sb.Children.Add(da);
-            sb.RepeatBehavior = RepeatBehavior.Forever;
+            MakeCollection(sb);
+            //sb.Children.Add(da);
+            //sb.RepeatBehavior = RepeatBehavior.Forever;
             SetStoryBoard(new TimeSpan(0, 0, 0, 0, Convert.ToInt32(1000)));
         }
 
+        private void MakeCollection(Storyboard storyboard)
+        {
+            for (int i = 0; i < 50; i++)
+            {
+                var dummyDO = new DummyDO();
+                dummyDO.Name = "DUMMY " + i.ToString();
+                this.AnimationCollection.Add(dummyDO);
+
+                var newda = new DoubleAnimation();
+                newda.RepeatBehavior = RepeatBehavior.Forever;
+                newda.From = 0;
+                newda.To = 100;
+                newda.Duration = new Duration(TimeSpan.FromMilliseconds(1000 * i));
+                var path = new PropertyPath(DummyDO.AnimationPositionProperty);
+                Storyboard.SetTarget(newda, dummyDO);
+                Storyboard.SetTargetProperty(newda, path);
+                storyboard.Children.Add(newda);
+                storyboard.RepeatBehavior = RepeatBehavior.Forever;
+                storyboard.Begin();
+            }
+            
+        }
 
         private Storyboard sb { get; set; }
         private DoubleAnimation da { get; set; }
@@ -25,11 +46,11 @@ namespace CMiX.MVVM.Controls
         {
             if (sb != null)
             {
-                sb.Stop();
-                da.From = 0;
-                da.To = 100;
-                da.Duration = new Duration(timeSpan);
-                sb.Begin();
+                //sb.Stop();
+                //da.From = 0;
+                //da.To = 100;
+                //da.Duration = new Duration(timeSpan);
+                //sb.Begin();
             }
         }
 
@@ -53,6 +74,14 @@ namespace CMiX.MVVM.Controls
             }
         }
 
+
+        public static readonly DependencyProperty AnimationCollectionProperty =
+        DependencyProperty.Register("AnimationCollection", typeof(ObservableCollection<DummyDO>), typeof(BeatDependencyObject), new FrameworkPropertyMetadata(new ObservableCollection<DummyDO>()));
+        public ObservableCollection<DummyDO> AnimationCollection
+        {
+            get { return (ObservableCollection<DummyDO>)GetValue(AnimationCollectionProperty); }
+            set { SetValue(AnimationCollectionProperty, value); }
+        }
 
 
 

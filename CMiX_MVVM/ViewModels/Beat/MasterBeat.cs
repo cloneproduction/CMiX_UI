@@ -23,45 +23,29 @@ namespace CMiX.MVVM.ViewModels
             Stopwatcher = new Stopwatch();
             tapPeriods = new List<double>();
             tapTime = new List<double>();
-            Timing = new System.Threading.Timer(TimerCallback, null, 0, Convert.ToInt32(Period));
+            Timing = new Timer(TimerCallback, null, 0, Convert.ToInt32(Period));
 
             ResyncCommand = new RelayCommand(p => Resync());
             TapCommand = new RelayCommand(p => Tap());
-        }
-
-        private void DispatcherTimer_Tick(object sender, EventArgs e)
-        {
-            OnBeatTap();
-            BeatTick++;
-            if (BeatTick > 3)
-                BeatTick = 0;
         }
 
         public Timer Timing { get; set; }
         void TimerCallback(object state)
         {
             OnBeatTap();
+
             BeatTick++;
             if (BeatTick > 3)
                 BeatTick = 0;
-            currentValue = CurrentTime;
-            diff = currentValue - previousValue - Period;
-            Console.WriteLine("Previous " + previousValue.ToString());
-            Console.WriteLine("CurrentTime " + currentValue.ToString());
-            Console.WriteLine("TimeDiff " + diff.ToString());
-            previousValue = currentValue;
-            if((Period - diff) > 0 )
-                Timing.Change(TimeSpan.FromMilliseconds(Period - diff), TimeSpan.FromMilliseconds(Period));
+            //previousValue = currentValue;
         }
+
         double previousValue = 0;
         double currentValue = 0;
         double diff;
 
-
-
         public Stopwatch Stopwatcher{ get; set; }
-        //public long CurrentTimeTick { get; set; }
-        //public long NextTimeTick { get; set; }
+
 
 
         public MasterBeat(double period, double multiplier, Sendable parentSendable) : this(period, multiplier)
@@ -87,17 +71,9 @@ namespace CMiX.MVVM.ViewModels
                 OnPeriodChanged(Period);
                 Notify(nameof(BPM));
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
-                if (Period > 0 && Timing != null)
-                {
-                    BeatTick = 0;
-                    if ((Period - diff) > 0)
-                    {
-                        Timing.Change(TimeSpan.FromMilliseconds(Period - diff), TimeSpan.FromMilliseconds(Period));
-                    }
-                    
-                    Console.WriteLine(DateTime.Now.ToString("ffff.ssss"));
-                }
+                SetTimer();
 
+                BeatTick = 0;
             }
         }
 
@@ -121,9 +97,7 @@ namespace CMiX.MVVM.ViewModels
             get => _beatTickOnReset;
             set => SetAndNotify(ref _beatTickOnReset, value);
         }
-        public override HighResolutionTimer Timer { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        //public override HighResolutionTimer Timer { get; set; }
+        public override HighResolutionTimer Timer { get; set; }
 
 
         protected override void Resync()
@@ -133,7 +107,28 @@ namespace CMiX.MVVM.ViewModels
 
             OnBeatResync();
             IsReset = true;
-            Timing.Change(TimeSpan.FromMilliseconds(Period), TimeSpan.FromMilliseconds(Period));
+            SetTimer();
+        }
+
+
+        private void SetTimer()
+        {
+            currentValue = CurrentTime;
+            diff = currentValue - previousValue - Period;
+            if (Period > 0 && Timing != null)
+            {
+                Timing.Change(TimeSpan.FromMilliseconds(Period), TimeSpan.FromMilliseconds(Period));
+                //if ((Period - diff) > 0)
+                //{
+                //    Timing.Change(TimeSpan.FromMilliseconds(Period - diff), TimeSpan.FromMilliseconds(Period - diff));
+                //}
+                //else
+                //{
+                //    Timing.Change(TimeSpan.FromMilliseconds(Period), TimeSpan.FromMilliseconds(Period));
+                //}
+            }
+            previousValue = currentValue;
+
         }
 
         protected override void Multiply() => Period /= 2.0;
