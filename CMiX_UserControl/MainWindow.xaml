@@ -61,7 +61,7 @@
                         Width="10"
                         Height="20">
                     <Border.RenderTransform>
-                        <TranslateTransform X="{Binding AnimationPosition, ElementName=BeatController}" Y="0"/>
+                        <TranslateTransform X="{Binding AnimationCollection[10].AnimationPosition, ElementName=BeatController}" Y="0"/>
                     </Border.RenderTransform>
                 </Border>
             </Canvas>
