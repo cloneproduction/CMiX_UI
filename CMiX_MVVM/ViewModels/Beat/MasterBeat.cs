@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -18,29 +20,49 @@ namespace CMiX.MVVM.ViewModels
             Period = period;
             Multiplier = multiplier;
 
-            Timer = new HighResolutionTimer((float)Period);
-            Timer.Elapsed += Timer_Elapsed; ;
-            Timer.Start();
-
+            Stopwatcher = new Stopwatch();
             tapPeriods = new List<double>();
             tapTime = new List<double>();
+            Timing = new System.Threading.Timer(TimerCallback, null, 0, Convert.ToInt32(Period));
 
             ResyncCommand = new RelayCommand(p => Resync());
             TapCommand = new RelayCommand(p => Tap());
         }
 
-        public Stopwatch Stopwatcher{ get; set; }
-        public long CurrentTimeTick { get; set; }
-        public long NextTimeTick { get; set; }
-
-
-        private void Timer_Elapsed(object sender, HighResolutionTimerElapsedEventArgs e)
+        private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
-            //OnBeatTap();
-            //BeatTick++;
-            //if (BeatTick > 3)
-            //    BeatTick = 0;
+            OnBeatTap();
+            BeatTick++;
+            if (BeatTick > 3)
+                BeatTick = 0;
         }
+
+        public Timer Timing { get; set; }
+        void TimerCallback(object state)
+        {
+            OnBeatTap();
+            BeatTick++;
+            if (BeatTick > 3)
+                BeatTick = 0;
+            currentValue = CurrentTime;
+            diff = currentValue - previousValue - Period;
+            Console.WriteLine("Previous " + previousValue.ToString());
+            Console.WriteLine("CurrentTime " + currentValue.ToString());
+            Console.WriteLine("TimeDiff " + diff.ToString());
+            previousValue = currentValue;
+            if((Period - diff) > 0 )
+                Timing.Change(TimeSpan.FromMilliseconds(Period - diff), TimeSpan.FromMilliseconds(Period));
+        }
+        double previousValue = 0;
+        double currentValue = 0;
+        double diff;
+
+
+
+        public Stopwatch Stopwatcher{ get; set; }
+        //public long CurrentTimeTick { get; set; }
+        //public long NextTimeTick { get; set; }
+
 
         public MasterBeat(double period, double multiplier, Sendable parentSendable) : this(period, multiplier)
         {
@@ -65,8 +87,17 @@ namespace CMiX.MVVM.ViewModels
                 OnPeriodChanged(Period);
                 Notify(nameof(BPM));
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
-                if (Period > 0 && Timer != null)
-                    Timer.Interval = (float)Period;
+                if (Period > 0 && Timing != null)
+                {
+                    BeatTick = 0;
+                    if ((Period - diff) > 0)
+                    {
+                        Timing.Change(TimeSpan.FromMilliseconds(Period - diff), TimeSpan.FromMilliseconds(Period));
+                    }
+                    
+                    Console.WriteLine(DateTime.Now.ToString("ffff.ssss"));
+                }
+
             }
         }
 
@@ -90,23 +121,19 @@ namespace CMiX.MVVM.ViewModels
             get => _beatTickOnReset;
             set => SetAndNotify(ref _beatTickOnReset, value);
         }
+        public override HighResolutionTimer Timer { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public override HighResolutionTimer Timer { get; set; }
+        //public override HighResolutionTimer Timer { get; set; }
+
 
         protected override void Resync()
         {
             BeatTick = 0;
             Console.WriteLine("Resync");
-            //BeatTickOnReset = 0;// = BeatTick;
-            //BeatTickOnReset = BeatTick;
-            //Notify(nameof(BeatTickOnReset));
-            if (!Timer.IsRunning) 
-                return;
 
-            Timer.Stop();
-            Timer.Start();
             OnBeatResync();
             IsReset = true;
+            Timing.Change(TimeSpan.FromMilliseconds(Period), TimeSpan.FromMilliseconds(Period));
         }
 
         protected override void Multiply() => Period /= 2.0;
@@ -116,8 +143,6 @@ namespace CMiX.MVVM.ViewModels
         private void Tap()
         {
             Period = GetMasterPeriod();
-            if (Period > 0)
-                Timer.Interval = (float)Period;
         }
 
 

@@ -52,6 +52,20 @@
     </Window.CommandBindings>
 
     <DockPanel>
+        <Controls:BeatDependencyObject x:Name="BeatController"/>
+        <Grid DockPanel.Dock="Top" Height="20">
+            <Canvas x:Name="BeatDisplayCanvas" Background="Green" HorizontalAlignment="Stretch" >
+                <Border x:Name="BeatDisplay"
+                        Background="Red"
+                        Margin="0, 1"
+                        Width="10"
+                        Height="20">
+                    <Border.RenderTransform>
+                        <TranslateTransform X="{Binding AnimationPosition, ElementName=BeatController}" Y="0"/>
+                    </Border.RenderTransform>
+                </Border>
+            </Canvas>
+        </Grid>
         <Border 
             Padding="2"
             DockPanel.Dock="Top"

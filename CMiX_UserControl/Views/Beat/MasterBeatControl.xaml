@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
+    xmlns:Views="clr-namespace:CMiX.Studio.Views"
     d:DesignHeight="289.777"
     d:DesignWidth="252.667"
     mc:Ignorable="d">
@@ -15,10 +16,18 @@
         Background="{StaticResource HighDarkerColor}">
         <StackPanel>
             <Controls:MasterBeatController 
+                Margin="0, 4"
                 Period="{Binding Period}"
-                
                 Style="{StaticResource MasterBeatControllerStyle }"/>
-
+            <Grid Height="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Border Background="Red" Grid.Column="{Binding BeatTick}"/>
+            </Grid>
             <DockPanel Height="30">
                     <Button
                         Grid.Column="3"

@@ -12,26 +12,24 @@ namespace CMiX.MVVM.Controls
         public MasterBeatController()
         {
             OnApplyTemplate();
-            BeatTick = 0;
+            //BeatTick = 0;
 
-            Stopwatch = new Stopwatch();
-            Stopwatch.Start();
+            //Stopwatch = new Stopwatch();
+            //Stopwatch.Start();
         }
 
 
         public override void OnApplyTemplate()
         {
-            //BPMDisplay = GetTemplateChild("BPMDisplay") as TextBlock;
             BeatDisplay = GetTemplateChild("BeatDisplay") as Border;
             BeatDisplayCanvas = GetTemplateChild("BeatDisplayCanvas") as Canvas;
-
-            CompositionTarget.Rendering += CompositionTarget_Rendering;
 
             if (BeatDisplay != null)
             {
                 BeatDisplay.Width = 10;
                 BeatDisplayTranslate = new TranslateTransform(0, 0);
                 BeatDisplay.RenderTransform = BeatDisplayTranslate;
+
                 sb = new Storyboard();
                 da = new DoubleAnimation();
                 Storyboard.SetTarget(da, BeatDisplay);
@@ -45,37 +43,28 @@ namespace CMiX.MVVM.Controls
         }
 
 
-        private void SetNextTickTime()
-        {
-            if(Period > 0)
-                NextTickTime = Stopwatch.ElapsedMilliseconds + Period;
-        }
+        //private void SetNextTickTime()
+        //{
+        //    if(Period > 0)
+        //        NextTickTime = Stopwatch.ElapsedMilliseconds + Convert.ToInt32(Period);
+        //}
 
-        private double NextTickTime = 0;
-        private void CompositionTarget_Rendering(object sender, EventArgs e)
-        {
-            if(Stopwatch.ElapsedMilliseconds > NextTickTime)
-            {
-                Application.Current.Dispatcher.Invoke((Action)delegate
-                {
-                    Animate();
-                });
-                SetNextTickTime();
-            }
-        }
+        //private double NextTickTime = 0;
 
-        private void Animate()
-        {
-            BeatTick++;
-            if (BeatTick > 3)
-            {
-                BeatTick = 0;
-                //StartAnimation();
-            }
+
+
+        //private void Animate()
+        //{
+        //    BeatTick++;
+        //    if (BeatTick > 3)
+        //    {
+        //        BeatTick = 0;
+        //        //StartAnimation();
+        //    }
                 
-            //BeatDisplay.Width = BeatDisplayCanvas.ActualWidth / 4;
-            //BeatDisplayTranslate.X = BeatDisplayCanvas.ActualWidth / 4 * BeatTick;
-        }
+        //    BeatDisplay.Width = BeatDisplayCanvas.ActualWidth / 4;
+        //    BeatDisplayTranslate.X = BeatDisplayCanvas.ActualWidth / 4 * BeatTick;
+        //}
 
         private Storyboard sb { get; set; }
         private DoubleAnimation da { get; set; }
@@ -91,29 +80,10 @@ namespace CMiX.MVVM.Controls
             }
         }
 
-        private void RestartAnimation()
-        {
-            
-        }
-
-        public void StartAnimation()
-        {
-            SetStoryBoard(new TimeSpan(0, 0, 0, 0, Convert.ToInt32(Period)));
-
-        }
-
-        private void Reset()
-        {
-
-        }
-
         private TranslateTransform BeatDisplayTranslate { get; set; }
         private Canvas BeatDisplayCanvas { get; set; }
         private double BeatDisplayCanvasActualWidth { get; set; }
         private Border BeatDisplay { get; set; }
-        private Stopwatch Stopwatch { get; set; }
-
-        private int BeatTick;
 
         public static readonly DependencyProperty PeriodProperty =
         DependencyProperty.Register("Period", typeof(double), typeof(MasterBeatController), new FrameworkPropertyMetadata(1000.0, new PropertyChangedCallback(OnPeriodChange)));
@@ -122,7 +92,7 @@ namespace CMiX.MVVM.Controls
         {
             var mbc = (MasterBeatController)d;
             var val = (double)e.NewValue;
-            if(val != double.NaN && val > 0)
+            if (val != double.NaN && val > 0)
             {
                 mbc.sb.Stop();
                 mbc.da.Duration = new Duration(TimeSpan.FromMilliseconds(Convert.ToInt32(val)));
@@ -136,4 +106,5 @@ namespace CMiX.MVVM.Controls
             set { SetValue(PeriodProperty, value); }
         }
     }
+
 }
