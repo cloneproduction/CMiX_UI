@@ -19,6 +19,7 @@ namespace CMiX.MVVM.ViewModels
         {
             Period = period;
             Multiplier = multiplier;
+            MultiplierValue = 0;
 
             Stopwatcher = new Stopwatch();
             tapPeriods = new List<double>();
@@ -86,6 +87,17 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _beatTick, value);
         }
 
+        private int _multiplierValue;
+        public int MultiplierValue
+        {
+            get => _multiplierValue;
+            set
+            {
+                SetAndNotify(ref _multiplierValue, value);
+                Console.WriteLine("Multiplier " + value);
+            }
+        }
+
         private int _beatTickOnReset;
         public int BeatTickOnReset
         {
@@ -107,9 +119,17 @@ namespace CMiX.MVVM.ViewModels
 
 
 
-        protected override void Multiply() => Period /= 2.0;
+        protected override void Multiply()
+        {
+            Period /= 2.0;
+            MultiplierValue += 1;
+        }
 
-        protected override void Divide() => Period *= 2.0;
+        protected override void Divide()
+        {
+            Period *= 2.0;
+            MultiplierValue -= 1;
+        }
 
         private void Tap()
         {

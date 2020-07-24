@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="CMiX.Studio.Views.BeatControls"
+    x:Class="CMiX.Studio.Views.BeatDisplay"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -11,7 +11,7 @@
     d:DesignHeight="46.5"
     d:DesignWidth="226.667"
     mc:Ignorable="d">
-    
+
     <UserControl.Resources>
         <Controls:BeatDependencyObject x:Key="BeatController"/>
         <Resources:CollectionToItemConverter x:Key="CollectionToItem"/>
@@ -29,35 +29,50 @@
                         <Style TargetType="Border">
                             <Setter Property="RenderTransform">
                                 <Setter.Value>
-                                    <TranslateTransform X="0" Y="0"/>
+                                    <TranslateTransform X="{Binding Source={StaticResource BeatController}, Path=AnimationCollection[0].AnimationPosition}" Y="0"/>
                                 </Setter.Value>
                             </Setter>
                             <Style.Triggers>
-                                
-                                <DataTrigger Binding="{Binding Path=MutliplierValue}" Value="0">
+
+                                <DataTrigger Binding="{Binding Path=MultiplierValue}" Value="0">
                                     <Setter Property="RenderTransform">
                                         <Setter.Value>
                                             <TranslateTransform X="{Binding Source={StaticResource BeatController}, Path=AnimationCollection[0].AnimationPosition}" Y="0"/>
                                         </Setter.Value>
                                     </Setter>
                                 </DataTrigger>
-                                
-                                <DataTrigger Binding="{Binding Path=MutliplierValue}" Value="1">
+
+                                <DataTrigger Binding="{Binding Path=MultiplierValue}" Value="1">
                                     <Setter Property="RenderTransform">
                                         <Setter.Value>
                                             <TranslateTransform X="{Binding Source={StaticResource BeatController}, Path=AnimationCollection[1].AnimationPosition}" Y="0"/>
                                         </Setter.Value>
                                     </Setter>
                                 </DataTrigger>
-                                
-                                <DataTrigger Binding="{Binding Path=MutliplierValue}" Value="2">
+
+                                <DataTrigger Binding="{Binding Path=MultiplierValue}" Value="2">
                                     <Setter Property="RenderTransform">
                                         <Setter.Value>
                                             <TranslateTransform X="{Binding Source={StaticResource BeatController}, Path=AnimationCollection[2].AnimationPosition}" Y="0"/>
                                         </Setter.Value>
                                     </Setter>
                                 </DataTrigger>
+
+                                <DataTrigger Binding="{Binding Path=MultiplierValue}" Value="3">
+                                    <Setter Property="RenderTransform">
+                                        <Setter.Value>
+                                            <TranslateTransform X="{Binding Source={StaticResource BeatController}, Path=AnimationCollection[3].AnimationPosition}" Y="0"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
                                 
+                                <DataTrigger Binding="{Binding Path=MultiplierValue}" Value="4">
+                                    <Setter Property="RenderTransform">
+                                        <Setter.Value>
+                                            <TranslateTransform X="{Binding Source={StaticResource BeatController}, Path=AnimationCollection[4].AnimationPosition}" Y="0"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Border.Style>

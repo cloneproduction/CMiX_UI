@@ -13,10 +13,13 @@ namespace CMiX.MVVM.Controls
             MakeCollection(new Storyboard());
         }
 
+        int multiplier = 1;
+
         private void MakeCollection(Storyboard storyboard)
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 7; i++)
             {
+                multiplier *= 2;
                 var dummyDO = new DummyDO();
                 dummyDO.Name = "DUMMY " + i.ToString();
                 this.AnimationCollection.Add(dummyDO);
@@ -25,7 +28,7 @@ namespace CMiX.MVVM.Controls
                 newda.RepeatBehavior = RepeatBehavior.Forever;
                 newda.From = 0;
                 newda.To = 100;
-                newda.Duration = new Duration(TimeSpan.FromMilliseconds(1000 * i));
+                newda.Duration = new Duration(TimeSpan.FromMilliseconds(1000 / multiplier));
 
                 var path = new PropertyPath(DummyDO.AnimationPositionProperty);
 

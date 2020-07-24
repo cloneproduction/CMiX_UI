@@ -40,7 +40,7 @@
     </Window.CommandBindings>
 
     <DockPanel>
-        <Grid DockPanel.Dock="Top" Height="20">
+        <!--<Grid DockPanel.Dock="Top" Height="20">
             <Canvas Background="Green" HorizontalAlignment="Stretch" >
                 <Border 
                         Background="Red"
@@ -78,7 +78,7 @@
                     </Border.RenderTransform>
                 </Border>
             </Canvas>
-        </Grid>
+        </Grid>-->
         <Border 
             Padding="2"
             DockPanel.Dock="Top"

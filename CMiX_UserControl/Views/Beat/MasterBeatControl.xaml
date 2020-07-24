@@ -26,58 +26,8 @@
                 Period="{Binding Period}"
                 Style="{StaticResource MasterBeatControllerStyle }"/>-->
 
-            <Grid DockPanel.Dock="Top" Height="20">
-                <Canvas Background="Green" HorizontalAlignment="Stretch" >
-                    <Border 
-                        Background="Red"
-                        Margin="0, 1"
-                        Width="10"
-                        Height="20">
-                        <Border.RenderTransform>
-                            <TranslateTransform>
-                                <TranslateTransform.X>
-                                    <Binding Path="AnimationCollection" Source="{StaticResource BeatController}" Converter="{StaticResource CollectionToItem}">
-                                        <Binding.ConverterParameter>
-                                            <sys:Int32>2</sys:Int32>
-                                        </Binding.ConverterParameter>
-                                    </Binding>
-                                </TranslateTransform.X>
 
-<!--X="{Binding Source={StaticResource BeatController}, Converter={StaticResource CollectionToItem}, Path=AnimationCollection}" Y="0"/>-->
-                            </TranslateTransform> 
-                        </Border.RenderTransform>
-                    </Border>
-                </Canvas>
-            </Grid>
-            
-            <Grid DockPanel.Dock="Top" Height="20">
-                <Canvas Background="Green" HorizontalAlignment="Stretch" >
-                    <Border 
-                        Background="Red"
-                        Margin="0, 1"
-                        Width="10"
-                        Height="20">
-                        <Border.RenderTransform>
-                            <TranslateTransform X="{Binding Source={StaticResource BeatController}, Path=AnimationCollection[2].AnimationPosition}" Y="0"/>
-                        </Border.RenderTransform>
-                    </Border>
-                </Canvas>
-            </Grid>
-            
-            <Grid DockPanel.Dock="Top" Height="20">
-                <Canvas Background="Green" HorizontalAlignment="Stretch" >
-                    <Border 
-                        Background="Red"
-                        Margin="0, 1"
-                        Width="10"
-                        Height="20">
-                        <Border.RenderTransform>
-                            <TranslateTransform X="{Binding Source={StaticResource BeatController}, Path=AnimationCollection[3].AnimationPosition}" Y="0"/>
-                        </Border.RenderTransform>
-                    </Border>
-                </Canvas>
-            </Grid>
-            
+            <Views:BeatDisplay DataContext="{Binding}"/>
             <DockPanel Height="30">
                     <Button
                         Grid.Column="3"

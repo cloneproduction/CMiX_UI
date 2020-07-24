@@ -166,6 +166,9 @@
     <Compile Include="Views\Assets\GeometryPathSelector.xaml.cs">
       <DependentUpon>GeometryPathSelector.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Beat\BeatDisplay.xaml.cs">
+      <DependentUpon>BeatDisplay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Component\ComponentPanel.xaml.cs">
       <DependentUpon>ComponentPanel.xaml</DependentUpon>
     </Compile>
