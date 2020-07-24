@@ -10,16 +10,12 @@ namespace CMiX.MVVM.Controls
     {
         public BeatDependencyObject()
         {
-            sb = new Storyboard();
-            MakeCollection(sb);
-            //sb.Children.Add(da);
-            //sb.RepeatBehavior = RepeatBehavior.Forever;
-            SetStoryBoard(new TimeSpan(0, 0, 0, 0, Convert.ToInt32(1000)));
+            MakeCollection(new Storyboard());
         }
 
         private void MakeCollection(Storyboard storyboard)
         {
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 4; i++)
             {
                 var dummyDO = new DummyDO();
                 dummyDO.Name = "DUMMY " + i.ToString();
@@ -30,30 +26,19 @@ namespace CMiX.MVVM.Controls
                 newda.From = 0;
                 newda.To = 100;
                 newda.Duration = new Duration(TimeSpan.FromMilliseconds(1000 * i));
+
                 var path = new PropertyPath(DummyDO.AnimationPositionProperty);
+
                 Storyboard.SetTarget(newda, dummyDO);
                 Storyboard.SetTargetProperty(newda, path);
                 storyboard.Children.Add(newda);
-                storyboard.RepeatBehavior = RepeatBehavior.Forever;
-                storyboard.Begin();
+                AnimatedDouble.Add(dummyDO.AnimationPosition);
             }
-            
+            storyboard.RepeatBehavior = RepeatBehavior.Forever;
+            storyboard.Begin();
         }
 
         private Storyboard sb { get; set; }
-        private DoubleAnimation da { get; set; }
-        private void SetStoryBoard(TimeSpan timeSpan)
-        {
-            if (sb != null)
-            {
-                //sb.Stop();
-                //da.From = 0;
-                //da.To = 100;
-                //da.Duration = new Duration(timeSpan);
-                //sb.Begin();
-            }
-        }
-
 
         public static readonly DependencyProperty PeriodProperty =
         DependencyProperty.Register("Period", typeof(double), typeof(BeatDependencyObject), new FrameworkPropertyMetadata(1000.0, new PropertyChangedCallback(OnPeriodChange)));
@@ -69,11 +54,18 @@ namespace CMiX.MVVM.Controls
             if (val != double.NaN && val > 0)
             {
                 mbc.sb.Stop();
-                mbc.da.Duration = new Duration(TimeSpan.FromMilliseconds(Convert.ToInt32(val)));
+                //mbc.da.Duration = new Duration(TimeSpan.FromMilliseconds(Convert.ToInt32(val)));
                 mbc.sb.Begin();
             }
         }
 
+        public static readonly DependencyProperty AnimatedDoubleProperty =
+        DependencyProperty.Register("AnimatedDouble", typeof(ObservableCollection<double>), typeof(BeatDependencyObject), new FrameworkPropertyMetadata(new ObservableCollection<double>()));
+        public ObservableCollection<double> AnimatedDouble
+        {
+            get { return (ObservableCollection<double>)GetValue(AnimatedDoubleProperty); }
+            set { SetValue(AnimatedDoubleProperty, value); }
+        }
 
         public static readonly DependencyProperty AnimationCollectionProperty =
         DependencyProperty.Register("AnimationCollection", typeof(ObservableCollection<DummyDO>), typeof(BeatDependencyObject), new FrameworkPropertyMetadata(new ObservableCollection<DummyDO>()));
@@ -81,16 +73,6 @@ namespace CMiX.MVVM.Controls
         {
             get { return (ObservableCollection<DummyDO>)GetValue(AnimationCollectionProperty); }
             set { SetValue(AnimationCollectionProperty, value); }
-        }
-
-
-
-        public static readonly DependencyProperty AnimationPositionProperty =
-        DependencyProperty.Register("AnimationPosition", typeof(double), typeof(BeatDependencyObject), new FrameworkPropertyMetadata(0.0));
-        public double AnimationPosition
-        {
-            get { return (double)GetValue(AnimationPositionProperty); }
-            set { SetValue(AnimationPositionProperty, value); }
         }
     }
 }

@@ -1,5 +1,7 @@
-﻿using ColorMine.ColorSpaces;
+﻿using CMiX.MVVM.Controls;
+using ColorMine.ColorSpaces;
 using System;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Windows;
@@ -10,6 +12,27 @@ using System.Windows.Media;
 
 namespace CMiX.MVVM.Resources
 {
+    public class CollectionToItemConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            ObservableCollection<DummyDO> col = new ObservableCollection<DummyDO>();
+            int index = (int)parameter;
+            //if (value != null)
+            //{
+                
+            //    col = value as ObservableCollection<DummyDO>;
+            //    Console.WriteLine(col.Count);
+            //    return col[2].AnimationPosition;
+            //}
+            return ((ObservableCollection < DummyDO > )value)[3].AnimationPosition;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 
     public class RadioButtonSelectionConverter : IValueConverter
     {

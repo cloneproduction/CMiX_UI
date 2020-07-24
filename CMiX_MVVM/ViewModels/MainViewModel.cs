@@ -49,6 +49,7 @@ namespace CMiX.MVVM.ViewModels
             RedoCommand = new RelayCommand(p => Redo());
 
             AddCompositionCommand = new RelayCommand(p => AddComposition());
+            AnimatedDouble = new ObservableCollection<double>();
         }
 
         #region PROPERTIES
@@ -72,6 +73,16 @@ namespace CMiX.MVVM.ViewModels
         public Outliner Outliner { get; set; }
         public string FolderPath { get; set; }
         public ObservableCollection<Component> Projects { get; set; }
+
+
+
+        private ObservableCollection<double> _animatedDouble;
+        public ObservableCollection<double> AnimatedDouble
+        {
+            get => _animatedDouble; 
+            set => SetAndNotify(ref _animatedDouble, value);
+        }
+
 
         private MessengerManager _messengerManager;
         public MessengerManager MessengerManager

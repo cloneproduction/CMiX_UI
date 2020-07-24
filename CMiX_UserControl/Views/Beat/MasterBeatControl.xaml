@@ -5,29 +5,79 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
-    xmlns:Views="clr-namespace:CMiX.Studio.Views"
+    xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
+    xmlns:Views="clr-namespace:CMiX.Studio.Views" 
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     d:DesignHeight="289.777"
     d:DesignWidth="252.667"
     mc:Ignorable="d">
 
-
+    <UserControl.Resources>
+        <Controls:BeatDependencyObject x:Key="BeatController"/>
+        <Resources:CollectionToItemConverter x:Key="CollectionToItem"/>
+    </UserControl.Resources>
+    
     <Border 
         Padding="8"
         Background="{StaticResource HighDarkerColor}">
         <StackPanel>
-            <Controls:MasterBeatController 
+            <!--<Controls:MasterBeatController 
                 Margin="0, 4"
                 Period="{Binding Period}"
-                Style="{StaticResource MasterBeatControllerStyle }"/>
-            <Grid Height="20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Border Background="Red" Grid.Column="{Binding BeatTick}"/>
+                Style="{StaticResource MasterBeatControllerStyle }"/>-->
+
+            <Grid DockPanel.Dock="Top" Height="20">
+                <Canvas Background="Green" HorizontalAlignment="Stretch" >
+                    <Border 
+                        Background="Red"
+                        Margin="0, 1"
+                        Width="10"
+                        Height="20">
+                        <Border.RenderTransform>
+                            <TranslateTransform>
+                                <TranslateTransform.X>
+                                    <Binding Path="AnimationCollection" Source="{StaticResource BeatController}" Converter="{StaticResource CollectionToItem}">
+                                        <Binding.ConverterParameter>
+                                            <sys:Int32>2</sys:Int32>
+                                        </Binding.ConverterParameter>
+                                    </Binding>
+                                </TranslateTransform.X>
+
+<!--X="{Binding Source={StaticResource BeatController}, Converter={StaticResource CollectionToItem}, Path=AnimationCollection}" Y="0"/>-->
+                            </TranslateTransform> 
+                        </Border.RenderTransform>
+                    </Border>
+                </Canvas>
             </Grid>
+            
+            <Grid DockPanel.Dock="Top" Height="20">
+                <Canvas Background="Green" HorizontalAlignment="Stretch" >
+                    <Border 
+                        Background="Red"
+                        Margin="0, 1"
+                        Width="10"
+                        Height="20">
+                        <Border.RenderTransform>
+                            <TranslateTransform X="{Binding Source={StaticResource BeatController}, Path=AnimationCollection[2].AnimationPosition}" Y="0"/>
+                        </Border.RenderTransform>
+                    </Border>
+                </Canvas>
+            </Grid>
+            
+            <Grid DockPanel.Dock="Top" Height="20">
+                <Canvas Background="Green" HorizontalAlignment="Stretch" >
+                    <Border 
+                        Background="Red"
+                        Margin="0, 1"
+                        Width="10"
+                        Height="20">
+                        <Border.RenderTransform>
+                            <TranslateTransform X="{Binding Source={StaticResource BeatController}, Path=AnimationCollection[3].AnimationPosition}" Y="0"/>
+                        </Border.RenderTransform>
+                    </Border>
+                </Canvas>
+            </Grid>
+            
             <DockPanel Height="30">
                     <Button
                         Grid.Column="3"

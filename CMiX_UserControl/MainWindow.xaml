@@ -14,24 +14,12 @@
     xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
     md:DialogServiceViews.IsRegistered="True">
 
+
+    <Window.Resources>
+        <Controls:BeatDependencyObject x:Key="BeatController"/>
+    </Window.Resources>
+
     <Window.InputBindings>
-        <!--<KeyBinding 
-            Modifiers="Control"
-            Key="T"
-            Command="{Binding AddCompoCommand}" />
-        <KeyBinding 
-            Modifiers="Control"
-            Key="N" 
-            Command="{Binding AddLayerCommand}" />
-        <KeyBinding 
-            Modifiers="Control"
-            Key="E" 
-            Command="{Binding ExportCompoCommand}" />
-        <KeyBinding 
-            Modifiers="Control"
-            Key="I" 
-            Command="{Binding ImportCompoCommand}" />-->
-        
         <KeyBinding 
             Modifiers="Ctrl"
             Key="O" 
@@ -52,16 +40,41 @@
     </Window.CommandBindings>
 
     <DockPanel>
-        <Controls:BeatDependencyObject x:Name="BeatController"/>
         <Grid DockPanel.Dock="Top" Height="20">
-            <Canvas x:Name="BeatDisplayCanvas" Background="Green" HorizontalAlignment="Stretch" >
-                <Border x:Name="BeatDisplay"
+            <Canvas Background="Green" HorizontalAlignment="Stretch" >
+                <Border 
                         Background="Red"
                         Margin="0, 1"
                         Width="10"
                         Height="20">
                     <Border.RenderTransform>
-                        <TranslateTransform X="{Binding AnimationCollection[10].AnimationPosition, ElementName=BeatController}" Y="0"/>
+                        <TranslateTransform X="{Binding Source={StaticResource BeatController}, Path=AnimationCollection[1].AnimationPosition}" Y="0"/>
+                    </Border.RenderTransform>
+                </Border>
+            </Canvas>
+        </Grid>
+        <Grid DockPanel.Dock="Top" Height="20">
+            <Canvas Background="Green" HorizontalAlignment="Stretch" >
+                <Border 
+                        Background="Red"
+                        Margin="0, 1"
+                        Width="10"
+                        Height="20">
+                    <Border.RenderTransform>
+                        <TranslateTransform X="{Binding Source={StaticResource BeatController}, Path=AnimationCollection[2].AnimationPosition}" Y="0"/>
+                    </Border.RenderTransform>
+                </Border>
+            </Canvas>
+        </Grid>
+        <Grid DockPanel.Dock="Top" Height="20">
+            <Canvas Background="Green" HorizontalAlignment="Stretch" >
+                <Border 
+                        Background="Red"
+                        Margin="0, 1"
+                        Width="10"
+                        Height="20">
+                    <Border.RenderTransform>
+                        <TranslateTransform X="{Binding Source={StaticResource BeatController}, Path=AnimationCollection[3].AnimationPosition}" Y="0"/>
                     </Border.RenderTransform>
                 </Border>
             </Canvas>

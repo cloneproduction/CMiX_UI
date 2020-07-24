@@ -40,10 +40,6 @@ namespace CMiX.MVVM.ViewModels
             //previousValue = currentValue;
         }
 
-        double previousValue = 0;
-        double currentValue = 0;
-        double diff;
-
         public Stopwatch Stopwatcher{ get; set; }
 
 
@@ -71,7 +67,6 @@ namespace CMiX.MVVM.ViewModels
                 OnPeriodChanged(Period);
                 Notify(nameof(BPM));
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
-                SetTimer();
 
                 BeatTick = 0;
             }
@@ -107,29 +102,10 @@ namespace CMiX.MVVM.ViewModels
 
             OnBeatResync();
             IsReset = true;
-            SetTimer();
         }
 
 
-        private void SetTimer()
-        {
-            currentValue = CurrentTime;
-            diff = currentValue - previousValue - Period;
-            if (Period > 0 && Timing != null)
-            {
-                Timing.Change(TimeSpan.FromMilliseconds(Period), TimeSpan.FromMilliseconds(Period));
-                //if ((Period - diff) > 0)
-                //{
-                //    Timing.Change(TimeSpan.FromMilliseconds(Period - diff), TimeSpan.FromMilliseconds(Period - diff));
-                //}
-                //else
-                //{
-                //    Timing.Change(TimeSpan.FromMilliseconds(Period), TimeSpan.FromMilliseconds(Period));
-                //}
-            }
-            previousValue = currentValue;
 
-        }
 
         protected override void Multiply() => Period /= 2.0;
 
