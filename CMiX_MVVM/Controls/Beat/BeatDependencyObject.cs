@@ -13,32 +13,40 @@ namespace CMiX.MVVM.Controls
             MakeCollection(new Storyboard());
         }
 
-        int multiplier = 1;
-
         private void MakeCollection(Storyboard storyboard)
         {
-            for (int i = 0; i < 7; i++)
+            double Multiplier = 1.0;
+            for (int i = 0; i <= 3; i++)
             {
-                multiplier *= 2;
-                var dummyDO = new DummyDO();
-                dummyDO.Name = "DUMMY " + i.ToString();
-                this.AnimationCollection.Add(dummyDO);
+                Multiplier *= 2;
+                CreateAnimation(this.Period, Multiplier, storyboard);
+            }
 
-                var newda = new DoubleAnimation();
-                newda.RepeatBehavior = RepeatBehavior.Forever;
-                newda.From = 0;
-                newda.To = 100;
-                newda.Duration = new Duration(TimeSpan.FromMilliseconds(1000 / multiplier));
+            CreateAnimation(this.Period, 1, storyboard);
 
-                var path = new PropertyPath(DummyDO.AnimationPositionProperty);
-
-                Storyboard.SetTarget(newda, dummyDO);
-                Storyboard.SetTargetProperty(newda, path);
-                storyboard.Children.Add(newda);
-                AnimatedDouble.Add(dummyDO.AnimationPosition);
+            Multiplier = 1.0;
+            for (int i = 0; i <= 3; i++)
+            {
+                Multiplier /= 2;
+                CreateAnimation(this.Period, Multiplier, storyboard);
             }
             storyboard.RepeatBehavior = RepeatBehavior.Forever;
             storyboard.Begin();
+        }
+
+        private void CreateAnimation(double period, double multiplier, Storyboard storyboard)
+        {
+            var dummyDO = new DummyDO();
+            //dummyDO.Name = "DUMMY " + i.ToString();
+            this.AnimationCollection.Add(dummyDO);
+
+            var newda = new DoubleAnimation(0, 100, new Duration(TimeSpan.FromMilliseconds(period / multiplier)));
+            newda.RepeatBehavior = RepeatBehavior.Forever;
+
+            Storyboard.SetTarget(newda, dummyDO);
+            Storyboard.SetTargetProperty(newda, new PropertyPath(DummyDO.AnimationPositionProperty));
+            storyboard.Children.Add(newda);
+            AnimatedDouble.Add(dummyDO.AnimationPosition);
         }
 
         private Storyboard sb { get; set; }
