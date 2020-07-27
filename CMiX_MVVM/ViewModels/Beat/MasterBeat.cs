@@ -1,4 +1,5 @@
-﻿using CMiX.MVVM.Services;
+﻿using CMiX.MVVM.Controls;
+using CMiX.MVVM.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,14 +18,17 @@ namespace CMiX.MVVM.ViewModels
         }
         public MasterBeat(double period, double multiplier)
         {
+            BeatDependencyObject = new BeatDependencyObject();
+
             Period = period;
             Multiplier = multiplier;
-            MultiplierValue = 0;
 
             Stopwatcher = new Stopwatch();
             tapPeriods = new List<double>();
             tapTime = new List<double>();
             Timing = new Timer(TimerCallback, null, 0, Convert.ToInt32(Period));
+
+            
 
             ResyncCommand = new RelayCommand(p => Resync());
             TapCommand = new RelayCommand(p => Tap());
@@ -64,14 +68,23 @@ namespace CMiX.MVVM.ViewModels
             get => _period;
             set
             {
+                Console.WriteLine("PeriodChanged From VIEWMODEL");
+                if (BeatDependencyObject != null)
+                    BeatDependencyObject.Period = value;
                 SetAndNotify(ref _period, value);
                 OnPeriodChanged(Period);
                 Notify(nameof(BPM));
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
-
-                BeatTick = 0;
             }
         }
+
+        private BeatDependencyObject _beatDependencyObject;
+        public BeatDependencyObject BeatDependencyObject
+        {
+            get => _beatDependencyObject;
+            set => SetAndNotify(ref _beatDependencyObject, value);
+        }
+
 
         private bool _isReset;
         public bool IsReset
@@ -87,49 +100,22 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _beatTick, value);
         }
 
-        private int _multiplierValue;
-        public int MultiplierValue
-        {
-            get => _multiplierValue;
-            set
-            {
-                SetAndNotify(ref _multiplierValue, value);
-                Console.WriteLine("Multiplier " + value);
-            }
-        }
-
         private int _beatTickOnReset;
         public int BeatTickOnReset
         {
             get => _beatTickOnReset;
             set => SetAndNotify(ref _beatTickOnReset, value);
         }
-        public override HighResolutionTimer Timer { get; set; }
 
-
-        protected override void Resync()
+        public void Resync()
         {
-            BeatTick = 0;
-            Console.WriteLine("Resync");
-
             OnBeatResync();
             IsReset = true;
         }
 
+        protected override void Multiply() => Period /= 2.0;
 
-
-
-        protected override void Multiply()
-        {
-            Period /= 2.0;
-            MultiplierValue += 1;
-        }
-
-        protected override void Divide()
-        {
-            Period *= 2.0;
-            MultiplierValue -= 1;
-        }
+        protected override void Divide() => Period *= 2.0;
 
         private void Tap()
         {

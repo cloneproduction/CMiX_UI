@@ -13,11 +13,6 @@ namespace CMiX.MVVM.ViewModels
             step = 0;
             Beat = beat;
 
-            Timer = new HighResolutionTimer((float)Period);
-            Timer.Elapsed += Timer_Elapsed; ;
-            Timer.Start();
-            //CompositionTarget.Rendering check again
-
             beat.BeatTap += Beat_BeatTap;
             beat.BeatResync += Beat_BeatResync;
             beat.PeriodChanged += (s, newvalue) =>
@@ -25,21 +20,11 @@ namespace CMiX.MVVM.ViewModels
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
-                if (Period > 0 && Timer != null)
-                    Timer.Interval = (float)Period;
             };
 
 
 
             Multiplier = 1.0;
-            //BeatTickCount = beat.BeatTickCount;
-        }
-
-        private void Timer_Elapsed(object sender, HighResolutionTimerElapsedEventArgs e)
-        {
-            //BeatTickCount++;
-            //if (BeatTickCount >= 4)
-            //    BeatTickCount = 0;
         }
 
         public BeatModifier(MasterBeat beat, Sendable parentSendable) : this(beat)
@@ -52,19 +37,9 @@ namespace CMiX.MVVM.ViewModels
 
         }
 
-        protected override void Resync()
-        {
-            //BeatTickCount = 0;
-            if (!Timer.IsRunning)
-                return;
-
-            Timer.Stop();
-            Timer.Start();
-        }
-
         private void Beat_BeatResync(object sender, EventArgs e)
         {
-            Resync();
+            //Resync();
         }
 
         public int step { get; set; }
@@ -79,15 +54,6 @@ namespace CMiX.MVVM.ViewModels
 
         public MasterBeat Beat { get; set; }
         public Slider ChanceToHit { get; }
-
-        public override HighResolutionTimer Timer { get; set; }
-
-        //private int _beatTickCount;
-        //public override int BeatTickCount
-        //{
-        //    get => _beatTickCount; 
-        //    set => SetAndNotify(ref _beatTickCount, value);
-        //}
 
 
         public override double Period
@@ -106,7 +72,6 @@ namespace CMiX.MVVM.ViewModels
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
-                Timer.Interval = (float)Period;
             }
         }
 

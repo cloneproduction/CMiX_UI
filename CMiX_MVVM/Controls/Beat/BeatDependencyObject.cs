@@ -6,19 +6,30 @@ using System.Windows.Media.Animation;
 
 namespace CMiX.MVVM.Controls
 {
-    public class BeatDependencyObject : Control
+    public class BeatDependencyObject : DependencyObject
     {
+        //protected override Freezable CreateInstanceCore()
+        //{
+        //    return new BeatDependencyObject();
+        //}
+
         public BeatDependencyObject()
         {
-            MakeCollection(new Storyboard());
+            sb = new Storyboard();
+            MakeCollection(sb);
+            Console.WriteLine("MakeCollectionMakeCollection");
         }
 
         private void MakeCollection(Storyboard storyboard)
         {
+            
+            storyboard.Children.Clear();
+            AnimationCollection.Clear();
             double Multiplier = 1.0;
             for (int i = 0; i <= 3; i++)
             {
                 Multiplier *= 2;
+                
                 CreateAnimation(this.Period, Multiplier, storyboard);
             }
 
@@ -64,9 +75,9 @@ namespace CMiX.MVVM.Controls
             var val = (double)e.NewValue;
             if (val != double.NaN && val > 0)
             {
-                mbc.sb.Stop();
-                //mbc.da.Duration = new Duration(TimeSpan.FromMilliseconds(Convert.ToInt32(val)));
-                mbc.sb.Begin();
+                Console.WriteLine("OnPeriodChange " + mbc.Period);
+                //mbc.sb.Stop();
+                mbc.MakeCollection(mbc.sb);
             }
         }
 

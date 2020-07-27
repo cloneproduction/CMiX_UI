@@ -27,12 +27,10 @@
     <UserControl.InputBindings>
         <KeyBinding 
             Modifiers="Control"
-            Key="V"
-            Command="{Binding PasteLayerCommand}" />
+            Key="V"/>
         <KeyBinding 
             Modifiers="Control"
-            Key="C"
-            Command="{Binding CopyLayerCommand}" />
+            Key="C"/>
     </UserControl.InputBindings>
 
     <DockPanel

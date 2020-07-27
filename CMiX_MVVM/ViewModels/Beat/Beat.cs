@@ -20,8 +20,6 @@ namespace CMiX.MVVM.ViewModels
             {
                 var model = e.Model as BeatModel;
                 this.SetViewModel(model);
-                if(this.Period > 0)
-                    Timer.Interval = (float)this.Period;
             }
             else
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
@@ -31,7 +29,7 @@ namespace CMiX.MVVM.ViewModels
         public ICommand MultiplyCommand { get; }
         public ICommand DivideCommand { get; }
 
-        public abstract HighResolutionTimer Timer { get; set; }
+        //public abstract HighResolutionTimer Timer { get; set; }
         public abstract double Period { get; set; }
 
         private double _bpm;
@@ -64,7 +62,7 @@ namespace CMiX.MVVM.ViewModels
 
         private void Reset() => Multiplier = 1;
 
-        protected abstract void Resync();
+        //protected abstract void Resync();
         protected abstract void Multiply();
         protected abstract void Divide();
 

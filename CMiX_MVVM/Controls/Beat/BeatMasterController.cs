@@ -12,10 +12,6 @@ namespace CMiX.MVVM.Controls
         public MasterBeatController()
         {
             OnApplyTemplate();
-            //BeatTick = 0;
-
-            //Stopwatch = new Stopwatch();
-            //Stopwatch.Start();
         }
 
 
