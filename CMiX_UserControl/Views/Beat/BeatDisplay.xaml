@@ -18,6 +18,8 @@
     </UserControl.Resources>
 
     <StackPanel>
+        <TextBlock Height="20" Text="{Binding BeatTick}"/>
+
         <Grid DockPanel.Dock="Top" Height="20">
             <Canvas Background="Green" HorizontalAlignment="Stretch" >
                 <Border 

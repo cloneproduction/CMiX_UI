@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMiX.MVVM.ViewModels;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -6,23 +7,38 @@ using System.Windows.Media.Animation;
 
 namespace CMiX.MVVM.Controls
 {
-    public class BeatDependencyObject : DependencyObject
+    public class BeatDependencyObject : ViewModel
     {
-        //protected override Freezable CreateInstanceCore()
-        //{
-        //    return new BeatDependencyObject();
-        //}
-
         public BeatDependencyObject()
         {
+            BeatTick = 0;
+            AnimationCollection = new ObservableCollection<DummyDO>();
             sb = new Storyboard();
+            sb.Completed += Sb_Completed;
             MakeCollection(sb);
-            Console.WriteLine("MakeCollectionMakeCollection");
+        }
+
+        private void Sb_Completed(object sender, EventArgs e)
+        {
+            BeatTick++;
+            if (BeatTick >= 4)
+                BeatTick = 0;
+            sb.Begin();
+        }
+
+        public void Resync()
+        {
+            if(this.sb != null)
+            {
+                sb.Stop();
+                BeatTick = 0;
+                sb.Begin();
+            }
         }
 
         private void MakeCollection(Storyboard storyboard)
         {
-            
+            BeatTick = 0;
             storyboard.Children.Clear();
             AnimationCollection.Clear();
             double Multiplier = 1.0;
@@ -42,59 +58,57 @@ namespace CMiX.MVVM.Controls
                 CreateAnimation(this.Period, Multiplier, storyboard);
             }
             storyboard.RepeatBehavior = RepeatBehavior.Forever;
+
             storyboard.Begin();
         }
 
         private void CreateAnimation(double period, double multiplier, Storyboard storyboard)
         {
-            var dummyDO = new DummyDO();
-            //dummyDO.Name = "DUMMY " + i.ToString();
-            this.AnimationCollection.Add(dummyDO);
+            if(period > 0)
+            {
+                var dummyDO = new DummyDO();
+                this.AnimationCollection.Add(dummyDO);
 
-            var newda = new DoubleAnimation(0, 100, new Duration(TimeSpan.FromMilliseconds(period / multiplier)));
-            newda.RepeatBehavior = RepeatBehavior.Forever;
+                var newda = new DoubleAnimation(0, 100, new Duration(TimeSpan.FromMilliseconds(period / multiplier)));
+                newda.RepeatBehavior = RepeatBehavior.Forever;
+                Storyboard.SetTarget(newda, dummyDO);
+                Storyboard.SetTargetProperty(newda, new PropertyPath(DummyDO.AnimationPositionProperty));
+                storyboard.Children.Add(newda);
+            }
 
-            Storyboard.SetTarget(newda, dummyDO);
-            Storyboard.SetTargetProperty(newda, new PropertyPath(DummyDO.AnimationPositionProperty));
-            storyboard.Children.Add(newda);
-            AnimatedDouble.Add(dummyDO.AnimationPosition);
         }
 
         private Storyboard sb { get; set; }
 
-        public static readonly DependencyProperty PeriodProperty =
-        DependencyProperty.Register("Period", typeof(double), typeof(BeatDependencyObject), new FrameworkPropertyMetadata(1000.0, new PropertyChangedCallback(OnPeriodChange)));
+        private double _period;
         public double Period
         {
-            get { return (double)GetValue(PeriodProperty); }
-            set { SetValue(PeriodProperty, value); }
-        }
-        private static void OnPeriodChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var mbc = (BeatDependencyObject)d;
-            var val = (double)e.NewValue;
-            if (val != double.NaN && val > 0)
+            get => _period;
+            set
             {
-                Console.WriteLine("OnPeriodChange " + mbc.Period);
-                //mbc.sb.Stop();
-                mbc.MakeCollection(mbc.sb);
+                SetAndNotify(ref _period, value);
+                MakeCollection(sb);
             }
         }
 
-        public static readonly DependencyProperty AnimatedDoubleProperty =
-        DependencyProperty.Register("AnimatedDouble", typeof(ObservableCollection<double>), typeof(BeatDependencyObject), new FrameworkPropertyMetadata(new ObservableCollection<double>()));
-        public ObservableCollection<double> AnimatedDouble
+
+        private double _beatTick;
+        public double BeatTick
         {
-            get { return (ObservableCollection<double>)GetValue(AnimatedDoubleProperty); }
-            set { SetValue(AnimatedDoubleProperty, value); }
+            get => _beatTick;
+            set
+            {
+                SetAndNotify(ref _beatTick, value);
+                Console.WriteLine("BeatTick Changed");
+            }
         }
 
-        public static readonly DependencyProperty AnimationCollectionProperty =
-        DependencyProperty.Register("AnimationCollection", typeof(ObservableCollection<DummyDO>), typeof(BeatDependencyObject), new FrameworkPropertyMetadata(new ObservableCollection<DummyDO>()));
+
+        private ObservableCollection<DummyDO> _animationCollection;
         public ObservableCollection<DummyDO> AnimationCollection
         {
-            get { return (ObservableCollection<DummyDO>)GetValue(AnimationCollectionProperty); }
-            set { SetValue(AnimationCollectionProperty, value); }
+            get => _animationCollection;
+            set => SetAndNotify(ref _animationCollection, value);
         }
     }
 }

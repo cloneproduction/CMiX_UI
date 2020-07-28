@@ -111,6 +111,7 @@ namespace CMiX.MVVM.ViewModels
         {
             OnBeatResync();
             IsReset = true;
+            BeatDependencyObject.Resync();
         }
 
         protected override void Multiply() => Period /= 2.0;
