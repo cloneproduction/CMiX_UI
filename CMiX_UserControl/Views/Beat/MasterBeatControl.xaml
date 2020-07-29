@@ -21,6 +21,7 @@
         Padding="8"
         Background="{StaticResource HighDarkerColor}">
         <StackPanel>
+            
             <Views:BeatDisplay x:Name="BeatDisplay" DataContext="{Binding BeatDependencyObject}" Margin="0, 4" />
 
             <DockPanel Height="30">

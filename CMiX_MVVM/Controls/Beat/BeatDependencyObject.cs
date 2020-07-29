@@ -3,6 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Animation;
 
 namespace CMiX.MVVM.Controls
@@ -14,31 +15,26 @@ namespace CMiX.MVVM.Controls
             BeatTick = 0;
             AnimationCollection = new ObservableCollection<DummyDO>();
             sb = new Storyboard();
-            sb.Completed += Sb_Completed;
             MakeCollection(sb);
+
+            AddIndexCommand = new RelayCommand(p => AddIndex());
+            SubIndexCommand = new RelayCommand(p => SubIndex());
         }
 
-        private void Sb_Completed(object sender, EventArgs e)
-        {
-            BeatTick++;
-            if (BeatTick >= 4)
-                BeatTick = 0;
-            sb.Begin();
-        }
+        public ICommand AddIndexCommand { get; set; }
+        public ICommand SubIndexCommand { get; set; }
 
         public void Resync()
         {
             if(this.sb != null)
             {
                 sb.Stop();
-                BeatTick = 0;
                 sb.Begin();
             }
         }
 
         private void MakeCollection(Storyboard storyboard)
         {
-            BeatTick = 0;
             storyboard.Children.Clear();
             AnimationCollection.Clear();
             double Multiplier = 1.0;
@@ -58,7 +54,6 @@ namespace CMiX.MVVM.Controls
                 CreateAnimation(this.Period, Multiplier, storyboard);
             }
             storyboard.RepeatBehavior = RepeatBehavior.Forever;
-
             storyboard.Begin();
         }
 
@@ -101,6 +96,33 @@ namespace CMiX.MVVM.Controls
                 SetAndNotify(ref _beatTick, value);
                 Console.WriteLine("BeatTick Changed");
             }
+        }
+
+        public void AddIndex()
+        {
+            CurrentIndex++;
+            if (CurrentIndex > MaxIndex)
+                CurrentIndex = MaxIndex;
+        }
+
+        public void SubIndex()
+        {
+            CurrentIndex--;
+            if (CurrentIndex < MinIndex)
+                CurrentIndex = MinIndex;
+        }
+
+        private int MaxIndex = 7;
+        private int MinIndex = 0;
+        private int CurrentIndex = 4;
+
+
+
+        private DummyDO _selectedAnimation;
+        public DummyDO SelectedAnimation
+        {
+            get => AnimationCollection[CurrentIndex];
+            //set => SetAndNotify(ref _selectedAnimation, value);
         }
 
 
