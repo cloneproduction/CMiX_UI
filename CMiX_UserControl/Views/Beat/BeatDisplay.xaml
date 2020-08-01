@@ -12,26 +12,21 @@
     d:DesignWidth="226.667"
     mc:Ignorable="d">
 
-    <StackPanel>
-        <TextBlock Height="20" Text="{Binding BeatTick}"/>
-        <Grid DockPanel.Dock="Top" Height="20">
-            <Canvas Background="Green" HorizontalAlignment="Stretch" >
-                <Border 
-                    Background="Red"
-                    Margin="0, 1"
-                    Width="10"
-                    Height="20">
-                    <Border.Style>
-                        <Style TargetType="Border">
-                            <Setter Property="RenderTransform">
-                                <Setter.Value>
-                                    <TranslateTransform X="{Binding Path=AnimationCollection[0].AnimationPosition}" Y="0"/>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </Border.Style>
-                </Border>
-            </Canvas>
-        </Grid>
-    </StackPanel>
+    <Canvas Background="Green" Height="20" HorizontalAlignment="Stretch" >
+        <Border 
+            Background="Red"
+            Margin="0, 1"
+            Width="10"
+            Height="20">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <TranslateTransform X="{Binding Path=AnimationCollection[0].AnimationPosition}" Y="0"/>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Border.Style>
+        </Border>
+    </Canvas>
 </UserControl>

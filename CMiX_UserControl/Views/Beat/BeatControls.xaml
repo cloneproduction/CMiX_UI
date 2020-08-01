@@ -19,7 +19,6 @@
     </UserControl.Resources>
 
     <StackPanel>
-        <Views:BeatDisplay Height="20" Margin="0, 0, 0, 4" DataContext="{Binding BeatDisplay}"/>
         <Border>
             <Border.ContextMenu>
                 <ContextMenu>

@@ -12,8 +12,7 @@ namespace CMiX.MVVM.Controls
     {
         public BeatDependencyObject()
         {
-            BeatTick = 0;
-            AnimationCollection = new ObservableCollection<DummyDO>();
+            AnimationCollection = new ObservableCollection<AnimatedDouble>();
             sb = new Storyboard();
             MakeCollection(sb);
 
@@ -61,13 +60,13 @@ namespace CMiX.MVVM.Controls
         {
             if(period > 0)
             {
-                var dummyDO = new DummyDO();
+                var dummyDO = new AnimatedDouble();
                 this.AnimationCollection.Add(dummyDO);
 
                 var newda = new DoubleAnimation(0, 100, new Duration(TimeSpan.FromMilliseconds(period / multiplier)));
                 newda.RepeatBehavior = RepeatBehavior.Forever;
                 Storyboard.SetTarget(newda, dummyDO);
-                Storyboard.SetTargetProperty(newda, new PropertyPath(DummyDO.AnimationPositionProperty));
+                Storyboard.SetTargetProperty(newda, new PropertyPath(AnimatedDouble.AnimationPositionProperty));
                 storyboard.Children.Add(newda);
             }
 
@@ -83,18 +82,6 @@ namespace CMiX.MVVM.Controls
             {
                 SetAndNotify(ref _period, value);
                 MakeCollection(sb);
-            }
-        }
-
-
-        private double _beatTick;
-        public double BeatTick
-        {
-            get => _beatTick;
-            set
-            {
-                SetAndNotify(ref _beatTick, value);
-                Console.WriteLine("BeatTick Changed");
             }
         }
 
@@ -118,16 +105,16 @@ namespace CMiX.MVVM.Controls
 
 
 
-        private DummyDO _selectedAnimation;
-        public DummyDO SelectedAnimation
+        private AnimatedDouble _selectedAnimation;
+        public AnimatedDouble SelectedAnimation
         {
             get => AnimationCollection[CurrentIndex];
             //set => SetAndNotify(ref _selectedAnimation, value);
         }
 
 
-        private ObservableCollection<DummyDO> _animationCollection;
-        public ObservableCollection<DummyDO> AnimationCollection
+        private ObservableCollection<AnimatedDouble> _animationCollection;
+        public ObservableCollection<AnimatedDouble> AnimationCollection
         {
             get => _animationCollection;
             set => SetAndNotify(ref _animationCollection, value);

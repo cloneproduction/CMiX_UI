@@ -2,15 +2,15 @@
 
 namespace CMiX.MVVM.Controls
 {
-    public class DummyDO : DependencyObject
+    public class AnimatedDouble : DependencyObject
     {
-        public DummyDO()
+        public AnimatedDouble()
         {
 
         }
 
         public static readonly DependencyProperty AnimationPositionProperty =
-        DependencyProperty.Register("AnimationPosition", typeof(double), typeof(DummyDO), new FrameworkPropertyMetadata(0.0));
+        DependencyProperty.Register("AnimationPosition", typeof(double), typeof(AnimatedDouble), new FrameworkPropertyMetadata(0.0));
 
         public double AnimationPosition
         {

@@ -1,4 +1,6 @@
-﻿namespace CMiX.MVVM.ViewModels
+﻿using CMiX.MVVM.Controls;
+
+namespace CMiX.MVVM.ViewModels
 {
     public class Camera : ViewModel
     {
@@ -21,33 +23,21 @@
         public string Rotation
         {
             get => _rotation;
-            set
-            {
-                SetAndNotify(ref _rotation, value);
-                //SendMessages(MessageAddress + nameof(Rotation), Rotation);
-            }
+            set => SetAndNotify(ref _rotation, value);
         }
 
         private string _lookAt;
         public string LookAt
         {
             get => _lookAt;
-            set
-            {
-                SetAndNotify(ref _lookAt, value);
-                //SendMessages(MessageAddress + nameof(LookAt), LookAt);
-            }
+            set => SetAndNotify(ref _lookAt, value);
         }
 
         private string _view;
         public string View
         {
             get => _view;
-            set
-            {
-                SetAndNotify(ref _view, value);
-                //SendMessages(MessageAddress + nameof(View), View);
-            }
+            set => SetAndNotify(ref _view, value);
         }
     }
 }

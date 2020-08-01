@@ -1,4 +1,5 @@
-﻿using CMiX.MVVM.Interfaces;
+﻿using CMiX.MVVM.Controls;
+using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using System;
@@ -21,8 +22,6 @@ namespace CMiX.MVVM.ViewModels
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
             };
-
-
 
             Multiplier = 1.0;
         }

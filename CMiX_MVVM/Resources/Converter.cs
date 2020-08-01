@@ -16,16 +16,16 @@ namespace CMiX.MVVM.Resources
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            ObservableCollection<DummyDO> col = new ObservableCollection<DummyDO>();
+            ObservableCollection<AnimatedDouble> col = new ObservableCollection<AnimatedDouble>();
             int index = (int)parameter;
             //if (value != null)
             //{
                 
-            //    col = value as ObservableCollection<DummyDO>;
+            //    col = value as ObservableCollection<AnimatedDouble>;
             //    Console.WriteLine(col.Count);
             //    return col[2].AnimationPosition;
             //}
-            return ((ObservableCollection < DummyDO > )value)[3].AnimationPosition;
+            return ((ObservableCollection < AnimatedDouble > )value)[3].AnimationPosition;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -16,7 +16,6 @@
 
     <StackPanel>
 
-        
 
 
         <Grid>
@@ -24,8 +23,15 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
+            <Views:BeatDisplay Height="20" Margin="0, 4" Grid.Column="1" DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Beat.BeatDependencyObject}"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
             <TextBlock Text="Beat" Margin="2, 0" Padding="4" VerticalAlignment="Center" HorizontalAlignment="Right" />
-            <Border Height="20" Margin="0, 0, 0, 1" Grid.Column="1" Style="{StaticResource BorderShadow}">
+            <Border Margin="0, 0, 0, 1" Grid.Column="1" Style="{StaticResource BorderShadow}">
                 <Views:BeatControls />
             </Border>
         </Grid>
