@@ -23,7 +23,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Views:BeatDisplay Height="20" Margin="0, 4" Grid.Column="1" DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Beat.BeatDependencyObject}"/>
+            <Views:BeatDisplay Height="20" Margin="0, 4" Grid.Column="1" DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:Composition}}, Path=DataContext.Beat.BeatDependencyObject}"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
