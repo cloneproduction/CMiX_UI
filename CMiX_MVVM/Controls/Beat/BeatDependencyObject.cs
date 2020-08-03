@@ -37,6 +37,7 @@ namespace CMiX.MVVM.Controls
             storyboard.Children.Clear();
             AnimationCollection.Clear();
             double Multiplier = 1.0;
+
             for (int i = 0; i <= 3; i++)
             {
                 Multiplier *= 2;
@@ -104,8 +105,6 @@ namespace CMiX.MVVM.Controls
         private int CurrentIndex = 4;
 
 
-
-        private AnimatedDouble _selectedAnimation;
         public AnimatedDouble SelectedAnimation
         {
             get => AnimationCollection[CurrentIndex];

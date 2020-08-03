@@ -10,8 +10,8 @@
     xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
     xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
     d:DataContext="{d:DesignInstance Type={x:Type viewModels:BeatModifier}, IsDesignTimeCreatable=False}"
-    d:DesignHeight="58.826"
-    d:DesignWidth="324.414"
+    d:DesignHeight="84.326"
+    d:DesignWidth="360.914"
     mc:Ignorable="d">
 
     <StackPanel>
@@ -23,7 +23,24 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Views:BeatDisplay Height="20" Margin="0, 4" Grid.Column="1" DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:Composition}}, Path=DataContext.Beat.BeatDependencyObject}"/>
+            <!--<Views:BeatDisplay Height="20" Margin="0, 4" Grid.Column="1" DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:Composition}}, Path=DataContext.Beat.BeatDependencyObject}"/>-->
+            <Canvas Grid.Column="1" Background="Green" Height="20" HorizontalAlignment="Stretch" >
+                <Border 
+                    Background="Red"
+                    Margin="0, 1"
+                    Width="10"
+                    Height="20">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <TranslateTransform X="{Binding Path=SelectedAnimation.AnimationPosition}" Y="0"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Border.Style>
+                </Border>
+            </Canvas>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -36,12 +53,12 @@
             </Border>
         </Grid>
 
-        
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
             <TextBlock Text="Chance To Hit" Margin="2, 0" Padding="4" VerticalAlignment="Center" HorizontalAlignment="Right" />
             <Border  Height="21" Grid.Column="1" Margin="0, 1, 0, 0" Style="{StaticResource BorderShadow}">
                 <Controls:CMiXSlider 
@@ -51,7 +68,7 @@
                 Value="{Binding ChanceToHit.Amount}"/>
             </Border>
         </Grid>
-        
+
     </StackPanel>
-   
+
 </UserControl>

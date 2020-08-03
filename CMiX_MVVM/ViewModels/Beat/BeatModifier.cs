@@ -1,8 +1,8 @@
-﻿using CMiX.MVVM.Controls;
+﻿using System;
+using CMiX.MVVM.Controls;
 using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
-using System;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -11,37 +11,24 @@ namespace CMiX.MVVM.ViewModels
         public BeatModifier(MasterBeat beat)
         {
             ChanceToHit = new Slider(nameof(ChanceToHit), this) { Amount = 1.0 };
-            step = 0;
             Beat = beat;
 
-            beat.BeatTap += Beat_BeatTap;
-            beat.BeatResync += Beat_BeatResync;
             beat.PeriodChanged += (s, newvalue) =>
             {
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
+                Notify(nameof(SelectedAnimation));
             };
 
             Multiplier = 1.0;
+            CurrentIndex = 0;
         }
 
         public BeatModifier(MasterBeat beat, Sendable parentSendable) : this(beat)
         {
             SubscribeToEvent(parentSendable);
         }
-
-        private void Beat_BeatTap(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Beat_BeatResync(object sender, EventArgs e)
-        {
-            //Resync();
-        }
-
-        public int step { get; set; }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
@@ -70,12 +57,40 @@ namespace CMiX.MVVM.ViewModels
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
+                Notify(nameof(SelectedAnimation));
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 
-        protected override void Multiply() => Multiplier /= 2;
+        private AnimatedDouble _selectedAnimation;
+        public AnimatedDouble SelectedAnimation
+        {
+            get => ((MasterBeat)this.Beat).BeatDependencyObject.AnimationCollection[CurrentIndex];
+            set => SetAndNotify(ref _selectedAnimation, value);
+        }
 
-        protected override void Divide() => Multiplier *= 2;
+        private int _currentIndex;
+        public int CurrentIndex
+        {
+            get => _currentIndex;
+            set
+            {
+                Notify(nameof(SelectedAnimation));
+                SetAndNotify(ref _currentIndex, value);
+                Console.WriteLine("CurrentIndex + " + CurrentIndex);
+            }
+        }
+
+        protected override void Multiply()
+        {
+            Multiplier /= 2;
+            CurrentIndex++;
+        }
+
+        protected override void Divide()
+        {
+            Multiplier *= 2;
+            CurrentIndex--;
+        }
     }
 }
