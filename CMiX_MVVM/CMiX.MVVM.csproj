@@ -91,6 +91,7 @@
     <Compile Include="Behaviors\TextBoxFocusBehavior.cs" />
     <Compile Include="Behaviors\TreeViewItemClickBehavior.cs" />
     <Compile Include="Behaviors\TreeViewMultiSelectionBehavior.cs" />
+    <Compile Include="Controls\Beat\BeatAnimations.cs" />
     <Compile Include="Controls\Beat\BeatDisplay.cs" />
     <Compile Include="Controls\Beat\BeatMasterController.cs" />
     <Compile Include="Controls\Beat\AnimatedDouble.cs" />
