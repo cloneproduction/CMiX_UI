@@ -8,12 +8,12 @@ namespace CMiX.MVVM.ViewModels
 {
     public class BeatModifier : Beat, IBeat
     {
-        public BeatModifier(MasterBeat beat)
+        public BeatModifier(MasterBeat masterBeat)
         {
             ChanceToHit = new Slider(nameof(ChanceToHit), this) { Amount = 1.0 };
-            Beat = beat;
+            Beat = masterBeat;
 
-            beat.PeriodChanged += (s, newvalue) =>
+            masterBeat.PeriodChanged += (s, newvalue) =>
             {
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
@@ -65,7 +65,7 @@ namespace CMiX.MVVM.ViewModels
         private AnimatedDouble _selectedAnimation;
         public AnimatedDouble SelectedAnimation
         {
-            get => ((MasterBeat)this.Beat).BeatDependencyObject.AnimationCollection[CurrentIndex];
+            get => ((MasterBeat)this.Beat).BeatDisplay.AnimationCollection[CurrentIndex];
             set => SetAndNotify(ref _selectedAnimation, value);
         }
 
@@ -77,7 +77,6 @@ namespace CMiX.MVVM.ViewModels
             {
                 Notify(nameof(SelectedAnimation));
                 SetAndNotify(ref _currentIndex, value);
-                Console.WriteLine("CurrentIndex + " + CurrentIndex);
             }
         }
 

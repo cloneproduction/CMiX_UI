@@ -1,12 +1,8 @@
-﻿using CMiX.MVVM.Controls;
-using CMiX.MVVM.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 using System.Windows.Input;
-using System.Windows.Threading;
+using CMiX.MVVM.Controls;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -18,36 +14,17 @@ namespace CMiX.MVVM.ViewModels
         }
         public MasterBeat(double period, double multiplier)
         {
-            BeatDependencyObject = new BeatDependencyObject();
+            BeatDisplay = new BeatDisplay();
 
             Period = period;
             Multiplier = multiplier;
 
-            Stopwatcher = new Stopwatch();
             tapPeriods = new List<double>();
             tapTime = new List<double>();
-            Timing = new Timer(TimerCallback, null, 0, Convert.ToInt32(Period));
-
-            
 
             ResyncCommand = new RelayCommand(p => Resync());
             TapCommand = new RelayCommand(p => Tap());
         }
-
-        public Timer Timing { get; set; }
-        void TimerCallback(object state)
-        {
-            OnBeatTap();
-
-            BeatTick++;
-            if (BeatTick > 3)
-                BeatTick = 0;
-            //previousValue = currentValue;
-        }
-
-        public Stopwatch Stopwatcher{ get; set; }
-
-
 
         public MasterBeat(double period, double multiplier, Sendable parentSendable) : this(period, multiplier)
         {
@@ -68,9 +45,8 @@ namespace CMiX.MVVM.ViewModels
             get => _period;
             set
             {
-                Console.WriteLine("PeriodChanged From VIEWMODEL");
-                if (BeatDependencyObject != null)
-                    BeatDependencyObject.Period = value;
+                if (BeatDisplay != null)
+                    BeatDisplay.Period = value;
                 SetAndNotify(ref _period, value);
                 OnPeriodChanged(Period);
                 Notify(nameof(BPM));
@@ -78,13 +54,12 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        private BeatDependencyObject _beatDependencyObject;
-        public BeatDependencyObject BeatDependencyObject
+        private BeatDisplay _beatDisplay;
+        public BeatDisplay BeatDisplay
         {
-            get => _beatDependencyObject;
-            set => SetAndNotify(ref _beatDependencyObject, value);
+            get => _beatDisplay;
+            set => SetAndNotify(ref _beatDisplay, value);
         }
-
 
         private bool _isReset;
         public bool IsReset
@@ -111,7 +86,7 @@ namespace CMiX.MVVM.ViewModels
         {
             OnBeatResync();
             IsReset = true;
-            BeatDependencyObject.Resync();
+            BeatDisplay.Resync();
         }
 
         protected override void Multiply() => Period /= 2.0;

@@ -14,11 +14,6 @@
     xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
     md:DialogServiceViews.IsRegistered="True">
 
-
-    <Window.Resources>
-        <Controls:BeatDependencyObject x:Key="BeatController"/>
-    </Window.Resources>
-
     <Window.InputBindings>
         <KeyBinding 
             Modifiers="Ctrl"

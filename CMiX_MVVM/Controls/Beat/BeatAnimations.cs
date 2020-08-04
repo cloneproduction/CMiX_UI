@@ -1,36 +1,32 @@
-﻿using CMiX.MVVM.ViewModels;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media.Animation;
+using CMiX.MVVM.Controls;
 
-namespace CMiX.MVVM.Controls
+namespace CMiX.MVVM.ViewModels
 {
-    public class BeatDependencyObject : ViewModel
+    public class BeatAnimations : ViewModel
     {
-        public BeatDependencyObject()
+        public BeatAnimations()
         {
             AnimationCollection = new ObservableCollection<AnimatedDouble>();
-            sb = new Storyboard();
-            MakeCollection(sb);
-
-            AddIndexCommand = new RelayCommand(p => AddIndex());
-            SubIndexCommand = new RelayCommand(p => SubIndex());
+            Storyboard = new Storyboard();
+            MakeCollection(Storyboard);
         }
 
-        public ICommand AddIndexCommand { get; set; }
-        public ICommand SubIndexCommand { get; set; }
-
-        public void Resync()
+        private double _period;
+        public double Period
         {
-            if(this.sb != null)
+            get => _period;
+            set
             {
-                sb.Stop();
-                sb.Begin();
+                SetAndNotify(ref _period, value);
+                MakeCollection(Storyboard);
             }
         }
+
+        private Storyboard Storyboard { get; set; }
 
         private void MakeCollection(Storyboard storyboard)
         {
@@ -41,7 +37,7 @@ namespace CMiX.MVVM.Controls
             for (int i = 0; i <= 3; i++)
             {
                 Multiplier *= 2;
-                
+
                 CreateAnimation(this.Period, Multiplier, storyboard);
             }
 
@@ -59,7 +55,7 @@ namespace CMiX.MVVM.Controls
 
         private void CreateAnimation(double period, double multiplier, Storyboard storyboard)
         {
-            if(period > 0)
+            if (period > 0)
             {
                 var dummyDO = new AnimatedDouble();
                 this.AnimationCollection.Add(dummyDO);
@@ -70,47 +66,7 @@ namespace CMiX.MVVM.Controls
                 Storyboard.SetTargetProperty(newda, new PropertyPath(AnimatedDouble.AnimationPositionProperty));
                 storyboard.Children.Add(newda);
             }
-
         }
-
-        private Storyboard sb { get; set; }
-
-        private double _period;
-        public double Period
-        {
-            get => _period;
-            set
-            {
-                SetAndNotify(ref _period, value);
-                MakeCollection(sb);
-            }
-        }
-
-        public void AddIndex()
-        {
-            CurrentIndex++;
-            if (CurrentIndex > MaxIndex)
-                CurrentIndex = MaxIndex;
-        }
-
-        public void SubIndex()
-        {
-            CurrentIndex--;
-            if (CurrentIndex < MinIndex)
-                CurrentIndex = MinIndex;
-        }
-
-        private int MaxIndex = 7;
-        private int MinIndex = 0;
-        private int CurrentIndex = 4;
-
-
-        public AnimatedDouble SelectedAnimation
-        {
-            get => AnimationCollection[CurrentIndex];
-            //set => SetAndNotify(ref _selectedAnimation, value);
-        }
-
 
         private ObservableCollection<AnimatedDouble> _animationCollection;
         public ObservableCollection<AnimatedDouble> AnimationCollection

@@ -24,7 +24,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <!--<Views:BeatDisplay Height="20" Margin="0, 4" Grid.Column="1" DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:Composition}}, Path=DataContext.Beat.BeatDependencyObject}"/>-->
-            <Canvas Grid.Column="1" Background="Green" Height="20" HorizontalAlignment="Stretch" >
+            <!--<Canvas Grid.Column="1" Background="Green" Height="20" HorizontalAlignment="Stretch" >
                 <Border 
                     Background="Red"
                     Margin="0, 1"
@@ -40,7 +40,7 @@
                         </Style>
                     </Border.Style>
                 </Border>
-            </Canvas>
+            </Canvas>-->
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
