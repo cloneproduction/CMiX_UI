@@ -9,12 +9,11 @@ namespace CMiX.MVVM.Controls
 {
     public class BeatDisplay : ViewModel
     {
-        public BeatDisplay()
+        public BeatDisplay(double period)
         {
-            //AnimationCollection = new ObservableCollection<AnimatedDouble>();
-            //Storyboard = new Storyboard();
-            //MakeCollection(Storyboard);
 
+            Period = period;
+            BeatAnimations = new BeatAnimations(period);
             AddIndexCommand = new RelayCommand(p => AddIndex());
             SubIndexCommand = new RelayCommand(p => SubIndex());
         }

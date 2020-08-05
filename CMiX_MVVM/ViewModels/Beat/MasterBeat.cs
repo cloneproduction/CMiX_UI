@@ -14,7 +14,7 @@ namespace CMiX.MVVM.ViewModels
         }
         public MasterBeat(double period, double multiplier)
         {
-            BeatDisplay = new BeatDisplay();
+            BeatDisplay = new BeatDisplay(period);
 
             Period = period;
             Multiplier = multiplier;

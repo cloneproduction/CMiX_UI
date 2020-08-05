@@ -8,71 +8,51 @@ namespace CMiX.MVVM.ViewModels
 {
     public class BeatAnimations : ViewModel
     {
-        public BeatAnimations()
+        public BeatAnimations(double period)
         {
             AnimationCollection = new ObservableCollection<AnimatedDouble>();
             Storyboard = new Storyboard();
-            MakeCollection(Storyboard);
+            MakeCollection(period);
         }
 
-        private double _period;
-        public double Period
-        {
-            get => _period;
-            set
-            {
-                SetAndNotify(ref _period, value);
-                MakeCollection(Storyboard);
-            }
-        }
-
-        private Storyboard Storyboard { get; set; }
-
-        private void MakeCollection(Storyboard storyboard)
-        {
-            storyboard.Children.Clear();
-            AnimationCollection.Clear();
-            double Multiplier = 1.0;
-
-            for (int i = 0; i <= 3; i++)
-            {
-                Multiplier *= 2;
-
-                CreateAnimation(this.Period, Multiplier, storyboard);
-            }
-
-            CreateAnimation(this.Period, 1, storyboard);
-
-            Multiplier = 1.0;
-            for (int i = 0; i <= 3; i++)
-            {
-                Multiplier /= 2;
-                CreateAnimation(this.Period, Multiplier, storyboard);
-            }
-            storyboard.RepeatBehavior = RepeatBehavior.Forever;
-            storyboard.Begin();
-        }
-
-        private void CreateAnimation(double period, double multiplier, Storyboard storyboard)
-        {
-            if (period > 0)
-            {
-                var dummyDO = new AnimatedDouble();
-                this.AnimationCollection.Add(dummyDO);
-
-                var newda = new DoubleAnimation(0, 100, new Duration(TimeSpan.FromMilliseconds(period / multiplier)));
-                newda.RepeatBehavior = RepeatBehavior.Forever;
-                Storyboard.SetTarget(newda, dummyDO);
-                Storyboard.SetTargetProperty(newda, new PropertyPath(AnimatedDouble.AnimationPositionProperty));
-                storyboard.Children.Add(newda);
-            }
-        }
 
         private ObservableCollection<AnimatedDouble> _animationCollection;
         public ObservableCollection<AnimatedDouble> AnimationCollection
         {
             get => _animationCollection;
             set => SetAndNotify(ref _animationCollection, value);
+        }
+
+
+        private Storyboard Storyboard { get; set; }
+        private double step = 16.0;
+
+        private void MakeCollection(double period)
+        {
+            Storyboard.Children.Clear();
+            AnimationCollection.Clear();
+
+            double Multiplier = 1.0/step;
+            for (int i = 1; i < step / 2; i++)
+            {
+                Multiplier *= 2;
+                Storyboard.Children.Add(CreateAnimation(Multiplier, period));
+                Console.WriteLine("Multiplier " + Multiplier);
+            }
+
+            Storyboard.RepeatBehavior = RepeatBehavior.Forever;
+            Storyboard.Begin();
+        }
+
+        private DoubleAnimation CreateAnimation(double multiplier, double period)
+        {
+            var dummyDO = new AnimatedDouble();
+            AnimationCollection.Add(dummyDO);
+            DoubleAnimation newda = new DoubleAnimation(0, 100, new Duration(TimeSpan.FromMilliseconds(period / multiplier)));
+            newda.RepeatBehavior = RepeatBehavior.Forever;
+            Storyboard.SetTarget(newda, dummyDO);
+            Storyboard.SetTargetProperty(newda, new PropertyPath(AnimatedDouble.AnimationPositionProperty));
+            return newda;
         }
     }
 }
