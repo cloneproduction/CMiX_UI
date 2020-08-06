@@ -6,7 +6,7 @@ using CMiX.MVVM.Controls;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class BeatAnimations : ViewModel
+    public class BeatAnimations
     {
         public BeatAnimations(double period)
         {
@@ -20,8 +20,9 @@ namespace CMiX.MVVM.ViewModels
         public ObservableCollection<AnimatedDouble> AnimationCollection
         {
             get => _animationCollection;
-            set => SetAndNotify(ref _animationCollection, value);
+            set => _animationCollection = value;
         }
+
 
 
         private Storyboard Storyboard { get; set; }
