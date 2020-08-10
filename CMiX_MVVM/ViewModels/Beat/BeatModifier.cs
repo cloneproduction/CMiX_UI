@@ -18,11 +18,11 @@ namespace CMiX.MVVM.ViewModels
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
-                Notify(nameof(SelectedAnimation));
+                //Notify(nameof(SelectedAnimation));
             };
 
             Multiplier = 1.0;
-            CurrentIndex = 0;
+            //CurrentIndex = 0;
         }
 
         public BeatModifier(MasterBeat beat, Sendable parentSendable) : this(beat)
@@ -57,39 +57,39 @@ namespace CMiX.MVVM.ViewModels
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
-                Notify(nameof(SelectedAnimation));
+                //Notify(nameof(SelectedAnimation));
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 
-        private AnimatedDouble _selectedAnimation;
-        public AnimatedDouble SelectedAnimation
-        {
-            get => ((MasterBeat)this.Beat).BeatDisplay.AnimationCollection[CurrentIndex];
-            set => SetAndNotify(ref _selectedAnimation, value);
-        }
+        //private AnimatedDouble _selectedAnimation;
+        //public AnimatedDouble SelectedAnimation
+        //{
+        //    get => ((MasterBeat)this.Beat).BeatDisplay.AnimationCollection[CurrentIndex];
+        //    set => SetAndNotify(ref _selectedAnimation, value);
+        //}
 
-        private int _currentIndex;
-        public int CurrentIndex
-        {
-            get => _currentIndex;
-            set
-            {
-                Notify(nameof(SelectedAnimation));
-                SetAndNotify(ref _currentIndex, value);
-            }
-        }
+        //private int _currentIndex;
+        //public int CurrentIndex
+        //{
+        //    get => _currentIndex;
+        //    set
+        //    {
+        //        Notify(nameof(SelectedAnimation));
+        //        SetAndNotify(ref _currentIndex, value);
+        //    }
+        //}
 
         protected override void Multiply()
         {
             Multiplier /= 2;
-            CurrentIndex++;
+            //CurrentIndex++;
         }
 
         protected override void Divide()
         {
             Multiplier *= 2;
-            CurrentIndex--;
+            //CurrentIndex--;
         }
     }
 }

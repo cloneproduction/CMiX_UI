@@ -12,12 +12,17 @@ namespace CMiX.MVVM.ViewModels
         {
 
         }
+
         public MasterBeat(double period, double multiplier)
         {
-            BeatDisplay = new BeatDisplay(period);
-
             Period = period;
             Multiplier = multiplier;
+
+            BeatAnimations = new BeatAnimations(period);
+
+
+            Console.WriteLine("index " + index);
+            BeatDisplay = new BeatDisplay(BeatAnimations.AnimatedDoubles[index + BeatAnimations.AnimatedDoubles.Count / 2]);
 
             tapPeriods = new List<double>();
             tapTime = new List<double>();
@@ -45,14 +50,14 @@ namespace CMiX.MVVM.ViewModels
             get => _period;
             set
             {
-                if (BeatDisplay != null)
-                    BeatDisplay.Period = value;
                 SetAndNotify(ref _period, value);
                 OnPeriodChanged(Period);
                 Notify(nameof(BPM));
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
+
+        private int index = 0;
 
         private BeatDisplay _beatDisplay;
         public BeatDisplay BeatDisplay
@@ -61,41 +66,52 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _beatDisplay, value);
         }
 
-        private bool _isReset;
-        public bool IsReset
+        private BeatAnimations _beatAnimations;
+        public BeatAnimations BeatAnimations
         {
-            get => _isReset;
-            set => SetAndNotify(ref _isReset, value);
-        }
-
-        private int _beatTick;
-        public int BeatTick
-        {
-            get => _beatTick;
-            set => SetAndNotify(ref _beatTick, value);
-        }
-
-        private int _beatTickOnReset;
-        public int BeatTickOnReset
-        {
-            get => _beatTickOnReset;
-            set => SetAndNotify(ref _beatTickOnReset, value);
+            get => _beatAnimations;
+            set => SetAndNotify(ref _beatAnimations, value);
         }
 
         public void Resync()
         {
             OnBeatResync();
-            IsReset = true;
-            BeatDisplay.Resync();
         }
 
-        protected override void Multiply() => Period /= 2.0;
+        private int GetAnimatedDoubleIndex()
+        {
+            return index + BeatAnimations.AnimatedDoubles.Count / 2;
+        }
 
-        protected override void Divide() => Period *= 2.0;
+        private void SetAnimatedDouble()
+        {
+            BeatDisplay.AnimatedDouble = BeatAnimations.AnimatedDoubles[index + BeatAnimations.AnimatedDoubles.Count / 2];
+        }
+        protected override void Multiply()
+        {
+            if(GetAnimatedDoubleIndex() < BeatAnimations.AnimatedDoubles.Count - 1)
+            {
+                Period /= 2.0;
+                index++;
+                SetAnimatedDouble();
+            }
+        }
+
+        protected override void Divide()
+        {
+            if (GetAnimatedDoubleIndex() > 0)
+            {
+                Period *= 2.0;
+                index--;
+                SetAnimatedDouble();
+            }
+        }
 
         private void Tap()
         {
             Period = GetMasterPeriod();
+            BeatAnimations.MakeCollection(Period);
+            SetAnimatedDouble();
         }
 
 

@@ -22,7 +22,7 @@
                 <Style TargetType="Border">
                     <Setter Property="RenderTransform">
                         <Setter.Value>
-                            <TranslateTransform X="{Binding Path=AnimationCollection[0].AnimationPosition}" Y="0"/>
+                            <TranslateTransform X="{Binding Path=AnimatedDouble.AnimationPosition}" Y="0"/>
                         </Setter.Value>
                     </Setter>
                 </Style>
