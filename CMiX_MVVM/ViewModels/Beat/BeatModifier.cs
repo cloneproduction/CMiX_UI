@@ -10,6 +10,8 @@ namespace CMiX.MVVM.ViewModels
     {
         public BeatModifier(MasterBeat masterBeat)
         {
+            BeatAnimations = new BeatAnimations(masterBeat.Period);
+            BeatDisplay = new BeatDisplay(masterBeat.BeatAnimations.AnimatedDoubles[index + masterBeat.BeatAnimations.AnimatedDoubles.Count / 2]);
             ChanceToHit = new Slider(nameof(ChanceToHit), this) { Amount = 1.0 };
             Beat = masterBeat;
 
@@ -18,13 +20,17 @@ namespace CMiX.MVVM.ViewModels
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
-                //Notify(nameof(SelectedAnimation));
+                
+                BeatAnimations.MakeCollection(Period);
+                BeatDisplay.AnimatedDouble = BeatAnimations.AnimatedDoubles[index + BeatAnimations.AnimatedDoubles.Count / 2];
+                Notify(nameof(BeatDisplay));
+                Console.WriteLine("BeatModifier PeriodChanged");
             };
 
             Multiplier = 1.0;
-            //CurrentIndex = 0;
         }
 
+        private int index = 0;
         public BeatModifier(MasterBeat beat, Sendable parentSendable) : this(beat)
         {
             SubscribeToEvent(parentSendable);
@@ -41,6 +47,14 @@ namespace CMiX.MVVM.ViewModels
         public MasterBeat Beat { get; set; }
         public Slider ChanceToHit { get; }
 
+        public BeatDisplay BeatDisplay { get; set; }
+
+        private BeatAnimations _beatAnimations;
+        public BeatAnimations BeatAnimations
+        {
+            get => _beatAnimations;
+            set => SetAndNotify(ref _beatAnimations, value);
+        }
 
         public override double Period
         {
@@ -57,39 +71,34 @@ namespace CMiX.MVVM.ViewModels
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
-                //Notify(nameof(SelectedAnimation));
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 
-        //private AnimatedDouble _selectedAnimation;
-        //public AnimatedDouble SelectedAnimation
-        //{
-        //    get => ((MasterBeat)this.Beat).BeatDisplay.AnimationCollection[CurrentIndex];
-        //    set => SetAndNotify(ref _selectedAnimation, value);
-        //}
-
-        //private int _currentIndex;
-        //public int CurrentIndex
-        //{
-        //    get => _currentIndex;
-        //    set
-        //    {
-        //        Notify(nameof(SelectedAnimation));
-        //        SetAndNotify(ref _currentIndex, value);
-        //    }
-        //}
+        private void SetAnimatedDouble()
+        {
+            BeatDisplay.AnimatedDouble = Beat.BeatAnimations.AnimatedDoubles[index + Beat.BeatAnimations.AnimatedDoubles.Count / 2 - 1];
+            Notify(nameof(BeatDisplay));
+        }
 
         protected override void Multiply()
         {
             Multiplier /= 2;
-            //CurrentIndex++;
+            if (Beat.GetAnimatedDoubleIndex() < Beat.BeatAnimations.AnimatedDoubles.Count - 1)
+            {
+                index++;
+                SetAnimatedDouble();
+            }
         }
 
         protected override void Divide()
         {
             Multiplier *= 2;
-            //CurrentIndex--;
+            if (Beat.GetAnimatedDoubleIndex() > 0)
+            {
+                index--;
+                SetAnimatedDouble();
+            }
         }
     }
 }

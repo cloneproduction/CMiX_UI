@@ -23,24 +23,11 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <!--<Views:BeatDisplay Height="20" Margin="0, 4" Grid.Column="1" DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:Composition}}, Path=DataContext.Beat.BeatDependencyObject}"/>-->
-            <!--<Canvas Grid.Column="1" Background="Green" Height="20" HorizontalAlignment="Stretch" >
-                <Border 
-                    Background="Red"
-                    Margin="0, 1"
-                    Width="10"
-                    Height="20">
-                    <Border.Style>
-                        <Style TargetType="Border">
-                            <Setter Property="RenderTransform">
-                                <Setter.Value>
-                                    <TranslateTransform X="{Binding Path=SelectedAnimation.AnimationPosition}" Y="0"/>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </Border.Style>
-                </Border>
-            </Canvas>-->
+            <Views:BeatDisplay 
+                Height="20" 
+                Margin="0, 4" 
+                Grid.Column="1" 
+                DataContext="{Binding BeatDisplay}"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>

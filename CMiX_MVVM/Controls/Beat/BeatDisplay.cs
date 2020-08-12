@@ -7,7 +7,6 @@ namespace CMiX.MVVM.Controls
         public BeatDisplay(AnimatedDouble animatedDouble)
         {
             AnimatedDouble = animatedDouble;
-            System.Console.WriteLine(AnimatedDouble);
         }
 
         private AnimatedDouble _animatedDouble;

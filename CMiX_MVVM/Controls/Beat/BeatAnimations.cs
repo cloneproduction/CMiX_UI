@@ -35,7 +35,6 @@ namespace CMiX.MVVM.ViewModels
             for (int i = 1; i < step / 2; i++)
             {
                 Multiplier *= 2;
-                Console.WriteLine("Multiplier " + Multiplier);
                 Storyboard.Children.Add(CreateAnimation(Multiplier, period));
             }
 
@@ -47,11 +46,27 @@ namespace CMiX.MVVM.ViewModels
         {
             var animatedDouble = new AnimatedDouble();
             AnimatedDoubles.Add(animatedDouble);
-            DoubleAnimation newda = new DoubleAnimation(0, 100, new Duration(TimeSpan.FromMilliseconds(period / multiplier)));
-            newda.RepeatBehavior = RepeatBehavior.Forever;
+
+            DoubleAnimation newda = new DoubleAnimation();
+
+            if(multiplier > 0 && period > 0)
+            {
+                newda.From = 0;
+                newda.To = 100;
+                newda.Duration = new Duration(TimeSpan.FromMilliseconds(period / multiplier));
+                newda.RepeatBehavior = RepeatBehavior.Forever;
+            }
+            //DoubleAnimation newda = new DoubleAnimation(0, 100, new Duration(TimeSpan.FromMilliseconds(period / multiplier)));
+            
             Storyboard.SetTarget(newda, animatedDouble);
             Storyboard.SetTargetProperty(newda, new PropertyPath(AnimatedDouble.AnimationPositionProperty));
             return newda;
+        }
+
+        public void ResetAnimation()
+        {
+            Storyboard.Stop();
+            Storyboard.Begin();
         }
     }
 }
