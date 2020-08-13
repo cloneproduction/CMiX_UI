@@ -22,7 +22,7 @@
         Background="{StaticResource HighDarkerColor}">
         <StackPanel>
             
-            <Views:BeatDisplay x:Name="BeatDisplay" DataContext="{Binding BeatDisplay}" Margin="0, 4" />
+            <Views:BeatDisplay x:Name="BeatDisplay" DataContext="{Binding}" Margin="0, 4" />
 
             <DockPanel Height="30">
                     <Button

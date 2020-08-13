@@ -19,8 +19,7 @@ namespace CMiX.MVVM.ViewModels
             Multiplier = multiplier;
 
             BeatAnimations = new BeatAnimations(period);
-            BeatDisplay = new BeatDisplay(BeatAnimations.AnimatedDoubles[index + BeatAnimations.AnimatedDoubles.Count / 2 - 1]);
-
+            SetAnimatedDouble();
             tapPeriods = new List<double>();
             tapTime = new List<double>();
 
@@ -55,18 +54,25 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        private BeatDisplay _beatDisplay;
-        public BeatDisplay BeatDisplay
-        {
-            get => _beatDisplay;
-            set => SetAndNotify(ref _beatDisplay, value);
-        }
+        //private BeatDisplay _beatDisplay;
+        //public BeatDisplay BeatDisplay
+        //{
+        //    get => _beatDisplay;
+        //    set => SetAndNotify(ref _beatDisplay, value);
+        //}
 
         private BeatAnimations _beatAnimations;
         public BeatAnimations BeatAnimations
         {
             get => _beatAnimations;
             set => SetAndNotify(ref _beatAnimations, value);
+        }
+
+        private AnimatedDouble _animatedDouble;
+        public AnimatedDouble AnimatedDouble
+        {
+            get => _animatedDouble;
+            set => SetAndNotify(ref _animatedDouble, value);
         }
 
         public void Resync()
@@ -82,7 +88,7 @@ namespace CMiX.MVVM.ViewModels
 
         private void SetAnimatedDouble()
         {
-            BeatDisplay.AnimatedDouble = BeatAnimations.AnimatedDoubles[index + BeatAnimations.AnimatedDoubles.Count / 2];
+            AnimatedDouble = BeatAnimations.AnimatedDoubles[index + BeatAnimations.AnimatedDoubles.Count / 2];
         }
 
         protected override void Multiply()
@@ -91,7 +97,6 @@ namespace CMiX.MVVM.ViewModels
             {
                 Period /= 2.0;
                 index++;
-                BeatAnimations.MakeCollection(Period);
                 SetAnimatedDouble();
             }
         }
@@ -102,7 +107,6 @@ namespace CMiX.MVVM.ViewModels
             {
                 Period *= 2.0;
                 index--;
-                BeatAnimations.MakeCollection(Period);
                 SetAnimatedDouble();
             }
         }
@@ -110,7 +114,6 @@ namespace CMiX.MVVM.ViewModels
         private void Tap()
         {
             Period = GetMasterPeriod();
-            BeatAnimations.MakeCollection(Period);
             SetAnimatedDouble();
         }
 
