@@ -119,8 +119,9 @@ namespace CMiX.MVVM.ViewModels
         private void Tap()
         {
             Period = GetMasterPeriod();
-            Index = 0;
+            
             BeatAnimations.MakeCollection(Period);
+            Index = 0;
             SetAnimatedDouble();
         }
 

@@ -25,7 +25,7 @@ namespace CMiX.MVVM.ViewModels
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
-                Notify(nameof(AnimatedDouble));
+                //Notify(nameof(AnimatedDouble));
             };
         }
 
