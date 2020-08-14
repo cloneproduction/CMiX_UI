@@ -15,6 +15,7 @@ namespace CMiX.MVVM.ViewModels
 
         public MasterBeat(double period, double multiplier)
         {
+            Index = 0;
             Period = period;
             Multiplier = multiplier;
 
@@ -40,7 +41,25 @@ namespace CMiX.MVVM.ViewModels
 
         private double CurrentTime => (DateTime.UtcNow - DateTime.MinValue).TotalMilliseconds;
         private double _period;
-        private int index = 0;
+
+        private int maxIndex = 3;
+        private int minIndex = -3;
+
+        private int _index;
+        public int Index
+        {
+            get => _index;
+            set
+            {
+                _index = value;
+                OnIndexChanged();
+            }
+        }
+
+
+        public event EventHandler IndexChanged;
+        protected void OnIndexChanged() => IndexChanged?.Invoke(this, null);
+
 
         public override double Period
         {
@@ -53,13 +72,6 @@ namespace CMiX.MVVM.ViewModels
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
-
-        //private BeatDisplay _beatDisplay;
-        //public BeatDisplay BeatDisplay
-        //{
-        //    get => _beatDisplay;
-        //    set => SetAndNotify(ref _beatDisplay, value);
-        //}
 
         private BeatAnimations _beatAnimations;
         public BeatAnimations BeatAnimations
@@ -81,42 +93,36 @@ namespace CMiX.MVVM.ViewModels
             BeatAnimations.ResetAnimation();
         }
 
-        public int GetAnimatedDoubleIndex()
-        {
-            return index + BeatAnimations.AnimatedDoubles.Count / 2;
-        }
-
         private void SetAnimatedDouble()
         {
-            AnimatedDouble = BeatAnimations.AnimatedDoubles[index + BeatAnimations.AnimatedDoubles.Count / 2];
+            AnimatedDouble = BeatAnimations.AnimatedDoubles[Index + (BeatAnimations.AnimatedDoubles.Count - 1) / 2];
         }
 
         protected override void Multiply()
         {
-            if(GetAnimatedDoubleIndex() < BeatAnimations.AnimatedDoubles.Count - 1)
-            {
-                Period /= 2.0;
-                index++;
-                SetAnimatedDouble();
-            }
+            if (Index >= maxIndex)
+                return;
+            Period /= 2.0;
+            Index++;
+            SetAnimatedDouble();
         }
 
         protected override void Divide()
         {
-            if (GetAnimatedDoubleIndex() > 0)
-            {
-                Period *= 2.0;
-                index--;
-                SetAnimatedDouble();
-            }
+            if (Index <= minIndex)
+                return;
+            Period *= 2.0;
+            Index--;
+            SetAnimatedDouble();
         }
 
         private void Tap()
         {
             Period = GetMasterPeriod();
+            Index = 0;
+            BeatAnimations.MakeCollection(Period);
             SetAnimatedDouble();
         }
-
 
         private double GetMasterPeriod()
         {

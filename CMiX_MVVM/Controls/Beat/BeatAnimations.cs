@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Media.Animation;
 using CMiX.MVVM.Controls;
+using CMiX.MVVM.Resources;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -30,12 +33,13 @@ namespace CMiX.MVVM.ViewModels
             Storyboard.Children.Clear();
             AnimatedDoubles.Clear();
 
-            double Multiplier = 1.0/step;
+            double Multiplier = 1;
 
-            for (int i = 1; i < step / 2; i++)
+            for (int i = 1; i < step; i++)
             {
+
+                Storyboard.Children.Add(CreateAnimation(Multiplier / 128, period));
                 Multiplier *= 2;
-                Storyboard.Children.Add(CreateAnimation(Multiplier, period));
             }
 
             Storyboard.RepeatBehavior = RepeatBehavior.Forever;
@@ -56,8 +60,7 @@ namespace CMiX.MVVM.ViewModels
                 newda.Duration = new Duration(TimeSpan.FromMilliseconds(period / multiplier));
                 newda.RepeatBehavior = RepeatBehavior.Forever;
             }
-            //DoubleAnimation newda = new DoubleAnimation(0, 100, new Duration(TimeSpan.FromMilliseconds(period / multiplier)));
-            
+
             Storyboard.SetTarget(newda, animatedDouble);
             Storyboard.SetTargetProperty(newda, new PropertyPath(AnimatedDouble.AnimationPositionProperty));
             return newda;

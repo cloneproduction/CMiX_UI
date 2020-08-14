@@ -10,27 +10,25 @@ namespace CMiX.MVVM.ViewModels
     {
         public BeatModifier(MasterBeat masterBeat)
         {
-            BeatAnimations = new BeatAnimations(masterBeat.Period);
-            BeatDisplay = new BeatDisplay(masterBeat.BeatAnimations.AnimatedDoubles[index + masterBeat.BeatAnimations.AnimatedDoubles.Count / 2]);
+            Index = 0;
             ChanceToHit = new Slider(nameof(ChanceToHit), this) { Amount = 1.0 };
             Beat = masterBeat;
+            Multiplier = 1.0;
+
+            masterBeat.IndexChanged += (s, newvalue) =>
+            {
+                Notify(nameof(AnimatedDouble));
+            };
 
             masterBeat.PeriodChanged += (s, newvalue) =>
             {
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
-                
-                BeatAnimations.MakeCollection(Period);
-                BeatDisplay.AnimatedDouble = BeatAnimations.AnimatedDoubles[index + BeatAnimations.AnimatedDoubles.Count / 2];
-                Notify(nameof(BeatDisplay));
-                Console.WriteLine("BeatModifier PeriodChanged");
+                Notify(nameof(AnimatedDouble));
             };
-
-            Multiplier = 1.0;
         }
 
-        private int index = 0;
         public BeatModifier(MasterBeat beat, Sendable parentSendable) : this(beat)
         {
             SubscribeToEvent(parentSendable);
@@ -47,13 +45,21 @@ namespace CMiX.MVVM.ViewModels
         public MasterBeat Beat { get; set; }
         public Slider ChanceToHit { get; }
 
-        public BeatDisplay BeatDisplay { get; set; }
-
         private BeatAnimations _beatAnimations;
         public BeatAnimations BeatAnimations
         {
             get => _beatAnimations;
             set => SetAndNotify(ref _beatAnimations, value);
+        }
+
+        private int maxIndex = 4;
+        private int minIndex = -4;
+
+        private int _index;
+        public int Index
+        {
+            get => _index;
+            set => _index = value;
         }
 
         public override double Period
@@ -71,33 +77,37 @@ namespace CMiX.MVVM.ViewModels
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
+                Notify(nameof(AnimatedDouble));
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 
-        private void SetAnimatedDouble()
+        public AnimatedDouble AnimatedDouble
         {
-            BeatDisplay.AnimatedDouble = Beat.BeatAnimations.AnimatedDoubles[index + Beat.BeatAnimations.AnimatedDoubles.Count / 2 - 1];
-            Notify(nameof(BeatDisplay));
+            get
+            {
+                return Beat.BeatAnimations.AnimatedDoubles[(Beat.Index + (Beat.BeatAnimations.AnimatedDoubles.Count - 1) / 2) + Index];
+            }
+            //set => SetAndNotify(ref _animatedDouble, value);
         }
 
         protected override void Multiply()
         {
-            Multiplier /= 2;
-            if (Beat.GetAnimatedDoubleIndex() < Beat.BeatAnimations.AnimatedDoubles.Count - 1)
+            if (Index < maxIndex)
             {
-                index++;
-                SetAnimatedDouble();
+                Index++;
+                Multiplier /= 2.0;
+                Notify(nameof(AnimatedDouble));
             }
         }
 
         protected override void Divide()
         {
-            Multiplier *= 2;
-            if (Beat.GetAnimatedDoubleIndex() > 0)
+            if (Index > minIndex)
             {
-                index--;
-                SetAnimatedDouble();
+                Index--;
+                Multiplier *= 2.0;
+                Notify(nameof(AnimatedDouble));
             }
         }
     }

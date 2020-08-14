@@ -28,8 +28,6 @@ namespace CMiX.MVVM.ViewModels
         public ICommand ResetCommand { get; }
         public ICommand MultiplyCommand { get; }
         public ICommand DivideCommand { get; }
-
-        //public abstract HighResolutionTimer Timer { get; set; }
         public abstract double Period { get; set; }
 
         private double _bpm;
