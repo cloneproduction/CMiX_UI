@@ -11,22 +11,43 @@
     d:DesignHeight="46.5"
     d:DesignWidth="226.667"
     mc:Ignorable="d">
-
-    <Canvas Background="Green" Height="20" HorizontalAlignment="Stretch" >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Resources:NormalizedToWidthConverter x:Key="NormalizedToWidth"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Border 
+        Background="{DynamicResource LightColor}"
+        Margin="0, 1"
+        Height="20"
+        CornerRadius="{StaticResource CornerRadiusDefault}"
+        Opacity="{Binding Path=AnimatedDouble.AnimationPosition}">
+    </Border>
+    <!--<Canvas Background="Green" Height="20" HorizontalAlignment="Stretch" >
         <Border 
             Background="Red"
             Margin="0, 1"
             Width="10"
-            Height="20">
-            <Border.Style>
+            Height="20"
+            Opacity="{Binding Path=AnimatedDouble.AnimationPosition}">
+            --><!-- <Border.Style>
                 <Style TargetType="Border">
+
                     <Setter Property="RenderTransform">
                         <Setter.Value>
-                            <TranslateTransform X="{Binding Path=AnimatedDouble.AnimationPosition, UpdateSourceTrigger=PropertyChanged}" Y="0"/>
+                            <TranslateTransform>
+                                <TranslateTransform.X>
+                                    <MultiBinding Converter="{StaticResource NormalizedToWidth}">
+                                        <Binding Path="AnimatedDouble.AnimationPosition" />
+                                        <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}" />
+                                    </MultiBinding>
+                                </TranslateTransform.X>
+                            </TranslateTransform>
+                            --><!--<TranslateTransform X="{Binding Path=AnimatedDouble.AnimationPosition, Converter={StaticResource NormalizedToWidth}, ConverterParameter={Binding ActualWidth, RelativeSource={RelativeSource Self}}, UpdateSourceTrigger=PropertyChanged}" Y="0"/>--><!--
                         </Setter.Value>
                     </Setter>
                 </Style>
-            </Border.Style>
+            </Border.Style>--><!--
         </Border>
-    </Canvas>
+    </Canvas>-->
 </UserControl>

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Documents;
 using System.Windows.Media.Animation;
 using CMiX.MVVM.Controls;
-using CMiX.MVVM.Resources;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -55,8 +52,11 @@ namespace CMiX.MVVM.ViewModels
 
             if(multiplier > 0 && period > 0)
             {
-                newda.From = 0;
-                newda.To = 100;
+                newda.From = 1;
+                newda.To = 0;
+                CubicEase easing = new CubicEase();  // or whatever easing class you want
+                easing.EasingMode = EasingMode.EaseInOut;
+                newda.EasingFunction = easing;
                 newda.Duration = new Duration(TimeSpan.FromMilliseconds(period / multiplier));
                 newda.RepeatBehavior = RepeatBehavior.Forever;
             }

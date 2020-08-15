@@ -12,19 +12,41 @@ using System.Windows.Media;
 
 namespace CMiX.MVVM.Resources
 {
+    public class NormalizedToWidthConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            double val = 0;
+            double width = 0;
+            if (values[0] != DependencyProperty.UnsetValue && values[1] != DependencyProperty.UnsetValue)
+            {
+                val = (double)values[0];
+                width = (double)values[1];
+                Console.WriteLine(values[1].GetType());
+                //width = (double)values[1];
+                return val * width;
+            }
+            else
+            {
+                return val;
+            }
+            //Console.WriteLine(values[1].GetType());
+            //
+            //return val * width;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public class CollectionToItemConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             ObservableCollection<AnimatedDouble> col = new ObservableCollection<AnimatedDouble>();
             int index = (int)parameter;
-            //if (value != null)
-            //{
-                
-            //    col = value as ObservableCollection<AnimatedDouble>;
-            //    Console.WriteLine(col.Count);
-            //    return col[2].AnimationPosition;
-            //}
             return ((ObservableCollection < AnimatedDouble > )value)[3].AnimationPosition;
         }
 
