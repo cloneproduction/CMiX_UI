@@ -12,35 +12,6 @@ using System.Windows.Media;
 
 namespace CMiX.MVVM.Resources
 {
-    public class NormalizedToWidthConverter : IMultiValueConverter
-    {
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
-        {
-            double val = 0;
-            double width = 0;
-            if (values[0] != DependencyProperty.UnsetValue && values[1] != DependencyProperty.UnsetValue)
-            {
-                val = (double)values[0];
-                width = (double)values[1];
-                Console.WriteLine(values[1].GetType());
-                //width = (double)values[1];
-                return val * width;
-            }
-            else
-            {
-                return val;
-            }
-            //Console.WriteLine(values[1].GetType());
-            //
-            //return val * width;
-        }
-
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
     public class CollectionToItemConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -114,21 +85,6 @@ namespace CMiX.MVVM.Resources
         }
     }
 
-    [Obsolete("Prefer using a BPM property in the viewmodel")]
-    public class PeriodToBPMConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            double doubleType = 60000 / (double)value ;
-            return doubleType.ToString("0");
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return value;
-        }
-    }
-
     public class IntToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -144,7 +100,6 @@ namespace CMiX.MVVM.Resources
             return value;
         }
     }
-
 
     public class IntToStringWithMaxConverter : IValueConverter
     {
@@ -198,8 +153,6 @@ namespace CMiX.MVVM.Resources
         }
     }
 
-
-
     public class ByteToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -248,7 +201,6 @@ namespace CMiX.MVVM.Resources
         {
 
             double b = (double)value;
-            //return b.ToString();
             return String.Format("{0:0.000}", b);
         }
 
@@ -262,27 +214,6 @@ namespace CMiX.MVVM.Resources
                 return DependencyProperty.UnsetValue;
         }
     }
-
-    //public class IntToStringConverter : IValueConverter
-    //{
-    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-
-    //        int b = (int)value;
-    //        //return b.ToString();
-    //        return String.Format("{0:0}", b) ;
-    //    }
-
-    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        string strValue = value as string;
-    //        int resultDouble;
-    //        if (Int32.TryParse(strValue, out resultDouble))
-    //            return  resultDouble;
-    //        else
-    //            return DependencyProperty.UnsetValue;
-    //    }
-    //}
 
     public class DoubleToPersistantStringConverter : IValueConverter
     {
@@ -307,7 +238,6 @@ namespace CMiX.MVVM.Resources
                 lastConvertBackString = (string)value;
                 return result;
             }
-
             return null;
         }
     }
@@ -481,10 +411,8 @@ namespace CMiX.MVVM.Resources
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-
             Color colorIn = (Color)value;
             System.Drawing.Color col = System.Drawing.Color.FromArgb(255, colorIn.R, colorIn.G, colorIn.B);
-            //ColorUtils.ColorToHSV(colorIn, out hue, out sat, out val);
             ColorUtils.ColorToHSV(colorIn, out hue, out sat, out val);
 
             if ((string)parameter == "Hue")
@@ -572,7 +500,6 @@ namespace CMiX.MVVM.Resources
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             Color colorOut = new Color();
-
             Color colorIn = (Color)value;
 
             Red = colorIn.ScR;
@@ -602,7 +529,6 @@ namespace CMiX.MVVM.Resources
 
             if (param == "Alpha")
                 colorOut = Color.FromScRgb(1.0f, Red, Green, Blue);
-
 
             return colorOut;
         }
@@ -720,14 +646,12 @@ namespace CMiX.MVVM.Resources
 
     public class RadioButtonCheckedConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter,
-            System.Globalization.CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value.Equals(parameter);
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter,
-            System.Globalization.CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value.Equals(true) ? parameter : Binding.DoNothing;
         }
@@ -773,14 +697,13 @@ namespace CMiX.MVVM.Resources
 
     public class EnumToStringConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string EnumString;
             try
             {
                 EnumString = Enum.GetName((value.GetType()), value);
                 return value.ToString();
-                //return EnumString;
             }
             catch
             {
@@ -789,7 +712,7 @@ namespace CMiX.MVVM.Resources
         }
 
         // No need to implement converting back on a one-way binding 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value.ToString();
         }
@@ -797,12 +720,12 @@ namespace CMiX.MVVM.Resources
 
     public class EnumToBooleanConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value.Equals(parameter);
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value.Equals(true) ? parameter : Binding.DoNothing;
         }
@@ -810,8 +733,6 @@ namespace CMiX.MVVM.Resources
 
     public class AlwaysVisibleConverter : IValueConverter
     {
-        #region Implementation of IValueConverter
-
         public object Convert(object value,
                               Type targetType, object parameter, CultureInfo culture)
         {
@@ -823,8 +744,6 @@ namespace CMiX.MVVM.Resources
         {
             throw new NotImplementedException();
         }
-
-        #endregion
     }
 
     public sealed class NullToVisibilityConverter : IValueConverter
@@ -951,7 +870,7 @@ namespace CMiX.MVVM.Resources
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 
@@ -970,8 +889,6 @@ namespace CMiX.MVVM.Resources
 
             if (!isParentVisible || !isVisible)
                 return false;
-            //else if (!parentVisibility)
-            //    return false;
             else
                 return true;
         }

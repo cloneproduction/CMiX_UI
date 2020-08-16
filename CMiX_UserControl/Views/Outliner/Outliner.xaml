@@ -5,10 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX.MVVM"
              xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
-             xmlns:Views="clr-namespace:CMiX.Studio.Views"
              xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
-             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:dd="urn:gong-wpf-dragdrop"
              xmlns:Behaviors="clr-namespace:CMiX.MVVM.Behaviors;assembly=CMiX.MVVM"
              mc:Ignorable="d" 
@@ -25,7 +23,7 @@
             <ContextMenu x:Key="OutlinerContextMenu" 
                          Style="{StaticResource ContextMenuDefault}" 
                          Width="175">
-                
+
                 <MenuItem
                     IsEnabled="{Binding CanAdd}"
                     Command="{Binding Data.ComponentManager.CreateComponentCommand, Source={StaticResource RootProxy}}"
@@ -33,16 +31,6 @@
                     Header="{Binding AddContentText}">
                     <MenuItem.Icon>
                         <Image Source="{StaticResource Add}"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                
-                <MenuItem
-                    IsEnabled="{Binding CanEdit}"
-                    Command="{Binding Data.ComponentEditor.EditComponentCommand, Source={StaticResource RootProxy}}"
-                    CommandParameter="{Binding SelectedComponent}"
-                    Header="Edit">
-                    <MenuItem.Icon>
-                        <Image Source="{StaticResource NewLayer}"/>
                     </MenuItem.Icon>
                 </MenuItem>
 

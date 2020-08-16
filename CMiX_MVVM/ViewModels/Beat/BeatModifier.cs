@@ -25,7 +25,6 @@ namespace CMiX.MVVM.ViewModels
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
-                //Notify(nameof(AnimatedDouble));
             };
         }
 
@@ -88,7 +87,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 return Beat.BeatAnimations.AnimatedDoubles[(Beat.Index + (Beat.BeatAnimations.AnimatedDoubles.Count - 1) / 2) + Index];
             }
-            //set => SetAndNotify(ref _animatedDouble, value);
+            set => throw new InvalidOperationException("Property is readonly. When binding, use Mode=OneWay.");
         }
 
         protected override void Multiply()

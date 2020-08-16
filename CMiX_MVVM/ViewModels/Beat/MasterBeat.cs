@@ -56,10 +56,8 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-
         public event EventHandler IndexChanged;
         protected void OnIndexChanged() => IndexChanged?.Invoke(this, null);
-
 
         public override double Period
         {

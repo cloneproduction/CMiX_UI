@@ -34,7 +34,6 @@ namespace CMiX.MVVM.ViewModels
 
             for (int i = 1; i < step; i++)
             {
-
                 Storyboard.Children.Add(CreateAnimation(Multiplier / 128, period));
                 Multiplier *= 2;
             }
@@ -47,15 +46,14 @@ namespace CMiX.MVVM.ViewModels
         {
             var animatedDouble = new AnimatedDouble();
             AnimatedDoubles.Add(animatedDouble);
-
             DoubleAnimation newda = new DoubleAnimation();
 
             if(multiplier > 0 && period > 0)
             {
                 newda.From = 1;
                 newda.To = 0;
-                CubicEase easing = new CubicEase();  // or whatever easing class you want
-                easing.EasingMode = EasingMode.EaseInOut;
+                QuadraticEase easing = new QuadraticEase();  // or whatever easing class you want
+                easing.EasingMode = EasingMode.EaseOut;
                 newda.EasingFunction = easing;
                 newda.Duration = new Duration(TimeSpan.FromMilliseconds(period / multiplier));
                 newda.RepeatBehavior = RepeatBehavior.Forever;
