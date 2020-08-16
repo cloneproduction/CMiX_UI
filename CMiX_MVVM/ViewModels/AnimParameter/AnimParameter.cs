@@ -20,7 +20,6 @@ namespace CMiX.MVVM.ViewModels
         public AnimParameter(string name, MasterBeat beat, bool isEnabled, Sendable parentSendable) : this(name, beat, isEnabled)
         {
             SubscribeToEvent(parentSendable);
-            
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
@@ -35,8 +34,6 @@ namespace CMiX.MVVM.ViewModels
         {
             AnimMode.Update();
         }
-
-
 
         public override string GetMessageAddress()
         {

@@ -145,6 +145,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Views\AnimParameter\Easing.xaml.cs">
+      <DependentUpon>Easing.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AnimParameter\None.xaml.cs">
       <DependentUpon>None.xaml</DependentUpon>
     </Compile>
@@ -165,9 +168,6 @@
     </Compile>
     <Compile Include="Views\Assets\GeometryPathSelector.xaml.cs">
       <DependentUpon>GeometryPathSelector.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Beat\BeatDisplay.xaml.cs">
-      <DependentUpon>BeatDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Component\ComponentPanel.xaml.cs">
       <DependentUpon>ComponentPanel.xaml</DependentUpon>
@@ -287,6 +287,10 @@
     <Compile Include="Views\Texture\Texture.xaml.cs">
       <DependentUpon>Texture.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\AnimParameter\Easing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AnimParameter\None.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -314,10 +318,6 @@
     <Page Include="Views\Assets\GeometryPathSelector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Beat\BeatDisplay.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Component\ComponentPanel.xaml">
       <SubType>Designer</SubType>

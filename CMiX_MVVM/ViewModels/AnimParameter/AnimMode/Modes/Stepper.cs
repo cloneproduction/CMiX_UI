@@ -1,7 +1,5 @@
-﻿using CMiX.MVVM.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -13,31 +11,20 @@ namespace CMiX.MVVM.ViewModels
         }
         public Stepper(Stopwatcher stopwatcher)
         {
-            //Stopwatcher = stopwatcher;
-            //Stopwatcher.Change += new EventHandler(MovePosition);
-            SelectedEasingType = EasingType.None;
+            Easing = new Easing(this);
             CurrentStepPos = 0.0;
             StepCount = 4;
-            //UpdateValue = new Action(Update);
+        }
+
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            //throw new NotImplementedException();
         }
 
         public int StepCount { get; set; }
-
         public double CurrentStepPos { get; set; }
         public Range Range { get; set; }
-
-
-        private EasingType _selectedEasingType;
-        public EasingType SelectedEasingType
-        {
-            get => _selectedEasingType;
-            set => SetAndNotify(ref _selectedEasingType, value);
-        }
-
-        public IEnumerable<EasingType> ModeTypeSource
-        {
-            get => Enum.GetValues(typeof(EasingType)).Cast<EasingType>();
-        }
+        public Easing Easing { get; set; }
 
         private void MovePosition(object sender, EventArgs e)
         {
@@ -50,11 +37,6 @@ namespace CMiX.MVVM.ViewModels
         public void Update()
         {
             //Console.WriteLine("Stepper Update");
-        }
-
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        {
-            //throw new NotImplementedException();
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Windows.Input;
-using System.Windows;
-using CMiX.MVVM.Models;
+﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels

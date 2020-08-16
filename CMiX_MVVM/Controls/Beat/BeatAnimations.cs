@@ -53,7 +53,7 @@ namespace CMiX.MVVM.ViewModels
                 newda.From = 1;
                 newda.To = 0;
                 QuadraticEase easing = new QuadraticEase();  // or whatever easing class you want
-                easing.EasingMode = EasingMode.EaseOut;
+                easing.EasingMode = System.Windows.Media.Animation.EasingMode.EaseOut;
                 newda.EasingFunction = easing;
                 newda.Duration = new Duration(TimeSpan.FromMilliseconds(period / multiplier));
                 newda.RepeatBehavior = RepeatBehavior.Forever;

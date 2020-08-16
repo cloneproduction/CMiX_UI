@@ -45,7 +45,8 @@
     
     <Border Padding="4, 8" IsEnabled="{Binding IsEnabled}">
         <StackPanel>
-            <Grid Height="20">
+            <Views:BeatModifier Grid.Column="1" Margin="0, 4" DataContext="{Binding BeatModifier}"/>
+            <Grid Height="20" Margin="0, 4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -53,7 +54,7 @@
                 <TextBlock 
                     VerticalAlignment="Center" 
                     HorizontalAlignment="Right" 
-                    Text="Mode" 
+                    Text="Modifier" 
                     Padding="4, 0" 
                     Foreground="{StaticResource TextBase}"/>
                 <ComboBox
@@ -62,9 +63,9 @@
                     SelectedItem="{Binding SelectedModeType}"/>
             </Grid>
 
-            <Views:BeatModifier Grid.Column="1" Margin="0, 8" DataContext="{Binding BeatModifier}"/>
+            
             <ContentPresenter 
-                Margin="0, 8"
+                Margin="0, 2"
                 DataContext="{Binding AnimMode}"
                 Content="{Binding AnimMode}"
                 ContentTemplateSelector="{StaticResource TemplateSelector}">

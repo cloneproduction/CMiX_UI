@@ -1,8 +1,8 @@
 ﻿namespace CMiX.MVVM.ViewModels
 {
-    public enum CurveType
+    public enum EasingFunction
     {
-        Linear,
+        None,
         Quadratic,
         Cubic,
         Quartic,
@@ -15,7 +15,7 @@
         Bounce
     }
 
-    public enum EaseType
+    public enum EasingMode
     {
         EaseIn,
         EaseOut,

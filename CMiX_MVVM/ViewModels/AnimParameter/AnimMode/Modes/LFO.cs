@@ -11,7 +11,13 @@ namespace CMiX.MVVM.ViewModels
     {
         public LFO()
         {
+            Easing = new Easing(this);
             Stopwatch = new Stopwatch();
+        }
+
+        public LFO(string name, bool isEnabled, Sendable parentSendable) : this()
+        {
+            SubscribeToEvent(parentSendable);
         }
 
         public void Update()
@@ -49,6 +55,8 @@ namespace CMiX.MVVM.ViewModels
         }
 
         public Range Range { get; set; }
+
+        public Easing Easing { get; set; }
 
         private bool _invert;
         public bool Invert

@@ -2,9 +2,9 @@
 
 namespace CMiX.Studio.Views
 {
-    public partial class BeatDisplay : UserControl
+    public partial class Easing : UserControl
     {
-        public BeatDisplay()
+        public Easing()
         {
             InitializeComponent();
         }
