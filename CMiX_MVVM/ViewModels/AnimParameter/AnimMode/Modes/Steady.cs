@@ -7,16 +7,12 @@ namespace CMiX.MVVM.ViewModels
         public Steady()
         {
             Range = new Range(0, 0);
+            SteadyType = SteadyType.Linear;
         }
-        public Steady(Stopwatcher stopwatcher)
-        {
-            //Stopwatcher = stopwatcher;
-            //UpdateValue = new Action(Update);
-            //ParameterValue = 0.0;
-        }
+
         public void Update()
         {
-            //Console.WriteLine("Steady Update");
+           
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
@@ -24,14 +20,13 @@ namespace CMiX.MVVM.ViewModels
             //throw new NotImplementedException();
         }
 
-        public SteadyType SteadyType {get; set;}
         public Range Range { get; set; }
 
-        private EasingType _selectedEasingType;
-        public EasingType SelectedEasingType
+        private SteadyType _steadyType;
+        public SteadyType SteadyType
         {
-            get => _selectedEasingType;
-            set => SetAndNotify(ref _selectedEasingType, value);
+            get => _steadyType;
+            set => SetAndNotify(ref _steadyType, value);
         }
     }
 }

@@ -45,7 +45,6 @@
     
     <Border Padding="4, 8" IsEnabled="{Binding IsEnabled}">
         <StackPanel>
-            <Views:BeatModifier Grid.Column="1" Margin="0, 4" DataContext="{Binding BeatModifier}"/>
             <Grid Height="20" Margin="0, 4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -62,8 +61,21 @@
                     ItemsSource="{Binding ModeTypeSource}"
                     SelectedItem="{Binding SelectedModeType}"/>
             </Grid>
-
+            <Border>
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedModeType}"  Value="{x:Static ViewModels:ModeType.None}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <Views:BeatModifier Grid.Column="1" Margin="0, 4" DataContext="{Binding BeatModifier}"/>
+            </Border>
             
+
             <ContentPresenter 
                 Margin="0, 2"
                 DataContext="{Binding AnimMode}"

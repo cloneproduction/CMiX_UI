@@ -74,9 +74,6 @@ namespace CMiX.MVVM.Controls
                 else if (currentPoint.X <= 0)
                     SetCursorPos(ScreenWidth - 1, Convert.ToInt32(currentPoint.Y));
 
-                //if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
-                //    newValue = this.Value + offset.X * 0.001;
-                //else
                 newValue = Math.Round(this.Value + offset.X * 0.51);
                 if (newValue <= 0)
                     newValue = 0;
@@ -276,12 +273,13 @@ namespace CMiX.MVVM.Controls
             set { SetValue(ValueProperty, value); }
         }
 
-        public static readonly DependencyProperty PositionProperty =
-        DependencyProperty.Register("Position", typeof(ControlPosition), typeof(Counter), new FrameworkPropertyMetadata(ControlPosition.Default, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-        public ControlPosition Position
-        {
-            get { return (ControlPosition)GetValue(PositionProperty); }
-            set { SetValue(PositionProperty, value); }
-        }
+
+        //public static readonly DependencyProperty PositionProperty =
+        //DependencyProperty.Register("Position", typeof(ControlPosition), typeof(Counter), new FrameworkPropertyMetadata(ControlPosition.Default, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        //public ControlPosition Position
+        //{
+        //    get { return (ControlPosition)GetValue(PositionProperty); }
+        //    set { SetValue(PositionProperty, value); }
+        //}
     }
 }

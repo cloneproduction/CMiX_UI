@@ -12,7 +12,7 @@ namespace CMiX.MVVM.ViewModels
         {
 ;           BeatModifier = new BeatModifier(beat, this);
             BeatModifier.BeatTap += BeatModifier_BeatTap;
-            SelectedModeType = ModeType.Steady;
+            SelectedModeType = ModeType.None;
             Name = name;
             IsEnabled = isEnabled;
         }

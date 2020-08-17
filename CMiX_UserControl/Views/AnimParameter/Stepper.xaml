@@ -10,9 +10,9 @@
              d:DesignWidth="316.667"
              mc:Ignorable="d">
 
-    <Border IsEnabled="{Binding IsEnabled}">
+    <Border >
         
-        <Border.Style>
+        <!--<Border.Style>
             <Style TargetType="Border">
                 <Setter Property="Visibility" Value="Visible"/>
                 <Style.Triggers>
@@ -21,23 +21,27 @@
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
-        </Border.Style>
-        
+        </Border.Style>-->
+
         <StackPanel>
-            <Views:Easing DataContext="{Binding Easing}"/>
+            <Views:Easing Margin="0, 2" DataContext="{Binding Easing}"/>
             <Views:Range Margin="0, 2" DataContext="{Binding Range}"/>
-            <Grid Margin="0, 8">
+            <Grid Margin="0, 2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Steps" Padding="4" Foreground="{DynamicResource TextBase}" HorizontalAlignment="Right"/>
+                <TextBlock 
+                    Text="Steps" 
+                    Padding="4" 
+                    Foreground="{DynamicResource TextBase}" 
+                    HorizontalAlignment="Right"/>
                 <Controls:Counter
+                    Value="{Binding StepCount}"
                     Grid.Column="1"
                     Style="{StaticResource CMiXCounterStyle}"
                     Height="21"/>
             </Grid>
         </StackPanel>
-        
     </Border>
 </UserControl>

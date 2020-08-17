@@ -15,12 +15,6 @@ namespace CMiX.MVVM.ViewModels
         Stepper
     }
 
-    //public enum RandomType
-    //{
-    //    Jump,
-    //    Linear
-    //}
-
     public enum SteadyType
     {
         Linear,

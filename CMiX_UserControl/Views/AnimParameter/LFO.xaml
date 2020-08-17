@@ -18,7 +18,7 @@
                 Caption="Invert"
                 Style="{StaticResource CMiXToggleButtonStyle}"
                 Height="20"
-                Margin="0, 8"
+                Margin="0, 2"
                 HorizontalAlignment="Right"/>
         </StackPanel>
     </Border>
