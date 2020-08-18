@@ -11,8 +11,8 @@
 
     <Border IsEnabled="{Binding IsEnabled}">
         <StackPanel>
-            <Views:Easing DataContext="{Binding Easing}" Margin="0, 2"/>
             <Views:Range Margin="0, 2" DataContext="{Binding Range}"/>
+            <Views:Easing DataContext="{Binding Easing}" Margin="0, 2"/>
             <Controls:CMiXToggleButton
                 DockPanel.Dock="Right"
                 Caption="Invert"

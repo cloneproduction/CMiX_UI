@@ -20,6 +20,7 @@
     
     <Border IsEnabled="{Binding IsEnabled}">
         <StackPanel>
+            <Views:Range Margin="0, 2" DataContext="{Binding Range}"/>
             <Grid Height="21" Margin="0,2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -36,20 +37,31 @@
                     ItemsSource="{Binding Source={StaticResource SteadyType}}"
                     SelectedItem="{Binding SteadyType}"/>
             </Grid>
-            <Views:Range Margin="0, 2" DataContext="{Binding Range}"/>
-            <Grid Height="21" Margin="0,2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <TextBlock 
-                    VerticalAlignment="Center" 
-                    HorizontalAlignment="Right" 
-                    Text="Seed" 
-                    Padding="4, 0" 
-                    Foreground="{DynamicResource TextBase}"/>
-                <Controls:Counter Style="{StaticResource CMiXCounterStyle}" Grid.Column="1"/>
-            </Grid>
+            <Border >
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SteadyType}"  Value="{x:Static ViewModels:SteadyType.Linear}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <Grid Height="21" Margin="0,2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock 
+                        VerticalAlignment="Center" 
+                        HorizontalAlignment="Right" 
+                        Text="Seed" 
+                        Padding="4, 0" 
+                        Foreground="{DynamicResource TextBase}"/>
+                    <Controls:Counter Style="{StaticResource CMiXCounterStyle}" Grid.Column="1"/>
+                </Grid>
+            </Border>
         </StackPanel>
     </Border>
 </UserControl>

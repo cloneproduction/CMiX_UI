@@ -9,8 +9,9 @@
              mc:Ignorable="d">
 
     <StackPanel>
-        <Views:Easing Margin="0,2" DataContext="{Binding Easing}"/>
         <Views:Range Margin="0, 2" DataContext="{Binding Range}"/>
+        <Views:Easing Margin="0,2" DataContext="{Binding Easing}"/>
+        
     </StackPanel>
     
 </UserControl>
