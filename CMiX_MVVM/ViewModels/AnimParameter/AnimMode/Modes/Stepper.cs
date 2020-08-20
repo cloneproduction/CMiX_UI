@@ -1,5 +1,4 @@
-﻿using System;
-using CMiX.MVVM.Services;
+﻿using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -7,7 +6,6 @@ namespace CMiX.MVVM.ViewModels
     {
         public Stepper()
         {
-            Easing = new Easing(this);
             StepCount = 1;
         }
 
@@ -28,12 +26,10 @@ namespace CMiX.MVVM.ViewModels
         }
 
         public double CurrentStepPos { get; set; }
-        public Range Range { get; set; }
-        public Easing Easing { get; set; }
 
         public void Update()
         {
-            //Console.WriteLine("Stepper Update");
+
         }
     }
 }

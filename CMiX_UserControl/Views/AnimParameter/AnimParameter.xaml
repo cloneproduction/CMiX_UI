@@ -72,7 +72,12 @@
                         </Style.Triggers>
                     </Style>
                 </Border.Style>
-                <Views:BeatModifier Grid.Column="1" Margin="0, 4" DataContext="{Binding BeatModifier}"/>
+                <StackPanel>
+                    <Views:BeatModifier Grid.Column="1" Margin="0, 2" DataContext="{Binding BeatModifier}"/>
+                    <Views:Range Margin="0, 2" DataContext="{Binding Range}"/>
+                    <Views:Easing DataContext="{Binding Easing}" Margin="0, 2"/>
+                </StackPanel>
+                
             </Border>
             
 

@@ -6,7 +6,6 @@ namespace CMiX.MVVM.ViewModels
     {
         public Steady()
         {
-            Range = new Range(0, 0);
             SteadyType = SteadyType.Linear;
         }
 
@@ -17,10 +16,8 @@ namespace CMiX.MVVM.ViewModels
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
-            //throw new NotImplementedException();
-        }
 
-        public Range Range { get; set; }
+        }
 
         private SteadyType _steadyType;
         public SteadyType SteadyType

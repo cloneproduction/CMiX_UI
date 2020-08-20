@@ -7,23 +7,17 @@ namespace CMiX.MVVM.ViewModels
     {
         public Randomized()
         {
-            Easing = new Easing(this);
             Random = new Random();
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
-            //throw new NotImplementedException();
+
         }
 
         public Random Random { get; set; }
         public double newValue { get; set; }
         public double oldValue { get; set; }
-
-
-        public Range Range { get; set; }
-
-        public Easing Easing { get; set; }
 
         private void GenerateValue(object sender, EventArgs e)
         {
@@ -33,7 +27,7 @@ namespace CMiX.MVVM.ViewModels
 
         public void Update()
         {
-            throw new NotImplementedException();
+
         }
     }
 }

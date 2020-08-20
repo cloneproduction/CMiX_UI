@@ -10,7 +10,10 @@ namespace CMiX.MVVM.ViewModels
     {
         public AnimParameter(string name, MasterBeat beat, bool isEnabled = true)
         {
-;           BeatModifier = new BeatModifier(beat, this);
+            Range = new Range(0.0, 1.0);
+            Easing = new Easing(this);
+
+            BeatModifier = new BeatModifier(beat, this);
             BeatModifier.BeatTap += BeatModifier_BeatTap;
             SelectedModeType = ModeType.None;
             Name = name;
@@ -57,6 +60,9 @@ namespace CMiX.MVVM.ViewModels
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
+
+        public Easing Easing { get; set; }
+        public Range Range { get; set; }
 
         private ModeType _selectedModeType;
         public ModeType SelectedModeType
