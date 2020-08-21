@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace CMiX.MVVM.Controls
 {
@@ -7,6 +8,14 @@ namespace CMiX.MVVM.Controls
         public AnimatedDouble()
         {
 
+        }
+
+        public event EventHandler BeatTap;
+        public void OnBeatTap()
+        {
+            EventHandler handler = BeatTap;
+            if (null != handler) handler(this, EventArgs.Empty);
+            Console.WriteLine("OnBeatTap");
         }
 
         public static readonly DependencyProperty AnimationPositionProperty =

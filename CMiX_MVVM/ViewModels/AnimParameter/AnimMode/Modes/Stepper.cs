@@ -6,25 +6,17 @@ namespace CMiX.MVVM.ViewModels
     {
         public Stepper()
         {
-            StepCount = 1;
+
+        }
+
+        public Stepper(Sendable parentSendable) : this()
+        {
+            SubscribeToEvent(parentSendable);
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
 
         }
-
-        private int _stepCount;
-        public int StepCount
-        {
-            get => _stepCount;
-            set
-            {
-                if(value > 0)
-                    SetAndNotify(ref _stepCount, value);
-            }
-        }
-
-        public double CurrentStepPos { get; set; }
     }
 }

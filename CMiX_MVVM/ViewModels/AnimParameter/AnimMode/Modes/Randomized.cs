@@ -7,7 +7,7 @@ namespace CMiX.MVVM.ViewModels
     {
         public Randomized()
         {
-            Random = new Random();
+
         }
 
         public Randomized(Sendable parentSendable) : this()
@@ -20,19 +20,11 @@ namespace CMiX.MVVM.ViewModels
 
         }
 
-        public Random Random { get; set; }
-        public double newValue { get; set; }
-        public double oldValue { get; set; }
-
-        private void GenerateValue(object sender, EventArgs e)
+        private bool _IsEnabled;
+        public bool IsEnabled
         {
-            oldValue = newValue;
-            newValue = Random.NextDouble();
-        }
-
-        public void Update()
-        {
-
+            get => _IsEnabled;
+            set => SetAndNotify(ref _IsEnabled, value);
         }
     }
 }

@@ -10,7 +10,6 @@ namespace CMiX.MVVM.ViewModels
     {
         public MasterBeat() : this(period: 1000.0, multiplier: 1)
         {
-
         }
 
         public MasterBeat(double period, double multiplier)
@@ -93,7 +92,15 @@ namespace CMiX.MVVM.ViewModels
 
         private void SetAnimatedDouble()
         {
+            if(AnimatedDouble != null)
+                AnimatedDouble.BeatTap -= AnimatedDouble_BeatTap;
             AnimatedDouble = BeatAnimations.AnimatedDoubles[Index + (BeatAnimations.AnimatedDoubles.Count - 1) / 2];
+            AnimatedDouble.BeatTap += AnimatedDouble_BeatTap;
+        }
+
+        private void AnimatedDouble_BeatTap(object sender, EventArgs e)
+        {
+            Console.WriteLine("POUET");
         }
 
         protected override void Multiply()

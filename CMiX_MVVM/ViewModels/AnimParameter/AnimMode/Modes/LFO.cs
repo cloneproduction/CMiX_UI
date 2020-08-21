@@ -8,7 +8,7 @@ namespace CMiX.MVVM.ViewModels
     {
         public LFO()
         {
-            Stopwatch = new Stopwatch();
+
         }
 
         public LFO(Sendable parentSendable) : this()
@@ -21,30 +21,12 @@ namespace CMiX.MVVM.ViewModels
 
         }
 
-        public void Update()
-        {
-            Console.WriteLine("LFO Update " + Stopwatch.ElapsedMilliseconds);
-            if (!Stopwatch.IsRunning)
-                Stopwatch.Start();
-            else
-                Reset();
-        }
-
-        public void Reset()
-        {
-            Stopwatch.Reset();
-            Stopwatch.Start();
-        }
-
         private bool _IsEnabled;
         public bool IsEnabled
         {
             get => _IsEnabled;
             set => SetAndNotify(ref _IsEnabled, value);
         }
-
-
-        public Stopwatch Stopwatch { get; set; }
 
         private bool _invert;
         public bool Invert
