@@ -1,8 +1,6 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace CMiX.MVVM.ViewModels
 {
