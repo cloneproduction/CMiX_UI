@@ -9,9 +9,9 @@ namespace CMiX.MVVM.ViewModels
             SteadyType = SteadyType.Linear;
         }
 
-        public void Update()
+        public Steady(Sendable parentSendable) : this()
         {
-           
+            SubscribeToEvent(parentSendable);
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)

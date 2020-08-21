@@ -55,12 +55,7 @@ namespace CMiX.MVVM.ViewModels
             set =>  SetAndNotify(ref _multiplier, value);
         }
 
-
-
-
         private void Reset() => Multiplier = 1;
-
-        //protected abstract void Resync();
         protected abstract void Multiply();
         protected abstract void Divide();
 

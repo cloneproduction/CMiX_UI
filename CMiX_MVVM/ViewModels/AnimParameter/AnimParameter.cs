@@ -35,7 +35,7 @@ namespace CMiX.MVVM.ViewModels
 
         private void BeatModifier_BeatTap(object sender, EventArgs e)
         {
-            AnimMode.Update();
+            //AnimMode.Update();
         }
 
         public override string GetMessageAddress()
@@ -76,14 +76,9 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public IEnumerable<ModeType> ModeTypeSource
-        {
-            get => Enum.GetValues(typeof(ModeType)).Cast<ModeType>();
-        }
-
         private void SetAnimMode()
         {
-            AnimMode = ModesFactory.CreateMode(SelectedModeType);
+            AnimMode = ModesFactory.CreateMode(SelectedModeType, this);
         }
 
         private IAnimMode _animMode;
@@ -94,6 +89,5 @@ namespace CMiX.MVVM.ViewModels
         }
 
         public BeatModifier BeatModifier { get; set; }
-        public EasingType EasingType { get; set; }
     }
 }

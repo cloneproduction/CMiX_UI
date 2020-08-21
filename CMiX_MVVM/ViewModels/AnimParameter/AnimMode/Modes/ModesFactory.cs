@@ -2,7 +2,7 @@
 {
     public static class ModesFactory
     {
-        public static IAnimMode CreateMode(ModeType modeType)
+        public static IAnimMode CreateMode(ModeType modeType, Sendable parent)
         {
             IAnimMode animMode = null;
 
@@ -15,14 +15,14 @@
             else if (modeType == ModeType.Stepper)
                 animMode = CreateStepper();
             else if (modeType == ModeType.None)
-                animMode = CreateNone();
+                animMode = CreateNone(parent);
 
             return animMode;
         }
 
-        private static None CreateNone()
+        private static None CreateNone(Sendable parent)
         {
-            return new None();
+            return new None(parent);
         }
 
         private static LFO CreateLFO()

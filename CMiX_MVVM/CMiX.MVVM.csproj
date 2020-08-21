@@ -122,7 +122,6 @@
     <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\ModesFactory.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\ModeType.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\LFO.cs" />
-    <Compile Include="ViewModels\AnimParameter\AnimMode\Mode.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\Randomized.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\Steady.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\Stepper.cs" />

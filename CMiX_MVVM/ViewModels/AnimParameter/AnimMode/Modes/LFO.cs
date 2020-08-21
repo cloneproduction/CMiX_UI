@@ -8,11 +8,10 @@ namespace CMiX.MVVM.ViewModels
     {
         public LFO()
         {
-
             Stopwatch = new Stopwatch();
         }
 
-        public LFO(string name, bool isEnabled, Sendable parentSendable) : this()
+        public LFO(Sendable parentSendable) : this()
         {
             SubscribeToEvent(parentSendable);
         }
@@ -36,6 +35,14 @@ namespace CMiX.MVVM.ViewModels
             Stopwatch.Reset();
             Stopwatch.Start();
         }
+
+        private bool _IsEnabled;
+        public bool IsEnabled
+        {
+            get => _IsEnabled;
+            set => SetAndNotify(ref _IsEnabled, value);
+        }
+
 
         public Stopwatch Stopwatch { get; set; }
 

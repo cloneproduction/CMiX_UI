@@ -10,6 +10,11 @@ namespace CMiX.MVVM.ViewModels
             Random = new Random();
         }
 
+        public Randomized(Sendable parentSendable) : this()
+        {
+            SubscribeToEvent(parentSendable);
+        }
+
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
 

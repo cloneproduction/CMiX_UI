@@ -26,10 +26,5 @@ namespace CMiX.MVVM.ViewModels
         }
 
         public double CurrentStepPos { get; set; }
-
-        public void Update()
-        {
-
-        }
     }
 }
