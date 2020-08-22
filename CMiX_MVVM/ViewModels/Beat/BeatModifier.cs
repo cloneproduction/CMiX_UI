@@ -1,16 +1,16 @@
 ﻿using System;
 using CMiX.MVVM.Controls;
-using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class BeatModifier : Beat, IBeat
+    public class BeatModifier : Beat
     {
         public BeatModifier(MasterBeat masterBeat)
         {
             Index = 0;
+            BeatIndex = 2;
             ChanceToHit = new Slider(nameof(ChanceToHit), this) { Amount = 100.0 };
             Beat = masterBeat;
             Multiplier = 1.0;
@@ -25,6 +25,7 @@ namespace CMiX.MVVM.ViewModels
                 OnPeriodChanged(Period);
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
+                //BeatIndex = (Beat.Index + (Beat.BeatAnimations.AnimatedDoubles.Count - 1) / 2) + Index;
             };
         }
 
@@ -43,13 +44,8 @@ namespace CMiX.MVVM.ViewModels
 
         public MasterBeat Beat { get; set; }
         public Slider ChanceToHit { get; }
+        public BeatAnimations BeatAnimations { get; set; }
 
-        private BeatAnimations _beatAnimations;
-        public BeatAnimations BeatAnimations
-        {
-            get => _beatAnimations;
-            set => SetAndNotify(ref _beatAnimations, value);
-        }
 
         private int maxIndex = 4;
         private int minIndex = -4;
@@ -67,6 +63,13 @@ namespace CMiX.MVVM.ViewModels
             set => throw new InvalidOperationException("Property is readonly. When binding, use Mode=OneWay.");
         }
 
+        private int _beatIndex;
+        public int BeatIndex
+        {
+            get => _beatIndex;
+            set => _beatIndex = value;
+        }
+
         public override double Multiplier
         {
             get => base.Multiplier;
@@ -77,16 +80,15 @@ namespace CMiX.MVVM.ViewModels
                 Notify(nameof(Period));
                 Notify(nameof(BPM));
                 Notify(nameof(AnimatedDouble));
+                BeatIndex = (Beat.Index + (Beat.BeatAnimations.AnimatedDoubles.Count - 1) / 2) + Index;
+                Console.WriteLine(BeatIndex + " BeatIndex");
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 
         public AnimatedDouble AnimatedDouble
         {
-            get
-            {
-                return Beat.BeatAnimations.AnimatedDoubles[(Beat.Index + (Beat.BeatAnimations.AnimatedDoubles.Count - 1) / 2) + Index];
-            }
+            get => Beat.BeatAnimations.AnimatedDoubles[(Beat.Index + (Beat.BeatAnimations.AnimatedDoubles.Count - 1) / 2) + Index];
             set => throw new InvalidOperationException("Property is readonly. When binding, use Mode=OneWay.");
         }
 
@@ -96,7 +98,6 @@ namespace CMiX.MVVM.ViewModels
             {
                 Index++;
                 Multiplier /= 2.0;
-                Notify(nameof(AnimatedDouble));
             }
         }
 
@@ -106,7 +107,6 @@ namespace CMiX.MVVM.ViewModels
             {
                 Index--;
                 Multiplier *= 2.0;
-                Notify(nameof(AnimatedDouble));
             }
         }
     }

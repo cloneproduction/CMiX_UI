@@ -9,9 +9,10 @@ namespace CMiX.MVVM.Models
         public BeatModifierModel()
         {
             ChanceToHit = new SliderModel { Amount = 1.0 };
-            Multiplier = 1.0;
+           // Multiplier = 1.0;
         }
 
+        public int BeatIndex { get; set; }
         public bool Enabled { get; set; }
         public double Multiplier { get; set; }
         public SliderModel ChanceToHit { get; set; }

@@ -8,7 +8,7 @@ namespace CMiX.Nodes
     public class GetInstancer : IPluginEvaluate
     {
         [Input("Geometry")]
-        public ISpread<Geometry> FGeometryIn;
+        public IDiffSpread<Geometry> FGeometryIn;
 
         [Output("Instancer")]
         public ISpread<Instancer> FInstancer;
@@ -28,7 +28,6 @@ namespace CMiX.Nodes
             TranslateModifier.SliceCount = FGeometryIn.SliceCount;
             ScaleModifier.SliceCount = FGeometryIn.SliceCount;
             RotationModifier.SliceCount = FGeometryIn.SliceCount;
-
 
             if (FGeometryIn.SliceCount > 0)
             {

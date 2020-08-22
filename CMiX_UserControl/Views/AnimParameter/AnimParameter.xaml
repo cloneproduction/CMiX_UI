@@ -75,9 +75,23 @@
                     </Style>
                 </Border.Style>
                 <StackPanel>
-                    <Views:BeatModifier Grid.Column="1" Margin="0, 2" DataContext="{Binding BeatModifier}"/>
                     <Views:Range Margin="0, 2" DataContext="{Binding Range}"/>
-                    <Views:Easing DataContext="{Binding Easing}" Margin="0, 2"/>
+                    <Border>
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Visibility" Value="Visible"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedModeType}"  Value="{x:Static ViewModels:ModeType.Steady}">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <StackPanel>
+                            <Views:BeatModifier Grid.Column="1" Margin="0, 2" DataContext="{Binding BeatModifier}"/>
+                            <Views:Easing DataContext="{Binding Easing}" Margin="0, 2"/>
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
             </Border>
             <ContentPresenter 

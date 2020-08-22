@@ -1,6 +1,6 @@
-﻿using CMiX.MVVM.Models;
+﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
-using System;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -8,11 +8,10 @@ namespace CMiX.MVVM.ViewModels
     {
         public AnimParameter(string name, MasterBeat beat, bool isEnabled = true)
         {
-            Range = new Range(0.0, 1.0);
+            Range = new Range(0.0, 1.0, this);
             Easing = new Easing(this);
 
             BeatModifier = new BeatModifier(beat, this);
-            BeatModifier.BeatTap += BeatModifier_BeatTap;
             SelectedModeType = ModeType.None;
             Name = name;
             IsEnabled = isEnabled;
@@ -31,15 +30,14 @@ namespace CMiX.MVVM.ViewModels
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
-        private void BeatModifier_BeatTap(object sender, EventArgs e)
-        {
-            //AnimMode.Update();
-        }
-
         public override string GetMessageAddress()
         {
             return $"{this.GetType().Name}/{Name}/";
         }
+
+        public BeatModifier BeatModifier { get; set; }
+        public Easing Easing { get; set; }
+        public Range Range { get; set; }
 
         private string _name;
         public string Name
@@ -59,9 +57,6 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public Easing Easing { get; set; }
-        public Range Range { get; set; }
-
         private ModeType _selectedModeType;
         public ModeType SelectedModeType
         {
@@ -70,7 +65,17 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _selectedModeType, value);
                 SetAnimMode();
-                //OnSendChange(this.GetModel(), this.GetMessageAddress());
+            }
+        }
+
+        private IAnimMode _animMode;
+        public IAnimMode AnimMode
+        {
+            get => _animMode;
+            set
+            {
+                SetAndNotify(ref _animMode, value);
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 
@@ -78,14 +83,5 @@ namespace CMiX.MVVM.ViewModels
         {
             AnimMode = ModesFactory.CreateMode(SelectedModeType, this);
         }
-
-        private IAnimMode _animMode;
-        public IAnimMode AnimMode
-        {
-            get => _animMode;
-            set => SetAndNotify(ref _animMode, value);
-        }
-
-        public BeatModifier BeatModifier { get; set; }
     }
 }

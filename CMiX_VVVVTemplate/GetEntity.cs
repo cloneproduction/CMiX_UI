@@ -21,12 +21,16 @@ namespace CMiX.Nodes
         public void Evaluate(int SpreadMax)
         {
             FEntityOut.SliceCount = FComponentIn.SliceCount;
+
             if (FComponentIn.SliceCount > 0)
             {
                 for (int i = 0; i < FComponentIn.SliceCount; i++)
                 {
                     if (FComponentIn[i] != null)
+                    {
                         FEntityOut[i].AssignFrom(FComponentIn[i].Components.Cast<Entity>());
+                    }
+                        
                     else
                         FEntityOut[i].SliceCount = 0;
                 }

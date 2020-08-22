@@ -109,15 +109,17 @@
     <Compile Include="Controls\Counter\Counter.cs" />
     <Compile Include="Controls\ToggleButton\CMiXToggleButton.cs" />
     <Compile Include="Controls\ToggleButton\ToggleDockPosition.cs" />
+    <Compile Include="Models\AnimParameter\EasingModel.cs" />
     <Compile Include="Models\ComboBoxModel.cs" />
-    <Compile Include="Models\Geometry\Modifier\AnimModeModel.cs" />
+    <Compile Include="Models\AnimParameter\AnimModeModel.cs" />
     <Compile Include="Models\Geometry\Modifier\ModifierModel.cs" />
     <Compile Include="Models\RangeModel.cs" />
     <Compile Include="Services\HighResolutionTimer.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\AnimMode.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\AnimModeModelFactory.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\IAnimMode.cs" />
-    <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\Easing.cs" />
+    <Compile Include="ViewModels\AnimParameter\Easing\Easing.cs" />
+    <Compile Include="ViewModels\AnimParameter\Easing\EasingModelFactory.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\None.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\ModesFactory.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\ModeType.cs" />
@@ -248,7 +250,7 @@
     <Compile Include="ViewModels\Entity\Geometry\Transform\Translate.cs" />
     <Compile Include="ViewModels\Entity\Texture\Texture.cs" />
     <Compile Include="Services\Server\Server.cs" />
-    <Compile Include="Models\Geometry\Modifier\AnimParameterModel.cs" />
+    <Compile Include="Models\AnimParameter\AnimParameterModel.cs" />
     <Compile Include="Models\Geometry\Modifier\InstancerModel.cs" />
     <Compile Include="Models\Geometry\Modifier\ScaleModifierModel.cs" />
     <Compile Include="Models\Geometry\Modifier\RotationModifierModel.cs" />
@@ -272,7 +274,7 @@
     <Compile Include="ViewModels\Slider\Slider.cs" />
     <Compile Include="ViewModels\Slider\SliderModelFactory.cs" />
     <Compile Include="ViewModels\_Enums\AnimModeEnum.cs" />
-    <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\EasingTypes.cs" />
+    <Compile Include="ViewModels\AnimParameter\Easing\EasingTypes.cs" />
     <Compile Include="Views\Dialogs\CustomWindowDialog.xaml.cs">
       <DependentUpon>CustomWindowDialog.xaml</DependentUpon>
     </Compile>

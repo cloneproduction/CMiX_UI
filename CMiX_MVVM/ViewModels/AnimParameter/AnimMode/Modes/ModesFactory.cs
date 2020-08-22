@@ -7,13 +7,13 @@
             IAnimMode animMode = null;
 
             if (modeType == ModeType.Steady)
-                animMode = CreateSteady();
+                animMode = CreateSteady(parent);
             else if (modeType == ModeType.LFO)
-                animMode = CreateLFO();
+                animMode = CreateLFO(parent);
             else if (modeType == ModeType.Random)
-                animMode = CreateRandomized();
+                animMode = CreateRandomized(parent);
             else if (modeType == ModeType.Stepper)
-                animMode = CreateStepper();
+                animMode = CreateStepper(parent);
             else if (modeType == ModeType.None)
                 animMode = CreateNone(parent);
 
@@ -25,24 +25,24 @@
             return new None(parent);
         }
 
-        private static LFO CreateLFO()
+        private static LFO CreateLFO(Sendable parent)
         {
-            return new LFO();
+            return new LFO(parent);
         }
 
-        private static Steady CreateSteady()
+        private static Steady CreateSteady(Sendable parent)
         {
-            return new Steady();
+            return new Steady(parent);
         }
 
-        private static Stepper CreateStepper()
+        private static Stepper CreateStepper(Sendable parent)
         {
-            return new Stepper();
+            return new Stepper(parent);
         }
 
-        private static Randomized CreateRandomized()
+        private static Randomized CreateRandomized(Sendable parent)
         {
-            return new Randomized();
+            return new Randomized(parent);
         }
     }
 }

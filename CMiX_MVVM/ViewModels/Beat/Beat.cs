@@ -66,12 +66,12 @@ namespace CMiX.MVVM.ViewModels
         protected void OnPeriodChanged(double newPeriod) => PeriodChanged?.Invoke(this, newPeriod);
 
 
-        public event EventHandler BeatTap;
-        public void OnBeatTap()
-        {
-            EventHandler handler = BeatTap;
-            if (null != handler) handler(this, EventArgs.Empty);
-        }
+        //public event EventHandler BeatTap;
+        //public void OnBeatTap()
+        //{
+        //    EventHandler handler = BeatTap;
+        //    if (null != handler) handler(this, EventArgs.Empty);
+        //}
 
         public event EventHandler BeatResync;
         public void OnBeatResync()

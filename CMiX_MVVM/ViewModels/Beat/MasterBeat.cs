@@ -20,6 +20,7 @@ namespace CMiX.MVVM.ViewModels
 
             BeatAnimations = new BeatAnimations(period);
             SetAnimatedDouble();
+
             tapPeriods = new List<double>();
             tapTime = new List<double>();
 
@@ -92,15 +93,7 @@ namespace CMiX.MVVM.ViewModels
 
         private void SetAnimatedDouble()
         {
-            if(AnimatedDouble != null)
-                AnimatedDouble.BeatTap -= AnimatedDouble_BeatTap;
             AnimatedDouble = BeatAnimations.AnimatedDoubles[Index + (BeatAnimations.AnimatedDoubles.Count - 1) / 2];
-            AnimatedDouble.BeatTap += AnimatedDouble_BeatTap;
-        }
-
-        private void AnimatedDouble_BeatTap(object sender, EventArgs e)
-        {
-            Console.WriteLine("POUET");
         }
 
         protected override void Multiply()

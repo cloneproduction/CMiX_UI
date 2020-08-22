@@ -13,7 +13,7 @@ namespace VVVV.Nodes.Modifiers
     public class GetModifier : IPluginEvaluate
     {
         [Input("Instancer")]
-        public ISpread<IModifier> FModifierIn;
+        public IDiffSpread<IModifier> FModifierIn;
 
         [Output("Uniform")]
         public ISpread<AnimParameter> Uniform;

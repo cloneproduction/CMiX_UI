@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using CMiX.MVVM.Services;
+﻿using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {

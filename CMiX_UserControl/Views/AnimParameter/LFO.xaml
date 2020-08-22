@@ -1,7 +1,6 @@
 ﻿<UserControl x:Class="CMiX.Studio.Views.LFO"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:Views="clr-namespace:CMiX.Studio.Views"
              xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -9,15 +8,13 @@
              d:DesignWidth="316.667"
              mc:Ignorable="d">
 
-    <Border IsEnabled="{Binding IsEnabled}">
-        <StackPanel>
-            <Controls:CMiXToggleButton
+    <StackPanel>
+        <Controls:CMiXToggleButton
                 DockPanel.Dock="Right"
                 Caption="Invert"
                 Style="{StaticResource CMiXToggleButtonStyle}"
                 Height="20"
                 Margin="0, 2"
                 HorizontalAlignment="Right"/>
-        </StackPanel>
-    </Border>
+    </StackPanel>
 </UserControl>

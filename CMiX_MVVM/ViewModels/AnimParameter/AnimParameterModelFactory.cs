@@ -7,17 +7,23 @@ namespace CMiX.MVVM.ViewModels
         public static AnimParameterModel GetModel(this AnimParameter instance)
         {
             AnimParameterModel model = new AnimParameterModel();
-           // model.Mode = instance.Mode.GetModel();
-           // model.Influence = instance.Influence.GetModel();
-            model.BeatModifier = instance.BeatModifier.GetModel();
+            model.IsEnabled = instance.IsEnabled;
+            model.Name = instance.Name;
+            model.AnimMode = instance.AnimMode;
+            model.EasingModel = instance.Easing.GetModel();
+            model.RangeModel = instance.Range.GetModel();
+            model.BeatModifierModel = instance.BeatModifier.GetModel();
             return model;
         }
 
         public static void SetViewModel(this AnimParameter instance, AnimParameterModel model)
         {
-            //instance.Mode.SetViewModel(model.Mode);
-           // instance.Influence.SetViewModel(model.Influence);
-            instance.BeatModifier.SetViewModel(model.BeatModifier);
+            instance.AnimMode = model.AnimMode;
+            instance.Name = model.Name;
+            instance.IsEnabled = model.IsEnabled;
+            instance.Easing.SetViewModel(model.EasingModel);
+            instance.Range.SetViewModel(model.RangeModel);
+            instance.BeatModifier.SetViewModel(model.BeatModifierModel);
         }
     }
 }

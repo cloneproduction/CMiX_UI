@@ -11,7 +11,7 @@ namespace CMiX.MVVM.ViewModels
             Maximum = maximum;
         }
 
-        public Range(Sendable parentSendable) : this()
+        public Range(double minimum, double maximum, Sendable parentSendable) : this(minimum = 0.0, maximum = 1.0)
         {
             SubscribeToEvent(parentSendable);
         }
@@ -29,14 +29,22 @@ namespace CMiX.MVVM.ViewModels
         public double Minimum
         {
             get => _minimum;
-            set => SetAndNotify(ref _minimum, value);
+            set
+            {
+                SetAndNotify(ref _minimum, value);
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
+            }
         }
 
         private double _maximum;
         public double Maximum
         {
             get => _maximum;
-            set => SetAndNotify(ref _maximum, value);
+            set
+            {
+                SetAndNotify(ref _maximum, value);
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
+            }
         }
     }
 }

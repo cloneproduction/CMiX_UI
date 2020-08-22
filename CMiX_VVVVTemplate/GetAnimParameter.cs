@@ -14,11 +14,14 @@ namespace CMiX.Nodes
         [Input("AnimParameter")]
         public IDiffSpread<AnimParameter> AnimParameter;
 
-        [Output("Influence")]
-        public ISpread<double> Influence;
+        [Output("AnimMode")]
+        public ISpread<string> AnimMode;
 
-        [Output("Mode")]
-        public ISpread<string> Mode;
+        [Output("RangeMin")]
+        public ISpread<double> RangeMin;
+
+        [Output("RangeMax")]
+        public ISpread<double> RangeMax;
 
         [Output("Multiplier")]
         public ISpread<double> Multiplier;
@@ -26,13 +29,25 @@ namespace CMiX.Nodes
         [Output("ChanceToHit")]
         public ISpread<double> ChanceToHit;
 
+        [Output("Period")]
+        public ISpread<double> Period;
+
+        [Output("BeatIndex")]
+        public ISpread<int> BeatIndex;
+
+        [Output("Easing")]
+        public ISpread<string> Easing;
+
         public void Evaluate(int SpreadMax)
         {
-            Influence.SliceCount = AnimParameter.SliceCount;
-            Mode.SliceCount = AnimParameter.SliceCount;
+            AnimMode.SliceCount = AnimParameter.SliceCount;
             Multiplier.SliceCount = AnimParameter.SliceCount;
             ChanceToHit.SliceCount = AnimParameter.SliceCount;
-
+            RangeMin.SliceCount = AnimParameter.SliceCount;
+            RangeMax.SliceCount = AnimParameter.SliceCount;
+            Easing.SliceCount = AnimParameter.SliceCount;
+            Period.SliceCount = AnimParameter.SliceCount;
+            BeatIndex.SliceCount = AnimParameter.SliceCount;
 
             if (AnimParameter.SliceCount > 0)
             {
@@ -40,10 +55,16 @@ namespace CMiX.Nodes
                 {
                     if (AnimParameter[i] != null)
                     {
-                        //Influence[i] = AnimParameter[i].Influence.Amount;
-                        //Mode[i] = AnimParameter[i].Mode.Mode.ToString();
+                        AnimMode[i] = AnimParameter[i].AnimMode.GetType().Name;
+
                         Multiplier[i] = AnimParameter[i].BeatModifier.Multiplier;
+                        BeatIndex[i] = AnimParameter[i].BeatModifier.BeatIndex;
+                        Period[i] = AnimParameter[i].BeatModifier.Period;
                         ChanceToHit[i] = AnimParameter[i].BeatModifier.ChanceToHit.Amount;
+
+                        RangeMin[i] = AnimParameter[i].Range.Minimum;
+                        RangeMax[i] = AnimParameter[i].Range.Maximum;
+                        Easing[i] = AnimParameter[i].Easing.EasingFunction.ToString() + AnimParameter[i].Easing.EasingMode.ToString();
                     }
                     else
                     {

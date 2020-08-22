@@ -49,14 +49,9 @@ namespace CMiX.MVVM.ViewModels
 
             if(multiplier > 0 && period > 0)
             {
-                newda.CurrentTimeInvalidated += (s, newvalue) =>
-                {
-                    animatedDouble.OnBeatTap();
-                };
-
                 newda.From = 1;
                 newda.To = 0;
-                QuadraticEase easing = new QuadraticEase();  // or whatever easing class you want
+                QuadraticEase easing = new QuadraticEase();
                 easing.EasingMode = System.Windows.Media.Animation.EasingMode.EaseOut;
                 newda.EasingFunction = easing;
                 newda.Duration = new Duration(TimeSpan.FromMilliseconds(period / multiplier));

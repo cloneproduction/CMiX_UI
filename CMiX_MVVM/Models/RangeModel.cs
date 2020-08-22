@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CMiX.MVVM.Models
 {
-    public class RangeModel
+    public class RangeModel : Model
     {
         public RangeModel()
         {

@@ -4,6 +4,7 @@ using VVVV.PluginInterfaces.V2;
 using VVVV.Core.Logging;
 using CMiX.MVVM.ViewModels;
 using CMiX.Studio.ViewModels.MessageService;
+using CMiX.MVVM.Models;
 
 namespace CMiX.Nodes
 {
@@ -36,7 +37,7 @@ namespace CMiX.Nodes
 			Project = ComponentFactory.CreateProject();
             var receiver = new Receiver();
 			Project.Receiver = receiver;
-            Settings settings = new Settings("Pouet", "Pouet", "192.168.1.4", 2222);
+            Settings settings = new Settings("Pouet", "Pouet", "192.168.1.2", 2222);
             receiver.SetSettings(settings);
             receiver.DataReceivedEvent += Receiver_DataReceivedEvent;
 			receiver.DataReceivedEvent += Project.OnParentReceiveChange;
@@ -52,6 +53,12 @@ namespace CMiX.Nodes
 			FProjectOut[0] = this.Project;
 			FDataType[0] = e.Model.GetType().Name;
 			FLogger.Log(LogType.Debug, "Receiver_DataReceivedEvent");
+			FLogger.Log(LogType.Debug, "Model Type " + e.Model.GetType().Name);
+			if (e.Model.GetType() == typeof(BeatModifierModel))
+			{
+				var model = e.Model as BeatModifierModel;
+				FLogger.Log(LogType.Debug, "BeatIndex " +  model.BeatIndex.ToString());
+			}
 		}
 
         public void Evaluate(int SpreadMax)

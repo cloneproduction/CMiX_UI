@@ -6,16 +6,18 @@ namespace CMiX.MVVM.ViewModels
     {
         public static BeatModifierModel GetModel(this BeatModifier instance)
         {
-            BeatModifierModel beatModifierModel = new BeatModifierModel();
-            beatModifierModel.ChanceToHit = instance.ChanceToHit.GetModel();
-            beatModifierModel.Multiplier = instance.Multiplier;
-            return beatModifierModel;
+            BeatModifierModel model = new BeatModifierModel();
+            model.BeatIndex = instance.BeatIndex;
+            model.ChanceToHit = instance.ChanceToHit.GetModel();
+            model.Multiplier = instance.Multiplier;
+            return model;
         }
 
-        public static void SetViewModel(this BeatModifier instance, BeatModifierModel beatModifierModel)
+        public static void SetViewModel(this BeatModifier instance, BeatModifierModel model)
         {
-            instance.Multiplier = beatModifierModel.Multiplier;
-            instance.ChanceToHit.SetViewModel(beatModifierModel.ChanceToHit);
+            instance.BeatIndex = model.BeatIndex;
+            instance.Multiplier = model.Multiplier;
+            instance.ChanceToHit.SetViewModel(model.ChanceToHit);
         }
     }
 }
