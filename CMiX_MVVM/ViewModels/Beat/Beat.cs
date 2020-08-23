@@ -14,16 +14,16 @@ namespace CMiX.MVVM.ViewModels
             DivideCommand = new RelayCommand(p => Divide());
         }
 
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        {
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-            {
-                var model = e.Model as BeatModel;
-                this.SetViewModel(model);
-            }
-            else
-                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
-        }
+        //public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        //{
+        //    if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
+        //    {
+        //        var model = e.Model as BeatModel;
+        //        this.SetViewModel(model);
+        //    }
+        //    else
+        //        OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
+        //}
 
         public ICommand ResetCommand { get; }
         public ICommand MultiplyCommand { get; }
@@ -64,14 +64,6 @@ namespace CMiX.MVVM.ViewModels
         public event PeriodChangedEventHandler PeriodChanged;
 
         protected void OnPeriodChanged(double newPeriod) => PeriodChanged?.Invoke(this, newPeriod);
-
-
-        //public event EventHandler BeatTap;
-        //public void OnBeatTap()
-        //{
-        //    EventHandler handler = BeatTap;
-        //    if (null != handler) handler(this, EventArgs.Empty);
-        //}
 
         public event EventHandler BeatResync;
         public void OnBeatResync()

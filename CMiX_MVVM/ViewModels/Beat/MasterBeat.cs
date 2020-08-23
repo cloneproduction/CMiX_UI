@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using CMiX.MVVM.Controls;
+using CMiX.MVVM.Models.Beat;
+using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class MasterBeat : Beat
     {
-        public MasterBeat() : this(period: 1000.0, multiplier: 1)
-        {
-        }
-
-        public MasterBeat(double period, double multiplier)
+        public MasterBeat()
         {
             Index = 0;
-            Period = period;
-            Multiplier = multiplier;
+            Period = 1000;
+            Multiplier = 1;
+            Periods = new double[15];
 
-            BeatAnimations = new BeatAnimations(period);
+            BeatAnimations = new BeatAnimations();
+            UpdatePeriods(Period);
             SetAnimatedDouble();
 
             tapPeriods = new List<double>();
@@ -28,7 +28,18 @@ namespace CMiX.MVVM.ViewModels
             TapCommand = new RelayCommand(p => Tap());
         }
 
-        public MasterBeat(double period, double multiplier, Sendable parentSendable) : this(period, multiplier)
+        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
+            {
+                var model = e.Model as MasterBeatModel;
+                this.SetViewModel(model);
+            }
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
+        }
+
+        public MasterBeat(Sendable parentSendable) : this()
         {
             SubscribeToEvent(parentSendable);
         }
@@ -40,7 +51,7 @@ namespace CMiX.MVVM.ViewModels
         private readonly List<double> tapTime;
 
         private double CurrentTime => (DateTime.UtcNow - DateTime.MinValue).TotalMilliseconds;
-        private double _period;
+        
 
         private int maxIndex = 3;
         private int minIndex = -3;
@@ -56,27 +67,36 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
+        private int _beatIndex;
+        public int BeatIndex
+        {
+            get => _beatIndex;
+            set => _beatIndex = value;
+        }
+
+
         public event EventHandler IndexChanged;
         protected void OnIndexChanged() => IndexChanged?.Invoke(this, null);
 
+
+        private double _period;
         public override double Period
         {
             get => _period;
-            set
-            {
-                SetAndNotify(ref _period, value);
-                OnPeriodChanged(Period);
-                Notify(nameof(BPM));
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
-            }
+            set => SetAndNotify(ref _period, value);
         }
 
-        private BeatAnimations _beatAnimations;
-        public BeatAnimations BeatAnimations
+
+        private double[] _periods;
+        public double[] Periods
         {
-            get => _beatAnimations;
-            set => SetAndNotify(ref _beatAnimations, value);
+            get => _periods;
+            set => SetAndNotify(ref _periods, value);
         }
+
+
+        public BeatAnimations BeatAnimations { get; set; }
+
 
         private AnimatedDouble _animatedDouble;
         public AnimatedDouble AnimatedDouble
@@ -93,32 +113,33 @@ namespace CMiX.MVVM.ViewModels
 
         private void SetAnimatedDouble()
         {
-            AnimatedDouble = BeatAnimations.AnimatedDoubles[Index + (BeatAnimations.AnimatedDoubles.Count - 1) / 2];
+            BeatIndex = Index + (Periods.Length - 1) / 2;
+            Period = Periods[Index + (Periods.Length - 1) / 2];
+            AnimatedDouble = BeatAnimations.AnimatedDoubles[Index + (Periods.Length - 1) / 2];
+            OnPeriodChanged(Period);
+            Notify(nameof(BPM));
+            OnSendChange(this.GetModel(), this.GetMessageAddress());
         }
 
         protected override void Multiply()
         {
-            if (Index >= maxIndex)
+            if (Index <= minIndex)
                 return;
-            Period /= 2.0;
-            Index++;
+            Index--;
             SetAnimatedDouble();
         }
 
         protected override void Divide()
         {
-            if (Index <= minIndex)
+            if (Index >= maxIndex)
                 return;
-            Period *= 2.0;
-            Index--;
+            Index++;
             SetAnimatedDouble();
         }
 
         private void Tap()
         {
-            Period = GetMasterPeriod();
-            
-            BeatAnimations.MakeCollection(Period);
+            UpdatePeriods(GetMasterPeriod());
             Index = 0;
             SetAnimatedDouble();
         }
@@ -139,6 +160,21 @@ namespace CMiX.MVVM.ViewModels
                     tapPeriods.Add(tapTime[i] - tapTime[i - 1]);
             }
             return tapPeriods.Sum() / tapPeriods.Count;
+        }
+
+        private void UpdatePeriods(double period)
+        {
+            Period = period;
+            if (period > 0)
+            {
+                double Multiplier = 1.0 / 128.0;
+                for (int i = 0; i < Periods.Length; i++)
+                {
+                    Periods[i] = Multiplier * Period;
+                    Multiplier *= 2;
+                }
+                BeatAnimations.MakeStoryBoard(Periods);
+            }
         }
     }
 }

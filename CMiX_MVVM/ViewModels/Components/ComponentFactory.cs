@@ -37,8 +37,8 @@ namespace CMiX.MVVM.ViewModels
 
         public static Composition CreateComposition(Component parentComponent)
         {
-            var masterBeat = new MasterBeat(1000, 0);
-            var component = new Composition(ID, masterBeat);
+            //var masterBeat = new MasterBeat();
+            var component = new Composition(ID);
             parentComponent.AddComponent(component);
             SubscribeToEvent(parentComponent, component);
             ID++;
@@ -47,7 +47,7 @@ namespace CMiX.MVVM.ViewModels
 
         public static Layer CreateLayer(Composition parentComponent)
         {
-            var component = new Layer(ID, parentComponent.Beat);
+            var component = new Layer(ID, parentComponent.MasterBeat);
             parentComponent.AddComponent(component);
             SubscribeToEvent(parentComponent, component);
             ID++;
@@ -56,7 +56,7 @@ namespace CMiX.MVVM.ViewModels
 
         public static Scene CreateScene(Layer parentComponent)
         {
-            var component = new Scene(ID, parentComponent.Beat);
+            var component = new Scene(ID, parentComponent.MasterBeat);
             parentComponent.AddComponent(component);
             SubscribeToEvent(parentComponent, component);
             ID++;
@@ -66,7 +66,7 @@ namespace CMiX.MVVM.ViewModels
 
         public static Entity CreateEntity(Scene parentComponent)
         {
-            var component = new Entity(ID, parentComponent.Beat);
+            var component = new Entity(ID, parentComponent.MasterBeat);
             parentComponent.AddComponent(component);
             SubscribeToEvent(parentComponent, component);
             ID++;

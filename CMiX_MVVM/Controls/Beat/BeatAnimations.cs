@@ -8,11 +8,11 @@ namespace CMiX.MVVM.ViewModels
 {
     public class BeatAnimations
     {
-        public BeatAnimations(double period)
+        public BeatAnimations()
         {
             AnimatedDoubles = new ObservableCollection<AnimatedDouble>();
             Storyboard = new Storyboard();
-            MakeCollection(period);
+            //MakeStoryBoard(periods);
         }
 
         private ObservableCollection<AnimatedDouble> _animatedDoubles;
@@ -23,38 +23,35 @@ namespace CMiX.MVVM.ViewModels
         }
 
         private Storyboard Storyboard { get; set; }
-        private double step = 16.0;
 
-        public void MakeCollection(double period)
+        public void MakeStoryBoard(double[] periods)
         {
             Storyboard.Children.Clear();
             AnimatedDoubles.Clear();
-            double Multiplier = 1;
 
-            for (int i = 1; i < step; i++)
+            for (int i = 0; i < periods.Length; i++)
             {
-                Storyboard.Children.Add(CreateAnimation(Multiplier / 128, period));
-                Multiplier *= 2;
+                Storyboard.Children.Add(CreateAnimation(periods[i]));
             }
 
             Storyboard.RepeatBehavior = RepeatBehavior.Forever;
             Storyboard.Begin();
         }
 
-        private DoubleAnimation CreateAnimation(double multiplier, double period)
+        private DoubleAnimation CreateAnimation(double period)
         {
             var animatedDouble = new AnimatedDouble();
             AnimatedDoubles.Add(animatedDouble);
             DoubleAnimation newda = new DoubleAnimation();
 
-            if(multiplier > 0 && period > 0)
+            if(period > 0)
             {
                 newda.From = 1;
                 newda.To = 0;
                 QuadraticEase easing = new QuadraticEase();
                 easing.EasingMode = System.Windows.Media.Animation.EasingMode.EaseOut;
                 newda.EasingFunction = easing;
-                newda.Duration = new Duration(TimeSpan.FromMilliseconds(period / multiplier));
+                newda.Duration = new Duration(TimeSpan.FromMilliseconds(period));
                 newda.RepeatBehavior = RepeatBehavior.Forever;
             }
 

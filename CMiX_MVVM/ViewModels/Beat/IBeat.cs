@@ -4,6 +4,6 @@ namespace CMiX.MVVM.Interfaces
 {
     public interface IBeat
     {
-        MasterBeat Beat { get; set; }
+        MasterBeat MasterBeat { get; set; }
     }
 }

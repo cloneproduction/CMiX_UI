@@ -1,5 +1,6 @@
 ﻿using VVVV.PluginInterfaces.V2;
 using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.ViewModels;
 
 namespace CMiX.Nodes
 {
@@ -7,32 +8,32 @@ namespace CMiX.Nodes
     public class GetBeat : IPluginEvaluate
     {
         [Input("IBeat")]
-        public IDiffSpread<IBeat> FBeat;
+        public IDiffSpread<Composition> Composition;
 
         [Output("Period")]
-        public ISpread<double> FPeriod;
+        public ISpread<ISpread<double>> FPeriod;
 
         [Output("Multiplier")]
         public ISpread<double> FMultiplier;
 
         public void Evaluate(int SpreadMax)
         {
-            FPeriod.SliceCount = FBeat.SliceCount;
-            FMultiplier.SliceCount = FBeat.SliceCount;
+            FPeriod.SliceCount = Composition.SliceCount;
 
-            if (FBeat.SliceCount > 0)
+            if (Composition.SliceCount > 0)
             {
-                for (int i = 0; i < FBeat.SliceCount; i++)
+                
+                for (int i = 0; i < Composition.SliceCount; i++)
                 {
-                    if (FBeat[i] != null)
+                    FPeriod[i].SliceCount = Composition[i].MasterBeat.Periods.Length;
+
+                    if (Composition[i] != null)
                     {
-                        FPeriod[i] = FBeat[i].Beat.Period;
-                        FMultiplier[i] = FBeat[i].Beat.Multiplier;
+                        FPeriod[i].AssignFrom(Composition[i].MasterBeat.Periods);
                     }
                     else
                     {
                         FPeriod.SliceCount = 0;
-                        FMultiplier.SliceCount = 0;
                     }
                 }
             }

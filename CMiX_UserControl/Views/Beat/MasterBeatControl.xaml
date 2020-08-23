@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
     d:DesignHeight="289.777"
     d:DesignWidth="252.667"
     mc:Ignorable="d">
@@ -13,17 +12,17 @@
         Padding="8"
         Background="{StaticResource HighDarkerColor}">
         <StackPanel>
-            
+
             <Border Margin="0, 4" CornerRadius="{DynamicResource CornerRadiusDefaultLarge}" Height="21" Background="{DynamicResource LightColor}" Opacity="{Binding Path=AnimatedDouble.AnimationPosition}"/>
             <DockPanel Height="30">
-                    <Button
+                <Button
                         Grid.Column="3"
                         Style="{StaticResource ButtonRounded}"
                         Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
                         Command="{Binding ResyncCommand}"
                         Content="Rc"
                         DockPanel.Dock="Right"/>
-                    <Button
+                <Button
                         Grid.Column="2"
                         Style="{StaticResource ButtonRounded}"
                         Margin="4, 0"
@@ -52,8 +51,7 @@
                         HorizontalAlignment="Stretch"
                         Text="{Binding Path=BPM, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F0}" />
                 </Border>
-                </DockPanel>
-
+            </DockPanel>
             <Button
                 Height="30"
                 Margin="0, 4, 0, 0"
@@ -64,8 +62,5 @@
                 Content="TAP"/>
             <TextBlock Text="{Binding BeatTick}" Height="20"/>
         </StackPanel>
-
-        </Border>
-
-
+    </Border>
 </UserControl>

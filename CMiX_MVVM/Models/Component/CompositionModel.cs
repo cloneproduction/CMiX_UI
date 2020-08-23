@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models.Beat;
 
 namespace CMiX.MVVM.Models
 {
@@ -11,13 +12,13 @@ namespace CMiX.MVVM.Models
         public CompositionModel()
         {
             ComponentModels = new ObservableCollection<IComponentModel>();
-            BeatModel = new BeatModel();
+            MasterBeatModel = new MasterBeatModel();
             CameraModel = new CameraModel();
             TransitionModel = new SliderModel();
         }
 
 
-        public BeatModel BeatModel { get; set; }
+        public MasterBeatModel MasterBeatModel { get; set; }
         public CameraModel CameraModel { get; set; }
         public SliderModel TransitionModel { get; set; }
 

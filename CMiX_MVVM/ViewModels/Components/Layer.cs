@@ -11,7 +11,7 @@ namespace CMiX.MVVM.ViewModels
     {
         public Layer(int id, MasterBeat beat) : base(id)
         {
-            Beat = beat;
+            MasterBeat = beat;
             PostFX = new PostFX();
             BlendMode = new BlendMode(this);
             Fade = new Slider(nameof(Fade), this);
@@ -28,6 +28,6 @@ namespace CMiX.MVVM.ViewModels
         public Mask Mask { get; set; }
         public PostFX PostFX { get; set; }
         public BlendMode BlendMode { get; set; }
-        public MasterBeat Beat { get; set; }
+        public MasterBeat MasterBeat { get; set; }
     }
 }

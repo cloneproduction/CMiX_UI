@@ -2,6 +2,7 @@
 using System.ComponentModel.Composition;
 using VVVV.Core.Logging;
 using VVVV.PluginInterfaces.V2;
+using VVVV.Utils.Animation;
 
 namespace CMiX.Nodes
 {
@@ -13,6 +14,9 @@ namespace CMiX.Nodes
 
         [Input("AnimParameter")]
         public IDiffSpread<AnimParameter> AnimParameter;
+
+        [Input("Periods")]
+        public IDiffSpread<double> Periods;
 
         [Output("AnimMode")]
         public ISpread<string> AnimMode;
@@ -40,6 +44,7 @@ namespace CMiX.Nodes
 
         public void Evaluate(int SpreadMax)
         {
+            //VVVV.Utils.Animation
             AnimMode.SliceCount = AnimParameter.SliceCount;
             Multiplier.SliceCount = AnimParameter.SliceCount;
             ChanceToHit.SliceCount = AnimParameter.SliceCount;
@@ -59,9 +64,8 @@ namespace CMiX.Nodes
 
                         Multiplier[i] = AnimParameter[i].BeatModifier.Multiplier;
                         BeatIndex[i] = AnimParameter[i].BeatModifier.BeatIndex;
-                        Period[i] = AnimParameter[i].BeatModifier.Period;
+                        Period[i] = Periods[AnimParameter[i].BeatModifier.BeatIndex];
                         ChanceToHit[i] = AnimParameter[i].BeatModifier.ChanceToHit.Amount;
-
                         RangeMin[i] = AnimParameter[i].Range.Minimum;
                         RangeMax[i] = AnimParameter[i].Range.Maximum;
                         Easing[i] = AnimParameter[i].Easing.EasingFunction.ToString() + AnimParameter[i].Easing.EasingMode.ToString();

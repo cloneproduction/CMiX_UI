@@ -106,7 +106,7 @@ namespace CMiX.MVVM.ViewModels
             compositionModel.IsVisible = instance.IsVisible;
             compositionModel.ID = instance.ID;
 
-            compositionModel.BeatModel = instance.Beat.GetModel();
+            compositionModel.MasterBeatModel = instance.MasterBeat.GetModel();
             compositionModel.CameraModel = instance.Camera.GetModel();
             compositionModel.TransitionModel = instance.Transition.GetModel();
 
@@ -126,7 +126,7 @@ namespace CMiX.MVVM.ViewModels
             instance.ID = compositionModel.ID;
             instance.IsVisible = compositionModel.IsVisible;
 
-            instance.Beat.SetViewModel(compositionModel.BeatModel);
+            instance.MasterBeat.SetViewModel(compositionModel.MasterBeatModel);
             instance.Camera.SetViewModel(compositionModel.CameraModel);
             instance.Transition.SetViewModel(compositionModel.TransitionModel);
 

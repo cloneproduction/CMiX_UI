@@ -10,22 +10,19 @@ namespace CMiX.MVVM.ViewModels
         public BeatModifier(MasterBeat masterBeat)
         {
             Index = 0;
-            BeatIndex = 2;
             ChanceToHit = new Slider(nameof(ChanceToHit), this) { Amount = 100.0 };
             Beat = masterBeat;
             Multiplier = 1.0;
+            this.Period = masterBeat.Period;
 
             masterBeat.IndexChanged += (s, newvalue) =>
             {
-                Notify(nameof(AnimatedDouble));
+                SetAnimatedDouble();
             };
 
             masterBeat.PeriodChanged += (s, newvalue) =>
             {
-                OnPeriodChanged(Period);
-                Notify(nameof(Period));
-                Notify(nameof(BPM));
-                //BeatIndex = (Beat.Index + (Beat.BeatAnimations.AnimatedDoubles.Count - 1) / 2) + Index;
+                SetAnimatedDouble();
             };
         }
 
@@ -44,7 +41,6 @@ namespace CMiX.MVVM.ViewModels
 
         public MasterBeat Beat { get; set; }
         public Slider ChanceToHit { get; }
-        public BeatAnimations BeatAnimations { get; set; }
 
 
         private int maxIndex = 4;
@@ -57,57 +53,51 @@ namespace CMiX.MVVM.ViewModels
             set => _index = value;
         }
 
+        private double _period;
         public override double Period
         {
-            get => Beat.Period * Multiplier;
-            set => throw new InvalidOperationException("Property is readonly. When binding, use Mode=OneWay.");
+            get => _period;
+            set => SetAndNotify(ref _period, value);
         }
 
         private int _beatIndex;
         public int BeatIndex
         {
-            get => _beatIndex;
+            get { return _beatIndex; }
             set => _beatIndex = value;
         }
 
-        public override double Multiplier
-        {
-            get => base.Multiplier;
-            set
-            {              
-                base.Multiplier = value;
-                OnPeriodChanged(Period);
-                Notify(nameof(Period));
-                Notify(nameof(BPM));
-                Notify(nameof(AnimatedDouble));
-                BeatIndex = (Beat.Index + (Beat.BeatAnimations.AnimatedDoubles.Count - 1) / 2) + Index;
-                Console.WriteLine(BeatIndex + " BeatIndex");
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
-            }
-        }
-
+        private AnimatedDouble _animatedDouble;
         public AnimatedDouble AnimatedDouble
         {
-            get => Beat.BeatAnimations.AnimatedDoubles[(Beat.Index + (Beat.BeatAnimations.AnimatedDoubles.Count - 1) / 2) + Index];
-            set => throw new InvalidOperationException("Property is readonly. When binding, use Mode=OneWay.");
+            get => _animatedDouble;
+            set => SetAndNotify(ref _animatedDouble, value);
         }
 
         protected override void Multiply()
         {
-            if (Index < maxIndex)
-            {
-                Index++;
-                Multiplier /= 2.0;
-            }
+            if (Index <= minIndex)
+                return;
+            Index--;
+            SetAnimatedDouble();
         }
 
         protected override void Divide()
         {
-            if (Index > minIndex)
-            {
-                Index--;
-                Multiplier *= 2.0;
-            }
+            if (Index >= maxIndex)
+                return;
+            Index++;
+            SetAnimatedDouble();
+        }
+
+        private void SetAnimatedDouble()
+        {
+            BeatIndex = Index + Beat.BeatIndex;
+            Period = Beat.Periods[Index + Beat.BeatIndex];
+            AnimatedDouble = Beat.BeatAnimations.AnimatedDoubles[Index + Beat.BeatIndex];
+            Notify(nameof(BPM));
+            OnSendChange(this.GetModel(), this.GetMessageAddress());
+            Console.WriteLine("Beatindex = " + BeatIndex);
         }
     }
 }

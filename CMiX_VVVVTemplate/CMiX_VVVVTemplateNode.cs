@@ -54,11 +54,11 @@ namespace CMiX.Nodes
 			FDataType[0] = e.Model.GetType().Name;
 			FLogger.Log(LogType.Debug, "Receiver_DataReceivedEvent");
 			FLogger.Log(LogType.Debug, "Model Type " + e.Model.GetType().Name);
-			if (e.Model.GetType() == typeof(BeatModifierModel))
-			{
-				var model = e.Model as BeatModifierModel;
-				FLogger.Log(LogType.Debug, "BeatIndex " +  model.BeatIndex.ToString());
-			}
+			//if (e.Model.GetType() == typeof(BeatModifierModel))
+			//{
+			//	var model = e.Model as BeatModifierModel;
+			//	FLogger.Log(LogType.Debug, "BeatIndex " +  model.BeatIndex.ToString());
+			//}
 		}
 
         public void Evaluate(int SpreadMax)

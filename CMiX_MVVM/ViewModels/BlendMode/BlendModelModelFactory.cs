@@ -6,14 +6,14 @@ namespace CMiX.MVVM.ViewModels
     {
         public static BlendModeModel GetModel(this BlendMode instance)
         {
-            BlendModeModel blendModeModel = new BlendModeModel();
-            blendModeModel.Mode = instance.Mode;
-            return blendModeModel;
+            BlendModeModel model = new BlendModeModel();
+            model.Mode = instance.Mode;
+            return model;
         }
 
-        public static void SetViewModel(this BlendMode instance, BlendModeModel blendModeModel)
+        public static void SetViewModel(this BlendMode instance, BlendModeModel model)
         {
-            instance.Mode = blendModeModel.Mode;
+            instance.Mode = model.Mode;
         }
     }
 }

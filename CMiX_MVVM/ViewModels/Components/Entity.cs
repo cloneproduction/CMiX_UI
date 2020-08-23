@@ -23,6 +23,6 @@ namespace CMiX.MVVM.ViewModels
         public Geometry Geometry { get; }
         public Texture Texture { get; }
         public Coloration Coloration { get; }
-        public MasterBeat Beat { get; set; }
+        public MasterBeat MasterBeat { get; set; }
     }
 }

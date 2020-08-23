@@ -8,6 +8,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="525" d:DesignWidth="293">
 
-    <CMiX:MasterBeatControl DockPanel.Dock="Bottom" DataContext="{Binding Beat}"/>
+    <CMiX:MasterBeatControl DockPanel.Dock="Bottom" DataContext="{Binding MasterBeat}"/>
     
 </UserControl>

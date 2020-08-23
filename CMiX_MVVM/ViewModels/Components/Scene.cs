@@ -6,7 +6,7 @@ namespace CMiX.MVVM.ViewModels
     {
         public Scene(int id, MasterBeat beat) : base(id)
         {
-            Beat = beat;
+            MasterBeat = beat;
             BeatModifier = new BeatModifier(beat);
             PostFX = new PostFX();
             Mask = new Mask(this);
@@ -17,6 +17,6 @@ namespace CMiX.MVVM.ViewModels
         public Mask Mask { get; set; }
         public PostFX PostFX { get; set; }
         public BeatModifier BeatModifier { get; set; }
-        public MasterBeat Beat { get; set; }
+        public MasterBeat MasterBeat { get; set; }
     }
 }

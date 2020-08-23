@@ -110,6 +110,7 @@
     <Compile Include="Controls\ToggleButton\CMiXToggleButton.cs" />
     <Compile Include="Controls\ToggleButton\ToggleDockPosition.cs" />
     <Compile Include="Models\AnimParameter\EasingModel.cs" />
+    <Compile Include="Models\Beat\MasterBeatModel.cs" />
     <Compile Include="Models\ComboBoxModel.cs" />
     <Compile Include="Models\AnimParameter\AnimModeModel.cs" />
     <Compile Include="Models\Geometry\Modifier\ModifierModel.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\ModeTypeTemplateSelector.cs" />
     <Compile Include="ViewModels\AnimParameter\Range\Range.cs" />
     <Compile Include="ViewModels\AnimParameter\Range\RangeModelFactory.cs" />
+    <Compile Include="ViewModels\Beat\MasterBeatModelFactory.cs" />
     <Compile Include="ViewModels\Beat\IBeatModifier.cs" />
     <Compile Include="ViewModels\Beat\IBeat.cs" />
     <Compile Include="Models\InverterModel.cs" />
