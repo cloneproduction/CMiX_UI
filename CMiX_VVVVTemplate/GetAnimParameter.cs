@@ -1,4 +1,6 @@
 ﻿using CMiX.MVVM.ViewModels;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using VVVV.Core.Logging;
 using VVVV.PluginInterfaces.V2;
@@ -14,6 +16,9 @@ namespace CMiX.Nodes
 
         [Input("AnimParameter")]
         public IDiffSpread<AnimParameter> AnimParameter;
+
+        [Input("BeatTicks")]
+        public IDiffSpread<bool> BeatTicks;
 
         [Input("Periods")]
         public IDiffSpread<double> Periods;
@@ -42,9 +47,20 @@ namespace CMiX.Nodes
         [Output("Easing")]
         public ISpread<string> Easing;
 
+        [Output("Pass")]
+        public ISpread<string> Pass;
+
+        public Random Random { get; set; }
+
+        public void OnImportsSatisfied()
+        {
+            Random = new Random();
+        }
+
+
         public void Evaluate(int SpreadMax)
         {
-            //VVVV.Utils.Animation
+            
             AnimMode.SliceCount = AnimParameter.SliceCount;
             Multiplier.SliceCount = AnimParameter.SliceCount;
             ChanceToHit.SliceCount = AnimParameter.SliceCount;
@@ -53,6 +69,7 @@ namespace CMiX.Nodes
             Easing.SliceCount = AnimParameter.SliceCount;
             Period.SliceCount = AnimParameter.SliceCount;
             BeatIndex.SliceCount = AnimParameter.SliceCount;
+            Pass.SliceCount = AnimParameter.SliceCount;
 
             if (AnimParameter.SliceCount > 0)
             {
@@ -60,8 +77,24 @@ namespace CMiX.Nodes
                 {
                     if (AnimParameter[i] != null)
                     {
-                        AnimMode[i] = AnimParameter[i].AnimMode.GetType().Name;
+                        double random = 1.0;
+                        if (BeatTicks[i])
+                        {
+                            random = Random.NextDouble();
+                        }
 
+                        if (random * 100 <= AnimParameter[i].BeatModifier.ChanceToHit.Amount)
+                        {
+                            //Period[i] = Periods[AnimParameter[i].BeatModifier.BeatIndex];
+                            Pass[i] = "Pass";
+                        }
+                        else
+                        {
+                            //Period[i] = 0.0;
+                            Pass[i] = "Not Passing";
+                        }
+
+                        AnimMode[i] = AnimParameter[i].AnimMode.GetType().Name;
                         Multiplier[i] = AnimParameter[i].BeatModifier.Multiplier;
                         BeatIndex[i] = AnimParameter[i].BeatModifier.BeatIndex;
                         Period[i] = Periods[AnimParameter[i].BeatModifier.BeatIndex];
