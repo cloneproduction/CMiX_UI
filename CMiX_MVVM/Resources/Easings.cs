@@ -23,7 +23,7 @@ namespace CMiX.MVVM.Resources
 		/// </summary>
 		public enum Functions
 		{
-			Linear,
+			None,
 			QuadraticEaseIn,
 			QuadraticEaseOut,
 			QuadraticEaseInOut,
@@ -64,7 +64,7 @@ namespace CMiX.MVVM.Resources
 			switch (function)
 			{
 				default:
-				case Functions.Linear: return Linear(p);
+				case Functions.None: return None(p);
 				case Functions.QuadraticEaseOut: return QuadraticEaseOut(p);
 				case Functions.QuadraticEaseIn: return QuadraticEaseIn(p);
 				case Functions.QuadraticEaseInOut: return QuadraticEaseInOut(p);
@@ -101,7 +101,7 @@ namespace CMiX.MVVM.Resources
 		/// <summary>
 		/// Modeled after the line y = x
 		/// </summary>
-		static public float Linear(float p)
+		static public float None(float p)
 		{
 			return p;
 		}

@@ -18,23 +18,20 @@ namespace CMiX.MVVM.ViewModels
             Periods = new double[15];
 
             BeatAnimations = new BeatAnimations();
+            Resync = new Resync(BeatAnimations, this);
+
             UpdatePeriods(Period);
             SetAnimatedDouble();
 
             tapPeriods = new List<double>();
             tapTime = new List<double>();
-
-            ResyncCommand = new RelayCommand(p => Resync());
             TapCommand = new RelayCommand(p => Tap());
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
             if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-            {
-                var model = e.Model as MasterBeatModel;
-                this.SetViewModel(model);
-            }
+                this.SetViewModel(e.Model as MasterBeatModel);
             else
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
@@ -96,19 +93,13 @@ namespace CMiX.MVVM.ViewModels
 
 
         public BeatAnimations BeatAnimations { get; set; }
-
+        public Resync Resync { get; set; }
 
         private AnimatedDouble _animatedDouble;
         public AnimatedDouble AnimatedDouble
         {
             get => _animatedDouble;
             set => SetAndNotify(ref _animatedDouble, value);
-        }
-
-        public void Resync()
-        {
-            OnBeatResync();
-            BeatAnimations.ResetAnimation();
         }
 
         private void SetAnimatedDouble()
@@ -144,6 +135,7 @@ namespace CMiX.MVVM.ViewModels
             SetAnimatedDouble();
         }
 
+
         private double GetMasterPeriod()
         {
             double ms = CurrentTime;
@@ -161,6 +153,7 @@ namespace CMiX.MVVM.ViewModels
             }
             return tapPeriods.Sum() / tapPeriods.Count;
         }
+
 
         private void UpdatePeriods(double period)
         {

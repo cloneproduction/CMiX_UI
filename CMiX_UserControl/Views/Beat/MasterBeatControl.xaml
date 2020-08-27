@@ -12,31 +12,30 @@
         Padding="8"
         Background="{StaticResource HighDarkerColor}">
         <StackPanel>
-
             <Border Margin="0, 4" CornerRadius="{DynamicResource CornerRadiusDefaultLarge}" Height="21" Background="{DynamicResource LightColor}" Opacity="{Binding Path=AnimatedDouble.AnimationPosition}"/>
             <DockPanel Height="30">
                 <Button
-                        Grid.Column="3"
-                        Style="{StaticResource ButtonRounded}"
-                        Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
-                        Command="{Binding ResyncCommand}"
-                        Content="Rc"
-                        DockPanel.Dock="Right"/>
+                    Grid.Column="3"
+                    Style="{StaticResource ButtonRounded}"
+                    Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+                    Command="{Binding Path=Resync.ResyncCommand}"
+                    Content="Rc"
+                    DockPanel.Dock="Right"/>
                 <Button
-                        Grid.Column="2"
-                        Style="{StaticResource ButtonRounded}"
-                        Margin="4, 0"
-                        Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
-                        Command="{Binding Path=MultiplyCommand}"
-                        Content="+"
-                        DockPanel.Dock="Right"/>
+                    Grid.Column="2"
+                    Style="{StaticResource ButtonRounded}"
+                    Margin="4, 0"
+                    Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+                    Command="{Binding Path=MultiplyCommand}"
+                    Content="+"
+                    DockPanel.Dock="Right"/>
                 <Button
-                        Grid.Column="1"
-                        Style="{StaticResource ButtonRounded}"
-                        Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
-                        Command="{Binding Path=DivideCommand}"
-                        Content="-"
-                        DockPanel.Dock="Right"/>
+                    Grid.Column="1"
+                    Style="{StaticResource ButtonRounded}"
+                    Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+                    Command="{Binding Path=DivideCommand}"
+                    Content="-"
+                    DockPanel.Dock="Right"/>
                 <Border 
                     Background="{StaticResource HighDarkerColor}" 
                     Margin="0, 0, 4, 0" DockPanel.Dock="Right" >

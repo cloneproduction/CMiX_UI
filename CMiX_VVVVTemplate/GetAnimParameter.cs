@@ -1,4 +1,5 @@
-﻿using CMiX.MVVM.ViewModels;
+﻿using CMiX.MVVM.Resources;
+using CMiX.MVVM.ViewModels;
 using System;
 using System.ComponentModel.Composition;
 using VVVV.Core.Logging;
@@ -15,35 +16,17 @@ namespace CMiX.Nodes
         [Input("AnimParameter")]
         public IDiffSpread<AnimParameter> AnimParameter;
 
-        [Input("BeatTicks")]
-        public IDiffSpread<bool> BeatTicks;
-
         [Input("Periods")]
         public IDiffSpread<double> Periods;
+
+        [Input("BeatTicks")]
+        public IDiffSpread<bool> BeatTicks;
 
         [Output("AnimMode")]
         public ISpread<string> AnimMode;
 
-        [Output("RangeMin")]
-        public ISpread<double> RangeMin;
-
-        [Output("RangeMax")]
-        public ISpread<double> RangeMax;
-
-        [Output("Multiplier")]
-        public ISpread<double> Multiplier;
-
-        [Output("ChanceToHit")]
-        public ISpread<double> ChanceToHit;
-
         [Output("Period")]
         public ISpread<double> Period;
-
-        [Output("BeatIndex")]
-        public ISpread<int> BeatIndex;
-
-        [Output("Easing")]
-        public ISpread<string> Easing;
 
         [Output("Pass")]
         public ISpread<bool> Pass;
@@ -54,16 +37,17 @@ namespace CMiX.Nodes
         {
             Random = new Random();
         }
+
+        private double map(double value, double fromLow, double fromHigh, double toLow, double toHigh)
+        {
+            return (value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow;
+        }
+
         public void Evaluate(int SpreadMax)
         {
             AnimMode.SliceCount = AnimParameter.SliceCount;
-            Multiplier.SliceCount = AnimParameter.SliceCount;
-            ChanceToHit.SliceCount = AnimParameter.SliceCount;
-            RangeMin.SliceCount = AnimParameter.SliceCount;
-            RangeMax.SliceCount = AnimParameter.SliceCount;
-            Easing.SliceCount = AnimParameter.SliceCount;
+
             Period.SliceCount = AnimParameter.SliceCount;
-            BeatIndex.SliceCount = AnimParameter.SliceCount;
             Pass.SliceCount = AnimParameter.SliceCount;
 
             if (AnimParameter.SliceCount > 0)
@@ -73,13 +57,6 @@ namespace CMiX.Nodes
                     if (AnimParameter[i] != null)
                     {
                         AnimMode[i] = AnimParameter[i].AnimMode.GetType().Name;
-                        Multiplier[i] = AnimParameter[i].BeatModifier.Multiplier;
-                        BeatIndex[i] = AnimParameter[i].BeatModifier.BeatIndex;
-                        
-                        ChanceToHit[i] = AnimParameter[i].BeatModifier.ChanceToHit.Amount;
-                        RangeMin[i] = AnimParameter[i].Range.Minimum;
-                        RangeMax[i] = AnimParameter[i].Range.Maximum;
-                        Easing[i] = AnimParameter[i].Easing.EasingFunction.ToString() + AnimParameter[i].Easing.EasingMode.ToString();
 
                         if (BeatTicks[i])
                         {
@@ -90,7 +67,7 @@ namespace CMiX.Nodes
                         }
 
                         if (Pass[i])
-                            Period[i] = Periods[AnimParameter[i].BeatModifier.BeatIndex];
+                            Period[i] = map(Easings.Interpolate((float)Periods[AnimParameter[i].BeatModifier.BeatIndex], AnimParameter[i].Easing.SelectedEasing), 0.0, 1.0, AnimParameter[i].Range.Minimum, AnimParameter[i].Range.Maximum);
                     }
                     else
                     {

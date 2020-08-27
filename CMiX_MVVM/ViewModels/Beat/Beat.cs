@@ -1,7 +1,4 @@
-﻿using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
-using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -13,17 +10,6 @@ namespace CMiX.MVVM.ViewModels
             MultiplyCommand = new RelayCommand(p => Multiply());
             DivideCommand = new RelayCommand(p => Divide());
         }
-
-        //public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        //{
-        //    if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-        //    {
-        //        var model = e.Model as BeatModel;
-        //        this.SetViewModel(model);
-        //    }
-        //    else
-        //        OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
-        //}
 
         public ICommand ResetCommand { get; }
         public ICommand MultiplyCommand { get; }
@@ -65,11 +51,11 @@ namespace CMiX.MVVM.ViewModels
 
         protected void OnPeriodChanged(double newPeriod) => PeriodChanged?.Invoke(this, newPeriod);
 
-        public event EventHandler BeatResync;
-        public void OnBeatResync()
-        {
-            EventHandler handler = BeatResync;
-            if (null != handler) handler(this, EventArgs.Empty);
-        }
+        //public event EventHandler BeatResync;
+        //public void OnBeatResync()
+        //{
+        //    EventHandler handler = BeatResync;
+        //    if (null != handler) handler(this, EventArgs.Empty);
+        //}
     }
 }

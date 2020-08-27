@@ -1,6 +1,8 @@
 ﻿using VVVV.PluginInterfaces.V2;
 using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.ViewModels;
+using System;
+using System.Linq;
 
 namespace CMiX.Nodes
 {
@@ -13,8 +15,8 @@ namespace CMiX.Nodes
         [Output("Period")]
         public ISpread<ISpread<double>> FPeriod;
 
-        [Output("Multiplier")]
-        public ISpread<double> FMultiplier;
+        [Output("Resync")]
+        public ISpread<bool> Resync;
 
         public void Evaluate(int SpreadMax)
         {
@@ -30,6 +32,7 @@ namespace CMiX.Nodes
                     if (Composition[i] != null)
                     {
                         FPeriod[i].AssignFrom(Composition[i].MasterBeat.Periods);
+                        Resync[i] = Composition[i].MasterBeat.Resync.Resynced;
                     }
                     else
                     {

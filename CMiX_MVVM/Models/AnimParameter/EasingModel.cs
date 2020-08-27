@@ -1,4 +1,5 @@
-﻿using CMiX.MVVM.ViewModels;
+﻿using CMiX.MVVM.Resources;
+using CMiX.MVVM.ViewModels;
 
 
 namespace CMiX.MVVM.Models
@@ -10,6 +11,7 @@ namespace CMiX.MVVM.Models
 
         }
 
+        public Easings.Functions SelectedEasing { get; set; }
         public EasingFunction EasingFunction { get; set; }
         public EasingMode EasingMode { get; set; }
     }
