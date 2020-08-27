@@ -1,6 +1,8 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.Resources;
 using CMiX.MVVM.Services;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -65,23 +67,71 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _selectedModeType, value);
                 SetAnimMode();
-            }
-        }
-
-        private IAnimMode _animMode;
-        public IAnimMode AnimMode
-        {
-            get => _animMode;
-            set
-            {
-                SetAndNotify(ref _animMode, value);
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 
+        //private IAnimMode _animMode;
+        //public IAnimMode AnimMode
+        //{
+        //    get => _animMode;
+        //    set
+        //    {
+        //        SetAndNotify(ref _animMode, value);
+        //        OnSendChange(this.GetModel(), this.GetMessageAddress());
+        //    }
+        //}
+
+       
+
         private void SetAnimMode()
         {
-            AnimMode = ModesFactory.CreateMode(SelectedModeType, this);
+            Console.WriteLine("SetAnimMode");
+            if (SelectedModeType == ModeType.LFO)
+            {
+                Update = LFO;
+                Console.WriteLine("LFO");
+            }
+               
+            else if (SelectedModeType == ModeType.Steady)
+            {
+                Update = Steady;
+                Console.WriteLine("Steady");
+            }
+                
+            else if (SelectedModeType == ModeType.None)
+            {
+                Update = None;
+                Console.WriteLine("None");
+            }
+                
+            //AnimMode = ModesFactory.CreateMode(SelectedModeType, this);
+        }
+
+        private double map(double value, double fromLow, double fromHigh, double toLow, double toHigh)
+        {
+            return (value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow;
+        }
+
+        public Func<double, double> Update { get; set; }
+
+        public double None(double period)
+        {
+            return 1.0;
+        }
+        public double Steady(double period)
+        {
+            return 100.0;
+        }
+
+        public double LFO(double period)
+        {
+            return Utils.Map(Easings.Interpolate((float)period, Easing.SelectedEasing), 0.0, 1.0, Range.Minimum, Range.Maximum);
+        }
+
+        public double Random(double period)
+        {
+            return 155.0;
         }
     }
 }

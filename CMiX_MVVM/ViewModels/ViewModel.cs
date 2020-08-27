@@ -1,6 +1,4 @@
-﻿using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;

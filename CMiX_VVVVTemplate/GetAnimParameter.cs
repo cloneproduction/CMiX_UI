@@ -56,7 +56,7 @@ namespace CMiX.Nodes
                 {
                     if (AnimParameter[i] != null)
                     {
-                        AnimMode[i] = AnimParameter[i].AnimMode.GetType().Name;
+                        AnimMode[i] = AnimParameter[i].SelectedModeType.ToString();
 
                         if (BeatTicks[i])
                         {
@@ -67,7 +67,11 @@ namespace CMiX.Nodes
                         }
 
                         if (Pass[i])
-                            Period[i] = map(Easings.Interpolate((float)Periods[AnimParameter[i].BeatModifier.BeatIndex], AnimParameter[i].Easing.SelectedEasing), 0.0, 1.0, AnimParameter[i].Range.Minimum, AnimParameter[i].Range.Maximum);
+                        {
+                            Period[i] = AnimParameter[i].Update.Invoke(Periods[AnimParameter[i].BeatModifier.be]);
+                        }
+
+                            
                     }
                     else
                     {

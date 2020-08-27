@@ -15,7 +15,7 @@ namespace CMiX.MVVM.Models
 
         public string Name { get; set; }
         public bool IsEnabled { get; set; }
-        public IAnimMode AnimMode { get; set; }
+        public ModeType SelectedModeType { get; set; }
         public EasingModel EasingModel { get; set; }
         public RangeModel RangeModel { get; set; }
         public BeatModifierModel BeatModifierModel { get; set; }

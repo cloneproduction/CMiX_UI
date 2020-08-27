@@ -37,7 +37,6 @@ namespace CMiX.MVVM.ViewModels
 
         public static Composition CreateComposition(Component parentComponent)
         {
-            //var masterBeat = new MasterBeat();
             var component = new Composition(ID);
             parentComponent.AddComponent(component);
             SubscribeToEvent(parentComponent, component);
