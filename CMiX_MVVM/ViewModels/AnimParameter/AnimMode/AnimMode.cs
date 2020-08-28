@@ -1,10 +1,5 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -18,8 +13,10 @@ namespace CMiX.MVVM.ViewModels
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
+        public AnimParameter AnimParameter { get; set; }
+        public double DefaultValue { get; set; }
         public abstract void UpdateOnBeatTick(double period);
 
-        public abstract double UpdatePeriod(double period, AnimParameter animParameter);
+        public abstract double UpdatePeriod(double period);
     }
 }

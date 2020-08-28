@@ -1,6 +1,4 @@
-﻿using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
-using System;
+﻿using System;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -29,8 +27,6 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public AnimParameter AnimParameter { get; set; }
-
         public override void UpdateOnBeatTick(double period)
         {
             currentStep = nextStep;
@@ -39,7 +35,7 @@ namespace CMiX.MVVM.ViewModels
                 nextStep = 0;
         }
 
-        public override double UpdatePeriod(double period, AnimParameter animParameter)
+        public override double UpdatePeriod(double period)
         {
             return nextStep; // Utils.Map(nextStep, 0, StepCount, Range.Minimum, Range.Maximum);
         }

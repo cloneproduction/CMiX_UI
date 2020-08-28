@@ -5,23 +5,16 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Steady : AnimMode, IAnimMode
     {
-        public Steady(AnimParameter animParameter)
+        public Steady(AnimParameter animParameter, double defaultValue)
         {
             SteadyType = SteadyType.Linear;
+            DefaultValue = defaultValue;
             AnimParameter = animParameter;
         }
  
-        public Steady(AnimParameter animParameter, Sendable parentSendable) : this(animParameter)
+        public Steady(AnimParameter animParameter, double defaultValue, Sendable parentSendable) : this(animParameter, defaultValue)
         {
             SubscribeToEvent(parentSendable);
-        }
-
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        {
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-                this.SetViewModel(e.Model as SteadyModel);
-            else
-                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
         public override void UpdateOnBeatTick(double period)
@@ -29,9 +22,9 @@ namespace CMiX.MVVM.ViewModels
             
         }
 
-        public override double UpdatePeriod(double period, AnimParameter animParameter)
+        public override double UpdatePeriod(double period)
         {
-            return period;
+            return DefaultValue;
         }
 
         private SteadyType _steadyType;
@@ -40,6 +33,5 @@ namespace CMiX.MVVM.ViewModels
             get => _steadyType;
             set => SetAndNotify(ref _steadyType, value);
         }
-        public AnimParameter AnimParameter { get; set; }
     }
 }

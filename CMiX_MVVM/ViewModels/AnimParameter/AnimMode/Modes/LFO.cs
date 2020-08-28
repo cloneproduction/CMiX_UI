@@ -1,7 +1,4 @@
-﻿using CMiX.MVVM.Models;
-using CMiX.MVVM.Resources;
-using CMiX.MVVM.Services;
-using System;
+﻿using CMiX.MVVM.Resources;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -17,16 +14,14 @@ namespace CMiX.MVVM.ViewModels
             SubscribeToEvent(parentSendable);
         }
 
-        public AnimParameter AnimParameter { get; set; }
-
         public override void UpdateOnBeatTick(double period)
         {
 
         }
 
-        public override double UpdatePeriod(double period, AnimParameter animParameter)
+        public override double UpdatePeriod(double period)
         {
-            return Utils.Map(Easings.Interpolate((float)period, animParameter.Easing.SelectedEasing), 0.0, 1.0, animParameter.Range.Minimum, animParameter.Range.Maximum);
+            return Utils.Map(Easings.Interpolate((float)period, AnimParameter.Easing.SelectedEasing), 0.0, 1.0, AnimParameter.Range.Minimum, AnimParameter.Range.Maximum);
         }
 
         private bool _invert;

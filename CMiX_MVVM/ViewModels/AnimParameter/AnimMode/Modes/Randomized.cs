@@ -19,7 +19,6 @@ namespace CMiX.MVVM.ViewModels
         }
 
         private Random Random { get; set; }
-        public AnimParameter AnimParameter { get; set; }
 
         private double oldRandom;
         private double newRandom;
@@ -30,9 +29,9 @@ namespace CMiX.MVVM.ViewModels
             newRandom = Random.NextDouble();
         }
 
-        public override double UpdatePeriod(double period, AnimParameter animParameter)
+        public override double UpdatePeriod(double period)
         {
-            return Utils.Map(Utils.Lerp(oldRandom, newRandom, Easings.Interpolate((float)period, animParameter.Easing.SelectedEasing)), 0.0, 1.0, animParameter.Range.Minimum, animParameter.Range.Maximum);
+            return Utils.Map(Utils.Lerp(oldRandom, newRandom, Easings.Interpolate((float)period, AnimParameter.Easing.SelectedEasing)), 0.0, 1.0, AnimParameter.Range.Minimum, AnimParameter.Range.Maximum);
         }
     }
 }

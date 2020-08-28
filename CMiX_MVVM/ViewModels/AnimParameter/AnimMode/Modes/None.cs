@@ -20,7 +20,7 @@ namespace CMiX.MVVM.ViewModels
             //throw new System.NotImplementedException();
         }
 
-        public override double UpdatePeriod(double period, AnimParameter animParameter)
+        public override double UpdatePeriod(double period)
         {
             return period;
         }

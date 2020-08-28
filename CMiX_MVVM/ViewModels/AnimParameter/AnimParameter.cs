@@ -6,18 +6,19 @@ namespace CMiX.MVVM.ViewModels
 {
     public class AnimParameter : Sendable
     {
-        public AnimParameter(string name, MasterBeat beat, bool isEnabled = true)
+        public AnimParameter(string name, double defaultValue, MasterBeat beat, bool isEnabled = true)
         {
-
+            DefaultValue = defaultValue;
             Range = new Range(0.0, 1.0, this);
             Easing = new Easing(this);
             BeatModifier = new BeatModifier(beat, this);
             SelectedModeType = ModeType.None;
+            AnimMode = ModesFactory.CreateMode(SelectedModeType, this, defaultValue, this);
             Name = name;
             IsEnabled = isEnabled;
         }
 
-        public AnimParameter(string name, MasterBeat beat, bool isEnabled, Sendable parentSendable) : this(name, beat, isEnabled)
+        public AnimParameter(string name, double defaultValue, MasterBeat beat, bool isEnabled, Sendable parentSendable) : this(name, defaultValue, beat, isEnabled)
         {
             SubscribeToEvent(parentSendable);
         }
@@ -38,7 +39,7 @@ namespace CMiX.MVVM.ViewModels
         public BeatModifier BeatModifier { get; set; }
         public Easing Easing { get; set; }
         public Range Range { get; set; }
-
+        public double DefaultValue { get; set; }
         private string _name;
         public string Name
         {
@@ -65,6 +66,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _selectedModeType, value);
                 SetAnimMode();
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 
@@ -73,20 +75,21 @@ namespace CMiX.MVVM.ViewModels
         {
             get => _animMode;
             set
-            {
+            {   
                 SetAndNotify(ref _animMode, value);
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
+                Console.WriteLine(AnimMode.GetType());
+                Console.WriteLine(SelectedModeType);
             }
         }
 
         private void SetAnimMode()
         {
-            AnimMode = ModesFactory.CreateMode(SelectedModeType, this, this);
-            //OnBeatTick = AnimMode.UpdateOnBeatTick;
-            //OnUpdatePeriod = AnimMode.UpdatePeriod;
+            AnimMode = ModesFactory.CreateMode(SelectedModeType, this, DefaultValue, this);
+            OnBeatTick = AnimMode.UpdateOnBeatTick;
+            OnUpdatePeriod = AnimMode.UpdatePeriod;
         }
 
         public Action<double> OnBeatTick { get; set; }
-        public Func<double, AnimParameter, double> OnUpdatePeriod { get; set;}
+        public Func<double, double> OnUpdatePeriod { get; set;}
     }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="C:\Users\BabyClone\Documents\GitHub\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="4360" scrolly="3330">
+   <PATCH nodename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="6825" scrolly="3810">
    <BOUNDS type="Window" left="18480" top="980" width="14670" height="11460">
    </BOUNDS>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="2" systemname="IOBox (Value Advanced)">
@@ -961,7 +961,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="12425" top="14755" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="18405" top="9420" width="6240" height="5070">
+   <BOUNDS type="Window" left="11730" top="9630" width="6240" height="5070">
    </BOUNDS>
    <PIN pinname="Layers" visible="1">
    </PIN>
@@ -1343,14 +1343,14 @@
    </BOUNDS>
    <BOUNDS type="Box" left="11670" top="10680" width="3000" height="3000">
    </BOUNDS>
+   <PIN pinname="BeatTicks" visible="1" slicecount="15" values="1,1,0,0,0,0,0,0,0,0,0,0,0,0,0">
+   </PIN>
    </NODE>
    <LINK srcnodeid="284" srcpinname="AnimMode" dstnodeid="168" dstpinname="Input String">
    </LINK>
    <LINK srcnodeid="221" srcpinname="Output" dstnodeid="284" dstpinname="Periods">
    </LINK>
    <LINK srcnodeid="216" srcpinname="Uniform" dstnodeid="284" dstpinname="AnimParameter">
-   </LINK>
-   <LINK srcnodeid="221" srcpinname="Change" dstnodeid="284" dstpinname="BeatTicks">
    </LINK>
    <LINK srcnodeid="284" srcpinname="Period" dstnodeid="246" dstpinname="XYZ">
    </LINK>
@@ -1359,5 +1359,7 @@
    <LINK srcnodeid="284" srcpinname="Pass" dstnodeid="274" dstpinname="Y Input Value">
    </LINK>
    <LINK srcnodeid="284" srcpinname="Period" dstnodeid="279" dstpinname="X">
+   </LINK>
+   <LINK srcnodeid="221" srcpinname="Change" dstnodeid="284" dstpinname="BeatTicks">
    </LINK>
    </PATCH>

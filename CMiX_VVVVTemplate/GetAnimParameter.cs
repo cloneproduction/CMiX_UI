@@ -22,8 +22,8 @@ namespace CMiX.Nodes
         [Input("BeatTicks")]
         public IDiffSpread<bool> BeatTicks;
 
-        [Output("AnimMode")]
-        public ISpread<string> AnimMode;
+        //[Output("AnimMode")]
+        //public ISpread<string> AnimMode;
 
         [Output("Period")]
         public ISpread<double> Period;
@@ -45,7 +45,7 @@ namespace CMiX.Nodes
 
         public void Evaluate(int SpreadMax)
         {
-            AnimMode.SliceCount = AnimParameter.SliceCount;
+            //AnimMode.SliceCount = AnimParameter.SliceCount;
 
             Period.SliceCount = AnimParameter.SliceCount;
             Pass.SliceCount = AnimParameter.SliceCount;
@@ -56,7 +56,7 @@ namespace CMiX.Nodes
                 {
                     if (AnimParameter[i] != null)
                     {
-                        AnimMode[i] = AnimParameter[i].SelectedModeType.ToString();
+                        //AnimMode[i] = AnimParameter[i].SelectedModeType.ToString();
 
                         if (BeatTicks[i])
                         {
@@ -66,11 +66,11 @@ namespace CMiX.Nodes
                                 Pass[i] = false;
                         }
 
-                        if (BeatTicks[AnimParameter[i].BeatModifier.BeatIndex])
+                        //if (BeatTicks[AnimParameter[i].BeatModifier.BeatIndex])
                             ///AnimParameter[i].OnUpdatePeriod(
 
-                        if (Pass[i])
-                            Period[i] = AnimParameter[i].OnUpdatePeriod.Invoke(Periods[AnimParameter[i].BeatModifier.BeatIndex], AnimParameter[i]);
+                        //if (Pass[i])
+                            Period[i] = AnimParameter[i].OnUpdatePeriod.Invoke(Periods[AnimParameter[i].BeatModifier.BeatIndex]);
                     }
                     else
                         AnimParameter.SliceCount = 0;
