@@ -1,17 +1,14 @@
-﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.ViewModels;
-using CMiX.Studio.ViewModels;
+﻿using CMiX.MVVM.ViewModels;
 
 namespace CMiX.MVVM.Models
 {
-    public class AnimModeModel : IModel
+    public class AnimModeModel : IAnimModeModel
     {
         public AnimModeModel()
         {
 
         }
 
-        public ModeType ModeType { get; set; }
         public bool Enabled { get; set; }
     }
 }

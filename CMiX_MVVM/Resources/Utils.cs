@@ -248,6 +248,11 @@ namespace CMiX.MVVM.Resources
         {
             return (value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow;
         }
+
+        public static double Lerp(double firstFloat, double secondFloat, double by)
+        {
+            return firstFloat * (1 - by) + secondFloat * by;
+        }
         #endregion
     }
 

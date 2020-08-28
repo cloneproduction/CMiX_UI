@@ -11,6 +11,7 @@ namespace CMiX.MVVM.Models
             BeatModifierModel = new BeatModifierModel();
             EasingModel = new EasingModel();
             RangeModel = new RangeModel();
+            AnimModeModel = new AnimModeModel();
         }
 
         public string Name { get; set; }
@@ -19,5 +20,6 @@ namespace CMiX.MVVM.Models
         public EasingModel EasingModel { get; set; }
         public RangeModel RangeModel { get; set; }
         public BeatModifierModel BeatModifierModel { get; set; }
+        public IAnimModeModel AnimModeModel { get; set; }
     }
 }

@@ -2,47 +2,47 @@
 {
     public static class ModesFactory
     {
-        public static IAnimMode CreateMode(ModeType modeType, Sendable parent)
+        public static AnimMode CreateMode(ModeType modeType, AnimParameter animParameter, Sendable parent)
         {
-            IAnimMode animMode = null;
+            AnimMode animMode = null;
 
             if (modeType == ModeType.Steady)
-                animMode = CreateSteady(parent);
+                animMode = CreateSteady(animParameter, parent);
             else if (modeType == ModeType.LFO)
-                animMode = CreateLFO(parent);
+                animMode = CreateLFO(animParameter, parent);
             else if (modeType == ModeType.Random)
-                animMode = CreateRandomized(parent);
+                animMode = CreateRandomized(animParameter, parent);
             else if (modeType == ModeType.Stepper)
-                animMode = CreateStepper(parent);
+                animMode = CreateStepper(animParameter, parent);
             else if (modeType == ModeType.None)
-                animMode = CreateNone(parent);
+                animMode = CreateNone(animParameter, parent);
 
             return animMode;
         }
 
-        private static None CreateNone(Sendable parent)
+        private static None CreateNone(AnimParameter animParameter, Sendable parent)
         {
             return new None(parent);
         }
 
-        private static LFO CreateLFO(Sendable parent)
+        private static LFO CreateLFO(AnimParameter animParameter, Sendable parent)
         {
-            return new LFO(parent);
+            return new LFO(animParameter, parent);
         }
 
-        private static Steady CreateSteady(Sendable parent)
+        private static Steady CreateSteady(AnimParameter animParameter, Sendable parent)
         {
-            return new Steady(parent);
+            return new Steady(animParameter, parent);
         }
 
-        private static Stepper CreateStepper(Sendable parent)
+        private static Stepper CreateStepper(AnimParameter animParameter, Sendable parent)
         {
-            return new Stepper(parent);
+            return new Stepper(animParameter, parent);
         }
 
-        private static Randomized CreateRandomized(Sendable parent)
+        private static Randomized CreateRandomized(AnimParameter animParameter, Sendable parent)
         {
-            return new Randomized(parent);
+            return new Randomized(animParameter, parent);
         }
     }
 }

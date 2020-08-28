@@ -1,5 +1,4 @@
-﻿using System;
-using CMiX.MVVM.Controls;
+﻿using CMiX.MVVM.Controls;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 
@@ -97,7 +96,6 @@ namespace CMiX.MVVM.ViewModels
             AnimatedDouble = Beat.BeatAnimations.AnimatedDoubles[Index + Beat.BeatIndex];
             Notify(nameof(BPM));
             OnSendChange(this.GetModel(), this.GetMessageAddress());
-            Console.WriteLine("Beatindex = " + BeatIndex);
         }
     }
 }

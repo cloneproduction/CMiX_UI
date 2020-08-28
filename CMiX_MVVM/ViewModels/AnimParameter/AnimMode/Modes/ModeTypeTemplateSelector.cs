@@ -13,18 +13,23 @@ namespace CMiX.MVVM.ViewModels
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             DataTemplate dataTemplate = null;
+            var animParameter = item as AnimParameter;
 
-            if (item != null)
+            if (animParameter != null)
             {
-                if (item is LFO)
+                if (animParameter.SelectedModeType == ModeType.LFO)
+                {
+                    System.Console.WriteLine("DATATEMPLATE IS LFO");
                     dataTemplate = LFOTemplate;
-                else if (item is Stepper)
+                }
+                    
+                else if (animParameter.SelectedModeType == ModeType.Stepper)
                     dataTemplate = StepperTemplate;
-                else if (item is Steady)
+                else if (animParameter.SelectedModeType == ModeType.Steady)
                     dataTemplate = SteadyTemplate;
-                else if (item is Randomized)
+                else if (animParameter.SelectedModeType == ModeType.Random)
                     dataTemplate = RandomizedTemplate;
-                else if (item is None)
+                else if (animParameter.SelectedModeType == ModeType.None)
                     dataTemplate = NoneTemplate;
             }
 

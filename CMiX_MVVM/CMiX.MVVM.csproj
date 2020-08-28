@@ -109,6 +109,12 @@
     <Compile Include="Controls\Counter\Counter.cs" />
     <Compile Include="Controls\ToggleButton\CMiXToggleButton.cs" />
     <Compile Include="Controls\ToggleButton\ToggleDockPosition.cs" />
+    <Compile Include="Models\AnimParameter\AnimMode\IAnimModeModel.cs" />
+    <Compile Include="Models\AnimParameter\AnimMode\LFOModel.cs" />
+    <Compile Include="Models\AnimParameter\AnimMode\NoneModel.cs" />
+    <Compile Include="Models\AnimParameter\AnimMode\RandomizedModel.cs" />
+    <Compile Include="Models\AnimParameter\AnimMode\SteadyModel.cs" />
+    <Compile Include="Models\AnimParameter\AnimMode\StepperModel.cs" />
     <Compile Include="Models\AnimParameter\EasingModel.cs" />
     <Compile Include="Models\Beat\MasterBeatModel.cs" />
     <Compile Include="Models\Beat\ResyncModel.cs" />
@@ -120,6 +126,7 @@
     <Compile Include="ViewModels\AnimParameter\AnimMode\AnimMode.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\AnimModeModelFactory.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\IAnimMode.cs" />
+    <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\SteadyType.cs" />
     <Compile Include="ViewModels\AnimParameter\Easing\Easing.cs" />
     <Compile Include="ViewModels\AnimParameter\Easing\EasingModelFactory.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\None.cs" />

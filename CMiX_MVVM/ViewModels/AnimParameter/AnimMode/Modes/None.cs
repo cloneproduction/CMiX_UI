@@ -1,8 +1,9 @@
-﻿using CMiX.MVVM.Services;
+﻿using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class None : Sendable, IAnimMode
+    public class None : AnimMode, IAnimMode
     {
         public None()
         {
@@ -16,7 +17,20 @@ namespace CMiX.MVVM.ViewModels
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
+            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
+                this.SetViewModel(e.Model as NoneModel);
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
+        }
 
+        public void UpdateOnBeatTick(double period)
+        {
+            //throw new System.NotImplementedException();
+        }
+
+        public double UpdatePeriod(double period, AnimParameter animParameter)
+        {
+            return period;
         }
 
         private bool _IsEnabled;
@@ -25,5 +39,6 @@ namespace CMiX.MVVM.ViewModels
             get => _IsEnabled;
             set => SetAndNotify(ref _IsEnabled, value);
         }
+        public AnimParameter AnimParameter { get; set; }
     }
 }

@@ -1,44 +1,39 @@
-﻿using CMiX.MVVM.Resources;
+﻿using CMiX.MVVM.Models;
+using CMiX.MVVM.Resources;
 using CMiX.MVVM.Services;
-using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class LFO : Sendable, IAnimMode
+    public class LFO : AnimMode, IAnimMode
     {
-        public LFO()
+        public LFO(AnimParameter animParameter)
         {
-            //Update = UpdatePosition;
+            AnimParameter = animParameter;
         }
 
-        public LFO(Sendable parentSendable) : this()
+        public LFO(AnimParameter animParameter, Sendable parentSendable) : this(animParameter)
         {
             SubscribeToEvent(parentSendable);
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
+            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
+                this.SetViewModel(e.Model as LFOModel);
+            else
+                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
+        }
+
+        public AnimParameter AnimParameter { get; set; }
+
+        public void UpdateOnBeatTick(double period)
+        {
 
         }
 
-        private double map(double value, double fromLow, double fromHigh, double toLow, double toHigh)
+        public double UpdatePeriod(double period, AnimParameter animParameter)
         {
-            return (value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow;
-        }
-
-        public Func<double, AnimParameter, double> Update { get; set; }
-
-        public double UpdatePosition(double period, AnimParameter animParameter)
-        {
-            //return map(Easings.Interpolate((float)period, animParameter.Easing.SelectedEasing), 0.0, 1.0, animParameter.Range.Minimum, animParameter.Range.Maximum);
-            return period;
-        }
-
-        private bool _IsEnabled;
-        public bool IsEnabled
-        {
-            get => _IsEnabled;
-            set => SetAndNotify(ref _IsEnabled, value);
+            return Utils.Map(Easings.Interpolate((float)period, animParameter.Easing.SelectedEasing), 0.0, 1.0, animParameter.Range.Minimum, animParameter.Range.Maximum);
         }
 
         private bool _invert;

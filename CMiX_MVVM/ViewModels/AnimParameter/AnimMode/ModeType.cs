@@ -14,10 +14,4 @@ namespace CMiX.MVVM.ViewModels
         Random,
         Stepper
     }
-
-    public enum SteadyType
-    {
-        Linear,
-        Random
-    }
 }

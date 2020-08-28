@@ -1,6 +1,4 @@
-﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.Models;
-using CMiX.MVVM.Resources;
+﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using System;
 
@@ -10,9 +8,9 @@ namespace CMiX.MVVM.ViewModels
     {
         public AnimParameter(string name, MasterBeat beat, bool isEnabled = true)
         {
+
             Range = new Range(0.0, 1.0, this);
             Easing = new Easing(this);
-
             BeatModifier = new BeatModifier(beat, this);
             SelectedModeType = ModeType.None;
             Name = name;
@@ -71,67 +69,23 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        //private IAnimMode _animMode;
-        //public IAnimMode AnimMode
-        //{
-        //    get => _animMode;
-        //    set
-        //    {
-        //        SetAndNotify(ref _animMode, value);
-        //        OnSendChange(this.GetModel(), this.GetMessageAddress());
-        //    }
-        //}
-
-       
+        private AnimMode _animMode;
+        public AnimMode AnimMode
+        {
+            get => _animMode;
+            set
+            {
+                SetAndNotify(ref _animMode, value);
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
+            }
+        }
 
         private void SetAnimMode()
         {
-            Console.WriteLine("SetAnimMode");
-            if (SelectedModeType == ModeType.LFO)
-            {
-                Update = LFO;
-                Console.WriteLine("LFO");
-            }
-               
-            else if (SelectedModeType == ModeType.Steady)
-            {
-                Update = Steady;
-                Console.WriteLine("Steady");
-            }
-                
-            else if (SelectedModeType == ModeType.None)
-            {
-                Update = None;
-                Console.WriteLine("None");
-            }
-                
-            //AnimMode = ModesFactory.CreateMode(SelectedModeType, this);
-        }
-
-        private double map(double value, double fromLow, double fromHigh, double toLow, double toHigh)
-        {
-            return (value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow;
+            AnimMode = ModesFactory.CreateMode(SelectedModeType,this, this);
         }
 
         public Func<double, double> Update { get; set; }
 
-        public double None(double period)
-        {
-            return 1.0;
-        }
-        public double Steady(double period)
-        {
-            return 100.0;
-        }
-
-        public double LFO(double period)
-        {
-            return Utils.Map(Easings.Interpolate((float)period, Easing.SelectedEasing), 0.0, 1.0, Range.Minimum, Range.Maximum);
-        }
-
-        public double Random(double period)
-        {
-            return 155.0;
-        }
     }
 }

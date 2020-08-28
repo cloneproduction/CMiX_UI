@@ -36,7 +36,7 @@ namespace CMiX.Nodes
 			Project = ComponentFactory.CreateProject();
             var receiver = new Receiver();
 			Project.Receiver = receiver;
-            Settings settings = new Settings("Pouet", "Pouet", "192.168.1.2", 2222);
+            Settings settings = new Settings("Pouet", "Pouet", "192.168.0.192", 2222);
             receiver.SetSettings(settings);
             receiver.DataReceivedEvent += Receiver_DataReceivedEvent;
 			receiver.DataReceivedEvent += Project.OnParentReceiveChange;

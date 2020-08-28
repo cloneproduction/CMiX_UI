@@ -66,17 +66,14 @@ namespace CMiX.Nodes
                                 Pass[i] = false;
                         }
 
-                        if (Pass[i])
-                        {
-                            Period[i] = AnimParameter[i].Update.Invoke(Periods[AnimParameter[i].BeatModifier.be]);
-                        }
+                        if (BeatTicks[AnimParameter[i].BeatModifier.BeatIndex])
+                            AnimParameter[i].BeatTick();
 
-                            
+                        if (Pass[i])
+                            Period[i] = AnimParameter[i].Update.Invoke(Periods[AnimParameter[i].BeatModifier.BeatIndex]);
                     }
                     else
-                    {
                         AnimParameter.SliceCount = 0;
-                    }
                 }
             }
         }
