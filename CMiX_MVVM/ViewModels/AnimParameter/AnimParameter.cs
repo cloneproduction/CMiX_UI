@@ -65,7 +65,6 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _selectedModeType, value);
                 SetAnimMode();
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 
@@ -82,10 +81,12 @@ namespace CMiX.MVVM.ViewModels
 
         private void SetAnimMode()
         {
-            AnimMode = ModesFactory.CreateMode(SelectedModeType,this, this);
+            AnimMode = ModesFactory.CreateMode(SelectedModeType, this, this);
+            //OnBeatTick = AnimMode.UpdateOnBeatTick;
+            //OnUpdatePeriod = AnimMode.UpdatePeriod;
         }
 
-        public Func<double, double> Update { get; set; }
-
+        public Action<double> OnBeatTick { get; set; }
+        public Func<double, AnimParameter, double> OnUpdatePeriod { get; set;}
     }
 }

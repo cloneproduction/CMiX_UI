@@ -1,20 +1,15 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class AnimMode : Sendable
+    public abstract class AnimMode : Sendable
     {
-        public AnimMode()
-        {
-
-        }
-
-        public AnimMode(Sendable parentSendable) : this()
-        {
-            SubscribeToEvent(parentSendable);
-        }
-
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
             if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
@@ -22,5 +17,9 @@ namespace CMiX.MVVM.ViewModels
             else
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
+
+        public abstract void UpdateOnBeatTick(double period);
+
+        public abstract double UpdatePeriod(double period, AnimParameter animParameter);
     }
 }

@@ -4,7 +4,7 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Stepper : AnimMode
+    public class Stepper : AnimMode, IAnimMode
     {
         public Stepper(AnimParameter animParameter)
         {
@@ -14,14 +14,6 @@ namespace CMiX.MVVM.ViewModels
         public Stepper(AnimParameter animParameter, Sendable parentSendable) : this(animParameter)
         {
             SubscribeToEvent(parentSendable);
-        }
-
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        {
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-                this.SetViewModel(e.Model as SteadyModel);
-            else
-                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
         public double currentStep;
@@ -39,7 +31,7 @@ namespace CMiX.MVVM.ViewModels
 
         public AnimParameter AnimParameter { get; set; }
 
-        public void UpdateOnBeatTick(double period)
+        public override void UpdateOnBeatTick(double period)
         {
             currentStep = nextStep;
             nextStep++;
@@ -47,7 +39,7 @@ namespace CMiX.MVVM.ViewModels
                 nextStep = 0;
         }
 
-        public double UpdatePeriod(double period, AnimParameter animParameter)
+        public override double UpdatePeriod(double period, AnimParameter animParameter)
         {
             return nextStep; // Utils.Map(nextStep, 0, StepCount, Range.Minimum, Range.Maximum);
         }

@@ -24,12 +24,12 @@ namespace CMiX.MVVM.ViewModels
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
-        public void UpdateOnBeatTick(double period)
+        public override void UpdateOnBeatTick(double period)
         {
             
         }
 
-        public double UpdatePeriod(double period, AnimParameter animParameter)
+        public override double UpdatePeriod(double period, AnimParameter animParameter)
         {
             return period;
         }

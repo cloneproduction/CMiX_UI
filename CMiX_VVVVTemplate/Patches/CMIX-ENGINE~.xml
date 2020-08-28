@@ -1331,33 +1331,33 @@
    <NODE systemname="Translate (Transform)" nodename="Translate (Transform)" componentmode="Hidden" id="279">
    <BOUNDS type="Node" left="13970" top="12880" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="X" visible="1" slicecount="1" values="INF">
+   <PIN pinname="X" visible="1" slicecount="1" values="5193">
    </PIN>
    <PIN pinname="Transform Out" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="279" srcpinname="Transform Out" dstnodeid="244" dstpinname="Transform">
    </LINK>
-   <NODE systemname="GetAnimParameter (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetAnimParameter (CMiX_VVVV)" componentmode="Hidden" id="280">
+   <NODE systemname="GetAnimParameter (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetAnimParameter (CMiX_VVVV)" componentmode="Hidden" id="284">
    <BOUNDS type="Node" left="11670" top="10680" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="11670" top="10680" width="3000" height="3000">
    </BOUNDS>
    </NODE>
-   <LINK srcnodeid="280" srcpinname="AnimMode" dstnodeid="168" dstpinname="Input String">
+   <LINK srcnodeid="284" srcpinname="AnimMode" dstnodeid="168" dstpinname="Input String">
    </LINK>
-   <LINK srcnodeid="221" srcpinname="Output" dstnodeid="280" dstpinname="Periods">
+   <LINK srcnodeid="221" srcpinname="Output" dstnodeid="284" dstpinname="Periods">
    </LINK>
-   <LINK srcnodeid="216" srcpinname="Uniform" dstnodeid="280" dstpinname="AnimParameter">
+   <LINK srcnodeid="216" srcpinname="Uniform" dstnodeid="284" dstpinname="AnimParameter">
    </LINK>
-   <LINK srcnodeid="221" srcpinname="Change" dstnodeid="280" dstpinname="BeatTicks">
+   <LINK srcnodeid="221" srcpinname="Change" dstnodeid="284" dstpinname="BeatTicks">
    </LINK>
-   <LINK srcnodeid="280" srcpinname="Period" dstnodeid="246" dstpinname="XYZ">
+   <LINK srcnodeid="284" srcpinname="Period" dstnodeid="246" dstpinname="XYZ">
    </LINK>
-   <LINK srcnodeid="280" srcpinname="Period" dstnodeid="273" dstpinname="Y Input Value">
+   <LINK srcnodeid="284" srcpinname="Period" dstnodeid="273" dstpinname="Y Input Value">
    </LINK>
-   <LINK srcnodeid="280" srcpinname="Pass" dstnodeid="274" dstpinname="Y Input Value">
+   <LINK srcnodeid="284" srcpinname="Pass" dstnodeid="274" dstpinname="Y Input Value">
    </LINK>
-   <LINK srcnodeid="280" srcpinname="Period" dstnodeid="279" dstpinname="X">
+   <LINK srcnodeid="284" srcpinname="Period" dstnodeid="279" dstpinname="X">
    </LINK>
    </PATCH>

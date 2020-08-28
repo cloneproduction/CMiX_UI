@@ -67,10 +67,10 @@ namespace CMiX.Nodes
                         }
 
                         if (BeatTicks[AnimParameter[i].BeatModifier.BeatIndex])
-                            AnimParameter[i].BeatTick();
+                            ///AnimParameter[i].OnUpdatePeriod(
 
                         if (Pass[i])
-                            Period[i] = AnimParameter[i].Update.Invoke(Periods[AnimParameter[i].BeatModifier.BeatIndex]);
+                            Period[i] = AnimParameter[i].OnUpdatePeriod.Invoke(Periods[AnimParameter[i].BeatModifier.BeatIndex], AnimParameter[i]);
                     }
                     else
                         AnimParameter.SliceCount = 0;

@@ -15,20 +15,12 @@ namespace CMiX.MVVM.ViewModels
             SubscribeToEvent(parentSendable);
         }
 
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        {
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-                this.SetViewModel(e.Model as NoneModel);
-            else
-                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
-        }
-
-        public void UpdateOnBeatTick(double period)
+        public override void UpdateOnBeatTick(double period)
         {
             //throw new System.NotImplementedException();
         }
 
-        public double UpdatePeriod(double period, AnimParameter animParameter)
+        public override double UpdatePeriod(double period, AnimParameter animParameter)
         {
             return period;
         }

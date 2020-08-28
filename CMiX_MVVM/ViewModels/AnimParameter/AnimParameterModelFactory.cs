@@ -22,7 +22,7 @@ namespace CMiX.MVVM.ViewModels
             instance.SelectedModeType = model.SelectedModeType;
             instance.Name = model.Name;
             instance.IsEnabled = model.IsEnabled;
-            //instance.AnimMode.SetViewModel(model.AnimModeModel);
+            instance.AnimMode.SetViewModel(model.AnimModeModel);
             instance.Easing.SetViewModel(model.EasingModel);
             instance.Range.SetViewModel(model.RangeModel);
             instance.BeatModifier.SetViewModel(model.BeatModifierModel);

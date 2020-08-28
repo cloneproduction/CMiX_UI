@@ -21,19 +21,19 @@ namespace CMiX.MVVM.ViewModels
             else return null;
         }
 
-        public static void SetViewModel(this AnimMode instance, IAnimModeModel componentModel)
+        public static void SetViewModel(this AnimMode instance, IAnimModeModel model)
         {
             if (instance is Steady)
-                ((Steady)instance).SetViewModel(componentModel);
+                ((Steady)instance).SetViewModel(model);
 
             else if (instance is LFO)
-                ((LFO)instance).SetViewModel(componentModel);
+                ((LFO)instance).SetViewModel(model);
 
             else if (instance is Randomized)
-                ((Randomized)instance).SetViewModel(componentModel);
+                ((Randomized)instance).SetViewModel(model);
 
             else if (instance is Stepper)
-                ((Stepper)instance).SetViewModel(componentModel);
+                ((Stepper)instance).SetViewModel(model);
         }
 
 

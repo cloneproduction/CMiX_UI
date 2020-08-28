@@ -15,21 +15,17 @@ namespace CMiX.MVVM.ViewModels
             DataTemplate dataTemplate = null;
             var animParameter = item as AnimParameter;
 
-            if (animParameter != null)
+            if (item != null)
             {
-                if (animParameter.SelectedModeType == ModeType.LFO)
-                {
-                    System.Console.WriteLine("DATATEMPLATE IS LFO");
+                if (item is LFO)
                     dataTemplate = LFOTemplate;
-                }
-                    
-                else if (animParameter.SelectedModeType == ModeType.Stepper)
+                else if (item is Stepper)
                     dataTemplate = StepperTemplate;
-                else if (animParameter.SelectedModeType == ModeType.Steady)
+                else if (item is Steady)
                     dataTemplate = SteadyTemplate;
-                else if (animParameter.SelectedModeType == ModeType.Random)
+                else if (item is Randomized)
                     dataTemplate = RandomizedTemplate;
-                else if (animParameter.SelectedModeType == ModeType.None)
+                else if (item is None)
                     dataTemplate = NoneTemplate;
             }
 

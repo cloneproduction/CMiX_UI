@@ -1,6 +1,7 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.Services;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -16,22 +17,14 @@ namespace CMiX.MVVM.ViewModels
             SubscribeToEvent(parentSendable);
         }
 
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        {
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-                this.SetViewModel(e.Model as LFOModel);
-            else
-                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
-        }
-
         public AnimParameter AnimParameter { get; set; }
 
-        public void UpdateOnBeatTick(double period)
+        public override void UpdateOnBeatTick(double period)
         {
 
         }
 
-        public double UpdatePeriod(double period, AnimParameter animParameter)
+        public override double UpdatePeriod(double period, AnimParameter animParameter)
         {
             return Utils.Map(Easings.Interpolate((float)period, animParameter.Easing.SelectedEasing), 0.0, 1.0, animParameter.Range.Minimum, animParameter.Range.Maximum);
         }
