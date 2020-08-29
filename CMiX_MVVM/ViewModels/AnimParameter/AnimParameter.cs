@@ -40,6 +40,7 @@ namespace CMiX.MVVM.ViewModels
         public Easing Easing { get; set; }
         public Range Range { get; set; }
         public double DefaultValue { get; set; }
+
         private string _name;
         public string Name
         {
