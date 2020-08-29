@@ -3,7 +3,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class None : AnimMode, IAnimMode
+    public class None : AnimMode
     {
         public None()
         {
@@ -31,6 +31,5 @@ namespace CMiX.MVVM.ViewModels
             get => _IsEnabled;
             set => SetAndNotify(ref _IsEnabled, value);
         }
-        public AnimParameter AnimParameter { get; set; }
     }
 }

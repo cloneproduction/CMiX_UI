@@ -23,7 +23,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Expander Style="{StaticResource InnerExpander}">
+    <Expander Style="{StaticResource InnerExpander}" IsExpanded="{Binding IsExpanded}">
         <Expander.Header>
             <TextBlock Text="{Binding Name, StringFormat='{}{0} Modifier'}"/>
         </Expander.Header>
@@ -31,18 +31,8 @@
             <StackPanel Margin="0, 0, 0, 8">
                 <Views:AnimParameter x:Name="Uniform" DataContext="{Binding Uniform}"/>
                 <Border>
-                    <!--<Border.Style>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="Visibility" Value="Visible"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Uniform.Mode.Mode}"  Value="{x:Static ViewModels:AnimModeEnum.None}">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Border.Style>-->
                     <StackPanel>
-                        <Expander Style="{StaticResource InnerExpanderLevel1}">
+                        <Expander Style="{StaticResource InnerExpanderLevel1}" IsExpanded="{Binding IsExpandedX}">
                             <Expander.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <ToggleButton 
@@ -62,7 +52,7 @@
                                 IsEnabled="{Binding ElementName=XEnabled, Path=IsChecked}"
                                 DataContext="{Binding X}"/>
                         </Expander>
-                        <Expander Style="{StaticResource InnerExpanderLevel1}">
+                        <Expander Style="{StaticResource InnerExpanderLevel1}" IsExpanded="{Binding IsExpandedY}">
                             <Expander.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <ToggleButton 
@@ -82,7 +72,7 @@
                                 IsEnabled="{Binding ElementName=YEnabled, Path=IsChecked}"
                                 DataContext="{Binding Y}"/>
                         </Expander>
-                        <Expander Style="{StaticResource InnerExpanderLevel1}">
+                        <Expander Style="{StaticResource InnerExpanderLevel1}" IsExpanded="{Binding IsExpandedZ}">
                             <Expander.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <ToggleButton 

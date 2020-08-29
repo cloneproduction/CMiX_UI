@@ -60,16 +60,18 @@ namespace CMiX.Nodes
 
                         if (BeatTicks[i])
                         {
+                            //AnimParameter[i].OnBeatTick.Invoke(Periods[AnimParameter[i].BeatModifier.BeatIndex]);
+
                             if (Random.NextDouble() * 100 <= AnimParameter[i].BeatModifier.ChanceToHit.Amount)
                                 Pass[i] = true;
                             else
                                 Pass[i] = false;
                         }
 
-                        //if (BeatTicks[AnimParameter[i].BeatModifier.BeatIndex])
-                            ///AnimParameter[i].OnUpdatePeriod(
+                        if (BeatTicks[AnimParameter[i].BeatModifier.BeatIndex])
+                            AnimParameter[i].OnBeatTick.Invoke(Periods[AnimParameter[i].BeatModifier.BeatIndex]);
 
-                        //if (Pass[i])
+                        if (Pass[i])
                             Period[i] = AnimParameter[i].OnUpdatePeriod.Invoke(Periods[AnimParameter[i].BeatModifier.BeatIndex]);
                     }
                     else

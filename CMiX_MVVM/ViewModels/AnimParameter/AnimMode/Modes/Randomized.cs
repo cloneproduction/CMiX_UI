@@ -1,16 +1,15 @@
-﻿using CMiX.MVVM.Models;
-using CMiX.MVVM.Resources;
-using CMiX.MVVM.Services;
+﻿using CMiX.MVVM.Resources;
 using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Randomized : AnimMode, IAnimMode
+    public class Randomized : AnimMode
     {
         public Randomized(AnimParameter animParameter)
         {
             AnimParameter = animParameter;
             Random = new Random();
+            newRandom = Random.NextDouble();
         }
 
         public Randomized(AnimParameter animParameter, Sendable parentSendable) : this(animParameter)

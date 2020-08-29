@@ -45,8 +45,9 @@ namespace CMiX.MVVM.ViewModels
             return model;
         }
 
-        private static void SetViewModel(this Steady instance, SteadyModel model)
+        private static void SetViewModel(this Steady instance, IAnimModeModel animModeModel)
         {
+            var model = animModeModel as SteadyModel;
             instance.SteadyType = model.SteadyType;
         }
 
@@ -59,8 +60,9 @@ namespace CMiX.MVVM.ViewModels
             return model;
         }
 
-        private static void SetViewModel(this LFO instance, LFOModel model)
+        private static void SetViewModel(this LFO instance, IAnimModeModel animModeModel)
         {
+            var model = animModeModel as LFOModel;
             instance.Invert = model.Invert;
         }
 
@@ -72,7 +74,7 @@ namespace CMiX.MVVM.ViewModels
             return model;
         }
 
-        private static void SetViewModel(this Randomized instance, RandomizedModel model)
+        private static void SetViewModel(this Randomized instance, IAnimModeModel model)
         {
 
         }
@@ -86,8 +88,9 @@ namespace CMiX.MVVM.ViewModels
             return model;
         }
 
-        private static void SetViewModel(this Stepper instance, StepperModel model)
+        private static void SetViewModel(this Stepper instance, IAnimModeModel animModeModel)
         {
+            var model = animModeModel as StepperModel;
             instance.StepCount = model.StepCount;
         }
     }

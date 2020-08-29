@@ -25,22 +25,22 @@ namespace CMiX.MVVM.ViewModels
             else return null;
         }
 
-        public static void SetViewModel(this Component instance, IComponentModel componentModel)
+        public static void SetViewModel(this Component instance, IComponentModel model)
         {
             if (instance is Project)
-                ((Project)instance).SetViewModel(componentModel);
+                ((Project)instance).SetViewModel(model);
 
             else if (instance is Composition)
-                ((Composition)instance).SetViewModel(componentModel);
+                ((Composition)instance).SetViewModel(model);
 
             else if (instance is Layer)
-                ((Layer)instance).SetViewModel(componentModel);
+                ((Layer)instance).SetViewModel(model);
 
             else if (instance is Scene)
-                ((Scene)instance).SetViewModel(componentModel);
+                ((Scene)instance).SetViewModel(model);
 
             else if (instance is Entity)
-                ((Entity)instance).SetViewModel(componentModel);
+                ((Entity)instance).SetViewModel(model);
         }
 
 

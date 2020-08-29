@@ -3,7 +3,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Steady : AnimMode, IAnimMode
+    public class Steady : AnimMode
     {
         public Steady(AnimParameter animParameter, double defaultValue)
         {

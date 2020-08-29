@@ -74,12 +74,7 @@ namespace CMiX.MVVM.ViewModels
         public AnimMode AnimMode
         {
             get => _animMode;
-            set
-            {   
-                SetAndNotify(ref _animMode, value);
-                Console.WriteLine(AnimMode.GetType());
-                Console.WriteLine(SelectedModeType);
-            }
+            set => SetAndNotify(ref _animMode, value);
         }
 
         private void SetAnimMode()

@@ -17,6 +17,7 @@ namespace CMiX.MVVM.ViewModels
 
             if (item != null)
             {
+                System.Console.WriteLine(item.GetType());
                 if (item is LFO)
                     dataTemplate = LFOTemplate;
                 else if (item is Stepper)

@@ -2,7 +2,7 @@
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class LFO : AnimMode, IAnimMode
+    public class LFO : AnimMode
     {
         public LFO(AnimParameter animParameter)
         {
