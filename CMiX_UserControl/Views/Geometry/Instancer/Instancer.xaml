@@ -62,7 +62,7 @@
                 IsChecked="{Binding NoAspectRatio}"/>
             <Views:Transform DataContext="{Binding Transform}"/>
             <Views:XYZModifier DataContext="{Binding TranslateModifier}"/>
-            <Views:XYZModifier DataContext="{Binding ScaleModifier}"/>
+            <Views:ScaleModifier DataContext="{Binding ScaleModifier}"/>
             <Views:XYZModifier DataContext="{Binding RotationModifier}"/>
         </StackPanel>
     </Expander>

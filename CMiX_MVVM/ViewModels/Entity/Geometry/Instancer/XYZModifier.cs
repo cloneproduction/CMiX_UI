@@ -9,7 +9,6 @@ namespace CMiX.MVVM.ViewModels
         public XYZModifier(string name, MasterBeat beat) 
         {
             Name = name;
-            Uniform = new AnimParameter(nameof(Uniform), 0.0, beat, true, this);
             X = new AnimParameter(nameof(X), 0.0, beat, false, this);
             Y = new AnimParameter(nameof(Y), 0.0, beat, false, this);
             Z = new AnimParameter(nameof(Z), 0.0, beat, false, this);
@@ -63,7 +62,6 @@ namespace CMiX.MVVM.ViewModels
         }
 
         public string Name { get; set; }
-        public AnimParameter Uniform { get; set; }
         public AnimParameter X { get; set; }
         public AnimParameter Y { get; set; }
         public AnimParameter Z { get; set; }

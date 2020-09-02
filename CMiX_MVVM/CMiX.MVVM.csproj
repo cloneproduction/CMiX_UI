@@ -161,6 +161,7 @@
     <Compile Include="ViewModels\AnimParameter\AnimParameterModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Instancer\IModifier.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Instancer\InstancerModelFactory.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Instancer\ScaleModifier.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Instancer\XYZModifier.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Instancer\XYZModifierModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\ITransform.cs" />

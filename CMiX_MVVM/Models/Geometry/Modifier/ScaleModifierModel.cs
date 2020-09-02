@@ -3,19 +3,13 @@
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class ScaleModifierModel
+    public class ScaleModifierModel : XYZModifierModel
     {
         public ScaleModifierModel()
         {
-            Scale = new AnimParameterModel();
-            ScaleX = new AnimParameterModel();
-            ScaleY = new AnimParameterModel();
-            ScaleZ = new AnimParameterModel();
+            Uniform = new AnimParameterModel();
         }
 
-        public AnimParameterModel Scale { get; set; }
-        public AnimParameterModel ScaleX { get; set; }
-        public AnimParameterModel ScaleY { get; set; }
-        public AnimParameterModel ScaleZ { get; set; }
+        public AnimParameterModel Uniform { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="CMiX.Studio.Views.XYZModifier"
+﻿<UserControl x:Class="CMiX.Studio.Views.ScaleModifier"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
@@ -29,9 +29,10 @@
         </Expander.Header>
         <Border>
             <StackPanel Margin="0, 0, 0, 8">
+                <Views:AnimParameter x:Name="Uniform" DataContext="{Binding Uniform}"/>
                 <Border>
                     <StackPanel>
-                        <Expander Style="{StaticResource InnerExpanderLevel1}" IsExpanded="{Binding IsExpandedX}">
+                        <!--<Expander Style="{StaticResource InnerExpanderLevel1}" IsExpanded="{Binding IsExpandedX}">
                             <Expander.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <ToggleButton 
@@ -45,13 +46,22 @@
                                         Text="{Binding Name, StringFormat='{}{0} X'}"
                                         Foreground="{StaticResource TextBase}" />
                                 </StackPanel>
-                            </Expander.Header>
-                            <Views:AnimParameter 
-                                x:Name="X"
-                                IsEnabled="{Binding ElementName=XEnabled, Path=IsChecked}"
-                                DataContext="{Binding X}"/>
-                        </Expander>
-                        <Expander Style="{StaticResource InnerExpanderLevel1}" IsExpanded="{Binding IsExpandedY}">
+                            </Expander.Header>-->
+                            <StackPanel>
+                                <TextBlock  
+                                    Padding="4"
+                                    VerticalAlignment="Center" 
+                                    Text="{Binding Name, StringFormat='{}{0} X'}"
+                                    Foreground="{StaticResource TextBase}" />
+                                <Views:AnimParameter 
+                                    x:Name="X"
+                                    DataContext="{Binding X}"/>
+                                <!--IsEnabled="{Binding ElementName=XEnabled, Path=IsChecked}"-->
+                                
+                            </StackPanel>
+
+                        <!--</Expander>-->
+                        <!--<Expander Style="{StaticResource InnerExpanderLevel1}" IsExpanded="{Binding IsExpandedY}">
                             <Expander.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <ToggleButton 
@@ -60,18 +70,23 @@
                                         Margin="4, 0" 
                                         Width="15" 
                                         Height="15"/>
-                                    <TextBlock  
-                                        VerticalAlignment="Center" 
-                                        Text="{Binding Name, StringFormat='{}{0} Y'}"
-                                        Foreground="{StaticResource TextBase}" />
+
                                 </StackPanel>
-                            </Expander.Header>
-                            <Views:AnimParameter 
-                                x:Name="Y"
-                                IsEnabled="{Binding ElementName=YEnabled, Path=IsChecked}"
-                                DataContext="{Binding Y}"/>
-                        </Expander>
-                        <Expander Style="{StaticResource InnerExpanderLevel1}" IsExpanded="{Binding IsExpandedZ}">
+                            </Expander.Header>-->
+                            <StackPanel>
+                                <TextBlock  
+                                    Padding="4"
+                                    VerticalAlignment="Center" 
+                                    Text="{Binding Name, StringFormat='{}{0} Y'}"
+                                    Foreground="{StaticResource TextBase}" />
+                                <Views:AnimParameter 
+                                    x:Name="Y"
+                                    IsEnabled="{Binding ElementName=YEnabled, Path=IsChecked}"
+                                    DataContext="{Binding Y}"/>
+                            </StackPanel>
+
+                        <!--</Expander>-->
+                        <!--<Expander Style="{StaticResource InnerExpanderLevel1}" IsExpanded="{Binding IsExpandedZ}">
                             <Expander.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <ToggleButton 
@@ -80,17 +95,21 @@
                                         Margin="4, 0" 
                                         Width="15" 
                                         Height="15"/>
-                                    <TextBlock  
-                                        VerticalAlignment="Center" 
-                                        Text="{Binding Name, StringFormat='{}{0} Z'}"
-                                        Foreground="{StaticResource TextBase}" />
+
                                 </StackPanel>
-                            </Expander.Header>
-                            <Views:AnimParameter 
-                                x:Name="Z"
-                                IsEnabled="{Binding ElementName=ZEnabled, Path=IsChecked}"
-                                DataContext="{Binding Z}"/>
-                        </Expander>
+                            </Expander.Header>-->
+                            <StackPanel>
+                                <TextBlock  
+                                    VerticalAlignment="Center" 
+                                    Text="{Binding Name, StringFormat='{}{0} Z'}"
+                                    Foreground="{StaticResource TextBase}" />
+                                <Views:AnimParameter 
+                                    x:Name="Z"
+                                    IsEnabled="{Binding ElementName=ZEnabled, Path=IsChecked}"
+                                    DataContext="{Binding Z}"/>
+                            </StackPanel>
+
+                        <!--</Expander>-->
                     </StackPanel>
                 </Border>
             </StackPanel>
