@@ -19,7 +19,7 @@
     
     <Border IsEnabled="{Binding IsEnabled}">
         <StackPanel>
-            <Grid Height="21" Margin="0,2">
+            <Grid Height="21" Margin="0,8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />

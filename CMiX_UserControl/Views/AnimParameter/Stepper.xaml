@@ -10,22 +10,21 @@
              d:DesignWidth="316.667"
              mc:Ignorable="d">
 
-    <StackPanel>
-        <Grid Margin="0, 2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <TextBlock 
+
+    <Grid Margin="0, 2">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock 
                 Text="Steps" 
                 Padding="4" 
                 Foreground="{DynamicResource TextBase}" 
                 HorizontalAlignment="Right"/>
-            <Controls:Counter
+        <Controls:Counter
                 Value="{Binding StepCount}"
                 Grid.Column="1"
                 Style="{StaticResource CMiXCounterStyle}"
                 Height="21"/>
-        </Grid>
-    </StackPanel>
+    </Grid>
 </UserControl>

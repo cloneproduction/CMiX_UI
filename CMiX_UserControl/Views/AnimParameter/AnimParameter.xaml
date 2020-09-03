@@ -10,6 +10,7 @@
              mc:Ignorable="d">
 
     <UserControl.Resources>
+        
         <ObjectDataProvider x:Key="ModifierType" MethodName="GetValues" ObjectType="{x:Type ViewModels:ModeType}">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="ViewModels:ModeType"/>
@@ -43,63 +44,66 @@
             StepperTemplate="{StaticResource StepperTemplate}" 
             RandomizedTemplate="{StaticResource RandomizedTemplate}"
             LFOTemplate="{StaticResource LFOTemplate}"/>
+        
     </UserControl.Resources>
-    
-    <Border Padding="4, 8" IsEnabled="{Binding IsEnabled}">
-        <StackPanel>
-            <Grid Height="20" Margin="0, 4">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <TextBlock 
-                    VerticalAlignment="Center" 
-                    HorizontalAlignment="Right" 
-                    Text="Modifier" 
-                    Padding="4, 0" 
-                    Foreground="{StaticResource TextBase}"/>
-                <ComboBox
-                    Grid.Column="1"
-                    ItemsSource="{Binding Source={StaticResource ModifierType}}"
-                    SelectedItem="{Binding SelectedModeType}"/>
-            </Grid>
-            <Border>
-                <Border.Style>
-                    <Style TargetType="Border">
-                        <Setter Property="Visibility" Value="Visible"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding SelectedModeType}"  Value="{x:Static ViewModels:ModeType.None}">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Border.Style>
-                <StackPanel>
-                    <Views:Range Margin="0, 2" DataContext="{Binding Range}"/>
-                    <Border>
-                        <Border.Style>
-                            <Style TargetType="Border">
-                                <Setter Property="Visibility" Value="Visible"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding SelectedModeType}"  Value="{x:Static ViewModels:ModeType.Steady}">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
-                        <StackPanel>
-                            <Views:BeatModifier Grid.Column="1" Margin="0, 2" DataContext="{Binding BeatModifier}"/>
-                            <Views:Easing DataContext="{Binding Easing}" Margin="0, 2"/>
-                        </StackPanel>
-                    </Border>
-                </StackPanel>
-            </Border>
-            <ContentPresenter 
-                Margin="0, 2"
-                DataContext="{Binding AnimMode}"
-                Content="{Binding AnimMode}"
-                ContentTemplateSelector="{StaticResource TemplateSelector}">
-            </ContentPresenter>
-        </StackPanel>
-    </Border>
+
+    <StackPanel Margin="0, 0">
+        
+        <Grid Height="20" Margin="0, 4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock 
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Right" 
+                Text="{Binding Name}" 
+                Padding="4, 0" 
+                Foreground="{StaticResource TextBase}"/>
+            <ComboBox
+                Grid.Column="1"
+                ItemsSource="{Binding Source={StaticResource ModifierType}}"
+                SelectedItem="{Binding SelectedModeType}"/>
+        </Grid>
+
+        <Border Margin="0, 8">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedModeType}"  Value="{x:Static ViewModels:ModeType.None}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <StackPanel>
+                <Views:Range Margin="0" DataContext="{Binding Range}"/>
+                <Border>
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedModeType}"  Value="{x:Static ViewModels:ModeType.Steady}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <StackPanel>
+                        <Views:BeatModifier Grid.Column="1" Margin="0, 8, 0, 0" DataContext="{Binding BeatModifier}"/>
+                        <Views:Easing DataContext="{Binding Easing}" Margin="0, 8"/>
+                    </StackPanel>
+                </Border>
+                <ContentPresenter 
+                    Margin="0, 0"
+                    DataContext="{Binding AnimMode}"
+                    Content="{Binding AnimMode}"
+                    ContentTemplateSelector="{StaticResource TemplateSelector}">
+                </ContentPresenter>
+            </StackPanel>
+        </Border>
+
+
+    </StackPanel>
 </UserControl>
