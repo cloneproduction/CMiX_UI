@@ -9,11 +9,6 @@
              mc:Ignorable="d">
 
 
-    <Controls:CMiXToggleButton
-            DockPanel.Dock="Right"
-            Caption="Invert"
-            Style="{StaticResource CMiXToggleButtonStyle}"
-            Height="20"
-            HorizontalAlignment="Right"/>
+
 
 </UserControl>
