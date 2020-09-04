@@ -1,10 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Nodes.Modifiers
@@ -14,9 +9,6 @@ namespace VVVV.Nodes.Modifiers
     {
         [Input("Instancer")]
         public IDiffSpread<IModifier> FModifierIn;
-
-        [Output("Uniform")]
-        public ISpread<AnimParameter> Uniform;
 
         [Output("X")]
         public ISpread<AnimParameter> X;
@@ -29,7 +21,6 @@ namespace VVVV.Nodes.Modifiers
 
         public void Evaluate(int SpreadMax)
         {
-            Uniform.SliceCount = FModifierIn.SliceCount;
             X.SliceCount = FModifierIn.SliceCount;
             Y.SliceCount = FModifierIn.SliceCount;
             Z.SliceCount = FModifierIn.SliceCount;
@@ -40,14 +31,12 @@ namespace VVVV.Nodes.Modifiers
                 {
                     if (FModifierIn[i] != null)
                     {
-                        Uniform[i] = FModifierIn[i].Uniform;
                         X[i] = FModifierIn[i].X;
                         Y[i] = FModifierIn[i].Y;
                         Z[i] = FModifierIn[i].Z;
                     }
                     else
                     {
-                        Uniform.SliceCount = 0;
                         X.SliceCount = 0;
                         Y.SliceCount = 0;
                         Z.SliceCount = 0;

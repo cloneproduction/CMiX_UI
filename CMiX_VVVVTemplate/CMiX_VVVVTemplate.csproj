@@ -134,12 +134,16 @@
     <Compile Include="GetScene.cs" />
     <Compile Include="GetTexture.cs" />
     <Compile Include="GetTransform.cs" />
+    <Compile Include="Modifiers\GetScaleModifier.cs" />
     <Compile Include="Modifiers\GetModifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AnimParameter\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
 </Project>

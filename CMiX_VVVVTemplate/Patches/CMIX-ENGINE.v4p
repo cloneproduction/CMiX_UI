@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="9990" scrolly="6060">
+   <PATCH nodename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="8775" scrolly="5340">
    <BOUNDS type="Window" left="18015" top="3645" width="20580" height="11460">
    </BOUNDS>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="2" systemname="IOBox (Value Advanced)">
@@ -1139,9 +1139,9 @@
    </PIN>
    <PIN pinname="Period" visible="1">
    </PIN>
+   <PIN pinname="AnimParameter" visible="1">
+   </PIN>
    </NODE>
-   <LINK srcnodeid="216" srcpinname="Uniform" dstnodeid="284" dstpinname="AnimParameter">
-   </LINK>
    <NODE systemname="UniformScale (Transform)" nodename="UniformScale (Transform)" componentmode="Hidden" id="288">
    <BOUNDS type="Node" left="10725" top="11745" width="100" height="100">
    </BOUNDS>
@@ -1581,5 +1581,19 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="284" srcpinname="Period" dstnodeid="324" dstpinname="Y Input Value">
+   </LINK>
+   <NODE systemname="GetScaleModifier (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetScaleModifier (CMiX_VVVV)" componentmode="Hidden" id="325">
+   <BOUNDS type="Node" left="10740" top="9135" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="10740" top="9135" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="Instancer" visible="1">
+   </PIN>
+   <PIN pinname="Uniform" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="185" srcpinname="ScaleModifier" dstnodeid="325" dstpinname="Instancer">
+   </LINK>
+   <LINK srcnodeid="325" srcpinname="Uniform" dstnodeid="284" dstpinname="AnimParameter">
    </LINK>
    </PATCH>

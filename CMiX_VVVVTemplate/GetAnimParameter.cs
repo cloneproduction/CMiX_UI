@@ -22,9 +22,6 @@ namespace CMiX.Nodes
         [Input("BeatTicks")]
         public IDiffSpread<bool> BeatTicks;
 
-        //[Output("AnimMode")]
-        //public ISpread<string> AnimMode;
-
         [Output("Period")]
         public ISpread<double> Period;
 
@@ -45,8 +42,6 @@ namespace CMiX.Nodes
 
         public void Evaluate(int SpreadMax)
         {
-            //AnimMode.SliceCount = AnimParameter.SliceCount;
-
             Period.SliceCount = AnimParameter.SliceCount;
             Pass.SliceCount = AnimParameter.SliceCount;
 
@@ -60,8 +55,6 @@ namespace CMiX.Nodes
 
                         if (BeatTicks[i])
                         {
-                            //AnimParameter[i].OnBeatTick.Invoke(Periods[AnimParameter[i].BeatModifier.BeatIndex]);
-
                             if (Random.NextDouble() * 100 <= AnimParameter[i].BeatModifier.ChanceToHit.Amount)
                                 Pass[i] = true;
                             else
