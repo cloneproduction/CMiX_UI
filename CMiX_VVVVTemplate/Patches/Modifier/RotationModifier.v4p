@@ -1,0 +1,147 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.2.dtd" >
+   <PATCH nodename="C:\Users\BabyClone\Documents\GitHub\CMiX\CMiX_VVVVTemplate\Patches\Modifier\RotationModifier.v4p" systemname="RotationModifier" filename="C:\Users\BabyClone\Documents\GitHub\CMiX\CMiX_VVVVTemplate\Patches\Modifier\RotationModifier.v4p">
+   <NODE systemname="GetModifier (CMiX_VVVV)" filename="..\..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetModifier (CMiX_VVVV)" componentmode="Hidden" id="0">
+   <BOUNDS type="Node" left="2605" top="1530" width="950" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="2605" top="1530" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="X" visible="1">
+   </PIN>
+   <PIN pinname="Uniform" visible="1">
+   </PIN>
+   <PIN pinname="Instancer" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Y" visible="1">
+   </PIN>
+   <PIN pinname="Z" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="GetAnimParameter (CMiX_VVVV)" filename="..\..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetAnimParameter (CMiX_VVVV)" componentmode="Hidden" id="1">
+   <BOUNDS type="Node" left="1610" top="4555" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="1610" top="4555" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="Period" visible="1">
+   </PIN>
+   <PIN pinname="AnimParameter" visible="1">
+   </PIN>
+   <PIN pinname="Periods" visible="1">
+   </PIN>
+   <PIN pinname="BeatTicks" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="R (Value Advanced)" filename="%VVVV%\addonpack\lib\nodes\plugins\RSNodes.dll" nodename="R (Value Advanced)" componentmode="Hidden" id="2">
+   <BOUNDS type="Node" left="5470" top="1505" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Receive String" slicecount="1" values="BeatTicks">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="R (Value Advanced)" filename="%VVVV%\addonpack\lib\nodes\plugins\RSNodes.dll" nodename="R (Value Advanced)" componentmode="Hidden" id="3">
+   <BOUNDS type="Node" left="3940" top="1500" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Receive String" slicecount="1" values="Periods">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="GetAnimParameter (CMiX_VVVV)" filename="..\..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetAnimParameter (CMiX_VVVV)" componentmode="Hidden" id="4">
+   <BOUNDS type="Node" left="3925" top="4540" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="3925" top="4540" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="Period" visible="1">
+   </PIN>
+   <PIN pinname="AnimParameter" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Periods" visible="1">
+   </PIN>
+   <PIN pinname="BeatTicks" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="GetAnimParameter (CMiX_VVVV)" filename="..\..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetAnimParameter (CMiX_VVVV)" componentmode="Hidden" id="5">
+   <BOUNDS type="Node" left="6235" top="4435" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6235" top="4435" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="Period" visible="1">
+   </PIN>
+   <PIN pinname="AnimParameter" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Periods" visible="1">
+   </PIN>
+   <PIN pinname="BeatTicks" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="0" srcpinname="X" dstnodeid="1" dstpinname="AnimParameter">
+   </LINK>
+   <LINK srcnodeid="3" srcpinname="Output" dstnodeid="1" dstpinname="Periods">
+   </LINK>
+   <LINK srcnodeid="2" srcpinname="Output" dstnodeid="1" dstpinname="BeatTicks">
+   </LINK>
+   <NODE id="9" systemname="IOBox (Node)" componentmode="InABox" nodename="IOBox (Node)">
+   <PIN pinname="Descriptive Name" slicecount="1" values="Instancer">
+   </PIN>
+   <BOUNDS type="Box" left="2605" top="500" width="750" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2605" top="500" width="750" height="240">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="9" srcpinname="Output Node" dstnodeid="0" dstpinname="Instancer">
+   </LINK>
+   <LINK srcnodeid="0" srcpinname="Y" dstnodeid="4" dstpinname="AnimParameter">
+   </LINK>
+   <LINK srcnodeid="3" srcpinname="Output" dstnodeid="4" dstpinname="Periods">
+   </LINK>
+   <LINK srcnodeid="2" srcpinname="Output" dstnodeid="4" dstpinname="BeatTicks">
+   </LINK>
+   <LINK srcnodeid="0" srcpinname="Z" dstnodeid="5" dstpinname="AnimParameter">
+   </LINK>
+   <LINK srcnodeid="3" srcpinname="Output" dstnodeid="5" dstpinname="Periods">
+   </LINK>
+   <LINK srcnodeid="2" srcpinname="Output" dstnodeid="5" dstpinname="BeatTicks">
+   </LINK>
+   <BOUNDS type="Window" left="18040" top="7920" width="8820" height="7540">
+   </BOUNDS>
+   <PACK Name="vvvv-ZeroMQ" Version="0.5.4">
+   </PACK>
+   <PACK Name="addonpack" Version="35.0.0">
+   </PACK>
+   <NODE systemname="Vector (3d Join)" nodename="Vector (3d Join)" componentmode="Hidden" id="10">
+   <BOUNDS type="Node" left="4650" top="5740" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="X" visible="1">
+   </PIN>
+   <PIN pinname="Y" visible="1">
+   </PIN>
+   <PIN pinname="Z" visible="1">
+   </PIN>
+   <PIN pinname="XYZ" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="1" srcpinname="Period" dstnodeid="10" dstpinname="X">
+   </LINK>
+   <LINK srcnodeid="4" srcpinname="Period" dstnodeid="10" dstpinname="Y">
+   </LINK>
+   <LINK srcnodeid="5" srcpinname="Period" dstnodeid="10" dstpinname="Z">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="11">
+   <BOUNDS type="Box" left="4690" top="6320" width="800" height="720">
+   </BOUNDS>
+   <BOUNDS type="Node" left="4690" top="6320" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Vector Size" slicecount="1" values="3">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="3">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="XYZ">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="10" srcpinname="XYZ" dstnodeid="11" dstpinname="Y Input Value">
+   </LINK>
+   </PATCH>

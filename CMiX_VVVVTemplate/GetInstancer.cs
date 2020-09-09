@@ -17,10 +17,13 @@ namespace CMiX.Nodes
         public ISpread<IModifier> TranslateModifier;
 
         [Output("ScaleModifier")]
-        public ISpread<IModifier> ScaleModifier;
+        public ISpread<ScaleModifier> ScaleModifier;
 
         [Output("RotationModifier")]
         public ISpread<IModifier> RotationModifier;
+
+        [Output("Count")]
+        public ISpread<int> Count;
 
         public void Evaluate(int SpreadMax)
         {
@@ -28,6 +31,7 @@ namespace CMiX.Nodes
             TranslateModifier.SliceCount = FGeometryIn.SliceCount;
             ScaleModifier.SliceCount = FGeometryIn.SliceCount;
             RotationModifier.SliceCount = FGeometryIn.SliceCount;
+            Count.SliceCount = FGeometryIn.SliceCount;
 
             if (FGeometryIn.SliceCount > 0)
             {
@@ -37,8 +41,9 @@ namespace CMiX.Nodes
                     {
                         FInstancer[i] = FGeometryIn[i].Instancer;
                         TranslateModifier[i] = FGeometryIn[i].Instancer.TranslateModifier;
-                        ScaleModifier[i] = FGeometryIn[i].Instancer.ScaleModifier;
+                        ScaleModifier[i] = FGeometryIn[i].Instancer.ScaleModifier as ScaleModifier;
                         RotationModifier[i] = FGeometryIn[i].Instancer.RotationModifier;
+                        Count[i] = FGeometryIn[i].Instancer.TranslateModifier.X.Count;
                     }
                     else
                     {
@@ -46,6 +51,7 @@ namespace CMiX.Nodes
                         TranslateModifier.SliceCount = 0;
                         ScaleModifier.SliceCount = 0;
                         RotationModifier.SliceCount = 0;
+                        Count.SliceCount = 0;
                     }
                 }
             }

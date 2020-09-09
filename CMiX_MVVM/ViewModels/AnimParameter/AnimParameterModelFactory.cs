@@ -10,6 +10,7 @@ namespace CMiX.MVVM.ViewModels
             model.IsEnabled = instance.IsEnabled;
             model.Name = instance.Name;
             model.SelectedModeType = instance.SelectedModeType;
+            model.CounterModel = instance.Counter.GetModel();
             model.EasingModel = instance.Easing.GetModel();
             model.RangeModel = instance.Range.GetModel();
             model.BeatModifierModel = instance.BeatModifier.GetModel();
@@ -22,6 +23,7 @@ namespace CMiX.MVVM.ViewModels
             instance.SelectedModeType = model.SelectedModeType;
             instance.Name = model.Name;
             instance.IsEnabled = model.IsEnabled;
+            instance.Counter.SetViewModel(model.CounterModel);
             instance.Easing.SetViewModel(model.EasingModel);
             instance.Range.SetViewModel(model.RangeModel);
             instance.BeatModifier.SetViewModel(model.BeatModifierModel);

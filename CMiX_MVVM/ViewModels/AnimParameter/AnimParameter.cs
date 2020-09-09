@@ -6,19 +6,21 @@ namespace CMiX.MVVM.ViewModels
 {
     public class AnimParameter : Sendable
     {
-        public AnimParameter(string name, double defaultValue, MasterBeat beat, bool isEnabled = true)
+        public AnimParameter(string name, double defaultValue, Counter counter, MasterBeat beat, bool isEnabled = true)
         {
-            DefaultValue = defaultValue;
             Range = new Range(0.0, 1.0, this);
             Easing = new Easing(this);
             BeatModifier = new BeatModifier(beat, this);
-            SelectedModeType = ModeType.None;
             AnimMode = ModesFactory.CreateMode(SelectedModeType, this, defaultValue, this);
+
+            Counter = counter;
+            DefaultValue = defaultValue;
             Name = name;
             IsEnabled = isEnabled;
+            SelectedModeType = ModeType.None;
         }
 
-        public AnimParameter(string name, double defaultValue, MasterBeat beat, bool isEnabled, Sendable parentSendable) : this(name, defaultValue, beat, isEnabled)
+        public AnimParameter(string name, double defaultValue, Counter counter, MasterBeat beat, bool isEnabled, Sendable parentSendable) : this(name, defaultValue, counter, beat, isEnabled)
         {
             SubscribeToEvent(parentSendable);
         }
@@ -40,6 +42,8 @@ namespace CMiX.MVVM.ViewModels
         public Easing Easing { get; set; }
         public Range Range { get; set; }
         public double DefaultValue { get; set; }
+        public Counter Counter { get; set; }
+
 
         private string _name;
         public string Name

@@ -12,10 +12,12 @@ namespace CMiX.MVVM.Models
             EasingModel = new EasingModel();
             RangeModel = new RangeModel();
             AnimModeModel = new AnimModeModel();
+            CounterModel = new CounterModel();
         }
 
         public string Name { get; set; }
         public bool IsEnabled { get; set; }
+        public CounterModel CounterModel { get; set; }
         public ModeType SelectedModeType { get; set; }
         public EasingModel EasingModel { get; set; }
         public RangeModel RangeModel { get; set; }

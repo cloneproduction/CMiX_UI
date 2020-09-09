@@ -5,14 +5,13 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Steady : AnimMode
     {
-        public Steady(AnimParameter animParameter, double defaultValue)
+        public Steady(AnimParameter animParameter)
         {
             SteadyType = SteadyType.Linear;
-            DefaultValue = defaultValue;
             AnimParameter = animParameter;
         }
  
-        public Steady(AnimParameter animParameter, double defaultValue, Sendable parentSendable) : this(animParameter, defaultValue)
+        public Steady(AnimParameter animParameter, Sendable parentSendable) : this(animParameter)
         {
             SubscribeToEvent(parentSendable);
         }
@@ -24,7 +23,7 @@ namespace CMiX.MVVM.ViewModels
 
         public override double UpdatePeriod(double period)
         {
-            return DefaultValue;
+            return AnimParameter.DefaultValue;
         }
 
         private SteadyType _steadyType;

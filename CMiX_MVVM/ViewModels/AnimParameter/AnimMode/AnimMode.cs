@@ -14,9 +14,7 @@ namespace CMiX.MVVM.ViewModels
         }
 
         public AnimParameter AnimParameter { get; set; }
-        public double DefaultValue { get; set; }
         public abstract void UpdateOnBeatTick(double period);
-
         public abstract double UpdatePeriod(double period);
     }
 }

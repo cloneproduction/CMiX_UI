@@ -6,15 +6,15 @@ namespace CMiX.MVVM.ViewModels
 {
     public class XYZModifier : Sendable, IModifier
     {
-        public XYZModifier(string name, MasterBeat beat) 
+        public XYZModifier(string name, MasterBeat beat, Counter counter) 
         {
             Name = name;
-            X = new AnimParameter(nameof(X), 0.0, beat, false, this);
-            Y = new AnimParameter(nameof(Y), 0.0, beat, false, this);
-            Z = new AnimParameter(nameof(Z), 0.0, beat, false, this);
+            X = new AnimParameter(nameof(X), 0.0, counter, beat, false, this);
+            Y = new AnimParameter(nameof(Y), 0.0, counter, beat, false, this);
+            Z = new AnimParameter(nameof(Z), 0.0, counter, beat, false, this);
         }
 
-        public XYZModifier(string name, MasterBeat beat, Sendable parentSendable) : this(name, beat)
+        public XYZModifier(string name, MasterBeat beat, Counter counter, Sendable parentSendable) : this(name, beat, counter)
         {
             SubscribeToEvent(parentSendable);
         }
