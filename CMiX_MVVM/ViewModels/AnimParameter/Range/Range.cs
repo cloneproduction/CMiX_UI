@@ -1,5 +1,6 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -24,6 +25,10 @@ namespace CMiX.MVVM.ViewModels
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
+        public double Distance
+        {
+            get => Math.Abs(Maximum - Minimum);
+        }
 
         private double _minimum;
         public double Minimum

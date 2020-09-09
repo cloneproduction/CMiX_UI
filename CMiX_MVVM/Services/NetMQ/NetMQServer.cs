@@ -49,7 +49,6 @@ namespace CMiX.MVVM.Message
                 {
                     publisher.SendMultipartMessage(msg);
                 }
-                    
             }
 
             private void UpdateString(string stringmessage, string propertyToUpdate)
