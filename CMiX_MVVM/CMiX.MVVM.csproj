@@ -156,6 +156,7 @@
     <Compile Include="ViewModels\ColorPicker\ColorPicker.cs" />
     <Compile Include="ViewModels\ColorPicker\ColorPickerModelFactory.cs" />
     <Compile Include="ViewModels\Combobox\ComboBox.cs" />
+    <Compile Include="ViewModels\Counter\CounterEventArgs.cs" />
     <Compile Include="ViewModels\Counter\CounterModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Geometry\GeometryModelFactory.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimParameterModelFactory.cs" />

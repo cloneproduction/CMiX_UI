@@ -4,24 +4,28 @@ namespace CMiX.MVVM.ViewModels
 {
     public class LFO : AnimMode
     {
-        public LFO(AnimParameter animParameter)
+        public LFO()
         {
-            AnimParameter = animParameter;
+
         }
 
-        public LFO(AnimParameter animParameter, Sendable parentSendable) : this(animParameter)
+        public LFO(Sendable parentSendable) : this()
         {
             SubscribeToEvent(parentSendable);
         }
 
-        public override void UpdateOnBeatTick(double period)
+        public override void UpdateOnBeatTick(AnimParameter animParameter, double period)
         {
 
         }
 
-        public override double UpdatePeriod(double period)
+        public override void UpdateParameters(AnimParameter animParameter, double period)
         {
-            return Utils.Map(Easings.Interpolate((float)period, AnimParameter.Easing.SelectedEasing), 0.0, 1.0, AnimParameter.Range.Minimum, AnimParameter.Range.Maximum);
+            for (int i = 0; i < animParameter.Parameters.Length; i++)
+            {
+                animParameter.Parameters[i] = Utils.Map(Easings.Interpolate((float)period, animParameter.Easing.SelectedEasing), 0.0, 1.0, animParameter.Range.Minimum, animParameter.Range.Maximum); ;
+            }
+            
         }
 
         private bool _invert;

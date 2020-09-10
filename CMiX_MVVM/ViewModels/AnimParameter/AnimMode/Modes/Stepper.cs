@@ -5,14 +5,13 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Stepper : AnimMode
     {
-        public Stepper(AnimParameter animParameter)
+        public Stepper()
         {
-            AnimParameter = animParameter;
             StepCount = 2;
             nextStep = 1.0;
         }
 
-        public Stepper(AnimParameter animParameter, Sendable parentSendable) : this(animParameter)
+        public Stepper(Sendable parentSendable) : this()
         {
             SubscribeToEvent(parentSendable);
         }
@@ -33,19 +32,21 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public override void UpdateOnBeatTick(double period)
+        public override void UpdateOnBeatTick(AnimParameter animParameter, double period)
         {
             if (nextStep >= StepCount)
                 nextStep = 0.0;
 
             currentStep = nextStep;
             nextStep += 1.0;
-
         }
 
-        public override double UpdatePeriod(double period)
+        public override void UpdateParameters(AnimParameter animParameter, double period)
         {
-            return Utils.Map(nextStep, 0, StepCount, AnimParameter.Range.Minimum, AnimParameter.Range.Maximum);
+            for (int i = 0; i < animParameter.Parameters.Length; i++)
+            {
+                animParameter.Parameters[i] = Utils.Map(nextStep, 0, StepCount, animParameter.Range.Minimum, animParameter.Range.Maximum);
+            }
         }
     }
 }

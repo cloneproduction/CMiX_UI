@@ -11,9 +11,10 @@ namespace CMiX.MVVM.ViewModels
             Range = new Range(0.0, 1.0, this);
             Easing = new Easing(this);
             BeatModifier = new BeatModifier(beat, this);
-            AnimMode = ModesFactory.CreateMode(SelectedModeType, this, defaultValue, this);
+            AnimMode = ModesFactory.CreateMode(SelectedModeType, this);
 
             Counter = counter;
+            Counter.CounterChangeEvent += Counter_CounterChangeEvent;
             DefaultValue = defaultValue;
             Name = name;
             IsEnabled = isEnabled;
@@ -43,8 +44,7 @@ namespace CMiX.MVVM.ViewModels
         public Range Range { get; set; }
         public double DefaultValue { get; set; }
         public Counter Counter { get; set; }
-        public double[] Spread { get; set; }
-
+        public double[] Parameters { get; set; }
 
         private string _name;
         public string Name
@@ -83,14 +83,17 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _animMode, value);
         }
 
-        private void SetAnimMode()
+        private void Counter_CounterChangeEvent(object sender, CounterEventArgs e)
         {
-            AnimMode = ModesFactory.CreateMode(SelectedModeType, this, DefaultValue, this);
-            OnBeatTick = AnimMode.UpdateOnBeatTick;
-            OnUpdatePeriod = AnimMode.UpdatePeriod;
+            this.Parameters = new double[e.Value];
         }
 
-        public Action<double> OnBeatTick { get; set; }
-        public Func<double, double> OnUpdatePeriod { get; set;}
+        private void SetAnimMode()
+        {
+            AnimMode = ModesFactory.CreateMode(SelectedModeType, this);
+        }
+
+        public Action<AnimParameter, double> OnBeatTick { get; set; }
+        public Action<AnimParameter, double> OnUpdateParameters { get; set;}
     }
 }

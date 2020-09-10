@@ -5,34 +5,26 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Steady : AnimMode
     {
-        public Steady(AnimParameter animParameter)
+        public Steady()
         {
             SteadyType = SteadyType.Linear;
             LinearType = LinearType.Center;
             Seed = 0;
-            AnimParameter = animParameter;
-            SetSpread();
         }
 
-        public Steady(AnimParameter animParameter, Sendable parentSendable) : this(animParameter)
+        public Steady(Sendable parentSendable) : this()
         {
             SubscribeToEvent(parentSendable);
         }
 
-        public override void UpdateOnBeatTick(double period)
+        public override void UpdateOnBeatTick(AnimParameter animParameter, double period)
         {
-
+            //throw new NotImplementedException();
         }
 
-        public override double[] UpdatePeriod(double period)
+        public override void UpdateParameters(AnimParameter animParameter, double period)
         {
-            return AnimParameter.Spread;
-        }
-
-        public void SetSpread()
-        {
-            AnimParameter.Spread = new double[AnimParameter.Counter.Count];
-            double offset = AnimParameter.Range.Distance / AnimParameter.Counter.Count;
+            double offset = animParameter.Range.Distance / animParameter.Counter.Count;
             double startValue;
 
             if (SteadyType == SteadyType.Linear)
@@ -40,9 +32,9 @@ namespace CMiX.MVVM.ViewModels
                 if(LinearType == LinearType.Left)
                 {
                     startValue = 0.0;
-                    for (int i = 0; i < AnimParameter.Spread.Length; i++)
+                    for (int i = 0; i < animParameter.Parameters.Length; i++)
                     {
-                        AnimParameter.Spread[i] = startValue;
+                        animParameter.Parameters[i] = startValue;
                         startValue += offset;
                     }
                     return;
@@ -50,10 +42,10 @@ namespace CMiX.MVVM.ViewModels
 
                 if (LinearType == LinearType.Right)
                 {
-                    startValue = AnimParameter.Range.Distance;
-                    for (int i = 0; i < AnimParameter.Spread.Length; i++)
+                    startValue = animParameter.Range.Distance;
+                    for (int i = 0; i < animParameter.Parameters.Length; i++)
                     {
-                        AnimParameter.Spread[i] = startValue;
+                        animParameter.Parameters[i] = startValue;
                         startValue -= offset;
                     }
                     return;
@@ -61,10 +53,10 @@ namespace CMiX.MVVM.ViewModels
 
                 if (LinearType == LinearType.Center)
                 {
-                    startValue = AnimParameter.Range.Distance;
-                    for (int i = 0; i < AnimParameter.Spread.Length; i++)
+                    startValue = animParameter.Range.Distance;
+                    for (int i = 0; i < animParameter.Parameters.Length; i++)
                     {
-                        AnimParameter.Spread[i] = startValue;
+                        animParameter.Parameters[i] = startValue;
                         startValue -= offset;
                     }
                     return;
@@ -74,46 +66,33 @@ namespace CMiX.MVVM.ViewModels
             if(SteadyType == SteadyType.Random)
             {
                 var random = new Random(Seed);
-                for (int i = 0; i < AnimParameter.Spread.Length; i++)
+                for (int i = 0; i < animParameter.Parameters.Length; i++)
                 {
-                    AnimParameter.Spread[i] = Utils.Map(random.NextDouble(), 0.0, 1.0, AnimParameter.Range.Minimum, AnimParameter.Range.Maximum);
+                    animParameter.Parameters[i] = Utils.Map(random.NextDouble(), 0.0, 1.0, animParameter.Range.Minimum, animParameter.Range.Maximum);
                 }
                 return;
             }
         }
 
-
         private int _seed;
         public int Seed
         {
             get => _seed;
-            set
-            {
-                SetAndNotify(ref _seed, value);
-                SetSpread();
-            }
+            set => SetAndNotify(ref _seed, value);
         }
 
         private SteadyType _steadyType;
         public SteadyType SteadyType
         {
             get => _steadyType;
-            set
-            {
-                SetAndNotify(ref _steadyType, value);
-                SetSpread();
-            }
+            set => SetAndNotify(ref _steadyType, value);
         }
 
         private LinearType _linearType;
         public LinearType LinearType
         {
             get => _linearType;
-            set
-            {
-                SetAndNotify(ref _linearType, value);
-                SetSpread();
-            }
+            set => SetAndNotify(ref _linearType, value);
         }
     }
 }

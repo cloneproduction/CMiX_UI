@@ -5,24 +5,27 @@ namespace CMiX.MVVM.ViewModels
 {
     public class None : AnimMode
     {
-        public None(AnimParameter animParameter)
+        public None()
         {
-            AnimParameter = animParameter;
+
         }
 
-        public None(AnimParameter animParameter, Sendable parentSendable) : this(animParameter)
+        public None(Sendable parentSendable) : this()
         {
             SubscribeToEvent(parentSendable);
         }
 
-        public override void UpdateOnBeatTick(double period)
+        public override void UpdateOnBeatTick(AnimParameter animParameter, double period)
         {
 
         }
 
-        public override double UpdatePeriod(double period)
+        public override void UpdateParameters(AnimParameter animParameter, double period)
         {
-            return AnimParameter.DefaultValue;
+            for (int i = 0; i < animParameter.Parameters.Length; i++)
+            {
+                animParameter.Parameters[i] = animParameter.DefaultValue;
+            }
         }
 
         private bool _IsEnabled;

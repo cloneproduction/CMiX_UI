@@ -1,5 +1,6 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using System;
 using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
@@ -26,6 +27,13 @@ namespace CMiX.MVVM.ViewModels
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
+        public event EventHandler<CounterEventArgs> CounterChangeEvent;
+        public void OnCountChange(int value)
+        {
+            CounterChangeEvent?.Invoke(this, new CounterEventArgs(value));
+        }
+
+
         public ICommand AddCommand { get; }
         public ICommand SubCommand { get; }
 
@@ -36,6 +44,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _count, value);
+                OnCountChange(value);
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }

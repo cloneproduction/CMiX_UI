@@ -5,36 +5,34 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Randomized : AnimMode
     {
-        public Randomized(AnimParameter animParameter)
+        public Randomized()
         {
-            AnimParameter = animParameter;
             Random = new Random();
             newRandom = Random.NextDouble();
         }
 
-        public Randomized(AnimParameter animParameter, Sendable parentSendable) : this(animParameter)
+        public Randomized(Sendable parentSendable) : this()
         {
             SubscribeToEvent(parentSendable);
         }
 
         private Random Random { get; set; }
 
-        private double[] oldRandom;
-        private double[] newRandom;
+        private double oldRandom;
+        private double newRandom;
 
-        public override void UpdateOnBeatTick(double period)
+        public override void UpdateOnBeatTick(AnimParameter animParameter, double period)
         {
             oldRandom = newRandom;
             newRandom = Random.NextDouble();
         }
 
-        public override double[] UpdatePeriod(double period)
+        public override void UpdateParameters(AnimParameter animParameter, double period)
         {
-            for (int i = 0; i < AnimParameter.Spread.Length; i++)
+            for (int i = 0; i < animParameter.Parameters.Length; i++)
             {
-                AnimParameter.Spread[i] = Utils.Map(Utils.Lerp(oldRandom, newRandom, Easings.Interpolate((float)period, AnimParameter.Easing.SelectedEasing)), 0.0, 1.0, AnimParameter.Range.Minimum, AnimParameter.Range.Maximum);
+                animParameter.Parameters[i] = Utils.Map(Utils.Lerp(oldRandom, newRandom, Easings.Interpolate((float)period, animParameter.Easing.SelectedEasing)), 0.0, 1.0, animParameter.Range.Minimum, animParameter.Range.Maximum);
             }
-            return AnimParameter.Spread;
         }
     }
 }
