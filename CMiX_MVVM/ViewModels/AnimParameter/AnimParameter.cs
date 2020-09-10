@@ -12,7 +12,7 @@ namespace CMiX.MVVM.ViewModels
             Easing = new Easing(this);
             BeatModifier = new BeatModifier(beat, this);
             AnimMode = ModesFactory.CreateMode(SelectedModeType, this);
-
+           
             Counter = counter;
             Counter.CounterChangeEvent += Counter_CounterChangeEvent;
             DefaultValue = defaultValue;
