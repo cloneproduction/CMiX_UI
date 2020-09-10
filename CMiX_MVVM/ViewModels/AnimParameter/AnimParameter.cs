@@ -43,6 +43,7 @@ namespace CMiX.MVVM.ViewModels
         public Range Range { get; set; }
         public double DefaultValue { get; set; }
         public Counter Counter { get; set; }
+        public double[] Spread { get; set; }
 
 
         private string _name;

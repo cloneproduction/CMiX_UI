@@ -19,8 +19,8 @@ namespace CMiX.MVVM.ViewModels
 
         private Random Random { get; set; }
 
-        private double oldRandom;
-        private double newRandom;
+        private double[] oldRandom;
+        private double[] newRandom;
 
         public override void UpdateOnBeatTick(double period)
         {
@@ -28,9 +28,13 @@ namespace CMiX.MVVM.ViewModels
             newRandom = Random.NextDouble();
         }
 
-        public override double UpdatePeriod(double period)
+        public override double[] UpdatePeriod(double period)
         {
-            return Utils.Map(Utils.Lerp(oldRandom, newRandom, Easings.Interpolate((float)period, AnimParameter.Easing.SelectedEasing)), 0.0, 1.0, AnimParameter.Range.Minimum, AnimParameter.Range.Maximum);
+            for (int i = 0; i < AnimParameter.Spread.Length; i++)
+            {
+                AnimParameter.Spread[i] = Utils.Map(Utils.Lerp(oldRandom, newRandom, Easings.Interpolate((float)period, AnimParameter.Easing.SelectedEasing)), 0.0, 1.0, AnimParameter.Range.Minimum, AnimParameter.Range.Maximum);
+            }
+            return AnimParameter.Spread;
         }
     }
 }

@@ -5,4 +5,11 @@
         Linear,
         Random
     }
+
+    public enum LinearType
+    {
+        Left,
+        Center,
+        Right
+    }
 }

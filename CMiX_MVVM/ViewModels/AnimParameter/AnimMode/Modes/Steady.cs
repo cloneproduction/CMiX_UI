@@ -1,5 +1,4 @@
-﻿using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
+﻿using CMiX.MVVM.Resources;
 using System;
 
 namespace CMiX.MVVM.ViewModels
@@ -9,7 +8,10 @@ namespace CMiX.MVVM.ViewModels
         public Steady(AnimParameter animParameter)
         {
             SteadyType = SteadyType.Linear;
+            LinearType = LinearType.Center;
+            Seed = 0;
             AnimParameter = animParameter;
+            SetSpread();
         }
 
         public Steady(AnimParameter animParameter, Sendable parentSendable) : this(animParameter)
@@ -22,37 +24,96 @@ namespace CMiX.MVVM.ViewModels
 
         }
 
-        public double[] Pouet()
+        public override double[] UpdatePeriod(double period)
         {
-            double[] prout = new double[AnimParameter.Counter.Count];
+            return AnimParameter.Spread;
+        }
 
-            var pouet = AnimParameter.Range.Distance / AnimParameter.Counter.Count;
+        public void SetSpread()
+        {
+            AnimParameter.Spread = new double[AnimParameter.Counter.Count];
+            double offset = AnimParameter.Range.Distance / AnimParameter.Counter.Count;
+            double startValue;
 
-
-            
             if (SteadyType == SteadyType.Linear)
             {
-                for (int i = 0; i < AnimParameter.Counter.Count; i++)
+                if(LinearType == LinearType.Left)
                 {
-                    prout[i] = 0.0;
+                    startValue = 0.0;
+                    for (int i = 0; i < AnimParameter.Spread.Length; i++)
+                    {
+                        AnimParameter.Spread[i] = startValue;
+                        startValue += offset;
+                    }
+                    return;
+                }
+
+                if (LinearType == LinearType.Right)
+                {
+                    startValue = AnimParameter.Range.Distance;
+                    for (int i = 0; i < AnimParameter.Spread.Length; i++)
+                    {
+                        AnimParameter.Spread[i] = startValue;
+                        startValue -= offset;
+                    }
+                    return;
+                }
+
+                if (LinearType == LinearType.Center)
+                {
+                    startValue = AnimParameter.Range.Distance;
+                    for (int i = 0; i < AnimParameter.Spread.Length; i++)
+                    {
+                        AnimParameter.Spread[i] = startValue;
+                        startValue -= offset;
+                    }
+                    return;
                 }
             }
 
-            return prout;
+            if(SteadyType == SteadyType.Random)
+            {
+                var random = new Random(Seed);
+                for (int i = 0; i < AnimParameter.Spread.Length; i++)
+                {
+                    AnimParameter.Spread[i] = Utils.Map(random.NextDouble(), 0.0, 1.0, AnimParameter.Range.Minimum, AnimParameter.Range.Maximum);
+                }
+                return;
+            }
         }
 
-        public override double UpdatePeriod(double period)
+
+        private int _seed;
+        public int Seed
         {
-            return AnimParameter.DefaultValue;
+            get => _seed;
+            set
+            {
+                SetAndNotify(ref _seed, value);
+                SetSpread();
+            }
         }
-
-        public Random Random { get; set; }
 
         private SteadyType _steadyType;
         public SteadyType SteadyType
         {
             get => _steadyType;
-            set => SetAndNotify(ref _steadyType, value);
+            set
+            {
+                SetAndNotify(ref _steadyType, value);
+                SetSpread();
+            }
+        }
+
+        private LinearType _linearType;
+        public LinearType LinearType
+        {
+            get => _linearType;
+            set
+            {
+                SetAndNotify(ref _linearType, value);
+                SetSpread();
+            }
         }
     }
 }

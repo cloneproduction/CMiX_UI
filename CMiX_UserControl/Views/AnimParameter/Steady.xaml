@@ -15,6 +15,11 @@
                 <x:Type TypeName="ViewModels:SteadyType"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+        <ObjectDataProvider x:Key="LinearType" MethodName="GetValues" ObjectType="{x:Type ViewModels:LinearType}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="ViewModels:LinearType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
     </UserControl.Resources>
     
     <Border IsEnabled="{Binding IsEnabled}">
@@ -35,7 +40,35 @@
                     ItemsSource="{Binding Source={StaticResource SteadyType}}"
                     SelectedItem="{Binding SteadyType}"/>
             </Grid>
-            <Border>
+            <Border Margin="0,2">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SteadyType}"  Value="{x:Static ViewModels:SteadyType.Random}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <Grid Height="21" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock 
+                        VerticalAlignment="Center" 
+                        HorizontalAlignment="Right" 
+                        Text="Alignment" 
+                        Padding="4, 0" 
+                        Foreground="{DynamicResource TextBase}"/>
+                    <ComboBox Grid.Column="1"
+                        ItemsSource="{Binding Source={StaticResource LinearType}}"
+                        SelectedItem="{Binding LinearType}"/>
+                    <!--<Controls:Counter Style="{StaticResource CMiXCounterStyle}" Grid.Column="1"/>-->
+                </Grid>
+            </Border>
+            <Border Margin="0,2">
                 <Border.Style>
                     <Style TargetType="Border">
                         <Setter Property="Visibility" Value="Visible"/>
@@ -46,7 +79,7 @@
                         </Style.Triggers>
                     </Style>
                 </Border.Style>
-                <Grid Height="21" Margin="0,2">
+                <Grid Height="21" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
@@ -57,7 +90,7 @@
                         Text="Seed" 
                         Padding="4, 0" 
                         Foreground="{DynamicResource TextBase}"/>
-                    <Controls:Counter Style="{StaticResource CMiXCounterStyle}" Grid.Column="1"/>
+                    <Controls:Counter Style="{StaticResource CMiXCounterStyle}" Value="{Binding Seed}" Grid.Column="1"/>
                 </Grid>
             </Border>
         </StackPanel>

@@ -12,9 +12,8 @@ namespace CMiX.MVVM.ViewModels
             else
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
-
         public AnimParameter AnimParameter { get; set; }
         public abstract void UpdateOnBeatTick(double period);
-        public abstract double UpdatePeriod(double period);
+        public abstract double[] UpdatePeriod(double period);
     }
 }
