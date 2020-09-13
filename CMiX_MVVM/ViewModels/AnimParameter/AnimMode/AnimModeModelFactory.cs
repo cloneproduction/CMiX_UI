@@ -42,6 +42,8 @@ namespace CMiX.MVVM.ViewModels
         {
             SteadyModel model = new SteadyModel();
             model.SteadyType = instance.SteadyType;
+            model.LinearType = instance.LinearType;
+            model.Seed = instance.Seed;
             return model;
         }
 
@@ -49,6 +51,8 @@ namespace CMiX.MVVM.ViewModels
         {
             var model = animModeModel as SteadyModel;
             instance.SteadyType = model.SteadyType;
+            instance.LinearType = model.LinearType;
+            instance.Seed = model.Seed;
         }
 
 

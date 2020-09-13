@@ -25,12 +25,14 @@ namespace CMiX.MVVM.ViewModels
                 this.SetViewModel(e.Model as CounterModel);
             else
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
+
+            OnCountChange();
         }
 
         public event EventHandler<CounterEventArgs> CounterChangeEvent;
-        public void OnCountChange(int value)
+        public void OnCountChange()
         {
-            CounterChangeEvent?.Invoke(this, new CounterEventArgs(value));
+            CounterChangeEvent?.Invoke(this, new CounterEventArgs(this.Count));
         }
 
 
@@ -44,7 +46,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _count, value);
-                OnCountChange(value);
+                OnCountChange();
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }

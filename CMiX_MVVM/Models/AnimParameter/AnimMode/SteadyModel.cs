@@ -15,6 +15,8 @@ namespace CMiX.MVVM.Models
         }
 
         public SteadyType SteadyType { get; set; }
+        public LinearType LinearType { get; set; }
+        public int Seed { get; set; }
         public bool Enabled { get; set; }
     }
 }

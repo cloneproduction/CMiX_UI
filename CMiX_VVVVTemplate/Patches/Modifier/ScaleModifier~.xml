@@ -92,42 +92,6 @@
    <PIN pinname="BeatTicks" visible="1">
    </PIN>
    </NODE>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="9" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="7490" top="3850" width="800" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="7490" top="3850" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="Z">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="10" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="5170" top="3850" width="800" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="5170" top="3850" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="Y">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="11" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="3130" top="3850" width="800" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="3130" top="3850" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="X">
-   </PIN>
-   </NODE>
    <NODE systemname="GetScaleModifier (CMiX_VVVV)" filename="..\..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetScaleModifier (CMiX_VVVV)" componentmode="Hidden" id="12">
    <BOUNDS type="Node" left="1070" top="2040" width="100" height="100">
    </BOUNDS>
@@ -156,8 +120,6 @@
    </NODE>
    <LINK srcnodeid="14" srcpinname="Output Node" dstnodeid="12" dstpinname="Instancer">
    </LINK>
-   <LINK srcnodeid="4" srcpinname="Period" dstnodeid="11" dstpinname="Y Input Value">
-   </LINK>
    <LINK srcnodeid="3" srcpinname="X" dstnodeid="4" dstpinname="AnimParameter">
    </LINK>
    <LINK srcnodeid="6" srcpinname="Output" dstnodeid="4" dstpinname="Periods" hiddenwhenlocked="1">
@@ -172,15 +134,11 @@
    </LINK>
    <LINK srcnodeid="5" srcpinname="Output" dstnodeid="7" dstpinname="BeatTicks" hiddenwhenlocked="1">
    </LINK>
-   <LINK srcnodeid="7" srcpinname="Period" dstnodeid="10" dstpinname="Y Input Value">
-   </LINK>
    <LINK srcnodeid="3" srcpinname="Z" dstnodeid="8" dstpinname="AnimParameter">
    </LINK>
    <LINK srcnodeid="6" srcpinname="Output" dstnodeid="8" dstpinname="Periods" hiddenwhenlocked="1">
    </LINK>
    <LINK srcnodeid="5" srcpinname="Output" dstnodeid="8" dstpinname="BeatTicks" hiddenwhenlocked="1">
-   </LINK>
-   <LINK srcnodeid="8" srcpinname="Period" dstnodeid="9" dstpinname="Y Input Value">
    </LINK>
    <BOUNDS type="Window" left="16590" top="10180" width="10090" height="5660">
    </BOUNDS>
@@ -191,5 +149,41 @@
    <LINK srcnodeid="6" srcpinname="Output" dstnodeid="0" dstpinname="Periods" hiddenwhenlocked="1">
    </LINK>
    <LINK srcnodeid="5" srcpinname="Output" dstnodeid="0" dstpinname="BeatTicks" hiddenwhenlocked="1">
+   </LINK>
+   <NODE systemname="Vector (3d Join)" nodename="Vector (3d Join)" componentmode="Hidden" id="15">
+   <BOUNDS type="Node" left="4900" top="3870" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="X" visible="1">
+   </PIN>
+   <PIN pinname="Y" visible="1">
+   </PIN>
+   <PIN pinname="Z" visible="1">
+   </PIN>
+   <PIN pinname="XYZ" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="4" srcpinname="Period" dstnodeid="15" dstpinname="X">
+   </LINK>
+   <LINK srcnodeid="7" srcpinname="Period" dstnodeid="15" dstpinname="Y">
+   </LINK>
+   <LINK srcnodeid="8" srcpinname="Period" dstnodeid="15" dstpinname="Z">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="16">
+   <BOUNDS type="Box" left="4930" top="4430" width="800" height="720">
+   </BOUNDS>
+   <BOUNDS type="Node" left="4930" top="4430" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Vector Size" slicecount="1" values="3">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="3">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="XYZ">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="15" srcpinname="XYZ" dstnodeid="16" dstpinname="Y Input Value">
    </LINK>
    </PATCH>

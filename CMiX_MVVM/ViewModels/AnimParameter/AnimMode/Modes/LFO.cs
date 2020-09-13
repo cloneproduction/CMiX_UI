@@ -21,9 +21,24 @@ namespace CMiX.MVVM.ViewModels
 
         public override void UpdateParameters(AnimParameter animParameter, double period)
         {
+            double min = animParameter.Range.Minimum;
+            double max = animParameter.Range.Maximum;
+
+            double periodOffset = 1.0 / animParameter.Parameters.Length;
+            double offset = 0.0;
+            double val = 0.0;
+
             for (int i = 0; i < animParameter.Parameters.Length; i++)
             {
-                animParameter.Parameters[i] = Utils.Map(Easings.Interpolate((float)period, animParameter.Easing.SelectedEasing), 0.0, 1.0, animParameter.Range.Minimum, animParameter.Range.Maximum); ;
+                val = period + offset;
+                if (val < 0.0)
+                    val = 1.0 - (0.0 - val) % (1.0 - 0.0);
+                else
+                    val = 0.0 + (val - 0.0) % (1.0 - 0.0);
+
+                animParameter.Parameters[i] = Easings.Interpolate((float)Utils.Map(val, 0.0, 1.0, min, max), animParameter.Easing.SelectedEasing);
+
+                offset += periodOffset;
             }
             
         }

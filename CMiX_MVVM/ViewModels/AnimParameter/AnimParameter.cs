@@ -46,6 +46,7 @@ namespace CMiX.MVVM.ViewModels
         public Counter Counter { get; set; }
         public double[] Parameters { get; set; }
 
+
         private string _name;
         public string Name
         {

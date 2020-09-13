@@ -22,8 +22,11 @@ namespace CMiX.Nodes
         [Input("BeatTicks")]
         public IDiffSpread<bool> BeatTicks;
 
-        [Output("Period")]
-        public ISpread<double> Period;
+        [Output("Parameters")]
+        public ISpread<ISpread<double>> Parameters;
+
+        //[Output("Period")]
+        //public ISpread<double> Period;
 
         [Output("Pass")]
         public ISpread<bool> Pass;
@@ -42,7 +45,8 @@ namespace CMiX.Nodes
 
         public void Evaluate(int SpreadMax)
         {
-            Period.SliceCount = AnimParameter.SliceCount;
+            Parameters.SliceCount = AnimParameter.SliceCount;
+            //Period.SliceCount = AnimParameter.SliceCount;
             Pass.SliceCount = AnimParameter.SliceCount;
 
             if (AnimParameter.SliceCount > 0)
@@ -51,7 +55,7 @@ namespace CMiX.Nodes
                 {
                     if (AnimParameter[i] != null)
                     {
-                        //AnimMode[i] = AnimParameter[i].SelectedModeType.ToString();
+                        Parameters[i].SliceCount = AnimParameter[i].Parameters.Length;
 
                         if (BeatTicks[i])
                         {
@@ -62,10 +66,17 @@ namespace CMiX.Nodes
                         }
 
                         if (BeatTicks[AnimParameter[i].BeatModifier.BeatIndex])
-                            AnimParameter[i].OnBeatTick.Invoke(Periods[AnimParameter[i].BeatModifier.BeatIndex]);
+                            AnimParameter[i].OnBeatTick.Invoke(AnimParameter[i], Periods[AnimParameter[i].BeatModifier.BeatIndex]);
 
                         if (Pass[i])
-                            Period[i] = AnimParameter[i].OnUpdatePeriod.Invoke(Periods[AnimParameter[i].BeatModifier.BeatIndex]);
+                        {
+                            AnimParameter[i].OnUpdateParameters.Invoke(AnimParameter[i], Periods[AnimParameter[i].BeatModifier.BeatIndex]);
+                            for (int j = 0; j < AnimParameter[i].Parameters.Length; j++)
+                            {
+                                Parameters[i][j] = AnimParameter[i].Parameters[j];
+                            }
+                        }
+                            
                     }
                     else
                         AnimParameter.SliceCount = 0;

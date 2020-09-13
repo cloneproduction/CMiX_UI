@@ -5,16 +5,12 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Steady : AnimMode
     {
-        public Steady()
+        public Steady(AnimParameter animParameter)
         {
             SteadyType = SteadyType.Linear;
             LinearType = LinearType.Center;
             Seed = 0;
-        }
-
-        public Steady(Sendable parentSendable) : this()
-        {
-            SubscribeToEvent(parentSendable);
+            SubscribeToEvent(animParameter);
         }
 
         public override void UpdateOnBeatTick(AnimParameter animParameter, double period)
@@ -31,7 +27,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 if(LinearType == LinearType.Left)
                 {
-                    startValue = 0.0;
+                    startValue = animParameter.Range.Minimum;
                     for (int i = 0; i < animParameter.Parameters.Length; i++)
                     {
                         animParameter.Parameters[i] = startValue;
@@ -42,7 +38,7 @@ namespace CMiX.MVVM.ViewModels
 
                 if (LinearType == LinearType.Right)
                 {
-                    startValue = animParameter.Range.Distance;
+                    startValue = animParameter.Range.Maximum;
                     for (int i = 0; i < animParameter.Parameters.Length; i++)
                     {
                         animParameter.Parameters[i] = startValue;
@@ -78,21 +74,33 @@ namespace CMiX.MVVM.ViewModels
         public int Seed
         {
             get => _seed;
-            set => SetAndNotify(ref _seed, value);
+            set
+            {
+                SetAndNotify(ref _seed, value);
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
+            }
         }
 
         private SteadyType _steadyType;
         public SteadyType SteadyType
         {
             get => _steadyType;
-            set => SetAndNotify(ref _steadyType, value);
+            set
+            {
+                SetAndNotify(ref _steadyType, value);
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
+            }
         }
 
         private LinearType _linearType;
         public LinearType LinearType
         {
             get => _linearType;
-            set => SetAndNotify(ref _linearType, value);
+            set 
+            {
+                SetAndNotify(ref _linearType, value);
+                OnSendChange(this.GetModel(), this.GetMessageAddress());
+            }
         }
     }
 }
