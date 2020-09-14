@@ -13,7 +13,7 @@ namespace CMiX.MVVM.ViewModels
             Instancer = new Instancer(beat, this);
             Transform = new Transform(this);
             GeometryFX = new GeometryFX();
-            AssetPathSelector = new AssetPathSelector<AssetGeometry>(this);
+            AssetPathSelector = new AssetPathSelector(this);
         }
 
         public Geometry(MasterBeat beat, Sendable parentSendable) : this(beat)
@@ -33,7 +33,7 @@ namespace CMiX.MVVM.ViewModels
         public ICommand PasteGeometryCommand { get; }
         public ICommand ResetGeometryCommand { get; }
 
-        public AssetPathSelector<AssetGeometry> AssetPathSelector { get; set; }
+        public AssetPathSelector AssetPathSelector { get; set; }
 
         public Transform Transform { get; set; }
         public Instancer Instancer { get; set; }

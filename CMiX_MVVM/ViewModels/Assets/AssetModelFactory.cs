@@ -9,38 +9,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public static class AssetModelFactory
     {
-        public static AssetPathSelectorModel GetModel(this AssetPathSelector<AssetTexture> instance)
-        {
-            AssetPathSelectorModel model = new AssetPathSelectorModel();
 
-            if (instance.SelectedPath != null)
-                model.SelectedPath = instance.SelectedPath;
-
-            return model;
-        }
-
-        public static void SetViewModel(this AssetPathSelector<AssetTexture> instance, AssetPathSelectorModel model)
-        {
-            if (model.SelectedPath != null)
-                instance.SelectedPath = model.SelectedPath;
-        }
-
-
-        public static AssetPathSelectorModel GetModel(this AssetPathSelector<AssetGeometry> instance)
-        {
-            AssetPathSelectorModel model = new AssetPathSelectorModel();
-
-            if (instance.SelectedPath != null)
-                model.SelectedPath = instance.SelectedPath;
-
-            return model;
-        }
-
-        public static void SetViewModel(this AssetPathSelector<AssetGeometry> instance, AssetPathSelectorModel model)
-        {
-            if (model.SelectedPath != null)
-                instance.SelectedPath = model.SelectedPath;
-        }
 
 
 

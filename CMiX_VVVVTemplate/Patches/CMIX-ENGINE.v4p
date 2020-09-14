@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="C:\Users\BabyClone\Documents\GitHub\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="6370" scrolly="9040">
-   <BOUNDS type="Window" left="8445" top="3630" width="20580" height="11460">
+   <PATCH nodename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="4230" scrolly="9525">
+   <BOUNDS type="Window" left="1095" top="5610" width="20580" height="11460">
    </BOUNDS>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="2" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="9095" top="4505" width="585" height="510">
@@ -791,7 +791,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="6160" top="21415" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="29010" top="2690" width="6040" height="15700">
+   <BOUNDS type="Window" left="19005" top="5685" width="10605" height="13065">
    </BOUNDS>
    <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
@@ -1193,7 +1193,7 @@
    </BOUNDS>
    <PIN pinname="String Type" slicecount="1" values="Filename">
    </PIN>
-   <PIN pinname="Input String" slicecount="1" values="..\..\..\..\..\Desktop\MEDIA_SPACE-1.png">
+   <PIN pinname="Input String" slicecount="1" values="|C:\Users\clone\Desktop\STUDENTS WORK WECHAT\APEX-1.jpg|">
    </PIN>
    <PIN pinname="Output String" visible="1">
    </PIN>
@@ -1219,5 +1219,21 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="45" srcpinname="SizeXY" dstnodeid="442" dstpinname="Y Input Value">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="443">
+   <BOUNDS type="Box" left="17370" top="15150" width="5595" height="795">
+   </BOUNDS>
+   <BOUNDS type="Node" left="17370" top="15150" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="text">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="2">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="440" srcpinname="Output" dstnodeid="443" dstpinname="Input String">
    </LINK>
    </PATCH>

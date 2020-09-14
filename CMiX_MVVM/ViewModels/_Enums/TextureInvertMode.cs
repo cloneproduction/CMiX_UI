@@ -1,11 +1,10 @@
-﻿namespace CMiX.MVVM.ViewModels
+﻿
+
+namespace CMiX.MVVM.ViewModels
 {
     public enum TextureInvertMode
     {
-        //[ShortCode("INV_RGB", "Invert RGB")]
         INV_RGB,
-
-        //[ShortCode("INV_VAL", "Invert Value")]
-        INV_VAL,
+        INV_VAL
     };
 }

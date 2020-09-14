@@ -5,14 +5,9 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class AssetPathSelector<T> : Sendable, IDropTarget
+    public class AssetPathSelector : Sendable, IDropTarget
     {
-        public AssetPathSelector()
-        {
-            
-        }
-
-        public AssetPathSelector(Sendable parentSendable) : this()
+        public AssetPathSelector(Sendable parentSendable)
         {
             SubscribeToEvent(parentSendable);
         }
@@ -40,7 +35,7 @@ namespace CMiX.MVVM.ViewModels
         {
             if (dropInfo.DragInfo != null)
             {
-                if (dropInfo.DragInfo.SourceItem != null && dropInfo.DragInfo.SourceItem is T)
+                if (dropInfo.DragInfo.SourceItem != null)// && dropInfo.DragInfo.SourceItem is T)
                 {
                     dropInfo.Effects = DragDropEffects.Copy;
                 }
@@ -50,20 +45,6 @@ namespace CMiX.MVVM.ViewModels
         public void Drop(IDropInfo dropInfo)
         {
             SelectedPath = ((IAssets)dropInfo.DragInfo.SourceItem).Path;
-        }
-
-        public AssetPathSelectorModel GetModel()
-        {
-            AssetPathSelectorModel model = new AssetPathSelectorModel();
-            model.SelectedPath = this.SelectedPath;
-            return model;
-        }
-
-        public void SetViewModel(AssetPathSelectorModel model)
-        {
-            this.SelectedPath = model.SelectedPath;
-            //if (model.SelectedPath != null)
-            //    SelectedPath = model.SelectedPath;
         }
     }
 }

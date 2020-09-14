@@ -10,7 +10,7 @@ namespace CMiX.MVVM.ViewModels
         #region CONSTRUCTORS
         public Texture()
         {
-            AssetPathSelector = new AssetPathSelector<AssetTexture>(this);
+            AssetPathSelector = new AssetPathSelector(this);
 
             Inverter = new Inverter(this);
 
@@ -67,7 +67,7 @@ namespace CMiX.MVVM.ViewModels
         public ICommand PasteTextureCommand { get; }
         public ICommand ResetTextureCommand { get; }
 
-        public AssetPathSelector<AssetTexture> AssetPathSelector { get; set; }
+        public AssetPathSelector AssetPathSelector { get; set; }
         public AssetTexture AssetTexture { get; set; }
 
         public Slider Brightness { get; }

@@ -115,6 +115,8 @@
    </PIN>
    <PIN pinname="No Mips" slicecount="1" visible="1" values="1">
    </PIN>
+   <PIN pinname="SizeXY" visible="1">
+   </PIN>
    </NODE>
    <NODE systemname="Blend (DX11.RenderState)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Blend (DX11.RenderState)" componentmode="Hidden" id="46">
    <BOUNDS type="Node" left="1845" top="17780" width="100" height="100">
@@ -1199,5 +1201,23 @@
    <LINK srcnodeid="441" srcpinname="Output String" dstnodeid="440" dstpinname="Input 2">
    </LINK>
    <LINK srcnodeid="440" srcpinname="Output" dstnodeid="45" dstpinname="Filename">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="442">
+   <BOUNDS type="Box" left="17950" top="18000" width="750" height="1320">
+   </BOUNDS>
+   <BOUNDS type="Node" left="17950" top="18000" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   <PIN pinname="Vector Size" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="6">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="45" srcpinname="SizeXY" dstnodeid="442" dstpinname="Y Input Value">
    </LINK>
    </PATCH>
