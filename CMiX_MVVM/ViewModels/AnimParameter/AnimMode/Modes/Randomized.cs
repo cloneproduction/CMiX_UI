@@ -12,11 +12,6 @@ namespace CMiX.MVVM.ViewModels
             SubscribeToEvent(animParameter);
         }
 
-        //public Randomized(AnimParameter animParameter, Sendable parentSendable) : this(animParameter)
-        //{
-        //    SubscribeToEvent(parentSendable);
-        //}
-
         private Random Random { get; set; }
 
         private double[] oldRandom;

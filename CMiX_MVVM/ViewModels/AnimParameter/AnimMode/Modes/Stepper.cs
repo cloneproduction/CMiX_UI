@@ -1,5 +1,4 @@
 ﻿using CMiX.MVVM.Resources;
-using System;
 
 namespace CMiX.MVVM.ViewModels
 {
