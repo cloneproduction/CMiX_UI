@@ -16,11 +16,13 @@
         ItemsSource="{Binding Path=DataContext.AssetManager.GeometryCollectionView, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
         Focusable="False"
         AllowDrop="True"
-        SelectedValuePath="Path" 
-        SelectedValue="{Binding SelectedPath}" 
+        IsSynchronizedWithCurrentItem="False"
+         
+        SelectedItem="{Binding SelectedAsset}"
         dd:DragDrop.DropHandler="{Binding}"
         dd:DragDrop.IsDropTarget="True">
-
+        <!--SelectedValuePath="Path" 
+        SelectedValue="{Binding SelectedPath}"-->
         <ComboBox.ItemTemplate>
             <DataTemplate>
                 <TextBlock Text="{Binding Name}"/>

@@ -1,8 +1,10 @@
-﻿using System.IO;
+﻿using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
+using System.IO;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Asset : ViewModel, IAssets
+    public class Asset : ViewModel, IAssets
     {
         private string _name;
         public string Name

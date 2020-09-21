@@ -12,7 +12,6 @@ namespace CMiX.MVVM.Models
         {
 
         }
-
-        public string SelectedPath { get; set; }
+        public IAssetModel SelectedAsset { get; set; }
     }
 }

@@ -9,6 +9,7 @@ namespace CMiX.MVVM.ViewModels
 
         }
 
+
         public AssetTexture(string name, string path)
         {
             Name = name;

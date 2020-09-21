@@ -1,9 +1,4 @@
 ﻿using CMiX.MVVM.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -12,47 +7,27 @@ namespace CMiX.MVVM.ViewModels
         public static AssetPathSelectorModel GetModel(this AssetPathSelector instance)
         {
             AssetPathSelectorModel model = new AssetPathSelectorModel();
-
-            if (instance.SelectedPath != null)
-                model.SelectedPath = instance.SelectedPath;
+            System.Console.WriteLine("AssetPathSelector GetModel");
+            if (instance.SelectedAsset != null)
+                model.SelectedAsset = instance.SelectedAsset.GetModel();
 
             return model;
         }
 
         public static void SetViewModel(this AssetPathSelector instance, AssetPathSelectorModel model)
         {
-            if (model.SelectedPath != null)
-                instance.SelectedPath = model.SelectedPath;
+            System.Console.WriteLine("AssetPathSelector SetViewModel");
+            if (instance.SelectedAsset == null)
+            {
+                if(model is AssetTextureModel)
+                    instance.SelectedAsset = new AssetTexture();
+                else if(model is AssetGeometryModel)
+                    instance.SelectedAsset = new AssetGeometry();
+            }       
+                
+
+            if (model.SelectedAsset != null)
+                instance.SelectedAsset.SetViewModel(model.SelectedAsset);
         }
-
-
-        //public static AssetPathSelectorModel GetModel(this AssetPathSelector instance)
-        //{
-        //    AssetPathSelectorModel model = new AssetPathSelectorModel();
-
-        //    if (instance.SelectedPath != null)
-        //        model.SelectedPath = instance.SelectedPath;
-
-        //    return model;
-        //}
-
-        //public static void SetViewModel(this AssetPathSelector instance, AssetPathSelectorModel model)
-        //{
-        //    if (model.SelectedPath != null)
-        //        instance.SelectedPath = model.SelectedPath;
-        //}
-
-
-        //public static AssetPathSelectorModel GetModel(this AssetPathSelector instance)
-        //{
-        //    AssetPathSelectorModel model = new AssetPathSelectorModel();
-        //    model.SelectedPath = instance.SelectedPath;
-        //    return model;
-        //}
-
-        //public static void SetViewModel(this AssetPathSelector instance, AssetPathSelectorModel model)
-        //{
-        //    instance.SelectedPath = model.SelectedPath;
-        //}
     }
 }

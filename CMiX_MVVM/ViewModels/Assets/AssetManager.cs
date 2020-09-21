@@ -7,12 +7,12 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Data;
+using System.ComponentModel;
 using CMiX.MVVM.Resources;
 using GongSolutions.Wpf.DragDrop;
 using MvvmDialogs;
 using MvvmDialogs.FrameworkDialogs.OpenFile;
-using System.Windows.Data;
-using System.ComponentModel;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -21,7 +21,6 @@ namespace CMiX.MVVM.ViewModels
         public AssetManager(Project project)
         {
             DialogService = project.DialogService;
-            //Project = project;
             Assets = project.Assets;
             var directoryItem = new AssetDirectory("RESOURCES");
             directoryItem.IsRoot = true;
@@ -119,9 +118,6 @@ namespace CMiX.MVVM.ViewModels
             else
                 return false;
         }
-
-
-
 
         #region METHODS
         public void RenameAsset()
@@ -255,13 +251,6 @@ namespace CMiX.MVVM.ViewModels
         public ICommand RelinkAssetsCommand { get; set; }
 
         public IDialogService DialogService { get; set; }
-
-        //private Project _project;
-        //public Project Project
-        //{
-        //    get => _project;
-        //    set => SetAndNotify(ref _project, value);
-        //}
 
         private ObservableCollection<IAssets> _selectedItems;
         public ObservableCollection<IAssets> SelectedItems

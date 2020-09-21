@@ -5,9 +5,7 @@
     xmlns:Views="clr-namespace:CMiX.Studio.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
-    xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
     d:DesignHeight="1870.805"
     d:DesignWidth="349.875"
     mc:Ignorable="d">
@@ -18,78 +16,21 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Border>
-        <StackPanel>
-            <Border
-                Height="25"
-                Margin="0, 0, 0, 2"
-                Padding="4"
-                DockPanel.Dock="Top">
-                <Border.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem
-                            Padding="8, 4"
-                            Foreground="{StaticResource TextBase}"
-                            Command="{Binding Data.CopyColorationCommand, Source={StaticResource ProjectProxy}}">
-                            <MenuItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Width="10" Height="10" Source="{StaticResource Copy}" />
-                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                    <TextBlock Text="Copy Coloration"/>
-                                </StackPanel>
-                            </MenuItem.Header>
-                        </MenuItem>
-                        <MenuItem
-                        Padding="8, 4"
-                        Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.PasteColorationCommand, Source={StaticResource ProjectProxy}}">
-                            <MenuItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Width="10" Height="10" Source="{StaticResource Paste}" />
-                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                    <TextBlock Text="Paste Coloration"/>
-                                </StackPanel>
-                            </MenuItem.Header>
-                        </MenuItem>
-                        <MenuItem
-                        Padding="8, 4"
-                        Foreground="{StaticResource TextBase}"
-                        Command="{Binding Data.ResetColorationCommand, Source={StaticResource ProjectProxy}}">
-                            <MenuItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Width="10" Height="10" Source="{StaticResource Reset}" />
-                                    <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                                    <TextBlock Text="Reset Coloration"/>
-                                </StackPanel>
-                            </MenuItem.Header>
-                        </MenuItem>
-                    </ContextMenu>
-                </Border.ContextMenu>
-                <TextBlock
+    <StackPanel>
+        <Border Height="25" Margin="0, 0, 0, 2" Padding="4">
+            <TextBlock
                 Margin="4, 0, 0, 0"
                 Text="COLORATION"
                 Foreground="{StaticResource TextBase}"/>
+        </Border>
+
+        <Views:ColorSelector DataContext="{Binding ColorSelector}"/>
+
+        <Expander IsExpanded="True" Header="Modifiers" Margin="0, 2" Style="{StaticResource ExpanderBase}">
+            <Border Grid.Row="1" Style="{StaticResource BorderContainer}" Margin="0, 4, 0, 8">
+                <Views:BeatModifier DataContext="{Binding BeatModifier}"/>
             </Border>
-
-            <Views:ColorSelector DataContext="{Binding ColorSelector}"/>
-
-            <Expander IsExpanded="True" Header="Modifiers" Margin="0, 2" Style="{StaticResource ExpanderBase}">
-                <StackPanel Grid.Row="1" Margin="0, 4">
-                    <Border Style="{StaticResource BorderContainer}" Margin="0, 4, 0, 8">
-                        <Views:BeatModifier DataContext="{Binding BeatModifier}"/>
-                    </Border>
-                    <!--<Views:RangeControl 
-                        Caption="Hue"
-                        DataContext="{Binding Hue}"/>
-                    <Views:RangeControl 
-                        Caption="Saturation"
-                        Margin="0, 2"
-                        DataContext="{Binding Saturation}"/>
-                    <Views:RangeControl 
-                        Caption="Value"
-                        DataContext="{Binding Value}"/>-->
-                </StackPanel>
-            </Expander>
-        </StackPanel>
-    </Border>
+        </Expander>
+        
+    </StackPanel>
 </UserControl>

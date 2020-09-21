@@ -24,8 +24,8 @@ namespace CMiX.Nodes
             {
                 for (int i = 0; i < FTextureIn.SliceCount; i++)
                 {
-                    if (FTextureIn[i] != null)
-                        FName[i] = FTextureIn[i].AssetPathSelector.SelectedPath;
+                    if (FTextureIn[i] != null && FTextureIn[i].AssetPathSelector.SelectedAsset != null)
+                        FName[i] = FTextureIn[i].AssetPathSelector.SelectedAsset.Path;
                     else
                         FTextureIn.SliceCount = 0;
                 }

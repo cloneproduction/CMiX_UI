@@ -7,8 +7,9 @@ namespace CMiX.MVVM.ViewModels
 {
     public class AssetPathSelector : Sendable, IDropTarget
     {
-        public AssetPathSelector(Sendable parentSendable)
+        public AssetPathSelector(Asset defaultAsset, Sendable parentSendable)
         {
+            SelectedAsset = defaultAsset;
             SubscribeToEvent(parentSendable);
         }
 
@@ -20,31 +21,26 @@ namespace CMiX.MVVM.ViewModels
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
-        private string _selectedPath;
-        public string SelectedPath
+        private IAssets _selectedAsset;
+        public IAssets SelectedAsset
         {
-            get => _selectedPath;
+            get => _selectedAsset;
             set
             {
-                SetAndNotify(ref _selectedPath, value);
+                SetAndNotify(ref _selectedAsset, value);
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
             }
         }
 
         public void DragOver(IDropInfo dropInfo)
         {
-            if (dropInfo.DragInfo != null)
-            {
-                if (dropInfo.DragInfo.SourceItem != null)// && dropInfo.DragInfo.SourceItem is T)
-                {
-                    dropInfo.Effects = DragDropEffects.Copy;
-                }
-            }
+            if (dropInfo.DragInfo != null && dropInfo.DragInfo.SourceItem != null)
+                dropInfo.Effects = DragDropEffects.Copy;
         }
 
         public void Drop(IDropInfo dropInfo)
         {
-            SelectedPath = ((IAssets)dropInfo.DragInfo.SourceItem).Path;
+            //SelectedPath = ((IAssets)dropInfo.DragInfo.SourceItem).Path;
         }
     }
 }

@@ -9,10 +9,6 @@ namespace CMiX.MVVM.ViewModels
 {
     public static class AssetModelFactory
     {
-
-
-
-
         public static IAssetModel GetModel(this IAssets instance)
         {
             if (instance is AssetDirectory)
@@ -94,7 +90,7 @@ namespace CMiX.MVVM.ViewModels
         public static IAssetModel GetModel(this AssetTexture instance)
         {
             IAssetModel assetModel = new AssetTextureModel();
-
+            
             assetModel.Name = instance.Name;
             assetModel.Path = instance.Path;
             assetModel.Ponderation = instance.Ponderation;
@@ -107,6 +103,7 @@ namespace CMiX.MVVM.ViewModels
             instance.Name = assetModel.Name;
             instance.Path = assetModel.Path;
             instance.Ponderation = assetModel.Ponderation;
+            Console.WriteLine("AssetTexture SetViewModel");
         }
     }
 }

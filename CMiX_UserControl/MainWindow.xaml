@@ -35,45 +35,6 @@
     </Window.CommandBindings>
 
     <DockPanel>
-        <!--<Grid DockPanel.Dock="Top" Height="20">
-            <Canvas Background="Green" HorizontalAlignment="Stretch" >
-                <Border 
-                        Background="Red"
-                        Margin="0, 1"
-                        Width="10"
-                        Height="20">
-                    <Border.RenderTransform>
-                        <TranslateTransform X="{Binding Source={StaticResource BeatController}, Path=AnimationCollection[1].AnimationPosition}" Y="0"/>
-                    </Border.RenderTransform>
-                </Border>
-            </Canvas>
-        </Grid>
-        <Grid DockPanel.Dock="Top" Height="20">
-            <Canvas Background="Green" HorizontalAlignment="Stretch" >
-                <Border 
-                        Background="Red"
-                        Margin="0, 1"
-                        Width="10"
-                        Height="20">
-                    <Border.RenderTransform>
-                        <TranslateTransform X="{Binding Source={StaticResource BeatController}, Path=AnimationCollection[2].AnimationPosition}" Y="0"/>
-                    </Border.RenderTransform>
-                </Border>
-            </Canvas>
-        </Grid>
-        <Grid DockPanel.Dock="Top" Height="20">
-            <Canvas Background="Green" HorizontalAlignment="Stretch" >
-                <Border 
-                        Background="Red"
-                        Margin="0, 1"
-                        Width="10"
-                        Height="20">
-                    <Border.RenderTransform>
-                        <TranslateTransform X="{Binding Source={StaticResource BeatController}, Path=AnimationCollection[3].AnimationPosition}" Y="0"/>
-                    </Border.RenderTransform>
-                </Border>
-            </Canvas>
-        </Grid>-->
         <Border 
             Padding="2"
             DockPanel.Dock="Top"

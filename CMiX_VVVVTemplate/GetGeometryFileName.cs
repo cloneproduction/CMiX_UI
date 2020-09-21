@@ -25,7 +25,7 @@ namespace CMiX.Nodes
                 for (int i = 0; i < FGeometryIn.SliceCount; i++)
                 {
                     if (FGeometryIn[i] != null)
-                        FName[i] = FGeometryIn[i].AssetPathSelector.SelectedPath;
+                        FName[i] = FGeometryIn[i].AssetPathSelector.SelectedAsset.Path;
                     else
                         FGeometryIn.SliceCount = 0;
                 }
