@@ -81,7 +81,6 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _canDelete, value);
         }
 
-
         public void CanAddComponent()
         {
             CanAdd = true;
@@ -131,7 +130,6 @@ namespace CMiX.MVVM.ViewModels
                 CanDelete = false;
         }
 
-
         public int FindItemParentIndex(ObservableCollection<Component> components, Component componentToFind)
         {
             int index = -1;
@@ -150,134 +148,129 @@ namespace CMiX.MVVM.ViewModels
             return index;
         }
 
+
+
+
         public bool CanDropOnSameParent(IDropInfo dropInfo)
         {
-            var dataObject = dropInfo.Data as Component;
-            var targetItem = dropInfo.TargetItem as Component;
-            var sourceItem = dropInfo.DragInfo.SourceItem as Component;
-            var targetIndex = dropInfo.InsertIndex;
-            var sourceIndex = dropInfo.DragInfo.SourceIndex;
-
-            var visualTarget = dropInfo.VisualTargetItem;
-            var visualSource = dropInfo.DragInfo.VisualSourceItem;
-
-            var parentVisualSource = Utils.FindParent<TreeViewItem>(visualSource);
-            var parentTargetItem = Utils.FindParent<TreeViewItem>(visualTarget);
-
-            var parentCollectionSource = (ObservableCollection<Component>)parentTargetItem.ItemsSource;
-
-            var parentTargetItemIndex = parentCollectionSource.IndexOf(targetItem);
-
-            bool InsertPositionAfterTargetItem = dropInfo.InsertPosition == RelativeInsertPosition.AfterTargetItem && targetIndex == sourceIndex;
-            bool InsertPositionBeforeTargetItem = dropInfo.InsertPosition == RelativeInsertPosition.BeforeTargetItem && targetIndex == sourceIndex + 1;
-
-
             bool canDrop = false;
 
-            if (targetItem != null)
-            {
-                //IS  Not OVER ITSELF
-                if (sourceItem != targetItem)
+            //Cant drop on itself
+
+                // NOT OVERRING THE CENTER PART
+                if (!dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter))
                 {
-                    // NOT OVERRING THE CENTER PART
-                    if (!dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter))
+                    // can't drop just next after
+                    if (!InsertPositionAfterTargetItem && !InsertPositionBeforeTargetItem)
                     {
-                        // can't drop just next after
-                        if (!InsertPositionAfterTargetItem && !InsertPositionBeforeTargetItem)
+                        // parent can't be the target
+                        if (SourceComponentParent != TargetComponent)
                         {
-                            // parent can't be the target
-                            if (parentVisualSource.DataContext != targetItem)
+                            // parent source is parent target so it drop within
+                            if (ParentVisualSource == ParentVisualTarget)
                             {
-                                // parent source is parent target so it drop within
-                                if (parentVisualSource == parentTargetItem)
+                                //drop only on same type
+                                if (DataObject.GetType() == TargetComponent.GetType())
                                 {
-                                    //drop only on same type
-                                    if (dataObject.GetType() == targetItem.GetType())
-                                    {
-                                        canDrop = true;
-                                        Console.WriteLine("CanDropOnSameParent");
-                                    }
+                                    canDrop = true;
+                                    Console.WriteLine("CanDropOnSameParent");
                                 }
                             }
                         }
                     }
-                }
+                
             }
+
             return canDrop;
         }
+
+        private void DropOnSameParent()
+        {
+            if (SourceIndex < TargetIndex)
+                TargetIndex -= 1;
+
+            TargetCollection.Move(SourceIndex, TargetIndex);
+            Console.WriteLine("DropOnSameParent");
+
+            TargetComponentParent.OnSendChange(TargetComponentParent.GetModel(), TargetComponentParent.GetMessageAddress());
+        }
+
 
         public bool CanDropWithinDifferentParent(IDropInfo dropInfo)
         {
-            var dataObject = dropInfo.Data as Component;
-            var targetItem = dropInfo.TargetItem as Component;
-
-            var visualTarget = dropInfo.VisualTargetItem;
-            var visualSource = dropInfo.DragInfo.VisualSourceItem;
-
-            var parentVisualSource = Utils.FindParent<TreeViewItem>(visualSource);
-            var parentVisualTarget = Utils.FindParent<TreeViewItem>(visualTarget);
-
             bool canDrop = false;
 
-            if (dataObject != null)
+            // drop on a different parent
+            if (ParentVisualSource != ParentVisualTarget && !dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter))
             {
-                // drop on a different parent
-                if (parentVisualSource != parentVisualTarget)
+                //dropping on a same type
+                if (DataObject.GetType() == TargetComponent.GetType())
                 {
-                    //dropping on a same type
-                    if (dataObject.GetType() == targetItem.GetType())
-                    {
-                        if (parentVisualTarget != parentVisualSource)
-                        {
-                            Console.WriteLine("CanDropWithinDifferentParent");
-                            canDrop = true;
-                            //dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
-                        }
-                    }
+                    canDrop = true;
+                    Console.WriteLine("CanDropWithinDifferentParent");
                 }
             }
+
             return canDrop;
         }
-
-        public bool CanDropEntityOnMask(IDropInfo dropInfo)
+        private void DropWithinDifferentParent()
         {
-            var dataObject = dropInfo.Data as Component;
-            var dropTarget = dropInfo.TargetItem as Component;
-            var targetItem = dropInfo.TargetItem as Component;
+            TargetCollection.Insert(TargetIndex, SourceComponent);
+            SourceCollection.Remove(SourceComponent);
+            Console.WriteLine("DropWithinDifferentParent");
+            SourceComponentParent.OnSendChange(SourceComponentParent.GetModel(), SourceComponentParent.GetMessageAddress());
+            TargetComponentParent.OnSendChange(TargetComponentParent.GetModel(), TargetComponentParent.GetMessageAddress());
+        }
 
-            var visualTarget = dropInfo.VisualTargetItem;
-            var visualSource = dropInfo.DragInfo.VisualSourceItem;
 
-            var parentSourceItem = Utils.FindParent<TreeViewItem>(visualSource);
-            var parentTargetItem = Utils.FindParent<TreeViewItem>(visualTarget);
 
+        public bool CanDropEntityOnScene(IDropInfo dropInfo)
+        {
             bool canDrop = false;
-            if (parentSourceItem != visualTarget && dataObject is Entity && (dropTarget is Mask || dropTarget is Scene))
+
+            if (ParentVisualSource != VisualTarget)
             {
-                canDrop = true;
+                if(DataObject is Entity && TargetComponent is Scene)
+                {
+                    canDrop = true;
+                    Console.WriteLine("CanDropEntityOnScene");
+                }
+
             }
+
             return canDrop;
         }
+
+        private void DropEntityOnScene()
+        {
+            if (TargetComponent is Scene)
+            {
+                TargetComponent.Components.Insert(0, SourceComponent);
+                TargetComponent.IsExpanded = true;
+            }
+            SourceCollection.Remove(SourceComponent);
+
+            SourceComponentParent.OnSendChange(SourceComponentParent.GetModel(), SourceComponentParent.GetMessageAddress());
+            TargetComponent.OnSendChange(TargetComponent.GetModel(), TargetComponent.GetMessageAddress());
+        }
+
+
+
 
         public bool CanDropOnLastItem(IDropInfo dropInfo)
         {
             bool canDrop = false;
 
-            if (TargetComponent != null)
+            if (dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.AfterTargetItem) && !dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter))
             {
-                if (SourceComponent != TargetComponent)
+                if (!SourceComponent.Components.Contains(TargetComponent))
                 {
-                    if (!dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter))
+                    if (TargetComponent == TargetComponentParent.Components.Last() && TargetComponent == TargetComponentGrandParent.Components.Last())
                     {
-                        if (!SourceComponent.Components.Contains(TargetComponent))
+                        if (dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.AfterTargetItem))
                         {
-                            if (TargetComponent == TargetComponentParent.Components.Last())
-                            {
-                                if (dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.AfterTargetItem))
-                                {
-                                    canDrop = true;
-                                }
-                            }
+                            canDrop = true;
+                            Console.WriteLine("CanDropOnLastItem");
                         }
                     }
                 }
@@ -285,118 +278,136 @@ namespace CMiX.MVVM.ViewModels
             return canDrop;
         }
 
-        public void DragOver(IDropInfo dropInfo)
+        private void DropOnLastItem()
         {
-            GetInfo(dropInfo);
-
-            if(dropInfo.DragInfo != null && dropInfo.DragInfo.SourceItem is Component)
+            if (TargetComponentGrandParent.GetType() == typeof(Composition))
             {
-                var dataObject = dropInfo.Data as Component;
+                if (SourceIndex > ParentComponentIndex)
+                    ParentComponentIndex += 1;
 
-                if (ParentVisualTarget != null)
-                {
-                    if (dataObject != null)
-                        dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
+                GrandParentCollectionSource.Move(SourceIndex, ParentComponentIndex);
 
-                    if (TargetComponent != null && SourceComponent is Component)
-                    {
-                        //IS  Not OVER ITSELF
-                        if (SourceComponent != TargetComponent)
-                        {
-                            if (!dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter))
-                            {
-                                if (ParentVisualSource.DataContext != TargetComponent)
-                                {
-                                    if (dataObject.GetType() == TargetComponent.GetType())
-                                    {
-                                        bool InsertPositionAfterTargetItem = dropInfo.InsertPosition == RelativeInsertPosition.AfterTargetItem && TargetIndex == SourceIndex;
-                                        bool InsertPositionBeforeTargetItem = dropInfo.InsertPosition == RelativeInsertPosition.BeforeTargetItem && TargetIndex == SourceIndex + 1;
-                                        if ((!InsertPositionAfterTargetItem && !InsertPositionBeforeTargetItem) || (ParentVisualTarget != ParentVisualSource))
-                                        {
-                                            dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
-                                        }
-                                    }
-                                    else if (GrandParentVisualTarget != null)
-                                    {
-                                        if (ParentComponentIndex != SourceIndex - 1)
-                                        {
-                                            if (!SourceComponent.Components.Contains(TargetComponent))
-                                            {
-                                                if (TargetComponent == TargetComponentParent.Components.Last())
-                                                {
-                                                    if (dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.AfterTargetItem))
-                                                    {
-                                                        dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+                TargetComponentGrandParent.OnSendChange(TargetComponentGrandParent.GetModel(), TargetComponentGrandParent.GetMessageAddress());
+            }
 
-                    if (dataObject is Entity && TargetComponent is Scene)
-                    {
-                        if (ParentVisualSource != VisualTarget)
-                        {
-                            dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
-                        }
-                    }
-                }
+            else if (TargetComponentGrandParent.GetType() == typeof(Layer))
+            {
+                if (SourceIndex > GrandParentComponentIndex)
+                    GrandParentComponentIndex += 1;
+
+                GrandGrandParentCollectionSource.Move(SourceIndex, GrandParentComponentIndex);
+
+                TargetComponentGrandGrandParent.OnSendChange(TargetComponentGrandGrandParent.GetModel(), TargetComponentGrandGrandParent.GetMessageAddress());
             }
         }
 
+
+
+
+
         public void Drop(IDropInfo dropInfo)
         {
+            if (DataObject == null)
+                return;
 
-
-            var insertIndex = dropInfo.InsertIndex;
+            if (TargetComponent == null)
+                return;
 
             if (TargetCollection == null)
                 return;
 
             if (CanDropOnSameParent(dropInfo))
-            {
-                if (SourceIndex < insertIndex)
-                    insertIndex -= 1;
+                DropOnSameParent();
 
-                TargetCollection.Move(SourceIndex, insertIndex);
-            }
-            else if(CanDropWithinDifferentParent(dropInfo))
-            {
-                TargetCollection.Insert(insertIndex, SourceComponent);
-                SourceCollection.Remove(SourceComponent);
-            }
-            else if (CanDropEntityOnMask(dropInfo))
-            {
-                if (dropInfo.TargetItem is Mask || dropInfo.TargetItem is Scene)
-                {
-                    TargetComponent.Components.Insert(0, SourceComponent);
-                    TargetComponent.IsExpanded = true;
-                }
-                SourceCollection.Remove(SourceComponent);
-                return;
-            }
+            else if (CanDropWithinDifferentParent(dropInfo))
+                DropWithinDifferentParent();
+
+            else if (CanDropEntityOnScene(dropInfo))
+                DropEntityOnScene();
+
             else if (CanDropOnLastItem(dropInfo))
+                DropOnLastItem();
+        }
+
+
+        public void DragOver(IDropInfo dropInfo)
+        {
+            GetInfo(dropInfo);
+
+            if (TargetComponent == null)
+                return;
+
+            if (SourceComponent.GetType() != TargetComponentParent.GetType())
             {
-                if (TargetComponentGrandParent.GetType() == typeof(Composition))
+                if (SourceComponent != TargetComponent && SourceComponent != TargetComponentParent && SourceComponent != TargetComponentGrandParent)
                 {
-                    if (SourceIndex > ParentComponentIndex)
-                        ParentComponentIndex += 1;
-
-                    GrandParentCollectionSource.Move(SourceIndex, ParentComponentIndex);
-                }
-                else if (TargetComponentGrandParent.GetType() == typeof(Layer))
-                {
-                    if (SourceIndex > GrandParentComponentIndex)
-                        GrandParentComponentIndex += 1;
-
-                    GrandGrandParentCollectionSource.Move(SourceIndex, GrandParentComponentIndex);
+                    if (CanDropOnSameParent(dropInfo) || CanDropWithinDifferentParent(dropInfo) || CanDropOnLastItem(dropInfo))
+                    {
+                        dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
+                        dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                    }
+                    else if (CanDropEntityOnScene(dropInfo))
+                    {
+                        dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
+                        dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
+                    }
                 }
             }
-        }
+
+                //if (dropInfo.DragInfo != null && dropInfo.DragInfo.SourceItem is Component)
+                //{
+                //    if (ParentVisualTarget != null)
+                //    {
+                //        //IS  Not OVER ITSELF
+                //        if (SourceComponent != TargetComponent)
+                //        {
+                //            if (!dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter))
+                //            {
+                //                if (SourceComponentParent != TargetComponent)
+                //                {
+                //                    if (DataObject.GetType() == TargetComponent.GetType())
+                //                    {
+                //                        if ((!InsertPositionAfterTargetItem && !InsertPositionBeforeTargetItem) || (ParentVisualTarget != ParentVisualSource))
+                //                        {
+                //                            dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
+                //                            dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                //                            Console.WriteLine("Hello");
+                //                        }
+                //                    }
+
+                //                    else if (GrandParentVisualTarget != null)
+                //                    {
+                //                        if (ParentComponentIndex != SourceIndex - 1)
+                //                        {
+                //                            if (!SourceComponent.Components.Contains(TargetComponent))
+                //                            {
+                //                                if (TargetComponent == TargetComponentParent.Components.Last())
+                //                                {
+                //                                    if (dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.AfterTargetItem))
+                //                                    {
+                //                                        dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
+                //                                        dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                //                                    }
+                //                                }
+                //                            }
+                //                        }
+                //                    }
+                //                }
+                //            }
+                //        }
+
+
+                //        if (DataObject is Entity && TargetComponent is Scene)
+                //        {
+                //            if (ParentVisualSource != VisualTarget)
+                //            {
+                //                dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
+                //                dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
+                //            }
+                //        }
+                //    }
+                //}
+            }
 
         private TreeViewItem ParentVisualSource;
 
@@ -430,8 +441,14 @@ namespace CMiX.MVVM.ViewModels
         private int TargetIndex = -1;
         private int SourceIndex = -1;
 
+        private Component DataObject;
+        private bool InsertPositionAfterTargetItem;
+        private bool InsertPositionBeforeTargetItem;
+
         private void GetInfo(IDropInfo dropInfo)
         {
+            DataObject = dropInfo.Data as Component;
+
             TargetIndex = dropInfo.InsertIndex;
             SourceIndex = dropInfo.DragInfo.SourceIndex;
 
@@ -449,9 +466,14 @@ namespace CMiX.MVVM.ViewModels
 
             ParentVisualSource = Utils.FindParent<TreeViewItem>(VisualSource);
             ParentVisualTarget = Utils.FindParent<TreeViewItem>(VisualTarget);
-            if(ParentVisualTarget != null)
+
+            InsertPositionAfterTargetItem = dropInfo.InsertPosition == RelativeInsertPosition.AfterTargetItem && TargetIndex == SourceIndex;
+            InsertPositionBeforeTargetItem = dropInfo.InsertPosition == RelativeInsertPosition.BeforeTargetItem && TargetIndex == SourceIndex + 1;
+
+            if (ParentVisualTarget != null)
             {
                 TargetComponentParent = ParentVisualTarget.DataContext as Component;
+                SourceComponentParent = ParentVisualSource.DataContext as Component;
 
                 GrandParentVisualTarget = Utils.FindParent<TreeViewItem>(ParentVisualTarget);
                 if (GrandParentVisualTarget != null)
@@ -473,6 +495,7 @@ namespace CMiX.MVVM.ViewModels
 
         private void NullInfo()
         {
+            DataObject = null;
             ParentVisualTarget = null;
             GrandParentVisualTarget = null;
             GrandGrandParentVisualTarget = null;

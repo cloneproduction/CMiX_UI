@@ -9,7 +9,6 @@ namespace CMiX.MVVM.ViewModels
         {
             ColorPickerModel model = new ColorPickerModel();
             model.SelectedColor = Utils.ColorToHexString(instance.SelectedColor);
-            System.Console.WriteLine("ColorPickerModel GetModel " + model.SelectedColor);
             return model;
         }
 

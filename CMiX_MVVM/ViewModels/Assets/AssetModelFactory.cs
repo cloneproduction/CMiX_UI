@@ -103,7 +103,6 @@ namespace CMiX.MVVM.ViewModels
             instance.Name = assetModel.Name;
             instance.Path = assetModel.Path;
             instance.Ponderation = assetModel.Ponderation;
-            Console.WriteLine("AssetTexture SetViewModel");
         }
     }
 }

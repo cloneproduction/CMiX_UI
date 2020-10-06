@@ -7,7 +7,6 @@ namespace CMiX.MVVM.ViewModels
         public static AssetPathSelectorModel GetModel(this AssetPathSelector instance)
         {
             AssetPathSelectorModel model = new AssetPathSelectorModel();
-            System.Console.WriteLine("AssetPathSelector GetModel");
             if (instance.SelectedAsset != null)
                 model.SelectedAsset = instance.SelectedAsset.GetModel();
 
@@ -16,7 +15,6 @@ namespace CMiX.MVVM.ViewModels
 
         public static void SetViewModel(this AssetPathSelector instance, AssetPathSelectorModel model)
         {
-            System.Console.WriteLine("AssetPathSelector SetViewModel");
             if (instance.SelectedAsset == null)
             {
                 if(model is AssetTextureModel)
