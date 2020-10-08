@@ -12,7 +12,7 @@ namespace CMiX.MVVM.ViewModels
             ID = id;
             Name = $"{GetType().Name}{ID}";
 
-            IsExpanded = true;
+            IsExpanded = false;
             Components = new ObservableCollection<Component>();
             TreeViewItemRigthClickCommand = new RelayCommand(p => RightClick());
         }

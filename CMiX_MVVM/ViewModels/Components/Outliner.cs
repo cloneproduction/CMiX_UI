@@ -334,12 +334,12 @@ namespace CMiX.MVVM.ViewModels
             if (SourceComponent == TargetComponent)
                 return;
 
-
+            Console.WriteLine(CheckItemIsLast(VisualTarget));
 
             if (SourceComponentParent != TargetComponent)
             {
-                if (TargetComponentParent.GetType() == SourceComponent.GetType()
-                    && TargetComponentParent != SourceComponent
+                if (//TargetComponentParent.GetType() == SourceComponent.GetType() &&
+                     TargetComponentParent != SourceComponent
                     && !InsertPositionTargetItemCenter 
                     && dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.AfterTargetItem))
                 {
@@ -348,11 +348,12 @@ namespace CMiX.MVVM.ViewModels
                         dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
                         dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
                     }
-                    if(SourceComponentParent.Components.Last() == TargetComponentGrandParent)
+                    if (SourceComponentParent.Components.Last() == TargetComponentGrandParent)
                     {
                         dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
                         dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
                     }
+
                 }
                 else if (SourceComponent.GetType() == typeof(Layer) && TargetComponent.GetType() == typeof(Composition)
                     || SourceComponent.GetType() == typeof(Scene) && TargetComponent.GetType() == typeof(Layer)
@@ -409,6 +410,46 @@ namespace CMiX.MVVM.ViewModels
         //    }
         //}
 
+
+        private bool CheckItemIsLast(TreeViewItem treeViewItem)
+        {
+            var parent = Utils.FindParent<TreeViewItem>(treeViewItem);
+            if(parent == null)
+            {
+                return true;
+            }
+            else
+            {
+                var collection = (ObservableCollection<Component>)parent.ItemsSource;
+                var targetComponent = treeViewItem.DataContext as Component;
+                if (collection != null)
+                {
+                    if (collection.Last() == targetComponent)
+                    {
+                        Console.WriteLine(targetComponent.Name + targetComponent.Components.Any());
+                        if (!targetComponent.IsExpanded)
+                        {
+                            return true;
+                        }
+                        else
+                            return CheckItemIsLast(parent);
+                        //else if (targetComponent.IsExpanded)
+                        //{
+                        //    return false;
+                        //}
+                        //else
+
+                    }
+
+                    else
+                        return false;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
 
         public Component GetLastItem(Component component)
         {
