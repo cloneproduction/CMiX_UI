@@ -433,12 +433,6 @@ namespace CMiX.MVVM.ViewModels
                         }
                         else
                             return CheckItemIsLast(parent);
-                        //else if (targetComponent.IsExpanded)
-                        //{
-                        //    return false;
-                        //}
-                        //else
-
                     }
 
                     else
