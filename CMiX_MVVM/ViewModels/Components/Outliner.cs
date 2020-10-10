@@ -267,7 +267,7 @@ namespace CMiX.MVVM.ViewModels
                 if (!SourceComponent.Components.Contains(TargetComponent))
                 {
                     
-                    if (TargetComponent == TargetComponentParent.Components.Last() && TargetComponentParent == TargetComponentGrandParent.Components.Last())
+                    if (TargetComponent == TargetComponentParent.Components.Last())// && TargetComponentParent == TargetComponentGrandParent.Components.Last())
                     {
                         canDrop = true;
                     }
@@ -278,29 +278,26 @@ namespace CMiX.MVVM.ViewModels
 
         private void DropOnLastItem()
         {
-            if (TargetComponentGrandParent.GetType() == typeof(Composition))
-            {
-                if (SourceIndex > ParentComponentIndex)
-                    ParentComponentIndex += 1;
+            //if (TargetComponentGrandParent.GetType() == typeof(Composition))
+            //{
+            //    if (SourceIndex > ParentComponentIndex)
+            //        ParentComponentIndex += 1;
 
-                GrandParentCollectionSource.Move(SourceIndex, ParentComponentIndex);
+            //    GrandParentCollectionSource.Move(SourceIndex, ParentComponentIndex);
 
-                TargetComponentGrandParent.OnSendChange(TargetComponentGrandParent.GetModel(), TargetComponentGrandParent.GetMessageAddress());
-            }
+            //    TargetComponentGrandParent.OnSendChange(TargetComponentGrandParent.GetModel(), TargetComponentGrandParent.GetMessageAddress());
+            //}
 
-            else if (TargetComponentGrandParent.GetType() == typeof(Layer))
-            {
-                if (SourceIndex > GrandParentComponentIndex)
-                    GrandParentComponentIndex += 1;
+            //else if (TargetComponentGrandParent.GetType() == typeof(Layer))
+            //{
+            //    if (SourceIndex > GrandParentComponentIndex)
+            //        GrandParentComponentIndex += 1;
 
-                GrandGrandParentCollectionSource.Move(SourceIndex, GrandParentComponentIndex);
+            //    GrandGrandParentCollectionSource.Move(SourceIndex, GrandParentComponentIndex);
 
-                TargetComponentGrandGrandParent.OnSendChange(TargetComponentGrandGrandParent.GetModel(), TargetComponentGrandGrandParent.GetMessageAddress());
-            }
+            //    TargetComponentGrandGrandParent.OnSendChange(TargetComponentGrandGrandParent.GetModel(), TargetComponentGrandGrandParent.GetMessageAddress());
+            //}
         }
-
-
-
 
 
         public void Drop(IDropInfo dropInfo)
@@ -321,7 +318,8 @@ namespace CMiX.MVVM.ViewModels
 
         public void DragOver(IDropInfo dropInfo)
         {
-
+            //Console.WriteLine("SourceIndex " + dropInfo.DragInfo.SourceIndex);
+            //Console.WriteLine("InsertIndex " + dropInfo.InsertIndex);
 
             if (!dropInfo.Data.GetType().IsSubclassOf(typeof(Component)))
                 return;
@@ -331,89 +329,86 @@ namespace CMiX.MVVM.ViewModels
             if (TargetComponent == null || TargetComponentParent == null)
                 return;
 
-            if (SourceComponent == TargetComponent)
+            if (VisualTarget == VisualSource)
                 return;
 
-            Console.WriteLine(CheckItemIsLast(VisualTarget));
 
-            if (SourceComponentParent != TargetComponent)
+            if (SourceComponentParent != TargetComponent) // can't over it's own parent
             {
-                if (//TargetComponentParent.GetType() == SourceComponent.GetType() &&
-                     TargetComponentParent != SourceComponent
-                    && !InsertPositionTargetItemCenter 
-                    && dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.AfterTargetItem))
-                {
-                    if(TargetComponentParent.Components.Last() == TargetComponent )
-                    {
-                        dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
-                        dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
-                    }
-                    if (SourceComponentParent.Components.Last() == TargetComponentGrandParent)
-                    {
-                        dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
-                        dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
-                    }
-
-                }
-                else if (SourceComponent.GetType() == typeof(Layer) && TargetComponent.GetType() == typeof(Composition)
-                    || SourceComponent.GetType() == typeof(Scene) && TargetComponent.GetType() == typeof(Layer)
-                    || SourceComponent.GetType() == typeof(Entity) && TargetComponent.GetType() == typeof(Scene))
+                if (SourceComponentParent.GetType() == TargetComponent.GetType())
                 {
                     dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
                     dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
                 }
 
-                else if (!InsertPositionAfterTargetItem && !InsertPositionBeforeTargetItem && !InsertPositionTargetItemCenter)
+
+                else if (!InsertPositionTargetItemCenter)
                 {
-                    if (SourceComponent.GetType() == TargetComponent.GetType())
+                    if (CheckParentIsSameType(VisualTarget, VisualSource, dropInfo.InsertPosition))// && dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.AfterTargetItem))
                     {
                         dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
                         dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                    }
+                    else if (CheckItemIsLast(VisualTarget, VisualSource, dropInfo.InsertPosition))
+                    {
+                        dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
+                        dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                    }
+
+                    else if (SourceComponent.GetType() == TargetComponent.GetType())// (Utils.FindParent<TreeViewItem>(VisualSource) == Utils.FindParent<TreeViewItem>(VisualTarget))
+                    {
+                        if (dropInfo.InsertIndex == dropInfo.DragInfo.SourceIndex && dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.AfterTargetItem))
+                        {
+                            return;
+                        }
+                        else if (dropInfo.InsertIndex - 1 == dropInfo.DragInfo.SourceIndex && dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.BeforeTargetItem))
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
+                            dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                        }
                     }
                 }
             }
         }
 
-        //else if (!SourceComponent.Components.Contains(TargetComponent))
-        //{
-        //    if (SourceComponent != TargetComponent)
-        //    {
-        //        if (TargetComponent == TargetComponentParent.Components.Last() && TargetComponentParent == TargetComponentGrandParent.Components.Last())
-        //        {
-        //            dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
-        //            dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
-        //        }
-        //    }
-        //}
-
-
-        //else if (TargetComponent == GetLastItem(Components.Last()) && dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.AfterTargetItem) && !InsertPositionTargetItemCenter)
-        //{
-        //    dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
-        //    dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
-        //}
-
-        //if (SourceComponent.GetType() != TargetComponentParent.GetType())
-        //{
-        //    if (SourceComponent != TargetComponent && SourceComponent != TargetComponentParent && SourceComponent != TargetComponentGrandParent)
-        //    {
-        //        if (CanDropOnSameParent(dropInfo) || CanDropWithinDifferentParent(dropInfo) || CanDropOnLastItem(dropInfo))
-        //        {
-        //            dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
-        //            dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
-        //        }
-        //        else if (CanDropEntityOnScene(dropInfo))
-        //        {
-        //            dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
-        //            dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
-        //        }
-        //    }
-        //}
-
-
-        private bool CheckItemIsLast(TreeViewItem treeViewItem)
+        private bool CheckParentIsSameType(TreeViewItem target, TreeViewItem source, RelativeInsertPosition relativeInsertPosition)
         {
-            var parent = Utils.FindParent<TreeViewItem>(treeViewItem);
+            Console.WriteLine("CheckParentIsSameType");
+            var parent = Utils.FindParent<TreeViewItem>(target);
+            if (parent == null)
+            {
+                return false;
+            }
+            else
+            {
+                var parentComponent = parent.DataContext as Component;
+                var parentCollection = (ObservableCollection<Component>)parent.ItemsSource;
+
+                var sourceComponent = source.DataContext as Component;
+                var targetComponent = target.DataContext as Component;
+
+                if (parentComponent.GetType() == sourceComponent.GetType() 
+                    && parentCollection.Last() == targetComponent 
+                    && relativeInsertPosition == RelativeInsertPosition.AfterTargetItem
+                    && parentComponent != sourceComponent)
+                {
+                    Console.WriteLine("POUETPOUET");
+                    return true;
+                }
+                else
+                {
+                    return CheckParentIsSameType(parent, source, relativeInsertPosition);
+                }
+            }
+        }
+
+        private bool CheckItemIsLast(TreeViewItem target, TreeViewItem source, RelativeInsertPosition relativeInsertPosition)
+        {
+            var parent = Utils.FindParent<TreeViewItem>(target);
             if(parent == null)
             {
                 return true;
@@ -421,22 +416,12 @@ namespace CMiX.MVVM.ViewModels
             else
             {
                 var collection = (ObservableCollection<Component>)parent.ItemsSource;
-                var targetComponent = treeViewItem.DataContext as Component;
-                if (collection != null)
+                var parentComponent = parent.DataContext as Component;
+                var targetComponent = target.DataContext as Component;
+                var sourceComponent = source.DataContext as Component;
+                if (collection != null && collection.Last() == targetComponent && parentComponent != sourceComponent && relativeInsertPosition == RelativeInsertPosition.AfterTargetItem)
                 {
-                    if (collection.Last() == targetComponent)
-                    {
-                        Console.WriteLine(targetComponent.Name + targetComponent.Components.Any());
-                        if (!targetComponent.IsExpanded)
-                        {
-                            return true;
-                        }
-                        else
-                            return CheckItemIsLast(parent);
-                    }
-
-                    else
-                        return false;
+                    return CheckItemIsLast(parent, source, relativeInsertPosition);
                 }
                 else
                 {
@@ -445,39 +430,19 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public Component GetLastItem(Component component)
-        {
-            // Argument-checking omitted. You should possibly make this 
-            // an instance-method on Node anyway.       
-
-            return !component.Components.Any() ? component : GetLastItem(component.Components.Last());
-        }
-
         private TreeViewItem ParentVisualSource;
 
         private TreeViewItem VisualTarget;
         private TreeViewItem VisualSource;
 
         private TreeViewItem ParentVisualTarget;
-        private TreeViewItem GrandParentVisualTarget;
-        private TreeViewItem GrandGrandParentVisualTarget;
 
         private Component SourceComponent;
         private Component SourceComponentParent;
-        private Component SourceComponentGrandParent;
-        private Component SourceComponentGrandGrandParent;
+
 
         private Component TargetComponent;
         private Component TargetComponentParent;
-        private Component TargetComponentGrandParent;
-        private Component TargetComponentGrandGrandParent;
-
-
-        private int ParentComponentIndex = -1;
-        private int GrandParentComponentIndex = -1;
-
-        private ObservableCollection<Component> GrandParentCollectionSource;
-        private ObservableCollection<Component> GrandGrandParentCollectionSource;
 
         private ObservableCollection<Component> TargetCollection;
         private ObservableCollection<Component> SourceCollection;
@@ -519,38 +484,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 TargetComponentParent = ParentVisualTarget.DataContext as Component;
                 SourceComponentParent = ParentVisualSource.DataContext as Component;
-
-                GrandParentVisualTarget = Utils.FindParent<TreeViewItem>(ParentVisualTarget);
-                if (GrandParentVisualTarget != null)
-                {
-                    TargetComponentGrandParent = GrandParentVisualTarget.DataContext as Component;
-                    ParentComponentIndex = TargetComponentGrandParent.Components.IndexOf(TargetComponentParent);
-                    GrandParentCollectionSource = (ObservableCollection<Component>)GrandParentVisualTarget.ItemsSource;
-
-                    GrandGrandParentVisualTarget = Utils.FindParent<TreeViewItem>(GrandParentVisualTarget);
-                    if (GrandGrandParentVisualTarget != null)
-                    {
-                        TargetComponentGrandGrandParent = GrandGrandParentVisualTarget.DataContext as Component;
-                        GrandParentComponentIndex = TargetComponentGrandGrandParent.Components.IndexOf(TargetComponentGrandParent);
-                        GrandGrandParentCollectionSource = (ObservableCollection<Component>)GrandGrandParentVisualTarget.ItemsSource;
-                    }
-                }
             }
-        }
-
-        private void NullInfo()
-        {
-            DataObject = null;
-            ParentVisualTarget = null;
-            GrandParentVisualTarget = null;
-            GrandGrandParentVisualTarget = null;
-
-            TargetComponentParent = null;
-            TargetComponentGrandParent = null;
-            TargetComponentGrandGrandParent = null;
-
-            GrandParentCollectionSource = null;
-            GrandGrandParentCollectionSource = null;
         }
 
         public void StartDrag(IDragInfo dragInfo)
@@ -575,12 +509,12 @@ namespace CMiX.MVVM.ViewModels
 
         public void DragDropOperationFinished(DragDropEffects operationResult, IDragInfo dragInfo)
         {
-            NullInfo();
+            //NullInfo();
         }
 
         public void DragCancelled()
         {
-            NullInfo();
+           //NullInfo();
         }
 
         public bool TryCatchOccurredException(Exception exception)
