@@ -318,9 +318,6 @@ namespace CMiX.MVVM.ViewModels
 
         public void DragOver(IDropInfo dropInfo)
         {
-            //Console.WriteLine("SourceIndex " + dropInfo.DragInfo.SourceIndex);
-            //Console.WriteLine("InsertIndex " + dropInfo.InsertIndex);
-
             if (!dropInfo.Data.GetType().IsSubclassOf(typeof(Component)))
                 return;
 
@@ -335,49 +332,57 @@ namespace CMiX.MVVM.ViewModels
 
             if (SourceComponentParent != TargetComponent) // can't over it's own parent
             {
+                dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
                 if (SourceComponentParent.GetType() == TargetComponent.GetType())
                 {
-                    dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
                     dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
                 }
-
-
                 else if (!InsertPositionTargetItemCenter)
                 {
-                    if (CheckParentIsSameType(VisualTarget, VisualSource, dropInfo.InsertPosition))// && dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.AfterTargetItem))
+                    if (CheckParentIsSameType(VisualTarget, VisualSource, dropInfo.InsertPosition)
+                        || CheckItemIsLast(VisualTarget, VisualSource, dropInfo.InsertPosition)
+                        || CheckTargetIsSameType(dropInfo))
                     {
-                        dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
                         dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
-                    }
-                    else if (CheckItemIsLast(VisualTarget, VisualSource, dropInfo.InsertPosition))
-                    {
-                        dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
-                        dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
-                    }
-
-                    else if (SourceComponent.GetType() == TargetComponent.GetType())// (Utils.FindParent<TreeViewItem>(VisualSource) == Utils.FindParent<TreeViewItem>(VisualTarget))
-                    {
-                        if (dropInfo.InsertIndex == dropInfo.DragInfo.SourceIndex && dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.AfterTargetItem))
-                        {
-                            return;
-                        }
-                        else if (dropInfo.InsertIndex - 1 == dropInfo.DragInfo.SourceIndex && dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.BeforeTargetItem))
-                        {
-                            return;
-                        }
-                        else
-                        {
-                            dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
-                            dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
-                        }
                     }
                 }
             }
         }
 
+        private bool CheckTargetIsSameType(IDropInfo dropInfo)
+        {
+            if (SourceComponent.GetType() == TargetComponent.GetType())
+            {
+                if (dropInfo.InsertIndex == dropInfo.DragInfo.SourceIndex && dropInfo.InsertPosition == RelativeInsertPosition.AfterTargetItem
+                    && SourceComponentParent != TargetComponentParent)
+                {
+                    return true;
+                }
+                else if (dropInfo.InsertIndex - 1 == dropInfo.DragInfo.SourceIndex && dropInfo.InsertPosition == RelativeInsertPosition.BeforeTargetItem
+                    && SourceComponentParent != TargetComponentParent)
+                {
+                    return true;
+                }
+                else if (dropInfo.InsertIndex - 1 == dropInfo.DragInfo.SourceIndex && dropInfo.InsertPosition == RelativeInsertPosition.BeforeTargetItem)
+                {
+                    return false;
+                }
+                else if (dropInfo.InsertIndex == dropInfo.DragInfo.SourceIndex && dropInfo.InsertPosition == RelativeInsertPosition.AfterTargetItem)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else
+                return false;
+        }
+
         private bool CheckParentIsSameType(TreeViewItem target, TreeViewItem source, RelativeInsertPosition relativeInsertPosition)
         {
-            Console.WriteLine("CheckParentIsSameType");
+            //Console.WriteLine("CheckParentIsSameType");
             var parent = Utils.FindParent<TreeViewItem>(target);
             if (parent == null)
             {
@@ -419,7 +424,10 @@ namespace CMiX.MVVM.ViewModels
                 var parentComponent = parent.DataContext as Component;
                 var targetComponent = target.DataContext as Component;
                 var sourceComponent = source.DataContext as Component;
-                if (collection != null && collection.Last() == targetComponent && parentComponent != sourceComponent && relativeInsertPosition == RelativeInsertPosition.AfterTargetItem)
+                if (collection != null 
+                    && collection.Last() == targetComponent 
+                    && parentComponent != sourceComponent 
+                    && relativeInsertPosition == RelativeInsertPosition.AfterTargetItem)
                 {
                     return CheckItemIsLast(parent, source, relativeInsertPosition);
                 }
@@ -462,13 +470,11 @@ namespace CMiX.MVVM.ViewModels
             SourceIndex = dropInfo.DragInfo.SourceIndex;
 
             VisualTarget = dropInfo.VisualTargetItem as TreeViewItem;
-            VisualSource = dropInfo.DragInfo.VisualSourceItem as TreeViewItem; ;
+            VisualSource = dropInfo.DragInfo.VisualSourceItem as TreeViewItem;
 
             SourceComponent = dropInfo.DragInfo.SourceItem as Component;
             TargetComponent = dropInfo.TargetItem as Component;
 
-            VisualTarget = dropInfo.VisualTargetItem as TreeViewItem;
-            VisualSource = dropInfo.DragInfo.VisualSourceItem as TreeViewItem;
 
             TargetCollection = dropInfo.TargetCollection as ObservableCollection<Component>;
             SourceCollection = dropInfo.DragInfo.SourceCollection as ObservableCollection<Component>;
