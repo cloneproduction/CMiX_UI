@@ -263,7 +263,6 @@ namespace CMiX.MVVM.ViewModels
             
             if (dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.AfterTargetItem) && !dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter))
             {
-                Console.WriteLine("YO!");
                 if (!SourceComponent.Components.Contains(TargetComponent))
                 {
                     
@@ -382,7 +381,6 @@ namespace CMiX.MVVM.ViewModels
 
         private bool CheckParentIsSameType(TreeViewItem target, TreeViewItem source, RelativeInsertPosition relativeInsertPosition)
         {
-            //Console.WriteLine("CheckParentIsSameType");
             var parent = Utils.FindParent<TreeViewItem>(target);
             if (parent == null)
             {
@@ -392,7 +390,6 @@ namespace CMiX.MVVM.ViewModels
             {
                 var parentComponent = parent.DataContext as Component;
                 var parentCollection = (ObservableCollection<Component>)parent.ItemsSource;
-
                 var sourceComponent = source.DataContext as Component;
                 var targetComponent = target.DataContext as Component;
 
@@ -401,7 +398,6 @@ namespace CMiX.MVVM.ViewModels
                     && relativeInsertPosition == RelativeInsertPosition.AfterTargetItem
                     && parentComponent != sourceComponent)
                 {
-                    Console.WriteLine("POUETPOUET");
                     return true;
                 }
                 else
