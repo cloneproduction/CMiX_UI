@@ -150,169 +150,103 @@ namespace CMiX.MVVM.ViewModels
 
 
 
-
-        public bool CanDropOnSameParent(IDropInfo dropInfo)
+        
+        private void DropFromLastItem(TreeViewItem target, TreeViewItem source)
         {
-            bool canDrop = false;
-
-            //Cant drop on itself
-
-                // NOT OVERRING THE CENTER PART
-                if (!dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter))
-                {
-                    // can't drop just next after
-                    if (!InsertPositionAfterTargetItem && !InsertPositionBeforeTargetItem)
-                    {
-                        // parent can't be the target
-                        if (SourceComponentParent != TargetComponent)
-                        {
-                            // parent source is parent target so it drop within
-                            if (ParentVisualSource == ParentVisualTarget)
-                            {
-                                //drop only on same type
-                                if (DataObject.GetType() == TargetComponent.GetType())
-                                {
-                                    canDrop = true;
-                                    Console.WriteLine("CanDropOnSameParent");
-                                }
-                            }
-                        }
-                    }
-                
-            }
-
-            return canDrop;
-        }
-
-        private void DropOnSameParent()
-        {
-            if (SourceIndex < TargetIndex)
-                TargetIndex -= 1;
-
-            TargetCollection.Move(SourceIndex, TargetIndex);
-            Console.WriteLine("DropOnSameParent");
-
-            TargetComponentParent.OnSendChange(TargetComponentParent.GetModel(), TargetComponentParent.GetMessageAddress());
-        }
-
-
-        public bool CanDropWithinDifferentParent(IDropInfo dropInfo)
-        {
-            bool canDrop = false;
-
-            // drop on a different parent
-            if (ParentVisualSource != ParentVisualTarget && !dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter))
+            if(target != null && source != null)
             {
-                //dropping on a same type
-                if (DataObject.GetType() == TargetComponent.GetType())
+                TreeViewItem targetParent = Utils.FindParent<TreeViewItem>(target);
+                TreeViewItem sourceParent = Utils.FindParent<TreeViewItem>(source);
+
+                Component sourceComponent = source.DataContext as Component;
+                Component targetParentComponent = targetParent.DataContext as Component;
+                Component sourceParentComponent = sourceParent.DataContext as Component;
+
+                if (targetParentComponent.GetType() == sourceComponent.GetType())
                 {
-                    canDrop = true;
-                    Console.WriteLine("CanDropWithinDifferentParent");
-                }
-            }
-
-            return canDrop;
-        }
-        private void DropWithinDifferentParent()
-        {
-            TargetCollection.Insert(TargetIndex, SourceComponent);
-            SourceCollection.Remove(SourceComponent);
-            Console.WriteLine("DropWithinDifferentParent");
-            SourceComponentParent.OnSendChange(SourceComponentParent.GetModel(), SourceComponentParent.GetMessageAddress());
-            TargetComponentParent.OnSendChange(TargetComponentParent.GetModel(), TargetComponentParent.GetMessageAddress());
-        }
-
-
-
-        public bool CanDropEntityOnScene(IDropInfo dropInfo)
-        {
-            bool canDrop = false;
-
-            if (ParentVisualSource != VisualTarget)
-            {
-                if(DataObject is Entity && TargetComponent is Scene)
-                {
-                    canDrop = true;
-                    Console.WriteLine("CanDropEntityOnScene");
-                }
-
-            }
-
-            return canDrop;
-        }
-
-        private void DropEntityOnScene()
-        {
-            if (TargetComponent is Scene)
-            {
-                TargetComponent.Components.Insert(0, SourceComponent);
-                TargetComponent.IsExpanded = true;
-            }
-            SourceCollection.Remove(SourceComponent);
-
-            SourceComponentParent.OnSendChange(SourceComponentParent.GetModel(), SourceComponentParent.GetMessageAddress());
-            TargetComponent.OnSendChange(TargetComponent.GetModel(), TargetComponent.GetMessageAddress());
-        }
-
-
-
-
-        public bool CanDropOnLastItem(IDropInfo dropInfo)
-        {
-            bool canDrop = false;
-            
-            if (dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.AfterTargetItem) && !dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.TargetItemCenter))
-            {
-                if (!SourceComponent.Components.Contains(TargetComponent))
-                {
+                    Component targetGrandParentComponent = Utils.FindParent<TreeViewItem>(targetParent).DataContext as Component;
+                    sourceParentComponent.Components.Remove(sourceComponent);
+                    targetGrandParentComponent.Components.Add(sourceComponent);
                     
-                    if (TargetComponent == TargetComponentParent.Components.Last())// && TargetComponentParent == TargetComponentGrandParent.Components.Last())
-                    {
-                        canDrop = true;
-                    }
+                }
+                else
+                {
+                    DropFromLastItem(targetParent, source);
                 }
             }
-            return canDrop;
         }
 
-        private void DropOnLastItem()
+        private void DropOnSameTargetType(TreeViewItem target, TreeViewItem source)
         {
-            //if (TargetComponentGrandParent.GetType() == typeof(Composition))
-            //{
-            //    if (SourceIndex > ParentComponentIndex)
-            //        ParentComponentIndex += 1;
+            if (target != null && source != null)
+            {
 
-            //    GrandParentCollectionSource.Move(SourceIndex, ParentComponentIndex);
+                Console.WriteLine("DropOnSameTargetType");
+                TreeViewItem targetParent = Utils.FindParent<TreeViewItem>(target);
+                TreeViewItem sourceParent = Utils.FindParent<TreeViewItem>(source);
 
-            //    TargetComponentGrandParent.OnSendChange(TargetComponentGrandParent.GetModel(), TargetComponentGrandParent.GetMessageAddress());
-            //}
+                Component sourceComponent = source.DataContext as Component;
+                Component targetParentComponent = targetParent.DataContext as Component;
+                Component sourceParentComponent = sourceParent.DataContext as Component;
 
-            //else if (TargetComponentGrandParent.GetType() == typeof(Layer))
-            //{
-            //    if (SourceIndex > GrandParentComponentIndex)
-            //        GrandParentComponentIndex += 1;
+                if (SourceIndex < TargetIndex && targetParentComponent == sourceParentComponent)
+                    TargetIndex -= 1;
 
-            //    GrandGrandParentCollectionSource.Move(SourceIndex, GrandParentComponentIndex);
+                sourceParentComponent.Components.Remove(sourceComponent);
+                targetParentComponent.Components.Insert(TargetIndex, sourceComponent);
 
-            //    TargetComponentGrandGrandParent.OnSendChange(TargetComponentGrandGrandParent.GetModel(), TargetComponentGrandGrandParent.GetMessageAddress());
-            //}
+                //SourceComponentParent.OnSendChange(SourceComponentParent.GetModel(), SourceComponentParent.GetMessageAddress());
+                //TargetComponentParent.OnSendChange(TargetComponentParent.GetModel(), TargetComponentParent.GetMessageAddress());
+            }
         }
 
+        private void DropInSameParentType(TreeViewItem target, TreeViewItem source)
+        {
+            if (target != null && source != null)
+            {
+                TreeViewItem targetParent = Utils.FindParent<TreeViewItem>(target);
+                TreeViewItem sourceParent = Utils.FindParent<TreeViewItem>(source);
+                TreeViewItem targetGrandParent = Utils.FindParent<TreeViewItem>(targetParent);
+
+                Component sourceComponent = source.DataContext as Component;
+                Component targetParentComponent = targetParent.DataContext as Component;
+                Component targetGrandParentComponent = targetGrandParent.DataContext as Component;
+                Component sourceParentComponent = sourceParent.DataContext as Component;
+
+                var targetParentIndex = targetGrandParentComponent.Components.IndexOf(targetParentComponent);
+
+                if(targetParentComponent.GetType() == sourceComponent.GetType())
+                {
+                    Console.WriteLine("DropInSameParentType");
+                    if (sourceParentComponent == targetGrandParentComponent)
+                    {
+                        if (SourceIndex > targetParentIndex)
+                            targetParentIndex += 1;
+
+                        targetGrandParentComponent.Components.Move(SourceIndex, targetParentIndex);
+                    }
+                    else
+                    {
+                        sourceParentComponent.Components.Remove(sourceComponent);
+                        targetGrandParentComponent.Components.Insert(targetParentIndex + 1, sourceComponent);
+                    }
+                    //SourceComponentParent.OnSendChange(SourceComponentParent.GetModel(), SourceComponentParent.GetMessageAddress());
+                    //TargetComponentParent.OnSendChange(TargetComponentParent.GetModel(), TargetComponentParent.GetMessageAddress());
+                }
+                else
+                {
+                    DropInSameParentType(targetParent, source);
+                }
+            }
+        }
 
         public void Drop(IDropInfo dropInfo)
         {
-            //if (CanDropOnSameParent(dropInfo))
-            //    DropOnSameParent();
-
-            //else if (CanDropWithinDifferentParent(dropInfo))
-            //    DropWithinDifferentParent();
-
-            //else if (CanDropEntityOnScene(dropInfo))
-            //    DropEntityOnScene();
-
-            //else if (CanDropOnLastItem(dropInfo))
-            //    DropOnLastItem();
+            DoDropInParent.Invoke(VisualTarget, VisualSource);
         }
+
+
+        private Action<TreeViewItem, TreeViewItem> DoDropInParent { get; set; }
 
 
         public void DragOver(IDropInfo dropInfo)
@@ -329,24 +263,43 @@ namespace CMiX.MVVM.ViewModels
                 return;
 
 
-            if (SourceComponentParent != TargetComponent) // can't over it's own parent
+            if (SourceComponentParent != TargetComponent && SourceComponentParent.GetType() != typeof(Project)) // can't over it's own parent
             {
-                dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
                 if (SourceComponentParent.GetType() == TargetComponent.GetType())
                 {
+                    dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
                     dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
                 }
-                else if (!InsertPositionTargetItemCenter)
+                else if (!InsertPositionTargetItemCenter )
                 {
-                    if (CheckParentIsSameType(VisualTarget, VisualSource, dropInfo.InsertPosition)
-                        || CheckItemIsLast(VisualTarget, VisualSource, dropInfo.InsertPosition)
-                        || CheckTargetIsSameType(dropInfo))
+                    if (CheckTargetIsSameType(dropInfo))
                     {
+                        Console.WriteLine("CheckTargetIsSameType");
+                        DoDropInParent = DropOnSameTargetType;
+                        dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
+                        dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                    }
+
+                    else if (CheckParentIsSameType(VisualTarget, VisualSource, dropInfo.InsertPosition))
+                    {
+                        Console.WriteLine("CheckParentIsSameType");
+                        DoDropInParent = DropInSameParentType;
+                        dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
+                        dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                    }
+                    else if (CheckItemIsLast(VisualTarget, VisualSource, dropInfo.InsertPosition))
+                    {
+                        Console.WriteLine("CheckItemIsLast");
+                        DoDropInParent = DropFromLastItem;
+                        dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
                         dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
                     }
                 }
             }
         }
+
+
+
 
         private bool CheckTargetIsSameType(IDropInfo dropInfo)
         {
@@ -434,17 +387,15 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        private TreeViewItem ParentVisualSource;
 
+
+        private TreeViewItem ParentVisualSource;
         private TreeViewItem VisualTarget;
         private TreeViewItem VisualSource;
-
         private TreeViewItem ParentVisualTarget;
 
         private Component SourceComponent;
         private Component SourceComponentParent;
-
-
         private Component TargetComponent;
         private Component TargetComponentParent;
 
