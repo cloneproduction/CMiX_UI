@@ -240,6 +240,22 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
+        private void DropInDifferentParent(TreeViewItem target, TreeViewItem source)
+        {
+            if (target != null && source != null)
+            {
+                TreeViewItem targetParent = Utils.FindParent<TreeViewItem>(target);
+                TreeViewItem sourceParent = Utils.FindParent<TreeViewItem>(source);
+
+                Component sourceComponent = source.DataContext as Component;
+                Component targetComponent = target.DataContext as Component;
+                Component sourceParentComponent = sourceParent.DataContext as Component;
+
+                sourceParentComponent.Components.Remove(sourceComponent);
+                targetComponent.Components.Insert(0, sourceComponent);
+            }
+        }
+
         public void Drop(IDropInfo dropInfo)
         {
             DoDropInParent.Invoke(VisualTarget, VisualSource);
@@ -267,6 +283,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 if (SourceComponentParent.GetType() == TargetComponent.GetType())
                 {
+                    DoDropInParent = DropInDifferentParent;
                     dropInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
                     dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
                 }
@@ -342,10 +359,12 @@ namespace CMiX.MVVM.ViewModels
             else
             {
                 var parentComponent = parent.DataContext as Component;
-                var parentCollection = (ObservableCollection<Component>)parent.ItemsSource;
+                var parentCollection = parentComponent.Components;// (ObservableCollection<Component>)parent.ItemsSource;
                 var sourceComponent = source.DataContext as Component;
                 var targetComponent = target.DataContext as Component;
 
+                Console.WriteLine("targetComponent " + targetComponent.Name);
+                Console.WriteLine(parentCollection.Last().Name);
                 if (parentComponent.GetType() == sourceComponent.GetType() 
                     && parentCollection.Last() == targetComponent 
                     && relativeInsertPosition == RelativeInsertPosition.AfterTargetItem
