@@ -278,6 +278,8 @@ namespace CMiX.MVVM.ViewModels
             if (VisualTarget == VisualSource)
                 return;
 
+            if (ParentVisualTarget == null)
+                return;
 
             if (SourceComponentParent != TargetComponent && SourceComponentParent.GetType() != typeof(Project)) // can't over it's own parent
             {
@@ -359,14 +361,18 @@ namespace CMiX.MVVM.ViewModels
             else
             {
                 var parentComponent = parent.DataContext as Component;
-                var parentCollection = parentComponent.Components;// (ObservableCollection<Component>)parent.ItemsSource;
+                var parentCollection = parentComponent.Components;
                 var sourceComponent = source.DataContext as Component;
                 var targetComponent = target.DataContext as Component;
 
-                Console.WriteLine("targetComponent " + targetComponent.Name);
-                Console.WriteLine(parentCollection.Last().Name);
-                if (parentComponent.GetType() == sourceComponent.GetType() 
-                    && parentCollection.Last() == targetComponent 
+
+                if (parentComponent.GetType() != sourceComponent.GetType()) 
+                {
+                    return false;
+                }
+
+                if(
+                    parentCollection.Last() == targetComponent 
                     && relativeInsertPosition == RelativeInsertPosition.AfterTargetItem
                     && parentComponent != sourceComponent)
                 {
