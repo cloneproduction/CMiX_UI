@@ -17,6 +17,21 @@ namespace CMiX.MVVM.ViewModels
             TreeViewItemRigthClickCommand = new RelayCommand(p => RightClick());
         }
 
+
+        public override object Handle(object request)
+        {
+            if(request.ToString() == "MessageAddressTest")
+            {
+                return $"Component: Message received";
+            }
+            else
+            {
+                return base.Handle(request);
+            }
+        }
+
+
+
         private void RightClick()
         {
             this.IsSelected = true;

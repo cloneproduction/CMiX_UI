@@ -4,7 +4,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Sendable : ViewModel
+    public abstract class Sendable : ViewModel, IHandler
     {
         public virtual string GetMessageAddress()
         {
@@ -41,6 +41,26 @@ namespace CMiX.MVVM.ViewModels
         {
             this.SendChangeEvent -= sendableParent.OnChildPropertyToSendChange;
             sendableParent.ReceiveChangeEvent -= this.OnParentReceiveChange;
+        }
+
+
+        public IHandler NextHandler;
+        public IHandler SetNext(IHandler handler)
+        {
+            this.NextHandler = handler;
+            return handler;
+        }
+
+        public virtual object Handle(object request)
+        {
+            if(this.NextHandler != null)
+            {
+                return this.NextHandler.Handle(request);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

@@ -173,6 +173,7 @@
     <Compile Include="ViewModels\Entity\Texture\TextureModelFactory.cs" />
     <Compile Include="ViewModels\Mask\MaskModelFactory.cs" />
     <Compile Include="ViewModels\PostFX\PostFXModelFactory.cs" />
+    <Compile Include="ViewModels\Sendable\IHandler.cs" />
     <Compile Include="Views\ColorPicker.xaml.cs">
       <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
@@ -284,7 +285,7 @@
     <Compile Include="ViewModels\ModelFactory.cs" />
     <Compile Include="ViewModels\PostFX\PostFX.cs" />
     <Compile Include="ViewModels\RangeControl.cs" />
-    <Compile Include="ViewModels\Sendable.cs" />
+    <Compile Include="ViewModels\Sendable\Sendable.cs" />
     <Compile Include="ViewModels\Slider\Slider.cs" />
     <Compile Include="ViewModels\Slider\SliderModelFactory.cs" />
     <Compile Include="ViewModels\_Enums\AnimModeEnum.cs" />
