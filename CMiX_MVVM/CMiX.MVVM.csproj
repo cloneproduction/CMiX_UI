@@ -172,6 +172,7 @@
     <Compile Include="ViewModels\Entity\Texture\InverterModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Texture\TextureModelFactory.cs" />
     <Compile Include="ViewModels\Mask\MaskModelFactory.cs" />
+    <Compile Include="ViewModels\Outliner\DragDropCheck.cs" />
     <Compile Include="ViewModels\PostFX\PostFXModelFactory.cs" />
     <Compile Include="ViewModels\Sendable\IHandler.cs" />
     <Compile Include="Views\ColorPicker.xaml.cs">
@@ -243,7 +244,7 @@
     <Compile Include="ViewModels\Components\Entity.cs" />
     <Compile Include="ViewModels\Components\Layer.cs" />
     <Compile Include="ViewModels\Mask\Mask.cs" />
-    <Compile Include="ViewModels\Components\Outliner.cs" />
+    <Compile Include="ViewModels\Outliner\Outliner.cs" />
     <Compile Include="ViewModels\Components\Project.cs" />
     <Compile Include="ViewModels\Components\Scene.cs" />
     <Compile Include="ViewModels\Counter\Counter.cs" />
