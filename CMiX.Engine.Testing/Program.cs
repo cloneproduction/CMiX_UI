@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using CMiX.MVVM.ViewModels;
 using CMiX.Studio.ViewModels.MessageService;
 
@@ -18,6 +17,5 @@ namespace CMiX.Engine.Testing
             receiver.DataReceivedEvent += Project.OnParentReceiveChange;
             Console.ReadLine();
         }
-
     }
 }

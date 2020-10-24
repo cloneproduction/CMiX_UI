@@ -51,9 +51,9 @@ namespace CMiX.Nodes
         {
 			FProjectOut[0] = this.Project;
 			FDataType[0] = e.Model.GetType().Name;
-			FLogger.Log(LogType.Debug, "Receiver_DataReceivedEvent");
-			FLogger.Log(LogType.Debug, "Model Type " + e.Model.GetType().Name);
-		}
+            FLogger.Log(LogType.Debug, "Receiver_DataReceivedEvent");
+            FLogger.Log(LogType.Debug, "Model Type " + e.Model.GetType().Name);
+        }
 
         public void Evaluate(int SpreadMax)
 		{

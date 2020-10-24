@@ -29,7 +29,7 @@ namespace CMiX.Studio.ViewModels.MessageService
 
             //if(e.Data is ProjectModel)
             //    Console.WriteLine("Composition Count = " + ((ProjectModel)e.Data).ComponentModels.Count);
-            Console.WriteLine("MessageReceived" + e.Address);
+            //Console.WriteLine("MessageReceived" + e.Address);
             OnDataReceivedChange(e.Data as IModel, e.Address, String.Empty);
         }
 

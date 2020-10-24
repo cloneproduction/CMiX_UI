@@ -26,6 +26,7 @@ namespace CMiX.MVVM.Message
             {
             }
 
+            const int MegaByte = 1024;
             public void Run(PairSocket shim)
             {
                 using (subscriber = new SubscriberSocket())
@@ -33,6 +34,7 @@ namespace CMiX.MVVM.Message
                     subscriber.Connect(Address);
                     subscriber.Subscribe(Topic);
                     subscriber.Options.ReceiveHighWatermark = 1000;
+                    subscriber.Options.MulticastRate = 1000 * MegaByte;
                     subscriber.ReceiveReady += OnSubscriberReady;
                     this.shim = shim;
                     shim.ReceiveReady += OnShimReady;

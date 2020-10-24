@@ -11,6 +11,28 @@ namespace CMiX.MVVM.ViewModels
             return $"{this.GetType().Name}/";
         }
 
+
+        public IHandler NextHandler;
+        public IHandler SetNext(IHandler handler)
+        {
+            this.NextHandler = handler;
+            return handler;
+        }
+
+        public virtual object Handle(object request)
+        {
+            if (this.NextHandler != null)
+            {
+                return this.NextHandler.Handle(request);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
+
         public event EventHandler<ModelEventArgs> ReceiveChangeEvent;
         public void OnReceiveChange(IModel model, string messageAddress, string parentMessageAddress)
         {
@@ -18,6 +40,8 @@ namespace CMiX.MVVM.ViewModels
         }
 
         public abstract void OnParentReceiveChange(object sender, ModelEventArgs e);
+
+
 
 
         public event EventHandler<ModelEventArgs> SendChangeEvent;
@@ -30,6 +54,8 @@ namespace CMiX.MVVM.ViewModels
         {
             OnSendChange(e.Model, GetMessageAddress() + e.MessageAddress);
         }
+
+
 
         public void SubscribeToEvent(Sendable sendableParent)
         {
@@ -44,23 +70,6 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public IHandler NextHandler;
-        public IHandler SetNext(IHandler handler)
-        {
-            this.NextHandler = handler;
-            return handler;
-        }
 
-        public virtual object Handle(object request)
-        {
-            if(this.NextHandler != null)
-            {
-                return this.NextHandler.Handle(request);
-            }
-            else
-            {
-                return null;
-            }
-        }
     }
 }

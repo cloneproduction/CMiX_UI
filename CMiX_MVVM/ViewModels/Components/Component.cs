@@ -14,7 +14,6 @@ namespace CMiX.MVVM.ViewModels
 
             IsExpanded = false;
             Components = new ObservableCollection<Component>();
-            TreeViewItemRigthClickCommand = new RelayCommand(p => RightClick());
         }
 
 
@@ -30,22 +29,15 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-
-
-        private void RightClick()
-        {
-            this.IsSelected = true;
-        }
-
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
             if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
                 this.SetViewModel(e.Model as IComponentModel);
-            else
+            else if (e.MessageAddress.Contains(e.ParentMessageAddress + this.GetMessageAddress()))
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
+            //else
+            //    OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
-
-        ICommand TreeViewItemRigthClickCommand { get; set; }
 
         public override string GetMessageAddress()
         {
@@ -141,6 +133,7 @@ namespace CMiX.MVVM.ViewModels
         public void AddComponent(Component component)
         {
             Components.Add(component);
+            component.SubscribeToEvent(this);
             IsExpanded = true;
             OnSendChange(this.GetModel(), this.GetMessageAddress());
         }
@@ -148,6 +141,20 @@ namespace CMiX.MVVM.ViewModels
         public void RemoveComponent(Component component)
         {
             Components.Remove(component);
+            component.UnSubscribeToEvent(this);
+            OnSendChange(this.GetModel(), this.GetMessageAddress());
+        }
+
+        public void InsertComponent(int index, Component component)
+        {
+            Components.Insert(index, component);
+            component.SubscribeToEvent(this);
+            OnSendChange(this.GetModel(), this.GetMessageAddress());
+        }
+
+        public void MoveComponent(int oldIndex, int newIndex)
+        {
+            Components.Move(oldIndex, newIndex);
             OnSendChange(this.GetModel(), this.GetMessageAddress());
         }
 

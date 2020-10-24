@@ -172,7 +172,7 @@
     <Compile Include="ViewModels\Entity\Texture\InverterModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Texture\TextureModelFactory.cs" />
     <Compile Include="ViewModels\Mask\MaskModelFactory.cs" />
-    <Compile Include="ViewModels\Outliner\DragDropCheck.cs" />
+    <Compile Include="ViewModels\Outliner\OutlinerDragDropManager.cs" />
     <Compile Include="ViewModels\PostFX\PostFXModelFactory.cs" />
     <Compile Include="ViewModels\Sendable\IHandler.cs" />
     <Compile Include="Views\ColorPicker.xaml.cs">

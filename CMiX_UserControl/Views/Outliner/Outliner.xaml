@@ -86,8 +86,8 @@
             AllowDrop="True"
             dd:DragDrop.IsDragSource="True"
             dd:DragDrop.IsDropTarget="True"
-            dd:DragDrop.DragHandler="{Binding}"
-            dd:DragDrop.DropHandler="{Binding}"
+            dd:DragDrop.DragHandler="{Binding OutlinerDragDropManager}"
+            dd:DragDrop.DropHandler="{Binding OutlinerDragDropManager}"
             ContextMenu="{DynamicResource OutlinerContextMenu}"
             ItemsSource="{Binding Components}">
             <Controls:TreeViewSelect.Resources>
