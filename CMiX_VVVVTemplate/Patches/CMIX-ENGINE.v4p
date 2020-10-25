@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="C:\Users\BabyClone\Documents\GitHub\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="4340" scrolly="3090">
+   <PATCH nodename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="2715" scrolly="-720">
    <BOUNDS type="Window" left="14400" top="20370" width="20580" height="16080">
    </BOUNDS>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="2" systemname="IOBox (Value Advanced)">
@@ -75,7 +75,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="7060" top="1180" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="120">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="60">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -765,7 +765,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="6160" top="21415" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="21520" top="880" width="10600" height="12100">
+   <BOUNDS type="Window" left="18030" top="315" width="7710" height="7320">
    </BOUNDS>
    <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
@@ -1065,7 +1065,7 @@
    </BOUNDS>
    <PIN pinname="String Type" slicecount="1" values="Filename">
    </PIN>
-   <PIN pinname="Input String" slicecount="1" values="..\..\..\..\..\Desktop\Untitled3.png">
+   <PIN pinname="Input String" slicecount="1" values="C:\Users\clone\Desktop\untitled.png">
    </PIN>
    <PIN pinname="Output String" visible="1">
    </PIN>
@@ -1104,47 +1104,11 @@
    </LINK>
    <LINK srcnodeid="447" srcpinname="Output" dstnodeid="288" dstpinname="Transform In">
    </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="448">
-   <BOUNDS type="Box" left="12840" top="11940" width="795" height="720">
-   </BOUNDS>
-   <BOUNDS type="Node" left="12840" top="11940" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Rows" slicecount="1" values="3">
-   </PIN>
-   <PIN pinname="Y Input Value" slicecount="3" values="0,,">
-   </PIN>
-   <PIN pinname="Vector Size" slicecount="1" values="3">
-   </PIN>
-   <PIN pinname="Default" slicecount="1" values="|0, 0, 0|">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="347" srcpinname="Uniform" dstnodeid="448" dstpinname="Y Input Value">
-   </LINK>
    <LINK srcnodeid="157" srcpinname="Transform" dstnodeid="447" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="305" srcpinname="Transform Out" dstnodeid="93" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="354" srcpinname="Transform Out" dstnodeid="68" dstpinname="Data">
-   </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="449">
-   <BOUNDS type="Box" left="15200" top="12050" width="730" height="2200">
-   </BOUNDS>
-   <BOUNDS type="Node" left="15200" top="12050" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Vector Size" slicecount="1" values="3">
-   </PIN>
-   <PIN pinname="Rows" slicecount="1" values="9">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="347" srcpinname="XYZ" dstnodeid="449" dstpinname="Y Input Value">
    </LINK>
    <NODE systemname="BoundingBox (DX11.Geometry Get)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="BoundingBox (DX11.Geometry Get)" componentmode="Hidden" id="450">
    <BOUNDS type="Node" left="13320" top="5970" width="100" height="100">
