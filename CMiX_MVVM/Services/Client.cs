@@ -10,6 +10,7 @@ namespace CMiX.MVVM.Services
         {
 
         }
+
         public Client(string topic)
         {
             Enabled = true;
@@ -17,8 +18,6 @@ namespace CMiX.MVVM.Services
 
             Topic = topic;
             Enabled = true;
-
-            
         }
 
         public event EventHandler<MessageEventArgs> MessageReceived;

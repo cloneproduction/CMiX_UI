@@ -46,16 +46,28 @@ namespace CMiX.MVVM.Message
 
             private void OnSubscriberReady(object sender, NetMQSocketEventArgs e)
             {
+                Console.WriteLine("OnSubscriberReady");
                 Message.NetMQMessage = e.Socket.ReceiveMultipartMessage();
             }
 
             private void OnShimReady(object sender, NetMQSocketEventArgs e)
             {
+                Console.WriteLine("OnShimReady");
                 string command = e.Socket.ReceiveFrameString();
                 if (command == NetMQActor.EndShimMessage)
                     poller.Stop();
             }
         }
+
+        /////////////////////
+
+        public NetMQClient(string address, string topic)
+        {
+            this.Address = address;
+            Message = new Message();
+            Topic = topic;
+        }
+
 
         public Message Message { get; set; }
         private NetMQActor actor;
@@ -71,14 +83,8 @@ namespace CMiX.MVVM.Message
             }
         }
 
-        public string Address { get; set; }
 
-        public NetMQClient(string address, string topic)
-        {
-            this.Address = address;
-            Message = new Message();
-            Topic = topic;
-        }
+        public string Address { get; set; }
 
         public void Start()
         {
@@ -86,6 +92,7 @@ namespace CMiX.MVVM.Message
                 return;
            
             actor = NetMQActor.Create(new ShimHandler(Message, Address, Topic));
+            
             Console.WriteLine($"NetMQClient Started with Address " + Address);
         }
 

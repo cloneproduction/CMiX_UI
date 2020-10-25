@@ -1,7 +1,5 @@
-﻿using System.ComponentModel;
-using NetMQ;
+﻿using NetMQ;
 using Ceras;
-using CMiX.MVVM.Commands;
 using System;
 using CMiX.MVVM.Services;
 
@@ -24,6 +22,7 @@ namespace CMiX.MVVM.Message
             {
                 netMQMessage = value;
                 OnMessageUpdated(this);
+                Console.WriteLine("NetMQMessage Updated");
             }
         }
 
@@ -46,7 +45,9 @@ namespace CMiX.MVVM.Message
         private void OnMessageUpdated(Message message)
         {
             if (MessageUpdated != null)
+            {
                 MessageUpdated(this, new MessageEventArgs(message.MessageAddress, message.Payload));
+            }
         }
     }
 }

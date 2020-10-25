@@ -50,8 +50,6 @@ namespace CMiX.MVVM.ViewModels
                 this.SetViewModel(e.Model as IComponentModel);
             else if (e.MessageAddress.Contains(e.ParentMessageAddress + this.GetMessageAddress()))
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
-            //else
-            //    OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
         public override string GetMessageAddress()
