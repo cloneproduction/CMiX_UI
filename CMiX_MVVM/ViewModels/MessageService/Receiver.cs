@@ -17,19 +17,13 @@ namespace CMiX.Studio.ViewModels.MessageService
         public event EventHandler<ModelEventArgs> DataReceivedEvent;
         public void OnDataReceivedChange(IModel model, string messageAddress, string parentMessageAddress)
         {
+            //var modelEventArgs = new ModelEventArgs(model, messageAddress, parentMessageAddress);
             DataReceivedEvent?.Invoke(this, new ModelEventArgs(model, messageAddress, parentMessageAddress));
         }
 
 
         private void Client_MessageReceived(object sender, MessageEventArgs e)
         {
-            //Console.WriteLine("Client_MessageReceived " + e.Address);
-            //if(e.Data is SliderModel)
-            //    Console.WriteLine("Received a SliderModel with Amount = " + ((SliderModel)e.Data).Amount);
-
-            //if(e.Data is ProjectModel)
-            //    Console.WriteLine("Composition Count = " + ((ProjectModel)e.Data).ComponentModels.Count);
-            //Console.WriteLine("MessageReceived" + e.Address);
             OnDataReceivedChange(e.Data as IModel, e.Address, String.Empty);
         }
 

@@ -31,7 +31,6 @@ namespace CMiX.MVVM.ViewModels
             MessengerManager = new MessengerManager(CurrentProject, DialogService);
             
             ComponentManager = new ComponentManager(CurrentProject);
-            //ComponentManager.ComponentDeletedEvent += ComponentEditor.ComponentDeletedEvent;
 
             Outliner = new Outliner(Projects);
             ComponentEditor = new ComponentEditor(Outliner.SelectedComponent);

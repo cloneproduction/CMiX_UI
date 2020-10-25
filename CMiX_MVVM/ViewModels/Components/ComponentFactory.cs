@@ -39,7 +39,6 @@ namespace CMiX.MVVM.ViewModels
         {
             var component = new Composition(ID);
             parentComponent.AddComponent(component);
-            //SubscribeToEvent(parentComponent, component);
             ID++;
             return component;
         }
@@ -48,7 +47,6 @@ namespace CMiX.MVVM.ViewModels
         {
             var component = new Layer(ID, parentComponent.MasterBeat);
             parentComponent.AddComponent(component);
-            //SubscribeToEvent(parentComponent, component);
             ID++;
             return component;
         }
@@ -57,7 +55,6 @@ namespace CMiX.MVVM.ViewModels
         {
             var component = new Scene(ID, parentComponent.MasterBeat);
             parentComponent.AddComponent(component);
-            //SubscribeToEvent(parentComponent, component);
             ID++;
             return component;
         }
@@ -67,15 +64,8 @@ namespace CMiX.MVVM.ViewModels
         {
             var component = new Entity(ID, parentComponent.MasterBeat);
             parentComponent.AddComponent(component);
-            //SubscribeToEvent(parentComponent, component);
             ID++;
             return component;
-        }
-
-        private static void SubscribeToEvent(Component parentComponent, Component childComponent)
-        {
-            childComponent.SendChangeEvent += parentComponent.OnChildPropertyToSendChange;
-            parentComponent.ReceiveChangeEvent += childComponent.OnParentReceiveChange;
         }
     }
 }

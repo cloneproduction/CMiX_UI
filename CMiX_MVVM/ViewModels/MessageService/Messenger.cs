@@ -77,16 +77,7 @@ namespace CMiX.Studio.ViewModels.MessageService
         public Component SelectedComponent
         {
             get => _selectedComponent;
-            set
-            {
-                //if(_selectedComponent != null)
-                //    _selectedComponent.SendChangeEvent -= Value_SendChangeEvent;
-
-                SetAndNotify(ref _selectedComponent, value);
-
-                //if (SelectedComponent != null)
-                //    SelectedComponent.SendChangeEvent += Value_SendChangeEvent;
-            }
+            set => SetAndNotify(ref _selectedComponent, value);
         }
 
         public void Value_SendChangeEvent(object sender, ModelEventArgs e)

@@ -1,11 +1,13 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Component : Sendable
+    public abstract class Component : Sendable, IHandler
     {
         public Component(int id)
         {
@@ -17,17 +19,30 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public override object Handle(object request)
+        public void HandleMessage(Message.Message message, string parentMessageAddress)
         {
-            if(request.ToString() == "MessageAddressTest")
+            string messageAddress = parentMessageAddress + this.GetMessageAddress();
+
+            if (message.MessageAddress == messageAddress)
             {
-                return $"Component: Message received";
+                Console.WriteLine("MessageHandledBy : " + messageAddress);
+                //this.SetViewModel(message.Payload as IComponentModel);
             }
-            else
+            else if (message.MessageAddress.Contains(messageAddress))
             {
-                return base.Handle(request);
+                foreach (var handler in GetHandlers())
+                {
+                    handler.HandleMessage(message, this.GetMessageAddress());
+                }
             }
         }
+
+
+        public virtual List<IHandler> GetHandlers()
+        {
+            return this.Components.ToList<IHandler>();
+        }
+
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {

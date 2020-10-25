@@ -37,11 +37,6 @@ namespace CMiX.MVVM.Message
             get => NetMQMessage[1].ConvertToString();
         }
 
-        //public MessageCommand Command
-        //{
-        //    get => Serializer.Deserialize<MessageCommand>(NetMQMessage[2].Buffer);
-        //}
-
         public object Payload
         {
             get => Serializer.Deserialize<object>(NetMQMessage[2].Buffer);

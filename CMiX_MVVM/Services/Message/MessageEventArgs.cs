@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Commands;
+using CMiX.MVVM.Message;
 using System;
 
 namespace CMiX.MVVM.Services
@@ -11,6 +12,7 @@ namespace CMiX.MVVM.Services
             Data = data;
         }
 
+        public Message.Message Message { get; set; }
         public string Address { get; set; }
         public object Data { get; set; }
     }

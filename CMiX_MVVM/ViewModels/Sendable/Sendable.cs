@@ -1,36 +1,19 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Windows.Documents;
 using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Sendable : ViewModel, IHandler
+    public abstract class Sendable : ViewModel
     {
         public virtual string GetMessageAddress()
         {
             return $"{this.GetType().Name}/";
         }
-
-
-        public IHandler NextHandler;
-        public IHandler SetNext(IHandler handler)
-        {
-            this.NextHandler = handler;
-            return handler;
-        }
-
-        public virtual object Handle(object request)
-        {
-            if (this.NextHandler != null)
-            {
-                return this.NextHandler.Handle(request);
-            }
-            else
-            {
-                return null;
-            }
-        }
-
 
 
         public event EventHandler<ModelEventArgs> ReceiveChangeEvent;
@@ -55,8 +38,6 @@ namespace CMiX.MVVM.ViewModels
             OnSendChange(e.Model, GetMessageAddress() + e.MessageAddress);
         }
 
-
-
         public void SubscribeToEvent(Sendable sendableParent)
         {
             this.SendChangeEvent += sendableParent.OnChildPropertyToSendChange;
@@ -68,8 +49,5 @@ namespace CMiX.MVVM.ViewModels
             this.SendChangeEvent -= sendableParent.OnChildPropertyToSendChange;
             sendableParent.ReceiveChangeEvent -= this.OnParentReceiveChange;
         }
-
-
-
     }
 }
