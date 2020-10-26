@@ -29,6 +29,7 @@ namespace CMiX.MVVM.Message
             const int MegaByte = 1024;
             public void Run(PairSocket shim)
             {
+                using (var queue = new NetMQQueue<int>())
                 using (subscriber = new SubscriberSocket())
                 {
                     subscriber.Connect(Address);
@@ -39,15 +40,46 @@ namespace CMiX.MVVM.Message
                     this.shim = shim;
                     shim.ReceiveReady += OnShimReady;
                     shim.SignalOK();
-                    poller = new NetMQPoller { shim, subscriber };
-                    poller.Run();
+                    //poller = new NetMQPoller { shim, subscriber };
+                    queue.ReceiveReady += Queue_ReceiveReady;
+                    poller = new NetMQPoller { queue };
+                    poller.RunAsync();
+
+                    while (true)
+                    {
+
+                        NetMQMessage message = new NetMQMessage();
+                        bool success = subscriber.TryReceiveMultipartMessage(ref message);
+
+                        if (success == false)
+                        {
+                            continue;
+                        }
+
+                        //if (success)
+                        Console.WriteLine(message[2].ToString());
+                        Message.NetMQMessage = message;
+                        Console.WriteLine(Message.MessageAddress);
+                        //if (mess != null)
+                        //{
+                        //    shim.SendMultipartMessage(mess);
+                        //    //Console.WriteLine(mess[0].ToString());
+                        //    //Message.NetMQMessage = mess;
+                        //}
+
+                    }
                 }
+            }
+
+            private void Queue_ReceiveReady(object sender, NetMQQueueEventArgs<int> e)
+            {
+                Console.WriteLine("Queue_ReceiveReady");
             }
 
             private void OnSubscriberReady(object sender, NetMQSocketEventArgs e)
             {
-                Console.WriteLine("OnSubscriberReady");
-                Message.NetMQMessage = e.Socket.ReceiveMultipartMessage();
+                //Console.WriteLine("OnSubscriberReady");
+                //Message.NetMQMessage = e.Socket.ReceiveMultipartMessage();
             }
 
             private void OnShimReady(object sender, NetMQSocketEventArgs e)
