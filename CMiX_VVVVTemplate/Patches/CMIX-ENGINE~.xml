@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="C:\Users\BabyClone\Documents\GitHub\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="4340" scrolly="3090">
+   <PATCH nodename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="4815" scrolly="2295">
    <BOUNDS type="Window" left="14400" top="20370" width="20580" height="16080">
    </BOUNDS>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="2" systemname="IOBox (Value Advanced)">
@@ -75,7 +75,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="7060" top="1180" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="120">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="60">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -91,9 +91,9 @@
    <LINK srcnodeid="25" srcpinname="Y Output Value" dstnodeid="-6" dstpinname="Maximum Background FPS">
    </LINK>
    <NODE systemname="FileTexture (DX11 2d)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="FileTexture (DX11 2d)" componentmode="Hidden" id="45">
-   <BOUNDS type="Node" left="14295" top="17650" width="100" height="100">
+   <BOUNDS type="Node" left="14130" top="17335" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="14295" top="17650" width="3000" height="3000">
+   <BOUNDS type="Box" left="14130" top="17335" width="3000" height="3000">
    </BOUNDS>
    <PIN pinname="Filename" visible="1" slicecount="1" values="|..\..\..\..\..\Google Drive\RESSOURCES\VJ CONTENT\Clone - Texture\_Selection\Circles\Circle_Halo (16).png|">
    </PIN>
@@ -128,8 +128,6 @@
    <BOUNDS type="Box" left="14295" top="18220">
    </BOUNDS>
    </NODE>
-   <LINK srcnodeid="45" srcpinname="Texture Out" dstnodeid="47" dstpinname="Texture In">
-   </LINK>
    <NODE systemname="HSCB (DX11.TextureFX)" filename="%VVVV%\packs\dx11\nodes\texture11\Filter\HSCB.tfx" nodename="HSCB (DX11.TextureFX)" componentmode="Hidden" id="60">
    <BOUNDS type="Node" left="14295" top="18805" width="100" height="100">
    </BOUNDS>
@@ -765,7 +763,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="6160" top="21415" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="21520" top="880" width="10600" height="12100">
+   <BOUNDS type="Window" left="20790" top="420" width="7710" height="7320">
    </BOUNDS>
    <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
@@ -1045,7 +1043,7 @@
    </PIN>
    </NODE>
    <NODE systemname="Switch (String Input)" nodename="Switch (String Input)" componentmode="Hidden" id="440">
-   <BOUNDS type="Node" left="14300" top="17070" width="100" height="100">
+   <BOUNDS type="Node" left="14645" top="17025" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Switch" visible="1">
    </PIN>
@@ -1065,14 +1063,12 @@
    </BOUNDS>
    <PIN pinname="String Type" slicecount="1" values="Filename">
    </PIN>
-   <PIN pinname="Input String" slicecount="1" values="..\..\..\..\..\Desktop\Untitled3.png">
+   <PIN pinname="Input String" slicecount="1" values="C:\Users\clone\Desktop\untitled.png">
    </PIN>
    <PIN pinname="Output String" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="441" srcpinname="Output String" dstnodeid="440" dstpinname="Input 2">
-   </LINK>
-   <LINK srcnodeid="440" srcpinname="Output" dstnodeid="45" dstpinname="Filename">
    </LINK>
    <NODE systemname="GetTextureFileName (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetTextureFileName (CMiX_VVVV)" componentmode="Hidden" id="444" hiddenwhenlocked="0">
    <BOUNDS type="Node" left="14285" top="15415" width="100" height="100">
@@ -1104,47 +1100,11 @@
    </LINK>
    <LINK srcnodeid="447" srcpinname="Output" dstnodeid="288" dstpinname="Transform In">
    </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="448">
-   <BOUNDS type="Box" left="12840" top="11940" width="795" height="720">
-   </BOUNDS>
-   <BOUNDS type="Node" left="12840" top="11940" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Rows" slicecount="1" values="3">
-   </PIN>
-   <PIN pinname="Y Input Value" slicecount="3" values="0,,">
-   </PIN>
-   <PIN pinname="Vector Size" slicecount="1" values="3">
-   </PIN>
-   <PIN pinname="Default" slicecount="1" values="|0, 0, 0|">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="347" srcpinname="Uniform" dstnodeid="448" dstpinname="Y Input Value">
-   </LINK>
    <LINK srcnodeid="157" srcpinname="Transform" dstnodeid="447" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="305" srcpinname="Transform Out" dstnodeid="93" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="354" srcpinname="Transform Out" dstnodeid="68" dstpinname="Data">
-   </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="449">
-   <BOUNDS type="Box" left="15200" top="12050" width="730" height="2200">
-   </BOUNDS>
-   <BOUNDS type="Node" left="15200" top="12050" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Vector Size" slicecount="1" values="3">
-   </PIN>
-   <PIN pinname="Rows" slicecount="1" values="9">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="347" srcpinname="XYZ" dstnodeid="449" dstpinname="Y Input Value">
    </LINK>
    <NODE systemname="BoundingBox (DX11.Geometry Get)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="BoundingBox (DX11.Geometry Get)" componentmode="Hidden" id="450">
    <BOUNDS type="Node" left="13320" top="5970" width="100" height="100">
@@ -1189,5 +1149,35 @@
    <LINK srcnodeid="1" srcpinname="Project" dstnodeid="350" dstpinname="Project">
    <LINKPOINT x="5550" y="6220">
    </LINKPOINT>
+   </LINK>
+   <NODE systemname="DynamicTexture (DX11.Texture 2d Color)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="DynamicTexture (DX11.Texture 2d Color)" componentmode="Hidden" id="453">
+   <BOUNDS type="Node" left="16860" top="17130" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="16860" top="17130" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="Texture Out" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Switch (Node Input)" nodename="Switch (Node Input)" componentmode="Hidden" id="454">
+   <BOUNDS type="Node" left="16050" top="17100" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input 2" visible="1">
+   </PIN>
+   <PIN pinname="Switch" visible="1">
+   </PIN>
+   <PIN pinname="Input 1" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="453" srcpinname="Texture Out" dstnodeid="454" dstpinname="Input 2">
+   </LINK>
+   <LINK srcnodeid="444" srcpinname="FileName" dstnodeid="45" dstpinname="Filename">
+   </LINK>
+   <LINK srcnodeid="438" srcpinname="Output" dstnodeid="454" dstpinname="Switch">
+   </LINK>
+   <LINK srcnodeid="45" srcpinname="Texture Out" dstnodeid="454" dstpinname="Input 1">
+   </LINK>
+   <LINK srcnodeid="454" srcpinname="Output" dstnodeid="47" dstpinname="Texture In">
    </LINK>
    </PATCH>

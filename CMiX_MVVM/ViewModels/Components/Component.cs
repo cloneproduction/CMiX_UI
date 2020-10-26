@@ -26,13 +26,13 @@ namespace CMiX.MVVM.ViewModels
             if (message.MessageAddress == messageAddress)
             {
                 Console.WriteLine("MessageHandledBy : " + messageAddress);
-                //this.SetViewModel(message.Payload as IComponentModel);
+                this.SetViewModel(message.Payload);
             }
             else if (message.MessageAddress.Contains(messageAddress))
             {
                 foreach (var handler in GetHandlers())
                 {
-                    handler.HandleMessage(message, this.GetMessageAddress());
+                    handler.HandleMessage(message, messageAddress);
                 }
             }
         }
@@ -167,7 +167,10 @@ namespace CMiX.MVVM.ViewModels
 
         public void MoveComponent(int oldIndex, int newIndex)
         {
-            Components.Move(oldIndex, newIndex);
+            var item = Components[oldIndex];
+            this.RemoveComponent(item);
+            this.InsertComponent(newIndex, item);
+
             OnSendChange(this.GetModel(), this.GetMessageAddress());
         }
 

@@ -5,6 +5,8 @@ namespace CMiX.MVVM.ViewModels
 {
     public static class ComponentModelFactory
     {
+
+
         public static IComponentModel GetModel(this Component instance)
         {
             if (instance is Project)
@@ -25,22 +27,36 @@ namespace CMiX.MVVM.ViewModels
             else return null;
         }
 
-        public static void SetViewModel(this Component instance, IComponentModel model)
+
+        public static IComponentModel CastObject(this Component instance, object obj)
         {
-            if (instance is Project)
-                ((Project)instance).SetViewModel(model);
+            if (obj is IComponentModel)
+                return obj as IComponentModel;
+            else
+                return null;
+        }
 
-            else if (instance is Composition)
-                ((Composition)instance).SetViewModel(model);
+        public static void SetViewModel(this Component instance, object obj)
+        {
+            if(obj is IComponentModel)
+            {
+                var model = obj as IComponentModel;
+                System.Console.WriteLine("POEUT");
+                if (instance is Project)
+                    ((Project)instance).SetViewModel(model);
 
-            else if (instance is Layer)
-                ((Layer)instance).SetViewModel(model);
+                else if (instance is Composition)
+                    ((Composition)instance).SetViewModel(model);
 
-            else if (instance is Scene)
-                ((Scene)instance).SetViewModel(model);
+                else if (instance is Layer)
+                    ((Layer)instance).SetViewModel(model);
 
-            else if (instance is Entity)
-                ((Entity)instance).SetViewModel(model);
+                else if (instance is Scene)
+                    ((Scene)instance).SetViewModel(model);
+
+                else if (instance is Entity)
+                    ((Entity)instance).SetViewModel(model);
+            }
         }
 
 

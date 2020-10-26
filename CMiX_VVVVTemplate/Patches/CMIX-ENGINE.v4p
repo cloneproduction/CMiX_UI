@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="2715" scrolly="-720">
+   <PATCH nodename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="4815" scrolly="2295">
    <BOUNDS type="Window" left="14400" top="20370" width="20580" height="16080">
    </BOUNDS>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="2" systemname="IOBox (Value Advanced)">
@@ -91,9 +91,9 @@
    <LINK srcnodeid="25" srcpinname="Y Output Value" dstnodeid="-6" dstpinname="Maximum Background FPS">
    </LINK>
    <NODE systemname="FileTexture (DX11 2d)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="FileTexture (DX11 2d)" componentmode="Hidden" id="45">
-   <BOUNDS type="Node" left="14295" top="17650" width="100" height="100">
+   <BOUNDS type="Node" left="14130" top="17335" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="14295" top="17650" width="3000" height="3000">
+   <BOUNDS type="Box" left="14130" top="17335" width="3000" height="3000">
    </BOUNDS>
    <PIN pinname="Filename" visible="1" slicecount="1" values="|..\..\..\..\..\Google Drive\RESSOURCES\VJ CONTENT\Clone - Texture\_Selection\Circles\Circle_Halo (16).png|">
    </PIN>
@@ -128,8 +128,6 @@
    <BOUNDS type="Box" left="14295" top="18220">
    </BOUNDS>
    </NODE>
-   <LINK srcnodeid="45" srcpinname="Texture Out" dstnodeid="47" dstpinname="Texture In">
-   </LINK>
    <NODE systemname="HSCB (DX11.TextureFX)" filename="%VVVV%\packs\dx11\nodes\texture11\Filter\HSCB.tfx" nodename="HSCB (DX11.TextureFX)" componentmode="Hidden" id="60">
    <BOUNDS type="Node" left="14295" top="18805" width="100" height="100">
    </BOUNDS>
@@ -765,7 +763,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="6160" top="21415" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="18030" top="315" width="7710" height="7320">
+   <BOUNDS type="Window" left="20790" top="420" width="7710" height="7320">
    </BOUNDS>
    <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
@@ -1045,7 +1043,7 @@
    </PIN>
    </NODE>
    <NODE systemname="Switch (String Input)" nodename="Switch (String Input)" componentmode="Hidden" id="440">
-   <BOUNDS type="Node" left="14300" top="17070" width="100" height="100">
+   <BOUNDS type="Node" left="14645" top="17025" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Switch" visible="1">
    </PIN>
@@ -1071,8 +1069,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="441" srcpinname="Output String" dstnodeid="440" dstpinname="Input 2">
-   </LINK>
-   <LINK srcnodeid="440" srcpinname="Output" dstnodeid="45" dstpinname="Filename">
    </LINK>
    <NODE systemname="GetTextureFileName (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetTextureFileName (CMiX_VVVV)" componentmode="Hidden" id="444" hiddenwhenlocked="0">
    <BOUNDS type="Node" left="14285" top="15415" width="100" height="100">
@@ -1153,5 +1149,35 @@
    <LINK srcnodeid="1" srcpinname="Project" dstnodeid="350" dstpinname="Project">
    <LINKPOINT x="5550" y="6220">
    </LINKPOINT>
+   </LINK>
+   <NODE systemname="DynamicTexture (DX11.Texture 2d Color)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="DynamicTexture (DX11.Texture 2d Color)" componentmode="Hidden" id="453">
+   <BOUNDS type="Node" left="16860" top="17130" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="16860" top="17130" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="Texture Out" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Switch (Node Input)" nodename="Switch (Node Input)" componentmode="Hidden" id="454">
+   <BOUNDS type="Node" left="16050" top="17100" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input 2" visible="1">
+   </PIN>
+   <PIN pinname="Switch" visible="1">
+   </PIN>
+   <PIN pinname="Input 1" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="453" srcpinname="Texture Out" dstnodeid="454" dstpinname="Input 2">
+   </LINK>
+   <LINK srcnodeid="444" srcpinname="FileName" dstnodeid="45" dstpinname="Filename">
+   </LINK>
+   <LINK srcnodeid="438" srcpinname="Output" dstnodeid="454" dstpinname="Switch">
+   </LINK>
+   <LINK srcnodeid="45" srcpinname="Texture Out" dstnodeid="454" dstpinname="Input 1">
+   </LINK>
+   <LINK srcnodeid="454" srcpinname="Output" dstnodeid="47" dstpinname="Texture In">
    </LINK>
    </PATCH>
