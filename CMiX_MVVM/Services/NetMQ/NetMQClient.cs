@@ -124,7 +124,6 @@ namespace CMiX.MVVM.Message
                 return;
            
             actor = NetMQActor.Create(new ShimHandler(Message, Address, Topic));
-            
             Console.WriteLine($"NetMQClient Started with Address " + Address);
         }
 

@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Message;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using System;
@@ -17,14 +18,20 @@ namespace CMiX.Studio.ViewModels.MessageService
         public event EventHandler<ModelEventArgs> DataReceivedEvent;
         public void OnDataReceivedChange(IModel model, string messageAddress, string parentMessageAddress)
         {
-            //var modelEventArgs = new ModelEventArgs(model, messageAddress, parentMessageAddress);
             DataReceivedEvent?.Invoke(this, new ModelEventArgs(model, messageAddress, parentMessageAddress));
+        }
+
+        public event EventHandler<MessageEventArgs> MessageReceivedEvent;
+        public void OnMessageReceived(Message message)
+        {
+            MessageReceivedEvent?.Invoke(this, new MessageEventArgs(message));
         }
 
 
         private void Client_MessageReceived(object sender, MessageEventArgs e)
         {
             OnDataReceivedChange(e.Data as IModel, e.Address, String.Empty);
+            OnMessageReceived(e.Message);
         }
 
         public string Address

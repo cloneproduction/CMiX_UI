@@ -15,7 +15,6 @@ namespace CMiX.MVVM.ViewModels
             return $"{this.GetType().Name}/";
         }
 
-
         public event EventHandler<ModelEventArgs> ReceiveChangeEvent;
         public void OnReceiveChange(IModel model, string messageAddress, string parentMessageAddress)
         {
@@ -49,5 +48,7 @@ namespace CMiX.MVVM.ViewModels
             this.SendChangeEvent -= sendableParent.OnChildPropertyToSendChange;
             sendableParent.ReceiveChangeEvent -= this.OnParentReceiveChange;
         }
+
+
     }
 }

@@ -15,7 +15,10 @@ namespace CMiX.Engine.Testing
             receiver.SetSettings(settings);
             receiver.StartClient();
             receiver.DataReceivedEvent += Project.OnParentReceiveChange;
+            receiver.MessageReceivedEvent += Project.Receiver_MessageReceivedEvent;
             Console.ReadLine();
         }
+
+
     }
 }

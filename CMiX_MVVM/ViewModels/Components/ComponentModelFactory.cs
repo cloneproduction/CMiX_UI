@@ -5,8 +5,6 @@ namespace CMiX.MVVM.ViewModels
 {
     public static class ComponentModelFactory
     {
-
-
         public static IComponentModel GetModel(this Component instance)
         {
             if (instance is Project)
@@ -38,10 +36,9 @@ namespace CMiX.MVVM.ViewModels
 
         public static void SetViewModel(this Component instance, object obj)
         {
-            if(obj is IComponentModel)
+            var model = obj as IComponentModel;
+            if (model is IComponentModel)
             {
-                var model = obj as IComponentModel;
-                System.Console.WriteLine("POEUT");
                 if (instance is Project)
                     ((Project)instance).SetViewModel(model);
 

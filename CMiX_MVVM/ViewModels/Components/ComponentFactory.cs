@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMiX.Studio.ViewModels.MessageService;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -29,7 +30,6 @@ namespace CMiX.MVVM.ViewModels
 
         public static Project CreateProject()
         {
-            
             var newProject = new Project(ID, null);
             ID++;
             return newProject;
@@ -58,7 +58,6 @@ namespace CMiX.MVVM.ViewModels
             ID++;
             return component;
         }
-
 
         public static Entity CreateEntity(Scene parentComponent)
         {

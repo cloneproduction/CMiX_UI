@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CMiX.MVVM.Message;
+using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -12,5 +13,7 @@ namespace CMiX.MVVM.ViewModels
         void HandleMessage(Message.Message message, string parentMessageAddress);
 
         List<IHandler> GetHandlers();
+
+        //void SetViewModel(Model model);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using MvvmDialogs;
 using CMiX.Studio.ViewModels.MessageService;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -12,6 +13,11 @@ namespace CMiX.MVVM.ViewModels
             Assets = new ObservableCollection<IAssets>();
             ComponentsInEditing = new ObservableCollection<Component>();
             Messengers = new ObservableCollection<Messenger>();
+        }
+
+        public void Receiver_MessageReceivedEvent(object sender, Services.MessageEventArgs e)
+        {
+            this.HandleMessage(e.Message, String.Empty);
         }
 
         public IDialogService DialogService { get; set; }

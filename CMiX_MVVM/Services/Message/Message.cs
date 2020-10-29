@@ -46,7 +46,7 @@ namespace CMiX.MVVM.Message
         {
             if (MessageUpdated != null)
             {
-                MessageUpdated(this, new MessageEventArgs(message.MessageAddress, message.Payload));
+                MessageUpdated(this, new MessageEventArgs(message));
             }
         }
     }

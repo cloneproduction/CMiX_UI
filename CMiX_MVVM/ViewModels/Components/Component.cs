@@ -7,7 +7,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Component : Sendable, IHandler
+    public abstract class Component : Sendable
     {
         public Component(int id)
         {
@@ -22,11 +22,10 @@ namespace CMiX.MVVM.ViewModels
         public void HandleMessage(Message.Message message, string parentMessageAddress)
         {
             string messageAddress = parentMessageAddress + this.GetMessageAddress();
-
             if (message.MessageAddress == messageAddress)
             {
-                Console.WriteLine("MessageHandledBy : " + messageAddress);
                 this.SetViewModel(message.Payload);
+                Console.WriteLine("MessageHandled by : " + messageAddress);
             }
             else if (message.MessageAddress.Contains(messageAddress))
             {
@@ -40,7 +39,7 @@ namespace CMiX.MVVM.ViewModels
 
         public virtual List<IHandler> GetHandlers()
         {
-            return this.Components.ToList<IHandler>();
+            return Components.ToList<IHandler>();
         }
 
 
