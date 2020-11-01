@@ -10,9 +10,9 @@ namespace CMiX.MVVM.ViewModels
 
         }
 
-        public None(Sendable parentSendable) : this()
+        public None(Sender parentSender) : this()
         {
-            SubscribeToEvent(parentSendable);
+            SubscribeToEvent(parentSender);
         }
 
         public override void UpdateOnBeatTick(AnimParameter animParameter, double period)

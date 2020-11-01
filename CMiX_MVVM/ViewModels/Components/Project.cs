@@ -17,7 +17,7 @@ namespace CMiX.MVVM.ViewModels
 
         public void Receiver_MessageReceivedEvent(object sender, Services.MessageEventArgs e)
         {
-            this.HandleMessage(e.Message, String.Empty);
+            //this.HandleMessage(e.Message, String.Empty);
         }
 
         public IDialogService DialogService { get; set; }

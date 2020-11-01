@@ -4,7 +4,7 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Range : Sendable
+    public class Range : Sender
     {
         public Range(double minimum = 0.0, double maximum = 1.0)
         {
@@ -12,9 +12,9 @@ namespace CMiX.MVVM.ViewModels
             Maximum = maximum;
         }
 
-        public Range(double minimum, double maximum, Sendable parentSendable) : this(minimum = 0.0, maximum = 1.0)
+        public Range(double minimum, double maximum, Sender parentSender) : this(minimum = 0.0, maximum = 1.0)
         {
-            SubscribeToEvent(parentSendable);
+            SubscribeToEvent(parentSender);
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)

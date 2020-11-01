@@ -3,7 +3,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Mask : Sendable
+    public class Mask : Sender
     {
         public Mask()
         {
@@ -12,9 +12,9 @@ namespace CMiX.MVVM.ViewModels
             Enabled = false;
         }
 
-        public Mask(Sendable parentSendable) : this()
+        public Mask(Sender parentSender) : this()
         {
-            SubscribeToEvent(parentSendable);
+            SubscribeToEvent(parentSender);
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)

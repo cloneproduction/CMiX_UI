@@ -3,7 +3,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Coloration : Sendable
+    public class Coloration : Sender
     {
         public Coloration(MasterBeat beat) 
         {
@@ -11,9 +11,9 @@ namespace CMiX.MVVM.ViewModels
             ColorSelector = new ColorSelector(this);
         }
 
-        public Coloration(MasterBeat beat, Sendable parentSendable) : this(beat)
+        public Coloration(MasterBeat beat, Sender parentSender) : this(beat)
         {
-            SubscribeToEvent(parentSendable);
+            SubscribeToEvent(parentSender);
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)

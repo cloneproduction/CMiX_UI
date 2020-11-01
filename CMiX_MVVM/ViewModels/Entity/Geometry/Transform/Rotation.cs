@@ -3,7 +3,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Rotation : Sendable
+    public class Rotation : Sender
     {
         public Rotation()
         {
@@ -12,9 +12,9 @@ namespace CMiX.MVVM.ViewModels
             Z = new Slider(nameof(Z), this);
         }
 
-        public Rotation(Sendable parentSendable) : this()
+        public Rotation(Sender parentSender) : this()
         {
-            SubscribeToEvent(parentSendable);
+            SubscribeToEvent(parentSender);
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)

@@ -4,7 +4,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class XYZModifier : Sendable, IModifier
+    public class XYZModifier : Sender, IModifier
     {
         public XYZModifier(string name, MasterBeat beat, Counter counter) 
         {
@@ -14,9 +14,9 @@ namespace CMiX.MVVM.ViewModels
             Z = new AnimParameter(nameof(Z), 0.0, counter, beat, false, this);
         }
 
-        public XYZModifier(string name, MasterBeat beat, Counter counter, Sendable parentSendable) : this(name, beat, counter)
+        public XYZModifier(string name, MasterBeat beat, Counter counter, Sender parentSender) : this(name, beat, counter)
         {
-            SubscribeToEvent(parentSendable);
+            SubscribeToEvent(parentSender);
         }
 
         public override string GetMessageAddress()

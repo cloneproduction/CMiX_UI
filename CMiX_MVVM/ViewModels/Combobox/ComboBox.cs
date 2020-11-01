@@ -3,7 +3,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class ComboBox<T> : Sendable
+    public class ComboBox<T> : Sender
     {
         public ComboBox()
         {

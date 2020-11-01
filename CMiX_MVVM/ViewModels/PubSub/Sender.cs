@@ -8,12 +8,17 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Sendable : ViewModel
+    public abstract class Sender : Sendable, IPublisher
     {
+
+
         public virtual string GetMessageAddress()
         {
             return $"{this.GetType().Name}/";
         }
+
+
+        ///RECEIVING
 
         public event EventHandler<ModelEventArgs> ReceiveChangeEvent;
         public void OnReceiveChange(IModel model, string messageAddress, string parentMessageAddress)
@@ -26,29 +31,34 @@ namespace CMiX.MVVM.ViewModels
 
 
 
+        /// SENDING
+
         public event EventHandler<ModelEventArgs> SendChangeEvent;
         public void OnSendChange(IModel model, string messageAddress)
         {
             SendChangeEvent?.Invoke(this, new ModelEventArgs(model, messageAddress, string.Empty));
         }
 
-        public void OnChildPropertyToSendChange(object sender, ModelEventArgs e)
+        public virtual void OnChildPropertyToSendChange(object sender, ModelEventArgs e)
         {
             OnSendChange(e.Model, GetMessageAddress() + e.MessageAddress);
         }
 
-        public void SubscribeToEvent(Sendable sendableParent)
+
+
+
+
+
+        public void SubscribeToEvent(Sender SenderParent)
         {
-            this.SendChangeEvent += sendableParent.OnChildPropertyToSendChange;
-            sendableParent.ReceiveChangeEvent += this.OnParentReceiveChange;
+            this.SendChangeEvent += SenderParent.OnChildPropertyToSendChange;
+            SenderParent.ReceiveChangeEvent += this.OnParentReceiveChange;
         }
 
-        public void UnSubscribeToEvent(Sendable sendableParent)
+        public void UnSubscribeToEvent(Sender SenderParent)
         {
-            this.SendChangeEvent -= sendableParent.OnChildPropertyToSendChange;
-            sendableParent.ReceiveChangeEvent -= this.OnParentReceiveChange;
+            this.SendChangeEvent -= SenderParent.OnChildPropertyToSendChange;
+            SenderParent.ReceiveChangeEvent -= this.OnParentReceiveChange;
         }
-
-
     }
 }

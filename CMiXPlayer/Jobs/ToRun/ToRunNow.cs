@@ -4,7 +4,7 @@ using System;
 
 namespace CMiXPlayer.Jobs
 {
-    public class ToRunNow : ViewModel, IScheduleInterface<Schedule>
+    public class ToRunNow : Sendable, IScheduleInterface<Schedule>
     {
         public ToRunNow()
         {

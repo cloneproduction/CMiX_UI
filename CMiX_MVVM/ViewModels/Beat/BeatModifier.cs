@@ -25,9 +25,9 @@ namespace CMiX.MVVM.ViewModels
             };
         }
 
-        public BeatModifier(MasterBeat beat, Sendable parentSendable) : this(beat)
+        public BeatModifier(MasterBeat beat, Sender parentSender) : this(beat)
         {
-            SubscribeToEvent(parentSendable);
+            SubscribeToEvent(parentSender);
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)

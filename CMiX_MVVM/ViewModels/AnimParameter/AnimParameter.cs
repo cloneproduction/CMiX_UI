@@ -4,7 +4,7 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class AnimParameter : Sendable
+    public class AnimParameter : Sender
     {
         public AnimParameter(string name, double defaultValue, Counter counter, MasterBeat beat, bool isEnabled = true)
         {
@@ -21,9 +21,9 @@ namespace CMiX.MVVM.ViewModels
             SelectedModeType = ModeType.None;
         }
 
-        public AnimParameter(string name, double defaultValue, Counter counter, MasterBeat beat, bool isEnabled, Sendable parentSendable) : this(name, defaultValue, counter, beat, isEnabled)
+        public AnimParameter(string name, double defaultValue, Counter counter, MasterBeat beat, bool isEnabled, Sender parentSender) : this(name, defaultValue, counter, beat, isEnabled)
         {
-            SubscribeToEvent(parentSendable);
+            SubscribeToEvent(parentSender);
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)

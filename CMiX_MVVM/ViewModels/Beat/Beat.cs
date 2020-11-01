@@ -2,7 +2,7 @@
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Beat : Sendable
+    public abstract class Beat : Sender
     {
         public Beat()
         {

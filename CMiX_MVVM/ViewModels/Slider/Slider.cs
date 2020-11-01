@@ -1,10 +1,11 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.Generic;
+using System.Windows.Input;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Slider : Sendable
+    public class Slider : Sender
     {
         public Slider(string name)
         {
@@ -16,9 +17,9 @@ namespace CMiX.MVVM.ViewModels
             ResetCommand = new RelayCommand(p => Reset());
         }
 
-        public Slider(string name, Sendable parentSendable) : this(name)
+        public Slider(string name, Sender parentSender) : this(name)
         {
-            SubscribeToEvent(parentSendable);
+            SubscribeToEvent(parentSender);
         }
 
 

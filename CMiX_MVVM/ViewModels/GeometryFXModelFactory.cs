@@ -2,7 +2,7 @@
 
 namespace CMiX.MVVM.ViewModels
 {
-    public static class ModelFactory
+    public static class GeometryFXModelFactory
     {
         public static GeometryFXModel GetModel(this GeometryFX instance)
         {

@@ -29,6 +29,7 @@ namespace CMiX.MVVM.Services
 
         private NetMQClient NetMQClient { get; set; }
 
+
         public bool Enabled { get; set; }
         public string Name { get; set; }
         public string Topic { get; set; }
@@ -47,7 +48,8 @@ namespace CMiX.MVVM.Services
             if (NetMQClient == null)
             {
                 NetMQClient = new NetMQClient(Address, Topic);
-                NetMQClient.Message.MessageUpdated += OnNetMQMessageReceived;
+
+                //NetMQClient.Message.MessageUpdated += OnNetMQMessageReceived;
             }
 
             NetMQClient.Start();
@@ -59,7 +61,7 @@ namespace CMiX.MVVM.Services
             if(NetMQClient != null)
             {
                 NetMQClient.Stop();
-                NetMQClient.Message.MessageUpdated -= OnNetMQMessageReceived;
+                //NetMQClient.Message.MessageUpdated -= OnNetMQMessageReceived;
                 IsRunning = false;
             }
         }

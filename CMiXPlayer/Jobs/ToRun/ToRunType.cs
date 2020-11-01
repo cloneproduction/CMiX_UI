@@ -4,11 +4,11 @@ using System.Collections.ObjectModel;
 
 namespace CMiXPlayer.Jobs
 {
-    public class ToRunType : ViewModel
+    public class ToRunType : Sendable
     {
         public ToRunType()
         {
-            ToRunTypes = new ObservableCollection<ViewModel>();
+            ToRunTypes = new ObservableCollection<Sendable>();
             ToRunTypes.Add(new ToRunNow());
             ToRunTypes.Add(new ToRunEvery());
             ToRunTypes.Add(new ToRunNowAndEvery());
@@ -16,10 +16,10 @@ namespace CMiXPlayer.Jobs
             SelectedToRunType = new ToRunEvery();
         }
 
-        public ObservableCollection<ViewModel> ToRunTypes { get; set; }
+        public ObservableCollection<Sendable> ToRunTypes { get; set; }
 
-        private ViewModel _selectedToRunType;
-        public ViewModel SelectedToRunType
+        private Sendable _selectedToRunType;
+        public Sendable SelectedToRunType
         {
             get => _selectedToRunType;
             set => SetAndNotify(ref _selectedToRunType, value);

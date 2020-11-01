@@ -14,6 +14,7 @@ namespace CMiX.MVVM.ViewModels
 
         public static Component CreateComponent(Component component = null)
         {
+            ID++;
             if (component == null)
                 return CreateProject();
             else if (component is Project)
@@ -28,42 +29,37 @@ namespace CMiX.MVVM.ViewModels
                 return null;
         }
 
-        public static Project CreateProject()
+        private static Project CreateProject()
         {
             var newProject = new Project(ID, null);
-            ID++;
             return newProject;
         }
 
-        public static Composition CreateComposition(Component parentComponent)
+        private static Composition CreateComposition(Component parentComponent)
         {
             var component = new Composition(ID);
             parentComponent.AddComponent(component);
-            ID++;
             return component;
         }
 
-        public static Layer CreateLayer(Composition parentComponent)
+        private static Layer CreateLayer(Composition parentComponent)
         {
             var component = new Layer(ID, parentComponent.MasterBeat);
             parentComponent.AddComponent(component);
-            ID++;
             return component;
         }
 
-        public static Scene CreateScene(Layer parentComponent)
+        private static Scene CreateScene(Layer parentComponent)
         {
             var component = new Scene(ID, parentComponent.MasterBeat);
             parentComponent.AddComponent(component);
-            ID++;
             return component;
         }
 
-        public static Entity CreateEntity(Scene parentComponent)
+        private static Entity CreateEntity(Scene parentComponent)
         {
             var component = new Entity(ID, parentComponent.MasterBeat);
             parentComponent.AddComponent(component);
-            ID++;
             return component;
         }
     }

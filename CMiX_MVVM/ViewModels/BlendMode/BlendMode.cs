@@ -3,16 +3,16 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class BlendMode : Sendable
+    public class BlendMode : Sender
     {
         public BlendMode()
         {
             Mode = ((BlendModeEnum)0).ToString();
         }
 
-        public BlendMode(Sendable parentSendable) : this()
+        public BlendMode(Sender parentSender) : this()
         {
-            SubscribeToEvent(parentSendable);
+            SubscribeToEvent(parentSender);
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)

@@ -3,7 +3,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class AnimMode : Sendable
+    public abstract class AnimMode : Sender
     {
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {

@@ -8,7 +8,7 @@ using FluentScheduler;
 
 namespace CMiXPlayer.ViewModels
 {
-    public class Scheduler : ViewModel
+    public class Scheduler : Sendable
     {
         public Scheduler(ObservableCollection<Device> devices, ObservableCollection<IJob> runningJobs)
         {

@@ -11,7 +11,7 @@ using Memento;
 
 namespace CMiXPlayer.ViewModels
 {
-    public class Project : ViewModel
+    public class Project : Sendable
     {
         #region CONSTRUCTORS
         public Project()

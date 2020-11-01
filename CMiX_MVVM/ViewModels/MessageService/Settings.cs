@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels.MessageService
 {
-    public class Settings : ViewModel, IModalDialogViewModel
+    public class Settings : Sendable, IModalDialogViewModel
     {
         public Settings(string name, string topic, string ip, int port)
         {

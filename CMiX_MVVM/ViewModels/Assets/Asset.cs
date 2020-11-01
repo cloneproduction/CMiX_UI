@@ -4,7 +4,7 @@ using System.IO;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Asset : ViewModel, IAssets
+    public class Asset : Sendable, IAssets
     {
         private string _name;
         public string Name

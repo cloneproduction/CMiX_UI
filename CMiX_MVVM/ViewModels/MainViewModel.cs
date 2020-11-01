@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class MainViewModel : ViewModel
+    public class MainViewModel : Sendable
     {
         public MainViewModel()
         {
@@ -22,7 +22,7 @@ namespace CMiX.MVVM.ViewModels
 
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
 
-            CurrentProject = ComponentFactory.CreateProject();
+            CurrentProject = ComponentFactory.CreateComponent(null) as Project;
 
             Projects = new ObservableCollection<Component>();
             Projects.Add(CurrentProject);
@@ -162,7 +162,7 @@ namespace CMiX.MVVM.ViewModels
 
         public void AddComposition()
         {
-            ComponentFactory.CreateComposition(CurrentProject);
+            //ComponentFactory.CreateComposition(CurrentProject);
         }
         public void Undo()
         {
@@ -179,7 +179,7 @@ namespace CMiX.MVVM.ViewModels
         #region MENU METHODS
         private void NewProject()
         {
-            Project project = ComponentFactory.CreateProject();
+            Project project = ComponentFactory.CreateComponent() as Project;
             Projects.Clear();
             Projects.Add(project);
             CurrentProject = project;

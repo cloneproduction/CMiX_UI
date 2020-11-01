@@ -7,7 +7,7 @@ using FluentScheduler;
 
 namespace CMiXPlayer.Jobs
 {
-    public class JobSendComposition : ViewModel, IJob
+    public class JobSendComposition : Sendable, IJob
     {
         public JobSendComposition()
         {

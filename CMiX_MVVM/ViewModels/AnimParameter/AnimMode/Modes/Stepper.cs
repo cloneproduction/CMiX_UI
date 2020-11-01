@@ -10,9 +10,9 @@ namespace CMiX.MVVM.ViewModels
             nextStep = 1.0;
         }
 
-        public Stepper(Sendable parentSendable) : this()
+        public Stepper(Sender parentSender) : this()
         {
-            SubscribeToEvent(parentSendable);
+            SubscribeToEvent(parentSender);
         }
 
         private double currentStep;

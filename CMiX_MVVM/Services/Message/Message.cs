@@ -1,5 +1,4 @@
 ﻿using NetMQ;
-using Ceras;
 using System;
 using CMiX.MVVM.Services;
 
@@ -9,10 +8,8 @@ namespace CMiX.MVVM.Message
     {
         public Message()
         {
-            Serializer = new CerasSerializer();
-        }
 
-        public CerasSerializer Serializer { get; set; }
+        }
 
         private NetMQMessage netMQMessage;
         public NetMQMessage NetMQMessage
@@ -38,7 +35,7 @@ namespace CMiX.MVVM.Message
 
         public object Payload
         {
-            get => Serializer.Deserialize<object>(NetMQMessage[2].Buffer);
+            get => MessageSerializer.Serializer.Deserialize<object>(NetMQMessage[2].Buffer);
         }
 
         public event EventHandler<MessageEventArgs> MessageUpdated;

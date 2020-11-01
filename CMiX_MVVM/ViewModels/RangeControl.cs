@@ -2,7 +2,7 @@
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Pouet : Sendable
+    public class Pouet : Sender
     {
         public Pouet()
         {

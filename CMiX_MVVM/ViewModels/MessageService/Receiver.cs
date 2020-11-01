@@ -6,7 +6,7 @@ using System;
 
 namespace CMiX.Studio.ViewModels.MessageService
 {
-    public class Receiver : ViewModel
+    public class Receiver : Sendable
     {
         public Receiver()
         {
@@ -21,17 +21,10 @@ namespace CMiX.Studio.ViewModels.MessageService
             DataReceivedEvent?.Invoke(this, new ModelEventArgs(model, messageAddress, parentMessageAddress));
         }
 
-        public event EventHandler<MessageEventArgs> MessageReceivedEvent;
-        public void OnMessageReceived(Message message)
-        {
-            MessageReceivedEvent?.Invoke(this, new MessageEventArgs(message));
-        }
-
-
         private void Client_MessageReceived(object sender, MessageEventArgs e)
         {
-            OnDataReceivedChange(e.Data as IModel, e.Address, String.Empty);
-            OnMessageReceived(e.Message);
+            Console.WriteLine("Client_MessageReceived");
+            //OnDataReceivedChange(e.Data as IModel, e.Address, String.Empty);
         }
 
         public string Address

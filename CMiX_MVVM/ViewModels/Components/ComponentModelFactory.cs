@@ -85,7 +85,7 @@ namespace CMiX.MVVM.ViewModels
             instance.Components.Clear();
             foreach (CompositionModel compositionModel in projectModel.ComponentModels)
             {
-                Composition composition = ComponentFactory.CreateComposition(instance);
+                Composition composition = ComponentFactory.CreateComponent(instance) as Composition;
                 composition.SetViewModel(compositionModel);
             }
 
@@ -140,7 +140,7 @@ namespace CMiX.MVVM.ViewModels
             instance.Components.Clear();
             foreach (LayerModel componentModel in model.ComponentModels)
             {
-                Layer layer = ComponentFactory.CreateLayer(instance);
+                Layer layer = ComponentFactory.CreateComponent(instance) as Layer;
                 layer.SetViewModel(componentModel);
             }
         }
@@ -182,7 +182,7 @@ namespace CMiX.MVVM.ViewModels
             instance.Components.Clear();
             foreach (var componentModel in layerModel.ComponentModels)
             {
-                Scene scene = ComponentFactory.CreateScene(instance);
+                Scene scene = ComponentFactory.CreateComponent(instance) as Scene;
                 scene.SetViewModel(componentModel);
             }
         }
@@ -223,7 +223,7 @@ namespace CMiX.MVVM.ViewModels
             instance.Components.Clear();
             foreach (EntityModel entityModel in sceneModel.ComponentModels)
             {
-                Entity entity = ComponentFactory.CreateEntity(instance);
+                Entity entity = ComponentFactory.CreateComponent(instance) as Entity;
                 entity.SetViewModel(entityModel);
             }
         }

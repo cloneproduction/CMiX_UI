@@ -4,7 +4,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Translate : Sendable
+    public class Translate : Sender
     {
         public Translate()
         {
@@ -13,9 +13,9 @@ namespace CMiX.MVVM.ViewModels
             Z = new Slider(nameof(Z), this);
         }
 
-        public Translate(Sendable parentSendable) : this()
+        public Translate(Sender parentSender) : this()
         {
-            SubscribeToEvent(parentSendable);
+            SubscribeToEvent(parentSender);
         }
 
         public Slider X { get; set; }

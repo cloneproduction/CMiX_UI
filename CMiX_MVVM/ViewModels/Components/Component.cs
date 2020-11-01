@@ -1,47 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Services;
+using PubSub;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Component : Sendable
+    public abstract class Component : Sender, IComponent
     {
         public Component(int id)
         {
             ID = id;
             Name = $"{GetType().Name}{ID}";
-
             IsExpanded = false;
             Components = new ObservableCollection<Component>();
         }
 
+        Hub hub = Hub.Default;
 
-        public void HandleMessage(Message.Message message, string parentMessageAddress)
+        public void SendMessage(string messageAddress, IModel model)
         {
-            string messageAddress = parentMessageAddress + this.GetMessageAddress();
-            if (message.MessageAddress == messageAddress)
-            {
-                this.SetViewModel(message.Payload);
-                Console.WriteLine("MessageHandled by : " + messageAddress);
-            }
-            else if (message.MessageAddress.Contains(messageAddress))
-            {
-                foreach (var handler in GetHandlers())
-                {
-                    handler.HandleMessage(message, messageAddress);
-                }
-            }
+            Console.WriteLine(this.Name + " SendMessage");
+            hub.Publish<Message>(new Message(messageAddress, MessageSerializer.Serializer.Serialize(model))); ;
+            //OnSendChange(this.GetModel(), this.GetMessageAddress());
         }
 
-
-        public virtual List<IHandler> GetHandlers()
+        public override void OnChildPropertyToSendChange(object sender, ModelEventArgs e)
         {
-            return Components.ToList<IHandler>();
+            SendMessage(this.GetMessageAddress() + e.MessageAddress, e.Model);
+            //OnSendChange(e.Model, GetMessageAddress() + e.MessageAddress);
         }
-
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
@@ -142,10 +130,18 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _selectedComponent, value);
         }
 
+        private void SetVisibility()
+        {
+            foreach (var item in Components)
+            {
+                item.ParentIsVisible = IsVisible;
+                item.SetVisibility();
+            }
+        }
+
         public void AddComponent(Component component)
         {
             Components.Add(component);
-            component.SubscribeToEvent(this);
             IsExpanded = true;
             OnSendChange(this.GetModel(), this.GetMessageAddress());
         }
@@ -153,14 +149,12 @@ namespace CMiX.MVVM.ViewModels
         public void RemoveComponent(Component component)
         {
             Components.Remove(component);
-            component.UnSubscribeToEvent(this);
             OnSendChange(this.GetModel(), this.GetMessageAddress());
         }
 
         public void InsertComponent(int index, Component component)
         {
             Components.Insert(index, component);
-            component.SubscribeToEvent(this);
             OnSendChange(this.GetModel(), this.GetMessageAddress());
         }
 
@@ -173,13 +167,17 @@ namespace CMiX.MVVM.ViewModels
             OnSendChange(this.GetModel(), this.GetMessageAddress());
         }
 
-        private void SetVisibility()
+
+        public void SubscribeToEvent(Component SenderParent)
         {
-            foreach (var item in Components)
-            {
-                item.ParentIsVisible = IsVisible;
-                item.SetVisibility();
-            } 
+            this.SendChangeEvent += SenderParent.OnChildPropertyToSendChange;
+            SenderParent.ReceiveChangeEvent += this.OnParentReceiveChange;
+        }
+
+        public void UnSubscribeToEvent(Component SenderParent)
+        {
+            this.SendChangeEvent -= SenderParent.OnChildPropertyToSendChange;
+            SenderParent.ReceiveChangeEvent -= this.OnParentReceiveChange;
         }
     }
 }

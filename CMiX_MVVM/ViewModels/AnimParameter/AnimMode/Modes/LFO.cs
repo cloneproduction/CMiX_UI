@@ -9,9 +9,9 @@ namespace CMiX.MVVM.ViewModels
 
         }
 
-        public LFO(Sendable parentSendable) : this()
+        public LFO(Sender parentSender) : this()
         {
-            SubscribeToEvent(parentSendable);
+            SubscribeToEvent(parentSender);
         }
 
         public override void UpdateOnBeatTick(AnimParameter animParameter, double period)

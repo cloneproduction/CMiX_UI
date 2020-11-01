@@ -4,7 +4,7 @@ using CMiX.MVVM.Message;
 
 namespace CMiX.Studio.ViewModels.MessageService
 {
-    public class Server : ViewModel
+    public class Server : Sendable
     {
         public Server()
         {

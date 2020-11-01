@@ -6,7 +6,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class ColorPicker : Sendable
+    public class ColorPicker : Sender
     {
         public ColorPicker()
         {
@@ -21,9 +21,9 @@ namespace CMiX.MVVM.ViewModels
             PreviewMouseLeaveCommand = new RelayCommand(p => PreviewMouseLeave());
         }
 
-        public ColorPicker(Sendable parentSendable) : this()
+        public ColorPicker(Sender parentSender) : this()
         {
-            SubscribeToEvent(parentSendable);
+            SubscribeToEvent(parentSender);
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)

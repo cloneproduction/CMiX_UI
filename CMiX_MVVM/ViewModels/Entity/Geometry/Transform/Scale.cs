@@ -4,7 +4,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Scale : Sendable
+    public class Scale : Sender
     {
         public Scale() 
         {
@@ -23,9 +23,9 @@ namespace CMiX.MVVM.ViewModels
             IsUniform = true;
         }
 
-        public Scale(Sendable parentSendable) : this()
+        public Scale(Sender parentSender) : this()
         {
-            SubscribeToEvent(parentSendable);
+            SubscribeToEvent(parentSender);
         }
 
         public Slider X { get; set; }

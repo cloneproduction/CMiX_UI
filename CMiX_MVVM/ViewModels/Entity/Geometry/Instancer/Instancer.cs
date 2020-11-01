@@ -4,7 +4,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Instancer : Sendable, ITransform
+    public class Instancer : Sender, ITransform
     {
         public Instancer(MasterBeat beat)
         {
@@ -18,9 +18,9 @@ namespace CMiX.MVVM.ViewModels
             NoAspectRatio = false;
         }
 
-        public Instancer(MasterBeat beat, Sendable parentSendable) : this(beat)
+        public Instancer(MasterBeat beat, Sender parentSender) : this(beat)
         {
-            SubscribeToEvent(parentSendable);
+            SubscribeToEvent(parentSender);
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)

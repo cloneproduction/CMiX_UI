@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace CMiX.Studio.ViewModels.MessageService
 {
-    public class MessengerManager : ViewModel
+    public class MessengerManager : Sendable
     {
         public MessengerManager(Project project, IDialogService dialogService)
         {

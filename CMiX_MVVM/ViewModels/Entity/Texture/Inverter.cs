@@ -3,7 +3,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Inverter : Sendable
+    public class Inverter : Sender
     {
         public Inverter()
         {
@@ -11,9 +11,9 @@ namespace CMiX.MVVM.ViewModels
             InvertMode = ((TextureInvertMode)0).ToString();
         }
 
-        public Inverter(Sendable parentSendable) : this()
+        public Inverter(Sender parentSender) : this()
         {
-            SubscribeToEvent(parentSendable);
+            SubscribeToEvent(parentSender);
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)

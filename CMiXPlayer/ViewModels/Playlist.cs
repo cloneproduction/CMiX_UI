@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace CMiXPlayer.ViewModels
 {
-    public class Playlist : ViewModel, IDropTarget
+    public class Playlist : Sendable, IDropTarget
     {
         #region CONSTRUCTORS
         public Playlist(CerasSerializer serializer)

@@ -2,7 +2,7 @@
 
 namespace CMiXPlayer.Jobs
 {
-    public class At : ViewModel
+    public class At : Sendable
     {
         public At()
         {

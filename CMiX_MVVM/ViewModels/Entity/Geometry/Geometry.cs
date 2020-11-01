@@ -4,7 +4,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Geometry : Sendable, ITransform
+    public class Geometry : Sender, ITransform
     {
         public Geometry(MasterBeat beat) 
         {
@@ -14,9 +14,9 @@ namespace CMiX.MVVM.ViewModels
             AssetPathSelector = new AssetPathSelector(new AssetGeometry(), this);
         }
 
-        public Geometry(MasterBeat beat, Sendable parentSendable) : this(beat)
+        public Geometry(MasterBeat beat, Sender parentSender) : this(beat)
         {
-            SubscribeToEvent(parentSendable);
+            SubscribeToEvent(parentSender);
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)

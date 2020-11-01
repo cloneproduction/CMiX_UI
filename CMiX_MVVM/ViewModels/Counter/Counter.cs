@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Counter : Sendable
+    public class Counter : Sender
     {
         public Counter() 
         {
@@ -14,9 +14,9 @@ namespace CMiX.MVVM.ViewModels
             SubCommand = new RelayCommand(p => Sub());
         }
 
-        public Counter(Sendable parentSendable) : this()
+        public Counter(Sender parentSender) : this()
         {
-            SubscribeToEvent(parentSendable);
+            SubscribeToEvent(parentSender);
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)

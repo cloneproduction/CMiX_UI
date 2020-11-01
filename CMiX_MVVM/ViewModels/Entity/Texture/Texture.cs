@@ -5,7 +5,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Texture : Sendable
+    public class Texture : Sender
     {
         #region CONSTRUCTORS
         public Texture()
@@ -49,9 +49,9 @@ namespace CMiX.MVVM.ViewModels
         }
         #endregion
 
-        public Texture(Sendable parentSendable) : this()
+        public Texture(Sender parentSender) : this()
         {
-            SubscribeToEvent(parentSendable);
+            SubscribeToEvent(parentSender);
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)

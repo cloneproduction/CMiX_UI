@@ -10,10 +10,8 @@ namespace CMiX.MVVM.ViewModels
 {
     public interface IHandler
     {
-        void HandleMessage(Message.Message message, string parentMessageAddress);
+        void HandleMessage(Message message, string parentMessageAddress);
 
         List<IHandler> GetHandlers();
-
-        //void SetViewModel(Model model);
     }
 }

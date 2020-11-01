@@ -6,7 +6,7 @@ using CMiX.MVVM.ViewModels;
 
 namespace CMiX.ViewModels
 {
-    public class ComponentManager : ViewModel
+    public class ComponentManager : Sendable
     {
         public ComponentManager(Project project)
         {
@@ -31,7 +31,6 @@ namespace CMiX.ViewModels
         public void CreateComponent(Component component)
         {
             ComponentFactory.CreateComponent(component);
-            
         }
 
 
@@ -106,7 +105,7 @@ namespace CMiX.ViewModels
         private Composition DuplicateComposition(Composition composition)
         {
             var parent = GetSelectedParent(Components);
-            var newCompo = ComponentFactory.CreateComposition(parent);
+            var newCompo = ComponentFactory.CreateComponent(parent) as Composition;
 
             newCompo.SetViewModel(composition.GetModel());
             newCompo.Name += " -Copy";
@@ -116,10 +115,10 @@ namespace CMiX.ViewModels
         }
 
 
-        private Layer DuplicateLayer(Layer layer)
+        private Component DuplicateLayer(Layer layer)
         {
             var parent = GetSelectedParent(Components);
-            Layer newLayer = ComponentFactory.CreateLayer(parent as Composition);
+            Component newLayer = ComponentFactory.CreateComponent(parent);
             newLayer.SetViewModel(layer.GetModel());
             newLayer.Name += " -Copy";
             parent.Components.Insert(parent.Components.IndexOf(layer) + 1, newLayer);
@@ -130,7 +129,7 @@ namespace CMiX.ViewModels
         private Entity DuplicateEntity(Entity entity)
         {
             var parent = GetSelectedParent(Components);
-            var component = ComponentFactory.CreateEntity(parent as Scene);
+            var component = ComponentFactory.CreateComponent(parent) as Entity;
             component.SetViewModel(entity.GetModel());
             component.Name += " -Copy";
             parent.Components.Insert(parent.Components.IndexOf(entity) + 1, component);

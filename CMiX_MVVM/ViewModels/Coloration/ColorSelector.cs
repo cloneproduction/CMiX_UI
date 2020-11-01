@@ -3,16 +3,16 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class ColorSelector : Sendable
+    public class ColorSelector : Sender
     {
         public ColorSelector() 
         {
             ColorPicker = new ColorPicker(this);
         }
 
-        public ColorSelector(Sendable parentSendable) : this()
+        public ColorSelector(Sender parentSender) : this()
         {
-            SubscribeToEvent(parentSendable);
+            SubscribeToEvent(parentSender);
         }
 
 

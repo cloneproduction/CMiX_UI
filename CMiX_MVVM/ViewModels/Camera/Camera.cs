@@ -2,7 +2,7 @@
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Camera : ViewModel
+    public class Camera : Sendable
     {
         public Camera(MasterBeat beat) 
         {

@@ -7,7 +7,7 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class PostFX : Sendable
+    public class PostFX : Sender
     {
         public PostFX() 
         {

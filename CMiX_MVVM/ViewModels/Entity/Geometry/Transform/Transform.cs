@@ -3,7 +3,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Transform : Sendable
+    public class Transform : Sender
     {
         public Transform()
         {
@@ -14,9 +14,9 @@ namespace CMiX.MVVM.ViewModels
             Is3D = false;
         }
 
-        public Transform(Sendable parentSendable) : this()
+        public Transform(Sender parentSender) : this()
         {
-            SubscribeToEvent(parentSendable);
+            SubscribeToEvent(parentSender);
         }
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {

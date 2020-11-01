@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Resync : Sendable
+    public class Resync : Sender
     {
         public Resync(BeatAnimations beatAnimations)
         {
@@ -12,9 +12,9 @@ namespace CMiX.MVVM.ViewModels
             ResyncCommand = new RelayCommand(p => DoResync());
         }
 
-        public Resync(BeatAnimations beatAnimations, Sendable parentSendable) : this(beatAnimations)
+        public Resync(BeatAnimations beatAnimations, Sender parentSender) : this(beatAnimations)
         {
-            SubscribeToEvent(parentSendable);
+            SubscribeToEvent(parentSender);
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)

@@ -2,6 +2,7 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using System;
+using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels
 {

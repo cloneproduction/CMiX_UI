@@ -5,12 +5,12 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class AssetPathSelector : Sendable, IDropTarget
+    public class AssetPathSelector : Sender, IDropTarget
     {
-        public AssetPathSelector(Asset defaultAsset, Sendable parentSendable)
+        public AssetPathSelector(Asset defaultAsset, Sender parentSender)
         {
             SelectedAsset = defaultAsset;
-            SubscribeToEvent(parentSendable);
+            SubscribeToEvent(parentSender);
         }
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
