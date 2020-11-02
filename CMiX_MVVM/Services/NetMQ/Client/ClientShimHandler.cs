@@ -29,19 +29,23 @@ namespace CMiX.MVVM.Services
         public void Run(PairSocket shim)
         {
             using (subscriber = new SubscriberSocket())
-            using (poller = new NetMQPoller())
+            using (poller = new NetMQPoller() { subscriber, shim  })
             {
                 subscriber.Connect(Address);
                 subscriber.Subscribe(Topic);
                 subscriber.Options.ReceiveHighWatermark = 1000;
                 subscriber.Options.MulticastRate = 1000 * MegaByte;
                 subscriber.ReceiveReady += OnSubscriberReady;
+
                 this.shim = shim;
                 this.shim.ReceiveReady += Shim_ReceiveReady;
                 this.shim.SignalOK();
-                poller.Add(subscriber);
-                poller.Add(this.shim);
-                poller.Run();
+
+                poller.RunAsync();
+                while (true)
+                {
+
+                }
             }
         }
 
@@ -53,10 +57,12 @@ namespace CMiX.MVVM.Services
 
         private void OnSubscriberReady(object sender, NetMQSocketEventArgs e)
         {
+            
             NetMQMessage msg = new NetMQMessage();
             msg = e.Socket.ReceiveMultipartMessage();
-            shim.SendMultipartMessage(msg);
-            
+            this.shim.SendFrame("pouet");
+            OnReceiveChange(msg);
+            Console.WriteLine("OnSubscriberReady");
         }
 
         public event EventHandler<NetMQMessageEventArgs> ReceiveChangeEvent;

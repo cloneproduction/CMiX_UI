@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="4695" scrolly="2415">
-   <BOUNDS type="Window" left="14400" top="20370" width="20580" height="16080">
+   <PATCH nodename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="2265" scrolly="17190">
+   <BOUNDS type="Window" left="16950" top="2280" width="20580" height="16080">
    </BOUNDS>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="2" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="9095" top="4505" width="585" height="510">
@@ -75,7 +75,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="7060" top="1180" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="60">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="120">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -943,6 +943,10 @@
    </PIN>
    <PIN pinname="Layer 2" visible="1" slicecount="1" values="||">
    </PIN>
+   <PIN pinname="Input Count" slicecount="1" values="3">
+   </PIN>
+   <PIN pinname="Layer 3" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="352" srcpinname="Layer Out" dstnodeid="355" dstpinname="Layer 1">
    </LINK>
@@ -953,6 +957,10 @@
    </PIN>
    <BOUNDS type="Box" left="6675" top="19965">
    </BOUNDS>
+   <PIN pinname="Enabled" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="fps" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="356" srcpinname="Layer" dstnodeid="355" dstpinname="Layer 2">
    </LINK>
@@ -1106,12 +1114,6 @@
    </LINK>
    <LINK srcnodeid="354" srcpinname="Transform Out" dstnodeid="68" dstpinname="Data">
    </LINK>
-   <NODE systemname="BoundingBox (DX11.Geometry Get)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="BoundingBox (DX11.Geometry Get)" componentmode="Hidden" id="450">
-   <BOUNDS type="Node" left="13320" top="5970" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="13320" top="5970" width="2000" height="2000">
-   </BOUNDS>
-   </NODE>
    <LINK srcnodeid="320" srcpinname="Transform Out" dstnodeid="354" dstpinname="Transform In 2">
    </LINK>
    <LINK srcnodeid="288" srcpinname="Transform Out" dstnodeid="354" dstpinname="Transform In 1">
@@ -1179,5 +1181,59 @@
    <LINK srcnodeid="45" srcpinname="Texture Out" dstnodeid="454" dstpinname="Input 1">
    </LINK>
    <LINK srcnodeid="454" srcpinname="Output" dstnodeid="47" dstpinname="Texture In">
+   </LINK>
+   <NODE systemname="Quad (DX11.Layer)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Quad (DX11.Layer)" componentmode="Hidden" id="455">
+   <BOUNDS type="Node" left="4500" top="21420" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4500" top="21420" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="Transform" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Rotate (Transform)" nodename="Rotate (Transform)" componentmode="Hidden" id="456">
+   <BOUNDS type="Node" left="4650" top="20790" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Transform Out" visible="1">
+   </PIN>
+   <PIN pinname="Z" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="456" srcpinname="Transform Out" dstnodeid="455" dstpinname="Transform">
+   </LINK>
+   <LINK srcnodeid="455" srcpinname="Layer" dstnodeid="355" dstpinname="Layer 3">
+   </LINK>
+   <NODE systemname="LFO (Animation)" nodename="LFO (Animation)" componentmode="Hidden" id="457">
+   <BOUNDS type="Node" left="4515" top="19995" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Period" slicecount="1" values="2">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="457" srcpinname="Output" dstnodeid="456" dstpinname="Z">
+   </LINK>
+   <NODE systemname="Damper (Animation)" nodename="Damper (Animation)" componentmode="Hidden" id="458">
+   <BOUNDS type="Node" left="7560" top="20685" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Go To Position" visible="1">
+   </PIN>
+   <PIN pinname="Position Out" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="356" srcpinname="fps" dstnodeid="458" dstpinname="Go To Position">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="459">
+   <BOUNDS type="Box" left="7380" top="22590" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="7380" top="22590" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="458" srcpinname="Position Out" dstnodeid="459" dstpinname="Y Input Value">
    </LINK>
    </PATCH>
