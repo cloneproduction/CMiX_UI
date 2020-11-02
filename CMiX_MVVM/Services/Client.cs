@@ -15,7 +15,6 @@ namespace CMiX.MVVM.Services
         {
             Enabled = true;
             IsRunning = false;
-
             Topic = topic;
             Enabled = true;
         }

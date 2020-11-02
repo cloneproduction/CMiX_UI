@@ -36,23 +36,27 @@ namespace CMiX.MVVM.Services
                 subscriber.Options.ReceiveHighWatermark = 1000;
                 subscriber.Options.MulticastRate = 1000 * MegaByte;
                 subscriber.ReceiveReady += OnSubscriberReady;
-
                 this.shim = shim;
-                shim.SignalOK();
+                this.shim.ReceiveReady += Shim_ReceiveReady;
+                this.shim.SignalOK();
                 poller.Add(subscriber);
                 poller.Add(this.shim);
-                poller.RunAsync();
+                poller.Run();
             }
+        }
+
+        private void Shim_ReceiveReady(object sender, NetMQSocketEventArgs e)
+        {
+            NetMQMessage msg = shim.ReceiveMultipartMessage();
+            Console.WriteLine("Shim_ReceiveReady");
         }
 
         private void OnSubscriberReady(object sender, NetMQSocketEventArgs e)
         {
-            Console.WriteLine("OnSubscriberReady");
-            var message = e.Socket.ReceiveMultipartMessage();
-            Console.WriteLine(message.FrameCount);
-            shim.SendMultipartMessage(message);
-            OnReceiveChange(message);
-            //Message.NetMQMessage = e.Socket.ReceiveMultipartMessage();
+            NetMQMessage msg = new NetMQMessage();
+            msg = e.Socket.ReceiveMultipartMessage();
+            shim.SendMultipartMessage(msg);
+            
         }
 
         public event EventHandler<NetMQMessageEventArgs> ReceiveChangeEvent;

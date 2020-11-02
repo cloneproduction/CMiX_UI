@@ -36,6 +36,7 @@ namespace CMiX.MVVM.Message
         {
             if (actor != null)
                 return;
+
             ClientShimHandler = new ClientShimHandler(Message, Address, Topic);
             ClientShimHandler.ReceiveChangeEvent += ClientShimHandler_ReceiveChangeEvent1;
 
@@ -43,10 +44,18 @@ namespace CMiX.MVVM.Message
 
             Console.WriteLine($"NetMQClient Started with Address " + Address);
 
-            //Message.NetMQMessage = actor.ReceiveMultipartMessage();
+            while (true)
+            {
+                Message.NetMQMessage = actor.ReceiveMultipartMessage();
+            }
             
-            Console.WriteLine("MessageReceived");
+
+            //Console.WriteLine("MessageReceived");
+
+
+
         }
+
 
         private void ClientShimHandler_ReceiveChangeEvent1(object sender, NetMQMessageEventArgs e)
         {
