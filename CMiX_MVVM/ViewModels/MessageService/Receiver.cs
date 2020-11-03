@@ -24,7 +24,7 @@ namespace CMiX.Studio.ViewModels.MessageService
         private void Client_MessageReceived(object sender, MessageEventArgs e)
         {
             Console.WriteLine("Client_MessageReceived");
-            //OnDataReceivedChange(e.Data as IModel, e.Address, String.Empty);
+            OnDataReceivedChange(e.Data as IModel, e.Address, String.Empty);
         }
 
         public string Address

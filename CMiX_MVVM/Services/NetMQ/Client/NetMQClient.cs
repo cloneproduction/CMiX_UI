@@ -33,62 +33,66 @@ namespace CMiX.MVVM.Message
 
         public string Address { get; set; }
         public ClientShimHandler ClientShimHandler { get; set; }
+
+
         public void Start()
         {
             if (actor != null)
                 return;
 
-            ClientShimHandler = new ClientShimHandler(Message, Address, Topic);
+            //ClientShimHandler = new ClientShimHandler(Message, Address, Topic);
             //ClientShimHandler.ReceiveChangeEvent += ClientShimHandler_ReceiveChangeEvent1;
 
-            actor = NetMQActor.Create(ClientShimHandler);
+            //actor = NetMQActor.Create(ClientShimHandler);
             
             Console.WriteLine($"NetMQClient Started with Address " + Address);
 
-            NetMQMessage msg = new NetMQMessage();
 
-            ExecuteAsync();
-            
-            //Console.WriteLine("success " + success);
-            //while (true)
-            //{
-            //    bool success = actor.TryReceiveMultipartMessage(ref msg);
-
-            //    if (success == false)
-            //        continue;
-
-            //    Console.WriteLine("POUETPOUET");
-            //}
-            //var mess = actor.ReceiveFrameString();
-            //Console.WriteLine("MessageReceived " + mess);
-
-
+            NetMQPoller poller = new NetMQPoller();
+            SubscriberSocket clientSub = new SubscriberSocket(Address);
+            clientSub.Subscribe(Topic);
+            clientSub.ReceiveReady += ClientSub_ReceiveReady;
+            poller.Add(clientSub);
+            poller.RunAsync();
+            Console.WriteLine("poller.RunAsync()");
         }
 
-        async Task ExecuteAsync()
+
+        private void ClientSub_ReceiveReady(object sender, NetMQSocketEventArgs e)
         {
-            NetMQMessage msg = new NetMQMessage();
-            Console.WriteLine("Enter ExecuteAsync");
-            while (true)
+            NetMQMessage msg = e.Socket.ReceiveMultipartMessage();
+
+            if(msg.FrameCount == 3)
             {
-                await Task.Delay(42); // for testing
+                Message.NetMQMessage = msg;
 
-                bool success = actor.TryReceiveMultipartMessage(ref msg);
-
-                if (success == false)
-                    continue;
-
-                Console.WriteLine("POUETPOUET");
+                Console.WriteLine("receive ready ");
+                Console.WriteLine(Message.MessageAddress);
             }
-            //Console.WriteLine("Exit ExecuteAsync");
+
         }
 
-        private void ClientShimHandler_ReceiveChangeEvent1(object sender, NetMQMessageEventArgs e)
-        {
-            Console.WriteLine("ClientShimHandler_ReceiveChangeEvent1");
-            Console.WriteLine(e.NetMQMessage.FrameCount);
-            //throw new NotImplementedException();
-        }
+        //async Task<NetMQMessage> ExecuteAsync()
+        //{
+        //    NetMQMessage msg = new NetMQMessage();
+        //    Console.WriteLine("Enter ExecuteAsync");
+        //    while (true)
+        //    {
+        //        await Task.Delay(10); // for testing
+
+        //        bool success = actor.TryReceiveMultipartMessage(ref msg);
+
+        //        if (success == false)
+        //            continue;
+
+        //        Console.WriteLine("POUETPOUET");
+                
+        //        //return msg;
+        //    }
+            
+        //    //Console.WriteLine("Exit ExecuteAsync");
+        //}
+
 
         public void Stop()
         {

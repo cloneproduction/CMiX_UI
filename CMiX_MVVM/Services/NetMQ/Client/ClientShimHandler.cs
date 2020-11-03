@@ -29,7 +29,7 @@ namespace CMiX.MVVM.Services
         public void Run(PairSocket shim)
         {
             using (subscriber = new SubscriberSocket())
-            using (poller = new NetMQPoller() { subscriber, shim  })
+            using (poller = new NetMQPoller() { subscriber })
             {
                 subscriber.Connect(Address);
                 subscriber.Subscribe(Topic);
@@ -41,21 +41,21 @@ namespace CMiX.MVVM.Services
                 this.shim.ReceiveReady += Shim_ReceiveReady;
                 this.shim.SignalOK();
 
-                poller.RunAsync();
-                while (true)
-                {
-                    //NetMQMessage msg = new NetMQMessage();
-                    //if(subscriber.TryReceiveMultipartMessage(ref msg))
-                    //{
+                poller.Run();
+                //while (true)
+                //{
+                //    //NetMQMessage msg = new NetMQMessage();
+                //    //if(subscriber.TryReceiveMultipartMessage(ref msg))
+                //    //{
 
-                    //}
-                }
+                //    //}
+                //}
             }
         }
 
         private void Shim_ReceiveReady(object sender, NetMQSocketEventArgs e)
         {
-            NetMQMessage msg = shim.ReceiveMultipartMessage();
+            NetMQMessage msg = e.Socket.ReceiveMultipartMessage();
             Console.WriteLine("Shim_ReceiveReady");
         }
 
@@ -64,6 +64,7 @@ namespace CMiX.MVVM.Services
             
             NetMQMessage msg = new NetMQMessage();
             msg = e.Socket.ReceiveMultipartMessage();
+
             this.shim.SendFrame("pouet");
             OnReceiveChange(msg);
             Console.WriteLine("OnSubscriberReady");

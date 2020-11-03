@@ -1,11 +1,11 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="2265" scrolly="17190">
-   <BOUNDS type="Window" left="16950" top="2280" width="20580" height="16080">
+   <PATCH nodename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="4290" scrolly="2430">
+   <BOUNDS type="Window" left="14595" top="2310" width="20580" height="16080">
    </BOUNDS>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="2" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="9095" top="4505" width="585" height="510">
+   <BOUNDS type="Box" left="6275" top="4160" width="585" height="510">
    </BOUNDS>
-   <BOUNDS type="Node" left="9095" top="4505" width="0" height="0">
+   <BOUNDS type="Node" left="6275" top="4160" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
@@ -1235,5 +1235,19 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="458" srcpinname="Position Out" dstnodeid="459" dstpinname="Y Input Value">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="460">
+   <BOUNDS type="Box" left="7785" top="5040" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="7785" top="5040" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="1" srcpinname="Data Type" dstnodeid="460" dstpinname="Input String">
    </LINK>
    </PATCH>

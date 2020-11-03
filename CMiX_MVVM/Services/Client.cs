@@ -48,7 +48,7 @@ namespace CMiX.MVVM.Services
             {
                 NetMQClient = new NetMQClient(Address, Topic);
 
-                //NetMQClient.Message.MessageUpdated += OnNetMQMessageReceived;
+                NetMQClient.Message.MessageUpdated += OnNetMQMessageReceived;
             }
 
             NetMQClient.Start();
@@ -60,7 +60,7 @@ namespace CMiX.MVVM.Services
             if(NetMQClient != null)
             {
                 NetMQClient.Stop();
-                //NetMQClient.Message.MessageUpdated -= OnNetMQMessageReceived;
+                NetMQClient.Message.MessageUpdated -= OnNetMQMessageReceived;
                 IsRunning = false;
             }
         }

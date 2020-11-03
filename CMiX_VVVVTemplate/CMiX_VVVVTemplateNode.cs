@@ -50,9 +50,9 @@ namespace CMiX.Nodes
 		private void Receiver_DataReceivedEvent(object sender, MVVM.Services.ModelEventArgs e)
         {
 			FProjectOut[0] = this.Project;
-			FDataType[0] = e.Model.GetType().Name;
+			//FDataType[0] = e.Model.GetType().Name;
             FLogger.Log(LogType.Debug, "Receiver_DataReceivedEvent");
-            FLogger.Log(LogType.Debug, "Model Type " + e.Model.GetType().Name);
+            FLogger.Log(LogType.Debug, e.MessageAddress);
         }
 
         public void Evaluate(int SpreadMax)
