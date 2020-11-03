@@ -44,7 +44,11 @@ namespace CMiX.MVVM.Services
                 poller.RunAsync();
                 while (true)
                 {
+                    //NetMQMessage msg = new NetMQMessage();
+                    //if(subscriber.TryReceiveMultipartMessage(ref msg))
+                    //{
 
+                    //}
                 }
             }
         }
