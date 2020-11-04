@@ -1236,4 +1236,18 @@
    </NODE>
    <LINK srcnodeid="458" srcpinname="Position Out" dstnodeid="459" dstpinname="Y Input Value">
    </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="460">
+   <BOUNDS type="Box" left="7785" top="5040" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="7785" top="5040" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="1" srcpinname="Data Type" dstnodeid="460" dstpinname="Input String">
+   </LINK>
    </PATCH>

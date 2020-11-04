@@ -69,7 +69,6 @@ namespace CMiX.MVVM.Message
                 Console.WriteLine("receive ready ");
                 Console.WriteLine(Message.MessageAddress);
             }
-
         }
 
         //async Task<NetMQMessage> ExecuteAsync()
