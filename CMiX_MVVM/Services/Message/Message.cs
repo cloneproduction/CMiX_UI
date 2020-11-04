@@ -7,24 +7,17 @@ namespace CMiX.MVVM.Message
 {
     public class Message
     {
-        public Message()
+        public Message(NetMQMessage netMQMessage)
         {
-            Serializer = new CerasSerializer();
+            NetMQMessage = netMQMessage;
         }
 
         private NetMQMessage netMQMessage;
         public NetMQMessage NetMQMessage
         {
             get => netMQMessage;
-            set
-            {
-                netMQMessage = value;
-                OnMessageUpdated(this);
-                Console.WriteLine("NetMQMessage Updated");
-            }
+            set => netMQMessage = value;
         }
-
-        public CerasSerializer Serializer { get; set; }
 
         public string Topic
         {
@@ -38,16 +31,7 @@ namespace CMiX.MVVM.Message
 
         public object Payload
         {
-            get => Serializer.Deserialize<object>(NetMQMessage[2].Buffer);
-        }
-
-        public event EventHandler<MessageEventArgs> MessageUpdated;
-        private void OnMessageUpdated(Message message)
-        {
-            if (MessageUpdated != null)
-            {
-                MessageUpdated(this, new MessageEventArgs(message));
-            }
+            get => NetMQMessage[2];
         }
     }
 }
