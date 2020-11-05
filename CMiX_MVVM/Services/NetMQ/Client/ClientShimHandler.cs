@@ -1,6 +1,7 @@
 ﻿using NetMQ;
 using NetMQ.Sockets;
 using System;
+using CMiX.MVVM.Message;
 
 namespace CMiX.MVVM.Services
 {
@@ -14,7 +15,7 @@ namespace CMiX.MVVM.Services
         private string Topic;
 
 
-        public ClientShimHandler(Message.Message byteMessage, string address, string topic)
+        public ClientShimHandler(string address, string topic)
         {
             //this.Message = byteMessage;
             this.Address = address;

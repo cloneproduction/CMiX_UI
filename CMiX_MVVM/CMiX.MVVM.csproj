@@ -126,6 +126,7 @@
     <Compile Include="Models\Geometry\Modifier\ModifierModel.cs" />
     <Compile Include="Models\RangeModel.cs" />
     <Compile Include="Services\HighResolutionTimer.cs" />
+    <Compile Include="Services\Message\MessageReceived.cs" />
     <Compile Include="Services\Message\MessageSerializer.cs" />
     <Compile Include="Services\NetMQ\Client\ClientShimHandler.cs" />
     <Compile Include="Services\NetMQ\Client\NetMQMessageEventArgs.cs" />

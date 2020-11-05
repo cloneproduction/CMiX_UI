@@ -7,31 +7,47 @@ namespace CMiX.MVVM.Message
 {
     public class Message
     {
-        public Message(NetMQMessage netMQMessage)
+        public Message(string messageAddress, byte[] data)
         {
-            NetMQMessage = netMQMessage;
+            MessageAddress = messageAddress;
+            Data = data;
         }
 
-        private NetMQMessage netMQMessage;
-        public NetMQMessage NetMQMessage
-        {
-            get => netMQMessage;
-            set => netMQMessage = value;
-        }
+        //private NetMQMessage netMQMessage;
+        //public NetMQMessage NetMQMessage
+        //{
+        //    get => netMQMessage;
+        //    set => netMQMessage = value;
+        //}
 
-        public string Topic
-        {
-            get => NetMQMessage[0].ConvertToString();
-        }
 
+        private string _messageAddress;
         public string MessageAddress
         {
-            get => NetMQMessage[1].ConvertToString();
+            get { return _messageAddress; }
+            set { _messageAddress = value; }
         }
 
-        public object Payload
+        private byte[] _data;
+        public byte[] Data
         {
-            get => NetMQMessage[2];
+            get { return _data; }
+            set { _data = value; }
         }
+
+        //public string Topic
+        //{
+        //    get => NetMQMessage[0].ConvertToString();
+        //}
+
+        //public string MessageAddress
+        //{
+        //    get => NetMQMessage[1].ConvertToString();
+        //}
+
+        //public byte[] Payload
+        //{
+        //    get => NetMQMessage[2];
+        //}
     }
 }

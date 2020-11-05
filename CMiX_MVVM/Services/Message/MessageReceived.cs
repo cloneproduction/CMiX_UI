@@ -1,12 +1,14 @@
-﻿using CMiX.MVVM.Commands;
-using CMiX.MVVM.Message;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace CMiX.MVVM.Services
+namespace CMiX.MVVM.Services.Message
 {
-    public class MessageEventArgs : EventArgs
+    public class MessageReceived
     {
-        public MessageEventArgs(string address, byte[] data)
+        public MessageReceived(string address, byte[] data)
         {
             Address = address;
             Data = data;

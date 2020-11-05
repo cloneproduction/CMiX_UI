@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Services;
+using CMiX.MVVM.Services.Message;
 using PubSub;
 
 namespace CMiX.MVVM.ViewModels
@@ -14,14 +15,24 @@ namespace CMiX.MVVM.ViewModels
             Name = $"{GetType().Name}{ID}";
             IsExpanded = false;
             Components = new ObservableCollection<Component>();
+
+            //hub.
+            hub.Subscribe<MessageReceived>(this, message =>
+            {
+                Console.WriteLine("Component Received Message from  " + message.Address);
+                Console.WriteLine("message.Address " + message.Address + " this.GetMessageAddress() " + this.GetMessageAddress());
+                if (message.Address == this.GetMessageAddress())
+                    Console.WriteLine("Update Component !");
+            });
         }
 
-        Hub hub = Hub.Default;
+        public Hub hub = Hub.Default;
 
         public void SendMessage(string messageAddress, IModel model)
         {
             Console.WriteLine(this.Name + " SendMessage");
-            hub.Publish<Message>(new Message(messageAddress, MessageSerializer.Serializer.Serialize(model))); ;
+            hub.Publish<Message>(new Message(messageAddress, MessageSerializer.Serializer.Serialize(model)));
+
             //OnSendChange(this.GetModel(), this.GetMessageAddress());
         }
 

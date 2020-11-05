@@ -1,6 +1,7 @@
 ﻿using CMiX.MVVM.Message;
 using NetMQ;
 using NetMQ.Sockets;
+using PubSub;
 using System;
 using System.ComponentModel;
 
@@ -21,9 +22,6 @@ namespace CMiX.MVVM.Services
             MessageReceived.Invoke(sender, e);
         }
 
-        //private NetMQClient NetMQClient { get; set; }
-
-
         public bool Enabled { get; set; }
         public string Name { get; set; }
         public string Topic { get; set; }
@@ -37,24 +35,8 @@ namespace CMiX.MVVM.Services
             get { return String.Format("tcp://{0}:{1}", IP, Port); }
         }
 
-        //public void Start()
-        //{
-        //    if (NetMQClient == null)
-        //    {
-        //        NetMQClient = new NetMQClient(Address, Topic);
-
-        //        NetMQClient.Message.MessageUpdated += OnNetMQMessageReceived;
-        //    }
-
-        //    NetMQClient.Start();
-        //    IsRunning = true;
-        //}
-
-        //public string Address { get; set; }
-        public ClientShimHandler ClientShimHandler { get; set; }
         public SubscriberSocket SubscriberSocket { get; set; }
         public NetMQPoller Poller { get; set; }
-        public Message.Message Message { get; set; }
 
         public void Start()
         {
@@ -70,14 +52,13 @@ namespace CMiX.MVVM.Services
 
         private void ClientSub_ReceiveReady(object sender, NetMQSocketEventArgs e)
         {
-            NetMQMessage msg = e.Socket.ReceiveMultipartMessage();
-
-            if (msg.FrameCount == 3)
-            {
-                //Message.Message Message = new Message.Message(msg);
-                OnNetMQMessageReceived(this, new MessageEventArgs(new Message.Message(msg)));
-                Console.WriteLine(msg[1]);
-            }
+            //NetMQMessage msg = e.Socket.ReceiveMultipartMessage();
+            string topic = e.Socket.ReceiveFrameString();
+            string messageAddress = e.Socket.ReceiveFrameString();
+            byte[] data = e.Socket.ReceiveFrameBytes();
+            
+            OnNetMQMessageReceived(this, new MessageEventArgs(messageAddress, data));
+            Console.WriteLine(messageAddress);
         }
 
 
