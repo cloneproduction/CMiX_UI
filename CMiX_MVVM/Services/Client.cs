@@ -52,7 +52,6 @@ namespace CMiX.MVVM.Services
 
         private void ClientSub_ReceiveReady(object sender, NetMQSocketEventArgs e)
         {
-            //NetMQMessage msg = e.Socket.ReceiveMultipartMessage();
             string topic = e.Socket.ReceiveFrameString();
             string messageAddress = e.Socket.ReceiveFrameString();
             byte[] data = e.Socket.ReceiveFrameBytes();
@@ -66,14 +65,6 @@ namespace CMiX.MVVM.Services
         {
             if (Poller != null)
                 Poller.StopAsync();
-
-
-            //if(NetMQClient != null)
-            //{
-            //    NetMQClient.Stop();
-            //    NetMQClient.Message.MessageUpdated -= OnNetMQMessageReceived;
-            //    IsRunning = false;
-            //}
         }
     }
 }

@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Message
+    public class MessageOld
     {
-        public Message(string address, byte[] data)
+        public MessageOld(string address, byte[] data)
         {
             Address = address;
             Data = data;

@@ -1,7 +1,9 @@
 ﻿using Ceras;
 using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Message;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using CMiX.MVVM.Services.Message;
 using CMiX.MVVM.ViewModels;
 using PubSub;
 using System.Windows.Input;
@@ -22,11 +24,11 @@ namespace CMiX.Studio.ViewModels.MessageService
             StopServerCommand = new RelayCommand(p => StopServer());
             RestartServerCommand = new RelayCommand(p => RestartServer());
 
-            Hub.Subscribe<Message>(this, message =>
+            Hub.Subscribe<MessageOut>(this, message =>
             {
-                System.Console.WriteLine("MessengerReceivedMessage from  " + message.Address);
+                System.Console.WriteLine("MessengerReceivedMessage from  " + message.MessageAddress);
 
-                this.Server.Send(message.Address, message.Data);
+                this.Server.Send(message.MessageAddress, message.Data);
                 // highly interesting things
             });
         }
