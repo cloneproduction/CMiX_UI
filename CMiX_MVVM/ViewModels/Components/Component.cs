@@ -18,13 +18,7 @@ namespace CMiX.MVVM.ViewModels
             Components = new ObservableCollection<Component>();
             Hub = Hub.Default;
 
-            Hub.Subscribe<MessageReceived>(this, message =>
-            {
-                Console.WriteLine("Component Received Message from  " + message.Address);
-                Console.WriteLine("message.Address " + message.Address + " this.GetMessageAddress() " + this.GetMessageAddress());
-                if (message.Address == this.GetMessageAddress())
-                    Console.WriteLine("Update Component !");
-            });
+
         }
 
         public Hub Hub { get; set; }

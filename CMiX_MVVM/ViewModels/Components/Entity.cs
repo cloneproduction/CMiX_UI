@@ -1,7 +1,9 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
 using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.Services.Message;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -13,6 +15,14 @@ namespace CMiX.MVVM.ViewModels
             Geometry = new Geometry(beat, this);
             Texture = new Texture(this);
             Coloration = new Coloration(beat, this);
+
+            Hub.Subscribe<MessageReceived>(this, message =>
+            {
+                Console.WriteLine("Component Received Message from  " + message.Address);
+                Console.WriteLine("message.Address " + message.Address + " this.GetMessageAddress() " + this.GetMessageAddress());
+                if (message.Address == this.GetMessageAddress())
+                    Console.WriteLine("Update Component !");
+            });
         }
 
         public ICommand CopyEntityCommand { get; }
