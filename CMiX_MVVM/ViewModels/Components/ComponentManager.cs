@@ -6,7 +6,7 @@ using CMiX.MVVM.ViewModels;
 
 namespace CMiX.ViewModels
 {
-    public class ComponentManager : Sendable
+    public class ComponentManager : ViewModel
     {
         public ComponentManager(Project project)
         {

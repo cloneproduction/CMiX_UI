@@ -15,11 +15,6 @@ namespace CMiX.MVVM.ViewModels
             Messengers = new ObservableCollection<Messenger>();
         }
 
-        public void Receiver_MessageReceivedEvent(object sender, Services.MessageEventArgs e)
-        {
-            //this.HandleMessage(e.Message, String.Empty);
-        }
-
         public IDialogService DialogService { get; set; }
 
         private Receiver _receiver;

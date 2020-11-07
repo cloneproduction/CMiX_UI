@@ -16,7 +16,7 @@ using MvvmDialogs.FrameworkDialogs.OpenFile;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class AssetManager : Sendable, IDropTarget, IDragSource
+    public class AssetManager : ViewModel, IDropTarget, IDragSource
     {
         public AssetManager(Project project)
         {

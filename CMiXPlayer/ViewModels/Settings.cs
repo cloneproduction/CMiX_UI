@@ -9,7 +9,7 @@ using CMiX.MVVM.Resources;
 
 namespace CMiXPlayer.ViewModels
 {
-    public class Settings : Sendable
+    public class Settings : ViewModel
     {
         public Settings()
         {

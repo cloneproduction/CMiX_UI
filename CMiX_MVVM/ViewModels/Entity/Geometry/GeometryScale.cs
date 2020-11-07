@@ -1,6 +1,6 @@
 ﻿namespace CMiX.MVVM.ViewModels
 {
-    public class GeometryScale : Sendable
+    public class GeometryScale : ViewModel
     {
         public GeometryScale() 
         {

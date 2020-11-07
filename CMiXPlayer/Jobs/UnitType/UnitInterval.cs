@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace CMiXPlayer.Jobs
 {
-    public class UnitInterval : Sendable
+    public class UnitInterval : ViewModel
     {
         public UnitInterval(int interval)
         {

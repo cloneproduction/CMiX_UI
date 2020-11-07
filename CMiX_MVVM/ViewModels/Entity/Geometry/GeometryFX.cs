@@ -1,6 +1,6 @@
 ﻿namespace CMiX.MVVM.ViewModels
 {
-    public class GeometryFX : Sendable
+    public class GeometryFX : ViewModel
     {
         public GeometryFX()
         {

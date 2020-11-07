@@ -38,8 +38,6 @@ namespace CMiX.Nodes
 			Project.Receiver = receiver;
             Settings settings = new Settings("Pouet", "Pouet", "192.168.0.192", 2222);
             receiver.SetSettings(settings);
-            receiver.DataReceivedEvent += Receiver_DataReceivedEvent;
-			receiver.DataReceivedEvent += Project.OnParentReceiveChange;
 		}
 
 		public void OnImportsSatisfied()

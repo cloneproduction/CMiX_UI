@@ -8,7 +8,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Sender : Sendable, IPublisher
+    public abstract class Sender : ViewModel, IPublisher
     {
 
 

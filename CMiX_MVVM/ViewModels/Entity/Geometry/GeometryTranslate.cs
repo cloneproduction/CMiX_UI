@@ -7,7 +7,7 @@ using CMiX.MVVM;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class GeometryTranslate : Sendable
+    public class GeometryTranslate : ViewModel
     {
         #region CONSTRUCTORS
         public GeometryTranslate(string messageAddress, Mementor mementor) 

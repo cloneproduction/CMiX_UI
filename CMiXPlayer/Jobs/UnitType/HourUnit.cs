@@ -4,7 +4,7 @@ using FluentScheduler;
 
 namespace CMiXPlayer.Jobs
 {
-    public class HourUnit : Sendable, IScheduleInterface<TimeUnit>
+    public class HourUnit : ViewModel, IScheduleInterface<TimeUnit>
     {
         public HourUnit()
         {

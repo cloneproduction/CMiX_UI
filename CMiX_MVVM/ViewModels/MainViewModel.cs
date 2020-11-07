@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class MainViewModel : Sendable
+    public class MainViewModel : ViewModel
     {
         public MainViewModel()
         {

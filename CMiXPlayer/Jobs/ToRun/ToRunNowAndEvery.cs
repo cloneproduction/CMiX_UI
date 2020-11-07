@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels;
 
 namespace CMiXPlayer.Jobs
 {
-    public class ToRunNowAndEvery : Sendable, IScheduleInterface<Schedule>
+    public class ToRunNowAndEvery : ViewModel, IScheduleInterface<Schedule>
     {
         #region CONSTRUCTORS
         public ToRunNowAndEvery()

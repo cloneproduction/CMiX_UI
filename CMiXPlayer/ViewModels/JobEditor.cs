@@ -7,7 +7,7 @@ using FluentScheduler;
 
 namespace CMiXPlayer.ViewModels
 {
-    public class JobEditor : Sendable
+    public class JobEditor : ViewModel
     {
         #region CONTRUCTORS
         public JobEditor(ObservableCollection<Device> devices, ObservableCollection<Playlist> playlists, ObservableCollection<IJob> runningJob)

@@ -7,7 +7,7 @@ using System;
 
 namespace CMiX.Studio.ViewModels.MessageService
 {
-    public class Receiver : Sendable
+    public class Receiver : ViewModel
     {
         public Receiver()
         {
@@ -16,20 +16,22 @@ namespace CMiX.Studio.ViewModels.MessageService
             Client.MessageReceived += Client_MessageReceived;
         }
         public Hub Hub { get; set; }
-        //ub hub = Hub.Default;
 
-        public event EventHandler<ModelEventArgs> DataReceivedEvent;
-        public void OnDataReceivedChange(IModel model, string messageAddress, string parentMessageAddress)
-        {
-            DataReceivedEvent?.Invoke(this, new ModelEventArgs(model, messageAddress, parentMessageAddress));
-        }
+        //public event EventHandler<ModelEventArgs> DataReceivedEvent;
+        //public void OnDataReceivedChange(IModel model, string messageAddress, string parentMessageAddress)
+        //{
+        //    DataReceivedEvent?.Invoke(this, new ModelEventArgs(model, messageAddress, parentMessageAddress));
+        //}
 
         private void Client_MessageReceived(object sender, MessageEventArgs e)
-        {
-            Console.WriteLine("Client_MessageReceived");
+        { 
+
+            Console.WriteLine("Client_MessageReceived and published to " + e.Address);
             string address = e.Address;
             byte[] data = e.Data;
-            Hub.Publish<MessageReceived>(new MessageReceived(address, data));
+
+            Hub.Publish(new MessageReceived(address, data));
+
             //OnDataReceivedChange(e.Data as IModel, e.Address, String.Empty);
         }
 

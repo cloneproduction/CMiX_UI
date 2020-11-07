@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CMiX.MVVM.ViewModels.Network
 {
-    public class ViewModelNetWork : Sendable, IPublisher, ISubscriber
+    public class ViewModelNetWork : ViewModel, IPublisher, ISubscriber
     {
         public event EventHandler<ModelEventArgs> SendChangeEvent;
         public event EventHandler<ModelEventArgs> ReceiveChangeEvent;

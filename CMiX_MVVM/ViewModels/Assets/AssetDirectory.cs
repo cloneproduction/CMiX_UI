@@ -5,7 +5,7 @@ using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class AssetDirectory : Sendable, IDirectory
+    public class AssetDirectory : ViewModel, IDirectory
     {
         public AssetDirectory()
         {

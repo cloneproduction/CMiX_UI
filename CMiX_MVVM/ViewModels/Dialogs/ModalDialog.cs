@@ -5,7 +5,7 @@ using MvvmDialogs;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class ModalDialog : Sendable, IModalDialogViewModel
+    public class ModalDialog : ViewModel, IModalDialogViewModel
     {
         public ModalDialog()
         {

@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace CMiXPlayer.Jobs
 {
-    public class ToRunEvery : Sendable, IScheduleInterface<Schedule>
+    public class ToRunEvery : ViewModel, IScheduleInterface<Schedule>
     {
         public ToRunEvery()
         {

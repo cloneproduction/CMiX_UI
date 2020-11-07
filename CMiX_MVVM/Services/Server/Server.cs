@@ -4,7 +4,7 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Server : Sendable
+    public class Server : ViewModel
     {
         public Server(string name, string ip, int port, string topic)
         {

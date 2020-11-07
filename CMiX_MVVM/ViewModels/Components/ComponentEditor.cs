@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class ComponentEditor : Sendable
+    public class ComponentEditor : ViewModel
     {
         public ComponentEditor(Component component)
         {

@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels.MessageService
 {
-    public class Messenger : Sendable
+    public class Messenger : ViewModel
     {
         public Messenger(int id)
         {

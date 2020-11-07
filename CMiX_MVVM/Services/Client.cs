@@ -57,7 +57,6 @@ namespace CMiX.MVVM.Services
             byte[] data = e.Socket.ReceiveFrameBytes();
             
             OnNetMQMessageReceived(this, new MessageEventArgs(messageAddress, data));
-            Console.WriteLine(messageAddress);
         }
 
 

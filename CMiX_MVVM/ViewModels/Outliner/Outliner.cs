@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Outliner : Sendable
+    public class Outliner : ViewModel
     {
         public Outliner(ObservableCollection<Component> components)
         {

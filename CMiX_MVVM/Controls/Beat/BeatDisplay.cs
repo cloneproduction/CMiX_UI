@@ -2,7 +2,7 @@
 
 namespace CMiX.MVVM.Controls
 {
-    public class BeatDisplay : Sendable
+    public class BeatDisplay : ViewModel
     {
         public BeatDisplay(AnimatedDouble animatedDouble)
         {

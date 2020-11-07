@@ -5,9 +5,9 @@ using System.Runtime.CompilerServices;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Sendable : INotifyPropertyChanged, ICloneable
+    public abstract class ViewModel : INotifyPropertyChanged, ICloneable
     {
-        public Sendable()
+        public ViewModel()
         {
             Enabled = true;
         }

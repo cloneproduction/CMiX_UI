@@ -6,13 +6,13 @@ using System.Windows.Input;
 
 namespace CMiXPlayer.Jobs
 {
-    public class UnitType : Sendable, IScheduleInterface<TimeUnit>
+    public class UnitType : ViewModel, IScheduleInterface<TimeUnit>
     {
         public UnitType()
         {
             SetScheduler = new Action<TimeUnit>((s) => { SetUnitType(s); });
 
-            UnitTypes = new ObservableCollection<Sendable>();
+            UnitTypes = new ObservableCollection<ViewModel>();
 
             UnitTypes.Add(new SecondUnit());
             UnitTypes.Add(new MinuteUnit());
@@ -26,7 +26,7 @@ namespace CMiXPlayer.Jobs
 
         public TimeUnit TimeUnit { get; set; }
 
-        public ObservableCollection<Sendable> UnitTypes { get; set; }
+        public ObservableCollection<ViewModel> UnitTypes { get; set; }
 
         private UnitInterval _unitinterval;
         public UnitInterval UnitInterval
@@ -35,8 +35,8 @@ namespace CMiXPlayer.Jobs
             set => SetAndNotify(ref _unitinterval, value);
         }
 
-        private Sendable _selectedUnitType;
-        public Sendable SelectedUnitType
+        private ViewModel _selectedUnitType;
+        public ViewModel SelectedUnitType
         {
             get => _selectedUnitType;
             set => SetAndNotify(ref _selectedUnitType, value);

@@ -3,7 +3,7 @@ using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class GeometryRotation : Sendable
+    public class GeometryRotation : ViewModel
     {
         #region CONSTRUCTORS
         public GeometryRotation()
