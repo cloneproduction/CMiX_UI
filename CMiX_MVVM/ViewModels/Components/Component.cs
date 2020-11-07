@@ -189,9 +189,7 @@ namespace CMiX.MVVM.ViewModels
 
         public void MoveComponent(int oldIndex, int newIndex)
         {
-            var item = Components[oldIndex];
-            this.RemoveComponent(item);
-            this.InsertComponent(newIndex, item);
+            Components.Move(oldIndex, newIndex);
             SendMessage(this.GetMessageAddress(), this.GetModel());
         }
     }

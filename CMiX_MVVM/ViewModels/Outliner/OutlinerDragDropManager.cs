@@ -222,7 +222,6 @@ namespace CMiX.MVVM.ViewModels
                         sourceParentComponent.RemoveComponent(sourceComponent);
                         targetGrandParentComponent.InsertComponent(targetParentIndex + 1, sourceComponent);
                     }
-
                 }
                 else
                 {

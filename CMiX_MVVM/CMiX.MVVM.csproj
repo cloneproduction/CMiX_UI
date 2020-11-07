@@ -180,7 +180,6 @@
     <Compile Include="ViewModels\Entity\Texture\InverterModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Texture\TextureModelFactory.cs" />
     <Compile Include="ViewModels\Mask\MaskModelFactory.cs" />
-    <Compile Include="ViewModels\MessageService\Message.cs" />
     <Compile Include="ViewModels\Network\ViewModelNetWork.cs" />
     <Compile Include="ViewModels\Outliner\OutlinerDragDropManager.cs" />
     <Compile Include="ViewModels\PostFX\PostFXModelFactory.cs" />

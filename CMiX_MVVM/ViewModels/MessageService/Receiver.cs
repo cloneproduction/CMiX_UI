@@ -17,22 +17,13 @@ namespace CMiX.Studio.ViewModels.MessageService
         }
         public Hub Hub { get; set; }
 
-        //public event EventHandler<ModelEventArgs> DataReceivedEvent;
-        //public void OnDataReceivedChange(IModel model, string messageAddress, string parentMessageAddress)
-        //{
-        //    DataReceivedEvent?.Invoke(this, new ModelEventArgs(model, messageAddress, parentMessageAddress));
-        //}
-
         private void Client_MessageReceived(object sender, MessageEventArgs e)
         { 
-
             Console.WriteLine("Client_MessageReceived and published to " + e.Address);
             string address = e.Address;
             byte[] data = e.Data;
 
             Hub.Publish(new MessageReceived(address, data));
-
-            //OnDataReceivedChange(e.Data as IModel, e.Address, String.Empty);
         }
 
         public string Address
