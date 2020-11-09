@@ -30,13 +30,15 @@ namespace CMiX.Nodes
 
         public Project Project { get; set; }
         public string DataType { get; set; }
+		public Receiver Receiver { get; set; }
 
-        public CMiX_VVVVTemplateNode()
+		public CMiX_VVVVTemplateNode()
         {
 			Project = ComponentFactory.CreateComponent() as Project;
             Settings settings = new Settings("Pouet", "Pouet", "192.168.1.3", 2222);
 			Receiver receiver = new Receiver();
 			receiver.SetSettings(settings);
+			
 		}
 
 		public void OnImportsSatisfied()
@@ -59,13 +61,13 @@ namespace CMiX.Nodes
 			FProjectOut.SliceCount = 1;
 			
 			if (FStartServer[0])
-				Project.Receiver.StartClient();
+				this.Receiver.StartClient();
 
 			if(FStopServer[0])
-				Project.Receiver.StopClient();
+				Receiver.StopClient();
 
-			if (Project.Receiver != null)
-				FReceiverIsRunning[0] = Project.Receiver.Client.IsRunning;
+			if (Receiver != null)
+				FReceiverIsRunning[0] = Receiver.Client.IsRunning;
 			else
 				FReceiverIsRunning[0] = false;
 		}

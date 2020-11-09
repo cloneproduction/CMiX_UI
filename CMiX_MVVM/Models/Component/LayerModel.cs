@@ -21,7 +21,7 @@ namespace CMiX.MVVM.Models
         public bool Out { get; set; }
         public string MessageAddress { get; set; }
         public bool IsVisible { get; set; }
-
+        public double SliderTest { get; set; }
         public BlendModeModel BlendMode { get; set; }
         public SliderModel Fade { get; set; }
         public SceneModel ContentModel { get; set; }

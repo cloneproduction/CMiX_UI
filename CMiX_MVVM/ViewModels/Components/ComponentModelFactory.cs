@@ -145,6 +145,7 @@ namespace CMiX.MVVM.ViewModels
         {
             LayerModel model = new LayerModel();
 
+            model.SliderTest = instance.SliderTest;
             model.Enabled = instance.Enabled;
             model.Name = instance.Name;
             model.ID = instance.ID;

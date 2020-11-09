@@ -19,6 +19,17 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _out, value);
         }
 
+        private double _sliderTest;
+        public double SliderTest
+        {
+            get => _sliderTest;
+            set
+            {
+                SetAndNotify(ref _sliderTest, value);
+                SendMessage(this.GetMessageAddress(), this.GetModel());
+            }
+        }
+
         public Slider Fade { get; set; }
         public Mask Mask { get; set; }
         public PostFX PostFX { get; set; }
