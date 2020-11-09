@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="C:\Users\BabyClone\Documents\GitHub\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="4290" scrolly="-90">
-   <BOUNDS type="Window" left="14595" top="2310" width="20580" height="16080">
+   <PATCH nodename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="4290" scrolly="-90">
+   <BOUNDS type="Window" left="16890" top="2025" width="20580" height="16080">
    </BOUNDS>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="2" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="6275" top="4160" width="585" height="510">
@@ -763,7 +763,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="6160" top="21415" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="28350" top="3540" width="7710" height="7320">
+   <BOUNDS type="Window" left="19620" top="6900" width="7710" height="7320">
    </BOUNDS>
    <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
@@ -1247,5 +1247,33 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="1" srcpinname="Data Type" dstnodeid="460" dstpinname="Input String">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="461">
+   <BOUNDS type="Box" left="8640" top="3810" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="8640" top="3810" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="1" srcpinname="Data Type" dstnodeid="461" dstpinname="Input String">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="462">
+   <BOUNDS type="Box" left="5580" top="300" width="870" height="3270">
+   </BOUNDS>
+   <BOUNDS type="Node" left="5580" top="300" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="10">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="189" srcpinname="Fade" dstnodeid="462" dstpinname="Y Input Value">
    </LINK>
    </PATCH>

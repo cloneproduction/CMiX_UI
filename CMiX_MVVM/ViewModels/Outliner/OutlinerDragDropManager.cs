@@ -163,9 +163,6 @@ namespace CMiX.MVVM.ViewModels
 
                     sourceParentComponent.RemoveComponent(sourceComponent);
                     targetGrandParentComponent.AddComponent(sourceComponent);
-
-                    //sourceParentComponent.OnSendChange(sourceParentComponent.GetModel(), sourceParentComponent.GetMessageAddress());
-                    //targetGrandParentComponent.OnSendChange(targetGrandParentComponent.GetModel(), targetGrandParentComponent.GetMessageAddress());
                 }
                 else
                 {
@@ -186,10 +183,15 @@ namespace CMiX.MVVM.ViewModels
                 Component sourceParentComponent = sourceParent.DataContext as Component;
 
                 if (SourceIndex < TargetIndex && targetParentComponent == sourceParentComponent)
-                    TargetIndex -= 1;
+                {
+                    sourceParentComponent.MoveComponent(SourceIndex, TargetIndex - 1);
+                }
+                else
+                {
+                    sourceParentComponent.RemoveComponent(sourceComponent);
+                    targetParentComponent.InsertComponent(TargetIndex, sourceComponent);
+                }
 
-                sourceParentComponent.RemoveComponent(sourceComponent);
-                targetParentComponent.InsertComponent(TargetIndex, sourceComponent);
             }
         }
 

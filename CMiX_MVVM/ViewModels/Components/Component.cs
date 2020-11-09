@@ -60,14 +60,6 @@ namespace CMiX.MVVM.ViewModels
             SendMessage(this.GetMessageAddress() + e.MessageAddress, e.Model);
         }
 
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        {
-            //if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-            //    this.SetViewModel(e.Model as IComponentModel);
-            //else if (e.MessageAddress.Contains(e.ParentMessageAddress + this.GetMessageAddress()))
-            //    OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
-        }
-
         public override string GetMessageAddress()
         {
             return $"{this.GetType().Name}/{ID}/";
@@ -177,6 +169,7 @@ namespace CMiX.MVVM.ViewModels
 
         public void RemoveComponent(Component component)
         {
+            Hub.Unsubscribe(component);
             Components.Remove(component);
             SendMessage(this.GetMessageAddress(), this.GetModel());
         }

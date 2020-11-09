@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Windows.Documents;
 using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
@@ -26,7 +22,10 @@ namespace CMiX.MVVM.ViewModels
             ReceiveChangeEvent?.Invoke(this, new ModelEventArgs(model, messageAddress, parentMessageAddress));
         }
 
-        public abstract void OnParentReceiveChange(object sender, ModelEventArgs e);
+        public virtual void OnParentReceiveChange(object sender, ModelEventArgs e)
+        {
+
+        }
 
 
 
@@ -45,20 +44,16 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-
-
-
-
         public void SubscribeToEvent(Sender SenderParent)
         {
             this.SendChangeEvent += SenderParent.OnChildPropertyToSendChange;
-            SenderParent.ReceiveChangeEvent += this.OnParentReceiveChange;
+            //SenderParent.ReceiveChangeEvent += this.OnParentReceiveChange;
         }
 
         public void UnSubscribeToEvent(Sender SenderParent)
         {
             this.SendChangeEvent -= SenderParent.OnChildPropertyToSendChange;
-            SenderParent.ReceiveChangeEvent -= this.OnParentReceiveChange;
+            //SenderParent.ReceiveChangeEvent -= this.OnParentReceiveChange;
         }
     }
 }

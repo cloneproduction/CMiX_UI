@@ -199,7 +199,7 @@ namespace CMiX.MVVM.ViewModels
                 string folderPath = settings.FileName;
                 if (settings.FileName.Trim() != string.Empty) // Check if you really have a file name 
                 {
-                    CurrentProject.ComponentsInEditing.Clear();
+                    //CurrentProject.ComponentsInEditing.Clear();
                     Projects.Clear();
 
                     byte[] data = File.ReadAllBytes(folderPath);
