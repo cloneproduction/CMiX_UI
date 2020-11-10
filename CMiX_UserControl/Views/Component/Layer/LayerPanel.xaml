@@ -73,7 +73,7 @@
             DockPanel.Dock="Top"
             Margin="2, 4"
             Height="20"
-            Value="{Binding SliderTest}" 
+            Value="{Binding Fade.Amount}" 
             Caption="Alpha"/>
     </StackPanel>
 </UserControl>

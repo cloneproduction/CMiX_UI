@@ -191,7 +191,6 @@ namespace CMiX.MVVM.ViewModels
                     sourceParentComponent.RemoveComponent(sourceComponent);
                     targetParentComponent.InsertComponent(TargetIndex, sourceComponent);
                 }
-
             }
         }
 

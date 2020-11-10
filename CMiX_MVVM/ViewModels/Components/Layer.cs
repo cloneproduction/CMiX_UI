@@ -8,8 +8,9 @@ namespace CMiX.MVVM.ViewModels
         {
             MasterBeat = beat;
             PostFX = new PostFX();
-            BlendMode = new BlendMode(this);
+            BlendMode = new BlendMode();
             Fade = new Slider(nameof(Fade), this);
+
         }
 
         private bool _out;
@@ -17,17 +18,6 @@ namespace CMiX.MVVM.ViewModels
         {
             get => _out;
             set => SetAndNotify(ref _out, value);
-        }
-
-        private double _sliderTest;
-        public double SliderTest
-        {
-            get => _sliderTest;
-            set
-            {
-                SetAndNotify(ref _sliderTest, value);
-                SendMessage(this.GetMessageAddress(), this.GetModel());
-            }
         }
 
         public Slider Fade { get; set; }

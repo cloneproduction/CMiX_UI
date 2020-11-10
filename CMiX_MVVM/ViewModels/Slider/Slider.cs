@@ -20,11 +20,13 @@ namespace CMiX.MVVM.ViewModels
         public Slider(string name, Sender parentSender) : this(name)
         {
             SubscribeToEvent(parentSender);
+            System.Console.WriteLine(this.Name + " SubscribeToEvent");
         }
 
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
+            //System.Console.WriteLine("Slider Receive Change");
             if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
                 this.SetViewModel(e.Model as SliderModel);
             else

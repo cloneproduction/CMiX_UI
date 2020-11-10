@@ -13,7 +13,6 @@ namespace CMiX.MVVM.ViewModels
             return $"{this.GetType().Name}/";
         }
 
-
         ///RECEIVING
 
         public event EventHandler<ModelEventArgs> ReceiveChangeEvent;
@@ -47,13 +46,13 @@ namespace CMiX.MVVM.ViewModels
         public void SubscribeToEvent(Sender SenderParent)
         {
             this.SendChangeEvent += SenderParent.OnChildPropertyToSendChange;
-            //SenderParent.ReceiveChangeEvent += this.OnParentReceiveChange;
+            SenderParent.ReceiveChangeEvent += this.OnParentReceiveChange;
         }
 
         public void UnSubscribeToEvent(Sender SenderParent)
         {
             this.SendChangeEvent -= SenderParent.OnChildPropertyToSendChange;
-            //SenderParent.ReceiveChangeEvent -= this.OnParentReceiveChange;
+            SenderParent.ReceiveChangeEvent -= this.OnParentReceiveChange;
         }
     }
 }

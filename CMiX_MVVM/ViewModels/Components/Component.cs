@@ -45,13 +45,11 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-
-
         public Hub Hub { get; set; }
 
         public void SendMessage(string messageAddress, IModel model)
         {
-            Console.WriteLine(this.Name + " ComponentSendMessage");
+            //Console.WriteLine(this.Name + " ComponentSendMessage");
             Hub.Publish<MessageOut>(new MessageOut(messageAddress, MessageSerializer.Serializer.Serialize(model)));
         }
 
