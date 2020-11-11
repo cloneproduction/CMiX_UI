@@ -16,6 +16,9 @@ namespace CMiX.MVVM.ViewModels
             Handlers = new List<IHandler>();
             ID = id;
             Name = $"{GetType().Name}{ID}";
+            
+            this.Address = $"{this.GetType().Name}/{ID}";
+
             IsExpanded = false;
             Components = new ObservableCollection<Component>();
             Hub = Hub.Default;

@@ -10,7 +10,6 @@ namespace CMiX.MVVM.ViewModels
             PostFX = new PostFX();
             BlendMode = new BlendMode();
             Fade = new Slider(nameof(Fade), this);
-
         }
 
         private bool _out;

@@ -19,8 +19,10 @@ namespace CMiX.MVVM.ViewModels
 
         public Slider(string name, Sender parentSender) : this(name)
         {
+            this.Address = $"{parentSender.Address}/{Name}"; //parentSender.Address + this.Name;
+           
             SubscribeToEvent(parentSender);
-            System.Console.WriteLine(this.Name + " SubscribeToEvent");
+            System.Console.WriteLine(this.Name + " SubscribeToEvent" + "with address " + this.Address);
         }
 
 

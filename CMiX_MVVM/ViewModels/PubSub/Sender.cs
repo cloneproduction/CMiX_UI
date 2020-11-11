@@ -6,7 +6,12 @@ namespace CMiX.MVVM.ViewModels
 {
     public abstract class Sender : ViewModel, IPublisher
     {
-
+        private string _address;
+        public string Address
+        {
+            get { return _address; }
+            set { _address = value; }
+        }
 
         public virtual string GetMessageAddress()
         {
@@ -41,7 +46,6 @@ namespace CMiX.MVVM.ViewModels
         {
             OnSendChange(e.Model, GetMessageAddress() + e.MessageAddress);
         }
-
 
         public void SubscribeToEvent(Sender SenderParent)
         {
