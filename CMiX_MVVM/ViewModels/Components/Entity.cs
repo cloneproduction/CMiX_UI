@@ -1,11 +1,4 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Input;
-using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.Message;
-using CMiX.MVVM.Models;
-using CMiX.MVVM.Services.Message;
-using PubSub;
+﻿using CMiX.MVVM.Interfaces;
 
 namespace CMiX.MVVM.ViewModels
 {

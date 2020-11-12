@@ -12,10 +12,10 @@ namespace CMiX.MVVM.ViewModels
         public PostFX() 
         {
             Feedback = new Slider(nameof(Feedback));
-            Feedback.SendChangeEvent += this.OnChildPropertyToSendChange;
+            //Feedback.SendChangeEvent += this.OnChildPropertyToSendChange;
 
             Blur = new Slider(nameof(Blur));
-            Blur.SendChangeEvent += this.OnChildPropertyToSendChange;
+            //Blur.SendChangeEvent += this.OnChildPropertyToSendChange;
 
             Transforms = ((PostFXTransforms)0).ToString();
             View = ((PostFXView)0).ToString();

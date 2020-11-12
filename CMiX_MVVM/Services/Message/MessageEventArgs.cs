@@ -1,5 +1,4 @@
 ﻿using CMiX.MVVM.Commands;
-using CMiX.MVVM.Message;
 using System;
 
 namespace CMiX.MVVM.Services

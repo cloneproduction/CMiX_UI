@@ -1,6 +1,6 @@
 ﻿using System;
 using CMiX.MVVM.ViewModels;
-using CMiX.MVVM.Message;
+using CMiX.MVVM.Services;
 
 namespace CMiX.Studio.ViewModels.MessageService
 {
@@ -83,8 +83,8 @@ namespace CMiX.Studio.ViewModels.MessageService
             if (Enabled && NetMQServer != null)
             {
                 NetMQServer.SendObject(Topic, messageAddress, message);
-                Console.WriteLine("Data Size = " + message.Length);
-                Console.WriteLine("NetMQServer SendObject with MessageAddress : " + messageAddress + " and Topic : " + this.Topic);
+                //Console.WriteLine("Data Size = " + message.Length);
+                //Console.WriteLine("NetMQServer SendObject with MessageAddress : " + messageAddress + " and Topic : " + this.Topic);
             }
         }
 

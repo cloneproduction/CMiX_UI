@@ -1,7 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
-using CMiX.MVVM.Services.Message;
 using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels
@@ -32,7 +31,7 @@ namespace CMiX.MVVM.ViewModels
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
-        public void HandleMessage(MessageReceived message, string parentMessageAddress)
+        public void HandleMessage(Message message, string parentMessageAddress)
         {
             System.Console.WriteLine("Geometry Handle Message");
         }

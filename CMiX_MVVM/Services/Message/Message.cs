@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CMiX.MVVM.Services.Message
+namespace CMiX.MVVM.Services
 {
-    public class MessageReceived
+    public class Message
     {
-        public MessageReceived(MessageDirection messageDirection, string address, byte[] data)
+        public Message(MessageDirection messageDirection, string address, byte[] data)
         {
-
             this._direction = messageDirection;
             Address = address;
             Data = data;

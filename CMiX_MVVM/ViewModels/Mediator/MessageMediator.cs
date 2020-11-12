@@ -1,29 +1,23 @@
-﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.Message;
-using CMiX.MVVM.Services;
-using CMiX.MVVM.Services.Message;
+﻿using CMiX.MVVM.Services;
 using PubSub;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMiX.MVVM.ViewModels.Mediator
 {
     public class MessageMediator : IMessageMediator
     {
-        public MessageMediator(Component component)
+        public MessageMediator()
         {
-            this.Component = component;
             Colleagues = new Dictionary<string, IColleague>();
+            Hub = Hub.Default;
         }
 
 
+        public Hub Hub { get; set; }
         public Dictionary<string, IColleague>  Colleagues { get; set; }
-        public Component Component { get; set; }
 
-        public void Notify(string address, IColleague colleague, MessageReceived message)
+        public void Notify(string address, IColleague colleague, Message message)
         {
             if(message.Direction == MessageDirection.IN)
             {
@@ -32,13 +26,13 @@ namespace CMiX.MVVM.ViewModels.Mediator
                 {
                     if (col != colleague)
                     {
-                        colleague.Receive(message);
+                        col.Receive(message);
                     }
                 }
             }
             else if(message.Direction == MessageDirection.OUT)
             {
-                Component.Hub.Publish<MessageOut>(new MessageOut(address, message.Data));
+                Hub.Publish<Message>(message);
             }
         }
 

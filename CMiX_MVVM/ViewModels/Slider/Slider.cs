@@ -1,12 +1,11 @@
 ﻿using System.Windows.Input;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
-using CMiX.MVVM.Services.Message;
 using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Slider : Sender, IColleague
+    public class Slider : ViewModel, IColleague
     {
         public Slider(string name)
         {
@@ -19,8 +18,8 @@ namespace CMiX.MVVM.ViewModels
 
         public Slider(string name, Sender parentSender) : this(name)
         {
-            this.Address = $"{parentSender.Address}/{Name}/"; //parentSender.Address + this.Name;
-            SubscribeToEvent(parentSender);
+            this.Address = $"{parentSender.Address}{Name}/"; //parentSender.Address + this.Name;
+
         }
 
         public Slider(string name, Sender parentSender, MessageMediator messageMediator) : this(name, parentSender)
@@ -30,54 +29,27 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
+        public string Address { get; set; }
 
-        ///MEDIATOR TEST
-        ///
         public MessageMediator MessageMediator { get; set; }
 
-        public void Send(MessageReceived message)
+        public void Send(Message message)
         {
             if(MessageMediator != null)
                 MessageMediator.Notify(this.Address, this, message);
         }
 
-        public void Receive(MessageReceived message)
+        public void Receive(Message message)
         {
             var model = MessageSerializer.Serializer.Deserialize<SliderModel>(message.Data);
             this.SetViewModel(model);
-            System.Console.WriteLine("POUETPOUET " + this.Address + " received " + message.Address);
+            System.Console.WriteLine("POUETPOUET " + this.Address + "Slider received " + message.Address);
         }
-
-        ////////////////////////
-
-
-
-
-
-
-
-
-
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        {
-            //System.Console.WriteLine("Slider Receive Change");
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-                this.SetViewModel(e.Model as SliderModel);
-            else
-                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
-        }
-
 
         public ICommand AddCommand { get; }
         public ICommand SubCommand { get; }
         public ICommand ResetCommand { get; }
         public ICommand MouseDownCommand { get; }
-
-
-        public override string GetMessageAddress()
-        {
-            return $"{Name}/";
-        }
 
         private string _name;
         public string Name
@@ -94,8 +66,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _amount, value);
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
-                Send(new MessageReceived(MessageDirection.OUT, this.GetMessageAddress(), MessageSerializer.Serializer.Serialize(this.GetModel())));
+                Send(new Message(MessageDirection.OUT, this.Address, MessageSerializer.Serializer.Serialize(this.GetModel())));
             }
         }
 

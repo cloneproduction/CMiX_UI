@@ -1,9 +1,6 @@
-﻿using CMiX.MVVM.Message;
-using NetMQ;
+﻿using NetMQ;
 using NetMQ.Sockets;
-using PubSub;
 using System;
-using System.ComponentModel;
 
 
 namespace CMiX.MVVM.Services

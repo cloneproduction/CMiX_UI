@@ -126,7 +126,7 @@
     <Compile Include="Models\Geometry\Modifier\ModifierModel.cs" />
     <Compile Include="Models\RangeModel.cs" />
     <Compile Include="Services\HighResolutionTimer.cs" />
-    <Compile Include="Services\Message\MessageReceived.cs" />
+    <Compile Include="Services\Message\Message.cs" />
     <Compile Include="Services\Message\MessageSerializer.cs" />
     <Compile Include="Services\NetMQ\Client\ClientShimHandler.cs" />
     <Compile Include="Services\NetMQ\Client\NetMQMessageEventArgs.cs" />
@@ -221,9 +221,7 @@
     <Compile Include="Services\Client.cs" />
     <Compile Include="Services\CommandName.cs" />
     <Compile Include="Services\Message\MessageEventArgs.cs" />
-    <Compile Include="Services\Message\MessageOut.cs" />
     <Compile Include="Services\ModelEventArgs.cs" />
-    <Compile Include="Services\NetMQ\Client\NetMQClient.cs" />
     <Compile Include="Services\NetMQ\NetMQServer.cs" />
     <Compile Include="Models\BlendModeModel.cs" />
     <Compile Include="Models\Interfaces\IModel.cs" />

@@ -1,5 +1,4 @@
 ﻿using CMiX.MVVM.Services;
-using CMiX.MVVM.Services.Message;
 using CMiX.MVVM.ViewModels;
 using PubSub;
 using System;
@@ -22,7 +21,7 @@ namespace CMiX.Studio.ViewModels.MessageService
             string address = e.Address;
             byte[] data = e.Data;
 
-            Hub.Publish(new MessageReceived(MessageDirection.IN, address, data));
+            Hub.Publish(new Message(MessageDirection.IN, address, data));
         }
 
         public string Address

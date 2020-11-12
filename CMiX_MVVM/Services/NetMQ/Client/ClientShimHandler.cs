@@ -1,7 +1,6 @@
 ﻿using NetMQ;
 using NetMQ.Sockets;
 using System;
-using CMiX.MVVM.Message;
 
 namespace CMiX.MVVM.Services
 {
@@ -10,14 +9,12 @@ namespace CMiX.MVVM.Services
         private PairSocket shim;
         private NetMQPoller poller;
         private SubscriberSocket subscriber;
-        //private Message Message;
         private string Address;
         private string Topic;
 
 
         public ClientShimHandler(string address, string topic)
         {
-            //this.Message = byteMessage;
             this.Address = address;
             this.Topic = topic;
         }
@@ -43,14 +40,6 @@ namespace CMiX.MVVM.Services
                 this.shim.SignalOK();
 
                 poller.Run();
-                //while (true)
-                //{
-                //    //NetMQMessage msg = new NetMQMessage();
-                //    //if(subscriber.TryReceiveMultipartMessage(ref msg))
-                //    //{
-
-                //    //}
-                //}
             }
         }
 

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.Message;
 using CMiX.MVVM.Services;
-using CMiX.MVVM.Services.Message;
 using CMiX.MVVM.ViewModels.Mediator;
 using PubSub;
 
@@ -16,29 +14,36 @@ namespace CMiX.MVVM.ViewModels
             ID = id;
             Name = $"{GetType().Name}{ID}";
             
-            this.Address = $"{this.GetType().Name}/{ID}";
+            this.Address = $"{this.GetType().Name}/{ID}/";
 
             IsExpanded = false;
             Components = new ObservableCollection<Component>();
             Hub = Hub.Default;
-           
-            Hub.Subscribe<MessageReceived>(this, message =>
-            {
-                if (message.Address == this.GetMessageAddress())
-                {
-                    var model = MessageSerializer.Serializer.Deserialize<IComponentModel>(message.Data);
-                    this.SetViewModel(model);
-                }
-                else if (message.Address.Contains(this.GetMessageAddress()))
-                {
-                    //var model = MessageSerializer.Serializer.Deserialize<IModel>(message.Data);
-                    //OnReceiveChange(model, message.Address, this.GetMessageAddress());
+            MessageMediator = new MessageMediator();
 
-                    MessageMediator.Notify(message.Address, this, message);
+            Hub.Subscribe<Message>(this, message =>
+            {
+                Console.WriteLine("Component Received Message with address " + message.Address + " and Direction " + message.Direction + " this Component Addres is " + Address);
+
+                if(message.Direction == MessageDirection.IN)
+                {
+                    if (message.Address == Address)
+                    {
+                        Console.WriteLine("Component Updated");
+                        var model = MessageSerializer.Serializer.Deserialize<IComponentModel>(message.Data);
+                        this.SetViewModel(model);
+                    }
+                    else if (message.Address.Contains(Address))
+                    {
+                        //var model = MessageSerializer.Serializer.Deserialize<IModel>(message.Data);
+                        //OnReceiveChange(model, message.Address, this.GetMessageAddress());
+                        Console.WriteLine("Component Dispatch");
+                        MessageMediator.Notify(message.Address, this, message);
+                    }
                 }
             });
 
-            MessageMediator = new MessageMediator(this);
+            
         }
 
 
@@ -47,7 +52,7 @@ namespace CMiX.MVVM.ViewModels
         public void SendMessage(string messageAddress, IModel model)
         {
             //Console.WriteLine(this.Name + " ComponentSendMessage");
-            Hub.Publish<MessageOut>(new MessageOut(messageAddress, MessageSerializer.Serializer.Serialize(model)));
+            Hub.Publish<Message>(new Message(MessageDirection.OUT, messageAddress, MessageSerializer.Serializer.Serialize(model)));
         }
 
 
@@ -190,12 +195,12 @@ namespace CMiX.MVVM.ViewModels
             SendMessage(this.GetMessageAddress(), this.GetModel());
         }
 
-        public void Send(MessageReceived message)
+        public void Send(Message message)
         {
             //throw new NotImplementedException();
         }
 
-        public void Receive(MessageReceived message)
+        public void Receive(Message message)
         {
             //throw new NotImplementedException();
         }
