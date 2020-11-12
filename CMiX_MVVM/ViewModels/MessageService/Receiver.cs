@@ -1,5 +1,4 @@
-﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.Services;
+﻿using CMiX.MVVM.Services;
 using CMiX.MVVM.Services.Message;
 using CMiX.MVVM.ViewModels;
 using PubSub;
@@ -19,11 +18,11 @@ namespace CMiX.Studio.ViewModels.MessageService
 
         private void Client_MessageReceived(object sender, MessageEventArgs e)
         { 
-            Console.WriteLine("Client_MessageReceived and published to " + e.Address);
+            Console.WriteLine("Receiver published to " + e.Address);
             string address = e.Address;
             byte[] data = e.Data;
 
-            Hub.Publish(new MessageReceived(address, data));
+            Hub.Publish(new MessageReceived(MessageDirection.IN, address, data));
         }
 
         public string Address

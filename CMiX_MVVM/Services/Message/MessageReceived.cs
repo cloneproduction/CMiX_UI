@@ -8,10 +8,18 @@ namespace CMiX.MVVM.Services.Message
 {
     public class MessageReceived
     {
-        public MessageReceived(string address, byte[] data)
+        public MessageReceived(MessageDirection messageDirection, string address, byte[] data)
         {
+
+            this._direction = messageDirection;
             Address = address;
             Data = data;
+        }
+
+        private MessageDirection _direction;
+        public MessageDirection Direction
+        {
+            get { return _direction; }
         }
 
         private string _address;
@@ -27,5 +35,11 @@ namespace CMiX.MVVM.Services.Message
             get { return _data; }
             set { _data = value; }
         }
+    }
+
+    public enum MessageDirection
+    {
+        IN,
+        OUT
     }
 }

@@ -1,19 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Message;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.Services.Message;
+using CMiX.MVVM.ViewModels.Mediator;
 using PubSub;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Component : Sender, IComponent, IHandler
+    public abstract class Component : Sender, IComponent, IColleague
     {
         public Component(int id)
         {
-            Handlers = new List<IHandler>();
             ID = id;
             Name = $"{GetType().Name}{ID}";
             
@@ -22,7 +21,7 @@ namespace CMiX.MVVM.ViewModels
             IsExpanded = false;
             Components = new ObservableCollection<Component>();
             Hub = Hub.Default;
-
+           
             Hub.Subscribe<MessageReceived>(this, message =>
             {
                 if (message.Address == this.GetMessageAddress())
@@ -32,29 +31,32 @@ namespace CMiX.MVVM.ViewModels
                 }
                 else if (message.Address.Contains(this.GetMessageAddress()))
                 {
-                    var model = MessageSerializer.Serializer.Deserialize<IModel>(message.Data);
-                    OnReceiveChange(model, message.Address, this.GetMessageAddress());
+                    //var model = MessageSerializer.Serializer.Deserialize<IModel>(message.Data);
+                    //OnReceiveChange(model, message.Address, this.GetMessageAddress());
+
+                    MessageMediator.Notify(message.Address, this, message);
                 }
             });
+
+            MessageMediator = new MessageMediator(this);
         }
 
-        public List<IHandler> Handlers { get; set; }
 
-        public void HandleMessage(MessageReceived message, string parentMessageAddress)
-        {
-            foreach (var handler in Handlers)
-            {
-                handler.HandleMessage(message, parentMessageAddress);
-            }
-        }
-
-        public Hub Hub { get; set; }
+        public MessageMediator MessageMediator { get; set; }
 
         public void SendMessage(string messageAddress, IModel model)
         {
             //Console.WriteLine(this.Name + " ComponentSendMessage");
             Hub.Publish<MessageOut>(new MessageOut(messageAddress, MessageSerializer.Serializer.Serialize(model)));
         }
+
+
+
+
+
+
+
+
 
         public override void OnChildPropertyToSendChange(object sender, ModelEventArgs e)
         {
@@ -152,6 +154,7 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _selectedComponent, value);
         }
 
+
         private void SetVisibility()
         {
             foreach (var item in Components)
@@ -185,6 +188,16 @@ namespace CMiX.MVVM.ViewModels
         {
             Components.Move(oldIndex, newIndex);
             SendMessage(this.GetMessageAddress(), this.GetModel());
+        }
+
+        public void Send(MessageReceived message)
+        {
+            //throw new NotImplementedException();
+        }
+
+        public void Receive(MessageReceived message)
+        {
+            //throw new NotImplementedException();
         }
     }
 }

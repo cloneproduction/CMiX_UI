@@ -88,13 +88,6 @@ namespace CMiX.Studio.ViewModels.MessageService
             set => SetAndNotify(ref _server, value);
         }
 
-        //private Component _selectedComponent;
-        //public Component SelectedComponent
-        //{
-        //    get => _selectedComponent;
-        //    set => SetAndNotify(ref _selectedComponent, value);
-        //}
-
         public void Value_SendChangeEvent(object sender, ModelEventArgs e)
         {
             Server.Send(e.MessageAddress, Serializer.Serialize(e.Model));

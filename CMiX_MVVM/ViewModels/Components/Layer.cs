@@ -9,7 +9,7 @@ namespace CMiX.MVVM.ViewModels
             MasterBeat = beat;
             PostFX = new PostFX();
             BlendMode = new BlendMode();
-            Fade = new Slider(nameof(Fade), this);
+            Fade = new Slider(nameof(Fade), this, this.MessageMediator);
         }
 
         private bool _out;

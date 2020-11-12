@@ -1,6 +1,7 @@
 ﻿using System;
 using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Services;
+using PubSub;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -13,6 +14,7 @@ namespace CMiX.MVVM.ViewModels
             set { _address = value; }
         }
 
+        public Hub Hub { get; set; }
         public virtual string GetMessageAddress()
         {
             return $"{this.GetType().Name}/";

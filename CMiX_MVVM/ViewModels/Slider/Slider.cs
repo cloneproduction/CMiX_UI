@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using CMiX.MVVM.Services.Message;
+using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Slider : Sender
+    public class Slider : Sender, IColleague
     {
         public Slider(string name)
         {
@@ -13,17 +14,48 @@ namespace CMiX.MVVM.ViewModels
 
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
-
             ResetCommand = new RelayCommand(p => Reset());
         }
 
         public Slider(string name, Sender parentSender) : this(name)
         {
-            this.Address = $"{parentSender.Address}/{Name}"; //parentSender.Address + this.Name;
-           
+            this.Address = $"{parentSender.Address}/{Name}/"; //parentSender.Address + this.Name;
             SubscribeToEvent(parentSender);
-            System.Console.WriteLine(this.Name + " SubscribeToEvent" + "with address " + this.Address);
         }
+
+        public Slider(string name, Sender parentSender, MessageMediator messageMediator) : this(name, parentSender)
+        {
+            this.MessageMediator = messageMediator;
+            this.MessageMediator.RegisterColleague(this.Address, this);
+        }
+
+
+
+        ///MEDIATOR TEST
+        ///
+        public MessageMediator MessageMediator { get; set; }
+
+        public void Send(MessageReceived message)
+        {
+            if(MessageMediator != null)
+                MessageMediator.Notify(this.Address, this, message);
+        }
+
+        public void Receive(MessageReceived message)
+        {
+            var model = MessageSerializer.Serializer.Deserialize<SliderModel>(message.Data);
+            this.SetViewModel(model);
+            System.Console.WriteLine("POUETPOUET " + this.Address + " received " + message.Address);
+        }
+
+        ////////////////////////
+
+
+
+
+
+
+
 
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
@@ -63,6 +95,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _amount, value);
                 OnSendChange(this.GetModel(), this.GetMessageAddress());
+                Send(new MessageReceived(MessageDirection.OUT, this.GetMessageAddress(), MessageSerializer.Serializer.Serialize(this.GetModel())));
             }
         }
 
@@ -79,6 +112,7 @@ namespace CMiX.MVVM.ViewModels
             get => _maximum; 
             set => SetAndNotify(ref _maximum, value);
         }
+        
 
         private void Add()
         {
