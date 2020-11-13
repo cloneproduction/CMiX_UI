@@ -43,7 +43,7 @@ namespace CMiX.MVVM.ViewModels
         {
             var model = MessageSerializer.Serializer.Deserialize<SliderModel>(message.Data);
             this.SetViewModel(model);
-            System.Console.WriteLine("POUETPOUET " + this.Address + "Slider received " + message.Address);
+            System.Console.WriteLine("POUETPOUET " + this.Address + "Slider received " + message.Address +"  "  + this.Amount);
         }
 
         public ICommand AddCommand { get; }

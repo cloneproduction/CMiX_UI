@@ -20,16 +20,14 @@ namespace CMiX.MVVM.ViewModels
             Components = new ObservableCollection<Component>();
             Hub = Hub.Default;
             MessageMediator = new MessageMediator();
+            MessageMediator.RegisterColleague(Address, this);
 
             Hub.Subscribe<Message>(this, message =>
             {
-                Console.WriteLine("Component Received Message with address " + message.Address + " and Direction " + message.Direction + " this Component Addres is " + Address);
-
                 if(message.Direction == MessageDirection.IN)
                 {
                     if (message.Address == Address)
                     {
-                        Console.WriteLine("Component Updated");
                         var model = MessageSerializer.Serializer.Deserialize<IComponentModel>(message.Data);
                         this.SetViewModel(model);
                     }
@@ -37,13 +35,11 @@ namespace CMiX.MVVM.ViewModels
                     {
                         //var model = MessageSerializer.Serializer.Deserialize<IModel>(message.Data);
                         //OnReceiveChange(model, message.Address, this.GetMessageAddress());
-                        Console.WriteLine("Component Dispatch");
+                        //Console.WriteLine("Component Dispatch");
                         MessageMediator.Notify(message.Address, this, message);
                     }
                 }
             });
-
-            
         }
 
 
@@ -51,8 +47,9 @@ namespace CMiX.MVVM.ViewModels
 
         public void SendMessage(string messageAddress, IModel model)
         {
+            MessageMediator.Notify(Address, this, new Message(MessageDirection.OUT, messageAddress, MessageSerializer.Serializer.Serialize(model)));
             //Console.WriteLine(this.Name + " ComponentSendMessage");
-            Hub.Publish<Message>(new Message(MessageDirection.OUT, messageAddress, MessageSerializer.Serializer.Serialize(model)));
+            //Hub.Publish<Message>(new Message(MessageDirection.OUT, messageAddress, MessageSerializer.Serializer.Serialize(model)));
         }
 
 
