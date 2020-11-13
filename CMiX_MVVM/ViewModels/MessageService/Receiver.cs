@@ -17,7 +17,7 @@ namespace CMiX.Studio.ViewModels.MessageService
 
         private void Client_MessageReceived(object sender, MessageEventArgs e)
         { 
-            Console.WriteLine("Receiver published to " + e.Address);
+            //Console.WriteLine("Receiver published to " + e.Address);
             string address = e.Address;
             byte[] data = e.Data;
 

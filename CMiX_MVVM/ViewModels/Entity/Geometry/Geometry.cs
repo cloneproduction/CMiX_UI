@@ -24,7 +24,6 @@ namespace CMiX.MVVM.ViewModels
 
         public override void OnParentReceiveChange(object sender, ModelEventArgs e)
         {
-            System.Console.WriteLine("Geometry Received Parent Change");
             if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
                 this.SetViewModel(e.Model as GeometryModel);
             else
@@ -33,7 +32,7 @@ namespace CMiX.MVVM.ViewModels
 
         public void HandleMessage(Message message, string parentMessageAddress)
         {
-            System.Console.WriteLine("Geometry Handle Message");
+            //System.Console.WriteLine("Geometry Handle Message");
         }
 
         public AssetPathSelector AssetPathSelector { get; set; }

@@ -33,12 +33,8 @@ namespace CMiX.MVVM.ViewModels
         public Component SelectedComponent
         {
             get => _selectedComponent;
-            set
-            {
-                SetAndNotify(ref _selectedComponent, value);
-                if(SelectedComponent != null)
-                    System.Console.WriteLine(SelectedComponent.GetType()); 
-            }
+            set => SetAndNotify(ref _selectedComponent, value);
+
         }
 
         public void RemoveComponentFromEditing(Component component)

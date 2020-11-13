@@ -165,14 +165,12 @@ namespace CMiX.MVVM.ViewModels
             //ComponentFactory.CreateComposition(CurrentProject);
         }
         public void Undo()
-        {
-            System.Console.WriteLine("Mementor Undo");
+        { 
             //Mementor.Undo();
         }
 
         public void Redo()
         {
-            System.Console.WriteLine("Mementor Redo");
             //Mementor.Redo();
         }
 

@@ -46,19 +46,13 @@ namespace CMiX.MVVM.Trash
             {
                 HookItemsControlEvents();
                 IsEditing = true;
-                //Console.WriteLine("Is On Editing Mode");
             }
         }
 
         private void OnSwitchToNormalMode()
         {
-            //if(IsEditing)
-            //{
-                IsEditing = false;
-                //Console.WriteLine("Is On Normal Mode");
-                Mouse.RemovePreviewMouseDownOutsideCapturedElementHandler(this, OnMouseDownOutsideElement);
-            //}
-
+            IsEditing = false;
+            Mouse.RemovePreviewMouseDownOutsideCapturedElementHandler(this, OnMouseDownOutsideElement);
             ReleaseMouseCapture();
         }
 

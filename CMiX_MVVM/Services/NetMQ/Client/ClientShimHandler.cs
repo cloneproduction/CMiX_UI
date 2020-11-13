@@ -46,7 +46,6 @@ namespace CMiX.MVVM.Services
         private void Shim_ReceiveReady(object sender, NetMQSocketEventArgs e)
         {
             NetMQMessage msg = e.Socket.ReceiveMultipartMessage();
-            Console.WriteLine("Shim_ReceiveReady");
         }
 
         private void OnSubscriberReady(object sender, NetMQSocketEventArgs e)
@@ -55,9 +54,9 @@ namespace CMiX.MVVM.Services
             NetMQMessage msg = new NetMQMessage();
             msg = e.Socket.ReceiveMultipartMessage();
 
-            this.shim.SendFrame("pouet");
+            //this.shim.SendFrame("pouet");
             OnReceiveChange(msg);
-            Console.WriteLine("OnSubscriberReady");
+
         }
 
         public event EventHandler<NetMQMessageEventArgs> ReceiveChangeEvent;
@@ -68,7 +67,6 @@ namespace CMiX.MVVM.Services
 
         //private void OnShimReady(object sender, NetMQSocketEventArgs e)
         //{
-        //    Console.WriteLine("OnShimReady");
         //    string command = e.Socket.ReceiveFrameString();
         //    if (command == NetMQActor.EndShimMessage)
         //        poller.Stop();

@@ -22,7 +22,7 @@ namespace CMiX.Studio.ViewModels.MessageService
 
             Hub.Subscribe<Message>(this, message =>
             {
-                System.Console.WriteLine("MessageOut Received from  " + message.Address + " sent by Server");
+                //System.Console.WriteLine("MessageOut Received from  " + message.Address + " sent by Server");
                 this.Server.Send(message.Address, message.Data);
             });
         }

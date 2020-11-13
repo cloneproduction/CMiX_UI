@@ -384,7 +384,6 @@ namespace CMiX.MVVM.ViewModels
             {
                 if (asset.IsSelected)
                 {
-                    Console.WriteLine("asset.IsSelected" + asset.Name);
                     AssetDragDrop dragDropObject = new AssetDragDrop();
                     dragDropObject.DragObject = asset;
                     dragDropObject.SourceCollection = assets;

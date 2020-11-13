@@ -35,7 +35,7 @@ namespace CMiX.Nodes
 		public CMiX_VVVVTemplateNode()
         {
 			Project = ComponentFactory.CreateComponent() as Project;
-            Settings settings = new Settings("Pouet", "Pouet", "192.168.1.3", 2222);
+            Settings settings = new Settings("Pouet", "Pouet", "192.168.0.192", 2222);
 			Receiver receiver = new Receiver();
 			receiver.SetSettings(settings);
 			

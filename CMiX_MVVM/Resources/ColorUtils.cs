@@ -137,8 +137,6 @@ namespace CMiX.MVVM.Resources
 
         public static Color ConvertHsvToRgb(double hue, double saturation, double value)
         {
-            //Console.WriteLine("ConvertHsvToRgb");
-
             double q;
             double H = hue;
             double S = saturation;
@@ -273,9 +271,6 @@ namespace CMiX.MVVM.Resources
         //    hue = System.Drawing.Color.FromArgb(color.A, color.R, color.G, color.B).GetHue();
         //    saturation = (max == 0) ? 0 : 1d - (1d * min / max);
         //    value = max / 255d;
-
-        //    Console.WriteLine("ColorToHSV : " + " R : " + color.R.ToString() + " G : " + color.G.ToString() + " B : " + color.B.ToString());
-        //    Console.WriteLine("ColorToHSV : " + " H : " + hue.ToString() + " S : " + saturation.ToString() + " V : " + value.ToString());
         //}
 
 
@@ -294,7 +289,7 @@ namespace CMiX.MVVM.Resources
 
             if (delta > 0.0001)
             {
-                //Console.WriteLine(" Delta : " + delta.ToString() + " Min : " + min.ToString() + " Max : " + max.ToString());
+
                 S = delta / max;
 
                 if (rgb.R == max)
@@ -302,17 +297,14 @@ namespace CMiX.MVVM.Resources
                     H = (rgb.G - rgb.B) / delta;
                     if (H < 0.0)
                         H += 6.0;
-                    //Console.WriteLine("rgb.R == max  " + " H : " + H.ToString() + " S : " + S.ToString() + " V : " + V.ToString());
                 }
                 else if (rgb.G == max)
                 {
                     H = 2.0 + (rgb.B - rgb.R) / delta;
-                    //Console.WriteLine("rgb.G == max  " + " H : " + H.ToString() + " S : " + S.ToString() + " V : " + V.ToString());
                 }
                 else
                 {
                     H = 4.0 + (rgb.R - rgb.G) / delta;
-                    //Console.WriteLine("rgb.B == max  " + " H : " + H.ToString() + " S : " + S.ToString() + " V : " + V.ToString());
                 }
 
                 H /= 6.0 * 360;

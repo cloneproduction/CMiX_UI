@@ -12,13 +12,13 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.Resources>
-        <ResourceDictionary>
+        <!--<ResourceDictionary>
             <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
-        </ResourceDictionary>
+        </ResourceDictionary>-->
     </UserControl.Resources>
     
     <Grid>
-        <Grid.ColumnDefinitions>
+        <!--<Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
@@ -205,6 +205,6 @@
                     </ListBox>
                 </DockPanel>
             </Border>
-        </Border>
+        </Border>-->
     </Grid>
 </UserControl>
