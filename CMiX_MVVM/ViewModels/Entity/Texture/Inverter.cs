@@ -7,7 +7,7 @@ namespace CMiX.MVVM.ViewModels
     {
         public Inverter()
         {
-            Invert = new Slider(nameof(Invert), this);
+            Invert = new Slider(nameof(Invert));
             InvertMode = ((TextureInvertMode)0).ToString();
         }
 

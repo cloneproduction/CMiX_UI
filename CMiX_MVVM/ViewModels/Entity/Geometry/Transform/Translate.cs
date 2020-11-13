@@ -8,9 +8,9 @@ namespace CMiX.MVVM.ViewModels
     {
         public Translate()
         {
-            X = new Slider(nameof(X), this);
-            Y = new Slider(nameof(Y), this);
-            Z = new Slider(nameof(Z), this);
+            X = new Slider(nameof(X));
+            Y = new Slider(nameof(Y));
+            Z = new Slider(nameof(Z));
         }
 
         public Translate(Sender parentSender) : this()

@@ -8,16 +8,16 @@ namespace CMiX.MVVM.ViewModels
     {
         public Scale() 
         {
-            Uniform = new Slider(nameof(Uniform), this);
+            Uniform = new Slider(nameof(Uniform));
             Uniform.Amount = 1.0;
 
-            X = new Slider(nameof(X), this);
+            X = new Slider(nameof(X));
             X.Amount = 1.0;
 
-            Y = new Slider(nameof(Y), this);
+            Y = new Slider(nameof(Y));
             Y.Amount = 1.0;
 
-            Z = new Slider(nameof(Z), this);
+            Z = new Slider(nameof(Z));
             Z.Amount = 1.0;
 
             IsUniform = true;

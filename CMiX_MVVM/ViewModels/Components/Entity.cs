@@ -7,9 +7,9 @@ namespace CMiX.MVVM.ViewModels
         public Entity(int id, MasterBeat beat) : base(id)
         {
             BeatModifier = new BeatModifier(beat);
-            Geometry = new Geometry(beat, this);
-            Texture = new Texture(this);
-            Coloration = new Coloration(beat, this);
+            Geometry = new Geometry(beat);
+            Texture = new Texture();
+            Coloration = new Coloration(beat);
         }
 
         public BeatModifier BeatModifier { get; }

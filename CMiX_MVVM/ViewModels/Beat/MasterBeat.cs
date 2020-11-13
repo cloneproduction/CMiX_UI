@@ -36,9 +36,9 @@ namespace CMiX.MVVM.ViewModels
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
-        public MasterBeat(Sender parentSender) : this()
+        public MasterBeat(ViewModel parentSender) : this()
         {
-            SubscribeToEvent(parentSender);
+            //SubscribeToEvent(parentSender);
         }
 
         public ICommand ResyncCommand { get; }

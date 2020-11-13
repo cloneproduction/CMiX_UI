@@ -29,18 +29,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
-            <!--<MenuItem
-                Padding="8, 4"
-                Foreground="{StaticResource TextBase}"
-                Command="{Binding Data.CopySliderCommand, Source={StaticResource ProjectProxy}}">
-                <MenuItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Width="10" Height="10" Source="{StaticResource Copy}" />
-                        <Separator Margin="8, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                        <TextBlock Text="Copy"/>
-                    </StackPanel>
-                </MenuItem.Header>
-            </MenuItem>-->
+
             <MenuItem
                 Padding="8, 4"
                 Foreground="{StaticResource TextBase}">

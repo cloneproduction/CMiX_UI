@@ -18,7 +18,6 @@ namespace CMiX.MVVM.ViewModels
         public MainViewModel()
         {
             Mementor = new Mementor();
-            Serializer = new CerasSerializer();
 
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
 
@@ -28,8 +27,9 @@ namespace CMiX.MVVM.ViewModels
             Projects.Add(CurrentProject);
 
             AssetManager = new AssetManager(CurrentProject);
-            MessengerManager = new MessengerManager(CurrentProject, DialogService);
-            
+
+            MessengerManager = new MessengerManager(DialogService);
+
             ComponentManager = new ComponentManager(CurrentProject);
 
             Outliner = new Outliner(Projects);
@@ -182,7 +182,6 @@ namespace CMiX.MVVM.ViewModels
             Projects.Add(project);
             CurrentProject = project;
             AssetManager = new AssetManager(project);
-            MessengerManager = new MessengerManager(project, DialogService);
             ComponentEditor = new ComponentEditor(project);
         }
 

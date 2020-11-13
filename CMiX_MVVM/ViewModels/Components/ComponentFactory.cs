@@ -31,7 +31,7 @@ namespace CMiX.MVVM.ViewModels
 
         private static Project CreateProject()
         {
-            var newProject = new Project(ID, null);
+            var newProject = new Project(ID,  null);
             return newProject;
         }
 

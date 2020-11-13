@@ -10,10 +10,9 @@ namespace CMiX.Studio.ViewModels.MessageService
 {
     public class MessengerManager : ViewModel
     {
-        public MessengerManager(Project project, IDialogService dialogService)
+        public MessengerManager(IDialogService dialogService)
         {
-            Project = project;
-            Addresses = new List<string>();
+            Messengers = new ObservableCollection<Messenger>();
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
 
             AddMessengerCommand = new RelayCommand(p => AddMessenger());
@@ -34,30 +33,24 @@ namespace CMiX.Studio.ViewModels.MessageService
             }
         }
 
+        private ObservableCollection<Messenger> _messengers;
+        public ObservableCollection<Messenger> Messengers
+        {
+            get => _messengers;
+            set => SetAndNotify(ref _messengers, value);
+        }
 
         public ICommand EditMessengerSettingsCommand { get; }
         public ICommand AddMessengerCommand { get; set; }
         public ICommand DeleteMessengerCommand { get; set; }
         public ICommand RenameMessengerCommand { get; set; }
 
-        public Project Project { get; set; }
+        //public Project Project { get; set; }
 
-        public List<string> Addresses { get; set; }
-
-        public ObservableCollection<Settings> SettingsCollection { get; set; }
-
-        private Messenger _selectedMessenger;
-        public Messenger SelectedMessenger
-        {
-            get => _selectedMessenger;
-            set => SetAndNotify(ref _selectedMessenger, value);
-        }
-        
         public void AddMessenger()
         {
             var messenger = MessengerFactory.CreateMessenger();
-            Project.SendChangeEvent += messenger.Value_SendChangeEvent;
-            Project.Messengers.Add(messenger);
+            Messengers.Add(messenger);
         }
 
         private void DeleteMessenger(Messenger messenger)
@@ -65,7 +58,7 @@ namespace CMiX.Studio.ViewModels.MessageService
             if (messenger != null)
             {
                 messenger.StopServer();
-                Project.Messengers.Remove(messenger);
+                Messengers.Remove(messenger);
             }
         }
 

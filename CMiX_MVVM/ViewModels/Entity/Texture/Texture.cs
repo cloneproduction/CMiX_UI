@@ -14,33 +14,33 @@ namespace CMiX.MVVM.ViewModels
 
             Inverter = new Inverter(this);
 
-            Brightness = new Slider(nameof(Brightness), this);
+            Brightness = new Slider(nameof(Brightness));
             Brightness.Minimum = -1.0;
 
-            Contrast = new Slider(nameof(Contrast), this);
+            Contrast = new Slider(nameof(Contrast));
             Contrast.Minimum = -1.0;
 
-            Hue = new Slider(nameof(Hue), this);
+            Hue = new Slider(nameof(Hue));
             Hue.Minimum = -1.0;
 
-            Saturation = new Slider(nameof(Saturation), this);
+            Saturation = new Slider(nameof(Saturation));
             Saturation.Minimum = -1.0;
 
-            Luminosity = new Slider(nameof(Luminosity), this);
+            Luminosity = new Slider(nameof(Luminosity));
             Luminosity.Minimum = -1.0;
 
-            Keying = new Slider(nameof(Keying), this);
+            Keying = new Slider(nameof(Keying));
 
-            Scale = new Slider(nameof(Scale), this);
+            Scale = new Slider(nameof(Scale));
             Scale.Minimum = -1.0;
 
-            Rotate = new Slider(nameof(Rotate), this);
+            Rotate = new Slider(nameof(Rotate));
             Rotate.Minimum = -1.0;
 
-            Pan = new Slider(nameof(Pan), this);
+            Pan = new Slider(nameof(Pan));
             Pan.Minimum = -1.0;
 
-            Tilt = new Slider(nameof(Tilt), this);
+            Tilt = new Slider(nameof(Tilt));
             Tilt.Minimum = -1.0;
 
             CopyTextureCommand = new RelayCommand(p => CopyTexture());

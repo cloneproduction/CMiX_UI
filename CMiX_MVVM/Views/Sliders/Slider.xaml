@@ -30,7 +30,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
-            <MenuItem
+            <!--<MenuItem
                 Padding="8, 4"
                 Foreground="{StaticResource TextBase}"
                 Command="{Binding Data.CopySliderCommand, Source={StaticResource proxy}}">
@@ -41,7 +41,7 @@
                         <TextBlock Text="Copy"/>
                     </StackPanel>
                 </MenuItem.Header>
-            </MenuItem>
+            </MenuItem>-->
             <MenuItem
                 Padding="8, 4"
                 Foreground="{StaticResource TextBase}">

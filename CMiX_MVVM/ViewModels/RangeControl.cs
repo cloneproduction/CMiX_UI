@@ -7,7 +7,7 @@ namespace CMiX.MVVM.ViewModels
         public Pouet()
         {
             Modifier = ((RangeModifier)0).ToString();
-            Range = new Slider(nameof(Range), this);
+            Range = new Slider(nameof(Range));
         }
 
         public Slider Range { get; }

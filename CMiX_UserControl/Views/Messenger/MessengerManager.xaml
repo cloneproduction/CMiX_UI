@@ -42,7 +42,7 @@
             <ItemsControl 
                 HorizontalContentAlignment="Stretch" 
                 ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                ItemsSource="{Binding Project.Messengers}" 
+                ItemsSource="{Binding Messengers}" 
                 dd:DragDrop.IsDragSource="True"
                 dd:DragDrop.IsDropTarget="True">
                 <ItemsControl.ItemTemplate>

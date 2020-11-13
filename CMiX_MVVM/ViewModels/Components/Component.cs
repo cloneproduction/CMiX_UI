@@ -3,11 +3,12 @@ using System.Collections.ObjectModel;
 using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
+using CMiX.Studio.ViewModels.MessageService;
 using PubSub;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Component : Sender, IComponent, IColleague
+    public abstract class Component : ViewModel, IComponent, IColleague
     {
         public Component(int id)
         {
@@ -33,42 +34,15 @@ namespace CMiX.MVVM.ViewModels
                     }
                     else if (message.Address.Contains(Address))
                     {
-                        //var model = MessageSerializer.Serializer.Deserialize<IModel>(message.Data);
-                        //OnReceiveChange(model, message.Address, this.GetMessageAddress());
-                        //Console.WriteLine("Component Dispatch");
                         MessageMediator.Notify(message.Address, this, message);
                     }
                 }
             });
         }
 
-
+        public Hub Hub { get; set; }
+        public string Address { get; set; }
         public MessageMediator MessageMediator { get; set; }
-
-        public void SendMessage(string messageAddress, IModel model)
-        {
-            MessageMediator.Notify(Address, this, new Message(MessageDirection.OUT, messageAddress, MessageSerializer.Serializer.Serialize(model)));
-            //Console.WriteLine(this.Name + " ComponentSendMessage");
-            //Hub.Publish<Message>(new Message(MessageDirection.OUT, messageAddress, MessageSerializer.Serializer.Serialize(model)));
-        }
-
-
-
-
-
-
-
-
-
-        public override void OnChildPropertyToSendChange(object sender, ModelEventArgs e)
-        {
-            SendMessage(this.GetMessageAddress() + e.MessageAddress, e.Model);
-        }
-
-        public override string GetMessageAddress()
-        {
-            return $"{this.GetType().Name}/{ID}/";
-        }
 
 
         private int _id;
@@ -170,31 +144,31 @@ namespace CMiX.MVVM.ViewModels
         {
             Components.Add(component);
             IsExpanded = true;
-            SendMessage(this.GetMessageAddress(), this.GetModel());
+            Send(new Message(MessageDirection.OUT, Address, MessageSerializer.Serializer.Serialize(this.GetModel())));
         }
 
         public void RemoveComponent(Component component)
         {
             Hub.Unsubscribe(component);
             Components.Remove(component);
-            SendMessage(this.GetMessageAddress(), this.GetModel());
+            Send(new Message(MessageDirection.OUT, Address, MessageSerializer.Serializer.Serialize(this.GetModel())));
         }
 
         public void InsertComponent(int index, Component component)
         {
             Components.Insert(index, component);
-            SendMessage(this.GetMessageAddress(), this.GetModel());
+            Send(new Message(MessageDirection.OUT, Address, MessageSerializer.Serializer.Serialize(this.GetModel())));
         }
 
         public void MoveComponent(int oldIndex, int newIndex)
         {
             Components.Move(oldIndex, newIndex);
-            SendMessage(this.GetMessageAddress(), this.GetModel());
+            Send(new Message(MessageDirection.OUT, Address, MessageSerializer.Serializer.Serialize(this.GetModel())));
         }
 
         public void Send(Message message)
         {
-            //throw new NotImplementedException();
+            MessageMediator.Notify(Address, this, message);
         }
 
         public void Receive(Message message)

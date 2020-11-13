@@ -41,4 +41,12 @@ namespace CMiX.MVVM.Services
         IN,
         OUT
     }
+
+    public enum MessageCommand
+    {
+        ADD,
+        REMOVE,
+        MOVE,
+        UPDATE
+    }
 }

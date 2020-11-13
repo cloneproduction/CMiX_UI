@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.Studio.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {

@@ -3,6 +3,7 @@ using System.Windows.Input;
 using System.Linq;
 using System;
 using CMiX.MVVM.ViewModels;
+using CMiX.MVVM.Services;
 
 namespace CMiX.ViewModels
 {
@@ -53,9 +54,8 @@ namespace CMiX.ViewModels
         public void DeleteComponent(Component component)
         {
             var selectedParent = GetSelectedParent(Components);
-            DeleteSelectedComponent(Components);
-            if (selectedParent != null)
-                selectedParent.OnSendChange(selectedParent.GetModel(), selectedParent.GetMessageAddress());
+            selectedParent.RemoveComponent(component);
+            selectedParent.Send(new Message(MessageDirection.OUT, selectedParent.Address, MessageSerializer.Serializer.Serialize(selectedParent.GetModel())));
         }
 
         public event EventHandler<ComponentEventArgs> ComponentDeletedEvent;

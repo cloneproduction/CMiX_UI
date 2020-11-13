@@ -13,9 +13,8 @@ namespace CMiX.MVVM.ViewModels.Mediator
             Hub = Hub.Default;
         }
 
-
-        public Hub Hub { get; set; }
-        public Dictionary<string, IColleague>  Colleagues { get; set; }
+        private Hub Hub { get; set; }
+        private Dictionary<string, IColleague>  Colleagues { get; set; }
 
         public void Notify(string address, IColleague colleague, Message message)
         {
@@ -38,7 +37,6 @@ namespace CMiX.MVVM.ViewModels.Mediator
 
         public void RegisterColleague(string address, IColleague colleague)
         {
-            Console.WriteLine("ColleagueRegistered with address " + address);
             Colleagues.Add(address, colleague);
         }
 

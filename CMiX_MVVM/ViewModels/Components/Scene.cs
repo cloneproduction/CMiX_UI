@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.Studio.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -9,8 +10,8 @@ namespace CMiX.MVVM.ViewModels
             MasterBeat = beat;
             BeatModifier = new BeatModifier(beat);
             PostFX = new PostFX();
-            Mask = new Mask(this);
-            Transform = new Transform(this);
+            Mask = new Mask();
+            Transform = new Transform();
         }
 
         public Transform Transform { get; set; }

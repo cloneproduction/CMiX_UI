@@ -9,7 +9,7 @@ namespace CMiX.MVVM.ViewModels
         public BeatModifier(MasterBeat masterBeat)
         {
             Index = 0;
-            ChanceToHit = new Slider(nameof(ChanceToHit), this) { Amount = 100.0 };
+            ChanceToHit = new Slider(nameof(ChanceToHit)) { Amount = 100.0 };
             Beat = masterBeat;
             Multiplier = 1.0;
             this.Period = masterBeat.Period;

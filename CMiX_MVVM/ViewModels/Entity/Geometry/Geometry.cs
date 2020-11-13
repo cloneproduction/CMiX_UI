@@ -5,11 +5,10 @@ using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Geometry : Sender, ITransform, IHandler
+    public class Geometry : Sender, ITransform
     {
         public Geometry(MasterBeat beat) 
         {
-            Handlers = new List<IHandler>();
             Instancer = new Instancer(beat, this);
             Transform = new Transform(this);
             GeometryFX = new GeometryFX();
@@ -18,7 +17,6 @@ namespace CMiX.MVVM.ViewModels
 
         public Geometry(MasterBeat beat, Sender parent) : this(beat)
         {
-            //((IHandler)parent).Handlers.Add(this);
             SubscribeToEvent(parent);
         }
 
@@ -30,15 +28,10 @@ namespace CMiX.MVVM.ViewModels
                 OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
-        public void HandleMessage(Message message, string parentMessageAddress)
-        {
-            //System.Console.WriteLine("Geometry Handle Message");
-        }
 
         public AssetPathSelector AssetPathSelector { get; set; }
         public Transform Transform { get; set; }
         public Instancer Instancer { get; set; }
         public GeometryFX GeometryFX { get; set; }
-        public List<IHandler> Handlers { get; set; }
     }
 }

@@ -16,13 +16,13 @@ namespace CMiX.MVVM.ViewModels
             ResetCommand = new RelayCommand(p => Reset());
         }
 
-        public Slider(string name, Sender parentSender) : this(name)
+        public Slider(string name, IColleague parentSender) : this(name)
         {
             this.Address = $"{parentSender.Address}{Name}/"; //parentSender.Address + this.Name;
 
         }
 
-        public Slider(string name, Sender parentSender, MessageMediator messageMediator) : this(name, parentSender)
+        public Slider(string name, IColleague parentSender, MessageMediator messageMediator) : this(name, parentSender)
         {
             this.MessageMediator = messageMediator;
             this.MessageMediator.RegisterColleague(this.Address, this);
