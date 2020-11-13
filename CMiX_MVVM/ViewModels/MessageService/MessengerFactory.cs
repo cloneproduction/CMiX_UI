@@ -3,11 +3,11 @@ using System.Collections.ObjectModel;
 
 namespace CMiX.Studio.ViewModels.MessageService
 {
-    public static class MessengerFactory
+    public class MessengerFactory
     {
-        static int ID = 0;
+        int ID = 0;
 
-        public static Messenger CreateMessenger()
+        public Messenger CreateMessenger()
         {
             var messenger = new Messenger(ID);
             ID++;

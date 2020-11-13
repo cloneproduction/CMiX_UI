@@ -1,10 +1,8 @@
 ﻿using System.Windows.Input;
-using System.Collections.Generic;
 using MvvmDialogs;
 using CMiX.MVVM.Views;
 using CMiX.MVVM.ViewModels;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace CMiX.Studio.ViewModels.MessageService
 {
@@ -12,6 +10,7 @@ namespace CMiX.Studio.ViewModels.MessageService
     {
         public MessengerManager(IDialogService dialogService)
         {
+            MessengerFactory = new MessengerFactory();
             Messengers = new ObservableCollection<Messenger>();
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
 
@@ -21,6 +20,11 @@ namespace CMiX.Studio.ViewModels.MessageService
             EditMessengerSettingsCommand = new RelayCommand(p => EditMessengerSettings(p as Messenger));
         }
 
+        MessengerFactory MessengerFactory { get; set; }
+        public ICommand EditMessengerSettingsCommand { get; }
+        public ICommand AddMessengerCommand { get; set; }
+        public ICommand DeleteMessengerCommand { get; set; }
+        public ICommand RenameMessengerCommand { get; set; }
         public IDialogService DialogService { get; set; }
 
         public void EditMessengerSettings(Messenger messenger)
@@ -39,13 +43,6 @@ namespace CMiX.Studio.ViewModels.MessageService
             get => _messengers;
             set => SetAndNotify(ref _messengers, value);
         }
-
-        public ICommand EditMessengerSettingsCommand { get; }
-        public ICommand AddMessengerCommand { get; set; }
-        public ICommand DeleteMessengerCommand { get; set; }
-        public ICommand RenameMessengerCommand { get; set; }
-
-        //public Project Project { get; set; }
 
         public void AddMessenger()
         {

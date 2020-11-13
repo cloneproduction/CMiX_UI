@@ -1,5 +1,4 @@
-﻿using Ceras;
-using CMiX.MVVM.Services;
+﻿using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
 using PubSub;
 using System.Windows.Input;
@@ -11,7 +10,6 @@ namespace CMiX.Studio.ViewModels.MessageService
         public Messenger(int id)
         {
             Hub = Hub.Default;
-            Serializer = new CerasSerializer();
             Server = new Server();
 
             Name = $"Messenger ({id})";
@@ -22,7 +20,6 @@ namespace CMiX.Studio.ViewModels.MessageService
 
             Hub.Subscribe<Message>(this, message =>
             {
-                //System.Console.WriteLine("MessageOut Received from  " + message.Address + " sent by Server");
                 this.Server.Send(message.Address, message.Data);
             });
         }
@@ -48,8 +45,6 @@ namespace CMiX.Studio.ViewModels.MessageService
         public ICommand StartServerCommand { get; }
         public ICommand StopServerCommand { get; }
         public ICommand RestartServerCommand { get; }
-
-        public CerasSerializer Serializer { get; set; }
 
         public Settings GetSettings()
         {
@@ -82,11 +77,6 @@ namespace CMiX.Studio.ViewModels.MessageService
         {
             get => _server;
             set => SetAndNotify(ref _server, value);
-        }
-
-        public void Value_SendChangeEvent(object sender, ModelEventArgs e)
-        {
-            Server.Send(e.MessageAddress, Serializer.Serialize(e.Model));
         }
     }
 }

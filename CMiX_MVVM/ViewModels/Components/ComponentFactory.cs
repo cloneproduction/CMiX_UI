@@ -5,12 +5,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public static class ComponentFactory
     {
-        private static int _id = 0;
-        public static int ID
-        {
-            get { return _id; }
-            set { _id = value; }
-        }
+        private static int ID = 0;
 
         public static Component CreateComponent(Component component = null)
         {
@@ -31,8 +26,7 @@ namespace CMiX.MVVM.ViewModels
 
         private static Project CreateProject()
         {
-            var newProject = new Project(ID,  null);
-            return newProject;
+            return new Project(ID, null);
         }
 
         private static Composition CreateComposition(Component parentComponent)

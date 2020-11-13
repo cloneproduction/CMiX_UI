@@ -20,6 +20,7 @@ namespace CMiX.MVVM.ViewModels
             IsExpanded = false;
             Components = new ObservableCollection<Component>();
             Hub = Hub.Default;
+
             MessageMediator = new MessageMediator();
             MessageMediator.RegisterColleague(Address, this);
 
@@ -43,6 +44,8 @@ namespace CMiX.MVVM.ViewModels
         public Hub Hub { get; set; }
         public string Address { get; set; }
         public MessageMediator MessageMediator { get; set; }
+        public MessengerManager MessengerManager { get; set; }
+
 
 
         private int _id;
