@@ -1,5 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
-using CMiX.Studio.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.Components.Factories;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -11,6 +11,7 @@ namespace CMiX.MVVM.ViewModels
             PostFX = new PostFX();
             BlendMode = new BlendMode();
             Fade = new Slider(nameof(Fade), this, this.MessageMediator);
+            Factory = new SceneFactory();
         }
 
         private bool _out;
@@ -24,6 +25,5 @@ namespace CMiX.MVVM.ViewModels
         public Mask Mask { get; set; }
         public PostFX PostFX { get; set; }
         public BlendMode BlendMode { get; set; }
-        public MasterBeat MasterBeat { get; set; }
     }
 }

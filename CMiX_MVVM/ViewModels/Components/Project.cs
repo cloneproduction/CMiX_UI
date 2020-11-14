@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using CMiX.MVVM.ViewModels.Components.Factories;
 using MvvmDialogs;
 
 namespace CMiX.MVVM.ViewModels
@@ -9,6 +10,7 @@ namespace CMiX.MVVM.ViewModels
         {
             DialogService = dialogService;    
             Assets = new ObservableCollection<IAssets>();
+            Factory = new CompositionFactory();
         }
 
         public IDialogService DialogService { get; set; }

@@ -1,5 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
-using CMiX.Studio.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.Components.Factories;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -12,12 +12,12 @@ namespace CMiX.MVVM.ViewModels
             PostFX = new PostFX();
             Mask = new Mask();
             Transform = new Transform();
+            Factory = new EntityFactory();
         }
 
         public Transform Transform { get; set; }
         public Mask Mask { get; set; }
         public PostFX PostFX { get; set; }
         public BeatModifier BeatModifier { get; set; }
-        public MasterBeat MasterBeat { get; set; }
     }
 }

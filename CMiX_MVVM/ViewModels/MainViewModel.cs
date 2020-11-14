@@ -1,7 +1,6 @@
 ﻿using Ceras;
 using CMiX.MVVM.Models;
 using CMiX.Studio.ViewModels.MessageService;
-using CMiX.ViewModels;
 using Memento;
 using MvvmDialogs;
 using MvvmDialogs.FrameworkDialogs.OpenFile;
@@ -30,7 +29,7 @@ namespace CMiX.MVVM.ViewModels
 
             MessengerManager = new MessengerManager(DialogService);
 
-            ComponentManager = new ComponentManager(CurrentProject);
+            ComponentManager = new ComponentManager(CurrentProject.Components);
 
             Outliner = new Outliner(Projects);
             ComponentEditor = new ComponentEditor(Outliner.SelectedComponent);

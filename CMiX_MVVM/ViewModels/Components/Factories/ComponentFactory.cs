@@ -1,5 +1,6 @@
 ﻿using CMiX.Studio.ViewModels.MessageService;
 using System;
+using CMiX.MVVM.ViewModels.Components.Factories;
 
 namespace CMiX.MVVM.ViewModels
 {

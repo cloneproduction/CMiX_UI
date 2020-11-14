@@ -1,21 +1,17 @@
-﻿using CMiX.MVVM.Interfaces;
-using System;
-using System.Collections.Generic;
+﻿using CMiX.MVVM.ViewModels.Components.Factories;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMiX.MVVM.ViewModels
 {
     public interface IComponent
     {
-        ObservableCollection<Component> Components { get; set; }
         int ID { get; set; }
         string Name { get; set; }
-
-        bool IsEditing { get; set; }
-
         bool IsRenaming { get; set; }
+        IComponentFactory Factory { get; set; }
+        ObservableCollection<Component> Components { get; set; }
+        MasterBeat MasterBeat { get; set; }
+
+        void AddComponent(Component component);
     }
 }

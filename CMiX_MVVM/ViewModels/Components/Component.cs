@@ -2,13 +2,14 @@
 using System.Collections.ObjectModel;
 using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.Studio.ViewModels.MessageService;
 using PubSub;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Component : ViewModel, IComponent, IColleague
+    public abstract class Component : ViewModel, IComponent, IColleague, IDisposable
     {
         public Component(int id)
         {
@@ -45,8 +46,8 @@ namespace CMiX.MVVM.ViewModels
         public string Address { get; set; }
         public MessageMediator MessageMediator { get; set; }
         public MessengerManager MessengerManager { get; set; }
-
-
+        public IComponentFactory Factory { get; set; }
+        public MasterBeat MasterBeat { get; set; }
 
         private int _id;
         public int ID
@@ -67,13 +68,6 @@ namespace CMiX.MVVM.ViewModels
         {
             get => _isRenaming;
             set => SetAndNotify(ref _isRenaming, value);
-        }
-
-        private bool _isEditing;
-        public bool IsEditing
-        {
-            get => _isEditing;
-            set => SetAndNotify(ref _isEditing, value);
         }
 
         private bool _isSelected;
@@ -132,7 +126,7 @@ namespace CMiX.MVVM.ViewModels
             get => _selectedComponent;
             set => SetAndNotify(ref _selectedComponent, value);
         }
-
+        
 
         private void SetVisibility()
         {
@@ -177,6 +171,11 @@ namespace CMiX.MVVM.ViewModels
         public void Receive(Message message)
         {
             //throw new NotImplementedException();
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }

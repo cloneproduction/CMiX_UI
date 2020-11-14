@@ -2,16 +2,15 @@
 using System.Windows.Input;
 using System.Linq;
 using System;
-using CMiX.MVVM.ViewModels;
 using CMiX.MVVM.Services;
 
-namespace CMiX.ViewModels
+namespace CMiX.MVVM.ViewModels
 {
     public class ComponentManager : ViewModel
     {
-        public ComponentManager(Project project)
+        public ComponentManager(ObservableCollection<Component> components)
         {
-            Components = project.Components;
+            Components = components;
 
             CreateComponentCommand = new RelayCommand(p => CreateComponent(p as Component));
             DuplicateComponentCommand = new RelayCommand(p => DuplicateComponent(p as Component));

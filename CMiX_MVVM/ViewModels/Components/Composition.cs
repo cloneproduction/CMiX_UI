@@ -1,5 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
-using CMiX.Studio.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.Components.Factories;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -10,11 +10,11 @@ namespace CMiX.MVVM.ViewModels
             Transition = new Slider(nameof(Transition));
             MasterBeat = new MasterBeat(this);
             Camera = new Camera(MasterBeat);
+            Factory = new LayerFactory();
         }
 
         public Camera Camera { get; set; }
         public Slider Transition { get; set; }
-        public MasterBeat MasterBeat { get; set; }
         public Beat Beat { get; set; }
     }
 }

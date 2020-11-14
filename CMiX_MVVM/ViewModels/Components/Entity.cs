@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.ViewModels.Components.Factories;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -16,6 +17,5 @@ namespace CMiX.MVVM.ViewModels
         public Geometry Geometry { get; }
         public Texture Texture { get; }
         public Coloration Coloration { get; }
-        public MasterBeat MasterBeat { get; set; }
     }
 }
