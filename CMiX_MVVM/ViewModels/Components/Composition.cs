@@ -1,11 +1,11 @@
 ﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.ViewModels.Components.Factories;
+using CMiX.Studio.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class Composition : Component, IBeat
     {
-        public Composition(int id, MasterBeat masterBeat) : base (id)
+        public Composition(int id, MessengerManager messengerManager, MasterBeat masterBeat) : base (id, messengerManager)
         {
             Transition = new Slider(nameof(Transition));
             Camera = new Camera(masterBeat);

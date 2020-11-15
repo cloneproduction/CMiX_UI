@@ -11,7 +11,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public abstract class Component : ViewModel, IComponent, IColleague, IDisposable
     {
-        public Component(int id)
+        public Component(int id, MessengerManager messengerManager)
         {
             ID = id;
             Name = $"{GetType().Name}{ID}";
@@ -22,7 +22,7 @@ namespace CMiX.MVVM.ViewModels
             Components = new ObservableCollection<Component>();
             Hub = Hub.Default;
             Factory = new ComponentFactory();
-
+            MessengerManager = messengerManager;
             MessageMediator = new MessageMediator();
             MessageMediator.RegisterColleague(Address, this);
 
@@ -139,8 +139,8 @@ namespace CMiX.MVVM.ViewModels
 
         public void RemoveComponent(Component component)
         {
-            Components.Remove(component);
             component.Dispose();
+            Components.Remove(component);
             Send(new Message(MessageDirection.OUT, Address, MessageSerializer.Serializer.Serialize(this.GetModel())));
         }
 
@@ -158,6 +158,7 @@ namespace CMiX.MVVM.ViewModels
 
         public void Send(Message message)
         {
+            MessengerManager.SendMessage(Address, MessageSerializer.Serializer.Serialize(this.GetModel()));
             MessageMediator.Notify(Address, this, message);
         }
 

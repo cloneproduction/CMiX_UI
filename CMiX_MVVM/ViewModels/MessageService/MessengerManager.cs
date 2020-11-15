@@ -8,7 +8,7 @@ namespace CMiX.Studio.ViewModels.MessageService
 {
     public class MessengerManager : ViewModel
     {
-        public MessengerManager(IDialogService dialogService)
+        public MessengerManager()
         {
             MessengerFactory = new MessengerFactory();
             Messengers = new ObservableCollection<Messenger>();
@@ -44,10 +44,19 @@ namespace CMiX.Studio.ViewModels.MessageService
             set => SetAndNotify(ref _messengers, value);
         }
 
+        public void SendMessage(string address, byte[] message)
+        {
+            foreach (var messenger in Messengers)
+            {
+                messenger.Server.Send(address, message);
+            }
+        }
+
         public void AddMessenger()
         {
             var messenger = MessengerFactory.CreateMessenger();
             Messengers.Add(messenger);
+
         }
 
         private void DeleteMessenger(Messenger messenger)

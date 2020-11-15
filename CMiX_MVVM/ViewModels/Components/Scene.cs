@@ -1,11 +1,11 @@
 ﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.ViewModels.Components.Factories;
+using CMiX.Studio.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class Scene : Component, ITransform, IBeatModifier
     {
-        public Scene(int id, MasterBeat masterBeat) : base(id)
+        public Scene(int id, MessengerManager messengerManager, MasterBeat masterBeat) : base(id, messengerManager)
         {
             MasterBeat = masterBeat;
             BeatModifier = new BeatModifier(masterBeat);

@@ -19,20 +19,16 @@ namespace CMiX.MVVM.ViewModels
             Mementor = new Mementor();
 
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
-
-            CurrentProject = new Project(0, DialogService); //ComponentFactory.CreateComponent() as Project;
+            MessengerManager = new MessengerManager();
+            CurrentProject = new Project(0, MessengerManager, DialogService); 
 
             Projects = new ObservableCollection<Component>();
             Projects.Add(CurrentProject);
 
             AssetManager = new AssetManager(CurrentProject);
 
-            MessengerManager = new MessengerManager(DialogService);
-
             ComponentManager = new ComponentManager(Projects);
             Outliner = new Outliner(Projects);
-
-            //ComponentEditor = new ComponentEditor(Outliner.SelectedComponent);
 
             CloseWindowCommand = new RelayCommand(p => CloseWindow(p));
             MinimizeWindowCommand = new RelayCommand(p => MinimizeWindow(p));
@@ -176,7 +172,7 @@ namespace CMiX.MVVM.ViewModels
         #region MENU METHODS
         private void NewProject()
         {
-            Project project = new Project(0, this.DialogService);// ComponentFactory.CreateComponent() as Project;
+            Project project = new Project(0, this.MessengerManager, this.DialogService);// ComponentFactory.CreateComponent() as Project;
             Projects.Clear();
             Projects.Add(project);
             CurrentProject = project;
