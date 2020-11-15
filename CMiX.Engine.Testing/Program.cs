@@ -8,7 +8,7 @@ namespace CMiX.Engine.Testing
     {
         static void Main(string[] args)
         {
-            Project Project = ComponentFactory.CreateComponent() as Project;
+            Project Project = new Project(0, null);// ComponentFactory.CreateComponent() as Project;
 
             Settings settings = new Settings("Pouet", "Pouet", "192.168.1.3", 2222);
             Receiver receiver = new Receiver();

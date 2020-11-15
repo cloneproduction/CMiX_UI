@@ -10,7 +10,6 @@ namespace CMiX.MVVM.ViewModels
         {
             DialogService = dialogService;    
             Assets = new ObservableCollection<IAssets>();
-            Factory = new CompositionFactory();
         }
 
         public IDialogService DialogService { get; set; }

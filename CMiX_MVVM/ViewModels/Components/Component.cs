@@ -21,6 +21,7 @@ namespace CMiX.MVVM.ViewModels
             IsExpanded = false;
             Components = new ObservableCollection<Component>();
             Hub = Hub.Default;
+            Factory = new ComponentFactory();
 
             MessageMediator = new MessageMediator();
             MessageMediator.RegisterColleague(Address, this);
@@ -46,8 +47,8 @@ namespace CMiX.MVVM.ViewModels
         public string Address { get; set; }
         public MessageMediator MessageMediator { get; set; }
         public MessengerManager MessengerManager { get; set; }
-        public IComponentFactory Factory { get; set; }
-        public MasterBeat MasterBeat { get; set; }
+        private ComponentFactory Factory { get; set; }
+
 
         private int _id;
         public int ID
@@ -120,14 +121,6 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _components, value);
         }
 
-        private Component _selectedComponent;
-        public Component SelectedComponent
-        {
-            get => _selectedComponent;
-            set => SetAndNotify(ref _selectedComponent, value);
-        }
-        
-
         private void SetVisibility()
         {
             foreach (var item in Components)
@@ -146,8 +139,8 @@ namespace CMiX.MVVM.ViewModels
 
         public void RemoveComponent(Component component)
         {
-            Hub.Unsubscribe(component);
             Components.Remove(component);
+            component.Dispose();
             Send(new Message(MessageDirection.OUT, Address, MessageSerializer.Serializer.Serialize(this.GetModel())));
         }
 
@@ -173,9 +166,20 @@ namespace CMiX.MVVM.ViewModels
             //throw new NotImplementedException();
         }
 
+        public Component CreateAndAddChild()
+        {
+            Component component = Factory.CreateComponent(this) as Component;
+            this.AddComponent(component);
+            return component;
+        }
+
         public void Dispose()
         {
-            throw new NotImplementedException();
+            Hub.Unsubscribe();
+            foreach (var component in Components)
+            {
+                component.Dispose();
+            }
         }
     }
 }

@@ -164,11 +164,8 @@
     <Compile Include="ViewModels\ColorPicker\ColorPicker.cs" />
     <Compile Include="ViewModels\ColorPicker\ColorPickerModelFactory.cs" />
     <Compile Include="ViewModels\Combobox\ComboBox.cs" />
-    <Compile Include="ViewModels\Components\Factories\CompositionFactory.cs" />
-    <Compile Include="ViewModels\Components\Factories\IAbstractFactory.cs" />
-    <Compile Include="ViewModels\Components\Factories\EntityFactory.cs" />
-    <Compile Include="ViewModels\Components\Factories\LayerFactory.cs" />
-    <Compile Include="ViewModels\Components\Factories\SceneFactory.cs" />
+    <Compile Include="ViewModels\Components\Factories\ComponentFactory.cs" />
+    <Compile Include="ViewModels\Components\Factories\IComponentFactory.cs" />
     <Compile Include="ViewModels\Components\IComponent.cs" />
     <Compile Include="ViewModels\Counter\CounterEventArgs.cs" />
     <Compile Include="ViewModels\Counter\CounterModelFactory.cs" />
@@ -253,7 +250,6 @@
     <Compile Include="ViewModels\Components\Component.cs" />
     <Compile Include="ViewModels\Components\ComponentEditor.cs" />
     <Compile Include="ViewModels\Components\ComponentEventArgs.cs" />
-    <Compile Include="ViewModels\Components\Factories\ComponentFactory.cs" />
     <Compile Include="ViewModels\Components\ComponentManager.cs" />
     <Compile Include="ViewModels\Components\ComponentModelFactory.cs" />
     <Compile Include="ViewModels\Components\ComponentPanelTemplateSelector.cs" />

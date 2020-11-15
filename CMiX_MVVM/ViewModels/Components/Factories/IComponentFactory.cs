@@ -8,6 +8,6 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 {
     public interface IComponentFactory
     {
-        IComponent CreateComponent(int ID, IComponent parentComponent);
+        IComponent CreateComponent(IComponent parentComponent);
     }
 }

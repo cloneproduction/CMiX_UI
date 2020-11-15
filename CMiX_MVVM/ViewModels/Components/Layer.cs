@@ -11,7 +11,6 @@ namespace CMiX.MVVM.ViewModels
             PostFX = new PostFX();
             BlendMode = new BlendMode();
             Fade = new Slider(nameof(Fade), this, this.MessageMediator);
-            Factory = new SceneFactory();
         }
 
         private bool _out;
@@ -21,6 +20,7 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _out, value);
         }
 
+        public MasterBeat MasterBeat { get; set; }
         public Slider Fade { get; set; }
         public Mask Mask { get; set; }
         public PostFX PostFX { get; set; }

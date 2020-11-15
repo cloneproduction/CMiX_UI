@@ -1,60 +1,60 @@
-﻿using CMiX.Studio.ViewModels.MessageService;
-using System;
-using CMiX.MVVM.ViewModels.Components.Factories;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace CMiX.MVVM.ViewModels
+namespace CMiX.MVVM.ViewModels.Components.Factories
 {
-    public static class ComponentFactory
+    public class ComponentFactory : IComponentFactory
     {
+        public ComponentFactory()
+        {
+
+        }
+
         private static int ID = 0;
 
-        public static Component CreateComponent(Component component = null)
+        public IComponent CreateComponent(IComponent parentComponent)
         {
-            ID++;
-            if (component == null)
-                return CreateProject();
-            else if (component is Project)
-                return CreateComposition(component);
-            else if (component is Composition)
-                return CreateLayer(component as Composition);
-            else if (component is Layer)
-                return CreateScene(component as Layer);
-            else if (component is Scene)
-                return CreateEntity(component as Scene);
+
+            if (parentComponent is Project)
+                return CreateComposition();
+            else if (parentComponent is Composition)
+                return CreateLayer(parentComponent as Composition);
+            else if (parentComponent is Layer)
+                return CreateScene(parentComponent as Layer);
+            else if (parentComponent is Scene)
+                return CreateEntity(parentComponent as Scene);
             else
                 return null;
         }
 
-        private static Project CreateProject()
+        private Composition CreateComposition()
         {
-            return new Project(ID, null);
-        }
-
-        private static Composition CreateComposition(Component parentComponent)
-        {
-            var component = new Composition(ID);
-            parentComponent.AddComponent(component);
+            var component = new Composition(ID, new MasterBeat());
+            ID++;
             return component;
         }
 
-        private static Layer CreateLayer(Composition parentComponent)
+        private Layer CreateLayer(Composition parentComponent)
         {
             var component = new Layer(ID, parentComponent.MasterBeat);
-            parentComponent.AddComponent(component);
+            ID++;
             return component;
         }
 
-        private static Scene CreateScene(Layer parentComponent)
+        private Scene CreateScene(Layer parentComponent)
         {
             var component = new Scene(ID, parentComponent.MasterBeat);
-            parentComponent.AddComponent(component);
+            ID++;
             return component;
         }
 
-        private static Entity CreateEntity(Scene parentComponent)
+        private Entity CreateEntity(Scene parentComponent)
         {
             var component = new Entity(ID, parentComponent.MasterBeat);
-            parentComponent.AddComponent(component);
+            ID++;
             return component;
         }
     }

@@ -17,24 +17,45 @@
             
             <Resources:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
             <Resources:EntityVisibilityConverter x:Key="EntityVisibilityConverter"/>
-            <Resources:BindingProxy x:Key="RootProxy" Data="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+            <Resources:DataTypeConverter x:Key="DataTypeConverter"/>
             
-            <ContextMenu x:Key="OutlinerContextMenu" 
-                         Style="{StaticResource ContextMenuDefault}" 
-                         Width="175">
+            <Resources:BindingProxy x:Key="RootProxy" Data="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+            <Resources:BindingProxy x:Key="OutlinerProxy" Data="{Binding Path=DataContext}"/>
+            
+            <ContextMenu x:Key="OutlinerContextMenu" Style="{StaticResource ContextMenuDefault}" Width="175">
 
                 <MenuItem
-                    IsEnabled="{Binding CanAdd}"
                     Command="{Binding Data.ComponentManager.CreateComponentCommand, Source={StaticResource RootProxy}}"
-                    CommandParameter="{Binding SelectedComponent}"
-                    Header="{Binding AddContentText}">
+                    CommandParameter="{Binding Data.ComponentManager.SelectedComponent, Source={StaticResource RootProxy}}">
+                    <MenuItem.Style>
+                        <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource ContextMenuSubItem}">
+                            <Setter Property="IsEnabled" Value="True"/>
+                            <Setter Property="Header" Value="Add"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Data.ComponentManager.SelectedComponent, Source={StaticResource RootProxy},  Converter={StaticResource DataTypeConverter}}" Value="{x:Type ViewModels:Project}">
+                                    <Setter Property="Header" Value="Add Composition"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Data.ComponentManager.SelectedComponent, Source={StaticResource RootProxy},  Converter={StaticResource DataTypeConverter}}" Value="{x:Type ViewModels:Composition}">
+                                    <Setter Property="Header" Value="Add Layer"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Data.ComponentManager.SelectedComponent, Source={StaticResource RootProxy},  Converter={StaticResource DataTypeConverter}}" Value="{x:Type ViewModels:Layer}">
+                                    <Setter Property="Header" Value="Add Scene"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Data.ComponentManager.SelectedComponent, Source={StaticResource RootProxy},  Converter={StaticResource DataTypeConverter}}" Value="{x:Type ViewModels:Scene}">
+                                    <Setter Property="Header" Value="Add Entity"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Data.ComponentManager.SelectedComponent, Source={StaticResource RootProxy},  Converter={StaticResource DataTypeConverter}}" Value="{x:Type ViewModels:Entity}">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </MenuItem.Style>
                     <MenuItem.Icon>
                         <Image Source="{StaticResource Add}"/>
                     </MenuItem.Icon>
                 </MenuItem>
 
                 <MenuItem
-                    IsEnabled="{Binding CanRename}"
                     Command="{Binding Data.ComponentManager.RenameComponentCommand, Source={StaticResource RootProxy}}"
                     CommandParameter="{Binding SelectedComponent}"
                     Header="Rename">
@@ -44,20 +65,38 @@
                 </MenuItem>
 
                 <MenuItem
-                    IsEnabled="{Binding CanDuplicate}"
                     Command="{Binding Data.ComponentManager.DuplicateComponentCommand, Source={StaticResource RootProxy}}"
                     CommandParameter="{Binding SelectedComponent}"
                     Header="Duplicate">
+                    <MenuItem.Style>
+                        <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource ContextMenuSubItem}">
+                            <Setter Property="IsEnabled" Value="True"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Data.ComponentManager.SelectedComponent, Source={StaticResource RootProxy},  Converter={StaticResource DataTypeConverter}}" Value="{x:Type ViewModels:Project}">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </MenuItem.Style>
                     <MenuItem.Icon>
                         <Image Source="{StaticResource Copy}"/>
                     </MenuItem.Icon>
                 </MenuItem>
 
                 <MenuItem
-                    IsEnabled="{Binding CanDelete}"
                     Command="{Binding Data.ComponentManager.DeleteComponentCommand, Source={StaticResource RootProxy}}"
                     CommandParameter="{Binding SelectedComponent}"
                     Header="Delete">
+                    <MenuItem.Style>
+                        <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource ContextMenuSubItem}">
+                            <Setter Property="IsEnabled" Value="True"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Data.ComponentManager.SelectedComponent, Source={StaticResource RootProxy}, Converter={StaticResource DataTypeConverter}}" Value="{x:Type ViewModels:Project}">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </MenuItem.Style>
                     <MenuItem.Icon>
                         <Image Source="{StaticResource DeleteLayer}"/>
                     </MenuItem.Icon>
@@ -208,8 +247,9 @@
                 </DataTemplate>
 
             </Controls:TreeViewSelect.Resources>
+            
             <i:Interaction.Behaviors>
-                <Behaviors:BindableSelectedItemBehavior SelectedItem="{Binding SelectedComponent, Mode=TwoWay}"/>
+                <Behaviors:BindableSelectedItemBehavior SelectedItem="{Binding Data.ComponentManager.SelectedComponent, Source={StaticResource RootProxy}, Mode=TwoWay}"/>
             </i:Interaction.Behaviors>
 
             <TreeView.ItemContainerStyle>
@@ -218,10 +258,7 @@
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded}"/>
                 </Style>
             </TreeView.ItemContainerStyle>
-
-            <TreeView.InputBindings>
-                <MouseBinding Gesture="RightClick" Command="{Binding RightClickCommand}" />
-            </TreeView.InputBindings>
+            
         </Controls:TreeViewSelect>
         
     </DockPanel>

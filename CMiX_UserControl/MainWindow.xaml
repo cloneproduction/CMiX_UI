@@ -159,7 +159,7 @@
                 <Border.OpacityMask>
                     <VisualBrush Visual="{Binding ElementName=borderMaskGridColumn1}"/>
                 </Border.OpacityMask>
-                <Views:ComponentEditor DataContext="{Binding Outliner}"/>
+                <Views:ComponentEditor DataContext="{Binding ComponentManager}"/>
             </Border>
 
             <GridSplitter Grid.Column="1" Background="Transparent" Width="4"/>

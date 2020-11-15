@@ -8,10 +8,9 @@ namespace CMiX.MVVM.ViewModels
         int ID { get; set; }
         string Name { get; set; }
         bool IsRenaming { get; set; }
-        IComponentFactory Factory { get; set; }
         ObservableCollection<Component> Components { get; set; }
-        MasterBeat MasterBeat { get; set; }
 
+        Component CreateAndAddChild();
         void AddComponent(Component component);
     }
 }

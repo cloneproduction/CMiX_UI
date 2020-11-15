@@ -25,12 +25,19 @@ namespace CMiX.MVVM.ViewModels
 
         public ObservableCollection<Component> Components { get; set; }
 
+        private Component _selectedComponent;
+        public Component SelectedComponent
+        {
+            get => _selectedComponent;
+            set => SetAndNotify(ref _selectedComponent, value);
+        }
 
-        public void RenameComponent(Component component) => component.IsRenaming = true;
+
+        public void RenameComponent(Component component) => SelectedComponent.IsRenaming = true;
 
         public void CreateComponent(Component component)
         {
-            ComponentFactory.CreateComponent(component);
+            component.CreateAndAddChild();
         }
 
 
@@ -39,12 +46,12 @@ namespace CMiX.MVVM.ViewModels
             Component result = null;
             var parent = GetSelectedParent(Components);
 
-            if (component is Composition)
-                result = DuplicateComposition(component as Composition);
-            else if (component is Layer)
-                result = DuplicateLayer(component as Layer);
-            else if (component is Entity)
-                result = DuplicateEntity(component as Entity);
+            //if (component is Composition)
+            //    result = DuplicateComposition(component as Composition);
+            //else if (component is Layer)
+            //    result = DuplicateLayer(component as Layer);
+            //else if (component is Entity)
+            //    result = DuplicateEntity(component as Entity);
 
             return result;
         }
@@ -101,38 +108,38 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        private Composition DuplicateComposition(Composition composition)
-        {
-            var parent = GetSelectedParent(Components);
-            var newCompo = ComponentFactory.CreateComponent(parent) as Composition;
+        //private Composition DuplicateComposition(Composition composition)
+        //{
+        //    var parent = GetSelectedParent(Components);
+        //    var newCompo = ComponentFactory.CreateComponent(parent) as Composition;
 
-            newCompo.SetViewModel(composition.GetModel());
-            newCompo.Name += " -Copy";
-            parent.Components.Insert(parent.Components.IndexOf(composition) + 1, newCompo);
+        //    newCompo.SetViewModel(composition.GetModel());
+        //    newCompo.Name += " -Copy";
+        //    parent.Components.Insert(parent.Components.IndexOf(composition) + 1, newCompo);
             
-            return newCompo;
-        }
+        //    return newCompo;
+        //}
 
 
-        private Component DuplicateLayer(Layer layer)
-        {
-            var parent = GetSelectedParent(Components);
-            Component newLayer = ComponentFactory.CreateComponent(parent);
-            newLayer.SetViewModel(layer.GetModel());
-            newLayer.Name += " -Copy";
-            parent.Components.Insert(parent.Components.IndexOf(layer) + 1, newLayer);
-            return newLayer;
-        }
+        //private Component DuplicateLayer(Layer layer)
+        //{
+        //    var parent = GetSelectedParent(Components);
+        //    Component newLayer = ComponentFactory.CreateComponent(parent);
+        //    newLayer.SetViewModel(layer.GetModel());
+        //    newLayer.Name += " -Copy";
+        //    parent.Components.Insert(parent.Components.IndexOf(layer) + 1, newLayer);
+        //    return newLayer;
+        //}
 
 
-        private Entity DuplicateEntity(Entity entity)
-        {
-            var parent = GetSelectedParent(Components);
-            var component = ComponentFactory.CreateComponent(parent) as Entity;
-            component.SetViewModel(entity.GetModel());
-            component.Name += " -Copy";
-            parent.Components.Insert(parent.Components.IndexOf(entity) + 1, component);
-            return component;
-        }
+        //private Entity DuplicateEntity(Entity entity)
+        //{
+        //    var parent = GetSelectedParent(Components);
+        //    var component = ComponentFactory.CreateComponent(parent) as Entity;
+        //    component.SetViewModel(entity.GetModel());
+        //    component.Name += " -Copy";
+        //    parent.Components.Insert(parent.Components.IndexOf(entity) + 1, component);
+        //    return component;
+        //}
     }
 }
