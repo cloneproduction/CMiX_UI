@@ -185,6 +185,7 @@
     <Compile Include="ViewModels\Mediator\IColleague.cs" />
     <Compile Include="ViewModels\Mediator\IMessageMediator.cs" />
     <Compile Include="ViewModels\Mediator\MessageMediator.cs" />
+    <Compile Include="ViewModels\MessageService\MessengerTerminal.cs" />
     <Compile Include="ViewModels\Network\ViewModelNetWork.cs" />
     <Compile Include="ViewModels\Outliner\OutlinerDragDropManager.cs" />
     <Compile Include="ViewModels\PostFX\PostFXModelFactory.cs" />

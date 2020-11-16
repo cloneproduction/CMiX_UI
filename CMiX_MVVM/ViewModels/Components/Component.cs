@@ -4,27 +4,28 @@ using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.Mediator;
-using CMiX.Studio.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService;
 using PubSub;
 
 namespace CMiX.MVVM.ViewModels
 {
     public abstract class Component : ViewModel, IComponent, IColleague, IDisposable
     {
-        public Component(int id, MessengerManager messengerManager)
+        public Component(int id, MessengerTerminal messengerTerminal)
         {
             ID = id;
             Name = $"{GetType().Name}{ID}";
             
             this.Address = $"{this.GetType().Name}/{ID}/";
+            MessageMediator = new MessageMediator();
+            MessageMediator.RegisterColleague(this);
 
             IsExpanded = false;
             Components = new ObservableCollection<Component>();
             Hub = Hub.Default;
             Factory = new ComponentFactory();
-            MessengerManager = messengerManager;
-            MessageMediator = new MessageMediator();
-            MessageMediator.RegisterColleague(Address, this);
+            MessengerTerminal = messengerTerminal;
+
 
             Hub.Subscribe<Message>(this, message =>
             {
@@ -46,7 +47,7 @@ namespace CMiX.MVVM.ViewModels
         public Hub Hub { get; set; }
         public string Address { get; set; }
         public MessageMediator MessageMediator { get; set; }
-        public MessengerManager MessengerManager { get; set; }
+        public MessengerTerminal MessengerTerminal { get; set; }
         private ComponentFactory Factory { get; set; }
 
 
@@ -158,7 +159,7 @@ namespace CMiX.MVVM.ViewModels
 
         public void Send(Message message)
         {
-            MessengerManager.SendMessage(Address, MessageSerializer.Serializer.Serialize(this.GetModel()));
+            MessengerTerminal.SendMessage(Address, MessageSerializer.Serializer.Serialize(this.GetModel()));
             MessageMediator.Notify(Address, this, message);
         }
 

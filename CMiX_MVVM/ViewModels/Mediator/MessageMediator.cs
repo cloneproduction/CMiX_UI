@@ -35,9 +35,9 @@ namespace CMiX.MVVM.ViewModels.Mediator
             }
         }
 
-        public void RegisterColleague(string address, IColleague colleague)
+        public void RegisterColleague(IColleague colleague)
         {
-            Colleagues.Add(address, colleague);
+            Colleagues.Add(colleague.Address, colleague);
         }
 
         public void UnregisterColleague(string address)

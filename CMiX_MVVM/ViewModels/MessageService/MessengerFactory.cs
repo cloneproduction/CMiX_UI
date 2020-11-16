@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using CMiX.Studio.ViewModels.MessageService;
 
-namespace CMiX.Studio.ViewModels.MessageService
+namespace CMiX.MVVM.ViewModels.MessageService
 {
     public class MessengerFactory
     {

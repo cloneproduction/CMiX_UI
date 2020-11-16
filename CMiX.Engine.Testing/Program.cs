@@ -1,5 +1,6 @@
 ﻿using System;
 using CMiX.MVVM.ViewModels;
+using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.Studio.ViewModels.MessageService;
 
 namespace CMiX.Engine.Testing
@@ -8,13 +9,10 @@ namespace CMiX.Engine.Testing
     {
         static void Main(string[] args)
         {
-            Project Project = new Project(0, new MessengerManager(), null);
-
             Settings settings = new Settings("Pouet", "Pouet", "192.168.1.3", 2222);
-            Receiver receiver = new Receiver();
-            receiver.SetSettings(settings);
-            receiver.StartClient();
-
+            MessengerTerminal messengerTerminal = new MessengerTerminal();
+            messengerTerminal.StartReceiver(settings);
+            Project Project = new Project(0, messengerTerminal);
             Console.ReadLine();
         }
     }

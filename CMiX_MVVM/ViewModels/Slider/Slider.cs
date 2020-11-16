@@ -25,7 +25,7 @@ namespace CMiX.MVVM.ViewModels
         public Slider(string name, IColleague parentSender, MessageMediator messageMediator) : this(name, parentSender)
         {
             this.MessageMediator = messageMediator;
-            this.MessageMediator.RegisterColleague(this.Address, this);
+            this.MessageMediator.RegisterColleague(this);
         }
 
 

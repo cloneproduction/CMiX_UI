@@ -1,6 +1,6 @@
 ﻿using Ceras;
 using CMiX.MVVM.Models;
-using CMiX.Studio.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService;
 using Memento;
 using MvvmDialogs;
 using MvvmDialogs.FrameworkDialogs.OpenFile;
@@ -18,9 +18,8 @@ namespace CMiX.MVVM.ViewModels
         {
             Mementor = new Mementor();
 
-            DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             MessengerManager = new MessengerManager();
-            CurrentProject = new Project(0, MessengerManager, DialogService); 
+            CurrentProject = new Project(0, new MessengerTerminal()); 
 
             Projects = new ObservableCollection<Component>();
             Projects.Add(CurrentProject);
@@ -77,6 +76,12 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _animatedDouble, value);
         }
 
+        private MessengerTerminal _messengerTerminal;
+        public MessengerTerminal MessengerTerminal
+        {
+            get => _messengerTerminal;
+            set => SetAndNotify(ref _messengerTerminal, value);
+        }
 
         private MessengerManager _messengerManager;
         public MessengerManager MessengerManager
@@ -172,7 +177,7 @@ namespace CMiX.MVVM.ViewModels
         #region MENU METHODS
         private void NewProject()
         {
-            Project project = new Project(0, this.MessengerManager, this.DialogService);// ComponentFactory.CreateComponent() as Project;
+            Project project = new Project(0, this.MessengerTerminal);
             Projects.Clear();
             Projects.Add(project);
             CurrentProject = project;

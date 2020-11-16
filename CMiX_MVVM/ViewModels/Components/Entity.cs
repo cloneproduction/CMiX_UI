@@ -1,12 +1,11 @@
 ﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.ViewModels.Components.Factories;
-using CMiX.Studio.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class Entity : Component, IBeat
     {
-        public Entity(int id, MessengerManager messengerManager, MasterBeat beat) : base(id, messengerManager)
+        public Entity(int id, MessengerTerminal messengerTerminal, MasterBeat beat) : base(id, messengerTerminal)
         {
             BeatModifier = new BeatModifier(beat);
             Geometry = new Geometry(beat);

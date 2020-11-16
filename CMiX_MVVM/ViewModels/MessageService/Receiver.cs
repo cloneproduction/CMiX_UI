@@ -1,5 +1,6 @@
 ﻿using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
+using CMiX.MVVM.ViewModels.MessageService;
 using PubSub;
 using System;
 
@@ -19,8 +20,13 @@ namespace CMiX.Studio.ViewModels.MessageService
         { 
             string address = e.Address;
             byte[] data = e.Data;
-
+           
             Hub.Publish(new Message(MessageDirection.IN, address, data));
+        }
+
+        public void ProcessMessage(string address, byte[] data)
+        {
+
         }
 
         public string Address
@@ -79,12 +85,19 @@ namespace CMiX.Studio.ViewModels.MessageService
             Client.Port = settings.Port;
         }
 
-        public void StartClient()
+        public void Start(Settings settings)
         {
+            if (Client.IsRunning)
+                return;
+
+            Name = settings.Name;
+            Client.Topic = settings.Topic;
+            Client.IP = settings.IP;
+            Client.Port = settings.Port;
             Client.Start();
         }
 
-        public void StopClient()
+        public void Stop()
         {
             Client.Stop();
         }

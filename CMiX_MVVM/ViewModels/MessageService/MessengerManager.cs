@@ -1,10 +1,10 @@
 ﻿using System.Windows.Input;
 using MvvmDialogs;
 using CMiX.MVVM.Views;
-using CMiX.MVVM.ViewModels;
 using System.Collections.ObjectModel;
+using CMiX.Studio.ViewModels.MessageService;
 
-namespace CMiX.Studio.ViewModels.MessageService
+namespace CMiX.MVVM.ViewModels.MessageService
 {
     public class MessengerManager : ViewModel
     {
@@ -44,7 +44,7 @@ namespace CMiX.Studio.ViewModels.MessageService
             set => SetAndNotify(ref _messengers, value);
         }
 
-        public void SendMessage(string address, byte[] message)
+        public void ProcessMessage(string address, byte[] message)
         {
             foreach (var messenger in Messengers)
             {

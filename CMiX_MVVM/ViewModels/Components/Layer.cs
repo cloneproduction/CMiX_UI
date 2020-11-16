@@ -1,11 +1,12 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.Studio.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class Layer : Component, IBeat
     {
-        public Layer(int id, MessengerManager messengerManager, MasterBeat beat) : base(id, messengerManager)
+        public Layer(int id, MessengerTerminal messengerTerminal, MasterBeat beat) : base(id, messengerTerminal)
         {
             MasterBeat = beat;
             PostFX = new PostFX();

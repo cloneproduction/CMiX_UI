@@ -1,14 +1,14 @@
 ﻿using System.Collections.ObjectModel;
-using CMiX.Studio.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService;
 using MvvmDialogs;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class Project : Component
     {
-        public Project(int id, MessengerManager messengerManager, IDialogService dialogService) : base(id, messengerManager)
+        public Project(int id, MessengerTerminal messengerTerminal) : base(id, messengerTerminal)
         {
-            DialogService = dialogService;    
+            DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator()); ;    
             Assets = new ObservableCollection<IAssets>();
         }
 
