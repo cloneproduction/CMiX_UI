@@ -18,8 +18,7 @@ namespace CMiX.MVVM.ViewModels
 
         public Slider(string name, IColleague parentSender) : this(name)
         {
-            this.Address = $"{parentSender.Address}{Name}/"; //parentSender.Address + this.Name;
-
+            this.Address = $"{parentSender.Address}{Name}/";
         }
 
         public Slider(string name, IColleague parentSender, MessageMediator messageMediator) : this(name, parentSender)
