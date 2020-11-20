@@ -18,7 +18,7 @@ namespace CMiX.MVVM.ViewModels
         {
             Mementor = new Mementor();
 
-            MessengerManager = new MessengerManager();
+            MessengerManager = new MessageService.Sender();
             CurrentProject = new Project(0, new MessengerTerminal()); 
 
             Projects = new ObservableCollection<Component>();
@@ -83,8 +83,8 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _messengerTerminal, value);
         }
 
-        private MessengerManager _messengerManager;
-        public MessengerManager MessengerManager
+        private MessageService.Sender _messengerManager;
+        public MessageService.Sender MessengerManager
         {
             get => _messengerManager;
             set => SetAndNotify(ref _messengerManager, value);

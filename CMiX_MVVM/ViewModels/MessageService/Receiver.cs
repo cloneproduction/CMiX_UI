@@ -16,11 +16,18 @@ namespace CMiX.Studio.ViewModels.MessageService
         }
         public Hub Hub { get; set; }
 
+        public event EventHandler<MessageEventArgs> MessageReceived;
+        private void OnMessageReceived(object sender, MessageEventArgs e)
+        {
+            MessageReceived.Invoke(sender, e);
+        }
+
         private void Client_MessageReceived(object sender, MessageEventArgs e)
         { 
             string address = e.Address;
             byte[] data = e.Data;
-           
+
+            OnMessageReceived(sender, e);
             Hub.Publish(new Message(MessageDirection.IN, address, data));
         }
 

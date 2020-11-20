@@ -159,7 +159,7 @@ namespace CMiX.MVVM.ViewModels
 
         public void Send(Message message)
         {
-            MessengerTerminal.SendMessage(Address, MessageSerializer.Serializer.Serialize(this.GetModel()));
+            MessengerTerminal.SendComponentUpdate(Address, this.GetModel());
             MessageMediator.Notify(Address, this, message);
         }
 

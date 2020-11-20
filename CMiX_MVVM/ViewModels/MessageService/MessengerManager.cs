@@ -6,9 +6,9 @@ using CMiX.Studio.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public class MessengerManager : ViewModel
+    public class Sender : ViewModel
     {
-        public MessengerManager()
+        public Sender()
         {
             MessengerFactory = new MessengerFactory();
             Messengers = new ObservableCollection<Messenger>();
@@ -72,6 +72,14 @@ namespace CMiX.MVVM.ViewModels.MessageService
         {
             if (obj != null)
                 obj.IsRenaming = true;
+        }
+
+        public void SendMessage(string address, byte[] data)
+        {
+            foreach (var messenger in Messengers)
+            {
+                messenger.Server.Send(address, data);
+            }
         }
     }
 }

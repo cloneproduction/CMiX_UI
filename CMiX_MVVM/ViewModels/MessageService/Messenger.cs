@@ -9,7 +9,7 @@ namespace CMiX.Studio.ViewModels.MessageService
     {
         public Messenger(int id)
         {
-            Hub = Hub.Default;
+            //Hub = Hub.Default;
             Server = new Server();
 
             Name = $"Messenger ({id})";
@@ -18,13 +18,13 @@ namespace CMiX.Studio.ViewModels.MessageService
             StopServerCommand = new RelayCommand(p => StopServer());
             RestartServerCommand = new RelayCommand(p => RestartServer());
 
-            Hub.Subscribe<Message>(this, message =>
-            {
-                this.Server.Send(message.Address, message.Data);
-            });
+            //Hub.Subscribe<Message>(this, message =>
+            //{
+            //    this.Server.Send(message.Address, message.Data);
+            //});
         }
 
-        public Hub Hub { get; set; }
+        //public Hub Hub { get; set; }
 
 
         public void StartServer()
