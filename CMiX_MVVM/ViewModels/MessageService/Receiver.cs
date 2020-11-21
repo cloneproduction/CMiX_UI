@@ -19,7 +19,7 @@ namespace CMiX.Studio.ViewModels.MessageService
         public event EventHandler<MessageEventArgs> MessageReceived;
         private void OnMessageReceived(object sender, MessageEventArgs e)
         {
-            MessageReceived.Invoke(sender, e);
+            MessageReceived?.Invoke(sender, e);
         }
 
         private void Client_MessageReceived(object sender, MessageEventArgs e)

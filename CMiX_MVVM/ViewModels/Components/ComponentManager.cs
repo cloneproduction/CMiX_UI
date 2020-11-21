@@ -37,7 +37,7 @@ namespace CMiX.MVVM.ViewModels
 
         public void CreateComponent(Component component)
         {
-            component.CreateAndAddChild();
+            component.CreateAndAddComponent();
         }
 
 

@@ -1,6 +1,4 @@
-﻿using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels;
-using PubSub;
+﻿using CMiX.MVVM.ViewModels;
 using System.Windows.Input;
 
 namespace CMiX.Studio.ViewModels.MessageService
@@ -9,7 +7,6 @@ namespace CMiX.Studio.ViewModels.MessageService
     {
         public Messenger(int id)
         {
-            //Hub = Hub.Default;
             Server = new Server();
 
             Name = $"Messenger ({id})";
@@ -17,15 +14,30 @@ namespace CMiX.Studio.ViewModels.MessageService
             StartServerCommand = new RelayCommand(p => StartServer());
             StopServerCommand = new RelayCommand(p => StopServer());
             RestartServerCommand = new RelayCommand(p => RestartServer());
-
-            //Hub.Subscribe<Message>(this, message =>
-            //{
-            //    this.Server.Send(message.Address, message.Data);
-            //});
         }
 
-        //public Hub Hub { get; set; }
+        public ICommand StartServerCommand { get; }
+        public ICommand StopServerCommand { get; }
+        public ICommand RestartServerCommand { get; }
 
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set => SetAndNotify(ref _name, value);
+        }
+
+        private Server _server;
+        public Server Server
+        {
+            get => _server;
+            set => SetAndNotify(ref _server, value);
+        }
+
+        public Settings GetSettings()
+        {
+            return new Settings(Name, Server.Topic, Server.IP, Server.Port);
+        }
 
         public void StartServer()
         {
@@ -42,15 +54,6 @@ namespace CMiX.Studio.ViewModels.MessageService
             Server.Restart();
         }
 
-        public ICommand StartServerCommand { get; }
-        public ICommand StopServerCommand { get; }
-        public ICommand RestartServerCommand { get; }
-
-        public Settings GetSettings()
-        {
-            return new Settings(Name, Server.Topic, Server.IP, Server.Port);
-        }
-
         public void SetSettings(Settings settings)
         {
             if (Server.IsRunning)
@@ -62,21 +65,6 @@ namespace CMiX.Studio.ViewModels.MessageService
             Server.Port = settings.Port;
 
             Server.Start();
-        }
-
-
-        private string _name;
-        public string Name
-        {
-            get => _name;
-            set => SetAndNotify(ref _name, value);
-        }
-
-        private Server _server;
-        public Server Server
-        {
-            get => _server;
-            set => SetAndNotify(ref _server, value);
         }
     }
 }

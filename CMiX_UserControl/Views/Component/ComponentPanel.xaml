@@ -32,7 +32,6 @@
             LayerPanelTemplate="{StaticResource LayerPanelTemplate}" 
             ScenePanelTemplate="{StaticResource ScenePanelTemplate}"
             CompositionPanelTemplate="{StaticResource CompositionPanelTemplate}"/>
-        
     </UserControl.Resources>
 
     <ContentPresenter 

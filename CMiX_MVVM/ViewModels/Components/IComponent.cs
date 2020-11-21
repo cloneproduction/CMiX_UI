@@ -10,7 +10,7 @@ namespace CMiX.MVVM.ViewModels
         bool IsRenaming { get; set; }
         ObservableCollection<Component> Components { get; set; }
         MessengerTerminal MessengerTerminal { get; set; }
-        Component CreateAndAddChild();
+        Component CreateAndAddComponent();
         void AddComponent(Component component);
     }
 }

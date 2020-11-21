@@ -4,7 +4,7 @@ using CMiX.Studio.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Layer : Component, IBeat
+    public class Layer : Component, IBeat, IComponent
     {
         public Layer(int id, MessengerTerminal messengerTerminal, MasterBeat beat) : base(id, messengerTerminal)
         {

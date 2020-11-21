@@ -6,9 +6,9 @@ using CMiX.Studio.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public class Sender : ViewModel
+    public class MessageSender : ViewModel
     {
-        public Sender()
+        public MessageSender()
         {
             MessengerFactory = new MessengerFactory();
             Messengers = new ObservableCollection<Messenger>();

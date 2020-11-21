@@ -2,6 +2,7 @@
 using PubSub;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CMiX.MVVM.ViewModels.Mediator
 {
@@ -10,10 +11,8 @@ namespace CMiX.MVVM.ViewModels.Mediator
         public MessageMediator()
         {
             Colleagues = new Dictionary<string, IColleague>();
-            Hub = Hub.Default;
         }
 
-        private Hub Hub { get; set; }
         private Dictionary<string, IColleague>  Colleagues { get; set; }
 
         public void Notify(string address, IColleague colleague, Message message)
@@ -31,10 +30,22 @@ namespace CMiX.MVVM.ViewModels.Mediator
             }
             else if(message.Direction == MessageDirection.OUT)
             {
-                Hub.Publish<Message>(message);
+                ComponentOwner.MessengerTerminal.SendMessage(address, message);
+
             }
         }
 
+        private IComponent ComponentOwner { get; set; }
+
+        public void SetComponentOwner(IComponent component)
+        {
+            ComponentOwner = component;
+        }
+
+        public IComponent GetComponentOwner()
+        {
+            return ComponentOwner;
+        }
         public void RegisterColleague(IColleague colleague)
         {
             Colleagues.Add(colleague.Address, colleague);

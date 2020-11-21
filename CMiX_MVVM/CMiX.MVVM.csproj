@@ -186,7 +186,6 @@
     <Compile Include="ViewModels\Mediator\IMessageMediator.cs" />
     <Compile Include="ViewModels\Mediator\MessageMediator.cs" />
     <Compile Include="ViewModels\MessageService\MessengerTerminal.cs" />
-    <Compile Include="ViewModels\Network\ViewModelNetWork.cs" />
     <Compile Include="ViewModels\Outliner\OutlinerDragDropManager.cs" />
     <Compile Include="ViewModels\PostFX\PostFXModelFactory.cs" />
     <Compile Include="ViewModels\PubSub\IHandler.cs" />
@@ -293,7 +292,7 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MessageService\Messenger.cs" />
     <Compile Include="ViewModels\MessageService\MessengerFactory.cs" />
-    <Compile Include="ViewModels\MessageService\MessengerManager.cs" />
+    <Compile Include="ViewModels\MessageService\MessageSender.cs" />
     <Compile Include="ViewModels\MessageService\Receiver.cs" />
     <Compile Include="ViewModels\MessageService\Server.cs" />
     <Compile Include="ViewModels\MessageService\Settings.cs" />

@@ -7,14 +7,20 @@ using CMiX.MVVM.Interfaces;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public class MessengerTerminal
+    public class MessengerTerminal : ViewModel
     {
         public MessengerTerminal()
         {
-            Sender = new Sender();
+            MessageSender = new MessageSender();
+            Serializer = new CerasSerializer();
             Receiver = new Receiver();
             Receiver.MessageReceived += Receiver_MessageReceived;
-            Serializer = new CerasSerializer();
+        }
+
+        public event EventHandler<MessageEventArgs> MessageReceived;
+        private void OnMessageReceived(object sender, MessageEventArgs e)
+        {
+            MessageReceived?.Invoke(sender, e);
         }
 
         private void Receiver_MessageReceived(object sender, MessageEventArgs e)
@@ -23,29 +29,27 @@ namespace CMiX.MVVM.ViewModels.MessageService
         }
 
         private CerasSerializer Serializer { get; set; }
-        private Sender Sender { get; set; }
-        private Receiver Receiver { get; set; }
+        public MessageSender MessageSender { get; set; }
+        public Receiver Receiver { get; set; }
 
         public void StartReceiver(Settings settings)
         {
             Receiver.Start(settings);
         }
 
+        public void SendMessage(string address, Message message)
+        {
+            MessageSender.SendMessage(address, message.Data);
+        }
+
         public void SendModel(string address, Model model)
         {
-            Sender.SendMessage(address, Serializer.Serialize(model));
+            MessageSender.SendMessage(address, Serializer.Serialize(model));
         }
 
         public void SendComponentUpdate(string address, IComponentModel model)
         {
-            Sender.SendMessage(address, Serializer.Serialize(model));
-        }
-
-
-        public event EventHandler<MessageEventArgs> MessageReceived;
-        private void OnMessageReceived(object sender, MessageEventArgs e)
-        {
-            MessageReceived.Invoke(sender, e);
+            MessageSender.SendMessage(address, Serializer.Serialize(model));
         }
     }
 }

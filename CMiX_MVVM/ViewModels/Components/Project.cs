@@ -8,7 +8,7 @@ namespace CMiX.MVVM.ViewModels
     {
         public Project(int id, MessengerTerminal messengerTerminal) : base(id, messengerTerminal)
         {
-            DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator()); ;    
+            DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Assets = new ObservableCollection<IAssets>();
         }
 

@@ -16,7 +16,7 @@ namespace CMiX.MVVM.Services
 
         private void OnNetMQMessageReceived(object sender, MessageEventArgs e)
         {
-            MessageReceived.Invoke(sender, e);
+            MessageReceived?.Invoke(sender, e);
         }
 
         public bool Enabled { get; set; }

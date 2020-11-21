@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService;
-using PubSub;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -15,36 +13,17 @@ namespace CMiX.MVVM.ViewModels
         {
             ID = id;
             Name = $"{GetType().Name}{ID}";
-            
-            this.Address = $"{this.GetType().Name}/{ID}/";
-            MessageMediator = new MessageMediator();
-            MessageMediator.RegisterColleague(this);
-
             IsExpanded = false;
+            this.Address = $"{this.GetType().Name}/{ID}/";
+
+            MessageMediator = new MessageMediator();
+            MessageMediator.SetComponentOwner(this);
+
             Components = new ObservableCollection<Component>();
-            Hub = Hub.Default;
             Factory = new ComponentFactory();
             MessengerTerminal = messengerTerminal;
-
-
-            Hub.Subscribe<Message>(this, message =>
-            {
-                if(message.Direction == MessageDirection.IN)
-                {
-                    if (message.Address == Address)
-                    {
-                        var model = MessageSerializer.Serializer.Deserialize<IComponentModel>(message.Data);
-                        this.SetViewModel(model);
-                    }
-                    else if (message.Address.Contains(Address))
-                    {
-                        MessageMediator.Notify(message.Address, this, message);
-                    }
-                }
-            });
         }
 
-        public Hub Hub { get; set; }
         public string Address { get; set; }
         public MessageMediator MessageMediator { get; set; }
         public MessengerTerminal MessengerTerminal { get; set; }
@@ -160,15 +139,19 @@ namespace CMiX.MVVM.ViewModels
         public void Send(Message message)
         {
             MessengerTerminal.SendComponentUpdate(Address, this.GetModel());
-            MessageMediator.Notify(Address, this, message);
+           //MessageMediator.Notify(Address, this, message);
         }
 
         public void Receive(Message message)
         {
-            //throw new NotImplementedException();
+            //if (message.Address == Address)
+            //{
+            //    var model = MessageSerializer.Serializer.Deserialize<IComponentModel>(message.Data);
+            //    this.SetViewModel(model);
+            //}
         }
 
-        public Component CreateAndAddChild()
+        public Component CreateAndAddComponent()
         {
             Component component = Factory.CreateComponent(this) as Component;
             this.AddComponent(component);
@@ -177,7 +160,6 @@ namespace CMiX.MVVM.ViewModels
 
         public void Dispose()
         {
-            Hub.Unsubscribe();
             foreach (var component in Components)
             {
                 component.Dispose();

@@ -56,10 +56,10 @@
                     DataContext="{Binding Transition}"/>
             </DockPanel>
             <DockPanel Grid.Column="1">
-                <CMiX:Camera 
+                <!--<CMiX:Camera 
                     DockPanel.Dock="Top"
                     Margin="4" 
-                    DataContext="{Binding Camera}"/>
+                    DataContext="{Binding Camera}"/>-->
             </DockPanel>
         </Grid>
     </DockPanel>

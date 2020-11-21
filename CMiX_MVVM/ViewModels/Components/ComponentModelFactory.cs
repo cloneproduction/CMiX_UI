@@ -85,7 +85,7 @@ namespace CMiX.MVVM.ViewModels
             instance.Components.Clear();
             foreach (CompositionModel compositionModel in projectModel.ComponentModels)
             {
-                instance.CreateAndAddChild().SetViewModel(compositionModel);
+                instance.CreateAndAddComponent().SetViewModel(compositionModel);
                 //composition.SetViewModel(compositionModel);
             }
 
@@ -249,7 +249,7 @@ namespace CMiX.MVVM.ViewModels
             component.Components.Clear();
             foreach (var model in componentModel.ComponentModels)
             {
-                component.CreateAndAddChild().SetViewModel(model);
+                component.CreateAndAddComponent().SetViewModel(model);
                 //cmp.SetViewModel(model);
             }
         }
