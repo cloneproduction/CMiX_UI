@@ -123,29 +123,35 @@ namespace CMiX.MVVM.ViewModels
 
         public void RemoveComponent(Component component)
         {
+            int index = Components.IndexOf(component);
             component.Dispose();
             Components.Remove(component);
-            var model = component.GetModel();
-            Message message = new Message(MessageCommand.REMOVE_COMPONENT, Address, model);
+            
+            //IndexParameter indexParameter = new IndexParameter(index);
+            Message message = new Message(MessageCommand.REMOVE_COMPONENT, Address, index);
             this.Send(message);
         }
 
         public void InsertComponent(int index, Component component)
         {
             Components.Insert(index, component);
-            //Send(new Message(MessageDirection.OUT, Address, MessageSerializer.Serializer.Serialize(this.GetModel())));
+            var model = component.GetModel();
+            Message message = new Message(MessageCommand.INSERT_COMPONENT, Address, model, index);
+            this.Send(message);
         }
 
         public void MoveComponent(int oldIndex, int newIndex)
         {
             Components.Move(oldIndex, newIndex);
-            //Send(new Message(MessageDirection.OUT, Address, MessageSerializer.Serializer.Serialize(this.GetModel())));
+            Message message = new Message(MessageCommand.MOVE_COMPONENT, Address, oldIndex, newIndex);
+            this.Send(message);
         }
 
 
         public void Send(Message message)
         {
             MessageMediator.Notify(MessageDirection.OUT, message);
+            Console.WriteLine("MessageMediator.Notify " + this.Name);
         }
 
         public void Receive(Message message)
@@ -155,27 +161,46 @@ namespace CMiX.MVVM.ViewModels
             {
                 case MessageCommand.ADD_COMPONENT:
                     {
-
                         var model = message.Obj as IComponentModel;
                         var component = CreateAndAddComponent();
                         component.SetViewModel(model);
-                        Console.WriteLine("Name is " + component.Name);
+                        Console.WriteLine("Added " + component.Name);
                         break;
                     }
-                //case MessageCommand.REMOVE_COMPONENT:
-                //    {
-                //        // your code 
-                //        // for MULTIPLY operator
-                //        break;
-                //    }
+                case MessageCommand.INSERT_COMPONENT:
+                    {
+                        var model = message.Obj as IComponentModel;
+                        int index = (int)message.CommandParameter;
+                        var component = Factory.CreateComponent(this) as Component;
+                        component.SetViewModel(model);
+                        this.Components.Insert(index, component);
+                        Console.WriteLine("Insert " + component.Name);
+                        break;
+                    }
+                case MessageCommand.REMOVE_COMPONENT:
+                    {
+                        int index = (int)message.Obj;
+                        this.Components.RemoveAt(index);
+                        Console.WriteLine("Remove at index " + index);
+                        break;
+                    }
+                case MessageCommand.MOVE_COMPONENT:
+                    {
+                        int oldIndex = (int)message.Obj;
+                        int newIndex = (int)message.CommandParameter;
+                        this.Components.Move(oldIndex, newIndex);
+                        Console.WriteLine("Move oldIndex " + oldIndex + " newIndex " + newIndex);
+                        break;
+                    }
+                case MessageCommand.UPDATE_VIEWMODEL:
+                    {
+                        var model = message.Obj as IComponentModel;
+                        this.SetViewModel(model);
+                        Console.WriteLine("Update ViewModel");
+                        break;
+                    }
                 default: break;
             }
-
-            //if (message.Address == Address)
-            //{
-            //    var model = MessageSerializer.Serializer.Deserialize<IComponentModel>(message.Data);
-            //    this.SetViewModel(model);
-            //}
         }
 
         public Component CreateAndAddComponent()
@@ -187,13 +212,11 @@ namespace CMiX.MVVM.ViewModels
 
         public void Dispose()
         {
-            //MessengerTerminal.MessageReceived -= MessengerTerminal_MessageReceived;
+            MessageMediator.Dispose();
             foreach (var component in Components)
             {
                 component.Dispose();
             }
         }
-
-
     }
 }

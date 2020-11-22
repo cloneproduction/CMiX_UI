@@ -35,7 +35,7 @@ namespace CMiX.Nodes
 
 		public CMiX_VVVVTemplateNode()
         {
-			Settings settings = new Settings("Pouet", "Pouet", "192.168.0.192", 2222);
+			Settings settings = new Settings("Pouet", "Pouet", "192.168.1.3", 2222);
 			MessengerTerminal messengerTerminal = new MessengerTerminal();
 			messengerTerminal.StartReceiver(settings);
 			Project = new Project(0, messengerTerminal);

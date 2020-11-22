@@ -126,8 +126,10 @@
     <Compile Include="Models\Geometry\Modifier\ModifierModel.cs" />
     <Compile Include="Models\RangeModel.cs" />
     <Compile Include="Services\HighResolutionTimer.cs" />
+    <Compile Include="Services\Message\IndexParameter.cs" />
     <Compile Include="Services\Message\Message.cs" />
     <Compile Include="Services\Message\MessageSerializer.cs" />
+    <Compile Include="Services\Message\MessageOptions.cs" />
     <Compile Include="Services\NetMQ\Client\ClientShimHandler.cs" />
     <Compile Include="Services\NetMQ\Client\NetMQMessageEventArgs.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\AnimMode.cs" />

@@ -62,7 +62,6 @@ namespace CMiX.MVVM.ViewModels
         {
             var selectedParent = GetSelectedParent(Components);
             selectedParent.RemoveComponent(component);
-            selectedParent.MessageMediator.Notify(MessageDirection.OUT, new Message(MessageCommand.REMOVE_COMPONENT, selectedParent.Address, selectedParent.GetModel() as Model));
         }
 
         public event EventHandler<ComponentEventArgs> ComponentDeletedEvent;

@@ -15,11 +15,18 @@ namespace CMiX.MVVM.Services
             this.Command = messageCommand;
             this.Address = address;
             this.Obj = obj;
+            
+        }
+
+        public Message(MessageCommand messageCommand, string address, object obj, object commandParameter) : this(messageCommand, address, obj)
+        {
+            this.CommandParameter = commandParameter;
         }
 
         public MessageCommand Command { get; set; }
         public string Address { get; set; }
-        public Object Obj { get; set; }
+        public object Obj { get; set; }
+        public object CommandParameter { get; set; }
     }
 
     public enum MessageDirection
@@ -32,6 +39,7 @@ namespace CMiX.MVVM.Services
     {
         ADD_COMPONENT,
         REMOVE_COMPONENT,
+        INSERT_COMPONENT,
         MOVE_COMPONENT,
         UPDATE_VIEWMODEL
     }

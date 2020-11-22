@@ -1,10 +1,11 @@
 ﻿using CMiX.MVVM.Services;
 using System.Collections.Generic;
 using CMiX.MVVM.ViewModels.MessageService;
+using System;
 
 namespace CMiX.MVVM.ViewModels.Mediator
 {
-    public class MessageMediator : IMessageMediator
+    public class MessageMediator : IMessageMediator, IDisposable
     {
         public MessageMediator(MessengerTerminal messageTerminal)
         {
@@ -46,6 +47,11 @@ namespace CMiX.MVVM.ViewModels.Mediator
         public void UnregisterColleague(string address)
         {
             Colleagues.Remove(address);
+        }
+
+        public void Dispose()
+        {
+            MessengerTerminal.MessageReceived -= MessengerTerminal_MessageReceived;
         }
     }
 }
