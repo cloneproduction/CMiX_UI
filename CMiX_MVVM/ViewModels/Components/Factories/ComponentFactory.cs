@@ -4,13 +4,13 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 {
     public class ComponentFactory : IComponentFactory
     {
-        public ComponentFactory()
+        public ComponentFactory(MessengerTerminal messengerTerminal)
         {
-
+            this.MessengerTerminal = messengerTerminal;
         }
 
         private static int ID = 0;
-
+        private  MessengerTerminal MessengerTerminal { get; set; }
         public IComponent CreateComponent(IComponent parentComponent)
         {
             if (parentComponent is Project)
@@ -27,28 +27,28 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 
         private Composition CreateComposition(Project parentComponent)
         {
-            var component = new Composition(ID, parentComponent.MessengerTerminal, new MasterBeat());
+            var component = new Composition(ID, MessengerTerminal, new MasterBeat());
             ID++;
             return component;
         }
 
         private Layer CreateLayer(Composition parentComponent)
         {
-            var component = new Layer(ID, parentComponent.MessengerTerminal, parentComponent.MasterBeat);
+            var component = new Layer(ID, MessengerTerminal, parentComponent.MasterBeat);
             ID++;
             return component;
         }
 
         private Scene CreateScene(Layer parentComponent)
         {
-            var component = new Scene(ID, parentComponent.MessengerTerminal, parentComponent.MasterBeat);
+            var component = new Scene(ID, MessengerTerminal, parentComponent.MasterBeat);
             ID++;
             return component;
         }
 
         private Entity CreateEntity(Scene parentComponent)
         {
-            var component = new Entity(ID, parentComponent.MessengerTerminal, parentComponent.MasterBeat);
+            var component = new Entity(ID, MessengerTerminal, parentComponent.MasterBeat);
             ID++;
             return component;
         }

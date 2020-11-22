@@ -1,9 +1,7 @@
-﻿using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
+﻿using CMiX.MVVM.Services;
 using CMiX.Studio.ViewModels.MessageService;
 using System;
 using Ceras;
-using CMiX.MVVM.Interfaces;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
@@ -12,7 +10,10 @@ namespace CMiX.MVVM.ViewModels.MessageService
         public MessengerTerminal()
         {
             MessageSender = new MessageSender();
-            Serializer = new CerasSerializer();
+
+            var config = new SerializerConfig() { DefaultTargets = TargetMember.AllPublic };
+            Serializer = new CerasSerializer(config);
+
             Receiver = new Receiver();
             Receiver.MessageReceived += Receiver_MessageReceived;
         }
@@ -30,7 +31,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
 
         private CerasSerializer Serializer { get; set; }
         public MessageSender MessageSender { get; set; }
-        public Receiver Receiver { get; set; }
+        private Receiver Receiver { get; set; }
 
         public void StartReceiver(Settings settings)
         {
@@ -39,17 +40,8 @@ namespace CMiX.MVVM.ViewModels.MessageService
 
         public void SendMessage(string address, Message message)
         {
-            MessageSender.SendMessage(address, message.Data);
-        }
-
-        public void SendModel(string address, Model model)
-        {
-            MessageSender.SendMessage(address, Serializer.Serialize(model));
-        }
-
-        public void SendComponentUpdate(string address, IComponentModel model)
-        {
-            MessageSender.SendMessage(address, Serializer.Serialize(model));
+            byte[] data = Serializer.Serialize(message);
+            MessageSender.SendMessage(address, data);
         }
     }
 }

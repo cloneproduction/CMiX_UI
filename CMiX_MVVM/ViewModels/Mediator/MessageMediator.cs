@@ -1,51 +1,43 @@
 ﻿using CMiX.MVVM.Services;
-using PubSub;
-using System;
 using System.Collections.Generic;
-using System.Linq;
+using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels.Mediator
 {
     public class MessageMediator : IMessageMediator
     {
-        public MessageMediator()
+        public MessageMediator(MessengerTerminal messageTerminal)
         {
+            MessengerTerminal = messageTerminal;
+            MessengerTerminal.MessageReceived += MessengerTerminal_MessageReceived;
             Colleagues = new Dictionary<string, IColleague>();
         }
 
+        private void MessengerTerminal_MessageReceived(object sender, MessageEventArgs e)
+        {
+            var message = e.Message;
+            this.Notify(MessageDirection.IN, message);
+        }
+
+        private MessengerTerminal MessengerTerminal { get; set; }
         private Dictionary<string, IColleague>  Colleagues { get; set; }
 
-        public void Notify(string address, IColleague colleague, Message message)
+        public void Notify(MessageDirection messageDirection, Message message)
         {
-            if(message.Direction == MessageDirection.IN)
+            if(messageDirection == MessageDirection.IN)
             {
                 IColleague col;
-                if (Colleagues.TryGetValue(address, out col))
+                if (Colleagues.TryGetValue(message.Address, out col))
                 {
-                    if (col != colleague)
-                    {
-                        col.Receive(message);
-                    }
+                    col.Receive(message);
                 }
             }
-            else if(message.Direction == MessageDirection.OUT)
+            else if(messageDirection == MessageDirection.OUT)
             {
-                ComponentOwner.MessengerTerminal.SendMessage(address, message);
-
+                MessengerTerminal.SendMessage(message.Address, message);
             }
         }
 
-        private IComponent ComponentOwner { get; set; }
-
-        public void SetComponentOwner(IComponent component)
-        {
-            ComponentOwner = component;
-        }
-
-        public IComponent GetComponentOwner()
-        {
-            return ComponentOwner;
-        }
         public void RegisterColleague(IColleague colleague)
         {
             Colleagues.Add(colleague.Address, colleague);

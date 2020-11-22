@@ -34,14 +34,12 @@ namespace CMiX.MVVM.ViewModels
 
         public void Send(Message message)
         {
-            if(MessageMediator != null)
-                MessageMediator.Notify(this.Address, this, message);
+            MessageMediator?.Notify(MessageDirection.OUT, message);
         }
 
         public void Receive(Message message)
         {
-            var model = MessageSerializer.Serializer.Deserialize<SliderModel>(message.Data);
-            this.SetViewModel(model);
+            this.SetViewModel(message.Obj as SliderModel);
             System.Console.WriteLine("POUETPOUET " + this.Address + "Slider received " + message.Address +"  "  + this.Amount);
         }
 
@@ -65,7 +63,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _amount, value);
-                Send(new Message(MessageDirection.OUT, this.Address, MessageSerializer.Serializer.Serialize(this.GetModel())));
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
         }
 

@@ -1,5 +1,4 @@
-﻿using CMiX.MVVM.ViewModels.MessageService;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -9,7 +8,6 @@ namespace CMiX.MVVM.ViewModels
         string Name { get; set; }
         bool IsRenaming { get; set; }
         ObservableCollection<Component> Components { get; set; }
-        MessengerTerminal MessengerTerminal { get; set; }
         Component CreateAndAddComponent();
         void AddComponent(Component component);
     }

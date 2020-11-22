@@ -4,7 +4,7 @@ using System;
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class SliderModel : IModel
+    public class SliderModel : Model, IModel
     {
         public SliderModel()
         {
@@ -13,6 +13,5 @@ namespace CMiX.MVVM.Models
         }
 
         public double Amount { get; set; }
-        public bool Enabled { get; set; }
     }
 }

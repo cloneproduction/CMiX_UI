@@ -4,7 +4,7 @@ namespace CMiX.MVVM.ViewModels.Mediator
 {
     public interface IMessageMediator
     {
-        void Notify(string address, IColleague colleague, Message message);
+        void Notify(MessageDirection messageDirection, Message message);
         void RegisterColleague(IColleague colleague);
     }
 }

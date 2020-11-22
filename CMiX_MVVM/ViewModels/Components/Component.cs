@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using Ceras;
+using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.Mediator;
@@ -7,7 +10,7 @@ using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Component : ViewModel, IComponent, IColleague, IDisposable
+    public abstract class Component : ViewModel, IColleague, IComponent, IDisposable
     {
         public Component(int id, MessengerTerminal messengerTerminal)
         {
@@ -16,17 +19,16 @@ namespace CMiX.MVVM.ViewModels
             IsExpanded = false;
             this.Address = $"{this.GetType().Name}/{ID}/";
 
-            MessageMediator = new MessageMediator();
-            MessageMediator.SetComponentOwner(this);
+            MessageMediator = new MessageMediator(messengerTerminal);
+            MessageMediator.RegisterColleague(this);
 
             Components = new ObservableCollection<Component>();
-            Factory = new ComponentFactory();
-            MessengerTerminal = messengerTerminal;
+            Factory = new ComponentFactory(messengerTerminal);
+
         }
 
         public string Address { get; set; }
         public MessageMediator MessageMediator { get; set; }
-        public MessengerTerminal MessengerTerminal { get; set; }
         private ComponentFactory Factory { get; set; }
 
 
@@ -114,36 +116,61 @@ namespace CMiX.MVVM.ViewModels
         {
             Components.Add(component);
             IsExpanded = true;
-            Send(new Message(MessageDirection.OUT, Address, MessageSerializer.Serializer.Serialize(this.GetModel())));
+            var model = component.GetModel();
+            Message message = new Message(MessageCommand.ADD_COMPONENT, Address, model);
+            this.Send(message);
         }
 
         public void RemoveComponent(Component component)
         {
             component.Dispose();
             Components.Remove(component);
-            Send(new Message(MessageDirection.OUT, Address, MessageSerializer.Serializer.Serialize(this.GetModel())));
+            var model = component.GetModel();
+            Message message = new Message(MessageCommand.REMOVE_COMPONENT, Address, model);
+            this.Send(message);
         }
 
         public void InsertComponent(int index, Component component)
         {
             Components.Insert(index, component);
-            Send(new Message(MessageDirection.OUT, Address, MessageSerializer.Serializer.Serialize(this.GetModel())));
+            //Send(new Message(MessageDirection.OUT, Address, MessageSerializer.Serializer.Serialize(this.GetModel())));
         }
 
         public void MoveComponent(int oldIndex, int newIndex)
         {
             Components.Move(oldIndex, newIndex);
-            Send(new Message(MessageDirection.OUT, Address, MessageSerializer.Serializer.Serialize(this.GetModel())));
+            //Send(new Message(MessageDirection.OUT, Address, MessageSerializer.Serializer.Serialize(this.GetModel())));
         }
+
 
         public void Send(Message message)
         {
-            MessengerTerminal.SendComponentUpdate(Address, this.GetModel());
-           //MessageMediator.Notify(Address, this, message);
+            MessageMediator.Notify(MessageDirection.OUT, message);
         }
 
         public void Receive(Message message)
         {
+            Console.WriteLine("ComponentReceiveMessage");
+            switch (message.Command)
+            {
+                case MessageCommand.ADD_COMPONENT:
+                    {
+
+                        var model = message.Obj as IComponentModel;
+                        var component = CreateAndAddComponent();
+                        component.SetViewModel(model);
+                        Console.WriteLine("Name is " + component.Name);
+                        break;
+                    }
+                //case MessageCommand.REMOVE_COMPONENT:
+                //    {
+                //        // your code 
+                //        // for MULTIPLY operator
+                //        break;
+                //    }
+                default: break;
+            }
+
             //if (message.Address == Address)
             //{
             //    var model = MessageSerializer.Serializer.Deserialize<IComponentModel>(message.Data);
@@ -160,10 +187,13 @@ namespace CMiX.MVVM.ViewModels
 
         public void Dispose()
         {
+            //MessengerTerminal.MessageReceived -= MessengerTerminal_MessageReceived;
             foreach (var component in Components)
             {
                 component.Dispose();
             }
         }
+
+
     }
 }

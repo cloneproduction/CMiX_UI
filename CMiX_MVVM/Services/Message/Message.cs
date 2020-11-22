@@ -1,39 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMiX.MVVM.Services
 {
+    [Serializable]
     public class Message
     {
-        public Message(MessageDirection messageDirection, string address, byte[] data)
+        public Message()
         {
-            this._direction = messageDirection;
-            Address = address;
-            Data = data;
+
         }
 
-        private MessageDirection _direction;
-        public MessageDirection Direction
+        public Message(MessageCommand messageCommand, string address, object obj)
         {
-            get { return _direction; }
+            this.Command = messageCommand;
+            this.Address = address;
+            this.Obj = obj;
         }
 
-        private string _address;
-        public string Address
-        {
-            get { return _address; }
-            set { _address = value; }
-        }
-
-        private byte[] _data;
-        public byte[] Data
-        {
-            get { return _data; }
-            set { _data = value; }
-        }
+        public MessageCommand Command { get; set; }
+        public string Address { get; set; }
+        public Object Obj { get; set; }
     }
 
     public enum MessageDirection
@@ -44,9 +30,9 @@ namespace CMiX.MVVM.Services
 
     public enum MessageCommand
     {
-        ADD,
-        REMOVE,
-        MOVE,
-        UPDATE
+        ADD_COMPONENT,
+        REMOVE_COMPONENT,
+        MOVE_COMPONENT,
+        UPDATE_VIEWMODEL
     }
 }

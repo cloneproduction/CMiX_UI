@@ -1,7 +1,5 @@
 ﻿using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
-using CMiX.MVVM.ViewModels.MessageService;
-using PubSub;
 using System;
 
 namespace CMiX.Studio.ViewModels.MessageService
@@ -10,11 +8,9 @@ namespace CMiX.Studio.ViewModels.MessageService
     {
         public Receiver()
         {
-            Hub = Hub.Default;
             Client = new Client();
             Client.MessageReceived += Client_MessageReceived;
         }
-        public Hub Hub { get; set; }
 
         public event EventHandler<MessageEventArgs> MessageReceived;
         private void OnMessageReceived(object sender, MessageEventArgs e)
@@ -24,16 +20,7 @@ namespace CMiX.Studio.ViewModels.MessageService
 
         private void Client_MessageReceived(object sender, MessageEventArgs e)
         { 
-            string address = e.Address;
-            byte[] data = e.Data;
-
             OnMessageReceived(sender, e);
-            Hub.Publish(new Message(MessageDirection.IN, address, data));
-        }
-
-        public void ProcessMessage(string address, byte[] data)
-        {
-
         }
 
         public string Address
