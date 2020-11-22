@@ -4,6 +4,7 @@ using VVVV.PluginInterfaces.V2;
 using VVVV.Core.Logging;
 using CMiX.MVVM.ViewModels;
 using CMiX.Studio.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.Nodes
 {
@@ -34,11 +35,10 @@ namespace CMiX.Nodes
 
 		public CMiX_VVVVTemplateNode()
         {
-			Project = ComponentFactory.CreateComponent() as Project;
-            Settings settings = new Settings("Pouet", "Pouet", "192.168.0.192", 2222);
-			Receiver receiver = new Receiver();
-			receiver.SetSettings(settings);
-			
+			Settings settings = new Settings("Pouet", "Pouet", "192.168.0.192", 2222);
+			MessengerTerminal messengerTerminal = new MessengerTerminal();
+			messengerTerminal.StartReceiver(settings);
+			Project = new Project(0, messengerTerminal);
 		}
 
 		public void OnImportsSatisfied()
@@ -60,11 +60,11 @@ namespace CMiX.Nodes
 			FDataType.SliceCount = 1;
 			FProjectOut.SliceCount = 1;
 			
-			if (FStartServer[0])
-				this.Receiver.StartClient();
+			//if (FStartServer[0])
+			//	this.Receiver.StartClient();
 
-			if(FStopServer[0])
-				Receiver.StopClient();
+			//if(FStopServer[0])
+			//	Receiver.StopClient();
 
 			if (Receiver != null)
 				FReceiverIsRunning[0] = Receiver.Client.IsRunning;
