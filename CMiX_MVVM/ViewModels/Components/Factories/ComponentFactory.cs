@@ -1,4 +1,5 @@
-﻿using CMiX.MVVM.ViewModels.MessageService;
+﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels.Components.Factories
 {
@@ -11,6 +12,11 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 
         private static int ID = 0;
         private  MessengerTerminal MessengerTerminal { get; set; }
+
+        //public void SetID(int id)
+        //{
+        //    ID = id;
+        //}
         public IComponent CreateComponent(IComponent parentComponent)
         {
             if (parentComponent is Project)
@@ -24,6 +30,7 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
             else
                 return null;
         }
+
 
         private Composition CreateComposition(Project parentComponent)
         {

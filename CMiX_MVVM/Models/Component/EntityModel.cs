@@ -24,7 +24,7 @@ namespace CMiX.MVVM.Models
         public TextureModel TextureModel { get; set; }
         public ColorationModel ColorationModel { get; set; }
 
-        public string MessageAddress { get; set; }
+        public string Address { get; set; }
         public bool IsVisible { get; set; }
 
         public ObservableCollection<IComponentModel> ComponentModels { get; set; }

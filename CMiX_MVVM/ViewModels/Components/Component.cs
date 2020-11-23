@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using Ceras;
 using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.Mediator;
@@ -126,8 +124,6 @@ namespace CMiX.MVVM.ViewModels
             int index = Components.IndexOf(component);
             component.Dispose();
             Components.Remove(component);
-            
-            //IndexParameter indexParameter = new IndexParameter(index);
             Message message = new Message(MessageCommand.REMOVE_COMPONENT, Address, index);
             this.Send(message);
         }
@@ -164,24 +160,27 @@ namespace CMiX.MVVM.ViewModels
                         var model = message.Obj as IComponentModel;
                         var component = CreateAndAddComponent();
                         component.SetViewModel(model);
-                        Console.WriteLine("Added " + component.Name);
+                        Console.WriteLine("Added " + component.Name + " ID " + component.ID);
                         break;
                     }
                 case MessageCommand.INSERT_COMPONENT:
                     {
                         var model = message.Obj as IComponentModel;
                         int index = (int)message.CommandParameter;
+                        
                         var component = Factory.CreateComponent(this) as Component;
                         component.SetViewModel(model);
                         this.Components.Insert(index, component);
-                        Console.WriteLine("Insert " + component.Name);
+                        Console.WriteLine("Insert " + component.Name + " ID " + component.ID);
                         break;
                     }
                 case MessageCommand.REMOVE_COMPONENT:
                     {
                         int index = (int)message.Obj;
-                        this.Components.RemoveAt(index);
-                        Console.WriteLine("Remove at index " + index);
+                        var component = this.Components[index];
+                        component.Dispose();
+                        this.Components.Remove(component);
+                        Console.WriteLine("Remove at index " + index + " ID " + component.ID);
                         break;
                     }
                 case MessageCommand.MOVE_COMPONENT:

@@ -5,6 +5,7 @@ using VVVV.Core.Logging;
 using CMiX.MVVM.ViewModels;
 using CMiX.Studio.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.Models;
 
 namespace CMiX.Nodes
 {
@@ -35,7 +36,7 @@ namespace CMiX.Nodes
 
 		public CMiX_VVVVTemplateNode()
         {
-			Settings settings = new Settings("Pouet", "Pouet", "192.168.0.192", 2222);
+			Settings settings = new Settings("Pouet", "Pouet", "192.168.1.3", 2222);
 			MessengerTerminal messengerTerminal = new MessengerTerminal();
 			messengerTerminal.StartReceiver(settings);
             messengerTerminal.MessageReceived += MessengerTerminal_MessageReceived;
@@ -44,7 +45,12 @@ namespace CMiX.Nodes
 
         private void MessengerTerminal_MessageReceived(object sender, MVVM.Services.MessageEventArgs e)
         {
-			//FLogger.Log(LogType.Debug, "Received " + e.Message.Obj.GetType().Name);
+			if(e.Message.Obj is SliderModel)
+			{
+				var pouet = e.Message.Obj as SliderModel;
+				FLogger.Log(LogType.Debug, "Received SliderModel" + pouet.Amount);
+			}
+			
 		}
 
         public void OnImportsSatisfied()

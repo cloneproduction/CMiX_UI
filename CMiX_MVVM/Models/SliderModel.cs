@@ -13,5 +13,6 @@ namespace CMiX.MVVM.Models
         }
 
         public double Amount { get; set; }
+        public string Address { get; set; }
     }
 }

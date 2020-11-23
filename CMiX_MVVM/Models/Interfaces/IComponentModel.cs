@@ -7,7 +7,7 @@ namespace CMiX.MVVM.Interfaces
         int ID { get; set; }
         string Name { get; set; }
         bool IsVisible { get; set; }
-
+        string Address { get; set; }
         ObservableCollection<IComponentModel> ComponentModels { get; set; }
     }
 }

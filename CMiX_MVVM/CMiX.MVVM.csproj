@@ -167,6 +167,7 @@
     <Compile Include="ViewModels\ColorPicker\ColorPickerModelFactory.cs" />
     <Compile Include="ViewModels\Combobox\ComboBox.cs" />
     <Compile Include="ViewModels\Components\Factories\ComponentFactory.cs" />
+    <Compile Include="ViewModels\Components\Factories\ComponentIDManager.cs" />
     <Compile Include="ViewModels\Components\Factories\IComponentFactory.cs" />
     <Compile Include="ViewModels\Components\IComponent.cs" />
     <Compile Include="ViewModels\Counter\CounterEventArgs.cs" />

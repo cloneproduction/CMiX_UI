@@ -26,26 +26,28 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public static void SetViewModel(this Component instance, object obj)
+        public static void SetViewModel(this Component instance, IComponentModel model)
         {
-            if (obj is IComponentModel)
-            {
-                var model = obj as IComponentModel;
-                if (instance is Project)
-                    ((Project)instance).SetViewModel(model);
+            instance.Name = model.Name;
+            instance.ID = model.ID;
+            instance.IsVisible = model.IsVisible;
+            instance.Enabled = model.Enabled;
+            instance.Address = model.Address;
 
-                else if (instance is Composition)
-                    ((Composition)instance).SetViewModel(model);
+            if (instance is Project)
+                ((Project)instance).SetViewModel(model);
 
-                else if (instance is Layer)
-                    ((Layer)instance).SetViewModel(model);
+            else if (instance is Composition)
+                ((Composition)instance).SetViewModel(model);
 
-                else if (instance is Scene)
-                    ((Scene)instance).SetViewModel(model);
+            else if (instance is Layer)
+                ((Layer)instance).SetViewModel(model);
 
-                else if (instance is Entity)
-                    ((Entity)instance).SetViewModel(model);
-            }
+            else if (instance is Scene)
+                ((Scene)instance).SetViewModel(model);
+
+            else if (instance is Entity)
+                ((Entity)instance).SetViewModel(model);
         }
 
 
@@ -57,6 +59,7 @@ namespace CMiX.MVVM.ViewModels
             model.ID = instance.ID;
             model.Name = instance.Name;
             model.IsVisible = instance.IsVisible;
+            model.Address = instance.Address;
 
             GetComponents(instance, model);
 
@@ -69,10 +72,6 @@ namespace CMiX.MVVM.ViewModels
         private static void SetViewModel(this Project instance, IComponentModel componentModel)
         {
             var projectModel = componentModel as ProjectModel;
-
-            instance.ID = projectModel.ID;
-            instance.Name = projectModel.Name;
-            instance.IsVisible = projectModel.IsVisible;
 
             instance.Components.Clear();
             foreach (CompositionModel compositionModel in projectModel.ComponentModels)
@@ -102,6 +101,7 @@ namespace CMiX.MVVM.ViewModels
         {
             CompositionModel model = new CompositionModel();
 
+            model.Address = instance.Address;
             model.Name = instance.Name;
             model.IsVisible = instance.IsVisible;
             model.ID = instance.ID;
@@ -119,11 +119,6 @@ namespace CMiX.MVVM.ViewModels
         {
             var compositionModel = model as CompositionModel;
 
-            instance.Enabled = compositionModel.Enabled;
-            instance.Name = compositionModel.Name;
-            instance.ID = compositionModel.ID;
-            instance.IsVisible = compositionModel.IsVisible;
-
             instance.MasterBeat.SetViewModel(compositionModel.MasterBeatModel);
             instance.Camera.SetViewModel(compositionModel.CameraModel);
             instance.Transition.SetViewModel(compositionModel.TransitionModel);
@@ -136,6 +131,7 @@ namespace CMiX.MVVM.ViewModels
         {
             LayerModel model = new LayerModel();
 
+            model.Address = instance.Address;
             model.Enabled = instance.Enabled;
             model.Name = instance.Name;
             model.ID = instance.ID;
@@ -143,7 +139,7 @@ namespace CMiX.MVVM.ViewModels
 
             model.Fade = instance.Fade.GetModel();
             model.BlendMode = instance.BlendMode.GetModel();
-            model.PostFXModel = instance.PostFX.GetModel();
+            //model.PostFXModel = instance.PostFX.GetModel();
 
             GetComponents(instance, model);
 
@@ -156,14 +152,10 @@ namespace CMiX.MVVM.ViewModels
         {
             var layerModel = componentModel as LayerModel;
 
-            instance.Enabled = layerModel.Enabled;
-            instance.Name = layerModel.Name;
-            instance.ID = layerModel.ID;
             instance.Out = layerModel.Out;
-            
             instance.Fade.SetViewModel(layerModel.Fade);
             instance.BlendMode.SetViewModel(layerModel.BlendMode);
-            instance.PostFX.SetViewModel(layerModel.PostFXModel);
+            //instance.PostFX.SetViewModel(layerModel.PostFXModel);
 
             SetComponents(instance, layerModel); 
         }
@@ -173,6 +165,7 @@ namespace CMiX.MVVM.ViewModels
         {
             SceneModel model = new SceneModel();
 
+            model.Address = instance.Address;
             model.Enabled = instance.Enabled;
             model.ID = instance.ID;
             model.Name = instance.Name;
@@ -192,10 +185,6 @@ namespace CMiX.MVVM.ViewModels
         {
             var sceneModel = componentModel as SceneModel;
 
-            instance.Enabled = sceneModel.Enabled;
-            instance.ID = sceneModel.ID;
-            instance.Name = sceneModel.Name;
-
             //instance.BeatModifier.SetViewModel(sceneModel.BeatModifierModel);
             //instance.PostFX.SetViewModel(sceneModel.PostFXModel);
             //instance.Mask.SetViewModel(sceneModel.MaskModel);
@@ -207,27 +196,24 @@ namespace CMiX.MVVM.ViewModels
 
         private static EntityModel GetModel(this Entity instance)
         {
-            EntityModel entityModel = new EntityModel();
+            EntityModel model = new EntityModel();
 
-            entityModel.Enabled = instance.Enabled;
-            entityModel.Name = instance.Name;
-            entityModel.ID = instance.ID;
+            model.Address = instance.Address;
+            model.Enabled = instance.Enabled;
+            model.Name = instance.Name;
+            model.ID = instance.ID;
 
-            entityModel.BeatModifierModel = instance.BeatModifier.GetModel();
-            entityModel.TextureModel = instance.Texture.GetModel();
-            entityModel.GeometryModel = instance.Geometry.GetModel();
-            entityModel.ColorationModel = instance.Coloration.GetModel();
+            model.BeatModifierModel = instance.BeatModifier.GetModel();
+            model.TextureModel = instance.Texture.GetModel();
+            model.GeometryModel = instance.Geometry.GetModel();
+            model.ColorationModel = instance.Coloration.GetModel();
 
-            return entityModel;
+            return model;
         }
 
         private static void SetViewModel(this Entity instance, IComponentModel componentModel)
         {
             var entityModel = componentModel as EntityModel;
-
-            instance.Enabled = entityModel.Enabled;
-            instance.Name = entityModel.Name;
-            instance.ID = entityModel.ID;
 
             instance.BeatModifier.SetViewModel(entityModel.BeatModifierModel);
             instance.Texture.SetViewModel(entityModel.TextureModel);
@@ -240,7 +226,8 @@ namespace CMiX.MVVM.ViewModels
             component.Components.Clear();
             foreach (var model in componentModel.ComponentModels)
             {
-                component.CreateAndAddComponent().SetViewModel(model);
+                var newComponent = component.CreateAndAddComponent();
+                newComponent.SetViewModel(model);
                 //cmp.SetViewModel(model);
             }
         }

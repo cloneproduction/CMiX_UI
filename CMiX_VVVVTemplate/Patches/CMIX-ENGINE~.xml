@@ -508,12 +508,12 @@
    </LINK>
    <LINK srcnodeid="154" srcpinname="Enum" dstnodeid="153" dstpinname="Input Enum">
    </LINK>
-   <NODE id="205" systemname="Renderer (TTY)" nodename="Renderer (TTY)" componentmode="Hidden" stayontop="1">
+   <NODE id="205" systemname="Renderer (TTY)" nodename="Renderer (TTY)" componentmode="InAWindow" stayontop="1">
    <BOUNDS type="Node" left="8790" top="2055" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="8790" top="2055" width="8640" height="1215">
    </BOUNDS>
-   <BOUNDS type="Window" left="10020" top="14010" width="6240" height="5070">
+   <BOUNDS type="Window" left="27260" top="2830" width="6240" height="5070">
    </BOUNDS>
    <PIN pinname="Log Messages" visible="1">
    </PIN>

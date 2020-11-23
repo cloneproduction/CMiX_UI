@@ -31,7 +31,7 @@ namespace CMiX.MVVM.Models
 
         public int ID { get; set; }
         public string Name { get; set; }
-        public string MessageAddress { get; set; }
+        public string Address { get; set; }
         public ObservableCollection<IComponentModel> ComponentModels { get; set; }
     }
 }

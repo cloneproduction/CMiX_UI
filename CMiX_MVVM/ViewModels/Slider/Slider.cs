@@ -19,6 +19,7 @@ namespace CMiX.MVVM.ViewModels
         public Slider(string name, IColleague parentSender) : this(name)
         {
             this.Address = $"{parentSender.Address}{Name}/";
+            System.Console.WriteLine("Slider Constructor Call");
         }
 
         public Slider(string name, IColleague parentSender, MessageMediator messageMediator) : this(name, parentSender)
@@ -27,8 +28,19 @@ namespace CMiX.MVVM.ViewModels
             this.MessageMediator.RegisterColleague(this);
         }
 
+        private string _address;
 
-        public string Address { get; set; }
+        public string Address
+        {
+            get { return _address; }
+            set 
+            {
+                _address = value;
+                System.Console.WriteLine("Slider " + this.Name + " AddressSetto " + value);
+            }
+        }
+
+        //public string Address { get; set; }
 
         public MessageMediator MessageMediator { get; set; }
 

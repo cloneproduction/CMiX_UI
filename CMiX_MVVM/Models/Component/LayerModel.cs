@@ -19,7 +19,7 @@ namespace CMiX.MVVM.Models
         public string Name { get; set; }
         public int ID { get; set; }
         public bool Out { get; set; }
-        public string MessageAddress { get; set; }
+        public string Address { get; set; }
         public bool IsVisible { get; set; }
         public double SliderTest { get; set; }
         public BlendModeModel BlendMode { get; set; }
