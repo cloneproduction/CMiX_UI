@@ -35,24 +35,24 @@ namespace CMiX.Nodes
 
 		public CMiX_VVVVTemplateNode()
         {
-			Settings settings = new Settings("Pouet", "Pouet", "192.168.1.3", 2222);
+			Settings settings = new Settings("Pouet", "Pouet", "192.168.0.192", 2222);
 			MessengerTerminal messengerTerminal = new MessengerTerminal();
 			messengerTerminal.StartReceiver(settings);
+            messengerTerminal.MessageReceived += MessengerTerminal_MessageReceived;
 			Project = new Project(0, messengerTerminal);
 		}
 
-		public void OnImportsSatisfied()
+        private void MessengerTerminal_MessageReceived(object sender, MVVM.Services.MessageEventArgs e)
+        {
+			//FLogger.Log(LogType.Debug, "Received " + e.Message.Obj.GetType().Name);
+		}
+
+        public void OnImportsSatisfied()
 		{
 			FProjectOut[0] = this.Project;
 		}
 
-		private void Receiver_DataReceivedEvent(object sender, MVVM.Services.ModelEventArgs e)
-        {
-			FProjectOut[0] = this.Project;
-			FDataType[0] = e.Model.GetType().Name;
-            FLogger.Log(LogType.Debug, "Receiver_DataReceivedEvent");
-            FLogger.Log(LogType.Debug, e.Model.GetType().ToString());
-        }
+
 
         public void Evaluate(int SpreadMax)
 		{

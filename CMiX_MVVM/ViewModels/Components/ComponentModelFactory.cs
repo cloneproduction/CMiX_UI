@@ -26,14 +26,6 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public static IComponentModel CastObject(this Component instance, object obj)
-        {
-            if (obj is IComponentModel)
-                return obj as IComponentModel;
-            else
-                return null;
-        }
-
         public static void SetViewModel(this Component instance, object obj)
         {
             if (obj is IComponentModel)
@@ -103,7 +95,6 @@ namespace CMiX.MVVM.ViewModels
                 asset.SetViewModel(assetModel);
                 instance.Assets.Add(asset);
             }
-            //instance.BuildAssetFlattenCollection(instance.Assets);
         }
 
 

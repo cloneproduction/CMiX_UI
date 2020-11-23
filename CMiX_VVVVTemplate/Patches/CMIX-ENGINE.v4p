@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
    <PATCH nodename="C:\Users\BabyClone\Documents\GitHub\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="4290" scrolly="-90">
-   <BOUNDS type="Window" left="16890" top="2025" width="20580" height="16080">
+   <BOUNDS type="Window" left="20480" top="1450" width="20580" height="16080">
    </BOUNDS>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="2" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="6275" top="4160" width="585" height="510">
@@ -41,14 +41,6 @@
    </PIN>
    <PIN pinname="X Input Value" slicecount="1" values="0">
    </PIN>
-   </NODE>
-   <NODE systemname="Renderer (TTY)" nodename="Renderer (TTY)" componentmode="Hidden" id="5">
-   <BOUNDS type="Node" left="7915" top="1660" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="7915" top="1660" width="2400" height="1800">
-   </BOUNDS>
-   <BOUNDS type="Window" left="18885" top="6390" width="6240" height="5085">
-   </BOUNDS>
    </NODE>
    <PACK Name="dx11" Version="1.3.1">
    </PACK>
@@ -517,19 +509,19 @@
    <LINK srcnodeid="154" srcpinname="Enum" dstnodeid="153" dstpinname="Input Enum">
    </LINK>
    <NODE id="205" systemname="Renderer (TTY)" nodename="Renderer (TTY)" componentmode="InAWindow" stayontop="1">
-   <BOUNDS type="Node" left="9100" top="6715" width="100" height="100">
+   <BOUNDS type="Node" left="8790" top="2055" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="9100" top="6715" width="8640" height="1215">
+   <BOUNDS type="Box" left="8790" top="2055" width="8640" height="1215">
    </BOUNDS>
-   <BOUNDS type="Window" left="10020" top="14010" width="6240" height="5070">
+   <BOUNDS type="Window" left="27260" top="2830" width="6240" height="5070">
    </BOUNDS>
    <PIN pinname="Log Messages" visible="1">
    </PIN>
    </NODE>
    <NODE id="198" nodename="IOBox (Value Advanced)" componentmode="InABox" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="9250" top="5575" width="585" height="555">
+   <BOUNDS type="Box" left="8940" top="915" width="585" height="555">
    </BOUNDS>
-   <BOUNDS type="Node" left="9250" top="5575" width="0" height="0">
+   <BOUNDS type="Node" left="8940" top="915" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
@@ -547,9 +539,9 @@
    <LINK srcnodeid="198" srcpinname="Y Output Value" dstnodeid="205" dstpinname="Clear">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="241">
-   <BOUNDS type="Box" left="10060" top="5590" width="555" height="570">
+   <BOUNDS type="Box" left="9750" top="930" width="555" height="570">
    </BOUNDS>
-   <BOUNDS type="Node" left="10060" top="5590" width="0" height="0">
+   <BOUNDS type="Node" left="9750" top="930" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
@@ -742,6 +734,8 @@
    <PIN pinname="Fade" visible="1">
    </PIN>
    <PIN pinname="BlendMode" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="189" srcpinname="Layer" dstnodeid="188" dstpinname="Layer">
@@ -1275,5 +1269,37 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="189" srcpinname="Fade" dstnodeid="462" dstpinname="Y Input Value">
+   </LINK>
+   <NODE systemname="GetSlider (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetSlider (CMiX_VVVV)" componentmode="Hidden" id="463">
+   <BOUNDS type="Node" left="8070" top="7160" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="8070" top="7160" width="2000" height="2000">
+   </BOUNDS>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="Amount" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="189" srcpinname="Layer" dstnodeid="463" dstpinname="Layer">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="464">
+   <BOUNDS type="Box" left="8510" top="7820" width="795" height="720">
+   </BOUNDS>
+   <BOUNDS type="Node" left="8510" top="7820" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="3">
+   </PIN>
+   <PIN pinname="Y Input Value" slicecount="3" values="0,,">
+   </PIN>
+   <PIN pinname="Vector Size" slicecount="1" values="3">
+   </PIN>
+   <PIN pinname="Default" slicecount="1" values="|0, 0, 0|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="463" srcpinname="Amount" dstnodeid="464" dstpinname="Y Input Value">
    </LINK>
    </PATCH>

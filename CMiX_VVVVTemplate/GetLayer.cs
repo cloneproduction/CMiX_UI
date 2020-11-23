@@ -44,6 +44,8 @@ namespace CMiX.Nodes
                         {
                             FFade[i][j] = FLayerOut[i][j].Fade.Amount;
                             FBlendMode[i][j] = FLayerOut[i][j].BlendMode.Mode;
+
+                            FLogger.Log(LogType.Debug, "Slider " + ((Layer)(FComponentIn[i].Components[j])).Name + " Amount = " + ((Layer)(FComponentIn[i].Components[j])).Fade.Amount);
                         }
                     }
                     else
