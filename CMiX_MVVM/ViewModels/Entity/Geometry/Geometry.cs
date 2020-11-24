@@ -1,37 +1,39 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
-using System.Collections.Generic;
+using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Geometry : Sender, ITransform
+    public class Geometry : Sender, IColleague, ITransform
     {
-        public Geometry(MasterBeat beat) 
+        public Geometry(string name, IColleague parentSender, MasterBeat beat) 
         {
-            Instancer = new Instancer(beat, this);
-            Transform = new Transform(this);
+            this.Address = $"{parentSender.Address}{name}/";
+            this.MessageMediator = parentSender.MessageMediator;
+            this.MessageMediator.RegisterColleague(this);
+
+            Instancer = new Instancer(nameof(Instancer), this, beat);
+            Transform = new Transform(nameof(Transform), this);
             GeometryFX = new GeometryFX();
             AssetPathSelector = new AssetPathSelector(new AssetGeometry(), this);
         }
-
-        public Geometry(MasterBeat beat, Sender parent) : this(beat)
-        {
-            SubscribeToEvent(parent);
-        }
-
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        {
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-                this.SetViewModel(e.Model as GeometryModel);
-            else
-                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
-        }
-
 
         public AssetPathSelector AssetPathSelector { get; set; }
         public Transform Transform { get; set; }
         public Instancer Instancer { get; set; }
         public GeometryFX GeometryFX { get; set; }
+        public MessageMediator MessageMediator { get; set; }
+
+        public void Send(Message message)
+        {
+            MessageMediator?.Notify(MessageDirection.OUT, message);
+        }
+
+        public void Receive(Message message)
+        {
+            this.SetViewModel(message.Obj as GeometryModel);
+            System.Console.WriteLine("POUETPOUET " + this.Address + "Geometry received " + message.Address);
+        }
     }
 }

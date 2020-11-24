@@ -1,41 +1,46 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Instancer : Sender, ITransform
+    public class Instancer : ViewModel, IColleague, ITransform
     {
-        public Instancer(MasterBeat beat)
+        public Instancer(string name, IColleague parentSender, MasterBeat beat)
         {
-            Transform = new Transform(this);
-            Counter = new Counter(this);
+            this.Address = $"{parentSender.Address}{name}/";
+            this.MessageMediator = parentSender.MessageMediator;
+            this.MessageMediator.RegisterColleague(this);
 
-            TranslateModifier = new XYZModifier(nameof(Translate), beat, Counter, this);
-            ScaleModifier = new ScaleModifier(nameof(Scale), beat, Counter, this);
-            RotationModifier = new XYZModifier(nameof(Rotation), beat, Counter, this);
+            Transform = new Transform(nameof(Transform), this);
+            Counter = new Counter();
+
+            //TranslateModifier = new XYZModifier(); // (nameof(Translate), beat, Counter, this);
+            //ScaleModifier = new ScaleModifier(); // (nameof(Scale), beat, Counter, this);
+            //RotationModifier = new XYZModifier(); // (nameof(Rotation), beat, Counter, this);
 
             NoAspectRatio = false;
         }
 
-        public Instancer(MasterBeat beat, Sender parentSender) : this(beat)
+        public void Send(Message message)
         {
-            SubscribeToEvent(parentSender);
+            MessageMediator?.Notify(MessageDirection.OUT, message);
         }
 
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        public void Receive(Message message)
         {
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-                this.SetViewModel(e.Model as InstancerModel);
-            else
-                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
+            this.SetViewModel(message.Obj as InstancerModel);
         }
 
+        public MessageMediator MessageMediator { get; set; }
+        public string Address { get; set; }
         public Transform Transform { get; set; }
         public Counter Counter { get; set; }
         public XYZModifier TranslateModifier { get; set; }
         public XYZModifier ScaleModifier { get; set; }
         public XYZModifier RotationModifier { get; set; }
+
 
         private bool _noAspectRatio;
         public bool NoAspectRatio

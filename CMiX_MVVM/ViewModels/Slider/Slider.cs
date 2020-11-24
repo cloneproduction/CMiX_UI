@@ -19,30 +19,10 @@ namespace CMiX.MVVM.ViewModels
         public Slider(string name, IColleague parentSender) : this(name)
         {
             this.Address = $"{parentSender.Address}{Name}/";
-            System.Console.WriteLine("Slider Constructor Call");
-        }
-
-        public Slider(string name, IColleague parentSender, MessageMediator messageMediator) : this(name, parentSender)
-        {
-            this.MessageMediator = messageMediator;
+            this.MessageMediator = parentSender.MessageMediator;
             this.MessageMediator.RegisterColleague(this);
         }
 
-        private string _address;
-
-        public string Address
-        {
-            get { return _address; }
-            set 
-            {
-                _address = value;
-                System.Console.WriteLine("Slider " + this.Name + " AddressSetto " + value);
-            }
-        }
-
-        //public string Address { get; set; }
-
-        public MessageMediator MessageMediator { get; set; }
 
         public void Send(Message message)
         {
@@ -52,7 +32,7 @@ namespace CMiX.MVVM.ViewModels
         public void Receive(Message message)
         {
             this.SetViewModel(message.Obj as SliderModel);
-            System.Console.WriteLine("POUETPOUET " + this.Address + "Slider received " + message.Address +"  "  + this.Amount);
+            System.Console.WriteLine("POUETPOUET " + this.Address + "Slider received " + message.Address + "  "  + this.Amount);
         }
 
         public ICommand AddCommand { get; }
@@ -60,13 +40,15 @@ namespace CMiX.MVVM.ViewModels
         public ICommand ResetCommand { get; }
         public ICommand MouseDownCommand { get; }
 
+        public MessageMediator MessageMediator { get; set; }
+        public string Address { get; set; }
+
         private string _name;
         public string Name
         {
             get => _name;
             set => SetAndNotify(ref _name, value);
         }
-
 
         private double _amount;
         public double Amount

@@ -8,8 +8,8 @@ namespace CMiX.MVVM.ViewModels
         public Entity(int id, MessengerTerminal messengerTerminal, MasterBeat beat) : base(id, messengerTerminal)
         {
             BeatModifier = new BeatModifier(beat);
-            Geometry = new Geometry(beat);
-            Texture = new Texture();
+            Geometry = new Geometry(nameof(Geometry), this, beat);
+            Texture = new Texture(nameof(Texture), this);
             Coloration = new Coloration(beat);
         }
 

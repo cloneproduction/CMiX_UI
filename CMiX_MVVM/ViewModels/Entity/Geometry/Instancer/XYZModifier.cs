@@ -6,6 +6,10 @@ namespace CMiX.MVVM.ViewModels
 {
     public class XYZModifier : Sender, IModifier
     {
+        public XYZModifier()
+        {
+
+        }
         public XYZModifier(string name, MasterBeat beat, Counter counter) 
         {
             Name = name;

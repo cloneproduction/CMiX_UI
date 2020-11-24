@@ -4,6 +4,10 @@ namespace CMiX.MVVM.ViewModels
 {
     public class ScaleModifier : XYZModifier
     {
+        public ScaleModifier()
+        {
+
+        }
         public ScaleModifier(string name, MasterBeat beat, Counter counter, Sender parentSender) : base (name, beat, counter)
         {
             Uniform = new AnimParameter(nameof(Uniform), 1.0, counter, beat, true, this);

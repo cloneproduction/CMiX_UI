@@ -13,8 +13,9 @@ namespace CMiX.MVVM.ViewModels
         public Component(int id, MessengerTerminal messengerTerminal)
         {
             ID = id;
-            Name = $"{GetType().Name}{ID}";
             IsExpanded = false;
+
+            Name = $"{this.GetType().Name}{ID}";
             this.Address = $"{this.GetType().Name}/{ID}/";
 
             MessageMediator = new MessageMediator(messengerTerminal);
@@ -22,8 +23,8 @@ namespace CMiX.MVVM.ViewModels
 
             Components = new ObservableCollection<Component>();
             Factory = new ComponentFactory(messengerTerminal);
-
         }
+
 
         public string Address { get; set; }
         public MessageMediator MessageMediator { get; set; }

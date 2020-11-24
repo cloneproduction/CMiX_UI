@@ -1,7 +1,6 @@
 ﻿using System;
 using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Services;
-using PubSub;
 
 namespace CMiX.MVVM.ViewModels
 {

@@ -11,7 +11,7 @@ namespace CMiX.MVVM.ViewModels
             BeatModifier = new BeatModifier(masterBeat);
             PostFX = new PostFX();
             Mask = new Mask();
-            Transform = new Transform();
+            Transform = new Transform(nameof(Transform), this);
 
         }
 
