@@ -64,12 +64,5 @@ namespace CMiX.MVVM.ViewModels
         {
             return this.MemberwiseClone();
         }
-
-
-
-        //public void SetAndRecord<TRet>(Expression<Func<TRet>> backingField, TRet newValue, [CallerMemberName] string propertyName = null)
-        //{
-        //    var action = new SetAndNotifyPropertyAction<TRet>(this, propertyName, backingField, newValue);
-        //}
     }
 }

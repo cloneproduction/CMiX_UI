@@ -147,40 +147,32 @@ namespace CMiX.MVVM.ViewModels
         public void Send(Message message)
         {
             MessageMediator.Notify(MessageDirection.OUT, message);
-            Console.WriteLine("MessageMediator.Notify " + this.Name);
         }
 
         public void Receive(Message message)
         {
-            Console.WriteLine("ComponentReceiveMessage");
             switch (message.Command)
             {
                 case MessageCommand.ADD_COMPONENT:
                     {
                         var model = message.Obj as IComponentModel;
-                        var component = CreateAndAddComponent();
-                        component.SetViewModel(model);
-                        Console.WriteLine("Added " + component.Name + " ID " + component.ID);
+                        var component = Factory.CreateComponent(this, model);
+                        this.Components.Add(component);
                         break;
                     }
                 case MessageCommand.INSERT_COMPONENT:
                     {
                         var model = message.Obj as IComponentModel;
                         int index = (int)message.CommandParameter;
-                        
-                        var component = Factory.CreateComponent(this) as Component;
-                        component.SetViewModel(model);
+                        var component = Factory.CreateComponent(this, model);
                         this.Components.Insert(index, component);
-                        Console.WriteLine("Insert " + component.Name + " ID " + component.ID);
                         break;
                     }
                 case MessageCommand.REMOVE_COMPONENT:
                     {
                         int index = (int)message.Obj;
-                        var component = this.Components[index];
-                        component.Dispose();
-                        this.Components.Remove(component);
-                        Console.WriteLine("Remove at index " + index + " ID " + component.ID);
+                        this.Components[index].Dispose();
+                        this.Components.RemoveAt(index);
                         break;
                     }
                 case MessageCommand.MOVE_COMPONENT:
@@ -188,14 +180,12 @@ namespace CMiX.MVVM.ViewModels
                         int oldIndex = (int)message.Obj;
                         int newIndex = (int)message.CommandParameter;
                         this.Components.Move(oldIndex, newIndex);
-                        Console.WriteLine("Move oldIndex " + oldIndex + " newIndex " + newIndex);
                         break;
                     }
                 case MessageCommand.UPDATE_VIEWMODEL:
                     {
                         var model = message.Obj as IComponentModel;
                         this.SetViewModel(model);
-                        Console.WriteLine("Update ViewModel");
                         break;
                     }
                 default: break;
@@ -204,7 +194,7 @@ namespace CMiX.MVVM.ViewModels
 
         public Component CreateAndAddComponent()
         {
-            Component component = Factory.CreateComponent(this) as Component;
+            Component component = Factory.CreateComponent(this);
             this.AddComponent(component);
             return component;
         }

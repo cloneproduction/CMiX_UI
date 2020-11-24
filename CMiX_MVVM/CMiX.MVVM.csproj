@@ -126,7 +126,6 @@
     <Compile Include="Models\Geometry\Modifier\ModifierModel.cs" />
     <Compile Include="Models\RangeModel.cs" />
     <Compile Include="Services\HighResolutionTimer.cs" />
-    <Compile Include="Services\Message\IndexParameter.cs" />
     <Compile Include="Services\Message\Message.cs" />
     <Compile Include="Services\Message\MessageSerializer.cs" />
     <Compile Include="Services\Message\MessageOptions.cs" />
@@ -191,10 +190,6 @@
     <Compile Include="ViewModels\MessageService\MessengerTerminal.cs" />
     <Compile Include="ViewModels\Outliner\OutlinerDragDropManager.cs" />
     <Compile Include="ViewModels\PostFX\PostFXModelFactory.cs" />
-    <Compile Include="ViewModels\PubSub\IHandler.cs" />
-    <Compile Include="ViewModels\PubSub\IReceiver.cs" />
-    <Compile Include="ViewModels\PubSub\IPublisher.cs" />
-    <Compile Include="ViewModels\PubSub\SendableModelFactory.cs" />
     <Compile Include="Views\ColorPicker.xaml.cs">
       <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
@@ -303,7 +298,7 @@
     <Compile Include="ViewModels\GeometryFXModelFactory.cs" />
     <Compile Include="ViewModels\PostFX\PostFX.cs" />
     <Compile Include="ViewModels\RangeControl.cs" />
-    <Compile Include="ViewModels\PubSub\Sender.cs" />
+    <Compile Include="ViewModels\MessageService\Sender.cs" />
     <Compile Include="ViewModels\Slider\Slider.cs" />
     <Compile Include="ViewModels\Slider\SliderModelFactory.cs" />
     <Compile Include="ViewModels\_Enums\AnimModeEnum.cs" />

@@ -5,7 +5,7 @@ using PubSub;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Sender : ViewModel, IPublisher
+    public abstract class Sender : ViewModel
     {
         private string _address;
         public string Address
@@ -14,13 +14,10 @@ namespace CMiX.MVVM.ViewModels
             set { _address = value; }
         }
 
-        public Hub Hub { get; set; }
         public virtual string GetMessageAddress()
         {
             return $"{this.GetType().Name}/";
         }
-
-        ///RECEIVING
 
         public event EventHandler<ModelEventArgs> ReceiveChangeEvent;
         public void OnReceiveChange(IModel model, string messageAddress, string parentMessageAddress)
@@ -33,10 +30,6 @@ namespace CMiX.MVVM.ViewModels
 
         }
 
-
-
-
-        /// SENDING
 
         public event EventHandler<ModelEventArgs> SendChangeEvent;
         public void OnSendChange(IModel model, string messageAddress)

@@ -2,7 +2,6 @@
 using NetMQ.Sockets;
 using System;
 
-
 namespace CMiX.MVVM.Services
 {
     public class Client

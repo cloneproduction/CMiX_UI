@@ -13,11 +13,7 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
         private static int ID = 0;
         private  MessengerTerminal MessengerTerminal { get; set; }
 
-        //public void SetID(int id)
-        //{
-        //    ID = id;
-        //}
-        public IComponent CreateComponent(IComponent parentComponent)
+        public Component CreateComponent(IComponent parentComponent)
         {
             if (parentComponent is Project)
                 return CreateComposition(parentComponent as Project);
@@ -31,6 +27,21 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
                 return null;
         }
 
+        public Component CreateComponent(IComponent parentComponent, IComponentModel componentModel)
+        {
+            if (parentComponent is Project)
+                return CreateComposition(parentComponent as Project, componentModel);
+            else if (parentComponent is Composition)
+                return CreateLayer(parentComponent as Composition, componentModel);
+            else if (parentComponent is Layer)
+                return CreateScene(parentComponent as Layer, componentModel);
+            else if (parentComponent is Scene)
+                return CreateEntity(parentComponent as Scene, componentModel);
+            else
+                return null;
+        }
+
+
 
         private Composition CreateComposition(Project parentComponent)
         {
@@ -39,12 +50,29 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
             return component;
         }
 
+        private Composition CreateComposition(Project parentComponent, IComponentModel componentModel)
+        {
+            var component = new Composition(componentModel.ID, MessengerTerminal, new MasterBeat());
+            component.SetViewModel(componentModel);
+            return component;
+        }
+
+
+
         private Layer CreateLayer(Composition parentComponent)
         {
             var component = new Layer(ID, MessengerTerminal, parentComponent.MasterBeat);
             ID++;
             return component;
         }
+
+        private Layer CreateLayer(Composition parentComponent, IComponentModel componentModel)
+        {
+            var component = new Layer(componentModel.ID, MessengerTerminal, parentComponent.MasterBeat);
+            component.SetViewModel(componentModel);
+            return component;
+        }
+
 
         private Scene CreateScene(Layer parentComponent)
         {
@@ -53,10 +81,25 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
             return component;
         }
 
+        private Scene CreateScene(Layer parentComponent, IComponentModel componentModel)
+        {
+            var component = new Scene(componentModel.ID, MessengerTerminal, parentComponent.MasterBeat);
+            component.SetViewModel(componentModel);
+            return component;
+        }
+
+
         private Entity CreateEntity(Scene parentComponent)
         {
             var component = new Entity(ID, MessengerTerminal, parentComponent.MasterBeat);
             ID++;
+            return component;
+        }
+
+        private Entity CreateEntity(Scene parentComponent, IComponentModel componentModel)
+        {
+            var component = new Entity(componentModel.ID, MessengerTerminal, parentComponent.MasterBeat);
+            component.SetViewModel(componentModel);
             return component;
         }
     }
