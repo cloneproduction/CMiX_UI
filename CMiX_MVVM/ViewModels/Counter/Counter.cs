@@ -1,5 +1,6 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.Mediator;
 using System;
 using System.Windows.Input;
 
@@ -7,25 +8,16 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Counter : Sender
     {
-        public Counter() 
+        public Counter(string name, IColleague parentSender) : base(name, parentSender) 
         {
             Count = 1;
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
         }
 
-        public Counter(Sender parentSender) : this()
+        public override void Receive(Message message)
         {
-            SubscribeToEvent(parentSender);
-        }
-
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        {
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-                this.SetViewModel(e.Model as CounterModel);
-            else
-                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
-
+            this.SetViewModel(message.Obj as CounterModel);
             OnCountChange();
         }
 
@@ -47,7 +39,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _count, value);
                 OnCountChange();
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
         }
 

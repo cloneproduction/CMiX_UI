@@ -4,14 +4,10 @@ using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Translate : ViewModel, IColleague
+    public class Translate : Sender
     {
-        public Translate(string name, IColleague parentSender)
+        public Translate(string name, IColleague parentSender) : base(name, parentSender)
         {
-            this.Address = $"{parentSender.Address}{name}/";
-            this.MessageMediator = parentSender.MessageMediator;
-            this.MessageMediator.RegisterColleague(this);
-
             X = new Slider(nameof(X), this);
             Y = new Slider(nameof(Y), this);
             Z = new Slider(nameof(Z), this);
@@ -20,15 +16,8 @@ namespace CMiX.MVVM.ViewModels
         public Slider X { get; set; }
         public Slider Y { get; set; }
         public Slider Z { get; set; }
-        public MessageMediator MessageMediator { get; set; }
-        public string Address { get; set; }
 
-        public void Send(Message message)
-        {
-            MessageMediator?.Notify(MessageDirection.OUT, message);
-        }
-
-        public void Receive(Message message)
+        public override void Receive(Message message)
         {
             this.SetViewModel(message.Obj as TranslateModel);
         }

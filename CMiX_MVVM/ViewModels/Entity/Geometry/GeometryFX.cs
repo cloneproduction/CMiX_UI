@@ -4,9 +4,9 @@
     {
         public GeometryFX()
         {
-            Explode = new Slider(nameof(Explode));
+            //Explode = new Slider(nameof(Explode), this);
         }
 
-        public Slider Explode { get; }
+        public Slider Explode { get; set; }
     }
 }

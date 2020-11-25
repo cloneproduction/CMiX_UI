@@ -6,11 +6,11 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Composition : Component, IBeat
     {
-        public Composition(int id, MessengerTerminal messengerTerminal, MasterBeat masterBeat) : base (id, messengerTerminal)
+        public Composition(int id, MessengerTerminal messengerTerminal) : base (id, messengerTerminal)
         {
-            Transition = new Slider(nameof(Transition));
-            Camera = new Camera(masterBeat);
-            MasterBeat = masterBeat;
+            MasterBeat = new MasterBeat(nameof(MasterBeat), this);
+            Transition = new Slider(nameof(Transition), this);
+            Camera = new Camera(nameof(Camera), this, MasterBeat);
         }
 
         public Camera Camera { get; set; }

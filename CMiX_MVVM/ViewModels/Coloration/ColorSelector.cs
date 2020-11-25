@@ -1,27 +1,19 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class ColorSelector : Sender
     {
-        public ColorSelector() 
+        public ColorSelector(string name, IColleague parentSender) :base(name, parentSender) 
         {
-            ColorPicker = new ColorPicker(this);
+            ColorPicker = new ColorPicker(nameof(ColorPicker), this);
         }
 
-        public ColorSelector(Sender parentSender) : this()
+        public override void Receive(Message message)
         {
-            SubscribeToEvent(parentSender);
-        }
-
-
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        {
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-                this.SetViewModel(e.Model as ColorSelectorModel);
-            else
-                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
+            this.SetViewModel(message.Obj as ColorSelectorModel);
         }
 
         public ColorPicker ColorPicker { get; set; }

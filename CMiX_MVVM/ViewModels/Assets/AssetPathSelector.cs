@@ -2,23 +2,20 @@
 using System.Windows;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class AssetPathSelector : Sender, IDropTarget
     {
-        public AssetPathSelector(Asset defaultAsset, Sender parentSender)
+        public AssetPathSelector(string name, IColleague parentSender, Asset defaultAsset) : base(name, parentSender)
         {
             SelectedAsset = defaultAsset;
-            SubscribeToEvent(parentSender);
         }
 
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        public override void Receive(Message message)
         {
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-                this.SetViewModel(e.Model as AssetPathSelectorModel);
-            else
-                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
+            this.SetViewModel(message.Obj as AssetPathSelectorModel);
         }
 
         private IAssets _selectedAsset;
@@ -28,7 +25,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _selectedAsset, value);
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
         }
 

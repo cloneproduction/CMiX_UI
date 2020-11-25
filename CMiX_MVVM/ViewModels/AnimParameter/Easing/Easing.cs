@@ -2,28 +2,21 @@
 using CMiX.MVVM.Services;
 using CMiX.MVVM.Resources;
 using System;
+using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class Easing : Sender
     {
-        public Easing()
+        public Easing(string name, IColleague parentSender) : base(name, parentSender)
         {
             EasingMode = EasingMode.EaseIn;
             EasingFunction = EasingFunction.None;
         }
 
-        public Easing(Sender parentSender) : this()
+        public override void Receive(Message message)
         {
-            SubscribeToEvent(parentSender);
-        }
-
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        {
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-                this.SetViewModel(e.Model as EasingModel);
-            else
-                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
+            this.SetViewModel(message.Obj as EasingModel);
         }
 
         private EasingFunction _easingFunction;
@@ -65,8 +58,7 @@ namespace CMiX.MVVM.ViewModels
                 Enum.TryParse(EasingFunction.ToString() + EasingMode.ToString(), out myStatus);
 
             SelectedEasing = myStatus;
-
-            OnSendChange(this.GetModel(), this.GetMessageAddress());
+            this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
         }
     }
 }

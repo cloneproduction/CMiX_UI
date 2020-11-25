@@ -1,41 +1,24 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class XYZModifier : Sender, IModifier
     {
-        public XYZModifier()
-        {
-
-        }
-        public XYZModifier(string name, MasterBeat beat, Counter counter) 
+        public XYZModifier(string name, IColleague parentSender, MasterBeat beat, Counter counter) : base (name, parentSender)
         {
             Name = name;
-            X = new AnimParameter(nameof(X), 0.0, counter, beat, false, this);
-            Y = new AnimParameter(nameof(Y), 0.0, counter, beat, false, this);
-            Z = new AnimParameter(nameof(Z), 0.0, counter, beat, false, this);
+            X = new AnimParameter(nameof(X), this, 0.0, counter, beat, false);
+            Y = new AnimParameter(nameof(Y), this, 0.0, counter, beat, false);
+            Z = new AnimParameter(nameof(Z), this, 0.0, counter, beat, false);
         }
 
-        public XYZModifier(string name, MasterBeat beat, Counter counter, Sender parentSender) : this(name, beat, counter)
+        public override void Receive(Message message)
         {
-            SubscribeToEvent(parentSender);
+            this.SetViewModel(message.Obj as XYZModifierModel);
         }
-
-        public override string GetMessageAddress()
-        {
-            return $"{Name}/";
-        }
-
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        {
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-                this.SetViewModel(e.Model as XYZModifierModel);
-            else
-                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
-        }
-
 
         private int _isExpanded;
         public int IsExpanded

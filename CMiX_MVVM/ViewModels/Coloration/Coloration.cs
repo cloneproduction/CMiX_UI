@@ -1,30 +1,23 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class Coloration : Sender
     {
-        public Coloration(MasterBeat beat) 
+        public Coloration(string name, IColleague parentSender, MasterBeat beat) :base(name, parentSender)
         {
-            BeatModifier = new BeatModifier(beat);
-            ColorSelector = new ColorSelector(this);
+            BeatModifier = new BeatModifier(nameof(BeatModifier), this, beat);
+            ColorSelector = new ColorSelector(nameof(ColorSelector), this);
         }
 
-        public Coloration(MasterBeat beat, Sender parentSender) : this(beat)
+        public override void Receive(Message message)
         {
-            SubscribeToEvent(parentSender);
+            this.SetViewModel(message.Obj as ColorationModel);
         }
 
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        {
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-                this.SetViewModel(e.Model as ColorationModel);
-            else
-                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
-        }
-
-        public ColorSelector ColorSelector { get; }
-        public BeatModifier BeatModifier { get; }
+        public ColorSelector ColorSelector { get; set; }
+        public BeatModifier BeatModifier { get; set; }
     }
 }

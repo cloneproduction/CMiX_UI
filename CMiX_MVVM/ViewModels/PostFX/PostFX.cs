@@ -1,46 +1,26 @@
-﻿using System.Windows;
-using System.Windows.Input;
-using CMiX.MVVM.ViewModels;
-using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
-using System;
+﻿using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class PostFX : Sender
     {
-        public PostFX() 
+        public PostFX(string name, IColleague parentSender) : base (name, parentSender) 
         {
-            Feedback = new Slider(nameof(Feedback));
-            //Feedback.SendChangeEvent += this.OnChildPropertyToSendChange;
-
-            Blur = new Slider(nameof(Blur));
-            //Blur.SendChangeEvent += this.OnChildPropertyToSendChange;
+            Feedback = new Slider(nameof(Feedback), this);
+            Blur = new Slider(nameof(Blur), this);
 
             Transforms = ((PostFXTransforms)0).ToString();
             View = ((PostFXView)0).ToString();
-
-            CopyPostFXCommand = new RelayCommand(p => CopyPostFX());
-            PastePostFXCommand = new RelayCommand(p => PastePostFX());
-            ResetPostFXCommand = new RelayCommand(p => Reset());
         }
 
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        public override void Receive(Message message)
         {
-            if (this.GetMessageAddress() == e.MessageAddress)
-            {
-                this.SetViewModel(e.Model as PostFXModel);
-                Console.WriteLine("PostFX Updated");
-            }
+            this.SetViewModel(message);
         }
 
-        #region PROPERTIES
-        public ICommand CopyPostFXCommand { get; }
-        public ICommand PastePostFXCommand { get; }
-        public ICommand ResetPostFXCommand { get; }
-
-        public Slider Feedback { get; }
-        public Slider Blur { get; }
+        public Slider Feedback { get; set; }
+        public Slider Blur { get; set; }
 
         private string _transforms;
         public string Transforms
@@ -49,7 +29,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _transforms, value);
-                OnSendChange(this.GetModel(), GetMessageAddress());
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
         }
 
@@ -60,39 +40,8 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _view, value);
-                OnSendChange(this.GetModel(), GetMessageAddress());
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
         }
-        #endregion
-
-        #region COPY/PASTE/RESET
-        public void Reset()
-        {
-            Transforms = ((PostFXTransforms)0).ToString();
-            View = ((PostFXView)0).ToString();
-
-            Feedback.Reset();
-            Blur.Reset();
-
-            PostFXModel postfxmodel = this.GetModel();
-        }
-
-        public void CopyPostFX()
-        {
-            IDataObject data = new DataObject();
-            data.SetData(this.GetType().Name, this.GetModel(), false);
-            Clipboard.SetDataObject(data);
-        }
-
-        public void PastePostFX()
-        {
-            IDataObject data = Clipboard.GetDataObject();
-            if (data.GetDataPresent("PostFXModel"))
-            {
-                var postFXModel = data.GetData("PostFXModel") as PostFXModel;
-                this.SetViewModel(postFXModel);
-            }
-        }
-        #endregion
     }
 }

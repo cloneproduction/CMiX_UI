@@ -1,13 +1,19 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class ComboBox<T> : Sender
     {
-        public ComboBox()
+        public ComboBox(string name, IColleague parentSender) : base(name, parentSender)
         {
 
+        }
+
+        public override void Receive(Message message)
+        {
+            this.SetViewModel(message.Obj as ComboBoxModel<T>);
         }
 
         private T _selection;
@@ -17,16 +23,8 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _selection, value);
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
-        }
-
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        {
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-                this.SetViewModel(e.Model as ComboBoxModel<T>);
-            else
-                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
         }
 
         public ComboBoxModel<T> GetModel()

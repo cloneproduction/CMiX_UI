@@ -5,12 +5,13 @@ using System.Windows.Input;
 using CMiX.MVVM.Controls;
 using CMiX.MVVM.Models.Beat;
 using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class MasterBeat : Beat
     {
-        public MasterBeat()
+        public MasterBeat(string name, IColleague parentSender) : base (name, parentSender)
         {
             Index = 0;
             Period = 1000;
@@ -18,7 +19,7 @@ namespace CMiX.MVVM.ViewModels
             Periods = new double[15];
 
             BeatAnimations = new BeatAnimations();
-            Resync = new Resync(BeatAnimations, this);
+            Resync = new Resync(nameof(Resync), this, BeatAnimations);
 
             UpdatePeriods(Period);
             SetAnimatedDouble();
@@ -28,17 +29,9 @@ namespace CMiX.MVVM.ViewModels
             TapCommand = new RelayCommand(p => Tap());
         }
 
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        public override void Receive(Message message)
         {
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-                this.SetViewModel(e.Model as MasterBeatModel);
-            else
-                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
-        }
-
-        public MasterBeat(ViewModel parentSender) : this()
-        {
-            //SubscribeToEvent(parentSender);
+            this.SetViewModel(message.Obj as MasterBeatModel);
         }
 
         public ICommand ResyncCommand { get; }
@@ -109,7 +102,7 @@ namespace CMiX.MVVM.ViewModels
             AnimatedDouble = BeatAnimations.AnimatedDoubles[Index + (Periods.Length - 1) / 2];
             OnPeriodChanged(Period);
             Notify(nameof(BPM));
-            OnSendChange(this.GetModel(), this.GetMessageAddress());
+            this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
         }
 
         protected override void Multiply()

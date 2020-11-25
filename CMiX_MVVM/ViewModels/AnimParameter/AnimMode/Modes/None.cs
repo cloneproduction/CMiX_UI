@@ -1,26 +1,27 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class None : AnimMode
+    public class None : Sender, IAnimMode
     {
-        public None()
+        public None(string name, IColleague parentSender) : base (name, parentSender)
         {
 
         }
 
-        public None(Sender parentSender) : this()
+        public override void Receive(Message message)
         {
-            SubscribeToEvent(parentSender);
+            this.SetViewModel(message.Obj as NoneModel);
         }
 
-        public override void UpdateOnBeatTick(AnimParameter animParameter, double period)
+        public void UpdateOnBeatTick(AnimParameter animParameter, double period)
         {
 
         }
 
-        public override void UpdateParameters(AnimParameter animParameter, double period)
+        public void UpdateParameters(AnimParameter animParameter, double period)
         {
             for (int i = 0; i < animParameter.Parameters.Length; i++)
             {

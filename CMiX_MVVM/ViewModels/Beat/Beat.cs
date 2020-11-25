@@ -1,19 +1,20 @@
-﻿using System.Windows.Input;
+﻿using CMiX.MVVM.ViewModels.Mediator;
+using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
     public abstract class Beat : Sender
     {
-        public Beat()
+        public Beat(string name, IColleague parentSender) : base(name, parentSender)
         {
             ResetCommand = new RelayCommand(p => Reset());
             MultiplyCommand = new RelayCommand(p => Multiply());
             DivideCommand = new RelayCommand(p => Divide());
         }
 
-        public ICommand ResetCommand { get; }
-        public ICommand MultiplyCommand { get; }
-        public ICommand DivideCommand { get; }
+        public ICommand ResetCommand { get; set; }
+        public ICommand MultiplyCommand { get; set; }
+        public ICommand DivideCommand { get; set; }
         public abstract double Period { get; set; }
 
         private double _bpm;

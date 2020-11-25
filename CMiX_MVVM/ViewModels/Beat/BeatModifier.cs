@@ -1,15 +1,16 @@
 ﻿using CMiX.MVVM.Controls;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class BeatModifier : Beat
     {
-        public BeatModifier(MasterBeat masterBeat)
+        public BeatModifier(string name, IColleague parentSender, MasterBeat masterBeat) : base(name, parentSender)
         {
             Index = 0;
-            ChanceToHit = new Slider(nameof(ChanceToHit)) { Amount = 100.0 };
+            ChanceToHit = new Slider(nameof(ChanceToHit), this) { Amount = 100.0 };
             Beat = masterBeat;
             Multiplier = 1.0;
             this.Period = masterBeat.Period;
@@ -25,21 +26,13 @@ namespace CMiX.MVVM.ViewModels
             };
         }
 
-        public BeatModifier(MasterBeat beat, Sender parentSender) : this(beat)
+        public override void Receive(Message message)
         {
-            SubscribeToEvent(parentSender);
-        }
-
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        {
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-                this.SetViewModel(e.Model as BeatModifierModel);
-            else
-                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
+            this.SetViewModel(message.Obj as BeatModifierModel);
         }
 
         public MasterBeat Beat { get; set; }
-        public Slider ChanceToHit { get; }
+        public Slider ChanceToHit { get; set; }
 
 
         private int maxIndex = 4;
@@ -95,7 +88,7 @@ namespace CMiX.MVVM.ViewModels
             Period = Beat.Periods[Index + Beat.BeatIndex];
             AnimatedDouble = Beat.BeatAnimations.AnimatedDoubles[Index + Beat.BeatIndex];
             Notify(nameof(BPM));
-            OnSendChange(this.GetModel(), this.GetMessageAddress());
+            this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
         }
     }
 }

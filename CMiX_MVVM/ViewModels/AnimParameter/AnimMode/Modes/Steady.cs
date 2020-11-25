@@ -1,24 +1,30 @@
 ﻿using CMiX.MVVM.Resources;
+using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.Mediator;
 using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Steady : AnimMode
+    public class Steady : Sender, IAnimMode
     {
-        public Steady(AnimParameter animParameter)
+        public Steady(string name, IColleague parentSender) : base (name, parentSender)
         {
             SteadyType = SteadyType.Linear;
             LinearType = LinearType.Center;
             Seed = 0;
-            SubscribeToEvent(animParameter);
         }
 
-        public override void UpdateOnBeatTick(AnimParameter animParameter, double period)
+        public override void Receive(Message message)
+        {
+            //this.SetViewModel()
+        }
+
+        public void UpdateOnBeatTick(AnimParameter animParameter, double period)
         {
             //throw new NotImplementedException();
         }
 
-        public override void UpdateParameters(AnimParameter animParameter, double period)
+        public void UpdateParameters(AnimParameter animParameter, double period)
         {
             double offset = animParameter.Range.Distance / animParameter.Counter.Count;
             double startValue;
@@ -77,7 +83,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _seed, value);
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
         }
 
@@ -88,7 +94,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _steadyType, value);
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
         }
 
@@ -99,7 +105,7 @@ namespace CMiX.MVVM.ViewModels
             set 
             {
                 SetAndNotify(ref _linearType, value);
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
         }
     }

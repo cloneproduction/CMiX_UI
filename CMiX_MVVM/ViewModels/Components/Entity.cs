@@ -7,16 +7,16 @@ namespace CMiX.MVVM.ViewModels
     {
         public Entity(int id, MessengerTerminal messengerTerminal, MasterBeat beat) : base(id, messengerTerminal)
         {
-            BeatModifier = new BeatModifier(beat);
+            BeatModifier = new BeatModifier(nameof(BeatModifier), this, beat);
             Geometry = new Geometry(nameof(Geometry), this, beat);
             Texture = new Texture(nameof(Texture), this);
-            Coloration = new Coloration(beat);
+            Coloration = new Coloration(nameof(Coloration), this, beat);
         }
 
-        public BeatModifier BeatModifier { get; }
-        public Geometry Geometry { get; }
-        public Texture Texture { get; }
-        public Coloration Coloration { get; }
+        public BeatModifier BeatModifier { get; set; }
+        public Geometry Geometry { get; set; }
+        public Texture Texture { get; set; }
+        public Coloration Coloration { get; set; }
         public MasterBeat MasterBeat { get; set; }
     }
 }

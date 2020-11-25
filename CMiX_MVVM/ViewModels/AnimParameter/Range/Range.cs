@@ -1,28 +1,21 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.Mediator;
 using System;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class Range : Sender
     {
-        public Range(double minimum = 0.0, double maximum = 1.0)
+        public Range(string name, IColleague parentSender, double minimum = 0.0, double maximum = 1.0) : base (name, parentSender)
         {
             Minimum = minimum;
             Maximum = maximum;
         }
 
-        public Range(double minimum, double maximum, Sender parentSender) : this(minimum = 0.0, maximum = 1.0)
+        public override void Receive(Message message)
         {
-            SubscribeToEvent(parentSender);
-        }
-
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        {
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-                this.SetViewModel(e.Model as RangeModel);
-            else
-                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
+            this.SetViewModel(message.Obj as RangeModel);
         }
 
         public double Distance
@@ -37,7 +30,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _minimum, value);
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
         }
 
@@ -48,7 +41,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _maximum, value);
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
         }
     }

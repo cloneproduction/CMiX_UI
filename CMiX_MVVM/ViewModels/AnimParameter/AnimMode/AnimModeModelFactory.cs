@@ -4,7 +4,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public static class AnimModeModelFactory
     {
-        public static IAnimModeModel GetModel(this AnimMode instance)
+        public static IAnimModeModel GetModel(this IAnimMode instance)
         {
             if (instance is Steady)
                 return ((Steady)instance).GetModel();
@@ -21,7 +21,7 @@ namespace CMiX.MVVM.ViewModels
             else return null;
         }
 
-        public static void SetViewModel(this AnimMode instance, IAnimModeModel model)
+        public static void SetViewModel(this IAnimMode instance, IAnimModeModel model)
         {
             if (instance is Steady)
                 ((Steady)instance).SetViewModel(model);

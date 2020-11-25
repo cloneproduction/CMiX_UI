@@ -1,25 +1,27 @@
 ﻿using CMiX.MVVM.Resources;
+using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class LFO : AnimMode
+    public class LFO : Sender, IAnimMode
     {
-        public LFO()
+        public LFO(string name, IColleague parentSender) : base (name, parentSender)
         {
 
         }
 
-        public LFO(Sender parentSender) : this()
+        public override void Receive(Message message)
         {
-            SubscribeToEvent(parentSender);
+            //this.SetViewModel(message.Obj as CounterModel);
         }
 
-        public override void UpdateOnBeatTick(AnimParameter animParameter, double period)
+        public void UpdateOnBeatTick(AnimParameter animParameter, double period)
         {
 
         }
 
-        public override void UpdateParameters(AnimParameter animParameter, double period)
+        public void UpdateParameters(AnimParameter animParameter, double period)
         {
             double min = animParameter.Range.Minimum;
             double max = animParameter.Range.Maximum;

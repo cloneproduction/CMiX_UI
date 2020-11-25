@@ -128,12 +128,10 @@
     <Compile Include="Services\HighResolutionTimer.cs" />
     <Compile Include="Services\Message\Message.cs" />
     <Compile Include="Services\Message\MessageSerializer.cs" />
-    <Compile Include="Services\Message\MessageOptions.cs" />
     <Compile Include="Services\NetMQ\Client\ClientShimHandler.cs" />
     <Compile Include="Services\NetMQ\Client\NetMQMessageEventArgs.cs" />
-    <Compile Include="ViewModels\AnimParameter\AnimMode\AnimMode.cs" />
-    <Compile Include="ViewModels\AnimParameter\AnimMode\AnimModeModelFactory.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\IAnimMode.cs" />
+    <Compile Include="ViewModels\AnimParameter\AnimMode\AnimModeModelFactory.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\SteadyType.cs" />
     <Compile Include="ViewModels\AnimParameter\Easing\Easing.cs" />
     <Compile Include="ViewModels\AnimParameter\Easing\EasingModelFactory.cs" />
@@ -249,7 +247,7 @@
     <Compile Include="ViewModels\Components\ComponentEditor.cs" />
     <Compile Include="ViewModels\Components\ComponentEventArgs.cs" />
     <Compile Include="ViewModels\Components\ComponentManager.cs" />
-    <Compile Include="ViewModels\Components\ComponentModelFactory.cs" />
+    <Compile Include="ViewModels\Components\Factories\ComponentModelFactory.cs" />
     <Compile Include="ViewModels\Components\ComponentPanelTemplateSelector.cs" />
     <Compile Include="ViewModels\Components\Composition.cs" />
     <Compile Include="ViewModels\Components\EditorTemplateSelector.cs" />
@@ -297,7 +295,6 @@
     <Compile Include="ViewModels\MessageService\SettingsEventArgs.cs" />
     <Compile Include="ViewModels\GeometryFXModelFactory.cs" />
     <Compile Include="ViewModels\PostFX\PostFX.cs" />
-    <Compile Include="ViewModels\RangeControl.cs" />
     <Compile Include="ViewModels\MessageService\Sender.cs" />
     <Compile Include="ViewModels\Slider\Slider.cs" />
     <Compile Include="ViewModels\Slider\SliderModelFactory.cs" />

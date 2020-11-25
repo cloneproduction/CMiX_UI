@@ -3,13 +3,15 @@ using System.Windows.Input;
 using ColorMine.ColorSpaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class ColorPicker : Sender
     {
-        public ColorPicker()
+        public ColorPicker(string name, IColleague parentSender) : base (name, parentSender)
         {
+            System.Console.WriteLine(this.Address);
             SelectedColor = Color.FromArgb(255, 0, 255, 0);
             Red = SelectedColor.R;
             Green = SelectedColor.G;
@@ -21,26 +23,16 @@ namespace CMiX.MVVM.ViewModels
             PreviewMouseLeaveCommand = new RelayCommand(p => PreviewMouseLeave());
         }
 
-        public ColorPicker(Sender parentSender) : this()
+        public override void Receive(Message message)
         {
-            SubscribeToEvent(parentSender);
+            this.SetViewModel(message.Obj as ColorPickerModel);
         }
 
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        {
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-                this.SetViewModel(e.Model as ColorPickerModel);
-            else
-                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
-        }
-
-
-        #region PROPERTIES
-        public ICommand PreviewMouseDownCommand { get; }
-        public ICommand PreviewMouseUpCommand { get; }
-        public ICommand PreviewMouseLeaveCommand { get; }
-
+        public ICommand PreviewMouseDownCommand { get; set; }
+        public ICommand PreviewMouseUpCommand { get; set; }
+        public ICommand PreviewMouseLeaveCommand { get; set; }
         public bool MouseDown { get; set; }
+
 
         private Color _selectedColor;
         public Color SelectedColor
@@ -53,7 +45,6 @@ namespace CMiX.MVVM.ViewModels
         {
             //if (MouseDown)
                // Mementor.PropertyChange(this, propertyname);
-            
         }
 
         private byte _red;
@@ -75,7 +66,7 @@ namespace CMiX.MVVM.ViewModels
 
                 this._selectedColor.R = value;
                 Notify(nameof(SelectedColor));
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
+                //this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
         }
 
@@ -98,7 +89,7 @@ namespace CMiX.MVVM.ViewModels
 
                 this._selectedColor.G = value;
                 Notify(nameof(SelectedColor));
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
+                //this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
         }
 
@@ -121,7 +112,7 @@ namespace CMiX.MVVM.ViewModels
 
                 this._selectedColor.B = value;
                 Notify(nameof(SelectedColor));
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
+                //this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
         }
 
@@ -147,7 +138,7 @@ namespace CMiX.MVVM.ViewModels
 
                 SelectedColor = Color.FromRgb(_red, _green, _blue);
                 Notify(nameof(SelectedColor));
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
+                //this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
         }
 
@@ -175,7 +166,7 @@ namespace CMiX.MVVM.ViewModels
 
                 SelectedColor = Color.FromRgb(_red, _green, _blue);
                 Notify(nameof(SelectedColor));
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
+                //this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
         }
 
@@ -210,34 +201,23 @@ namespace CMiX.MVVM.ViewModels
                     SelectedColor = Color.FromRgb(0, 0, 0);
                 }
                 Notify(nameof(SelectedColor));
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
+                //this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
         }
 
-        public string MessageAddress { get; set; }
-        #endregion
-
-        #region METHODS
         public void PreviewMouseDown()
         {
-            //if(!Mementor.IsInBatch)
-            //    Mementor.BeginBatch();
             MouseDown = true;
         }
 
         public void PreviewMouseUp()
         {
-            //if(Mementor.IsInBatch)
-            //    Mementor.EndBatch();
             MouseDown = false;
         }
 
         public void PreviewMouseLeave()
         {
-            //if(Mementor.IsInBatch)
-            //    Mementor.EndBatch();
             MouseDown = false;
         }
-        #endregion
     }
 }

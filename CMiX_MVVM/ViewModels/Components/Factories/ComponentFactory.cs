@@ -45,14 +45,14 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 
         private Composition CreateComposition(Project parentComponent)
         {
-            var component = new Composition(ID, MessengerTerminal, new MasterBeat());
+            var component = new Composition(ID, MessengerTerminal);
             ID++;
             return component;
         }
 
         private Composition CreateComposition(Project parentComponent, IComponentModel componentModel)
         {
-            var component = new Composition(componentModel.ID, MessengerTerminal, new MasterBeat());
+            var component = new Composition(componentModel.ID, MessengerTerminal);
             component.SetViewModel(componentModel);
             return component;
         }

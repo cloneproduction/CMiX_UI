@@ -1,43 +1,31 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.Mediator;
 using System;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class AnimParameter : Sender
     {
-        public AnimParameter(string name, double defaultValue, Counter counter, MasterBeat beat, bool isEnabled = true)
+        public AnimParameter(string name, IColleague parentSender, double defaultValue, Counter counter, MasterBeat beat, bool isEnabled = true) : base (name, parentSender)
         {
-            Range = new Range(0.0, 1.0, this);
-            Easing = new Easing(this);
-            BeatModifier = new BeatModifier(beat, this);
-            AnimMode = ModesFactory.CreateMode(SelectedModeType, this);
-           
+            Name = name;
             Counter = counter;
             Counter.CounterChangeEvent += Counter_CounterChangeEvent;
             DefaultValue = defaultValue;
-            Name = name;
             IsEnabled = isEnabled;
             SelectedModeType = ModeType.None;
+
+            Range = new Range(nameof(Range), this, 0.0, 1.0);
+            Easing = new Easing(nameof(Easing), this);
+            BeatModifier = new BeatModifier(nameof(BeatModifier), this, beat);
         }
 
-        public AnimParameter(string name, double defaultValue, Counter counter, MasterBeat beat, bool isEnabled, Sender parentSender) : this(name, defaultValue, counter, beat, isEnabled)
+        public override void Receive(Message message)
         {
-            SubscribeToEvent(parentSender);
+            this.SetViewModel(message.Obj as AnimParameterModel);
         }
 
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        {
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-                this.SetViewModel(e.Model as AnimParameterModel);
-            else
-                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
-        }
-
-        public override string GetMessageAddress()
-        {
-            return $"{this.GetType().Name}/{Name}/";
-        }
 
         public BeatModifier BeatModifier { get; set; }
         public Easing Easing { get; set; }
@@ -61,7 +49,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _IsEnabled, value);
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
         }
 
@@ -73,12 +61,12 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _selectedModeType, value);
                 SetAnimMode();
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
         }
 
-        private AnimMode _animMode;
-        public AnimMode AnimMode
+        private IAnimMode _animMode;
+        public IAnimMode AnimMode
         {
             get => _animMode;
             set => SetAndNotify(ref _animMode, value);

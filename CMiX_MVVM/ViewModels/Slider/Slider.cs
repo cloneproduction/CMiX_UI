@@ -5,10 +5,11 @@ using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Slider : ViewModel, IColleague
+    public class Slider : Sender
     {
-        public Slider(string name)
+        public Slider(string name, IColleague parentSender) : base (name, parentSender)
         {
+            System.Console.WriteLine(this.Address);
             Name = name;
 
             AddCommand = new RelayCommand(p => Add());
@@ -16,20 +17,7 @@ namespace CMiX.MVVM.ViewModels
             ResetCommand = new RelayCommand(p => Reset());
         }
 
-        public Slider(string name, IColleague parentSender) : this(name)
-        {
-            this.Address = $"{parentSender.Address}{Name}/";
-            this.MessageMediator = parentSender.MessageMediator;
-            this.MessageMediator.RegisterColleague(this);
-        }
-
-
-        public void Send(Message message)
-        {
-            MessageMediator?.Notify(MessageDirection.OUT, message);
-        }
-
-        public void Receive(Message message)
+        public override void Receive(Message message)
         {
             this.SetViewModel(message.Obj as SliderModel);
             System.Console.WriteLine("POUETPOUET " + this.Address + "Slider received " + message.Address + "  "  + this.Amount);
@@ -40,8 +28,6 @@ namespace CMiX.MVVM.ViewModels
         public ICommand ResetCommand { get; }
         public ICommand MouseDownCommand { get; }
 
-        public MessageMediator MessageMediator { get; set; }
-        public string Address { get; set; }
 
         private string _name;
         public string Name

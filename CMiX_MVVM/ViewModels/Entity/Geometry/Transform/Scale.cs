@@ -4,14 +4,10 @@ using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Scale : ViewModel, IColleague
+    public class Scale : Sender
     {
-        public Scale(string name, IColleague parentSender)
+        public Scale(string name, IColleague parentSender) :base(name, parentSender)
         {
-            this.Address = $"{parentSender.Address}{name}/";
-            this.MessageMediator = parentSender.MessageMediator;
-            this.MessageMediator.RegisterColleague(this);
-
             Uniform = new Slider(nameof(Uniform), this);
             Uniform.Amount = 1.0;
 
@@ -27,8 +23,6 @@ namespace CMiX.MVVM.ViewModels
             IsUniform = true;
         }
 
-        public MessageMediator MessageMediator { get; set; }
-        public string Address { get; set; }
         public Slider X { get; set; }
         public Slider Y { get; set; }
         public Slider Z { get; set; }
@@ -41,12 +35,7 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _isUniform, value);
         }
 
-        public void Send(Message message)
-        {
-            MessageMediator?.Notify(MessageDirection.OUT, message);
-        }
-
-        public void Receive(Message message)
+        public override void Receive(Message message)
         {
             this.SetViewModel(message.Obj as ScaleModel);
         }

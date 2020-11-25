@@ -5,36 +5,26 @@ using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Instancer : ViewModel, IColleague, ITransform
+    public class Instancer : Sender, ITransform
     {
-        public Instancer(string name, IColleague parentSender, MasterBeat beat)
+        public Instancer(string name, IColleague parentSender, MasterBeat beat) :base(name, parentSender)
         {
-            this.Address = $"{parentSender.Address}{name}/";
-            this.MessageMediator = parentSender.MessageMediator;
-            this.MessageMediator.RegisterColleague(this);
-
             Transform = new Transform(nameof(Transform), this);
-            Counter = new Counter();
+            Counter = new Counter(nameof(Counter), this);
 
-            //TranslateModifier = new XYZModifier(); // (nameof(Translate), beat, Counter, this);
-            //ScaleModifier = new ScaleModifier(); // (nameof(Scale), beat, Counter, this);
-            //RotationModifier = new XYZModifier(); // (nameof(Rotation), beat, Counter, this);
+            TranslateModifier = new XYZModifier(nameof(TranslateModifier), this, beat, this.Counter);
+            //ScaleModifier = new ScaleModifier(nameof(ScaleModifier), this, beat, this.Counter);
+            //RotationModifier = new XYZModifier(nameof(RotationModifier), this, beat, this.Counter);
 
             NoAspectRatio = false;
         }
 
-        public void Send(Message message)
-        {
-            MessageMediator?.Notify(MessageDirection.OUT, message);
-        }
 
-        public void Receive(Message message)
+        public override void Receive(Message message)
         {
             this.SetViewModel(message.Obj as InstancerModel);
         }
 
-        public MessageMediator MessageMediator { get; set; }
-        public string Address { get; set; }
         public Transform Transform { get; set; }
         public Counter Counter { get; set; }
         public XYZModifier TranslateModifier { get; set; }

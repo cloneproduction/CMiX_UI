@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -14,12 +15,24 @@ namespace CMiX.MVVM.ViewModels
             return postFXModel;
         }
 
-        public static void SetViewModel(this PostFX instance, PostFXModel postFXmodel)
+        public static void SetViewModel(this PostFX instance, PostFXModel model)
         {
-            instance.Transforms = postFXmodel.Transforms;
-            instance.View = postFXmodel.View;
-            instance.Feedback.SetViewModel(postFXmodel.Feedback);
-            instance.Blur.SetViewModel(postFXmodel.Blur);
+            Set(instance, model);
+        }
+
+        public static void SetViewModel(this PostFX instance, Message message)
+        {
+            var model = message.Obj as PostFXModel;
+
+            Set(instance, model);
+        }
+
+        private static void Set(PostFX instance, PostFXModel model)
+        {
+            instance.Transforms = model.Transforms;
+            instance.View = model.View;
+            instance.Feedback.SetViewModel(model.Feedback);
+            instance.Blur.SetViewModel(model.Blur);
         }
     }
 }

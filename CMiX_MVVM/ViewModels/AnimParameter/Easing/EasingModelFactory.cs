@@ -9,7 +9,7 @@ namespace CMiX.MVVM.ViewModels
             EasingModel model = new EasingModel();
             //model.EasingFunction = instance.EasingFunction;
             //model.EasingMode = instance.EasingMode;
-            model.SelectedEasing = instance.SelectedEasing;
+            //model.SelectedEasing = instance.SelectedEasing;
             return model;
         }
 

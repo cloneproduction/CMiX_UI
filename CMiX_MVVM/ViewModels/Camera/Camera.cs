@@ -1,23 +1,30 @@
 ﻿using CMiX.MVVM.Controls;
+using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Camera : ViewModel
+    public class Camera : Sender
     {
-        public Camera(MasterBeat beat) 
+        public Camera(string name, IColleague parentSender, MasterBeat beat) :base (name, parentSender)
         {
             Rotation = ((CameraRotation)0).ToString();
             LookAt = ((CameraLookAt)0).ToString();
             View = ((CameraView)0).ToString();
 
-            BeatModifier = new BeatModifier(beat);
-            FOV = new Slider(nameof(FOV));
-            Zoom = new Slider(nameof(Zoom));
+            BeatModifier = new BeatModifier(nameof(BeatModifier), this, beat);
+            FOV = new Slider(nameof(FOV), this);
+            Zoom = new Slider(nameof(Zoom), this);
         }
 
-        public BeatModifier BeatModifier { get; }
-        public Slider FOV { get; }
-        public Slider Zoom { get; }
+        public override void Receive(Message message)
+        {
+            this.SetViewModel(message.Obj as CameraModel);
+        }
+        public BeatModifier BeatModifier { get; set; }
+        public Slider FOV { get; set; }
+        public Slider Zoom { get; set; }
 
         private string _rotation;
         public string Rotation

@@ -2,9 +2,9 @@
 {
     public static class ModesFactory
     {
-        public static AnimMode CreateMode(ModeType modeType, AnimParameter animParameter)
+        public static IAnimMode CreateMode(ModeType modeType, AnimParameter animParameter)
         {
-            AnimMode animMode = null;
+            IAnimMode animMode = null;
 
             if (modeType == ModeType.Steady)
                 animMode = CreateSteady(animParameter);
@@ -21,7 +21,7 @@
             return animMode;
         }
 
-        private static void LoadFunctions(AnimMode animMode, AnimParameter animParameter)
+        private static void LoadFunctions(IAnimMode animMode, AnimParameter animParameter)
         {
             animParameter.OnBeatTick = animMode.UpdateOnBeatTick;
             animParameter.OnUpdateParameters = animMode.UpdateParameters;
@@ -29,27 +29,27 @@
 
         private static None CreateNone(AnimParameter animParameter)
         {
-            return new None(animParameter);
+            return new None(nameof(None), animParameter);
         }
 
         private static LFO CreateLFO(AnimParameter animParameter)
         {
-            return new LFO(animParameter);
+            return new LFO(nameof(LFO), animParameter);
         }
 
         private static Steady CreateSteady(AnimParameter animParameter)
         {
-            return new Steady(animParameter);
+            return new Steady(nameof(Steady), animParameter);
         }
 
         private static Stepper CreateStepper(AnimParameter animParameter)
         {
-            return new Stepper(animParameter);
+            return new Stepper(nameof(Stepper), animParameter);
         }
 
         private static Randomized CreateRandomized(AnimParameter animParameter)
         {
-            return new Randomized(animParameter);
+            return new Randomized(nameof(Randomized), animParameter);
         }
     }
 }

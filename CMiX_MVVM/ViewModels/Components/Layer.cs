@@ -9,7 +9,7 @@ namespace CMiX.MVVM.ViewModels
         public Layer(int id, MessengerTerminal messengerTerminal, MasterBeat beat) : base(id, messengerTerminal)
         {
             MasterBeat = beat;
-            PostFX = new PostFX();
+            PostFX = new PostFX(nameof(PostFX), this);
             BlendMode = new BlendMode(nameof(BlendMode), this);
             Fade = new Slider(nameof(Fade), this);
         }

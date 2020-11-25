@@ -1,28 +1,21 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class Mask : Sender
     {
-        public Mask()
+        public Mask(string name, IColleague parentSender) : base (name, parentSender)
         {
             MaskType = ((MaskType)2).ToString();
             MaskControlType = ((MaskControlType)1).ToString();
             Enabled = false;
         }
 
-        public Mask(Sender parentSender) : this()
+        public override void Receive(Message message)
         {
-            SubscribeToEvent(parentSender);
-        }
-
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        {
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-                this.SetViewModel(e.Model as MaskModel);
-            else
-                OnReceiveChange(e.Model, e.MessageAddress, e.ParentMessageAddress + this.GetMessageAddress());
+            this.SetViewModel(message.Obj as MaskModel);
         }
 
         private bool _IsMask;
@@ -32,7 +25,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _IsMask, value);
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
         }
 
@@ -44,7 +37,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _masktype, value);
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
         }
 
@@ -55,7 +48,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _maskcontroltype, value);
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
         }
     }

@@ -4,15 +4,11 @@ using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Texture : Sender, IColleague
+    public class Texture : Sender
     {
-        public Texture(string name, IColleague parentSender)
+        public Texture(string name, IColleague parentSender) : base (name, parentSender)
         {
-            this.Address = $"{parentSender.Address}{name}/";
-            this.MessageMediator = parentSender.MessageMediator;
-            this.MessageMediator.RegisterColleague(this);
-
-            AssetPathSelector = new AssetPathSelector(new AssetTexture(), this);
+            AssetPathSelector = new AssetPathSelector(nameof(AssetPathSelector), this, new AssetTexture());
 
             Inverter = new Inverter(nameof(Inverter), this);
 
@@ -48,27 +44,19 @@ namespace CMiX.MVVM.ViewModels
 
 
         public AssetPathSelector AssetPathSelector { get; set; }
-        public AssetTexture AssetTexture { get; set; }
-
-        public Slider Brightness { get; }
-        public Slider Contrast { get; }
-        public Slider Hue { get; }
-        public Slider Saturation { get; }
-        public Slider Luminosity { get; }
-        public Slider Keying { get; }
-        public Slider Pan { get; }
-        public Slider Tilt { get; }
-        public Slider Scale { get; }
-        public Slider Rotate { get; }
+        public Slider Brightness { get; set; }
+        public Slider Contrast { get; set; }
+        public Slider Hue { get; set; }
+        public Slider Saturation { get; set; }
+        public Slider Luminosity { get; set; }
+        public Slider Keying { get; set; }
+        public Slider Pan { get; set; }
+        public Slider Tilt { get; set; }
+        public Slider Scale { get; set; }
+        public Slider Rotate { get; set; }
         public Inverter Inverter { get; set; }
-        public MessageMediator MessageMediator { get; set; }
 
-        public void Send(Message message)
-        {
-            MessageMediator?.Notify(MessageDirection.OUT, message);
-        }
-
-        public void Receive(Message message)
+        public override void Receive(Message message)
         {
             this.SetViewModel(message.Obj as TextureModel);
             System.Console.WriteLine("POUETPOUET " + this.Address + "Texture received " + message.Address);

@@ -1,18 +1,20 @@
 ﻿using CMiX.MVVM.Resources;
+using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Stepper : AnimMode
+    public class Stepper : Sender, IAnimMode
     {
-        public Stepper()
+        public Stepper(string name, IColleague parentSender) : base (name, parentSender)
         {
             StepCount = 2;
             nextStep = 1.0;
         }
 
-        public Stepper(Sender parentSender) : this()
+        public override void Receive(Message message)
         {
-            SubscribeToEvent(parentSender);
+            //this.SetViewModel(message.Obj as )
         }
 
         private double currentStep;
@@ -27,11 +29,11 @@ namespace CMiX.MVVM.ViewModels
                 if (value <= 1)
                     value = 1;
                 SetAndNotify(ref _stepCount, value);
-                OnSendChange(this.GetModel(), this.GetMessageAddress());
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
         }
 
-        public override void UpdateOnBeatTick(AnimParameter animParameter, double period)
+        public void UpdateOnBeatTick(AnimParameter animParameter, double period)
         {
             if (nextStep >= StepCount)
                 nextStep = 0.0;
@@ -40,7 +42,7 @@ namespace CMiX.MVVM.ViewModels
             nextStep += 1.0;
         }
 
-        public override void UpdateParameters(AnimParameter animParameter, double period)
+        public void UpdateParameters(AnimParameter animParameter, double period)
         {
             for (int i = 0; i < animParameter.Parameters.Length; i++)
             {

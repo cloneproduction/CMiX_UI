@@ -1,4 +1,6 @@
-﻿using CMiX.MVVM.Services;
+﻿using CMiX.MVVM.Models.Beat;
+using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.Mediator;
 using System;
 using System.Windows.Input;
 
@@ -6,26 +8,26 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Resync : Sender
     {
-        public Resync(BeatAnimations beatAnimations)
+        public Resync(string name, IColleague parentSender, BeatAnimations beatAnimations) : base (name, parentSender)
         {
             BeatAnimations = beatAnimations;
             ResyncCommand = new RelayCommand(p => DoResync());
         }
 
-        public Resync(BeatAnimations beatAnimations, Sender parentSender) : this(beatAnimations)
-        {
-            SubscribeToEvent(parentSender);
-        }
 
-        public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        //public override void OnParentReceiveChange(object sender, ModelEventArgs e)
+        //{
+        //    if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
+        //    {
+        //        if (Resynced)
+        //            Resynced = false;
+        //        else
+        //            Resynced = true;
+        //    }
+        //}
+        public override void Receive(Message message)
         {
-            if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-            {
-                if (Resynced)
-                    Resynced = false;
-                else
-                    Resynced = true;
-            }
+            this.SetViewModel(message.Obj as ResyncModel);
         }
 
         public BeatAnimations BeatAnimations { get; set; }
@@ -41,7 +43,7 @@ namespace CMiX.MVVM.ViewModels
         {
             BeatAnimations.ResetAnimation();
             OnBeatResync();
-            OnSendChange(this.GetModel(), this.GetMessageAddress());
+            this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
         }
 
         public ICommand ResyncCommand { get; }

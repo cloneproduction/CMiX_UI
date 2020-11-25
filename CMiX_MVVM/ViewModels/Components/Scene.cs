@@ -8,11 +8,10 @@ namespace CMiX.MVVM.ViewModels
         public Scene(int id, MessengerTerminal messengerTerminal, MasterBeat masterBeat) : base(id, messengerTerminal)
         {
             MasterBeat = masterBeat;
-            BeatModifier = new BeatModifier(masterBeat);
-            PostFX = new PostFX();
-            Mask = new Mask();
+            BeatModifier = new BeatModifier(nameof(BeatModifier), this, masterBeat);
+            PostFX = new PostFX(nameof(PostFX), this);
+            Mask = new Mask(nameof(Mask), this);
             Transform = new Transform(nameof(Transform), this);
-
         }
 
         public Transform Transform { get; set; }

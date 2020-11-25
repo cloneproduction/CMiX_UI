@@ -1,15 +1,21 @@
 ﻿using CMiX.MVVM.Resources;
+using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.Mediator;
 using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Randomized : AnimMode
+    public class Randomized : Sender, IAnimMode
     {
-        public Randomized(AnimParameter animParameter)
+        public Randomized(string name, IColleague parentSender) : base (name, parentSender)
         {
             Random = new Random();
-            newRandom = GetNewRandoms(animParameter.Counter.Count);
-            SubscribeToEvent(animParameter);
+            newRandom = GetNewRandoms(((AnimParameter)parentSender).Counter.Count); // UGLY
+        }
+
+        public override void Receive(Message message)
+        {
+            //this.SetViewModel(message.Obj as RandomizedModel);
         }
 
         private Random Random { get; set; }
@@ -27,13 +33,13 @@ namespace CMiX.MVVM.ViewModels
             return rands;
         }
 
-        public override void UpdateOnBeatTick(AnimParameter animParameter, double period)
+        public void UpdateOnBeatTick(AnimParameter animParameter, double period)
         {
             oldRandom = newRandom;
             newRandom = GetNewRandoms(animParameter.Counter.Count);
         }
 
-        public override void UpdateParameters(AnimParameter animParameter, double period)
+        public void UpdateParameters(AnimParameter animParameter, double period)
         {
             for (int i = 0; i < animParameter.Parameters.Length; i++)
             {
