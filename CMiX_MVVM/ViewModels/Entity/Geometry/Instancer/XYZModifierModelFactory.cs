@@ -8,11 +8,10 @@ namespace CMiX.MVVM.ViewModels
         {
             XYZModifierModel model = new XYZModifierModel();
 
-            //model.Name = instance.Name;
-            
-            //model.X = instance.X.GetModel();
-            //model.Y = instance.Y.GetModel();
-            //model.Z = instance.Z.GetModel();
+            model.Name = instance.Name;
+            model.X = instance.X.GetModel();
+            model.Y = instance.Y.GetModel();
+            model.Z = instance.Z.GetModel();
 
             return model;
         }

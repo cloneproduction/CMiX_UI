@@ -13,8 +13,8 @@ namespace CMiX.MVVM.ViewModels
             Counter = new Counter(nameof(Counter), this);
 
             TranslateModifier = new XYZModifier(nameof(TranslateModifier), this, beat, this.Counter);
-            //ScaleModifier = new ScaleModifier(nameof(ScaleModifier), this, beat, this.Counter);
-            //RotationModifier = new XYZModifier(nameof(RotationModifier), this, beat, this.Counter);
+            ScaleModifier = new ScaleModifier(nameof(ScaleModifier), this, beat, this.Counter);
+            RotationModifier = new XYZModifier(nameof(RotationModifier), this, beat, this.Counter);
 
             NoAspectRatio = false;
         }

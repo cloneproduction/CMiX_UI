@@ -26,6 +26,7 @@ namespace CMiX.MVVM.ViewModels
         public override void Receive(Message message)
         {
             this.SetViewModel(message.Obj as ColorPickerModel);
+            System.Console.WriteLine("ColorPicker Receive");
         }
 
         public ICommand PreviewMouseDownCommand { get; set; }
@@ -38,7 +39,11 @@ namespace CMiX.MVVM.ViewModels
         public Color SelectedColor
         {
             get => _selectedColor;
-            set => SetAndNotify(ref _selectedColor, value);
+            set
+            {
+                SetAndNotify(ref _selectedColor, value);
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
+            }
         }
 
         private void UpdateMementor(string propertyname)
@@ -66,7 +71,6 @@ namespace CMiX.MVVM.ViewModels
 
                 this._selectedColor.R = value;
                 Notify(nameof(SelectedColor));
-                //this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
         }
 

@@ -7,10 +7,10 @@ namespace CMiX.MVVM.ViewModels
         public static TransformModel GetModel(this Transform instance)
         {
             TransformModel model = new TransformModel();
-            //model.TranslateModel = instance.Translate.GetModel();
-            //model.ScaleModel = instance.Scale.GetModel();
-            //model.RotationModel = instance.Rotation.GetModel();
-            //model.Is3D = instance.Is3D;
+            model.TranslateModel = instance.Translate.GetModel();
+            model.ScaleModel = instance.Scale.GetModel();
+            model.RotationModel = instance.Rotation.GetModel();
+            model.Is3D = instance.Is3D;
             return model;
         }
 

@@ -30,7 +30,7 @@
                 Margin="0, 0, 0, 2"
                 Padding="4"
                 DockPanel.Dock="Top">
-                <Border.ContextMenu>
+                <!--<Border.ContextMenu>
                     <ContextMenu>
                         <MenuItem
                             Padding="8, 4"
@@ -69,7 +69,7 @@
                             </MenuItem.Header>
                         </MenuItem>
                     </ContextMenu>
-                </Border.ContextMenu>
+                </Border.ContextMenu>-->
                 <DockPanel 
                     VerticalAlignment="Center" 
                     LastChildFill="False">
