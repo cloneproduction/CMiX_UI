@@ -18,7 +18,7 @@ namespace CMiX.MVVM.ViewModels
         {
             Mementor = new Mementor();
 
-            MessengerManager = new MessageService.MessageSender();
+            MessengerManager = new MessageSender();
             MessengerTerminal = new MessengerTerminal();
 
             CurrentProject = new Project(0, MessengerTerminal);
@@ -85,8 +85,8 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _messengerTerminal, value);
         }
 
-        private MessageService.MessageSender _messengerManager;
-        public MessageService.MessageSender MessengerManager
+        private MessageSender _messengerManager;
+        public MessageSender MessengerManager
         {
             get => _messengerManager;
             set => SetAndNotify(ref _messengerManager, value);

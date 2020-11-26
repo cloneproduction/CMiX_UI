@@ -1,10 +1,11 @@
-﻿using CMiX.MVVM.Models;
+﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 using System;
 
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class TextureModel : Model
+    public class TextureModel : IModel
     {
         public TextureModel()
         {
@@ -21,6 +22,8 @@ namespace CMiX.MVVM.Models
             Scale = new SliderModel();
             Rotate = new SliderModel();
         }
+
+        public bool Enabled { get; set; }
 
         public AssetPathSelectorModel AssetPathSelectorModel { get; set; }
         public InverterModel InverterModel { get; set; }

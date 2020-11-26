@@ -4,17 +4,13 @@ using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class LFO : Sender, IAnimMode
+    public class LFO : ViewModel, IAnimMode
     {
-        public LFO(string name, IColleague parentSender) : base (name, parentSender)
+        public LFO(string name, IColleague parentSender)
         {
 
         }
 
-        public override void Receive(Message message)
-        {
-            //this.SetViewModel(message.Obj as CounterModel);
-        }
 
         public void UpdateOnBeatTick(AnimParameter animParameter, double period)
         {

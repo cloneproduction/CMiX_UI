@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="C:\Users\BabyClone\Documents\GitHub\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="1590" scrolly="4680">
-   <BOUNDS type="Window" left="20480" top="1450" width="20580" height="16080">
+   <PATCH nodename="C:\Users\BabyClone\Documents\GitHub\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="1590" scrolly="360">
+   <BOUNDS type="Window" left="14720" top="4570" width="20580" height="16080">
    </BOUNDS>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="2" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="6275" top="4160" width="585" height="510">
@@ -757,7 +757,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="6160" top="21415" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="10530" top="12600" width="7710" height="7320">
+   <BOUNDS type="Window" left="26810" top="4190" width="7710" height="7320">
    </BOUNDS>
    <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
@@ -1220,52 +1220,6 @@
    </NODE>
    <LINK srcnodeid="1" srcpinname="Data Type" dstnodeid="461" dstpinname="Input String">
    </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="462">
-   <BOUNDS type="Box" left="5580" top="300" width="870" height="3270">
-   </BOUNDS>
-   <BOUNDS type="Node" left="5580" top="300" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Rows" slicecount="1" values="10">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="189" srcpinname="Fade" dstnodeid="462" dstpinname="Y Input Value">
-   </LINK>
-   <NODE systemname="GetSlider (CMiX_VVVV)" filename="..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetSlider (CMiX_VVVV)" componentmode="Hidden" id="463">
-   <BOUNDS type="Node" left="8070" top="7160" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="8070" top="7160" width="2000" height="2000">
-   </BOUNDS>
-   <PIN pinname="Layer" visible="1">
-   </PIN>
-   <PIN pinname="Amount" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="189" srcpinname="Layer" dstnodeid="463" dstpinname="Layer">
-   </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="464">
-   <BOUNDS type="Box" left="8510" top="7820" width="795" height="720">
-   </BOUNDS>
-   <BOUNDS type="Node" left="8510" top="7820" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Rows" slicecount="1" values="3">
-   </PIN>
-   <PIN pinname="Y Input Value" slicecount="3" values="0,,">
-   </PIN>
-   <PIN pinname="Vector Size" slicecount="1" values="3">
-   </PIN>
-   <PIN pinname="Default" slicecount="1" values="|0, 0, 0|">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="463" srcpinname="Amount" dstnodeid="464" dstpinname="Y Input Value">
-   </LINK>
    <LINK srcnodeid="352" srcpinname="Layer Out" dstnodeid="355" dstpinname="Layer 1">
    </LINK>
    <LINK srcnodeid="355" srcpinname="Layer Out" dstnodeid="304" dstpinname="Layers">
@@ -1319,8 +1273,6 @@
    <LINK srcnodeid="188" srcpinname="Scene Bin Size" dstnodeid="469" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="467" srcpinname="Output" dstnodeid="108" dstpinname="TranslateX">
-   </LINK>
-   <LINK srcnodeid="455" srcpinname="Layer" dstnodeid="355" dstpinname="Layer 3">
    </LINK>
    <LINK srcnodeid="93" srcpinname="Output" dstnodeid="77" dstpinname="sceneTransform">
    </LINK>

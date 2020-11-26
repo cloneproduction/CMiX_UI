@@ -61,6 +61,8 @@
    </PIN>
    <PIN pinname="BeatTicks" visible="1">
    </PIN>
+   <PIN pinname="Parameters" visible="1">
+   </PIN>
    </NODE>
    <NODE systemname="GetAnimParameter (CMiX_VVVV)" filename="..\..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetAnimParameter (CMiX_VVVV)" componentmode="Hidden" id="5">
    <BOUNDS type="Node" left="5755" top="3575" width="100" height="100">
@@ -74,6 +76,8 @@
    <PIN pinname="Periods" visible="1">
    </PIN>
    <PIN pinname="BeatTicks" visible="1">
+   </PIN>
+   <PIN pinname="Parameters" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="0" srcpinname="X" dstnodeid="1" dstpinname="AnimParameter">
@@ -104,34 +108,28 @@
    </LINK>
    <LINK srcnodeid="2" srcpinname="Output" dstnodeid="5" dstpinname="BeatTicks">
    </LINK>
-   <BOUNDS type="Window" left="16545" top="5985" width="9090" height="7635">
+   <BOUNDS type="Window" left="11940" top="4575" width="9090" height="7635">
    </BOUNDS>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.4">
    </PACK>
    <PACK Name="addonpack" Version="38.1.0">
    </PACK>
    <NODE systemname="Vector (3d Join)" nodename="Vector (3d Join)" componentmode="Hidden" id="10">
-   <BOUNDS type="Node" left="4420" top="5600" width="100" height="100">
+   <BOUNDS type="Node" left="3295" top="4865" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="X" visible="1">
+   <PIN pinname="X" visible="1" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Y" visible="1">
+   <PIN pinname="Y" visible="1" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Z" visible="1">
+   <PIN pinname="Z" visible="1" slicecount="1" values="0">
    </PIN>
    <PIN pinname="XYZ" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="1" srcpinname="Period" dstnodeid="10" dstpinname="X">
-   </LINK>
-   <LINK srcnodeid="4" srcpinname="Period" dstnodeid="10" dstpinname="Y">
-   </LINK>
-   <LINK srcnodeid="5" srcpinname="Period" dstnodeid="10" dstpinname="Z">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="11">
-   <BOUNDS type="Box" left="4380" top="6200" width="800" height="720">
+   <BOUNDS type="Box" left="3285" top="5585" width="800" height="720">
    </BOUNDS>
-   <BOUNDS type="Node" left="4380" top="6200" width="0" height="0">
+   <BOUNDS type="Node" left="3285" top="5585" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -148,4 +146,10 @@
    </LINK>
    <PACK Name="dx11" Version="1.3.1">
    </PACK>
+   <LINK srcnodeid="1" srcpinname="Parameters" dstnodeid="10" dstpinname="X">
+   </LINK>
+   <LINK srcnodeid="4" srcpinname="Parameters" dstnodeid="10" dstpinname="Y">
+   </LINK>
+   <LINK srcnodeid="5" srcpinname="Parameters" dstnodeid="10" dstpinname="Z">
+   </LINK>
    </PATCH>

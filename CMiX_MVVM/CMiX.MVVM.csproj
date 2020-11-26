@@ -143,8 +143,8 @@
     <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\Steady.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\Stepper.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\ModeTypeTemplateSelector.cs" />
-    <Compile Include="ViewModels\AnimParameter\Range\Range.cs" />
-    <Compile Include="ViewModels\AnimParameter\Range\RangeModelFactory.cs" />
+    <Compile Include="ViewModels\Range\Range.cs" />
+    <Compile Include="ViewModels\Range\RangeModelFactory.cs" />
     <Compile Include="ViewModels\Assets\AssetPathSelectorModelFactory.cs" />
     <Compile Include="ViewModels\Beat\MasterBeatModelFactory.cs" />
     <Compile Include="ViewModels\Beat\IBeatModifier.cs" />

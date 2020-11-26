@@ -16,6 +16,7 @@ namespace CMiX.MVVM.ViewModels
         public override void Receive(Message message)
         {
             this.SetViewModel(message.Obj as RangeModel);
+            Console.WriteLine("Received Range");
         }
 
         public double Distance

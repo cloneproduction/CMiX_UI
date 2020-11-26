@@ -1,7 +1,7 @@
-﻿using CMiX.MVVM.Models;
+﻿using System;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
-using System;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -9,21 +9,23 @@ namespace CMiX.MVVM.ViewModels
     {
         public AnimParameter(string name, IColleague parentSender, double defaultValue, Counter counter, MasterBeat beat, bool isEnabled = true) : base (name, parentSender)
         {
+            Range = new Range(nameof(Range), this, 0.0, 1.0);
+            Easing = new Easing(nameof(Easing), this);
+            BeatModifier = new BeatModifier(nameof(BeatModifier), this, beat);
+
             Name = name;
             Counter = counter;
             Counter.CounterChangeEvent += Counter_CounterChangeEvent;
             DefaultValue = defaultValue;
+
             IsEnabled = isEnabled;
             SelectedModeType = ModeType.None;
-
-            Range = new Range(nameof(Range), this, 0.0, 1.0);
-            Easing = new Easing(nameof(Easing), this);
-            BeatModifier = new BeatModifier(nameof(BeatModifier), this, beat);
         }
 
         public override void Receive(Message message)
         {
             this.SetViewModel(message.Obj as AnimParameterModel);
+            Console.WriteLine("Received AnimParameter");
         }
 
 

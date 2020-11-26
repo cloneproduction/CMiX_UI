@@ -18,6 +18,7 @@ namespace CMiX.MVVM.ViewModels
         public override void Receive(Message message)
         {
             this.SetViewModel(message.Obj as XYZModifierModel);
+            System.Console.WriteLine("Received XYZModifier");
         }
 
         private int _isExpanded;

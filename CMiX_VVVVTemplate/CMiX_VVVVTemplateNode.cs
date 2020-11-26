@@ -36,7 +36,7 @@ namespace CMiX.Nodes
 
 		public CMiX_VVVVTemplateNode()
         {
-			Settings settings = new Settings("Pouet", "Pouet", "192.168.1.3", 2222);
+			Settings settings = new Settings("Pouet", "Pouet", "192.168.0.192", 2222);
 			MessengerTerminal messengerTerminal = new MessengerTerminal();
 			messengerTerminal.StartReceiver(settings);
             messengerTerminal.MessageReceived += MessengerTerminal_MessageReceived;
@@ -47,10 +47,9 @@ namespace CMiX.Nodes
         {
 			if(e.Message.Obj is SliderModel)
 			{
-				var pouet = e.Message.Obj as SliderModel;
-				FLogger.Log(LogType.Debug, "Received SliderModel" + pouet.Amount);
+				//var pouet = e.Message.Obj as SliderModel;
+				//FLogger.Log(LogType.Debug, "Received SliderModel" + pouet.Amount);
 			}
-			
 		}
 
         public void OnImportsSatisfied()
@@ -58,19 +57,11 @@ namespace CMiX.Nodes
 			FProjectOut[0] = this.Project;
 		}
 
-
-
         public void Evaluate(int SpreadMax)
 		{
 			FReceiverIsRunning.SliceCount = 1;
 			FDataType.SliceCount = 1;
 			FProjectOut.SliceCount = 1;
-			
-			//if (FStartServer[0])
-			//	this.Receiver.StartClient();
-
-			//if(FStopServer[0])
-			//	Receiver.StopClient();
 
 			if (Receiver != null)
 				FReceiverIsRunning[0] = Receiver.Client.IsRunning;

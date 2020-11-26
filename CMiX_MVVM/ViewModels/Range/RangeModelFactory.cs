@@ -7,8 +7,8 @@ namespace CMiX.MVVM.ViewModels
         public static RangeModel GetModel(this Range instance)
         {
             RangeModel model = new RangeModel();
-            //model.Minimum = instance.Minimum;
-            //model.Maximum = instance.Maximum;
+            model.Minimum = instance.Minimum;
+            model.Maximum = instance.Maximum;
             return model;
         }
 

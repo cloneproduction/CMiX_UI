@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\Modifier\TranslateModifier.v4p" systemname="TranslateModifier" filename="C:\Users\BabyClone\Documents\GitHub\CMiX\CMiX_VVVVTemplate\Patches\Modifier\TranslateModifier.v4p">
+   <PATCH nodename="C:\Users\BabyClone\Documents\GitHub\CMiX\CMiX_VVVVTemplate\Patches\Modifier\TranslateModifier.v4p" systemname="TranslateModifier" filename="C:\Users\BabyClone\Documents\GitHub\CMiX\CMiX_VVVVTemplate\Patches\Modifier\TranslateModifier.v4p">
    <NODE systemname="GetModifier (CMiX_VVVV)" filename="..\..\bin\AnyCPU\Debug\CMiX_VVVVTemplate.dll" nodename="GetModifier (CMiX_VVVV)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="1595" top="1500" width="950" height="270">
    </BOUNDS>
@@ -30,6 +30,8 @@
    <PIN pinname="BeatTicks" visible="1">
    </PIN>
    <PIN pinname="Parameters" visible="1">
+   </PIN>
+   <PIN pinname="Pass" visible="1">
    </PIN>
    </NODE>
    <NODE systemname="R (Value Advanced)" filename="%VVVV%\addonpack\lib\nodes\plugins\RSNodes.dll" nodename="R (Value Advanced)" componentmode="Hidden" id="2">
@@ -108,7 +110,7 @@
    </LINK>
    <LINK srcnodeid="2" srcpinname="Output" dstnodeid="5" dstpinname="BeatTicks">
    </LINK>
-   <BOUNDS type="Window" left="11940" top="4575" width="9090" height="7635">
+   <BOUNDS type="Window" left="17950" top="3750" width="9090" height="7630">
    </BOUNDS>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.4">
    </PACK>
@@ -152,4 +154,6 @@
    </LINK>
    <LINK srcnodeid="5" srcpinname="Parameters" dstnodeid="10" dstpinname="Z">
    </LINK>
+   <PACK Name="dx11.particles" Version="1.0.7">
+   </PACK>
    </PATCH>
