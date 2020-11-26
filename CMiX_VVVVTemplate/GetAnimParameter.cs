@@ -7,7 +7,7 @@ using VVVV.PluginInterfaces.V2;
 
 namespace CMiX.Nodes
 {
-    [PluginInfo(Name = "GetAnimParameter", Category = "CMiX_VVVV")]
+    [PluginInfo(Name = "GetAnimParameter", AutoEvaluate =true, Category = "CMiX_VVVV")]
     public class GetAnimParameter : IPluginEvaluate
     {
         [Import()]
@@ -56,6 +56,10 @@ namespace CMiX.Nodes
                     if (AnimParameter[i] != null)
                     {
                         Parameters[i].SliceCount = AnimParameter[i].Parameters.Length;
+                        FLogger.Log(LogType.Debug, "----------------");
+                        FLogger.Log(LogType.Debug, "BeatModifier.Address" + AnimParameter[i].Address) ;
+                        FLogger.Log(LogType.Debug, "BeatModifier.ChanceToHit.Amount" + AnimParameter[i].BeatModifier.ChanceToHit.Amount);
+                        FLogger.Log(LogType.Debug, "BeatModifier.BeatIndex" + AnimParameter[i].BeatModifier.BeatIndex);
 
                         if (BeatTicks[i])
                         {

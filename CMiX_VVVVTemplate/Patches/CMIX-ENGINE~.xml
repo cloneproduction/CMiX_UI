@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="C:\Users\BabyClone\Documents\GitHub\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="1590" scrolly="360">
+   <PATCH nodename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="1590" scrolly="-360">
    <BOUNDS type="Window" left="14720" top="4570" width="20580" height="16080">
    </BOUNDS>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="2" systemname="IOBox (Value Advanced)">
@@ -511,7 +511,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="8790" top="2055" width="8640" height="1215">
    </BOUNDS>
-   <BOUNDS type="Window" left="23610" top="3930" width="6240" height="5070">
+   <BOUNDS type="Window" left="22520" top="8850" width="6240" height="5070">
    </BOUNDS>
    <PIN pinname="Log Messages" visible="1">
    </PIN>
@@ -541,7 +541,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="9750" top="930" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -551,7 +551,7 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="0">
+   <PIN pinname="X Input Value" slicecount="1" values="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="241" srcpinname="Y Output Value" dstnodeid="205" dstpinname="Log Messages">
@@ -757,7 +757,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="6160" top="21415" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="26810" top="4190" width="7710" height="7320">
+   <BOUNDS type="Window" left="18090" top="1680" width="7710" height="7320">
    </BOUNDS>
    <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
@@ -779,7 +779,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="10530" top="11130" width="7355" height="5835">
    </BOUNDS>
-   <BOUNDS type="Window" left="11940" top="4575" width="9090" height="7635">
+   <BOUNDS type="Window" left="17950" top="3750" width="9090" height="7630">
    </BOUNDS>
    <PIN pinname="X" visible="1">
    </PIN>

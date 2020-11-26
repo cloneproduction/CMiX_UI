@@ -17,14 +17,7 @@
             else if (modeType == ModeType.None)
                 animMode = CreateNone(animParameter);
 
-            LoadFunctions(animMode, animParameter);
             return animMode;
-        }
-
-        private static void LoadFunctions(IAnimMode animMode, AnimParameter animParameter)
-        {
-            animParameter.OnBeatTick = animMode.UpdateOnBeatTick;
-            animParameter.OnUpdateParameters = animMode.UpdateParameters;
         }
 
         private static None CreateNone(AnimParameter animParameter)

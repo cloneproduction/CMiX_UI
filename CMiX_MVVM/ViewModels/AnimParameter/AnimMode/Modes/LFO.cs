@@ -38,7 +38,6 @@ namespace CMiX.MVVM.ViewModels
 
                 offset += periodOffset;
             }
-            
         }
 
         private bool _invert;

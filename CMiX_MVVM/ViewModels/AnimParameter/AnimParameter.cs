@@ -48,11 +48,7 @@ namespace CMiX.MVVM.ViewModels
         public bool IsEnabled
         {
             get => _IsEnabled;
-            set
-            {
-                SetAndNotify(ref _IsEnabled, value);
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
-            }
+            set => SetAndNotify(ref _IsEnabled, value);
         }
 
         private ModeType _selectedModeType;
@@ -63,7 +59,6 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _selectedModeType, value);
                 SetAnimMode();
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
         }
 
@@ -81,7 +76,10 @@ namespace CMiX.MVVM.ViewModels
 
         private void SetAnimMode()
         {
-            AnimMode = ModesFactory.CreateMode(SelectedModeType, this);
+            this.AnimMode = ModesFactory.CreateMode(SelectedModeType, this);
+            this.OnBeatTick = AnimMode.UpdateOnBeatTick;
+            this.OnUpdateParameters = AnimMode.UpdateParameters;
+            this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
         }
 
         public Action<AnimParameter, double> OnBeatTick { get; set; }

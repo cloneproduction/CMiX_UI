@@ -9,7 +9,6 @@ namespace CMiX.MVVM.ViewModels
     {
         public Slider(string name, IColleague parentSender) : base (name, parentSender)
         {
-            System.Console.WriteLine(this.Address);
             Name = name;
 
             AddCommand = new RelayCommand(p => Add());
@@ -20,7 +19,6 @@ namespace CMiX.MVVM.ViewModels
         public override void Receive(Message message)
         {
             this.SetViewModel(message.Obj as SliderModel);
-            System.Console.WriteLine("POUETPOUET " + this.Address + "Slider received " + message.Address + "  "  + this.Amount);
         }
 
         public ICommand AddCommand { get; }
