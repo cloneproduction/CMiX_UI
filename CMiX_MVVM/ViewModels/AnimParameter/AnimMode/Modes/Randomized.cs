@@ -33,17 +33,17 @@ namespace CMiX.MVVM.ViewModels
             return rands;
         }
 
-        public void UpdateOnBeatTick(AnimParameter animParameter, double period)
+        public void UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
             oldRandom = newRandom;
-            newRandom = GetNewRandoms(animParameter.Counter.Count);
+            newRandom = GetNewRandoms(doubleToAnimate.Length);
         }
 
-        public void UpdateParameters(AnimParameter animParameter, double period)
+        public void UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
-            for (int i = 0; i < animParameter.Parameters.Length; i++)
+            for (int i = 0; i < doubleToAnimate.Length; i++)
             {
-                animParameter.Parameters[i] = Utils.Map(Utils.Lerp(oldRandom[i], newRandom[i], Easings.Interpolate((float)period, animParameter.Easing.SelectedEasing)), 0.0, 1.0, animParameter.Range.Minimum, animParameter.Range.Maximum);
+                doubleToAnimate[i] = Utils.Map(Utils.Lerp(oldRandom[i], newRandom[i], Easings.Interpolate((float)period, easing.SelectedEasing)), 0.0, 1.0, range.Minimum, range.Maximum);
             }
         }
     }

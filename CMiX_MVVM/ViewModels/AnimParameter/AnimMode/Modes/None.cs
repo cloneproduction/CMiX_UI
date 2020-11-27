@@ -1,31 +1,27 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
+using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class None : Sender, IAnimMode
+    public class None : ViewModel, IAnimMode
     {
-        public None(string name, IColleague parentSender) : base (name, parentSender)
+        public None(string name, IColleague parentSender)
         {
 
         }
 
-        public override void Receive(Message message)
-        {
-            this.SetViewModel(message.Obj as NoneModel);
-        }
-
-        public void UpdateOnBeatTick(AnimParameter animParameter, double period)
+        public void UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
 
         }
 
-        public void UpdateParameters(AnimParameter animParameter, double period)
+        public void UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
-            for (int i = 0; i < animParameter.Parameters.Length; i++)
+            for (int i = 0; i < doubleToAnimate.Length; i++)
             {
-                animParameter.Parameters[i] = animParameter.DefaultValue;
+                doubleToAnimate[i] = 0;
             }
         }
 

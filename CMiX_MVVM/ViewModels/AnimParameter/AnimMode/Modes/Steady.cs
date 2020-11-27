@@ -19,24 +19,24 @@ namespace CMiX.MVVM.ViewModels
             //this.SetViewModel()
         }
 
-        public void UpdateOnBeatTick(AnimParameter animParameter, double period)
+        public void UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
             //throw new NotImplementedException();
         }
 
-        public void UpdateParameters(AnimParameter animParameter, double period)
+        public void UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
-            double offset = animParameter.Range.Distance / animParameter.Counter.Count;
+            double offset = range.Distance / doubleToAnimate.Length;
             double startValue;
 
             if (SteadyType == SteadyType.Linear)
             {
                 if(LinearType == LinearType.Left)
                 {
-                    startValue = animParameter.Range.Minimum;
-                    for (int i = 0; i < animParameter.Parameters.Length; i++)
+                    startValue = range.Minimum;
+                    for (int i = 0; i < doubleToAnimate.Length; i++)
                     {
-                        animParameter.Parameters[i] = startValue;
+                        doubleToAnimate[i] = startValue;
                         startValue += offset;
                     }
                     return;
@@ -44,10 +44,10 @@ namespace CMiX.MVVM.ViewModels
 
                 if (LinearType == LinearType.Right)
                 {
-                    startValue = animParameter.Range.Maximum;
-                    for (int i = 0; i < animParameter.Parameters.Length; i++)
+                    startValue = range.Maximum;
+                    for (int i = 0; i < doubleToAnimate.Length; i++)
                     {
-                        animParameter.Parameters[i] = startValue;
+                        doubleToAnimate[i] = startValue;
                         startValue -= offset;
                     }
                     return;
@@ -55,10 +55,10 @@ namespace CMiX.MVVM.ViewModels
 
                 if (LinearType == LinearType.Center)
                 {
-                    startValue = animParameter.Range.Distance;
-                    for (int i = 0; i < animParameter.Parameters.Length; i++)
+                    startValue = range.Distance;
+                    for (int i = 0; i < doubleToAnimate.Length; i++)
                     {
-                        animParameter.Parameters[i] = startValue;
+                        doubleToAnimate[i] = startValue;
                         startValue -= offset;
                     }
                     return;
@@ -68,9 +68,9 @@ namespace CMiX.MVVM.ViewModels
             if(SteadyType == SteadyType.Random)
             {
                 var random = new Random(Seed);
-                for (int i = 0; i < animParameter.Parameters.Length; i++)
+                for (int i = 0; i < doubleToAnimate.Length; i++)
                 {
-                    animParameter.Parameters[i] = Utils.Map(random.NextDouble(), 0.0, 1.0, animParameter.Range.Minimum, animParameter.Range.Maximum);
+                    doubleToAnimate[i] = Utils.Map(random.NextDouble(), 0.0, 1.0, range.Minimum, range.Maximum);
                 }
                 return;
             }

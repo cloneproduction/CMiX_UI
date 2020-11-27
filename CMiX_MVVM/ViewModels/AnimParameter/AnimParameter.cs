@@ -7,16 +7,13 @@ namespace CMiX.MVVM.ViewModels
 {
     public class AnimParameter : Sender
     {
-        public AnimParameter(string name, IColleague parentSender, double defaultValue, Counter counter, MasterBeat beat, bool isEnabled = true) : base (name, parentSender)
+        public AnimParameter(string name, IColleague parentSender, double[] parameters, MasterBeat beat, bool isEnabled = true) : base (name, parentSender)
         {
             Range = new Range(nameof(Range), this, 0.0, 1.0);
             Easing = new Easing(nameof(Easing), this);
             BeatModifier = new BeatModifier(nameof(BeatModifier), this, beat);
 
             Name = name;
-            Counter = counter;
-            Counter.CounterChangeEvent += Counter_CounterChangeEvent;
-            DefaultValue = defaultValue;
 
             IsEnabled = isEnabled;
             SelectedModeType = ModeType.None;
@@ -29,10 +26,21 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
+        private double[] _parameters;
+        public double[] Parameters
+        {
+            get { return _parameters; }
+            set 
+            {
+                _parameters = value;
+                Console.WriteLine("CountChange");
+            }
+        }
+
+
         public BeatModifier BeatModifier { get; set; }
         public Easing Easing { get; set; }
         public Range Range { get; set; }
-        public double DefaultValue { get; set; }
         public Counter Counter { get; set; }
         public double[] Parameters { get; set; }
 
@@ -77,12 +85,17 @@ namespace CMiX.MVVM.ViewModels
         private void SetAnimMode()
         {
             this.AnimMode = ModesFactory.CreateMode(SelectedModeType, this);
-            this.OnBeatTick = AnimMode.UpdateOnBeatTick;
-            this.OnUpdateParameters = AnimMode.UpdateParameters;
             this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
         }
 
-        public Action<AnimParameter, double> OnBeatTick { get; set; }
-        public Action<AnimParameter, double> OnUpdateParameters { get; set;}
+        public void AnimateOnBeatTick(double period)
+        {
+            this.AnimMode.UpdateOnBeatTick(this.Parameters, period, this.Range, this.Easing);
+        }
+
+        public void AnimateOnGameLoop(double period)
+        {
+            this.AnimMode.UpdateOnGameLoop(this.Parameters, period, this.Range, this.Easing);
+        }
     }
 }

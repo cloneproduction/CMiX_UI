@@ -1,32 +1,30 @@
 ﻿using CMiX.MVVM.Resources;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
+using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class LFO : ViewModel, IAnimMode
     {
-        public LFO(string name, IColleague parentSender)
+        public LFO()
         {
 
         }
 
 
-        public void UpdateOnBeatTick(AnimParameter animParameter, double period)
+        public void UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
 
         }
 
-        public void UpdateParameters(AnimParameter animParameter, double period)
+        public void UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
-            double min = animParameter.Range.Minimum;
-            double max = animParameter.Range.Maximum;
-
-            double periodOffset = 1.0 / animParameter.Parameters.Length;
+            double periodOffset = 1.0 / doubleToAnimate.Length;
             double offset = 0.0;
             double val = 0.0;
 
-            for (int i = 0; i < animParameter.Parameters.Length; i++)
+            for (int i = 0; i < doubleToAnimate.Length; i++)
             {
                 val = period + offset;
                 if (val < 0.0)
@@ -34,7 +32,7 @@ namespace CMiX.MVVM.ViewModels
                 else
                     val = 0.0 + (val - 0.0) % (1.0 - 0.0);
 
-                animParameter.Parameters[i] = Easings.Interpolate((float)Utils.Map(val, 0.0, 1.0, min, max), animParameter.Easing.SelectedEasing);
+                doubleToAnimate[i] = Easings.Interpolate((float)Utils.Map(val, 0.0, 1.0, range.Minimum, range.Maximum), easing.SelectedEasing);
 
                 offset += periodOffset;
             }

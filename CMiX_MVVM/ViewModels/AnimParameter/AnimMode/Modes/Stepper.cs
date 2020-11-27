@@ -1,6 +1,7 @@
 ﻿using CMiX.MVVM.Resources;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
+using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -14,7 +15,7 @@ namespace CMiX.MVVM.ViewModels
 
         public override void Receive(Message message)
         {
-            //this.SetViewModel(message.Obj as )
+            //this.SetViewModel(message.Obj as StepperModel);
         }
 
         private double currentStep;
@@ -33,7 +34,7 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public void UpdateOnBeatTick(AnimParameter animParameter, double period)
+        public void UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
             if (nextStep >= StepCount)
                 nextStep = 0.0;
@@ -42,11 +43,11 @@ namespace CMiX.MVVM.ViewModels
             nextStep += 1.0;
         }
 
-        public void UpdateParameters(AnimParameter animParameter, double period)
+        public void UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
-            for (int i = 0; i < animParameter.Parameters.Length; i++)
+            for (int i = 0; i < doubleToAnimate.Length; i++)
             {
-                animParameter.Parameters[i] = Utils.Map(nextStep, 0, StepCount, animParameter.Range.Minimum, animParameter.Range.Maximum);
+                doubleToAnimate[i] = Utils.Map(nextStep, 0, StepCount, range.Minimum, range.Maximum);
             }
         }
     }

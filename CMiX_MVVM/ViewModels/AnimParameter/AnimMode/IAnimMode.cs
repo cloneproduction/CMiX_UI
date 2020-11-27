@@ -1,12 +1,10 @@
-﻿using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels.Mediator;
+﻿using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels
 {
     public interface IAnimMode
     {
-        void UpdateOnBeatTick(AnimParameter animParameter, double period);
-        void UpdateParameters(AnimParameter animParameter, double period);
+        void UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing);
+        void UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing);
     }
 }
