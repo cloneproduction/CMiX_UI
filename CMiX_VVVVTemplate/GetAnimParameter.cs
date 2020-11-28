@@ -25,12 +25,6 @@ namespace CMiX.Nodes
         [Output("Parameters")]
         public ISpread<ISpread<double>> Parameters;
 
-        //[Output("Period")]
-        //public ISpread<double> Period;
-
-        [Output("Pass")]
-        public ISpread<bool> Pass;
-
         public Random Random { get; set; }
 
         public GetAnimParameter()
@@ -46,8 +40,6 @@ namespace CMiX.Nodes
         public void Evaluate(int SpreadMax)
         {
             Parameters.SliceCount = AnimParameter.SliceCount;
-            //Period.SliceCount = AnimParameter.SliceCount;
-            Pass.SliceCount = AnimParameter.SliceCount;
 
             if (AnimParameter.SliceCount > 0)
             {
@@ -56,31 +48,18 @@ namespace CMiX.Nodes
                     if (AnimParameter[i] != null)
                     {
                         Parameters[i].SliceCount = AnimParameter[i].Parameters.Length;
-                        FLogger.Log(LogType.Debug, "----------------");
-                        FLogger.Log(LogType.Debug, "BeatModifier.Address" + AnimParameter[i].Address) ;
-                        FLogger.Log(LogType.Debug, "BeatModifier.ChanceToHit.Amount" + AnimParameter[i].BeatModifier.ChanceToHit.Amount);
-                        FLogger.Log(LogType.Debug, "BeatModifier.BeatIndex" + AnimParameter[i].BeatModifier.BeatIndex);
 
                         if (BeatTicks[i])
                         {
-                            if (Random.NextDouble() * 100 <= AnimParameter[i].BeatModifier.ChanceToHit.Amount)
-                                Pass[i] = true;
-                            else
-                                Pass[i] = false;
+                            AnimParameter[i].AnimateOnBeatTick(Periods[AnimParameter[i].BeatModifier.BeatIndex]);
                         }
 
-                        if (BeatTicks[AnimParameter[i].BeatModifier.BeatIndex])
-                            AnimParameter[i].OnBeatTick.Invoke(AnimParameter[i], Periods[AnimParameter[i].BeatModifier.BeatIndex]);
+                        AnimParameter[i].AnimateOnGameLoop(Periods[AnimParameter[i].BeatModifier.BeatIndex]);
 
-                        if (Pass[i])
+                        for (int j = 0; j < AnimParameter[i].Parameters.Length; j++)
                         {
-                            AnimParameter[i].OnUpdateParameters.Invoke(AnimParameter[i], Periods[AnimParameter[i].BeatModifier.BeatIndex]);
-                            for (int j = 0; j < AnimParameter[i].Parameters.Length; j++)
-                            {
-                                Parameters[i][j] = AnimParameter[i].Parameters[j];
-                            }
+                            Parameters[i][j] = AnimParameter[i].Parameters[j];
                         }
-                            
                     }
                     else
                         AnimParameter.SliceCount = 0;

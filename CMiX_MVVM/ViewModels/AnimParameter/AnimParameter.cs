@@ -2,20 +2,19 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
+using CMiX.MVVM.ViewModels.Observer;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class AnimParameter : Sender
+    public class AnimParameter : Sender, IObserver
     {
-        public AnimParameter(string name, IColleague parentSender, double[] parameters, MasterBeat beat, bool isEnabled = true) : base (name, parentSender)
+        public AnimParameter(string name, IColleague parentSender, double defaultValue, MasterBeat beat) : base (name, parentSender)
         {
             Range = new Range(nameof(Range), this, 0.0, 1.0);
             Easing = new Easing(nameof(Easing), this);
             BeatModifier = new BeatModifier(nameof(BeatModifier), this, beat);
-
+            Parameters = new double[1] { defaultValue };
             Name = name;
-
-            IsEnabled = isEnabled;
             SelectedModeType = ModeType.None;
         }
 
@@ -23,18 +22,6 @@ namespace CMiX.MVVM.ViewModels
         {
             this.SetViewModel(message.Obj as AnimParameterModel);
             Console.WriteLine("Received AnimParameter");
-        }
-
-
-        private double[] _parameters;
-        public double[] Parameters
-        {
-            get { return _parameters; }
-            set 
-            {
-                _parameters = value;
-                Console.WriteLine("CountChange");
-            }
         }
 
 
@@ -74,28 +61,31 @@ namespace CMiX.MVVM.ViewModels
         public IAnimMode AnimMode
         {
             get => _animMode;
-            set => SetAndNotify(ref _animMode, value);
-        }
-
-        private void Counter_CounterChangeEvent(object sender, CounterEventArgs e)
-        {
-            this.Parameters = new double[e.Value];
+            set
+            {
+                SetAndNotify(ref _animMode, value);
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
+            }
         }
 
         private void SetAnimMode()
         {
             this.AnimMode = ModesFactory.CreateMode(SelectedModeType, this);
-            this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
         }
 
         public void AnimateOnBeatTick(double period)
         {
-            this.AnimMode.UpdateOnBeatTick(this.Parameters, period, this.Range, this.Easing);
+            this.Parameters = this.AnimMode.UpdateOnBeatTick(this.Parameters, period, this.Range, this.Easing);
         }
 
         public void AnimateOnGameLoop(double period)
         {
-            this.AnimMode.UpdateOnGameLoop(this.Parameters, period, this.Range, this.Easing);
+            this.Parameters = this.AnimMode.UpdateOnGameLoop(this.Parameters, period, this.Range, this.Easing);
+        }
+
+        public void Update(int count)
+        {
+            this.Parameters = new double[count];
         }
     }
 }

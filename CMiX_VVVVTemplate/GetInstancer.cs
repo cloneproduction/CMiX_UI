@@ -43,7 +43,7 @@ namespace CMiX.Nodes
                         TranslateModifier[i] = FGeometryIn[i].Instancer.TranslateModifier;
                         ScaleModifier[i] = FGeometryIn[i].Instancer.ScaleModifier as ScaleModifier;
                         RotationModifier[i] = FGeometryIn[i].Instancer.RotationModifier;
-                        Count[i] = FGeometryIn[i].Instancer.TranslateModifier.X.Counter.Count;
+                        Count[i] = FGeometryIn[i].Instancer.Counter.Count;
                     }
                     else
                     {

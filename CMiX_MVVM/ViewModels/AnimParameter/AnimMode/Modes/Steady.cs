@@ -19,12 +19,12 @@ namespace CMiX.MVVM.ViewModels
             //this.SetViewModel()
         }
 
-        public void UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing)
+        public double[] UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
-            //throw new NotImplementedException();
+            return doubleToAnimate;
         }
 
-        public void UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing)
+        public double[] UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
             double offset = range.Distance / doubleToAnimate.Length;
             double startValue;
@@ -39,10 +39,8 @@ namespace CMiX.MVVM.ViewModels
                         doubleToAnimate[i] = startValue;
                         startValue += offset;
                     }
-                    return;
                 }
-
-                if (LinearType == LinearType.Right)
+                else if (LinearType == LinearType.Right)
                 {
                     startValue = range.Maximum;
                     for (int i = 0; i < doubleToAnimate.Length; i++)
@@ -50,10 +48,8 @@ namespace CMiX.MVVM.ViewModels
                         doubleToAnimate[i] = startValue;
                         startValue -= offset;
                     }
-                    return;
                 }
-
-                if (LinearType == LinearType.Center)
+                else if (LinearType == LinearType.Center)
                 {
                     startValue = range.Distance;
                     for (int i = 0; i < doubleToAnimate.Length; i++)
@@ -61,7 +57,6 @@ namespace CMiX.MVVM.ViewModels
                         doubleToAnimate[i] = startValue;
                         startValue -= offset;
                     }
-                    return;
                 }
             }
 
@@ -72,8 +67,9 @@ namespace CMiX.MVVM.ViewModels
                 {
                     doubleToAnimate[i] = Utils.Map(random.NextDouble(), 0.0, 1.0, range.Minimum, range.Maximum);
                 }
-                return;
             }
+
+            return doubleToAnimate;
         }
 
         private int _seed;

@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="1590" scrolly="-360">
+   <PATCH nodename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="4455" scrolly="0">
    <BOUNDS type="Window" left="14720" top="4570" width="20580" height="16080">
    </BOUNDS>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="2" systemname="IOBox (Value Advanced)">
@@ -506,12 +506,12 @@
    </LINK>
    <LINK srcnodeid="154" srcpinname="Enum" dstnodeid="153" dstpinname="Input Enum">
    </LINK>
-   <NODE id="205" systemname="Renderer (TTY)" nodename="Renderer (TTY)" componentmode="Hidden" stayontop="1">
+   <NODE id="205" systemname="Renderer (TTY)" nodename="Renderer (TTY)" componentmode="InAWindow" stayontop="1">
    <BOUNDS type="Node" left="8790" top="2055" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="8790" top="2055" width="8640" height="1215">
    </BOUNDS>
-   <BOUNDS type="Window" left="22520" top="8850" width="6240" height="5070">
+   <BOUNDS type="Window" left="22560" top="8850" width="6240" height="5070">
    </BOUNDS>
    <PIN pinname="Log Messages" visible="1">
    </PIN>
@@ -757,7 +757,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="6160" top="21415" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="18090" top="1680" width="7710" height="7320">
+   <BOUNDS type="Window" left="20565" top="990" width="7710" height="7320">
    </BOUNDS>
    <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>

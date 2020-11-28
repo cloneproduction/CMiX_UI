@@ -1,4 +1,5 @@
-﻿using CMiX.MVVM.Resources;
+﻿using CMiX.MVVM.Models;
+using CMiX.MVVM.Resources;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
 using System;
@@ -15,7 +16,7 @@ namespace CMiX.MVVM.ViewModels
 
         public override void Receive(Message message)
         {
-            //this.SetViewModel(message.Obj as RandomizedModel);
+            this.SetViewModel(message.Obj as RandomizedModel);
         }
 
         private Random Random { get; set; }
@@ -33,18 +34,20 @@ namespace CMiX.MVVM.ViewModels
             return rands;
         }
 
-        public void UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing)
+        public double[] UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
             oldRandom = newRandom;
             newRandom = GetNewRandoms(doubleToAnimate.Length);
+            return doubleToAnimate;
         }
 
-        public void UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing)
+        public double[] UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
             for (int i = 0; i < doubleToAnimate.Length; i++)
             {
                 doubleToAnimate[i] = Utils.Map(Utils.Lerp(oldRandom[i], newRandom[i], Easings.Interpolate((float)period, easing.SelectedEasing)), 0.0, 1.0, range.Minimum, range.Maximum);
             }
+            return doubleToAnimate;
         }
     }
 }

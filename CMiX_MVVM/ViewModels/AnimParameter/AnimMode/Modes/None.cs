@@ -1,7 +1,4 @@
-﻿using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels.Mediator;
-using System.Collections.Generic;
+﻿using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -12,17 +9,14 @@ namespace CMiX.MVVM.ViewModels
 
         }
 
-        public void UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing)
+        public double[] UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
-
+            return doubleToAnimate;
         }
 
-        public void UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing)
+        public double[] UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
-            for (int i = 0; i < doubleToAnimate.Length; i++)
-            {
-                doubleToAnimate[i] = 0;
-            }
+            return doubleToAnimate;
         }
 
         private bool _IsEnabled;

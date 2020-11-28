@@ -1,7 +1,4 @@
 ﻿using CMiX.MVVM.Resources;
-using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels.Mediator;
-using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -13,12 +10,12 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public void UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing)
+        public double[] UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
-
+            return doubleToAnimate;
         }
 
-        public void UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing)
+        public double[] UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
             double periodOffset = 1.0 / doubleToAnimate.Length;
             double offset = 0.0;
@@ -36,6 +33,7 @@ namespace CMiX.MVVM.ViewModels
 
                 offset += periodOffset;
             }
+            return doubleToAnimate;
         }
 
         private bool _invert;

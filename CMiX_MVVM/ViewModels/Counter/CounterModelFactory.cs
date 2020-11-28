@@ -7,13 +7,13 @@ namespace CMiX.MVVM.ViewModels
         public static CounterModel GetModel(this Counter instance)
         {
             CounterModel model = new CounterModel();
-            //model.Count = instance.Count;
+            model.Count = instance.Count;
             return model;
         }
 
         public static void SetViewModel(this Counter instance, CounterModel model)
         {
-            //instance.Count = model.Count;
+            instance.Count = model.Count;
         }
     }
 }

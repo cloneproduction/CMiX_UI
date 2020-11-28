@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="4455" scrolly="0">
+   <PATCH nodename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="5820" scrolly="7875">
    <BOUNDS type="Window" left="14720" top="4570" width="20580" height="16080">
    </BOUNDS>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="2" systemname="IOBox (Value Advanced)">
@@ -506,12 +506,12 @@
    </LINK>
    <LINK srcnodeid="154" srcpinname="Enum" dstnodeid="153" dstpinname="Input Enum">
    </LINK>
-   <NODE id="205" systemname="Renderer (TTY)" nodename="Renderer (TTY)" componentmode="InAWindow" stayontop="1">
+   <NODE id="205" systemname="Renderer (TTY)" nodename="Renderer (TTY)" componentmode="Hidden" stayontop="1">
    <BOUNDS type="Node" left="8790" top="2055" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="8790" top="2055" width="8640" height="1215">
    </BOUNDS>
-   <BOUNDS type="Window" left="22560" top="8850" width="6240" height="5070">
+   <BOUNDS type="Window" left="22560" top="1695" width="6240" height="5070">
    </BOUNDS>
    <PIN pinname="Log Messages" visible="1">
    </PIN>
@@ -541,7 +541,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="9750" top="930" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -551,7 +551,7 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="1">
+   <PIN pinname="X Input Value" slicecount="1" values="0">
    </PIN>
    </NODE>
    <LINK srcnodeid="241" srcpinname="Y Output Value" dstnodeid="205" dstpinname="Log Messages">
@@ -883,7 +883,7 @@
    </PIN>
    <PIN pinname="Translate XYZ" visible="1">
    </PIN>
-   <PIN pinname="Scale XYZ" visible="1">
+   <PIN pinname="Scale XYZ" visible="1" slicecount="3" values="0,0,0">
    </PIN>
    <PIN pinname="Rotate XYZ" visible="1">
    </PIN>
@@ -899,8 +899,6 @@
    <LINK srcnodeid="329" srcpinname="Z" dstnodeid="320" dstpinname="TranslateZ">
    </LINK>
    <LINK srcnodeid="329" srcpinname="XYZ" dstnodeid="320" dstpinname="Translate XYZ">
-   </LINK>
-   <LINK srcnodeid="347" srcpinname="XYZ" dstnodeid="320" dstpinname="Scale XYZ">
    </LINK>
    <LINK srcnodeid="333" srcpinname="XYZ" dstnodeid="320" dstpinname="Rotate XYZ">
    </LINK>
@@ -1070,11 +1068,7 @@
    </LINK>
    <LINK srcnodeid="305" srcpinname="Transform Out" dstnodeid="93" dstpinname="Input">
    </LINK>
-   <LINK srcnodeid="354" srcpinname="Transform Out" dstnodeid="68" dstpinname="Data">
-   </LINK>
    <LINK srcnodeid="320" srcpinname="Transform Out" dstnodeid="354" dstpinname="Transform In 2">
-   </LINK>
-   <LINK srcnodeid="288" srcpinname="Transform Out" dstnodeid="354" dstpinname="Transform In 1">
    </LINK>
    <LINK srcnodeid="155" srcpinname="Transform" dstnodeid="77" dstpinname="Transform In">
    </LINK>
@@ -1275,5 +1269,25 @@
    <LINK srcnodeid="467" srcpinname="Output" dstnodeid="108" dstpinname="TranslateX">
    </LINK>
    <LINK srcnodeid="93" srcpinname="Output" dstnodeid="77" dstpinname="sceneTransform">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="471">
+   <BOUNDS type="Box" left="16485" top="12390" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="16485" top="12390" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="185" srcpinname="Count" dstnodeid="471" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="354" srcpinname="Transform Out" dstnodeid="68" dstpinname="Data">
+   </LINK>
+   <LINK srcnodeid="288" srcpinname="Transform Out" dstnodeid="354" dstpinname="Transform In 1">
+   </LINK>
+   <LINK srcnodeid="347" srcpinname="XYZ" dstnodeid="320" dstpinname="Scale XYZ">
    </LINK>
    </PATCH>
