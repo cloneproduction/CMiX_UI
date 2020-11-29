@@ -9,14 +9,14 @@ namespace CMiX.MVVM.ViewModels
 
         }
 
-        public double[] UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing)
+        public void UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
-            return doubleToAnimate;
+
         }
 
-        public double[] UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing)
+        public void UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
-            return doubleToAnimate;
+
         }
 
         private bool _IsEnabled;

@@ -4,6 +4,7 @@ using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.Observer;
 using System.Collections.Generic;
+using System.Windows.Media.Media3D;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -17,13 +18,15 @@ namespace CMiX.MVVM.ViewModels
             Counter = new Counter(nameof(Counter), this);
             Counter.CounterChangeEvent += Counter_CounterChangeEvent;
 
-            TranslateModifier = new XYZModifier(nameof(TranslateModifier), this, beat);
-            ScaleModifier = new ScaleModifier(nameof(ScaleModifier), this, beat);
-            RotationModifier = new XYZModifier(nameof(RotationModifier), this, beat);
+            TranslateModifier = new XYZModifier(nameof(TranslateModifier), this, new Vector3D(0.0, 0.0, 0.0), beat);
+            ScaleModifier = new XYZModifier(nameof(ScaleModifier), this, new Vector3D(1.0, 1.0, 1.0), beat);
+            RotationModifier = new XYZModifier(nameof(RotationModifier), this, new Vector3D(0.0, 0.0, 0.0), beat);
+            UniformScale = new AnimParameter(nameof(UniformScale), this, 1.0, beat);
 
             Attach(TranslateModifier);
             Attach(ScaleModifier);
             Attach(RotationModifier);
+            Attach(UniformScale);
 
             NoAspectRatio = false;
         }
@@ -71,8 +74,6 @@ namespace CMiX.MVVM.ViewModels
         public XYZModifier TranslateModifier { get; set; }
         public XYZModifier ScaleModifier { get; set; }
         public XYZModifier RotationModifier { get; set; }
-
-
-
+        public AnimParameter UniformScale { get; set; }
     }
 }

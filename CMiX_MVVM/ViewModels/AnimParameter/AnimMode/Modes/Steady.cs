@@ -19,12 +19,12 @@ namespace CMiX.MVVM.ViewModels
             //this.SetViewModel()
         }
 
-        public double[] UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing)
+        public void UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
-            return doubleToAnimate;
+
         }
 
-        public double[] UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing)
+        public void UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
             double offset = range.Distance / doubleToAnimate.Length;
             double startValue;
@@ -68,8 +68,6 @@ namespace CMiX.MVVM.ViewModels
                     doubleToAnimate[i] = Utils.Map(random.NextDouble(), 0.0, 1.0, range.Minimum, range.Maximum);
                 }
             }
-
-            return doubleToAnimate;
         }
 
         private int _seed;

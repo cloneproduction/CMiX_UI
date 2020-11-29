@@ -13,7 +13,8 @@ namespace CMiX.MVVM.ViewModels
             Range = new Range(nameof(Range), this, 0.0, 1.0);
             Easing = new Easing(nameof(Easing), this);
             BeatModifier = new BeatModifier(nameof(BeatModifier), this, beat);
-            Parameters = new double[1] { 10.0 };
+            DefaultValue = defaultValue;
+            Parameters = new double[1] { defaultValue };
             Name = name;
             SelectedModeType = ModeType.None;
         }
@@ -21,16 +22,14 @@ namespace CMiX.MVVM.ViewModels
         public override void Receive(Message message)
         {
             this.SetViewModel(message.Obj as AnimParameterModel);
-            Console.WriteLine("Received AnimParameter");
         }
-
 
         public BeatModifier BeatModifier { get; set; }
         public Easing Easing { get; set; }
         public Range Range { get; set; }
         public Counter Counter { get; set; }
         public double[] Parameters { get; set; }
-
+        public double DefaultValue { get; set; }
 
         private string _name;
         public string Name
@@ -70,22 +69,32 @@ namespace CMiX.MVVM.ViewModels
 
         private void SetAnimMode()
         {
+            ParametersToDefault();
             this.AnimMode = ModesFactory.CreateMode(SelectedModeType, this);
         }
 
-        public void AnimateOnBeatTick(double period)
+        public void AnimateOnBeatTick(double[] period)
         {
-            this.Parameters = this.AnimMode.UpdateOnBeatTick(this.Parameters, period, this.Range, this.Easing);
+            this.AnimMode.UpdateOnBeatTick(this.Parameters, period[BeatModifier.BeatIndex], this.Range, this.Easing);
         }
 
-        public void AnimateOnGameLoop(double period)
+        public void AnimateOnGameLoop(double[] period)
         {
-            this.Parameters = this.AnimMode.UpdateOnGameLoop(this.Parameters, period, this.Range, this.Easing);
+            this.AnimMode.UpdateOnGameLoop(this.Parameters, period[BeatModifier.BeatIndex], this.Range, this.Easing);
         }
 
         public void Update(int count)
         {
             this.Parameters = new double[count];
+            ParametersToDefault();
+        }
+
+        private void ParametersToDefault()
+        {
+            for (int i = 0; i < Parameters.Length; i++)
+            {
+                this.Parameters[i] = DefaultValue;
+            }
         }
     }
 }

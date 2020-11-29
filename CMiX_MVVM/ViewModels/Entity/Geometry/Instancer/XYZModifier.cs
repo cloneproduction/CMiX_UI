@@ -3,19 +3,20 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Observer;
 using System.Collections.Generic;
+using System.Windows.Media.Media3D;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class XYZModifier : Sender, IModifier, ISubject, IObserver
     {
-        public XYZModifier(string name, Sender parentSender, MasterBeat beat) : base (name, parentSender)
+        public XYZModifier(string name, Sender parentSender, Vector3D vector3D, MasterBeat beat) : base (name, parentSender)
         {
             Name = name;
             Observers = new List<IObserver>();
 
-            X = new AnimParameter(nameof(X), this, 0.0, beat);
-            Y = new AnimParameter(nameof(Y), this, 0.0, beat);
-            Z = new AnimParameter(nameof(Z), this, 0.0, beat);
+            X = new AnimParameter(nameof(X), this, vector3D.X, beat);
+            Y = new AnimParameter(nameof(Y), this, vector3D.Y, beat);
+            Z = new AnimParameter(nameof(Z), this, vector3D.Z, beat);
 
             Attach(X);
             Attach(Y);
@@ -83,7 +84,13 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _isExpandedZ, value);
         }
 
-        public string Name { get; set; }
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set => SetAndNotify(ref _name, value);
+        }
+
         public AnimParameter X { get; set; }
         public AnimParameter Y { get; set; }
         public AnimParameter Z { get; set; }

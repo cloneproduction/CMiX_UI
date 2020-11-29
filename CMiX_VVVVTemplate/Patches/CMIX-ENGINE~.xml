@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="4455" scrolly="0">
-   <BOUNDS type="Window" left="14720" top="4570" width="20580" height="16080">
+   <PATCH nodename="C:\Users\BabyClone\Documents\GitHub\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="3580" scrolly="4570">
+   <BOUNDS type="Window" left="21450" top="8760" width="20580" height="16080">
    </BOUNDS>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="2" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="6275" top="4160" width="585" height="510">
@@ -506,12 +506,12 @@
    </LINK>
    <LINK srcnodeid="154" srcpinname="Enum" dstnodeid="153" dstpinname="Input Enum">
    </LINK>
-   <NODE id="205" systemname="Renderer (TTY)" nodename="Renderer (TTY)" componentmode="InAWindow" stayontop="1">
+   <NODE id="205" systemname="Renderer (TTY)" nodename="Renderer (TTY)" componentmode="Hidden" stayontop="1">
    <BOUNDS type="Node" left="8790" top="2055" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="8790" top="2055" width="8640" height="1215">
    </BOUNDS>
-   <BOUNDS type="Window" left="22560" top="8850" width="6240" height="5070">
+   <BOUNDS type="Window" left="22560" top="1695" width="6240" height="5070">
    </BOUNDS>
    <PIN pinname="Log Messages" visible="1">
    </PIN>
@@ -541,7 +541,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="9750" top="930" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -551,7 +551,7 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="1">
+   <PIN pinname="X Input Value" slicecount="1" values="0">
    </PIN>
    </NODE>
    <LINK srcnodeid="241" srcpinname="Y Output Value" dstnodeid="205" dstpinname="Log Messages">
@@ -681,6 +681,8 @@
    </PIN>
    <PIN pinname="Count" visible="1">
    </PIN>
+   <PIN pinname="Instancer" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="185" srcpinname="Instancer" dstnodeid="53" dstpinname="Instancer" hiddenwhenlocked="1">
    </LINK>
@@ -757,7 +759,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="6160" top="21415" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="20565" top="990" width="7710" height="7320">
+   <BOUNDS type="Window" left="28580" top="4340" width="7710" height="7320">
    </BOUNDS>
    <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
@@ -779,7 +781,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="10530" top="11130" width="7355" height="5835">
    </BOUNDS>
-   <BOUNDS type="Window" left="17950" top="3750" width="9090" height="7630">
+   <BOUNDS type="Window" left="12570" top="9230" width="8110" height="6960">
    </BOUNDS>
    <PIN pinname="X" visible="1">
    </PIN>
@@ -807,9 +809,9 @@
    <PACK Name="vvvv-ZeroMQ" Version="0.5.4">
    </PACK>
    <NODE systemname="ScaleModifier" filename="Modifier\ScaleModifier.v4p" nodename="Modifier\ScaleModifier.v4p" componentmode="Hidden" id="347">
-   <BOUNDS type="Node" left="13230" top="11130" width="0" height="0">
+   <BOUNDS type="Node" left="12930" top="11220" width="0" height="0">
    </BOUNDS>
-   <BOUNDS type="Box" left="13230" top="11130" width="10715" height="6350">
+   <BOUNDS type="Box" left="12930" top="11220" width="10715" height="6350">
    </BOUNDS>
    <BOUNDS type="Window" left="13785" top="6435" width="10080" height="6675">
    </BOUNDS>
@@ -817,8 +819,10 @@
    </PIN>
    <PIN pinname="Uniform" visible="1">
    </PIN>
+   <PIN pinname="Instancer1" visible="1">
+   </PIN>
    </NODE>
-   <LINK srcnodeid="185" srcpinname="ScaleModifier" dstnodeid="347" dstpinname="Instancer">
+   <LINK srcnodeid="185" srcpinname="ScaleModifier" dstnodeid="347" dstpinname="IModifier">
    </LINK>
    <LINK srcnodeid="347" srcpinname="Uniform" dstnodeid="288" dstpinname="XYZ">
    </LINK>
@@ -883,7 +887,7 @@
    </PIN>
    <PIN pinname="Translate XYZ" visible="1">
    </PIN>
-   <PIN pinname="Scale XYZ" visible="1">
+   <PIN pinname="Scale XYZ" visible="1" slicecount="3" values="1,1,1">
    </PIN>
    <PIN pinname="Rotate XYZ" visible="1">
    </PIN>
@@ -899,8 +903,6 @@
    <LINK srcnodeid="329" srcpinname="Z" dstnodeid="320" dstpinname="TranslateZ">
    </LINK>
    <LINK srcnodeid="329" srcpinname="XYZ" dstnodeid="320" dstpinname="Translate XYZ">
-   </LINK>
-   <LINK srcnodeid="347" srcpinname="XYZ" dstnodeid="320" dstpinname="Scale XYZ">
    </LINK>
    <LINK srcnodeid="333" srcpinname="XYZ" dstnodeid="320" dstpinname="Rotate XYZ">
    </LINK>
@@ -1070,11 +1072,7 @@
    </LINK>
    <LINK srcnodeid="305" srcpinname="Transform Out" dstnodeid="93" dstpinname="Input">
    </LINK>
-   <LINK srcnodeid="354" srcpinname="Transform Out" dstnodeid="68" dstpinname="Data">
-   </LINK>
    <LINK srcnodeid="320" srcpinname="Transform Out" dstnodeid="354" dstpinname="Transform In 2">
-   </LINK>
-   <LINK srcnodeid="288" srcpinname="Transform Out" dstnodeid="354" dstpinname="Transform In 1">
    </LINK>
    <LINK srcnodeid="155" srcpinname="Transform" dstnodeid="77" dstpinname="Transform In">
    </LINK>
@@ -1275,5 +1273,13 @@
    <LINK srcnodeid="467" srcpinname="Output" dstnodeid="108" dstpinname="TranslateX">
    </LINK>
    <LINK srcnodeid="93" srcpinname="Output" dstnodeid="77" dstpinname="sceneTransform">
+   </LINK>
+   <LINK srcnodeid="354" srcpinname="Transform Out" dstnodeid="68" dstpinname="Data">
+   </LINK>
+   <LINK srcnodeid="185" srcpinname="Instancer" dstnodeid="347" dstpinname="Instancer1">
+   </LINK>
+   <LINK srcnodeid="288" srcpinname="Transform Out" dstnodeid="354" dstpinname="Transform In 1">
+   </LINK>
+   <LINK srcnodeid="347" srcpinname="XYZ" dstnodeid="320" dstpinname="Scale XYZ">
    </LINK>
    </PATCH>

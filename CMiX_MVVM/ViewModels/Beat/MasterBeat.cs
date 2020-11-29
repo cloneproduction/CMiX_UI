@@ -32,6 +32,7 @@ namespace CMiX.MVVM.ViewModels
         public override void Receive(Message message)
         {
             this.SetViewModel(message.Obj as MasterBeatModel);
+            Console.WriteLine("MasterBeat Received");
         }
 
         public ICommand ResyncCommand { get; }

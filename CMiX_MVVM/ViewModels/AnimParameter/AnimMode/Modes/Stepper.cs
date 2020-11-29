@@ -34,24 +34,21 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public double[] UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing)
+        public void UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
             if (nextStep >= StepCount)
                 nextStep = 0.0;
 
             currentStep = nextStep;
             nextStep += 1.0;
-
-            return doubleToAnimate;
         }
 
-        public double[] UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing)
+        public void UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
             for (int i = 0; i < doubleToAnimate.Length; i++)
             {
                 doubleToAnimate[i] = Utils.Map(nextStep, 0, StepCount, range.Minimum, range.Maximum);
             }
-            return doubleToAnimate;
         }
     }
 }

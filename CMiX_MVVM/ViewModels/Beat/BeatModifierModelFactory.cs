@@ -7,9 +7,9 @@ namespace CMiX.MVVM.ViewModels
         public static BeatModifierModel GetModel(this BeatModifier instance)
         {
             BeatModifierModel model = new BeatModifierModel();
-            //model.BeatIndex = instance.BeatIndex;
-            //model.ChanceToHit = instance.ChanceToHit.GetModel();
-            //model.Multiplier = instance.Multiplier;
+            model.BeatIndex = instance.BeatIndex;
+            model.ChanceToHit = instance.ChanceToHit.GetModel();
+            model.Multiplier = instance.Multiplier;
             return model;
         }
 

@@ -4,7 +4,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public interface IAnimMode
     {
-        double[] UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing);
-        double[] UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing);
+        void UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing);
+        void UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing);
     }
 }

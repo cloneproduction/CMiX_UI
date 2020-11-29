@@ -1,34 +1,28 @@
-﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CMiX.MVVM.ViewModels;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Nodes.Modifiers
 {
-    [PluginInfo(Name = "GetScaleModifier", Category = "CMiX_VVVV")]
+    [PluginInfo(Name = "GetUniformScale", Category = "CMiX_VVVV")]
     public class GetScaleModifier : IPluginEvaluate
     {
         [Input("Instancer")]
-        public IDiffSpread<ScaleModifier> FScaleModifierIn;
+        public IDiffSpread<Instancer> FInstancerIn;
 
         [Output("Uniform")]
         public ISpread<AnimParameter> Uniform;
 
         public void Evaluate(int SpreadMax)
         {
-            Uniform.SliceCount = FScaleModifierIn.SliceCount;
+            Uniform.SliceCount = FInstancerIn.SliceCount;
 
-            if (FScaleModifierIn.SliceCount > 0)
+            if (FInstancerIn.SliceCount > 0)
             {
-                for (int i = 0; i < FScaleModifierIn.SliceCount; i++)
+                for (int i = 0; i < FInstancerIn.SliceCount; i++)
                 {
-                    if (FScaleModifierIn[i] != null)
+                    if (FInstancerIn[i] != null)
                     {
-                        Uniform[i] = FScaleModifierIn[i].Uniform;
+                        Uniform[i] = FInstancerIn[i].UniformScale;
                     }
                     else
                     {

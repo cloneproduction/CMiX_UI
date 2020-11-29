@@ -143,7 +143,6 @@
     <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\Steady.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\Stepper.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\ModeTypeTemplateSelector.cs" />
-    <Compile Include="ViewModels\Entity\Geometry\Instancer\ScaleModifierModelFactory.cs" />
     <Compile Include="ViewModels\Observer\IObserver.cs" />
     <Compile Include="ViewModels\Observer\ISubject.cs" />
     <Compile Include="ViewModels\Range\Range.cs" />
@@ -176,7 +175,6 @@
     <Compile Include="ViewModels\AnimParameter\AnimParameterModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Instancer\IModifier.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Instancer\InstancerModelFactory.cs" />
-    <Compile Include="ViewModels\Entity\Geometry\Instancer\ScaleModifier.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Instancer\XYZModifier.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Instancer\XYZModifierModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\ITransform.cs" />

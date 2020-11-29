@@ -12,7 +12,7 @@ namespace CMiX.MVVM.ViewModels
             model.TranslateModifierModel = instance.TranslateModifier.GetModel();
             model.ScaleModifierModel = instance.ScaleModifier.GetModel();
             model.RotationModifierModel = instance.RotationModifier.GetModel();
-
+            model.UniformScale = instance.UniformScale.GetModel();
             //model.NoAspectRatio = instance.NoAspectRatio;
             return model;
         }
@@ -24,7 +24,7 @@ namespace CMiX.MVVM.ViewModels
             instance.TranslateModifier.SetViewModel(model.TranslateModifierModel);
             instance.ScaleModifier.SetViewModel(model.ScaleModifierModel);
             instance.RotationModifier.SetViewModel(model.RotationModifierModel);
-
+            instance.UniformScale.SetViewModel(model.UniformScale);
             //instance.NoAspectRatio = model.NoAspectRatio;
         }
     }

@@ -1,6 +1,7 @@
 ﻿using CMiX.MVVM.ViewModels;
 using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 using VVVV.Core.Logging;
 using VVVV.PluginInterfaces.V2;
 
@@ -48,12 +49,12 @@ namespace CMiX.Nodes
                     {
                         Parameters[i].SliceCount = AnimParameter[i].Parameters.Length;
 
-                        if (BeatTicks[i])
+                        if (BeatTicks[AnimParameter[i].BeatModifier.BeatIndex])
                         {
-                            AnimParameter[i].AnimateOnBeatTick(Periods[AnimParameter[i].BeatModifier.BeatIndex]);
+                            AnimParameter[i].AnimateOnBeatTick(Periods.ToArray());
                         }
-
-                        AnimParameter[i].AnimateOnGameLoop(Periods[AnimParameter[i].BeatModifier.BeatIndex]);
+                            
+                        AnimParameter[i].AnimateOnGameLoop(Periods.ToArray());
 
                         for (int j = 0; j < AnimParameter[i].Parameters.Length; j++)
                         {

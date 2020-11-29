@@ -13,8 +13,10 @@ namespace CMiX.MVVM.Models
             TranslateModifierModel = new XYZModifierModel();
             ScaleModifierModel = new XYZModifierModel();
             RotationModifierModel = new XYZModifierModel();
+            UniformScale = new AnimParameterModel();
         }
 
+        public AnimParameterModel UniformScale { get; set; }
         public TransformModel Transform { get; set; }
         public CounterModel Counter { get; set; }
         public XYZModifierModel TranslateModifierModel { get; set; }

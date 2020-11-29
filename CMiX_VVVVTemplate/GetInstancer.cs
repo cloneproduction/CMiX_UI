@@ -17,7 +17,7 @@ namespace CMiX.Nodes
         public ISpread<IModifier> TranslateModifier;
 
         [Output("ScaleModifier")]
-        public ISpread<ScaleModifier> ScaleModifier;
+        public ISpread<IModifier> ScaleModifier;
 
         [Output("RotationModifier")]
         public ISpread<IModifier> RotationModifier;
@@ -41,7 +41,7 @@ namespace CMiX.Nodes
                     {
                         FInstancer[i] = FGeometryIn[i].Instancer;
                         TranslateModifier[i] = FGeometryIn[i].Instancer.TranslateModifier;
-                        ScaleModifier[i] = FGeometryIn[i].Instancer.ScaleModifier as ScaleModifier;
+                        ScaleModifier[i] = FGeometryIn[i].Instancer.ScaleModifier;
                         RotationModifier[i] = FGeometryIn[i].Instancer.RotationModifier;
                         Count[i] = FGeometryIn[i].Instancer.Counter.Count;
                     }
