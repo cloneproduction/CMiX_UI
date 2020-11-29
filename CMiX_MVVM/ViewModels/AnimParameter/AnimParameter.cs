@@ -10,6 +10,7 @@ namespace CMiX.MVVM.ViewModels
     {
         public AnimParameter(string name, IColleague parentSender, double defaultValue, MasterBeat beat) : base (name, parentSender)
         {
+            Period = new double[0];
             Range = new Range(nameof(Range), this, 0.0, 1.0);
             Easing = new Easing(nameof(Easing), this);
             BeatModifier = new BeatModifier(nameof(BeatModifier), this, beat);
@@ -29,6 +30,7 @@ namespace CMiX.MVVM.ViewModels
         public Range Range { get; set; }
         public Counter Counter { get; set; }
         public double[] Parameters { get; set; }
+        public double[] Period { get; set; }
         public double DefaultValue { get; set; }
 
         private string _name;
@@ -73,20 +75,23 @@ namespace CMiX.MVVM.ViewModels
             this.AnimMode = ModesFactory.CreateMode(SelectedModeType, this);
         }
 
-        public void AnimateOnBeatTick(double[] period)
+        public void AnimateOnBeatTick()
         {
-            this.AnimMode.UpdateOnBeatTick(this.Parameters, period[BeatModifier.BeatIndex], this.Range, this.Easing);
+            var index = BeatModifier.BeatIndex;
+            if (index >= 0 && index < Period.Length)
+                this.AnimMode.UpdateOnBeatTick(this.Parameters, Period[BeatModifier.BeatIndex], this.Range, this.Easing);
         }
 
-        public void AnimateOnGameLoop(double[] period)
+        public void AnimateOnGameLoop()
         {
-            this.AnimMode.UpdateOnGameLoop(this.Parameters, period[BeatModifier.BeatIndex], this.Range, this.Easing);
+            this.AnimMode.UpdateOnGameLoop(this.Parameters, Period[BeatModifier.BeatIndex], this.Range, this.Easing);
         }
 
         public void Update(int count)
         {
             this.Parameters = new double[count];
             ParametersToDefault();
+            AnimateOnBeatTick();
         }
 
         private void ParametersToDefault()

@@ -47,14 +47,17 @@ namespace CMiX.Nodes
                 {
                     if (AnimParameter[i] != null)
                     {
+                        AnimParameter[i].Period = Periods.ToArray();
+
                         Parameters[i].SliceCount = AnimParameter[i].Parameters.Length;
+
 
                         if (BeatTicks[AnimParameter[i].BeatModifier.BeatIndex])
                         {
-                            AnimParameter[i].AnimateOnBeatTick(Periods.ToArray());
+                            AnimParameter[i].AnimateOnBeatTick();
                         }
                             
-                        AnimParameter[i].AnimateOnGameLoop(Periods.ToArray());
+                        AnimParameter[i].AnimateOnGameLoop();
 
                         for (int j = 0; j < AnimParameter[i].Parameters.Length; j++)
                         {

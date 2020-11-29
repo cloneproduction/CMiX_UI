@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="C:\Users\BabyClone\Documents\GitHub\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="3580" scrolly="4570">
+   <PATCH nodename="D:\DATA\Github\CMiX\CMiX_VVVVTemplate\Patches\CMIX-ENGINE.v4p" systemname="CMIX-ENGINE" filename="C:\Users\clone\Desktop\CMIX-ENGINE.v4p" scrollx="8760" scrolly="10560">
    <BOUNDS type="Window" left="21450" top="8760" width="20580" height="16080">
    </BOUNDS>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="2" systemname="IOBox (Value Advanced)">
@@ -759,7 +759,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="6160" top="21415" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="19940" top="950" width="7710" height="7320">
+   <BOUNDS type="Window" left="16080" top="2940" width="7710" height="7320">
    </BOUNDS>
    <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
