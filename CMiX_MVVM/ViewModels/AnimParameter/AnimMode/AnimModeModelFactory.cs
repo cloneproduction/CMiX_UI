@@ -94,7 +94,7 @@ namespace CMiX.MVVM.ViewModels
 
         private static void SetViewModel(this Stepper instance, IAnimModeModel animModeModel)
         {
-            var model = animModeModel as StepperModel;
+            StepperModel model = animModeModel as StepperModel;
             instance.StepCount = model.StepCount;
         }
     }

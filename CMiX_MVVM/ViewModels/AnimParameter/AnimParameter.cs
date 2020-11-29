@@ -13,7 +13,7 @@ namespace CMiX.MVVM.ViewModels
             Range = new Range(nameof(Range), this, 0.0, 1.0);
             Easing = new Easing(nameof(Easing), this);
             BeatModifier = new BeatModifier(nameof(BeatModifier), this, beat);
-            Parameters = new double[1] { defaultValue };
+            Parameters = new double[1] { 10.0 };
             Name = name;
             SelectedModeType = ModeType.None;
         }

@@ -1,5 +1,4 @@
-﻿using CMiX.MVVM.Resources;
-using CMiX.MVVM.ViewModels;
+﻿using CMiX.MVVM.ViewModels;
 using System;
 using System.ComponentModel.Composition;
 using VVVV.Core.Logging;

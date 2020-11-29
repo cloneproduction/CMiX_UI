@@ -1,7 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.Observer;
 using System.Collections.Generic;
 
@@ -9,7 +8,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class XYZModifier : Sender, IModifier, ISubject, IObserver
     {
-        public XYZModifier(string name, IColleague parentSender, MasterBeat beat) : base (name, parentSender)
+        public XYZModifier(string name, Sender parentSender, MasterBeat beat) : base (name, parentSender)
         {
             Name = name;
             Observers = new List<IObserver>();
