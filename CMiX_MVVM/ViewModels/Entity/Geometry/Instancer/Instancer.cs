@@ -13,10 +13,10 @@ namespace CMiX.MVVM.ViewModels
         public Instancer(string name, IColleague parentSender, MasterBeat beat) :base(name, parentSender)
         {
             Observers = new List<IObserver>();
-
-            Transform = new Transform(nameof(Transform), this);
             Counter = new Counter(nameof(Counter), this);
             Counter.CounterChangeEvent += Counter_CounterChangeEvent;
+
+            Transform = new Transform(nameof(Transform), this);
 
             TranslateModifier = new XYZModifier(nameof(TranslateModifier), this, new Vector3D(0.0, 0.0, 0.0), beat);
             ScaleModifier = new XYZModifier(nameof(ScaleModifier), this, new Vector3D(1.0, 1.0, 1.0), beat);

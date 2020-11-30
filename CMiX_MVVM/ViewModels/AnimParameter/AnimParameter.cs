@@ -28,7 +28,6 @@ namespace CMiX.MVVM.ViewModels
         public BeatModifier BeatModifier { get; set; }
         public Easing Easing { get; set; }
         public Range Range { get; set; }
-        public Counter Counter { get; set; }
         public double[] Parameters { get; set; }
         public double[] Period { get; set; }
         public double DefaultValue { get; set; }
@@ -72,6 +71,8 @@ namespace CMiX.MVVM.ViewModels
         private void SetAnimMode()
         {
             ParametersToDefault();
+            if (this.AnimMode != null)
+                this.AnimMode.Dispose();
             this.AnimMode = ModesFactory.CreateMode(SelectedModeType, this);
         }
 

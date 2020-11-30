@@ -2,15 +2,16 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class Randomized : Sender, IAnimMode
     {
-        public Randomized(string name, IColleague parentSender) : base (name, parentSender)
+        public Randomized(string name, AnimParameter parentSender) : base(name, parentSender)
         {
             Random = new Random();
+            oldRandom = GetNewRandoms(parentSender.Parameters.Length);
+            newRandom = GetNewRandoms(parentSender.Parameters.Length);
         }
 
         public override void Receive(Message message)

@@ -27,7 +27,7 @@
 
         private static LFO CreateLFO(AnimParameter animParameter)
         {
-            return new LFO();
+            return new LFO(nameof(LFO), animParameter);
         }
 
         private static Steady CreateSteady(AnimParameter animParameter)

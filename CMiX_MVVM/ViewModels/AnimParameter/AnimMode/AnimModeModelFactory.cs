@@ -60,17 +60,14 @@ namespace CMiX.MVVM.ViewModels
         private static LFOModel GetModel(this LFO instance)
         {
             LFOModel model = new LFOModel();
-            model.Invert = instance.Invert;
+
             return model;
         }
 
         private static void SetViewModel(this LFO instance, IAnimModeModel animModeModel)
         {
             var model = animModeModel as LFOModel;
-            instance.Invert = model.Invert;
         }
-
-
 
         private static RandomizedModel GetModel(this Randomized instance)
         {
@@ -82,8 +79,6 @@ namespace CMiX.MVVM.ViewModels
         {
 
         }
-
-
 
         private static StepperModel GetModel(this Stepper instance)
         {
