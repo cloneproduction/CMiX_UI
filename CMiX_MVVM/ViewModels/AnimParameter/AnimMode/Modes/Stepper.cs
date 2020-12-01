@@ -10,7 +10,7 @@ namespace CMiX.MVVM.ViewModels
         public Stepper(string name, IColleague parentSender) : base (name, parentSender)
         {
             StepCount = 2;
-            nextStep = 1.0;
+            nextStep = 0.0;
         }
 
         public override void Receive(Message message)
@@ -18,7 +18,6 @@ namespace CMiX.MVVM.ViewModels
             this.SetViewModel(message.Obj as StepperModel);
         }
 
-        private double currentStep;
         private double nextStep;
 
         private int _stepCount;
@@ -36,18 +35,17 @@ namespace CMiX.MVVM.ViewModels
 
         public void UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
+            nextStep += 1.0;
+
             if (nextStep >= StepCount)
                 nextStep = 0.0;
-
-            currentStep = nextStep;
-            nextStep += 1.0;
         }
 
         public void UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
             for (int i = 0; i < doubleToAnimate.Length; i++)
             {
-                doubleToAnimate[i] = Utils.Map(nextStep, 0, StepCount, range.Minimum, range.Maximum);
+                doubleToAnimate[i] = Utils.Map(nextStep, 0, StepCount - 1, range.Minimum, range.Maximum);
             }
         }
     }
