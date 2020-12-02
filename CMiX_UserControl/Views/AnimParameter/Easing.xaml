@@ -27,12 +27,12 @@
             <DockPanel>
                 <Controls:CMiXToggleButton 
                     Margin="4" 
-                    IsChecked="{Binding Enabled}" 
+                    IsChecked="{Binding IsEnabled}" 
                     Style="{StaticResource CMiXToggleButtonStyle}"/>
                 <TextBlock Margin="4, 0" Text="Easing"/>
             </DockPanel>
         </Expander.Header>
-        <StackPanel Margin="8" IsEnabled="{Binding Enabled}">
+        <StackPanel Margin="8" IsEnabled="{Binding IsEnabled}">
             <Grid Height="21" Margin="0,2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -41,7 +41,7 @@
                 <TextBlock 
                     VerticalAlignment="Center" 
                     HorizontalAlignment="Right" 
-                    Text="Easing Function" 
+                    Text="Function" 
                     Padding="4, 0" 
                     Foreground="{DynamicResource TextBase}"/>
                 <Border Grid.Column="1" Style="{StaticResource BorderShadow}">

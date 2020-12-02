@@ -19,6 +19,17 @@ namespace CMiX.MVVM.ViewModels
             this.SetViewModel(message.Obj as EasingModel);
         }
 
+        private bool _isEnabled;
+        public bool IsEnabled
+        {
+            get => _isEnabled;
+            set
+            {
+                SetAndNotify(ref _isEnabled, value);
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
+            }
+        }
+
         private EasingFunction _easingFunction;
         public EasingFunction EasingFunction
         {

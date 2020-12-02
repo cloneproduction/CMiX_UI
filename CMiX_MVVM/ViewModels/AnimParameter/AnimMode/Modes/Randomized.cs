@@ -42,9 +42,20 @@ namespace CMiX.MVVM.ViewModels
 
         public void UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
+            bool ease = easing.IsEnabled;
+
             for (int i = 0; i < doubleToAnimate.Length; i++)
             {
-                doubleToAnimate[i] = Utils.Map(Utils.Lerp(oldRandom[i], newRandom[i], Easings.Interpolate((float)period, easing.SelectedEasing)), 0.0, 1.0, range.Minimum, range.Maximum);
+                if (ease)
+                {
+                    double eased = Easings.Interpolate((float)period, easing.SelectedEasing);
+                    double lerped = Utils.Lerp(oldRandom[i], newRandom[i], eased);
+                    doubleToAnimate[i] = Utils.Map(lerped, 0.0, 1.0, range.Minimum, range.Maximum);
+                }
+                else
+                {
+                    doubleToAnimate[i] = Utils.Map(newRandom[i], 0.0, 1.0, range.Minimum, range.Maximum);
+                }
             }
         }
     }

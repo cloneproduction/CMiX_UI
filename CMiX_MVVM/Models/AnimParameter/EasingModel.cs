@@ -11,6 +11,7 @@ namespace CMiX.MVVM.Models
 
         }
 
+        public bool IsEnabled { get; set; }
         public Easings.Functions SelectedEasing { get; set; }
         public EasingFunction EasingFunction { get; set; }
         public EasingMode EasingMode { get; set; }
