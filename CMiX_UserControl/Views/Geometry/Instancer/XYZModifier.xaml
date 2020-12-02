@@ -27,7 +27,7 @@
             <TextBlock Text="{Binding Name, StringFormat='{}{0} Modifier'}"/>
         </Expander.Header>
         <Border>
-            <StackPanel Margin="8">
+            <StackPanel Margin="0, 4">
                 <Views:AnimParameter DataContext="{Binding X}"/>
                 <Views:AnimParameter DataContext="{Binding Y}"/>
                 <Views:AnimParameter DataContext="{Binding Z}"/>

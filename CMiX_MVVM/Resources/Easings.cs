@@ -1,26 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMiX.MVVM.Resources
 {
-	static public class Easings
+    static public class Easings
 	{
-		/// <summary>
-		/// Constant Pi.
-		/// </summary>
 		private const double PI = Math.PI;
-
-		/// <summary>
-		/// Constant Pi / 2.
-		/// </summary>
 		private const double HALFPI = Math.PI / 2.0f;
 
-		/// <summary>
-		/// Easing Functions enumeration
-		/// </summary>
 		public enum Functions
 		{
 			None,

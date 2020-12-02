@@ -49,7 +49,7 @@
 
     <StackPanel Margin="0, 0">
         
-        <Grid Height="20" Margin="0, 4">
+        <Grid Height="20" Margin="8, 4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -66,7 +66,7 @@
                 SelectedItem="{Binding SelectedModeType}"/>
         </Grid>
 
-        <Border Margin="0, 8">
+        <Border>
             <Border.Style>
                 <Style TargetType="Border">
                     <Setter Property="Visibility" Value="Visible"/>
@@ -78,7 +78,7 @@
                 </Style>
             </Border.Style>
             <StackPanel>
-                <Views:Range Margin="0" DataContext="{Binding Range}"/>
+                <Views:Range Margin="8" DataContext="{Binding Range}"/>
                 <Border>
                     <Border.Style>
                         <Style TargetType="Border">
@@ -91,7 +91,7 @@
                         </Style>
                     </Border.Style>
                     <StackPanel>
-                        <Views:BeatModifier Grid.Column="1" Margin="0, 8, 0, 0" DataContext="{Binding BeatModifier}"/>
+                        <Views:BeatModifier Grid.Column="1" Margin="8" DataContext="{Binding BeatModifier}"/>
                         <Views:Easing DataContext="{Binding Easing}" Margin="0, 8"/>
                     </StackPanel>
                 </Border>

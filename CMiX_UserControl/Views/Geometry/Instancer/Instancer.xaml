@@ -56,7 +56,6 @@
                 Style="{DynamicResource CMiXToggleButtonStyle}"
                 Dock="Right"
                 HorizontalAlignment="Right"
-                Height="15"
                 Margin="4"
                 Caption="No Aspect Ratio"
                 IsChecked="{Binding NoAspectRatio}"/>

@@ -301,9 +301,8 @@
                     <Border 
                         x:Name="mainBorder"
                         Height="25"
-                        Background="{DynamicResource HighDarkerColor}" >
-                        <Grid 
-                            SnapsToDevicePixels="False">
+                        Background="{DynamicResource DarkerColor}" >
+                        <Grid SnapsToDevicePixels="False">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="19"/>
                                 <ColumnDefinition Width="*"/>
@@ -459,12 +458,11 @@
     </Style>
 
     <Style x:Key="InnerExpanderLevel1" TargetType="{x:Type Expander}">
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextBase}"/>
         <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Margin" Value="0"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-        <Setter Property="BorderBrush" Value="Transparent"/>
-        <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Expander}">
@@ -491,8 +489,7 @@
                                 MinHeight="0" 
                                 Padding="{TemplateBinding Padding}" 
                                 Style="{DynamicResource InnerExpanderLevel1DownHeaderStyle}" 
-                                VerticalContentAlignment="Center"
-                                />
+                                VerticalContentAlignment="Center"/>
                             <ContentPresenter 
                                 x:Name="ExpandSite" 
                                 DockPanel.Dock="Bottom" 
@@ -500,8 +497,7 @@
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
                                 Margin="{TemplateBinding Padding}" 
                                 Visibility="Collapsed" 
-                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                />
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </DockPanel>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -517,96 +513,4 @@
         </Setter>
     </Style>
 
-
-
-
-    <!--<Style TargetType="{x:Type Controls:ExpanderLayerList}">
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-        <Setter Property="BorderBrush" Value="Transparent"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Controls:ExpanderLayerList}">
-                    <Border 
-                        SnapsToDevicePixels="true" 
-                        Background="Transparent" 
-                        BorderBrush="Transparent" 
-                        BorderThickness="0" 
-                        CornerRadius="0">
-                        <DockPanel>
-                            <DockPanel Height="30" DockPanel.Dock="Top">
-                                <ToggleButton 
-                                    DockPanel.Dock="Left"
-                                    Grid.Column="0"
-                                    VerticalAlignment="Center"
-                                    IsChecked="{Binding IsVisible}"
-                                    Style="{DynamicResource ToggleVisibility}"
-                                    Margin="0"
-                                    Padding="4"/>
-
-                                <ContentControl
-                                    x:Name="HeaderSite"
-                                    Grid.Column="1"
-                                    Background="{DynamicResource DarkColor}"
-                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                    Margin="{TemplateBinding Padding}"
-                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                                    <Border>
-                                        <DockPanel>
-                                            <Grid VerticalAlignment="Center" Margin="0, 0, 8, 0" DockPanel.Dock="Left">
-                                                <Grid.LayoutTransform>
-                                                    <TransformGroup>
-                                                        <TransformGroup.Children>
-                                                            <TransformCollection>
-                                                                <RotateTransform Angle="-90"/>
-                                                            </TransformCollection>
-                                                        </TransformGroup.Children>
-                                                    </TransformGroup>
-                                                </Grid.LayoutTransform>
-                                                <Path 
-                                                    x:Name="arrow" 
-                                                    Data="M 1,1.5 L 4.5,5 L 8,1.5" 
-                                                    HorizontalAlignment="Left" 
-                                                    SnapsToDevicePixels="false" 
-                                                    Stroke="{DynamicResource LightColor}" 
-                                                    StrokeThickness="2" 
-                                                    VerticalAlignment="Center"/>
-                                            </Grid>
-                                            <Controls:EditableTextBox VerticalAlignment="Center" Text="{Binding Name}" IsEditing="{Binding IsRenaming}"/>
-                                        </DockPanel>
-                                    </Border>
-                                </ContentControl>
-                            </DockPanel>
-
-                            <ContentPresenter
-                                DockPanel.Dock="Bottom"
-                                Focusable="false"
-                                Visibility="Collapsed"
-                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                Margin="{TemplateBinding Padding}"
-                                x:Name="ExpandSite"
-                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </DockPanel>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseDoubleClicked" Value="True">
-                            <Setter Property="Visibility" TargetName="ExpandSite" Value="Visible"/>
-                            <Setter Property="IsExpanded" Value="True"/>
-                        </Trigger>
-                        <Trigger Property="IsExpanded" Value="True">
-                            <Setter TargetName="arrow" Property="Stroke" Value="{DynamicResource SuperHighLightColor}"/>
-                            <Setter TargetName="arrow" Property="LayoutTransform" >
-                                <Setter.Value>
-                                    <RotateTransform Angle="90" />
-                                </Setter.Value>
-                            </Setter>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>-->
 </ResourceDictionary>

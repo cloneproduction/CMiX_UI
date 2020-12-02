@@ -1,7 +1,7 @@
-﻿using CMiX.MVVM.Models;
+﻿using System;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.Resources;
-using System;
 using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels

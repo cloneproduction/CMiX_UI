@@ -4,9 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX.MVVM"
+             xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
              mc:Ignorable="d" 
-             d:DesignHeight="52" 
-             d:DesignWidth="262.334">
+             d:DesignHeight="117.333" 
+             d:DesignWidth="289.667">
 
     <UserControl.Resources>
         <ObjectDataProvider x:Key="EasingFunction" MethodName="GetValues" ObjectType="{x:Type ViewModels:EasingFunction}">
@@ -21,54 +22,66 @@
         </ObjectDataProvider>
     </UserControl.Resources>
 
-    <StackPanel>
-        <Grid Height="21" Margin="0,2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <TextBlock 
-                VerticalAlignment="Center" 
-                HorizontalAlignment="Right" 
-                Text="Easing Function" 
-                Padding="4, 0" 
-                Foreground="{DynamicResource TextBase}"/>
-            <Border Grid.Column="1" Style="{StaticResource BorderShadow}">
-                <ComboBox 
+    <Expander Style="{StaticResource InnerExpanderLevel1}">
+        <Expander.Header>
+            <DockPanel>
+                <Controls:CMiXToggleButton 
+                    Margin="4" 
+                    IsChecked="{Binding Enabled}" 
+                    Style="{StaticResource CMiXToggleButtonStyle}"/>
+                <TextBlock Margin="4, 0" Text="Easing"/>
+            </DockPanel>
+        </Expander.Header>
+        <StackPanel Margin="8" IsEnabled="{Binding Enabled}">
+            <Grid Height="21" Margin="0,2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock 
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Right" 
+                    Text="Easing Function" 
+                    Padding="4, 0" 
+                    Foreground="{DynamicResource TextBase}"/>
+                <Border Grid.Column="1" Style="{StaticResource BorderShadow}">
+                    <ComboBox 
                     ItemsSource="{Binding Source={StaticResource EasingFunction}}"
                     SelectedItem="{Binding EasingFunction}"/>
-            </Border>
-        </Grid>
-        <Grid 
+                </Border>
+            </Grid>
+            <Grid 
             Height="21" 
             Margin="0,2">
-            <Grid.Style>
-                <Style TargetType="{x:Type Grid}">
-                    <Setter Property="IsEnabled" Value="True" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding EasingFunction}" Value="None">
-                            <Setter Property="IsEnabled" Value="False" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Grid.Style>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <TextBlock 
+                <Grid.Style>
+                    <Style TargetType="{x:Type Grid}">
+                        <Setter Property="IsEnabled" Value="True" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding EasingFunction}" Value="None">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock 
                 VerticalAlignment="Center" 
                 HorizontalAlignment="Right" 
                 Text="Mode" 
                 Padding="4, 0" 
                 Foreground="{DynamicResource TextBase}"/>
-            <Border 
+                <Border 
                 Grid.Column="1" 
                 Style="{DynamicResource BorderShadow}">
-                <ComboBox
+                    <ComboBox
                     ItemsSource="{Binding Source={StaticResource EasingMode}}"
                     SelectedItem="{Binding EasingMode}"/>
-            </Border>
-        </Grid>
-    </StackPanel>
+                </Border>
+            </Grid>
+        </StackPanel>
+    </Expander>
+
 </UserControl>
