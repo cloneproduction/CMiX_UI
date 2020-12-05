@@ -10,21 +10,41 @@
              d:DesignWidth="316.667"
              mc:Ignorable="d">
 
-
-    <Grid Margin="0, 2">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <TextBlock 
+    <StackPanel>
+        <Grid Height="20" Margin="0, 1, 0, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Controls:DistanceSlider 
+                Grid.Column="2" 
+                Position="Bottom" 
+                Style="{StaticResource DistanceSliderStyle}" 
+                Value="{Binding Path=Width}"/>
+            <TextBlock 
+                Grid.Column="0" 
+                Padding="4" 
+                HorizontalAlignment="Right" 
+                Text="Width" 
+                Foreground="{StaticResource TextBase}"/>
+        </Grid>
+        <Grid Margin="0, 2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock 
                 Text="Steps" 
                 Padding="4" 
                 Foreground="{DynamicResource TextBase}" 
                 HorizontalAlignment="Right"/>
-        <Controls:Counter
+            
+            <Controls:Counter
                 Value="{Binding StepCount}"
                 Grid.Column="1"
                 Style="{StaticResource CMiXCounterStyle}"
                 Height="21"/>
-    </Grid>
+        </Grid>
+    </StackPanel>
+
 </UserControl>

@@ -13,6 +13,7 @@ namespace CMiX.MVVM.Models
 
         }
 
+        public double Width { get; set; }
         public int StepCount { get; set; }
         public bool Enabled { get; set; }
     }

@@ -60,6 +60,9 @@
                             <DataTrigger Binding="{Binding EasingFunction}" Value="None">
                                 <Setter Property="IsEnabled" Value="False" />
                             </DataTrigger>
+                            <DataTrigger Binding="{Binding EasingFunction}" Value="Square">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </Grid.Style>

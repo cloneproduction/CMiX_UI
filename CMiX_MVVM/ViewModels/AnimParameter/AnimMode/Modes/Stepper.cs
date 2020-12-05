@@ -18,7 +18,19 @@ namespace CMiX.MVVM.ViewModels
             this.SetViewModel(message.Obj as StepperModel);
         }
 
+
         private double nextStep;
+
+        private double _width;
+        public double Width
+        {
+            get => _width;
+            set
+            {
+                SetAndNotify(ref _width, value);
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
+            }
+        }
 
         private int _stepCount;
         public int StepCount
@@ -41,11 +53,19 @@ namespace CMiX.MVVM.ViewModels
                 nextStep = 0.0;
         }
 
+        private double stepDistance = 0.0;
+        private double position = 0.0;
+
         public void UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing)
         {
+            stepDistance = Width / (doubleToAnimate.Length - 1);
+            position = 0.0 - (Width / 2);
+
             for (int i = 0; i < doubleToAnimate.Length; i++)
             {
-                doubleToAnimate[i] = Utils.Map(nextStep, 0, StepCount - 1, range.Minimum, range.Maximum);
+                doubleToAnimate[i] = position + Utils.Map(nextStep, 0, StepCount - 1, range.Minimum, range.Maximum);
+
+                position += stepDistance;
             }
         }
     }
