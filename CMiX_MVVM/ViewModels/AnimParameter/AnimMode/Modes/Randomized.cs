@@ -34,13 +34,14 @@ namespace CMiX.MVVM.ViewModels
             return rands;
         }
 
-        public void UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing)
+        public void UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing, BeatModifier beatModifier)
         {
             oldRandom = newRandom;
-            newRandom = GetNewRandoms(doubleToAnimate.Length);
+            if (beatModifier.CheckHitOnBeatTick())
+                newRandom = GetNewRandoms(doubleToAnimate.Length);
         }
 
-        public void UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing)
+        public void UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing, BeatModifier beatModifier)
         {
             bool ease = easing.IsEnabled;
 

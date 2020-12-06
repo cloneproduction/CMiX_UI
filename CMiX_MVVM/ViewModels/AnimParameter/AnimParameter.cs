@@ -80,12 +80,12 @@ namespace CMiX.MVVM.ViewModels
         {
             var index = BeatModifier.BeatIndex;
             if (index >= 0 && index < Period.Length)
-                this.AnimMode.UpdateOnBeatTick(this.Parameters, Period[BeatModifier.BeatIndex], this.Range, this.Easing);
+                this.AnimMode.UpdateOnBeatTick(this.Parameters, Period[BeatModifier.BeatIndex], this.Range, this.Easing, this.BeatModifier);
         }
 
         public void AnimateOnGameLoop()
         {
-            this.AnimMode.UpdateOnGameLoop(this.Parameters, Period[BeatModifier.BeatIndex], this.Range, this.Easing);
+            this.AnimMode.UpdateOnGameLoop(this.Parameters, Period[BeatModifier.BeatIndex], this.Range, this.Easing, this.BeatModifier);
         }
 
         public void Update(int count)

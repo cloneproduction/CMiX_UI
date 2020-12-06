@@ -16,12 +16,12 @@ namespace CMiX.MVVM.ViewModels
             this.SetViewModel(message.Obj as LFOModel);
         }
 
-        public void UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing)
+        public void UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing, BeatModifier beatModifier)
         {
 
         }
 
-        public void UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing)
+        public void UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing, BeatModifier beatModifier)
         {
             double periodOffset = 1.0 / doubleToAnimate.Length;
             double offset = 0.0;

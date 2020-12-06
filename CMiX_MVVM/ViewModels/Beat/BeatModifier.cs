@@ -2,6 +2,7 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -10,9 +11,10 @@ namespace CMiX.MVVM.ViewModels
         public BeatModifier(string name, IColleague parentSender, MasterBeat masterBeat) : base (name, parentSender)
         {
             Index = 0;
-            ChanceToHit = new Slider(nameof(ChanceToHit), this) { Minimum=0, Maximum=100, Amount = 100.0 };
+            ChanceToHit = new Slider(nameof(ChanceToHit), this) { Minimum = 0, Maximum = 100, Amount = 100.0 };
             MasterBeat = masterBeat;
             Multiplier = 1.0;
+            Random = new Random();
             this.Period = masterBeat.Period;
 
             SetAnimatedDouble();
@@ -31,11 +33,22 @@ namespace CMiX.MVVM.ViewModels
         public override void Receive(Message message)
         {
             this.SetViewModel(message.Obj as BeatModifierModel);
-            System.Console.WriteLine("BeatModifier Received, BeatIndex is " + this.BeatIndex);
+            Console.WriteLine("BeatModifier Received, BeatIndex is " + this.BeatIndex);
         }
 
         public MasterBeat MasterBeat { get; set; }
         public Slider ChanceToHit { get; set; }
+
+        private Random Random { get; set; }
+        //public bool CanHit { get; set; }
+
+        public bool CheckHitOnBeatTick()
+        {
+            if (Random.NextDouble() <= this.ChanceToHit.Amount / 100)
+                return true;
+            else
+                return false;
+        }
 
 
         private int maxIndex = 4;
