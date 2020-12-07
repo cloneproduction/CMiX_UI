@@ -83,7 +83,6 @@ namespace CMiX.MVVM.ViewModels
         private static StepperModel GetModel(this Stepper instance)
         {
             StepperModel model = new StepperModel();
-            model.Width = instance.Width;
             model.StepCount = instance.StepCount;
             return model;
         }
@@ -91,7 +90,6 @@ namespace CMiX.MVVM.ViewModels
         private static void SetViewModel(this Stepper instance, IAnimModeModel animModeModel)
         {
             StepperModel model = animModeModel as StepperModel;
-            instance.Width = model.Width;
             instance.StepCount = model.StepCount;
         }
     }

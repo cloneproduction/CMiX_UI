@@ -12,8 +12,10 @@ namespace CMiX.MVVM.Models
             EasingModel = new EasingModel();
             RangeModel = new RangeModel();
             AnimModeModel = new AnimModeModel();
+            Width = new SliderModel();
         }
 
+        public SliderModel Width { get; set; }
         public string Name { get; set; }
         public bool IsEnabled { get; set; }
         public ModeType SelectedModeType { get; set; }

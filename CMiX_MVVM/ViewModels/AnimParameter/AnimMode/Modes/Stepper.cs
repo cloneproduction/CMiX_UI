@@ -45,7 +45,7 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public void UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing, BeatModifier beatModifier)
+        public void UpdateOnBeatTick(double[] doubleToAnimate, double period, double width, Easing easing, BeatModifier beatModifier)
         {
             if(beatModifier.CheckHitOnBeatTick())
                 nextStep += 1.0;
@@ -57,7 +57,7 @@ namespace CMiX.MVVM.ViewModels
         private double stepDistance = 0.0;
         private double position = 0.0;
 
-        public void UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing, BeatModifier beatModifier)
+        public void UpdateOnGameLoop(double[] doubleToAnimate, double period, double width, Easing easing, BeatModifier beatModifier)
         {
             stepDistance = Width / (doubleToAnimate.Length - 1);
             position = 0.0 - (Width / 2);

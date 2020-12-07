@@ -34,14 +34,14 @@ namespace CMiX.MVVM.ViewModels
             return rands;
         }
 
-        public void UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing, BeatModifier beatModifier)
+        public void UpdateOnBeatTick(double[] doubleToAnimate, double period, double width, Easing easing, BeatModifier beatModifier)
         {
             oldRandom = newRandom;
             if (beatModifier.CheckHitOnBeatTick())
                 newRandom = GetNewRandoms(doubleToAnimate.Length);
         }
 
-        public void UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing, BeatModifier beatModifier)
+        public void UpdateOnGameLoop(double[] doubleToAnimate, double period, double width, Easing easing, BeatModifier beatModifier)
         {
             bool ease = easing.IsEnabled;
 
@@ -51,11 +51,11 @@ namespace CMiX.MVVM.ViewModels
                 {
                     double eased = Easings.Interpolate((float)period, easing.SelectedEasing);
                     double lerped = Utils.Lerp(oldRandom[i], newRandom[i], eased);
-                    doubleToAnimate[i] = Utils.Map(lerped, 0.0, 1.0, range.Minimum, range.Maximum);
+                    doubleToAnimate[i] = Utils.Map(lerped, 0.0, 1.0, 0.0 - width/2, 0.0 + width/2);
                 }
                 else
                 {
-                    doubleToAnimate[i] = Utils.Map(newRandom[i], 0.0, 1.0, range.Minimum, range.Maximum);
+                    doubleToAnimate[i] = Utils.Map(newRandom[i], 0.0, 1.0, 0.0 - width/2, 0.0 + width/2);
                 }
             }
         }

@@ -5,6 +5,7 @@
              xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX.MVVM"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
              d:DesignHeight="636.667"
              d:DesignWidth="316.667"
              mc:Ignorable="d">
@@ -78,7 +79,23 @@
                 </Style>
             </Border.Style>
             <StackPanel>
-                <Views:Range Margin="8" DataContext="{Binding Range}"/>
+                <Grid Height="20" Margin="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Controls:DistanceSlider 
+                        Grid.Column="2" 
+                        Position="Bottom" 
+                        Style="{StaticResource DistanceSliderStyle}" 
+                        Value="{Binding Path=Width.Amount}"/>
+                    <TextBlock 
+                        Grid.Column="0" 
+                        Padding="4" 
+                        HorizontalAlignment="Right" 
+                        Text="Width" 
+                        Foreground="{StaticResource TextBase}"/>
+                </Grid>
                 <Border>
                     <Border.Style>
                         <Style TargetType="Border">
@@ -103,7 +120,5 @@
                 </ContentPresenter>
             </StackPanel>
         </Border>
-
-
     </StackPanel>
 </UserControl>

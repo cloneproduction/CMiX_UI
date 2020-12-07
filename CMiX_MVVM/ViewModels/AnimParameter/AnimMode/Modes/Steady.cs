@@ -19,21 +19,21 @@ namespace CMiX.MVVM.ViewModels
             //this.SetViewModel()
         }
 
-        public void UpdateOnBeatTick(double[] doubleToAnimate, double period, Range range, Easing easing, BeatModifier beatModifier)
+        public void UpdateOnBeatTick(double[] doubleToAnimate, double period, double width, Easing easing, BeatModifier beatModifier)
         {
 
         }
 
-        public void UpdateOnGameLoop(double[] doubleToAnimate, double period, Range range, Easing easing, BeatModifier beatModifier)
+        public void UpdateOnGameLoop(double[] doubleToAnimate, double period, double width, Easing easing, BeatModifier beatModifier)
         {
-            double offset = range.Distance / doubleToAnimate.Length;
+            double offset = width / doubleToAnimate.Length;
             double startValue;
 
             if (SteadyType == SteadyType.Linear)
             {
                 if(LinearType == LinearType.Left)
                 {
-                    startValue = range.Minimum;
+                    startValue = width;
                     for (int i = 0; i < doubleToAnimate.Length; i++)
                     {
                         doubleToAnimate[i] = startValue;
@@ -42,7 +42,7 @@ namespace CMiX.MVVM.ViewModels
                 }
                 else if (LinearType == LinearType.Right)
                 {
-                    startValue = range.Maximum;
+                    startValue = width;
                     for (int i = 0; i < doubleToAnimate.Length; i++)
                     {
                         doubleToAnimate[i] = startValue;
@@ -51,7 +51,7 @@ namespace CMiX.MVVM.ViewModels
                 }
                 else if (LinearType == LinearType.Center)
                 {
-                    startValue = range.Distance;
+                    startValue = width;
                     for (int i = 0; i < doubleToAnimate.Length; i++)
                     {
                         doubleToAnimate[i] = startValue;
@@ -65,7 +65,7 @@ namespace CMiX.MVVM.ViewModels
                 var random = new Random(Seed);
                 for (int i = 0; i < doubleToAnimate.Length; i++)
                 {
-                    doubleToAnimate[i] = Utils.Map(random.NextDouble(), 0.0, 1.0, range.Minimum, range.Maximum);
+                    doubleToAnimate[i] = Utils.Map(random.NextDouble(), 0.0, 1.0, 0.0 - width / 2, 0.0 + width / 2);
                 }
             }
         }
