@@ -11,7 +11,7 @@ namespace CMiX.MVVM.ViewModels
         public AnimParameter(string name, IColleague parentSender, double defaultValue, MasterBeat beat) : base (name, parentSender)
         {
             Period = new double[0];
-            //Range = new Range(nameof(Range), this, 0.0, 1.0);
+            Range = new Range(nameof(Range), this, 0.0, 1.0);
             Easing = new Easing(nameof(Easing), this);
             Width = new Slider(nameof(Width), this);
             BeatModifier = new BeatModifier(nameof(BeatModifier), this, beat);
@@ -28,7 +28,7 @@ namespace CMiX.MVVM.ViewModels
 
         public BeatModifier BeatModifier { get; set; }
         public Easing Easing { get; set; }
-
+        public Range Range { get; set; }
         public Slider Width { get; set; }
 
         public double[] Parameters { get; set; }

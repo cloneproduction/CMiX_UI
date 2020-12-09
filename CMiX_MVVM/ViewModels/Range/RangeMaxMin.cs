@@ -5,7 +5,7 @@ using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Range : Sender
+    public class Range : Sender, IRange
     {
         public Range(string name, IColleague parentSender, double minimum = 0.0, double maximum = 1.0) : base (name, parentSender)
         {
@@ -17,6 +17,13 @@ namespace CMiX.MVVM.ViewModels
         {
             this.SetViewModel(message.Obj as RangeModel);
             Console.WriteLine("Received Range");
+        }
+
+        private double _width;
+        public double Width
+        {
+            get => _width; 
+            set { SetAndNotify(ref _minimum, value); }
         }
 
         public double Distance

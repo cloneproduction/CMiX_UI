@@ -79,23 +79,26 @@
                 </Style>
             </Border.Style>
             <StackPanel>
-                <Grid Height="20" Margin="8">
+                <Views:Range Margin="8" DataContext="{Binding Range}"/>
+                <!--<Views:RangeControl DataContext="{Binding Range}"/>-->
+                <!--<Grid Height="20" Margin="8">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Controls:DistanceSlider 
+                    
+                    --><!--<Controls:DistanceSlider 
                         Grid.Column="2" 
                         Position="Bottom" 
                         Style="{StaticResource DistanceSliderStyle}" 
-                        Value="{Binding Path=Width.Amount}"/>
+                        Value="{Binding Path=Width.Amount}"/>--><!--
                     <TextBlock 
                         Grid.Column="0" 
                         Padding="4" 
                         HorizontalAlignment="Right" 
                         Text="Width" 
                         Foreground="{StaticResource TextBase}"/>
-                </Grid>
+                </Grid>-->
                 <Border>
                     <Border.Style>
                         <Style TargetType="Border">
