@@ -1,7 +1,7 @@
-﻿using CMiX.MVVM.Models;
+﻿using System;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
-using System;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -22,13 +22,8 @@ namespace CMiX.MVVM.ViewModels
         private double _width;
         public double Width
         {
-            get => _width; 
-            set { SetAndNotify(ref _minimum, value); }
-        }
-
-        public double Distance
-        {
-            get => Math.Abs(Maximum - Minimum);
+            get => _width;
+            set => SetAndNotify(ref _width, value);
         }
 
         private double _minimum;
@@ -38,6 +33,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _minimum, value);
+                Width = Math.Abs(Maximum - Minimum);
                 this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
         }
@@ -49,6 +45,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _maximum, value);
+                Width = Math.Abs(Maximum - Minimum);
                 this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
         }

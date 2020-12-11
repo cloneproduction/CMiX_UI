@@ -28,7 +28,7 @@ namespace CMiX.MVVM.ViewModels
 
         public BeatModifier BeatModifier { get; set; }
         public Easing Easing { get; set; }
-        public Range Range { get; set; }
+        public IRange Range { get; set; }
         public Slider Width { get; set; }
 
         public double[] Parameters { get; set; }
@@ -83,12 +83,12 @@ namespace CMiX.MVVM.ViewModels
         {
             var index = BeatModifier.BeatIndex;
             if (index >= 0 && index < Period.Length)
-                this.AnimMode.UpdateOnBeatTick(this.Parameters, Period[BeatModifier.BeatIndex], this.Width.Amount, this.Easing, this.BeatModifier);
+                this.AnimMode.UpdateOnBeatTick(this.Parameters, Period[BeatModifier.BeatIndex], Range, this.Easing, this.BeatModifier);
         }
 
         public void AnimateOnGameLoop()
         {
-            this.AnimMode.UpdateOnGameLoop(this.Parameters, Period[BeatModifier.BeatIndex], this.Width.Amount, this.Easing, this.BeatModifier);
+            this.AnimMode.UpdateOnGameLoop(this.Parameters, Period[BeatModifier.BeatIndex], Range, this.Easing, this.BeatModifier);
         }
 
         public void Update(int count)

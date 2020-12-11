@@ -124,7 +124,8 @@
     <Compile Include="Models\ComboBoxModel.cs" />
     <Compile Include="Models\AnimParameter\AnimModeModel.cs" />
     <Compile Include="Models\Geometry\Modifier\ModifierModel.cs" />
-    <Compile Include="Models\RangeModel.cs" />
+    <Compile Include="Models\Range\IRangeModel.cs" />
+    <Compile Include="Models\Range\RangeModel.cs" />
     <Compile Include="Services\HighResolutionTimer.cs" />
     <Compile Include="Services\Message\Message.cs" />
     <Compile Include="Services\Message\MessageSerializer.cs" />
@@ -146,7 +147,7 @@
     <Compile Include="ViewModels\Observer\IObserver.cs" />
     <Compile Include="ViewModels\Observer\ISubject.cs" />
     <Compile Include="ViewModels\Range\IRange.cs" />
-    <Compile Include="ViewModels\Range\RangeMaxMin.cs" />
+    <Compile Include="ViewModels\Range\Range.cs" />
     <Compile Include="ViewModels\Range\RangeModelFactory.cs" />
     <Compile Include="ViewModels\Assets\AssetPathSelectorModelFactory.cs" />
     <Compile Include="ViewModels\Beat\MasterBeatModelFactory.cs" />

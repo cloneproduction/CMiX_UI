@@ -16,12 +16,12 @@ namespace CMiX.MVVM.ViewModels
             this.SetViewModel(message.Obj as NoneModel);
         }
 
-        public void UpdateOnBeatTick(double[] doubleToAnimate, double period, double width, Easing easing, BeatModifier beatModifier)
+        public void UpdateOnBeatTick(double[] doubleToAnimate, double period, IRange range, Easing easing, BeatModifier beatModifier)
         {
 
         }
 
-        public void UpdateOnGameLoop(double[] doubleToAnimate, double period, double width, Easing easing, BeatModifier beatModifier)
+        public void UpdateOnGameLoop(double[] doubleToAnimate, double period, IRange range, Easing easing, BeatModifier beatModifier)
         {
 
         }

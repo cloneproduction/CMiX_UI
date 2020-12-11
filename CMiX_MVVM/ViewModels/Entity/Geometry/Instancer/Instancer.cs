@@ -21,6 +21,7 @@ namespace CMiX.MVVM.ViewModels
             TranslateModifier = new XYZModifier(nameof(TranslateModifier), this, new Vector3D(0.0, 0.0, 0.0), beat);
             ScaleModifier = new XYZModifier(nameof(ScaleModifier), this, new Vector3D(1.0, 1.0, 1.0), beat);
             RotationModifier = new XYZModifier(nameof(RotationModifier), this, new Vector3D(0.0, 0.0, 0.0), beat);
+
             UniformScale = new AnimParameter(nameof(UniformScale), this, 1.0, beat);
 
             Attach(TranslateModifier);
