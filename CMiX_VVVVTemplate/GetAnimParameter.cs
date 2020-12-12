@@ -25,18 +25,6 @@ namespace CMiX.Nodes
         [Output("Parameters")]
         public ISpread<ISpread<double>> Parameters;
 
-        public Random Random { get; set; }
-
-        public GetAnimParameter()
-        {
-            Random = new Random();
-        }
-
-        private double map(double value, double fromLow, double fromHigh, double toLow, double toHigh)
-        {
-            return (value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow;
-        }
-
         public void Evaluate(int SpreadMax)
         {
             Parameters.SliceCount = AnimParameter.SliceCount;
@@ -50,7 +38,6 @@ namespace CMiX.Nodes
                         AnimParameter[i].Period = Periods.ToArray();
 
                         Parameters[i].SliceCount = AnimParameter[i].Parameters.Length;
-
 
                         if (BeatTicks[AnimParameter[i].BeatModifier.BeatIndex])
                         {
