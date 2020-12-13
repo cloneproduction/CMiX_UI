@@ -6,7 +6,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class TransformModifier : Sender
     {
-        public TransformModifier(string name, IColleague parentSender, Transform transform) : base(name, parentSender)
+        public TransformModifier(string name, Sender parentSender, Transform transform, MasterBeat beat) : base(name, parentSender)
         {
 
         }
@@ -17,7 +17,6 @@ namespace CMiX.MVVM.ViewModels
         }
 
         private XYZModifier _translateModifier;
-
         public XYZModifier TranslateModifier
         {
             get => _translateModifier;
