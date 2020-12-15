@@ -1,18 +1,21 @@
-﻿using CMiX.MVVM.Interfaces;
+﻿using System;
 using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels.Mediator;
-using System;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class ScaleModifier : Sender, IModifier
     {
-        public ScaleModifier(string name, IColleague parentSender, MasterBeat beat, ITransform transform) : base(name, parentSender)
+        public ScaleModifier(string name, Sender parentSender, Scale scale, MasterBeat beat) : base(name, parentSender)
         {
             IsUniform = false;
-            X = new AnimParameter(nameof(X), this, transform.Transform.Scale.X.Amount, beat);
-            Y = new AnimParameter(nameof(Y), this, transform.Transform.Scale.Y.Amount, beat);
-            Z = new AnimParameter(nameof(Z), this, transform.Transform.Scale.Z.Amount, beat);
+            X = new AnimParameter(nameof(X), this, scale.X.Amount, beat);
+            Y = new AnimParameter(nameof(Y), this, scale.Y.Amount, beat);
+            Z = new AnimParameter(nameof(Z), this, scale.Z.Amount, beat);
+        }
+
+        public override void Receive(Message message)
+        {
+            throw new NotImplementedException();
         }
 
         public AnimParameter X { get; set; }
@@ -24,12 +27,6 @@ namespace CMiX.MVVM.ViewModels
         {
             get => _isUniform;
             set => SetAndNotify(ref _isUniform, value);
-        }
-
-
-        public override void Receive(Message message)
-        {
-            throw new NotImplementedException();
         }
     }
 }

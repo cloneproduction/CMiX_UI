@@ -11,7 +11,6 @@ namespace CMiX.MVVM.ViewModels
             Translate = new Translate(nameof(Translate), this);
             Scale = new Scale(nameof(Scale), this);
             Rotation = new Rotation(nameof(Rotation), this);
-
             Is3D = false;
         }
 

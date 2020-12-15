@@ -1,6 +1,5 @@
-﻿using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels.Mediator;
-using System;
+﻿using System;
+using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -8,7 +7,9 @@ namespace CMiX.MVVM.ViewModels
     {
         public TransformModifier(string name, Sender parentSender, Transform transform, MasterBeat beat) : base(name, parentSender)
         {
-
+            TranslateModifier = new TranslateModifier(nameof(TranslateModifier), this, transform.Translate, beat);
+            ScaleModifier = new ScaleModifier(nameof(ScaleModifier), this, transform.Scale, beat);
+            RotationModifier = new RotationModifier(nameof(RotationModifier), this, transform.Rotation, beat);
         }
 
         public override void Receive(Message message)
@@ -16,15 +17,8 @@ namespace CMiX.MVVM.ViewModels
             throw new NotImplementedException();
         }
 
-        private XYZModifier _translateModifier;
-        public XYZModifier TranslateModifier
-        {
-            get => _translateModifier;
-            set
-            {
-                SetAndNotify(ref _translateModifier, value);
-                //this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
-            }
-        }
+        public TranslateModifier TranslateModifier { get; set; }
+        public ScaleModifier ScaleModifier { get; set; }
+        public RotationModifier RotationModifier { get; set; }
     }
 }

@@ -1,17 +1,15 @@
-﻿using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels.Mediator;
-using System;
-using System.Windows.Media.Media3D;
+﻿using System;
+using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
     public class TranslateModifier : Sender, IModifier
     {
-        public TranslateModifier(string name, Sender parentSender, Vector3D vector3D, MasterBeat beat) : base(name, parentSender)
+        public TranslateModifier(string name, Sender parentSender, Translate translate, MasterBeat beat) : base(name, parentSender)
         {
-            X = new AnimParameter(nameof(X), this, vector3D.X, beat);
-            Y = new AnimParameter(nameof(Y), this, vector3D.Y, beat);
-            Z = new AnimParameter(nameof(Z), this, vector3D.Z, beat);
+            X = new AnimParameter(nameof(X), this, translate.X.Amount, beat);
+            Y = new AnimParameter(nameof(Y), this, translate.Y.Amount, beat);
+            Z = new AnimParameter(nameof(Z), this, translate.Z.Amount, beat);
         }
 
         public override void Receive(Message message)

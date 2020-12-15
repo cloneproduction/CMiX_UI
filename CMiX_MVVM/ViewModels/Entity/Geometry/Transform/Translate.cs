@@ -1,4 +1,5 @@
-﻿using CMiX.MVVM.Models;
+﻿using System.Windows.Media.Media3D;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
 
@@ -20,6 +21,11 @@ namespace CMiX.MVVM.ViewModels
         public override void Receive(Message message)
         {
             this.SetViewModel(message.Obj as TranslateModel);
+        }
+
+        public Vector3D GetVector()
+        {
+            return new Vector3D(X.Amount, Y.Amount, Z.Amount);
         }
     }
 }
