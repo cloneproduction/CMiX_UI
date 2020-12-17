@@ -1,20 +1,30 @@
 ﻿using System;
 using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.Observer;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class TranslateModifier : Sender, IModifier
+    public class TranslateModifier : Sender, IModifier, IObserver
     {
         public TranslateModifier(string name, Sender parentSender, Translate translate, MasterBeat beat) : base(name, parentSender)
         {
-            X = new AnimParameter(nameof(X), this, translate.X.Amount, beat);
-            Y = new AnimParameter(nameof(Y), this, translate.Y.Amount, beat);
-            Z = new AnimParameter(nameof(Z), this, translate.Z.Amount, beat);
+            Translate = translate;
+
+            X = new AnimParameter(nameof(X), this, translate, beat);
+            //Y = new AnimParameter(nameof(Y), this, translate.Y.Amount, beat);
+            //Z = new AnimParameter(nameof(Z), this, translate.Z.Amount, beat);
         }
 
+        Translate Translate { get; set; }
+        public int Count { get; set; }
         public override void Receive(Message message)
         {
             throw new NotImplementedException();
+        }
+
+        public void Update(int count)
+        {
+            this.Count = count;
         }
 
         public AnimParameter X { get; set; }

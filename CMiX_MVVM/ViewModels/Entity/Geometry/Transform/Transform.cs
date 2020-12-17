@@ -1,10 +1,11 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
+using CMiX.MVVM.ViewModels.Observer;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Transform : Sender
+    public class Transform : Sender, IObserver
     {
         public Transform(string name, IColleague parentSender) : base (name, parentSender)
         {
@@ -17,6 +18,8 @@ namespace CMiX.MVVM.ViewModels
         public Translate Translate { get; set; }
         public Scale Scale { get; set; }
         public Rotation Rotation { get; set; }
+
+        public int Count { get; set; }
 
         private bool _is3D;
         public bool Is3D
@@ -32,6 +35,11 @@ namespace CMiX.MVVM.ViewModels
         public override void Receive(Message message)
         {
             this.SetViewModel(message.Obj as TransformModel);
+        }
+
+        public void Update(int count)
+        {
+            this.Count = count;
         }
     }
 }

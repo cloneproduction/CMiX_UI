@@ -8,15 +8,15 @@ namespace CMiX.MVVM.ViewModels
 {
     public class AnimParameter : Sender, IObserver
     {
-        public AnimParameter(string name, IColleague parentSender, double defaultValue, MasterBeat beat) : base (name, parentSender)
+        public AnimParameter(string name, IColleague parentSender, IParameter parameter, MasterBeat beat) : base (name, parentSender)
         {
             Period = new double[0];
             Range = new Range(nameof(Range), this, 0.0, 1.0);
             Easing = new Easing(nameof(Easing), this);
             Width = new Slider(nameof(Width), this);
             BeatModifier = new BeatModifier(nameof(BeatModifier), this, beat);
-            DefaultValue = defaultValue;
-            Parameters = new double[1] { defaultValue };
+            //DefaultValue = defaultValue;
+            Parameters = parameter;
             Name = name;
             SelectedModeType = ModeType.None;
         }
@@ -31,7 +31,7 @@ namespace CMiX.MVVM.ViewModels
         public IRange Range { get; set; }
         public Slider Width { get; set; }
 
-        public double[] Parameters { get; set; }
+        public IParameter Parameters { get; set; }
         public double[] Period { get; set; }
         public double DefaultValue { get; set; }
 
@@ -83,26 +83,26 @@ namespace CMiX.MVVM.ViewModels
         {
             var index = BeatModifier.BeatIndex;
             if (index >= 0 && index < Period.Length)
-                this.AnimMode.UpdateOnBeatTick(this.Parameters, Period[BeatModifier.BeatIndex], Range, this.Easing, this.BeatModifier);
+                this.AnimMode.UpdateOnBeatTick(this.Parameters.Values, Period[BeatModifier.BeatIndex], Range, this.Easing, this.BeatModifier);
         }
 
         public void AnimateOnGameLoop()
         {
-            this.AnimMode.UpdateOnGameLoop(this.Parameters, Period[BeatModifier.BeatIndex], Range, this.Easing, this.BeatModifier);
+            this.AnimMode.UpdateOnGameLoop(this.Parameters.Values, Period[BeatModifier.BeatIndex], Range, this.Easing, this.BeatModifier);
         }
 
         public void Update(int count)
         {
-            this.Parameters = new double[count];
+            //this.Parameters = new double[count];
             ParametersToDefault();
             AnimateOnBeatTick();
         }
 
         private void ParametersToDefault()
         {
-            for (int i = 0; i < Parameters.Length; i++)
+            for (int i = 0; i < Parameters.Values.Length; i++)
             {
-                this.Parameters[i] = DefaultValue;
+                this.Parameters.Values[i] = DefaultValue;
             }
         }
     }

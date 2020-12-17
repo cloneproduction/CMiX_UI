@@ -14,9 +14,9 @@ namespace CMiX.MVVM.ViewModels
             Name = name;
             Observers = new List<IObserver>();
 
-            X = new AnimParameter(nameof(X), this, vector3D.X, beat);
-            Y = new AnimParameter(nameof(Y), this, vector3D.Y, beat);
-            Z = new AnimParameter(nameof(Z), this, vector3D.Z, beat);
+            //X = new AnimParameter(nameof(X), this, vector3D.X, beat);
+            //Y = new AnimParameter(nameof(Y), this, vector3D.Y, beat);
+            //Z = new AnimParameter(nameof(Z), this, vector3D.Z, beat);
 
             Attach(X);
             Attach(Y);

@@ -8,9 +8,9 @@ namespace CMiX.MVVM.ViewModels
         public ScaleModifier(string name, Sender parentSender, Scale scale, MasterBeat beat) : base(name, parentSender)
         {
             IsUniform = false;
-            X = new AnimParameter(nameof(X), this, scale.X.Amount, beat);
-            Y = new AnimParameter(nameof(Y), this, scale.Y.Amount, beat);
-            Z = new AnimParameter(nameof(Z), this, scale.Z.Amount, beat);
+            //X = new AnimParameter(nameof(X), this, scale.X.Amount, beat);
+            //Y = new AnimParameter(nameof(Y), this, scale.Y.Amount, beat);
+            //Z = new AnimParameter(nameof(Z), this, scale.Z.Amount, beat);
         }
 
         public override void Receive(Message message)
