@@ -8,13 +8,13 @@ namespace CMiX.MVVM.ViewModels
         {
             AnimParameterModel model = new AnimParameterModel();
 
-            model.IsEnabled = instance.IsEnabled;
-            model.Name = instance.Name;
-            model.SelectedModeType = instance.SelectedModeType;
-            model.Width = instance.Width.GetModel();
-            model.EasingModel = instance.Easing.GetModel();
-            model.BeatModifierModel = instance.BeatModifier.GetModel();
-            model.AnimModeModel = instance.AnimMode.GetModel();
+            //model.IsEnabled = instance.IsEnabled;
+            //model.Name = instance.Name;
+            //model.SelectedModeType = instance.SelectedModeType;
+            //model.Width = instance.Width.GetModel();
+            //model.EasingModel = instance.Easing.GetModel();
+            //model.BeatModifierModel = instance.BeatModifier.GetModel();
+            //model.AnimModeModel = instance.AnimMode.GetModel();
 
             return model;
         }

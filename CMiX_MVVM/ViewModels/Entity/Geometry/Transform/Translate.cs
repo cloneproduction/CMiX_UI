@@ -30,15 +30,6 @@ namespace CMiX.MVVM.ViewModels
             this.SetViewModel(message.Obj as TranslateModel);
         }
 
-        public void UpdateXYZ()
-        {
-            for (int i = 0; i < Count; i++)
-            {
-                XYZ[i].X = X.Amount;
-                XYZ[i].Y = Y.Amount;
-                XYZ[i].Z = Z.Amount;
-            }
-        }
 
         public void Update(int count)
         {

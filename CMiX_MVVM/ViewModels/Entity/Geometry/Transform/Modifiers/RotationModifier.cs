@@ -7,9 +7,9 @@ namespace CMiX.MVVM.ViewModels
     {
         public RotationModifier(string name, Sender parentSender, Rotation rotation, MasterBeat beat) : base(name, parentSender)
         {
-            X = new AnimParameter(nameof(X), this, rotation.X.Amount, beat);
-            Y = new AnimParameter(nameof(Y), this, rotation.X.Amount, beat);
-            Z = new AnimParameter(nameof(Z), this, rotation.X.Amount, beat);
+            //X = new AnimParameter(nameof(X), this, rotation.X.Amount, beat);
+            //Y = new AnimParameter(nameof(Y), this, rotation.X.Amount, beat);
+            //Z = new AnimParameter(nameof(Z), this, rotation.X.Amount, beat);
         }
 
         public override void Receive(Message message)
