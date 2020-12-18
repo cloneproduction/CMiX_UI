@@ -36,6 +36,7 @@ namespace CMiX.MVVM.ViewModels
 
         private void Counter_CounterChangeEvent(object sender, CounterEventArgs e)
         {
+            Transform.Count = e.Value;
             this.Notify(e.Value);
         }
 

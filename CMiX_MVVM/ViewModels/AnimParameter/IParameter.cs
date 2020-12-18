@@ -9,5 +9,6 @@ namespace CMiX.MVVM.ViewModels
     public interface IParameter
     {
         double[] Values { get; set; }
+        int Count { get; set; }
     }
 }

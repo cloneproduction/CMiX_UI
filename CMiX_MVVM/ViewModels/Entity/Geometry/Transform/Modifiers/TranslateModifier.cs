@@ -10,7 +10,7 @@ namespace CMiX.MVVM.ViewModels
         {
             Translate = translate;
 
-            X = new AnimParameter(nameof(X), this, translate, beat);
+            X = new AnimParameter(nameof(X), this, translate.X, beat);
             //Y = new AnimParameter(nameof(Y), this, translate.Y.Amount, beat);
             //Z = new AnimParameter(nameof(Z), this, translate.Z.Amount, beat);
         }
@@ -26,6 +26,7 @@ namespace CMiX.MVVM.ViewModels
         {
             this.Count = count;
         }
+
 
         public AnimParameter X { get; set; }
         public AnimParameter Y { get; set; }

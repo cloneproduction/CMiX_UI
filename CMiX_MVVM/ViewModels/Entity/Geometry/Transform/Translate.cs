@@ -2,10 +2,11 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
+using CMiX.MVVM.ViewModels.Observer;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Translate : Sender, IParameter
+    public class Translate : Sender, IObserver
     {
         public Translate(string name, IColleague parentSender) : base(name, parentSender)
         {
@@ -13,32 +14,35 @@ namespace CMiX.MVVM.ViewModels
             Y = new Slider(nameof(Y), this);
             Z = new Slider(nameof(Z), this);
 
-            Values = new double[3] { X.Amount, Y.Amount, Z.Amount };
-            XYZ = new Vector3D[0];
+            XYZ = new Vector3D[Count];
         }
 
         public Slider X { get; set; }
         public Slider Y { get; set; }
         public Slider Z { get; set; }
-        public double[] Values { get; set; }
+
         public int Count { get; set; }
 
-        public Vector3D[] XYZ { get; set; }
-
+        public Vector3D[] XYZ {get; set;}
 
         public override void Receive(Message message)
         {
             this.SetViewModel(message.Obj as TranslateModel);
         }
 
-        public Vector3D[] GetXParameters()
+        public void UpdateXYZ()
         {
-            XYZ = new Vector3D[Count];
             for (int i = 0; i < Count; i++)
             {
-                XYZ[i] = new Vector3D(X.Amount, Y.Amount, Z.Amount); 
+                XYZ[i].X = X.Amount;
+                XYZ[i].Y = Y.Amount;
+                XYZ[i].Z = Z.Amount;
             }
-            return XYZ;
+        }
+
+        public void Update(int count)
+        {
+            //XYZ = new Vector3D[count];
         }
     }
 }
