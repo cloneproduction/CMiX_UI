@@ -18,7 +18,7 @@ namespace CMiX.MVVM.ViewModels
 
             Transform = new Transform(nameof(Transform), this);
 
-            TranslateModifier = new TranslateModifier(nameof(TranslateModifier), this, Transform.Translate, beat);
+            TranslateModifier = new TranslateModifier(nameof(TranslateModifier), this, beat);
 
             //TranslateModifier = new XYZModifier(nameof(TranslateModifier), this, new Vector3D(0.0, 0.0, 0.0), beat);
             ScaleModifier = new XYZModifier(nameof(ScaleModifier), this, new Vector3D(1.0, 1.0, 1.0), beat);
