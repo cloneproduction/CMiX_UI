@@ -44,18 +44,23 @@ namespace CMiX.MVVM.ViewModels
 
         }
 
-        public void AnimateOnGameLoop(int count)
+        public void AnimateOnGameLoop(int objectCount)
         {
-            if(ModifierType == ModifierType.OBJECT)
+            if (ModifierType == ModifierType.OBJECT)
             {
-                this.Count = count;
+                for (int i = 0; i < objectCount; i++)
+                {
+                    var doubleToAnimate = TranslateXYZ.Select(x => TranslateXYZ[i].X).ToArray();
+                    X.AnimateOnGameLoop();
+                }
             }
-
-
-            for (int i = 0; i < Count; i++)
+            else if (ModifierType == ModifierType.GROUP)
             {
-                var doubleToAnimate = TranslateXYZ.Select(x => TranslateXYZ[i].X).ToArray();
-                X.AnimateOnGameLoop();
+                for (int i = 0; i < this.Count; i++)
+                {
+                    var doubleToAnimate = TranslateXYZ.Select(x => TranslateXYZ[i].X).ToArray();
+                    X.AnimateOnGameLoop();
+                }
             }
         }
 
