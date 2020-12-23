@@ -90,6 +90,7 @@
     <Compile Include="Behaviors\ContextMenuMouseDownBehavior.cs" />
     <Compile Include="Behaviors\FolderDialogBehavior.cs" />
     <Compile Include="Behaviors\ListBoxSelectionBehavior.cs" />
+    <Compile Include="Behaviors\ClosePopupBehavior.cs" />
     <Compile Include="Behaviors\SliderBehavior.cs" />
     <Compile Include="Behaviors\TextBoxFocusBehavior.cs" />
     <Compile Include="Behaviors\TreeViewItemClickBehavior.cs" />
@@ -146,6 +147,8 @@
     <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\ModeTypeTemplateSelector.cs" />
     <Compile Include="ViewModels\AnimParameter\IParameter.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\IModifier.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\TransformModifierFactory.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\TransformModifierNames.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\ModifierType.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\RotationModifier.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\ScaleModifier.cs" />

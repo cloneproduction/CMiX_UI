@@ -86,9 +86,9 @@ namespace CMiX.MVVM.ViewModels
                 this.AnimMode.UpdateOnBeatTick(this.Parameters, Period[BeatModifier.BeatIndex], Range, this.Easing, this.BeatModifier);
         }
 
-        public void AnimateOnGameLoop()
+        public void AnimateOnGameLoop(double[] parameters)
         {
-            this.AnimMode.UpdateOnGameLoop(this.Parameters, Period[BeatModifier.BeatIndex], Range, this.Easing, this.BeatModifier);
+            this.AnimMode.UpdateOnGameLoop(parameters, Period[BeatModifier.BeatIndex], Range, this.Easing, this.BeatModifier);
         }
 
         public void Update(int count)

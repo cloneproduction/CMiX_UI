@@ -46,21 +46,35 @@ namespace CMiX.MVVM.ViewModels
 
         public void AnimateOnGameLoop(int objectCount)
         {
+            int modifierCount = 0;
             if (ModifierType == ModifierType.OBJECT)
             {
-                for (int i = 0; i < objectCount; i++)
+                modifierCount = objectCount;
+                if (objectCount != TranslateXYZ.Length)
                 {
-                    var doubleToAnimate = TranslateXYZ.Select(x => TranslateXYZ[i].X).ToArray();
-                    X.AnimateOnGameLoop();
+                    TranslateXYZ = new Vector3D[objectCount];
+                    ScaleXYZ = new Vector3D[objectCount];
+                    RotationXYZ = new Vector3D[objectCount];
                 }
             }
             else if (ModifierType == ModifierType.GROUP)
             {
-                for (int i = 0; i < this.Count; i++)
-                {
-                    var doubleToAnimate = TranslateXYZ.Select(x => TranslateXYZ[i].X).ToArray();
-                    X.AnimateOnGameLoop();
-                }
+                modifierCount = Count;
+            }
+
+            var XToAnimate = TranslateXYZ.Select(x => x.X).ToArray();
+            var YToAnimate = TranslateXYZ.Select(x => x.Y).ToArray();
+            var ZToAnimate = TranslateXYZ.Select(x => x.Z).ToArray();
+
+            X.AnimateOnGameLoop(XToAnimate);
+            Y.AnimateOnGameLoop(YToAnimate);
+            Z.AnimateOnGameLoop(ZToAnimate);
+
+            for (int i = 0; i < modifierCount; i++)
+            {
+                TranslateXYZ[i].X = XToAnimate[i];
+                TranslateXYZ[i].Y = YToAnimate[i];
+                TranslateXYZ[i].Z = ZToAnimate[i];
             }
         }
 
@@ -82,8 +96,9 @@ namespace CMiX.MVVM.ViewModels
         public AnimParameter Y { get; set; }
         public AnimParameter Z { get; set; }
 
-
-        public double[] TranslateX { get; set; }
+        double[] TranslateX { get; set; }
+        double[] TranslateY { get; set; }
+        double[] TranslateZ { get; set; }
 
         public Vector3D[] TranslateXYZ { get; set; }
         public Vector3D[] ScaleXYZ { get; set; }

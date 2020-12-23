@@ -7,13 +7,14 @@
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
     xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX.MVVM"
-    xmlns:MVVM.ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX.MVVM"
+    xmlns:Behaviors="clr-namespace:CMiX.MVVM.Behaviors;assembly=CMiX.MVVM"
     xmlns:Views = "clr-namespace:CMiX.Studio.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="764"
     d:DesignWidth="341.667"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    x:Name="InstancerPouet">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -24,46 +25,106 @@
     </UserControl.Resources>
 
     <Expander Header="Instancer" IsExpanded="True" Style="{StaticResource ExpanderBase}">
-        <StackPanel>
+
+            <StackPanel>
+                <Grid Background="Transparent">
+                    <ToggleButton x:Name="PopUpToggle" Height="25">
+
+                    </ToggleButton>
+                    <Popup 
+                        AllowsTransparency="True"
+                        Behaviors:ClosePopupBehavior.PopupContainer="{Binding ElementName=InstancerPouet}"
+                        Placement="Bottom" 
+                        IsOpen="{Binding IsChecked, ElementName=PopUpToggle}">
+                    <Border Background="Transparent" CornerRadius="{DynamicResource CornerRadiusBottom}" Padding="2">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="15" Opacity="0.8"  ShadowDepth="2" Direction="-90" RenderingBias="Performance" />
+                        </Border.Effect>
+                        <Grid Margin="10, 0, 10, 10" Background="{DynamicResource HighDarkerColor}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Button 
+                                Command="{Binding AddTransformModifierCommand}" 
+                                CommandParameter="{x:Static ViewModels:TransformModifierNames.TranslateXYZ}" 
+                                Grid.Column="0"
+                                VerticalAlignment="Center" 
+                                Margin="4" 
+                                Width="100" 
+                                Height="25" 
+                                Content="TranslateXYZ"/>
+                            <Button                         
+                                Command="{Binding AddTransformModifierCommand}" 
+                                CommandParameter="{x:Static ViewModels:TransformModifierNames.ScaleXYZ}" 
+                                Grid.Column="1"
+                                VerticalAlignment="Center" 
+                                Margin="4" 
+                                Width="100" 
+                                Height="25" 
+                                Content="ScaleXYZ"/>
+                            <Button                         
+                                Command="{Binding AddTransformModifierCommand}" 
+                                CommandParameter="{x:Static ViewModels:TransformModifierNames.RotateXYZ}"
+                                Grid.Column="2"
+                                VerticalAlignment="Center" 
+                                Margin="4" 
+                                Width="100" 
+                                Height="25" 
+                                Content="RotateXYZ"/>
+                        </Grid>
+                    </Border>
+                </Popup>
+                </Grid>
+
+            <ItemsControl ItemsSource="{Binding TransformModifiers}"/>
+
             <Border
                 Margin="0, 4, 0, 2"
                 DockPanel.Dock="Bottom"
                 Style="{StaticResource BorderContainer}">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.5*"/>
-                        <ColumnDefinition Width="0.5*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock 
-                        Text="Count" 
-                        Padding="8, 0"
-                        Foreground="{StaticResource TextBase}" 
-                        VerticalAlignment="Center" 
-                        HorizontalAlignment="Right"/>
-                    <Border Grid.Column="1" Style="{StaticResource BorderShadow}">
-                        <Controls:Counter
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock 
+                            Text="Count" 
+                            Padding="8, 0"
+                            Foreground="{StaticResource TextBase}" 
+                            VerticalAlignment="Center" 
+                            HorizontalAlignment="Right"/>
+                        <Border Grid.Column="1" Style="{StaticResource BorderShadow}">
+                            <Controls:Counter
                             Style="{DynamicResource CMiXCounterStyle}"
                             StepValue="1"
                             Grid.Column="1"
                             Height="20"
                             HorizontalAlignment="Stretch"
                             Value="{Binding Counter.Count}"/>
-                    </Border>
-                </Grid>
-            </Border>
+                        </Border>
+                    </Grid>
+                </Border>
 
-            <Controls:CMiXToggleButton
-                Style="{DynamicResource CMiXToggleButtonStyle}"
-                Dock="Right"
-                HorizontalAlignment="Right"
-                Margin="4"
-                Caption="No Aspect Ratio"
-                IsChecked="{Binding NoAspectRatio}"/>
-            <Views:Transform DataContext="{Binding Transform}"/>
-            <Views:XYZModifier DataContext="{Binding TranslateModifier}"/>
-            <Views:XYZModifier DataContext="{Binding ScaleModifier}"/>
-            <Views:AnimParameter DataContext="{Binding UniformScale}"/>
-            <Views:XYZModifier DataContext="{Binding RotationModifier}"/>
-        </StackPanel>
-    </Expander>
+                <Controls:CMiXToggleButton
+                    Style="{DynamicResource CMiXToggleButtonStyle}"
+                    Dock="Right"
+                    HorizontalAlignment="Right"
+                    Margin="4"
+                    Caption="No Aspect Ratio"
+                    IsChecked="{Binding NoAspectRatio}"/>
+                <Views:Transform DataContext="{Binding Transform}"/>
+                <Views:XYZModifier DataContext="{Binding TranslateModifier}"/>
+                <Views:XYZModifier DataContext="{Binding ScaleModifier}"/>
+                <Views:AnimParameter DataContext="{Binding UniformScale}"/>
+                <Views:XYZModifier DataContext="{Binding RotationModifier}"/>
+            </StackPanel>
+        </Expander>
+
 </UserControl>
