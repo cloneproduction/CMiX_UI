@@ -1,12 +1,17 @@
 ﻿using System;
+using System.Windows.Media.Media3D;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Randomized : Sender, IAnimMode
+    public class Randomized : Sender, ITransformModifier, IAnimMode
     {
+        public Randomized(string name, Sender parentSender) : base(name, parentSender)
+        {
+
+        }
         public Randomized(string name, AnimParameter parentSender) : base(name, parentSender)
         {
             Random = new Random();
@@ -20,6 +25,10 @@ namespace CMiX.MVVM.ViewModels
         }
 
         private Random Random { get; set; }
+        public int Count { get; set; }
+        public Vector3D[] TranslateXYZ { get; set; }
+        public Vector3D[] ScaleXYZ { get; set; }
+        public Vector3D[] RotationXYZ { get; set; }
 
         private double[] oldRandom;
         private double[] newRandom;

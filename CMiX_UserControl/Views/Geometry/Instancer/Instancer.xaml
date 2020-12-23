@@ -21,7 +21,32 @@
             <Resources:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
             <Resources:BoolInverterConverter x:Key="BoolInverter" />
             <Resources:EnumToStringConverter x:Key="EnumToString" />
+
+            <DataTemplate x:Key="TranslateXYZTemplate" DataType="{x:Type ViewModels:TranslateModifier}">
+                <Expander Header="TranslateXYZ/" Margin="4, 2" Style="{StaticResource ExpanderBase}">
+                    <StackPanel>
+                        <Views:Range Margin="8" DataContext="{Binding Range}"/>
+                        <ComboBox />
+                    </StackPanel>
+                </Expander>
+            </DataTemplate>
+
+            <DataTemplate x:Key="RandomizedTemplate" DataType="{x:Type ViewModels:TranslateModifier}">
+                <Expander Header="Randomized" Margin="4, 2" Style="{StaticResource ExpanderBase}">
+                    <StackPanel>
+                        <Views:Randomized Margin="8" DataContext="{Binding}"/>
+                    </StackPanel>
+                </Expander>
+            </DataTemplate>
+            
+            <ViewModels:TransformModifierTemplateSelector 
+                x:Key="TemplateSelector" 
+                TranslateXYZTemplate="{StaticResource TranslateXYZTemplate}"
+                RandomizedTemplate="{StaticResource RandomizedTemplate}"/>
         </ResourceDictionary>
+
+
+
     </UserControl.Resources>
 
     <Expander Header="Instancer" IsExpanded="True" Style="{StaticResource ExpanderBase}">
@@ -60,18 +85,18 @@
                                 Width="100" 
                                 Height="25" 
                                 Content="TranslateXYZ"/>
-                            <Button                         
+                            <Button 
                                 Command="{Binding AddTransformModifierCommand}" 
-                                CommandParameter="{x:Static ViewModels:TransformModifierNames.ScaleXYZ}" 
+                                CommandParameter="{x:Static ViewModels:TransformModifierNames.Randomized}" 
                                 Grid.Column="1"
                                 VerticalAlignment="Center" 
                                 Margin="4" 
                                 Width="100" 
                                 Height="25" 
-                                Content="ScaleXYZ"/>
+                                Content="Randomized"/>
                             <Button                         
                                 Command="{Binding AddTransformModifierCommand}" 
-                                CommandParameter="{x:Static ViewModels:TransformModifierNames.RotateXYZ}"
+                                CommandParameter="{x:Static ViewModels:TransformModifierNames.Randomized}"
                                 Grid.Column="2"
                                 VerticalAlignment="Center" 
                                 Margin="4" 
@@ -81,11 +106,11 @@
                         </Grid>
                     </Border>
                 </Popup>
-                </Grid>
+            </Grid>
 
-            <ItemsControl ItemsSource="{Binding TransformModifiers}"/>
+            <ItemsControl ItemTemplateSelector="{StaticResource TemplateSelector }" ItemsSource="{Binding TransformModifiers}"/>
 
-            <Border
+            <!--<Border
                 Margin="0, 4, 0, 2"
                 DockPanel.Dock="Bottom"
                 Style="{StaticResource BorderContainer}">
@@ -123,7 +148,7 @@
                 <Views:XYZModifier DataContext="{Binding TranslateModifier}"/>
                 <Views:XYZModifier DataContext="{Binding ScaleModifier}"/>
                 <Views:AnimParameter DataContext="{Binding UniformScale}"/>
-                <Views:XYZModifier DataContext="{Binding RotationModifier}"/>
+                <Views:XYZModifier DataContext="{Binding RotationModifier}"/>-->
             </StackPanel>
         </Expander>
 

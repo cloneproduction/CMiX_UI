@@ -23,12 +23,9 @@ namespace CMiX.MVVM.ViewModels
                 case TransformModifierNames.TranslateXYZ:
                     transformModifier = CreateTranslateXYZ(parentSender, this.MasterBeat);
                     break;
-                //case TransformModifierNames.ScaleXYZ:
-                //    break;
-                //case TransformModifierNames.RotateXYZ:
-                //    break;
-                //default:
-                //    break;
+                case TransformModifierNames.Randomized:
+                    transformModifier = CreateRandomized(parentSender, this.MasterBeat);
+                    break;
             }
 
             return transformModifier;
@@ -37,6 +34,11 @@ namespace CMiX.MVVM.ViewModels
         private TranslateModifier CreateTranslateXYZ(Sender parentSender, MasterBeat masterBeat)
         {
             return new TranslateModifier(nameof(TranslateModifier), parentSender, masterBeat);
+        }
+
+        private Randomized CreateRandomized(Sender parentSender, MasterBeat masterBeat)
+        {
+            return new Randomized(nameof(TranslateModifier), parentSender);
         }
     }
 }

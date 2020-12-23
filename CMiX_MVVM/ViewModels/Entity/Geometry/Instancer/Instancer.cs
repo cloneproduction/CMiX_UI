@@ -87,8 +87,6 @@ namespace CMiX.MVVM.ViewModels
         public Counter Counter { get; set; }
 
 
-
-
         private ObservableCollection<ITransformModifier> _transformModifiers;
         public ObservableCollection<ITransformModifier> TransformModifiers
         {
@@ -106,13 +104,5 @@ namespace CMiX.MVVM.ViewModels
         {
 
         }
-
-
-
-        //public TranslateModifier TranslateModifier { get; set; }
-        //public XYZModifier TranslateModifier { get; set; }
-        //public XYZModifier ScaleModifier { get; set; }
-        //public XYZModifier RotationModifier { get; set; }
-        //public AnimParameter UniformScale { get; set; }
     }
 }

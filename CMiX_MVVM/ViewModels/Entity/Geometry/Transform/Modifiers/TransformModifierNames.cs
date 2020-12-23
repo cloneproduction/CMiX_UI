@@ -3,7 +3,7 @@
     public enum TransformModifierNames
     {
         TranslateXYZ,
-        ScaleXYZ,
+        Randomized,
         RotateXYZ
     }
 }
