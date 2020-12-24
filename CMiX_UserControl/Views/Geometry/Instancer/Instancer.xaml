@@ -23,19 +23,17 @@
             <Resources:EnumToStringConverter x:Key="EnumToString" />
 
             <DataTemplate x:Key="TranslateXYZTemplate" DataType="{x:Type ViewModels:TranslateModifier}">
-                <Expander Header="TranslateXYZ/" Margin="4, 2" Style="{StaticResource ExpanderBase}">
-                    <StackPanel>
-                        <Views:Range Margin="8" DataContext="{Binding Range}"/>
+                <Expander Header="TranslateXYZ" Margin="4, 2" Template="{StaticResource ModifierExpanderTemplate}">
+                    <StackPanel Margin="8">
+                        <Views:Range Margin="0, 0, 0, 8"  DataContext="{Binding Range}"/>
                         <ComboBox />
                     </StackPanel>
                 </Expander>
             </DataTemplate>
 
             <DataTemplate x:Key="RandomizedTemplate" DataType="{x:Type ViewModels:TranslateModifier}">
-                <Expander Header="Randomized" Margin="4, 2" Style="{StaticResource ExpanderBase}">
-                    <StackPanel>
-                        <Views:Randomized Margin="8" DataContext="{Binding}"/>
-                    </StackPanel>
+                <Expander Header="Randomized" Margin="4, 2" Template="{StaticResource ModifierExpanderTemplate}">
+                    <Views:RandomXYZ Margin="8" DataContext="{Binding}"/>
                 </Expander>
             </DataTemplate>
             
@@ -53,9 +51,14 @@
 
             <StackPanel>
                 <Grid Background="Transparent">
-                    <ToggleButton x:Name="PopUpToggle" Height="25">
+                <ToggleButton x:Name="PopUpToggle" 
+                              Content="Add Modifier"
+                              Height="25" 
+                              Margin="4, 8"
+                              Background="{DynamicResource DarkerColor}" 
+                              Style="{StaticResource ToggleTransformModifierMenu}">
 
-                    </ToggleButton>
+                </ToggleButton>
                     <Popup 
                         AllowsTransparency="True"
                         Behaviors:ClosePopupBehavior.PopupContainer="{Binding ElementName=InstancerPouet}"
@@ -81,27 +84,24 @@
                                 CommandParameter="{x:Static ViewModels:TransformModifierNames.TranslateXYZ}" 
                                 Grid.Column="0"
                                 VerticalAlignment="Center" 
-                                Margin="4" 
                                 Width="100" 
-                                Height="25" 
+                                Height="20" 
                                 Content="TranslateXYZ"/>
                             <Button 
                                 Command="{Binding AddTransformModifierCommand}" 
                                 CommandParameter="{x:Static ViewModels:TransformModifierNames.Randomized}" 
                                 Grid.Column="1"
                                 VerticalAlignment="Center" 
-                                Margin="4" 
                                 Width="100" 
-                                Height="25" 
+                                Height="20" 
                                 Content="Randomized"/>
                             <Button                         
                                 Command="{Binding AddTransformModifierCommand}" 
                                 CommandParameter="{x:Static ViewModels:TransformModifierNames.Randomized}"
                                 Grid.Column="2"
                                 VerticalAlignment="Center" 
-                                Margin="4" 
                                 Width="100" 
-                                Height="25" 
+                                Height="20" 
                                 Content="RotateXYZ"/>
                         </Grid>
                     </Border>

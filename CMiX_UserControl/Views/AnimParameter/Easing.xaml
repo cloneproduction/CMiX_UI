@@ -6,8 +6,8 @@
              xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX.MVVM"
              xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
              mc:Ignorable="d" 
-             d:DesignHeight="117.333" 
-             d:DesignWidth="289.667">
+             d:DesignHeight="310" 
+             d:DesignWidth="294">
 
     <UserControl.Resources>
         <ObjectDataProvider x:Key="EasingFunction" MethodName="GetValues" ObjectType="{x:Type ViewModels:EasingFunction}">

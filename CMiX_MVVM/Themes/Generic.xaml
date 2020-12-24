@@ -32,7 +32,7 @@
 
         <ResourceDictionary Source="Counter.xaml"/>
         
-        <ResourceDictionary Source="Expander.xaml"/>
+        
         <ResourceDictionary Source="ToggleButton.xaml"/>
         
         <ResourceDictionary Source="Label.xaml"/>
@@ -52,7 +52,7 @@
         <ResourceDictionary Source="ComboBox.xaml"/>
         <ResourceDictionary Source="DataGrid.xaml"/>
         <ResourceDictionary Source="TextBox.xaml"/>
-        
+        <ResourceDictionary Source="Expander.xaml"/>
         
         
         <ResourceDictionary Source="TreeView.xaml"/>

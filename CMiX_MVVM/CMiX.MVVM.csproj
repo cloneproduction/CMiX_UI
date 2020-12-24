@@ -147,6 +147,7 @@
     <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\ModeTypeTemplateSelector.cs" />
     <Compile Include="ViewModels\AnimParameter\IParameter.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\IModifier.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\RandomXYZ.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\TransformModifierFactory.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\TransformModifierNames.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\ModifierType.cs" />
@@ -720,6 +721,8 @@
     <Resource Include="Assets\Sub.png" />
     <Content Include="Themes\Fonts\LICENSE.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Themes\Modifiers\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

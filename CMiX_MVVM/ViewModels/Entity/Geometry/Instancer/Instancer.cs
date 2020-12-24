@@ -39,10 +39,12 @@ namespace CMiX.MVVM.ViewModels
             TransformModifiers = new ObservableCollection<ITransformModifier>();
 
             AddTransformModifierCommand = new RelayCommand(p => AddTransformModifier((TransformModifierNames)p));
+            RemoveTransformModifierCommand = new RelayCommand(p => RemoveTransformModifier(p as ITransformModifier));
         }
 
         public TransformModifierFactory TransformModifierFactory { get; set; }
         public ICommand AddTransformModifierCommand { get; set; }
+        public ICommand RemoveTransformModifierCommand { get; set; }
 
         private void Counter_CounterChangeEvent(object sender, CounterEventArgs e)
         {
@@ -100,9 +102,9 @@ namespace CMiX.MVVM.ViewModels
             TransformModifiers.Add(TransformModifierFactory.CreateTransformModifier(transformModifierNames, this));
         }
 
-        public void RemoveTransformModifier()
+        public void RemoveTransformModifier(ITransformModifier transformModifier)
         {
-
+            this.TransformModifiers.Remove(transformModifier);
         }
     }
 }
