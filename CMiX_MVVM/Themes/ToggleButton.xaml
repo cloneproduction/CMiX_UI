@@ -84,7 +84,7 @@
 
     <ControlTemplate x:Key="CMiXToggleButtonTemplate" TargetType="{x:Type Controls:CMiXToggleButton}">
         <DockPanel>
-            <Border Height="16" Width="16" x:Name="border" Grid.Column="1">
+            <Border SnapsToDevicePixels="True" Height="16" Width="16" x:Name="border" Grid.Column="1">
                 <Border.Style>
                     <Style BasedOn="{StaticResource BorderShadow}" TargetType="{x:Type Border}">
                         <Setter Property="DockPanel.Dock" Value="Right"/>
@@ -100,9 +100,10 @@
                     </Style>
                 </Border.Style>
                 <Border
+                     Height="14" Width="14"
                     CornerRadius="2"
                     Padding="2"
-                    Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource TemplatedParent}}"
+                    
                     Background="{TemplateBinding Background}"
                     SnapsToDevicePixels="True">
                     <Image x:Name="Path" Opacity="0.75" Source="{DynamicResource IsChecked}"/>
@@ -111,7 +112,7 @@
 
             <TextBlock x:Name="textBlock"
                        Foreground="{DynamicResource TextBase}" 
-                       Padding="8, 0" 
+                       Padding="4" 
                        VerticalAlignment="Center"
                        Text="{Binding Path=Caption, RelativeSource={RelativeSource TemplatedParent}}"/>
         </DockPanel>
@@ -125,6 +126,7 @@
                 <MultiTrigger.Setters>
                     <Setter Property="Background" Value="{DynamicResource Color}" />
                     <Setter TargetName="Path" Property="Visibility" Value="Visible"/>
+                    <Setter TargetName="textBlock" Property="Opacity" Value="1.0"/>
                 </MultiTrigger.Setters>
             </MultiTrigger>
             
@@ -135,6 +137,7 @@
                 <MultiTrigger.Setters>
                     <Setter Property="Background" Value="{DynamicResource DarkColor}" />
                     <Setter TargetName="Path" Property="Visibility" Value="Hidden"/>
+                    <Setter TargetName="textBlock" Property="Opacity" Value="0.50"/>
                 </MultiTrigger.Setters>
             </MultiTrigger>
 
@@ -145,6 +148,7 @@
                 </MultiTrigger.Conditions>
                 <MultiTrigger.Setters>
                     <Setter Property="Background" Value="{DynamicResource LightColor}" />
+                    <Setter TargetName="textBlock" Property="Opacity" Value="1.0"/>
                 </MultiTrigger.Setters>
             </MultiTrigger>
             
@@ -155,6 +159,7 @@
                 </MultiTrigger.Conditions>
                 <MultiTrigger.Setters>
                     <Setter Property="Background" Value="{DynamicResource Color}" />
+                    <Setter TargetName="textBlock" Property="Opacity" Value="0.75"/>
                 </MultiTrigger.Setters>
             </MultiTrigger>
 

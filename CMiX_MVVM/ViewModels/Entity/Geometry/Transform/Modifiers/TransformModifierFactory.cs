@@ -36,9 +36,9 @@ namespace CMiX.MVVM.ViewModels
             return new TranslateModifier(nameof(TranslateModifier), parentSender, masterBeat);
         }
 
-        private Randomized CreateRandomized(Sender parentSender, MasterBeat masterBeat)
+        private RandomXYZ CreateRandomized(Sender parentSender, MasterBeat masterBeat)
         {
-            return new Randomized(nameof(TranslateModifier), parentSender);
+            return new RandomXYZ(nameof(TranslateModifier), parentSender, this.MasterBeat);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace CMiX.MVVM.ViewModels
     public class TransformModifierTemplateSelector : DataTemplateSelector
     {
         public DataTemplate TranslateXYZTemplate { get; set; }
-        public DataTemplate RandomizedTemplate { get; set; }
+        public DataTemplate RandomXYZTemplate { get; set; }
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
@@ -18,8 +18,8 @@ namespace CMiX.MVVM.ViewModels
             {
                 if (item is TranslateModifier)
                     dataTemplate = TranslateXYZTemplate;
-                else if (item is Randomized)
-                    dataTemplate = RandomizedTemplate;
+                else if (item is RandomXYZ)
+                    dataTemplate = RandomXYZTemplate;
             }
 
             return dataTemplate;
