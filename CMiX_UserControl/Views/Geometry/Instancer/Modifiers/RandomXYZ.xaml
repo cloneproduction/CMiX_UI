@@ -15,6 +15,11 @@
                 <x:Type TypeName="ViewModels:ModifierType"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+        <ObjectDataProvider x:Key="TransformType" MethodName="GetValues" ObjectType="{x:Type ViewModels:TransformType}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="ViewModels:TransformType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
     </UserControl.Resources>
     
     
@@ -57,9 +62,219 @@
             </Grid>
         </Border>
 
-        
-        
+
+
         <Grid Height="20" Margin="0, 0, 0, 4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Transform" HorizontalAlignment="Right" VerticalAlignment="Center" Padding="4" Foreground="{DynamicResource TextBase}"/>
+            <ComboBox 
+                Grid.Column="1" 
+                SelectedItem="{Binding SelectedTransformType}"
+                ItemsSource="{Binding Source={StaticResource TransformType}}"/>
+        </Grid>
+
+
+        <Border>
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedTransformType}"  Value="{x:Static ViewModels:TransformType.Location}">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <StackPanel Margin="0, 0, 0, 8">
+                <Grid Height="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Controls:DistanceSlider 
+                    Grid.Column="2" 
+                    Position="Top" 
+                    Style="{StaticResource DistanceSliderStyle}" 
+                    Value="{Binding TranslateX}"/>
+                    <TextBlock 
+                    Grid.Column="0" 
+                    Padding="4" 
+                    HorizontalAlignment="Right" 
+                    Text="Location X" 
+                    Foreground="{StaticResource TextBase}"/>
+                </Grid>
+                <Grid Height="20" Margin="0, 1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Controls:DistanceSlider 
+                    Grid.Column="2" 
+                    Position="Middle" 
+                    Style="{StaticResource DistanceSliderStyle}" 
+                    Value="{Binding TranslateY}"/>
+                    <TextBlock 
+                    Grid.Column="0" 
+                    Padding="4" 
+                    HorizontalAlignment="Right" 
+                    Text="Y" 
+                    Foreground="{StaticResource TextBase}"/>
+                </Grid>
+                <Grid Height="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Controls:DistanceSlider 
+                    Grid.Column="2" 
+                    Position="Bottom" 
+                    Style="{StaticResource DistanceSliderStyle}" 
+                    Value="{Binding TranslateZ}"/>
+                    <TextBlock 
+                    Grid.Column="0" 
+                    Padding="4" 
+                    HorizontalAlignment="Right" 
+                    Text="Z" 
+                    Foreground="{StaticResource TextBase}"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+        <Border>
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedTransformType}"  Value="{x:Static ViewModels:TransformType.Scale}">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <StackPanel Margin="0, 0, 0, 8" IsEnabled="{Binding RandomizeScale}">
+                <Grid Height="20" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Controls:DistanceSlider 
+                    Grid.Column="2" 
+                    Position="Top" 
+                    Style="{StaticResource DistanceSliderStyle}" 
+                    Value="{Binding TranslateX}"/>
+                    <TextBlock 
+                    Grid.Column="0" 
+                    Padding="4" 
+                    HorizontalAlignment="Right" 
+                    Text="Scale X" 
+                    Foreground="{StaticResource TextBase}"/>
+                </Grid>
+                <Grid Height="20" Margin="0, 1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Controls:DistanceSlider 
+                    Grid.Column="2" 
+                    Position="Middle" 
+                    Style="{StaticResource DistanceSliderStyle}" 
+                    Value="{Binding TranslateY}"/>
+                    <TextBlock 
+                    Grid.Column="0" 
+                    Padding="4" 
+                    HorizontalAlignment="Right" 
+                    Text="Y" 
+                    Foreground="{StaticResource TextBase}"/>
+                </Grid>
+                <Grid Height="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Controls:DistanceSlider 
+                    Grid.Column="2" 
+                    Position="Bottom" 
+                    Style="{StaticResource DistanceSliderStyle}" 
+                    Value="{Binding TranslateZ}"/>
+                    <TextBlock 
+                    Grid.Column="0" 
+                    Padding="4" 
+                    HorizontalAlignment="Right" 
+                    Text="Z" 
+                    Foreground="{StaticResource TextBase}"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+        <Border>
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedTransformType}"  Value="{x:Static ViewModels:TransformType.Rotation}">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <StackPanel 
+            Margin="0, 0" 
+            IsEnabled="{Binding RandomizeRotation}">
+                <Grid Height="20" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Controls:DistanceSlider 
+                    Grid.Column="2" 
+                    Position="Top" 
+                    Style="{StaticResource DistanceSliderStyle}" 
+                    Value="{Binding TranslateX}"/>
+                    <TextBlock 
+                    Grid.Column="0" 
+                    Padding="4" 
+                    HorizontalAlignment="Right" 
+                    Text="Rotate X" 
+                    Foreground="{StaticResource TextBase}"/>
+                </Grid>
+                <Grid Height="20" Margin="0, 1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Controls:DistanceSlider 
+                    Grid.Column="2" 
+                    Position="Middle" 
+                    Style="{StaticResource DistanceSliderStyle}" 
+                    Value="{Binding TranslateY}"/>
+                    <TextBlock 
+                    Grid.Column="0" 
+                    Padding="4" 
+                    HorizontalAlignment="Right" 
+                    Text="Y" 
+                    Foreground="{StaticResource TextBase}"/>
+                </Grid>
+                <Grid Height="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Controls:DistanceSlider 
+                    Grid.Column="2" 
+                    Position="Bottom" 
+                    Style="{StaticResource DistanceSliderStyle}" 
+                    Value="{Binding TranslateZ}"/>
+                    <TextBlock 
+                    Grid.Column="0" 
+                    Padding="4" 
+                    HorizontalAlignment="Right" 
+                    Text="Z" 
+                    Foreground="{StaticResource TextBase}"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+        <!--<Grid Height="20" Margin="0, 0, 0, 4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -72,64 +287,8 @@
                 Grid.Column="1"
                 Caption="Randomize Location"
                 IsChecked="{Binding RandomizeLocation}"/>
-        </Grid>
-        <StackPanel Margin="0, 0, 0, 8" IsEnabled="{Binding RandomizeLocation}">
-            <Grid Height="20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Controls:DistanceSlider 
-                    Grid.Column="2" 
-                    Position="Top" 
-                    Style="{StaticResource DistanceSliderStyle}" 
-                    Value="{Binding TranslateX}"/>
-                <TextBlock 
-                    Grid.Column="0" 
-                    Padding="4" 
-                    HorizontalAlignment="Right" 
-                    Text="Location X" 
-                    Foreground="{StaticResource TextBase}"/>
-            </Grid>
-            <Grid Height="20" Margin="0, 1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Controls:DistanceSlider 
-                    Grid.Column="2" 
-                    Position="Middle" 
-                    Style="{StaticResource DistanceSliderStyle}" 
-                    Value="{Binding TranslateY}"/>
-                <TextBlock 
-                    Grid.Column="0" 
-                    Padding="4" 
-                    HorizontalAlignment="Right" 
-                    Text="Y" 
-                    Foreground="{StaticResource TextBase}"/>
-            </Grid>
-            <Grid Height="20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Controls:DistanceSlider 
-                    Grid.Column="2" 
-                    Position="Bottom" 
-                    Style="{StaticResource DistanceSliderStyle}" 
-                    Value="{Binding TranslateZ}"/>
-                <TextBlock 
-                    Grid.Column="0" 
-                    Padding="4" 
-                    HorizontalAlignment="Right" 
-                    Text="Z" 
-                    Foreground="{StaticResource TextBase}"/>
-            </Grid>
-        </StackPanel>
-
-
-
-        <Grid Height="20" Margin="0, 0, 0, 4">
+        </Grid>-->
+        <!--<Grid Height="20" Margin="0, 0, 0, 4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -143,62 +302,8 @@
                 HorizontalAlignment="Left"
                 Caption="Randomize Scale"
                 IsChecked="{Binding RandomizeScale}"/>
-        </Grid>
-        <StackPanel Margin="0, 0, 0, 8" IsEnabled="{Binding RandomizeScale}">
-            <Grid Height="20" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Controls:DistanceSlider 
-                    Grid.Column="2" 
-                    Position="Top" 
-                    Style="{StaticResource DistanceSliderStyle}" 
-                    Value="{Binding TranslateX}"/>
-                <TextBlock 
-                    Grid.Column="0" 
-                    Padding="4" 
-                    HorizontalAlignment="Right" 
-                    Text="Scale X" 
-                    Foreground="{StaticResource TextBase}"/>
-            </Grid>
-            <Grid Height="20" Margin="0, 1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Controls:DistanceSlider 
-                    Grid.Column="2" 
-                    Position="Middle" 
-                    Style="{StaticResource DistanceSliderStyle}" 
-                    Value="{Binding TranslateY}"/>
-                <TextBlock 
-                    Grid.Column="0" 
-                    Padding="4" 
-                    HorizontalAlignment="Right" 
-                    Text="Y" 
-                    Foreground="{StaticResource TextBase}"/>
-            </Grid>
-            <Grid Height="20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Controls:DistanceSlider 
-                    Grid.Column="2" 
-                    Position="Bottom" 
-                    Style="{StaticResource DistanceSliderStyle}" 
-                    Value="{Binding TranslateZ}"/>
-                <TextBlock 
-                    Grid.Column="0" 
-                    Padding="4" 
-                    HorizontalAlignment="Right" 
-                    Text="Z" 
-                    Foreground="{StaticResource TextBase}"/>
-            </Grid>
-        </StackPanel>
-
-        <Grid Height="20" Margin="0, 0, 0, 4">
+        </Grid>-->
+        <!--<Grid Height="20" Margin="0, 0, 0, 4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -211,62 +316,6 @@
                 Grid.Column="1"
                 Caption="Randomize Rotation"
                 IsChecked="{Binding RandomizeRotation}"/>
-        </Grid>
-        <StackPanel 
-            Margin="0, 0" 
-            IsEnabled="{Binding RandomizeRotation}">
-            <Grid Height="20" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Controls:DistanceSlider 
-                    Grid.Column="2" 
-                    Position="Top" 
-                    Style="{StaticResource DistanceSliderStyle}" 
-                    Value="{Binding TranslateX}"/>
-                <TextBlock 
-                    Grid.Column="0" 
-                    Padding="4" 
-                    HorizontalAlignment="Right" 
-                    Text="Rotate X" 
-                    Foreground="{StaticResource TextBase}"/>
-            </Grid>
-            <Grid Height="20" Margin="0, 1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Controls:DistanceSlider 
-                    Grid.Column="2" 
-                    Position="Middle" 
-                    Style="{StaticResource DistanceSliderStyle}" 
-                    Value="{Binding TranslateY}"/>
-                <TextBlock 
-                    Grid.Column="0" 
-                    Padding="4" 
-                    HorizontalAlignment="Right" 
-                    Text="Y" 
-                    Foreground="{StaticResource TextBase}"/>
-            </Grid>
-            <Grid Height="20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Controls:DistanceSlider 
-                    Grid.Column="2" 
-                    Position="Bottom" 
-                    Style="{StaticResource DistanceSliderStyle}" 
-                    Value="{Binding TranslateZ}"/>
-                <TextBlock 
-                    Grid.Column="0" 
-                    Padding="4" 
-                    HorizontalAlignment="Right" 
-                    Text="Z" 
-                    Foreground="{StaticResource TextBase}"/>
-            </Grid>
-        </StackPanel>
-
+        </Grid>-->
     </StackPanel>
 </UserControl>

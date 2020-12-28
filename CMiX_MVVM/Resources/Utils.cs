@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Media3D;
 
 namespace CMiX.MVVM.Resources
 {
@@ -250,6 +251,11 @@ namespace CMiX.MVVM.Resources
         }
 
         public static double Lerp(double firstFloat, double secondFloat, double by)
+        {
+            return firstFloat * (1 - by) + secondFloat * by;
+        }
+
+        public static Vector3D Lerp(Vector3D firstFloat, Vector3D secondFloat, double by)
         {
             return firstFloat * (1 - by) + secondFloat * by;
         }

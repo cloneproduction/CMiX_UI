@@ -156,6 +156,7 @@
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\TransformModifier.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\TransformModifierTemplateSelector.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\TranslateModifier.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Transform\TransformType.cs" />
     <Compile Include="ViewModels\Observer\IObserver.cs" />
     <Compile Include="ViewModels\Observer\ISubject.cs" />
     <Compile Include="ViewModels\Range\IRange.cs" />
