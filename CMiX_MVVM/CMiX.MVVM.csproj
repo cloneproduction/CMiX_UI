@@ -127,6 +127,7 @@
     <Compile Include="Models\Geometry\Modifier\ModifierModel.cs" />
     <Compile Include="Models\Range\IRangeModel.cs" />
     <Compile Include="Models\Range\RangeModel.cs" />
+    <Compile Include="Resources\RandomNumbers.cs" />
     <Compile Include="Services\HighResolutionTimer.cs" />
     <Compile Include="Services\Message\Message.cs" />
     <Compile Include="Services\Message\MessageSerializer.cs" />

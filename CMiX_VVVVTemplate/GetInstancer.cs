@@ -13,14 +13,14 @@ namespace CMiX.Nodes
         [Output("Instancer")]
         public ISpread<Instancer> FInstancer;
 
-        [Output("TranslateModifier")]
-        public ISpread<IModifier> TranslateModifier;
+        //[Output("TranslateModifier")]
+        //public ISpread<IModifier> TranslateModifier;
 
-        [Output("ScaleModifier")]
-        public ISpread<IModifier> ScaleModifier;
+        //[Output("ScaleModifier")]
+        //public ISpread<IModifier> ScaleModifier;
 
-        [Output("RotationModifier")]
-        public ISpread<IModifier> RotationModifier;
+        //[Output("RotationModifier")]
+        //public ISpread<IModifier> RotationModifier;
 
         [Output("Count")]
         public ISpread<int> Count;

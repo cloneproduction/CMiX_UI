@@ -62,7 +62,7 @@
             </Grid>
         </Border>
 
-
+        <Views:BeatModifier Margin="0, 0, 0, 16"/>
 
         <Grid Height="20" Margin="0, 0, 0, 4">
             <Grid.ColumnDefinitions>
@@ -88,7 +88,7 @@
                     </Style.Triggers>
                 </Style>
             </Border.Style>
-            <StackPanel Margin="0, 0, 0, 8">
+            <StackPanel>
                 <Grid Height="20">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -218,9 +218,7 @@
                     </Style.Triggers>
                 </Style>
             </Border.Style>
-            <StackPanel 
-            Margin="0, 0" 
-            IsEnabled="{Binding RandomizeRotation}">
+            <StackPanel>
                 <Grid Height="20" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>

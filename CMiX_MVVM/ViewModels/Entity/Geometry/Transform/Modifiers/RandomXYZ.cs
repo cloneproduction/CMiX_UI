@@ -9,16 +9,18 @@ namespace CMiX.MVVM.ViewModels
     {
         public RandomXYZ(string name, Sender parentSender, MasterBeat masterBeat) : base (name, parentSender)
         {
-            Random = new Random();
             BeatModifier = new BeatModifier(nameof(BeatModifier), this, masterBeat);
             SelectedModifierType = ModifierType.OBJECT;
         }
 
 
         public BeatModifier BeatModifier { get; set; }
-        private Random Random { get; set; }
         public Range Range { get; set; }
         public Counter Counter { get; set; }
+
+        public Slider SliderX { get; set; }
+        public Slider SliderY { get; set; }
+        public Slider SliderZ { get; set; }
 
         private int _count;
         public int Count
@@ -71,46 +73,63 @@ namespace CMiX.MVVM.ViewModels
         private Vector3D[] oldRandom;
         private Vector3D[] newRandom;
 
-        private Vector3D[] GetNewRandoms(int count)
-        {
-            var rands = new Vector3D[count];
+        //private Vector3D[] GetNewRandoms(int count)
+        //{
+        //    var rands = new Vector3D[count];
 
-            for (int i = 0; i < count; i++)
-            {
-                rands[i].X = Random.NextDouble();
-                rands[i].Y = Random.NextDouble();
-                rands[i].Z = Random.NextDouble();
-            }
-            return rands;
-        }
+        //    for (int i = 0; i < count; i++)
+        //    {
+        //        rands[i].X = RandomNumbers.RandomDouble(-SliderX.Amount + 2.0, SliderX.Amount);
+        //        rands[i].Y = RandomNumbers.RandomDouble(-SliderY.Amount + 2.0, SliderY.Amount);
+        //        rands[i].Z = RandomNumbers.RandomDouble(-SliderZ.Amount + 2.0, SliderZ.Amount);
+        //    }
+        //    return rands;
+        //}
 
         public void UpdateOnBeatTick(Vector3D[] doubleToAnimate, double period, IRange range, Easing easing, BeatModifier beatModifier)
         {
+            if(newRandom.Length != doubleToAnimate.Length)
+                newRandom = new Vector3D[doubleToAnimate.Length];
+
             oldRandom = newRandom;
-            if (beatModifier.CheckHitOnBeatTick())
-                newRandom = GetNewRandoms(doubleToAnimate.Length);
+
+            for (int i = 0; i < doubleToAnimate.Length; i++)
+            {
+                if (beatModifier.CheckHitOnBeatTick())
+                {
+                    var org_X = doubleToAnimate[i].X;
+                    var org_Y = doubleToAnimate[i].Y;
+                    var org_Z = doubleToAnimate[i].Z;
+
+                    var sca_X = RandomNumbers.RandomDouble(-SliderX.Amount + 2.0, SliderX.Amount);
+                    var sca_Y = RandomNumbers.RandomDouble(-SliderY.Amount + 2.0, SliderY.Amount);
+                    var sca_Z = RandomNumbers.RandomDouble(-SliderZ.Amount + 2.0, SliderZ.Amount);
+
+                    newRandom[i].X = sca_X * org_X;
+                    newRandom[i].Y = sca_Y * org_Y;
+                    newRandom[i].Z = sca_Z * org_Z;
+                }
+            }
         }
 
         public void UpdateOnGameLoop(Vector3D[] doubleToAnimate, double period, IRange range, Easing easing, BeatModifier beatModifier)
         {
-            bool ease = easing.IsEnabled;
-
             for (int i = 0; i < doubleToAnimate.Length; i++)
             {
-                if (ease)
+                if (easing.IsEnabled)
                 {
                     double eased = Easings.Interpolate((float)period, easing.SelectedEasing);
                     Vector3D lerped = Utils.Lerp(oldRandom[i], newRandom[i], eased);
 
-                    doubleToAnimate[i].X = Utils.Map(lerped.X, 0.0, 1.0, 0.0 - range.Width / 2, 0.0 + range.Width / 2);
-                    doubleToAnimate[i].Y = Utils.Map(lerped.Y, 0.0, 1.0, 0.0 - range.Width / 2, 0.0 + range.Width / 2);
-                    doubleToAnimate[i].Z = Utils.Map(lerped.Z, 0.0, 1.0, 0.0 - range.Width / 2, 0.0 + range.Width / 2);
+                    doubleToAnimate[i].X = lerped.X;
+                    doubleToAnimate[i].Y = lerped.Y;
+                    doubleToAnimate[i].Z = lerped.Z;
                 }
                 else
                 {
-                    doubleToAnimate[i].X = Utils.Map(newRandom[i].X, 0.0, 1.0, 0.0 - range.Width / 2, 0.0 + range.Width / 2);
-                    doubleToAnimate[i].Y = Utils.Map(newRandom[i].Y, 0.0, 1.0, 0.0 - range.Width / 2, 0.0 + range.Width / 2);
-                    doubleToAnimate[i].Z = Utils.Map(newRandom[i].Z, 0.0, 1.0, 0.0 - range.Width / 2, 0.0 + range.Width / 2);
+                    doubleToAnimate[i].X = newRandom[i].X;
+                    doubleToAnimate[i].Y = newRandom[i].Y;
+                    doubleToAnimate[i].Z = newRandom[i].Z;
                 }
             }
         }
