@@ -5,8 +5,8 @@ namespace CMiX.MVVM.ViewModels
     public interface ITransformModifier
     {
         int Count { get; set; }
-        //Vector3D[] TranslateXYZ { get; set; }
-        //Vector3D[] ScaleXYZ { get; set; }
-        //Vector3D[] RotationXYZ { get; set; }
+        Vector3D[] Location { get; set; }
+        Vector3D[] Scale { get; set; }
+        Vector3D[] Rotation { get; set; }
     }
 }

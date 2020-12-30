@@ -69,25 +69,30 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
+            <Controls:CMiXToggleButton
+                Style="{DynamicResource CMiXToggleButtonStyle}"
+                Dock="Left"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Grid.Column="1"
+                Caption="Randomize Location"
+                IsChecked="{Binding RandomizeLocation}"/>
+        </Grid>
+
+        <!--<Grid Height="20" Margin="0, 0, 0, 4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
             <TextBlock Text="Transform" HorizontalAlignment="Right" VerticalAlignment="Center" Padding="4" Foreground="{DynamicResource TextBase}"/>
             <ComboBox 
                 Grid.Column="1" 
                 SelectedItem="{Binding SelectedTransformType}"
                 ItemsSource="{Binding Source={StaticResource TransformType}}"/>
-        </Grid>
+        </Grid>-->
 
 
-        <Border>
-            <Border.Style>
-                <Style TargetType="Border">
-                    <Setter Property="Visibility" Value="Collapsed"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding SelectedTransformType}"  Value="{x:Static ViewModels:TransformType.Location}">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Border.Style>
+        <Border Margin="0, 0, 0, 8" IsEnabled="{Binding RandomizeLocation}">
             <StackPanel>
                 <Grid Height="20">
                     <Grid.ColumnDefinitions>
@@ -142,18 +147,26 @@
                 </Grid>
             </StackPanel>
         </Border>
-        <Border>
-            <Border.Style>
-                <Style TargetType="Border">
-                    <Setter Property="Visibility" Value="Collapsed"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding SelectedTransformType}"  Value="{x:Static ViewModels:TransformType.Scale}">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Border.Style>
-            <StackPanel Margin="0, 0, 0, 8" IsEnabled="{Binding RandomizeScale}">
+
+        <Grid Height="20" Margin="0, 0, 0, 4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Controls:CMiXToggleButton
+                Grid.Column="1"
+                Style="{DynamicResource CMiXToggleButtonStyle}"
+                Dock="Left"
+                VerticalContentAlignment="Center"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                Caption="Randomize Scale"
+                IsChecked="{Binding RandomizeScale}"/>
+        </Grid>
+
+
+        <Border Margin="0, 0, 0, 8"  IsEnabled="{Binding RandomizeScale}">
+            <StackPanel>
                 <Grid Height="20" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -207,17 +220,22 @@
                 </Grid>
             </StackPanel>
         </Border>
-        <Border>
-            <Border.Style>
-                <Style TargetType="Border">
-                    <Setter Property="Visibility" Value="Collapsed"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding SelectedTransformType}"  Value="{x:Static ViewModels:TransformType.Rotation}">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Border.Style>
+
+        <Grid Height="20" Margin="0, 0, 0, 4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Controls:CMiXToggleButton
+                Style="{DynamicResource CMiXToggleButtonStyle}"
+                Dock="Left"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Grid.Column="1"
+                Caption="Randomize Rotation"
+                IsChecked="{Binding RandomizeRotation}"/>
+        </Grid>
+        <Border IsEnabled="{Binding RandomizeRotation}">
             <StackPanel>
                 <Grid Height="20" >
                     <Grid.ColumnDefinitions>
@@ -272,48 +290,5 @@
                 </Grid>
             </StackPanel>
         </Border>
-        <!--<Grid Height="20" Margin="0, 0, 0, 4">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Controls:CMiXToggleButton
-                Style="{DynamicResource CMiXToggleButtonStyle}"
-                Dock="Left"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Grid.Column="1"
-                Caption="Randomize Location"
-                IsChecked="{Binding RandomizeLocation}"/>
-        </Grid>-->
-        <!--<Grid Height="20" Margin="0, 0, 0, 4">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Controls:CMiXToggleButton
-                Grid.Column="1"
-                Style="{DynamicResource CMiXToggleButtonStyle}"
-                Dock="Left"
-                VerticalContentAlignment="Center"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-                Caption="Randomize Scale"
-                IsChecked="{Binding RandomizeScale}"/>
-        </Grid>-->
-        <!--<Grid Height="20" Margin="0, 0, 0, 4">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Controls:CMiXToggleButton
-                Style="{DynamicResource CMiXToggleButtonStyle}"
-                Dock="Left"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Grid.Column="1"
-                Caption="Randomize Rotation"
-                IsChecked="{Binding RandomizeRotation}"/>
-        </Grid>-->
     </StackPanel>
 </UserControl>

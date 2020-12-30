@@ -18,15 +18,31 @@ namespace CMiX.MVVM.ViewModels
         public Range Range { get; set; }
         public Counter Counter { get; set; }
 
-        public Slider SliderX { get; set; }
-        public Slider SliderY { get; set; }
-        public Slider SliderZ { get; set; }
+
+        public Slider LocationX { get; set; }
+        public Slider LocationY { get; set; }
+        public Slider LocationZ { get; set; }
+
+        public Slider ScaleX { get; set; }
+        public Slider ScaleY { get; set; }
+        public Slider ScaleZ { get; set; }
+
+        public Slider RotationX { get; set; }
+        public Slider RotationY { get; set; }
+        public Slider RotationZ { get; set; }
+
 
         private int _count;
         public int Count
         {
             get => _count;
-            set => SetAndNotify(ref _count, value);
+            set
+            {
+                SetAndNotify(ref _count, value);
+                Location = new Vector3D[value];
+                Scale = new Vector3D[value];
+                Rotation = new Vector3D[value];
+            }
         }
 
         private bool _randomizeLocation;
@@ -65,49 +81,101 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _selectedModifierType, value);
         }
 
+        public Vector3D[] Location { get; set; }
+        public Vector3D[] Scale { get; set; }
+        public Vector3D[] Rotation { get; set; }
+
+        private Vector3D[] PreviousLocation { get; set; }
+        private Vector3D[] PreviousScale { get; set; }
+        private Vector3D[] PreviousRotation { get; set; }
+
+        private Vector3D[] NextLocation { get; set; }
+        private Vector3D[] NextScale { get; set; }
+        private Vector3D[] NextRotation { get; set; }
+
         public override void Receive(Message message)
         {
             throw new NotImplementedException();
         }
 
-        private Vector3D[] oldRandom;
-        private Vector3D[] newRandom;
 
-        //private Vector3D[] GetNewRandoms(int count)
+        //private void RandomizeVector(Vector3D vector3D)
         //{
-        //    var rands = new Vector3D[count];
+        //    var org_X = vector3D.X;
+        //    var org_Y = vector3D.Y;
+        //    var org_Z = vector3D.Z;
 
-        //    for (int i = 0; i < count; i++)
-        //    {
-        //        rands[i].X = RandomNumbers.RandomDouble(-SliderX.Amount + 2.0, SliderX.Amount);
-        //        rands[i].Y = RandomNumbers.RandomDouble(-SliderY.Amount + 2.0, SliderY.Amount);
-        //        rands[i].Z = RandomNumbers.RandomDouble(-SliderZ.Amount + 2.0, SliderZ.Amount);
-        //    }
-        //    return rands;
+        //    var new_X = RandomNumbers.RandomDouble(-LocationX.Amount + 2.0, LocationX.Amount);
+        //    var new_Y = RandomNumbers.RandomDouble(-LocationY.Amount + 2.0, LocationY.Amount);
+        //    var new_Z = RandomNumbers.RandomDouble(-LocationZ.Amount + 2.0, LocationZ.Amount);
+
+        //    var aX = new_X * org_X;
+        //    var aY = new_Y * org_Y;
+        //    var aZ = new_Z * org_Z;
+
+        //    Location[i] = new Vector3D(aX, aY, aZ);
         //}
 
-        public void UpdateOnBeatTick(Vector3D[] doubleToAnimate, double period, IRange range, Easing easing, BeatModifier beatModifier)
+        public void UpdateOnBeatTick(double period)
         {
-            if(newRandom.Length != doubleToAnimate.Length)
-                newRandom = new Vector3D[doubleToAnimate.Length];
+            PreviousLocation = NextLocation;
+            PreviousScale = NextScale;
+            PreviousRotation = NextRotation;
 
-            oldRandom = newRandom;
-
-            for (int i = 0; i < doubleToAnimate.Length; i++)
+            for (int i = 0; i < Count; i++)
             {
-                if (beatModifier.CheckHitOnBeatTick())
+                if (BeatModifier.CheckHitOnBeatTick())
                 {
-                    var org_X = doubleToAnimate[i].X;
-                    var org_Y = doubleToAnimate[i].Y;
-                    var org_Z = doubleToAnimate[i].Z;
+                    if (RandomizeLocation)
+                    {
+                        var org_X = Location[i].X;
+                        var org_Y = Location[i].Y;
+                        var org_Z = Location[i].Z;
 
-                    var sca_X = RandomNumbers.RandomDouble(-SliderX.Amount + 2.0, SliderX.Amount);
-                    var sca_Y = RandomNumbers.RandomDouble(-SliderY.Amount + 2.0, SliderY.Amount);
-                    var sca_Z = RandomNumbers.RandomDouble(-SliderZ.Amount + 2.0, SliderZ.Amount);
+                        var new_X = RandomNumbers.RandomDouble(-LocationX.Amount + 2.0, LocationX.Amount);
+                        var new_Y = RandomNumbers.RandomDouble(-LocationY.Amount + 2.0, LocationY.Amount);
+                        var new_Z = RandomNumbers.RandomDouble(-LocationZ.Amount + 2.0, LocationZ.Amount);
 
-                    newRandom[i].X = sca_X * org_X;
-                    newRandom[i].Y = sca_Y * org_Y;
-                    newRandom[i].Z = sca_Z * org_Z;
+                        var aX = new_X * org_X;
+                        var aY = new_Y * org_Y;
+                        var aZ = new_Z * org_Z;
+
+                        Location[i] = new Vector3D(aX, aY, aZ);
+                    }
+
+                    if (RandomizeScale)
+                    {
+                        var org_X = Scale[i].X;
+                        var org_Y = Scale[i].Y;
+                        var org_Z = Scale[i].Z;
+
+                        var new_X = RandomNumbers.RandomDouble(-ScaleX.Amount + 2.0, ScaleX.Amount);
+                        var new_Y = RandomNumbers.RandomDouble(-ScaleY.Amount + 2.0, ScaleY.Amount);
+                        var new_Z = RandomNumbers.RandomDouble(-ScaleZ.Amount + 2.0, ScaleZ.Amount);
+
+                        var aX = new_X * org_X;
+                        var aY = new_Y * org_Y;
+                        var aZ = new_Z * org_Z;
+
+                        Scale[i] = new Vector3D(aX, aY, aZ);
+                    }
+
+                    if (RandomizeRotation)
+                    {
+                        var org_X = Rotation[i].X;
+                        var org_Y = Rotation[i].Y;
+                        var org_Z = Rotation[i].Z;
+
+                        var new_X = RandomNumbers.RandomDouble(-RotationX.Amount + 2.0, RotationX.Amount);
+                        var new_Y = RandomNumbers.RandomDouble(-RotationY.Amount + 2.0, RotationY.Amount);
+                        var new_Z = RandomNumbers.RandomDouble(-RotationZ.Amount + 2.0, RotationZ.Amount);
+
+                        var aX = new_X * org_X;
+                        var aY = new_Y * org_Y;
+                        var aZ = new_Z * org_Z;
+
+                        Rotation[i] = new Vector3D(aX, aY, aZ);
+                    }
                 }
             }
         }
@@ -119,17 +187,54 @@ namespace CMiX.MVVM.ViewModels
                 if (easing.IsEnabled)
                 {
                     double eased = Easings.Interpolate((float)period, easing.SelectedEasing);
-                    Vector3D lerped = Utils.Lerp(oldRandom[i], newRandom[i], eased);
 
-                    doubleToAnimate[i].X = lerped.X;
-                    doubleToAnimate[i].Y = lerped.Y;
-                    doubleToAnimate[i].Z = lerped.Z;
+                    Vector3D lerpedLocation = Utils.Lerp(PreviousLocation[i], NextLocation[i], eased);
+                    Vector3D lerpedScale = Utils.Lerp(PreviousScale[i], NextScale[i], eased);
+                    Vector3D lerpedRotation = Utils.Lerp(PreviousRotation[i], NextRotation[i], eased);
+
+                    if (RandomizeLocation)
+                    {
+                        Location[i].X = lerpedLocation.X;
+                        Location[i].Y = lerpedLocation.Y;
+                        Location[i].Z = lerpedLocation.Z;
+                    }
+
+                    if (RandomizeScale)
+                    {
+                        Scale[i].X = lerpedScale.X;
+                        Scale[i].Y = lerpedScale.Y;
+                        Scale[i].Z = lerpedScale.Z;
+                    }
+
+                    if (RandomizeScale)
+                    {
+                        Rotation[i].X = lerpedRotation.X;
+                        Rotation[i].Y = lerpedRotation.Y;
+                        Rotation[i].Z = lerpedRotation.Z;
+                    }
                 }
                 else
                 {
-                    doubleToAnimate[i].X = newRandom[i].X;
-                    doubleToAnimate[i].Y = newRandom[i].Y;
-                    doubleToAnimate[i].Z = newRandom[i].Z;
+                    if (RandomizeLocation)
+                    {
+                        Location[i].X = NextLocation[i].X;
+                        Location[i].Y = NextLocation[i].Y;
+                        Location[i].Z = NextLocation[i].Z;
+                    }
+
+                    if (RandomizeScale)
+                    {
+                        Scale[i].X = NextScale[i].X;
+                        Scale[i].Y = NextScale[i].Y;
+                        Scale[i].Z = NextScale[i].Z;
+                    }
+
+                    if (RandomizeScale)
+                    {
+                        Rotation[i].X = NextRotation[i].X;
+                        Rotation[i].Y = NextRotation[i].Y;
+                        Rotation[i].Z = NextRotation[i].Z;
+                    }
                 }
             }
         }
