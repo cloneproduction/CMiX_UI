@@ -124,7 +124,9 @@
     <Compile Include="Models\Beat\ResyncModel.cs" />
     <Compile Include="Models\ComboBoxModel.cs" />
     <Compile Include="Models\AnimParameter\AnimModeModel.cs" />
+    <Compile Include="Models\Geometry\Modifier\ITransformModifierModel.cs" />
     <Compile Include="Models\Geometry\Modifier\ModifierModel.cs" />
+    <Compile Include="Models\Geometry\Modifier\RandomXYZModel.cs" />
     <Compile Include="Models\Range\IRangeModel.cs" />
     <Compile Include="Models\Range\RangeModel.cs" />
     <Compile Include="Resources\RandomNumbers.cs" />
@@ -149,12 +151,14 @@
     <Compile Include="ViewModels\AnimParameter\IParameter.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\IModifier.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\RandomXYZ.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\TransformModifier.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\TransformModifierFactory.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\TransformModifierModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\TransformModifierNames.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\ModifierType.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\RotationModifier.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\ScaleModifier.cs" />
-    <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\TransformModifier.cs" />
+    <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\ITransformModifier.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\TransformModifierTemplateSelector.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\TranslateModifier.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\TransformType.cs" />

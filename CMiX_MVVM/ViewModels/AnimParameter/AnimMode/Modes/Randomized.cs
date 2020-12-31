@@ -6,7 +6,7 @@ using CMiX.MVVM.Services;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Randomized : Sender, ITransformModifier, IAnimMode
+    public class Randomized : Sender, IAnimMode
     {
         public Randomized(string name, Sender parentSender) : base(name, parentSender)
         {
@@ -26,9 +26,9 @@ namespace CMiX.MVVM.ViewModels
 
         private Random Random { get; set; }
         public int Count { get; set; }
-        public Vector3D[] TranslateXYZ { get; set; }
-        public Vector3D[] ScaleXYZ { get; set; }
-        public Vector3D[] RotationXYZ { get; set; }
+        public Vector3D[] Location { get; set; }
+        public Vector3D[] Scale { get; set; }
+        public Vector3D[] Rotation { get; set; }
 
         private double[] oldRandom;
         private double[] newRandom;

@@ -27,6 +27,7 @@ namespace CMiX.MVVM.ViewModels.Mediator
         {
             if(messageDirection == MessageDirection.IN)
             {
+                
                 IColleague col;
                 if (Colleagues.TryGetValue(message.Address, out col))
                 {

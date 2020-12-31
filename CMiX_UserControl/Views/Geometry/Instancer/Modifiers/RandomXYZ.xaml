@@ -7,7 +7,7 @@
              xmlns:Views="clr-namespace:CMiX.Studio.Views"
              xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="548" d:DesignWidth="461.333">
 
     <UserControl.Resources>
         <ObjectDataProvider x:Key="ModifierType" MethodName="GetValues" ObjectType="{x:Type ViewModels:ModifierType}">
@@ -21,8 +21,8 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </UserControl.Resources>
-    
-    
+
+
     <StackPanel>
         <Grid Height="20" Margin="0, 0, 0, 4">
             <Grid.ColumnDefinitions>
@@ -58,38 +58,21 @@
                     Grid.Column="1"
                     Height="20"
                     HorizontalAlignment="Stretch"
-                    Value="{Binding Count}"/>
+                    Value="{Binding Counter.Count, Mode=TwoWay}"/>
             </Grid>
         </Border>
 
-        <Views:BeatModifier Margin="0, 0, 0, 16"/>
-
+        <Views:BeatModifier Margin="0, 0, 0, 16" DataContext="{Binding BeatModifier}"/>
+        <Views:Easing  Margin="0, 0, 0, 16" DataContext="{Binding Easing}"/>
         <Grid Height="20" Margin="0, 0, 0, 4">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
             <Controls:CMiXToggleButton
                 Style="{DynamicResource CMiXToggleButtonStyle}"
-                Dock="Left"
-                HorizontalAlignment="Left"
+                Dock="Right"
+                HorizontalAlignment="Right"
                 VerticalAlignment="Center"
-                Grid.Column="1"
                 Caption="Randomize Location"
                 IsChecked="{Binding RandomizeLocation}"/>
         </Grid>
-
-        <!--<Grid Height="20" Margin="0, 0, 0, 4">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Text="Transform" HorizontalAlignment="Right" VerticalAlignment="Center" Padding="4" Foreground="{DynamicResource TextBase}"/>
-            <ComboBox 
-                Grid.Column="1" 
-                SelectedItem="{Binding SelectedTransformType}"
-                ItemsSource="{Binding Source={StaticResource TransformType}}"/>
-        </Grid>-->
 
 
         <Border Margin="0, 0, 0, 8" IsEnabled="{Binding RandomizeLocation}">
@@ -103,7 +86,7 @@
                     Grid.Column="2" 
                     Position="Top" 
                     Style="{StaticResource DistanceSliderStyle}" 
-                    Value="{Binding TranslateX}"/>
+                    Value="{Binding LocationX.Amount}"/>
                     <TextBlock 
                     Grid.Column="0" 
                     Padding="4" 
@@ -120,7 +103,7 @@
                     Grid.Column="2" 
                     Position="Middle" 
                     Style="{StaticResource DistanceSliderStyle}" 
-                    Value="{Binding TranslateY}"/>
+                    Value="{Binding LocationY.Amount}"/>
                     <TextBlock 
                     Grid.Column="0" 
                     Padding="4" 
@@ -137,7 +120,7 @@
                     Grid.Column="2" 
                     Position="Bottom" 
                     Style="{StaticResource DistanceSliderStyle}" 
-                    Value="{Binding TranslateZ}"/>
+                    Value="{Binding LocationZ.Amount}"/>
                     <TextBlock 
                     Grid.Column="0" 
                     Padding="4" 
@@ -149,17 +132,13 @@
         </Border>
 
         <Grid Height="20" Margin="0, 0, 0, 4">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
             <Controls:CMiXToggleButton
                 Grid.Column="1"
                 Style="{DynamicResource CMiXToggleButtonStyle}"
-                Dock="Left"
+                Dock="Right"
                 VerticalContentAlignment="Center"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Right"
                 Caption="Randomize Scale"
                 IsChecked="{Binding RandomizeScale}"/>
         </Grid>
@@ -176,7 +155,7 @@
                     Grid.Column="2" 
                     Position="Top" 
                     Style="{StaticResource DistanceSliderStyle}" 
-                    Value="{Binding TranslateX}"/>
+                    Value="{Binding ScaleX.Amount}"/>
                     <TextBlock 
                     Grid.Column="0" 
                     Padding="4" 
@@ -193,7 +172,7 @@
                     Grid.Column="2" 
                     Position="Middle" 
                     Style="{StaticResource DistanceSliderStyle}" 
-                    Value="{Binding TranslateY}"/>
+                    Value="{Binding ScaleY.Amount}"/>
                     <TextBlock 
                     Grid.Column="0" 
                     Padding="4" 
@@ -210,7 +189,7 @@
                     Grid.Column="2" 
                     Position="Bottom" 
                     Style="{StaticResource DistanceSliderStyle}" 
-                    Value="{Binding TranslateZ}"/>
+                    Value="{Binding ScaleZ.Amount}"/>
                     <TextBlock 
                     Grid.Column="0" 
                     Padding="4" 
@@ -222,14 +201,10 @@
         </Border>
 
         <Grid Height="20" Margin="0, 0, 0, 4">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
             <Controls:CMiXToggleButton
                 Style="{DynamicResource CMiXToggleButtonStyle}"
-                Dock="Left"
-                HorizontalAlignment="Left"
+                Dock="Right"
+                HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 Grid.Column="1"
                 Caption="Randomize Rotation"
@@ -246,7 +221,7 @@
                     Grid.Column="2" 
                     Position="Top" 
                     Style="{StaticResource DistanceSliderStyle}" 
-                    Value="{Binding TranslateX}"/>
+                    Value="{Binding RotationX.Amount}"/>
                     <TextBlock 
                     Grid.Column="0" 
                     Padding="4" 
@@ -263,7 +238,7 @@
                     Grid.Column="2" 
                     Position="Middle" 
                     Style="{StaticResource DistanceSliderStyle}" 
-                    Value="{Binding TranslateY}"/>
+                    Value="{Binding RotationY.Amount}"/>
                     <TextBlock 
                     Grid.Column="0" 
                     Padding="4" 
@@ -280,7 +255,7 @@
                     Grid.Column="2" 
                     Position="Bottom" 
                     Style="{StaticResource DistanceSliderStyle}" 
-                    Value="{Binding TranslateZ}"/>
+                    Value="{Binding RotationZ.Amount}"/>
                     <TextBlock 
                     Grid.Column="0" 
                     Padding="4" 

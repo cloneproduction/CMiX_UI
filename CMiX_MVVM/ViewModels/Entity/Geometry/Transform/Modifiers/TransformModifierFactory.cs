@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CMiX.MVVM.Models;
+using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -10,35 +7,47 @@ namespace CMiX.MVVM.ViewModels
     {
         public TransformModifierFactory(MasterBeat masterBeat)
         {
+            //this.MessengerTerminal = messengerTerminal;
             this.MasterBeat = masterBeat;
         }
 
+
+        private static int ID = 0;
+        private MessengerTerminal MessengerTerminal { get; set; }
+
         public MasterBeat MasterBeat { get; set; }
-        public ITransformModifier CreateTransformModifier(TransformModifierNames transformModifierNames, Sender parentSender)
+        public TransformModifier CreateTransformModifier(TransformModifierNames transformModifierNames, Sender parentSender)
         {
-            ITransformModifier transformModifier = null;
+            TransformModifier transformModifier = null;
 
             switch (transformModifierNames)
             {
-                case TransformModifierNames.TranslateXYZ:
-                    transformModifier = CreateTranslateXYZ(parentSender, this.MasterBeat);
-                    break;
                 case TransformModifierNames.Randomized:
-                    transformModifier = CreateRandomized(parentSender, this.MasterBeat);
+                    transformModifier = CreateRandomized(parentSender);
                     break;
             }
 
             return transformModifier;
         }
 
-        private TranslateModifier CreateTranslateXYZ(Sender parentSender, MasterBeat masterBeat)
+        public TransformModifier CreateTransformModifier(TransformModifierNames transformModifierNames, ITransformModifierModel transformModifierModel, Sender parentSender)
         {
-            return new TranslateModifier(nameof(TranslateModifier), parentSender, masterBeat);
+            TransformModifier transformModifier = null;
+
+            switch (transformModifierNames)
+            {
+                case TransformModifierNames.Randomized:
+                    transformModifier = CreateRandomized(parentSender);
+                    break;
+            }
+
+            return transformModifier;
         }
 
-        private RandomXYZ CreateRandomized(Sender parentSender, MasterBeat masterBeat)
+        private RandomXYZ CreateRandomized(Sender parentSender)
         {
-            return new RandomXYZ(nameof(TranslateModifier), parentSender, this.MasterBeat);
+            ID++;
+            return new RandomXYZ(nameof(TranslateModifier), parentSender, ID, this.MasterBeat);
         }
     }
 }

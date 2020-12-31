@@ -7,7 +7,7 @@ using CMiX.MVVM.ViewModels.Observer;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class TranslateModifier : ViewModel, ITransformModifier, IModifier, IObserver
+    public class TranslateModifier : ViewModel, IModifier, IObserver
     {
         public TranslateModifier(string name, Sender parentSender, MasterBeat beat) //: base(name, parentSender)
         {
@@ -15,9 +15,9 @@ namespace CMiX.MVVM.ViewModels
 
             ModifierType = ModifierType.GROUP;
 
-            TranslateXYZ = new Vector3D[1] { new Vector3D(0.0, 0.0, 0.0) };
-            ScaleXYZ = new Vector3D[1] { new Vector3D(1.0, 1.0, 1.0) };
-            RotationXYZ = new Vector3D[1] { new Vector3D(0.0, 0.0, 0.0) };
+            Location = new Vector3D[1] { new Vector3D(0.0, 0.0, 0.0) };
+            Scale = new Vector3D[1] { new Vector3D(1.0, 1.0, 1.0) };
+            Rotation = new Vector3D[1] { new Vector3D(0.0, 0.0, 0.0) };
 
             //X = new AnimParameter(nameof(X), this, new double[1] { 0.0 }, beat);
             //Y = new AnimParameter(nameof(Y), this, translate.Y.Amount, beat);
@@ -50,11 +50,11 @@ namespace CMiX.MVVM.ViewModels
             if (ModifierType == ModifierType.OBJECT)
             {
                 modifierCount = objectCount;
-                if (objectCount != TranslateXYZ.Length)
+                if (objectCount != Location.Length)
                 {
-                    TranslateXYZ = new Vector3D[objectCount];
-                    ScaleXYZ = new Vector3D[objectCount];
-                    RotationXYZ = new Vector3D[objectCount];
+                    Location = new Vector3D[objectCount];
+                    Scale = new Vector3D[objectCount];
+                    Rotation = new Vector3D[objectCount];
                 }
             }
             else if (ModifierType == ModifierType.GROUP)
@@ -62,9 +62,9 @@ namespace CMiX.MVVM.ViewModels
                 modifierCount = Count;
             }
 
-            var XToAnimate = TranslateXYZ.Select(x => x.X).ToArray();
-            var YToAnimate = TranslateXYZ.Select(x => x.Y).ToArray();
-            var ZToAnimate = TranslateXYZ.Select(x => x.Z).ToArray();
+            var XToAnimate = Location.Select(x => x.X).ToArray();
+            var YToAnimate = Location.Select(x => x.Y).ToArray();
+            var ZToAnimate = Location.Select(x => x.Z).ToArray();
 
             X.AnimateOnGameLoop(XToAnimate);
             Y.AnimateOnGameLoop(YToAnimate);
@@ -72,9 +72,9 @@ namespace CMiX.MVVM.ViewModels
 
             for (int i = 0; i < modifierCount; i++)
             {
-                TranslateXYZ[i].X = XToAnimate[i];
-                TranslateXYZ[i].Y = YToAnimate[i];
-                TranslateXYZ[i].Z = ZToAnimate[i];
+                Location[i].X = XToAnimate[i];
+                Location[i].Y = YToAnimate[i];
+                Location[i].Z = ZToAnimate[i];
             }
         }
 
@@ -100,8 +100,8 @@ namespace CMiX.MVVM.ViewModels
         double[] TranslateY { get; set; }
         double[] TranslateZ { get; set; }
 
-        public Vector3D[] TranslateXYZ { get; set; }
-        public Vector3D[] ScaleXYZ { get; set; }
-        public Vector3D[] RotationXYZ { get; set; }
+        public Vector3D[] Location { get; set; }
+        public Vector3D[] Scale { get; set; }
+        public Vector3D[] Rotation { get; set; }
     }
 }

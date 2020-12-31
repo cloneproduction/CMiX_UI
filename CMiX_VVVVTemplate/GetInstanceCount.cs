@@ -20,10 +20,10 @@ namespace VVVV.Nodes
             {
                 for (int i = 0; i < FInstancerIn.SliceCount; i++)
                 {
-                    if (FInstancerIn[i] != null)
-                        FInstanceCount[i] = FInstancerIn[i].Counter.Count;
-                    else
-                        FInstanceCount.SliceCount = 0;
+                    //if (FInstancerIn[i] != null)
+                    //    FInstanceCount[i] = FInstancerIn[i].Counter.Count;
+                    //else
+                    //    FInstanceCount.SliceCount = 0;
                 }
             }
         }

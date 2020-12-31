@@ -1,6 +1,7 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.ViewModels;
 using VVVV.PluginInterfaces.V2;
+using VVVV.Utils.VMath;
 
 namespace CMiX.Nodes
 {
@@ -13,25 +14,12 @@ namespace CMiX.Nodes
         [Output("Instancer")]
         public ISpread<Instancer> FInstancer;
 
-        //[Output("TranslateModifier")]
-        //public ISpread<IModifier> TranslateModifier;
-
-        //[Output("ScaleModifier")]
-        //public ISpread<IModifier> ScaleModifier;
-
-        //[Output("RotationModifier")]
-        //public ISpread<IModifier> RotationModifier;
-
-        [Output("Count")]
-        public ISpread<int> Count;
+        [Output("TransformModifier")]
+        public ISpread<ISpread<Matrix4x4>> FTransformModifier;
 
         public void Evaluate(int SpreadMax)
         {
             FInstancer.SliceCount = FGeometryIn.SliceCount;
-            TranslateModifier.SliceCount = FGeometryIn.SliceCount;
-            ScaleModifier.SliceCount = FGeometryIn.SliceCount;
-            RotationModifier.SliceCount = FGeometryIn.SliceCount;
-            Count.SliceCount = FGeometryIn.SliceCount;
 
             if (FGeometryIn.SliceCount > 0)
             {
@@ -40,19 +28,17 @@ namespace CMiX.Nodes
                     if (FGeometryIn[i] != null)
                     {
                         FInstancer[i] = FGeometryIn[i].Instancer;
-                        TranslateModifier[i] = FGeometryIn[i].Instancer.TranslateModifier;
-                        ScaleModifier[i] = FGeometryIn[i].Instancer.ScaleModifier;
-                        RotationModifier[i] = FGeometryIn[i].Instancer.RotationModifier;
-                        Count[i] = FGeometryIn[i].Instancer.Counter.Count;
+                        FTransformModifier[i].SliceCount = FGeometryIn[i].Instancer.TransformModifiers.Count;
+
+                        for (int j = 0; j < FGeometryIn[j].Instancer.TransformModifiers.Count; j++)
+                        {
+                            //FTransformModifier[i][j] = VMath.Transform(FGeometryIn[j].Instancer.TransformModifiers[j].Location, FGeometryIn[j].Instancer.TransformModifiers[j].Scale, FGeometryIn[j].Instancer.TransformModifiers[j].Rotation);
+                        }
+
+
                     }
                     else
-                    {
                         FInstancer.SliceCount = 0;
-                        TranslateModifier.SliceCount = 0;
-                        ScaleModifier.SliceCount = 0;
-                        RotationModifier.SliceCount = 0;
-                        Count.SliceCount = 0;
-                    }
                 }
             }
         }

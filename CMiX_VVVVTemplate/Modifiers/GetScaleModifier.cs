@@ -20,14 +20,14 @@ namespace VVVV.Nodes.Modifiers
             {
                 for (int i = 0; i < FInstancerIn.SliceCount; i++)
                 {
-                    if (FInstancerIn[i] != null)
-                    {
-                        Uniform[i] = FInstancerIn[i].UniformScale;
-                    }
-                    else
-                    {
-                        Uniform.SliceCount = 0;
-                    }
+                    //if (FInstancerIn[i] != null)
+                    //{
+                    //    Uniform[i] = FInstancerIn[i].UniformScale;
+                    //}
+                    //else
+                    //{
+                    //    Uniform.SliceCount = 0;
+                    //}
                 }
             }
         }

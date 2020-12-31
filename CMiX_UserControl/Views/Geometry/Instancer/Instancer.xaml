@@ -109,47 +109,7 @@
             </Grid>
 
             <ItemsControl ItemTemplateSelector="{StaticResource TemplateSelector }" ItemsSource="{Binding TransformModifiers}"/>
-
-            <!--<Border
-                Margin="0, 4, 0, 2"
-                DockPanel.Dock="Bottom"
-                Style="{StaticResource BorderContainer}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.5*"/>
-                            <ColumnDefinition Width="0.5*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock 
-                            Text="Count" 
-                            Padding="8, 0"
-                            Foreground="{StaticResource TextBase}" 
-                            VerticalAlignment="Center" 
-                            HorizontalAlignment="Right"/>
-                        <Border Grid.Column="1" Style="{StaticResource BorderShadow}">
-                            <Controls:Counter
-                            Style="{DynamicResource CMiXCounterStyle}"
-                            StepValue="1"
-                            Grid.Column="1"
-                            Height="20"
-                            HorizontalAlignment="Stretch"
-                            Value="{Binding Counter.Count}"/>
-                        </Border>
-                    </Grid>
-                </Border>
-
-                <Controls:CMiXToggleButton
-                    Style="{DynamicResource CMiXToggleButtonStyle}"
-                    Dock="Right"
-                    HorizontalAlignment="Right"
-                    Margin="4"
-                    Caption="No Aspect Ratio"
-                    IsChecked="{Binding NoAspectRatio}"/>
-                <Views:Transform DataContext="{Binding Transform}"/>
-                <Views:XYZModifier DataContext="{Binding TranslateModifier}"/>
-                <Views:XYZModifier DataContext="{Binding ScaleModifier}"/>
-                <Views:AnimParameter DataContext="{Binding UniformScale}"/>
-                <Views:XYZModifier DataContext="{Binding RotationModifier}"/>-->
-            </StackPanel>
+        </StackPanel>
         </Expander>
 
 </UserControl>

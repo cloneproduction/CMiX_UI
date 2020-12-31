@@ -44,7 +44,7 @@ namespace CMiX.Nodes
                             AnimParameter[i].AnimateOnBeatTick();
                         }
                             
-                        AnimParameter[i].AnimateOnGameLoop();
+                        //AnimParameter[i].AnimateOnGameLoop();
 
                         for (int j = 0; j < AnimParameter[i].Parameters.Length; j++)
                         {

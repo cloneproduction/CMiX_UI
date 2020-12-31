@@ -42,7 +42,7 @@ namespace CMiX.Nodes
                             transform.Translate.Y.Amount,
                             transform.Translate.Z.Amount
                         );
-
+                        
                         var scale = VMath.Scale
                         (
                             transform.Scale.X.Amount,

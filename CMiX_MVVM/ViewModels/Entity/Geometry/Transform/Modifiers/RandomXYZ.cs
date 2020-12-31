@@ -1,23 +1,50 @@
-﻿using CMiX.MVVM.Resources;
-using CMiX.MVVM.Services;
-using System;
-using System.Windows.Media.Media3D;
+﻿using System.Windows.Media.Media3D;
+using CMiX.MVVM.Resources;
+using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class RandomXYZ : Sender, ITransformModifier
+    public class RandomXYZ : TransformModifier, IColleague
     {
-        public RandomXYZ(string name, Sender parentSender, MasterBeat masterBeat) : base (name, parentSender)
+        public RandomXYZ(string name, IColleague parentSender, int id, MasterBeat masterBeat) : base (name, parentSender, id)
         {
+            Counter = new Counter(nameof(Counter), this);
+            Counter.CounterChangeEvent += Counter_CounterChangeEvent;
+
+            Easing = new Easing(nameof(Easing), this); 
             BeatModifier = new BeatModifier(nameof(BeatModifier), this, masterBeat);
+
+            LocationX = new Slider(nameof(LocationX), this);
+            LocationY = new Slider(nameof(LocationY), this);
+            LocationZ = new Slider(nameof(LocationZ), this);
+
+            ScaleX = new Slider(nameof(ScaleX), this);
+            ScaleY = new Slider(nameof(ScaleY), this);
+            ScaleZ = new Slider(nameof(ScaleZ), this);
+
+            RotationX = new Slider(nameof(RotationX), this);
+            RotationZ = new Slider(nameof(RotationY), this);
+            RotationZ = new Slider(nameof(RotationZ), this);
+
+            Count = 1;
             SelectedModifierType = ModifierType.OBJECT;
+            RandomizeLocation = true;
+            RandomizeScale = true;
+            RandomizeRotation = true;
         }
 
+        private void Counter_CounterChangeEvent(object sender, CounterEventArgs e)
+        {
+            this.Count = e.Value;
+            Location = new Vector3D[e.Value];
+            Scale = new Vector3D[e.Value];
+            Rotation = new Vector3D[e.Value];
+        }
 
         public BeatModifier BeatModifier { get; set; }
+        public Easing Easing { get; set; }
         public Range Range { get; set; }
         public Counter Counter { get; set; }
-
 
         public Slider LocationX { get; set; }
         public Slider LocationY { get; set; }
@@ -30,20 +57,6 @@ namespace CMiX.MVVM.ViewModels
         public Slider RotationX { get; set; }
         public Slider RotationY { get; set; }
         public Slider RotationZ { get; set; }
-
-
-        private int _count;
-        public int Count
-        {
-            get => _count;
-            set
-            {
-                SetAndNotify(ref _count, value);
-                Location = new Vector3D[value];
-                Scale = new Vector3D[value];
-                Rotation = new Vector3D[value];
-            }
-        }
 
         private bool _randomizeLocation;
         public bool RandomizeLocation
@@ -66,24 +79,12 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _randomizeRotation, value);
         }
 
-        private TransformType _selectedTransformType;
-        public TransformType SelectedTransformType
-        {
-            get => _selectedTransformType;
-            set => SetAndNotify(ref _selectedTransformType, value);
-        }
-
-
         private ModifierType _selectedModifierType;
         public ModifierType SelectedModifierType
         {
             get => _selectedModifierType;
             set => SetAndNotify(ref _selectedModifierType, value);
         }
-
-        public Vector3D[] Location { get; set; }
-        public Vector3D[] Scale { get; set; }
-        public Vector3D[] Rotation { get; set; }
 
         private Vector3D[] PreviousLocation { get; set; }
         private Vector3D[] PreviousScale { get; set; }
@@ -93,30 +94,8 @@ namespace CMiX.MVVM.ViewModels
         private Vector3D[] NextScale { get; set; }
         private Vector3D[] NextRotation { get; set; }
 
-        public override void Receive(Message message)
-        {
-            throw new NotImplementedException();
-        }
 
-
-        //private void RandomizeVector(Vector3D vector3D)
-        //{
-        //    var org_X = vector3D.X;
-        //    var org_Y = vector3D.Y;
-        //    var org_Z = vector3D.Z;
-
-        //    var new_X = RandomNumbers.RandomDouble(-LocationX.Amount + 2.0, LocationX.Amount);
-        //    var new_Y = RandomNumbers.RandomDouble(-LocationY.Amount + 2.0, LocationY.Amount);
-        //    var new_Z = RandomNumbers.RandomDouble(-LocationZ.Amount + 2.0, LocationZ.Amount);
-
-        //    var aX = new_X * org_X;
-        //    var aY = new_Y * org_Y;
-        //    var aZ = new_Z * org_Z;
-
-        //    Location[i] = new Vector3D(aX, aY, aZ);
-        //}
-
-        public void UpdateOnBeatTick(double period)
+        public override void UpdateOnBeatTick(double period, ITransformModifier transformModifier)
         {
             PreviousLocation = NextLocation;
             PreviousScale = NextScale;
@@ -140,7 +119,11 @@ namespace CMiX.MVVM.ViewModels
                         var aY = new_Y * org_Y;
                         var aZ = new_Z * org_Z;
 
-                        Location[i] = new Vector3D(aX, aY, aZ);
+                        NextLocation[i] = new Vector3D(aX, aY, aZ);
+                    }
+                    else
+                    {
+                        NextLocation[i] = new Vector3D(0.0, 0.0, 0.0);
                     }
 
                     if (RandomizeScale)
@@ -157,7 +140,11 @@ namespace CMiX.MVVM.ViewModels
                         var aY = new_Y * org_Y;
                         var aZ = new_Z * org_Z;
 
-                        Scale[i] = new Vector3D(aX, aY, aZ);
+                        NextScale[i] = new Vector3D(aX, aY, aZ);
+                    }
+                    else
+                    {
+                        NextScale[i] = new Vector3D(1.0, 1.0, 1.0);
                     }
 
                     if (RandomizeRotation)
@@ -174,19 +161,23 @@ namespace CMiX.MVVM.ViewModels
                         var aY = new_Y * org_Y;
                         var aZ = new_Z * org_Z;
 
-                        Rotation[i] = new Vector3D(aX, aY, aZ);
+                        NextRotation[i] = new Vector3D(aX, aY, aZ);
+                    }
+                    else
+                    {
+                        NextRotation[i] = new Vector3D(0.0, 0.0, 0.0);
                     }
                 }
             }
         }
 
-        public void UpdateOnGameLoop(Vector3D[] doubleToAnimate, double period, IRange range, Easing easing, BeatModifier beatModifier)
+        public override void UpdateOnGameLoop(double period, ITransformModifier transformModifier)
         {
-            for (int i = 0; i < doubleToAnimate.Length; i++)
+            for (int i = 0; i < Count; i++)
             {
-                if (easing.IsEnabled)
+                if (Easing.IsEnabled)
                 {
-                    double eased = Easings.Interpolate((float)period, easing.SelectedEasing);
+                    double eased = Easings.Interpolate((float)period, Easing.SelectedEasing);
 
                     Vector3D lerpedLocation = Utils.Lerp(PreviousLocation[i], NextLocation[i], eased);
                     Vector3D lerpedScale = Utils.Lerp(PreviousScale[i], NextScale[i], eased);
@@ -238,5 +229,7 @@ namespace CMiX.MVVM.ViewModels
                 }
             }
         }
+
+
     }
 }
