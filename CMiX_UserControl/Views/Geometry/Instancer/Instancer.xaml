@@ -33,7 +33,7 @@
 
             <DataTemplate x:Key="RandomXYZTemplate" DataType="{x:Type ViewModels:TranslateModifier}">
                 <Expander Header="RandomXYZ" Margin="4, 2" Template="{StaticResource ModifierExpanderTemplate}">
-                    <Views:RandomXYZ Margin="8" DataContext="{Binding}"/>
+                    <Views:RandomXYZ DataContext="{Binding}"/>
                 </Expander>
             </DataTemplate>
             
@@ -62,24 +62,26 @@
                     <Popup 
                         AllowsTransparency="True"
                         Behaviors:ClosePopupBehavior.PopupContainer="{Binding ElementName=InstancerPouet}"
-                        Placement="Bottom" 
+                        Placement="Bottom"
+                        FlowDirection="RightToLeft"
                         IsOpen="{Binding IsChecked, ElementName=PopUpToggle}">
-                    <Border Background="Transparent" CornerRadius="{DynamicResource CornerRadiusBottom}" Padding="2">
+                    <Border Background="Transparent" CornerRadius="{DynamicResource CornerRadiusBottom}" Padding="2, 0, 2, 2">
                         <Border.Effect>
                             <DropShadowEffect BlurRadius="15" Opacity="0.8"  ShadowDepth="2" Direction="-90" RenderingBias="Performance" />
                         </Border.Effect>
-                        <Grid Margin="10, 0, 10, 10" Background="{DynamicResource HighDarkerColor}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <Button 
+                        <Border Background="{DynamicResource HighDarkerColor}">
+                            <Grid Margin="10, 0, 10, 10" Background="{DynamicResource HighDarkerColor}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Button 
                                 Command="{Binding AddTransformModifierCommand}" 
                                 CommandParameter="{x:Static ViewModels:TransformModifierNames.TranslateXYZ}" 
                                 Grid.Column="0"
@@ -87,7 +89,7 @@
                                 Width="100" 
                                 Height="20" 
                                 Content="TranslateXYZ"/>
-                            <Button 
+                                <Button 
                                 Command="{Binding AddTransformModifierCommand}" 
                                 CommandParameter="{x:Static ViewModels:TransformModifierNames.Randomized}" 
                                 Grid.Column="1"
@@ -95,7 +97,7 @@
                                 Width="100" 
                                 Height="20" 
                                 Content="Randomized"/>
-                            <Button                         
+                                <Button                         
                                 Command="{Binding AddTransformModifierCommand}" 
                                 CommandParameter="{x:Static ViewModels:TransformModifierNames.Randomized}"
                                 Grid.Column="2"
@@ -103,7 +105,9 @@
                                 Width="100" 
                                 Height="20" 
                                 Content="RotateXYZ"/>
-                        </Grid>
+                            </Grid>
+                        </Border>
+                        
                     </Border>
                 </Popup>
             </Grid>
