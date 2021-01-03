@@ -32,7 +32,7 @@
             </DataTemplate>
 
             <DataTemplate x:Key="RandomXYZTemplate" DataType="{x:Type ViewModels:TranslateModifier}">
-                <Expander Header="RandomXYZ" Margin="4, 2" Template="{StaticResource ModifierExpanderTemplate}">
+                <Expander Header="RandomXYZ" Margin="0, 2" Template="{StaticResource ModifierExpanderTemplate}">
                     <Views:RandomXYZ DataContext="{Binding}"/>
                 </Expander>
             </DataTemplate>
@@ -48,29 +48,30 @@
     </UserControl.Resources>
 
     <Expander Header="Instancer" IsExpanded="True" Style="{StaticResource ExpanderBase}">
-
+        <Border Padding="4">
             <StackPanel>
-                <Grid Background="Transparent">
+
                 <ToggleButton x:Name="PopUpToggle" 
                               Content="Add Modifier"
-                              Height="25" 
-                              Margin="4, 8"
+                              Height="20" 
+                              Margin="0, 4"
                               Background="{DynamicResource DarkerColor}" 
                               Style="{StaticResource ToggleTransformModifierMenu}">
 
                 </ToggleButton>
-                    <Popup 
+                <Controls:CMiXPopup 
                         AllowsTransparency="True"
                         Behaviors:ClosePopupBehavior.PopupContainer="{Binding ElementName=InstancerPouet}"
-                        Placement="Bottom"
+                        Placement="Custom"
+                        PlacementTarget="{Binding ElementName=PopUpToggle}"
                         FlowDirection="RightToLeft"
                         IsOpen="{Binding IsChecked, ElementName=PopUpToggle}">
                     <Border Background="Transparent" CornerRadius="{DynamicResource CornerRadiusBottom}" Padding="2, 0, 2, 2">
                         <Border.Effect>
                             <DropShadowEffect BlurRadius="15" Opacity="0.8"  ShadowDepth="2" Direction="-90" RenderingBias="Performance" />
                         </Border.Effect>
-                        <Border Background="{DynamicResource HighDarkerColor}">
-                            <Grid Margin="10, 0, 10, 10" Background="{DynamicResource HighDarkerColor}">
+                        <Border CornerRadius="{DynamicResource CornerRadiusBottomLarge}" Opacity="0.75" Background="{DynamicResource HighDarkerColor}">
+                            <Grid Margin="8" Background="{DynamicResource HighDarkerColor}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
@@ -107,13 +108,15 @@
                                 Content="RotateXYZ"/>
                             </Grid>
                         </Border>
-                        
-                    </Border>
-                </Popup>
-            </Grid>
 
-            <ItemsControl ItemTemplateSelector="{StaticResource TemplateSelector }" ItemsSource="{Binding TransformModifiers}"/>
-        </StackPanel>
+                    </Border>
+                </Controls:CMiXPopup>
+
+
+                <ItemsControl ItemTemplateSelector="{StaticResource TemplateSelector }" ItemsSource="{Binding TransformModifiers}"/>
+            </StackPanel>
+        </Border>
+
         </Expander>
 
 </UserControl>

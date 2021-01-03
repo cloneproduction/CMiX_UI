@@ -1,0 +1,60 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls.Primitives;
+using System.Windows.Media;
+
+namespace CMiX.MVVM.Controls
+{
+    public class CMiXPopup : Popup
+    {
+        public CMiXPopup()
+        {
+            translateTransform = new TranslateTransform();
+            this.RenderTransform = translateTransform;
+            OnApplyTemplate();
+            //Loaded += new RoutedEventHandler(ExceptionPopup_Loaded);
+
+            this.CustomPopupPlacementCallback = (popupSize, targetSize, offset) => new[]
+                {
+                    new CustomPopupPlacement
+                    {
+                        Point = new Point(targetSize.Width - popupSize.Width, targetSize.Height)
+                    }
+                };
+        }
+
+        double parentWidth;
+        double parentHeight;
+        TranslateTransform translateTransform;
+        //private void ExceptionPopup_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    if (PlacementTarget != null)
+        //    {
+        //        if (PlacementTarget is FrameworkElement)
+        //        {
+        //            parentWidth = (PlacementTarget as FrameworkElement).ActualWidth;
+        //            parentHeight = (PlacementTarget as FrameworkElement).ActualHeight;
+                    
+        //        }
+        //    }
+        //}
+
+
+        //protected override void OnOpened(EventArgs e)
+        //{
+        //    this.HorizontalOffset = this.ActualWidth;// - parentWidth;
+        //    Console.WriteLine("ActualWidth " + this.ActualWidth);
+        //    //this.VerticalOffset = parentHeight;
+        //    base.OnOpened(e);
+        //}
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+        }
+    }
+}
