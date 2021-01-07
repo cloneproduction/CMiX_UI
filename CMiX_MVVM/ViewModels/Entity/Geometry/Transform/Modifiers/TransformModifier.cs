@@ -1,6 +1,7 @@
 ﻿using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
 using System;
+using System.Collections.ObjectModel;
 using System.Windows.Media.Media3D;
 
 namespace CMiX.MVVM.ViewModels
@@ -12,11 +13,12 @@ namespace CMiX.MVVM.ViewModels
             this.ID = id;
             this.Address = $"{this.GetType().Name}/{ID}/";
             this.MessageMediator = parentSender.MessageMediator;
+            this.Transforms = new ObservableCollection<Transform>();
         }
 
         public string Name { get; set; }
         public int ID { get; set; }
-        public int Count { get; set; }
+        public ObservableCollection<Transform> Transforms { get; set; }
         public Vector3D[] Location { get; set; }
         public Vector3D[] Scale { get; set; }
         public Vector3D[] Rotation { get; set; }

@@ -13,24 +13,13 @@ namespace CMiX.MVVM.ViewModels
             Scale = new Scale(nameof(Scale), this);
             Rotation = new Rotation(nameof(Rotation), this);
             Is3D = false;
-            Count = 0;
         }
 
         public Translate Translate { get; set; }
         public Scale Scale { get; set; }
         public Rotation Rotation { get; set; }
 
-        
-        private int _count;
-        public int Count
-        {
-            get { return _count; }
-            set 
-            { 
-                _count = value;
-                Translate.Count = value;
-            }
-        }
+       
 
 
         private bool _is3D;
@@ -51,7 +40,7 @@ namespace CMiX.MVVM.ViewModels
 
         public void Update(int count)
         {
-            this.Count = count;
+            //this.Count = count;
         }
     }
 }
