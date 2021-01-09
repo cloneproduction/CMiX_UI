@@ -7,7 +7,6 @@ namespace CMiX.MVVM.ViewModels
     {
         public TransformModifierFactory(MasterBeat masterBeat)
         {
-            //this.MessengerTerminal = messengerTerminal;
             this.MasterBeat = masterBeat;
         }
 
@@ -16,9 +15,10 @@ namespace CMiX.MVVM.ViewModels
         private MessengerTerminal MessengerTerminal { get; set; }
 
         public MasterBeat MasterBeat { get; set; }
-        public TransformModifier CreateTransformModifier(TransformModifierNames transformModifierNames, Sender parentSender)
+
+        public ITransformModifier CreateTransformModifier(TransformModifierNames transformModifierNames, Sender parentSender)
         {
-            TransformModifier transformModifier = null;
+            ITransformModifier transformModifier = null;
 
             switch (transformModifierNames)
             {
@@ -30,9 +30,9 @@ namespace CMiX.MVVM.ViewModels
             return transformModifier;
         }
 
-        public TransformModifier CreateTransformModifier(TransformModifierNames transformModifierNames, ITransformModifierModel transformModifierModel, Sender parentSender)
+        public ITransformModifier CreateTransformModifier(TransformModifierNames transformModifierNames, ITransformModifierModel transformModifierModel, Sender parentSender)
         {
-            TransformModifier transformModifier = null;
+            ITransformModifier transformModifier = null;
 
             switch (transformModifierNames)
             {

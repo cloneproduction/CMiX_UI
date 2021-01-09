@@ -1,13 +1,14 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Media.Media3D;
 using CMiX.MVVM.Resources;
+using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class RandomXYZ : TransformModifier, IColleague
+    public class RandomXYZ : Sender, ITransformModifier, IColleague
     {
-        public RandomXYZ(string name, IColleague parentSender, int id, MasterBeat masterBeat) : base (name, parentSender, id)
+        public RandomXYZ(string name, IColleague parentSender, int id, MasterBeat masterBeat) : base (name, parentSender)
         {
             Counter = new Counter(nameof(Counter), this);
             Counter.CounterChangeEvent += Counter_CounterChangeEvent;
@@ -17,6 +18,19 @@ namespace CMiX.MVVM.ViewModels
             Transforms = new ObservableCollection<Transform>();
 
             SelectedModifierType = ModifierType.OBJECT;
+
+            LocationX = new Slider(nameof(LocationX), this);
+            LocationY = new Slider(nameof(LocationY), this);
+            LocationZ = new Slider(nameof(LocationZ), this);
+
+            ScaleX = new Slider(nameof(ScaleX), this);
+            ScaleY = new Slider(nameof(ScaleY), this);
+            ScaleZ = new Slider(nameof(ScaleZ), this);
+
+            RotationX = new Slider(nameof(RotationX), this);
+            RotationY = new Slider(nameof(RotationY), this);
+            RotationZ = new Slider(nameof(RotationZ), this);
+
             RandomizeLocation = true;
             RandomizeScale = true;
             RandomizeRotation = true;
@@ -24,10 +38,6 @@ namespace CMiX.MVVM.ViewModels
 
         private void Counter_CounterChangeEvent(object sender, CounterEventArgs e)
         {
-            Location = new Vector3D[e.Value];
-            Scale = new Vector3D[e.Value];
-            Rotation = new Vector3D[e.Value];
-
             Transforms.Clear();
             for (int i = 0; i < e.Value; i++)
             {
@@ -35,9 +45,21 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public ObservableCollection<Transform> Transforms { get; set; }
+
         public BeatModifier BeatModifier { get; set; }
         public Easing Easing { get; set; }
         public Counter Counter { get; set; }
+
+
+        private bool _isExpanded;
+        public bool IsExpanded
+        {
+            get => _isExpanded;
+            set => SetAndNotify(ref _isExpanded, value);
+        }
 
 
         private bool _randomizeLocation;
@@ -47,11 +69,35 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _randomizeLocation, value);
         }
 
+        private bool _randomizeLocationIsExpanded;
+        public bool RandomizeLocationIsExpanded
+        {
+            get => _randomizeLocationIsExpanded;
+            set => SetAndNotify(ref _randomizeLocationIsExpanded, value);
+        }
+
+
+
         private bool _randomizeScale;
         public bool RandomizeScale
         {
             get => _randomizeScale;
             set => SetAndNotify(ref _randomizeScale, value);
+        }
+
+        private bool _randomizeScaleIsExpanded;
+        public bool RandomizeScaleIsExpanded
+        {
+            get => _randomizeScaleIsExpanded;
+            set => SetAndNotify(ref _randomizeScaleIsExpanded, value);
+        }
+
+
+        private bool _randomizeRotationIsExpanded;
+        public bool RandomizeRotationIsExpanded
+        {
+            get => _randomizeRotationIsExpanded;
+            set => SetAndNotify(ref _randomizeRotationIsExpanded, value);
         }
 
         private bool _randomizeRotation;
@@ -61,12 +107,27 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _randomizeRotation, value);
         }
 
+
         private ModifierType _selectedModifierType;
         public ModifierType SelectedModifierType
         {
             get => _selectedModifierType;
             set => SetAndNotify(ref _selectedModifierType, value);
         }
+
+        public Slider LocationX { get; set; }
+        public Slider LocationY { get; set; }
+        public Slider LocationZ { get; set; }
+
+        public Slider ScaleX { get; set; }
+        public Slider ScaleY { get; set; }
+        public Slider ScaleZ { get; set; }
+
+
+        public Slider RotationX { get; set; }
+        public Slider RotationY { get; set; }
+        public Slider RotationZ { get; set; }
+
 
         private Vector3D[] PreviousLocation { get; set; }
         private Vector3D[] PreviousScale { get; set; }
@@ -77,13 +138,12 @@ namespace CMiX.MVVM.ViewModels
         private Vector3D[] NextRotation { get; set; }
 
 
-        public override void UpdateOnBeatTick(double period, ITransformModifier transformModifier)
+        public void UpdateOnBeatTick(double period)
         {
             PreviousLocation = NextLocation;
             PreviousScale = NextScale;
             PreviousRotation = NextRotation;
 
-            
             foreach (var transform in Transforms)
             {
                 var index = Transforms.IndexOf(transform);
@@ -100,9 +160,9 @@ namespace CMiX.MVVM.ViewModels
                         var org_Y = transform.Translate.Y.Amount;
                         var org_Z = transform.Translate.Z.Amount;
 
-                        var new_X = RandomNumbers.RandomDouble(-transform.Translate.X.Amount + 2.0, transform.Translate.X.Amount);
-                        var new_Y = RandomNumbers.RandomDouble(-transform.Translate.Y.Amount + 2.0, transform.Translate.Y.Amount);
-                        var new_Z = RandomNumbers.RandomDouble(-transform.Translate.Z.Amount + 2.0, transform.Translate.Z.Amount);
+                        var new_X = RandomNumbers.RandomDouble(-LocationX.Amount + 2.0, LocationX.Amount);
+                        var new_Y = RandomNumbers.RandomDouble(-LocationY.Amount + 2.0, LocationY.Amount);
+                        var new_Z = RandomNumbers.RandomDouble(-LocationZ.Amount + 2.0, LocationZ.Amount);
 
                         var aX = new_X * org_X;
                         var aY = new_Y * org_Y;
@@ -111,16 +171,15 @@ namespace CMiX.MVVM.ViewModels
                         NextLocation[index] = new Vector3D(aX, aY, aZ);
                     }
 
-                    
                     if (RandomizeScale)
                     {
                         var org_X = transform.Scale.X.Amount;
                         var org_Y = transform.Scale.Y.Amount;
                         var org_Z = transform.Scale.Z.Amount;
 
-                        var new_X = RandomNumbers.RandomDouble(-transform.Scale.X.Amount + 2.0, transform.Scale.X.Amount);
-                        var new_Y = RandomNumbers.RandomDouble(-transform.Scale.Y.Amount + 2.0, transform.Scale.Y.Amount);
-                        var new_Z = RandomNumbers.RandomDouble(-transform.Scale.Z.Amount + 2.0, transform.Scale.Z.Amount);
+                        var new_X = RandomNumbers.RandomDouble(-ScaleX.Amount + 2.0, ScaleX.Amount);
+                        var new_Y = RandomNumbers.RandomDouble(-ScaleY.Amount + 2.0, ScaleY.Amount);
+                        var new_Z = RandomNumbers.RandomDouble(-ScaleZ.Amount + 2.0, ScaleZ.Amount);
 
                         var aX = new_X * org_X;
                         var aY = new_Y * org_Y;
@@ -129,16 +188,15 @@ namespace CMiX.MVVM.ViewModels
                         NextScale[index] = new Vector3D(aX, aY, aZ);
                     }
 
-
                     if (RandomizeRotation)
                     {
                         var org_X = transform.Rotation.X.Amount;
                         var org_Y = transform.Rotation.Y.Amount;
                         var org_Z = transform.Rotation.Z.Amount;
 
-                        var new_X = RandomNumbers.RandomDouble(-transform.Rotation.X.Amount + 2.0, transform.Rotation.X.Amount);
-                        var new_Y = RandomNumbers.RandomDouble(-transform.Rotation.Y.Amount + 2.0, transform.Rotation.Y.Amount);
-                        var new_Z = RandomNumbers.RandomDouble(-transform.Rotation.Z.Amount + 2.0, transform.Rotation.Z.Amount);
+                        var new_X = RandomNumbers.RandomDouble(-RotationX.Amount + 2.0, RotationX.Amount);
+                        var new_Y = RandomNumbers.RandomDouble(-RotationY.Amount + 2.0, RotationY.Amount);
+                        var new_Z = RandomNumbers.RandomDouble(-RotationZ.Amount + 2.0, RotationZ.Amount);
 
                         var aX = new_X * org_X;
                         var aY = new_Y * org_Y;
@@ -150,8 +208,14 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public override void UpdateOnGameLoop(double period, ITransformModifier transformModifier)
+        public void UpdateOnGameLoop(double period)
         {
+            if(Transforms.Count != PreviousLocation.Length)
+            {
+
+            }
+
+
             foreach (var transform in Transforms)
             {
                 var index = Transforms.IndexOf(transform);
@@ -209,6 +273,11 @@ namespace CMiX.MVVM.ViewModels
                     }
                 }
             }
+        }
+
+        public override void Receive(Message message)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

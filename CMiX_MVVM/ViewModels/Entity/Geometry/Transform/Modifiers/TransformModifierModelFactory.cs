@@ -4,7 +4,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public static class TransformModifierModelFactory
     {
-        public static ITransformModifierModel GetModel(this TransformModifier instance)
+        public static ITransformModifierModel GetModel(this ITransformModifier instance)
         {
             if (instance is RandomXYZ)
                 return ((RandomXYZ)instance).GetModel();
@@ -13,7 +13,7 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public static void SetViewModel(this TransformModifier instance, ITransformModifierModel model)
+        public static void SetViewModel(this ITransformModifier instance, ITransformModifierModel model)
         {
             instance.Name = model.Name;
             instance.ID = model.ID;

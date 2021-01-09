@@ -1,14 +1,15 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Media.Media3D;
+﻿using System;
+using System.Collections.ObjectModel;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public interface ITransformModifier
+    public interface ITransformModifier : IDisposable
     {
         string Name { get; set; }
+        int ID { get; set; }
         ObservableCollection<Transform> Transforms { get; set; }
-        Vector3D[] Location { get; set; }
-        Vector3D[] Scale { get; set; }
-        Vector3D[] Rotation { get; set; }
+        ModifierType SelectedModifierType { get; set; }
+        void UpdateOnBeatTick(double period);
+        void UpdateOnGameLoop(double period);
     }
 }

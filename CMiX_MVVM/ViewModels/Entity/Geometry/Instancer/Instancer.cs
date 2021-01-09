@@ -14,10 +14,10 @@ namespace CMiX.MVVM.ViewModels
             Transform = new Transform(nameof(Transform), this);
 
             NoAspectRatio = false;
-            TransformModifiers = new ObservableCollection<TransformModifier>();
+            TransformModifiers = new ObservableCollection<ITransformModifier>();
 
             AddTransformModifierCommand = new RelayCommand(p => AddTransformModifier((TransformModifierNames)p));
-            RemoveTransformModifierCommand = new RelayCommand(p => RemoveTransformModifier(p as TransformModifier));
+            RemoveTransformModifierCommand = new RelayCommand(p => RemoveTransformModifier(p as ITransformModifier));
         }
 
         public ICommand AddTransformModifierCommand { get; set; }
@@ -54,6 +54,8 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
+
+
         private bool _noAspectRatio;
         public bool NoAspectRatio
         {
@@ -64,8 +66,8 @@ namespace CMiX.MVVM.ViewModels
         public Transform Transform { get; set; }
 
 
-        private ObservableCollection<TransformModifier> _transformModifiers;
-        public ObservableCollection<TransformModifier> TransformModifiers
+        private ObservableCollection<ITransformModifier> _transformModifiers;
+        public ObservableCollection<ITransformModifier> TransformModifiers
         {
             get => _transformModifiers;
             set => SetAndNotify(ref _transformModifiers, value);
@@ -79,10 +81,21 @@ namespace CMiX.MVVM.ViewModels
             this.Send(message);
         }
 
-        public void RemoveTransformModifier(TransformModifier transformModifier)
+        public void RemoveTransformModifier(ITransformModifier transformModifier)
         {
             transformModifier.Dispose();
             this.TransformModifiers.Remove(transformModifier);
+        }
+
+        public void UpdateOnBeatTick(double period)
+        {
+            for (int i = TransformModifiers.Count - 1; i >= 0; i--)
+            {
+                if(TransformModifiers[i].SelectedModifierType == ModifierType.GROUP)
+                {
+
+                }
+            }
         }
     }
 }

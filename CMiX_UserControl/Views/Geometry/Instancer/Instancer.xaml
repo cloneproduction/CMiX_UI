@@ -23,7 +23,10 @@
             <Resources:EnumToStringConverter x:Key="EnumToString" />
 
             <DataTemplate x:Key="TranslateXYZTemplate" DataType="{x:Type ViewModels:TranslateModifier}">
-                <Expander Header="TranslateXYZ" Margin="4, 2" Template="{StaticResource ModifierExpanderTemplate}">
+                <Expander
+                    Header="TranslateXYZ" 
+                    Margin="4, 2" 
+                    Template="{StaticResource ModifierExpanderTemplate}">
                     <StackPanel Margin="8">
                         <Views:Range Margin="0, 0, 0, 8"  DataContext="{Binding Range}"/>
                         <ComboBox />
@@ -32,7 +35,11 @@
             </DataTemplate>
 
             <DataTemplate x:Key="RandomXYZTemplate" DataType="{x:Type ViewModels:TranslateModifier}">
-                <Expander Header="RandomXYZ" Margin="0, 2" Template="{StaticResource ModifierExpanderTemplate}">
+                <Expander
+                    IsExpanded="{Binding IsExpanded}"
+                    Header="RandomXYZ" 
+                    Margin="0, 2" 
+                    Template="{StaticResource ModifierExpanderTemplate}">
                     <Views:RandomXYZ DataContext="{Binding}"/>
                 </Expander>
             </DataTemplate>

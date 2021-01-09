@@ -152,7 +152,6 @@
     <Compile Include="ViewModels\AnimParameter\IParameter.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\IModifier.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\RandomXYZ.cs" />
-    <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\TransformModifier.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\TransformModifierFactory.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\TransformModifierModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\TransformModifierNames.cs" />
