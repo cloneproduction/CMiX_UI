@@ -4,7 +4,7 @@
     xmlns:Controls="clr-namespace:CMiX.MVVM.Controls">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Border.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/Border.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     
     <ControlTemplate x:Key="DefaultToggleButtonTemplate" TargetType="{x:Type ToggleButton}">
@@ -26,7 +26,7 @@
                     <Condition Property="IsChecked" Value="true" />
                 </MultiTrigger.Conditions>
                 <MultiTrigger.Setters>
-                    <Setter Property="Background" Value="{DynamicResource Color}" />
+                    <Setter Property="Background" Value="{DynamicResource Accent}" />
                     <Setter TargetName="Path" Property="Visibility" Value="Visible"/>
                 </MultiTrigger.Setters>
             </MultiTrigger>
@@ -46,7 +46,7 @@
                     <Condition Property="IsMouseOver" Value="true" />
                 </MultiTrigger.Conditions>
                 <MultiTrigger.Setters>
-                    <Setter Property="Background" Value="{DynamicResource LightColor}" />
+                    <Setter Property="Background" Value="{DynamicResource AccentLight1}" />
                 </MultiTrigger.Setters>
             </MultiTrigger>
             <MultiTrigger>
@@ -98,10 +98,9 @@
                     </Style>
                 </Border.Style>
                 <Border
-                     Height="14" Width="14"
+                    Height="14" Width="14"
                     CornerRadius="2"
                     Padding="2"
-                    
                     Background="{TemplateBinding Background}"
                     SnapsToDevicePixels="True">
                     <Image x:Name="Path" Opacity="0.75" Source="{DynamicResource IsChecked}"/>
@@ -122,7 +121,7 @@
                     <Condition Property="IsChecked" Value="true" />
                 </MultiTrigger.Conditions>
                 <MultiTrigger.Setters>
-                    <Setter Property="Background" Value="{DynamicResource Color}" />
+                    <Setter Property="Background" Value="{DynamicResource Accent}" />
                     <Setter TargetName="Path" Property="Visibility" Value="Visible"/>
                     <Setter TargetName="textBlock" Property="Opacity" Value="1.0"/>
                 </MultiTrigger.Setters>
@@ -145,7 +144,7 @@
                     <Condition Property="IsMouseOver" Value="true" />
                 </MultiTrigger.Conditions>
                 <MultiTrigger.Setters>
-                    <Setter Property="Background" Value="{DynamicResource LightColor}" />
+                    <Setter Property="Background" Value="{DynamicResource AccentLight1}" />
                     <Setter TargetName="textBlock" Property="Opacity" Value="1.0"/>
                 </MultiTrigger.Setters>
             </MultiTrigger>

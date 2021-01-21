@@ -4,10 +4,10 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
-using CMiX.MVVM.Resources;
+
 using CMiX.MVVM.Tools;
 
-namespace CMiX.MVVM.Controls.ColorPicker
+namespace CMiX.MVVM.Controls
 {
     public class XYColorControl : Control
     {

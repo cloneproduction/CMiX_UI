@@ -35,7 +35,7 @@
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/ScrollViewer.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/ToolTip.xaml"/>
 
-
+        <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/ColorPicker.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/ComboBox.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/DataGrid.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/TextBox.xaml"/>

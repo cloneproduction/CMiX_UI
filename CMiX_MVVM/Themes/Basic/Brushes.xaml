@@ -17,4 +17,8 @@
     <SolidColorBrush x:Key="TextBase" Color="{DynamicResource Text}" />
     <SolidColorBrush x:Key="OverTextBase" Color="{DynamicResource OverText}" />
     <SolidColorBrush x:Key="ActiveTextBase" Color="{DynamicResource ActiveText}" />
+
+    <SolidColorBrush x:Key="AccentLight1" Color="{DynamicResource AccentColorLight1}" />
+    <SolidColorBrush x:Key="Accent" Color="{DynamicResource AccentColor}" />
+    <SolidColorBrush x:Key="AccentDark" Color="{DynamicResource AccentColorDark1}" />
 </ResourceDictionary>

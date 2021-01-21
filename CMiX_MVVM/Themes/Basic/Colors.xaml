@@ -14,8 +14,11 @@
     <Color x:Key="SuperHighLight">#FFb3b3b3</Color>
     
     <Color x:Key="Over">#FF4D4D4D</Color>
-    <Color x:Key="Active">#FF7D00FF</Color>
 
+    <Color x:Key="AccentColorLight1">#FF9733ff</Color>
+    <Color x:Key="AccentColor">#FF7D00FF</Color>
+    <Color x:Key="AccentColorDark1">#FF6400cc</Color>
+    
     <Color x:Key="Text">#FFcccccc</Color>
     <Color x:Key="OverText">#FFFFFFFF</Color>
     <Color x:Key="ActiveText">#FFE6E6E6</Color>

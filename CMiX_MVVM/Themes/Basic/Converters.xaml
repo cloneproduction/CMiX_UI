@@ -9,7 +9,7 @@
     <Converters:ValToColorConverter x:Key="ValToColor" />
     <Converters:DoubleToInvertedConverter x:Key="DoubleToInverted" />
     <Converters:ByteToNormalizedDoubleConverter x:Key="ByteToNormalizedDouble"/>
-
+    <Converters:DoubleToStringConverter x:Key="DoubleToString"/>
     <Converters:ColorToHexConverter x:Key="ColorToHex"/>
     <Converters:DoubleToDividedConverter x:Key="DoubleToDivided"/>
     <Converters:ByteToStringConverter x:Key="ByteToString"/>

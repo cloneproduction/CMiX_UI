@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Tools="clr-namespace:CMiX.MVVM.Tools;assembly=CMiX.MVVM"
+             xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
              xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
              mc:Ignorable="d" 
              d:DesignHeight="462.78" 
@@ -21,7 +22,8 @@
                 Margin="0, 4" 
                 Padding="8" 
                 Style="{StaticResource BorderContainer}">
-                <MVVM.Views:ColorPicker DataContext="{Binding ColorPicker}"/>
+                <Controls:ColorPicker SelectedColor="{Binding Path=ColorPicker.SelectedColor}" Style="{StaticResource ColorPickerStyle}"/>
+                <!--<MVVM.Views:ColorPicker DataContext="{Binding ColorPicker}"/>-->
             </Border>
         </Expander>
     </StackPanel>

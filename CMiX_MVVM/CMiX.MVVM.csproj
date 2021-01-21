@@ -99,6 +99,7 @@
     <Compile Include="Controls\Beat\BeatDisplay.cs" />
     <Compile Include="Controls\Beat\BeatMasterController.cs" />
     <Compile Include="Controls\Beat\AnimatedDouble.cs" />
+    <Compile Include="Controls\ColorPicker\ColorPicker.cs" />
     <Compile Include="Controls\Popup\CMiXPopup.cs" />
     <Compile Include="Controls\Slider\CMiXRangeSlider.xaml.cs">
       <DependentUpon>CMiXRangeSlider.xaml</DependentUpon>
@@ -429,6 +430,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Styles\BeatController\MasterBeatController.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Styles\ColorPicker.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

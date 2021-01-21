@@ -4,7 +4,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace CMiX.MVVM.Controls.ColorPicker
+namespace CMiX.MVVM.Controls
 {
     public class XYController : Control
     {

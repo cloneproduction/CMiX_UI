@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace CMiX.MVVM.Controls.ColorPicker
+namespace CMiX.MVVM.Controls
 {
     class HSVSlider : Slider
     {
