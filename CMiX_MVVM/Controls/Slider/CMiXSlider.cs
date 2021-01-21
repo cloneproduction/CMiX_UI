@@ -1,4 +1,4 @@
-﻿using CMiX.MVVM.Resources;
+﻿using CMiX.MVVM.Tools;
 using System;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;

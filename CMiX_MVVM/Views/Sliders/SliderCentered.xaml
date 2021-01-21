@@ -4,14 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views"
-             xmlns:Resources="clr-namespace:CMiX.MVVM.Resources"
+             xmlns:Tools="clr-namespace:CMiX.MVVM.Tools"
              mc:Ignorable="d" 
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              d:DesignHeight="32.055" d:DesignWidth="383.834">
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
+            <Tools:BindingProxy x:Key="proxy" Data="{Binding}" />
         </ResourceDictionary>
     </UserControl.Resources>
 

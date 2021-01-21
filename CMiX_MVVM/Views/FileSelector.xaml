@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:Resources="clr-namespace:CMiX.MVVM.Resources"
+             xmlns:Converters="clr-namespace:CMiX.MVVM.Tools.Converters"
              xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views"
              xmlns:dd="urn:gong-wpf-dragdrop"
              mc:Ignorable="d" 
@@ -11,7 +11,7 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <Resources:PathToFilenameConverter x:Key="PathToFileName" />
+            <Converters:PathToFilenameConverter x:Key="PathToFileName" />
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -38,24 +38,20 @@
                         Command="{Binding ClearSelectedCommand}"
                         FontSize="11"
                         Header="Clear Selected"
-                        Template="{StaticResource SubMenuItemBase}" 
-                        />
+                        Template="{StaticResource SubMenuItemBase}" />
                     <MenuItem
                         Command="{Binding ClearUnselectedCommand}"
                         FontSize="11"
                         Header="Clear Unselected"
-                        Template="{DynamicResource SubMenuItemBase}" 
-                        />
+                        Template="{DynamicResource SubMenuItemBase}" />
                     <Separator 
                         HorizontalAlignment="Stretch" 
-                        Background="{StaticResource Color}" 
-                        />
+                        Background="{StaticResource Color}" />
                     <MenuItem
                         Command="{Binding ClearAllCommand}"
                         FontSize="11"
                         Header="Clear All"
-                        Template="{StaticResource SubMenuItemBase}" 
-                        />
+                        Template="{StaticResource SubMenuItemBase}" />
                 </MenuItem>
             </Menu>
 

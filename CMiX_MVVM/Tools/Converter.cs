@@ -10,7 +10,7 @@ using System.Windows.Data;
 using System.Windows.Markup;
 using System.Windows.Media;
 
-namespace CMiX.MVVM.Resources
+namespace CMiX.MVVM.Tools.Converters
 {
     public class DataTypeConverter : IValueConverter
     {

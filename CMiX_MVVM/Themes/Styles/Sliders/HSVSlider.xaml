@@ -1,16 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:Resources="clr-namespace:CMiX.MVVM.Resources"
+                    xmlns:Converters="clr-namespace:CMiX.MVVM.Tools.Converters"
                     xmlns:local="clr-namespace:CMiX.MVVM.Controls.ColorPicker">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary>
-                    <Resources:ColorToHSVControledConverter x:Key="ColorToHSVControled"/>
-                </ResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Basic/Converters.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
     

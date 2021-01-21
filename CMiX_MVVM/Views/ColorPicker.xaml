@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              
-             xmlns:Resources="clr-namespace:CMiX.MVVM.Resources"
+             xmlns:Tools="clr-namespace:CMiX.MVVM.Tools.Converters"
              xmlns:local="clr-namespace:CMiX.MVVM.Controls.ColorPicker"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -15,14 +15,14 @@
     
     <UserControl.Resources>
         <ResourceDictionary>
-            <Resources:ColorToHexConverter x:Key="ColorToHex"/>
-            <Resources:DoubleToDividedConverter x:Key="DoubleToDivided"/>
-            <Resources:ByteToStringConverter x:Key="ByteToString"/>
-            <Resources:ColorToSliderBgColorConverter x:Key="ColorToSliderBgColor"/>
-            <Resources:IntToStringWithMaxConverter x:Key="IntToStringWithMax"/>
-            <Resources:HueValToColorConverter x:Key="HueValToColor"/>
-            <Resources:HueSatToColorConverter x:Key="HueSatToColor"/>
-            <Resources:BoolToVisibilityConverter x:Key="BoolToVisibility"/>
+            <Tools:ColorToHexConverter x:Key="ColorToHex"/>
+            <Tools:DoubleToDividedConverter x:Key="DoubleToDivided"/>
+            <Tools:ByteToStringConverter x:Key="ByteToString"/>
+            <Tools:ColorToSliderBgColorConverter x:Key="ColorToSliderBgColor"/>
+            <Tools:IntToStringWithMaxConverter x:Key="IntToStringWithMax"/>
+            <Tools:HueValToColorConverter x:Key="HueValToColor"/>
+            <Tools:HueSatToColorConverter x:Key="HueSatToColor"/>
+            <Tools:BoolToVisibilityConverter x:Key="BoolToVisibility"/>
         </ResourceDictionary>
     </UserControl.Resources>
     

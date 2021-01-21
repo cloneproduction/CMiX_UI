@@ -1,0 +1,24 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Converters="clr-namespace:CMiX.MVVM.Tools.Converters">
+
+    <Converters:RangeValueToStringConverter x:Key="RangeValueToString" />
+    <Converters:IntToNormalizedDoubleConverter x:Key="IntToNormalizedDoubleConverter" />
+    <Converters:HueToColorConverter x:Key="HueToColor" />
+    <Converters:DoubleToColorSatConverter x:Key="ColorToSatInverted" />
+    <Converters:ValToColorConverter x:Key="ValToColor" />
+    <Converters:DoubleToInvertedConverter x:Key="DoubleToInverted" />
+    <Converters:ByteToNormalizedDoubleConverter x:Key="ByteToNormalizedDouble"/>
+
+    <Converters:ColorToHexConverter x:Key="ColorToHex"/>
+    <Converters:DoubleToDividedConverter x:Key="DoubleToDivided"/>
+    <Converters:ByteToStringConverter x:Key="ByteToString"/>
+    <Converters:ColorToSliderBgColorConverter x:Key="ColorToSliderBgColor"/>
+    <Converters:IntToStringWithMaxConverter x:Key="IntToStringWithMax"/>
+    <Converters:HueValToColorConverter x:Key="HueValToColor"/>
+    <Converters:HueSatToColorConverter x:Key="HueSatToColor"/>
+    <Converters:BoolToVisibilityConverter x:Key="BoolToVisibility"/>
+    
+    <Converters:PathToFilenameConverter x:Key="PathToFileName" />
+    <Converters:ColorToHSVControledConverter x:Key="ColorToHSVControled"/>
+</ResourceDictionary>

@@ -8,7 +8,8 @@
              
              xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX.MVVM"
              xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
-             xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
+             xmlns:Tools="clr-namespace:CMiX.MVVM.Tools;assembly=CMiX.MVVM"
+             xmlns:Converters="clr-namespace:CMiX.MVVM.Tools.Converters;assembly=CMiX.MVVM"
              xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
              
              xmlns:System="clr-namespace:System;assembly=mscorlib"
@@ -26,11 +27,11 @@
                     <x:Type TypeName="ViewModels:BlendModeEnum"/>
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
-            
-            <Resources:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
-            <Resources:BindingProxy x:Key="CompositionProxy" Data="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type Views:Composition}}}"/>
-            <Resources:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
-            <Resources:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+
+            <Tools:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
+            <Tools:BindingProxy x:Key="CompositionProxy" Data="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type Views:Composition}}}"/>
+            <Converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+            <Converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
 
 
             <DataTemplate DataType="{x:Type ViewModels:Entity}">

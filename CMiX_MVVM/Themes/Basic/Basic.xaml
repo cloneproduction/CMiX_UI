@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Basic/Converters.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Basic/Brushes.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Basic/Colors.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Basic/Icons.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Basic/Values.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

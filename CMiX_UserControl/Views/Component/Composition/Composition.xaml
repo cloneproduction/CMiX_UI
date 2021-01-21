@@ -4,7 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:CMiX="clr-namespace:CMiX"
     xmlns:Behavior="clr-namespace:CMiX.MVVM.Behaviors;assembly=CMiX.MVVM"
-    xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
+    xmlns:Tools="clr-namespace:CMiX.MVVM.Tools;assembly=CMiX.MVVM"
+    xmlns:Converters="clr-namespace:CMiX.MVVM.Tools.Converters;assembly=CMiX.MVVM"
     xmlns:Views="clr-namespace:CMiX.Studio.Views"
     xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -17,10 +18,9 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <Resources:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
+            <Tools:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
             <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
-            <Resources:AlwaysVisibleConverter x:Key="AlwaysVisibleConverter"/>
-            <Resources:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+            <Converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
      
@@ -43,10 +43,6 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <DockPanel Grid.Column="0">
-                <!--<Views:MessengerService 
-                    Margin="4"
-                    DockPanel.Dock="Top"
-                    DataContext="{Binding MessageValidationManager}"/>-->
                 <MVVM.Views:Slider
                     DockPanel.Dock="Top"
                     Margin="0, 8, 0, 0"

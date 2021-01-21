@@ -99,18 +99,18 @@
     <Compile Include="Controls\Beat\BeatDisplay.cs" />
     <Compile Include="Controls\Beat\BeatMasterController.cs" />
     <Compile Include="Controls\Beat\AnimatedDouble.cs" />
-    <Compile Include="Controls\CMiXPopup.cs" />
-    <Compile Include="Controls\CMiXRangeSlider.xaml.cs">
+    <Compile Include="Controls\Popup\CMiXPopup.cs" />
+    <Compile Include="Controls\Slider\CMiXRangeSlider.xaml.cs">
       <DependentUpon>CMiXRangeSlider.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CMiXSlider.cs" />
-    <Compile Include="Controls\ColorPicker\Controls\ColorHex.cs" />
-    <Compile Include="Controls\ColorPicker\Controls\ColorSlider.cs" />
-    <Compile Include="Controls\ColorPicker\Controls\HsvSlider.cs" />
-    <Compile Include="Controls\ColorPicker\Controls\HueSlider.cs" />
-    <Compile Include="Controls\ColorPicker\Controls\HueWheel.cs" />
-    <Compile Include="Controls\ColorPicker\Controls\XYColorControl.cs" />
-    <Compile Include="Controls\ColorPicker\Controls\XYController.cs" />
+    <Compile Include="Controls\Slider\CMiXSlider.cs" />
+    <Compile Include="Controls\ColorPicker\ColorHex.cs" />
+    <Compile Include="Controls\ColorPicker\ColorSlider.cs" />
+    <Compile Include="Controls\ColorPicker\HsvSlider.cs" />
+    <Compile Include="Controls\ColorPicker\HueSlider.cs" />
+    <Compile Include="Controls\ColorPicker\HueWheel.cs" />
+    <Compile Include="Controls\ColorPicker\XYColorControl.cs" />
+    <Compile Include="Controls\ColorPicker\XYController.cs" />
     <Compile Include="Controls\Counter\Counter.cs" />
     <Compile Include="Controls\ToggleButton\CMiXToggleButton.cs" />
     <Compile Include="Controls\ToggleButton\ToggleDockPosition.cs" />
@@ -212,18 +212,18 @@
     <Compile Include="Views\ColorPicker.xaml.cs">
       <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\DistanceSlider\DistanceSlider.cs" />
-    <Compile Include="Controls\DistanceSlider\MouseDownAttachedProperty.cs" />
-    <Compile Include="Controls\EditableTextBox.xaml.cs">
+    <Compile Include="Controls\Slider\DistanceSlider.cs" />
+    <Compile Include="Controls\MouseDownAttachedProperty.cs" />
+    <Compile Include="Controls\TextBox\EditableTextBox.xaml.cs">
       <DependentUpon>EditableTextBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\EditableTextBox.cs" />
-    <Compile Include="Controls\EditableValue.xaml.cs">
+    <Compile Include="Controls\TextBox\EditableTextBox.cs" />
+    <Compile Include="Controls\TextBox\EditableValue.xaml.cs">
       <DependentUpon>EditableValue.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ExpanderLayerList.cs" />
-    <Compile Include="Controls\TreeViewMultiSelect.cs" />
-    <Compile Include="Controls\TreeViewSelect.cs" />
+    <Compile Include="Controls\Expander\ExpanderLayerList.cs" />
+    <Compile Include="Controls\TreeView\TreeViewMultiSelect.cs" />
+    <Compile Include="Controls\TreeView\TreeViewSelect.cs" />
     <Compile Include="Models\Assets\AssetModel.cs" />
     <Compile Include="Models\Assets\AssetPathSelectorModel.cs" />
     <Compile Include="Models\Assets\AssetManagerModel.cs" />
@@ -245,8 +245,8 @@
     <Compile Include="Models\BlendModeModel.cs" />
     <Compile Include="Models\Interfaces\IModel.cs" />
     <Compile Include="Models\Component\EntityModel.cs" />
-    <Compile Include="Controls\DistanceSlider\ControlPositionEnum.cs" />
-    <Compile Include="Themes\MainWindow.xaml.cs" />
+    <Compile Include="Controls\ControlPositionEnum.cs" />
+    <Compile Include="Themes\Styles\MainWindow.xaml.cs" />
     <Compile Include="ViewModels\Assets\Asset.cs" />
     <Compile Include="ViewModels\Assets\AssetDirectory.cs" />
     <Compile Include="ViewModels\Assets\AssetDragDrop.cs" />
@@ -330,10 +330,10 @@
     <Compile Include="Views\Sliders\SliderInfinite.xaml.cs">
       <DependentUpon>SliderInfinite.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\IPBox.xaml.cs">
+    <Compile Include="Controls\IPBox\IPBox.xaml.cs">
       <DependentUpon>IPBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\RangeSlider.cs" />
+    <Compile Include="Controls\Slider\RangeSlider.cs" />
     <Compile Include="Models\Beat\BeatModifierModel.cs" />
     <Compile Include="Models\CameraModel.cs" />
     <Compile Include="Models\ColorationModel.cs" />
@@ -358,11 +358,11 @@
     <Compile Include="Models\SliderModel.cs" />
     <Compile Include="Models\TextureModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\BindingProxy.cs" />
-    <Compile Include="Resources\ColorUtils.cs" />
-    <Compile Include="Resources\Converter.cs" />
-    <Compile Include="Resources\MyHelper.cs" />
-    <Compile Include="Resources\Utils.cs" />
+    <Compile Include="Tools\BindingProxy.cs" />
+    <Compile Include="Tools\ColorUtils.cs" />
+    <Compile Include="Tools\Converter.cs" />
+    <Compile Include="Tools\MyHelper.cs" />
+    <Compile Include="Tools\Utils.cs" />
     <Compile Include="ViewModels\BaseViewModel\RelayCommand.cs" />
     <Compile Include="ViewModels\BaseViewModel\ViewModel.cs" />
     <Compile Include="ViewModels\_Enums\MaskControlType.cs" />
@@ -398,65 +398,69 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <Resource Include="Themes\Fonts\Roboto-Black.ttf" />
-    <Resource Include="Themes\Fonts\Roboto-BlackItalic.ttf" />
-    <Resource Include="Themes\Fonts\Roboto-Bold.ttf" />
-    <Resource Include="Themes\Fonts\Roboto-BoldItalic.ttf" />
-    <Resource Include="Themes\Fonts\Roboto-Italic.ttf" />
-    <Resource Include="Themes\Fonts\Roboto-Light.ttf" />
-    <Resource Include="Themes\Fonts\Roboto-LightItalic.ttf" />
-    <Resource Include="Themes\Fonts\Roboto-Medium.ttf" />
-    <Resource Include="Themes\Fonts\Roboto-MediumItalic.ttf" />
-    <Resource Include="Themes\Fonts\Roboto-Regular.ttf" />
-    <Resource Include="Themes\Fonts\Roboto-Thin.ttf" />
-    <Resource Include="Themes\Fonts\Roboto-ThinItalic.ttf" />
+    <Resource Include="Themes\Basic\Fonts\Roboto-Black.ttf" />
+    <Resource Include="Themes\Basic\Fonts\Roboto-BlackItalic.ttf" />
+    <Resource Include="Themes\Basic\Fonts\Roboto-Bold.ttf" />
+    <Resource Include="Themes\Basic\Fonts\Roboto-BoldItalic.ttf" />
+    <Resource Include="Themes\Basic\Fonts\Roboto-Italic.ttf" />
+    <Resource Include="Themes\Basic\Fonts\Roboto-Light.ttf" />
+    <Resource Include="Themes\Basic\Fonts\Roboto-LightItalic.ttf" />
+    <Resource Include="Themes\Basic\Fonts\Roboto-Medium.ttf" />
+    <Resource Include="Themes\Basic\Fonts\Roboto-MediumItalic.ttf" />
+    <Resource Include="Themes\Basic\Fonts\Roboto-Regular.ttf" />
+    <Resource Include="Themes\Basic\Fonts\Roboto-Thin.ttf" />
+    <Resource Include="Themes\Basic\Fonts\Roboto-ThinItalic.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\CMiXRangeSlider.xaml">
+    <Page Include="Controls\Slider\CMiXRangeSlider.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\BeatController\BeatTapButton.xaml">
+    <Page Include="Themes\Basic\Basic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\BeatController\MasterBeatController.xaml">
+    <Page Include="Themes\Basic\Converters.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Borders\BorderShadow.xaml">
+    <Page Include="Themes\Styles\BeatController\BeatTapButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Borders\BorderMask.xaml">
+    <Page Include="Themes\Styles\BeatController\MasterBeatController.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Counter.xaml">
+    <Page Include="Themes\Styles\Counter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Sliders\HSVSlider.xaml">
+    <Page Include="Themes\Styles\Sliders\HSVSlider.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Sliders\HueWheel.xaml">
+    <Page Include="Themes\Styles\Sliders\HueWheel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Sliders\RGBSlider.xaml">
+    <Page Include="Themes\Styles\Sliders\RGBSlider.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Sliders\SliderThumb.xaml">
+    <Page Include="Themes\Styles\Sliders\SliderThumb.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Sliders\XYController.xaml">
+    <Page Include="Themes\Styles\Sliders\XYController.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\TreeViewMultiSelect.xaml">
+    <Page Include="Themes\Styles\TreeViewMultiSelect.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Styles\Style.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -464,71 +468,71 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\EditableTextBox.xaml">
+    <Page Include="Controls\TextBox\EditableTextBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\IPBox.xaml">
+    <Page Include="Controls\IPBox\IPBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\EditableValue.xaml">
+    <Page Include="Controls\TextBox\EditableValue.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Values.xaml">
+    <Page Include="Themes\Basic\Values.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Window.xaml">
+    <Page Include="Themes\Styles\Window.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\TextBlock.xaml">
+    <Page Include="Themes\Styles\TextBlock.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\TextBoxEditable.xaml">
+    <Page Include="Themes\Styles\TextBoxEditable.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\TreeView.xaml">
+    <Page Include="Themes\Styles\TreeView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\GridSplitter.xaml">
+    <Page Include="Themes\Styles\GridSplitter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\DataGrid.xaml">
+    <Page Include="Themes\Styles\DataGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Borders\BorderContainer.xaml">
+    <Page Include="Themes\Styles\Border.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Brushes.xaml">
+    <Page Include="Themes\Basic\Brushes.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Button.xaml">
+    <Page Include="Themes\Styles\Button.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Colors.xaml">
+    <Page Include="Themes\Basic\Colors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\ComboBox.xaml">
+    <Page Include="Themes\Styles\ComboBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\ContextMenu.xaml">
+    <Page Include="Themes\Styles\ContextMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Expander.xaml">
+    <Page Include="Themes\Styles\Expander.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -536,55 +540,55 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Icons.xaml">
+    <Page Include="Themes\Basic\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Label.xaml">
+    <Page Include="Themes\Styles\Label.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\ListBox.xaml">
+    <Page Include="Themes\Styles\ListBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Menu.xaml">
+    <Page Include="Themes\Styles\Menu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\RadioButton.xaml">
+    <Page Include="Themes\Styles\RadioButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\RangeSlider.xaml">
+    <Page Include="Themes\Styles\RangeSlider.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\ScrollViewer.xaml">
+    <Page Include="Themes\Styles\ScrollViewer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Sliders\Slider.xaml">
+    <Page Include="Themes\Styles\Sliders\Slider.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Tab.xaml">
+    <Page Include="Themes\Styles\Tab.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\TextBox.xaml">
+    <Page Include="Themes\Styles\TextBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\ToggleButton.xaml">
+    <Page Include="Themes\Styles\ToggleButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\ToolTip.xaml">
+    <Page Include="Themes\Styles\ToolTip.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\MainWindow.xaml">
+    <Page Include="Themes\Styles\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -725,10 +729,8 @@
     </Resource>
     <Resource Include="Controls\ColorPicker\Assets\RedControllerBg.png" />
     <Resource Include="Assets\Sub.png" />
-    <Content Include="Themes\Fonts\LICENSE.txt" />
+    <Content Include="Themes\Basic\Fonts\LICENSE.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Themes\Modifiers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

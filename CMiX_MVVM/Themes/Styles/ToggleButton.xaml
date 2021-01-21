@@ -4,9 +4,7 @@
     xmlns:Controls="clr-namespace:CMiX.MVVM.Controls">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Borders/BorderMask.xaml"/>
-        <ResourceDictionary Source="Borders/BorderContainer.xaml"/>
-        <ResourceDictionary Source="Borders/BorderShadow.xaml"/>
+        <ResourceDictionary Source="Border.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     
     <ControlTemplate x:Key="DefaultToggleButtonTemplate" TargetType="{x:Type ToggleButton}">

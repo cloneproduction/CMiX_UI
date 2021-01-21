@@ -1,4 +1,4 @@
-﻿using CMiX.MVVM.Resources;
+﻿using CMiX.MVVM.Tools;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
 using System;

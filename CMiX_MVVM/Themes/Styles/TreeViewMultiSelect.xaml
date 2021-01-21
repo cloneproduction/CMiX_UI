@@ -3,29 +3,12 @@
                     
                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
                     xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-                    xmlns:Resources="clr-namespace:CMiX.MVVM.Resources"
+                    xmlns:Converters="clr-namespace:CMiX.MVVM.Tools.Converters"
                     xmlns:Controls="clr-namespace:CMiX.MVVM.Controls">
 
     <PathGeometry x:Key="TreeArrow" Figures="M0,0 L0,6 L6,0 z"/>
 
-    <Style x:Key="TreeViewItemFocusVisual">
-        <Setter Property="Control.Template">
-            <Setter.Value>
-                <ControlTemplate>
-                    <Border>
-                        <Rectangle 
-                            Margin="0,0,0,0"
-                            StrokeThickness="5"
-                            Stroke="Black"
-                            StrokeDashArray="1 2"
-                            Opacity="0"/>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="ExpandCollapseToggleStyle" TargetType="{x:Type ToggleButton}">
+    <Style x:Key="ExpandCollapseToggleMultiStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Focusable" Value="False"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -69,45 +52,22 @@
         </Setter>
     </Style>
 
-    
-    <Style x:Key="TreeViewDefault" TargetType="{x:Type TreeView}">
-        <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
-        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type TreeView}">
-                    <Border Name="Border" Background="{DynamicResource HighDarkerColor}">
-                        <ScrollViewer Focusable="False" CanContentScroll="False" Padding="4">
-                            <ItemsPresenter />
-                        </ScrollViewer>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="false">
-                            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    
-    <Style x:Key="TreeViewItemDefault" TargetType="{x:Type TreeViewItem}">
+    <Style x:Key="TreeViewMultiSelectItem" TargetType="{x:Type TreeViewItem}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="{Binding Path=VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
         <Setter Property="Padding" Value="1,0,0,0" />
         <Setter Property="Foreground" Value="{DynamicResource TextBase}" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource TreeViewItemFocusVisual}" />
+        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+        <Setter Property="Controls:MultiSelectTreeView.IsItemSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <!--<Setter Property="FocusVisualStyle" Value="{DynamicResource TreeViewItemFocusVisual}" />-->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TreeViewItem}">
                     <ControlTemplate.Resources>
-                        <Resources:LeftMarginMultiplierConverter Length="19" x:Key="lengthConverter" />
+                        <Converters:LeftMarginMultiplierConverter Length="19" x:Key="lengthConverter" />
                     </ControlTemplate.Resources>
-                    <StackPanel>
+                    <StackPanel MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ContentPresenter, AncestorLevel=1}}">
                         <Border Name="Bd">
                             <Border.Style>
                                 <Style TargetType="{x:Type Border}">
@@ -121,47 +81,27 @@
                                     </Style.Triggers>
                                 </Style>
                             </Border.Style>
-                            
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="PreviewMouseRightButtonDown">
-                                    <ei:ChangePropertyAction PropertyName="IsSelected" Value="true" TargetObject="{Binding}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-
-                            <DockPanel>
-                                <Border 
-                                    DockPanel.Dock="Left" 
-                                    Height="30" 
-                                    Width="30" 
-                                    BorderBrush="{DynamicResource SuperHighDarkerColor}" 
-                                    BorderThickness="0, 0, 1, 0">
-                                    <ToggleButton 
-                                        IsChecked="{Binding IsVisible}"
-                                        Style="{DynamicResource ToggleVisibility}"
-                                        VerticalAlignment="Center">
-                                    </ToggleButton>
+                            <Grid Margin="{Binding Converter={StaticResource lengthConverter}, RelativeSource={RelativeSource TemplatedParent}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="19" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Border x:Name="toggleBorder">
+                                    <ToggleButton x:Name="Expander"
+                                        Style="{DynamicResource ExpandCollapseToggleMultiStyle}"
+                                        IsChecked="{Binding Path=IsExpanded,
+                                        RelativeSource={RelativeSource TemplatedParent}}"
+                                        ClickMode="Press"/>
                                 </Border>
-                                <Grid Grid.Column="1" Margin="{Binding Converter={StaticResource lengthConverter}, RelativeSource={RelativeSource TemplatedParent}}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="19" />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <Border x:Name="toggleBorder">
-                                        <ToggleButton x:Name="Expander"
-                                            Style="{DynamicResource ExpandCollapseToggleStyle}"
-                                            IsChecked="{Binding Path=IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
-                                            ClickMode="Press"/>
-                                    </Border>
-                                    <ContentPresenter x:Name="PART_Header"
-                                        Grid.Column="1"
-                                        ContentSource="Header"
-                                        VerticalAlignment="Stretch"
-                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
-                                </Grid>
-                            </DockPanel>
+                                <ContentPresenter x:Name="PART_Header"
+                                    Grid.Column="1"
+                                    ContentSource="Header"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                            </Grid>
                         </Border>
                         <Border x:Name="presenterBg" Background="Transparent">
-                            <ItemsPresenter Grid.Column="1" x:Name="ItemsHost" />
+                            <ItemsPresenter x:Name="ItemsHost" />
                         </Border>
                     </StackPanel>
 
@@ -190,42 +130,55 @@
                             </MultiTrigger.Conditions>
                             <Setter TargetName="PART_Header" Property="MinHeight" Value="19"/>
                         </MultiTrigger>
-                        
-                        <Trigger Property="IsSelected" Value="true">
-                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource Color}"/>
-                            <Setter TargetName="PART_Header" Property="TextBlock.Foreground" Value="{DynamicResource ActiveTextBase}"/>
-                        </Trigger>
 
                         <Trigger Property="Controls:MultiSelectTreeView.IsItemSelected" Value="true">
                             <Setter TargetName="Bd" Property="Background" Value="{DynamicResource Color}"/>
                             <Setter TargetName="PART_Header" Property="TextBlock.Foreground" Value="{DynamicResource ActiveTextBase}"/>
                         </Trigger>
-                        
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="Controls:MultiSelectTreeView.IsItemSelected" Value="true"/>
-                                <Condition Property="IsSelectionActive" Value="false"/>
-                            </MultiTrigger.Conditions>
-                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource Color}"/>
-                            <Setter TargetName="PART_Header" Property="TextBlock.Foreground" Value="{DynamicResource ActiveTextBase}"/>
-                        </MultiTrigger>
 
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsSelected}" Value="false"/>
+                                <Condition Binding="{Binding FileExist}" Value="false"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter TargetName="Bd" Property="Background" Value="Maroon" />
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsSelected}" Value="true"/>
+                                <Condition Binding="{Binding FileExist}" Value="false"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter TargetName="Bd" Property="Background" Value="Maroon" />
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+
+                        <DataTrigger Binding="{Binding FileExist}" Value="false">
+                            <Setter Property="Background" Value="Maroon" />
+                        </DataTrigger>
+
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <!--<Style.Triggers>
-                <Trigger Property="VirtualizingPanel.IsVirtualizing" Value="true">
-                    <Setter Property="ItemsPanel">
-                        <Setter.Value>
-                            <ItemsPanelTemplate>
-                                <VirtualizingStackPanel/>
-                            </ItemsPanelTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>-->
+        
+        <Style.Triggers>
+            <Trigger Property="VirtualizingPanel.IsVirtualizing" Value="true">
+                <Setter Property="ItemsPanel">
+                    <Setter.Value>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
     </Style>
-
     
 </ResourceDictionary>

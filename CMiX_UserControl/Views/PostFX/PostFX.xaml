@@ -6,7 +6,7 @@
     xmlns:Views="clr-namespace:CMiX.Studio.Views"
     xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views;assembly=CMiX.MVVM"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
-    xmlns:Resources="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
+    xmlns:Tools="clr-namespace:CMiX.MVVM.Tools;assembly=CMiX.MVVM"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="227"
@@ -14,7 +14,7 @@
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <Resources:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
+        <Tools:BindingProxy x:Key="ProjectProxy" Data="{Binding}" />
         <ObjectDataProvider x:Key="PostFXTransforms" MethodName="GetNames" ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="ViewModels:PostFXTransforms"/>

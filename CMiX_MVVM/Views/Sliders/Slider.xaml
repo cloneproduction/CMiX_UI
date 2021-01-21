@@ -6,14 +6,15 @@
              xmlns:MVVM.Views="clr-namespace:CMiX.MVVM.Views"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:Controls="clr-namespace:CMiX.MVVM.Controls"
-             xmlns:Resources="clr-namespace:CMiX.MVVM.Resources"
+             xmlns:Converters="clr-namespace:CMiX.MVVM.Tools.Converters"
+             xmlns:Tools="clr-namespace:CMiX.MVVM.Tools"
              mc:Ignorable="d" 
              d:DesignHeight="27.833" d:DesignWidth="387.167">
     
     <UserControl.Resources>
         <ResourceDictionary>
-            <Resources:BindingProxy x:Key="proxy" Data="{Binding}" />
-            <Resources:BoolToVisibilityConverter x:Key="BoolToVisibility"/>
+            <Tools:BindingProxy x:Key="proxy" Data="{Binding}" />
+            <Converters:BoolToVisibilityConverter x:Key="BoolToVisibility"/>
         </ResourceDictionary>
     </UserControl.Resources>
     

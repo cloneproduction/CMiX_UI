@@ -27,8 +27,8 @@ namespace CMiX.MVVM.Controls
                 };
         }
 
-        double parentWidth;
-        double parentHeight;
+        //double parentWidth;
+        //double parentHeight;
         TranslateTransform translateTransform;
         //private void ExceptionPopup_Loaded(object sender, RoutedEventArgs e)
         //{

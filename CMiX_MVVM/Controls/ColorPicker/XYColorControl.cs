@@ -5,6 +5,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using CMiX.MVVM.Resources;
+using CMiX.MVVM.Tools;
 
 namespace CMiX.MVVM.Controls.ColorPicker
 {

@@ -9,7 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Data;
 using System.ComponentModel;
-using CMiX.MVVM.Resources;
+using CMiX.MVVM.Tools;
 using GongSolutions.Wpf.DragDrop;
 using MvvmDialogs;
 using MvvmDialogs.FrameworkDialogs.OpenFile;

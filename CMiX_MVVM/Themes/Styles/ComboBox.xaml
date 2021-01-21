@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Borders/BorderShadow.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Basic/Converters.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/Border.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     
     <Style TargetType="{x:Type ComboBox}">
@@ -62,9 +63,6 @@
                                     </ScrollViewer>
                                 </Border>
                             </Border>
-
-
-
                         </Popup>
 
                         <ToggleButton

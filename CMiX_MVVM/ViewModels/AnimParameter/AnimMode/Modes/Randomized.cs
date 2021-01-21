@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows.Media.Media3D;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Resources;
+using CMiX.MVVM.Tools;
 using CMiX.MVVM.Services;
+using CMiX.MVVM.Resources;
 
 namespace CMiX.MVVM.ViewModels
 {

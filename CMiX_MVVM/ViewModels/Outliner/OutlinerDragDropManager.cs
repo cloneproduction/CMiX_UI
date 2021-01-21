@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Controls;
 using GongSolutions.Wpf.DragDrop;
-using CMiX.MVVM.Resources;
+using CMiX.MVVM.Tools;
 using System.Windows;
 
 namespace CMiX.MVVM.ViewModels

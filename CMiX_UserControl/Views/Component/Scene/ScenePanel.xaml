@@ -6,7 +6,8 @@
              xmlns:ViewModels="clr-namespace:CMiX.MVVM.ViewModels;assembly=CMiX.MVVM"
              xmlns:Views ="clr-namespace:CMiX.Studio.Views"
              xmlns:Controls="clr-namespace:CMiX.MVVM.Controls;assembly=CMiX.MVVM"
-             xmlns:Resources ="clr-namespace:CMiX.MVVM.Resources;assembly=CMiX.MVVM"
+             xmlns:Tools ="clr-namespace:CMiX.MVVM.Tools;assembly=CMiX.MVVM"
+             xmlns:Converters="clr-namespace:CMiX.MVVM.Tools.Converters;assembly=CMiX.MVVM"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="478" d:DesignWidth="279">
@@ -23,7 +24,7 @@
                     <x:Type TypeName="ViewModels:MaskControlType"/>
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
-            <Resources:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+            <Converters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
         </ResourceDictionary>
     </UserControl.Resources>
 

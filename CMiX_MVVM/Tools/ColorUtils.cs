@@ -7,7 +7,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using ColorMine.ColorSpaces;
 
-namespace CMiX.MVVM.Resources
+namespace CMiX.MVVM.Tools
 {
     public static class ColorNames
     {

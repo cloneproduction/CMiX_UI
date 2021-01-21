@@ -4,61 +4,10 @@
     <PopupAnimation x:Key="{x:Static SystemParameters.MenuPopupAnimationKey}">None</PopupAnimation>
     
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Colors.xaml"/>
-        <ResourceDictionary Source="Brushes.xaml"/>
-        <ResourceDictionary Source="Icons.xaml"/>
-        <ResourceDictionary Source="Values.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Basic/Basic.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Styles/Style.xaml"/>
 
 
-        <ResourceDictionary Source="Borders/BorderMask.xaml"/>
-        <ResourceDictionary Source="Borders/BorderContainer.xaml"/>
-        <ResourceDictionary Source="Borders/BorderShadow.xaml"/>
-        
-        <ResourceDictionary Source="TextBlock.xaml"/>
-        <ResourceDictionary Source="GridSplitter.xaml"/>
-        <ResourceDictionary Source="Button.xaml"/>
 
-        <!--BeatController-->
-        <ResourceDictionary Source="BeatController/BeatTapButton.xaml"/>
-        <ResourceDictionary Source="BeatController/MasterBeatController.xaml"/>
-        
-        <!--SLIDERS-->
-        <ResourceDictionary Source="Sliders/Slider.xaml"/>
-        <ResourceDictionary Source="Sliders/HSVSlider.xaml"/>
-        <ResourceDictionary Source="Sliders/HueWheel.xaml"/>
-        <ResourceDictionary Source="Sliders/RGBSlider.xaml"/>
-        <ResourceDictionary Source="Sliders/SliderThumb.xaml"/>
-        <ResourceDictionary Source="Sliders/XYController.xaml"/>
-
-        <ResourceDictionary Source="Counter.xaml"/>
-        
-        
-        <ResourceDictionary Source="ToggleButton.xaml"/>
-        
-        <ResourceDictionary Source="Label.xaml"/>
-        <ResourceDictionary Source="Menu.xaml"/>
-        <ResourceDictionary Source="ContextMenu.xaml"/>
-        
-        <ResourceDictionary Source="RadioButton.xaml"/>
-        
-        <ResourceDictionary Source="ListBox.xaml"/>
-        
-        <ResourceDictionary Source="Tab.xaml"/>
-        
-        <ResourceDictionary Source="ScrollViewer.xaml"/>
-        
-        <ResourceDictionary Source="ToolTip.xaml"/>
-        
-        <ResourceDictionary Source="ComboBox.xaml"/>
-        <ResourceDictionary Source="DataGrid.xaml"/>
-        <ResourceDictionary Source="TextBox.xaml"/>
-        <ResourceDictionary Source="Expander.xaml"/>
-        
-        
-        <ResourceDictionary Source="TreeView.xaml"/>
-        <ResourceDictionary Source="TreeViewMultiSelect.xaml"/>
-        <ResourceDictionary Source="Window.xaml"/>
-        <ResourceDictionary Source="MainWindow.xaml"/>
-        
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
