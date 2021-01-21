@@ -22,7 +22,7 @@
                 Margin="0, 4" 
                 Padding="8" 
                 Style="{StaticResource BorderContainer}">
-                <Controls:ColorPicker SelectedColor="{Binding Path=ColorPicker.SelectedColor}" Style="{StaticResource ColorPickerStyle}"/>
+                <Controls:ColorPicker SelectedColor="{Binding Path=SelectedColor, Mode=TwoWay}" Style="{StaticResource ColorPickerStyle}"/>
                 <!--<MVVM.Views:ColorPicker DataContext="{Binding ColorPicker}"/>-->
             </Border>
         </Expander>

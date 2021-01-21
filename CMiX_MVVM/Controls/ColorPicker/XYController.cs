@@ -31,8 +31,7 @@ namespace CMiX.MVVM.Controls
             set { SetValue(SelectedColorProperty, value); }
         }
         public static readonly DependencyProperty SelectedColorProperty =
-        DependencyProperty.Register("SelectedColor", typeof(Color), typeof(XYController),
-            new PropertyMetadata(Colors.Transparent));
+        DependencyProperty.Register("SelectedColor", typeof(Color), typeof(XYController), new PropertyMetadata(Colors.Transparent));
 
 
         public double ThumbPosX
@@ -41,8 +40,7 @@ namespace CMiX.MVVM.Controls
             set { SetValue(ThumbPosXProperty, value); }
         }
         public static readonly DependencyProperty ThumbPosXProperty =
-        DependencyProperty.Register("ThumbPosX", typeof(double), typeof(XYController),
-            new PropertyMetadata(0.0, new PropertyChangedCallback(OnThumbPosChanged)));
+        DependencyProperty.Register("ThumbPosX", typeof(double), typeof(XYController), new PropertyMetadata(0.0, new PropertyChangedCallback(OnThumbPosChanged)));
 
 
         public double ThumbPosY
@@ -51,8 +49,7 @@ namespace CMiX.MVVM.Controls
             set { SetValue(ThumbPosYProperty, value); }
         }
         public static readonly DependencyProperty ThumbPosYProperty =
-        DependencyProperty.Register("ThumbPosY", typeof(double), typeof(XYController),
-            new PropertyMetadata(0.0, new PropertyChangedCallback(OnThumbPosChanged)));
+        DependencyProperty.Register("ThumbPosY", typeof(double), typeof(XYController), new PropertyMetadata(0.0, new PropertyChangedCallback(OnThumbPosChanged)));
 
 
         private static void OnThumbPosChanged(DependencyObject relatedObject, DependencyPropertyChangedEventArgs e)

@@ -39,22 +39,22 @@
 
                     <StackPanel>
                         <DockPanel Visibility="{Binding Path=IsChecked, ElementName=HueRadio, Converter={StaticResource BoolToVisibility}}">
-                            <Controls:ColorSlider
+                            <!--<Controls:ColorSlider
                                 Minimum="0"
                                 Maximum="360"
                                 Orientation="Vertical"
                                 Style="{DynamicResource HueSliderVertical}"
                                 Value="{Binding Hue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Margin="0, 4, 8, 4"/>
+                                Margin="0, 4, 8, 4"/>-->
                             <Controls:XYController x:Name="HueColorControl"
                                 Style="{DynamicResource HueController}"
                                 SelectedColor="{Binding SelectedColor}"
-                                ThumbPosX="{Binding Sat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                ThumbPosX="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, Converter={StaticResource ColorToSaturation}}"
                                 ThumbPosY="{Binding Val, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Margin="0, 4" 
                                 Height="200"/>
                         </DockPanel>
-                        <DockPanel Visibility="{Binding Path=IsChecked, ElementName=SatRadio, Converter={StaticResource BoolToVisibility}}">
+                        <!--<DockPanel Visibility="{Binding Path=IsChecked, ElementName=SatRadio, Converter={StaticResource BoolToVisibility}}">
                             <Controls:ColorSlider
                                 Minimum="0"
                                 Maximum="1"
@@ -62,7 +62,6 @@
                                 Margin="0, 4, 8, 4"
                                 Style="{DynamicResource HSVSliderVertical}"
                                 Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectedColor, Converter={StaticResource ColorToSatInverted}}"
-
                                 Width="20"
                                 RightColor="White"
                                 LeftColor="{Binding Hue, Converter={StaticResource HueToColor}}">
@@ -454,7 +453,7 @@
                                 Background="{DynamicResource HighDarkerColor}"
                                 Foreground="{DynamicResource TextBase}"
                                 Text="{Binding SelectedColor, Converter={StaticResource ColorToHex}}"/>
-                        </Grid>
+                        </Grid>-->
                     </StackPanel>
                 </ControlTemplate>
             </Setter.Value>

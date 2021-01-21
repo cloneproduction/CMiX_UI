@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -22,14 +18,11 @@ namespace CMiX.MVVM.Controls
             set { SetValue(SelectedColorProperty, value); }
         }
         public static readonly DependencyProperty SelectedColorProperty =
-        DependencyProperty.Register("SelectedColor", typeof(Color), typeof(ColorPicker), new UIPropertyMetadata(Colors.Red));
+        DependencyProperty.Register("SelectedColor", typeof(Color), typeof(ColorPicker), new UIPropertyMetadata(Colors.Red, new PropertyChangedCallback(OnThumbPosChanged)));
 
-        public double Sat
+        private static void OnThumbPosChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            get { return (double)GetValue(SatProperty); }
-            set { SetValue(SatProperty, value); }
+            Console.WriteLine("ColorPicker SelectedColorChanged");
         }
-        public static readonly DependencyProperty SatProperty =
-        DependencyProperty.Register("Sat", typeof(double), typeof(ColorPicker), new UIPropertyMetadata(1.0));
     }
 }

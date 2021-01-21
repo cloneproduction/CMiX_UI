@@ -6,6 +6,9 @@
     <Converters:IntToNormalizedDoubleConverter x:Key="IntToNormalizedDoubleConverter" />
     <Converters:HueToColorConverter x:Key="HueToColor" />
     <Converters:DoubleToColorSatConverter x:Key="ColorToSatInverted" />
+    <Converters:ColorToDoubleConverter x:Key="ColorToDouble" />
+    <Converters:ColorToSaturationConverter x:Key="ColorToSaturation"/>
+    
     <Converters:ValToColorConverter x:Key="ValToColor" />
     <Converters:DoubleToInvertedConverter x:Key="DoubleToInverted" />
     <Converters:ByteToNormalizedDoubleConverter x:Key="ByteToNormalizedDouble"/>
