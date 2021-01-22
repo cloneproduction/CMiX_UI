@@ -170,8 +170,8 @@
                     <Border>
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                <GradientStop Offset="0" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=LeftColor}" />
-                                <GradientStop Offset="1" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=RightColor}" />
+                                <GradientStop Offset="0" Color="{Binding LeftColor, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <GradientStop Offset="1" Color="{Binding RightColor, RelativeSource={RelativeSource TemplatedParent}}" />
                             </LinearGradientBrush>
                         </Border.Background>
                         <Track x:Name="PART_Track" Grid.Row="1" Margin="0">

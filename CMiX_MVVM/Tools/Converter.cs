@@ -310,15 +310,16 @@ namespace CMiX.MVVM.Tools.Converters
     }
 
 
-    public class HueValToColorConverter : IMultiValueConverter
+    public class ColorToHueValueOnlyConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             var rgb = new Rgb();
             if(values[0] != DependencyProperty.UnsetValue && values[1] != DependencyProperty.UnsetValue)
                 rgb = new Hsv() { H = (double)values[0], S = 1.0, V = (double)values[1] }.To<Rgb>();
-                
-            return new Color() { R = (byte)rgb.R, G = (byte)rgb.G, B = (byte)rgb.B, ScA = 1.0f };
+
+            return Color.FromRgb((byte)rgb.R, (byte)rgb.G, (byte)rgb.B);
+            //return new Color() { R = (byte)rgb.R, G = (byte)rgb.G, B = (byte)rgb.B, ScA = 1.0f };
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
@@ -414,6 +415,51 @@ namespace CMiX.MVVM.Tools.Converters
         {
             double newsat = (double)value;
             return ColorUtils.ColorFromHSV(hue, newsat, val);
+        }
+    }
+
+    public class ColorToHueOnlyConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var hue = (double)value;
+            var rgb = new Hsv() { H = hue, S = 1.0, V = 1.0 }.To<Rgb>();
+            return Color.FromRgb((byte)rgb.R, (byte)rgb.G, (byte)rgb.B);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class ColorToSaturationOnlyConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var saturation = (double)value;
+            var rgb = new Hsv() { H = 0.0, S = saturation, V = 1.0 }.To<Rgb>();
+            return Color.FromRgb((byte)rgb.R, (byte)rgb.G, (byte)rgb.B);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class ColorToValueOnlyConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var val = (double)value;
+            var rgb = new Hsv() { H = 0.0, S = 0.0, V = val }.To<Rgb>();
+            return Color.FromRgb((byte)rgb.R, (byte)rgb.G, (byte)rgb.B);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
         }
     }
 

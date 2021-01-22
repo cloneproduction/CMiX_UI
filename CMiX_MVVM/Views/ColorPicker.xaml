@@ -20,7 +20,6 @@
             <Tools:ByteToStringConverter x:Key="ByteToString"/>
             <Tools:ColorToSliderBgColorConverter x:Key="ColorToSliderBgColor"/>
             <Tools:IntToStringWithMaxConverter x:Key="IntToStringWithMax"/>
-            <Tools:HueValToColorConverter x:Key="HueValToColor"/>
             <Tools:HueSatToColorConverter x:Key="HueSatToColor"/>
             <Tools:BoolToVisibilityConverter x:Key="BoolToVisibility"/>
         </ResourceDictionary>
