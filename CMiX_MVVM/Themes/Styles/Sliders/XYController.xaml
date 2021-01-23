@@ -101,8 +101,8 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Controls:XYController}">
-                    <Grid>
-                        <Rectangle>
+                    <Grid Background="White">
+                        <Rectangle Opacity="{Binding SelectedColor, Converter={StaticResource ColorToSaturationAsDouble}, RelativeSource={RelativeSource TemplatedParent}}">
                             <Rectangle.Fill>
                                 <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
                                     <GradientStop Color="#FFFF0000" />
@@ -115,11 +115,7 @@
                                 </LinearGradientBrush>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle 
-                            Fill="white" 
-                            Opacity="{Binding DataContext.Sat, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DoubleToInverted}, RelativeSource={RelativeSource TemplatedParent}}" >
-                        </Rectangle>
-                        <Rectangle>
+                        <Rectangle Opacity="1.0">
                             <Rectangle.Fill>
                                 <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
                                     <GradientStop Offset="0" Color="#FF000000" />
@@ -150,8 +146,8 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Controls:XYController}">
-                    <Grid>
-                        <Rectangle>
+                    <Grid Background="Black">
+                        <Rectangle  Opacity="{Binding SelectedColor, Converter={StaticResource ColorToValueAsDouble}, RelativeSource={RelativeSource TemplatedParent}}" >
                             <Rectangle.Fill>
                                 <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
                                     <GradientStop Color="#FFFF0000" />
@@ -164,7 +160,7 @@
                                 </LinearGradientBrush>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle>
+                        <Rectangle  Opacity="{Binding SelectedColor, Converter={StaticResource ColorToValueAsDouble}, RelativeSource={RelativeSource TemplatedParent}}" >
                             <Rectangle.Fill>
                                 <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
                                     <GradientStop Offset="0" Color="#FFFFFFFF" />
@@ -172,18 +168,11 @@
                                 </LinearGradientBrush>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle 
-                            Fill="Black" 
-                            Opacity="{Binding DataContext.Val, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DoubleToInverted}, RelativeSource={RelativeSource TemplatedParent}}" >
-                        </Rectangle>
                         <Canvas ClipToBounds="true">
                             <Canvas.LayoutTransform>
                                 <ScaleTransform ScaleX="1" ScaleY="-1" />
                             </Canvas.LayoutTransform>
-                            <Thumb
-                                x:Name="PART_Thumb"
-                                Style="{DynamicResource XYControllerThumbStyle}">
-                            </Thumb>
+                            <Thumb x:Name="PART_Thumb" Style="{DynamicResource XYControllerThumbStyle}"/>
                         </Canvas>
                     </Grid>
                 </ControlTemplate>
@@ -226,7 +215,7 @@
                             </Rectangle>
                         </Grid>
 
-                        <Grid Opacity="{Binding DataContext.Red, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ByteToNormalizedDouble}, RelativeSource={RelativeSource TemplatedParent}}" >
+                        <Grid Opacity="{Binding SelectedColor, Converter={StaticResource ColorToRedAsDouble}, RelativeSource={RelativeSource TemplatedParent}}" >
                             <Rectangle Fill="Red"/>
                             <Rectangle>
                                 <Rectangle.Fill>

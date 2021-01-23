@@ -9,16 +9,6 @@
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Basic/Colors.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
-    <!--<ResourceDictionary.MergedDictionaries>
-        <Tools:ColorToHexConverter x:Key="ColorToHex"/>
-        <Tools:DoubleToDividedConverter x:Key="DoubleToDivided"/>
-        <Tools:ByteToStringConverter x:Key="ByteToString"/>
-        <Tools:ColorToSliderBgColorConverter x:Key="ColorToSliderBgColor"/>
-        <Tools:IntToStringWithMaxConverter x:Key="IntToStringWithMax"/>
-        <Tools:HueValToColorConverter x:Key="HueValToColor"/>
-        <Tools:HueSatToColorConverter x:Key="HueSatToColor"/>
-        <Tools:BoolToVisibilityConverter x:Key="BoolToVisibility"/>
-    </ResourceDictionary.MergedDictionaries>-->
     
     <!--<i:Interaction.Triggers>
         <i:EventTrigger EventName="PreviewMouseDown">
@@ -45,13 +35,13 @@
                                 Maximum="360"
                                 Orientation="Vertical"
                                 Style="{DynamicResource HueSliderVertical}"
-                                Value="{Binding Hue, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                Value="{Binding Hue, RelativeSource={RelativeSource TemplatedParent}}"
                                 Margin="0, 4, 8, 4"/>
                             <Controls:XYController x:Name="HueColorControl"
                                 Style="{DynamicResource HueController}"
                                 SelectedColor="{Binding Hue, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ColorToHueOnly}}"
-                                ThumbPosX="{Binding Saturation, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                ThumbPosY="{Binding Value, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                ThumbPosX="{Binding Saturation, RelativeSource={RelativeSource TemplatedParent}}"
+                                ThumbPosY="{Binding Value, RelativeSource={RelativeSource TemplatedParent}}"
                                 Margin="0, 4" 
                                 Height="200"/>
                         </DockPanel>
@@ -70,13 +60,13 @@
                             <Controls:XYController
                                 x:Name="SatColorControl"
                                 Style="{DynamicResource SatController}"
-                                SelectedColor="{Binding SelectedColor}"
-                                ThumbPosX="{Binding Val, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedColor="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}}"
+                                ThumbPosX="{Binding Value, RelativeSource={RelativeSource TemplatedParent}}"
                                 Margin="0, 4" 
                                 Height="200" 
                                 Visibility="{Binding Path=IsChecked, ElementName=SatRadio, Converter={StaticResource BoolToVisibility}}">
                                 <Controls:XYController.ThumbPosY>
-                                    <Binding Path="Hue" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource DoubleToDivided}">
+                                    <Binding Path="Hue" RelativeSource="{RelativeSource TemplatedParent}" Converter="{StaticResource DoubleToDivided}">
                                         <Binding.ConverterParameter>
                                             <sys:Double>360</sys:Double>
                                         </Binding.ConverterParameter>
@@ -91,20 +81,20 @@
                                 Orientation="Vertical"
                                 Margin="0, 4, 8, 4"
                                 Style="{DynamicResource HSVSliderVertical}"
-                                Value="{Binding Val}"
+                                Value="{Binding Value, RelativeSource={RelativeSource TemplatedParent}}"
                                 Width="20"
                                 RightColor="Black"
                                 LeftColor="White">
                             </Controls:ColorSlider>
                             <Controls:XYController x:Name="ValColorControl"
                                 Style="{DynamicResource ValController}"
-                                SelectedColor="{Binding SelectedColor}"
-                                ThumbPosX="{Binding Sat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedColor="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}}"
+                                ThumbPosX="{Binding Saturation, RelativeSource={RelativeSource TemplatedParent}}"
                                 Margin="0, 4" 
                                 Height="200" 
                                 Visibility="{Binding Path=IsChecked, ElementName=ValRadio, Converter={StaticResource BoolToVisibility}}">
                                 <Controls:XYController.ThumbPosY>
-                                    <Binding Path="Hue" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource DoubleToDivided}">
+                                    <Binding Path="Hue" RelativeSource="{RelativeSource TemplatedParent}" Converter="{StaticResource DoubleToDivided}">
                                         <Binding.ConverterParameter>
                                             <sys:Double>360</sys:Double>
                                         </Binding.ConverterParameter>
@@ -119,7 +109,7 @@
                                 Orientation="Vertical"
                                 Margin="0, 4, 8, 4"
                                 Style="{DynamicResource HSVSliderVertical}"
-                                Value="{Binding Red}"
+                                Value="{Binding Red, RelativeSource={RelativeSource TemplatedParent}}"
                                 Width="20"
                                 RightColor="Black"
                                 LeftColor="#FFFF0000">
@@ -127,15 +117,23 @@
                             <Controls:XYController
                                 x:Name="RedColorControl"
                                 Style="{DynamicResource RedController}"
-                                SelectedColor="{Binding SelectedColor}"
+                                SelectedColor="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}}"
                                 Margin="0, 4" 
                                 Height="200" 
                                 Visibility="{Binding Path=IsChecked, ElementName=RedRadio, Converter={StaticResource BoolToVisibility}}">
                                 <Controls:XYController.ThumbPosX>
-                                    <Binding Path="Blue" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource ByteToNormalizedDouble}"/>
+                                    <Binding Path="Blue" RelativeSource="{RelativeSource TemplatedParent}" Converter="{StaticResource DoubleToDivided}">
+                                        <Binding.ConverterParameter>
+                                            <sys:Double>255</sys:Double>
+                                        </Binding.ConverterParameter>
+                                    </Binding>
                                 </Controls:XYController.ThumbPosX>
                                 <Controls:XYController.ThumbPosY>
-                                    <Binding Path="Green" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource ByteToNormalizedDouble}"/>
+                                    <Binding Path="Green" RelativeSource="{RelativeSource TemplatedParent}" Converter="{StaticResource DoubleToDivided}">
+                                        <Binding.ConverterParameter>
+                                            <sys:Double>255</sys:Double>
+                                        </Binding.ConverterParameter>
+                                    </Binding>
                                 </Controls:XYController.ThumbPosY>
                             </Controls:XYController>
                         </DockPanel>
@@ -146,7 +144,7 @@
                                 Orientation="Vertical"
                                 Margin="0, 4, 8, 4"
                                 Style="{DynamicResource HSVSliderVertical}"
-                                Value="{Binding Green}"
+                                Value="{Binding Green, RelativeSource={RelativeSource TemplatedParent}}"
                                 Width="20"
                                 RightColor="Black"
                                 LeftColor="#FF00FF00">
@@ -154,15 +152,23 @@
                             <Controls:XYController
                                 x:Name="GreenColorControl"
                                 Style="{DynamicResource GreenController}"
-                                SelectedColor="{Binding SelectedColor}"
+                                SelectedColor="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}}"
                                 Margin="0, 4" 
                                 Height="200" 
                                 Visibility="{Binding Path=IsChecked, ElementName=GreenRadio, Converter={StaticResource BoolToVisibility}}">
                                 <Controls:XYController.ThumbPosX>
-                                    <Binding Path="Blue" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource ByteToNormalizedDouble}"/>
+                                    <Binding Path="Blue" RelativeSource="{RelativeSource TemplatedParent}" Converter="{StaticResource DoubleToDivided}">
+                                        <Binding.ConverterParameter>
+                                            <sys:Double>255</sys:Double>
+                                        </Binding.ConverterParameter>
+                                    </Binding>
                                 </Controls:XYController.ThumbPosX>
                                 <Controls:XYController.ThumbPosY>
-                                    <Binding Path="Red" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource ByteToNormalizedDouble}"/>
+                                    <Binding Path="Red" RelativeSource="{RelativeSource TemplatedParent}" Converter="{StaticResource DoubleToDivided}">
+                                        <Binding.ConverterParameter>
+                                            <sys:Double>255</sys:Double>
+                                        </Binding.ConverterParameter>
+                                    </Binding>
                                 </Controls:XYController.ThumbPosY>
                             </Controls:XYController>
                         </DockPanel>
@@ -173,7 +179,7 @@
                                 Orientation="Vertical"
                                 Margin="0, 4, 8, 4"
                                 Style="{DynamicResource HSVSliderVertical}"
-                                Value="{Binding Blue}"
+                                Value="{Binding Blue, RelativeSource={RelativeSource TemplatedParent}}"
                                 Width="20"
                                 RightColor="Black"
                                 LeftColor="#FF0000FF">
@@ -182,11 +188,24 @@
                                 x:Name="BlueColorControl"
                                 Style="{DynamicResource BlueController}"
                                 SelectedColor="{Binding SelectedColor}"
-                                ThumbPosX="{Binding Green, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ByteToNormalizedDouble}}"
-                                ThumbPosY="{Binding Red, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ByteToNormalizedDouble}}"
                                 Margin="0, 4" 
                                 Height="200" 
-                                Visibility="{Binding Path=IsChecked, ElementName=BlueRadio, Converter={StaticResource BoolToVisibility}}"/>
+                                Visibility="{Binding Path=IsChecked, ElementName=BlueRadio, Converter={StaticResource BoolToVisibility}}">
+                                <Controls:XYController.ThumbPosX>
+                                    <Binding Path="Green" RelativeSource="{RelativeSource TemplatedParent}" Converter="{StaticResource DoubleToDivided}">
+                                        <Binding.ConverterParameter>
+                                            <sys:Double>255</sys:Double>
+                                        </Binding.ConverterParameter>
+                                    </Binding>
+                                </Controls:XYController.ThumbPosX>
+                                <Controls:XYController.ThumbPosY>
+                                    <Binding Path="Red" RelativeSource="{RelativeSource TemplatedParent}" Converter="{StaticResource DoubleToDivided}">
+                                        <Binding.ConverterParameter>
+                                            <sys:Double>255</sys:Double>
+                                        </Binding.ConverterParameter>
+                                    </Binding>
+                                </Controls:XYController.ThumbPosY>
+                            </Controls:XYController>
                         </DockPanel>
 
 
@@ -217,7 +236,7 @@
                                 Margin="2, 0"
                                 Background="{DynamicResource HighDarkerColor}"
                                 Foreground="{DynamicResource TextBase}"
-                                Text="{Binding Red, Converter={StaticResource ByteToString}, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" 
+                                Text="{Binding Red, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=LostFocus}" 
                                 HorizontalContentAlignment="Center"
                                 VerticalContentAlignment="Center"
                                 HorizontalAlignment="Stretch" 
@@ -225,11 +244,11 @@
                             <Controls:ColorSlider
                                 Minimum="0"
                                 Maximum="255"
-                                Value="{Binding Red, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Value="{Binding Red, RelativeSource={RelativeSource TemplatedParent}}"
                                 Grid.Column="2"
                                 Height="20"
-                                LeftColor="{Binding SelectedColor, ConverterParameter='RedLeft', Converter={StaticResource ColorToSliderBgColor}}"
-                                RightColor="{Binding SelectedColor, ConverterParameter='RedRight', Converter={StaticResource ColorToSliderBgColor}}"/>
+                                LeftColor="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}, ConverterParameter='RedLeft', Converter={StaticResource ColorToSliderBgColor}}"
+                                RightColor="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}, ConverterParameter='RedRight', Converter={StaticResource ColorToSliderBgColor}}"/>
                         </Grid>
                         <Grid Margin="0, 1" Height="20" >
                             <Grid.ColumnDefinitions>
@@ -254,7 +273,7 @@
                                 Margin="2, 0"
                                 Background="{DynamicResource SuperHighDarkerColor}"
                                 Foreground="{DynamicResource TextBase}"
-                                Text="{Binding Green, Converter={StaticResource ByteToString}, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" 
+                                Text="{Binding Green, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=LostFocus}" 
                                 HorizontalContentAlignment="Center"
                                 VerticalContentAlignment="Center"
                                 HorizontalAlignment="Stretch" 
@@ -262,11 +281,11 @@
                             <Controls:ColorSlider
                                 Minimum="0"
                                 Maximum="255"
-                                Value="{Binding Green}"
+                                Value="{Binding Green, RelativeSource={RelativeSource TemplatedParent}}"
                                 Grid.Column="2"
                                 Height="20"
-                                LeftColor="{Binding SelectedColor, ConverterParameter='GreenLeft', Converter={StaticResource ColorToSliderBgColor}}"
-                                RightColor="{Binding SelectedColor, ConverterParameter='GreenRight', Converter={StaticResource ColorToSliderBgColor}}"/>
+                                LeftColor="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}, ConverterParameter='GreenLeft', Converter={StaticResource ColorToSliderBgColor}}"
+                                RightColor="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}, ConverterParameter='GreenRight', Converter={StaticResource ColorToSliderBgColor}}"/>
                         </Grid>
                         <Grid Margin="0, 1" Height="20" >
                             <Grid.ColumnDefinitions>
@@ -291,7 +310,7 @@
                                 Margin="2, 0"
                                 Background="{DynamicResource SuperHighDarkerColor}"
                                 Foreground="{DynamicResource TextBase}"
-                                Text="{Binding Blue, Converter={StaticResource ByteToString}, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" 
+                                Text="{Binding Blue, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource DoubleToString}, UpdateSourceTrigger=LostFocus}" 
                                 HorizontalContentAlignment="Center"
                                 VerticalContentAlignment="Center"
                                 HorizontalAlignment="Stretch" 
@@ -299,14 +318,19 @@
                             <Controls:ColorSlider
                                 Minimum="0"
                                 Maximum="255"
-                                Value="{Binding Blue}"
+                                Value="{Binding Blue, RelativeSource={RelativeSource TemplatedParent}}"
                                 Grid.Column="2"
                                 Height="20"
-                                LeftColor="{Binding SelectedColor, ConverterParameter='BlueLeft', Converter={StaticResource ColorToSliderBgColor}}"
-                                RightColor="{Binding SelectedColor, ConverterParameter='BlueRight', Converter={StaticResource ColorToSliderBgColor}}"/>
+                                LeftColor="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}, ConverterParameter='BlueLeft', Converter={StaticResource ColorToSliderBgColor}}"
+                                RightColor="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}, ConverterParameter='BlueRight', Converter={StaticResource ColorToSliderBgColor}}"/>
                         </Grid>
                         
+                        
+                        
                         <Separator Background="{DynamicResource DarkColor}" Opacity="0.25" Margin="0, 8"/>
+                        
+                        
+                        
                         <Grid Margin="0, 1" Height="20" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="0.2*"/>
@@ -331,7 +355,7 @@
                                 Margin="2, 0"
                                 Background="{DynamicResource SuperHighDarkerColor}"
                                 Foreground="{DynamicResource TextBase}"
-                                Text="{Binding Hue, StringFormat=N0, Converter={StaticResource IntToStringWithMax}, ConverterParameter='360',RelativeSource={RelativeSource TemplatedParent}}"
+                                Text="{Binding Hue, StringFormat=N0, Converter={StaticResource IntToStringWithMax}, ConverterParameter='360', RelativeSource={RelativeSource TemplatedParent}}"
                                 HorizontalContentAlignment="Center"
                                 VerticalContentAlignment="Center"
                                 HorizontalAlignment="Stretch" 
@@ -340,7 +364,7 @@
                                 Minimum="0"
                                 Maximum="360"
                                 Style="{DynamicResource HueSliderHorizontal}"
-                                Value="{Binding Hue, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                Value="{Binding Hue, RelativeSource={RelativeSource TemplatedParent}}"
                                 Grid.Column="2"
                                 Height="20"/>
                         </Grid>
@@ -381,15 +405,13 @@
                                 LeftColor="{Binding Value, Converter={StaticResource ColorToValueOnly}, RelativeSource={RelativeSource TemplatedParent}}">
                                 <Controls:ColorSlider.RightColor>
                                     <MultiBinding Converter="{StaticResource ColorToHueValueOnly}">
-                                        <Binding Path= "Hue" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                        <Binding Path="Hue" RelativeSource="{RelativeSource TemplatedParent}"/>
                                         <Binding Path="Value" RelativeSource="{RelativeSource TemplatedParent}"/>
                                     </MultiBinding>
                                 </Controls:ColorSlider.RightColor>
                             </Controls:ColorSlider>
                         </Grid>
-                        <Grid 
-                            Margin="0, 1"
-                            Height="20" >
+                        <Grid Margin="0, 1" Height="20" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="0.2*"/>
                                 <ColumnDefinition Width="0.15*"/>
@@ -412,7 +434,7 @@
                                 Margin="2, 0"
                                 Background="{DynamicResource SuperHighDarkerColor}"
                                 Foreground="{DynamicResource TextBase}"
-                                Text="{Binding Val, StringFormat=N2, Converter={StaticResource DoubleToString}, ConverterParameter='1.0'}"
+                                Text="{Binding Value, RelativeSource={RelativeSource TemplatedParent}, StringFormat=N2, Converter={StaticResource DoubleToString}, ConverterParameter='1.0'}"
                                 HorizontalContentAlignment="Center"
                                 VerticalContentAlignment="Center"
                                 HorizontalAlignment="Stretch" 
@@ -420,19 +442,25 @@
                             <Controls:ColorSlider
                                 Minimum="0"
                                 Maximum="1"
-                                Value="{Binding Val}"
+                                Value="{Binding Value, RelativeSource={RelativeSource TemplatedParent}}"
                                 Grid.Column="2"
                                 Height="20"
                                 LeftColor="Black">
                                 <Controls:ColorSlider.RightColor>
-                                    <MultiBinding Converter="{StaticResource HueSatToColor}">
-                                        <Binding Path= "Hue" />
-                                        <Binding Path="Sat" />
+                                    <MultiBinding Converter="{StaticResource ColorToHueSatOnly}">
+                                        <Binding Path="Hue" RelativeSource="{RelativeSource TemplatedParent}" />
+                                        <Binding Path="Saturation"  RelativeSource="{RelativeSource TemplatedParent}"/>
                                     </MultiBinding>
                                 </Controls:ColorSlider.RightColor>
                             </Controls:ColorSlider>
                         </Grid>
+                        
+                        
+                        
                         <Separator Background="{DynamicResource DarkColor}" Opacity="0.25" Margin="0, 8"/>
+                        
+                        
+                        
                         <Grid Height="20">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="0.2*"/>
@@ -456,7 +484,7 @@
                                 BorderThickness="0"
                                 Background="{DynamicResource HighDarkerColor}"
                                 Foreground="{DynamicResource TextBase}"
-                                Text="{Binding SelectedColor, Converter={StaticResource ColorToHex}}"/>
+                                Text="{Binding SelectedColor,  RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ColorToHex}}"/>
                         </Grid>
                     </StackPanel>
                 </ControlTemplate>

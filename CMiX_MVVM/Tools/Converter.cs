@@ -120,7 +120,7 @@ namespace CMiX.MVVM.Tools.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string result = null;
-            if (value != null)
+            if (!double.IsNaN((double)value))
             {
                 var val = (double)value;
                 var integer = System.Convert.ToInt32(val);
@@ -270,13 +270,20 @@ namespace CMiX.MVVM.Tools.Converters
         }
     }
 
-    public class HueSatToColorConverter : IMultiValueConverter
+    public class ColorToHueSatOnlyConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             var rgb = new Rgb();
-            if (values[0] != DependencyProperty.UnsetValue && values[1] != DependencyProperty.UnsetValue)
-                rgb = new Hsv() { H = (double)values[0], S = (double)values[1], V = 1.0 }.To<Rgb>();
+            if(!double.IsNaN((double)values[0]) && !double.IsNaN((double)values[1]))
+            {
+                if (values[0] != DependencyProperty.UnsetValue && values[1] != DependencyProperty.UnsetValue)
+                {
+                    rgb = new Hsv() { H = (double)values[0], S = (double)values[1], V = 1.0 }.To<Rgb>();
+                }
+                    
+            }
+
             return new Color() { R = (byte)rgb.R, G = (byte)rgb.G, B = (byte)rgb.B, ScA = 1.0f };
         }
 
@@ -315,11 +322,16 @@ namespace CMiX.MVVM.Tools.Converters
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             var rgb = new Rgb();
-            if(values[0] != DependencyProperty.UnsetValue && values[1] != DependencyProperty.UnsetValue)
-                rgb = new Hsv() { H = (double)values[0], S = 1.0, V = (double)values[1] }.To<Rgb>();
+            if (values[0] != DependencyProperty.UnsetValue && values[1] != DependencyProperty.UnsetValue)
+            {
+                if (!double.IsNaN((double)values[0]) && !double.IsNaN((double)values[1]))
+                {
+
+                    rgb = new Hsv() { H = (double)values[0], S = 1.0, V = (double)values[1] }.To<Rgb>();
+                }
+            }
 
             return Color.FromRgb((byte)rgb.R, (byte)rgb.G, (byte)rgb.B);
-            //return new Color() { R = (byte)rgb.R, G = (byte)rgb.G, B = (byte)rgb.B, ScA = 1.0f };
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
@@ -423,8 +435,16 @@ namespace CMiX.MVVM.Tools.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var hue = (double)value;
-            var rgb = new Hsv() { H = hue, S = 1.0, V = 1.0 }.To<Rgb>();
-            return Color.FromRgb((byte)rgb.R, (byte)rgb.G, (byte)rgb.B);
+
+            if (!double.IsNaN(hue))
+            {
+                var hsv = new Hsv() { H = 0.0, S = 1.0, V = 1.0 };
+                hsv.H = hue;
+                var rgb = hsv.To<Rgb>();
+                return Color.FromRgb((byte)rgb.R, (byte)rgb.G, (byte)rgb.B);
+            }
+            else return Colors.Red;
+            
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -433,20 +453,20 @@ namespace CMiX.MVVM.Tools.Converters
         }
     }
 
-    public class ColorToSaturationOnlyConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            var saturation = (double)value;
-            var rgb = new Hsv() { H = 0.0, S = saturation, V = 1.0 }.To<Rgb>();
-            return Color.FromRgb((byte)rgb.R, (byte)rgb.G, (byte)rgb.B);
-        }
+    //public class ColorToSaturationOnlyConverter : IValueConverter
+    //{
+    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        var saturation = (double)value;
+    //        var rgb = new Hsv() { H = 0.0, S = saturation, V = 1.0 }.To<Rgb>();
+    //        return Color.FromRgb((byte)rgb.R, (byte)rgb.G, (byte)rgb.B);
+    //    }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
+    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+    //}
 
     public class ColorToValueOnlyConverter : IValueConverter
     {
@@ -455,6 +475,121 @@ namespace CMiX.MVVM.Tools.Converters
             var val = (double)value;
             var rgb = new Hsv() { H = 0.0, S = 0.0, V = val }.To<Rgb>();
             return Color.FromRgb((byte)rgb.R, (byte)rgb.G, (byte)rgb.B);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class ColorToHSVAsDoubleConverter : IValueConverter
+    {
+        double Hue, Sat, Val;
+        
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var colorIn = (Color)value;
+            var hsv = new Rgb() { R = colorIn.R, G = colorIn.G, B = colorIn.B }.To<Hsv>();
+
+            if(hsv.V > 0.008)
+            {
+                Hue = hsv.H;
+                Sat = hsv.S;
+            }
+
+            Val = hsv.V;
+
+            if ((string)parameter == "Hue")
+                return Hue;
+            else if ((string)parameter == "Saturation")
+                return Sat;
+            else if ((string)parameter == "Value")
+                return Val;
+            else
+                return null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class ColorToValueAsDoubleConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var colorIn = (Color)value;
+            var hsv = new Rgb() { R = colorIn.R, G = colorIn.G, B = colorIn.B }.To<Hsv>();
+            return hsv.V;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class ColorToSaturationAsDoubleConverter : IValueConverter
+    {
+
+        double Sat;
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var colorIn = (Color)value;
+            var hsv = new Rgb() { R = colorIn.R, G = colorIn.G, B = colorIn.B }.To<Hsv>();
+
+            if (hsv.V >= 0.03)
+            {
+                Sat = hsv.S;
+            }
+
+            Console.WriteLine("FromConverter Sat" + Sat);
+            return Sat;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class ColorToRedAsDoubleConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var colorIn = (Color)value;
+            var rgb = new Rgb() { R = colorIn.R, G = colorIn.G, B = colorIn.B };
+            return colorIn.R;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class ColorToGreenAsDoubleConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var colorIn = (Color)value;
+            return colorIn.G / 255;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class ColorToBlueAsDoubleConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var colorIn = (Color)value;
+            return colorIn.B / 255;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -26,7 +26,7 @@ namespace CMiX.MVVM.ViewModels
             get => _selectedColor;
             set
             {
-                System.Console.WriteLine("SelectedColor " + SelectedColor);
+               //System.Console.WriteLine("SelectedColor " + SelectedColor);
                 SetAndNotify(ref _selectedColor, value);
                 this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
             }
