@@ -560,8 +560,7 @@ namespace CMiX.MVVM.Tools.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var colorIn = (Color)value;
-            var rgb = new Rgb() { R = colorIn.R, G = colorIn.G, B = colorIn.B };
-            return colorIn.R;
+            return ((double)colorIn.R) / 255d;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -575,7 +574,7 @@ namespace CMiX.MVVM.Tools.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var colorIn = (Color)value;
-            return colorIn.G / 255;
+            return ((double)colorIn.G) / 255d;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -589,7 +588,7 @@ namespace CMiX.MVVM.Tools.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var colorIn = (Color)value;
-            return colorIn.B / 255;
+            return ((double)colorIn.B) / 255d;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

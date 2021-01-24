@@ -215,7 +215,7 @@
                             </Rectangle>
                         </Grid>
 
-                        <Grid Opacity="{Binding SelectedColor, Converter={StaticResource ColorToRedAsDouble}, RelativeSource={RelativeSource TemplatedParent}}" >
+                        <Grid Opacity="{Binding SelectedColor, Converter={StaticResource ColorToRedAsDouble}, RelativeSource={RelativeSource TemplatedParent}}"  >
                             <Rectangle Fill="Red"/>
                             <Rectangle>
                                 <Rectangle.Fill>
@@ -292,7 +292,7 @@
                                 </Rectangle.OpacityMask>
                             </Rectangle>
                         </Grid>
-                        <Grid Opacity="{Binding DataContext.Green, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ByteToNormalizedDouble}, RelativeSource={RelativeSource TemplatedParent}}" >
+                        <Grid Opacity="{Binding SelectedColor, Converter={StaticResource ColorToGreenAsDouble}, RelativeSource={RelativeSource TemplatedParent}}" >
                             <Rectangle Fill="#FF00ff00"/>
                             <Rectangle>
                                 <Rectangle.Fill>
@@ -368,7 +368,7 @@
                         </Grid>
 
 
-                        <Grid Opacity="{Binding DataContext.Blue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ByteToNormalizedDouble}, RelativeSource={RelativeSource TemplatedParent}}" >
+                        <Grid Opacity="{Binding SelectedColor, Converter={StaticResource ColorToBlueAsDouble}, RelativeSource={RelativeSource TemplatedParent}}"  >
                             <Rectangle Fill="#FF0000ff"/>
                             <Rectangle>
                                 <Rectangle.Fill>
