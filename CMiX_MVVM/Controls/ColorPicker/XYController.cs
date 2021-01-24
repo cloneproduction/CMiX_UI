@@ -38,28 +38,29 @@ namespace CMiX.MVVM.Controls
             new FrameworkPropertyMetadata(Colors.Red, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
 
-        public double ThumbPosX
+        public double ValueX
         {
-            get { return (double)GetValue(ThumbPosXProperty); }
-            set { SetValue(ThumbPosXProperty, value); }
+            get { return (double)GetValue(ValueXProperty); }
+            set { SetValue(ValueXProperty, value); }
         }
-        public static readonly DependencyProperty ThumbPosXProperty =
-        DependencyProperty.Register("ThumbPosX", typeof(double), typeof(XYController),
+        public static readonly DependencyProperty ValueXProperty =
+        DependencyProperty.Register("ValueX", typeof(double), typeof(XYController),
             new FrameworkPropertyMetadata(0.5,
                 FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
                 OnThumbPosChanged));
 
 
-        public double ThumbPosY
+        public double ValueY
         {
-            get { return (double)GetValue(ThumbPosYProperty); }
-            set { SetValue(ThumbPosYProperty, value); }
+            get { return (double)GetValue(ValueYProperty); }
+            set { SetValue(ValueYProperty, value); }
         }
-        public static readonly DependencyProperty ThumbPosYProperty =
-        DependencyProperty.Register("ThumbPosY", typeof(double), typeof(XYController),
+        public static readonly DependencyProperty ValueYProperty =
+        DependencyProperty.Register("ValueY", typeof(double), typeof(XYController),
             new FrameworkPropertyMetadata(0.5,
                 FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
                 OnThumbPosChanged));
+
 
 
         private static void OnThumbPosChanged(DependencyObject relatedObject, DependencyPropertyChangedEventArgs e)
@@ -70,8 +71,8 @@ namespace CMiX.MVVM.Controls
 
             if (xycontroller != null)
             {
-                xycontroller.m_thumbTransform.X = xycontroller.ThumbPosX * xycontroller.ActualWidth;
-                xycontroller.m_thumbTransform.Y = xycontroller.ThumbPosY * xycontroller.ActualHeight;
+                xycontroller.m_thumbTransform.X = Utils.Map(xycontroller.ValueX, xycontroller.XMin, xycontroller.XMax, 0, xycontroller.ActualWidth);
+                xycontroller.m_thumbTransform.Y = Utils.Map(xycontroller.ValueY, xycontroller.YMin, xycontroller.YMax, 0, xycontroller.ActualHeight) ;
             }
         }
 
@@ -156,10 +157,8 @@ namespace CMiX.MVVM.Controls
         {
             var mouseUpPos = e.GetPosition(this);
 
-            Point pointToScreen;
-
-            double YPos = Utils.Map(this.ThumbPosY, YMax, YMin, ActualHeight, 0.0);
-            double XPos = Utils.Map(this.ThumbPosX, XMin, XMax, 0, ActualWidth);
+            double YPos = Utils.Map(this.ValueY, YMin, YMax, ActualHeight, 0.0);
+            double XPos = Utils.Map(this.ValueX, XMin, XMax, 0, ActualWidth);
 
             if (XPos >= ActualWidth)
                 XPos -= 1;
@@ -173,10 +172,9 @@ namespace CMiX.MVVM.Controls
             if (YPos <= ActualHeight)
                 YPos += 1;
 
-            pointToScreen = this.PointToScreen(new Point(XPos, YPos));
+            Point pointToScreen = this.PointToScreen(new Point(XPos, YPos));
             SetCursorPos(Convert.ToInt32(pointToScreen.X), Convert.ToInt32(pointToScreen.Y));
         }
-
 
 
         private void UpdatePosition(double positionX, double positionY)
@@ -187,19 +185,37 @@ namespace CMiX.MVVM.Controls
             positionX = LimitValue(positionX, ActualWidth);
             positionY = LimitValue(positionY, ActualHeight);
 
-            m_thumbTransform.X = positionX;
-            m_thumbTransform.Y = positionY;
+            m_thumbTransform.X = Utils.Map(positionX, 0, ActualWidth, XMin, XMax); ;
+            m_thumbTransform.Y = Utils.Map(positionY, 0, ActualHeight, YMin, YMax); ;
 
-            ThumbPosX = map(positionX, 0, ActualWidth, 0, 1);
-            ThumbPosY = map(positionY, 0, ActualHeight, 0, 1);
+            ValueX = Utils.Map(positionX, 0, ActualWidth, XMin, XMax);
+            ValueY = Utils.Map(positionY, 0, ActualHeight, YMin, YMax);
 
-            Console.WriteLine("ThumbPosX " + ThumbPosX + " ThumbPosY " + ThumbPosY);
+            Console.WriteLine("ValueX " + ValueX + " ValueY " + ValueY);
         }
 
         private void OnThumbDragDelta(DragDeltaEventArgs e)
         {
             double offsetX = m_thumbTransform.X + e.HorizontalChange;
             double offsetY = m_thumbTransform.Y + e.VerticalChange;
+
+            //double XPos = 0.0;
+            //double YPos = 0.0;
+
+            //if (offsetX <= 0.0) { }
+            //    XPos = 0.0;
+            //if (offsetX >= ActualWidth)
+            //    XPos = ActualWidth;
+
+            //if (offsetY <= 0.0)
+            //    YPos = 0.0;
+            //if (offsetY >= ActualHeight)
+            //    YPos = ActualHeight;
+
+            //Point pointToScreen = this.PointToScreen(new Point(XPos, YPos));
+            //SetCursorPos(Convert.ToInt32(pointToScreen.X), Convert.ToInt32(pointToScreen.Y));
+
+            Console.WriteLine("offsetX " + offsetX);
             UpdatePosition(offsetX, offsetY);
         }
 
@@ -222,24 +238,20 @@ namespace CMiX.MVVM.Controls
 
         protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
         {
-            m_thumbTransform.X = ThumbPosX * ActualWidth;
-            m_thumbTransform.Y = ThumbPosY * ActualHeight;
+            m_thumbTransform.X = ValueX * ActualWidth;
+            m_thumbTransform.Y = ValueY * ActualHeight;
             base.OnRenderSizeChanged(sizeInfo);
         }
 
 
         private double LimitValue(double value, double max)
         {
-            if (value < 0)
+            if (value <= 0)
                 value = 0;
-            if (value > max)
-                value = max;
-            return value;
-        }
+            if (value >= ActualWidth)
+                value = ActualWidth;
 
-        private double map(double value, double fromLow, double fromHigh, double toLow, double toHigh)
-        {
-            return (value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow;
+            return value;
         }
 
         public override void OnApplyTemplate()
@@ -248,7 +260,7 @@ namespace CMiX.MVVM.Controls
             m_thumb = GetTemplateChild(ThumbName) as Thumb;
             if (m_thumb != null)
             {
-                UpdatePosition(this.ThumbPosX, this.ThumbPosY);
+                UpdatePosition(this.ValueX, this.ValueY);
                 m_thumb.RenderTransform = m_thumbTransform;
             }
         }

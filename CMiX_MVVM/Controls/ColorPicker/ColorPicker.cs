@@ -94,14 +94,11 @@ namespace CMiX.MVVM.Controls
 
         private void OnGreenChanged(double oldValue, double newValue)
         {
+            IsUpdatingRGB = true;
             if (oldValue != newValue)
             {
                 if (!double.IsNaN(newValue))
                 {
-
-
-                    IsUpdatingRGB = true;
-
                     if (!IsUpdatingHSV)
                     {
                         var rgb = new Rgb() { R = SelectedColor.R, G = newValue, B = SelectedColor.B };
@@ -111,10 +108,9 @@ namespace CMiX.MVVM.Controls
                         Value = hsv.V;
                         SelectedColor = Color.FromRgb((byte)rgb.R, (byte)rgb.G, (byte)rgb.B);
                     }
-
-                    IsUpdatingRGB = false;
                 }
             }
+            IsUpdatingRGB = false;
         }
 
         public static readonly DependencyProperty BlueProperty =

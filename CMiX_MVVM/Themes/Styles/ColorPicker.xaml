@@ -40,8 +40,8 @@
                             <Controls:XYController x:Name="HueColorControl"
                                 Style="{DynamicResource HueController}"
                                 SelectedColor="{Binding Hue, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ColorToHueOnly}}"
-                                ThumbPosX="{Binding Saturation, RelativeSource={RelativeSource TemplatedParent}}"
-                                ThumbPosY="{Binding Value, RelativeSource={RelativeSource TemplatedParent}}"
+                                ValueX="{Binding Saturation, RelativeSource={RelativeSource TemplatedParent}}"
+                                ValueY="{Binding Value, RelativeSource={RelativeSource TemplatedParent}}"
                                 Margin="0, 4" 
                                 Height="200"/>
                         </DockPanel>
@@ -61,17 +61,12 @@
                                 x:Name="SatColorControl"
                                 Style="{DynamicResource SatController}"
                                 SelectedColor="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}}"
-                                ThumbPosX="{Binding Value, RelativeSource={RelativeSource TemplatedParent}}"
+                                ValueX="{Binding Value, RelativeSource={RelativeSource TemplatedParent}}"
+                                ValueY="{Binding Hue, RelativeSource={RelativeSource TemplatedParent}}"
+                                BackgroundOpacity="{Binding Saturation, RelativeSource={RelativeSource TemplatedParent}}"
                                 Margin="0, 4" 
                                 Height="200" 
                                 Visibility="{Binding Path=IsChecked, ElementName=SatRadio, Converter={StaticResource BoolToVisibility}}">
-                                <Controls:XYController.ThumbPosY>
-                                    <Binding Path="Hue" RelativeSource="{RelativeSource TemplatedParent}" Converter="{StaticResource DoubleToDivided}">
-                                        <Binding.ConverterParameter>
-                                            <sys:Double>360</sys:Double>
-                                        </Binding.ConverterParameter>
-                                    </Binding>
-                                </Controls:XYController.ThumbPosY>
                             </Controls:XYController>
                         </DockPanel>
                         <DockPanel Visibility="{Binding Path=IsChecked, ElementName=ValRadio, Converter={StaticResource BoolToVisibility}}">
@@ -89,17 +84,14 @@
                             <Controls:XYController x:Name="ValColorControl"
                                 Style="{DynamicResource ValController}"
                                 SelectedColor="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}}"
-                                ThumbPosX="{Binding Saturation, RelativeSource={RelativeSource TemplatedParent}}"
+                                ValueX="{Binding Saturation, RelativeSource={RelativeSource TemplatedParent}}"
+                                ValueY="{Binding Hue, RelativeSource={RelativeSource TemplatedParent}}"
+                                BackgroundOpacity="{Binding Value, RelativeSource={RelativeSource TemplatedParent}}"
+                                YMin="0"
+                                YMax="360"
                                 Margin="0, 4" 
                                 Height="200" 
                                 Visibility="{Binding Path=IsChecked, ElementName=ValRadio, Converter={StaticResource BoolToVisibility}}">
-                                <Controls:XYController.ThumbPosY>
-                                    <Binding Path="Hue" RelativeSource="{RelativeSource TemplatedParent}" Converter="{StaticResource DoubleToDivided}">
-                                        <Binding.ConverterParameter>
-                                            <sys:Double>360</sys:Double>
-                                        </Binding.ConverterParameter>
-                                    </Binding>
-                                </Controls:XYController.ThumbPosY>
                             </Controls:XYController>
                         </DockPanel>
                         <DockPanel Visibility="{Binding Path=IsChecked, ElementName=RedRadio, Converter={StaticResource BoolToVisibility}}">
@@ -117,31 +109,17 @@
                             <Controls:XYController
                                 x:Name="RedColorControl"
                                 Style="{DynamicResource RedController}"
-                                BackgroundOpacity="{Binding Red, RelativeSource={RelativeSource TemplatedParent}}"
                                 SelectedColor="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}}"
                                 Margin="0, 4" 
                                 Height="200" 
-                                ThumbPosX="{Binding Blue, RelativeSource={RelativeSource TemplatedParent}}"
-                                ThumbPosY="{Binding Green, RelativeSource={RelativeSource TemplatedParent}}"
+                                ValueX="{Binding Blue, RelativeSource={RelativeSource TemplatedParent}}"
+                                ValueY="{Binding Green, RelativeSource={RelativeSource TemplatedParent}}"
                                 XMin="0"
                                 XMax="255"
                                 YMin="0"
                                 YMax="255"
+                                BackgroundOpacity="{Binding Red, RelativeSource={RelativeSource TemplatedParent}}"
                                 Visibility="{Binding Path=IsChecked, ElementName=RedRadio, Converter={StaticResource BoolToVisibility}}">
-                                <!--<Controls:XYController.ThumbPosX>
-                                    <Binding Path="Blue" RelativeSource="{RelativeSource TemplatedParent}" Converter="{StaticResource DoubleToDivided}">
-                                        <Binding.ConverterParameter>
-                                            <sys:Double>255</sys:Double>
-                                        </Binding.ConverterParameter>
-                                    </Binding>
-                                </Controls:XYController.ThumbPosX>-->
-                                <!--<Controls:XYController.ThumbPosY>
-                                    <Binding Path="Green" RelativeSource="{RelativeSource TemplatedParent}" Converter="{StaticResource DoubleToDivided}">
-                                        <Binding.ConverterParameter>
-                                            <sys:Double>255</sys:Double>
-                                        </Binding.ConverterParameter>
-                                    </Binding>
-                                </Controls:XYController.ThumbPosY>-->
                             </Controls:XYController>
                         </DockPanel>
                         <DockPanel Visibility="{Binding Path=IsChecked, ElementName=GreenRadio, Converter={StaticResource BoolToVisibility}}">
@@ -162,21 +140,14 @@
                                 SelectedColor="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}}"
                                 Margin="0, 4" 
                                 Height="200" 
+                                ValueX="{Binding Blue, RelativeSource={RelativeSource TemplatedParent}}"
+                                ValueY="{Binding Red, RelativeSource={RelativeSource TemplatedParent}}"
+                                XMin="0"
+                                XMax="255"
+                                YMin="0"
+                                YMax="255"
+                                BackgroundOpacity="{Binding Green, RelativeSource={RelativeSource TemplatedParent}}"
                                 Visibility="{Binding Path=IsChecked, ElementName=GreenRadio, Converter={StaticResource BoolToVisibility}}">
-                                <Controls:XYController.ThumbPosX>
-                                    <Binding Path="Blue" RelativeSource="{RelativeSource TemplatedParent}" Converter="{StaticResource DoubleToDivided}">
-                                        <Binding.ConverterParameter>
-                                            <sys:Double>255</sys:Double>
-                                        </Binding.ConverterParameter>
-                                    </Binding>
-                                </Controls:XYController.ThumbPosX>
-                                <Controls:XYController.ThumbPosY>
-                                    <Binding Path="Red" RelativeSource="{RelativeSource TemplatedParent}" Converter="{StaticResource DoubleToDivided}">
-                                        <Binding.ConverterParameter>
-                                            <sys:Double>255</sys:Double>
-                                        </Binding.ConverterParameter>
-                                    </Binding>
-                                </Controls:XYController.ThumbPosY>
                             </Controls:XYController>
                         </DockPanel>
                         <DockPanel Visibility="{Binding Path=IsChecked, ElementName=BlueRadio, Converter={StaticResource BoolToVisibility}}">
@@ -197,21 +168,14 @@
                                 SelectedColor="{Binding SelectedColor}"
                                 Margin="0, 4" 
                                 Height="200" 
+                                ValueX="{Binding Green, RelativeSource={RelativeSource TemplatedParent}}"
+                                ValueY="{Binding Red, RelativeSource={RelativeSource TemplatedParent}}"
+                                XMin="0"
+                                XMax="255"
+                                YMin="0"
+                                YMax="255"
+                                BackgroundOpacity="{Binding Blue, RelativeSource={RelativeSource TemplatedParent}}"
                                 Visibility="{Binding Path=IsChecked, ElementName=BlueRadio, Converter={StaticResource BoolToVisibility}}">
-                                <Controls:XYController.ThumbPosX>
-                                    <Binding Path="Green" RelativeSource="{RelativeSource TemplatedParent}" Converter="{StaticResource DoubleToDivided}">
-                                        <Binding.ConverterParameter>
-                                            <sys:Double>255</sys:Double>
-                                        </Binding.ConverterParameter>
-                                    </Binding>
-                                </Controls:XYController.ThumbPosX>
-                                <Controls:XYController.ThumbPosY>
-                                    <Binding Path="Red" RelativeSource="{RelativeSource TemplatedParent}" Converter="{StaticResource DoubleToDivided}">
-                                        <Binding.ConverterParameter>
-                                            <sys:Double>255</sys:Double>
-                                        </Binding.ConverterParameter>
-                                    </Binding>
-                                </Controls:XYController.ThumbPosY>
                             </Controls:XYController>
                         </DockPanel>
 
