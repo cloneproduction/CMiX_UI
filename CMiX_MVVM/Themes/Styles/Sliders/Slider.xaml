@@ -4,9 +4,8 @@
                     xmlns:Converters="clr-namespace:CMiX.MVVM.Tools.Converters">
 
     <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Basic/Converters.xaml"/>
         <ResourceDictionary>
-            <Converters:DoubleToStringConverter x:Key="DoubleToString" />
-            <Converters:DoubleToStringPercentConverter x:Key="DoubleToStringPercent" />
             <Trigger x:Key="Trigger0" Property="FrameworkElement.IsMouseOver" Value="True">
                 <Setter Property="FrameworkElement.Cursor" Value="Arrow"/>
             </Trigger>
@@ -17,8 +16,8 @@
 
             <MultiDataTrigger x:Key="Trigger2">
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Path=IsEditing, RelativeSource={RelativeSource TemplatedParent}}" Value="False"/>
-                    <Condition Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource TemplatedParent}}" Value="True"/>
+                    <Condition Binding="{Binding IsEditing, RelativeSource={RelativeSource TemplatedParent}}" Value="False"/>
+                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource TemplatedParent}}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
                     <Setter Property="FrameworkElement.Visibility" Value="Visible" />
@@ -27,8 +26,8 @@
 
             <MultiDataTrigger x:Key="Trigger3">
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Path=IsEditing, RelativeSource={RelativeSource TemplatedParent}}" Value="False"/>
-                    <Condition Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource TemplatedParent}}" Value="False"/>
+                    <Condition Binding="{Binding IsEditing, RelativeSource={RelativeSource TemplatedParent}}" Value="False"/>
+                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource TemplatedParent}}" Value="False"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
                     <Setter Property="FrameworkElement.Visibility" Value="Hidden" />
@@ -222,8 +221,7 @@
                 <ControlTemplate TargetType="{x:Type Slider}">
                     <Border x:Name="mainBorder" SnapsToDevicePixels="True">
                         <Grid>
-                            <Border x:Name="borderMask" 
-                                    Style="{DynamicResource BorderMask}"/>
+                            <Border x:Name="borderMask" Style="{DynamicResource BorderMask}"/>
                             <Border x:Name="sliderBorder" Background="Transparent">
                                 <Border.OpacityMask>
                                     <VisualBrush Visual="{Binding ElementName=borderMask}"/>
@@ -243,25 +241,25 @@
                                 <Track>
                                     <Track.DecreaseRepeatButton>
                                         <RepeatButton
-                                        x:Name="RBD"
-                                        Command="{x:Static Slider.DecreaseLarge}"
-                                        Style="{StaticResource RepeatButtonDecrease}" />
+                                            x:Name="RBD"
+                                            Command="{x:Static Slider.DecreaseLarge}"
+                                            Style="{StaticResource RepeatButtonDecrease}" />
                                     </Track.DecreaseRepeatButton>
                                     <Track.IncreaseRepeatButton>
                                         <RepeatButton
-                                        x:Name="RBI"
-                                        Command="{x:Static Slider.IncreaseLarge}"
-                                        Style="{StaticResource RepeatButtonIncrease}" />
+                                            x:Name="RBI"
+                                            Command="{x:Static Slider.IncreaseLarge}"
+                                            Style="{StaticResource RepeatButtonIncrease}" />
                                     </Track.IncreaseRepeatButton>
                                 </Track>
                             </Border>
 
                             <TextBlock x:Name="sliderName"
-                                    VerticalAlignment="Center" 
-                                    HorizontalAlignment="Left"
-                                    Text="{Binding Path=Caption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}" 
-                                    Padding="8, 0" 
-                                    IsHitTestVisible="False"/>
+                                        VerticalAlignment="Center" 
+                                        HorizontalAlignment="Left"
+                                        Text="{Binding Path=Caption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource TemplatedParent}}" 
+                                        Padding="8, 0" 
+                                        IsHitTestVisible="False"/>
 
                             <Label x:Name="textDisplay" 
                                     Padding="0, 0, 8, 0"

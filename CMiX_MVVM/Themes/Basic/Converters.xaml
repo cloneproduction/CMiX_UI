@@ -29,6 +29,7 @@
     
     
     <Converters:DoubleToInvertedConverter x:Key="DoubleToInverted" />
+    <Converters:DoubleToStringPercentConverter x:Key="DoubleToStringPercent"/>
     <Converters:ByteToNormalizedDoubleConverter x:Key="ByteToNormalizedDouble"/>
     
     <Converters:DoubleToStringConverter x:Key="DoubleToString"/>

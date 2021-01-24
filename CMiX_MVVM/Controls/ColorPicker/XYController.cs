@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using CMiX.MVVM.Tools;
+using System;
+using System.Runtime.InteropServices;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
@@ -63,9 +66,7 @@ namespace CMiX.MVVM.Controls
         {
             XYController xycontroller = relatedObject as XYController;
             if (xycontroller.Visibility == Visibility.Collapsed)
-            {
                 return;
-            }
 
             if (xycontroller != null)
             {
@@ -73,14 +74,115 @@ namespace CMiX.MVVM.Controls
                 xycontroller.m_thumbTransform.Y = xycontroller.ThumbPosY * xycontroller.ActualHeight;
             }
         }
+
+        public double BackgroundOpacity
+        {
+            get { return (double)GetValue(BackgroundOpacityProperty); }
+            set { SetValue(BackgroundOpacityProperty, value); }
+        }
+        public static readonly DependencyProperty BackgroundOpacityProperty =
+        DependencyProperty.Register("BackgroundOpacity", typeof(double), typeof(XYController),
+            new FrameworkPropertyMetadata(1.0,
+                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+
+        public double XMin
+        {
+            get { return (double)GetValue(XMinProperty); }
+            set { SetValue(XMinProperty, value); }
+        }
+        public static readonly DependencyProperty XMinProperty =
+        DependencyProperty.Register("XMin", typeof(double), typeof(XYController),
+            new FrameworkPropertyMetadata(0.0,
+                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+        public double XMax
+        {
+            get { return (double)GetValue(XMaxProperty); }
+            set { SetValue(XMaxProperty, value); }
+        }
+        public static readonly DependencyProperty XMaxProperty =
+        DependencyProperty.Register("XMax", typeof(double), typeof(XYController),
+            new FrameworkPropertyMetadata(1.0,
+                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+
+        public double YMin
+        {
+            get { return (double)GetValue(YMinProperty); }
+            set { SetValue(YMinProperty, value); }
+        }
+        public static readonly DependencyProperty YMinProperty =
+        DependencyProperty.Register("YMin", typeof(double), typeof(XYController),
+            new FrameworkPropertyMetadata(0.0,
+                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+        public double YMax
+        {
+            get { return (double)GetValue(YMaxProperty); }
+            set { SetValue(YMaxProperty, value); }
+        }
+        public static readonly DependencyProperty YMaxProperty =
+        DependencyProperty.Register("YMax", typeof(double), typeof(XYController),
+            new FrameworkPropertyMetadata(1.0,
+                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
+
+
+
+        [DllImport("User32.dll")]
+        private static extern bool SetCursorPos(int X, int Y);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool GetCursorPos(ref Win32Point pt);
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct Win32Point
+        {
+            public Int32 X;
+            public Int32 Y;
+        };
+
+        public static Point GetMousePosition()
+        {
+            Win32Point w32Mouse = new Win32Point();
+            GetCursorPos(ref w32Mouse);
+            return new Point(w32Mouse.X, w32Mouse.Y);
+        }
+
+
+        protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
+        {
+            var mouseUpPos = e.GetPosition(this);
+
+            Point pointToScreen;
+
+            double YPos = Utils.Map(this.ThumbPosY, YMax, YMin, ActualHeight, 0.0);
+            double XPos = Utils.Map(this.ThumbPosX, XMin, XMax, 0, ActualWidth);
+
+            if (XPos >= ActualWidth)
+                XPos -= 1;
+
+            if (XPos <= 0)
+                XPos += 1;
+
+            if (YPos >= ActualHeight)
+                YPos -= 1;
+
+            if (YPos <= ActualHeight)
+                YPos += 1;
+
+            pointToScreen = this.PointToScreen(new Point(XPos, YPos));
+            SetCursorPos(Convert.ToInt32(pointToScreen.X), Convert.ToInt32(pointToScreen.Y));
+        }
+
+
 
         private void UpdatePosition(double positionX, double positionY)
         {
             if (this.Visibility == Visibility.Collapsed)
-            {
                 return;
-            }
 
             positionX = LimitValue(positionX, ActualWidth);
             positionY = LimitValue(positionY, ActualHeight);
@@ -90,6 +192,8 @@ namespace CMiX.MVVM.Controls
 
             ThumbPosX = map(positionX, 0, ActualWidth, 0, 1);
             ThumbPosY = map(positionY, 0, ActualHeight, 0, 1);
+
+            Console.WriteLine("ThumbPosX " + ThumbPosX + " ThumbPosY " + ThumbPosY);
         }
 
         private void OnThumbDragDelta(DragDeltaEventArgs e)

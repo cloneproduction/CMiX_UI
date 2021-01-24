@@ -26,8 +26,7 @@ namespace CMiX.MVVM.Controls
 
         private static void OnSelectedColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            //Console.WriteLine("ColorPicker OnSelectedColorChanged");
-            //Console.WriteLine("ColorPicker SelectedColor is " + ((ColorPicker)d).SelectedColor);
+            Console.WriteLine("ColorPicker OnSelectedColorChanged");
         }
 
 
@@ -59,8 +58,6 @@ namespace CMiX.MVVM.Controls
             {
                 if (!double.IsNaN(newValue))
                 {
-
-
                     if (!IsUpdatingHSV)
                     {
                         var rgb = new Rgb() { R = newValue, G = SelectedColor.G, B = SelectedColor.B };
@@ -101,13 +98,14 @@ namespace CMiX.MVVM.Controls
             {
                 if (!double.IsNaN(newValue))
                 {
-                    var rgb = new Rgb() { R = SelectedColor.R, G = newValue, B = SelectedColor.B };
-                    var hsv = rgb.To<Hsv>();
+
 
                     IsUpdatingRGB = true;
 
                     if (!IsUpdatingHSV)
                     {
+                        var rgb = new Rgb() { R = SelectedColor.R, G = newValue, B = SelectedColor.B };
+                        var hsv = rgb.To<Hsv>();
                         Hue = hsv.H;
                         Saturation = hsv.S;
                         Value = hsv.V;
@@ -144,17 +142,13 @@ namespace CMiX.MVVM.Controls
             {
                 if (!double.IsNaN(newValue))
                 {
-                    var rgb = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = newValue };
-                    var hsv = rgb.To<Hsv>();
-
-
-
                     if (!IsUpdatingHSV)
                     {
+                        var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = newValue }.To<Hsv>();
                         Hue = hsv.H;
                         Saturation = hsv.S;
                         Value = hsv.V;
-                        SelectedColor = Color.FromRgb((byte)rgb.R, (byte)rgb.G, (byte)rgb.B);
+                        SelectedColor = Color.FromRgb(SelectedColor.R, SelectedColor.G, (byte)newValue);
                     }
                 }
             }
@@ -183,16 +177,14 @@ namespace CMiX.MVVM.Controls
         {
             IsUpdatingHSV = true;
 
-            if (!double.IsNaN(newValue))
+            if (!double.IsNaN(newValue) && newValue != oldValue)
             {
-                var selectedColor = SelectedColor;
-                var hsv = new Rgb() { R = selectedColor.R, G = selectedColor.G, B = selectedColor.B }.To<Hsv>();
+                var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = SelectedColor.B }.To<Hsv>();
                 hsv.H = newValue;
-
-                var rgb = hsv.To<Rgb>();
 
                 if (!IsUpdatingRGB)
                 {
+                    var rgb = hsv.To<Rgb>();
                     Red = rgb.R;
                     Green = rgb.G;
                     Blue = rgb.B;
@@ -227,18 +219,12 @@ namespace CMiX.MVVM.Controls
 
             if (!double.IsNaN(newValue))
             {
-                var hsv = new Hsv();// { R = selectedColor.R, G = selectedColor.G, B = selectedColor.B }.To<Hsv>();
+                var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = SelectedColor.B }.To<Hsv>();
                 hsv.S = newValue;
-
-                if (!double.IsNaN(Hue) && Value > 0.0)
-                    hsv.H = Hue;
-
-                if (!double.IsNaN(Value) && Value > 0.0)
-                    hsv.V = Value;
-                var rgb = hsv.To<Rgb>();
 
                 if (!IsUpdatingRGB)
                 {
+                    var rgb = hsv.To<Rgb>();
                     Red = rgb.R;
                     Green = rgb.G;
                     Blue = rgb.B;
@@ -273,18 +259,11 @@ namespace CMiX.MVVM.Controls
 
             if (!double.IsNaN(newValue))
             {
+                var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = SelectedColor.B }.To<Hsv>();
+                hsv.V = newValue;
+
                 if (!IsUpdatingRGB)
                 {
-                    var hsv = new Hsv();
-
-                    hsv.V = newValue;
-
-                    if (!double.IsNaN(Hue) && Value > 0.0)
-                        hsv.H = Hue;
-
-                    if (!double.IsNaN(Saturation) && Value > 0.0)
-                        hsv.S = Saturation;
-
                     var rgb = hsv.To<Rgb>();
 
                     Red = rgb.R;

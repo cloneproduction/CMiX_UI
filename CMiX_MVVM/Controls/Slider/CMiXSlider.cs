@@ -119,14 +119,10 @@ namespace CMiX.MVVM.Controls
                 else
                     newValue = this.Value + offset.X * ((Math.Abs(this.Minimum) + Math.Abs(this.Maximum)) / ActualWidth);
 
-
-
                 if (newValue >= this.Maximum)
                     newValue = this.Maximum;
                 else if (newValue <= this.Minimum)
                     newValue = this.Minimum;
-
-
 
                 this.Value = newValue;
                 _lastPoint = GetMousePosition();
@@ -172,6 +168,8 @@ namespace CMiX.MVVM.Controls
             public Int32 X;
             public Int32 Y;
         };
+
+
         public static Point GetMousePosition()
         {
             Win32Point w32Mouse = new Win32Point();

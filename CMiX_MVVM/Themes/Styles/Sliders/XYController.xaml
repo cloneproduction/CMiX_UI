@@ -7,6 +7,7 @@
         <ResourceDictionary Source="pack://application:,,,/CMiX.MVVM;component/Themes/Basic/Converters.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
+    
     <Style x:Key="ColorPickerRepeatButtonStyle" TargetType="{x:Type RepeatButton}">
         <Setter Property="IsTabStop" Value="false" />
         <Setter Property="Focusable" Value="false" />
@@ -58,6 +59,7 @@
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Focusable" Value="False" />
+        <Setter Property="Controls:MouseDownHelper.IsEnabled" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Controls:XYController}">
@@ -82,12 +84,18 @@
                             <Canvas.LayoutTransform>
                                 <ScaleTransform ScaleX="1" ScaleY="-1" />
                             </Canvas.LayoutTransform>
-                            <Thumb
-                                x:Name="PART_Thumb"
-                                Style="{DynamicResource XYControllerThumbStyle}">
-                            </Thumb>
+                            <Thumb x:Name="PART_Thumb" Style="{DynamicResource XYControllerThumbStyle}"/>
                         </Canvas>
                     </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Cross"/>
+                        </Trigger>
+                        
+                        <Trigger Property="Controls:MouseDownHelper.IsMouseLeftButtonDown" Value="True">
+                            <Setter Property="Cursor" Value="None"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -98,6 +106,7 @@
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Focusable" Value="False" />
+        <Setter Property="Controls:MouseDownHelper.IsEnabled" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Controls:XYController}">
@@ -133,6 +142,15 @@
                             </Thumb>
                         </Canvas>
                     </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Cross"/>
+                        </Trigger>
+
+                        <Trigger Property="Controls:MouseDownHelper.IsMouseLeftButtonDown" Value="True">
+                            <Setter Property="Cursor" Value="None"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -143,6 +161,7 @@
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Focusable" Value="False" />
+        <Setter Property="Controls:MouseDownHelper.IsEnabled" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Controls:XYController}">
@@ -175,6 +194,15 @@
                             <Thumb x:Name="PART_Thumb" Style="{DynamicResource XYControllerThumbStyle}"/>
                         </Canvas>
                     </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Cross"/>
+                        </Trigger>
+
+                        <Trigger Property="Controls:MouseDownHelper.IsMouseLeftButtonDown" Value="True">
+                            <Setter Property="Cursor" Value="None"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -185,6 +213,7 @@
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Focusable" Value="False" />
+        <Setter Property="Controls:MouseDownHelper.IsEnabled" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Controls:XYController}">
@@ -215,7 +244,7 @@
                             </Rectangle>
                         </Grid>
 
-                        <Grid Opacity="{Binding SelectedColor, Converter={StaticResource ColorToRedAsDouble}, RelativeSource={RelativeSource TemplatedParent}}"  >
+                        <Grid Opacity="{Binding BackgroundOpacity, RelativeSource={RelativeSource TemplatedParent}}"  >
                             <Rectangle Fill="Red"/>
                             <Rectangle>
                                 <Rectangle.Fill>
@@ -251,6 +280,15 @@
                             </Thumb>
                         </Canvas>
                     </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Cross"/>
+                        </Trigger>
+
+                        <Trigger Property="Controls:MouseDownHelper.IsMouseLeftButtonDown" Value="True">
+                            <Setter Property="Cursor" Value="None"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -261,6 +299,7 @@
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Focusable" Value="False" />
+        <Setter Property="Controls:MouseDownHelper.IsEnabled" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Controls:XYController}">
@@ -327,6 +366,15 @@
                             </Thumb>
                         </Canvas>
                     </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Cross"/>
+                        </Trigger>
+
+                        <Trigger Property="Controls:MouseDownHelper.IsMouseLeftButtonDown" Value="True">
+                            <Setter Property="Cursor" Value="None"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -337,6 +385,7 @@
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Focusable" Value="False" />
+        <Setter Property="Controls:MouseDownHelper.IsEnabled" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Controls:XYController}">
@@ -403,6 +452,15 @@
                             </Thumb>
                         </Canvas>
                     </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Cross"/>
+                        </Trigger>
+
+                        <Trigger Property="Controls:MouseDownHelper.IsMouseLeftButtonDown" Value="True">
+                            <Setter Property="Cursor" Value="None"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

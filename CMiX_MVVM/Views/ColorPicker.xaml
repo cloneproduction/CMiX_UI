@@ -37,10 +37,10 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <StackPanel>
+    <!--<StackPanel>
         <local:ColorPicker Style="{StaticResource ColorPickerStyle}"/>
 
-    </StackPanel>
+    </StackPanel>-->
 
     <!--<StackPanel>
         <DockPanel Visibility="{Binding Path=IsChecked, ElementName=HueRadio, Converter={StaticResource BoolToVisibility}}">

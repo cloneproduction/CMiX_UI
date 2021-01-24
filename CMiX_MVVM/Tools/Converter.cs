@@ -544,8 +544,6 @@ namespace CMiX.MVVM.Tools.Converters
             {
                 Sat = hsv.S;
             }
-
-            Console.WriteLine("FromConverter Sat" + Sat);
             return Sat;
         }
 
