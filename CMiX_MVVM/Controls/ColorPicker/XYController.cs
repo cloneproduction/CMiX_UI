@@ -155,22 +155,29 @@ namespace CMiX.MVVM.Controls
 
         protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
         {
-            var mouseUpPos = e.GetPosition(this);
+            //var mouseUpPos = e.GetPosition(this);
 
-            double YPos = Utils.Map(this.ValueY, YMin, YMax, ActualHeight, 0.0);
+            //double YPos = Utils.Map(this.ValueY, YMin, YMax, ActualHeight, 0.0);
+            //double XPos = Utils.Map(this.ValueX, XMin, XMax, 0, ActualWidth);
+
+            //if (XPos >= ActualWidth)
+            //    XPos -= 1;
+
+            //if (XPos <= 0)
+            //    XPos += 1;
+
+            //if (YPos >= ActualHeight)
+            //    YPos -= 1;
+
+            //if (YPos <= ActualHeight)
+            //    YPos += 1;
+
+            //Point pointToScreen = this.PointToScreen(new Point(XPos, YPos));
+            //SetCursorPos(Convert.ToInt32(pointToScreen.X), Convert.ToInt32(pointToScreen.Y));
+
             double XPos = Utils.Map(this.ValueX, XMin, XMax, 0, ActualWidth);
+            double YPos = Utils.Map(this.ValueY, YMin, YMax, ActualHeight, 0.0);
 
-            if (XPos >= ActualWidth)
-                XPos -= 1;
-
-            if (XPos <= 0)
-                XPos += 1;
-
-            if (YPos >= ActualHeight)
-                YPos -= 1;
-
-            if (YPos <= ActualHeight)
-                YPos += 1;
 
             Point pointToScreen = this.PointToScreen(new Point(XPos, YPos));
             SetCursorPos(Convert.ToInt32(pointToScreen.X), Convert.ToInt32(pointToScreen.Y));
@@ -182,38 +189,49 @@ namespace CMiX.MVVM.Controls
             if (this.Visibility == Visibility.Collapsed)
                 return;
 
-            positionX = LimitValue(positionX, ActualWidth);
-            positionY = LimitValue(positionY, ActualHeight);
+            if (positionX >= ActualWidth)
+                positionX = ActualWidth;
 
-            m_thumbTransform.X = Utils.Map(positionX, 0, ActualWidth, XMin, XMax); ;
-            m_thumbTransform.Y = Utils.Map(positionY, 0, ActualHeight, YMin, YMax); ;
+            if (positionX <= 0)
+                positionX = 0;
 
-            ValueX = Utils.Map(positionX, 0, ActualWidth, XMin, XMax);
-            ValueY = Utils.Map(positionY, 0, ActualHeight, YMin, YMax);
+            if (positionY >= ActualHeight)
+                positionY = ActualHeight;
 
-            Console.WriteLine("ValueX " + ValueX + " ValueY " + ValueY);
+            if (positionY <= 0)
+                positionY = 0;
+
+            m_thumbTransform.X = positionX;
+            m_thumbTransform.Y = positionY;
+
+
+            positionX = Utils.Map(positionX, 0, ActualWidth, XMin, XMax);
+            positionY = Utils.Map(positionY, 0, ActualHeight, YMin, YMax);
+
+            if (positionX >= XMax)
+                positionX = XMax;
+
+            if (positionX <= XMin)
+                positionX = XMin;
+
+            if (positionY >= YMax)
+                positionY = YMax;
+
+            if (positionY <= YMin)
+                positionY = YMin;
+
+
+
+            ValueX = positionX;
+            ValueY = positionY;
+
+
         }
 
         private void OnThumbDragDelta(DragDeltaEventArgs e)
         {
             double offsetX = m_thumbTransform.X + e.HorizontalChange;
             double offsetY = m_thumbTransform.Y + e.VerticalChange;
-
-            //double XPos = 0.0;
-            //double YPos = 0.0;
-
-            //if (offsetX <= 0.0) { }
-            //    XPos = 0.0;
-            //if (offsetX >= ActualWidth)
-            //    XPos = ActualWidth;
-
-            //if (offsetY <= 0.0)
-            //    YPos = 0.0;
-            //if (offsetY >= ActualHeight)
-            //    YPos = ActualHeight;
-
-            //Point pointToScreen = this.PointToScreen(new Point(XPos, YPos));
-            //SetCursorPos(Convert.ToInt32(pointToScreen.X), Convert.ToInt32(pointToScreen.Y));
 
             Console.WriteLine("offsetX " + offsetX);
             UpdatePosition(offsetX, offsetY);

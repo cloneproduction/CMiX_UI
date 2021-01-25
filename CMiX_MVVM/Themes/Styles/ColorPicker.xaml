@@ -40,12 +40,11 @@
                             <Controls:XYController x:Name="HueColorControl"
                                 Style="{DynamicResource HueController}"
                                 SelectedColor="{Binding Hue, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ColorToHueOnly}}"
-                                ValueX="{Binding Saturation, RelativeSource={RelativeSource TemplatedParent}}"
-                                ValueY="{Binding Value, RelativeSource={RelativeSource TemplatedParent}}"
+
                                 Margin="0, 4" 
                                 Height="200"/>
                         </DockPanel>
-                        <DockPanel Visibility="{Binding Path=IsChecked, ElementName=SatRadio, Converter={StaticResource BoolToVisibility}}">
+                        <!--<DockPanel Visibility="{Binding Path=IsChecked, ElementName=SatRadio, Converter={StaticResource BoolToVisibility}}">
                             <Controls:ColorSlider
                                 Minimum="0"
                                 Maximum="1"
@@ -177,12 +176,12 @@
                                 BackgroundOpacity="{Binding Blue, RelativeSource={RelativeSource TemplatedParent}}"
                                 Visibility="{Binding Path=IsChecked, ElementName=BlueRadio, Converter={StaticResource BoolToVisibility}}">
                             </Controls:XYController>
-                        </DockPanel>
+                        </DockPanel>-->
 
 
                         
                         
-                        <Separator Background="{DynamicResource DarkColor}" Opacity="0.25" Margin="0, 8"/>
+                        <!--<Separator Background="{DynamicResource DarkColor}" Opacity="0.25" Margin="0, 8"/>
                         <Grid Margin="0, 0, 0, 1" Height="20">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="0.2*"/>
@@ -448,7 +447,7 @@
                                 Background="{DynamicResource HighDarkerColor}"
                                 Foreground="{DynamicResource TextBase}"
                                 Text="{Binding SelectedColor,  RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ColorToHex}}"/>
-                        </Grid>
+                        </Grid>-->
                     </StackPanel>
                 </ControlTemplate>
             </Setter.Value>
