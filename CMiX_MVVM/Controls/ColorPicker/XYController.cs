@@ -153,6 +153,11 @@ namespace CMiX.MVVM.Controls
         }
 
 
+        private Point? _mouseDownPos;
+        private Point? _lastPoint;
+        private double newValueX;
+        private double newValueY;
+
         protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
         {
             //var mouseUpPos = e.GetPosition(this);
@@ -184,57 +189,81 @@ namespace CMiX.MVVM.Controls
         }
 
 
-        private void UpdatePosition(double positionX, double positionY)
-        {
-            if (this.Visibility == Visibility.Collapsed)
-                return;
+        //private void UpdatePosition(double positionX, double positionY)
+        //{
+        //    if (this.Visibility == Visibility.Collapsed)
+        //        return;
 
-            if (positionX >= ActualWidth)
-                positionX = ActualWidth;
+        //    if (positionX >= ActualWidth)
+        //        positionX = ActualWidth;
 
-            if (positionX <= 0)
-                positionX = 0;
+        //    if (positionX <= 0)
+        //        positionX = 0;
 
-            if (positionY >= ActualHeight)
-                positionY = ActualHeight;
+        //    if (positionY >= ActualHeight)
+        //        positionY = ActualHeight;
 
-            if (positionY <= 0)
-                positionY = 0;
+        //    if (positionY <= 0)
+        //        positionY = 0;
 
-            m_thumbTransform.X = positionX;
-            m_thumbTransform.Y = positionY;
-
-
-            positionX = Utils.Map(positionX, 0, ActualWidth, XMin, XMax);
-            positionY = Utils.Map(positionY, 0, ActualHeight, YMin, YMax);
-
-            if (positionX >= XMax)
-                positionX = XMax;
-
-            if (positionX <= XMin)
-                positionX = XMin;
-
-            if (positionY >= YMax)
-                positionY = YMax;
-
-            if (positionY <= YMin)
-                positionY = YMin;
+        //    m_thumbTransform.X = positionX;
+        //    m_thumbTransform.Y = positionY;
 
 
+        //    positionX = Utils.Map(positionX, 0, ActualWidth, XMin, XMax);
+        //    positionY = Utils.Map(positionY, 0, ActualHeight, YMin, YMax);
 
-            ValueX = positionX;
-            ValueY = positionY;
+        //    if (positionX >= XMax)
+        //        positionX = XMax;
+
+        //    if (positionX <= XMin)
+        //        positionX = XMin;
+
+        //    if (positionY >= YMax)
+        //        positionY = YMax;
+
+        //    if (positionY <= YMin)
+        //        positionY = YMin;
 
 
-        }
+
+        //    ValueX = positionX;
+        //    ValueY = positionY;
+
+
+        //}
 
         private void OnThumbDragDelta(DragDeltaEventArgs e)
         {
-            double offsetX = m_thumbTransform.X + e.HorizontalChange;
-            double offsetY = m_thumbTransform.Y + e.VerticalChange;
 
-            Console.WriteLine("offsetX " + offsetX);
-            UpdatePosition(offsetX, offsetY);
+
+            var currentPoint = GetMousePosition();
+            var offset = currentPoint - _lastPoint.Value;
+
+            newValueX = this.ValueX + offset.X * ((Math.Abs(this.XMin) + Math.Abs(this.XMax)) / ActualWidth);
+            newValueY = this.ValueY + offset.Y * ((Math.Abs(this.YMin) + Math.Abs(this.YMax)) / -ActualHeight);
+
+
+
+            if (newValueX >= this.XMax)
+                newValueX = this.XMax;
+            else if (newValueX <= this.XMin)
+                newValueX = this.XMin;
+
+            if (newValueY >= this.YMax)
+                newValueY = this.YMax;
+            else if (newValueY <= this.YMin)
+                newValueY = this.YMin;
+
+            this.ValueX = newValueX;
+            this.ValueY = newValueY;
+
+            _lastPoint = GetMousePosition();
+
+            //m_thumbTransform.X = positionX;
+            //m_thumbTransform.Y = positionY;
+
+            //UpdatePosition(newValueX, newValueY);
         }
 
         private static void OnThumbDragDelta(object sender, DragDeltaEventArgs e)
@@ -245,12 +274,30 @@ namespace CMiX.MVVM.Controls
 
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            if (m_thumb != null)
+            
+            //_mouseDownPos = e.GetPosition(this);
+            //this.CaptureMouse();
+
+            if (m_thumb != null && _lastPoint != null)
             {
-                Point position = e.GetPosition(this);
-                UpdatePosition(position.X, ActualHeight - position.Y); //Check canvas scale in style 
+                var currentPoint = GetMousePosition();
+                var offset = currentPoint;// - _lastPoint.Value;
+
+                newValueX = this.ValueX + offset.X * ((Math.Abs(this.XMin) + Math.Abs(this.XMax)) / ActualWidth);
+                newValueY = this.ValueY + offset.Y * ((Math.Abs(this.YMin) + Math.Abs(this.YMax)) / -ActualHeight);
+
+                m_thumbTransform.X = newValueX;
+                m_thumbTransform.Y = newValueY;
+
+                //this.ValueX = newValueX;
+                //this.ValueY = newValueY;
+                
+                //Console.WriteLine("positionX " + position.X + " positionY " + position.Y);
+                Console.WriteLine("newValueX " + newValueX + " newValueY " + newValueY);
+                //UpdatePosition(position.X, ActualHeight - position.Y); //Check canvas scale in style 
                 m_thumb.RaiseEvent(e);
             }
+            _lastPoint = GetMousePosition();
             base.OnMouseLeftButtonDown(e);
         }
 
@@ -262,23 +309,13 @@ namespace CMiX.MVVM.Controls
         }
 
 
-        private double LimitValue(double value, double max)
-        {
-            if (value <= 0)
-                value = 0;
-            if (value >= ActualWidth)
-                value = ActualWidth;
-
-            return value;
-        }
-
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
             m_thumb = GetTemplateChild(ThumbName) as Thumb;
             if (m_thumb != null)
             {
-                UpdatePosition(this.ValueX, this.ValueY);
+                //UpdatePosition(this.ValueX, this.ValueY);
                 m_thumb.RenderTransform = m_thumbTransform;
             }
         }
