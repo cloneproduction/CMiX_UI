@@ -40,7 +40,10 @@
                             <Controls:XYController x:Name="HueColorControl"
                                 Style="{DynamicResource HueController}"
                                 SelectedColor="{Binding Hue, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ColorToHueOnly}}"
-
+                                XMin="0"
+                                XMax="255"
+                                YMin="0"
+                                YMax="255"
                                 Margin="0, 4" 
                                 Height="200"/>
                         </DockPanel>
