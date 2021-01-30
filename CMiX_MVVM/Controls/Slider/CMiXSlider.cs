@@ -107,12 +107,13 @@ namespace CMiX.MVVM.Controls
             if (_mouseDownPos != null)
             {
                 var currentPoint = GetMousePosition();
-                var offset = currentPoint - _lastPoint.Value;
 
                 if (currentPoint.X >= ScreenWidth - 1)
                     SetCursorPos(0, Convert.ToInt32(currentPoint.Y));
                 else if (currentPoint.X <= 0)
                     SetCursorPos(ScreenWidth - 1, Convert.ToInt32(currentPoint.Y));
+
+                var offset = currentPoint - _lastPoint.Value;
 
                 if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
                     newValue = this.Value + offset.X * ((Math.Abs(this.Minimum) + Math.Abs(this.Maximum)) / ActualWidth) * 0.01;

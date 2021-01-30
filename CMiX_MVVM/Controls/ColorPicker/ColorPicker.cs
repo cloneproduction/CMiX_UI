@@ -26,7 +26,7 @@ namespace CMiX.MVVM.Controls
 
         private static void OnSelectedColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Console.WriteLine("ColorPicker OnSelectedColorChanged");
+            //Console.WriteLine("ColorPicker OnSelectedColorChanged");
         }
 
 
@@ -53,23 +53,23 @@ namespace CMiX.MVVM.Controls
 
         private void OnRedChanged(double oldValue, double newValue)
         {
-            IsUpdatingRGB = true;
-            if (oldValue != newValue)
-            {
-                if (!double.IsNaN(newValue))
-                {
-                    if (!IsUpdatingHSV)
-                    {
-                        var rgb = new Rgb() { R = newValue, G = SelectedColor.G, B = SelectedColor.B };
-                        var hsv = rgb.To<Hsv>();
-                        Hue = hsv.H;
-                        Saturation = hsv.S;
-                        Value = hsv.V;
-                        SelectedColor = Color.FromRgb((byte)rgb.R, (byte)rgb.G, (byte)rgb.B);
-                    }
-                }
-            }
-            IsUpdatingRGB = false;
+            //IsUpdatingRGB = true;
+            //if (oldValue != newValue)
+            //{
+            //    if (!double.IsNaN(newValue))
+            //    {
+            //        if (!IsUpdatingHSV)
+            //        {
+            //            var rgb = new Rgb() { R = newValue, G = SelectedColor.G, B = SelectedColor.B };
+            //            var hsv = rgb.To<Hsv>();
+            //            Hue = hsv.H;
+            //            Saturation = hsv.S;
+            //            Value = hsv.V;
+            //            SelectedColor = Color.FromRgb((byte)rgb.R, (byte)rgb.G, (byte)rgb.B);
+            //        }
+            //    }
+            //}
+            //IsUpdatingRGB = false;
         }
 
 
@@ -94,23 +94,23 @@ namespace CMiX.MVVM.Controls
 
         private void OnGreenChanged(double oldValue, double newValue)
         {
-            IsUpdatingRGB = true;
-            if (oldValue != newValue)
-            {
-                if (!double.IsNaN(newValue))
-                {
-                    if (!IsUpdatingHSV)
-                    {
-                        var rgb = new Rgb() { R = SelectedColor.R, G = newValue, B = SelectedColor.B };
-                        var hsv = rgb.To<Hsv>();
-                        Hue = hsv.H;
-                        Saturation = hsv.S;
-                        Value = hsv.V;
-                        SelectedColor = Color.FromRgb((byte)rgb.R, (byte)rgb.G, (byte)rgb.B);
-                    }
-                }
-            }
-            IsUpdatingRGB = false;
+            //IsUpdatingRGB = true;
+            //if (oldValue != newValue)
+            //{
+            //    if (!double.IsNaN(newValue))
+            //    {
+            //        if (!IsUpdatingHSV)
+            //        {
+            //            var rgb = new Rgb() { R = SelectedColor.R, G = newValue, B = SelectedColor.B };
+            //            var hsv = rgb.To<Hsv>();
+            //            Hue = hsv.H;
+            //            Saturation = hsv.S;
+            //            Value = hsv.V;
+            //            SelectedColor = Color.FromRgb((byte)rgb.R, (byte)rgb.G, (byte)rgb.B);
+            //        }
+            //    }
+            //}
+            //IsUpdatingRGB = false;
         }
 
         public static readonly DependencyProperty BlueProperty =
@@ -132,23 +132,23 @@ namespace CMiX.MVVM.Controls
 
         private void OnBlueChanged(double oldValue, double newValue)
         {
-            IsUpdatingRGB = true;
+            //IsUpdatingRGB = true;
 
-            if (oldValue != newValue)
-            {
-                if (!double.IsNaN(newValue))
-                {
-                    if (!IsUpdatingHSV)
-                    {
-                        var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = newValue }.To<Hsv>();
-                        Hue = hsv.H;
-                        Saturation = hsv.S;
-                        Value = hsv.V;
-                        SelectedColor = Color.FromRgb(SelectedColor.R, SelectedColor.G, (byte)newValue);
-                    }
-                }
-            }
-            IsUpdatingRGB = false;
+            //if (oldValue != newValue)
+            //{
+            //    if (!double.IsNaN(newValue))
+            //    {
+            //        if (!IsUpdatingHSV)
+            //        {
+            //            var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = newValue }.To<Hsv>();
+            //            Hue = hsv.H;
+            //            Saturation = hsv.S;
+            //            Value = hsv.V;
+            //            SelectedColor = Color.FromRgb(SelectedColor.R, SelectedColor.G, (byte)newValue);
+            //        }
+            //    }
+            //}
+            //IsUpdatingRGB = false;
         }
 
         public static readonly DependencyProperty HueProperty =
@@ -171,24 +171,24 @@ namespace CMiX.MVVM.Controls
 
         private void OnHueChanged(double oldValue, double newValue)
         {
-            IsUpdatingHSV = true;
+            //IsUpdatingHSV = true;
 
-            if (!double.IsNaN(newValue) && newValue != oldValue)
-            {
-                var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = SelectedColor.B }.To<Hsv>();
-                hsv.H = newValue;
+            //if (!double.IsNaN(newValue) && newValue != oldValue)
+            //{
+            //    var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = SelectedColor.B }.To<Hsv>();
+            //    hsv.H = newValue;
 
-                if (!IsUpdatingRGB)
-                {
-                    var rgb = hsv.To<Rgb>();
-                    Red = rgb.R;
-                    Green = rgb.G;
-                    Blue = rgb.B;
-                    SelectedColor = Color.FromRgb((byte)rgb.R, (byte)rgb.G, (byte)rgb.B);
-                }
-            }
+            //    if (!IsUpdatingRGB)
+            //    {
+            //        var rgb = hsv.To<Rgb>();
+            //        Red = rgb.R;
+            //        Green = rgb.G;
+            //        Blue = rgb.B;
+            //        SelectedColor = Color.FromRgb((byte)rgb.R, (byte)rgb.G, (byte)rgb.B);
+            //    }
+            //}
 
-            IsUpdatingHSV = false;
+            //IsUpdatingHSV = false;
         }
 
 
@@ -211,24 +211,24 @@ namespace CMiX.MVVM.Controls
 
         private void OnSaturationChanged(double oldValue, double newValue)
         {
-            IsUpdatingHSV = true;
+            //IsUpdatingHSV = true;
 
-            if (!double.IsNaN(newValue))
-            {
-                var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = SelectedColor.B }.To<Hsv>();
-                hsv.S = newValue;
+            //if (!double.IsNaN(newValue))
+            //{
+            //    var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = SelectedColor.B }.To<Hsv>();
+            //    hsv.S = newValue;
 
-                if (!IsUpdatingRGB)
-                {
-                    var rgb = hsv.To<Rgb>();
-                    Red = rgb.R;
-                    Green = rgb.G;
-                    Blue = rgb.B;
-                    SelectedColor = Color.FromRgb((byte)rgb.R, (byte)rgb.G, (byte)rgb.B);
-                }
-            }
+            //    if (!IsUpdatingRGB)
+            //    {
+            //        var rgb = hsv.To<Rgb>();
+            //        Red = rgb.R;
+            //        Green = rgb.G;
+            //        Blue = rgb.B;
+            //        SelectedColor = Color.FromRgb((byte)rgb.R, (byte)rgb.G, (byte)rgb.B);
+            //    }
+            //}
 
-            IsUpdatingHSV = false;
+            //IsUpdatingHSV = false;
         }
 
         public static readonly DependencyProperty ValueProperty =
@@ -251,26 +251,26 @@ namespace CMiX.MVVM.Controls
 
         private void OnValueChanged(double oldValue, double newValue)
         {
-            IsUpdatingHSV = true;
+            //IsUpdatingHSV = true;
 
-            if (!double.IsNaN(newValue))
-            {
-                var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = SelectedColor.B }.To<Hsv>();
-                hsv.V = newValue;
+            //if (!double.IsNaN(newValue))
+            //{
+            //    var hsv = new Rgb() { R = SelectedColor.R, G = SelectedColor.G, B = SelectedColor.B }.To<Hsv>();
+            //    hsv.V = newValue;
 
-                if (!IsUpdatingRGB)
-                {
-                    var rgb = hsv.To<Rgb>();
+            //    if (!IsUpdatingRGB)
+            //    {
+            //        var rgb = hsv.To<Rgb>();
 
-                    Red = rgb.R;
-                    Green = rgb.G;
-                    Blue = rgb.B;
+            //        Red = rgb.R;
+            //        Green = rgb.G;
+            //        Blue = rgb.B;
 
-                    SelectedColor = Color.FromRgb((byte)rgb.R, (byte)rgb.G, (byte)rgb.B);
-                }
-            }
+            //        SelectedColor = Color.FromRgb((byte)rgb.R, (byte)rgb.G, (byte)rgb.B);
+            //    }
+            //}
 
-            IsUpdatingHSV = false;
+            //IsUpdatingHSV = false;
         }
     }
 }

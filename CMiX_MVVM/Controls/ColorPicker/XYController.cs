@@ -13,14 +13,28 @@ namespace CMiX.MVVM.Controls
     {
         static XYController()
         {
-            UIElement.VisibilityProperty.OverrideMetadata(typeof(XYController),new PropertyMetadata(Visibility.Visible, OnVisibililtyChanged));
+            UIElement.VisibilityProperty.OverrideMetadata(typeof(XYController),new PropertyMetadata(Visibility.Visible));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(XYController), new FrameworkPropertyMetadata(typeof(XYController)));
             EventManager.RegisterClassHandler(typeof(XYController), Thumb.DragDeltaEvent, new DragDeltaEventHandler(XYController.OnThumbDragDelta));
         }
 
-        private static void OnVisibililtyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        //private static void OnVisibililtyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        //{
+        //    OnThumbPosChanged(d, e);
+        //}
+
+
+        private static void OnThumbPosChanged(DependencyObject relatedObject, DependencyPropertyChangedEventArgs e)
         {
-            OnThumbPosChanged(d, e);
+            XYController xycontroller = relatedObject as XYController;
+            if (xycontroller.Visibility == Visibility.Collapsed)
+                return;
+
+            if (xycontroller != null)
+            {
+                xycontroller.m_thumbTransform.X = Utils.Map(xycontroller.ValueX, xycontroller.XMin, xycontroller.XMax, 0, xycontroller.ActualWidth);
+                xycontroller.m_thumbTransform.Y = Utils.Map(xycontroller.ValueY, xycontroller.YMin, xycontroller.YMax, 0, xycontroller.ActualHeight);
+            }
         }
 
         private const string ThumbName = "PART_Thumb";
@@ -46,8 +60,7 @@ namespace CMiX.MVVM.Controls
         public static readonly DependencyProperty ValueXProperty =
         DependencyProperty.Register("ValueX", typeof(double), typeof(XYController),
             new FrameworkPropertyMetadata(0.5,
-                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
-                OnThumbPosChanged));
+                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
 
         public double ValueY
@@ -58,23 +71,8 @@ namespace CMiX.MVVM.Controls
         public static readonly DependencyProperty ValueYProperty =
         DependencyProperty.Register("ValueY", typeof(double), typeof(XYController),
             new FrameworkPropertyMetadata(0.5,
-                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
-                OnThumbPosChanged));
+                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-
-
-        private static void OnThumbPosChanged(DependencyObject relatedObject, DependencyPropertyChangedEventArgs e)
-        {
-            XYController xycontroller = relatedObject as XYController;
-            if (xycontroller.Visibility == Visibility.Collapsed)
-                return;
-
-            if (xycontroller != null)
-            {
-                xycontroller.m_thumbTransform.X = Utils.Map(xycontroller.ValueX, xycontroller.XMin, xycontroller.XMax, 0, xycontroller.ActualWidth);
-                xycontroller.m_thumbTransform.Y = Utils.Map(xycontroller.ValueY, xycontroller.YMin, xycontroller.YMax, 0, xycontroller.ActualHeight) ;
-            }
-        }
 
         public double BackgroundOpacity
         {
@@ -130,7 +128,6 @@ namespace CMiX.MVVM.Controls
         #endregion
 
 
-
         [DllImport("User32.dll")]
         private static extern bool SetCursorPos(int X, int Y);
 
@@ -151,13 +148,6 @@ namespace CMiX.MVVM.Controls
             GetCursorPos(ref w32Mouse);
             return new Point(w32Mouse.X, w32Mouse.Y);
         }
-
-
-        //private Point? _mouseDownPos;
-        //private Point? _lastPoint;
-        private double newValueX;
-        private double newValueY;
-
 
         protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
         {
@@ -182,35 +172,73 @@ namespace CMiX.MVVM.Controls
             SetCursorPos(Convert.ToInt32(pointToScreen.X), Convert.ToInt32(pointToScreen.Y));
         }
 
+
+        double previousHorizontalChange = 0;
+        double previousVerticalChange = 0;
+
         private void OnThumbDragDelta(DragDeltaEventArgs e)
         {
-            var horizontalChange = e.HorizontalChange;
+            var horizontalChange = e.HorizontalChange;// - previousHorizontalChange;
             var verticalChange = e.VerticalChange;
 
             m_thumbTransform.X += horizontalChange;
             m_thumbTransform.Y += verticalChange;
 
-            if (m_thumbTransform.X >= ActualWidth)
+            var cursorPos = GetMousePosition();
+
+            if (m_thumbTransform.X > ActualWidth)
+            {
                 m_thumbTransform.X = ActualWidth;
+                if (horizontalChange - previousHorizontalChange > 0)
+                {
+                    Point pointToScreen = this.PointToScreen(new Point(m_thumbTransform.X, m_thumbTransform.Y));
+                    SetCursorPos(Convert.ToInt32(pointToScreen.X), Convert.ToInt32(cursorPos.Y));
+                }
+            }
 
-            if (m_thumbTransform.X <= 0)
+            if (m_thumbTransform.X < 0)
+            {
                 m_thumbTransform.X = 0;
+                if (horizontalChange - previousHorizontalChange < 0)
+                {
+                    Point pointToScreen = this.PointToScreen(new Point(m_thumbTransform.X, m_thumbTransform.Y));
+                    SetCursorPos(Convert.ToInt32(pointToScreen.X), Convert.ToInt32(cursorPos.Y));
+                }
+            }
 
-            if (m_thumbTransform.Y >= ActualHeight)
+            if (m_thumbTransform.Y > ActualHeight)
+            {
                 m_thumbTransform.Y = ActualHeight;
+                if (verticalChange - previousVerticalChange > 0)
+                {
+                    Point pointToScreen = this.PointToScreen(new Point(m_thumbTransform.X, 0));
+                    SetCursorPos(Convert.ToInt32(cursorPos.X), Convert.ToInt32(pointToScreen.Y));
+                }
+            }
 
-            if (m_thumbTransform.Y <= 0)
+            if (m_thumbTransform.Y < 0)
+            {
                 m_thumbTransform.Y = 0;
+                if (verticalChange - previousVerticalChange < 0)
+                {
+                    Point pointToScreen = this.PointToScreen(new Point(m_thumbTransform.X, ActualHeight));
+                    SetCursorPos(Convert.ToInt32(cursorPos.X), Convert.ToInt32(pointToScreen.Y));
+                }
+            }
+
+            previousHorizontalChange = horizontalChange;
+            previousVerticalChange = verticalChange;
+
 
             var ValueXChange = Utils.Map(Math.Abs(horizontalChange), 0, ActualWidth, XMin, XMax);
             var ValueYChange = Utils.Map(Math.Abs(verticalChange), 0, ActualHeight, YMin, YMax);
 
-            if (e.HorizontalChange > 0)
+            if (horizontalChange > 0)
                 this.ValueX += ValueXChange;
             else
                 this.ValueX -= ValueXChange;
 
-            if(e.VerticalChange > 0)
+            if(verticalChange > 0)
                 this.ValueY += ValueYChange;
             else
                 this.ValueY -= ValueYChange;
@@ -226,9 +254,6 @@ namespace CMiX.MVVM.Controls
 
             if (ValueY <= YMin)
                 ValueY = YMin;
-
-            Console.WriteLine("ValueX = "+ ValueX);
-            Console.WriteLine("ValueY = " + ValueY);
         }
 
         private static void OnThumbDragDelta(object sender, DragDeltaEventArgs e)
@@ -240,22 +265,23 @@ namespace CMiX.MVVM.Controls
 
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
+            previousHorizontalChange = 0;
+            previousVerticalChange = 0;
 
             var _mouseDownPos = e.GetPosition(this);
+
             m_thumbTransform.X = ((Point)_mouseDownPos).X;
             m_thumbTransform.Y = Utils.Map(((Point)_mouseDownPos).Y, 0, ActualHeight, ActualHeight, 0);
 
             if (m_thumb != null)
             {
-                var currentPoint = GetMousePosition();
-                var offset = currentPoint;// - _lastPoint.Value;
+                var posXY = GetMousePosition();
 
-                newValueX = this.ValueX + offset.X * ((Math.Abs(this.XMin) + Math.Abs(this.XMax)) / ActualWidth);
-                newValueY = this.ValueY + offset.Y * ((Math.Abs(this.YMin) + Math.Abs(this.YMax)) / -ActualHeight);
+                ValueX = Utils.Map(_mouseDownPos.X, 0, ActualWidth, XMin, XMax);
+                ValueY = Utils.Map(_mouseDownPos.Y, ActualHeight, 0, YMin, YMax);
                 m_thumb.RaiseEvent(e);
             }
 
-            //_lastPoint = GetMousePosition();
             base.OnMouseLeftButtonDown(e);
         }
 
@@ -273,7 +299,6 @@ namespace CMiX.MVVM.Controls
             m_thumb = GetTemplateChild(ThumbName) as Thumb;
             if (m_thumb != null)
             {
-                //UpdatePosition(this.ValueX, this.ValueY);
                 m_thumb.RenderTransform = m_thumbTransform;
             }
         }

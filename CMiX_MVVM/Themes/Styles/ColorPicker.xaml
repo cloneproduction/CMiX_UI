@@ -40,14 +40,16 @@
                             <Controls:XYController x:Name="HueColorControl"
                                 Style="{DynamicResource HueController}"
                                 SelectedColor="{Binding Hue, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ColorToHueOnly}}"
+                                ValueX="{Binding Saturation, RelativeSource={RelativeSource TemplatedParent}}"
+                                ValueY="{Binding Value, RelativeSource={RelativeSource TemplatedParent}}"
                                 XMin="0"
-                                XMax="255"
+                                XMax="1"
                                 YMin="0"
-                                YMax="255"
+                                YMax="1"
                                 Margin="0, 4" 
                                 Height="200"/>
                         </DockPanel>
-                        <!--<DockPanel Visibility="{Binding Path=IsChecked, ElementName=SatRadio, Converter={StaticResource BoolToVisibility}}">
+                        <DockPanel Visibility="{Binding Path=IsChecked, ElementName=SatRadio, Converter={StaticResource BoolToVisibility}}">
                             <Controls:ColorSlider
                                 Minimum="0"
                                 Maximum="1"
@@ -65,6 +67,10 @@
                                 SelectedColor="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}}"
                                 ValueX="{Binding Value, RelativeSource={RelativeSource TemplatedParent}}"
                                 ValueY="{Binding Hue, RelativeSource={RelativeSource TemplatedParent}}"
+                                XMin="0"
+                                XMax="1"
+                                YMin="0"
+                                YMax="360"
                                 BackgroundOpacity="{Binding Saturation, RelativeSource={RelativeSource TemplatedParent}}"
                                 Margin="0, 4" 
                                 Height="200" 
@@ -179,12 +185,12 @@
                                 BackgroundOpacity="{Binding Blue, RelativeSource={RelativeSource TemplatedParent}}"
                                 Visibility="{Binding Path=IsChecked, ElementName=BlueRadio, Converter={StaticResource BoolToVisibility}}">
                             </Controls:XYController>
-                        </DockPanel>-->
+                        </DockPanel>
 
 
                         
                         
-                        <!--<Separator Background="{DynamicResource DarkColor}" Opacity="0.25" Margin="0, 8"/>
+                        <Separator Background="{DynamicResource DarkColor}" Opacity="0.25" Margin="0, 8"/>
                         <Grid Margin="0, 0, 0, 1" Height="20">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="0.2*"/>
@@ -450,7 +456,7 @@
                                 Background="{DynamicResource HighDarkerColor}"
                                 Foreground="{DynamicResource TextBase}"
                                 Text="{Binding SelectedColor,  RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ColorToHex}}"/>
-                        </Grid>-->
+                        </Grid>
                     </StackPanel>
                 </ControlTemplate>
             </Setter.Value>
