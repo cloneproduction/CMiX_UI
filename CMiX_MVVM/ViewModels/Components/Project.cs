@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.MessageService;
 using MvvmDialogs;
 
@@ -6,10 +7,11 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Project : Component
     {
-        public Project(int id, MessengerTerminal messengerTerminal) : base(id, messengerTerminal)
+        public Project(int id, MessengerTerminal messengerTerminal) : base (id, messengerTerminal)
         {
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Assets = new ObservableCollection<IAssets>();
+            ComponentFactory = new CompositionFactory(messengerTerminal);
         }
 
         public IDialogService DialogService { get; set; }

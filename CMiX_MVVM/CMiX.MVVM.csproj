@@ -151,6 +151,10 @@
     <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\Stepper.cs" />
     <Compile Include="ViewModels\AnimParameter\AnimMode\Modes\ModeTypeTemplateSelector.cs" />
     <Compile Include="ViewModels\AnimParameter\IParameter.cs" />
+    <Compile Include="ViewModels\Components\Factories\CompositionFactory.cs" />
+    <Compile Include="ViewModels\Components\Factories\EntityFactory.cs" />
+    <Compile Include="ViewModels\Components\Factories\LayerFactory.cs" />
+    <Compile Include="ViewModels\Components\Factories\SceneFactory.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\IModifier.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\RandomXYZ.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\TransformModifierFactory.cs" />
@@ -186,8 +190,6 @@
     <Compile Include="ViewModels\ColorPicker\ColorPicker.cs" />
     <Compile Include="ViewModels\ColorPicker\ColorPickerModelFactory.cs" />
     <Compile Include="ViewModels\Combobox\ComboBox.cs" />
-    <Compile Include="ViewModels\Components\Factories\ComponentFactory.cs" />
-    <Compile Include="ViewModels\Components\Factories\ComponentIDManager.cs" />
     <Compile Include="ViewModels\Components\Factories\IComponentFactory.cs" />
     <Compile Include="ViewModels\Components\IComponent.cs" />
     <Compile Include="ViewModels\Counter\CounterEventArgs.cs" />

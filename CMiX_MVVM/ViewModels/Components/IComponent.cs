@@ -1,6 +1,6 @@
-﻿using CMiX.MVVM.ViewModels.Components.Factories;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
+using CMiX.MVVM.ViewModels.Components.Factories;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -12,12 +12,13 @@ namespace CMiX.MVVM.ViewModels
         bool IsVisible { get; set; }
         bool IsSelected { get; set; }
 
-        ComponentFactory ComponentFactory { get; set; }
+        IComponentFactory ComponentFactory { get; set; }
         ObservableCollection<IComponent> Components { get; set; }
         Component CreateAndAddComponent();
 
-        void AddComponent(Component component);
-        string GetAddress();
         void SetVisibility();
+        void AddComponent(IComponent component);
+        void RemoveComponent(Component component);
+        string GetAddress();
     }
 }

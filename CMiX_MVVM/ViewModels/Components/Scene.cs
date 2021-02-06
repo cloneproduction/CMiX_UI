@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
@@ -12,8 +13,10 @@ namespace CMiX.MVVM.ViewModels
             PostFX = new PostFX(nameof(PostFX), this);
             Mask = new Mask(nameof(Mask), this);
             Transform = new Transform(nameof(Transform), this);
+            ComponentFactory = new EntityFactory(messengerTerminal);
         }
 
+        
         public Transform Transform { get; set; }
         public Mask Mask { get; set; }
         public PostFX PostFX { get; set; }

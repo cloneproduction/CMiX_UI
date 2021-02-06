@@ -1,9 +1,7 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
+﻿using System;
 using System.Linq;
-using System;
-using CMiX.MVVM.Services;
-using CMiX.MVVM.Models;
+using System.Windows.Input;
+using System.Collections.ObjectModel;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -36,10 +34,7 @@ namespace CMiX.MVVM.ViewModels
 
         public void RenameComponent(Component component) => SelectedComponent.IsRenaming = true;
 
-        public void CreateComponent(Component component)
-        {
-            component.CreateAndAddComponent();
-        }
+        public void CreateComponent(Component component) => component.CreateAndAddComponent();
 
 
         public Component DuplicateComponent(Component component)
@@ -106,40 +101,5 @@ namespace CMiX.MVVM.ViewModels
             }
             return result;
         }
-
-
-        //private Composition DuplicateComposition(Composition composition)
-        //{
-        //    var parent = GetSelectedParent(Components);
-        //    var newCompo = ComponentFactory.CreateComponent(parent) as Composition;
-
-        //    newCompo.SetViewModel(composition.GetModel());
-        //    newCompo.Name += " -Copy";
-        //    parent.Components.Insert(parent.Components.IndexOf(composition) + 1, newCompo);
-            
-        //    return newCompo;
-        //}
-
-
-        //private Component DuplicateLayer(Layer layer)
-        //{
-        //    var parent = GetSelectedParent(Components);
-        //    Component newLayer = ComponentFactory.CreateComponent(parent);
-        //    newLayer.SetViewModel(layer.GetModel());
-        //    newLayer.Name += " -Copy";
-        //    parent.Components.Insert(parent.Components.IndexOf(layer) + 1, newLayer);
-        //    return newLayer;
-        //}
-
-
-        //private Entity DuplicateEntity(Entity entity)
-        //{
-        //    var parent = GetSelectedParent(Components);
-        //    var component = ComponentFactory.CreateComponent(parent) as Entity;
-        //    component.SetViewModel(entity.GetModel());
-        //    component.Name += " -Copy";
-        //    parent.Components.Insert(parent.Components.IndexOf(entity) + 1, component);
-        //    return component;
-        //}
     }
 }

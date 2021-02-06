@@ -22,7 +22,7 @@ namespace CMiX.MVVM.ViewModels
             MessageMediator.RegisterColleague(this);
 
             Components = new ObservableCollection<IComponent>();
-            ComponentFactory = new ComponentFactory(messengerTerminal);
+            //ComponentFactory = new ComponentFactory(messengerTerminal);
 
             SetVisibilityCommand = new RelayCommand(p => SetVisibility());
         }
@@ -35,7 +35,7 @@ namespace CMiX.MVVM.ViewModels
 
         public ICommand SetVisibilityCommand { get; set; }
         public MessageMediator MessageMediator { get; set; }
-        public ComponentFactory ComponentFactory { get; set; }
+        public IComponentFactory ComponentFactory { get; set; }
 
 
         private int _id;
@@ -100,11 +100,11 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public void AddComponent(Component component)
+        public void AddComponent(IComponent component)
         {
             Components.Add(component);
             IsExpanded = true;
-            var model = component.GetModel();
+            IComponentModel model = ((Component)component).GetModel();
             Message message = new Message(MessageCommand.ADD_COMPONENT, GetAddress(), model) ;
             this.Send(message);
         }
@@ -184,9 +184,9 @@ namespace CMiX.MVVM.ViewModels
 
         public Component CreateAndAddComponent()
         {
-            Component component = ComponentFactory.CreateComponent(this);
+            IComponent component = ComponentFactory.CreateComponent(this);
             this.AddComponent(component);
-            return component;
+            return (Component)component;
         }
 
         public void Dispose()
