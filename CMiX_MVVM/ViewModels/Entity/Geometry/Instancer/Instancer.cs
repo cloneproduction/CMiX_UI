@@ -77,7 +77,7 @@ namespace CMiX.MVVM.ViewModels
         {
             var transformModifier = Factory.CreateTransformModifier(transformModifierNames, this);
             TransformModifiers.Add(transformModifier);
-            Message message = new Message(MessageCommand.ADD_TRANSFORMMODIFIER, Address, transformModifier.GetModel(), transformModifierNames);
+            Message message = new Message(MessageCommand.ADD_TRANSFORMMODIFIER, this.GetAddress(), transformModifier.GetModel(), transformModifierNames);
             this.Send(message);
         }
 

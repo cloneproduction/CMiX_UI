@@ -43,7 +43,7 @@ namespace CMiX.MVVM.ViewModels
         {
             BeatAnimations.ResetAnimation();
             OnBeatResync();
-            this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
+            this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
         }
 
         public ICommand ResyncCommand { get; }

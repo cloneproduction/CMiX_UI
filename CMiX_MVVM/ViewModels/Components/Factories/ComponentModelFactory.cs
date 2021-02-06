@@ -221,7 +221,7 @@ namespace CMiX.MVVM.ViewModels
 
         private static void GetComponents(Component component, IComponentModel componentModel)
         {
-            foreach (var item in component.Components)
+            foreach (Component item in component.Components)
                 componentModel.ComponentModels.Add(item.GetModel());
         }
     }

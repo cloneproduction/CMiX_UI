@@ -29,7 +29,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _transforms, value);
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
             }
         }
 
@@ -40,7 +40,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _view, value);
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
             }
         }
     }

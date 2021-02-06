@@ -104,7 +104,7 @@ namespace CMiX.MVVM.ViewModels
             Period = MasterBeat.Periods[Index + MasterBeat.BeatIndex];
             AnimatedDouble = MasterBeat.BeatAnimations.AnimatedDoubles[Index + MasterBeat.BeatIndex];
             Notify(nameof(BPM));
-            this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
+            this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
         }
     }
 }

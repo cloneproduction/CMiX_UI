@@ -136,7 +136,7 @@
                                     BorderBrush="{DynamicResource SuperHighDarkerColor}" 
                                     BorderThickness="0, 0, 1, 0">
                                     <ToggleButton 
-                                        IsChecked="{Binding IsVisible}"
+                                        IsChecked="{Binding Path=DataContext.IsVisible, RelativeSource={RelativeSource TemplatedParent}}"
                                         Style="{DynamicResource ToggleVisibility}"
                                         VerticalAlignment="Center">
                                     </ToggleButton>
@@ -144,7 +144,7 @@
                                 <Grid Grid.Column="1" Margin="{Binding Converter={StaticResource lengthConverter}, RelativeSource={RelativeSource TemplatedParent}}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="19" />
-                                        <ColumnDefinition />
+                                        <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
                                     <Border x:Name="toggleBorder">
                                         <ToggleButton x:Name="Expander"

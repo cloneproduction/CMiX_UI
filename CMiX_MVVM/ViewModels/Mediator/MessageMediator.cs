@@ -43,12 +43,12 @@ namespace CMiX.MVVM.ViewModels.Mediator
         public void RegisterColleague(IColleague colleague)
         {
             
-            if (Colleagues.ContainsKey(colleague.Address))
+            if (Colleagues.ContainsKey(colleague.GetAddress()))
             {
-                Colleagues[colleague.Address] = colleague;
+                Colleagues[colleague.GetAddress()] = colleague;
             }
             else
-                Colleagues.Add(colleague.Address, colleague);
+                Colleagues.Add(colleague.GetAddress(), colleague);
         }
 
         public void UnregisterColleague(string address)

@@ -39,7 +39,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _count, value);
                 OnCountChange();
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
             }
         }
 

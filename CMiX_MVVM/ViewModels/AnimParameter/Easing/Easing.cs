@@ -8,7 +8,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Easing : Sender
     {
-        public Easing(string name, IColleague parentSender) : base(name, parentSender)
+        public Easing(string name, IColleague parentSender) : base (name, parentSender)
         {
             EasingMode = EasingMode.EaseIn;
             EasingFunction = EasingFunction.None;
@@ -26,7 +26,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _isEnabled, value);
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
             }
         }
 
@@ -69,7 +69,7 @@ namespace CMiX.MVVM.ViewModels
                 Enum.TryParse(EasingFunction.ToString() + EasingMode.ToString(), out myStatus);
 
             SelectedEasing = myStatus;
-            this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
+            this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
         }
     }
 }

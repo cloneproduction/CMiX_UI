@@ -59,7 +59,6 @@ namespace CMiX.MVVM.ViewModels
         public override void Receive(Message message)
         {
             this.SetViewModel(message.Obj as TextureModel);
-            System.Console.WriteLine("POUETPOUET " + this.Address + "Texture received " + message.Address);
         }
     }
 }

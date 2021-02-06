@@ -11,7 +11,7 @@ namespace CMiX.MVVM.ViewModels
     {
         public ColorPicker(string name, IColleague parentSender) : base (name, parentSender)
         {
-            System.Console.WriteLine(this.Address);
+            //System.Console.WriteLine(this.Address);
             SelectedColor = Color.FromArgb(255, 0, 255, 0);
             Red = SelectedColor.R;
             Green = SelectedColor.G;
@@ -41,7 +41,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _selectedColor, value);
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
             }
         }
 
@@ -70,7 +70,7 @@ namespace CMiX.MVVM.ViewModels
 
                 this._selectedColor.R = value;
                 Notify(nameof(SelectedColor));
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
             }
         }
 
@@ -93,7 +93,7 @@ namespace CMiX.MVVM.ViewModels
 
                 this._selectedColor.G = value;
                 Notify(nameof(SelectedColor));
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
             }
         }
 
@@ -116,7 +116,7 @@ namespace CMiX.MVVM.ViewModels
 
                 this._selectedColor.B = value;
                 Notify(nameof(SelectedColor));
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
             }
         }
 
@@ -142,7 +142,7 @@ namespace CMiX.MVVM.ViewModels
 
                 SelectedColor = Color.FromRgb(_red, _green, _blue);
                 Notify(nameof(SelectedColor));
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
             }
         }
 
@@ -170,7 +170,7 @@ namespace CMiX.MVVM.ViewModels
 
                 SelectedColor = Color.FromRgb(_red, _green, _blue);
                 Notify(nameof(SelectedColor));
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
             }
         }
 
@@ -205,7 +205,7 @@ namespace CMiX.MVVM.ViewModels
                     SelectedColor = Color.FromRgb(0, 0, 0);
                 }
                 Notify(nameof(SelectedColor));
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
             }
         }
 

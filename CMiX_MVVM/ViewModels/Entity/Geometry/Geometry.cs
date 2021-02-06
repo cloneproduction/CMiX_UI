@@ -23,7 +23,6 @@ namespace CMiX.MVVM.ViewModels
         public override void Receive(Message message)
         {
             this.SetViewModel(message.Obj as GeometryModel);
-            System.Console.WriteLine("POUETPOUET " + this.Address + "Geometry received " + message.Address);
         }
     }
 }

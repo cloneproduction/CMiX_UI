@@ -9,7 +9,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class ComponentManager : ViewModel
     {
-        public ComponentManager(ObservableCollection<Component> components)
+        public ComponentManager(ObservableCollection<IComponent> components)
         {
             Components = components;
 
@@ -24,7 +24,7 @@ namespace CMiX.MVVM.ViewModels
         public ICommand DeleteComponentCommand { get; }
         public ICommand RenameComponentCommand { get; }
 
-        public ObservableCollection<Component> Components { get; set; }
+        public ObservableCollection<IComponent> Components { get; set; }
 
         private Component _selectedComponent;
         public Component SelectedComponent
@@ -72,9 +72,9 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public void DeleteSelectedComponent(ObservableCollection<Component> components)
+        public void DeleteSelectedComponent(ObservableCollection<IComponent> components)
         {
-            foreach (var component in components)
+            foreach (Component component in components)
             {
                 if (component.IsSelected)
                 {
@@ -89,10 +89,10 @@ namespace CMiX.MVVM.ViewModels
 
 
 
-        public Component GetSelectedParent(ObservableCollection<Component> components)
+        public Component GetSelectedParent(ObservableCollection<IComponent> components)
         {
             Component result = null;
-            foreach (var component in components)
+            foreach (Component component in components)
             {
                 if(component.Components.Any(c => c.IsSelected))
                 {

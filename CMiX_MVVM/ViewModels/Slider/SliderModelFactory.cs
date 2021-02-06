@@ -8,14 +8,14 @@ namespace CMiX.MVVM.ViewModels
         {
             SliderModel model = new SliderModel();
             model.Amount = instance.Amount;
-            model.Address = instance.Address;
+            model.Address = instance.GetAddress();
             return model;
         }
 
         public static void SetViewModel(this Slider instance, SliderModel model)
         {
             instance.Amount = model.Amount;
-            instance.Address = model.Address;
+            //instance.Address = model.Address;
         }
     }
 }

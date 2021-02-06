@@ -19,14 +19,14 @@ namespace CMiX.MVVM.ViewModels
             {
                 //Mementor.PropertyChange(this, nameof(Mode));
                 SetAndNotify(ref _mode, value);
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
             }
         }
 
         public override void Receive(Message message)
         {
             this.SetViewModel(message.Obj as BlendModeModel);
-            System.Console.WriteLine("POUETPOUET " + this.Address + "BlendMode received " + message.Address + "  " + this.Mode);
+            System.Console.WriteLine("POUETPOUET " + this.GetAddress() + "BlendMode received " + message.Address + "  " + this.Mode);
         }
     }
 }

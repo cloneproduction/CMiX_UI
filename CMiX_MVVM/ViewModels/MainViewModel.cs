@@ -23,7 +23,7 @@ namespace CMiX.MVVM.ViewModels
 
             CurrentProject = new Project(0, MessengerTerminal);
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
-            Projects = new ObservableCollection<Component>();
+            Projects = new ObservableCollection<IComponent>();
             Projects.Add(CurrentProject);
 
             AssetManager = new AssetManager(CurrentProject);
@@ -67,7 +67,7 @@ namespace CMiX.MVVM.ViewModels
         
         public Outliner Outliner { get; set; }
         public string FolderPath { get; set; }
-        public ObservableCollection<Component> Projects { get; set; }
+        public ObservableCollection<IComponent> Projects { get; set; }
 
 
 

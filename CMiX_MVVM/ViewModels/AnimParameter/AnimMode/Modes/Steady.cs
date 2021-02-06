@@ -77,7 +77,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _seed, value);
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
             }
         }
 
@@ -88,7 +88,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _steadyType, value);
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
             }
         }
 
@@ -99,7 +99,7 @@ namespace CMiX.MVVM.ViewModels
             set 
             {
                 SetAndNotify(ref _linearType, value);
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
             }
         }
     }

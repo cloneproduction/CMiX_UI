@@ -55,7 +55,7 @@ namespace CMiX.MVVM.ViewModels
         public void DeleteComponentFromEditing(Component component)
         {
             Components.Remove(component);
-            foreach (var item in component.Components)
+            foreach (Component item in component.Components)
             {
                 Components.Remove(item);
                 DeleteComponentFromEditing(item);

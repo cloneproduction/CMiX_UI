@@ -67,7 +67,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _animMode, value);
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
             }
         }
 

@@ -103,7 +103,7 @@ namespace CMiX.MVVM.ViewModels
             AnimatedDouble = BeatAnimations.AnimatedDoubles[Index + (Periods.Length - 1) / 2];
             OnPeriodChanged(Period);
             Notify(nameof(BPM));
-            this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
+            this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
         }
 
         protected override void Multiply()

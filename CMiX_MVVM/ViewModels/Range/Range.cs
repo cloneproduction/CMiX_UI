@@ -34,7 +34,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _minimum, value);
                 Width = Math.Abs(Maximum - Minimum);
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
             }
         }
 
@@ -46,7 +46,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _maximum, value);
                 Width = Math.Abs(Maximum - Minimum);
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.Address, this.GetModel()));
+                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
             }
         }
     }
