@@ -1,8 +1,9 @@
-﻿using CMiX.MVVM.Controls;
+﻿using System;
+using CMiX.MVVM.Controls;
 using CMiX.MVVM.Models;
+using CMiX.MVVM.Resources;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
-using System;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -14,20 +15,28 @@ namespace CMiX.MVVM.ViewModels
             ChanceToHit = new Slider(nameof(ChanceToHit), this) { Minimum = 0, Maximum = 100, Amount = 100.0 };
             MasterBeat = masterBeat;
             Multiplier = 1.0;
-            Random = new Random();
-            this.Period = masterBeat.Period;
+            Period = masterBeat.Period;
 
             SetAnimatedDouble();
 
-            masterBeat.IndexChanged += (s, newvalue) =>
-            {
-                SetAnimatedDouble();
-            };
+            MasterBeat.IndexChanged += MasterBeat_IndexChanged;
+            MasterBeat.PeriodChanged += MasterBeat_PeriodChanged;
+        }
 
-            masterBeat.PeriodChanged += (s, newvalue) =>
-            {
-                SetAnimatedDouble();
-            };
+        public override void Dispose()
+        {
+            MasterBeat.IndexChanged -= MasterBeat_IndexChanged;
+            MasterBeat.PeriodChanged -= MasterBeat_PeriodChanged;
+            base.Dispose();
+        }
+        private void MasterBeat_PeriodChanged(Beat sender, double newValue)
+        {
+            SetAnimatedDouble();
+        }
+
+        private void MasterBeat_IndexChanged(object sender, EventArgs e)
+        {
+            SetAnimatedDouble();
         }
 
         public override void Receive(Message message)
@@ -39,15 +48,9 @@ namespace CMiX.MVVM.ViewModels
         public MasterBeat MasterBeat { get; set; }
         public Slider ChanceToHit { get; set; }
 
-        private Random Random { get; set; }
-        //public bool CanHit { get; set; }
-
         public bool CheckHitOnBeatTick()
         {
-            if (Random.NextDouble() <= this.ChanceToHit.Amount / 100)
-                return true;
-            else
-                return false;
+            return (RandomNumbers.RandomDouble(0.0, 1.0) <= this.ChanceToHit.Amount / this.ChanceToHit.Maximum) ? true : false;
         }
 
 

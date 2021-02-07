@@ -26,6 +26,7 @@ namespace CMiX.MVVM.ViewModels
 
             tapPeriods = new List<double>();
             tapTime = new List<double>();
+
             TapCommand = new RelayCommand(p => Tap());
         }
 
@@ -43,7 +44,6 @@ namespace CMiX.MVVM.ViewModels
 
         private double CurrentTime => (DateTime.UtcNow - DateTime.MinValue).TotalMilliseconds;
         
-
         private int maxIndex = 3;
         private int minIndex = -3;
 
@@ -88,6 +88,7 @@ namespace CMiX.MVVM.ViewModels
 
         public BeatAnimations BeatAnimations { get; set; }
         public Resync Resync { get; set; }
+
 
         private AnimatedDouble _animatedDouble;
         public AnimatedDouble AnimatedDouble

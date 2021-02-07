@@ -1,8 +1,8 @@
 ﻿using CMiX.MVVM.Models.Beat;
-using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels.Mediator;
 using System;
 using System.Windows.Input;
+using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -14,17 +14,6 @@ namespace CMiX.MVVM.ViewModels
             ResyncCommand = new RelayCommand(p => DoResync());
         }
 
-
-        //public override void OnParentReceiveChange(object sender, ModelEventArgs e)
-        //{
-        //    if (e.ParentMessageAddress + this.GetMessageAddress() == e.MessageAddress)
-        //    {
-        //        if (Resynced)
-        //            Resynced = false;
-        //        else
-        //            Resynced = true;
-        //    }
-        //}
         public override void Receive(Message message)
         {
             this.SetViewModel(message.Obj as ResyncModel);

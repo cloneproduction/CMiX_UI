@@ -9,7 +9,7 @@ using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Component : ViewModel, IColleague, IComponent
+    public abstract class Component : ViewModel, IColleague, IComponent, IDisposable
     {
         public Component(int id, MessengerTerminal messengerTerminal)
         {
@@ -22,7 +22,6 @@ namespace CMiX.MVVM.ViewModels
             MessageMediator.RegisterColleague(this);
 
             Components = new ObservableCollection<IComponent>();
-            //ComponentFactory = new ComponentFactory(messengerTerminal);
 
             SetVisibilityCommand = new RelayCommand(p => SetVisibility());
         }
@@ -189,7 +188,7 @@ namespace CMiX.MVVM.ViewModels
             return (Component)component;
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             MessageMediator.Dispose();
             foreach (var component in Components)

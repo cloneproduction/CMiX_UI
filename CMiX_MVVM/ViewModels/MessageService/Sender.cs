@@ -8,31 +8,19 @@ namespace CMiX.MVVM.ViewModels
     {
         public Sender(string name, IColleague parentSender)
         {
-            Name = name;
+            this.Name = name;
             this.parentAddress = parentSender.GetAddress();
             this.MessageMediator = parentSender.MessageMediator;
             this.MessageMediator.RegisterColleague(this);
-        }
-
-        public string GetAddress()
-        {
-            return $"{parentAddress}{Name}/";
         }
 
         private string parentAddress {get; set;}
         private string Name { get; set; }
         public MessageMediator MessageMediator { get; set; }
 
-        public void Dispose()
-        {
-            this.MessageMediator?.UnregisterColleague(this.GetAddress());
-        }
-
+        public string GetAddress() => $"{parentAddress}{Name}/";
+        public virtual void Dispose() => this.MessageMediator?.UnregisterColleague(this.GetAddress());
+        public void Send(Message message) => this.MessageMediator?.Notify(MessageDirection.OUT, message);
         public abstract void Receive(Message message);
-
-        public void Send(Message message)
-        {
-            this.MessageMediator?.Notify(MessageDirection.OUT, message);
-        }
     }
 }

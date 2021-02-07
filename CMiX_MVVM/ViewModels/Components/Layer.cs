@@ -5,14 +5,15 @@ using CMiX.Studio.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Layer : Component, IBeat, IComponent
+    public class Layer : Component, IBeat
     {
-        public Layer(int id, MessengerTerminal messengerTerminal, MasterBeat beat) : base(id, messengerTerminal)
+        public Layer(int id, MessengerTerminal messengerTerminal, MasterBeat beat) : base (id, messengerTerminal)
         {
             MasterBeat = beat;
             PostFX = new PostFX(nameof(PostFX), this);
             BlendMode = new BlendMode(nameof(BlendMode), this);
             Fade = new Slider(nameof(Fade), this);
+            Mask = new Mask(nameof(Mask), this);
             ComponentFactory = new SceneFactory(messengerTerminal);
         }
 
@@ -28,5 +29,14 @@ namespace CMiX.MVVM.ViewModels
         public Mask Mask { get; set; }
         public PostFX PostFX { get; set; }
         public BlendMode BlendMode { get; set; }
+
+        public override void Dispose()
+        {
+            Fade.Dispose();
+            Mask.Dispose();
+            PostFX.Dispose();
+            BlendMode.Dispose();
+            base.Dispose();
+        }
     }
 }

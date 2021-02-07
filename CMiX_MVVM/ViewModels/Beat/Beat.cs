@@ -1,5 +1,5 @@
-﻿using CMiX.MVVM.ViewModels.Mediator;
-using System.Windows.Input;
+﻿using System.Windows.Input;
+using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -46,10 +46,10 @@ namespace CMiX.MVVM.ViewModels
         protected abstract void Multiply();
         protected abstract void Divide();
 
+
         public delegate void PeriodChangedEventHandler(Beat sender, double newValue);
 
         public event PeriodChangedEventHandler PeriodChanged;
-
         protected void OnPeriodChanged(double newPeriod) => PeriodChanged?.Invoke(this, newPeriod);
     }
 }

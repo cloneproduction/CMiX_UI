@@ -2,7 +2,7 @@
 
 namespace CMiX.MVVM.Interfaces
 {
-    public interface IBeatModifier : IBeat
+    public interface IBeatModifier
     {
         BeatModifier BeatModifier { get; set; }
     }

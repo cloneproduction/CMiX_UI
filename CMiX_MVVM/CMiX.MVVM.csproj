@@ -317,7 +317,7 @@
     <Compile Include="ViewModels\MessageService\Server.cs" />
     <Compile Include="ViewModels\MessageService\Settings.cs" />
     <Compile Include="ViewModels\MessageService\SettingsEventArgs.cs" />
-    <Compile Include="ViewModels\GeometryFXModelFactory.cs" />
+    <Compile Include="ViewModels\GeometryFX\GeometryFXModelFactory.cs" />
     <Compile Include="ViewModels\PostFX\PostFX.cs" />
     <Compile Include="ViewModels\MessageService\Sender.cs" />
     <Compile Include="ViewModels\Slider\Slider.cs" />

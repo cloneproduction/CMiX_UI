@@ -5,7 +5,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Entity : Component, IBeat
     {
-        public Entity(int id, MessengerTerminal messengerTerminal, MasterBeat beat) : base(id, messengerTerminal)
+        public Entity(int id, MessengerTerminal messengerTerminal, MasterBeat beat) : base (id, messengerTerminal)
         {
             BeatModifier = new BeatModifier(nameof(BeatModifier), this, beat);
             Geometry = new Geometry(nameof(Geometry), this, beat);
@@ -18,5 +18,14 @@ namespace CMiX.MVVM.ViewModels
         public Texture Texture { get; set; }
         public Coloration Coloration { get; set; }
         public MasterBeat MasterBeat { get; set; }
+
+        public override void Dispose()
+        {
+            BeatModifier.Dispose();
+            Geometry.Dispose();
+            Texture.Dispose();
+            Coloration.Dispose();
+            base.Dispose();
+        }
     }
 }
