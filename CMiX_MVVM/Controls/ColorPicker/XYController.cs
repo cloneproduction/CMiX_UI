@@ -43,8 +43,6 @@ namespace CMiX.MVVM.Controls
 
 
         #region Dependency Properties
-
-
         public Color SelectedColor
         {
             get { return (Color)GetValue(SelectedColorProperty); }
@@ -110,6 +108,7 @@ namespace CMiX.MVVM.Controls
             new FrameworkPropertyMetadata(0.0,
                 FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
+
         public double XMax
         {
             get { return (double)GetValue(XMaxProperty); }
@@ -130,6 +129,7 @@ namespace CMiX.MVVM.Controls
         DependencyProperty.Register("YMin", typeof(double), typeof(XYController),
             new FrameworkPropertyMetadata(0.0,
                 FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
 
         public double YMax
         {
@@ -267,6 +267,8 @@ namespace CMiX.MVVM.Controls
             m_thumb = GetTemplateChild(ThumbName) as Thumb;
             if (m_thumb != null)
             {
+                //m_thumbTransform.X = ValueX * ActualWidth;
+                //m_thumbTransform.Y = ValueY * ActualHeight;
                 m_thumb.RenderTransform = m_thumbTransform;
             }
             base.OnApplyTemplate();
