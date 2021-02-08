@@ -152,9 +152,10 @@ namespace CMiX.MVVM.Controls
         protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
         {
             var mouseUpPos = e.GetPosition(this);
-
-            double xPos = mouseUpPos.X;
-            double yPos = mouseUpPos.Y;
+            this.ReleaseMouseCapture();
+            
+            double xPos = m_thumbTransform.X; //mouseUpPos.X;
+            double yPos = Utils.Map(Math.Abs(m_thumbTransform.Y), 0, ActualHeight, ActualHeight, 0); // mouseUpPos.Y;
 
             if (xPos >= ActualWidth)
                 xPos = ActualWidth - 2;
@@ -173,87 +174,40 @@ namespace CMiX.MVVM.Controls
         }
 
 
-        double previousHorizontalChange = 0;
-        double previousVerticalChange = 0;
+        Point _lastPoint;
 
         private void OnThumbDragDelta(DragDeltaEventArgs e)
         {
-            var horizontalChange = e.HorizontalChange;// - previousHorizontalChange;
-            var verticalChange = e.VerticalChange;
+            var currentPoint = GetMousePosition();
 
-            m_thumbTransform.X += horizontalChange;
-            m_thumbTransform.Y += verticalChange;
+            if (currentPoint.X >= ActualWidth - 1)
+                SetCursorPos(0, Convert.ToInt32(currentPoint.Y));
+            else if (currentPoint.X <= 0)
+                SetCursorPos(Convert.ToInt32(ActualWidth - 1), Convert.ToInt32(currentPoint.Y));
 
-            var cursorPos = GetMousePosition();
+            Point offset = new Point(currentPoint.X - _lastPoint.X, currentPoint.Y - _lastPoint.Y);
 
-            if (m_thumbTransform.X > ActualWidth)
-            {
-                m_thumbTransform.X = ActualWidth;
-                if (horizontalChange - previousHorizontalChange > 0)
-                {
-                    Point pointToScreen = this.PointToScreen(new Point(m_thumbTransform.X, m_thumbTransform.Y));
-                    SetCursorPos(Convert.ToInt32(pointToScreen.X), Convert.ToInt32(cursorPos.Y));
-                }
-            }
+            double newValueX = this.ValueX + offset.X * ((Math.Abs(this.XMin) + Math.Abs(this.XMax)) / ActualWidth);
+            double newValueY = this.ValueY + offset.Y * ((Math.Abs(this.YMin) + Math.Abs(this.YMax)) / ActualHeight);
 
-            if (m_thumbTransform.X < 0)
-            {
-                m_thumbTransform.X = 0;
-                if (horizontalChange - previousHorizontalChange < 0)
-                {
-                    Point pointToScreen = this.PointToScreen(new Point(m_thumbTransform.X, m_thumbTransform.Y));
-                    SetCursorPos(Convert.ToInt32(pointToScreen.X), Convert.ToInt32(cursorPos.Y));
-                }
-            }
-
-            if (m_thumbTransform.Y > ActualHeight)
-            {
-                m_thumbTransform.Y = ActualHeight;
-                if (verticalChange - previousVerticalChange > 0)
-                {
-                    Point pointToScreen = this.PointToScreen(new Point(m_thumbTransform.X, 0));
-                    SetCursorPos(Convert.ToInt32(cursorPos.X), Convert.ToInt32(pointToScreen.Y));
-                }
-            }
-
-            if (m_thumbTransform.Y < 0)
-            {
-                m_thumbTransform.Y = 0;
-                if (verticalChange - previousVerticalChange < 0)
-                {
-                    Point pointToScreen = this.PointToScreen(new Point(m_thumbTransform.X, ActualHeight));
-                    SetCursorPos(Convert.ToInt32(cursorPos.X), Convert.ToInt32(pointToScreen.Y));
-                }
-            }
-
-            previousHorizontalChange = horizontalChange;
-            previousVerticalChange = verticalChange;
+            if (newValueX >= this.XMax)
+                newValueX = this.XMax;
+            else if (newValueX <= this.XMin)
+                newValueX = this.XMin;
 
 
-            var ValueXChange = Utils.Map(Math.Abs(horizontalChange), 0, ActualWidth, XMin, XMax);
-            var ValueYChange = Utils.Map(Math.Abs(verticalChange), 0, ActualHeight, YMin, YMax);
+            if (newValueY >= this.YMax)
+                newValueY = this.YMax;
+            else if (newValueY <= this.YMin)
+                newValueY = this.YMin;
 
-            if (horizontalChange > 0)
-                this.ValueX += ValueXChange;
-            else
-                this.ValueX -= ValueXChange;
+            this.ValueX = newValueX;
+            this.ValueY = newValueY;
 
-            if(verticalChange > 0)
-                this.ValueY += ValueYChange;
-            else
-                this.ValueY -= ValueYChange;
+            m_thumbTransform.X = Utils.Map(newValueX, 0, 1, 0, ActualWidth);
+            m_thumbTransform.Y = Utils.Map(newValueY, 1, 0, 0, ActualHeight);
 
-            if (ValueX >= XMax)
-                ValueX = XMax;
-
-            if (ValueX <= XMin)
-                ValueX = XMin;
-
-            if (ValueY >= YMax)
-                ValueY = YMax;
-
-            if (ValueY <= YMin)
-                ValueY = YMin;
+            _lastPoint = GetMousePosition();
         }
 
         private static void OnThumbDragDelta(object sender, DragDeltaEventArgs e)
@@ -265,24 +219,22 @@ namespace CMiX.MVVM.Controls
 
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            previousHorizontalChange = 0;
-            previousVerticalChange = 0;
-
+            this.CaptureMouse();
             var _mouseDownPos = e.GetPosition(this);
-
-            m_thumbTransform.X = ((Point)_mouseDownPos).X;
-            m_thumbTransform.Y = Utils.Map(((Point)_mouseDownPos).Y, 0, ActualHeight, ActualHeight, 0);
 
             if (m_thumb != null)
             {
-                var posXY = GetMousePosition();
-
                 ValueX = Utils.Map(_mouseDownPos.X, 0, ActualWidth, XMin, XMax);
-                ValueY = Utils.Map(_mouseDownPos.Y, ActualHeight, 0, YMin, YMax);
+                ValueY = Utils.Map(_mouseDownPos.Y, 0, ActualHeight, YMin, YMax);
+                
                 m_thumb.RaiseEvent(e);
             }
+            
+            m_thumbTransform.X = ((Point)_mouseDownPos).X;
+            m_thumbTransform.Y = Utils.Map(((Point)_mouseDownPos).Y, 0, ActualHeight, ActualHeight, 0);
 
-            base.OnMouseLeftButtonDown(e);
+            _lastPoint = GetMousePosition();
+            //base.OnMouseLeftButtonDown(e);
         }
 
         protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)

@@ -86,7 +86,15 @@ namespace CMiX.MVVM.Controls
             TextInput.MouseEnter -= View_OnMouseEnter;
         }
 
-        protected override void OnPreviewMouseLeftButtonDown (MouseButtonEventArgs e)
+
+
+        protected override void OnPreviewMouseRightButtonDown(MouseButtonEventArgs e)
+        {
+            OnSwitchToNormalMode();
+            CancelUpdateValue();
+        }
+
+        protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             if (IsEditing == false)
             {
@@ -94,12 +102,6 @@ namespace CMiX.MVVM.Controls
                 _mouseDownPos = e.GetPosition(this);
                 Border.CaptureMouse();
             }
-        }
-
-        protected override void OnPreviewMouseRightButtonDown(MouseButtonEventArgs e)
-        {
-            OnSwitchToNormalMode();
-            CancelUpdateValue();
         }
 
         protected override void OnPreviewMouseMove(MouseEventArgs e)
