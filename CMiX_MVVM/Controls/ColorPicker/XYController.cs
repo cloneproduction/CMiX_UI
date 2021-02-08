@@ -263,12 +263,13 @@ namespace CMiX.MVVM.Controls
 
         public override void OnApplyTemplate()
         {
-            base.OnApplyTemplate();
+            
             m_thumb = GetTemplateChild(ThumbName) as Thumb;
             if (m_thumb != null)
             {
                 m_thumb.RenderTransform = m_thumbTransform;
             }
+            base.OnApplyTemplate();
         }
     }
 }
