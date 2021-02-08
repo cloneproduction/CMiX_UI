@@ -1,11 +1,11 @@
-﻿using CMiX.MVVM.Tools;
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
+using CMiX.MVVM.Tools;
 
 namespace CMiX.MVVM.Controls
 {
@@ -18,10 +18,10 @@ namespace CMiX.MVVM.Controls
             EventManager.RegisterClassHandler(typeof(XYController), Thumb.DragDeltaEvent, new DragDeltaEventHandler(XYController.OnThumbDragDelta));
         }
 
-        //private static void OnVisibililtyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        //{
-        //    OnThumbPosChanged(d, e);
-        //}
+        private static void OnVisibililtyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            OnThumbPosChanged(d, e);
+        }
 
 
         private static void OnThumbPosChanged(DependencyObject relatedObject, DependencyPropertyChangedEventArgs e)
@@ -41,7 +41,10 @@ namespace CMiX.MVVM.Controls
         private TranslateTransform m_thumbTransform = new TranslateTransform();
         private Thumb m_thumb;
 
+
         #region Dependency Properties
+
+
         public Color SelectedColor
         {
             get { return (Color)GetValue(SelectedColorProperty); }
@@ -49,7 +52,19 @@ namespace CMiX.MVVM.Controls
         }
         public static readonly DependencyProperty SelectedColorProperty =
         DependencyProperty.Register("SelectedColor", typeof(Color), typeof(XYController),
-            new FrameworkPropertyMetadata(Colors.Red, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+            new FrameworkPropertyMetadata(Colors.Red, 
+                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+
+        public bool IsMouseDown
+        {
+            get { return (bool)GetValue(IsMouseDownProperty); }
+            set { SetValue(IsMouseDownProperty, value); }
+        }
+        public static readonly DependencyProperty IsMouseDownProperty =
+        DependencyProperty.Register("IsMouseDown", typeof(bool), typeof(XYController),
+            new FrameworkPropertyMetadata(false,
+                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
 
         public double ValueX
@@ -142,6 +157,7 @@ namespace CMiX.MVVM.Controls
             public Int32 Y;
         };
 
+
         public static Point GetMousePosition()
         {
             Win32Point w32Mouse = new Win32Point();
@@ -149,32 +165,31 @@ namespace CMiX.MVVM.Controls
             return new Point(w32Mouse.X, w32Mouse.Y);
         }
 
+
         protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
         {
-            var mouseUpPos = e.GetPosition(this);
-            this.ReleaseMouseCapture();
-            
-            double xPos = m_thumbTransform.X; //mouseUpPos.X;
+            double xPos = m_thumbTransform.X;
             double yPos = Utils.Map(Math.Abs(m_thumbTransform.Y), 0, ActualHeight, ActualHeight, 0); // mouseUpPos.Y;
 
             if (xPos >= ActualWidth)
                 xPos = ActualWidth - 2;
+            else if (xPos <= 0)
+                xPos = 1;
 
             if (yPos >= ActualHeight)
                 yPos = ActualHeight - 2;
-
-            if (xPos <= 0)
-                xPos = 0 + 1;
-
-            if (yPos <= 0)
-                yPos = 0 + 1;
+            else if (yPos <= 0)
+                yPos = 1;
 
             Point pointToScreen = this.PointToScreen(new Point(xPos, yPos));
             SetCursorPos(Convert.ToInt32(pointToScreen.X), Convert.ToInt32(pointToScreen.Y));
+
+            IsMouseDown = false;
         }
 
 
         Point _lastPoint;
+
 
         private void OnThumbDragDelta(DragDeltaEventArgs e)
         {
@@ -210,6 +225,7 @@ namespace CMiX.MVVM.Controls
             _lastPoint = GetMousePosition();
         }
 
+
         private static void OnThumbDragDelta(object sender, DragDeltaEventArgs e)
         {
             XYController xyControl = sender as XYController;
@@ -217,25 +233,25 @@ namespace CMiX.MVVM.Controls
                 xyControl.OnThumbDragDelta(e);
         }
 
+
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             this.CaptureMouse();
+            this.IsMouseDown = true;
             var _mouseDownPos = e.GetPosition(this);
 
-            if (m_thumb != null)
-            {
-                ValueX = Utils.Map(_mouseDownPos.X, 0, ActualWidth, XMin, XMax);
-                ValueY = Utils.Map(_mouseDownPos.Y, 0, ActualHeight, YMin, YMax);
-                
-                m_thumb.RaiseEvent(e);
-            }
-            
             m_thumbTransform.X = ((Point)_mouseDownPos).X;
             m_thumbTransform.Y = Utils.Map(((Point)_mouseDownPos).Y, 0, ActualHeight, ActualHeight, 0);
 
+            ValueX = Utils.Map(_mouseDownPos.X, 0, ActualWidth, XMin, XMax);
+            ValueY = Utils.Map(_mouseDownPos.Y, 0, ActualHeight, YMin, YMax);
+                
+            m_thumb.RaiseEvent(e);
+
             _lastPoint = GetMousePosition();
-            //base.OnMouseLeftButtonDown(e);
+            base.OnMouseLeftButtonDown(e);
         }
+
 
         protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
         {

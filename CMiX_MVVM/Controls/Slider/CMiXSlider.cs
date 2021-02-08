@@ -147,6 +147,7 @@ namespace CMiX.MVVM.Controls
 
                 double YPos = ActualHeight / 2;
                 double XPos = Utils.Map(this.Value, this.Minimum, this.Maximum, 0, ActualWidth);
+
                 if (XPos >= ActualWidth)
                     XPos -= 1;
 
