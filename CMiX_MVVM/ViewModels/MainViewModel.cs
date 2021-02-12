@@ -18,7 +18,6 @@ namespace CMiX.MVVM.ViewModels
         {
             Mementor = new Mementor();
 
-            MessengerManager = new MessageSender();
             MessengerTerminal = new MessengerTerminal();
 
             CurrentProject = new Project(0, MessengerTerminal);
@@ -85,13 +84,6 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _messengerTerminal, value);
         }
 
-        private MessageSender _messengerManager;
-        public MessageSender MessengerManager
-        {
-            get => _messengerManager;
-            set => SetAndNotify(ref _messengerManager, value);
-        }
-
         private AssetManager assetManager;
         public AssetManager AssetManager
         {
@@ -104,13 +96,6 @@ namespace CMiX.MVVM.ViewModels
         {
             get => _componentManager;
             set => SetAndNotify(ref _componentManager, value);
-        }
-
-        private ComponentEditor _componentEditor;
-        public ComponentEditor ComponentEditor
-        {
-            get => _componentEditor;
-            set => SetAndNotify(ref _componentEditor, value);
         }
 
         private Project _currentProject;
@@ -184,7 +169,6 @@ namespace CMiX.MVVM.ViewModels
             Projects.Add(project);
             CurrentProject = project;
             AssetManager = new AssetManager(project);
-            ComponentEditor = new ComponentEditor(project);
         }
 
         private void OpenProject()

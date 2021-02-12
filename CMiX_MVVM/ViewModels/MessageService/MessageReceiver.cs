@@ -1,12 +1,12 @@
-﻿using CMiX.MVVM.Services;
+﻿using System;
+using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
-using System;
 
 namespace CMiX.Studio.ViewModels.MessageService
 {
-    public class Receiver : ViewModel
+    public class MessageReceiver : ViewModel
     {
-        public Receiver()
+        public MessageReceiver()
         {
             Client = new Client();
             Client.MessageReceived += Client_MessageReceived;
@@ -18,9 +18,10 @@ namespace CMiX.Studio.ViewModels.MessageService
             MessageReceived?.Invoke(sender, e);
         }
 
-        private void Client_MessageReceived(object sender, MessageEventArgs e)
-        { 
-            OnMessageReceived(sender, e);
+        private void Client_MessageReceived(object sender, DataEventArgs e)
+        {
+            Message message = MessageSerializer.Serializer.Deserialize<Message>(e.Data);
+            OnMessageReceived(sender, new MessageEventArgs(message));
         }
 
         public string Address

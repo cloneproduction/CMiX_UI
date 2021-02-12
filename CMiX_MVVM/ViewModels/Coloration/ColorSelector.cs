@@ -7,7 +7,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class ColorSelector : Sender
     {
-        public ColorSelector(string name, IColleague parentSender) :base(name, parentSender) 
+        public ColorSelector(string name, IMessageProcessor parentSender) :base(name, parentSender) 
         {
             ColorPicker = new ColorPicker(nameof(ColorPicker), this);
             this.SelectedColor = Colors.Red;

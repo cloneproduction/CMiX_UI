@@ -6,7 +6,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class BlendMode : Sender
     {
-        public BlendMode(string name, IColleague parentSender)  : base(name, parentSender)
+        public BlendMode(string name, IMessageProcessor parentSender)  : base(name, parentSender)
         {
             Mode = ((BlendModeEnum)0).ToString();
         }

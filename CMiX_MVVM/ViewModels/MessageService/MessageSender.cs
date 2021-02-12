@@ -1,7 +1,7 @@
 ﻿using System.Windows.Input;
+using System.Collections.ObjectModel;
 using MvvmDialogs;
 using CMiX.MVVM.Views;
-using System.Collections.ObjectModel;
 using CMiX.Studio.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels.MessageService
@@ -21,21 +21,12 @@ namespace CMiX.MVVM.ViewModels.MessageService
         }
 
         MessengerFactory MessengerFactory { get; set; }
+        public IDialogService DialogService { get; set; }
         public ICommand EditMessengerSettingsCommand { get; }
         public ICommand AddMessengerCommand { get; set; }
         public ICommand DeleteMessengerCommand { get; set; }
         public ICommand RenameMessengerCommand { get; set; }
-        public IDialogService DialogService { get; set; }
 
-        public void EditMessengerSettings(Messenger messenger)
-        {
-            Settings settings = messenger.GetSettings();
-            bool? success = DialogService.ShowDialog<MessengerSettingsWindow>(this, settings);
-            if (success == true)
-            {
-                messenger.SetSettings(settings);
-            }
-        }
 
         private ObservableCollection<Messenger> _messengers;
         public ObservableCollection<Messenger> Messengers
@@ -44,19 +35,18 @@ namespace CMiX.MVVM.ViewModels.MessageService
             set => SetAndNotify(ref _messengers, value);
         }
 
-        public void ProcessMessage(string address, byte[] message)
+        public void EditMessengerSettings(Messenger messenger)
         {
-            foreach (var messenger in Messengers)
-            {
-                messenger.Server.Send(address, message);
-            }
+            Settings settings = messenger.GetSettings();
+            bool? success = DialogService.ShowDialog<MessengerSettingsWindow>(this, settings);
+            if (success == true)
+                messenger.SetSettings(settings);
         }
 
         public void AddMessenger()
         {
             var messenger = MessengerFactory.CreateMessenger();
             Messengers.Add(messenger);
-
         }
 
         private void DeleteMessenger(Messenger messenger)
@@ -78,7 +68,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
         {
             foreach (var messenger in Messengers)
             {
-                messenger.Server.Send(address, data);
+                messenger.SendMessage(address, data);
             }
         }
     }

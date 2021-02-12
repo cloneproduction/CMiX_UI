@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Services;
@@ -9,7 +10,7 @@ using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Component : ViewModel, IColleague, IComponent, IDisposable
+    public abstract class Component : ViewModel, IMessageProcessor, IComponent, IDisposable
     {
         public Component(int id, MessengerTerminal messengerTerminal)
         {
@@ -115,6 +116,11 @@ namespace CMiX.MVVM.ViewModels
             Components.Remove(component);
             Message message = new Message(MessageCommand.REMOVE_COMPONENT, GetAddress(), index);
             this.Send(message);
+        }
+
+        public void RemoveSelectedComponent()
+        {
+            Components.ToList().RemoveAll(x => x.IsSelected);
         }
 
         public void InsertComponent(int index, Component component)

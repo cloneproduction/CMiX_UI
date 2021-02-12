@@ -6,7 +6,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Inverter : Sender
     {
-        public Inverter(string name, IColleague parentSender) : base (name, parentSender)
+        public Inverter(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {
             Invert = new Slider(nameof(Invert), this);
             InvertMode = ((TextureInvertMode)0).ToString();

@@ -15,7 +15,6 @@ namespace CMiX.MVVM.Services
             this.Command = messageCommand;
             this.Address = address;
             this.Obj = obj;
-            
         }
 
         public Message(MessageCommand messageCommand, string address, object obj, object commandParameter) : this(messageCommand, address, obj)

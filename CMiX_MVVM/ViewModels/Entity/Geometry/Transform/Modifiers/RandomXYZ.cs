@@ -7,9 +7,9 @@ using CMiX.MVVM.Resources;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class RandomXYZ : Sender, ITransformModifier, IColleague
+    public class RandomXYZ : Sender, ITransformModifier, IMessageProcessor
     {
-        public RandomXYZ(string name, IColleague parentSender, int id, MasterBeat masterBeat) : base (name, parentSender)
+        public RandomXYZ(string name, IMessageProcessor parentSender, int id, MasterBeat masterBeat) : base (name, parentSender)
         {
             Counter = new Counter(nameof(Counter), this);
             Counter.CounterChangeEvent += Counter_CounterChangeEvent;

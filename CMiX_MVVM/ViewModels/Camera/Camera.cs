@@ -7,7 +7,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Camera : Sender
     {
-        public Camera(string name, IColleague parentSender, MasterBeat beat) :base (name, parentSender)
+        public Camera(string name, IMessageProcessor parentSender, MasterBeat beat) :base (name, parentSender)
         {
             Rotation = ((CameraRotation)0).ToString();
             LookAt = ((CameraLookAt)0).ToString();

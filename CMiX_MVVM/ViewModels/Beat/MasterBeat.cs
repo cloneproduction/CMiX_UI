@@ -11,7 +11,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class MasterBeat : Beat
     {
-        public MasterBeat(string name, IColleague parentSender) : base (name, parentSender)
+        public MasterBeat(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {
             Index = 0;
             Period = 1000;

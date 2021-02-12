@@ -1,6 +1,6 @@
-﻿using NetMQ;
+﻿using System;
+using NetMQ;
 using NetMQ.Sockets;
-using System;
 
 namespace CMiX.MVVM.Services
 {
@@ -8,22 +8,19 @@ namespace CMiX.MVVM.Services
     {
         public Client()
         {
-            
+
         }
 
-        public event EventHandler<MessageEventArgs> MessageReceived;
+        public event EventHandler<DataEventArgs> MessageReceived;
 
-        private void OnNetMQMessageReceived(object sender, MessageEventArgs e)
+        private void OnNetMQMessageReceived(object sender, DataEventArgs e)
         {
             MessageReceived?.Invoke(sender, e);
         }
 
-        public bool Enabled { get; set; }
-        public string Name { get; set; }
         public string Topic { get; set; }
         public string IP { get; set; }
         public int Port { get; set; }
-
         public bool IsRunning { get; private set; }
 
         public string Address
@@ -51,11 +48,8 @@ namespace CMiX.MVVM.Services
             string topic = e.Socket.ReceiveFrameString();
             string messageAddress = e.Socket.ReceiveFrameString();
             byte[] data = e.Socket.ReceiveFrameBytes();
-
-            var message = MessageSerializer.Serializer.Deserialize<Message>(data);
-            OnNetMQMessageReceived(sender, new MessageEventArgs(message));
+            OnNetMQMessageReceived(sender, new DataEventArgs(data));
         }
-
 
         public void Stop()
         {

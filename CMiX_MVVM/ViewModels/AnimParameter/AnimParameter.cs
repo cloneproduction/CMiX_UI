@@ -8,7 +8,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class AnimParameter : Sender, IObserver
     {
-        public AnimParameter(string name, IColleague parentSender, double[] defaultParameter, MasterBeat beat) : base (name, parentSender)
+        public AnimParameter(string name, IMessageProcessor parentSender, double[] defaultParameter, MasterBeat beat) : base (name, parentSender)
         {
             Period = new double[0];
             Range = new Range(nameof(Range), this, 0.0, 1.0);

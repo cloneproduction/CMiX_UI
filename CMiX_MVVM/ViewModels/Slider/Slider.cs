@@ -7,7 +7,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Slider : Sender
     {
-        public Slider(string name, IColleague parentSender) : base (name, parentSender)
+        public Slider(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {
             Name = name;
 

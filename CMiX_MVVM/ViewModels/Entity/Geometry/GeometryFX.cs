@@ -6,7 +6,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class GeometryFX : Sender
     {
-        public GeometryFX(string name, IColleague parentSender) : base (name, parentSender)
+        public GeometryFX(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {
             Explode = new Slider(nameof(Explode), this);
         }

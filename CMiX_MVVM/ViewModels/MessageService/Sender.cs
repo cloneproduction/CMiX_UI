@@ -4,9 +4,9 @@ using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Sender : ViewModel, IColleague, IDisposable
+    public abstract class Sender : ViewModel, IMessageProcessor, IDisposable
     {
-        public Sender(string name, IColleague parentSender)
+        public Sender(string name, IMessageProcessor parentSender)
         {
             this.Name = name;
             this.parentAddress = parentSender.GetAddress();

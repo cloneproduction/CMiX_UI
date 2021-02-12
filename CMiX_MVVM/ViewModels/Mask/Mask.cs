@@ -6,7 +6,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Mask : Sender
     {
-        public Mask(string name, IColleague parentSender) : base (name, parentSender)
+        public Mask(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {
             MaskType = ((MaskType)2).ToString();
             MaskControlType = ((MaskControlType)1).ToString();

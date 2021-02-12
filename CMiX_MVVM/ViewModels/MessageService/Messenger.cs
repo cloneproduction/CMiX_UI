@@ -27,11 +27,11 @@ namespace CMiX.Studio.ViewModels.MessageService
             set => SetAndNotify(ref _name, value);
         }
 
-        private Server _server;
-        public Server Server
+        private Server Server { get; set; }
+
+        public void SendMessage(string address, byte[] data)
         {
-            get => _server;
-            set => SetAndNotify(ref _server, value);
+            this.Server.Send(address, data);
         }
 
         public Settings GetSettings()

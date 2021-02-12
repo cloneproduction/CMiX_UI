@@ -132,7 +132,9 @@
     <Compile Include="Models\Range\IRangeModel.cs" />
     <Compile Include="Models\Range\RangeModel.cs" />
     <Compile Include="Resources\RandomNumbers.cs" />
+    <Compile Include="Services\DataEventArgs.cs" />
     <Compile Include="Services\HighResolutionTimer.cs" />
+    <Compile Include="Services\Message\IMessageReceiver.cs" />
     <Compile Include="Services\Message\Message.cs" />
     <Compile Include="Services\Message\MessageSerializer.cs" />
     <Compile Include="Services\NetMQ\Client\ClientShimHandler.cs" />
@@ -206,9 +208,8 @@
     <Compile Include="ViewModels\Entity\Texture\InverterModelFactory.cs" />
     <Compile Include="ViewModels\Entity\Texture\TextureModelFactory.cs" />
     <Compile Include="ViewModels\Mask\MaskModelFactory.cs" />
-    <Compile Include="ViewModels\Mediator\IColleague.cs" />
-    <Compile Include="ViewModels\Mediator\IMessageMediator.cs" />
-    <Compile Include="ViewModels\Mediator\MessageMediator.cs" />
+    <Compile Include="ViewModels\MessageService\IMessageProcessor.cs" />
+    <Compile Include="ViewModels\MessageService\MessageMediator.cs" />
     <Compile Include="ViewModels\MessageService\MessengerTerminal.cs" />
     <Compile Include="ViewModels\Outliner\OutlinerDragDropManager.cs" />
     <Compile Include="ViewModels\PostFX\PostFXModelFactory.cs" />
@@ -268,8 +269,6 @@
     <Compile Include="ViewModels\Coloration\Coloration.cs" />
     <Compile Include="ViewModels\Coloration\ColorSelector.cs" />
     <Compile Include="ViewModels\Components\Component.cs" />
-    <Compile Include="ViewModels\Components\ComponentEditor.cs" />
-    <Compile Include="ViewModels\Components\ComponentEventArgs.cs" />
     <Compile Include="ViewModels\Components\ComponentManager.cs" />
     <Compile Include="ViewModels\Components\Factories\ComponentModelFactory.cs" />
     <Compile Include="ViewModels\Components\ComponentPanelTemplateSelector.cs" />
@@ -313,7 +312,7 @@
     <Compile Include="ViewModels\MessageService\Messenger.cs" />
     <Compile Include="ViewModels\MessageService\MessengerFactory.cs" />
     <Compile Include="ViewModels\MessageService\MessageSender.cs" />
-    <Compile Include="ViewModels\MessageService\Receiver.cs" />
+    <Compile Include="ViewModels\MessageService\MessageReceiver.cs" />
     <Compile Include="ViewModels\MessageService\Server.cs" />
     <Compile Include="ViewModels\MessageService\Settings.cs" />
     <Compile Include="ViewModels\MessageService\SettingsEventArgs.cs" />

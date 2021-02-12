@@ -14,8 +14,8 @@ namespace CMiX.MVVM.ViewModels.MessageService
             var config = new SerializerConfig() { DefaultTargets = TargetMember.AllPublic };
             Serializer = new CerasSerializer(config);
 
-            Receiver = new Receiver();
-            Receiver.MessageReceived += Receiver_MessageReceived;
+            MessageReceiver = new MessageReceiver();
+            MessageReceiver.MessageReceived += Receiver_MessageReceived;
         }
 
         public event EventHandler<MessageEventArgs> MessageReceived;
@@ -32,11 +32,11 @@ namespace CMiX.MVVM.ViewModels.MessageService
 
         private CerasSerializer Serializer { get; set; }
         public MessageSender MessageSender { get; set; }
-        private Receiver Receiver { get; set; }
+        private MessageReceiver MessageReceiver { get; set; }
 
         public void StartReceiver(Settings settings)
         {
-            Receiver.Start(settings);
+            MessageReceiver.Start(settings);
         }
 
         public void SendMessage(string address, Message message)

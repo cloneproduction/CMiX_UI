@@ -7,7 +7,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Scale : Sender
     {
-        public Scale(string name, IColleague parentSender) :base(name, parentSender)
+        public Scale(string name, IMessageProcessor parentSender) :base(name, parentSender)
         {
             Uniform = new Slider(nameof(Uniform), this);
             Uniform.Amount = 1.0;

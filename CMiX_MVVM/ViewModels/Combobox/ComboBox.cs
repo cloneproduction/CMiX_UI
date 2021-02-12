@@ -6,7 +6,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class ComboBox<T> : Sender
     {
-        public ComboBox(string name, IColleague parentSender) : base(name, parentSender)
+        public ComboBox(string name, IMessageProcessor parentSender) : base(name, parentSender)
         {
 
         }

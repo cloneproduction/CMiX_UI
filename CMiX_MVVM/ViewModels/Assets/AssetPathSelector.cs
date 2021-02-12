@@ -8,7 +8,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class AssetPathSelector : Sender, IDropTarget
     {
-        public AssetPathSelector(string name, IColleague parentSender, Asset defaultAsset) : base(name, parentSender)
+        public AssetPathSelector(string name, IMessageProcessor parentSender, Asset defaultAsset) : base(name, parentSender)
         {
             SelectedAsset = defaultAsset;
         }

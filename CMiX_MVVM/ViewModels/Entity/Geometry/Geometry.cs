@@ -7,7 +7,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Geometry : Sender, ITransform
     {
-        public Geometry(string name, IColleague parentSender, MasterBeat beat) : base (name, parentSender)
+        public Geometry(string name, IMessageProcessor parentSender, MasterBeat beat) : base (name, parentSender)
         {
             Instancer = new Instancer(nameof(Instancer), this, beat);
             Transform = new Transform(nameof(Transform), this);

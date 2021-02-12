@@ -6,7 +6,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Rotation : Sender
     {
-        public Rotation(string name, IColleague parentSender) : base (name, parentSender)
+        public Rotation(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {
             X = new Slider(nameof(X), this);
             Y = new Slider(nameof(Y), this);

@@ -9,7 +9,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class BeatModifier : Beat
     {
-        public BeatModifier(string name, IColleague parentSender, MasterBeat masterBeat) : base (name, parentSender)
+        public BeatModifier(string name, IMessageProcessor parentSender, MasterBeat masterBeat) : base (name, parentSender)
         {
             Index = 0;
             ChanceToHit = new Slider(nameof(ChanceToHit), this) { Minimum = 0, Maximum = 100, Amount = 100.0 };

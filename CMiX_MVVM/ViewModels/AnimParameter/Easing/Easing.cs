@@ -8,7 +8,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Easing : Sender
     {
-        public Easing(string name, IColleague parentSender) : base (name, parentSender)
+        public Easing(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {
             EasingMode = EasingMode.EaseIn;
             EasingFunction = EasingFunction.None;

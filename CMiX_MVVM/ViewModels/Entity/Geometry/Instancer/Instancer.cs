@@ -8,7 +8,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Instancer : Sender
     {
-        public Instancer(string name, IColleague parentSender, MasterBeat beat) : base (name, parentSender)
+        public Instancer(string name, IMessageProcessor parentSender, MasterBeat beat) : base (name, parentSender)
         {
             Factory = new TransformModifierFactory(beat);
             Transform = new Transform(nameof(Transform), this);

@@ -6,7 +6,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Texture : Sender
     {
-        public Texture(string name, IColleague parentSender) : base (name, parentSender)
+        public Texture(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {
             AssetPathSelector = new AssetPathSelector(nameof(AssetPathSelector), this, new AssetTexture());
 

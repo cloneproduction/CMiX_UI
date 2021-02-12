@@ -33,38 +33,18 @@ namespace CMiX.MVVM.ViewModels
 
 
         public void RenameComponent(Component component) => SelectedComponent.IsRenaming = true;
-
         public void CreateComponent(Component component) => component.CreateAndAddComponent();
+        public void DeleteComponent(Component component) => GetSelectedParent(Components).RemoveComponent(component);
 
 
         public Component DuplicateComponent(Component component)
         {
             Component result = null;
-            var parent = GetSelectedParent(Components);
-
-            //if (component is Composition)
-            //    result = DuplicateComposition(component as Composition);
-            //else if (component is Layer)
-            //    result = DuplicateLayer(component as Layer);
-            //else if (component is Entity)
-            //    result = DuplicateEntity(component as Entity);
-
+            // = GetSelectedParent(Components);
             return result;
         }
 
 
-        public void DeleteComponent(Component component)
-        {
-            var selectedParent = GetSelectedParent(Components);
-            selectedParent.RemoveComponent(component);
-        }
-
-        public event EventHandler<ComponentEventArgs> ComponentDeletedEvent;
-
-        public void OnComponentDeleted(Component component)
-        {
-            ComponentDeletedEvent?.Invoke(this, new ComponentEventArgs(component));
-        }
 
 
         public void DeleteSelectedComponent(ObservableCollection<IComponent> components)
@@ -74,7 +54,6 @@ namespace CMiX.MVVM.ViewModels
                 if (component.IsSelected)
                 {
                     components.Remove(component);
-                    OnComponentDeleted(component);
                     break;
                 }
                 else

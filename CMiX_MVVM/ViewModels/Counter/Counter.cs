@@ -8,7 +8,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Counter : Sender
     {
-        public Counter(string name, IColleague parentSender) : base(name, parentSender) 
+        public Counter(string name, IMessageProcessor parentSender) : base(name, parentSender) 
         {
             Count = 1;
             AddCommand = new RelayCommand(p => Add());

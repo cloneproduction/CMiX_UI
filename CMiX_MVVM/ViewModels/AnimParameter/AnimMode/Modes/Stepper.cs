@@ -7,7 +7,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Stepper : Sender, IAnimMode
     {
-        public Stepper(string name, IColleague parentSender) : base (name, parentSender)
+        public Stepper(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {
             StepCount = 2;
             nextStep = 0.0;

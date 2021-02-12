@@ -9,7 +9,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class ColorPicker : Sender
     {
-        public ColorPicker(string name, IColleague parentSender) : base (name, parentSender)
+        public ColorPicker(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {
             //System.Console.WriteLine(this.Address);
             SelectedColor = Color.FromArgb(255, 0, 255, 0);

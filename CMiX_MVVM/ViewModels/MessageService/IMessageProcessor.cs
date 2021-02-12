@@ -2,7 +2,7 @@
 
 namespace CMiX.MVVM.ViewModels.Mediator
 {
-    public interface IColleague
+    public interface IMessageProcessor
     {
         MessageMediator MessageMediator { get; set; }
         string GetAddress();

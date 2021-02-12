@@ -17,7 +17,6 @@ namespace CMiX.MVVM.ViewModels
             Start();
         }
 
-        #region PROPERTIES
         private string Address
         {
             get { return String.Format("tcp://{0}:{1}", IP, Port); }
@@ -61,7 +60,6 @@ namespace CMiX.MVVM.ViewModels
         }
 
         public NetMQServer NetMQServer { get; set; }
-        #endregion
 
 
         public void Send(string messageAddress, byte[] message)
@@ -69,6 +67,7 @@ namespace CMiX.MVVM.ViewModels
             if(Enabled)
                 NetMQServer.SendObject(Topic, messageAddress, message);
         }
+
 
         public void Start()
         {
@@ -87,8 +86,6 @@ namespace CMiX.MVVM.ViewModels
         {
             Stop();
             Start();
-            //NetMQServer.ReStart();
-            Console.WriteLine("Restart Server");
         }
     }
 }

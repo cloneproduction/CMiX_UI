@@ -5,7 +5,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class PostFX : Sender
     {
-        public PostFX(string name, IColleague parentSender) : base (name, parentSender) 
+        public PostFX(string name, IMessageProcessor parentSender) : base (name, parentSender) 
         {
             Feedback = new Slider(nameof(Feedback), this);
             Blur = new Slider(nameof(Blur), this);
