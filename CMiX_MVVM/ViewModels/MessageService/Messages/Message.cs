@@ -1,9 +1,11 @@
-﻿using System;
+﻿using CMiX.MVVM.ViewModels;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
+using System;
 
 namespace CMiX.MVVM.Services
 {
     [Serializable]
-    public class Message
+    public class Message : IMessage
     {
         public Message()
         {
@@ -26,6 +28,11 @@ namespace CMiX.MVVM.Services
         public string Address { get; set; }
         public object Obj { get; set; }
         public object CommandParameter { get; set; }
+
+        public void Process(ViewModel viewModel)
+        {
+            //throw new NotImplementedException();
+        }
     }
 
     public enum MessageDirection

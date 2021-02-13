@@ -20,12 +20,12 @@ namespace CMiX.MVVM.ViewModels
             Set(instance, model);
         }
 
-        public static void SetViewModel(this PostFX instance, Message message)
-        {
-            var model = message.Obj as PostFXModel;
+        //public static void SetViewModel(this PostFX instance, Message message)
+        //{
+        //    var model = message.Obj as PostFXModel;
 
-            Set(instance, model);
-        }
+        //    Set(instance, model);
+        //}
 
         private static void Set(PostFX instance, PostFXModel model)
         {

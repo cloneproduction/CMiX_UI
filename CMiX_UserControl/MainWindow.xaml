@@ -147,7 +147,7 @@
                             <TabItem.Header>
                                 <Image Margin="2" Source="{StaticResource Network}"/>
                             </TabItem.Header>
-                            <Views:MessengerManager DataContext="{Binding MessengerTerminal.MessageSender}"/>
+                            <Views:MessengerManager DataContext="{Binding MessageTerminal.MessageSender}"/>
                         </TabItem>
                     </TabControl>
                 </Border>

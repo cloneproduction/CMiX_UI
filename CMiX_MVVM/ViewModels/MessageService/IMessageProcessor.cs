@@ -1,12 +1,13 @@
 ﻿using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels.Mediator
 {
     public interface IMessageProcessor
     {
-        MessageMediator MessageMediator { get; set; }
+        MessageDispatcher MessageDispatcher { get; set; }
         string GetAddress();
-        void Send(Message message);
-        void Receive(Message message);
+        void Send(IMessage message);
+        void Receive(IMessage message);
     }
 }

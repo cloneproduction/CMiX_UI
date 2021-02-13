@@ -12,7 +12,6 @@ namespace CMiX.Studio.ViewModels.MessageService
             IsRunning = false;
         }
 
-        #region PROPERTIES
         private bool _isRunning;
         public bool IsRunning
         {
@@ -76,7 +75,6 @@ namespace CMiX.Studio.ViewModels.MessageService
         }
 
         public NetMQServer NetMQServer { get; set; }
-        #endregion
 
         public void Send(string messageAddress, byte[] data)
         {

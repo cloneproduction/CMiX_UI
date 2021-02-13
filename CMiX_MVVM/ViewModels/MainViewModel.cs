@@ -18,9 +18,9 @@ namespace CMiX.MVVM.ViewModels
         {
             Mementor = new Mementor();
 
-            MessengerTerminal = new MessengerTerminal();
+            MessageTerminal = new MessageTerminal();
 
-            CurrentProject = new Project(0, MessengerTerminal);
+            CurrentProject = new Project(0, MessageTerminal);
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
             Projects = new ObservableCollection<IComponent>();
             Projects.Add(CurrentProject);
@@ -77,11 +77,11 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _animatedDouble, value);
         }
 
-        private MessengerTerminal _messengerTerminal;
-        public MessengerTerminal MessengerTerminal
+        private MessageTerminal _MessageTerminal;
+        public MessageTerminal MessageTerminal
         {
-            get => _messengerTerminal;
-            set => SetAndNotify(ref _messengerTerminal, value);
+            get => _MessageTerminal;
+            set => SetAndNotify(ref _MessageTerminal, value);
         }
 
         private AssetManager assetManager;
@@ -164,7 +164,7 @@ namespace CMiX.MVVM.ViewModels
         #region MENU METHODS
         private void NewProject()
         {
-            Project project = new Project(0, this.MessengerTerminal);
+            Project project = new Project(0, this.MessageTerminal);
             Projects.Clear();
             Projects.Add(project);
             CurrentProject = project;

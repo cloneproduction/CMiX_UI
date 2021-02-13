@@ -1,23 +1,18 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.ViewModels.MessageService;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMiX.MVVM.ViewModels.Components.Factories
 {
     public class SceneFactory : IComponentFactory
     {
-        public SceneFactory(MessengerTerminal messengerTerminal)
+        public SceneFactory(MessageTerminal MessageTerminal)
         {
-            this.MessengerTerminal = messengerTerminal;
+            this.MessageTerminal = MessageTerminal;
         }
 
         private static int ID = 0;
 
-        public MessengerTerminal MessengerTerminal { get; set; }
+        public MessageTerminal MessageTerminal { get; set; }
 
         public IComponent CreateComponent(IComponent parentComponent)
         {
@@ -31,7 +26,7 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 
         private Scene CreateScene(Layer parentComponent)
         {
-            var component = new Scene(ID, MessengerTerminal, parentComponent.MasterBeat);
+            var component = new Scene(ID, MessageTerminal, parentComponent.MasterBeat);
             ID++;
             return component;
         }
@@ -39,7 +34,7 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 
         private Scene CreateScene(Layer parentComponent, IComponentModel componentModel)
         {
-            var component = new Scene(componentModel.ID, MessengerTerminal, parentComponent.MasterBeat);
+            var component = new Scene(componentModel.ID, MessageTerminal, parentComponent.MasterBeat);
             component.SetViewModel(componentModel);
             return component;
         }

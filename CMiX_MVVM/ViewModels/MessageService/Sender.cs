@@ -1,6 +1,7 @@
 ﻿using System;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -10,17 +11,17 @@ namespace CMiX.MVVM.ViewModels
         {
             this.Name = name;
             this.parentAddress = parentSender.GetAddress();
-            this.MessageMediator = parentSender.MessageMediator;
-            this.MessageMediator.RegisterColleague(this);
+            this.MessageDispatcher = parentSender.MessageDispatcher;
+            this.MessageDispatcher.RegisterColleague(this);
         }
 
         private string parentAddress {get; set;}
         private string Name { get; set; }
-        public MessageMediator MessageMediator { get; set; }
+        public MessageDispatcher MessageDispatcher { get; set; }
 
         public string GetAddress() => $"{parentAddress}{Name}/";
-        public virtual void Dispose() => this.MessageMediator?.UnregisterColleague(this.GetAddress());
-        public void Send(Message message) => this.MessageMediator?.Notify(MessageDirection.OUT, message);
-        public abstract void Receive(Message message);
+        public virtual void Dispose() => this.MessageDispatcher?.UnregisterColleague(this.GetAddress());
+        public void Send(IMessage message) => this.MessageDispatcher?.Notify(MessageDirection.OUT, message);
+        public abstract void Receive(IMessage message);
     }
 }

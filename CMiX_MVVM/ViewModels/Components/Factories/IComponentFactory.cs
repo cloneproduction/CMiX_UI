@@ -7,6 +7,6 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
     {
         IComponent CreateComponent(IComponent parentComponent);
         IComponent CreateComponent(IComponent parentComponent, IComponentModel model);
-        MessengerTerminal MessengerTerminal { get; set; }
+        MessageTerminal MessageTerminal { get; set; }
     }
 }

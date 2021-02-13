@@ -5,14 +5,14 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 {
     public class EntityFactory : IComponentFactory
     {
-        public EntityFactory(MessengerTerminal messengerTerminal)
+        public EntityFactory(MessageTerminal MessageTerminal)
         {
-            this.MessengerTerminal = messengerTerminal;
+            this.MessageTerminal = MessageTerminal;
         }
 
         private static int ID = 0;
 
-        public MessengerTerminal MessengerTerminal { get; set; }
+        public MessageTerminal MessageTerminal { get; set; }
 
         public IComponent CreateComponent(IComponent parentComponent)
         {
@@ -26,14 +26,14 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 
         private Entity CreateEntity(Scene parentComponent)
         {
-            var component = new Entity(ID, MessengerTerminal, parentComponent.MasterBeat);
+            var component = new Entity(ID, MessageTerminal, parentComponent.MasterBeat);
             ID++;
             return component;
         }
 
         private Entity CreateEntity(Scene parentComponent, IComponentModel componentModel)
         {
-            var component = new Entity(componentModel.ID, MessengerTerminal, parentComponent.MasterBeat);
+            var component = new Entity(componentModel.ID, MessageTerminal, parentComponent.MasterBeat);
             component.SetViewModel(componentModel);
             return component;
         }

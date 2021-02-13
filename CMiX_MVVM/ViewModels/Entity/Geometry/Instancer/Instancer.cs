@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -25,14 +26,16 @@ namespace CMiX.MVVM.ViewModels
 
         private TransformModifierFactory Factory { get; set; }
 
-        public override void Receive(Message message)
+        public override void Receive(IMessage message)
         {
-            switch (message.Command)
+            var mess = message as Message;
+
+            switch (mess.Command)
             {
                 case MessageCommand.ADD_TRANSFORMMODIFIER:
                     {
                         var model = message.Obj as ITransformModifierModel;
-                        TransformModifierNames name = (TransformModifierNames)message.CommandParameter;
+                        TransformModifierNames name = (TransformModifierNames)mess.CommandParameter;
                         var component = Factory.CreateTransformModifier(name, model, this);
                         this.TransformModifiers.Add(component);
                         break;

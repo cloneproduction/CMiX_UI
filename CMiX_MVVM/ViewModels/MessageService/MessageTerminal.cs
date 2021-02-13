@@ -2,20 +2,20 @@
 using CMiX.Studio.ViewModels.MessageService;
 using System;
 using Ceras;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels.MessageService
 {
-    public class MessengerTerminal : ViewModel
+    public class MessageTerminal : ViewModel
     {
-        public MessengerTerminal()
+        public MessageTerminal()
         {
             MessageSender = new MessageSender();
+            MessageReceiver = new MessageReceiver();
+            MessageReceiver.MessageReceived += Receiver_MessageReceived;
 
             var config = new SerializerConfig() { DefaultTargets = TargetMember.AllPublic };
             Serializer = new CerasSerializer(config);
-
-            MessageReceiver = new MessageReceiver();
-            MessageReceiver.MessageReceived += Receiver_MessageReceived;
         }
 
         public event EventHandler<MessageEventArgs> MessageReceived;
@@ -39,7 +39,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
             MessageReceiver.Start(settings);
         }
 
-        public void SendMessage(string address, Message message)
+        public void SendMessage(string address, IMessage message)
         {
             byte[] data = Serializer.Serialize(message);
             MessageSender.SendMessage(address, data);

@@ -7,20 +7,21 @@ using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
     public abstract class Component : ViewModel, IMessageProcessor, IComponent, IDisposable
     {
-        public Component(int id, MessengerTerminal messengerTerminal)
+        public Component(int id, MessageTerminal MessageTerminal)
         {
             ID = id;
             IsExpanded = false;
 
             Name = $"{this.GetType().Name}{ID}";
 
-            MessageMediator = new MessageMediator(messengerTerminal);
-            MessageMediator.RegisterColleague(this);
+            MessageDispatcher = new MessageDispatcher(MessageTerminal);
+            MessageDispatcher.RegisterColleague(this);
 
             Components = new ObservableCollection<IComponent>();
 
@@ -34,7 +35,7 @@ namespace CMiX.MVVM.ViewModels
 
 
         public ICommand SetVisibilityCommand { get; set; }
-        public MessageMediator MessageMediator { get; set; }
+        public MessageDispatcher MessageDispatcher { get; set; }
         public IComponentFactory ComponentFactory { get; set; }
 
 
@@ -105,7 +106,8 @@ namespace CMiX.MVVM.ViewModels
             Components.Add(component);
             IsExpanded = true;
             IComponentModel model = ((Component)component).GetModel();
-            Message message = new Message(MessageCommand.ADD_COMPONENT, GetAddress(), model) ;
+            //Message message = new Message(MessageCommand.ADD_COMPONENT, GetAddress(), model) ;
+            IMessage message = new MessageAddComponent(this.GetAddress(), ((Component)component).GetModel());
             this.Send(message);
         }
 
@@ -114,6 +116,7 @@ namespace CMiX.MVVM.ViewModels
             int index = Components.IndexOf(component);
             component.Dispose();
             Components.Remove(component);
+            //IMessage message = new MessageAddComponent(this.GetModel());
             Message message = new Message(MessageCommand.REMOVE_COMPONENT, GetAddress(), index);
             this.Send(message);
         }
@@ -139,52 +142,55 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public void Send(Message message)
+        public void Send(IMessage message)
         {
-            MessageMediator?.Notify(MessageDirection.OUT, message);
+            MessageDispatcher?.Notify(MessageDirection.OUT, message);
         }
 
-        public void Receive(Message message)
+        public void Receive(IMessage message)
         {
-            switch (message.Command)
-            {
-                case MessageCommand.ADD_COMPONENT:
-                    {
-                        var model = message.Obj as IComponentModel;
-                        var component = ComponentFactory.CreateComponent(this, model);
-                        this.Components.Add(component);
-                        break;
-                    }
-                case MessageCommand.INSERT_COMPONENT:
-                    {
-                        var model = message.Obj as IComponentModel;
-                        int index = (int)message.CommandParameter;
-                        var component = ComponentFactory.CreateComponent(this, model);
-                        this.Components.Insert(index, component);
-                        break;
-                    }
-                case MessageCommand.REMOVE_COMPONENT:
-                    {
-                        int index = (int)message.Obj;
-                        this.Components[index].Dispose();
-                        this.Components.RemoveAt(index);
-                        break;
-                    }
-                case MessageCommand.MOVE_COMPONENT:
-                    {
-                        int oldIndex = (int)message.Obj;
-                        int newIndex = (int)message.CommandParameter;
-                        this.Components.Move(oldIndex, newIndex);
-                        break;
-                    }
-                case MessageCommand.UPDATE_VIEWMODEL:
-                    {
-                        var model = message.Obj as IComponentModel;
-                        this.SetViewModel(model);
-                        break;
-                    }
-                default: break;
-            }
+            Console.WriteLine("Component Receive Message Type " + message.GetType());
+            //Console.WriteLine(((MessageAddComponent)message).ComponentModel.ID);
+            ((MessageAddComponent)message).Process(this);
+            //switch (message.Command)
+            //{
+            //    case MessageCommand.ADD_COMPONENT:
+            //        {
+            //            var model = message.Obj as IComponentModel;
+            //            var component = ComponentFactory.CreateComponent(this, model);
+            //            this.Components.Add(component);
+            //            break;
+            //        }
+            //    case MessageCommand.INSERT_COMPONENT:
+            //        {
+            //            var model = message.Obj as IComponentModel;
+            //            int index = (int)message.CommandParameter;
+            //            var component = ComponentFactory.CreateComponent(this, model);
+            //            this.Components.Insert(index, component);
+            //            break;
+            //        }
+            //    case MessageCommand.REMOVE_COMPONENT:
+            //        {
+            //            int index = (int)message.Obj;
+            //            this.Components[index].Dispose();
+            //            this.Components.RemoveAt(index);
+            //            break;
+            //        }
+            //    case MessageCommand.MOVE_COMPONENT:
+            //        {
+            //            int oldIndex = (int)message.Obj;
+            //            int newIndex = (int)message.CommandParameter;
+            //            this.Components.Move(oldIndex, newIndex);
+            //            break;
+            //        }
+            //    case MessageCommand.UPDATE_VIEWMODEL:
+            //        {
+            //            var model = message.Obj as IComponentModel;
+            //            this.SetViewModel(model);
+            //            break;
+            //        }
+            //    default: break;
+            //}
         }
 
         public Component CreateAndAddComponent()
@@ -196,7 +202,7 @@ namespace CMiX.MVVM.ViewModels
 
         public virtual void Dispose()
         {
-            MessageMediator.Dispose();
+            MessageDispatcher.Dispose();
             foreach (var component in Components)
             {
                 component.Dispose();

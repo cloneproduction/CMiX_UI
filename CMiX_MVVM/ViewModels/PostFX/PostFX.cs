@@ -1,5 +1,7 @@
-﻿using CMiX.MVVM.Services;
+﻿using CMiX.MVVM.Models;
+using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -14,9 +16,10 @@ namespace CMiX.MVVM.ViewModels
             View = ((PostFXView)0).ToString();
         }
 
-        public override void Receive(Message message)
+        public override void Receive(IMessage message)
         {
-            this.SetViewModel(message);
+            var mess = message.Obj as PostFXModel;
+            this.SetViewModel(mess);
         }
 
         public Slider Feedback { get; set; }

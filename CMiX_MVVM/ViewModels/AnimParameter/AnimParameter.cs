@@ -2,6 +2,7 @@
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
 using CMiX.MVVM.ViewModels.Observer;
 
 namespace CMiX.MVVM.ViewModels
@@ -21,7 +22,7 @@ namespace CMiX.MVVM.ViewModels
             SelectedModeType = ModeType.None;
         }
 
-        public override void Receive(Message message)
+        public override void Receive(IMessage message)
         {
             this.SetViewModel(message.Obj as AnimParameterModel);
         }

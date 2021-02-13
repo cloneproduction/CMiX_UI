@@ -12,7 +12,7 @@ namespace CMiX.MVVM.ViewModels
 
 
         private static int ID = 0;
-        private MessengerTerminal MessengerTerminal { get; set; }
+        private MessageTerminal MessageTerminal { get; set; }
 
         public MasterBeat MasterBeat { get; set; }
 

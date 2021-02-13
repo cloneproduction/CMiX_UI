@@ -6,14 +6,14 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Scene : Component, IBeatModifier
     {
-        public Scene(int id, MessengerTerminal messengerTerminal, MasterBeat masterBeat) : base(id, messengerTerminal)
+        public Scene(int id, MessageTerminal MessageTerminal, MasterBeat masterBeat) : base (id, MessageTerminal)
         {
             MasterBeat = masterBeat;
             BeatModifier = new BeatModifier(nameof(BeatModifier), this, masterBeat);
             PostFX = new PostFX(nameof(PostFX), this);
             Mask = new Mask(nameof(Mask), this);
             Transform = new Transform(nameof(Transform), this);
-            ComponentFactory = new EntityFactory(messengerTerminal);
+            ComponentFactory = new EntityFactory(MessageTerminal);
         }
 
         

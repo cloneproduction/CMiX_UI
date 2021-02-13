@@ -11,6 +11,6 @@ namespace CMiX.MVVM.Services
     {
         private static CerasSerializer _serializer;
 
-        public static CerasSerializer Serializer => _serializer ?? (_serializer = new CerasSerializer());
+        public static CerasSerializer Serializer => _serializer ?? (_serializer = new CerasSerializer(new SerializerConfig() { DefaultTargets = TargetMember.PublicProperties | TargetMember.PrivateFields }));
     }
 }

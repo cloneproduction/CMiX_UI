@@ -7,12 +7,12 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Composition : Component, IBeat
     {
-        public Composition(int id, MessengerTerminal messengerTerminal) : base (id, messengerTerminal)
+        public Composition(int id, MessageTerminal MessageTerminal) : base (id, MessageTerminal)
         {
             MasterBeat = new MasterBeat(nameof(MasterBeat), this);
             Transition = new Slider(nameof(Transition), this);
             Camera = new Camera(nameof(Camera), this, MasterBeat);
-            ComponentFactory = new LayerFactory(messengerTerminal);
+            ComponentFactory = new LayerFactory(MessageTerminal);
         }
 
         public Camera Camera { get; set; }

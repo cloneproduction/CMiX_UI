@@ -3,6 +3,7 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.ViewModels.Mediator;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -14,7 +15,7 @@ namespace CMiX.MVVM.ViewModels
             EasingFunction = EasingFunction.None;
         }
 
-        public override void Receive(Message message)
+        public override void Receive(IMessage message)
         {
             this.SetViewModel(message.Obj as EasingModel);
         }

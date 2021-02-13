@@ -5,7 +5,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Entity : Component, IBeat
     {
-        public Entity(int id, MessengerTerminal messengerTerminal, MasterBeat beat) : base (id, messengerTerminal)
+        public Entity(int id, MessageTerminal MessageTerminal, MasterBeat beat) : base (id, MessageTerminal)
         {
             BeatModifier = new BeatModifier(nameof(BeatModifier), this, beat);
             Geometry = new Geometry(nameof(Geometry), this, beat);

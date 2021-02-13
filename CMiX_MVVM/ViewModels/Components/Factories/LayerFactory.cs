@@ -10,14 +10,14 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 {
     public class LayerFactory : IComponentFactory
     {
-        public LayerFactory(MessengerTerminal messengerTerminal)
+        public LayerFactory(MessageTerminal MessageTerminal)
         {
-            this.MessengerTerminal = messengerTerminal;
+            this.MessageTerminal = MessageTerminal;
         }
 
         private static int ID = 0;
 
-        public MessengerTerminal MessengerTerminal { get; set; }
+        public MessageTerminal MessageTerminal { get; set; }
 
         public IComponent CreateComponent(IComponent parentComponent)
         {
@@ -32,7 +32,7 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 
         private Layer CreateLayer(Composition parentComponent)
         {
-            var component = new Layer(ID, MessengerTerminal, parentComponent.MasterBeat);
+            var component = new Layer(ID, MessageTerminal, parentComponent.MasterBeat);
             ID++;
             return component;
         }
@@ -40,7 +40,7 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 
         private Layer CreateLayer(Composition parentComponent, IComponentModel componentModel)
         {
-            var component = new Layer(componentModel.ID, MessengerTerminal, parentComponent.MasterBeat);
+            var component = new Layer(componentModel.ID, MessageTerminal, parentComponent.MasterBeat);
             component.SetViewModel(componentModel);
             return component;
         }

@@ -4,6 +4,7 @@ using ColorMine.ColorSpaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -11,7 +12,6 @@ namespace CMiX.MVVM.ViewModels
     {
         public ColorPicker(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {
-            //System.Console.WriteLine(this.Address);
             SelectedColor = Color.FromArgb(255, 0, 255, 0);
             Red = SelectedColor.R;
             Green = SelectedColor.G;
@@ -23,7 +23,7 @@ namespace CMiX.MVVM.ViewModels
             PreviewMouseLeaveCommand = new RelayCommand(p => PreviewMouseLeave());
         }
 
-        public override void Receive(Message message)
+        public override void Receive(IMessage message)
         {
             this.SetViewModel(message.Obj as ColorPickerModel);
         }

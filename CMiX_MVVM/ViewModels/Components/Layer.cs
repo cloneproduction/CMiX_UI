@@ -7,14 +7,14 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Layer : Component, IBeat
     {
-        public Layer(int id, MessengerTerminal messengerTerminal, MasterBeat beat) : base (id, messengerTerminal)
+        public Layer(int id, MessageTerminal MessageTerminal, MasterBeat beat) : base (id, MessageTerminal)
         {
             MasterBeat = beat;
             PostFX = new PostFX(nameof(PostFX), this);
             BlendMode = new BlendMode(nameof(BlendMode), this);
             Fade = new Slider(nameof(Fade), this);
             Mask = new Mask(nameof(Mask), this);
-            ComponentFactory = new SceneFactory(messengerTerminal);
+            ComponentFactory = new SceneFactory(MessageTerminal);
         }
 
         private bool _out;

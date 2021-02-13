@@ -2,28 +2,29 @@
 using System;
 using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels.Mediator
 {
-    public class MessageMediator : IDisposable
+    public class MessageDispatcher : IDisposable
     {
-        public MessageMediator(MessengerTerminal messageTerminal)
+        public MessageDispatcher(MessageTerminal messageTerminal)
         {
-            MessengerTerminal = messageTerminal;
-            MessengerTerminal.MessageReceived += MessengerTerminal_MessageReceived;
+            MessageTerminal = messageTerminal;
+            MessageTerminal.MessageReceived += MessageTerminal_MessageReceived;
             Colleagues = new Dictionary<string, IMessageProcessor>();
         }
 
-        private void MessengerTerminal_MessageReceived(object sender, MessageEventArgs e)
+        private void MessageTerminal_MessageReceived(object sender, MessageEventArgs e)
         {
             var message = e.Message;
             this.Notify(MessageDirection.IN, message);
         }
 
-        private MessengerTerminal MessengerTerminal { get; set; }
+        private MessageTerminal MessageTerminal { get; set; }
         private Dictionary<string, IMessageProcessor>  Colleagues { get; set; }
 
-        public void Notify(MessageDirection messageDirection, Message message)
+        public void Notify(MessageDirection messageDirection, IMessage message)
         {
             if(messageDirection == MessageDirection.IN)
             {
@@ -35,7 +36,7 @@ namespace CMiX.MVVM.ViewModels.Mediator
             }
             else if(messageDirection == MessageDirection.OUT)
             {
-                MessengerTerminal.SendMessage(message.Address, message);
+                MessageTerminal.SendMessage(message.Address, message);
             }
         }
 
@@ -55,7 +56,7 @@ namespace CMiX.MVVM.ViewModels.Mediator
 
         public void Dispose()
         {
-            MessengerTerminal.MessageReceived -= MessengerTerminal_MessageReceived;
+            MessageTerminal.MessageReceived -= MessageTerminal_MessageReceived;
         }
     }
 }

@@ -1,15 +1,15 @@
-﻿using CMiX.MVVM.Commands;
+﻿using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System;
 
 namespace CMiX.MVVM.Services
 {
     public class MessageEventArgs : EventArgs
     {
-        public MessageEventArgs(Message message)
+        public MessageEventArgs(IMessage message)
         {
             Message = message;
         }
 
-        public Message Message  { get; set; }
+        public IMessage Message  { get; set; }
     }
 }

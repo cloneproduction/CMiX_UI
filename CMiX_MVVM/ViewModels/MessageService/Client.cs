@@ -11,11 +11,11 @@ namespace CMiX.MVVM.Services
 
         }
 
-        public event EventHandler<DataEventArgs> MessageReceived;
+        public event EventHandler<DataEventArgs> DataReceived;
 
-        private void OnNetMQMessageReceived(object sender, DataEventArgs e)
+        private void OnDataReceived(object sender, DataEventArgs e)
         {
-            MessageReceived?.Invoke(sender, e);
+            DataReceived?.Invoke(sender, e);
         }
 
         public string Topic { get; set; }
@@ -48,7 +48,7 @@ namespace CMiX.MVVM.Services
             string topic = e.Socket.ReceiveFrameString();
             string messageAddress = e.Socket.ReceiveFrameString();
             byte[] data = e.Socket.ReceiveFrameBytes();
-            OnNetMQMessageReceived(sender, new DataEventArgs(data));
+            OnDataReceived(sender, new DataEventArgs(data));
         }
 
         public void Stop()

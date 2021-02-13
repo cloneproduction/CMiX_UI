@@ -1,6 +1,7 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
 using CMiX.MVVM.ViewModels.Observer;
 using System.Collections.Generic;
 using System.Windows.Media.Media3D;
@@ -23,7 +24,7 @@ namespace CMiX.MVVM.ViewModels
             Attach(Z);
         }
 
-        public override void Receive(Message message)
+        public override void Receive(IMessage message)
         {
             this.SetViewModel(message.Obj as XYZModifierModel);
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.Studio.ViewModels.MessageService
 {
@@ -9,7 +10,7 @@ namespace CMiX.Studio.ViewModels.MessageService
         public MessageReceiver()
         {
             Client = new Client();
-            Client.MessageReceived += Client_MessageReceived;
+            Client.DataReceived += Client_DataReceived;
         }
 
         public event EventHandler<MessageEventArgs> MessageReceived;
@@ -18,9 +19,10 @@ namespace CMiX.Studio.ViewModels.MessageService
             MessageReceived?.Invoke(sender, e);
         }
 
-        private void Client_MessageReceived(object sender, DataEventArgs e)
+        private void Client_DataReceived(object sender, DataEventArgs e)
         {
-            Message message = MessageSerializer.Serializer.Deserialize<Message>(e.Data);
+
+            IMessage message = MessageSerializer.Serializer.Deserialize<IMessage>(e.Data);
             OnMessageReceived(sender, new MessageEventArgs(message));
         }
 

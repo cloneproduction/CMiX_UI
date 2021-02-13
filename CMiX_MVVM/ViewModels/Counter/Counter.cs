@@ -1,6 +1,7 @@
 ﻿using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System;
 using System.Windows.Input;
 
@@ -15,7 +16,7 @@ namespace CMiX.MVVM.ViewModels
             SubCommand = new RelayCommand(p => Sub());
         }
 
-        public override void Receive(Message message)
+        public override void Receive(IMessage message)
         {
             this.SetViewModel(message.Obj as CounterModel);
             OnCountChange();
