@@ -174,7 +174,7 @@
     <Compile Include="ViewModels\MessageService\Messages\MessageInsertComponent.cs" />
     <Compile Include="ViewModels\MessageService\Messages\MessageRemoveComponent.cs" />
     <Compile Include="ViewModels\MessageService\Messages\MessageUpdateViewModel.cs" />
-    <Compile Include="ViewModels\MessageService\SenderTest.cs" />
+    <Compile Include="ViewModels\MessageService\ISenderTest.cs" />
     <Compile Include="ViewModels\Observer\IObserver.cs" />
     <Compile Include="ViewModels\Observer\ISubject.cs" />
     <Compile Include="ViewModels\Range\IRange.cs" />
