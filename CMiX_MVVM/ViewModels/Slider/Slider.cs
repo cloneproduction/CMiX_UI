@@ -1,12 +1,12 @@
-﻿using System.Windows.Input;
+﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
+using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Slider : Sender
+    public class Slider : Sender, ISenderTest
     {
         public Slider(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {
@@ -15,11 +15,6 @@ namespace CMiX.MVVM.ViewModels
             AddCommand = new RelayCommand(p => Add());
             SubCommand = new RelayCommand(p => Sub());
             ResetCommand = new RelayCommand(p => Reset());
-        }
-
-        public override void Receive(IMessage message)
-        {
-            this.SetViewModel(message.Obj as SliderModel);
         }
 
         public ICommand AddCommand { get; }
@@ -42,7 +37,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _amount, value);
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
+                this.Send(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
             }
         }
 
@@ -63,23 +58,31 @@ namespace CMiX.MVVM.ViewModels
 
         private void Add()
         {
-            if (Amount >= Maximum)
-                Amount = Maximum;
-            else
-                Amount += 0.01;
+            Amount = Amount >= Maximum ? Maximum : Amount += 0.01;
         }
 
         private void Sub()
         {
-            if (Amount <= Minimum)
-                Amount = Minimum;
-            else
-                Amount -= 0.01;
+            Amount = Amount <= Minimum ? Minimum : Amount -= 0.01;
         }
 
         public void Reset()
         {
             Amount = 0.0;
+        }
+
+        public void SetViewModel(IModel model)
+        {
+            SliderModel sliderModel = model as SliderModel;
+            this.Amount = sliderModel.Amount;
+            System.Console.WriteLine("Slider SetViewModel Amount " + Amount);
+        }
+
+        public IModel GetModel()
+        {
+            SliderModel model = new SliderModel();
+            model.Amount = this.Amount;
+            return model;
         }
     }
 }

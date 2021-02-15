@@ -9,16 +9,16 @@ namespace CMiX.MVVM.ViewModels
             TextureModel model = new TextureModel();
             model.AssetPathSelectorModel = instance.AssetPathSelector.GetModel();
             model.InverterModel = instance.Inverter.GetModel();
-            model.Brightness = instance.Brightness.GetModel();
-            model.Contrast = instance.Contrast.GetModel();
-            model.Saturation = instance.Saturation.GetModel();
-            model.Luminosity = instance.Luminosity.GetModel();
-            model.Hue = instance.Hue.GetModel();
-            model.Pan = instance.Pan.GetModel();
-            model.Tilt = instance.Tilt.GetModel();
-            model.Scale = instance.Scale.GetModel();
-            model.Rotate = instance.Rotate.GetModel();
-            model.Keying = instance.Keying.GetModel();
+            model.Brightness = (SliderModel)instance.Brightness.GetModel();
+            model.Contrast = (SliderModel)instance.Contrast.GetModel();
+            model.Saturation = (SliderModel)instance.Saturation.GetModel();
+            model.Luminosity = (SliderModel)instance.Luminosity.GetModel();
+            model.Hue = (SliderModel)instance.Hue.GetModel();
+            model.Pan = (SliderModel)instance.Pan.GetModel();
+            model.Tilt = (SliderModel)instance.Tilt.GetModel();
+            model.Scale = (SliderModel)instance.Scale.GetModel();
+            model.Rotate = (SliderModel)instance.Rotate.GetModel();
+            model.Keying = (SliderModel)instance.Keying.GetModel();
             return model;
         }
 

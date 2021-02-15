@@ -43,7 +43,6 @@ namespace CMiX.MVVM.ViewModels
         public override void Receive(IMessage message)
         {
             this.SetViewModel(message.Obj as BeatModifierModel);
-            Console.WriteLine("BeatModifier Received, BeatIndex is " + this.BeatIndex);
         }
 
         public MasterBeat MasterBeat { get; set; }

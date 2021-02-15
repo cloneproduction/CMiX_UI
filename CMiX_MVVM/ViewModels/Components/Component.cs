@@ -106,8 +106,8 @@ namespace CMiX.MVVM.ViewModels
             Components.Add(component);
             IsExpanded = true;
             IComponentModel model = ((Component)component).GetModel();
-            //Message message = new Message(MessageCommand.ADD_COMPONENT, GetAddress(), model) ;
-            IMessage message = new MessageAddComponent(this.GetAddress(), ((Component)component).GetModel());
+            string address = this.GetAddress();
+            IMessage message = new MessageAddComponent(address, model);
             this.Send(message);
         }
 
@@ -116,29 +116,24 @@ namespace CMiX.MVVM.ViewModels
             int index = Components.IndexOf(component);
             component.Dispose();
             Components.Remove(component);
-            //IMessage message = new MessageAddComponent(this.GetModel());
-            Message message = new Message(MessageCommand.REMOVE_COMPONENT, GetAddress(), index);
+            IMessage message = new MessageRemoveComponent(this.GetAddress(), index);
             this.Send(message);
         }
 
-        public void RemoveSelectedComponent()
-        {
-            Components.ToList().RemoveAll(x => x.IsSelected);
-        }
 
         public void InsertComponent(int index, Component component)
         {
             Components.Insert(index, component);
             var model = component.GetModel();
             Message message = new Message(MessageCommand.INSERT_COMPONENT, GetAddress(), model, index);
-            this.Send(message);
+            //this.Send(message);
         }
 
         public void MoveComponent(int oldIndex, int newIndex)
         {
             Components.Move(oldIndex, newIndex);
             Message message = new Message(MessageCommand.MOVE_COMPONENT, GetAddress(), oldIndex, newIndex);
-            this.Send(message);
+            //this.Send(message);
         }
 
 
@@ -150,7 +145,7 @@ namespace CMiX.MVVM.ViewModels
         public void Receive(IMessage message)
         {
             Console.WriteLine("Component Receive Message Type " + message.GetType());
-            //Console.WriteLine(((MessageAddComponent)message).ComponentModel.ID);
+
             ((MessageAddComponent)message).Process(this);
             //switch (message.Command)
             //{

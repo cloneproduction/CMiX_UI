@@ -1,4 +1,5 @@
 ﻿using System;
+using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
@@ -22,6 +23,10 @@ namespace CMiX.MVVM.ViewModels
         public string GetAddress() => $"{parentAddress}{Name}/";
         public virtual void Dispose() => this.MessageDispatcher?.UnregisterColleague(this.GetAddress());
         public void Send(IMessage message) => this.MessageDispatcher?.Notify(MessageDirection.OUT, message);
-        public abstract void Receive(IMessage message);
+
+        public virtual void Receive(IMessage message) 
+        {
+            message.Process(this);
+        }
     }
 }

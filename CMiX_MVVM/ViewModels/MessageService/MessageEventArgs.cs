@@ -1,5 +1,5 @@
-﻿using CMiX.MVVM.ViewModels.MessageService.Messages;
-using System;
+﻿using System;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.Services
 {

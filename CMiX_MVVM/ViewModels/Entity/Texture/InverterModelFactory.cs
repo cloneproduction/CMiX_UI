@@ -7,7 +7,7 @@ namespace CMiX.MVVM.ViewModels
         public static InverterModel GetModel(this Inverter instance)
         {
             InverterModel model = new InverterModel();
-            model.Invert = instance.Invert.GetModel();
+            model.Invert = (SliderModel)instance.Invert.GetModel();
             model.InvertMode = instance.InvertMode;
             return model;
         }

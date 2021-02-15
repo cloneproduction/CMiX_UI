@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System;
-using CMiX.MVVM.ViewModels.MessageService;
+﻿using System;
+using System.Collections.Generic;
 using CMiX.MVVM.Services;
+using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels.Mediator

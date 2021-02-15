@@ -25,9 +25,9 @@ namespace CMiX.MVVM.ViewModels
         public static RotationModel GetModel(this Rotation instance)
         {
             RotationModel model = new RotationModel();
-            model.X = instance.X.GetModel();
-            model.Y = instance.Y.GetModel();
-            model.Z = instance.Z.GetModel();
+            model.X = (SliderModel)instance.X.GetModel();
+            model.Y = (SliderModel)instance.Y.GetModel();
+            model.Z = (SliderModel)instance.Z.GetModel();
             return model;
         }
 
@@ -42,10 +42,10 @@ namespace CMiX.MVVM.ViewModels
         public static ScaleModel GetModel(this Scale instance)
         {
             ScaleModel model = new ScaleModel();
-            model.X = instance.X.GetModel();
-            model.Y = instance.Y.GetModel();
-            model.Z = instance.Z.GetModel();
-            model.Uniform = instance.Uniform.GetModel();
+            model.X = (SliderModel)instance.X.GetModel();
+            model.Y = (SliderModel)instance.Y.GetModel();
+            model.Z = (SliderModel)instance.Z.GetModel();
+            model.Uniform = (SliderModel)instance.Uniform.GetModel();
             return model;
         }
 
@@ -61,9 +61,9 @@ namespace CMiX.MVVM.ViewModels
         public static TranslateModel GetModel(this Translate instance)
         {
             TranslateModel model = new TranslateModel();
-            model.X = instance.X.GetModel();
-            model.Y = instance.Y.GetModel();
-            model.Z = instance.Z.GetModel();
+            model.X = (SliderModel)instance.X.GetModel();
+            model.Y = (SliderModel)instance.Y.GetModel();
+            model.Z = (SliderModel)instance.Z.GetModel();
             return model;
         }
 

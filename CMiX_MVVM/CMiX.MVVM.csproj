@@ -135,6 +135,7 @@
     <Compile Include="Services\DataEventArgs.cs" />
     <Compile Include="Tools\HighResolutionTimer.cs" />
     <Compile Include="ViewModels\MessageService\Messages\IMessage.cs" />
+    <Compile Include="ViewModels\MessageService\Messages\IMessageViewModel.cs" />
     <Compile Include="ViewModels\MessageService\Messages\Message.cs" />
     <Compile Include="ViewModels\MessageService\MessageSerializer.cs" />
     <Compile Include="Services\ClientShimHandler.cs" />
@@ -170,6 +171,10 @@
     <Compile Include="ViewModels\Entity\Geometry\Transform\Modifiers\TranslateModifier.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Transform\TransformType.cs" />
     <Compile Include="ViewModels\MessageService\Messages\MessageAddComponent.cs" />
+    <Compile Include="ViewModels\MessageService\Messages\MessageInsertComponent.cs" />
+    <Compile Include="ViewModels\MessageService\Messages\MessageRemoveComponent.cs" />
+    <Compile Include="ViewModels\MessageService\Messages\MessageUpdateViewModel.cs" />
+    <Compile Include="ViewModels\MessageService\SenderTest.cs" />
     <Compile Include="ViewModels\Observer\IObserver.cs" />
     <Compile Include="ViewModels\Observer\ISubject.cs" />
     <Compile Include="ViewModels\Range\IRange.cs" />

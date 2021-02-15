@@ -12,7 +12,6 @@ namespace CMiX.MVVM.Services
         }
 
         public event EventHandler<DataEventArgs> DataReceived;
-
         private void OnDataReceived(object sender, DataEventArgs e)
         {
             DataReceived?.Invoke(sender, e);

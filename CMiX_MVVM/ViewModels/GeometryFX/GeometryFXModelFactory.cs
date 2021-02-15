@@ -7,7 +7,7 @@ namespace CMiX.MVVM.ViewModels
         public static GeometryFXModel GetModel(this GeometryFX instance)
         {
             GeometryFXModel geometryFXModel = new GeometryFXModel();
-            geometryFXModel.Explode = instance.Explode.GetModel();
+            geometryFXModel.Explode = (SliderModel)instance.Explode.GetModel();
             return geometryFXModel;
         }
 

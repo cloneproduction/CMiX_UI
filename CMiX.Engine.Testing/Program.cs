@@ -9,7 +9,7 @@ namespace CMiX.Engine.Testing
     {
         static void Main(string[] args)
         {
-            Settings settings = new Settings("Pouet", "Pouet", "192.168.1.4", 2222);
+            Settings settings = new Settings("Pouet", "Pouet", "192.168.1.6", 2222);
             MessageTerminal MessageTerminal = new MessageTerminal();
             MessageTerminal.StartReceiver(settings);
             Project Project = new Project(0, MessageTerminal);

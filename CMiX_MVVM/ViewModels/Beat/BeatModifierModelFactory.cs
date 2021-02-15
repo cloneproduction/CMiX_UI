@@ -8,7 +8,7 @@ namespace CMiX.MVVM.ViewModels
         {
             BeatModifierModel model = new BeatModifierModel();
             model.BeatIndex = instance.BeatIndex;
-            model.ChanceToHit = instance.ChanceToHit.GetModel();
+            model.ChanceToHit = (SliderModel)instance.ChanceToHit.GetModel();
             model.Multiplier = instance.Multiplier;
             return model;
         }

@@ -8,8 +8,8 @@ namespace CMiX.MVVM.ViewModels
         public static PostFXModel GetModel(this PostFX instance)
         {
             PostFXModel postFXModel = new PostFXModel();
-            postFXModel.Feedback = instance.Feedback.GetModel();
-            postFXModel.Blur = instance.Blur.GetModel();
+            postFXModel.Feedback = (SliderModel)instance.Feedback.GetModel();
+            postFXModel.Blur = (SliderModel)instance.Blur.GetModel();
             postFXModel.Transforms = instance.Transforms;
             postFXModel.View = instance.View;
             return postFXModel;

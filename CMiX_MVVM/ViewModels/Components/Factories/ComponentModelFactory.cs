@@ -103,7 +103,7 @@ namespace CMiX.MVVM.ViewModels
             model.ID = instance.ID;
             model.MasterBeatModel = instance.MasterBeat.GetModel();
             model.CameraModel = instance.Camera.GetModel();
-            model.TransitionModel = instance.Transition.GetModel();
+            model.TransitionModel = (SliderModel)instance.Transition.GetModel();
 
             GetComponents(instance, model);
 
@@ -132,7 +132,7 @@ namespace CMiX.MVVM.ViewModels
             model.ID = instance.ID;
             model.Out = instance.Out;
 
-            model.Fade = instance.Fade.GetModel();
+            model.Fade = (SliderModel)instance.Fade.GetModel();
             model.BlendMode = instance.BlendMode.GetModel();
 
             GetComponents(instance, model);

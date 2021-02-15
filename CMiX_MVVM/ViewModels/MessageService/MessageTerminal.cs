@@ -14,7 +14,7 @@ namespace CMiX.MVVM.ViewModels.MessageService
             MessageReceiver = new MessageReceiver();
             MessageReceiver.MessageReceived += Receiver_MessageReceived;
 
-            var config = new SerializerConfig() { DefaultTargets = TargetMember.AllPublic };
+            var config = new SerializerConfig();// TargetMember.AllPublic | TargetMember.AllPrivate };
             Serializer = new CerasSerializer(config);
         }
 
