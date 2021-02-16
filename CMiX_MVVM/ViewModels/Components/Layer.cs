@@ -1,7 +1,7 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.Studio.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -37,6 +37,34 @@ namespace CMiX.MVVM.ViewModels
             PostFX.Dispose();
             BlendMode.Dispose();
             base.Dispose();
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            LayerModel layerModel = model as LayerModel;
+
+            this.Out = layerModel.Out;
+            this.Fade.SetViewModel(layerModel.Fade);
+            this.BlendMode.SetViewModel(layerModel.BlendMode);
+
+            SetComponents(this, layerModel);
+        }
+
+        public override IModel GetModel()
+        {
+            LayerModel model = new LayerModel();
+
+            model.Enabled = this.Enabled;
+            model.Name = this.Name;
+            model.ID = this.ID;
+            model.Out = this.Out;
+
+            model.Fade = (SliderModel)this.Fade.GetModel();
+            model.BlendMode = (BlendModeModel)this.BlendMode.GetModel();
+
+            GetComponents(this, model);
+
+            return model;
         }
     }
 }

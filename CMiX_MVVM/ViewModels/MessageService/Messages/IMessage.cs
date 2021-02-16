@@ -10,6 +10,6 @@ namespace CMiX.MVVM.ViewModels.MessageService.Messages
     {
         object Obj { get; set; }
         string Address { get; set; }
-        void Process(ViewModel viewModel);
+        void Process(ISenderTest viewModel);
     }
 }

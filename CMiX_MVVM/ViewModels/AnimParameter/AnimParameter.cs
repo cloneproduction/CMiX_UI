@@ -1,4 +1,5 @@
 ﻿using System;
+using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
@@ -105,6 +106,33 @@ namespace CMiX.MVVM.ViewModels
             {
                 this.Parameters[i] = DefaultValue;
             }
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            AnimParameterModel animParameterModel = model as AnimParameterModel;
+            this.SelectedModeType = animParameterModel.SelectedModeType;
+            this.Name = animParameterModel.Name;
+            this.IsEnabled = animParameterModel.IsEnabled;
+            this.Width.SetViewModel(animParameterModel.Width);
+            this.Easing.SetViewModel(animParameterModel.EasingModel);
+            this.BeatModifier.SetViewModel(animParameterModel.BeatModifierModel);
+            this.AnimMode.SetViewModel(animParameterModel.AnimModeModel);
+        }
+
+        public override IModel GetModel()
+        {
+            AnimParameterModel model = new AnimParameterModel();
+
+            model.IsEnabled = this.IsEnabled;
+            model.Name = this.Name;
+            model.SelectedModeType = this.SelectedModeType;
+            model.Width = (SliderModel)this.Width.GetModel();
+            model.EasingModel = (EasingModel)this.Easing.GetModel();
+            model.BeatModifierModel = (BeatModifierModel)this.BeatModifier.GetModel();
+            model.AnimModeModel = (AnimModeModel)this.AnimMode.GetModel();
+
+            return model;
         }
     }
 }

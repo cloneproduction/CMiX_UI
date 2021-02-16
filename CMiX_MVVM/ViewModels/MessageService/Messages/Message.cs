@@ -29,7 +29,7 @@ namespace CMiX.MVVM.Services
         public object Obj { get; set; }
         public object CommandParameter { get; set; }
 
-        public void Process(ViewModel viewModel)
+        public void Process(ISenderTest viewModel)
         {
             //throw new NotImplementedException();
         }

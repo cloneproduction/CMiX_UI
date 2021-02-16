@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
@@ -26,6 +27,31 @@ namespace CMiX.MVVM.ViewModels
             Texture.Dispose();
             Coloration.Dispose();
             base.Dispose();
+        }
+
+        public override IModel GetModel()
+        {
+            EntityModel model = new EntityModel();
+
+            model.Enabled = this.Enabled;
+            model.Name = this.Name;
+            model.ID = this.ID;
+
+            model.BeatModifierModel = (BeatModifierModel)this.BeatModifier.GetModel();
+            model.TextureModel = (TextureModel)this.Texture.GetModel();
+            model.GeometryModel = (GeometryModel)this.Geometry.GetModel();
+            model.ColorationModel = (ColorationModel)this.Coloration.GetModel();
+
+            return model;
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            EntityModel entityModel = model as EntityModel;
+            this.BeatModifier.SetViewModel(entityModel.BeatModifierModel);
+            this.Texture.SetViewModel(entityModel.TextureModel);
+            this.Geometry.SetViewModel(entityModel.GeometryModel);
+            this.Coloration.SetViewModel(entityModel.ColorationModel);
         }
     }
 }

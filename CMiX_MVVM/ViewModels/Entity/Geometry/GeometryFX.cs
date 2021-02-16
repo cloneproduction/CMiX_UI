@@ -1,7 +1,6 @@
-﻿using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
+﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Mediator;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -12,10 +11,19 @@ namespace CMiX.MVVM.ViewModels
             Explode = new Slider(nameof(Explode), this);
         }
 
-        public override void Receive(IMessage message)
-        {
-            this.SetViewModel(message.Obj as GeometryFXModel);
-        }
         public Slider Explode { get; set; }
+
+        public override void SetViewModel(IModel model)
+        {
+            GeometryFXModel geometryFXModel = model as GeometryFXModel;
+            this.Explode.SetViewModel(geometryFXModel.Explode);
+        }
+
+        public override IModel GetModel()
+        {
+            GeometryFXModel geometryFXModel = new GeometryFXModel();
+            geometryFXModel.Explode = (SliderModel)this.Explode.GetModel();
+            return geometryFXModel;
+        }
     }
 }

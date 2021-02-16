@@ -1,9 +1,10 @@
-﻿using System;
+﻿using CMiX.MVVM.Interfaces;
+using System;
 
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class RotationModel
+    public class RotationModel : IModel
     {
         public RotationModel()
         {
@@ -15,5 +16,6 @@ namespace CMiX.MVVM.Models
         public SliderModel X { get; set; }
         public SliderModel Y { get; set; }
         public SliderModel Z { get; set; }
+        public bool Enabled { get; set; }
     }
 }

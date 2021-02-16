@@ -4,6 +4,7 @@ using System.Windows.Input;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
+using CMiX.MVVM.Interfaces;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -43,6 +44,18 @@ namespace CMiX.MVVM.ViewModels
         {
             EventHandler handler = BeatResync;
             if (null != handler) handler(this, EventArgs.Empty);
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IModel GetModel()
+        {
+            ResyncModel model = new ResyncModel();
+
+            return model;
         }
     }
 }

@@ -6,7 +6,7 @@ using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Sender : ViewModel, IMessageProcessor, IDisposable
+    public abstract class Sender : ViewModel, ISenderTest, IMessageProcessor, IDisposable
     {
         public Sender(string name, IMessageProcessor parentSender)
         {
@@ -28,5 +28,9 @@ namespace CMiX.MVVM.ViewModels
         {
             message.Process(this);
         }
+
+        public abstract void SetViewModel(IModel model);
+
+        public abstract IModel GetModel();
     }
 }

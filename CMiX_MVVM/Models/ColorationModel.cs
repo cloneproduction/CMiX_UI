@@ -1,9 +1,10 @@
-﻿using System;
+﻿using CMiX.MVVM.Interfaces;
+using System;
 
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class ColorationModel
+    public class ColorationModel : IModel
     {
         public ColorationModel()
         {
@@ -19,5 +20,6 @@ namespace CMiX.MVVM.Models
         public RangeControlModel HueModel { get; set; }
         public RangeControlModel SatModel { get; set; }
         public RangeControlModel ValModel { get; set; }
+        public bool Enabled { get; set; }
     }
 }

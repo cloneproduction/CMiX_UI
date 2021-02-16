@@ -1,4 +1,5 @@
-﻿using CMiX.MVVM.Models;
+﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
@@ -10,11 +11,6 @@ namespace CMiX.MVVM.ViewModels
         public None(string name, AnimParameter parentSender) : base (name, parentSender)
         {
 
-        }
-
-        public override void Receive(IMessage message)
-        {
-            this.SetViewModel(message.Obj as NoneModel);
         }
 
         public void UpdateOnBeatTick(double[] doubleToAnimate, double period, IRange range, Easing easing, BeatModifier beatModifier)
@@ -32,6 +28,16 @@ namespace CMiX.MVVM.ViewModels
         {
             get => _IsEnabled;
             set => SetAndNotify(ref _IsEnabled, value);
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override IModel GetModel()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

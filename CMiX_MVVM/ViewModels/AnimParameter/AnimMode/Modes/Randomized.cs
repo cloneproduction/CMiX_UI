@@ -5,6 +5,7 @@ using CMiX.MVVM.Tools;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
+using CMiX.MVVM.Interfaces;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -69,6 +70,17 @@ namespace CMiX.MVVM.ViewModels
                     doubleToAnimate[i] = Utils.Map(newRandom[i], 0.0, 1.0, 0.0 - range.Width / 2, 0.0 + range.Width / 2);
                 }
             }
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IModel GetModel()
+        {
+            RandomizedModel model = new RandomizedModel();
+            return model;
         }
     }
 }

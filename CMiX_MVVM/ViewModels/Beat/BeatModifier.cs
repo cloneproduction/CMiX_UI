@@ -1,5 +1,6 @@
 ﻿using System;
 using CMiX.MVVM.Controls;
+using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.Services;
@@ -38,11 +39,6 @@ namespace CMiX.MVVM.ViewModels
         private void MasterBeat_IndexChanged(object sender, EventArgs e)
         {
             SetAnimatedDouble();
-        }
-
-        public override void Receive(IMessage message)
-        {
-            this.SetViewModel(message.Obj as BeatModifierModel);
         }
 
         public MasterBeat MasterBeat { get; set; }
@@ -108,6 +104,23 @@ namespace CMiX.MVVM.ViewModels
             AnimatedDouble = MasterBeat.BeatAnimations.AnimatedDoubles[Index + MasterBeat.BeatIndex];
             Notify(nameof(BPM));
             this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            BeatModifierModel beatModifierModel = model as BeatModifierModel;
+            this.BeatIndex = beatModifierModel.BeatIndex;
+            this.Multiplier = beatModifierModel.Multiplier;
+            this.ChanceToHit.SetViewModel(beatModifierModel.ChanceToHit);
+        }
+
+        public override IModel GetModel()
+        {
+            BeatModifierModel model = new BeatModifierModel();
+            model.BeatIndex = this.BeatIndex;
+            model.ChanceToHit = (SliderModel)this.ChanceToHit.GetModel();
+            model.Multiplier = this.Multiplier;
+            return model;
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using CMiX.MVVM.Models;
-using CMiX.MVVM.Models.Beat;
+﻿using CMiX.MVVM.Models.Beat;
 
 namespace CMiX.MVVM.ViewModels
 {

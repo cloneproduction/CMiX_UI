@@ -3,6 +3,7 @@ using CMiX.MVVM.Tools;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
+using CMiX.MVVM.Interfaces;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -12,11 +13,6 @@ namespace CMiX.MVVM.ViewModels
         {
             StepCount = 2;
             nextStep = 0.0;
-        }
-
-        public override void Receive(IMessage message)
-        {
-            this.SetViewModel(message.Obj as StepperModel);
         }
 
 
@@ -69,6 +65,19 @@ namespace CMiX.MVVM.ViewModels
 
                 position += stepDistance;
             }
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            StepperModel stepperModel = model as StepperModel;
+            this.StepCount = stepperModel.StepCount;
+        }
+
+        public override IModel GetModel()
+        {
+            StepperModel model = new StepperModel();
+            model.StepCount = this.StepCount;
+            return model;
         }
     }
 }

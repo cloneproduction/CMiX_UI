@@ -1,10 +1,10 @@
-﻿using ColorMine.ColorSpaces;
+﻿using CMiX.MVVM.Interfaces;
 using System;
 
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class InstancerModel
+    public class InstancerModel : IModel
     {
         public InstancerModel()
         {
@@ -23,5 +23,6 @@ namespace CMiX.MVVM.Models
         public XYZModifierModel ScaleModifierModel { get; set; }
         public XYZModifierModel RotationModifierModel { get; set; }
         public bool NoAspectRatio { get; set; }
+        public bool Enabled { get; set; }
     }
 }

@@ -3,6 +3,8 @@ using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
 using System;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
+using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -102,6 +104,23 @@ namespace CMiX.MVVM.ViewModels
                 SetAndNotify(ref _linearType, value);
                 this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
             }
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            SteadyModel animModeModel = model as SteadyModel;
+            this.SteadyType = animModeModel.SteadyType;
+            this.LinearType = animModeModel.LinearType;
+            this.Seed = animModeModel.Seed;
+        }
+
+        public override IModel GetModel()
+        {
+            SteadyModel model = new SteadyModel();
+            model.SteadyType = this.SteadyType;
+            model.LinearType = this.LinearType;
+            model.Seed = this.Seed;
+            return model;
         }
     }
 }

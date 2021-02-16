@@ -1,4 +1,5 @@
-﻿using CMiX.MVVM.Models;
+﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.Tools;
@@ -12,6 +13,8 @@ namespace CMiX.MVVM.ViewModels
         {
 
         }
+
+
 
         public override void Receive(IMessage message)
         {
@@ -41,6 +44,18 @@ namespace CMiX.MVVM.ViewModels
 
                 offset += periodOffset;
             }
+        }
+
+        public override IModel GetModel()
+        {
+            LFOModel model = new LFOModel();
+
+            return model;
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            LFOModel LFOModel = model as LFOModel;
         }
     }
 }

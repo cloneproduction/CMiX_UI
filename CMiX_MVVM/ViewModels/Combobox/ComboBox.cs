@@ -1,7 +1,7 @@
-﻿using CMiX.MVVM.Models;
+﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -10,11 +10,6 @@ namespace CMiX.MVVM.ViewModels
         public ComboBox(string name, IMessageProcessor parentSender) : base(name, parentSender)
         {
 
-        }
-
-        public override void Receive(IMessage message)
-        {
-            this.SetViewModel(message.Obj as ComboBoxModel<T>);
         }
 
         private T _selection;
@@ -28,16 +23,17 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public ComboBoxModel<T> GetModel()
+        public override IModel GetModel()
         {
             ComboBoxModel<T> model = new ComboBoxModel<T>();
             model.Selection = this.Selection;
             return model;
         }
 
-        public void SetViewModel(ComboBoxModel<T> model)
+        public override void SetViewModel(IModel model)
         {
-            this.Selection = model.Selection;
+            ComboBoxModel<T> comboBoxModel = model as ComboBoxModel<T>;
+            this.Selection = comboBoxModel.Selection;
         }
     }
 }

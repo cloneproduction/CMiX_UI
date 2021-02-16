@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.MessageService;
 
@@ -22,5 +23,37 @@ namespace CMiX.MVVM.ViewModels
         public PostFX PostFX { get; set; }
         public BeatModifier BeatModifier { get; set; }
         public MasterBeat MasterBeat { get; set; }
+
+
+        public override IModel GetModel()
+        {
+            SceneModel model = new SceneModel();
+
+            model.Enabled = this.Enabled;
+            model.ID = this.ID;
+            model.Name = this.Name;
+
+            model.BeatModifierModel = (BeatModifierModel)this.BeatModifier.GetModel();
+            model.PostFXModel = (PostFXModel)this.PostFX.GetModel();
+            model.MaskModel = (MaskModel)this.Mask.GetModel();
+            model.TransformModel = (TransformModel)this.Transform.GetModel();
+
+            
+            GetComponents(this, model);
+
+            return model;
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            SceneModel sceneModel = model as SceneModel;
+
+            this.BeatModifier.SetViewModel(sceneModel.BeatModifierModel);
+            this.PostFX.SetViewModel(sceneModel.PostFXModel);
+            this.Mask.SetViewModel(sceneModel.MaskModel);
+            this.Transform.SetViewModel(sceneModel.TransformModel);
+
+            SetComponents(this, sceneModel);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using CMiX.MVVM.Models;
+﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
@@ -18,7 +19,7 @@ namespace CMiX.MVVM.ViewModels
 
         public override void Receive(IMessage message)
         {
-            this.SetViewModel(message.Obj as CounterModel);
+            base.Receive(message);
             OnCountChange();
         }
 
@@ -50,6 +51,19 @@ namespace CMiX.MVVM.ViewModels
         {
             if (Count > 1)
                 Count -= 1;
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            CounterModel counterModel = model as CounterModel;
+            this.Count = counterModel.Count;
+        }
+
+        public override IModel GetModel()
+        {
+            CounterModel model = new CounterModel();
+            model.Count = this.Count;
+            return model;
         }
     }
 }

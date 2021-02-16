@@ -1,7 +1,6 @@
-﻿using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
+﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Mediator;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -18,9 +17,22 @@ namespace CMiX.MVVM.ViewModels
         public Slider Y { get; set; }
         public Slider Z { get; set; }
 
-        public override void Receive(IMessage message)
+
+        public override IModel GetModel()
         {
-            this.SetViewModel(message.Obj as RotationModel);
+            RotationModel model = new RotationModel();
+            model.X = (SliderModel)this.X.GetModel();
+            model.Y = (SliderModel)this.Y.GetModel();
+            model.Z = (SliderModel)this.Z.GetModel();
+            return model;
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            RotationModel rotationModel = model as RotationModel;
+            this.X.SetViewModel(rotationModel.X);
+            this.Y.SetViewModel(rotationModel.Y);
+            this.Z.SetViewModel(rotationModel.Z);
         }
     }
 }

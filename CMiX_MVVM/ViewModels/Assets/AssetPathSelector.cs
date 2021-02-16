@@ -1,9 +1,9 @@
-﻿using GongSolutions.Wpf.DragDrop;
-using System.Windows;
+﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
+using GongSolutions.Wpf.DragDrop;
+using System.Windows;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -12,11 +12,6 @@ namespace CMiX.MVVM.ViewModels
         public AssetPathSelector(string name, IMessageProcessor parentSender, Asset defaultAsset) : base(name, parentSender)
         {
             SelectedAsset = defaultAsset;
-        }
-
-        public override void Receive(IMessage message)
-        {
-            this.SetViewModel(message.Obj as AssetPathSelectorModel);
         }
 
         private IAssets _selectedAsset;
@@ -39,6 +34,31 @@ namespace CMiX.MVVM.ViewModels
         public void Drop(IDropInfo dropInfo)
         {
             //SelectedPath = ((IAssets)dropInfo.DragInfo.SourceItem).Path;
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            AssetPathSelectorModel assetPathSelectorModel = model as AssetPathSelectorModel;
+            if (this.SelectedAsset == null)
+            {
+                if (model is AssetTextureModel)
+                    this.SelectedAsset = new AssetTexture();
+                else if (model is AssetGeometryModel)
+                    this.SelectedAsset = new AssetGeometry();
+            }
+
+
+            if (assetPathSelectorModel.SelectedAsset != null)
+                this.SelectedAsset.SetViewModel(assetPathSelectorModel.SelectedAsset);
+        }
+
+        public override IModel GetModel()
+        {
+            AssetPathSelectorModel model = new AssetPathSelectorModel();
+            if (this.SelectedAsset != null)
+                model.SelectedAsset = this.SelectedAsset.GetModel();
+
+            return model;
         }
     }
 }

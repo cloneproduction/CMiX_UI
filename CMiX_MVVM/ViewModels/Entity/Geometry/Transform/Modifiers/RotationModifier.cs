@@ -1,4 +1,5 @@
 ﻿using System;
+using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
 
@@ -13,7 +14,12 @@ namespace CMiX.MVVM.ViewModels
             //Z = new AnimParameter(nameof(Z), this, rotation.X.Amount, beat);
         }
 
-        public override void Receive(IMessage message)
+        public override void SetViewModel(IModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IModel GetModel()
         {
             throw new NotImplementedException();
         }

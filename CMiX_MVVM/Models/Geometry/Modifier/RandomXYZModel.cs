@@ -7,5 +7,6 @@ namespace CMiX.MVVM.Models
         public string Name { get; set; }
         public int ID { get; set; }
         public int Count { get; set; }
+        public bool Enabled { get; set; }
     }
 }

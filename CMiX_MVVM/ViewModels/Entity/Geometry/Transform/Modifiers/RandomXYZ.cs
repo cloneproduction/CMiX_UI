@@ -5,6 +5,8 @@ using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
+using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -277,9 +279,20 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public override void Receive(IMessage message)
+
+        public override void SetViewModel(IModel model)
         {
-            throw new System.NotImplementedException();
+            RandomXYZModel randomXYZModel = model as RandomXYZModel;
+            this.Name = randomXYZModel.Name;
+            this.ID = randomXYZModel.ID;
+            this.SetViewModel(model);
+        }
+
+        public override IModel GetModel()
+        {
+            RandomXYZModel model = new RandomXYZModel();
+            model.ID = this.ID;
+            return model;
         }
     }
 }

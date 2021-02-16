@@ -56,29 +56,19 @@ namespace CMiX.MVVM.ViewModels
         }
         
 
-        private void Add()
-        {
-            Amount = Amount >= Maximum ? Maximum : Amount += 0.01;
-        }
+        private void Add() => Amount = Amount >= Maximum ? Maximum : Amount += 0.01;
+        private void Sub() => Amount = Amount <= Minimum ? Minimum : Amount -= 0.01;
+        public void Reset() => Amount = 0.0;
 
-        private void Sub()
-        {
-            Amount = Amount <= Minimum ? Minimum : Amount -= 0.01;
-        }
 
-        public void Reset()
-        {
-            Amount = 0.0;
-        }
-
-        public void SetViewModel(IModel model)
+        public override void SetViewModel(IModel model)
         {
             SliderModel sliderModel = model as SliderModel;
             this.Amount = sliderModel.Amount;
             System.Console.WriteLine("Slider SetViewModel Amount " + Amount);
         }
 
-        public IModel GetModel()
+        public override IModel GetModel()
         {
             SliderModel model = new SliderModel();
             model.Amount = this.Amount;

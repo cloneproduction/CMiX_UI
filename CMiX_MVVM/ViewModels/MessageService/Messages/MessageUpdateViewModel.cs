@@ -21,7 +21,7 @@ namespace CMiX.MVVM.ViewModels.MessageService.Messages
         public object Obj { get; set; }
         public string Address { get; set; }
 
-        public void Process(ViewModel viewModel)
+        public void Process(ISenderTest viewModel)
         {
             var slider = viewModel as ISenderTest;
             slider.SetViewModel(Model);

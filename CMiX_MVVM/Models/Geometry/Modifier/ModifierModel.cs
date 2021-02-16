@@ -1,9 +1,10 @@
-﻿using System;
+﻿using CMiX.MVVM.Interfaces;
+using System;
 
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class XYZModifierModel
+    public class XYZModifierModel : IModel
     {
         public XYZModifierModel()
         {
@@ -16,5 +17,6 @@ namespace CMiX.MVVM.Models
         public AnimParameterModel X { get; set; }
         public AnimParameterModel Y { get; set; }
         public AnimParameterModel Z { get; set; }
+        public bool Enabled { get; set; }
     }
 }

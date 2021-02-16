@@ -1,9 +1,10 @@
-﻿using System;
+﻿using CMiX.MVVM.Interfaces;
+using System;
 
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class TransformModel
+    public class TransformModel : IModel
     {
         public TransformModel()
         {
@@ -25,5 +26,6 @@ namespace CMiX.MVVM.Models
         public GeometryRotationModel GeometryRotationModel { get; set; }
 
         public bool Is3D { get; set; }
+        public bool Enabled { get; set; }
     }
 }

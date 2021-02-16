@@ -1,4 +1,5 @@
-﻿using CMiX.MVVM.Models;
+﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
@@ -12,11 +13,6 @@ namespace CMiX.MVVM.ViewModels
             MaskType = ((MaskType)2).ToString();
             MaskControlType = ((MaskControlType)1).ToString();
             Enabled = false;
-        }
-
-        public override void Receive(IMessage message)
-        {
-            this.SetViewModel(message.Obj as MaskModel);
         }
 
         private bool _IsMask;
@@ -51,6 +47,25 @@ namespace CMiX.MVVM.ViewModels
                 SetAndNotify(ref _maskcontroltype, value);
                 this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
             }
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            MaskModel maskModel = model as MaskModel;
+            this.IsMask = maskModel.IsMask;
+            this.MaskType = maskModel.MaskType;
+            this.MaskControlType = maskModel.MaskControlType;
+        }
+
+        public override IModel GetModel()
+        {
+            MaskModel maskModel = new MaskModel();
+
+            maskModel.IsMask = this.IsMask;
+            maskModel.MaskType = this.MaskType;
+            maskModel.MaskControlType = this.MaskControlType;
+
+            return maskModel;
         }
     }
 }

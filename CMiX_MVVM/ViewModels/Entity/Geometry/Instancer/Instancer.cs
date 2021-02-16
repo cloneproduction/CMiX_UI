@@ -4,6 +4,7 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
+using CMiX.MVVM.Interfaces;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -99,6 +100,21 @@ namespace CMiX.MVVM.ViewModels
 
                 }
             }
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            InstancerModel instancerModel = model as InstancerModel;
+            this.Transform.SetViewModel(instancerModel.Transform);
+            this.NoAspectRatio = instancerModel.NoAspectRatio;
+        }
+
+        public override IModel GetModel()
+        {
+            InstancerModel model = new InstancerModel();
+            model.Transform = (TransformModel)this.Transform.GetModel();
+            model.NoAspectRatio = this.NoAspectRatio;
+            return model;
         }
     }
 }

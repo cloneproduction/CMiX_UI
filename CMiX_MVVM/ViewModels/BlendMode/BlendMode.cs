@@ -1,4 +1,5 @@
-﻿using CMiX.MVVM.Models;
+﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
@@ -28,6 +29,19 @@ namespace CMiX.MVVM.ViewModels
         {
             this.SetViewModel(message.Obj as BlendModeModel);
             System.Console.WriteLine("POUETPOUET " + this.GetAddress() + "BlendMode received " + message.Address + "  " + this.Mode);
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            BlendModeModel blendModeModel = model as BlendModeModel;
+            this.Mode = blendModeModel.Mode;
+        }
+
+        public override IModel GetModel()
+        {
+            BlendModeModel model = new BlendModeModel();
+            model.Mode = this.Mode;
+            return model;
         }
     }
 }

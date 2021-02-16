@@ -1,4 +1,5 @@
-﻿using CMiX.MVVM.Models;
+﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
@@ -8,7 +9,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class ColorSelector : Sender
     {
-        public ColorSelector(string name, IMessageProcessor parentSender) :base(name, parentSender) 
+        public ColorSelector(string name, IMessageProcessor parentSender) : base(name, parentSender)
         {
             ColorPicker = new ColorPicker(nameof(ColorPicker), this);
             this.SelectedColor = Colors.Red;
@@ -27,10 +28,23 @@ namespace CMiX.MVVM.ViewModels
             get => _selectedColor;
             set
             {
-               //System.Console.WriteLine("SelectedColor " + SelectedColor);
+                //System.Console.WriteLine("SelectedColor " + SelectedColor);
                 SetAndNotify(ref _selectedColor, value);
                 this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
             }
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            ColorSelectorModel colorSelectorModel = model as ColorSelectorModel;
+            this.ColorPicker.SetViewModel(colorSelectorModel.ColorPickerModel);
+        }
+
+        public override IModel GetModel()
+        {
+            ColorSelectorModel colorSelectorModel = new ColorSelectorModel();
+            colorSelectorModel.ColorPickerModel = (ColorPickerModel)this.ColorPicker.GetModel();
+            return colorSelectorModel;
         }
     }
 }

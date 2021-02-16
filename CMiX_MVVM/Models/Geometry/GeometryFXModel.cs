@@ -1,9 +1,10 @@
-﻿using System;
+﻿using CMiX.MVVM.Interfaces;
+using System;
 
 namespace CMiX.MVVM.Models
 {
     [Serializable]
-    public class GeometryFXModel
+    public class GeometryFXModel : IModel
     {
         public GeometryFXModel()
         {
@@ -11,5 +12,6 @@ namespace CMiX.MVVM.Models
         }
 
         public SliderModel Explode { get; set; }
+        public bool Enabled { get; set; }
     }
 }

@@ -5,6 +5,8 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
+using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Tools;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -21,11 +23,6 @@ namespace CMiX.MVVM.ViewModels
             PreviewMouseDownCommand = new RelayCommand(p => PreviewMouseDown());
             PreviewMouseUpCommand = new RelayCommand(p => PreviewMouseUp());
             PreviewMouseLeaveCommand = new RelayCommand(p => PreviewMouseLeave());
-        }
-
-        public override void Receive(IMessage message)
-        {
-            this.SetViewModel(message.Obj as ColorPickerModel);
         }
 
         public ICommand PreviewMouseDownCommand { get; set; }
@@ -222,6 +219,19 @@ namespace CMiX.MVVM.ViewModels
         public void PreviewMouseLeave()
         {
             MouseDown = false;
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            ColorPickerModel colorPickerModel = model as ColorPickerModel;
+            this.SelectedColor = Utils.HexStringToColor(colorPickerModel.SelectedColor);
+        }
+
+        public override IModel GetModel()
+        {
+            ColorPickerModel model = new ColorPickerModel();
+            model.SelectedColor = Utils.ColorToHexString(this.SelectedColor);
+            return model;
         }
     }
 }

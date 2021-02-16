@@ -1,6 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
 using CMiX.MVVM.ViewModels.Observer;
 using System.Collections.Generic;
@@ -55,6 +54,27 @@ namespace CMiX.MVVM.ViewModels
             {
                 observer.Update(count);
             }
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            XYZModifierModel XYZModifierModel = model as XYZModifierModel;
+            this.Name = XYZModifierModel.Name;
+            this.X.SetViewModel(XYZModifierModel.X);
+            this.Y.SetViewModel(XYZModifierModel.Y);
+            this.Z.SetViewModel(XYZModifierModel.Z);
+        }
+
+        public override IModel GetModel()
+        {
+            XYZModifierModel model = new XYZModifierModel();
+
+            model.Name = this.Name;
+            model.X = (AnimParameterModel)this.X.GetModel();
+            model.Y = (AnimParameterModel)this.Y.GetModel();
+            model.Z = (AnimParameterModel)this.Z.GetModel();
+
+            return model;
         }
 
         private int _isExpanded;

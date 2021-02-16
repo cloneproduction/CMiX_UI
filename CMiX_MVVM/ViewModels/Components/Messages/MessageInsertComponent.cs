@@ -19,7 +19,7 @@ namespace CMiX.MVVM.ViewModels.MessageService.Messages
         public object Obj { get; set; }
         public string Address { get; set; }
 
-        public void Process(ViewModel viewModel)
+        public void Process(ISenderTest viewModel)
         {
             Component component = viewModel as Component;
             var newComponent = component.ComponentFactory.CreateComponent(component, ComponentModel);

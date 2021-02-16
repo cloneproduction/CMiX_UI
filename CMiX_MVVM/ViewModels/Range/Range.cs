@@ -1,8 +1,8 @@
-﻿using System;
+﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -12,12 +12,6 @@ namespace CMiX.MVVM.ViewModels
         {
             Minimum = minimum;
             Maximum = maximum;
-        }
-
-        public override void Receive(IMessage message)
-        {
-            this.SetViewModel(message.Obj as RangeModel);
-            Console.WriteLine("Received Range");
         }
 
         private double _width;
@@ -49,6 +43,21 @@ namespace CMiX.MVVM.ViewModels
                 Width = Math.Abs(Maximum - Minimum);
                 this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
             }
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            RangeModel rangeModel = model as RangeModel;
+            this.Minimum = rangeModel.Minimum;
+            this.Maximum = rangeModel.Maximum;
+        }
+
+        public override IModel GetModel()
+        {
+            IRangeModel model = new RangeModel();
+            model.Minimum = this.Minimum;
+            model.Maximum = this.Maximum;
+            return model;
         }
     }
 }

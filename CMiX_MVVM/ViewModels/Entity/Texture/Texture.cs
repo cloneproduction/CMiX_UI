@@ -1,7 +1,6 @@
-﻿using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
+﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 using CMiX.MVVM.ViewModels.Mediator;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -57,9 +56,40 @@ namespace CMiX.MVVM.ViewModels
         public Slider Rotate { get; set; }
         public Inverter Inverter { get; set; }
 
-        public override void Receive(IMessage message)
+
+        public override IModel GetModel()
         {
-            this.SetViewModel(message.Obj as TextureModel);
+            TextureModel model = new TextureModel();
+            model.AssetPathSelectorModel = (AssetPathSelectorModel)this.AssetPathSelector.GetModel();
+            model.InverterModel = (InverterModel)this.Inverter.GetModel();
+            model.Brightness = (SliderModel)this.Brightness.GetModel();
+            model.Contrast = (SliderModel)this.Contrast.GetModel();
+            model.Saturation = (SliderModel)this.Saturation.GetModel();
+            model.Luminosity = (SliderModel)this.Luminosity.GetModel();
+            model.Hue = (SliderModel)this.Hue.GetModel();
+            model.Pan = (SliderModel)this.Pan.GetModel();
+            model.Tilt = (SliderModel)this.Tilt.GetModel();
+            model.Scale = (SliderModel)this.Scale.GetModel();
+            model.Rotate = (SliderModel)this.Rotate.GetModel();
+            model.Keying = (SliderModel)this.Keying.GetModel();
+            return model;
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            TextureModel textureModel = model as TextureModel;
+            this.AssetPathSelector.SetViewModel(textureModel.AssetPathSelectorModel);
+            this.Inverter.SetViewModel(textureModel.InverterModel);
+            this.Brightness.SetViewModel(textureModel.Brightness);
+            this.Contrast.SetViewModel(textureModel.Contrast);
+            this.Saturation.SetViewModel(textureModel.Saturation);
+            this.Luminosity.SetViewModel(textureModel.Luminosity);
+            this.Hue.SetViewModel(textureModel.Hue);
+            this.Pan.SetViewModel(textureModel.Pan);
+            this.Tilt.SetViewModel(textureModel.Tilt);
+            this.Scale.SetViewModel(textureModel.Scale);
+            this.Rotate.SetViewModel(textureModel.Rotate);
+            this.Keying.SetViewModel(textureModel.Keying);
         }
     }
 }

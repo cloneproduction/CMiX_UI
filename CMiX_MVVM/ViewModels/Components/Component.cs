@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows.Input;
-using CMiX.MVVM.Interfaces;
+﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
+using System;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Component : ViewModel, IMessageProcessor, IComponent, IDisposable
+    public abstract class Component : ViewModel, ISenderTest, IMessageProcessor, IComponent, IDisposable
     {
         public Component(int id, MessageTerminal MessageTerminal)
         {
@@ -100,14 +99,13 @@ namespace CMiX.MVVM.ViewModels
                 item.SetVisibility();
             }
         }
-
+        
         public void AddComponent(IComponent component)
         {
             Components.Add(component);
             IsExpanded = true;
-            IComponentModel model = ((Component)component).GetModel();
-            string address = this.GetAddress();
-            IMessage message = new MessageAddComponent(address, model);
+            IComponentModel model = component.GetModel() as IComponentModel;
+            IMessage message = new MessageAddComponent(this.GetAddress(), model);
             this.Send(message);
         }
 
@@ -124,16 +122,16 @@ namespace CMiX.MVVM.ViewModels
         public void InsertComponent(int index, Component component)
         {
             Components.Insert(index, component);
-            var model = component.GetModel();
-            Message message = new Message(MessageCommand.INSERT_COMPONENT, GetAddress(), model, index);
-            //this.Send(message);
+            var model = component.GetModel() as IComponentModel;
+            IMessage message = new MessageInsertComponent(GetAddress(), model, index);
+            this.Send(message);
         }
 
         public void MoveComponent(int oldIndex, int newIndex)
         {
             Components.Move(oldIndex, newIndex);
-            Message message = new Message(MessageCommand.MOVE_COMPONENT, GetAddress(), oldIndex, newIndex);
-            //this.Send(message);
+            IMessage message = new MessageMoveComponent(this.GetAddress(), oldIndex, newIndex);
+            this.Send(message);
         }
 
 
@@ -144,48 +142,7 @@ namespace CMiX.MVVM.ViewModels
 
         public void Receive(IMessage message)
         {
-            Console.WriteLine("Component Receive Message Type " + message.GetType());
-
-            ((MessageAddComponent)message).Process(this);
-            //switch (message.Command)
-            //{
-            //    case MessageCommand.ADD_COMPONENT:
-            //        {
-            //            var model = message.Obj as IComponentModel;
-            //            var component = ComponentFactory.CreateComponent(this, model);
-            //            this.Components.Add(component);
-            //            break;
-            //        }
-            //    case MessageCommand.INSERT_COMPONENT:
-            //        {
-            //            var model = message.Obj as IComponentModel;
-            //            int index = (int)message.CommandParameter;
-            //            var component = ComponentFactory.CreateComponent(this, model);
-            //            this.Components.Insert(index, component);
-            //            break;
-            //        }
-            //    case MessageCommand.REMOVE_COMPONENT:
-            //        {
-            //            int index = (int)message.Obj;
-            //            this.Components[index].Dispose();
-            //            this.Components.RemoveAt(index);
-            //            break;
-            //        }
-            //    case MessageCommand.MOVE_COMPONENT:
-            //        {
-            //            int oldIndex = (int)message.Obj;
-            //            int newIndex = (int)message.CommandParameter;
-            //            this.Components.Move(oldIndex, newIndex);
-            //            break;
-            //        }
-            //    case MessageCommand.UPDATE_VIEWMODEL:
-            //        {
-            //            var model = message.Obj as IComponentModel;
-            //            this.SetViewModel(model);
-            //            break;
-            //        }
-            //    default: break;
-            //}
+            message.Process(this);
         }
 
         public Component CreateAndAddComponent()
@@ -203,5 +160,23 @@ namespace CMiX.MVVM.ViewModels
                 component.Dispose();
             }
         }
+
+
+        public void SetComponents(Component component, IComponentModel componentModel)
+        {
+            component.Components.Clear();
+            foreach (var model in componentModel.ComponentModels)
+                component.CreateAndAddComponent().SetViewModel(model);
+        }
+
+        public void GetComponents(Component component, IComponentModel componentModel)
+        {
+            foreach (Component item in component.Components)
+                componentModel.ComponentModels.Add(item.GetModel() as IComponentModel);
+        }
+
+        public abstract void SetViewModel(IModel model);
+
+        public abstract IModel GetModel();
     }
 }

@@ -1,8 +1,6 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -21,9 +19,24 @@ namespace CMiX.MVVM.ViewModels
         public Instancer Instancer { get; set; }
         public GeometryFX GeometryFX { get; set; }
 
-        public override void Receive(IMessage message)
+
+        public override IModel GetModel()
         {
-            this.SetViewModel(message.Obj as GeometryModel);
+            GeometryModel model = new GeometryModel();
+            model.TransformModel = (TransformModel)this.Transform.GetModel();
+            model.GeometryFXModel = (GeometryFXModel)this.GeometryFX.GetModel();
+            model.InstancerModel = (InstancerModel)this.Instancer.GetModel();
+            model.AssetPathSelectorModel = (AssetPathSelectorModel)this.AssetPathSelector.GetModel();
+            return model;
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            GeometryModel geometryModel = model as GeometryModel;
+            this.Transform.SetViewModel(geometryModel.TransformModel);
+            this.GeometryFX.SetViewModel(geometryModel.GeometryFXModel);
+            this.Instancer.SetViewModel(geometryModel.InstancerModel);
+            this.AssetPathSelector.SetViewModel(geometryModel.AssetPathSelectorModel);
         }
     }
 }

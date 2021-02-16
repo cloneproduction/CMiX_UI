@@ -1,8 +1,6 @@
-﻿using CMiX.MVVM.Controls;
+﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -19,10 +17,6 @@ namespace CMiX.MVVM.ViewModels
             Zoom = new Slider(nameof(Zoom), this);
         }
 
-        public override void Receive(IMessage message)
-        {
-            this.SetViewModel(message.Obj as CameraModel);
-        }
         public BeatModifier BeatModifier { get; set; }
         public Slider FOV { get; set; }
         public Slider Zoom { get; set; }
@@ -46,6 +40,29 @@ namespace CMiX.MVVM.ViewModels
         {
             get => _view;
             set => SetAndNotify(ref _view, value);
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            CameraModel cameraModel = model as CameraModel;
+            this.Rotation = cameraModel.Rotation;
+            this.LookAt = cameraModel.LookAt;
+            this.View = cameraModel.View;
+
+            this.BeatModifier.SetViewModel(cameraModel.BeatModifierModel);
+            this.FOV.SetViewModel(cameraModel.FOV);
+            this.Zoom.SetViewModel(cameraModel.Zoom);
+        }
+
+        public override IModel GetModel()
+        {
+            CameraModel cameraModel = new CameraModel();
+
+            cameraModel.Rotation = this.Rotation;
+            cameraModel.LookAt = this.LookAt;
+            cameraModel.View = this.View;
+
+            return cameraModel;
         }
     }
 }

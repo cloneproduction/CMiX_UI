@@ -22,7 +22,7 @@ namespace CMiX.MVVM.ViewModels.MessageService.Messages
         public object Obj { get; set; }
         public IComponentModel ComponentModel { get; set; } // must be public because of Ceras...
 
-        public void Process(ViewModel viewModel)
+        public void Process(ISenderTest viewModel)
         {
             Component component = viewModel as Component;
             var newComponent = component.ComponentFactory.CreateComponent(component, ComponentModel);

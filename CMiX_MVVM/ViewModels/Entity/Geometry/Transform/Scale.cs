@@ -41,5 +41,24 @@ namespace CMiX.MVVM.ViewModels
         {
             this.SetViewModel(message.Obj as ScaleModel);
         }
+
+        public override void SetViewModel(IModel model)
+        {
+            ScaleModel scaleModel = new ScaleModel();
+            this.X.SetViewModel(scaleModel.X);
+            this.Y.SetViewModel(scaleModel.Y);
+            this.Z.SetViewModel(scaleModel.Z);
+            this.Uniform.SetViewModel(scaleModel.Uniform);
+        }
+
+        public override IModel GetModel()
+        {
+            ScaleModel model = new ScaleModel();
+            model.X = (SliderModel)this.X.GetModel();
+            model.Y = (SliderModel)this.Y.GetModel();
+            model.Z = (SliderModel)this.Z.GetModel();
+            model.Uniform = (SliderModel)this.Uniform.GetModel();
+            return model;
+        }
     }
 }

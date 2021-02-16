@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using CMiX.MVVM.Controls;
+using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models.Beat;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
@@ -29,12 +30,6 @@ namespace CMiX.MVVM.ViewModels
             tapTime = new List<double>();
 
             TapCommand = new RelayCommand(p => Tap());
-        }
-
-        public override void Receive(IMessage message)
-        {
-            this.SetViewModel(message.Obj as MasterBeatModel);
-            Console.WriteLine("MasterBeat Received");
         }
 
         public ICommand ResyncCommand { get; }
@@ -164,6 +159,21 @@ namespace CMiX.MVVM.ViewModels
                 }
                 BeatAnimations.MakeStoryBoard(Periods);
             }
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            MasterBeatModel masterBeatModel = model as MasterBeatModel;
+            this.Periods = masterBeatModel.Periods;
+            this.Multiplier = masterBeatModel.Multiplier;
+        }
+
+        public override IModel GetModel()
+        {
+            MasterBeatModel model = new MasterBeatModel();
+            model.Periods = this.Periods;
+            model.Multiplier = this.Multiplier;
+            return model;
         }
     }
 }
