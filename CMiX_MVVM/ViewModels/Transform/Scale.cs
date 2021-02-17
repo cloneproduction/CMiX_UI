@@ -37,10 +37,6 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _isUniform, value);
         }
 
-        public override void Receive(IMessage message)
-        {
-            this.SetViewModel(message.Obj as ScaleModel);
-        }
 
         public override void SetViewModel(IModel model)
         {

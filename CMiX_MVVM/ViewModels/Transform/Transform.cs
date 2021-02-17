@@ -1,13 +1,12 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
 using CMiX.MVVM.ViewModels.Observer;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Transform : Sender, ISenderTest, IObserver
+    public class Transform : Sender, IObserver
     {
         public Transform(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {
@@ -22,8 +21,6 @@ namespace CMiX.MVVM.ViewModels
         public Rotation Rotation { get; set; }
 
        
-
-
         private bool _is3D;
         public bool Is3D
         {
@@ -31,21 +28,15 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _is3D, value);
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
+                this.MessageDispatcher?.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
             }
         }
 
-        public override void Receive(IMessage message)
-        {
-            this.SetViewModel(message.Obj as TransformModel);
-        }
 
         public void Update(int count)
         {
             //this.Count = count;
         }
-
-
 
         public override void SetViewModel(IModel model)
         {

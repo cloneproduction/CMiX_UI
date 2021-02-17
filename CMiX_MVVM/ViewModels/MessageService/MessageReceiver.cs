@@ -1,7 +1,7 @@
 ﻿using System;
 using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
+using CMiX.MVVM.ViewModels.MessageService;
 using Ceras;
 
 namespace CMiX.Studio.ViewModels.MessageService
@@ -21,11 +21,10 @@ namespace CMiX.Studio.ViewModels.MessageService
             MessageReceived?.Invoke(sender, e);
         }
 
-        public CerasSerializer Serializer { get; set; }
+        private CerasSerializer Serializer { get; set; }
 
         private void Client_DataReceived(object sender, DataEventArgs e)
         {
-            Console.WriteLine("ClientDataReceived");
             IMessage message = Serializer.Deserialize<IMessage>(e.Data);
             OnMessageReceived(sender, new MessageEventArgs(message));
         }

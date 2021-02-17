@@ -1,4 +1,6 @@
-﻿namespace CMiX.MVVM.ViewModels.MessageService.Messages
+﻿using CMiX.MVVM.ViewModels.Mediator;
+
+namespace CMiX.MVVM.ViewModels.MessageService.Messages
 {
     public class MessageRemoveComponent : IMessage
     {
@@ -12,13 +14,13 @@
             Index = index;
         }
 
-        private int Index { get; set; }
+        public int Index { get; set; }
         public object Obj { get; set; }
         public string Address { get; set; }
 
-        public void Process(ISenderTest viewModel)
+        public void Process(IMessageProcessor messageProcessor)
         {
-            Component component = viewModel as Component;
+            Component component = messageProcessor as Component;
             component.Components[Index].Dispose();
             component.Components.RemoveAt(Index);
         }

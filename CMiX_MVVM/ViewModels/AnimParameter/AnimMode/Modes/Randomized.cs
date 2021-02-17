@@ -1,11 +1,9 @@
-﻿using System;
-using System.Windows.Media.Media3D;
+﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Tools;
-using CMiX.MVVM.Services;
 using CMiX.MVVM.Resources;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
-using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Tools;
+using System;
+using System.Windows.Media.Media3D;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -20,11 +18,6 @@ namespace CMiX.MVVM.ViewModels
             Random = new Random();
             oldRandom = GetNewRandoms(parentSender.Parameters.Length);
             newRandom = GetNewRandoms(parentSender.Parameters.Length);
-        }
-
-        public override void Receive(IMessage message)
-        {
-            this.SetViewModel(message.Obj as RandomizedModel);
         }
 
         private Random Random { get; set; }

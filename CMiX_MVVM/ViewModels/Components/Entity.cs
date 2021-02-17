@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Entity : Component, IBeat
+    public class Entity : Component
     {
         public Entity(int id, MessageTerminal MessageTerminal, MasterBeat beat) : base (id, MessageTerminal)
         {

@@ -24,12 +24,6 @@ namespace CMiX.MVVM.ViewModels
             //XYZ = new Vector3D[count];
         }
 
-
-        public override void Receive(IMessage message)
-        {
-            this.SetViewModel(message.Obj as TranslateModel);
-        }
-
         public override IModel GetModel()
         {
             TranslateModel model = new TranslateModel();

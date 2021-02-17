@@ -1,12 +1,10 @@
-﻿using System;
-using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.Services;
+﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.ViewModels.Mediator;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Sender : ViewModel, ISenderTest, IMessageProcessor, IDisposable
+    public abstract class Sender : ViewModel, IMessageProcessor, IDisposable
     {
         public Sender(string name, IMessageProcessor parentSender)
         {
@@ -22,15 +20,8 @@ namespace CMiX.MVVM.ViewModels
 
         public string GetAddress() => $"{parentAddress}{Name}/";
         public virtual void Dispose() => this.MessageDispatcher?.UnregisterColleague(this.GetAddress());
-        public void Send(IMessage message) => this.MessageDispatcher?.Notify(MessageDirection.OUT, message);
-
-        public virtual void Receive(IMessage message) 
-        {
-            message.Process(this);
-        }
 
         public abstract void SetViewModel(IModel model);
-
         public abstract IModel GetModel();
     }
 }

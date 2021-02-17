@@ -14,12 +14,12 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 
         public MessageTerminal MessageTerminal { get; set; }
 
-        public IComponent CreateComponent(IComponent parentComponent)
+        public Component CreateComponent(Component parentComponent)
         {
             return (parentComponent is Scene) ? CreateEntity((Scene)parentComponent) : null;
         }
 
-        public IComponent CreateComponent(IComponent parentComponent, IComponentModel model)
+        public Component CreateComponent(Component parentComponent, IComponentModel model)
         {
             return (parentComponent is Scene) ? CreateEntity((Scene)parentComponent, model) : null;
         }

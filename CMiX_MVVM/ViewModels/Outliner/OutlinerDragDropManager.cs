@@ -125,7 +125,7 @@ namespace CMiX.MVVM.ViewModels
             }
             else
             {
-                var collection = (ObservableCollection<IComponent>)parent.ItemsSource;
+                var collection = (ObservableCollection<Component>)parent.ItemsSource;
                 var parentComponent = parent.DataContext as Component;
                 var targetComponent = target.DataContext as Component;
                 var sourceComponent = source.DataContext as Component;

@@ -1,5 +1,4 @@
-﻿using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
+﻿using CMiX.MVVM.Interfaces;
 
 namespace CMiX.MVVM.ViewModels.Mediator
 {
@@ -7,7 +6,7 @@ namespace CMiX.MVVM.ViewModels.Mediator
     {
         MessageDispatcher MessageDispatcher { get; set; }
         string GetAddress();
-        void Send(IMessage message);
-        void Receive(IMessage message);
+        void SetViewModel(IModel model);
+        IModel GetModel();
     }
 }

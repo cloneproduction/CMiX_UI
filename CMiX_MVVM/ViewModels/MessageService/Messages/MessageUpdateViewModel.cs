@@ -1,6 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.Models;
-using System;
+using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels.MessageService.Messages
 {
@@ -18,13 +17,11 @@ namespace CMiX.MVVM.ViewModels.MessageService.Messages
         }
 
         public IModel Model { get; set; }
-        public object Obj { get; set; }
         public string Address { get; set; }
 
-        public void Process(ISenderTest viewModel)
+        public void Process(IMessageProcessor messageProcessor)
         {
-            var slider = viewModel as ISenderTest;
-            slider.SetViewModel(Model);
+            messageProcessor.SetViewModel(Model);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
 using System;
 
 namespace CMiX.MVVM.ViewModels
@@ -29,7 +29,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _minimum, value);
                 Width = Math.Abs(Maximum - Minimum);
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
+                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
             }
         }
 
@@ -41,7 +41,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _maximum, value);
                 Width = Math.Abs(Maximum - Minimum);
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
+                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
             }
         }
 

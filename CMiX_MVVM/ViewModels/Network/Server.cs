@@ -81,8 +81,7 @@ namespace CMiX.Studio.ViewModels.MessageService
             if (Enabled && NetMQServer != null)
             {
                 NetMQServer.SendObject(Topic, messageAddress, data);
-                Console.WriteLine("Data Size = " + data.Length);
-                Console.WriteLine("NetMQServer SendObject with MessageAddress : " + messageAddress + " and Topic : " + this.Topic);
+                Console.WriteLine("NetMQServer SendObject with MessageAddress : " + messageAddress + " and Topic : " + this.Topic + " Data Size = " + data.Length);
             }
         }
 

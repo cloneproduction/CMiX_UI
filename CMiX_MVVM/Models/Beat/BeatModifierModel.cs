@@ -11,6 +11,7 @@ namespace CMiX.MVVM.Models
             ChanceToHit = new SliderModel { Amount = 1.0 };
         }
 
+        public double Period { get; set; }
         public int BeatIndex { get; set; }
         public bool Enabled { get; set; }
         public double Multiplier { get; set; }

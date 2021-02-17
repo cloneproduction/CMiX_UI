@@ -23,11 +23,6 @@ namespace CMiX.MVVM.ViewModels
             Attach(Z);
         }
 
-        public override void Receive(IMessage message)
-        {
-            this.SetViewModel(message.Obj as XYZModifierModel);
-        }
-
         private List<IObserver> Observers { get; set; }
 
         public void Attach(IObserver observer)

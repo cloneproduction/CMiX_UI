@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using CMiX.MVVM.Services;
+﻿using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.MessageService;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
+using System;
+using System.Collections.Generic;
 
 namespace CMiX.MVVM.ViewModels.Mediator
 {
@@ -15,34 +14,30 @@ namespace CMiX.MVVM.ViewModels.Mediator
             Colleagues = new Dictionary<string, IMessageProcessor>();
         }
 
+        private MessageTerminal MessageTerminal { get; set; }
+        private Dictionary<string, IMessageProcessor> Colleagues { get; set; }
+
+
         private void MessageTerminal_MessageReceived(object sender, MessageEventArgs e)
         {
-            var message = e.Message;
-            this.Notify(MessageDirection.IN, message);
+            this.NotifyIn(e.Message);
         }
 
-        private MessageTerminal MessageTerminal { get; set; }
-        private Dictionary<string, IMessageProcessor>  Colleagues { get; set; }
 
-        public void Notify(MessageDirection messageDirection, IMessage message)
+        public void NotifyOut(IMessage message)
         {
-            if(messageDirection == MessageDirection.IN)
-            {
-                IMessageProcessor col;
-                if (Colleagues.TryGetValue(message.Address, out col))
-                {
-                    col.Receive(message);
-                }
-            }
-            else if(messageDirection == MessageDirection.OUT)
-            {
-                MessageTerminal.SendMessage(message.Address, message);
-            }
+            MessageTerminal.SendMessage(message.Address, message);
+        }
+
+        public void NotifyIn(IMessage message)
+        {
+            IMessageProcessor col;
+            if (Colleagues.TryGetValue(message.Address, out col))
+                message.Process(col);
         }
 
         public void RegisterColleague(IMessageProcessor colleague)
         {
-            
             if (Colleagues.ContainsKey(colleague.GetAddress()))
                 Colleagues[colleague.GetAddress()] = colleague;
             else

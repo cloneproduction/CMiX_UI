@@ -6,7 +6,7 @@ using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Composition : Component, IBeat
+    public class Composition : Component
     {
         public Composition(int id, MessageTerminal MessageTerminal) : base (id, MessageTerminal)
         {

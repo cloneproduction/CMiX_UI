@@ -17,11 +17,11 @@ namespace CMiX.MVVM.ViewModels
             SubCommand = new RelayCommand(p => Sub());
         }
 
-        public override void Receive(IMessage message)
-        {
-            base.Receive(message);
-            OnCountChange();
-        }
+        //public override void Receive(IMessage message)
+        //{
+        //    base.Receive(message);
+        //    OnCountChange();
+        //}
 
         public event EventHandler<CounterEventArgs> CounterChangeEvent;
         public void OnCountChange()
@@ -41,7 +41,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 SetAndNotify(ref _count, value);
                 OnCountChange();
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
+                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
             }
         }
 

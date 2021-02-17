@@ -1,5 +1,4 @@
 ﻿using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Components.Factories;
 using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService;
@@ -10,7 +9,7 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public abstract class Component : ViewModel, ISenderTest, IMessageProcessor, IComponent, IDisposable
+    public abstract class Component : ViewModel, IMessageProcessor, IDisposable
     {
         public Component(int id, MessageTerminal MessageTerminal)
         {
@@ -22,16 +21,10 @@ namespace CMiX.MVVM.ViewModels
             MessageDispatcher = new MessageDispatcher(MessageTerminal);
             MessageDispatcher.RegisterColleague(this);
 
-            Components = new ObservableCollection<IComponent>();
+            Components = new ObservableCollection<Component>();
 
             SetVisibilityCommand = new RelayCommand(p => SetVisibility());
         }
-
-        public string GetAddress()
-        {
-            return $"{this.GetType().Name}/{ID}/";
-        }
-
 
         public ICommand SetVisibilityCommand { get; set; }
         public MessageDispatcher MessageDispatcher { get; set; }
@@ -84,8 +77,8 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _isExpanded, value);
         }
 
-        private ObservableCollection<IComponent> _components;
-        public ObservableCollection<IComponent> Components
+        private ObservableCollection<Component> _components;
+        public ObservableCollection<Component> Components
         {
             get => _components;
             set => SetAndNotify(ref _components, value);
@@ -99,14 +92,15 @@ namespace CMiX.MVVM.ViewModels
                 item.SetVisibility();
             }
         }
-        
-        public void AddComponent(IComponent component)
+
+        public string GetAddress() => $"{this.GetType().Name}/{ID}/";
+
+        public void AddComponent(Component component)
         {
             Components.Add(component);
             IsExpanded = true;
             IComponentModel model = component.GetModel() as IComponentModel;
-            IMessage message = new MessageAddComponent(this.GetAddress(), model);
-            this.Send(message);
+            MessageDispatcher.NotifyOut(new MessageAddComponent(this.GetAddress(), model));
         }
 
         public void RemoveComponent(Component component)
@@ -114,42 +108,27 @@ namespace CMiX.MVVM.ViewModels
             int index = Components.IndexOf(component);
             component.Dispose();
             Components.Remove(component);
-            IMessage message = new MessageRemoveComponent(this.GetAddress(), index);
-            this.Send(message);
+            MessageDispatcher.NotifyOut(new MessageRemoveComponent(this.GetAddress(), index));
         }
-
 
         public void InsertComponent(int index, Component component)
         {
             Components.Insert(index, component);
             var model = component.GetModel() as IComponentModel;
-            IMessage message = new MessageInsertComponent(GetAddress(), model, index);
-            this.Send(message);
+            MessageDispatcher.NotifyOut(new MessageInsertComponent(GetAddress(), model, index));
         }
 
         public void MoveComponent(int oldIndex, int newIndex)
         {
             Components.Move(oldIndex, newIndex);
-            IMessage message = new MessageMoveComponent(this.GetAddress(), oldIndex, newIndex);
-            this.Send(message);
-        }
-
-
-        public void Send(IMessage message)
-        {
-            MessageDispatcher?.Notify(MessageDirection.OUT, message);
-        }
-
-        public void Receive(IMessage message)
-        {
-            message.Process(this);
+            MessageDispatcher.NotifyOut(new MessageMoveComponent(this.GetAddress(), oldIndex, newIndex));
         }
 
         public Component CreateAndAddComponent()
         {
-            IComponent component = ComponentFactory.CreateComponent(this);
+            Component component = ComponentFactory.CreateComponent(this);
             this.AddComponent(component);
-            return (Component)component;
+            return component;
         }
 
         public virtual void Dispose()
@@ -160,7 +139,6 @@ namespace CMiX.MVVM.ViewModels
                 component.Dispose();
             }
         }
-
 
         public void SetComponents(Component component, IComponentModel componentModel)
         {

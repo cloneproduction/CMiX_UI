@@ -1,4 +1,6 @@
-﻿namespace CMiX.MVVM.ViewModels.MessageService.Messages
+﻿using CMiX.MVVM.ViewModels.Mediator;
+
+namespace CMiX.MVVM.ViewModels.MessageService.Messages
 {
     public class MessageMoveComponent : IMessage
     {
@@ -13,15 +15,13 @@
             NewIndex = newIndex;
         }
 
-        private int OldIndex { get; set; }
-        private int NewIndex { get; set;
-        }
-        public object Obj { get; set; }
+        public int OldIndex { get; set; }
+        public int NewIndex { get; set; }
         public string Address { get; set; }
 
-        public void Process(ISenderTest viewModel)
+        public void Process(IMessageProcessor messageProcessor)
         {
-            Component component = viewModel as Component;
+            Component component = messageProcessor as Component;
             component.Components.Move(OldIndex, NewIndex);
         }
     }

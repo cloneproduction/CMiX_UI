@@ -4,13 +4,13 @@ namespace CMiX.MVVM.ViewModels
 {
     public class Outliner : ViewModel
     {
-        public Outliner(ObservableCollection<IComponent> components)
+        public Outliner(ObservableCollection<Component> components)
         {
             OutlinerDragDropManager = new OutlinerDragDropManager();
             Components = components;
         }
 
-        public ObservableCollection<IComponent> Components { get; set; }
+        public ObservableCollection<Component> Components { get; set; }
 
 
         private OutlinerDragDropManager _outlinerDragDropManager;

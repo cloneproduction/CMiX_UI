@@ -17,11 +17,6 @@ namespace CMiX.MVVM.ViewModels
             Seed = 0;
         }
 
-        public override void Receive(IMessage message)
-        {
-            //this.SetViewModel()
-        }
-
         public void UpdateOnBeatTick(double[] doubleToAnimate, double period, IRange range, Easing easing, BeatModifier beatModifier)
         {
 
@@ -80,7 +75,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _seed, value);
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
+                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
             }
         }
 
@@ -91,7 +86,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _steadyType, value);
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
+                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
             }
         }
 
@@ -102,7 +97,7 @@ namespace CMiX.MVVM.ViewModels
             set 
             {
                 SetAndNotify(ref _linearType, value);
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
+                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
             }
         }
 

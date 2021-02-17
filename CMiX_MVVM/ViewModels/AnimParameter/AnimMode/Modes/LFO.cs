@@ -14,13 +14,6 @@ namespace CMiX.MVVM.ViewModels
 
         }
 
-
-
-        public override void Receive(IMessage message)
-        {
-            this.SetViewModel(message.Obj as LFOModel);
-        }
-
         public void UpdateOnBeatTick(double[] doubleToAnimate, double period, IRange range, Easing easing, BeatModifier beatModifier)
         {
 

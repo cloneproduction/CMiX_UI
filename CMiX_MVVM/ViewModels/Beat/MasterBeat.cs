@@ -1,17 +1,16 @@
-﻿using System;
+﻿using CMiX.MVVM.Controls;
+using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models.Beat;
+using CMiX.MVVM.ViewModels.Mediator;
+using CMiX.MVVM.ViewModels.MessageService.Messages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
-using CMiX.MVVM.Controls;
-using CMiX.MVVM.Interfaces;
-using CMiX.MVVM.Models.Beat;
-using CMiX.MVVM.Services;
-using CMiX.MVVM.ViewModels.Mediator;
-using CMiX.MVVM.ViewModels.MessageService.Messages;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class MasterBeat : Beat
+    public class MasterBeat : Beat, IMessageProcessor
     {
         public MasterBeat(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {
@@ -100,7 +99,7 @@ namespace CMiX.MVVM.ViewModels
             AnimatedDouble = BeatAnimations.AnimatedDoubles[Index + (Periods.Length - 1) / 2];
             OnPeriodChanged(Period);
             Notify(nameof(BPM));
-            this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
+            this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
         }
 
         protected override void Multiply()

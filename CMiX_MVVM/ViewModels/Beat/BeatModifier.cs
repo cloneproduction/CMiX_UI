@@ -1,15 +1,14 @@
-﻿using System;
-using CMiX.MVVM.Controls;
+﻿using CMiX.MVVM.Controls;
 using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
-using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
+using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class BeatModifier : Beat
+    public class BeatModifier : Beat, IMessageProcessor
     {
         public BeatModifier(string name, IMessageProcessor parentSender, MasterBeat masterBeat) : base (name, parentSender)
         {
@@ -103,7 +102,7 @@ namespace CMiX.MVVM.ViewModels
             Period = MasterBeat.Periods[Index + MasterBeat.BeatIndex];
             AnimatedDouble = MasterBeat.BeatAnimations.AnimatedDoubles[Index + MasterBeat.BeatIndex];
             Notify(nameof(BPM));
-            this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
+            this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
         }
 
         public override void SetViewModel(IModel model)
@@ -111,12 +110,15 @@ namespace CMiX.MVVM.ViewModels
             BeatModifierModel beatModifierModel = model as BeatModifierModel;
             this.BeatIndex = beatModifierModel.BeatIndex;
             this.Multiplier = beatModifierModel.Multiplier;
+            this.Period = beatModifierModel.Period;
             this.ChanceToHit.SetViewModel(beatModifierModel.ChanceToHit);
         }
 
         public override IModel GetModel()
         {
             BeatModifierModel model = new BeatModifierModel();
+            model.Period = this.Period;
+            model.Multiplier = this.Multiplier;
             model.BeatIndex = this.BeatIndex;
             model.ChanceToHit = (SliderModel)this.ChanceToHit.GetModel();
             model.Multiplier = this.Multiplier;

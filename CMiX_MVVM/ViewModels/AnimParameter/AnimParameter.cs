@@ -23,11 +23,6 @@ namespace CMiX.MVVM.ViewModels
             SelectedModeType = ModeType.None;
         }
 
-        public override void Receive(IMessage message)
-        {
-            this.SetViewModel(message.Obj as AnimParameterModel);
-        }
-
         public BeatModifier BeatModifier { get; set; }
         public Easing Easing { get; set; }
         public IRange Range { get; set; }
@@ -69,7 +64,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 SetAndNotify(ref _animMode, value);
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
+                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
             }
         }
 

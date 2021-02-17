@@ -5,8 +5,8 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 {
     public interface IComponentFactory
     {
-        IComponent CreateComponent(IComponent parentComponent);
-        IComponent CreateComponent(IComponent parentComponent, IComponentModel model);
+        Component CreateComponent(Component parentComponent);
+        Component CreateComponent(Component parentComponent, IComponentModel model);
         MessageTerminal MessageTerminal { get; set; }
     }
 }

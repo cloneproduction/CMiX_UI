@@ -4,7 +4,7 @@ using CMiX.MVVM.ViewModels.Mediator;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Coloration : Sender, IBeatModifier
+    public class Coloration : Sender
     {
         public Coloration(string name, IMessageProcessor parentSender, MasterBeat masterBeat) : base (name, parentSender)
         {
@@ -12,8 +12,10 @@ namespace CMiX.MVVM.ViewModels
             ColorSelector = new ColorSelector(nameof(ColorSelector), this);
         }
 
+
         public ColorSelector ColorSelector { get; set; }
         public BeatModifier BeatModifier { get; set; }
+
 
         public override void SetViewModel(IModel model)
         {

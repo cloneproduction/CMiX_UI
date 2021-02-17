@@ -19,16 +19,9 @@ namespace CMiX.MVVM.ViewModels
             get { return _mode; }
             set
             {
-                //Mementor.PropertyChange(this, nameof(Mode));
                 SetAndNotify(ref _mode, value);
-                this.Send(new Message(MessageCommand.UPDATE_VIEWMODEL, this.GetAddress(), this.GetModel()));
+                this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
             }
-        }
-
-        public override void Receive(IMessage message)
-        {
-            this.SetViewModel(message.Obj as BlendModeModel);
-            System.Console.WriteLine("POUETPOUET " + this.GetAddress() + "BlendMode received " + message.Address + "  " + this.Mode);
         }
 
         public override void SetViewModel(IModel model)

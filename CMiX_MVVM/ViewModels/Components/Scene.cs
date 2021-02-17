@@ -5,7 +5,7 @@ using CMiX.MVVM.ViewModels.MessageService;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class Scene : Component, IBeatModifier
+    public class Scene : Component
     {
         public Scene(int id, MessageTerminal MessageTerminal, MasterBeat masterBeat) : base (id, MessageTerminal)
         {

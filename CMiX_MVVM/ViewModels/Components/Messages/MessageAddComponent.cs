@@ -1,4 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.ViewModels.Mediator;
 using System;
 
 namespace CMiX.MVVM.ViewModels.MessageService.Messages
@@ -19,12 +20,11 @@ namespace CMiX.MVVM.ViewModels.MessageService.Messages
         }
 
         public string Address { get; set; }
-        public object Obj { get; set; }
         public IComponentModel ComponentModel { get; set; } // must be public because of Ceras...
 
-        public void Process(ISenderTest viewModel)
+        public void Process(IMessageProcessor messageProcessor)
         {
-            Component component = viewModel as Component;
+            Component component = messageProcessor as Component;
             var newComponent = component.ComponentFactory.CreateComponent(component, ComponentModel);
             component.Components.Add(newComponent);
         }

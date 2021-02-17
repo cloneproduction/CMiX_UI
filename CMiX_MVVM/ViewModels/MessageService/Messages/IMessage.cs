@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CMiX.MVVM.ViewModels.Mediator;
 
-namespace CMiX.MVVM.ViewModels.MessageService.Messages
+namespace CMiX.MVVM.ViewModels.MessageService
 {
     public interface IMessage
     {
-        object Obj { get; set; }
         string Address { get; set; }
-        void Process(ISenderTest viewModel);
+        void Process(IMessageProcessor viewModel);
     }
 }

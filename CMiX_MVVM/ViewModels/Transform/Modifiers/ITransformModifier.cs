@@ -1,9 +1,10 @@
-﻿using System;
+﻿using CMiX.MVVM.ViewModels.Mediator;
+using System;
 using System.Collections.ObjectModel;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public interface ITransformModifier : ISenderTest, IDisposable
+    public interface ITransformModifier : IMessageProcessor, IDisposable
     {
         string Name { get; set; }
         int ID { get; set; }

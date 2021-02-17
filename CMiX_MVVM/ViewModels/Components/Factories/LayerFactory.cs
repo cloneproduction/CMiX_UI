@@ -19,12 +19,12 @@ namespace CMiX.MVVM.ViewModels.Components.Factories
 
         public MessageTerminal MessageTerminal { get; set; }
 
-        public IComponent CreateComponent(IComponent parentComponent)
+        public Component CreateComponent(Component parentComponent)
         {
             return CreateLayer((Composition)parentComponent);
         }
 
-        public IComponent CreateComponent(IComponent parentComponent, IComponentModel model)
+        public Component CreateComponent(Component parentComponent, IComponentModel model)
         {
             return CreateLayer((Composition)parentComponent, model);
         }

@@ -1,5 +1,5 @@
-﻿using System.Windows.Input;
-using CMiX.MVVM.ViewModels.Mediator;
+﻿using CMiX.MVVM.ViewModels.Mediator;
+using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -16,6 +16,7 @@ namespace CMiX.MVVM.ViewModels
         public ICommand MultiplyCommand { get; set; }
         public ICommand DivideCommand { get; set; }
         public abstract double Period { get; set; }
+
 
         private double _bpm;
         public double BPM
