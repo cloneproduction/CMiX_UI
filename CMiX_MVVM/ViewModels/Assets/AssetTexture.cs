@@ -2,13 +2,12 @@
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class AssetTexture : Asset, IAssets
+    public class AssetTexture : Asset
     {
         public AssetTexture()
         {
 
         }
-
 
         public AssetTexture(string name, string path)
         {

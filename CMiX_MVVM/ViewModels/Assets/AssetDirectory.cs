@@ -5,11 +5,11 @@ using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class AssetDirectory : ViewModel, IDirectory
+    public class AssetDirectory : Asset, IDirectory
     {
         public AssetDirectory()
         {
-            Assets = new SortableObservableCollection<IAssets>();
+            Assets = new SortableObservableCollection<Asset>();
             Assets.CollectionChanged += CollectionChanged;
             IsExpanded = false;
             IsSelected = false;
@@ -18,14 +18,14 @@ namespace CMiX.MVVM.ViewModels
         public AssetDirectory(string name)
         {
             Name = name;
-            Assets = new SortableObservableCollection<IAssets>();
+            Assets = new SortableObservableCollection<Asset>();
             Assets.CollectionChanged += CollectionChanged;
             IsExpanded = false;
             IsSelected = false;
         }
 
         #region PROPERTIES
-        public SortableObservableCollection<IAssets> Assets { get; set; }
+        public SortableObservableCollection<Asset> Assets { get; set; }
 
         private string _name;
         public string Name
@@ -83,7 +83,7 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _isRenaming, value);
         }
 
-        public void AddAsset(IAssets asset)
+        public void AddAsset(Asset asset)
         {
             Assets.Add(asset);
             SortAssets();
@@ -91,7 +91,7 @@ namespace CMiX.MVVM.ViewModels
         #endregion
 
 
-        public void RemoveAsset(IAssets asset)
+        public void RemoveAsset(Asset asset)
         {
             if (Assets.Contains(asset))
                 Assets.Remove(asset);
@@ -132,7 +132,7 @@ namespace CMiX.MVVM.ViewModels
             Assets.Clear();
             foreach (var assetModel in model.AssetModels)
             {
-                IAssets asset = null;
+                Asset asset = null;
 
                 if(assetModel is AssetDirectoryModel)
                     asset = new AssetDirectory();

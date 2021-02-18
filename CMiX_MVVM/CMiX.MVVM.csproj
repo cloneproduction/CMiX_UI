@@ -134,6 +134,8 @@
     <Compile Include="Resources\RandomNumbers.cs" />
     <Compile Include="Services\DataEventArgs.cs" />
     <Compile Include="Tools\HighResolutionTimer.cs" />
+    <Compile Include="ViewModels\Beat\IBeatObserver.cs" />
+    <Compile Include="ViewModels\Beat\IBeatSubject.cs" />
     <Compile Include="ViewModels\Components\Messages\MessageRemoveComponent - Copy.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Instancer\Messages\MessageRemoveTransformModifier.cs" />
     <Compile Include="ViewModels\Entity\Geometry\Instancer\Messages\MessageAddTransformModifier.cs" />

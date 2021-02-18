@@ -2,7 +2,7 @@
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class AssetGeometry : Asset, IAssets
+    public class AssetGeometry : Asset
     {
         public AssetGeometry()
         {
@@ -14,6 +14,5 @@ namespace CMiX.MVVM.ViewModels
             Name = name;
             Path = path;
         }
-
     }
 }

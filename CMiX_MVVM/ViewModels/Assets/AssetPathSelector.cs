@@ -1,6 +1,5 @@
 ﻿using CMiX.MVVM.Interfaces;
 using CMiX.MVVM.Models;
-using CMiX.MVVM.Services;
 using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
 using GongSolutions.Wpf.DragDrop;
@@ -15,8 +14,8 @@ namespace CMiX.MVVM.ViewModels
             SelectedAsset = defaultAsset;
         }
 
-        private IAssets _selectedAsset;
-        public IAssets SelectedAsset
+        private Asset _selectedAsset;
+        public Asset SelectedAsset
         {
             get => _selectedAsset;
             set

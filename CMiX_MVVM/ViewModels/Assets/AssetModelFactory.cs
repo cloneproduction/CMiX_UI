@@ -9,7 +9,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public static class AssetModelFactory
     {
-        public static IAssetModel GetModel(this IAssets instance)
+        public static IAssetModel GetModel(this Asset instance)
         {
             if (instance is AssetDirectory)
                 return ((AssetDirectory)instance).GetModel();
@@ -20,7 +20,7 @@ namespace CMiX.MVVM.ViewModels
             else return null;
         }
 
-        public static void SetViewModel(this IAssets instance, IAssetModel model)
+        public static void SetViewModel(this Asset instance, IAssetModel model)
         {
             if (instance is AssetDirectory)
                 ((AssetDirectory)instance).SetViewModel(model);
@@ -49,7 +49,7 @@ namespace CMiX.MVVM.ViewModels
             instance.Assets.Clear();
             foreach (var assetModel in model.AssetModels)
             {
-                IAssets asset = null;
+                Asset asset = null;
 
                 if (assetModel is AssetDirectoryModel)
                     asset = new AssetDirectory();

@@ -18,7 +18,6 @@ namespace CMiX.MVVM.ViewModels
 
         public Camera Camera { get; set; }
         public Slider Transition { get; set; }
-        public Beat Beat { get; set; }
         public MasterBeat MasterBeat { get; set; }
 
 

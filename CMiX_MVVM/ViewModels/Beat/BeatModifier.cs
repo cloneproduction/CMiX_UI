@@ -4,49 +4,26 @@ using CMiX.MVVM.Models;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.ViewModels.Mediator;
 using CMiX.MVVM.ViewModels.MessageService.Messages;
-using System;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class BeatModifier : Beat, IMessageProcessor
+    public class BeatModifier : Beat, IMessageProcessor, IBeatObserver
     {
         public BeatModifier(string name, IMessageProcessor parentSender, MasterBeat masterBeat) : base (name, parentSender)
         {
             Index = 0;
             ChanceToHit = new Slider(nameof(ChanceToHit), this) { Minimum = 0, Maximum = 100, Amount = 100.0 };
             MasterBeat = masterBeat;
+            MasterBeat.Attach(this);
+
             Multiplier = 1.0;
             Period = masterBeat.Period;
-
-            SetAnimatedDouble();
-
-            MasterBeat.IndexChanged += MasterBeat_IndexChanged;
-            MasterBeat.PeriodChanged += MasterBeat_PeriodChanged;
-        }
-
-        public override void Dispose()
-        {
-            MasterBeat.IndexChanged -= MasterBeat_IndexChanged;
-            MasterBeat.PeriodChanged -= MasterBeat_PeriodChanged;
-            base.Dispose();
-        }
-        private void MasterBeat_PeriodChanged(Beat sender, double newValue)
-        {
-            SetAnimatedDouble();
-        }
-
-        private void MasterBeat_IndexChanged(object sender, EventArgs e)
-        {
+            
             SetAnimatedDouble();
         }
 
         public MasterBeat MasterBeat { get; set; }
         public Slider ChanceToHit { get; set; }
-
-        public bool CheckHitOnBeatTick()
-        {
-            return (RandomNumbers.RandomDouble(0.0, 1.0) <= this.ChanceToHit.Amount / this.ChanceToHit.Maximum) ? true : false;
-        }
 
 
         private int maxIndex = 4;
@@ -69,7 +46,7 @@ namespace CMiX.MVVM.ViewModels
         private int _beatIndex;
         public int BeatIndex
         {
-            get { return _beatIndex; }
+            get => _beatIndex;
             set => _beatIndex = value;
         }
 
@@ -78,6 +55,11 @@ namespace CMiX.MVVM.ViewModels
         {
             get => _animatedDouble;
             set => SetAndNotify(ref _animatedDouble, value);
+        }
+
+        public bool CheckHitOnBeatTick()
+        {
+            return (RandomNumbers.RandomDouble(0.0, 1.0) <= this.ChanceToHit.Amount / this.ChanceToHit.Maximum) ? true : false;
         }
 
         protected override void Multiply()
@@ -123,6 +105,17 @@ namespace CMiX.MVVM.ViewModels
             model.ChanceToHit = (SliderModel)this.ChanceToHit.GetModel();
             model.Multiplier = this.Multiplier;
             return model;
+        }
+
+        public override void Dispose()
+        {
+            MasterBeat.Detach(this);
+            base.Dispose();
+        }
+
+        public void UpdatePeriod(double period)
+        {
+            SetAnimatedDouble();
         }
     }
 }

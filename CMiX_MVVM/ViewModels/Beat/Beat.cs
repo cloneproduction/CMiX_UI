@@ -5,12 +5,13 @@ namespace CMiX.MVVM.ViewModels
 {
     public abstract class Beat : Sender
     {
-        public Beat(string name, IMessageProcessor parentSender) : base(name, parentSender)
+        public Beat(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {
             ResetCommand = new RelayCommand(p => Reset());
             MultiplyCommand = new RelayCommand(p => Multiply());
             DivideCommand = new RelayCommand(p => Divide());
         }
+
 
         public ICommand ResetCommand { get; set; }
         public ICommand MultiplyCommand { get; set; }
@@ -46,11 +47,5 @@ namespace CMiX.MVVM.ViewModels
         private void Reset() => Multiplier = 1;
         protected abstract void Multiply();
         protected abstract void Divide();
-
-
-        public delegate void PeriodChangedEventHandler(Beat sender, double newValue);
-
-        public event PeriodChangedEventHandler PeriodChanged;
-        protected void OnPeriodChanged(double newPeriod) => PeriodChanged?.Invoke(this, newPeriod);
     }
 }

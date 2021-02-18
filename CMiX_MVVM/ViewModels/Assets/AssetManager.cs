@@ -24,12 +24,12 @@ namespace CMiX.MVVM.ViewModels
             Assets = project.Assets;
             var directoryItem = new AssetDirectory("RESOURCES");
             directoryItem.IsRoot = true;
-            AssetsFlatten = new ObservableCollection<IAssets>();
+            AssetsFlatten = new ObservableCollection<Asset>();
             this.Assets.Add(directoryItem);
 
             this.AssetsFlatten.CollectionChanged += FlattenAssets_CollectionChanged;
 
-            SelectedItems = new ObservableCollection<IAssets>();
+            SelectedItems = new ObservableCollection<Asset>();
             SelectedItems.CollectionChanged += CollectionChanged;
 
             InitCollectionView();
@@ -41,8 +41,8 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        private ObservableCollection<IAssets> _assets;
-        public ObservableCollection<IAssets> Assets
+        private ObservableCollection<Asset> _assets;
+        public ObservableCollection<Asset> Assets
         {
             get => _assets;
             set => SetAndNotify(ref _assets, value);
@@ -85,16 +85,16 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _imageCollectionView, value);
         }
 
-        private ObservableCollection<IAssets> _assetsFlatten;
-        public ObservableCollection<IAssets> AssetsFlatten
+        private ObservableCollection<Asset> _assetsFlatten;
+        public ObservableCollection<Asset> AssetsFlatten
         {
             get => _assetsFlatten;
             set => SetAndNotify(ref _assetsFlatten, value);
         }
 
-        public void BuildAssetFlattenCollection(ObservableCollection<IAssets> assets)
+        public void BuildAssetFlattenCollection(ObservableCollection<Asset> assets)
         {
-            foreach (IAssets asset in assets)
+            foreach (Asset asset in assets)
             {
                 if (asset is AssetTexture || asset is AssetGeometry)
                     AssetsFlatten.Add(asset);
@@ -130,7 +130,7 @@ namespace CMiX.MVVM.ViewModels
         {
             if(SelectedItems.Count > 0)
             {
-                IAssets asset = SelectedItems[0];
+                Asset asset = SelectedItems[0];
                 OpenFileDialogSettings settings = new OpenFileDialogSettings();
 
                 if (asset is AssetTexture)
@@ -165,7 +165,7 @@ namespace CMiX.MVVM.ViewModels
 
         public void RemoveItemFromDirectory(IDirectory directory)
         {
-            var toBeRemoved = new List<IAssets>();
+            var toBeRemoved = new List<Asset>();
             foreach (var asset in directory.Assets)
             {
                 if(asset is IDirectory)
@@ -181,9 +181,9 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public void DeleteSelectedAssets(ObservableCollection<IAssets> assets)
+        public void DeleteSelectedAssets(ObservableCollection<Asset> assets)
         {
-            var toBeRemoved = new List<IAssets>();
+            var toBeRemoved = new List<Asset>();
 
             foreach (var asset in assets)
             {
@@ -209,7 +209,7 @@ namespace CMiX.MVVM.ViewModels
 
 
 
-        private IAssets GetItemFromDirectory(DirectoryInfo directoryInfo)
+        private Asset GetItemFromDirectory(DirectoryInfo directoryInfo)
         {
             var directoryItem = new AssetDirectory(directoryInfo.Name);
 
@@ -225,11 +225,16 @@ namespace CMiX.MVVM.ViewModels
             return directoryItem;
         }
 
-        private IAssets GetFileItem(string filePath)
+        private Asset GetFileItem(string filePath)
         {
             string fileType = Path.GetExtension(filePath).ToUpper().TrimStart('.');
             string fileName = Path.GetFileName(filePath);
-            IAssets item = null;
+            Asset item = null;
+
+            foreach (var textureFileType in Enum.GetValues(typeof(TextureFileType)))
+            {
+
+            }
 
             if (fileType == TextureFileType.PNG.ToString() || fileType == TextureFileType.JPG.ToString() || fileType == TextureFileType.MOV.ToString())
                 item = new AssetTexture(fileName, filePath);
@@ -252,8 +257,8 @@ namespace CMiX.MVVM.ViewModels
 
         public IDialogService DialogService { get; set; }
 
-        private ObservableCollection<IAssets> _selectedItems;
-        public ObservableCollection<IAssets> SelectedItems
+        private ObservableCollection<Asset> _selectedItems;
+        public ObservableCollection<Asset> SelectedItems
         {
             get => _selectedItems;
             set => SetAndNotify(ref _selectedItems, value);
@@ -299,7 +304,7 @@ namespace CMiX.MVVM.ViewModels
                 dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
             }
 
-            if (dropInfo.DragInfo != null && dropInfo.DragInfo.SourceItem is IAssets)
+            if (dropInfo.DragInfo != null && dropInfo.DragInfo.SourceItem is Asset)
             {
                 var targetItem = dropInfo.TargetItem;
                 var vSourceItem = dropInfo.DragInfo.VisualSourceItem as TreeViewItem;
@@ -324,7 +329,7 @@ namespace CMiX.MVVM.ViewModels
             {
                 foreach (string str in dataObject.GetFileDropList())
                 {
-                    IAssets item = null;
+                    Asset item = null;
 
                     if (File.Exists(str))
                         item = GetFileItem(str);
@@ -351,10 +356,10 @@ namespace CMiX.MVVM.ViewModels
                     }
                 }
             }
-            else if (dropInfo.DragInfo.Data is List<AssetDragDrop> && dropInfo.TargetCollection is ObservableCollection<IAssets>)
+            else if (dropInfo.DragInfo.Data is List<AssetDragDrop> && dropInfo.TargetCollection is ObservableCollection<Asset>)
             {
-                var targetCollection = dropInfo.TargetCollection as ObservableCollection<IAssets>;
-                if (targetCollection is ObservableCollection<IAssets>)
+                var targetCollection = dropInfo.TargetCollection as ObservableCollection<Asset>;
+                if (targetCollection is ObservableCollection<Asset>)
                 {
                     var targetItem = dropInfo.TargetItem;
                     if (targetItem is IDirectory)
@@ -373,12 +378,12 @@ namespace CMiX.MVVM.ViewModels
             }
         }
 
-        public void RemoveAssets(List<IAssets> assetsToRemove, List<IAssets> assets)
+        public void RemoveAssets(List<Asset> assetsToRemove, List<Asset> assets)
         {
             assets.RemoveAll(item => assetsToRemove.Contains(item));
         }
 
-        public void GetDragDropObjects(List<AssetDragDrop> dragList, ObservableCollection<IAssets> assets)
+        public void GetDragDropObjects(List<AssetDragDrop> dragList, ObservableCollection<Asset> assets)
         {
             foreach (var asset in assets)
             {
@@ -410,7 +415,7 @@ namespace CMiX.MVVM.ViewModels
 
         public bool CanStartDrag(IDragInfo dragInfo)
         {
-            if (dragInfo.SourceItem is IAssets)
+            if (dragInfo.SourceItem is Asset)
                 return true;
             else
                 return false;

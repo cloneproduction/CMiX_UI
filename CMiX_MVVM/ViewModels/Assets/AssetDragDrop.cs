@@ -6,10 +6,10 @@ namespace CMiX.MVVM.ViewModels
     {
         public AssetDragDrop()
         {
-            SourceCollection = new ObservableCollection<IAssets>();
+            SourceCollection = new ObservableCollection<Asset>();
         }
 
-        public IAssets DragObject { get; set; }
-        public ObservableCollection<IAssets> SourceCollection { get; set; }
+        public Asset DragObject { get; set; }
+        public ObservableCollection<Asset> SourceCollection { get; set; }
     }
 }

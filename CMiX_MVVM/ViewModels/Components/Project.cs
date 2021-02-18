@@ -12,14 +12,14 @@ namespace CMiX.MVVM.ViewModels
         public Project(int id, MessageTerminal MessageTerminal) : base (id, MessageTerminal)
         {
             DialogService = new DialogService(new CustomFrameworkDialogFactory(), new CustomTypeLocator());
-            Assets = new ObservableCollection<IAssets>();
+            Assets = new ObservableCollection<Asset>();
             ComponentFactory = new CompositionFactory(MessageTerminal);
         }
 
         public IDialogService DialogService { get; set; }
 
-        private ObservableCollection<IAssets> _assets;
-        public ObservableCollection<IAssets> Assets
+        private ObservableCollection<Asset> _assets;
+        public ObservableCollection<Asset> Assets
         {
             get => _assets;
             set => SetAndNotify(ref _assets, value);
@@ -36,7 +36,7 @@ namespace CMiX.MVVM.ViewModels
 
             GetComponents(this, model);
 
-            foreach (IAssets asset in this.Assets)
+            foreach (Asset asset in this.Assets)
                 model.AssetModels.Add(asset.GetModel());
 
             return model;
@@ -55,7 +55,7 @@ namespace CMiX.MVVM.ViewModels
             this.Assets.Clear();
             foreach (IAssetModel assetModel in projectModel.AssetModels)
             {
-                IAssets asset = null;
+                Asset asset = null;
                 if (assetModel is AssetDirectoryModel)
                     asset = new AssetDirectory();
                 else if (assetModel is AssetTextureModel)

@@ -10,15 +10,16 @@ using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class MasterBeat : Beat, IMessageProcessor
+    public class MasterBeat : Beat, IMessageProcessor, IBeatSubject
     {
         public MasterBeat(string name, IMessageProcessor parentSender) : base (name, parentSender)
         {
+            BeatObservers = new List<IBeatObserver>();
             Index = 0;
             Period = 1000;
             Multiplier = 1;
             Periods = new double[15];
-
+            
             BeatAnimations = new BeatAnimations();
             Resync = new Resync(nameof(Resync), this, BeatAnimations);
 
@@ -27,7 +28,7 @@ namespace CMiX.MVVM.ViewModels
 
             tapPeriods = new List<double>();
             tapTime = new List<double>();
-
+            
             TapCommand = new RelayCommand(p => Tap());
         }
 
@@ -49,7 +50,7 @@ namespace CMiX.MVVM.ViewModels
             set
             {
                 _index = value;
-                OnIndexChanged();
+                this.NotifyBeatChange(Period);
             }
         }
 
@@ -97,7 +98,7 @@ namespace CMiX.MVVM.ViewModels
             BeatIndex = Index + (Periods.Length - 1) / 2;
             Period = Periods[Index + (Periods.Length - 1) / 2];
             AnimatedDouble = BeatAnimations.AnimatedDoubles[Index + (Periods.Length - 1) / 2];
-            OnPeriodChanged(Period);
+            this.NotifyBeatChange(Period);
             Notify(nameof(BPM));
             this.MessageDispatcher.NotifyOut(new MessageUpdateViewModel(this.GetAddress(), this.GetModel()));
         }
@@ -173,6 +174,27 @@ namespace CMiX.MVVM.ViewModels
             model.Periods = this.Periods;
             model.Multiplier = this.Multiplier;
             return model;
+        }
+
+        private List<IBeatObserver> BeatObservers { get; set; }
+
+
+        public void Attach(IBeatObserver observer)
+        {
+            BeatObservers.Add(observer);
+        }
+
+        public void Detach(IBeatObserver observer)
+        {
+            BeatObservers.Remove(observer);
+        }
+
+        public void NotifyBeatChange(double period)
+        {
+            foreach (var observer in BeatObservers)
+            {
+                observer.UpdatePeriod(period);
+            }
         }
     }
 }
