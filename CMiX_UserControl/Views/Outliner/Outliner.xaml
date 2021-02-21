@@ -16,13 +16,39 @@
     <UserControl.Resources>
         <ResourceDictionary>
 
-            <Converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
-            <Converters:EntityVisibilityConverter x:Key="EntityVisibilityConverter"/>
             <Converters:DataTypeConverter x:Key="DataTypeConverter"/>
 
             <Tools:BindingProxy x:Key="RootProxy" Data="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Tools:BindingProxy x:Key="OutlinerProxy" Data="{Binding Path=DataContext}"/>
-            
+
+            <DataTemplate x:Key="projectComponent" DataType="{x:Type ViewModels:Project}">
+                <Border 
+                    DockPanel.Dock="Left" 
+                    Height="30" 
+                    Width="30" 
+                    BorderBrush="{DynamicResource SuperHighDarkerColor}" 
+                    BorderThickness="0, 0, 1, 0">
+                    <ToggleButton 
+                        IsChecked="{Binding Path=DataContext.IsVisible, RelativeSource={RelativeSource TemplatedParent}}"
+                        Style="{DynamicResource ToggleVisibility}"
+                        VerticalAlignment="Center">
+                    </ToggleButton>
+                </Border>
+            </DataTemplate>
+
+            <DataTemplate x:Key="componentTemplate" DataType="{x:Type ViewModels:Component}">
+                
+            </DataTemplate>
+
+            <ViewModels:ComponentTemplateSelector
+                x:Key="componentTemplateSelector"
+                ProjectTemplate="{StaticResource projectComponent}"
+                CompositionTemplate="{StaticResource componentTemplate}"
+                LayerTemplate="{StaticResource componentTemplate}"
+                SceneTemplate="{StaticResource componentTemplate}"
+                EntityTemplate="{StaticResource componentTemplate}"/>
+
+
             <ContextMenu x:Key="OutlinerContextMenu" Style="{StaticResource ContextMenuDefault}" Width="175">
 
                 <MenuItem

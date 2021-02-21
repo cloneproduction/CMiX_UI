@@ -1,18 +1,19 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Data;
-using System.ComponentModel;
-using CMiX.MVVM.Tools;
+﻿using CMiX.MVVM.Tools;
+using CMiX.MVVM.ViewModels.Assets;
 using GongSolutions.Wpf.DragDrop;
 using MvvmDialogs;
 using MvvmDialogs.FrameworkDialogs.OpenFile;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Input;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -20,13 +21,14 @@ namespace CMiX.MVVM.ViewModels
     {
         public AssetManager(Project project)
         {
+            AssetFactory = new AssetFactory();
+
             DialogService = project.DialogService;
             Assets = project.Assets;
-            var directoryItem = new AssetDirectory("RESOURCES");
-            directoryItem.IsRoot = true;
-            AssetsFlatten = new ObservableCollection<Asset>();
-            this.Assets.Add(directoryItem);
 
+            this.Assets.Add(AssetFactory.CreateRootDirectory("RESOURCES"));
+
+            AssetsFlatten = new ObservableCollection<Asset>();
             this.AssetsFlatten.CollectionChanged += FlattenAssets_CollectionChanged;
 
             SelectedItems = new ObservableCollection<Asset>();
@@ -40,6 +42,7 @@ namespace CMiX.MVVM.ViewModels
             RelinkAssetsCommand = new RelayCommand(p => RelinkAssets());
         }
 
+        private AssetFactory AssetFactory { get; set; }
 
         private ObservableCollection<Asset> _assets;
         public ObservableCollection<Asset> Assets
@@ -96,34 +99,23 @@ namespace CMiX.MVVM.ViewModels
         {
             foreach (Asset asset in assets)
             {
-                if (asset is AssetTexture || asset is AssetGeometry)
-                    AssetsFlatten.Add(asset);
-                else if (asset is AssetDirectory)
+                if(asset is AssetDirectory)
                     BuildAssetFlattenCollection(((AssetDirectory)asset).Assets);
+                else
+                    AssetsFlatten.Add(asset);                    
             }
         }
 
-        public bool FilterGeometry(object item)
-        {
-            if (item is AssetGeometry)
-                return true;
-            else
-                return false;
-        }
 
-        public bool FilterImage(object item)
-        {
-            if (item is AssetTexture)
-                return true;
-            else
-                return false;
-        }
+        public bool FilterGeometry(object item) => item is AssetGeometry ? true : false;
+        public bool FilterImage(object item) => item is AssetTexture ? true : false;
 
-        #region METHODS
+
+
         public void RenameAsset()
         {
-            if (SelectedItems[0] is IDirectory)
-                ((IDirectory)SelectedItems[0]).Rename();
+            if (SelectedItems[0] is AssetDirectory)
+                ((AssetDirectory)SelectedItems[0]).Rename();
         }
 
         public void RelinkAssets()
@@ -149,9 +141,9 @@ namespace CMiX.MVVM.ViewModels
 
         public void AddAsset()
         {
-            if (SelectedItems != null && SelectedItems.Count == 1 && SelectedItems[0] is IDirectory)
+            if (SelectedItems != null && SelectedItems.Count == 1 && SelectedItems[0] is AssetDirectory)
             {
-                IDirectory selectedItem = (IDirectory)SelectedItems[0];
+                AssetDirectory selectedItem = (AssetDirectory)SelectedItems[0];
                 selectedItem.IsExpanded = true;
                 selectedItem.AddAsset(new AssetDirectory("New Folder"));
             }
@@ -163,13 +155,14 @@ namespace CMiX.MVVM.ViewModels
                 DeleteSelectedAssets(this.Assets);
         }
 
-        public void RemoveItemFromDirectory(IDirectory directory)
+        public void RemoveItemFromDirectory(AssetDirectory directory)
         {
             var toBeRemoved = new List<Asset>();
             foreach (var asset in directory.Assets)
             {
-                if(asset is IDirectory)
-                    RemoveItemFromDirectory(asset as IDirectory);
+                if(asset is AssetDirectory)
+                    RemoveItemFromDirectory(asset as AssetDirectory);
+
                 toBeRemoved.Add(asset);
             }
             
@@ -190,11 +183,11 @@ namespace CMiX.MVVM.ViewModels
                 if (asset.IsSelected)
                 {
                     toBeRemoved.Add(asset);
-                    if (asset is IDirectory)
-                        RemoveItemFromDirectory(asset as IDirectory);
+                    if (asset is AssetDirectory)
+                        RemoveItemFromDirectory(asset as AssetDirectory);
                 }
-                else if (!asset.IsSelected && asset is IDirectory)
-                    DeleteSelectedAssets(((IDirectory)asset).Assets);
+                else if (!asset.IsSelected && asset is AssetDirectory)
+                    DeleteSelectedAssets(((AssetDirectory)asset).Assets);
             }
 
             foreach (var item in toBeRemoved)
@@ -225,37 +218,43 @@ namespace CMiX.MVVM.ViewModels
             return directoryItem;
         }
 
+
+
         private Asset GetFileItem(string filePath)
         {
             string fileType = Path.GetExtension(filePath).ToUpper().TrimStart('.');
             string fileName = Path.GetFileName(filePath);
+
             Asset item = null;
 
             foreach (var textureFileType in Enum.GetValues(typeof(TextureFileType)))
             {
-
+                if(fileType == textureFileType.ToString())
+                    item = this.AssetFactory.CreateAssetTexture(fileName, filePath);
             }
 
-            if (fileType == TextureFileType.PNG.ToString() || fileType == TextureFileType.JPG.ToString() || fileType == TextureFileType.MOV.ToString())
-                item = new AssetTexture(fileName, filePath);
-            else if (fileType == GeometryFileType.FBX.ToString() || fileType == GeometryFileType.OBJ.ToString())
-                item = new AssetGeometry(fileName, filePath);
+            foreach (var geometryFileType in Enum.GetValues(typeof(GeometryFileType)))
+            {
+                if(fileType == geometryFileType.ToString())
+                    item = this.AssetFactory.CreateAssetGeometry(fileName, filePath);
+            }
 
             if (item != null)
                 this.AssetsFlatten.Add(item);
 
             return item;
         }
-        #endregion
 
-        #region PROPERTIES
         public ICommand RenameAssetCommand { get; set; }
         public ICommand AddAssetCommand { get; set; }
         public ICommand DeleteAssetsCommand { get; set; }
         public ICommand DeleteSelectedItemCommand { get; set; }
         public ICommand RelinkAssetsCommand { get; set; }
 
+
         public IDialogService DialogService { get; set; }
+
+
 
         private ObservableCollection<Asset> _selectedItems;
         public ObservableCollection<Asset> SelectedItems
@@ -291,9 +290,8 @@ namespace CMiX.MVVM.ViewModels
             get => _canRelinkAsset;
             set => SetAndNotify(ref _canRelinkAsset, value);
         }
-        #endregion
 
-        #region DRAG DROP
+
         public void DragOver(IDropInfo dropInfo)
         {
             var dataObject = dropInfo.Data as DataObject;
@@ -339,19 +337,19 @@ namespace CMiX.MVVM.ViewModels
 
                     if (item != null)
                     {
-                        if (dropInfo.TargetItem is IDirectory)
+                        if (dropInfo.TargetItem is AssetDirectory)
                         {
-                            var directoryItem = (IDirectory)dropInfo.TargetItem;
+                            var directoryItem = (AssetDirectory)dropInfo.TargetItem;
                             directoryItem.Assets.Add(item);
                             directoryItem.SortAssets();
                             directoryItem.IsExpanded = true;
                         }
-                        else if (this.Assets[0] is IDirectory)
+                        else if (this.Assets[0] is AssetDirectory)
                         {
                             this.AssetsFlatten.Add(item);
-                            ((IDirectory)this.Assets[0]).Assets.Add(item);
-                            ((IDirectory)this.Assets[0]).SortAssets();
-                            ((IDirectory)this.Assets[0]).IsExpanded = true;
+                            ((AssetDirectory)this.Assets[0]).Assets.Add(item);
+                            ((AssetDirectory)this.Assets[0]).SortAssets();
+                            ((AssetDirectory)this.Assets[0]).IsExpanded = true;
                         }
                     }
                 }
@@ -362,7 +360,7 @@ namespace CMiX.MVVM.ViewModels
                 if (targetCollection is ObservableCollection<Asset>)
                 {
                     var targetItem = dropInfo.TargetItem;
-                    if (targetItem is IDirectory)
+                    if (targetItem is AssetDirectory)
                     {
                         var data = dropInfo.DragInfo.Data as List<AssetDragDrop>;
                         foreach (AssetDragDrop item in data)
@@ -371,8 +369,8 @@ namespace CMiX.MVVM.ViewModels
                             targetCollection.Add(item.DragObject);
                             item.SourceCollection.Remove(item.DragObject);
                         }
-                        ((IDirectory)targetItem).IsExpanded = true;
-                        ((IDirectory)targetItem).SortAssets();
+                        ((AssetDirectory)targetItem).IsExpanded = true;
+                        ((AssetDirectory)targetItem).SortAssets();
                     }
                 }
             }
@@ -394,9 +392,9 @@ namespace CMiX.MVVM.ViewModels
                     dragDropObject.SourceCollection = assets;
                     dragList.Add(dragDropObject);
                 }
-                else if (!asset.IsSelected && asset is IDirectory)
+                else if (!asset.IsSelected && asset is AssetDirectory)
                 {
-                    GetDragDropObjects(dragList, ((IDirectory)asset).Assets);
+                    GetDragDropObjects(dragList, ((AssetDirectory)asset).Assets);
                 }
             }
         }
@@ -440,7 +438,6 @@ namespace CMiX.MVVM.ViewModels
         {
             throw new NotImplementedException();
         }
-        #endregion
 
         public void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {

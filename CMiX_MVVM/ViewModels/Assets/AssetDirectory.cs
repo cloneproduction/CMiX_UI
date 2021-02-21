@@ -2,10 +2,12 @@
 using System.ComponentModel;
 using CMiX.MVVM.Resources;
 using CMiX.MVVM.Models;
+using System;
+using CMiX.MVVM.Interfaces;
 
 namespace CMiX.MVVM.ViewModels
 {
-    public class AssetDirectory : Asset, IDirectory
+    public class AssetDirectory : Asset, IDisposable
     {
         public AssetDirectory()
         {
@@ -24,50 +26,8 @@ namespace CMiX.MVVM.ViewModels
             IsSelected = false;
         }
 
-        #region PROPERTIES
         public SortableObservableCollection<Asset> Assets { get; set; }
 
-        private string _name;
-        public string Name
-        {
-            get => _name;
-            set => SetAndNotify(ref _name, value);
-        }
-
-        private bool _fileExist = true;
-        public bool FileExist
-        {
-            get => _fileExist;
-            set => SetAndNotify(ref _fileExist, value);
-        }
-
-        private string _path;
-        public string Path
-        {
-            get => _path;
-            set => SetAndNotify(ref _path, value);
-        }
-
-        private string _ponderation = "a";
-        public string Ponderation
-        {
-            get => _ponderation;
-            set => SetAndNotify(ref _ponderation, value);
-        }
-
-        private bool _isSelected = false;
-        public bool IsSelected
-        {
-            get => _isSelected;
-            set => SetAndNotify(ref _isSelected, value);
-        }
-
-        private bool _isExpanded = false;
-        public bool IsExpanded
-        {
-            get => _isExpanded;
-            set => SetAndNotify(ref _isExpanded, value);
-        }
 
         private bool _isRoot = false;
         public bool IsRoot
@@ -76,19 +36,20 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _isRoot, value);
         }
 
-        private bool _isRenaming = false;
-        public bool IsRenaming
+
+        private bool _isExpanded = false;
+        public bool IsExpanded
         {
-            get => _isRenaming;
-            set => SetAndNotify(ref _isRenaming, value);
+            get => _isExpanded;
+            set => SetAndNotify(ref _isExpanded, value);
         }
+
 
         public void AddAsset(Asset asset)
         {
             Assets.Add(asset);
             SortAssets();
         }
-        #endregion
 
 
         public void RemoveAsset(Asset asset)
@@ -126,28 +87,76 @@ namespace CMiX.MVVM.ViewModels
         }
 
 
-        public void SetViewModel(IAssetModel model)
+        //public void SetViewModel(IAssetModel model)
+        //{
+        //    Name = model.Name;
+        //    Assets.Clear();
+        //    foreach (var assetModel in model.AssetModels)
+        //    {
+        //        Asset asset = null;
+
+        //        if(assetModel is AssetDirectoryModel)
+        //            asset = new AssetDirectory();
+        //        else if(assetModel is AssetGeometryModel)
+        //            asset = new AssetGeometry();
+        //        else if(assetModel is AssetTextureModel)
+        //            asset = new AssetTexture();
+
+        //        if(asset != null)
+        //        {
+        //            asset.SetViewModel(assetModel);
+        //            Assets.Add(asset);
+        //        }
+        //    }
+        //    SortAssets();
+        //}
+
+        public void Dispose()
         {
-            Name = model.Name;
-            Assets.Clear();
-            foreach (var assetModel in model.AssetModels)
+            foreach (var asset in this.Assets)
+            {
+                if(asset is IDisposable)
+                    ((IDisposable)asset).Dispose();
+            }
+            this.Assets.Clear();
+        }
+
+        public override IModel GetModel()
+        {
+            IAssetModel directoryAssetModel = new AssetDirectoryModel() as IAssetModel;
+
+            directoryAssetModel.Name = this.Name;
+            foreach (var asset in this.Assets)
+            {
+                directoryAssetModel.AssetModels.Add(asset.GetModel() as IAssetModel);
+            }
+            return directoryAssetModel as IModel;
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            AssetDirectoryModel assetDirectoryModel = model as AssetDirectoryModel;
+            this.Name = assetDirectoryModel.Name;
+
+            this.Assets.Clear();
+            foreach (var assetModel in assetDirectoryModel.AssetModels)
             {
                 Asset asset = null;
 
-                if(assetModel is AssetDirectoryModel)
+                if (assetModel is AssetDirectoryModel)
                     asset = new AssetDirectory();
-                else if(assetModel is AssetGeometryModel)
+                else if (assetModel is AssetGeometryModel)
                     asset = new AssetGeometry();
-                else if(assetModel is AssetTextureModel)
+                else if (assetModel is AssetTextureModel)
                     asset = new AssetTexture();
 
-                if(asset != null)
+                if (asset != null)
                 {
                     asset.SetViewModel(assetModel);
-                    Assets.Add(asset);
+                    this.Assets.Add(asset);
                 }
             }
-            SortAssets();
+            this.SortAssets();
         }
     }
 }

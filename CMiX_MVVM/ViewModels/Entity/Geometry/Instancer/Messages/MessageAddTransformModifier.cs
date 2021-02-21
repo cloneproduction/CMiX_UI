@@ -6,6 +6,11 @@ namespace CMiX.MVVM.ViewModels
 {
     public class MessageAddTransformModifier : IMessage
     {
+        public MessageAddTransformModifier()
+        {
+
+        }
+
         public MessageAddTransformModifier(string address, TransformModifierNames transformModifierNames, ITransformModifierModel transformModifierModel)
         {
             Address = address;

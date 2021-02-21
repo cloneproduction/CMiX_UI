@@ -1,4 +1,5 @@
-﻿using CMiX.MVVM.Models;
+﻿using CMiX.MVVM.Interfaces;
+using CMiX.MVVM.Models;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -13,6 +14,25 @@ namespace CMiX.MVVM.ViewModels
         {
             Name = name;
             Path = path;
+        }
+
+        public override IModel GetModel()
+        {
+            IAssetModel assetModel = new AssetTextureModel();
+
+            assetModel.Name = this.Name;
+            assetModel.Path = this.Path;
+            assetModel.Ponderation = this.Ponderation;
+
+            return assetModel;
+        }
+
+        public override void SetViewModel(IModel model)
+        {
+            AssetTextureModel assetTextureModel = model as AssetTextureModel;
+            this.Name = assetTextureModel.Name;
+            this.Path = assetTextureModel.Path;
+            this.Ponderation = assetTextureModel.Ponderation;
         }
     }
 }

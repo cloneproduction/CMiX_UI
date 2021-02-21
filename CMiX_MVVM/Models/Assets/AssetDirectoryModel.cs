@@ -14,5 +14,6 @@ namespace CMiX.MVVM.Models
         public string Name { get; set; }
         public bool IsSelected { get; set; }
         public string Ponderation { get; set; }
+        public bool Enabled { get; set; }
     }
 }

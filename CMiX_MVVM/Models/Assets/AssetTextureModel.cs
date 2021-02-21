@@ -9,6 +9,7 @@ namespace CMiX.MVVM.Models
 
         }
 
+        public bool Enabled { get; set; }
         public string Path { get; set; }
         public string Name { get; set; }
         public bool IsSelected { get; set; }

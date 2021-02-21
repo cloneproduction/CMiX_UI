@@ -11,9 +11,9 @@ namespace CMiX.MVVM.Models
 
         public string Name { get; set; }
         public string Ponderation { get; set; }
-        public bool IsExpanded { get; set; }
         public string Path { get; set; }
 
         public ObservableCollection<IAssetModel> AssetModels { get ; set; }
+        public bool Enabled { get; set; }
     }
 }

@@ -15,6 +15,7 @@ namespace CMiX.MVVM.ViewModels
     public enum TextureFileType
     {
         JPG,
+        JPEG,
         PNG,
         MOV,
     }

@@ -9,7 +9,7 @@ namespace CMiX.MVVM.ViewModels
 {
     public class AssetPathSelector : Sender, IDropTarget
     {
-        public AssetPathSelector(string name, IMessageProcessor parentSender, Asset defaultAsset) : base(name, parentSender)
+        public AssetPathSelector(string name, IMessageProcessor parentSender, Asset defaultAsset) : base (name, parentSender)
         {
             SelectedAsset = defaultAsset;
         }
@@ -47,7 +47,6 @@ namespace CMiX.MVVM.ViewModels
                     this.SelectedAsset = new AssetGeometry();
             }
 
-
             if (assetPathSelectorModel.SelectedAsset != null)
                 this.SelectedAsset.SetViewModel(assetPathSelectorModel.SelectedAsset);
         }
@@ -56,8 +55,7 @@ namespace CMiX.MVVM.ViewModels
         {
             AssetPathSelectorModel model = new AssetPathSelectorModel();
             if (this.SelectedAsset != null)
-                model.SelectedAsset = this.SelectedAsset.GetModel();
-
+                model.SelectedAsset = (IAssetModel)this.SelectedAsset.GetModel();
             return model;
         }
     }

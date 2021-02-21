@@ -1086,35 +1086,35 @@ namespace CMiX.MVVM.Tools.Converters
         }
     }
 
-    public class EntityVisibilityConverter : IMultiValueConverter
-    {
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
-        {
-            bool isParentVisible = true;
-            bool isVisible = true;
+    //public class EntityVisibilityConverter : IMultiValueConverter
+    //{
+    //    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        bool isParentVisible = true;
+    //        bool isVisible = true;
 
-            if (values[0] is bool)
-                isParentVisible = (bool)values[0];
+    //        if (values[0] is bool)
+    //            isParentVisible = (bool)values[0];
 
-            if (values[1] is bool)
-                isVisible = (bool)values[1];
+    //        if (values[1] is bool)
+    //            isVisible = (bool)values[1];
 
-            if (!isParentVisible || !isVisible)
-                return false;
-            else
-                return true;
-        }
+    //        if (!isParentVisible || !isVisible)
+    //            return false;
+    //        else
+    //            return true;
+    //    }
 
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
-        {
-            bool visibility = (bool)value;
-            object[] ret = new object[2];
+    //    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+    //    {
+    //        bool visibility = (bool)value;
+    //        object[] ret = new object[2];
 
-            ret[0] = visibility;
-            ret[1] = visibility;
-            return ret;
-        }
-    }
+    //        ret[0] = visibility;
+    //        ret[1] = visibility;
+    //        return ret;
+    //    }
+    //}
 
     public class ItemToParentConverter : IValueConverter
     {

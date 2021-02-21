@@ -37,7 +37,7 @@ namespace CMiX.MVVM.ViewModels
             GetComponents(this, model);
 
             foreach (Asset asset in this.Assets)
-                model.AssetModels.Add(asset.GetModel());
+                model.AssetModels.Add((IAssetModel)asset.GetModel());
 
             return model;
         }

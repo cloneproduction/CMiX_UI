@@ -109,6 +109,7 @@
                     </ControlTemplate.Resources>
                     <StackPanel>
                         <Border Name="Bd">
+                            
                             <Border.Style>
                                 <Style TargetType="{x:Type Border}">
                                     <Setter Property="BorderThickness" Value="0, 0, 0, 1"/>

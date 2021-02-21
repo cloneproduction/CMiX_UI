@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using CMiX.MVVM.Interfaces;
+using System;
+using System.IO;
 
 namespace CMiX.MVVM.ViewModels
 {
@@ -25,12 +27,7 @@ namespace CMiX.MVVM.ViewModels
             set => SetAndNotify(ref _isRenaming, value);
         }
 
-        private bool _isExpanded = false;
-        public bool IsExpanded
-        {
-            get => _isExpanded;
-            set => SetAndNotify(ref _isExpanded, value);
-        }
+
 
         private bool _isSelected = false;
         public bool IsSelected
@@ -56,5 +53,8 @@ namespace CMiX.MVVM.ViewModels
             get => File.Exists(Path);
             set => SetAndNotify(ref _fileExist, value);
         }
+
+        public abstract IModel GetModel();
+        public abstract void SetViewModel(IModel model);
     }
 }
